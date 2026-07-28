@@ -2,42 +2,100 @@
 title: "Agent conversations in the {{WARP_CLI}}"
 description: >-
   How agent conversations work in the {{WARP_CLI}}: streaming responses, tool
-  calls, code diffs, agent questions, task lists, and planning.
+  calls, diffs, questions, task lists, plans, and copying output.
 ---
 import { VARS } from '@data/vars';
 
-{/* TODO(cli-agent-conversations): draft per drafts/warp-cli-launch-plan.md — "cli/agent-conversations.mdx" section. Feature-doc content type. */}
-
-The {VARS.WARP_CLI} documentation for this page is in progress.
+When you send the agent a prompt in the {VARS.WARP_CLI}, the conversation unfolds in a scrollable transcript directly in your terminal. Responses stream in as they're generated, and everything the agent does along the way renders inline: tool calls, file diffs, questions, task lists, and plans. You can follow and steer the work without leaving your session.
 
 ## The conversation transcript
 
-{/* TODO(cli-agent-conversations): streaming responses, markdown and Mermaid rendering, scrolling. */}
+Your prompt appears in the transcript on a highlighted row marked with `>`, followed by the agent's streaming response. The transcript stays pinned to the newest output while the agent responds. Scroll up with the mouse wheel to review earlier output; scroll back to the bottom to resume following new output. While the agent is working, a progress indicator with elapsed time appears above the input. Press `Ctrl+C` once to stop the current response.
+
+### Markdown rendering
+
+Agent responses render as formatted Markdown:
+
+* **Text formatting** - Headings, bold and italic text, inline code, and links.
+* **Lists** - Bulleted, numbered, and checkbox task lists, including nested lists.
+* **Code blocks** - Fenced code blocks render with syntax highlighting based on the block's language. Very long code blocks are truncated to keep the transcript responsive.
+* **Tables** - Render as formatted tables with bold header rows.
+* **Mermaid diagrams** - Appear as diagram source in a code block, so you can copy the definition and render it elsewhere.
+* **Images** - The {VARS.WARP_CLI} does not render images inline; an image reference shows its alt text instead.
 
 ## Tool calls
 
-{/* TODO(cli-agent-conversations): how tool calls render (commands, file reads, etc.), expand/collapse. */}
+Every tool call the agent makes appears in the transcript in the order it happens, interleaved with the agent's prose. Most tool calls render as a single status row: a colored state glyph followed by a label describing the call, such as reading a file or searching your codebase. The glyph updates as the call moves from pending to running to finished, and failed or canceled calls are marked accordingly.
+
+Some tool calls render richer, interactive content instead:
+
+* **Shell commands** - Run in your session and stream their output into the transcript. See [running shell commands](/cli/shell-commands/).
+* **File edits** - Render as expandable diffs. See [code diffs](#code-diffs).
+* **Questions** - Render as interactive prompts. See [agent questions](#agent-questions).
+* **Plans** - Render as inline documents. See [planning](#planning).
+
+When a tool call needs your approval before it runs, an approval card appears in place of the input. See [permissions in the {VARS.WARP_CLI}](/cli/permissions-and-profiles/) for how approvals work.
 
 ## Code diffs
 
-{/* TODO(cli-agent-conversations): file-edit diffs, expanded by default, `e` to expand/collapse all. */}
+When the agent edits files, the edit renders as a diff in the transcript:
+
+* **Per-file sections** - Each edited file gets a header row showing the action (Updated, Created, or Deleted), the file name, and added/removed line counts. The diff body shows the changed hunks with a few lines of surrounding context, with removed lines displayed inline alongside additions.
+* **Multi-file edits** - Group under one summary header (for example, `Edited 3 files`) with each file's section nested beneath it.
+
+Diffs open fully expanded while the agent waits for your approval, so you can review every change. Press `e` while the approval card is active to expand or collapse all diffs at once, or click an individual file's header to toggle just that file. After the edits are applied, diff sections collapse to their headers to keep the transcript compact; click any header to reopen it.
 
 ## Thinking blocks
 
-{/* TODO(cli-agent-conversations): collapsed reasoning blocks. */}
+For models that expose their reasoning, the agent's thinking streams into the transcript as a collapsible section. While reasoning is in progress, the section is expanded under a `Thinking...` header. When it finishes, the section collapses to a single `Thought for` row showing how long the agent spent reasoning. Click the header to expand or collapse it at any time.
 
 ## Agent questions
 
-{/* TODO(cli-agent-conversations): interactive question prompts, option selection, recommended answers. */}
+When the agent needs a decision from you mid-task, it asks a question with an interactive option list that temporarily replaces the input:
+
+1. Use `↑` and `↓` to highlight an option, or press an option's number. Clicking an option also works.
+2. Press `Enter` to choose the highlighted option.
+3. Choose **Other…** to type a free-form answer when the listed options don't fit.
+
+Options the agent suggests as the best fit are labeled `(recommended)`. Multi-select questions mark each chosen option with a check mark so you can pick several. When the agent asks several questions at once, the card advances through them; after the last answer, the agent continues and focus returns to the input.
 
 ## Task lists
 
-{/* TODO(cli-agent-conversations): agent task list rendering and progress. */}
+For multi-step work, the agent tracks its progress with a task list rendered directly in the transcript under a bold `≡ Tasks` header. Each task row starts with a status glyph:
+
+* `◌` - Pending
+* `●` - In progress
+* `✓` - Completed
+
+Canceled tasks appear struck through. Task lists start expanded; click the header to collapse or reopen the list. As the agent finishes tasks, compact confirmation rows such as `✓ Completed <task> (2/5)` mark progress without repeating the whole list.
+
+Task lists in the {VARS.WARP_CLI} reflect the same agent behavior as in the Warp app. Learn more about [how task lists work](/agent-platform/capabilities/task-lists/).
 
 ## Planning
 
-{/* TODO(cli-agent-conversations): /plan command and plan review flow; cross-link agent-platform/capabilities/planning. */}
+Use the `/plan` slash command, followed by a description of your task, to have the agent research first and produce a plan before making changes. You can also ask for a plan in natural language.
+
+The plan renders inline in the transcript as a formatted document with its own header row showing the plan's status, and an `Updated plan` entry appears when the agent revises it. Click the plan's header to collapse or expand it. You can also toggle the latest plan with `Ctrl+Shift+P`; while a plan is open, a hint below it shows the exact shortcut.
+
+Planning in the {VARS.WARP_CLI} follows the same workflow as the Warp app. See [Planning](/agent-platform/capabilities/planning/) for how plans are created, reviewed, and executed.
 
 ## Selecting and copying output
 
-{/* TODO(cli-agent-conversations): transcript selection, copy behavior, opt-in auto-copy on select. */}
+Select text anywhere in the transcript by dragging with the mouse. The selection highlights as you drag, and releasing the mouse button copies the selected text to your clipboard automatically. The footer confirms with `copied to clipboard`.
+
+* **Word and row selection** - Double-click selects the word under the pointer, and triple-click selects the full row. Keep dragging to extend the selection by whole words or rows.
+* **Selections larger than the screen** - Dragging past the transcript's top or bottom edge auto-scrolls and extends the selection, so a selection can span more output than fits on screen.
+
+:::note
+In local sessions, the {VARS.WARP_CLI} writes directly to your system clipboard. Over SSH, it copies through your terminal using OSC 52 escape sequences (including from inside tmux), so the text lands on your local clipboard. Terminals that disable OSC 52 may ignore the copy.
+:::
+
+To copy an entire conversation as Markdown, use the `/export-to-clipboard` slash command, or use `/export-to-file` to save it to a file.
+
+## Related pages
+
+* **[Permissions in the {VARS.WARP_CLI}](/cli/permissions-and-profiles/)** - Approve, reject, or auto-approve the agent's tool calls.
+* **[Running shell commands](/cli/shell-commands/)** - How commands the agent (or you) run appear in the transcript.
+* **[Managing conversations](/cli/conversations/)** - Resume, switch, and compact conversations.
+* **[Planning](/agent-platform/capabilities/planning/)** - The full planning workflow.
+* **[Task lists](/agent-platform/capabilities/task-lists/)** - How agents create and update task lists.
