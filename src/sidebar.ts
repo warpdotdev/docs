@@ -375,14 +375,14 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Warp Agents',
 					items: [
 						{ slug: 'agent-platform/local-agents/overview', label: 'Warp Agents overview' },
-						{
-							label: 'Warp TUI',
-							collapsed: false,
-							items: [
-								{ slug: 'agent-platform/warp-tui/overview', label: 'Overview' },
-								{ slug: 'agent-platform/warp-tui/getting-started', label: 'Getting started' },
-							],
-						},
+					{
+						label: 'Warp Agent CLI',
+						collapsed: false,
+						items: [
+							{ slug: 'agent-platform/warp-tui/overview', label: 'Overview' },
+							{ slug: 'agent-platform/warp-tui/getting-started', label: 'Getting started' },
+						],
+					},
 						{
 							label: 'Capabilities',
 							collapsed: true,
