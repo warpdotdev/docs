@@ -36,7 +36,7 @@ From the created card:
 Press `Ctrl+C` at any point before confirming to cancel the handoff; your prompt and attachments return to the input.
 
 :::note
-If you have no cloud environments yet, the card prompts you to create one: `Enter` opens the [Environments page in the Oz web app](https://oz.warp.dev/environments), and `R` refreshes the list after you create one.
+If you have no cloud environments yet, the card prompts you to create one: `Enter` opens the <a href={`${VARS.WEB_APP_URL}/environments`}>Environments page in the {VARS.WEB_APP}</a>, and `R` refreshes the list after you create one.
 :::
 
 Handoff needs the conversation in a state it can fork. You can't hand off while a command the agent started is still running, or while the conversation has child agents that are in progress or blocked. Cancel the command or let the children finish first. Handing off an orchestrator forks only its own conversation; the orchestration and its child agents stay local.
@@ -70,10 +70,10 @@ From the approval card:
 After launch, a tab bar labeled **Agents:** appears above the session with one tab for the orchestrator and one tab per child agent. Messages the parent and children exchange appear in each transcript as collapsible rows with the sender's name and status.
 
 * **Local child agents** - Each local child runs on your machine as its own session, starting in the parent's working directory. Local children always run the Warp Agent.
-* **Cloud child agents** - Each cloud child runs in a cloud [environment](/platform/environments/). Its session shows the run's live status and a link; press `Enter` or click the link to open the run in the Oz web app. If a cloud child can't start because GitHub authentication is required, its session shows the authentication link; authenticate, then ask the agent to run the orchestration again.
+* **Cloud child agents** - Each cloud child runs in a cloud [environment](/platform/environments/). Its session shows the run's live status and a link; press `Enter` or click the link to open the run in the {VARS.WEB_APP}. If a cloud child can't start because GitHub authentication is required, its session shows the authentication link; authenticate, then ask the agent to run the orchestration again.
 
 :::caution
-Cloud child sessions in the CLI are read-only status views. To send prompts to a cloud child or respond to its approvals, open the run in the Oz web app.
+Cloud child sessions in the CLI are read-only status views. To send prompts to a cloud child or respond to its approvals, open the run in the {VARS.WEB_APP}.
 :::
 
 ## Managing child agents
@@ -94,6 +94,6 @@ A focused local child behaves like a regular conversation: send it follow-up pro
 * [Handoff overview](/platform/handoff/) - Directions of handoff and what carries over in each.
 * [Handoff from local to cloud](/platform/handoff/local-to-cloud/) - Prerequisites, the Warp app flow, and troubleshooting.
 * [Multi-agent orchestration](/platform/orchestration/) - The parent/child model, run states, and orchestration patterns.
-* [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) - Open, inspect, and continue cloud runs in the Oz web app.
+* [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) - Open, inspect, and continue cloud runs in the {VARS.WEB_APP}.
 * [Managing conversations in the CLI](/cli/conversations/) - Conversation history, `/conversations`, and `--resume`.
 * [Environments](/platform/environments/) - Configure the repos, image, and setup commands cloud agents run with.
