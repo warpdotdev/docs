@@ -11,9 +11,8 @@ The {VARS.WARP_CLI} is a full terminal as well as an agent: every session runs a
 
 ## Editing basics
 
-The input accepts multiple lines and soft-wraps long lines to your terminal width. It grows up to six rows tall, then scrolls.
+The input accepts multiple lines and soft-wraps long lines to your terminal width.
 
-* **Submit** - Press `Enter` to send a prompt to the agent or run a shell command.
 * **Insert a newline** - Press `Ctrl+J`, or `Shift+Enter` in terminals that support distinguishing it. `Alt+Enter` also works.
 * **Edit with readline-style keys** - The editor supports familiar bindings such as `Ctrl+A` and `Ctrl+E` (start and end of line), `Ctrl+W` (delete the previous word), `Ctrl+K` and `Ctrl+U` (delete to the end or start of the line), `Ctrl+Y` (reinsert the last deleted text), and `Ctrl+Z` (undo).
 
@@ -21,13 +20,9 @@ The full editing and selection table is in the [keyboard shortcuts reference](/c
 
 ## Slash commands
 
-Type `/` at the start of an empty input to open the slash command menu. The menu filters as you type, and entries for toggles and pickers show their current state, for example `/theme (currently auto: Dark)` or `/auto-approve (currently off)`.
+Type `/` at the start of an empty input to open the slash command menu. Entries for toggles and pickers show their current state, for example `/theme (currently auto: Dark)` or `/auto-approve (currently off)`.
 
-1. Type `/` followed by part of a command name.
-2. Press `↑` or `↓` to change the selection.
-3. Press `Enter` to run the selected command, or `Esc` to close the menu.
-
-When a command takes an argument, the input shows a ghost-text argument hint after the full command name, for example `/theme <auto|light|dark>`. Type the argument after the command name, then press `Enter`.
+When a command takes an argument, the input shows a ghost-text argument hint after the full command name, for example `/theme <auto|light|dark>`.
 
 Your [skills](/cli/context/) also appear in the slash command menu, so you can invoke a skill by typing `/` followed by its name.
 
@@ -38,7 +33,6 @@ The [slash commands reference](/cli/reference/#slash-commands) lists every comma
 Press `↑` with the cursor on the first row of the input to open the history menu.
 
 * **What's listed** - In agent mode, the menu combines your previous prompts and shell commands in one list, with commands marked by a `!` prefix. In [shell mode](#shell-mode), the menu lists commands only.
-* **Filter** - Keep typing to filter the list.
 * **Preview** - Moving the selection previews each entry in the input and switches the input to the matching mode: recalled commands run as shell commands, and recalled prompts go to the agent.
 * **Submit** - Press `Enter` to run the selected command or send the selected prompt.
 * **Dismiss** - Press `Esc` to close the menu and restore what you had typed. Pressing `↓` past the newest entry does the same.
@@ -50,15 +44,13 @@ Commands you run in the CLI are added to your command history.
 In [shell mode](#shell-mode), press `Tab` to complete the command you're typing, including file and directory paths.
 
 * If exactly one completion matches, the CLI applies it immediately.
-* If several completions match, the CLI inserts the longest shared prefix and opens a completion menu. Press `Tab` or `↓` to move through the suggestions, `Enter` to accept the selected one, or `Esc` to dismiss the menu.
+* If several completions match, the CLI inserts the longest shared prefix and opens a completion menu. Press `Tab` again to cycle through the suggestions.
 
 ## Mouse support
 
 The CLI runs in your terminal, but the input is fully mouse-aware:
 
-* **Position the cursor** - Click anywhere in the input to move the cursor there.
 * **Select text** - Drag to select. Double-click selects a word, and triple-click selects a line.
-* **Scroll** - Use the scroll wheel to scroll the input viewport or the conversation transcript.
 * **Click controls** - Interactive elements such as the **Voice** footer entry and the attachment bar controls respond to clicks.
 
 ## Selection and clipboard
@@ -80,20 +72,14 @@ Attach images to a prompt so the agent can analyze them:
 
 Supported formats are PNG, JPEG, GIF, and WebP. Attaching an image locks the input to agent mode, since images are sent to the agent rather than the shell.
 
-Attached images appear in an attachment bar above the input:
-
-1. Press `Tab` to focus the attachment bar.
-2. Press `←` and `→` (or `Tab` and `Shift+Tab`) to move between attachments.
-3. Press `Backspace` to remove the selected attachment.
-4. Press `Esc` or `Enter` to return focus to the input.
+Attached images appear in an attachment bar above the input. Press `Tab` to focus the bar, `Backspace` to remove the selected attachment, and `Esc` to return to the input.
 
 ## Voice input
 
 Dictate prompts instead of typing them:
 
 1. Start listening with `Ctrl+S`, the `/voice` slash command, or by clicking **Voice** in the footer. The footer shows **Listening** while recording.
-2. Speak your prompt.
-3. Press `Enter`, or click the footer entry again, to stop recording. The footer shows **Transcribing**, and the transcribed text lands in the input so you can review and edit it before submitting.
+2. Press `Enter`, or click the footer entry again, to stop recording. The transcribed text lands in the input so you can review and edit it before submitting.
 
 Press `Esc` while transcription is in progress to cancel it. `/voice` clears the input before recording; `Ctrl+S` keeps what you've already typed.
 
@@ -103,7 +89,7 @@ Voice input in the CLI uses the same transcription service as the Warp app. See 
 
 The CLI shows its shortcuts in context, so you rarely need to memorize them:
 
-* **Placeholder hints** - An empty input shows ghost-text hints for the current state, for example "Ask the agent anything • ? for shortcuts • ! for shell mode • / for commands" in agent mode, or "Run a shell command • ? for shortcuts • esc for agent mode" in shell mode. While a long-running command owns the input, the hint row shows "ctrl-c to interrupt".
+* **Placeholder hints** - An empty input shows ghost-text hints for the current state, for example "Ask the agent anything • ? for shortcuts • ! for shell mode • / for commands" in agent mode, or "Run a shell command • ? for shortcuts • esc for agent mode" in shell mode.
 * **Shortcuts menu** - Type `?` in an empty input to open a shortcuts overview. Its contents adapt to what you're doing: agent mode lists the menu triggers and input history, shell mode shows how to return to agent mode, and extra sections appear during multi-agent sessions or agent-controlled terminal use. Press `Esc`, or start typing, to close it.
 
 ## Shell mode
@@ -111,11 +97,11 @@ The CLI shows its shortcuts in context, so you rarely need to memorize them:
 The input is agent-first: by default, pressing `Enter` sends your text to the agent as a prompt. Use shell mode to run a command instead:
 
 1. Press `!` at the start of the input. The prompt marker changes from `>` to `!`, and the statusline below the input shows **Shell mode**.
-2. Type a command and press `Enter`. The command runs in the session's shell, and the input returns to agent mode.
+2. Run a command. It executes in the session's shell, and the input returns to agent mode.
 
 To leave shell mode without running a command, press `Esc`, or press `Backspace` at the start of the input. Any text you typed stays in the input.
 
-In the transcript, each command you run is marked with a `!` prefix and a highlighted row background, so shell commands stay visually distinct from prompts and agent responses. Output streams in below the command as it's produced.
+In the transcript, each command you run is marked with a `!` prefix and a highlighted row background, so shell commands stay visually distinct from prompts and agent responses.
 
 In shell mode, press `Tab` to complete commands and paths; see [Tab completions](#tab-completions).
 
