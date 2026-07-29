@@ -6,7 +6,7 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-When you send the agent a prompt in the {VARS.WARP_CLI}, the conversation unfolds in a scrollable transcript directly in your terminal. Responses stream in as they're generated, and everything the agent does along the way renders inline: tool calls, file diffs, questions, task lists, and plans. You can follow and steer the work without leaving your session. This page also covers [managing conversations](#managing-conversations): starting new ones, browsing history, compacting context, and resuming after you exit.
+When you send the agent a prompt in the {VARS.WARP_CLI}, the conversation appears in a scrollable transcript directly in your terminal. Responses stream in as they're generated, and everything the agent does along the way renders inline: tool calls, file diffs, questions, task lists, and plans. You can follow and steer the work without leaving your session. Conversations persist as you work: you can start new ones, browse history, compact context, and [resume after exiting](#managing-conversations).
 
 ## The conversation transcript
 
@@ -21,7 +21,7 @@ Agent responses render as formatted Markdown:
 * **Code blocks** - Fenced code blocks render with syntax highlighting based on the block's language. Very long code blocks are truncated to keep the transcript responsive.
 * **Tables** - Render as formatted tables with bold header rows.
 * **Mermaid diagrams** - Appear as diagram source in a code block, so you can copy the definition and render it elsewhere.
-* **Images** - The {VARS.WARP_CLI} does not render images inline; an image reference shows its alt text instead.
+* **Images** - The CLI does not render images inline; an image reference shows its alt text instead.
 
 ## Tool calls
 
@@ -29,12 +29,12 @@ Every tool call the agent makes appears in the transcript in the order it happen
 
 Some tool calls render richer, interactive content instead:
 
-* **Shell commands** - Run in your session and stream their output into the transcript. See [running shell commands](/cli/shell-commands/).
-* **File edits** - Render as expandable diffs. See [code diffs](#code-diffs).
-* **Questions** - Render as interactive prompts. See [agent questions](#agent-questions).
-* **Plans** - Render as inline documents. See [planning](#planning).
+* **[Shell commands](/cli/shell-commands/)** - Run in your session and stream their output into the transcript.
+* **[File edits](#code-diffs)** - Expandable diffs with per-file headers.
+* **[Questions](#agent-questions)** - Interactive option prompts.
+* **[Plans](#planning)** - Inline plan documents.
 
-When a tool call needs your approval before it runs, an approval card appears in place of the input. See [permissions in the {VARS.WARP_CLI}](/cli/permissions-and-profiles/) for how approvals work.
+When a tool call needs your approval before it runs, an approval card appears in place of the input. See [permissions in the CLI](/cli/permissions-and-profiles/) for how approvals work.
 
 ## Code diffs
 
@@ -43,7 +43,7 @@ When the agent edits files, the edit renders as a diff in the transcript:
 * **Per-file sections** - Each edited file gets a header row showing the action (Updated, Created, or Deleted), the file name, and added/removed line counts. The diff body shows the changed hunks with a few lines of surrounding context, with removed lines displayed inline alongside additions.
 * **Multi-file edits** - Group under one summary header (for example, `Edited 3 files`) with each file's section nested beneath it.
 
-Diffs open fully expanded while the agent waits for your approval, so you can review every change. Press `e` while the approval card is active to expand or collapse all diffs at once, or click an individual file's header to toggle just that file. After the edits are applied, diff sections collapse to their headers to keep the transcript compact; click any header to reopen it.
+Diffs open fully expanded while the agent waits for your approval, so you can review every change. Press `e` while the approval card is active to expand or collapse all diffs at once, or click an individual file's header to toggle only that file. After the edits are applied, diff sections collapse to their headers to keep the transcript compact; click any header to reopen it.
 
 ## Thinking blocks
 
@@ -69,7 +69,7 @@ For multi-step work, the agent tracks its progress with a task list rendered dir
 
 Canceled tasks appear struck through. Task lists start expanded; click the header to collapse or reopen the list. As the agent finishes tasks, compact confirmation rows such as `✓ Completed <task> (2/5)` mark progress without repeating the whole list.
 
-Task lists in the {VARS.WARP_CLI} reflect the same agent behavior as in the Warp app. Learn more about [how task lists work](/agent-platform/capabilities/task-lists/).
+Task lists in the CLI reflect the same agent behavior as in the Warp app. Learn more about [how task lists work](/agent-platform/capabilities/task-lists/).
 
 ## Planning
 
@@ -77,7 +77,7 @@ Use the `/plan` slash command, followed by a description of your task, to have t
 
 The plan renders inline in the transcript as a formatted document with its own header row showing the plan's status, and an `Updated plan` entry appears when the agent revises it. Click the plan's header to collapse or expand it. You can also toggle the latest plan with `Ctrl+Shift+P`; while a plan is open, a hint below it shows the exact shortcut.
 
-Planning in the {VARS.WARP_CLI} follows the same workflow as the Warp app. See [Planning](/agent-platform/capabilities/planning/) for how plans are created, reviewed, and executed.
+Planning in the CLI follows the same workflow as the Warp app. See [Planning](/agent-platform/capabilities/planning/) for how plans are created, reviewed, and executed.
 
 ## Selecting and copying output
 
@@ -87,18 +87,18 @@ Select text anywhere in the transcript by dragging with the mouse. The selection
 * **Selections larger than the screen** - Dragging past the transcript's top or bottom edge auto-scrolls and extends the selection, so a selection can span more output than fits on screen.
 
 :::note
-In local sessions, the {VARS.WARP_CLI} writes directly to your system clipboard. Over SSH, it copies through your terminal using OSC 52 escape sequences (including from inside tmux), so the text lands on your local clipboard. Terminals that disable OSC 52 may ignore the copy.
+In local sessions, the CLI writes directly to your system clipboard. Over SSH, it copies through your terminal using OSC 52 escape sequences (including from inside tmux), so the text lands on your local clipboard. Terminals that disable OSC 52 may ignore the copy.
 :::
 
 To copy an entire conversation as Markdown, use the `/export-to-clipboard` slash command, or use `/export-to-file` to save it to a file.
 
 ## Managing conversations
 
-The {VARS.WARP_CLI} saves every agent conversation as you work, so closing your terminal never loses your progress. You can start fresh conversations, reopen past ones from a searchable history, compact long conversations to free up context, and resume a conversation after exiting the CLI.
+The CLI saves every agent conversation as you work, so closing your terminal never loses your progress. You can start fresh conversations, reopen past ones from a searchable history, compact long conversations to free up context, and resume a conversation after exiting.
 
 ### Conversation persistence
 
-The {VARS.WARP_CLI} saves conversations to your Warp account automatically. There is no separate save step. When you reopen a past conversation, the CLI restores the full transcript, including agent responses, tool calls, and file-edit diffs, so you can review earlier work in detail before continuing.
+Conversations are saved to your Warp account automatically. There is no separate save step. When you reopen a past conversation, the CLI restores the full transcript, including agent responses, tool calls, and file-edit diffs, so you can review earlier work in detail before continuing.
 
 The CLI shows one conversation at a time. Opening a past conversation replaces the current transcript, and your previous conversation remains available in the conversation history. You can't switch conversations while the current conversation is responding or while a command is running; wait for it to finish or stop it with `Ctrl+C` first.
 
@@ -133,7 +133,7 @@ Opening a conversation restores its transcript with tool calls and diffs intact,
 If the CLI can't load conversation data from Warp's servers, the menu shows conversations from your local device only and displays a warning. Conversations from other devices reappear once the connection recovers.
 :::
 
-To continue a cloud agent run from the CLI, or to hand the current conversation off to a cloud agent, see [cloud handoff and orchestration in the {VARS.WARP_CLI}](/cli/cloud-and-orchestration/).
+To continue a cloud agent run from the CLI, or to hand the current conversation off to a cloud agent, see [cloud handoff and orchestration](/cli/cloud-and-orchestration/).
 
 ### Compacting context
 
@@ -146,7 +146,7 @@ After compaction, a collapsed **Conversation summary** block appears in the tran
 
 ### Resuming conversations
 
-When you exit the {VARS.WARP_CLI} with a non-empty conversation, it prints a command for picking that conversation back up:
+When you exit the CLI with a non-empty conversation, it prints a command for picking that conversation back up:
 
 ```bash
 To continue this conversation, run:
@@ -155,13 +155,13 @@ warp --resume YOUR_CONVERSATION_TOKEN
 
 Run the printed command to reopen the conversation in a new CLI session. YOUR_CONVERSATION_TOKEN is a conversation identifier generated by Warp; you don't need to record it yourself as long as you can scroll back to the exit message, and the same conversation also remains available from the [`/conversations` menu](#conversation-history).
 
-The `--resume` flag loads the conversation at startup and restores the full transcript, so you can continue prompting where you left off. For the complete list of command-line flags, see the [{VARS.WARP_CLI} reference](/cli/reference/).
+The `--resume` flag loads the conversation at startup and restores the full transcript, so you can continue prompting where you left off. For the complete list of command-line flags, see the [CLI reference](/cli/reference/).
 
 ## Related pages
 
-* **[Permissions in the {VARS.WARP_CLI}](/cli/permissions-and-profiles/)** - Approve, reject, or auto-approve the agent's tool calls.
+* **[Permissions and profiles](/cli/permissions-and-profiles/)** - Approve, reject, or auto-approve the agent's tool calls.
 * **[Running shell commands](/cli/shell-commands/)** - How commands the agent (or you) run appear in the transcript.
-* **[Cloud handoff and orchestration in the {VARS.WARP_CLI}](/cli/cloud-and-orchestration/)** - Hand off conversations to cloud agents and resume cloud runs.
+* **[Cloud handoff and orchestration](/cli/cloud-and-orchestration/)** - Hand off conversations to cloud agents and resume cloud runs.
 * **[{VARS.WARP_CLI} reference](/cli/reference/)** - Command-line flags, slash commands, and keyboard shortcuts.
 * **[Planning](/agent-platform/capabilities/planning/)** - The full planning workflow.
 * **[Task lists](/agent-platform/capabilities/task-lists/)** - How agents create and update task lists.
