@@ -53,11 +53,11 @@ Two constraints apply:
 * **The run must be finished** - Cloud runs that are still in progress or blocked can't be opened in the CLI. Steer those from the browser instead; see [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/).
 * **Warp Agent runs only** - Conversations that ran with a different harness, such as Claude Code or Codex, can't be opened in the CLI.
 
-You can also open a conversation directly at startup with `warp --resume <token>`. See [Managing conversations in the CLI](/cli/conversations/) for conversation history and resume details.
+You can also open a conversation directly at startup with `warp --resume <token>`; [Managing conversations in the CLI](/cli/conversations/) covers conversation history and resume details.
 
 ## Multi-agent orchestration
 
-Orchestration lets one conversation spawn child agents that work in parallel, on your machine or in the cloud. The CLI runs the same parent/child model as the rest of the platform; see [Multi-agent orchestration](/platform/orchestration/) for the model, run states, and common patterns.
+Orchestration lets one conversation spawn child agents that work in parallel, on your machine or in the cloud. The CLI runs the same parent/child model as the rest of the platform; [Multi-agent orchestration](/platform/orchestration/) covers the model, run states, and common patterns.
 
 To start an orchestration, ask the agent to parallelize the work, for example "split this migration across three agents". When the agent decides to spawn child agents, the CLI shows an approval card titled **Can I start additional agents for this task?** that summarizes the agents it wants to launch and the run-wide configuration. No child agents launch until you approve.
 
