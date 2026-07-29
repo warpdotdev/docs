@@ -6,7 +6,7 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-The {VARS.WARP_CLI} brings the Warp Agent from the Warp app to the terminal you already use, whether that's Ghostty, iTerm2, the VS Code terminal, or anything else. Run the `warp` command to start an agent conversation: prompt the agent in natural language, review and approve its actions, and run shell commands in the same input, without changing your terminal setup.
+The {VARS.WARP_CLI} brings the Warp Agent from the Warp app to the terminal you already use. Run the `warp` command to start an agent conversation: prompt the agent in natural language, review and approve its actions, and run shell commands in the same input, without changing your terminal setup.
 
 ## What is the {VARS.WARP_CLI}?
 
@@ -28,7 +28,7 @@ To get a working setup in a few minutes, follow the [quickstart](/cli/quickstart
 ## How it relates to the Warp app and Oz
 
 * **The Warp app** - The CLI runs the same [Warp Agent](/platform/harnesses/warp-agent/) harness as the Warp app, so your account, plan, model access, rules, and skills work the same in both. The CLI doesn't require the Warp app to be installed.
-* **Oz** - Oz is Warp's programmable platform for running and coordinating agents at scale. The CLI connects to the same platform: conversations sync to your Warp account, and you can hand work off to [cloud agents](/cli/cloud-and-orchestration/) or continue a cloud run from your terminal.
+* **{VARS.WARP_AUTOMATION_PLATFORM}** - {VARS.WARP_AUTOMATION_PLATFORM} is Warp's programmable platform for running and coordinating agents at scale. The CLI connects to the same platform: conversations sync to your Warp account, and you can hand work off to [cloud agents](/cli/cloud-and-orchestration/) or continue a cloud run from your terminal.
 
 ## Supported platforms
 
@@ -50,10 +50,6 @@ The CLI keeps itself up to date. While it runs, it periodically checks for a new
 ## Coming from the Warp app
 
 If you already use the Warp app, most of your setup carries over. Rules and skills are discovered from the same shared paths, and your Warp Drive content syncs after you log in. For the rest, the CLI ships with a bundled migration skill: ask the agent to migrate your setup from the Warp app, and it walks you through copying compatible settings and global MCP server configurations. Credentials are never copied, so MCP servers that require authentication must be reauthenticated in the CLI.
-
-## Open source
-
-We plan to open source the {VARS.WARP_CLI}. Follow the [Warp blog](https://www.warp.dev/blog) for announcements.
 
 ## Next steps
 
