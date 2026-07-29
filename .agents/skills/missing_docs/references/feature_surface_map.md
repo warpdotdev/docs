@@ -28,7 +28,7 @@ auto-surfaces for docs once the flag goes GA.
 AgentMode -> src/content/docs/agent-platform/local-agents/overview.mdx
 AgentManagementView -> src/content/docs/platform/managing-cloud-agents.md
 AgentManagementDetailsView -> src/content/docs/platform/managing-cloud-agents.md
-AgentModeComputerUse -> src/content/docs/agent-platform/capabilities/computer-use.mdx
+AgentModeComputerUse -> src/content/docs/agent-platform/capabilities/computer-use/index.mdx
 AgentModeWorkflows -> src/content/docs/knowledge-and-collaboration/warp-drive/workflows.md
 AgentOnboarding -> src/content/docs/agent-platform/getting-started/agents-in-warp.md
 AIRules -> src/content/docs/agent-platform/capabilities/rules.mdx
@@ -58,7 +58,10 @@ CommandPaletteFileSearch -> src/content/docs/terminal/command-palette.md
 Ligatures -> src/content/docs/terminal/appearance/text-fonts-cursor.md
 UIZoom -> src/content/docs/terminal/appearance/size-opacity-blurring.md
 UsageBasedPricing -> src/content/docs/support-and-community/plans-and-billing/credits.md
-APIKeyAuthentication -> src/content/docs/reference/cli/api-keys.md
+# The APIKeyAuthentication flag was removed after the public API key auth feature
+# stabilized (GA / flag cleanup). API key auth remains documented at
+# reference/cli/api-keys.mdx via APIKeyManagement / TeamApiKeys, so no separate
+# entry is needed.
 APIKeyManagement -> src/content/docs/reference/cli/api-keys.md
 CreatingSharedSessions -> src/content/docs/knowledge-and-collaboration/session-sharing/index.mdx
 AgentSharedSessions -> src/content/docs/agent-platform/local-agents/session-sharing.mdx
@@ -149,9 +152,10 @@ SshRemoteServer -> src/content/docs/terminal/warpify/ssh.mdx
 
 # Computer use: session recording (VideoRecording gates the start/stop recording
 # tools) and window-targeted background capture (BackgroundComputerUse). Both are
-# GA and documented on the computer use capability page.
-VideoRecording -> src/content/docs/agent-platform/capabilities/computer-use.mdx
-BackgroundComputerUse -> src/content/docs/agent-platform/capabilities/computer-use.mdx
+# GA and documented on the computer use capability pages (the page was split from
+# a flat computer-use.mdx into a computer-use/ directory).
+VideoRecording -> src/content/docs/agent-platform/capabilities/computer-use/testing-and-recordings.mdx
+BackgroundComputerUse -> src/content/docs/agent-platform/capabilities/computer-use/index.mdx
 
 # Feature flags whose only user-facing surface is a documented setting in the
 # all-settings reference (terminal/settings/all-settings.mdx).
@@ -335,6 +339,46 @@ POST /harness-support/finish-task -> internal
 POST /harness-support/report-shutdown -> internal
 POST /harness-support/upload-snapshot -> internal
 
+# Oz Factory REST API (router/handlers/public_api/factory*.go). Factory is a
+# private, not-yet-released product (the FactoryMcp flag is dogfood and the
+# @warp/factory front-end is internal/computer-use gated), so none of these
+# endpoints are part of the released public Oz Agent API. They are marked
+# internal until Factory ships publicly; revisit and route through the
+# sync-openapi-spec skill if/when Factory goes GA. See SKILL.md "Public vs.
+# private surfaces".
+GET /factory -> internal
+POST /factory -> internal
+POST /factory/avatar -> internal
+GET /factory/{uid} -> internal
+PATCH /factory/{uid} -> internal
+DELETE /factory/{uid} -> internal
+POST /factory/{uid}/apply -> internal
+POST /factory/{uid}/plan -> internal
+GET /factory/{uid}/source -> internal
+PUT /factory/{uid}/source -> internal
+DELETE /factory/{uid}/source -> internal
+GET /factory/{uid}/syncs -> internal
+GET /factory/{uid}/task-by-conversation -> internal
+GET /factory/{uid}/tasks -> internal
+POST /factory/{uid}/tasks -> internal
+GET /factory/{uid}/tasks/{task_uid} -> internal
+PATCH /factory/{uid}/tasks/{task_uid} -> internal
+DELETE /factory/{uid}/tasks/{task_uid} -> internal
+GET /factory/{uid}/integrations/linear/teams -> internal
+GET /factory/{uid}/integrations/linear/teams/{team_id}/labels -> internal
+PUT /factory/{uid}/integrations/linear/teams/{team_id}/labels -> internal
+GET /factory/automations -> internal
+POST /factory/automations -> internal
+GET /factory/automations/events/{provider} -> internal
+GET /factory/automations/{id} -> internal
+PUT /factory/automations/{id} -> internal
+DELETE /factory/automations/{id} -> internal
+PUT /factory/automations/{id}/subscriptions -> internal
+DELETE /factory/automations/{id}/subscriptions/{subscription_id} -> internal
+GET /factory/scorers -> internal
+POST /factory/scorers -> internal
+GET /factory/scorers/{scorer_id}/results -> internal
+
 # Agent Memory REST API — research preview (gating flag AIMemories is non-GA),
 # deferred via `gated:` and auto-surfaces when AIMemories goes GA. See
 # "Public vs. private surfaces" in SKILL.md.
@@ -370,9 +414,21 @@ GET /memory_stores/{uid}/memories/{memoryUid}/versions -> gated:AIMemories
 # replaced by a single toggle, /natural-language-detection. Like the other Warp
 # Agent CLI-only commands above, it isn't in the GUI, so it stays internal.
 /natural-language-detection -> internal
-# TUI-only voice input and version commands (Warp Agent CLI surface).
+# TUI-only voice input command (Warp Agent CLI surface). The /version command was
+# removed from code; its entry has been pruned.
 /voice -> internal
-/version -> internal
+# More Warp Agent CLI-only (SlashCommandSurfaces::TuiOnly in static_commands/
+# commands.rs) commands. None are present in the GUI desktop app, so they aren't
+# documented on the public slash-commands page:
+# - /status: show session and account status
+# - /clear: clear the transcript and start a new conversation
+# - /statusline: configure the Warp Agent CLI statusline (agents.statusline, internal)
+# - /add-api-key, /clear-provider-api-key: store/remove a model-provider API key
+/status -> internal
+/clear -> internal
+/statusline -> internal
+/add-api-key -> internal
+/clear-provider-api-key -> internal
 # TUI-only color-theme picker (Warp Agent CLI surface, SlashCommandSurfaces::TuiOnly
 # in static_commands/commands.rs). It sets the Warp Agent CLI theme
 # (appearance.theme, mapped internal below) and isn't present in the GUI, so it
@@ -394,6 +450,13 @@ warpify.ssh.ssh_tmux_deprecation_notice_pending -> internal
 # Warp Agent CLI). It isn't present in the GUI settings UI, so it isn't
 # documented in the all-settings reference.
 general.autoupdate_enabled -> internal
+
+# Warp Agent CLI-only (crates/warp_tui) statusline configuration (surface:
+# SettingSurfaces::TUI in app/src/settings/ai.rs; controls the order and
+# visibility of the Warp Agent CLI bottom statusline items). It isn't present in
+# the GUI settings UI, so it isn't documented in the all-settings reference.
+# Paired with the /statusline Warp Agent CLI slash command mapped internal above.
+agents.statusline -> internal
 
 # Warp Agent CLI-only (crates/warp_tui) color theme (surface: Warp Agent CLI,
 # SettingSurfaces::TUI in tui_theme.rs; "auto|light|dark" matching the host
@@ -530,6 +593,12 @@ GitCredentialRefresh
 # State-mutating recovery for abnormal terminal lifecycle sequences — an internal
 # reliability mechanism with no user-facing configuration or UI, so it needs no docs.
 TerminalLifecycleRecovery
+# Internal persistence-backend detail: gates storing execution profiles in a
+# file-backed settings collection (agents.execution_profiles) versus the legacy
+# per-profile Warp Drive cloud objects. It changes where profiles are stored, not
+# any user-facing behavior — execution profiles are documented via
+# ProfilesDesignRevamp/MultiProfile -> agent-profiles-permissions.mdx — so it needs no docs.
+FileBackedExecutionProfiles
 
 # Sub-feature toggles and pre-launch flags. Section placement does NOT assert
 # rollout status (the audit computes that from code); entries here are ignored
