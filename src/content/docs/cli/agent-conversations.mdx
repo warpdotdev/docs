@@ -6,7 +6,7 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-When you send the agent a prompt in the {VARS.WARP_CLI}, the conversation appears in a scrollable transcript directly in your terminal. Responses stream in as they're generated, and everything the agent does along the way renders inline: tool calls, file diffs, questions, task lists, and plans. You can follow and steer the work without leaving your session. Conversations persist as you work: you can start new ones, browse history, compact context, and [resume after exiting](#managing-conversations).
+When you send the agent a prompt in the {VARS.WARP_CLI}, the conversation appears in a scrollable transcript directly in your terminal. Responses stream in as they're generated, and everything the agent does along the way renders inline: tool calls, file diffs, questions, task lists, and plans. Conversations persist as you work: you can start new ones, browse history, compact context, and [resume after exiting](#managing-conversations).
 
 ## The conversation transcript
 
@@ -31,7 +31,7 @@ When a tool call needs your approval before it runs, an approval card appears in
 
 When the agent edits files, the edit renders as a diff in the transcript:
 
-* **Per-file sections** - Each edited file gets a header row showing the action (Updated, Created, or Deleted), the file name, and added/removed line counts.
+* **Per-file sections** - Each edited file gets a header with the action and change counts.
 * **Multi-file edits** - Group under one summary header (for example, `Edited 3 files`) with each file's section nested beneath it.
 
 Diffs open fully expanded while the agent waits for your approval, and collapse to their headers once the edits are applied. Press `e` while the approval card is active to expand or collapse all diffs at once.
@@ -44,11 +44,11 @@ For models that expose their reasoning, the agent's thinking streams into a coll
 
 When the agent needs a decision from you mid-task, it asks a question with an interactive option list that temporarily replaces the input. Besides the arrow keys, you can press an option's number to choose it, and **Other…** accepts a free-form answer when the listed options don't fit.
 
-Options the agent suggests as the best fit are labeled `(recommended)`. Multi-select questions mark each chosen option with a check mark so you can pick several. When the agent asks several questions at once, the card advances through them; after the last answer, the agent continues and focus returns to the input.
+Options the agent suggests as the best fit are labeled `(recommended)`. Multi-select questions mark each chosen option with a check mark so you can pick several. When the agent asks several questions at once, the card advances through them.
 
 ## Task lists
 
-For multi-step work, the agent tracks its progress with a task list rendered directly in the transcript under a bold `≡ Tasks` header. Each task row starts with a status glyph:
+For multi-step work, the agent tracks its progress with a task list rendered directly in the transcript under a `≡ Tasks` header. Each task row starts with a status glyph:
 
 * `◌` - Pending
 * `●` - In progress
@@ -68,7 +68,7 @@ Planning in the CLI follows the same workflow as the Warp app. See [Planning](/a
 
 ## Selecting and copying output
 
-Select text anywhere in the transcript by dragging with the mouse. Releasing the mouse button copies the selection to your clipboard automatically; the footer confirms with `copied to clipboard`.
+Select text anywhere in the transcript by dragging with the mouse. Releasing the mouse button copies the selection automatically.
 
 :::note
 In local sessions, the CLI writes directly to your system clipboard. Over SSH, it copies through your terminal using OSC 52 escape sequences (including from inside tmux), so the text lands on your local clipboard. Terminals that disable OSC 52 may ignore the copy.
@@ -78,7 +78,7 @@ To copy an entire conversation as Markdown, use the `/export-to-clipboard` slash
 
 ## Managing conversations
 
-The CLI saves every agent conversation as you work, so closing your terminal never loses your progress. You can start fresh conversations, reopen past ones from a searchable history, compact long conversations to free up context, and resume a conversation after exiting.
+The CLI saves every agent conversation as you work, so closing your terminal never loses your progress.
 
 ### Conversation persistence
 
@@ -103,7 +103,7 @@ To browse and reopen past conversations, open the conversation menu in either of
 * **`/conversations`** - Run the slash command from the input.
 * **`←`** - Press the left arrow key when the input is empty and the cursor is at the start. The empty input shows a `← for conversations` hint as a reminder.
 
-The menu lists your Warp Agent conversations, including conversations started in the Warp app and completed cloud agent runs tied to your account. Opening one restores its transcript, and new prompts you send continue that conversation.
+The menu lists your Warp Agent conversations, including conversations started in the Warp app and completed cloud agent runs tied to your account. Opening one restores its transcript and continues that conversation.
 
 :::caution
 If the CLI can't load conversation data from Warp's servers, the menu shows conversations from your local device only and displays a warning. Conversations from other devices reappear once the connection recovers.
