@@ -6,7 +6,7 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-This guide takes you from installing the {VARS.WARP_CLI} to your first agent conversation in about five minutes. You'll install the CLI, log in, prompt the agent, run a shell command, and learn how to exit and resume.
+This guide takes you from installing the {VARS.WARP_CLI} to your first agent conversation in about five minutes.
 
 ## Prerequisites
 
@@ -52,8 +52,7 @@ You can also pass the `--api-key` flag, but prefer the environment variable: com
 ## Run your first prompt
 
 1. Type a prompt in plain language, for example: `What does this project do?`
-2. Press `Enter`. The response streams into the transcript above the input.
-3. If the agent wants to run a command or edit a file, it shows a permission request. Choose an option to approve or reject the action.
+2. If the agent wants to run a command or edit a file, it shows a permission request. Choose an option to approve or reject the action.
 
 Learn more about the transcript, diffs, and approvals in [Agent conversations](/cli/agent-conversations/) and [Permissions and profiles](/cli/permissions-and-profiles/).
 
@@ -62,7 +61,7 @@ Learn more about the transcript, diffs, and approvals in [Agent conversations](/
 You can run shell commands directly without leaving the CLI.
 
 1. Type `!` at the start of an empty input to switch to shell mode. The footer shows **Shell mode**.
-2. Type a command, such as `git status`, and press `Enter`. The command runs in your working directory and its output appears in the transcript.
+2. Type a command, such as `git status`, and press `Enter`.
 3. Press `Backspace` on the empty input to switch back to prompting the agent.
 
 See [Shell commands](/cli/shell-commands/) for long-running commands, interactive programs, and natural language detection.
@@ -76,7 +75,7 @@ See [Shell commands](/cli/shell-commands/) for long-running commands, interactiv
    warp --resume CONVERSATION_TOKEN
    ```
 
-3. Run the printed command to pick up the conversation where you left off. `CONVERSATION_TOKEN` is the conversation identifier the CLI prints for you.
+3. Run the printed command later to pick up where you left off.
 
 To browse and reopen past conversations from inside the CLI, see [Conversations](/cli/conversations/).
 
