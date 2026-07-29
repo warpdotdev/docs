@@ -17,6 +17,10 @@ This guide takes you from installing the {VARS.WARP_CLI} to your first agent con
 
 {/* PENDING: install instructions from eng */}
 
+:::note
+Install instructions will be published when the {VARS.WARP_CLI} is released. If you're testing a pre-release build, use the install link shared with you.
+:::
+
 After installing, verify that the `warp` command is available:
 
 ```bash
@@ -36,7 +40,13 @@ Log in once so the CLI can access your Warp account, models, and saved context.
 When login completes, the CLI shows its start screen: the version, a short "What's new" list, and the rules, skills, and MCP servers it discovered for your current directory.
 
 :::note
-On machines without a browser, such as CI or remote servers, authenticate with a Warp API key instead: run `warp --api-key YOUR_API_KEY` or set the `WARP_API_KEY` environment variable. See [API keys](/reference/cli/api-keys/) for how to create one.
+On machines without a browser, such as CI or remote servers, authenticate with a Warp API key instead by setting the `WARP_API_KEY` environment variable:
+
+```bash
+WARP_API_KEY=YOUR_API_KEY warp
+```
+
+You can also pass the `--api-key` flag, but prefer the environment variable: command-line arguments can be captured in shell history and process listings. See [API keys](/reference/cli/api-keys/) for how to create one.
 :::
 
 ## Run your first prompt
