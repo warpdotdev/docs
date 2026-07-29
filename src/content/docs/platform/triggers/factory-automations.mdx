@@ -1,0 +1,141 @@
+---
+title: Factory automations triggers
+description: >-
+  Trigger factory cloud agents from GitHub and Linear events — mentions,
+  assignments, review requests, and CI completion — with per-event filters and
+  factory-aware continuation.
+sidebar:
+  label: "Factory automations"
+---
+
+Factory automations run a named factory agent automatically in response to GitHub and Linear events. You subscribe an automation to a trigger kind, add filters that narrow which events fire it, and the matched agent runs in the cloud. This page documents the trigger kinds and filter fields available to automation authors using the public automations API.
+
+:::note
+Factory automations are configured through the public automations API rather than the Warp app. All trigger kinds and filters on this page are gated behind the `factory_automations` feature flag.
+:::
+
+## Key features
+
+* **People-centric triggers** - Run an agent when someone is mentioned, assigned, or requested for review on GitHub or Linear.
+* **CI triggers** - Start or continue a run when a GitHub check suite or Actions workflow run completes.
+* **Per-event filters** - Narrow each trigger to specific repositories, branches, logins, teams, or CI conclusions.
+* **Factory-aware continuation** - Route a new event into the factory's existing run on the same issue or PR instead of starting a duplicate run.
+
+## How it works
+
+An automation is a subscription made up of a trigger kind, a filter, and an action that targets a named agent (a factory). When a provider delivers an event, Warp emits one or more canonical trigger kinds, evaluates every automation subscribed to those kinds, and runs the matched factory's agent.
+
+Every filter follows the same algebra across all kinds:
+
+* Fields combine with **AND** — every field you set must match.
+* Values within a single field match **ANY** — the delivery matches when its values overlap the set you want.
+* An **absent field is a wildcard** — it matches everything.
+* Writes validate field names and types per kind and reject unknown fields.
+
+GitHub identity values are logins and team slugs, compared case-insensitively. Linear assignee values are durable user UUIDs, and Linear mention values may also be profile slugs. Because logins, team slugs, and profile slugs can be renamed, a filter that names one can go stale after a rename — the same caveat that applies to label names.
+
+### Targeting an agent for a person's work
+
+You do not need a separate person-to-agent mapping to say "when Bob is assigned, run Bob's factory." Express it as a plain automation: subscribe to an assignment or mention kind, filter on Bob's identity, and target the factory you want:
+
+* On GitHub, subscribe to `issue_assigned` with `assignees: ["bob"]` (and/or a mention kind with `mentioned: ["bob"]`), and point the action at the `bob-factory` named agent.
+* To trigger on mentions of the Warp GitHub App itself, use the app's slug as a `mentioned` value: `mentioned: ["oz-agent"]`.
+
+## GitHub triggers
+
+### Mention kinds
+
+`github.issue_mentioned` and `github.pull_request_mentioned` fire when *newly created content* contains at least one `@mention`:
+
+* A newly opened issue's body emits `issue_mentioned`.
+* A newly opened PR's body emits `pull_request_mentioned`.
+* A new issue or PR conversation comment emits `issue_mentioned` for an issue and `pull_request_mentioned` for a PR.
+* A new PR review comment emits `pull_request_mentioned`.
+
+Only the just-created content is scanned — never the surrounding thread. Edits and deletions never emit mention kinds, so an edited comment cannot re-fire an automation. Mention kinds fire regardless of the PR's draft state.
+
+A mention is an `@login` or `@org/team-slug` token matched at word boundaries, so an email address such as `a@b.com` is not a mention. Mentions inside fenced code blocks or inline code spans are ignored, so a code sample containing `@bob` never fires Bob's automations.
+
+Their filter carries:
+
+* **`repos`** - Repositories to watch.
+* **`mentioned`** - Wanted mention targets. Matches when the delivery's mention set overlaps the wanted set, case-insensitively. Values may be user logins, `org/team` slugs, or the Warp GitHub App slug (`oz-agent`). A team slug matches only the literal team mention and does not expand to member logins. An absent `mentioned` field means "any mention".
+
+Bot-authored deliveries — including Warp's own app and third-party bots such as dependabot — never emit mention kinds. This prevents Warp's own status comments from re-triggering mention automations.
+
+### Assignment and review-request kinds
+
+* **`github.issue_assigned`** and **`github.pull_request_assigned`** fire once per assignee addition, carrying the just-assigned login. Assigning three people produces three deliveries, each evaluated independently. Unassignment never fires. Filter fields: `repos` and `assignees` (the just-assigned login must be in the wanted set, case-insensitive; absent means "any assignment").
+* **`github.pull_request_review_requested`** fires once per requested reviewer or requested team. Filter fields: `repos`, `reviewers` (user logins), and `reviewer_teams` (team slugs). Each present field is a hard constraint: a user-flavor delivery fails any `reviewer_teams` constraint, a team-flavor delivery fails any `reviewers` constraint, and an empty filter matches both. Express "user OR team" as two subscription rows. There is no team-membership expansion.
+
+The existing GitHub kinds (`issue_created`, `issue_labeled`, `pull_request_opened`, `pull_request_ready`, `pull_request_closed`, `pull_request_merged`) also accept a new `assignees` filter field with **state** semantics: the entity's current assignee set must overlap the wanted set — for example, "PR ready for review while assigned to Bob."
+
+:::note
+GitHub does not support assigning teams, and GitHub Apps cannot be assignees, so there is no GitHub-native way to "assign the agent." Mentioning the app is the agent-targeting surface. An organization that runs a machine-user account can filter on its login like any other user.
+:::
+
+### CI kinds
+
+* **`github.check_suite_completed`** fires when a check suite completes. Filter fields: `repos`, `conclusions`, and `branches`. `conclusions` matches GitHub's conclusion values (`success`, `failure`, `neutral`, `cancelled`, `timed_out`, `action_required`, `stale`, `skipped`), case-insensitively; absent means any completion. `branches` matches the head branch name exactly.
+* **`github.workflow_run_completed`** fires when a GitHub Actions workflow run completes, with the same fields plus `workflows` (case-insensitive exact workflow names).
+
+CI deliveries are exempt from the bot-sender drop, because CI senders are always bots. Fork PRs may carry no PR linkage; those deliveries still fire, and branch and conclusion filters keep working.
+
+:::caution
+An automation that reacts to CI failures and pushes fixes will re-fire on the next failure. Chain and loop bounding is handled by Warp's dispatch layer, but design CI-reactive automations with this feedback loop in mind.
+:::
+
+:::note
+[TODO: engineer to verify — current availability] The CI kinds validate at write time, but per the spec they only fire once the Warp GitHub App is subscribed to `check_suite` and `workflow_run` events with the required read permissions. Confirm whether these kinds are live for automations today or still accepted-but-inert.
+:::
+
+## Linear triggers
+
+* **`linear.issue_assigned`** fires on the transition into an assignee: an issue update whose assignee changed, or an issue created with an assignee (born-assigned), each firing exactly once. A reassignment from A to B fires (a transition into B). Unassignment never fires. Filter fields: the standard Linear issue scoping (`team_ids`, `project_ids`, `label_ids`, `state_ids`) plus `assignee_ids` (durable Linear user UUIDs) with **transition** semantics — the new assignee must be in the wanted set and the previous assignee must not be. Absent `assignee_ids` means "any assignment".
+* The existing Linear issue kinds (`issue_created`, `issue_labeled`, `issue_state_changed`) accept `assignee_ids` with **state** semantics: the issue's current assignee is in the wanted set.
+* Linear issue kinds and `comment_created` accept a new **`mentioned_user_ids`** field. On `comment_created` it matches when the new comment mentions any wanted user; on issue kinds it matches when the issue description mentions any wanted user. Wanted values are Linear user UUIDs (matched against `@[Name](uuid)` mention markup) or profile slugs (matched against `linear.app/{workspace}/profiles/{slug}` mention URLs). Comparison is case-insensitive, and extracted slugs are percent-decoded, so write filter values in decoded form. Only user mentions are recognized in v1 — no group or team mentions. Mention markup inside fenced code blocks or inline code spans is ignored.
+
+Mentioning, assigning, or delegating the Warp Linear app itself keeps today's native AgentSession behavior (a session is created and replies become native follow-ups); automations do not double-handle those events. Linear deliveries whose actor is the Warp Linear app never fire automations, which closes the loop where Warp's own state updates could re-fire `issue_state_changed` automations.
+
+:::caution
+The exact serialization of UI-created Linear mentions in webhook bodies is still being pinned against a captured fixture. Both known formats (`@[Name](uuid)` markup and profile URLs) are parsed, but profile slugs are display-name-derived and not durable, so slug-based filters can go stale on renames. Prefer UUID-based `mentioned_user_ids` values where possible.
+:::
+
+## Factory-aware continuation
+
+The new kinds — `issue_mentioned`, `pull_request_mentioned`, `issue_assigned`, `pull_request_assigned`, `pull_request_review_requested`, `check_suite_completed`, `workflow_run_completed`, and `linear.issue_assigned` — are **continuation-exempt**: automation matching always runs for them, even when the delivery belongs to a conversation that already has a run. All pre-existing kinds keep today's behavior, where a continued delivery skips their matching entirely.
+
+For each matched automation on an exempt kind, Warp resolves the event's entity (the issue or PR — for CI, the single linked PR) and looks for the most recent run on that entity whose executing agent belongs to the matched automation's factory:
+
+* **A same-factory run is found** - The event is delivered into that run as a follow-up message describing the event (kind, actor, content, and link). No new run starts; a terminal run resumes through the standard follow-up machinery.
+* **No same-factory run exists** - A new run starts and adopts the entity's session key, so later events on that entity for the same factory continue it.
+
+Within one factory, a single delivery either continues exactly one run or starts exactly one run — never both and never two. Across factories, the same delivery can continue factory A's run and start factory B's run; runs from different factories coexist on the same entity.
+
+A double-delivery guard prevents a run from receiving the same comment twice: when a comment both mentions the Warp app (so the built-in `@oz-agent` path delivers it) and matches a mention automation targeting that same run, the automation's follow-up is skipped.
+
+:::note
+In v1, factory-aware continuation is effective for GitHub kinds only. `linear.issue_assigned` matches always start new runs, because Linear data-webhook runs do not yet carry an entity session. CI events with no linked PR (or multiple linked PRs) always start new runs and never continue; a run started by a CI event with no linked PR posts no GitHub status comment, but is otherwise a normal run visible in Oz.
+:::
+
+## Discovering available triggers
+
+All trigger kinds and filter fields for a provider appear in the automations events catalogue:
+
+```
+GET /api/v1/factory/automations/events/{provider}
+```
+
+Use `github` or `linear` as the `{provider}` value. The new kinds and fields are accepted by the existing create and append subscription endpoints with per-kind validation, and existing stored subscriptions are unaffected.
+
+:::note
+[TODO: engineer to verify — API details] Confirm the exact request/response shape of the create and append subscription endpoints (paths, request body, and authentication) so this page can link to or embed the full API reference. [UNVERIFIED: whether any Warp app or Oz web UI exists for authoring automations, or whether the public API is the only surface.]
+:::
+
+## Related pages
+
+* [Triggers overview](/platform/triggers/)
+* [Software factory](/platform/software-factory/)
+* [GitHub Actions integration](/platform/integrations/github-actions/)
+* [Linear integration](/platform/integrations/linear/)
+* [Oz API & SDK](/reference/api-and-sdk/)

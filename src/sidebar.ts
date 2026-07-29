@@ -360,6 +360,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/triggers', label: 'Overview' },
 						{ slug: 'platform/triggers/scheduled-agents-quickstart', label: 'Quickstart' },
 						{ slug: 'platform/triggers/scheduled-agents', label: 'Scheduled agents' },
+						// [TODO: docs reviewer — confirm placement]
+						{ slug: 'platform/triggers/factory-automations', label: 'Factory automations' },
 					],
 				},
 				{
