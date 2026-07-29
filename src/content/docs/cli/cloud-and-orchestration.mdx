@@ -23,7 +23,7 @@ See [what carries over](/platform/handoff/#what-carries-over) for the full behav
 ### Hand off a conversation
 
 1. In an active conversation, run `/handoff`, or `/handoff <prompt>` to give the cloud agent a follow-up prompt. The **Hand off to cloud** card replaces the input area while your transcript stays visible.
-2. Review the environment and model shown on the card. The card suggests your most recent environment, preferring one that contains the current repository, and keeps your conversation's model when that model can run in the cloud. If the model isn't available in the cloud, the card flags it and you choose a compatible one before continuing.
+2. The card suggests your most recent environment (preferring one that contains the current repository) and keeps your conversation's model when it can run in the cloud; incompatible models are flagged so you can choose another before continuing.
 3. To change either value, press `Ctrl+E` to open the searchable environment and model selectors.
 4. Press `Enter` on the card summary to hand off. The card shows progress, then reports that the cloud run was created along with a link to the run.
 
@@ -67,7 +67,7 @@ From the approval card:
 * `Ctrl+E` edits the configuration first: where the agents run (on your machine or in the cloud) and which model they use. Cloud agents add pages for the harness, environment, and host, plus an API key page for harnesses that need one.
 * `Ctrl+C` rejects the request.
 
-After launch, a tab bar labeled **Agents:** appears above the session with one tab for the orchestrator and one tab per child agent. Messages the parent and children exchange appear in each transcript as collapsible rows with the sender's name and status.
+After launch, a tab bar labeled **Agents:** appears above the session with one tab for the orchestrator and one tab per child agent. Messages between the parent and child agents appear in each agent's transcript.
 
 * **Local child agents** - Each local child runs on your machine as its own session, starting in the parent's working directory. Local children always run the Warp Agent.
 * **Cloud child agents** - Each cloud child runs in a cloud [environment](/platform/environments/). Its session shows the run's live status and a link; press `Enter` or click the link to open the run in the {VARS.WEB_APP}. If a cloud child can't start because GitHub authentication is required, its session shows the authentication link; authenticate, then ask the agent to run the orchestration again.
@@ -78,7 +78,7 @@ Cloud child sessions in the CLI are read-only status views. To send prompts to a
 
 ## Managing child agents
 
-The **Agents:** tab bar is how you move around an orchestration. While it's available, the empty input shows a `Shift + ↑ for other agents` hint.
+The **Agents:** tab bar is how you move around an orchestration.
 
 * **Focus the tab bar** - Press `Shift+↑` from the input. The bar highlights the active conversation.
 * **Switch agents** - `Tab` or `→` selects the next agent and `Shift+Tab` or `←` the previous one, wrapping across the orchestrator and all children. `Shift+←` and `Shift+→` jump to the first and last child. Switching keeps the bar focused so you can keep cycling.
