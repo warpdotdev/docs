@@ -21,27 +21,15 @@ You can change these defaults by [editing your execution profile](#execution-pro
 
 ## Approving agent actions
 
-When an action needs your approval, the CLI pauses the conversation and shows a permission card in the transcript. The card states what the agent wants to do, shows the details (the exact command, the file diffs, or the tool call), and moves focus to a **yes**/**no** selector.
-
-* Press `Enter` to confirm the highlighted option. **yes** approves and runs the action.
-* Press `Esc` (or select **no**) to reject the request. The agent continues without running the action.
-* Select **Other** to type a reply instead. The agent receives your guidance in place of the proposed action, which is useful when you want it to take a different approach.
+When an action needs your approval, the CLI pauses the conversation and shows a permission card in the transcript: what the agent wants to do, the details (the exact command, the file diffs, or the tool call), and a **yes**/**no** selector. Select **Other** to type a reply instead; the agent receives your guidance in place of the proposed action, which is useful when you want it to take a different approach.
 
 ### Reviewing commands
 
-When the agent asks "Is it OK if I run this command and read the output?", the card shows the proposed command in an editable field:
-
-* Press `E` to edit the command before it runs.
-* While editing, press `Enter` or `Esc` to finish. Finishing returns focus to the **yes**/**no** options without cancelling the request. Press `Esc` again to reject it.
-* Approve with **yes** to run the command, including any edits you made. Output streams into the transcript, and commands that keep running expand automatically so you can follow along.
+When the agent asks "Is it OK if I run this command and read the output?", the card shows the proposed command in an editable field. Press `E` to edit the command before it runs; approving then runs your edited version. While editing, `Enter` or `Esc` returns to the options without cancelling the request.
 
 ### Reviewing file edits
 
-When the agent asks "Is it OK if I make these file edits?", the card shows the proposed diffs inline, with one section per file:
-
-* Each file header shows the change type, the file name, and added/removed line counts. Multi-file edits are grouped under a summary header, and all diffs start expanded while the request is pending.
-* Press `E` to expand or collapse all diffs at once, or click a file header to toggle a single file.
-* Approve with **yes** to apply the edits, or reject with **no** or `Esc` to discard them.
+When the agent asks "Is it OK if I make these file edits?", the card shows the proposed diffs inline, one section per file. Press `E` to expand or collapse all diffs at once.
 
 ## Auto-approve
 
@@ -49,7 +37,7 @@ Auto-approve gives the agent full autonomy for the current conversation: propose
 
 Toggle auto-approve in any of these ways:
 
-* Run `/auto-approve`. The slash command menu shows whether it's currently on or off.
+* Run `/auto-approve`.
 * Press `Ctrl+Shift+I`.
 * Click the **Auto approve** control (`▶▶`) at the right edge of the progress row while the agent is working.
 
