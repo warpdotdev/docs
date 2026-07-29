@@ -21,25 +21,15 @@ You can change these defaults by [editing your execution profile](#execution-pro
 
 ## Approving agent actions
 
-When an action needs your approval, the CLI pauses the conversation and shows a permission card in the transcript: what the agent wants to do, the details (the exact command, the file diffs, or the tool call), and a **yes**/**no** selector. Select **Other** to type a reply instead; the agent receives your guidance in place of the proposed action, which is useful when you want it to take a different approach.
+When an action needs your approval, the agent pauses and shows a permission card with the proposed command or file edits. Beyond approving or rejecting it, you can:
 
-### Reviewing commands
-
-When the agent asks "Is it OK if I run this command and read the output?", the card shows the proposed command in an editable field. Press `E` to edit the command before it runs; approving then runs your edited version. While editing, `Enter` or `Esc` returns to the options without cancelling the request.
-
-### Reviewing file edits
-
-When the agent asks "Is it OK if I make these file edits?", the card shows the proposed diffs inline, one section per file. Press `E` to expand or collapse all diffs at once.
+* Select **Other** to reply with guidance instead of running the action; the agent adjusts its approach based on what you type.
+* Press `E` on a command card to edit the proposed command; approving then runs your edited version. While editing, `Esc` exits the editor without rejecting the request.
+* Press `E` on a file-edits card to expand or collapse all diffs.
 
 ## Auto-approve
 
-Auto-approve gives the agent full autonomy for the current conversation: proposed actions run immediately, without permission cards, until the task finishes or you turn it off.
-
-Toggle auto-approve in any of these ways:
-
-* Run `/auto-approve`.
-* Press `Ctrl+Shift+I`.
-* Click the **Auto approve** control (`▶▶`) at the right edge of the progress row while the agent is working.
+Auto-approve gives the agent full autonomy for the current conversation: proposed actions run immediately, without permission cards, until the task finishes or you turn it off. Toggle it with `/auto-approve` or `Ctrl+Shift+I`.
 
 Auto-approve applies per conversation, and new conversations start with it off. To see its state at a glance, add the **Auto-approve indicator** to the statusline with `/statusline`. If your profile sets `ask_user_question = "ask_except_in_auto_approve"`, the agent also skips clarifying questions while auto-approve is on.
 
