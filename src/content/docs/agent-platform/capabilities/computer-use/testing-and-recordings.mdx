@@ -3,9 +3,8 @@ title: Testing with Computer Use and video recordings
 sidebar:
   label: "Testing and recordings"
 description: >-
-  Agents can drive a real desktop UI in an isolated sandbox, record the session,
-  and give you a watchable video as proof, covering UI change validation,
-  end-to-end QA, and bug reproduction.
+  Use Computer Use to test desktop UIs in a sandbox and capture annotated
+  recordings for UI validation, end-to-end QA, and bug reproduction.
 ---
 
 import { VARS } from '@data/vars';
@@ -32,11 +31,11 @@ You don't need to ask the agent to record explicitly. Prompts like "test this ch
 
 ## How it works
 
-1. **Enable Computer Use.** The agent needs Computer Use enabled for its run. See the [Computer Use](/agent-platform/capabilities/computer-use/#enabling-computer-use) page for how to enable it via the Warp app, the CLI, or the API.
+1. **Confirm Computer Use is enabled.** Computer Use is enabled by default for cloud agent runs on Warp's built-in harness, so no setup is needed unless it was turned off for your run. See the [Computer Use](/agent-platform/capabilities/computer-use/#enabling-computer-use) page for how to control it via the Warp app, the {VARS.WARP_AGENT_CLI}, or the Oz API.
 2. **Agent starts recording.** Once Computer Use is active, the agent begins a screen capture inside the sandbox. The recording is gated by your session's Computer Use approval. If you've already approved Computer Use for the run, recording starts automatically without a separate prompt.
 3. **Agent exercises the UI.** The agent takes screenshots, clicks, types, scrolls, and drives the interface. Each successful interaction is tracked: when it started, when it finished, what actions it contained, and where the cursor moved.
 4. **Agent stops and processes.** When the task is complete (or when the recording's configured time or size limit is reached), the agent stops capture. Before upload, the recording is post-processed: idle and thinking gaps are cut, leaving only the windows where real interaction happened, and action overlays are burned in so the video is annotated.
-5. **Artifact is published.** The processed video is uploaded as a run artifact and made available in the conversation, on the run page, and in the pull request description when the agent opens or updates a PR.
+5. **Artifact is published.** The processed video is uploaded as a run artifact, ready to view wherever the run's artifacts appear.
 
 ## Where to find recordings
 
@@ -44,22 +43,22 @@ You don't need to ask the agent to record explicitly. Prompts like "test this ch
 
 After the agent finishes its Computer Use session, any video recording appears as a block in the conversation. Clicking the block opens the full conversation view alongside the recording artifact. If the recording was produced by a cloud agent run, you can also access it by opening that run's transcript as a [cloud-synced conversation](/platform/viewing-cloud-agent-runs/).
 
-### On the Oz web run page
+### In the Oz web app
 
 Cloud agent runs are listed on the [Runs page of the {VARS.WEB_APP}](/platform/oz-web-app/#runs). Open a run to see its artifacts section, which lists any video recordings produced during that run. You can play the video directly from the run page or download it.
 
 ### On pull requests
 
-When a cloud agent run produces video recordings, those recordings are attached to the PR description as links alongside the agent's summary. The attachment is automatic once the recording artifact is associated with the run; no extra steps are needed from you.
+Recordings are also attached to the PR description when the agent opens or updates a pull request — see [Screenshots and videos in pull requests](/agent-platform/capabilities/computer-use/artifacts-in-prs/).
 
 ## What's in a recording
 
-The finished video is not raw screen capture. After the agent stops recording, the client post-processes the video before uploading it:
+The finished video is not raw screen capture. After the agent stops recording, Warp post-processes the video before uploading it:
 
-- **Smart cut of idle and thinking time.** Gaps where the agent is planning, waiting on a network call, or idle between actions are removed. What remains are only the windows where real interaction happened, played back at normal speed. This makes recordings significantly shorter than the raw capture duration.
-- **Action overlays.** Each interaction is burned into the video as overlay pills. Keyboard shortcuts (such as `Ctrl+C`, `Return`, or `Escape`) appear as labels on the frame where they were pressed, so non-visible keys like modifier chords show up clearly. Text typing is labeled "typing…" to avoid leaking sensitive input. Scroll events show a directional label.
-- **Click ripples and drag trails.** Pointer events (mouse clicks, drags, and moves) are captured with their coordinates and burned into the video as click ripples and movement trails, so cursor activity is visible even when the cursor itself is small on screen.
-- **Sandbox-only capture.** The recording is taken from inside the isolated sandbox environment. It never captures your local desktop, terminal, credentials, or anything outside the sandbox.
+- **Smart cut of idle and thinking time** - Gaps where the agent is planning, waiting on a network call, or idle between actions are removed. What remains are only the windows where real interaction happened, played back at normal speed. This makes recordings significantly shorter than the raw capture duration.
+- **Action overlays** - Each interaction is burned into the video as overlay pills. Keyboard shortcuts (such as `Ctrl+C`, `Return`, or `Escape`) appear as labels on the frame where they were pressed, so non-visible keys like modifier chords show up clearly. Text typing is labeled "typing…" to avoid leaking sensitive input. Scroll events show a directional label.
+- **Click ripples and drag trails** - Pointer events (mouse clicks, drags, and moves) are captured with their coordinates and burned into the video as click ripples and movement trails, so cursor activity is visible even when the cursor itself is small on screen.
+- **Sandbox-only capture** - The recording is taken from inside the isolated sandbox environment. It never captures your local desktop, terminal, credentials, or anything outside the sandbox.
 
 :::note
 Post-processing is best-effort: if the cut or overlay burn-in step fails for any reason, the original capture is uploaded without annotations. You still get a video, just without the smart cut or overlay pills.
@@ -124,6 +123,7 @@ Most recording failures are transient. If a recording fails or produces an unexp
 ## Related
 
 - [Computer Use](/agent-platform/capabilities/computer-use/) - enable Computer Use, understand security considerations, and configure models for Computer Use sessions.
+- [Screenshots and videos in pull requests](/agent-platform/capabilities/computer-use/artifacts-in-prs/) - how captured artifacts are attached to PR descriptions and the team setting that controls it.
 - [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) - open and inspect cloud agent run transcripts in Warp or the browser.
 - [Security considerations](/agent-platform/capabilities/computer-use/#security-considerations) - understand the sandboxed environment and data isolation model.
 - [Privacy](/support-and-community/privacy-and-security/privacy/) - Warp's data handling policies, including how run artifacts are stored.
