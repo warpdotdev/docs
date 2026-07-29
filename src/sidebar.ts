@@ -392,6 +392,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/managing-cloud-agents', label: 'Managing cloud agents' },
 						{ slug: 'platform/agents', label: 'Agents' },
 						{ slug: 'platform/viewing-cloud-agent-runs', label: 'Viewing cloud agent runs' },
+						// [TODO: docs reviewer — confirm placement]
+						{ slug: 'platform/credential-strategy', label: 'Credential strategy' },
 						{ slug: 'platform/oz-web-app', label: 'Oz web app' },
 					],
 				},
