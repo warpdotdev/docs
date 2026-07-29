@@ -43,7 +43,7 @@ For more details, see [Access, Billing, and Identity](/platform/team-access-bill
 
 ## BYOLLM billing
 
-When using [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/), Warp routes requests through your cloud infrastructure (AWS Bedrock and [Gemini Enterprise on Vertex AI](/enterprise/enterprise-features/byollm-gemini-enterprise/) today, with Azure Foundry coming soon). BYOLLM requests **consume credits at a reduced rate** which is approximately 80% lower than standard usage. Inference costs are also billed directly to your cloud account.
+When using [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/), Warp routes requests through your cloud infrastructure (AWS Bedrock and [Gemini Enterprise on Vertex AI](/enterprise/enterprise-features/byollm-gemini-enterprise/) today, with Azure Foundry coming soon). Customer-routed BYOLLM inference **consumes no AI credits** — Warp does not charge AI credits for requests that execute in your cloud. Inference costs are billed directly to your cloud account. Local agent runs that use BYOLLM still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for Warp's platform infrastructure.
 
 If a BYOLLM request fails and Warp falls back to a direct API model, that fallback request consumes Warp credits at the standard rate.
 

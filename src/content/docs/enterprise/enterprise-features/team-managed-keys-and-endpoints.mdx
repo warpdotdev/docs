@@ -34,9 +34,10 @@ Warp offers several ways to bring your own AI infrastructure. Use this table to 
 | **Team-managed API keys and endpoints** | Team admin (Admin Panel) | Server-side by Warp | Yes | Enterprise only |
 | **[Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/)** (BYOK) | Each member | Locally on the member's device | No | Free and all eligible paid plans |
 | **[Custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/)** | Each member | Locally on the member's device | No | Free and all eligible paid plans |
-| **[Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/)** (BYOLLM) | Team admin (Admin Panel) | Cloud-native IAM (no stored keys) | Yes | Enterprise only |
+| **[BYOLLM — AWS Bedrock](/enterprise/enterprise-features/bring-your-own-llm/)** | Team admin (Admin Panel) | Cloud-native IAM (no stored keys) | Yes | Enterprise only |
+| **[BYOLLM — Gemini Enterprise](/enterprise/enterprise-features/byollm-gemini-enterprise/)** | Team admin (Admin Panel) | Cloud-native IAM (no stored keys) | No (interactive sessions only) | Enterprise only |
 
-Team-managed API keys and endpoints and [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/) are both Enterprise, admin-configured options. Choose team-managed keys and endpoints to route through provider APIs (OpenAI, Anthropic, Google) or any OpenAI-compatible endpoint using stored keys. Choose BYOLLM to route through your own AWS Bedrock or Google Cloud (Gemini Enterprise) environment using cloud-native IAM instead of long-lived keys.
+Team-managed API keys and endpoints and BYOLLM are both Enterprise, admin-configured options. Choose team-managed keys and endpoints to route through provider APIs (OpenAI, Anthropic, Google) or any OpenAI-compatible endpoint using stored keys. Choose [AWS Bedrock BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/) for cloud-native IAM routing through your AWS account, including cloud agent support. Choose [Gemini Enterprise BYOLLM](/enterprise/enterprise-features/byollm-gemini-enterprise/) for cloud-native IAM routing through your Google Cloud project; in this iteration, Gemini Enterprise BYOLLM supports interactive sessions only, with cloud agent support planned.
 
 ## How it works
 
