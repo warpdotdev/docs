@@ -70,8 +70,11 @@ execute_commands = "agent_decides"
 apply_code_diffs = "agent_decides"
 read_files = "agent_decides"
 command_allowlist = ['cargo (build|check|test)(\s.*)?']
-command_denylist = ['rm(\s.*)?', 'curl(\s.*)?']
 ```
+
+:::caution
+Setting `command_denylist` replaces the built-in default denylist, which covers `rm`, `curl`, `wget`, `eval`, `ssh`, shells, and other risky command patterns. Omitting the field keeps the defaults. To deny additional commands, extend the generated list in your settings file rather than writing a short list from scratch.
+:::
 
 Edit the file directly, or ask the agent to change its own permissions and it will update the settings file for you. The {VARS.WARP_CLI} picks up saved changes automatically.
 
