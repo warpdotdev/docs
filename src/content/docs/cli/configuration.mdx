@@ -99,13 +99,7 @@ Because rules and skills are discovered from these shared file locations, a repo
 
 [Skills](/agent-platform/capabilities/skills/) are reusable instruction sets the agent can invoke to perform specific tasks. The CLI discovers the same skills as the Warp app: project skills from your repository's skill directories (such as `.agents/skills/`) and personal skills from your home directory (such as `~/.agents/skills/`), scoped to your current working directory.
 
-To browse and invoke skills:
-
-1. Type `/skills` and press `Enter` to open the skills menu. The menu lists every skill in scope with its description; type to filter the list.
-2. Use `↑` and `↓` to select a skill, then press `Enter`. The CLI inserts `/skill-name ` into the input so you can add extra instructions before running it.
-3. Press `Enter` to invoke the skill. Any text after the skill name is passed along, either as [skill arguments](/agent-platform/capabilities/skills/#skill-arguments) or as additional context for the agent.
-
-You can also invoke a skill directly by typing `/` followed by its name, for example `/deploy push the latest changes to staging`. Matching skills appear in the slash command menu as you type.
+Run `/skills` to browse every skill in scope. Selecting a skill inserts `/skill-name ` into the input so you can add extra instructions before running it; any text after the skill name is passed along, either as [skill arguments](/agent-platform/capabilities/skills/#skill-arguments) or as additional context for the agent. You can also invoke a skill directly by typing `/` followed by its name, for example `/deploy push the latest changes to staging`.
 
 ## Bundled skills
 
@@ -128,7 +122,7 @@ The CLI reads MCP servers from its global config file only. Project-scoped MCP c
 
 Type `/mcp` to open the MCP management view. The header shows the path to the config file the CLI is reading.
 
-Each configured server is listed with its transport (`stdio` or `HTTP/SSE`) and current status, including the number of tools a running server exposes. Select a server with `↑` and `↓`, then press `Enter` to act on it:
+Each configured server is listed with its transport (`stdio` or `HTTP/SSE`) and current status, including the number of tools a running server exposes:
 
 * **Offline servers** - Pressing `Enter` starts the server.
 * **Running servers** - Pressing `Enter` stops the server.
