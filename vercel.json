@@ -9701,6 +9701,11 @@
       "statusCode": 308
     },
     {
+      "source": "/agent-platform/capabilities/computer-use-testing-and-recordings",
+      "destination": "/agent-platform/capabilities/computer-use/testing-and-recordings/",
+      "statusCode": 308
+    },
+    {
       "source": "/support-and-community/plans-and-billing/bring-your-own-api-key",
       "destination": "/agent-platform/inference/bring-your-own-api-key/",
       "statusCode": 308

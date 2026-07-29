@@ -263,8 +263,16 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								'agent-platform/capabilities/rules',
 								{ slug: 'agent-platform/capabilities/agent-notifications', label: 'Agent notifications' },
 								{ slug: 'agent-platform/capabilities/full-terminal-use', label: 'Full terminal use' },
-								{ slug: 'agent-platform/capabilities/computer-use', label: 'Computer use' },
-								{ slug: 'agent-platform/capabilities/computer-use-testing-and-recordings', label: 'Testing and recordings' },
+								{
+									label: 'Computer Use',
+									collapsed: true,
+									items: [
+										{ slug: 'agent-platform/capabilities/computer-use', label: 'Overview' },
+										{ slug: 'agent-platform/capabilities/computer-use/browser-use', label: 'Browser use' },
+										{ slug: 'agent-platform/capabilities/computer-use/testing-and-recordings', label: 'Testing and recordings' },
+										{ slug: 'agent-platform/capabilities/computer-use/artifacts-in-prs', label: 'Screenshots and videos in PRs' },
+									],
+								},
 								'agent-platform/capabilities/codebase-context',
 								{ slug: 'agent-platform/capabilities/agent-profiles-permissions', label: 'Profiles & permissions' },
 								{ slug: 'agent-platform/capabilities/web-search', label: 'Web search' },
