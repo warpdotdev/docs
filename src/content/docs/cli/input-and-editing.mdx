@@ -11,12 +11,16 @@ The {VARS.WARP_CLI} is a full terminal as well as an agent: every session runs a
 
 ## Editing basics
 
-The input accepts multiple lines and soft-wraps long lines to your terminal width.
+The input is a multiline editor.
 
 * **Insert a newline** - Press `Ctrl+J`, or `Shift+Enter` in terminals that support distinguishing it. `Alt+Enter` also works.
 * **Edit with readline-style keys** - The editor supports familiar bindings such as `Ctrl+A` and `Ctrl+E` (start and end of line), `Ctrl+W` (delete the previous word), `Ctrl+K` and `Ctrl+U` (delete to the end or start of the line), `Ctrl+Y` (reinsert the last deleted text), and `Ctrl+Z` (undo).
 
 The full editing and selection table is in the [keyboard shortcuts reference](/cli/reference/#keyboard-shortcuts).
+
+:::note
+Bindings are identical on macOS and Linux. Shortcuts that use `Alt` require some macOS terminals' Option-as-Alt (Meta) setting.
+:::
 
 ## Slash commands
 
@@ -34,10 +38,8 @@ Press `↑` with the cursor on the first row of the input to open the history me
 
 * **What's listed** - In agent mode, the menu combines your previous prompts and shell commands in one list, with commands marked by a `!` prefix. In [shell mode](#shell-mode), the menu lists commands only.
 * **Preview** - Moving the selection previews each entry in the input and switches the input to the matching mode: recalled commands run as shell commands, and recalled prompts go to the agent.
-* **Submit** - Press `Enter` to run the selected command or send the selected prompt.
-* **Dismiss** - Press `Esc` to close the menu and restore what you had typed. Pressing `↓` past the newest entry does the same.
-
-Commands you run in the CLI are added to your command history.
+* **Submit** - `Enter` runs the selection immediately; it doesn't insert it for editing.
+* **Dismiss** - `Esc` restores what you had typed; `↓` past the newest entry does the same.
 
 ## Tab completions
 
@@ -46,18 +48,12 @@ In [shell mode](#shell-mode), press `Tab` to complete the command you're typing,
 * If exactly one completion matches, the CLI applies it immediately.
 * If several completions match, the CLI inserts the longest shared prefix and opens a completion menu. Press `Tab` again to cycle through the suggestions.
 
-## Mouse support
-
-The CLI runs in your terminal, but the input is fully mouse-aware:
-
-* **Select text** - Drag to select. Double-click selects a word, and triple-click selects a line.
-* **Click controls** - Interactive elements such as the **Voice** footer entry and the attachment bar controls respond to clicks.
-
 ## Selection and clipboard
 
-* **Highlight to copy** - Finishing a mouse selection in the input or the [conversation transcript](/cli/agent-conversations/) automatically copies it, and the footer briefly shows "copied to clipboard".
+* **Highlight to copy** - Finishing a mouse selection in the input or the [conversation transcript](/cli/agent-conversations/) automatically copies it.
 * **Keyboard selection** - Extend the selection with `Shift` plus the arrow keys, or select everything with `Ctrl+Shift+A`. Copy with `Ctrl+Shift+C` and cut with `Ctrl+X`.
 * **Paste** - Press `Ctrl+V` or `Ctrl+Shift+V` (also `Alt+V` on Windows). Your terminal's own paste shortcut works as well.
+* **Click controls** - Interactive elements such as the **Voice** footer entry and the attachment bar controls respond to clicks.
 
 :::note
 Copying works over SSH: on remote sessions the CLI writes the clipboard through the OSC 52 escape sequence (including tmux passthrough), so your local clipboard receives the text when your terminal supports OSC 52.
@@ -89,7 +85,7 @@ Voice input in the CLI uses the same transcription service as the Warp app. See 
 
 The CLI shows its shortcuts in context, so you rarely need to memorize them:
 
-* **Placeholder hints** - An empty input shows ghost-text hints for the current state, for example "Ask the agent anything • ? for shortcuts • ! for shell mode • / for commands" in agent mode, or "Run a shell command • ? for shortcuts • esc for agent mode" in shell mode.
+* **Placeholder hints** - An empty input shows the key triggers for the current mode.
 * **Shortcuts menu** - Type `?` in an empty input to open a shortcuts overview. Its contents adapt to what you're doing: agent mode lists the menu triggers and input history, shell mode shows how to return to agent mode, and extra sections appear during multi-agent sessions or agent-controlled terminal use. Press `Esc`, or start typing, to close it.
 
 ## Shell mode
@@ -97,11 +93,9 @@ The CLI shows its shortcuts in context, so you rarely need to memorize them:
 The input is agent-first: by default, pressing `Enter` sends your text to the agent as a prompt. Use shell mode to run a command instead:
 
 1. Press `!` at the start of the input. The prompt marker changes from `>` to `!`, and the statusline below the input shows **Shell mode**.
-2. Run a command. It executes in the session's shell, and the input returns to agent mode.
+2. Run a command. The input returns to agent mode afterward.
 
 To leave shell mode without running a command, press `Esc`, or press `Backspace` at the start of the input. Any text you typed stays in the input.
-
-In the transcript, each command you run is marked with a `!` prefix and a highlighted row background, so shell commands stay visually distinct from prompts and agent responses.
 
 In shell mode, press `Tab` to complete commands and paths; see [Tab completions](#tab-completions).
 
