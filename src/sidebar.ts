@@ -408,6 +408,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'platform/handoff', label: 'Overview' },
 						{ slug: 'platform/handoff/local-to-cloud', label: 'Local to cloud' },
+						// [TODO: docs reviewer — confirm placement]
+						{ slug: 'platform/handoff/tui-local-to-cloud', label: 'Terminal UI to cloud' },
 						{ slug: 'platform/handoff/cloud-to-cloud', label: 'Cloud to cloud' },
 						{ slug: 'platform/handoff/snapshots', label: 'Snapshots' },
 					],

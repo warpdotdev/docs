@@ -1,0 +1,115 @@
+---
+title: Handoff from the terminal UI to the cloud
+description: >-
+  Fork a local Warp Agent conversation into an Oz cloud run from the terminal UI
+  with the /handoff command, preserving your transcript, workspace changes, and
+  attachments.
+sidebar:
+  label: "Terminal UI to cloud"
+---
+
+{/* [TODO: docs reviewer — confirm placement. This auto-draft was placed under platform/handoff/ to sit alongside the GUI "Local to cloud" page and the rest of the Handoff hub. The scan-new-specs trigger suggested the agent-platform section instead. Decide whether this belongs here as its own page, or should be merged into platform/handoff/local-to-cloud.mdx as a "From the terminal UI" section.] */}
+
+{/* [TODO: docs reviewer — confirm the product surface name. The spec calls this "Warp's headless TUI". This draft uses "terminal UI." Confirm whether docs should say "Oz CLI", "terminal UI", or another name for the interactive terminal agent this command runs in.] */}
+
+The `/handoff` command forks an in-progress local Warp Agent conversation in the terminal UI into an [Oz cloud agent run](/platform/). Warp keeps your local transcript visible, gathers the cloud configuration in a blocking card, transfers the applicable local context, and then lets you open the cloud run, continue locally, or start a new conversation.
+
+:::note
+`/handoff` is available only in a local Warp Agent conversation, and only when your handoff settings, account policy, privacy settings, AI availability, and platform support all permit it. It is not available from a cloud agent conversation.
+:::
+
+{/* [TODO: docs reviewer — screenshot needed: the "Hand off to cloud" card in its acceptance state, showing the Environment and Model rows and the key-hint row.] */}
+
+## Key features
+
+* **Keyboard-first handoff** - Run `/handoff` with an optional prompt and complete the entire flow from the card without leaving the terminal.
+* **Preserved local conversation** - Handoff forks your conversation, so the local transcript stays intact and you can keep working locally after the cloud run starts.
+* **Context transfer** - The cloud run inherits your conversation history, a snapshot of your workspace changes when one is available, and any pending image attachments.
+* **Explicit next steps** - After the cloud run is created, you choose whether to open it, continue locally, or start a new conversation.
+
+## How it works
+
+`/handoff` moves work from a local Warp Agent conversation into a cloud run without discarding the local session. Instead of replacing the current conversation with a cloud view, Warp forks the conversation so the source transcript remains available and the forked nature of the handoff stays clear.
+
+Handoff always runs remotely on the [Oz](/platform/) harness. You choose the [environment](/platform/environments/) and the [model](/agent-platform/inference/model-choice/) for the cloud run — execution location, harness, worker host, and API key are not configurable from the terminal UI.
+
+### What carries over
+
+* **A forked conversation** - For a conversation that already has content, handoff creates an independent cloud fork. The original local conversation and transcript stay available and do not sync with later cloud changes.
+* **A workspace snapshot** - Warp waits for the local workspace snapshot to settle before creating the cloud run. If deriving or uploading the snapshot fails, handoff is not blocked — it continues without the snapshot, and your conversation history is still handed off.
+* **Pending images** - Images attached to your local input move with the handoff prompt and are included in the cloud run.
+
+For more on what the snapshot captures and how it is applied, see [Snapshots](/platform/handoff/snapshots/).
+
+### The initial cloud prompt
+
+If you provide a prompt with `/handoff <prompt>`, it is sent to the cloud run unchanged (apart from trimming surrounding whitespace and the same query-mode parsing that applies to normal prompts).
+
+If you run `/handoff` with no prompt, Warp derives the initial prompt from the state of the source conversation:
+
+* **Interrupted work with a snapshot** - `Continue. Apply the workspace changes from my previous session.`
+* **Interrupted work without a snapshot** - `Continue`.
+* **Idle conversation with a snapshot** - `Apply the workspace changes from my previous session.`
+* **Idle conversation without a snapshot** - No initial prompt is sent.
+
+## Handing off a conversation to the cloud
+
+Use `/handoff` when a local conversation has grown into work that is better suited to the cloud — long-running tasks, parallel variants, or work you want to steer from another device.
+
+### Prerequisites
+
+* **A local Warp Agent conversation** - Have the conversation you want to hand off selected in the terminal UI.
+* **Handoff enabled** - Your handoff settings, account policy, privacy settings, AI availability, and platform must permit local-to-cloud handoff. {/* [UNVERIFIED — engineer to confirm the exact user-facing setting(s) and Settings path that gate TUI handoff. The GUI flow requires **Settings** > **Privacy** > **Store AI conversations in the cloud**; confirm whether the same setting and/or a separate handoff toggle applies in the terminal UI.] */}
+* **A cloud environment** - The cloud run needs an [environment](/platform/environments/). If you have none, the card links you to Oz to create one.
+
+### Start the handoff
+
+1. In a local Warp Agent conversation, select `/handoff` from the slash-command menu. This inserts `/handoff ` into the input instead of running immediately; ghost text indicates that adding a prompt is optional. {/* [UNVERIFIED — engineer to confirm the exact ghost-text wording.] */}
+2. Submit either `/handoff` on its own or `/handoff <prompt>` with the initial prompt for the cloud run.
+3. Warp cancels any in-progress local response and opens the **Hand off to cloud** card below your transcript. The transcript stays visible and unchanged.
+
+:::note
+If the selected conversation is empty, `/handoff` with no prompt is rejected with the message `Nothing to hand off — start a conversation or add a prompt.` Running `/handoff <prompt>` on an empty conversation instead starts a fresh cloud run without forking a conversation.
+:::
+
+### Configure the cloud run
+
+The card shows exactly two editable values: **Environment** and **Model**.
+
+1. Warp preselects your saved or recent environment when one is available. While the card is open, Warp also inspects the current directory's Git repository in the background and may suggest a matching environment, unless you have already chosen one yourself.
+2. The model starts as your local conversation's model when that model can run in Oz cloud. If it can't, the card marks the model as `(incompatible)`, confirmation stays unavailable, and you must choose a compatible model — Warp never silently substitutes another model.
+3. From the card summary, press **Enter** to hand off, **Ctrl + E** to edit the configuration, or **Ctrl + C** to cancel.
+4. When editing, the card shows two searchable selector pages in order — environment, then model. Press **Enter** to accept the highlighted value and advance, **Tab** or the **left**/**right** arrows to move between pages, and **Esc** to return to the summary.
+
+{/* [TODO: docs reviewer — screenshot needed: the environment/model selector page opened from the "Hand off to cloud" card.] */}
+
+:::note
+If you have no cloud environments, the card explains that an environment is required and does not offer an in-terminal creation form. Press **Enter** to open [oz.warp.dev/environments](https://oz.warp.dev/environments) to create one, press **R** to refresh, or press **Ctrl + C** to cancel. When an environment becomes available, the same card switches to normal configuration without losing your prompt, images, or captured session state.
+:::
+
+### Confirm and track the run
+
+1. Press **Enter** on a valid configuration to commit the handoff. Confirmation is the point of no return: the configuration and cancellation controls disappear, the card shows `Creating cloud run…`, and local input stays blocked until the run is created or handoff fails. **Ctrl + C** is ignored while handoff is in progress.
+2. Once Warp receives a cloud run identifier, the card becomes a static created card. It does not keep tracking the cloud task's queued, running, or completed state.
+3. On the created card, press **Enter** to open the cloud run in your browser, **C** to continue locally, or **N** to start a new conversation.
+
+Opening the cloud run launches its Oz URL in your system browser. It does not dismiss the card, replace the transcript, or unblock local input.
+
+:::note
+**Continue locally** is available only when handoff forked an existing conversation. A fresh cloud run started from an empty conversation offers only **Enter** to open the run and **N** to start a new conversation.
+:::
+
+### After handoff
+
+* **Continue locally** - The created card collapses into a compact banner in your transcript at the handoff location. It reads `Conversation forked to cloud; continuing locally` with the cloud-run link on the next row, and clean local input reopens so you can keep working.
+* **Start new conversation** - Warp removes the card and starts a new conversation without adding the transcript banner.
+
+If handoff fails after confirmation, Warp removes the card, reopens local input, restores your prompt argument and pending images, and shows a transient error. There is no in-card retry — run `/handoff` again to try once more.
+
+## Related pages
+
+* [Handoff overview](/platform/handoff/) - What handoff is, the directions it supports, and what carries over.
+* [Handoff from local to cloud](/platform/handoff/local-to-cloud/) - The equivalent flow in the Warp desktop app.
+* [Snapshots](/platform/handoff/snapshots/) - How Warp captures and applies workspace changes during handoff.
+* [Environments](/platform/environments/) - Configure the repos, image, and setup commands the cloud agent starts in.
+* [Cloud-synced conversations](/agent-platform/local-agents/cloud-conversations/) - How conversations sync between local and cloud so handoff can find them.
