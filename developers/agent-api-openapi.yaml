@@ -2382,7 +2382,7 @@ components:
           type: boolean
           description: |
             Controls whether computer use is enabled for this agent.
-            If not set, defaults to false.
+            If not set, defaults to true.
         idle_timeout_minutes:
           type: integer
           format: int32
