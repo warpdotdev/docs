@@ -36,7 +36,7 @@ Computer Use is only available in Warp's sandboxed cloud environments, not in lo
 
 ## Enabling Computer Use
 
-Computer Use is **enabled by default** for cloud agent runs. When a run's configuration doesn't specify a Computer Use setting, the agent runs with Computer Use available. You can turn it off per run or per configuration through several entry points:
+Computer Use is **enabled by default** for cloud agent runs on Warp's built-in harness. When a run's configuration doesn't specify a Computer Use setting, the agent runs with Computer Use available. Runs on third-party harnesses (Claude Code, Gemini, Codex) default to Computer Use disabled because third-party harnesses don't integrate with Warp's Computer Use tooling. You can turn Computer Use off per run or per configuration through several entry points:
 
 ### Warp app settings
 
@@ -53,7 +53,7 @@ oz agent run-cloud --no-computer-use --prompt "<task>"
 
 ### Oz API
 
-When creating a cloud agent run with the [Oz API](/reference/api-and-sdk/), the optional `computer_use_enabled` field controls Computer Use. It defaults to `true` when omitted; set it to `false` to disable Computer Use for the run:
+When creating a cloud agent run with the [Oz API](/reference/api-and-sdk/), the optional `computer_use_enabled` field controls Computer Use. When omitted, it defaults to `true` for runs on Warp's built-in harness and `false` for runs on third-party harnesses. Set it to `false` to disable Computer Use for the run:
 
 ```json
 {

@@ -2382,7 +2382,8 @@ components:
           type: boolean
           description: |
             Controls whether computer use is enabled for this agent.
-            If not set, defaults to true.
+            If not set, defaults to true for runs on Warp's built-in harness
+            and false for third-party harnesses.
         idle_timeout_minutes:
           type: integer
           format: int32
