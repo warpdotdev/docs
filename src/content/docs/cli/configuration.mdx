@@ -56,7 +56,6 @@ In auto mode, the CLI probes the host terminal's default colors when it starts a
 The statusline is the row below the CLI's input box that shows session information at a glance. By default it shows the active model, the working directory, and, inside a Git repository, the Git branch and diff status. You can enable any of these items:
 
 * **Model** - The active model. Click it to open the model picker.
-* **Working directory** - The current working directory.
 * **Git branch** - The current branch, when the directory is a Git repository.
 * **Git branch status** - How far the branch is ahead of or behind its upstream.
 * **Git diff status** - Uncommitted line additions and deletions.
@@ -65,9 +64,8 @@ The statusline is the row below the CLI's input box that shows session informati
 * **Agent to-do list** - The agent's progress through its current task list.
 * **Auto-approve indicator** - Appears when auto-approve is on.
 * **Auto-queue next prompt indicator** - Appears when auto-queue is on.
-* **Date** - The current date.
-* **Time (12 hour format)** and **Time (24 hour format)** - The current time.
-* **Voice input** - A control for starting voice input.
+
+You can also add the working directory, the date, the time (12- or 24-hour), and a voice input control.
 
 Items only appear when they have something to show. For example, the Git items appear only inside a repository. In shell mode, the statusline always leads with a shell mode label.
 
@@ -86,7 +84,7 @@ Your choices are saved to the settings file, so the layout persists across sessi
 
 The CLI gives its agent the same layered context system as the Warp app: your working directory, project rules, skills, and MCP servers, all scoped to the directory you're working in.
 
-Every conversation includes the session's current working directory as context. The CLI starts in the directory where you ran `warp`, and when you `cd` inside the session, project rules and skills re-scope to the new directory automatically.
+The agent works in your session's current directory; when you `cd`, project rules and skills re-scope to the new directory automatically.
 
 Within a project, the CLI picks up the same rule files as the Warp app:
 
@@ -122,12 +120,9 @@ The CLI reads MCP servers from its global config file only. Project-scoped MCP c
 
 Type `/mcp` to open the MCP management view. The header shows the path to the config file the CLI is reading.
 
-Each configured server is listed with its transport (`stdio` or `HTTP/SSE`) and current status, including the number of tools a running server exposes:
+Each configured server is listed with its transport (`stdio` or `HTTP/SSE`) and current status, including the number of tools a running server exposes.
 
-* **Offline servers** - Pressing `Enter` starts the server.
-* **Running servers** - Pressing `Enter` stops the server.
-* **Failed servers** - The row shows the failure message. Pressing `Enter` retries the server.
-* **Servers awaiting authentication** - Pressing `Enter` reopens the OAuth authorization page in your browser. Servers with saved credentials show a **Log out** row that removes the stored OAuth credentials.
+Press `Enter` on a server to start, stop, or retry it depending on its state; failed rows show the error message. Servers awaiting authentication reopen the OAuth page in your browser, and servers with saved credentials show a **Log out** row that clears them.
 
 ## Related pages
 
