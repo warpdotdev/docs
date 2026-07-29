@@ -115,7 +115,7 @@ Out of the box, the CLI never guesses what your input is: everything goes to the
 
 - **Toggle detection** - Run `/natural-language-detection` to turn detection on or off. The statusline confirms the change, and the setting persists across sessions.
 - **Automatic classification** - With detection on, the CLI classifies your input as you type. When the input looks like a shell command (for example, `git status`), the input switches to shell mode, and `Enter` runs it as a command. Everything else is sent to the agent.
-- **Biased toward the agent** - Short or ambiguous input stays in agent mode, and a single word switches to shell mode only when it matches a command available in your shell.
+- **Ambiguous input** - Short or ambiguous input stays in agent mode, and a single word switches to shell mode only when it matches a command available in your shell.
 
 The prompt marker and statusline always show the current mode before you press `Enter`. If detection classifies input differently than you intended, press `Esc` to switch back to agent mode, or press `!` at the start of the input to force shell mode.
 
@@ -124,7 +124,6 @@ The prompt marker and statusline always show the current mode before you press `
 When a command keeps running, such as a dev server, a package install, or an interactive prompt, the CLI hands input over to it:
 
 - **Input passthrough** - Keystrokes and pasted text are forwarded to the running process, so password requests, confirmation prompts, and other interactive programs work as they do in a plain terminal.
-- **Interrupt hint** - While the command owns input, a dimmed `ctrl-c to interrupt` hint replaces the input. Press `Ctrl+C` to stop the command.
 - **Type ahead** - If you start typing your next command before the current one finishes, the typed characters are carried into the input when the command completes, with the cursor at the end. This matches type-ahead behavior in shells like zsh and bash.
 
 One command runs in the session at a time. If the terminal is already busy, for example while the agent is running a command of its own, submitting a shell command shows a notice in the statusline and keeps your text in the input.
