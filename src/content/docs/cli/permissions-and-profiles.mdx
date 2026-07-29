@@ -6,22 +6,22 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-The {VARS.WARP_CLI} uses the same permission model as the Warp app: the agent acts on its own when it's confident an action is safe, and asks for your approval when it isn't. This page covers how permission requests appear in the {VARS.WARP_CLI} and how to tune the agent's autonomy with auto-approve and execution profiles. For the full permission model, including autonomy levels and organization-wide controls, see [Profiles & Permissions](/agent-platform/capabilities/agent-profiles-permissions/).
+The {VARS.WARP_CLI} uses the same permission model as the Warp app: the agent acts on its own when it's confident an action is safe, and asks for your approval when it isn't. This page covers how permission requests appear in the CLI and how to tune the agent's autonomy with auto-approve and execution profiles. For the full permission model, including autonomy levels and organization-wide controls, see [Profiles & Permissions](/agent-platform/capabilities/agent-profiles-permissions/).
 
 ## How permissions work
 
-Every action the agent proposes, such as running a shell command, editing files, or calling an MCP tool, is checked against your active execution profile before it runs. By default, the {VARS.WARP_CLI} behaves as follows:
+Every action the agent proposes, such as running a shell command, editing files, or calling an MCP tool, is checked against your active execution profile before it runs. By default, the CLI behaves as follows:
 
 * **Shell commands** - The agent decides. It runs commands it judges safe, such as read-only commands and commands on your allowlist, and asks before anything else.
 * **File edits** - The agent shows a diff and asks for approval before applying edits.
 * **Reading files** - The agent decides, reading files without prompting in most cases.
 * **Denylisted commands** - Commands matching your command denylist (for example `rm`, `curl`, or `ssh`) always require approval. The denylist takes precedence over every other setting, including auto-approve.
 
-You can change these defaults by editing your execution profile. See [Execution profiles](#execution-profiles) below.
+You can change these defaults by [editing your execution profile](#execution-profiles).
 
 ## Approving agent actions
 
-When an action needs your approval, the {VARS.WARP_CLI} pauses the conversation and shows a permission card in the transcript. The card states what the agent wants to do, shows the details (the exact command, the file diffs, or the tool call), and moves focus to a **yes**/**no** selector.
+When an action needs your approval, the CLI pauses the conversation and shows a permission card in the transcript. The card states what the agent wants to do, shows the details (the exact command, the file diffs, or the tool call), and moves focus to a **yes**/**no** selector.
 
 * Press `Enter` to confirm the highlighted option. **yes** approves and runs the action.
 * Press `Esc` (or select **no**) to reject the request. The agent continues without running the action.
@@ -61,7 +61,7 @@ With auto-approve on, the agent executes commands and applies file edits without
 
 ## Execution profiles
 
-The {VARS.WARP_CLI} reads its permissions from execution profiles stored in the [{VARS.WARP_CLI} settings file](/cli/configuration/). Profiles live under the `agents.execution_profiles` table, and the {VARS.WARP_CLI} always runs with the profile under the reserved `default` key:
+The CLI reads its permissions from execution profiles stored in its [settings file](/cli/configuration/). Profiles live under the `agents.execution_profiles` table, and the CLI always runs with the profile under the reserved `default` key:
 
 ```toml title="settings.toml"
 [agents.execution_profiles.default]
@@ -76,9 +76,9 @@ command_allowlist = ['cargo (build|check|test)(\s.*)?']
 Setting `command_denylist` replaces the built-in default denylist, which covers `rm`, `curl`, `wget`, `eval`, `ssh`, shells, and other risky command patterns. Omitting the field keeps the defaults. To deny additional commands, extend the generated list in your settings file rather than writing a short list from scratch.
 :::
 
-Edit the file directly, or ask the agent to change its own permissions and it will update the settings file for you. The {VARS.WARP_CLI} picks up saved changes automatically.
+Edit the file directly, or ask the agent to change its own permissions and it will update the settings file for you. The CLI picks up saved changes automatically.
 
-Profiles in the {VARS.WARP_CLI} are local to your machine: they never sync to the cloud, and they are separate from the Agent Profiles you configure in the Warp app. You can define additional profiles in the file, but the {VARS.WARP_CLI} currently always runs with `default`.
+Profiles in the {VARS.WARP_CLI} are local to your machine: they never sync to the cloud, and they are separate from the Agent Profiles you configure in the Warp app. You can define additional profiles in the file, but the CLI currently always runs with `default`.
 
 ### Permission values
 
@@ -101,10 +101,10 @@ Most permission fields accept one of three values:
 * **`command_denylist`** - Regular expressions for commands that always require approval, regardless of other settings.
 * **`directory_allowlist`** - Directories the agent may read without approval.
 
-Profiles also hold per-profile model overrides such as `base_model`. See [Models and usage in the {VARS.WARP_CLI}](/cli/models-and-usage/) for how the {VARS.WARP_CLI} resolves models.
+Profiles also hold model overrides such as `base_model`, covered in [Models and usage in the {VARS.WARP_CLI}](/cli/models-and-usage/).
 
 :::note
-The profile collection is validated as a whole. If any profile contains an invalid value, the {VARS.WARP_CLI} keeps the last valid configuration while it's running and falls back to the built-in default profile on the next launch, until the file is fixed.
+The profile collection is validated as a whole. If any profile contains an invalid value, the CLI keeps the last valid configuration while it's running and falls back to the built-in default profile on the next launch, until the file is fixed.
 :::
 
 ## Related pages
