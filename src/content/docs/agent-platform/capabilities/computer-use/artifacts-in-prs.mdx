@@ -8,6 +8,8 @@ description: >-
   without extra steps.
 ---
 
+import { VARS } from '@data/vars';
+
 When a cloud agent run opens or updates a pull request, the screenshots and video recordings it captured with [Computer Use](/agent-platform/capabilities/computer-use/) are attached to the PR description automatically. Reviewers get visual proof of the change — a rendered UI state, a recorded flow, a bug reproduction — without leaving the pull request.
 
 ## What gets attached
@@ -21,7 +23,7 @@ Attachment is automatic: once a screenshot or recording artifact is associated w
 
 A team-level setting controls how artifacts are attached:
 
-* **Link only (default)** - Screenshots and recordings are attached as links to the run's page in the Oz web app. Artifacts stay private: opening a link requires access to the run.
+* **Link only (default)** - Screenshots and recordings are attached as links to the run's page in the {VARS.WEB_APP}. Artifacts stay private: opening a link requires access to the run.
 * **Embed** - Screenshots render inline as images in the PR description, and recordings are attached as direct download links. To make this work, the attached artifacts are published at stable, publicly accessible URLs.
 * **Disabled** - No screenshots or recordings are attached to pull requests.
 
@@ -47,7 +49,7 @@ Team admins control the attachment mode from the [Admin Panel](https://app.warp.
 Pull requests aren't the only place captures end up:
 
 * **In the conversation** - Screenshots and recordings appear as blocks in the agent's conversation as they're captured.
-* **On the run page** - Open the run in the [Oz web app](/platform/oz-web-app/#runs) to view, play, or download all artifacts the run produced.
+* **On the run page** - Open the run in the [{VARS.WEB_APP}](/platform/oz-web-app/#runs) to view, play, or download all artifacts the run produced.
 
 ## Related pages
 

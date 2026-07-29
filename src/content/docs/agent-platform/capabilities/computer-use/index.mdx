@@ -7,6 +7,8 @@ description: >-
   automated UI testing and validation.
 ---
 
+import { VARS } from '@data/vars';
+
 Computer Use enables Warp's agents to interact with desktop environments. The agent can see what's displayed on screen, click and drag, type text, use keyboard shortcuts, and perform other GUI interactions—all within a secure, isolated sandbox.
 
 A key use case is **testing UI changes** with a self-contained feedback loop, where the agent can verify that your code changes produce the expected visual and behavioral results without requiring manual testing.
@@ -41,7 +43,7 @@ To enable Computer Use for [Cloud Agents](/platform/), navigate to **Settings** 
 
 ### Oz CLI
 
-When running cloud agents with the [Oz CLI](/reference/cli/), use flags to control Computer Use per run:
+When running cloud agents with the [{VARS.WARP_AGENT_CLI}](/reference/cli/), use flags to control Computer Use per run:
 
 ```bash
 oz agent run-cloud --computer-use --prompt "<task>"
@@ -64,7 +66,7 @@ For full API documentation, see the [Oz API & SDK](/reference/api-and-sdk/) refe
 
 ### Oz web app
 
-In the [Oz web app](https://oz.warp.dev), you can enable or disable Computer Use for:
+In the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>, you can enable or disable Computer Use for:
 
 * **New agent runs** - Configure Computer Use when starting a new agent run from the web app
 * **Scheduled agent runs** - Enable Computer Use for scheduled agents managed from the web app

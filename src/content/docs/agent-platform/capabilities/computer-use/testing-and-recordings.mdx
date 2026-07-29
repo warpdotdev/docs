@@ -31,7 +31,7 @@ You don't need to ask the agent to record explicitly. Prompts like "test this ch
 
 ## How it works
 
-1. **Enable Computer Use.** The agent needs Computer Use enabled for its run. See the [Computer Use](/agent-platform/capabilities/computer-use/#enabling-computer-use) page for how to enable it via the Warp app, the Oz CLI, or the Oz API.
+1. **Enable Computer Use.** The agent needs Computer Use enabled for its run. See the [Computer Use](/agent-platform/capabilities/computer-use/#enabling-computer-use) page for how to enable it via the Warp app, the {VARS.WARP_AGENT_CLI}, or the Oz API.
 2. **Agent starts recording.** Once Computer Use is active, the agent begins a screen capture inside the sandbox. The recording is gated by your session's Computer Use approval. If you've already approved Computer Use for the run, recording starts automatically without a separate prompt.
 3. **Agent exercises the UI.** The agent takes screenshots, clicks, types, scrolls, and drives the interface. Each successful interaction is tracked: when it started, when it finished, what actions it contained, and where the cursor moved.
 4. **Agent stops and processes.** When the task is complete (or when the recording's configured time or size limit is reached), the agent stops capture. Before upload, the recording is post-processed: idle and thinking gaps are cut, leaving only the windows where real interaction happened, and action overlays are burned in so the video is annotated.
