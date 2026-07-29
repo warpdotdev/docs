@@ -24,7 +24,7 @@ See [what carries over](/platform/handoff/#what-carries-over) for the full behav
 
 1. In an active conversation, run `/handoff`, or `/handoff <prompt>` to give the cloud agent a follow-up prompt. The **Hand off to cloud** card replaces the input area while your transcript stays visible.
 2. Review the environment and model shown on the card. The card suggests your most recent environment, preferring one that contains the current repository, and keeps your conversation's model when that model can run in the cloud. If the model isn't available in the cloud, the card flags it and you choose a compatible one before continuing.
-3. To change either value, press `Ctrl+E`. The card opens two searchable selector pages, environment then model: `↑` and `↓` move within a page, `Enter` applies the highlighted value, `Tab`, `←`, or `→` move between pages, and `Esc` returns to the summary.
+3. To change either value, press `Ctrl+E` to open the searchable environment and model selectors.
 4. Press `Enter` on the card summary to hand off. The card shows progress, then reports that the cloud run was created along with a link to the run.
 
 From the created card:
@@ -46,7 +46,7 @@ Handoff needs the conversation in a state it can fork. You can't hand off while 
 Finished cloud agent runs appear in the CLI's conversation history alongside local conversations, so you can pull a cloud run into your terminal and keep working on it.
 
 1. Press `←` in an empty input, or run `/conversations`, to open the conversation list.
-2. Select a cloud run. The CLI loads its transcript, and your next prompt continues the conversation locally.
+2. Select a cloud run. Your next prompt continues the conversation locally.
 
 Two constraints apply:
 
@@ -81,9 +81,9 @@ Cloud child sessions in the CLI are read-only status views. To send prompts to a
 The **Agents:** tab bar is how you move around an orchestration. While it's available, the empty input shows a `Shift + ↑ for other agents` hint.
 
 * **Focus the tab bar** - Press `Shift+↑` from the input. The bar highlights the active conversation.
-* **Switch agents** - `Tab` or `→` selects the next agent and `Shift+Tab` or `←` the previous one, wrapping across the orchestrator and all children. `Shift+←` and `Shift+→` jump to the first and last child. Switching is immediate and keeps the bar focused so you can keep cycling.
+* **Switch agents** - `Tab` or `→` selects the next agent and `Shift+Tab` or `←` the previous one, wrapping across the orchestrator and all children. `Shift+←` and `Shift+→` jump to the first and last child. Switching keeps the bar focused so you can keep cycling.
 * **Return to the conversation** - `↓` moves focus back to the current session's input. `Esc` jumps back to the orchestrator.
-* **Use the mouse** - Click any tab to switch to that agent. When there are more children than fit, arrows at the ends of the bar page through them without changing your selection.
+* **Use the mouse** - Tabs are clickable, and when there are more children than fit, arrows at the ends of the bar page through them without changing your selection.
 
 Each agent keeps its own session. Transcript position, input drafts, and running work are all preserved while you view another agent, and child agents keep working in the background. Tabs reorder as statuses change, moving children that need attention, such as blocked ones, toward the front of the bar.
 
