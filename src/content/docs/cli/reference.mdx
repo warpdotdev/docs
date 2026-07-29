@@ -20,7 +20,7 @@ Resumes a previous conversation by its conversation token.
 warp --resume CONVERSATION_TOKEN
 ```
 
-`CONVERSATION_TOKEN` is the token the CLI prints when you exit a session ("To continue this conversation, run: `warp --resume ...`"). You can also reopen past conversations from inside a session with `/conversations`. See [conversations in the {VARS.WARP_CLI}](/cli/conversations/) for how persistence and resuming work.
+`CONVERSATION_TOKEN` is the token the CLI prints when you exit a session ("To continue this conversation, run: `warp --resume ...`"). You can also reopen past conversations from inside a session with `/conversations`. See [conversations in the CLI](/cli/conversations/) for how persistence and resuming work.
 
 ### `--api-key`
 
@@ -60,7 +60,7 @@ your-secret-manager read anthropic-api-key | warp --set-provider-api-key anthrop
 
 Avoid staging keys in plaintext files; if you must use a temporary file, delete it immediately afterward.
 
-See [models and usage](/cli/models-and-usage/) for how stored keys affect billing.
+[Models and usage](/cli/models-and-usage/) covers how stored keys affect billing.
 
 ### `--clear-provider-api-key`
 
@@ -123,7 +123,7 @@ Type `/` at the start of the input to open the slash command menu, then keep typ
 | `/view-logs` | | Bundle your logs into a zip archive |
 | `/voice` | | Start voice input (`Ctrl+S`) |
 
-Skills also appear in the same menu under their own names, so you can invoke a skill directly as `/skill-name`. See [context in the {VARS.WARP_CLI}](/cli/context/) for how skills are discovered.
+Skills also appear in the same menu under their own names, so you can invoke a skill directly as `/skill-name`. [Context in the CLI](/cli/context/) covers how skills are discovered.
 
 ## Keyboard shortcuts
 
@@ -149,7 +149,7 @@ Press `?` on an empty input to open the contextual shortcuts panel inside the CL
 
 ### Approvals
 
-These bindings apply while the agent is waiting for you to approve an action. See [permissions and profiles](/cli/permissions-and-profiles/) for how approvals work.
+These bindings apply while the agent is waiting for you to approve an action; [permissions and profiles](/cli/permissions-and-profiles/) explains the approval flow.
 
 | Shortcut | Action |
 | --- | --- |
@@ -169,7 +169,7 @@ While the agent is running an interactive terminal command, or you have taken co
 
 ### Multi-agent tabs
 
-When you run multiple agents, a tab bar appears above the session. See [cloud and orchestration](/cli/cloud-and-orchestration/) for details.
+When you run multiple agents, a tab bar appears above the session; [cloud and orchestration](/cli/cloud-and-orchestration/) covers the workflow.
 
 | Shortcut | Action |
 | --- | --- |
@@ -204,7 +204,7 @@ For mouse support, completions, and other input behavior, see [input and editing
 
 ## Troubleshooting
 
-This section covers common {VARS.WARP_CLI} issues: gathering logs for a bug report, fixing sign-in problems, resuming conversations, and keeping the CLI up to date.
+This section covers common issues: gathering logs for a bug report, fixing sign-in problems, resuming conversations, and keeping the CLI up to date.
 
 :::note
 For known issues and feature requests across Warp, visit the [GitHub issues page](https://github.com/warpdotdev/Warp/issues).
@@ -216,11 +216,11 @@ When something goes wrong, logs are the fastest way to help the Warp team diagno
 
 Run `/view-logs` in a session to bundle the current session's log and recent previous sessions into a timestamped zip archive. The CLI reveals the archive in your file manager and shows the saved path in the footer, so you can attach it to a bug report or share it with support.
 
-On macOS, {VARS.WARP_CLI} logs are stored in `~/Library/Logs/warp-cli/`. Logs rotate per session, and only a limited number of recent sessions are kept. The `/view-logs` archive is written to the same directory.
+On macOS, CLI logs are stored in `~/Library/Logs/warp-cli/`. Logs rotate per session, and only a limited number of recent sessions are kept. The `/view-logs` archive is written to the same directory.
 
 ### The browser doesn't open during sign-in
 
-The {VARS.WARP_CLI} signs you in with a browser-based flow: it opens a verification page (or shows you the URL and a code to enter) and continues once you approve the sign-in. On a remote or browser-less machine, the CLI can't launch a browser, but the sign-in screen still shows the verification URL and code.
+The CLI signs you in with a browser-based flow: it opens a verification page (or shows you the URL and a code to enter) and continues once you approve the sign-in. On a remote or browser-less machine, the CLI can't launch a browser, but the sign-in screen still shows the verification URL and code.
 
 1. Open the displayed URL in a browser on any device, including another machine.
 2. Enter the code shown in the CLI.
@@ -247,11 +247,11 @@ The sign-in attempt was rejected or timed out; the message shows the underlying 
 
 1. Press `Ctrl+C` to exit, then run `warp` to start normally.
 2. Check the token against the resume command printed when you exited the original session.
-3. If the conversation exists locally, open it with `/conversations` instead. See [conversations in the {VARS.WARP_CLI}](/cli/conversations/).
+3. If the conversation exists locally, open it from the [conversation list](/cli/conversations/) with `/conversations` instead.
 
 ### Updating
 
-The {VARS.WARP_CLI} keeps itself up to date. Installed builds check for updates in the background, download new versions, and apply them the next time you launch `warp`; a running session is never interrupted.
+The CLI keeps itself up to date. Installed builds check for updates in the background, download new versions, and apply them the next time you launch `warp`; a running session is never interrupted.
 
 To check which version you're running, use `/version` in a session, or run:
 

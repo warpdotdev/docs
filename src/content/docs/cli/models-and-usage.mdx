@@ -18,7 +18,7 @@ Your choice is saved as the base model of your active profile, so it persists ac
 
 ## Bring your own API key
 
-The {VARS.WARP_CLI} supports [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/) for OpenAI, Anthropic, and Google models. When you select a model covered by one of your keys, requests are billed through your provider account and don't consume your Warp [credits](/support-and-community/plans-and-billing/credits/).
+The CLI supports [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/) for OpenAI, Anthropic, and Google models. When you select a model covered by one of your keys, requests are billed through your provider account and don't consume your Warp [credits](/support-and-community/plans-and-billing/credits/).
 
 To store a key, run `/add-api-key` with one of `openai`, `anthropic`, or `google`:
 
@@ -38,11 +38,11 @@ Warp's built-in Auto models always consume Warp credits, even with BYOK configur
 
 [Custom routers](/agent-platform/inference/custom-routers/) appear in the `/model` picker alongside individual models. Select one and each prompt resolves to a concrete model using the routing logic you defined.
 
-The CLI loads the same router definitions as the Warp app: YAML files in `~/.warp/custom_model_routers/`, plus any team-synced routers your admin shares. See [authoring a router as a file](/agent-platform/inference/custom-routers/#author-a-router-as-a-file) for the file format.
+The CLI loads the same router definitions as the Warp app: YAML files in `~/.warp/custom_model_routers/`, plus any team-synced routers your admin shares. [Authoring a router as a file](/agent-platform/inference/custom-routers/#author-a-router-as-a-file) documents the file format.
 
 ## Usage and cost
 
-The {VARS.WARP_CLI} shows usage at two levels: a running total for the conversation, and a per-response breakdown.
+The CLI shows usage at two levels: a running total for the conversation, and a per-response breakdown.
 
 * **Conversation total** - Once a conversation has reported any usage, the footer shows its accumulated credits (for example, `2.5 credits`). Click the entry to switch between credits and the equivalent provider cost in dollars; the choice persists across sessions.
 * **Per-response details** - Run `/cost` to toggle a summary row under the latest response showing how long it took and how many credits it spent (for example, `12s • 1.2 credits`). The summary appears once the response finishes.
