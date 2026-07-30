@@ -161,26 +161,4 @@
 		}
 	}
 
-	/* When the Kapa sidebar is open on desktop, lightly dim and blur the
-	   docs canvas to focus attention on the panel. The overlay sits below
-	   the widget (`data-modal-z-index="10000"` in KapaLauncher.astro) and
-	   above regular page content. */
-	@media (min-width: 50rem) {
-		body.warp-kapa-open::before {
-			content: '';
-			position: fixed;
-			inset: 0;
-			z-index: 9990;
-			pointer-events: none;
-			background: rgba(18, 18, 18, 0.28);
-			backdrop-filter: blur(1.25px);
-			-webkit-backdrop-filter: blur(1.25px);
-			transition: opacity 0.2s ease;
-			opacity: 1;
-		}
-
-		:root[data-theme='light'] body.warp-kapa-open::before {
-			background: rgba(16, 24, 40, 0.16);
-		}
-	}
 }
