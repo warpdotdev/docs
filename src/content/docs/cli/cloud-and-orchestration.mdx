@@ -43,14 +43,16 @@ Handoff needs the conversation in a state it can fork. You can't hand off while 
 
 ## Resume cloud conversations
 
-Finished cloud agent runs appear in the CLI's conversation history alongside local conversations, so you can pull a cloud run into your terminal and keep working on it.
+To see the work a cloud agent did, start in the browser: open the run in the {VARS.WEB_APP} to review its transcript and changes, steer it, or continue the conversation there. [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) covers that flow.
+
+If you then want to keep working on a run from your terminal, you can pull it into the CLI. Finished cloud agent runs appear in the CLI's conversation history alongside local conversations:
 
 1. Press `←` in an empty input, or run `/conversations`, to open the conversation list.
 2. Select a cloud run. Your next prompt continues the conversation locally.
 
 Two constraints apply:
 
-* **The run must be finished** - Cloud runs that are still in progress or blocked can't be opened in the CLI. Steer those from the browser instead; see [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/).
+* **The run must be finished** - Cloud runs that are still in progress or blocked can't be opened in the CLI. Steer those from the browser instead.
 * **Warp Agent runs only** - Conversations that ran with a different harness, such as Claude Code or Codex, can't be opened in the CLI.
 
 You can also open a conversation directly at startup with `warp --resume <token>`; [Managing conversations in the CLI](/cli/conversations/) covers conversation history and resume details.
@@ -59,7 +61,9 @@ You can also open a conversation directly at startup with `warp --resume <token>
 
 Orchestration lets one conversation spawn child agents that work in parallel, on your machine or in the cloud. The CLI runs the same parent/child model as the rest of the platform; [Multi-agent orchestration](/platform/orchestration/) covers the model, run states, and common patterns.
 
-To start an orchestration, ask the agent to parallelize the work, for example "split this migration across three agents". When the agent decides to spawn child agents, the CLI shows an approval card titled **Can I start additional agents for this task?** that summarizes the agents it wants to launch and the run-wide configuration. No child agents launch until you approve.
+To start an orchestration, ask the agent to parallelize the work, for example "split this migration across three agents". Your prompt can also shape the configuration: ask for a specific model to manage token spend - for example, keep the parent on a premium model while child agents research on a cheaper open-source model. When the agent decides to spawn child agents, the CLI shows an approval card titled **Can I start additional agents for this task?** that summarizes the agents it wants to launch and the run-wide configuration, including the model.
+
+By default, no child agents launch until you approve. The **Run orchestrated agents** permission in your profile controls this: **Always allow** launches child agents without asking, and **Never** blocks them entirely. See [Permissions and profiles](/cli/permissions-and-profiles/).
 
 From the approval card:
 
@@ -70,7 +74,7 @@ From the approval card:
 After launch, a tab bar labeled **Agents:** appears above the session with one tab for the orchestrator and one tab per child agent. Messages between the parent and child agents appear in each agent's transcript.
 
 * **Local child agents** - Each local child runs on your machine as its own session, starting in the parent's working directory. Local children always run the Warp Agent.
-* **Cloud child agents** - Each cloud child runs in a cloud [environment](/platform/environments/). Its session shows the run's live status and a link; press `Enter` or click the link to open the run in the {VARS.WEB_APP}. If a cloud child can't start because GitHub authentication is required, its session shows the authentication link; authenticate, then ask the agent to run the orchestration again.
+* **Cloud child agents** - Each cloud child runs in a cloud [environment](/platform/environments/). Unlike local children, cloud children can run a different harness, such as Claude Code or Codex, chosen on the approval card's harness page. A cloud child's session shows the run's live status and a link; press `Enter` or click the link to open the run in the {VARS.WEB_APP}. If a cloud child can't start because GitHub authentication is required, its session shows the authentication link; authenticate, then ask the agent to run the orchestration again.
 
 :::caution
 Cloud child sessions in the CLI are read-only status views. To send prompts to a cloud child or respond to its approvals, open the run in the {VARS.WEB_APP}.
@@ -87,7 +91,16 @@ The **Agents:** tab bar is how you move around an orchestration.
 
 Each agent keeps its own session. Transcript position, input drafts, and running work are all preserved while you view another agent, and child agents keep working in the background. Tabs reorder as statuses change, moving children that need attention, such as blocked ones, toward the front of the bar.
 
-A focused local child behaves like a regular conversation: send it follow-up prompts, respond to its permission requests, and press `Ctrl+C` to stop its in-progress response. If a child's tab shows a blocked status, switch to that child to respond to its pending request.
+A focused local child behaves like a regular conversation: send it follow-up prompts and respond to its permission requests. If a child's tab shows a blocked status, switch to that child to respond to its pending request.
+
+### Kill a child agent
+
+`Ctrl+C` kills a child agent: it stops the child's work - cancelling the run in the cloud for a cloud child - and removes the child's tab and conversation, returning you to the orchestrator. There are two ways to do it:
+
+* **From the tab bar** - With the tab bar focused and a child tab selected, a single `Ctrl+C` kills the selected child. The footer shows `Ctrl+C to kill sub-agent` as a reminder.
+* **While viewing a child** - Press `Ctrl+C` twice. The first press arms a short confirmation window and the footer shows `ctrl-c again to kill child agent`; a second press within the window kills the child.
+
+`Ctrl+C` keeps its usual behavior in the orchestrator's own session; the kill paths apply only while a child is selected or focused.
 
 ## Related pages
 
