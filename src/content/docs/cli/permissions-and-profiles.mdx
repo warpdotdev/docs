@@ -6,15 +6,15 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-The {VARS.WARP_CLI} uses the same permission model as the Warp app: you decide, action type by action type, whether the agent needs your approval before it acts. This page covers how to set those permissions in the CLI, what happens when the agent asks, and how to hand it full autonomy with auto-approve. For the full permission model, including team-wide controls, see [Profiles & Permissions](/agent-platform/capabilities/agent-profiles-permissions/).
+The {VARS.WARP_CLI} uses the same permission model as the Warp app: you choose how much approval each type of action needs, from reviewing every command to letting the agent run unattended. This page covers how to set those permissions in the CLI, what happens when the agent asks for approval, and how to hand over full autonomy with auto-approve. For the full permission model, including team-wide controls, see [Profiles & Permissions](/agent-platform/capabilities/agent-profiles-permissions/).
 
 ## How permissions work
 
-Every action the agent proposes, such as running a shell command, editing files, or calling an MCP tool, is checked against your active execution profile before it runs. Each action type is set independently: `always_ask` to approve every action of that type, `always_allow` to let them all run, or `agent_decides` to let the agent act when it's confident and ask when it isn't.
+Every action the agent proposes, such as running a shell command, editing files, or calling an MCP tool, is checked against your active execution profile before it runs. Each action type is set independently to [`always_ask`, `always_allow`, or `agent_decides`](#permission-values), so you can review every command while letting file reads through, or allow everything for an agent that never stops to ask.
 
-Out of the box the CLI uses `agent_decides` for shell commands, file edits, file reads, and MCP tool calls, and asks before typing into a running command or launching child agents. For file edits, `agent_decides` still prompts every time, so you review a diff before it's applied. A built-in command denylist sits on top: commands matching a denylist pattern, such as `rm`, `curl`, or `ssh`, require approval even when `execute_commands` is `always_allow`.
+Out of the box the CLI uses `agent_decides` for shell commands, file edits, file reads, and MCP tool calls, and asks before typing into a running command or launching child agents. For file edits, `agent_decides` still prompts every time, so you always review a diff before it's applied. A command denylist sits on top of these values: matching commands require approval even when `execute_commands` is `always_allow`.
 
-Set every action type to `always_ask` to review everything, or to `always_allow` for an agent that never stops to ask. Both are done by [editing your execution profile](#execution-profiles).
+Change any of this by [editing your execution profile](#execution-profiles).
 
 ## Approving agent actions
 
@@ -26,12 +26,13 @@ When an action needs your approval, the agent pauses and shows a permission card
 
 ## Auto-approve
 
-Auto-approve gives the agent full autonomy for the current conversation: proposed actions run immediately, without permission cards, until the task finishes or you turn it off. Toggle it with `/auto-approve` or `Ctrl+Shift+I`, or launch with `warp --auto-approve` to start every new conversation in that session with auto-approve already on.
+Auto-approve gives the agent full autonomy: proposed actions run immediately, without permission cards, until the task finishes or you turn it off. Toggle it with `/auto-approve` or `Ctrl+Shift+I`.
 
-Auto-approve applies per conversation, and new conversations start with it off unless you launched with `--auto-approve`. To see its state at a glance, add the **Auto-approve indicator** to the statusline with `/statusline`. If your profile sets `ask_user_question = "ask_except_in_auto_approve"`, the agent also skips clarifying questions while auto-approve is on.
+Auto-approve is scoped to a single conversation, and new conversations start with it off. To start every new conversation in a session with auto-approve already on, launch with `warp --auto-approve`. To see the current state at a glance, add the **Auto-approve indicator** to the statusline with `/statusline`. If your profile sets `ask_user_question = "ask_except_in_auto_approve"`, the agent also skips clarifying questions while auto-approve is on.
 
 :::danger
-With auto-approve on, the agent runs commands and applies file edits without review, and by default it also runs commands that match your own command denylist. Press `Ctrl+C` to stop the agent if it starts doing something you didn't intend.
+With auto-approve on, the agent runs commands and applies file edits without review, including commands that match your own command denylist. Press `Ctrl+C` to stop the agent if it starts doing something you didn't intend.
+:::
 
 To keep your denylist in force while auto-approve is on, turn off the bypass in your settings file:
 
@@ -41,7 +42,6 @@ auto_approve_bypasses_command_denylist = false
 ```
 
 Denylist rules enforced by your team in the [Admin Panel](/enterprise/team-management/admin-panel/) always require approval and are never bypassed, regardless of this setting.
-:::
 
 ## Execution profiles
 
