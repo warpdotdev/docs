@@ -173,6 +173,7 @@ const handoffEmail = 'support@warp.dev';
 					function setOpenState(next) {
 						isOpen = next;
 						button.setAttribute('aria-expanded', next ? 'true' : 'false');
+						button.setAttribute('data-kapa-open', next ? 'true' : 'false');
 					}
 
 					function isInsideKapaWidget(target) {

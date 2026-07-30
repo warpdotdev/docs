@@ -96,6 +96,14 @@
 		transform: translateY(0);
 	}
 
+	/* While the Kapa sidebar is open, suppress the launcher tooltip so a clipped
+	   sliver cannot appear at the panel edge when hover passes near the button's
+	   underlying position. */
+	.warp-kapa-button[data-kapa-open='true'][data-tooltip]::after {
+		opacity: 0;
+		transform: translateY(-2px);
+	}
+
 	/* Pin the icon size + color so the inline SVG always matches the search
 	   magnifier rendered next to it. */
 	.warp-kapa-button svg {
