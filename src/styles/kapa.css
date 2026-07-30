@@ -152,17 +152,8 @@
 	   panel edge in sidebar mode. Suppress widget tooltips until Kapa exposes
 	   a stable per-button style hook for the attachment control. */
 	[id^='kapa-'] .mantine-Tooltip-tooltip,
-	[id^='kapa-'] .mantine-Tooltip-arrow,
-	[id^='kapa-'] [role='tooltip'],
 	[class^='kapa-'] .mantine-Tooltip-tooltip,
-	[class^='kapa-'] .mantine-Tooltip-arrow,
-	[class^='kapa-'] [role='tooltip'],
-	[class*=' kapa-'] .mantine-Tooltip-tooltip,
-	[class*=' kapa-'] .mantine-Tooltip-arrow,
-	[class*=' kapa-'] [role='tooltip'],
-	body > .mantine-Portal-root .mantine-Tooltip-tooltip,
-	body > .mantine-Portal-root .mantine-Tooltip-arrow,
-	body > .mantine-Portal-root [role='tooltip'] {
+	[class*=' kapa-'] .mantine-Tooltip-tooltip {
 		display: none !important;
 	}
 
