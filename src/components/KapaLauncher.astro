@@ -1,10 +1,9 @@
 ---
 // Custom "Ask" launcher beside the sidebar search pill (see CustomSidebar.astro).
 // Opens Kapa's Website Widget via the JS API so we can hand off Pagefind queries.
-import { PUBLIC_KAPA_INTEGRATION_ID } from 'astro:env/client';
 
 const DEFAULT_KAPA_INTEGRATION_ID = 'f31c5644-dd65-4f49-9762-bf580062afa8';
-const integrationId = PUBLIC_KAPA_INTEGRATION_ID || DEFAULT_KAPA_INTEGRATION_ID;
+const integrationId = DEFAULT_KAPA_INTEGRATION_ID;
 // Public brand assets already served from this site.
 const projectLogo = 'https://docs.warp.dev/apple-touch-icon.png';
 // Matches the support destination used across Warp docs contact paths.
