@@ -10,23 +10,23 @@ description: >-
 
 Warp's **Gemini Enterprise** BYOLLM integration routes agent inference through your own Google Cloud project using **Vertex AI** (the Gemini Enterprise Agent Platform). Your team keeps using Warp's agents as usual, while eligible requests execute against models hosted in your GCP project, billed to your Google Cloud account and governed by your IAM controls.
 
-Gemini Enterprise is one of the providers supported by [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/). For AWS-based routing, see the [AWS Bedrock BYOLLM setup](/enterprise/enterprise-features/bring-your-own-llm/).
+Gemini Enterprise is one of the providers supported by [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/). For AWS-based routing, see the [AWS Bedrock BYOLLM setup](/enterprise/enterprise-features/byollm-aws-bedrock/).
 
 :::note
-Gemini Enterprise BYOLLM is only available on Warp's Enterprise plan and requires Warp `v0.2026.06.17` or later. [Contact sales](https://www.warp.dev/contact-sales) to learn more.
+Gemini Enterprise BYOLLM is only available on Warp's Enterprise plan. [Contact sales](https://www.warp.dev/contact-sales) to learn more.
 :::
 
 :::caution
-Gemini Enterprise BYOLLM currently applies to **interactive agent requests** in the Warp app. [Cloud agent](/platform/) runs don't route through Gemini Enterprise yet; cloud agent support is available today with [AWS Bedrock BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/#enabling-byollm-for-cloud-agents).
+Gemini Enterprise BYOLLM currently applies to **interactive agent requests** in the Warp app. [Cloud agent](/platform/) runs don't route through Gemini Enterprise yet; cloud agent support is available today with [AWS Bedrock BYOLLM](/enterprise/enterprise-features/byollm-aws-bedrock/#enabling-byollm-for-cloud-agents).
 :::
 
 ## Key features
 
-* **No local Google credentials required** - Members don't run `gcloud auth`, manage Application Default Credentials, or paste API keys. Warp mints a short-lived Google Cloud access token through Workload Identity Federation (WIF), rooted in each member's signed-in Warp session.
+* **Session-based federated authentication** - Warp uses the member's signed-in Warp session to issue a short-lived OIDC identity token, then exchanges it through Google Workload Identity Federation for temporary Google Cloud credentials.
 * **Admin-controlled routing and models** - Admins configure the GCP project, Vertex location, and WIF provider once in the Admin Panel, then choose exactly which models are enabled and which Vertex model references they resolve to.
 * **Gemini and Claude models** - Route native Gemini models and Claude partner models available on Vertex AI through your project.
 * **Consolidated billing and quota attribution** - Inference runs against your project's Vertex AI quota and is billed to your Google Cloud account. Requests carry your project for quota attribution (`X-Goog-User-Project`).
-* **No stored credentials** - Warp never stores long-lived Google credentials. Each request carries only a short-lived access token that Warp uses in memory and discards when the request ends.
+* **No long-lived credentials** - Warp never stores service account keys, refresh tokens, or credential files. The client keeps only a short-lived Google Cloud access token in memory and automatically replaces it as it approaches expiration.
 
 ## How it works
 
@@ -34,7 +34,7 @@ When Gemini Enterprise is enabled, Warp redirects eligible inference calls to Ve
 
 Here's the high-level flow:
 
-1. **Admin configures routing** - Your team admin enables the Gemini Enterprise host on the **Models** page of the [Admin Panel](/enterprise/team-management/admin-panel/) and sets the GCP project, Vertex location, and WIF provider.
+1. **Admin configures routing** - Your team admin enables the Gemini Enterprise host on the **Models** page of the [Admin Panel](/enterprise/team-management/admin-panel/) and sets the GCP project, Vertex location, and WIF provider audience string.
 2. **Members enable credentials** - Each signed-in member turns on **Use Gemini Enterprise credentials** in Warp's Settings (or the admin enforces it team-wide).
 3. **Warp mints a short-lived token** - The Warp client exchanges a Warp-signed identity token for a short-lived Google Cloud access token via Google's Security Token Service (STS), optionally impersonating a service account you designate.
 4. **Warp routes requests** - Eligible agent requests carry that access token, and Warp's backend uses it to call Vertex AI in your project with the configured location and model reference.
@@ -55,8 +55,6 @@ Gemini Enterprise supports the intersection of models that Warp supports and mod
 
 * **Native Gemini models** - Current Gemini Flash, Flash Lite, and Pro families (for example, Gemini 3.1 Pro and Gemini 3.6 Flash).
 * **Claude partner models on Vertex AI** - Current Claude Sonnet, Opus, Haiku, and Fable families offered as Vertex AI partner models.
-
-In the Warp app's model picker, eligible models show a Gemini Enterprise badge when your credentials are active. Models absent from the registry (including extended-thinking and fast-mode variants, and Fireworks-hosted models like Kimi, MiniMax, Qwen, DeepSeek, and GLM) aren't available through Gemini Enterprise. Some models are disabled by default for Enterprise teams and require explicit admin enablement.
 
 To determine which models you can use, see [Model Choice](/agent-platform/inference/model-choice/) for Warp's supported models and the **Models** page of the Admin Panel for your team's Gemini Enterprise enablement.
 
@@ -264,7 +262,7 @@ No. Unlike [AWS Bedrock BYOLLM](/enterprise/enterprise-features/bring-your-own-l
 
 ### Does Gemini Enterprise work with cloud agents?
 
-Not yet. Gemini Enterprise currently routes interactive agent requests in the Warp app. Cloud agent BYOLLM is available today through [AWS Bedrock](/enterprise/enterprise-features/bring-your-own-llm/#enabling-byollm-for-cloud-agents), and Gemini Enterprise support for cloud agents is planned.
+Not yet. Gemini Enterprise currently routes interactive agent requests in the Warp app. Cloud agent BYOLLM is available today through [AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/#enabling-byollm-for-cloud-agents), and Gemini Enterprise support for cloud agents is planned.
 
 ### Which Claude models route through my project?
 

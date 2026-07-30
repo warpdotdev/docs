@@ -34,10 +34,10 @@ Warp offers several ways to bring your own AI infrastructure. Use this table to 
 | **Team-managed API keys and endpoints** | Team admin (Admin Panel) | Server-side by Warp | Yes | Enterprise only |
 | **[Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/)** (BYOK) | Each member | Locally on the member's device | No | Free and all eligible paid plans |
 | **[Custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/)** | Each member | Locally on the member's device | No | Free and all eligible paid plans |
-| **[BYOLLM — AWS Bedrock](/enterprise/enterprise-features/bring-your-own-llm/)** | Team admin (Admin Panel) | Cloud-native IAM (no stored keys) | Yes | Enterprise only |
+| **[BYOLLM — AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/)** | Team admin (Admin Panel) | Cloud-native IAM (no stored keys) | Yes | Enterprise only |
 | **[BYOLLM — Gemini Enterprise](/enterprise/enterprise-features/byollm-gemini-enterprise/)** | Team admin (Admin Panel) | Cloud-native IAM (no stored keys) | No (interactive sessions only) | Enterprise only |
 
-Team-managed API keys and endpoints and BYOLLM are both Enterprise, admin-configured options. Choose team-managed keys and endpoints to route through provider APIs (OpenAI, Anthropic, Google) or any OpenAI-compatible endpoint using stored keys. Choose [AWS Bedrock BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/) for cloud-native IAM routing through your AWS account, including cloud agent support. Choose [Gemini Enterprise BYOLLM](/enterprise/enterprise-features/byollm-gemini-enterprise/) for cloud-native IAM routing through your Google Cloud project; in this iteration, Gemini Enterprise BYOLLM supports interactive sessions only, with cloud agent support planned.
+Team-managed API keys and endpoints and BYOLLM are both Enterprise, admin-configured options. Choose team-managed keys and endpoints to route through provider APIs (OpenAI, Anthropic, Google) or any OpenAI-compatible endpoint using stored keys. Choose [AWS Bedrock BYOLLM](/enterprise/enterprise-features/byollm-aws-bedrock/) for cloud-native IAM routing through your AWS account, including cloud agent support. Choose [Gemini Enterprise BYOLLM](/enterprise/enterprise-features/byollm-gemini-enterprise/) for cloud-native IAM routing through your Google Cloud project; in this iteration, Gemini Enterprise BYOLLM supports interactive sessions only, with cloud agent support planned.
 
 ## How it works
 
@@ -130,7 +130,7 @@ Warp is **SOC 2 compliant** and has **Zero Data Retention (ZDR)** agreements wit
 
 * [Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/) — Self-serve, user-level API keys for OpenAI, Anthropic, and Google.
 * [Custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/) — Self-serve, user-level OpenAI-compatible endpoints.
-* [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) — Enterprise inference through your AWS Bedrock or Google Cloud environment using cloud-native IAM.
+* [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) — BYOLLM overview: route inference through [AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/) or [Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/).
 * [Admin Panel](/enterprise/team-management/admin-panel/) — Configure team settings and model routing.
 * [Model Choice](/agent-platform/inference/model-choice/) — Full list of supported models.
 * [Contact sales](https://www.warp.dev/contact-sales) — Get help with Enterprise setup.
