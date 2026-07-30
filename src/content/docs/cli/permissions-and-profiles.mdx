@@ -1,35 +1,98 @@
 ---
-title: "Permissions and profiles in the {{WARP_CLI}}"
+title: "Permissions and profiles in the Warp Agent CLI"
 description: >-
-  Control what the agent can do in the {{WARP_CLI}}: permission requests,
-  auto-approve, fast-forward mode, and execution profiles.
+  Control what the agent can do in the Warp Agent CLI: permission request
+  cards, auto-approve, and execution profiles in the settings file.
 ---
 import { VARS } from '@data/vars';
 
-{/* TODO(cli-permissions): draft per drafts/warp-cli-launch-plan.md — "cli/permissions-and-profiles.mdx" section. Feature-doc content type. */}
-
-The {VARS.WARP_CLI} documentation for this page is in progress.
+The {VARS.WARP_CLI} uses the same permission model as the Warp app: you choose how much approval each type of action needs, from reviewing every command to letting the agent run unattended. This page covers how to set those permissions in the CLI, what happens when the agent asks for approval, and how to hand over full autonomy with auto-approve. For the full permission model, including team-wide controls, see [Profiles & Permissions](/agent-platform/capabilities/agent-profiles-permissions/).
 
 ## How permissions work
 
-{/* TODO(cli-permissions): permission model summary; default behavior; cross-link agent-platform/capabilities/agent-profiles-permissions. */}
+Every action the agent proposes, such as running a shell command, editing files, or calling an MCP tool, is checked against your active execution profile before it runs. Each action type is set independently to [`always_ask`, `always_allow`, or `agent_decides`](#permission-values), so you can review every command while letting file reads through, or allow everything for an agent that never stops to ask.
+
+Out of the box the CLI uses `agent_decides` for shell commands, file edits, file reads, and MCP tool calls, and asks before typing into a running command or launching child agents. For file edits, `agent_decides` still prompts every time, so you always review a diff before it's applied. A command denylist sits on top of these values: matching commands require approval even when `execute_commands` is `always_allow`.
+
+Change any of this by [editing your execution profile](#execution-profiles).
 
 ## Approving agent actions
 
-{/* TODO(cli-permissions): permission request cards, command edit/escape behavior, diff approval. */}
+When an action needs your approval, the agent pauses and shows a permission card with the proposed command or file edits. Beyond approving or rejecting it, you can:
+
+* Select **Other** to reply with guidance instead of running the action; the agent adjusts its approach based on what you type.
+* Press `E` on a command card to edit the proposed command; approving then runs your edited version. While editing, `Esc` exits the editor without rejecting the request.
+* Press `E` on a file-edits card to expand or collapse all diffs.
 
 ## Auto-approve
 
-{/* TODO(cli-permissions): /auto-approve toggle and when to use it. */}
+Auto-approve gives the agent full autonomy: proposed actions run immediately, without permission cards, until the task finishes or you turn it off. Toggle it with `/auto-approve` or `Ctrl+Shift+I`.
 
-## Fast-forward mode
+Auto-approve is scoped to a single conversation, and new conversations start with it off. To start every new conversation in a session with auto-approve already on, launch with `warp --auto-approve`. To see the current state at a glance, add the **Auto-approve indicator** to the statusline with `/statusline`. If your profile sets `ask_user_question = "ask_except_in_auto_approve"`, the agent also skips clarifying questions while auto-approve is on.
 
-{/* TODO(cli-permissions): fast-forward mode and /fast-forward toggle. */}
+:::danger
+With auto-approve on, the agent runs commands and applies file edits without review, including commands that match your own command denylist. Press `Ctrl+C` to stop the agent if it starts doing something you didn't intend.
+:::
+
+To keep your denylist in force while auto-approve is on, turn off the bypass in your settings file:
+
+```toml title="settings.toml"
+[agents.warp_agent.other]
+auto_approve_bypasses_command_denylist = false
+```
+
+Denylist rules enforced by your team in the [Admin Panel](/enterprise/team-management/admin-panel/) always require approval and are never bypassed, regardless of this setting.
 
 ## Execution profiles
 
-{/* TODO(cli-permissions): settings-file-based execution profiles and defaults. */}
+The CLI reads its permissions from execution profiles stored in its [settings file](/cli/configuration/). Profiles live under the `agents.execution_profiles` table, and the CLI always runs with the profile under the reserved `default` key:
 
-## Unattended use
+```toml title="settings.toml"
+[agents.execution_profiles.default]
+name = "Default"
+execute_commands = "agent_decides"
+apply_code_diffs = "agent_decides"
+read_files = "agent_decides"
+command_allowlist = ['cargo (build|check|test)(\s.*)?']
+```
 
-{/* TODO(cli-permissions): flags for skipping permissions — confirm shipped before merge; include safety caution. */}
+:::caution
+Setting `command_denylist` replaces the built-in default denylist, which covers `rm`, `curl`, `wget`, `eval`, `ssh`, shells, and other risky command patterns. Omitting the field keeps the defaults. To deny additional commands, extend the generated list in your settings file rather than writing a short list from scratch.
+:::
+
+Edit the file directly, or ask the agent to change its own permissions and it will update the settings file for you. The CLI picks up saved changes automatically.
+
+Profiles in the {VARS.WARP_CLI} are local to your machine: they never sync to the cloud, and they are separate from the Agent Profiles you configure in the Warp app. You can define additional profiles in the file, but the CLI currently always runs with `default`.
+
+### Permission values
+
+Most permission fields accept one of three values:
+
+* **`agent_decides`** - The agent acts on its own when it's confident and asks when it's uncertain.
+* **`always_ask`** - Every action of this type requires approval.
+* **`always_allow`** - Actions of this type run without prompting.
+
+### Profile fields
+
+* **`execute_commands`** - Permission to run shell commands.
+* **`apply_code_diffs`** - Permission to apply file edits.
+* **`read_files`** - Permission to read files.
+* **`mcp_permissions`** - Permission to call MCP servers.
+* **`write_to_pty`** - Permission to type into running interactive commands. Also accepts `ask_on_first_write`.
+* **`ask_user_question`** - Whether the agent may pause to ask clarifying questions: `always_ask`, `ask_except_in_auto_approve`, or `never`.
+* **`run_agents`** - Permission to launch child agents: `always_ask`, `always_allow`, or `never_allow`.
+* **`command_allowlist`** - Regular expressions for commands that run without approval.
+* **`command_denylist`** - Regular expressions for commands that require approval regardless of the other permission values. [Auto-approve bypasses this list by default](#auto-approve).
+* **`directory_allowlist`** - Directories the agent may read without approval.
+
+Profiles also hold model overrides such as `base_model`, covered in [Models and usage in the {VARS.WARP_CLI}](/cli/models-and-usage/).
+
+:::note
+The profile collection is validated as a whole. If any profile contains an invalid value, the CLI keeps the last valid configuration while it's running and falls back to the built-in default profile on the next launch, until the file is fixed.
+:::
+
+## Related pages
+
+* [Profiles & Permissions](/agent-platform/capabilities/agent-profiles-permissions/) - The full permission model, autonomy levels, and allowlist/denylist behavior.
+* [Configuring the {VARS.WARP_CLI}](/cli/configuration/) - The settings file, themes, statusline, and keybindings.
+* [Agent conversations in the {VARS.WARP_CLI}](/cli/agent-conversations/) - How tool calls, diffs, and agent questions render in the transcript.
