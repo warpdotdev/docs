@@ -6,18 +6,15 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-The {VARS.WARP_CLI} uses the same permission model as the Warp app: the agent acts on its own when it's confident an action is safe, and asks for your approval when it isn't. This page covers how permission requests appear in the CLI and how to tune the agent's autonomy with auto-approve and execution profiles. For the full permission model, including autonomy levels and organization-wide controls, see [Profiles & Permissions](/agent-platform/capabilities/agent-profiles-permissions/).
+The {VARS.WARP_CLI} uses the same permission model as the Warp app: you decide, action type by action type, whether the agent needs your approval before it acts. This page covers how to set those permissions in the CLI, what happens when the agent asks, and how to hand it full autonomy with auto-approve. For the full permission model, including team-wide controls, see [Profiles & Permissions](/agent-platform/capabilities/agent-profiles-permissions/).
 
 ## How permissions work
 
-Every action the agent proposes, such as running a shell command, editing files, or calling an MCP tool, is checked against your active execution profile before it runs. By default, the CLI behaves as follows:
+Every action the agent proposes, such as running a shell command, editing files, or calling an MCP tool, is checked against your active execution profile before it runs. Each action type is set independently: `always_ask` to approve every action of that type, `always_allow` to let them all run, or `agent_decides` to let the agent act when it's confident and ask when it isn't.
 
-* **Shell commands** - The agent decides. It runs commands it judges safe, such as read-only commands and commands on your allowlist, and asks before anything else.
-* **File edits** - The agent shows a diff and asks for approval before applying edits.
-* **Reading files** - The agent decides, reading files without prompting in most cases.
-* **Denylisted commands** - Commands matching your command denylist (for example `rm`, `curl`, or `ssh`) always require approval. The denylist takes precedence over every other setting, including auto-approve.
+Out of the box the CLI uses `agent_decides` for shell commands, file edits, file reads, and MCP tool calls, and asks before typing into a running command or launching child agents. For file edits, `agent_decides` still prompts every time, so you review a diff before it's applied. A built-in command denylist sits on top: commands matching a denylist pattern, such as `rm`, `curl`, or `ssh`, require approval even when `execute_commands` is `always_allow`.
 
-You can change these defaults by [editing your execution profile](#execution-profiles).
+Set every action type to `always_ask` to review everything, or to `always_allow` for an agent that never stops to ask. Both are done by [editing your execution profile](#execution-profiles).
 
 ## Approving agent actions
 
@@ -29,12 +26,21 @@ When an action needs your approval, the agent pauses and shows a permission card
 
 ## Auto-approve
 
-Auto-approve gives the agent full autonomy for the current conversation: proposed actions run immediately, without permission cards, until the task finishes or you turn it off. Toggle it with `/auto-approve` or `Ctrl+Shift+I`.
+Auto-approve gives the agent full autonomy for the current conversation: proposed actions run immediately, without permission cards, until the task finishes or you turn it off. Toggle it with `/auto-approve` or `Ctrl+Shift+I`, or launch with `warp --auto-approve` to start every new conversation in that session with auto-approve already on.
 
-Auto-approve applies per conversation, and new conversations start with it off. To see its state at a glance, add the **Auto-approve indicator** to the statusline with `/statusline`. If your profile sets `ask_user_question = "ask_except_in_auto_approve"`, the agent also skips clarifying questions while auto-approve is on.
+Auto-approve applies per conversation, and new conversations start with it off unless you launched with `--auto-approve`. To see its state at a glance, add the **Auto-approve indicator** to the statusline with `/statusline`. If your profile sets `ask_user_question = "ask_except_in_auto_approve"`, the agent also skips clarifying questions while auto-approve is on.
 
-:::caution
-With auto-approve on, the agent executes commands and applies file edits without review. Commands matching your command denylist still require approval, but everything else runs immediately. Press `Ctrl+C` to stop the agent if it starts doing something you didn't intend.
+:::danger
+With auto-approve on, the agent runs commands and applies file edits without review, and by default it also runs commands that match your own command denylist. Press `Ctrl+C` to stop the agent if it starts doing something you didn't intend.
+
+To keep your denylist in force while auto-approve is on, turn off the bypass in your settings file:
+
+```toml title="settings.toml"
+[agents.warp_agent.other]
+auto_approve_bypasses_command_denylist = false
+```
+
+Denylist rules enforced by your team in the [Admin Panel](/enterprise/team-management/admin-panel/) always require approval and are never bypassed, regardless of this setting.
 :::
 
 ## Execution profiles
@@ -76,7 +82,7 @@ Most permission fields accept one of three values:
 * **`ask_user_question`** - Whether the agent may pause to ask clarifying questions: `always_ask`, `ask_except_in_auto_approve`, or `never`.
 * **`run_agents`** - Permission to launch child agents: `always_ask`, `always_allow`, or `never_allow`.
 * **`command_allowlist`** - Regular expressions for commands that run without approval.
-* **`command_denylist`** - Regular expressions for commands that always require approval, regardless of other settings.
+* **`command_denylist`** - Regular expressions for commands that require approval regardless of the other permission values. [Auto-approve bypasses this list by default](#auto-approve).
 * **`directory_allowlist`** - Directories the agent may read without approval.
 
 Profiles also hold model overrides such as `base_model`, covered in [Models and usage in the {VARS.WARP_CLI}](/cli/models-and-usage/).
