@@ -57,13 +57,8 @@
 	.warp-kapa-button[data-tooltip]::after {
 		content: attr(data-tooltip);
 		position: absolute;
-		/* Below the button. Anchoring above clipped against the sidebar
-		   pane's `overflow: auto` boundary + the global header's lower edge:
-		   the search row sits flush with the top of the sidebar pane, so
-		   there's not enough vertical clearance for a tooltip to render
-		   cleanly above. Below has unlimited room — the topic-tabs row
-		   below stays visible underneath. */
-		top: calc(100% + 6px);
+		/* Above the button so the tooltip appears over the panel, not below it. */
+		bottom: calc(100% + 6px);
 		/* Anchor right so a wide tooltip doesn't push past the sidebar's
 		   right edge. */
 		right: 0;
@@ -80,10 +75,8 @@
 		white-space: nowrap;
 		pointer-events: none;
 		opacity: 0;
-		/* Sits 2px above its final resting position so the fade-in
-		   animation slides DOWN into place — motion mirrors the
-		   tooltip's below-button anchor. */
-		transform: translateY(-2px);
+		/* Start slightly lower, then slide up into place. */
+		transform: translateY(2px);
 		transition: opacity 0.15s ease, transform 0.15s ease;
 		transition-delay: 0.25s;
 		z-index: 10;
@@ -94,14 +87,6 @@
 	.warp-kapa-button[data-tooltip]:focus-visible::after {
 		opacity: 1;
 		transform: translateY(0);
-	}
-
-	/* While the Kapa sidebar is open, suppress the launcher tooltip so a clipped
-	   sliver cannot appear at the panel edge when hover passes near the button's
-	   underlying position. */
-	.warp-kapa-button[data-kapa-open='true'][data-tooltip]::after {
-		opacity: 0;
-		transform: translateY(-2px);
 	}
 
 	/* Pin the icon size + color so the inline SVG always matches the search
