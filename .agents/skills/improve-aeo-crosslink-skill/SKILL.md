@@ -17,8 +17,7 @@ Suggested cron: `0 17 1-7 * 1` (UTC) = first Monday of each month at 9am PT.
 
 ## Prerequisites
 
-- Docs repo checked out at `main`, with at least 8 entries in `.agents/logs/aeo_crosslink_audit_runs.md`
-- The standing log PR (`chore: aeo crosslink audit run log`) merged into `main` so the entries are present there. If it is unmerged, merge it first (or read the log from the `chore/aeo-crosslink-audit-log` branch) before analyzing.
+- Docs repo checked out at `main`
 - `gh` CLI authenticated with write access to `warpdotdev/docs`
 - `SLACK_BOT_TOKEN` — for posting summary to `#growth-docs`
 - `GROWTH_DOCS_SLACK_CHANNEL_ID` — channel ID for `#growth-docs`
@@ -30,6 +29,48 @@ Read `.agents/logs/aeo_crosslink_audit_runs.md`. The run log captures per-run: d
 Do not act if fewer than 8 entries exist. Write a "too early to analyze" notice to run output and skip the PR.
 
 ## Workflow
+
+### 0. Merge the standing log PR
+
+Before reading the run log, ensure all accumulated entries are on `main` by merging the standing log PR. This is the PR from `chore/aeo-crosslink-audit-log` that the `aeo_crosslink_audit` agent continuously appends to.
+
+```bash
+# Find the open log PR (there should be at most one)
+OPEN_LOG_PR=$(gh pr list --repo warpdotdev/docs \
+  --head chore/aeo-crosslink-audit-log \
+  --state open \
+  --json number \
+  --jq '.[0].number' 2>/dev/null)
+
+if [[ -n "$OPEN_LOG_PR" ]]; then
+  # Safety check: only merge if the PR touches exactly the expected log file.
+  CHANGED_FILES=$(gh pr view "$OPEN_LOG_PR" --repo warpdotdev/docs --json files --jq '[.files[].path]')
+  ONLY_LOG=$(echo "$CHANGED_FILES" | python3 -c "
+import json, sys
+files = json.load(sys.stdin)
+print('yes' if all(f == '.agents/logs/aeo_crosslink_audit_runs.md' for f in files) else 'no')
+")
+  if [[ "$ONLY_LOG" == 'yes' ]]; then
+    gh pr merge "$OPEN_LOG_PR" --repo warpdotdev/docs --merge
+    # Non-destructive fast-forward: fails loudly if worktree is dirty or not fast-forwardable.
+    git fetch origin main
+    git merge --ff-only origin/main
+  else
+    echo "Log PR contains unexpected files — skipping merge, reading log from branch instead."
+    git fetch origin chore/aeo-crosslink-audit-log
+    git checkout origin/chore/aeo-crosslink-audit-log -- .agents/logs/aeo_crosslink_audit_runs.md
+  fi
+fi
+```
+
+If the merge fails (conflict, permissions, or the branch is ahead of main in an unexpected way), log the failure to run output and read the log from the `chore/aeo-crosslink-audit-log` branch instead:
+
+```bash
+git fetch origin chore/aeo-crosslink-audit-log
+git checkout origin/chore/aeo-crosslink-audit-log -- .agents/logs/aeo_crosslink_audit_runs.md
+```
+
+Do not abort the skill run because the log PR could not be merged. Proceed with whatever log entries are available.
 
 ### 1. Parse the run log
 
@@ -51,9 +92,9 @@ Possible causes:
 - Scope (agents, cloud agents, orchestration) is too narrow and has been saturated
 - Peec or GSC data is consistently unavailable, reducing signal
 
-**Peec snapshot consistently unavailable (5+ entries show "Peec: unavailable")**
-Cause: snapshot files in `/workspace/buzz/aeo-snapshots/` are stale or the refresh cadence is too infrequent.
-Fix: update the snapshot refresh instructions or cadence in `aeo_crosslink_audit/SKILL.md`.
+**Peec consistently unavailable (5+ entries where `Source signals` shows `Peec unavailable`)**
+Cause: the `PEEC_PAT` secret in the Oz environment is expired, revoked, or missing; or the Peec MCP config is incorrect.
+Fix: verify the `PEEC_PAT` secret is valid at app.peec.ai → Company → API Keys → Personal Access Tokens. Renew or recreate it and update the Oz environment secret. Also confirm the scheduled agent config includes the Peec MCP server entry.
 
 **Links proposed but not added pattern (proposed > 0, added = 0 consistently)**
 Cause: the self-review step is rejecting candidates that have already passed the initial selection. Confidence rules may be miscalibrated.
