@@ -22,6 +22,16 @@ warp --resume CONVERSATION_TOKEN
 
 `CONVERSATION_TOKEN` is the token the CLI prints when you exit a session ("To continue this conversation, run: `warp --resume ...`"). You can also reopen past conversations from inside a session with `/conversations`. See [conversations in the CLI](/cli/conversations/) for how persistence and resuming work.
 
+### `--auto-approve`
+
+Starts new conversations with auto-approve enabled, so the agent runs actions without asking for approval first.
+
+```bash
+warp --auto-approve
+```
+
+The default applies only to that launch and doesn't change your saved settings: every conversation you start in the session begins with auto-approve on, and you can still toggle it per conversation with `/auto-approve` or `Ctrl+Shift+I`. See [permissions and profiles](/cli/permissions-and-profiles/) for how approvals work.
+
 ### `--api-key`
 
 Authenticates with a Warp API key instead of the interactive browser login. Useful on hosts where a browser sign-in is inconvenient.
@@ -60,7 +70,7 @@ your-secret-manager read anthropic-api-key | warp --set-provider-api-key anthrop
 
 Avoid staging keys in plaintext files; if you must use a temporary file, delete it immediately afterward.
 
-[Models and usage](/cli/models-and-usage/) covers how stored keys affect billing.
+Inside a session, manage the same keys with the `/api-keys` menu; [models and usage](/cli/models-and-usage/#bring-your-own-api-key) covers the menu and how stored keys affect billing.
 
 ### `--clear-provider-api-key`
 
@@ -97,11 +107,10 @@ Type `/` at the start of the input to open the slash command menu. Commands that
 
 | Command | Argument | Description |
 | --- | --- | --- |
-| `/add-api-key` | `<openai\|anthropic\|google>` | Securely store a model-provider API key |
 | `/agent` | `[prompt]` | Start a new conversation |
+| `/api-keys` | | View and manage API keys, including BYOK and Warp credit fallback |
 | `/auto-approve` | | Toggle auto-approve for agent actions |
 | `/clear` | `[prompt]` | Clear the transcript and start a new conversation |
-| `/clear-provider-api-key` | `<openai\|anthropic\|google>` | Remove a stored model-provider API key |
 | `/compact` | `[instructions]` | Free up context by summarizing the conversation history |
 | `/conversations` | | Open conversation history |
 | `/cost` | | Toggle per-response credit usage details |

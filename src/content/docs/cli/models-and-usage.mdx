@@ -18,17 +18,16 @@ Your choice is saved as the base model of your active profile, so it persists ac
 
 ## Bring your own API key
 
-The CLI supports [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/) for OpenAI, Anthropic, and Google models. When you select a model covered by one of your keys, requests are billed through your provider account and don't consume your Warp [credits](/support-and-community/plans-and-billing/credits/).
+The CLI supports [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/) for OpenAI, Anthropic, and Google models, and can connect an [X Premium or SuperGrok subscription](/agent-platform/inference/grok-subscription/) for Grok models. When you select a model covered by one of your keys, requests are billed through your provider account and don't consume your Warp [credits](/support-and-community/plans-and-billing/credits/).
 
-To store a key, run `/add-api-key` with one of `openai`, `anthropic`, or `google`:
+Run `/api-keys` to open the key management menu. It lists each provider with its connection state, plus a Warp credit fallback toggle:
 
-```text
-/add-api-key anthropic
-```
+* **Set a key** - Press `Enter` on OpenAI, Anthropic, or Google and enter the key. Input is masked, so the key never appears in your transcript or shell history, and it's saved to your device's secure storage. Warp does not store provider keys on its servers.
+* **Replace or clear a key** - On a connected provider, `Enter` loads the stored key (still masked) for editing, and saving an empty field clears it. `Ctrl+X` clears the highlighted provider's key directly from the list.
+* **Connect X Premium or SuperGrok** - Press `Enter` on the subscription row and the CLI opens your browser to sign in to your xAI account; `Ctrl+X` disconnects it.
+* **Warp credit fallback** - Press `Enter` to toggle whether requests that fail through your key may be retried with Warp credits. Warp always prioritizes your API keys over Warp credits; see [failover and fallback behavior](/agent-platform/inference/bring-your-own-api-key/#failover-and-fallback-behavior).
 
-The CLI prompts for the key with masked input, so the key never appears in your transcript or shell history, and saves it to your device's secure storage. Warp does not store provider keys on its servers.
-
-To remove a stored key, run `/clear-provider-api-key` with the same provider name. Both commands are also available outside a session as the `--set-provider-api-key` and `--clear-provider-api-key` flags; see the [{VARS.WARP_CLI} reference](/cli/reference/#command-line-flags).
+For scripting, keys can also be stored or cleared outside a session with the `--set-provider-api-key` and `--clear-provider-api-key` flags; see the [{VARS.WARP_CLI} reference](/cli/reference/#command-line-flags). X Premium/SuperGrok connections require the browser sign-in, so they're managed only through `/api-keys`.
 
 :::note
 Warp's built-in Auto models always consume Warp credits, even with BYOK configured. To bill through your own account, select a specific provider model, or use a [custom router](/agent-platform/inference/custom-routers/#using-your-own-api-keys-byok) whose targets your keys cover. See [BYOK usage and billing behavior](/agent-platform/inference/bring-your-own-api-key/#byok-usage-and-billing-behavior) for the full rules.
@@ -53,5 +52,6 @@ Credits are Warp's unit of usage for agent requests. For what credits cover and 
 
 * [Model choice](/agent-platform/inference/model-choice/) - Supported models and how automatic model selection works.
 * [Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/) - How BYOK works, key storage, and billing behavior.
+* [SuperGrok subscription](/agent-platform/inference/grok-subscription/) - Use Grok models through your xAI account.
 * [Custom routers](/agent-platform/inference/custom-routers/) - Define routing logic that picks a model per task.
 * [{VARS.WARP_CLI} reference](/cli/reference/) - Flags and slash commands, including the API key commands.
