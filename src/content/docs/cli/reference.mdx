@@ -30,7 +30,7 @@ Starts new conversations with auto-approve enabled, so the agent runs actions wi
 warp --auto-approve
 ```
 
-The default applies only to that launch and doesn't change your saved settings: every conversation you start in the session begins with auto-approve on, and you can still toggle it per conversation with `/auto-approve` or `Ctrl+Shift+I`. See [permissions and profiles](/cli/permissions-and-profiles/) for how approvals work.
+The default applies only to that launch and doesn't change your saved settings; you can still toggle auto-approve per conversation with `/auto-approve` or `Ctrl+Shift+I`. See [permissions and profiles](/cli/permissions-and-profiles/) for how approvals work.
 
 ### `--api-key`
 
@@ -70,7 +70,7 @@ your-secret-manager read anthropic-api-key | warp --set-provider-api-key anthrop
 
 Avoid staging keys in plaintext files; if you must use a temporary file, delete it immediately afterward.
 
-Inside a session, manage the same keys with the `/api-keys` menu; [models and usage](/cli/models-and-usage/#bring-your-own-api-key) covers the menu and how stored keys affect billing.
+Inside a session, manage the same keys with the `/api-keys` menu; see [models and usage](/cli/models-and-usage/#bring-your-own-api-key) for how stored keys affect billing.
 
 ### `--clear-provider-api-key`
 
@@ -108,7 +108,7 @@ Type `/` at the start of the input to open the slash command menu. Commands that
 | Command | Argument | Description |
 | --- | --- | --- |
 | `/agent` | `[prompt]` | Start a new conversation |
-| `/api-keys` | | View and manage API keys, including BYOK and Warp credit fallback |
+| `/api-keys` | | View and manage model-provider API keys |
 | `/auto-approve` | | Toggle auto-approve for agent actions |
 | `/clear` | `[prompt]` | Clear the transcript and start a new conversation |
 | `/compact` | `[instructions]` | Free up context by summarizing the conversation history |
