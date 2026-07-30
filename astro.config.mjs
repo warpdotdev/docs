@@ -1,7 +1,6 @@
 // @ts-check
 import { defineConfig, envField } from 'astro/config';
 import remarkGfm from 'remark-gfm';
-import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
 import starlightLlmsTxt from 'starlight-llms-txt';
@@ -46,7 +45,6 @@ export default defineConfig({
 		},
 	},
 	integrations: [
-		react(),
 		sitemap(),
 		starlight({
 			// Site title kept as 'Warp' to match the suffix used by the legacy
