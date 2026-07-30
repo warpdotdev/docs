@@ -148,6 +148,15 @@
 		transform: translateY(1px);
 	}
 
+	/* Kapa's attachment control can render a clipped tooltip sliver at the
+	   panel edge in sidebar mode. Suppress widget tooltips until Kapa exposes
+	   a stable per-button style hook for the attachment control. */
+	[id^='kapa-'] .mantine-Tooltip-tooltip,
+	[class^='kapa-'] .mantine-Tooltip-tooltip,
+	[class*=' kapa-'] .mantine-Tooltip-tooltip {
+		display: none !important;
+	}
+
 	@media (max-width: 49.999rem) {
 		.warp-kapa-button {
 			padding: 0 0.5rem;
