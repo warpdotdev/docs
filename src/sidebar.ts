@@ -363,7 +363,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Reference',
 					items: [
 						{ slug: 'cli/reference', label: 'CLI reference' },
-						{ slug: 'cli/troubleshooting', label: 'Troubleshooting' },
 					],
 				},
 			],
