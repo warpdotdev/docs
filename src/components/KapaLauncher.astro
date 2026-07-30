@@ -3,7 +3,8 @@
 // Opens Kapa's Website Widget via the JS API so we can hand off Pagefind queries.
 import { PUBLIC_KAPA_INTEGRATION_ID } from 'astro:env/client';
 
-const integrationId = PUBLIC_KAPA_INTEGRATION_ID;
+const DEFAULT_KAPA_INTEGRATION_ID = 'f31c5644-dd65-4f49-9762-bf580062afa8';
+const integrationId = PUBLIC_KAPA_INTEGRATION_ID || DEFAULT_KAPA_INTEGRATION_ID;
 // Public brand assets already served from this site.
 const projectLogo = 'https://docs.warp.dev/apple-touch-icon.png';
 // Matches the support destination used across Warp docs contact paths.
@@ -61,8 +62,8 @@ const handoffEmail = 'support@warp.dev';
 				data-project-color="#4BA3EB"
 				data-project-color-dark="#B0C9FA"
 				data-project-logo={projectLogo}
-				data-modal-title="Ask Warp"
-				data-modal-title-ask-ai="Ask Warp"
+				data-modal-title="Ask AI"
+				data-modal-title-ask-ai="Ask AI"
 				data-ask-ai-input-placeholder="Ask a question about Warp…"
 				data-view-mode="sidebar"
 				data-launcher-button-hidden="true"
@@ -174,6 +175,19 @@ const handoffEmail = 'support@warp.dev';
 						button.setAttribute('aria-expanded', next ? 'true' : 'false');
 					}
 
+					function isInsideKapaWidget(target) {
+						if (!target || typeof target.closest !== 'function') return false;
+						return !!target.closest(
+							[
+								'[id^="kapa-"]',
+								'[class^="kapa-"]',
+								'[class*=" kapa-"]',
+								'[data-kapa-widget]',
+								'[data-kapa-root]',
+							].join(','),
+						);
+					}
+
 					function openKapa(query) {
 						var options = { mode: 'ai', submit: false };
 						if (query) options.query = query;
@@ -200,6 +214,26 @@ const handoffEmail = 'support@warp.dev';
 					}
 
 					button.addEventListener('click', onLaunch);
+
+					window.Kapa('onModalOpen', function () {
+						setOpenState(true);
+					});
+					window.Kapa('onModalClose', function () {
+						setOpenState(false);
+					});
+
+					document.addEventListener(
+						'pointerdown',
+						function (event) {
+							if (!isOpen) return;
+							var target = event.target;
+							if (!(target instanceof Element)) return;
+							if (target.closest('#warp-kapa-button')) return;
+							if (isInsideKapaWidget(target)) return;
+							closeKapa();
+						},
+						true,
+					);
 
 					window.addEventListener('keydown', function (event) {
 						var key = event.key && event.key.toLowerCase();
