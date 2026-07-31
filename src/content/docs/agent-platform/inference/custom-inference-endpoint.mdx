@@ -1,11 +1,12 @@
 ---
 title: Custom inference endpoint
 description: >-
-  Connect Warp's agents to any OpenAI-compatible inference endpoint —
-  OpenRouter, LiteLLM, z.ai, or an internal gateway exposed at a public URL.
+  Connect Warp's agents to any inference endpoint that speaks OpenAI Chat
+  Completions, OpenAI Responses, or Anthropic Messages — OpenRouter, LiteLLM,
+  z.ai, or an internal gateway exposed at a public URL.
 ---
 
-Warp supports **custom inference endpoints** for users who want to power Warp's agents with any OpenAI-compatible inference endpoint — a model router, hosted gateway, or internal infrastructure they already run.
+Warp supports **custom inference endpoints** for users who want to power Warp's agents with their own inference endpoint — a model router, hosted gateway, or internal infrastructure they already run.
 
 This lets you route AI requests through your preferred provider, run inference behind your own gateway, or use a router like OpenRouter or LiteLLM, while keeping the agent experience inside Warp.
 
@@ -17,14 +18,26 @@ Custom inference endpoints are available on Free and all eligible paid plans for
 
 ## Key features
 
-* **OpenAI-compatible** - Works with any endpoint that implements the OpenAI Chat Completions API.
-* **Provider flexibility** - Use a model router (OpenRouter, LiteLLM), a model provider with an OpenAI-compatible surface (z.ai), or your own internal gateway exposed at a public URL.
+* **Three supported API schemas** - Works with any endpoint that implements OpenAI Chat Completions, OpenAI Responses, or Anthropic Messages. You pick the schema when you add the endpoint.
+* **Provider flexibility** - Use a model router (OpenRouter, LiteLLM), a model provider with a compatible surface (z.ai), or your own internal gateway exposed at a public URL.
 * **No AI credits consumed for inference** - Inference is billed directly by your endpoint provider. On Business and Enterprise, local agent runs that route through a custom inference endpoint still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for Warp's platform infrastructure.
 * **Local API key storage** - Your endpoint API key is stored **only on your device** (in your OS keychain or equivalent secure storage), never on Warp's servers. It's used to make requests to your configured endpoint.
 
+## API schemas
+
+Every custom inference endpoint declares the request and response protocol it speaks. Warp supports three:
+
+* **OpenAI Chat Completions** - The default. Warp calls `POST /v1/chat/completions` on your base URL. Use this for OpenRouter, LiteLLM, z.ai, and most OpenAI-compatible gateways.
+* **OpenAI Responses** - OpenAI's Responses API. Use this when your endpoint exposes the Responses surface instead of Chat Completions.
+* **Anthropic Messages** - Anthropic's Messages API. Use this for gateways that front Claude models with Anthropic's native protocol.
+
+Pick the schema that matches your endpoint when you add it (see [Enabling a custom inference endpoint](#enabling-a-custom-inference-endpoint)). Choosing the wrong schema causes requests to fail, because Warp sends a request body your endpoint doesn't understand.
+
+Each endpoint has exactly one schema. To route through two protocols, add two endpoints.
+
 ## How it works
 
-A custom inference endpoint expects your endpoint to implement the **OpenAI Chat Completions API** (`POST /v1/chat/completions`). Any service that exposes a compatible surface can be used as a target:
+Any service that exposes one of the [supported API schemas](#api-schemas) can be used as a target:
 
 * **OpenRouter** - Aggregates many model providers behind a single OpenAI-compatible API and consolidated billing.
 * **LiteLLM** - A self-hosted proxy that exposes a unified, OpenAI-compatible API across providers.
@@ -60,9 +73,10 @@ When a model routed through your endpoint is selected:
 To enable and configure a custom inference endpoint:
 
 1. In Warp, open **Settings** and search for `inference endpoint` to jump to the configuration.
-2. Add your endpoint URL (the base URL that exposes `/v1/chat/completions`) and any required credentials (typically an API key).
-3. Specify the model identifier(s) you want to route through this endpoint.
-4. Save the configuration. Once added, you'll see your custom models appear in the model picker.
+2. Choose the **API schema** your endpoint speaks: **OpenAI Chat Completions** (the default), **OpenAI Responses**, or **Anthropic Messages**. See [API schemas](#api-schemas) for how to pick.
+3. Enter an **Endpoint name** to identify this endpoint in Warp, then add your **Endpoint URL** (the base URL for the schema you selected) and the **API key** your endpoint requires.
+4. Specify the model identifier(s) you want to route through this endpoint. Give each one an optional alias to control how it's labeled in the model picker.
+5. Save the configuration. Once added, you'll see your custom models appear in the model picker.
 
 When you explicitly select an endpoint-routed model from the model picker, Warp routes the request through your endpoint instead of consuming Warp's AI credits.
 
@@ -128,7 +142,7 @@ Warp offers three ways to bring your own AI infrastructure. Use this table to pi
 | Name | Meaning | Plans |
 | --- | --- | --- |
 | **[Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/)** (BYOK) | Use your own API key for OpenAI, Anthropic, or Google models. Keys are stored locally on your device. | Free and all eligible paid plans |
-| **Custom inference endpoint** | Connect Warp to an OpenAI-compatible endpoint such as OpenRouter, LiteLLM, z.ai, or an internal gateway. | Free and all eligible paid plans |
+| **Custom inference endpoint** | Connect Warp to an endpoint that speaks OpenAI Chat Completions, OpenAI Responses, or Anthropic Messages, such as OpenRouter, LiteLLM, z.ai, or an internal gateway. | Free and all eligible paid plans |
 | **[Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/)** (BYOLLM) | Enterprise-managed inference through your cloud provider (AWS Bedrock and Gemini Enterprise Agent Platform (Vertex AI) today; Azure Foundry coming soon), with Warp handling routing, orchestration, governance, and observability. | Enterprise only |
 
 Platform credits may apply for local agent runs on Business and Enterprise when using BYOK, a custom inference endpoint, or BYOLLM. See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
