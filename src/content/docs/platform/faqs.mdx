@@ -221,7 +221,7 @@ Self-hosted agents can use any SCM accessible from your infrastructure. With the
 
 ### Do LLM requests still go through Warp with self-hosting?
 
-Yes. LLM inference routes through Warp's backend, which has [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements with all contracted model providers. Enterprise teams that need full control over inference routing can use [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) to route inference through their own cloud provider accounts. BYOLLM currently applies to interactive (local) agents; cloud agent support is coming.
+Yes. LLM inference routes through Warp's backend, which has [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements with all contracted model providers. Enterprise teams that need full control over inference routing can use [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) to route inference through their own cloud provider accounts. AWS Bedrock BYOLLM supports both interactive agents and cloud agent runs; [Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/) BYOLLM currently applies to interactive agents, with cloud agent support coming.
 
 ### What about large monorepos with long environment setup times?
 
