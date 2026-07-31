@@ -65,10 +65,10 @@ When a run for that thread is already in flight, a new mention is delivered to t
 ## Requirements
 
 * **Team membership** - The GitHub integration requires a [Warp team](/knowledge-and-collaboration/teams/). Configuration is team-scoped, and runs are owned by the team associated with the GitHub App installation.
-* **Plan and credits** - Your team must be on a plan that supports integrations (Build, Max, or Business) with credits available. See [Access, billing, and identity](/platform/team-access-billing-and-identity/).
-* **Oz by Warp GitHub App** - A GitHub organization owner installs the [Oz by Warp](https://github.com/apps/oz-by-warp) GitHub App on the organization or account that owns the repositories, granting it access to all repositories or a selected set.
+* **Plan and credits** - Your team must be on a Build, Max, or Business plan with at least 20 credits available, or on an Enterprise plan with a team credit pool per your contract. See [Access, billing, and identity](/platform/team-access-billing-and-identity/).
+* **Oz by Warp GitHub App** - A GitHub organization owner installs the [Oz by Warp](https://github.com/apps/oz-by-warp) GitHub App on the organization or account that owns the repositories, granting it access to all repositories or a selected set. The installation's repository access is what agents act with, so scope it deliberately.
 * **An enabled GitHub organization** - A Warp team admin adds the organization under **Enabled GitHub Orgs** in the Admin Panel so the installation maps to your Warp team.
-* **A connected GitHub account** - Each teammate connects their GitHub account to Warp once, so Warp can identify who triggered the run.
+* **A connected GitHub account** - Each teammate connects their GitHub account to Warp once, so Warp can identify who triggered the run and which team to bill. The connection identifies the requester; it doesn't determine what the agent can reach on GitHub.
 
 ## Setting up the GitHub integration
 
@@ -108,7 +108,7 @@ Configure the integration so every GitHub-triggered run uses the environment and
 2. Open the row's settings and choose the [environment](/platform/environments/) the runs use, plus an optional model, [agent](/platform/agents/), prompt, and secrets.
 3. Save the configuration.
 
-The repository that triggered the event is always cloned for the run, so an environment is optional. Configure one when runs need additional repositories, a specific Docker image, or setup commands.
+The repository that triggered the event is always cloned for the run, so an environment is optional. Configure one when runs need additional repositories, a specific Docker image, or setup commands. Any repository you add has to be covered by the same GitHub App installation as the triggering repository.
 
 :::note
 Unlike Slack and Linear, the GitHub integration isn't created with `oz integration create`. It appears once the Oz by Warp GitHub App installation is associated with your team in the Admin Panel.
@@ -116,7 +116,7 @@ Unlike Slack and Linear, the GitHub integration isn't created with `oz integrati
 
 ### 4. Connect your GitHub account
 
-Each teammate connects their GitHub account so Warp can attribute a mention to the right Warp user and run with that person's permissions.
+Each teammate connects their GitHub account so Warp can match the mention to a Warp account, attribute the run to that person, and bill it to the right team. Warp doesn't start a run for a GitHub account it can't match.
 
 Connect the account from the GitHub integration row in the {VARS.WEB_APP}, or the first time you trigger a run: when Warp can't match your GitHub account, it replies in the thread with a link to connect.
 
@@ -142,12 +142,15 @@ Every GitHub-triggered run is a cloud agent run:
 
 ## Permissions and identity
 
-Two layers control what an agent can do in GitHub:
+GitHub-triggered runs separate **what the agent can do on GitHub** from **who the run belongs to**.
 
-1. **The Oz by Warp GitHub App installation** - Determines which organizations and repositories Warp can read, and where the app can post comments. Change the repository selection at any time in your [GitHub settings](https://github.com/settings/installations).
-2. **The triggering user's permissions** - Runs are attributed to the Warp account bound to the GitHub account that posted the mention, and the agent works with that person's GitHub access. Agents can't reach repositories the triggering user can't access.
+**Access comes from the GitHub App installation.** A run started by an `@oz-agent` mention authenticates with a token minted for the Oz by Warp GitHub App installation that delivered the event, not with the mentioning user's GitHub authorization. Cloning, branches, commits, pull requests, and the status comments all use that installation token, so on GitHub the work is attributed to the Oz by Warp GitHub App rather than to the person who wrote the mention. The installation's repository selection is therefore the boundary on what the agent can reach: adjust it in your [GitHub settings](https://github.com/settings/installations).
 
-Warp matches the GitHub account to a Warp account through the GitHub connection each user authorizes, not by email address. The triggering user must also be a member of the Warp team associated with the installation.
+**Identity comes from the account connection.** Warp matches the GitHub account that posted the mention to the Warp account that connected it, not by email address. That binding decides who the run is attributed to in Warp, which team owns it, and whose credits pay for it. The person must be a member of the Warp team that enabled the organization.
+
+:::caution
+Because the run uses the installation's access rather than the mentioner's, anyone who can comment in a repository covered by the installation — and who has a connected GitHub account on that Warp team — can start an agent that acts with the installation's full repository access. Grant the app only the repositories your team wants agents to work in.
+:::
 
 For fully automated workflows that run without a triggering user, such as scheduled agents or runs started with an agent API key, see [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization).
 
@@ -158,7 +161,8 @@ For fully automated workflows that run without a triggering user, such as schedu
 * **One run per thread at a time.** While a run for an issue, pull request, or review thread is active, further mentions become follow-ups to that run.
 * **The installation must map to a Warp team.** Repositories in an organization that no Warp team has enabled can't start runs.
 * **Installations are scoped to one organization each.** Install the app separately for every GitHub organization whose repositories your team works in.
-* **The agent replies as the GitHub App.** Progress updates and summaries are posted by Oz by Warp; pull requests and commits follow the GitHub authorization of the triggering user.
+* **Everything on GitHub is done by the app.** Comments, commits, branches, and pull requests come from Oz by Warp rather than the person who mentioned the agent, so the run can't reach anything the installation can't reach, and it isn't narrowed to what that person can reach either.
+* **Every repository in the run must belong to the same installation.** The triggering repository and every repository in the configured environment have to be covered by the installation that delivered the event, and that environment has to be a GitHub environment. A run whose environment points at repositories in another organization, or at another provider, fails to start.
 
 ## Troubleshooting
 
@@ -193,7 +197,7 @@ Use the error code in the thread's status comment to narrow the fix. Common erro
 
 ### The agent finished but opened no pull request
 
-Confirm the triggering user has write access to the repository and that the Oz by Warp GitHub App installation includes it. Agents can read public repositories without authorization, but writing branches and pull requests requires both.
+Confirm the Oz by Warp GitHub App installation covers the repository and still grants write access to it. Because the run acts with the installation's token, removing a repository from the installation, or narrowing the app's permissions, stops the agent from pushing branches or opening pull requests there.
 
 ## Removing or changing the integration
 

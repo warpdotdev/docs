@@ -284,7 +284,7 @@ To configure:
 The organizations and repository access shown here reflect the Oz by Warp GitHub App installation scope, which is configured in [GitHub settings](https://github.com/settings/installations). To change which repositories the app can access, edit the installation directly in GitHub.
 
 :::note
-This setting controls which GitHub App installation agent API key runs authenticate with, and which GitHub organizations can start [GitHub integration](/platform/integrations/github/) runs for this team. Runs triggered by individual users (via personal API key, Slack, Linear, or an `@oz-agent` mention) still clone and write to repositories with that user's own GitHub authorization. For more details, see [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization).
+This setting controls which GitHub App installation agent API key runs authenticate with, and which GitHub organizations can start [GitHub integration](/platform/integrations/github/) runs for this team. Runs from an `@oz-agent` mention also authenticate with the installation's GitHub App token, so their repository access comes from the app installation rather than the person who wrote the mention. Runs triggered from a personal API key, Slack, Linear, or the Warp app continue to use that user's own GitHub authorization. For more details, see [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization).
 :::
 
 ## Multi-admin functionality
