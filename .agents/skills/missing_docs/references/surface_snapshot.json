@@ -127,7 +127,7 @@
     "FullScreenZenMode": "ga",
     "FullSourceCodeEmbedding": "dogfood",
     "GPTConfigurableContextWindow": "dogfood",
-    "GeminiEnterprise": "dogfood",
+    "GeminiEnterprise": "ga",
     "GeminiNotifications": "dogfood",
     "GetStartedTab": "ga",
     "GitCredentialRefresh": "ga",
@@ -917,20 +917,20 @@
     "PUT /api/v1/memory_stores/{uid}/memories/{memoryUid}"
   ],
   "slash_commands": [
-    "/add-api-key",
     "/add-mcp",
     "/add-prompt",
     "/add-rule",
     "/agent",
+    "/api-keys",
     "/auto-approve",
     "/changelog",
     "/clear",
-    "/clear-provider-api-key",
     "/cloud-agent",
     "/compact",
     "/compact-and",
     "/continue-locally",
     "/conversations",
+    "/copy-debugging-id",
     "/cost",
     "/create-environment",
     "/create-new-project",
@@ -967,6 +967,7 @@
     "/remote-control",
     "/rename-conversation",
     "/rename-tab",
+    "/reset-statusline",
     "/rewind",
     "/set-tab-color",
     "/skills",
@@ -975,6 +976,7 @@
     "/theme",
     "/usage",
     "/view-logs",
+    "/vim-mode",
     "/voice"
   ],
   "settings": {
@@ -1000,6 +1002,7 @@
     "agents.third_party.submit_on_ctrl_enter": "always_on",
     "agents.usage_display_mode": "always_on",
     "agents.voice.voice_input_enabled": "always_on",
+    "agents.voice.voice_input_hold_key": "always_on",
     "agents.voice.voice_input_language": "always_on",
     "agents.voice.voice_input_toggle_key": "always_on",
     "agents.warp_agent.active_ai.agent_mode_query_suggestions_enabled": "always_on",
@@ -1019,6 +1022,7 @@
     "agents.warp_agent.input.show_model_selectors_in_prompt": "always_on",
     "agents.warp_agent.is_any_ai_enabled": "always_on",
     "agents.warp_agent.other.agent_attribution_enabled": "always_on",
+    "agents.warp_agent.other.auto_approve_bypasses_command_denylist": "always_on",
     "agents.warp_agent.other.auto_handoff_on_sleep_enabled": "always_on",
     "agents.warp_agent.other.cloud_agent_computer_use_enabled": "always_on",
     "agents.warp_agent.other.default_prompt_submission_mode": "ga",
@@ -1266,6 +1270,7 @@
     "read_skill",
     "read_todos",
     "remove_todos",
+    "report_external_reference",
     "report_intent",
     "report_outcome",
     "report_pr",
@@ -1311,5 +1316,5 @@
     "verify-ui-change-in-cloud": "dogfood",
     "warpctrl": "bundled"
   },
-  "changelog_last_version": "2026.07.23"
+  "changelog_last_version": "2026.07.31"
 }

@@ -201,6 +201,9 @@ NamedAgents -> src/content/docs/platform/agents.mdx
 
 # Inference: BYOK and custom endpoints
 SoloUserByok -> src/content/docs/agent-platform/inference/bring-your-own-api-key.mdx
+# Gemini Enterprise (Vertex AI) BYOLLM routing. Promoted dogfood -> GA; the
+# feature has a dedicated Enterprise page.
+GeminiEnterprise -> src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx
 # CustomInferenceEndpoints flag was removed after the feature stabilized (GA);
 # the feature remains documented at inference/custom-inference-endpoint.mdx.
 # Connect a SuperGrok subscription instead of pasting an xAI API key.
@@ -379,6 +382,24 @@ GET /factory/scorers -> internal
 POST /factory/scorers -> internal
 GET /factory/scorers/{scorer_id}/results -> internal
 
+# Orchestration messaging and lifecycle-event endpoints. These are marked
+# `x-internal: true` in warp-server's canonical spec (public_api/openapi.yaml),
+# so the publish filter deliberately strips them from the public docs copy.
+# They back the agent-to-agent messaging tools and the documented
+# `oz run message` CLI, but the REST surface itself is not part of the released
+# public Oz Agent API. Revisit if warp-server drops the x-internal marker.
+POST /agent/messages -> internal
+GET /agent/messages/{run_id} -> internal
+POST /agent/messages/{id}/read -> internal
+POST /agent/messages/{id}/delivered -> internal
+GET /agent/events -> internal
+POST /agent/events/{run_id} -> internal
+
+# SSE lifecycle-event stream consumed by the Warp client and the Oz web app.
+# Absent from warp-server's canonical public spec entirely, and registered only
+# on the RTC host, so it is not a released public API operation.
+GET /agent/events/stream -> internal
+
 # Agent Memory REST API — research preview (gating flag AIMemories is non-GA),
 # deferred via `gated:` and auto-surfaces when AIMemories goes GA. See
 # "Public vs. private surfaces" in SKILL.md.
@@ -423,12 +444,16 @@ GET /memory_stores/{uid}/memories/{memoryUid}/versions -> gated:AIMemories
 # - /status: show session and account status
 # - /clear: clear the transcript and start a new conversation
 # - /statusline: configure the Warp Agent CLI statusline (agents.statusline, internal)
-# - /add-api-key, /clear-provider-api-key: store/remove a model-provider API key
+# - /reset-statusline: restore the statusline default items and ordering
+# - /api-keys: view and manage model-provider API keys. Replaces the removed
+#   /add-api-key and /clear-provider-api-key pair, whose entries were pruned.
+# - /vim-mode: toggle Vim mode in the Warp Agent CLI input
 /status -> internal
 /clear -> internal
 /statusline -> internal
-/add-api-key -> internal
-/clear-provider-api-key -> internal
+/reset-statusline -> internal
+/api-keys -> internal
+/vim-mode -> internal
 # TUI-only color-theme picker (Warp Agent CLI surface, SlashCommandSurfaces::TuiOnly
 # in static_commands/commands.rs). It sets the Warp Agent CLI theme
 # (appearance.theme, mapped internal below) and isn't present in the GUI, so it
@@ -473,6 +498,13 @@ appearance.theme -> internal
 appearance.zero_state.object -> internal
 appearance.zero_state.rotation_period_seconds -> internal
 appearance.zero_state.extrusion_depth -> internal
+
+# Warp Agent CLI-only (crates/warp_tui) push-to-talk modifier for voice input
+# (surface: SettingSurfaces::TUI in app/src/settings/tui_voice.rs). The GUI knob
+# is the separate agents.voice.voice_input_toggle_key, which is documented in the
+# all-settings reference. Paired with the /voice Warp Agent CLI slash command
+# mapped internal above.
+agents.voice.voice_input_hold_key -> internal
 
 ## Unlisted docs pages to ignore
 
