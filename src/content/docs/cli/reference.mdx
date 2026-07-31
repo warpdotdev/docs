@@ -20,7 +20,7 @@ Resumes a previous conversation by its conversation token.
 warp --resume CONVERSATION_TOKEN
 ```
 
-`CONVERSATION_TOKEN` is the token the CLI prints when you exit a session ("To continue this conversation, run: `warp --resume ...`"). You can also reopen past conversations from inside a session with `/conversations`. See [conversations in the CLI](/cli/conversations/) for how persistence and resuming work.
+`CONVERSATION_TOKEN` is the token the CLI prints when you exit a session ("To continue this conversation, run: `warp --resume ...`"). You can also reopen past conversations from inside a session with `/conversations`. See [agent conversations in the CLI](/cli/agent-conversations/#managing-conversations) for how persistence and resuming work.
 
 ### `--auto-approve`
 
@@ -260,7 +260,7 @@ The sign-in attempt was rejected or timed out; the message shows the underlying 
 
 1. Press `Ctrl+C` to exit, then run `warp` to start normally.
 2. Check the token against the resume command printed when you exited the original session.
-3. If the conversation exists locally, open it from the [conversation list](/cli/conversations/) with `/conversations` instead.
+3. If the conversation exists locally, open it from the [conversation menu](/cli/agent-conversations/#conversation-history) with `/conversations` instead.
 
 ### Updating
 
