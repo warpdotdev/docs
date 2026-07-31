@@ -323,6 +323,7 @@ Settings for Warp's agents, including model behavior, permissions, knowledge, MC
 
 * `thinking_display_mode` — Controls how agent thinking traces are displayed after streaming. Type: string. Default: `"show_and_collapse"`. Options: `"show_and_collapse"`, `"always_show"`, `"never_show"`.
 * `open_conversation_layout_preference` — Whether to open agent conversations in a new tab or a split pane. Type: string. Default: `"new_tab"`. Options: `"new_tab"`, `"split_pane"`.
+* `auto_approve_bypasses_command_denylist` — Whether auto-approve and [Run until completion](/agent-platform/capabilities/agent-profiles-permissions/#run-until-completion) run commands that match your command denylist without asking for confirmation. Denylist rules your team enforces through the [Admin Panel](/enterprise/team-management/admin-panel/) are never bypassed. Type: boolean. Default: `true`.
 * `show_conversation_history` — Whether conversation history appears in the tools panel. Type: boolean. Default: `true`.
 * `show_agent_notifications` — Whether agent notifications are shown. Type: boolean. Default: `true`.
 * `should_show_oz_updates_in_zero_state` — Whether the "What's new" section is shown in the agent view. Type: boolean. Default: `true`.
