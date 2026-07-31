@@ -791,7 +791,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AgentMode.Orchestration.RunAgentsCardDecision` | User accepted, accepted-without-orchestration, or rejected a run_agents confirmation card. Reports which config fields diverged from the original tool call and/or the active approved config. |
 | `AgentMode.Orchestration.TeamAgentCommunicationFailed` | Failed to send an orchestration message or lifecycle event for a TeamAgent |
 | `AgentMode.PotentialAutoDetectionFalsePositive` | Manually toggled input to shell mode after input was auto-detected as natural language. |
-| `AgentMode.QueryAttemptAtLImit` | Tried to send an Agent Mode query but they already reached the query limit |
 | `AgentMode.RequestRetrySucceeded` | Agent Mode request succeeded after retrying following an initial error |
 | `AgentMode.SetupCreateEnvironmentAction` | User clicked a button in the Agent Mode setup create environment step |
 | `AgentMode.SurfacedCitations` | Agent mode used and cited external sources that were used in its response |
@@ -841,9 +840,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Auth Common Question Clicked in App` | Clicked on "Common Question" when logging in |
 | `Auth: Open Privacy Settings Overlay` | Privacy settings are open during sign-in |
 | `Auth: Toggle Common Questions` | Toggled FAQ Page when logging in |
-| `Autosuggestion Inserted` | Accepted autosuggestion |
 | `Background Block Started` | Warp created a background-output Block (whenever a processes has been backgrounded and yields some output) |
-| `BaselineCommand Latency` | Command execution time |
 | `Block Creation` | Created Block |
 | `Block Filter Toolbelt Button Clicked` | Clicked the block filter icon in the top-right of a block |
 | `Block Selection` | Selected Block |
@@ -908,6 +905,10 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CLI.Execute.Run.Message.Read` | Read a run message from the Warp CLI |
 | `CLI.Execute.Run.Message.Send` | Sent a run message from the Warp CLI |
 | `CLI.Execute.Run.Message.Watch` | Watched run messages from the Warp CLI |
+| `CLI.Execute.Runner.Create` | Created a runner from the Warp CLI |
+| `CLI.Execute.Runner.Delete` | Deleted a runner from the Warp CLI |
+| `CLI.Execute.Runner.List` | Listed runners from the Warp CLI |
+| `CLI.Execute.Runner.Update` | Updated a runner from the Warp CLI |
 | `CLI.Execute.Schedule.Create` | Created a scheduled agent from the Warp CLI |
 | `CLI.Execute.Schedule.Delete` | Deleted a scheduled agent from the Warp CLI |
 | `CLI.Execute.Schedule.Get` | Got scheduled agent configuration from the Warp CLI |
@@ -968,12 +969,10 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CodeView.SelectionAddedAsContext` | Added selected code as context from the code editor |
 | `CodexModal.Opened` | User opened the Codex modal |
 | `CodexModal.UseCodexClicked` | User clicked 'Use Codex' in the Codex modal |
-| `Command Correction Event` | Accepted command correction |
 | `Command File Run` | Opened a .cmd or unix executable file and ran it directly in Warp |
 | `Command Palette Search Accepted` | Accepted a command palette search result |
 | `Command Palette Search Exited` | Exited command palette search without accepting a result |
 | `Command Search Exited` | Exited command search (universal search panel to search) without accepting a result |
-| `Command Search Filter Changed` | Changed command search filter |
 | `Command Search Opened` | Opened command search (universal search panel to search) |
 | `Command Search Result Accepted` | Accepted command search result |
 | `Complete Welcome Tip` | Completed all welcome tips items |
@@ -983,7 +982,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Confirm Suggestion` | Accepted tab completion suggestion |
 | `Context Menu Copy` | Clicked "Copy" in context menu |
 | `Context Menu Copy Prompt` | Clicked  "Copy Prompt" in context menu |
-| `Context Menu Copy Selected Text` | Clicked "Copy selected text" in context menu |
 | `Context Menu Insert Selected Text into Input` | Clicked "insert into input" in context menu |
 | `Context Menu Toggle Git Prompt Dirty Indicator` | Toggled indicator of dirty git prompt |
 | `Context Menu: Find Within Blocks` | Clicked "find within blocks" in context menu |
@@ -1016,7 +1014,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Drag and Drop Tab` | Tab dragged and dropped |
 | `Drag and Drop Tab Group` | Tab group dragged and dropped |
 | `Duplicate Object` | Cloned a Warp Drive object |
-| `Edited Input Before Precmd` | Input edited before precmd hook completes |
 | `Edited Workflow Alias Argument` | Edited an argument in a Warp Drive workflow alias |
 | `Enable Alias Expansion From Banner` | Enabled automatic alias expansion within the Input Editor from the banner |
 | `Executed Conversation Rewind` | User executed a rewind to a previous conversation state |
@@ -1044,7 +1041,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Initiate Reauth` | Started the flow to re-authenticate the client |
 | `Input Mode Changed` | Changed the Input Editor Mode (Pinned to Bottom, Pinned to Top, Classic / Waterfall Mode) |
 | `Input.AtMenuInteracted` | Interacted with the @ menu |
-| `Input.ContextChipInteracted` | Interacted with a context chip |
 | `Input.InputUXModeChanged` | Changed the input UX mode |
 | `Input.VoiceInputUsed` | Used voice input |
 | `InputBoxAICommandSearch` | Opened AI Command Search via the Input Editor's context menu (right clicking the buffer) |
@@ -1107,7 +1103,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Notifications Discovery Banner Action` | Showed banner introducing the notifications feature |
 | `Notifications Error Banner Action` | Showed error banner for notifications feature |
 | `Object Link Copied` | The web link to an object has been copied. |
-| `Open Context Menu` | Opened context menu (such as right clicking, clicking on ellipses in the top right of a Block, etc.) |
 | `Open Launch Config` | Opened launch config for a session |
 | `Open Launch Config File` | Opened the launch config YAML file from modal once saved successfully |
 | `Open Palette` | Opened the palette |
@@ -1115,7 +1110,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Open Repo Folder Submitted` | User selected a folder to open as a repo from the "Open repository" button |
 | `Open Save Config Modal` | Opened save launch configuration modal |
 | `Open Slash Menu` | Opened the slash commands menu |
-| `Open Suggestions Menu` | Opened a suggestion menus, such as with up arrow or tab |
 | `Open Team from URI` | Showed settings view of their newly joined team within the app |
 | `Open Theme Chooser` | Opened theme chooser (list of different themes and visualizations of those themes) |
 | `Open Theme Creator Modal` | Opened theme creator modal (modal to create a new theme) |
@@ -1124,7 +1118,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `OpenAndWarpifyDockerSubshell` | Warpifying a docker subshell from using the docker extension |
 | `OpenInputBoxContextMenu` | Opened the Input Editor's context menu |
 | `Opened Changelog Link` | Opened the changelog link within the App |
-| `Opened Link` | Opened a highlighted link within input or output |
 | `Opened Rewind Confirmation Dialog` | User opened the rewind confirmation dialog |
 | `Opened Save As Workflow Modal` | Opened the modal to create a new workflow using a Block's context--command, etc. |
 | `Opened Sharing Dialog` | Opened the sharing settings dialog for a session or Warp Drive object |
@@ -1134,7 +1127,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Pane Drag Ended` | Ended dragging a pane via the pane header |
 | `Pane Drag Inititiated` | Initiated dragging a pane via the header |
 | `Parameterized Workflow With Environment Variables` | Selected from environment variables dropdown to parameterize workflow |
-| `Parsed Config in Settings Import` | Parsed a terminal's settings as part of settings import |
 | `Preview Pane Promoted` | Promoted a preview code tab to a normal tab |
 | `Prompt Edited` | Edited the prompt using the built-in prompt editor |
 | `Prompt Editor Opened` | Opened the prompt editor |
@@ -1149,6 +1141,8 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Quit Modal Shown` | Showed an alert modal to warn the user about closing the app/window with a running process |
 | `Received Subshell RC File DCS` | Spawned a subshell to be automatically Warpified |
 | `Recent Menu Item Selected` | User selected an item from the recents list on the new tab zero state |
+| `Recording.Started` | A computer-use video recording was started |
+| `Recording.Stopped` | A computer-use video recording was stopped and finalized |
 | `RemoteCodebaseIndex.AutoIndexRequested` | Remote codebase auto-indexing requested one or more repositories |
 | `RemoteCodebaseIndex.StatusChanged` | The remote codebase index status changed |
 | `RemoteServer.BinaryCheck` | Remote server binary check completed (found, not found, or error) |
@@ -1267,7 +1261,6 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Trigger Subshell Bootstrap` | Attempted to Warpify the current session via Warp's subshell wrapper |
 | `Unable to Update To New Version` | Update available but not authorized to install |
 | `Undo Close` | Re-opened a closed tab or window (undo closing a tab or window) |
-| `Unhandled Editor Modifier Key` | Used modifier keybinding keystroke which is not currently supported |
 | `Unsupported Shell` | Booted Warp with a shell that isn't supported |
 | `Update Block Filter Query` | When a new filter is applied to a block |
 | `Update Block Filter Query With Context Lines` | When the number of context lines for a block filter query is updated |
@@ -1298,10 +1291,13 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Workflow Selected` | Selected workflow and populated into the Input Editor |
 | `Zero State Prompt Suggestion Used` | Used a zero state prompt suggestion |
 | `experiments.client.enroll_client` | Client assigned to A/B test |
+| `onboarding_action` | User performed an action in the account-first onboarding flow |
 | `onboarding_agent_slide_upgrade_clicked` | User clicked the Upgrade button on the Customize your agent slide |
+| `onboarding_auth_completed` | User completed account-first browser authentication |
 | `onboarding_callout_completed` | User completed the callout flow |
 | `onboarding_callout_displayed` | A callout was displayed to the user |
 | `onboarding_callout_next` | User clicked next on a callout |
+| `onboarding_completed` | User completed account-first onboarding |
 | `onboarding_folder_selected` | User selected a folder |
 | `onboarding_folder_selection_started` | User started folder selection |
 | `onboarding_get_started_clicked` | User clicked the Get Started button |
@@ -1314,6 +1310,8 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `onboarding_slide_viewed` | User viewed a slide in the onboarding flow |
 | `onboarding_slides_completed` | User completed the onboarding slides |
 | `onboarding_started` | User started the onboarding flow |
+| `onboarding_upgrade_completed` | User completed an upgrade from account-first onboarding |
+| `onboarding_upgrade_started` | User started an upgrade from account-first onboarding |
 | `onboarding_welcome_login_clicked` | User clicked the Log in link on the welcome/intro slide |
 | `perf_metrics.memory_usage_high` | Total application memory usage exceeded a significant threshold |
 | `perf_metrics.resource_usage` | Periodic report on application resource usage statistics |
