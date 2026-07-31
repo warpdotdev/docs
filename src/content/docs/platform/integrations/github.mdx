@@ -108,7 +108,7 @@ Configure the integration so every GitHub-triggered run uses the environment and
 2. Open the row's settings and choose the [environment](/platform/environments/) the runs use, plus an optional model, [agent](/platform/agents/), prompt, and secrets.
 3. Save the configuration.
 
-The repository that triggered the event is always cloned for the run, so an environment is optional. Configure one when runs need additional repositories, a specific Docker image, or setup commands. Any repository you add has to be covered by the same GitHub App installation as the triggering repository.
+The repository that triggered the event is always cloned for the run, so an environment is optional. Configure one when runs need additional repositories, a specific Docker image, or setup commands. Pick a GitHub environment whose repositories the same installation covers, since the run authenticates with that installation's token.
 
 :::note
 Unlike Slack and Linear, the GitHub integration isn't created with `oz integration create`. It appears once the Oz by Warp GitHub App installation is associated with your team in the Admin Panel.
@@ -162,7 +162,8 @@ For fully automated workflows that run without a triggering user, such as schedu
 * **The installation must map to a Warp team.** Repositories in an organization that no Warp team has enabled can't start runs.
 * **Installations are scoped to one organization each.** Install the app separately for every GitHub organization whose repositories your team works in.
 * **Everything on GitHub is done by the app.** Comments, commits, branches, and pull requests come from Oz by Warp rather than the person who mentioned the agent, so the run can't reach anything the installation can't reach, and it isn't narrowed to what that person can reach either.
-* **Every repository in the run must belong to the same installation.** The triggering repository and every repository in the configured environment have to be covered by the installation that delivered the event, and that environment has to be a GitHub environment. A run whose environment points at repositories in another organization, or at another provider, fails to start.
+* **The configured environment must be a GitHub environment.** A GitHub-triggered run rejects an environment built for another provider, such as GitLab or Bitbucket, and asks you to configure a GitHub environment instead.
+* **Environment repositories outside the installation stay out of reach.** The installation token only covers the repositories the app is installed on, so a repository in the environment that the installation doesn't cover isn't available to the agent.
 
 ## Troubleshooting
 
