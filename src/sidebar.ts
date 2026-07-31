@@ -370,6 +370,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'platform/integrations/slack',
 						'platform/integrations/linear',
 						'platform/integrations/jira',
+						'platform/integrations/github',
 						{
 							label: 'GitHub Actions',
 							collapsed: true,
