@@ -335,6 +335,7 @@ Settings for Warp's agents, including model behavior, permissions, knowledge, MC
 * `orchestration_message_display_mode` — How child-agent message bodies are displayed during [multi-agent runs](/platform/orchestration/multi-agent-runs/). Type: string. Default: `"always_collapse"`. Options: `"show_and_collapse"`, `"always_show"`, `"always_collapse"`.
 * `should_force_disable_cloud_handoff` — Whether to force-disable [local-to-cloud handoff](/platform/handoff/local-to-cloud/). Type: boolean. Default: `false`.
 * `should_force_disable_ampersand_handoff` — Whether to force-disable the `&` prefix that composes a prompt for cloud handoff. Type: boolean. Default: `false`.
+* `auto_approve_bypasses_command_denylist` — Whether auto-approve and [Run until completion](/agent-platform/capabilities/agent-profiles-permissions/#run-until-completion) run commands that match your [command denylist](/agent-platform/capabilities/agent-profiles-permissions/#command-denylist) without asking for confirmation. Turn this off to keep your denylist in force during auto-approve. Denylist rules enforced through the [Admin Panel](/enterprise/team-management/admin-panel/) are never bypassed. Type: boolean. Default: `true`.
 
 ### Third-party (CLI agents)
 

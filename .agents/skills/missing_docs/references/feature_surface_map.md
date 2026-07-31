@@ -207,6 +207,10 @@ SoloUserByok -> src/content/docs/agent-platform/inference/bring-your-own-api-key
 SuperGrok -> src/content/docs/agent-platform/inference/bring-your-own-api-key.mdx
 # Custom model routers (Settings > AI > Custom Routers) surface in the model picker.
 CustomModelRouters -> src/content/docs/agent-platform/inference/model-choice.mdx
+# Gemini Enterprise (GEAP) BYOLLM: routes eligible Google models through the
+# customer's Google Cloud project using workload identity federation. Documented
+# alongside AWS Bedrock as the second BYOLLM host.
+GeminiEnterprise -> src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx
 
 # Billing & Usage settings page (redesigned)
 BillingAndUsagePageV2 -> src/content/docs/support-and-community/plans-and-billing/index.mdx
@@ -423,12 +427,17 @@ GET /memory_stores/{uid}/memories/{memoryUid}/versions -> gated:AIMemories
 # - /status: show session and account status
 # - /clear: clear the transcript and start a new conversation
 # - /statusline: configure the Warp Agent CLI statusline (agents.statusline, internal)
-# - /add-api-key, /clear-provider-api-key: store/remove a model-provider API key
+# - /reset-statusline: restore the statusline to its default items and ordering
+# - /api-keys: view and manage model-provider API keys. This replaced the paired
+#   /add-api-key and /clear-provider-api-key commands, whose entries are pruned.
+# - /vim-mode: toggle Vim mode in the Warp Agent CLI input. The GUI equivalents are
+#   documented separately (input editor and code editor Vim keybindings).
 /status -> internal
 /clear -> internal
 /statusline -> internal
-/add-api-key -> internal
-/clear-provider-api-key -> internal
+/reset-statusline -> internal
+/api-keys -> internal
+/vim-mode -> internal
 # TUI-only color-theme picker (Warp Agent CLI surface, SlashCommandSurfaces::TuiOnly
 # in static_commands/commands.rs). It sets the Warp Agent CLI theme
 # (appearance.theme, mapped internal below) and isn't present in the GUI, so it
@@ -473,6 +482,13 @@ appearance.theme -> internal
 appearance.zero_state.object -> internal
 appearance.zero_state.rotation_period_seconds -> internal
 appearance.zero_state.extrusion_depth -> internal
+
+# Warp Agent CLI-only (crates/warp_tui) push-to-talk modifier for voice input
+# (surface: SettingSurfaces::TUI in app/src/settings/tui_voice.rs). It isn't
+# present in the GUI settings UI, so it isn't documented in the all-settings
+# reference. The GUI equivalent is agents.voice.voice_input_toggle_key, which is
+# documented under the [agents.voice] section.
+agents.voice.voice_input_hold_key -> internal
 
 ## Unlisted docs pages to ignore
 

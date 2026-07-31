@@ -1,16 +1,23 @@
 ---
 title: Bring Your Own LLM
 description: >-
-  Route Warp's agents through your AWS Bedrock models for billing control and
-  infrastructure flexibility.
+  Route Warp's agents through your own AWS Bedrock or Gemini Enterprise models
+  for billing control and infrastructure flexibility.
 ---
 
-Warp supports **Bring Your Own LLM (BYOLLM)** for enterprise teams that need to run inference on their own cloud infrastructure. With BYOLLM, your team can use Warp's agents while routing inference through models hosted in your AWS Bedrock environment.
+Warp supports **Bring Your Own LLM (BYOLLM)** for enterprise teams that need to run inference on their own cloud infrastructure. With BYOLLM, your team can use Warp's agents while routing inference through models hosted in your own cloud environment.
 
 This gives you control over cloud spend and model hosting, without changing how your team works in Warp.
 
+## Supported hosts
+
+Warp supports two BYOLLM hosts. A team can enable either or both, and admins choose per host which models route through it.
+
+* **AWS Bedrock** - Routes Claude models through your AWS account. Interactive terminal sessions use each member's AWS CLI session credentials; cloud agent runs assume an IAM role via OIDC.
+* **Gemini Enterprise** - Routes eligible Google models through your Google Cloud project. Warp mints short-lived Google credentials from each member's Warp session using workload identity federation, so members don't run a separate cloud login.
+
 :::caution
-BYOLLM currently supports **AWS Bedrock** only. Coming soon: Azure Foundry and Google Vertex support.
+Azure Foundry support is not yet available.
 :::
 
 :::note
@@ -22,15 +29,16 @@ BYOLLM is only available on Warp's Enterprise plan. [Contact sales](https://www.
 * **Cloud-native credentials** - No long-lived API keys. Interactive terminal sessions use each user's AWS CLI session credentials; cloud agent runs assume an IAM role in your AWS account via OIDC.
 * **Admin-controlled IAM** - Admins define which IAM role(s) Warp can assume and which models are available via AWS Bedrock, with the ability to disable non-Bedrock model access entirely.
 * **Admin-enforced routing** - Team admins configure which models are available to users in AWS Bedrock, with the ability to disable non-Bedrock model access entirely.
-* **Consolidated billing** - Inference costs are billed directly to your AWS account, leveraging existing cloud commitments.
+* **Consolidated billing** - Inference costs are billed directly to your cloud account, leveraging existing cloud commitments.
+* **Per-host enforcement** - For each host, admins either enforce it for every member or leave it to each member to opt in.
 
 ## How BYOLLM works
 
 {/* TODO: Add architecture diagram showing BYOLLM request flow (admin configures routing → user authenticates to AWS → Warp routes request → inference in customer AWS account) */}
 
-When BYOLLM is enabled, Warp redirects inference calls to your AWS Bedrock environment instead of using model providers' direct APIs.
+When BYOLLM is enabled, Warp redirects inference calls to your cloud environment instead of using model providers' direct APIs.
 
-Here's the high-level flow:
+Here's the high-level flow for AWS Bedrock. Gemini Enterprise follows the same shape, except that instead of a local cloud login, Warp exchanges the member's Warp session for Google credentials. See [Gemini Enterprise credentials](#gemini-enterprise-credentials).
 
 **Interactive terminal flow**
 
@@ -56,18 +64,34 @@ BYOLLM uses **cloud-native IAM authentication**, not long-lived API keys:
 
 This approach ensures access management stays with your cloud provider, giving admins member-by-member control.
 
+### Gemini Enterprise credentials
+
+Gemini Enterprise uses **Google Cloud workload identity federation** rather than a locally installed cloud CLI. Warp exchanges an identity token rooted in the member's Warp session for a Google access token:
+
+1. Warp issues an OIDC identity token for the signed-in member.
+2. Warp exchanges that token at Google's Security Token Service for a federated access token, using the workload identity pool audience your admin configured.
+3. If your admin also configured a service account, Warp calls Google's IAM Credentials API to mint an access token that impersonates that service account. Without a service account, Warp uses the federated token directly.
+4. Warp signs inference requests to Gemini Enterprise with the resulting token.
+
+Access tokens are scoped to Google's `cloud-platform` scope and last one hour. Warp refreshes them ahead of expiry, and re-mints when your workspace settings change or when a request finds the stored token expired.
+
+Because the mint is rooted in a Warp session, Gemini Enterprise routing requires the member to be signed in to Warp. It's unavailable to anonymous or signed-out users.
+
 ### Model availability
 
-BYOLLM supports the intersection of models that Warp supports and models available on AWS Bedrock. Currently, only **Claude models** (Anthropic) are available through AWS Bedrock. OpenAI and Google models are not available on Bedrock.
+BYOLLM supports the intersection of models that Warp supports and models your host makes available.
+
+* **AWS Bedrock** - Currently only **Claude models** (Anthropic) are available. OpenAI and Google models are not available on Bedrock.
+* **Gemini Enterprise** - Eligible **Google models** route to your Google Cloud project.
 
 To determine which models you can use with BYOLLM:
 
 * [Model Choice](/agent-platform/inference/model-choice/) - Full list of Warp-supported models.
 * [Supported models in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/model-cards.html) - AWS Bedrock model availability.
 
-A model must appear on both lists to be available through BYOLLM.
+A model must be supported by both Warp and the host to be available through BYOLLM.
 
-## Enabling BYOLLM
+## Enabling BYOLLM with AWS Bedrock
 
 ### Prerequisites
 
@@ -132,6 +156,53 @@ Run a test prompt in Warp using a model configured for BYOLLM routing. Verify:
 
 * The request completes successfully.
 * Logs appear in AWS CloudWatch.
+
+## Enabling BYOLLM with Gemini Enterprise
+
+Gemini Enterprise has no local CLI step for members, so setup is entirely on the admin and Google Cloud side.
+
+### Prerequisites
+
+* You have admin access to Warp's [Admin Panel](/enterprise/team-management/admin-panel/) and to the Google Cloud project hosting Gemini Enterprise.
+* You can create a workload identity pool and provider in that project, so Warp-issued identity tokens can be federated.
+
+### 1. Configure workload identity federation (cloud admin)
+
+Create a workload identity pool and an OIDC provider in your Google Cloud project that trusts Warp as the token issuer. This is what lets Warp exchange a member's Warp session for Google credentials without distributing keys.
+
+Note the full audience string for the provider. Warp needs it to perform the token exchange.
+
+If you want requests to run as a dedicated identity rather than the federated principal, also create a service account with access to Gemini Enterprise and grant the federated principal permission to impersonate it.
+
+For more detail, see Google's [Workload Identity Federation](https://cloud.google.com/iam/docs/workload-identity-federation) documentation.
+
+### 2. Enable Gemini Enterprise for the workspace (admin)
+
+In the [Admin Panel](/enterprise/team-management/admin-panel/), enable Gemini Enterprise as an LLM host for your workspace and supply the workload identity audience from Step 1, plus the service account email if you created one.
+
+Choose how strictly the host applies:
+
+* **Enforce** - Every member routes eligible models through Gemini Enterprise. Members can't turn it off.
+* **Respect user setting** - Each member decides. The host is off until they opt in.
+
+### 3. Opt in (team member)
+
+This step applies only when your admin chose **Respect user setting**.
+
+In the Warp app, go to **Settings** > **Agents** > **Warp Agent** and toggle **Use Gemini Enterprise credentials** on. Warp mints credentials immediately, so you don't need to restart Warp or run a cloud login.
+
+### 4. Validate
+
+Run a test prompt using a Google model that your admin routed through Gemini Enterprise, then confirm the request appears in your Google Cloud project's logs.
+
+### Troubleshooting Gemini Enterprise
+
+Warp reports the state of your Gemini Enterprise credentials in **Settings** > **Agents** > **Warp Agent**, alongside an action to refresh them.
+
+* **Unconfigured** - Your admin enabled the host but the workload identity audience is missing or blank. Ask your admin to add it in the Admin Panel.
+* **Credentials fail to mint** - Confirm the workload identity provider trusts Warp as the token issuer, the audience string matches exactly, and the federated principal can impersonate the service account when one is configured.
+* **Not signed in** - Gemini Enterprise credentials derive from your Warp session. Sign in to Warp, then refresh credentials.
+* **Setting won't turn on** - If the toggle is missing or locked, your admin either hasn't enabled the host or has set it to **Enforce**, which leaves members no choice.
 
 ## Enabling BYOLLM for cloud agents
 
@@ -338,14 +409,14 @@ However, when using BYOLLM:
 
 **BYOK (Bring Your Own API Key)** lets individual users add their own API keys for direct model provider access (e.g., Anthropic, OpenAI, Google). Warp stores keys locally on the user's device.
 
-**BYOLLM (Bring Your Own LLM)** routes inference through your organization's cloud infrastructure (AWS Bedrock) using cloud-native IAM. Admins configure it at the admin level and it applies to the entire team.
+**BYOLLM (Bring Your Own LLM)** routes inference through your organization's cloud infrastructure (AWS Bedrock or Gemini Enterprise) using cloud-native IAM. Admins configure it at the admin level and it applies to the entire team.
 
 Enterprise admins can also centrally manage BYOK itself: [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) let an admin configure shared provider keys and OpenAI-compatible endpoints that are stored server-side and work for both interactive requests and cloud agents. The table below compares BYOLLM with the self-serve, user-level form of BYOK. For a side-by-side comparison that also includes team-managed keys and endpoints, see [How team-managed providers differ from self-serve BYOK and BYOLLM](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#how-team-managed-providers-differ-from-self-serve-byok-and-byollm).
 
 | Feature | BYOK | BYOLLM |
 | --- | --- | --- |
 | Configuration level | User | Admin/Team |
-| Authentication | API keys (local) | IAM role assumed by Warp via OIDC |
+| Authentication | API keys (local) | Cloud identity federated by Warp (AWS IAM role via OIDC, or Google workload identity) |
 | Billing | Direct to provider | Your cloud account |
 | Data locality | Provider infrastructure | Your cloud infrastructure |
 
@@ -355,9 +426,13 @@ Auto model selection is disabled if an admin disables **any** Direct API model, 
 
 When Direct API models remain enabled and BYOLLM is configured, Auto picks the best model for the task. If the selected model is also enabled for AWS Bedrock, the request routes through Bedrock; otherwise it routes through the Direct API.
 
+### Do team members need a cloud CLI installed?
+
+It depends on the host. AWS Bedrock relies on your local AWS credential provider chain for interactive terminal sessions, so members need the AWS CLI and an `aws login`. Gemini Enterprise doesn't: Warp mints Google credentials from your Warp session, so members only need to be signed in to Warp.
+
 ### Where does compute run and who pays?
 
-Inference runs in **your AWS account**, which AWS bills directly. Warp does not consume AI credits for BYOLLM-routed inference. Cloud agent runs continue to consume platform and compute credits for orchestration. See [The three credit buckets](/support-and-community/plans-and-billing/platform-credits/#the-three-credit-buckets) for more.
+Inference runs in **your cloud account** — your AWS account for Bedrock, or your Google Cloud project for Gemini Enterprise — which your cloud provider bills directly. Warp does not consume AI credits for BYOLLM-routed inference. Cloud agent runs continue to consume platform and compute credits for orchestration. See [The three credit buckets](/support-and-community/plans-and-billing/platform-credits/#the-three-credit-buckets) for more.
 
 ### What data does Warp store? Do you store our cloud credentials?
 
