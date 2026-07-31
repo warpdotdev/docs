@@ -60,104 +60,165 @@ To determine which models you can use, see [Model Choice](/agent-platform/infere
 
 ## Enabling Gemini Enterprise
 
-Setup has two halves: a one-time Google Cloud configuration (WIF trust and IAM), then routing configuration in Warp's Admin Panel.
+Setting up Gemini Enterprise has two parts:
+
+1. **In Google Cloud** - Trust identities issued by Warp, then grant them permission to call Vertex AI.
+2. **In Warp** - Point the Admin Panel at your project and choose which models route through it.
+
+Access is granted through **Workload Identity Federation**, so no long-lived service account key is ever created or shared with Warp. Step 2 covers two ways to grant that access: directly to your federated Warp identities, or through a service account you designate.
+
+:::note
+The Google Cloud steps use the Google Cloud console. If you prefer the command line, see [Alternative: configure Google Cloud with the gcloud CLI](#alternative-configure-google-cloud-with-the-gcloud-cli).
+:::
 
 ### Prerequisites
 
-* **Warp Enterprise plan with admin access** - You configure routing on the **Models** page of the [Admin Panel](/enterprise/team-management/admin-panel/).
-* **A Google Cloud project with Vertex AI enabled** - Enable the Vertex AI API (`aiplatform.googleapis.com`) in the project that should own inference, quota, and billing.
-* **Model access in Vertex AI** - Gemini models are available by default; Claude partner models must be enabled for your project in the Vertex AI Model Garden.
-* **GCP IAM admin access** - You need permission to create a Workload Identity Pool, provider, and IAM bindings (and optionally a service account).
+Before configuring Gemini Enterprise, confirm the following:
 
-### 1. Create a Workload Identity Federation pool and provider (cloud admin)
+* You have a Google Cloud project that will own inference, quota, and billing.
+* The Vertex AI API (`aiplatform.googleapis.com`) is enabled in that project.
+* The models you plan to route are available to the project. Claude partner models must be enabled in the Vertex AI Model Garden.
+* You can create Workload Identity Federation pools and providers and modify the project's IAM policy. To use service account impersonation in Step 2, you also need permission to create service accounts.
+* You have administrator access to Warp's [Admin Panel](/enterprise/team-management/admin-panel/).
 
-Before Google Cloud can trust tokens issued by Warp, register Warp as an OIDC identity provider in a Workload Identity Pool. This is a one-time setup per GCP project.
+### Values you'll need
 
-Warp's OIDC tokens use the issuer `https://app.warp.dev` and carry these claims:
+Collect these values before you start. You'll reuse them across Google Cloud and Warp.
 
-* `sub` - Shaped as `scoped_principal:<team-uid>/<actor-type>:<principal-uid>`, where `<actor-type>` is `user` for interactive requests.
-* `teams` - The list of Warp team UIDs the user belongs to. Mapping this claim to `google.groups` lets you grant access to your whole Warp team with one IAM binding.
+* **`PROJECT_ID`** - Your Google Cloud project's alphanumeric identifier, such as `my-gcp-project`.
+* **`PROJECT_NUMBER`** - Your Google Cloud project's numeric identifier, such as `123456789012`. Both identifiers appear on the **Welcome** page of the Google Cloud console.
+* **`TEAM_UID`** - Your Warp team UID, which is the path segment immediately after `/admin/` in your Admin Panel URL. In `https://app.warp.dev/admin/HzjUdNkg8Uiq8gp6FMgfxe/models`, the team UID is `HzjUdNkg8Uiq8gp6FMgfxe`.
+* **`POOL_ID`** and **`PROVIDER_ID`** - Names you choose for the workload identity pool and provider you create in Step 1, such as `warp-byollm` and `warp`.
 
-The `<team-uid>` is the Warp team UID for your team. You can find it in your team's [Admin Panel](/enterprise/team-management/admin-panel/) URL as the path segment after `/admin/`. For example, in `https://app.warp.dev/admin/HzjUdNkg8Uiq8gp6FMgfxe/models`, the team UID is `HzjUdNkg8Uiq8gp6FMgfxe`.
+### 1. Create a workload identity pool and provider (cloud admin)
 
-**Example: create the pool and provider with the gcloud CLI**
+Before Google Cloud accepts identity tokens issued by Warp, register Warp as an OIDC identity provider in a workload identity pool.
 
-```bash
-gcloud iam workload-identity-pools create warp-byollm \
-  --project=PROJECT_ID \
-  --location=global \
-  --display-name="Warp BYOLLM"
+A workload identity pool provides a namespace for external identities. The provider inside that pool tells Google Cloud how to validate and interpret the OIDC tokens Warp issues.
 
-gcloud iam workload-identity-pools providers create-oidc warp \
-  --project=PROJECT_ID \
-  --location=global \
-  --workload-identity-pool=warp-byollm \
-  --issuer-uri="https://app.warp.dev" \
-  --attribute-mapping="google.subject=assertion.sub,google.groups=assertion.teams" \
-  --attribute-condition="'TEAM_UID' in assertion.teams"
-```
+Warp-issued OIDC tokens carry these claims:
 
-Replace `PROJECT_ID` with your GCP project ID and `TEAM_UID` with your Warp team UID. The attribute condition restricts the provider to tokens from your Warp team.
+* **`sub`** - Identifies the Warp actor, shaped as `scoped_principal:TEAM_UID/ACTOR_TYPE:PRINCIPAL_UID`. For interactive requests, `ACTOR_TYPE` is `user`.
+* **`teams`** - Lists the Warp team UIDs the actor belongs to. Mapping this claim to `google.groups` lets you grant a role to an entire Warp team with a single IAM binding.
 
-After creating the provider, note its full resource name; you'll paste it into Warp as the **WIF audience** in Step 3:
+#### Create the pool
+
+1. In the Google Cloud console, go to **IAM & Admin** > **Workload Identity Federation**.
+2. Click **Create pool**.
+3. For **Name**, enter your `POOL_ID` value, then click **Continue**.
+
+If your organization already has a suitable pool, skip this step and create the Warp provider inside the existing pool instead.
+
+#### Create the provider
+
+Continue in the **Add a provider to pool** step:
+
+1. For **Select a provider**, choose **OpenID Connect (OIDC)**.
+2. For **Provider name**, enter your `PROVIDER_ID` value.
+3. For **Issuer (URL)**, enter `https://app.warp.dev`.
+4. Leave **Audience** set to **Default audience**, then click **Continue**.
+
+The default audience requires Warp's OIDC token to name this provider in its `aud` claim, which takes this canonical form:
 
 ```text
-//iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/warp-byollm/providers/warp
+https://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID
 ```
 
-Replace `PROJECT_NUMBER` with your GCP project number. For more detail, see Google's [Workload Identity Federation documentation](https://cloud.google.com/iam/docs/workload-identity-federation).
+You'll enter a variation of this value in Warp in Step 3.
 
-### 2. Grant Vertex AI access (cloud admin)
+#### Configure attribute mappings
 
-Grant the federated identities permission to run Vertex AI inference in your project. Use least-privilege IAM bindings scoped to your Warp team's group principal.
+In **Configure provider attributes**, add both mappings exactly as shown:
 
-The two required roles are:
+| Google attribute | OIDC expression |
+| --- | --- |
+| `google.subject` | `assertion.sub` |
+| `google.groups` | `assertion.teams` |
 
-* `roles/aiplatform.user` - Allows Vertex AI inference calls.
-* `roles/serviceusage.serviceUsageConsumer` - Allows quota attribution to your project (Warp sends your project as the quota project on each request).
+#### Restrict the provider to your Warp team
 
-**Option A: Direct federated access**
+Turn on **Attribute conditions** and enter the following expression, replacing `TEAM_UID` with your Warp team UID:
 
-Grant the roles directly to your Warp team's principal set. Leave the service account field empty in Warp.
-
-```bash
-gcloud projects add-iam-policy-binding PROJECT_ID \
-  --member="principalSet://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/warp-byollm/group/TEAM_UID" \
-  --role="roles/aiplatform.user"
-
-gcloud projects add-iam-policy-binding PROJECT_ID \
-  --member="principalSet://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/warp-byollm/group/TEAM_UID" \
-  --role="roles/serviceusage.serviceUsageConsumer"
+```text
+"TEAM_UID" in assertion.teams
 ```
 
-**Option B: Service account impersonation**
+This rejects any Warp-issued token that doesn't belong to your team. Click **Save**.
 
-If your organization prefers auditing through a dedicated service account, create one, grant it the two roles above, and allow the federated principal set to impersonate it:
+The provider now appears in the pool and is ready to exchange tokens.
 
-```bash
-gcloud iam service-accounts add-iam-policy-binding \
-  warp-byollm@PROJECT_ID.iam.gserviceaccount.com \
-  --member="principalSet://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/warp-byollm/group/TEAM_UID" \
-  --role="roles/iam.workloadIdentityUser"
-```
+### 2. Grant Vertex AI access to your Warp team (cloud admin)
 
-With this option, also enable the IAM Service Account Credentials API (`iamcredentials.googleapis.com`) and enter the service account's email in Warp in Step 3. Warp never receives the service account's keys; the client requests short-lived impersonated tokens at mint time.
+The provider you created controls which Warp tokens Google Cloud accepts. Now grant permissions to the identities those tokens represent. Choose one of the following approaches:
+
+* **Option A (Recommended): Direct federated access** - Grants roles straight to your federated Warp identities. 
+* **Option B: Service account impersonation** - Routes access through a dedicated service account.
+
+Neither option creates a long-lived service account key, and Warp never receives one.
+
+#### Option A: Direct federated access (recommended)
+
+1. In the Google Cloud console, go to **IAM & Admin** > **IAM**, then click **Grant access**.
+2. For **New principals**, enter your team's principal set, substituting your own values:
+
+   ```text
+   principalSet://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/group/TEAM_UID
+   ```
+
+3. Assign both of the following roles, then click **Save**:
+   * **Vertex AI User** (`roles/aiplatform.user`) - Allows Vertex AI inference calls. For stricter least privilege, create a custom role that contains only `aiplatform.endpoints.predict` and assign that role instead.
+   * **Service Usage Consumer** (`roles/serviceusage.serviceUsageConsumer`) - Lets the federated identity draw quota and billing from your project.
+
+The principal set now appears in the project's IAM policy with both roles attached. Leave **Service account email** blank in Step 3.
+
+#### Option B: Service account impersonation (optional)
+
+1. In the Google Cloud console, go to **IAM & Admin** > **Service Accounts**, then click **Create service account**.
+2. Enter a name for the account, such as `warp-byollm-sa`, then click **Create and continue**.
+3. Grant the service account the **Vertex AI User** (`roles/aiplatform.user`) and **Service Usage Consumer** (`roles/serviceusage.serviceUsageConsumer`) roles on your project, then click **Done**.
+4. Select the service account, open the **Principals with access** tab, then click **Grant access**.
+5. For **New principals**, enter your team's principal set:
+
+   ```text
+   principalSet://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/group/TEAM_UID
+   ```
+
+6. Assign the **Workload Identity User** role (`roles/iam.workloadIdentityUser`), then click **Save**.
+7. Go to **APIs & Services** > **Library**, search for **IAM Service Account Credentials API**, and click **Enable** so Warp can request impersonated tokens.
+
+Copy the service account's email address, such as `warp-byollm-sa@PROJECT_ID.iam.gserviceaccount.com`. You'll enter it in Step 3.
+
+Warp never receives the service account's keys. Each request carries a short-lived impersonated token that the client mints at request time.
 
 ### 3. Configure routing in the Admin Panel (Warp admin)
 
-Connect Warp to your GCP configuration so eligible requests route to your project:
+Connect Warp to the Google Cloud configuration you just created:
 
-1. In the [Admin Panel](https://app.warp.dev/admin/), go to the **Models** page and find the **Gemini Enterprise** host configuration.
-2. Enter the **GCP project ID**, choose a **location**, and paste the **WIF audience** (the full provider resource name from Step 1). Optionally enter the **service account email** from Step 2, Option B.
-3. Toggle **Gemini Enterprise** on, then enable the models that should route through your project. You can override the Vertex model reference per model; clearing an override restores Warp's default.
-4. Optionally, disable **Direct API** access for those models to enforce provider-only routing.
+1. In the [Admin Panel](https://app.warp.dev/admin/), go to the **Models** page.
+2. Find the **Gemini Enterprise** host configuration and enable it.
+3. For **GCP project ID**, enter your `PROJECT_ID` value.
+4. For **Location**, choose the Vertex AI location that should serve requests.
+5. For **WIF audience**, enter the provider resource name in this form:
 
-The default location is `global`. Multi-region values (`global`, `us`, `eu`) and specific regions (for example, `us-central1`) are supported; the location applies host-wide to all Gemini Enterprise models.
+   ```text
+   //iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID
+   ```
+
+6. For **Service account email**, leave the field blank if you chose Option A, or enter the service account's email if you chose Option B.
+7. Enable the models that should route through your project, then save.
+
+:::caution
+The **WIF audience** must begin with `//iam.googleapis.com/`, not `https://`. Don't include a trailing slash, surrounding quotation marks, or trailing whitespace.
+:::
+
+The default location is `global`. Multi-region values (`global`, `us`, `eu`) and specific regions (for example, `us-central1`) are supported. The location applies host-wide to every Gemini Enterprise model.
 
 You can also choose how member credentials behave:
 
 * **Enforce** - Every signed-in member's client uses Gemini Enterprise credentials automatically, and the member toggle is managed by the organization.
 * **Respect user setting** - Each member opts in with the **Use Gemini Enterprise credentials** toggle in their Settings.
+
+To enforce provider-only routing, disable **Direct API** access for the models you enabled.
 
 ### 4. Validate
 
@@ -166,6 +227,87 @@ Run a test prompt in Warp using a model enabled for Gemini Enterprise. Verify:
 * The model shows the Gemini Enterprise badge in the model picker.
 * The request completes successfully.
 * The request appears in your project's Vertex AI monitoring or Cloud Logging.
+
+### Alternative: configure Google Cloud with the gcloud CLI
+
+If you prefer the command line, these commands replace Step 1 and Step 2, Option A. Step 3 in the Admin Panel is still required either way.
+
+Set your values once so the commands below can reuse them:
+
+```bash
+export PROJECT_ID="my-gcp-project"
+export PROJECT_NUMBER="123456789012"
+export POOL_ID="warp-byollm"
+export PROVIDER_ID="warp"
+export TEAM_UID="HzjUdNkg8Uiq8gp6FMgfxe"
+```
+
+Enable the Vertex AI API:
+
+```bash
+gcloud services enable aiplatform.googleapis.com \
+  --project="${PROJECT_ID}"
+```
+
+Create the workload identity pool:
+
+```bash
+gcloud iam workload-identity-pools create "${POOL_ID}" \
+  --project="${PROJECT_ID}" \
+  --location="global" \
+  --display-name="Warp BYOLLM"
+```
+
+Create the OIDC provider:
+
+```bash
+gcloud iam workload-identity-pools providers create-oidc "${PROVIDER_ID}" \
+  --project="${PROJECT_ID}" \
+  --location="global" \
+  --workload-identity-pool="${POOL_ID}" \
+  --display-name="Warp" \
+  --issuer-uri="https://app.warp.dev" \
+  --attribute-mapping="google.subject=assertion.sub,google.groups=assertion.teams" \
+  --attribute-condition="'${TEAM_UID}' in assertion.teams"
+```
+
+Grant the Vertex AI role. For stricter least privilege, substitute a custom role that contains only `aiplatform.endpoints.predict`:
+
+```bash
+gcloud projects add-iam-policy-binding "${PROJECT_ID}" \
+  --member="principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL_ID}/group/${TEAM_UID}" \
+  --role="roles/aiplatform.user"
+```
+
+Grant the Service Usage Consumer role:
+
+```bash
+gcloud projects add-iam-policy-binding "${PROJECT_ID}" \
+  --member="principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL_ID}/group/${TEAM_UID}" \
+  --role="roles/serviceusage.serviceUsageConsumer"
+```
+
+Retrieve the provider resource name for the **WIF audience** field:
+
+```bash
+gcloud iam workload-identity-pools providers describe "${PROVIDER_ID}" \
+  --project="${PROJECT_ID}" \
+  --location="global" \
+  --workload-identity-pool="${POOL_ID}" \
+  --format="value(name)"
+```
+
+The command returns a value in this form:
+
+```text
+projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID
+```
+
+Prefix that value with `//iam.googleapis.com/` and enter the result as the **WIF audience** in Warp:
+
+```text
+//iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID
+```
 
 ## Using Gemini Enterprise as a team member
 
@@ -237,8 +379,8 @@ However, when using Gemini Enterprise:
 
 * **Credentials expired or invalid** - The request reached Vertex AI but was rejected as unauthenticated. Click **Refresh credentials** in the inline error, or use the **Refresh** button in **Settings** > **Agents** > **Warp Agent**, then retry.
 * **Setup incomplete** - The host is enabled but the WIF audience is missing or blank. A team admin needs to complete the **Models** page configuration.
-* **Token exchange or impersonation failed** - Verify the WIF provider's issuer (`https://app.warp.dev`), attribute mapping, and attribute condition, and (for Option B) that the principal set holds `roles/iam.workloadIdentityUser` on the service account.
-* **Permission denied from Vertex AI** - Confirm the federated principal (or service account) holds `roles/aiplatform.user` and `roles/serviceusage.serviceUsageConsumer` on the project.
+* **Token exchange or impersonation failed** - Verify the WIF provider's issuer (`https://app.warp.dev`), both attribute mappings, and the attribute condition. Confirm your Warp team UID in the condition matches the one in your Admin Panel URL exactly. With service account impersonation, also confirm the principal set holds `roles/iam.workloadIdentityUser` on the service account and that the IAM Service Account Credentials API is enabled.
+* **Permission denied from Vertex AI** - Confirm that `roles/aiplatform.user` and `roles/serviceusage.serviceUsageConsumer` are granted on the project, to the principal set for direct access or to the service account for impersonation.
 * **Model not found** - Confirm the model is available in your configured location and, for Claude partner models, enabled in the Vertex AI Model Garden. Check any per-model reference overrides on the **Models** page.
 * **Provider quota limits** - Check your project's Vertex AI quotas and request increases if needed.
 
@@ -246,7 +388,7 @@ However, when using Gemini Enterprise:
 
 1. Confirm the WIF audience in the Admin Panel exactly matches the provider's full resource name.
 2. Check the credential status card in **Settings** > **Agents** > **Warp Agent** for the failing state and recovery action.
-3. Verify IAM bindings for the principal set (or service account) in your GCP project.
+3. Verify the IAM bindings for the principal set, and for the service account if you use impersonation, in your GCP project.
 4. Confirm the model reference and location match what's available in your project.
 5. Inspect Cloud Logging in your project for request details and errors.
 
@@ -258,7 +400,7 @@ However, when using Gemini Enterprise:
 
 ### Do members need the gcloud CLI installed?
 
-No. Unlike [AWS Bedrock BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), which uses each member's local AWS CLI session, Gemini Enterprise mints credentials from the member's signed-in Warp session. No local Google tooling or configuration is required.
+No. Unlike [AWS Bedrock BYOLLM](/enterprise/enterprise-features/byollm-aws-bedrock/), which uses each member's local AWS CLI session, Gemini Enterprise mints credentials from the member's signed-in Warp session. No local Google tooling or configuration is required. Admins can optionally use the gcloud CLI for the one-time Google Cloud setup, but it isn't required.
 
 ### Does Gemini Enterprise work with cloud agents?
 
@@ -274,7 +416,8 @@ Yes. Admins can disable Direct API access for models on the **Models** page so e
 
 ## Related resources
 
-* [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) - BYOLLM overview and AWS Bedrock setup
+* [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) - BYOLLM overview and provider comparison
+* [BYOLLM: AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/) - Route inference through your AWS account
 * [Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Admin-configured shared provider keys and custom endpoints
 * [Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/) - Self-serve, user-level API keys
 * [Model Choice](/agent-platform/inference/model-choice/) - Full list of supported models
