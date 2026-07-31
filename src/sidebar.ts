@@ -347,14 +347,12 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'cli/shell-commands', label: 'Shell commands' },
 						{ slug: 'cli/input-and-editing', label: 'Input & editing' },
 						{ slug: 'cli/permissions-and-profiles', label: 'Permissions & profiles' },
-						{ slug: 'cli/conversations', label: 'Managing conversations' },
 						{ slug: 'cli/cloud-and-orchestration', label: 'Cloud & orchestration' },
 					],
 				},
 				{
 					label: 'Context & customization',
 					items: [
-						{ slug: 'cli/context', label: 'Rules, skills, & MCP' },
 						{ slug: 'cli/configuration', label: 'Configuration' },
 						{ slug: 'cli/models-and-usage', label: 'Models & usage' },
 					],
@@ -363,7 +361,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Reference',
 					items: [
 						{ slug: 'cli/reference', label: 'CLI reference' },
-						{ slug: 'cli/troubleshooting', label: 'Troubleshooting' },
 					],
 				},
 			],
