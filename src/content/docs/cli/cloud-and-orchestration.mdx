@@ -55,7 +55,7 @@ Two constraints apply:
 * **The run must be finished** - Cloud runs that are still in progress or blocked can't be opened in the CLI.
 * **Warp Agent runs only** - Conversations that ran with a different harness, such as Claude Code or Codex, can't be opened in the CLI.
 
-You can also open a conversation directly at startup with `warp --resume <token>`; [Managing conversations in the CLI](/cli/conversations/) covers conversation history and resume details.
+You can also open a conversation directly at startup with `warp --resume <token>`; [managing conversations in the CLI](/cli/agent-conversations/#managing-conversations) covers conversation history and resume details.
 
 ## Multi-agent orchestration
 
@@ -108,5 +108,5 @@ In the orchestrator's own session, `Ctrl+C` keeps its usual behavior.
 * [Handoff from local to cloud](/platform/handoff/local-to-cloud/) - Prerequisites, the Warp app flow, and troubleshooting.
 * [Multi-agent orchestration](/platform/orchestration/) - The parent/child model, run states, and orchestration patterns.
 * [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) - Open, inspect, and continue cloud runs in the {VARS.WEB_APP}.
-* [Managing conversations in the CLI](/cli/conversations/) - Conversation history, `/conversations`, and `--resume`.
+* [Agent conversations in the CLI](/cli/agent-conversations/#managing-conversations) - Conversation history, `/conversations`, and `--resume`.
 * [Environments](/platform/environments/) - Configure the repos, image, and setup commands cloud agents run with.
