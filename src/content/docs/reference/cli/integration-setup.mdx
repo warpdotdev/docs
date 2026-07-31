@@ -224,6 +224,10 @@ The CLI then:
 2. Opens a browser flow to install the Oz app into your Slack workspace or Linear workspace.
 3. Generates an **integration ID** you can later list or delete.
 
+:::note
+The [GitHub integration](/platform/integrations/github/), which starts agents from `@oz-agent` mentions on issues and pull requests, isn't created with `oz integration create`. It's set up by installing the Oz by Warp GitHub App and enabling the GitHub organization in the Admin Panel.
+:::
+
 **Additional `integration create` flags:**
 
 * `--prompt` — custom instructions applied to all runs for this integration.
@@ -299,5 +303,5 @@ You now have everything needed to trigger agents from your team's tools. From he
 
 * [Cloud Agents Overview](/platform/)
 * [Oz Platform](/platform/overview/)
-* [Slack](/platform/integrations/slack/), [Linear](/platform/integrations/linear/), and [GitHub Actions](/platform/integrations/github-actions/) integrations
+* [Slack](/platform/integrations/slack/), [Linear](/platform/integrations/linear/), [GitHub](/platform/integrations/github/), and [GitHub Actions](/platform/integrations/github-actions/) integrations
 * [Troubleshooting](/reference/cli/troubleshooting/)
