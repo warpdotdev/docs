@@ -288,7 +288,7 @@ On Business and Enterprise, local agent runs that use a custom inference endpoin
 
 ### Does Warp support other model routers or "Bring Your Own LLM"?
 
-On the Enterprise plan, Warp's [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) lets you route inference through major cloud-provider Model-as-a-Service offerings. BYOLLM currently supports AWS Bedrock, with Azure Foundry and Google Vertex coming soon. Warp still manages model support, routing, and orchestration, but inference runs in your cloud environment so you can maintain data locality, security controls, and existing cloud spend commitments.
+On the Enterprise plan, Warp's [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) lets you route inference through major cloud-provider Model-as-a-Service offerings. BYOLLM supports AWS Bedrock and [Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/), with Azure Foundry coming soon. Warp still manages model support, routing, and orchestration, but inference runs in your cloud environment so you can maintain data locality, security controls, and existing cloud spend commitments.
 
 Custom or in-house model routers outside this list aren't supported by default today. If you have specific requirements, [contact our sales team](https://www.warp.dev/contact-sales).
 
@@ -405,7 +405,7 @@ Here's how custom inference endpoints differ from BYOK and BYOLLM:
 
 * **BYOK** sends requests directly to OpenAI, Anthropic, or Google using your own provider API key.
 * **Custom inference endpoint** sends requests to any OpenAI-compatible URL you control or that your team runs.
-* **BYOLLM** is an Enterprise-only managed inference feature. Warp routes traffic through your cloud provider (AWS Bedrock today, with Azure Foundry and Google Vertex coming soon) and handles the routing, orchestration, governance, and observability.
+* **BYOLLM** is an Enterprise-only managed inference feature. Warp routes traffic through your cloud provider (AWS Bedrock and Gemini Enterprise Agent Platform (Vertex AI) today, with Azure Foundry coming soon) and handles the routing, orchestration, governance, and observability.
 
 For setup and details, see [Custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/).
 
