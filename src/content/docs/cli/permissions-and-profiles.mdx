@@ -28,7 +28,7 @@ When an action needs your approval, the agent pauses and shows a permission card
 
 Auto-approve gives the agent full autonomy: proposed actions run immediately, without permission cards, until the task finishes or you turn it off. Toggle it with `/auto-approve` or `Ctrl+Shift+I`.
 
-Auto-approve is scoped to a single conversation, and new conversations start with it off. To start every new conversation in a session with auto-approve already on, launch with `warp --auto-approve`. To see the current state at a glance, add the **Auto-approve indicator** to the statusline with `/statusline`. If your profile sets `ask_user_question = "ask_except_in_auto_approve"`, the agent also skips clarifying questions while auto-approve is on.
+Auto-approve is scoped to a single conversation, and new conversations start with it off. To start every new conversation in a session with auto-approve already on, launch with `warp --auto-approve`. The statusline's auto-approve indicator (`▶▶`) shows the current state and is on by default. If your profile sets `ask_user_question = "ask_except_in_auto_approve"`, the agent also skips clarifying questions while auto-approve is on.
 
 :::danger
 With auto-approve on, the agent runs commands and applies file edits without review, including commands that match your own command denylist. Press `Ctrl+C` to stop the agent if it starts doing something you didn't intend.

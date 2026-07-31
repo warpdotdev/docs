@@ -353,7 +353,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Context & customization',
 					items: [
-						{ slug: 'cli/context', label: 'Rules, skills, & MCP' },
 						{ slug: 'cli/configuration', label: 'Configuration' },
 						{ slug: 'cli/models-and-usage', label: 'Models & usage' },
 					],
