@@ -438,14 +438,11 @@ Create a named agent. Only `--name` is required; attach skills and secrets by re
 oz agent create \
   --name "release-notes" \
   --description "Drafts release notes from merged PRs" \
-  --prompt "Write in past tense, group changes by area, and never mention internal ticket IDs." \
   --skill "myorg/repo:release-notes" \
   --secret GITHUB_TOKEN \
   --base-model <MODEL_ID> \
   --environment <ENVIRONMENT_ID>
 ```
-
-`--prompt <TEXT>` stores a base prompt on the agent. Warp adds it to the system prompt as standing identity-and-behavior instructions on every run executed as that agent, including runs on the `claude` and `codex` [harnesses](/platform/harnesses/). It doesn't replace the per-run prompt: each run still supplies its own task through `--prompt`, `--saved-prompt`, or `--skill`. Use the agent's base prompt for the persistent context that applies to all of its runs, such as tone, review standards, or which systems to touch.
 
 Update an existing agent. Each attribute has an explicit add/remove flag so changes are unambiguous:
 
@@ -462,21 +459,10 @@ Common `oz agent update` flags:
 
 * `--name <NAME>` (`-n`) — rename the agent.
 * `--description <TEXT>` / `--remove-description` — set or clear the description.
-* `--prompt <TEXT>` / `--remove-prompt` — set or clear the agent's base prompt.
 * `--add-secret <NAME>` / `--remove-secret <NAME>` / `--remove-all-secrets` — manage attached secrets.
 * `--add-skill <SKILL>` / `--remove-skill <SKILL>` / `--remove-all-skills` — manage attached skills.
 * `--base-model <MODEL_ID>` / `--remove-base-model` — set or clear the base model.
 * `--environment <ENVIRONMENT_ID>` (`-e`) / `--remove-environment` — set or clear the default cloud environment.
-
-Each attribute uses a set-or-remove pair, so `--prompt` and `--remove-prompt` are mutually exclusive:
-
-```sh
-# Replace the stored base prompt
-oz agent update <UID> --prompt "Summarize merged PRs and open a release-notes PR."
-
-# Clear it so runs must supply their own prompt
-oz agent update <UID> --remove-prompt
-```
 
 Delete a named agent by its UID:
 
