@@ -97,6 +97,7 @@ Warp needs a reliable way to know which person a cloud agent run is acting for, 
 
 * Slack uses a dedicated account-linking flow to map a Slack user to their Warp account. This is the recommended path for Slack-triggered agents, since it doesn’t rely on email matching.
 * Linear currently maps identities using email address matching. Your Linear email must match your Warp account email for Warp to correctly attribute and scope agent runs.
+* The [GitHub integration](/platform/integrations/github/) maps the GitHub account that mentioned `@oz-agent` to the Warp account that connected it, rather than by email. Until a teammate connects their GitHub account, Warp replies in the thread with a link to connect instead of starting a run.
 * Each teammate must authorize GitHub before an agent can write PRs or push branches on their behalf
 * Agents always operate using the GitHub permissions of the triggering user
 
@@ -198,6 +199,8 @@ Warp’s behavior in GitHub is defined by two layers of control:
 
 * Are included in the environment configuration
 * Are accessible to both the GitHub app and the triggering user.
+
+When a run is triggered by an `@oz-agent` mention through the [GitHub integration](/platform/integrations/github/), Warp additionally receives the content of the issue, pull request, or review thread that carried the mention, including the recent comments and the diff of a commented file, and posts its status comments in that thread as the Oz by Warp GitHub App. The repository that triggered the mention is cloned for the run alongside any repositories in the configured environment.
 
 ---
 
