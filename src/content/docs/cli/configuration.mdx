@@ -53,17 +53,18 @@ In auto mode, the CLI probes the host terminal's default colors when it starts a
 
 ## Statusline
 
-The statusline is the row below the CLI's input box that shows session information at a glance. By default it shows the active model, the working directory, and, inside a Git repository, the Git branch and diff status. You can enable any of these items:
+The statusline is the row below the CLI's input box that shows session information at a glance. By default it shows an auto-approve toggle, the active model, the working directory, the Git branch and diff status inside a repository, and the current Vim mode when Vim mode is enabled. You can enable any of these items:
 
+* **Auto-approve indicator** - A clickable `▶▶` toggle for auto-approve, highlighted when it's on.
+* **Vim mode indicator** - The active Vim mode (such as `NOR` or `INS`), shown only when Vim mode is enabled.
 * **Model** - The active model. Click it to open the model picker.
 * **Git branch** - The current branch, when the directory is a Git repository.
 * **Git branch status** - How far the branch is ahead of or behind its upstream.
-* **Git diff status** - Uncommitted line additions and deletions.
+* **Git diff status** - Files changed, with line additions and deletions.
+* **GitHub pull request** - The pull request for the current branch. Click it to open the PR on GitHub.
 * **Credit usage** - Credits used by the current conversation. Click it to switch between credits and provider cost.
 * **Context window usage** - How much of the model's context window the conversation has used.
 * **Agent to-do list** - The agent's progress through its current task list.
-* **Auto-approve indicator** - Appears when auto-approve is on.
-* **Auto-queue next prompt indicator** - Appears when auto-queue is on.
 
 You can also add the working directory, the date, the time (12- or 24-hour), and a voice input control.
 
