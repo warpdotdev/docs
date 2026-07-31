@@ -36,7 +36,7 @@ Agent Profiles let you configure how your Agent behaves in different situations.
 Agent Permissions let you define how your Agent in a specific Profile operates — control its autonomy, choose what tools or MCP servers it can access, and set when it should act independently or ask for approval.
 
 :::caution
-**Still getting approval prompts?** If the Agent keeps asking for permission to run certain commands (like `curl`, `rm`, or `wget`) even though you've set permissions to "Always allow," check your **Command denylist** in **Settings** > **Agents** > **Profiles**. The denylist always takes precedence over other permission settings. Remove commands from the denylist to allow them to auto-execute, or use [Run until completion](#run-until-completion) to bypass the denylist for the current task.
+**Still getting approval prompts?** If the Agent keeps asking for permission to run certain commands (like `curl`, `rm`, or `wget`) even though you've set permissions to "Always allow," check your **Command denylist** in **Settings** > **Agents** > **Profiles**. The denylist takes precedence over your other permission settings. Remove commands from the denylist to allow them to auto-execute, or use [Run until completion](#run-until-completion) to bypass the denylist for the current task.
 :::
 
 You can control how much autonomy the Agent has when performing different types of actions under **Settings** > **Agents** > **Profiles** > **Permissions** . Agent permission types:
@@ -98,7 +98,7 @@ For safety, the Agent always prompts for confirmation before executing potential
 * `rm(\s.*)?` - File deletion
 * `eval(\s.*)?` - Shell code execution
 
-The denylist takes precedence over both the allowlist and `Agent decides`. If a command matches the denylist, user permission will always be required, regardless of other settings. You can add your own regular expressions to this list in **Settings** > **Agents** > **Profiles** > **Command denylist**.
+The denylist takes precedence over both the allowlist and `Agent decides`: if a command matches the denylist, the Agent asks for permission even when that action type is set to **Always allow**. Add your own regular expressions to this list in **Settings** > **Agents** > **Profiles** > **Command denylist**. The one exception is [Run until completion](#run-until-completion), which bypasses your denylist by default.
 
 ### MCP permissions
 
@@ -140,8 +140,10 @@ During an Agent interaction, you can give the Agent full autonomy for the curren
 <figcaption>Auto-approve and take-over controls.</figcaption>
 </figure>
 
-:::note
-_Run until completion_ ignores the denylist entirely. It's the purest form of “YOLO” mode and essentially a fully "autonomous mode" where the Agent proceeds without asking for confirmation.
+:::caution
+_Run until completion_ is the purest form of “YOLO” mode: the Agent proceeds without asking for confirmation, and by default it also runs commands that match your command denylist.
+
+To keep your denylist in force during _Run until completion_, turn off **Allow auto-approve to bypass command denylist** in **Settings** > **Agents** > **Oz** > **Input**. Denylist rules your team enforces through the [Admin Panel](/enterprise/team-management/admin-panel/) always require approval and are never bypassed.
 :::
 
 ---
