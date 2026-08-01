@@ -209,8 +209,9 @@ SuperGrok -> src/content/docs/agent-platform/inference/bring-your-own-api-key.md
 CustomModelRouters -> src/content/docs/agent-platform/inference/model-choice.mdx
 # Gemini Enterprise (GEAP) BYOLLM: routes eligible Google models through the
 # customer's Google Cloud project using workload identity federation. Documented
-# alongside AWS Bedrock as the second BYOLLM host.
-GeminiEnterprise -> src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx
+# on its own host page under the BYOLLM landing page (bring-your-own-llm.mdx),
+# alongside the AWS Bedrock host page.
+GeminiEnterprise -> src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx
 
 # Billing & Usage settings page (redesigned)
 BillingAndUsagePageV2 -> src/content/docs/support-and-community/plans-and-billing/index.mdx
