@@ -34,15 +34,18 @@ Focus on what each capability means for the user.]
 Explain "what" and "why" before "how."
 Define new terms when they first appear.
 IMPORTANT: Do NOT include step-by-step procedures in this section.
-Keep the conceptual and procedural sections clearly separated.]
+Keep the conceptual and procedural sections clearly separated.
+Do NOT embed full error messages here — put failures in Troubleshooting at the end.]
 
 ## [Usage/configuration section — sentence case. Rename to match the feature, e.g., "Creating environments", "Configuring integrations"]
 
 [PROCEDURAL section: step-by-step instructions.
+Order sections for the reader: Prerequisites → setup/config → day-to-day usage → advanced options.
 Apply all procedural rules from AGENTS.md:
 - Motivate steps before giving instructions
 - Include expected outcomes after key steps
-- Group related actions when they share the same UI context]
+- Group related actions when they share the same UI context
+- Name the app before the first Settings path or CLI command on this page]
 
 ### Prerequisites
 
@@ -58,12 +61,20 @@ Include: what the thing is, where to get it, link to full reference.]
 ## [Additional sections as needed — sentence case. e.g., "Managing X", "Advanced usage"]
 
 [Repeat the conceptual or procedural pattern as appropriate.
-Keep sections clearly delineated by type.]
+Keep sections clearly delineated by type.
+Avoid stacking multiple callouts; prefer short prose unless a caveat is easy to miss.]
+
+## Troubleshooting
+
+[Optional but recommended when the feature has common failures, permission errors, or exact platform error strings.
+Place this section near the end of the page, before Related pages.
+Format each item as: bold symptom or exact error message, then cause, then fix.
+Do not scatter the same error callouts through earlier sections.]
 
 ## Related pages
 
 [Cross-references to related features, next steps, deeper references.
-Use descriptive link text.]
+Use descriptive link text. Include at least one related feature or next-step link on new feature pages.]
 
 * [Related feature](path/to/page.md)
 * [Deeper guide](path/to/page.md)

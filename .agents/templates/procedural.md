@@ -17,9 +17,11 @@ See AGENTS.md → Content variables for the full variable list and usage rules.]
 
 ## Prerequisites
 
-[Only if needed. Bulleted list with inline context for each prerequisite.
+[Only if needed. Place prerequisites before any setup or usage steps.
+Bulleted list with inline context for each prerequisite.
 Each item should include: what it is (1 short clause), where to get or
 create it, and a link to the full reference.
+Name the app before Settings paths and CLI commands.
 Example:
 * **A Warp API key** - Authenticate API requests with a key from
   **Settings** > **Cloud platform** > **Oz Cloud API Keys** in the Warp app. See [API Keys](path) for details.]
@@ -27,7 +29,7 @@ Example:
 ## [Primary task name — sentence case. e.g., "Creating API keys"]
 
 [Brief motivation: why the reader would do this (1 sentence).
-Then numbered steps.]
+Then numbered steps. Keep failure details for the Troubleshooting section below.]
 
 1. Step description.
 2. Step description.
@@ -46,8 +48,10 @@ descriptive content as appropriate.]
 ## Troubleshooting
 
 [Optional but recommended. Common issues the reader might encounter
-while following these steps.
-Format: symptom/error as bold text, then cause and fix.]
+while following these steps. Keep this section near the end of the page.
+Put exact error messages here instead of weaving them through the steps above.
+Format: symptom or exact error string as bold text, then cause and fix.
+Use at most one callout in this section unless multiple unrelated failures need separation.]
 
 ## Best practices
 

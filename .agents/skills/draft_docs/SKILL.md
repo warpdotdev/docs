@@ -93,6 +93,11 @@ These rules are frequently violated by agents. Apply them carefully during draft
 - **Tables or parallel bullets for comparison and reference data** — When you present two or more parallel items (key types, plan tiers, environments) or structured reference data (API endpoints, parameters), use a Markdown table or tightly parallel bullets instead of one dense paragraph. ✅ a table with one row per API endpoint, or parallel `**Personal API keys**` / `**Agent API keys**` bullet groups ❌ a single paragraph mixing both key types and their billing rules
 - **Bold for UI elements** — Use `**Save**` not `` `Save` `` after action verbs like "click"
 - **Bold per-segment for Settings paths** — Use `**Settings** > **AI** > **Knowledge**` not `` `Settings > AI > Knowledge` ``
+- **Orient the reader before every Settings path, CLI command, or URL** — On first reference in the page, name the app or tool. ✅ `In the Warp app, go to **Settings** > **AI** > **Knowledge**.` ❌ `Go to **Settings** > **AI** > **Knowledge**.`
+- **Section order follows reader chronology** — Prerequisites and requirements before setup, setup before usage, usage before advanced options. ✅ `## Prerequisites` → `## Set up the integration` → `## Start a run` ❌ setup steps before the reader knows what they need
+- **Keep error messages out of the main flow** — Do not weave full error strings through conceptual or procedural sections. Put them in a dedicated `## Troubleshooting` section near the end (symptom → cause → fix). ✅ one Troubleshooting section with the exact error as a bold lead-in ❌ repeating the same error callout after every step
+- **Use callouts sparingly** — Prefer body prose. At most one or two callouts per page unless the content type template requires more. ✅ a single `:::note` for a non-obvious prerequisite ❌ a `:::note` / `:::tip` after every subsection
+- **Screenshots only when the UI is hard to describe** — Prefer prose for straightforward clicks. If you include an image, use descriptive alt text (not "screenshot") and place it after the concept it illustrates. Do not invent or request screenshots of internal-only, flagged, or unfinished UI.
 
 ### 7. Draft the doc
 Create the documentation using the appropriate template from `.agents/templates/`. Follow the structure for the identified content type and all rules in `AGENTS.md`. Each template includes visible bracketed instructions explaining what to put in each section.
@@ -117,16 +122,20 @@ Skip steps 1–3 in local/interactive sessions.
 Before presenting the draft, verify against the quality checklist in `AGENTS.md`:
 - [ ] Frontmatter includes clear description written as a standalone summary
 - [ ] Content follows the structure for its content type
+- [ ] Section order follows reader chronology (requirements → setup → usage → advanced → troubleshooting)
+- [ ] Error messages and failure modes live in Troubleshooting, not woven through the main flow
+- [ ] Callouts are sparse (usually 0–2 per page) and not used as a substitute for body prose
 - [ ] Terminology matches the glossary (`.agents/references/terminology.md`)
 - [ ] Headers use sentence case (with proper feature name capitalization)
 - [ ] Lists use bold term + dash + explanation format
 - [ ] Cross-references to related features are included
+- [ ] First Settings path, CLI, or URL on the page names the app or tool
 - [ ] Instructions include expected outcomes
 - [ ] Procedures are scannable: dense sections are split into numbered steps, short bullets, or concise subsections
 - [ ] UI surfaces and product terms use canonical names from `.agents/references/terminology.md`
 - [ ] Product names with a corresponding entry in `src/data/vars.ts` use the variable syntax (`{VARS.KEY}` in prose, `{{TOKEN}}` in frontmatter) — not hardcoded strings
 - [ ] If AEO-driven, the draft follows the AEO brief, uses source vocabulary naturally, and avoids duplicative or junk-drawer coverage
-- [ ] Images have descriptive alt text
+- [ ] Images have descriptive alt text and are used only when the UI is hard to describe in prose
 
 ### 10. Update navigation and redirects
 If this is a new page, remind the user to:
