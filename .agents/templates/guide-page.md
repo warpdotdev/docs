@@ -13,16 +13,18 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 {/* VARS: Also add the line below if this guide references product names from src/data/vars.ts. Then use {VARS.KEY} in prose. Use {{TOKEN}} in frontmatter YAML values above. See AGENTS.md → Content variables. */}
 {/* import { VARS } from '@data/vars'; */}
 
-<VideoEmbed url="[YouTube or Loom URL — remove this block if no video]" />
+<VideoEmbed url="[YouTube or Loom URL — remove this block if no video]" title="[Specific title describing the workflow or feature demo — required]" />
 
 ## Prerequisites
 
-[List what the reader needs before starting. Include inline context: what each prerequisite is, where to get it, and a link to more info. Orient the reader by naming the application before any menu paths.]
+[List what the reader needs before starting. Include inline context: what each prerequisite is, where to get it, and a link to more info. Orient the reader by naming the application before any menu paths.
+If the workflow touches a team tool (Jira, Slack, GitHub, and so on), say who can install it, whether teammates get access immediately, and any per-user auth steps.]
 
 * **[Prerequisite 1]** — [What it is and where to get it]. See [link to docs] for details.
 * **[Prerequisite 2]** — [Brief context].
 
-[Use numbered H2 headings for each step (e.g., "## 1. Install Claude Code"). Do not add a "## Steps" wrapper heading — jump straight into the numbered steps after Prerequisites. Motivate each step: explain WHY before HOW, especially for setup steps. End each numbered sub-step with a period. Use ALL_CAPS for placeholder values in commands (e.g., YOUR_API_KEY). Do not use em dashes in procedural or instructional text. If there's an open-source repo for an example, link it. When referencing a Settings path or menu for the first time, orient the reader: "in the Warp app, go to **Settings** > ...".]
+[Use numbered H2 headings for each step (e.g., "## 1. Install Claude Code"). Do not add a "## Steps" wrapper heading — jump straight into the numbered steps after Prerequisites. Motivate each step: explain WHY before HOW, especially for setup steps. End each numbered sub-step with a period. Use ALL_CAPS for placeholder values in commands (e.g., YOUR_API_KEY). Do not use em dashes in procedural or instructional text. If there's an open-source repo for an example, link it. When referencing a Settings path or menu for the first time, orient the reader: "in the Warp app, go to **Settings** > ...".
+Keep prompts and UI detail durable: teach the workflow and decisions, not glyph colors or layout minutiae that drift. Verify flag names and menu labels against source before publishing.]
 
 ## [Action-oriented step title]
 

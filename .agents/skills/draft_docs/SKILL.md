@@ -81,6 +81,8 @@ To find these repos, search for directories named `warp-internal` and `warp-serv
 
 Use source code to verify technical behavior, understand feature implementation, and find accurate terminology.
 
+When the draft names UI labels, Settings paths, CLI flags, default permissions, plan eligibility, or platform support, treat source (or a live build) as required verification—not optional color. If you cannot verify a claim, omit it or mark it for human review instead of guessing.
+
 ### 6.5. Critical formatting rules
 
 These rules are frequently violated by agents. Apply them carefully during drafting:
@@ -93,6 +95,11 @@ These rules are frequently violated by agents. Apply them carefully during draft
 - **Tables or parallel bullets for comparison and reference data** — When you present two or more parallel items (key types, plan tiers, environments) or structured reference data (API endpoints, parameters), use a Markdown table or tightly parallel bullets instead of one dense paragraph. ✅ a table with one row per API endpoint, or parallel `**Personal API keys**` / `**Agent API keys**` bullet groups ❌ a single paragraph mixing both key types and their billing rules
 - **Bold for UI elements** — Use `**Save**` not `` `Save` `` after action verbs like "click"
 - **Bold per-segment for Settings paths** — Use `**Settings** > **AI** > **Knowledge**` not `` `Settings > AI > Knowledge` ``
+- **Verify labels, flags, and defaults against source** — Before documenting a button name, Settings path, CLI flag, permission default, or eligibility rule, confirm it in `warp-internal` / `warp-server` (or the live UI). ✅ `warp --auto-approve` after checking `TuiArgs` ❌ inventing `--fast-forward` from memory or an old PR description
+- **Document durable behavior, not ephemeral chrome** — Prefer workflows, shortcuts, and outcomes that stay true when styling shifts. Drop glyph colors, pixel-level layout narration, and other pure presentation detail unless the reader must recognize them to succeed. ✅ "Press `Ctrl+C` once to stop the in-progress response." ❌ a full inventory of pending/running/failed glyph colors
+- **State availability honestly** — If a capability is preview-only, platform-limited, interactive-only, or not yet in cloud agents, say so next to the claim. Never describe limited-preview behavior as generally available. ✅ "Linux post-processing adds smart cut; macOS applies a uniform speedup." ❌ listing smart cut as a property of every recording
+- **Cover team-wide and admin effects** — For integrations and team features, state who can install, whether every teammate gets access immediately, and any per-user auth or admin steps on the external system. ✅ "A Jira admin must install the app; each teammate links their own account for run attribution." ❌ setup steps that only describe the installer's happy path
+- **Related pages are required on new pages** — End new feature, integration, and guide pages with a Related pages (or Next steps) section. Link siblings and the natural next workflow so the page does not dead-end. ✅ Integrations overview + Agent Management Panel + a sibling Slack/Linear page ❌ no cross-links after Troubleshooting
 
 ### 7. Draft the doc
 Create the documentation using the appropriate template from `.agents/templates/`. Follow the structure for the identified content type and all rules in `AGENTS.md`. Each template includes visible bracketed instructions explaining what to put in each section.
@@ -120,10 +127,14 @@ Before presenting the draft, verify against the quality checklist in `AGENTS.md`
 - [ ] Terminology matches the glossary (`.agents/references/terminology.md`)
 - [ ] Headers use sentence case (with proper feature name capitalization)
 - [ ] Lists use bold term + dash + explanation format
-- [ ] Cross-references to related features are included
+- [ ] Cross-references to related features are included (new pages include a Related pages or Next steps section)
 - [ ] Instructions include expected outcomes
 - [ ] Procedures are scannable: dense sections are split into numbered steps, short bullets, or concise subsections
 - [ ] UI surfaces and product terms use canonical names from `.agents/references/terminology.md`
+- [ ] UI labels, CLI flags, permission defaults, and eligibility claims were verified against source or the live product
+- [ ] The draft emphasizes durable behavior over ephemeral UI chrome (glyphs, pure styling, layout minutiae)
+- [ ] Preview-only, platform-limited, or interactive-only capabilities are labeled as such
+- [ ] Integrations and team features state admin requirements and who gets access after install
 - [ ] Product names with a corresponding entry in `src/data/vars.ts` use the variable syntax (`{VARS.KEY}` in prose, `{{TOKEN}}` in frontmatter) — not hardcoded strings
 - [ ] If AEO-driven, the draft follows the AEO brief, uses source vocabulary naturally, and avoids duplicative or junk-drawer coverage
 - [ ] Images have descriptive alt text

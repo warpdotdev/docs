@@ -34,7 +34,9 @@ Focus on what each capability means for the user.]
 Explain "what" and "why" before "how."
 Define new terms when they first appear.
 IMPORTANT: Do NOT include step-by-step procedures in this section.
-Keep the conceptual and procedural sections clearly separated.]
+Keep the conceptual and procedural sections clearly separated.
+State platform, plan, preview, or interactive-only limits next to the behavior they constrain.
+Do not invent internal tool names or implementation details the reader cannot act on.]
 
 ## [Usage/configuration section — sentence case. Rename to match the feature, e.g., "Creating environments", "Configuring integrations"]
 
@@ -42,12 +44,15 @@ Keep the conceptual and procedural sections clearly separated.]
 Apply all procedural rules from AGENTS.md:
 - Motivate steps before giving instructions
 - Include expected outcomes after key steps
-- Group related actions when they share the same UI context]
+- Group related actions when they share the same UI context
+- Verify every UI label, Settings path, and CLI flag against source or the live product before publishing
+- Prefer durable actions and outcomes over ephemeral chrome (glyph colors, pure layout narration)]
 
 ### Prerequisites
 
 [Bulleted list with inline context for each prerequisite.
-Include: what the thing is, where to get it, link to full reference.]
+Include: what the thing is, where to get it, link to full reference.
+For integrations and team features, include admin requirements, who gains access after install, and any per-user auth steps.]
 
 ### [Task name — sentence case. e.g., "Create an environment with the CLI"]
 
@@ -62,8 +67,9 @@ Keep sections clearly delineated by type.]
 
 ## Related pages
 
-[Cross-references to related features, next steps, deeper references.
-Use descriptive link text.]
+[Required on new feature and integration pages so the page does not dead-end.
+Cross-reference related features, sibling integrations, next steps, and deeper references.
+Use descriptive link text. Include at least one sibling or overview link and one next-step workflow link.]
 
 * [Related feature](path/to/page.md)
 * [Deeper guide](path/to/page.md)
