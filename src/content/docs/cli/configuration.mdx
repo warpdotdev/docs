@@ -65,20 +65,26 @@ In auto mode, detection runs at startup, so if you switch your terminal's colors
 
 ## Statusline
 
-The statusline is the row below the CLI's input box that shows session information at a glance. By default it shows an auto-approve toggle, the active model, the working directory, the Git branch and diff status inside a repository, and the current Vim mode when Vim mode is enabled. You can enable any of these items:
+The statusline is the row below the CLI's input box that shows session information at a glance. By default it shows the auto-approve indicator, the active model, the working directory, the Git branch, and the Git diff status inside a repository, plus the Vim mode indicator when Vim mode is on. You can enable any of these items:
+
+<figure>
+![The Warp Agent CLI statusline showing the auto-approve, model, working directory, Git branch status, Git diff status, credit usage, context window usage, and agent to-do list chips](../../../assets/cli/tui-statusline.png)
+<figcaption>The statusline with credit usage, context window usage, and task list chips enabled.</figcaption>
+</figure>
 
 * **Auto-approve indicator** - A clickable `▶▶` toggle for auto-approve, highlighted when it's on.
 * **Vim mode indicator** - The active Vim mode (such as `NOR` or `INS`), shown only when Vim mode is enabled.
 * **Model** - The active model. Click it to open the model picker.
+* **Working directory** - The current working directory.
 * **Git branch** - The current branch, when the directory is a Git repository.
-* **Git branch status** - How far the branch is ahead of or behind its upstream.
+* **Git branch status** - The branch, plus how far it is ahead of or behind its upstream (for example, `master • ↑1`). Enabling this replaces the plain Git branch chip, rather than adding a second one.
 * **Git diff status** - Files changed, with line additions and deletions.
 * **GitHub pull request** - The pull request for the current branch. Click it to open the PR on GitHub.
 * **Credit usage** - Credits used by the current conversation. Click it to switch between credits and provider cost.
 * **Context window usage** - How much of the model's context window the conversation has used.
 * **Agent to-do list** - The agent's progress through its current task list.
 
-You can also add the working directory, the date, the time (12- or 24-hour), and a voice input control.
+You can also add the date, the time (12- or 24-hour), and a voice input control.
 
 Items only appear when they have something to show. For example, the Git items appear only inside a repository. In shell mode, the statusline always leads with a shell mode label.
 
