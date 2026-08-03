@@ -140,6 +140,21 @@ The context window usage indicator is available in agent conversation views.
 If you switch models during a conversation, the context usage indicator updates only after you send your next message.
 :::
 
+### Context window usage breakdown
+
+Expand the context window entry in the conversation's usage summary to see which parts of the request are consuming the window. Warp lists each segment with the share of the context window it accounts for, sorted from largest to smallest:
+
+* **System prompt** - Warp's base instructions for the agent, including your active [rules](/agents/capabilities/rules/) and profile configuration.
+* **Tool definitions** - The schemas for the tools available to the agent, including any [MCP servers](/agents/capabilities/mcp/) you've connected.
+* **Conversation history** - Previous prompts, responses, and tool results in the thread.
+* **Latest input** - Your most recent prompt and any context attached to it.
+* **Images** - Any [images you attached as context](/agents/local-agents/agent-context/images-as-context/).
+* **Other** - Remaining request context and temporary instructions Warp adds to help the agent respond.
+
+Segment percentages are shares of the full context window, so together they add up to the total usage the indicator shows. Segments that round to zero are omitted.
+
+Use the breakdown to decide how to reclaim space: a large **Tool definitions** share points at disconnecting unused MCP servers, while a large **Conversation history** share points at running `/compact` or [forking the conversation](/agents/local-agents/interacting-with-agents/conversation-forking/).
+
 ## Conversation segmentation
 
 Warp automatically detects when your query has shifted to a new topic. When this happens, it suggests starting a new conversation instead of continuing in the same context.
