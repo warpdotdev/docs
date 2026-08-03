@@ -12,8 +12,9 @@ Runs every Monday at 9am PT. Leads with the overall 404 volume trend, surfaces t
 The following environment secrets must be set in the Oz cloud agent environment:
 
 - `METABASE_API_KEY` — Metabase API key for BigQuery queries. If unavailable, the run must fail fast with a clear error.
-- `SLACK_BOT_TOKEN` — Slack bot token for posting to the docs channel. If unavailable, write a no-post report to the run output instead.
-- `GROWTH_DOCS_SLACK_CHANNEL_ID` — Slack channel ID for **`#growth-docs`**. Find it in Slack by right-clicking the channel → Copy link (the ID begins with `C`). There is no fallback — the run will skip Slack posting if this is unset.
+- `BUZZ_SLACK_TOKEN` — Slack bot token for posting to the docs channel. If unavailable, write a no-post report to the run output instead.
+
+The `#growth-docs` Slack channel ID is `C09BVK0PL3Y`. Use this value directly when posting — it does not need to be an environment variable.
 
 Do NOT print, log, or include secret values in reports, commits, or Slack messages.
 
@@ -60,7 +61,7 @@ Compare this week's uncovered gaps against last week's uncovered gaps (from step
 
 Post a Slack message using the Block Kit format defined in the "Slack message format" section below.
 
-If `SLACK_BOT_TOKEN` is unavailable, write the full Slack message body to the run output instead and note that Slack posting was skipped.
+If `BUZZ_SLACK_TOKEN` is unavailable, write the full Slack message body to the run output instead and note that Slack posting was skipped.
 
 ### 6. Write CSV artifact
 
@@ -132,7 +133,7 @@ For each qualifying uncovered URL, attempt to find a redirect target using these
 
 ### PR requirements
 
-Open a draft PR only when at least 1 HIGH-confidence redirect is found.
+Open a **draft** PR only when at least 1 HIGH-confidence redirect is found. Always pass `--draft` to `gh pr create`.
 
 PR title:
 ```text
@@ -235,14 +236,17 @@ Check: Vercel project env vars include `PUBLIC_RUDDERSTACK_WRITE_KEY` and `PUBLI
 
 This skill is designed for an Oz scheduled agent with a weekly cron trigger: every Monday at 9am PT (`0 17 * * 1` in UTC).
 
-To deploy:
+To deploy (one-time setup):
 1. Push this skill to `main` in the docs repo.
-2. Verify the **`buzz`** Oz environment (in the Oz web app → Environments) has these secrets set:
+2. Verify the **Docs Agent** Oz environment (`K5KStCm5aYvhfBJb8cHol6`) has these secrets set:
    - `METABASE_API_KEY` — Metabase API key for BigQuery
-   - `SLACK_BOT_TOKEN` — Slack bot token
-   - `GROWTH_DOCS_SLACK_CHANNEL_ID` — ID for `#growth-docs` (right-click channel in Slack → Copy link; the ID starts with `C`)
-3. In the Oz web app, create a new scheduled agent:
-   - **Skill**: `weekly-404-monitor` from `warpdotdev/docs`
-   - **Schedule**: `0 17 * * 1` (UTC) = 9am PT (Mondays)
-   - **Environment**: `buzz` (already has `warpdotdev/docs` checked out)
-   - **Branch**: `main`
+   - `BUZZ_SLACK_TOKEN` — Slack bot token (already provisioned; used by other doc agents in this environment)
+3. Register the schedule via the Oz CLI:
+   ```sh
+   oz-dev schedule create \
+     --name "weekly-404-monitor" \
+     --cron "0 17 * * 1" \
+     --environment K5KStCm5aYvhfBJb8cHol6 \
+     --prompt "You are running in the warpdotdev/docs repo. Read and follow the instructions in .agents/skills/weekly-404-monitor/SKILL.md."
+   ```
+   This will make the schedule visible in oz.warp.dev under Schedules and ensure runs open PRs under the @oz-by-warp bot account.
