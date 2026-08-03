@@ -939,10 +939,17 @@ def _normalize_path_params(path: str) -> str:
 
 
 def parse_openapi_paths(openapi_text: str) -> set[str]:
-    """Extract normalized path keys from the OpenAPI YAML text."""
+    """Extract normalized path keys from the OpenAPI YAML text.
+
+    Path keys containing `{param}` are usually emitted quoted (YAML treats a
+    leading `{` as a flow mapping), so both `  /agent/runs:` and
+    `  '/agent/runs/{runId}':` must be recognized. Missing the quoted form made
+    every parameterized endpoint look absent from the spec.
+    """
     paths = set()
-    for match in re.finditer(r"(?m)^\s{2}(/[^\s:]+):", openapi_text):
-        paths.add(_normalize_path_params(match.group(1)))
+    for match in re.finditer(r"""(?m)^\s{2}(?:'(/[^']+)'|"(/[^"]+)"|(/[^\s:'"]+)):""", openapi_text):
+        path = match.group(1) or match.group(2) or match.group(3)
+        paths.add(_normalize_path_params(path))
     return paths
 
 # ---------------------------------------------------------------------------
