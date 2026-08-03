@@ -44,7 +44,7 @@ The inner loop runs when a new issue is filed:
 3. A human reviews and approves the specs.
 4. When the implementation label is applied, the implementation agent opens a PR that includes the spec files alongside the code.
 
-Oz orchestrates each agent as a cloud run. Every run has its own environment (repository checkout, secrets, toolchain), its own permissions, and a session link your team can use to inspect what the agent did, steer it mid-run, or hand work back to a local session.
+Oz orchestrates each agent as a cloud run. Every run has its own environment (repository checkout, secrets, toolchain), its own permissions, and a session link your team can use to inspect what the agent did, steer it mid-run, or hand work back to a local session. For parent/child fan-out and review swarms across those roles, see [Multi-agent orchestration](/platform/orchestration/).
 
 The outer loop runs on a schedule, not in response to events.
 
@@ -71,6 +71,7 @@ Start with one agent role. Most teams start with a triage agent, which is the si
 * [Set up your software factory](/guides/agent-workflows/set-up-a-software-factory) — Connect the four roles into a working loop.
 * [Run a software factory in the cloud](/guides/agent-workflows/run-a-software-factory-in-the-cloud) — Move the loop off your laptop with Oz.
 * [Build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) — Add the outer improvement loop.
-* [Skills](/agent-platform/capabilities/skills) — How skill files work in Warp and Oz.
+* [Multi-agent orchestration](/platform/orchestration/) — Coordinate specialized agent roles as parent and child runs.
+* [Skills](/agents/capabilities/skills) — How skill files work in Warp and Oz.
 * [Cloud agents overview](/platform) — Setting up cloud agents on Oz.
 * [Deployment patterns](/platform/deployment-patterns) — Common architectures for cloud agent deployment.

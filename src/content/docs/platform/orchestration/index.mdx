@@ -27,12 +27,12 @@ Orchestrations today are exactly one level deep: a parent and its direct childre
 
 The parent and child don't have to run in the same place. Orchestration supports four combinations:
 
-* **Local → local** - a [Warp Agent](/agent-platform/local-agents/overview/) conversation in the Warp app spawns child Warp Agent conversations on the same machine. Useful for trying orchestration patterns without spinning up cloud infrastructure.
+* **Local → local** - a [Warp Agent](/agents/local-agents/overview/) conversation in the Warp app spawns child Warp Agent conversations on the same machine. Useful for trying orchestration patterns without spinning up cloud infrastructure.
 * **Local → cloud** - a local parent spawns one or more cloud children that run in [environments](/platform/environments/) on Warp-hosted or self-hosted infrastructure. The parent keeps working while children execute in parallel.
 * **Cloud → cloud** - a cloud parent spawns cloud children that each run in their own environment. This is the canonical pattern for review swarms, large fan-outs, and any orchestration triggered from Slack, Linear, a schedule, or the API.
 * **Cloud → cloud-local** - a cloud parent spawns children that run inside the parent's own cloud environment, rather than each child getting its own environment. Useful when children need to share state with the parent (a filesystem, a long-running process, a shell session) or when spinning up an environment per child would be wasteful.
 
-Children can also run with a different agent runtime than the parent. A parent running with the default Warp Agent can spawn children that run with [Claude Code](/agent-platform/cli-agents/claude-code/) or [Codex](/agent-platform/cli-agents/codex/), and vice versa.
+Children can also run with a different agent runtime than the parent. A parent running with the default Warp Agent can spawn children that run with [Claude Code](/agents/cli-agents/claude-code/) or [Codex](/agents/cli-agents/codex/), and vice versa.
 
 ## Run state transitions
 
@@ -62,7 +62,7 @@ This is how parallel agents stay consistent without sharing mutable state. Each 
 
 The same messaging infrastructure works across every combination of agent runtimes and execution locations:
 
-* **Harness-agnostic** - the mailbox is the same whether the recipient runs the default Warp Agent, [Claude Code](/agent-platform/cli-agents/claude-code/), [Codex](/agent-platform/cli-agents/codex/), or another agent runtime. A parent running with one harness can message a child running with another, in either direction.
+* **Harness-agnostic** - the mailbox is the same whether the recipient runs the default Warp Agent, [Claude Code](/agents/cli-agents/claude-code/), [Codex](/agents/cli-agents/codex/), or another agent runtime. A parent running with one harness can message a child running with another, in either direction.
 * **Cross-location** - the agent ID is the only address that matters. A local parent can message a cloud child, a cloud parent can message a local-to-cloud child running inside its own environment, and cloud parents can fan out messages to cloud children running in different environments.
 * **Resumable** - a child whose current run has reached a terminal state (`SUCCEEDED`, `FAILED`, `CANCELLED`, or `ERROR`) is not gone. It is still addressable by its agent ID and will wake up to handle follow-up instructions when the parent sends a new message.
 
@@ -114,7 +114,7 @@ Because every parent and child is tracked as its own conversation or run, the ex
 * **[Managing cloud agents](/platform/managing-cloud-agents/)** - in the Warp app, the orchestration pill bar above the agent view header lets you switch between the parent and each child while you're viewing the parent. Cloud children also appear as their own rows in the Agent Management Panel list.
 * **[Oz web app](/platform/oz-web-app/)** - the Runs page groups cloud children under the parent's row, and the parent's detail pane adds a **Sub-agents** tab.
 * **[Oz API](/reference/api-and-sdk/)** - list every descendant of a parent in one call and fetch any run with its conversation, transcript, and artifacts. See [Running orchestrated agents](/platform/orchestration/multi-agent-runs/#retrieving-conversations-and-artifacts).
-* **[Agent notifications](/agent-platform/capabilities/agent-notifications/)** - in-app notifications fire on the parent agent's conversation only. Use the pill bar or the **Sub-agents** tab to drill into a specific child.
+* **[Agent notifications](/agents/capabilities/agent-notifications/)** - in-app notifications fire on the parent agent's conversation only. Use the pill bar or the **Sub-agents** tab to drill into a specific child.
 
 ## Related pages
 

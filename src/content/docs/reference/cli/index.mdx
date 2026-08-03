@@ -219,7 +219,7 @@ The Oz CLI offers two ways to run agents, depending on where you want the work t
 
 ### Running locally: \`oz agent run\`
 
-To start an agent, use the `oz agent run` subcommand. You'll need to specify a prompt and, optionally, the [MCP servers](/agent-platform/capabilities/mcp/) and [agent profile](/agent-platform/capabilities/agent-profiles-permissions/) to use.
+To start an agent, use the `oz agent run` subcommand. You'll need to specify a prompt and, optionally, the [MCP servers](/agents/capabilities/mcp/) and [agent profile](/agents/capabilities/agent-profiles-permissions/) to use.
 
 ```sh
 oz agent run --prompt "set up a new Rust crate named warp-cli"
@@ -231,7 +231,7 @@ oz agent run --prompt "set up a new Rust crate named warp-cli"
 * `--name <NAME>` (`-n`) — label the run for grouping and traceability.
 * `--share` — share the session with teammates (see [Collaboration](/reference/cli/#collaboration)).
 * `--profile <ID>` — use a specific agent profile (see [Using Agent Profiles](/reference/cli/#using-agent-profiles)).
-* `--model <MODEL_ID>` — override the default model (see [Model Choice](/agent-platform/inference/model-choice/)).
+* `--model <MODEL_ID>` — override the default model (see [Model Choice](/agents/inference/model-choice/)).
 * `--skill <SPEC>` — use a skill as the base prompt (see [Using Skills](/reference/cli/#using-skills)).
 * `--mcp <SPEC>` — start one or more MCP servers before execution (UUID, JSON file path, or inline JSON). Can be repeated.
 * `--environment <ID>` (`-e`) — run in a specific cloud environment.
@@ -269,7 +269,7 @@ oz agent run-cloud \
 * `--skill <SPEC>` — use a skill from the environment's repository as the base prompt (see [Using Skills](/reference/cli/#using-skills)).
 * `--host <WORKER_ID>` — run on a specific self-hosted worker instead of Warp-hosted infrastructure.
 * `--attach <PATH>` — attach an image file to the agent query. Can be repeated (maximum 5).
-* `--computer-use` / `--no-computer-use` — enable or disable [Computer Use](/agent-platform/capabilities/computer-use/) for this run.
+* `--computer-use` / `--no-computer-use` — enable or disable [Computer Use](/agents/capabilities/computer-use/) for this run.
 * `--harness <HARNESS>` — choose the execution harness for the run. Defaults to `oz` (Warp Agent). Set `claude` or `codex` to run [Claude Code or Codex as a cloud agent](/platform/harnesses/).
 * `--claude-auth-secret <NAME>` — name of the [Warp-managed secret](/platform/secrets/) that authenticates the Claude Code harness. Only valid with `--harness claude`. See [Third-party cloud agent authentication](/platform/harnesses/authentication/).
 * `--codex-auth-secret <NAME>` — name of the [Warp-managed secret](/platform/secrets/) that authenticates the Codex harness. Only valid with `--harness codex`. See [Third-party cloud agent authentication](/platform/harnesses/authentication/).
@@ -301,7 +301,7 @@ The `--name` flag assigns a config name to the run. Use it to group related runs
 
 **How names work:**
 
-* **Skill-based runs** — When you run an agent from a [skill](/agent-platform/capabilities/skills/), the name is automatically set to the skill name. You don't need to pass `--name` explicitly.
+* **Skill-based runs** — When you run an agent from a [skill](/agents/capabilities/skills/), the name is automatically set to the skill name. You don't need to pass `--name` explicitly.
 * **Custom runs** — When you build your own automation (via the CLI, API, or SDK), set `--name` to a consistent value that describes the workflow's intent.
 
 **Why naming matters:**
@@ -362,13 +362,13 @@ See [MCP Servers](/reference/cli/mcp-servers/) for full details, including how t
 
 ## Using skills
 
-[Skills](/agent-platform/capabilities/skills/) are reusable instruction sets that teach agents how to perform specific tasks. Use the `--skill` flag to run an agent from a skill stored in a repository.
+[Skills](/agents/capabilities/skills/) are reusable instruction sets that teach agents how to perform specific tasks. Use the `--skill` flag to run an agent from a skill stored in a repository.
 
 See [Skills](/reference/cli/skills/) for supported spec formats and examples for both local and cloud agent runs.
 
 ## Collaboration
 
-In addition to text-based output, the CLI can share the agent's session for you to access on other devices or in a browser. To enable [Agent Session Sharing](/agent-platform/local-agents/session-sharing/), use the `--share` flag.
+In addition to text-based output, the CLI can share the agent's session for you to access on other devices or in a browser. To enable [Agent Session Sharing](/agents/local-agents/session-sharing/), use the `--share` flag.
 
 By default, the session is only accessible to the user running the CLI, but you can also share with [Teams](/knowledge-and-collaboration/teams/) or other Warp users:
 
