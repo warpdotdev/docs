@@ -13,7 +13,9 @@ import json
 import os
 import re
 import sys
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from urllib.parse import urlparse, unquote
 
@@ -47,15 +49,36 @@ SKIP_SCHEMES = {'mailto', 'tel', 'javascript', 'data', 'file', 'warp'}
 # Directories to skip when scanning
 SKIP_DIRECTORIES = {'_book', 'node_modules', '.git', '.vercel', 'dist'}
 
+# A browser-like User-Agent. Several sites we legitimately link to (OpenAI,
+# TikTok) reject an obvious bot UA with a 403 while serving the page fine to a
+# real browser, which showed up as a wall of false positives.
+BROWSER_UA = (
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
+    '(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
+)
+
+# Statuses that mean "the server refused to talk to an automated client",
+# not "this page is gone". Cloudflare's interstitial (sourceforge.net), OpenAI's
+# bot challenge, and login-gated destinations (Slack invites) all land here.
+# These are reported separately and don't fail the run, because treating them as
+# broken buries the 404s that actually need fixing.
+BOT_BLOCK_STATUSES = {401, 403, 429}
+
+# Transient failures worth one retry before we believe them.
+RETRYABLE_ERRORS = {'Timeout', 'Connection Error'}
+
 
 class LinkChecker:
-    def __init__(self, docs_root, timeout=10):
+    def __init__(self, docs_root, timeout=10, workers=16, strict=False):
         self.docs_root = Path(docs_root).resolve()
         self.timeout = timeout
+        self.workers = max(1, workers)
+        self.strict = strict
         self.files_scanned = 0
         self.internal_checked = 0
         self.external_checked = 0
         self.broken_links = []
+        self.blocked_links = []
         self.external_cache = {}
 
         # Astro Starlight projects may define additional pages outside
@@ -90,11 +113,8 @@ class LinkChecker:
                     route = route[:-len('index')]
                 self.extra_routes.add(route.rstrip('/') or '/')
         
-        if HAS_REQUESTS:
-            self.session = requests.Session()
-            self.session.headers['User-Agent'] = 'WarpDocsLinkChecker/1.0'
-        else:
-            self.session = None
+        # Sessions are not thread-safe, so give each worker thread its own.
+        self._local = threading.local()
 
     def find_markdown_files(self):
         files = []
@@ -266,37 +286,105 @@ class LinkChecker:
 
         return False, "File not found", None
 
+    def _session(self):
+        """Return this thread's requests session, creating it on first use."""
+        if not HAS_REQUESTS:
+            return None
+        session = getattr(self._local, 'session', None)
+        if session is None:
+            session = requests.Session()
+            session.headers.update({
+                'User-Agent': BROWSER_UA,
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'Accept-Language': 'en-US,en;q=0.9',
+            })
+            self._local.session = session
+        return session
+
+    def _request_external(self, url):
+        """Single attempt. Returns (valid, error, category).
+
+        category is None when valid, 'blocked' when the server refused an
+        automated client, and 'broken' for a genuine failure.
+        """
+        session = self._session()
+        try:
+            resp = session.head(url, timeout=self.timeout, allow_redirects=True)
+            # Many servers mishandle HEAD. Retry anything that failed with GET
+            # before concluding the link is bad.
+            if resp.status_code >= 400:
+                resp = session.get(url, timeout=self.timeout, allow_redirects=True, stream=True)
+                resp.close()
+
+            if resp.status_code < 400:
+                return True, None, None
+            if resp.status_code in BOT_BLOCK_STATUSES:
+                return False, f"HTTP {resp.status_code}", 'blocked'
+            return False, f"HTTP {resp.status_code}", 'broken'
+        except requests.exceptions.Timeout:
+            return False, "Timeout", 'broken'
+        except requests.exceptions.SSLError:
+            return False, "SSL Error", 'broken'
+        except requests.exceptions.ConnectionError:
+            return False, "Connection Error", 'broken'
+        except Exception as e:
+            return False, f"Error: {type(e).__name__}", 'broken'
+
     def check_external(self, url):
-        if not self.session:
+        if not HAS_REQUESTS:
             return True, "Skipped (requests not installed)", None
-        
+
         if url in self.external_cache:
             return self.external_cache[url]
-        
-        try:
-            resp = self.session.head(url, timeout=self.timeout, allow_redirects=True)
-            if resp.status_code == 405:
-                resp = self.session.get(url, timeout=self.timeout, allow_redirects=True, stream=True)
-            
-            if resp.status_code < 400:
-                result = (True, None, None)
-            else:
-                result = (False, f"HTTP {resp.status_code}", None)
-        except requests.exceptions.Timeout:
-            result = (False, "Timeout", None)
-        except requests.exceptions.SSLError:
-            result = (False, "SSL Error", None)
-        except requests.exceptions.ConnectionError:
-            result = (False, "Connection Error", None)
-        except Exception as e:
-            result = (False, f"Error: {type(e).__name__}", None)
-        
+
+        valid, error, category = self._request_external(url)
+        # Timeouts and connection resets are frequently transient; confirm once
+        # before reporting, so a blip doesn't look like a broken link.
+        if not valid and error in RETRYABLE_ERRORS:
+            time.sleep(1)
+            valid, error, category = self._request_external(url)
+
+        result = (valid, error, category)
         self.external_cache[url] = result
         return result
+
+    def warm_external_cache(self, files):
+        """Resolve every unique external URL up front, in parallel.
+
+        Checking these one at a time as files are walked is unusably slow: a
+        single changelog page can carry hundreds of GitHub links, and one
+        rate-limited host stalls the entire run. Populating the cache
+        concurrently keeps the per-file pass to pure cache reads.
+        """
+        if not HAS_REQUESTS:
+            return
+
+        urls = set()
+        for filepath in files:
+            for link in self.extract_links(filepath):
+                url = link['url']
+                if not self.should_skip(url) and self.is_external(url):
+                    urls.add(url)
+
+        if not urls:
+            return
+
+        urls = sorted(urls)
+        total = len(urls)
+        print(f"Resolving {total} unique external URLs with {self.workers} workers...")
+
+        done = 0
+        with ThreadPoolExecutor(max_workers=self.workers) as pool:
+            for _ in pool.map(self.check_external, urls):
+                done += 1
+                if done % 25 == 0 or done == total:
+                    print(f"\r  {done}/{total}", end='', flush=True)
+        print()
 
     def check_file(self, filepath, check_internal=True, check_external=True):
         links = self.extract_links(filepath)
         broken = []
+        blocked = []
         
         for link in links:
             url = link['url']
@@ -310,24 +398,30 @@ class LinkChecker:
             if not is_ext and not check_internal:
                 continue
             
+            category = 'broken'
             if is_ext:
                 self.external_checked += 1
-                valid, error, suggestion = self.check_external(url)
+                valid, error, category = self.check_external(url)
+                suggestion = None
             else:
                 self.internal_checked += 1
                 valid, error, suggestion = self.check_internal(url, filepath)
             
             if not valid:
-                broken.append({
+                entry = {
                     'file': str(filepath.relative_to(self.docs_root)),
                     'line': link['line'],
                     'url': url,
                     'error': error,
                     'suggestion': suggestion,
                     'type': 'external' if is_ext else 'internal'
-                })
+                }
+                if category == 'blocked' and not self.strict:
+                    blocked.append(entry)
+                else:
+                    broken.append(entry)
         
-        return broken
+        return broken, blocked
 
     def run(self, check_internal=True, check_external=True):
         files = self.find_markdown_files()
@@ -341,16 +435,17 @@ class LinkChecker:
             modes.append("external")
         print(f"Checking: {' + '.join(modes)} links\n")
         
+        if check_external:
+            self.warm_external_cache(files)
+        
         for i, filepath in enumerate(files, 1):
             rel = filepath.relative_to(self.docs_root)
             print(f"\r[{i}/{total}] {rel}", end='', flush=True)
             
             self.files_scanned += 1
-            broken = self.check_file(filepath, check_internal, check_external)
+            broken, blocked = self.check_file(filepath, check_internal, check_external)
             self.broken_links.extend(broken)
-            
-            if check_external:
-                time.sleep(0.05)
+            self.blocked_links.extend(blocked)
         
         print("\n")
 
@@ -362,11 +457,9 @@ class LinkChecker:
         print(f"Internal links checked: {self.internal_checked}")
         print(f"External links checked: {self.external_checked}")
         print(f"Broken links found: {len(self.broken_links)}")
+        if self.blocked_links:
+            print(f"Bot-blocked (not failures): {len(self.blocked_links)}")
         print("=" * 60)
-        
-        if not self.broken_links:
-            print("\n✓ No broken links found!")
-            return
         
         internal = [l for l in self.broken_links if l['type'] == 'internal']
         external = [l for l in self.broken_links if l['type'] == 'external']
@@ -388,6 +481,26 @@ class LinkChecker:
                 print(f"  Link: {link['url']}")
                 print(f"  Error: {link['error']}")
                 print()
+        
+        if self.blocked_links:
+            # Grouped by URL: one bot-protected domain can appear on dozens of
+            # lines, and listing every occurrence drowns out real breakage.
+            by_url = {}
+            for link in self.blocked_links:
+                by_url.setdefault((link['url'], link['error']), []).append(
+                    f"{link['file']}:{link['line']}"
+                )
+            print(f"\n### BOT-BLOCKED ({len(by_url)} URLs, not counted as broken)\n")
+            print("These returned 401/403/429, which means the server refused an")
+            print("automated request. Verify in a browser before changing them.\n")
+            for (url, error), locations in sorted(by_url.items()):
+                print(f"  {url}")
+                print(f"    Error: {error} ({len(locations)} occurrence(s))")
+                print(f"    First seen: {locations[0]}")
+            print()
+        
+        if not self.broken_links:
+            print("\n✓ No broken links found!")
 
     def get_results(self):
         return {
@@ -396,15 +509,28 @@ class LinkChecker:
             'internal_checked': self.internal_checked,
             'external_checked': self.external_checked,
             'broken_count': len(self.broken_links),
-            'broken_links': self.broken_links
+            'broken_links': self.broken_links,
+            'blocked_count': len(self.blocked_links),
+            'blocked_links': self.blocked_links
         }
 
     def format_slack_message(self):
         internal = [l for l in self.broken_links if l['type'] == 'internal']
         external = [l for l in self.broken_links if l['type'] == 'external']
         
+        blocked_note = ""
+        if self.blocked_links:
+            blocked_urls = {l['url'] for l in self.blocked_links}
+            blocked_note = (
+                f"\n\n_{len(blocked_urls)} URL(s) returned 401/403/429 (bot-blocked) "
+                "and were not counted as broken._"
+            )
+        
         if not self.broken_links:
-            return ":white_check_mark: *Broken Link Check Passed*\n\nNo broken links found in Astro Starlight docs."
+            return (
+                ":white_check_mark: *Broken Link Check Passed*\n\n"
+                "No broken links found in Astro Starlight docs." + blocked_note
+            )
         
         lines = [
             ":warning: *Broken Link Check Found Issues*",
@@ -414,6 +540,9 @@ class LinkChecker:
             f"• External links checked: {self.external_checked}",
             f"• *Broken links found: {len(self.broken_links)}*",
         ]
+        if self.blocked_links:
+            blocked_urls = {l['url'] for l in self.blocked_links}
+            lines.append(f"• Bot-blocked, not failures: {len(blocked_urls)} URL(s)")
         
         if internal:
             lines.append(f"\n*Internal ({len(internal)} broken):*")
@@ -495,6 +624,10 @@ def main():
     parser.add_argument('--internal-only', action='store_true', help='Only check internal links')
     parser.add_argument('--external-only', action='store_true', help='Only check external links')
     parser.add_argument('--timeout', type=int, default=10, help='HTTP timeout (default: 10)')
+    parser.add_argument('--workers', type=int, default=16,
+                        help='Concurrent external link requests (default: 16)')
+    parser.add_argument('--strict', action='store_true',
+                        help='Treat bot-blocked (401/403/429) responses as broken links')
     parser.add_argument('--output', help='Output JSON file')
     parser.add_argument('--slack-notify', action='store_true',
                         help='Send results to Slack (requires SLACK_BOT_TOKEN and GROWTH_DOCS_SLACK_CHANNEL_ID env vars)')
@@ -518,7 +651,8 @@ def main():
     
     print(f"Docs root: {docs_root}\n")
     
-    checker = LinkChecker(docs_root, timeout=args.timeout)
+    checker = LinkChecker(docs_root, timeout=args.timeout, workers=args.workers,
+                          strict=args.strict)
     
     start = time.time()
     checker.run(check_internal=check_internal, check_external=check_external)

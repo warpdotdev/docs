@@ -96,6 +96,256 @@
   ],
   "redirects": [
     {
+      "source": "/agent-platform/",
+      "destination": "/agents/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/agent-memory/",
+      "destination": "/agents/agent-memory/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/",
+      "destination": "/agents/capabilities/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/agent-notifications/",
+      "destination": "/agents/capabilities/agent-notifications/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/agent-profiles-permissions/",
+      "destination": "/agents/capabilities/agent-profiles-permissions/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/codebase-context/",
+      "destination": "/agents/capabilities/codebase-context/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/computer-use/",
+      "destination": "/agents/capabilities/computer-use/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/computer-use/artifacts-in-prs/",
+      "destination": "/agents/capabilities/computer-use/artifacts-in-prs/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/computer-use/browser-use/",
+      "destination": "/agents/capabilities/computer-use/browser-use/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/computer-use/testing-and-recordings/",
+      "destination": "/agents/capabilities/computer-use/testing-and-recordings/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/full-terminal-use/",
+      "destination": "/agents/capabilities/full-terminal-use/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/mcp/",
+      "destination": "/agents/capabilities/mcp/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/planning/",
+      "destination": "/agents/capabilities/planning/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/rules/",
+      "destination": "/agents/capabilities/rules/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/skills/",
+      "destination": "/agents/capabilities/skills/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/slash-commands/",
+      "destination": "/agents/capabilities/slash-commands/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/task-lists/",
+      "destination": "/agents/capabilities/task-lists/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/web-search/",
+      "destination": "/agents/capabilities/web-search/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cli-agents/claude-code/",
+      "destination": "/agents/cli-agents/claude-code/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cli-agents/codex/",
+      "destination": "/agents/cli-agents/codex/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cli-agents/opencode/",
+      "destination": "/agents/cli-agents/opencode/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cli-agents/overview/",
+      "destination": "/agents/cli-agents/overview/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cli-agents/remote-control/",
+      "destination": "/agents/cli-agents/remote-control/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cli-agents/rich-input/",
+      "destination": "/agents/cli-agents/rich-input/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/getting-started/agents-in-warp/",
+      "destination": "/agents/getting-started/agents-in-warp/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/getting-started/faqs/",
+      "destination": "/agents/getting-started/faqs/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/inference/bring-your-own-api-key/",
+      "destination": "/agents/inference/bring-your-own-api-key/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/inference/custom-inference-endpoint/",
+      "destination": "/agents/inference/custom-inference-endpoint/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/inference/custom-routers/",
+      "destination": "/agents/inference/custom-routers/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/inference/grok-subscription/",
+      "destination": "/agents/inference/grok-subscription/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/inference/model-choice/",
+      "destination": "/agents/inference/model-choice/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/active-ai/",
+      "destination": "/agents/local-agents/active-ai/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/agent-context/",
+      "destination": "/agents/local-agents/agent-context/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/agent-context/blocks-as-context/",
+      "destination": "/agents/local-agents/agent-context/blocks-as-context/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/agent-context/images-as-context/",
+      "destination": "/agents/local-agents/agent-context/images-as-context/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/agent-context/selection-as-context/",
+      "destination": "/agents/local-agents/agent-context/selection-as-context/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/agent-context/urls-as-context/",
+      "destination": "/agents/local-agents/agent-context/urls-as-context/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/agent-context/using-to-add-context/",
+      "destination": "/agents/local-agents/agent-context/using-to-add-context/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/cloud-conversations/",
+      "destination": "/agents/local-agents/cloud-conversations/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/code-diffs/",
+      "destination": "/agents/local-agents/code-diffs/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/generate/",
+      "destination": "/agents/local-agents/generate/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/interacting-with-agents/",
+      "destination": "/agents/local-agents/interacting-with-agents/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/interacting-with-agents/agent-questions/",
+      "destination": "/agents/local-agents/interacting-with-agents/agent-questions/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/interacting-with-agents/conversation-forking/",
+      "destination": "/agents/local-agents/interacting-with-agents/conversation-forking/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/interacting-with-agents/prompt-queueing/",
+      "destination": "/agents/local-agents/interacting-with-agents/prompt-queueing/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes/",
+      "destination": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/interacting-with-agents/voice/",
+      "destination": "/agents/local-agents/interacting-with-agents/voice/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/interactive-code-review/",
+      "destination": "/agents/local-agents/interactive-code-review/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/local-agents/overview/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/local-agents/session-sharing/",
+      "destination": "/agents/local-agents/session-sharing/",
+      "statusCode": 308
+    },
+    {
       "source": "/terminal",
       "destination": "/terminal/input/classic-input/",
       "statusCode": 308
@@ -9698,6 +9948,11 @@
     {
       "source": "/agent-platform/capabilities/model-choice",
       "destination": "/agent-platform/inference/model-choice/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/capabilities/computer-use-testing-and-recordings",
+      "destination": "/agent-platform/capabilities/computer-use/testing-and-recordings/",
       "statusCode": 308
     },
     {
