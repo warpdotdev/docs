@@ -18,13 +18,13 @@ Workflows are easily parameterized and searchable by name, description, or comma
 
 ## How to use it
 
-* Open the [Command Search](/terminal/entry/command-search/) or Workflow Search `CTRL-SHIFT-R` panel to find Workflows.
+* Open the [Command Search](/terminal/entry/command-search/) or Workflow Search `Ctrl+Shift+R` panel to find Workflows.
 * Once inside the menu, start typing in the search bar to filter the existing Workflows. (e.g. git, android, npm, etc.)
-* When a Workflow is selected with `ENTER`, you can use `SHIFT-TAB` to cycle through the arguments.
+* When a Workflow is selected with `Enter`, you can use `Shift+Tab` to cycle through the arguments.
 * You can also expand the menu horizontally with the mouse by dragging it on the right edge.
 
 :::note
-Tailor your [Command Search](/terminal/entry/command-search/) experience by toggling off "Show Global Workflows" in **Settings** > **Features** > **Workflows**. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
+Tailor your [Command Search](/terminal/entry/command-search/) experience by toggling off **Show Global Workflows** in **Settings** > **Features** > **Workflows**. When disabled, your search will only include YAML and Warp Drive Workflows.
 :::
 
 ## How it works
@@ -65,7 +65,7 @@ You can store local workflows (scoped to your machine) in:
   </TabItem>
 </Tabs>
 
-Or, you can share them with your team by saving them in `{{path_to_git_repo}}/.warp/workflows/`. Local and repository Workflows can be accessed under the "My Workflows" and "Repository Workflows" tab of the Workflows menu, respectively.
+Or, you can share them with your team by saving them in `{{path_to_git_repo}}/.warp/workflows/`. Local and repository Workflows can be accessed under the **My Workflows** and **Repository Workflows** tabs of the Workflows menu, respectively.
 
 See the existing Workflow spec within the [Workflows repo](https://github.com/warpdotdev/Workflows/tree/main/specs) for examples. Additionally, we outline the file format below:
 
@@ -143,11 +143,11 @@ arguments:
 
 **`arguments.description`**
 
-The description of the argument. This is surfaced in both [commands.dev](https://www.commands.dev/) and Warp to help users fill in Workflow arguments. Optional
+The description of the argument. This is surfaced in both [commands.dev](https://www.commands.dev/) and Warp to help users fill in Workflow arguments. Optional.
 
 **`arguments.default_value`**
 
-The default value for the argument. If specified, the `default_value` replaces the argument name within the command. Optional
+The default value for the argument. If specified, the `default_value` replaces the argument name within the command. Optional.
 
 ---
 

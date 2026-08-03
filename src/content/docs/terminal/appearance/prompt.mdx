@@ -76,12 +76,12 @@ To enable the Shell prompt:
 3. Configure your PS1 variable in your shell's RC file, or install a supported prompt plugin.
 
 :::note
-The PS1 is a variable used by the shell to generate the prompt, it represents the primary prompt string (hence the "PS") - which the terminal typically displays before typing new commands.
+The PS1 is a variable used by the shell to generate the prompt. It represents the primary prompt string (hence "PS"), which the terminal typically displays before you type new commands.
 :::
 
 ### Multi-line and right-sided prompts
 
-The Shell prompt supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multiline right-side prompt, only a multiline left prompt.
+The Shell prompt supports multi-line or right-sided prompts in zsh and fish, not bash. However, you can't have a multi-line right-side prompt, only a multi-line left prompt.
 
 :::note
 If you want to add a new line to your Shell prompt, run the following based on your shell or prompt:
@@ -210,7 +210,7 @@ Although Warp does have support for prezto's prompt, enabling the [prezto utilit
 
 ### Disabling unsupported prompts for Warp
 
-We advise using Warp's default prompt or installing one of the supported tools, see [Compatibility Table](/terminal/appearance/prompt/#shell-prompt-compatibility-table). You can disable unsupported prompts for Warp as such:
+We advise using Warp's default prompt or installing one of the supported tools. See the [Compatibility Table](/terminal/appearance/prompt/#shell-prompt-compatibility-table). You can disable unsupported prompts for Warp as such:
 
 ```
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
@@ -224,7 +224,7 @@ fi
 
 #### iTerm2
 
-The iTerm2 shell integration breaks Warp and your custom prompt will not be able to be visible with this on. If you're coming from iTerm2 please check your dotfiles for it. We advise disabling the integration for Warp like so:
+The iTerm2 shell integration breaks Warp, and your custom prompt won't be visible while it's on. If you're coming from iTerm2, check your dotfiles for it. We advise disabling the integration for Warp like so:
 
 ```
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
