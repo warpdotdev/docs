@@ -236,23 +236,17 @@ Check: Vercel project env vars include `PUBLIC_RUDDERSTACK_WRITE_KEY` and `PUBLI
 
 This skill is designed for an Oz scheduled agent with a weekly cron trigger: every Monday at 9am PT (`0 17 * * 1` in UTC).
 
-The live schedule (`Weekly docs 404 monitor`, schedule ID `xAqd8EBlaJ3EihLlfF3fOs`) runs in the **buzz** Oz environment (`qDewDp082oqhaq7ZJd6LJI`) — not the `Docs Agent` environment (`K5KStCm5aYvhfBJb8cHol6`) referenced by other docs automations (e.g. `validate_ui_refs`, `release_updates`). Point secret checks and schedule registration at the `buzz` environment for this skill.
-
 To deploy (one-time setup):
 1. Push this skill to `main` in the docs repo.
-2. Verify the **buzz** Oz environment (`qDewDp082oqhaq7ZJd6LJI`) has:
-   - `warpdotdev/docs` in its configured repos, so `/home/user/warpdotdev/docs` exists at run start (confirmed present as of 2026-08-03).
-   - These secrets set (both are Team-scoped and already provisioned):
-     - `METABASE_API_KEY` — Metabase API key for BigQuery
-     - `BUZZ_SLACK_TOKEN` — Slack bot token (used by other doc agents in this environment)
+2. Verify the **Docs Agent** Oz environment (`K5KStCm5aYvhfBJb8cHol6`) has these secrets set:
+   - `METABASE_API_KEY` — Metabase API key for BigQuery
+   - `BUZZ_SLACK_TOKEN` — Slack bot token (already provisioned; used by other doc agents in this environment)
 3. Register the schedule via the Oz CLI:
    ```sh
    oz-dev schedule create \
      --name "weekly-404-monitor" \
      --cron "0 17 * * 1" \
-     --environment qDewDp082oqhaq7ZJd6LJI \
+     --environment K5KStCm5aYvhfBJb8cHol6 \
      --prompt "You are running in the warpdotdev/docs repo. Read and follow the instructions in .agents/skills/weekly-404-monitor/SKILL.md."
    ```
    This will make the schedule visible in oz.warp.dev under Schedules and ensure runs open PRs under the @oz-by-warp bot account.
-
-**2026-08-03 incident note**: An earlier run this week failed with "METABASE_API_KEY is not set" while pointing at the nonexistent `K5KStCm5aYvhfBJb8cHol6` environment referenced by this section (that ID is not visible/resolvable from the Oz account operating this schedule). The live schedule already runs against `qDewDp082oqhaq7ZJd6LJI` (`buzz`), which has both secrets and now has the `docs` repo checked out. This section was corrected to match; see `.agents/logs/weekly_404_monitor_runs.md` for the run history.
