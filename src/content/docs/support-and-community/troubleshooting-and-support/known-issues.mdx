@@ -62,7 +62,7 @@ Nov 2021: We have added character support for Chinese, Korean, and Japanese, but
 
 ### Abnormal rendering of Chinese characters
 
-If you notice issues with the terminal rendering Chinese characters (i.e. [#3366](https://github.com/warpdotdev/Warp/issues/3366)). Please try adding the following lines to your rc file.
+If you notice issues with the terminal rendering Chinese characters (i.e. [#3366](https://github.com/warpdotdev/Warp/issues/3366)), try adding the following lines to your rc file.
 
 ```
 export LC_ALL=zh_CN.UTF-8
@@ -71,7 +71,7 @@ export LANG=zh_CN.UTF-8
 
 ### Warp fails to render a window
 
-This can likely occur due to some corruption in the local sqlite db. You may see a similar error your [logs](/support-and-community/#gathering-warp-logs):
+This can likely occur due to some corruption in the local sqlite db. You may see a similar error in your [logs](/support-and-community/#gathering-warp-logs):
 
 ```
 [WARN] SQLite error 283 (A WAL mode database file was recovered): recovered 383 frames from WAL file /home/xxxxx/.local/state/warp-terminal/warp.sqlite-wal
@@ -90,7 +90,7 @@ To try and resolve the issue of Warp not rendering a window, rename the SQLite d
 
 * Note that Agent Mode blocks are not shareable during [session sharing](/knowledge-and-collaboration/session-sharing/). Participants will be able to share regular shell commands that are run, but will not be able to share AI interactions (requested commands, AI blocks, etc.).
 * Block actions such as [Block Sharing](/terminal/blocks/block-sharing/) are not available on Agent Mode AI blocks.
-* Agents do not have up-to-date information on several commands’ completion specs
+* Agents do not have up-to-date information on several commands’ completion specs.
 * Agent Mode works better with Warp's default prompt settings, where the prompt starts on a new line, than it does with a same-line prompt. If you are using the same-line prompt, the cursor will jump from the end of the single line to the start of the input box when you switch to Agent Mode.
 
 ## Shells
@@ -246,8 +246,8 @@ The following non-exhaustive list of plugins, prompts, or tools can cause potent
     In some cases, CLI applications only work on x86, so you can run Warp with Rosetta on macOS to be able to use them by doing the following.
 
     * Go to **Finder** > **Applications** and search for Warp.
-    * Right-click and select Get Info.
-    * Then check the box on Open with Rosetta.
+    * Right-click and select **Get Info**.
+    * Select **Open with Rosetta**.
   </TabItem>
   <TabItem label="Windows">
     **Unsupported in Warp on Windows**
