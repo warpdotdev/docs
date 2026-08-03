@@ -379,6 +379,24 @@ GET /factory/scorers -> internal
 POST /factory/scorers -> internal
 GET /factory/scorers/{scorer_id}/results -> internal
 
+# Orchestration messaging and lifecycle-event endpoints. These are marked
+# `x-internal: true` in warp-server's canonical spec (public_api/openapi.yaml),
+# so the publish filter deliberately strips them from the public docs copy.
+# They back the agent-to-agent messaging tools and the documented
+# `oz run message` CLI, but the REST surface itself is not part of the released
+# public Oz Agent API. Revisit if warp-server drops the x-internal marker.
+POST /agent/messages -> internal
+GET /agent/messages/{run_id} -> internal
+POST /agent/messages/{id}/read -> internal
+POST /agent/messages/{id}/delivered -> internal
+GET /agent/events -> internal
+POST /agent/events/{run_id} -> internal
+
+# SSE lifecycle-event stream consumed by the Warp client and the Oz web app.
+# Absent from warp-server's canonical public spec entirely, and registered only
+# on the RTC host, so it is not a released public API operation.
+GET /agent/events/stream -> internal
+
 # Agent Memory REST API — research preview (gating flag AIMemories is non-GA),
 # deferred via `gated:` and auto-surfaces when AIMemories goes GA. See
 # "Public vs. private surfaces" in SKILL.md.
