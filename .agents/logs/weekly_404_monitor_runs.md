@@ -8,6 +8,17 @@ This log tracks every run of the `weekly-404-monitor` skill — both runs that o
 
 ---
 
+## 2026-08-03 — No data
+- **Total 404s this week**: n/a
+- **Total 404s last week**: n/a
+- **Trend**: n/a
+- **Significant gaps (≥5 hits)**: n/a
+- **Redirect candidates processed**: 0  (hits ≥ 5)
+- **HIGH-confidence redirects**: 0
+- **PR**: none
+- **Oz run**: https://app.warp.dev/conversation/61e9dfd8-e1c0-4d61-a007-9f2d8ea3360d
+- **Notes**: Failed fast — METABASE_API_KEY is not set in the current Oz environment (current_environment_id=6qDvDbgkCLF3I0rLFEmiFo). Posted failure notice to #growth-docs. Expected secret on Docs Agent env K5KStCm5aYvhfBJb8cHol6.
+
 ## 2026-07-27 — PR opened
 - **Total 404s this week**: 458
 - **Total 404s last week**: 439
