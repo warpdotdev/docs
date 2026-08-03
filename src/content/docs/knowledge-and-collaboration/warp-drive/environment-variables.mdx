@@ -18,8 +18,8 @@ Environment variables in Warp are similar to .env files, except you can:
 
 You can create new environment variables through:
 
-* [Warp Drive](/knowledge-and-collaboration/warp-drive/), + → Environment variable
-* [Command Palette](/terminal/command-palette/), create new team or personal environment variables
+* From [Warp Drive](/knowledge-and-collaboration/warp-drive/), click **+** and select **Environment variable**.
+* From the [Command Palette](/terminal/command-palette/), create a new team or personal environment variable.
 
 Any of these entry points will open the environment variables editor where you can name and describe your environment variables.
 
@@ -41,7 +41,7 @@ After you save the environment variable, you can click it to load it into your t
 
 When you use static variables, Warp stores them securely in Warp Drive.\
 \
-Note: Static variables should not be used to replace a secret manager. Please use dynamic variables for any sensitive information.
+Note: Don't use static variables to replace a secret manager. Use dynamic variables for any sensitive information.
 
 ### Dynamic variables
 
@@ -87,7 +87,7 @@ Selecting a secret name never stores the actual secret. Warp uses your selection
 Reference the documentation for your external secret manager. Then, write a custom command to retrieve secrets.
 
 :::note
-Your custom command should return the exact string you want loaded into your environment. Please make sure that you are selecting the exact field you want loaded as many secret manager CLIs provide additional formatting by default.
+Your custom command should return the exact string you want loaded into your environment. Please make sure that you are selecting the exact field you want loaded, as many secret manager CLIs provide additional formatting by default.
 :::
 
 For example, you can write a command using the [Hashicorp Vault CLI](https://developer.hashicorp.com/vault/docs/commands) to retrieve and load the password field for the staging server. When using secret commands, Warp stores the command but never the actual secrets. The secrets are referenced and loaded into a terminal session at runtime.
@@ -102,7 +102,7 @@ For example, you can write a command using the [Hashicorp Vault CLI](https://dev
 
 There are three ways to invoke your environment variables and load them into a terminal session:
 
-1. [Click to load into a current section](/knowledge-and-collaboration/warp-drive/environment-variables/#click-to-load-into-a-current-session)
+1. [Click to load into a current session](/knowledge-and-collaboration/warp-drive/environment-variables/#click-to-load-into-a-current-session)
 2. [Click to load into a subshell](/knowledge-and-collaboration/warp-drive/environment-variables/#click-to-load-into-a-subshell)
 3. [Select to load in with a workflow](/knowledge-and-collaboration/warp-drive/environment-variables/#select-to-load-with-a-workflow)
 
@@ -110,7 +110,7 @@ There are three ways to invoke your environment variables and load them into a t
 
 First, click your environment variable from Warp Drive or the Command Palette.
 
-Then, review the confirmation block. If your environment variables are correct, hit enter to load them into your session.
+Then, review the confirmation block. If your environment variables are correct, press `Enter` to load them into your session.
 
 ![Confirmation block prompting to load environment variables into the current session.](../../../../assets/terminal/env-var-load-to-input-1.png)
 
@@ -140,4 +140,4 @@ These environment variables will now be present for the remainder of your sessio
 
 ### Import and export environment variables in Warp Drive
 
-Please see our [Warp Drive Import and Export](/knowledge-and-collaboration/warp-drive/#import-and-export) instructions.
+See the [Warp Drive Import and Export](/knowledge-and-collaboration/warp-drive/#import-and-export) instructions.

@@ -477,13 +477,13 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Agent handoff surfaces now accept empty prompts and support handing off in a single click. ([#11576](https://github.com/warpdotdev/warp/pull/11576))
 * Added a setting to control whether orchestration messages are expanded or collapsed by default. ([#12219](https://github.com/warpdotdev/warp/pull/12219))
 * Long-running command agent boxes can now be resized by dragging their top or left edge. ([#12236](https://github.com/warpdotdev/warp/pull/12236))
-* Fixed CLI subagent interactions being unexpectedly cancelled for Oz agents. ([#12384](https://github.com/warpdotdev/warp/pull/12384))
+* Fixed CLI subagent interactions being unexpectedly cancelled for agents. ([#12384](https://github.com/warpdotdev/warp/pull/12384))
 
 ### 2026.06.03 (v0.2026.06.03.09.49)
 
 **New features**
 
-* Added the installation path into de Windows App Paths Registry ([#10805](https://github.com/warpdotdev/warp/pull/10805)) — [@Cocodrulo](https://github.com/Cocodrulo) ✨
+* Added the installation path into the Windows App Paths Registry ([#10805](https://github.com/warpdotdev/warp/pull/10805)) — [@Cocodrulo](https://github.com/Cocodrulo) ✨
 * Queue multiple follow-up prompts while the agent is working either by using the `/queue` command, prompt queueing mode (activated via a chip in the warping line), and/or by changing your default prompt submission mode to "Queue until response finishes" in settings. ([#12081](https://github.com/warpdotdev/warp/pull/12081))
 
 **Improvements**
@@ -605,7 +605,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **Oz updates**
 
 * Added search to the Oz Cloud API Keys settings page. ([#11307](https://github.com/warpdotdev/warp/pull/11307))
-* Fixed Oz cloud agent GitHub CLI authentication by writing refreshed credentials to gh's expected hosts.yml file. ([#11492](https://github.com/warpdotdev/warp/pull/11492))
+* Fixed cloud agent GitHub CLI authentication by writing refreshed credentials to gh's expected hosts.yml file. ([#11492](https://github.com/warpdotdev/warp/pull/11492))
 * Added an execution profile permission for controlling whether agents can use run_agents. ([#11225](https://github.com/warpdotdev/warp/pull/11225))
 
 ### 2026.05.20 (v0.2026.05.20.09.21)
@@ -763,7 +763,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Fixed pacman signing key validation before allowing Arch Linux auto-update ([#9706](https://github.com/warpdotdev/warp/pull/9706)) — @Naveen-Boddepalli ✨
 * Tab titles for plugin-backed CLI agents (e.g. Claude Code via claude-code-warp) no longer keep showing stale permission-prompt text after a session completes. Thanks @lonexreb! ([#9671](https://github.com/warpdotdev/warp/pull/9671)) — @lonexreb ✨
 * Fixed prompt branch picker clicks for branches checked out in linked worktrees. Thanks to @JasonLovesDoggo (#9264), @tkshsbcue (#9440), and @lonexreb (#9560) for earlier fixes and investigation. ([#9905](https://github.com/warpdotdev/warp/pull/9905)) — @kranthik10 ✨
-* Fix remote-server SSH wrapper failing to install the Oz agent on macOS remotes whose `bash -s` resolves to Apple bash 3.2 (the default), which surfaced as "Initialize: Response channel closed before receiving a reply" and a misplaced binary under `~/"/Users/.../"`. ([#10317](https://github.com/warpdotdev/warp/pull/10317)) — @lucasdoell ✨
+* Fix remote-server SSH wrapper failing to install the agent on macOS remotes whose `bash -s` resolves to Apple bash 3.2 (the default), which surfaced as "Initialize: Response channel closed before receiving a reply" and a misplaced binary under `~/"/Users/.../"`. ([#10317](https://github.com/warpdotdev/warp/pull/10317)) — @lucasdoell ✨
 * Child agent initial prompts (from orchestrator) no longer appear in the agent input completion history. ([#10304](https://github.com/warpdotdev/warp/pull/10304))
 * Fixed infinite SSE retry loop on stale agent runs ([#10383](https://github.com/warpdotdev/warp/pull/10383))
 * Fixed Markdown table-of-contents anchor links in rendered notebooks. ([#10143](https://github.com/warpdotdev/warp/pull/10143)) — @haikomatt ✨
@@ -1354,7 +1354,7 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 
 #### Warp Upgrades
 
-* **Agent Modality** — two distinct modes: a clean terminal for commands, and a dedicated conversation view for multi-turn agent workflows with full controls (model select, voice, attachments).
+* **Terminal and Agent modes** — two distinct modes: a clean terminal for commands, and a dedicated conversation view for multi-turn agent workflows with full controls (model select, voice, attachments).
 * **Cloud-Synced Conversations** — your agent conversations sync to the cloud and persist across devices. Share with teammates via link, view on the web, or continue locally.
 
 #### Agent Capabilities
