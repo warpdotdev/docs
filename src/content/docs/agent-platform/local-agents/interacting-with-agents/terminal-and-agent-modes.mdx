@@ -49,11 +49,11 @@ Terminal mode is the default when you open a new tab or pane.
 
 The message bar at the bottom of the terminal provides contextual guidance:
 
-* **Default hint** - Shows `⌘↩ for new agent` when the input is empty.
-* **Send to agent** - Shows `⌘↩ to send to agent` when you have text that could be a prompt.
-* **Error block attachment** - When the last command failed, shows a hint to attach the output as agent context (e.g., `⌘↑ attach 'npm install...' output as agent context`).
-* **Attached context indicator** - Shows when you have blocks or text selections attached (e.g., `⌘↩ to send to agent with 'git status' attached`).
-* **Continue conversation** - When your last visible item is an agent conversation block, shows `⌘Y to continue conversation`.
+* **Default hint** - Shows `⌘+↩ for new agent` when the input is empty.
+* **Send to agent** - Shows `⌘+↩ to send to agent` when you have text that could be a prompt.
+* **Error block attachment** - When the last command failed, shows a hint to attach the output as agent context (e.g., `⌘+↑ attach 'npm install...' output as agent context`).
+* **Attached context indicator** - Shows when you have blocks or text selections attached (e.g., `⌘+↩ to send to agent with 'git status' attached`).
+* **Continue conversation** - When your last visible item is an agent conversation block, shows `⌘+Y to continue conversation`.
 
 If auto-detection is enabled, Warp labels your input as "agent" or "shell" before you submit, showing "(autodetected)" in magenta. See [Understanding auto-detection](#understanding-auto-detection) for configuration and override methods.
 
@@ -118,7 +118,7 @@ In addition to local agent conversations, you can start **cloud agent conversati
 * Running agents autonomously in the cloud
 * Checking in on your agents from anywhere
 
-To start a cloud agent conversation, press `⌥⌘↩` (Option+Command+Enter on macOS, or `Ctrl+Alt+Enter` on Windows/Linux) from terminal mode. You can also use the welcome block's "Start cloud project" action.
+To start a cloud agent conversation, press `⌥+⌘+↩` (Option+Command+Enter on macOS, or `Ctrl+Alt+Enter` on Windows/Linux) from terminal mode. You can also use the welcome block's "Start cloud project" action.
 
 Cloud agent conversations have a few differences from local conversations:
 
@@ -167,7 +167,7 @@ You can control auto-detection separately for terminal mode and agent conversati
 
 There are multiple ways to override auto-detection:
 
-* **Keyboard shortcut** - Press `⌘I` to switch between command and Agent Mode.
+* **Keyboard shortcut** - Press `⌘+I` to switch between command and Agent Mode.
 * **`!` prefix** - In agent view, prepend `!` to your input to force it to run as a shell command (e.g., `!ls` or `!git status`).
 
 Common examples:
@@ -200,7 +200,7 @@ Type `/agent` or `/new` in terminal mode to enter the agent conversation view. T
 
 #### B) Use the keyboard shortcut
 
-Press `⌘↩` (Command+Enter on macOS, or `Ctrl+Shift+Enter` on Windows/Linux) to enter the conversation view immediately. This is a shortcut for `/agent`.
+Press `⌘+↩` (Command+Enter on macOS, or `Ctrl+Shift+Enter` on Windows/Linux) to enter the conversation view immediately. This is a shortcut for `/agent`.
 
 **Use this when you want to:**
 
@@ -243,7 +243,7 @@ While you're in an agent conversation, you can access Warp's [slash commands](/a
 * Type `/` to open the command menu
 * Keep typing to filter commands (for example: `/conversations`, `/compact`)
 * Use `↑` / `↓` to navigate and `Enter` to run
-* Press `esc` to dismiss the menu
+* Press `Esc` to dismiss the menu
 
 **Key slash commands in Agent Mode:**
 
@@ -251,7 +251,7 @@ While you're in an agent conversation, you can access Warp's [slash commands](/a
 * `/plan` or `/plan <prompt>` - Enter agent view and start a planning conversation. The agent will create an implementation plan before making changes.
 * `/conversations` - Open the conversation list panel.
 * `/compact` - Summarize and compact the current conversation to free up context window space.
-* `/fork` - Fork the current conversation into a new thread. Press `Enter` to fork in the existing pane, or `⌘↩` (`Ctrl+Shift+Enter` on Windows/Linux) to fork in a new pane.
+* `/fork` - Fork the current conversation into a new thread. Press `Enter` to fork in the existing pane, or `⌘+↩` (`Ctrl+Shift+Enter` on Windows/Linux) to fork in a new pane.
 * `/fork-and-compact` - Fork the conversation and automatically summarize it.
 * `/fork from` - Choose a specific point in the conversation to fork from. A menu appears showing your previous queries—select one to fork from that point.
 * `/model` - Select or change the AI model for the conversation.
@@ -279,7 +279,7 @@ Forking lets you branch off from an existing conversation to explore a different
 1. In an agent conversation, type `/fork` and press `Enter`.
 2. Choose where to open the forked conversation:
    * `Enter` - Fork in the current pane (replaces the current view).
-   * `⌘↩` (`Ctrl+Shift+Enter` on Windows/Linux) - Fork in a new pane (keeps the original visible).
+   * `⌘+↩` (`Ctrl+Shift+Enter` on Windows/Linux) - Fork in a new pane (keeps the original visible).
 
 **Fork and compact:**
 
@@ -292,7 +292,7 @@ Use `/fork from` to choose exactly where in the conversation you want to branch 
 1. Type `/fork from` and press `Enter`.
 2. A menu shows your previous queries in the conversation.
 3. Select the query you want to fork from.
-4. Choose `Enter` (existing pane) or `⌘↩` / `Ctrl+Shift+Enter` (new pane).
+4. Choose `Enter` (existing pane) or `⌘+↩` / `Ctrl+Shift+Enter` (new pane).
 
 This is helpful when you want to go back to an earlier point and try a different approach.
 
@@ -325,7 +325,7 @@ You can also use the "toggle input mode" keyboard shortcut to override auto-dete
 1. Go to **Settings** > **Agents** > **Warp Agent** > **Input**.
 2. Toggle on **Autodetect terminal commands in agent input**.
 
-Press `⌘I` (macOS) or `Ctrl+I` (Windows/Linux) to manually toggle between shell and Agent Mode at any time, overriding auto-detection.
+Press `⌘+I` (macOS) or `Ctrl+I` (Windows/Linux) to manually toggle between shell and Agent Mode at any time, overriding auto-detection.
 
 :::note
 Auto-detection is enabled by default for new Warp users.
@@ -339,15 +339,15 @@ In conversation view, press `?` to show/hide the full shortcuts panel. Here are 
 
 ### Navigation and mode switching
 
-* **Start new agent conversation** (from terminal mode) - `⌘↩` (macOS) / `Ctrl+Shift+Enter` (Windows/Linux)
-* **Start new cloud agent conversation** (from terminal mode) - `⌥⌘↩` (macOS) / `Ctrl+Alt+Enter` (Windows/Linux)
-* **Send to agent with attached context** (from terminal mode) - `⌘↩` (macOS) / `Ctrl+Shift+Enter` (Windows/Linux) when blocks are selected
-* **Tag agent into long-running command** - `⌘↩` (macOS) / `Ctrl+Shift+Enter` (Windows/Linux) while an interactive command is running
-* **Exit conversation** (back to terminal mode) - `esc`
+* **Start new agent conversation** (from terminal mode) - `⌘+↩` (macOS) / `Ctrl+Shift+Enter` (Windows/Linux)
+* **Start new cloud agent conversation** (from terminal mode) - `⌥+⌘+↩` (macOS) / `Ctrl+Alt+Enter` (Windows/Linux)
+* **Send to agent with attached context** (from terminal mode) - `⌘+↩` (macOS) / `Ctrl+Shift+Enter` (Windows/Linux) when blocks are selected
+* **Tag agent into long-running command** - `⌘+↩` (macOS) / `Ctrl+Shift+Enter` (Windows/Linux) while an interactive command is running
+* **Exit conversation** (back to terminal mode) - `Esc`
 * **Stop agent / exit on empty input** - `^C` / `Ctrl+C`
-* **Open conversation selector** - `⌘Y` (macOS) / `Ctrl+Y` (Windows/Linux)
-* **Toggle conversation list panel** - `⌘⇧H` (macOS) / `Ctrl+Shift+H` (Windows/Linux)
-* **Override auto-detection** (switch shell ↔ agent) - `⌘I` (macOS) / `Ctrl+I` (Windows/Linux)
+* **Open conversation selector** - `⌘+Y` (macOS) / `Ctrl+Y` (Windows/Linux)
+* **Toggle conversation list panel** - `⌘+⇧+H` (macOS) / `Ctrl+Shift+H` (Windows/Linux)
+* **Override auto-detection** (switch shell ↔ agent) - `⌘+I` (macOS) / `Ctrl+I` (Windows/Linux)
 
 ### Input modifiers
 
@@ -358,17 +358,17 @@ In conversation view, press `?` to show/hide the full shortcuts panel. Here are 
 
 ### Conversation actions
 
-* **Resume a paused/cancelled conversation** - `⌘⇧R` (macOS) / `Ctrl+Alt+R` (Windows/Linux)
-* **Toggle auto-accept** (for agent tool executions) - `⌘⇧I` (macOS) / `Ctrl+Shift+I` (Windows/Linux)
-* **Open code review pane** - `⌘⇧+` (macOS) / `Ctrl+Shift++` (Windows/Linux)
-* **Toggle plan panel** (if a plan exists) - `⌘⌥P` (macOS) / `Ctrl+Alt+P` (Windows/Linux)
+* **Resume a paused/cancelled conversation** - `⌘+⇧+R` (macOS) / `Ctrl+Alt+R` (Windows/Linux)
+* **Toggle auto-accept** (for agent tool executions) - `⌘+⇧+I` (macOS) / `Ctrl+Shift+I` (Windows/Linux)
+* **Open code review pane** - `⌘+Shift++` (macOS) / `Ctrl+Shift++` (Windows/Linux)
+* **Toggle plan panel** (if a plan exists) - `⌘+⌥+P` (macOS) / `Ctrl+Alt+P` (Windows/Linux)
 
 ### In slash command / fork menus
 
 * **Navigate menu items** - `↑` / `↓`
 * **Select** (fork in existing pane) - `Enter`
-* **Select and open in new pane** - `⌘↩` (macOS) / `Ctrl+Shift+Enter` (Windows/Linux)
-* **Dismiss menu** - `esc`
+* **Select and open in new pane** - `⌘+↩` (macOS) / `Ctrl+Shift+Enter` (Windows/Linux)
+* **Dismiss menu** - `Esc`
 
 ### Customizing keybindings
 

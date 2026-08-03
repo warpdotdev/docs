@@ -18,9 +18,9 @@ In some older Ruby development environments, `.dev` domains do not resolve prope
 
 This error could occur if you installed an ad blocker or have stale browser cookies, including our Firebase auth pop-up. **To fix it:**
 
-1. Disable your ad blocker for `app.warp.dev`
-2. Clear any cookies and cache, or open an incognito / private browser window
-3. Try the [Warp login page](https://app.warp.dev/login) again
+1. Disable your ad blocker for `app.warp.dev`.
+2. Clear any cookies and cache, or open an incognito / private browser window.
+3. Try the [Warp login page](https://app.warp.dev/login) again.
 
 ### Safari
 
@@ -31,8 +31,8 @@ If you are using Safari, you may see the following messages in your console:
 
 This error likely occurs because you are blocking all cookies in Safari's security settings, but Firebase Auth requires the cookie to record whether the user is logged in. **To fix it:**
 
-1. Go to Safari Preferences > Privacy
-2. Uncheck the "Block all cookies" checkbox
+1. Go to Safari Preferences > Privacy.
+2. Deselect **Block all cookies**.
 
 ## Proxies
 
@@ -54,20 +54,20 @@ When behind a proxy, a possible workaround is to disable QUIC in the browser. It
 
 ### Can't open Warp from SSO
 
-When directly launching Warp from Okta or other SSO providers', you may see an error message like "`Unable to process request due to missing initial state...`". This is due to a limitation with Warp authentication APIs. Instead, do the following:
+When directly launching Warp from Okta or other SSO providers, you may see an error message like "`Unable to process request due to missing initial state...`". This is due to a limitation with Warp authentication APIs. Instead, do the following:
 
-1. Go to the [Warp login page](https://app.warp.dev/login)
-2. Choose “Continue with SSO”
-3. Login with your normal SSO credentials
+1. Go to the [Warp login page](https://app.warp.dev/login).
+2. Choose “Continue with SSO”.
+3. Log in with your normal SSO credentials.
 
 ### I logged in with another method before and now can't use SSO
 
 In cases where you logged in with another method, please do the following to fix SSO login:
 
-1. Go to the [Warp login page](https://app.warp.dev/login)
-2. Login with the original method that you used to create your Warp account (email, Google, GitHub).
-3. Once logged in, go to the [SSO linking page](https://app.warp.dev/link_sso)
-4. This should link your login to SSO. You can now proceed to login with "Continue with SSO".
+1. Go to the [Warp login page](https://app.warp.dev/login).
+2. Log in with the original method that you used to create your Warp account (email, Google, GitHub).
+3. Once logged in, go to the [SSO linking page](https://app.warp.dev/link_sso).
+4. This should link your login to SSO. You can now proceed to log in with "Continue with SSO".
 
 ## Flagged as fraudulent
 
@@ -85,16 +85,16 @@ If you are still unable to authenticate, you may email [appeals@warp.dev](mailto
 
 If you have an active subscription and continue to have login issues, see [how to get help with login issues](/support-and-community/troubleshooting-and-support/troubleshooting-login-issues/#get-help-with-login-issues).
 
-## How to get an auth token to login
+## How to get an auth token to log in
 
-If the browser does not open from Warp directly when you click "Sign up" or "Sign in". Please go to the [Signup](https://app.warp.dev/signup) page to create an account or [Login](https://app.warp.dev/login) page if you already have one, then copy the auth token from the "here" link on the logged\_in page and paste it into Warp.
+If the browser does not open from Warp directly when you click "Sign up" or "Sign in", go to the [Signup](https://app.warp.dev/signup) page to create an account or [Login](https://app.warp.dev/login) page if you already have one, then copy the auth token from the "here" link on the logged\_in page and paste it into Warp.
 
-If nothing happens when you click "Take me to Warp" on the logged-in page. If this happens to you, copy the "here" link on the web logged-in page (https://app.warp.dev/logged\_in) to copy the authentication token, then paste it into the app as shown below.
+If nothing happens when you click "Take me to Warp" on the logged-in page, copy the "here" link on the web logged-in page (https://app.warp.dev/logged\_in) to copy the authentication token, then paste it into the app as shown below.
 
 :::caution
 On Linux and Windows, the default copy-and-paste [Keyboard shortcuts](/getting-started/keyboard-shortcuts/) are `Ctrl+Shift+C` and `Ctrl+Shift+V` respectively.\
 \
-On Linux and WSL you should install and set your default `$BROWSER` to `brave-browser` to workaround any copy-paste issues. Please see the workaround guide below.
+On Linux and WSL you should install and set your default `$BROWSER` to `brave-browser` to work around any copy-paste issues. Please see the workaround guide below.
 :::
 
 <DemoVideo src="/assets/support-and-community/auth-token-demo.mp4" label="Authentication Token Linux" />

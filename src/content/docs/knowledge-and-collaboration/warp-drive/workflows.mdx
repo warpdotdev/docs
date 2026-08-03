@@ -19,10 +19,10 @@ A workflow is a parameterized command you can name and save in Warp with descrip
 
 You can create a new workflow from various entry points in Warp:
 
-* From Warp Drive, + > New workflow
-* Using Block Actions, Save as Workflow
-* From agent results, Save as Workflow
-* From the [Command Palette](/terminal/command-palette/), Create a New Personal Workflow
+* From Warp Drive, click **+** > **New workflow**
+* From Block Actions, select **Save as Workflow**
+* From agent results, select **Save as Workflow**
+* From the [Command Palette](/terminal/command-palette/), select **Create a New Personal Workflow**
 
 Any of these entry points will open the workflow editor where you can:
 
@@ -44,14 +44,14 @@ In the workflow editor, you can add arguments manually with "New argument" or by
 
 There are some rules for creating valid arguments:
 
-* Argument names can only include characters `A-Za-z0-9`, hyphens `-` and underscores `_`
-* The first character of an argument cannot be a number
+* Argument names can only include characters `A-Za-z0-9`, hyphens `-`, and underscores `_`.
+* The first character of an argument cannot be a number.
 
 Arguments can be one of two types: text or enum. By default, all new arguments are text type.
 
 #### Enum type arguments
 
-Enums allow you to specify expected inputs to a workflow argument. When you insert a workflow with enums into the input editor, you will be prompted with suggestions for filling in the argument. You can open the suggestions menu by pressing `SHIFT-TAB` while selecting an argument.
+Enums allow you to specify expected inputs to a workflow argument. When you insert a workflow with enums into the input editor, you will be prompted with suggestions for filling in the argument. You can open the suggestions menu by pressing `Shift+Tab` while selecting an argument.
 
 <VideoEmbed url="https://www.loom.com/share/b2f54eeef2f247a8bbcf87698b2a4287?hideEmbedTopBar=true&hide_owner=true&hide_share=true&hide_title=true" title="Enum Input Suggestions Demo" />
 
@@ -85,7 +85,7 @@ Once a workflow has been created, you can edit it at any time, as long as you ha
 
 Workflows also have the option to use an [agent](/agent-platform/local-agents/overview/) to automatically generate a title, descriptions, or parameters.
 
-* Create or edit a Workflow, in the edit view you should see the option to AutoFill.
+* When you create or edit a Workflow, the edit view shows the option to **AutoFill**.
 * Warp will fill in the fields based on the Workflow you're creating.
 
 <DemoVideo src="/assets/terminal/Edit-workflows-autofill.mp4" label="Edit Workflows - Autofill" />
@@ -94,25 +94,25 @@ Workflows also have the option to use an [agent](/agent-platform/local-agents/ov
 
 If the workflow is shared with a team, all team members will have access to edit the workflow and updates will sync immediately for all members of the team.
 
-If a workflow in the Warp Drive has been edited by another team member or a user on another device while you are attempting to edit the same workflow, you will not be able to save changes; you will need to check out the latest version and try again.
+If a workflow in the Warp Drive has been edited by another team member or a user on another device while you are attempting to edit the same workflow, you can't save changes; check out the latest version and try again.
 
 ## How to execute workflows
 
 You can execute a workflow in several ways:
 
 * From Warp Drive, click the workflow
-* From the [Command Palette](/terminal/command-palette/), search for a workflow you’d like to execute, click or select, and enter
+* From the [Command Palette](/terminal/command-palette/), search for a workflow you’d like to execute, click or select, and enter.
 * From [Command Search](/terminal/entry/command-search/), search for a workflow you'd like to execute, click or select, and enter.
-* When a workflow is selected, you can use `SHIFT-TAB` to cycle through the arguments.
+* When a workflow is selected, you can use `Shift+Tab` to cycle through the arguments.
 
 :::note
 When you create two or more arguments with the same name, Warp automatically selects and puts multiple cursors over the arguments in the input editor so they are synced.\
 \
-Also, tailor your Command Search experience by toggling off "Show Global Workflows" in **Settings** > **Features**. When disabled, your search will exclusively encompass YAML and Warp Drive Workflows.
+Also, tailor your Command Search experience by toggling off "Show Global Workflows" in **Settings** > **Features**. When disabled, your search will only include YAML and Warp Drive Workflows.
 :::
 
 <figure>
-![Search for any workflow in the Command Palette with CMD + P](../../../../assets/terminal/search-workflow-command-palette.png)
+![Search for any workflow in the Command Palette with Cmd+P](../../../../assets/terminal/search-workflow-command-palette.png)
 <figcaption>Searching for Workflows in the Command Palette.</figcaption>
 </figure>
 
@@ -135,4 +135,4 @@ If needed, you can continue to access your `.yaml` file workflows using [Command
 
 ### Import and export workflows in Warp Drive
 
-Please see our [Warp Drive Import and Export](/knowledge-and-collaboration/warp-drive/#import-and-export) instructions.
+See the [Warp Drive Import and Export](/knowledge-and-collaboration/warp-drive/#import-and-export) instructions.

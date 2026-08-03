@@ -32,10 +32,10 @@ git clone https://github.com/vercel/next.js.git && cd next.js
 
 ## Indexing your codebase
 
-When you open a directory in Warp, we check if it is part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Agents. Warp also detects [Git worktree](/code/git-worktrees/) checkouts — each worktree is indexed as its own repository, so Agents always have accurate context for the branch you're working on.
+When you open a directory in Warp, Warp checks whether it's part of a Git repository. If it is, Warp begins indexing the source code to provide rich context for Agents. Warp also detects [Git worktree](/code/git-worktrees/) checkouts — each worktree is indexed as its own repository, so Agents always have accurate context for the branch you're working on.
 
 :::note
-Code indexed with Codebase Context is never stored on our servers. Codebase Context works with both local agent sessions and [cloud agent runs](/platform/). Without Codebase Context enabled, agents will still be able use terminal commands (i.e. `grep`, `sed`) to navigate your code.
+Code indexed with Codebase Context is never stored on our servers. Codebase Context works with both local agent sessions and [cloud agent runs](/platform/). Without Codebase Context enabled, agents will still be able to use terminal commands (i.e. `grep`, `sed`) to navigate your code.
 :::
 
 :::note
@@ -43,7 +43,7 @@ Codebase Context works in SSH sessions when [Warp's SSH extension](/terminal/war
 :::
 
 <figure>
-![Codebase indexing settings in Warp. Easily track sync status and manage which folders are indexed for AI-powered context and suggestions.](../../../../assets/agent-platform/codebase-context-main.png)
+![Codebase indexing settings in Warp, showing sync status and which folders are indexed for AI-powered context and suggestions.](../../../../assets/agent-platform/codebase-context-main.png)
 <figcaption>Codebase indexing settings.</figcaption>
 </figure>
 
@@ -78,7 +78,7 @@ When viewing indexed codebases in Warp under **Settings** > **Code** > **Indexin
 * **Codebase too large** – The number of files in the codebase exceeds your current plan’s limit. You can either reduce the number of files being indexed using `.warpindexingignore`, or [contact sales](https://www.warp.dev/contact-sales) for support with larger codebases.
 
 <figure>
-![View and manage the indexing status of your codebases in Warp. Easily see which projects are synced, in progress, or require attention.](../../../../assets/agent-platform/codebase-context-statuses.png)
+![View and manage the indexing status of your codebases in Warp, showing which projects are synced, in progress, or require attention.](../../../../assets/agent-platform/codebase-context-statuses.png)
 <figcaption>Codebase indexing status overview.</figcaption>
 </figure>
 

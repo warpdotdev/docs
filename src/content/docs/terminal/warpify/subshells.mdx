@@ -17,13 +17,13 @@ Note that Warp's definition of a subshell differs from the more common definitio
 
 By default, Warp automatically recognizes the following commands as **subshell-compatible**:
 
-* bash, fish, zsh
-* docker exec
-* gcloud compute ssh
-* eb ssh
-* poetry shell
+* `bash`, `fish`, `zsh`
+* `docker exec`
+* `gcloud compute ssh`
+* `eb ssh`
+* `poetry shell`
 
-When you run a command that's subshell-compatible, Warp will prompt you and invite you to "Warpify" the subshell which makes all of the modern IDE features of Warp available in that subshell. The list of subshell-compatible commands is configurable in Subshell settings as described [below](/terminal/warpify/subshells/#configuring-subshell-compatible-commands).
+When you run a command that's subshell-compatible, Warp will prompt you and invite you to "Warpify" the subshell, which makes all of the modern IDE features of Warp available in that subshell. The list of subshell-compatible commands is configurable in Subshell settings as described [below](/terminal/warpify/subshells/#configuring-subshell-compatible-commands).
 
 :::note
 bash, zsh, or fish (3.6 or above) must be set as the default shell within containers and ssh sessions for the Warpification of the subshells to work.
@@ -37,9 +37,9 @@ To configure subshell-compatible commands, navigate to **Settings** > **Warpify*
 
 #### Adding compatible commands
 
-You can add any command that spawns a bash, fish, or zsh subshell to ‘Added commands’ to make it eligible for "Warpification."
+You can add any command that spawns a bash, fish, or zsh subshell to **Added commands** to make it eligible for "Warpification."
 
-Furthermore, you can add regular expressions to the Added commands list. Any commands that match an added regex will be eligible for "Warpification."
+Furthermore, you can add regular expressions to the **Added commands** list. Any commands that match an added regex will be eligible for "Warpification."
 
 #### Denylisting commands
 
@@ -82,7 +82,7 @@ In remote sessions, however, Warp takes a different approach – while a forked 
 
 ### Show/hide background blocks
 
-By default, blocks for background commands are hidden. To show background command blocks, select ‘Show background blocks’ in the ‘Blocks’ menu of the macOS menu bar.
+By default, blocks for background commands are hidden. To show background command blocks, select **Show background blocks** in the **Blocks** menu of the macOS menu bar.
 
 ### Disable background commands in remote sessions
 
