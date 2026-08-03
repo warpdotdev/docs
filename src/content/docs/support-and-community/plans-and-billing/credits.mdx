@@ -43,13 +43,13 @@ You can view your total credit usage, along with other billing details, in **Set
 
 * **Seat-level allocation**: On team plans, credit limits apply per seat — each team member has their own allowance. Individual users (not on a team) also have their own credit allocation.
 * **Cloud agents and integrations**: Individual users can run cloud agents via the CLI and API, drawing from their Warp credits. Slack and Linear integrations require team membership.
-* **Credit limits by plan**: The Free plan doesn't include bundled AI usage for the Warp Agent. To use the Warp Agent, [upgrade to a paid plan](https://www.warp.dev/pricing) or bring your own inference with [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/), a [custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/), or a [SuperGrok or X Premium subscription](/agent-platform/inference/grok-subscription/). On paid plans, once you reach your monthly credit limit you can continue using AI with usage-based billing via [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
+* **Credit limits by plan**: The Free plan doesn't include bundled AI usage for the Warp Agent. To use the Warp Agent, [upgrade to a paid plan](https://www.warp.dev/pricing) or bring your own inference with [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or a [SuperGrok or X Premium subscription](/agents/inference/grok-subscription/). On paid plans, once you reach your monthly credit limit you can continue using AI with usage-based billing via [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
 
 #### **Other features that use credits**
 
 In addition to direct Agent conversations, the following features also consume credits:
 
-* [Generate](/agent-platform/local-agents/overview/) helps you look up commands and suggestions as you type. As you refine your input, multiple credits may be used before you select a final suggestion.
+* [Generate](/agents/local-agents/overview/) helps you look up commands and suggestions as you type. As you refine your input, multiple credits may be used before you select a final suggestion.
 * [AI Autofill in Workflows](/knowledge-and-collaboration/warp-drive/workflows/#ai-autofill) counts as a credit each time it is run.
 
 :::tip
@@ -96,7 +96,7 @@ Some tasks are straightforward and may require only a single quick response, wit
 
 #### 4. Amount of context passed to the model
 
-Prompts that include large amounts of context (such as [attached blocks](/agent-platform/local-agents/agent-context/blocks-as-context/), long user query messages, etc.) or file attachments like [images](/agent-platform/local-agents/agent-context/images-as-context/) may also increase the number of credits used due to increased token consumption.
+Prompts that include large amounts of context (such as [attached blocks](/agents/local-agents/agent-context/blocks-as-context/), long user query messages, etc.) or file attachments like [images](/agents/local-agents/agent-context/images-as-context/) may also increase the number of credits used due to increased token consumption.
 
 :::note
 **Tip**: When sharing logs, code, or other large pieces of content, attach only the most relevant portions instead of full outputs.
@@ -146,7 +146,7 @@ Platform credits cover Warp's platform infrastructure — run lifecycle, schedul
 Platform credits are used in the following scenarios:
 
 * **Cloud agents on any plan** use platform credits for every cloud agent run, regardless of which agent runs the task or which inference source it uses.
-* **Local agents on Business or Enterprise with customer-supplied inference** use platform credits when the local agent run uses [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/), a [custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/), or [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/).
+* **Local agents on Business or Enterprise with customer-supplied inference** use platform credits when the local agent run uses [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/).
 
 #### Not eligible for platform credits
 

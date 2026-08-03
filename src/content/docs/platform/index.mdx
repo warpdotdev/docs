@@ -71,7 +71,7 @@ Because cloud agents run on the [Oz Platform](/platform/overview/), each run is 
 
 #### Codebase Context
 
-Cloud agent runs automatically benefit from [Codebase Context](/agent-platform/capabilities/codebase-context/) for semantic code understanding and search, as long as Codebase Context is enabled for your account. See [Codebase Context in cloud agent runs](/agent-platform/capabilities/codebase-context/#codebase-context-in-cloud-agent-runs) for details.
+Cloud agent runs automatically benefit from [Codebase Context](/agents/capabilities/codebase-context/) for semantic code understanding and search, as long as Codebase Context is enabled for your account. See [Codebase Context in cloud agent runs](/agents/capabilities/codebase-context/#codebase-context-in-cloud-agent-runs) for details.
 
 #### Observability and steerability
 
@@ -79,7 +79,7 @@ Cloud agent tasks are designed to be inspectable by the team:
 
 * The [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app and the [Runs page in the Oz web app](/platform/oz-web-app/#runs) surface task status, source, trigger, creator, history, and credit usage.
 * [Cloud agent session sharing](/platform/viewing-cloud-agent-runs/) opens the run transcript so teammates can inspect the prompt, plan, commands, logs, files changed, outputs, and follow-up messages where available.
-* [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) lets authorized teammates share, monitor, and steer live local or third-party agent sessions.
+* [Agent Session Sharing](/agents/local-agents/session-sharing/) lets authorized teammates share, monitor, and steer live local or third-party agent sessions.
 
 #### Centralized configuration
 
@@ -103,7 +103,7 @@ Cloud agents do not require the Warp app. Teams can deploy and operate them thro
 
 * [Oz CLI](/reference/cli/) — run agents from scripts, CI, or the terminal
 * [Oz web app](/platform/oz-web-app/) — visual interface for managing runs, schedules, environments, and integrations (works on mobile)
-* [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) — attach to running tasks to monitor or steer
+* [Agent Session Sharing](/agents/local-agents/session-sharing/) — attach to running tasks to monitor or steer
 * [Agent Management Panel](/platform/managing-cloud-agents/) — view agent activity and run history in the Warp app
 * [APIs and SDKs](/reference/api-and-sdk/) — programmatic access for custom integrations
 
@@ -116,7 +116,7 @@ If your team also uses Warp's terminal, you get an additional workflow: tasks la
 Cloud agents and [integrations](/platform/integrations/) run on the [Oz Platform](/platform/overview/) control plane, and usage is billed using credits.
 
 :::note
-[Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/) is not supported for cloud agent runs. BYOK keys are stored locally on your device and are not accessible to cloud-hosted agents. All cloud agent runs consume Warp credits.
+[Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/) is not supported for cloud agent runs. BYOK keys are stored locally on your device and are not accessible to cloud-hosted agents. All cloud agent runs consume Warp credits.
 :::
 
 #### For cloud agents via CLI/API
