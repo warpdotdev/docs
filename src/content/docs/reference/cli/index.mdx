@@ -265,18 +265,15 @@ oz agent run-cloud \
 * `--name <NAME>` (`-n`) — label the run for grouping and traceability (see [Naming runs](/reference/cli/#naming-runs) below).
 * `--agent <UID>` — run as a saved [named agent](/platform/agents/), applying its configuration (skills, secrets, base model, and default environment) and attributing credit usage to it (see [Managing named agents](/reference/cli/#managing-named-agents) below).
 * `--mcp <SPEC>` — start one or more MCP servers before execution (UUID, JSON file path, or inline JSON). Can be repeated.
-* `--model <MODEL_ID>` — override the default model.
+* `--model <MODEL_ID>` — override the default model. On the default `oz` harness, pass an ID from `oz model list`. With `--harness claude` or `--harness codex`, pass a harness-specific model ID instead; Warp forwards the value to the harness unchanged (see [Choosing an execution harness](/reference/cli/#choosing-an-execution-harness)).
 * `--skill <SPEC>` — use a skill from the environment's repository as the base prompt (see [Using Skills](/reference/cli/#using-skills)).
 * `--host <WORKER_ID>` — run on a specific self-hosted worker instead of Warp-hosted infrastructure.
 * `--attach <PATH>` — attach an image file to the agent query. Can be repeated (maximum 5).
 * `--computer-use` / `--no-computer-use` — enable or disable [Computer Use](/agents/capabilities/computer-use/) for this run.
-* `--harness <HARNESS>` — choose the execution harness for the run. Defaults to `oz` (Warp Agent). Set `claude` or `codex` to run [Claude Code or Codex as a cloud agent](/platform/harnesses/).
+* `--harness <HARNESS>` — choose the [execution harness](/platform/harnesses/) for the run: `oz` (default, Warp Agent), `claude` (Claude Code), or `codex`.
 * `--claude-auth-secret <NAME>` — name of the [Warp-managed secret](/platform/secrets/) that authenticates the Claude Code harness. Only valid with `--harness claude`. See [Third-party cloud agent authentication](/platform/harnesses/authentication/).
 * `--codex-auth-secret <NAME>` — name of the [Warp-managed secret](/platform/secrets/) that authenticates the Codex harness. Only valid with `--harness codex`. See [Third-party cloud agent authentication](/platform/harnesses/authentication/).
 * `--file <PATH>` (`-f`) — load run configuration from a YAML or JSON file.
-* `--harness <HARNESS>` — choose the [execution harness](/platform/harnesses/) for the run: `oz` (default, Warp's built-in agent infrastructure), `claude` (Claude Code), or `codex`.
-* `--claude-auth-secret <NAME>` — name of the [Warp-managed secret](/platform/harnesses/authentication/) that authenticates the Claude Code harness. Only valid with `--harness claude`.
-* `--codex-auth-secret <NAME>` — name of the [Warp-managed secret](/platform/harnesses/authentication/) that authenticates the Codex harness. Only valid with `--harness codex`.
 
 To run a third-party harness, first store the provider credential as a Warp-managed secret, then pass it with the matching flag:
 
@@ -348,6 +345,19 @@ oz agent run-cloud \
 
 Create the auth secret first with `oz secret create claude api-key <SECRET_NAME>` (or `oz secret create codex api-key <SECRET_NAME>` for Codex). See [Third-party cloud agent authentication](/platform/harnesses/authentication/) for the full setup.
 
+To pick a specific model on a third-party harness, pass that harness's own model ID with `--model`. Warp forwards the value to the harness without translating it, so use the IDs the harness itself accepts rather than the IDs from `oz model list`:
+
+```sh
+oz agent run-cloud \
+  --environment <ENVIRONMENT_ID> \
+  --harness codex \
+  --codex-auth-secret <SECRET_NAME> \
+  --model <CODEX_MODEL_ID> \
+  --prompt "review the latest PR"
+```
+
+See [Harnesses](/platform/harnesses/) for the model IDs each harness accepts.
+
 ## Using agent profiles
 
 Agent profiles control what the agent can do, how it behaves, and where it can act. Use the `--profile` flag with `oz agent run` to apply a specific profile.
@@ -417,11 +427,14 @@ Create a named agent. Only `--name` is required; attach skills and secrets by re
 oz agent create \
   --name "release-notes" \
   --description "Drafts release notes from merged PRs" \
+  --prompt "Draft release notes from the PRs merged since the last tag" \
   --skill "myorg/repo:release-notes" \
   --secret GITHUB_TOKEN \
   --base-model <MODEL_ID> \
   --environment <ENVIRONMENT_ID>
 ```
+
+Use `--prompt <TEXT>` to give the agent a base prompt. Warp prepends it to the prompt of every run started with `oz agent run-cloud --agent <UID>`, so a named agent can carry standing instructions instead of repeating them in each run's prompt.
 
 Update an existing agent. Each attribute has an explicit add/remove flag so changes are unambiguous:
 
@@ -442,6 +455,7 @@ Common `oz agent update` flags:
 * `--add-skill <SKILL>` / `--remove-skill <SKILL>` / `--remove-all-skills` — manage attached skills.
 * `--base-model <MODEL_ID>` / `--remove-base-model` — set or clear the base model.
 * `--environment <ENVIRONMENT_ID>` (`-e`) / `--remove-environment` — set or clear the default cloud environment.
+* `--prompt <TEXT>` / `--remove-prompt` — set or clear the agent's base prompt.
 
 Delete a named agent by its UID:
 
