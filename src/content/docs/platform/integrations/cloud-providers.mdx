@@ -229,6 +229,20 @@ federated credentials. Oz uses
 [**executable-sourced credentials**](https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-providers#create-credential-config)
 to configure ADC for automatic token rotation.
 
+#### Automatic `gcloud` sign-in
+
+Environment variables alone are enough for the Google SDKs, but `gcloud` reports no active account until
+it signs in through its own auth system, and some tooling depends on an active account. During provider
+setup, Oz therefore also runs `gcloud auth login` against the federated credential file so `gcloud` reports
+the federated identity as its active account.
+
+This step is best-effort and never blocks the run:
+
+* **`gcloud` isn't installed** - Oz skips the sign-in. The ADC environment variables still provide credentials to the Google SDKs.
+* **Sign-in fails or times out** - Oz logs the failure and continues. The ADC environment variables still work, so a run only loses the active-account convenience.
+
+To confirm the account inside a run, use `gcloud auth list`.
+
 ## Other providers
 
 To authenticate from Oz to another provider that supports OIDC federation, you can issue tokens
