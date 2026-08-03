@@ -6,6 +6,46 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.07.31 (v0.2026.07.29.09.05)
+
+**Improvements**
+
+* Custom model endpoints can now select an OpenAI Chat Completions, OpenAI Responses, or Anthropic Messages schema. ([#13938](https://github.com/warpdotdev/warp/pull/13938))
+* Third-party agent harnesses can now report non-PR work products back to Warp. ([#14072](https://github.com/warpdotdev/warp/pull/14072))
+* `gcloud` is now signed in automatically during GCP provider setup for cloud agents. ([#14132](https://github.com/warpdotdev/warp/pull/14132))
+* Computer-use recording overlays now stay on screen long enough to read after recordings are trimmed to action segments. ([#14148](https://github.com/warpdotdev/warp/pull/14148))
+* Managed secrets are now validated against the 128 KB environment variable limit before an agent run starts. ([#14219](https://github.com/warpdotdev/warp/pull/14219))
+* The `oz` CLI can now set a named agent's prompt when creating or updating agents. ([#14261](https://github.com/warpdotdev/warp/pull/14261))
+* Added Vim `<` and `>` indent and dedent operators to the code editor. ([#14268](https://github.com/warpdotdev/warp/pull/14268))
+* Code-block file references now open in your configured editor, with a Warp fallback. ([#14275](https://github.com/warpdotdev/warp/pull/14275))
+* Logging out now also signs out of Warp web and avoids immediate re-authorization. ([#14284](https://github.com/warpdotdev/warp/pull/14284))
+* MCP tool confirmations now show which tool is running and which server it came from. ([#14298](https://github.com/warpdotdev/warp/pull/14298))
+* Replace Oz armadillo icon with theme-adaptive Warp "W" logo (Icon::Agent) app-wide across all agent/Oz interactive surfaces. ([#14344](https://github.com/warpdotdev/warp/pull/14344))
+* Agent execution profiles can now be configured from settings files for all users. ([#14418](https://github.com/warpdotdev/warp/pull/14418))
+
+**Bug fixes**
+
+* Updated a bundled dependency to resolve CVE-2026-50185. ([#13357](https://github.com/warpdotdev/warp/pull/13357))
+* Fixed the cloud agent Execution host dropdown not appearing when self-hosted workers were connected. ([#13875](https://github.com/warpdotdev/warp/pull/13875))
+* Markdown content no longer renders HTML comments as visible text. ([#14009](https://github.com/warpdotdev/warp/pull/14009)) — [@maxmilian](https://github.com/maxmilian) ✨
+* Cap and expand the shared desktop toast stack to keep error floods bounded and readable. ([#14028](https://github.com/warpdotdev/warp/pull/14028))
+* Settings search now filters widgets on AI and Code subpages correctly — only matching widgets are shown instead of all widgets on the subpage. ([#14116](https://github.com/warpdotdev/warp/pull/14116))
+* Fixed the Runner dropdown missing from the agent orchestration approval card. ([#14133](https://github.com/warpdotdev/warp/pull/14133))
+* Remove shell selection from warpctrl tab/window create so local control cannot spawn caller-chosen shell binaries. ([#14158](https://github.com/warpdotdev/warp/pull/14158))
+* Fixed misaligned zsh prompts caused by explicit-width prompt constructs. ([#14166](https://github.com/warpdotdev/warp/pull/14166))
+* Report accurate video recording durations after post-processing. ([#14172](https://github.com/warpdotdev/warp/pull/14172))
+* Fixed Vim `d%`, `c%`, and `y%` being no-ops in the code editor. ([#14176](https://github.com/warpdotdev/warp/pull/14176))
+* Fixed click and drag annotations in computer-use recordings being offset or split across calls. ([#14191](https://github.com/warpdotdev/warp/pull/14191))
+* Open recording artifacts in the authenticated viewer using the client-built Oz run URL. ([#14210](https://github.com/warpdotdev/warp/pull/14210))
+* Warp now reports a server outage instead of blaming your model ID when the agent model list is unavailable. ([#14227](https://github.com/warpdotdev/warp/pull/14227))
+* Fixed New Worktree tab configs breaking when the repository path contained spaces. ([#14296](https://github.com/warpdotdev/warp/pull/14296))
+* Order the authenticated user's team first in freshly fetched multi-team workspace metadata. ([#14301](https://github.com/warpdotdev/warp/pull/14301))
+* Fixed voice input submitting partial transcriptions to Hermes. ([#14367](https://github.com/warpdotdev/warp/pull/14367))
+
+**Oz updates**
+
+* The `oz` CLI now accepts harness-specific model IDs with `--harness claude` and `--harness codex`. ([#14011](https://github.com/warpdotdev/warp/pull/14011))
+
 ### 2026.07.23 (v0.2026.07.22.09.01)
 
 **New features**
@@ -1100,7 +1140,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Add a `/changelog` command for reopening the latest changelog, and keep the update toast visible until dismissed.
 * Added syntax highlighting for Dockerfiles in the file editor.
 * Added a setting to hide agent-executed commands from shell history, now enabled by default.
-* MCP servers detected from third-party agents (Claude, Codex) are now visible and spawnable from the MCP servers page in Warp's AI settings. For more, see our [docs](/agent-platform/capabilities/mcp/#file-based-mcp-servers) on file-based MCP servers.
+* MCP servers detected from third-party agents (Claude, Codex) are now visible and spawnable from the MCP servers page in Warp's AI settings. For more, see our [docs](/agents/capabilities/mcp/#file-based-mcp-servers) on file-based MCP servers.
 
 **Bug fixes**
 
@@ -1125,7 +1165,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Warp now automatically detects global and project-scoped MCP servers configured with `claude` or `codex`. Toggle **File-based MCP servers** in **Settings** > **AI** to auto-spawn servers based on your local configuration. See [docs](/agent-platform/capabilities/mcp/#file-based-mcp-servers) for more.
+* Warp now automatically detects global and project-scoped MCP servers configured with `claude` or `codex`. Toggle **File-based MCP servers** in **Settings** > **AI** to auto-spawn servers based on your local configuration. See [docs](/agents/capabilities/mcp/#file-based-mcp-servers) for more.
 * Added Go to Line dialog in the code editor (`CTRL-G`) with line:column support.
 
 **Improvements**
@@ -1319,8 +1359,8 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 
 #### Agent Capabilities
 
-* **Skills** — reusable instruction sets that agents auto-discover from your project or home directory. Invoke with `/{skill-name}` or run as scheduled cloud agents for repeatable automation. [Skills docs →](/agent-platform/capabilities/skills/)
-* **Computer Use** — agents can interact with desktop environments in sandboxed cloud containers—take screenshots, click, type, and test UI changes. [Computer Use docs →](/agent-platform/capabilities/computer-use/)
+* **Skills** — reusable instruction sets that agents auto-discover from your project or home directory. Invoke with `/{skill-name}` or run as scheduled cloud agents for repeatable automation. [Skills docs →](/agents/capabilities/skills/)
+* **Computer Use** — agents can interact with desktop environments in sandboxed cloud containers—take screenshots, click, type, and test UI changes. [Computer Use docs →](/agents/capabilities/computer-use/)
 
 ### 2026.02.04 (v0.2026.02.04.08.20)
 

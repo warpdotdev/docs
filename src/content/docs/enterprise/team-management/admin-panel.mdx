@@ -213,11 +213,11 @@ When enabled, agents understand your code patterns, architecture, and convention
 
 ### Models settings
 
-Control which LLM models are available to your team and how inference is routed. From the **Models** page, admins can enable or disable individual models and configure [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) routing through AWS Bedrock.
+Control which LLM models are available to your team and how inference is routed. From the **Models** page, admins can enable or disable individual models and configure [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) routing through AWS Bedrock or [Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/).
 
 From the **Models** page, admins can also configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) in the **Bring Your Own Keys & Endpoints** card, sharing provider keys and custom endpoints across the team for both interactive sessions and cloud agents.
 
-From the **Models** page, admins can also create team-synced [custom routers](/agent-platform/inference/custom-routers/) that route each task to a model based on complexity or rules. Team-synced routers appear in the model picker for every team member.
+From the **Models** page, admins can also create team-synced [custom routers](/agents/inference/custom-routers/) that route each task to a model based on complexity or rules. Team-synced routers appear in the model picker for every team member.
 
 **Models with provider-specific data retention requirements**
 
@@ -262,9 +262,13 @@ For organizations with sensitive internal processes, disable "Anyone with link" 
 
 Configure cloud agent settings for your team, including GitHub authorization for automated workflows.
 
+**Pull request artifact attachments**
+
+Controls how screenshots and video recordings captured with [Computer Use](/agents/capabilities/computer-use/) are attached to pull request descriptions. Choose **Disabled**, **Link only**, or **Embed**. For what each mode does and its security implications, see [Screenshots and videos in pull requests](/agents/capabilities/computer-use/artifacts-in-prs/).
+
 **Enabled GitHub Orgs**
 
-The **Enabled GitHub Orgs** setting associates your Warp team with one or more GitHub App installations, enabling cloud agents initiated with an [agent API key](/reference/cli/api-keys/) to clone repositories and open pull requests using the Oz by Warp GitHub App.
+The **Enabled GitHub Orgs** setting associates your Warp team with one or more GitHub App installations. That association does two things: it lets cloud agents initiated with an [agent API key](/reference/cli/api-keys/) clone repositories and open pull requests using the Oz by Warp GitHub App, and it tells Warp which team owns runs started from the [GitHub integration](/platform/integrations/github/) when someone mentions `@oz-agent` in those repositories.
 
 To configure:
 
@@ -280,7 +284,7 @@ To configure:
 The organizations and repository access shown here reflect the Oz by Warp GitHub App installation scope, which is configured in [GitHub settings](https://github.com/settings/installations). To change which repositories the app can access, edit the installation directly in GitHub.
 
 :::note
-This setting controls GitHub access for agent API key runs only. Runs triggered by individual users (via personal API key, Slack, or Linear) continue to use that user's personal GitHub token. For more details, see [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization).
+This setting controls which GitHub App installation agent API key runs authenticate with, and which GitHub organizations can start [GitHub integration](/platform/integrations/github/) runs for this team. Runs from an `@oz-agent` mention also authenticate with the installation's GitHub App token, so their repository access comes from the app installation rather than the person who wrote the mention. Runs triggered from a personal API key, Slack, Linear, or the Warp app continue to use that user's own GitHub authorization. For more details, see [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization).
 :::
 
 ## Multi-admin functionality

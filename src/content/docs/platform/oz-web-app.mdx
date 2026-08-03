@@ -19,7 +19,7 @@ Watch this short demo to create an environment and run an agent using the Oz web
 
 ## Quick reference
 
-<table><thead><tr><th width="150">Page</th><th width="120">Path</th><th>What you can do</th></tr></thead><tbody><tr><td><strong>Runs</strong></td><td><code>/runs</code></td><td>View all runs, filter by status/source/creator, start new runs, inspect transcripts</td></tr><tr><td><strong>Agents</strong></td><td><code>/agents</code></td><td>Browse saved agents, create agents, configure defaults, and start runs</td></tr><tr><td><strong>Skills</strong></td><td><code>/skills</code></td><td>Browse skills from your environments, view suggested skills, create skills for agents, and start runs</td></tr><tr><td><strong>Schedules</strong></td><td><code>/schedules</code></td><td>Create scheduled agents, pause/enable schedules, view run history</td></tr><tr><td><strong>Environments</strong></td><td><code>/environments</code></td><td>Create and manage environments with repos, Docker images, and setup commands</td></tr><tr><td><strong>Secrets</strong></td><td><code>/secrets</code></td><td>Create and manage Warp-managed secrets for cloud agent runs</td></tr><tr><td><strong>Integrations</strong></td><td><code>/integrations</code></td><td>Connect Slack and Linear to trigger agents from external tools</td></tr></tbody></table>
+<table><thead><tr><th width="150">Page</th><th width="120">Path</th><th>What you can do</th></tr></thead><tbody><tr><td><strong>Runs</strong></td><td><code>/runs</code></td><td>View all runs, filter by status/source/creator, start new runs, inspect transcripts</td></tr><tr><td><strong>Agents</strong></td><td><code>/agents</code></td><td>Browse saved agents, create agents, configure defaults, and start runs</td></tr><tr><td><strong>Skills</strong></td><td><code>/skills</code></td><td>Browse skills from your environments, view suggested skills, create skills for agents, and start runs</td></tr><tr><td><strong>Schedules</strong></td><td><code>/schedules</code></td><td>Create scheduled agents, pause/enable schedules, view run history</td></tr><tr><td><strong>Environments</strong></td><td><code>/environments</code></td><td>Create and manage environments with repos, Docker images, and setup commands</td></tr><tr><td><strong>Secrets</strong></td><td><code>/secrets</code></td><td>Create and manage Warp-managed secrets for cloud agent runs</td></tr><tr><td><strong>Integrations</strong></td><td><code>/integrations</code></td><td>Connect Slack, Linear, and GitHub to trigger agents from external tools</td></tr></tbody></table>
 
 <figure style={{ maxWidth: "563px" }}>
 ![The Oz web app's Runs page.](../../../assets/agent-platform/oz-web-app-runs-view.png)
@@ -35,7 +35,7 @@ The Oz web app is ideal when you want to:
 * **Manage agents and skills** — Create saved agents, browse skills from connected repositories, and start runs from either configuration
 * **Manage schedules visually** — Create and edit scheduled agents with a guided interface
 * **Configure environments** — Set up repos, Docker images, and setup commands through a form-based flow
-* **Set up integrations** — Connect Slack and Linear with a guided setup flow
+* **Set up integrations** — Connect Slack and Linear with a guided setup flow, and configure how [GitHub](/platform/integrations/github/) mention-triggered runs execute
 
 For scripting, automation, and CI/CD workflows, use the [Oz CLI](/reference/cli/) or [API](/reference/api-and-sdk/).
 
@@ -221,11 +221,11 @@ For advanced environment configuration, see [Environments](/platform/environment
 
 ## Integrations
 
-The **Integrations** page (`/integrations`) lets you configure first-party integrations with Slack and Linear.
+The **Integrations** page (`/integrations`) lets you configure first-party integrations with Slack, Linear, and GitHub.
 
 ### Available integrations
 
-<table><thead><tr><th width="120">Integration</th><th>Description</th></tr></thead><tbody><tr><td><strong>Slack</strong></td><td>Tag @Oz in messages or threads to trigger agents directly from Slack conversations</td></tr><tr><td><strong>Linear</strong></td><td>Tag @Oz on issues to trigger agents from your issue tracker</td></tr></tbody></table>
+<table><thead><tr><th width="120">Integration</th><th>Description</th></tr></thead><tbody><tr><td><strong>Slack</strong></td><td>Tag @Oz in messages or threads to trigger agents directly from Slack conversations</td></tr><tr><td><strong>Linear</strong></td><td>Tag @Oz on issues to trigger agents from your issue tracker</td></tr><tr><td><strong>GitHub</strong></td><td>Mention @oz-agent on issues, pull requests, and review comments to trigger agents from GitHub</td></tr></tbody></table>
 
 <figure style={{ maxWidth: "563px" }}>
 ![The Integrations page in the Oz web app.](../../../assets/agent-platform/oz-web-app-integrations.png)
@@ -236,8 +236,10 @@ The **Integrations** page (`/integrations`) lets you configure first-party integ
 
 Click an integration to start the guided setup flow. You'll authorize Warp to connect with the external service, select an environment, and configure any integration-specific settings.
 
+The GitHub row works differently. Instead of an authorization flow started here, it reflects the Oz by Warp GitHub App installation that a team admin enables in the Admin Panel. Once the installation is associated with your team, use the row to choose the environment, model, agent, prompt, and secrets that GitHub-triggered runs use.
+
 :::note
-For detailed integration setup instructions, see [Slack](/platform/integrations/slack/) and [Linear](/platform/integrations/linear/).
+For detailed integration setup instructions, see [Slack](/platform/integrations/slack/), [Linear](/platform/integrations/linear/), and [GitHub](/platform/integrations/github/).
 :::
 
 ## Related resources

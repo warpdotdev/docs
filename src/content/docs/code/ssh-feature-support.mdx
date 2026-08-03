@@ -26,11 +26,11 @@ The following features require the **SSH extension**:
 * **File tree (Project Explorer)** — The [file tree sidebar](/code/code-editor/file-tree/) reflects the remote project structure and updates as you navigate or change files.
 * **Code editor** — Open, view, and edit remote files in Warp's [code editor](/code/code-editor/) from the file tree or the Command Palette, then save back to the remote host. Warp detects conflicting changes on disk and prompts you to resolve them.
 * **Code review and git operations** — The [code review panel](/code/code-review/) works on remote repositories: review diffs, discard files, commit, push, and create PRs. AI-generated commit messages and PR descriptions are produced on the remote host.
-* **Codebase indexing** — Warp indexes the remote repository so Agents can semantically search it, the same as [Codebase Context](/agent-platform/capabilities/codebase-context/) locally.
+* **Codebase indexing** — Warp indexes the remote repository so Agents can semantically search it, the same as [Codebase Context](/agents/capabilities/codebase-context/) locally.
 * **File search** — Search for remote files by name from the [Command Palette](/terminal/command-palette/).
 * **Project rules and skills** — Agents discover and use the remote project's rules (`WARP.md`) and skills.
 * **Native file reading** — The Agent reads remote files through Warp's built-in file reading tool instead of shelling out to `cat`.
-* **Native code diffs** — The Agent applies edits as inline [code diffs](/agent-platform/local-agents/code-diffs/) you can review and approve, instead of using `sed` or other shell commands.
+* **Native code diffs** — The Agent applies edits as inline [code diffs](/agents/local-agents/code-diffs/) you can review and approve, instead of using `sed` or other shell commands.
 * **Reliable, parallel completions** — Generators run in parallel over a single multiplexed connection, so completions stop hitting the remote host's `MaxSessions` ceiling and stop occasionally injecting errors into your blocks.
 
 ## Features not yet available over SSH

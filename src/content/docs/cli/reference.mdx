@@ -6,11 +6,11 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-This page is a lookup reference for the {VARS.WARP_CLI}: the flags and environment variables the `warp` command accepts, every slash command available in a session, the default keyboard shortcuts, and fixes for common issues.
+This page is a lookup reference for the {VARS.WARP_CLI}, covering the flags and environment variables the `warp` command accepts, every slash command available in a session, the default keyboard shortcuts, and fixes for common issues.
 
 ## Command-line flags
 
-Running `warp` with no flags starts an interactive session in the current directory. The following flags change how the CLI starts or run a one-off action and exit.
+Running `warp` with no flags starts an interactive session in the current directory. The following flags change how the CLI starts, or make it perform a one-off action and exit.
 
 ### `--resume`
 
@@ -30,7 +30,7 @@ Starts new conversations with auto-approve enabled, so the agent runs actions wi
 warp --auto-approve
 ```
 
-The default applies only to that launch and doesn't change your saved settings; you can still toggle auto-approve per conversation with `/auto-approve` or `Ctrl+Shift+I`. See [permissions and profiles](/cli/permissions-and-profiles/) for how approvals work.
+The default applies only to that launch and doesn't change your saved settings. You can still toggle auto-approve per conversation with `/auto-approve` or `Ctrl+Shift+I`. See [permissions and profiles](/cli/permissions-and-profiles/) for how approvals work.
 
 ### `--api-key`
 
@@ -103,7 +103,7 @@ warp --help
 
 ## Slash commands
 
-Type `/` at the start of the input to open the slash command menu. Commands that take an argument show a hint after the command name. Angle brackets mark required arguments; square brackets mark optional ones.
+Type `/` at the start of the input to open the slash command menu. Commands that take an argument show a hint after the command name. Angle brackets mark required arguments, and square brackets mark optional ones.
 
 | Command | Argument | Description |
 | --- | --- | --- |
@@ -162,7 +162,7 @@ Bindings are identical on macOS and Linux. For shortcuts that use `Alt`, some ma
 
 ### Approvals
 
-These bindings apply while the agent is waiting for you to approve an action; [permissions and profiles](/cli/permissions-and-profiles/) explains the approval flow.
+These bindings apply while the agent is waiting for you to approve an action. [Permissions and profiles](/cli/permissions-and-profiles/) explains the approval flow.
 
 | Shortcut | Action |
 | --- | --- |
@@ -182,7 +182,7 @@ While the agent is running an interactive terminal command, or you have taken co
 
 ### Multi-agent tabs
 
-When you run multiple agents, a tab bar appears above the session; [cloud and orchestration](/cli/cloud-and-orchestration/) covers the workflow.
+When you run multiple agents, a tab bar appears above the session. [Cloud and orchestration](/cli/cloud-and-orchestration/) covers the workflow.
 
 | Shortcut | Action |
 | --- | --- |
@@ -217,7 +217,7 @@ For mouse support, completions, and other input behavior, see [input and editing
 
 ## Troubleshooting
 
-This section covers common issues: gathering logs for a bug report, fixing sign-in problems, resuming conversations, and keeping the CLI up to date.
+This section covers common issues, including gathering logs for a bug report, fixing sign-in problems, resuming conversations, and keeping the CLI up to date.
 
 :::note
 For known issues and feature requests across Warp, visit the [GitHub issues page](https://github.com/warpdotdev/Warp/issues).
@@ -233,17 +233,17 @@ On macOS, CLI logs are stored in `~/Library/Logs/warp-cli/`. Logs rotate per ses
 
 ### The browser doesn't open during sign-in
 
-The CLI signs you in with a browser-based flow: it opens a verification page (or shows you the URL and a code to enter) and continues once you approve the sign-in. On a remote or browser-less machine, the CLI can't launch a browser, but the sign-in screen still shows the verification URL and code.
+The CLI signs you in with a browser-based flow. It opens a verification page (or shows you the URL and a code to enter) and continues once you approve the sign-in. On a remote or browser-less machine, the CLI can't launch a browser, but the sign-in screen still shows the verification URL and code.
 
 1. Open the displayed URL in a browser on any device, including another machine.
 2. Enter the code shown in the CLI.
-3. Return to the CLI; it proceeds automatically once the sign-in is approved.
+3. Return to the CLI. It proceeds automatically once the sign-in is approved.
 
 For machines where the browser flow isn't practical, authenticate non-interactively with an API key instead, using the `WARP_API_KEY` environment variable or the `--api-key` flag. See [command-line flags](#command-line-flags).
 
 ### "Login failed"
 
-The sign-in attempt was rejected or timed out; the message shows the underlying cause.
+The sign-in attempt was rejected or timed out. The message shows the underlying cause.
 
 1. Press `Ctrl+C` to exit.
 2. Run `warp` again to restart the sign-in flow.
@@ -264,7 +264,7 @@ The sign-in attempt was rejected or timed out; the message shows the underlying 
 
 ### Updating
 
-The CLI keeps itself up to date. Installed builds check for updates in the background, download new versions, and apply them the next time you launch `warp`; a running session is never interrupted.
+The CLI keeps itself up to date. Installed builds check for updates in the background, download new versions, and apply them the next time you launch `warp`. A running session is never interrupted.
 
 To check which version you're running, use `/version` in a session, or run:
 
@@ -272,7 +272,7 @@ To check which version you're running, use `/version` in a session, or run:
 warp --version
 ```
 
-To disable background updates for a single launch, set the `WARP_TUI_DISABLE_AUTOUPDATE` environment variable to any value. To disable them persistently, turn off the autoupdate setting in the settings file; see [configuration](/cli/configuration/).
+To disable background updates for a single launch, set the `WARP_TUI_DISABLE_AUTOUPDATE` environment variable to any value. To disable them persistently, turn off the autoupdate setting in the settings file. See [configuration](/cli/configuration/).
 
 If an install becomes corrupted, re-running the install command from the [quickstart](/cli/quickstart/) replaces it with the latest version.
 
@@ -280,4 +280,4 @@ If an install becomes corrupted, re-running the install command from the [quicks
 
 * [Sending us feedback](/support-and-community/troubleshooting-and-support/sending-us-feedback/) - How to reach Warp support and share feedback.
 * [Known issues](/support-and-community/troubleshooting-and-support/known-issues/) - Current known issues across Warp.
-* [GitHub issues](https://github.com/warpdotdev/Warp/issues) - Search existing reports or file a new one; attach the `/view-logs` archive to bug reports.
+* [GitHub issues](https://github.com/warpdotdev/Warp/issues) - Search existing reports or file a new one. Attach the `/view-logs` archive to bug reports.
