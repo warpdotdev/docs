@@ -8,6 +8,17 @@ This log tracks every run of the `weekly-404-monitor` skill — both runs that o
 
 ---
 
+## 2026-08-03 — No PR
+- **Total 404s this week**: 323
+- **Total 404s last week**: 458
+- **Trend**: ▼ 135 (-29.5%)
+- **Significant gaps (≥5 hits)**: 0 (0 new)
+- **Redirect candidates processed**: 0  (hits ≥ 5)
+- **HIGH-confidence redirects**: 0
+- **PR**: none
+- **Oz run**: https://staging.warp.dev/conversation/1703d43c-d6c3-46bc-adf9-d0531cc582ac
+- **Notes**: `docs_404` data is flowing now (METABASE_API_KEY set in this run's environment, unlike the earlier same-day "No data" entry below). 257 pages had SQL-normalised hits; 252 uncovered, all below the 5-hit reporting threshold (pure long tail — no significant gaps). 295 resolved since last week. Posted summary to #growth-docs.
+
 ## 2026-08-03 — No data
 - **Total 404s this week**: n/a
 - **Total 404s last week**: n/a
