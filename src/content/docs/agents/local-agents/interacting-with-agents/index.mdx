@@ -144,11 +144,11 @@ If you switch models during a conversation, the context usage indicator updates 
 
 To see what is filling the context window, open the conversation usage card and click **View breakdown** in the **Context window used** row. The row expands into a per-segment breakdown, with each segment's share of the window shown as a percentage:
 
-* **System Prompt** - Warp's instructions to the model, including your [rules](/agent-platform/capabilities/rules/).
-* **Tool Definitions** - Descriptions of the tools available to the agent, including any [MCP servers](/agent-platform/capabilities/mcp/).
+* **System Prompt** - Warp's instructions to the model, including your [rules](/agents/capabilities/rules/).
+* **Tool Definitions** - Descriptions of the tools available to the agent, including any [MCP servers](/agents/capabilities/mcp/).
 * **Conversation History** - Previous queries, responses, and tool results in the conversation.
 * **Latest Input** - Your most recent query and the context attached to it.
-* **Images** - Any [images](/agent-platform/local-agents/agent-context/images-as-context/) attached to the conversation.
+* **Images** - Any [images](/agents/local-agents/agent-context/images-as-context/) attached to the conversation.
 * **Other** - Everything not covered by the segments above.
 
 Use the breakdown to decide what to trim: a large **Conversation History** segment is a good signal to start a new conversation or summarize, while a large **Tool Definitions** segment suggests turning off MCP servers you aren't using.
