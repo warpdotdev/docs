@@ -48,6 +48,30 @@ Warp parses relative and absolute file paths. Warp also tries to capture line an
 * Configure the default editor to open files by navigating to **Settings** > **Features** > **General** > **Choose an editor to open file links**.
   * Selecting "Default App" uses your system's default application for the file type.
 
+## OSC 8 hyperlinks
+
+Warp supports OSC 8 hyperlinks, the terminal escape sequence that lets a command attach a destination URL to a run of text. Tools that emit OSC 8 — `ls --hyperlink=auto`, `gh`, `delta`, many test runners and linters — render as clickable link text in Warp instead of printing a raw URL, so output stays readable and the destination stays one click away.
+
+OSC 8 links behave like the URLs Warp detects in output: hover the link text, then modifier-click it to open it (`CMD` on macOS, `CTRL` on Windows and Linux), or click it once to get the **Open link** tooltip. Right-click the link text for a context menu with **Open link** and **Copy link**, which copies the destination URI rather than the visible text.
+
+### Emitting an OSC 8 hyperlink
+
+The sequence takes the form `OSC 8 ; params ; URI ST`, and an empty URI closes the currently open link:
+
+```bash
+printf '\e]8;;https://docs.warp.dev\e\\Warp docs\e]8;;\e\\\n'
+```
+
+This prints the text `Warp docs` linked to `https://docs.warp.dev`.
+
+### Behavior and limits
+
+* **Valid URLs only** - Terminal output is untrusted, so Warp opens a hyperlink only when its URI parses as a valid URL. A link with a malformed destination stays inert.
+* **URI length cap** - A URI is capped at 2083 bytes, matching the cap used by other terminals. Longer URIs are dropped.
+* **`id` parameter** - Warp parses the spec's `id` parameter (up to 256 bytes) but treats it as a hint. Oversized or invalid ids are ignored, and the link stays clickable.
+* **Malformed sequences close the link** - A malformed, non-UTF-8, or over-length sequence closes any open hyperlink, so unrelated output that follows can't inherit a stale destination.
+* **Semicolons in URIs** - Warp reassembles URIs that contain `;` (matrix parameters, session ids, percent-encoded payloads), so those destinations survive intact.
+
 #### List of supported editors
 
 Non-exhaustive list of editors, please submit new ones on our GitHub, see [Sending Feedback](/support-and-community/troubleshooting-and-support/sending-us-feedback/#sending-warp-feedback).
