@@ -19,24 +19,33 @@ Codex is also available as a harness in Oz for cloud orchestration. See [Codex w
 
 ## Setting up notifications
 
-Codex supports native notifications that Warp surfaces as in-app and desktop alerts — such as when Codex completes a task, encounters an error, or needs your input.
+Warp surfaces Codex activity as in-app and desktop alerts — such as when Codex completes a task, encounters an error, or needs your input. This is powered by the Warp plugin for Codex, published from the [warpdotdev/codex-warp](https://github.com/warpdotdev/codex-warp) plugin marketplace.
 
-First, update Codex to the latest version — support for this setting was recently added. See the [Codex upgrade instructions](https://developers.openai.com/codex/cli#upgrade).
+When Warp detects a Codex session without the plugin, it shows an install chip in the terminal. Click the chip to install the plugin, then restart Codex. Warp shows an update chip the same way when a newer plugin version is required.
 
-Then add the following to `~/.codex/config.toml`:
+To install the plugin yourself, add the marketplace and the plugin:
 
-```toml
-[tui]
-notification_condition = "always"
+```bash
+codex plugin marketplace add warpdotdev/codex-warp
+codex plugin add warp@codex-warp
 ```
 
-Then restart Codex. If this config isn't set, Warp displays a setup chip in the terminal with instructions you can follow directly.
+Restart Codex to activate the plugin. To update it later, upgrade the marketplace and reinstall the plugin:
+
+```bash
+codex plugin marketplace upgrade codex-warp
+codex plugin add warp@codex-warp
+```
+
+:::note
+If you point `codex-warp` at a local (non-Git) marketplace source, Warp leaves that override alone and doesn't offer plugin updates for it.
+:::
 
 ## Supported Warp features
 
 Codex supports the full set of Warp's agent integration features:
 
-* **Agent notifications** - Receive in-app and desktop alerts when Codex needs your attention. Requires a one-time config change (see [Setting up notifications](#setting-up-notifications)).
+* **Agent notifications** - Receive in-app and desktop alerts when Codex needs your attention. Requires the Warp plugin for Codex (see [Setting up notifications](#setting-up-notifications)).
 * **Rich input editor** - Press `Ctrl-G` to open an expanded input editor for composing longer prompts.
 * **Code review** - Send inline review comments directly to the agent from Warp's code review panel.
 * **Attach code as context** - Select code and send it to the agent as context.
