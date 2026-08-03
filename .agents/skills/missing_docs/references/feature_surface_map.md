@@ -25,29 +25,29 @@ auto-surfaces for docs once the flag goes GA.
 
 ## Feature flags -> doc pages
 
-AgentMode -> src/content/docs/agent-platform/local-agents/overview.mdx
+AgentMode -> src/content/docs/agents/local-agents/overview.mdx
 AgentManagementView -> src/content/docs/platform/managing-cloud-agents.md
 AgentManagementDetailsView -> src/content/docs/platform/managing-cloud-agents.md
-AgentModeComputerUse -> src/content/docs/agent-platform/capabilities/computer-use/index.mdx
+AgentModeComputerUse -> src/content/docs/agents/capabilities/computer-use/index.mdx
 AgentModeWorkflows -> src/content/docs/knowledge-and-collaboration/warp-drive/workflows.md
-AgentOnboarding -> src/content/docs/agent-platform/getting-started/agents-in-warp.md
-AIRules -> src/content/docs/agent-platform/capabilities/rules.mdx
-AIResumeButton -> src/content/docs/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx
-InlineCodeReview -> src/content/docs/agent-platform/local-agents/interactive-code-review.mdx
+AgentOnboarding -> src/content/docs/agents/getting-started/agents-in-warp.mdx
+AIRules -> src/content/docs/agents/capabilities/rules.mdx
+AIResumeButton -> src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx
+InlineCodeReview -> src/content/docs/agents/local-agents/interactive-code-review.mdx
 FileTree -> src/content/docs/code/code-editor/file-tree.md
 CodeFindReplace -> src/content/docs/code/code-editor/find-and-replace.md
 VimCodeEditor -> src/content/docs/code/code-editor/code-editor-vim-keybindings.md
-McpServer -> src/content/docs/agent-platform/capabilities/mcp.mdx
-McpOauth -> src/content/docs/agent-platform/capabilities/mcp.mdx
-ImageAsContext -> src/content/docs/agent-platform/local-agents/agent-context/images-as-context.mdx
-SelectionAsContext -> src/content/docs/agent-platform/local-agents/agent-context/selection-as-context.mdx
-DiffSetAsContext -> src/content/docs/agent-platform/local-agents/agent-context/selection-as-context.mdx
-WebSearchUI -> src/content/docs/agent-platform/capabilities/web-search.mdx
-WebFetchUI -> src/content/docs/agent-platform/capabilities/web-search.mdx
-CrossRepoContext -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
-FullSourceCodeEmbedding -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
-SearchCodebaseUI -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
-RemoteCodebaseIndexing -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
+McpServer -> src/content/docs/agents/capabilities/mcp.mdx
+McpOauth -> src/content/docs/agents/capabilities/mcp.mdx
+ImageAsContext -> src/content/docs/agents/local-agents/agent-context/images-as-context.mdx
+SelectionAsContext -> src/content/docs/agents/local-agents/agent-context/selection-as-context.mdx
+DiffSetAsContext -> src/content/docs/agents/local-agents/agent-context/selection-as-context.mdx
+WebSearchUI -> src/content/docs/agents/capabilities/web-search.mdx
+WebFetchUI -> src/content/docs/agents/capabilities/web-search.mdx
+CrossRepoContext -> src/content/docs/agents/capabilities/codebase-context.mdx
+FullSourceCodeEmbedding -> src/content/docs/agents/capabilities/codebase-context.mdx
+SearchCodebaseUI -> src/content/docs/agents/capabilities/codebase-context.mdx
+RemoteCodebaseIndexing -> src/content/docs/agents/capabilities/codebase-context.mdx
 CloudEnvironments -> src/content/docs/platform/environments.md
 CloudMode -> src/content/docs/platform/index.mdx
 AmbientAgentsCommandLine -> src/content/docs/platform/index.mdx
@@ -64,73 +64,73 @@ UsageBasedPricing -> src/content/docs/support-and-community/plans-and-billing/cr
 # entry is needed.
 APIKeyManagement -> src/content/docs/reference/cli/api-keys.md
 CreatingSharedSessions -> src/content/docs/knowledge-and-collaboration/session-sharing/index.mdx
-AgentSharedSessions -> src/content/docs/agent-platform/local-agents/session-sharing.mdx
-ProfilesDesignRevamp -> src/content/docs/agent-platform/capabilities/agent-profiles-permissions.mdx
-MultiProfile -> src/content/docs/agent-platform/capabilities/agent-profiles-permissions.mdx
-InlineProfileSelector -> src/content/docs/agent-platform/capabilities/agent-profiles-permissions.mdx
-ListSkills -> src/content/docs/agent-platform/capabilities/skills.mdx
-BundledSkills -> src/content/docs/agent-platform/capabilities/skills.mdx
-SyncAmbientPlans -> src/content/docs/agent-platform/capabilities/planning.mdx
-SuggestedRules -> src/content/docs/agent-platform/capabilities/rules.mdx
+AgentSharedSessions -> src/content/docs/agents/local-agents/session-sharing.mdx
+ProfilesDesignRevamp -> src/content/docs/agents/capabilities/agent-profiles-permissions.mdx
+MultiProfile -> src/content/docs/agents/capabilities/agent-profiles-permissions.mdx
+InlineProfileSelector -> src/content/docs/agents/capabilities/agent-profiles-permissions.mdx
+ListSkills -> src/content/docs/agents/capabilities/skills.mdx
+BundledSkills -> src/content/docs/agents/capabilities/skills.mdx
+SyncAmbientPlans -> src/content/docs/agents/capabilities/planning.mdx
+SuggestedRules -> src/content/docs/agents/capabilities/rules.mdx
 RectSelection -> src/content/docs/terminal/more-features/text-selection.md
-ContextWindowUsageV2 -> src/content/docs/agent-platform/local-agents/interacting-with-agents/index.mdx
+ContextWindowUsageV2 -> src/content/docs/agents/local-agents/interacting-with-agents/index.mdx
 CommandCorrectionKey -> src/content/docs/terminal/entry/command-corrections.md
 ClassicCompletions -> src/content/docs/terminal/command-completions/completions.md
 DynamicWorkflowEnums -> src/content/docs/knowledge-and-collaboration/warp-drive/workflows.md
 SharedWithMe -> src/content/docs/knowledge-and-collaboration/warp-drive/index.mdx
 WarpPacks -> src/content/docs/knowledge-and-collaboration/warp-drive/index.mdx
 TabbedEditorView -> src/content/docs/code/code-editor/index.mdx
-ReadImageFiles -> src/content/docs/agent-platform/local-agents/agent-context/images-as-context.mdx
-FileRetrievalTools -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
-ConversationArtifacts -> src/content/docs/agent-platform/local-agents/interacting-with-agents/index.mdx
+ReadImageFiles -> src/content/docs/agents/local-agents/agent-context/images-as-context.mdx
+FileRetrievalTools -> src/content/docs/agents/capabilities/codebase-context.mdx
+ConversationArtifacts -> src/content/docs/agents/local-agents/interacting-with-agents/index.mdx
 OzChangelogUpdates -> src/content/docs/changelog/index.mdx
-ActiveConversationRequiresInteraction -> src/content/docs/agent-platform/local-agents/interacting-with-agents/index.mdx
+ActiveConversationRequiresInteraction -> src/content/docs/agents/local-agents/interacting-with-agents/index.mdx
 
 # Recently shipped GA features
 VerticalTabs -> src/content/docs/terminal/windows/vertical-tabs.mdx
 VerticalTabsSummaryMode -> src/content/docs/terminal/windows/vertical-tabs.mdx
 TabConfigs -> src/content/docs/terminal/windows/tab-configs.mdx
 PluggableNotifications -> src/content/docs/terminal/more-features/notifications.md
-RevertToCheckpoints -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
-RewindSlashCommand -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
-ForkFromCommand -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
-SummarizationConversationCommand -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
-CreateEnvironmentSlashCommand -> src/content/docs/agent-platform/capabilities/slash-commands.mdx
+RevertToCheckpoints -> src/content/docs/agents/capabilities/slash-commands.mdx
+RewindSlashCommand -> src/content/docs/agents/capabilities/slash-commands.mdx
+ForkFromCommand -> src/content/docs/agents/capabilities/slash-commands.mdx
+SummarizationConversationCommand -> src/content/docs/agents/capabilities/slash-commands.mdx
+CreateEnvironmentSlashCommand -> src/content/docs/agents/capabilities/slash-commands.mdx
 CodeReviewFind -> src/content/docs/code/code-review.md
 CodeReviewSaveChanges -> src/content/docs/code/code-review.md
 DiscardPerFileAndAllChanges -> src/content/docs/code/code-review.md
 AutoOpenCodeReviewPane -> src/content/docs/code/code-review.md
 GitOperationsInCodeReview -> src/content/docs/code/code-review.md
 RemoteCodeReview -> src/content/docs/code/code-review.md
-AgentView -> src/content/docs/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx
-AgentViewBlockContext -> src/content/docs/agent-platform/local-agents/agent-context/blocks-as-context.mdx
-CloudConversations -> src/content/docs/agent-platform/local-agents/cloud-conversations.mdx
+AgentView -> src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx
+AgentViewBlockContext -> src/content/docs/agents/local-agents/agent-context/blocks-as-context.mdx
+CloudConversations -> src/content/docs/agents/local-agents/cloud-conversations.mdx
 CloudModeFromLocalSession -> src/content/docs/platform/index.mdx
 TeamApiKeys -> src/content/docs/reference/cli/api-keys.md
 # The PRCommentsSlashCommand flag was removed: the /pr-comments slash command was
 # replaced by the bundled PR Comments skill (invoked via /skills), so the slash
 # command was dropped from the docs.
-PRCommentsV2 -> src/content/docs/agent-platform/local-agents/interacting-with-agents/index.mdx
-CLIAgentRichInput -> src/content/docs/agent-platform/cli-agents/rich-input.md
-HOANotifications -> src/content/docs/agent-platform/capabilities/agent-notifications.mdx
-OpenCodeNotifications -> src/content/docs/agent-platform/cli-agents/opencode.md
-CodexNotifications -> src/content/docs/agent-platform/cli-agents/codex.md
+PRCommentsV2 -> src/content/docs/agents/local-agents/interacting-with-agents/index.mdx
+CLIAgentRichInput -> src/content/docs/agents/cli-agents/rich-input.mdx
+HOANotifications -> src/content/docs/agents/capabilities/agent-notifications.mdx
+OpenCodeNotifications -> src/content/docs/agents/cli-agents/opencode.mdx
+CodexNotifications -> src/content/docs/agents/cli-agents/codex.mdx
 # Codex Warp plugin marketplace integration; documented alongside Codex notifications.
-CodexPlugin -> src/content/docs/agent-platform/cli-agents/codex.md
-HOARemoteControl -> src/content/docs/agent-platform/cli-agents/remote-control.md
+CodexPlugin -> src/content/docs/agents/cli-agents/codex.mdx
+HOARemoteControl -> src/content/docs/agents/cli-agents/remote-control.mdx
 GlobalSearch -> src/content/docs/code/overview.md
-FileBasedMcp -> src/content/docs/agent-platform/capabilities/mcp.mdx
-ConversationsAsContext -> src/content/docs/agent-platform/local-agents/agent-context/blocks-as-context.mdx
-GithubPrPromptChip -> src/content/docs/agent-platform/capabilities/agent-notifications.mdx
-AskUserQuestion -> src/content/docs/agent-platform/local-agents/interacting-with-agents/index.mdx
-AIContextMenuEnabled -> src/content/docs/agent-platform/local-agents/agent-context/using-to-add-context.mdx
-AtMenuOutsideOfAIMode -> src/content/docs/agent-platform/local-agents/agent-context/using-to-add-context.mdx
-AIContextMenuCode -> src/content/docs/agent-platform/local-agents/agent-context/using-to-add-context.mdx
-DriveObjectsAsContext -> src/content/docs/agent-platform/local-agents/agent-context/using-to-add-context.mdx
+FileBasedMcp -> src/content/docs/agents/capabilities/mcp.mdx
+ConversationsAsContext -> src/content/docs/agents/local-agents/agent-context/blocks-as-context.mdx
+GithubPrPromptChip -> src/content/docs/agents/capabilities/agent-notifications.mdx
+AskUserQuestion -> src/content/docs/agents/local-agents/interacting-with-agents/index.mdx
+AIContextMenuEnabled -> src/content/docs/agents/local-agents/agent-context/using-to-add-context.mdx
+AtMenuOutsideOfAIMode -> src/content/docs/agents/local-agents/agent-context/using-to-add-context.mdx
+AIContextMenuCode -> src/content/docs/agents/local-agents/agent-context/using-to-add-context.mdx
+DriveObjectsAsContext -> src/content/docs/agents/local-agents/agent-context/using-to-add-context.mdx
 KittyKeyboardProtocol -> src/content/docs/terminal/more-features/full-screen-apps.mdx
-InlineRepoMenu -> src/content/docs/agent-platform/capabilities/codebase-context.mdx
-InlineHistoryMenu -> src/content/docs/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx
-SkillArguments -> src/content/docs/agent-platform/capabilities/skills.mdx
+InlineRepoMenu -> src/content/docs/agents/capabilities/codebase-context.mdx
+InlineHistoryMenu -> src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx
+SkillArguments -> src/content/docs/agents/capabilities/skills.mdx
 ConfigurableToolbar -> src/content/docs/terminal/windows/configurable-toolbar.mdx
 SettingsFile -> src/content/docs/terminal/settings/index.mdx
 Changelog -> src/content/docs/changelog/index.mdx
@@ -154,8 +154,8 @@ SshRemoteServer -> src/content/docs/terminal/warpify/ssh.mdx
 # tools) and window-targeted background capture (BackgroundComputerUse). Both are
 # GA and documented on the computer use capability pages (the page was split from
 # a flat computer-use.mdx into a computer-use/ directory).
-VideoRecording -> src/content/docs/agent-platform/capabilities/computer-use/testing-and-recordings.mdx
-BackgroundComputerUse -> src/content/docs/agent-platform/capabilities/computer-use/index.mdx
+VideoRecording -> src/content/docs/agents/capabilities/computer-use/testing-and-recordings.mdx
+BackgroundComputerUse -> src/content/docs/agents/capabilities/computer-use/index.mdx
 
 # Feature flags whose only user-facing surface is a documented setting in the
 # all-settings reference (terminal/settings/all-settings.mdx).
@@ -177,11 +177,11 @@ OzIdentityFederation -> src/content/docs/reference/cli/federate.mdx
 AgentHarness -> src/content/docs/platform/harnesses/index.mdx
 
 # Image context for cloud agents
-AmbientAgentsImageUpload -> src/content/docs/agent-platform/local-agents/agent-context/images-as-context.mdx
-CloudModeImageContext -> src/content/docs/agent-platform/local-agents/agent-context/images-as-context.mdx
+AmbientAgentsImageUpload -> src/content/docs/agents/local-agents/agent-context/images-as-context.mdx
+CloudModeImageContext -> src/content/docs/agents/local-agents/agent-context/images-as-context.mdx
 
 # Skills on the Oz platform
-OzPlatformSkills -> src/content/docs/agent-platform/capabilities/skills.mdx
+OzPlatformSkills -> src/content/docs/agents/capabilities/skills.mdx
 
 # Handoff (local <-> cloud, cloud <-> cloud) and snapshots
 OzHandoff -> src/content/docs/platform/handoff/index.mdx
@@ -193,20 +193,20 @@ HandoffCloudCloud -> src/content/docs/platform/handoff/cloud-to-cloud.mdx
 # after the feature stabilized (GA), so it no longer needs a map entry.
 
 # Prompt queueing
-QueueSlashCommand -> src/content/docs/agent-platform/local-agents/interacting-with-agents/prompt-queueing.mdx
-QueuedPromptsV2 -> src/content/docs/agent-platform/local-agents/interacting-with-agents/prompt-queueing.mdx
+QueueSlashCommand -> src/content/docs/agents/local-agents/interacting-with-agents/prompt-queueing.mdx
+QueuedPromptsV2 -> src/content/docs/agents/local-agents/interacting-with-agents/prompt-queueing.mdx
 
 # Reusable agents (named agents + agent-scoped API keys)
 NamedAgents -> src/content/docs/platform/agents.mdx
 
 # Inference: BYOK and custom endpoints
-SoloUserByok -> src/content/docs/agent-platform/inference/bring-your-own-api-key.mdx
+SoloUserByok -> src/content/docs/agents/inference/bring-your-own-api-key.mdx
 # CustomInferenceEndpoints flag was removed after the feature stabilized (GA);
 # the feature remains documented at inference/custom-inference-endpoint.mdx.
 # Connect a SuperGrok subscription instead of pasting an xAI API key.
-SuperGrok -> src/content/docs/agent-platform/inference/bring-your-own-api-key.mdx
+SuperGrok -> src/content/docs/agents/inference/bring-your-own-api-key.mdx
 # Custom model routers (Settings > AI > Custom Routers) surface in the model picker.
-CustomModelRouters -> src/content/docs/agent-platform/inference/model-choice.mdx
+CustomModelRouters -> src/content/docs/agents/inference/model-choice.mdx
 
 # Billing & Usage settings page (redesigned)
 BillingAndUsagePageV2 -> src/content/docs/support-and-community/plans-and-billing/index.mdx
@@ -217,6 +217,20 @@ BillingAndUsagePageV2 -> src/content/docs/support-and-community/plans-and-billin
 # (default cargo features).
 CloudRunners -> src/content/docs/platform/runners.mdx
 CloudAgentRunners -> src/content/docs/platform/runners.mdx
+
+# Per-segment context window usage breakdown (system prompt, tool definitions,
+# conversation history, latest input, images, other) in the conversation usage
+# summary. Promoted dogfood -> GA; documented alongside the context window usage
+# indicator it drills into (paired with ContextWindowUsageV2 above).
+ContextWindowUsageBreakdown -> src/content/docs/agents/local-agents/interacting-with-agents/index.mdx
+
+# BYOLLM routing through Gemini Enterprise Agent Platform (Vertex AI). Promoted
+# dogfood -> GA; documented on the enterprise BYOLLM page for that host.
+GeminiEnterprise -> src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx
+
+# OSC 8 terminal hyperlinks (clickable link text emitted by CLI tools). Promoted
+# preview -> GA; documented with the rest of Warp's link handling.
+OscHyperlinks -> src/content/docs/terminal/more-features/files-and-links.mdx
 
 ## CLI commands -> doc pages
 
@@ -378,6 +392,27 @@ DELETE /factory/automations/{id}/subscriptions/{subscription_id} -> internal
 GET /factory/scorers -> internal
 POST /factory/scorers -> internal
 GET /factory/scorers/{scorer_id}/results -> internal
+GET /factory/scorers/{scorer_id}/autofix-config -> internal
+PUT /factory/scorers/{scorer_id}/autofix-config -> internal
+DELETE /factory/scorers/{scorer_id}/autofix-config -> internal
+
+# Orchestration messaging and lifecycle-event endpoints. These are marked
+# `x-internal: true` in warp-server's canonical spec (public_api/openapi.yaml),
+# so the publish filter deliberately strips them from the public docs copy.
+# They back the agent-to-agent messaging tools and the documented
+# `oz run message` CLI, but the REST surface itself is not part of the released
+# public Oz Agent API. Revisit if warp-server drops the x-internal marker.
+POST /agent/messages -> internal
+GET /agent/messages/{run_id} -> internal
+POST /agent/messages/{id}/read -> internal
+POST /agent/messages/{id}/delivered -> internal
+GET /agent/events -> internal
+POST /agent/events/{run_id} -> internal
+
+# SSE lifecycle-event stream consumed by the Warp client and the Oz web app.
+# Absent from warp-server's canonical public spec entirely, and registered only
+# on the RTC host, so it is not a released public API operation.
+GET /agent/events/stream -> internal
 
 # Agent Memory REST API — research preview (gating flag AIMemories is non-GA),
 # deferred via `gated:` and auto-surfaces when AIMemories goes GA. See
@@ -423,12 +458,16 @@ GET /memory_stores/{uid}/memories/{memoryUid}/versions -> gated:AIMemories
 # - /status: show session and account status
 # - /clear: clear the transcript and start a new conversation
 # - /statusline: configure the Warp Agent CLI statusline (agents.statusline, internal)
-# - /add-api-key, /clear-provider-api-key: store/remove a model-provider API key
+# - /reset-statusline: restore the statusline to its default items and ordering
+# - /api-keys: view and manage model-provider API keys. It replaced the removed
+#   /add-api-key and /clear-provider-api-key pair, whose entries were pruned.
+# - /vim-mode: toggle Vim keybindings in the Warp Agent CLI input
 /status -> internal
 /clear -> internal
 /statusline -> internal
-/add-api-key -> internal
-/clear-provider-api-key -> internal
+/reset-statusline -> internal
+/api-keys -> internal
+/vim-mode -> internal
 # TUI-only color-theme picker (Warp Agent CLI surface, SlashCommandSurfaces::TuiOnly
 # in static_commands/commands.rs). It sets the Warp Agent CLI theme
 # (appearance.theme, mapped internal below) and isn't present in the GUI, so it
@@ -473,6 +512,21 @@ appearance.theme -> internal
 appearance.zero_state.object -> internal
 appearance.zero_state.rotation_period_seconds -> internal
 appearance.zero_state.extrusion_depth -> internal
+
+# Warp Agent CLI-only (crates/warp_tui) per-section visibility toggles for the
+# zero state (surface: SettingSurfaces::TUI in app/src/settings/tui_zero_state.rs).
+# Each hides one section of the Warp Agent CLI empty state. They aren't present in
+# the GUI settings UI, so they aren't documented in the all-settings reference.
+appearance.zero_state.show_signed_in_user -> internal
+appearance.zero_state.show_changelog -> internal
+appearance.zero_state.show_project_info -> internal
+appearance.zero_state.show_mcp -> internal
+appearance.zero_state.show_animation -> internal
+
+# Warp Agent CLI-only (crates/warp_tui) push-to-talk key for voice input (surface:
+# SettingSurfaces::TUI in app/src/settings/tui_voice.rs). The GUI equivalent is the
+# separate agents.voice.voice_input_toggle_key, which is documented.
+agents.voice.voice_input_hold_key -> internal
 
 ## Unlisted docs pages to ignore
 
@@ -639,6 +693,6 @@ SuggestedAgentModeWorkflows
 # the user-facing /pr-comments command is mapped via PRCommentsSlashCommand.
 PRCommentsSkill
 FigmaDetection
-# OSC 8 hyperlink support (Cmd+click-able linked text). Currently Preview, not GA,
-# so it isn't documented yet; the snapshot diff re-flags it when it promotes to GA.
-OscHyperlinks
+# OSC 8 hyperlink support was promoted preview -> GA and is now documented at
+# terminal/more-features/files-and-links.mdx, so its ignore entry was pruned in
+# favor of the mapping in "Feature flags -> doc pages" above.
