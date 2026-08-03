@@ -27,7 +27,7 @@ See [what carries over](/platform/handoff/#what-carries-over) for the full behav
 3. To open the searchable environment and model selectors, press `Ctrl+E`.
 4. From the card summary, press `Enter` to hand off. The card shows progress, then reports that the cloud run was created along with a link to the run.
 
-Press `Ctrl+C` at any point before confirming to cancel the handoff; your prompt and attachments return to the input.
+Press `Ctrl+C` at any point before confirming to cancel the handoff. Your prompt and attachments return to the input.
 
 From the created card:
 
@@ -39,14 +39,14 @@ From the created card:
 If you don't have a cloud environment yet, the card prompts you to create one: `Enter` opens the <a href={`${VARS.WEB_APP_URL}/environments`}>Environments page</a> in the {VARS.WEB_APP}, and `R` refreshes the list after you create one.
 :::
 
-Handoff needs the conversation in a state it can fork. You can't hand off while a command is still running, or while the conversation has child agents that are in progress or blocked. Cancel the command or let the children finish first. Handing off an orchestrator forks only its own conversation; the orchestration and its child agents stay local.
+Handoff needs the conversation in a state it can fork. You can't hand off while a command is still running, or while the conversation has child agents that are in progress or blocked. Cancel the command or let the children finish first. Handing off an orchestrator forks only its own conversation. The orchestration and its child agents stay local.
 
 ## Resume cloud conversations
 
 There are two ways to pick up a cloud agent's work:
 
 * **In the browser** - Open the run in the {VARS.WEB_APP} to review its transcript and changes, steer it, or continue the conversation there. [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) covers that flow.
-* **In the CLI** - Pull a finished cloud run into your terminal; it appears in the conversation history alongside local conversations. Press `←` in an empty input, or run `/conversations`, to open the conversation list, then select the cloud run. Your next prompt continues the conversation locally.
+* **In the CLI** - Pull a finished cloud run into your terminal. It appears in the conversation history alongside local conversations. Press `←` in an empty input, or run `/conversations`, to open the conversation list, then select the cloud run. Your next prompt continues the conversation locally.
 
 Resuming in the CLI has two constraints:
 
@@ -81,10 +81,10 @@ After launch, a tab bar labeled **Agents:** appears above the session with one t
 </figure>
 
 * **Local child agents** - Each local child runs on your machine as its own session, starting in the parent's working directory. Local children always run the Warp Agent.
-* **Cloud child agents** - Each cloud child runs in a cloud [environment](/platform/environments/), and can run a different harness than the parent, such as Claude Code or Codex, chosen on the approval card's harness page. A cloud child's session shows the run's live status and a link; press `Enter` or click the link to open the run in the {VARS.WEB_APP}. If a cloud child can't start because GitHub authentication is required, its session shows the authentication link; authenticate, then ask the agent to run the orchestration again.
+* **Cloud child agents** - Each cloud child runs in a cloud [environment](/platform/environments/), and can run a different harness than the parent, such as Claude Code or Codex, chosen on the approval card's harness page. A cloud child's session shows the run's live status and a link. Press `Enter` or click the link to open the run in the {VARS.WEB_APP}. If a cloud child can't start because GitHub authentication is required, its session shows the authentication link. Authenticate, then ask the agent to run the orchestration again.
 
 :::caution
-Cloud child sessions in the CLI only show status; they don't accept input. To send prompts to a cloud child or respond to its approvals, open the run in the {VARS.WEB_APP}.
+Cloud child sessions in the CLI only show status. They don't accept input. To send prompts to a cloud child or respond to its approvals, open the run in the {VARS.WEB_APP}.
 :::
 
 ## Managing child agents
@@ -106,7 +106,7 @@ A focused local child behaves like a regular conversation. You can send it follo
 `Ctrl+C` kills a child agent: it stops the child's work — for a cloud child, cancelling its cloud run — and removes the child's tab and conversation, returning you to the orchestrator.
 
 * **From the tab bar** - With the tab bar focused and a child tab selected, a single `Ctrl+C` kills the selected child. The footer shows `Ctrl+C to kill sub-agent` as a reminder.
-* **While viewing a child** - Press `Ctrl+C` twice. The first press arms a short confirmation window and the footer shows `ctrl-c again to kill child agent`; a second press within the window kills the child.
+* **While viewing a child** - Press `Ctrl+C` twice. The first press arms a short confirmation window and the footer shows `ctrl-c again to kill child agent`. A second press within the window kills the child.
 
 In the orchestrator's own session, `Ctrl+C` keeps its usual behavior.
 
