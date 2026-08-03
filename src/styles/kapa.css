@@ -2,8 +2,11 @@
 	/* "Ask AI" launcher styling.
 
 	   The static button is rendered server-side by `KapaLauncher.astro` and
-	   sits inside `.warp-sidebar-search` next to the search pill. Clicking it
-	   (or pressing ⌘I / Ctrl+I) opens Kapa's Website Widget via `window.Kapa`.
+	   sits inside `.warp-sidebar-search` next to the search pill. On first
+	   click or `⌘I`/`Ctrl+I`, an inline script lazy-mounts the React island
+	   (`KapaChatLauncher.tsx`) into the same slot, swapping the placeholder
+	   with the live chat trigger. Both surfaces share these `.warp-kapa-*`
+	   styles so the swap is pixel-stable.
 
 	   The button mirrors the search pill in warp-components.css §16: both
 	   consume the shared `--warp-control-*` vars defined on
@@ -96,8 +99,9 @@
 		transform: translateY(0);
 	}
 
-	/* Pin the icon size + color so the inline SVG always matches the search
-	   magnifier rendered next to it. */
+	/* Pin the icon size + color so the React-island `<LuMessageSquare>`
+	   (lucide-react renders at `1em`) and the static inline `<svg>` always
+	   match the search magnifier rendered next to it. */
 	.warp-kapa-button svg {
 		width: 14px;
 		height: 14px;
@@ -160,5 +164,4 @@
 			padding: 0 0.5rem;
 		}
 	}
-
 }
