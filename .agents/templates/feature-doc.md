@@ -45,7 +45,7 @@ Apply all procedural rules from AGENTS.md:
 - Motivate steps before giving instructions
 - Include expected outcomes after key steps
 - Group related actions when they share the same UI context
-- Verify every UI label, Settings path, and CLI flag against source or the live product before publishing
+- Verify every UI label, Settings path, and CLI flag against source or the live product before publishing. If you cannot verify one, omit it or mark it with an inline `{/* VERIFY: ... */}` comment and report it per step 9.5 of the draft_docs skill
 - Prefer durable actions and outcomes over ephemeral chrome (glyph colors, pure layout narration)]
 
 ### Prerequisites

@@ -81,7 +81,14 @@ To find these repos, search for directories named `warp-internal` and `warp-serv
 
 Use source code to verify technical behavior, understand feature implementation, and find accurate terminology.
 
-When the draft names UI labels, Settings paths, CLI flags, default permissions, plan eligibility, or platform support, treat source (or a live build) as required verification—not optional color. If you cannot verify a claim, omit it or mark it for human review instead of guessing.
+When the draft names UI labels, Settings paths, CLI flags, default permissions, plan eligibility, or platform support, treat source (or a live build) as required verification—not optional color. A PRD or spec is not verification: labels and flag names routinely change between spec and ship.
+
+If you cannot verify a claim (for example, the source repos are not available in this environment), do not guess and do not silently drop it. Choose one of these, and record the claim either way:
+
+1. **Omit the claim** - Write around it when the page still works without it. Describe the action without naming the exact flag, or link to the reference page that will carry the detail.
+2. **Include it with an inline marker** - Keep the spec's wording and flag it in an MDX comment next to the claim: `{/* VERIFY: flag name from PRD, unconfirmed against warp-internal */}`.
+
+Keep a running list of every unverified claim as you draft. Reporting that list is required — see step 9.5.
 
 ### 6.5. Critical formatting rules
 
@@ -131,13 +138,22 @@ Before presenting the draft, verify against the quality checklist in `AGENTS.md`
 - [ ] Instructions include expected outcomes
 - [ ] Procedures are scannable: dense sections are split into numbered steps, short bullets, or concise subsections
 - [ ] UI surfaces and product terms use canonical names from `.agents/references/terminology.md`
-- [ ] UI labels, CLI flags, permission defaults, and eligibility claims were verified against source or the live product
+- [ ] UI labels, CLI flags, permission defaults, and eligibility claims were verified against source or the live product — anything unverified is marked inline and reported per step 9.5
 - [ ] The draft emphasizes durable behavior over ephemeral UI chrome (glyphs, pure styling, layout minutiae)
 - [ ] Preview-only, platform-limited, or interactive-only capabilities are labeled as such
 - [ ] Integrations and team features state admin requirements and who gets access after install
 - [ ] Product names with a corresponding entry in `src/data/vars.ts` use the variable syntax (`{VARS.KEY}` in prose, `{{TOKEN}}` in frontmatter) — not hardcoded strings
 - [ ] If AEO-driven, the draft follows the AEO brief, uses source vocabulary naturally, and avoids duplicative or junk-drawer coverage
 - [ ] Images have descriptive alt text
+
+### 9.5. Report unverified claims
+
+Inline markers alone are skippable: a reviewer who skims the rendered page or the diff will miss them. Surface the full list where the human cannot miss it.
+
+- **Agent-authored PRs** - Add an `## Unverified claims` section to the PR description. Include one bullet per claim with the claim itself, the file and section where it appears, and what would confirm it (for example, "check `TuiArgs` in `warp-internal`"). Include the section even when the list is empty, with the single line `None — all UI labels, flags, defaults, and eligibility claims were verified against source.` Never drop the section.
+- **Local or interactive sessions** - List the same claims in your response to the user, before they review the draft.
+
+A reviewer must be able to see every unconfirmed claim without opening the diff.
 
 ### 10. Update navigation and redirects
 If this is a new page, remind the user to:

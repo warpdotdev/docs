@@ -133,6 +133,25 @@ This PR updates the Terminal and Agent modes documentation for the Oz launch.
 - Updated navigation entry title
 ```
 
+### Unverified claims (required on drafting PRs)
+
+Any PR that adds or updates page content must state which UI labels, Settings paths, CLI flags, permission defaults, plan eligibility, and platform-support claims could not be verified against `warp-internal`, `warp-server`, or a live build. See step 9.5 of the `draft_docs` skill.
+
+Include the section even when nothing is outstanding:
+
+```markdown
+## Unverified claims
+None — all UI labels, flags, defaults, and eligibility claims were verified against source.
+```
+
+When claims are outstanding, give the reviewer one bullet per claim with what would confirm it:
+
+```markdown
+## Unverified claims
+- `--auto-approve` flag name — `cloud-agents.mdx`, "Run an agent" — taken from the PRD; confirm against `TuiArgs` in `warp-internal`.
+- **Settings** > **Agents** > **Permissions** path — `permissions.mdx`, "Defaults" — source repos were not available in this environment.
+```
+
 ### Additional context (optional)
 - Link to related issues or discussions
 - Screenshots for visual changes
