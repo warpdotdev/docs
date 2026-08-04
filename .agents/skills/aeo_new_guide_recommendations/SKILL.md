@@ -51,11 +51,30 @@ Do NOT print, log, commit, or include secret values in reports or Slack messages
 
 Use the smallest reliable set of source data needed to justify recommendations.
 
-- **Peec** - Use the Peec MCP (configured in the agent with a Personal Access Token via the `PEEC_PAT` secret) to collect prompts, search queries, actions/recommendations, and source URLs for agents, cloud agents, orchestration, and Oz (last 30 days). Filter prompts and queries for relevance to the topic areas. Because Oz is the agent platform underlying cloud agents and orchestration, substantial Oz-relevant signal appears within the agents and orchestration data — look for Oz-related prompts and queries there. Dedicated Oz-surface signals (Oz web app, Oz CLI, Oz scheduling) may still be thin; when Oz-specific coverage is sparse, flag the brief as lower-confidence and note what additional signal would strengthen the recommendation. If the Peec MCP returns an error or is unavailable (missing `PEEC_PAT`, expired token, or connection failure), log "Peec: unavailable" in the run output and follow the "Peec unavailable" section below.
+- **Peec** - Call the Peec MCP (authenticated with the `PEEC_PAT` secret) to collect prompts, search queries, actions/recommendations, and source URLs for agents, cloud agents, orchestration, and Oz (last 30 days). See "Calling Peec" below for the call contract — the MCP may not appear as a native tool in a cloud run, in which case call the HTTP endpoint directly. Filter prompts and queries for relevance to the topic areas. Because Oz is the agent platform underlying cloud agents and orchestration, substantial Oz-relevant signal appears within the agents and orchestration data — look for Oz-related prompts and queries there. Dedicated Oz-surface signals (Oz web app, Oz CLI, Oz scheduling) may still be thin; when Oz-specific coverage is sparse, flag the brief as lower-confidence and note what additional signal would strengthen the recommendation. If the Peec MCP returns an error or is unavailable (missing `PEEC_PAT`, expired token, or connection failure), log "Peec: unavailable" in the run output and follow the "Peec unavailable" section below.
 - **Docs repo** - Search existing pages under `src/content/docs/` for relevant coverage of each candidate topic. Read `AGENTS.md` and `.agents/references/terminology.md` for product naming guidance.
 - **Prior run log** - Read `.agents/logs/aeo_new_guide_recommendation_runs.md` to identify topics that were recommended in previous runs. If a candidate topic from this run matches a topic from a prior run, note it explicitly in the brief (see "Repeat topic flag" below).
 
 Do not invent Peec signals. If Peec has no usable data for a candidate topic, say so in the brief and flag it as low-confidence.
+
+### Calling Peec
+
+Even when `peec-ai` is configured in the agent config, a cloud run may not expose it as a native tool. In that case, call the MCP endpoint directly over HTTP with the `PEEC_PAT` secret — do not conclude that Peec is unavailable just because no `peec-ai` tool appears in your tool list.
+
+The endpoint speaks JSON-RPC over HTTP at `https://api.peec.ai/mcp`:
+
+1. `POST` an `initialize` request with `Authorization: Bearer $PEEC_PAT`, `Content-Type: application/json`, and `Accept: application/json, text/event-stream`. Capture the `Mcp-Session-Id` response header.
+2. Send the `notifications/initialized` notification with that session header.
+3. Call tools with `method: "tools/call"` and `params: {"name": "<tool>", "arguments": {...}}`, passing the session header on every request.
+
+Resolve the project first with `list_projects` — every other tool requires a `project_id`. Select the Warp project from the result rather than hard-coding an ID.
+
+Tool contract details that are easy to get wrong:
+
+- **`get_actions` requires `url_classification` for drill-downs.** Call `scope=overview` first; those rows are navigation metadata and carry no recommendation text. Drilling into `scope=owned` or `scope=editorial` fails validation unless you pass the `url_classification` from the overview row (for example `HOW_TO_GUIDE` or `ARTICLE`). `scope=reference` and `scope=ugc` require `domain` instead.
+- **`list_search_queries` returns `query_text`**, not `query`. Parsing for a generic `query` field yields empty clusters.
+- **Editorial actions are often outreach, not docs work.** Many `EDITORIAL` rows read like "pitch this publication" or "contact this author." Use `OWNED` rows with a `HOW_TO_GUIDE` or `ARTICLE` classification as the primary docs signal, and only treat an editorial row as a docs signal when its text describes a genuine content gap.
+- Responses are columnar JSON (`{columns, rows, rowCount}`), so map values by column index rather than assuming objects.
 
 ## Workflow
 
@@ -142,6 +161,10 @@ Do not invent Peec signals. If Peec has no usable data for a candidate topic, sa
    ```
 
    Replace `<message text here>` with the message from the appropriate format in the "Slack notification format" section. Do not print `SLACK_BOT_TOKEN` or `GROWTH_DOCS_SLACK_CHANNEL_ID` values in the run output or in any file.
+
+   **If `chat.postMessage` returns `channel_not_found`**, the secrets being set is not sufficient — either the channel ID is stale or the bot is not a member of the channel. Do not treat this as a successful post. Instead:
+   1. Try resolving the channel by name: call `conversations.list` (types `public_channel,private_channel`) and look for `growth-docs`. If found, retry the post with that ID and report that the stored `GROWTH_DOCS_SLACK_CHANNEL_ID` is wrong so a human can correct the secret.
+   2. If the lookup also fails or returns `missing_scope`, the bot is not in the channel or lacks scope. Write the notification body to the run output, and state explicitly in the run output that the Slack post failed with `channel_not_found` — never imply it was delivered.
 
 ## Brief quality rules
 
@@ -275,7 +298,7 @@ Oz run: [run URL]
 Rules:
 - Post on every run, including no-brief runs.
 - Never include raw secret values, personal access tokens, or credential file paths in the Slack message.
-- Build the `Oz run` link at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run with `oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'`, substituting the run ID this agent is executing as.
+- Build the `Oz run` link at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run with `oz run get "<your run ID>" --output-format json | jq -r '.session_link'`, substituting the run ID this agent is executing as. Cloud sandboxes ship the `oz` CLI; `oz-dev` is a local development build and is not present, so do not call it.
 - If the Oz run URL is unavailable, omit that line rather than posting a broken link.
 
 ## Human review expectations

@@ -100,14 +100,18 @@ Never hard-code the Oz host in Slack messages or run output. The agent may run o
 
 Always resolve the Oz run link at runtime:
 ```bash
-oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'
+oz run get "<your run ID>" --output-format json | jq -r '.session_link'
 ```
+
+Use `oz`, not `oz-dev`. `oz-dev` is a local development build that ships with the Warp dev app; cloud sandboxes only have `oz`, so any skill instructing an agent to call `oz-dev` silently loses its run link.
 
 If the command fails or returns an empty value, omit the `Oz run` line rather than posting a broken link.
 
 ### Secrets and environment variables
 
 Always use `SLACK_BOT_TOKEN` and other secrets from environment variables — never inline them or print them to run output, logs, or Slack messages. If a required secret is unavailable, write the payload to the run output instead of posting to Slack. Do not crash the run on missing notification credentials. Include this in the skill as an explicit fallback, not just as an assumed environment guarantee.
+
+**A secret being present does not mean it works.** A token can authenticate while the paired channel ID is stale, or the bot may not be a member of the target channel — Slack returns `channel_not_found` in both cases. Skills that post to Slack should define what to do on a failed post (attempt a lookup by channel name, then fall back to run output) and must report the failure explicitly rather than logging the run as fully successful.
 
 ### Slack notifications
 

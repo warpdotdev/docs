@@ -51,6 +51,8 @@ Do NOT print, log, commit, or include secret values in reports or Slack messages
 
 Use the smallest reliable set of source data needed to justify link changes:
 - **Peec** - Use the Peec MCP (configured in the agent with a Personal Access Token via the `PEEC_PAT` secret) to collect prompts, search queries, actions/recommendations, and source URLs for agents, cloud agents, and orchestration (last 30 days). Filter prompts and queries for relevance to the topic area. If the Peec MCP returns an error or is unavailable (missing `PEEC_PAT`, expired token, or connection failure), log "Peec: unavailable" in the run output and proceed with GSC and docs-only signals only.
+  - A cloud run may not expose `peec-ai` as a native tool even when it is in the agent config. If no tool appears, call `https://api.peec.ai/mcp` directly over JSON-RPC with `Authorization: Bearer $PEEC_PAT` (initialize, capture the `Mcp-Session-Id` header, then `tools/call`) rather than declaring Peec unavailable.
+  - Resolve the project with `list_projects` first; all other tools require `project_id`. `get_actions` needs `url_classification` for `scope=owned` and `scope=editorial` drill-downs, and `list_search_queries` returns `query_text` rather than `query`.
 - **Google Search Console** - When available, use the environment's `GSC_SERVICE_ACCOUNT_CREDENTIALS_JSON` secret to inspect recent queries and pages related to agents, cloud agents, and orchestration. Never print, log, commit, or include the secret value in reports. If a GSC client requires a credentials file path, write the secret to a restricted temporary file, use it for the run, and remove it before finishing.
 - **Docs repo** - Search existing pages under `src/content/docs/` for relevant source pages, link targets, and related terminology.
 
@@ -277,7 +279,7 @@ Oz run: [run URL]
 Rules:
 - Post on every run, including no-change runs.
 - Never include raw secret values, personal access tokens, or credential file paths in the Slack message.
-- Build the `Oz run` link at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run with `oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'`, substituting the run ID this agent is executing as.
+- Build the `Oz run` link at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run with `oz run get "<your run ID>" --output-format json | jq -r '.session_link'`, substituting the run ID this agent is executing as. Cloud sandboxes ship the `oz` CLI; `oz-dev` is a local development build and is not present, so do not call it.
 - If the Oz run URL is unavailable, omit that line rather than posting a broken link.
 
 ## Future expansion boundaries
