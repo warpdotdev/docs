@@ -48,7 +48,7 @@ jobs:
           python3 .agents/skills/missing_docs/scripts/test_audit_docs.py
 
       # Validate the validate_ui_refs snapshot and script invariants. Uses
-      # a synthetic warp-internal fixture internally — no checkout required.
+      # a synthetic warp client fixture internally — no checkout required.
       - name: Self-test validate_ui_refs skill
         run: python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --self-test
 
