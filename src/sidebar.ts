@@ -344,7 +344,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 		{
 			label: 'Agent CLI',
 			link: '/cli/',
-			icon: 'seti:shell',
+			icon: 'right-caret',
 			items: [
 				{ slug: 'cli', label: 'Overview' },
 				{ slug: 'cli/quickstart', label: 'Quickstart' },
