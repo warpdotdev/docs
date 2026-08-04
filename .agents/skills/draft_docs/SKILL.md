@@ -88,11 +88,14 @@ These rules are frequently violated by agents. Apply them carefully during draft
 - **Product name variables** — For any product name in `src/data/vars.ts`, use the variable instead of the hardcoded string. Add `import { VARS } from '@data/vars';` immediately after the frontmatter closing `---`. Use `{VARS.KEY}` in MDX prose (e.g. `{VARS.WARP_AGENT_CLI}` not "Oz CLI"). Use `{{TOKEN}}` directly in frontmatter YAML values (e.g. `title: "{{WARP_AGENT_CLI}} reference"`). Key vars: `WARP_AGENT_CLI`, `WARP_AUTOMATION_PLATFORM`, `WEB_APP`, `WEB_APP_URL`, `DASHBOARD`, `AGENT_MODE`, `WARP_DRIVE`. See `src/data/vars.ts` for the full list.
 
 - **Sentence case for all headings (H1–H4)** — Capitalize only the first word and proper feature names. ✅ `## How it works` ❌ `## How It Works`
-- **Descriptive, specific headings** — Beyond correct case, a heading should name the specific topic so readers and agents can scan the page and extract a self-contained answer. ✅ `## How key type affects billing and GitHub access` ❌ `## More details`
-- **Bold + dash format for list items** — `* **Term** - Description`, not `* Term: Description`
+- **Descriptive, specific headings** — Beyond correct case, a heading should name the specific topic so readers and agents can scan the page and extract a self-contained answer. Prefer the concrete object or outcome over vague section labels. ✅ `## How key type affects billing and GitHub access` / `## Configuring Workload Identity Federation` ❌ `## More details` / `## Overview` / `## Additional information` / `## Other`
+- **Frontmatter `description` is a standalone search summary** — 1–2 sentences, roughly 50–160 characters when practical, that state the user benefit and primary keywords. It must make sense out of context (search result or AI citation). ✅ `description: Environments keep cloud agents on a consistent toolchain across every trigger.` ❌ `description: This page describes environments.` ❌ a description that only repeats the title with no benefit
+- **Bold + dash format for list items** — `* **Term** - Description`, not `* Term: Description` and not `* Term — Description` (use a hyphen-minus + spaces around the dash separator after the bold term)
+- **Unordered list marker is `*`** — Match the templates and existing docs. Use `* **Term** - Description` for feature/concept bullets. Reserve `-` only when you are inside a nested list that already uses `*` at the parent level, or when a numbered procedure is required (`1.`). ✅ `* **Codebase Context** - Warp indexes your Git-tracked codebase` ❌ `- **Codebase Context** - ...` as the top-level marker on a new page
 - **Tables or parallel bullets for comparison and reference data** — When you present two or more parallel items (key types, plan tiers, environments) or structured reference data (API endpoints, parameters), use a Markdown table or tightly parallel bullets instead of one dense paragraph. ✅ a table with one row per API endpoint, or parallel `**Personal API keys**` / `**Agent API keys**` bullet groups ❌ a single paragraph mixing both key types and their billing rules
 - **Bold for UI elements** — Use `**Save**` not `` `Save` `` after action verbs like "click"
 - **Bold per-segment for Settings paths** — Use `**Settings** > **AI** > **Knowledge**` not `` `Settings > AI > Knowledge` ``
+- **Descriptive link text and Related pages** — Never use "here", "this page", or a bare URL as link text. On every new page, include a `## Related pages` section (or type-equivalent such as quickstart `## Next steps`) with at least one internal link whose anchor names the destination topic. ✅ `Learn more about [Codebase Context](/code/codebase-context/)` ❌ `Click [here](/code/codebase-context/)` ❌ ending a new feature page with no cross-links
 
 ### 7. Draft the doc
 Create the documentation using the appropriate template from `.agents/templates/`. Follow the structure for the identified content type and all rules in `AGENTS.md`. Each template includes visible bracketed instructions explaining what to put in each section.
@@ -115,12 +118,14 @@ Skip steps 1–3 in local/interactive sessions.
 
 ### 9. Review against checklist
 Before presenting the draft, verify against the quality checklist in `AGENTS.md`:
-- [ ] Frontmatter includes clear description written as a standalone summary
+- [ ] Frontmatter includes clear description written as a standalone summary (benefit + keywords; not "This page describes...")
 - [ ] Content follows the structure for its content type
 - [ ] Terminology matches the glossary (`.agents/references/terminology.md`)
 - [ ] Headers use sentence case (with proper feature name capitalization)
-- [ ] Lists use bold term + dash + explanation format
-- [ ] Cross-references to related features are included
+- [ ] Headers name a specific topic (not bare Overview / More details / Other)
+- [ ] Lists use `*` markers with bold term + hyphen dash + explanation format
+- [ ] Cross-references to related features are included (`## Related pages` or type-equivalent Next steps)
+- [ ] Link text names the destination topic (not "here" / "this page" / raw URLs)
 - [ ] Instructions include expected outcomes
 - [ ] Procedures are scannable: dense sections are split into numbered steps, short bullets, or concise subsections
 - [ ] UI surfaces and product terms use canonical names from `.agents/references/terminology.md`
