@@ -1,8 +1,8 @@
 ---
 title: "Customizing the Warp Agent CLI"
 description: >-
-  Customize the Warp Agent CLI's settings file, themes, statusline, and agent
-  context with project rules, skills, and MCP servers.
+  Customize the Warp Agent CLI's settings file, themes, statusline, start
+  screen, and agent context with project rules, skills, and MCP servers.
 ---
 import { VARS } from '@data/vars';
 
@@ -98,6 +98,16 @@ Choose which items appear and in what order:
 4. Press `Esc` to save and close. Press `Ctrl+C` to cancel without saving.
 
 Your choices are saved to the settings file, so the layout persists across sessions.
+
+## Start screen
+
+The start screen appears when you launch the CLI, showing a rotating ASCII object alongside sections for your account, the changelog, project info, and MCP servers. Customize it with the `appearance.zero_state` settings:
+
+* **`object`** - The rotating object. Keep the built-in one, or point the setting at your own ASCII art file (a path relative to the CLI settings directory). Changing the setting reloads the object. Edits to the linked file take effect after a restart.
+* **`rotation_period_seconds`** - Seconds per full rotation, from 1 through 60.
+* **`show_signed_in_user`, `show_changelog`, `show_project_info`, `show_mcp`, `show_animation`** - Toggle individual start-screen sections.
+
+The fastest way to change these is to [ask the agent](#ask-the-agent), for example "use my own ASCII art for the start screen object".
 
 ## Project context and rules
 

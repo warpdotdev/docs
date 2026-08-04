@@ -33,7 +33,7 @@ After installing, verify that the `warp` command is available:
 warp --version
 ```
 
-The command prints the installed version. The CLI keeps itself up to date automatically after this; see [automatic updates](/cli/#automatic-updates).
+The command prints the installed version. The CLI keeps itself up to date automatically after this. See [automatic updates](/cli/#automatic-updates).
 
 ## Log in
 
@@ -52,7 +52,7 @@ On machines without a browser, such as CI or remote servers, authenticate with a
 WARP_API_KEY=YOUR_API_KEY warp
 ```
 
-You can also pass the `--api-key` flag, but prefer the environment variable: command-line arguments can be captured in shell history and process listings. See [API keys](/reference/cli/api-keys/) for how to create one.
+You can also pass the `--api-key` flag, but prefer the environment variable. Command-line arguments can be captured in shell history and process listings. See [API keys](/reference/cli/api-keys/) for how to create one.
 :::
 
 ## Run your first prompt
@@ -70,9 +70,9 @@ You can run shell commands directly without leaving the CLI.
 2. Type a command, such as `git status`, and press `Enter`.
 3. Press `Backspace` on the empty input to switch back to prompting the agent.
 
-To run recognized shell commands without the `!` prefix, run `/natural-language-detection` to turn on natural language detection. The CLI then classifies input as you type: recognized commands switch to shell mode, while natural-language prompts stay in Agent Mode. The prompt marker and statusline show the active mode before you press `Enter`.
+To run recognized shell commands without the `!` prefix, run `/natural-language-detection` to turn on natural language detection. The CLI then classifies input as you type: recognized commands switch to shell mode, while natural-language prompts stay in agent mode. The prompt marker and statusline show the active mode before you press `Enter`.
 
-See [Shell commands](/cli/shell-commands/) for long-running commands, interactive programs, and natural language detection.
+See [Input and shell commands](/cli/input-and-shell-commands/) for long-running commands, interactive programs, and full-screen apps.
 
 ## Exit and resume
 

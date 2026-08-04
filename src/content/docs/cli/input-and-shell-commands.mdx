@@ -7,7 +7,7 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-The {VARS.WARP_CLI} is a full terminal as well as an agent: every session runs a real shell, so you can run commands in the same place you prompt the agent. The input is a multiline editor that combines readline-style editing with inline menus for slash commands, history, and completions, plus mouse support, image attachments, and voice input. For the complete list of flags, slash commands, and keyboard shortcuts, see the [{VARS.WARP_CLI} reference](/cli/reference/).
+The {VARS.WARP_CLI} is a full terminal as well as an agent. Every session runs a real shell, so you can run commands in the same place you prompt the agent. The input is a multiline editor that combines readline-style editing with inline menus for slash commands, history, and completions, plus mouse support, image attachments, and voice input. For the complete list of flags, slash commands, and keyboard shortcuts, see the [{VARS.WARP_CLI} reference](/cli/reference/).
 
 ## Editing basics
 
@@ -39,8 +39,8 @@ Press `↑` with the cursor on the first row of the input to open the history me
 
 * **What's listed** - In agent mode, the menu combines your previous prompts and shell commands in one list, with commands marked by a `!` prefix. In [shell mode](#shell-mode), the menu lists commands only.
 * **Preview** - Moving the selection previews each entry in the input and switches the input to the matching mode: recalled commands run as shell commands, and recalled prompts go to the agent.
-* **Submit** - `Enter` runs the selection immediately; it doesn't insert it for editing.
-* **Dismiss** - `Esc` restores what you had typed; `↓` past the newest entry does the same.
+* **Submit** - `Enter` runs the selection immediately. It doesn't insert it for editing.
+* **Dismiss** - `Esc` restores what you had typed. Pressing `↓` past the newest entry does the same.
 
 ## Tab completions
 
@@ -82,7 +82,7 @@ Voice input isn't currently included in the official Linux build. Linux support 
 1. Start listening with `Ctrl+S`, the `/voice` slash command, or by clicking **Voice** in the footer. The footer shows **Listening** while recording.
 2. Press `Enter`, or click the footer entry again, to stop recording. The transcribed text lands in the input so you can review and edit it before submitting.
 
-Press `Esc` while transcription is in progress to cancel it. `/voice` clears the input before recording; `Ctrl+S` keeps what you've already typed.
+Press `Esc` while transcription is in progress to cancel it. `/voice` clears the input before recording, and `Ctrl+S` keeps what you've already typed.
 
 Voice input in the CLI uses the same transcription service as the Warp app. See [voice input for agents](/agents/local-agents/interacting-with-agents/voice/) for microphone setup, privacy, and usage limits.
 
@@ -102,7 +102,7 @@ The input is agent-first: by default, pressing `Enter` sends your text to the ag
 
 To leave shell mode without running a command, press `Esc`, or press `Backspace` at the start of the input. Any text you typed stays in the input.
 
-In shell mode, press `Tab` to complete commands and paths; see [Tab completions](#tab-completions).
+In shell mode, press `Tab` to complete commands and paths. See [Tab completions](#tab-completions).
 
 :::note
 Running a shell command cancels the agent's in-progress response, if there is one.
@@ -142,7 +142,7 @@ Commands that switch the terminal to the alternate screen, such as `vim`, `htop`
 - **While the agent is responding** - `Ctrl+C` cancels the in-progress response. Text in the input is preserved.
 - **At an idle prompt** - `Ctrl+C` clears the input if it has text.
 
-After a press at the prompt, the statusline shows `ctrl-c again to exit` for about one second. Press `Ctrl+C` a second time within that window to exit the CLI. This works even while the agent is responding; while a shell command is running, `Ctrl+C` keeps interrupting the command instead.
+After a press at the prompt, the statusline shows `ctrl-c again to exit` for about one second. Press `Ctrl+C` a second time within that window to exit the CLI. This works even while the agent is responding. While a shell command is running, `Ctrl+C` keeps interrupting the command instead.
 
 There are two other ways to exit:
 

@@ -20,7 +20,7 @@ Every tool call the agent makes appears inline in the transcript, in the order i
 
 Some tool calls render richer, interactive content:
 
-* **[Shell commands](/cli/shell-commands/)** - Commands run in your session, with output streamed into the transcript.
+* **[Shell commands](/cli/input-and-shell-commands/#shell-mode)** - Commands run in your session, with output streamed into the transcript.
 * **[File edits](#code-diffs)** - Expandable diffs with per-file headers.
 * **[Questions](#agent-questions)** - Interactive option prompts.
 * **[Plans](#planning)** - Inline plan documents.
@@ -32,7 +32,7 @@ When a tool call needs your approval before it runs, an approval card appears in
 When the agent edits files, the edit renders as a diff in the transcript:
 
 * **Per-file sections** - Each edited file gets its own header showing the action taken and the lines added or removed.
-* **Multi-file edits** - Nest each file's section, indented, under one collapsible summary header (for example, `Edited 3 files`).
+* **Multi-file edits** - Each file's section nests, indented, under one collapsible summary header (for example, `Edited 3 files`).
 
 Diffs are fully expanded while the agent waits for your approval, then collapse to their headers once the edits are applied. Press `e` while the approval card is active to expand or collapse all diffs at once.
 
@@ -139,7 +139,7 @@ After compaction, a collapsed **Conversation summary** block appears in the tran
 ## Related pages
 
 * **[Permissions and profiles](/cli/permissions-and-profiles/)** - Approve, reject, or auto-approve the agent's tool calls.
-* **[Running shell commands](/cli/shell-commands/)** - How commands the agent (or you) run appear in the transcript.
+* **[Input and shell commands](/cli/input-and-shell-commands/)** - How commands the agent (or you) run appear in the transcript.
 * **[Cloud handoff and orchestration](/cli/cloud-and-orchestration/)** - Hand off conversations to cloud agents and resume cloud runs.
 * **[{VARS.WARP_CLI} reference](/cli/reference/)** - Command-line flags, slash commands, and keyboard shortcuts.
 * **[Planning](/agents/capabilities/planning/)** - The full planning workflow.

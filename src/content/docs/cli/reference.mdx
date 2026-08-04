@@ -52,7 +52,7 @@ warp --api-key YOUR_API_KEY
 Command-line arguments can be captured in shell history and process listings. Prefer the `WARP_API_KEY` environment variable, ideally populated from a secret manager.
 :::
 
-Create a key in the Warp app under **Settings** > **Platform**; see the [API keys reference](/reference/cli/api-keys/) for details.
+Create a key in the Warp app under **Settings** > **Platform**. See the [API keys reference](/reference/cli/api-keys/) for details.
 
 ### `--set-provider-api-key`
 
@@ -68,7 +68,7 @@ The CLI prompts for the key with masked input, so the key never appears in your 
 your-secret-manager read anthropic-api-key | warp --set-provider-api-key anthropic
 ```
 
-Avoid staging keys in plaintext files; if you must use a temporary file, delete it immediately afterward.
+Avoid staging keys in plaintext files. If you must use a temporary file, delete it immediately afterward.
 
 Inside a session, manage the same keys with the `/api-keys` menu; see [models and usage](/cli/models-and-usage/#bring-your-own-api-key) for how stored keys affect billing.
 
@@ -139,7 +139,7 @@ Skills also appear in the same menu under their own names, so you can invoke a s
 Press `?` on an empty input to open the contextual shortcuts panel inside the CLI. The tables below list the default bindings.
 
 :::note
-Bindings are identical on macOS and Linux. For shortcuts that use `Alt`, some macOS terminals deliver `Option` as `Alt` only when their Option-as-Alt (Meta) setting is enabled.
+Bindings are identical on macOS, Linux, and Windows, and Windows also accepts `Alt+V` for paste. For shortcuts that use `Alt`, some macOS terminals deliver `Option` as `Alt` only when their Option-as-Alt (Meta) setting is enabled.
 :::
 
 ### Session
@@ -213,7 +213,7 @@ The input supports familiar readline-style editing:
 | `Ctrl+Shift+C` | Copy the selection |
 | `Ctrl+X` | Cut the selection |
 
-For mouse support, completions, and other input behavior, see [input and editing](/cli/input-and-editing/).
+For mouse support, completions, and other input behavior, see [input and shell commands](/cli/input-and-shell-commands/).
 
 ## Troubleshooting
 

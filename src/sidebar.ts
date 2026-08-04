@@ -352,8 +352,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Using the agent',
 					items: [
 						{ slug: 'cli/agent-conversations', label: 'Agent conversations' },
-						{ slug: 'cli/shell-commands', label: 'Shell commands' },
-						{ slug: 'cli/input-and-editing', label: 'Input & editing' },
+						{ slug: 'cli/input-and-shell-commands', label: 'Input & shell commands' },
 						{ slug: 'cli/permissions-and-profiles', label: 'Permissions & profiles' },
 						{ slug: 'cli/cloud-and-orchestration', label: 'Cloud & orchestration' },
 					],
