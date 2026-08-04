@@ -10,7 +10,9 @@ The {VARS.WARP_CLI} brings the Warp Agent from the Warp app to the terminal you 
 
 ## What is the {VARS.WARP_CLI}?
 
-The {VARS.WARP_CLI} is a standalone terminal program that runs [Warp Agent](/platform/harnesses/warp-agent/), the same agent that powers the Warp app. It renders conversations as a scrolling transcript in your terminal, with streaming responses, code diffs, tool calls, and permission requests you approve inline. Because it's a regular command-line program, it works in any terminal emulator, including over SSH.
+The {VARS.WARP_CLI} is a standalone terminal program that runs [Warp Agent](/platform/harnesses/warp-agent/), the same agent that powers the Warp app. It renders conversations as a scrolling transcript in your terminal, with streaming responses, code diffs, tool calls, and permission requests you approve inline.
+
+The CLI is also a native terminal multiplexer: it creates and maintains its own pseudoterminal (PTY). This lets you and the agent execute commands and interact with running processes through the same terminal, including prompts and full-screen terminal apps. Because it's a regular command-line program, it works in any terminal emulator, including over SSH.
 
 To get a working setup in a few minutes, follow the [quickstart](/cli/quickstart/).
 
@@ -23,7 +25,7 @@ To get a working setup in a few minutes, follow the [quickstart](/cli/quickstart
 * **[Cloud handoff and orchestration](/cli/cloud-and-orchestration/)** - Hand a conversation off to a cloud agent, continue cloud runs in the CLI, and coordinate multiple agents.
 * **[Project context](/cli/configuration/#project-context-and-rules)** - The agent picks up your project's rules (like `AGENTS.md`), skills, and MCP servers automatically.
 * **[Model choice](/cli/models-and-usage/)** - Pick a model per conversation, bring your own provider API keys, and track credit usage.
-* **[Customization](/cli/configuration/)** - Configure themes, the statusline, keybindings, and more through a local settings file.
+* **[Customization](/cli/configuration/)** - Configure themes, the statusline, and keybindings. Replace the rotating start-screen object with your own ASCII art, and toggle the account, changelog, project, MCP, and animation sections.
 
 ## How it relates to the Warp app and Oz
 
@@ -36,6 +38,7 @@ The CLI runs on:
 
 * **macOS** - Apple Silicon and Intel.
 * **Linux** - x64 and Arm64.
+* **Windows** - x64 and Arm64.
 
 ## Logging in and out
 
@@ -49,7 +52,7 @@ The CLI keeps itself up to date. While it runs, it periodically checks for a new
 
 ## Coming from the Warp app
 
-If you already use the Warp app, most of your setup carries over. Rules and skills are discovered from the same shared paths, and your saved Warp Drive prompts are available after you log in (other Warp Drive object types aren't available in the CLI). For the rest, the CLI ships with a bundled migration skill: ask the agent to migrate your setup from the Warp app, and it walks you through copying compatible settings and global MCP server configurations. Credentials are never copied, so MCP servers that require authentication must be reauthenticated in the CLI.
+If you already use the Warp app, most of your setup carries over. Rules and skills are discovered from the same shared paths, and your saved Warp Drive prompts are available after you log in (other Warp Drive object types aren't available in the CLI). To copy compatible settings and global MCP server configurations, run the bundled `/tui-migrate-setup` skill and follow the agent's instructions. Credentials are never copied, so MCP servers that require authentication must be reauthenticated in the CLI.
 
 ## Next steps
 

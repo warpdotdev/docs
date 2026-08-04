@@ -11,15 +11,21 @@ This guide takes you from installing the {VARS.WARP_CLI} to your first agent con
 ## Prerequisites
 
 * **A Warp account** - The login step opens your browser, where you can sign in or create an account. The CLI uses the same account as the Warp app.
-* **A supported platform** - macOS or Linux. See [supported platforms](/cli/#supported-platforms).
+* **A supported platform** - macOS, Linux, or Windows. See [supported platforms](/cli/#supported-platforms).
 
 ## Install the {VARS.WARP_CLI}
 
-{/* PENDING: install instructions from eng */}
+In a terminal on macOS or Linux, run:
 
-:::note
-Install instructions will be published when the CLI is released. If you're testing a pre-release build, use the install link shared with you.
-:::
+```bash
+curl -fsSL https://app.warp.dev/download/agent-cli | bash
+```
+
+In PowerShell on Windows, run:
+
+```powershell
+Invoke-RestMethod "https://app.warp.dev/download/agent-cli.ps1" | Invoke-Expression
+```
 
 After installing, verify that the `warp` command is available:
 
@@ -63,6 +69,8 @@ You can run shell commands directly without leaving the CLI.
 1. Type `!` at the start of an empty input to switch to shell mode. The footer shows **Shell mode**.
 2. Type a command, such as `git status`, and press `Enter`.
 3. Press `Backspace` on the empty input to switch back to prompting the agent.
+
+To run recognized shell commands without the `!` prefix, run `/natural-language-detection` to turn on natural language detection. The CLI then classifies input as you type: recognized commands switch to shell mode, while natural-language prompts stay in Agent Mode. The prompt marker and statusline show the active mode before you press `Enter`.
 
 See [Shell commands](/cli/shell-commands/) for long-running commands, interactive programs, and natural language detection.
 
