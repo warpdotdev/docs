@@ -342,7 +342,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			],
 		},
 		{
-			label: 'Warp Agent CLI',
+			label: 'Agent CLI',
 			link: '/cli/',
 			icon: 'seti:shell',
 			items: [
