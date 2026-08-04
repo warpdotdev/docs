@@ -7,6 +7,7 @@ sidebar:
   label: "Quickstart"
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
 Scheduled agents are cloud agents that run on a recurring cron schedule, handling recurring tasks automatically without manual triggers. This guide walks you through setting up an agent that triages your GitHub bug reports every week, checks whether each issue has enough detail to investigate, and posts follow-up comments when information is missing. You'll use a prebundled skill and the Oz web app; no CLI or custom code required.
 
@@ -26,7 +27,7 @@ Watch this short demo of creating and testing a scheduled agent:
 
 1. From the [Schedules page](https://oz.warp.dev/schedules) in the Oz web app, click **New schedule**.
 2. Enter a schedule name, e.g. `Weekly bug report triage`.
-3. Under **Agent**, choose the identity the schedule runs as. **Quick run** is the default and runs every execution as you. See [Who the schedule runs as](#who-the-schedule-runs-as) before you decide.
+3. Expand **General**, then under **Agent**, choose the identity that will run the schedule. **Quick run** is the default and runs every execution as you. See [Run identity and pull request authorship](#run-identity-and-pull-request-authorship) before you decide.
 4. Under **Skills**, select **github-bug-report-triage**.
 5. Choose your environment.
 6. Under **Frequency**, choose a preset or enter a custom cron expression (e.g., `0 9 * * 1` for every Monday at 9 AM).
@@ -34,17 +35,17 @@ Watch this short demo of creating and testing a scheduled agent:
 
 **Breaking it down:** The schedule lives in Oz's cloud infrastructure. Unlike a local cron job, it fires even when your machine is off. Each run starts a fresh, isolated session with no state carried over from previous executions, and every run is tracked and reviewable in the [Oz web app](/platform/oz-web-app/).
 
-### Who the schedule runs as
+### Run identity and pull request authorship
 
 The **Agent** setting controls the identity behind every run, which determines how the agent authenticates to GitHub:
 
 * **Quick run** (default) - Runs execute as the user who created the schedule, using that person's GitHub credentials. Pull requests the agent opens are authored by that person.
-* **A cloud agent** - Runs execute as that [cloud agent](/platform/agents/). With [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) configured, the agent authenticates as the **Oz by Warp** GitHub App, so pull requests are authored by the app instead of an individual.
+* **Cloud agent** - Runs execute as the [cloud agent](/platform/agents/) you select. With [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) configured, the agent authenticates as the **Oz by Warp** GitHub App, so pull requests are authored by the app instead of an individual.
 
-Choose a cloud agent for any schedule that opens pull requests. Bot-authored PRs are clearly attributable to automation, and they can be reviewed and approved by anyone on the team — including the person who created the schedule, who cannot approve a PR authored by their own account.
+Choose a cloud agent for any schedule that opens pull requests. Pull requests authored by the app are clearly attributable to automation, and anyone on the team can review and approve them — including the person who created the schedule, who cannot approve a pull request authored by their own account.
 
 :::caution
-The **Agent** setting has no equivalent flag in the Oz CLI, so a schedule created with `oz schedule create` always runs as the user who created it. To run it as a cloud agent, set **Agent** on the schedule in the Oz web app after creating it.
+The Oz CLI has no **Agent** flag, so a schedule created with `oz schedule create` always runs as its creator. To run it as a cloud agent, set **Agent** on the schedule in the {VARS.WEB_APP} after creating it.
 :::
 
 ---

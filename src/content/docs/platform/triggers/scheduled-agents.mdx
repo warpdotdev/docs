@@ -7,6 +7,7 @@ sidebar:
   label: "Scheduled agents"
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
 Warp's Scheduled Agents let you run cloud agents automatically on a **recurring schedule**. They are designed for routine, repeatable tasks that should happen without manual intervention, such as dead code cleanup, dependency maintenance, issue triage, or periodic refactors.
 
@@ -97,7 +98,7 @@ Environments are optional — if you don't specify one, the scheduled agent runs
 :::
 
 :::caution
-`oz schedule create` has no flag for the **Agent** setting, so a schedule created with the CLI runs as the user who created it and opens pull requests under that person's GitHub account. To run a schedule as a [cloud agent](/platform/agents/) — so pull requests are authored by the **Oz by Warp** GitHub App — set **Agent** on the schedule in the [Oz web app](https://oz.warp.dev/schedules) after creating it. See [Who the schedule runs as](/platform/triggers/scheduled-agents-quickstart/#who-the-schedule-runs-as).
+`oz schedule create` has no **Agent** flag, so a schedule created with the CLI runs as its creator and opens pull requests under that person's GitHub account. To run it as a [cloud agent](/platform/agents/) instead, set **Agent** on the schedule from the <a href={`${VARS.WEB_APP_URL}/schedules`}>Schedules page</a> in the {VARS.WEB_APP} after creating it. See [Run identity and pull request authorship](/platform/triggers/scheduled-agents-quickstart/#run-identity-and-pull-request-authorship).
 :::
 
 **Example**
@@ -219,7 +220,7 @@ You may update one or more properties at a time, including:
 * The environment used for execution.
 * The model, MCP, and host configuration used for future runs.
 
-The **Agent** setting is not among them — like `oz schedule create`, `oz schedule update` has no flag for it. Change it in the [Oz web app](https://oz.warp.dev/schedules).
+The **Agent** setting can't be changed with this command. Change it from the <a href={`${VARS.WEB_APP_URL}/schedules`}>Schedules page</a> in the {VARS.WEB_APP}.
 
 #### Command
 
