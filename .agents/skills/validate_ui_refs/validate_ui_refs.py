@@ -260,6 +260,27 @@ _RE_UI_LABEL_PREFIX = re.compile(
     re.IGNORECASE,
 )
 
+# Opening/self-closing HTML or JSX tag on a single line, e.g.
+#   <DemoVideo src="..." label="Block Divider Demo" />
+#   <figure style={{ maxWidth: "375px" }}>
+# Quoted strings *inside* such a tag are component props or CSS values, never
+# Command Palette commands. Matching the tag span (rather than sniffing for a
+# `word=` prefix) keeps legitimate prose like `Palette: "Open theme picker"`
+# from being suppressed.
+_RE_HTML_JSX_TAG = re.compile(r"<[A-Za-z][^<>]*>")
+
+# Markdown fenced code block delimiter. Fenced blocks hold prompt and CLI
+# examples (e.g. an agent prompt that happens to quote a UI label), which are
+# illustrative text rather than live references to Warp's Command Palette.
+_RE_CODE_FENCE = re.compile(r"^\s*(?:```|~~~)")
+
+
+def _is_inside_jsx_tag(line: str, index: int) -> bool:
+    """Return True if `index` falls within an HTML/JSX tag on `line`."""
+    return any(
+        m.start() <= index < m.end() for m in _RE_HTML_JSX_TAG.finditer(line)
+    )
+
 
 def _is_plausible_command_name(name: str) -> bool:
     """Filter false positives for command palette names."""
@@ -339,7 +360,16 @@ def extract_command_palette_refs(file_path: Path) -> List[Dict[str, Any]]:
         return results
 
     lines = text.splitlines()
+    in_code_fence = False
     for line_num, line in enumerate(lines, start=1):
+        # Skip fenced code blocks — they contain prompt/CLI examples, not
+        # live UI references.
+        if _RE_CODE_FENCE.match(line):
+            in_code_fence = not in_code_fence
+            continue
+        if in_code_fence:
+            continue
+
         # Check if "Command Palette" is mentioned nearby (within 2 lines)
         context_start = max(0, line_num - 3)
         context_end = min(len(lines), line_num + 1)
@@ -367,6 +397,10 @@ def extract_command_palette_refs(file_path: Path) -> List[Dict[str, Any]]:
                     # — these are toggle/button labels, not CP commands
                     prefix = line[:match.start()]
                     if _RE_UI_LABEL_PREFIX.search(prefix):
+                        continue
+                    # Skip component props and CSS values inside JSX/HTML tags
+                    # (e.g. `label="..."`, `title="..."`, `maxWidth: "375px"`)
+                    if _is_inside_jsx_tag(line, match.start()):
                         continue
                     # Skip if already captured by arrow pattern
                     if not any(
@@ -1975,6 +2009,50 @@ def _run_self_test(valid_paths_path: Path) -> int:
                 os.environ.pop(key, None)
             else:
                 os.environ[key] = value
+
+    # --- 5. Command Palette extraction ignores JSX attributes and code fences
+    with tempfile.TemporaryDirectory() as td:
+        sample = Path(td) / "sample.mdx"
+        sample.write_text(textwrap.dedent("""\
+            Open the Command Palette and search for "Open theme picker".
+
+            <DemoVideo src="/assets/x.mp4" label="Block Divider Demo" />
+            <VideoEmbed url="https://example.com/v" title="Command Palette Demo" />
+            <figure style={{ maxWidth: "375px" }}>
+
+            Example prompt for the command palette:
+            ```text
+            Walk through the entire "New run" creation flow end to end.
+            ```
+
+            In the Command Palette, search for "Warpify SSH Session".
+            """))
+
+        found = {r["name"] for r in extract_command_palette_refs(sample)}
+
+        # JSX component props and CSS values must not be treated as commands.
+        for bogus in (
+            "Block Divider Demo",
+            "Command Palette Demo",
+            "375px",
+        ):
+            if bogus in found:
+                failures.append(
+                    f"extract_command_palette_refs() captured JSX attribute {bogus!r}"
+                )
+
+        # Quoted labels inside fenced code blocks are examples, not references.
+        if "New run" in found:
+            failures.append(
+                "extract_command_palette_refs() captured a name inside a code fence"
+            )
+
+        # Genuine prose references must still be captured.
+        for expected in ("Open theme picker", "Warpify SSH Session"):
+            if expected not in found:
+                failures.append(
+                    f"extract_command_palette_refs() missed prose reference {expected!r}"
+                )
 
     if failures:
         print("SELF-TEST FAILED:")
