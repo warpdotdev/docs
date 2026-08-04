@@ -14,30 +14,30 @@ Run `/model` to open the model picker. You can also click the model name in the 
 
 Models that your plan or your team's settings don't allow appear disabled in the picker.
 
-Your choice is saved as the base model of your active profile, so it persists across sessions. See [permissions and profiles](/cli/permissions-and-profiles/) for how profiles work in the CLI. For the full list of supported models and to learn more about how Warp's Auto models pick for you, see [Model choice](/agent-platform/inference/model-choice/).
+Your choice is saved as the base model of your active profile, so it persists across sessions. See [permissions and profiles](/cli/permissions-and-profiles/) for how profiles work in the CLI. For the full list of supported models and to learn more about how Warp's Auto models pick for you, see [Model choice](/agents/inference/model-choice/).
 
 ## Bring your own API key
 
-The CLI supports [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/) for OpenAI, Anthropic, and Google models, and can connect an [X Premium or SuperGrok subscription](/agent-platform/inference/grok-subscription/) for Grok models. When you select a model covered by one of your keys, requests are billed through your provider account and don't consume your Warp [credits](/support-and-community/plans-and-billing/credits/).
+The CLI supports [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/) for OpenAI, Anthropic, and Google models, and can connect an [X Premium or SuperGrok subscription](/agents/inference/grok-subscription/) for Grok models. When you select a model covered by one of your keys, requests are billed through your provider account and don't consume your Warp [credits](/support-and-community/plans-and-billing/credits/).
 
 Run `/api-keys` to open the key management menu. It lists each provider with its connection state, plus a Warp credit fallback toggle:
 
 * **Set a key** - Press `Enter` on OpenAI, Anthropic, or Google and enter the key. Input is masked, so the key never appears in your transcript or shell history, and it's saved to your device's secure storage. Warp does not store provider keys on its servers.
 * **Replace or clear a key** - On a connected provider, `Enter` loads the stored key (still masked) for editing, and saving an empty field clears it. `Ctrl+X` clears the highlighted provider's key from the list.
 * **Connect X Premium or SuperGrok** - Press `Enter` on the subscription row and the CLI opens your browser to sign in to your xAI account. `Ctrl+X` disconnects it.
-* **Warp credit fallback** - Press `Enter` to toggle whether a request that fails through your key is retried with Warp credits. See [failover and fallback behavior](/agent-platform/inference/bring-your-own-api-key/#failover-and-fallback-behavior).
+* **Warp credit fallback** - Press `Enter` to toggle whether a request that fails through your key is retried with Warp credits. See [failover and fallback behavior](/agents/inference/bring-your-own-api-key/#failover-and-fallback-behavior).
 
 You can also store or clear keys outside a session with the `--set-provider-api-key` and `--clear-provider-api-key` flags. See the [{VARS.WARP_CLI} reference](/cli/reference/#command-line-flags). X Premium/SuperGrok connections can only be managed through `/api-keys`.
 
 :::note
-Warp's built-in Auto models always consume Warp credits, even with BYOK configured. To bill through your own account, select a specific provider model, or use a [custom router](/agent-platform/inference/custom-routers/#using-your-own-api-keys-byok) whose targets your keys cover. See [BYOK usage and billing behavior](/agent-platform/inference/bring-your-own-api-key/#byok-usage-and-billing-behavior) for the full rules.
+Warp's built-in Auto models always consume Warp credits, even with BYOK configured. To bill through your own account, select a specific provider model, or use a [custom router](/agents/inference/custom-routers/#using-your-own-api-keys-byok) whose targets your keys cover. See [BYOK usage and billing behavior](/agents/inference/bring-your-own-api-key/#byok-usage-and-billing-behavior) for the full rules.
 :::
 
 ## Custom model routing
 
-[Custom routers](/agent-platform/inference/custom-routers/) appear in the `/model` picker alongside individual models. Select one and each prompt resolves to a concrete model using the routing logic you defined.
+[Custom routers](/agents/inference/custom-routers/) appear in the `/model` picker alongside individual models. Select one and each prompt resolves to a concrete model using the routing logic you defined.
 
-The CLI loads the same router definitions as the Warp app. These are YAML files in `~/.warp/custom_model_routers/`, plus any team-synced routers your admin shares. [Authoring a router as a file](/agent-platform/inference/custom-routers/#author-a-router-as-a-file) documents the file format.
+The CLI loads the same router definitions as the Warp app. These are YAML files in `~/.warp/custom_model_routers/`, plus any team-synced routers your admin shares. [Authoring a router as a file](/agents/inference/custom-routers/#author-a-router-as-a-file) documents the file format.
 
 ## Usage and cost
 
@@ -50,8 +50,8 @@ Credits are Warp's unit of usage for agent requests. For what credits cover and 
 
 ## Related pages
 
-* [Model choice](/agent-platform/inference/model-choice/) - Supported models and how automatic model selection works.
-* [Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/) - How BYOK works, key storage, and billing behavior.
-* [SuperGrok subscription](/agent-platform/inference/grok-subscription/) - Use Grok models through your xAI account.
-* [Custom routers](/agent-platform/inference/custom-routers/) - Define routing logic that picks a model per task.
+* [Model choice](/agents/inference/model-choice/) - Supported models and how automatic model selection works.
+* [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) - How BYOK works, key storage, and billing behavior.
+* [SuperGrok subscription](/agents/inference/grok-subscription/) - Use Grok models through your xAI account.
+* [Custom routers](/agents/inference/custom-routers/) - Define routing logic that picks a model per task.
 * [{VARS.WARP_CLI} reference](/cli/reference/) - Flags and slash commands, including the API key commands.
