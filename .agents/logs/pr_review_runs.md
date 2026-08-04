@@ -6,6 +6,14 @@ This is a human-readable audit trail of `review-docs-pr` runs on agent-authored 
 
 **Format**:
 ```markdown
+## 2026-08-04 — collector scan (no [SIGNAL:pr-review] markers)
+
+- **Branch**: n/a
+- **Skill used**: improve-drafting-skills feedback collector
+- **Critical**: 0 · **Important**: 0 · **Suggestions**: 0 · **Nits**: 0
+- **Top issue categories**: none (0 `[SIGNAL:pr-review]` / `[SIGNAL:style-lint]` markers found in title-matched Oz runs from `oz run list -L 100`; inner-loop markers still sparse)
+- **Oz run**: collector-only for monthly improve-drafting-skills on 2026-08-04
+
 ## YYYY-MM-DD — PR #NNN [Approve | Approve with nits | Request changes]
 - **Branch**: docs/branch-name
 - **Skill used**: draft_feature_doc
