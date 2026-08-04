@@ -264,7 +264,7 @@ The sign-in attempt was rejected or timed out. The message shows the underlying 
 
 ### Updating
 
-The CLI keeps itself up to date. Installed builds check for updates in the background, download new versions, and apply them the next time you launch `warp`. A running session is never interrupted.
+The CLI updates automatically. Installed builds check for updates in the background, download new versions, and apply them the next time you launch `warp`. A running session is never interrupted.
 
 To check which version you're running, use `/version` in a session, or run:
 
@@ -272,7 +272,7 @@ To check which version you're running, use `/version` in a session, or run:
 warp --version
 ```
 
-To disable background updates for a single launch, set the `WARP_TUI_DISABLE_AUTOUPDATE` environment variable to any value. To disable them persistently, turn off the autoupdate setting in the settings file. See [configuration](/cli/configuration/).
+To turn off background updates for a single launch, set the `WARP_TUI_DISABLE_AUTOUPDATE` environment variable to any value. To turn them off persistently, set `general.autoupdate_enabled` to `false` in the [CLI settings file](/cli/configuration/#the-settings-file).
 
 If an install becomes corrupted, re-running the install command from the [quickstart](/cli/quickstart/) replaces it with the latest version.
 
