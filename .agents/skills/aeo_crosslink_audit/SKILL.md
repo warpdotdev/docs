@@ -128,6 +128,10 @@ If Google Search Console data is unavailable, say what could not be verified and
 
    Replace `<message text here>` with the message from the appropriate format in the "Slack notification format" section. Do not print `SLACK_BOT_TOKEN` or `GROWTH_DOCS_SLACK_CHANNEL_ID` values in the run output or in any file.
 
+   **If `chat.postMessage` returns `channel_not_found`**, the secrets being set is not sufficient — either the channel ID is stale or the bot is not a member of the channel. Do not treat this as a successful post. Instead:
+   1. Try resolving the channel by name: call `conversations.list` (types `public_channel,private_channel`) and look for `growth-docs`. If found, retry the post with that ID and report that the stored `GROWTH_DOCS_SLACK_CHANNEL_ID` is wrong so a human can correct the secret.
+   2. If the lookup also fails or returns `missing_scope`, the bot is not in the channel or lacks scope. Write the notification body to the run output, and state explicitly in the run output that the Slack post failed with `channel_not_found` — never imply it was delivered.
+
 ## Link quality rules
 
 When adding links, follow the link style guidance in `AGENTS.md` and validate with `style_lint`.
