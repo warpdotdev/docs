@@ -109,7 +109,9 @@ If the command fails or returns an empty value, omit the `Oz run` line rather th
 
 ### Secrets and environment variables
 
-Always use `SLACK_BOT_TOKEN` and other secrets from environment variables — never inline them or print them to run output, logs, or Slack messages. If a required secret is unavailable, write the payload to the run output instead of posting to Slack. Do not crash the run on missing notification credentials. Include this in the skill as an explicit fallback, not just as an assumed environment guarantee.
+Always read Slack tokens and other secrets from environment variables — never inline them or print them to run output, logs, or Slack messages. If a required secret is unavailable, write the payload to the run output instead of posting to Slack. Do not crash the run on missing notification credentials. Include this in the skill as an explicit fallback, not just as an assumed environment guarantee.
+
+**Pick the token that matches the destination channel.** Several Slack bot tokens exist in the Oz secret store, and they authenticate as different bots with different channel memberships. A token that authenticates successfully still cannot post to a channel its bot has not joined. Name the expected bot in the skill's environment requirements (for example, `BUZZ_SLACK_TOKEN` posts as `buzz`, which is the account in `#growth-docs`) so a future editor does not swap in a token that authenticates but cannot deliver.
 
 **A secret being present does not mean it works.** A token can authenticate while the paired channel ID is stale, or the bot may not be a member of the target channel — Slack returns `channel_not_found` in both cases. Skills that post to Slack should define what to do on a failed post (attempt a lookup by channel name, then fall back to run output) and must report the failure explicitly rather than logging the run as fully successful.
 
