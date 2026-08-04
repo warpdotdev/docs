@@ -177,7 +177,7 @@ Ollama also provides official native libraries if you prefer an SDK built specif
 Open your app's code in Warp. Ask Warp's agent to locate the OpenAI client initialization, swap in the new values, and test the connection from the same terminal session.
 
 :::note
-The `http://localhost:11434/v1/` base URL works for code running on the same machine as Ollama. To use Ollama as the inference backend for Warp's own agent, the endpoint must be reachable at a public URL. Run `ngrok http 11434` and use the resulting HTTPS URL in Warp's [Custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/) settings.
+The `http://localhost:11434/v1/` base URL works for code running on the same machine as Ollama. To use Ollama as the inference backend for Warp's own agent, the endpoint must be reachable at a public URL. Run `ngrok http 11434` and use the resulting HTTPS URL in Warp's [Custom inference endpoint](/agents/inference/custom-inference-endpoint/) settings.
 :::
 
 ## 6. Customize model behavior
@@ -219,7 +219,7 @@ Your custom model is saved locally and available any time you run `ollama run co
 
 Next, explore related guides and features:
 
-- [Custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/) — connect Warp's agent to your local Ollama instance for a fully local, no-API-cost agent workflow
+- [Custom inference endpoint](/agents/inference/custom-inference-endpoint/) — connect Warp's agent to your local Ollama instance for a fully local, no-API-cost agent workflow
 - [Run multiple agents at once](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/) — run Ollama and a cloud agent in parallel to compare outputs on the same task
 - [Ollama model library](https://ollama.com/library) — browse all available models with size and capability details
 - [Ollama documentation](https://github.com/ollama/ollama/blob/main/README.md) — advanced configuration, GPU setup, and environment variables

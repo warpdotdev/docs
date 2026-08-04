@@ -17,7 +17,7 @@ Coding agents can produce hundreds of lines of code in seconds, but shipping tha
 ## Prerequisites
 
 * **A Git-tracked project** — Code review in Warp works on any Git repository.
-* **An AI coding agent** — This workflow applies to any CLI agent: [Claude Code](/guides/external-tools/how-to-set-up-claude-code/), [Codex](/guides/external-tools/how-to-set-up-codex-cli/), OpenCode, or Warp's built-in agent. See [Third-party CLI agents](/agent-platform/cli-agents/overview/) for setup.
+* **An AI coding agent** — This workflow applies to any CLI agent: [Claude Code](/guides/external-tools/how-to-set-up-claude-code/), [Codex](/guides/external-tools/how-to-set-up-codex-cli/), OpenCode, or Warp's built-in agent. See [Third-party CLI agents](/agents/cli-agents/overview/) for setup.
 
 ## Why review matters
 
@@ -115,10 +115,10 @@ If checks fail, you can either fix the issues manually in the Code Review panel 
 
 ## Productivity tips
 
-* **Attach diffs as context** — Select a diff hunk in the Code Review panel and attach it to your next prompt. This grounds the agent's response in your actual code changes. See [Selection as context](/agent-platform/local-agents/agent-context/selection-as-context/) for details.
+* **Attach diffs as context** — Select a diff hunk in the Code Review panel and attach it to your next prompt. This grounds the agent's response in your actual code changes. See [Selection as context](/agents/local-agents/agent-context/selection-as-context/) for details.
 * **Revert individual hunks** — Don't like one specific change? Revert just that hunk from the Code Review panel without undoing the rest of the agent's work.
 * **Compare against main** — Switch the diff view to "Changes vs. main" to see how the agent's work fits into the full scope of your branch, not just the latest edits.
-* **Use rules to prevent recurring issues** — If you notice the agent repeatedly making the same mistake (wrong import paths, incorrect naming conventions), add a [Rule](/agent-platform/capabilities/rules/) so it learns your project's standards.
+* **Use rules to prevent recurring issues** — If you notice the agent repeatedly making the same mistake (wrong import paths, incorrect naming conventions), add a [Rule](/agents/capabilities/rules/) so it learns your project's standards.
 
 ## Next steps
 
@@ -131,5 +131,5 @@ Explore related guides and features:
 * [Run multiple agents at once](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/) to compare outputs from different agents on the same task
 * [Claude Code in Warp](https://www.warp.dev/agents/claude-code) | [Codex in Warp](https://www.warp.dev/agents/codex) | [Gemini CLI in Warp](https://www.warp.dev/agents/gemini-cli) | [OpenCode in Warp](https://www.warp.dev/agents/opencode) — agent-specific overviews on the Warp marketing site
 * [Code Review panel](/code/code-review/) — full reference for all Code Review features
-* [Interactive Code Review](/agent-platform/local-agents/interactive-code-review/) — detailed docs on inline comments and batch feedback
-* [Third-party CLI agents](/agent-platform/cli-agents/overview/) — all supported agents and Warp's universal agent features
+* [Interactive Code Review](/agents/local-agents/interactive-code-review/) — detailed docs on inline comments and batch feedback
+* [Third-party CLI agents](/agents/cli-agents/overview/) — all supported agents and Warp's universal agent features

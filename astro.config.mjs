@@ -163,10 +163,11 @@ export default defineConfig({
 				// extends it to llms-full.txt and custom sets as well.
 				exclude: ['support-and-community/community/open-source-licenses'],
 					description:
-						'Documentation for Warp, the agentic development environment, and Oz, Warp\'s programmable agent for running and coordinating agents at scale.',
+						'Documentation for Warp, the agentic development environment. Covers Warp Terminal, Warp Agents, and the Oz platform for cloud agents and orchestration at scale.',
 					customSets: [
 						{ label: 'Terminal', description: 'Warp Terminal features and configuration.', paths: ['terminal/**'] },
-						{ label: 'Agent Platform', description: 'Warp\'s Agent Platform: capabilities, local agents, and CLI agents.', paths: ['agent-platform/**'] },
+						{ label: 'Agents', description: 'Warp\'s agents: capabilities, local agents, and CLI agents.', paths: ['agents/**'] },
+						{ label: 'Warp Agent CLI', description: 'The Warp Agent CLI: agent conversations, shell commands, permissions, and configuration in any terminal.', paths: ['cli/**'] },
 						{ label: 'Oz Platform', description: 'Warp\'s Oz platform: cloud agents, orchestration, triggers, integrations, environments, harnesses, and self-hosting.', paths: ['platform/**'] },
 						{ label: 'Code', description: 'Code editor, code review, and Git worktrees.', paths: ['code/**'] },
 						{ label: 'Enterprise', description: 'Enterprise features, SSO, team management, and security.', paths: ['enterprise/**'] },

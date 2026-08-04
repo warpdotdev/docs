@@ -6,14 +6,21 @@ The Scalar API reference at `docs.warp.dev/api` renders from
 `docs/developers/agent-api-openapi.yaml`, which is a curated subset.
 
 This script generates the docs subset deterministically:
+  * operations marked ``x-internal: true`` are removed, and a path whose
+    every operation is internal is dropped entirely
   * tags listed in EXCLUDED_TAGS are removed (and their paths/schemas)
   * paths listed in EXCLUDED_PATHS are removed
-  * surviving paths and operations are kept verbatim, including any
-    ``x-internal: true`` markers
   * components/schemas is pruned to only schemas reachable from the
     surviving paths via $ref walking
   * the regenerated spec is validated for unresolved $refs before
     being written; apply will refuse to write a broken spec
+
+``x-internal`` is warp-server's own public/private marker: its
+``public_api/public-openapi-filter.yaml`` strips those operations when the
+release pipeline publishes the spec. Honoring the same marker here keeps this
+script from publishing a surface the server team has explicitly marked private,
+instead of relying only on a hand-maintained tag allowlist that goes stale
+whenever a new private tag appears.
 
 Modes:
   diff       Print structural drift between source and target. Exits 1
@@ -39,9 +46,23 @@ from typing import Any
 import yaml
 
 # Tags whose paths and tag entry should be removed entirely.
-# `memory_stores` is gated as `x-internal` server-side.
+# `memory_stores` / `memory` back Agent Memory, which is a research preview.
 # `harness-support` is the worker-to-server contract — not a public API.
-EXCLUDED_TAGS: frozenset[str] = frozenset({"memory_stores", "harness-support"})
+# `factory` is Oz Factory, which has not shipped publicly.
+# These are belt-and-braces on top of the `x-internal` filter below: a tag can
+# be private even when individual operations aren't marked internal yet.
+EXCLUDED_TAGS: frozenset[str] = frozenset(
+    {"memory_stores", "memory", "harness-support", "factory"}
+)
+
+# OpenAPI extension warp-server uses to mark an operation private. Mirrors
+# `flagValues: [x-internal: true]` in warp-server/public_api/public-openapi-filter.yaml.
+INTERNAL_MARKER = "x-internal"
+
+# Path-item keys that are HTTP operations rather than shared path metadata.
+HTTP_METHODS: frozenset[str] = frozenset(
+    {"get", "put", "post", "delete", "options", "head", "patch", "trace"}
+)
 
 # Specific paths under otherwise-public tags that should be hidden from
 # the public API reference. Keep in sync with references/sync-policy.md.
@@ -53,6 +74,12 @@ EXCLUDED_PATHS: frozenset[str] = frozenset(
         "/agent/conversations/{conversationId}/redirect",
     }
 )
+
+# Path prefixes that are private no matter how the operation is tagged. Tag
+# checks alone are not enough here: some Factory operations are tagged `agent`
+# upstream (for example `GET /factory/scorers/{scorer_id}/results`), so a
+# tags-only rule would leak them into the public reference.
+EXCLUDED_PATH_PREFIXES: tuple[str, ...] = ("/factory",)
 
 # Default checkout layout: docs/ and warp-server/ as siblings.
 DEFAULT_SOURCE = Path("../warp-server/public_api/openapi.yaml")
@@ -124,11 +151,42 @@ def _path_tags(path_item: dict[str, Any]) -> set[str]:
     return tags
 
 
+def _is_internal_operation(operation: Any) -> bool:
+    """Whether an operation carries warp-server's ``x-internal: true`` marker."""
+    return isinstance(operation, dict) and operation.get(INTERNAL_MARKER) is True
+
+
+def strip_internal_operations(path_item: dict[str, Any]) -> dict[str, Any]:
+    """Return ``path_item`` without any operation marked ``x-internal: true``.
+
+    Non-operation keys (``parameters``, ``summary``, ``servers``, ...) are
+    preserved so a partially-internal path keeps its shared metadata.
+    """
+    return {
+        key: value
+        for key, value in path_item.items()
+        if not (key.lower() in HTTP_METHODS and _is_internal_operation(value))
+    }
+
+
+def _has_public_operation(path_item: dict[str, Any]) -> bool:
+    """Whether a path item still declares at least one non-internal operation."""
+    return any(
+        key.lower() in HTTP_METHODS and not _is_internal_operation(value)
+        for key, value in path_item.items()
+    )
+
+
 def _should_keep_path(path: str, path_item: dict[str, Any]) -> bool:
     if path in EXCLUDED_PATHS:
         return False
+    if path.startswith(EXCLUDED_PATH_PREFIXES):
+        return False
     tags = _path_tags(path_item)
     if tags and tags.issubset(EXCLUDED_TAGS):
+        return False
+    # A path whose every operation is marked internal has no public surface.
+    if not _has_public_operation(path_item):
         return False
     return True
 
@@ -240,7 +298,7 @@ def transform(source: dict[str, Any]) -> dict[str, Any]:
 
     src_paths = source.get("paths") or {}
     kept_paths = {
-        path: item
+        path: strip_internal_operations(item)
         for path, item in src_paths.items()
         if isinstance(item, dict) and _should_keep_path(path, item)
     }
