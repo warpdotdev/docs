@@ -107,16 +107,16 @@ The agent works in your session's current directory. When you `cd`, project rule
 
 Within a project, the CLI picks up the same rule files as the Warp app:
 
-* **Project rules** - `AGENTS.md` (or `WARP.md`) files in your repository apply automatically, starting from the repository root and your current directory. See [Rules](/agent-platform/capabilities/rules/) for the file format, nested rules in subdirectories, and precedence.
+* **Project rules** - `AGENTS.md` (or `WARP.md`) files in your repository apply automatically, starting from the repository root and your current directory. See [Rules](/agents/capabilities/rules/) for the file format, nested rules in subdirectories, and precedence.
 * **Global rules** - A rule file at `~/.agents/AGENTS.md` applies across all projects on your machine.
 
 Because rules and skills come from the same shared locations, a repository already configured for agents in the Warp app (or any tool that reads `AGENTS.md`) works in the CLI immediately.
 
 ## Skills
 
-[Skills](/agent-platform/capabilities/skills/) are reusable instruction sets the agent can invoke to perform specific tasks. The CLI discovers the same skills as the Warp app. Project skills come from your repository's skill directories (e.g., `.agents/skills/`), and personal skills come from your home directory (e.g., `~/.agents/skills/`), scoped to your current working directory.
+[Skills](/agents/capabilities/skills/) are reusable instruction sets the agent can invoke to perform specific tasks. The CLI discovers the same skills as the Warp app. Project skills come from your repository's skill directories (e.g., `.agents/skills/`), and personal skills come from your home directory (e.g., `~/.agents/skills/`), scoped to your current working directory.
 
-Run `/skills` to browse every skill in scope. Selecting a skill inserts `/skill-name` into the input so you can add extra instructions before running it. Any text after the skill name is passed along, either as [skill arguments](/agent-platform/capabilities/skills/#skill-arguments) or as additional context for the agent. You can also invoke a skill directly by typing `/` followed by its name, for example `/deploy push the latest changes to staging`.
+Run `/skills` to browse every skill in scope. Selecting a skill inserts `/skill-name` into the input so you can add extra instructions before running it. Any text after the skill name is passed along, either as [skill arguments](/agents/capabilities/skills/#skill-arguments) or as additional context for the agent. You can also invoke a skill directly by typing `/` followed by its name, for example `/deploy push the latest changes to staging`.
 
 ### Bundled skills
 
@@ -127,9 +127,9 @@ The CLI ships with built-in skills that appear in the skills menu alongside your
 
 ## MCP servers
 
-[MCP servers](/agent-platform/capabilities/mcp/) extend the agent with external tools and data sources. The CLI keeps its own MCP server configuration, separate from the Warp app's, so each can run its own set of servers.
+[MCP servers](/agents/capabilities/mcp/) extend the agent with external tools and data sources. The CLI keeps its own MCP server configuration, separate from the Warp app's, so each can run its own set of servers.
 
-Servers are defined in a JSON config file using the same `mcpServers` format as [file-based MCP servers](/agent-platform/capabilities/mcp/#file-based-mcp-servers) in the Warp app (on macOS, the file is `~/.warp_cli/.mcp.json`). Edit the file to add or remove servers. The CLI picks up changes automatically. Configured servers start automatically once you're logged in.
+Servers are defined in a JSON config file using the same `mcpServers` format as [file-based MCP servers](/agents/capabilities/mcp/#file-based-mcp-servers) in the Warp app (on macOS, the file is `~/.warp_cli/.mcp.json`). Edit the file to add or remove servers. The CLI picks up changes automatically. Configured servers start automatically once you're logged in.
 
 :::note
 The CLI reads MCP servers from its global config file only. Project-scoped MCP config files in repositories are not detected. To copy global server definitions from the Warp app, use the `/tui-migrate-setup` bundled skill.
@@ -145,8 +145,8 @@ Press `Enter` on a server to start, stop, or retry it depending on its state. Fa
 
 ## Related pages
 
-* [Rules](/agent-platform/capabilities/rules/) - Full guide to project and global rules
-* [Skills](/agent-platform/capabilities/skills/) - Authoring skills, skill arguments, and skill locations
-* [MCP servers](/agent-platform/capabilities/mcp/) - Config format, server examples, and authentication
-* [Codebase Context](/agent-platform/capabilities/codebase-context/) - Codebase indexing in the Warp app
+* [Rules](/agents/capabilities/rules/) - Full guide to project and global rules
+* [Skills](/agents/capabilities/skills/) - Authoring skills, skill arguments, and skill locations
+* [MCP servers](/agents/capabilities/mcp/) - Config format, server examples, and authentication
+* [Codebase Context](/agents/capabilities/codebase-context/) - Codebase indexing in the Warp app
 * [{VARS.WARP_CLI} reference](/cli/reference/) - Command-line flags, slash commands, and keyboard shortcuts
