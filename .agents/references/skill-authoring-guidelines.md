@@ -45,33 +45,37 @@ Agents often proceed past a failed file write without noticing. For any log upda
 - After appending: `tail -5 <file>` and confirm the new entry appears.
 - After push: `git log --oneline -1 origin/<branch>` and confirm the commit SHA matches the expected commit.
 
-### Source data and freshness
+### Source data from authenticated APIs
 
-**Cloud agents cannot call Peec MCP directly.** Peec requires OAuth authentication, which is not available in cloud agent environments. Any skill that needs Peec data must read from a pre-exported snapshot committed to the `buzz` repo.
+**Prefer live API calls with a token over pre-exported snapshots.** Cloud agents can authenticate with services that issue long-lived tokens. Peec, for example, is reached through its MCP server using a Personal Access Token stored as the `PEEC_PAT` Oz secret — cloud agents do not need OAuth, and they do not need a committed snapshot.
 
-If your skill uses external data (Peec, GSC, or any authenticated API) that is unavailable in cloud agents:
+When your skill needs data from an authenticated API:
 
-1. Build the data export into a separate **local-only skill** (e.g., `refresh-peec-aeo-snapshot`).
-2. The cloud skill reads the committed snapshot, not the live API.
-3. Add an explicit **freshness gate**: define a maximum age (e.g., 14 days), check `generated_at`, and exit with a stale-snapshot report if the threshold is exceeded. Never proceed with stale data.
-4. Document the freshness constraint clearly at the top of the `## Source data` section: explain why a snapshot is used instead of a live call, so future editors don't remove the constraint thinking it is overly cautious.
+1. Store the credential as an Oz secret and reference it by name in the skill's `## Environment requirements` section. Never inline it.
+2. For MCP-based sources, document the `mcp_servers` config the scheduled agent needs, so whoever creates the schedule knows the skill will not work without it:
+   ```json
+   {
+     "peec-ai": {
+       "url": "https://api.peec.ai/mcp",
+       "headers": {
+         "Authorization": "Bearer ${PEEC_PAT}"
+       }
+     }
+   }
+   ```
+3. Define an explicit **unavailable path**: what the skill does when the token is missing or expired, the MCP server is not configured, or the call fails. Log the specific failure (never the token value), degrade to the remaining signals, and raise the confidence bar for any output produced without the primary signal.
+4. Record availability in the run log (for example, `Source signals: Peec [available | unavailable]`) so the outer loop can distinguish a low-signal period from a broken credential.
 
-Freshness gate pattern:
-- Read `generated_at` from the snapshot metadata file.
-- If the file is missing, `generated_at` is absent, or the age exceeds the threshold:
-  - Write a stale-snapshot report with the exact age (or error reason).
-  - Write a run log entry with a `No-run reason` of `snapshot stale — N days old`.
-  - Post a Slack alert.
-  - Exit. Do not proceed or open a PR.
+**Use a committed snapshot only as a last resort** — when a source genuinely cannot be authenticated from a cloud agent. Snapshots introduce a freshness gate, a manual local refresh step, and a failure mode where the agent exits without doing work because nobody refreshed the data. If you do use one, define a maximum age, check it before use, and pair the skill with a scheduled refresh so the gate cannot silently starve the pipeline.
 
 ### Scope consistency
 
 When you add a new topic area to a skill's scope, audit every section — especially `## Source data` — to confirm the source data actually covers the new topic. A common mistake: a skill lists four topic areas but the source data description names only three. The agent then produces lower-quality briefs for the fourth topic with no signal, or invents signals.
 
 Checklist when expanding scope:
-- Does the snapshot include data for the new topic? If not, update the snapshot refresh skill, or document the lower confidence explicitly.
+- Does the source data include the new topic? If not, extend the tracked queries or prompts at the source, or document the lower confidence explicitly.
 - Are all quality gates still valid for the new topic? (e.g., minimum brief count thresholds)
-- Does the stale-snapshot report reflect the full scope?
+- Do the no-action and unavailable-signal reports reflect the full scope?
 
 ### Scope contradictions in "Do not" lists
 
@@ -107,7 +111,7 @@ Always use `SLACK_BOT_TOKEN` and other secrets from environment variables — ne
 
 ### Slack notifications
 
-Post a Slack notification on every run, including no-action runs and stale-snapshot exits. A missing notification on a no-action run is indistinguishable from a run that silently failed. Use a simple text message (not Block Kit) that can be scanned in under 30 seconds.
+Post a Slack notification on every run, including no-action runs and runs that exited early because a source signal was unavailable. A missing notification on a no-action run is indistinguishable from a run that silently failed. Use a simple text message (not Block Kit) that can be scanned in under 30 seconds.
 
 ---
 
@@ -117,7 +121,7 @@ Outer loop skills run less frequently (typically monthly) and read the inner loo
 
 ### Data minimum before the outer loop can run
 
-The outer loop needs enough run log entries to identify real patterns, not noise. Require a minimum entry count before acting (the `improve-aeo-crosslink-skill` uses 8 entries ≈ 2 months; `improve-aeo-new-guide-rec-skill` should start after ~4 entries ≈ 6–8 weeks). If the minimum is not met, write a "too early to analyze" notice to run output and skip the PR.
+The outer loop needs enough run log entries to identify real patterns, not noise. Require a minimum entry count before acting (the `improve-aeo-crosslink-skill` uses 8 entries ≈ 2 months at a weekly cadence; `improve-aeo-new-guide-rec-skill` should start after ~4 entries ≈ 4 months at a monthly cadence). If the minimum is not met, write a "too early to analyze" notice to run output and skip the PR.
 
 This minimum must be stated explicitly in the skill's `## Schedule` section so the deployer knows when to start the agent.
 
