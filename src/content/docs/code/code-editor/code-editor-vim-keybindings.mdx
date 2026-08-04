@@ -79,8 +79,27 @@ See [Vim docs: motion](https://vimdoc.sourceforge.net/htmldoc/motion.html) for m
 | `.`        | repeat last edit                                            |
 | `gcc`      | toggle comments on current line                             |
 | `gc`       | toggle comments on visual selection                         |
+| `>`, `<`   | indent or dedent a range or object                          |
+| `>>`, `<<` | indent or dedent the current line                           |
 
 See [Vim docs: editing](https://vimdoc.sourceforge.net/htmldoc/editing.html) for more information.
+
+#### Indenting and dedenting
+
+`>` and `<` are operators, so they combine with any supported motion or text object the same way `d` and `y` do:
+
+| Command   | Description                                              |
+| --------- | -------------------------------------------------------- |
+| `>>`      | indent the current line                                  |
+| `<<`      | dedent the current line                                  |
+| `>j`      | indent the current line and the line below               |
+| `>ap`     | indent the current paragraph                             |
+| `3>>`     | indent the current line and the two below it             |
+| `>` / `<` | indent or dedent the selection in visual or visual line mode |
+
+In visual mode, `>` and `<` shift the selected lines and return to Normal mode.
+
+See [Vim docs: shifting text](https://vimdoc.sourceforge.net/htmldoc/change.html#%3E) for more information.
 
 #### Text objects
 

@@ -13,9 +13,9 @@ Warp Agent is the same agent runtime that powers Agent Mode in the Warp terminal
 
 ## Key features
 
-* **Multi-model auto-routing** - Routes between Anthropic, OpenAI, Google, and Fireworks-hosted models. Choose a specific model, or let Warp pick via `auto`, `auto-efficient`, `auto-genius`, or `auto-open`. See [Model choice](/agent-platform/inference/model-choice/) for the full catalog.
+* **Multi-model auto-routing** - Routes between Anthropic, OpenAI, Google, and Fireworks-hosted models. Choose a specific model, or let Warp pick via `auto`, `auto-efficient`, `auto-genius`, or `auto-open`. See [Model choice](/agents/inference/model-choice/) for the full catalog.
 * **Full terminal and tool access** - Runs commands, edits files, reads logs, executes tests, navigates repos, and calls MCP servers, giving cloud runs the same toolbelt Warp Agent uses locally.
-* **Platform-native context** - Reads [Codebase Context](/agent-platform/capabilities/codebase-context/), applies [Rules](/agent-platform/capabilities/rules/), reuses saved [Skills](/agent-platform/capabilities/skills/), and respects Memory and Warp Drive context with no extra setup.
+* **Platform-native context** - Reads [Codebase Context](/agents/capabilities/codebase-context/), applies [Rules](/agents/capabilities/rules/), reuses saved [Skills](/agents/capabilities/skills/), and respects Memory and Warp Drive context with no extra setup.
 * **Multi-repo execution** - Clones every repo configured on the [environment](/platform/environments/) and works across them in a single run.
 * **Cross-harness orchestration parent** - A Warp Agent parent run can spawn Claude Code or Codex [subagents](/platform/) and coordinate their outputs. Other harnesses cannot act as parents in a multi-harness orchestration.
 * **No extra credentials** - Warp Agent uses your existing Warp account and credits. There's no separate API key to configure.
@@ -28,7 +28,7 @@ Team admins can disable any harness for their workspace. Users on that team can 
 
 ### Available models
 
-Warp Agent supports the full Warp model catalog. Configure the model per [Agent Profile](/agent-platform/capabilities/agent-profiles-permissions/), or pick one at run time. See [Model choice](/agent-platform/inference/model-choice/) for the supported model IDs, including the `auto`, `auto-efficient`, `auto-genius`, and `auto-open` routing options.
+Warp Agent supports the full Warp model catalog. Configure the model per [Agent Profile](/agents/capabilities/agent-profiles-permissions/), or pick one at run time. See [Model choice](/agents/inference/model-choice/) for the supported model IDs, including the `auto`, `auto-efficient`, `auto-genius`, and `auto-open` routing options.
 
 ### Cross-harness orchestration
 
@@ -64,6 +64,6 @@ For a complete walkthrough, see the [Cloud agents quickstart](/platform/quicksta
 * [Harnesses in Oz](/platform/harnesses/) — choose between Warp Agent, Claude Code, and Codex.
 * [Claude Code with Oz](/platform/harnesses/claude-code/) — Claude Code as a cloud harness.
 * [Codex with Oz](/platform/harnesses/codex/) — Codex as a cloud harness.
-* [Model choice](/agent-platform/inference/model-choice/) — the model catalog Warp Agent routes across.
-* [Agent Profiles and permissions](/agent-platform/capabilities/agent-profiles-permissions/) — configure the default model, autonomy, and tool access for Warp Agent.
+* [Model choice](/agents/inference/model-choice/) — the model catalog Warp Agent routes across.
+* [Agent Profiles and permissions](/agents/capabilities/agent-profiles-permissions/) — configure the default model, autonomy, and tool access for Warp Agent.
 * [Skills as agents](/platform/skills-as-agents/) — turn a saved skill into a reusable Warp Agent run.
