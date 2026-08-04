@@ -11,6 +11,14 @@ Draft a troubleshooting page that helps users diagnose and fix common issues.
 
 Follow the workflow in `.warp/skills/draft_docs/SKILL.md`, using the **troubleshooting template** at `.warp/templates/troubleshooting.md`.
 
+## Frontmatter description
+
+One sentence, 50-160 characters, naming the symptoms covered rather than the act of troubleshooting.
+- ✅ `Fix sign-in failures, failed conversation resumes, and update problems in the Warp Agent CLI.`
+- ❌ `Troubleshooting information for common problems.`
+
+See "Descriptions by content type" under Frontmatter in `AGENTS.md` for the full rules.
+
 ## Content type rules
 
 These rules are specific to troubleshooting pages (from the "Drafting by content type" section of `AGENTS.md`):
