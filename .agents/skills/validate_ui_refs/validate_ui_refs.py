@@ -3,14 +3,14 @@
 
 Scans markdown files for references to Warp UI paths (Settings > ..., File > ..., etc.)
 and Command Palette command names, then validates them against a snapshot of known-valid
-paths extracted from the warp-internal codebase.
+paths extracted from the public warp client repo (warpdotdev/warp).
 
 Usage:
     python3 validate_ui_refs.py --all
     python3 validate_ui_refs.py --check-paths
     python3 validate_ui_refs.py --check-commands
     python3 validate_ui_refs.py --all --fix --create-pr --slack-notify
-    python3 validate_ui_refs.py --refresh-valid-paths --warp-internal-path /path/to/warp-internal
+    python3 validate_ui_refs.py --refresh-valid-paths --warp /path/to/warp
 """
 from __future__ import annotations
 
@@ -34,6 +34,10 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 DEFAULT_VALID_PATHS_FILE = SCRIPT_DIR / "valid_paths.json"
 DEFAULT_DOCS_DIR = SCRIPT_DIR.parents[2] / "src" / "content" / "docs"
 DEFAULT_SLACK_CHANNEL = "C09BVK0PL3Y"  # #growth-docs
+
+# Sibling directory names tried when auto-detecting the warp client checkout.
+# Prefer the public warpdotdev/warp repo; `warp-internal` is a legacy fallback.
+WARP_REPO_SIBLING_NAMES = ("warp", "warp-internal")
 
 # Known Warp UI roots — paths starting with these are Warp UI paths
 WARP_UI_ROOTS = {"Settings", "File", "View", "Warp", "Warp Drive", "Personal"}
@@ -1358,11 +1362,38 @@ def notify_slack(
 
 
 # ---------------------------------------------------------------------------
-# Refresh valid_paths.json from warp-internal
+# Refresh valid_paths.json from the warp client repo
 # ---------------------------------------------------------------------------
 
-def refresh_valid_paths(warp_internal_path: Path, output_path: Path) -> None:
-    """Re-extract valid paths from warp-internal Rust sources and save to JSON.
+def resolve_warp_repo(explicit_path: Optional[str]) -> Path:
+    """Resolve the warp client repo checkout used for snapshot extraction.
+
+    Resolution order:
+    1. An explicit `--warp PATH` (or the deprecated `--warp-internal-path`).
+    2. The `WARP_REPO_PATH` env var, or the deprecated `WARP_INTERNAL_PATH`.
+    3. A sibling of the docs repo named `warp` (the public warpdotdev/warp
+       checkout), falling back to a legacy `warp-internal` sibling.
+
+    When nothing is found, returns the preferred sibling path so the caller
+    can report a useful "not found" error.
+    """
+    if explicit_path:
+        return Path(explicit_path)
+
+    env_path = os.environ.get("WARP_REPO_PATH") or os.environ.get("WARP_INTERNAL_PATH")
+    if env_path:
+        return Path(env_path)
+
+    siblings_root = SCRIPT_DIR.parents[2].parent
+    for name in WARP_REPO_SIBLING_NAMES:
+        candidate = siblings_root / name
+        if candidate.exists():
+            return candidate
+    return siblings_root / WARP_REPO_SIBLING_NAMES[0]
+
+
+def refresh_valid_paths(warp_repo_path: Path, output_path: Path) -> None:
+    """Re-extract valid paths from the warp client repo's Rust sources and save to JSON.
 
     Preserves hand-maintained lists (macos_menu_bar, warp_drive, umbrellas,
     deprecated_sections, top_level_sidebar) from the existing snapshot.
@@ -1378,10 +1409,10 @@ def refresh_valid_paths(warp_internal_path: Path, output_path: Path) -> None:
     other's sub_sections. Any sub_sections value curated in the existing
     snapshot is treated as authoritative and is not overwritten.
     """
-    print(f"Refreshing valid_paths.json from {warp_internal_path}...")
+    print(f"Refreshing valid_paths.json from {warp_repo_path}...")
 
-    settings_sections = _extract_settings_sections(warp_internal_path)
-    command_palette = _extract_command_palette_commands(warp_internal_path)
+    settings_sections = _extract_settings_sections(warp_repo_path)
+    command_palette = _extract_command_palette_commands(warp_repo_path)
 
     # Load existing for menu bar, warp drive, umbrellas, deprecated_sections,
     # and top_level_sidebar (all manually maintained lists).
@@ -1394,7 +1425,7 @@ def refresh_valid_paths(warp_internal_path: Path, output_path: Path) -> None:
     # Best-effort: pull umbrellas from `SettingsUmbrella::new(...)` calls in mod.rs
     # and merge into the existing snapshot (existing entries win on conflict).
     try:
-        extracted_umbrellas = _extract_umbrellas(warp_internal_path)
+        extracted_umbrellas = _extract_umbrellas(warp_repo_path)
     except Exception as e:  # pragma: no cover - defensive, parser errors
         print(f"  Warning: umbrella extraction failed: {e}", file=sys.stderr)
         extracted_umbrellas = {}
@@ -1445,14 +1476,14 @@ def refresh_valid_paths(warp_internal_path: Path, output_path: Path) -> None:
     )
 
 
-def _extract_umbrellas(warp_internal: Path) -> Dict[str, Any]:
+def _extract_umbrellas(warp_repo: Path) -> Dict[str, Any]:
     """Parse SettingsUmbrella::new("Label", vec![...]) calls from mod.rs.
 
     Maps each umbrella label to its ordered list of subpage **display names**
     (resolved via the `Display for SettingsSection` impl). Returns a dict
     shaped like the `umbrellas` field in valid_paths.json.
     """
-    mod_rs = warp_internal / "app" / "src" / "settings_view" / "mod.rs"
+    mod_rs = warp_repo / "app" / "src" / "settings_view" / "mod.rs"
     umbrellas: Dict[str, Any] = {}
     try:
         mod_text = mod_rs.read_text(encoding="utf-8")
@@ -1512,9 +1543,9 @@ def _extract_umbrellas(warp_internal: Path) -> Dict[str, Any]:
     return umbrellas
 
 
-def _extract_settings_sections(warp_internal: Path) -> Dict[str, Any]:
+def _extract_settings_sections(warp_repo: Path) -> Dict[str, Any]:
     """Parse SettingsSection enum and sub-sections from Rust source files."""
-    mod_rs = warp_internal / "app" / "src" / "settings_view" / "mod.rs"
+    mod_rs = warp_repo / "app" / "src" / "settings_view" / "mod.rs"
     sections = {}
 
     # Parse Display impl for section display names
@@ -1590,7 +1621,7 @@ def _extract_settings_sections(warp_internal: Path) -> Dict[str, Any]:
         "Privacy": "privacy_page.rs",
     }
 
-    settings_dir = warp_internal / "app" / "src" / "settings_view"
+    settings_dir = warp_repo / "app" / "src" / "settings_view"
 
     for variant, display_name in display_map.items():
         source_file = page_files.get(variant, "mod.rs")
@@ -1622,14 +1653,14 @@ def _extract_settings_sections(warp_internal: Path) -> Dict[str, Any]:
     return sections
 
 
-def _extract_command_palette_commands(warp_internal: Path) -> List[Dict[str, str]]:
+def _extract_command_palette_commands(warp_repo: Path) -> List[Dict[str, str]]:
     """Parse EditableBinding registrations to extract command palette commands."""
     commands = []
     seen_descriptions = set()
 
     source_files = [
-        warp_internal / "app" / "src" / "terminal" / "view" / "init.rs",
-        warp_internal / "app" / "src" / "workspace" / "mod.rs",
+        warp_repo / "app" / "src" / "terminal" / "view" / "init.rs",
+        warp_repo / "app" / "src" / "workspace" / "mod.rs",
     ]
 
     for source_file in source_files:
@@ -1832,8 +1863,10 @@ def _run_self_test(valid_paths_path: Path) -> int:
     2. `_is_external_path()` no longer suppresses `Settings > MCP Servers` in a
        sentence containing GitHub / Linear mentions (previous bug).
     3. `refresh_valid_paths()` preserves umbrellas + deprecated_sections when
-       run against a synthetic warp-internal with the new enum, and populates
+       run against a synthetic warp checkout with the new enum, and populates
        the new subpage entries.
+    4. `resolve_warp_repo()` honors the explicit path, the `WARP_REPO_PATH` env
+       var, and the deprecated `WARP_INTERNAL_PATH` fallback in that order.
     """
     import textwrap
 
@@ -1872,8 +1905,8 @@ def _run_self_test(valid_paths_path: Path) -> int:
 
     # --- 3. refresh_valid_paths preservation + extraction
     with tempfile.TemporaryDirectory() as td:
-        wi_root = Path(td) / "warp-internal"
-        mod_rs = wi_root / "app" / "src" / "settings_view" / "mod.rs"
+        warp_root = Path(td) / "warp"
+        mod_rs = warp_root / "app" / "src" / "settings_view" / "mod.rs"
         mod_rs.parent.mkdir(parents=True)
         mod_rs.write_text(textwrap.dedent(_SYNTHETIC_MOD_RS))
 
@@ -1881,7 +1914,7 @@ def _run_self_test(valid_paths_path: Path) -> int:
         snap_path = Path(td) / "valid_paths.json"
         snap_path.write_text(valid_paths_path.read_text())
 
-        refresh_valid_paths(wi_root, snap_path)
+        refresh_valid_paths(warp_root, snap_path)
 
         refreshed = load_valid_paths(snap_path)
 
@@ -1893,7 +1926,7 @@ def _run_self_test(valid_paths_path: Path) -> int:
             failures.append("refresh lost the Agents umbrella")
 
         # The extractor should have picked up the synthetic umbrellas too.
-        extracted = _extract_umbrellas(wi_root)
+        extracted = _extract_umbrellas(warp_root)
         for expected in ("Agents", "Code", "Cloud platform"):
             if expected not in extracted:
                 failures.append(
@@ -1916,6 +1949,32 @@ def _run_self_test(valid_paths_path: Path) -> int:
                 failures.append(
                     f"settings_sections missing subpage `{expected_subpage}` after refresh"
                 )
+
+    # --- 4. resolve_warp_repo precedence (explicit > WARP_REPO_PATH >
+    # deprecated WARP_INTERNAL_PATH > sibling auto-detect)
+    saved_env = {
+        key: os.environ.get(key) for key in ("WARP_REPO_PATH", "WARP_INTERNAL_PATH")
+    }
+    try:
+        os.environ["WARP_REPO_PATH"] = "/tmp/from-warp-repo-path"
+        os.environ["WARP_INTERNAL_PATH"] = "/tmp/from-warp-internal-path"
+
+        if resolve_warp_repo("/tmp/explicit") != Path("/tmp/explicit"):
+            failures.append("resolve_warp_repo() ignored the explicit --warp path")
+        if resolve_warp_repo(None) != Path("/tmp/from-warp-repo-path"):
+            failures.append("resolve_warp_repo() did not prefer WARP_REPO_PATH")
+
+        del os.environ["WARP_REPO_PATH"]
+        if resolve_warp_repo(None) != Path("/tmp/from-warp-internal-path"):
+            failures.append(
+                "resolve_warp_repo() dropped the deprecated WARP_INTERNAL_PATH fallback"
+            )
+    finally:
+        for key, value in saved_env.items():
+            if value is None:
+                os.environ.pop(key, None)
+            else:
+                os.environ[key] = value
 
     if failures:
         print("SELF-TEST FAILED:")
@@ -1944,11 +2003,18 @@ def main() -> int:
     parser.add_argument("--slack-notify", action="store_true", help="Post results to Slack")
     parser.add_argument("--slack-channel", default=DEFAULT_SLACK_CHANNEL, help="Slack channel ID")
     parser.add_argument("--include-changelog", action="store_true", help="Include changelog/ in scan")
-    parser.add_argument("--refresh-valid-paths", action="store_true", help="Re-extract from warp-internal")
+    parser.add_argument("--refresh-valid-paths", action="store_true", help="Re-extract from the warp client repo")
+    parser.add_argument(
+        "--warp",
+        dest="warp_repo_path",
+        help="Path to the public warp client repo (auto-detected as a sibling "
+             "of the docs repo named 'warp', with 'warp-internal' as fallback; "
+             "also reads the WARP_REPO_PATH env var)",
+    )
     parser.add_argument(
         "--warp-internal-path",
-        default=os.environ.get("WARP_INTERNAL_PATH", str(SCRIPT_DIR.parents[2].parent / "warp-internal")),
-        help="Path to warp-internal repo",
+        dest="warp_repo_path",
+        help="Deprecated alias for --warp",
     )
     parser.add_argument("--valid-paths", default=str(DEFAULT_VALID_PATHS_FILE), help="Path to valid_paths.json")
     parser.add_argument("--docs-dir", default=str(DEFAULT_DOCS_DIR), help="Path to docs directory")
@@ -1966,14 +2032,18 @@ def main() -> int:
         args.all = True
 
     valid_paths_file = Path(args.valid_paths)
-    warp_internal = Path(args.warp_internal_path)
+    warp_repo = resolve_warp_repo(args.warp_repo_path)
 
     # Refresh valid paths if requested
     if args.refresh_valid_paths:
-        if not warp_internal.exists():
-            print(f"Error: warp-internal not found at {warp_internal}", file=sys.stderr)
+        if not warp_repo.exists():
+            print(
+                f"Error: warp client repo not found at {warp_repo}. Pass --warp PATH "
+                "or set WARP_REPO_PATH.",
+                file=sys.stderr,
+            )
             return 1
-        refresh_valid_paths(warp_internal, valid_paths_file)
+        refresh_valid_paths(warp_repo, valid_paths_file)
         if not args.all and not args.check_paths and not args.check_commands:
             return 0
 
