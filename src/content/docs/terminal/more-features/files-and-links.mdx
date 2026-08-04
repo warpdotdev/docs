@@ -71,6 +71,21 @@ Non-exhaustive list of editors, please submit new ones on our GitHub, see [Sendi
 
 <DemoVideo src="/assets/terminal/files-links-demo.mp4" label="Files & Links Demo" />
 
+### OSC 8 hyperlinks
+
+Warp recognizes the OSC 8 escape sequence, so command-line tools can print a short label that links to a longer URL instead of printing the raw URL. When a program emits an OSC 8 hyperlink, Warp renders only the visible text and makes it clickable, the same way it treats auto-detected URLs:
+
+* Hold `⌘` (macOS) or `Ctrl` (Windows/Linux) and click the linked text to open it.
+* Copying the block copies the visible text, not the escape sequence or the underlying URL.
+
+Any URL scheme works, including `file://` URLs without a hostname. To try it, print a hyperlink from your shell:
+
+```bash
+printf '\033]8;;https://docs.warp.dev\033\\Warp docs\033]8;;\033\\\n'
+```
+
+The output shows `Warp docs` as a clickable link. Plain-text URL detection still works, so tools that print full URLs behave as before.
+
 ## Scripts
 
 Warp can open `.command` and Unix Executable files from Finder directly.

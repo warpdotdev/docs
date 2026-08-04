@@ -163,7 +163,7 @@ export default defineConfig({
 				// extends it to llms-full.txt and custom sets as well.
 				exclude: ['support-and-community/community/open-source-licenses'],
 					description:
-						'Documentation for Warp, the agentic development environment, and Oz, Warp\'s programmable agent for running and coordinating agents at scale.',
+						'Documentation for Warp, the agentic development environment. Covers Warp Terminal, Warp Agents, and the Oz platform for cloud agents and orchestration at scale.',
 					customSets: [
 						{ label: 'Terminal', description: 'Warp Terminal features and configuration.', paths: ['terminal/**'] },
 						{ label: 'Agents', description: 'Warp\'s agents: capabilities, local agents, and CLI agents.', paths: ['agents/**'] },

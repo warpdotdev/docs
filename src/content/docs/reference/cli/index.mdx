@@ -396,7 +396,7 @@ The following commands are available for managing and inspecting Oz resources.
 
 ### Managing named agents
 
-[Named agents](/platform/agents/) are reusable agent configurations — a name, description, skills, secrets, base model, and default environment — that you can run with `oz agent run-cloud --agent <UID>` and scope API keys to.
+[Named agents](/platform/agents/) are reusable agent configurations — a name, description, base prompt, skills, secrets, base model, and default environment — that you can run with `oz agent run-cloud --agent <UID>` and scope API keys to.
 
 List the named agents on your team, optionally sorting by name or creation time:
 
@@ -417,6 +417,7 @@ Create a named agent. Only `--name` is required; attach skills and secrets by re
 oz agent create \
   --name "release-notes" \
   --description "Drafts release notes from merged PRs" \
+  --prompt "Draft concise release notes grouped by feature area." \
   --skill "myorg/repo:release-notes" \
   --secret GITHUB_TOKEN \
   --base-model <MODEL_ID> \
@@ -438,6 +439,7 @@ Common `oz agent update` flags:
 
 * `--name <NAME>` (`-n`) — rename the agent.
 * `--description <TEXT>` / `--remove-description` — set or clear the description.
+* `--prompt <TEXT>` / `--remove-prompt` — set or clear the base prompt applied to the agent's runs.
 * `--add-secret <NAME>` / `--remove-secret <NAME>` / `--remove-all-secrets` — manage attached secrets.
 * `--add-skill <SKILL>` / `--remove-skill <SKILL>` / `--remove-all-skills` — manage attached skills.
 * `--base-model <MODEL_ID>` / `--remove-base-model` — set or clear the base model.
