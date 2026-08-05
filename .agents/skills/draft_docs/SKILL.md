@@ -93,6 +93,8 @@ These rules are frequently violated by agents. Apply them carefully during draft
 - **Tables or parallel bullets for comparison and reference data** — When you present two or more parallel items (key types, plan tiers, environments) or structured reference data (API endpoints, parameters), use a Markdown table or tightly parallel bullets instead of one dense paragraph. ✅ a table with one row per API endpoint, or parallel `**Personal API keys**` / `**Agent API keys**` bullet groups ❌ a single paragraph mixing both key types and their billing rules
 - **Bold for UI elements** — Use `**Save**` not `` `Save` `` after action verbs like "click"
 - **Bold per-segment for Settings paths** — Use `**Settings** > **AI** > **Knowledge**` not `` `Settings > AI > Knowledge` ``
+- **Screenshots for hard-to-describe UI** — When a page documents a visual surface (statusline chips, tab bars, settings panes, multi-control layouts), include a screenshot after the prose that introduces that surface. Do not rely on prose alone for chrome that reviewers cannot reconstruct from text. Prefer one well-placed figure over repeating the same surface. Always use descriptive alt text. ✅ a statusline screenshot after the paragraph that names the chips ❌ describing chip layout in a long paragraph with no image when humans keep asking "should we include a screenshot?"
+- **`VideoEmbed` requires a specific `title`** — Every `<VideoEmbed>` must include a `title` prop that names the integration, workflow, feature, or task shown. ✅ `<VideoEmbed url="..." title="Warp Agent CLI conversation transcript walkthrough" />` ❌ `<VideoEmbed url="..." />` or a generic title like `"video"` / `"demo"`
 
 ### 7. Draft the doc
 Create the documentation using the appropriate template from `.agents/templates/`. Follow the structure for the identified content type and all rules in `AGENTS.md`. Each template includes visible bracketed instructions explaining what to put in each section.
@@ -127,6 +129,8 @@ Before presenting the draft, verify against the quality checklist in `AGENTS.md`
 - [ ] Product names with a corresponding entry in `src/data/vars.ts` use the variable syntax (`{VARS.KEY}` in prose, `{{TOKEN}}` in frontmatter) — not hardcoded strings
 - [ ] If AEO-driven, the draft follows the AEO brief, uses source vocabulary naturally, and avoids duplicative or junk-drawer coverage
 - [ ] Images have descriptive alt text
+- [ ] Visual UI surfaces that are hard to reconstruct from prose include a screenshot (or an explicit note that no screenshot is available yet)
+- [ ] Every `VideoEmbed` includes a specific `title` prop describing the workflow or feature shown
 
 ### 10. Update navigation and redirects
 If this is a new page, remind the user to:
