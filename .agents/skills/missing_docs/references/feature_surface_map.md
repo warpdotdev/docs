@@ -323,6 +323,15 @@ POST /oauth/token -> internal
 GET /oauth/jwks.json -> internal
 GET /.well-known/openid-configuration -> internal
 
+# RFC 8414 / RFC 9728 OAuth discovery documents that MCP clients fetch
+# automatically before authenticating against the hosted Factory MCP endpoint
+# (router/handlers/public_api/oauth2.go, registered only when the dogfood-only
+# factory_mcp flag is on). They are machine-facing protocol metadata for an
+# unreleased product, absent from warp-server's canonical public spec, so they
+# are not a documentable public API surface.
+GET /.well-known/oauth-authorization-server -> internal
+GET /.well-known/oauth-protected-resource/api/v1/mcp/factory -> internal
+
 # Anonymous-viewer redirect probes (documented exceptions to auth, not API surfaces).
 GET /agent/sessions/{session_uuid}/redirect -> internal
 GET /agent/conversations/{conversation_id}/redirect -> internal
@@ -378,6 +387,9 @@ POST /factory/{uid}/tasks -> internal
 GET /factory/{uid}/tasks/{task_uid} -> internal
 PATCH /factory/{uid}/tasks/{task_uid} -> internal
 DELETE /factory/{uid}/tasks/{task_uid} -> internal
+# Also marked `x-internal: true` in warp-server's canonical spec, so the publish
+# filter strips it from the public docs copy.
+GET /factory/{uid}/metrics -> internal
 GET /factory/{uid}/integrations/linear/teams -> internal
 GET /factory/{uid}/integrations/linear/teams/{team_id}/labels -> internal
 PUT /factory/{uid}/integrations/linear/teams/{team_id}/labels -> internal
@@ -522,6 +534,12 @@ appearance.zero_state.show_changelog -> internal
 appearance.zero_state.show_project_info -> internal
 appearance.zero_state.show_mcp -> internal
 appearance.zero_state.show_animation -> internal
+
+# Warp Agent CLI-only toggle that stops the zero-state animation from repainting
+# while the terminal is unfocused (app/src/settings/tui_zero_state.rs). Like the
+# other zero-state knobs it isn't in the GUI settings UI, so it's documented on
+# the Warp Agent CLI configuration page instead of the all-settings reference.
+appearance.zero_state.freeze_animation_when_unfocused -> src/content/docs/cli/configuration.mdx
 
 # Warp Agent CLI-only (crates/warp_tui) push-to-talk key for voice input (surface:
 # SettingSurfaces::TUI in app/src/settings/tui_voice.rs). The GUI equivalent is the
