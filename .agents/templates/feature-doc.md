@@ -36,6 +36,8 @@ Define new terms when they first appear.
 IMPORTANT: Do NOT include step-by-step procedures in this section.
 Keep the conceptual and procedural sections clearly separated.]
 
+[SCREENSHOTS: If this feature has a distinctive visual surface (statusline, tab bar, side pane, multi-control layout), place a screenshot immediately after the paragraph that introduces that surface. Use descriptive alt text. Skip screenshots for purely textual CLI behavior.]
+
 ## [Usage/configuration section — sentence case. Rename to match the feature, e.g., "Creating environments", "Configuring integrations"]
 
 [PROCEDURAL section: step-by-step instructions.
