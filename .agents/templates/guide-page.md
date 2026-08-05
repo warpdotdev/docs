@@ -13,7 +13,8 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 {/* VARS: Also add the line below if this guide references product names from src/data/vars.ts. Then use {VARS.KEY} in prose. Use {{TOKEN}} in frontmatter YAML values above. See AGENTS.md → Content variables. */}
 {/* import { VARS } from '@data/vars'; */}
 
-<VideoEmbed url="[YouTube or Loom URL — remove this block if no video]" />
+{/* VIDEO: Always include a specific title prop naming the workflow/feature shown. Remove the entire VideoEmbed block if there is no video. */}
+<VideoEmbed url="[YouTube or Loom URL]" title="[Specific title: integration, workflow, or task shown — not generic 'video' or 'demo']" />
 
 ## Prerequisites
 
