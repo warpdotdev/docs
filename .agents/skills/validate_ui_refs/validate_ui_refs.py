@@ -1687,43 +1687,62 @@ def _extract_settings_sections(warp_repo: Path) -> Dict[str, Any]:
     return sections
 
 
+# `EditableBinding::new("action", "Description", ...)` and the
+# `BindingDescription::new("Description")` variant.
+_RE_EDITABLE_BINDING = re.compile(
+    r'EditableBinding::new\(\s*"([^"]+)",\s*'
+    r'(?:BindingDescription::new\(\s*"([^"]+)"|"([^"]+)")'
+)
+
+
+def _iter_binding_source_files(warp_repo: Path):
+    """Yield Rust files under `app/src` that may register command bindings.
+
+    Walks the whole desktop app tree rather than a hand-picked file list:
+    bindings are registered across many view modules (for example
+    `pane_group/pane/view/mod.rs` registers "Share pane"), and hardcoding
+    files silently drops any command defined elsewhere.
+
+    Excluded:
+    - test modules, whose fixture bindings are not real commands
+    - `crates/warp_tui`, which is the headless TUI front-end and does not
+      share the desktop Command Palette
+
+    Traversal is sorted so the generated snapshot is deterministic.
+    """
+    app_src = warp_repo / "app" / "src"
+    if not app_src.exists():
+        return
+    for root, dirs, filenames in os.walk(app_src):
+        dirs[:] = sorted(d for d in dirs if d not in {"tests", "target"})
+        for filename in sorted(filenames):
+            if not filename.endswith(".rs"):
+                continue
+            if filename.endswith(("_tests.rs", "_test.rs")) or filename == "mod_test.rs":
+                continue
+            yield Path(root) / filename
+
+
 def _extract_command_palette_commands(warp_repo: Path) -> List[Dict[str, str]]:
     """Parse EditableBinding registrations to extract command palette commands."""
     commands = []
     seen_descriptions = set()
 
-    source_files = [
-        warp_repo / "app" / "src" / "terminal" / "view" / "init.rs",
-        warp_repo / "app" / "src" / "workspace" / "mod.rs",
-    ]
-
-    for source_file in source_files:
-        if not source_file.exists():
-            continue
+    for source_file in _iter_binding_source_files(warp_repo):
         try:
             text = source_file.read_text(encoding="utf-8")
-        except OSError:
+        except (OSError, UnicodeDecodeError):
             continue
 
-        # Pattern: EditableBinding::new("name", "description", ...)
-        for m in re.finditer(
-            r'EditableBinding::new\(\s*"([^"]+)",\s*"([^"]+)"',
-            text,
-        ):
-            name, desc = m.group(1), m.group(2)
-            if desc not in seen_descriptions and not desc.startswith("[Debug]"):
-                commands.append({"name": name, "description": desc})
-                seen_descriptions.add(desc)
-
-        # Pattern: EditableBinding::new("name", BindingDescription::new("description"), ...)
-        for m in re.finditer(
-            r'EditableBinding::new\(\s*"([^"]+)",\s*BindingDescription::new\("([^"]+)"\)',
-            text,
-        ):
-            name, desc = m.group(1), m.group(2)
-            if desc not in seen_descriptions and not desc.startswith("[Debug]"):
-                commands.append({"name": name, "description": desc})
-                seen_descriptions.add(desc)
+        for m in _RE_EDITABLE_BINDING.finditer(text):
+            name = m.group(1)
+            # group(2) is the BindingDescription::new(...) form, group(3) the
+            # plain string literal form; exactly one of them matches.
+            desc = m.group(2) or m.group(3)
+            if not desc or desc in seen_descriptions or desc.startswith("[Debug]"):
+                continue
+            commands.append({"name": name, "description": desc})
+            seen_descriptions.add(desc)
 
     return commands
 
