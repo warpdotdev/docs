@@ -342,6 +342,11 @@ def _is_plausible_command_name(name: str) -> bool:
         "tab indicators", "show sticky command header",
         "settings sync", "empty session", "secret redaction",
         "sticky command header", "vim keybindings",
+        # Mouse reporting is a Settings > Features toggle. The Command Palette
+        # does surface it, but with a state-dependent label ("Enable ..." /
+        # "Disable ..."), and it is registered as a settings row rather than an
+        # EditableBinding, so it never appears in the extracted snapshot.
+        "mouse reporting", "enable mouse reporting", "disable mouse reporting",
     }
     if name_lower in _settings_toggle_phrases:
         return False
