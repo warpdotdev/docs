@@ -23,6 +23,15 @@ This is a human-readable audit trail of `review-docs-pr` runs on agent-authored 
 ```
 
 ---
+## 2026-08-05 — collector scan (no [SIGNAL:pr-review] markers)
+
+- **Branch**: n/a
+- **Skill used**: improve-drafting-skills feedback collector
+- **Critical**: 0 · **Important**: 0 · **Suggestions**: 0 · **Nits**: 0
+- **Top issue categories**: none (0 `[SIGNAL:pr-review]` / `[SIGNAL:style-lint]` markers found in title-matched Oz runs from `oz run list --limit 100`; pagination/cursor not available on this CLI build; inner-loop markers still sparse)
+- **Oz run**: collector-only for monthly improve-drafting-skills on 2026-08-05
+- **Human feedback collected**: 218 new review_comment/review_verdict records appended to `human_review_feedback.jsonl` from agent-coauthored merged PRs
+
 ## 2026-08-03 — collector scan (no [SIGNAL:pr-review] markers)
 - **Branch**: n/a
 - **Skill used**: improve-drafting-skills feedback collector
