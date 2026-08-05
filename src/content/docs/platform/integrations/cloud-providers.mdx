@@ -155,7 +155,7 @@ AWS authentication mechanism. The following environment variables are set while 
 The Oz GCP integration uses [Workload Identity Federation](https://docs.cloud.google.com/iam/docs/workload-identity-federation).
 You will need to configure a pool and provider to trust OIDC tokens produced by Oz.
 
-These instructions use the `gcloud` tool. You may also follow the OIDC instructions in
+These instructions use the `gcloud` tool. You can also follow the OIDC instructions in
 [Configure Workload Identity Federation with other identity providers](https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-providers)
 to use the GCP console or Terraform.
 
@@ -258,7 +258,7 @@ oz federate issue-token --audience your-provider.com --output-format json
 Optionally, add `--duration <duration>` to customize the token validity. This cannot exceed the
 maximum runtime of an agent.
 
-You may then exchange this token for provider-specific credentials.
+You can then exchange this token for provider-specific credentials.
 
 ## OIDC token claims
 
