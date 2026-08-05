@@ -260,6 +260,27 @@ _RE_UI_LABEL_PREFIX = re.compile(
     re.IGNORECASE,
 )
 
+# Opening/self-closing HTML or JSX tag on a single line, e.g.
+#   <DemoVideo src="..." label="Block Divider Demo" />
+#   <figure style={{ maxWidth: "375px" }}>
+# Quoted strings *inside* such a tag are component props or CSS values, never
+# Command Palette commands. Matching the tag span (rather than sniffing for a
+# `word=` prefix) keeps legitimate prose like `Palette: "Open theme picker"`
+# from being suppressed.
+_RE_HTML_JSX_TAG = re.compile(r"<[A-Za-z][^<>]*>")
+
+# Markdown fenced code block delimiter. Fenced blocks hold prompt and CLI
+# examples (e.g. an agent prompt that happens to quote a UI label), which are
+# illustrative text rather than live references to Warp's Command Palette.
+_RE_CODE_FENCE = re.compile(r"^\s*(?:```|~~~)")
+
+
+def _is_inside_jsx_tag(line: str, index: int) -> bool:
+    """Return True if `index` falls within an HTML/JSX tag on `line`."""
+    return any(
+        m.start() <= index < m.end() for m in _RE_HTML_JSX_TAG.finditer(line)
+    )
+
 
 def _is_plausible_command_name(name: str) -> bool:
     """Filter false positives for command palette names."""
@@ -321,6 +342,11 @@ def _is_plausible_command_name(name: str) -> bool:
         "tab indicators", "show sticky command header",
         "settings sync", "empty session", "secret redaction",
         "sticky command header", "vim keybindings",
+        # Mouse reporting is a Settings > Features toggle. The Command Palette
+        # does surface it, but with a state-dependent label ("Enable ..." /
+        # "Disable ..."), and it is registered as a settings row rather than an
+        # EditableBinding, so it never appears in the extracted snapshot.
+        "mouse reporting", "enable mouse reporting", "disable mouse reporting",
     }
     if name_lower in _settings_toggle_phrases:
         return False
@@ -339,7 +365,16 @@ def extract_command_palette_refs(file_path: Path) -> List[Dict[str, Any]]:
         return results
 
     lines = text.splitlines()
+    in_code_fence = False
     for line_num, line in enumerate(lines, start=1):
+        # Skip fenced code blocks — they contain prompt/CLI examples, not
+        # live UI references.
+        if _RE_CODE_FENCE.match(line):
+            in_code_fence = not in_code_fence
+            continue
+        if in_code_fence:
+            continue
+
         # Check if "Command Palette" is mentioned nearby (within 2 lines)
         context_start = max(0, line_num - 3)
         context_end = min(len(lines), line_num + 1)
@@ -367,6 +402,10 @@ def extract_command_palette_refs(file_path: Path) -> List[Dict[str, Any]]:
                     # — these are toggle/button labels, not CP commands
                     prefix = line[:match.start()]
                     if _RE_UI_LABEL_PREFIX.search(prefix):
+                        continue
+                    # Skip component props and CSS values inside JSX/HTML tags
+                    # (e.g. `label="..."`, `title="..."`, `maxWidth: "375px"`)
+                    if _is_inside_jsx_tag(line, match.start()):
                         continue
                     # Skip if already captured by arrow pattern
                     if not any(
@@ -1653,43 +1692,62 @@ def _extract_settings_sections(warp_repo: Path) -> Dict[str, Any]:
     return sections
 
 
+# `EditableBinding::new("action", "Description", ...)` and the
+# `BindingDescription::new("Description")` variant.
+_RE_EDITABLE_BINDING = re.compile(
+    r'EditableBinding::new\(\s*"([^"]+)",\s*'
+    r'(?:BindingDescription::new\(\s*"([^"]+)"|"([^"]+)")'
+)
+
+
+def _iter_binding_source_files(warp_repo: Path):
+    """Yield Rust files under `app/src` that may register command bindings.
+
+    Walks the whole desktop app tree rather than a hand-picked file list:
+    bindings are registered across many view modules (for example
+    `pane_group/pane/view/mod.rs` registers "Share pane"), and hardcoding
+    files silently drops any command defined elsewhere.
+
+    Excluded:
+    - test modules, whose fixture bindings are not real commands
+    - `crates/warp_tui`, which is the headless TUI front-end and does not
+      share the desktop Command Palette
+
+    Traversal is sorted so the generated snapshot is deterministic.
+    """
+    app_src = warp_repo / "app" / "src"
+    if not app_src.exists():
+        return
+    for root, dirs, filenames in os.walk(app_src):
+        dirs[:] = sorted(d for d in dirs if d not in {"tests", "target"})
+        for filename in sorted(filenames):
+            if not filename.endswith(".rs"):
+                continue
+            if filename.endswith(("_tests.rs", "_test.rs")) or filename == "mod_test.rs":
+                continue
+            yield Path(root) / filename
+
+
 def _extract_command_palette_commands(warp_repo: Path) -> List[Dict[str, str]]:
     """Parse EditableBinding registrations to extract command palette commands."""
     commands = []
     seen_descriptions = set()
 
-    source_files = [
-        warp_repo / "app" / "src" / "terminal" / "view" / "init.rs",
-        warp_repo / "app" / "src" / "workspace" / "mod.rs",
-    ]
-
-    for source_file in source_files:
-        if not source_file.exists():
-            continue
+    for source_file in _iter_binding_source_files(warp_repo):
         try:
             text = source_file.read_text(encoding="utf-8")
-        except OSError:
+        except (OSError, UnicodeDecodeError):
             continue
 
-        # Pattern: EditableBinding::new("name", "description", ...)
-        for m in re.finditer(
-            r'EditableBinding::new\(\s*"([^"]+)",\s*"([^"]+)"',
-            text,
-        ):
-            name, desc = m.group(1), m.group(2)
-            if desc not in seen_descriptions and not desc.startswith("[Debug]"):
-                commands.append({"name": name, "description": desc})
-                seen_descriptions.add(desc)
-
-        # Pattern: EditableBinding::new("name", BindingDescription::new("description"), ...)
-        for m in re.finditer(
-            r'EditableBinding::new\(\s*"([^"]+)",\s*BindingDescription::new\("([^"]+)"\)',
-            text,
-        ):
-            name, desc = m.group(1), m.group(2)
-            if desc not in seen_descriptions and not desc.startswith("[Debug]"):
-                commands.append({"name": name, "description": desc})
-                seen_descriptions.add(desc)
+        for m in _RE_EDITABLE_BINDING.finditer(text):
+            name = m.group(1)
+            # group(2) is the BindingDescription::new(...) form, group(3) the
+            # plain string literal form; exactly one of them matches.
+            desc = m.group(2) or m.group(3)
+            if not desc or desc in seen_descriptions or desc.startswith("[Debug]"):
+                continue
+            commands.append({"name": name, "description": desc})
+            seen_descriptions.add(desc)
 
     return commands
 
@@ -1975,6 +2033,50 @@ def _run_self_test(valid_paths_path: Path) -> int:
                 os.environ.pop(key, None)
             else:
                 os.environ[key] = value
+
+    # --- 5. Command Palette extraction ignores JSX attributes and code fences
+    with tempfile.TemporaryDirectory() as td:
+        sample = Path(td) / "sample.mdx"
+        sample.write_text(textwrap.dedent("""\
+            Open the Command Palette and search for "Open theme picker".
+
+            <DemoVideo src="/assets/x.mp4" label="Block Divider Demo" />
+            <VideoEmbed url="https://example.com/v" title="Command Palette Demo" />
+            <figure style={{ maxWidth: "375px" }}>
+
+            Example prompt for the command palette:
+            ```text
+            Walk through the entire "New run" creation flow end to end.
+            ```
+
+            In the Command Palette, search for "Warpify SSH Session".
+            """))
+
+        found = {r["name"] for r in extract_command_palette_refs(sample)}
+
+        # JSX component props and CSS values must not be treated as commands.
+        for bogus in (
+            "Block Divider Demo",
+            "Command Palette Demo",
+            "375px",
+        ):
+            if bogus in found:
+                failures.append(
+                    f"extract_command_palette_refs() captured JSX attribute {bogus!r}"
+                )
+
+        # Quoted labels inside fenced code blocks are examples, not references.
+        if "New run" in found:
+            failures.append(
+                "extract_command_palette_refs() captured a name inside a code fence"
+            )
+
+        # Genuine prose references must still be captured.
+        for expected in ("Open theme picker", "Warpify SSH Session"):
+            if expected not in found:
+                failures.append(
+                    f"extract_command_palette_refs() missed prose reference {expected!r}"
+                )
 
     if failures:
         print("SELF-TEST FAILED:")
