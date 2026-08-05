@@ -342,6 +342,37 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			],
 		},
 		{
+			label: 'Agent CLI',
+			link: '/cli/',
+			icon: 'right-caret',
+			items: [
+				{ slug: 'cli', label: 'Overview' },
+				{ slug: 'cli/quickstart', label: 'Quickstart' },
+				{
+					label: 'Using the agent',
+					items: [
+						{ slug: 'cli/agent-conversations', label: 'Agent conversations' },
+						{ slug: 'cli/input-and-shell-commands', label: 'Input & shell commands' },
+						{ slug: 'cli/permissions-and-profiles', label: 'Permissions & profiles' },
+						{ slug: 'cli/cloud-and-orchestration', label: 'Cloud & orchestration' },
+					],
+				},
+				{
+					label: 'Context & customization',
+					items: [
+						{ slug: 'cli/configuration', label: 'Configuration' },
+						{ slug: 'cli/models-and-usage', label: 'Models & usage' },
+					],
+				},
+				{
+					label: 'Reference',
+					items: [
+						{ slug: 'cli/reference', label: 'CLI reference' },
+					],
+				},
+			],
+		},
+		{
 			label: 'Oz',
 			link: '/platform/',
 			icon: 'cloud-download',

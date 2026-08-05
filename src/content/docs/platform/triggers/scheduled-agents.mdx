@@ -7,6 +7,7 @@ sidebar:
   label: "Scheduled agents"
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
 Warp's Scheduled Agents let you run cloud agents automatically on a **recurring schedule**. They are designed for routine, repeatable tasks that should happen without manual intervention, such as dead code cleanup, dependency maintenance, issue triage, or periodic refactors.
 
@@ -94,6 +95,10 @@ oz schedule create \
 
 :::note
 Environments are optional — if you don't specify one, the scheduled agent runs in a barebones sandbox. Without an environment, the agent won't have access to your code repositories, pre-installed tools, or setup commands, so this is only suited for tasks that don't need your codebase.
+:::
+
+:::caution
+`oz schedule create` has no **Agent** flag, so a schedule created with the CLI runs as its creator and opens pull requests under that person's GitHub account. To run it as a [cloud agent](/platform/agents/) instead, set **Agent** on the schedule from the <a href={`${VARS.WEB_APP_URL}/schedules`}>Schedules page</a> in the {VARS.WEB_APP} after creating it. See [Run identity and pull request authorship](/platform/triggers/scheduled-agents-quickstart/#run-identity-and-pull-request-authorship).
 :::
 
 **Example**
@@ -214,6 +219,8 @@ You may update one or more properties at a time, including:
 * The skill used as the base prompt.
 * The environment used for execution.
 * The model, MCP, and host configuration used for future runs.
+
+The **Agent** setting can't be changed with this command. Change it from the <a href={`${VARS.WEB_APP_URL}/schedules`}>Schedules page</a> in the {VARS.WEB_APP}.
 
 #### Command
 
