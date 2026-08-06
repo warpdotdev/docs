@@ -101,43 +101,8 @@
       "statusCode": 308
     },
     {
-      "source": "/cli/agent-conversations/",
-      "destination": "/agents/cli/agent-conversations/",
-      "statusCode": 308
-    },
-    {
-      "source": "/cli/cloud-and-orchestration/",
-      "destination": "/agents/cli/cloud-and-orchestration/",
-      "statusCode": 308
-    },
-    {
-      "source": "/cli/configuration/",
-      "destination": "/agents/cli/configuration/",
-      "statusCode": 308
-    },
-    {
-      "source": "/cli/input-and-shell-commands/",
-      "destination": "/agents/cli/input-and-shell-commands/",
-      "statusCode": 308
-    },
-    {
-      "source": "/cli/models-and-usage/",
-      "destination": "/agents/cli/models-and-usage/",
-      "statusCode": 308
-    },
-    {
-      "source": "/cli/permissions-and-profiles/",
-      "destination": "/agents/cli/permissions-and-profiles/",
-      "statusCode": 308
-    },
-    {
-      "source": "/cli/quickstart/",
-      "destination": "/agents/cli/quickstart/",
-      "statusCode": 308
-    },
-    {
-      "source": "/cli/reference/",
-      "destination": "/agents/cli/reference/",
+      "source": "/cli/:path*",
+      "destination": "/agents/cli/:path*",
       "statusCode": 308
     },
     {
