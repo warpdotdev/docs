@@ -29,7 +29,6 @@ type FeedbackReaction = 'upvote' | 'downvote';
 type GenericRecord = Record<string, unknown>;
 type HandoffApiSuccess = {
 	message?: string;
-	front_conversation_url?: string;
 };
 
 function isObject(value: unknown): value is GenericRecord {
@@ -96,7 +95,6 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	const [handoffQaId, setHandoffQaId] = useState<string | null>(null);
 	const [handoffErrorMessage, setHandoffErrorMessage] = useState<string | null>(null);
 	const [handoffSuccessMessage, setHandoffSuccessMessage] = useState<string | null>(null);
-	const [handoffConversationUrl, setHandoffConversationUrl] = useState<string | null>(null);
 	const [isSubmittingHandoff, setIsSubmittingHandoff] = useState(false);
 	const messagesRef = useRef<HTMLDivElement | null>(null);
 	const dialogRef = useRef<HTMLDialogElement | null>(null);
@@ -243,14 +241,12 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		setHandoffQaId(qaId);
 		setHandoffErrorMessage(null);
 		setHandoffSuccessMessage(null);
-		setHandoffConversationUrl(null);
 	};
 
 	const closeHandoffForm = () => {
 		setHandoffQaId(null);
 		setHandoffErrorMessage(null);
 		setHandoffSuccessMessage(null);
-		setHandoffConversationUrl(null);
 	};
 
 	const submitSupportHandoff = async (qa: { id?: string | null; question?: string }) => {
@@ -277,7 +273,6 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		setIsSubmittingHandoff(true);
 		setHandoffErrorMessage(null);
 		setHandoffSuccessMessage(null);
-		setHandoffConversationUrl(null);
 		try {
 			const response = await fetch('/api/support-handoff', {
 				method: 'POST',
@@ -300,7 +295,6 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 				return;
 			}
 			setHandoffSuccessMessage(payload.message || 'Support ticket created successfully.');
-			setHandoffConversationUrl(payload.front_conversation_url || null);
 		} catch {
 			setHandoffErrorMessage('Could not reach support handoff service. Please try again.');
 		} finally {
@@ -521,14 +515,6 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 											{handoffSuccessMessage ? (
 												<p className="sl-kapa-handoff-inline__status sl-kapa-handoff-inline__status--success">
 													{handoffSuccessMessage}
-													{handoffConversationUrl ? (
-														<>
-															{' '}
-															<a href={handoffConversationUrl} target="_blank" rel="noreferrer">
-																Open in Front
-															</a>
-														</>
-													) : null}
 												</p>
 											) : null}
 										</div>

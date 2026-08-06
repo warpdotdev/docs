@@ -301,11 +301,19 @@
 }
 
 .sl-kapa-error {
-	border: 1px solid color-mix(in srgb, #ef4444, var(--sl-color-black) 35%);
-	background: rgb(127 29 29 / 0.2);
-	color: #fecaca;
+	border: 1px solid rgb(248 113 113 / 0.8);
+	background: rgb(254 226 226 / 0.9);
+	color: #991b1b;
 	border-radius: var(--sl-radius-lg);
 	padding: 0.875rem 1rem;
+}
+
+@media (prefers-color-scheme: dark) {
+	.sl-kapa-error {
+		border: 1px solid color-mix(in srgb, #ef4444, var(--sl-color-black) 35%);
+		background: rgb(127 29 29 / 0.2);
+		color: #fecaca;
+	}
 }
 
 .sl-kapa-panel__footer {
@@ -434,7 +442,11 @@
 }
 
 .sl-kapa-handoff-inline__status--success {
-	color: #86efac;
+	color: #14532d;
+	background: rgb(220 252 231 / 0.9);
+	border: 1px solid rgb(74 222 128 / 0.7);
+	padding: 0.375rem 0.5rem;
+	border-radius: var(--sl-radius-sm);
 }
 
 .sl-kapa-handoff-inline__status--error {
@@ -451,6 +463,11 @@
 }
 
 @media (prefers-color-scheme: dark) {
+	.sl-kapa-handoff-inline__status--success {
+		color: #86efac;
+		background: rgb(20 83 45 / 0.35);
+		border-color: rgb(74 222 128 / 0.45);
+	}
 	.sl-kapa-handoff-inline__status--error {
 		color: #fecaca;
 		background: rgb(127 29 29 / 0.3);
