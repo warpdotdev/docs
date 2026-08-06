@@ -1,7 +1,9 @@
 ---
 description: >-
-  [1-2 sentences: what is documented and how to use this reference.
-  Example: "Use the {{WARP_AGENT_CLI}} to run, configure, and manage agents from the terminal."
+  [One sentence, 50-160 characters: what the reader can look up here.
+  Name the artifacts (flags, endpoints, shortcuts), not the genre.
+  Example: "Look up {{WARP_AGENT_CLI}} flags, environment variables, slash commands, and keyboard shortcuts."
+  See AGENTS.md > Frontmatter > Descriptions by content type for the full rules.
   Use {{TOKEN}} syntax for any product names in src/data/vars.ts.]
 ---
 [VARS: Add this line immediately after the closing --- above if this page references any product names from src/data/vars.ts. Then use {VARS.KEY} for those names in the prose below.

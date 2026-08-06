@@ -1,7 +1,8 @@
 ---
 description: >-
-  [1-2 sentences describing common issues covered on this page.
-  Example: "Solutions for common issues with cloud agents, environments, and integrations."
+  [One sentence, 50-160 characters: name the symptoms covered, not the act of troubleshooting.
+  Example: "Fix sign-in failures, failed conversation resumes, and update problems in the {{WARP_AGENT_CLI}}."
+  See AGENTS.md > Frontmatter > Descriptions by content type for the full rules.
   Use {{TOKEN}} syntax for any product names in src/data/vars.ts.]
 ---
 [VARS: Add this line immediately after the closing --- above if this page references any product names from src/data/vars.ts. Then use {VARS.KEY} for those names in the prose below.

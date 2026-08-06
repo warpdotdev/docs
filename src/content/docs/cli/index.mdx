@@ -1,8 +1,8 @@
 ---
 title: "Warp Agent CLI overview"
 description: >-
-  The Warp Agent CLI brings Warp's agent to any terminal. Learn what the CLI
-  does, how it relates to the Warp app and Oz, and how to get started.
+  Run Warp's agent in any terminal with the Warp Agent CLI, prompting the agent,
+  running shell commands, and handing work off to cloud agents.
 ---
 import { VARS } from '@data/vars';
 
@@ -18,12 +18,12 @@ To get a working setup in a few minutes, follow the [quickstart](/cli/quickstart
 
 ## Key features
 
-* **[Agent conversations](/cli/agent-conversations/)** - Streaming responses with markdown rendering, file-edit diffs, tool calls, plans, and task lists.
-* **[Shell commands](/cli/input-and-shell-commands/#shell-mode)** - Run shell commands from the same input as agent prompts, including long-running and interactive commands.
-* **[Permissions you control](/cli/permissions-and-profiles/)** - Approve commands and file edits from inline request cards, or configure execution profiles and auto-approve.
-* **[Persistent conversations](/cli/agent-conversations/#managing-conversations)** - Saved to your Warp account, so you can exit and resume later or switch between them.
-* **[Cloud handoff and orchestration](/cli/cloud-and-orchestration/)** - Hand a conversation off to a cloud agent, continue cloud runs in the CLI, and coordinate multiple agents.
-* **[Project context](/cli/configuration/#project-context-and-rules)** - The agent picks up your project's rules (like `AGENTS.md`), skills, and MCP servers automatically.
+* **[Agent conversations](/cli/agent-conversations/)** - Follow the agent's work in a scrollable transcript with streamed responses, Markdown formatting, file-edit diffs, tool calls, plans, and task lists.
+* **[Shell commands](/cli/input-and-shell-commands/#shell-mode)** - Run shell commands from the same input you use to prompt the agent, including long-running and interactive ones.
+* **[Permissions and profiles](/cli/permissions-and-profiles/)** - Approve commands and file edits from inline request cards, or configure execution profiles and auto-approve.
+* **[Persistent conversations](/cli/agent-conversations/#managing-conversations)** - Conversations save to your Warp account, so you can exit and resume later or switch between them.
+* **[Cloud handoff and orchestration](/cli/cloud-and-orchestration/)** - Hand off a conversation to a cloud agent, continue cloud runs in the CLI, and coordinate multiple agents.
+* **[Project context](/cli/configuration/#project-context-and-rules)** - The agent automatically picks up your project's rules (like `AGENTS.md`), skills, and MCP servers.
 * **[Model choice](/cli/models-and-usage/)** - Pick a model per conversation, bring your own provider API keys, and track credit usage.
 * **[Customization](/cli/configuration/)** - Configure themes, the statusline, and the start screen through a local settings file.
 
@@ -42,13 +42,17 @@ The CLI runs on:
 
 ## Logging in and out
 
-The first time you run `warp`, the CLI signs you in with a device authorization flow. It shows a verification link and code, opens your browser, and unlocks automatically once you approve the login. For non-interactive environments such as CI, authenticate with a Warp API key instead, using the `WARP_API_KEY` environment variable or the `--api-key` flag. See [logging in](/cli/quickstart/#log-in) in the quickstart for the full flow.
+You sign in once, and the CLI stays signed in across sessions.
 
-To sign out, run `/logout`. The CLI returns to its login screen and opens Warp's web sign-out page so your browser session is signed out too.
+* **Sign in through your browser** - The first time you run `warp`, the CLI shows a verification link and code and opens the link in your browser. It unlocks automatically once you approve the login. See [logging in](/cli/quickstart/#2-log-in) for the full walkthrough.
+* **Sign in with an API key** - In non-interactive environments such as CI, authenticate with a Warp API key through the `WARP_API_KEY` environment variable or the `--api-key` flag. See [command-line flags](/cli/reference/#command-line-flags).
+* **Sign out** - Run `/logout`. The CLI returns to its login screen and opens Warp's web sign-out page, so your browser session is signed out too.
 
 ## Automatic updates
 
-The CLI keeps itself up to date. While it runs, it periodically checks for a newer version, downloads it in the background, and stages it without interrupting your session. The staged version takes effect the next time you launch `warp`. When an update is ready, the start screen shows an "update installed, restart to apply" notice next to the version. To turn background updates off, set `general.autoupdate_enabled` to `false` in the [settings file](/cli/configuration/).
+The CLI updates automatically. While it runs, it periodically checks for a newer version, downloads it in the background, and stages it without interrupting your session. The staged version takes effect the next time you launch `warp`. When an update is ready, the start screen shows an "update installed, restart to apply" notice next to the version.
+
+To turn off background updates, set `general.autoupdate_enabled` to `false` in the [settings file](/cli/configuration/#the-settings-file). To turn them off for a single launch, set the `WARP_TUI_DISABLE_AUTOUPDATE` environment variable to any value.
 
 ## Coming from the Warp app
 

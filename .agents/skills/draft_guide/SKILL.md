@@ -28,6 +28,14 @@ The sidebar nav is defined in `src/sidebar.ts`, which organizes guides into topi
 - **DevOps & infrastructure** — Cloud logs, Docker, Kubernetes, testing, database optimization
 - **Frontend & UI** — Building and refining UI components with coding agents
 
+## Frontmatter description
+
+One sentence, 50-160 characters, saying what the reader will build or accomplish, using the non-branded phrasing they would search for.
+- ✅ `Set up Claude Code and run your first agentic coding session from the terminal.`
+- ❌ `A guide to using Claude Code with Warp.`
+
+See "Descriptions by content type" under Frontmatter in `AGENTS.md` for the full rules.
+
 ## Content type rules
 
 These rules are specific to guide pages (from the "Drafting by content type" section of `AGENTS.md`):

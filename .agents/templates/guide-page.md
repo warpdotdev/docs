@@ -1,8 +1,10 @@
 ---
 title: [Task-oriented title in sentence case — reads like a search query. Capture the non-branded query a developer would actually search for, not "How to do X in Warp." The title field renders as the page H1; do not add a separate H1 in the body.]
 description: >-
-  [1-2 sentence summary of what this guide covers and what the reader will
-  achieve. Keep under 160 characters for SEO.]
+  [One sentence, 50-160 characters: what the reader will build or accomplish,
+  using the non-branded phrasing they would actually search for.
+  Example: "Set up Claude Code and run your first agentic coding session from the terminal."
+  See AGENTS.md > Frontmatter > Descriptions by content type for the full rules.]
 ---
 
 [One sentence: what you'll accomplish by following this guide. Mention Warp by name. Include a time estimate if possible (e.g., "takes about 10 minutes").]

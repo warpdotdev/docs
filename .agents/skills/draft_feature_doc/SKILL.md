@@ -11,6 +11,14 @@ Draft a feature documentation page that combines conceptual and procedural conte
 
 Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **feature-doc template** at `.agents/templates/feature-doc.md`.
 
+## Frontmatter description
+
+One sentence, 50-160 characters, saying what the feature does and its primary benefit.
+- ✅ `Control what the agent can do with permission cards, auto-approve, and execution profiles.`
+- ❌ `Documentation for permissions and profiles.`
+
+See "Descriptions by content type" under Frontmatter in `AGENTS.md` for the full rules.
+
 ## Content type rules
 
 These rules are specific to feature documentation pages (from the "Drafting by content type" section of `AGENTS.md`):

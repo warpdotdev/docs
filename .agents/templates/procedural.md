@@ -1,7 +1,9 @@
 ---
 description: >-
-  [1-2 sentences: what the reader will accomplish.
-  Task-oriented: "Create and manage X" or "Configure Y for Z."
+  [One sentence, 50-160 characters: the task the reader will complete.
+  Start with an imperative verb, not "This page explains."
+  Example: "Connect Slack to Oz so mentions and channel messages can trigger cloud agent runs."
+  See AGENTS.md > Frontmatter > Descriptions by content type for the full rules.
   Use {{TOKEN}} syntax here for any product names that have a var in src/data/vars.ts.]
 ---
 [VARS: Add this line immediately after the closing --- above if this page references any product names from src/data/vars.ts. Then use {VARS.KEY} for those names in the prose below.

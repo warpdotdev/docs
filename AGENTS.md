@@ -94,16 +94,48 @@ Every page must include YAML frontmatter with a `description` field.
 ```yaml
 ---
 description: >-
-  A concise 1-2 sentence summary that explains what the page covers and
-  what value it provides to the reader.
+  One sentence, 50-160 characters, stating what the reader gets from this page.
 ---
 ```
 
-Write descriptions as standalone summaries that would make sense in a search result. Lead with the user benefit, include key terms for the topic.
-- ✅ `description: Environments ensure your cloud agents run with consistent toolchains across all triggers. Learn when to use environments and how to configure them.`
+The `description` field is the meta description in search results and the snippet AI engines read before deciding whether to cite the page. Write it as a standalone summary for someone who has never seen the page.
+- ✅ `description: Environments give cloud agents the same toolchain and setup on every run, no matter what triggers them.`
 - ❌ `description: This page describes environments.`
 
-The `description` field is used as the meta description in search results — write it as a summary that would make someone click.
+#### Description rules
+These apply to every page, regardless of content type.
+- **One sentence, 50-160 characters.** Search engines truncate past roughly 160. Two sentences almost always overshoot the budget, so prefer one that earns its length.
+- **Cut filler openers.** "Learn about," "This page covers," "A guide to," and "Documentation for" spend characters without adding meaning. Start with the verb or the subject instead.
+- **Describe what the reader gets, not what the page is.** "This page explains X" is always weaker than explaining X.
+- **Lead with the primary keyword** when it reads naturally, ideally within the first few words.
+- **Match the page's actual scope.** A description that promises more than the page delivers reads as a bait-and-switch in search results.
+
+#### Descriptions by content type
+Every description answers "what will I get from this page?" The shape of that answer depends on the type.
+- **Conceptual** - Say what the thing is and why it matters. Start with the subject.
+  - ✅ `Environments give cloud agents the same toolchain and setup on every run, no matter what triggers them.`
+  - ❌ `Learn about environments and why they are useful.`
+- **Procedural** - Say what task the reader will complete. Start with an imperative verb.
+  - ✅ `Connect Slack to Oz so mentions and channel messages can trigger cloud agent runs.`
+  - ❌ `This page explains the Slack integration setup process.`
+- **Quickstart** - Say what the reader ends up with, plus the time budget. Start with an imperative verb.
+  - ✅ `Install the Warp Agent CLI, log in, and run your first agent conversation in about five minutes.`
+  - ❌ `Get started with the Warp Agent CLI.`
+- **Reference** - Say what the reader can look up. Name the artifacts rather than the genre.
+  - ✅ `Look up Warp Agent CLI flags, environment variables, slash commands, and keyboard shortcuts.`
+  - ❌ `Reference documentation for the Warp Agent CLI.`
+- **Troubleshooting** - Name the symptoms covered, not the act of troubleshooting.
+  - ✅ `Fix sign-in failures, failed conversation resumes, and update problems in the Warp Agent CLI.`
+  - ❌ `Troubleshooting information for common problems.`
+- **FAQ** - Name the topic area the questions cover.
+  - ✅ `Answers to common questions about cloud agent billing, credits, and plan limits.`
+  - ❌ `Frequently asked questions.`
+- **Feature documentation** - Say what the feature does and its primary benefit.
+  - ✅ `Control what the agent can do with permission cards, auto-approve, and execution profiles.`
+  - ❌ `Documentation for permissions and profiles.`
+- **Guide** - Say what the reader will build or accomplish, using the non-branded phrasing they would search for.
+  - ✅ `Set up Claude Code and run your first agentic coding session from the terminal.`
+  - ❌ `A guide to using Claude Code with Warp.`
 
 ### Headers
 - Use sentence case for all headers (not title case)
@@ -715,8 +747,9 @@ Add the key-value pair to `src/data/vars.ts` only. Both Option A (TypeScript imp
 All documentation should be written with search discoverability in mind — both for traditional search engines (Google) and AI engines (ChatGPT, Gemini, Perplexity, Copilot).
 
 ### Frontmatter descriptions
-- Every page must have a `description` in frontmatter. Write it as a standalone summary (50-160 characters) that includes the primary keyword naturally.
+- Every page must have a `description` in frontmatter. Write it as a standalone summary (one sentence, 50-160 characters) that includes the primary keyword naturally.
 - Descriptions appear in search results and AI citations. Write for humans, but include the key terms a developer would search for.
+- For the full rules and per-content-type patterns with examples, see [Frontmatter](#frontmatter) under Content structure. That section is the source of truth.
 
 ### Title framing
 - For guides and educational content: capture the **non-branded query** when possible. Write the title a developer would actually search for.
@@ -731,7 +764,7 @@ When creating or updating content, use SEO and AEO data to inform titles, descri
 
 Before publishing any documentation, verify:
 
-- [ ] Frontmatter includes a clear, 1-2 sentence description written as a standalone summary
+- [ ] Frontmatter includes a one-sentence description (50-160 chars) written as a standalone summary, with no filler opener
 - [ ] Content type is identified and the page follows the structure for that type (see `.warp/templates/`)
 - [ ] Headers use sentence case (with proper feature name capitalization)
 - [ ] Lists use bold term + dash + explanation format

@@ -1,8 +1,8 @@
 ---
 title: "Agent conversations in the Warp Agent CLI"
 description: >-
-  Learn about agent conversations in the Warp Agent CLI, including streamed responses, tool
-  calls, diffs, task lists, plans, plus how to manage and resume conversations.
+  Read, manage, and resume agent conversations in the Warp Agent CLI, including streamed
+  responses, tool calls, file diffs, plans, and task lists.
 ---
 import { VARS } from '@data/vars';
 
@@ -34,7 +34,7 @@ When the agent edits files, the edit renders as a diff in the transcript:
 * **Per-file sections** - Each edited file gets its own header showing the action taken and the lines added or removed.
 * **Multi-file edits** - Each file's section nests, indented, under one collapsible summary header (for example, `Edited 3 files`).
 
-Diffs are fully expanded while the agent waits for your approval, then collapse to their headers once the edits are applied. Press `e` while the approval card is active to expand or collapse all diffs at once.
+Diffs are fully expanded while the agent waits for your approval, then collapse to their headers once the edits are applied. Press `E` while the approval card is active to expand or collapse all diffs at once.
 
 ## Thinking blocks
 
@@ -138,9 +138,9 @@ After compaction, a collapsed **Conversation summary** block appears in the tran
 
 ## Related pages
 
-* **[Permissions and profiles](/cli/permissions-and-profiles/)** - Approve, reject, or auto-approve the agent's tool calls.
-* **[Input and shell commands](/cli/input-and-shell-commands/)** - How commands the agent (or you) run appear in the transcript.
-* **[Cloud handoff and orchestration](/cli/cloud-and-orchestration/)** - Hand off conversations to cloud agents and resume cloud runs.
-* **[{VARS.WARP_CLI} reference](/cli/reference/)** - Command-line flags, slash commands, and keyboard shortcuts.
-* **[Planning](/agents/capabilities/planning/)** - The full planning workflow.
-* **[Task lists](/agents/capabilities/task-lists/)** - How agents create and update task lists.
+* [Permissions and profiles](/cli/permissions-and-profiles/) - Approve, reject, or auto-approve the agent's tool calls.
+* [Input and shell commands](/cli/input-and-shell-commands/) - How commands the agent (or you) run appear in the transcript.
+* [Cloud handoff and orchestration](/cli/cloud-and-orchestration/) - Hand off conversations to cloud agents and resume cloud runs.
+* [{VARS.WARP_CLI} reference](/cli/reference/) - Command-line flags, slash commands, and keyboard shortcuts.
+* [Planning](/agents/capabilities/planning/) - The full planning workflow.
+* [Task lists](/agents/capabilities/task-lists/) - How agents create and update task lists.

@@ -5,27 +5,33 @@ description: >-
   in your own terminal in a few minutes.
 ---
 import { VARS } from '@data/vars';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 This guide takes you from installing the {VARS.WARP_CLI} to your first agent conversation in about five minutes.
 
 ## Prerequisites
 
-* **A Warp account** - The login step opens your browser, where you can sign in or create an account. The CLI uses the same account as the Warp app.
+* **A Warp account** - The login step opens your browser, where you can sign in or [create an account](https://app.warp.dev/signup). The CLI uses the same account as the Warp app, but doesn't require the app to be installed.
 * **A supported platform** - macOS, Linux, or Windows. See [supported platforms](/cli/#supported-platforms).
 
-## Install the Warp Agent CLI
+## 1. Install the Warp Agent CLI
 
-In a terminal on macOS or Linux, run:
+Install the CLI with the command for your operating system.
 
-```bash
-curl -fsSL https://app.warp.dev/download/agent-cli | bash
-```
+<Tabs>
+  <TabItem label="macOS and Linux">
+    ```bash
+    curl -fsSL https://app.warp.dev/download/agent-cli | bash
+    ```
+  </TabItem>
+  <TabItem label="Windows">
+    Run this command in PowerShell:
 
-In PowerShell on Windows, run:
-
-```powershell
-Invoke-RestMethod "https://app.warp.dev/download/agent-cli.ps1" | Invoke-Expression
-```
+    ```powershell
+    Invoke-RestMethod "https://app.warp.dev/download/agent-cli.ps1" | Invoke-Expression
+    ```
+  </TabItem>
+</Tabs>
 
 After installing, verify that the `warp` command is available:
 
@@ -33,57 +39,59 @@ After installing, verify that the `warp` command is available:
 warp --version
 ```
 
-The command prints the installed version. The CLI keeps itself up to date automatically after this. See [automatic updates](/cli/#automatic-updates).
+The command prints the installed version. From here on, the CLI updates automatically. See [automatic updates](/cli/#automatic-updates).
 
-## Log in
+## 2. Log in
 
-Log in once so the CLI can access your Warp account, models, and saved context.
+Log in once so the CLI can access your Warp account, models, and saved context. Start the CLI:
 
-1. Run `warp`.
-2. The CLI shows a verification link and a device code, and opens the link in your browser. If the browser doesn't open, visit the link shown in the CLI and enter the code.
-3. Approve the login in your browser. The CLI unlocks automatically, so you don't need to restart it.
+```bash
+warp
+```
 
-When login completes, the CLI shows its start screen: the version, a short "What's new" list, and the rules, skills, and MCP servers it discovered for your current directory.
+The CLI shows a verification link and a device code, and opens the link in your browser. Approve the login there and the CLI unlocks automatically, so you don't need to restart it. If the browser doesn't open, visit the link shown in the CLI and enter the code.
+
+When login completes, the CLI shows its start screen with the version, a short "What's new" list, and the rules, skills, and MCP servers it discovered for your current directory.
 
 :::note
-On machines without a browser, such as CI or remote servers, authenticate with a Warp API key instead by setting the `WARP_API_KEY` environment variable:
+**Running in CI or a headless environment?** Authenticate with a Warp API key instead by setting the `WARP_API_KEY` environment variable:
 
 ```bash
 WARP_API_KEY=YOUR_API_KEY warp
 ```
 
-You can also pass the `--api-key` flag, but prefer the environment variable. Command-line arguments can be captured in shell history and process listings. See [API keys](/reference/cli/api-keys/) for how to create one.
+You can also pass the `--api-key` flag, but prefer the environment variable. Command-line arguments can be captured in shell history and process listings. See [API keys](/reference/cli/api-keys/) to learn how to create one.
 :::
 
-## Run your first prompt
+## 3. Run your first prompt
 
-1. Type a prompt in plain language, for example: `What does this project do?`
-2. If the agent wants to run a command or edit a file, it shows a permission request. Choose an option to approve or reject the action.
+Type a prompt in plain language, such as `What does this project do?`, and press `Enter`.
+
+If the agent wants to run a command or edit a file, it shows a permission request. Choose an option to approve or reject the action.
 
 Learn more about the transcript, diffs, and approvals in [Agent conversations](/cli/agent-conversations/) and [Permissions and profiles](/cli/permissions-and-profiles/).
 
-## Run a shell command
+## 4. Run a shell command
 
 You can run shell commands directly without leaving the CLI.
 
-1. Type `!` at the start of an empty input to switch to shell mode. The footer shows **Shell mode**.
-2. Type a command, such as `git status`, and press `Enter`.
-3. Press `Backspace` on the empty input to switch back to prompting the agent.
+Type `!` at the start of an empty input to switch to shell mode. The footer shows **Shell mode**. Type a command, such as `git status`, and press `Enter`. To go back to prompting the agent, press `Backspace` on the empty input.
 
 To run recognized shell commands without the `!` prefix, run `/natural-language-detection` to turn on natural language detection. The CLI then classifies input as you type: recognized commands switch to shell mode, while natural-language prompts stay in agent mode. The prompt marker and statusline show the active mode before you press `Enter`.
 
 See [Input and shell commands](/cli/input-and-shell-commands/) for long-running commands, interactive programs, and full-screen apps.
 
-## Exit and resume
+## 5. Exit and resume
 
-1. Press `Ctrl+C` twice in a row to exit, or run `/exit`. A single `Ctrl+C` press stops the agent's current response, or clears the input when nothing is running.
-2. On exit, the CLI prints a resume command for the conversation:
+Press `Ctrl+C` twice in a row to exit, or run `/exit`. A single `Ctrl+C` press stops the agent's current response, or clears the input when nothing is running.
 
-   ```bash
-   warp --resume CONVERSATION_TOKEN
-   ```
+On exit, the CLI prints a resume command for the conversation:
 
-3. Run the printed command later to pick up where you left off.
+```bash
+warp --resume CONVERSATION_TOKEN
+```
+
+Run the printed command later to pick up where you left off.
 
 To browse and reopen past conversations from inside the CLI, see [Agent conversations](/cli/agent-conversations/#conversation-history).
 

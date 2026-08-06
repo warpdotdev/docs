@@ -1,9 +1,10 @@
 ---
 description: >-
-  [1-2 sentences: what the feature does + primary user benefit.
-  Lead with the benefit, include key terms for SEO.
-  Use {{TOKEN}} syntax here for any product names that have a var in src/data/vars.ts.
-  Example: "Use the {{WARP_AGENT_CLI}} to run agents."]
+  [One sentence, 50-160 characters: what the feature does and its primary benefit.
+  Start with the verb or the feature, not "Documentation for."
+  Example: "Control what the agent can do with permission cards, auto-approve, and execution profiles."
+  See AGENTS.md > Frontmatter > Descriptions by content type for the full rules.
+  Use {{TOKEN}} syntax here for any product names that have a var in src/data/vars.ts.]
 ---
 [VARS: Add this line immediately after the closing --- above if this page references any product names from src/data/vars.ts. Then use {VARS.KEY} for those names in the prose below.
 `import { VARS } from '@data/vars';`

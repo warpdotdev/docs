@@ -11,6 +11,14 @@ Draft a quickstart that gets the reader from zero to a working result in about 1
 
 Follow the workflow in `.warp/skills/draft_docs/SKILL.md`, using the **quickstart template** at `.warp/templates/quickstart.md`.
 
+## Frontmatter description
+
+One sentence, 50-160 characters, saying what the reader ends up with plus the time budget. Start with an imperative verb.
+- ✅ `Install the Warp Agent CLI, log in, and run your first agent conversation in about five minutes.`
+- ❌ `Get started with the Warp Agent CLI.`
+
+See "Descriptions by content type" under Frontmatter in `AGENTS.md` for the full rules.
+
 ## Content type rules
 
 These rules are specific to quickstart pages (from the "Drafting by content type" section of `AGENTS.md`):
