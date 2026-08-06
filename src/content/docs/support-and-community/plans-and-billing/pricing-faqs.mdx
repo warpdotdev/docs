@@ -174,7 +174,7 @@ Local agent runs on Free, Build, or Max — and local runs on Business or Enterp
 If you regularly run through your plan's monthly credit allowance, you have a few options:
 
 * **Upgrade to Max** — Designed for developers with heavier AI usage. Max includes a higher monthly credit allowance than Build, plus a better effective rate for credits than buying [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) on Build. See [Warp pricing](https://www.warp.dev/pricing) for current allowances.
-* **Purchase add-on credits** — Top up your account on demand. Larger denominations have a better effective rate. Add-on credits roll over month-to-month and remain valid for 12 months from purchase. If you move to the Free plan, your remaining add-on credits aren't removed. You just can't use them until you re-subscribe on the same team. See [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) for current denominations.
+* **Purchase add-on credits** — Top up your account on demand. Larger denominations have a better effective rate. Add-on credits roll over month-to-month and remain valid for 12 months from purchase, and they stay usable if you later move to the Free plan. See [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) for current denominations.
 * **Enable auto-reload** — Pick a denomination and a monthly spend cap, and Warp will automatically purchase add-on credits when your balance drops below 100 credits, up to your cap.
 * **Bring Your Own API Key (BYOK)** — Point Warp at your own OpenAI, Anthropic, or Google API key. Requests routed through BYOK don't consume Warp credits — you're billed directly by the model provider. See [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/). On Business and Enterprise, platform credits may apply for local agent runs (billing starts July 1, 2026 on self-serve plans — see [When do platform credits start being charged on self-serve plans?](#when-do-platform-credits-start-being-charged-on-self-serve-plans)).
 * **Use a custom inference endpoint** — Route requests through any OpenAI-compatible endpoint (OpenRouter, LiteLLM, z.ai, an internal gateway, etc.) without spending Warp credits. See [Custom inference endpoint](/agents/inference/custom-inference-endpoint/). On Business and Enterprise, platform credits may apply for local agent runs (billing starts July 1, 2026 on self-serve plans — see [When do platform credits start being charged on self-serve plans?](#when-do-platform-credits-start-being-charged-on-self-serve-plans)).
@@ -182,6 +182,45 @@ If you regularly run through your plan's monthly credit allowance, you have a fe
 *BYOK and custom inference endpoint availability is subject to organization size — see [Can I bring my own API key?](#can-i-bring-my-own-api-key) for details.*
 
 For organization-scale needs (cloud-provider managed inference, granular admin controls, or higher seat counts), Enterprise plans include [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/).
+
+### Can I buy credits on the Free plan without subscribing?
+
+Yes. Free plan users can buy the same [add-on credit](/support-and-community/plans-and-billing/add-on-credits/) packs as paid plans and spend them on any model, without a subscription. Free plan packs cost more per credit than the same packs on a paid plan — see [Warp pricing](https://www.warp.dev/pricing) for current rates.
+
+Buy from **Settings** > **Billing and usage** in the Warp app, or from the **Add-on credits** card on the [Warp upgrade page](https://app.warp.dev/upgrade).
+
+Credits you buy this way behave like any other add-on credits: they roll over, stay valid for 12 months from purchase, and remain usable if your team later moves between plans.
+
+### Who on my team can purchase add-on credits?
+
+Any active team member can purchase add-on credits for their own usage. Admin permissions aren't required, and the team doesn't need a paid subscription. Purchased credits are scoped to the buyer, so they only draw down for that person's usage.
+
+Two team-level settings still apply, and both are admin-only:
+
+* **Team-wide monthly spend cap** — Every purchase counts against one cap for the whole team per calendar month. Purchases that would exceed the cap are rejected.
+* **Auto-reload** — While an admin has auto-reload on, individual members can't purchase add-on credits manually.
+
+Upgrading the team to a paid plan is still admin-only. A member who can't upgrade the team can still buy add-on credits for themselves.
+
+### Which card is charged when a team member buys add-on credits?
+
+Add-on credit purchases charge the payment method saved for the **team**, not a per-member card. That's whichever card the team already has on file — usually the one an admin entered when subscribing, or the one the first member entered when buying credits on a team that had no card yet.
+
+If the team has no saved payment method, the first purchase adds one and that card becomes the team's default. Later add-on credit purchases and auto-reload charge it. On a Free plan team, that means the first member to buy credits can end up supplying the card a teammate's later purchase is billed to.
+
+If you see an add-on credit charge you don't recognize:
+
+* Check **Settings** > **Billing and usage** in the Warp app for the team's add-on credit purchases this month.
+* Ask a team admin to review the invoices in the billing portal, which lists each purchase and the member it was purchased for. See [How do I manage my billing?](#how-do-i-manage-my-billing).
+* Email [billing@warp.dev](mailto:billing@warp.dev) if the charge still looks wrong.
+
+### How do I change or remove the card saved for my team?
+
+Team admins change or remove the saved card in the billing portal, reachable from **Settings** > **Billing and usage** in the Warp app or from the [Warp Admin Panel](https://app.warp.dev/admin/) on the web. See [How do I manage my billing?](#how-do-i-manage-my-billing) for both paths.
+
+Non-admin members can't open the billing portal. If you added a card to your team through a credit purchase and want it removed, ask a team admin to do it, or email [billing@warp.dev](mailto:billing@warp.dev).
+
+Admins who want to limit exposure without removing the card can lower the team-wide monthly spend cap under **Settings** > **Billing and usage**. Setting a lower cap bounds what the team can spend on add-on credits in a calendar month, no matter who makes the purchase.
 
 ### How does auto-reload work for teams?
 
@@ -223,12 +262,13 @@ Enterprise plans support team-scoped credit pools, so this traffic draws from th
 
 ### Does the Free plan include AI usage?
 
-The Free plan doesn't include bundled AI usage for the Warp Agent. To use the Warp Agent, you have two options:
+The Free plan doesn't include bundled AI usage for the Warp Agent. To use the Warp Agent, you have three options:
 
 * **Upgrade to a paid plan** — paid plans include a monthly allowance of Warp-provided AI usage with no extra setup. See [Warp pricing](https://www.warp.dev/pricing).
+* **Buy add-on credits** — purchase a credit pack without subscribing and spend it on any model. See [Can I buy credits on the Free plan without subscribing?](#can-i-buy-credits-on-the-free-plan-without-subscribing).
 * **Bring your own inference** — connect your own API key with [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), point Warp at a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or use a [SuperGrok or X Premium subscription](/agents/inference/grok-subscription/). Requests routed through your own inference don't consume Warp credits.
 
-Without a paid plan or your own inference, conversations on the Free plan can't run on Warp-provided models. This includes conversations started from prompt suggestions in the input.
+Without a paid plan, purchased add-on credits, or your own inference, conversations on the Free plan can't run on Warp-provided models. This includes conversations started from prompt suggestions in the input.
 
 ### Can I use a Free plan if I'm a developer at a large company or organization?
 
@@ -394,7 +434,7 @@ Add-on credits are tied to the team that paid for them, so team-membership chang
 * **An admin removes you from a team**: You lose access to any add-on credits tied to that team. If you rejoin later, you regain access to any unused, non-expired credits.
 * **An admin deletes the team**: Any remaining add-on credits tied to the team are no longer usable by anyone.
 
-Unused add-on credits remain valid for 12 months from purchase, as long as you have an active subscription. See [When team membership changes](/support-and-community/plans-and-billing/add-on-credits/#when-team-membership-changes) on the add-on credits page for full details.
+Unused add-on credits remain valid for 12 months from purchase and stay tied to the team they were purchased under. See [When team membership changes](/support-and-community/plans-and-billing/add-on-credits/#when-team-membership-changes) on the add-on credits page for full details.
 
 #### Can I bring my own API key on the Free plan now?
 
@@ -434,4 +474,5 @@ A short checklist to triage the May 2026 changes for your team:
 * **Check your seat count.** Go to **Settings** > **Teams** to see whether your team is at or above your plan's new seat limit. If you are, see [What if my team is already above the new seat limit?](#what-if-my-team-is-already-above-the-new-seat-limit).
 * **Set your team's add-on credit spend cap.** Under **Settings** > **Billing and usage**, configure the monthly cap that applies to add-on credit purchases across your team. Team members can now buy their own add-on credits, but every purchase counts against this cap.
 * **Let your team know add-on credits are user-scoped now.** Each member can purchase add-on credits for their own usage without affecting anyone else's balance.
+* **Confirm which card your team has on file.** Every add-on credit purchase charges the team's saved payment method, including purchases made by members who aren't admins. Review it in the billing portal. See [Which card is charged when a team member buys add-on credits?](#which-card-is-charged-when-a-team-member-buys-add-on-credits).
 * **Plan for platform credits on July 1, 2026.** If your team is on Business and uses BYOK or a custom inference endpoint locally, those local runs will start consuming platform credits when the preview period ends. See [When do platform credits start being charged on self-serve plans?](#when-do-platform-credits-start-being-charged-on-self-serve-plans).
