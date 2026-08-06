@@ -186,6 +186,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	const submit = () => {
 		const value = query.trim();
 		if (!value || isBusy) return;
+		closeHandoffForm();
 		submitQuery(value);
 		setHasStartedConversation(true);
 		setQuery('');
@@ -479,10 +480,10 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 											) : null}
 										</div>
 									) : null}
-									{handoffQaId === qa.id ? (
+									{handoffQaId === qa.id && !isBusy && shouldShowHandoffForAnswer(qa) ? (
 										<div className="sl-kapa-handoff-inline">
 											<label htmlFor={`sl-kapa-handoff-email-${qa.id}`}>
-												Your email
+												Your Warp account email
 											</label>
 											<div className="sl-kapa-handoff-inline__row">
 												<input
