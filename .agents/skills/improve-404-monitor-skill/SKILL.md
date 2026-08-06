@@ -155,7 +155,7 @@ Oz run: [run URL]
 
 In both messages, build the `Oz run` link at runtime — never hard-code the Oz host. Resolve from your current run:
 ```bash
-oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'
+oz run get "<your run ID>" --output-format json | jq -r '.session_link'
 ```
 If the command fails or returns an empty value, omit the `Oz run` line.
 

@@ -29,7 +29,7 @@ Do not:
 The following environment secrets should be set in the Oz cloud agent environment:
 
 - `PEEC_PAT` — Peec Personal Access Token for MCP authentication. Create one at **app.peec.ai → Company → API Keys → Personal Access Tokens**. If unavailable or expired, the audit proceeds with GSC and docs-only signals and logs "Peec: unavailable" in the run output.
-- `SLACK_BOT_TOKEN` — Slack bot token for posting to `#growth-docs`. If unavailable, write the notification body to the run output instead and skip Slack posting.
+- `BUZZ_SLACK_TOKEN` — Slack bot token for posting to `#growth-docs`, authenticating as the `buzz` bot. This is the account that posts to that channel; do not substitute another Slack token without confirming the bot is a member of the channel. If unavailable, write the notification body to the run output instead and skip Slack posting.
 - `GROWTH_DOCS_SLACK_CHANNEL_ID` — Slack channel ID for `#growth-docs`. Find it in Slack by right-clicking the channel → Copy link (the ID begins with `C`). If unavailable, skip Slack posting.
 
 The scheduled cloud agent must also include the Peec MCP server in its agent config (pass via `--mcp` flag or the agent config file `mcp_servers` key):
@@ -51,6 +51,8 @@ Do NOT print, log, commit, or include secret values in reports or Slack messages
 
 Use the smallest reliable set of source data needed to justify link changes:
 - **Peec** - Use the Peec MCP (configured in the agent with a Personal Access Token via the `PEEC_PAT` secret) to collect prompts, search queries, actions/recommendations, and source URLs for agents, cloud agents, and orchestration (last 30 days). Filter prompts and queries for relevance to the topic area. If the Peec MCP returns an error or is unavailable (missing `PEEC_PAT`, expired token, or connection failure), log "Peec: unavailable" in the run output and proceed with GSC and docs-only signals only.
+  - A cloud run may not expose `peec-ai` as a native tool even when it is in the agent config. If no tool appears, call `https://api.peec.ai/mcp` directly over JSON-RPC with `Authorization: Bearer $PEEC_PAT` (initialize, capture the `Mcp-Session-Id` header, then `tools/call`) rather than declaring Peec unavailable.
+  - Resolve the project with `list_projects` first; all other tools require `project_id`. `get_actions` needs `url_classification` for `scope=owned` and `scope=editorial` drill-downs, and `list_search_queries` returns `query_text` rather than `query`.
 - **Google Search Console** - When available, use the environment's `GSC_SERVICE_ACCOUNT_CREDENTIALS_JSON` secret to inspect recent queries and pages related to agents, cloud agents, and orchestration. Never print, log, commit, or include the secret value in reports. If a GSC client requires a credentials file path, write the secret to a restricted temporary file, use it for the run, and remove it before finishing.
 - **Docs repo** - Search existing pages under `src/content/docs/` for relevant source pages, link targets, and related terminology.
 
@@ -89,16 +91,16 @@ If Google Search Console data is unavailable, say what could not be verified and
 
    This produces one perpetual, low-noise PR that accumulates every run's entry regardless of outcome. Reviewers merge it periodically (at minimum before each monthly `improve-aeo-crosslink-skill` run) so the log reaches `main`. If any git step fails, write the log entry to the run output instead and continue to step 8.
 
-8. **Post Slack notification.** After writing the log entry, post the formatted message to `#growth-docs` using the Python snippet below. Python is preferred over curl because it reads `SLACK_BOT_TOKEN` from the environment (keeping the token out of process argv) and JSON-encodes the payload correctly regardless of newlines or special characters. If either secret is unavailable, write the notification body to the run output instead.
+8. **Post Slack notification.** After writing the log entry, post the formatted message to `#growth-docs` using the Python snippet below. Python is preferred over curl because it reads `BUZZ_SLACK_TOKEN` from the environment (keeping the token out of process argv) and JSON-encodes the payload correctly regardless of newlines or special characters. If either secret is unavailable, write the notification body to the run output instead.
 
    ```bash
    python3 - <<'SLACK_EOF'
    import os, json, urllib.request, sys
 
-   token = os.environ.get("SLACK_BOT_TOKEN", "")
+   token = os.environ.get("BUZZ_SLACK_TOKEN", "")
    channel = os.environ.get("GROWTH_DOCS_SLACK_CHANNEL_ID", "")
    if not token or not channel:
-       print("SLACK_BOT_TOKEN or GROWTH_DOCS_SLACK_CHANNEL_ID not set — skipping Slack notification", file=sys.stderr)
+       print("BUZZ_SLACK_TOKEN or GROWTH_DOCS_SLACK_CHANNEL_ID not set — skipping Slack notification", file=sys.stderr)
        sys.exit(0)
 
    # Replace the triple-quoted string with the message from the Slack notification format section.
@@ -124,7 +126,11 @@ If Google Search Console data is unavailable, say what could not be verified and
    SLACK_EOF
    ```
 
-   Replace `<message text here>` with the message from the appropriate format in the "Slack notification format" section. Do not print `SLACK_BOT_TOKEN` or `GROWTH_DOCS_SLACK_CHANNEL_ID` values in the run output or in any file.
+   Replace `<message text here>` with the message from the appropriate format in the "Slack notification format" section. Do not print `BUZZ_SLACK_TOKEN` or `GROWTH_DOCS_SLACK_CHANNEL_ID` values in the run output or in any file.
+
+   **If `chat.postMessage` returns `channel_not_found`**, the secrets being set is not sufficient — either the channel ID is stale or the bot is not a member of the channel. Do not treat this as a successful post. Instead:
+   1. Try resolving the channel by name: call `conversations.list` (types `public_channel,private_channel`) and look for `growth-docs`. If found, retry the post with that ID and report that the stored `GROWTH_DOCS_SLACK_CHANNEL_ID` is wrong so a human can correct the secret.
+   2. If the lookup also fails or returns `missing_scope`, the bot is not in the channel or lacks scope. Write the notification body to the run output, and state explicitly in the run output that the Slack post failed with `channel_not_found` — never imply it was delivered.
 
 ## Link quality rules
 
@@ -277,7 +283,7 @@ Oz run: [run URL]
 Rules:
 - Post on every run, including no-change runs.
 - Never include raw secret values, personal access tokens, or credential file paths in the Slack message.
-- Build the `Oz run` link at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run with `oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'`, substituting the run ID this agent is executing as.
+- Build the `Oz run` link at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run with `oz run get "<your run ID>" --output-format json | jq -r '.session_link'`, substituting the run ID this agent is executing as. Cloud sandboxes ship the `oz` CLI; `oz-dev` is a local development build and is not present, so do not call it.
 - If the Oz run URL is unavailable, omit that line rather than posting a broken link.
 
 ## Future expansion boundaries

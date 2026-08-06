@@ -54,7 +54,7 @@ This produces one perpetual, low-noise PR that accumulates every run's log entri
 1. Use `oz run list` to find all Oz runs in the past 30 days whose skill name matches a drafting skill (`draft_docs`, `draft_feature_doc`, `draft_conceptual`, etc.) or `review-docs-pr`.
 2. For each run, retrieve the full conversation and extract agent text messages:
    ```bash
-   oz-dev run get --conversation RUN_ID --output-format json | \
+   oz run get --conversation RUN_ID --output-format json | \
      jq -r '[.. | objects | select(.role? == "assistant") | .content[]? | select(.type? == "text") | .text] | .[]'
    ```
    The top-level response is `{steps: [...]}`, not `{messages: [...]}`, and steps can be nested — use recursive descent (`..`) to reach all assistant messages at any depth. Do not rely on `oz run get` without `--conversation` — that returns only the brief `status_message` field, not conversation content or shell stdout.
@@ -189,7 +189,7 @@ Oz run: [run URL]
 ```
 Build the `Oz run` link at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run, substituting the run ID this agent is executing as:
 ```bash
-oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'
+oz run get "<your run ID>" --output-format json | jq -r '.session_link'
 ```
 If the command fails or returns an empty value, omit the `Oz run` line rather than posting a hard-coded or broken URL.
 
