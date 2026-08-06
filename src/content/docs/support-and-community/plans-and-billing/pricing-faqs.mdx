@@ -185,11 +185,11 @@ For organization-scale needs (cloud-provider managed inference, granular admin c
 
 ### Can I buy credits on the Free plan without subscribing?
 
-Yes. Free plan users can buy the same [add-on credit](/support-and-community/plans-and-billing/add-on-credits/) packs as paid plans and spend them on any model, without a subscription. Free plan packs cost 20% more than the paid-plan price: $12 for 400 credits, $24 for 1,000, $60 for 3,000, and $120 for 6,500.
+Yes. Free plan users can buy the same [add-on credit](/support-and-community/plans-and-billing/add-on-credits/) packs as paid plans and spend them on any model, without a subscription. Free plan packs cost more per credit than the same packs on a paid plan — see [Warp pricing](https://www.warp.dev/pricing) for current rates.
 
-Buy from **Settings** > **Billing and usage** in the Warp app, or from the **Add-on credits** card on the [Warp upgrade page](https://app.warp.dev/upgrade). Because a Free plan team has no card on file, the first purchase goes through Stripe Checkout to collect payment details.
+Buy from **Settings** > **Billing and usage** in the Warp app, or from the **Add-on credits** card on the [Warp upgrade page](https://app.warp.dev/upgrade).
 
-Credits you buy this way behave like any other add-on credits: they roll over, stay valid for 12 months from purchase, and remain usable if your team later moves between plans. Upgrading to a paid plan lowers the per-credit rate and adds a monthly credit allowance. See [Buying add-on credits on the Free plan](/support-and-community/plans-and-billing/add-on-credits/#buying-add-on-credits-on-the-free-plan).
+Credits you buy this way behave like any other add-on credits: they roll over, stay valid for 12 months from purchase, and remain usable if your team later moves between plans. Upgrading to a paid plan lowers the per-credit rate and adds a monthly credit allowance.
 
 ### Who on my team can purchase add-on credits?
 
@@ -197,16 +197,16 @@ Any active team member can purchase add-on credits for their own usage. Admin pe
 
 Two team-level settings still apply, and both are admin-only:
 
-* **Team-wide monthly spend cap** — Every purchase counts against one cap for the whole team, defaulting to $200 per calendar month. Purchases that would exceed the cap are rejected.
+* **Team-wide monthly spend cap** — Every purchase counts against one cap for the whole team per calendar month. Purchases that would exceed the cap are rejected.
 * **Auto-reload** — While an admin has auto-reload on, individual members can't purchase add-on credits manually.
 
 Upgrading the team to a paid plan is still admin-only. A member who can't upgrade the team can still buy add-on credits for themselves.
 
 ### Which card is charged when a team member buys add-on credits?
 
-Add-on credit purchases charge the payment method saved for the **team**, not a per-member card. That card is whichever one the team already has on file — usually the card an admin entered when subscribing, or the card the first member used when buying credits on a Free plan team.
+Add-on credit purchases charge the payment method saved for the **team**, not a per-member card. That's whichever card the team already has on file — usually the one an admin entered when subscribing, or the one the first member entered when buying credits on a team that had no card yet.
 
-When a team has no saved card, the purchase goes through Stripe Checkout. Warp then saves that card as the team's default payment method, so later add-on credit purchases and auto-reload can charge it without another checkout. On a Free plan team, this means the first member to buy credits can end up supplying the card that a teammate's later purchase is billed to.
+If the team has no saved payment method, the buyer is asked for one at checkout, and that card becomes the team's default. Later add-on credit purchases and auto-reload charge it. On a Free plan team, that means the first member to buy credits can end up supplying the card a teammate's later purchase is billed to.
 
 If you see an add-on credit charge you don't recognize:
 
@@ -265,7 +265,7 @@ Enterprise plans support team-scoped credit pools, so this traffic draws from th
 The Free plan doesn't include bundled AI usage for the Warp Agent. To use the Warp Agent, you have three options:
 
 * **Upgrade to a paid plan** — paid plans include a monthly allowance of Warp-provided AI usage with no extra setup. See [Warp pricing](https://www.warp.dev/pricing).
-* **Buy add-on credits** — purchase a credit pack without subscribing and spend it on any model. Free plan packs cost 20% more than the paid-plan rate. See [Can I buy credits on the Free plan without subscribing?](#can-i-buy-credits-on-the-free-plan-without-subscribing).
+* **Buy add-on credits** — purchase a credit pack without subscribing and spend it on any model, at a higher per-credit rate than paid plans. See [Can I buy credits on the Free plan without subscribing?](#can-i-buy-credits-on-the-free-plan-without-subscribing).
 * **Bring your own inference** — connect your own API key with [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), point Warp at a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or use a [SuperGrok or X Premium subscription](/agents/inference/grok-subscription/). Requests routed through your own inference don't consume Warp credits.
 
 Without a paid plan, purchased add-on credits, or your own inference, conversations on the Free plan can't run on Warp-provided models. This includes conversations started from prompt suggestions in the input.
