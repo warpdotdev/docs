@@ -11,22 +11,26 @@ This skill is part of the self-improvement loop architecture. See the architectu
 
 ## Schedule
 
-Monthly, first Monday of each month, 9am PT.
+Monthly, on the 1st of each month.
 
-Cron: `0 17 * * 1` (UTC) — every Monday — combined with the first-week guard in step 0, which exits on any Monday after the 7th.
+Cron: `0 15 1 * *` (UTC) — 15:00 UTC is 8am PT during daylight saving, 7am PT otherwise.
+
+Restricting only day-of-month is unambiguous: because the day-of-week field is `*`, this fires exactly once a month and nothing else. The tradeoff is that the 1st can land on a weekend, so a PR opened then may wait until Monday for a reviewer.
 
 :::caution
-Do **not** "simplify" this to `0 17 1-7 * 1`. That expression looks like "first Monday" but is not. When a cron expression restricts **both** day-of-month and day-of-week, the two fields are **ORed**, not ANDed — so `1-7 * 1` fires on every day of the 1st through 7th **and additionally** on every Monday, roughly 11 times a month. This exact mistake caused the agent to open four conflicting PRs in six days. Standard cron cannot express "first Monday" in one expression, so the day-of-month guard is required.
+Do **not** "simplify" this to `0 15 1-7 * 1` or any other expression that restricts **both** day-of-month and day-of-week. Cron **ORs** those two fields rather than ANDing them, so `1-7 * 1` fires on every day of the 1st through 7th **and additionally** on every Monday — roughly 11 times a month. That exact mistake caused this agent to open four conflicting PRs in six days. Standard cron cannot express "first Monday" in a single expression: either restrict day-of-month alone (as here) or restrict day-of-week alone and gate the day-of-month in the skill, as step 0 does.
 :::
 
 ## Step 0: First-week guard
 
-Run this before anything else. The schedule fires every Monday, so a run outside the first week of the month must exit immediately without collecting signals, editing files, opening a PR, or posting to Slack.
+Run this before anything else. It exits immediately — without collecting signals, editing files, opening a PR, or posting to Slack — on any run outside the first week of the month.
+
+Under the current `0 15 1 * *` schedule the guard never actually trips, since the day is always the 1st. Keep it anyway: it is the safety net that makes a cron mistake harmless. If someone later switches the schedule to a day-of-week expression such as `0 15 * * 1` (every Monday, to guarantee a weekday), this guard is what narrows it back to the first Monday. It also contains the blast radius if the ORing mistake above is ever reintroduced.
 
 ```bash
 DAY_OF_MONTH=$(date -u +%d)
 if [ "$DAY_OF_MONTH" -gt 7 ]; then
-  echo "Skipping: today is day $DAY_OF_MONTH, not the first Monday of the month. This agent runs monthly."
+  echo "Skipping: today is day $DAY_OF_MONTH, outside the first week of the month. This agent runs monthly."
   exit 0
 fi
 ```
@@ -303,6 +307,6 @@ To deploy:
 2. Verify the Oz environment has `BUZZ_SLACK_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` set.
 3. In the Oz web app, create a new scheduled agent:
    - **Skill**: `improve-drafting-skills` from `warpdotdev/docs`
-   - **Schedule**: `0 17 * * 1` (UTC) = every Monday at 9am PT. The step 0 first-week guard narrows this to the first Monday only. See the caution in `## Schedule` for why the day-of-month field must stay `*`.
+   - **Schedule**: `0 15 1 * *` (UTC) = the 1st of each month. The step 0 first-week guard is retained as a safety net. See the caution in `## Schedule` before changing this — never restrict day-of-month and day-of-week in the same expression.
    - **Environment**: the same environment used for `weekly-404-monitor` (already has `warpdotdev/docs` checked out)
    - **Branch**: `main`
