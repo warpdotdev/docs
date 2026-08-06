@@ -127,6 +127,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	useEffect(() => {
 		if (!threadId) return;
 		setStoredThreadId(threadId);
+		localStorage.setItem('warp_docs_kapa_thread_id', threadId);
 	}, [threadId]);
 
 	useEffect(() => {
@@ -258,10 +259,14 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 			setHandoffErrorMessage('Enter a valid email address to continue.');
 			return;
 		}
-
-		const activeThreadId = threadId || storedThreadId;
-		if (!projectId || !activeThreadId) {
-			setHandoffErrorMessage('Missing Kapa project or thread context; please send another message and try again.');
+		const localStorageThreadId = localStorage.getItem('warp_docs_kapa_thread_id');
+		const activeThreadId = threadId || storedThreadId || localStorageThreadId;
+		if (!projectId) {
+			setHandoffErrorMessage('Missing Kapa project ID configuration. Ask the team to set PUBLIC_KAPA_PROJECT_ID for this preview.');
+			return;
+		}
+		if (!activeThreadId) {
+			setHandoffErrorMessage('Missing Kapa thread context; please send another message and try again.');
 			return;
 		}
 
