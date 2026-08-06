@@ -134,6 +134,23 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	}, [conversation.length, isOpen]);
 
 	useEffect(() => {
+		if (!handoffQaId || !isOpen) return;
+		const frame = window.requestAnimationFrame(() => {
+			const inlineForm = document.getElementById(`sl-kapa-handoff-inline-${handoffQaId}`);
+			if (!inlineForm) return;
+			inlineForm.scrollIntoView({
+				behavior: 'smooth',
+				block: 'nearest',
+			});
+			const emailInput = inlineForm.querySelector<HTMLInputElement>('input[type="email"]');
+			emailInput?.focus();
+		});
+		return () => {
+			window.cancelAnimationFrame(frame);
+		};
+	}, [handoffQaId, isOpen, conversation.length]);
+
+	useEffect(() => {
 		const dialog = dialogRef.current;
 		if (!dialog) return;
 
@@ -472,7 +489,10 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 										</div>
 									) : null}
 									{handoffQaId === qa.id && !isBusy && shouldShowHandoffForAnswer(qa) ? (
-										<div className="sl-kapa-handoff-inline">
+										<div
+											className="sl-kapa-handoff-inline"
+											id={`sl-kapa-handoff-inline-${qa.id}`}
+										>
 											<label htmlFor={`sl-kapa-handoff-email-${qa.id}`}>
 												Your Warp account email
 											</label>

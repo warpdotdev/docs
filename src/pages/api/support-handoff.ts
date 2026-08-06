@@ -35,6 +35,7 @@ function buildKapaConversationUrl(kapaProjectId: string, kapaThreadId: string) {
 export const POST: APIRoute = async ({ request }) => {
 	const supportHandoffEndpointUrl =
 		SUPPORT_HANDOFF_ENDPOINT_URL || DEFAULT_SUPPORT_HANDOFF_ENDPOINT_URL;
+	const supportHandoffSharedSecret = SUPPORT_HANDOFF_SHARED_SECRET?.trim() || '';
 	if (!supportHandoffEndpointUrl) {
 		return jsonError('Support handoff is not configured.', 503);
 	}
@@ -91,8 +92,8 @@ export const POST: APIRoute = async ({ request }) => {
 	const forwardHeaders: HeadersInit = {
 		'content-type': 'application/json',
 	};
-	if (SUPPORT_HANDOFF_SHARED_SECRET) {
-		forwardHeaders.authorization = `Bearer ${SUPPORT_HANDOFF_SHARED_SECRET}`;
+	if (supportHandoffSharedSecret) {
+		forwardHeaders.authorization = `Bearer ${supportHandoffSharedSecret}`;
 	}
 
 	let upstreamResponse: Response;
