@@ -95,6 +95,8 @@ These rules are frequently violated by agents. Apply them carefully during draft
 - **Bold per-segment for Settings paths** — Use `**Settings** > **AI** > **Knowledge**` not `` `Settings > AI > Knowledge` ``
 - **Screenshots for hard-to-describe UI** — When a page documents a visual surface (statusline chips, tab bars, settings panes, multi-control layouts), include a screenshot after the prose that introduces that surface. Do not rely on prose alone for chrome that reviewers cannot reconstruct from text. Prefer one well-placed figure over repeating the same surface. Always use descriptive alt text. ✅ a statusline screenshot after the paragraph that names the chips ❌ describing chip layout in a long paragraph with no image when humans keep asking "should we include a screenshot?"
 - **`VideoEmbed` requires a specific `title`** — Every `<VideoEmbed>` must include a `title` prop that names the integration, workflow, feature, or task shown. ✅ `<VideoEmbed url="..." title="Warp Agent CLI conversation transcript walkthrough" />` ❌ `<VideoEmbed url="..." />` or a generic title like `"video"` / `"demo"`
+- **Disambiguate conditional and multi-clause wording** — If a sentence has two plausible readings (especially with "when", "if", "can", or stacked clauses), rewrite it so only one meaning remains. Prefer one idea per sentence. ✅ `Cloud handoff keeps your conversation's model only when that model is available in the cloud.` ❌ `Cloud handoff keeps your conversation's model when it can run in the cloud.` (keeps the model when it can? or only when cloud supports the model?)
+- **Lead instructional sentences with the action or goal** — In steps, keyboard shortcuts, and "how to" sentences, put the action or goal first, then the control or condition. Readers should not need prior context to know what values or targets you mean. ✅ `To open the searchable environment and model selectors, press Ctrl+E.` ❌ `To change either value, press Ctrl+E.` (which values?)
 
 ### 7. Draft the doc
 Create the documentation using the appropriate template from `.agents/templates/`. Follow the structure for the identified content type and all rules in `AGENTS.md`. Each template includes visible bracketed instructions explaining what to put in each section.
@@ -131,6 +133,8 @@ Before presenting the draft, verify against the quality checklist in `AGENTS.md`
 - [ ] Images have descriptive alt text
 - [ ] Visual UI surfaces that are hard to reconstruct from prose include a screenshot (or an explicit note that no screenshot is available yet)
 - [ ] Every `VideoEmbed` includes a specific `title` prop describing the workflow or feature shown
+- [ ] Conditional or multi-clause sentences have only one clear reading (no ambiguous "when/if/can" stacking)
+- [ ] Instructional sentences lead with the action or goal before the control, shortcut, or condition
 
 ### 10. Update navigation and redirects
 If this is a new page, remind the user to:

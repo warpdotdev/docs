@@ -45,7 +45,9 @@ Keep the conceptual and procedural sections clearly separated.]
 Apply all procedural rules from AGENTS.md:
 - Motivate steps before giving instructions
 - Include expected outcomes after key steps
-- Group related actions when they share the same UI context]
+- Group related actions when they share the same UI context
+- Lead instructional sentences with the action or goal, then the control (✅ "To open the selector, press `Ctrl+E`." ❌ "To change either value, press `Ctrl+E`.")
+- Disambiguate conditionals and multi-clause sentences so only one reading remains]
 
 ### Prerequisites
 

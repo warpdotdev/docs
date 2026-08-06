@@ -35,6 +35,9 @@ Then numbered steps.]
 2. Step description.
 3. Step description.
 
+[STEP WORDING: Lead each instructional sentence with the action or goal, then the control or condition. ✅ "To open the environment selector, press `Ctrl+E`." ❌ "To change either value, press `Ctrl+E`."
+Disambiguate conditionals: one idea per sentence; avoid stacked "when/if/can" clauses that admit two readings. ✅ "The handoff keeps your model only when that model is available in the cloud." ❌ "The handoff keeps your model when it can run in the cloud."]
+
 :::note
 [Optional: tip, clarification, or "good to know" context
 relevant to the steps above.]
