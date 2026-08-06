@@ -261,10 +261,6 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		}
 		const localStorageThreadId = localStorage.getItem('warp_docs_kapa_thread_id');
 		const activeThreadId = threadId || storedThreadId || localStorageThreadId;
-		if (!projectId) {
-			setHandoffErrorMessage('Missing Kapa project ID configuration. Ask the team to set PUBLIC_KAPA_PROJECT_ID for this preview.');
-			return;
-		}
 		if (!activeThreadId) {
 			setHandoffErrorMessage('Missing Kapa thread context; please send another message and try again.');
 			return;
@@ -277,10 +273,6 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		}
 
 		const conversationLink = buildConversationLink(activeThreadId);
-		if (!conversationLink) {
-			setHandoffErrorMessage('Could not build Kapa conversation link for handoff.');
-			return;
-		}
 
 		setIsSubmittingHandoff(true);
 		setHandoffErrorMessage(null);
@@ -297,9 +289,9 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 					question,
 					page_url: window.location.href,
 					conversation_transcript: buildConversationTranscript(),
-					kapa_project_id: projectId,
+					kapa_project_id: projectId || null,
 					kapa_thread_id: activeThreadId,
-					kapa_conversation_url: conversationLink,
+					kapa_conversation_url: conversationLink || null,
 				}),
 			});
 			const payload: HandoffApiSuccess & { message?: string } = await response.json().catch(() => ({}));
@@ -490,7 +482,13 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 											<label htmlFor={`sl-kapa-handoff-email-${qa.id}`}>
 												Your Warp account email
 											</label>
-											<div className="sl-kapa-handoff-inline__row">
+											<form
+												className="sl-kapa-handoff-inline__row"
+												onSubmit={(event) => {
+													event.preventDefault();
+													void submitSupportHandoff(qa);
+												}}
+											>
 												<input
 													id={`sl-kapa-handoff-email-${qa.id}`}
 													type="email"
@@ -500,9 +498,8 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 													required
 												/>
 												<button
-													type="button"
+													type="submit"
 													className="sl-kapa-feedback__handoff sl-kapa-feedback__handoff--submit"
-													onClick={() => submitSupportHandoff(qa)}
 													disabled={isSubmittingHandoff}
 												>
 													{isSubmittingHandoff ? 'Submitting…' : 'Submit'}
@@ -515,7 +512,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 												>
 													Cancel
 												</button>
-											</div>
+											</form>
 											{handoffErrorMessage ? (
 												<p className="sl-kapa-handoff-inline__status sl-kapa-handoff-inline__status--error">
 													{handoffErrorMessage}

@@ -57,15 +57,20 @@ export const POST: APIRoute = async ({ request }) => {
 	if (!question) return jsonError('A question is required.');
 	if (!pageUrl) return jsonError('The current page URL is required.');
 	if (!conversationTranscript) return jsonError('Conversation transcript is required.');
-	if (!kapaProjectId) return jsonError('Kapa project ID is required.');
 	if (!kapaThreadId) return jsonError('Kapa thread ID is required.');
-
-	const derivedKapaConversationUrl = buildKapaConversationUrl(kapaProjectId, kapaThreadId);
-	if (
-		suppliedKapaConversationUrl &&
-		suppliedKapaConversationUrl !== derivedKapaConversationUrl
-	) {
-		return jsonError('Kapa conversation URL does not match project/thread values.');
+	const derivedKapaConversationUrl =
+		kapaProjectId && kapaThreadId
+			? buildKapaConversationUrl(kapaProjectId, kapaThreadId)
+			: '';
+	if (kapaProjectId) {
+		if (
+			suppliedKapaConversationUrl &&
+			suppliedKapaConversationUrl !== derivedKapaConversationUrl
+		) {
+			return jsonError('Kapa conversation URL does not match project/thread values.');
+		}
+	} else if (suppliedKapaConversationUrl) {
+		return jsonError('Kapa project ID is required when a Kapa conversation URL is supplied.');
 	}
 
 	const forwardPayload = {
@@ -73,9 +78,9 @@ export const POST: APIRoute = async ({ request }) => {
 		question,
 		page_url: pageUrl,
 		conversation_transcript: conversationTranscript,
-		kapa_project_id: kapaProjectId,
+		kapa_project_id: kapaProjectId || null,
 		kapa_thread_id: kapaThreadId,
-		kapa_conversation_url: derivedKapaConversationUrl,
+		kapa_conversation_url: derivedKapaConversationUrl || null,
 		source: 'docs-kapa-custom-chat',
 	};
 
