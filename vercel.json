@@ -101,8 +101,8 @@
       "statusCode": 308
     },
     {
-      "source": "/cli/:path*",
-      "destination": "/agents/cli/:path*",
+      "source": "/cli/:path(.*)",
+      "destination": "/agents/cli/:path",
       "statusCode": 308
     },
     {
