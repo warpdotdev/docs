@@ -37,6 +37,31 @@ Reviewers should merge the log PR periodically so entries reach `main` and becom
 
 **Keep the log branch separate from content PRs.** Never write log updates and skill/content edits in the same commit or branch.
 
+### One standing PR per automation
+
+**The second biggest failure mode: PR stacking.** A skill that mints a new date-suffixed branch on every run accumulates one open PR per run. Because recurring skills tend to edit the same small set of files, those PRs conflict with each other and none of them can be merged cleanly. The `improve-drafting-skills` agent produced four mutually-conflicting open PRs in six days this way, every one of them editing `draft_docs/SKILL.md`.
+
+The log-branch pattern above already solves this for logs. Generalize it to content PRs: **an automation has at most one open PR at any time.**
+
+**Required pattern for all PR-opening skills:**
+
+1. **Use a stable branch name with no date suffix** — `docs/<skill-name>`, not `docs/<skill-name>-2026-08-06`.
+2. **Use a stable PR title with no date.** The run date belongs in a dated section of the PR body, not the title. A date in the title defeats title-based lookup and guarantees a new PR on every run.
+3. **Look before creating:**
+   ```bash
+   gh pr list --repo warpdotdev/docs --state open \
+     --search '<stable title> in:title' --json number,headRefName
+   ```
+4. **If an open PR exists**, add to it rather than opening another:
+   - Check out its branch and rebase on the latest `origin/main`.
+   - Apply this run's edits, commit, and push.
+   - Append a new dated section to the PR body. Fetch the current body and make a minimal additive edit — never regenerate it wholesale (see "Outer loop PR body integrity").
+   - Re-run `check_pr_body.py` after the edit.
+5. **If no open PR exists**, create the stable branch from the latest `origin/main` and open a draft PR.
+6. **Never leave two open PRs for the same automation.** If a stale or superseded one is found, close it with an explanatory comment before opening a replacement.
+
+This keeps a run's work reviewable without letting unreviewed work pile up, and it means a missed review cycle costs one stale PR rather than one per run.
+
 ### Verifying log writes explicitly
 
 Agents often proceed past a failed file write without noticing. For any log update step, verify explicitly:
@@ -107,7 +132,23 @@ Always use `SLACK_BOT_TOKEN` and other secrets from environment variables — ne
 
 ### Slack notifications
 
-Post a Slack notification on every run, including no-action runs and stale-snapshot exits. A missing notification on a no-action run is indistinguishable from a run that silently failed. Use a simple text message (not Block Kit) that can be scanned in under 30 seconds.
+**Post only when the run produced something a human needs to act on.** Recurring agents that post unconditionally train the channel to ignore them, which costs more than a missed notification does.
+
+Actionable means one of:
+
+- A PR was created or received new commits.
+- A threshold was crossed (broken links found, significant 404 gaps, a score regression).
+- The agent hit a failure that stopped it from completing — including stale-snapshot exits and blocked audits. These are failures, not no-ops, and they always post.
+
+Everything else is silent. A no-change or no-op run writes to the run output and its run log, and posts nothing.
+
+**Silence means "ran, nothing to do."** An earlier version of this guidance required posting on every run, reasoning that a silent no-action run is indistinguishable from a run that silently failed. That concern is real, but Slack is the wrong place to solve it: the run log records every run including no-ops, and Oz lifecycle events surface failed and errored runs directly. Between them, a quiet run is distinguishable from a broken one without spending a notification.
+
+The corollary is a hard requirement: **a skill may only adopt the quiet default if it also writes a run log on every run.** If it does not log, it has no other way to prove it ran, and it should post.
+
+**Never post twice for one run.** If a skill has multiple phases, fold the later phase's results into the single message rather than posting a follow-up.
+
+Use a simple text message (not Block Kit) that can be scanned in under 30 seconds.
 
 ---
 
@@ -123,14 +164,18 @@ This minimum must be stated explicitly in the skill's `## Schedule` section so t
 
 ### Log availability
 
-The outer loop reads the inner loop's log from `main`. For entries to be available, the inner loop's standing log PR must be merged into `main` before the outer loop runs. Document this as a prerequisite:
+**Read the log from the log branch, not from `main`.** The inner loop writes every entry to `chore/<inner-loop>-log` and only reaches `main` when a human merges the standing PR. An outer loop that reads `main` therefore sees a truncated history whose staleness depends on review cadence — and silently analyzes fewer entries than it thinks it has.
 
-```markdown
-## Prerequisites
+Read from the branch, which always holds the complete history:
 
-- The standing log PR (`chore: <inner-loop> run log`) merged into `main` so the entries are present there.
-  If it is unmerged, merge it first (or read the log from the `chore/<inner-loop>-log` branch) before analyzing.
+```bash
+git fetch origin chore/<inner-loop>-log
+git checkout origin/chore/<inner-loop>-log -- .agents/logs/<log-file>.md
 ```
+
+Treat `main` as the convenience case only — if the PR happens to have been merged, the branch and `main` agree, and the branch read is still correct.
+
+**Do not make merging the standing log PR a step in the outer loop.** Merging is a human housekeeping task, not a precondition for analysis. An outer loop that tries to merge its own input couples the run to a repo write it may not have permission to perform, and turns an unmerged PR into a hard failure instead of a non-event.
 
 ### Security boundary for signal logs
 

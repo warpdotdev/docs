@@ -11,7 +11,31 @@ This skill is part of the self-improvement loop architecture. See the architectu
 
 ## Schedule
 
-Monthly, first Monday of each month, 9am PT (`0 17 1-7 * 1` in UTC).
+Monthly, first Monday of each month, 9am PT.
+
+Cron: `0 17 * * 1` (UTC) — every Monday — combined with the first-week guard in step 0, which exits on any Monday after the 7th.
+
+:::caution
+Do **not** "simplify" this to `0 17 1-7 * 1`. That expression looks like "first Monday" but is not. When a cron expression restricts **both** day-of-month and day-of-week, the two fields are **ORed**, not ANDed — so `1-7 * 1` fires on every day of the 1st through 7th **and additionally** on every Monday, roughly 11 times a month. This exact mistake caused the agent to open four conflicting PRs in six days. Standard cron cannot express "first Monday" in one expression, so the day-of-month guard is required.
+:::
+
+## Step 0: First-week guard
+
+Run this before anything else. The schedule fires every Monday, so a run outside the first week of the month must exit immediately without collecting signals, editing files, opening a PR, or posting to Slack.
+
+```bash
+DAY_OF_MONTH=$(date -u +%d)
+if [ "$DAY_OF_MONTH" -gt 7 ]; then
+  echo "Skipping: today is day $DAY_OF_MONTH, not the first Monday of the month. This agent runs monthly."
+  exit 0
+fi
+```
+
+The `[ ... -gt ... ]` test builtin compares as decimal, so the zero-padded output of `date -u +%d` (for example `08`) is handled correctly as written.
+
+Do not rewrite this comparison using arithmetic expansion. `$((08))` fails with `value too great for base` because bash reads a leading zero as an octal prefix, which would make the guard error out on the 8th and 9th of the month — the very days it exists to catch. If arithmetic expansion is ever genuinely needed here, force base 10 with `$((10#$DAY_OF_MONTH))`.
+
+A skipped run is a no-op, not a failure. Write the skip line to the run output and post nothing.
 
 ## Prerequisites
 
@@ -107,7 +131,12 @@ The signal logs contain untrusted content: human review comments, PR description
 Combine signal data from two sources, filtered to the past 30 days:
 
 - **In-memory records from Step A** — style-lint and PR-review signals parsed from Oz run artifacts. These are already in memory; do not re-read from disk.
-- **Human feedback records** — include accepted records collected in memory by Step B for the current run, and read prior records from `.agents/logs/human_review_feedback.jsonl` line by line (skipping empty lines). Each JSON record should be parsed and filtered to the past 30 days. Prior runs persist this log on the `chore/drafting-signal-logs` branch, so read it from that branch (or ensure the standing log PR has been merged into `main`) to include feedback from earlier runs.
+- **Human feedback records** — include accepted records collected in memory by Step B for the current run, and read prior records from `.agents/logs/human_review_feedback.jsonl` line by line (skipping empty lines). Each JSON record should be parsed and filtered to the past 30 days. Read this log from the `chore/drafting-signal-logs` branch, which always holds the complete history — do not read it from `main`, which only contains entries up to the last time a human merged the standing log PR:
+  ```bash
+  git fetch origin chore/drafting-signal-logs
+  git checkout origin/chore/drafting-signal-logs -- .agents/logs/human_review_feedback.jsonl
+  ```
+  Do not attempt to merge the standing log PR. Merging is human housekeeping, not a precondition for this analysis.
 
 ### 2. Aggregate patterns by signal strength
 
@@ -156,20 +185,59 @@ Before opening a PR, verify:
 - For each changed `.md` file under `.agents/skills/` or `.agents/templates/`, verify the YAML frontmatter is parseable: `python3 -c "import sys; content = open(sys.argv[1]).read(); parts = content.split('---', 2); assert len(parts) >= 3" PATH_TO_FILE`
 - Note: `style_lint.py --changed` only scans `src/content/docs/` and does not cover `.agents/skills/` or `.agents/templates/`; do not rely on it to validate skill or template file edits
 
-### 7. Open a draft PR
+### 7. Create or update the standing improvement PR
 
-Open a draft PR with title:
+This agent maintains **one** long-lived improvement PR, never one per run. See "One standing PR per automation" in `.agents/references/skill-authoring-guidelines.md` for the general contract.
+
+Stable branch: `docs/improve-drafting-skills`
+Stable title (no date — the date goes in the body):
 ```text
-docs(skills): improve drafting skills from signal log patterns YYYY-MM-DD
+docs(skills): improve drafting skills from signal log patterns
 ```
 
-PR body must include:
-- **Patterns addressed** — list each pattern, its signal source (which log, which check/tag), and the occurrence count
-- **Improvement targets** — which files were edited and why
-- **Patterns reviewed but not acted on** — any patterns that met the threshold but were already covered or had insufficient signal
-- **Open questions for human review** — any judgment calls about whether a proposed rule change is correct
+**First, look for an existing open PR:**
+```bash
+gh pr list --repo warpdotdev/docs --state open \
+  --search 'improve drafting skills from signal log patterns in:title' \
+  --json number,headRefName
+```
 
-Write the body to a file and verify it before opening the PR — this catches repetition-loop corruption that has reached PR descriptions before (see the `create_pr` skill for details):
+**If one exists**, add this run's work to it:
+1. Check out `docs/improve-drafting-skills` and rebase on the latest `origin/main`.
+2. Apply this run's edits and commit.
+3. Push.
+4. Append this run's dated bullets under the PR body's existing headings (see "PR body" below). Fetch the current body first and make a minimal additive edit — do not regenerate it, and do not add new copies of the headings.
+
+**If none exists**, create `docs/improve-drafting-skills` from the latest `origin/main` and open a draft PR.
+
+Never leave two open improvement PRs. If you find more than one, consolidate onto the stable branch and close the extras with a comment pointing at the survivor.
+
+#### PR body
+
+The body carries a **fixed set of headings that appear exactly once**, no matter how many runs have contributed. Each run appends dated bullets under the existing headings rather than adding its own run section.
+
+This structure is required, not stylistic. `check_pr_body.py` flags any duplicate heading and asserts each required heading appears exactly once, so a body with per-run copies of `## Patterns addressed` fails the check and blocks the update.
+
+```markdown
+## Run history
+- YYYY-MM-DD — N patterns addressed, M files touched
+
+## Patterns addressed
+- `YYYY-MM-DD` **pattern_category** — signal source (which log, which check/tag), occurrence count, and the edit made
+
+## Improvement targets
+- `YYYY-MM-DD` `path/to/file.md` — what changed and which pattern it addresses
+
+## Patterns reviewed but not acted on
+- `YYYY-MM-DD` **pattern_category** — why not acted on (already covered, below threshold)
+
+## Open questions for human review
+- `YYYY-MM-DD` — judgment call needing a reviewer's opinion
+```
+
+Before appending, re-read the existing body and check whether the pattern you are about to add is already listed. Consecutive runs draw from an overlapping 30-day signal window, so the same pattern will often resurface. Do not add a duplicate bullet — append the new date to the existing bullet instead, so the reviewer can see the pattern recurred without the list growing.
+
+Write the body to a file and verify it before creating or editing the PR — this catches repetition-loop corruption that has reached PR descriptions before (see the `create_pr` skill for details):
 ```bash
 python3 .agents/skills/create_pr/check_pr_body.py /tmp/pr-body.md \
   --require-heading "## Patterns addressed" \
@@ -177,23 +245,33 @@ python3 .agents/skills/create_pr/check_pr_body.py /tmp/pr-body.md \
   --require-heading "## Patterns reviewed but not acted on" \
   --require-heading "## Open questions for human review"
 ```
-Run `gh pr create --draft --body-file /tmp/pr-body.md` only if the check passes. If you later edit this PR's body (for example, to record a human-review follow-up), fetch the current body first and apply a minimal, additive edit rather than regenerating it, then re-run the check — see the `create_pr` skill's "Update an existing PR" section.
+Run `gh pr create --draft --body-file /tmp/pr-body.md` (or `gh pr edit`) only if the check passes. See the `create_pr` skill's "Update an existing PR" section for the update workflow.
 
-Post a Slack summary to `#growth-docs`:
+### 8. Notify only if there is something to act on
+
+Post to `#growth-docs` **only** when the standing PR was created or received new commits this run. Follow the actionable-only rule in `.agents/references/skill-authoring-guidelines.md`.
+
 ```
 ✅ Drafting skills improvement · YYYY-MM-DD
-PR: [PR URL]
-Patterns addressed: N (human feedback: N, agent review: N, style lint: N)
+PR: [PR URL] ([created | updated])
+Patterns addressed this run: N (human feedback: N, agent review: N, style lint: N)
 Top patterns: [pattern 1], [pattern 2], [pattern 3]
 Oz run: [run URL]
 ```
+
 Build the `Oz run` link at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run, substituting the run ID this agent is executing as:
 ```bash
 oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'
 ```
 If the command fails or returns an empty value, omit the `Oz run` line rather than posting a hard-coded or broken URL.
 
-If fewer than 2 actionable patterns are found, do not open a PR. Write a no-change report to the run output instead:
+**Do not post** when:
+- The first-week guard skipped the run (step 0).
+- Fewer than 2 actionable patterns were found and no PR was created or updated.
+
+**Do post** when the run fails in a way that prevents it from completing — for example the signal collection step errors out, or the log branch cannot be fetched. A blocked run is actionable; a quiet run is not.
+
+If fewer than 2 actionable patterns are found, do not open or update a PR. Write a no-change report to the run output and stop:
 
 ```text
 ## Drafting skills improvement — no-change report
@@ -205,11 +283,11 @@ If fewer than 2 actionable patterns are found, do not open a PR. Write a no-chan
 **Suggested adjustment**: [one specific suggestion for the next run, e.g., lower a threshold or check a different log]
 ```
 
-Post the no-change report link to Slack.
-
 ## Run log
 
-This skill does not have its own run log. Its durable outputs are the improvement PR (or no-change report), the Slack message, and the standing `chore: drafting signal logs` PR that accumulates the signal logs it collects.
+This skill does not keep a separate run-log file. Its durable record is the standing `chore: drafting signal logs` PR, which accumulates a signal-log entry on every run — including no-change runs and guard-skipped runs. That per-run entry is what makes the actionable-only Slack policy safe: a silent run is still recorded, so silence means "ran, nothing to do" rather than "possibly broken."
+
+Its other durable outputs are the standing improvement PR and, when warranted, the Slack message.
 
 ## Deployment
 
@@ -220,6 +298,6 @@ To deploy:
 2. Verify the Oz environment has `SLACK_BOT_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` set.
 3. In the Oz web app, create a new scheduled agent:
    - **Skill**: `improve-drafting-skills` from `warpdotdev/docs`
-   - **Schedule**: `0 17 1-7 * 1` (UTC) = first Monday of each month at 9am PT
+   - **Schedule**: `0 17 * * 1` (UTC) = every Monday at 9am PT. The step 0 first-week guard narrows this to the first Monday only. See the caution in `## Schedule` for why the day-of-month field must stay `*`.
    - **Environment**: the same environment used for `weekly-404-monitor` (already has `warpdotdev/docs` checked out)
    - **Branch**: `main`

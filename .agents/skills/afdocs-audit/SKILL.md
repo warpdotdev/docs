@@ -110,27 +110,85 @@ AFDocs audit complete: 23 checks run, score 82/100 (B).
 
 After reporting, ask the user which issues they want to address.
 
-## Slack notification (optional)
+## Run log
 
-If instructed to send a report to Slack, post a summary after the audit completes.
+Write a run log entry on **every** scheduled run — clean, regressed, or blocked. The log is what makes the regression comparison possible and what makes a silent run distinguishable from a broken one.
+
+Use the standing log-branch pattern from `.agents/references/skill-authoring-guidelines.md`:
+
+1. Fetch and check out `chore/afdocs-audit-log`. Create it from the latest `origin/main` if it does not exist.
+2. Prepend the entry to `.agents/logs/afdocs_audit_runs.md`.
+3. Verify the write with `head -10 .agents/logs/afdocs_audit_runs.md` before committing.
+4. Stage only the log file and commit:
+   ```text
+   chore: log afdocs audit run YYYY-MM-DD
+   ```
+5. Push and verify with `git log --oneline -1 origin/chore/afdocs-audit-log`.
+6. Ensure exactly one open PR exists from `chore/afdocs-audit-log` into `main`, titled `chore: afdocs audit run log`.
+
+If any git step fails, write the entry to the run output and continue.
+
+### Run log format
+
+```markdown
+## YYYY-MM-DD — [valid | blocked]
+- **Score**: N/100 (grade)
+- **Checks**: N total — N pass, N fail, N warn
+- **Failing check ids**: comma-separated list, or "none"
+- **Allowlisted**: N
+- **Oz run**: [URL]
+- **Notes**: [anything unusual]
+```
+
+For a firewall-blocked run, record `blocked`, omit the score entirely rather than logging the meaningless one, and note the mitigation status.
+
+## Regression detection
+
+Compare this run against the most recent **valid** entry in the run log — never against a `blocked` entry, whose score is an artifact of the firewall challenge rather than a real measurement. If there is no prior valid entry, this run establishes the baseline: log it and post nothing.
+
+A run is a regression when either:
+- The score dropped versus the last valid entry.
+- A check id appears in this run's failing set that was not in the last valid entry's failing set.
+
+## Slack notification
+
+Post **only** when the run is actionable, per the actionable-only rule in `.agents/references/skill-authoring-guidelines.md`:
+
+- **Regression detected** — post the summary below.
+- **Audit blocked** by the Vercel Firewall challenge — post the blocked notice. This is a failure, so it always posts. Never post a score for a blocked run; every check is a false positive.
+- **Clean run with no regression** — post nothing. The run log entry is the record.
+
+A first-ever run with no baseline posts nothing.
 
 1. Check if `BUZZ_SLACK_TOKEN` environment variable exists.
-2. If the token exists, send a summary to the channel the user specified (or the channel configured in the agent's instructions).
+2. If the token exists, send the summary to the channel the user specified (or the channel configured in the agent's instructions).
 
-**Format:**
+**Format — regression:**
 
 ```
-*AFDocs Audit — <date>*
-Score: <score>/100 (<grade>) | <total_checks> checks | <pass> pass, <fail> fail, <warn> warn
+*AFDocs Audit — <date>* — regression
+Score: <score>/100 (<grade>), down from <previous_score>/100 on <previous_date>
+<total_checks> checks | <pass> pass, <fail> fail, <warn> warn
 
-*Failures (<count>):*
+*New failures since last valid run (<count>):*
 • <check_id>: <message>
 
-*Warnings (<count>):*
+*Pre-existing failures (<count>):*
 • <check_id>: <message>
 
 *Allowlisted (<count>):*
 • <check_id>: <reason>
+```
+
+Lead with what changed. Pre-existing failures are context, not news — keep that list short or omit it when long.
+
+**Format — audit blocked:**
+
+```
+*AFDocs Audit — <date>* — audit blocked, no score
+The crawler was blocked by the Vercel Firewall bot challenge, so no checks could run.
+Fix: disable Attack Mode, switch Bot Protection to log mode, or add a WAF bypass for the runner.
+Details: references/vercel-firewall-challenge.md
 ```
 
 Send using:
