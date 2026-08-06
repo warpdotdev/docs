@@ -135,6 +135,8 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 ### Warp Agent vs Oz
 
 - **Warp Agent** — Warp's built-in agent harness. Use "Warp Agent" when specifically referring to the built-in harness, especially when contrasting with third-party agents (Claude Code, Codex, etc.), or when referencing the Settings label (**Settings** > **Agents** > **Warp Agent**).
+- **Warp Agent CLI** — The standalone terminal program (the `warp` binary) that runs the Warp Agent in any terminal, including over SSH and on machines without the Warp app. Documented at `/agents/cli/`.
+  *Usage note:* Distinct from the Oz CLI (the `oz` binary), which runs and manages cloud agents. At the next launch (approximately August 18, 2026) the Oz CLI is retired and wrapped into the Warp Agent CLI, leaving a single CLI under this name. Until that ships, keep the two clearly separate in prose; afterwards, "Warp Agent CLI" covers both.
 - **Oz** — Warp's programmable platform for running and coordinating agents at scale
 - There is typically one Warp environment per user session. Oz can run many agents concurrently, across machines, repos, and teams.
 
@@ -209,7 +211,7 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 
 - **Trigger** — The event that starts a run (Slack mention, schedule, CI event, API call).
 
-- **Warp CLI** — The command-line tool for running and managing Warp Platform workflows. Formerly called `warp-cli`, now `oz`.
+- **Warp CLI** — Ambiguous since the Warp Agent CLI launched; avoid the bare term. Use "Oz CLI" for the `oz` binary that runs and manages cloud agents (formerly called `warp-cli`), or "Warp Agent CLI" for the `warp` binary that runs the Warp Agent in any terminal.
 
 ## Technical terms
 

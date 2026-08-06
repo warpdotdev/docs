@@ -53,7 +53,7 @@ Resuming in the CLI has two constraints:
 * **The run must be finished** - Cloud runs that are still in progress or blocked can't be opened in the CLI.
 * **Warp Agent runs only** - Conversations that ran with a different harness, such as Claude Code or Codex, can't be opened in the CLI.
 
-You can also open a conversation directly at startup with `warp --resume <token>`. See [managing conversations in the CLI](/cli/agent-conversations/#managing-conversations) to learn more about conversation history and resume details.
+You can also open a conversation directly at startup with `warp --resume <token>`. See [managing conversations in the CLI](/agents/cli/agent-conversations/#managing-conversations) to learn more about conversation history and resume details.
 
 ## Multi-agent orchestration
 
@@ -65,7 +65,7 @@ You can also shape the configuration in your prompt. For example, ask for a spec
 
 When the agent decides to spawn child agents, the CLI shows an approval card titled **Can I start additional agents for this task?** that summarizes the agents it wants to launch and the run-wide configuration.
 
-By default, no child agents launch until you approve. The **Run orchestrated agents** permission in your profile controls this: **Always allow** skips the approval card, and **Never** blocks child agents entirely. See [Permissions and profiles](/cli/permissions-and-profiles/).
+By default, no child agents launch until you approve. The **Run orchestrated agents** permission in your profile controls this: **Always allow** skips the approval card, and **Never** blocks child agents entirely. See [Permissions and profiles](/agents/cli/permissions-and-profiles/).
 
 From the approval card:
 
@@ -75,8 +75,8 @@ From the approval card:
 
 After launch, a tab bar labeled **Agents:** appears above the session with one tab for the orchestrator and one tab per child agent. Messages between the parent and child agents appear in each agent's transcript.
 
-<figure>
-![The Agents: tab bar in the Warp Agent CLI, showing the orchestrator tab and three child agent tabs with status glyphs](../../../assets/cli/tui-agents-tab-bar.png)
+<figure style={{ maxWidth: "563px" }}>
+![The Agents: tab bar in the Warp Agent CLI, showing the orchestrator tab and three child agent tabs with status glyphs](../../../../assets/agents/cli/tui-agents-tab-bar.png)
 <figcaption>The Agents: tab bar with one child agent running and two finished.</figcaption>
 </figure>
 
@@ -116,5 +116,5 @@ In the orchestrator's own session, `Ctrl+C` keeps its usual behavior.
 * [Handoff from local to cloud](/platform/handoff/local-to-cloud/) - Prerequisites, the Warp app flow, and troubleshooting.
 * [Multi-agent orchestration](/platform/orchestration/) - The parent/child model, run states, and orchestration patterns.
 * [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) - Open, inspect, and continue cloud runs in the {VARS.WEB_APP}.
-* [Agent conversations in the CLI](/cli/agent-conversations/#managing-conversations) - Conversation history, `/conversations`, and `--resume`.
+* [Agent conversations in the CLI](/agents/cli/agent-conversations/#managing-conversations) - Conversation history, `/conversations`, and `--resume`.
 * [Environments](/platform/environments/) - Configure the repos, image, and setup commands cloud agents run with.
