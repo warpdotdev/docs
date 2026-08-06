@@ -6,6 +6,18 @@ This is a human-readable audit trail of `review-docs-pr` runs on agent-authored 
 
 **Format**:
 ```markdown
+
+## 2026-08-06 · improve-drafting-skills collector
+
+- **Branch**: chore/drafting-signal-logs
+- **Skill used**: improve-drafting-skills
+- **Agent-related content PRs scanned**: 55
+- **Fresh human feedback records**: 353 (new appended: 22)
+- **Tagged skill-feedback**: 3
+- **Top issue categories**: general (258), settings_path (17), content_structure (16), missing_media (11), link_quality (9), list_format (9), terminology (8), frontmatter (7)
+- **Oz run signals (style-lint/pr-review markers)**: 0 parseable in sampled drafting runs
+- **Notes**: Prior open improve PRs #450/#454/#468 and merged #478 already cover structure/callout/settings/media/frontmatter/list/link/ui patterns. New actionable gaps: vague_wording, action_first_instructions.
+
 ## 2026-08-04 — collector scan (no [SIGNAL:pr-review] markers)
 
 - **Branch**: n/a
