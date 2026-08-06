@@ -114,7 +114,7 @@ Note: this requires checking GitHub PR history. Use `gh pr list --repo warpdotde
 For each confirmed pattern, draft the smallest edit that addresses it:
 
 - **No-change too frequent**: Lower the "at least 2 high-confidence link additions" threshold to 1, or add new topic areas to the pilot scope under `## Scope`.
-- **Peec unavailable**: Update the snapshot path references or add a fallback instruction in `## Source data`.
+- **Peec unavailable**: This is usually a credential or config problem rather than a skill problem. Confirm the `PEEC_PAT` secret is valid and that the schedule still passes the `peec-ai` MCP server, and flag it for a human instead of editing the skill. Only change `## Source data` if the call contract itself has drifted.
 - **Links proposed not added**: Loosen the specific gate in `## Self-review before opening a PR` that is rejecting otherwise valid candidates (identify which gate by reading the no-change reports in run output).
 - **Recurring theme**: Move the theme from `## Future expansion boundaries` to `## Scope` with a clear instruction.
 - **PR acceptance problems**: Strengthen the specific heuristic that led to incorrect link proposals.
@@ -166,7 +166,7 @@ Oz run: [run URL]
 ```
 In both messages, build the `Oz run` link at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run, substituting the run ID this agent is executing as:
 ```bash
-oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'
+oz run get "<your run ID>" --output-format json | jq -r '.session_link'
 ```
 If the command fails or returns an empty value, omit the `Oz run` line rather than posting a hard-coded or broken URL.
 
