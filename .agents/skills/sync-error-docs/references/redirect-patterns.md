@@ -25,35 +25,46 @@ Both are handled by entries in `vercel.json` at the repo root. All redirects for
 
 ## 1. Prefix redirect (already generic — no per-code work)
 
-A catch-all already covers every error code, current and future:
+Catch-alls already cover every error code, current and future, in both slash forms:
 
 ```json
 {
   "source": "/errors/:code",
   "destination": "/reference/api-and-sdk/troubleshooting/errors/:code/",
   "statusCode": 308
+},
+{
+  "source": "/errors/:code/",
+  "destination": "/reference/api-and-sdk/troubleshooting/errors/:code/",
+  "statusCode": 308
 }
 ```
 
-`:code` is forwarded unchanged, so `/errors/insufficient_credits` lands on the underscored path, which the separator redirect below then resolves.
+`:code` is forwarded unchanged, so `/errors/insufficient_credits` lands on the underscored path, which the separator redirects below then resolve. Note that the trailing-slash catch-all preserves the slash into the destination, which is why the separator step must also cover the slashed form.
 
-Because this rule is generic, **adding a new error code requires no change here.** Just confirm it still exists:
+Because these rules are generic, **adding a new error code requires no change here.** Just confirm both still exist:
 
 ```bash
 grep -F '"/errors/:code"' vercel.json
+grep -F '"/errors/:code/"' vercel.json
 ```
 
-If it is missing, restore this single rule rather than adding one entry per code.
+If either is missing, restore that rule rather than adding one entry per code.
 
-There is also a bare `/errors` redirect pointing at the errors index, which likewise needs no per-code maintenance.
+There are also bare `/errors` and `/errors/` redirects pointing at the errors index, which likewise need no per-code maintenance.
 
-## 2. Separator redirect (one entry per code)
+## 2. Separator redirects (two entries per code)
 
-This is the only redirect a new error code needs. It maps the underscored form to the hyphenated page slug:
+These are the only redirects a new error code needs. They map the underscored form to the hyphenated page slug, in both slash forms:
 
 ```json
 {
   "source": "/reference/api-and-sdk/troubleshooting/errors/{underscore_code}",
+  "destination": "/reference/api-and-sdk/troubleshooting/errors/{hyphen-code}/",
+  "statusCode": 308
+},
+{
+  "source": "/reference/api-and-sdk/troubleshooting/errors/{underscore_code}/",
   "destination": "/reference/api-and-sdk/troubleshooting/errors/{hyphen-code}/",
   "statusCode": 308
 }
@@ -66,19 +77,26 @@ Example for `insufficient_credits`:
   "source": "/reference/api-and-sdk/troubleshooting/errors/insufficient_credits",
   "destination": "/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/",
   "statusCode": 308
+},
+{
+  "source": "/reference/api-and-sdk/troubleshooting/errors/insufficient_credits/",
+  "destination": "/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/",
+  "statusCode": 308
 }
 ```
 
 Rules:
 
-- `source` has a **leading slash**, no trailing slash, and no file extension.
-- `destination` has a **trailing slash**. Every existing error redirect uses one.
+- **Add both slash variants.** All 17 codes currently in `vercel.json` have both (34 entries); none has only one. A single variant leaves the new code less covered than every existing one, and the trailing-slash catch-all in section 1 forwards its slash through, so the slashed underscore path would otherwise 404.
+- `source` has a **leading slash** and no file extension.
+- `destination` has a **trailing slash** in both entries. Every existing error redirect does.
 - Always set `"statusCode": 308`.
-- Add the entry near the other `/reference/api-and-sdk/troubleshooting/errors/` redirects so they stay grouped.
-- Check for an existing entry before adding, so re-runs stay idempotent:
+- Add the entries near the other `/reference/api-and-sdk/troubleshooting/errors/` redirects so they stay grouped.
+- Check for existing entries before adding, so re-runs stay idempotent:
 
   ```bash
-  grep -F '/reference/api-and-sdk/troubleshooting/errors/{underscore_code}"' vercel.json
+  grep -F '"/reference/api-and-sdk/troubleshooting/errors/{underscore_code}"' vercel.json
+  grep -F '"/reference/api-and-sdk/troubleshooting/errors/{underscore_code}/"' vercel.json
   ```
 
 ## Note on the former GitBook flow

@@ -90,47 +90,61 @@ Rules:
 
 ### Step 6: Add the underscore-to-hyphen redirect
 
-Error codes are underscored (`insufficient_credits`) but page slugs are hyphenated (`insufficient-credits`). Add a redirect to `vercel.json` (at the repo root) so the underscore form resolves.
+Error codes are underscored (`insufficient_credits`) but page slugs are hyphenated (`insufficient-credits`). Add redirects to `vercel.json` (at the repo root) so the underscore form resolves.
 
-Check for an existing entry first, to stay idempotent across re-runs:
+**Add two entries, not one.** Every error code currently in `vercel.json` has both a no-trailing-slash and a trailing-slash source (34 entries covering 17 codes, with no code having only one form). Adding a single variant leaves the new code with half the coverage of every existing one, and the `/errors/:code/` catch-all forwards a trailing slash through, so the slashed underscore path would not resolve.
+
+Check for existing entries first, to stay idempotent across re-runs:
 
 ```bash
-grep -F '/reference/api-and-sdk/troubleshooting/errors/{underscore_code}"' vercel.json
+grep -F '"/reference/api-and-sdk/troubleshooting/errors/{underscore_code}"' vercel.json
+grep -F '"/reference/api-and-sdk/troubleshooting/errors/{underscore_code}/"' vercel.json
 ```
 
-If it matches, skip. Otherwise add an entry to the `redirects` array, alongside the other error-code redirects:
+Add whichever variant is missing to the `redirects` array, alongside the other error-code redirects:
 
 ```json
 {
   "source": "/reference/api-and-sdk/troubleshooting/errors/{underscore_code}",
   "destination": "/reference/api-and-sdk/troubleshooting/errors/{hyphen-code}/",
   "statusCode": 308
+},
+{
+  "source": "/reference/api-and-sdk/troubleshooting/errors/{underscore_code}/",
+  "destination": "/reference/api-and-sdk/troubleshooting/errors/{hyphen-code}/",
+  "statusCode": 308
 }
 ```
 
-The trailing slash on `destination` is required — every existing error redirect uses one.
+Both `destination` values carry a trailing slash — every existing error redirect does, regardless of its source form.
 
 ### Step 7: Confirm the site-level `/errors/` route (usually no action)
 
-The API's `type` URI uses `https://docs.warp.dev/errors/{underscore_code}`. A **catch-all redirect already covers every code**, so no per-code work is normally needed:
+The API's `type` URI uses `https://docs.warp.dev/errors/{underscore_code}`. **Catch-all redirects already cover every code**, in both slash forms, so no per-code work is normally needed:
 
 ```json
 {
   "source": "/errors/:code",
   "destination": "/reference/api-and-sdk/troubleshooting/errors/:code/",
   "statusCode": 308
+},
+{
+  "source": "/errors/:code/",
+  "destination": "/reference/api-and-sdk/troubleshooting/errors/:code/",
+  "statusCode": 308
 }
 ```
 
-That rule forwards the code unchanged, so `/errors/insufficient_credits` lands on the underscored path and is then picked up by the step 6 redirect. Adding step 6 is therefore sufficient.
+These forward `:code` unchanged, so `/errors/insufficient_credits` lands on the underscored path and is then picked up by the step 6 redirects. Completing step 6 is therefore sufficient — which is why step 6 must add both slash variants.
 
-Verify the catch-all is still present:
+Verify both catch-alls are still present:
 
 ```bash
 grep -F '"/errors/:code"' vercel.json
+grep -F '"/errors/:code/"' vercel.json
 ```
 
-If it is missing, restore it rather than adding per-code entries. Read `references/redirect-patterns.md` for background.
+If either is missing, restore it rather than adding per-code entries. Read `references/redirect-patterns.md` for background.
 
 This step no longer uses the GitBook API. The former `docs_redirects.py` / `GITBOOK_TOKEN` flow was left over from the GitBook era and does not apply to the Astro Starlight site.
 

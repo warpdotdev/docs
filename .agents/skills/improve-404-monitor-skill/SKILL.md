@@ -39,7 +39,7 @@ A skipped run is a no-op, not a failure. Write the skip line to the run output a
 - The `chore/404-monitor-log` branch reachable, since the run log is read from there (see "Signal source")
 - At least 6 entries in the run log
 - `gh` CLI authenticated with write access to `warpdotdev/docs`
-- `SLACK_BOT_TOKEN` — for posting a summary to `#growth-docs`
+- `BUZZ_SLACK_TOKEN` — for posting a summary to `#growth-docs`. This token posts as `buzz`, the bot account that is a member of that channel. Do not substitute another Slack token: several exist in the Oz secret store, and one that authenticates successfully can still fail with `channel_not_found` if its bot is not in the channel.
 - `GROWTH_DOCS_SLACK_CHANNEL_ID` — channel ID for `#growth-docs`
 
 ## Signal source
@@ -196,7 +196,7 @@ Oz run: [run URL]
 
 In both messages, build the `Oz run` link at runtime — never hard-code the Oz host. Resolve from your current run:
 ```bash
-oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'
+oz run get "<your run ID>" --output-format json | jq -r '.session_link'
 ```
 If the command fails or returns an empty value, omit the `Oz run` line.
 
@@ -206,7 +206,7 @@ This skill is designed for a monthly Oz scheduled agent.
 
 To deploy:
 1. Push this skill to `main` in the docs repo.
-2. Verify the Oz environment has `SLACK_BOT_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` set.
+2. Verify the Oz environment has `BUZZ_SLACK_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` set.
 3. In the Oz web app, create a new scheduled agent:
    - **Skill**: `improve-404-monitor-skill` from `warpdotdev/docs`
    - **Schedule**: `0 17 * * 1` (UTC) = every Monday at 9am PT. The step 0 first-week guard narrows this to the first Monday only. See the caution in `## Schedule` for why the day-of-month field must stay `*`.

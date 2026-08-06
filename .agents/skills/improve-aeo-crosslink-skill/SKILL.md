@@ -37,7 +37,7 @@ A skipped run is a no-op, not a failure. Write the skip line to the run output a
 
 - Docs repo checked out at `main`
 - `gh` CLI authenticated with write access to `warpdotdev/docs`
-- `SLACK_BOT_TOKEN` — for posting summary to `#growth-docs`
+- `BUZZ_SLACK_TOKEN` — for posting a summary to `#growth-docs`. This token posts as `buzz`, the bot account that is a member of that channel. Do not substitute another Slack token: several exist in the Oz secret store, and one that authenticates successfully can still fail with `channel_not_found` if its bot is not in the channel.
 - `GROWTH_DOCS_SLACK_CHANNEL_ID` — channel ID for `#growth-docs`
 
 ## Signal
@@ -105,7 +105,7 @@ Note: this requires checking GitHub PR history. Use `gh pr list --repo warpdotde
 For each confirmed pattern, draft the smallest edit that addresses it:
 
 - **No-change too frequent**: Lower the "at least 2 high-confidence link additions" threshold to 1, or add new topic areas to the pilot scope under `## Scope`.
-- **Peec unavailable**: Update the snapshot path references or add a fallback instruction in `## Source data`.
+- **Peec unavailable**: This is usually a credential or config problem rather than a skill problem. Confirm the `PEEC_PAT` secret is valid and that the schedule still passes the `peec-ai` MCP server, and flag it for a human instead of editing the skill. Only change `## Source data` if the call contract itself has drifted.
 - **Links proposed not added**: Loosen the specific gate in `## Self-review before opening a PR` that is rejecting otherwise valid candidates (identify which gate by reading the no-change reports in run output).
 - **Recurring theme**: Move the theme from `## Future expansion boundaries` to `## Scope` with a clear instruction.
 - **PR acceptance problems**: Strengthen the specific heuristic that led to incorrect link proposals.
@@ -169,7 +169,7 @@ Oz run: [run URL]
 ```
 In both messages, build the `Oz run` link at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run, substituting the run ID this agent is executing as:
 ```bash
-oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'
+oz run get "<your run ID>" --output-format json | jq -r '.session_link'
 ```
 If the command fails or returns an empty value, omit the `Oz run` line rather than posting a hard-coded or broken URL.
 
@@ -179,7 +179,7 @@ This skill is designed for a monthly Oz scheduled agent. Start it on month 3 aft
 
 To deploy:
 1. Push this skill to `main` in the docs repo.
-2. Verify the Oz environment has `SLACK_BOT_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` set.
+2. Verify the Oz environment has `BUZZ_SLACK_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` set.
 3. In the Oz web app, create a new scheduled agent:
    - **Skill**: `improve-aeo-crosslink-skill` from `warpdotdev/docs`
    - **Schedule**: `0 17 * * 1` (UTC) = every Monday at 9am PT. The step 0 first-week guard narrows this to the first Monday only. See the caution in `## Schedule` for why the day-of-month field must stay `*`.

@@ -115,7 +115,7 @@ The redirect-drafter line is part of this single message, not a separate post. O
 
 Build `{oz_run_url}` at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run, substituting the run ID this agent is executing as:
 ```bash
-oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'
+oz run get "<your run ID>" --output-format json | jq -r '.session_link'
 ```
 If the command fails or returns an empty value, omit the `→ Full breakdown` line rather than posting a hard-coded or broken URL.
 
@@ -264,7 +264,7 @@ To deploy (one-time setup):
    - `BUZZ_SLACK_TOKEN` — Slack bot token (already provisioned; used by other doc agents in this environment)
 3. Register the schedule via the Oz CLI:
    ```sh
-   oz-dev schedule create \
+   oz schedule create \
      --name "weekly-404-monitor" \
      --cron "0 17 * * 1" \
      --environment K5KStCm5aYvhfBJb8cHol6 \

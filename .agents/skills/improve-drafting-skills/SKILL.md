@@ -43,7 +43,7 @@ The following must be available in the cloud agent environment:
 
 - Docs repo checked out at `main`
 - `gh` CLI authenticated with write access to `warpdotdev/docs`
-- `SLACK_BOT_TOKEN` — for posting a summary to `#growth-docs`
+- `BUZZ_SLACK_TOKEN` — for posting a summary to `#growth-docs`. This token posts as `buzz`, the bot account that is a member of that channel. Do not substitute another Slack token: several exist in the Oz secret store, and one that authenticates successfully can still fail with `channel_not_found` if its bot is not in the channel.
 - `GROWTH_DOCS_SLACK_CHANNEL_ID` — channel ID for `#growth-docs`
 
 ## Signal sources
@@ -78,7 +78,7 @@ This produces one perpetual, low-noise PR that accumulates every run's log entri
 1. Use `oz run list` to find all Oz runs in the past 30 days whose skill name matches a drafting skill (`draft_docs`, `draft_feature_doc`, `draft_conceptual`, etc.) or `review-docs-pr`.
 2. For each run, retrieve the full conversation and extract agent text messages:
    ```bash
-   oz-dev run get --conversation RUN_ID --output-format json | \
+   oz run get --conversation RUN_ID --output-format json | \
      jq -r '[.. | objects | select(.role? == "assistant") | .content[]? | select(.type? == "text") | .text] | .[]'
    ```
    The top-level response is `{steps: [...]}`, not `{messages: [...]}`, and steps can be nested — use recursive descent (`..`) to reach all assistant messages at any depth. Do not rely on `oz run get` without `--conversation` — that returns only the brief `status_message` field, not conversation content or shell stdout.
@@ -261,7 +261,7 @@ Oz run: [run URL]
 
 Build the `Oz run` link at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run, substituting the run ID this agent is executing as:
 ```bash
-oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'
+oz run get "<your run ID>" --output-format json | jq -r '.session_link'
 ```
 If the command fails or returns an empty value, omit the `Oz run` line rather than posting a hard-coded or broken URL.
 
@@ -285,7 +285,12 @@ If fewer than 2 actionable patterns are found, do not open or update a PR. Write
 
 ## Run log
 
-This skill does not keep a separate run-log file. Its durable record is the standing `chore: drafting signal logs` PR, which accumulates a signal-log entry on every run — including no-change runs and guard-skipped runs. That per-run entry is what makes the actionable-only Slack policy safe: a silent run is still recorded, so silence means "ran, nothing to do" rather than "possibly broken."
+This skill does not keep a separate run-log file. Its durable records are:
+
+- **Runs that reach the collector** — the standing `chore: drafting signal logs` PR accumulates a signal-log entry, including on no-change runs.
+- **Runs that exit at the step 0 guard** — these stop before the collector, so they write **no** signal-log entry. Their record is the skip line in the run output, which must state the day of the month and that the agent runs monthly.
+
+Both satisfy the "durable record of its outcome" requirement in `.agents/references/skill-authoring-guidelines.md`, which is what makes the actionable-only Slack policy safe here: a silent run is still inspectable, so silence means "ran, nothing to do" rather than "possibly broken." Do not remove the skip line from the guard — without it, a guard-skipped run would be silent with no record at all, and the skill would have to post instead.
 
 Its other durable outputs are the standing improvement PR and, when warranted, the Slack message.
 
@@ -295,7 +300,7 @@ This skill is designed for a monthly Oz scheduled agent.
 
 To deploy:
 1. Push this skill to `main` in the docs repo.
-2. Verify the Oz environment has `SLACK_BOT_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` set.
+2. Verify the Oz environment has `BUZZ_SLACK_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` set.
 3. In the Oz web app, create a new scheduled agent:
    - **Skill**: `improve-drafting-skills` from `warpdotdev/docs`
    - **Schedule**: `0 17 * * 1` (UTC) = every Monday at 9am PT. The step 0 first-week guard narrows this to the first Monday only. See the caution in `## Schedule` for why the day-of-month field must stay `*`.
