@@ -2,6 +2,8 @@ import type { APIRoute } from 'astro';
 import { SUPPORT_HANDOFF_ENDPOINT_URL, SUPPORT_HANDOFF_SHARED_SECRET } from 'astro:env/server';
 
 export const prerender = false;
+const DEFAULT_SUPPORT_HANDOFF_ENDPOINT_URL =
+	'https://gcp-front-docs-handoff-66982094909.us-east4.run.app';
 
 type HandoffPayload = {
 	user_email?: unknown;
@@ -31,7 +33,9 @@ function buildKapaConversationUrl(kapaProjectId: string, kapaThreadId: string) {
 }
 
 export const POST: APIRoute = async ({ request }) => {
-	if (!SUPPORT_HANDOFF_ENDPOINT_URL) {
+	const supportHandoffEndpointUrl =
+		SUPPORT_HANDOFF_ENDPOINT_URL || DEFAULT_SUPPORT_HANDOFF_ENDPOINT_URL;
+	if (!supportHandoffEndpointUrl) {
 		return jsonError('Support handoff is not configured.', 503);
 	}
 
@@ -93,7 +97,7 @@ export const POST: APIRoute = async ({ request }) => {
 
 	let upstreamResponse: Response;
 	try {
-		upstreamResponse = await fetch(SUPPORT_HANDOFF_ENDPOINT_URL, {
+		upstreamResponse = await fetch(supportHandoffEndpointUrl, {
 			method: 'POST',
 			headers: forwardHeaders,
 			body: JSON.stringify(forwardPayload),
