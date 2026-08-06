@@ -48,6 +48,16 @@ export default defineConfig({
 				access: 'public',
 				optional: true,
 			}),
+			SUPPORT_HANDOFF_ENDPOINT_URL: envField.string({
+				context: 'server',
+				access: 'secret',
+				optional: true,
+			}),
+			SUPPORT_HANDOFF_SHARED_SECRET: envField.string({
+				context: 'server',
+				access: 'secret',
+				optional: true,
+			}),
 		},
 	},
 	integrations: [

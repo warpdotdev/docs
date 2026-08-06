@@ -284,6 +284,21 @@
 	outline: 2px solid var(--sl-color-accent-high);
 	outline-offset: 2px;
 }
+.sl-kapa-feedback__handoff--submit {
+	background: var(--sl-color-text-accent);
+	border-color: var(--sl-color-text-accent);
+	color: var(--sl-color-black);
+}
+
+.sl-kapa-feedback__handoff--submit:hover:not(:disabled) {
+	border-color: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-white) 18%);
+	background: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-white) 8%);
+	color: var(--sl-color-black);
+}
+
+.sl-kapa-feedback__handoff--ghost {
+	background: transparent;
+}
 
 .sl-kapa-error {
 	border: 1px solid color-mix(in srgb, #ef4444, var(--sl-color-black) 35%);
@@ -368,6 +383,67 @@
 .sl-kapa-submit:disabled {
 	opacity: 0.5;
 	cursor: not-allowed;
+}
+.sl-kapa-handoff-inline {
+	margin-top: 0.75rem;
+	padding-top: 0.75rem;
+	border-top: 1px solid var(--sl-color-gray-5);
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.sl-kapa-handoff-inline label {
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	color: var(--sl-color-gray-2);
+}
+
+.sl-kapa-handoff-inline__row {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto auto;
+	gap: 0.5rem;
+}
+
+.sl-kapa-handoff-inline input {
+	width: 100%;
+	min-width: 0;
+	height: 2.25rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: var(--sl-radius-sm);
+	background: var(--sl-color-black);
+	color: var(--sl-color-white);
+	padding: 0 0.625rem;
+	font: inherit;
+	font-size: var(--sl-text-sm);
+}
+
+.sl-kapa-handoff-inline input::placeholder {
+	color: var(--sl-color-gray-3);
+}
+
+.sl-kapa-handoff-inline input:focus-visible {
+	outline: 2px solid var(--sl-color-accent-high);
+	outline-offset: 2px;
+}
+
+.sl-kapa-handoff-inline__status {
+	margin: 0;
+	font-size: var(--sl-text-xs);
+	line-height: 1.4;
+}
+
+.sl-kapa-handoff-inline__status--success {
+	color: #86efac;
+}
+
+.sl-kapa-handoff-inline__status--error {
+	color: #fecaca;
+}
+
+.sl-kapa-handoff-inline__status a {
+	color: inherit;
+	text-decoration: underline;
 }
 
 .sl-kapa-handoff {
