@@ -1,8 +1,8 @@
 ---
 title: "Warp Agent CLI reference"
 description: >-
-  Reference for the Warp Agent CLI: command-line flags, environment variables,
-  slash commands, keyboard shortcuts, and troubleshooting.
+  Look up Warp Agent CLI command-line flags, environment variables, slash commands,
+  keyboard shortcuts, and fixes for common issues.
 ---
 import { VARS } from '@data/vars';
 
@@ -10,31 +10,11 @@ This page is a lookup reference for the {VARS.WARP_CLI}, covering the flags and 
 
 ## Command-line flags
 
-Running `warp` with no flags starts an interactive session in the current directory. The following flags change how the CLI starts, or make it perform a one-off action and exit.
-
-### `--resume`
-
-Resumes a previous conversation by its conversation token.
-
-```bash
-warp --resume CONVERSATION_TOKEN
-```
-
-`CONVERSATION_TOKEN` is the token the CLI prints when you exit a session ("To continue this conversation, run: `warp --resume ...`"). You can also reopen past conversations from inside a session with `/conversations`. See [agent conversations in the CLI](/cli/agent-conversations/#managing-conversations) for how persistence and resuming work.
-
-### `--auto-approve`
-
-Starts new conversations with auto-approve enabled, so the agent runs actions without asking for approval first.
-
-```bash
-warp --auto-approve
-```
-
-The default applies only to that launch and doesn't change your saved settings. You can still toggle auto-approve per conversation with `/auto-approve` or `Ctrl+Shift+I`. See [permissions and profiles](/cli/permissions-and-profiles/) for how approvals work.
+Running `warp` with no flags starts an interactive session in the current directory. The following flags change how the CLI starts, or make it perform a one-off action and exit. They are listed alphabetically.
 
 ### `--api-key`
 
-Authenticates with a Warp API key instead of the interactive browser login. Useful on hosts where a browser sign-in is inconvenient.
+Authenticates with a Warp API key instead of the interactive browser login. Use it on machines that can't open a browser, such as CI runners and remote servers.
 
 Prefer supplying the key through the `WARP_API_KEY` environment variable:
 
@@ -54,9 +34,57 @@ Command-line arguments can be captured in shell history and process listings. Pr
 
 Create a key in the Warp app under **Settings** > **Cloud platform** > **Oz Cloud API Keys**. See the [API keys reference](/reference/cli/api-keys/) for details.
 
+### `--auto-approve`
+
+Starts new conversations with auto-approve enabled, so the agent runs actions without asking for approval first.
+
+```bash
+warp --auto-approve
+```
+
+This flag applies only to the session you launch with it and doesn't change your saved settings. You can still toggle auto-approve per conversation with `/auto-approve` or `Ctrl+Shift+I`. See [permissions and profiles](/cli/permissions-and-profiles/) for how approvals work.
+
+### `--clear-provider-api-key`
+
+Deletes a stored model-provider API key from your device's secure storage, then exits.
+
+```bash
+warp --clear-provider-api-key <provider>
+```
+
+`<provider>` is `openai`, `anthropic`, or `google`. For example:
+
+```bash
+warp --clear-provider-api-key anthropic
+```
+
+### `--help`
+
+Prints usage information for all flags and exits.
+
+```bash
+warp --help
+```
+
+### `--resume`
+
+Reopens a previous conversation from your shell as the CLI starts.
+
+```bash
+warp --resume CONVERSATION_TOKEN
+```
+
+`CONVERSATION_TOKEN` is the token the CLI prints when you exit a session ("To continue this conversation, run: `warp --resume ...`"). You can also reopen past conversations from inside a session with `/conversations`. See [agent conversations in the CLI](/cli/agent-conversations/#managing-conversations) for how persistence and resuming work.
+
 ### `--set-provider-api-key`
 
-Securely stores a model-provider API key for [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), then exits. The provider is one of `openai`, `anthropic`, or `google`.
+Stores a model-provider API key for [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/) in your device's secure storage, then exits. Warp never stores provider keys on its servers.
+
+```bash
+warp --set-provider-api-key <provider>
+```
+
+`<provider>` is `openai`, `anthropic`, or `google`. For example:
 
 ```bash
 warp --set-provider-api-key anthropic
@@ -70,15 +98,7 @@ your-secret-manager read anthropic-api-key | warp --set-provider-api-key anthrop
 
 Avoid staging keys in plaintext files. If you must use a temporary file, delete it immediately afterward.
 
-Inside a session, manage the same keys with the `/api-keys` menu; see [models and usage](/cli/models-and-usage/#bring-your-own-api-key) for how stored keys affect billing.
-
-### `--clear-provider-api-key`
-
-Removes a stored model-provider API key, then exits. The provider is one of `openai`, `anthropic`, or `google`.
-
-```bash
-warp --clear-provider-api-key anthropic
-```
+Inside a session, manage the same keys with the `/api-keys` menu. See [models and usage](/cli/models-and-usage/#bring-your-own-api-key) for how stored keys affect billing.
 
 ### `--version`
 
@@ -88,18 +108,10 @@ Prints the installed version and exits.
 warp --version
 ```
 
-### `--help`
-
-Prints usage information for all flags and exits.
-
-```bash
-warp --help
-```
-
 ## Environment variables
 
-* `WARP_API_KEY` - Warp API key for non-interactive authentication. Equivalent to passing `--api-key`.
-* `WARP_TUI_DISABLE_AUTOUPDATE` - Set to any value to disable background auto-updates for that launch. See [Updating](#updating) for how updates work.
+* **`WARP_API_KEY`** - A Warp API key for non-interactive authentication. Equivalent to passing `--api-key`.
+* **`WARP_TUI_DISABLE_AUTOUPDATE`** - Set it to any value to turn off background updates for a single launch. See [Updating](#updating) for how updates work.
 
 ## Slash commands
 
@@ -125,12 +137,12 @@ Type `/` at the start of the input to open the slash command menu. Commands that
 | `/natural-language-detection` | | Toggle natural language detection for shell input |
 | `/new` | `[prompt]` | Start a new conversation (alias for `/agent`) |
 | `/plan` | `[task]` | Ask the agent to research and create a plan for a task |
-| `/skills` | | Invoke a skill |
+| `/skills` | | Browse skills in scope and insert one into the input |
 | `/statusline` | | Configure the statusline |
 | `/theme` | `<auto\|light\|dark>` | Set the color theme |
 | `/version` | | Show the installed version |
 | `/view-logs` | | Bundle your logs into a zip archive |
-| `/voice` | | Start voice input (`Ctrl+S`) |
+| `/voice` | | Start voice input |
 
 Skills also appear in the same menu under their own names, so you can invoke a skill directly as `/skill-name`. [Customizing the CLI](/cli/configuration/) covers how skills are discovered.
 
@@ -139,7 +151,7 @@ Skills also appear in the same menu under their own names, so you can invoke a s
 Press `?` on an empty input to open the contextual shortcuts panel inside the CLI. The tables below list the default bindings.
 
 :::note
-Bindings are identical on macOS, Linux, and Windows, and Windows also accepts `Alt+V` for paste. For shortcuts that use `Alt`, some macOS terminals deliver `Option` as `Alt` only when their Option-as-Alt (Meta) setting is enabled.
+Bindings are the same on macOS, Linux, and Windows, except that Windows also accepts `Alt+V` for paste. For shortcuts that use `Alt`, some macOS terminals deliver `Option` as `Alt` only when their Option-as-Alt (Meta) setting is enabled. The macOS Command shortcuts described in [input and shell commands](/cli/input-and-shell-commands/#editing-basics) require a terminal with the Kitty keyboard protocol enabled.
 :::
 
 ### Session
@@ -166,34 +178,36 @@ These bindings apply while the agent is waiting for you to approve an action. [P
 
 | Shortcut | Action |
 | --- | --- |
-| `Enter` | Confirm the selected response |
+| `Enter` | Confirm the selected option on the approval card |
 | `Esc` | Reject or cancel the request |
-| `e` | Edit the proposed action, or expand and collapse all diffs in a file-edit approval |
-| `Ctrl+Enter` | Approve a blocked terminal-use action |
+| `E` | Edit the proposed command, or expand and collapse all diffs in a file-edit approval |
+| `Ctrl+Enter` | Approve a request to type into a running command |
 
 ### Terminal control
 
-While the agent is running an interactive terminal command, or you have taken control of one:
+These bindings apply while an interactive terminal command is running.
 
 | Shortcut | Action |
 | --- | --- |
-| `Ctrl+C` | Interrupt the running command, or take control from the agent |
-| `Ctrl+G` | Hand control back to the agent |
+| `Ctrl+C` | Interrupt a command you started, or take control of a command the agent is running |
+| `Ctrl+G` | Hand control of the command back to the agent |
 
 ### Multi-agent tabs
 
-When you run multiple agents, a tab bar appears above the session. [Cloud and orchestration](/cli/cloud-and-orchestration/) covers the workflow.
+When an orchestration launches child agents, an **Agents:** tab bar appears above the session. [Cloud and orchestration](/cli/cloud-and-orchestration/) covers the workflow.
 
 | Shortcut | Action |
 | --- | --- |
 | `Shift+↑` | Focus the agent tab bar |
-| `←` / `→` or `Tab` / `Shift+Tab` | Switch between agents |
-| `↓` | Return focus to the input |
-| `Esc` | Return to the main agent |
+| `←` / `→` or `Tab` / `Shift+Tab` | Select the previous or next agent |
+| `Shift+←` / `Shift+→` | Select the first or last child agent |
+| `↓` | Return focus to the current session's input |
+| `Esc` | Return to the orchestrator |
+| `Ctrl+C` | Kill the selected child agent (press twice when viewing a child) |
 
 ### Text editing
 
-The input supports familiar readline-style editing:
+The input supports readline-style editing.
 
 | Shortcut | Action |
 | --- | --- |
@@ -206,7 +220,7 @@ The input supports familiar readline-style editing:
 | `Alt+D` or `Alt+Delete` | Delete the next word |
 | `Ctrl+K` | Delete to the end of the line |
 | `Ctrl+U` | Delete to the start of the line |
-| `Ctrl+Y` | Paste the last deleted text |
+| `Ctrl+Y` | Reinsert the last deleted text |
 | `Ctrl+Z` / `Ctrl+Shift+Z` | Undo / redo |
 | `Shift+←` / `Shift+→` / `Shift+↑` / `Shift+↓` | Extend the selection |
 | `Ctrl+Shift+A` | Select all |
@@ -229,7 +243,7 @@ When something goes wrong, logs are the fastest way to help the Warp team diagno
 
 Run `/view-logs` in a session to bundle the current session's log and recent previous sessions into a timestamped zip archive. The CLI reveals the archive in your file manager and shows the saved path in the footer, so you can attach it to a bug report or share it with support.
 
-On macOS, CLI logs are stored in `~/Library/Logs/warp-cli/`. Logs rotate per session, and only a limited number of recent sessions are kept. The `/view-logs` archive is written to the same directory.
+On macOS, CLI logs are stored in `~/Library/Logs/warp-cli/`. Logs rotate per session, and older session logs are rotated out over time. The `/view-logs` archive is written to the same directory.
 
 ### The browser doesn't open during sign-in
 
@@ -243,7 +257,7 @@ For machines where the browser flow isn't practical, authenticate non-interactiv
 
 ### "Login failed"
 
-The sign-in attempt was rejected or timed out. The message shows the underlying cause.
+The sign-in attempt was rejected or timed out. The error message in the CLI names the underlying cause.
 
 1. Press `Ctrl+C` to exit.
 2. Run `warp` again to restart the sign-in flow.
@@ -264,7 +278,7 @@ The sign-in attempt was rejected or timed out. The message shows the underlying 
 
 ### Updating
 
-The CLI keeps itself up to date. Installed builds check for updates in the background, download new versions, and apply them the next time you launch `warp`. A running session is never interrupted.
+The CLI updates automatically. Installed builds check for updates in the background, download new versions, and apply them the next time you launch `warp`. A running session is never interrupted.
 
 To check which version you're running, use `/version` in a session, or run:
 
@@ -272,7 +286,7 @@ To check which version you're running, use `/version` in a session, or run:
 warp --version
 ```
 
-To disable background updates for a single launch, set the `WARP_TUI_DISABLE_AUTOUPDATE` environment variable to any value. To disable them persistently, turn off the autoupdate setting in the settings file. See [configuration](/cli/configuration/).
+To turn off background updates for a single launch, set the `WARP_TUI_DISABLE_AUTOUPDATE` environment variable to any value. To turn them off persistently, set `general.autoupdate_enabled` to `false` in the [CLI settings file](/cli/configuration/#the-settings-file).
 
 If an install becomes corrupted, re-running the install command from the [quickstart](/cli/quickstart/) replaces it with the latest version.
 

@@ -1,7 +1,9 @@
 ---
 description: >-
-  [1-2 sentences: what topic area these FAQs cover.
-  Example: "Answers to common questions about cloud agents, billing, and environments."
+  [One sentence, 50-160 characters: name the topic area these questions cover.
+  Don't just say "Frequently asked questions."
+  Example: "Answers to common questions about cloud agent billing, credits, and plan limits."
+  See AGENTS.md > Frontmatter > Descriptions by content type for the full rules.
   Use {{TOKEN}} syntax for any product names in src/data/vars.ts.]
 ---
 [VARS: Add this line immediately after the closing --- above if this page references any product names from src/data/vars.ts. Then use {VARS.KEY} for those names in the prose below.
