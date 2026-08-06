@@ -126,6 +126,11 @@
       "statusCode": 308
     },
     {
+      "source": "/agent-platform/capabilities/computer-use",
+      "destination": "/agents/capabilities/computer-use/",
+      "statusCode": 308
+    },
+    {
       "source": "/agent-platform/capabilities/computer-use/",
       "destination": "/agents/capabilities/computer-use/",
       "statusCode": 308
