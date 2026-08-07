@@ -15,10 +15,10 @@ See AGENTS.md → Content variables for the full variable list and usage rules.]
 [Opening paragraph: What this feature/concept is and its primary benefit.
 1-3 sentences. Lead with what the user gains from understanding this.]
 
-## [Key concepts or components — sentence case. Rename to match the subject]
+## [Key concepts or components — sentence case, specific to the subject. Not "Overview", "More details", or "Other"]
 
 [Explain the main ideas, components, or building blocks the reader needs
-to understand. Use bulleted lists with bold term + dash + description.]
+to understand. Use `*` bulleted lists with bold term + hyphen + description.]
 
 * **Concept A** - What it is and why it matters.
 * **Concept B** - What it is and why it matters.
@@ -39,8 +39,9 @@ Help the reader decide if this is the right tool for their situation.]
 
 ## Related pages
 
-[Cross-references to related features, procedural guides, and deeper references.
-Use descriptive link text.]
+[Required on new conceptual pages so the page does not dead-end.
+Cross-reference related features, procedural guides, and deeper references.
+Use descriptive link text that names the destination — not "here" or "this page".]
 
 * [Related feature](path/to/page.md)
 * [How to configure X](path/to/procedural-page.md)
