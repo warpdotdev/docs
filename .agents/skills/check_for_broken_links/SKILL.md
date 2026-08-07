@@ -145,15 +145,17 @@ After running the script, fix each broken link based on the error type:
 
 ### Adding Redirects
 
-If content moved, you can add a redirect in the appropriate `vercel.json (redirects)`:
+If content moved, add a redirect to the `redirects` array in `vercel.json` at the repo root:
 
 ```json
 {
-  "redirects": [
-    { "source": "/old/path", "destination": "/new/path" }
-  ]
+  "source": "/old/path",
+  "destination": "/new/path/",
+  "statusCode": 308
 }
 ```
+
+Include the trailing slash on `destination` and the `statusCode`, matching the existing entries.
 
 ## Creating a PR with Fixes
 

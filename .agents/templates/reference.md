@@ -10,12 +10,12 @@ description: >-
 `import { VARS } from '@data/vars';`
 See AGENTS.md → Content variables for the full variable list and usage rules.]
 
-# [Title — sentence case. Title convention: noun describing contents, e.g., "CLI commands", "Keyboard shortcuts"]
+# [Title — sentence case. Title convention: noun describing contents, e.g., "CLI commands", "Keyboard shortcuts". Not a bare "Overview" or "Reference".]
 
 [Brief intro: what this reference covers and how to use it.
 1-2 sentences. This is for lookup, not learning.]
 
-## [Section name — sentence case. e.g., "Installing the CLI", "Authentication"]
+## [Section name — sentence case and specific. e.g., "Installing the CLI", "Authentication". Not "More details".]
 
 [Introductory sentence or conceptual context for this section.]
 

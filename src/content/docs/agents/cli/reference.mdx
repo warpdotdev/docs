@@ -125,6 +125,7 @@ Type `/` at the start of the input to open the slash command menu. Commands that
 | `/clear` | `[prompt]` | Clear the transcript and start a new conversation |
 | `/compact` | `[instructions]` | Free up context by summarizing the conversation history |
 | `/conversations` | | Open conversation history |
+| `/copy-debugging-id` | | Copy the current conversation's debugging information to the clipboard |
 | `/cost` | | Toggle per-response credit usage details |
 | `/create-new-project` | `<description>` | Have the agent walk you through creating a new coding project |
 | `/exit` | | Exit the CLI |
@@ -244,6 +245,8 @@ When something goes wrong, logs are the fastest way to help the Warp team diagno
 Run `/view-logs` in a session to bundle the current session's log and recent previous sessions into a timestamped zip archive. The CLI reveals the archive in your file manager and shows the saved path in the footer, so you can attach it to a bug report or share it with support.
 
 On macOS, CLI logs are stored in `~/Library/Logs/warp-cli/`. Logs rotate per session, and older session logs are rotated out over time. The `/view-logs` archive is written to the same directory.
+
+When the problem is with the agent's response rather than the CLI itself, run `/copy-debugging-id` in the session. It copies the conversation's debugging information to your clipboard so you can paste it into a bug report. See [Gathering AI conversation ID](/support-and-community/troubleshooting-and-support/sending-us-feedback/#gathering-ai-conversation-id).
 
 ### The browser doesn't open during sign-in
 

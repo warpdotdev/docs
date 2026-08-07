@@ -72,7 +72,7 @@ If Google Search Console data is unavailable, say what could not be verified and
 4. **Make only safe edits.** Add links with minimal surrounding copy changes. Preserve the existing page structure and voice. Follow the link quality rules below when choosing anchor text and surrounding context.
 5. **Run self-review.** Apply the quality gates in this skill before opening a PR or writing a no-change report.
 6. **Deduplicate, re-validate, then open a PR or report no changes.**
-   - **Deduplicate first.** Check for an existing open AEO cross-link PR before opening one: `gh pr list --repo warpdotdev/docs --search 'docs: add AEO cross-links in:title' --state open`. Never leave two open AEO cross-link PRs. If one already exists, either skip this run (note it in the run output) or, if the existing PR is stale or superseded, close it with an explanatory comment before opening the new one.
+   - **Deduplicate first.** This skill follows the "One standing PR per automation" contract in `.agents/references/skill-authoring-guidelines.md`. Check for an existing open AEO cross-link PR before opening one: `gh pr list --repo warpdotdev/docs --search 'docs: add AEO cross-links in:title' --state open`. Never leave two open AEO cross-link PRs. If one already exists, prefer adding this run's links to it — check out its branch, rebase on the latest `origin/main`, apply the new links, push, and append them to the existing PR body under its existing headings. Skip the run only when the new links duplicate what the open PR already proposes.
    - **Re-validate against the latest `main`.** Fetch `origin/main` and confirm every edited file still exists at its path and every link target resolves to a current page (see "Self-review before opening a PR"). If a restructure moved your targets, rebase onto the latest `main` and fix paths before opening.
    - **Open a PR** only when there are at least 2 high-confidence link additions (at least 3 for low-signal runs; see "Source data"). Otherwise, write a no-change report in the Oz run output.
 
@@ -91,7 +91,9 @@ If Google Search Console data is unavailable, say what could not be verified and
 
    This produces one perpetual, low-noise PR that accumulates every run's entry regardless of outcome. Reviewers merge it periodically (at minimum before each monthly `improve-aeo-crosslink-skill` run) so the log reaches `main`. If any git step fails, write the log entry to the run output instead and continue to step 8.
 
-8. **Post Slack notification.** After writing the log entry, post the formatted message to `#growth-docs` using the Python snippet below. Python is preferred over curl because it reads `BUZZ_SLACK_TOKEN` from the environment (keeping the token out of process argv) and JSON-encodes the payload correctly regardless of newlines or special characters. If either secret is unavailable, write the notification body to the run output instead.
+8. **Post Slack notification — only if there is something to act on.** Follow the actionable-only rule in `.agents/references/skill-authoring-guidelines.md`: post **only** when a cross-link PR was opened or updated this run, or when the run failed or exited early in a way that stopped it from completing (including an unavailable Peec credential). A no-change run is silent — the run log entry from step 7 is its record.
+
+   When the run is actionable, post the formatted message to `#growth-docs` using the Python snippet below. Python is preferred over curl because it reads `BUZZ_SLACK_TOKEN` from the environment (keeping the token out of process argv) and JSON-encodes the payload correctly regardless of newlines or special characters. If either secret is unavailable, write the notification body to the run output instead.
 
    ```bash
    python3 - <<'SLACK_EOF'
@@ -229,7 +231,7 @@ Use this format:
 - [One specific improvement for the next run.]
 ```
 
-No-change reports stay in the Oz run output. The Oz run link is posted automatically to `#growth-docs` as part of step 8.
+No-change reports stay in the Oz run output and are recorded in the run log from step 7. They are **not** posted to Slack — see the notification rules in step 8 and the actionable-only rule in `.agents/references/skill-authoring-guidelines.md`.
 
 ## Human review expectations
 
@@ -261,27 +263,26 @@ Keep each entry to 7 fields and under 10 lines. Do not add narrative prose.
 
 Use a simple text message (not Block Kit). The message should be scannable in under 30 seconds.
 
-**PR opened:**
+**PR opened or updated:**
 
 ```
 ✅ AEO crosslink audit · YYYY-MM-DD
-PR opened: [PR URL]
+PR [opened | updated]: [PR URL]
 Links added: [N links] across [N pages]: [page names]
 Signals: [Peec | GSC | Peec + GSC]
 Oz run: [run URL]
 ```
 
-**No change:**
+**Run blocked by a failure:**
 
 ```
-ℹ️ AEO crosslink audit · YYYY-MM-DD — No changes
-Checked: agents, cloud agents, and orchestration docs
-No PR: [brief reason — e.g., "fewer than 2 high-confidence opportunities"]
+⚠️ AEO crosslink audit · YYYY-MM-DD — run blocked
+What failed: [brief reason — e.g., "docs repo checkout unavailable"]
 Oz run: [run URL]
 ```
 
 Rules:
-- Post on every run, including no-change runs.
+- Post only when a PR was opened or updated, or when the run was blocked by a failure. A no-change run posts nothing — its record is the run log entry.
 - Never include raw secret values, personal access tokens, or credential file paths in the Slack message.
 - Build the `Oz run` link at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run with `oz run get "<your run ID>" --output-format json | jq -r '.session_link'`, substituting the run ID this agent is executing as. Cloud sandboxes ship the `oz` CLI; `oz-dev` is a local development build and is not present, so do not call it.
 - If the Oz run URL is unavailable, omit that line rather than posting a broken link.
