@@ -6,6 +6,8 @@ import { PUBLIC_KAPA_INTEGRATION_ID, PUBLIC_KAPA_PROJECT_ID } from 'astro:env/cl
 import { isMac, keymatch } from 'keymatch';
 import ReactMarkdown from 'react-markdown';
 import {
+	LuCheck,
+	LuCopy,
 	LuExternalLink,
 	LuLoaderCircle,
 	LuMessageSquare,
@@ -479,8 +481,17 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 																type="button"
 																className="sl-kapa-codeblock__copy"
 																onClick={() => void copyCodeBlock(codeText, copyKey)}
+																aria-label={
+																	copiedCodeKey === copyKey
+																		? 'Code copied'
+																		: 'Copy code block'
+																}
 															>
-																{copiedCodeKey === copyKey ? 'Copied' : 'Copy'}
+																{copiedCodeKey === copyKey ? (
+																	<LuCheck aria-hidden="true" />
+																) : (
+																	<LuCopy aria-hidden="true" />
+																)}
 															</button>
 															<pre>
 																<code className={className} {...props}>
