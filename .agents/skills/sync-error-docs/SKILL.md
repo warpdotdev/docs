@@ -88,7 +88,7 @@ Rules:
 - Only add an explicit `{ slug, label }` object if the auto-derived title is wrong; the existing error entries all rely on the derived title.
 - Append after the last existing error entry unless a grouping order is obvious from the surrounding entries. The list is not alphabetized and has no section labels.
 
-### Step 6: Add the underscore-to-hyphen redirect
+### Step 6: Add the underscore-to-hyphen redirects (only when the forms differ)
 
 Error codes are underscored (`insufficient_credits`) but page slugs are hyphenated (`insufficient-credits`). Add redirects to `vercel.json` (at the repo root) so the underscore form resolves.
 
