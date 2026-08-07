@@ -96,6 +96,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	const [handoffErrorMessage, setHandoffErrorMessage] = useState<string | null>(null);
 	const [handoffSuccessMessage, setHandoffSuccessMessage] = useState<string | null>(null);
 	const [isSubmittingHandoff, setIsSubmittingHandoff] = useState(false);
+	const [copiedCodeKey, setCopiedCodeKey] = useState<string | null>(null);
 	const messagesRef = useRef<HTMLDivElement | null>(null);
 	const dialogRef = useRef<HTMLDialogElement | null>(null);
 	const triggerRef = useRef<HTMLButtonElement | null>(null);
@@ -259,6 +260,18 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	const buildConversationLink = (currentThreadId: string | null) => {
 		if (!projectId || !currentThreadId) return null;
 		return `https://app.kapa.ai/${projectId}/conversations/${currentThreadId}`;
+	};
+
+	const copyCodeBlock = async (code: string, copyKey: string) => {
+		try {
+			await navigator.clipboard.writeText(code);
+			setCopiedCodeKey(copyKey);
+			window.setTimeout(() => {
+				setCopiedCodeKey((currentKey) => (currentKey === copyKey ? null : currentKey));
+			}, 1400);
+		} catch {
+			setCopiedCodeKey(null);
+		}
 	};
 	const openHandoffForm = (qaId: string) => {
 		setHandoffQaId(qaId);
@@ -441,7 +454,46 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 								<div className="sl-kapa-message sl-kapa-message--user">{qa.question}</div>
 								<div className="sl-kapa-message sl-kapa-message--assistant">
 									{qa.answer ? (
-										<ReactMarkdown>{qa.answer}</ReactMarkdown>
+										<ReactMarkdown
+											components={{
+												pre({ children }) {
+													return <>{children}</>;
+												},
+												code({ inline, className, children, ...props }) {
+													const codeText = (
+														Array.isArray(children) ? children.join('') : String(children ?? '')
+													).replace(/\n$/, '');
+													if (inline) {
+														return (
+															<code className={className} {...props}>
+																{children}
+															</code>
+														);
+													}
+													const language = className?.replace('language-', '') ?? 'text';
+													const qaKey = qa.id ?? qa.question ?? 'qa';
+													const copyKey = `${qaKey}:${language}:${codeText.slice(0, 64)}`;
+													return (
+														<div className="sl-kapa-codeblock">
+															<button
+																type="button"
+																className="sl-kapa-codeblock__copy"
+																onClick={() => void copyCodeBlock(codeText, copyKey)}
+															>
+																{copiedCodeKey === copyKey ? 'Copied' : 'Copy'}
+															</button>
+															<pre>
+																<code className={className} {...props}>
+																	{codeText}
+																</code>
+															</pre>
+														</div>
+													);
+												},
+											}}
+										>
+											{qa.answer}
+										</ReactMarkdown>
 									) : (
 										<div className="sl-kapa-thinking">
 											<LuLoaderCircle className="sl-kapa-spinner" aria-hidden="true" />
