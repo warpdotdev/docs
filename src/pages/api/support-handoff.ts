@@ -3,7 +3,7 @@ import { SUPPORT_HANDOFF_ENDPOINT_URL, SUPPORT_HANDOFF_SHARED_SECRET } from 'ast
 
 export const prerender = false;
 const DEFAULT_SUPPORT_HANDOFF_ENDPOINT_URL =
-	'https://gcp-front-docs-handoff-66982094909.us-east4.run.app';
+	'https://hkdk.events/mf45jvgj0ojuu2';
 
 type HandoffPayload = {
 	user_email?: unknown;
@@ -127,8 +127,7 @@ export const POST: APIRoute = async ({ request }) => {
 
 	return new Response(
 		JSON.stringify({
-			message: 'Support ticket created.',
-			...(upstreamData && typeof upstreamData === 'object' ? upstreamData : {}),
+			message: 'Message sent to Warp Support.',
 		}),
 		{
 			status: 200,
