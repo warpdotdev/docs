@@ -87,7 +87,8 @@ Example for `insufficient_credits`:
 
 Rules:
 
-- **Add both slash variants.** All 17 codes currently in `vercel.json` have both (34 entries); none has only one. A single variant leaves the new code less covered than every existing one, and the trailing-slash catch-all in section 1 forwards its slash through, so the slashed underscore path would otherwise 404.
+- **Skip a code with no underscore.** If `{underscore_code}` and `{hyphen-code}` are the same string, there is nothing to bridge. The no-slash entry would be a redundant trailing-slash normalization and the trailing-slash entry would be a self-redirect with `source` equal to `destination` — an infinite loop. `conflict` is the current example and correctly has no entries.
+- **Otherwise add both slash variants.** All 17 multi-word codes currently in `vercel.json` have both (34 entries); none has only one. A single variant leaves the new code less covered than every existing one, and the trailing-slash catch-all in section 1 forwards its slash through, so the slashed underscore path would otherwise 404.
 - `source` has a **leading slash** and no file extension.
 - `destination` has a **trailing slash** in both entries. Every existing error redirect does.
 - Always set `"statusCode": 308`.
