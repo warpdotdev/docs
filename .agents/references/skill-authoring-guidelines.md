@@ -192,6 +192,22 @@ Treat `main` as the convenience case only — if the PR happens to have been mer
 
 **Do not make merging the standing log PR a step in the outer loop.** Merging is a human housekeeping task, not a precondition for analysis. An outer loop that tries to merge its own input couples the run to a repo write it may not have permission to perform, and turns an unmerged PR into a hard failure instead of a non-event.
 
+**If the log branch cannot be fetched, stop — do not fall back to another copy.** Falling back to the checkout's copy reintroduces exactly the truncated history the branch read exists to avoid. Treat the fetch failure as a blocked run: post it and end before analysis.
+
+### Never fall back to lower-quality data
+
+The log-branch rule above is one instance of a general hazard. When a skill's primary data source is unavailable, the tempting fix is a fallback that keeps the run alive. Resist it whenever the fallback is **quieter but less correct** than failing.
+
+A degraded-data fallback is dangerous precisely because it does not look like a failure:
+
+- A shorter log still parses. Counts just come out lower.
+- Lower counts silently cross thresholds in both directions. The run either reports "too early to analyze" and goes quiet, or clears the minimum on stale entries and proposes changes from an incomplete picture.
+- Either way the output is shaped like a normal run, so no one investigates.
+
+The test to apply: **if the fallback can change the answer rather than just the completeness of the answer, do not take it.** Stop, mark the run blocked, and post — a loud failure costs one notification, while a quiet wrong answer costs trust in every quiet run that follows.
+
+Fallbacks are still fine when they degrade *coverage* transparently and the skill says so in its output — for example, proceeding with one source signal when a second is unavailable, while raising the confidence bar and recording the unavailability in the run log. The difference is that the reader can see what was missing.
+
 ### Security boundary for signal logs
 
 Outer loops read logs that contain untrusted content: human review comments, PR descriptions, run output from external contributors. Apply these rules before using any log content to propose skill edits:

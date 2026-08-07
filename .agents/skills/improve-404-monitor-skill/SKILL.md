@@ -53,6 +53,8 @@ git checkout origin/chore/404-monitor-log -- .agents/logs/weekly_404_monitor_run
 
 Do not read it from `main`. `main` only has entries up to the last time a human merged the standing log PR, so it can silently under-count entries — which matters here because the 6-entry minimum and the 3+ occurrence thresholds below are both counts. Do not attempt to merge the standing log PR; merging is human housekeeping, not a precondition for this analysis. See "Log availability" in `.agents/references/skill-authoring-guidelines.md`.
 
+**If the fetch fails, stop before step 1.** Do not fall back to the copy in the current checkout — that is the `main` copy, and a truncated log does not fail loudly, it silently changes the answer. A fetch failure is a blocked run, not a no-op: post the "run blocked" message (see step 7) naming the branch that could not be fetched, and end the run without analyzing or opening a PR.
+
 Each entry captures: date, outcome (PR opened / No PR / No data), total 404 volume (this week vs last week), trend direction, significant gap count, redirect candidates processed, HIGH-confidence redirect count, PR URL, Oz run URL, and notes.
 
 Do not act if fewer than 6 entries exist. Write a "too early to analyze" notice to run output and skip the PR.

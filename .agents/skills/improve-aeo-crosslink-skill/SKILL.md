@@ -61,7 +61,9 @@ The branch always holds the complete history. `main` only has entries up to the 
 
 **Do not merge the standing log PR.** An earlier version of this skill attempted the merge as its first step. That coupled the analysis to a repo write the agent may not have permission to perform, and turned an unmerged PR into a hard failure rather than a non-event. Merging is human housekeeping; see "Log availability" in `.agents/references/skill-authoring-guidelines.md`.
 
-If the branch does not exist or the fetch fails, fall back to reading `.agents/logs/aeo_crosslink_audit_runs.md` from the current checkout and note in the run output that the history may be incomplete. Do not abort the run.
+**If the branch does not exist or the fetch fails, stop before step 1.** Do not fall back to the copy in the current checkout. That copy comes from `main`, which is exactly the truncated history this step exists to avoid — and a truncated log does not fail loudly, it silently changes the answer. With fewer entries the run either drops below the 8-entry minimum and reports "too early to analyze," or clears it with stale entries and proposes skill edits from an incomplete picture. Both look like normal outcomes.
+
+A fetch failure is a blocked run, not a no-op: post the "run blocked" message (see step 6) naming the branch that could not be fetched, and end the run without analyzing or opening a PR.
 
 ### 1. Parse the run log
 
