@@ -1,8 +1,8 @@
 ---
 title: "Customizing the Warp Agent CLI"
 description: >-
-  Customize the Warp Agent CLI's settings file, themes, statusline, start
-  screen, and agent context with project rules, skills, and MCP servers.
+  Configure Warp Agent CLI themes, the statusline, and the start screen, and give the
+  agent context from project rules, skills, and MCP servers.
 ---
 import { VARS } from '@data/vars';
 
@@ -106,6 +106,7 @@ The start screen appears when you launch the CLI, showing a rotating ASCII objec
 * **`object`** - The rotating object. Keep the built-in one, or point the setting at your own ASCII art file (a path relative to the CLI settings directory). Changing the setting reloads the object. Edits to the linked file take effect after a restart.
 * **`rotation_period_seconds`** - Seconds per full rotation, from 1 through 60.
 * **`show_signed_in_user`, `show_changelog`, `show_project_info`, `show_mcp`, `show_animation`** - Toggle individual start-screen sections.
+* **`freeze_animation_when_unfocused`** - Stop repainting the animation while your terminal window is unfocused, so an idle start screen doesn't use CPU in the background. Off by default, and applied as soon as you save the setting.
 
 The fastest way to change these is to [ask the agent](#ask-the-agent), for example "use my own ASCII art for the start screen object".
 
@@ -155,8 +156,8 @@ Press `Enter` on a server to start, stop, or retry it depending on its state. Fa
 
 ## Related pages
 
-* [Rules](/agents/capabilities/rules/) - Full guide to project and global rules
-* [Skills](/agents/capabilities/skills/) - Authoring skills, skill arguments, and skill locations
-* [MCP servers](/agents/capabilities/mcp/) - Config format, server examples, and authentication
-* [Codebase Context](/agents/capabilities/codebase-context/) - Codebase indexing in the Warp app
-* [{VARS.WARP_CLI} reference](/cli/reference/) - Command-line flags, slash commands, and keyboard shortcuts
+* [Rules](/agents/capabilities/rules/) - Full guide to project and global rules.
+* [Skills](/agents/capabilities/skills/) - Authoring skills, skill arguments, and skill locations.
+* [MCP servers](/agents/capabilities/mcp/) - Config format, server examples, and authentication.
+* [Codebase Context](/agents/capabilities/codebase-context/) - Codebase indexing in the Warp app.
+* [{VARS.WARP_CLI} reference](/cli/reference/) - Command-line flags, slash commands, and keyboard shortcuts.

@@ -1,8 +1,10 @@
 ---
 title: [Task-oriented title in sentence case — reads like a search query. Capture the non-branded query a developer would actually search for, not "How to do X in Warp." The title field renders as the page H1; do not add a separate H1 in the body.]
 description: >-
-  [1-2 sentence summary of what this guide covers and what the reader will
-  achieve. Keep under 160 characters for SEO.]
+  [One sentence, 50-160 characters: what the reader will build or accomplish,
+  using the non-branded phrasing they would actually search for.
+  Example: "Set up Claude Code and run your first agentic coding session from the terminal."
+  See AGENTS.md > Frontmatter > Descriptions by content type for the full rules.]
 ---
 
 [One sentence: what you'll accomplish by following this guide. Mention Warp by name. Include a time estimate if possible (e.g., "takes about 10 minutes").]
@@ -13,7 +15,8 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 {/* VARS: Also add the line below if this guide references product names from src/data/vars.ts. Then use {VARS.KEY} in prose. Use {{TOKEN}} in frontmatter YAML values above. See AGENTS.md → Content variables. */}
 {/* import { VARS } from '@data/vars'; */}
 
-<VideoEmbed url="[YouTube or Loom URL — remove this block if no video]" />
+{/* VIDEO: Always include a specific title prop naming the workflow/feature shown. Remove the entire VideoEmbed block if there is no video. */}
+<VideoEmbed url="[YouTube or Loom URL]" title="[Specific title: integration, workflow, or task shown — not generic 'video' or 'demo']" />
 
 ## Prerequisites
 

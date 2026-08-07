@@ -10,16 +10,16 @@ import DemoVideo from '@components/DemoVideo.astro';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 :::note
-To see a complete list of Warp issues and feature requests, please visit our [GitHub issues page](https://github.com/warpdotdev/Warp/issues?q=is%3Aissue+is%3Aopen+sort%3Acreated-desc).
+To see a complete list of Warp issues and feature requests, visit our [GitHub issues page](https://github.com/warpdotdev/Warp/issues?q=is%3Aissue+is%3Aopen+sort%3Acreated-desc).
 
-Please note that there are tools that are incompatible with Warp, as listed [below](/support-and-community/troubleshooting-and-support/known-issues/#list-of-incompatible-tools). You can find debugging information in this [section](/support-and-community/troubleshooting-and-support/known-issues/#debugging).
+Note that some tools are incompatible with Warp, as listed [below](/support-and-community/troubleshooting-and-support/known-issues/#list-of-incompatible-tools). You can find debugging information in this [section](/support-and-community/troubleshooting-and-support/known-issues/#debugging).
 :::
 
 ## General
 
 ### SSH
 
-To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to **Settings** > **Features** if you need to disable it. Please see [Troubleshooting Legacy SSH](/terminal/warpify/ssh-legacy/#troubleshooting-ssh) for more info on workarounds to SSH issues, or see the [new SSH Page](/terminal/warpify/ssh/) for more on the upcoming features.
+To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to **Settings** > **Features** if you need to disable it. See [Troubleshooting Legacy SSH](/terminal/warpify/ssh-legacy/#troubleshooting-ssh) for more info on workarounds to SSH issues, or see the [new SSH Page](/terminal/warpify/ssh/) for more on the upcoming features.
 
 ### Online features don't work
 
@@ -62,7 +62,7 @@ Nov 2021: We have added character support for Chinese, Korean, and Japanese, but
 
 ### Abnormal rendering of Chinese characters
 
-If you notice issues with the terminal rendering Chinese characters (i.e. [#3366](https://github.com/warpdotdev/Warp/issues/3366)). Please try adding the following lines to your rc file.
+If you notice issues with the terminal rendering Chinese characters (i.e. [#3366](https://github.com/warpdotdev/Warp/issues/3366)), try adding the following lines to your rc file.
 
 ```
 export LC_ALL=zh_CN.UTF-8
@@ -101,13 +101,13 @@ There is an issue in fish shell version 3.6 and below that causes the `read` bui
 
 ### Warp shell loads slowly due to EDR
 
-If you comment out the rc files (i.e. `~/.zshrc`, `~/.bashrc`, `~/.config/fish/config.fish`), and still notice a slowdown on loading the shell, it is likely due to an Endpoint Detection and Response or EDR (i.e. Sentinel One, CrowdStrike, Carbon Black) causing the issue. Please restart your system and see if the issue persists. If so, please [Send us Feedback](/support-and-community/) and provide details of your EDR, OS, shell, etc.
+If you comment out the rc files (i.e. `~/.zshrc`, `~/.bashrc`, `~/.config/fish/config.fish`), and still notice a slowdown on loading the shell, it is likely due to an Endpoint Detection and Response or EDR (i.e. Sentinel One, CrowdStrike, Carbon Black) causing the issue. Restart your system and see if the issue persists. If so, [Send us Feedback](/support-and-community/) and provide details of your EDR, OS, shell, etc.
 
 ### Configuring and debugging your RC files
 
-To support Blocks ([custom hooks](https://www.warp.dev/blog/how-warp-works#implementing-blocks)), a native Input Editor experience, AI blocks, etc. we have built custom support for a subset of shell functionality (decouple functionality from the shell and move to the terminal). This leads to Warp being incompatible with various tools and plugins. Please see the [list of incompatible](/support-and-community/troubleshooting-and-support/known-issues/#list-of-incompatible-tools) tools to find the tools that are known not to work with Warp.
+To support Blocks ([custom hooks](https://www.warp.dev/blog/how-warp-works#implementing-blocks)), a native Input Editor experience, AI blocks, etc. we have built custom support for a subset of shell functionality (decouple functionality from the shell and move to the terminal). This leads to Warp being incompatible with various tools and plugins. See the [list of incompatible](/support-and-community/troubleshooting-and-support/known-issues/#list-of-incompatible-tools) tools to find the tools that are known not to work with Warp.
 
-Unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. Please see our [Prompt](/terminal/appearance/prompt/) page for more information on custom prompts.
+Unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. See our [Prompt](/terminal/appearance/prompt/) page for more information on custom prompts.
 
 #### Debugging
 
@@ -177,7 +177,7 @@ If Warp is not working with your dotfile configuration, you can run your shell i
 The following non-exhaustive list of plugins, prompts, or tools can cause potential issues in Warp:
 
 * oh-my-fish, oh-my-bash, or other unsupported shell prompts. See our [Custom Prompt Compatibility Table](/terminal/appearance/prompt/#custom-prompt-compatibility-table).
-* [iterm shell integration](https://iterm2.com/documentation-shell-integration.html)
+* [iTerm2 shell integration](https://iterm2.com/documentation-shell-integration.html)
   * `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
 * [Termium](https://codeium.com/blog/termium-codeium-in-terminal-launch)
   * `eval "$(termium shell-hook show pre)"`
@@ -233,7 +233,7 @@ The following non-exhaustive list of plugins, prompts, or tools can cause potent
 
     Warp may have an error opening after auto-update on macOS Ventura. This issue has been resolved for current and future releases of Warp. To avoid the issue, [update Warp](/support-and-community/troubleshooting-and-support/updating-warp/) _before_ you upgrade to macOS Ventura.\
     \
-    If you experience an error opening Warp, please try the following:
+    If you experience an error opening Warp, try the following:
 
     * Go to the macOS Applications folder, right-click on Warp, choose Open, then the '"Warp" is damaged' dialog will have the option to click the Open button.
 
@@ -252,7 +252,7 @@ The following non-exhaustive list of plugins, prompts, or tools can cause potent
   <TabItem label="Windows">
     **Unsupported in Warp on Windows**
 
-    The following features are not supported in Warp on Windows. Please track the relevant GitHub issues linked below for any changes:
+    The following features are not supported in Warp on Windows. Track the relevant GitHub issues linked below for any changes:
 
     * [cmd.exe](https://github.com/warpdotdev/Warp/issues/5882) or [fish](https://github.com/warpdotdev/Warp/issues/6060) shells
 

@@ -112,9 +112,9 @@ Running a shell command cancels the agent's in-progress response, if there is on
 
 Out of the box, the CLI never guesses what your input is: everything goes to the agent unless you enter shell mode. To type commands directly without the `!` prefix, turn on natural language detection:
 
-- **Toggle detection** - Run `/natural-language-detection` to turn detection on or off. The statusline confirms the change, and the setting persists across sessions.
-- **Automatic classification** - With detection on, the CLI classifies your input as you type. When the input looks like a shell command (for example, `git status`), the input switches to shell mode, and `Enter` runs it as a command. Everything else is sent to the agent.
-- **Ambiguous input** - Short or ambiguous input stays in agent mode, and a single word switches to shell mode only when it matches a command available in your shell.
+* **Toggle detection** - Run `/natural-language-detection` to turn detection on or off. The statusline confirms the change, and the setting persists across sessions.
+* **Automatic classification** - With detection on, the CLI classifies your input as you type. When the input looks like a shell command (for example, `git status`), the input switches to shell mode, and `Enter` runs it as a command. Everything else is sent to the agent.
+* **Ambiguous input** - Short or ambiguous input stays in agent mode, and a single word switches to shell mode only when it matches a command available in your shell.
 
 The prompt marker and statusline always show the current mode before you press `Enter`. If detection classifies input differently than you intended, press `Esc` to switch back to agent mode, or press `!` at the start of the input to force shell mode.
 
@@ -122,8 +122,8 @@ The prompt marker and statusline always show the current mode before you press `
 
 When a command keeps running, such as a dev server, a package install, or an interactive prompt, the CLI hands input over to it:
 
-- **Input passthrough** - Keystrokes and pasted text are forwarded to the running process, so password requests, confirmation prompts, and other interactive programs work as they do in a plain terminal.
-- **Type ahead** - If you start typing your next command before the current one finishes, the typed characters are carried into the input when the command completes, with the cursor at the end. This matches type-ahead behavior in shells like zsh and bash.
+* **Input passthrough** - Keystrokes and pasted text are forwarded to the running process, so password requests, confirmation prompts, and other interactive programs work as they do in a plain terminal.
+* **Type ahead** - If you start typing your next command before the current one finishes, the typed characters are carried into the input when the command completes, with the cursor at the end. This matches type-ahead behavior in shells like zsh and bash.
 
 One command runs in the session at a time. If the terminal is already busy, for example while the agent is running a command of its own, submitting a shell command shows a notice in the statusline and keeps your text in the input.
 
@@ -131,23 +131,23 @@ One command runs in the session at a time. If the terminal is already busy, for 
 
 Commands that switch the terminal to the alternate screen, such as `vim`, `htop`, or `less`, take over the whole CLI view:
 
-- The app renders full-screen and receives keyboard, paste, scroll, and mouse input, so editors and other terminal UIs are fully usable inside the CLI.
-- When the app exits, the transcript returns with your conversation intact.
+* The app renders full-screen and receives keyboard, paste, scroll, and mouse input, so editors and other terminal UIs are fully usable inside the CLI.
+* When the app exits, the transcript returns with your conversation intact.
 
 ## Stopping commands and exiting
 
 `Ctrl+C` performs one contextual action per press:
 
-- **While a command is running** - `Ctrl+C` interrupts the running command, as in a plain terminal. It doesn't exit the CLI.
-- **While the agent is responding** - `Ctrl+C` cancels the in-progress response. Text in the input is preserved.
-- **At an idle prompt** - `Ctrl+C` clears the input if it has text.
+* **While a command is running** - `Ctrl+C` interrupts the running command, as in a plain terminal. It doesn't exit the CLI.
+* **While the agent is responding** - `Ctrl+C` cancels the in-progress response. Text in the input is preserved.
+* **At an idle prompt** - `Ctrl+C` clears the input if it has text.
 
 After a press at the prompt, the statusline shows `ctrl-c again to exit` for about one second. Press `Ctrl+C` a second time within that window to exit the CLI. This works even while the agent is responding. While a shell command is running, `Ctrl+C` keeps interrupting the command instead.
 
 There are two other ways to exit:
 
-- **`Ctrl+D`** - Exits immediately when the input is empty.
-- **`/exit`** - Exits from the slash command menu.
+* **`Ctrl+D`** - Exits immediately when the input is empty.
+* **`/exit`** - Exits from the slash command menu.
 
 When you exit, the CLI prints a command you can use to pick the conversation back up later. See [Managing conversations](/cli/agent-conversations/#managing-conversations) for resuming and switching conversations.
 

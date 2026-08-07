@@ -248,6 +248,8 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 ## Billing and credits
 
 - **Add-on Credits** — capitalized as a product feature name
+- **Auto-reload** — the setting that automatically purchases another add-on credit pack when a user's balance drops below 100 credits. Hyphenated; capitalize the first letter only at the start of a sentence, bullet, or bolded list term.
+- **team-wide spend cap** — the admin-configured monthly ceiling on add-on credit spending across a whole team. Use instead of "budget" or "credit limit" when describing the cap. The per-account wording "monthly spend limit" refers to the same setting in single-user contexts.
 - **compute credits** — lowercase common noun; capitalize the first letter only at the start of a sentence or bullet. The compute bucket, consumed when an agent run uses Warp-hosted compute. Use alongside AI credits and platform credits when describing credit types.
 - **cloud agent credits** — lowercase common noun; capitalize the first letter only at the start of a sentence or bullet. Credits consumed by cloud agents, in contrast with local agent credits. Refers to the same compute bucket as compute credits; choose the term that fits the framing.
 - **platform credits** — lowercase common noun; capitalize the first letter only at the start of a sentence or bullet. The platform-infrastructure bucket, consumed for every cloud agent run plus local runs with customer-supplied inference.
