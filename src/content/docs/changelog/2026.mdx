@@ -6,6 +6,26 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.08.07 (v0.2026.08.05.09.03)
+
+**Improvements**
+
+* Support `SKILLS_DIRS` env var in agent-driver mode to index extra skill directories at personal-skill precedence ([#14394](https://github.com/warpdotdev/warp/pull/14394))
+
+**Bug fixes**
+
+* Onboarding no longer shows the smallest AI credit pack as selected when the "Buy AI credits" option isn't the one chosen. ([#14712](https://github.com/warpdotdev/warp/pull/14712))
+* The vertical tab layout now shows the synced-inputs indicator on tabs with Synchronized Inputs enabled. ([#14697](https://github.com/warpdotdev/warp/pull/14697))
+* Fixed a crash that could happen when typing immediately after a CLI agent session ended with completions-while-typing enabled. ([#14709](https://github.com/warpdotdev/warp/pull/14709))
+* The tab bar background now matches the terminal background instead of rendering as a lighter strip. ([#14701](https://github.com/warpdotdev/warp/pull/14701))
+* Opening a file from an agent conversation's code-block preview now jumps to the first line of the shown range instead of the top of the file. ([#14702](https://github.com/warpdotdev/warp/pull/14702))
+* Fixed Cmd and Option shortcuts for Backspace, Delete, and arrow keys being dropped in apps using the Kitty keyboard protocol. ([#14012](https://github.com/warpdotdev/warp/pull/14012)) — [@FreddieMcHeart](https://github.com/FreddieMcHeart) ✨
+
+**Oz updates**
+
+* Fixed background (window-scoped) computer use on Linux dropping the mouse button between actions, which broke drag gestures like text selection. ([#14686](https://github.com/warpdotdev/warp/pull/14686))
+* Computer-use video recordings now render a smooth synthetic cursor that glides between actions and tracks drags continuously, consistently across window- and screen-scoped captures. ([#14681](https://github.com/warpdotdev/warp/pull/14681))
+
 ### 2026.07.31 (v0.2026.07.29.09.05)
 
 **Improvements**
