@@ -106,6 +106,7 @@ The start screen appears when you launch the CLI, showing a rotating ASCII objec
 * **`object`** - The rotating object. Keep the built-in one, or point the setting at your own ASCII art file (a path relative to the CLI settings directory). Changing the setting reloads the object. Edits to the linked file take effect after a restart.
 * **`rotation_period_seconds`** - Seconds per full rotation, from 1 through 60.
 * **`show_signed_in_user`, `show_changelog`, `show_project_info`, `show_mcp`, `show_animation`** - Toggle individual start-screen sections.
+* **`freeze_animation_when_unfocused`** - Stop repainting the animation while your terminal window is unfocused, so an idle start screen doesn't use CPU in the background. Off by default, and applied as soon as you save the setting.
 
 The fastest way to change these is to [ask the agent](#ask-the-agent), for example "use my own ASCII art for the start screen object".
 
