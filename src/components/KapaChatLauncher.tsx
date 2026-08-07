@@ -134,6 +134,12 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	}, [conversation.length, isOpen]);
 
 	useEffect(() => {
+		if (!isOpen || !messagesRef.current) return;
+		if (!isGeneratingAnswer && !isPreparingAnswer) return;
+		messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+	}, [conversation, isGeneratingAnswer, isOpen, isPreparingAnswer]);
+
+	useEffect(() => {
 		if (!handoffQaId || !isOpen) return;
 		const frame = window.requestAnimationFrame(() => {
 			const inlineForm = document.getElementById(`sl-kapa-handoff-inline-${handoffQaId}`);
