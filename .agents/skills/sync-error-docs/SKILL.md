@@ -88,11 +88,13 @@ Rules:
 - Only add an explicit `{ slug, label }` object if the auto-derived title is wrong; the existing error entries all rely on the derived title.
 - Append after the last existing error entry unless a grouping order is obvious from the surrounding entries. The list is not alphabetized and has no section labels.
 
-### Step 6: Add the underscore-to-hyphen redirect
+### Step 6: Add the underscore-to-hyphen redirects (only when the forms differ)
 
 Error codes are underscored (`insufficient_credits`) but page slugs are hyphenated (`insufficient-credits`). Add redirects to `vercel.json` (at the repo root) so the underscore form resolves.
 
-**Add two entries, not one.** Every error code currently in `vercel.json` has both a no-trailing-slash and a trailing-slash source (34 entries covering 17 codes, with no code having only one form). Adding a single variant leaves the new code with half the coverage of every existing one, and the `/errors/:code/` catch-all forwards a trailing slash through, so the slashed underscore path would not resolve.
+**Skip this step entirely for a code that contains no underscore.** Its hyphenated slug is the same string as the code, so there is nothing to redirect: the no-slash entry would be a redundant trailing-slash normalization, and the trailing-slash entry would have `source` equal to `destination` — a self-redirect, which is an infinite loop. `conflict` is the current example. It has no redirect entries in `vercel.json`, and that is correct, not a gap. Only add redirects when `{underscore_code}` and `{hyphen-code}` actually differ.
+
+**Otherwise add two entries, not one.** Every multi-word error code currently in `vercel.json` has both a no-trailing-slash and a trailing-slash source (34 entries covering 17 codes, with no code having only one form). Adding a single variant leaves the new code with half the coverage of every existing one, and the `/errors/:code/` catch-all forwards a trailing slash through, so the slashed underscore path would not resolve.
 
 Check for existing entries first, to stay idempotent across re-runs:
 
@@ -186,6 +188,7 @@ Summarize what was found:
 - Number of existing doc pages
 - New codes that were missing pages (list them)
 - Pages created, `src/sidebar.ts` entries added, redirects configured
+- Any codes skipped for redirects because they contain no underscore
 - Or confirm everything is already in sync
 
 Follow the actionable-only Slack rule in `.agents/references/skill-authoring-guidelines.md`: a run that finds everything already in sync writes this report to the run output and posts nothing.
