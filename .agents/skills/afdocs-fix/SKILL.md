@@ -151,14 +151,29 @@ These checks require infrastructure or design changes that can't be automated:
 
 ## Applying fixes
 
-1. Create a branch: `git checkout -b afdocs-fixes origin/main`
-2. Apply the fixes for each failing check (skip allowlisted checks).
-3. Validate: `npm run build` (the build must succeed).
-4. Commit with the prefix: `AFDocs fixes: <summary of what was fixed>`
-5. Open a PR: `gh pr create`
+This skill maintains **one** long-lived fixes PR rather than one per run — see "One standing PR per automation" in `.agents/references/skill-authoring-guidelines.md`.
+
+1. Look for an existing open PR before creating a branch:
+   ```bash
+   gh pr list --repo warpdotdev/docs --state open \
+     --search 'AFDocs fixes in:title' --json number,headRefName
+   ```
+2. Check out the standing branch. If the PR exists, continue on its branch and rebase; otherwise create it from `main`:
+   ```bash
+   git fetch origin
+   git checkout afdocs-fixes 2>/dev/null || git checkout -b afdocs-fixes origin/main
+   git rebase origin/main
+   ```
+3. Apply the fixes for each failing check (skip allowlisted checks). If a fix on the existing branch already addresses a check that is still failing, do not duplicate it — the audit may have run before the PR merged.
+4. Validate: `npm run build` (the build must succeed).
+5. Commit with the prefix: `AFDocs fixes: <summary of what was fixed>`
+6. Push. If the PR already exists the push updates it; otherwise open one with `gh pr create`.
+
+Never leave two open AFDocs PRs. If you find more than one, consolidate onto `afdocs-fixes` and close the extras with a comment pointing at the survivor.
 
 ## PR conventions
 
-- Title must be prefixed with `AFDocs fixes:` (e.g., `AFDocs fixes: add llms.txt directive and content negotiation middleware`)
+- Title must be prefixed with `AFDocs fixes:` and must not contain a date — a dated title defeats the title search in step 1 and produces a new PR every run
 - Include the audit score (before/after if known) in the PR description
+- When updating an existing PR, append the new run's score and fixes under the existing headings rather than adding duplicate headings, which `check_pr_body.py` rejects
 - Include the co-author line: `Co-Authored-By: Oz <oz-agent@warp.dev>`
