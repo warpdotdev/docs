@@ -11,20 +11,49 @@ This skill is part of the self-improvement loop architecture. The `weekly-404-mo
 
 ## Schedule
 
-Monthly, first Monday of each month, 9am PT (`0 17 1-7 * 1` in UTC). Run this agent starting in month 2 after `weekly-404-monitor` begins writing log entries, but only act on patterns if at least 6 entries exist.
+Monthly, first Monday of each month, 9am PT. Run this agent starting in month 2 after `weekly-404-monitor` begins writing log entries, but only act on patterns if at least 6 entries exist.
+
+Cron: `0 17 * * 1` (UTC) — every Monday — combined with the first-week guard in step 0 below.
+
+:::caution
+Do **not** use `0 17 1-7 * 1`. That expression looks like "first Monday" but is not: when a cron expression restricts **both** day-of-month and day-of-week, the two fields are **ORed**, so it fires on every day of the 1st through 7th **and** every Monday — roughly 11 times a month. The `improve-drafting-skills` agent shipped with this exact expression and opened four conflicting PRs in six days before it was caught. Standard cron cannot express "first Monday," so the day-of-month guard is required.
+:::
+
+## Step 0: First-week guard
+
+Run this before anything else. The schedule fires every Monday, so a run outside the first week of the month must exit immediately without reading logs, editing files, opening a PR, or posting to Slack.
+
+```bash
+DAY_OF_MONTH=$(date -u +%d)
+if [ "$DAY_OF_MONTH" -gt 7 ]; then
+  echo "Skipping: today is day $DAY_OF_MONTH, not the first Monday of the month. This agent runs monthly."
+  exit 0
+fi
+```
+
+A skipped run is a no-op, not a failure. Write the skip line to the run output and post nothing.
 
 ## Prerequisites
 
 - Docs repo checked out at `main`
-- `.agents/logs/weekly_404_monitor_runs.md` present on `main` (or on `chore/404-monitor-log` if the standing PR has not been merged yet)
+- The `chore/404-monitor-log` branch reachable, since the run log is read from there (see "Signal source")
 - At least 6 entries in the run log
 - `gh` CLI authenticated with write access to `warpdotdev/docs`
-- `SLACK_BOT_TOKEN` — for posting a summary to `#growth-docs`
+- `BUZZ_SLACK_TOKEN` — for posting a summary to `#growth-docs`. This token posts as `buzz`, the bot account that is a member of that channel. Do not substitute another Slack token: several exist in the Oz secret store, and one that authenticates successfully can still fail with `channel_not_found` if its bot is not in the channel.
 - `GROWTH_DOCS_SLACK_CHANNEL_ID` — channel ID for `#growth-docs`
 
 ## Signal source
 
-Read `.agents/logs/weekly_404_monitor_runs.md`. If the standing log PR (`chore: 404 monitor run log`) has not been merged into `main`, read from the `chore/404-monitor-log` branch instead.
+Read the run log from the `chore/404-monitor-log` branch, which always holds the complete history:
+
+```bash
+git fetch origin chore/404-monitor-log
+git checkout origin/chore/404-monitor-log -- .agents/logs/weekly_404_monitor_runs.md
+```
+
+Do not read it from `main`. `main` only has entries up to the last time a human merged the standing log PR, so it can silently under-count entries — which matters here because the 6-entry minimum and the 3+ occurrence thresholds below are both counts. Do not attempt to merge the standing log PR; merging is human housekeeping, not a precondition for this analysis. See "Log availability" in `.agents/references/skill-authoring-guidelines.md`.
+
+**If the fetch fails, stop before step 1.** Do not fall back to the copy in the current checkout — that is the `main` copy, and a truncated log does not fail loudly, it silently changes the answer. A fetch failure is a blocked run, not a no-op: post the "run blocked" message (see step 7) naming the branch that could not be fetched, and end the run without analyzing or opening a PR.
 
 Each entry captures: date, outcome (PR opened / No PR / No data), total 404 volume (this week vs last week), trend direction, significant gap count, redirect candidates processed, HIGH-confidence redirect count, PR URL, Oz run URL, and notes.
 
@@ -118,38 +147,52 @@ Before opening a PR, verify:
   python3 -c "import sys; content = open(sys.argv[1]).read(); parts = content.split('---', 2); assert len(parts) >= 3" .agents/skills/weekly-404-monitor/SKILL.md
   ```
 
-### 6. Open a draft PR
+### 6. Create or update the standing improvement PR
 
-PR title:
+This agent maintains **one** long-lived improvement PR, never one per run — see "One standing PR per automation" in `.agents/references/skill-authoring-guidelines.md`.
+
+Stable branch: `docs/improve-404-monitor-skill`
+Stable title (no date — the date goes in the body):
 ```text
-docs(skills): improve weekly-404-monitor skill from run log analysis YYYY-MM-DD
+docs(skills): improve weekly-404-monitor skill from run log analysis
 ```
 
-PR body must include:
+Look for an existing open PR first:
+```bash
+gh pr list --repo warpdotdev/docs --state open \
+  --search 'improve weekly-404-monitor skill from run log analysis in:title' \
+  --json number,headRefName
+```
+If one exists, check out its branch, rebase on the latest `origin/main`, apply this run's edits, push, and append dated bullets under the existing headings. If none exists, create the branch from the latest `origin/main` and open a draft PR.
+
+PR body carries these headings, each appearing exactly once (`check_pr_body.py` rejects duplicates, so do not add a per-run copy):
 - **Entries analyzed**: N run log entries, date range
 - **Patterns identified**: each pattern, evidence (entry count and dates), and proposed fix
 - **GitHub PR quality check**: summary of how many redirect PRs were accepted, corrected, or closed
 - **Patterns reviewed but not acted on**: observed patterns below threshold or already addressed
 - **Open questions for human review**: anything requiring editorial judgment
 
+Prefix each appended bullet with its run date so the reviewer can tell runs apart.
+
 Cap the diff at `weekly-404-monitor/SKILL.md` only. Do not rewrite unrelated sections.
 
-### 7. Post Slack notification
+### 7. Notify only if there is something to act on
 
-**PR opened:**
+Post to `#growth-docs` **only** when the standing PR was created or received new commits, or when the run was blocked by a failure. Follow the actionable-only rule in `.agents/references/skill-authoring-guidelines.md`. A run that finds no actionable patterns — or that skips via the step 0 guard, or exits because fewer than 6 entries exist — posts nothing and is recorded in the run output only.
+
+**PR opened or updated:**
 ```
 ✅ 404 monitor skill improvement · YYYY-MM-DD
-PR: [PR URL]
+PR [created | updated]: [PR URL]
 Patterns addressed: N
 Evidence base: N run log entries (last N weeks)
 Oz run: [run URL]
 ```
 
-**No action (too few patterns or entries):**
+**Run blocked by a failure:**
 ```
-ℹ️ 404 monitor skill review · YYYY-MM-DD — No changes
-Entries analyzed: N
-No actionable patterns found: [brief reason]
+⚠️ 404 monitor skill review · YYYY-MM-DD — run blocked
+What failed: [brief reason — e.g., "could not fetch the log branch"]
 Oz run: [run URL]
 ```
 
@@ -165,10 +208,10 @@ This skill is designed for a monthly Oz scheduled agent.
 
 To deploy:
 1. Push this skill to `main` in the docs repo.
-2. Verify the Oz environment has `SLACK_BOT_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` set.
+2. Verify the Oz environment has `BUZZ_SLACK_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` set.
 3. In the Oz web app, create a new scheduled agent:
    - **Skill**: `improve-404-monitor-skill` from `warpdotdev/docs`
-   - **Schedule**: `0 17 1-7 * 1` (UTC) = first Monday of each month at 9am PT
+   - **Schedule**: `0 17 * * 1` (UTC) = every Monday at 9am PT. The step 0 first-week guard narrows this to the first Monday only. See the caution in `## Schedule` for why the day-of-month field must stay `*`.
    - **Environment**: the same environment used for `weekly-404-monitor` (already has `warpdotdev/docs` checked out and secrets set)
    - **Branch**: `main`
 4. Start this agent after at least 6 weekly-404-monitor run log entries exist on `main` (approximately 6 weeks after run log writing is deployed).

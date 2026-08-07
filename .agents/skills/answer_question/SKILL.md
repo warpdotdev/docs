@@ -24,7 +24,7 @@ Search strategy:
 - Use `grep` when searching for exact feature names, settings, CLI commands, or specific terms.
 - Read matched files to gather authoritative content. Skim broadly first, then read key sections in detail.
 - If the question spans multiple topics (e.g. "How do skills work with cloud agents?"), search each topic independently and cross-reference.
-- Check `astro.config.mjs (sidebar config)` files in the relevant section if you need to locate a page by name.
+- Check `src/sidebar.ts` if you need to locate a page by name; it holds the full navigation tree for every section.
 
 ### 2. Search source code (if needed)
 
@@ -49,7 +49,7 @@ Both repos are indexed for `codebase_semantic_search`. Use `grep` for exact symb
 
 - Be direct and matter-of-fact. Answer the question, don't summarize the docs.
 - Be comprehensive — cover what the user needs to fully understand the answer — but don't pad with tangential information.
-- Use Warp's standard terminology from `AGENTS.md` and the full glossary in `.warp/references/terminology.md`. Key rules: capitalize feature names (Agent, Agent Mode, Warp Drive, Codebase Context), use "agent" (generic) or "Warp Agent" (built-in harness) not "Oz agent" or "Ozzie", use "credits" not "AI credits."
+- Use Warp's standard terminology from `AGENTS.md` and the full glossary in `.agents/references/terminology.md`. Key rules: capitalize feature names (Agent, Agent Mode, Warp Drive, Codebase Context), use "agent" (generic) or "Warp Agent" (built-in harness) not "Oz agent" or "Ozzie", use "credits" not "AI credits."
 - If the docs do not cover the topic, say so honestly. Do not guess or fabricate information.
 
 ### 4. Generate doc links

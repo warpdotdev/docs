@@ -94,16 +94,33 @@ If `npm run build` fails, the most common cause is a malformed path or missing `
 
 ### Step 6: Commit and open a PR
 
+This skill maintains **one** long-lived sync PR rather than one per run — see "One standing PR per automation" in `.agents/references/skill-authoring-guidelines.md`. A dated branch per run would produce multiple open PRs that all rewrite the same generated YAML file and conflict with each other.
+
 ```bash
-git checkout -b sync-openapi-spec/YYYY-MM-DD
+# Is there already an open OpenAPI sync PR?
+gh pr list --repo warpdotdev/docs --state open \
+  --search 'sync agent-api-openapi.yaml from warp-server in:title' \
+  --json number,headRefName
+
+git fetch origin
+# If the PR exists, continue on its branch and rebase; otherwise create it from main.
+git checkout sync-openapi-spec 2>/dev/null || git checkout -b sync-openapi-spec origin/main
+git rebase origin/main
+```
+
+Re-run `--mode apply` after the rebase so the regenerated subset reflects the latest `main`, then commit:
+
+```bash
 git add developers/agent-api-openapi.yaml
 git commit -m "docs: sync agent-api-openapi.yaml from warp-server
 
 Co-Authored-By: Oz <oz-agent@warp.dev>"
-git push origin sync-openapi-spec/YYYY-MM-DD
+git push origin sync-openapi-spec
 ```
 
-Open a draft PR. Write the body to a file before creating the PR — the diff output from Step 2 can be long and is prone to repetition-loop degeneration when passed inline:
+If a PR already exists for this branch, the push updates it — do not open a second one. Replace the diff summary in the existing body with the current run's output (this spec is regenerated wholesale each run, so the latest diff supersedes rather than accumulates) and note the date of the refresh. Re-run `check_pr_body.py` after editing.
+
+If no PR exists, open a draft one. Write the body to a file before creating the PR — the diff output from Step 2 can be long and is prone to repetition-loop degeneration when passed inline:
 
 ```bash
 cat > /tmp/sync-openapi-pr-body.md << 'EOF'

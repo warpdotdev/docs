@@ -55,10 +55,10 @@ Run the link checker to validate all internal and external links:
 
 ```bash
 # Quick internal-only check (fast, no HTTP requests)
-python3 .warp/skills/check_for_broken_links/check_links.py --internal-only
+python3 .agents/skills/check_for_broken_links/check_links.py --internal-only
 
 # Full check including external links
-python3 .warp/skills/check_for_broken_links/check_links.py
+python3 .agents/skills/check_for_broken_links/check_links.py
 ```
 
 Fix any broken links before opening the PR. See the `check_for_broken_links` skill for detailed guidance on fixing different link types.
@@ -83,30 +83,29 @@ This helps you:
 - Catch unintended changes before review
 - Write an accurate PR description
 
-### 5. Verify astro.config.mjs (sidebar config) updates
+### 5. Verify sidebar updates
 
 If you added, moved, or renamed any documentation pages:
 
-- Update the sidebar config in `astro.config.mjs` at the repo root (see AGENTS.md "Navigation and redirects")
-- Ensure the page title in the sidebar config matches the H1 title in the document
-- Check that the file path is correct
+- Update the sidebar in `src/sidebar.ts`. That file is the source of truth; `astro.config.mjs` only imports it via `starlightSidebarTopics(sidebarTopics)`.
+- Ensure the label matches the H1 title in the document, or omit the label and let Starlight derive it.
+- Check that the slug is correct: no leading slash and no `.md`/`.mdx` extension.
 
 ### 6. Add redirects for moved/renamed pages
 
-If you renamed or moved a page that's already published:
+If you renamed or moved a page that's already published, add a redirect to the `redirects` array in `vercel.json` at the repo root. Every redirect lives in that one file, including redirects between top-level sections — there is no per-section redirect file and no external redirect tool.
 
-- Add a redirect entry to the appropriate `vercel.json (redirects)` file
-- For cross-space redirects, use the `scripts/docs_redirects.py` tool
-- Check existing redirects first to avoid duplicates
+Check existing redirects first to avoid duplicates.
 
 ```json
-// Example redirect in vercel.json
 {
-  "redirects": [
-    { "source": "/old/path", "destination": "/new/path" }
-  ]
+  "source": "/old/path",
+  "destination": "/new/path/",
+  "statusCode": 308
 }
 ```
+
+Include the trailing slash on `destination` and the `statusCode`, matching the existing entries.
 
 ## PR Description Guidelines
 
@@ -129,8 +128,27 @@ This PR updates the Terminal and Agent modes documentation for the Oz launch.
 - Updated keyboard shortcuts with comprehensive tables
 - Added fork functionality documentation
 
-### src/content/docs/agent-platform/astro.config.mjs (sidebar config)
+### src/sidebar.ts
 - Updated navigation entry title
+```
+
+### Unverified claims (required on drafting PRs)
+
+Any PR that adds or updates page content must state which UI labels, Settings paths, CLI flags, permission defaults, plan eligibility, and platform-support claims could not be verified against `warp-internal`, `warp-server`, or a live build. See step 9.5 of the `draft_docs` skill.
+
+Include the section even when nothing is outstanding:
+
+```markdown
+## Unverified claims
+None — all UI labels, flags, defaults, and eligibility claims were verified against source.
+```
+
+When claims are outstanding, give the reviewer one bullet per claim with what would confirm it:
+
+```markdown
+## Unverified claims
+- `--auto-approve` flag name — `cloud-agents.mdx`, "Run an agent" — taken from the PRD; confirm against `TuiArgs` in `warp-internal`.
+- **Settings** > **Agents** > **Permissions** path — `permissions.mdx`, "Defaults" — source repos were not available in this environment.
 ```
 
 ### Additional context (optional)

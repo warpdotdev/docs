@@ -35,22 +35,32 @@ Focus on what each capability means for the user.]
 Explain "what" and "why" before "how."
 Define new terms when they first appear.
 IMPORTANT: Do NOT include step-by-step procedures in this section.
-Keep the conceptual and procedural sections clearly separated.]
+Keep the conceptual and procedural sections clearly separated.
+State platform, plan, preview, or interactive-only limits next to the behavior they constrain.
+Do not invent internal tool names or implementation details the reader cannot act on.
+Do NOT embed full error messages here — put failures in Troubleshooting at the end.]
 
 [SCREENSHOTS: If this feature has a distinctive visual surface (statusline, tab bar, side pane, multi-control layout), place a screenshot immediately after the paragraph that introduces that surface. Use descriptive alt text. Skip screenshots for purely textual CLI behavior.]
 
 ## [Usage/configuration section — sentence case. Rename to match the feature, e.g., "Creating environments", "Configuring integrations"]
 
 [PROCEDURAL section: step-by-step instructions.
+Order sections for the reader: Prerequisites → setup/config → day-to-day usage → advanced options.
 Apply all procedural rules from AGENTS.md:
 - Motivate steps before giving instructions
 - Include expected outcomes after key steps
-- Group related actions when they share the same UI context]
+- Group related actions when they share the same UI context
+- Name the app before the first Settings path or CLI command on this page
+- Verify every UI label, Settings path, and CLI flag against source or the live product before publishing. If you cannot verify one, omit it or mark it with an inline `{/* VERIFY: ... */}` comment and report it per step 9.5 of the draft_docs skill
+- Prefer durable actions and outcomes over ephemeral chrome (glyph colors, pure layout narration)
+- Lead instructional sentences with the action or goal, then the control (✅ "To open the selector, press `Ctrl+E`." ❌ "To change either value, press `Ctrl+E`.")
+- Disambiguate conditionals and multi-clause sentences so only one reading remains]
 
 ### Prerequisites
 
 [Bulleted list with inline context for each prerequisite.
-Include: what the thing is, where to get it, link to full reference.]
+Include: what the thing is, where to get it, link to full reference.
+For integrations and team features, include admin requirements, who gains access after install, and any per-user auth steps.]
 
 ### [Task name — sentence case. e.g., "Create an environment with the CLI"]
 
@@ -61,12 +71,22 @@ Include: what the thing is, where to get it, link to full reference.]
 ## [Additional sections as needed — sentence case. e.g., "Managing X", "Advanced usage"]
 
 [Repeat the conceptual or procedural pattern as appropriate.
-Keep sections clearly delineated by type.]
+Keep sections clearly delineated by type.
+Avoid stacking multiple callouts; prefer short prose unless a caveat is easy to miss.]
+
+## Troubleshooting
+
+[Optional but recommended when the feature has common failures, permission errors, or exact platform error strings.
+Place this section near the end of the page, before Related pages.
+Format each item as: bold symptom or exact error message, then cause, then fix.
+Do not scatter the same error callouts through earlier sections.]
 
 ## Related pages
 
-[Cross-references to related features, next steps, deeper references.
-Use descriptive link text.]
+[Required on new feature and integration pages so the page does not dead-end.
+Cross-reference related features, sibling integrations, next steps, and deeper references.
+Use descriptive link text that names the destination — not "here" or "this page".
+Include at least one sibling or overview link and one next-step workflow link.]
 
 * [Related feature](path/to/page.md)
 * [Deeper guide](path/to/page.md)
