@@ -250,7 +250,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Warp Agents',
 					items: [
-						{ slug: 'agents/local-agents/overview', label: 'Warp Agents overview' },
+						{ slug: 'agents/local-agents/overview', label: 'Overview' },
 						{
 							label: 'Capabilities',
 							collapsed: true,
