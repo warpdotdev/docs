@@ -7,6 +7,7 @@ sidebar:
   label: "Sending Feedback & Logs"
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { VARS } from '@data/vars';
 
 ## Sending Warp feedback
 
@@ -259,5 +260,15 @@ Collect a sample using the steps for your platform and attach it to a new [GitHu
 To gather the conversation ID, `RIGHT-CLICK` on the AI conversation block in question and select "Copy conversation ID", then paste that into the [bug report](/support-and-community/troubleshooting-and-support/sending-us-feedback/#sending-warp-feedback) that you submit so that our team can investigate the issue.
 
 Whenever there is an error in the Agent Conversation, there will also be an option to directly copy the conversation ID for the bug report.
+
+### Using `/copy-debugging-id`
+
+The [`/copy-debugging-id`](/agents/capabilities/slash-commands/) slash command copies the same information without leaving the input. It works in both the Warp app and the [{VARS.WARP_CLI}](/cli/), and it applies to the conversation you're currently in:
+
+1. Run `/copy-debugging-id` in the conversation you want to report.
+2. Warp confirms with a "Debugging information copied to clipboard" message.
+3. Paste the copied text into your bug report.
+
+The copied text is a small JSON payload with the conversation ID, plus the request ID when the command is run on a specific agent response — for example, `{"conversation_id":"abc123"}`. If the conversation hasn't reached Warp's servers yet, the command reports that no debugging ID is available; send a prompt first, then run it again.
 
 ![Agent Mode error message with Send Feedback button and debug information containing request and conversation IDs](../../../../assets/support-and-community/send-feedback-debugging-information.png)
