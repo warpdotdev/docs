@@ -6,7 +6,7 @@ description: >-
   Grok Build.
 ---
 
-Warp lets you connect your **SuperGrok subscription** to use Grok models in Warp's agents through your xAI account. If you already subscribe to Grok, you can run Grok models in Warp without consuming your Warp [credits](/support-and-community/plans-and-billing/credits/). X Premium subscriptions that include Grok access work the same way: you sign in to your xAI account, and xAI determines which subscription tiers are eligible and how much usage they include.
+Warp lets you connect your **SuperGrok subscription** to use Grok models with agents in Warp through your xAI account. If you already subscribe to Grok, you can run Grok models in Warp without consuming your Warp [credits](/support-and-community/plans-and-billing/credits/). X Premium subscriptions that include Grok access work the same way: you sign in to your xAI account, and xAI determines which subscription tiers are eligible and how much usage they include.
 
 Connecting a subscription works like [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), except you sign in to your xAI account instead of pasting an API key. There is no xAI API key field in Warp today — the subscription is the way to bring your own Grok access.
 
@@ -21,7 +21,7 @@ When you connect your subscription, Warp opens your browser to xAI's consent scr
 When you send a prompt with a Grok model selected and a subscription connected:
 
 1. Your local Warp client sends the access token to Warp's backend along with your prompt.
-2. Warp's agent harness assembles the full request and uses your token in-flight to call xAI, authenticating as your xAI account instead of Warp's.
+2. The Warp Agent harness assembles the full request and uses your token in-flight to call xAI, authenticating as your xAI account instead of Warp's.
 3. xAI's response streams back through Warp's backend to your client.
 
 Your token passes through Warp's servers on each request but is used only in-flight to call xAI, then discarded — the same model as [BYOK](/agents/inference/bring-your-own-api-key/#how-byok-works).
