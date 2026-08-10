@@ -134,7 +134,9 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 
 ### Warp Agent vs Oz
 
-- **Warp Agent** — Warp's built-in agent harness. Use "Warp Agent" when specifically referring to the built-in harness, especially when contrasting with third-party agents (Claude Code, Codex, etc.), or when referencing the Settings label (**Settings** > **Agents** > **Warp Agent**).
+- **Warp Agent** — Warp's built-in agent harness. Capitalized, singular, treated as a proper noun. Use "Warp Agent" when specifically referring to the built-in harness, especially when contrasting with third-party agents (Claude Code, Codex, etc.), or when referencing the Settings label (**Settings** > **Agents** > **Warp Agent**). Use lowercase "agent" / "agents" everywhere else.
+  *Usage note:* Avoid "Warp's agent" and "Warp's agents" — the ambiguous middle ground, and the main source of capitalization drift in the docs. Rewrite as "the Warp Agent" (the built-in harness), "agents" or "agents in Warp" (generic), or "the Warp Agent harness" (the server-side runtime).
+- **Oz is the platform, not the agent.** Never introduce Oz as "Warp's agent" or equate the two. Oz runs and coordinates agents; the Warp Agent is the agent.
 - **Warp Agent CLI** — The standalone terminal program (the `warp` binary) that runs the Warp Agent in any terminal, including over SSH and on machines without the Warp app. Documented at `/agents/cli/`.
   *Usage note:* Distinct from the Oz CLI (the `oz` binary), which runs and manages cloud agents. At the next launch (approximately August 18, 2026) the Oz CLI is retired and wrapped into the Warp Agent CLI, leaving a single CLI under this name. Until that ships, keep the two clearly separate in prose; afterwards, "Warp Agent CLI" covers both.
 - **Oz** — Warp's programmable platform for running and coordinating agents at scale
