@@ -158,7 +158,7 @@ function ChatCodeBlock({
 	const isTerminalLanguage = ['bash', 'sh', 'shell', 'zsh', 'powershell', 'pwsh'].includes(
 		normalizedLanguage
 	);
-	const [highlightedCode, setHighlightedCode] = useState<string | null>(null);
+	const [highlightedPreHtml, setHighlightedPreHtml] = useState<string | null>(null);
 	const [isDarkTheme, setIsDarkTheme] = useState(true);
 
 	useEffect(() => {
@@ -198,13 +198,13 @@ function ChatCodeBlock({
 					lang: shikiLanguage,
 					theme: isDarkTheme ? 'github-dark' : 'github-light',
 				});
-				const match = html.match(/<code[^>]*>([\s\S]*?)<\/code>/i);
+				const match = html.match(/<pre[^>]*>[\s\S]*?<\/pre>/i);
 				if (!cancelled) {
-					setHighlightedCode(match?.[1] ?? null);
+					setHighlightedPreHtml(match?.[0] ?? null);
 				}
 			} catch {
 				if (!cancelled) {
-					setHighlightedCode(null);
+					setHighlightedPreHtml(null);
 				}
 			}
 		})();
@@ -221,16 +221,16 @@ function ChatCodeBlock({
 					<span className="title" />
 					{isTerminalLanguage ? <span className="sr-only">Terminal window</span> : null}
 				</figcaption>
-				<pre data-language={language}>
-					<code
-						className={className}
-						dangerouslySetInnerHTML={
-							highlightedCode
-								? { __html: highlightedCode }
-								: { __html: escapeHtml(codeText) }
-						}
+				{highlightedPreHtml ? (
+					<div
+						className="sl-kapa-codeblock__shiki"
+						dangerouslySetInnerHTML={{ __html: highlightedPreHtml }}
 					/>
-				</pre>
+				) : (
+					<pre data-language={language}>
+						<code className={className} dangerouslySetInnerHTML={{ __html: escapeHtml(codeText) }} />
+					</pre>
+				)}
 				<div className="copy">
 					<div aria-live="polite">{copiedCodeKey === copyKey ? 'Copied!' : ''}</div>
 					<button
