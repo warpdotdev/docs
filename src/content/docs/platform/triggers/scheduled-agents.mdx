@@ -30,7 +30,7 @@ A Scheduled Agent is a [cloud agent](/platform/) that runs on a cron-based sched
 * Runs automatically based on a cron expression.
 * Uses a fixed prompt defined at schedule creation time.
 * Starts a fresh agent session for every run.
-* Executes in a specific Warp Environment, if provided.
+* Executes in a specific Warp [Environment](/platform/environments/), if provided.
 * Consumes credits when it runs.
 * Can be paused, updated, or deleted at any time.
 
@@ -94,7 +94,7 @@ oz schedule create \
 * `--file <PATH>` — load schedule configuration from a YAML or JSON file.
 
 :::note
-Environments are optional — if you don't specify one, the scheduled agent runs in a barebones sandbox. Without an environment, the agent won't have access to your code repositories, pre-installed tools, or setup commands, so this is only suited for tasks that don't need your codebase.
+[Environments](/platform/environments/) are optional — if you don't specify one, the scheduled agent runs in a barebones sandbox. Without an environment, the agent won't have access to your code repositories, pre-installed tools, or setup commands, so this is only suited for tasks that don't need your codebase.
 :::
 
 :::caution
@@ -312,3 +312,10 @@ Scheduled Agents are best when work should happen on a predictable cadence.
 If you want an agent to run in response to an event, such as a Slack mention, PR update, or issue change, use [integrations](/platform/integrations/) to trigger cloud agents instead.
 
 Many teams use both together: [triggers](/platform/triggers/) for reactive workflows, and Scheduled Agents for proactive maintenance.
+
+## Related pages
+
+* [Environments](/platform/environments/) — configure the repo, image, and setup commands scheduled runs execute with
+* [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) — inspect transcripts, logs, and outputs from each scheduled run
+* [Skills as Agents](/platform/skills-as-agents/) — run a reusable skill definition on a schedule
+* [Run unattended agents](/guides/agent-workflows/how-to-run-unattended-agents/) — compare schedules with Slack, Linear, GitHub Actions, CLI, and API triggers
