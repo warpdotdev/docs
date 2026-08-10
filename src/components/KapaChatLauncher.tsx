@@ -95,6 +95,16 @@ function normalizeChatLanguage(language: string): string {
 	return CHAT_LANGUAGE_ALIASES[language.toLowerCase()] ?? language.toLowerCase();
 }
 
+function inferLanguageFromCode(codeText: string, fallbackLanguage: string): string {
+	if (fallbackLanguage !== 'text') return fallbackLanguage;
+	const sample = codeText.trim();
+	if (!sample) return fallbackLanguage;
+	const commandLikePattern =
+		/^(sudo|apt|apt-get|dnf|yum|zypper|pacman|curl|wget|git|npm|pnpm|yarn|cargo|python|node|brew|sh|bash)\b/m;
+	if (commandLikePattern.test(sample)) return 'bash';
+	return fallbackLanguage;
+}
+
 function escapeHtml(value: string): string {
 	return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
@@ -141,11 +151,36 @@ function ChatCodeBlock({
 	onCopy: () => void;
 }) {
 	const language = className?.replace('language-', '') ?? 'text';
-	const normalizedLanguage = normalizeChatLanguage(language);
+	const normalizedLanguage = inferLanguageFromCode(
+		codeText,
+		normalizeChatLanguage(language)
+	);
 	const isTerminalLanguage = ['bash', 'sh', 'shell', 'zsh', 'powershell', 'pwsh'].includes(
 		normalizedLanguage
 	);
 	const [highlightedCode, setHighlightedCode] = useState<string | null>(null);
+	const [isDarkTheme, setIsDarkTheme] = useState(true);
+
+	useEffect(() => {
+		const root = document.documentElement;
+		const updateTheme = () => {
+			const explicitTheme = root.dataset.theme;
+			if (explicitTheme === 'light') {
+				setIsDarkTheme(false);
+				return;
+			}
+			if (explicitTheme === 'dark') {
+				setIsDarkTheme(true);
+				return;
+			}
+			setIsDarkTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
+		};
+
+		updateTheme();
+		const observer = new MutationObserver(updateTheme);
+		observer.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+		return () => observer.disconnect();
+	}, []);
 
 	useEffect(() => {
 		let cancelled = false;
@@ -161,10 +196,7 @@ function ChatCodeBlock({
 					: 'text';
 				const html = highlighter.codeToHtml(codeText, {
 					lang: shikiLanguage,
-					themes: {
-						light: 'github-light',
-						dark: 'github-dark',
-					},
+					theme: isDarkTheme ? 'github-dark' : 'github-light',
 				});
 				const match = html.match(/<code[^>]*>([\s\S]*?)<\/code>/i);
 				if (!cancelled) {
@@ -180,7 +212,7 @@ function ChatCodeBlock({
 		return () => {
 			cancelled = true;
 		};
-	}, [codeText, normalizedLanguage]);
+	}, [codeText, isDarkTheme, normalizedLanguage]);
 
 	return (
 		<div className="expressive-code sl-kapa-codeblock">
