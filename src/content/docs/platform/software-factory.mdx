@@ -18,7 +18,7 @@ A software factory has two loops that work together.
 
 **The inner loop** is the execution loop: a triage agent, spec agent, implementation agent, and reviewer agent work in sequence, turning a new issue into a pull request for human review.
 
-**The outer loop** is the improvement loop: a scheduled agent reviews past inner-loop runs, observes where maintainers made corrections, and opens a pull request to update the skill files that drive the inner-loop agents. Over time, the factory gets better without anyone manually rewriting prompts.
+**The outer loop** is the improvement loop: a [scheduled agent](/platform/triggers/scheduled-agents/) reviews past inner-loop runs, observes where maintainers made corrections, and opens a pull request to update the skill files that drive the inner-loop agents. Over time, the factory gets better without anyone manually rewriting prompts.
 
 The inner loop ships software. The outer loop improves the factory that ships it.
 
@@ -39,14 +39,14 @@ Each agent role is backed by a **skill**, a markdown file checked into a Git rep
 
 The inner loop runs when a new issue is filed:
 
-1. A webhook or GitHub Action triggers the triage agent. The agent runs in a cloud environment, analyzes the issue, and applies labels and comments.
+1. A webhook or GitHub Action triggers the triage agent. The agent runs in a cloud [environment](/platform/environments/), analyzes the issue, and applies labels and comments.
 2. When the issue is labeled `ready-to-spec`, the spec agent creates `PRODUCT.md` and `TECH.md` in a `specs/` directory in the repository.
 3. A human reviews and approves the specs.
 4. When the implementation label is applied, the implementation agent opens a PR that includes the spec files alongside the code.
 
-Oz orchestrates each agent as a cloud run. Every run has its own environment (repository checkout, secrets, toolchain), its own permissions, and a session link your team can use to inspect what the agent did, steer it mid-run, or hand work back to a local session. For parent/child fan-out and review swarms across those roles, see [Multi-agent orchestration](/platform/orchestration/).
+Oz orchestrates each agent as a cloud run. Every run has its own environment (repository checkout, secrets, toolchain), its own permissions, and a session link your team can use to inspect what the agent did, steer it mid-run, or use [Handoff](/platform/handoff/) to move work back to a local session. For parent/child fan-out and review swarms across those roles, see [Multi-agent orchestration](/platform/orchestration/).
 
-The outer loop runs on a schedule, not in response to events.
+The outer loop runs on a [schedule](/platform/triggers/scheduled-agents/), not in response to events.
 
 A scheduled cloud agent collects signals from past inner-loop runs and generates a diff to the relevant skill files. That diff goes through a normal pull request review before merging. Humans decide what improves; agents propose it.
 
