@@ -221,18 +221,6 @@
 	font-family: var(--__sl-font-mono, 'JetBrains Mono', 'SFMono-Regular', monospace);
 }
 
-.sl-kapa-codeblock__copy {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	padding: 0;
-}
-
-.sl-kapa-codeblock__copy svg {
-	width: 0.9rem;
-	height: 0.9rem;
-}
-
 
 .sl-kapa-thinking {
 	display: flex;

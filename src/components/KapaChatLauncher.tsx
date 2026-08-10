@@ -6,8 +6,6 @@ import { PUBLIC_KAPA_INTEGRATION_ID, PUBLIC_KAPA_PROJECT_ID } from 'astro:env/cl
 import { isMac, keymatch } from 'keymatch';
 import ReactMarkdown from 'react-markdown';
 import {
-	LuCheck,
-	LuCopy,
 	LuExternalLink,
 	LuLoaderCircle,
 	LuMessageSquare,
@@ -475,32 +473,43 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 													const language = className?.replace('language-', '') ?? 'text';
 													const qaKey = qa.id ?? qa.question ?? 'qa';
 													const copyKey = `${qaKey}:${language}:${codeText.slice(0, 64)}`;
+						const isTerminalLanguage = ['bash', 'sh', 'shell', 'zsh', 'powershell'].includes(
+							language.toLowerCase()
+						);
 													return (
-								<figure className="expressive-code sl-kapa-codeblock">
+							<div className="expressive-code sl-kapa-codeblock">
+								<figure className={`frame not-content${isTerminalLanguage ? ' is-terminal' : ''}`}>
+									<figcaption className="header">
+										<span className="title" />
+										{isTerminalLanguage ? (
+											<span className="sr-only">Terminal window</span>
+										) : null}
+									</figcaption>
+									<pre data-language={language}>
+										<code className={className} {...props}>
+											{codeText}
+										</code>
+									</pre>
 									<div className="copy">
+										<div aria-live="polite">
+											{copiedCodeKey === copyKey ? 'Copied!' : ''}
+										</div>
 										<button
 											type="button"
-											className="sl-kapa-codeblock__copy"
-											onClick={() => void copyCodeBlock(codeText, copyKey)}
+											title="Copy to clipboard"
+											data-copied="Copied!"
 											aria-label={
 												copiedCodeKey === copyKey
 													? 'Code copied'
 													: 'Copy code block'
 											}
+											onClick={() => void copyCodeBlock(codeText, copyKey)}
 										>
-											{copiedCodeKey === copyKey ? (
-												<LuCheck aria-hidden="true" />
-											) : (
-												<LuCopy aria-hidden="true" />
-											)}
+											<div />
 										</button>
 									</div>
-															<pre>
-																<code className={className} {...props}>
-																	{codeText}
-																</code>
-															</pre>
 								</figure>
+							</div>
 													);
 												},
 											}}
