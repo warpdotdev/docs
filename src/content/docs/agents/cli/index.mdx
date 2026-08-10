@@ -1,8 +1,8 @@
 ---
 title: "Warp Agent CLI overview"
 description: >-
-  Run the Warp Agent in any terminal with the Warp Agent CLI, prompting the agent,
-  running shell commands, and handing work off to cloud agents.
+  Run the Warp Agent in any terminal with the Warp Agent CLI. Prompt the agent,
+  run shell commands, and hand work off to cloud agents.
 ---
 import { VARS } from '@data/vars';
 
@@ -10,7 +10,7 @@ The {VARS.WARP_CLI} brings the Warp Agent from the Warp app to the terminal you 
 
 ## What is the Warp Agent CLI?
 
-The {VARS.WARP_CLI} is a standalone terminal program that runs [Warp Agent](/platform/harnesses/warp-agent/), the same agent that powers the Warp app. It renders conversations as a scrolling transcript in your terminal, with streaming responses, code diffs, tool calls, and permission requests you approve inline.
+The {VARS.WARP_CLI} is a standalone terminal program that runs [the Warp Agent](/platform/harnesses/warp-agent/), the same agent that powers the Warp app. It renders conversations as a scrolling transcript in your terminal, with streaming responses, code diffs, tool calls, and permission requests you approve inline.
 
 The CLI is also a native terminal multiplexer. It creates and maintains its own pseudoterminal (PTY), which lets you and the agent execute commands and interact with running processes through the same terminal, including prompts and full-screen terminal apps. Because it's a regular command-line program, it works in any terminal emulator, including over SSH.
 
