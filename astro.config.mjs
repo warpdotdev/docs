@@ -76,14 +76,12 @@ export default defineConfig({
 				baseUrl: 'https://github.com/warpdotdev/docs/edit/main/',
 			},
 			lastUpdated: true,
-			// Soft-wrap long lines by default. Expressive Code defaults to
-			// `overflow-x: auto` for `<pre>`, which combined with macOS's
-			// auto-hidden scrollbars made wide lines silently truncate.
-			// `wrap: true` adds the `.wrap` class so EC's `white-space: pre-wrap`
-			// kicks in; leading indents are preserved via its `span.indent` rule.
+			// Keep long lines unwrapped so code blocks use horizontal scrolling.
+			// This aligns docs behavior with the side chat renderer and preserves
+			// exact line shape for commands and snippets.
 			expressiveCode: {
 				defaultProps: {
-					wrap: true,
+					wrap: false,
 				},
 				// Map languages Shiki doesn't bundle to a safe fallback. PromQL
 				// blocks live in platform/self-hosting/monitoring.mdx;

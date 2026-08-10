@@ -203,46 +203,29 @@
 .sl-kapa-codeblock {
 	position: relative;
 	margin: 0.85rem 0;
-	border: 1px solid var(--sl-color-gray-5);
-	border-radius: var(--sl-radius-md);
-	background: color-mix(in srgb, var(--sl-color-black), var(--sl-color-gray-6) 24%);
+	max-width: 100%;
+}
+
+.sl-kapa-codeblock .copy {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	z-index: 1;
 }
 
 .sl-kapa-codeblock pre {
 	margin: 0;
-	max-width: 100%;
-	overflow-x: auto;
-	overflow-y: hidden;
-	padding: 0.85rem;
-	scrollbar-width: thin;
 }
 
 .sl-kapa-codeblock code {
-	display: block;
-	min-width: max-content;
 	font-family: var(--__sl-font-mono, 'JetBrains Mono', 'SFMono-Regular', monospace);
-	font-size: var(--sl-text-xs);
-	line-height: 1.55;
-	white-space: pre;
 }
 
 .sl-kapa-codeblock__copy {
-	position: absolute;
-	top: 0.45rem;
-	right: 0.45rem;
-	z-index: 1;
-	width: 1.8rem;
-	height: 1.8rem;
-	padding: 0;
-	border: 1px solid var(--sl-color-gray-4);
-	border-radius: var(--sl-radius-sm);
-	background: color-mix(in srgb, var(--sl-color-black), var(--sl-color-gray-6) 16%);
-	color: var(--sl-color-gray-2);
-	font: inherit;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	cursor: pointer;
+	padding: 0;
 }
 
 .sl-kapa-codeblock__copy svg {
@@ -250,15 +233,6 @@
 	height: 0.9rem;
 }
 
-.sl-kapa-codeblock__copy:hover {
-	border-color: var(--warp-control-border-hover);
-	color: var(--sl-color-white);
-}
-
-.sl-kapa-codeblock__copy:focus-visible {
-	outline: 2px solid var(--sl-color-accent-high);
-	outline-offset: 2px;
-}
 
 .sl-kapa-thinking {
 	display: flex;

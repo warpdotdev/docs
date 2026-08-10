@@ -476,29 +476,31 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 													const qaKey = qa.id ?? qa.question ?? 'qa';
 													const copyKey = `${qaKey}:${language}:${codeText.slice(0, 64)}`;
 													return (
-														<div className="sl-kapa-codeblock">
-															<button
-																type="button"
-																className="sl-kapa-codeblock__copy"
-																onClick={() => void copyCodeBlock(codeText, copyKey)}
-																aria-label={
-																	copiedCodeKey === copyKey
-																		? 'Code copied'
-																		: 'Copy code block'
-																}
-															>
-																{copiedCodeKey === copyKey ? (
-																	<LuCheck aria-hidden="true" />
-																) : (
-																	<LuCopy aria-hidden="true" />
-																)}
-															</button>
+								<figure className="expressive-code sl-kapa-codeblock">
+									<div className="copy">
+										<button
+											type="button"
+											className="sl-kapa-codeblock__copy"
+											onClick={() => void copyCodeBlock(codeText, copyKey)}
+											aria-label={
+												copiedCodeKey === copyKey
+													? 'Code copied'
+													: 'Copy code block'
+											}
+										>
+											{copiedCodeKey === copyKey ? (
+												<LuCheck aria-hidden="true" />
+											) : (
+												<LuCopy aria-hidden="true" />
+											)}
+										</button>
+									</div>
 															<pre>
 																<code className={className} {...props}>
 																	{codeText}
 																</code>
 															</pre>
-														</div>
+								</figure>
 													);
 												},
 											}}
