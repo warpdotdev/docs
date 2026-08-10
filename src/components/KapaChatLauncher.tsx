@@ -79,7 +79,7 @@ function isValidEmailAddress(value: string) {
 	return emailPattern.test(value.trim());
 }
 
-type ShikiModule = typeof import('shiki');
+type ShikiModule = typeof import('shiki/bundle/web');
 type ShikiHighlighter = Awaited<ReturnType<ShikiModule['createHighlighter']>>;
 
 let shikiHighlighterPromise: Promise<ShikiHighlighter> | null = null;
@@ -111,7 +111,7 @@ function escapeHtml(value: string): string {
 
 async function getShikiHighlighter(): Promise<ShikiHighlighter> {
 	if (!shikiHighlighterPromise) {
-		shikiHighlighterPromise = import('shiki').then(({ createHighlighter }) =>
+		shikiHighlighterPromise = import('shiki/bundle/web').then(({ createHighlighter }) =>
 			createHighlighter({
 				themes: ['github-light', 'github-dark'],
 				langs: [
@@ -204,6 +204,7 @@ function ChatCodeBlock({
 				}
 			} catch {
 				if (!cancelled) {
+					console.warn('[kapa-chat] code highlighting failed; using plaintext fallback');
 					setHighlightedPreHtml(null);
 				}
 			}
