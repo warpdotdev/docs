@@ -105,6 +105,96 @@ function escapeHtml(value: string): string {
 	return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+const highlightCache = new Map<string, string | null>();
+const highlightInFlight = new Map<string, Promise<string | null>>();
+let highlightRequestQueue: Promise<void> = Promise.resolve();
+
+function sleep(milliseconds: number): Promise<void> {
+	return new Promise((resolve) => {
+		window.setTimeout(resolve, milliseconds);
+	});
+}
+
+async function requestHighlightedPre({
+	code,
+	language,
+	theme,
+	signal,
+}: {
+	code: string;
+	language: string;
+	theme: 'dark' | 'light';
+	signal: AbortSignal;
+}): Promise<string | null> {
+	const cacheKey = `${theme}:${language}:${code}`;
+	if (highlightCache.has(cacheKey)) {
+		return highlightCache.get(cacheKey) ?? null;
+	}
+	const existing = highlightInFlight.get(cacheKey);
+	if (existing) return existing;
+
+	const requestPromise = new Promise<string | null>((resolve, reject) => {
+		const run = async () => {
+			const maxAttempts = 4;
+			let attempt = 0;
+			while (attempt < maxAttempts) {
+				attempt += 1;
+				if (signal.aborted) {
+					reject(new DOMException('Highlight request aborted', 'AbortError'));
+					return;
+				}
+				try {
+					const response = await fetch('/api/highlight-code', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							code,
+							language,
+							theme,
+						}),
+						signal,
+					});
+					if (response.status === 429 && attempt < maxAttempts) {
+						await sleep(150 * attempt);
+						continue;
+					}
+					if (!response.ok) {
+						throw new Error(`highlight request failed (${response.status})`);
+					}
+					const payload = (await response.json()) as { preHtml?: string };
+					const preHtml = payload.preHtml ?? null;
+					highlightCache.set(cacheKey, preHtml);
+					resolve(preHtml);
+					return;
+				} catch (error) {
+					if (signal.aborted) {
+						reject(new DOMException('Highlight request aborted', 'AbortError'));
+						return;
+					}
+					if (attempt >= maxAttempts) {
+						reject(error);
+						return;
+					}
+					await sleep(150 * attempt);
+				}
+			}
+		};
+
+		highlightRequestQueue = highlightRequestQueue
+			.then(run)
+			.catch(() => run())
+			.then(() => undefined, () => undefined);
+	});
+
+	highlightInFlight.set(cacheKey, requestPromise);
+	requestPromise.finally(() => {
+		highlightInFlight.delete(cacheKey);
+	});
+	return requestPromise;
+}
+
 function ChatCodeBlock({
 	className,
 	codeText,
@@ -152,24 +242,14 @@ function ChatCodeBlock({
 		const controller = new AbortController();
 		(async (): Promise<void> => {
 			try {
-				const response = await fetch('/api/highlight-code', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({
+				if (!controller.signal.aborted) {
+					const preHtml = await requestHighlightedPre({
 						code: codeText,
 						language: normalizedLanguage,
 						theme: isDarkTheme ? 'dark' : 'light',
-					}),
-					signal: controller.signal,
-				});
-				if (!response.ok) {
-					throw new Error(`highlight request failed (${response.status})`);
-				}
-				const payload = (await response.json()) as { preHtml?: string };
-				if (!controller.signal.aborted) {
-					setHighlightedPreHtml(payload.preHtml ?? null);
+						signal: controller.signal,
+					});
+					setHighlightedPreHtml(preHtml);
 				}
 			} catch (error) {
 				if (!controller.signal.aborted) {
