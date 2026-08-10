@@ -6,13 +6,14 @@ description: >-
 sidebar:
   label: "Overview"
 ---
+import { VARS } from '@data/vars';
 
-Warp auto-detects supported CLI agents and enhances them with IDE-level features — a rich input editor, agent notifications, inline code review, remote session control, and more. Run your preferred coding agent inside Warp and get a better experience out of the box.
+Warp auto-detects supported CLI agents and enhances them with IDE-level features — a rich input editor, agent notifications, inline code review, [Remote Control](/agents/cli-agents/remote-control/), and more. Run your preferred coding agent inside Warp and get a better experience out of the box.
 
 This feature set is also known as **universal agent support**.
 
 :::note
-Claude Code and Codex are also supported as harnesses in Oz for cloud orchestration. See [Harnesses in Oz](/platform/harnesses/).
+Claude Code and Codex are also supported as harnesses in Oz for [multi-agent orchestration](/platform/orchestration/). See [Harnesses in Oz](/platform/harnesses/).
 :::
 
 ## Supported agents
@@ -84,6 +85,9 @@ If you don't see the agent toolbelt, make sure you're on the latest version of W
 
 ## Related pages
 
+* [Remote Control](/agents/cli-agents/remote-control/) — publish a CLI agent session to monitor and steer it from another device
+* [Cloud handoff and orchestration](/cli/cloud-and-orchestration/) — hand off a {VARS.WARP_CLI} conversation to a cloud agent, or run multi-agent orchestration from the terminal
 * [Agent Notifications](/agents/capabilities/agent-notifications/)
+* [How to run multiple AI coding agents](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/) — run CLI agents in parallel with worktrees and cloud fan-out
 * [Tabs](/terminal/windows/tabs/)
 * [Tab Configs](/terminal/windows/tab-configs/)
