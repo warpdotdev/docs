@@ -79,15 +79,11 @@ function isValidEmailAddress(value: string) {
 	return emailPattern.test(value.trim());
 }
 
-type ShikiModule = typeof import('shiki/bundle/web');
-type ShikiHighlighter = Awaited<ReturnType<ShikiModule['createHighlighter']>>;
-
-let shikiHighlighterPromise: Promise<ShikiHighlighter> | null = null;
 
 const CHAT_LANGUAGE_ALIASES: Record<string, string> = {
 	shell: 'bash',
 	zsh: 'bash',
-	powershell: 'pwsh',
+	pwsh: 'powershell',
 	plaintext: 'text',
 };
 
@@ -109,34 +105,6 @@ function escapeHtml(value: string): string {
 	return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
-async function getShikiHighlighter(): Promise<ShikiHighlighter> {
-	if (!shikiHighlighterPromise) {
-		shikiHighlighterPromise = import('shiki/bundle/web').then(({ createHighlighter }) =>
-			createHighlighter({
-				themes: ['github-light', 'github-dark'],
-				langs: [
-					'bash',
-					'pwsh',
-					'json',
-					'javascript',
-					'typescript',
-					'tsx',
-					'jsx',
-					'python',
-					'go',
-					'rust',
-					'yaml',
-					'markdown',
-					'html',
-					'css',
-					'text',
-				],
-			})
-		);
-	}
-	return shikiHighlighterPromise;
-}
-
 function ChatCodeBlock({
 	className,
 	codeText,
@@ -155,9 +123,7 @@ function ChatCodeBlock({
 		codeText,
 		normalizeChatLanguage(language)
 	);
-	const isTerminalLanguage = ['bash', 'sh', 'shell', 'zsh', 'powershell', 'pwsh'].includes(
-		normalizedLanguage
-	);
+	const isTerminalLanguage = ['bash', 'sh', 'shell', 'zsh', 'powershell'].includes(normalizedLanguage);
 	const [highlightedPreHtml, setHighlightedPreHtml] = useState<string | null>(null);
 	const [isDarkTheme, setIsDarkTheme] = useState(true);
 
@@ -183,35 +149,38 @@ function ChatCodeBlock({
 	}, []);
 
 	useEffect(() => {
-		let cancelled = false;
-
-		(async () => {
+		const controller = new AbortController();
+		(async (): Promise<void> => {
 			try {
-				const highlighter = await getShikiHighlighter();
-				const loadedLanguages = new Set(
-					highlighter.getLoadedLanguages().map((lang) => String(lang).toLowerCase())
-				);
-				const shikiLanguage = loadedLanguages.has(normalizedLanguage)
-					? normalizedLanguage
-					: 'text';
-				const html = highlighter.codeToHtml(codeText, {
-					lang: shikiLanguage,
-					theme: isDarkTheme ? 'github-dark' : 'github-light',
+				const response = await fetch('/api/highlight-code', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						code: codeText,
+						language: normalizedLanguage,
+						theme: isDarkTheme ? 'dark' : 'light',
+					}),
+					signal: controller.signal,
 				});
-				const match = html.match(/<pre[^>]*>[\s\S]*?<\/pre>/i);
-				if (!cancelled) {
-					setHighlightedPreHtml(match?.[0] ?? null);
+				if (!response.ok) {
+					throw new Error(`highlight request failed (${response.status})`);
 				}
-			} catch {
-				if (!cancelled) {
-					console.warn('[kapa-chat] code highlighting failed; using plaintext fallback');
+				const payload = (await response.json()) as { preHtml?: string };
+				if (!controller.signal.aborted) {
+					setHighlightedPreHtml(payload.preHtml ?? null);
+				}
+			} catch (error) {
+				if (!controller.signal.aborted) {
+					console.warn('[kapa-chat] code highlighting failed; using plaintext fallback', error);
 					setHighlightedPreHtml(null);
 				}
 			}
 		})();
 
 		return () => {
-			cancelled = true;
+			controller.abort();
 		};
 	}, [codeText, isDarkTheme, normalizedLanguage]);
 
