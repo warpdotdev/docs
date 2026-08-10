@@ -79,6 +79,143 @@ function isValidEmailAddress(value: string) {
 	return emailPattern.test(value.trim());
 }
 
+type ShikiModule = typeof import('shiki');
+type ShikiHighlighter = Awaited<ReturnType<ShikiModule['createHighlighter']>>;
+
+let shikiHighlighterPromise: Promise<ShikiHighlighter> | null = null;
+
+const CHAT_LANGUAGE_ALIASES: Record<string, string> = {
+	shell: 'bash',
+	zsh: 'bash',
+	powershell: 'pwsh',
+	plaintext: 'text',
+};
+
+function normalizeChatLanguage(language: string): string {
+	return CHAT_LANGUAGE_ALIASES[language.toLowerCase()] ?? language.toLowerCase();
+}
+
+function escapeHtml(value: string): string {
+	return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+async function getShikiHighlighter(): Promise<ShikiHighlighter> {
+	if (!shikiHighlighterPromise) {
+		shikiHighlighterPromise = import('shiki').then(({ createHighlighter }) =>
+			createHighlighter({
+				themes: ['github-light', 'github-dark'],
+				langs: [
+					'bash',
+					'pwsh',
+					'json',
+					'javascript',
+					'typescript',
+					'tsx',
+					'jsx',
+					'python',
+					'go',
+					'rust',
+					'yaml',
+					'markdown',
+					'html',
+					'css',
+					'text',
+				],
+			})
+		);
+	}
+	return shikiHighlighterPromise;
+}
+
+function ChatCodeBlock({
+	className,
+	codeText,
+	copyKey,
+	copiedCodeKey,
+	onCopy,
+}: {
+	className?: string;
+	codeText: string;
+	copyKey: string;
+	copiedCodeKey: string | null;
+	onCopy: () => void;
+}) {
+	const language = className?.replace('language-', '') ?? 'text';
+	const normalizedLanguage = normalizeChatLanguage(language);
+	const isTerminalLanguage = ['bash', 'sh', 'shell', 'zsh', 'powershell', 'pwsh'].includes(
+		normalizedLanguage
+	);
+	const [highlightedCode, setHighlightedCode] = useState<string | null>(null);
+
+	useEffect(() => {
+		let cancelled = false;
+
+		(async () => {
+			try {
+				const highlighter = await getShikiHighlighter();
+				const loadedLanguages = new Set(
+					highlighter.getLoadedLanguages().map((lang) => String(lang).toLowerCase())
+				);
+				const shikiLanguage = loadedLanguages.has(normalizedLanguage)
+					? normalizedLanguage
+					: 'text';
+				const html = highlighter.codeToHtml(codeText, {
+					lang: shikiLanguage,
+					themes: {
+						light: 'github-light',
+						dark: 'github-dark',
+					},
+				});
+				const match = html.match(/<code[^>]*>([\s\S]*?)<\/code>/i);
+				if (!cancelled) {
+					setHighlightedCode(match?.[1] ?? null);
+				}
+			} catch {
+				if (!cancelled) {
+					setHighlightedCode(null);
+				}
+			}
+		})();
+
+		return () => {
+			cancelled = true;
+		};
+	}, [codeText, normalizedLanguage]);
+
+	return (
+		<div className="expressive-code sl-kapa-codeblock">
+			<figure className={`frame not-content${isTerminalLanguage ? ' is-terminal' : ''}`}>
+				<figcaption className="header">
+					<span className="title" />
+					{isTerminalLanguage ? <span className="sr-only">Terminal window</span> : null}
+				</figcaption>
+				<pre data-language={language}>
+					<code
+						className={className}
+						dangerouslySetInnerHTML={
+							highlightedCode
+								? { __html: highlightedCode }
+								: { __html: escapeHtml(codeText) }
+						}
+					/>
+				</pre>
+				<div className="copy">
+					<div aria-live="polite">{copiedCodeKey === copyKey ? 'Copied!' : ''}</div>
+					<button
+						type="button"
+						title="Copy to clipboard"
+						data-copied="Copied!"
+						aria-label={copiedCodeKey === copyKey ? 'Code copied' : 'Copy code block'}
+						onClick={onCopy}
+					>
+						<div />
+					</button>
+				</div>
+			</figure>
+		</div>
+	);
+}
+
 function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversation }: {
 	title: string;
 	welcomeMessage: string;
@@ -473,44 +610,15 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 													const language = className?.replace('language-', '') ?? 'text';
 													const qaKey = qa.id ?? qa.question ?? 'qa';
 													const copyKey = `${qaKey}:${language}:${codeText.slice(0, 64)}`;
-						const isTerminalLanguage = ['bash', 'sh', 'shell', 'zsh', 'powershell'].includes(
-							language.toLowerCase()
-						);
-													return (
-							<div className="expressive-code sl-kapa-codeblock">
-								<figure className={`frame not-content${isTerminalLanguage ? ' is-terminal' : ''}`}>
-									<figcaption className="header">
-										<span className="title" />
-										{isTerminalLanguage ? (
-											<span className="sr-only">Terminal window</span>
-										) : null}
-									</figcaption>
-									<pre data-language={language}>
-										<code className={className} {...props}>
-											{codeText}
-										</code>
-									</pre>
-									<div className="copy">
-										<div aria-live="polite">
-											{copiedCodeKey === copyKey ? 'Copied!' : ''}
-										</div>
-										<button
-											type="button"
-											title="Copy to clipboard"
-											data-copied="Copied!"
-											aria-label={
-												copiedCodeKey === copyKey
-													? 'Code copied'
-													: 'Copy code block'
-											}
-											onClick={() => void copyCodeBlock(codeText, copyKey)}
-										>
-											<div />
-										</button>
-									</div>
-								</figure>
-							</div>
-													);
+							return (
+								<ChatCodeBlock
+									className={className}
+									codeText={codeText}
+									copyKey={copyKey}
+									copiedCodeKey={copiedCodeKey}
+									onCopy={() => void copyCodeBlock(codeText, copyKey)}
+								/>
+							);
 												},
 											}}
 										>

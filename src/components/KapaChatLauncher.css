@@ -215,10 +215,20 @@
 
 .sl-kapa-codeblock pre {
 	margin: 0;
+	padding: var(--ec-codePadBlk) var(--ec-codePadInl);
+	overflow-x: auto;
+	overflow-y: hidden;
+	white-space: pre;
 }
 
 .sl-kapa-codeblock code {
 	font-family: var(--__sl-font-mono, 'JetBrains Mono', 'SFMono-Regular', monospace);
+	display: block;
+	min-width: max-content;
+}
+
+.sl-kapa-codeblock code .line {
+	display: block;
 }
 
 
