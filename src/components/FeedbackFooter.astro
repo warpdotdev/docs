@@ -1,11 +1,21 @@
 ---
-// Custom footer: drops EditLink + LastUpdated from Starlight's default
-// footer and keeps Pagination + the Starlight credits link.
+// Custom footer: drops Starlight's default EditLink + LastUpdated, replacing
+// EditLink with DocsFeedbackLinks (an "Edit this page" / "open an issue"
+// CTA, since Warp Docs is open source) and keeps Pagination + the Starlight
+// credits link.
 import Pagination from 'virtual:starlight/components/Pagination';
 import config from 'virtual:starlight/user-config';
+import DocsFeedbackLinks from './DocsFeedbackLinks.astro';
+
+// `starlightRoute.editUrl` is typed as `URL | undefined`; DocsFeedbackLinks
+// expects a plain string so it can pass the same value through untouched
+// for both Starlight and non-Starlight (e.g. /api) callers.
+const { editUrl } = Astro.locals.starlightRoute;
+const pageUrl = Astro.url.href;
 ---
 
 <footer class="sl-flex">
+  <DocsFeedbackLinks editUrl={editUrl?.toString()} pageUrl={pageUrl} />
   <Pagination />
 
   {
