@@ -9,9 +9,10 @@
  *     (.github/ISSUE_TEMPLATE/CONTENT.yml) with the page URL already in
  *     the "Page or pages affected" field.
  *
- * `editUrl` is optional: pages that don't map to a single source file (or
- * where the caller wants to point at a different source, e.g. the
- * generated /api reference) can omit it and only the issue link renders.
+ * `editUrl` is optional: pages that don't map to a single editable source
+ * file can omit it and render only the issue link. Pages backed by a
+ * non-MDX source, such as the generated /api reference, can instead pass
+ * that source's own GitHub edit URL explicitly (see `pages/api.astro`).
  */
 interface Props {
   /** Absolute GitHub URL to edit the page's source file (opens a PR). */
