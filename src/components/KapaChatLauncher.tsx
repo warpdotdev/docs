@@ -108,23 +108,47 @@ function escapeHtml(value: string): string {
 const highlightCache = new Map<string, string | null>();
 const highlightInFlight = new Map<string, Promise<string | null>>();
 let highlightRequestQueue: Promise<void> = Promise.resolve();
+type ShikiModule = typeof import('shiki');
+type ShikiHighlighter = Awaited<ReturnType<ShikiModule['createHighlighter']>>;
+let shikiHighlighterPromise: Promise<ShikiHighlighter> | null = null;
+const SHIKI_LANGUAGES = new Set([
+	'bash',
+	'powershell',
+	'json',
+	'javascript',
+	'typescript',
+	'tsx',
+	'jsx',
+	'python',
+	'go',
+	'rust',
+	'yaml',
+	'markdown',
+	'html',
+	'css',
+	'text',
+]);
 
-function sleep(milliseconds: number): Promise<void> {
-	return new Promise((resolve) => {
-		window.setTimeout(resolve, milliseconds);
-	});
+async function getShikiHighlighter(): Promise<ShikiHighlighter> {
+	if (!shikiHighlighterPromise) {
+		shikiHighlighterPromise = import('shiki').then(({ createHighlighter }) =>
+			createHighlighter({
+				themes: ['github-light', 'github-dark'],
+				langs: [...SHIKI_LANGUAGES],
+			})
+		);
+	}
+	return shikiHighlighterPromise;
 }
 
 async function requestHighlightedPre({
 	code,
 	language,
 	theme,
-	signal,
 }: {
 	code: string;
 	language: string;
 	theme: 'dark' | 'light';
-	signal: AbortSignal;
 }): Promise<string | null> {
 	const cacheKey = `${theme}:${language}:${code}`;
 	if (highlightCache.has(cacheKey)) {
@@ -135,50 +159,19 @@ async function requestHighlightedPre({
 
 	const requestPromise = new Promise<string | null>((resolve, reject) => {
 		const run = async () => {
-			const maxAttempts = 4;
-			let attempt = 0;
-			while (attempt < maxAttempts) {
-				attempt += 1;
-				if (signal.aborted) {
-					reject(new DOMException('Highlight request aborted', 'AbortError'));
-					return;
-				}
-				try {
-					const response = await fetch('/api/highlight-code', {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-						},
-						body: JSON.stringify({
-							code,
-							language,
-							theme,
-						}),
-						signal,
-					});
-					if (response.status === 429 && attempt < maxAttempts) {
-						await sleep(150 * attempt);
-						continue;
-					}
-					if (!response.ok) {
-						throw new Error(`highlight request failed (${response.status})`);
-					}
-					const payload = (await response.json()) as { preHtml?: string };
-					const preHtml = payload.preHtml ?? null;
-					highlightCache.set(cacheKey, preHtml);
-					resolve(preHtml);
-					return;
-				} catch (error) {
-					if (signal.aborted) {
-						reject(new DOMException('Highlight request aborted', 'AbortError'));
-						return;
-					}
-					if (attempt >= maxAttempts) {
-						reject(error);
-						return;
-					}
-					await sleep(150 * attempt);
-				}
+			try {
+				const highlighter = await getShikiHighlighter();
+				const shikiLanguage = SHIKI_LANGUAGES.has(language) ? language : 'text';
+				const html = highlighter.codeToHtml(code, {
+					lang: shikiLanguage,
+					theme: theme === 'light' ? 'github-light' : 'github-dark',
+				});
+				const preMatch = html.match(/<pre[^>]*>[\s\S]*?<\/pre>/i);
+				const preHtml = preMatch?.[0] ?? null;
+				highlightCache.set(cacheKey, preHtml);
+				resolve(preHtml);
+			} catch (error) {
+				reject(error);
 			}
 		};
 
@@ -201,12 +194,14 @@ function ChatCodeBlock({
 	copyKey,
 	copiedCodeKey,
 	onCopy,
+	deferHighlight,
 }: {
 	className?: string;
 	codeText: string;
 	copyKey: string;
 	copiedCodeKey: string | null;
 	onCopy: () => void;
+	deferHighlight?: boolean;
 }) {
 	const language = className?.replace('language-', '') ?? 'text';
 	const normalizedLanguage = inferLanguageFromCode(
@@ -247,9 +242,10 @@ function ChatCodeBlock({
 						code: codeText,
 						language: normalizedLanguage,
 						theme: isDarkTheme ? 'dark' : 'light',
-						signal: controller.signal,
 					});
-					setHighlightedPreHtml(preHtml);
+					if (!controller.signal.aborted) {
+						setHighlightedPreHtml(preHtml);
+					}
 				}
 			} catch (error) {
 				if (!controller.signal.aborted) {
@@ -262,7 +258,7 @@ function ChatCodeBlock({
 		return () => {
 			controller.abort();
 		};
-	}, [codeText, isDarkTheme, normalizedLanguage]);
+	}, [codeText, deferHighlight, isDarkTheme, normalizedLanguage]);
 
 	return (
 		<div className="expressive-code sl-kapa-codeblock">
@@ -288,7 +284,13 @@ function ChatCodeBlock({
 						title="Copy to clipboard"
 						data-copied="Copied!"
 						aria-label={copiedCodeKey === copyKey ? 'Code copied' : 'Copy code block'}
-						onClick={onCopy}
+						onMouseDown={(event) => {
+							event.preventDefault();
+						}}
+						onClick={(event) => {
+							event.preventDefault();
+							onCopy();
+						}}
 					>
 						<div />
 					</button>
@@ -690,7 +692,9 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 														);
 													}
 													const language = className?.replace('language-', '') ?? 'text';
-													const qaKey = qa.id ?? qa.question ?? 'qa';
+											const qaKey = qa.id ?? qa.question ?? 'qa';
+											const isStreamingAnswer =
+												isBusy && conversation[conversation.length - 1]?.id === qa.id;
 													const copyKey = `${qaKey}:${language}:${codeText.slice(0, 64)}`;
 							return (
 								<ChatCodeBlock
@@ -698,6 +702,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 									codeText={codeText}
 									copyKey={copyKey}
 									copiedCodeKey={copiedCodeKey}
+										deferHighlight={isStreamingAnswer}
 									onCopy={() => void copyCodeBlock(codeText, copyKey)}
 								/>
 							);
