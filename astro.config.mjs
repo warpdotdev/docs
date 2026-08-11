@@ -83,6 +83,17 @@ export default defineConfig({
 				defaultProps: {
 					wrap: false,
 				},
+				// IMPORTANT: Expressive Code's Vite plugin rewrites Shiki's bundled
+				// theme registry (shiki/dist/themes.mjs) and strips every theme not
+				// listed as a *string* in its `themes` config. Starlight passes its
+				// themes as objects, so the registry is emptied for the entire Vite
+				// module graph — including the Kapa side-chat island, whose runtime
+				// createHighlighter(['github-light', 'github-dark']) then throws
+				// "theme is not included in this bundle" and falls back to plaintext.
+				// Keeping the registry intact restores chat code block highlighting.
+				// Only the requested themes are ever fetched at runtime (lazy chunks),
+				// so this does not bloat the pages served to visitors.
+				removeUnusedThemes: false,
 				// Map languages Shiki doesn't bundle to a safe fallback. PromQL
 				// blocks live in platform/self-hosting/monitoring.mdx;
 				// without this alias every build emits noisy "language could not be
