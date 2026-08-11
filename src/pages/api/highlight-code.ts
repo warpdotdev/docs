@@ -32,6 +32,7 @@ const highlighterPromise = createHighlighter({
 	themes: ['github-light', 'github-dark'],
 	langs: [...SUPPORTED_LANGUAGES],
 });
+const MAX_CODE_SIZE_BYTES = 64 * 1024;
 
 function normalizeLanguage(language: unknown): string {
 	if (typeof language !== 'string') return 'text';
@@ -51,6 +52,13 @@ export const POST: APIRoute = async ({ request }) => {
 			theme?: unknown;
 		};
 		const code = typeof payload.code === 'string' ? payload.code : '';
+		const codeSizeBytes = new TextEncoder().encode(code).length;
+		if (codeSizeBytes > MAX_CODE_SIZE_BYTES) {
+			return new Response(JSON.stringify({ error: 'Code payload is too large' }), {
+				status: 413,
+				headers: { 'Content-Type': 'application/json' },
+			});
+		}
 		if (!code.trim()) {
 			return new Response(JSON.stringify({ preHtml: null }), {
 				status: 200,
