@@ -1,7 +1,7 @@
 import type { FormEvent, MouseEvent, ReactElement, ReactNode } from 'react';
 import * as Popover from '@radix-ui/react-popover';
 import { isValidElement, useEffect, useMemo, useRef, useState } from 'react';
-import { KapaProvider, useChat } from '@kapaai/react-sdk';
+import { CaptchaAction, KapaProvider, useCaptcha, useChat } from '@kapaai/react-sdk';
 import { PUBLIC_KAPA_INTEGRATION_ID, PUBLIC_KAPA_PROJECT_ID } from 'astro:env/client';
 import { isMac, keymatch } from 'keymatch';
 import ReactMarkdown from 'react-markdown';
@@ -403,6 +403,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		submitQuery,
 		threadId,
 	} = useChat();
+	const { executeCaptcha } = useCaptcha();
 
 	useEffect(() => {
 		setIsAppleDevice(isMac());
@@ -597,6 +598,11 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		}
 
 		const conversationLink = buildConversationLink(activeThreadId);
+		const captcha = await executeCaptcha(CaptchaAction.FeedbackSubmit);
+		if (!captcha?.token || !captcha?.key) {
+			setHandoffErrorMessage('Captcha verification failed. Please try again.');
+			return;
+		}
 
 		setIsSubmittingHandoff(true);
 		setHandoffErrorMessage(null);
@@ -615,6 +621,8 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 					kapa_project_id: projectId || null,
 					kapa_thread_id: activeThreadId,
 					kapa_conversation_url: conversationLink || null,
+					captcha_token: captcha.token,
+					captcha_header: captcha.key,
 				}),
 			});
 			const payload: HandoffApiSuccess & { message?: string } = await response.json().catch(() => ({}));
