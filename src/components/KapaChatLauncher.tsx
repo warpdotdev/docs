@@ -1,6 +1,6 @@
-import type { FormEvent, MouseEvent } from 'react';
+import type { FormEvent, MouseEvent, ReactElement, ReactNode } from 'react';
 import * as Popover from '@radix-ui/react-popover';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { isValidElement, useEffect, useMemo, useRef, useState } from 'react';
 import { KapaProvider, useChat } from '@kapaai/react-sdk';
 import { PUBLIC_KAPA_INTEGRATION_ID, PUBLIC_KAPA_PROJECT_ID } from 'astro:env/client';
 import { isMac, keymatch } from 'keymatch';
@@ -103,6 +103,24 @@ function inferLanguageFromCode(codeText: string, fallbackLanguage: string): stri
 
 function escapeHtml(value: string): string {
 	return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+type MarkdownCodeProps = { className?: string; children?: ReactNode };
+
+// react-markdown v9+ no longer passes an `inline` flag to the `code`
+// component. The reliable way to tell fenced blocks apart from inline
+// code is nesting: fenced blocks are always rendered as <pre><code>, so
+// we intercept `pre` (block) and leave bare `code` (inline) untouched.
+function extractCodeElement(children: ReactNode): ReactElement<MarkdownCodeProps> | null {
+	const items = Array.isArray(children) ? children : [children];
+	for (const item of items) {
+		if (isValidElement<MarkdownCodeProps>(item)) return item;
+	}
+	return null;
+}
+
+function markdownChildrenToText(children: ReactNode): string {
+	return (Array.isArray(children) ? children.join('') : String(children ?? '')).replace(/\n$/, '');
 }
 
 const highlightCache = new Map<string, string | null>();
@@ -209,7 +227,7 @@ function ChatCodeBlock({
 		normalizeChatLanguage(language)
 	);
 	const isTerminalLanguage = ['bash', 'sh', 'shell', 'zsh', 'powershell'].includes(normalizedLanguage);
-	const [highlightedPreHtml, setHighlightedPreHtml] = useState<string | null>(null);
+	const [highlighted, setHighlighted] = useState<{ key: string; preHtml: string } | null>(null);
 	const [isDarkTheme, setIsDarkTheme] = useState(true);
 
 	useEffect(() => {
@@ -233,24 +251,29 @@ function ChatCodeBlock({
 		return () => observer.disconnect();
 	}, []);
 
+	const theme = isDarkTheme ? 'dark' : 'light';
+	const highlightKey = `${theme}:${normalizedLanguage}:${codeText}`;
+
 	useEffect(() => {
+		// While the answer is still streaming, the code text changes on every
+		// token. Requesting a highlight per token causes the block to churn
+		// between plaintext and highlighted DOM (visible flicker), so wait
+		// until streaming settles and highlight the final text once.
+		if (deferHighlight) return;
 		const controller = new AbortController();
 		(async (): Promise<void> => {
 			try {
-				if (!controller.signal.aborted) {
-					const preHtml = await requestHighlightedPre({
-						code: codeText,
-						language: normalizedLanguage,
-						theme: isDarkTheme ? 'dark' : 'light',
-					});
-					if (!controller.signal.aborted) {
-						setHighlightedPreHtml(preHtml);
-					}
+				const preHtml = await requestHighlightedPre({
+					code: codeText,
+					language: normalizedLanguage,
+					theme,
+				});
+				if (!controller.signal.aborted && preHtml) {
+					setHighlighted({ key: `${theme}:${normalizedLanguage}:${codeText}`, preHtml });
 				}
 			} catch (error) {
 				if (!controller.signal.aborted) {
 					console.warn('[kapa-chat] code highlighting failed; using plaintext fallback', error);
-					setHighlightedPreHtml(null);
 				}
 			}
 		})();
@@ -258,7 +281,12 @@ function ChatCodeBlock({
 		return () => {
 			controller.abort();
 		};
-	}, [codeText, deferHighlight, isDarkTheme, normalizedLanguage]);
+	}, [codeText, deferHighlight, theme, normalizedLanguage]);
+
+	// Only use highlighted HTML that matches the *current* code text and
+	// theme; otherwise render the plaintext fallback. This prevents stale
+	// highlighted content from flashing while new text is streaming in.
+	const highlightedPreHtml = highlighted?.key === highlightKey ? highlighted.preHtml : null;
 
 	return (
 		<div className="expressive-code sl-kapa-codeblock">
@@ -677,35 +705,37 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 									{qa.answer ? (
 										<ReactMarkdown
 											components={{
+												// Fenced code blocks arrive as <pre><code>; inline code
+												// arrives as a bare <code>. react-markdown v9+ removed the
+												// `inline` prop, so nesting is the only reliable signal.
 												pre({ children }) {
-													return <>{children}</>;
-												},
-												code({ inline, className, children, ...props }) {
-													const codeText = (
-														Array.isArray(children) ? children.join('') : String(children ?? '')
-													).replace(/\n$/, '');
-													if (inline) {
-														return (
-															<code className={className} {...props}>
-																{children}
-															</code>
-														);
+													const codeElement = extractCodeElement(children);
+													if (!codeElement) {
+														return <pre>{children}</pre>;
 													}
-													const language = className?.replace('language-', '') ?? 'text';
-											const qaKey = qa.id ?? qa.question ?? 'qa';
-											const isStreamingAnswer =
-												isBusy && conversation[conversation.length - 1]?.id === qa.id;
+													const codeClassName =
+														typeof codeElement.props.className === 'string'
+															? codeElement.props.className
+															: undefined;
+													const codeText = markdownChildrenToText(codeElement.props.children);
+													const language = codeClassName?.replace('language-', '') ?? 'text';
+													const qaKey = qa.id ?? qa.question ?? 'qa';
+													const isStreamingAnswer =
+														isBusy && conversation[conversation.length - 1]?.id === qa.id;
 													const copyKey = `${qaKey}:${language}:${codeText.slice(0, 64)}`;
-							return (
-								<ChatCodeBlock
-									className={className}
-									codeText={codeText}
-									copyKey={copyKey}
-									copiedCodeKey={copiedCodeKey}
-										deferHighlight={isStreamingAnswer}
-									onCopy={() => void copyCodeBlock(codeText, copyKey)}
-								/>
-							);
+													return (
+														<ChatCodeBlock
+															className={codeClassName}
+															codeText={codeText}
+															copyKey={copyKey}
+															copiedCodeKey={copiedCodeKey}
+															deferHighlight={isStreamingAnswer}
+															onCopy={() => void copyCodeBlock(codeText, copyKey)}
+														/>
+													);
+												},
+												code({ className, children }) {
+													return <code className={className}>{children}</code>;
 												},
 											}}
 										>
