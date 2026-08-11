@@ -1,12 +1,11 @@
 ---
-title: Warp Agents overview
+title: Using the Warp Agent
 description: >-
-  Powerful AI features like agents, code review, voice, and active AI
-  recommendations, fully integrated into the Warp Agentic Development
-  Environment.
+  The Warp Agentic Development Environment fully integrates agents, Code
+  Review, voice, and Active AI Recommendations.
 ---
 
-Warp's local agents are interactive agents embedded directly in the terminal that help you write code, debug issues, run commands, and automate development tasks using natural language. Agents operate with full context from your codebase, Warp Drive, and connected tools, while you stay in control of every action.
+The Warp Agent runs directly in your terminal, with full context from your codebase, Warp Drive, and connected tools, while you stay in control of every action.
 
 ## AI in Warp
 
@@ -20,9 +19,17 @@ These features send input data to various LLM providers through their API. Warp 
 
 Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL) at [`warpdotdev/warp`](https://github.com/warpdotdev/warp). The agent surface you're reading about is built in the open — see [Contributing to Warp](/support-and-community/community/contributing/) to read the code, file issues, or shape the roadmap.
 
+## Outside the Warp app
+
+The same agent runs outside the Warp app. The [Warp Agent CLI](/agents/cli/) is a standalone terminal program that starts an agent conversation from the `warp` command, so you can use it in any terminal emulator, over SSH, or on a machine where the Warp app isn't installed. Your rules, skills, and model access carry over, and conversations sync to your Warp account.
+
+The capabilities below apply to the agent wherever it runs. Behavior that is specific to the CLI is covered in the [Warp Agent CLI](/agents/cli/) section.
+
+→ [Get started with the Warp Agent CLI](/agents/cli/quickstart/)
+
 ## What you can do with agents
 
-This section covers how to interact with Warp's agents and the capabilities available during agent conversations:
+This section covers how to interact with agents in Warp and the capabilities available during agent conversations:
 
 * [Interacting with Agents](/agents/local-agents/interacting-with-agents/) - Manage AI conversations tied to sessions, attach context, continue previous threads, or start new ones.
 * [Agent questions](/agents/local-agents/interacting-with-agents/agent-questions/) - Answer, skip, and configure clarifying questions the Agent asks during a conversation.
@@ -34,6 +41,6 @@ This section covers how to interact with Warp's agents and the capabilities avai
 * [Web Search](/agents/capabilities/web-search/) - Allow agents to search the web for up-to-date information.
 * [Third-party CLI agents](/agents/cli-agents/overview/) - Run third-party CLI agents like Claude Code and Codex with Warp's built-in agent toolbelt.
 * [Active AI Recommendations](/agents/local-agents/active-ai/) - Get proactive fix recommendations based on errors and outputs.
-* [Voice](/agents/local-agents/interacting-with-agents/voice/) - Talk to Warp's agent using voice commands.
+* [Voice](/agents/local-agents/interacting-with-agents/voice/) - Talk to the Warp Agent using voice commands.
 
 For foundational capabilities like planning, rules, MCP servers, and agent profiles, see [Capabilities](/agents/capabilities/).

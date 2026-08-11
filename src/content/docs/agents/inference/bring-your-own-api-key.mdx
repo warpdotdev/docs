@@ -6,7 +6,7 @@ description: >-
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-Warp supports **Bring Your Own API Key (BYOK)** for users who want to connect Warp's agents to their own Anthropic, OpenAI, or Google API accounts.
+Warp supports **Bring Your Own API Key (BYOK)** for users who want to connect agents to their own Anthropic, OpenAI, or Google API accounts.
 
 This lets you use your own API keys for model access, giving you control over model selection, billing, and data routing. See [Model Choice](/agents/inference/model-choice/) for a list of supported models. For xAI's Grok models, you connect a [SuperGrok subscription](/agents/inference/grok-subscription/) instead of adding an API key.
 
@@ -46,13 +46,13 @@ When you add your own model API keys in Warp, those keys are stored **only on yo
 When you send a prompt using a model with the **key icon**:
 
 1. Your local Warp client pulls your API key from your device's secure storage and sends it up to Warp's backend along with your prompt.
-2. Warp's agent harness, which runs on Warp's backend, assembles the full request (system instructions, conversation context, tools) and uses your key in-flight to call your chosen model provider (Anthropic, OpenAI, or Google).
+2. The Warp Agent harness, which runs on Warp's backend, assembles the full request (system instructions, conversation context, tools) and uses your key in-flight to call your chosen model provider (Anthropic, OpenAI, or Google).
 3. The provider's response streams back through Warp's backend to your client.
 
 Your API key passes through Warp's servers each time you send a request, but Warp never stores it there — it's used only in-flight to call the provider, then discarded.
 
 :::note
-**Why does the request route through Warp's backend?** Warp's agent harness runs server-side — the same runtime that powers [Agent Mode](/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/) with Warp-billed models. BYOK swaps the credential used to call the provider; it does not change where the harness runs.
+**Why does the request route through Warp's backend?** The Warp Agent harness runs server-side — the same runtime that powers [Agent Mode](/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/) with Warp-billed models. BYOK swaps the credential used to call the provider; it does not change where the harness runs.
 :::
 
 :::caution
