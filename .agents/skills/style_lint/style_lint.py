@@ -108,7 +108,22 @@ DEFAULT_SLACK_CHANNEL = os.environ.get("GROWTH_DOCS_SLACK_CHANNEL_ID", "")
 
 TERMINOLOGY_FILE = Path(".agents/references/terminology.md")
 
-STANDARD_SCREENSHOT_WIDTHS = {"300px", "350px", "375px", "563px"}
+# Standard figure widths for screenshots. See AGENTS.md § "Screenshot sizing
+# standards".
+#
+# 736px is full content width: it matches `.main-pane .sl-container`'s
+# `max-width: 46rem` in src/styles/custom.css. Because the container already
+# caps at that width, 736px renders identically to omitting maxWidth entirely.
+# It is listed explicitly so authors can signal "this screenshot is
+# deliberately full width" and so this check can tell that apart from a figure
+# that is simply missing a width. If the content column in custom.css ever
+# changes, update this value to match.
+STANDARD_SCREENSHOT_WIDTHS = {"300px", "350px", "375px", "563px", "736px"}
+
+# Rendered as "300px, 350px, 375px, 563px, or 736px" in check messages, derived
+# from the set above so the two can never drift apart.
+_SORTED_WIDTHS = sorted(STANDARD_SCREENSHOT_WIDTHS)
+STANDARD_WIDTHS_PHRASE = f"{', '.join(_SORTED_WIDTHS[:-1])}, or {_SORTED_WIDTHS[-1]}"
 
 SCREENSHOT_PATH_HINTS = (
     "/assets/",
@@ -556,7 +571,7 @@ def check_screenshot_widths(lines: List[str], filepath: str) -> List[Issue]:
             if figure_start_line is None:
                 issues.append(Issue(
                     filepath, i, "screenshot-width",
-                    "Likely screenshot image should be wrapped in a <figure> with a standard maxWidth (300px, 350px, 375px, or 563px)",
+                    f"Likely screenshot image should be wrapped in a <figure> with a standard maxWidth ({STANDARD_WIDTHS_PHRASE})",
                     "warning",
                 ))
             else:
@@ -568,13 +583,13 @@ def check_screenshot_widths(lines: List[str], filepath: str) -> List[Issue]:
                 if width is None:
                     issues.append(Issue(
                         filepath, figure_start_line, "screenshot-width",
-                        "Screenshot figure is missing a standard maxWidth (300px, 350px, 375px, or 563px)",
+                        f"Screenshot figure is missing a standard maxWidth ({STANDARD_WIDTHS_PHRASE})",
                         "warning",
                     ))
                 elif width not in STANDARD_SCREENSHOT_WIDTHS:
                     issues.append(Issue(
                         filepath, figure_start_line, "screenshot-width",
-                        f"Screenshot figure uses non-standard maxWidth \"{width}\"; use one of {', '.join(sorted(STANDARD_SCREENSHOT_WIDTHS))}",
+                        f"Screenshot figure uses non-standard maxWidth \"{width}\"; use one of {STANDARD_WIDTHS_PHRASE}",
                         "warning",
                     ))
             figure_start_line = None

@@ -7,7 +7,7 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-The {VARS.WARP_CLI} is a full terminal as well as an agent. Every session runs a real shell, so you can run commands in the same place you prompt the agent. The input is a multiline editor that combines readline-style editing with inline menus for slash commands, history, and completions, plus mouse support, image attachments, and voice input. For the complete list of flags, slash commands, and keyboard shortcuts, see the [{VARS.WARP_CLI} reference](/cli/reference/).
+The {VARS.WARP_CLI} is a full terminal as well as an agent. Every session runs a real shell, so you can run commands in the same place you prompt the agent. The input is a multiline editor that combines readline-style editing with inline menus for slash commands, history, and completions, plus mouse support, image attachments, and voice input. For the complete list of flags, slash commands, and keyboard shortcuts, see the [{VARS.WARP_CLI} reference](/agents/cli/reference/).
 
 ## Editing basics
 
@@ -17,7 +17,7 @@ The input is a multiline editor.
 * **Edit with readline-style keys** - The editor supports familiar bindings such as `Ctrl+A` and `Ctrl+E` (start and end of line), `Ctrl+W` (delete the previous word), `Ctrl+K` and `Ctrl+U` (delete to the end or start of the line), `Ctrl+Y` (reinsert the last deleted text), and `Ctrl+Z` (undo).
 * **Use macOS Command shortcuts** - When the Kitty keyboard protocol is enabled in your terminal, the editor supports Command-modified shortcuts such as `⌘+X` to cut and `⌘+Shift+←` or `⌘+Shift+→` to extend the selection.
 
-The full editing and selection table is in the [keyboard shortcuts reference](/cli/reference/#keyboard-shortcuts).
+The full editing and selection table is in the [keyboard shortcuts reference](/agents/cli/reference/#keyboard-shortcuts).
 
 :::note
 Core `Ctrl` and `Alt` bindings are cross-platform. Shortcuts that use `Alt` require some macOS terminals' Option-as-Alt (Meta) setting. Command-modified shortcuts require a terminal with the Kitty keyboard protocol enabled.
@@ -29,9 +29,9 @@ Type `/` at the start of an empty input to open the slash command menu. Entries 
 
 When a command takes an argument, the input shows a ghost-text argument hint after the full command name, for example `/theme <auto|light|dark>`.
 
-Your [skills](/cli/configuration/#skills) also appear in the slash command menu, so you can invoke a skill by typing `/` followed by its name.
+Your [skills](/agents/cli/configuration/#skills) also appear in the slash command menu, so you can invoke a skill by typing `/` followed by its name.
 
-The [slash commands reference](/cli/reference/#slash-commands) lists every command.
+The [slash commands reference](/agents/cli/reference/#slash-commands) lists every command.
 
 ## Input history
 
@@ -51,7 +51,7 @@ In [shell mode](#shell-mode), press `Tab` to complete the command you're typing,
 
 ## Selection and clipboard
 
-* **Highlight to copy** - Finishing a mouse selection in the input or the [conversation transcript](/cli/agent-conversations/) automatically copies it.
+* **Highlight to copy** - Finishing a mouse selection in the input or the [conversation transcript](/agents/cli/agent-conversations/) automatically copies it.
 * **Keyboard selection** - Extend the selection with `Shift` plus the arrow keys, or select everything with `Ctrl+Shift+A`. Copy with `Ctrl+Shift+C` and cut with `Ctrl+X`.
 * **Paste** - Press `Ctrl+V` or `Ctrl+Shift+V` (also `Alt+V` on Windows). Your terminal's own paste shortcut works as well.
 * **Click controls** - Interactive elements such as the **Voice** footer entry and the attachment bar controls respond to clicks.
@@ -149,9 +149,9 @@ There are two other ways to exit:
 * **`Ctrl+D`** - Exits immediately when the input is empty.
 * **`/exit`** - Exits from the slash command menu.
 
-When you exit, the CLI prints a command you can use to pick the conversation back up later. See [Managing conversations](/cli/agent-conversations/#managing-conversations) for resuming and switching conversations.
+When you exit, the CLI prints a command you can use to pick the conversation back up later. See [Managing conversations](/agents/cli/agent-conversations/#managing-conversations) for resuming and switching conversations.
 
 ## Related pages
 
-* [{VARS.WARP_CLI} reference](/cli/reference/) - Flags, environment variables, slash commands, and keyboard shortcuts.
-* [Agent conversations in the {VARS.WARP_CLI}](/cli/agent-conversations/) - The transcript, tool calls, diffs, and managing conversations.
+* [{VARS.WARP_CLI} reference](/agents/cli/reference/) - Flags, environment variables, slash commands, and keyboard shortcuts.
+* [Agent conversations in the {VARS.WARP_CLI}](/agents/cli/agent-conversations/) - The transcript, tool calls, diffs, and managing conversations.

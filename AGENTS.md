@@ -228,15 +228,17 @@ Use screenshots to clarify product surfaces, configuration points, or visual sta
 Use consistent screenshot widths so docs pages feel visually balanced. Crop unnecessary empty space before resizing, then choose the closest standard size.
 
 **Standard widths:**
-- **Large screenshots: default content width** — Use normal `<figure>` or Markdown image rendering for full-window, full-pane, or broad product-surface screenshots where the surrounding layout matters. In legacy GitBook screenshots, this was usually `563px`.
+- **Full content width: 736px** — Use for wide screenshots whose content cannot be cropped narrower without clipping, such as full-width terminal strips, wide status bars, and wide tables. `736px` equals the content column (`46rem`, set on `.main-pane .sl-container` in `src/styles/custom.css`), so it renders the same as omitting `maxWidth`. Set it explicitly anyway: it records that the width is deliberate rather than forgotten, and the style lint treats a missing width as an error. Reach for this tier only when a narrower size would make text illegible.
+- **Large screenshots: 563px** — The default for full-window, full-pane, or broad product-surface screenshots where the surrounding layout matters. This was the usual width in legacy GitBook screenshots. Prefer this over `736px` unless the content genuinely needs the extra room.
 - **Medium screenshots: ~375px** — Use for narrow UI surfaces such as popovers, command menus, side panes, dropdowns, and focused interaction flows. This is the preferred constrained size for most small Warp UI screenshots.
 - **Small screenshots: ~300-350px** — Use for tightly cropped controls, chips, buttons, tooltips, and small menus. Use a smaller width only when the UI remains legible and the crop is intentionally compact.
 
 **Rules:**
 - **Avoid arbitrary widths** — Choose the nearest standard size instead of one-off values. If a screenshot needs a different size, the reason should be clear from the UI being shown.
 - **Keep sequences consistent** — Screenshots in the same section or step sequence should use the same width unless they show meaningfully different UI surfaces.
-- **Preserve legibility** — Text in the screenshot must remain readable at the chosen size on the docs page.
-- **Prefer the default figure size for large screenshots** — Only constrain width when the screenshot is a narrow UI element that looks oversized at full content width.
+- **Preserve legibility** — Text in the screenshot must remain readable at the chosen size on the docs page. This rule outranks the preference for a smaller tier: if text is unreadable at `563px`, move up to `736px` rather than shipping an illegible image.
+- **Crop before widening** — Widening is the last resort. First crop out empty space and anything that is not the subject, and re-capture at a narrower terminal or window size if you can. Only step up a tier when the content itself sets the floor, as with a status bar that clips instead of reflowing.
+- **Prefer the default figure size for large screenshots** — Only constrain width below `563px` when the screenshot is a narrow UI element that looks oversized at full content width.
 
 #### Image caption guidelines
 Captions orient the reader — they identify what the image shows so the reader knows where to look. They are not a place for instructions, marketing language, or exhaustive descriptions.
@@ -629,7 +631,7 @@ Use these terms consistently throughout all documentation. For the full canonica
 Product feature names retain their standard capitalization. Match the exact casing shown in the UI.
 
 - **Warp** (not "Warp Terminal" unless specifically distinguishing)
-- **Agent** or **Agents** (capitalized when referring to Warp's AI agents)
+- **agent** / **agents** (lowercase) - the generic concept, covering any agent on any surface. See [Capitalizing "agent"](#capitalizing-agent) for the full rule.
 - **Agent Mode** (not "agent mode" or "Agent-mode")
 - **Terminal and Agent modes** - The two distinct modes in Warp: terminal mode (for shell commands) and Agent Mode (for multi-turn agent conversations). Use "Terminal and Agent modes" on first reference; use "terminal mode" or "Agent Mode" individually in subsequent references. Do not use "agent modality" or "Agent Modality" — this was an internal name that is not user-facing.
 - **Cloud Agents** (capitalized as a product section/feature name; lowercase "cloud agents" in most contexts)
@@ -640,10 +642,31 @@ Product feature names retain their standard capitalization. Match the exact casi
 - **Agent Memory** - Persistent, cross-harness memory layer for Oz agents that captures durable facts, decisions, and outcomes across conversations (currently in research preview). Capitalize as a feature name; use lowercase "memory store" for individual stores.
 - **Handoff** - Feature for moving agent work between a local Warp session and the cloud, or continuing a finished cloud run; supports local-to-cloud, cloud-to-cloud, and cloud-to-local. Capitalize as a feature name; lowercase "hand off" only as a verb.
 
+### Capitalizing "agent"
+
+This is the single most drifted term in the docs, so the rule is narrow on purpose.
+
+- **Warp Agent** - Capitalized, singular, treated as a proper noun. Use it for Warp's built-in agent harness, especially when contrasting with third-party agents (Claude Code, Codex, and so on) or when referencing the Settings label (**Settings** > **Agents** > **Warp Agent**).
+- **In prose, it takes the definite article: "the Warp Agent".** The bare form is for headings, sidebar labels, page titles, and the Settings path. "Runs the Warp Agent" reads correctly; "runs Warp Agent" reads as a different product.
+- **agent** / **agents** - Lowercase everywhere else. This is the generic concept and covers any agent on any surface, including cloud agents and third-party CLI agents.
+- **Proper nouns keep their capital A.** `Agent Mode`, `Agent Profiles`, `Agent Memory`, `Agent Management Panel`, `Agent API`, and `Warp Agent CLI` are feature names, not instances of the generic term.
+
+❌ **Avoid "Warp's agent" and "Warp's agents".** This is the ambiguous middle ground and the main source of drift. It reads as neither the proper noun nor the generic term, so it blurs exactly the distinction that matters. Rewrite instead:
+
+- Referring to the built-in harness → "the Warp Agent"
+- Referring to agents generally → "agents" or "agents in Warp"
+- Referring to the server-side runtime → "the Warp Agent harness"
+
+✅ "The Warp Agent can run commands and edit files." (the built-in harness)
+✅ "Profiles control how agents behave." (generic)
+❌ "Profiles control how Warp's agents behave." (ambiguous)
+❌ "Warp's agent can run commands." (ambiguous)
+
 ### Oz terminology
 
 #### Warp Agent vs Oz
 - **Warp Agent** — Warp's built-in agent harness. Use "Warp Agent" when specifically referring to the built-in harness, especially when contrasting with third-party agents (Claude Code, Codex, etc.), or when referencing the Settings label (**Settings** > **Agents** > **Warp Agent**).
+- **Oz is the platform, not the agent.** Never introduce Oz as "Warp's agent" or equate the two. Oz runs and coordinates agents; the Warp Agent is the agent.
 - **Oz** — Warp's programmable platform for running and coordinating agents at scale
 - There is typically one Warp environment per user session. Oz can run many agents concurrently, across machines, repos, and teams.
 

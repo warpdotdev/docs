@@ -1,16 +1,16 @@
 ---
 title: Agents in Warp
 description: >-
-  Warp's agents are capable collaborators that help you write code, debug
-  issues, and complete terminal workflows, all from natural language prompts.
+  Work with the Warp Agent in the Warp app. Control its autonomy with profiles
+  and permissions, and give it context from your codebase and tools.
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-Warp's agents help you write code, debug issues, and complete terminal workflows from natural language prompts. They operate with full context from your codebase, Warp Drive, and connected tools while you control their autonomy, permissions, and model choices.
+This page covers the Warp Agent in the Warp app. You can run the same agent from any terminal with the [Warp Agent CLI](/agents/cli/), or in the background as a [cloud agent](/platform/) on [Oz](/platform/overview/). Warp also supports [third-party CLI agents](/agents/cli-agents/overview/) like Claude Code and Codex.
 
 <VideoEmbed url="https://youtu.be/qiQtD1jPF6s" title="Agent Mode Overview" />
 
-Warp includes powerful coding agents designed to help you build, test, deploy, and debug while keeping you in control. Describe what you want to do in natural language (_you can even use your voice_), and the agent will take action using your environment, codebase, and saved context.
+The **Warp Agent** helps you build, test, deploy, and debug while keeping you in control. Describe what you want to do in natural language (_you can even use your voice_), and it takes action using your environment, codebase, and saved context.
 
 ## What agents can do
 
@@ -88,6 +88,16 @@ Agents work best when they understand your codebase and workflows. Warp provides
 
 ---
 
+## The Warp Agent CLI
+
+The Warp Agent isn't limited to the Warp app. The [Warp Agent CLI](/agents/cli/) is a standalone terminal program that starts an agent conversation from the `warp` command, so you can use the same agent over SSH, in a different terminal emulator, or on a machine where the Warp app isn't installed.
+
+It runs the same agent, so your account, plan, model access, rules, and skills work the same way. Conversations sync to your Warp account, and you can hand work off to cloud agents from the CLI.
+
+→ [Get started with the Warp Agent CLI](/agents/cli/quickstart/)
+
+---
+
 ## Third-party CLI agents
 
 In addition to Warp's built-in agent, Warp provides first-class support for third-party CLI coding agents like Claude Code, Codex, and OpenCode. Run any supported agent inside Warp and get rich input, code review, agent notifications, vertical tabs with agent metadata, and more.
@@ -114,7 +124,8 @@ Cloud agents are ideal for work that doesn't need your immediate attention—PR 
 ## Resources
 
 * [**Oz web app**](https://oz.warp.dev) - Create runs, manage schedules, browse skills, and configure integrations
-* [**Warp Agents overview**](/agents/local-agents/overview/) - Detailed guide to working with agents in Warp
+* [**Using the Warp Agent**](/agents/local-agents/overview/) - Detailed guide to working with agents in Warp
+* [**Warp Agent CLI**](/agents/cli/) - Run the Warp Agent from any terminal
 * [**Capabilities**](/agents/capabilities/) - All agent capabilities: planning, task lists, model choice, and more
 * [**Oz CLI**](/reference/cli/) - Run agents from the command line
 * [**Oz API & SDK**](/reference/api-and-sdk/) - Programmatic access to agent runs

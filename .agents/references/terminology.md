@@ -104,6 +104,9 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 - **Handoff** — The feature for moving an agent's work between a local Warp session and the cloud, or continuing a finished cloud run. Supports local-to-cloud, cloud-to-cloud, and cloud-to-local directions.
   *Usage note:* Capitalize as a feature name. Use lowercase "hand off" / "handed off" only as a verb.
 
+- **Active AI** — The feature that proactively surfaces fixes and next actions based on terminal errors, inputs, and outputs. Covers Prompt Suggestions, Next Command predictions, and Suggested Code Diffs.
+  *Usage note:* Always capitalize "Active AI" — it is a proper feature name and the label of the Settings toggle. Write the full capability as **Active AI Recommendations**, matching the page title. Lowercase the following word only when it is a plain common noun rather than part of the name, as in "Active AI features" or "the Active AI toggle".
+
 ## Coding terms (Warp features)
 
 - **Code** — Warp's coding experience for agent-assisted changes (editing, diffs, code review).
@@ -134,7 +137,12 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 
 ### Warp Agent vs Oz
 
-- **Warp Agent** — Warp's built-in agent harness. Use "Warp Agent" when specifically referring to the built-in harness, especially when contrasting with third-party agents (Claude Code, Codex, etc.), or when referencing the Settings label (**Settings** > **Agents** > **Warp Agent**).
+- **Warp Agent** — Warp's built-in agent harness. Capitalized, singular, treated as a proper noun. Use "Warp Agent" when specifically referring to the built-in harness, especially when contrasting with third-party agents (Claude Code, Codex, etc.), or when referencing the Settings label (**Settings** > **Agents** > **Warp Agent**). Use lowercase "agent" / "agents" everywhere else.
+  *Usage note:* Avoid "Warp's agent" and "Warp's agents" — the ambiguous middle ground, and the main source of capitalization drift in the docs. Rewrite as "the Warp Agent" (the built-in harness), "agents" or "agents in Warp" (generic), or "the Warp Agent harness" (the server-side runtime).
+  *Usage note:* In prose the term takes the definite article — "the Warp Agent". Reserve the bare form for headings, sidebar labels, page titles, and the Settings path. "Runs the Warp Agent" reads correctly; "runs Warp Agent" reads as a different product.
+- **Oz is the platform, not the agent.** Never introduce Oz as "Warp's agent" or equate the two. Oz runs and coordinates agents; the Warp Agent is the agent.
+- **Warp Agent CLI** — The standalone terminal program (the `warp` binary) that runs the Warp Agent in any terminal, including over SSH and on machines without the Warp app. Documented at `/agents/cli/`.
+  *Usage note:* Distinct from the Oz CLI (the `oz` binary), which runs and manages cloud agents. At the next launch (approximately August 18, 2026) the Oz CLI is retired and wrapped into the Warp Agent CLI, leaving a single CLI under this name. Until that ships, keep the two clearly separate in prose; afterwards, "Warp Agent CLI" covers both.
 - **Oz** — Warp's programmable platform for running and coordinating agents at scale
 - There is typically one Warp environment per user session. Oz can run many agents concurrently, across machines, repos, and teams.
 
@@ -209,7 +217,7 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 
 - **Trigger** — The event that starts a run (Slack mention, schedule, CI event, API call).
 
-- **Warp CLI** — The command-line tool for running and managing Warp Platform workflows. Formerly called `warp-cli`, now `oz`.
+- **Warp CLI** — Ambiguous since the Warp Agent CLI launched; avoid the bare term. Use "Oz CLI" for the `oz` binary that runs and manages cloud agents (formerly called `warp-cli`), or "Warp Agent CLI" for the `warp` binary that runs the Warp Agent in any terminal.
 
 ## Technical terms
 

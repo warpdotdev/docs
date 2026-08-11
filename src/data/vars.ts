@@ -16,9 +16,15 @@ export const VARS = {
   PLATFORM_RUN:             "Oz run",         // future name TBD
 
   // Warp Agent CLI — the standalone terminal front-end (the `warp` binary).
-  // Launch name confirmed via the launch blog draft (2026-07-28). NOTE: the
-  // WARP_AGENT_CLI key above was reserved for renaming the Oz CLI to the
-  // same name — that overlap now needs a product/marketing decision.
+  // Launch name confirmed via the launch blog draft (2026-07-28).
+  //
+  // NOTE: the WARP_AGENT_CLI key above was reserved for renaming the Oz CLI to
+  // this same name. That overlap is now resolved by product direction: at the
+  // next launch (approximately 2026-08-18) the Oz CLI is retired and wrapped
+  // into the Warp Agent CLI, leaving a single CLI. The two keys are expected to
+  // collapse into one at that point. Keeping them separate until the
+  // convergence ships, since merging them now would rewrite prose across both
+  // CLI doc surfaces.
   WARP_CLI:                 "Warp Agent CLI",
 
   // Feature names (stable — keys and values expected to remain unchanged)

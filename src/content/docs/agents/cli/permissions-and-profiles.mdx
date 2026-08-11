@@ -38,7 +38,7 @@ Auto-approve is scoped to a single conversation, and new conversations start wit
 With auto-approve on, the agent runs commands and applies file edits without review, including commands that match your own command denylist. Press `Ctrl+C` to stop the agent if it starts doing something you didn't intend.
 :::
 
-To keep your denylist in force while auto-approve is on, turn off the bypass in your [settings file](/cli/configuration/#the-settings-file):
+To keep your denylist in force while auto-approve is on, turn off the bypass in your [settings file](/agents/cli/configuration/#the-settings-file):
 
 ```toml title="settings.toml"
 [agents.warp_agent.other]
@@ -49,7 +49,7 @@ Denylist rules enforced by your team in the [Admin Panel](/enterprise/team-manag
 
 ## Execution profiles
 
-The CLI reads its permissions from execution profiles stored in its [settings file](/cli/configuration/). Profiles live under the `agents.execution_profiles` table, and the CLI always runs with the profile under the reserved `default` key:
+The CLI reads its permissions from execution profiles stored in its [settings file](/agents/cli/configuration/). Profiles live under the `agents.execution_profiles` table, and the CLI always runs with the profile under the reserved `default` key:
 
 ```toml title="settings.toml"
 [agents.execution_profiles.default]
@@ -89,7 +89,7 @@ Most permission fields accept one of three values:
 * **`command_denylist`** - Regular expressions for commands that require approval regardless of the other permission values. [Auto-approve bypasses this list by default](#auto-approve).
 * **`directory_allowlist`** - Directories the agent may read without approval.
 
-Profiles also hold model overrides such as `base_model`, covered in [Models and usage in the {VARS.WARP_CLI}](/cli/models-and-usage/).
+Profiles also hold model overrides such as `base_model`, covered in [Models and usage in the {VARS.WARP_CLI}](/agents/cli/models-and-usage/).
 
 :::note
 The profile collection is validated as a whole. If any profile contains an invalid value, the CLI keeps the last valid configuration while it's running and falls back to the built-in default profile on the next launch, until the file is fixed.
@@ -98,5 +98,5 @@ The profile collection is validated as a whole. If any profile contains an inval
 ## Related pages
 
 * [Profiles & Permissions](/agents/capabilities/agent-profiles-permissions/) - The full permission model, autonomy levels, and allowlist/denylist behavior.
-* [Configuring the {VARS.WARP_CLI}](/cli/configuration/) - The settings file, themes, statusline, and start screen.
-* [Agent conversations in the {VARS.WARP_CLI}](/cli/agent-conversations/) - How tool calls, diffs, and agent questions render in the transcript.
+* [Configuring the {VARS.WARP_CLI}](/agents/cli/configuration/) - The settings file, themes, statusline, and start screen.
+* [Agent conversations in the {VARS.WARP_CLI}](/agents/cli/agent-conversations/) - How tool calls, diffs, and agent questions render in the transcript.

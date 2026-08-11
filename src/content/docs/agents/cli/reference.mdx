@@ -42,7 +42,7 @@ Starts new conversations with auto-approve enabled, so the agent runs actions wi
 warp --auto-approve
 ```
 
-This flag applies only to the session you launch with it and doesn't change your saved settings. You can still toggle auto-approve per conversation with `/auto-approve` or `Ctrl+Shift+I`. See [permissions and profiles](/cli/permissions-and-profiles/) for how approvals work.
+This flag applies only to the session you launch with it and doesn't change your saved settings. You can still toggle auto-approve per conversation with `/auto-approve` or `Ctrl+Shift+I`. See [permissions and profiles](/agents/cli/permissions-and-profiles/) for how approvals work.
 
 ### `--clear-provider-api-key`
 
@@ -74,7 +74,7 @@ Reopens a previous conversation from your shell as the CLI starts.
 warp --resume CONVERSATION_TOKEN
 ```
 
-`CONVERSATION_TOKEN` is the token the CLI prints when you exit a session ("To continue this conversation, run: `warp --resume ...`"). You can also reopen past conversations from inside a session with `/conversations`. See [agent conversations in the CLI](/cli/agent-conversations/#managing-conversations) for how persistence and resuming work.
+`CONVERSATION_TOKEN` is the token the CLI prints when you exit a session ("To continue this conversation, run: `warp --resume ...`"). You can also reopen past conversations from inside a session with `/conversations`. See [agent conversations in the CLI](/agents/cli/agent-conversations/#managing-conversations) for how persistence and resuming work.
 
 ### `--set-provider-api-key`
 
@@ -98,7 +98,7 @@ your-secret-manager read anthropic-api-key | warp --set-provider-api-key anthrop
 
 Avoid staging keys in plaintext files. If you must use a temporary file, delete it immediately afterward.
 
-Inside a session, manage the same keys with the `/api-keys` menu. See [models and usage](/cli/models-and-usage/#bring-your-own-api-key) for how stored keys affect billing.
+Inside a session, manage the same keys with the `/api-keys` menu. See [models and usage](/agents/cli/models-and-usage/#bring-your-own-api-key) for how stored keys affect billing.
 
 ### `--version`
 
@@ -145,14 +145,14 @@ Type `/` at the start of the input to open the slash command menu. Commands that
 | `/view-logs` | | Bundle your logs into a zip archive |
 | `/voice` | | Start voice input |
 
-Skills also appear in the same menu under their own names, so you can invoke a skill directly as `/skill-name`. [Customizing the CLI](/cli/configuration/) covers how skills are discovered.
+Skills also appear in the same menu under their own names, so you can invoke a skill directly as `/skill-name`. [Customizing the CLI](/agents/cli/configuration/) covers how skills are discovered.
 
 ## Keyboard shortcuts
 
 Press `?` on an empty input to open the contextual shortcuts panel inside the CLI. The tables below list the default bindings.
 
 :::note
-Bindings are the same on macOS, Linux, and Windows, except that Windows also accepts `Alt+V` for paste. For shortcuts that use `Alt`, some macOS terminals deliver `Option` as `Alt` only when their Option-as-Alt (Meta) setting is enabled. The macOS Command shortcuts described in [input and shell commands](/cli/input-and-shell-commands/#editing-basics) require a terminal with the Kitty keyboard protocol enabled.
+Bindings are the same on macOS, Linux, and Windows, except that Windows also accepts `Alt+V` for paste. For shortcuts that use `Alt`, some macOS terminals deliver `Option` as `Alt` only when their Option-as-Alt (Meta) setting is enabled. The macOS Command shortcuts described in [input and shell commands](/agents/cli/input-and-shell-commands/#editing-basics) require a terminal with the Kitty keyboard protocol enabled.
 :::
 
 ### Session
@@ -175,7 +175,7 @@ Bindings are the same on macOS, Linux, and Windows, except that Windows also acc
 
 ### Approvals
 
-These bindings apply while the agent is waiting for you to approve an action. [Permissions and profiles](/cli/permissions-and-profiles/) explains the approval flow.
+These bindings apply while the agent is waiting for you to approve an action. [Permissions and profiles](/agents/cli/permissions-and-profiles/) explains the approval flow.
 
 | Shortcut | Action |
 | --- | --- |
@@ -195,7 +195,7 @@ These bindings apply while an interactive terminal command is running.
 
 ### Multi-agent tabs
 
-When an orchestration launches child agents, an **Agents:** tab bar appears above the session. [Cloud and orchestration](/cli/cloud-and-orchestration/) covers the workflow.
+When an orchestration launches child agents, an **Agents:** tab bar appears above the session. [Cloud and orchestration](/agents/cli/cloud-and-orchestration/) covers the workflow.
 
 | Shortcut | Action |
 | --- | --- |
@@ -228,7 +228,7 @@ The input supports readline-style editing.
 | `Ctrl+Shift+C` | Copy the selection |
 | `Ctrl+X` | Cut the selection |
 
-For mouse support, completions, and other input behavior, see [input and shell commands](/cli/input-and-shell-commands/).
+For mouse support, completions, and other input behavior, see [input and shell commands](/agents/cli/input-and-shell-commands/).
 
 ## Troubleshooting
 
@@ -277,7 +277,7 @@ The sign-in attempt was rejected or timed out. The error message in the CLI name
 
 1. Press `Ctrl+C` to exit, then run `warp` to start normally.
 2. Check the token against the resume command printed when you exited the original session.
-3. If the conversation exists locally, open it from the [conversation menu](/cli/agent-conversations/#conversation-history) with `/conversations` instead.
+3. If the conversation exists locally, open it from the [conversation menu](/agents/cli/agent-conversations/#conversation-history) with `/conversations` instead.
 
 ### Updating
 
@@ -289,9 +289,9 @@ To check which version you're running, use `/version` in a session, or run:
 warp --version
 ```
 
-To turn off background updates for a single launch, set the `WARP_TUI_DISABLE_AUTOUPDATE` environment variable to any value. To turn them off persistently, set `general.autoupdate_enabled` to `false` in the [CLI settings file](/cli/configuration/#the-settings-file).
+To turn off background updates for a single launch, set the `WARP_TUI_DISABLE_AUTOUPDATE` environment variable to any value. To turn them off persistently, set `general.autoupdate_enabled` to `false` in the [CLI settings file](/agents/cli/configuration/#the-settings-file).
 
-If an install becomes corrupted, re-running the install command from the [quickstart](/cli/quickstart/) replaces it with the latest version.
+If an install becomes corrupted, re-running the install command from the [quickstart](/agents/cli/quickstart/) replaces it with the latest version.
 
 ### Getting help
 
