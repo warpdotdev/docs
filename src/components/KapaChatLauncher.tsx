@@ -131,7 +131,7 @@ const SHIKI_LANGUAGES = new Set([
 
 async function getShikiHighlighter(): Promise<ShikiHighlighter> {
 	if (!shikiHighlighterPromise) {
-		shikiHighlighterPromise = import('shiki').then(({ createHighlighter }) =>
+		shikiHighlighterPromise = import('shiki/bundle/full').then(({ createHighlighter }) =>
 			createHighlighter({
 				themes: ['github-light', 'github-dark'],
 				langs: [...SHIKI_LANGUAGES],
