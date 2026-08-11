@@ -234,9 +234,14 @@ async function requestHighlightedPre({
 	});
 
 	highlightInFlight.set(cacheKey, requestPromise);
-	requestPromise.finally(() => {
-		highlightInFlight.delete(cacheKey);
-	});
+	requestPromise.then(
+		() => {
+			highlightInFlight.delete(cacheKey);
+		},
+		() => {
+			highlightInFlight.delete(cacheKey);
+		}
+	);
 	return requestPromise;
 }
 
