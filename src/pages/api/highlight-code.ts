@@ -44,6 +44,15 @@ function normalizeTheme(theme: unknown): ThemeMode {
 	return theme === 'light' ? 'light' : 'dark';
 }
 
+export const GET: APIRoute = async () =>
+	new Response(JSON.stringify({ error: 'Method not allowed' }), {
+		status: 405,
+		headers: {
+			Allow: 'POST',
+			'Content-Type': 'application/json',
+		},
+	});
+
 export const POST: APIRoute = async ({ request }) => {
 	try {
 		const payload = (await request.json()) as {
