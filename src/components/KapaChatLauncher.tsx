@@ -6,6 +6,8 @@ import { PUBLIC_KAPA_INTEGRATION_ID, PUBLIC_KAPA_PROJECT_ID } from 'astro:env/cl
 import { isMac, keymatch } from 'keymatch';
 import ReactMarkdown from 'react-markdown';
 import {
+	LuCheck,
+	LuCopy,
 	LuExternalLink,
 	LuLoaderCircle,
 	LuMessageSquare,
@@ -89,6 +91,26 @@ function getChatErrorMessage(error: unknown) {
 		return "Couldn't reach the chat service. If you use an ad blocker or privacy extension, allow kapa.ai and proxy.kapa.ai, then try again.";
 	}
 	return message;
+}
+async function copyTextToClipboard(text: string) {
+	if (navigator.clipboard?.writeText) {
+		await navigator.clipboard.writeText(text);
+		return;
+	}
+	const textarea = document.createElement('textarea');
+	textarea.value = text;
+	textarea.setAttribute('readonly', '');
+	textarea.style.position = 'fixed';
+	textarea.style.opacity = '0';
+	document.body.appendChild(textarea);
+	textarea.select();
+	try {
+		if (!document.execCommand('copy')) {
+			throw new Error('Clipboard copy command failed');
+		}
+	} finally {
+		textarea.remove();
+	}
 }
 
 
@@ -332,7 +354,11 @@ function ChatCodeBlock({
 							onCopy();
 						}}
 					>
-						<div />
+						{copiedCodeKey === copyKey ? (
+							<LuCheck aria-hidden="true" />
+						) : (
+							<LuCopy aria-hidden="true" />
+						)}
 					</button>
 				</div>
 			</figure>
@@ -525,7 +551,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 
 	const copyCodeBlock = async (code: string, copyKey: string) => {
 		try {
-			await navigator.clipboard.writeText(code);
+			await copyTextToClipboard(code);
 			setCopiedCodeKey(copyKey);
 			window.setTimeout(() => {
 				setCopiedCodeKey((currentKey) => (currentKey === copyKey ? null : currentKey));

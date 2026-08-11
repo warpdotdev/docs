@@ -212,6 +212,11 @@
 	right: 0.5rem;
 	z-index: 1;
 }
+.sl-kapa-codeblock .copy button svg {
+	display: block;
+	width: 0.95rem;
+	height: 0.95rem;
+}
 
 .sl-kapa-codeblock pre {
 	margin: 0;
