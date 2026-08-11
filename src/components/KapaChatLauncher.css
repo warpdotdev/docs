@@ -227,9 +227,10 @@
 	min-width: max-content;
 }
 
-.sl-kapa-codeblock code .line {
-	display: block;
-}
+/* Shiki separates `.line` spans with literal newline characters, which
+   `white-space: pre` (set on the pre above) already renders as line
+   breaks. The spans must stay inline — giving them `display: block`
+   would add a second break per line and double-space the code. */
 
 
 .sl-kapa-thinking {
