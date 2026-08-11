@@ -93,6 +93,54 @@ To try and resolve the issue of Warp not rendering a window, rename the SQLite d
 * Agents do not have up-to-date information on several commands’ completion specs
 * Agent Mode works better with Warp's default prompt settings, where the prompt starts on a new line, than it does with a same-line prompt. If you are using the same-line prompt, the cursor will jump from the end of the single line to the start of the input box when you switch to Agent Mode.
 
+## MCP
+
+### MCP OAuth 2.0 and 2.1 authentication may fail with certain servers
+
+Warp's direct Streamable HTTP and SSE connections do not currently interoperate with every MCP server's OAuth 2.0 or 2.1 implementation. You may encounter one or more of these symptoms:
+
+* **Authorization page does not open** - The browser never opens after dynamic client registration (DCR).
+* **OAuth callback fails** - Warp does not process the browser redirect and logs `No active OAuth flow found`.
+* **Dynamic client registration fails** - The server rejects registration with `invalid_redirect_uri`.
+* **Resource parameter is missing** - Warp omits the RFC 8707 `resource` parameter from `/authorize` and `/token` requests, so servers such as Atlassian and Natoma reject the flow.
+
+#### Workaround
+
+Configure the server as a **CLI Server (Command)** through the `mcp-remote` STDIO proxy instead of connecting to its HTTP or SSE URL directly. This workaround requires Node.js because it uses `npx`. The proxy communicates with Warp over STDIO and forwards requests to the remote HTTP endpoint.
+
+In the Warp app, [add an MCP server](/agent-platform/capabilities/mcp/#adding-an-mcp-server) and paste a JSON configuration. For example, connect to Unblocked with:
+
+```json
+{
+  "unblocked": {
+    "command": "npx",
+    "args": ["-y", "mcp-remote", "https://getunblocked.com/api/mcpsse"]
+  }
+}
+```
+
+For a server that accepts a bearer token, use an environment variable so the token is not embedded in the command:
+
+```json
+{
+  "bearer-token-server": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "mcp-remote",
+      "https://your.mcp.server/url",
+      "--header",
+      "Authorization: Bearer ${YOUR_API_KEY}"
+    ],
+    "env": {
+      "YOUR_API_KEY": "REPLACE_WITH_YOUR_API_KEY"
+    }
+  }
+}
+```
+
+Replace `REPLACE_WITH_YOUR_API_KEY` with the server's API key. Warp tracks these limitations in the [OAuth flow stopping after dynamic client registration issue](https://github.com/warpdotdev/warp/issues/8020), [MCP OAuth 2.0 browser login issue](https://github.com/warpdotdev/warp/issues/7595), [Miro MCP OAuth callback issue](https://github.com/warpdotdev/warp/issues/8624), [MCP authorization header issue](https://github.com/warpdotdev/warp/issues/8356), and [Atlassian MCP RFC 8707 resource parameter issue](https://github.com/warpdotdev/warp/issues/9462).
+
 ## Shells
 
 ### fish shell `read` command
