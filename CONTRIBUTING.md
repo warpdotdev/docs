@@ -44,7 +44,7 @@ npm run dev
 
 Open [http://localhost:4321](http://localhost:4321) to preview the docs site.
 
-The site runs without local environment variables. To enable optional integrations like the Ask AI button and the "Was this helpful?" widget, copy `.env.example` to `.env` and fill in the public values:
+The site runs without local environment variables. To enable optional integrations like the Ask AI button, copy `.env.example` to `.env` and fill in the public values:
 
 ```bash
 cp .env.example .env
