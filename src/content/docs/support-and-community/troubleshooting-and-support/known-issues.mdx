@@ -108,7 +108,7 @@ Warp's direct Streamable HTTP and SSE connections do not currently interoperate 
 
 Configure the server as a **CLI Server (Command)** through the `mcp-remote` STDIO proxy instead of connecting to its HTTP or SSE URL directly. This workaround requires Node.js because it uses `npx`. The proxy communicates with Warp over STDIO and forwards requests to the remote HTTP endpoint.
 
-In the Warp app, [add an MCP server](/agent-platform/capabilities/mcp/#adding-an-mcp-server) and paste a JSON configuration. For example, connect to Unblocked with:
+In the Warp app, [add an MCP server](/agents/capabilities/mcp/#adding-an-mcp-server) and paste a JSON configuration. For example, connect to Unblocked with:
 
 ```json
 {

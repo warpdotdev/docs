@@ -78,6 +78,18 @@ function isAnswerUncertain(metadata: unknown) {
 function isValidEmailAddress(value: string) {
 	return emailPattern.test(value.trim());
 }
+function getChatErrorMessage(error: unknown) {
+	const message = typeof error === 'string' ? error : String(error ?? '');
+	const normalized = message.toLowerCase();
+	const looksLikeBlockedNetworkError =
+		normalized.includes('network error while fetching answer') ||
+		normalized.includes('failed to fetch') ||
+		normalized.includes('err_blocked_by_client');
+	if (looksLikeBlockedNetworkError) {
+		return "Couldn't reach the chat service. If you use an ad blocker or privacy extension, allow kapa.ai and proxy.kapa.ai, then try again.";
+	}
+	return message;
+}
 
 
 const CHAT_LANGUAGE_ALIASES: Record<string, string> = {
@@ -848,7 +860,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 							</div>
 						))}
 
-						{error ? <div className="sl-kapa-error">{error}</div> : null}
+						{error ? <div className="sl-kapa-error">{getChatErrorMessage(error)}</div> : null}
 					</div>
 					<footer className="sl-kapa-panel__footer">
 						<form className="sl-kapa-form" onSubmit={onSubmit}>
