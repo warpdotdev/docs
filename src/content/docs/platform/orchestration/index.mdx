@@ -27,7 +27,7 @@ Orchestrations today are exactly one level deep: a parent and its direct childre
 
 The parent and child don't have to run in the same place. Orchestration supports four combinations:
 
-* **Local → local** - a [Warp Agent](/agents/local-agents/overview/) conversation in the Warp app spawns child Warp Agent conversations on the same machine. Useful for trying orchestration patterns without spinning up cloud infrastructure.
+* **Local → local** - a [Warp Agent](/agents/getting-started/agents-in-warp/) conversation in the Warp app spawns child Warp Agent conversations on the same machine. Useful for trying orchestration patterns without spinning up cloud infrastructure.
 * **Local → cloud** - a local parent spawns one or more cloud children that run in [environments](/platform/environments/) on Warp-hosted or self-hosted infrastructure. The parent keeps working while children execute in parallel.
 * **Cloud → cloud** - a cloud parent spawns cloud children that each run in their own environment. This is the canonical pattern for review swarms, large fan-outs, and any orchestration triggered from Slack, Linear, a schedule, or the API.
 * **Cloud → cloud-local** - a cloud parent spawns children that run inside the parent's own cloud environment, rather than each child getting its own environment. Useful when children need to share state with the parent (a filesystem, a long-running process, a shell session) or when spinning up an environment per child would be wasteful.
