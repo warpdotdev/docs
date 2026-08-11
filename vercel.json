@@ -1781,12 +1781,7 @@
       "statusCode": 308
     },
     {
-      "source": "/agent-platform/warp-ai/assistant",
-      "destination": "/agents/",
-      "statusCode": 308
-    },
-    {
-      "source": "/agent-platform/warp-ai/get-started",
+      "source": "/agent-platform/warp-ai/:path(.*)",
       "destination": "/agents/",
       "statusCode": 308
     },
@@ -5918,21 +5913,6 @@
     {
       "source": "/agent-platform/using-agents/managing-agents/",
       "destination": "/platform/managing-cloud-agents/",
-      "statusCode": 308
-    },
-    {
-      "source": "/agent-platform/warp-ai/",
-      "destination": "/agents/",
-      "statusCode": 308
-    },
-    {
-      "source": "/agent-platform/warp-ai/assistant/",
-      "destination": "/agents/",
-      "statusCode": 308
-    },
-    {
-      "source": "/agent-platform/warp-ai/get-started/",
-      "destination": "/agents/",
       "statusCode": 308
     },
     {
