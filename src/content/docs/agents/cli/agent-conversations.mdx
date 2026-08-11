@@ -36,6 +36,8 @@ When the agent edits files, the edit renders as a diff in the transcript:
 
 Diffs are fully expanded while the agent waits for your approval, then collapse to their headers once the edits are applied. Press `E` while the approval card is active to expand or collapse all diffs at once.
 
+The CLI renders diffs inline rather than in a separate editor. For how agent-generated changes work in the Warp app, including refining a diff in natural language, see [Agent code diffs and review](/agents/local-agents/code-diffs/).
+
 ## Thinking blocks
 
 For models that expose their reasoning, the agent's thinking streams into a collapsible section with the header `Thinking...`, which collapses to a single `Thought for` row once it finishes.
@@ -45,6 +47,8 @@ For models that expose their reasoning, the agent's thinking streams into a coll
 When the agent needs a decision from you mid-task, it asks a question with an interactive option list that temporarily replaces the input. Use the arrow keys to navigate between options, or press an option's number on your keyboard to select it. **Other…** accepts a free-form answer when the listed options don't fit.
 
 Options the agent suggests as the best fit are labeled `(recommended)`. For multi-select questions, chosen options are marked with a check mark so you can select more than one. When the agent asks several questions at once, the card advances through them.
+
+To control whether the agent pauses to ask questions, see [Agent questions](/agents/local-agents/interacting-with-agents/agent-questions/).
 
 ## Task lists
 
@@ -82,9 +86,9 @@ The CLI saves every agent conversation as you work, so closing your terminal won
 
 ### Conversation persistence
 
-Conversations save to your Warp account, so the same history is available in the Warp app and on your other devices. Reopening a conversation restores the full transcript, including agent responses, tool calls, and file-edit diffs. You can continue prompting from where the agent left off.
-
 The CLI shows one conversation at a time. Opening a past conversation replaces the current transcript, and the previous one remains available in history. You can't switch conversations while the current conversation is responding or a command is running. Finish or stop it with `Ctrl+C` first.
+
+Conversations sync to your Warp account, so the same history is available in the Warp app and on your other devices. See [Cloud-synced conversations](/agents/local-agents/cloud-conversations/) for details about syncing, restoring, and sharing work.
 
 ### Starting a new conversation
 
@@ -95,6 +99,8 @@ Use any of these slash commands to clear the transcript and start a fresh conver
 * `/clear`
 
 Each command accepts an optional prompt. For example, `/new write tests for the parser` starts a new conversation and immediately sends that prompt to the agent. To keep the history but reduce its size instead, use [`/compact`](#compacting-context).
+
+For guidance on when to start fresh rather than follow up, see [Interacting with agents](/agents/local-agents/interacting-with-agents/).
 
 ### Conversation history
 
@@ -129,7 +135,7 @@ warp --resume YOUR_CONVERSATION_TOKEN
 
 ### Compacting context
 
-Long conversations eventually fill the model's context window, which can degrade response quality. The `/compact` command frees up context by asking the agent to summarize the conversation history so far and carry only the summary forward.
+Long conversations eventually fill the model's [context window](/agents/local-agents/interacting-with-agents/#context-window-management), which can degrade response quality. The `/compact` command frees up context by asking the agent to summarize the conversation history so far and carry only the summary forward.
 
 * **`/compact`** - Summarizes the conversation history with default instructions.
 * **`/compact <instructions>`** - Adds custom summarization instructions. For example, `/compact keep the API design decisions` tells the agent what to preserve in the summary.
@@ -144,3 +150,5 @@ After compaction, a collapsed **Conversation summary** block appears in the tran
 * [{VARS.WARP_CLI} reference](/agents/cli/reference/) - Command-line flags, slash commands, and keyboard shortcuts.
 * [Planning](/agents/capabilities/planning/) - The full planning workflow.
 * [Task lists](/agents/capabilities/task-lists/) - How agents create and update task lists.
+* [Agent code diffs and review](/agents/local-agents/code-diffs/) - Reviewing and refining agent-generated changes.
+* [Cloud-synced conversations](/agents/local-agents/cloud-conversations/) - How conversations sync, restore, and share across devices.
