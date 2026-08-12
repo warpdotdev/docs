@@ -6,8 +6,9 @@ description: >-
   Connect cloud agents to GitLab repos using personal access tokens and
   Warp-managed secrets.
 ---
+import { VARS } from '@data/vars';
 
-Cloud agents work with any Git repository, including those hosted on GitLab. Unlike GitHub, GitLab does not have a native Warp integration, but you can grant agents access to your GitLab repositories using a personal access token and Warp-managed secrets. Once configured, your environment works with any Oz trigger—Slack, Linear, schedules, or the CLI.
+Cloud agents work with any Git repository, including those hosted on GitLab. Unlike GitHub, GitLab does not have a native Warp integration, but you can grant agents access to your GitLab repositories using a personal access token and Warp-managed secrets. Once configured, your environment works with any {VARS.WARP_AUTOMATION_PLATFORM} trigger—Slack, Linear, schedules, or the CLI.
 
 This page explains how to generate a GitLab personal access token, store it securely, and configure a cloud agent environment that clones your repository at runtime.
 
@@ -19,9 +20,9 @@ This approach works for both GitLab.com and self-hosted GitLab instances.
 
 ## Prerequisites
 
-* A Warp account ([create an account at oz.warp.dev](https://oz.warp.dev))
+* A Warp account (<a href={VARS.WEB_APP_URL}>create an account at {VARS.WEB_APP_URL}</a>)
 * A repository hosted on GitLab (cloud or self-hosted)
-* The [Oz CLI](/reference/cli/) installed and authenticated
+* The [{VARS.WARP_AGENT_CLI}](/reference/cli/) installed and authenticated
 
 ---
 
@@ -120,8 +121,8 @@ oz agent run-cloud --environment <ENV_ID> --prompt "Your task here"
 
 With your environment configured, you can connect it to any Warp trigger exactly as you would with a GitHub-backed environment:
 
-* **Slack** — Tag **@Oz** in a message to start an agent run against your GitLab repo. See [Slack](/platform/integrations/slack/).
-* **Linear** — Tag **@Oz** on an issue to kick off a workflow. See [Linear](/platform/integrations/linear/).
+* **Slack** — Tag **@{VARS.WARP_AUTOMATION_PLATFORM}** in a message to start an agent run against your GitLab repo. See [Slack](/platform/integrations/slack/).
+* **Linear** — Tag **@{VARS.WARP_AUTOMATION_PLATFORM}** on an issue to kick off a workflow. See [Linear](/platform/integrations/linear/).
 * **Scheduled agents** — Run agents on a recurring schedule. See [Scheduled Agents](/platform/triggers/scheduled-agents/).
 
 :::note
