@@ -386,6 +386,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			// Relabeled from 'Oz' for the 8/18 launch (HYC's IA doc, pending final
 			// ZL naming sign-off -- see .agents/references/terminology.md). Reorganized
 			// from 10 subsections into HYC's 6-group IA; all page slugs unchanged.
+			id: 'platform',
 			label: 'Automation Platform',
 			link: '/platform/',
 			icon: 'cloud-download',
@@ -399,6 +400,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/managing-cloud-agents', label: 'Managing cloud agents' },
 						{ slug: 'platform/agents', label: 'Agents' },
 						{ slug: 'platform/viewing-cloud-agent-runs', label: 'Viewing cloud agent runs' },
+						{ slug: 'platform/oz-web-app', label: 'Oz web app' },
 						{
 							label: 'Handoff',
 							collapsed: true,

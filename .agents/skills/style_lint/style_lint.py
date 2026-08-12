@@ -184,6 +184,11 @@ RAW_URL_ANCHOR = re.compile(
 )
 MARKDOWN_LINK = re.compile(r"\[([^\]]*)\]\(([^)]+)\)")
 VIDEO_EMBED_TITLE = re.compile(r"\btitle\s*=\s*([\"'])(.*?)\1", re.DOTALL)
+# JSX expression titles, e.g. title={`${VARS.WEB_APP} walkthrough`} — used when
+# the title includes a rename-sensitive {VARS.KEY} reference. Content can't be
+# statically evaluated, so these are treated as present but skipped by the
+# generic-title check below.
+VIDEO_EMBED_TITLE_EXPR = re.compile(r"\btitle\s*=\s*\{(.*?)\}", re.DOTALL)
 
 # Common bolded words that are NOT product terms (false positive suppression)
 COMMON_BOLD_WORDS = {
@@ -659,21 +664,29 @@ def check_video_embed_titles(lines: List[str], filepath: str) -> List[Issue]:
     issues = []
     for line_number, tag in _iter_video_embed_tags(lines):
         title_match = VIDEO_EMBED_TITLE.search(tag)
-        if not title_match or not title_match.group(2).strip():
-            issues.append(Issue(
-                filepath, line_number, "video-title",
-                "VideoEmbed missing title prop. Add a specific title that describes the integration, workflow, feature, or task shown.",
-                "error",
-            ))
+        if title_match and title_match.group(2).strip():
+            title = title_match.group(2).strip()
+            if _is_generic_video_title(title):
+                issues.append(Issue(
+                    filepath, line_number, "video-title",
+                    f"Generic VideoEmbed title: \"{title}\". Use a specific title that describes what the video shows.",
+                    "warning",
+                ))
             continue
 
-        title = title_match.group(2).strip()
-        if _is_generic_video_title(title):
-            issues.append(Issue(
-                filepath, line_number, "video-title",
-                f"Generic VideoEmbed title: \"{title}\". Use a specific title that describes what the video shows.",
-                "warning",
-            ))
+        # Not a quoted string literal — check for a JSX expression title, e.g.
+        # title={`${VARS.WEB_APP} walkthrough`}. Content isn't statically
+        # evaluable, so skip the generic-title check but still confirm a
+        # non-empty title prop is present.
+        expr_match = VIDEO_EMBED_TITLE_EXPR.search(tag)
+        if expr_match and expr_match.group(1).strip():
+            continue
+
+        issues.append(Issue(
+            filepath, line_number, "video-title",
+            "VideoEmbed missing title prop. Add a specific title that describes the integration, workflow, feature, or task shown.",
+            "error",
+        ))
     return issues
 
 
@@ -897,10 +910,19 @@ def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
     Literals are checked longest-first and matches are deduplicated by span so
     a specific match (e.g. "Oz Platform", "Oz CLI") doesn't also get re-flagged
     by the more general bare "Oz" entry for the same occurrence.
+
+    Matches use word boundaries (`\b`) rather than plain substring search, so
+    short literals like bare "Oz" don't false-positive inside unrelated tokens
+    such as URL query params, hashes, or other identifiers (e.g. a YouTube
+    share link's `si=OzvuInMl8DoNR97R` parameter).
     """
     issues = []
     in_code_block = False
     sorted_strings = sorted(RENAME_SENSITIVE_VAR_STRINGS, key=lambda entry: -len(entry[0]))
+    compiled = [
+        (literal, var_key, suggestion, re.compile(r"\b" + re.escape(literal) + r"\b"))
+        for literal, var_key, suggestion in sorted_strings
+    ]
     for i, line in enumerate(lines, 1):
         if line.strip().startswith("```"):
             in_code_block = not in_code_block
@@ -910,14 +932,9 @@ def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
         # Strip inline code spans so backtick-wrapped references are not flagged
         prose_line = re.sub(r"`[^`]+`", "", line)
         matched_spans: List[Tuple[int, int]] = []
-        for literal, var_key, suggestion in sorted_strings:
-            start = 0
-            while True:
-                idx = prose_line.find(literal, start)
-                if idx == -1:
-                    break
-                span = (idx, idx + len(literal))
-                start = idx + 1
+        for literal, var_key, suggestion, pattern in compiled:
+            for m in pattern.finditer(prose_line):
+                span = m.span()
                 if any(span[0] >= s and span[1] <= e for s, e in matched_spans):
                     continue
                 matched_spans.append(span)
