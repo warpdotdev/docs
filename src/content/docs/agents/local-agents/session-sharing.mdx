@@ -4,9 +4,10 @@ description: >-
   Share live agent sessions so collaborators can view, steer, and interact
   with agent activity from any device — in real time or asynchronously.
 ---
+import { VARS } from '@data/vars';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-**Agent Session Sharing** extends Warp's regular [Session Sharing](/knowledge-and-collaboration/session-sharing/) to include full visibility and control over Agent activity. Share any agent session — Oz or third-party — so collaborators can watch progress, review output, and steer the agent from the Warp app, a web browser, or a mobile device.
+**Agent Session Sharing** extends Warp's regular [Session Sharing](/knowledge-and-collaboration/session-sharing/) to include full visibility and control over Agent activity. Share any agent session — {VARS.WARP_AUTOMATION_PLATFORM} or third-party — so collaborators can watch progress, review output, and steer the agent from the Warp app, a web browser, or a mobile device.
 
 Use Agent Session Sharing when teammates need the execution context behind an agent's work, not just the final answer or code diff. A shared agent session can show the prompt, responses, thinking states, tool use, planning steps, terminal output, and follow-up messages in one reviewable link.
 
