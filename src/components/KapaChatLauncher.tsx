@@ -116,6 +116,50 @@ function escapeHtml(value: string): string {
 	return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+async function copyTextToClipboard(text: string): Promise<boolean> {
+	try {
+		if (navigator.clipboard?.writeText) {
+			await navigator.clipboard.writeText(text);
+			return true;
+		}
+	} catch {
+		// Fall through to execCommand fallback.
+	}
+	try {
+		const pre = document.createElement('pre');
+		Object.assign(pre.style, {
+			opacity: '0',
+			pointerEvents: 'none',
+			position: 'absolute',
+			overflow: 'hidden',
+			left: '0',
+			top: '0',
+			width: '20px',
+			height: '20px',
+			webkitUserSelect: 'auto',
+			userSelect: 'all',
+		});
+		pre.setAttribute('aria-hidden', 'true');
+		pre.textContent = text;
+		document.body.appendChild(pre);
+		const range = document.createRange();
+		range.selectNode(pre);
+		const selection = window.getSelection();
+		if (!selection) {
+			document.body.removeChild(pre);
+			return false;
+		}
+		selection.removeAllRanges();
+		selection.addRange(range);
+		const ok = document.execCommand('copy');
+		selection.removeAllRanges();
+		document.body.removeChild(pre);
+		return ok;
+	} catch {
+		return false;
+	}
+}
+
 type MarkdownCodeProps = { className?: string; children?: ReactNode };
 
 // react-markdown v9+ no longer passes an `inline` flag to the `code`
@@ -239,6 +283,8 @@ function ChatCodeBlock({
 	const isTerminalLanguage = ['bash', 'sh', 'shell', 'zsh', 'powershell'].includes(normalizedLanguage);
 	const [highlighted, setHighlighted] = useState<{ key: string; preHtml: string } | null>(null);
 	const [isDarkTheme, setIsDarkTheme] = useState(true);
+	const [isCopied, setIsCopied] = useState(false);
+	const copiedResetRef = useRef<number | null>(null);
 
 	useEffect(() => {
 		const root = document.documentElement;
@@ -259,6 +305,14 @@ function ChatCodeBlock({
 		const observer = new MutationObserver(updateTheme);
 		observer.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
 		return () => observer.disconnect();
+	}, []);
+
+	useEffect(() => {
+		return () => {
+			if (copiedResetRef.current !== null) {
+				window.clearTimeout(copiedResetRef.current);
+			}
+		};
 	}, []);
 
 	const theme = isDarkTheme ? 'dark' : 'light';
@@ -298,6 +352,19 @@ function ChatCodeBlock({
 	// highlighted content from flashing while new text is streaming in.
 	const highlightedPreHtml = highlighted?.key === highlightKey ? highlighted.preHtml : null;
 
+	const onCopy = async () => {
+		const ok = await copyTextToClipboard(codeText);
+		if (!ok) return;
+		setIsCopied(true);
+		if (copiedResetRef.current !== null) {
+			window.clearTimeout(copiedResetRef.current);
+		}
+		copiedResetRef.current = window.setTimeout(() => {
+			setIsCopied(false);
+			copiedResetRef.current = null;
+		}, 1500);
+	};
+
 	return (
 		<div className="expressive-code sl-kapa-codeblock">
 			<figure className={`frame not-content${isTerminalLanguage ? ' is-terminal' : ''}`}>
@@ -315,27 +382,25 @@ function ChatCodeBlock({
 						<code className={className} dangerouslySetInnerHTML={{ __html: escapeHtml(codeText) }} />
 					</pre>
 				)}
-				{/* Exact Expressive Code copy-button markup (see
-				    @expressive-code/plugin-frames): an empty inner <div> paints
-				    the frosted background and the icon is drawn by EC's CSS via
-				    `button::after` mask, so the button renders pixel-identical
-				    to docs code blocks. EC's runtime module (`ec.*.js`, loaded
-				    globally via the hidden <Code> block in KapaLauncher.astro)
-				    watches the DOM with a MutationObserver and attaches its own
-				    click handler to every `.expressive-code .copy button` —
-				    including these dynamically rendered ones. That handler reads
-				    `data-code` (newlines encoded as \u007f), copies it with
-				    `navigator.clipboard` plus an `execCommand` fallback, and
-				    shows the same "Copied!" feedback tooltip as the docs. */}
-				<div className="copy">
-					<div aria-live="polite" />
+				{/* Dedicated chat copy control — intentionally NOT EC's `.copy`
+				    class. Reusing EC markup stacked EC's CSS mask icon on top of
+				    any residual SVG and produced a double clipboard. One button,
+				    one icon (CSS mask), one click handler. */}
+				<div className="sl-kapa-codeblock__copy-wrap">
+					<span className="sr-only" aria-live="polite">
+						{isCopied ? 'Copied!' : ''}
+					</span>
+					{isCopied ? <span className="sl-kapa-codeblock__copy-feedback">Copied!</span> : null}
 					<button
 						type="button"
-						title="Copy to clipboard"
-						data-copied="Copied!"
-						data-code={codeText.replace(/\n/g, '\u007f')}
+						className="sl-kapa-codeblock__copy"
+						onClick={() => {
+							void onCopy();
+						}}
+						title={isCopied ? 'Copied!' : 'Copy to clipboard'}
+						aria-label={isCopied ? 'Code copied' : 'Copy code block'}
 					>
-						<div />
+						<span className="sl-kapa-codeblock__copy-icon" aria-hidden="true" />
 					</button>
 				</div>
 			</figure>

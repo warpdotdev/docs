@@ -206,11 +206,99 @@
 	max-width: 100%;
 }
 
-/* Copy button: no Kapa-specific styling on purpose. The chat renders EC's
-   exact `.copy` markup, so Expressive Code's own stylesheet (ec.*.css,
-   preloaded globally via the hidden <Code> block in KapaLauncher.astro)
-   plus the site-wide overrides in warp-components.css §2 (frosted glass,
-   0.5rem inset for untitled frames) style it identically to docs blocks. */
+/* Chat-only copy control. Deliberately avoids EC's `.copy` class so EC CSS
+   (`button::after` mask) and EC JS never attach a second icon/handler. Visual
+   tokens match docs frosted-glass copy buttons in warp-components.css §2. */
+.sl-kapa-codeblock__copy-wrap {
+	position: absolute;
+	inset-block-start: 0.5rem;
+	inset-inline-end: 0.5rem;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+	pointer-events: none;
+}
+
+.sl-kapa-codeblock__copy {
+	pointer-events: auto;
+	position: relative;
+	box-sizing: border-box;
+	width: 2rem;
+	height: 2rem;
+	margin: 0;
+	padding: 0;
+	border-radius: var(--sl-radius-sm);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	background: rgba(255, 255, 255, 0.08);
+	backdrop-filter: blur(8px);
+	cursor: pointer;
+	opacity: 0.4;
+	transition:
+		opacity 0.15s ease,
+		background-color 0.15s ease,
+		border-color 0.15s ease;
+}
+
+.sl-kapa-codeblock:hover .sl-kapa-codeblock__copy,
+.sl-kapa-codeblock:focus-within .sl-kapa-codeblock__copy {
+	opacity: 0.75;
+}
+
+.sl-kapa-codeblock__copy:hover,
+.sl-kapa-codeblock__copy:focus-visible {
+	opacity: 1;
+	background: rgba(255, 255, 255, 0.16);
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.sl-kapa-codeblock__copy:focus-visible {
+	outline: 2px solid var(--sl-color-accent-high);
+	outline-offset: 2px;
+}
+
+.sl-kapa-codeblock__copy-icon {
+	position: absolute;
+	inset: 0.475rem;
+	background-color: var(--sl-color-white, #f9f8f6);
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75'%3E%3Cpath d='M3 19a2 2 0 0 1-1-2V2a2 2 0 0 1 1-1h13a2 2 0 0 1 2 1'/%3E%3Crect x='6' y='5' width='16' height='18' rx='1.5' ry='1.5'/%3E%3C/svg%3E");
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75'%3E%3Cpath d='M3 19a2 2 0 0 1-1-2V2a2 2 0 0 1 1-1h13a2 2 0 0 1 2 1'/%3E%3Crect x='6' y='5' width='16' height='18' rx='1.5' ry='1.5'/%3E%3C/svg%3E");
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-position: center;
+	mask-position: center;
+	-webkit-mask-size: contain;
+	mask-size: contain;
+}
+
+.sl-kapa-codeblock__copy-feedback {
+	pointer-events: none;
+	user-select: none;
+	font-size: var(--sl-text-2xs);
+	line-height: 1.2;
+	padding: 0.2rem 0.4rem;
+	border-radius: var(--sl-radius-sm);
+	background: color-mix(in srgb, var(--sl-color-accent) 85%, black);
+	color: var(--sl-color-white);
+	white-space: nowrap;
+}
+
+:root[data-theme='light'] .sl-kapa-codeblock__copy {
+	background: rgba(0, 0, 0, 0.04);
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	opacity: 0.6;
+}
+
+:root[data-theme='light'] .sl-kapa-codeblock__copy:hover,
+:root[data-theme='light'] .sl-kapa-codeblock__copy:focus-visible {
+	background: rgba(0, 0, 0, 0.08);
+	border-color: rgba(0, 0, 0, 0.12);
+	opacity: 1;
+}
+
+:root[data-theme='light'] .sl-kapa-codeblock__copy-icon {
+	background-color: var(--sl-color-white, #0a0d12);
+}
 
 .sl-kapa-codeblock pre {
 	margin: 0;

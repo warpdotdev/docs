@@ -9,16 +9,9 @@ import KapaChatLauncher from './KapaChatLauncher';
 <KapaChatLauncher client:idle />
 
 {/*
-	Hidden Expressive Code block that guarantees EC's hashed assets
-	(`/_astro/ec.*.css` + `/_astro/ec.*.js`) are emitted on EVERY page, not
-	just pages whose markdown contains a fenced code block. The Kapa chat
-	(KapaChatLauncher.tsx) renders answer code blocks with EC's exact
-	`.expressive-code .copy button` markup and relies on:
-	  - ec.*.css to style the frame + copy button identically to docs blocks
-	  - ec.*.js to attach the copy-to-clipboard handler (it observes the DOM
-	    with a MutationObserver, so it picks up chat blocks as they stream in)
-	Duplicate tags on pages that already have code blocks are harmless: the
-	stylesheet href is identical and module scripts execute once per URL.
+	Hidden Expressive Code block so EC frame CSS variables/assets exist on
+	every page. Chat copy buttons are owned by KapaChatLauncher (not EC's
+	`.copy` markup) to avoid double icons.
 */}
 <div hidden aria-hidden="true">
 	<Code code="# Preloads Expressive Code assets for the Kapa chat panel" lang="text" />
