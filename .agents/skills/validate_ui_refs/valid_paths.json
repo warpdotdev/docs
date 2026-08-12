@@ -1270,6 +1270,10 @@
       "description": "Rename the current pane"
     },
     {
+      "name": "workspace:cycle_active_tab_color",
+      "description": "Cycle current tab color"
+    },
+    {
       "name": "workspace:new_tab_group",
       "description": "Create new tab group"
     },
@@ -1550,5 +1554,5 @@
       "description": "Toggle Maximize Code Review Panel"
     }
   ],
-  "generated_at": "2026-08-05T16:59:35.936911+00:00"
+  "generated_at": "2026-08-12T00:53:01.810914+00:00"
 }
