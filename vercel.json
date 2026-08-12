@@ -391,6 +391,11 @@
       "statusCode": 308
     },
     {
+      "source": "/knowledge-and-collaboration/session-sharingentials1",
+      "destination": "/knowledge-and-collaboration/session-sharing/",
+      "statusCode": 308
+    },
+    {
       "source": "/advanced/command-line-flags",
       "destination": "/terminal/sessions/launch-configurations/",
       "statusCode": 308
@@ -1382,6 +1387,11 @@
     },
     {
       "source": "/agent-platform/features/warp-ai/agent-mode#examples-of-coding-capabilities",
+      "destination": "/agent-platform/local-agents/interacting-with-agents/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/features/warp-ai/agent-modea",
       "destination": "/agent-platform/local-agents/interacting-with-agents/",
       "statusCode": 308
     },
@@ -5667,6 +5677,11 @@
     },
     {
       "source": "/agent-platform/features/warp-ai/agent-mode/",
+      "destination": "/agent-platform/local-agents/interacting-with-agents/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/features/warp-ai/agent-modea/",
       "destination": "/agent-platform/local-agents/interacting-with-agents/",
       "statusCode": 308
     },

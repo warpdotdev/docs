@@ -604,6 +604,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	};
 
 	const submitSupportHandoff = async (qa: { id?: string | null; question?: string }) => {
+		if (isSubmittingHandoff) return;
 		const userEmail = handoffEmailInput.trim().toLowerCase();
 		if (!isValidEmailAddress(userEmail)) {
 			setHandoffErrorMessage('Enter a valid email address to continue.');
@@ -623,16 +624,22 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		}
 
 		const conversationLink = buildConversationLink(activeThreadId);
-		const captcha = await executeCaptcha(CaptchaAction.FeedbackSubmit);
-		if (!captcha?.token || !captcha?.key) {
-			setHandoffErrorMessage('Captcha verification failed. Please try again.');
-			return;
-		}
 
 		setIsSubmittingHandoff(true);
 		setHandoffErrorMessage(null);
 		setHandoffSuccessMessage(null);
 		try {
+			let captcha;
+			try {
+				captcha = await executeCaptcha(CaptchaAction.FeedbackSubmit);
+			} catch {
+				setHandoffErrorMessage('Captcha verification could not be completed. Please try again.');
+				return;
+			}
+			if (!captcha?.token || !captcha?.key) {
+				setHandoffErrorMessage('Captcha verification did not return a token. Please try again.');
+				return;
+			}
 			const response = await fetch('/api/support-handoff', {
 				method: 'POST',
 				headers: {

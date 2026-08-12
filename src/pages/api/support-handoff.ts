@@ -22,7 +22,7 @@ const MAX_TRANSCRIPT_LENGTH = 50_000;
 const MAX_PAGE_URL_LENGTH = 2_048;
 const MAX_CAPTCHA_TOKEN_LENGTH = 4_096;
 const ALLOWED_PAGE_URL_HOSTS = new Set(['docs.warp.dev', 'localhost']);
-const ALLOWED_PAGE_URL_SUFFIXES = ['.vercel.app'];
+const DOCS_PREVIEW_HOSTNAME_PATTERN = /^docs-[a-z0-9]+(?:-[a-z0-9]+)*-warpdotdev\.vercel\.app$/;
 const ALLOWED_CAPTCHA_HEADERS = new Set(['X-RECAPTCHA-ENTERPRISE-TOKEN', 'X-HCAPTCHA-TOKEN']);
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX_REQUESTS = 5;
@@ -48,9 +48,7 @@ function isAllowedPageUrl(url: string) {
 	try {
 		const parsed = new URL(url);
 		if (!['http:', 'https:'].includes(parsed.protocol)) return false;
-		const hostname = parsed.hostname.toLowerCase();
-		if (ALLOWED_PAGE_URL_HOSTS.has(hostname)) return true;
-		return ALLOWED_PAGE_URL_SUFFIXES.some((suffix) => hostname.endsWith(suffix));
+		return isAllowedHostname(parsed.hostname);
 	} catch {
 		return false;
 	}
@@ -59,7 +57,7 @@ function isAllowedPageUrl(url: string) {
 function isAllowedHostname(hostname: string) {
 	const lowercasedHostname = hostname.toLowerCase();
 	if (ALLOWED_PAGE_URL_HOSTS.has(lowercasedHostname)) return true;
-	return ALLOWED_PAGE_URL_SUFFIXES.some((suffix) => lowercasedHostname.endsWith(suffix));
+	return DOCS_PREVIEW_HOSTNAME_PATTERN.test(lowercasedHostname);
 }
 
 function isAllowedRequestOrigin(request: Request) {
@@ -75,6 +73,8 @@ function isAllowedRequestOrigin(request: Request) {
 }
 
 function getClientIp(request: Request) {
+	// Vercel overwrites `x-forwarded-for` and strips external values to prevent
+	// spoofing: https://vercel.com/docs/headers/request-headers#x-forwarded-for
 	const forwardedFor = request.headers.get('x-forwarded-for');
 	if (forwardedFor) {
 		const firstIp = forwardedFor.split(',')[0]?.trim();
