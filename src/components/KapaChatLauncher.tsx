@@ -6,8 +6,6 @@ import { PUBLIC_KAPA_INTEGRATION_ID, PUBLIC_KAPA_PROJECT_ID } from 'astro:env/cl
 import { isMac, keymatch } from 'keymatch';
 import ReactMarkdown from 'react-markdown';
 import {
-	LuCheck,
-	LuCopy,
 	LuExternalLink,
 	LuLoaderCircle,
 	LuMessageSquare,
@@ -92,27 +90,6 @@ function getChatErrorMessage(error: unknown) {
 	}
 	return message;
 }
-async function copyTextToClipboard(text: string) {
-	if (navigator.clipboard?.writeText) {
-		await navigator.clipboard.writeText(text);
-		return;
-	}
-	const textarea = document.createElement('textarea');
-	textarea.value = text;
-	textarea.setAttribute('readonly', '');
-	textarea.style.position = 'fixed';
-	textarea.style.opacity = '0';
-	document.body.appendChild(textarea);
-	textarea.select();
-	try {
-		if (!document.execCommand('copy')) {
-			throw new Error('Clipboard copy command failed');
-		}
-	} finally {
-		textarea.remove();
-	}
-}
-
 
 const CHAT_LANGUAGE_ALIASES: Record<string, string> = {
 	shell: 'bash',
@@ -248,16 +225,10 @@ async function requestHighlightedPre({
 function ChatCodeBlock({
 	className,
 	codeText,
-	copyKey,
-	copiedCodeKey,
-	onCopy,
 	deferHighlight,
 }: {
 	className?: string;
 	codeText: string;
-	copyKey: string;
-	copiedCodeKey: string | null;
-	onCopy: () => void;
 	deferHighlight?: boolean;
 }) {
 	const language = className?.replace('language-', '') ?? 'text';
@@ -344,26 +315,27 @@ function ChatCodeBlock({
 						<code className={className} dangerouslySetInnerHTML={{ __html: escapeHtml(codeText) }} />
 					</pre>
 				)}
+				{/* Exact Expressive Code copy-button markup (see
+				    @expressive-code/plugin-frames): an empty inner <div> paints
+				    the frosted background and the icon is drawn by EC's CSS via
+				    `button::after` mask, so the button renders pixel-identical
+				    to docs code blocks. EC's runtime module (`ec.*.js`, loaded
+				    globally via the hidden <Code> block in KapaLauncher.astro)
+				    watches the DOM with a MutationObserver and attaches its own
+				    click handler to every `.expressive-code .copy button` —
+				    including these dynamically rendered ones. That handler reads
+				    `data-code` (newlines encoded as \u007f), copies it with
+				    `navigator.clipboard` plus an `execCommand` fallback, and
+				    shows the same "Copied!" feedback tooltip as the docs. */}
 				<div className="copy">
-					<div aria-live="polite">{copiedCodeKey === copyKey ? 'Copied!' : ''}</div>
+					<div aria-live="polite" />
 					<button
 						type="button"
 						title="Copy to clipboard"
 						data-copied="Copied!"
-						aria-label={copiedCodeKey === copyKey ? 'Code copied' : 'Copy code block'}
-						onMouseDown={(event) => {
-							event.preventDefault();
-						}}
-						onClick={(event) => {
-							event.preventDefault();
-							onCopy();
-						}}
+						data-code={codeText.replace(/\n/g, '\u007f')}
 					>
-						{copiedCodeKey === copyKey ? (
-							<LuCheck aria-hidden="true" />
-						) : (
-							<LuCopy aria-hidden="true" />
-						)}
+						<div />
 					</button>
 				</div>
 			</figure>
@@ -388,7 +360,6 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	const [handoffErrorMessage, setHandoffErrorMessage] = useState<string | null>(null);
 	const [handoffSuccessMessage, setHandoffSuccessMessage] = useState<string | null>(null);
 	const [isSubmittingHandoff, setIsSubmittingHandoff] = useState(false);
-	const [copiedCodeKey, setCopiedCodeKey] = useState<string | null>(null);
 	const messagesRef = useRef<HTMLDivElement | null>(null);
 	const dialogRef = useRef<HTMLDialogElement | null>(null);
 	const triggerRef = useRef<HTMLButtonElement | null>(null);
@@ -555,17 +526,6 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		return `https://app.kapa.ai/${projectId}/conversations/${currentThreadId}`;
 	};
 
-	const copyCodeBlock = async (code: string, copyKey: string) => {
-		try {
-			await copyTextToClipboard(code);
-			setCopiedCodeKey(copyKey);
-			window.setTimeout(() => {
-				setCopiedCodeKey((currentKey) => (currentKey === copyKey ? null : currentKey));
-			}, 1400);
-		} catch {
-			setCopiedCodeKey(null);
-		}
-	};
 	const openHandoffForm = (qaId: string) => {
 		setHandoffQaId(qaId);
 		setHandoffErrorMessage(null);
@@ -769,19 +729,13 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 															? codeElement.props.className
 															: undefined;
 													const codeText = markdownChildrenToText(codeElement.props.children);
-													const language = codeClassName?.replace('language-', '') ?? 'text';
-													const qaKey = qa.id ?? qa.question ?? 'qa';
 													const isStreamingAnswer =
 														isBusy && conversation[conversation.length - 1]?.id === qa.id;
-													const copyKey = `${qaKey}:${language}:${codeText.slice(0, 64)}`;
 													return (
 														<ChatCodeBlock
 															className={codeClassName}
 															codeText={codeText}
-															copyKey={copyKey}
-															copiedCodeKey={copiedCodeKey}
 															deferHighlight={isStreamingAnswer}
-															onCopy={() => void copyCodeBlock(codeText, copyKey)}
 														/>
 													);
 												},

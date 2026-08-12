@@ -206,17 +206,11 @@
 	max-width: 100%;
 }
 
-.sl-kapa-codeblock .copy {
-	position: absolute;
-	top: 0.5rem;
-	right: 0.5rem;
-	z-index: 1;
-}
-.sl-kapa-codeblock .copy button svg {
-	display: block;
-	width: 0.95rem;
-	height: 0.95rem;
-}
+/* Copy button: no Kapa-specific styling on purpose. The chat renders EC's
+   exact `.copy` markup, so Expressive Code's own stylesheet (ec.*.css,
+   preloaded globally via the hidden <Code> block in KapaLauncher.astro)
+   plus the site-wide overrides in warp-components.css §2 (frosted glass,
+   0.5rem inset for untitled frames) style it identically to docs blocks. */
 
 .sl-kapa-codeblock pre {
 	margin: 0;
