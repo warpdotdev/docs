@@ -745,9 +745,20 @@ def _split_top_level_args(s: str) -> list[str]:
     return args
 
 
+def _is_route_registrar(name: str) -> bool:
+    """Whether a Go function name looks like a route-registration helper.
+
+    Matches both the exported `RegisterFooRoutes` entry points and unexported
+    helpers like `registerMCPDiscoveryRoutes`, which real handlers use to split
+    a large registration function up. Missing the unexported ones silently
+    dropped their routes from the audit universe.
+    """
+    return name.startswith(("Register", "register"))
+
+
 def _iter_register_calls(body: str):
-    """Yield (callee, start_pos, args) for Register*(...) calls, paren-matched."""
-    for match in re.finditer(r"\b(Register\w+)\(", body):
+    """Yield (callee, start_pos, args) for [Rr]egister*(...) calls, paren-matched."""
+    for match in re.finditer(r"\b([Rr]egister\w+)\(", body):
         start = match.end()
         depth = 1
         i = start
@@ -911,7 +922,7 @@ def parse_public_api_routes(warp_server: Path) -> list[dict]:
     # to hang off the /api/v1 group (conservative default so routes are never
     # silently dropped).
     for fn_name in sorted(analyzed):
-        if fn_name.startswith("Register") and fn_name not in emitted_fns:
+        if _is_route_registrar(fn_name) and fn_name not in emitted_fns:
             emit(fn_name, "/api/v1")
 
     routes = []
