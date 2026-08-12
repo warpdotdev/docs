@@ -6,6 +6,7 @@ description: >-
   development workflows.
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
 Warp integrations let your team trigger agents directly from the terminal, or from tools like [Slack](/platform/integrations/slack/), [Linear](/platform/integrations/linear/), [Jira](/platform/integrations/jira/), and [GitHub](/platform/integrations/github/). Once set up, agents can:
 
@@ -13,7 +14,7 @@ Warp integrations let your team trigger agents directly from the terminal, or fr
 * Run code inside your codebase in a remote environment
 * Open pull requests and perform other multi-step agent workflows on your behalf
 
-If you're deciding whether an agent should run from a schedule, Slack, Linear, GitHub, GitHub Actions, the Oz CLI, or the API, see [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
+If you're deciding whether an agent should run from a schedule, Slack, Linear, GitHub, GitHub Actions, the {VARS.WARP_AGENT_CLI}, or the API, see [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
 
 :::note
 Warp has two distinct GitHub surfaces. The [GitHub integration](/platform/integrations/github/) starts agents when someone mentions `@oz-agent` on an issue, pull request, or review comment, using the Oz by Warp GitHub App. [GitHub Actions](/platform/integrations/github-actions/) runs agents inside workflows you define in your own CI pipeline.
@@ -23,7 +24,7 @@ Warp has two distinct GitHub surfaces. The [GitHub integration](/platform/integr
 For a full walkthrough of Warp's integrations and configurable environments, see [Integration setup](/reference/cli/integration-setup/).
 :::
 
-All of this is powered by the [Oz CLI](/reference/cli/).
+All of this is powered by the [{VARS.WARP_AGENT_CLI}](/reference/cli/).
 
 ---
 
