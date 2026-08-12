@@ -6,6 +6,7 @@ description: >-
   Frequently asked questions about upgrading, managing billing, refunds, and
   invoicing with Warp's paid plans.
 ---
+import { VARS } from '@data/vars';
 
 ### How can I upgrade and subscribe to a Warp plan?
 
@@ -254,7 +255,7 @@ The waterfall on the owner's account is:
 
 When auto-reload is **off**, the request is blocked once both buckets are depleted. When auto-reload is **on**, cloud agent usage can trigger auto-reload on the owner's pool subject to the team-wide spend cap; further cloud agent runs then draw from that reloaded balance until the cap is reached.
 
-"Blocked" means the run fails immediately with an insufficient-credits error rather than queuing or retrying. For unattended runs (scheduled jobs, team-API-key triggers), this manifests as a failed run in the Oz dashboard with an [insufficient credits](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/) error code; the run won't be retried automatically. Owners should monitor the dashboard and configure spend caps with headroom for critical scheduled workloads.
+"Blocked" means the run fails immediately with an insufficient-credits error rather than queuing or retrying. For unattended runs (scheduled jobs, team-API-key triggers), this manifests as a failed run in the {VARS.DASHBOARD} with an [insufficient credits](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/) error code; the run won't be retried automatically. Owners should monitor the dashboard and configure spend caps with headroom for critical scheduled workloads.
 
 :::note
 Enterprise plans support team-scoped credit pools, so this traffic draws from the team pool rather than an individual admin. See [enterprise billing](/enterprise/support-and-resources/billing/) for overage and contract terms.
@@ -282,7 +283,7 @@ Warp doesn’t currently offer discounts for students or non-profits. We recomme
 
 For open source teams, two paths are available:
 
-* The [Oz Open Source Partnership](/support-and-community/community/open-source-partnership/) program offers free agent credits to high-impact open source projects.
+* The [{VARS.WARP_AUTOMATION_PLATFORM} Open Source Partnership](/support-and-community/community/open-source-partnership/) program offers free agent credits to high-impact open source projects.
 * Warp's client itself is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL), so you can build, run, and contribute to it directly. See [Contributing to Warp](/support-and-community/community/contributing/) for the flow.
 
 ### Where is Warp Drive data for my team stored?
@@ -347,7 +348,7 @@ For lighter-weight routing through any OpenAI-compatible endpoint (OpenRouter, L
 
 ### What features are available during multi-harness orchestration beta?
 
-Multi-harness orchestration is currently in beta and available to all users. You can use the [Warp Agent](/platform/harnesses/warp-agent/) alongside [Claude Code](/platform/harnesses/claude-code/) and [Codex](/platform/harnesses/codex/) in Oz cloud environments, and mix and match harnesses across workflows.
+Multi-harness orchestration is currently in beta and available to all users. You can use the [Warp Agent](/platform/harnesses/warp-agent/) alongside [Claude Code](/platform/harnesses/claude-code/) and [Codex](/platform/harnesses/codex/) in {VARS.WARP_AUTOMATION_PLATFORM} cloud environments, and mix and match harnesses across workflows.
 
 [Agent Memory](/agents/agent-memory/) is currently in Research Preview. It lets preferences, project knowledge, and learnings from past sessions carry across harnesses and future agent runs. [Contact our sales team](https://www.warp.dev/contact-sales) to request access.
 
