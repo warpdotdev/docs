@@ -105,7 +105,7 @@ function isRateLimited(clientIp: string) {
 export const POST: APIRoute = async ({ request }) => {
 	const supportHandoffEndpointUrl = SUPPORT_HANDOFF_ENDPOINT_URL?.trim() || '';
 	const supportHandoffSharedSecret = SUPPORT_HANDOFF_SHARED_SECRET?.trim() || '';
-	if (!supportHandoffEndpointUrl) {
+	if (!supportHandoffEndpointUrl || !supportHandoffSharedSecret) {
 		return jsonError('Support handoff is not configured.', 503);
 	}
 	if (!isAllowedRequestOrigin(request)) {
@@ -181,11 +181,9 @@ export const POST: APIRoute = async ({ request }) => {
 
 	const forwardHeaders: HeadersInit = {
 		'content-type': 'application/json',
+		authorization: `Bearer ${supportHandoffSharedSecret}`,
 		[captchaHeader]: captchaToken,
 	};
-	if (supportHandoffSharedSecret) {
-		forwardHeaders.authorization = `Bearer ${supportHandoffSharedSecret}`;
-	}
 
 	let upstreamResponse: Response;
 	try {
