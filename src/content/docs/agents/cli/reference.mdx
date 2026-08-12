@@ -124,6 +124,7 @@ Type `/` at the start of the input to open the slash command menu. Commands that
 | `/auto-approve` | | Toggle auto-approve for agent actions |
 | `/clear` | `[prompt]` | Clear the transcript and start a new conversation |
 | `/compact` | `[instructions]` | Free up context by summarizing the conversation history |
+| `/connect-grok` | | Connect an X Premium or SuperGrok subscription for Grok models |
 | `/conversations` | | Open conversation history |
 | `/copy-debugging-id` | | Copy the current conversation's debugging information to the clipboard |
 | `/cost` | | Toggle per-response credit usage details |
@@ -133,6 +134,7 @@ Type `/` at the start of the input to open the slash command menu. Commands that
 | `/export-to-file` | `[filename]` | Export the current conversation to a Markdown file |
 | `/handoff` | `[prompt]` | Hand off this conversation to a cloud agent |
 | `/logout` | | Log out of Warp |
+| `/manage-billing` | | Open your team's billing page in the browser |
 | `/mcp` | | View and manage MCP servers |
 | `/model` | | Switch the base agent model |
 | `/natural-language-detection` | | Toggle natural language detection for shell input |
@@ -141,9 +143,12 @@ Type `/` at the start of the input to open the slash command menu. Commands that
 | `/skills` | | Browse skills in scope and insert one into the input |
 | `/statusline` | | Configure the statusline |
 | `/theme` | `<auto\|light\|dark>` | Set the color theme |
+| `/upgrade` | | Open the Warp upgrade page in the browser |
 | `/version` | | Show the installed version |
 | `/view-logs` | | Bundle your logs into a zip archive |
 | `/voice` | | Start voice input |
+
+Some commands appear only when they apply to your account. `/manage-billing` is listed when you administer billing for your team, and opens that team's billing page; it isn't available to members without billing access. `/connect-grok` opens the same subscription row as [`/api-keys`](/agents/cli/models-and-usage/#bring-your-own-api-key) and starts the xAI sign-in directly.
 
 Skills also appear in the same menu under their own names, so you can invoke a skill directly as `/skill-name`. [Customizing the CLI](/agents/cli/configuration/) covers how skills are discovered.
 
