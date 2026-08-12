@@ -6,6 +6,7 @@ description: >-
 sidebar:
   label: "Deployment patterns"
 ---
+import { VARS } from '@data/vars';
 
 Teams adopt cloud agents in a few repeatable ways. This page outlines the most common architectures, what they're good for, and how they fit together.
 
@@ -46,9 +47,9 @@ Use this when you already have a system that schedules work (CI, dev boxes, inte
 #### What you still get even without Warp orchestration
 
 * Access to your shared Warp context (for example MCP config, Warp Drive context, rules/prompts).
-* Agent Session Sharing to monitor/steer runs.
+* [Agent Session Sharing](/agents/local-agents/session-sharing/) to monitor/steer runs.
 * Read-only APIs for tracking and reporting.
-* A path to “handoff” workflows (where a run can be continued or inspected in richer surfaces).
+* A path to [Handoff](/platform/handoff/) workflows (where a run can be continued or inspected in richer surfaces).
 
 #### Minimal setup checklist
 
@@ -81,16 +82,16 @@ Use this when you want Oz to run agent workloads on Warp-managed infrastructure,
 #### Common ways to trigger
 
 * **First-party integrations (Slack, Linear, etc.)** that create tasks automatically from external events.
-* **Scheduled agents** for recurring work (cron-like automation).
+* **[Scheduled agents](/platform/triggers/scheduled-agents/)** for recurring work (cron-like automation).
 * **Custom triggers** from your own systems using Warp’s API/SDK.
 * **On-demand cloud jobs** using CLI commands like `oz agent run-cloud`.
 
 #### Example recipe: daily dead-code cleanup
 
-1. Define an Oz Environment with the repo + toolchain.
-2. Create a schedule with a fixed prompt for cleanup.
+1. Define an Oz [Environment](/platform/environments/) with the repo + toolchain.
+2. Create a [schedule](/platform/triggers/scheduled-agents/) with a fixed prompt for cleanup.
 3. Oz runs the agent on the cadence.
-4. Your team monitors runs in the Oz dashboard, reviews artifacts (PRs, plans), and intervenes when needed.
+4. Your team monitors runs in the [{VARS.WEB_APP}](/platform/oz-web-app/) and [viewing cloud agent runs](/platform/viewing-cloud-agent-runs/), reviews artifacts (PRs, plans), and intervenes when needed.
 
 #### Example recipe: crash triage via Sentry webhook
 

@@ -167,7 +167,7 @@ export default defineConfig({
 					customSets: [
 						{ label: 'Terminal', description: 'Warp Terminal features and configuration.', paths: ['terminal/**'] },
 						{ label: 'Agents', description: 'Warp\'s agents: capabilities, local agents, and CLI agents.', paths: ['agents/**'] },
-						{ label: 'Warp Agent CLI', description: 'The Warp Agent CLI: agent conversations, shell commands, permissions, and configuration in any terminal.', paths: ['cli/**'] },
+						{ label: 'Warp Agent CLI', description: 'The Warp Agent CLI: agent conversations, shell commands, permissions, and configuration in any terminal.', paths: ['agents/cli/**'] },
 						{ label: 'Oz Platform', description: 'Warp\'s Oz platform: cloud agents, orchestration, triggers, integrations, environments, harnesses, and self-hosting.', paths: ['platform/**'] },
 						{ label: 'Code', description: 'Code editor, code review, and Git worktrees.', paths: ['code/**'] },
 						{ label: 'Enterprise', description: 'Enterprise features, SSO, team management, and security.', paths: ['enterprise/**'] },

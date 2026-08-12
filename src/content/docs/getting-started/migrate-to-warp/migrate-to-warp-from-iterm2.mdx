@@ -36,7 +36,7 @@ To run the importer:
 
 If the importer doesn't pick up something you care about, such as a non-default profile, an unusual keybinding, or a specific setting, ask Warp's Agent to translate it directly. Warp ships a [`settings.toml` file](/terminal/settings/) and a bundled `modify-settings` skill that lets the Agent read your iTerm2 plist and write equivalent values into Warp's settings.
 
-1. In the Warp app, switch to [Agent Mode](/agents/local-agents/overview/) with `⌘+I`.
+1. In the Warp app, switch to [Agent Mode](/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/) with `⌘+I`.
 2. Paste this prompt into Agent Mode, then press `Enter`.
 
    > Read my iTerm2 preferences with `defaults read com.googlecode.iterm2` and port any settings that the importer didn't cover (extra profiles, custom keybindings) into my Warp `settings.toml` using the `modify-settings` skill. Show me a diff before applying.

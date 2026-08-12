@@ -12,7 +12,7 @@ This guide takes you from installing the {VARS.WARP_CLI} to your first agent con
 ## Prerequisites
 
 * **A Warp account** - The login step opens your browser, where you can sign in or [create an account](https://app.warp.dev/signup). The CLI uses the same account as the Warp app, but doesn't require the app to be installed.
-* **A supported platform** - macOS, Linux, or Windows. See [supported platforms](/cli/#supported-platforms).
+* **A supported platform** - macOS, Linux, or Windows. See [supported platforms](/agents/cli/#supported-platforms).
 
 ## 1. Install the Warp Agent CLI
 
@@ -39,7 +39,7 @@ After installing, verify that the `warp` command is available:
 warp --version
 ```
 
-The command prints the installed version. From here on, the CLI updates automatically. See [automatic updates](/cli/#automatic-updates).
+The command prints the installed version. From here on, the CLI updates automatically. See [automatic updates](/agents/cli/#automatic-updates).
 
 ## 2. Log in
 
@@ -69,7 +69,7 @@ Type a prompt in plain language, such as `What does this project do?`, and press
 
 If the agent wants to run a command or edit a file, it shows a permission request. Choose an option to approve or reject the action.
 
-Learn more about the transcript, diffs, and approvals in [Agent conversations](/cli/agent-conversations/) and [Permissions and profiles](/cli/permissions-and-profiles/).
+Learn more about the transcript, diffs, and approvals in [Agent conversations](/agents/cli/agent-conversations/) and [Permissions and profiles](/agents/cli/permissions-and-profiles/).
 
 ## 4. Run a shell command
 
@@ -79,7 +79,7 @@ Type `!` at the start of an empty input to switch to shell mode. The footer show
 
 To run recognized shell commands without the `!` prefix, run `/natural-language-detection` to turn on natural language detection. The CLI then classifies input as you type: recognized commands switch to shell mode, while natural-language prompts stay in agent mode. The prompt marker and statusline show the active mode before you press `Enter`.
 
-See [Input and shell commands](/cli/input-and-shell-commands/) for long-running commands, interactive programs, and full-screen apps.
+See [Input and shell commands](/agents/cli/input-and-shell-commands/) for long-running commands, interactive programs, and full-screen apps.
 
 ## 5. Exit and resume
 
@@ -93,10 +93,10 @@ warp --resume CONVERSATION_TOKEN
 
 Run the printed command later to pick up where you left off.
 
-To browse and reopen past conversations from inside the CLI, see [Agent conversations](/cli/agent-conversations/#conversation-history).
+To browse and reopen past conversations from inside the CLI, see [Agent conversations](/agents/cli/agent-conversations/#conversation-history).
 
 ## Next steps
 
-* [Agent conversations](/cli/agent-conversations/) - Work with the transcript, code diffs, plans, and tasks.
-* [Customizing the CLI](/cli/configuration/) - Rules, skills, MCP servers, themes, and settings.
-* [Reference](/cli/reference/) - All flags, slash commands, and keyboard shortcuts.
+* [Agent conversations](/agents/cli/agent-conversations/) - Work with the transcript, code diffs, plans, and tasks.
+* [Customizing the CLI](/agents/cli/configuration/) - Rules, skills, MCP servers, themes, and settings.
+* [Reference](/agents/cli/reference/) - All flags, slash commands, and keyboard shortcuts.

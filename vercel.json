@@ -96,6 +96,16 @@
   ],
   "redirects": [
     {
+      "source": "/cli/",
+      "destination": "/agents/cli/",
+      "statusCode": 308
+    },
+    {
+      "source": "/cli/:path(.*)",
+      "destination": "/agents/cli/:path",
+      "statusCode": 308
+    },
+    {
       "source": "/agent-platform/",
       "destination": "/agents/",
       "statusCode": 308
