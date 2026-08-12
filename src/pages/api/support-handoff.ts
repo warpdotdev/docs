@@ -179,15 +179,20 @@ export const POST: APIRoute = async ({ request }) => {
 		source: 'docs-kapa-custom-chat',
 	};
 
+	// DevX `gcp_front_docs_handoff` validates the shared secret the same way
+	// Front webhooks do: as a `?secret=` query param (see
+	// helper_flask.validate_front_webhook_secret). Bearer alone is ignored.
+	const upstreamUrl = new URL(supportHandoffEndpointUrl);
+	upstreamUrl.searchParams.set('secret', supportHandoffSharedSecret);
+
 	const forwardHeaders: HeadersInit = {
 		'content-type': 'application/json',
-		authorization: `Bearer ${supportHandoffSharedSecret}`,
 		[captchaHeader]: captchaToken,
 	};
 
 	let upstreamResponse: Response;
 	try {
-		upstreamResponse = await fetch(supportHandoffEndpointUrl, {
+		upstreamResponse = await fetch(upstreamUrl.toString(), {
 			method: 'POST',
 			headers: forwardHeaders,
 			body: JSON.stringify(forwardPayload),
