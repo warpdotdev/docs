@@ -508,7 +508,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'CLI',
 					items: [
-						{ slug: 'reference/cli', label: 'Oz CLI' },
+						{ slug: 'reference/cli', label: 'Oz CLI (legacy)' },
 						{ slug: 'reference/cli/quickstart', label: 'Quickstart' },
 						{ slug: 'reference/cli/api-keys', label: 'API Keys' },
 						{ slug: 'reference/cli/agent-profiles', label: 'Agent Profiles' },
