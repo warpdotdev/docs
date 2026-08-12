@@ -1,37 +1,32 @@
 ---
 title: Agents overview
 description: >-
-  The Warp Agent writes code, debugs issues, and runs commands. Use it in the
-  Warp app, in any terminal with the CLI, or in the cloud.
+  Warp's coding agent runs commands in a real terminal, carries your context
+  across every surface, and works interactively or in the background.
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-The **Warp Agent** is Warp's built-in coding agent. It reads your codebase, follows your rules and skills, and asks for approval before it acts, and you can run it in the Warp app, in any terminal, or in the cloud.
+The **Warp Agent** is Warp's built-in coding agent. It works where your code already runs: it executes commands in a real terminal, reads the output, and keeps going until the task is done. You stay in the loop, approving actions and reviewing diffs before anything lands.
 
 ---
 
 ## Where to use the Warp Agent
 
-You can reach the same agent three ways. The method you pick depends on where you're working, not on what the agent can do.
+You reach the same agent three ways. Which one you pick depends on where you're working, not on what the agent can do.
 
-* **In the Warp app** - The full experience, with code review, agent management, and the terminal alongside your conversation. This page covers it.
-* [**In any terminal, with the Warp Agent CLI**](/agents/cli/) - Run the `warp` command to start an agent conversation in any terminal emulator, over SSH, or on a machine where the Warp app isn't installed.
-* [**In the cloud, as a cloud agent**](/platform/) - Run the agent in the background from a trigger, a schedule, or an integration, without keeping a session open. Ideal for PR reviews, issue triage, and routine maintenance.
-
-Your account, plan, model access, rules, and skills carry across all three, and conversations sync to your Warp account so you can move between them.
+* **In the Warp app** - The full experience, with code review, agent management, and the terminal beside your conversation.
+* [**In any terminal, with the Warp Agent CLI**](/agents/cli/) - Run the `warp` command to start a conversation in any terminal emulator, over SSH, or on a machine where the Warp app isn't installed.
+* [**In the cloud, as a cloud agent**](/platform/) - Run the agent in the background from a trigger, a schedule, or an integration, without keeping a session open. Cloud agents run on [Oz](/platform/overview/), Warp's platform for environments, triggers, orchestration, and observability.
 
 ---
 
-## What agents can do
+## What makes the Warp Agent different
 
-Agents understand your codebase and can execute tasks autonomously while keeping you in control:
-
-* **Write and edit code** - Create new files, refactor existing code, or make changes across multiple files in your codebase
-* **Debug and fix errors** - Analyze stack traces, interpret error output, and apply fixes
-* **Run commands** - Execute shell commands and use the output to guide next steps
-* **Recover from errors** - Automatically retry failed operations with adjustments
-* **Learn tools** - Integrate with any CLI tool by reading its `--help` or public documentation
-* **Use your context** - Leverage [Warp Drive](/knowledge-and-collaboration/warp-drive/), [MCP servers](/agents/capabilities/mcp/), [Rules](/agents/capabilities/rules/), and [codebase indexing](/agents/capabilities/codebase-context/) for tailored responses
+* **It works in a real terminal** - The agent runs shell commands, reads live output, and drives interactive programs like REPLs, database shells, and full-screen apps. See [Full terminal use](/agents/capabilities/full-terminal-use/).
+* **Your context follows it everywhere** - [Rules](/agents/capabilities/rules/), [Skills](/agents/capabilities/skills/), [MCP servers](/agents/capabilities/mcp/), and [Codebase Context](/agents/capabilities/codebase-context/) apply the same way in the app, the CLI, and the cloud.
+* **Interactive or delegated, and you can switch mid-task** - Steer a conversation while it runs, or [hand it off](/platform/handoff/) to a cloud agent and pick it back up locally when it's done.
+* **You approve before anything lands** - The agent asks before it runs commands, edits files, or calls MCP servers. Set how much it does on its own with [Agent Profiles and permissions](/agents/capabilities/agent-profiles-permissions/), and review generated changes in [interactive code review](/agents/local-agents/interactive-code-review/).
+* **Many agents at once** - Run several conversations in parallel and track them in the [Agent Management Panel](/platform/managing-cloud-agents/), or use [orchestration](/platform/orchestration/) to have a parent agent spawn and coordinate children.
 
 <VideoEmbed url="https://youtu.be/qiQtD1jPF6s" title="Agent Mode Overview" />
 
@@ -44,42 +39,6 @@ Then, clone the official Warp themes repository using SSH (git@github.com:warpdo
 ```
 ---
 
-## Controlling what the agent does
-
-The agent asks for approval before it runs commands, edits files, or calls MCP servers. How much it does on its own is set by **Agent Profiles** in **Settings** > **Agents** > **Profiles**, where each action type can be set to let the agent decide, always ask, always allow, or never. Profiles also hold a command allowlist and denylist.
-
-→ [Agent Profiles & Permissions](/agents/capabilities/agent-profiles-permissions/)
-
-:::note
-Warp's AI features can be globally disabled in **Settings** > **Agents** > **Warp Agent** with the AI toggle.\
-\
-These features send input data to various LLM providers through their API. Warp is **SOC 2 compliant** and has **Zero Data Retention** policies with all contracted LLM providers. No customer AI data is retained, stored, or used for training. Read more about data privacy for Warp features [on our privacy page](https://www.warp.dev/privacy).
-:::
-
----
-
-## Managing agents
-
-You can run multiple agents simultaneously in Warp. All active agents—both local conversations and cloud agent runs—are tracked in the [management view](/platform/managing-cloud-agents/).
-
-Agents notify you when they need input, such as permission to run a command or approval to apply a code diff. This lets you focus on other work, knowing you'll be alerted when your attention is required.
-
-To access conversations across devices, share them with teammates, or restore past conversations, enable [cloud-synced conversations](/agents/local-agents/cloud-conversations/).
-
----
-
-## Context and knowledge
-
-Agents work best when they understand your codebase and workflows. Warp provides several ways to give agents the context they need:
-
-* [**Codebase Context**](/agents/capabilities/codebase-context/) - Warp indexes your Git-tracked files so agents can search and understand your code
-* [**Rules**](/agents/capabilities/rules/) - Define global and project-level guidelines that shape agent behavior
-* [**Skills**](/agents/capabilities/skills/) - Reusable instructions that teach agents how to perform specific tasks
-* [**MCP Servers**](/agents/capabilities/mcp/) - Connect external tools and data sources (GitHub, Linear, databases) to your agents
-* [**Warp Drive**](/knowledge-and-collaboration/warp-drive/) - Save prompts, workflows, and notebooks that agents can reference
-
----
-
 ## Third-party CLI agents
 
 Separately from the Warp Agent, Warp gives third-party CLI coding agents first-class support. Run Claude Code, Codex, OpenCode, and others inside Warp and get rich input, agent notifications, inline code review, and remote session control.
@@ -88,25 +47,16 @@ Separately from the Warp Agent, Warp gives third-party CLI coding agents first-c
 
 ---
 
-## The platform behind the agent
-
-[**Oz**](/platform/overview/) is Warp's programmable platform for running and coordinating agents at scale. It provides the environments, triggers, integrations, orchestration, and observability that cloud agents run on, along with a CLI, API, and SDK for driving agents programmatically.
-
-The Oz tab covers the platform in full.
-
----
-
-## Next steps
+## Where to go next
 
 * [**Interacting with agents**](/agents/local-agents/interacting-with-agents/) - Conversations, context, code review, and voice in the Warp app.
-* [**Agent capabilities**](/agents/capabilities/) - Skills, planning, rules, MCP servers, task lists, and model choice.
-* [**Warp Agent CLI quickstart**](/agents/cli/quickstart/) - Install the CLI and run your first agent conversation.
-* [**Cloud agents quickstart**](/platform/quickstart/) - Run your first agent in the cloud.
-* [**Running agents on a schedule**](/platform/triggers/scheduled-agents/) - Hand recurring work to a cloud agent. For a comparison of triggers across schedules, Slack, Linear, GitHub Actions, the CLI, and the API, see [Run unattended agents](/guides/agent-workflows/how-to-run-unattended-agents/).
-* [**Agent FAQs**](/agents/getting-started/faqs/) - Common questions about models, privacy, and limits.
+* [**Agent capabilities**](/agents/capabilities/) - Planning, skills, rules, MCP servers, task lists, and model choice.
+* [**Warp Agent CLI quickstart**](/agents/cli/quickstart/) - Install the CLI and run your first conversation.
+* [**Cloud agents quickstart**](/platform/quickstart/) - Run your first agent in the cloud, or put one on a [schedule](/platform/triggers/scheduled-agents/). For a comparison of triggers across schedules, Slack, Linear, GitHub Actions, the CLI, and the API, see [Run unattended agents](/guides/agent-workflows/how-to-run-unattended-agents/).
+* [**Agent FAQs**](/agents/getting-started/faqs/) - Models, privacy, credits, and limits.
 
 ---
 
 ## Open source
 
-Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL), so the editor and terminal that host your agents are fully auditable. See [Contributing to Warp](/support-and-community/community/contributing/) for the source and contribution flow.
+Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL), so the editor and terminal that host your agents are fully auditable. See [Contributing to Warp](/support-and-community/community/contributing/).
