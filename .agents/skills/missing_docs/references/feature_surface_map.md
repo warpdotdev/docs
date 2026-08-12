@@ -323,11 +323,18 @@ POST /oauth/token -> internal
 GET /oauth/jwks.json -> internal
 GET /.well-known/openid-configuration -> internal
 
-# The RFC 8414 / RFC 9728 OAuth discovery documents
-# (GET /.well-known/oauth-authorization-server and
-# GET /.well-known/oauth-protected-resource/api/v1/mcp/factory) are no longer
-# registered as public API routes in warp-server, so their map entries were
-# pruned. They were never a documentable public surface.
+# RFC 8414 / RFC 9728 OAuth discovery documents that MCP clients fetch
+# automatically before authenticating against the hosted Factory MCP endpoint
+# (router/handlers/public_api/oauth2.go, registered by registerMCPDiscoveryRoutes
+# only when the dogfood-only factory_mcp flag is on). They are machine-facing
+# protocol metadata for an unreleased product, absent from warp-server's
+# canonical public spec, so they are not a documentable public API surface. The
+# path-suffixed variants implement RFC 8414 section 5 path-aware discovery for
+# the /api/v1/mcp/factory resource.
+GET /.well-known/oauth-authorization-server -> internal
+GET /.well-known/oauth-authorization-server/api/v1/mcp/factory -> internal
+GET /.well-known/openid-configuration/api/v1/mcp/factory -> internal
+GET /.well-known/oauth-protected-resource/api/v1/mcp/factory -> internal
 
 # OAuth consent screen, connected-apps (grant) management, token revocation, and
 # RFC 7591 dynamic client registration backing the MCP harness OAuth flows
@@ -439,6 +446,19 @@ GET /factory/{uid}/integrations/linear/users -> internal
 GET /factory/{uid}/integrations/linear/workflow-states -> internal
 GET /factory/{uid}/integrations/slack/conversations -> internal
 GET /factory/{uid}/integrations/slack/users -> internal
+# Factory benchmark suites and benchmark runs
+# (router/handlers/public_api/benchmarks.go). Same unreleased Factory product as
+# the routes above, and absent from warp-server's canonical public spec.
+GET /factory/{uid}/benchmarks/suites -> internal
+POST /factory/{uid}/benchmarks/suites -> internal
+GET /factory/{uid}/benchmarks/suites/{suite_uid} -> internal
+PATCH /factory/{uid}/benchmarks/suites/{suite_uid} -> internal
+DELETE /factory/{uid}/benchmarks/suites/{suite_uid} -> internal
+POST /factory/{uid}/benchmarks/suites/{suite_uid}/runs -> internal
+GET /factory/{uid}/benchmarks/runs -> internal
+GET /factory/{uid}/benchmarks/runs/{run_uid} -> internal
+GET /factory/{uid}/benchmarks/runs/{run_uid}/results -> internal
+POST /factory/{uid}/benchmarks/runs/{run_uid}/cancel -> internal
 
 # Orchestration messaging and lifecycle-event endpoints. These are marked
 # `x-internal: true` in warp-server's canonical spec (public_api/openapi.yaml),
