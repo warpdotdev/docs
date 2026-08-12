@@ -96,12 +96,7 @@
   ],
   "redirects": [
     {
-      "source": "/platform/software-factory/",
-      "destination": "/factories/",
-      "statusCode": 308
-    },
-    {
-      "source": "/platform/software-factory",
+      "source": "/platform/software-factory/?",
       "destination": "/factories/",
       "statusCode": 308
     },
