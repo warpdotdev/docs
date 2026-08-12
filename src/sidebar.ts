@@ -1,4 +1,5 @@
 import type { StarlightSidebarTopicsUserConfig } from 'starlight-sidebar-topics';
+import { VARS } from './data/vars';
 
 /**
  * Top-level sidebar topics, one per "tab" the docs site exposes.
@@ -374,12 +375,17 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			link: '/factories/',
 			icon: 'server',
 			items: [
-				{ slug: 'factories', label: 'Overview' },
-				{ slug: 'factories/quickstart', label: 'Quickstart' },
-				{ slug: 'factories/how-factories-work', label: 'How Factories work' },
-				{ slug: 'factories/configure-your-factory', label: 'Configure your Factory' },
-				{ slug: 'factories/connect-your-factory', label: 'Connect your Factory' },
-				{ slug: 'factories/infrastructure-and-security', label: 'Infrastructure & security' },
+				{
+					label: 'Factories',
+					items: [
+						{ slug: 'factories', label: 'Overview' },
+						{ slug: 'factories/quickstart', label: 'Quickstart' },
+						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
+						{ slug: 'factories/configure-your-factory', label: 'Configure your Factory' },
+						{ slug: 'factories/connect-your-factory', label: 'Connect your Factory' },
+						{ slug: 'factories/infrastructure-and-security', label: 'Infrastructure & security' },
+					],
+				},
 			],
 		},
 		{
@@ -496,7 +502,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/skills-as-agents', label: 'Skills as agents' },
 						{ slug: 'platform/mcp', label: 'MCP servers' },
 						'platform/secrets',
-						{ label: 'Oz API & SDK reference', link: '/reference/api-and-sdk/' },
+						{ label: `${VARS.API_SDK_NAME} reference`, link: '/reference/api-and-sdk/' },
 					],
 				},
 			],
@@ -510,7 +516,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'CLI',
 					items: [
-						{ slug: 'reference/cli', label: 'Oz CLI (legacy)' },
+						{ slug: 'reference/cli', label: `${VARS.WARP_AGENT_CLI} (legacy)` },
 						{ slug: 'reference/cli/quickstart', label: 'Quickstart' },
 						{ slug: 'reference/cli/api-keys', label: 'API Keys' },
 						{ slug: 'reference/cli/agent-profiles', label: 'Agent Profiles' },
