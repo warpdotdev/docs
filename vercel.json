@@ -96,6 +96,16 @@
   ],
   "redirects": [
     {
+      "source": "/platform/software-factory/",
+      "destination": "/factories/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/software-factory",
+      "destination": "/factories/",
+      "statusCode": 308
+    },
+    {
       "source": "/cli/",
       "destination": "/agents/cli/",
       "statusCode": 308

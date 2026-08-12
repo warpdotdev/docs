@@ -39,7 +39,7 @@ PROPER_FEATURE_NAMES = {
     "Codebase Context", "Code Review", "Command Palette", "Global Rules",
     "Oz CLI", "Oz Platform", "Project Rules",
     "Slash Commands", "Terminal Mode", "Universal Input", "Warp Drive",
-    "Warp Platform",
+    "Warp Platform", "Automation Platform", "Warp Factories", "Factory MCP",
 }
 
 # Terminology: wrong → right (case-sensitive checks)
@@ -83,6 +83,9 @@ RENAME_SENSITIVE_VAR_STRINGS: List[Tuple[str, str, str]] = [
     ("oz.warp.dev",  "WEB_APP_URL",              "{VARS.WEB_APP_URL} in prose or {{WEB_APP_URL}} in frontmatter"),
     ("Oz dashboard", "DASHBOARD",                "{VARS.DASHBOARD} in prose or {{DASHBOARD}} in frontmatter"),
     ("Oz run",       "PLATFORM_RUN",             "{VARS.PLATFORM_RUN} in prose or {{PLATFORM_RUN}} in frontmatter"),
+    ("Oz API & SDK", "API_SDK_NAME",             "{VARS.API_SDK_NAME} in prose or {{API_SDK_NAME}} in frontmatter"),
+    ("Oz Platform",  "WARP_AUTOMATION_PLATFORM", "{VARS.WARP_AUTOMATION_PLATFORM} in prose or {{WARP_AUTOMATION_PLATFORM}} in frontmatter"),
+    ("Oz",           "WARP_AUTOMATION_PLATFORM", "{VARS.WARP_AUTOMATION_PLATFORM} in prose or {{WARP_AUTOMATION_PLATFORM}} in frontmatter"),
 ]
 
 # Oz terms to avoid (case-insensitive patterns)
@@ -890,9 +893,14 @@ def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
 
     Skips fenced code blocks and inline code spans so that CLI examples like
     `oz.warp.dev` in a code fence are not flagged.
+
+    Literals are checked longest-first and matches are deduplicated by span so
+    a specific match (e.g. "Oz Platform", "Oz CLI") doesn't also get re-flagged
+    by the more general bare "Oz" entry for the same occurrence.
     """
     issues = []
     in_code_block = False
+    sorted_strings = sorted(RENAME_SENSITIVE_VAR_STRINGS, key=lambda entry: -len(entry[0]))
     for i, line in enumerate(lines, 1):
         if line.strip().startswith("```"):
             in_code_block = not in_code_block
@@ -901,8 +909,18 @@ def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
             continue
         # Strip inline code spans so backtick-wrapped references are not flagged
         prose_line = re.sub(r"`[^`]+`", "", line)
-        for literal, var_key, suggestion in RENAME_SENSITIVE_VAR_STRINGS:
-            if literal in prose_line:
+        matched_spans: List[Tuple[int, int]] = []
+        for literal, var_key, suggestion in sorted_strings:
+            start = 0
+            while True:
+                idx = prose_line.find(literal, start)
+                if idx == -1:
+                    break
+                span = (idx, idx + len(literal))
+                start = idx + 1
+                if any(span[0] >= s and span[1] <= e for s, e in matched_spans):
+                    continue
+                matched_spans.append(span)
                 issues.append(Issue(
                     filepath, i, "hardcoded-var",
                     f'Hardcoded "{literal}" should use {suggestion} (see src/data/vars.ts)',

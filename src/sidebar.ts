@@ -368,31 +368,79 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			],
 		},
 		{
-			label: 'Oz',
+			// New for the 8/18 Warp Factories soft launch. Stub pages live at
+			// src/content/docs/factories/ pending content from HYC/content team.
+			label: 'Factories',
+			link: '/factories/',
+			icon: 'server',
+			items: [
+				{ slug: 'factories', label: 'Overview' },
+				{ slug: 'factories/quickstart', label: 'Quickstart' },
+				{ slug: 'factories/how-factories-work', label: 'How Factories work' },
+				{ slug: 'factories/configure-your-factory', label: 'Configure your Factory' },
+				{ slug: 'factories/connect-your-factory', label: 'Connect your Factory' },
+				{ slug: 'factories/infrastructure-and-security', label: 'Infrastructure & security' },
+			],
+		},
+		{
+			// Relabeled from 'Oz' for the 8/18 launch (HYC's IA doc, pending final
+			// ZL naming sign-off -- see .agents/references/terminology.md). Reorganized
+			// from 10 subsections into HYC's 6-group IA; all page slugs unchanged.
+			label: 'Automation Platform',
 			link: '/platform/',
 			icon: 'cloud-download',
 			items: [
 				{ slug: 'platform', label: 'Cloud agents overview' },
 				{
-					label: 'Getting started',
+					label: 'Cloud Agents',
 					items: [
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
 						{ slug: 'platform/overview', label: 'Oz platform' },
+						{ slug: 'platform/managing-cloud-agents', label: 'Managing cloud agents' },
+						{ slug: 'platform/agents', label: 'Agents' },
+						{ slug: 'platform/viewing-cloud-agent-runs', label: 'Viewing cloud agent runs' },
+						{
+							label: 'Handoff',
+							collapsed: true,
+							items: [
+								{ slug: 'platform/handoff', label: 'Overview' },
+								{ slug: 'platform/handoff/local-to-cloud', label: 'Local to cloud' },
+								{ slug: 'platform/handoff/cloud-to-cloud', label: 'Cloud to cloud' },
+								{ slug: 'platform/handoff/snapshots', label: 'Snapshots' },
+							],
+						},
+						{
+							label: 'Harnesses',
+							collapsed: true,
+							items: [
+								{ slug: 'platform/harnesses', label: 'Overview' },
+								{ slug: 'platform/harnesses/warp-agent', label: 'Warp Agent' },
+								{ slug: 'platform/harnesses/claude-code', label: 'Claude Code' },
+								{ slug: 'platform/harnesses/codex', label: 'Codex' },
+								{ slug: 'platform/harnesses/authentication', label: 'Authentication' },
+							],
+						},
+						{ slug: 'platform/team-access-billing-and-identity', label: 'Access, billing, and identity' },
+						{ slug: 'platform/faqs', label: 'Cloud agent FAQs' },
 					],
 				},
 				{
-					label: 'Triggers',
+					label: 'Environments',
 					items: [
-						{ slug: 'platform/triggers', label: 'Overview' },
-						{ slug: 'platform/triggers/scheduled-agents-quickstart', label: 'Quickstart' },
-						{ slug: 'platform/triggers/scheduled-agents', label: 'Scheduled agents' },
+						'platform/environments',
+						{ slug: 'platform/runners', label: 'Runners' },
 					],
 				},
 				{
+					// Triggers merged into Integrations here (mirrors the unmerged prior
+					// art in rrenk/ia-restructure-prototype).
 					label: 'Integrations',
 					items: [
-						{ slug: 'platform/integrations', label: 'Overview' },
-						{ slug: 'platform/integrations/quickstart', label: 'Quickstart' },
+						{ slug: 'platform/triggers', label: 'Triggers overview' },
+						{ slug: 'platform/triggers/scheduled-agents-quickstart', label: 'Scheduled agents quickstart' },
+						{ slug: 'platform/triggers/scheduled-agents', label: 'Scheduled agents' },
+						{ slug: 'platform/integrations', label: 'Integrations overview' },
+						{ slug: 'platform/integrations/quickstart', label: 'Integrations quickstart' },
 						'platform/integrations/slack',
 						'platform/integrations/linear',
 						'platform/integrations/jira',
@@ -412,79 +460,41 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Managing agents',
-					items: [
-						'platform/environments',
-						{ slug: 'platform/runners', label: 'Runners' },
-						{ slug: 'platform/managing-cloud-agents', label: 'Managing cloud agents' },
-						{ slug: 'platform/agents', label: 'Agents' },
-						{ slug: 'platform/viewing-cloud-agent-runs', label: 'Viewing cloud agent runs' },
-						{ slug: 'platform/oz-web-app', label: 'Oz web app' },
-					],
-				},
-				{
 					label: 'Orchestration',
 					items: [
 						{ slug: 'platform/orchestration', label: 'Multi-agent orchestration' },
 						{ slug: 'platform/orchestration/multi-agent-runs', label: 'Running orchestrated agents' },
-						{ slug: 'platform/software-factory', label: 'Software factory' },
 					],
 				},
 				{
-					label: 'Handoff',
+					// Deployment & hosting flattened into Self-hosting (avoids a redundant
+					// nested 'Self-hosting > Self-hosting' group).
+					label: 'Self-hosting',
 					items: [
-						{ slug: 'platform/handoff', label: 'Overview' },
-						{ slug: 'platform/handoff/local-to-cloud', label: 'Local to cloud' },
-						{ slug: 'platform/handoff/cloud-to-cloud', label: 'Cloud to cloud' },
-						{ slug: 'platform/handoff/snapshots', label: 'Snapshots' },
+						{ slug: 'platform/deployment-patterns', label: 'Deployment patterns' },
+						{ slug: 'platform/warp-hosting', label: 'Warp-hosted agents' },
+						{ slug: 'platform/self-hosting', label: 'Overview' },
+						{ slug: 'platform/self-hosting/quickstart', label: 'Quickstart' },
+						{ slug: 'platform/self-hosting/managed-docker', label: 'Managed: Docker' },
+						{ slug: 'platform/self-hosting/managed-kubernetes', label: 'Managed: Kubernetes' },
+						{ slug: 'platform/self-hosting/managed-direct', label: 'Managed: Direct' },
+						{ slug: 'platform/self-hosting/unmanaged', label: 'Unmanaged' },
+						'platform/self-hosting/monitoring',
+						{ slug: 'platform/self-hosting/reference', label: 'Self-hosted worker reference' },
+						'platform/self-hosting/security-and-networking',
+						{ slug: 'platform/self-hosting/troubleshooting', label: 'Troubleshooting' },
 					],
 				},
 				{
-					label: 'Harnesses',
-					items: [
-						{ slug: 'platform/harnesses', label: 'Overview' },
-						{ slug: 'platform/harnesses/warp-agent', label: 'Warp Agent' },
-						{ slug: 'platform/harnesses/claude-code', label: 'Claude Code' },
-						{ slug: 'platform/harnesses/codex', label: 'Codex' },
-						{ slug: 'platform/harnesses/authentication', label: 'Authentication' },
-					],
-				},
-				{
-					label: 'Extending agents',
+					// PROPOSED, pending HYC confirmation: 'Extending agents' (skills, MCP,
+					// secrets) grouped here alongside a cross-link to the Reference tab's
+					// full API & SDK docs, rather than duplicating that content.
+					label: 'API / SDK',
 					items: [
 						{ slug: 'platform/skills-as-agents', label: 'Skills as agents' },
 						{ slug: 'platform/mcp', label: 'MCP servers' },
 						'platform/secrets',
-					],
-				},
-				{
-					label: 'Deployment & hosting',
-					items: [
-						{ slug: 'platform/deployment-patterns', label: 'Deployment patterns' },
-						{ slug: 'platform/warp-hosting', label: 'Warp-hosted agents' },
-						{
-							label: 'Self-hosting',
-							collapsed: true,
-							items: [
-								{ slug: 'platform/self-hosting', label: 'Overview' },
-								{ slug: 'platform/self-hosting/quickstart', label: 'Quickstart' },
-								{ slug: 'platform/self-hosting/managed-docker', label: 'Managed: Docker' },
-								{ slug: 'platform/self-hosting/managed-kubernetes', label: 'Managed: Kubernetes' },
-								{ slug: 'platform/self-hosting/managed-direct', label: 'Managed: Direct' },
-								{ slug: 'platform/self-hosting/unmanaged', label: 'Unmanaged' },
-								'platform/self-hosting/monitoring',
-								{ slug: 'platform/self-hosting/reference', label: 'Self-hosted worker reference' },
-								'platform/self-hosting/security-and-networking',
-								{ slug: 'platform/self-hosting/troubleshooting', label: 'Troubleshooting' },
-							],
-						},
-					],
-				},
-				{
-					label: 'Access & support',
-					items: [
-						{ slug: 'platform/team-access-billing-and-identity', label: 'Access, billing, and identity' },
-						{ slug: 'platform/faqs', label: 'Cloud agent FAQs' },
+						{ label: 'Oz API & SDK reference', link: '/reference/api-and-sdk/' },
 					],
 				},
 			],
