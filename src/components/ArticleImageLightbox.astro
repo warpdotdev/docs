@@ -172,7 +172,16 @@
 		};
 
 		const onLightboxClick = (event: MouseEvent) => {
-			if (event.target === lightbox) close();
+			// The content wrapper fills the dialog, so its empty top and bottom
+			// areas are visually backdrop even though they are not the dialog
+			// element itself. Only the image, close control, and fallback count
+			// as lightbox content that must not dismiss the dialog.
+			const path = event.composedPath();
+			const clickedLightboxContent = path.some(
+				(target) =>
+					target === expandedImage || target === closeButton || target === fallback
+			);
+			if (!clickedLightboxContent) close();
 		};
 		const onLightboxCancel = (event: Event) => {
 			event.preventDefault();
