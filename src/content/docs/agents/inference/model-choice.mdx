@@ -73,6 +73,7 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 | Claude Opus 5 | `claude-5-opus-low` | Low effort |
 | Claude Opus 5 | `claude-5-opus-medium` | Medium effort |
 | Claude Opus 5 | `claude-5-opus-xhigh` | Extra high effort |
+| Claude Opus 5 | `claude-5-opus-xhigh-fast` | Fast mode |
 | Claude Opus 5 | `claude-5-opus-max` | Max effort |
 | Claude Fable 5 | `claude-5-fable-high` | Default effort |
 | Claude Fable 5 | `claude-5-fable-low` | Low effort |
@@ -113,12 +114,17 @@ Anthropic requires data retention for Claude Fable 5 for safety, abuse monitorin
 | Model | `model_id` |
 | --- | --- |
 | Gemini 3.1 Pro | `gemini-3.1-pro` |
+| Gemini 3.6 Flash | `gemini-3.6-flash` |
 | Gemini 3.5 Flash | `gemini-3.5-flash` |
 
 #### xAI
 
 | Model | `model_id` | Reasoning Level |
 | --- | --- | --- |
+| Grok 4.6 | `grok-4-6-low` | Low |
+| Grok 4.6 | `grok-4-6-medium` | Medium |
+| Grok 4.6 | `grok-4-6-high` | High |
+| Grok 4.6 | `grok-4-6-xhigh` | Extra High |
 | Grok 4.5 | `grok-4-5-low` | Low |
 | Grok 4.5 | `grok-4-5-medium` | Medium |
 | Grok 4.5 | `grok-4-5-high` | High |
@@ -128,6 +134,12 @@ Anthropic requires data retention for Claude Fable 5 for safety, abuse monitorin
 | Grok Build 0.1 | `grok-build-0.1` | — |
 
 You can run Grok models through your own SuperGrok subscription instead of Warp credits by connecting your xAI account. See [SuperGrok subscription](/agents/inference/grok-subscription/).
+
+#### Meta
+
+| Model | `model_id` |
+| --- | --- |
+| Muse Spark 1.2 | `muse-spark-1.2` |
 
 #### Hosted models (via [Fireworks AI](https://fireworks.ai))
 
@@ -144,6 +156,8 @@ Warp also supports leading open source models hosted via Fireworks AI, so you ca
 | Qwen 3.7 Plus | `qwen-3.7-plus-fireworks` |
 | Qwen 3.6 Plus | `qwen-3.6-plus-fireworks` |
 | DeepSeek V4 Pro | `deepseek-v4-pro-fireworks` |
+| GPT-OSS 120B | `gpt-oss-120b-fireworks` |
+| Inkling | `inkling-fireworks` |
 
 ### How to change models
 
