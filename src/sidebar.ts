@@ -575,18 +575,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 			],
 		},
-		{
-			// Link-only topic: navigates straight to the standalone Scalar API
-			// reference at `/api`. Uses the plugin's `sidebarTopicLinkSchema`
-			// shape (no `items`) since `/api` isn't a Starlight route and
-			// doesn't have a per-topic sidebar tree. The `seti:json` icon is a
-			// graceful fallback for the mobile drawer; the desktop
-			// `WarpTopicNav` overrides this with a custom `</>` inline SVG via
-			// its `CUSTOM_TOPIC_ICONS` map.
-			label: 'API',
-			link: '/api',
-			icon: 'seti:json',
-		},
 	{
 		label: 'Changelog',
 		link: '/changelog/2026/',
