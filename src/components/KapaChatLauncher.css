@@ -47,6 +47,209 @@
 	align-items: center;
 	gap: 0.5rem;
 }
+.sl-kapa-mcp-connect__trigger {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.375rem;
+	min-height: 2rem;
+	padding: 0.375rem 0.625rem;
+	border: 1px solid color-mix(in srgb, var(--sl-color-text-accent), var(--warp-control-border) 48%);
+	border-radius: var(--sl-radius-sm);
+	background: color-mix(in srgb, var(--sl-color-text-accent), var(--warp-control-bg) 88%);
+	color: var(--sl-color-text-accent);
+	font: inherit;
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	line-height: 1.2;
+	white-space: nowrap;
+	cursor: pointer;
+	transition:
+		border-color 0.15s ease,
+		background-color 0.15s ease,
+		color 0.15s ease;
+}
+
+.sl-kapa-mcp-connect__trigger svg {
+	width: 0.875rem;
+	height: 0.875rem;
+	flex: none;
+}
+
+.sl-kapa-mcp-connect__trigger:hover,
+.sl-kapa-mcp-connect__trigger[data-state='open'] {
+	border-color: var(--sl-color-text-accent);
+	background: color-mix(in srgb, var(--sl-color-text-accent), var(--warp-control-bg) 78%);
+	color: var(--sl-color-white);
+}
+
+.sl-kapa-mcp-connect__trigger:focus-visible,
+.sl-kapa-mcp-connect__action:focus-visible,
+.sl-kapa-mcp-connect__url:focus-visible {
+	outline: 2px solid var(--sl-color-accent-high);
+	outline-offset: 2px;
+}
+
+.sl-kapa-mcp-connect {
+	width: min(24rem, calc(100vw - 1.5rem));
+	max-width: var(--radix-popover-content-available-width);
+	max-height: var(--radix-popover-content-available-height);
+	padding: 0.875rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: var(--sl-radius-lg);
+	background: color-mix(in srgb, var(--sl-color-black), var(--sl-color-gray-6) 18%);
+	box-shadow: var(--sl-shadow-lg);
+	color: var(--sl-color-gray-2);
+	overflow-y: auto;
+	z-index: 20;
+}
+
+.sl-kapa-mcp-connect__header {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.625rem;
+}
+
+.sl-kapa-mcp-connect__header > svg {
+	width: 1.125rem;
+	height: 1.125rem;
+	margin-top: 0.125rem;
+	color: var(--sl-color-text-accent);
+	flex: none;
+}
+
+.sl-kapa-mcp-connect__title,
+.sl-kapa-mcp-connect__description,
+.sl-kapa-mcp-connect__eyebrow,
+.sl-kapa-mcp-connect__instructions {
+	margin: 0;
+}
+
+.sl-kapa-mcp-connect__title {
+	color: var(--sl-color-white);
+	font-size: var(--sl-text-sm);
+	font-weight: 700;
+	line-height: 1.35;
+}
+
+.sl-kapa-mcp-connect__description,
+.sl-kapa-mcp-connect__instructions {
+	margin-top: 0.25rem;
+	font-size: var(--sl-text-xs);
+	line-height: 1.45;
+}
+
+.sl-kapa-mcp-connect__section {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 0.5rem;
+	margin-top: 0.875rem;
+	padding-top: 0.875rem;
+	border-top: 1px solid var(--sl-color-gray-5);
+}
+
+.sl-kapa-mcp-connect__eyebrow {
+	color: var(--sl-color-gray-3);
+	font-size: var(--sl-text-2xs);
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	line-height: 1.2;
+	text-transform: uppercase;
+}
+
+.sl-kapa-mcp-connect__instructions strong {
+	color: var(--sl-color-gray-1);
+}
+
+.sl-kapa-mcp-connect__config,
+.sl-kapa-mcp-connect__url {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 0.5rem 0.625rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: var(--sl-radius-sm);
+	background: color-mix(in srgb, var(--sl-color-black), var(--sl-color-gray-6) 32%);
+	color: var(--sl-color-gray-1);
+	font-family: var(--__sl-font-mono, 'JetBrains Mono', 'SFMono-Regular', monospace);
+	font-size: var(--sl-text-2xs);
+	line-height: 1.5;
+	overflow-wrap: anywhere;
+}
+
+.sl-kapa-mcp-connect__config {
+	white-space: pre-wrap;
+}
+
+.sl-kapa-mcp-connect__url {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.5rem;
+	color: var(--sl-color-text-accent);
+	text-decoration: none;
+}
+
+.sl-kapa-mcp-connect__url:hover {
+	border-color: var(--warp-control-border-hover);
+	color: var(--sl-color-white);
+}
+
+.sl-kapa-mcp-connect__url svg {
+	width: 0.75rem;
+	height: 0.75rem;
+	margin-top: 0.15rem;
+	flex: none;
+}
+
+.sl-kapa-mcp-connect__action {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.375rem;
+	min-height: 2rem;
+	padding: 0.375rem 0.625rem;
+	border: 1px solid var(--warp-control-border);
+	border-radius: var(--sl-radius-sm);
+	background: var(--warp-control-bg);
+	color: var(--warp-control-text-hover);
+	font: inherit;
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	line-height: 1.2;
+	cursor: pointer;
+	transition:
+		border-color 0.15s ease,
+		background-color 0.15s ease,
+		color 0.15s ease;
+}
+
+.sl-kapa-mcp-connect__action:hover {
+	border-color: var(--warp-control-border-hover);
+	background: var(--warp-control-bg-hover);
+	color: var(--sl-color-white);
+}
+
+.sl-kapa-mcp-connect__action--primary {
+	border-color: var(--sl-color-text-accent);
+	background: var(--sl-color-text-accent);
+	color: var(--sl-color-black);
+}
+
+.sl-kapa-mcp-connect__action--primary:hover {
+	border-color: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-white) 18%);
+	background: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-white) 8%);
+	color: var(--sl-color-black);
+}
+
+.sl-kapa-mcp-connect__action svg {
+	width: 0.875rem;
+	height: 0.875rem;
+	flex: none;
+}
+
+.sl-kapa-mcp-connect__arrow {
+	fill: color-mix(in srgb, var(--sl-color-black), var(--sl-color-gray-6) 18%);
+}
 
 .sl-kapa-icon-button,
 .sl-kapa-feedback__button {
@@ -909,6 +1112,37 @@
 	.sl-kapa-meta {
 		flex-direction: column;
 		align-items: flex-start;
+	}
+
+	.sl-kapa-panel__header {
+		padding-inline: 0.75rem;
+	}
+
+	.sl-kapa-panel__header-actions {
+		gap: 0.25rem;
+	}
+
+	.sl-kapa-mcp-connect__trigger {
+		padding-inline: 0.5rem;
+	}
+}
+
+@media (max-width: 22rem) {
+	.sl-kapa-mcp-connect__trigger span {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	.sl-kapa-mcp-connect__trigger {
+		width: 2rem;
+		padding: 0;
 	}
 }
 

@@ -14,8 +14,11 @@ import { isMac, keymatch } from 'keymatch';
 import ReactMarkdown from 'react-markdown';
 import {
 	LuExternalLink,
+	LuCheck,
+	LuCopy,
 	LuLoaderCircle,
 	LuMessageSquare,
+	LuPlug,
 	LuSend,
 	LuSquarePen,
 	LuThumbsDown,
@@ -31,8 +34,19 @@ const welcomeMessage = 'What do you want to know about Warp?';
 const uncertaintyThreshold = 0.15;
 const conversationLengthThreshold = 3;
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const warpDocsMcpUrl = 'https://warp.mcp.kapa.ai';
+const warpDocsMcpConfig = JSON.stringify(
+	{
+		'Warp Docs': {
+			url: warpDocsMcpUrl,
+		},
+	},
+	null,
+	2
+);
 
 type FeedbackReaction = 'upvote' | 'downvote';
+type McpCopyTarget = 'config' | 'url';
 type GenericRecord = Record<string, unknown>;
 type HandoffApiSuccess = {
 	message?: string;
@@ -522,11 +536,13 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	const [handoffErrorMessage, setHandoffErrorMessage] = useState<string | null>(null);
 	const [handoffSuccessMessage, setHandoffSuccessMessage] = useState<string | null>(null);
 	const [isSubmittingHandoff, setIsSubmittingHandoff] = useState(false);
+	const [copiedMcpValue, setCopiedMcpValue] = useState<McpCopyTarget | null>(null);
 	const messagesRef = useRef<HTMLDivElement | null>(null);
 	const dialogRef = useRef<HTMLDialogElement | null>(null);
 	const triggerRef = useRef<HTMLButtonElement | null>(null);
 	const closeButtonRef = useRef<HTMLButtonElement | null>(null);
 	const inputRef = useRef<HTMLInputElement | null>(null);
+	const mcpCopyResetRef = useRef<number | null>(null);
 	const {
 		addFeedback,
 		conversation,
@@ -540,6 +556,13 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 
 	useEffect(() => {
 		setIsAppleDevice(isMac());
+	}, []);
+	useEffect(() => {
+		return () => {
+			if (mcpCopyResetRef.current !== null) {
+				window.clearTimeout(mcpCopyResetRef.current);
+			}
+		};
 	}, []);
 
 	useEffect(() => {
@@ -802,6 +825,19 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	const closePanel = () => {
 		dialogRef.current?.close();
 	};
+	const copyMcpValue = async (target: McpCopyTarget) => {
+		const value = target === 'config' ? warpDocsMcpConfig : warpDocsMcpUrl;
+		const copied = await copyTextToClipboard(value);
+		if (!copied) return;
+		setCopiedMcpValue(target);
+		if (mcpCopyResetRef.current !== null) {
+			window.clearTimeout(mcpCopyResetRef.current);
+		}
+		mcpCopyResetRef.current = window.setTimeout(() => {
+			setCopiedMcpValue(null);
+			mcpCopyResetRef.current = null;
+		}, 1500);
+	};
 
 	const restoreFocus = () => {
 		window.requestAnimationFrame(() => {
@@ -858,6 +894,105 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 							<LuSquarePen aria-hidden="true" />
 						</button>
 						<div className="sl-kapa-panel__header-actions">
+							<Popover.Root>
+								<Popover.Trigger asChild>
+									<button
+										type="button"
+										className="sl-kapa-mcp-connect__trigger"
+										aria-label="Connect to Warp Docs with MCP"
+									>
+										<LuPlug aria-hidden="true" />
+										<span>Connect with MCP</span>
+									</button>
+								</Popover.Trigger>
+								<Popover.Content
+									className="sl-kapa-mcp-connect"
+									side="bottom"
+									align="end"
+									sideOffset={8}
+									collisionPadding={12}
+								>
+									<div className="sl-kapa-mcp-connect__header">
+										<LuPlug aria-hidden="true" />
+										<div>
+											<p className="sl-kapa-mcp-connect__title">Connect to Warp Docs</p>
+											<p className="sl-kapa-mcp-connect__description">
+												Give agents direct access to Warp&apos;s official documentation through MCP.
+											</p>
+										</div>
+									</div>
+									<div className="sl-kapa-mcp-connect__section">
+										<p className="sl-kapa-mcp-connect__eyebrow">Use in Warp</p>
+										<p className="sl-kapa-mcp-connect__instructions">
+											In Warp, go to <strong>Settings</strong> &gt; <strong>Agents</strong> &gt;{' '}
+											<strong>MCP servers</strong>, click <strong>+ Add</strong>, and paste the
+											configuration.
+										</p>
+										<code className="sl-kapa-mcp-connect__config">{warpDocsMcpConfig}</code>
+										<button
+											type="button"
+											className="sl-kapa-mcp-connect__action sl-kapa-mcp-connect__action--primary"
+											onClick={() => {
+												void copyMcpValue('config');
+											}}
+											aria-label={
+												copiedMcpValue === 'config'
+													? 'Warp Docs MCP configuration copied'
+													: 'Copy Warp Docs MCP configuration'
+											}
+										>
+											{copiedMcpValue === 'config' ? (
+												<LuCheck aria-hidden="true" />
+											) : (
+												<LuCopy aria-hidden="true" />
+											)}
+											<span>{copiedMcpValue === 'config' ? 'Copied' : 'Copy Warp config'}</span>
+										</button>
+									</div>
+									<div className="sl-kapa-mcp-connect__section">
+										<p className="sl-kapa-mcp-connect__eyebrow">Use in another MCP client</p>
+										<p className="sl-kapa-mcp-connect__instructions">
+											Copy the official MCP URL for Claude, ChatGPT, and other compatible clients.
+										</p>
+										<a
+											className="sl-kapa-mcp-connect__url"
+											href={warpDocsMcpUrl}
+											target="_blank"
+											rel="noreferrer"
+										>
+											{warpDocsMcpUrl}
+											<LuExternalLink aria-hidden="true" />
+										</a>
+										<button
+											type="button"
+											className="sl-kapa-mcp-connect__action"
+											onClick={() => {
+												void copyMcpValue('url');
+											}}
+											aria-label={
+												copiedMcpValue === 'url'
+													? 'Warp Docs MCP URL copied'
+													: 'Copy Warp Docs MCP URL'
+											}
+										>
+											{copiedMcpValue === 'url' ? (
+												<LuCheck aria-hidden="true" />
+											) : (
+												<LuCopy aria-hidden="true" />
+											)}
+											<span>{copiedMcpValue === 'url' ? 'Copied' : 'Copy MCP URL'}</span>
+										</button>
+									</div>
+									<span className="sr-only" aria-live="polite">
+										{copiedMcpValue === 'config'
+											? 'Warp Docs MCP configuration copied to clipboard.'
+											: copiedMcpValue === 'url'
+												? 'Warp Docs MCP URL copied to clipboard.'
+												: ''}
+									</span>
+									<Popover.Arrow className="sl-kapa-mcp-connect__arrow" />
+								</Popover.Content>
+							</Popover.Root>
 							<button
 								type="button"
 								ref={closeButtonRef}
