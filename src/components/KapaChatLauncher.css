@@ -161,8 +161,7 @@
 	color: var(--sl-color-gray-1);
 }
 
-.sl-kapa-mcp-connect__config,
-.sl-kapa-mcp-connect__url {
+.sl-kapa-mcp-connect__config {
 	box-sizing: border-box;
 	width: 100%;
 	padding: 0.5rem 0.625rem;

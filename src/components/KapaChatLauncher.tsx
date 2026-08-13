@@ -954,7 +954,6 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 										<p className="sl-kapa-mcp-connect__instructions">
 											Copy the official MCP URL for Claude, ChatGPT, and other compatible clients.
 										</p>
-										<code className="sl-kapa-mcp-connect__url">{warpDocsMcpUrl}</code>
 										<button
 											type="button"
 											className="sl-kapa-mcp-connect__action"
