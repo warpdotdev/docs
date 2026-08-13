@@ -44,18 +44,6 @@ The inner loop runs when a new issue is filed:
 3. A human reviews and approves the specs.
 4. When the implementation label is applied, the implementation agent opens a PR that includes the spec files alongside the code.
 
-The diagram below shows how a label change on the issue hands control from one agent to the next, and where the human review gate sits in that handoff:
-
-```mermaid
-flowchart LR
-    Issue([New issue filed]) --> Triage["Triage agent"]
-    Triage -->|"ready-to-spec"| Spec["Spec agent"]
-    Spec -->|"PRODUCT.md + TECH.md"| Review{{"Human reviews\nand approves specs"}}
-    Review -->|"implementation label"| Implement["Implementation agent"]
-    Implement --> Reviewer["Reviewer agent"]
-    Reviewer --> PR([Pull request for human merge])
-```
-
 Oz orchestrates each agent as a cloud run. Every run has its own environment (repository checkout, secrets, toolchain), its own permissions, and a session link your team can use to inspect what the agent did, steer it mid-run, or use [Handoff](/platform/handoff/) to move work back to a local session. For parent/child fan-out and review swarms across those roles, see [Multi-agent orchestration](/platform/orchestration/).
 
 The outer loop runs on a [schedule](/platform/triggers/scheduled-agents/), not in response to events.
