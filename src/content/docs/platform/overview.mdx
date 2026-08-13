@@ -144,9 +144,9 @@ The {VARS.WARP_AUTOMATION_PLATFORM} [Agent API](/reference/api-and-sdk/) is the 
 * Monitor execution by listing tasks and tracking state transitions over time (for example: `QUEUED` → `INPROGRESS` → `SUCCEEDED/FAILED`).
 * Inspect results and provenance by fetching a task’s full details, including the original prompt, creator/source metadata, session link, and resolved agent configuration.
 
-**{VARS.WARP_AUTOMATION_PLATFORM} SDKs**
+**SDKs**
 
-{VARS.WARP_AUTOMATION_PLATFORM} provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDKs](https://github.com/warpdotdev/oz-sdk-typescript) that wrap the {VARS.WARP_AUTOMATION_PLATFORM} API with:
+Warp provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDKs](https://github.com/warpdotdev/oz-sdk-typescript) that wrap the {VARS.API_SDK_NAME} with:
 
 * Typed requests/responses (autocomplete, fewer schema mistakes)
 * Built-in retries and timeouts (with per-request overrides)
@@ -219,7 +219,7 @@ Examples of context extracted by first-party integrations:
 
 #### Custom integrations
 
-With custom integrations, you own the webhook and event-handling logic. Your system receives an event, applies any filtering or enrichment you need, and then calls the {VARS.WARP_AUTOMATION_PLATFORM} API (directly or via an SDK) to create a task. The resulting task is still a full cloud agent run — observable, manageable, and auditable like any other.
+With custom integrations, you own the webhook and event-handling logic. Your system receives an event, applies any filtering or enrichment you need, and then calls the API (directly or via an SDK) to create a task. The resulting task is still a full cloud agent run — observable, manageable, and auditable like any other.
 
 Custom integrations are a good fit when:
 

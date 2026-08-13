@@ -12,7 +12,7 @@ import { VARS } from '@data/vars';
 The {VARS.WARP_AGENT_CLI} (the `oz` binary) is being deprecated in favor of the {VARS.WARP_CLI} (the `warp` binary). See the [Warp Agent CLI docs](/agents/cli/) for the replacement.
 :::
 
-Artifacts are files that an agent produces during a run and uploads to {VARS.WARP_AUTOMATION_PLATFORM} — screenshots, generated reports, build outputs, logs, or any other file the agent saves alongside its conversation. Use `oz artifact` to inspect those files from outside the run and pull them down to your machine.
+Artifacts are files that an agent produces during a run and uploads to Warp — screenshots, generated reports, build outputs, logs, or any other file the agent saves alongside its conversation. Use `oz artifact` to inspect those files from outside the run and pull them down to your machine.
 
 ## When to use artifacts
 
@@ -22,7 +22,7 @@ Use artifacts when you need to retrieve files an agent produced after a run comp
 * **Local inspection** - Pull a generated file (HTML, image, CSV) onto your laptop to review.
 * **CI integration** - Fetch an agent-produced build artifact from a pipeline step that runs after the agent finishes.
 
-Artifacts are referenced by an artifact UID. You can find UIDs in the agent's run detail view, in the JSON returned by [`oz run get`](/reference/cli/), or in the response from the [{VARS.WARP_AUTOMATION_PLATFORM} API](/reference/api-and-sdk/).
+Artifacts are referenced by an artifact UID. You can find UIDs in the agent's run detail view, in the JSON returned by [`oz run get`](/reference/cli/), or in the response from the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/).
 
 ## `oz artifact get`
 
