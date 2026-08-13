@@ -374,6 +374,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			// Icon is a placeholder (gear) -- Starlight's built-in icon set has no
 			// literal factory glyph. A true factory icon would need a custom icon
 			// library plugin + Sidebar component override; revisit post-launch.
+			id: 'factories',
 			label: 'Factories',
 			link: '/factories/',
 			icon: 'setting',
