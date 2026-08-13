@@ -199,6 +199,47 @@
 	border-radius: var(--sl-radius-sm);
 	padding: 0.1rem 0.3rem;
 }
+.sl-kapa-answer-image {
+	display: block;
+	box-sizing: border-box;
+	max-width: 100%;
+	height: auto;
+	margin: 0.875rem 0;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: var(--sl-radius-md);
+	background: var(--sl-color-black);
+	object-fit: contain;
+	box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 0.18);
+}
+
+.sl-kapa-answer-image-fallback {
+	display: flex;
+	box-sizing: border-box;
+	align-items: center;
+	min-height: 3rem;
+	max-width: 100%;
+	margin: 0.875rem 0;
+	padding: 0.625rem 0.75rem;
+	border: 1px dashed var(--sl-color-gray-4);
+	border-radius: var(--sl-radius-md);
+	background: color-mix(in srgb, var(--sl-color-black), var(--sl-color-gray-6) 30%);
+	color: var(--sl-color-gray-3);
+	font-size: var(--sl-text-xs);
+	line-height: 1.4;
+	overflow-wrap: anywhere;
+}
+
+:root[data-theme='light'] .sl-kapa-answer-image {
+	border-color: color-mix(in srgb, var(--sl-color-gray-5), var(--sl-color-black) 15%);
+	background: var(--sl-color-white);
+	box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 0.1);
+}
+
+:root[data-theme='light'] .sl-kapa-answer-image-fallback {
+	border-color: color-mix(in srgb, var(--sl-color-gray-4), var(--sl-color-black) 25%);
+	background: color-mix(in srgb, var(--sl-color-white), var(--sl-color-gray-6) 10%);
+	color: var(--sl-color-gray-3);
+}
 
 .sl-kapa-codeblock {
 	position: relative;

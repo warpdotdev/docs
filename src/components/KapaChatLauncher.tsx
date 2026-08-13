@@ -177,6 +177,48 @@ function extractCodeElement(children: ReactNode): ReactElement<MarkdownCodeProps
 function markdownChildrenToText(children: ReactNode): string {
 	return (Array.isArray(children) ? children.join('') : String(children ?? '')).replace(/\n$/, '');
 }
+type ChatMarkdownImageProps = {
+	alt?: string;
+	src?: string;
+	title?: string;
+};
+
+function ChatMarkdownImage({ alt, src, title }: ChatMarkdownImageProps) {
+	const [hasFailed, setHasFailed] = useState(false);
+	const imageAlt = alt?.trim() || 'Image from Kapa answer';
+
+	useEffect(() => {
+		setHasFailed(false);
+	}, [src]);
+
+	if (!src || hasFailed) {
+		return (
+			<span
+				className="sl-kapa-answer-image-fallback"
+				role="img"
+				aria-label={`${imageAlt} unavailable`}
+			>
+				Image unavailable
+			</span>
+		);
+	}
+
+	// `src` has already passed react-markdown's default safe URL transformation.
+	// Do not wrap this image in an anchor because Markdown links provide that wrapper.
+	return (
+		<img
+			className="sl-kapa-answer-image"
+			src={src}
+			alt={imageAlt}
+			title={title}
+			loading="lazy"
+			decoding="async"
+			referrerPolicy="no-referrer"
+			style={{ maxWidth: '100%', height: 'auto' }}
+			onError={() => setHasFailed(true)}
+		/>
+	);
+}
 
 const highlightCache = new Map<string, string | null>();
 const highlightInFlight = new Map<string, Promise<string | null>>();
@@ -788,6 +830,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 									{qa.answer ? (
 										<ReactMarkdown
 											components={{
+												img: ChatMarkdownImage,
 												// Fenced code blocks arrive as <pre><code>; inline code
 												// arrives as a bare <code>. react-markdown v9+ removed the
 												// `inline` prop, so nesting is the only reliable signal.
