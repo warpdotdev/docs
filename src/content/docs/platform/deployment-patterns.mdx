@@ -88,14 +88,14 @@ Use this when you want {VARS.WARP_AUTOMATION_PLATFORM} to run agent workloads on
 
 #### Example recipe: daily dead-code cleanup
 
-1. Define an {VARS.WARP_AUTOMATION_PLATFORM} [Environment](/platform/environments/) with the repo + toolchain.
+1. Define a Warp [Environment](/platform/environments/) with the repo + toolchain.
 2. Create a [schedule](/platform/triggers/scheduled-agents/) with a fixed prompt for cleanup.
 3. {VARS.WARP_AUTOMATION_PLATFORM} runs the agent on the cadence.
 4. Your team monitors runs in the [{VARS.WEB_APP}](/platform/oz-web-app/) and [viewing cloud agent runs](/platform/viewing-cloud-agent-runs/), reviews artifacts (PRs, plans), and intervenes when needed.
 
 #### Example recipe: crash triage via Sentry webhook
 
-1. Define an {VARS.WARP_AUTOMATION_PLATFORM} Environment with the target repo.
+1. Define a Warp Environment with the target repo.
 2. Register a Sentry webhook to your handler (server, cloud function, Zapier/n8n).
 3. Handler extracts crash details, constructs a prompt, and calls the {VARS.WARP_AUTOMATION_PLATFORM} orchestrator API/SDK to start a task.
 4. Warp spins up the run in the environment and you monitor progress via UI/API.

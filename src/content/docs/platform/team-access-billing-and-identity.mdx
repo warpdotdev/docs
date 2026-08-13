@@ -157,7 +157,7 @@ The environment configuration and the **Enabled GitHub Orgs** setting in the Adm
 
 Team GitHub authorization is complementary to the existing personal token flow:
 
-* **User-triggered runs** (personal API key, Slack, Linear, Warp app) - The agent authenticates as {VARS.WARP_AUTOMATION_PLATFORM} acting on the triggering user's behalf. PRs and commits are attributed to that user.
+* **User-triggered runs** (personal API key, Slack, Linear, Warp app) - The agent authenticates using the triggering user's personal token. PRs and commits are attributed to that user.
 * **Agent API key runs with GitHub App authorization** - The agent authenticates as the GitHub App installation. On GitHub, PRs and commits are attributed to the Oz by Warp GitHub App rather than any individual user. In the {VARS.DASHBOARD}, the run is attributed to the bound [cloud agent](/platform/agents/), which controls run filtering and audit attribution on the Warp side.
 * **[GitHub integration](/platform/integrations/github/) runs** (an `@oz-agent` mention on an issue or pull request) - The agent authenticates as the installation that delivered the event, so its repository access and its GitHub attribution match the agent API key flow. In the {VARS.DASHBOARD} the run is still attributed to the teammate who wrote the mention, and their team is billed.
 
