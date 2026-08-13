@@ -396,6 +396,37 @@ body {
   max-width: 100%;
 }
 
+/* svg-toolbelt's zoom/pan/fullscreen controls (added via MermaidControls.astro).
+   Override its default light-UI styling to match Warp's code-block/copy-button
+   chrome instead. */
+.svg-toolbelt-controls {
+  background: var(--sl-color-bg-nav);
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: var(--sl-radius-sm);
+  box-shadow: none;
+}
+
+.svg-toolbelt-controls .svg-toolbelt-btn {
+  color: var(--sl-color-gray-3);
+  font-family: var(--sl-font);
+}
+
+.svg-toolbelt-controls .svg-toolbelt-btn:hover {
+  background: var(--sl-color-gray-6);
+  color: var(--sl-color-white);
+}
+
+.svg-toolbelt-zoom-indicator {
+  background: var(--sl-color-bg-nav);
+  border: 1px solid var(--sl-color-hairline-light);
+  color: var(--sl-color-gray-2);
+  font-family: var(--sl-font);
+}
+
+.svg-toolbelt-wrapper:fullscreen {
+  background: var(--sl-color-bg);
+}
+
 /* --------------------------------------------------------------------------
    Guides: Card-based discovery page
 

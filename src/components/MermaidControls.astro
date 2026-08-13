@@ -1,0 +1,66 @@
+---
+// astro-mermaid renders a plain, static SVG with no way to zoom in on a
+// detailed diagram within the fixed-width content column, especially on
+// mobile. This adds zoom/pan/reset/fullscreen controls via svg-toolbelt
+// (zero runtime dependencies, ~5KB) once diagrams exist on the page.
+---
+
+<script>
+  import { SvgToolbelt } from 'svg-toolbelt';
+  import 'svg-toolbelt/dist/svg-toolbelt.css';
+
+  // astro-mermaid replaces a `pre.mermaid` element's entire innerHTML on
+  // every render — the initial paint and every theme switch — which
+  // destroys any wrapper a prior enhancement pass added. Destroying the
+  // previous instance (rather than layering a new one on top) keeps this
+  // idempotent across re-renders.
+  const enhanced = new WeakMap<Element, SvgToolbelt>();
+
+  function enhanceDiagrams() {
+    document.querySelectorAll('pre.mermaid[data-processed]').forEach((pre) => {
+      if (!pre.querySelector('svg') || pre.querySelector('.svg-toolbelt-wrapper')) return;
+
+      enhanced.get(pre)?.destroy();
+      const instance = new SvgToolbelt(pre as HTMLElement, {
+        controlsPosition: 'top-right',
+        minScale: 0.5,
+        maxScale: 4,
+      });
+      instance.init();
+      enhanced.set(pre, instance);
+    });
+  }
+
+  function init() {
+    enhanceDiagrams();
+
+    // astro-mermaid re-renders every diagram when the site's data-theme
+    // attribute flips, wiping the toolbar; re-enhance once that finishes.
+    const observer = new MutationObserver(() => enhanceDiagrams());
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['data-processed'],
+      subtree: true,
+    });
+
+    // astro-mermaid loads and renders diagrams asynchronously after this
+    // script runs, so the pass above can land before any diagram exists.
+    // Poll briefly until the first render appears.
+    let attempts = 0;
+    const poll = setInterval(() => {
+      attempts += 1;
+      enhanceDiagrams();
+      if (document.querySelector('pre.mermaid[data-processed] svg') || attempts > 20) {
+        clearInterval(poll);
+      }
+    }, 250);
+  }
+
+  // `DOMContentLoaded` (not `astro:page-load`) since `<ClientRouter />` /
+  // View Transitions are disabled site-wide (see CustomHead.astro).
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+</script>

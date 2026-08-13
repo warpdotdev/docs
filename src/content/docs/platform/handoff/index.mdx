@@ -25,12 +25,13 @@ Handoff supports three directions:
 ```mermaid
 flowchart TD
     Local("Local Warp session")
-    Cloud("Cloud agent run")
+    Cloud1("Cloud agent run")
+    Cloud2("Cloud agent run (follow-up)")
     NewLocal("New local Warp session")
 
-    Local -- "Local to cloud" --> Cloud
-    Cloud -- "Cloud to cloud" --> Cloud
-    Cloud -- "Cloud to local" --> NewLocal
+    Local -- "Local to cloud" --> Cloud1
+    Cloud1 -- "Cloud to cloud" --> Cloud2
+    Cloud1 -- "Cloud to local" --> NewLocal
 ```
 
 ### Third-party agent runtime coverage
