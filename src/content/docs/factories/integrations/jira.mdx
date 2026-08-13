@@ -1,0 +1,80 @@
+---
+title: Connect a factory to Jira
+description: >-
+  Connect Jira Cloud to a factory so Rovo agent sessions route assignments to
+  the configured agent and return results in Jira.
+sidebar:
+  label: Jira
+topic: factories
+---
+
+Connect Jira Cloud to a factory so people can assign Jira work items to **Warp** through Rovo. Jira starts an agent session, a factory automation routes the assignment to its configured agent, and Jira displays the task status and result in the same Rovo session.
+
+## Before you connect
+
+* **Jira Cloud** - The integration supports Jira Cloud, not Jira Server or Data Center.
+* **Jira site admin** - A site admin installs the Warp app on the Jira site and connects the installation to a Warp workspace.
+* **Factory access** - You need a factory in the connected workspace and permission to update its definition.
+* **Rovo agent access** - The **Warp** agent must be available for Jira work items on the connected site.
+
+The Jira app's authorization determines which site and projects Warp can access and what the configured agent can read or update. Automation filters only route assignments within that access. Project or keyword filters do not reduce the app's credential permissions.
+
+## Connect Jira and configure agent sessions
+
+1. Follow the [Jira integration setup](../../platform/integrations/jira) to install the app, open its **Configure** page, and click **Connect to Warp**. The Jira installation becomes available to factories in that Warp workspace.
+2. Use [factory definitions as code](../factory-as-code) to declare Jira for the factory and add an `agent_session_created` trigger in `automations/<name>/automation.md`. The `agent` field selects the factory agent that handles matching Jira assignments.
+
+```markdown title="automations/jira-assignment/automation.md"
+---
+enabled: true
+agent: foreman
+triggers:
+  - provider: jira
+    event: agent_session_created
+    filter:
+      project_keys: [ENG]
+      keywords: [investigate, fix]
+---
+
+Handle the Jira assignment and return a concise result.
+```
+
+`ENG` is a Jira project key. The keyword values match assignment text without regard to letter case. `foreman` is the name of the declared factory agent that receives the work.
+
+3. Apply the factory definition, then assign or mention **Warp** on a Jira work item and include an instruction. Confirm that Jira creates the agent session and that the matching run appears for the automation.
+
+## The agent session trigger and filters
+
+Jira intake uses a single event, `agent_session_created`. It fires when someone assigns or mentions **Warp** on a Jira work item, and a matching factory automation routes that assignment to its configured agent.
+
+The `agent_session_created` filter accepts two fields:
+
+* **`project_keys`** - Match the work item's Jira project key.
+* **`keywords`** - Match the assignment text, without regard to letter case.
+
+Both fields combine together, and multiple values in one field act as alternatives. Leave a field empty to match any value the connected installation can deliver.
+
+## Context, follow-ups, and outputs
+
+The first Rovo message gives the configured agent the assignment text and associated Jira work item. When the factory declares Jira as an integration, the agent can use the connected Jira context to read the issue, comments, and available workflow transitions.
+
+Further messages in the same Rovo agent session continue the same run, including a follow-up after the previous turn completes. This continuity belongs to the Rovo session. Separate sessions for the same Jira issue are not automatically one factory workstream.
+
+Jira displays whether the task is submitted, working, waiting for input, completed, failed, or canceled. When the run finishes, the Rovo session receives the agent's text result instead of automatic issue comments.
+
+While the run is active, the configured agent can perform authorized Jira actions such as reading or updating an issue, posting or updating comments, changing workflow status, and adding or removing labels. Make those actions explicit in the automation instructions. Jira permissions and valid workflow transitions still apply. Pull request review and merge requirements remain repository or workflow policy.
+
+## Permissions and delivery caveats
+
+Grant the Jira app only the site and project access required for the factory's work. Restrict Rovo intake separately with project and keyword filters. The run executes as the agent selected by the matching automation, not as the Jira user who started the session.
+
+Atlassian can retry a Rovo message. Warp associates repeated delivery of the same message with one factory admission. Keep issue mutations duplicate-safe anyway: check current state before posting a comment, changing status, or adding a label, and make repeated actions harmless.
+
+## Troubleshooting
+
+* **Warp is unavailable in Jira** - Confirm the Warp app is installed on the Jira Cloud site. Open its **Configure** page and click **Connect to Warp** if the installation is not connected.
+* **No run starts** - Confirm an enabled `agent_session_created` automation exists, its agent is available, and its project and keyword filters match the Rovo assignment.
+* **The session has no result** - Check the matching automation's run to determine whether the configured agent is still working, waiting for input, or failed.
+* **A Jira update fails** - Confirm the app can access the work item's project and perform the requested action or workflow transition.
+
+For other intake paths and provider boundaries, see [connecting your factory](../connect-your-factory).
