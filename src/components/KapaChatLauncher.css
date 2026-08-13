@@ -84,8 +84,7 @@
 }
 
 .sl-kapa-mcp-connect__trigger:focus-visible,
-.sl-kapa-mcp-connect__action:focus-visible,
-.sl-kapa-mcp-connect__url:focus-visible {
+.sl-kapa-mcp-connect__action:focus-visible {
 	outline: 2px solid var(--sl-color-accent-high);
 	outline-offset: 2px;
 }
@@ -181,25 +180,6 @@
 	white-space: pre-wrap;
 }
 
-.sl-kapa-mcp-connect__url {
-	display: flex;
-	align-items: flex-start;
-	gap: 0.5rem;
-	color: var(--sl-color-text-accent);
-	text-decoration: none;
-}
-
-.sl-kapa-mcp-connect__url:hover {
-	border-color: var(--warp-control-border-hover);
-	color: var(--sl-color-white);
-}
-
-.sl-kapa-mcp-connect__url svg {
-	width: 0.75rem;
-	height: 0.75rem;
-	margin-top: 0.15rem;
-	flex: none;
-}
 
 .sl-kapa-mcp-connect__action {
 	display: inline-flex;
