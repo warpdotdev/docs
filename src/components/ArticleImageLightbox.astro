@@ -1,7 +1,7 @@
 ---
-// A singleton, delegated article-image lightbox. Event delegation keeps it
-// active for future Starlight client-side swaps without wrapping images in
-// buttons or changing their documentation layout.
+// A singleton, delegated lightbox for article content and explicit chat image
+// triggers. Event delegation keeps it active for future Starlight client-side
+// swaps without wrapping article images in buttons or changing their layout.
 ---
 
 <script>
@@ -14,7 +14,7 @@
 		const lightboxWindow = window as LightboxWindow;
 		lightboxWindow[cleanupKey]?.();
 
-		const lightbox = document.createElement('div');
+		const lightbox = document.createElement('dialog');
 		lightbox.className = 'docs-image-lightbox';
 		lightbox.hidden = true;
 		lightbox.setAttribute('role', 'dialog');
@@ -49,9 +49,13 @@
 
 		let activeTrigger: HTMLElement | null = null;
 
-		const isEligibleImage = (image: HTMLImageElement) =>
+		const isEligibleArticleImage = (image: HTMLImageElement) =>
 			image.matches('main .sl-markdown-content img') &&
 			!image.closest('.not-content, #sl-kapa-panel, [data-no-lightbox]');
+		const isEligibleKapaImage = (image: HTMLImageElement, trigger: HTMLElement) =>
+			trigger.matches('.sl-kapa-answer-image-button') &&
+			image.matches('.sl-kapa-answer-image') &&
+			image.closest('#sl-kapa-panel') !== null;
 
 		const isImageOnlyLink = (link: HTMLAnchorElement, image: HTMLImageElement) =>
 			link.textContent?.trim() === '' &&
@@ -60,20 +64,14 @@
 
 		const getImageTarget = (target: EventTarget | null) => {
 			if (!(target instanceof Element)) return null;
-			const image = target.closest('img');
-			if (image instanceof HTMLImageElement && isEligibleImage(image)) {
-				const link = image.closest('a');
-				if (link instanceof HTMLAnchorElement) {
-					return isImageOnlyLink(link, image) ? { image, trigger: link } : null;
-				}
-				return { image, trigger: image };
-			}
+			const trigger = target.closest<HTMLElement>('[data-warp-image-lightbox-trigger="true"]');
+			if (!trigger) return null;
+			const image =
+				trigger instanceof HTMLImageElement ? trigger : trigger.querySelector('img');
+			if (!(image instanceof HTMLImageElement)) return null;
 
-			const trigger = target.closest<HTMLElement>('[data-docs-image-lightbox-trigger="true"]');
-			if (!(trigger instanceof HTMLAnchorElement)) return null;
-			const linkedImage = trigger.querySelector('img');
-			return linkedImage instanceof HTMLImageElement && isEligibleImage(linkedImage)
-				? { image: linkedImage, trigger }
+			return isEligibleArticleImage(image) || isEligibleKapaImage(image, trigger)
+				? { image, trigger }
 				: null;
 		};
 
@@ -84,12 +82,12 @@
 			document
 				.querySelectorAll<HTMLImageElement>('main .sl-markdown-content img')
 				.forEach((image) => {
-					if (!isEligibleImage(image)) return;
+					if (!isEligibleArticleImage(image)) return;
 					const link = image.closest('a');
 					if (link instanceof HTMLAnchorElement) {
 						if (!isImageOnlyLink(link, image)) return;
 						image.dataset.docsImageLightboxImage = 'true';
-						link.dataset.docsImageLightboxTrigger = 'true';
+						link.dataset.warpImageLightboxTrigger = 'true';
 						link.setAttribute('role', 'button');
 						link.setAttribute('aria-haspopup', 'dialog');
 						link.setAttribute('aria-label', `Expand image: ${imageLabel(image)}`);
@@ -97,7 +95,7 @@
 					}
 
 					image.dataset.docsImageLightboxImage = 'true';
-					image.dataset.docsImageLightboxTrigger = 'true';
+					image.dataset.warpImageLightboxTrigger = 'true';
 					image.tabIndex = 0;
 					image.setAttribute('role', 'button');
 					image.setAttribute('aria-haspopup', 'dialog');
@@ -107,6 +105,9 @@
 
 		const close = ({ restoreFocus = true } = {}) => {
 			if (lightbox.hidden) return;
+			if (lightbox.open) {
+				lightbox.close();
+			}
 			lightbox.hidden = true;
 			expandedImage.removeAttribute('src');
 			document.documentElement.classList.remove('docs-image-lightbox-open');
@@ -131,6 +132,9 @@
 			fallback.hidden = true;
 			fallback.setAttribute('aria-label', `${label} unavailable`);
 			lightbox.hidden = false;
+			if (!lightbox.open) {
+				lightbox.showModal();
+			}
 			document.documentElement.classList.add('docs-image-lightbox-open');
 			document.body.classList.add('docs-image-lightbox-open');
 			window.requestAnimationFrame(() => closeButton.focus());
@@ -146,6 +150,7 @@
 
 		const onDocumentKeyDown = (event: KeyboardEvent) => {
 			if (!lightbox.hidden) {
+				event.stopPropagation();
 				if (event.key === 'Escape') {
 					event.preventDefault();
 					event.stopPropagation();
@@ -169,6 +174,10 @@
 		const onLightboxClick = (event: MouseEvent) => {
 			if (event.target === lightbox) close();
 		};
+		const onLightboxCancel = (event: Event) => {
+			event.preventDefault();
+			close();
+		};
 
 		const onImageError = () => {
 			expandedImage.hidden = true;
@@ -187,6 +196,7 @@
 		closeButton.addEventListener('click', onCloseButtonClick);
 		expandedImage.addEventListener('error', onImageError);
 		lightbox.addEventListener('click', onLightboxClick);
+		lightbox.addEventListener('cancel', onLightboxCancel);
 		document.addEventListener('click', onDocumentClick);
 		document.addEventListener('keydown', onDocumentKeyDown, true);
 		document.addEventListener('astro:after-swap', onPageSwap);
@@ -198,6 +208,7 @@
 			closeButton.removeEventListener('click', onCloseButtonClick);
 			expandedImage.removeEventListener('error', onImageError);
 			lightbox.removeEventListener('click', onLightboxClick);
+			lightbox.removeEventListener('cancel', onLightboxCancel);
 			document.removeEventListener('click', onDocumentClick);
 			document.removeEventListener('keydown', onDocumentKeyDown, true);
 			document.removeEventListener('astro:after-swap', onPageSwap);

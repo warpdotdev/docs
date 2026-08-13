@@ -329,8 +329,8 @@ body {
     box-shadow: 0 0 0 2px var(--sl-color-accent-high);
   }
 }
-.sl-markdown-content img[data-docs-image-lightbox-trigger]:focus-visible,
-.sl-markdown-content a[data-docs-image-lightbox-trigger]:focus-visible img {
+.sl-markdown-content img[data-warp-image-lightbox-trigger]:focus-visible,
+.sl-markdown-content a[data-warp-image-lightbox-trigger]:focus-visible img {
   outline: 2px solid var(--sl-color-accent-high);
   outline-offset: 3px;
 }
@@ -348,13 +348,23 @@ body.docs-image-lightbox-open {
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
   padding: 1.5rem;
+  border: 0;
   background: rgb(0 0 0 / 0.76);
   backdrop-filter: blur(8px);
+  overflow: hidden;
 }
 
 .docs-image-lightbox[hidden] {
   display: none;
+}
+.docs-image-lightbox::backdrop {
+  background: transparent;
 }
 
 .docs-image-lightbox__content {
