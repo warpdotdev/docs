@@ -397,34 +397,64 @@ body {
 }
 
 /* svg-toolbelt's zoom/pan/fullscreen controls (added via MermaidControls.astro).
-   Override its default light-UI styling to match Warp's code-block/copy-button
-   chrome instead. */
+   Its own stylesheet hardcodes a light-only look (white background, gray
+   border, per-button borders) with the same selector specificity used
+   here, and Vite may bundle it after this stylesheet — so `!important` is
+   needed for a reliable override rather than a cosmetic preference.
+   Restyled as one pill (matching `.copy-dropdown-panel`) with borderless,
+   transparent buttons (matching `.copy-dropdown-item`) instead of the
+   library's default column of separately-bordered squares. */
 .svg-toolbelt-controls {
-  background: var(--sl-color-bg-nav);
-  border: 1px solid var(--sl-color-hairline-light);
-  border-radius: var(--sl-radius-sm);
-  box-shadow: none;
+  flex-direction: row !important;
+  gap: 0.125rem !important;
+  padding: 0.25rem !important;
+  background: var(--sl-color-bg-nav) !important;
+  border: 1px solid var(--sl-color-hairline-light) !important;
+  border-radius: var(--sl-radius-md) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
 }
 
-.svg-toolbelt-controls .svg-toolbelt-btn {
-  color: var(--sl-color-gray-3);
-  font-family: var(--sl-font);
+:root[data-theme='light'] .svg-toolbelt-controls {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
 }
 
-.svg-toolbelt-controls .svg-toolbelt-btn:hover {
-  background: var(--sl-color-gray-6);
-  color: var(--sl-color-white);
+.svg-toolbelt-controls .svg-toolbelt-btn,
+.svg-toolbelt-controls button {
+  border: none !important;
+  background: transparent !important;
+  color: var(--sl-color-gray-3) !important;
+  border-radius: var(--sl-radius-sm) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.svg-toolbelt-controls .svg-toolbelt-btn:hover,
+.svg-toolbelt-controls button:hover,
+.svg-toolbelt-controls .svg-toolbelt-btn:active,
+.svg-toolbelt-controls button:active {
+  background: var(--sl-color-gray-6) !important;
+  color: var(--sl-color-white) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.svg-toolbelt-controls .svg-toolbelt-btn:focus,
+.svg-toolbelt-controls button:focus {
+  outline: 2px solid var(--sl-color-accent) !important;
+  outline-offset: 2px !important;
+  border-color: transparent !important;
 }
 
 .svg-toolbelt-zoom-indicator {
-  background: var(--sl-color-bg-nav);
-  border: 1px solid var(--sl-color-hairline-light);
-  color: var(--sl-color-gray-2);
-  font-family: var(--sl-font);
+  background: var(--sl-color-bg-nav) !important;
+  border: 1px solid var(--sl-color-hairline-light) !important;
+  color: var(--sl-color-gray-2) !important;
+  font-family: var(--sl-font) !important;
 }
 
-.svg-toolbelt-wrapper:fullscreen {
-  background: var(--sl-color-bg);
+.svg-toolbelt-wrapper:fullscreen,
+:fullscreen .svg-toolbelt-wrapper {
+  background: var(--sl-color-bg) !important;
 }
 
 /* --------------------------------------------------------------------------
