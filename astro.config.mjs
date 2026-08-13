@@ -173,7 +173,7 @@ export default defineConfig({
 						{ label: 'Enterprise', description: 'Enterprise features, SSO, team management, and security.', paths: ['enterprise/**'] },
 						{ label: 'Getting Started', description: 'Installation, quickstart, and migration guides.', paths: ['index', 'quickstart', 'getting-started/**'] },
 						{ label: 'Knowledge and Collaboration', description: 'Warp Drive, teams, and the Admin Panel.', paths: ['knowledge-and-collaboration/**'] },
-						{ label: 'Reference', description: 'CLI and API reference.', paths: ['reference/**'] },
+						{ label: 'API & Reference', description: 'CLI and API reference.', paths: ['reference/**'] },
 						// All support-and-community/ pages. open-source-licenses.mdx is excluded
 						// globally above (stack overflow in hast-util-to-text); the patch ensures
 						// it's excluded from this custom set as well.

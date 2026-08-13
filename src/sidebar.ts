@@ -511,11 +511,20 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			],
 		},
 		{
-			label: 'Reference',
+			label: 'API & Reference',
 			link: '/reference/',
 			icon: 'open-book',
 			items: [
-				{ slug: 'reference', label: 'Technical reference' },
+				{
+					// API Reference promoted to the top of the sidebar (was buried 3
+					// levels deep under API & SDK) per HYC/Rachael's Slack discussion on
+					// discoverability after the top-level API tab was removed.
+					label: 'Technical Reference',
+					items: [
+						{ label: 'API Reference', link: '/api' },
+						{ slug: 'reference', label: 'Overview' },
+					],
+				},
 				{
 					label: 'CLI',
 					items: [
@@ -537,7 +546,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'reference/api-and-sdk', label: 'Oz API & SDK' },
 						{ slug: 'reference/api-and-sdk/quickstart', label: 'Quickstart' },
-						{ label: 'API Reference', link: '/api' },
+						// API Reference link moved to the top-level 'Technical Reference'
+						// group above for discoverability -- not duplicated here.
 						'reference/api-and-sdk/demo-sentry-monitoring-with-sdk',
 						{
 							label: 'API Troubleshooting',
