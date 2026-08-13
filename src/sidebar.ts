@@ -407,15 +407,16 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
 						{ slug: 'platform/overview', label: 'Oz platform' },
 						{
-							// Renamed from a bare 'Agents' link (per HYC feedback -- the page is
-							// specifically about the cloud agent identity/account object, e.g.
-							// POST /agent/identities, not agents generically). Skills/MCP/Secrets
-							// nested beneath since they're capabilities you attach to a cloud
-							// agent (Skills and Secrets are literal identity properties; MCP is
-							// per-run, bridged via a sentence on the landing page).
-							label: 'Cloud agent accounts',
+							// Broader group label than the page-specific 'Cloud agent accounts'
+							// (now the Overview item's label below) since Skills/MCP/Secrets are
+							// cloud-agent capabilities generally, not identity/account-specific
+							// (Skills and Secrets are literal identity properties via
+							// POST /agent/identities; MCP is per-run, bridged via a sentence on
+							// the Overview page). Slight nesting redundancy with the parent
+							// 'Cloud Agents' group is intentional/accepted per Slack discussion.
+							label: 'Warp Cloud Agents',
 							items: [
-								{ slug: 'platform/agents', label: 'Overview' },
+								{ slug: 'platform/agents', label: 'Cloud agent accounts' },
 								{ slug: 'platform/skills-as-agents', label: 'Skills as agents' },
 								{ slug: 'platform/mcp', label: 'MCP servers' },
 								'platform/secrets',
