@@ -61,6 +61,7 @@ export default defineConfig({
 		// property string, so the brand values are inlined here instead.
 		mermaid({
 			autoTheme: true,
+			enableLog: false,
 			mermaidConfig: {
 				fontFamily: "'Inter', 'Inter Fallback', sans-serif",
 				themeVariables: {
