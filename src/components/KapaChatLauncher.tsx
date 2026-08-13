@@ -1,6 +1,16 @@
 import type { FormEvent, MouseEvent, ReactElement, ReactNode } from 'react';
 import * as Popover from '@radix-ui/react-popover';
-import { isValidElement, useEffect, useMemo, useRef, useState } from 'react';
+import {
+	Children,
+	createContext,
+	isValidElement,
+	useCallback,
+	useContext,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
 import { CaptchaAction, KapaProvider, useCaptcha, useChat } from '@kapaai/react-sdk';
 import { PUBLIC_KAPA_INTEGRATION_ID, PUBLIC_KAPA_PROJECT_ID } from 'astro:env/client';
 import { isMac, keymatch } from 'keymatch';
@@ -182,9 +192,55 @@ type ChatMarkdownImageProps = {
 	src?: string;
 	title?: string;
 };
+type ChatImageLightboxImage = {
+	alt: string;
+	src: string;
+	title?: string;
+};
+
+type ChatImageLightboxController = {
+	openImageLightbox: (image: ChatImageLightboxImage, trigger: HTMLButtonElement) => void;
+};
+
+const ChatImageLightboxContext = createContext<ChatImageLightboxController | null>(null);
+
+function isImageOnlyMarkdownLink(children: ReactNode) {
+	const items = Children.toArray(children).filter(
+		(child) => typeof child !== 'string' || child.trim().length > 0
+	);
+	return (
+		items.length === 1 &&
+		isValidElement(items[0]) &&
+		items[0].type === ChatMarkdownImage
+	);
+}
+
+function ChatMarkdownLink({
+	children,
+	href,
+	title,
+}: {
+	children?: ReactNode;
+	href?: string;
+	title?: string;
+}) {
+	// Kapa sometimes wraps an image in its source link. Keep ordinary links,
+	// but remove the image-only wrapper so the thumbnail can be a real button.
+	if (isImageOnlyMarkdownLink(children)) {
+		return <>{children}</>;
+	}
+
+	return (
+		<a href={href} title={title}>
+			{children}
+		</a>
+	);
+}
 
 function ChatMarkdownImage({ alt, src, title }: ChatMarkdownImageProps) {
 	const [hasFailed, setHasFailed] = useState(false);
+	const lightbox = useContext(ChatImageLightboxContext);
+	const triggerRef = useRef<HTMLButtonElement | null>(null);
 	const imageAlt = alt?.trim() || 'Image from Kapa answer';
 
 	useEffect(() => {
@@ -204,8 +260,9 @@ function ChatMarkdownImage({ alt, src, title }: ChatMarkdownImageProps) {
 	}
 
 	// `src` has already passed react-markdown's default safe URL transformation.
-	// Do not wrap this image in an anchor because Markdown links provide that wrapper.
-	return (
+	// Image-only Markdown links are unwrapped above to avoid nesting this button
+	// inside an anchor. Ordinary text links retain their original behavior.
+	const image = (
 		<img
 			className="sl-kapa-answer-image"
 			src={src}
@@ -218,8 +275,97 @@ function ChatMarkdownImage({ alt, src, title }: ChatMarkdownImageProps) {
 			onError={() => setHasFailed(true)}
 		/>
 	);
+
+	if (!lightbox) {
+		return image;
+	}
+	return (
+		<button
+			type="button"
+			ref={triggerRef}
+			className="sl-kapa-answer-image-button"
+			onClick={() => {
+				if (!triggerRef.current) return;
+				lightbox.openImageLightbox({ alt: imageAlt, src, title }, triggerRef.current);
+			}}
+			aria-label={`Expand image: ${imageAlt}`}
+			aria-haspopup="dialog"
+		>
+			{image}
+			<span className="sl-kapa-answer-image-button__overlay" aria-hidden="true">
+				Expand image
+			</span>
+		</button>
+	);
 }
 
+function ChatImageLightbox({
+	image,
+	onClose,
+	closeButtonRef,
+	lightboxRef,
+}: {
+	image: ChatImageLightboxImage;
+	onClose: () => void;
+	closeButtonRef: React.RefObject<HTMLButtonElement | null>;
+	lightboxRef: React.RefObject<HTMLDivElement | null>;
+}) {
+	const [hasFailed, setHasFailed] = useState(false);
+
+	useEffect(() => {
+		setHasFailed(false);
+	}, [image.src]);
+
+	return (
+		<div
+			ref={lightboxRef}
+			className="sl-kapa-image-lightbox"
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="sl-kapa-image-lightbox-title"
+			onClick={(event) => {
+				if (event.target === event.currentTarget) {
+					onClose();
+				}
+			}}
+		>
+			<div className="sl-kapa-image-lightbox__content">
+				<span id="sl-kapa-image-lightbox-title" className="sr-only">
+					Expanded image: {image.alt}
+				</span>
+				<button
+					type="button"
+					ref={closeButtonRef}
+					className="sl-kapa-image-lightbox__close"
+					onClick={onClose}
+					aria-label="Close expanded image"
+				>
+					<LuX aria-hidden="true" />
+				</button>
+				{hasFailed ? (
+					<span
+						className="sl-kapa-answer-image-fallback sl-kapa-image-lightbox__fallback"
+						role="img"
+						aria-label={`${image.alt} unavailable`}
+					>
+						Image unavailable
+					</span>
+				) : (
+					<img
+						className="sl-kapa-image-lightbox__image"
+						src={image.src}
+						alt={image.alt}
+						title={image.title}
+						loading="lazy"
+						decoding="async"
+						referrerPolicy="no-referrer"
+						onError={() => setHasFailed(true)}
+					/>
+				)}
+			</div>
+		</div>
+	);
+}
 const highlightCache = new Map<string, string | null>();
 const highlightInFlight = new Map<string, Promise<string | null>>();
 let highlightRequestQueue: Promise<void> = Promise.resolve();
@@ -467,11 +613,15 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	const [handoffErrorMessage, setHandoffErrorMessage] = useState<string | null>(null);
 	const [handoffSuccessMessage, setHandoffSuccessMessage] = useState<string | null>(null);
 	const [isSubmittingHandoff, setIsSubmittingHandoff] = useState(false);
+	const [imageLightbox, setImageLightbox] = useState<ChatImageLightboxImage | null>(null);
 	const messagesRef = useRef<HTMLDivElement | null>(null);
 	const dialogRef = useRef<HTMLDialogElement | null>(null);
 	const triggerRef = useRef<HTMLButtonElement | null>(null);
 	const closeButtonRef = useRef<HTMLButtonElement | null>(null);
 	const inputRef = useRef<HTMLInputElement | null>(null);
+	const imageLightboxRef = useRef<HTMLDivElement | null>(null);
+	const imageLightboxCloseButtonRef = useRef<HTMLButtonElement | null>(null);
+	const imageLightboxTriggerRef = useRef<HTMLButtonElement | null>(null);
 	const {
 		addFeedback,
 		conversation,
@@ -555,12 +705,76 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 			dialog.close();
 		}
 	}, [isOpen]);
+	const closeImageLightbox = useCallback(() => {
+		setImageLightbox(null);
+		window.requestAnimationFrame(() => {
+			imageLightboxTriggerRef.current?.focus();
+		});
+	}, []);
+
+	const openImageLightbox = useCallback(
+		(image: ChatImageLightboxImage, trigger: HTMLButtonElement) => {
+			imageLightboxTriggerRef.current = trigger;
+			setImageLightbox(image);
+		},
+		[]
+	);
+
+	const imageLightboxController = useMemo(
+		() => ({ openImageLightbox }),
+		[openImageLightbox]
+	);
+
+	useEffect(() => {
+		if (!imageLightbox) return;
+
+		const frame = window.requestAnimationFrame(() => {
+			imageLightboxCloseButtonRef.current?.focus();
+		});
+		const onKeyDown = (event: KeyboardEvent) => {
+			if (event.key === 'Escape') {
+				event.preventDefault();
+				event.stopPropagation();
+				closeImageLightbox();
+				return;
+			}
+			if (event.key !== 'Tab') return;
+
+			const focusable = imageLightboxRef.current?.querySelectorAll<HTMLElement>(
+				'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+			);
+			if (!focusable?.length) {
+				event.preventDefault();
+				return;
+			}
+
+			const first = focusable[0];
+			const last = focusable[focusable.length - 1];
+			if (event.shiftKey && document.activeElement === first) {
+				event.preventDefault();
+				last.focus();
+			} else if (!event.shiftKey && document.activeElement === last) {
+				event.preventDefault();
+				first.focus();
+			}
+		};
+
+		window.addEventListener('keydown', onKeyDown, true);
+		return () => {
+			window.cancelAnimationFrame(frame);
+			window.removeEventListener('keydown', onKeyDown, true);
+		};
+	}, [closeImageLightbox, imageLightbox]);
 
 	useEffect(() => {
 		const onKeyDown = (event: KeyboardEvent) => {
 			if (keymatch(event, 'CmdOrCtrl+I')) {
 				if (dialogRef.current?.open) {
-					closePanel();
+					if (imageLightbox) {
+						closeImageLightbox();
+					} else {
+						closePanel();
+					}
 				} else {
 					openPanel();
 				}
@@ -572,7 +786,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		return () => {
 			window.removeEventListener('keydown', onKeyDown);
 		};
-	}, []);
+	}, [closeImageLightbox, imageLightbox]);
 
 	const hasConversation = conversation.length > 0;
 	const isBusy = isGeneratingAnswer || isPreparingAnswer;
@@ -755,6 +969,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	};
 
 	const onDialogClose = () => {
+		setImageLightbox(null);
 		setIsOpen(false);
 		restoreFocus();
 	};
@@ -782,16 +997,23 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 				<LuMessageSquare aria-hidden="true" />
 				<span className="warp-kapa-button__label">Ask</span>
 			</button>
-			<dialog
-				ref={dialogRef}
-				id="sl-kapa-panel"
-				className="sl-kapa-dialog"
-				aria-label={title}
-				onClose={onDialogClose}
-				onClick={onDialogClick}
-			>
-				<div className="sl-kapa-panel">
-					<header className="sl-kapa-panel__header">
+			<ChatImageLightboxContext.Provider value={imageLightboxController}>
+				<dialog
+					ref={dialogRef}
+					id="sl-kapa-panel"
+					className="sl-kapa-dialog"
+					aria-label={title}
+					onClose={onDialogClose}
+					onCancel={(event) => {
+						if (imageLightbox) {
+							event.preventDefault();
+							closeImageLightbox();
+						}
+					}}
+					onClick={onDialogClick}
+				>
+					<div className="sl-kapa-panel">
+						<header className="sl-kapa-panel__header" aria-hidden={imageLightbox ? true : undefined}>
 						<button
 							type="button"
 							className="sl-kapa-icon-button sl-kapa-icon-button--ghost"
@@ -813,9 +1035,13 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 								<LuX aria-hidden="true" />
 							</button>
 						</div>
-					</header>
+						</header>
 
-					<div className="sl-kapa-panel__body" ref={messagesRef}>
+						<div
+							className="sl-kapa-panel__body"
+							ref={messagesRef}
+							aria-hidden={imageLightbox ? true : undefined}
+						>
 						{!hasConversation && (
 							<div className="sl-kapa-empty-state">
 								<p className="sl-kapa-empty-state__title">Ask a question</p>
@@ -830,6 +1056,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 									{qa.answer ? (
 										<ReactMarkdown
 											components={{
+												a: ChatMarkdownLink,
 												img: ChatMarkdownImage,
 												// Fenced code blocks arrive as <pre><code>; inline code
 												// arrives as a bare <code>. react-markdown v9+ removed the
@@ -969,8 +1196,8 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 						))}
 
 						{error ? <div className="sl-kapa-error">{getChatErrorMessage(error)}</div> : null}
-					</div>
-					<footer className="sl-kapa-panel__footer">
+						</div>
+						<footer className="sl-kapa-panel__footer" aria-hidden={imageLightbox ? true : undefined}>
 						<form className="sl-kapa-form" onSubmit={onSubmit}>
 							<input
 								ref={inputRef}
@@ -1025,9 +1252,18 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 								</Popover.Content>
 							</Popover.Root>
 						</div>
-					</footer>
-				</div>
-			</dialog>
+						</footer>
+						{imageLightbox ? (
+							<ChatImageLightbox
+								image={imageLightbox}
+								onClose={closeImageLightbox}
+								closeButtonRef={imageLightboxCloseButtonRef}
+								lightboxRef={imageLightboxRef}
+							/>
+						) : null}
+					</div>
+				</dialog>
+			</ChatImageLightboxContext.Provider>
 		</div>
 	);
 }
