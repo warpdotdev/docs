@@ -1,19 +1,112 @@
 ---
 title: Warp Factories quickstart
 description: >-
-  Create a Warp Factory, connect a repo, and trigger your first automated
-  work item in a few minutes.
+  Set up a factory, connect GitHub, and submit your first work item in about
+  10 minutes.
 sidebar:
   label: "Quickstart"
 ---
+import { Steps } from '@astrojs/starlight/components';
 
-[STUB — pending content from HYC/content team for the 8/18 closed-beta soft launch. Owner: HYC.
+Set up a factory, connect its repositories, and submit a first work item in about 10 minutes.
 
-Follow the quickstart template (`.agents/templates/quickstart.md`). Cover:
-1. Create a Factory
-2. Connect a repo
-3. Configure the default agents (triage, spec, implement, review)
-4. Trigger work (e.g. via Slack, Linear, GitHub, or the Factory MCP)
-5. View / interact with the run in the control room web app
+## Prerequisites
 
-Keep prerequisites minimal and link out to How Factories work / Configure your Factory / Connect your Factory for depth rather than inlining it here.]
+* **Warp team membership** - Join the [Warp team](../knowledge-and-collaboration/teams) that will own the factory. Ask a team admin to complete connections when your role does not include the required permissions.
+* **Factory agent capacity** - A factory starts with 2–5 agents: the fixed Foreman and 1–4 selected subagents. If setup reports an agent limit, contact your workspace admin or Warp to confirm that the team has the required entitlement.
+* **GitHub repository access** - Choose at least one repository for the factory. You need permission to authorize or install the GitHub connection, or help from a GitHub organization owner. Review the [GitHub integration requirements](../platform/integrations/github) if your organization restricts app installations.
+
+## Set up a factory and submit work
+
+<Steps>
+
+1. #### Select a plan or credits
+
+   If your team already has an active plan with available AI credits, setup skips this step. Otherwise, setup opens **Select a Warp Plan**, where you subscribe to a plan or buy AI credits for the team. A factory needs available AI credits to run its agents.
+
+   **Expected outcome:** The team has an active plan with available credits, and setup advances to the code host.
+
+2. #### Connect GitHub
+
+   Sign in to Warp, open factory setup, and select the Warp team that will own the factory. Complete the GitHub authorization or installation flow.
+
+   If GitHub requires organization approval, ask an organization owner to approve the installation and repository access.
+
+   **Expected outcome:** Setup confirms the code-host connection and advances to repository selection.
+
+3. #### Select repositories
+
+   Select one or more repositories. Start with a focused set so the factory receives only the code context needed for its work. Every agent in the roster uses the same selected repositories.
+
+   Warp provisions a default execution environment for this repository set. See [cloud agent environments](../platform/environments) for details about toolchains, setup commands, and runtime configuration.
+
+   **Expected outcome:** The selected repositories appear in setup.
+
+4. #### Name the factory
+
+   Enter a name and the required alias. Use a name that identifies the product, service, or repository group, such as `Payments services`, and a short alias your team will recognize.
+
+   **Expected outcome:** Setup accepts both identity fields and advances to communication settings.
+
+5. #### Optionally connect Slack
+
+   Connect Slack if teammates will submit work from Slack threads. Complete the workspace authorization and return to setup. Otherwise, continue without Slack and connect it later.
+
+   **Expected outcome:** Setup records the Slack connection or advances without one.
+
+6. #### Choose the subagent flow
+
+   Foreman is always included and cannot be removed. Select at least one of **Triage**, **Specification**, **Implementation**, and **Review**. Each subagent is individually selectable, so the initial roster contains 2–5 agents.
+
+   Choose the roles that match the factory's default workflow. The foreman routes work only through applicable roles rather than enforcing every stage. See [factory agents](./factory-agents) for role details.
+
+   **Expected outcome:** Setup shows Foreman and 1–4 selected subagents.
+
+7. #### Optionally connect Linear and create the factory
+
+   Connect Linear on the tracker step if your team uses it for factory work. A tracker is optional, so you can continue without one.
+
+   Advancing from the final configurable step, which is the tracker step when Warp shows it, creates the factory. Creating the factory does not start any work; agents run only after you submit a request or a connected integration triggers one.
+
+   :::caution
+   If creation stops at an agent limit, contact your workspace admin or Warp to confirm capacity for the selected 2–5-agent roster.
+   :::
+
+   **Expected outcome:** Warp creates the factory and shows a post-creation startup screen that links to the factory control room.
+
+8. #### Submit the first work item
+
+   Open the factory's **Runs** page and submit a small request with one repository, a narrow scope, a verifiable outcome, and an explicit validation command.
+
+   ```text title="First work item"
+   In `OWNER/REPO`, update `PATH` so it states `EXPECTED_CHANGE`. Keep the change limited to that file, run `VALIDATION_COMMAND`, and open a pull request. If the repository contradicts the request, stop and report what you found.
+   ```
+
+   Replace `OWNER/REPO` with a selected repository, `PATH` with the file to change, `EXPECTED_CHANGE` with the required result, and `VALIDATION_COMMAND` with a command defined by the repository.
+
+   **Expected outcome:** A top-level foreman run appears on **Runs** with the request as context.
+
+9. #### Verify or stop the work item
+
+   Confirm the request at two levels:
+
+   * **Runs** - Inspect the foreman run and its status. Child runs appear as the foreman dispatches selected subagents.
+   * **Activity** - Find the work item in its current stage and inspect its event history and any pull request artifacts.
+
+   Use **Stop task** to stop active work when necessary. The control room does not provide controls to approve or steer running agents. By default, specifications and pull requests return to people for review when those steps apply. Use your team's existing process to review the work and decide whether to merge.
+
+   **Expected outcome:** The current run and work-item stage are visible. This does not mean that a pull request is ready or that code has been merged.
+
+</Steps>
+
+## Next steps
+
+* [**Connect your factory**](./connect-your-factory) - Configure Slack, Linear, and other intake paths.
+* [**Factory MCP**](./factory-mcp) - Exchange work from a compatible coding agent or MCP client.
+* [**How Warp Factories work**](./how-factories-work) - Follow the work-item lifecycle and default human decision points.
+
+## Troubleshooting
+
+### A GitHub repository does not appear
+
+Confirm that the GitHub installation includes the repository and uses the intended organization. Ask a GitHub organization owner or Warp team admin to update the connection when you do not have permission.
