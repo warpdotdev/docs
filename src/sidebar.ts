@@ -521,8 +521,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// discoverability after the top-level API tab was removed.
 					label: 'Technical Reference',
 					items: [
-						{ label: 'API Reference', link: '/api' },
 						{ slug: 'reference', label: 'Overview' },
+						{ label: 'API Reference', link: '/api' },
 					],
 				},
 				{
