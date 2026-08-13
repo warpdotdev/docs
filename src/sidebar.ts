@@ -369,25 +369,51 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			],
 		},
 		{
-			// New for the 8/18 Warp Factories soft launch. Stub pages live at
-			// src/content/docs/factories/ pending content from HYC/content team.
-			// Icon is a placeholder (gear) -- Starlight's built-in icon set has no
-			// literal factory glyph. A true factory icon would need a custom icon
-			// library plugin + Sidebar component override; revisit post-launch.
+			// Warp Factories documentation for Early Access.
+			// Starlight has no built-in factory glyph, so use its settings icon.
 			id: 'factories',
 			label: 'Factories',
 			link: '/factories/',
 			icon: 'setting',
+			badge: { text: 'Early Access', variant: 'note' },
 			items: [
 				{
-					label: 'Factories',
+					label: 'Get started',
 					items: [
 						{ slug: 'factories', label: 'Overview' },
 						{ slug: 'factories/quickstart', label: 'Quickstart' },
-						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
-						{ slug: 'factories/configure-your-factory', label: 'Configure your Factory' },
-						{ slug: 'factories/connect-your-factory', label: 'Connect your Factory' },
+						{ slug: 'factories/how-factories-work', label: 'How Warp Factories work' },
+					],
+				},
+				{
+					label: 'Configure',
+					items: [
+						{ slug: 'factories/factory-agents', label: 'Factory agents' },
+						{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
 						{ slug: 'factories/infrastructure-and-security', label: 'Infrastructure & security' },
+					],
+				},
+				{
+					label: 'Connect',
+					items: [
+						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
+						{
+							label: 'Integrations',
+							items: [
+								{ slug: 'factories/integrations/slack', label: 'Slack' },
+								{ slug: 'factories/integrations/github', label: 'GitHub' },
+								{ slug: 'factories/integrations/linear', label: 'Linear' },
+								{ slug: 'factories/integrations/jira', label: 'Jira' },
+							],
+						},
+						{ slug: 'factories/factory-mcp', label: 'Factory MCP' },
+					],
+				},
+				{
+					label: 'Operate',
+					items: [
+						{ slug: 'factories/control-room', label: 'Control room' },
+						{ slug: 'factories/measure-and-improve', label: 'Measure and improve' },
 					],
 				},
 			],
@@ -398,40 +424,18 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			// from 10 subsections into HYC's 6-group IA; all page slugs unchanged.
 			id: 'platform',
 			label: 'Automation Platform',
-			// The tab lands on the platform overview rather than /platform/, which
-			// serves the cloud agents overview. The two pages are not
-			// interchangeable: 16 legacy redirects point at each, and they are
-			// aligned with the content that lives there now (/agent-platform/
-			// warp-platform -> overview; /agent-platform/ambient-agents ->
-			// /platform/). Swapping the bodies would invert both sets, plus 17
-			// internal links and an #execution-hosts anchor. Precedent for a
-			// non-root tab target: the Changelog tab links to /changelog/2026/.
-			link: '/platform/overview/',
+			link: '/platform/',
 			icon: 'cloud-download',
 			items: [
-				{ slug: 'platform/overview', label: 'Overview' },
+				{ slug: 'platform', label: 'Cloud agents overview' },
 				{
-				label: 'Cloud Agents',
-				items: [
-						{ slug: 'platform', label: 'Overview' },
+					label: 'Cloud Agents',
+					items: [
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
-						{
-							// Leads with the Warp Agent harness page as this section's Overview
-							// (HYC review, 8/14). Skills and Secrets are literal identity properties
-							// via POST /agent/identities; MCP is attached per run. The page keeps its
-							// /platform/harnesses/warp-agent slug so existing links stay valid, and the
-							// Harnesses overview still links to it.
-							label: 'Warp Cloud Agents',
-							items: [
-								{ slug: 'platform/harnesses/warp-agent', label: 'Overview' },
-								{ slug: 'platform/agents', label: 'Cloud agent accounts' },
-								{ slug: 'platform/skills-as-agents', label: 'Skills as agents' },
-								{ slug: 'platform/mcp', label: 'MCP servers' },
-								'platform/secrets',
-							],
-						},
-						{ slug: 'platform/viewing-cloud-agent-runs', label: 'Viewing cloud agent runs' },
+						{ slug: 'platform/overview', label: 'Oz platform' },
 						{ slug: 'platform/managing-cloud-agents', label: 'Managing cloud agents' },
+						{ slug: 'platform/agents', label: 'Agents' },
+						{ slug: 'platform/viewing-cloud-agent-runs', label: 'Viewing cloud agent runs' },
 						{ slug: 'platform/oz-web-app', label: 'Oz web app' },
 						{
 							label: 'Handoff',
@@ -448,6 +452,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							collapsed: true,
 							items: [
 								{ slug: 'platform/harnesses', label: 'Overview' },
+								{ slug: 'platform/harnesses/warp-agent', label: 'Warp Agent' },
 								{ slug: 'platform/harnesses/claude-code', label: 'Claude Code' },
 								{ slug: 'platform/harnesses/codex', label: 'Codex' },
 								{ slug: 'platform/harnesses/authentication', label: 'Authentication' },
@@ -516,6 +521,18 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/self-hosting/reference', label: 'Self-hosted worker reference' },
 						'platform/self-hosting/security-and-networking',
 						{ slug: 'platform/self-hosting/troubleshooting', label: 'Troubleshooting' },
+					],
+				},
+				{
+					// PROPOSED, pending HYC confirmation: 'Extending agents' (skills, MCP,
+					// secrets) grouped here alongside a cross-link to the Reference tab's
+					// full API & SDK docs, rather than duplicating that content.
+					label: 'API / SDK',
+					items: [
+						{ slug: 'platform/skills-as-agents', label: 'Skills as agents' },
+						{ slug: 'platform/mcp', label: 'MCP servers' },
+						'platform/secrets',
+						{ label: `${VARS.API_SDK_NAME} reference`, link: '/reference/api-and-sdk/' },
 					],
 				},
 			],

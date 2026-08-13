@@ -5,9 +5,8 @@
 // Reference, etc.) as an inline-flex row with a small icon + label. The list
 // is sourced from `starlight-sidebar-topics`'s middleware, which exposes
 // `Astro.locals.starlightSidebarTopics.topics` on every Starlight route.
-// Each topic carries `{ link, label, icon, badge, isCurrent }`; we consume
-// `link`/`label`/`icon`/`isCurrent` and ignore `badge` for now (none of our
-// topics ship one). The plugin's per-topic sidebar filtering lives in its
+// Each topic carries `{ link, label, icon, badge, isCurrent }`. The plugin's
+// per-topic sidebar filtering lives in its
 // middleware (it rewrites `starlightRoute.sidebar`), so removing the topic
 // list from the sidebar markup does NOT break that filtering — the same
 // filtered nav still renders below this row in the page sidebar.
@@ -26,7 +25,7 @@
 //     underline share `--sl-color-text-accent`, which auto-adapts to dark
 //     and light themes.
 //   - No surrounding chip / box / bg — just type + icon
-import { Icon } from '@astrojs/starlight/components';
+import { Badge, Icon } from '@astrojs/starlight/components';
 
 const { topics } = Astro.locals.starlightSidebarTopics;
 
@@ -122,6 +121,11 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 							</span>
 						) : null}
 						<span class="warp-topic-nav__label">{topic.label}</span>
+						{topic.badge && (
+							<span class="warp-topic-nav__badge">
+								<Badge text={topic.badge.text} variant={topic.badge.variant} />
+							</span>
+						)}
 					</a>
 				</li>
 			))}
@@ -209,6 +213,12 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 	a[aria-current='page'] {
 		color: var(--sl-color-text-accent);
 		font-weight: 600;
+	}
+
+	.warp-topic-nav__badge {
+		display: inline-flex;
+		align-items: center;
+		margin-inline-start: 0.125rem;
 	}
 
 	/* 2px accent underline under the active tab, anchored to the link's own
