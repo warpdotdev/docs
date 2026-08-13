@@ -16,7 +16,7 @@ This guide takes you from installing the {VARS.WARP_CLI} to your first agent con
 
 ## 1. Install the Warp Agent CLI
 
-Install the CLI with the command for your operating system.
+Install the CLI with the command for your operating system. The install script is the recommended method, because it's the only one that keeps the CLI up to date on its own.
 
 <Tabs>
   <TabItem label="macOS and Linux">
@@ -31,6 +31,17 @@ Install the CLI with the command for your operating system.
     Invoke-RestMethod "https://app.warp.dev/download/agent-cli.ps1" | Invoke-Expression
     ```
   </TabItem>
+  <TabItem label="Homebrew">
+    On macOS 14 or later and on Linux, install the `warp-agent-cli` cask. It's in the main Homebrew cask repository, so you don't need to tap anything first:
+
+    ```bash
+    brew install --cask warp-agent-cli
+    ```
+
+    :::caution
+    Homebrew installations don't update themselves. The CLI still tells you when a new version is available, but you install it by running `brew upgrade --cask warp-agent-cli`. To get background updates instead, use the install script. See [automatic updates](/agents/cli/#automatic-updates).
+    :::
+  </TabItem>
 </Tabs>
 
 After installing, verify that the `warp` command is available:
@@ -39,7 +50,7 @@ After installing, verify that the `warp` command is available:
 warp --version
 ```
 
-The command prints the installed version. From here on, the CLI updates automatically. See [automatic updates](/agents/cli/#automatic-updates).
+The command prints the installed version. If you used the install script, the CLI updates itself from here on. See [automatic updates](/agents/cli/#automatic-updates).
 
 ## 2. Log in
 
