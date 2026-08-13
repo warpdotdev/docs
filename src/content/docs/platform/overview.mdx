@@ -45,7 +45,7 @@ In practice: **triggers create tasks; tasks execute on a host (optionally in an 
 
 ---
 
-### {VARS.WARP_AGENT_CLI}
+### CLI
 
 The [{VARS.WARP_AGENT_CLI}](/reference/cli/) is the **headless interface** for running agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](/agents/getting-started/agents-in-warp/) embedded in Warp's desktop app.
 
@@ -59,7 +59,7 @@ Use the CLI when:
 * An external system is orchestrating runs (for example GitHub Actions, custom automation, incident tooling).
 * You want task observability and auditing without requiring Warp desktop.
 
-#### How it fits in the {VARS.WARP_AUTOMATION_PLATFORM}
+#### How the CLI fits into cloud agent runs
 
 Depending on the command, the CLI typically:
 
@@ -134,7 +134,7 @@ Environments are recommended when:
 
 ---
 
-### {VARS.API_SDK_NAME}
+### API and SDK
 
 The {VARS.WARP_AUTOMATION_PLATFORM} [Agent API](/reference/api-and-sdk/) is the HTTP interface to the {VARS.WARP_AUTOMATION_PLATFORM}. It lets you create and inspect cloud agent tasks from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
 
@@ -284,7 +284,7 @@ Warp supports centralized configuration so these settings apply consistently reg
 
 This is especially useful when the same workflow can be triggered from multiple places (for example Slack, CI, and schedules). Instead of duplicating setup across systems, teams can keep configuration in one place and reuse it across triggers.
 
-### Using the {VARS.WARP_AUTOMATION_PLATFORM} with or without the Warp app
+### Using cloud agents with or without the Warp app
 
 [Cloud agents](/platform/) do not require Warp's desktop terminal. Teams can operate cloud agent workflows using:
 

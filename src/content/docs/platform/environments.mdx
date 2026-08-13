@@ -55,7 +55,7 @@ What an environment is not:
 * [MCP Servers](/platform/mcp/) – connect agents to external tools and data via MCP.
 * Per-run context – Trigger-specific data like Slack threads, PR metadata, or CI logs attach to individual tasks, not the environment configuration.
 
-## How environments fit into the {VARS.WARP_AUTOMATION_PLATFORM}
+## How environments fit into cloud agent runs
 
 An environment is the runtime layer for automated {VARS.WARP_AUTOMATION_PLATFORM} runs. It defines the container image, repos, and setup steps used when a trigger kicks off an agent task.
 
@@ -147,7 +147,7 @@ Musl-based Docker images (such as Alpine Linux) are not supported. The agent run
 Create one environment per codebase, then reuse it across triggers like Slack, Linear, and CLI runs.
 :::
 
-### Create an environment from the {VARS.WEB_APP}
+### Create an environment from the web app
 
 <figure>
 ![Creating a new environment in the Oz Web App.](../../../assets/agent-platform/oz-web-app-new-environment.png)
