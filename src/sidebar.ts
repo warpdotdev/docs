@@ -371,9 +371,12 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 		{
 			// New for the 8/18 Warp Factories soft launch. Stub pages live at
 			// src/content/docs/factories/ pending content from HYC/content team.
+			// Icon is a placeholder (gear) -- Starlight's built-in icon set has no
+			// literal factory glyph. A true factory icon would need a custom icon
+			// library plugin + Sidebar component override; revisit post-launch.
 			label: 'Factories',
 			link: '/factories/',
-			icon: 'server',
+			icon: 'setting',
 			items: [
 				{
 					label: 'Factories',
