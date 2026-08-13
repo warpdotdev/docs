@@ -402,13 +402,27 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			items: [
 				{ slug: 'platform', label: 'Cloud agents overview' },
 				{
-					label: 'Cloud Agents',
-					items: [
+				label: 'Cloud Agents',
+				items: [
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
 						{ slug: 'platform/overview', label: 'Oz platform' },
-						{ slug: 'platform/managing-cloud-agents', label: 'Managing cloud agents' },
-						{ slug: 'platform/agents', label: 'Agents' },
+						{
+							// Renamed from a bare 'Agents' link (per HYC feedback -- the page is
+							// specifically about the cloud agent identity/account object, e.g.
+							// POST /agent/identities, not agents generically). Skills/MCP/Secrets
+							// nested beneath since they're capabilities you attach to a cloud
+							// agent (Skills and Secrets are literal identity properties; MCP is
+							// per-run, bridged via a sentence on the landing page).
+							label: 'Cloud agent accounts',
+							items: [
+								{ slug: 'platform/agents', label: 'Overview' },
+								{ slug: 'platform/skills-as-agents', label: 'Skills as agents' },
+								{ slug: 'platform/mcp', label: 'MCP servers' },
+								'platform/secrets',
+							],
+						},
 						{ slug: 'platform/viewing-cloud-agent-runs', label: 'Viewing cloud agent runs' },
+						{ slug: 'platform/managing-cloud-agents', label: 'Managing cloud agents' },
 						{ slug: 'platform/oz-web-app', label: 'Oz web app' },
 						{
 							label: 'Handoff',
@@ -494,18 +508,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/self-hosting/reference', label: 'Self-hosted worker reference' },
 						'platform/self-hosting/security-and-networking',
 						{ slug: 'platform/self-hosting/troubleshooting', label: 'Troubleshooting' },
-					],
-				},
-				{
-					// PROPOSED, pending HYC confirmation: 'Extending agents' (skills, MCP,
-					// secrets) grouped here alongside a cross-link to the Reference tab's
-					// full API & SDK docs, rather than duplicating that content.
-					label: 'API / SDK',
-					items: [
-						{ slug: 'platform/skills-as-agents', label: 'Skills as agents' },
-						{ slug: 'platform/mcp', label: 'MCP servers' },
-						'platform/secrets',
-						{ label: `${VARS.API_SDK_NAME} reference`, link: '/reference/api-and-sdk/' },
 					],
 				},
 			],
