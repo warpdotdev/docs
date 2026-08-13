@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig, envField } from 'astro/config';
 import remarkGfm from 'remark-gfm';
+import mermaid from 'astro-mermaid';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
@@ -46,6 +47,34 @@ export default defineConfig({
 		},
 	},
 	integrations: [
+		// astro-mermaid must be registered before starlight() so it can hook
+		// into Starlight's markdown pipeline (see astro-mermaid's "Integration
+		// Order" requirement). Client-side rendering keeps the build free of a
+		// Playwright/Chromium dependency. `autoTheme` swaps Mermaid's own
+		// 'default'/'dark' base theme to match the site's data-theme attribute,
+		// which already gives each diagram a correctly light/dark background
+		// and text color with no extra config. `themeVariables` layers Warp's
+		// brand accent and font on top of that base theme. These two keys are
+		// literal colors/fonts rather than `var(--sl-color-*)` references:
+		// Mermaid resolves theme colors through its own color-math library at
+		// diagram-init time (to derive shades), which can't parse a CSS custom
+		// property string, so the brand values are inlined here instead.
+		mermaid({
+			autoTheme: true,
+			mermaidConfig: {
+				fontFamily: "'Inter', 'Inter Fallback', sans-serif",
+				themeVariables: {
+					fontFamily: "'Inter', 'Inter Fallback', sans-serif",
+					// Warp accent blue (--sl-color-accent, dark-theme value) as a
+					// literal hex so it reads clearly against both the dark and
+					// light page backgrounds. `nodeBorder` isn't derived from
+					// `primaryBorderColor` at render time, so both are set.
+					primaryBorderColor: '#51a6ec',
+					nodeBorder: '#51a6ec',
+					lineColor: '#51a6ec',
+				},
+			},
+		}),
 		react(),
 		sitemap(),
 		starlight({

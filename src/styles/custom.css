@@ -378,6 +378,25 @@ body {
 }
 
 /* --------------------------------------------------------------------------
+   Mermaid diagrams
+
+   astro-mermaid renders diagrams into `pre.mermaid`. Align the container
+   with the code-block radius/border tokens so a diagram reads as part of
+   the same visual system as fenced code, and constrain width so wide
+   flowcharts don't overflow the content column.
+   -------------------------------------------------------------------------- */
+.sl-markdown-content pre.mermaid {
+  max-width: 100%;
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: var(--sl-radius-md);
+  overflow-x: auto;
+}
+
+.sl-markdown-content pre.mermaid svg {
+  max-width: 100%;
+}
+
+/* --------------------------------------------------------------------------
    Guides: Card-based discovery page
 
    Filter pills + card grid for the /guides/ landing page.
