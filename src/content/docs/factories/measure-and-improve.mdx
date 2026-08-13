@@ -1,0 +1,105 @@
+---
+title: Measure and improve a factory
+description: >-
+  Measure factory activity and costs, evaluate completed conversations, compare
+  agent configurations, and turn failures into follow-up work.
+sidebar:
+  label: "Measure and improve"
+topic: factories
+---
+
+Warp Factories records activity and agent outcomes so you can identify a failure, test a specific change, and decide whether to adopt it.
+
+| Capability | Question answered | When to use | Limitation |
+| --- | --- | --- | --- |
+| Dashboard metrics | How much work, cost, and autonomy did the factory produce? | Compare periods and investigate activity changes. | Some coverage requires the GitHub App, and measurement runs count as activity. |
+| Scorers | Did completed conversations meet criteria you define? | Establish a baseline and classify failures. | Scorers are user-defined and classification-only. |
+| Benchmarks | How do candidate configurations compare on fixed tasks? | Test a model, harness, or runner change. | Results do not select a winner or report full cost. |
+| Self-improvement | Which repeated failures need follow-up work? | Investigate failing scores and group related causes. | It can produce pull requests, but guarantees neither a pull request nor adoption. |
+
+## Read dashboard metrics
+
+The control room surfaces activity, cost, autonomy, and evaluation results:
+
+| Surface | What it shows | Boundary |
+| --- | --- | --- |
+| **Total runs** | Agent runs, with breakdowns by agent type, status, source, root versus subruns, model, and harness. | Includes system measurement and improvement runs. |
+| **PRs opened** | Pull requests associated with factory work. | Uses a different collection path from **PRs merged**. |
+| **PRs merged** | Pull requests recorded as merged. | Requires the GitHub App and has no data from before collection started. |
+| **Autonomy %** | Share of merged work completed without human edits. | Derived from recorded PR signals, not a quality judgment. |
+| **Time saved** | A heuristic estimate from merged factory pull requests. | Uses a fixed heuristic, not billing or ROI. |
+| **PR latency** | Time a pull request spends in each stage. | Stage data depends on webhook coverage and can be incomplete. |
+| **Cost per PR** | A lower-bound estimate from recorded compute, platform, and inference credits. | Can omit usage and differ from billing. |
+| **Most expensive PRs** | Highest-cost pull requests, with available detail. | Detailed coverage requires the GitHub App. |
+| **Scorer cards** | Results from configured Scorers. | Represents the classifications your team defined. |
+| **Self-improvement PRs** | Recent pull requests produced through Self-improvement. | Shows the three newest, independent of the dashboard date range. |
+
+**Time saved** applies a heuristic of 25 finished lines per engineer-hour to merged factory pull requests. The per-teammate view divides that estimate by your current team size. Treat it as a directional heuristic, not a financial return or a billing figure.
+
+**Cost per PR** shows a median headline with the mean available, and offers **By complexity** and **By size** views. **Most expensive PRs** detail can break out inference usage by model and show a high-level human-touch or autonomy indicator. Treat that indicator as descriptive context; this page does not define additional classification rules.
+
+:::caution
+Merged, latency, and detailed PR coverage is GitHub App-only, starts when collection begins, and is not backfilled. **PRs opened** and **PRs merged** use different data sources, so do not interpret their ratio as a merge rate. Run count includes evaluation, benchmark, and Self-improvement activity. Cost per PR and Time saved are estimates, not financial ROI calculations.
+:::
+
+Use dashboard changes to choose runs for investigation, not to infer a cause. A higher run count with a stable opened-PR count might reflect harder work, retries, measurement activity, or unclear agent instructions.
+
+## Configure Scorers
+
+A **Scorer** tells an LLM judge how to classify completed conversations. Scorers have no built-in rubrics and currently support classification rather than numeric quality evaluation. Define one Scorer for one decision so its failures remain actionable.
+
+Configure these fields:
+
+* **Judge instructions** - State the observable criteria the judge applies.
+* **Classifications** - Define the allowed labels and their scores.
+* **Pass threshold** - Determines which recorded scores pass or fail.
+* **Sample rate** - Sets the portion of eligible conversations to evaluate.
+* **Judge model** - Selects a supported model or an auto router.
+
+You can scope a Scorer to all agents or selected agents, then keep it active or pause it. The judge evaluates eligible completed conversations after a quiet period and returns a classification, score, and reasoning.
+
+| Mode | Use when | Outcome |
+| --- | --- | --- |
+| Manual | Investigating one completed run or testing judge instructions. | An evaluation for the selected conversation. |
+| Periodic | Monitoring a sample of eligible conversations over time. | A baseline for comparison before and after a change. |
+
+Changing **Pass threshold** reclassifies historical scores against the current threshold when you view them. It does not change the recorded classification, score, or reasoning.
+
+## Compare configurations with benchmarks
+
+A benchmark suite fixes one agent and compares configurations of it on the same tasks. Define the suite, then launch it with the configurations you want to test:
+
+* **Agent** - The single suite-level agent whose configurations you compare.
+* **Tasks** - Fixed prompts with explicit success criteria the judge checks.
+* **Configurations** - Launch-time combinations of harness, model, and runner.
+* **Scorers** - The classification Scorers applied to every trial.
+* **Repetitions** - Multiple trials per task and configuration.
+
+Results present a cost and quality scatter across configurations and a per-task comparison. Quality is derived from Scorer classifications; there is no numeric quality scorer and Warp Factories does not select a winning configuration. Benchmark credit totals cover recorded compute and platform usage, exclude inference usage, and do not represent full USD cost.
+
+Use enough repetitions to distinguish a stable difference from one successful trial, and apply constraints the suite does not encode, including required tools, security policy, provider availability, and the severity of each classification.
+
+## Configure and review Self-improvement
+
+Toggle **Self-improvement** on for each Scorer whose failing results warrant automated investigation. The factory-level **Analysis model** selects the model used to analyze failures and cluster related findings. GitHub-backed, file-managed factories cannot set **Analysis model** in the control room.
+
+Self-improvement dispatches investigation workers, clusters their findings, and files ordinary follow-up factory tasks as agent runs. A follow-up run can propose a change to application code or, when the factory configuration repo is available, to prompts, skills, or configuration. Self-improvement can produce pull requests, but it does not guarantee a pull request or automatically adopt a change.
+
+The dashboard's **Self-improvement PRs** shows the three newest pull requests from Self-improvement, independent of the dashboard date range. Each includes a deterministic **Regressions addressed** block that links the source runs, the failed Scorer and classification, and the triage run, so you can trace a proposed change back to the evidence that prompted it.
+
+## Run a practical improvement loop
+
+Change one measurable part of the factory at a time:
+
+1. **Define a Scorer.** Choose one agent role and observable failure mode. Write **Judge instructions** and **Classifications**, then set the threshold, sample rate, judge model, scope, and state. Confirm that results match several manual reviews.
+2. **Collect a baseline.** Run periodic scoring until the classification distribution represents normal work. Record Scorer settings, the date range, activity metrics, and relevant cost components.
+3. **Inspect failures.** Read judge reasoning and conversations, then identify causes such as missing context, unclear instructions, unavailable tools, or incomplete validation. Enable Self-improvement only when repeated failures warrant grouped investigation.
+4. **Benchmark a candidate.** Compare configurations of one agent across the same tasks and repetitions. Review the cost and quality scatter, per-task results, and outliers.
+5. **Review and adopt.** Decide whether the evidence supports changing a harness, model, runner, parameter, prompt, skill, or other definition. Review any Self-improvement pull request or follow-up task using the same standards as a human-authored change.
+6. **Continue monitoring.** Keep the Scorer active, compare results with the baseline, and watch for regressions. Pause or revise a Scorer when its rubric no longer represents the team's requirements.
+
+A narrow change with a stable benchmark and Scorer provides stronger evidence than a broad reconfiguration with several possible causes.
+
+## Next step
+
+Record an adopted change in [factory definitions as code](./factory-as-code) so your team can review the factory configuration.
