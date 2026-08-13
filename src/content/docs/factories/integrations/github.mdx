@@ -1,0 +1,84 @@
+---
+title: Connect a factory to GitHub
+description: >-
+  Connect a factory to GitHub to route repository events into work and return
+  comments, branches, and pull request links.
+sidebar:
+  label: "GitHub"
+topic: factories
+---
+
+Connect a factory to GitHub to route supported repository events into factory work, preserving source context and returning results to GitHub.
+
+## Prerequisites and authorization
+
+* **GitHub App installation** - Install the Oz by Warp GitHub App and grant it access to the repositories the factory uses. Follow the [GitHub integration setup](../../platform/integrations/github) for installation, organization association, and account connection.
+* **Factory repositories** - Create or select a factory that uses GitHub, then include at least one repository covered by the GitHub App installation.
+* **GitHub permissions** - Confirm the installation permits the work you expect agents to perform.
+
+The GitHub App installation is the authorization boundary for private repository access. Its credential can reach the repositories selected for that installation, subject to the app's permissions. Factory repository selection and automation filters route context and events; they do not further narrow the credential.
+
+When an event matches, Warp starts the configured factory agent. The event author is source context, does not supply the run's credentials, and does not need Warp team membership. Restrict who triggers work with repository, event, and author filters; restrict run reach through the GitHub App installation's repository selection.
+
+## Connect and configure GitHub
+
+1. In the factory setup flow, choose **I want to use repos from GitHub.** under **Connect your code host**.
+2. Under **Select your repos**, choose the repositories that provide code and context for the factory.
+3. In the factory's control room, open **Automations** and create an automation. Choose the receiving agent and add any **Additional instructions**.
+4. Under **Triggers**, click **Add trigger**, choose **GitHub**, and choose an event. Select one factory repository, then click **More filters** to narrow the matching activity.
+5. Click **Save**, then send a representative event and confirm the expected work item starts or continues.
+
+## Supported triggers, context, and outputs
+
+| Trigger class | Supported activity | Context continuity | Typical output |
+| --- | --- | --- | --- |
+| Issues | Created, labeled, assigned, or mentioned | GitHub issue | Reaction, status comments, summary, and pull request links |
+| Pull requests | Opened, ready, reopened, updated with commits, assigned, labeled, mentioned, closed, or merged | Pull request | Comments, code changes, branches, and pull request links |
+| Reviews | Review requested or submitted | Pull request or review thread | Reaction, comments, code changes, and pull request links |
+| Code and CI | Push, completed check suite or workflow run, or a re-requested Warp-owned check | Commit, pull request, or workflow event | Run result, code changes, and artifact links |
+
+GitHub only sends check re-request events to the app that created the check. Re-requesting a third-party CI check does not trigger a Warp-owned check event.
+
+### Automation filters
+
+Each event exposes only the filters that apply to that event. Available filters include **Repositories**, **Branches**, **Base branches**, **Paths**, **Labels**, **Authors**, **Assignees**, mentioned users or teams, reviewers, review states, workflows, and conclusions.
+
+For example, route failed runs of a named workflow to a CI-repair automation. Filters decide which events reach an automation. They do not change the repositories or actions authorized by the GitHub App installation.
+
+## Continue work from GitHub
+
+Activity associated with the same issue, pull request, or review thread can continue its existing work item with the earlier GitHub context, run history, and artifacts.
+
+Warp acknowledges handled activity with a reaction and posts comments where GitHub provides a comment surface. Responses can link to the run, branches, and pull requests. A push or CI event without a comment surface retains its result on the work item.
+
+Agents use the GitHub App installation credential to create branches and pull requests from the run environment. Merge requirements, required reviews, and branch protection remain GitHub repository policy. They are not factory-specific role-based access controls.
+
+As a best-effort, GitHub-only convenience, Warp creates a `factory:<alias>` label in each connected repository on factory creation and repository add, and factory-authored issues and pull requests carry it. Removing a repository or deleting the factory removes the label; you don't create it manually.
+
+## Factory-definition pull request checks
+
+Pull request validation for a factory definition is separate from a GitHub work automation. Warp validates relevant changes under the registered factory directory and reports a check with diagnostics or a change summary.
+
+These checks validate the factory configuration itself. They do not make every pull request a factory work item, and their re-run behavior applies only to checks created by the Warp GitHub App.
+
+## Permissions and operational boundaries
+
+An installation token does not grant private repository reads or writes outside the installation's repository grant. Public repository access and other configured credentials are separate, and factory repository selection and automation filters neither expand nor narrow the installation token's reach.
+
+## Troubleshooting
+
+### A GitHub event does not start work
+
+Confirm the installation covers the event's repository, the repository belongs to the factory, and the automation includes that event. Then check each configured filter; a label, author, branch, workflow, conclusion, or state mismatch prevents routing.
+
+### Filter options do not load
+
+Select a repository first. If the automation editor shows **Connect GitHub**, complete the account connection and retry. You can enter a canonical value when suggestions are unavailable.
+
+### An agent cannot push a branch or open a pull request
+
+Check that the installation still covers the target repository and grants the required write permissions. Changing an automation filter cannot restore missing GitHub authorization.
+
+### A factory-definition check does not appear
+
+Confirm that the pull request targets the factory definition's production branch and that the GitHub App covers the registered repository. Pull requests that do not change files under the registered factory directory can complete without configuration changes.
