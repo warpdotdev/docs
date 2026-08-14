@@ -730,6 +730,24 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 			setHandoffErrorMessage('Enter a valid email address to continue.');
 			return;
 		}
+		// Enrich Kapa analytics when the user self-identifies during handoff.
+		// Anonymous cookie tracking still covers earlier turns in the thread.
+		const windowWithKapaSettings = window as Window & {
+			kapaSettings?: {
+				user?: {
+					email?: string;
+					uniqueClientId?: string;
+					metadata?: Record<string, string>;
+				};
+			};
+		};
+		windowWithKapaSettings.kapaSettings = {
+			...(windowWithKapaSettings.kapaSettings ?? {}),
+			user: {
+				...(windowWithKapaSettings.kapaSettings?.user ?? {}),
+				email: userEmail,
+			},
+		};
 		const localStorageThreadId = localStorage.getItem('warp_docs_kapa_thread_id');
 		const activeThreadId = threadId || storedThreadId || localStorageThreadId;
 		if (!activeThreadId) {
@@ -1244,7 +1262,10 @@ export default function KapaChatLauncher({ autoOpen = false }: { autoOpen?: bool
 			key={chatSessionKey}
 			integrationId={integrationId}
 			callbacks={callbacks}
-			userTrackingMode="none"
+			// Anonymous first-party cookie (`kapa_web_id`). Default in the Kapa
+			// React SDK; set explicitly so we do not accidentally ship `none` again.
+			// https://docs.kapa.ai/dev/sdk/components/KapaProvider#user-tracking-mode
+			userTrackingMode="cookie"
 		>
 			<ChatSurface
 				title={title}
