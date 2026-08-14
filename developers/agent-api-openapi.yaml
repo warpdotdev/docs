@@ -424,23 +424,6 @@ paths:
         required: false
         schema:
           type: string
-      - name: factory_uid
-        in: query
-        description: |
-          Filter runs by factory. Matches runs executed by any of the
-          factory's agents. A UID outside the caller's accessible factories
-          matches nothing.
-        required: false
-        schema:
-          type: string
-      - name: automation_id
-        in: query
-        description: |
-          Filter runs by the factory automation that dispatched them. Matches
-          runs stamped with the automation_id metadata key at creation time.
-        required: false
-        schema:
-          type: string
       - name: ancestor_run_id
         in: query
         description: Filter runs by ancestor run ID. The referenced run must exist and be accessible to the caller.
@@ -1497,16 +1480,7 @@ paths:
       - agent
       security:
       - bearerAuth: []
-      parameters:
-      - name: factory_uid
-        in: query
-        required: false
-        description: |
-          Optional UID of a Factory to filter by. When provided, only agents
-          linked to that factory (and owned by the caller's team) are returned.
-          Ignored unless the factory API is enabled.
-        schema:
-          type: string
+      parameters: []
       responses:
         '200':
           description: List of agents
@@ -3886,20 +3860,6 @@ components:
       enum:
       - CREATOR
       - EXECUTOR
-    AgentType:
-      type: string
-      enum:
-      - FOREMAN
-      - TRIAGE
-      - SPEC
-      - IMPLEMENT
-      - REVIEW
-      - VERIFY
-      - CUSTOM
-      description: |
-        The well-known type of a named agent. The built-in factory agents use
-        FOREMAN, TRIAGE, SPEC, IMPLEMENT, REVIEW, or VERIFY; every other agent
-        is CUSTOM.
     ReportedRunScore:
       type: object
       required:
@@ -3966,19 +3926,6 @@ components:
         name:
           type: string
           description: A name for the agent
-        factory_uid:
-          type: string
-          nullable: true
-          description: |
-            Optional UID of the Factory to link this agent to. When omitted, the
-            agent is not linked to any factory.
-        agent_type:
-          allOf:
-          - $ref: '#/components/schemas/AgentType'
-          nullable: true
-          description: |
-            Optional well-known type for the agent. Defaults to CUSTOM when omitted.
-            Only honored when the factory API is enabled.
         description:
           type: string
           nullable: true
@@ -4209,14 +4156,6 @@ components:
           description: |
             Replacement per-harness authentication secrets. Omit or pass `null`
             to leave unchanged, or pass an empty object to clear all secrets.
-        agent_type:
-          allOf:
-          - $ref: '#/components/schemas/AgentType'
-          nullable: true
-          description: |
-            Replacement well-known type for the agent. Omit, pass `null`, or pass
-            an empty string to leave the type unchanged.
-            Only honored when the factory API is enabled.
         on_behalf_of_enabled:
           type: boolean
           nullable: true
@@ -4366,19 +4305,6 @@ components:
             Per-harness authentication secrets configured on this agent.
             Each field names a managed secret for the corresponding harness.
             Secrets can be overridden per run.
-        factory_uid:
-          type: string
-          nullable: true
-          description: |
-            UID of the Factory this agent was seeded for. Null (or omitted)
-            for agents that do not belong to a factory.
-        agent_type:
-          allOf:
-          - $ref: '#/components/schemas/AgentType'
-          nullable: true
-          description: |
-            The agent's well-known type. Present only when the factory API is
-            enabled; agents created before agent typing existed report CUSTOM.
         on_behalf_of_enabled:
           type: boolean
           description: |

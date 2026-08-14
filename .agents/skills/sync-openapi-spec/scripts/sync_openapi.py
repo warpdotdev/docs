@@ -179,6 +179,35 @@ def _is_internal_operation(operation: Any) -> bool:
     return isinstance(operation, dict) and operation.get(INTERNAL_MARKER) is True
 
 
+def _prune_internal(node: Any) -> Any:
+    """Recursively drop any object marked ``x-internal: true``, then recurse
+    into whatever remains.
+
+    Mirrors openapi-format's ``flagValues: [x-internal: true]`` semantics
+    (warp-server's ``public_api/public-openapi-filter.yaml``): the entire
+    marked node is deleted, not just the marker key. This catches internal
+    schema properties (e.g. ``factory_uid``, ``agent_type``) and internal
+    parameters (e.g. the ``automation_id`` query parameter) wherever they
+    appear in the tree — not only the top-level path operations that
+    ``strip_internal_operations`` inspects. Stripping only the marker key
+    (see ``_strip_flags``) would otherwise leave the internal object itself,
+    just unmarked, in the published spec.
+    """
+    if isinstance(node, dict):
+        return {
+            key: _prune_internal(value)
+            for key, value in node.items()
+            if not _is_internal_operation(value)
+        }
+    if isinstance(node, list):
+        return [
+            _prune_internal(item)
+            for item in node
+            if not _is_internal_operation(item)
+        ]
+    return node
+
+
 def strip_internal_operations(path_item: dict[str, Any]) -> dict[str, Any]:
     """Return ``path_item`` without any operation marked ``x-internal: true``.
 
@@ -323,6 +352,11 @@ def _validate_output(out: dict[str, Any]) -> list[str]:
 
 def transform(source: dict[str, Any]) -> dict[str, Any]:
     """Produce the docs subset of the given source spec."""
+    # Drop every x-internal-marked object (schema properties, parameters,
+    # operations, tags, ...) before anything else, so a downstream pass never
+    # sees an internal node it would otherwise have to know how to filter.
+    source = _prune_internal(source)
+
     out: dict[str, Any] = {}
 
     for top_key in ("openapi", "info", "servers"):
@@ -483,6 +517,19 @@ def _self_test() -> int:
                     "tags": ["agent"],
                     "operationId": "runAgent",
                     "x-stainless-deprecation-message": "use /agent/runs instead",
+                    "parameters": [
+                        {
+                            "name": "conversation_id",
+                            "in": "query",
+                            "schema": {"type": "string"},
+                        },
+                        {
+                            "name": "factory_uid",
+                            "in": "query",
+                            "x-internal": True,
+                            "schema": {"type": "string"},
+                        },
+                    ],
                     "requestBody": {
                         "content": {
                             "application/json": {
@@ -554,6 +601,10 @@ def _self_test() -> int:
                             "x-go-type-skip-optional-pointer": True,
                             "x-oapi-codegen-extra-tags": {"json": "legacy_mode,omitempty"},
                         },
+                        "factory_agent_type": {
+                            "allOf": [{"$ref": "#/components/schemas/Mode"}],
+                            "x-internal": True,
+                        },
                     },
                 },
                 "Mode": {
@@ -599,6 +650,20 @@ def _self_test() -> int:
     assert out["components"]["schemas"]["Config"]["properties"]["legacy_mode"][
         "type"
     ] == "string"
+
+    # An x-internal-marked object must be dropped entirely, not just have its
+    # marker key stripped — covers an internal query parameter and an
+    # internal schema property, alongside the surviving public sibling in
+    # each case.
+    run_params = {
+        p["name"] for p in out["paths"]["/agent/run"]["post"]["parameters"]
+    }
+    assert run_params == {"conversation_id"}, f"unexpected parameters: {run_params}"
+    config_props = set(out["components"]["schemas"]["Config"]["properties"].keys())
+    assert "factory_agent_type" not in config_props, (
+        f"internal property survived: {config_props}"
+    )
+    assert "legacy_mode" in config_props, f"public property dropped: {config_props}"
 
     print("self-test: OK")
     return 0
