@@ -481,34 +481,53 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					// One group, not two, and not nested either way. platform/triggers
 					// lists integrations as one of six trigger types, so nesting
-					// Triggers under Integrations inverts the concept -- but nesting
-					// Integrations under Triggers buries 11 pages four levels deep, and
-					// splitting them into siblings implies they are peers. A label
-					// naming both sidesteps the question; the overview pages carry the
-					// actual relationship in prose.
+					// Triggers under Integrations inverts the concept, and splitting
+					// them into siblings implies they are peers. A label naming both
+					// sidesteps the question.
+					//
+					// platform/triggers is the group overview: it already introduces
+					// both concepts and lists integrations among the trigger types.
+					// platform/integrations keeps a separate overview inside the
+					// Integrations subgroup rather than being merged into it -- it
+					// carries 20 inbound links and 19 legacy redirects, against 4 and 0
+					// for platform/triggers, so it is the more established URL of the
+					// two and not a deletion candidate.
 					label: 'Triggers & integrations',
 					items: [
-						{ slug: 'platform/triggers', label: 'Triggers overview' },
-						{ slug: 'platform/triggers/scheduled-agents-quickstart', label: 'Scheduled agents quickstart' },
-						{ slug: 'platform/triggers/scheduled-agents', label: 'Scheduled agents' },
-						{ slug: 'platform/integrations', label: 'Integrations overview' },
-						{ slug: 'platform/integrations/quickstart', label: 'Integrations quickstart' },
-						'platform/integrations/slack',
-						'platform/integrations/linear',
-						'platform/integrations/jira',
-						'platform/integrations/github',
+						{ slug: 'platform/triggers', label: 'Overview' },
 						{
-							label: 'GitHub Actions',
+							// Overview-then-Quickstart, matching the GitHub Actions subgroup.
+							label: 'Scheduled agents',
 							collapsed: true,
 							items: [
-								{ slug: 'platform/integrations/github-actions', label: 'Overview' },
-								{ slug: 'platform/integrations/quickstart-github-actions', label: 'Quickstart' },
+								{ slug: 'platform/triggers/scheduled-agents', label: 'Overview' },
+								{ slug: 'platform/triggers/scheduled-agents-quickstart', label: 'Quickstart' },
 							],
 						},
-						'platform/integrations/azure-devops',
-						'platform/integrations/bitbucket',
-						'platform/integrations/gitlab',
-						{ slug: 'platform/integrations/cloud-providers', label: 'AWS, GCP, and other cloud providers' },
+						{
+							label: 'Integrations',
+							collapsed: true,
+							items: [
+								{ slug: 'platform/integrations', label: 'Overview' },
+								{ slug: 'platform/integrations/quickstart', label: 'Quickstart' },
+								'platform/integrations/slack',
+								'platform/integrations/linear',
+								'platform/integrations/jira',
+								'platform/integrations/github',
+								{
+									label: 'GitHub Actions',
+									collapsed: true,
+									items: [
+										{ slug: 'platform/integrations/github-actions', label: 'Overview' },
+										{ slug: 'platform/integrations/quickstart-github-actions', label: 'Quickstart' },
+									],
+								},
+								'platform/integrations/azure-devops',
+								'platform/integrations/bitbucket',
+								'platform/integrations/gitlab',
+								{ slug: 'platform/integrations/cloud-providers', label: 'AWS, GCP, and other cloud providers' },
+							],
+						},
 					],
 				},
 				{
