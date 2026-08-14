@@ -915,6 +915,12 @@ def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
     short literals like bare "Oz" don't false-positive inside unrelated tokens
     such as URL query params, hashes, or other identifiers (e.g. a YouTube
     share link's `si=OzvuInMl8DoNR97R` parameter).
+
+    An "@"-prefixed occurrence is skipped. "@Oz" is a literal mention handle
+    that a user types in Slack or Linear, not the product name appearing in
+    prose. Handles are strings the product owns, so they do not necessarily
+    change when the product name does -- variabilizing them would silently
+    rewrite a working handle into an invalid one at rename time.
     """
     issues = []
     in_code_block = False
@@ -936,6 +942,9 @@ def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
             for m in pattern.finditer(prose_line):
                 span = m.span()
                 if any(span[0] >= s and span[1] <= e for s, e in matched_spans):
+                    continue
+                # "@Oz" is a mention handle users type, not prose. See docstring.
+                if span[0] > 0 and prose_line[span[0] - 1] == "@":
                     continue
                 matched_spans.append(span)
                 issues.append(Issue(

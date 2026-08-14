@@ -67,7 +67,7 @@ A [Warp team](/knowledge-and-collaboration/teams/) is a group of users who share
 * **Self-hosting** - Run agents on your own infrastructure (Enterprise only)
 * **Team visibility** - Shared observability into agent runs and history
 
-Integrations are created at the team level, not per-user. Once a Slack or Linear integration is installed, everyone on your Warp team can use **@{VARS.WARP_AUTOMATION_PLATFORM}** in the connected workspace. The integration behaves the same way for all teammates, and everyone shares the same underlying environment configuration. The GitHub integration is team-level in the same way: once an admin enables the GitHub organization, any teammate with a connected GitHub account can start a run by mentioning **@oz-agent**.
+Integrations are created at the team level, not per-user. Once a Slack or Linear integration is installed, everyone on your Warp team can use **@Oz** in the connected workspace. The integration behaves the same way for all teammates, and everyone shares the same underlying environment configuration. The GitHub integration is team-level in the same way: once an admin enables the GitHub organization, any teammate with a connected GitHub account can start a run by mentioning **@oz-agent**.
 
 When someone triggers a cloud agent for the first time, Warp may prompt them to grant GitHub authorization so the agent can open pull requests or push branches under their identity. This allows each run to use the correct permissions without requiring additional setup from an admin.
 
@@ -184,7 +184,7 @@ Installing the {VARS.WARP_AUTOMATION_PLATFORM} app gives Warp access to the Slac
 * The content of the tagged thread or issue
 * Relevant surrounding context used to build the agent prompt
 
-Warp stores only the content required for the agent to complete its task. You can message @{VARS.WARP_AUTOMATION_PLATFORM} directly, mention it in channels, or tag it on specific issues depending on the integration.
+Warp stores only the content required for the agent to complete its task. You can message @Oz directly, mention it in channels, or tag it on specific issues depending on the integration.
 
 #### GitHub
 
