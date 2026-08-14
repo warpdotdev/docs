@@ -7,6 +7,7 @@ description: >-
 sidebar:
   label: "Access, billing, and identity"
 ---
+import { VARS } from '@data/vars';
 
 This page explains how access to cloud agents works for both individual users and teams, how billing and credits apply, and how Warp maps user identities across integrations.
 
@@ -37,7 +38,7 @@ Individual users can run cloud agents via the CLI or API without being part of a
 
 **How it works:**
 
-* Run agents using `oz agent run-cloud` or the Oz API
+* Run agents using `oz agent run-cloud` or the {VARS.API_SDK_NAME}
 * Credits are drawn from your Warp credits (including cloud agent credits, when applicable)
 * Agents execute on Warp-hosted infrastructure
 
@@ -123,7 +124,7 @@ The GitHub App token gives the agent access to the repositories included in the 
 
    :::note
 There are two places you may encounter this installation flow:
-   * During the first-time experience for Oz, when you connect your GitHub account.
+   * During the first-time experience for {VARS.WARP_AUTOMATION_PLATFORM}, when you connect your GitHub account.
    * When you click **Configure access on GitHub** in the repository selector while creating an environment.
 
    Each installation is scoped to a single GitHub organization or personal account — you can install the app to multiple orgs separately.
@@ -141,7 +142,7 @@ There are two places you may encounter this installation flow:
    <figcaption>Enabled GitHub Orgs setting in the Admin Panel.</figcaption>
    </figure>
 
-3. **Use an agent API key.** Tasks initiated with an agent API key on the team now use tokens from the GitHub App installation to clone repos and push changes. No individual GitHub authorization is needed. On GitHub, commits and pull requests are opened by the Oz by Warp GitHub App rather than any individual user; in the Oz dashboard, the run is attributed to the bound [cloud agent](/platform/agents/).
+3. **Use an agent API key.** Tasks initiated with an agent API key on the team now use tokens from the GitHub App installation to clone repos and push changes. No individual GitHub authorization is needed. On GitHub, commits and pull requests are opened by the Oz by Warp GitHub App rather than any individual user; in the {VARS.DASHBOARD}, the run is attributed to the bound [cloud agent](/platform/agents/).
 
 ### How this relates to environments
 
@@ -156,9 +157,9 @@ The environment configuration and the **Enabled GitHub Orgs** setting in the Adm
 
 Team GitHub authorization is complementary to the existing personal token flow:
 
-* **User-triggered runs** (personal API key, Slack, Linear, Warp app) - The agent authenticates as Oz acting on the triggering user's behalf. PRs and commits are attributed to that user.
-* **Agent API key runs with GitHub App authorization** - The agent authenticates as the GitHub App installation. On GitHub, PRs and commits are attributed to the Oz by Warp GitHub App rather than any individual user. In the Oz dashboard, the run is attributed to the bound [cloud agent](/platform/agents/), which controls run filtering and audit attribution on the Warp side.
-* **[GitHub integration](/platform/integrations/github/) runs** (an `@oz-agent` mention on an issue or pull request) - The agent authenticates as the installation that delivered the event, so its repository access and its GitHub attribution match the agent API key flow. In the Oz dashboard the run is still attributed to the teammate who wrote the mention, and their team is billed.
+* **User-triggered runs** (personal API key, Slack, Linear, Warp app) - The agent authenticates using the triggering user's personal token. PRs and commits are attributed to that user.
+* **Agent API key runs with GitHub App authorization** - The agent authenticates as the GitHub App installation. On GitHub, PRs and commits are attributed to the Oz by Warp GitHub App rather than any individual user. In the {VARS.DASHBOARD}, the run is attributed to the bound [cloud agent](/platform/agents/), which controls run filtering and audit attribution on the Warp side.
+* **[GitHub integration](/platform/integrations/github/) runs** (an `@oz-agent` mention on an issue or pull request) - The agent authenticates as the installation that delivered the event, so its repository access and its GitHub attribution match the agent API key flow. In the {VARS.DASHBOARD} the run is still attributed to the teammate who wrote the mention, and their team is billed.
 
 These flows can coexist on the same team. Personal tokens are still used for user-triggered runs from a personal API key, Slack, Linear, and the Warp app, and the GitHub App installation token is used for agent API key runs and for GitHub integration runs.
 
@@ -176,7 +177,7 @@ To change which repositories the GitHub App can access, edit the app installatio
 
 #### Slack / Linear
 
-Installing the Oz app gives Warp access to the Slack channels or Linear teams where the app is installed.
+Installing the {VARS.WARP_AUTOMATION_PLATFORM} app gives Warp access to the Slack channels or Linear teams where the app is installed.
 
 **When a run is triggered, Warp receives:**
 

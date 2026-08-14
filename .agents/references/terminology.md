@@ -219,6 +219,34 @@ For the summary of the most critical terms (core features, Oz terms, terms to av
 
 - **Warp CLI** — Ambiguous since the Warp Agent CLI launched; avoid the bare term. Use "Oz CLI" for the `oz` binary that runs and manages cloud agents (formerly called `warp-cli`), or "Warp Agent CLI" for the `warp` binary that runs the Warp Agent in any terminal.
 
+- **Automation Platform** — Working name for Warp's cloud agent platform (the proposed successor branding for "Oz" as of the ~2026-08-18 launch), covering environments, integrations, orchestration, self-hosting, and the Agent API/SDK.
+  *Usage note:* PENDING final naming confirmation — not yet on ZL's locked product-naming list (Warp / Warp Factories / Warp Agent / Warp Terminal). Used in docs IA prototyping via `{VARS.WARP_AUTOMATION_PLATFORM}`; do not hardcode the literal string "Automation Platform" in prose so the name can still change cheaply.
+
+## Warp Factories terminology
+
+- **Warp Factories** — Warp's product for deploying and operating cloud software factories: automation loops around the SDLC where cloud agents triage, spec, implement, review, and verify work, with humans in the loop at key decision points. Launches in closed beta ~2026-08-18.
+  *Usage note:* Capitalize both words as the product name; plural "Factories." Distinct from "software factory" (see below), the generic industry term for the pattern.
+
+- **software factory** — The generic, lowercase industry term for an automation loop around the SDLC (triage, spec, implement, review, verify). Warp Factories is Warp's product implementation of this pattern.
+  *Usage note:* Lowercase when used generically ("a software factory," "cloud software factories"). Capitalize only when part of the product name "Warp Factories."
+
+- **factory** — An individual deployed instance of a software factory, built on Warp Factories infrastructure.
+  *Usage note:* Lowercase common noun ("your factory," "set up a factory").
+
+- **factory definitions as code** — The practice of specifying a factory's repos, agent roles, skills, MCPs, and permissions as version-controlled code, similar to infrastructure-as-code. Enables rollback, canarying, and agentic self-improvement of the factory itself.
+
+- **work item** — A unit of work moving through a factory (for example an issue, ticket, or triggered task) as it passes through triage, spec, implementation, review, and verification.
+
+- **foreman agent** — The orchestrator agent that receives a work item's triggering context and dispatches subagents to move it through the factory, choosing model, harness, and context for each step.
+
+- **Factory MCP** — The MCP server that lets any coding agent or MCP client interact with a factory: push work in, pull status, or guide sessions.
+  *Usage note:* Capitalize as a feature/proper-noun name.
+
+- **control room** — The web app view showing all factory agent runs, work item status, automations, and configuration for a given factory.
+  *Usage note:* Lowercase common noun unless referring to a specific labeled UI element.
+
+- **AI sovereignty** — Warp Factories' positioning around customer ownership and control of inference, hosting, and data exhaust (agent conversations, evals, memories) for their factory.
+
 ## Technical terms
 
 - **AI** — not "A.I." Normalize all instances to "AI."

@@ -4,10 +4,11 @@ description: >-
   The Warp Agent writes code, debugs issues, and runs commands. Use it in the
   Warp app, in any terminal with the CLI, or in the cloud.
 ---
+import { VARS } from '@data/vars';
 
 The **Warp Agent** is Warp's built-in coding agent. It reads your codebase, follows your rules and skills, and asks for approval before it acts, and you can run it in the Warp app, in any terminal, or in the cloud.
 
-This page covers where to run the agent, the third-party CLI agents Warp supports, and [Oz](/platform/overview/), the platform that runs and coordinates agents at scale.
+This page covers where to run the agent, the third-party CLI agents Warp supports, and [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/), which runs and coordinates agents at scale.
 
 ---
 
@@ -33,9 +34,9 @@ Separately from the Warp Agent, Warp gives third-party CLI coding agents first-c
 
 ## The platform behind the agent
 
-[**Oz**](/platform/overview/) is Warp's programmable platform for running and coordinating agents at scale. It provides the environments, triggers, integrations, orchestration, and observability that cloud agents run on, along with a CLI, API, and SDK for driving agents programmatically.
+[**{VARS.WARP_AUTOMATION_PLATFORM}**](/platform/overview/) is Warp's programmable system for running and coordinating agents at scale. It provides the environments, triggers, integrations, orchestration, and observability that cloud agents run on, along with a CLI, API, and SDK for driving agents programmatically.
 
-The Oz tab covers the platform in full.
+The {VARS.WARP_AUTOMATION_PLATFORM} tab covers it in full.
 
 ---
 

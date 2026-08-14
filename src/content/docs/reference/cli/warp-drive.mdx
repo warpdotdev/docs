@@ -6,8 +6,13 @@ description: >-
 sidebar:
   label: "Warp Drive Context"
 ---
+import { VARS } from '@data/vars';
 
-Reference saved Warp Drive objects in Oz CLI commands to reuse prompts, notebooks, workflows, and rules as agent context. Pass a saved prompt ID with `--saved-prompt` or inline Warp Drive references using `<workflow:id>`, `<notebook:id>`, or `<rule:id>` syntax.
+:::caution
+The {VARS.WARP_AGENT_CLI} (the `oz` binary) is being deprecated in favor of the {VARS.WARP_CLI} (the `warp` binary). See the [Warp Agent CLI docs](/agents/cli/) for the replacement.
+:::
+
+Reference saved Warp Drive objects in {VARS.WARP_AGENT_CLI} commands to reuse prompts, notebooks, workflows, and rules as agent context. Pass a saved prompt ID with `--saved-prompt` or inline Warp Drive references using `<workflow:id>`, `<notebook:id>`, or `<rule:id>` syntax.
 
 ## Reusing saved prompts
 

@@ -8,12 +8,20 @@
 
 export const VARS = {
   // Platform — keys named for upcoming Warp branding; values are current Oz names
-  WARP_AUTOMATION_PLATFORM: "Oz",             // value → "Warp Automation Platform" at rename
+  WARP_AUTOMATION_PLATFORM: "Oz",             // value → "Warp Automation Platform" at rename (PENDING final naming confirmation from ZL)
   WARP_AGENT_CLI:           "Oz CLI",         // value → "Warp Agent CLI" at rename
-  WEB_APP:                  "Oz web app",     // future name TBD
+  WEB_APP:                  "Oz web app",     // legacy Oz v1 webapp (oz.warp.dev) — stays unrenamed through 9/15
   WEB_APP_URL:              "https://oz.warp.dev", // value → "https://app.warp.dev" at rename
   DASHBOARD:                "Oz dashboard",   // future name TBD
   PLATFORM_RUN:             "Oz run",         // future name TBD
+  API_SDK_NAME:             "Oz API & SDK",   // value → "Warp API & SDK" at rename
+
+  // Warp Factories web app — a net-new product surface at platform.warp.dev
+  // (soft launch ~2026-08-18), separate from the legacy Oz v1 webapp above.
+  // Not rename-sensitive: this is a new reference, not a flip of existing
+  // Oz-branded text, so it isn't in style_lint.py's RENAME_SENSITIVE_VAR_STRINGS.
+  FACTORY_WEB_APP:          "Warp Factories web app",
+  FACTORY_WEB_APP_URL:      "https://platform.warp.dev",
 
   // Warp Agent CLI — the standalone terminal front-end (the `warp` binary).
   // Launch name confirmed via the launch blog draft (2026-07-28).

@@ -1,16 +1,21 @@
 ---
 title: CLI quickstart
 description: >-
-  Set up and run your first cloud agent via the Oz CLI in less than 5 minutes.
+  Set up and run your first cloud agent via the {{WARP_AGENT_CLI}} in less than 5 minutes.
 sidebar:
   label: "Quickstart"
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
-This guide walks you through the essentials to get up and running with the Oz CLI in less than 5 minutes: installing the CLI, authenticating, running your first local agent, and optionally connecting MCP servers to give the agent access to external tools.
+:::caution
+The {VARS.WARP_AGENT_CLI} (the `oz` binary) is being deprecated in favor of the {VARS.WARP_CLI} (the `warp` binary). See the [Warp Agent CLI docs](/agents/cli/) for the replacement.
+:::
 
-Watch this short demo of the Oz CLI workflow:
-<VideoEmbed url="https://youtu.be/WpcChBNDCXQ" title="Oz CLI quickstart video" />
+This guide walks you through the essentials to get up and running with the {VARS.WARP_AGENT_CLI} in less than 5 minutes: installing the CLI, authenticating, running your first local agent, and optionally connecting MCP servers to give the agent access to external tools.
+
+Watch this short demo of the {VARS.WARP_AGENT_CLI} workflow:
+<VideoEmbed url="https://youtu.be/WpcChBNDCXQ" title={`${VARS.WARP_AGENT_CLI} quickstart video`} />
 
 ## 1. Install the CLI
 
@@ -39,7 +44,7 @@ Interactive login works on both **local** and **remote** machines, and does not 
 export WARP_API_KEY="wk-..."
 ```
 
-Create an API key in the [Oz web app](https://oz.warp.dev/settings). See [API Keys](/reference/cli/api-keys/) for guidance on personal vs. [agent keys](/platform/agents/) and on security best practices.
+Create an API key in the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP}</a>. See [API Keys](/reference/cli/api-keys/) for guidance on personal vs. [agent keys](/platform/agents/) and on security best practices.
 :::
 
 ## 3. Run an agent
@@ -68,7 +73,7 @@ If you haven't already created an environment, run `/create-environment` in Warp
 oz agent run-cloud --environment <ENV_ID> --prompt "Scan this repo for outdated dependencies"
 ```
 
-Replace `<ENV_ID>` with your environment ID, which you can find by running `oz environment list` on the Oz CLI.
+Replace `<ENV_ID>` with your environment ID, which you can find by running `oz environment list` on the {VARS.WARP_AGENT_CLI}.
 
 ## 5. Add MCP context (optional)
 
@@ -82,13 +87,13 @@ See [MCP Servers](/reference/cli/mcp-servers/) for all supported formats, includ
 
 ## Next steps
 
-Once you've successfully set up and run your agent, explore other configurations and workflows with the Oz CLI:
+Once you've successfully set up and run your agent, explore other configurations and workflows with the {VARS.WARP_AGENT_CLI}:
 
 * Customize behavior with [agent profiles](/reference/cli/agent-profiles/).
 * [Reuse prompts](/reference/cli/warp-drive/) with `--saved-prompt`.
 * Connect agents to external systems using [MCP Servers](/reference/cli/mcp-servers/).
 * Authenticate with [API keys](/reference/cli/api-keys/) for automated environments or workflows.
-* Get up-to-date information about the Oz CLI using the [`oz help` command](/reference/cli/troubleshooting/#getting-help).
+* Get up-to-date information about the {VARS.WARP_AGENT_CLI} using the [`oz help` command](/reference/cli/troubleshooting/#getting-help).
 * Run agents in CI with the [GitHub Actions quickstart](/platform/integrations/quickstart-github-actions/).
 
-Continue reading the [Oz CLI reference](/reference/cli/) to learn how to install the CLI on different platforms, authenticate in different environments, and configure agents for real-world workflows.
+Continue reading the [{VARS.WARP_AGENT_CLI} reference](/reference/cli/) to learn how to install the CLI on different platforms, authenticate in different environments, and configure agents for real-world workflows.

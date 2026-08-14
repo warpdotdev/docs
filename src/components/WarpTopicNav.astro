@@ -33,14 +33,12 @@ const { topics } = Astro.locals.starlightSidebarTopics;
 // Per-topic icon overrides for topics where Starlight's icon registry doesn't
 // ship the right glyph (only 22 generic UI icons available; no robot/AI). The
 // `sidebar.ts` config keeps the closest Starlight name (e.g. `puzzle` for
-// Agents, `seti:json` for API) so the mobile drawer falls back gracefully;
-// this map points to a custom inline SVG that we render here in the header
-// instead.
+// Agents) so the mobile drawer falls back gracefully; this map points to a
+// custom inline SVG that we render here in the header instead.
 const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 	Agents: true,
-	API: true,
 	Enterprise: true,
-	Oz: true,
+	'Automation Platform': true,
 };
 ---
 
@@ -60,22 +58,7 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 								  this and the Starlight-rendered icons to a single
 								  uniform size. `currentColor` so each icon inherits the
 								  link's text color and picks up the active-state accent. */}
-								{topic.label === 'API' ? (
-									/* `</>` brackets — the conventional dev-API glyph.
-									   Two chevrons mirrored across center, stroke weight
-									   matched to the other topic icons. */
-									<svg
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									>
-										<path d="M16 18l6-6-6-6" />
-										<path d="M8 6l-6 6 6 6" />
-									</svg>
-								) : topic.label === 'Enterprise' ? (
+								{topic.label === 'Enterprise' ? (
 									/* Office building — simple outline: tall rectangle
 									   with window grid and entrance, stroke weight matched
 									   to the other topic icons. */
@@ -96,7 +79,7 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 										<line x1="15" y1="14" x2="15" y2="14.01" />
 										<path d="M10 22v-4h4v4" />
 									</svg>
-								) : topic.label === 'Oz' ? (
+								) : topic.label === 'Automation Platform' ? (
 									/* Cloud icon — Feather-style cloud outline, stroke weight
 									   matched to the other topic icons. */
 									<svg

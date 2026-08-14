@@ -1,18 +1,19 @@
 ---
-title: "Oz API & SDK reference"
+title: "{{API_SDK_NAME}} reference"
 sidebar:
-  label: "Oz API & SDK"
+  label: "{{API_SDK_NAME}}"
 description: >-
-  Create and inspect cloud agent runs over HTTP with the Oz API, or use the
-  Python and TypeScript SDKs for typed requests, retries, and error handling.
+  Create and inspect cloud agent runs over HTTP, or use the Python and
+  TypeScript SDKs for typed requests, retries, and error handling.
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
-The Oz API and SDKs let you create, monitor, and inspect cloud agent runs programmatically. Use the REST API from any HTTP client, or the official Python and TypeScript SDKs for typed requests, built-in retries, and structured error handling. The SDKs are ideal for CI pipelines, internal tools, and custom integrations.
+The {VARS.API_SDK_NAME} lets you create, monitor, and inspect cloud agent runs programmatically. Use the REST API from any HTTP client, or the official Python and TypeScript SDKs for typed requests, built-in retries, and structured error handling. The SDKs are ideal for CI pipelines, internal tools, and custom integrations.
 
-### Oz API
+### API overview
 
-The Oz API lets you create and inspect [Cloud Agent](/platform/) runs over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
+The {VARS.API_SDK_NAME} lets you create and inspect [Cloud Agent](/platform/) runs over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
 
 **With the API you can:**
 
@@ -26,9 +27,9 @@ This page is a high-level overview.\
 For full API endpoint details, refer to the [**Agents API Reference**](/api). For schema definitions, see the SDK repos: [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript).
 :::
 
-### Oz SDK
+### SDK overview
 
-Oz provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs that wrap the Oz API with:
+Warp provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs that wrap the {VARS.API_SDK_NAME} with:
 
 * **Typed requests and responses** (editor autocomplete, fewer schema mistakes)
 * **Built-in retries and timeouts** (with per-request overrides)
@@ -37,7 +38,7 @@ Oz provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [
 
 If you’re building an integration (CI, Slack bots, internal tooling, orchestrators), the SDKs are typically the quickest and safest starting point.
 
-<VideoEmbed url="https://www.youtube.com/watch?v=0cf7383MZSk" title="Oz API and SDK reference overview video" />
+<VideoEmbed url="https://www.youtube.com/watch?v=0cf7383MZSk" title={`${VARS.API_SDK_NAME} reference overview video`} />
 
 **SDK vs raw REST**
 
@@ -50,7 +51,7 @@ For the full SDK surface area and latest usage, refer to the GitHub repos: [**Py
 
 ---
 
-## Oz API
+## API reference
 
 ### REST API base URL
 
@@ -135,11 +136,11 @@ The API shares a set of reusable models across endpoints. Detailed JSON schemas,
 
 ---
 
-## Oz SDKs
+## SDKs
 
 ### Python SDK
 
-The Python SDK is the recommended way to call the Oz API from Python services and scripts. It provides:
+The Python SDK is the recommended way to call the API from Python services and scripts. It provides:
 
 * Sync + async clients
 * Typed request/response models
@@ -149,7 +150,7 @@ See the [**Python SDK GitHub repo**](https://github.com/warpdotdev/oz-sdk-python
 
 ### TypeScript SDK
 
-The TypeScript SDK is the recommended way to call the Oz API from Node.js services and modern TS/JS runtimes. It provides:
+The TypeScript SDK is the recommended way to call the API from Node.js services and modern TS/JS runtimes. It provides:
 
 * Fully typed params/responses
 * First-class error handling, retries/timeouts

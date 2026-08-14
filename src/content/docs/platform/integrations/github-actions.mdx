@@ -5,6 +5,7 @@ description: >-
   CI fixes.
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
 Run agents directly in your GitHub Actions workflows using `oz-agent-action`. The agent integrates seamlessly into your CI pipeline, automating tasks like code review, issue triage, bug fixing, and maintenance using your repository context and GitHub permissions. This page covers how the integration works, how to set it up, and common automation patterns for development teams.
 
@@ -16,7 +17,7 @@ Run agents directly in your GitHub Actions workflows using `oz-agent-action`. Th
 GitHub Actions is different from the [GitHub integration](/platform/integrations/github/). GitHub Actions runs agents inside workflows you define in your repository, and you control the trigger, permissions, and prompt in YAML. The GitHub integration starts agents when someone mentions `@oz-agent` on an issue, pull request, or review comment, using the Oz by Warp GitHub App with no workflow file.
 :::
 
-If you're comparing GitHub Actions with schedules, Slack, Linear, the GitHub integration, the Oz CLI, or API-triggered runs, see [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
+If you're comparing GitHub Actions with schedules, Slack, Linear, the GitHub integration, the {VARS.WARP_AGENT_CLI}, or API-triggered runs, see [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
 
 Watch this demo to see the integration in action:
 
@@ -33,7 +34,7 @@ In this demo
 
 ### What the GitHub Actions integration does
 
-The `oz-agent-action` is a GitHub Action that wraps the Oz CLI and:
+The `oz-agent-action` is a GitHub Action that wraps the {VARS.WARP_AGENT_CLI} and:
 
 * Runs an agent inside an Actions job
 * Caches package installation for faster builds

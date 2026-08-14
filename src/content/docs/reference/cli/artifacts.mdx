@@ -6,8 +6,13 @@ description: >-
 sidebar:
   label: "Artifacts"
 ---
+import { VARS } from '@data/vars';
 
-Artifacts are files that an agent produces during a run and uploads to Oz — screenshots, generated reports, build outputs, logs, or any other file the agent saves alongside its conversation. Use `oz artifact` to inspect those files from outside the run and pull them down to your machine.
+:::caution
+The {VARS.WARP_AGENT_CLI} (the `oz` binary) is being deprecated in favor of the {VARS.WARP_CLI} (the `warp` binary). See the [Warp Agent CLI docs](/agents/cli/) for the replacement.
+:::
+
+Artifacts are files that an agent produces during a run and uploads to Warp — screenshots, generated reports, build outputs, logs, or any other file the agent saves alongside its conversation. Use `oz artifact` to inspect those files from outside the run and pull them down to your machine.
 
 ## When to use artifacts
 
@@ -17,7 +22,7 @@ Use artifacts when you need to retrieve files an agent produced after a run comp
 * **Local inspection** - Pull a generated file (HTML, image, CSV) onto your laptop to review.
 * **CI integration** - Fetch an agent-produced build artifact from a pipeline step that runs after the agent finishes.
 
-Artifacts are referenced by an artifact UID. You can find UIDs in the agent's run detail view, in the JSON returned by [`oz run get`](/reference/cli/), or in the response from the [Oz API](/reference/api-and-sdk/).
+Artifacts are referenced by an artifact UID. You can find UIDs in the agent's run detail view, in the JSON returned by [`oz run get`](/reference/cli/), or in the response from the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/).
 
 ## `oz artifact get`
 
@@ -73,5 +78,5 @@ oz artifact download "$ARTIFACT_UID" --out ./latest-report.html
 
 ## Related
 
-* [Oz API & SDK](/reference/api-and-sdk/) - retrieve artifacts programmatically over HTTP.
+* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) - retrieve artifacts programmatically over HTTP.
 * [Scheduled cloud agents](/platform/triggers/scheduled-agents/) - common producer of recurring artifacts that downstream tooling consumes.

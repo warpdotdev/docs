@@ -39,7 +39,7 @@ PROPER_FEATURE_NAMES = {
     "Codebase Context", "Code Review", "Command Palette", "Global Rules",
     "Oz CLI", "Oz Platform", "Project Rules",
     "Slash Commands", "Terminal Mode", "Universal Input", "Warp Drive",
-    "Warp Platform",
+    "Warp Platform", "Automation Platform", "Warp Factories", "Factory MCP",
 }
 
 # Terminology: wrong → right (case-sensitive checks)
@@ -83,6 +83,9 @@ RENAME_SENSITIVE_VAR_STRINGS: List[Tuple[str, str, str]] = [
     ("oz.warp.dev",  "WEB_APP_URL",              "{VARS.WEB_APP_URL} in prose or {{WEB_APP_URL}} in frontmatter"),
     ("Oz dashboard", "DASHBOARD",                "{VARS.DASHBOARD} in prose or {{DASHBOARD}} in frontmatter"),
     ("Oz run",       "PLATFORM_RUN",             "{VARS.PLATFORM_RUN} in prose or {{PLATFORM_RUN}} in frontmatter"),
+    ("Oz API & SDK", "API_SDK_NAME",             "{VARS.API_SDK_NAME} in prose or {{API_SDK_NAME}} in frontmatter"),
+    ("Oz Platform",  "WARP_AUTOMATION_PLATFORM", "{VARS.WARP_AUTOMATION_PLATFORM} in prose or {{WARP_AUTOMATION_PLATFORM}} in frontmatter"),
+    ("Oz",           "WARP_AUTOMATION_PLATFORM", "{VARS.WARP_AUTOMATION_PLATFORM} in prose or {{WARP_AUTOMATION_PLATFORM}} in frontmatter"),
 ]
 
 # Oz terms to avoid (case-insensitive patterns)
@@ -181,6 +184,11 @@ RAW_URL_ANCHOR = re.compile(
 )
 MARKDOWN_LINK = re.compile(r"\[([^\]]*)\]\(([^)]+)\)")
 VIDEO_EMBED_TITLE = re.compile(r"\btitle\s*=\s*([\"'])(.*?)\1", re.DOTALL)
+# JSX expression titles, e.g. title={`${VARS.WEB_APP} walkthrough`} — used when
+# the title includes a rename-sensitive {VARS.KEY} reference. Content can't be
+# statically evaluated, so these are treated as present but skipped by the
+# generic-title check below.
+VIDEO_EMBED_TITLE_EXPR = re.compile(r"\btitle\s*=\s*\{(.*?)\}", re.DOTALL)
 
 # Common bolded words that are NOT product terms (false positive suppression)
 COMMON_BOLD_WORDS = {
@@ -656,21 +664,29 @@ def check_video_embed_titles(lines: List[str], filepath: str) -> List[Issue]:
     issues = []
     for line_number, tag in _iter_video_embed_tags(lines):
         title_match = VIDEO_EMBED_TITLE.search(tag)
-        if not title_match or not title_match.group(2).strip():
-            issues.append(Issue(
-                filepath, line_number, "video-title",
-                "VideoEmbed missing title prop. Add a specific title that describes the integration, workflow, feature, or task shown.",
-                "error",
-            ))
+        if title_match and title_match.group(2).strip():
+            title = title_match.group(2).strip()
+            if _is_generic_video_title(title):
+                issues.append(Issue(
+                    filepath, line_number, "video-title",
+                    f"Generic VideoEmbed title: \"{title}\". Use a specific title that describes what the video shows.",
+                    "warning",
+                ))
             continue
 
-        title = title_match.group(2).strip()
-        if _is_generic_video_title(title):
-            issues.append(Issue(
-                filepath, line_number, "video-title",
-                f"Generic VideoEmbed title: \"{title}\". Use a specific title that describes what the video shows.",
-                "warning",
-            ))
+        # Not a quoted string literal — check for a JSX expression title, e.g.
+        # title={`${VARS.WEB_APP} walkthrough`}. Content isn't statically
+        # evaluable, so skip the generic-title check but still confirm a
+        # non-empty title prop is present.
+        expr_match = VIDEO_EMBED_TITLE_EXPR.search(tag)
+        if expr_match and expr_match.group(1).strip():
+            continue
+
+        issues.append(Issue(
+            filepath, line_number, "video-title",
+            "VideoEmbed missing title prop. Add a specific title that describes the integration, workflow, feature, or task shown.",
+            "error",
+        ))
     return issues
 
 
@@ -890,9 +906,29 @@ def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
 
     Skips fenced code blocks and inline code spans so that CLI examples like
     `oz.warp.dev` in a code fence are not flagged.
+
+    Literals are checked longest-first and matches are deduplicated by span so
+    a specific match (e.g. "Oz Platform", "Oz CLI") doesn't also get re-flagged
+    by the more general bare "Oz" entry for the same occurrence.
+
+    Matches use word boundaries (`\b`) rather than plain substring search, so
+    short literals like bare "Oz" don't false-positive inside unrelated tokens
+    such as URL query params, hashes, or other identifiers (e.g. a YouTube
+    share link's `si=OzvuInMl8DoNR97R` parameter).
+
+    An "@"-prefixed occurrence is skipped. "@Oz" is a literal mention handle
+    that a user types in Slack or Linear, not the product name appearing in
+    prose. Handles are strings the product owns, so they do not necessarily
+    change when the product name does -- variabilizing them would silently
+    rewrite a working handle into an invalid one at rename time.
     """
     issues = []
     in_code_block = False
+    sorted_strings = sorted(RENAME_SENSITIVE_VAR_STRINGS, key=lambda entry: -len(entry[0]))
+    compiled = [
+        (literal, var_key, suggestion, re.compile(r"\b" + re.escape(literal) + r"\b"))
+        for literal, var_key, suggestion in sorted_strings
+    ]
     for i, line in enumerate(lines, 1):
         if line.strip().startswith("```"):
             in_code_block = not in_code_block
@@ -901,8 +937,16 @@ def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
             continue
         # Strip inline code spans so backtick-wrapped references are not flagged
         prose_line = re.sub(r"`[^`]+`", "", line)
-        for literal, var_key, suggestion in RENAME_SENSITIVE_VAR_STRINGS:
-            if literal in prose_line:
+        matched_spans: List[Tuple[int, int]] = []
+        for literal, var_key, suggestion, pattern in compiled:
+            for m in pattern.finditer(prose_line):
+                span = m.span()
+                if any(span[0] >= s and span[1] <= e for s, e in matched_spans):
+                    continue
+                # "@Oz" is a mention handle users type, not prose. See docstring.
+                if span[0] > 0 and prose_line[span[0] - 1] == "@":
+                    continue
+                matched_spans.append(span)
                 issues.append(Issue(
                     filepath, i, "hardcoded-var",
                     f'Hardcoded "{literal}" should use {suggestion} (see src/data/vars.ts)',
