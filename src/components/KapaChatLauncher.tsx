@@ -1244,7 +1244,10 @@ export default function KapaChatLauncher({ autoOpen = false }: { autoOpen?: bool
 			key={chatSessionKey}
 			integrationId={integrationId}
 			callbacks={callbacks}
-			userTrackingMode="none"
+			// Anonymous first-party cookie (`kapa_web_id`). Default in the Kapa
+			// React SDK; set explicitly so we do not accidentally ship `none` again.
+			// https://docs.kapa.ai/dev/sdk/components/KapaProvider#user-tracking-mode
+			userTrackingMode="cookie"
 		>
 			<ChatSurface
 				title={title}
