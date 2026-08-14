@@ -292,6 +292,10 @@ Understanding when to use each level:
 * Cross-project automation (git workflows, documentation templates)
 * Professional standards you apply everywhere
 
+### Extra directories for cloud runs
+
+[Cloud agents](/platform/) discover skills from the repositories in their [environment](/platform/environments/). To index skills that live outside those repositories — for example, skills baked into a custom Docker image — set the `WARP_SKILL_DIRS` environment variable. See [extra skill directories in cloud runs](/platform/skills-as-agents/#extra-skill-directories-in-cloud-runs).
+
 ## Creating skills
 
 ### Step 1: Choose a location
