@@ -12,6 +12,9 @@ This script generates the docs subset deterministically:
   * paths listed in EXCLUDED_PATHS are removed
   * components/schemas is pruned to only schemas reachable from the
     surviving paths via $ref walking
+  * every key in STRIP_FLAGS (implementation-only extensions such as
+    ``x-go-type`` and ``x-stainless-naming``) is removed recursively from
+    whatever survives the filtering above, wherever it appears in the tree
   * the regenerated spec is validated for unresolved $refs before
     being written; apply will refuse to write a broken spec
 
@@ -20,7 +23,9 @@ This script generates the docs subset deterministically:
 release pipeline publishes the spec. Honoring the same marker here keeps this
 script from publishing a surface the server team has explicitly marked private,
 instead of relying only on a hand-maintained tag allowlist that goes stale
-whenever a new private tag appears.
+whenever a new private tag appears. STRIP_FLAGS mirrors that same filter's
+``stripFlags`` list, so implementation-only extensions never reach the
+published docs copy either.
 
 Modes:
   diff       Print structural drift between source and target. Exits 1
@@ -58,6 +63,24 @@ EXCLUDED_TAGS: frozenset[str] = frozenset(
 # OpenAPI extension warp-server uses to mark an operation private. Mirrors
 # `flagValues: [x-internal: true]` in warp-server/public_api/public-openapi-filter.yaml.
 INTERNAL_MARKER = "x-internal"
+
+# Implementation-only OpenAPI extensions that must never reach the published
+# docs copy. Mirrors `stripFlags` in
+# warp-server/public_api/public-openapi-filter.yaml: these keys are useful for
+# server/SDK code generation (oapi-codegen, Stainless) but are stripped
+# unconditionally from every remaining object, not just top-level operations.
+STRIP_FLAGS: frozenset[str] = frozenset(
+    {
+        "x-internal",
+        "x-enum-varnames",
+        "x-go-type",
+        "x-go-type-import",
+        "x-go-type-skip-optional-pointer",
+        "x-oapi-codegen-extra-tags",
+        "x-stainless-deprecation-message",
+        "x-stainless-naming",
+    }
+)
 
 # Path-item keys that are HTTP operations rather than shared path metadata.
 HTTP_METHODS: frozenset[str] = frozenset(
@@ -156,6 +179,35 @@ def _is_internal_operation(operation: Any) -> bool:
     return isinstance(operation, dict) and operation.get(INTERNAL_MARKER) is True
 
 
+def _prune_internal(node: Any) -> Any:
+    """Recursively drop any object marked ``x-internal: true``, then recurse
+    into whatever remains.
+
+    Mirrors openapi-format's ``flagValues: [x-internal: true]`` semantics
+    (warp-server's ``public_api/public-openapi-filter.yaml``): the entire
+    marked node is deleted, not just the marker key. This catches internal
+    schema properties (e.g. ``factory_uid``, ``agent_type``) and internal
+    parameters (e.g. the ``automation_id`` query parameter) wherever they
+    appear in the tree — not only the top-level path operations that
+    ``strip_internal_operations`` inspects. Stripping only the marker key
+    (see ``_strip_flags``) would otherwise leave the internal object itself,
+    just unmarked, in the published spec.
+    """
+    if isinstance(node, dict):
+        return {
+            key: _prune_internal(value)
+            for key, value in node.items()
+            if not _is_internal_operation(value)
+        }
+    if isinstance(node, list):
+        return [
+            _prune_internal(item)
+            for item in node
+            if not _is_internal_operation(item)
+        ]
+    return node
+
+
 def strip_internal_operations(path_item: dict[str, Any]) -> dict[str, Any]:
     """Return ``path_item`` without any operation marked ``x-internal: true``.
 
@@ -189,6 +241,25 @@ def _should_keep_path(path: str, path_item: dict[str, Any]) -> bool:
     if not _has_public_operation(path_item):
         return False
     return True
+
+
+def _strip_flags(node: Any) -> Any:
+    """Recursively remove every key in ``STRIP_FLAGS`` from ``node``.
+
+    These extensions can appear anywhere in the spec (operations, schemas,
+    individual properties, parameters), not only on the operation objects
+    that ``strip_internal_operations`` already inspects, so this walks the
+    entire tree rather than a fixed set of levels.
+    """
+    if isinstance(node, dict):
+        return {
+            key: _strip_flags(value)
+            for key, value in node.items()
+            if key not in STRIP_FLAGS
+        }
+    if isinstance(node, list):
+        return [_strip_flags(item) for item in node]
+    return node
 
 
 def _collect_refs(node: Any, refs: set[str]) -> None:
@@ -281,6 +352,11 @@ def _validate_output(out: dict[str, Any]) -> list[str]:
 
 def transform(source: dict[str, Any]) -> dict[str, Any]:
     """Produce the docs subset of the given source spec."""
+    # Drop every x-internal-marked object (schema properties, parameters,
+    # operations, tags, ...) before anything else, so a downstream pass never
+    # sees an internal node it would otherwise have to know how to filter.
+    source = _prune_internal(source)
+
     out: dict[str, Any] = {}
 
     for top_key in ("openapi", "info", "servers"):
@@ -324,7 +400,7 @@ def transform(source: dict[str, Any]) -> dict[str, Any]:
     if out_components:
         out["components"] = out_components
 
-    return out
+    return _strip_flags(out)
 
 
 # ---------------------------------------------------------------------------
@@ -440,6 +516,20 @@ def _self_test() -> int:
                 "post": {
                     "tags": ["agent"],
                     "operationId": "runAgent",
+                    "x-stainless-deprecation-message": "use /agent/runs instead",
+                    "parameters": [
+                        {
+                            "name": "conversation_id",
+                            "in": "query",
+                            "schema": {"type": "string"},
+                        },
+                        {
+                            "name": "factory_uid",
+                            "in": "query",
+                            "x-internal": True,
+                            "schema": {"type": "string"},
+                        },
+                    ],
                     "requestBody": {
                         "content": {
                             "application/json": {
@@ -487,6 +577,8 @@ def _self_test() -> int:
             "schemas": {
                 "RunReq": {
                     "type": "object",
+                    "x-go-type": "models.RunReq",
+                    "x-go-type-import": {"path": "warp.dev/warp-server/models"},
                     "properties": {
                         "config": {"$ref": "#/components/schemas/Config"}
                     },
@@ -504,9 +596,22 @@ def _self_test() -> int:
                                 {"type": "object"},
                             ]
                         },
+                        "legacy_mode": {
+                            "type": "string",
+                            "x-go-type-skip-optional-pointer": True,
+                            "x-oapi-codegen-extra-tags": {"json": "legacy_mode,omitempty"},
+                        },
+                        "factory_agent_type": {
+                            "allOf": [{"$ref": "#/components/schemas/Mode"}],
+                            "x-internal": True,
+                        },
                     },
                 },
-                "Mode": {"type": "string"},
+                "Mode": {
+                    "type": "string",
+                    "x-enum-varnames": ["ModeFast", "ModeSlow"],
+                    "x-stainless-naming": {"typescript": {"type": "Mode"}},
+                },
                 "RunResp": {"type": "object"},
                 "MSItem": {"type": "object"},  # only referenced by dropped path
                 "Followup": {"type": "object"},
@@ -532,6 +637,33 @@ def _self_test() -> int:
 
     ref_errors = _validate_output(out)
     assert not ref_errors, f"unexpected unresolved refs: {ref_errors}"
+
+    # Implementation-only extensions must never survive into the output,
+    # regardless of whether they sit on an operation, a schema, or a nested
+    # property — mirrors warp-server's `stripFlags` filter.
+    dumped = yaml.safe_dump(out)
+    for flag in STRIP_FLAGS:
+        assert flag not in dumped, f"{flag} leaked into the regenerated spec"
+    # The objects that carried those flags must otherwise survive intact.
+    assert out["paths"]["/agent/run"]["post"]["operationId"] == "runAgent"
+    assert out["components"]["schemas"]["RunReq"]["type"] == "object"
+    assert out["components"]["schemas"]["Config"]["properties"]["legacy_mode"][
+        "type"
+    ] == "string"
+
+    # An x-internal-marked object must be dropped entirely, not just have its
+    # marker key stripped — covers an internal query parameter and an
+    # internal schema property, alongside the surviving public sibling in
+    # each case.
+    run_params = {
+        p["name"] for p in out["paths"]["/agent/run"]["post"]["parameters"]
+    }
+    assert run_params == {"conversation_id"}, f"unexpected parameters: {run_params}"
+    config_props = set(out["components"]["schemas"]["Config"]["properties"].keys())
+    assert "factory_agent_type" not in config_props, (
+        f"internal property survived: {config_props}"
+    )
+    assert "legacy_mode" in config_props, f"public property dropped: {config_props}"
 
     print("self-test: OK")
     return 0
