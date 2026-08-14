@@ -410,8 +410,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			items: [
 				{ slug: 'platform/overview', label: 'Overview' },
 				{
-				label: 'Cloud Agents',
-				items: [
+					label: 'Cloud Agents',
+					items: [
 						{ slug: 'platform', label: 'Overview' },
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
 						{
@@ -421,6 +421,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							// Agent harness dropdown in the Warp app, the Harness field in the
 							// web app, --harness on the CLI, and the harness field in the API.
 							label: 'Harnesses',
+							collapsed: true,
 							items: [
 								{ slug: 'platform/harnesses', label: 'Overview' },
 								{ slug: 'platform/harnesses/warp-agent', label: 'Warp Agent (Default)' },
@@ -436,6 +437,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							// example and both third-party harness pages link to it; mcp states no
 							// harness constraint. Do not add Warp-Agent-specific pages to this group.
 							label: 'Agent configuration',
+							collapsed: true,
 							items: [
 								{ slug: 'platform/agents', label: 'Cloud agent accounts' },
 								{ slug: 'platform/skills-as-agents', label: 'Skills as agents' },
@@ -447,6 +449,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							// Surfaces for watching, steering, and managing runs. Mirrors the
 							// 'Management and observability' section of the platform overview.
 							label: 'Operations',
+							collapsed: true,
 							items: [
 								// Labeled to match the page title, 'Cloud agent session sharing'.
 								{ slug: 'platform/viewing-cloud-agent-runs', label: 'Session sharing' },
@@ -476,21 +479,18 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					// Sibling of Integrations, not its parent or its child. Triggers were
-					// previously nested inside Integrations, which inverted the concept:
-					// platform/triggers lists integrations as one of six trigger types.
-					// Kept as siblings rather than nesting Integrations under Triggers,
-					// which would push 11 pages four levels deep.
-					label: 'Triggers',
+					// One group, not two, and not nested either way. platform/triggers
+					// lists integrations as one of six trigger types, so nesting
+					// Triggers under Integrations inverts the concept -- but nesting
+					// Integrations under Triggers buries 11 pages four levels deep, and
+					// splitting them into siblings implies they are peers. A label
+					// naming both sidesteps the question; the overview pages carry the
+					// actual relationship in prose.
+					label: 'Triggers & integrations',
 					items: [
 						{ slug: 'platform/triggers', label: 'Triggers overview' },
 						{ slug: 'platform/triggers/scheduled-agents-quickstart', label: 'Scheduled agents quickstart' },
 						{ slug: 'platform/triggers/scheduled-agents', label: 'Scheduled agents' },
-					],
-				},
-				{
-					label: 'Integrations',
-					items: [
 						{ slug: 'platform/integrations', label: 'Integrations overview' },
 						{ slug: 'platform/integrations/quickstart', label: 'Integrations quickstart' },
 						'platform/integrations/slack',
