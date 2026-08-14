@@ -16,9 +16,21 @@
   // idempotent across re-renders.
   const enhanced = new WeakMap<Element, SvgToolbelt>();
 
+  // Lucide-style "maximize" icon (matches the stroke icons used elsewhere on
+  // the site, e.g. CopyPageButton.astro) — swapped in for svg-toolbelt's
+  // default "⛶" glyph, which renders as a missing-glyph box on systems
+  // without a symbol-font fallback for that character.
+  const FULLSCREEN_ICON =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>';
+
   function enhanceDiagrams() {
     document.querySelectorAll('pre.mermaid[data-processed]').forEach((pre) => {
-      if (!pre.querySelector('svg') || pre.querySelector('.svg-toolbelt-wrapper')) return;
+      // `.svg-toolbelt-controls` (not `.svg-toolbelt-wrapper`, which is only
+      // created by svg-toolbelt's separate `initializeSvgToolbelt()` helper)
+      // is what actually exists here, since svg-toolbelt is instantiated
+      // directly on `pre` below. Checking it is what keeps this idempotent
+      // instead of tearing the toolbar down and rebuilding it on every poll tick.
+      if (!pre.querySelector('svg') || pre.querySelector('.svg-toolbelt-controls')) return;
 
       enhanced.get(pre)?.destroy();
       const instance = new SvgToolbelt(pre as HTMLElement, {
@@ -28,6 +40,9 @@
       });
       instance.init();
       enhanced.set(pre, instance);
+
+      const fsBtn = pre.querySelector<HTMLButtonElement>('.svg-toolbelt-controls button[title="Toggle Fullscreen"]');
+      if (fsBtn) fsBtn.innerHTML = FULLSCREEN_ICON;
     });
   }
 

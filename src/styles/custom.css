@@ -592,8 +592,11 @@ body.docs-image-lightbox-open {
   font-family: var(--sl-font) !important;
 }
 
-.svg-toolbelt-wrapper:fullscreen,
-:fullscreen .svg-toolbelt-wrapper {
+/* svg-toolbelt's own "wrapper" class only exists when its `initializeSvgToolbelt()`
+   helper builds a wrapper div; MermaidControls.astro instead instantiates
+   `SvgToolbelt` directly on `pre.mermaid`, so that element itself carries
+   `svg-toolbelt-container` and is what actually enters `:fullscreen`. */
+.svg-toolbelt-container:fullscreen {
   background: var(--sl-color-bg) !important;
 }
 
