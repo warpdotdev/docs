@@ -405,23 +405,22 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				label: 'Cloud Agents',
 				items: [
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
-						{ slug: 'platform/overview', label: 'Oz platform' },
 						{
-							// Broader group label than the page-specific 'Cloud agent accounts'
-							// (now the Overview item's label below) since Skills/MCP/Secrets are
-							// cloud-agent capabilities generally, not identity/account-specific
-							// (Skills and Secrets are literal identity properties via
-							// POST /agent/identities; MCP is per-run, bridged via a sentence on
-							// the Overview page). Slight nesting redundancy with the parent
-							// 'Cloud Agents' group is intentional/accepted per Slack discussion.
+							// Leads with the Warp Agent harness page as this section's Overview
+							// (HYC review, 8/14). Skills and Secrets are literal identity properties
+							// via POST /agent/identities; MCP is attached per run. The page keeps its
+							// /platform/harnesses/warp-agent slug so existing links stay valid, and the
+							// Harnesses overview still links to it.
 							label: 'Warp Cloud Agents',
 							items: [
+								{ slug: 'platform/harnesses/warp-agent', label: 'Overview' },
 								{ slug: 'platform/agents', label: 'Cloud agent accounts' },
 								{ slug: 'platform/skills-as-agents', label: 'Skills as agents' },
 								{ slug: 'platform/mcp', label: 'MCP servers' },
 								'platform/secrets',
 							],
 						},
+						{ slug: 'platform/overview', label: 'Oz platform' },
 						{ slug: 'platform/viewing-cloud-agent-runs', label: 'Viewing cloud agent runs' },
 						{ slug: 'platform/managing-cloud-agents', label: 'Managing cloud agents' },
 						{ slug: 'platform/oz-web-app', label: 'Oz web app' },
@@ -440,7 +439,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							collapsed: true,
 							items: [
 								{ slug: 'platform/harnesses', label: 'Overview' },
-								{ slug: 'platform/harnesses/warp-agent', label: 'Warp Agent' },
 								{ slug: 'platform/harnesses/claude-code', label: 'Claude Code' },
 								{ slug: 'platform/harnesses/codex', label: 'Codex' },
 								{ slug: 'platform/harnesses/authentication', label: 'Authentication' },
