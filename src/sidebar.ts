@@ -415,23 +415,45 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform', label: 'Overview' },
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
 						{
-							// Leads with the Warp Agent harness page as this section's Overview
-							// (HYC review, 8/14). Skills and Secrets are literal identity properties
-							// via POST /agent/identities; MCP is attached per run. The page keeps its
-							// /platform/harnesses/warp-agent slug so existing links stay valid, and the
-							// Harnesses overview still links to it.
-							label: 'Warp Cloud Agents',
+							// Runtime (which agent executes the run) is kept separate from
+							// configuration (how any run is set up) -- HYC review, 8/14.
+							// 'Harness' is product terminology, not docs jargon: it is the
+							// Agent harness dropdown in the Warp app, the Harness field in the
+							// web app, --harness on the CLI, and the harness field in the API.
+							label: 'Harnesses',
 							items: [
-								{ slug: 'platform/harnesses/warp-agent', label: 'Overview' },
+								{ slug: 'platform/harnesses', label: 'Overview' },
+								{ slug: 'platform/harnesses/warp-agent', label: 'Warp Agent (Default)' },
+								{ slug: 'platform/harnesses/claude-code', label: 'Claude Code' },
+								{ slug: 'platform/harnesses/codex', label: 'Codex' },
+								{ slug: 'platform/harnesses/authentication', label: 'Authentication' },
+							],
+						},
+						{
+							// Every page here is cross-harness, verified 8/14: platform/agents has
+							// zero harness-specific content; skills-as-agents documents
+							// .claude/skills/ and .codex/skills/; secrets uses OPENAI_API_KEY as its
+							// example and both third-party harness pages link to it; mcp states no
+							// harness constraint. Do not add Warp-Agent-specific pages to this group.
+							label: 'Agent configuration',
+							items: [
 								{ slug: 'platform/agents', label: 'Cloud agent accounts' },
 								{ slug: 'platform/skills-as-agents', label: 'Skills as agents' },
 								{ slug: 'platform/mcp', label: 'MCP servers' },
 								'platform/secrets',
 							],
 						},
-						{ slug: 'platform/viewing-cloud-agent-runs', label: 'Viewing cloud agent runs' },
-						{ slug: 'platform/managing-cloud-agents', label: 'Managing cloud agents' },
-						{ slug: 'platform/oz-web-app', label: 'Oz web app' },
+						{
+							// Surfaces for watching, steering, and managing runs. Mirrors the
+							// 'Management and observability' section of the platform overview.
+							label: 'Operations',
+							items: [
+								// Labeled to match the page title, 'Cloud agent session sharing'.
+								{ slug: 'platform/viewing-cloud-agent-runs', label: 'Session sharing' },
+								{ slug: 'platform/managing-cloud-agents', label: 'Managing cloud agents' },
+								{ slug: 'platform/oz-web-app', label: 'Oz web app' },
+							],
+						},
 						{
 							label: 'Handoff',
 							collapsed: true,
@@ -440,16 +462,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'platform/handoff/local-to-cloud', label: 'Local to cloud' },
 								{ slug: 'platform/handoff/cloud-to-cloud', label: 'Cloud to cloud' },
 								{ slug: 'platform/handoff/snapshots', label: 'Snapshots' },
-							],
-						},
-						{
-							label: 'Harnesses',
-							collapsed: true,
-							items: [
-								{ slug: 'platform/harnesses', label: 'Overview' },
-								{ slug: 'platform/harnesses/claude-code', label: 'Claude Code' },
-								{ slug: 'platform/harnesses/codex', label: 'Codex' },
-								{ slug: 'platform/harnesses/authentication', label: 'Authentication' },
 							],
 						},
 						{ slug: 'platform/team-access-billing-and-identity', label: 'Access, billing, and identity' },
