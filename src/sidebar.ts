@@ -511,14 +511,18 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					// Deployment & hosting flattened into Self-hosting (avoids a redundant
-					// nested 'Self-hosting > Self-hosting' group).
-					label: 'Self-hosting',
+					// Named for what the group contains, not just its largest member: it
+					// holds a comparison page (deployment-patterns), a Warp-HOSTED page,
+					// and the self-hosting set. Labeling it 'Self-hosting' put
+					// 'Warp-hosted agents' under its own opposite.
+					label: 'Deployment and hosting',
 					items: [
 						{ slug: 'platform/deployment-patterns', label: 'Deployment patterns' },
 						{ slug: 'platform/warp-hosting', label: 'Warp-hosted agents' },
-						{ slug: 'platform/self-hosting', label: 'Overview' },
-						{ slug: 'platform/self-hosting/quickstart', label: 'Quickstart' },
+						// Qualified: a bare 'Overview'/'Quickstart' would now read as the
+						// whole group's, not self-hosting's. Both match their page titles.
+						{ slug: 'platform/self-hosting', label: 'Self-hosting overview' },
+						{ slug: 'platform/self-hosting/quickstart', label: 'Self-hosting quickstart' },
 						{ slug: 'platform/self-hosting/managed-docker', label: 'Managed: Docker' },
 						{ slug: 'platform/self-hosting/managed-kubernetes', label: 'Managed: Kubernetes' },
 						{ slug: 'platform/self-hosting/managed-direct', label: 'Managed: Direct' },
