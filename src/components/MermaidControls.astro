@@ -2,27 +2,14 @@
   import { SvgToolbelt } from 'svg-toolbelt';
   import 'svg-toolbelt/dist/svg-toolbelt.css';
 
-  // astro-mermaid replaces a `pre.mermaid` element's entire innerHTML on
-  // every render — the initial paint and every theme switch — which
-  // destroys any wrapper a prior enhancement pass added. Destroying the
-  // previous instance (rather than layering a new one on top) keeps this
-  // idempotent across re-renders.
   const enhanced = new WeakMap<Element, SvgToolbelt>();
 
-  // Lucide-style "maximize" icon (matches the stroke icons used elsewhere on
-  // the site, e.g. CopyPageButton.astro) — swapped in for svg-toolbelt's
-  // default "⛶" glyph, which renders as a missing-glyph box on systems
-  // without a symbol-font fallback for that character.
   const FULLSCREEN_ICON =
     '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>';
 
   function enhanceDiagrams() {
     document.querySelectorAll('pre.mermaid[data-processed]').forEach((pre) => {
-      // `.svg-toolbelt-controls` (not `.svg-toolbelt-wrapper`, which is only
-      // created by svg-toolbelt's separate `initializeSvgToolbelt()` helper)
-      // is what actually exists here, since svg-toolbelt is instantiated
-      // directly on `pre` below. Checking it is what keeps this idempotent
-      // instead of tearing the toolbar down and rebuilding it on every poll tick.
+      // Check `.svg-toolbelt-controls`, not `.svg-toolbelt-wrapper` (never created here).
       if (!pre.querySelector('svg') || pre.querySelector('.svg-toolbelt-controls')) return;
 
       enhanced.get(pre)?.destroy();
@@ -42,8 +29,6 @@
   function init() {
     enhanceDiagrams();
 
-    // astro-mermaid re-renders every diagram when the site's data-theme
-    // attribute flips, wiping the toolbar; re-enhance once that finishes.
     const observer = new MutationObserver(() => enhanceDiagrams());
     observer.observe(document.body, {
       attributes: true,
@@ -51,9 +36,6 @@
       subtree: true,
     });
 
-    // astro-mermaid loads and renders diagrams asynchronously after this
-    // script runs, so the pass above can land before any diagram exists.
-    // Poll briefly until the first render appears.
     let attempts = 0;
     const poll = setInterval(() => {
       attempts += 1;
@@ -64,8 +46,6 @@
     }, 250);
   }
 
-  // `DOMContentLoaded` (not `astro:page-load`) since `<ClientRouter />` /
-  // View Transitions are disabled site-wide (see CustomHead.astro).
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {

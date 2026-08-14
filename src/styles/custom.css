@@ -531,14 +531,6 @@ body.docs-image-lightbox-open {
   max-width: 100%;
 }
 
-/* svg-toolbelt's zoom/pan/fullscreen controls (added via MermaidControls.astro).
-   Its own stylesheet hardcodes a light-only look (white background, gray
-   border, per-button borders) with the same selector specificity used
-   here, and Vite may bundle it after this stylesheet — so `!important` is
-   needed for a reliable override rather than a cosmetic preference.
-   Restyled as one pill (matching `.copy-dropdown-panel`) with borderless,
-   transparent buttons (matching `.copy-dropdown-item`) instead of the
-   library's default column of separately-bordered squares. */
 .svg-toolbelt-controls {
   flex-direction: row !important;
   gap: 0.125rem !important;
