@@ -446,9 +446,10 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							],
 						},
 						{
-							// Surfaces for watching, steering, and managing runs. Mirrors the
-							// 'Management and observability' section of the platform overview.
-							label: 'Operations',
+							// Surfaces for watching, steering, and managing runs. Named to match
+							// the 'Management and observability' section of the platform overview
+							// -- 'Operations' read as a job function rather than a set of pages.
+							label: 'Management & Observability',
 							collapsed: true,
 							items: [
 								// Labeled to match the page title, 'Cloud agent session sharing'.
@@ -542,7 +543,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// holds a comparison page (deployment-patterns), a Warp-HOSTED page,
 					// and the self-hosting set. Labeling it 'Self-hosting' put
 					// 'Warp-hosted agents' under its own opposite.
-					label: 'Deployment and hosting',
+					label: 'Deployment & hosting',
 					items: [
 						{ slug: 'platform/deployment-patterns', label: 'Deployment patterns' },
 						{ slug: 'platform/warp-hosting', label: 'Warp-hosted agents' },
@@ -652,20 +653,16 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 		],
 	},
 		{
-			label: 'Support & Community',
+			// Shortened from 'Support & Community' so the horizontal tab bar wraps to
+			// a second line less readily (HYC review, 8/14). The Community group
+			// moved to the bottom of this tab in the same pass: the tab is entered
+			// for help far more often than for community links, so troubleshooting,
+			// billing, and privacy now come first.
+			label: 'Support',
 			link: '/support-and-community/',
 			icon: 'comment',
 			items: [
 				{ slug: 'support-and-community', label: 'Support and Community' },
-				{
-					label: 'Community',
-					items: [
-						'support-and-community/community/contributing',
-						'support-and-community/community/warp-preview-and-alpha-program',
-						{ slug: 'support-and-community/community/refer-a-friend', label: 'Refer a Friend & Earn Rewards' },
-						'support-and-community/community/open-source-partnership',
-					],
-				},
 				{
 					label: 'Troubleshooting and support',
 					items: [
@@ -695,6 +692,15 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'support-and-community/privacy-and-security/secret-redaction',
 						'support-and-community/privacy-and-security/network-log',
 						{ slug: 'support-and-community/community/open-source-licenses', label: 'Open Source Licenses' },
+					],
+				},
+				{
+					label: 'Community',
+					items: [
+						'support-and-community/community/contributing',
+						'support-and-community/community/warp-preview-and-alpha-program',
+						{ slug: 'support-and-community/community/refer-a-friend', label: 'Refer a Friend & Earn Rewards' },
+						'support-and-community/community/open-source-partnership',
 					],
 				},
 			],
