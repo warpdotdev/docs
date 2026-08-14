@@ -54,6 +54,24 @@ For cloud agent runs (`oz agent run-cloud`), skills are discovered from reposito
 You can also list available skills programmatically using the `GET /agent` endpoint. See the [Oz API](/reference/api-and-sdk/) reference for details.
 :::
 
+### Extra skill directories in cloud runs
+
+Skills that don't live in a cloned repository's standard skill directories can still be indexed. Set the `WARP_SKILL_DIRS` environment variable to a comma-separated list of skill directories, and a cloud run picks them up alongside the skills it discovers from your repositories. This is useful for skills baked into a custom Docker image, mounted from shared storage, or installed by a setup step outside a repo.
+
+Set the variable in the environment's Docker image so it's present when the agent starts:
+
+```dockerfile title="Dockerfile"
+ENV WARP_SKILL_DIRS="/opt/team-skills,tooling/skills"
+```
+
+How the value is interpreted:
+
+* **Directory layout** - Each entry is a skills directory whose direct children are skill folders containing a `SKILL.md`, the same layout as `.agents/skills/`. Point the variable at the parent directory, not at an individual skill folder.
+* **Path resolution** - A leading `~` expands to the home directory. Relative entries resolve against the run's working directory rather than the agent process's current directory, so they stay stable even when setup steps change directories.
+* **Precedence** - Skills loaded this way are treated as personal (home) skills, so they stay in scope for the whole run regardless of which directory the agent is working in. Repository skills of the same name still appear separately, as described in [skill name conflicts](/agents/capabilities/skills/#skill-name-conflicts).
+
+The Warp Agent harness reads `WARP_SKILL_DIRS` directly. For [third-party harnesses](/platform/harnesses/) such as Claude Code and Codex, a cloud run publishes each of these skills into that harness's own skill root before launch, so the harness discovers them through its native skill system.
+
 ---
 
 ## Running skill-based agents
