@@ -33,7 +33,46 @@ Share the link only with collaborators who should be able to see the session con
 
 ## How it works
 
-When you share an agent session, Warp publishes it to the cloud and generates a shareable link. The session stays in sync — any new agent output or terminal activity appears for all viewers in real time. The person who shares the session controls who can view and who can interact.
+When you share an agent session, Warp uploads the session's scrollback and live output to Warp's servers and generates a shareable link. Session Sharing works through Warp's servers rather than as a direct, peer-to-peer connection between devices, so the session stays in sync — any new agent output or terminal activity appears for all viewers in real time. The person who shares the session controls who can view and who can interact.
+
+## Data retention and access
+
+Understanding how long shared data sticks around, how to stop sharing it, and who can see it helps you decide what's safe to share.
+
+### How long shared data is kept
+
+Shared session data expires automatically about one week after you create the share. After that, the link can no longer be opened. This matches the message Warp shows when you try to open an expired link: "Sessions expire after one week and cannot be opened."
+
+### Stopping a share
+
+Stopping a share immediately ends live access for every participant — no one can continue watching or interacting once you stop it. The share link can no longer be opened after the one-week expiry. There's currently no separate control to delete a single shared session's data before that expiry.
+
+:::note
+Shared [Blocks](/terminal/blocks/block-sharing/) work differently. Unsharing a Block permanently deletes it. Session shares rely on the one-week expiry instead of an immediate-delete action.
+:::
+
+To remove all of your shared session data through account deletion rather than waiting for the shared-session expiry, delete your Warp account and data. Deletion jobs run every 24 hours, so removal is not immediate. See [Delete your account and data](/support-and-community/privacy-and-security/privacy/#delete-your-account-and-data).
+
+### Who can access a shared session
+
+Access to a shared session is based on who you grant it to, not just who has the link:
+
+* **Owner** - You, the person who started the share, control who can view and interact
+* **Invited collaborators** - People you explicitly invite to the session
+* **Your team** - Optionally, you can extend access to your whole team
+* **Anyone with the link** - Available as a setting when you want broader access
+
+Viewers must sign in to a Warp account to open a shared session. Workspace admins can disable invites and link sharing for the team by policy. Roles determine what a participant can do once they have access — some participants can only view the session, while others can also steer it by sending commands or agent queries. See [Collaboration and steering](#collaboration-and-steering) below.
+
+### Secrets in shared sessions
+
+:::caution
+[Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) isn't applied to Session Sharing. Anything visible in a shared session's scrollback, including values that Secret Redaction would otherwise redact elsewhere, is visible to everyone who can access the share. Treat sharing a session like sharing your screen: review what's in the scrollback before you share it.
+:::
+
+### AI and shared sessions
+
+Sharing a session doesn't, by itself, send its contents to a model. Shared sessions are excluded from Warp Drive's AI indexing, so a shared session's contents aren't made searchable or citable by agents just because it was shared. An agent only sees a shared session's terminal content when someone actually uses an AI feature inside that session — either you, or a collaborator you've granted edit access to.
 
 ## Sharing a session
 
@@ -104,3 +143,5 @@ Multiple participants can join the same session from different machines, browser
 * [Cloud Agent Session Sharing](/platform/viewing-cloud-agent-runs/)
 * [Attach agent session context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs/)
 * [Session Sharing (terminal)](/knowledge-and-collaboration/session-sharing/)
+* [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/)
+* [Privacy and data control](/support-and-community/privacy-and-security/privacy/)
