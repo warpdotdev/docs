@@ -476,13 +476,21 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					// Triggers merged into Integrations here (mirrors the unmerged prior
-					// art in rrenk/ia-restructure-prototype).
-					label: 'Integrations',
+					// Sibling of Integrations, not its parent or its child. Triggers were
+					// previously nested inside Integrations, which inverted the concept:
+					// platform/triggers lists integrations as one of six trigger types.
+					// Kept as siblings rather than nesting Integrations under Triggers,
+					// which would push 11 pages four levels deep.
+					label: 'Triggers',
 					items: [
 						{ slug: 'platform/triggers', label: 'Triggers overview' },
 						{ slug: 'platform/triggers/scheduled-agents-quickstart', label: 'Scheduled agents quickstart' },
 						{ slug: 'platform/triggers/scheduled-agents', label: 'Scheduled agents' },
+					],
+				},
+				{
+					label: 'Integrations',
+					items: [
 						{ slug: 'platform/integrations', label: 'Integrations overview' },
 						{ slug: 'platform/integrations/quickstart', label: 'Integrations quickstart' },
 						'platform/integrations/slack',
