@@ -518,6 +518,72 @@ body.docs-image-lightbox-open {
 }
 
 /* --------------------------------------------------------------------------
+   Mermaid diagrams
+   -------------------------------------------------------------------------- */
+.sl-markdown-content pre.mermaid {
+  max-width: 100%;
+  border: 1px solid var(--sl-color-hairline-light);
+  border-radius: var(--sl-radius-md);
+  overflow-x: auto;
+}
+
+.sl-markdown-content pre.mermaid svg {
+  max-width: 100%;
+}
+
+.svg-toolbelt-controls {
+  flex-direction: row !important;
+  gap: 0.125rem !important;
+  padding: 0.25rem !important;
+  background: var(--sl-color-bg-nav) !important;
+  border: 1px solid var(--sl-color-hairline-light) !important;
+  border-radius: var(--sl-radius-md) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2) !important;
+}
+
+:root[data-theme='light'] .svg-toolbelt-controls {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+}
+
+.svg-toolbelt-controls .svg-toolbelt-btn,
+.svg-toolbelt-controls button {
+  border: none !important;
+  background: transparent !important;
+  color: var(--sl-color-gray-3) !important;
+  border-radius: var(--sl-radius-sm) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.svg-toolbelt-controls .svg-toolbelt-btn:hover,
+.svg-toolbelt-controls button:hover,
+.svg-toolbelt-controls .svg-toolbelt-btn:active,
+.svg-toolbelt-controls button:active {
+  background: var(--sl-color-gray-6) !important;
+  color: var(--sl-color-white) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.svg-toolbelt-controls .svg-toolbelt-btn:focus,
+.svg-toolbelt-controls button:focus {
+  outline: 2px solid var(--sl-color-accent) !important;
+  outline-offset: 2px !important;
+  border-color: transparent !important;
+}
+
+.svg-toolbelt-zoom-indicator {
+  background: var(--sl-color-bg-nav) !important;
+  border: 1px solid var(--sl-color-hairline-light) !important;
+  color: var(--sl-color-gray-2) !important;
+  font-family: var(--sl-font) !important;
+}
+
+.svg-toolbelt-container:fullscreen {
+  background: var(--sl-color-bg) !important;
+}
+
+/* --------------------------------------------------------------------------
    Guides: Card-based discovery page
 
    Filter pills + card grid for the /guides/ landing page.
