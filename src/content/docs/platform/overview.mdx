@@ -45,6 +45,14 @@ In practice: **triggers create tasks; tasks execute on a host (optionally in an 
 
 ---
 
+### Warp Factories
+
+[Warp Factories](/factories/) give engineering teams open, flexible infrastructure for building and operating their own cloud software factories. A factory composes the primitives described on this page — triggers, tasks, environments, hosts, and integrations — into an automation loop around your development lifecycle.
+
+Factories are in closed beta. See the [Factories](/factories/) tab for what a software factory is, how to configure and connect one, and how to apply.
+
+---
+
 ### CLI
 
 The [{VARS.WARP_AGENT_CLI}](/reference/cli/) is the **headless interface** for running agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](/agents/getting-started/agents-in-warp/) embedded in Warp's desktop app.
@@ -284,17 +292,10 @@ Warp supports centralized configuration so these settings apply consistently reg
 
 This is especially useful when the same workflow can be triggered from multiple places (for example Slack, CI, and schedules). Instead of duplicating setup across systems, teams can keep configuration in one place and reuse it across triggers.
 
-### Using cloud agents with or without the Warp app
+### Where to go next
 
-[Cloud agents](/platform/) do not require Warp's desktop terminal. Teams can operate cloud agent workflows using:
-
-* [{VARS.WARP_AGENT_CLI}](/reference/cli/) — run agents from scripts, CI, or the terminal
-* [{VARS.WEB_APP}](/platform/oz-web-app/) — visual interface for managing runs, schedules, environments, and integrations from any browser, including mobile
-* [Session sharing](/agents/local-agents/session-sharing/) — attach to running tasks to monitor or steer
-* [Management UI](/platform/managing-cloud-agents/) — view agent activity and run history
-* [APIs and SDKs](/reference/api-and-sdk/) — programmatic access for custom integrations
-
-**If your team also uses Warp’s terminal, you gain an additional workflow:**
-
-* Tasks launched via the CLI can be handed off into an interactive session for review, edits, or continuation.
-* This is useful when you want a human checkpoint (final edits, validation, merge decisions) without losing the audit trail from the cloud agent run.
+* [Cloud agents](/platform/) — what cloud agents are, how they get triggered, and how to run them with or without the Warp app.
+* [Cloud agents quickstart](/platform/quickstart/) — run your first cloud agent in about ten minutes.
+* [Warp Factories](/factories/) — build a software factory on these primitives.
+* [Environments](/platform/environments/) — define the toolchain and repos a run executes against.
+* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) — drive the platform programmatically.

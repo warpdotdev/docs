@@ -397,13 +397,22 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			// from 10 subsections into HYC's 6-group IA; all page slugs unchanged.
 			id: 'platform',
 			label: 'Automation Platform',
-			link: '/platform/',
+			// The tab lands on the platform overview rather than /platform/, which
+			// serves the cloud agents overview. The two pages are not
+			// interchangeable: 16 legacy redirects point at each, and they are
+			// aligned with the content that lives there now (/agent-platform/
+			// warp-platform -> overview; /agent-platform/ambient-agents ->
+			// /platform/). Swapping the bodies would invert both sets, plus 17
+			// internal links and an #execution-hosts anchor. Precedent for a
+			// non-root tab target: the Changelog tab links to /changelog/2026/.
+			link: '/platform/overview/',
 			icon: 'cloud-download',
 			items: [
-				{ slug: 'platform', label: 'Cloud agents overview' },
+				{ slug: 'platform/overview', label: 'Overview' },
 				{
 				label: 'Cloud Agents',
 				items: [
+						{ slug: 'platform', label: 'Overview' },
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
 						{
 							// Leads with the Warp Agent harness page as this section's Overview
@@ -420,7 +429,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								'platform/secrets',
 							],
 						},
-						{ slug: 'platform/overview', label: 'Oz platform' },
 						{ slug: 'platform/viewing-cloud-agent-runs', label: 'Viewing cloud agent runs' },
 						{ slug: 'platform/managing-cloud-agents', label: 'Managing cloud agents' },
 						{ slug: 'platform/oz-web-app', label: 'Oz web app' },
