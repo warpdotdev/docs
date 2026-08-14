@@ -17,8 +17,38 @@ This skill is the manual fallback for the same job, so its output has to match t
 3. Drop every path whose tags are a subset of `EXCLUDED_TAGS`, plus every path listed explicitly in `EXCLUDED_PATHS` or matching a prefix in `EXCLUDED_PATH_PREFIXES`.
 4. Keep top-level `openapi`, `info`, `servers`, and `components.securitySchemes` verbatim.
 5. Keep only the `components.schemas` entries that are reachable from the surviving paths via `$ref` walking (recursive over `allOf`/`oneOf`/`anyOf`/`items`/`additionalProperties`/etc.).
+6. Recursively strip every key in `STRIP_FLAGS` from whatever survives
+   steps 1-5, wherever it appears in the tree (operations, schemas,
+   individual properties, parameters) — not only on the top-level operation
+   objects rule 1 inspects.
 
 Rule 1 mirrors warp-server's own filter, so a surface the server team marks private stays private here without anyone having to maintain a matching allowlist entry.
+
+## Implementation-only extensions are stripped everywhere (`STRIP_FLAGS`)
+
+`STRIP_FLAGS` mirrors the `stripFlags` list in
+`warp-server/public_api/public-openapi-filter.yaml` verbatim: `x-internal`,
+`x-enum-varnames`, `x-go-type`, `x-go-type-import`,
+`x-go-type-skip-optional-pointer`, `x-oapi-codegen-extra-tags`,
+`x-stainless-deprecation-message`, and `x-stainless-naming`. These
+extensions are useful for server/SDK code generation (oapi-codegen,
+Stainless) but carry no meaning for a docs reader, so none of them may
+reach the published Scalar reference.
+
+An earlier version of this script only removed `x-internal` from
+top-level operation objects (the key that decides whether to drop the
+operation entirely). It never stripped the *other* six keys, and it never
+walked into schemas, so implementation-only markers on component schemas
+and their properties — `x-go-type-skip-optional-pointer` and
+`x-stainless-deprecation-message` in particular — leaked into the
+published copy verbatim. `_strip_flags` now walks the entire regenerated
+tree after filtering and removes every `STRIP_FLAGS` key it finds,
+regardless of nesting depth, matching `generate-public-openapi`'s own
+post-generation check that no `x-*` key remains in warp-server's
+published copy.
+
+When warp-server adds a new entry to its `stripFlags` list, add the same
+key to `STRIP_FLAGS` here so the two filters stay in lockstep.
 
 ## Excluded tags
 

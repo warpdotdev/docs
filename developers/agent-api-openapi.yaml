@@ -393,7 +393,14 @@ paths:
           format: date-time
       - name: environment_id
         in: query
-        description: Filter runs by environment ID
+        description: |
+          Filter runs by environment ID. Passing the literal value
+          `empty-environment` matches runs with no environment configured,
+          rather than omitting the parameter, which applies no environment
+          filter at all. `empty-environment` can never collide with a real
+          environment ID: every environment ID is exactly 22 characters
+          drawn from `[A-Za-z0-9]`, while this sentinel contains a hyphen
+          and is a different length.
         required: false
         schema:
           type: string
@@ -419,7 +426,6 @@ paths:
           type: string
       - name: factory_uid
         in: query
-        x-internal: true
         description: |
           Filter runs by factory. Matches runs executed by any of the
           factory's agents. A UID outside the caller's accessible factories
@@ -429,7 +435,6 @@ paths:
           type: string
       - name: automation_id
         in: query
-        x-internal: true
         description: |
           Filter runs by the factory automation that dispatched them. Matches
           runs stamped with the automation_id metadata key at creation time.
@@ -1496,7 +1501,6 @@ paths:
       - name: factory_uid
         in: query
         required: false
-        x-internal: true
         description: |
           Optional UID of a Factory to filter by. When provided, only agents
           linked to that factory (and owned by the caller's team) are returned.
@@ -1792,7 +1796,6 @@ components:
           description: |
             Whether to create a team-owned run.
             Defaults to true for users on a single team.
-          x-go-type-skip-optional-pointer: false
         agent_identity_uid:
           type: string
           description: |
@@ -1860,7 +1863,6 @@ components:
         task_id:
           type: string
           deprecated: true
-          x-stainless-deprecation-message: Use run_id instead.
           description: Unique identifier for the task (same as run_id). Deprecated - use run_id instead.
         state:
           $ref: '#/components/schemas/RunState'
@@ -1908,7 +1910,6 @@ components:
         task_id:
           type: string
           deprecated: true
-          x-stainless-deprecation-message: Use run_id instead.
           description: Unique identifier for the task (typically matches run_id). Deprecated - use run_id instead.
         title:
           type: string
@@ -1999,9 +2000,6 @@ components:
           items:
             $ref: '#/components/schemas/AIRunTimelineEvent'
     AIRunTimelineEvent:
-      x-go-type: types.AIRunTimelineEvent
-      x-go-type-import:
-        path: github.com/warpdotdev/warp-server/model/types
       type: object
       description: A setup or lifecycle event recorded for an agent run.
       required:
@@ -2019,7 +2017,6 @@ components:
         execution_id:
           type: integer
           format: int64
-          x-go-type-skip-optional-pointer: false
           description: Run execution associated with this event, when available.
         event_type:
           $ref: '#/components/schemas/AIRunTimelineEventType'
@@ -2030,7 +2027,6 @@ components:
         payload:
           type: object
           additionalProperties: true
-          x-go-type: json.RawMessage
           description: Optional event-specific JSON payload.
     AIRunTimelineEventType:
       type: string
@@ -2176,11 +2172,6 @@ components:
       - completed
       - failed
       - denied
-      x-enum-varnames:
-      - Running
-      - Completed
-      - Failed
-      - Denied
     ActionContentBlock:
       type: object
       required:
@@ -2448,7 +2439,6 @@ components:
           type: integer
           format: int64
           description: Size of the uploaded file in bytes
-          x-go-type-skip-optional-pointer: false
     ScheduleInfo:
       type: object
       description: Information about the schedule that triggered this run (only present for scheduled runs)
@@ -2599,6 +2589,9 @@ components:
       - CLOUD_MODE
       - CLI
       - JIRA
+      - SELF_IMPROVEMENT
+      - GITHUB_WEBHOOK
+      - GITLAB_WEBHOOK
       - AUTOFIX
       - RUN_SCORER
       - ORCHESTRATION
@@ -2614,6 +2607,9 @@ components:
         - CLOUD_MODE: Created from a Cloud Mode
         - CLI: Created from the CLI
         - JIRA: Created from Jira integration
+        - SELF_IMPROVEMENT: Created by Warp's self-improvement pipeline
+        - GITHUB_WEBHOOK: Created from a GitHub webhook event
+        - GITLAB_WEBHOOK: Created from a GitLab webhook event
         - AUTOFIX: Created by Warp's autofix pipeline
         - RUN_SCORER: Created by Warp's run-scoring judge
         - ORCHESTRATION: Created as a child run by the orchestration layer (parent_run_id set)
@@ -2640,9 +2636,6 @@ components:
         model_id:
           type: string
           description: LLM model to use (uses team default if not specified)
-          x-stainless-naming:
-            python:
-              method_argument: llm_id
         base_prompt:
           type: string
           description: Custom base prompt for the agent
@@ -2684,9 +2677,7 @@ components:
           type: boolean
           description: |
             Controls whether computer use is enabled for this agent.
-            If not set, defaults to true for runs on Warp's built-in harness
-            and false for third-party harnesses.
-          x-go-type-skip-optional-pointer: false
+            If not set, defaults to true.
         idle_timeout_minutes:
           type: integer
           format: int32
@@ -2696,7 +2687,6 @@ components:
             Number of minutes to keep the agent environment alive after task completion.
             If not set, defaults to 10 minutes.
             Maximum allowed value is min(60, floor(max_instance_runtime_seconds / 60) for your billing tier).
-          x-go-type-skip-optional-pointer: false
         worker_host:
           type: string
           description: |
@@ -2720,7 +2710,6 @@ components:
             Optional inference provider settings for this run. Run-level
             config takes precedence over the agent's stored config and
             the workspace's admin-configured defaults.
-          x-go-type-skip-optional-pointer: false
         credential_strategy:
           type: string
           nullable: true
@@ -2897,6 +2886,13 @@ components:
         trace_id:
           type: string
           description: OpenTelemetry trace ID for debugging and support requests
+        provider:
+          type: string
+          description: External provider that requires authorization, such as `linear`.
+        auth_url:
+          type: string
+          format: uri
+          description: URL where the caller can reconnect the external provider.
     ArtifactResponse:
       oneOf:
       - $ref: '#/components/schemas/PlanArtifactResponse'
@@ -3068,7 +3064,6 @@ components:
           type: integer
           format: int64
           description: Size of the uploaded file in bytes
-          x-go-type-skip-optional-pointer: false
     AttachmentInput:
       type: object
       description: A base64-encoded file attachment to include with the prompt
@@ -3124,7 +3119,6 @@ components:
         agent_uid:
           type: string
           format: uuid
-          x-go-type-skip-optional-pointer: false
           description: UID of the agent that this schedule runs as
         metadata:
           allOf:
@@ -3197,7 +3191,6 @@ components:
         agent_uid:
           type: string
           format: uuid
-          x-go-type-skip-optional-pointer: false
           description: |
             Agent UID to use as the execution principal for this schedule.
             Only valid for team-owned schedules.
@@ -3208,7 +3201,6 @@ components:
           description: |
             Whether to create a team-owned schedule.
             Defaults to true for users on a single team.
-          x-go-type-skip-optional-pointer: false
         metadata:
           allOf:
           - $ref: '#/components/schemas/RunMetadata'
@@ -3248,7 +3240,6 @@ components:
         agent_uid:
           type: string
           format: uuid
-          x-go-type-skip-optional-pointer: false
           description: |
             Agent UID to use as the execution principal for this schedule.
             Only valid for team-owned schedules.
@@ -3665,16 +3656,12 @@ components:
         reference_type:
           type: string
           maxLength: 256
-          x-oapi-codegen-extra-tags:
-            binding: required
           description: |
             Free-form category identifier for this reference (e.g. "linear_issue",
             "spec_link", "jira_ticket"). Used for filtering and display.
         url:
           type: string
           maxLength: 2048
-          x-oapi-codegen-extra-tags:
-            binding: required
           description: |
             Canonical URL for the reference. Used as the key for reverse lookups
             ("which run produced this URL?").
@@ -3820,7 +3807,6 @@ components:
           description: Public UID of the user, service account, or team that owns the memory store.
         description:
           type: string
-          x-go-type-skip-optional-pointer: false
           description: Optional description for the memory store.
     AgentAutoMemoryCreateConfig:
       type: object
@@ -3828,7 +3814,6 @@ components:
       properties:
         enabled:
           type: boolean
-          x-go-type-skip-optional-pointer: false
           description: |
             Whether to create and attach a default service-account-owned memory store for this agent.
             Defaults to true when omitted.
@@ -3859,7 +3844,6 @@ components:
           description: |
             Replacement list of attached team memory stores. Omit to leave unchanged,
             pass an empty array to clear, or pass a non-empty array to replace.
-          x-go-type-skip-optional-pointer: false
     AgentAutoMemoryResponse:
       type: object
       description: Auto-memory state for an agent.
@@ -3924,8 +3908,6 @@ components:
         scorer_id:
           type: integer
           description: The evaluation this verdict belongs to
-          x-oapi-codegen-extra-tags:
-            binding: required
         classification:
           type: string
           description: |
@@ -3952,8 +3934,6 @@ components:
           minItems: 1
           items:
             $ref: '#/components/schemas/ReportedRunScore'
-          x-oapi-codegen-extra-tags:
-            binding: required,min=1
     ReportedRunScoreOutcome:
       type: object
       required:
@@ -3989,7 +3969,6 @@ components:
         factory_uid:
           type: string
           nullable: true
-          x-internal: true
           description: |
             Optional UID of the Factory to link this agent to. When omitted, the
             agent is not linked to any factory.
@@ -3997,7 +3976,6 @@ components:
           allOf:
           - $ref: '#/components/schemas/AgentType'
           nullable: true
-          x-internal: true
           description: |
             Optional well-known type for the agent. Defaults to CUSTOM when omitted.
             Only honored when the factory API is enabled.
@@ -4068,7 +4046,6 @@ components:
           type: string
           nullable: true
           deprecated: true
-          x-stainless-deprecation-message: Use harness instead.
           description: |
             Optional default harness for runs executed by this agent.
             Deprecated - use harness instead. Kept for backward compatibility;
@@ -4102,6 +4079,19 @@ components:
             Whether runs created with this agent's API key may use the on_behalf_of
             field to attribute runs to another team member. Defaults to false.
             Only team admins may set this field.
+        worker_host:
+          type: string
+          nullable: true
+          description: |
+            Optional default worker host for runs executed by this agent.
+            Omission, null, or an empty value stores no Agent default, in which
+            case the workspace default applies. A non-empty value is trimmed
+            and stored; use "warp" to force Warp-hosted execution over a
+            self-hosted workspace default. The precedence order for worker
+            host resolution is:
+            1. The host specified on the run itself
+            2. The agent's default host
+            3. The workspace default host
     UpdateAgentRequest:
       type: object
       description: |
@@ -4118,20 +4108,17 @@ components:
           nullable: true
           description: |
             Replacement description. Omit or pass `null` to leave unchanged, or use an empty value to clear.
-          x-go-type-skip-optional-pointer: false
         prompt:
           type: string
           nullable: true
           description: |
             Replacement prompt. Omit or pass `null` to leave unchanged, or use an empty value to clear.
-          x-go-type-skip-optional-pointer: false
         environment_id:
           type: string
           nullable: true
           description: |
             Replacement default cloud environment ID. Omit or pass `null` to leave unchanged,
             or pass an empty string to clear.
-          x-go-type-skip-optional-pointer: false
         default_runner_uid:
           type: string
           nullable: true
@@ -4139,7 +4126,6 @@ components:
             Replacement default runner UID. Omit or pass `null` to leave unchanged,
             or pass an empty string to clear. A non-empty value must reference a
             runner the editor can View.
-          x-go-type-skip-optional-pointer: false
         secrets:
           type: array
           nullable: true
@@ -4149,7 +4135,6 @@ components:
             Replacement list of secrets. Omit to leave unchanged, pass an
             empty array to clear, or pass a non-empty array to replace.
             Duplicate names are rejected.
-          x-go-type-skip-optional-pointer: false
         skills:
           type: array
           nullable: true
@@ -4158,20 +4143,17 @@ components:
           description: |
             Replacement list of skill specs. Omit to leave unchanged, pass an empty array
             to clear, or pass a non-empty array to replace.
-          x-go-type-skip-optional-pointer: false
         base_model:
           type: string
           nullable: true
           description: |
             Replacement base model. Omit or pass `null` to leave unchanged,
             or pass an empty string to clear.
-          x-go-type-skip-optional-pointer: false
         memory:
           allOf:
           - $ref: '#/components/schemas/AgentMemoryUpdateConfig'
           nullable: true
           description: Replacement memory settings for this agent.
-          x-go-type-skip-optional-pointer: false
         mcp_servers:
           type: object
           additionalProperties:
@@ -4181,7 +4163,6 @@ components:
             unchanged, pass an empty object to clear, or pass a non-empty object
             to replace. Run-level MCP config takes precedence over this agent-level
             default.
-          x-go-type-skip-optional-pointer: false
         inference_providers:
           type: object
           allOf:
@@ -4192,19 +4173,16 @@ components:
             Agent-level config takes precedence over the workspace's
             admin-configured defaults. Omit or pass `null` to leave
             unchanged. Pass an empty object `{}` to clear.
-          x-go-type-skip-optional-pointer: false
         base_harness:
           type: string
           nullable: true
           deprecated: true
-          x-stainless-deprecation-message: Use harness instead.
           description: |
             Replacement default harness. Omit or pass `null` to leave unchanged,
             or pass an empty string to clear.
             Deprecated - use harness instead. Kept for backward compatibility;
             when both are sent, harness is authoritative and a conflicting
             type is rejected with invalid_request.
-          x-go-type-skip-optional-pointer: false
         harness:
           allOf:
           - $ref: '#/components/schemas/Harness'
@@ -4213,7 +4191,6 @@ components:
             Replacement default harness for runs executed by this agent. Omit
             or pass `null` to leave unchanged, pass `{}` to clear the stored
             default, or pass a populated object to replace it wholesale.
-          x-go-type-skip-optional-pointer: false
         credential_strategy:
           allOf:
           - $ref: '#/components/schemas/AgentCredentialStrategy'
@@ -4221,8 +4198,10 @@ components:
           description: |
             Replacement default credential strategy. Omit or pass `null` to
             leave unchanged, or pass an empty string to clear the agent's
-            default.
-          x-go-type-skip-optional-pointer: false
+            default. An agent belonging to a file-managed factory cannot clear
+            it: its agent file expresses the strategy by declaring it, and a
+            file that declares none keeps the strategy already projected, so a
+            clear is rejected with a 400.
         harness_auth_secrets:
           allOf:
           - $ref: '#/components/schemas/HarnessAuthSecrets'
@@ -4230,12 +4209,10 @@ components:
           description: |
             Replacement per-harness authentication secrets. Omit or pass `null`
             to leave unchanged, or pass an empty object to clear all secrets.
-          x-go-type-skip-optional-pointer: false
         agent_type:
           allOf:
           - $ref: '#/components/schemas/AgentType'
           nullable: true
-          x-internal: true
           description: |
             Replacement well-known type for the agent. Omit, pass `null`, or pass
             an empty string to leave the type unchanged.
@@ -4247,7 +4224,15 @@ components:
             Whether runs created with this agent's API key may use the on_behalf_of
             field to attribute runs to another team member. Omit or pass `null` to
             leave unchanged. Only team admins may set this field.
-          x-go-type-skip-optional-pointer: false
+        worker_host:
+          type: string
+          nullable: true
+          description: |
+            Replacement default worker host. Omit or pass `null` to leave
+            unchanged, or pass an empty string to clear (the workspace default
+            then applies). A non-empty value is trimmed and replaces the
+            stored default; use "warp" to force Warp-hosted execution over a
+            self-hosted workspace default.
     AgentResponse:
       type: object
       required:
@@ -4348,7 +4333,6 @@ components:
         base_harness:
           type: string
           deprecated: true
-          x-stainless-deprecation-message: Use harness instead.
           description: |
             Default harness for runs executed by this agent. The precedence order for harness resolution is:
             1. The harness specified on the run itself
@@ -4385,7 +4369,6 @@ components:
         factory_uid:
           type: string
           nullable: true
-          x-internal: true
           description: |
             UID of the Factory this agent was seeded for. Null (or omitted)
             for agents that do not belong to a factory.
@@ -4393,7 +4376,6 @@ components:
           allOf:
           - $ref: '#/components/schemas/AgentType'
           nullable: true
-          x-internal: true
           description: |
             The agent's well-known type. Present only when the factory API is
             enabled; agents created before agent typing existed report CUSTOM.
@@ -4402,6 +4384,14 @@ components:
           description: |
             Whether runs created with this agent's API key may use the on_behalf_of
             field to attribute runs to another team member.
+        worker_host:
+          type: string
+          description: |
+            Default worker host for runs executed by this agent, or empty when
+            unset. The precedence order for worker host resolution is:
+            1. The host specified on the run itself
+            2. The agent's default host
+            3. The workspace default host
     ListAgentIdentitiesResponse:
       type: object
       required:
