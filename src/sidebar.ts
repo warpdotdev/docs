@@ -449,7 +449,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							// Surfaces for watching, steering, and managing runs. Named to match
 							// the 'Management and observability' section of the platform overview
 							// -- 'Operations' read as a job function rather than a set of pages.
-							label: 'Management & Observability',
+							label: 'Management & observability',
 							collapsed: true,
 							items: [
 								// Labeled to match the page title, 'Cloud agent session sharing'.
@@ -662,7 +662,10 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			link: '/support-and-community/',
 			icon: 'comment',
 			items: [
-				{ slug: 'support-and-community', label: 'Support and Community' },
+				// 'Overview', not the page's own 'Support & Community' title: the tab
+				// is now 'Support', and a bare first item labeled 'Overview' matches
+				// the Automation Platform, API & Reference, and Enterprise tabs.
+				{ slug: 'support-and-community', label: 'Overview' },
 				{
 					label: 'Troubleshooting and support',
 					items: [
