@@ -62,11 +62,6 @@ export default defineConfig({
 		},
 	},
 	integrations: [
-		// Must be registered before starlight() — see astro-mermaid's
-		// "Integration Order" requirement. `autoTheme` syncs Mermaid's base
-		// theme with the site's data-theme attribute. Brand colors below are
-		// literal hex, not `var(--sl-color-*)`: Mermaid computes shades from
-		// these values at init time and can't parse a CSS custom property.
 		mermaid({
 			autoTheme: true,
 			enableLog: false,
@@ -74,7 +69,6 @@ export default defineConfig({
 				fontFamily: "'Inter', 'Inter Fallback', sans-serif",
 				themeVariables: {
 					fontFamily: "'Inter', 'Inter Fallback', sans-serif",
-					// Warp accent blue (--sl-color-accent, dark-theme value).
 					primaryBorderColor: '#51a6ec',
 					nodeBorder: '#51a6ec',
 					lineColor: '#51a6ec',

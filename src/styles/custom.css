@@ -519,11 +519,6 @@ body.docs-image-lightbox-open {
 
 /* --------------------------------------------------------------------------
    Mermaid diagrams
-
-   astro-mermaid renders diagrams into `pre.mermaid`. Align the container
-   with the code-block radius/border tokens so a diagram reads as part of
-   the same visual system as fenced code, and constrain width so wide
-   flowcharts don't overflow the content column.
    -------------------------------------------------------------------------- */
 .sl-markdown-content pre.mermaid {
   max-width: 100%;
@@ -592,10 +587,6 @@ body.docs-image-lightbox-open {
   font-family: var(--sl-font) !important;
 }
 
-/* svg-toolbelt's own "wrapper" class only exists when its `initializeSvgToolbelt()`
-   helper builds a wrapper div; MermaidControls.astro instead instantiates
-   `SvgToolbelt` directly on `pre.mermaid`, so that element itself carries
-   `svg-toolbelt-container` and is what actually enters `:fullscreen`. */
 .svg-toolbelt-container:fullscreen {
   background: var(--sl-color-bg) !important;
 }
