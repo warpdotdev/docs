@@ -315,6 +315,146 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+/* Article images are enhanced by ArticleImageLightbox.astro with keyboard
+   dialog controls while this class adds a layout-neutral zoom affordance.
+   The script scopes enhancement to main docs content and honors
+   `data-no-lightbox` on the image or any ancestor. */
+.sl-markdown-content img[data-docs-image-lightbox-image] {
+  cursor: zoom-in;
+  transition: box-shadow 0.15s ease;
+}
+
+@media (hover: hover) {
+  .sl-markdown-content img[data-docs-image-lightbox-image]:hover {
+    box-shadow: 0 0 0 2px var(--sl-color-accent-high);
+  }
+}
+.sl-markdown-content img[data-warp-image-lightbox-trigger]:focus-visible,
+.sl-markdown-content a[data-warp-image-lightbox-trigger]:focus-visible img {
+  outline: 2px solid var(--sl-color-accent-high);
+  outline-offset: 3px;
+}
+
+html.docs-image-lightbox-open,
+body.docs-image-lightbox-open {
+  overflow: hidden;
+}
+
+.docs-image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 1.5rem;
+  border: 0;
+  background: rgb(0 0 0 / 0.76);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+
+.docs-image-lightbox[hidden] {
+  display: none;
+}
+.docs-image-lightbox::backdrop {
+  background: transparent;
+}
+
+.docs-image-lightbox__content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: min(100%, 90rem);
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 3.25rem 0 0;
+}
+
+.docs-image-lightbox__image {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border: 1px solid rgb(255 255 255 / 0.22);
+  border-radius: var(--sl-radius-md);
+  background: var(--sl-color-black);
+  object-fit: contain;
+  box-shadow: 0 1rem 2.5rem rgb(0 0 0 / 0.45);
+}
+
+.docs-image-lightbox__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / 0.25);
+  border-radius: var(--sl-radius-sm);
+  background: rgb(0 0 0 / 0.45);
+  color: var(--sl-color-white);
+  cursor: pointer;
+}
+
+.docs-image-lightbox__close:hover {
+  border-color: rgb(255 255 255 / 0.5);
+  background: rgb(0 0 0 / 0.7);
+}
+
+.docs-image-lightbox__close:focus-visible {
+  outline: 2px solid var(--sl-color-accent-high);
+  outline-offset: 2px;
+}
+
+.docs-image-lightbox__close svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.docs-image-lightbox__fallback {
+  max-width: min(100%, 24rem);
+  padding: 0.75rem 1rem;
+  border: 1px dashed var(--sl-color-gray-4);
+  border-radius: var(--sl-radius-md);
+  background: color-mix(in srgb, var(--sl-color-black), var(--sl-color-gray-6) 30%);
+  color: var(--sl-color-gray-3);
+}
+
+:root[data-theme='light'] .docs-image-lightbox {
+  background: rgb(241 245 249 / 0.8);
+}
+
+:root[data-theme='light'] .docs-image-lightbox__image {
+  border-color: rgb(15 23 42 / 0.2);
+  background: var(--sl-color-black);
+  box-shadow: 0 1rem 2.5rem rgb(15 23 42 / 0.24);
+}
+
+:root[data-theme='light'] .docs-image-lightbox__close {
+  border-color: rgb(15 23 42 / 0.2);
+  background: rgb(255 255 255 / 0.8);
+  color: var(--sl-color-white);
+}
+
+:root[data-theme='light'] .docs-image-lightbox__close:hover {
+  border-color: rgb(15 23 42 / 0.4);
+  background: var(--sl-color-black);
+}
 
 .sl-markdown-content figcaption {
   margin-top: 0.5rem;
