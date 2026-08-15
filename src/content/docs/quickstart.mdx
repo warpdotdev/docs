@@ -5,7 +5,6 @@ description: >-
   commands, talk to an agent, and discover what makes Warp different.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
-import { VARS } from '@data/vars';
 
 Get up and running with Warp in about 10 minutes. Install the app, run your first commands using Blocks and the modern text editor, and start an agent conversation to write code, debug issues, or explore your codebase, all from natural language prompts inside the terminal.
 
@@ -91,7 +90,7 @@ Learn more about [Autosuggestions](/terminal/command-completions/autosuggestions
 
 ## 5. Ask your first agent question
 
-Everything you've done so far has been in **terminal mode**, running shell commands the way you normally would. Warp also has **Agent Mode**, a dedicated conversation view where you interact with {VARS.WARP_AUTOMATION_PLATFORM}, Warp's built-in agent, using natural language.
+Everything you've done so far has been in **terminal mode**, running shell commands the way you normally would. Warp also has **Agent Mode**, a dedicated conversation view where you interact with the Warp Agent, Warp's built-in agent, using natural language.
 
 Start an agent conversation by pressing `⌘↩` (macOS) or `Ctrl+Shift+Enter` (Windows/Linux). Then type a prompt:
 
@@ -99,7 +98,7 @@ Start an agent conversation by pressing `⌘↩` (macOS) or `Ctrl+Shift+Enter` (
 Explain the architecture of this project
 ```
 
-{VARS.WARP_AUTOMATION_PLATFORM} reads your codebase, understands its structure, and responds with a context-aware explanation. From here you can ask follow-up questions, have {VARS.WARP_AUTOMATION_PLATFORM} write or refactor code, debug errors, or run commands on your behalf — all within the same conversation.
+The Warp Agent reads your codebase, understands its structure, and responds with a context-aware explanation. From here you can ask follow-up questions, have the Warp Agent write or refactor code, debug errors, or run commands on your behalf — all within the same conversation.
 
 :::note
 You don't always need to switch modes manually. If you type a natural-language prompt in terminal mode, Warp auto-detects it and offers to send it to an agent.
