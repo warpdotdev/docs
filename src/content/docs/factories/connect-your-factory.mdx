@@ -1,18 +1,84 @@
 ---
-title: Connect your Factory
+title: Connect your factory
 description: >-
-  Route work into your Warp Factory from Slack, Linear, GitHub, and local
-  coding agents via the Factory MCP.
+  Route work into your factory from Slack, GitHub, Linear, Jira, local agents,
+  direct runs, and schedules.
 sidebar:
-  label: "Connect your Factory"
+  label: "Connect your factory"
 ---
 
-[STUB — pending content from HYC/content team for the 8/18 closed-beta soft launch. Owner: HYC.
+Connect a factory to the tools where work is discussed, tracked, and reviewed. Each intake path preserves source context and returns results.
 
-Lightweight aggregation page — mostly link into existing detailed docs rather than duplicate them. Cover:
-- How work enters a Factory: communication tools (Slack/Teams), task trackers (Linear/Jira), source forges (GitHub/GitLab)
-- The Factory MCP: how any coding agent or MCP client can push work in, pull status, or guide sessions
-- Integration with Warp Terminal and the Warp Agent CLI (native MCP support, local-to-factory handoff)
-- API, SDK, and CLI for building custom integrations (cross-link to the Reference tab)
+## Choose a source
 
-Cross-link to the Automation Platform tab's Integrations docs for the underlying connector setup rather than duplicating it.]
+| Source | Best for | Context continuity | Typical outputs |
+| --- | --- | --- | --- |
+| Slack | Chat and support requests | Thread or DM | Summary and issue or pull request links |
+| GitHub | Issues, pull requests, reviews, and CI | Issue, pull request, or review thread | Comments, branches, and pull request links |
+| Linear | Planned issues | Issue and agent session | Plans, updates, and pull request links |
+| Jira | Rovo assignment | Rovo agent session | Task status and text result |
+| Factory MCP | Local-agent handoffs | Work item | Notes and artifacts |
+| Direct or scheduled automation | One-off or recurring work | Work item | Summaries and code changes |
+
+## Connect and verify intake
+
+1. Select a factory. Follow the [Warp Factories quickstart](./quickstart) if needed.
+2. Authorize the provider at its narrowest scope, or configure the Factory MCP, a direct run, or a schedule.
+3. Configure the intake path you chose. For provider events, set the automation's agent, run settings, subscriptions, and filters. For recurring work, configure a schedule. For one-off work, start a manual factory run handled by the foreman agent.
+4. Trigger the path, then confirm the expected work item and source updates.
+
+## How intake works
+
+```mermaid
+flowchart LR
+  Provider["Provider event"] --> Integration["Integration"]
+  Integration --> Match["Subscription and<br/>filter matching"]
+  Match --> Automation["Configured automation"]
+  Schedule["Schedule tick"] --> Automation
+  Automation --> Foreman["Foreman run"]
+  Manual["Manual request"] --> Foreman
+  Foreman --> Work["Work item"]
+  Work --> Output["Updates and<br/>artifacts"]
+```
+
+Provider events pass through integration and subscription/filter matching. Schedule ticks invoke their configured automation; manual requests start a foreman run. Every path creates a work item. See [how Warp Factories work](./how-factories-work) for later stages.
+
+## Review seeded default automations
+
+When you create a managed factory, Warp seeds provider-aware default automations for connected providers.
+
+| Provider | Seeded starting point |
+| --- | --- |
+| GitHub | Routes mentions and assignments into factory work, then handles pull requests when they close or merge. When a pull request is linked to tracker work, this handling can complete the tracker item when applicable. |
+| Jira | Routes agent sessions from the selected Jira projects into factory work. |
+| Slack | Uses the default automations described in the [Slack integration guide](./integrations/slack). |
+
+Treat these automations as starting points. Review and edit their subscriptions, filters, agents, and run settings to match your workflow.
+
+## Intake boundaries
+
+| Concern | Boundary and behavior |
+| --- | --- |
+| Authorization | Slack uses one app per factory. GitHub uses a GitHub App installation and repository grants. Linear uses an OAuth workspace connection. Jira uses a site connection. Grant the narrowest provider-supported scope. |
+| Tracker selection | A factory can use Linear, Jira, or no issue tracker, but its definition can declare only one tracker. The selection changes the seeded tracker skill and prompt appendix. The setup wizard currently offers Linear; configure Jira after setup or through factory definitions. |
+| Routing | Subscriptions and filters select an automation for provider events. A schedule tick invokes its configured automation directly. A manual request starts a foreman run directly. Filters can select repository, channel, team, project, label, author, or status when available; they do not reduce integration access. |
+| Duplicate delivery | Providers can retry events. Warp avoids duplicate work when the source identifies a repeated delivery, but receiving workflows must remain safe to retry, especially for Jira. |
+| Continuation | A new reply is not a duplicate. Slack threads; GitHub issues, pull requests, and review threads; and Linear issues and agent sessions can continue an existing work item. Jira continues through follow-ups in the same Rovo agent session. |
+| Output policy | Writeback follows provider grants and separately configured repository credentials. Branch protection and review still apply; humans decide what merges. |
+
+## Integration guides
+
+* [Slack](./integrations/slack) - Route chat requests, direct messages, and thread follow-ups through a dedicated factory app.
+* [GitHub](./integrations/github) - Route repository events with issue, pull request, review, or CI context.
+* [Linear](./integrations/linear) - Route planned issues through issue activity and agent sessions.
+* [Jira](./integrations/jira) - Route Jira Rovo assignments through an agent-session automation.
+
+## Factory MCP
+
+The Factory MCP connects local coding agents and other MCP clients to a factory. Use it to find work, inspect context, coordinate with the foreman, and return notes or completed artifacts to the same work item. See the [Factory MCP guide](./factory-mcp).
+
+## Direct and scheduled automation
+
+Start a manual factory run for one-off work without an external source. Use a scheduled automation for recurring maintenance or reports. Event-driven automations use a connected provider instead. See the [triggers overview](../platform/triggers/).
+
+Next, define the receiving agents and intake rules with [factory definitions as code](./factory-as-code).
