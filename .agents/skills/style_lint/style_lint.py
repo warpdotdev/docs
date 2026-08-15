@@ -85,7 +85,6 @@ RENAME_SENSITIVE_VAR_STRINGS: List[Tuple[str, str, str]] = [
     ("Oz run",       "PLATFORM_RUN",             "{VARS.PLATFORM_RUN} in prose or {{PLATFORM_RUN}} in frontmatter"),
     ("Oz API & SDK", "API_SDK_NAME",             "{VARS.API_SDK_NAME} in prose or {{API_SDK_NAME}} in frontmatter"),
     ("Oz Platform",  "WARP_AUTOMATION_PLATFORM", "{VARS.WARP_AUTOMATION_PLATFORM} in prose or {{WARP_AUTOMATION_PLATFORM}} in frontmatter"),
-    ("Oz",           "WARP_AUTOMATION_PLATFORM", "{VARS.WARP_AUTOMATION_PLATFORM} in prose or {{WARP_AUTOMATION_PLATFORM}} in frontmatter"),
 ]
 
 # Oz terms to avoid (case-insensitive patterns)
@@ -908,19 +907,15 @@ def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
     `oz.warp.dev` in a code fence are not flagged.
 
     Literals are checked longest-first and matches are deduplicated by span so
-    a specific match (e.g. "Oz Platform", "Oz CLI") doesn't also get re-flagged
-    by the more general bare "Oz" entry for the same occurrence.
+    overlapping rename-sensitive names are not double-flagged.
 
     Matches use word boundaries (`\b`) rather than plain substring search, so
-    short literals like bare "Oz" don't false-positive inside unrelated tokens
-    such as URL query params, hashes, or other identifiers (e.g. a YouTube
-    share link's `si=OzvuInMl8DoNR97R` parameter).
+    literals don't false-positive inside unrelated tokens such as URL query
+    params, hashes, or other identifiers.
 
-    An "@"-prefixed occurrence is skipped. "@Oz" is a literal mention handle
-    that a user types in Slack or Linear, not the product name appearing in
-    prose. Handles are strings the product owns, so they do not necessarily
-    change when the product name does -- variabilizing them would silently
-    rewrite a working handle into an invalid one at rename time.
+    An "@"-prefixed occurrence is skipped because mention handles are literal
+    strings that do not necessarily change with product names. Variabilizing
+    a handle could silently rewrite it into an invalid value at rename time.
     """
     issues = []
     in_code_block = False
@@ -943,7 +938,7 @@ def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
                 span = m.span()
                 if any(span[0] >= s and span[1] <= e for s, e in matched_spans):
                     continue
-                # "@Oz" is a mention handle users type, not prose. See docstring.
+                # Mention handles are literal strings, not prose. See docstring.
                 if span[0] > 0 and prose_line[span[0] - 1] == "@":
                     continue
                 matched_spans.append(span)
