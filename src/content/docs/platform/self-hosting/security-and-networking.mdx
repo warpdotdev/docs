@@ -22,14 +22,14 @@ Self-hosted execution keeps repository clones, source files, build artifacts, ru
 * Runtime secrets and environment variables.
 * Container filesystem state (managed architecture) or host workspace (Direct backend / unmanaged).
 
-**Routes through Warp's backend** (under [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr)):
+**Routes through Warp's backend:**
 
 * Orchestration metadata (task status, lifecycle events).
 * Session transcripts, which include agent-generated summaries of code context, file contents the agent reads, and command output.
 * LLM inference requests and responses, which include code context from the agent's interactions.
 
 :::note
-While repositories are cloned and stored only on your infrastructure, code content appears in session transcripts and LLM prompts as part of normal agent operation. All data routed through Warp's backend is covered by [ZDR](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements — Warp does not persistently store your source code or use it for model training.
+While repositories are cloned and stored only on your infrastructure, code content can appear in session transcripts, artifacts, and LLM prompts as part of normal agent operation. Warp stores applicable orchestration and conversation data according to your product configuration and agreement. When you use Warp-managed inference, contracted model providers process requests under Warp's [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements. Customer-supplied inference follows the provider agreement configured by your team.
 :::
 
 ---
@@ -102,9 +102,7 @@ See [GitLab](/platform/integrations/gitlab/) and [Bitbucket](/platform/integrati
 
 ## LLM inference and BYOLLM
 
-LLM inference routes through Warp's backend, which has [ZDR](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements with all contracted model providers. Enterprise teams that need full control over inference routing can use [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) to route inference through their own cloud provider accounts.
-
-BYOLLM currently applies to interactive (local) agents; cloud agent BYOLLM support is coming.
+LLM inference routes through Warp's backend. Warp-managed inference uses contracted providers with [ZDR](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements. Enterprise teams can use [team-managed model keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for supported cloud-agent providers, including AWS Bedrock. Gemini Enterprise through Google Vertex AI currently applies to interactive agents rather than cloud agents.
 
 ---
 
