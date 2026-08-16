@@ -38,7 +38,7 @@ flowchart LR
 
 ### Stages
 
-* **Intake** - A work item enters from an integration, an automation, a direct run, or the [Factory MCP](./factory-mcp), and keeps its source context.
+* **Intake** - A work item enters from a [connected integration](./connect-your-factory), an automation, a direct run, or the [Factory MCP](./factory-mcp), and keeps its source context.
 * **Triage** - Researches the request, reproduces it when needed, and defines its scope and complexity. Skipped when the request is already well bounded.
 * **Specification** - Defines product behavior, technical constraints, and validation criteria. Skipped for localized changes.
 * **Implementation** - Makes the code change on a branch and opens a pull request with test and visual evidence.
@@ -66,8 +66,10 @@ These checkpoints come from the factory's agent instructions and your repository
 
 ## The outer loop: improving the factory
 
-Each completed work item leaves evidence behind: run and pull request activity, costs, evaluations, and benchmarks. Use it to spot repeated failures and compare model or harness configurations.
+Each completed work item leaves evidence behind: run and pull request activity, costs, Scorer evaluations, and benchmarks. Use it to spot repeated failures and compare model or harness configurations.
 
-Anyone on the team, or an agent, can propose changes to the factory's instructions, skills, models, environments, or other definitions. Definitions stored in GitHub can go through pull request review and configuration checks before a change reaches the production branch; Warp-managed definitions sync changes directly. Match your review policy to the definition source and the risk of the change.
+The factory can act on that evidence itself: [Self-improvement](./measure-and-improve#configure-and-review-self-improvement) groups the failures Scorers flag and files follow-up runs that can propose changes to application code or to the factory's own definition. Nothing is adopted without your review.
 
-Benchmarks organize the evidence; they don't replace your judgment about whether a change is correct. See [measure and improve](./measure-and-improve) for the evaluation workflow.
+Anyone on the team, or an agent, can also propose changes to the factory's instructions, skills, models, environments, or other [definitions](./factory-as-code). Definitions stored in GitHub can go through pull request review and configuration checks before a change reaches the production branch; Warp-managed definitions sync changes directly. Match your review policy to the definition source and the risk of the change.
+
+Benchmarks organize the evidence; they don't replace your judgment about whether a change is correct. See [measure and improve](./measure-and-improve) for the evaluation workflow, or [build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) to apply the same outer-loop pattern to a standalone agent.

@@ -30,11 +30,11 @@ Warp Factories fits engineering teams with repeatable work that extends beyond o
 
 ## What Warp Factories provides
 
-* **Coordinated specialist agents** - A coordinating agent, the foreman, routes each work item through triage, specification, implementation, and review agents, skipping stages that don't apply.
-* **Factory definitions as code** - Version-controlled definitions describe your repositories, agents, automations, runners, skills, and MCP servers.
-* **Integrations and the Factory MCP** - Work flows in from Slack, Linear, Jira, and GitHub. The [Factory MCP](./factory-mcp) connects coding agents and other MCP clients.
-* **Model and harness choice** - Each agent role can use a different model and supported harness, including the Warp Agent, Claude Code, and Codex.
-* **Measurement and evaluation** - The control room shows work-item status, runs, automations, costs, evaluations, and benchmarks.
+* **Coordinated specialist agents** - A team of [factory agents](./factory-agents) runs each work item: a coordinating foreman routes it through the triage, spec, implement, and review roles, skipping stages that don't apply. Custom agents and automations cover work the defaults don't.
+* **Factory definitions as code** - [Version-controlled definition files](./factory-as-code) describe your repositories, agents, automations, runners, skills, and MCP servers, so factory changes get the same review, history, and rollback as code changes.
+* **Integrations and the Factory MCP** - Work flows in from [Slack](./integrations/slack), [Linear](./integrations/linear), [Jira](./integrations/jira), and [GitHub](./integrations/github), plus direct runs and schedules. The [Factory MCP](./factory-mcp) connects coding agents and other MCP clients.
+* **Model and harness choice** - Each agent role can use a different model and [supported harness](../platform/harnesses), including the Warp Agent, Claude Code, and Codex.
+* **Measurement and self-improvement** - The [control room](./control-room) shows work-item status, runs, automations, costs, and benchmarks. [Scorers](./measure-and-improve) grade completed work, and [Self-improvement](./measure-and-improve#configure-and-review-self-improvement) turns repeated failures into follow-up work the factory proposes for review.
 * **Infrastructure control** - Run on Warp-hosted infrastructure, or self-host execution on an eligible Enterprise plan. Teams can also connect supported inference providers, scope secrets, and (if eligible) store transcripts, artifacts, and run attachments in their own S3 or GCS buckets. See [infrastructure and security](./infrastructure-and-security) for the available controls.
 
 ## How Warp Factories relates to other Warp products
@@ -50,4 +50,5 @@ Warp Factories fits engineering teams with repeatable work that extends beyond o
 
 * [**Set up a factory**](./quickstart) - Create a factory and send its first work item.
 * [**Understand the execution model**](./how-factories-work) - See how the foreman coordinates stages, runs, and human decisions.
+* [**Meet the factory agents**](./factory-agents) - See what each role does and how to configure its model, harness, and instructions.
 * **Adapt the system** - [Define the factory as code](./factory-as-code) and [connect its work sources](./connect-your-factory).
