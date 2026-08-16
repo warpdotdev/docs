@@ -374,24 +374,51 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			],
 		},
 		{
-			// New for the 8/18 Warp Factories soft launch. Stub pages live at
-			// src/content/docs/factories/ pending content from HYC/content team.
-			// Icon is a placeholder (gear) -- Starlight's built-in icon set has no
-			// literal factory glyph. A true factory icon would need a custom icon
-			// library plugin + Sidebar component override; revisit post-launch.
+			// Warp Factories documentation for Early Access.
+			// Starlight has no built-in factory glyph, so use its settings icon.
+			id: 'factories',
 			label: 'Factories',
 			link: '/factories/',
 			icon: 'setting',
+			badge: { text: 'Early Access', variant: 'note' },
 			items: [
 				{
-					label: 'Factories',
+					label: 'Get started',
 					items: [
 						{ slug: 'factories', label: 'Overview' },
 						{ slug: 'factories/quickstart', label: 'Quickstart' },
-						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
-						{ slug: 'factories/configure-your-factory', label: 'Configure your Factory' },
-						{ slug: 'factories/connect-your-factory', label: 'Connect your Factory' },
+						{ slug: 'factories/how-factories-work', label: 'How Warp Factories work' },
+					],
+				},
+				{
+					label: 'Configure',
+					items: [
+						{ slug: 'factories/factory-agents', label: 'Factory agents' },
+						{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
 						{ slug: 'factories/infrastructure-and-security', label: 'Infrastructure & security' },
+					],
+				},
+				{
+					label: 'Connect',
+					items: [
+						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
+						{
+							label: 'Integrations',
+							items: [
+								{ slug: 'factories/integrations/slack', label: 'Slack' },
+								{ slug: 'factories/integrations/github', label: 'GitHub' },
+								{ slug: 'factories/integrations/linear', label: 'Linear' },
+								{ slug: 'factories/integrations/jira', label: 'Jira' },
+							],
+						},
+						{ slug: 'factories/factory-mcp', label: 'Factory MCP' },
+					],
+				},
+				{
+					label: 'Operate',
+					items: [
+						{ slug: 'factories/control-room', label: 'Control room' },
+						{ slug: 'factories/measure-and-improve', label: 'Measure and improve' },
 					],
 				},
 			],
