@@ -1,117 +1,94 @@
 ---
 title: Factory MCP
 description: >-
-  Factory MCP connects coding agents to Warp Factories for task intake, local
-  iteration, coordination, and handback.
+  Connect any coding agent to your Warp Factories to send in work, continue
+  tasks locally, and hand results back.
 sidebar:
   label: "Factory MCP"
 topic: factories
 ---
 
-Factory MCP connects compatible coding agents and Model Context Protocol (MCP) clients to Warp Factories. It lets a local agent find work, inspect context, coordinate with the foreman, and return changes to the same work item.
+Factory MCP is a hosted Model Context Protocol (MCP) server that connects coding agents to your Warp Factories. With it, the agent you already work with, in Warp or in any MCP-capable tool, can send work to a factory, pick up a factory task to continue locally, and hand the finished work back.
 
-Use Factory MCP when work moves between a cloud factory and an interactive coding session. The factory retains its workflow and task history, while the local agent uses the developer's checkout and tools.
+The factory keeps a single record of each task throughout. Whether a change happens in the cloud or on your machine, it lands on the same task with the same history and conversation.
 
-## When to use Factory MCP
+## What you can use it for
 
-* **Send work** - Create a work item from context available to an MCP client.
-* **Continue locally** - Pull an existing work item's context and Git guidance, then return the pushed result.
-* **Inspect and coordinate** - Find work, inspect outputs, message the foreman, and read its conversation.
-* **Create a factory** - Create one when the team, repository, and source-control details are known.
+* **Send work in** - Turn anything from your local session into a factory task: a bug you found, review feedback, or a half-finished change.
+* **Continue a task locally** - Pull a task's context into your own checkout, work with your own tools, and return the result to the same task.
+* **Stay in sync** - List and search tasks, read a task's conversation, and message its foreman, the agent that orchestrates each task inside the factory.
+* **Create a factory** - Set up a new factory when you know the team, repositories, and source-control details.
 
-Factory MCP complements integrations from Slack, issue trackers, and GitHub. See [connect your factory](./connect-your-factory) for the available intake paths and [how Warp Factories work](./how-factories-work) for the work-item lifecycle.
+Factory MCP is one of several ways work enters a factory, alongside Slack, Linear, and GitHub. See [connect your factory](./connect-your-factory) for all intake paths and [how Warp Factories work](./how-factories-work) for how tasks move through a factory.
 
 ## Connect and authenticate
 
-When Factory MCP is available for your account, Warp attaches the built-in server to supported agent sessions and supplies the authenticated connection. This path needs no vendor-specific configuration.
+In Warp, there is nothing to configure. When your account has access, Warp connects agent sessions to Factory MCP and handles authentication for you.
 
-Claude Code, Codex, Cursor, and other public MCP clients connect through remote MCP support. Follow the client's setup instructions, then authenticate with one of these methods:
+In other MCP clients, such as Claude Code, Codex, or Cursor, add Factory MCP as a remote MCP server. Get the connection details from Warp or your factory administrator, follow your client's instructions for adding a remote server, then authenticate with one of these methods:
 
-| Method | How it works |
-| --- | --- |
-| Browser OAuth | The client opens a browser so you can sign in and authorize the client. Public clients use Proof Key for Code Exchange (PKCE), and authorization requires your consent. |
-| [API key](../reference/cli/api-keys/) | Clients that support bearer-token authentication can use a Warp API key. Store the key in the client's secret or credential mechanism rather than committing it to a repository. |
-
-Factory MCP currently has no factory-specific or read-only OAuth scopes. It acts with the existing permissions of the user or cloud agent it authenticates as. Use user credentials for supervised sessions. For third-party clients and unattended automation, use a least-privilege cloud agent; its API key inherits that agent's permissions. Repository access follows user permissions or the team's GitHub App installation. Restrict access to team credentials separately.
-
-Use connection information from Warp or your factory administrator. For client configuration, authentication, and security guidance, see [Model Context Protocol in Warp](../agents/capabilities/mcp/).
-
-## Read the server guidance first
-
-Factory MCP serves a canonical skill, workflow guidance, factory configuration guidance, and tool contracts as MCP resources. Before operating, read `skill://warp/factory-mcp/SKILL.md`. Treat served resources as the source of truth instead of copied schemas or older prompts.
-
-## Work locally and return a task
-
-```mermaid
-sequenceDiagram
-  participant Client as MCP client
-  participant MCP as Factory MCP
-  participant Foreman
-  participant Local as Local repository
-  Client->>MCP: list_factories
-  Client->>MCP: list_tasks or search_task
-  Client->>MCP: get_task(start_working=true)
-  MCP-->>Client: Task context and Git guidance
-  Client->>MCP: message_foreman
-  MCP->>Foreman: Coordinate
-  Client->>MCP: get_conversation
-  MCP-->>Client: Conversation data
-  Client->>Local: Change, validate, commit, and push
-  opt Notifications requested
-    Client->>MCP: list_notification_routes(factory_uid)
-    MCP-->>Client: Selectable user routes
-  end
-  Client->>MCP: send_task(factory_task_uid, selected route)
-  MCP->>Foreman: Return work
-  Client->>MCP: complete_task when terminal
-```
-
-1. **List factories** - Call `list_factories`. Use an explicit or validated saved default factory. If neither exists, ask the user. Never fan `list_tasks` or `get_task` out across factories.
-2. **Find the task** - Use `list_tasks` for one factory or `search_task` across factories. Retain `factory_task_uid` for every later operation.
-3. **Start local work** - Call `get_task` with `start_working=true`. Set `workspace_dir` to an absolute path to an existing local clone. The server returns Git and [worktree](../code/git-worktrees/) guidance but does not change files.
-4. **Conversation** - Use `message_foreman` for progress, questions, and blockers. Use the read-only `get_conversation` for responses. Messaging does not return work or change its stage.
-5. **Implement and push** - Validate the change, then commit and push. Factory workers cannot inspect changes only in a local checkout.
-6. **Return the task** - Call `send_task` with the same `factory_task_uid`, a handback note, and the pushed branch or pull request URL. Optionally pass a selectable `notification_route_uid`. The foreman can override `stage_hint`.
-7. **Complete terminal work** - Call `complete_task` only when no factory work remains. Handback alone does not complete the task.
+* **Browser OAuth** - The client opens a browser so you can sign in and approve the connection. Use this for interactive sessions.
+* **API key** - Clients that support bearer-token authentication accept a [Warp API key](../reference/cli/api-keys/). Use this for automation, and store the key in the client's secret storage, never in a repository.
 
 :::caution
-Pulling a task locally does not claim, lock, or pause it. Factory runs can continue after `get_task(start_working=true)`. Check active runs and coordinate with the foreman to avoid duplicate changes.
+Factory MCP has no read-only or per-factory scopes: a connected client acts with the full permissions of the account it authenticates as. For unattended automation, create the API key for a least-privilege cloud agent rather than your personal account, since the key inherits that agent's permissions.
 :::
 
-`get_task` also accepts an exact task or run UUID, run or activity URL from the Factory app, GitHub pull request, Slack permalink, Linear issue URL or key, Jira issue URL or key, or branch. A bare issue key such as `ENG-123` resolves Linear first and falls back to Jira when no usable Linear integration is available. Prefix the key with `linear:` or `jira:` to force a provider. External references and branches require factory scope; a bare branch also requires its repository. On `requires_scope`, select an explicit or validated default factory, or ask the user. On `not_found`, report the searched factory and ask before trying another. On `ambiguous`, use a returned candidate's `factory_task_uid`.
+## How it works
 
-The `task_url` and `run_url` values returned by Factory MCP tools open the corresponding task and run pages in the Factory control room.
+Factory MCP exposes ten tools that your agent calls on your behalf. You don't need to learn them to use it: the server publishes its own usage guidance and tool schemas, so agents pick up the correct workflow on their own. Prompts like these are enough:
 
-## Send new work or hand back existing work
+* "Send this bug to the factory, including my branch."
+* "What's the status of the checkout-flow task?"
+* "Pull down ENG-123 so we can finish it here."
 
-`send_task` selects its operation from the identifier you provide:
+The rest of this page describes what happens behind those prompts.
 
-| Operation | Identifier | Note | Artifacts | Effect |
-| --- | --- | --- | --- | --- |
-| New intake | `factory_uid` and `title`; optional ticket reference and URL | Requested outcome and constraints | Initial workspace snapshot when supported | Starts a foreman workstream. Search first when the request might already exist. |
-| Existing-task handback | `factory_task_uid` | What changed, validation performed, and remaining work | Pushed branch or pull request; eligible plans, confirmed files, and screenshots from a source conversation | Continues the existing foreman conversation instead of creating another work item. |
+## Send new work to a factory
 
-See [Handoff between local and cloud agents](../platform/handoff/) for workspace and conversation transfer outside a factory work item.
+To create a task, your agent calls `send_task` with the target factory, a title, and a note. The note is what the foreman starts from, so a good one states the goal, the relevant context and constraints, and any work already done. The foreman takes it from there and reports progress on the task's conversation.
 
-Call `list_notification_routes` before setting `send_task.notification_route_uid`. Routes are user-specific and selectable only when returned for the current caller and factory. Available routes can include a Slack self-DM or Linear issue. Delivery of attention-required and terminal updates is best-effort.
+If the new task builds on local changes, push the branch or open a pull request first and reference it in the note, so the factory can see that work.
+
+## Pick up a task and work on it locally
+
+1. **Find the task.** Your agent locates it with `list_tasks` or `search_task`, or resolves a reference you give it with `get_task`: a task or run URL, a GitHub pull request, a Slack permalink, a Linear or Jira issue, or a branch name.
+2. **Pull down the context.** Calling `get_task` with `start_working=true` returns the task's status, run history, and suggested Git commands for setting up an isolated [worktree](../code/git-worktrees/) in a local clone. Factory MCP never modifies your files; your agent runs the setup itself.
+3. **Coordinate while you work.** `message_foreman` sends progress, questions, and blockers to the task's foreman, and `get_conversation` reads the replies. Messaging keeps the factory informed but doesn't move the task or hand anything back.
+4. **Commit and push.** Validate the change, then push the branch. The factory can't see uncommitted or unpushed work.
+5. **Hand the task back.** Your agent calls `send_task` with the task's ID, the pushed branch or pull request URL, and a note covering what changed, what was validated, and what remains. The work returns to the same task, and the foreman decides the next step.
+
+:::caution
+Picking up a task doesn't claim, lock, or pause it, and the factory may keep running its own work on it in the meantime. Check the task's active runs and tell the foreman you're picking it up, so you don't end up with duplicate changes.
+:::
+
+When nothing remains for the factory to do, `complete_task` closes the task out. Handing work back doesn't complete a task by itself.
+
+## Get notified when a task needs you
+
+Sending work to a factory means you're no longer watching it. To be notified when a task needs attention or finishes, ask for a notification when sending or returning work: your agent calls `list_notification_routes` to see the destinations available to you in that factory, such as a Slack DM or a Linear issue, and passes your choice to `send_task`. Delivery is best-effort, so treat notifications as a convenience rather than a guarantee.
 
 ## Tool reference
 
-Factory MCP exposes ten tools. The table lists the main purpose and key inputs, not every optional filter or response field. Read the live tool contracts for the complete schema.
+Factory MCP exposes these ten tools. Your MCP client fetches the full input schemas from the server, and tool results include links that open the corresponding task or run in the factory's control room.
 
-| Tool | Purpose | Key inputs |
-| --- | --- | --- |
-| `list_factories` | Lists accessible factories and the context needed to choose one. | No required input. Optionally filter with `team_uid` or continue with `cursor`. |
-| `list_notification_routes` | Lists notification destinations selectable for the caller and factory. | `factory_uid`. |
-| `create_factory` | Creates a factory and returns its identifier and next actions. | `team_uid`, `name`, `code_forge`, `integrations`, and one or more `repositories` in owner/repo form. |
-| `list_tasks` | Lists authoritative work items for one factory, with stages and linked outputs. | `factory_uid`; optional creator, title, stage, date, sort, and pagination filters. |
-| `search_task` | Searches task titles across every factory the caller can access. | `queries`; optionally `limit` and `cursor`. |
-| `get_task` | Resolves a task, then reads status, run history, outputs, and local-work guidance. | Exactly one of `factory_task_uid` or `reference`; references can also require `factory_uid` and `repository`. |
-| `message_foreman` | Sends a coordination message to the task's latest foreman run. | `factory_task_uid` and `message`. |
-| `get_conversation` | Reads a bounded window of the task's foreman conversation. | `factory_task_uid`; optionally `limit` and `before_index` for pagination. |
-| `send_task` | Creates new intake or returns work, with optional best-effort notifications. | Always `note`; new intake needs `factory_uid` and `title`, handback needs `factory_task_uid`, and notifications use `notification_route_uid`. |
-| `complete_task` | Marks a task complete. Repeated completion is idempotent, but a `CANCELLED` task is rejected. | One of `run_id` or `factory_task_uid`. |
+| Tool | What it does |
+| --- | --- |
+| `list_factories` | Lists the factories you can access. |
+| `create_factory` | Creates a factory for a team, with its repositories and source-control details. |
+| `list_tasks` | Lists the tasks in one factory, with filters such as creator, stage, and date. |
+| `search_task` | Searches task titles across all factories you can access. |
+| `get_task` | Reads a task's status, run history, and outputs. Accepts a task ID or a reference such as a URL, issue, pull request, or branch. With `start_working=true`, also returns local setup guidance. |
+| `message_foreman` | Sends a message to a task's foreman. |
+| `get_conversation` | Reads a task's foreman conversation. |
+| `send_task` | Creates a new task, or hands work back to an existing one. |
+| `list_notification_routes` | Lists the notification destinations available to you in a factory. |
+| `complete_task` | Marks a task complete. |
 
-## Next step
+## Related pages
 
-[Create a factory and send its first work item](./quickstart) with the Warp Factories quickstart.
+* [Connect your factory](./connect-your-factory) - Every way work can enter a factory, including the Slack, Linear, and GitHub integrations.
+* [How Warp Factories work](./how-factories-work) - The task lifecycle and the agents that move work through it.
+* [Warp Factories quickstart](./quickstart) - Create a factory and send it its first work item.
+* [Model Context Protocol in Warp](../agents/capabilities/mcp/) - Configure MCP servers in Warp.
+* [Handoff between local and cloud agents](../platform/handoff/) - Move workspaces and conversations between local and cloud outside a factory.
