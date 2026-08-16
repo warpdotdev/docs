@@ -21,6 +21,7 @@ Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, 
 | **Automations** | Triggers that start runs | Create, edit, and delete automations |
 | **Runs** | The factory's individual agent runs | Start, stop, and score runs |
 | **Scorers** | Scorer definitions and results | Define rubrics and review classifications |
+| **Self-improvement** | Pull requests filed to fix scorer-detected failures | Review fix PRs and open the runs behind them |
 | **Benchmarks** | Benchmark suites and their runs | Compare harness, model, and runner configurations |
 | **Code** | The factory's definition files | Browse and edit a Warp-managed definition |
 | **Settings** | Configuration the factory owns | Change identity, repos, runners, and integrations |
@@ -31,7 +32,7 @@ Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, 
 
 By default, Activity shows only work items you created, and only the four active stages. Change the **Created by** filter to see a teammate's work, and add a **Stage** filter for **Complete** or **Cancelled** to see finished work.
 
-Click a work item to open its detail pane, which includes the prompt that started it, the pull requests it produced, and its cost. **Event history** lists the runs behind the work item, and **Stop task** cancels the current one.
+Click a work item to open its detail pane, which includes the prompt that started it, the ticket or thread it came from, the pull requests it produced, and its cost. **View agent** opens the agent's session, **Event history** lists the runs behind the work item, and **Stop task** cancels the current run.
 
 :::caution
 **Stop task** takes effect immediately, with no confirmation prompt.
@@ -44,7 +45,7 @@ A run is a single agent execution. The team-level **Runs** page lists every run 
 Click **New** on a factory's **Runs** page to send a prompt to the factory's foreman agent. Open a run to see its timeline and cost, plus a **Sub-agents** tab for an orchestrator run's child runs. From there you can view the agent's full session, stop or score the run, or turn it into a benchmark task.
 
 :::note
-The control room is for observing runs, not steering them. There is no in-page way to chat with an agent or approve its actions. Direct the work through your integrations and your repository's review process.
+Run pages don't include a chat input, but you can still steer a run: **View session** opens its [shared agent session](/platform/viewing-cloud-agent-runs/), where you follow the agent in real time and send follow-up instructions while the run's environment is active. After the environment shuts down, the same button opens the conversation transcript.
 :::
 
 ## Read dashboard metrics
@@ -56,25 +57,27 @@ The control room is for observing runs, not steering them. There is no in-page w
 * **PR latency** - The median time from run kickoff through PR, review, and merge.
 * **Cost per PR** - The median cost of PRs opened in the range. Treat it as a lower-bound estimate: it can miss some run usage and does not match billing. See [Measure and improve a factory](/factories/measure-and-improve/) for its limitations.
 
-The page also charts opened versus merged PRs and a breakdown of runs, and lists the Self-improvement PRs your foreman agent has opened. When scorers are set up, scorer cards summarize recent classification results.
+The page also charts opened versus merged PRs and a breakdown of runs, and the **Cost per PR** card expands to list the most expensive PRs in the range. When scorers are set up, scorer cards summarize recent classification results.
 
 ## Manage agents and automations
 
-**Agents** is the factory's roster. Create agents and edit their instructions, model, runner, host, secrets, and MCP servers. **Automations** defines the triggers that start runs: a schedule (including custom cron expressions) or a GitHub, Linear, Slack, or Jira event.
+**Agents** is the factory's roster. Create agents and edit their instructions, model or harness, runner, host, secrets, and MCP servers. **Automations** defines the triggers that start runs: a schedule (including custom cron expressions) or a GitHub, Linear, Slack, or Jira event.
 
-Harness and environment are set in the factory definition, not the agent editor, and automations never override execution settings. When the factory's definition lives in an external repository, both pages are read-only; make changes there through pull requests.
+Environment is set in the factory definition, not the agent editor, and automations never override execution settings. When the factory's definition lives in an external repository, Agents, Automations, and Scorers are read-only; make changes there through pull requests.
 
 ## Edit definitions in the Code tab
 
-What **Code** offers depends on where the factory's definition lives:
+**Code** is the control room's view of the factory's definition files, which [Factory definitions as code](/factories/factory-as-code/) describes in full. What the tab offers depends on where the definition lives:
 
 * **Warp-managed** - Browse and edit the definition files. Saving validates the definition and commits all changes together.
-* **Managed in GitHub** - Read-only. Edit the definition through pull requests in the repository.
-* **Managed through the API** - There are no definition files to browse.
+* **Managed in GitHub** - Links to the repository; edit the definition through pull requests there.
+* **Live-managed** - The factory is edited directly in the control room, so there are no definition files to browse.
+
+When an agent proposes a change to a Warp-managed definition, its work item on **Activity** links to a review of the branch inside the control room. From there, comment on the diff, use **Request changes** to send feedback back to the agent, or **Approve & merge**.
 
 ## Score and benchmark
 
-A scorer is an LLM judge that classifies completed runs against a rubric you define, scoped to the agents you choose and sampled at a rate you set. Each scorer has a **Self-improvement** toggle: when it's on, the factory periodically triages the runs that scorer marks as failing and files fixes for recurring issues.
+A scorer is an LLM judge that classifies completed runs against a rubric you define, scoped to the agents you choose and sampled at a rate you set. Each scorer has a **Self-improvement** toggle: when it's on, the factory periodically triages the runs that scorer marks as failing and files fixes for recurring issues. The **Self-improvement** page tracks the pull requests those fixes open, linking each one to the run that produced it.
 
 **Benchmarks** compares harness, model, and runner configurations against a fixed set of tasks with success criteria. Benchmark results are only as reliable as the scorers behind them, so read them alongside [Measure and improve a factory](/factories/measure-and-improve/).
 
