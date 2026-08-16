@@ -29,20 +29,9 @@ Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, 
 
 **Activity** shows the factory's work items grouped by stage: Triage, Planning, Building, and Reviewing.
 
-* **Search** - Type in **Search tasks...** to match work item titles.
-* **Filter** - Add a **Stage**, **Created by**, or **Created on** filter. Active filters appear as chips with a result count and a **Clear** action.
-* **Sort** - Order work items by **Created** or **Updated**, in either direction.
+By default, Activity shows only work items you created, and only the four active stages. Change the **Created by** filter to see a teammate's work, and add a **Stage** filter for **Complete** or **Cancelled** to see finished work.
 
-By default, Activity shows only work items you created, and only the four active stages. To see a teammate's work, change the **Created by** filter. To see finished work, add a **Stage** filter and select **Complete** or **Cancelled**.
-
-Filters and the open work item are stored in the URL, so you can reload or share a filtered view. Search text and sort order reset on reload.
-
-### Open and stop a work item
-
-Click a work item to open its detail pane. The pane shows the work item's stage, current agent activity, the prompt that started it, external references, pull requests, environment, cost, and run time. Click the short ID in the pane header to copy the full work item ID.
-
-* **Event history** - A timeline of the runs behind the work item, newest first.
-* **Stop task** - Cancels the work item's current run. Available only while a run is in progress.
+Click a work item to open its detail pane, which includes the prompt that started it, the pull requests it produced, and its cost. **Event history** lists the runs behind the work item, and **Stop task** cancels the current one.
 
 :::caution
 **Stop task** takes effect immediately, with no confirmation prompt.
@@ -50,79 +39,50 @@ Click a work item to open its detail pane. The pane shows the work item's stage,
 
 ## Inspect runs
 
-A run is a single agent execution. Runs appear in two places:
+A run is a single agent execution. The team-level **Runs** page lists every run you have access to; a factory's **Runs** page lists only runs from that factory's agents.
 
-* The team-level **Runs** page lists every run you have access to, across all factories.
-* A factory's **Runs** page lists only runs executed by that factory's agents.
-
-Both pages support search, sorting, and filters for status, source, agent, creator, creation date, and execution location.
-
-On a factory's **Runs** page, click **New** to send a prompt, with optional attachments, to the factory's foreman agent.
-
-Click a run to open its detail pane, which shows the run timeline, triggering prompt, cost, environment, and harness. An orchestrator run adds a **Sub-agents** tab listing its child runs. From the pane, click **View session** to open the agent's session in a new tab. Where the run supports it, you can also **Stop run**, **Score run**, or create a benchmark task from the run.
+Click **New** on a factory's **Runs** page to send a prompt to the factory's foreman agent. Open a run to see its timeline and cost, plus a **Sub-agents** tab for an orchestrator run's child runs. From there you can view the agent's full session, stop or score the run, or turn it into a benchmark task.
 
 :::note
-The control room is for watching work, not steering it. Pages refresh every few seconds, and there is no in-page way to chat with an agent or approve its actions. Direct the work itself through your integrations and your repository's review process.
+The control room is for observing runs, not steering them. There is no in-page way to chat with an agent or approve its actions. Direct the work through your integrations and your repository's review process.
 :::
 
 ## Read dashboard metrics
 
-**Dashboard** summarizes the factory over a date range you choose with the presets or the date picker. Three cards lead the page:
+**Dashboard** summarizes the factory over a date range you choose:
 
 * **Autonomy** - The share of merged PRs that needed no human input beyond an approving review.
 * **Time saved** - Approximate engineer-hours saved, estimated from the line changes in merged PRs.
 * **PR latency** - The median time from run kickoff through PR, review, and merge.
+* **Cost per PR** - The median cost of PRs opened in the range. Treat it as a lower-bound estimate: it can miss some run usage and does not match billing. See [Measure and improve a factory](/factories/measure-and-improve/) for its limitations.
 
-Below the cards:
-
-* **Cost per PR** - The median cost of PRs opened in the range, with **By complexity** and **By size** views and an expandable list of the most expensive PRs. Treat it as a lower-bound estimate: it can miss some run usage and does not match billing. See [Measure and improve a factory](/factories/measure-and-improve/) for its limitations.
-* **Pull requests** - PRs opened versus merged over the range.
-* **Run breakdown** - Total runs, with drill-downs by agent type, status, source, root runs versus subruns, model, and harness.
-* **Insights** - Self-improvement PRs opened by your foreman agent, each linked to your code host.
-
-When scorers are set up, scorer cards below the charts summarize recent classification results.
+The page also charts opened versus merged PRs and a breakdown of runs, and lists the Self-improvement PRs your foreman agent has opened. When scorers are set up, scorer cards summarize recent classification results.
 
 ## Manage agents and automations
 
-**Agents** lists the factory's roster, with search and a type filter (Foreman, Triage, Spec, Code, Review, Monitor, or Custom). Click **New** to create an agent, or click a card to edit its name, description, instructions, model, runner, host, secrets, and MCP servers, along with the automations that target it.
+**Agents** is the factory's roster. Create agents and edit their instructions, model, runner, host, secrets, and MCP servers. **Automations** defines the triggers that start runs: a schedule (including custom cron expressions) or a GitHub, Linear, Slack, or Jira event.
 
-**Automations** lists the triggers that start runs, showing each automation's trigger, target agent, and creation date. An automation runs on a schedule (hourly, daily, weekly, or a custom cron expression) or on a GitHub, Linear, Slack, or Jira event, with per-provider filters.
-
-Two things live outside these editors:
-
-* **Harness and environment** - The agent editor sets the model, runner, and host; set the harness and environment in the factory definition. Automations never override execution settings.
-* **Externally managed factories** - When the factory's definition lives in an external repository, both pages are read-only and link to the repository. Make changes there through pull requests.
+Harness and environment are set in the factory definition, not the agent editor, and automations never override execution settings. When the factory's definition lives in an external repository, both pages are read-only; make changes there through pull requests.
 
 ## Edit definitions in the Code tab
 
-What the **Code** tab offers depends on where the factory's definition lives:
+What **Code** offers depends on where the factory's definition lives:
 
-* **Warp-managed** - A file tree and editor. Browse the definition, edit files, and save your changes as a single commit. Warp validates the whole definition before saving and lists any problems with their file and line. If you try to navigate away with unsaved edits, the page prompts you first.
-* **Managed in GitHub** - Read-only, with an **Open repository** button. Edit the definition through pull requests in the repository.
-* **Managed through the API** - No definition files exist, so there is nothing to browse.
+* **Warp-managed** - Browse and edit the definition files. Saving validates the definition and commits all changes together.
+* **Managed in GitHub** - Read-only. Edit the definition through pull requests in the repository.
+* **Managed through the API** - There are no definition files to browse.
 
 ## Score and benchmark
 
-A scorer is an LLM judge that classifies completed runs against a rubric you write. On **Scorers**, define each scorer's rubric, labels, and pass threshold, choose which agents it covers, and set its sampling rate and judge model. You can pause and resume a scorer at any time.
+A scorer is an LLM judge that classifies completed runs against a rubric you define, scoped to the agents you choose and sampled at a rate you set. Each scorer has a **Self-improvement** toggle: when it's on, the factory periodically triages the runs that scorer marks as failing and files fixes for recurring issues.
 
-Each scorer also has a **Self-improvement** toggle. When it's on, the factory periodically triages the runs that scorer marks as failing and files fixes for recurring issues.
-
-**Benchmarks** compares configurations on a fixed set of tasks. A suite defines an agent and its tasks, each with success criteria. When you launch a suite, choose the harness, model, and runner combinations to compare, the scorers to apply, and the number of repetitions. Results include a scoreboard, pass rates, and per-task comparisons across configurations.
-
-Benchmark results are only as reliable as the scorers behind them, so read them alongside [Measure and improve a factory](/factories/measure-and-improve/).
+**Benchmarks** compares harness, model, and runner configurations against a fixed set of tasks with success criteria. Benchmark results are only as reliable as the scorers behind them, so read them alongside [Measure and improve a factory](/factories/measure-and-improve/).
 
 ## Change factory settings
 
-**Settings** holds the configuration the factory owns:
+**Settings** holds the configuration the factory owns: the factory's name and connected repos, whether pull requests are authored by the agent or the run creator, the **Analysis model** self-improvement uses to analyze failed runs, runners, integrations, and deletion. Deleting a factory cannot be undone.
 
-* **General info** - Rename the factory, change its avatar, connect repos, and choose whether pull requests are authored by the agent or by the run creator. The factory alias is read-only.
-* **Self-improvement** - Choose the **Analysis model** that analyzes failed runs and groups recurring issues before fixes enter the factory.
-* **Runners** - Create and edit the factory's runners. For a file-managed factory, `runners/*.yaml` in the repository is the source of truth, and this section links there instead.
-* **Factory repo** - See where the factory's definition is hosted.
-* **Factory integrations** - Review the connected Slack app and set up, edit, or remove cloud provider configurations.
-* **Danger zone** - Delete the factory. Deletion cannot be undone.
-
-If you lack edit access, or a setting is managed in an external repository, the control is disabled and the page points you to where the change belongs.
+For a file-managed factory, `runners/*.yaml` in the repository is the source of truth. Anything managed in an external repository is read-only in Settings.
 
 ## Next steps
 
