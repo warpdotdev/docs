@@ -23,15 +23,51 @@ Factory MCP is one of several ways work enters a factory, alongside Slack, Linea
 
 ## Connect and authenticate
 
-In Warp, there is nothing to configure. When your account has access, Warp connects agent sessions to Factory MCP and handles authentication for you.
+### In Warp
 
-In other MCP clients, such as Claude Code, Codex, or Cursor, add Factory MCP as a remote MCP server. Get the connection details from Warp or your factory administrator, follow your client's instructions for adding a remote server, then authenticate with one of these methods:
+There is nothing to configure. When your account has access, Warp connects agent sessions to Factory MCP and handles authentication for you.
 
-* **Browser OAuth** - The client opens a browser so you can sign in and approve the connection. Use this for interactive sessions.
-* **API key** - Clients that support bearer-token authentication accept a [Warp API key](../reference/cli/api-keys/). Use this for automation, and store the key in the client's secret storage, never in a repository.
+### In other MCP clients
+
+Factory MCP is a streamable HTTP server at `https://app.warp.dev/api/v1/mcp/factory`. Point any MCP client that supports remote servers at that URL; on first connect, the client opens a browser so you can sign in and approve access.
+
+With Claude Code:
+
+```bash
+claude mcp add --transport http warp-factory https://app.warp.dev/api/v1/mcp/factory
+```
+
+In clients that use the `mcpServers` JSON format, such as Cursor:
+
+```json
+{
+  "mcpServers": {
+    "warp-factory": {
+      "url": "https://app.warp.dev/api/v1/mcp/factory"
+    }
+  }
+}
+```
+
+For Codex and other clients, follow the [client's own remote-server instructions](https://developers.openai.com/codex/mcp/#connect-codex-to-an-mcp-server) with the same URL.
+
+For unattended automation, skip the browser flow and authenticate with a [Warp API key](../reference/cli/api-keys/) instead. Create the key for a least-privilege cloud agent rather than your personal account, and pass it as a bearer token:
+
+```json
+{
+  "mcpServers": {
+    "warp-factory": {
+      "url": "https://app.warp.dev/api/v1/mcp/factory",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_KEY"
+      }
+    }
+  }
+}
+```
 
 :::caution
-Factory MCP has no read-only or per-factory scopes: a connected client acts with the full permissions of the account it authenticates as. For unattended automation, create the API key for a least-privilege cloud agent rather than your personal account, since the key inherits that agent's permissions.
+Factory MCP has no read-only or per-factory scopes: a connected client acts with the full permissions of the account or agent it authenticates as. Store API keys in your client's secret storage, never in a repository.
 :::
 
 ## How it works
