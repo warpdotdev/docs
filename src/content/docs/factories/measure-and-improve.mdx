@@ -10,31 +10,31 @@ topic: factories
 
 Warp Factories tracks what your factory produces and how well it performs, so you can spot a problem, test a fix, and decide whether to keep it.
 
-| Feature | What it tells you | Keep in mind |
-| --- | --- | --- |
-| Dashboard metrics | How much work the factory produced, and what it cost. | Some metrics require the GitHub App, and measurement runs count as activity. |
-| Scorers | Whether completed conversations meet criteria you define. | Scorers classify conversations; they don't grade quality on a numeric scale. |
-| Benchmarks | How different configurations perform on the same tasks. | Results don't pick a winner or include full cost. |
-| Self-improvement | Which repeated failures need follow-up work. | It can open pull requests, but you review and adopt every change yourself. |
+| Feature | What it tells you |
+| --- | --- |
+| Dashboard metrics | How much work the factory produced, and what it cost. |
+| Scorers | Whether completed conversations meet criteria you define. |
+| Benchmarks | How different configurations perform on the same tasks. |
+| Self-improvement | Which repeated failures get investigated and turned into follow-up work. |
 
 ## Read dashboard metrics
 
 The control room dashboard shows activity, cost, autonomy, and evaluation results:
 
-| Metric | What it shows | Keep in mind |
-| --- | --- | --- |
-| **Total runs** | Agent runs, with breakdowns by agent type, status, source, model, and more. | Includes Warp's own measurement and improvement runs. |
-| **PRs opened** | Pull requests created from factory work. | Collected differently from **PRs merged**. |
-| **PRs merged** | Pull requests that merged. | Requires the GitHub App; counting starts when you install it. |
-| **Autonomy %** | The share of merged work that shipped without human edits. | Based on recorded PR signals, not a quality judgment. |
-| **Time saved** | A rough estimate of engineer-hours saved by merged factory PRs. | A rule of thumb for spotting trends, not a billing or ROI figure. |
-| **PR latency** | How long pull requests spend in each stage. | Can be incomplete, depending on webhook coverage. |
-| **Cost per PR** | An estimate of credits spent per pull request. | A lower-bound estimate. Dollar amounts are for display, not billing. |
-| **Most expensive PRs** | The highest-cost pull requests. | Full detail requires the GitHub App. |
-| **Scorer cards** | Results from your Scorers. | Reflects the criteria your team defined. |
-| **Self-improvement PRs** | The three newest Self-improvement pull requests. | Not affected by the dashboard date range. |
+| Metric | What it shows |
+| --- | --- |
+| **Total runs** | All agent runs, with breakdowns by agent type, status, source, model, and more. |
+| **PRs opened** | Pull requests created from factory work. |
+| **PRs merged** | Pull requests that merged, collected through the GitHub App. |
+| **Autonomy %** | The share of merged work that shipped without human edits, based on recorded PR signals. |
+| **Time saved** | An estimate of engineer-hours saved by merged factory PRs. |
+| **PR latency** | How long pull requests spend in each stage, based on webhook data. |
+| **Cost per PR** | A lower-bound estimate of credits spent per pull request. |
+| **Most expensive PRs** | The highest-cost pull requests. Full detail requires the GitHub App. |
+| **Scorer cards** | Results from your Scorers. |
+| **Self-improvement PRs** | The three newest Self-improvement pull requests, regardless of the selected date range. |
 
-**Time saved** converts merged factory pull requests into an estimate of engineer-hours, and the per-teammate view divides that estimate by your team size. **Cost per PR** shows the median by default, plus mean, **By complexity**, and **By size** views. Treat both as directional estimates rather than financial figures.
+**Time saved** and **Cost per PR** are estimates, not billing figures. Time saved converts merged pull requests into engineer-hours, and the per-teammate view divides that estimate by your team size. Cost per PR shows the median by default, plus mean, **By complexity**, and **By size** views; dollar amounts convert credits at your team's billing rate for display only.
 
 :::caution
 Merge, latency, and per-PR detail metrics require the GitHub App, and collection starts when you install it; earlier history isn't backfilled. **PRs opened** and **PRs merged** come from different sources, so their ratio isn't a merge rate. Run counts include evaluation, benchmark, and Self-improvement runs.
