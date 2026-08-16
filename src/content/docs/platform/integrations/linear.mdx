@@ -21,16 +21,16 @@ This guide explains what the integration does, how it works end-to-end, and how 
 
 ### Triggering agents inside Linear
 
-Tagging @Oz on an issue or in a Linear comment starts an agent run. {VARS.WARP_AUTOMATION_PLATFORM} clones the repositories defined in your environment, sets up your development environment using your Docker image and setup commands, and begins working through the task with full context from your codebase and the Linear issue. Agents post updates as they progress, including a task list, elapsed time, and checkpoints, so you can follow along without leaving Linear.
+Tagging @Oz on an issue or in a Linear comment starts an agent run. The {VARS.WARP_AUTOMATION_PLATFORM} clones the repositories defined in your environment, sets up your development environment using your Docker image and setup commands, and begins working through the task with full context from your codebase and the Linear issue. Agents post updates as they progress, including a task list, elapsed time, and checkpoints, so you can follow along without leaving Linear.
 
 Agents also share a link to an interactive remote session using Warp's [cloud agent session sharing](/platform/viewing-cloud-agent-runs/). Opening this link lets you view the live terminal output for the running agent in Warp or in the browser. From there, you can interrupt or guide the agent with additional instructions when needed. Once the agent finishes, it will create a pull request on your behalf — using your GitHub permissions — and post a summary of its work and the PR link back into Linear.
 
 You can start an agent in two ways:
 
 * **Tag @Oz in a comment** and describe what you want done.
-* **Assign the issue to {VARS.WARP_AUTOMATION_PLATFORM}** as if it were a teammate.
+* **Assign the issue to the {VARS.WARP_AUTOMATION_PLATFORM}** as if it were a teammate.
 
-{VARS.WARP_AUTOMATION_PLATFORM} will acknowledge the request directly in the Linear issue and begin working.
+The {VARS.WARP_AUTOMATION_PLATFORM} will acknowledge the request directly in the Linear issue and begin working.
 
 Agents keep you informed through:
 
@@ -129,7 +129,7 @@ To remove the {VARS.WARP_AUTOMATION_PLATFORM} integration from Linear:
 1. Only a Linear team admin can manage app permissions.
 2. In Linear, go to **Settings**.
 3. Navigate to Agents under the Features section.
-4. Select {VARS.WARP_AUTOMATION_PLATFORM} from the list of installed agents.
+4. Select the {VARS.WARP_AUTOMATION_PLATFORM} from the list of installed agents.
 5. Click **Revoke access** to remove the integration for your workspace.
 
 <VideoEmbed url="https://www.loom.com/share/2f1648586d8148dc80561c00a09ca334" title="Uninstalling the Warp Linear integration video" />
@@ -138,4 +138,4 @@ After revoking access, Warp will no longer be able to read issues, receive trigg
 
 ### Troubleshooting
 
-If something isn't working as expected—missing repos, PR failures, Linear not detecting {VARS.WARP_AUTOMATION_PLATFORM}, or environment issues—see our [Integrations Troubleshooting](/platform/integrations/#troubleshooting) page for detailed guidance on GitHub permissions, environment configuration, and common setup problems.
+If something isn't working as expected—missing repos, PR failures, Linear not detecting the {VARS.WARP_AUTOMATION_PLATFORM}, or environment issues—see our [Integrations Troubleshooting](/platform/integrations/#troubleshooting) page for detailed guidance on GitHub permissions, environment configuration, and common setup problems.
