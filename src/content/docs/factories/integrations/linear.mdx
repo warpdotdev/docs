@@ -38,19 +38,19 @@ Team selections and filters only route events. They don't reduce what the connec
 
 ### Route agent sessions
 
-A Linear agent session starts when a user mentions, assigns, or delegates the Warp app on an issue. Selecting teams during setup creates a default automation that routes new sessions from those teams to your factory.
+A Linear agent session starts when a user mentions, assigns, or delegates the Warp app on an issue. Selecting teams during setup creates a default automation that routes new sessions from those teams to your factory. If a session doesn't match any automation, the [Linear integration](../../platform/integrations/linear) handles it with its default behavior.
 
 Agent sessions don't appear as a trigger in the automation editor. To change how sessions route, for example by creator or keyword, edit the `agent_session_created` event in the factory's [version-controlled definition](../factory-as-code). Replies in an existing session continue that run; they aren't separate triggers.
 
 ## Supported events and outputs
 
-Issue and comment events start work only when they match an enabled automation. New agent sessions route to a matching automation first; if none matches, the connected Linear integration handles the session with its configured fallback behavior.
+Issue and comment events start work only when they match an enabled automation.
 
 | Linear event | What the agent receives | What the factory sends back |
 | --- | --- | --- |
-| Issue created, labeled, state changed, or assigned | The issue's title, description, team, project, labels, workflow state, and assignee | Work item updates, issue state or delegate changes, and artifact links |
+| Issue created, labeled, state changed, or assigned | The issue's title, description, team, project, labels, workflow state, and assignee | Work item progress, issue state or delegate changes, and links to results |
 | Comment created | The new comment and its issue's context | An acknowledgment, progress updates, and responses |
-| Agent session created | The request that mentioned, assigned, or delegated the Warp app | Thoughts, actions, plans, responses, errors, run links, and pull request links |
+| Agent session created | The request that mentioned, assigned, or delegated the Warp app | Live progress in the session, plus links to the run and any pull request |
 | Reply in an agent session | The new message and the session history | Continued work in the same session, not a separate work item |
 
 ## Follow-up events on the same issue
@@ -63,11 +63,11 @@ One comment can match two routes: a comment that creates an agent session can al
 
 ## What the factory can do in Linear
 
-In an agent session, the factory can post thoughts, actions, plan changes, final responses, and errors. It can also link the run, attach a GitHub pull request to the issue, update the issue's workflow state or delegate, and acknowledge supported comment-backed requests.
+In an agent session, the factory posts its plan, actions, and results as it works. It can also attach a GitHub pull request to the issue, update the issue's workflow state or delegate, link back to the run, and acknowledge comments it acts on.
 
-Activity authored by the Warp app doesn't trigger Linear automations, so the factory's own updates can't start a feedback loop.
+The factory's own Linear activity never triggers automations, so its updates can't start a loop of new runs.
 
-Issue and comment automations also match events from users who haven't linked a Warp account, but the resulting work may not be attributed to a requester.
+Only agent sessions require a linked Warp account. Issue and comment events from unlinked users still start work, but Warp may not record who requested it.
 
 The Linear connection doesn't grant repository access or merge permissions. Code-host credentials control branches and pull requests, and human review and merge requirements still come from your factory workflow and repository settings.
 
