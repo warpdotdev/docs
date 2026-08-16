@@ -29,7 +29,7 @@ Self-hosted execution keeps repository clones, source files, build artifacts, ru
 * LLM inference requests and responses, which include code context from the agent's interactions.
 
 :::note
-While repositories are cloned and stored only on your infrastructure, code content can appear in session transcripts, artifacts, and LLM prompts as part of normal agent operation. Warp stores applicable orchestration and conversation data according to your product configuration and agreement. When you use Warp-managed inference, contracted model providers process requests under Warp's [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements. Customer-supplied inference follows the provider agreement configured by your team.
+Repositories are cloned and stored only on your infrastructure, but code content can still appear in session transcripts, artifacts, and LLM prompts as part of normal agent operation. Warp stores orchestration and conversation data; exactly what is stored, and for how long, depends on your team's configuration and agreement with Warp. On the inference side, retention depends on who supplies the provider: with Warp-managed inference, contracted model providers process requests under Warp's [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements; with customer-supplied inference, retention follows your team's agreement with that provider.
 :::
 
 ---
@@ -102,7 +102,7 @@ See [GitLab](/platform/integrations/gitlab/) and [Bitbucket](/platform/integrati
 
 ## LLM inference and BYOLLM
 
-LLM inference routes through Warp's backend. Warp-managed inference uses contracted providers with [ZDR](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements. Enterprise teams can use [team-managed model keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for supported cloud-agent providers, including AWS Bedrock. Gemini Enterprise through Google Vertex AI currently applies to interactive agents rather than cloud agents.
+LLM inference routes through Warp's backend. With Warp-managed inference, requests go to contracted providers covered by [ZDR](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements. Enterprise teams that want inference routed and billed through their own accounts can use [team-managed model keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) with supported cloud-agent providers, including AWS Bedrock. Gemini Enterprise (through Google Vertex AI) currently supports interactive agents only, not cloud agents.
 
 ---
 
