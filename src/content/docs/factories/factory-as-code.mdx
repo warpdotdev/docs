@@ -14,31 +14,19 @@ Factory definitions as code let you manage a factory's entire configuration as f
 
 Every factory manages its configuration in one of two ways:
 
-* **Live-managed** - The configuration lives in the control room, and you edit it there directly. There are no definition files.
-* **File-managed** - The configuration lives in definition files in a Git repository, and the files are the source of truth. The control room reflects what the files say.
+* **Live-managed** - You edit the factory directly in the control room. There are no definition files.
+* **File-managed** - Definition files in a Git repository are the source of truth, and the control room reflects them.
 
-A file-managed factory keeps its definition in one of two places:
+A file-managed definition lives in one of two places:
 
-* **GitHub-backed** - The definition lives in a directory you register in a GitHub repository you own. You change the factory the way you change code: open a pull request, let Warp's check validate it, and merge.
-* **Warp-managed** - The definition lives in a repository that Warp hosts for you. You edit it in the control room, and each save commits directly.
+* **GitHub-backed** - A directory you register in a GitHub repository you own. You change the factory the way you change code: open a pull request, pass the validation check, and merge. In the control room, the file-owned settings are read-only and link to the files. An admin can unlink the source to return the factory to live-managed.
+* **Warp-managed** - A repository Warp hosts for you. You edit the files in the control room's **Code** tab, and each save validates, commits, and syncs in one step. The source cannot be unlinked or switched.
 
-A factory can be created in either mode, and a live-managed factory becomes file-managed when you link a definition source. In every mode, the definition files own configuration only; the factory's operational state stays in the control room.
-
-| Mode | Source of truth | Where you edit | How changes are reviewed and applied |
-| --- | --- | --- | --- |
-| Live-managed | Control-room state | Control room | Edits take effect directly in the control room. There are no files to sync until you link a definition source. |
-| GitHub-backed | The registered directory on the production branch of your repository | Your GitHub repository; control-room settings are read-only and link to the files | Pull requests receive a validation check, and pushes to the production branch sync the factory. An admin can unlink the source to return the factory to live-managed. |
-| Warp-managed | The Warp-hosted factory repository | The control room's **Code** tab and supported control-room editors | Each edit validates, commits, and syncs in one step. The source cannot be unlinked or switched. A failed sync keeps the last successful definition active. |
-
-### Editing a Warp-managed definition
-
-For a Warp-managed source, the **Code** tab in the control room edits the definition files directly. Saves are safe against concurrent edits: if someone else committed a change after you loaded the files, Warp reports a conflict instead of overwriting the newer commit. Every save validates the whole definition and reports problems with the file and line where they occur.
-
-For a GitHub-backed source, the control room does not provide an editor. It links to the registered directory in your repository instead.
+A factory can be created in either mode, and a live-managed factory becomes file-managed once you link a definition source. In every mode, operational state stays in the control room; definition files carry configuration only.
 
 ## Directory structure
 
-A definition is a small tree of YAML and Markdown files. Each resource takes its name from its path: `agents/reviewer/agent.md` defines an agent named `reviewer`, and `runners/linux-build.yaml` defines a runner named `linux-build`. Files never declare `kind` or `apiVersion` fields.
+A definition is a small tree of YAML and Markdown files. Each resource takes its name from its path: `agents/reviewer/agent.md` defines an agent named `reviewer`. There are no `kind` or `apiVersion` fields.
 
 ```text
 factory.yaml
@@ -83,18 +71,15 @@ YAML keys are case-sensitive.
 | `cloudProviders` | Configures GCP or AWS access. | GCP accepts `projectNumber`, `workloadIdentityFederationPoolId`, `workloadIdentityFederationProviderId`, and `serviceAccountEmail`; AWS accepts `roleArn`. |
 | `integrations` | Declares connected factory integrations. | Optional. `type` accepts `slack`, `linear`, or `jira`. Declare at most one issue tracker: `linear` and `jira` are mutually exclusive, and omitting a tracker is valid. GitHub is not declared here; repository access comes from `repositories` and the connected GitHub App. |
 | `agentDefaults` | Sets the execution defaults agents inherit: shared `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, and `workerHost`. | Required. Agents inherit any execution field they omit. |
-| `agentDefaults.workerHost` | Sets the factory's default execution host. | Optional. A non-empty value becomes the factory default; omitting or clearing it defers to the workspace default. |
 
-Warp still parses the legacy `providers` key. The next time a Warp-managed edit rewrites the configuration, Warp saves it as `cloudProviders`.
-
-In the control room, **Settings** lets you edit cloud providers for Warp-managed sources. For GitHub-backed sources, cloud provider settings are read-only and link to `factory.yaml` in the registered repository directory.
+Warp still parses the legacy `providers` key and saves it back as `cloudProviders`.
 
 #### How access and defaults combine
 
 Two different rules decide what an agent ends up with:
 
 * **Factory-wide access is additive.** Top-level `secrets` and `mcpServers` in `factory.yaml` are granted to every agent. An agent cannot opt out of them.
-* **Defaults are replaceable.** Values in `agentDefaults` apply only when an agent omits the field. An agent that sets its own `secrets` or `mcpServers` replaces the `agentDefaults` value, but the factory-wide entries still apply. Every other omitted execution field inherits from `agentDefaults`.
+* **Defaults are replaceable.** Values in `agentDefaults` apply only when an agent omits the field. An agent that sets its own `secrets` or `mcpServers` replaces the `agentDefaults` value, but the factory-wide entries still apply.
 
 #### How `workerHost` resolves
 
@@ -106,7 +91,7 @@ Two different rules decide what an agent ends up with:
 
 #### Choosing a model or harness
 
-Fields that accept a model or harness take one of two mutually exclusive forms. `model` on its own is shorthand for the Warp Agent harness, serialized as type `oz`:
+Fields that accept a model or harness take one of two mutually exclusive forms. `model` on its own selects the Warp Agent harness:
 
 ```yaml
 model: auto
@@ -148,9 +133,9 @@ An agent file combines YAML frontmatter with a Markdown body. The frontmatter co
 | `environmentId` | References an existing environment. | Overrides `agentDefaults.environmentId`. |
 | `secrets` | Grants role-specific secrets. | Replaces `agentDefaults.secrets`. Factory-wide secrets from `factory.yaml` still apply. |
 | `mcpServers` | Grants role-specific MCP servers. | Replaces `agentDefaults.mcpServers`. Factory-wide servers from `factory.yaml` still apply. |
-| `workerHost` | Selects this agent's execution host. | Set a value to override, omit to inherit `agentDefaults.workerHost`, or clear to use the workspace default. |
+| `workerHost` | Selects this agent's execution host. | Overrides `agentDefaults.workerHost`. |
 
-A valid definition contains exactly one foreman: an agent with `agentType: FOREMAN` or its alias `MAIN`. The foreman is the factory's entry point and the default target for automations that omit `agent`. Validation fails if a definition declares no foreman or more than one.
+A valid definition contains exactly one foreman: an agent with `agentType: FOREMAN` or its alias `MAIN`. The foreman is the factory's entry point and the default target for automations that omit `agent`.
 
 ### `automations/<name>/automation.md`
 
@@ -165,7 +150,7 @@ An automation file also combines YAML frontmatter with a Markdown body. The fron
 | `environmentId` | Selects the environment for automation runs. | Overrides the target agent's environment. |
 | `secrets` | Selects secrets for automation runs. | Overrides the target agent's secret list. |
 | `mcpServers` | Selects MCP servers for automation runs. | Overrides the target agent's MCP map. |
-| `workerHost` | Selects the execution host for automation runs. | Set a value to override, omit to inherit from the target agent, or clear to use the workspace default. |
+| `workerHost` | Selects the execution host for automation runs. | Overrides the target agent's `workerHost`. |
 | `triggers` | Declares the events or schedules that start runs. | Required and non-empty. Each entry uses `provider`, `event`, an optional `filter`, and an optional `schedule` with `name` and `cron`. |
 
 See [triggers](../platform/triggers/) and [integrations](../platform/integrations/) for event sources.
@@ -181,7 +166,7 @@ A runner file defines compute, not agent behavior.
 | `instanceShape` | Sets compute capacity. | Uses `vcpus` and `memoryGb`. |
 | `platform` | Sets the operating system and architecture. | Uses `os` and `arch`. Linux adds `linux.dockerImage`; macOS adds `mac.version`. |
 
-The control room's **Runners** page lists the effective runners in every mode. For a Warp-managed source, creating or editing a runner there writes `runners/*.yaml` for you. For a GitHub-backed source, runner controls are read-only and link to the runner directory in your repository. See [cloud agent runners](../platform/runners) and [cloud agent environments](../platform/environments) for execution behavior.
+See [cloud agent runners](../platform/runners) and [cloud agent environments](../platform/environments) for execution behavior.
 
 ## Example factory definition
 
@@ -255,7 +240,7 @@ platform:
 
 ## Validation and synchronization
 
-Warp treats the definition as a single unit: it parses, validates, and resolves a change as a whole, and only a fully valid tree becomes the active definition. If any step fails, the factory keeps running on the last successful definition. An invalid change never partially applies.
+Warp applies a change as a whole: only a fully valid definition becomes active. If any step fails, the factory keeps running on the last successful definition, and nothing partially applies.
 
 ```mermaid
 flowchart LR
@@ -284,4 +269,4 @@ For GitHub-backed sources, every pull request that targets the production branch
 
 ### Warp-managed direct synchronization
 
-For Warp-managed sources, supported control-room edits commit directly to the Warp-hosted repository, then validate and sync; there is no separate pull request step. Branch-based review gating is limited and is not a general workflow for these edits. If synchronization fails, the commit remains in the repository, and the factory keeps running on the last successful definition while you repair it.
+For Warp-managed sources, control-room edits commit directly to the Warp-hosted repository, then validate and sync; there is no pull request step. If someone else committed first, Warp reports a conflict instead of overwriting the newer commit. If synchronization fails, the commit remains in the repository, and the factory keeps running on the last successful definition while you repair it.
