@@ -7,6 +7,7 @@ sidebar:
   label: Jira
 topic: factories
 ---
+import { VARS } from '@data/vars';
 
 Connect Jira Cloud to your factory so your team can start factory work without leaving Jira. When someone assigns or mentions **Warp** on a work item, Jira starts an agent session, a factory automation routes the request to the agent you chose, and the same session shows progress and the final result.
 
@@ -19,9 +20,13 @@ Connect Jira Cloud to your factory so your team can start factory work without l
 
 ## Connect Jira and add an automation
 
-1. Install the Warp app and connect it to your Warp workspace by following the [Jira integration setup](/platform/integrations/jira/#setup). Stop once the workspace is connected and return here; the label-triggered run steps on that page don't apply to factories. The connected installation is available to every factory in the workspace.
+1. Install the Warp app on your Jira site. In the <a href={`${VARS.WEB_APP_URL}/integrations`}>Integrations page of the {VARS.WEB_APP}</a>, find Jira and click **Set up**, then click **Get app** on the Atlassian installation page and install the app on your Jira Cloud site.
 
-2. Add a Jira automation to your factory definition. The control room's automation editor doesn't include the Jira trigger, so configure it with [definitions as code](../factory-as-code): declare the `jira` integration for the factory, then create an automation that listens for the `agent_session_created` event. The `agent` field names the factory agent that handles matching requests.
+2. Connect the installation to your Warp workspace. In Jira, open **Manage apps** and open the Warp app's **Configure** page, then click **Connect to Warp** and sign in to Warp if prompted. The page shows **Connected to Warp** when the connection succeeds, and every factory in the workspace can then use it.
+
+   The [Jira integration setup](/platform/integrations/jira/#setup) covers installation in more detail. The `warp-agent` label flow on that page starts standalone cloud agent runs; factories skip the label and start runs through an automation instead.
+
+3. Add a Jira automation to your factory definition. The control room's automation editor doesn't include the Jira trigger, so configure it with [definitions as code](../factory-as-code): declare the `jira` integration for the factory, then create an automation that listens for the `agent_session_created` event. The `agent` field names the factory agent that handles matching requests.
 
    ```markdown title="automations/jira-assignment/automation.md"
    ---
@@ -42,7 +47,7 @@ Connect Jira Cloud to your factory so your team can start factory work without l
 
    If you selected Jira projects when you created the factory, Warp already added this automation at `automations/jira-agent-sessions/automation.md`, scoped to those projects. Edit that file instead of creating a second automation.
 
-3. Apply the definition, then test it: assign or mention **Warp** on a work item and include an instruction. Jira starts an agent session, and the run appears under the matching automation in your factory.
+4. Apply the definition, then test it: assign or mention **Warp** on a work item and include an instruction. Jira starts an agent session, and the run appears under the matching automation in your factory.
 
 ## Filter which sessions start runs
 
@@ -59,17 +64,18 @@ Filters decide which sessions start runs; they don't limit access. The Warp app'
 
 ## What happens during a run
 
-The agent starts with the assignment text and the work item it came from. When the factory declares Jira as an integration, the agent can also read the work item's details, comments, and available workflow transitions.
+The agent runs in the cloud and starts with the assignment text and the work item it came from. When the factory declares Jira as an integration, the agent can also read the work item's details, comments, and available workflow transitions.
 
-Jira shows the task's status as it progresses: submitted, working, waiting for input, completed, failed, or canceled. Replies in the same agent session continue the same run, even after the agent finishes a turn, so you can answer questions or add direction mid-task. A new session on the same work item starts a separate run.
+Jira shows the task's status as it progresses: submitted, working, waiting for input, completed, failed, or canceled. For more than status updates, open the run under the matching automation in your factory: [cloud agent session sharing](/platform/viewing-cloud-agent-runs/) shows the full run, including every command, log, and output, in real time or after the run finishes.
+
+Replies in the same agent session continue the same run, even after the agent finishes a turn, so you can answer questions or add direction mid-task. A new session on the same work item starts a separate run.
 
 When the run finishes, the result appears in the agent session. The agent doesn't comment on the work item unless you ask it to. The agent can act in Jira when asked: update the work item, post or edit comments, change workflow status, add or remove labels, or reassign it. State the actions you want in the automation instructions or the assignment; Jira permissions and valid workflow transitions apply to everything the agent does.
 
-## Permissions and reliability
+## Permissions
 
 * **Runs act as the factory agent** - A run executes as the agent selected by the automation, not as the Jira user who started the session.
-* **Repeated deliveries don't repeat runs** - Jira occasionally delivers the same message more than once, and Warp treats the copies as one request. Prefer instructions that check state before writing anyway, such as looking for an existing comment or label before adding one.
-* **Code changes follow repository policy** - The Jira connection doesn't grant code access. Pull request review and merge requirements come from your repositories and factory workflow.
+* **Jira access doesn't include code access** - Connecting Jira lets agents read and update Jira work items, nothing more. Agents get repository access from the factory itself, and pull requests they open go through your usual review and merge process.
 
 ## Troubleshooting
 
