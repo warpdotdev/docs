@@ -115,6 +115,23 @@ PLATFORM_PREPOSITIONS = re.compile(
 PLATFORM_SUBJECT_VERBS = re.compile(
     r"^\s*(\*\*|\*)?\s*(is|are|was|were|can|will|provides|gives|uses|reads|detects|supports|posts|runs|orchestrates|handles|manages|creates|lets|exposes|routes|tracks)\b"
 )
+# A lowercase word directly after the token usually means the token is
+# modifying it -- "{...} orchestration", "automated {...} runs", "{...} cloud
+# environments" -- which is attributive and correctly bare. Function words are
+# excluded because they continue the sentence rather than extend the noun
+# phrase, so "with {...} for cloud runs" is still referential.
+PLATFORM_FUNCTION_WORDS = {
+    "a", "an", "and", "are", "as", "at", "be", "blocks", "but", "by", "can",
+    "for", "from", "if", "in", "is", "of", "on", "or", "so", "than", "that",
+    "the", "then", "to", "was", "were", "when", "which", "while", "will", "with",
+}
+PLATFORM_NEXT_WORD = re.compile(r"^\s+([a-z][a-z-]*)")
+# Several subject verbs double as nouns -- "runs", "uses", "reads". Requiring
+# the token to actually begin a clause keeps "automated {...} runs" (a noun
+# phrase) from being read as "{...} runs" (a subject and its verb).
+PLATFORM_CLAUSE_START = re.compile(
+    r"(^|[.:!?]\s+|[-\u2013\u2014]\s+|^\s*[*-]\s+)(\*\*|\*|\[)?\s*$"
+)
 
 # Oz terms to avoid (case-insensitive patterns)
 OZ_TERMS_TO_AVOID = [
@@ -999,9 +1016,13 @@ def check_platform_determiner(lines: List[str], filepath: str) -> List[Issue]:
       * subject      -- token directly before a finite verb
 
     Deliberately NOT flagged, because bare is correct there:
-      * attributive compounds  -- "{{...}} settings", "{{...}}-hosted"
+      * attributive compounds  -- "{{...}} settings", "{{...}}-hosted", and any
+        token directly followed by a lowercase noun it modifies
       * frontmatter title/label values -- "{{...}} overview"
       * bold term leads in definition lists -- "* **{VARS....}** - ..."
+
+    A determiner on the previous line still counts, so a soft-wrapped sentence
+    or a wrapped frontmatter description is not falsely flagged.
     """
     issues = []
     in_code_block = False
@@ -1023,19 +1044,31 @@ def check_platform_determiner(lines: List[str], filepath: str) -> List[Issue]:
         for m in PLATFORM_TOKEN.finditer(line):
             before = line[:m.start()]
             after = line[m.end():]
-            if PLATFORM_DETERMINER.search(before):
+            # A wrapped line can leave the determiner on the previous line.
+            lookback = before if before.strip() else (lines[i - 2] if i >= 2 else "")
+            if PLATFORM_DETERMINER.search(lookback):
                 continue
             if after[:1] == "-":  # attributive compound, e.g. "{{...}}-hosted"
                 continue
             if re.match(r"^\s*[*-]\s+\*\*\s*$", before):  # bold term lead
                 continue
 
+            # Order matters. Possessive and subject positions are unambiguous,
+            # so they are classified first. The attributive exemption applies
+            # only to the prepositional case, which is the one that is genuinely
+            # ambiguous: "with {...} orchestration" modifies a noun and is fine
+            # bare, while "with {...}." is referential and needs the article.
+            # Applying the exemption earlier would swallow "{...} provides ...",
+            # since "provides" is just a lowercase word to a regex.
             if after.startswith("'s") or after.startswith("\u2019s"):
                 position = "possessive"
-            elif PLATFORM_PREPOSITIONS.search(before):
-                position = "after a preposition"
-            elif PLATFORM_SUBJECT_VERBS.match(after):
+            elif PLATFORM_SUBJECT_VERBS.match(after) and PLATFORM_CLAUSE_START.search(before):
                 position = "as a clause subject"
+            elif PLATFORM_PREPOSITIONS.search(lookback):
+                nxt = PLATFORM_NEXT_WORD.match(after)
+                if nxt and nxt.group(1) not in PLATFORM_FUNCTION_WORDS:
+                    continue  # attributive: the token modifies the next noun
+                position = "after a preposition"
             else:
                 continue
 
