@@ -22,7 +22,7 @@ The GitHub Actions approach in [Set up your software factory](/guides/agent-work
 
 ## Why cloud agents, not cloud computers
 
-A common approach to cloud-based agents is to spin up a persistent virtual machine, or "cloud computer", that the agent logs into and uses like a developer's laptop. {VARS.WARP_AUTOMATION_PLATFORM} uses a different model where each agent run is a short-lived, scoped execution with its own environment and permissions, similar to a cloud function rather than a long-running server.
+A common approach to cloud-based agents is to spin up a persistent virtual machine, or "cloud computer", that the agent logs into and uses like a developer's laptop. The {VARS.WARP_AUTOMATION_PLATFORM} uses a different model where each agent run is a short-lived, scoped execution with its own environment and permissions, similar to a cloud function rather than a long-running server.
 
 The practical difference:
 
@@ -35,7 +35,7 @@ See [Deployment patterns](/platform/deployment-patterns) for a full comparison o
 
 ## 1. Set up a cloud environment
 
-A cloud environment is a Docker-based sandbox with your repository, secrets, and any tools the agents need. If you don't already have one from the previous guides, create one now: run [`/create-environment`](warp://action/create_environment) in Warp and {VARS.WARP_AUTOMATION_PLATFORM} detects your stack, suggests a Docker image, and creates the environment automatically.
+A cloud environment is a Docker-based sandbox with your repository, secrets, and any tools the agents need. If you don't already have one from the previous guides, create one now: run [`/create-environment`](warp://action/create_environment) in Warp and the {VARS.WARP_AUTOMATION_PLATFORM} detects your stack, suggests a Docker image, and creates the environment automatically.
 
 For repositories that need specific toolchains or dependencies, [`warpdotdev/oz-dev-environments`](https://github.com/warpdotdev/oz-dev-environments) has prebuilt Docker images for common stacks.
 
@@ -62,7 +62,7 @@ Use fine-grained personal access tokens or separate GitHub App installations to 
 
 ## 3. Configure triggers
 
-With GitHub Actions, your factory already has event-based triggers. {VARS.WARP_AUTOMATION_PLATFORM} also provides first-party integrations that handle triggering without GitHub Actions boilerplate:
+With GitHub Actions, your factory already has event-based triggers. The {VARS.WARP_AUTOMATION_PLATFORM} also provides first-party integrations that handle triggering without GitHub Actions boilerplate:
 
 * **Slack** — Teammates can kick off a run by mentioning `@warp` in a Slack thread. Useful for one-off requests that don't need the full label workflow. See [Slack integration](/platform/integrations/slack).
 * **Linear** — When an issue in Linear reaches a specific status, a cloud agent run starts automatically. Useful for teams that track work in Linear rather than GitHub Issues. See [Linear integration](/platform/integrations/linear).
@@ -84,7 +84,7 @@ See [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs) for the full 
 
 ## 5. Use multi-agent orchestration for large backlogs
 
-When a sprint starts and you want to process many issues in parallel, {VARS.WARP_AUTOMATION_PLATFORM} can fan out to child agents — one per issue — from a single parent run. The parent coordinates; the children execute in parallel, each with their own environment, prompt, and permissions.
+When a sprint starts and you want to process many issues in parallel, the {VARS.WARP_AUTOMATION_PLATFORM} can fan out to child agents — one per issue — from a single parent run. The parent coordinates; the children execute in parallel, each with their own environment, prompt, and permissions.
 
 See [Multi-agent orchestration](/platform/orchestration) for fan-out, sharding, and result aggregation patterns.
 

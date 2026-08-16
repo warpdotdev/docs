@@ -62,7 +62,7 @@ Use this when you already have a system that schedules work (CI, dev boxes, inte
 
 ## Pattern 2: Warp-hosted agents and orchestration (managed cloud execution)
 
-Use this when you want {VARS.WARP_AUTOMATION_PLATFORM} to run agent workloads on Warp-managed infrastructure, typically inside reproducible Docker environments, with built-in lifecycle management.
+Use this when you want the {VARS.WARP_AUTOMATION_PLATFORM} to run agent workloads on Warp-managed infrastructure, typically inside reproducible Docker environments, with built-in lifecycle management.
 
 ![Warp enterprise SaaS architecture showing customer infrastructure, isolated tenant sandboxes, Warp backend, and LLM providers](../../../assets/agent-platform/cloud-agents-infra.png)
 
@@ -90,7 +90,7 @@ Use this when you want {VARS.WARP_AUTOMATION_PLATFORM} to run agent workloads on
 
 1. Define a Warp [Environment](/platform/environments/) with the repo + toolchain.
 2. Create a [schedule](/platform/triggers/scheduled-agents/) with a fixed prompt for cleanup.
-3. {VARS.WARP_AUTOMATION_PLATFORM} runs the agent on the cadence.
+3. The {VARS.WARP_AUTOMATION_PLATFORM} runs the agent on the cadence.
 4. Your team monitors runs in the [{VARS.WEB_APP}](/platform/oz-web-app/) and [viewing cloud agent runs](/platform/viewing-cloud-agent-runs/), reviews artifacts (PRs, plans), and intervenes when needed.
 
 ### Example recipe: crash triage via Sentry webhook
@@ -123,7 +123,7 @@ Think of self-hosted execution as **customer-hosted execution with Warp-hosted o
 
 Self-hosting has two architectures that differ on **who orchestrates agent runs** (both keep code and execution on your infrastructure):
 
-* **[Managed](/platform/self-hosting/#managed-architecture)** — {VARS.WARP_AUTOMATION_PLATFORM} orchestrates. You run the `oz-agent-worker` daemon; {VARS.WARP_AUTOMATION_PLATFORM} routes runs to it from Slack, Linear, schedules, the API, or `oz agent run-cloud`. Tasks execute in Docker containers, Kubernetes Jobs, or directly on the host.
+* **[Managed](/platform/self-hosting/#managed-architecture)** — The {VARS.WARP_AUTOMATION_PLATFORM} orchestrates. You run the `oz-agent-worker` daemon; the {VARS.WARP_AUTOMATION_PLATFORM} routes runs to it from Slack, Linear, schedules, the API, or `oz agent run-cloud`. Tasks execute in Docker containers, Kubernetes Jobs, or directly on the host.
 * **[Unmanaged](/platform/self-hosting/unmanaged/)** — You orchestrate. Invoke `oz agent run` directly from your CI, Kubernetes, or dev environment. Warp provides session tracking and observability; it does not start or stop agents.
 
 Why teams choose self-hosted execution:
