@@ -7,7 +7,11 @@ sidebar:
   label: "Infrastructure & security"
 ---
 
-Warp Factories separates coordination from execution: Warp coordinates the work, and your team chooses the infrastructure the work runs on. You decide where a factory runs code, which model providers serve its inference requests, where run data such as transcripts and artifacts is stored, and which credentials each agent receives. Not every option is available to every team: managed self-hosted execution and customer-supplied inference require an Enterprise plan, and Warp enables customer-owned storage for eligible teams.
+Warp Factories separates coordination from execution: Warp coordinates the work, and your team chooses the infrastructure it runs on. You decide where a factory runs code, which model providers serve its inference requests, where run data such as transcripts and artifacts is stored, and which credentials each agent receives.
+
+:::note
+Managed self-hosted execution and customer-supplied inference require an Enterprise plan. Warp enables customer-owned storage for eligible teams.
+:::
 
 ## Control plane and execution plane
 
@@ -27,7 +31,7 @@ flowchart LR
   C --> D["Warp or supported<br/>customer-owned storage"]
 ```
 
-Self-hosting moves the execution plane onto your infrastructure; it does not remove Warp from coordination. With a managed self-hosted worker, repository checkouts, command execution, and the sandbox filesystem stay on machines you control, but content that enters prompts, results, transcripts, attachments, artifacts, or telemetry still flows through Warp and the providers you configure. In the same way, customer-supplied inference and customer-owned storage redirect those specific data paths without changing how runs are coordinated. See [deployment patterns](../platform/deployment-patterns) and [self-hosting security and networking](../platform/self-hosting/security-and-networking) for the broader data model.
+Self-hosting moves only the execution plane: with a managed self-hosted worker, repository checkouts, command execution, and the sandbox filesystem stay on machines you control, but content that enters prompts, results, transcripts, attachments, artifacts, or telemetry still flows through Warp and the providers you configure. See [deployment patterns](../platform/deployment-patterns) and [self-hosting security and networking](../platform/self-hosting/security-and-networking) for the broader data model.
 
 ## Environments and runners
 
@@ -38,14 +42,14 @@ Two configurations define where and how a factory's agents work:
 | **Environment** | What an agent works on: the workspace and runtime context | Repositories, setup commands, secrets, toolchain image, and provider configuration |
 | **Runner** | Where the work executes: the compute | Operating system, architecture, sandbox image, vCPUs, and memory |
 
-When a run starts, Warp resolves its compute in a fixed order: the runner the run selects explicitly, then the environment's execution defaults, then the system default. Use [environments](../platform/environments) to define the workspace and the [runner reference](../platform/runners) for compute options and resolution behavior. A factory references both through its [definition as code](./factory-as-code).
+When a run starts, Warp resolves its compute in a fixed order: the runner the run selects explicitly, then the environment's execution defaults, then the system default. Use [environments](../platform/environments) to define the workspace; see the [runner reference](../platform/runners) for compute options and resolution behavior. A factory references both through its [definition as code](./factory-as-code).
 
 The **Runners** page in the control room shows each runner's operating system and architecture, setup commands, size, and whether it's the default. Where you edit runners depends on where the factory's source lives:
 
 * **Externally managed source** - The `runners/*.yaml` files in the connected repository are the source of truth, and edits open in that repository.
 * **Warp-managed source** - Authorized users create and edit runner files directly in the control room.
 
-Your team's plan sets the maximum instance shape (vCPUs and memory) for Warp-hosted runners, and Warp rejects hosted shapes above that limit. Managed self-hosted runners are exempt from the hosted size limit because your team supplies the compute. See the [runner reference](../platform/runners) for configuration details.
+Your team's plan sets the maximum instance shape (vCPUs and memory) for Warp-hosted runners, and Warp rejects hosted shapes above that limit. Managed self-hosted runners are exempt because your team supplies the compute.
 
 ## Choose an execution host
 
@@ -60,7 +64,7 @@ A factory runs its work on one of two execution hosts: Warp-hosted compute or a 
 | **Private services** | Must be reachable from the hosted sandbox | Reachable through the worker's network access |
 | **Operations** | Warp manages capacity and lifecycle | Your team manages capacity, isolation, updates, and availability |
 
-Managed self-hosted execution is available to eligible Enterprise teams. To route factory work to a worker:
+To route factory work to a managed self-hosted worker (an Enterprise feature):
 
 1. **Deploy a worker** - Review the [self-hosting requirements](../platform/self-hosting/), then connect a worker that authenticates to Warp with an agent API key. Workers run on `linux/amd64` and `linux/arm64`, and the worker's platform determines which workloads it can run.
 2. **Pair it with a compatible runner** - Choose a runner that matches the worker's platform.
@@ -69,12 +73,12 @@ Managed self-hosted execution is available to eligible Enterprise teams. To rout
 Unmanaged self-hosted agents and other CLI agents can't serve as a factory's execution host, but they can exchange work with a factory through [Factory MCP](./factory-mcp).
 
 :::caution
-Self-hosting is not a guarantee that all factory data stays in your network. Execution stays on your infrastructure, but run content still flows through Warp and your configured providers as described above.
+Self-hosting is not a guarantee that all factory data stays in your network: run content still flows through Warp and your configured providers.
 :::
 
 ## Choose execution, inference, and storage independently
 
-Execution, inference, and storage are three separate decisions, and choosing one does not constrain the others. Each choice moves one boundary and leaves the rest of the run flow with Warp:
+Execution, inference, and storage are independent choices: each moves one boundary and leaves the rest of the run flow with Warp.
 
 | Team choice | What it changes | What stays with Warp |
 | --- | --- | --- |
