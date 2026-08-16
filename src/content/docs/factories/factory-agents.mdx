@@ -2,17 +2,17 @@
 title: Factory agents
 description: >-
   A factory is run by a team of default agents: a foreman that coordinates
-  the work, plus triage, spec, implement, and review specialists.
+  the work, plus triage, spec, implement, and review agents.
 sidebar:
   label: "Factory agents"
 topic: factories
 ---
 
-Every factory has a small team of agents, and each agent has a specific job. Specialist agents investigate, plan, build, and check the work, while the foreman coordinates them and holds one continuous conversation with the person who requested the work. Together, they take a work item from the moment it reaches your factory to a finished pull request that's ready for a human to review.
+Every factory has a small team of agents, and each agent has a specific job. The foreman coordinates the work and holds one continuous conversation with the person who requested it; the other agents investigate, plan, build, and check the work. Together, they take a work item from the moment it reaches your factory to a finished pull request that's ready for a human to review.
 
 ## Default agent roles
 
-When you set up a factory, Warp offers five default roles. Every factory gets a foreman; you choose one to four specialist roles to go with it, for a starting team of two to five agents. Each role owns one part of the workflow, so it's always clear which agent is responsible for what.
+When you set up a factory, Warp offers five default roles. Every factory gets a foreman; you choose one to four of the other roles to go with it, for a starting team of two to five agents. Each role owns one part of the workflow, so it's always clear which agent is responsible for what. These defaults are a starting point — you can [add custom agents and automations](#add-custom-agents-and-automations) for work they don't cover.
 
 | Role | What it does | What it produces |
 | --- | --- | --- |
@@ -28,11 +28,11 @@ For the complete lifecycle, see [how Warp Factories work](./how-factories-work).
 
 ## Foreman
 
-The **foreman agent** runs the factory floor. It decides which role a work item needs next, hands the work to that agent, and keeps the requester informed. It's the only default agent that talks to the requester directly: when a specialist needs a human answer, the foreman asks the question and routes the answer back. For revisions and follow-ups, the foreman continues the specialist's existing conversation instead of starting a new one, so no context is lost.
+The **foreman agent** runs the factory floor. It decides which role a work item needs next, hands the work to that agent, and keeps the requester informed. It's the only default agent that talks to the requester directly: when another agent needs a human answer, the foreman asks the question and routes the answer back. For revisions and follow-ups, the foreman goes back to the same agent and continues its existing conversation instead of starting a new one, so no context is lost.
 
 When the work is done, the foreman presents the final pull request and its supporting evidence, then marks the work item complete. Complete means the work was handed to a human, not that the change was merged or deployed. Merging stays with your team.
 
-## Specialist roles
+## Triage, spec, implement, and review
 
 ### Triage
 
@@ -44,7 +44,7 @@ Spec turns an ambiguous request into a concrete plan. It interviews the requeste
 
 ### Implement
 
-Implement makes the change. When a spec exists, it continues the spec's branch and draft pull request rather than starting over. It writes the code, adds tests, runs the repository's validation, reviews its own diff, and, when computer use is available, captures visual evidence of user-facing changes. If review finds problems, implement revises the change. It never merges.
+Implement makes the change. When a spec exists, it continues the spec's branch and draft pull request rather than starting over. It writes the code, adds tests, runs the repository's validation, reviews its own diff, and, when [computer use](../agents/capabilities/computer-use) is available, captures visual evidence of user-facing changes. If review finds problems, implement revises the change. It never merges.
 
 ### Review
 
@@ -52,7 +52,7 @@ Review checks the finished change with fresh eyes, deliberately hunting for prob
 
 ## Where verification happens
 
-There's no separate verification agent, and the default team doesn't need one. Implement proves its own change works: it runs the tests and repository checks, and captures visual evidence for user-facing changes. Review then checks that proof, reruns or extends validation when necessary, and confirms the results meet the criteria. You can add custom agents for extra quality coverage, but implement and review keep these responsibilities either way.
+There's no separate verification agent, and the default team doesn't need one. Implement proves its own change works: it runs the tests and repository checks, and, when [computer use](../agents/capabilities/computer-use) is available, uses it to capture visual evidence of user-facing changes, such as screenshots and recordings of the running app. Review then checks that proof, reruns or extends validation when necessary, and confirms the results meet the criteria. You can add custom agents for extra quality coverage, but implement and review keep these responsibilities either way.
 
 ## Built-in skills and memory
 
@@ -65,7 +65,9 @@ Each default agent also has its own [Auto-memory store](../agents/agent-memory).
 You configure each agent in two places:
 
 * **In the control room** - Use the agent editor to set an agent's description, model, runner, host, MCP servers, secrets, and instructions.
-* **In your factory definitions** - Set the harness, environment, and credential strategy in code. See [factory definitions as code](./factory-as-code).
+* **In your factory definitions** - Set the harness, environment, and credential strategy in code.
+
+Agent configuration can also be stored as version-controlled code: role instructions, model and harness choices, and access boundaries all live in a repo, where changes are reviewed like any other change and are easy to roll back. See [factory definitions as code](./factory-as-code) for how to set this up.
 
 Factory setup doesn't choose models for you. To change the model a role uses, edit that agent in the control room.
 
@@ -103,4 +105,4 @@ A few capabilities sit outside an agent's configuration: built-in harness tools,
 
 Treat the approval steps as workflow conventions, not access control. Warp Factories has no special approver role, and nothing written in an agent's instructions grants it access beyond what it's configured with. Real enforcement lives in your repository permissions and platform configuration.
 
-Next, capture your role instructions, model and harness choices, and access boundaries in [factory definitions as code](./factory-as-code).
+Next, capture these choices in [factory definitions as code](./factory-as-code).
