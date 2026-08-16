@@ -2,7 +2,7 @@
 title: Self-hosting overview
 description: >-
   Run cloud agents on your own infrastructure. Choose between a managed
-  worker daemon orchestrated by {{WARP_AUTOMATION_PLATFORM}} or unmanaged CLI-based execution you
+  worker daemon orchestrated by the {{WARP_AUTOMATION_PLATFORM}} or unmanaged CLI-based execution you
   control.
 ---
 import { VARS } from '@data/vars';
@@ -21,14 +21,14 @@ Self-hosting lets your team run cloud agent workloads on your own infrastructure
 
 Self-hosting has two architectures. The core distinction is **who orchestrates agent runs** — not who owns the compute. Both models keep code and execution on your infrastructure.
 
-* **Managed** — {VARS.WARP_AUTOMATION_PLATFORM} orchestrates agent runs. You run the `oz-agent-worker` daemon on your infrastructure; it connects to {VARS.WARP_AUTOMATION_PLATFORM} and waits for work. Slack mentions, Linear comments, schedules, API calls, and `oz agent run-cloud` commands all route tasks to your worker, which executes them in isolated Docker containers, Kubernetes Jobs, or directly on the host. Similar to a [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners).
-* **Unmanaged** — You orchestrate agent runs. You invoke `oz agent run` directly from your existing CI pipeline, Kubernetes pod, VM, or dev box. {VARS.WARP_AUTOMATION_PLATFORM} provides session tracking and observability for each run, but does not start or stop agents for you.
+* **Managed** — The {VARS.WARP_AUTOMATION_PLATFORM} orchestrates agent runs. You run the `oz-agent-worker` daemon on your infrastructure; it connects to the {VARS.WARP_AUTOMATION_PLATFORM} and waits for work. Slack mentions, Linear comments, schedules, API calls, and `oz agent run-cloud` commands all route tasks to your worker, which executes them in isolated Docker containers, Kubernetes Jobs, or directly on the host. Similar to a [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners).
+* **Unmanaged** — You orchestrate agent runs. You invoke `oz agent run` directly from your existing CI pipeline, Kubernetes pod, VM, or dev box. The {VARS.WARP_AUTOMATION_PLATFORM} provides session tracking and observability for each run, but does not start or stop agents for you.
 
 ### At a glance
 
 | Aspect | **Managed** | **Unmanaged** |
 | --- | --- | --- |
-| **Who triggers runs** | {VARS.WARP_AUTOMATION_PLATFORM} (Slack, Linear, schedules, API, `run-cloud`) | Your system (CI, cron, scripts) |
+| **Who triggers runs** | The {VARS.WARP_AUTOMATION_PLATFORM} (Slack, Linear, schedules, API, `run-cloud`) | Your system (CI, cron, scripts) |
 | **What runs on your infra** | Long-lived `oz-agent-worker` daemon | One-shot `oz agent run` invocations |
 | **OS support** | Linux (macOS/Windows coming) | Linux, macOS, Windows |
 | **Execution isolation** | Docker container, Kubernetes Job, or direct host | Whatever your host provides |
@@ -68,7 +68,7 @@ Use these questions to decide between managed and unmanaged:
 1. **Do you need agents to run on Windows or macOS?**
    * Yes → Use the [unmanaged](/platform/self-hosting/unmanaged/) architecture. Managed is Linux-only today.
    * No, Linux works → Continue to the next question.
-2. **Do you want {VARS.WARP_AUTOMATION_PLATFORM} to handle starting and stopping agents** (from Slack, the web interface, the Warp app, schedules, or the API)?
+2. **Do you want the {VARS.WARP_AUTOMATION_PLATFORM} to handle starting and stopping agents** (from Slack, the web interface, the Warp app, schedules, or the API)?
    * Yes → Use the [managed](#managed-architecture) architecture.
    * No, you have your own triggering mechanism → Use the [unmanaged](/platform/self-hosting/unmanaged/) architecture.
 3. **Can your development environment run in a Docker container or Kubernetes pod?**
@@ -100,13 +100,13 @@ The managed architecture supports three backends for task execution:
 
 ## Managed architecture
 
-With the managed architecture, you run the `oz-agent-worker` daemon on your infrastructure. The daemon connects to {VARS.WARP_AUTOMATION_PLATFORM}'s backend, waits for tasks to be assigned to it, and executes those tasks on its host using one of three backends:
+With the managed architecture, you run the `oz-agent-worker` daemon on your infrastructure. The daemon connects to the {VARS.WARP_AUTOMATION_PLATFORM}'s backend, waits for tasks to be assigned to it, and executes those tasks on its host using one of three backends:
 
 * **[Docker backend](/platform/self-hosting/managed-docker/)** (default) — Runs each task in an isolated Docker container.
 * **[Kubernetes backend](/platform/self-hosting/managed-kubernetes/)** — Runs each task as a Kubernetes Job in your cluster.
 * **[Direct backend](/platform/self-hosting/managed-direct/)** — Runs each task directly on the host without a container runtime.
 
-The managed architecture enables full orchestration by {VARS.WARP_AUTOMATION_PLATFORM} — it can remotely start agents via Slack, Linear, the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>, the API/SDK, and the `oz agent run-cloud` command. Agents can access host resources through volume mounts (Docker), Kubernetes-native configuration (Kubernetes), and injected environment variables.
+The managed architecture enables full orchestration by the {VARS.WARP_AUTOMATION_PLATFORM} — it can remotely start agents via Slack, Linear, the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>, the API/SDK, and the `oz agent run-cloud` command. Agents can access host resources through volume mounts (Docker), Kubernetes-native configuration (Kubernetes), and injected environment variables.
 
 ## Unmanaged architecture
 
