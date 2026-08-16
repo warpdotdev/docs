@@ -414,6 +414,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'factories/control-room', label: 'Control room' },
 						{ slug: 'factories/measure-and-improve', label: 'Measure and improve' },
+						{ slug: 'factories/troubleshooting', label: 'Troubleshooting' },
 					],
 				},
 			],
