@@ -30,7 +30,7 @@ Don't want to bring your own image? Warp provides [prebuilt dev images](https://
 
 ## About environments
 
-Environments define _how_ an agent runs, not _what_ it does. They're required for [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) automation (cloud agents, integrations, API runs) but are not required for interactive local usage.
+Environments define _how_ an agent runs, not _what_ it does. They're required for automation on the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) (cloud agents, integrations, API runs) but are not required for interactive local usage.
 
 An environment typically includes:
 
@@ -155,7 +155,7 @@ Create one environment per codebase, then reuse it across triggers like Slack, L
 </figure>
 
 1. Open the <a href={`${VARS.WEB_APP_URL}/environments`}>Environments page in the {VARS.WEB_APP}</a> and click **New environment**.
-2. Enter a name, select one or more repositories, and enter a **Docker image reference**. Click **Suggest** to have {VARS.WARP_AUTOMATION_PLATFORM} recommend an image based on your repos, or start from one of [Warp's prebuilt dev images](https://github.com/warpdotdev/oz-dev-environments).
+2. Enter a name, select one or more repositories, and enter a **Docker image reference**. Click **Suggest** to have the {VARS.WARP_AUTOMATION_PLATFORM} recommend an image based on your repos, or start from one of [Warp's prebuilt dev images](https://github.com/warpdotdev/oz-dev-environments).
 3. Optionally, add setup commands, configure cloud provider access (AWS or GCP), or add a description.
 4. Click **Create environment**.
 

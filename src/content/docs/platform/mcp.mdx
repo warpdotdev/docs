@@ -67,7 +67,7 @@ You can define any number of MCP servers in a single config.
 ```
 
 :::note
-If the config passes through a system that pre-processes `{{...}}` before it reaches {VARS.WARP_AUTOMATION_PLATFORM} (for example, Jira/Atlassian Automation), use JSON unicode escapes for the braces: `\u007b\u007bMY_SECRET\u007d\u007d` decodes to `{{MY_SECRET}}`, which {VARS.WARP_AUTOMATION_PLATFORM} resolves normally.
+If the config passes through a system that pre-processes `{{...}}` before it reaches the {VARS.WARP_AUTOMATION_PLATFORM} (for example, Jira/Atlassian Automation), use JSON unicode escapes for the braces: `\u007b\u007bMY_SECRET\u007d\u007d` decodes to `{{MY_SECRET}}`, which the {VARS.WARP_AUTOMATION_PLATFORM} resolves normally.
 :::
 
 ## Using MCP servers in an agent config file
