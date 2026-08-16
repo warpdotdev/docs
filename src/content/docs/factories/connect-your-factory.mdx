@@ -13,11 +13,11 @@ Connect your factory to the tools where your team already discusses, tracks, and
 
 | Source | Best for | Where follow-ups continue | What you get back |
 | --- | --- | --- | --- |
-| Slack | Chat and support requests | The Slack thread or DM | A summary with issue or pull request links |
-| GitHub | Issues, pull requests, reviews, and CI | The issue, pull request, or review thread | Comments, branches, and pull requests |
-| Linear | Planned issues | The Linear issue and its agent session | Plans, status updates, and pull request links |
-| Jira | Issues assigned to a Rovo agent | The Rovo agent session | Task status and a text result |
-| Factory MCP | Sending work from a local coding agent | The factory work item | Notes and artifacts |
+| [Slack](./integrations/slack) | Chat and support requests | The Slack thread or DM | A summary with issue or pull request links |
+| [GitHub](./integrations/github) | Issues, pull requests, reviews, and CI | The issue, pull request, or review thread | Comments, branches, and pull requests |
+| [Linear](./integrations/linear) | Planned issues | The Linear issue and its agent session | Plans, status updates, and pull request links |
+| [Jira](./integrations/jira) | Issues assigned to a Rovo agent | The Rovo agent session | Task status and a text result |
+| [Factory MCP](./factory-mcp) | Sending work from a local coding agent | The factory work item | Notes and artifacts |
 | Direct runs and schedules | One-off or recurring work | The factory work item | Summaries and code changes |
 
 ## Connect a source
@@ -45,8 +45,8 @@ An event from a connected tool starts the automation whose filters match it — 
 
 When you create a factory through the setup wizard, Warp adds default automations for each tool you connect, so common requests work immediately:
 
-* **GitHub** - Starts work when the factory is mentioned or assigned, and follows up when pull requests close or merge — including completing a linked tracker issue when it can.
-* **Jira** - Starts work when a Rovo agent session begins in one of the Jira projects you selected.
+* **GitHub** - Starts work when the factory is mentioned or assigned, and follows up when pull requests close or merge — including completing a linked tracker issue when it can. See the [GitHub integration guide](./integrations/github).
+* **Jira** - Starts work when a Rovo agent session begins in one of the Jira projects you selected. See the [Jira integration guide](./integrations/jira).
 * **Slack** - Starts work from mentions and messages, as described in the [Slack integration guide](./integrations/slack).
 
 These defaults are starting points. Review each automation's filters, agent, and run settings, and adjust them to match your workflow.
@@ -74,7 +74,7 @@ See the [triggers overview](../platform/triggers/) for how schedules and other t
 ## Good to know
 
 * **Follow-ups continue the same work item** - Replying in the same Slack thread, GitHub issue or pull request, Linear issue, or Jira Rovo session adds to the existing work item instead of starting a new one. Repeated event deliveries from a provider don't create duplicate work either.
-* **One issue tracker per factory** - A factory can use Linear or Jira, or no tracker at all — but not both at once. The setup wizard currently offers Linear; to use Jira, connect it after setup or in your [factory definition](./factory-as-code).
+* **One issue tracker per factory** - A factory can use [Linear](./integrations/linear) or [Jira](./integrations/jira), or no tracker at all — but not both at once. The setup wizard currently offers Linear; to use Jira, connect it after setup or in your [factory definition](./factory-as-code).
 * **Filters route work, they don't restrict access** - Automation filters (repository, channel, team, project, label, author, or status) choose which requests start work. To limit what an integration can reach, change what you authorize for that provider instead.
 * **You stay in control of what ships** - The factory posts back only where you've connected it, and pushes code with the repository credentials you configure. Branch protection and code review still apply; your team decides what merges.
 
