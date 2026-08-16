@@ -37,10 +37,10 @@ The control room dashboard shows activity, cost, autonomy, and evaluation result
 **Time saved** and **Cost per PR** are estimates, not billing figures. Time saved converts merged pull requests into engineer-hours, and the per-teammate view divides that estimate by your team size. Cost per PR counts recorded credits and can undercount actual usage.
 
 :::caution
-**PRs merged**, **PR latency**, and the detail in **Most expensive PRs** require the GitHub App and only cover activity from after you install it. The ratio of **PRs merged** to **PRs opened** isn't a merge rate; the two are counted differently. Run counts include evaluation, benchmark, and Self-improvement runs.
+**PRs merged**, **PR latency**, and the detail in **Most expensive PRs** require the GitHub App and only cover activity from after you install it.
 :::
 
-Use the dashboard to pick which runs to investigate, not to conclude what caused a change. A higher run count with a flat PR count could mean harder tasks, retries, or measurement activity.
+Use the dashboard to pick which runs to investigate, not to conclude what caused a change. **Total runs** includes evaluation, benchmark, and Self-improvement runs, so a higher run count with a flat PR count could mean harder tasks, retries, or measurement activity.
 
 ## Configure Scorers
 
@@ -79,7 +79,7 @@ Every benchmark also runs **Correctness**, a built-in scorer that marks each tri
 
 ## Configure and review Self-improvement
 
-Turn on **Self-improvement** for each Scorer whose failures you want investigated automatically. Self-improvement groups related failures and files follow-up tasks as ordinary agent runs. A follow-up run can propose changes to application code, or to the factory's prompts, skills, and configuration when that repo is available. Follow-up runs can open pull requests, but nothing is adopted without your review.
+Turn on **Self-improvement** for each Scorer whose failures you want investigated automatically. Self-improvement groups related failures and files follow-up tasks as ordinary agent runs. A follow-up run can propose changes to application code. It can also improve the factory itself: when you manage your factory as [definitions as code](./factory-as-code), its prompts, skills, and configuration are version-controlled files, so a follow-up run can open a pull request against the factory definition the same way it would against application code. Nothing is adopted without your review.
 
 The factory-level **Analysis model** setting chooses the model used for this analysis. Factories managed from files in a GitHub repo can't change this setting in the control room.
 
@@ -88,6 +88,18 @@ Each Self-improvement pull request includes a **Regressions addressed** section 
 ## Run a practical improvement loop
 
 Change one measurable thing at a time:
+
+```mermaid
+flowchart LR
+  Define[Define a Scorer] --> Baseline[Collect a baseline]
+  Baseline --> Inspect[Inspect failures]
+  Inspect --> Benchmark[Benchmark a candidate]
+  Benchmark --> Adopt[Review and adopt]
+  Adopt --> Monitor[Keep monitoring]
+  Monitor --> Inspect
+  Inspect -.->|Repeated failures| Improve[Self-improvement]
+  Improve -.-> Adopt
+```
 
 1. **Define a Scorer.** Pick one agent and one failure mode you can observe. Write the judge instructions and classifications, then compare the judge's results against a few conversations you review yourself.
 2. **Collect a baseline.** Let periodic scoring run until results reflect normal work. Record the Scorer settings, date range, and relevant costs.
