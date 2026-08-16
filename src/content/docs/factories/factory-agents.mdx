@@ -1,96 +1,106 @@
 ---
 title: Factory agents
 description: >-
-  Warp Factories coordinate role-specific agents for triage, specification,
-  implementation, review, and human handoff.
+  A factory is run by a team of default agents: a foreman that coordinates
+  the work, plus triage, spec, implement, and review specialists.
 sidebar:
   label: "Factory agents"
 topic: factories
 ---
 
-Warp Factories use role-specific agents to move a work item from intake to human handoff under the default seeded workflow. Each agent owns a defined responsibility, while the foreman coordinates the work and maintains one continuous conversation with the requester.
+Every factory has a small team of agents, and each agent has a specific job. Specialist agents investigate, plan, build, and check the work, while the foreman coordinates them and holds one continuous conversation with the person who requested the work. Together, they take a work item from the moment it reaches your factory to a finished pull request that's ready for a human to review.
 
 ## Default agent roles
 
-Factory setup offers five default role types. The foreman is fixed, and selecting one to four subagents creates an initial roster of two to five agents. The roles separate orchestration, investigation, planning, implementation, and review so each part of the workflow has a clear owner.
+When you set up a factory, Warp offers five default roles. Every factory gets a foreman; you choose one to four specialist roles to go with it, for a starting team of two to five agents. Each role owns one part of the workflow, so it's always clear which agent is responsible for what.
 
-| Role | Primary responsibility | Typical output |
+| Role | What it does | What it produces |
 | --- | --- | --- |
-| Foreman | Route work and communicate with the requester | Decisions, questions, status, and final handoff |
-| Triage | Investigate the request and establish scope | Evidence, issue context, complexity, and ambiguity |
-| Spec | Resolve requirements and define validation criteria | Product and technical specifications in a draft pull request |
-| Implement | Change and validate the code | Code, tests, validation results, and visual evidence |
-| Review | Examine the implementation independently | Findings and an advisory verdict |
+| Foreman | Coordinates the work and talks to the requester | Decisions, questions, status updates, and the final handoff |
+| Triage | Investigates the request and establishes scope | Evidence, issue context, complexity, and open questions |
+| Spec | Turns requirements into a concrete plan with validation criteria | Product and technical specs in a draft pull request |
+| Implement | Makes and validates the code change | Code, tests, validation results, and visual evidence |
+| Review | Checks the finished change with fresh eyes | Findings and a recommendation |
 
-Roles are responsibilities, not a fixed sequence. Small, clear work can skip specification, and review can return work to implementation. In the seeded workflow, any work that enters the spec stage requires human approval before implementation.
+These roles describe responsibilities, not a fixed pipeline. A small, well-understood change can skip the spec stage entirely, and review can send work back to implementation for another pass. By default, work that goes through the spec stage needs a human to approve the spec before implementation starts.
 
 For the complete lifecycle, see [how Warp Factories work](./how-factories-work).
 
-## Seeded context and memory
-
-The selected issue tracker changes the seeded roster's tracker skill and prompt appendix. Linear adds Linear-specific context, Jira adds Jira-specific context, and no tracker omits those additions. The seeded GitHub skills and the foreman's Slack skill remain in all three cases.
-
-Each seeded agent receives its own [Auto-memory store](../agents/agent-memory). Warp periodically consolidates eligible conversations into memory, which can change the agent's behavior over time. Account for memory state in before-and-after configuration comparisons; matching visible settings do not guarantee matching accumulated context.
-
 ## Foreman
 
-The **foreman agent** selects the next role, dispatches work, and preserves context by continuing existing specialist conversations for revisions and follow-ups. It is the only default role that communicates with the requester. Specialists return findings to the foreman, which asks human questions and routes the answers back.
+The **foreman agent** runs the factory floor. It decides which role a work item needs next, hands the work to that agent, and keeps the requester informed. It's the only default agent that talks to the requester directly: when a specialist needs a human answer, the foreman asks the question and routes the answer back. For revisions and follow-ups, the foreman continues the specialist's existing conversation instead of starting a new one, so no context is lost.
 
-The foreman presents the final pull request and evidence, then marks the work item complete after handoff. Completion does not mean that the factory merged or deployed the change.
+When the work is done, the foreman presents the final pull request and its supporting evidence, then marks the work item complete. Complete means the work was handed to a human, not that the change was merged or deployed. Merging stays with your team.
 
-## Specialized agent responsibilities
+## Specialist roles
 
 ### Triage
 
-Triage researches the codebase, related issues, and source context. It reproduces a problem only when research does not establish the cause. Triage returns issue context, scope, complexity, and ambiguity so the foreman can request clarification, specification, or implementation.
+Triage figures out what the request actually involves. It researches the codebase, related issues, and other available context, and only tries to reproduce a problem when research alone can't establish the cause. It reports back with the relevant context, the scope and complexity of the change, and anything that's still unclear. The foreman uses that report to decide what happens next: ask the requester for clarification, request a spec, or go straight to implementation.
 
 ### Spec
 
-Spec interviews the requester through the foreman and turns the answers into product and technical specifications with validation criteria. It opens a draft pull request on a branch that implementation continues. The seeded foreman requires human approval before dispatching implementation, but teams can change this policy in the foreman's instructions.
+Spec turns an ambiguous request into a concrete plan. It interviews the requester (through the foreman) to pin down requirements, then writes product and technical specifications with criteria for validating the change. It opens a draft pull request on a branch that implementation later continues. By default, the foreman waits for a human to approve the spec before starting implementation; you can change that policy in the foreman's instructions.
 
 ### Implement
 
-Implementation continues the spec branch and draft pull request when they exist. It changes code, adds tests, runs repository validation, reviews the diff, and gathers visual evidence for user-facing changes when computer use is available. It can revise the change after review, but it never merges.
+Implement makes the change. When a spec exists, it continues the spec's branch and draft pull request rather than starting over. It writes the code, adds tests, runs the repository's validation, reviews its own diff, and, when computer use is available, captures visual evidence of user-facing changes. If review finds problems, implement revises the change. It never merges.
 
 ### Review
 
-Review examines the change independently and adversarially against requirements, conventions, tests, security expectations, and evidence. It separates clear defects from ambiguous tradeoffs, then returns an advisory verdict to the foreman: accept, revise, or request a human decision. The verdict does not approve or merge the pull request.
+Review checks the finished change with fresh eyes, deliberately hunting for problems: unmet requirements, broken conventions, missing or failing tests, security issues, and evidence that doesn't hold up. It separates clear defects from judgment calls, then gives the foreman one of three recommendations: accept the change, send it back for revision, or ask a human to decide. The recommendation is advice for the foreman; it doesn't approve or merge the pull request.
 
-## Verification is part of implementation and review
+## Where verification happens
 
-The default roster has no separate verify agent. Implementation produces regression, repository, and applicable visual evidence. Review checks that evidence, reruns or extends validation when necessary, and compares the result with the criteria. Custom quality agents can add coverage, but they do not remove these responsibilities.
+There's no separate verification agent, and the default team doesn't need one. Implement proves its own change works: it runs the tests and repository checks, and captures visual evidence for user-facing changes. Review then checks that proof, reruns or extends validation when necessary, and confirms the results meet the criteria. You can add custom agents for extra quality coverage, but implement and review keep these responsibilities either way.
+
+## Built-in skills and memory
+
+Every default agent comes with GitHub skills, and the foreman also comes with a Slack skill. The issue tracker you choose during setup adds to that baseline: choosing Linear or Jira gives the agents that tracker's skill and instructions for working with it. If you don't choose a tracker, the agents get only the baseline.
+
+Each default agent also has its own [Auto-memory store](../agents/agent-memory). Over time, Warp consolidates the agent's conversations into memory, and that accumulated memory shapes how the agent behaves. Keep this in mind when comparing two agents: identical settings don't guarantee identical behavior, because each agent remembers different things.
 
 ## Configure agent behavior
 
-In the control room, the agent editor supports description, model, runner, host, MCP servers, secrets, and instructions. Configure the harness, environment, and credential strategy through [factory definitions as code](./factory-as-code). Factory setup does not set per-role models.
+You configure each agent in two places:
+
+* **In the control room** - Use the agent editor to set an agent's description, model, runner, host, MCP servers, secrets, and instructions.
+* **In your factory definitions** - Set the harness, environment, and credential strategy in code. See [factory definitions as code](./factory-as-code).
+
+Factory setup doesn't choose models for you. To change the model a role uses, edit that agent in the control room.
 
 ## Choose models and harnesses by role
 
-Each role can use a different model or harness. Supported harnesses include the Warp Agent harness, Claude Code, and Codex. Choose by responsibility rather than relying on mutable default model IDs.
-Claude Code and Codex are not limited to specialist roles: a foreman using either harness can dispatch sibling factory agents with parent-child lineage.
+Each role can run on its own model and harness. Supported harnesses include the Warp Agent harness, Claude Code, and Codex, and any role can use any of them. A foreman running on Claude Code or Codex can still dispatch the factory's other agents, and the runs it starts are still tracked as its children.
 
-| Role | Selection guidance |
+Default model IDs change over time, so choose based on what each role has to do well:
+
+| Role | What to optimize for |
 | --- | --- |
-| Foreman | Favor orchestration, instruction following, and continuity |
-| Triage | Favor research, evidence gathering, and connected-tool use |
-| Spec | Favor requirement synthesis, technical reasoning, and precise criteria |
-| Implement | Match the coding harness and model to the repositories and toolchain |
-| Review | Use an independent configuration to reduce correlated mistakes |
+| Foreman | Orchestration, instruction following, and long-running conversations |
+| Triage | Research, evidence gathering, and working with connected tools |
+| Spec | Synthesizing requirements, technical reasoning, and precise writing |
+| Implement | Coding strength, with a harness that fits your repositories and toolchain |
+| Review | A different model or harness from implement, so the two don't share blind spots |
 
 See [model choice for agents](../agents/inference/model-choice) and [harnesses for cloud agents](../platform/harnesses) for available options. Define reusable procedures with [skills](../agents/capabilities/skills), and scope each role's external access through [MCP servers](../platform/mcp) and [cloud agent secrets](../platform/secrets).
 
-## Extend the roster with custom agents and automations
+## Add custom agents and automations
 
-Custom agents can own narrow responsibilities such as documentation, security analysis, migrations, or release checks. They do not need to become mandatory stages. Automations start a selected agent from an event or schedule; they are intake mechanisms, not a replacement for foreman coordination. See [connect your factory](./connect-your-factory) for intake options.
+The five default roles aren't a ceiling. Add custom agents for narrow jobs such as documentation, security analysis, migrations, or release checks. They don't have to become required steps for every work item.
 
-## Human gates and permissions
+Automations start a chosen agent on a schedule or when an event fires. They're one more way for work to enter your factory; the foreman still coordinates whatever they start. For all the ways to route work into a factory, see [connect your factory](./connect-your-factory).
 
-| Decision or control | Default behavior | Source of enforcement |
+## Human decision points and permissions
+
+| Decision | Default behavior | What enforces it |
 | --- | --- | --- |
-| Requirements and spec approval | The foreman asks humans to clarify ambiguity and approve every specification | Seeded workflow policy that teams can change |
-| Pull request merge | Implementation never merges, and the foreman hands the result to a human | Repository permissions determine who can approve or merge |
-| Runtime access | Each role's environment, managed secrets, and MCP servers follow its effective configuration; built-in harness tools, platform-issued runtime credentials, provider permissions, and network access follow separate controls | Platform configuration and provider permissions |
+| Spec approval | The foreman asks a human to clarify ambiguity and approve every spec | Workflow policy in the foreman's instructions, which your team can change |
+| Merging | Agents never merge; the foreman hands the finished pull request to a human | Your repository's permissions decide who can approve and merge |
+| Runtime access | Each agent uses only the environment, secrets, and MCP servers in its configuration | Platform configuration and the permissions of the connected providers |
 
-Warp Factories does not define a factory-specific approver role. Human gates in the seeded workflow are not platform-enforced role-based access control, and instructions do not grant authority beyond configured access.
+A few capabilities sit outside an agent's configuration: built-in harness tools, the runtime credentials the platform issues, provider permissions, and network access are governed by their own controls.
 
-Next, encode role instructions, model and harness choices, and access boundaries with [factory definitions as code](./factory-as-code).
+Treat the approval steps as workflow conventions, not access control. Warp Factories has no special approver role, and nothing written in an agent's instructions grants it access beyond what it's configured with. Real enforcement lives in your repository permissions and platform configuration.
+
+Next, capture your role instructions, model and harness choices, and access boundaries in [factory definitions as code](./factory-as-code).
