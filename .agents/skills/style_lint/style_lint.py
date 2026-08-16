@@ -76,6 +76,13 @@ DEPRECATED_TERMS = [
 # entries whose values are expected to change at a product rename. Stable feature
 # names (AGENT_MODE, WARP_DRIVE, etc.) are intentionally excluded.
 #
+# The bare "Oz" entries do double duty after the 8/18 rename. They no longer
+# only mean "this should have been tokenized" -- a hardcoded "Oz" in prose is
+# now a *stale* product name as well. Both readings want the same fix, so the
+# entries stay. The "Automation Platform" entry is the mirror image: it catches
+# the new name being hardcoded, which would silently miss the 9/15 changes and
+# any later rename.
+#
 # Each entry: (literal_string, var_key, suggestion)
 RENAME_SENSITIVE_VAR_STRINGS: List[Tuple[str, str, str]] = [
     ("Oz CLI",       "WARP_AGENT_CLI",           "{VARS.WARP_AGENT_CLI} in prose or {{WARP_AGENT_CLI}} in frontmatter"),
@@ -85,8 +92,29 @@ RENAME_SENSITIVE_VAR_STRINGS: List[Tuple[str, str, str]] = [
     ("Oz run",       "PLATFORM_RUN",             "{VARS.PLATFORM_RUN} in prose or {{PLATFORM_RUN}} in frontmatter"),
     ("Oz API & SDK", "API_SDK_NAME",             "{VARS.API_SDK_NAME} in prose or {{API_SDK_NAME}} in frontmatter"),
     ("Oz Platform",  "WARP_AUTOMATION_PLATFORM", "{VARS.WARP_AUTOMATION_PLATFORM} in prose or {{WARP_AUTOMATION_PLATFORM}} in frontmatter"),
+    ("Automation Platform", "WARP_AUTOMATION_PLATFORM", "{VARS.WARP_AUTOMATION_PLATFORM} in prose or {{WARP_AUTOMATION_PLATFORM}} in frontmatter"),
     ("Oz",           "WARP_AUTOMATION_PLATFORM", "{VARS.WARP_AUTOMATION_PLATFORM} in prose or {{WARP_AUTOMATION_PLATFORM}} in frontmatter"),
 ]
+
+# Determiner check for WARP_AUTOMATION_PLATFORM. See check_platform_determiner.
+#
+# "Oz" was a proper noun and read correctly bare. "Automation Platform" is a
+# common-noun phrase and needs a definite article in referential positions. The
+# defect is invisible in source -- `The {{WARP_AUTOMATION_PLATFORM}} provides`
+# looks fine in the .mdx and only reads wrong once rendered -- so it needs a
+# lint rule rather than review attention.
+PLATFORM_TOKEN = re.compile(r"\{VARS\.WARP_AUTOMATION_PLATFORM\}|\{\{WARP_AUTOMATION_PLATFORM\}\}")
+PLATFORM_DETERMINER = re.compile(r"\b(the|a|an|its|their|your|our|this|that)\s*(\*\*|\*|\[)?\s*$", re.IGNORECASE)
+# Prepositions that take a noun phrase, so a bare platform name after one reads
+# as a proper noun and is wrong under the new name.
+PLATFORM_PREPOSITIONS = re.compile(
+    r"\b(with|to|in|on|by|from|for|into|across|via|using|of|about|through|within)\s*(\*\*|\*|\[)?\s*$",
+    re.IGNORECASE,
+)
+# Verbs that mark the token as a clause subject.
+PLATFORM_SUBJECT_VERBS = re.compile(
+    r"^\s*(\*\*|\*)?\s*(is|are|was|were|can|will|provides|gives|uses|reads|detects|supports|posts|runs|orchestrates|handles|manages|creates|lets|exposes|routes|tracks)\b"
+)
 
 # Oz terms to avoid (case-insensitive patterns)
 OZ_TERMS_TO_AVOID = [
@@ -955,6 +983,76 @@ def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
     return issues
 
 
+def check_platform_determiner(lines: List[str], filepath: str) -> List[Issue]:
+    """Flag {VARS.WARP_AUTOMATION_PLATFORM} used referentially without an article.
+
+    "Oz" was a proper noun and read correctly bare: "with Oz", "Oz provides",
+    "Oz's backend". "Automation Platform" is a common-noun phrase, so the same
+    positions need a definite article: "with the ...", "The ... provides",
+    "the ...'s backend".
+
+    This is worth a lint rule rather than review attention because the defect is
+    invisible in the source file. `The {{WARP_AUTOMATION_PLATFORM}} provides`
+    looks correct in the .mdx and only reads wrong once the variable is
+    substituted at build time.
+
+    Only high-confidence positions are flagged, so that attributive uses stay
+    quiet:
+      * possessive   -- token followed by 's
+      * prepositional -- token directly after "with", "to", "in", and friends
+      * subject      -- token directly before a finite verb
+
+    Deliberately NOT flagged, because bare is correct there:
+      * attributive compounds  -- "{{...}} settings", "{{...}}-hosted"
+      * frontmatter title/label values -- "{{...}} overview"
+      * bold term leads in definition lists -- "* **{VARS....}** - ..."
+    """
+    issues = []
+    in_code_block = False
+    in_frontmatter = False
+    for i, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if i == 1 and stripped == "---":
+            in_frontmatter = True
+            continue
+        if in_frontmatter:
+            if stripped == "---":
+                in_frontmatter = False
+            continue
+        if stripped.startswith("```"):
+            in_code_block = not in_code_block
+            continue
+        if in_code_block or not PLATFORM_TOKEN.search(line):
+            continue
+        for m in PLATFORM_TOKEN.finditer(line):
+            before = line[:m.start()]
+            after = line[m.end():]
+            if PLATFORM_DETERMINER.search(before):
+                continue
+            if after[:1] == "-":  # attributive compound, e.g. "{{...}}-hosted"
+                continue
+            if re.match(r"^\s*[*-]\s+\*\*\s*$", before):  # bold term lead
+                continue
+
+            if after.startswith("'s") or after.startswith("\u2019s"):
+                position = "possessive"
+            elif PLATFORM_PREPOSITIONS.search(before):
+                position = "after a preposition"
+            elif PLATFORM_SUBJECT_VERBS.match(after):
+                position = "as a clause subject"
+            else:
+                continue
+
+            issues.append(Issue(
+                filepath, i, "platform-determiner",
+                f"{{VARS.WARP_AUTOMATION_PLATFORM}} used {position} without a "
+                f"determiner. The value is a common-noun phrase, so this renders "
+                f'as e.g. "with Automation Platform". Add "the" before it.',
+                "warning",
+            ))
+    return issues
+
+
 # Cache glossary terms once at module level
 _glossary_cache: Optional[set] = None
 
@@ -984,6 +1082,7 @@ def run_all_checks(filepath: Path) -> List[Issue]:
     issues.extend(check_oz_terms(lines, str(filepath)))
     issues.extend(check_deprecated_terms(lines, str(filepath)))
     issues.extend(check_hardcoded_vars(lines, str(filepath)))
+    issues.extend(check_platform_determiner(lines, str(filepath)))
     issues.extend(check_unrecognized_terms(lines, str(filepath), _get_glossary()))
     return issues
 

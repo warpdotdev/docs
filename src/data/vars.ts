@@ -7,14 +7,26 @@
 // Use the future/conceptual name as the key; the value holds the current string.
 
 export const VARS = {
-  // Platform — keys named for upcoming Warp branding; values are current Oz names
-  WARP_AUTOMATION_PLATFORM: "Oz",             // value → "Warp Automation Platform" at rename (PENDING final naming confirmation from ZL)
-  WARP_AGENT_CLI:           "Oz CLI",         // value → "Warp Agent CLI" at rename
-  WEB_APP:                  "Oz web app",     // legacy Oz v1 webapp (oz.warp.dev) — stays unrenamed through 9/15
-  WEB_APP_URL:              "https://oz.warp.dev", // value → "https://app.warp.dev" at rename
-  DASHBOARD:                "Oz dashboard",   // future name TBD
-  PLATFORM_RUN:             "Oz run",         // future name TBD
-  API_SDK_NAME:             "Oz API & SDK",   // value → "Warp API & SDK" at rename
+  // Platform — renamed 8/18. The remaining Oz-valued keys below are the
+  // deliberate 9/15 holdouts: the `oz` binary and the Oz v1 webapp keep their
+  // names until that date, so they are NOT stale, they are pending.
+  //
+  // IMPORTANT: "Automation Platform" is a common-noun phrase, not a proper
+  // noun like "Oz" was. Referential uses need a definite article in the prose
+  // ("with the {VARS.WARP_AUTOMATION_PLATFORM}", "The {VARS.…} provides");
+  // attributive uses do not ("{{…}} settings", "{{…}}-hosted"). style_lint
+  // enforces this. Do not add a bare referential use.
+  WARP_AUTOMATION_PLATFORM: "Automation Platform",
+  WARP_AGENT_CLI:           "Oz CLI",         // the `oz` binary — holds until 9/15, then "Warp Agent CLI"
+  WEB_APP:                  "Oz web app",     // legacy Oz v1 webapp (oz.warp.dev) — holds until 9/15
+  WEB_APP_URL:              "https://oz.warp.dev", // holds until 9/15, then "https://app.warp.dev"
+  // DASHBOARD and PLATFORM_RUN intentionally held at their Oz values through
+  // 9/15 rather than flipped with the platform name. Both name surfaces of the
+  // Oz v1 webapp, which keeps its name until then, so flipping them now would
+  // make the docs disagree with what the reader sees on screen.
+  DASHBOARD:                "Oz dashboard",
+  PLATFORM_RUN:             "Oz run",
+  API_SDK_NAME:             "Oz API & SDK",   // holds until 9/15, then "Warp API & SDK"
 
   // Warp Factories web app — a net-new product surface at platform.warp.dev
   // (soft launch ~2026-08-18), separate from the legacy Oz v1 webapp above.

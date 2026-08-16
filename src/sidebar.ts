@@ -26,7 +26,12 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Getting started',
 					items: [
-						{ label: 'Getting started with Warp and Oz', link: '/' },
+						// Shortened at the 8/18 rename. This label duplicates index.mdx's
+						// frontmatter title, which IS tokenized, so the two would have
+						// disagreed once the variable flipped. "Getting started with Warp
+						// and the Automation Platform" is too long for a sidebar row, and
+						// Warp is the umbrella product anyway. Keep both in sync.
+						{ label: 'Getting started with Warp', link: '/' },
 						{ slug: 'quickstart', label: 'Warp quickstart' },
 						'getting-started/quickstart/installation-and-setup',
 						'getting-started/quickstart/coding-in-warp',
@@ -455,7 +460,11 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								// Labeled to match the page title, 'Cloud agent session sharing'.
 								{ slug: 'platform/viewing-cloud-agent-runs', label: 'Session sharing' },
 								{ slug: 'platform/managing-cloud-agents', label: 'Managing cloud agents' },
-								{ slug: 'platform/oz-web-app', label: 'Oz web app' },
+								// Tokenized, not renamed: WEB_APP holds its "Oz web app" value
+								// until 9/15, so this renders identically today. Tokenizing now
+								// means the 9/15 flip reaches the sidebar, which the Vite
+								// transform does not process.
+								{ slug: 'platform/oz-web-app', label: VARS.WEB_APP },
 							],
 						},
 						{
@@ -597,7 +606,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'API & SDK',
 					items: [
-						{ slug: 'reference/api-and-sdk', label: 'Oz API & SDK' },
+						{ slug: 'reference/api-and-sdk', label: VARS.API_SDK_NAME },
 						{ slug: 'reference/api-and-sdk/quickstart', label: 'Quickstart' },
 						// API Reference link moved to the top-level 'Technical Reference'
 						// group above for discoverability -- not duplicated here.
