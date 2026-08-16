@@ -18,7 +18,7 @@ Installing the app grants the Slack permissions shown on the authorization scree
 
 ## Connect the factory
 
-If you select Slack while creating a factory, Warp tries to install the factory's Slack app automatically once the factory is created. If the installation can't complete (for example, because your workspace requires administrator approval), the factory is still created. Click **Add to Slack** to finish connecting.
+If you select Slack while creating a factory, Warp installs the factory's Slack app automatically. If the installation can't complete (for example, because your workspace requires administrator approval), click **Add to Slack** to finish connecting.
 
 1. In factory setup, go to **Add your Factory to your team**.
 2. In the **Slack** row, click **Add to Slack**.
@@ -47,16 +47,16 @@ To start work with a mention or direct message, your Slack account must be linke
 
 Automations don't run as a requester: they run as the factory agent selected under **Agents**. An automation's conversation and author filters only decide which events start work; they don't change what the Slack app is authorized to access or the credentials the work runs with.
 
-## Configure Slack automations
+## Configure factory automations for Slack
 
-Use an automation to start work from Slack activity automatically, without anyone mentioning the app. For example, an automation can act on every message posted in a triage channel or on a specific emoji reaction.
+Use a factory automation to start work from Slack activity automatically, without anyone mentioning the app. For example, an automation can act on every message posted in a triage channel or on a specific emoji reaction.
 
 1. In the factory's control room, open **Automations**, then create or edit an automation.
 2. Under **Triggers**, click **Add trigger** > **Slack**, then choose an event.
 3. Select the conversations and people that the event must match. Click **More filters** to add the event's available content filters.
 4. Choose the receiving agent under **Agents**, add any **Additional instructions**, then click **Save**.
 
-Slack automations support these events:
+Slack triggers support these events:
 
 - **App mentioned** - Filter by joined conversations, authors, and keywords.
 - **Direct message received** - Filter by direct-message conversations, authors, and keywords.
@@ -66,7 +66,7 @@ Slack automations support these events:
 
 The **Conversations** picker only shows conversations the factory's app has joined. If a channel is missing, invite the app to it; for direct messages, send the app a DM first. Then refresh the automation editor.
 
-Avoid pointing **App mentioned** and **Message posted in channel** triggers at the same conversations. A channel message that mentions the app matches both triggers and starts two runs.
+A single Slack message can match more than one automation. For example, if one automation triggers on **App mentioned** and another triggers on **Message posted in channel** in the same channel, a channel message that mentions the app starts two separate runs, one for each automation. To avoid duplicate runs, don't point both triggers at the same channel.
 
 ## Follow work and review outputs
 
