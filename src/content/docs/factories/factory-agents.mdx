@@ -62,18 +62,22 @@ Each default agent also has its own [Auto-memory store](../agents/agent-memory).
 
 ## Configure agent behavior
 
-You configure each agent in two places:
+Use the agent editor in the control room to change an agent's description, model, runner, host, MCP servers, secrets, and instructions.
 
-* **In the control room** - Use the agent editor to set an agent's description, model, runner, host, MCP servers, secrets, and instructions.
-* **In your factory definitions** - Set the harness, environment, and credential strategy in code.
+You can also manage the whole factory as version-controlled code, with [factory definition files](./factory-as-code) in a Git repository, where changes get the same review, history, and rollback as any other code. A few agent settings can only be set in the files: harness, environment, and credential strategy. Where the repository lives determines how the two editing paths work together:
 
-Agent configuration can also be stored as version-controlled code: role instructions, model and harness choices, and access boundaries all live in a repo, where changes are reviewed like any other change and are easy to roll back. See [factory definitions as code](./factory-as-code) for how to set this up.
+* **Warp-managed repository** - Edit agents in the agent editor, or edit the definition files directly in the control room's **Code** tab, whichever fits the change. Both write to the same files, so the editor and the code always agree.
+* **A GitHub repository your team owns** - The files are the only way to change the factory. Edits go through pull requests, and the file-owned settings in the control room are read-only.
 
-Factory setup doesn't choose models for you. To change the model a role uses, edit that agent in the control room.
+Factory setup doesn't choose models for you. To change the model a role uses, edit that agent.
 
 ## Choose models and harnesses by role
 
 Each role can run on its own model and harness. Supported harnesses include the Warp Agent harness, Claude Code, and Codex, and any role can use any of them. A foreman running on Claude Code or Codex can still dispatch the factory's other agents, and the runs it starts are still tracked as its children.
+
+:::note
+Third-party harnesses require a Build plan or higher. On the Free plan, every role runs on the Warp Agent harness. See [Warp pricing](https://www.warp.dev/pricing) for what each plan includes.
+:::
 
 Default model IDs change over time, so choose based on what each role has to do well:
 
@@ -89,7 +93,7 @@ See [model choice for agents](../agents/inference/model-choice) and [harnesses f
 
 ## Add custom agents and automations
 
-The five default roles aren't a ceiling. Add custom agents for narrow jobs such as documentation, security analysis, migrations, or release checks. They don't have to become required steps for every work item.
+Add custom agents for jobs the default roles don't handle, such as documentation, security analysis, migrations, or release checks. A custom agent doesn't have to be a required step for every work item.
 
 Automations start a chosen agent on a schedule or when an event fires. They're one more way for work to enter your factory; the foreman still coordinates whatever they start. For all the ways to route work into a factory, see [connect your factory](./connect-your-factory).
 
