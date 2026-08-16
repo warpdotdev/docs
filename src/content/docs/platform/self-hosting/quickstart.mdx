@@ -11,7 +11,7 @@ import { VARS } from '@data/vars';
 Run your first cloud agent on your own infrastructure in ~10 minutes using the managed architecture with the Docker backend — the default and fastest path to self-hosting.
 
 :::note
-This quickstart sets up the [managed architecture](/platform/self-hosting/#managed-architecture), where {VARS.WARP_AUTOMATION_PLATFORM} orchestrates the agent and your worker provides the compute. **Prefer a CLI-only path with no Docker requirement?** Jump to the [Unmanaged quickstart](/platform/self-hosting/unmanaged/#unmanaged-quickstart) to run `oz agent run` directly on any host.
+This quickstart sets up the [managed architecture](/platform/self-hosting/#managed-architecture), where the {VARS.WARP_AUTOMATION_PLATFORM} orchestrates the agent and your worker provides the compute. **Prefer a CLI-only path with no Docker requirement?** Jump to the [Unmanaged quickstart](/platform/self-hosting/unmanaged/#unmanaged-quickstart) to run `oz agent run` directly on any host.
 :::
 
 ---
@@ -20,7 +20,7 @@ This quickstart sets up the [managed architecture](/platform/self-hosting/#manag
 
 * **Enterprise plan with self-hosting enabled** — [Contact sales](https://www.warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
 * **A Linux machine with Docker** — A VM, server, or local machine with the Docker daemon running Linux containers. Verify with `docker info`. Docker Desktop on macOS or Windows works for testing.
-* **An agent API key** — Create one in the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP}</a> so the worker can authenticate to {VARS.WARP_AUTOMATION_PLATFORM}. You can bind the key to any cloud agent — that choice doesn't restrict which agents can run on the worker. See [API Keys](/reference/cli/api-keys/) for the full creation flow.
+* **An agent API key** — Create one in the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP}</a> so the worker can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}. You can bind the key to any cloud agent — that choice doesn't restrict which agents can run on the worker. See [API Keys](/reference/cli/api-keys/) for the full creation flow.
 * **The {VARS.WARP_AGENT_CLI}** (for routing a test run) — See [Installing the CLI](/reference/cli/#installing-the-cli).
 
 ---
@@ -31,7 +31,7 @@ _~10 minutes_
 
 ### 1. Export your API key
 
-Export the agent API key so the worker container can authenticate to {VARS.WARP_AUTOMATION_PLATFORM} automatically:
+Export the agent API key so the worker container can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM} automatically:
 
 ```bash
 export WARP_API_KEY="your_agent_api_key"
@@ -47,7 +47,7 @@ docker run -v /var/run/docker.sock:/var/run/docker.sock \
   warpdotdev/oz-agent-worker --worker-id "my-worker"
 ```
 
-**Expected outcome:** The worker connects to {VARS.WARP_AUTOMATION_PLATFORM} and begins listening for tasks. You should see log output confirming the connection (something like `Connected to Oz` / `Waiting for tasks`).
+**Expected outcome:** The worker connects to the {VARS.WARP_AUTOMATION_PLATFORM} and begins listening for tasks. You should see log output confirming the connection (something like `Connected to Oz` / `Waiting for tasks`).
 
 :::caution
 For production deployments, pin to a specific image digest (e.g., `warpdotdev/oz-agent-worker@sha256:...`) instead of the `latest` tag.
@@ -61,7 +61,7 @@ In a separate terminal on any machine with the {VARS.WARP_AGENT_CLI}, route a cl
 oz agent run-cloud --prompt "List the files in the current directory" --host "my-worker"
 ```
 
-**Expected outcome:** {VARS.WARP_AUTOMATION_PLATFORM} accepts the task, routes it to your worker, and the worker spawns a Docker container to execute the agent. You'll see the run appear in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a> with status moving from `QUEUED` → `INPROGRESS` → `SUCCEEDED`.
+**Expected outcome:** The {VARS.WARP_AUTOMATION_PLATFORM} accepts the task, routes it to your worker, and the worker spawns a Docker container to execute the agent. You'll see the run appear in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a> with status moving from `QUEUED` → `INPROGRESS` → `SUCCEEDED`.
 
 ### 4. Verify the run
 
