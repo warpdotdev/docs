@@ -83,11 +83,6 @@
       "sub_sections": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
-    "MCP Servers": {
-      "display_name": "MCP Servers",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mcp_servers_page.rs"
-    },
     "Billing and usage": {
       "display_name": "Billing and usage",
       "sub_sections": [],
@@ -168,30 +163,6 @@
       ],
       "source_file": "app/src/settings_view/warpify_page.rs"
     },
-    "AI": {
-      "display_name": "AI",
-      "sub_sections": [
-        "Usage",
-        "Active AI",
-        "Agents",
-        "Profiles",
-        "Input",
-        "MCP Servers",
-        "Knowledge",
-        "Voice",
-        "Other",
-        "Third party CLI agents",
-        "Agent Attribution",
-        "Experimental",
-        "Cloud Handoff",
-        "Custom Inference",
-        "API Keys",
-        "AWS Bedrock",
-        "Gemini Enterprise",
-        "Custom Routers"
-      ],
-      "source_file": "app/src/settings_view/ai_page.rs"
-    },
     "Warp Agent": {
       "display_name": "Warp Agent",
       "sub_sections": [
@@ -240,14 +211,6 @@
       "sub_sections": [],
       "source_file": "app/src/settings_view/ai_page.rs",
       "umbrella": "Agents"
-    },
-    "Code": {
-      "display_name": "Code",
-      "sub_sections": [
-        "Codebase Indexing",
-        "Code Editor and Review"
-      ],
-      "source_file": "app/src/settings_view/code_page.rs"
     },
     "Indexing and projects": {
       "display_name": "Indexing and projects",
@@ -1554,5 +1517,5 @@
       "description": "Toggle Maximize Code Review Panel"
     }
   ],
-  "generated_at": "2026-08-12T00:53:01.810914+00:00"
+  "generated_at": "2026-08-16T19:34:16.551946+00:00"
 }
