@@ -1,24 +1,24 @@
 ---
 title: Connect a factory to Slack
 description: >-
-  Connect a factory to Slack so mentions, direct messages, and automation
-  events create work and return results to the source conversation.
+  Connect a factory to Slack so your team can start work with mentions,
+  direct messages, and automations, and get results back in the same thread.
 sidebar:
   label: "Slack"
 topic: factories
 ---
 
-Connect a factory to Slack so conversations become work in a dedicated app that preserves source-thread context and posts results back.
+Connect a factory to Slack so your team can send it work without leaving their conversations. Each factory gets its own dedicated Slack app: mention the app in a channel or send it a direct message, and the factory picks up the request with the conversation as context, then posts progress and results back into the same thread. You can also set up automations that start work from Slack events without a mention.
 
 ## Prerequisites and authorization
 
 You need permission to update the factory and install apps in the target Slack workspace. Workspace policy can require administrator approval.
 
-Installation grants the Slack access shown during authorization. Automation filters route received events; they do not reduce app permissions. For workspace installation and removal behavior, see the [Slack platform integration](../../platform/integrations/slack).
+Installing the app grants the Slack permissions shown on the authorization screen. Filters on automations only control which events start work; they don't limit what the app can access. For workspace-level installation and removal behavior, see the [Slack platform integration](../../platform/integrations/slack).
 
 ## Connect the factory
 
-When you connect Slack during factory creation, Warp attempts to install the dedicated app after creation when the required user and workspace authorization are available. If installation cannot complete, factory creation still succeeds; use **Add to Slack** to finish setup.
+If you select Slack while creating a factory, Warp tries to install the factory's Slack app automatically once the factory is created. If the installation can't complete (for example, because your workspace requires administrator approval), the factory is still created. Click **Add to Slack** to finish connecting.
 
 1. In factory setup, go to **Add your Factory to your team**.
 2. In the **Slack** row, click **Add to Slack**.
@@ -26,28 +26,28 @@ When you connect Slack during factory creation, Warp attempts to install the ded
 4. Return to factory setup and confirm that **Slack** shows **Connected**.
 5. Invite the factory's app to each channel where it will receive requests. Private channels require an invitation.
 
-Mention the app in a channel or send it a direct message. An eyes reaction acknowledges accepted requests.
+To try it out, mention the app in a channel or send it a direct message. The app reacts with the eyes emoji (👀) to show it accepted the request.
 
-## Slack intake and continuity
+## Start and continue work from Slack
 
 | Slack activity                         | Context used by the factory                                             | Slack output                                                                           |
 | -------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| Mention the app in a channel or thread | Triggering message, available thread history, and supported attachments | Acknowledgment, status, final summary, and available run, issue, or pull request links |
-| Send the app a direct message          | Direct-message conversation and supported attachments                   | Acknowledgment, status, and available artifact links                                   |
-| Reply in an existing factory thread    | Existing work item and the new reply                                    | A follow-up on the same workstream rather than a new work item                         |
-| Match a Slack automation               | Event details plus the automation's agent and instructions              | A configured factory run with results returned to the source when supported            |
+| Mention the app in a channel or thread | The triggering message, available thread history, and supported attachments | An acknowledgment, progress updates, a final summary, and links to the run, issue, or pull request when available |
+| Send the app a direct message          | The direct-message conversation and supported attachments                   | An acknowledgment, progress updates, and links to results when available               |
+| Reply in an existing factory thread    | The existing work item and your reply                                       | A follow-up on the existing work item instead of new work                              |
+| Slack activity matches an automation   | The event details plus the automation's agent and instructions              | A factory run, with results posted back to the source conversation when supported      |
 
-A plain thread reply continues work only after the thread has an existing factory work item. Start a new channel request by mentioning the app. When Slack files are supported, the factory includes them with the initial request or follow-up; files that cannot be included do not prevent the text request from continuing.
+A plain reply in a thread continues work only if that thread already has a factory work item; to start new work in a channel, mention the app. You can attach files to a request or a follow-up. The factory includes the files it supports, and a file it can't include doesn't stop the text of your request from going through.
 
-## Requester and execution identity
+## Who can start work
 
-People who start work through a mention or direct message must link their Slack identity to an active member of the factory's Warp team. Without that link, the app prompts the requester to connect an account instead of starting work.
+To start work with a mention or direct message, your Slack account must be linked to an active member of the factory's Warp team. If it isn't, the app prompts you to connect an account instead of starting work.
 
-Background event automations run as the factory agent selected under **Agents**. Conversation and author filters admit matching events; they do not change the Slack app's authorization or execution credential scope.
+Automations don't run as a requester: they run as the factory agent selected under **Agents**. An automation's conversation and author filters only decide which events start work; they don't change what the Slack app is authorized to access or the credentials the work runs with.
 
 ## Configure Slack automations
 
-Use an automation when Slack activity must start work without someone explicitly mentioning the app.
+Use an automation to start work from Slack activity automatically, without anyone mentioning the app. For example, an automation can act on every message posted in a triage channel or on a specific emoji reaction.
 
 1. In the factory's control room, open **Automations**, then create or edit an automation.
 2. Under **Triggers**, click **Add trigger** > **Slack**, then choose an event.
@@ -62,23 +62,23 @@ Slack automations support these events:
 - **Reaction added** - Filter by conversations, reactors, keywords, emoji, and reacted-message authors.
 - **Member joined channel** - Filter by conversations and members.
 
-Only conversations the factory's app has joined appear in the **Conversations** picker. Invite the app to a missing channel, or message it to establish a direct-message conversation, then refresh the automation editor.
+The **Conversations** picker only shows conversations the factory's app has joined. If a channel is missing, invite the app to it; for direct messages, send the app a DM first. Then refresh the automation editor.
 
-Avoid overlapping **App mentioned** and **Message posted in channel** triggers for the same conversations. A mentioned channel message can match both triggers and start two runs.
+Avoid pointing **App mentioned** and **Message posted in channel** triggers at the same conversations. A channel message that mentions the app matches both triggers and starts two runs.
 
 ## Follow work and review outputs
 
-The Slack thread remains the continuity point for the work item. Reply in the thread to add information or supported attachments while work is active or to continue the same workstream later. The factory posts progress and the final response into that thread.
+The Slack thread where work started is also where you follow it: the factory posts progress and the final response there. Reply in the thread to add information or attachments while work is active, or to pick the same work item back up later.
 
-Open the app's **Home** tab to view your factory tasks. App Home groups tasks by Factory task stage — Triage, Planning, Building, Reviewing, Completed, and Cancelled — and supports stage and date filters. Each task links back to the Slack thread, factory run, issue, or pull request when the link is available.
+For an overview of your factory tasks, open the app's **Home** tab in Slack. It groups tasks by stage (Triage, Planning, Building, Reviewing, Completed, and Cancelled), offers stage and date filters, and links each task back to its Slack thread, factory run, issue, or pull request when available.
 
-A factory can create an issue, branch, or pull request, but repository policy still controls review and merge. Slack installation permissions and factory routing do not replace required human review.
+A factory can create issues, branches, and pull requests, but your repository's review and merge rules still apply. Work that starts in Slack doesn't bypass required human review.
 
 ## Troubleshooting and reconnection
 
-- **The app does not acknowledge a request** - Confirm the Slack row shows **Connected**, mention the correct factory app, and invite it to the channel.
+- **The app doesn't acknowledge a request** - Confirm the **Slack** row in factory setup shows **Connected**, check that you mentioned that factory's app, and invite the app to the channel.
 - **A channel is missing from an automation** - Invite the app to that channel, then reload the **Conversations** picker.
 - **Installation is pending** - Ask a Slack workspace administrator to approve the app, then finish the installation.
 - **Two runs start for one mention** - Remove or narrow overlapping app-mention and channel-message triggers.
 
-Removing the app in Slack stops new Slack intake for that factory. Return to factory setup and use **Add to Slack** to reconnect it. Deleting the factory also removes its dedicated Slack connection. Next, review other intake paths in [Connect your factory](../connect-your-factory).
+Removing the app from your Slack workspace stops new requests from Slack for that factory; to reconnect it, return to factory setup and click **Add to Slack** again. Deleting the factory also removes its Slack connection. To route work into the factory from other tools, see [Connect your factory](../connect-your-factory).
