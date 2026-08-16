@@ -1,21 +1,21 @@
 ---
 title: Connect Jira to your factory
 description: >-
-  Connect Jira Cloud to a factory so work items assigned to Warp in Rovo start
-  factory runs and return results in Jira.
+  Connect Jira Cloud to a factory so work items assigned to Warp start factory
+  runs and return results in Jira.
 sidebar:
   label: Jira
 topic: factories
 ---
 
-Connect Jira Cloud to your factory so your team can start factory work without leaving Jira. When someone assigns or mentions **Warp** on a work item, Jira starts a Rovo agent session, a factory automation routes the request to the agent you chose, and the same session shows progress and the final result.
+Connect Jira Cloud to your factory so your team can start factory work without leaving Jira. When someone assigns or mentions **Warp** on a work item, Jira starts an agent session, a factory automation routes the request to the agent you chose, and the same session shows progress and the final result.
 
 ## Prerequisites
 
 * **Jira Cloud** - The integration supports Jira Cloud only, not Jira Server or Data Center.
 * **A Jira site admin** - Installing the Warp app on a Jira site and connecting it to a Warp workspace requires site admin permissions.
 * **A factory** - You need a factory in the connected workspace and permission to edit its [definition](../factory-as-code).
-* **Rovo access** - The **Warp** agent must be available on your Jira site so people can assign or mention it on work items.
+* **The Warp agent in Jira** - The **Warp** agent must be available on your Jira site so people can assign or mention it on work items. Jira lists it among Atlassian's Rovo agents.
 
 ## Connect Jira and add an automation
 
@@ -61,14 +61,14 @@ Filters decide which sessions start runs; they don't limit access. The Warp app'
 
 The agent starts with the assignment text and the work item it came from. When the factory declares Jira as an integration, the agent can also read the work item's details, comments, and available workflow transitions.
 
-Jira shows the task's status as it progresses: submitted, working, waiting for input, completed, failed, or canceled. Replies in the same Rovo session continue the same run, even after the agent finishes a turn, so you can answer questions or add direction mid-task. A new session on the same work item starts a separate run.
+Jira shows the task's status as it progresses: submitted, working, waiting for input, completed, failed, or canceled. Replies in the same agent session continue the same run, even after the agent finishes a turn, so you can answer questions or add direction mid-task. A new session on the same work item starts a separate run.
 
-When the run finishes, the agent posts its result in the Rovo session. It doesn't comment on the work item unless you ask it to. The agent can act in Jira when asked: update the work item, post or edit comments, change workflow status, add or remove labels, or reassign it. State the actions you want in the automation instructions or the assignment; Jira permissions and valid workflow transitions apply to everything the agent does.
+When the run finishes, the result appears in the agent session. The agent doesn't comment on the work item unless you ask it to. The agent can act in Jira when asked: update the work item, post or edit comments, change workflow status, add or remove labels, or reassign it. State the actions you want in the automation instructions or the assignment; Jira permissions and valid workflow transitions apply to everything the agent does.
 
 ## Permissions and reliability
 
 * **Runs act as the factory agent** - A run executes as the agent selected by the automation, not as the Jira user who started the session.
-* **Repeated deliveries don't repeat runs** - Atlassian occasionally redelivers a Rovo message, and Warp treats redelivered copies as one request. Prefer instructions that check state before writing anyway, such as looking for an existing comment or label before adding one.
+* **Repeated deliveries don't repeat runs** - Jira occasionally delivers the same message more than once, and Warp treats the copies as one request. Prefer instructions that check state before writing anyway, such as looking for an existing comment or label before adding one.
 * **Code changes follow repository policy** - The Jira connection doesn't grant code access. Pull request review and merge requirements come from your repositories and factory workflow.
 
 ## Troubleshooting
