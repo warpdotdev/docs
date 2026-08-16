@@ -1,95 +1,129 @@
 ---
 title: Warp Factories infrastructure and security
 description: >-
-  Warp Factories separate control and execution planes so teams can choose
-  hosting, inference, storage, secret, and governance controls.
+  Choose where your factory runs code, which models serve its requests, and
+  what each of its agents is allowed to reach.
 sidebar:
   label: "Infrastructure & security"
 ---
 
-Warp Factories separate coordination from execution. Your team can choose where a factory runs code, which supported providers serve model requests, where supported factory data is stored, and which credentials each agent receives. Available controls depend on your team's configuration and agreement with Warp.
+Warp Factories separates orchestration from execution: Warp coordinates the work, and the work itself runs on compute you choose. That split is what lets your team decide where a factory's code is checked out and built, which models answer its requests, where its data is stored, and what each agent can access.
 
-## Control plane and execution plane
+:::note[Early access]
+Warp Factories is in Early Access. Several controls on this page — self-hosted execution, team-supplied inference, and storage in your own cloud account — are Enterprise features that Warp enables for your team. [Contact sales](https://www.warp.dev/contact-sales) to confirm what's available on your plan.
+:::
 
-* **Control plane** - Warp coordinates runs, identity and configuration, observability, integrations, storage, and inference routing.
-* **Execution plane** - A Warp-hosted sandbox or managed self-hosted worker checks out code, runs setup, invokes tools, builds the project, and executes commands.
+## Orchestration and execution
+
+Two systems take part in every run:
+
+* **Warp's control plane** - Receives triggers, coordinates runs, resolves configuration and identity, records observability data, and routes model requests.
+* **The execution host** - Checks out repositories, runs setup commands, invokes tools, builds the project, and runs commands. This is either a Warp-hosted sandbox or a self-hosted worker on your own infrastructure.
 
 ```mermaid
 flowchart LR
-  I["Integrations and triggers"] --> C["Warp control plane<br/>coordination · identity/config<br/>observability · inference routing"]
-  C --> H["Warp-hosted sandbox"]
-  C -->|"task, config, and scoped<br/>runtime credentials"| S["Managed self-hosted worker"]
+  T["Triggers and integrations"] --> C["Warp control plane"]
+  C -->|"task, config,<br/>scoped credentials"| H["Warp-hosted sandbox"]
+  C -->|"task, config,<br/>scoped credentials"| S["Self-hosted worker"]
   H -->|"results, transcripts,<br/>artifacts, telemetry"| C
-  S -->|"results, transcripts, attachments,<br/>artifacts, and telemetry<br/>can contain code context"| C
-  C --> P["Warp-managed or<br/>customer-configured inference"]
-  C --> D["Warp or supported<br/>customer-owned storage"]
+  S -->|"results, transcripts,<br/>artifacts, telemetry"| C
+  C --> P["Warp-managed or<br/>team-supplied inference"]
+  C --> D["Warp or your own<br/>cloud storage"]
 ```
 
-Managed self-hosting changes the execution boundary; it does not remove Warp from orchestration. On managed self-hosted compute, the repository checkout, command execution, and sandbox filesystem stay on customer infrastructure. Content included in prompts, results, transcripts, attachments, artifacts, or telemetry can still flow through Warp and configured providers. Customer-owned provider and storage options change their corresponding paths, not the existence of the control plane. See [deployment patterns](../platform/deployment-patterns) and [self-hosting security and networking](../platform/self-hosting/security-and-networking) for the broader data model.
+Each choice on this page moves one boundary between them, and you make those choices independently. None of them takes Warp out of orchestration: run coordination, configuration, and observability always route through the control plane.
+
+---
+
+## Where your factory runs
+
+A factory executes either on Warp-hosted compute or on a self-hosted worker your team operates.
+
+| Aspect | **Warp-hosted** | **Self-hosted** |
+| --- | --- | --- |
+| **Compute provisioning** | Warp provisions the sandbox | Your team provisions the worker |
+| **Checkout and commands** | Run on Warp-managed compute | Run on your infrastructure |
+| **Run orchestration** | Warp | Warp |
+| **Network access** | Warp manages sandbox connectivity | Outbound connection to Warp; no inbound ports |
+| **Private services** | Must be reachable from the hosted sandbox | Reachable through the worker's network |
+| **Operational burden** | Warp manages capacity and lifecycle | Your team manages capacity, isolation, updates, and availability |
+
+Self-hosted execution is an Enterprise feature, and workers run on Linux (`amd64` or `arm64`). To route a factory to one, set `workerHost` in the [factory definition](/factories/factory-as-code/), pair it with a compatible runner, and work through the [self-hosting requirements](/platform/self-hosting/) first.
+
+:::caution
+Self-hosting gives you customer-hosted **execution**, not a guarantee that factory data stays inside your network. Repository clones, command execution, and the sandbox filesystem stay on your infrastructure, but code context still reaches Warp and your model provider through prompts, transcripts, artifacts, and telemetry, because that's how an agent does its job. See [self-hosting security and networking](/platform/self-hosting/security-and-networking/) for the full data boundary.
+:::
+
+Third-party CLI agents can't be a factory's execution host, but they can still exchange work with a factory through [Factory MCP](/factories/factory-mcp/).
+
+---
 
 ## Environments and runners
 
-| Configuration | Defines | Typical contents |
-| --- | --- | --- |
-| **Environment** | Workspace and runtime context | Repositories, setup, secrets, toolchain image, and provider configuration |
-| Runner | Execution compute | Operating system, architecture, sandbox image, vCPUs, and memory |
+Two pieces of reusable configuration describe every run, and a factory references both from its [definition as code](/factories/factory-as-code/):
 
-A run can select a runner explicitly. Otherwise, Warp uses the environment's configured execution defaults and ultimately the system default. Use [environments](../platform/environments) to define the workspace and the [runner reference](../platform/runners) for compute and resolution behavior. A factory references both through its [definition as code](./factory-as-code).
+* **[Environments](/platform/environments/)** - What the agent works on: repositories, setup commands, secrets, the toolchain image, and provider configuration.
+* **[Runners](/platform/runners/)** - What it runs on: operating system, architecture, sandbox image, vCPUs, and memory.
 
-In the control room, the [Runners surface](../platform/runners) shows each runner's default status, operating system and architecture, setup commands, and size. For an externally source-managed factory, `runners/*.yaml` remains the source of truth and edits open in the connected repository. With Warp-managed source, authorized users can create and edit runner files in the control room.
+A run can name a runner explicitly. Otherwise, Warp falls back to the environment's default runner and then to the system default. Runners appear in the control room, and when a factory's source lives in your own repository, its runner files stay the source of truth.
 
-Warp-hosted instance shapes are limited by your team's plan. Warp rejects a hosted shape above that limit. Managed self-hosted runners are exempt from the hosted size limit because your team supplies the compute. See the [runner reference](../platform/runners) for configuration details.
+Hosted instance sizes are capped by your team's plan. Self-hosted runners aren't, since your team supplies the machines.
 
-## Choose an execution host
+---
 
-A factory can select Warp-hosted compute or a managed self-hosted worker as its execution host.
+## Inference and storage
 
-| Decision area | Warp-hosted | Managed self-hosted |
-| --- | --- | --- |
-| Compute | Warp provisions the sandbox | Your team provisions the worker |
-| **Checkout and commands** | Run on Warp-managed compute | Run on customer-managed compute |
-| **Control plane** | Runs through Warp | Runs through Warp |
-| Network | Warp manages sandbox connectivity | Outbound connection to Warp; no inbound firewall port |
-| **Private services** | Must be reachable from the hosted sandbox | Uses the worker's network access |
-| Operations | Warp manages capacity and lifecycle | Your team manages capacity, isolation, updates, and availability |
+Factory agents are cloud agents, so they inherit the platform's inference options:
 
-Managed self-hosted execution is available to eligible Enterprise teams. Supported worker implementations include `linux/amd64` and `linux/arm64`; each worker implementation determines workload compatibility. Workers authenticate to Warp with a supported principal. Select a managed self-hosted worker with [`workerHost` in the factory definition](./factory-as-code), use a compatible runner, and review the [self-hosting requirements](../platform/self-hosting/) before routing factory work. Unmanaged and other CLI agents are not selectable factory execution hosts, but they can exchange work with a factory through [Factory MCP](./factory-mcp). Do not treat self-hosting as a guarantee that all factory data stays in your network.
+* **Warp-managed inference** - Warp routes requests to contracted providers under [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements.
+* **Team-supplied inference** - Point runs at your own first-party model credentials, AWS Bedrock, or an OpenAI-compatible endpoint. See [team-managed model keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) and [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/).
 
-## Choose execution, inference, and storage independently
+When your team supplies the provider, model usage and retention follow your own account and contract. Warp has no retention setting for it. Gemini Enterprise through Vertex AI supports interactive sessions only, so it isn't available to factory agents.
 
-| Team choice | Boundary changed | What remains in the Warp path |
-| --- | --- | --- |
-| **Warp-hosted or managed self-hosted execution** | Where checkout, commands, and the sandbox filesystem run | Coordination, configuration, observability, and inference routing |
-| **Warp-managed or customer-supplied inference** | Provider account, model routing, billing, and provider-side retention | Run coordination and inference routing |
-| **Warp or customer-owned storage** | Persistence for supported transcripts, artifacts, and run attachments | Orchestration, the write path, and other factory and control-plane state |
+Eligible teams can also persist transcripts, artifacts, and run attachments to their own Amazon S3 or Google Cloud Storage bucket, where your access and lifecycle policies apply. The rest of a factory's state stays with Warp.
 
-Cloud-agent inference supports team-managed first-party model credentials, AWS Bedrock, and OpenAI-compatible custom endpoints. Gemini Enterprise (Vertex AI) supports interactive sessions only and is not available to cloud agents. Provider-side retention follows your provider account and contract; Warp does not expose a retention toggle for that provider. Review [team-managed model keys and endpoints](../enterprise/enterprise-features/team-managed-keys-and-endpoints), [Bring Your Own LLM](../enterprise/enterprise-features/bring-your-own-llm), and the [security overview](../enterprise/security-and-compliance/security-overview).
+---
 
-Eligible teams can use customer-owned Amazon S3 or Google Cloud Storage for the supported data classes in the table. Warp writes the applicable data to the configured bucket. Your team owns its access and lifecycle policies, but customer-owned storage does not move all factory state into your account.
+## Credentials
 
-## Credential boundaries
+A factory issues four kinds of credentials, each with its own boundary:
 
-| Credential | Where it applies | Boundary |
-| --- | --- | --- |
-| **Inference credentials** | Model provider requests | Remain at the inference boundary and are not injected into the sandbox |
-| **Execution secrets** | APIs, package registries, and tools used by an agent | Explicit per-agent allowlist; non-user factory agents default to no managed secrets |
-| **Harness authentication** | Third-party harnesses such as Claude Code or Codex | Separate from the agent's general secret allowlist |
-| **Repository identity** | Checkout and code-forge changes | User authorization for creator attribution or a team executor identity for unattended work |
+* **Inference credentials** - Authenticate model requests. They stay at the inference boundary and are never injected into the sandbox.
+* **[Execution secrets](/platform/secrets/)** - Give an agent access to APIs, package registries, and tools. Each agent gets an explicit allowlist, and factory agents that don't act on behalf of a user start with no managed secrets.
+* **[Harness authentication](/platform/harnesses/authentication/)** - Authenticates third-party harnesses such as Claude Code and Codex, separately from an agent's secret allowlist.
+* **[Repository identity](/platform/team-access-billing-and-identity/)** - Authorizes checkout and any changes pushed to your code forge. Use a user's authorization when you want creator attribution, or a team executor identity for unattended work.
 
-Restrict each credential to the resources and actions its agent needs. Warp redacts known secret values at output boundaries, but redaction does not replace narrow external permissions or rotation. See [cloud agent secrets](../platform/secrets), [harness authentication](../platform/harnesses/authentication), [secret redaction](../support-and-community/privacy-and-security/secret-redaction), and [team identity](../platform/team-access-billing-and-identity) for the underlying controls.
+Scope each credential to the resources and actions its agent actually needs. Warp [redacts known secret values](/support-and-community/privacy-and-security/secret-redaction/) at output boundaries, but treat that as a backstop rather than a substitute for narrow permissions and regular rotation.
+
+---
 
 ## Governance and metering
 
-Team Owners and Admins control factory definitions, environments, runners, secrets, and provider configuration through existing [team roles](../enterprise/team-management/roles-and-permissions). Warp Factories does not add a factory-specific approval role. Specification review and merge approval remain workflow and repository policy decisions. Review factory-definition changes as operational code and keep merge access with the people responsible for shipping.
+Owners and Admins control factory definitions, environments, runners, secrets, and provider configuration through your existing [team roles](/enterprise/team-management/roles-and-permissions/). Warp Factories doesn't add a factory-specific approval role: spec review and merge approval stay in your workflow and repository policy. Treat a factory definition as operational code and keep merge access with the people responsible for shipping it.
 
-Warp meters hosted compute, Warp-provided inference, and platform services. Your team supplies managed self-hosted compute. Customer-supplied providers bill model usage through the applicable provider account, while platform services can still consume credits. See [platform credits](../support-and-community/plans-and-billing/platform-credits) for the current model.
+Warp meters hosted compute, Warp-provided inference, and platform services. Self-hosted compute is yours to supply, and your own model providers bill usage to your account, but platform services still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/).
+
+---
 
 ## Deployment checklist
 
-1. **Classify the workload** - Identify the repositories, data, internal services, and regulated systems the factory can reach.
-2. **Choose execution** - Decide where checkout, commands, and the sandbox filesystem must run.
-3. **Define environments and runners** - Set repositories, setup, secrets, operating system, architecture, image, and compute.
-4. **Choose inference and storage** - Select provider routing and persistence for supported data.
+Work through this before pointing a factory at production repositories.
+
+1. **Classify the workload** - List the repositories, data, internal services, and regulated systems the factory can reach.
+2. **Pick an execution host** - Decide whether checkout, commands, and the sandbox filesystem have to run on your infrastructure.
+3. **Define the environment and runner** - Set repositories, setup commands, secrets, OS, architecture, image, and compute size.
+4. **Choose inference and storage** - Select model routing and where transcripts, artifacts, and attachments are persisted.
 5. **Scope credentials** - Set each agent's secret allowlist, harness authentication, and repository identity.
-6. **Set human gates** - Define specification and pull request review in workflow and repository policy.
-7. **Validate operations** - Test network egress, isolation, rotation, redaction, capacity, observability, and metering before increasing volume.
+6. **Set the human gates** - Decide which spec and pull request reviews require a person, then enforce them in repository policy.
+7. **Validate before scaling** - Test network egress, isolation, rotation, redaction, capacity, observability, and metering on low-risk work first.
+
+---
+
+## Related pages
+
+* [Deployment patterns](/platform/deployment-patterns/) - How Warp-hosted, self-hosted, and CLI-only execution compare.
+* [Self-hosting](/platform/self-hosting/) - Architectures, requirements, and setup for running agents on your own infrastructure.
+* [Environments](/platform/environments/) - Define the repositories, image, and setup commands a factory works with.
+* [Runners](/platform/runners/) - Configure the OS, architecture, and compute shape a run executes on.
+* [Cloud agent secrets](/platform/secrets/) - Store and scope the credentials agents use at runtime.
+* [Security overview](/enterprise/security-and-compliance/security-overview/) - Warp's data handling, ZDR, and compliance posture.
