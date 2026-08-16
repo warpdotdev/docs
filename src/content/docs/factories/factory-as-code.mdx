@@ -14,7 +14,7 @@ Factory definitions as code let you manage a factory's entire configuration as f
 
 Every factory manages its configuration in one of two ways:
 
-* **Live-managed** - You edit the factory directly in the control room. There are no definition files.
+* **Live-managed** - You edit the factory directly in the [control room](../control-room), the web app for operating a factory. There are no definition files.
 * **File-managed** - Definition files in a Git repository are the source of truth, and the control room reflects them.
 
 A file-managed definition lives in one of two places:
@@ -22,7 +22,7 @@ A file-managed definition lives in one of two places:
 * **GitHub-backed** - A directory you register in a GitHub repository you own. You change the factory the way you change code: open a pull request, pass the validation check, and merge. In the control room, the file-owned settings are read-only and link to the files. An admin can unlink the source to return the factory to live-managed.
 * **Warp-managed** - A repository Warp hosts for you. You edit the files in the control room's **Code** tab, and each save validates, commits, and syncs in one step. The source cannot be unlinked or switched.
 
-A factory can be created in either mode, and a live-managed factory becomes file-managed once you link a definition source. In every mode, operational state stays in the control room; definition files carry configuration only.
+A factory can be created in either mode, and a live-managed factory becomes file-managed once you link a definition source. The mode determines only where you edit configuration. Definition files describe how the factory is set up, not what it is doing: the work items, runs, and metrics the factory produces live in the control room in every mode and are never written to the files.
 
 ## Directory structure
 
@@ -269,4 +269,4 @@ For GitHub-backed sources, every pull request that targets the production branch
 
 ### Warp-managed direct synchronization
 
-For Warp-managed sources, control-room edits commit directly to the Warp-hosted repository, then validate and sync; there is no pull request step. If someone else committed first, Warp reports a conflict instead of overwriting the newer commit. If synchronization fails, the commit remains in the repository, and the factory keeps running on the last successful definition while you repair it.
+For Warp-managed sources, you edit the definition in the control room's **Code** tab. Each save commits directly to the Warp-hosted repository, then validates and syncs; there is no pull request step. If someone else committed first, Warp reports a conflict instead of overwriting the newer commit. If synchronization fails, the commit remains in the repository, and the factory keeps running on the last successful definition while you repair it.
