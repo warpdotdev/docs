@@ -26,13 +26,13 @@ Connect Jira Cloud to your factory so your team can start factory work without l
 
    The [Jira integration setup](/platform/integrations/jira/#setup) covers installation in more detail. The `warp-agent` label flow on that page starts standalone cloud agent runs; factories skip the label and start runs through an automation instead.
 
-3. Connect Jira to your factory. Connecting the workspace in step 2 makes Jira available to every factory in it, but each factory still needs its own connection: in the factory's **Settings** tab, find **Jira** and click **Connect** (or **Install** if the workspace itself isn't connected yet). Select the Jira projects that should trigger this factory, then click **Enable**. This declares the `jira` integration for the factory — without it, **Jira** in the automation editor's **Add trigger** menu stays a disabled "not connected" entry that only links back to this step.
+3. Connect Jira to your factory. Connecting the workspace in step 2 makes Jira available to every factory in it, but each factory still needs its own connection: in the factory's **Settings** tab, find **Jira** and click **Connect** (or **Install** if the workspace itself isn't connected yet). Select the Jira projects that should trigger this factory, then click **Enable**. This declares the `jira` integration for the factory. Without it, **Jira** in the automation editor's **Add trigger** menu stays a disabled "not connected" entry that links back to this step.
 
 4. Add a Jira trigger to an automation. In the control room, open the factory's **Automations** tab, then open an automation (or create a new one). Click **Add trigger**, choose **Jira**, and select **Agent session created**. Set **Projects** and, optionally, **Keywords** to scope which sessions start a run, then set the automation's agent to the one that should handle matching requests.
 
    If you selected Jira projects when you created the factory, Warp already added an automation scoped to those projects; edit that automation instead of creating a second one.
 
-   Prefer definitions as code? Declare the `jira` integration in the factory's `factory.yaml` (`integrations: [{type: jira}]`), then add a file under `automations/` — for example `automations/jira-assignment/automation.md` — with an `agent_session_created` trigger:
+   Prefer definitions as code? Declare the `jira` integration in the factory's `factory.yaml` (`integrations: [{type: jira}]`), then add a file under `automations/`, such as `automations/jira-assignment/automation.md`, with an `agent_session_created` trigger:
 
    ```markdown title="automations/jira-assignment/automation.md"
    ---
@@ -51,7 +51,7 @@ Connect Jira Cloud to your factory so your team can start factory work without l
 
    With this automation, the agent named `foreman` handles sessions for work items in the `ENG` project whose assignment text contains `investigate` or `fix`. Commit and push the files to apply them; see [definitions as code](../factory-as-code) for the full syntax.
 
-5. Save the automation — or apply the definition if you used definitions as code — then test it: assign or mention **Warp** on a work item and include an instruction. Jira starts an agent session, and the run appears under the matching automation in your factory.
+5. Save the automation, or commit and push the definition if you used definitions as code. Then test it: assign or mention **Warp** on a work item and include an instruction. Jira starts an agent session, and the run appears under the matching automation in your factory.
 
 ## Filter which sessions start runs
 
