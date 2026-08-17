@@ -8,7 +8,7 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Warp Factories lets engineering teams define and operate **software factories**: cloud workflows where specialized agents move engineering work from intake to a reviewed pull request. Your team sets the policy and makes the final decisions; the factory does the repetitive work and records the evidence you need to improve it.
+Warp Factories lets engineering teams define and operate **software factories**, cloud workflows where specialized agents move engineering work from intake to a reviewed pull request. Your team sets the policy and makes the final decisions; the factory does the repetitive work and records the evidence you need to improve it.
 
 :::note
 **Early Access** - Warp Factories is available to a limited set of teams while Warp validates the product.
@@ -30,7 +30,7 @@ Warp Factories fits engineering teams with repeatable work that extends beyond o
 
 ## What Warp Factories provides
 
-* **Coordinated specialist agents** - A team of [factory agents](./factory-agents) runs each work item: a coordinating foreman routes it through the triage, spec, implement, and review roles, skipping stages that don't apply. Custom agents and automations cover work the defaults don't.
+* **Coordinated specialist agents** - A team of [factory agents](./factory-agents) runs each work item. A coordinating foreman routes it through the triage, spec, implement, and review roles, skipping stages that don't apply. Custom agents and automations cover work the defaults don't.
 * **Factory definitions as code** - [Version-controlled definition files](./factory-as-code) describe your repositories, agents, automations, runners, skills, and MCP servers, so factory changes get the same review, history, and rollback as code changes.
 * **Integrations and the Factory MCP** - Work flows in from [Slack](./integrations/slack), [Linear](./integrations/linear), [Jira](./integrations/jira), and [GitHub](./integrations/github), plus direct runs and schedules. The [Factory MCP](./factory-mcp) connects coding agents and other MCP clients.
 * **Model and harness choice** - Each agent role can use a different model and [supported harness](../platform/harnesses), including the Warp Agent, Claude Code, and Codex.
@@ -44,7 +44,7 @@ Warp Factories fits engineering teams with repeatable work that extends beyond o
 | **Warp** | The interactive terminal where you develop locally with agents and code review. A factory runs independently in the cloud. |
 | **Warp Agent** | Warp's built-in agent harness. Factory roles can run on it or on another supported harness. |
 | **{VARS.WARP_CLI}** | Runs the Warp Agent in any terminal and exchanges work with a factory through the Factory MCP. |
-| **{VARS.WARP_AUTOMATION_PLATFORM}** | The platform underneath: cloud runs, environments, runners, integrations, secrets, orchestration, and APIs. A factory assembles these primitives into one workflow. |
+| **{VARS.WARP_AUTOMATION_PLATFORM}** | Provides the cloud runs, environments, runners, integrations, secrets, orchestration, and APIs that a factory assembles into one workflow. |
 
 ## Next steps
 
