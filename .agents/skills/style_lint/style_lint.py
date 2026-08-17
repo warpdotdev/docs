@@ -1091,6 +1091,13 @@ def check_platform_determiner(lines: List[str], filepath: str) -> List[Issue]:
     issues = []
     in_code_block = False
     in_frontmatter = False
+    # Frontmatter is not uniformly exempt. `title` and `sidebar.label` are
+    # headline-style and correctly bare, but `description` is a sentence, and it
+    # becomes the meta description -- the text search engines and AI engines
+    # read before deciding whether to cite the page. Skipping all of
+    # frontmatter left exactly that field unguarded against the defect this
+    # check exists to catch.
+    in_description = False
     for i, line in enumerate(lines, 1):
         stripped = line.strip()
         if i == 1 and stripped == "---":
@@ -1099,7 +1106,17 @@ def check_platform_determiner(lines: List[str], filepath: str) -> List[Issue]:
         if in_frontmatter:
             if stripped == "---":
                 in_frontmatter = False
-            continue
+                in_description = False
+                continue
+            # A description can be inline or a folded block (`description: >-`)
+            # continuing over several indented lines. Track which key we are
+            # inside so the continuation lines are scanned too.
+            key = re.match(r"([a-zA-Z_]+):", stripped)
+            if key:
+                in_description = key.group(1) == "description"
+            if not in_description:
+                continue
+            # fall through and scan this line
         if stripped.startswith("```"):
             in_code_block = not in_code_block
             continue
