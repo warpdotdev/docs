@@ -12,7 +12,7 @@ A factory is a team of cloud agents — a foreman you talk to, plus the subagent
 
 ## Prerequisites
 
-* **A Warp team with credits** - A factory belongs to a [Warp team](/knowledge-and-collaboration/teams/). Factory agents consume the team's credits. If the team has no active plan, you will be asked to select one during setup.
+* **A Warp team with credits** - A factory belongs to a [Warp team](/knowledge-and-collaboration/teams/). Factory agents consume the team's credits.
 * **GitHub repository access** - Authorize GitHub and choose repositories during setup. If your organization restricts app installations, ask a GitHub organization owner to approve the connection. See the [GitHub integration](/platform/integrations/github/) for details.
 
 ## Create your factory
@@ -23,7 +23,7 @@ _~5 minutes_
 2. In the sidebar, next to **Factories**, click **+** to start the setup wizard.
 
    :::note
-   **No team yet?** The wizard first asks you to choose the team that will own the factory. If that team has no plan or credits, it opens **Select a Warp Plan**. A factory needs credits to run its agents.
+   **No team yet?** If the team that owns the factory has no plan or credits, the wizard will ask you to select one. A factory needs credits to run its agents.
    :::
 
 3. Click **I want to use repos from GitHub** and complete the GitHub authorization.
@@ -31,15 +31,15 @@ _~5 minutes_
 
    Warp provisions a default [environment](/platform/environments/) for the selected repos.
 
-5. Enter a **Factory name**, such as `Payments services`. Warp derives a matching **Factory alias**, the handle teammates use to @-mention the factory from connected tools like Slack and Linear. Keep it short and recognizable.
-6. The next screen offers to connect Slack. This quickstart skips integrations, so click **Next**. You can connect them any time from [Connect your factory](/factories/connect-your-factory/).
-7. The foreman leads every factory. It's the orchestration agent you interact with directly. Below it, toggle the subagents it can dispatch: **Triage**, **Spec**, **Code**, and **Review**. All four start enabled, and at least one is required. Keep **Code** on so this quickstart's work item can end in a pull request.
+5. Enter a **Factory name**, e.g., `Payments services`. Warp derives a matching **Factory alias**, the handle teammates use to @-mention the factory from connected tools like Slack and Linear. Keep it short and recognizable.
+6. The next screen offers to connect Slack. Click **Next** to skip it for now. See [Connect your factory](/factories/connect-your-factory/) to add integrations later.
+7. Toggle the subagents the foreman can dispatch: **Triage**, **Spec**, **Code**, and **Review**. Keep **Code** on so this quickstart's work item can end in a pull request.
 
    See [Factory agents](/factories/factory-agents/) for what each role does.
 
 8. Skip the issue tracker screen the same way as Slack: click **Next**. Warp creates the factory.
 
-   When the startup screen reports **Factory running!**, click **Go to dashboard**.
+   When the startup screen reports "Factory running!", click **Go to dashboard**.
 
 ## Submit your first work item
 
@@ -56,14 +56,14 @@ _~5 minutes_
 
    Adapt the pattern to your repository: name the file, the change you expect, and the command that verifies it. A narrow, explicit request makes the first run easy to judge.
 
-   The foreman picks up the request as a run on **Runs** and dispatches your subagents as child runs.
+   The foreman picks up the request as a run and dispatches your subagents as child runs.
 
 3. Follow progress from two pages in your factory's sidebar:
 
    * **Runs** - The foreman's run and the child runs it dispatches.
    * **Activity** - The work item as it moves through its stages. Open it to see its event history and pull request artifacts.
 
-4. When the Code agent finishes, the work item links a pull request in GitHub. Review and merge it through your normal process. The factory drafts the change, and your team makes the call.
+4. When the Code agent finishes, the work item links a pull request in GitHub. Review and merge it following your normal process.
 
 ## Next steps
 
