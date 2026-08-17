@@ -24,7 +24,7 @@ When you set up a factory, Warp offers five default roles. Every factory gets a 
 
 These roles describe responsibilities, not a fixed pipeline. A small, well-understood change can skip the spec stage entirely, and review can send work back to implementation for another pass. By default, work that goes through the spec stage needs a human to approve the spec before implementation starts.
 
-For the complete lifecycle, see [how Warp Factories work](./how-factories-work).
+For the complete lifecycle, see [how Warp Factories work](/factories/how-factories-work/).
 
 ## Foreman
 
@@ -44,7 +44,7 @@ Spec turns an ambiguous request into a concrete plan. It interviews the requeste
 
 ### Implement
 
-Implement makes the change. When a spec exists, it continues the spec's branch and draft pull request rather than starting over. It writes the code, adds tests, runs the repository's validation, reviews its own diff, and, when [computer use](../agents/capabilities/computer-use) is available, captures visual evidence of user-facing changes. If review finds problems, implement revises the change. It never merges.
+Implement makes the change. When a spec exists, it continues the spec's branch and draft pull request rather than starting over. It writes the code, adds tests, runs the repository's validation, reviews its own diff, and, when [computer use](/agents/capabilities/computer-use/) is available, captures visual evidence of user-facing changes. If review finds problems, implement revises the change. It never merges.
 
 ### Review
 
@@ -52,19 +52,19 @@ Review checks the finished change with fresh eyes, deliberately hunting for prob
 
 ## Where verification happens
 
-There's no separate verification agent, and the default team doesn't need one. Implement proves its own change works: it runs the tests and repository checks, and, when [computer use](../agents/capabilities/computer-use) is available, uses it to capture visual evidence of user-facing changes, such as screenshots and recordings of the running app. Review then checks that proof, reruns or extends validation when necessary, and confirms the results meet the criteria. You can add custom agents for extra quality coverage, but implement and review keep these responsibilities either way.
+There's no separate verification agent, and the default team doesn't need one. Implement proves its own change works: it runs the tests and repository checks, and, when [computer use](/agents/capabilities/computer-use/) is available, uses it to capture visual evidence of user-facing changes, such as screenshots and recordings of the running app. Review then checks that proof, reruns or extends validation when necessary, and confirms the results meet the criteria. You can add custom agents for extra quality coverage, but implement and review keep these responsibilities either way.
 
 ## Built-in skills and memory
 
 Every default agent comes with GitHub skills, and the foreman also comes with a Slack skill. The issue tracker you choose during setup adds to that baseline: choosing Linear or Jira gives the agents that tracker's skill and instructions for working with it. If you don't choose a tracker, the agents get only the baseline.
 
-Each default agent also has its own [Auto-memory store](../agents/agent-memory). Over time, Warp consolidates the agent's conversations into memory, and that accumulated memory shapes how the agent behaves. Keep this in mind when comparing two agents: identical settings don't guarantee identical behavior, because each agent remembers different things.
+Each default agent also has its own [Auto-memory store](/agents/agent-memory/). Over time, Warp consolidates the agent's conversations into memory, and that accumulated memory shapes how the agent behaves. Keep this in mind when comparing two agents: identical settings don't guarantee identical behavior, because each agent remembers different things.
 
 ## Configure agent behavior
 
 Use the agent editor in the control room to change an agent's description, model, runner, host, MCP servers, secrets, and instructions.
 
-You can also manage the whole factory as version-controlled code, with [factory definition files](./factory-as-code) in a Git repository, where changes get the same review, history, and rollback as any other code. A few agent settings can only be set in the files: harness, environment, and credential strategy. Where the repository lives determines how the two editing paths work together:
+You can also manage the whole factory as version-controlled code, with [factory definition files](/factories/factory-as-code/) in a Git repository, where changes get the same review, history, and rollback as any other code. A few agent settings can only be set in the files: harness, environment, and credential strategy. Where the repository lives determines how the two editing paths work together:
 
 * **Warp-managed repository** - Edit agents in the agent editor, or edit the definition files directly in the control room's **Code** tab, whichever fits the change. Both write to the same files, so the editor and the code always agree.
 * **A GitHub repository your team owns** - The files are the only way to change the factory. Edits go through pull requests, and the file-owned settings in the control room are read-only.
@@ -89,13 +89,13 @@ Default model IDs change over time, so choose based on what each role has to do 
 | Implement | Coding strength, with a harness that fits your repositories and toolchain |
 | Review | A different model or harness from implement, so the two don't share blind spots |
 
-See [model choice for agents](../agents/inference/model-choice) and [harnesses for cloud agents](../platform/harnesses) for available options. Define reusable procedures with [skills](../agents/capabilities/skills), and scope each role's external access through [MCP servers](../platform/mcp) and [cloud agent secrets](../platform/secrets).
+See [model choice for agents](/agents/inference/model-choice/) and [harnesses for cloud agents](/platform/harnesses/) for available options. Define reusable procedures with [skills](/agents/capabilities/skills/), and scope each role's external access through [MCP servers](/platform/mcp/) and [cloud agent secrets](/platform/secrets/).
 
 ## Add custom agents and automations
 
 Add custom agents for jobs the default roles don't handle, such as documentation, security analysis, migrations, or release checks. A custom agent doesn't have to be a required step for every work item.
 
-Automations start a chosen agent on a schedule or when an event fires. They're one more way for work to enter your factory; the foreman still coordinates whatever they start. For all the ways to route work into a factory, see [connect your factory](./connect-your-factory).
+Automations start a chosen agent on a schedule or when an event fires. They're one more way for work to enter your factory; the foreman still coordinates whatever they start. For all the ways to route work into a factory, see [connect your factory](/factories/connect-your-factory/).
 
 ## Human decision points and permissions
 
@@ -109,4 +109,4 @@ A few capabilities sit outside an agent's configuration: built-in harness tools,
 
 Treat the approval steps as workflow conventions, not access control. Warp Factories has no special approver role, and nothing written in an agent's instructions grants it access beyond what it's configured with. Real enforcement lives in your repository permissions and platform configuration.
 
-Next, capture these choices in [factory definitions as code](./factory-as-code).
+Next, capture these choices in [factory definitions as code](/factories/factory-as-code/).
