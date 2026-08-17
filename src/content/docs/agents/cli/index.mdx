@@ -32,6 +32,16 @@ To get a working setup in a few minutes, follow the [quickstart](/agents/cli/qui
 * **The Warp app** - The CLI runs the same [Warp Agent](/platform/harnesses/warp-agent/) harness as the Warp app, so your account, plan, model access, rules, and skills work the same in both. The CLI doesn't require the Warp app to be installed.
 * **{VARS.WARP_AUTOMATION_PLATFORM}** - {VARS.WARP_AUTOMATION_PLATFORM} is Warp's programmable platform for running and coordinating agents at scale. The CLI connects to the same platform. Conversations sync to your Warp account, and you can hand work off to [cloud agents](/agents/cli/cloud-and-orchestration/) or continue a cloud run from your terminal.
 
+## Checking your account, plan, and billing
+
+The CLI has slash commands for the account details you'd otherwise look up in the Warp app or the {VARS.WEB_APP}.
+
+* **Session and account status** - Run `/status` to open a read-only panel with the installed version, the current conversation's name and ID, the working directory, and the organization and email you're signed in as. Press `Esc` to close it. Include these details when you report a problem.
+* **Upgrade your plan** - Run `/upgrade` to open Warp's upgrade page in your browser.
+* **Manage team billing** - Run `/manage-billing` to open your team's billing page in your browser. The command is listed only when you administer billing for your team.
+
+For how usage is metered as you work, see [models and usage](/agents/cli/models-and-usage/#usage-and-cost).
+
 ## Coming from the Warp app
 
 If you already use the Warp app, most of your setup carries over. Rules and skills are discovered from the same shared paths, and your saved Warp Drive prompts are available after you log in (other Warp Drive object types aren't available in the CLI). To copy compatible settings and global MCP server configurations, run the bundled `/tui-migrate-setup` skill and follow the agent's instructions. Credentials are never copied, so MCP servers that require authentication must be reauthenticated in the CLI.

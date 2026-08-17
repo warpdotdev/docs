@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig, envField } from 'astro/config';
 import remarkGfm from 'remark-gfm';
+import mermaid from 'astro-mermaid';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
@@ -61,6 +62,19 @@ export default defineConfig({
 		},
 	},
 	integrations: [
+		mermaid({
+			autoTheme: true,
+			enableLog: false,
+			mermaidConfig: {
+				fontFamily: "'Inter', 'Inter Fallback', sans-serif",
+				themeVariables: {
+					fontFamily: "'Inter', 'Inter Fallback', sans-serif",
+					primaryBorderColor: '#51a6ec',
+					nodeBorder: '#51a6ec',
+					lineColor: '#51a6ec',
+				},
+			},
+		}),
 		react(),
 		sitemap(),
 		starlight({
