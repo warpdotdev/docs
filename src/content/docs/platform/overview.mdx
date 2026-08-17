@@ -11,7 +11,7 @@ import { VARS } from '@data/vars';
 
 Cloud agents run on the **{VARS.WARP_AUTOMATION_PLATFORM}**. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [environment](/platform/environments/), on a host), and inspect outcomes with team visibility. First-party [integrations](/platform/integrations/) connect external events — like Slack messages, GitHub PRs, or CI failures — to cloud agents automatically.
 
-<VideoEmbed url="https://youtu.be/poLkJhO7fdo" title="Oz Platform cloud agents overview video" />
+<VideoEmbed url="https://youtu.be/poLkJhO7fdo" title={`${VARS.WARP_AUTOMATION_PLATFORM} cloud agents overview video`} />
 
 :::note
 **New to cloud agents?** Start with the [Cloud agents quickstart](/platform/quickstart/) to run your first agent in ~10 minutes.
@@ -24,9 +24,9 @@ Cloud agents run on the **{VARS.WARP_AUTOMATION_PLATFORM}**. The platform gives 
 3. The agent executes on a **host**, optionally inside an environment, using the required configuration and credentials.
 4. The task produces a **persistent record** (status, metadata, transcript, outputs) your team can review and manage.
 
-![Oz Platform architecture showing Trigger, Agent, Environment, and Artifacts components](../../../assets/agent-platform/most-flexible-platform-for-building-with-agents.png)
+![Flow diagram: a trigger kicks off an agent, which runs in an environment and creates artifacts, on either Warp-hosted or self-hosted infrastructure](../../../assets/agent-platform/most-flexible-platform-for-building-with-agents.png)
 
-![Oz Platform detailed architecture showing components, triggers, orchestrator, and agent runners](../../../assets/agent-platform/oz-diagram.png)
+![Architecture diagram: Warp-designed and customer-defined triggers create an agent task, which the agent orchestrator routes to agent runners on Warp or customer infrastructure](../../../assets/agent-platform/platform-architecture.png)
 
 The sections below describe the {VARS.WARP_AUTOMATION_PLATFORM} primitives that power this flow, and how they compose.
 
