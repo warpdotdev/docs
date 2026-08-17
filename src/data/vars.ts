@@ -20,12 +20,17 @@ export const VARS = {
   WARP_AGENT_CLI:           "Oz CLI",         // the `oz` binary — holds until 9/15, then "Warp Agent CLI"
   WEB_APP:                  "Oz web app",     // legacy Oz v1 webapp (oz.warp.dev) — holds until 9/15
   WEB_APP_URL:              "https://oz.warp.dev", // holds until 9/15, then "https://app.warp.dev"
-  // DASHBOARD and PLATFORM_RUN intentionally held at their Oz values through
-  // 9/15 rather than flipped with the platform name. Both name surfaces of the
-  // Oz v1 webapp, which keeps its name until then, so flipping them now would
-  // make the docs disagree with what the reader sees on screen.
+  // DASHBOARD is held at its Oz value pending a scoping question -- see the
+  // note below. It names a surface of the Oz v1 webapp, which keeps its name
+  // until 9/15.
   DASHBOARD:                "Oz dashboard",
-  PLATFORM_RUN:             "Oz run",
+  // Renamed per HYC (8/17): the platform-level default is the plain
+  // descriptive phrase, not a branded one. Factory-specific pages should write
+  // "Factory run" directly rather than reaching for this variable.
+  //
+  // Kept singular so `{VARS.PLATFORM_RUN}s` pluralizes correctly at the call
+  // sites that do that.
+  PLATFORM_RUN:             "cloud agent run",
   API_SDK_NAME:             "Oz API & SDK",   // holds until 9/15, then "Warp API & SDK"
 
   // Warp Factories web app — a net-new product surface at platform.warp.dev

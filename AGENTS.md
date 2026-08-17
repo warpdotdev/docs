@@ -686,7 +686,7 @@ Write the name as `{VARS.WARP_AUTOMATION_PLATFORM}` in body prose or `{{WARP_AUT
 - **subagent** - A child agent created by a parent agent to parallelize or delegate work
 - **conversation** - An interactive execution lifecycle within the Warp Terminal, regardless of whether it's local or in the cloud
 - **Automation Platform** - Warp's programmable platform for running and coordinating agents at scale
-- **Oz run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based. Holds the Oz name until 2026-09-15; use `{VARS.PLATFORM_RUN}`.
+- **cloud agent run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based. Use `{VARS.PLATFORM_RUN}`. On factory-specific pages, write "Factory run" directly.
 - **Environment** - The execution context for an agent, including repo access, dependencies, secrets, compute, and runtime configuration
 - **Oz dashboard** - The app surface to manage all runs, unified across the Warp app and web. Holds the Oz name until 2026-09-15; use `{VARS.DASHBOARD}`.
 - **Oz web app** - The web app for configuring agents and managing runs. Holds the Oz name until 2026-09-15; use `{VARS.WEB_APP}`.

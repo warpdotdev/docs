@@ -184,8 +184,8 @@ catches the literal, `platform-determiner` catches a missing article.
 - **Oz dashboard** — The app surface to manage all runs, unified across the Warp app and web.
   *Usage note:* Holds the Oz name until 2026-09-15. Use `{VARS.DASHBOARD}`.
 
-- **Oz run** — A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based.
-  *Usage note:* Holds the Oz name until 2026-09-15. Use `{VARS.PLATFORM_RUN}`.
+- **cloud agent run** — A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based.
+  *Usage note:* This is the platform-level default (HYC, 2026-08-17). Use `{VARS.PLATFORM_RUN}`, or "Warp cloud agent run" when you need to disambiguate from another vendor's runs. On pages that are specifically about a factory, write "Factory run" directly instead — the variable holds the general term, so it cannot carry that distinction.
 
 - **Oz web app** — The web app for configuring agents and managing runs.
   *Usage note:* Holds the Oz name until 2026-09-15. Use `{VARS.WEB_APP}`.
@@ -238,9 +238,11 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 - **The `oz` binary** and every `oz <command>` invocation. Commands inside code
   fences are never rewritten. `{VARS.WARP_AGENT_CLI}` renders "Oz CLI".
 - **`oz.warp.dev`** and the Oz v1 web app. `{VARS.WEB_APP}`, `{VARS.WEB_APP_URL}`.
-- **`{VARS.DASHBOARD}`** and **`{VARS.PLATFORM_RUN}`**, both surfaces of that
-  web app. Held with it rather than flipped early, so the docs do not disagree
-  with what the reader sees on screen.
+- **`{VARS.DASHBOARD}`**, a surface of that web app. Held with it rather than
+  flipped early, so the docs do not disagree with what the reader sees on
+  screen. Its eventual name is an open question: the proposal is "Factory
+  dashboard", but every current use of the variable is platform-scoped rather
+  than factory-scoped.
 - **`{VARS.API_SDK_NAME}`**, which renders "Oz API & SDK".
 - **`oz-agent-worker`, `oz-agent-action`, `oz-skills`** — repository and package
   names, not product names. These may never change.
