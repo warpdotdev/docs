@@ -28,13 +28,14 @@ The connected group's webhook delivers merge request and comment events to Warp,
 
 ## Connect GitLab to a factory
 
-1. In the {VARS.FACTORY_WEB_APP} at <a href={VARS.FACTORY_WEB_APP_URL}>platform.warp.dev</a>, click **+** next to **Factories** to open the setup wizard, then choose **I want to use repos from GitLab** under **Connect your code host**. Authorize with GitLab when prompted.
-2. Under **Connect a GitLab group**, pick a top-level group you own and click **Next**. Warp creates the manager service account and installs the group webhook. A group that is already connected shows a **Connected** badge, and the selection is locked to it.
-3. Under **Select your repos**, choose the projects to provide code and context for the factory. Projects anywhere under the connected group, including subgroups, are available.
-4. In the factory's [control room](/factories/control-room/), click **Automations**. GitLab factories start with an editable default automation, **gitlab-bot-mentions**, that fires when the factory's bot is mentioned.
-5. To route merge request events too, create an automation and click **Add trigger**.
-6. Choose **GitLab**, then choose **Merge request**.
-7. To confirm the connection works, comment on a merge request in a selected project and mention the factory's bot. A work item starts in the control room, and the factory replies in the same thread.
+1. In the {VARS.FACTORY_WEB_APP} at <a href={VARS.FACTORY_WEB_APP_URL}>platform.warp.dev</a>, click **+** next to **Factories** to open the setup wizard.
+2. Choose **I want to use repos from GitLab** under **Connect your code host**, then authorize with GitLab when prompted.
+3. Under **Connect a GitLab group**, pick a top-level group you own and click **Next**. Warp creates the manager service account and installs the group webhook. A group that is already connected shows a **Connected** badge, and the selection is locked to it.
+4. Under **Select your repos**, choose the projects to provide code and context for the factory. Projects anywhere under the connected group, including subgroups, are available.
+5. In the factory's [control room](/factories/control-room/), click **Automations**. GitLab factories start with an editable default automation, **gitlab-bot-mentions**, that fires when the factory's bot is mentioned.
+6. To route merge request events too, create an automation and click **Add trigger**.
+7. Choose **GitLab**, then choose **Merge request**.
+8. To confirm the connection works, comment on a merge request in a selected project and mention the factory's bot. A work item starts in the control room, and the factory replies in the same thread.
 
 ## Supported triggers
 
