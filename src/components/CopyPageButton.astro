@@ -10,7 +10,10 @@
 import { VARS } from '@data/vars';
 
 const IMPORT_LINE = /^import\s+[^\n]*?from\s+['"][^'"]+['"];?\s*$/gm;
-const PROSE_TOKEN = /\{VARS\.([A-Z0-9_]+)\}/g;
+// The optional leading `$` matters: MDX authors write `{VARS.KEY}` in prose but
+// `${VARS.KEY}` inside JSX template literals, e.g. href={`${VARS.WEB_APP_URL}/runs`}.
+// Matching only the braces leaves the dollar behind and yields `$https://...`.
+const PROSE_TOKEN = /\$?\{VARS\.([A-Z0-9_]+)\}/g;
 const FRONTMATTER_TOKEN = /\{\{([A-Z0-9_]+)\}\}/g;
 
 interface Props {

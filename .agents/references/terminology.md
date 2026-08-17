@@ -181,8 +181,8 @@ catches the literal, `platform-determiner` catches a missing article.
 - **Automation Platform** — Warp's programmable platform for running and coordinating agents at scale.
   *Example:* With the Automation Platform, you can orchestrate multiple agents to automate and parallelize complex workflows.
 
-- **Oz dashboard** — The app surface to manage all runs, unified across the Warp app and web.
-  *Usage note:* Holds the Oz name until 2026-09-15. Use `{VARS.DASHBOARD}`.
+- **cloud agent dashboard** — The app surface to manage all runs, unified across the Warp app and web.
+  *Usage note:* Platform-level default (HYC, 2026-08-17). Use `{VARS.DASHBOARD}`. On pages specifically about a factory, write "Factory dashboard" directly. Lowercase common noun, so capitalize only at the start of a sentence or bullet — which the variable cannot do, so reword rather than leading a bullet with it.
 
 - **cloud agent run** — A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based.
   *Usage note:* This is the platform-level default (HYC, 2026-08-17). Use `{VARS.PLATFORM_RUN}`, or "Warp cloud agent run" when you need to disambiguate from another vendor's runs. On pages that are specifically about a factory, write "Factory run" directly instead — the variable holds the general term, so it cannot carry that distinction.
@@ -238,11 +238,6 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 - **The `oz` binary** and every `oz <command>` invocation. Commands inside code
   fences are never rewritten. `{VARS.WARP_AGENT_CLI}` renders "Oz CLI".
 - **`oz.warp.dev`** and the Oz v1 web app. `{VARS.WEB_APP}`, `{VARS.WEB_APP_URL}`.
-- **`{VARS.DASHBOARD}`**, a surface of that web app. Held with it rather than
-  flipped early, so the docs do not disagree with what the reader sees on
-  screen. Its eventual name is an open question: the proposal is "Factory
-  dashboard", but every current use of the variable is platform-scoped rather
-  than factory-scoped.
 - **`{VARS.API_SDK_NAME}`**, which renders "Oz API & SDK".
 - **`oz-agent-worker`, `oz-agent-action`, `oz-skills`** — repository and package
   names, not product names. These may never change.

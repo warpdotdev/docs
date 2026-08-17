@@ -20,10 +20,18 @@ export const VARS = {
   WARP_AGENT_CLI:           "Oz CLI",         // the `oz` binary — holds until 9/15, then "Warp Agent CLI"
   WEB_APP:                  "Oz web app",     // legacy Oz v1 webapp (oz.warp.dev) — holds until 9/15
   WEB_APP_URL:              "https://oz.warp.dev", // holds until 9/15, then "https://app.warp.dev"
-  // DASHBOARD is held at its Oz value pending a scoping question -- see the
-  // note below. It names a surface of the Oz v1 webapp, which keeps its name
-  // until 9/15.
-  DASHBOARD:                "Oz dashboard",
+  // Renamed per HYC (8/17), same shape as PLATFORM_RUN below: a plain
+  // platform-level term, with "Factory dashboard" written directly on pages
+  // that are specifically about a factory.
+  //
+  // "Runs page" was the other candidate and reads better in isolation, but it
+  // names a single page in the web app. This surface is defined as unified
+  // across the Warp app and web, and its Warp-app half is the Agent Management
+  // Panel, not a Runs page. The descriptive term keeps that meaning.
+  //
+  // Lowercase common noun, so capitalize only at the start of a sentence or
+  // bullet -- which the variable cannot do, so avoid putting it there.
+  DASHBOARD:                "cloud agent dashboard",
   // Renamed per HYC (8/17): the platform-level default is the plain
   // descriptive phrase, not a branded one. Factory-specific pages should write
   // "Factory run" directly rather than reaching for this variable.
