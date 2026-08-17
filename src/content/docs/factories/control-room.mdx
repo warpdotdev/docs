@@ -1,9 +1,94 @@
 ---
-title: Control room
+title: The Factory control room
 description: >-
-  Factory control room documentation will cover monitoring and intervention in a follow-up PR.
+  Track work items, inspect runs, read factory metrics, and manage agents,
+  automations, and settings from the control room.
 sidebar:
   label: "Control room"
 ---
 
-Factory control room documentation will land in a follow-up PR.
+The control room is the web app for operating a single factory. Use it to track the work your agents are doing, inspect the runs and pull requests they produce, and manage the agents, automations, and settings the factory owns.
+
+## Pages at a glance
+
+Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, **Secrets**, and **Integrations** sit above the factory list and cover your whole team, not a single factory.
+
+| Page | What it shows | What you do there |
+| --- | --- | --- |
+| **Dashboard** | Factory metrics: autonomy, time saved, PR latency, cost, and run volume | Compare periods and find work worth investigating |
+| **Activity** | Work items grouped by stage | Search, filter, open, and stop work items |
+| **Agents** | The factory's agent roster | Create and edit agents |
+| **Automations** | Triggers that start runs | Create, edit, and delete automations |
+| **Runs** | The factory's individual agent runs | Start, stop, and score runs |
+| **Scorers** | Scorer definitions and results | Define rubrics and review classifications |
+| **Self-improvement** | Pull requests filed to fix scorer-detected failures | Review fix PRs and open the runs behind them |
+| **Benchmarks** | Benchmark suites and their runs | Compare harness, model, and runner configurations |
+| **Code** | The factory's definition files | Browse and edit a Warp-managed definition |
+| **Settings** | Configuration the factory owns | Change identity, repos, runners, and the integrations the factory can access |
+
+## Track work items on Activity
+
+**Activity** shows the factory's work items grouped by stage: Triage, Planning, Building, and Reviewing. Finished work items move to two terminal stages, Complete and Cancelled.
+
+By default, Activity shows only work items you created, and only the four active stages. Change the **Created by** filter to see a teammate's work, and add a **Stage** filter for **Complete** or **Cancelled** to see finished work.
+
+Click a work item to open its detail pane, which includes the prompt that started it, the ticket or thread it came from, the pull requests it produced, and its cost. **View agent** opens the agent's session, **Event history** lists the runs behind the work item, and **Stop task** cancels the current run.
+
+:::caution
+**Stop task** takes effect immediately, with no confirmation prompt.
+:::
+
+## Inspect runs
+
+A run is a single agent execution. A work item on **Activity** tracks one piece of work through the factory's stages and can span several runs as different agents pick it up. The team-level **Runs** page lists every run you have access to; a factory's **Runs** page lists only runs from that factory's agents.
+
+Click **New** on a factory's **Runs** page to send a prompt to the factory's foreman agent. Open a run to see its timeline and cost, plus a **Sub-agents** tab for an orchestrator run's child runs. From there you can view the agent's full session, stop or score the run, or turn it into a benchmark task.
+
+:::note
+Run pages don't include a chat input, but you can still steer a run: **View session** opens its [shared agent session](/platform/viewing-cloud-agent-runs/), where you follow the agent in real time and send follow-up instructions while the run's environment is active. After the environment shuts down, the same button opens the conversation transcript.
+:::
+
+## Read dashboard metrics
+
+**Dashboard** summarizes the factory over a date range you choose:
+
+* **Autonomy** - The share of merged PRs that needed no human input beyond an approving review.
+* **Time saved** - Approximate engineer-hours saved, estimated from the line changes in merged PRs.
+* **PR latency** - The median time from run kickoff through PR, review, and merge.
+* **Cost per PR** - The median cost of PRs opened in the range. Treat it as a lower-bound estimate: it can miss some run usage and does not match billing. See [Measure and improve a factory](/factories/measure-and-improve/) for its limitations.
+
+The page also charts opened versus merged PRs and a breakdown of runs, and the **Cost per PR** card expands to list the most expensive PRs in the range. When scorers are set up, scorer cards summarize recent classification results.
+
+## Manage agents and automations
+
+**Agents** is the factory's roster. Create agents and edit their instructions, model or harness, runner, host, secrets, and MCP servers. **Automations** defines the triggers that start runs: a schedule (including custom cron expressions) or a GitHub, Linear, Slack, or Jira event.
+
+Environment is set in the factory definition, not the agent editor, and automations never override execution settings. When the factory's definition lives in an external repository, Agents, Automations, and Scorers are read-only; make changes there through pull requests.
+
+## Edit definitions in the Code tab
+
+**Code** is the control room's view of the factory's definition files, which [Factory definitions as code](/factories/factory-as-code/) describes in full. What the tab offers depends on where the definition lives:
+
+* **Warp-managed** - Browse and edit the definition files. Saving validates the definition and commits all changes together.
+* **Managed in GitHub** - Links to the repository; edit the definition through pull requests there.
+* **Live-managed** - The factory is edited directly in the control room, so there are no definition files to browse.
+
+When an agent proposes a change to a Warp-managed definition, its work item on **Activity** links to a review of the branch inside the control room. From there, comment on the diff, use **Request changes** to send feedback back to the agent, or **Approve & merge**.
+
+## Score and benchmark
+
+A scorer is an LLM judge that classifies completed runs against a rubric you define, scoped to the agents you choose and sampled at a rate you set. Each scorer has a **Self-improvement** toggle: when it's on, the factory periodically triages the runs that scorer marks as failing and files fixes for recurring issues. The **Self-improvement** page tracks the pull requests those fixes open, linking each one to the run that produced it.
+
+**Benchmarks** compares harness, model, and runner configurations against a fixed set of tasks with success criteria. Benchmark results are only as reliable as the scorers behind them, so read them alongside [Measure and improve a factory](/factories/measure-and-improve/).
+
+## Change factory settings
+
+**Settings** holds the configuration the factory owns: the factory's name and connected repos, whether pull requests are authored by the agent or the run creator, the **Analysis model** self-improvement uses to analyze failed runs, runners, the integrations accessible to this factory, and deletion. Deleting a factory cannot be undone.
+
+For a file-managed factory, `runners/*.yaml` in the repository is the source of truth. Anything managed in an external repository is read-only in Settings.
+
+## Next steps
+
+* [How Warp Factories work](/factories/how-factories-work/) - The lifecycle behind Activity's stages and where humans stay in the loop.
+* [Factory definitions as code](/factories/factory-as-code/) - Define agents, automations, runners, and source ownership in code.
+* [Measure and improve a factory](/factories/measure-and-improve/) - Configure the scorers and benchmarks behind the Dashboard.
