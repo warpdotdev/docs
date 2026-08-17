@@ -11,7 +11,7 @@ import { VARS } from '@data/vars';
 With the unmanaged architecture, **you orchestrate agent runs** by invoking `oz agent run` directly from your existing CI pipelines, Kubernetes pods, VMs, or dev boxes. The agent runs on whatever host the command is executed from; Warp tracks the session for you but does not start or stop agents.
 
 :::note
-Unmanaged is the right choice if you already have a system that schedules work (CI, internal orchestrators, cron, dev environments). If you'd rather have {VARS.WARP_AUTOMATION_PLATFORM} trigger and route runs from Slack, Linear, schedules, or the API, use the [managed architecture](/platform/self-hosting/#managed-architecture) instead.
+Unmanaged is the right choice if you already have a system that schedules work (CI, internal orchestrators, cron, dev environments). If you'd rather have the {VARS.WARP_AUTOMATION_PLATFORM} trigger and route runs from Slack, Linear, schedules, or the API, use the [managed architecture](/platform/self-hosting/#managed-architecture) instead.
 :::
 
 ## When to use unmanaged
