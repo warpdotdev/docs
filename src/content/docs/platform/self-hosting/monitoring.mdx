@@ -137,7 +137,7 @@ metrics:
 
 All metrics use the `oz_worker_` prefix. Each worker process emits a distinct set of series, identified by the resource attributes `service.name`, `service.version`, `worker.id`, and `worker.backend`.
 
-* **`oz_worker_connected`** (gauge) — `1` while the worker has an active WebSocket connection to {VARS.WARP_AUTOMATION_PLATFORM}'s backend, `0` otherwise.
+* **`oz_worker_connected`** (gauge) — `1` while the worker has an active WebSocket connection to the {VARS.WARP_AUTOMATION_PLATFORM}'s backend, `0` otherwise.
 * **`oz_worker_tasks_active`** (gauge / UpDownCounter) — Tasks currently executing on this worker.
 * **`oz_worker_tasks_max_concurrent`** (gauge) — Configured concurrency limit (`0` means unlimited).
 * **`oz_worker_tasks_claimed_total`** (counter) — Total tasks accepted since process start.

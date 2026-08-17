@@ -1,14 +1,14 @@
 ---
 title: Third-party cloud agent authentication
 description: >-
-  Connect your Anthropic or OpenAI credentials to {{WARP_AUTOMATION_PLATFORM}}, then launch Claude Code
+  Connect your Anthropic or OpenAI credentials to the {{WARP_AUTOMATION_PLATFORM}}, then launch Claude Code
   or Codex as cloud agents from the desktop app, {{WEB_APP}}, or API.
 sidebar:
   label: "Authentication"
 ---
 import { VARS } from '@data/vars';
 
-Third-party cloud agent authentication in {VARS.WARP_AUTOMATION_PLATFORM} stores provider credentials for cloud runs as Warp-managed secrets. Third-party cloud agents, like [Claude Code](#connecting-claude-code-credentials) and [Codex](#connecting-codex-credentials), call their providers directly, so set up an Anthropic or OpenAI credential once before launching a third-party harness.
+Third-party cloud agent authentication in the {VARS.WARP_AUTOMATION_PLATFORM} stores provider credentials for cloud runs as Warp-managed secrets. Third-party cloud agents, like [Claude Code](#connecting-claude-code-credentials) and [Codex](#connecting-codex-credentials), call their providers directly, so set up an Anthropic or OpenAI credential once before launching a third-party harness.
 
 Auth secrets can be scoped to a **team** (available to all teammates' runs) or **personal** (only your own runs), like any other Warp-managed secret.
 
@@ -27,7 +27,7 @@ Claude Code is Anthropic's agentic coding tool. For more on Claude Code authenti
 3. Navigate to the API keys section, then click **Get API key**.
 4. Create a new API key and copy the value.
 
-{VARS.WARP_AUTOMATION_PLATFORM} also supports Bedrock-routed credentials (**Anthropic Bedrock API key** and **Anthropic Bedrock access key**) if your team consumes Anthropic models through AWS.
+The {VARS.WARP_AUTOMATION_PLATFORM} also supports Bedrock-routed credentials (**Anthropic Bedrock API key** and **Anthropic Bedrock access key**) if your team consumes Anthropic models through AWS.
 
 ### Store the API key
 
@@ -125,7 +125,7 @@ Your team admin has disabled the harness for your workspace. Contact your admin 
 
 ## Related pages
 
-* [Harnesses in {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/) — overview of third-party harnesses in {VARS.WARP_AUTOMATION_PLATFORM}.
+* [Harnesses in the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/) — overview of third-party harnesses in the {VARS.WARP_AUTOMATION_PLATFORM}.
 * [Claude Code in Warp](/agents/cli-agents/claude-code/) — run Claude Code locally in the Warp terminal.
 * [Codex CLI in Warp](/agents/cli-agents/codex/) — run Codex locally in the Warp terminal.
 * [Cloud agent secrets](/platform/secrets/) — the full Warp-managed secrets reference.
