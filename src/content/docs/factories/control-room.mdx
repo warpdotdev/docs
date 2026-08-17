@@ -11,7 +11,7 @@ The control room is the web app for operating a single factory. Use it to track 
 
 ## Pages at a glance
 
-Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, and **Secrets** sit above the factory list and cover your whole team, not a single factory.
+Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, **Secrets**, and **Integrations** sit above the factory list and cover your whole team, not a single factory.
 
 | Page | What it shows | What you do there |
 | --- | --- | --- |
@@ -24,11 +24,11 @@ Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, 
 | **Self-improvement** | Pull requests filed to fix scorer-detected failures | Review fix PRs and open the runs behind them |
 | **Benchmarks** | Benchmark suites and their runs | Compare harness, model, and runner configurations |
 | **Code** | The factory's definition files | Browse and edit a Warp-managed definition |
-| **Settings** | Configuration the factory owns | Change identity, repos, runners, and integrations |
+| **Settings** | Configuration the factory owns | Change identity, repos, runners, and the integrations the factory can access |
 
 ## Track work items on Activity
 
-**Activity** shows the factory's work items grouped by stage: Triage, Planning, Building, and Reviewing.
+**Activity** shows the factory's work items grouped by stage: Triage, Planning, Building, and Reviewing. Finished work items move to two terminal stages, Complete and Cancelled.
 
 By default, Activity shows only work items you created, and only the four active stages. Change the **Created by** filter to see a teammate's work, and add a **Stage** filter for **Complete** or **Cancelled** to see finished work.
 
@@ -40,7 +40,7 @@ Click a work item to open its detail pane, which includes the prompt that starte
 
 ## Inspect runs
 
-A run is a single agent execution. The team-level **Runs** page lists every run you have access to; a factory's **Runs** page lists only runs from that factory's agents.
+A run is a single agent execution. A work item on **Activity** tracks one piece of work through the factory's stages and can span several runs as different agents pick it up. The team-level **Runs** page lists every run you have access to; a factory's **Runs** page lists only runs from that factory's agents.
 
 Click **New** on a factory's **Runs** page to send a prompt to the factory's foreman agent. Open a run to see its timeline and cost, plus a **Sub-agents** tab for an orchestrator run's child runs. From there you can view the agent's full session, stop or score the run, or turn it into a benchmark task.
 
@@ -83,7 +83,7 @@ A scorer is an LLM judge that classifies completed runs against a rubric you def
 
 ## Change factory settings
 
-**Settings** holds the configuration the factory owns: the factory's name and connected repos, whether pull requests are authored by the agent or the run creator, the **Analysis model** self-improvement uses to analyze failed runs, runners, integrations, and deletion. Deleting a factory cannot be undone.
+**Settings** holds the configuration the factory owns: the factory's name and connected repos, whether pull requests are authored by the agent or the run creator, the **Analysis model** self-improvement uses to analyze failed runs, runners, the integrations accessible to this factory, and deletion. Deleting a factory cannot be undone.
 
 For a file-managed factory, `runners/*.yaml` in the repository is the source of truth. Anything managed in an external repository is read-only in Settings.
 
