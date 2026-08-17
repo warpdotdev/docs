@@ -1,11 +1,18 @@
 ---
 /**
  * CopyPageButton — Scalar-style dropdown with:
- * - Copy page (copies raw MDX body as markdown)
+ * - Copy page (copies the MDX body as markdown, with imports stripped and
+ *   product-name variables resolved -- see resolveMdxSource below)
  * - Copy agent prompt (copies a context-appropriate prompt for the page type)
  * - View as Markdown (opens .md URL in new tab)
  * - Export as PDF (window.print)
  */
+import { VARS } from '@data/vars';
+
+const IMPORT_LINE = /^import\s+[^\n]*?from\s+['"][^'"]+['"];?\s*$/gm;
+const PROSE_TOKEN = /\{VARS\.([A-Z0-9_]+)\}/g;
+const FRONTMATTER_TOKEN = /\{\{([A-Z0-9_]+)\}\}/g;
+
 interface Props {
   body: string;
   title: string;
@@ -13,7 +20,37 @@ interface Props {
   agentPrompt?: string;
 }
 const { body, title, agentPrompt } = Astro.props;
-const markdownContent = `# ${title}\n\n${body}`;
+
+/**
+ * `body` arrives as raw MDX source, so it still carries authoring scaffolding:
+ * `import` statements at the top and unsubstituted `{VARS.KEY}` / `{{KEY}}`
+ * product-name tokens throughout.
+ *
+ * That matters more than it looks. This payload is what "Copy page as Markdown
+ * for LLMs" puts on the clipboard, so without this an assistant reading the
+ * copied text sees the literal string `{VARS.WARP_AUTOMATION_PLATFORM}` instead
+ * of the product name -- worse than the stale name it replaced.
+ *
+ * The sibling `.md` route does not have this problem because
+ * `docs-markdown-integration.js` derives those files from the *rendered* HTML
+ * after the build, by which point Astro has resolved everything. This component
+ * runs during render and only has the source, so it repeats the two cleanups.
+ *
+ * Known gap: raw JSX (`<VideoEmbed />`) and directive syntax (`:::note`) still
+ * pass through here, where the `.md` route renders them properly. The durable
+ * fix is for this button to fetch the page's own `.md` URL on click rather than
+ * carry a second copy of the content.
+ */
+function resolveMdxSource(source: string): string {
+  const vars = VARS as unknown as Record<string, string>;
+  return source
+    .replace(IMPORT_LINE, '')
+    .replace(PROSE_TOKEN, (match, key) => vars[key] ?? match)
+    .replace(FRONTMATTER_TOKEN, (match, key) => vars[key] ?? match)
+    .replace(/^\n+/, '');
+}
+
+const markdownContent = `# ${title}\n\n${resolveMdxSource(body)}`;
 const pageUrl = Astro.url.href;
 const pathname = Astro.url.pathname;
 
