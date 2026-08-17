@@ -1597,3 +1597,123 @@ site-search #starlight__search .pagefind-ui__result-nested .pagefind-ui__result-
 .sl-markdown-content code.glyph-success {
   color: var(--sl-color-green-high);
 }
+
+/* --------------------------------------------------------------------------
+   21. Cookie consent banner — bottom bar for Kapa Ask AI analytics
+   --------------------------------------------------------------------------
+   Fixed bottom strip using the shared `--warp-control-*` chrome palette so
+   it matches search/Ask/copy controls. Shown only until the visitor accepts
+   or declines; decision lives in localStorage (`warp_docs_cookie_consent`).
+   -------------------------------------------------------------------------- */
+
+.warp-cookie-banner {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 100;
+  padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--sl-color-hairline-light);
+  background: color-mix(in srgb, var(--sl-color-bg) 92%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 -0.5rem 1.5rem rgba(0, 0, 0, 0.18);
+}
+
+.warp-cookie-banner[hidden] {
+  display: none !important;
+}
+
+.warp-cookie-banner__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 72rem;
+  margin-inline: auto;
+}
+
+.warp-cookie-banner__copy {
+  margin: 0;
+  color: var(--sl-color-gray-2);
+  font-family: var(--__sl-font, 'Inter', sans-serif);
+  font-size: var(--sl-text-sm);
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.warp-cookie-banner__copy a {
+  color: var(--sl-color-text-accent);
+  text-decoration: none;
+}
+
+.warp-cookie-banner__copy a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.warp-cookie-banner__actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.warp-cookie-banner__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+  padding: 0 0.875rem;
+  border-radius: var(--sl-radius-sm);
+  border: 1px solid var(--warp-control-border);
+  background: var(--warp-control-bg);
+  color: var(--warp-control-text);
+  cursor: pointer;
+  font-family: var(--__sl-font, 'Inter', sans-serif);
+  font-size: var(--sl-text-sm);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.warp-cookie-banner__btn:hover {
+  border-color: var(--warp-control-border-hover);
+  background: var(--warp-control-bg-hover);
+  color: var(--warp-control-text-hover);
+}
+
+.warp-cookie-banner__btn:focus-visible {
+  outline: 2px solid var(--sl-color-accent-high);
+  outline-offset: 2px;
+}
+
+.warp-cookie-banner__btn--primary {
+  border-color: color-mix(in srgb, var(--sl-color-accent) 55%, var(--warp-control-border));
+  background: color-mix(in srgb, var(--sl-color-accent) 22%, var(--warp-control-bg));
+  color: var(--sl-color-white);
+}
+
+.warp-cookie-banner__btn--primary:hover {
+  border-color: color-mix(in srgb, var(--sl-color-accent) 70%, var(--warp-control-border-hover));
+  background: color-mix(in srgb, var(--sl-color-accent) 32%, var(--warp-control-bg-hover));
+  color: var(--sl-color-white);
+}
+
+@media (max-width: 40rem) {
+  .warp-cookie-banner__inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .warp-cookie-banner__actions {
+    width: 100%;
+  }
+
+  .warp-cookie-banner__btn {
+    flex: 1 1 auto;
+  }
+}

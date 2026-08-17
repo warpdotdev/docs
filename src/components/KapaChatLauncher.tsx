@@ -34,6 +34,8 @@ const welcomeMessage = 'What do you want to know about Warp?';
 const uncertaintyThreshold = 0.15;
 const conversationLengthThreshold = 3;
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const cookieConsentStorageKey = 'warp_docs_cookie_consent';
+const cookieConsentEventName = 'warp-docs-cookie-consent';
 const warpDocsMcpUrl = 'https://warp.mcp.kapa.ai';
 const warpDocsMcpConfig = JSON.stringify(
 	{
@@ -98,6 +100,24 @@ function isAnswerUncertain(metadata: unknown) {
 
 function isValidEmailAddress(value: string) {
 	return emailPattern.test(value.trim());
+}
+
+type CookieConsent = 'accepted' | 'declined';
+type KapaUserTrackingMode = 'cookie' | 'none';
+
+function readCookieConsent(): CookieConsent | null {
+	if (typeof window === 'undefined') return null;
+	try {
+		const value = localStorage.getItem(cookieConsentStorageKey);
+		if (value === 'accepted' || value === 'declined') return value;
+	} catch {
+		// Ignore storage access errors (private mode, blocked storage).
+	}
+	return null;
+}
+
+function trackingModeForConsent(consent: CookieConsent | null): KapaUserTrackingMode {
+	return consent === 'accepted' ? 'cookie' : 'none';
 }
 function getChatErrorMessage(error: unknown) {
 	const message = typeof error === 'string' ? error : String(error ?? '');
@@ -1217,6 +1237,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 export default function KapaChatLauncher({ autoOpen = false }: { autoOpen?: boolean } = {}) {
 	const [chatSessionKey, setChatSessionKey] = useState(0);
 	const [sessionAutoOpen, setSessionAutoOpen] = useState(autoOpen);
+	const [cookieConsent, setCookieConsent] = useState<CookieConsent | null>(() => readCookieConsent());
 	const callbacks = useMemo(
 		() => ({
 			askAI: {
@@ -1229,6 +1250,22 @@ export default function KapaChatLauncher({ autoOpen = false }: { autoOpen?: bool
 		}),
 		[]
 	);
+
+	useEffect(() => {
+		const onConsent = (event: Event) => {
+			const detail = (event as CustomEvent<{ consent?: string }>).detail;
+			const next = detail?.consent;
+			if (next !== 'accepted' && next !== 'declined') return;
+			setCookieConsent(next);
+			// Remount the provider so the new tracking mode takes effect cleanly.
+			setChatSessionKey((key) => key + 1);
+		};
+		window.addEventListener(cookieConsentEventName, onConsent);
+		return () => {
+			window.removeEventListener(cookieConsentEventName, onConsent);
+		};
+	}, []);
+
 	if (!integrationId) {
 		return null;
 	}
@@ -1239,15 +1276,16 @@ export default function KapaChatLauncher({ autoOpen = false }: { autoOpen?: bool
 		setChatSessionKey((key) => key + 1);
 	};
 
+	// Cookie mode only after explicit accept from CookieConsentBanner.
+	// https://docs.kapa.ai/dev/sdk/components/KapaProvider#user-tracking-mode
+	const userTrackingMode = trackingModeForConsent(cookieConsent);
+
 	return (
 		<KapaProvider
-			key={chatSessionKey}
+			key={`${chatSessionKey}-${userTrackingMode}`}
 			integrationId={integrationId}
 			callbacks={callbacks}
-			// Anonymous first-party cookie (`kapa_web_id`). Default in the Kapa
-			// React SDK; set explicitly so we do not accidentally ship `none` again.
-			// https://docs.kapa.ai/dev/sdk/components/KapaProvider#user-tracking-mode
-			userTrackingMode="cookie"
+			userTrackingMode={userTrackingMode}
 		>
 			<ChatSurface
 				title={title}

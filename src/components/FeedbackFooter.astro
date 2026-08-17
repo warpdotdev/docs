@@ -7,6 +7,7 @@ import Pagination from 'virtual:starlight/components/Pagination';
 import config from 'virtual:starlight/user-config';
 import DocsFeedbackLinks from './DocsFeedbackLinks.astro';
 import MermaidControls from './MermaidControls.astro';
+import CookieConsentBanner from './CookieConsentBanner.astro';
 
 // `starlightRoute.editUrl` is typed as `URL | undefined`; DocsFeedbackLinks
 // expects a plain string so it can pass the same value through untouched
@@ -28,6 +29,8 @@ const pageUrl = Astro.url.href;
     )
   }
 </footer>
+{/* Fixed bottom cookie bar; lives outside the footer layout flow. */}
+<CookieConsentBanner />
 
 <style>
   @layer starlight.core {

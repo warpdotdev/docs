@@ -1,0 +1,82 @@
+---
+// Site-wide cookie consent for Kapa Ask AI anonymous analytics.
+// Decision is stored in localStorage and consumed by KapaChatLauncher.
+// Kept as a lightweight Astro island (no React) so it paints with the page.
+const privacyHref = '/support-and-community/privacy-and-security/privacy/';
+---
+
+<div
+	id="warp-cookie-banner"
+	class="warp-cookie-banner"
+	role="dialog"
+	aria-live="polite"
+	aria-label="Cookie consent"
+	hidden
+>
+	<div class="warp-cookie-banner__inner">
+		<p class="warp-cookie-banner__copy">
+			We use a first-party cookie so Ask AI can measure unique visitors and improve answers.
+			See our <a href={privacyHref}>privacy docs</a> for details.
+		</p>
+		<div class="warp-cookie-banner__actions">
+			<button type="button" class="warp-cookie-banner__btn warp-cookie-banner__btn--ghost" data-cookie-consent="declined">
+				Decline
+			</button>
+			<button type="button" class="warp-cookie-banner__btn warp-cookie-banner__btn--primary" data-cookie-consent="accepted">
+				Accept
+			</button>
+		</div>
+	</div>
+</div>
+
+<script is:inline>
+	(() => {
+		var STORAGE_KEY = 'warp_docs_cookie_consent';
+		var EVENT_NAME = 'warp-docs-cookie-consent';
+		var banner = document.getElementById('warp-cookie-banner');
+		if (!banner) return;
+
+		function readConsent() {
+			try {
+				var value = localStorage.getItem(STORAGE_KEY);
+				if (value === 'accepted' || value === 'declined') return value;
+			} catch (e) {}
+			return null;
+		}
+
+		function writeConsent(value) {
+			try {
+				localStorage.setItem(STORAGE_KEY, value);
+			} catch (e) {}
+			window.dispatchEvent(
+				new CustomEvent(EVENT_NAME, {
+					detail: { consent: value },
+				})
+			);
+		}
+
+		function hideBanner() {
+			banner.hidden = true;
+		}
+
+		function showBanner() {
+			banner.hidden = false;
+		}
+
+		var existing = readConsent();
+		if (!existing) {
+			showBanner();
+		}
+
+		banner.addEventListener('click', function (event) {
+			var target = event.target;
+			if (!(target instanceof Element)) return;
+			var button = target.closest('[data-cookie-consent]');
+			if (!button) return;
+			var value = button.getAttribute('data-cookie-consent');
+			if (value !== 'accepted' && value !== 'declined') return;
+			writeConsent(value);
+			hideBanner();
+		});
+	})();
+</script>
