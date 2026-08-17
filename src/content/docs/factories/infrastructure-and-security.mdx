@@ -16,7 +16,16 @@ Every factory splits responsibilities across two planes:
 * **Control plane** - Warp coordinates runs, identity and configuration, observability, integrations, storage, and inference routing.
 * **Execution plane** - A Warp-hosted sandbox or a managed self-hosted worker checks out code, runs setup, invokes tools, builds the project, and executes commands.
 
-Work flows between the planes in both directions. Integrations and triggers hand work to the control plane, which dispatches each task, its configuration, and scoped runtime credentials to the execution host. Results, transcripts, attachments, artifacts, and telemetry flow back through the control plane. The control plane also routes model requests to Warp-managed or customer-configured inference and persists run data to Warp or customer-owned storage.
+```mermaid
+flowchart LR
+  I["Integrations and triggers"] --> C["Warp control plane<br/>coordination · identity/config<br/>observability · inference routing"]
+  C --> H["Warp-hosted sandbox"]
+  C -->|"task, config, and scoped<br/>runtime credentials"| S["Managed self-hosted worker"]
+  H -->|"results, transcripts,<br/>artifacts, telemetry"| C
+  S -->|"results, transcripts, attachments,<br/>artifacts, and telemetry<br/>can contain code context"| C
+  C --> P["Warp-managed or<br/>customer-configured inference"]
+  C --> D["Warp or supported<br/>customer-owned storage"]
+```
 
 Self-hosting moves only the execution plane: with a managed self-hosted worker, repository checkouts, command execution, and the sandbox filesystem stay on machines you control, but content that enters prompts, results, transcripts, attachments, artifacts, or telemetry still flows through Warp and the providers you configure. See [deployment patterns](/platform/deployment-patterns/) and [self-hosting security and networking](/platform/self-hosting/security-and-networking/) for the broader data model.
 
