@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig, envField } from 'astro/config';
 import remarkGfm from 'remark-gfm';
+import mermaid from 'astro-mermaid';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
@@ -28,6 +29,11 @@ export default defineConfig({
 				access: 'public',
 				optional: true,
 			}),
+			PUBLIC_KAPA_PROJECT_ID: envField.string({
+				context: 'client',
+				access: 'public',
+				optional: true,
+			}),
 			PUBLIC_RUDDERSTACK_WRITE_KEY: envField.string({
 				context: 'client',
 				access: 'public',
@@ -43,9 +49,32 @@ export default defineConfig({
 				access: 'public',
 				optional: true,
 			}),
+			SUPPORT_HANDOFF_ENDPOINT_URL: envField.string({
+				context: 'server',
+				access: 'secret',
+				optional: true,
+			}),
+			SUPPORT_HANDOFF_SHARED_SECRET: envField.string({
+				context: 'server',
+				access: 'secret',
+				optional: true,
+			}),
 		},
 	},
 	integrations: [
+		mermaid({
+			autoTheme: true,
+			enableLog: false,
+			mermaidConfig: {
+				fontFamily: "'Inter', 'Inter Fallback', sans-serif",
+				themeVariables: {
+					fontFamily: "'Inter', 'Inter Fallback', sans-serif",
+					primaryBorderColor: '#51a6ec',
+					nodeBorder: '#51a6ec',
+					lineColor: '#51a6ec',
+				},
+			},
+		}),
 		react(),
 		sitemap(),
 		starlight({
@@ -61,15 +90,24 @@ export default defineConfig({
 				baseUrl: 'https://github.com/warpdotdev/docs/edit/main/',
 			},
 			lastUpdated: true,
-			// Soft-wrap long lines by default. Expressive Code defaults to
-			// `overflow-x: auto` for `<pre>`, which combined with macOS's
-			// auto-hidden scrollbars made wide lines silently truncate.
-			// `wrap: true` adds the `.wrap` class so EC's `white-space: pre-wrap`
-			// kicks in; leading indents are preserved via its `span.indent` rule.
+			// Keep long lines unwrapped so code blocks use horizontal scrolling.
+			// This aligns docs behavior with the side chat renderer and preserves
+			// exact line shape for commands and snippets.
 			expressiveCode: {
 				defaultProps: {
-					wrap: true,
+					wrap: false,
 				},
+				// IMPORTANT: Expressive Code's Vite plugin rewrites Shiki's bundled
+				// theme registry (shiki/dist/themes.mjs) and strips every theme not
+				// listed as a *string* in its `themes` config. Starlight passes its
+				// themes as objects, so the registry is emptied for the entire Vite
+				// module graph — including the Kapa side-chat island, whose runtime
+				// createHighlighter(['github-light', 'github-dark']) then throws
+				// "theme is not included in this bundle" and falls back to plaintext.
+				// Keeping the registry intact restores chat code block highlighting.
+				// Only the requested themes are ever fetched at runtime (lazy chunks),
+				// so this does not bloat the pages served to visitors.
+				removeUnusedThemes: false,
 				// Map languages Shiki doesn't bundle to a safe fallback. PromQL
 				// blocks live in platform/self-hosting/monitoring.mdx;
 				// without this alias every build emits noisy "language could not be

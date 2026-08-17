@@ -1,0 +1,38 @@
+---
+title: Troubleshooting Warp Factories
+description: >-
+  Fix missing GitHub repositories and agent limits during factory creation,
+  and stop an active factory run.
+sidebar:
+  label: "Troubleshooting"
+---
+import { VARS } from '@data/vars';
+
+Solutions for common issues when creating and operating a factory in the {VARS.FACTORY_WEB_APP}.
+
+## A GitHub repository doesn't appear in the picker
+
+**Cause:** The GitHub installation doesn't cover the repository.
+
+**Fix:**
+
+1. Confirm the installation includes the repository and the intended organization. See the [GitHub integration](/platform/integrations/github/) for how the connection works.
+2. If you can't update the installation yourself, ask a GitHub organization owner or a Warp team admin to update the connection.
+
+## Factory creation stops at an agent limit
+
+**Cause:** Your team's plan limits how many factory agents it can run.
+
+**Fix:**
+
+1. Ask a team admin to confirm the team's capacity.
+2. If the team needs more agents, [contact sales](https://www.warp.dev/contact-sales).
+
+## You need to stop a run
+
+In the {VARS.FACTORY_WEB_APP}, open **Activity** in your factory's sidebar, select the work item, and click **Stop task** to stop its active run.
+
+## Related pages
+
+* [**Warp Factories quickstart**](/factories/quickstart/) - Create a factory and submit your first work item.
+* [**Connect your factory**](/factories/connect-your-factory/) - Route work in from Slack threads, Linear issues, and other intake paths.

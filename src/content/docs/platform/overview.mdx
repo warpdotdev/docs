@@ -11,7 +11,15 @@ import { VARS } from '@data/vars';
 
 Cloud agents run on the **{VARS.WARP_AUTOMATION_PLATFORM}**. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [environment](/platform/environments/), on a host), and inspect outcomes with team visibility. First-party [integrations](/platform/integrations/) connect external events — like Slack messages, GitHub PRs, or CI failures — to cloud agents automatically.
 
-<VideoEmbed url="https://youtu.be/poLkJhO7fdo" title="Oz Platform cloud agents overview video" />
+{/* Transition notice for the 2026-08-18 rename. Remove after 2026-09-15, when
+    the CLI and web app take their new names and the old one stops appearing. */}
+:::note
+**Oz is now the {VARS.WARP_AUTOMATION_PLATFORM}.** Only the name changed. Your existing integrations, API keys, scheduled agents, and scripts keep working exactly as before — nothing to migrate.
+
+The `oz` CLI and the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> keep the Oz name until September 15, 2026, which is why you'll still see it in commands and URLs.
+:::
+
+<VideoEmbed url="https://youtu.be/poLkJhO7fdo" title={`${VARS.WARP_AUTOMATION_PLATFORM} cloud agents overview video`} />
 
 :::note
 **New to cloud agents?** Start with the [Cloud agents quickstart](/platform/quickstart/) to run your first agent in ~10 minutes.
@@ -24,9 +32,9 @@ Cloud agents run on the **{VARS.WARP_AUTOMATION_PLATFORM}**. The platform gives 
 3. The agent executes on a **host**, optionally inside an environment, using the required configuration and credentials.
 4. The task produces a **persistent record** (status, metadata, transcript, outputs) your team can review and manage.
 
-![Oz Platform architecture showing Trigger, Agent, Environment, and Artifacts components](../../../assets/agent-platform/most-flexible-platform-for-building-with-agents.png)
+![Flow diagram: a trigger kicks off an agent, which runs in an environment and creates artifacts, on either Warp-hosted or self-hosted infrastructure](../../../assets/agent-platform/most-flexible-platform-for-building-with-agents.png)
 
-![Oz Platform detailed architecture showing components, triggers, orchestrator, and agent runners](../../../assets/agent-platform/oz-diagram.png)
+![Architecture diagram: Warp-designed and customer-defined triggers create an agent task, which the agent orchestrator routes to agent runners on Warp or customer infrastructure](../../../assets/agent-platform/platform-architecture.png)
 
 The sections below describe the {VARS.WARP_AUTOMATION_PLATFORM} primitives that power this flow, and how they compose.
 
@@ -47,15 +55,13 @@ In practice: **triggers create tasks; tasks execute on a host (optionally in an 
 
 ### Warp Factories
 
-[Warp Factories](/factories/) give engineering teams open, flexible infrastructure for building and operating their own cloud software factories. A factory composes the primitives described on this page — triggers, tasks, environments, hosts, and integrations — into an automation loop around your development lifecycle.
-
-Factories are in closed beta. See the [Factories](/factories/) tab for what a software factory is, how to configure and connect one, and how to apply.
+[Warp Factories](/factories/) builds on the primitives described on this page to run persistent, multi-agent development workflows. A factory coordinates specialized cloud agents that move each work item through triage, specification, implementation, and review.
 
 ---
 
 ### CLI
 
-The [{VARS.WARP_AGENT_CLI}](/reference/cli/) is the **headless interface** for running agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](/agents/getting-started/agents-in-warp/) embedded in Warp's desktop app.
+The [{VARS.WARP_AGENT_CLI}](/reference/cli/) is the **headless interface** for running agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](/agents/) embedded in Warp's desktop app.
 
 A key property of the CLI is that it is **cloud-connected**. Even when an agent is started on a local machine or in CI, it reports progress to Warp’s servers. This enables team visibility, session sharing (where supported), and programmatic tracking through the API.
 
@@ -191,7 +197,7 @@ With Warp hosting:
 With self-hosting:
 
 * The agent runs on customer-managed infrastructure.
-* {VARS.WARP_AUTOMATION_PLATFORM} orchestrator still manages lifecycle and observability.
+* The {VARS.WARP_AUTOMATION_PLATFORM} orchestrator still manages lifecycle and observability.
 * This is used when teams want code and execution to remain on their own systems rather than being cloned or executed in Warp's cloud.
 
 :::note
