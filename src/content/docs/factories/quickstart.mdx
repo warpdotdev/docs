@@ -9,12 +9,12 @@ sidebar:
 import { Steps } from '@astrojs/starlight/components';
 import { VARS } from '@data/vars';
 
-A factory is a team of cloud agents — a foreman you talk to, plus the subagents it dispatches — that turns incoming requests into pull requests for your team to review. In this quickstart you create a factory, connect a GitHub repository, and take one small work item from prompt to pull request in about 10 minutes.
+A factory is a team of cloud agents — a foreman you talk to, plus the subagents it dispatches — that turns incoming requests into pull requests for your team to review. In this quickstart, you will create a factory, connect a GitHub repository, and take one small work item from prompt to pull request in about 10 minutes.
 
 ## Prerequisites
 
-* **A Warp team with credits** - A factory belongs to a [Warp team](/knowledge-and-collaboration/teams/), and its agents consume the team's credits. If the team has no active plan, setup asks you to select one.
-* **GitHub repository access** - You authorize GitHub and choose repositories during setup. If your organization restricts app installations, ask a GitHub organization owner to approve the connection. See the [GitHub integration](/platform/integrations/github/) for details.
+* **A Warp team with credits** - A factory belongs to a [Warp team](/knowledge-and-collaboration/teams/). Factory agents consume the team's credits. If the team has no active plan, you will be asked to select one during setup.
+* **GitHub repository access** - Authorize GitHub and choose repositories during setup. If your organization restricts app installations, ask a GitHub organization owner to approve the connection. See the [GitHub integration](/platform/integrations/github/) for details.
 
 ## Create your factory
 
@@ -22,29 +22,47 @@ _~5 minutes_
 
 <Steps>
 
-1. #### Start a new factory
+1. #### Open the Warp Factories web app and sign in
 
-   Open the {VARS.FACTORY_WEB_APP} at <a href={VARS.FACTORY_WEB_APP_URL}>platform.warp.dev</a> and sign in. In the sidebar, click **+** next to **Factories** to open the setup wizard.
+   Go to the {VARS.FACTORY_WEB_APP} at <a href={VARS.FACTORY_WEB_APP_URL}>platform.warp.dev</a> and sign in.
 
-   If your account has no team yet, the wizard first asks you to choose the team that will own the factory. When that team has no plan or credits, it opens **Select a Warp Plan**: a factory needs credits to run its agents.
+2. #### Start the setup wizard
 
-2. #### Connect GitHub and select your repos
+   In the sidebar, next to **Factories**, click **+**.
 
-   Click **I want to use repos from GitHub** and complete the GitHub authorization. Then choose the repositories the factory will work in and click **Add repos**.
+   :::note
+   **No team yet?** The wizard first asks you to choose the team that will own the factory. If that team has no plan or credits, it opens **Select a Warp Plan** — a factory needs credits to run its agents.
+   :::
 
-   Start with one or two repositories: every agent in the factory shares this repo set, so a focused set keeps their context tight. Warp provisions a default [environment](/platform/environments/) for the selected repos.
+3. #### Connect GitHub
 
-3. #### Name your factory
+   Click **I want to use repos from GitHub** and complete the GitHub authorization.
+
+4. #### Select your repositories
+
+   Choose the repositories the factory will work in and click **Add repos**. Start with one or two repositories — every agent in the factory shares this repo set, so a focused set keeps their context tight.
+
+   Warp provisions a default [environment](/platform/environments/) for the selected repos.
+
+5. #### Name your factory
 
    Enter a **Factory name**, such as `Payments services`. Warp derives a matching **Factory alias**, the handle teammates use to @-mention the factory from connected tools like Slack and Linear. Keep it short and recognizable.
 
+6. #### Skip integrations for now
+
    The next screen offers to connect Slack. This quickstart skips integrations, so click **Next**. You can connect them any time from [Connect your factory](/factories/connect-your-factory/).
 
-4. #### Choose your agents and create the factory
+7. #### Choose your agents
 
-   The foreman leads every factory: it is the orchestration agent you interact with directly. Below it, toggle the subagents it can dispatch: **Triage**, **Spec**, **Code**, and **Review**. All four start enabled, and at least one is required. Keep **Code** on so this quickstart's work item can end in a pull request. See [Factory agents](/factories/factory-agents/) for what each role does.
+   The foreman leads every factory — it's the orchestration agent you interact with directly. Below it, toggle the subagents it can dispatch: **Triage**, **Spec**, **Code**, and **Review**. All four start enabled, and at least one is required. Keep **Code** on so this quickstart's work item can end in a pull request.
 
-   Skip the issue tracker screen the same way as Slack: click **Next**, and Warp creates the factory. When the startup screen reports **Factory running!**, click **Go to dashboard**.
+   See [Factory agents](/factories/factory-agents/) for what each role does.
+
+8. #### Create the factory
+
+   Skip the issue tracker screen the same way as Slack: click **Next**. Warp creates the factory.
+
+   When the startup screen reports **Factory running!**, click **Go to dashboard**.
 
 </Steps>
 
@@ -54,9 +72,13 @@ _~5 minutes_
 
 <Steps>
 
-1. #### Start a run
+1. #### Open Runs and start a new run
 
-   In the sidebar under your factory, open **Runs** and click **New**. Describe one small, verifiable change and submit it:
+   In the sidebar under your factory, open **Runs** and click **New**.
+
+2. #### Describe your work item
+
+   Describe one small, verifiable change and submit it:
 
    ```text title="Example first request"
    Add a "Local development" section to README.md that summarizes the setup
@@ -68,14 +90,16 @@ _~5 minutes_
 
    The foreman picks up the request as a run on **Runs** and dispatches your subagents as child runs.
 
-2. #### Watch the run and review the pull request
+3. #### Watch the run
 
    Follow progress from two pages in your factory's sidebar:
 
    * **Runs** - The foreman's run and the child runs it dispatches.
    * **Activity** - The work item as it moves through its stages. Open it to see its event history and pull request artifacts.
 
-   When the Code agent finishes, the work item links a pull request in GitHub. Review and merge it through your normal process: the factory drafts the change, and your team makes the call.
+4. #### Review and merge the pull request
+
+   When the Code agent finishes, the work item links a pull request in GitHub. Review and merge it through your normal process — the factory drafts the change, and your team makes the call.
 
 </Steps>
 
