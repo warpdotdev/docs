@@ -85,6 +85,18 @@ Each Self-improvement pull request includes a **Regressions addressed** section 
 
 Change one measurable thing at a time:
 
+```mermaid
+flowchart LR
+  Define[Define a Scorer] --> Baseline[Collect a baseline]
+  Baseline --> Inspect[Inspect failures]
+  Inspect --> Benchmark[Benchmark a candidate]
+  Benchmark --> Adopt[Review and adopt]
+  Adopt --> Monitor[Keep monitoring]
+  Monitor --> Inspect
+  Inspect -.->|Repeated failures| Improve[Self-improvement]
+  Improve -.-> Adopt
+```
+
 1. **Define a Scorer.** Pick one agent and one failure mode you can observe. Write the judge instructions and classifications, then score a few conversations manually and compare the judge's results against your own review.
 2. **Collect a baseline.** Let automatic scoring run until results reflect normal work. Record the Scorer settings, date range, and relevant costs.
 3. **Inspect failures.** Read the judge's reasoning and the underlying conversations. Look for causes like missing context, unclear instructions, or missing tools. Turn on Self-improvement when the same failure keeps repeating.
