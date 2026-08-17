@@ -1,20 +1,54 @@
 ---
 title: Warp Factories overview
 description: >-
-  Warp Factories give engineering teams open, flexible infrastructure for
-  building and operating their own cloud software factories.
+  Warp Factories runs cloud software factories where specialized agents move
+  engineering work from intake to a reviewed pull request.
 sidebar:
   label: "Overview"
 ---
+import { VARS } from '@data/vars';
 
-[STUB — pending content from HYC/content team for the 8/18 closed-beta soft launch. Owner: HYC. This page is the Factories tab landing page (`/factories/`).
+Warp Factories lets engineering teams define and operate **software factories**, cloud workflows where specialized agents move engineering work from intake to a reviewed pull request. Your team sets the policy and makes the final decisions; the factory does the repetitive work and records the evidence you need to improve it.
 
-Cover, per the launch positioning:
-- What a software factory is (automation loop around the SDLC: triage, spec, implement, review, verify) and why teams are building them
-- How Warp Factories relates to Warp Agent / Warp Terminal / the CLI (decoupled products that interoperate)
-- The "open, flexible infrastructure" positioning: AI sovereignty, bring-your-own inference/hosting, factory definitions as code
-- Closed beta status + apply/waitlist CTA (mention the $10k qualified-org usage offer if approved for this surface)
+:::note
+This feature is currently in **Early Access**. Warp Factories is available to a limited set of teams while Warp validates the product.
+:::
 
-See `.agents/references/terminology.md` → "Warp Factories terminology" for the baseline glossary (factory, software factory, work item, Factory MCP, control room, etc.) to write against.
+## What is a software factory?
 
-Cross-link to: Quickstart, How Factories work, and the Automation Platform tab (primitives Factories are built on).]
+A software factory automates the software development lifecycle. It takes a **work item**, such as an issue, ticket, or triggered task, and moves it through specialized agents that triage it, write a specification when one is needed, implement the change, and review the result.
+
+A **factory** is one deployed instance of that pattern. It connects your repositories and engineering tools to agent roles, execution infrastructure, and a measurable workflow. Each factory applies a single policy across all of its work sources, so deploy separate factories for repository groups that need different policies.
+
+## Who benefits from Warp Factories
+
+Warp Factories is designed for engineering teams with repeatable work that extends beyond one coding session, such as:
+
+* **Backlog work** - Process issues with a consistent triage and delivery policy.
+* **Operational requests** - Fix defects reported through support channels.
+* **Code maintenance** - Review incoming pull requests or maintain services across repositories.
+
+## What you get with Warp Factories
+
+* **Coordinated specialist agents** - A team of [factory agents](./factory-agents) runs each work item. A coordinating foreman routes it through the triage, spec, implement, and review roles, skipping stages that don't apply. You can add custom agents and automations to handle work the default roles don't cover.
+* **Factory definitions as code** - [Version-controlled definition files](./factory-as-code) describe your repositories, agents, automations, runners, skills, and MCP servers, so factory changes get the same review, history, and rollback as code changes.
+* **Integrations and the Factory MCP** - Work flows in from [Slack](./integrations/slack), [Linear](./integrations/linear), [Jira](./integrations/jira), and [GitHub](./integrations/github), plus direct runs and schedules. The [Factory MCP](./factory-mcp) connects coding agents and other MCP clients.
+* **Model and harness choice** - Each agent role can use a different model and [supported harness](../platform/harnesses), including the Warp Agent, Claude Code, and Codex.
+* **Measurement and self-improvement** - The [control room](./control-room) shows work-item status, runs, automations, costs, and benchmarks. [Scorers](./measure-and-improve) grade completed work, and [Self-improvement](./measure-and-improve#configure-and-review-self-improvement) turns repeated failures into follow-up work the factory proposes for review.
+* **Infrastructure control** - Run on Warp-hosted infrastructure, or self-host execution on an eligible Enterprise plan. Teams can also connect supported inference providers, scope secrets, and (if eligible) store transcripts, artifacts, and run attachments in their own S3 or GCS buckets. See [infrastructure and security](./infrastructure-and-security) for the available controls.
+
+## How Warp Factories relates to other Warp products
+
+| Product | How it relates |
+| --- | --- |
+| **Warp** | The interactive terminal where you develop locally with agents and code review. A factory runs independently in the cloud. |
+| **Warp Agent** | Warp's built-in agent harness. Factory roles can run on it or on another supported harness. |
+| **{VARS.WARP_CLI}** | Runs the Warp Agent in any terminal and exchanges work with a factory through the Factory MCP. |
+| **{VARS.WARP_AUTOMATION_PLATFORM}** | Provides the cloud runs, environments, runners, integrations, secrets, orchestration, and APIs that a factory assembles into one workflow. |
+
+## Next steps
+
+* [**Set up a factory**](./quickstart) - Create a factory and send its first work item.
+* [**Understand the execution model**](./how-factories-work) - See how the foreman coordinates stages, runs, and human decisions.
+* [**Meet the factory agents**](./factory-agents) - See what each role does and how to configure its model, harness, and instructions.
+* **Adapt the system** - [Define the factory as code](./factory-as-code) and [connect its work sources](./connect-your-factory).
