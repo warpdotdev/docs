@@ -54,6 +54,8 @@ Tasks use the following Docker images:
 * [`warpdotdev/warp-codex-cli-sidecar:latest`](https://hub.docker.com/r/warpdotdev/warp-codex-cli-sidecar) (only if using Codex)
 * The base image specified by your [environment](/platform/environments/)
 
+**Google Cloud Storage (`storage.googleapis.com`)** — port 443, for downloading managed Docker Sandbox tooling sidecar archives (Warp CLI, computer use, and coding CLI tooling), uploading conversation transcripts so conversations can be resumed locally, and providing attachments to the agent.
+
 **GitHub (`github.com`)** — only with the managed architecture, when using a Warp [environment](/platform/environments/) with configured GitHub repositories.
 
 **Linux distribution-specific package repositories** — only with the managed architecture, when using a Warp environment whose base image does not have Git pre-installed. The exact repositories depend on the package manager configuration in the environment's base image.
