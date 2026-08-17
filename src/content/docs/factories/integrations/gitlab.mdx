@@ -7,45 +7,57 @@ sidebar:
   label: "GitLab"
 topic: factories
 ---
+import { VARS } from '@data/vars';
 
-Connect a factory to GitLab so project activity starts work in your factory. Merge request events and bot mentions trigger automations, and the factory posts results back to GitLab as comments, branches, and merge requests.
+When you connect a factory to GitLab, project activity starts work in your factory. Merge request events and bot mentions trigger automations, and the factory posts results back to GitLab as comments, branches, and merge requests.
 
 ## Prerequisites
 
 * **GitLab.com** - The integration supports GitLab.com only, not self-managed GitLab instances. To use a self-managed instance with standalone cloud agents instead, see the [GitLab access token setup](/platform/integrations/gitlab/).
-* **A top-level GitLab group you own** - Connecting GitLab links one top-level group to your Warp workspace. Creating the link requires the Owner role on the group and workspace admin permissions in Warp. Each workspace connects to one group, and each group connects to one workspace.
+* **A top-level GitLab group you own** - Connecting GitLab links one top-level group to your Warp workspace, one-to-one. Creating the link requires the Owner role on the group and workspace admin permissions in Warp.
 * **A GitLab plan with service accounts and group webhooks** - Warp provisions service accounts in your group and installs a group webhook; both are GitLab Premium and Ultimate features. On a plan without group webhooks, factory credentials still work, but GitLab cannot trigger runs.
 
 ## Service accounts and access
 
 Warp manages GitLab access through service accounts it creates in your connected group rather than a marketplace app:
 
-* **One manager account per workspace** - Created when you connect the group and granted the Owner role on it. Warp uses it to provision factory accounts, mint their run credentials, and maintain the group webhook. Its provisioning token is valid for one year.
-* **One bot account per factory** - Each factory gets its own service account, named from the factory's alias plus a `-warp-` suffix and a short unique ID (for example, `acme-support-warp-01k2x3y4z5`). The bot holds the Developer role on exactly the projects you select for the factory. It is the factory's identity on GitLab: runs authenticate as the bot, and its username is the handle you mention.
+* **One manager account per workspace** - Created when you connect the group and granted the Owner role on it. Warp uses it to provision factory accounts, mint their run credentials, and maintain the group webhook; its provisioning token is valid for one year.
+* **One bot account per factory** - Each factory gets its own service account, named from the factory's alias plus a `-warp-` suffix and a short unique ID (for example, `acme-support-warp-01k2x3y4z5`). The bot holds the Developer role on exactly the projects you select for the factory. It is the factory's identity on GitLab. Runs authenticate as the bot, and its username is the handle you mention.
 
 The connected group's webhook delivers merge request and comment events to Warp, and matching automations turn them into factory work.
 
 ## Connect GitLab to a factory
 
-1. In the Warp Factories web app, open the factory setup flow and choose **I want to use repos from GitLab** under **Connect your code host**. Authorize with GitLab when prompted.
+1. In the {VARS.FACTORY_WEB_APP} at <a href={VARS.FACTORY_WEB_APP_URL}>platform.warp.dev</a>, click **+** next to **Factories** to open the setup wizard, then choose **I want to use repos from GitLab** under **Connect your code host**. Authorize with GitLab when prompted.
 2. Under **Connect a GitLab group**, pick a top-level group you own and click **Next**. Warp creates the manager service account and installs the group webhook. A group that is already connected shows a **Connected** badge, and the selection is locked to it.
-3. Under **Select your repos**, select the projects that provide code and context for the factory. Projects anywhere under the connected group, including subgroups, are available.
-4. In the factory's control room, open **Automations** to review routing. GitLab factories start with an editable default automation, **gitlab-bot-mentions**, that fires when the factory's bot is mentioned. To route merge request events too, create an automation, click **Add trigger**, choose **GitLab**, and choose **Merge request**.
-5. To confirm the connection works, comment on a merge request in a selected project and mention the factory's bot. A work item starts in the control room, and the factory replies in the same thread.
+3. Under **Select your repos**, choose the projects to provide code and context for the factory. Projects anywhere under the connected group, including subgroups, are available.
+4. In the factory's [control room](/factories/control-room/), click **Automations**. GitLab factories start with an editable default automation, **gitlab-bot-mentions**, that fires when the factory's bot is mentioned.
+5. To route merge request events too, create an automation and click **Add trigger**.
+6. Choose **GitLab**, then choose **Merge request**.
+7. To confirm the connection works, comment on a merge request in a selected project and mention the factory's bot. A work item starts in the control room, and the factory replies in the same thread.
 
 ## Supported triggers
 
-| Trigger | Fires when |
-| --- | --- |
-| Merge request | A merge request is opened, updated, closed, reopened, merged, or approved |
-| Bot mentioned | A new comment mentions the factory's bot username |
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col />
+</colgroup>
+<thead>
+<tr><th>Trigger</th><th>Fires when</th></tr>
+</thead>
+<tbody>
+<tr><td>Merge request</td><td>A merge request is opened, updated, closed, reopened, merged, or approved</td></tr>
+<tr><td>Bot mentioned</td><td>A new comment mentions the factory's bot username</td></tr>
+</tbody>
+</table>
 
 ### Automation filters
 
 | Filter | Matches | Appears on |
 | --- | --- | --- |
 | **Project** | The GitLab project the event came from | Both triggers |
-| **Actions** | What happened to the merge request: opened, updated, merged, and so on | Merge request |
+| **Actions** | What happened to the merge request, such as opened, updated, or merged | Merge request |
 | **Base branch** | The branch the merge request targets | Merge request |
 
 On the **Bot mentioned** trigger, the mention username is managed by Warp. It is always the factory's own bot, shown read-only in the automation editor, and it cannot be set in a definition file.
@@ -57,7 +69,7 @@ Each GitLab factory has its own bot account, so the mention itself routes the re
 1. Open a merge request in one of the factory's projects.
 2. Post a comment that mentions the factory's bot username and includes an instruction.
 
-The **gitlab-bot-mentions** automation starts a work item, and the factory replies in the same thread. To find the bot's username, open that automation in the control room; its trigger shows the username Warp seeded.
+The **gitlab-bot-mentions** automation starts a work item, and the factory replies in the same thread. To find the bot's username, open that automation in the [control room](/factories/control-room/); its trigger shows the username Warp seeded.
 
 Mentions count only in new comments; edits are ignored. Activity by Warp's own service accounts never triggers work, so a factory cannot re-trigger itself or a sibling factory.
 
@@ -65,7 +77,7 @@ Mentions count only in new comments; edits are ignored. Activity by Warp's own s
 
 The factory acts on GitLab as its bot account:
 
-* **Replies in the thread it was mentioned in** - Its comments link back to the run session and the factory work item. New comments on the same merge request continue the existing work item with its earlier context.
+* **Replies in the thread it was mentioned in** - Its comments link back to the run session and the factory work item. New comments on the same merge request continue that work item instead of starting a new one.
 * **Pushes branches and opens draft merge requests** - Branches are named `factory/<slug>`, and merge requests open as drafts that the factory marks ready when the work is done. Commits and comments attribute to the bot's GitLab profile.
 * **Labels what it touches** - Merge requests and issues the factory opens or adopts carry its `factory:<alias>` label.
 * **Posts review feedback as comments** - A review lands as a summary note plus inline discussions on the diff. When a later revision addresses a finding, the factory replies in that discussion and resolves it.
@@ -76,14 +88,14 @@ The factory never merges or approves a merge request; those decisions stay with 
 
 Runs authenticate as the factory's bot account, not as the person whose activity triggered them:
 
-* **The bot's project membership decides what runs can reach.** Each run gets a short-lived token for the bot, and its access is bounded by the bot's Developer role on the factory's selected projects. To change what a factory can reach, change its projects; automation filters change when work starts, not what a running agent can access.
+* **The bot's project membership decides what runs can reach.** Each run gets a short-lived token scoped to the bot's Developer role on the factory's selected projects. Selecting projects for a factory or tightening automation filters changes when work starts, not what a running agent can access. To change access, change the factory's projects.
 * **Anyone who can create matching activity can start work.** The commenter doesn't need to be a Warp team member. Use project, action, and base-branch filters to control what starts runs.
 
 Disconnecting GitLab from the workspace retires the manager and every factory bot it provisioned.
 
 ## Definitions as code
 
-If the factory's [definition is managed as code](../factory-as-code), declare GitLab triggers in an automation file:
+If the factory's [definition is managed as code](/factories/factory-as-code/), declare GitLab triggers in an automation file:
 
 ```markdown title="automations/gitlab-merge-requests/automation.md"
 ---
@@ -114,7 +126,7 @@ Confirm an enabled automation includes the **Merge request** trigger and check i
 
 ### Nothing starts work even though GitLab is connected
 
-Your GitLab plan may not support group webhooks. Factory credentials remain available on such plans, but GitLab cannot trigger agents until the group is on a plan that supports group webhooks.
+Your GitLab plan may not include group webhooks (see [Prerequisites](#prerequisites)). Upgrade your GitLab plan to let GitLab trigger runs.
 
 ### The bot can't push a branch or open a merge request
 
@@ -124,4 +136,4 @@ Confirm the target project is one of the factory's selected projects and the ope
 
 Only top-level groups you own appear, and a group already connected to another Warp workspace can't be connected again. If you don't own the group, ask an owner to establish the connection in Warp.
 
-For the other ways to route work into a factory, see [connecting your factory](../connect-your-factory).
+For the other ways to route work into a factory, see [connecting your factory](/factories/connect-your-factory/).
