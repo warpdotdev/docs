@@ -60,7 +60,7 @@ All Jira work reaches the factory through a single event, `agent_session_created
 * **`project_keys`** - Match work items in these Jira projects.
 * **`keywords`** - Match assignment text that contains any of these words. Matching is case-insensitive.
 
-A session must match every field you set; within a field, any listed value is a match. Omit a field to match everything. For the matching rules shared by every source, see [automation filters](../automation-filters).
+A session must match every field you set; within a field, any listed value is a match. Omit a field to match everything. For the matching rules shared by every source, see [automation filters](/factories/automation-filters/).
 
 :::caution
 Filters like `project_keys` decide whether *your* automation starts a run; they aren't an access boundary. A Jira event is evaluated against every team's automations in the connected workspace, so another team's automation with a broader or different filter can still start its own run on the same work item. Installing the Warp app doesn't scope its Jira access to specific projects either — scoping Jira project access by Warp team is coming soon.

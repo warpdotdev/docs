@@ -8,7 +8,7 @@ sidebar:
 topic: factories
 ---
 
-Automation filters decide which events from your connected tools start factory work. Every trigger on a [factory automation](./connect-your-factory) carries filters — conditions such as a repository, channel, team, project, label, or author — and an event starts a run only when it matches them. Filters let a factory watch busy channels and repositories without acting on everything in them.
+Automation filters decide which events from your connected tools start factory work. Every trigger on a [factory automation](/factories/connect-your-factory/) carries filters — conditions such as a repository, channel, team, project, label, or author — and an event starts a run only when it matches them. Filters let a factory watch busy channels and repositories without acting on everything in them.
 
 ## How matching works
 
@@ -30,15 +30,15 @@ Filters are still your main control over who starts runs. On GitHub and GitLab, 
 
 Every source filters on where the event happened — a repository, project, conversation, or team. The remaining filters vary by source and event type:
 
-{/* TODO: link the GitLab row to ./integrations/gitlab once the GitLab integration page lands (PR #549). */}
+{/* TODO: link the GitLab row to /factories/integrations/gitlab/ once the GitLab integration page lands (PR #549). */}
 
 | Source | Filters |
 | --- | --- |
-| [Slack](./integrations/slack) | Conversations, authors or members, keywords, emoji, and reacted-message authors |
-| [GitHub](./integrations/github) | Repository, branches, base branches, paths, labels, authors, assignees, mentioned users or teams, reviewers, review states, workflows, and conclusions |
+| [Slack](/factories/integrations/slack/) | Conversations, authors or members, keywords, emoji, and reacted-message authors |
+| [GitHub](/factories/integrations/github/) | Repository, branches, base branches, paths, labels, authors, assignees, mentioned users or teams, reviewers, review states, workflows, and conclusions |
 | GitLab | Project, actions, and base branch |
-| [Linear](./integrations/linear) | Teams, labels, project, workflow state, assignee, mentioned user, and, for comment events, a specific issue |
-| [Jira](./integrations/jira) | Jira projects and assignment keywords |
+| [Linear](/factories/integrations/linear/) | Teams, labels, project, workflow state, assignee, mentioned user, and, for comment events, a specific issue |
+| [Jira](/factories/integrations/jira/) | Jira projects and assignment keywords |
 
 Each integration guide lists which filters appear on which event types.
 
@@ -52,7 +52,7 @@ Review the default automations Warp creates when you connect a provider, too: th
 
 ## Filters in definitions as code
 
-In a [factory definition](./factory-as-code), each entry under an automation's `triggers` takes an optional `filter` whose keys mirror the filters in the automation editor:
+In a [factory definition](/factories/factory-as-code/), each entry under an automation's `triggers` takes an optional `filter` whose keys mirror the filters in the automation editor:
 
 ```markdown title="automations/labeled-issue/automation.md"
 ---
@@ -77,7 +77,7 @@ The same matching rules apply: every key must match, any listed value within a k
 
 ## Related pages
 
-* [Connect your factory](./connect-your-factory) - Choose the sources that route work into the factory.
-* [Slack](./integrations/slack), [GitHub](./integrations/github), [Linear](./integrations/linear), and [Jira](./integrations/jira) integration guides - Per-source setup, events, and filter details.
-* [Definitions as code](./factory-as-code) - Manage automations, triggers, and filters as version-controlled files.
-* [Control room](./control-room) - Create and edit automations in the factory's **Automations** view.
+* [Connect your factory](/factories/connect-your-factory/) - Choose the sources that route work into the factory.
+* [Slack](/factories/integrations/slack/), [GitHub](/factories/integrations/github/), [Linear](/factories/integrations/linear/), and [Jira](/factories/integrations/jira/) integration guides - Per-source setup, events, and filter details.
+* [Definitions as code](/factories/factory-as-code/) - Manage automations, triggers, and filters as version-controlled files.
+* [Control room](/factories/control-room/) - Create and edit automations in the factory's **Automations** view.
