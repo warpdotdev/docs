@@ -439,7 +439,7 @@
     },
     {
       "source": "/agent-platform/agent-mode(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -479,7 +479,7 @@
     },
     {
       "source": "/agent-platform/agent-mode/agents-overview(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -499,7 +499,7 @@
     },
     {
       "source": "/agent-platform/agent-mode/generate(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/local-agents/generate/",
       "statusCode": 308
     },
     {
@@ -569,7 +569,7 @@
     },
     {
       "source": "/agent-platform/agent-platform/agent/agents-overview(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -579,12 +579,12 @@
     },
     {
       "source": "/agent-platform/agent-platform/agents-md(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/agent-platform/agents-overview(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -654,7 +654,7 @@
     },
     {
       "source": "/agent-platform/agent-platform/generate(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/local-agents/generate/",
       "statusCode": 308
     },
     {
@@ -819,7 +819,7 @@
     },
     {
       "source": "/agent-platform/agent-platform/warp-ai(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -834,12 +834,12 @@
     },
     {
       "source": "/agent-platform/agents/agents-md(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/agents/agents-overview(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -849,12 +849,12 @@
     },
     {
       "source": "/agent-platform/agents/ai-commander(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/agents/ai-commands(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -864,7 +864,7 @@
     },
     {
       "source": "/agent-platform/agents/ai-getting-started(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -889,7 +889,7 @@
     },
     {
       "source": "/agent-platform/agents/generate(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/local-agents/generate/",
       "statusCode": 308
     },
     {
@@ -994,7 +994,7 @@
     },
     {
       "source": "/agent-platform/agents/warp-ai(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -1009,7 +1009,7 @@
     },
     {
       "source": "/agent-platform/ai-features/ai-commands(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -1019,7 +1019,7 @@
     },
     {
       "source": "/agent-platform/ai/warp-ai(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -1134,7 +1134,7 @@
     },
     {
       "source": "/agent-platform/features/agent-mode/agents-md(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -1154,7 +1154,7 @@
     },
     {
       "source": "/agent-platform/features/ai-and-agents(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -1164,17 +1164,17 @@
     },
     {
       "source": "/agent-platform/features/ai-and-ask-warp(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/features/ai-and-ask-warp-ai(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/features/ai-and-session-history/warp-ai(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -1184,22 +1184,22 @@
     },
     {
       "source": "/agent-platform/features/ai-and-warpdrive/warp-ai(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/features/ai-command(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/features/ai-command-search(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/features/ai-command-search/limits(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -1209,7 +1209,7 @@
     },
     {
       "source": "/agent-platform/features/ai-command-suggestions(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -1219,17 +1219,17 @@
     },
     {
       "source": "/agent-platform/features/ai-commands(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/features/ai-features(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/features/ai-features/ai-chat(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -1254,22 +1254,22 @@
     },
     {
       "source": "/agent-platform/features/ai/ai-setup(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/features/ai/assistant(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/features/ai/commands(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/features/ai/commands-and-agents(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -1289,12 +1289,12 @@
     },
     {
       "source": "/agent-platform/features/ai/commands/ai-commands-overview(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/features/ai/get-started-with-warp-ai(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -1304,17 +1304,17 @@
     },
     {
       "source": "/agent-platform/features/ai/using-ai(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/features/ai/using-warp-ai(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/features/generate(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/local-agents/generate/",
       "statusCode": 308
     },
     {
@@ -1334,7 +1334,7 @@
     },
     {
       "source": "/agent-platform/features/terminal-ai(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -1349,7 +1349,7 @@
     },
     {
       "source": "/agent-platform/features/warp-ai(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -1374,17 +1374,17 @@
     },
     {
       "source": "/agent-platform/features/warp-ai/ai-command-search(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/features/warp-ai/ai-command-suggestions(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/features/warp-ai/generate(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/local-agents/generate/",
       "statusCode": 308
     },
     {
@@ -1409,7 +1409,7 @@
     },
     {
       "source": "/agent-platform/getting-started/quickstart-guide/agents-in-warp(/?)",
-      "destination": "/agent-platform/getting-started/agents-in-warp/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -1484,7 +1484,7 @@
     },
     {
       "source": "/agent-platform/local-agents(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -1494,7 +1494,7 @@
     },
     {
       "source": "/agent-platform/local-agents/agents-overview(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -1509,7 +1509,7 @@
     },
     {
       "source": "/agent-platform/local-agents/generate",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/local-agents/generate/",
       "statusCode": 308
     },
     {
@@ -1564,12 +1564,12 @@
     },
     {
       "source": "/agent-platform/terminal-ai/getting-started(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/terminal/ai(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -1579,7 +1579,7 @@
     },
     {
       "source": "/agent-platform/terminal/warp-ai(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -1754,17 +1754,17 @@
     },
     {
       "source": "/agent-platform/warp-ai(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/warp-ai/assistant(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/warp-ai/get-started(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -2629,7 +2629,7 @@
     },
     {
       "source": "/getting-started/quickstart-guide/agents-in-warp(/?)",
-      "destination": "/agent-platform/getting-started/agents-in-warp/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -4399,7 +4399,7 @@
     },
     {
       "source": "/agent-platform/warp-agents/warp-agents(/?)",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -4614,7 +4614,7 @@
     },
     {
       "source": "/agents/autonomy(/?)",
-      "destination": "/agent-platform/getting-started/agents-in-warp/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -4839,7 +4839,7 @@
     },
     {
       "source": "/getting-started/readme/agents-in-warp",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -5094,7 +5094,7 @@
     },
     {
       "source": "/agent-platform/agent/agents-overview",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -5124,7 +5124,7 @@
     },
     {
       "source": "/agent-platform/warps-agent/warp-agents",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -5159,7 +5159,7 @@
     },
     {
       "source": "/agents/agent-modality-beta",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/",
       "statusCode": 308
     },
     {
@@ -5194,7 +5194,7 @@
     },
     {
       "source": "/agents/generate",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/local-agents/generate/",
       "statusCode": 308
     },
     {
@@ -5234,7 +5234,7 @@
     },
     {
       "source": "/agent-platform/agent/generate",
-      "destination": "/agent-platform/local-agents/overview/",
+      "destination": "/agents/local-agents/generate/",
       "statusCode": 308
     },
     {
@@ -6510,6 +6510,26 @@
     {
       "source": "/team(/?)",
       "destination": "/knowledge-and-collaboration/teams/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agents/local-agents/overview",
+      "destination": "/agents/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agents/local-agents/overview/",
+      "destination": "/agents/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agents/getting-started/agents-in-warp",
+      "destination": "/agents/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agents/getting-started/agents-in-warp/",
+      "destination": "/agents/",
       "statusCode": 308
     }
   ]

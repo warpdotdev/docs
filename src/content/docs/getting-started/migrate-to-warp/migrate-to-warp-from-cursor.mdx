@@ -34,7 +34,7 @@ Terminal settings in Cursor follow the same schema as VS Code. The migration ste
 
 Cursor's Composer and Agent features don't have a one-to-one migration path; they map to different Warp concepts.
 
-* **Composer / Agent** - In Cursor, these features map to Warp's [Agent Mode](/agents/getting-started/agents-in-warp/). Start an Agent conversation in any tab.
+* **Composer / Agent** - In Cursor, these features map to Warp's [Agent Mode](/agents/). Start an Agent conversation in any tab.
 * **Rules files** - Warp uses [Rules](/agents/capabilities/rules/) stored in Warp Drive or committed to your repo as `AGENTS.md` (or `WARP.md`). Run `/init` in Agent Mode to generate an `AGENTS.md`, or copy your `.cursorrules` content directly.
 * **MCP servers** - Warp supports MCP natively. See [MCP](/agents/capabilities/mcp/) for configuration.
 
@@ -53,7 +53,7 @@ Warp's [keyboard shortcuts](/getting-started/keyboard-shortcuts/) differ from Cu
 Keep Cursor as your editor for tight in-file AI assistance, and use Warp as the terminal you switch to for:
 
 * Long-running commands and SSH.
-* [Agent Mode](/agents/getting-started/agents-in-warp/) conversations that execute commands, not just edit files.
+* [Agent Mode](/agents/) conversations that execute commands, not just edit files.
 * [Code Review](/code/code-review/) for managing diffs.
 * [Warp Drive](/knowledge-and-collaboration/warp-drive/) for team knowledge.
 
@@ -68,7 +68,7 @@ Use this table to find Warp equivalents for Cursor features you might look for a
 | From Cursor | In Warp |
 | --- | --- |
 | Composer / Agent panel | [Agent Mode](/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/) in any tab (toggle with `⌘+I` on macOS or `Ctrl+I` on Linux/Windows) |
-| Agent tabs | Multiple [agents in parallel](/agents/getting-started/agents-in-warp/) across tabs |
+| Agent tabs | Multiple [agents in parallel](/agents/) across tabs |
 | `.cursorrules` | `AGENTS.md` / `WARP.md` at the project root, picked up as a [Rule](/agents/capabilities/rules/) |
 | MCP servers | [MCP](/agents/capabilities/mcp/) |
 | Model choice per conversation | [Model selector](/agents/inference/model-choice/) |

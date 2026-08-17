@@ -32,22 +32,6 @@ To get a working setup in a few minutes, follow the [quickstart](/agents/cli/qui
 * **The Warp app** - The CLI runs the same [Warp Agent](/platform/harnesses/warp-agent/) harness as the Warp app, so your account, plan, model access, rules, and skills work the same in both. The CLI doesn't require the Warp app to be installed.
 * **{VARS.WARP_AUTOMATION_PLATFORM}** - {VARS.WARP_AUTOMATION_PLATFORM} is Warp's programmable platform for running and coordinating agents at scale. The CLI connects to the same platform. Conversations sync to your Warp account, and you can hand work off to [cloud agents](/agents/cli/cloud-and-orchestration/) or continue a cloud run from your terminal.
 
-## Supported platforms
-
-The CLI runs on:
-
-* **macOS** - Apple Silicon and Intel.
-* **Linux** - x64 and Arm64.
-* **Windows** - x64 and Arm64.
-
-## Logging in and out
-
-You sign in once, and the CLI stays signed in across sessions.
-
-* **Sign in through your browser** - The first time you run `warp`, the CLI shows a verification link and code and opens the link in your browser. It unlocks automatically once you approve the login. See [logging in](/agents/cli/quickstart/#2-log-in) for the full walkthrough.
-* **Sign in with an API key** - In non-interactive environments such as CI, authenticate with a Warp API key through the `WARP_API_KEY` environment variable or the `--api-key` flag. See [command-line flags](/agents/cli/reference/#command-line-flags).
-* **Sign out** - Run `/logout`. The CLI returns to its login screen and opens Warp's web sign-out page, so your browser session is signed out too.
-
 ## Checking your account, plan, and billing
 
 The CLI has slash commands for the account details you'd otherwise look up in the Warp app or the {VARS.WEB_APP}.
@@ -58,19 +42,13 @@ The CLI has slash commands for the account details you'd otherwise look up in th
 
 For how usage is metered as you work, see [models and usage](/agents/cli/models-and-usage/#usage-and-cost).
 
-## Automatic updates
-
-The CLI updates automatically. While it runs, it periodically checks for a newer version, downloads it in the background, and stages it without interrupting your session. The staged version takes effect the next time you launch `warp`. When an update is ready, the start screen shows an "update installed, restart to apply" notice next to the version.
-
-To turn off background updates, set `general.autoupdate_enabled` to `false` in the [settings file](/agents/cli/configuration/#the-settings-file). To turn them off for a single launch, set the `WARP_TUI_DISABLE_AUTOUPDATE` environment variable to any value.
-
 ## Coming from the Warp app
 
 If you already use the Warp app, most of your setup carries over. Rules and skills are discovered from the same shared paths, and your saved Warp Drive prompts are available after you log in (other Warp Drive object types aren't available in the CLI). To copy compatible settings and global MCP server configurations, run the bundled `/tui-migrate-setup` skill and follow the agent's instructions. Credentials are never copied, so MCP servers that require authentication must be reauthenticated in the CLI.
 
 ## Next steps
 
-* [Quickstart](/agents/cli/quickstart/) - Install the CLI, log in, and run your first prompt.
+* [Quickstart](/agents/cli/quickstart/) - Install the CLI, log in, run your first prompt, and see the supported platforms.
 * [Agent conversations](/agents/cli/agent-conversations/) - Learn how the transcript, diffs, and approvals work.
 * [Input and shell commands](/agents/cli/input-and-shell-commands/) - Compose prompts and run shell commands from the same input.
 * [Configuration](/agents/cli/configuration/) - Customize the CLI with the settings file.
