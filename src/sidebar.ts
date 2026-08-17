@@ -240,17 +240,15 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			icon: 'puzzle',
 			items: [
 				{
-					label: 'Getting started',
+					label: 'Agents',
 					items: [
-						{ slug: 'agents', label: 'Agents overview' },
-						'agents/getting-started/agents-in-warp',
+						{ slug: 'agents', label: 'Overview' },
 						'agents/getting-started/faqs',
 					],
 				},
 				{
 					label: 'Warp Agents',
 					items: [
-						{ slug: 'agents/local-agents/overview', label: 'Overview' },
 						{
 							label: 'Capabilities',
 							collapsed: true,
