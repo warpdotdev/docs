@@ -8,13 +8,17 @@ sidebar:
 topic: factories
 ---
 
-Connect a factory to Slack so your team can send it work without leaving their conversations. Each factory gets its own dedicated Slack app: mention the app in a channel or send it a direct message, and the factory picks up the request with the conversation as context, then posts progress and results back into the same thread. You can also set up automations that start work from Slack events without a mention.
+Connect a factory to Slack so your team can send it work without leaving their conversations. Each factory gets its own dedicated Slack app: mention the app in a channel or send it a direct message, and the factory picks up the request with the conversation as context, then posts progress and results back into the same thread. You can also set up automations that start work from Slack events without a mention. If you're new to factories, see [How factories work](/factories/how-factories-work/) for what a factory is and how it runs work.
 
 ## Prerequisites and authorization
 
 You need permission to update the factory and install apps in the target Slack workspace. Workspace policy can require administrator approval.
 
 Installing the app grants the Slack permissions shown on the authorization screen. [Filters on automations](/factories/automation-filters/) only control which events start work; they don't limit what the app can access. For workspace-level installation and removal behavior, see the [Slack platform integration](/platform/integrations/slack/).
+
+### How the Slack connection works
+
+Warp uses Slack's managed apps model: Warp's main Slack app acts as the manager. The first time you connect a factory, you authorize the manager once for your workspace. That authorization lets Warp create and install Slack apps on your behalf, but nothing is created until you connect a factory. Each time you click **Add to Slack**, Warp creates that factory's dedicated app, installs it, and manages it from then on: the app's name, icon, and configuration stay in sync with the factory. The manager's permissions apply only to apps it created. Depending on your workspace's app-approval settings, a Slack administrator may need to approve the manager authorization once, and each factory's app before it installs.
 
 ## Connect the factory
 
@@ -83,4 +87,16 @@ A factory can create issues, branches, and pull requests, but your repository's 
 - **Installation is pending** - Ask a Slack workspace administrator to approve the app, then finish the installation.
 - **Two runs start for one mention** - Remove or narrow overlapping app-mention and channel-message triggers.
 
-Removing the app from your Slack workspace stops new requests from Slack for that factory; to reconnect it, return to factory setup and click **Add to Slack** again. Deleting the factory also removes its Slack connection. To route work into the factory from other tools, see [Connect your factory](/factories/connect-your-factory/).
+Removing the app from your Slack workspace stops new requests from Slack for that factory; to reconnect it, return to factory setup and click **Add to Slack** again. To route work into the factory from other tools, see [Connect your factory](/factories/connect-your-factory/).
+
+To remove the factory's app entirely, delete the factory from its settings page in the web app. Deleting the factory removes its Slack app from your workspace and its Slack connection.
+
+You can also remove the app from the Slack side:
+
+1. In Slack, go to **Apps** in the sidebar and search for the factory's name.
+2. Select the app, open the **About** tab, then click **Configuration**. This opens your workspace's app configuration page in the browser.
+3. Scroll to the bottom, select **Remove App**, and confirm the removal.
+
+## Privacy
+
+The factory's app reads messages only where it's mentioned, directly messaged, or subscribed by an automation you configured. Message content and supported attachments are used to run the factory's work, and your Slack profile email is used to map you to your Warp account. Data is handled per the [Warp Privacy Policy](https://www.warp.dev/privacy).
