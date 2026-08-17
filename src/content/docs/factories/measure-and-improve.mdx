@@ -77,7 +77,7 @@ Every benchmark also runs **Correctness**, a built-in scorer that marks each tri
 
 ## Configure and review Self-improvement
 
-Turn on **Self-improvement** for each Scorer whose failures you want investigated automatically. Self-improvement groups related failures and files follow-up tasks as ordinary agent runs. A follow-up run can propose changes to application code. It can also improve the factory itself: when you manage your factory as [definitions as code](./factory-as-code), its prompts, skills, and configuration are version-controlled files, so a follow-up run can open a pull request against the factory definition the same way it would against application code. Nothing is adopted without your review.
+Turn on **Self-improvement** for each Scorer whose failures you want investigated automatically. Self-improvement groups related failures and files follow-up tasks as ordinary agent runs. A follow-up run can propose changes to application code. It can also improve the factory itself: when you manage your factory as [definitions as code](/factories/factory-as-code/), its prompts, skills, and configuration are version-controlled files, so a follow-up run can open a pull request against the factory definition the same way it would against application code. Nothing is adopted without your review.
 
 Each Self-improvement pull request includes a **Regressions addressed** section that links the failing runs and Scorer results behind it, so you can trace the change back to its evidence.
 
@@ -106,4 +106,4 @@ flowchart LR
 
 ## Next step
 
-Record an adopted change in [factory definitions as code](./factory-as-code) so your team can review the factory configuration.
+Record an adopted change in [factory definitions as code](/factories/factory-as-code/) so your team can review the factory configuration.
