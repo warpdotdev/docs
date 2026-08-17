@@ -310,3 +310,10 @@ If your setup commands depend on secrets or credentials, configure them through 
 * **Docker image incompatibility** – You see the error: "VM failed before the agent could run. This is likely an issue with your Docker image."
   * Possible cause: Alpine Linux and other musl-based images are not compatible with the agent runtime, which requires glibc. This can surface as [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/).
   * Solution: Switch to a glibc-based image such as Debian, Ubuntu, or the default (non-Alpine) variants of official Docker Hub images (e.g. `node`, `python`, `rust`).
+
+## Related pages
+
+* [Integrations overview](/platform/integrations/) - Connect environments to Slack, Linear, GitHub, and other triggers that start cloud agents.
+* [Scheduled Agents](/platform/triggers/scheduled-agents/) - Run cloud agents on a cron schedule in a fixed environment.
+* [Multi-agent orchestration](/platform/orchestration/) - Fan work out to cloud child agents that run in configured environments.
+* [Managing cloud agents](/platform/managing-cloud-agents/) - Inspect environment-backed runs by source, status, and owner.
