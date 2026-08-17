@@ -379,17 +379,32 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			link: '/factories/',
 			icon: 'setting',
 			badge: { text: 'Early Access', variant: 'note' },
+			// Group labels are noun phrases naming a subject area, not imperative
+			// verbs. Every other tab does this -- 'Agent configuration',
+			// 'Triggers & integrations', 'Plans and billing', 'Team management' --
+			// so 'Configure / Connect / Operate' read as a different product's
+			// sidebar. Two of these deliberately mirror the Automation Platform tab
+			// next door, since the underlying concepts are the same.
 			items: [
 				{
-					label: 'Get started',
+					// 'Getting started', not 'Get started': matches the Terminal,
+					// Enterprise, and Guides tabs.
+					label: 'Getting started',
 					items: [
 						{ slug: 'factories', label: 'Overview' },
 						{ slug: 'factories/quickstart', label: 'Quickstart' },
-						{ slug: 'factories/how-factories-work', label: 'How Warp Factories work' },
+						// 'Warp' is redundant inside the Factories tab, and the sibling
+						// labels ('Factory agents', 'Factory MCP') drop it too. This also
+						// resolves a desync: the page's own frontmatter label already said
+						// 'How Factories work', which this override was silently shadowing.
+						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
 					],
 				},
 				{
-					label: 'Configure',
+					// Parallel to 'Agent configuration' in the Automation Platform tab.
+					// Scoped to the factory itself: who runs the work, how it is defined,
+					// and where it runs.
+					label: 'Factory configuration',
 					items: [
 						{ slug: 'factories/factory-agents', label: 'Factory agents' },
 						{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
@@ -397,25 +412,41 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Connect',
+					// 'Integrations' per HYC (8/17), replacing 'Work intake'.
+					//
+					// The per-service pages are listed directly rather than in a nested
+					// Integrations subgroup, which would have rendered as
+					// Integrations > Integrations > Slack. Flattening also drops the tab
+					// to two levels, matching every other group in it.
+					//
+					// 'Connect your factory' leads because it is the overview for this
+					// group; Factory MCP trails because it is a connection mechanism
+					// rather than a third-party service.
+					label: 'Integrations',
 					items: [
 						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
-						{
-							label: 'Integrations',
-							items: [
-								{ slug: 'factories/integrations/slack', label: 'Slack' },
-								{ slug: 'factories/integrations/github', label: 'GitHub' },
-								{ slug: 'factories/integrations/gitlab', label: 'GitLab' },
-								{ slug: 'factories/integrations/linear', label: 'Linear' },
-								{ slug: 'factories/integrations/jira', label: 'Jira' },
-							],
-						},
+						{ slug: 'factories/integrations/slack', label: 'Slack' },
+						{ slug: 'factories/integrations/github', label: 'GitHub' },
+						{ slug: 'factories/integrations/gitlab', label: 'GitLab' },
+						{ slug: 'factories/integrations/linear', label: 'Linear' },
+						{ slug: 'factories/integrations/jira', label: 'Jira' },
+						// Kept with the integrations rather than moved to Factory
+						// configuration. Filters act on "events from your connected tools",
+						// and the page's core reference is a per-source table that links out
+						// to the Slack, GitHub, and Linear pages directly above. It reads as
+						// the last step of wiring up a source, not as something you define
+						// about the factory itself. "It is configuration" does not separate
+						// it from the integration pages, which are equally configuration.
 						{ slug: 'factories/automation-filters', label: 'Automation filters' },
 						{ slug: 'factories/factory-mcp', label: 'Factory MCP' },
 					],
 				},
 				{
-					label: 'Operate',
+					// Same label as the Automation Platform tab's group for watching and
+					// steering runs, because it covers the same ground one level up: the
+					// control room is where you watch a factory, and scorers are how you
+					// measure it.
+					label: 'Management & observability',
 					items: [
 						{ slug: 'factories/control-room', label: 'Control room' },
 						{ slug: 'factories/measure-and-improve', label: 'Measure and improve' },
