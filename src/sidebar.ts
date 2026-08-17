@@ -402,34 +402,38 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					// Parallel to 'Agent configuration' in the Automation Platform tab.
+					//
+					// Automation filters sits here rather than with the integrations
+					// (HYC, 8/17): a filter is something you define about your factory,
+					// alongside its agents and its definition files, even though what it
+					// governs is inbound work. Ordered so the group reads as who runs the
+					// work, how it is defined, which work qualifies, and where it runs.
 					label: 'Factory configuration',
 					items: [
 						{ slug: 'factories/factory-agents', label: 'Factory agents' },
 						{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
+						{ slug: 'factories/automation-filters', label: 'Automation filters' },
 						{ slug: 'factories/infrastructure-and-security', label: 'Infrastructure & security' },
 					],
 				},
 				{
-					// These pages all answer "how does work reach the factory?" --
-					// connections, integrations, the filters that decide which events
-					// qualify, and the MCP that hands work in. 'Work item' and 'intake'
-					// are the product's own vocabulary, not docs coinage.
+					// 'Integrations' per HYC (8/17), replacing 'Work intake'.
 					//
-					// Not 'Integrations & intake', which would nest an Integrations group
-					// inside a group with Integrations in its name.
-					label: 'Work intake',
+					// The per-service pages are listed directly rather than in a nested
+					// Integrations subgroup, which would have rendered as
+					// Integrations > Integrations > Slack. Flattening also drops the tab
+					// to two levels, matching every other group in it.
+					//
+					// 'Connect your factory' leads because it is the overview for this
+					// group; Factory MCP trails because it is a connection mechanism
+					// rather than a third-party service.
+					label: 'Integrations',
 					items: [
 						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
-						{
-							label: 'Integrations',
-							items: [
-								{ slug: 'factories/integrations/slack', label: 'Slack' },
-								{ slug: 'factories/integrations/github', label: 'GitHub' },
-								{ slug: 'factories/integrations/linear', label: 'Linear' },
-								{ slug: 'factories/integrations/jira', label: 'Jira' },
-							],
-						},
-						{ slug: 'factories/automation-filters', label: 'Automation filters' },
+						{ slug: 'factories/integrations/slack', label: 'Slack' },
+						{ slug: 'factories/integrations/github', label: 'GitHub' },
+						{ slug: 'factories/integrations/linear', label: 'Linear' },
+						{ slug: 'factories/integrations/jira', label: 'Jira' },
 						{ slug: 'factories/factory-mcp', label: 'Factory MCP' },
 					],
 				},
