@@ -404,6 +404,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'factories/integrations/jira', label: 'Jira' },
 							],
 						},
+						{ slug: 'factories/automation-filters', label: 'Automation filters' },
 						{ slug: 'factories/factory-mcp', label: 'Factory MCP' },
 					],
 				},
