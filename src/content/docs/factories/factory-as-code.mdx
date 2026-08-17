@@ -7,6 +7,7 @@ sidebar:
   label: "Definitions as code"
 topic: factories
 ---
+import { VARS } from '@data/vars';
 
 Every factory is defined by files: a `factory.yaml` plus directories of agents, automations, and runners, versioned in a Git repository. The files are the source of truth — when they change, Warp updates the factory to match. This page describes every file and key in a definition.
 
@@ -16,12 +17,12 @@ Definition files are YAML and Markdown. Keys are case-sensitive.
 
 You choose who hosts the definition repository when you create a factory:
 
-* **Warp-managed (default)** - Warp hosts the repository for you. You edit the factory in the [control room](/factories/control-room/), and every change is validated, committed to the files, and applied in one step. You never interact with the repository directly, and the definition can't end up in an invalid state.
-* **GitHub** - The definition lives in a repository you own. The repository is the only way to change the factory: the control room shows the configuration read-only and links back to the files. Open a pull request, and any change merged to the production branch (`main` by default) updates the factory. See [Pull request checks](#pull-request-checks-for-github-backed-factories).
+* **Warp-managed (default)** - Warp hosts the repository for you. You edit the factory in the [{VARS.FACTORY_WEB_APP}](/factories/control-room/), and every change is validated, committed to the files, and applied in one step. You never interact with the repository directly, and the definition can't end up in an invalid state.
+* **GitHub** - The definition lives in a repository you own. The repository is the only way to change the factory: the web app shows the configuration read-only and links back to the files. Open a pull request, and any change merged to the production branch (`main` by default) updates the factory. See [Pull request checks](#pull-request-checks-for-github-backed-factories).
 
 Both modes use the same files, so everything on this page applies to either. You can also link a GitHub repository to a Warp-managed factory later.
 
-Definition files describe how the factory is configured, not what it is doing: work items, runs, and metrics live in the control room and are never written to the files.
+Definition files describe how the factory is configured, not what it is doing: work items, runs, and metrics live in the web app and are never written to the files.
 
 ## Directory structure
 
@@ -388,7 +389,7 @@ When your definition lives in GitHub, Warp validates every change before it take
 * Every pull request that targets the production branch gets a **warp/factory-config** check. The check annotates invalid fields and unresolvable references with the file and line that caused them, and summarizes what the change would apply.
 * When a change lands on the production branch, Warp applies it as a whole. A definition that fails validation never partially applies: the factory keeps running on its last valid definition until the branch is fixed.
 
-Warp-managed factories skip all of this. Every edit in the control room is validated when you save it, so the definition can't become invalid.
+Warp-managed factories skip all of this. Every edit in the web app is validated when you save it, so the definition can't become invalid.
 
 ## Machine-readable schema
 
