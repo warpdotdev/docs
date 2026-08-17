@@ -241,10 +241,13 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 - **`{VARS.API_SDK_NAME}`**, which renders "Oz API & SDK".
 - **`oz-agent-worker`, `oz-agent-action`, `oz-skills`** — repository and package
   names, not product names. These may never change.
-- **The `@oz-agent` GitHub handle** and the `@Oz` Slack/Linear mention handle.
-  Handles are strings the product owns; variabilizing them would silently
-  rewrite a working handle into an invalid one. The Slack/Linear handle is
-  still awaiting a product answer.
+- **The `@oz-agent` GitHub handle.** Handles are strings the product owns;
+  variabilizing them would silently rewrite a working handle into an invalid
+  one. This one keeps its name.
+  *The Slack/Linear handle moved from `@Oz` to `@warp` on 2026-08-17. It is
+  hardcoded for the same reason — that is what made it a safe one-line change
+  when the answer came back, rather than something a variable flip had already
+  broken.*
 - **Changelog entries.** Historical records of what shipped under the old name.
 - **Settings labels** such as **Settings** > **Cloud platform** > **Oz Cloud API
   Keys**. These are literal UI strings and change only when the app does.

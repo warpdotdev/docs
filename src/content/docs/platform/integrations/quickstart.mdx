@@ -8,7 +8,7 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-{VARS.WARP_AUTOMATION_PLATFORM} integrations let you trigger cloud agents directly from the tools your team already uses. This guide walks you through connecting the {VARS.WARP_AUTOMATION_PLATFORM} to Slack. Once set up, anyone on your team can tag @Oz in a message or thread to kick off a cloud agent that runs the task and posts results back to the conversation.
+{VARS.WARP_AUTOMATION_PLATFORM} integrations let you trigger cloud agents directly from the tools your team already uses. This guide walks you through connecting the {VARS.WARP_AUTOMATION_PLATFORM} to Slack. Once set up, anyone on your team can tag @warp in a message or thread to kick off a cloud agent that runs the task and posts results back to the conversation.
 
 :::note
 **Want to connect with Linear instead?** The setup is the same — just substitute `slack` with `linear` in the CLI commands, or select Linear in the {VARS.WEB_APP}. See [Linear](/platform/integrations/linear/) for details.
@@ -61,13 +61,13 @@ oz integration create slack \
 
 ## 2. Tag the agent in Slack
 
-In any channel or thread in your Slack workspace, tag @Oz with a task:
+In any channel or thread in your Slack workspace, tag @warp with a task:
 
-> @Oz scan the authentication module for security issues and summarize what you find
+> @warp scan the authentication module for security issues and summarize what you find
 
 The {VARS.WARP_AUTOMATION_PLATFORM} acknowledges the request immediately and starts an agent run in the cloud. You'll see progress updates appear in the thread as the agent works.
 
-You can also tag @Oz inside an existing thread. The {VARS.WARP_AUTOMATION_PLATFORM} picks up the full thread history as context automatically, so you can tag it mid-discussion without repeating background.
+You can also tag @warp inside an existing thread. The {VARS.WARP_AUTOMATION_PLATFORM} picks up the full thread history as context automatically, so you can tag it mid-discussion without repeating background.
 
 ## 3. Watch the run
 

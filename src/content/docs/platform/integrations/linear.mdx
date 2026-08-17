@@ -9,7 +9,7 @@ description: >-
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
 
-The Linear integration lets your team delegate development work directly to agents from inside Linear. When you tag @Oz on an issue or comment, an agent will spin up in the cloud, clone the repos defined in your environment, and begin working through the task.
+The Linear integration lets your team delegate development work directly to agents from inside Linear. When you tag @warp on an issue or comment, an agent will spin up in the cloud, clone the repos defined in your environment, and begin working through the task.
 
 Agents keep you updated inside Linear, generate pull requests using your GitHub account, and provide a link to join a live remote session so you can watch or steer the workflow in real time.
 
@@ -21,13 +21,13 @@ This guide explains what the integration does, how it works end-to-end, and how 
 
 ### Triggering agents inside Linear
 
-Tagging @Oz on an issue or in a Linear comment starts an agent run. The {VARS.WARP_AUTOMATION_PLATFORM} clones the repositories defined in your environment, sets up your development environment using your Docker image and setup commands, and begins working through the task with full context from your codebase and the Linear issue. Agents post updates as they progress, including a task list, elapsed time, and checkpoints, so you can follow along without leaving Linear.
+Tagging @warp on an issue or in a Linear comment starts an agent run. The {VARS.WARP_AUTOMATION_PLATFORM} clones the repositories defined in your environment, sets up your development environment using your Docker image and setup commands, and begins working through the task with full context from your codebase and the Linear issue. Agents post updates as they progress, including a task list, elapsed time, and checkpoints, so you can follow along without leaving Linear.
 
 Agents also share a link to an interactive remote session using Warp's [cloud agent session sharing](/platform/viewing-cloud-agent-runs/). Opening this link lets you view the live terminal output for the running agent in Warp or in the browser. From there, you can interrupt or guide the agent with additional instructions when needed. Once the agent finishes, it will create a pull request on your behalf — using your GitHub permissions — and post a summary of its work and the PR link back into Linear.
 
 You can start an agent in two ways:
 
-* **Tag @Oz in a comment** and describe what you want done.
+* **Tag @warp in a comment** and describe what you want done.
 * **Assign the issue to the {VARS.WARP_AUTOMATION_PLATFORM}** as if it were a teammate.
 
 The {VARS.WARP_AUTOMATION_PLATFORM} will acknowledge the request directly in the Linear issue and begin working.
