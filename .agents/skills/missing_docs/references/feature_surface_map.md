@@ -325,12 +325,29 @@ GET /.well-known/openid-configuration -> internal
 
 # RFC 8414 / RFC 9728 OAuth discovery documents that MCP clients fetch
 # automatically before authenticating against the hosted Factory MCP endpoint
-# (router/handlers/public_api/oauth2.go, registered only when the dogfood-only
-# factory_mcp flag is on). They are machine-facing protocol metadata for an
-# unreleased product, absent from warp-server's canonical public spec, so they
-# are not a documentable public API surface.
+# (router/handlers/public_api/oauth2.go, registered by registerMCPDiscoveryRoutes
+# only when the dogfood-only factory_mcp flag is on). They are machine-facing
+# protocol metadata for an unreleased product, absent from warp-server's
+# canonical public spec, so they are not a documentable public API surface. The
+# path-suffixed variants implement RFC 8414 section 5 path-aware discovery for
+# the /api/v1/mcp/factory resource.
 GET /.well-known/oauth-authorization-server -> internal
+GET /.well-known/oauth-authorization-server/api/v1/mcp/factory -> internal
+GET /.well-known/openid-configuration/api/v1/mcp/factory -> internal
 GET /.well-known/oauth-protected-resource/api/v1/mcp/factory -> internal
+
+# OAuth consent screen, connected-apps (grant) management, token revocation, and
+# RFC 7591 dynamic client registration backing the MCP harness OAuth flows
+# (router/handlers/public_api/oauth2.go; registration is additionally
+# flag-gated). Like the device-flow endpoints above, these are protocol and web
+# plumbing rather than a released public REST surface, and they are absent from
+# warp-server's canonical public spec.
+GET /oauth/consent/info -> internal
+POST /oauth/consent -> internal
+GET /oauth/grants -> internal
+DELETE /oauth/grants/{client_id} -> internal
+POST /oauth/register -> internal
+POST /oauth/revoke -> internal
 
 # Anonymous-viewer redirect probes (documented exceptions to auth, not API surfaces).
 GET /agent/sessions/{session_uuid}/redirect -> internal
@@ -361,6 +378,7 @@ POST /harness-support/notify-user -> internal
 POST /harness-support/finish-task -> internal
 POST /harness-support/report-shutdown -> internal
 POST /harness-support/upload-snapshot -> internal
+POST /harness-support/commit-snapshot -> internal
 
 # Oz Factory REST API (router/handlers/public_api/factory*.go). Factory is a
 # private, not-yet-released product (the FactoryMcp flag is dogfood and the
@@ -403,10 +421,44 @@ PUT /factory/automations/{id}/subscriptions -> internal
 DELETE /factory/automations/{id}/subscriptions/{subscription_id} -> internal
 GET /factory/scorers -> internal
 POST /factory/scorers -> internal
+PATCH /factory/scorers/{scorer_id} -> internal
+DELETE /factory/scorers/{scorer_id} -> internal
+POST /factory/scorers/{scorer_id}/pause -> internal
+POST /factory/scorers/{scorer_id}/resume -> internal
 GET /factory/scorers/{scorer_id}/results -> internal
+GET /factory/scorers/{scorer_id}/results/reasons -> internal
 GET /factory/scorers/{scorer_id}/autofix-config -> internal
 PUT /factory/scorers/{scorer_id}/autofix-config -> internal
 DELETE /factory/scorers/{scorer_id}/autofix-config -> internal
+GET /factory/runs/{run_id}/scores -> internal
+POST /factory/run-scoring/dispatches -> internal
+POST /factory/autofix/runs/{autofix_run_id}/file-tasks -> internal
+POST /factory/autofix/worker-results/{worker_result_id}/report -> internal
+PUT /factory/automations/{id}/subscriptions/{subscription_id} -> internal
+GET /factory/{uid}/integrations/github/branches -> internal
+GET /factory/{uid}/integrations/github/labels -> internal
+GET /factory/{uid}/integrations/github/teams -> internal
+GET /factory/{uid}/integrations/github/users -> internal
+GET /factory/{uid}/integrations/github/workflows -> internal
+GET /factory/{uid}/integrations/linear/issues -> internal
+GET /factory/{uid}/integrations/linear/projects -> internal
+GET /factory/{uid}/integrations/linear/users -> internal
+GET /factory/{uid}/integrations/linear/workflow-states -> internal
+GET /factory/{uid}/integrations/slack/conversations -> internal
+GET /factory/{uid}/integrations/slack/users -> internal
+# Factory benchmark suites and benchmark runs
+# (router/handlers/public_api/benchmarks.go). Same unreleased Factory product as
+# the routes above, and absent from warp-server's canonical public spec.
+GET /factory/{uid}/benchmarks/suites -> internal
+POST /factory/{uid}/benchmarks/suites -> internal
+GET /factory/{uid}/benchmarks/suites/{suite_uid} -> internal
+PATCH /factory/{uid}/benchmarks/suites/{suite_uid} -> internal
+DELETE /factory/{uid}/benchmarks/suites/{suite_uid} -> internal
+POST /factory/{uid}/benchmarks/suites/{suite_uid}/runs -> internal
+GET /factory/{uid}/benchmarks/runs -> internal
+GET /factory/{uid}/benchmarks/runs/{run_uid} -> internal
+GET /factory/{uid}/benchmarks/runs/{run_uid}/results -> internal
+POST /factory/{uid}/benchmarks/runs/{run_uid}/cancel -> internal
 
 # Orchestration messaging and lifecycle-event endpoints. These are marked
 # `x-internal: true` in warp-server's canonical spec (public_api/openapi.yaml),
@@ -539,7 +591,7 @@ appearance.zero_state.show_animation -> internal
 # while the terminal is unfocused (app/src/settings/tui_zero_state.rs). Like the
 # other zero-state knobs it isn't in the GUI settings UI, so it's documented on
 # the Warp Agent CLI configuration page instead of the all-settings reference.
-appearance.zero_state.freeze_animation_when_unfocused -> src/content/docs/cli/configuration.mdx
+appearance.zero_state.freeze_animation_when_unfocused -> src/content/docs/agents/cli/configuration.mdx
 
 # Warp Agent CLI-only (crates/warp_tui) push-to-talk key for voice input (surface:
 # SettingSurfaces::TUI in app/src/settings/tui_voice.rs). The GUI equivalent is the
@@ -618,6 +670,10 @@ OpenWarpLaunchModal
 # One-time launch modal announcing multi-agent orchestration; the feature itself
 # is documented via RunAgentsTool -> orchestration/multi-agent-runs.mdx.
 OrchestrationLaunchModal
+# One-time launch modal announcing the Warp Agent CLI. Its "Get started" button
+# links to the CLI quickstart, and the CLI itself is documented under
+# agents/cli/, so the modal has no separate documentable surface.
+AgentCliLaunchModal
 GetStartedTab
 CreateProjectFlow
 # Account-first onboarding is an internal login/onboarding flow variant with no

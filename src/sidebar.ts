@@ -241,17 +241,15 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			icon: 'puzzle',
 			items: [
 				{
-					label: 'Getting started',
+					label: 'Agents',
 					items: [
-						{ slug: 'agents', label: 'Agents overview' },
-						'agents/getting-started/agents-in-warp',
+						{ slug: 'agents', label: 'Overview' },
 						'agents/getting-started/faqs',
 					],
 				},
 				{
 					label: 'Warp Agents',
 					items: [
-						{ slug: 'agents/local-agents/overview', label: 'Overview' },
 						{
 							label: 'Capabilities',
 							collapsed: true,
@@ -796,7 +794,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{ slug: 'guides', label: 'Guides' },
 				{
 					label: 'Getting started',
-					collapsed: true,
 					items: [
 						'guides/getting-started/welcome-to-warp',
 				{ slug: 'guides/getting-started/10-coding-features-you-should-know', label: '10 coding features you should know' },
@@ -807,7 +804,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'Agent workflows',
-					collapsed: true,
 					items: [
 						{ slug: 'guides/agent-workflows/how-to-review-ai-generated-code', label: 'Review AI-generated code' },
 						{ slug: 'guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs', label: 'Attach agent context to PRs' },
@@ -825,7 +821,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'Build a software factory',
-					collapsed: true,
 					items: [
 						{ slug: 'guides/agent-workflows/build-a-triage-agent', label: 'Build a triage agent' },
 						{ slug: 'guides/agent-workflows/write-product-and-tech-specs-with-agents', label: 'Write specs with agents' },
@@ -836,7 +831,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'Configuration',
-					collapsed: true,
 					items: [
 						{ slug: 'guides/configuration/how-to-create-project-rules-for-an-existing-project-astro-typescript-tailwind', label: 'Create project Rules' },
 						{ slug: 'guides/configuration/how-to-set-coding-best-practices', label: 'Set coding best practices with Rules' },
@@ -853,7 +847,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'External tools & integrations',
-					collapsed: true,
 					items: [
 						{ slug: 'guides/external-tools/how-to-set-up-claude-code', label: 'Set up Claude Code' },
 						{ slug: 'guides/external-tools/how-to-set-up-codex-cli', label: 'Set up Codex CLI' },
@@ -873,7 +866,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'Build an app in Warp',
-					collapsed: true,
 					items: [
 						{ slug: 'guides/build-an-app-in-warp/building-a-real-time-chat-app-github-mcp-railway', label: 'Build a real-time chat app' },
 						{ slug: 'guides/build-an-app-in-warp/building-a-chrome-extension-d3js-javascript-html-css', label: 'Build a Chrome extension' },
@@ -882,7 +874,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'DevOps & infrastructure',
-					collapsed: true,
 					items: [
 						{ slug: 'guides/devops/how-to-analyze-cloud-run-logs-gcloud', label: 'Analyze Cloud Run logs (gcloud)' },
 						{ slug: 'guides/devops/how-to-create-a-production-ready-docker-setup', label: 'Create a production-ready Docker setup' },
@@ -895,7 +886,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				},
 				{
 					label: 'Frontend & UI',
-					collapsed: true,
 					items: [
 						{ slug: 'guides/frontend/how-to-replace-a-ui-element-in-warp-rust-codebase', label: 'Replace a UI element in Warp (Rust codebase)' },
 						{ slug: 'guides/frontend/how-to-actually-code-ui-that-matches-your-mockup-react-tailwind', label: 'Code UI that matches your mockup (React + Tailwind)' },
