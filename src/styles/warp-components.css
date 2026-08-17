@@ -1608,15 +1608,23 @@ site-search #starlight__search .pagefind-ui__result-nested .pagefind-ui__result-
 
 .warp-cookie-banner {
   position: fixed;
-  inset-inline: 0;
+  /* Full-bleed on mobile; desktop offsets past the left sidebar so the bar
+     never paints over nav (Starlight `--sl-sidebar-width` = 18.75rem). */
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   bottom: 0;
-  z-index: 100;
+  z-index: 40;
   padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
   border-top: 1px solid var(--sl-color-hairline-light);
-  background: color-mix(in srgb, var(--sl-color-bg) 92%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 -0.5rem 1.5rem rgba(0, 0, 0, 0.18);
+  /* Solid canvas fill — no glass/transparency over page chrome. */
+  background: var(--sl-color-bg);
+  box-shadow: 0 -0.5rem 1.25rem rgba(0, 0, 0, 0.22);
+}
+
+@media (min-width: 50rem) {
+  .warp-cookie-banner {
+    inset-inline-start: var(--sl-sidebar-width, 18.75rem);
+  }
 }
 
 .warp-cookie-banner[hidden] {
@@ -1628,8 +1636,8 @@ site-search #starlight__search .pagefind-ui__result-nested .pagefind-ui__result-
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  max-width: 72rem;
-  margin-inline: auto;
+  width: 100%;
+  max-width: 46rem;
 }
 
 .warp-cookie-banner__copy {
