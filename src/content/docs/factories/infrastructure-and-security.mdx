@@ -16,7 +16,7 @@ Every factory splits responsibilities across two planes:
 * **Control plane** - Warp coordinates runs, identity and configuration, observability, integrations, storage, and inference routing.
 * **Execution plane** - A Warp-hosted sandbox or a managed self-hosted worker checks out code, runs setup, invokes tools, builds the project, and executes commands.
 
-Work flows between the planes in both directions. Integrations and triggers hand work to the control plane, which dispatches each task, its configuration, and scoped runtime credentials to the execution host. Results, transcripts, attachments, artifacts, and telemetry flow back through the control plane, which also routes model requests to Warp-managed or customer-configured inference and persists run data to Warp or customer-owned storage.
+Work flows between the planes in both directions. Integrations and triggers hand work to the control plane, which dispatches each task, its configuration, and scoped runtime credentials to the execution host. Results, transcripts, attachments, artifacts, and telemetry flow back through the control plane. The control plane also routes model requests to Warp-managed or customer-configured inference and persists run data to Warp or customer-owned storage.
 
 Self-hosting moves only the execution plane: with a managed self-hosted worker, repository checkouts, command execution, and the sandbox filesystem stay on machines you control, but content that enters prompts, results, transcripts, attachments, artifacts, or telemetry still flows through Warp and the providers you configure. See [deployment patterns](/platform/deployment-patterns/) and [self-hosting security and networking](/platform/self-hosting/security-and-networking/) for the broader data model.
 
@@ -36,7 +36,7 @@ The **Runners** page in the [control room](/factories/control-room/) shows each 
 * **Externally managed source** - The `runners/*.yaml` files in the connected repository are the source of truth, and edits open in that repository.
 * **Warp-managed source** - Authorized users create and edit runner files directly in the control room.
 
-Your team's plan sets the default instance shape (vCPUs and memory) for Warp-hosted runners. The same maximum shape applies on every plan, and Warp rejects hosted shapes above it; Enterprise teams that need more can request a higher maximum. Managed self-hosted runners are exempt from the hosted maximum because your team supplies the compute.
+Your team's plan sets the default instance shape (vCPUs and memory) for Warp-hosted runners. The same maximum shape applies on every plan, and Warp rejects hosted shapes above it. Enterprise teams that need more can request a higher maximum. Managed self-hosted runners are exempt from the hosted maximum because your team supplies the compute.
 
 ## Choose an execution host
 
@@ -75,7 +75,7 @@ Managed self-hosted execution, customer-supplied inference, and customer-owned s
 
 Factory runs execute as [cloud agents](/platform/), so customer-supplied inference is limited to providers that support cloud agents. See [team-managed model keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) and [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) for the supported providers. When you supply the provider, provider-side retention follows your provider account and contract; Warp can't configure or enforce it for you. The [security overview](/enterprise/security-and-compliance/security-overview/) covers Warp's broader data handling.
 
-For storage, Enterprise teams can keep the supported data classes above (transcripts, artifacts, and run attachments) in a customer-owned Amazon S3 or Google Cloud Storage bucket that Warp enables for your team. Warp writes the applicable data to the bucket you configure, and your team owns the bucket's access and lifecycle policies. Customer-owned storage doesn't move all factory state into your account: configuration, run metadata, and other control-plane state stay with Warp.
+For storage, Enterprise teams can keep the supported data classes above (transcripts, artifacts, and run attachments) in a customer-owned Amazon S3 or Google Cloud Storage bucket. Warp enables customer-owned storage for your team and writes the applicable data to the bucket you configure; your team owns the bucket's access and lifecycle policies. Customer-owned storage doesn't move all factory state into your account: configuration, run metadata, and other control-plane state stay with Warp.
 
 ## Credential boundaries
 
