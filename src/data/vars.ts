@@ -7,14 +7,39 @@
 // Use the future/conceptual name as the key; the value holds the current string.
 
 export const VARS = {
-  // Platform — keys named for upcoming Warp branding; values are current Oz names
-  WARP_AUTOMATION_PLATFORM: "Oz",             // value → "Warp Automation Platform" at rename (PENDING final naming confirmation from ZL)
-  WARP_AGENT_CLI:           "Oz CLI",         // value → "Warp Agent CLI" at rename
-  WEB_APP:                  "Oz web app",     // legacy Oz v1 webapp (oz.warp.dev) — stays unrenamed through 9/15
-  WEB_APP_URL:              "https://oz.warp.dev", // value → "https://app.warp.dev" at rename
-  DASHBOARD:                "Oz dashboard",   // future name TBD
-  PLATFORM_RUN:             "Oz run",         // future name TBD
-  API_SDK_NAME:             "Oz API & SDK",   // value → "Warp API & SDK" at rename
+  // Platform — renamed 8/18. The remaining Oz-valued keys below are the
+  // deliberate 9/15 holdouts: the `oz` binary and the Oz v1 webapp keep their
+  // names until that date, so they are NOT stale, they are pending.
+  //
+  // IMPORTANT: "Automation Platform" is a common-noun phrase, not a proper
+  // noun like "Oz" was. Referential uses need a definite article in the prose
+  // ("with the {VARS.WARP_AUTOMATION_PLATFORM}", "The {VARS.…} provides");
+  // attributive uses do not ("{{…}} settings", "{{…}}-hosted"). style_lint
+  // enforces this. Do not add a bare referential use.
+  WARP_AUTOMATION_PLATFORM: "Automation Platform",
+  WARP_AGENT_CLI:           "Oz CLI",         // the `oz` binary — holds until 9/15, then "Warp Agent CLI"
+  WEB_APP:                  "Oz web app",     // legacy Oz v1 webapp (oz.warp.dev) — holds until 9/15
+  WEB_APP_URL:              "https://oz.warp.dev", // holds until 9/15, then "https://app.warp.dev"
+  // Renamed per HYC (8/17), same shape as PLATFORM_RUN below: a plain
+  // platform-level term, with "Factory dashboard" written directly on pages
+  // that are specifically about a factory.
+  //
+  // "Runs page" was the other candidate and reads better in isolation, but it
+  // names a single page in the web app. This surface is defined as unified
+  // across the Warp app and web, and its Warp-app half is the Agent Management
+  // Panel, not a Runs page. The descriptive term keeps that meaning.
+  //
+  // Lowercase common noun, so capitalize only at the start of a sentence or
+  // bullet -- which the variable cannot do, so avoid putting it there.
+  DASHBOARD:                "cloud agent dashboard",
+  // Renamed per HYC (8/17): the platform-level default is the plain
+  // descriptive phrase, not a branded one. Factory-specific pages should write
+  // "Factory run" directly rather than reaching for this variable.
+  //
+  // Kept singular so `{VARS.PLATFORM_RUN}s` pluralizes correctly at the call
+  // sites that do that.
+  PLATFORM_RUN:             "cloud agent run",
+  API_SDK_NAME:             "Oz API & SDK",   // holds until 9/15, then "Warp API & SDK"
 
   // Warp Factories web app — a net-new product surface at platform.warp.dev
   // (soft launch ~2026-08-18), separate from the legacy Oz v1 webapp above.

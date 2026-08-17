@@ -15,7 +15,7 @@ Connect Jira Cloud to your factory so your team can start factory work without l
 
 * **Jira Cloud** - The integration supports Jira Cloud only, not Jira Server or Data Center.
 * **A Jira site admin** - Installing the Warp app on a Jira site and connecting it to a Warp workspace requires site admin permissions.
-* **A factory** - You need a factory in the connected workspace and permission to edit its [definition](../factory-as-code).
+* **A factory** - You need a factory in the connected workspace and permission to edit its [definition](/factories/factory-as-code/).
 * **The Warp agent in Jira** - The **Warp** agent must be available on your Jira site so people can assign or mention it on work items. Jira lists it among Atlassian's Rovo agents.
 
 ## Connect Jira and add an automation
@@ -49,7 +49,7 @@ Connect Jira Cloud to your factory so your team can start factory work without l
    Handle the Jira assignment and return a concise result.
    ```
 
-   With this automation, the agent named `foreman` handles sessions for work items in the `ENG` project whose assignment text contains `investigate` or `fix`. Commit and push the files to apply them; see [definitions as code](../factory-as-code) for the full syntax.
+   With this automation, the agent named `foreman` handles sessions for work items in the `ENG` project whose assignment text contains `investigate` or `fix`. Commit and push the files to apply them; see [definitions as code](/factories/factory-as-code/) for the full syntax.
 
 5. Save the automation, or commit and push the definition if you used definitions as code. Then test it: assign or mention **Warp** on a work item and include an instruction. Jira starts an agent session, and the run appears under the matching automation in your factory.
 
@@ -60,7 +60,7 @@ All Jira work reaches the factory through a single event, `agent_session_created
 * **`project_keys`** - Match work items in these Jira projects.
 * **`keywords`** - Match assignment text that contains any of these words. Matching is case-insensitive.
 
-A session must match every field you set; within a field, any listed value is a match. Omit a field to match everything.
+A session must match every field you set; within a field, any listed value is a match. Omit a field to match everything. For the matching rules shared by every source, see [automation filters](/factories/automation-filters/).
 
 :::caution
 Filters like `project_keys` decide whether *your* automation starts a run; they aren't an access boundary. A Jira event is evaluated against every team's automations in the connected workspace, so another team's automation with a broader or different filter can still start its own run on the same work item. Installing the Warp app doesn't scope its Jira access to specific projects either — scoping Jira project access by Warp team is coming soon.
@@ -88,4 +88,4 @@ When the run finishes, the result appears in the agent session. The agent doesn'
 * **The session shows no result** - Open the matching automation's run to see whether the agent is still working, waiting for input, or failed.
 * **A Jira update fails** - Confirm the app can access the work item's project and that the requested action or workflow transition is valid.
 
-For the other ways to route work into a factory, see [connecting your factory](../connect-your-factory).
+For the other ways to route work into a factory, see [connecting your factory](/factories/connect-your-factory/).
