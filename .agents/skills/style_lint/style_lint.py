@@ -96,6 +96,40 @@ RENAME_SENSITIVE_VAR_STRINGS: List[Tuple[str, str, str]] = [
     ("Oz",           "WARP_AUTOMATION_PLATFORM", "{VARS.WARP_AUTOMATION_PLATFORM} in prose or {{WARP_AUTOMATION_PLATFORM}} in frontmatter"),
 ]
 
+# Phrasings that deliberately name the old product. A transition callout has to
+# say "Oz" to do its job, so without this the guard would fight the very copy
+# that explains the rename -- and the author's only workaround would be to
+# backtick a product name, which is semantically wrong.
+#
+# Keyed on explicit transition phrasings rather than a per-file or per-page
+# opt-out, so an unrelated stale "Oz" elsewhere on the same page is still
+# caught. Only old-name literals are suppressed; a hardcoded *new* name on the
+# same line still gets flagged, since nothing about a transition sentence
+# excuses that.
+RENAME_TRANSITION_MARKERS: Tuple[str, ...] = (
+    "formerly Oz",
+    "formerly called Oz",
+    "formerly the Oz",
+    "Oz is now",
+    "was called Oz",
+    "renamed from Oz",
+    # Explains why "Oz" still appears in commands and URLs before 9/15.
+    "the Oz name",
+)
+
+# Product names that merely contain "Oz" but are not the platform name, so they
+# do not change when it does. "Oz by Warp" is the GitHub App as it appears in
+# GitHub's own UI, at github.com/apps/oz-by-warp, and is what PRs and commits
+# are attributed to. Renaming it in the docs would make them disagree with what
+# the reader sees on GitHub. Same reasoning as the `@oz-agent` handle.
+#
+# Matched as a suffix on the literal rather than added as its own entry,
+# because the goal is to suppress rather than redirect: there is no variable
+# these should be using instead.
+RENAME_EXEMPT_SUFFIXES: Tuple[str, ...] = (
+    " by Warp",
+)
+
 # Determiner check for WARP_AUTOMATION_PLATFORM. See check_platform_determiner.
 #
 # "Oz" was a proper noun and read correctly bare. "Automation Platform" is a
@@ -962,6 +996,10 @@ def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
     An "@"-prefixed occurrence is skipped because mention handles are literal
     strings that do not necessarily change with product names. Variabilizing
     a handle could silently rewrite it into an invalid value at rename time.
+
+    Old-name literals are also skipped on lines carrying a phrase from
+    RENAME_TRANSITION_MARKERS, so "formerly Oz" copy can name the old product
+    without the guard objecting. New-name literals on those lines still flag.
     """
     issues = []
     in_code_block = False
@@ -976,8 +1014,24 @@ def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
             continue
         if in_code_block:
             continue
+        # Text that describes an image must match the image, so it cannot be
+        # tokenized. Two separate reasons, same conclusion:
+        #
+        # Alt text is markdown, not JSX -- `![... {VARS.WEB_APP}](...)` renders
+        # the literal "VARS.WEB_APP" on the page, so tokenizing it is simply
+        # broken. Figcaptions *are* JSX and would substitute correctly, but a
+        # caption that auto-flips ahead of the screenshot it captions is worse
+        # than one that stays stale: the page would claim a name the image
+        # visibly contradicts. Both have to be updated by hand, together with
+        # the images, when the screenshots are retaken.
+        if line.lstrip().startswith("![") or "<figcaption" in line:
+            continue
         # Strip inline code spans so backtick-wrapped references are not flagged
         prose_line = re.sub(r"`[^`]+`", "", line)
+        # Deliberate historical reference on this line. See docstring.
+        is_transition_line = any(
+            marker in prose_line for marker in RENAME_TRANSITION_MARKERS
+        )
         matched_spans: List[Tuple[int, int]] = []
         for literal, var_key, suggestion, pattern in compiled:
             for m in pattern.finditer(prose_line):
@@ -986,6 +1040,16 @@ def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
                     continue
                 # Mention handles are literal strings, not prose. See docstring.
                 if span[0] > 0 and prose_line[span[0] - 1] == "@":
+                    continue
+                # Only the old name is excused by transition phrasing; a
+                # hardcoded new name is still a bug on the same line.
+                if is_transition_line and literal.startswith(("Oz", "oz")):
+                    continue
+                # Distinct product names that happen to contain "Oz".
+                if any(
+                    prose_line[span[1]:].startswith(suffix)
+                    for suffix in RENAME_EXEMPT_SUFFIXES
+                ):
                     continue
                 matched_spans.append(span)
                 issues.append(Issue(
