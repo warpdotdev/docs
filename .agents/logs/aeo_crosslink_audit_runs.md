@@ -8,6 +8,16 @@ This log tracks every run of the `aeo_crosslink_audit` skill — both runs that 
 
 ---
 
+## 2026-08-17 — PR opened
+
+- **Run**: https://app.warp.dev/conversation/79e45390-6945-43b4-aa11-70e9ecd3061c
+- **Source signals**: Peec available, GSC available
+- **PR**: https://github.com/warpdotdev/docs/pull/546
+- **Links proposed / added**: 11 proposed, 11 added
+- **Pages touched**: src/content/docs/platform/environments.mdx, src/content/docs/agents/cli-agents/remote-control.mdx, src/content/docs/agents/getting-started/agents-in-warp.mdx, src/content/docs/platform/viewing-cloud-agent-runs.mdx, src/content/docs/platform/handoff/local-to-cloud.mdx
+- **Themes**: overnight cloud runs, session steering/Remote Control, multi-agent orchestration, environments as trigger runtime
+- **No-change reason**: N/A
+
 ## 2026-08-10 — PR opened
 
 - **Run**: https://oz.warp.dev/runs/019fec30-13d2-7203-99ec-82a84f84c908
