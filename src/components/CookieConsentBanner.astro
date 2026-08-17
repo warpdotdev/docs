@@ -48,14 +48,6 @@ const privacyHref = '/support-and-community/privacy-and-security/privacy/';
 			try {
 				localStorage.setItem(STORAGE_KEY, value);
 			} catch (e) {}
-			// Preview QA helper: always log the click path, even before React remounts.
-			try {
-				console.info('[warp-docs cookie banner]', {
-					consent: value,
-					localStorageConsent: localStorage.getItem(STORAGE_KEY),
-					hostname: location.hostname,
-				});
-			} catch (e) {}
 			window.dispatchEvent(
 				new CustomEvent(EVENT_NAME, {
 					detail: { consent: value },

@@ -120,67 +120,6 @@ function trackingModeForConsent(consent: CookieConsent | null): KapaUserTracking
 	return consent === 'accepted' ? 'cookie' : 'none';
 }
 
-type KapaConsentDebugSnapshot = {
-	consent: CookieConsent | null;
-	userTrackingMode: KapaUserTrackingMode;
-	hostname: string;
-	isPreviewHost: boolean;
-	kapaWebIdCookiePresent: boolean;
-	documentCookie: string;
-	localStorageConsent: string | null;
-	note: string;
-};
-
-function isKapaConsentDebugEnabled() {
-	if (typeof window === 'undefined') return false;
-	const host = window.location.hostname;
-	const isProdDocs = host === 'docs.warp.dev' || host === 'www.docs.warp.dev';
-	const force =
-		new URLSearchParams(window.location.search).has('kapaDebug') ||
-		window.localStorage.getItem('warp_docs_kapa_debug') === '1';
-	// Enabled by default outside production docs so Vercel previews are easy to QA.
-	return force || !isProdDocs;
-}
-
-function readKapaWebIdFromDocumentCookie() {
-	if (typeof document === 'undefined') return false;
-	return document.cookie.split('; ').some((part) => part.startsWith('kapa_web_id='));
-}
-
-function publishKapaConsentDebug(snapshot: KapaConsentDebugSnapshot) {
-	if (typeof window === 'undefined' || !isKapaConsentDebugEnabled()) return;
-	const debugWindow = window as Window & {
-		__warpDocsKapaDebug?: KapaConsentDebugSnapshot & {
-			refresh?: () => KapaConsentDebugSnapshot;
-		};
-	};
-	const refresh = () => {
-		const consent = readCookieConsent();
-		const next: KapaConsentDebugSnapshot = {
-			consent,
-			userTrackingMode: trackingModeForConsent(consent),
-			hostname: window.location.hostname,
-			isPreviewHost: /\.vercel\.app$/i.test(window.location.hostname) || window.location.hostname === 'localhost',
-			kapaWebIdCookiePresent: readKapaWebIdFromDocumentCookie(),
-			documentCookie: document.cookie,
-			localStorageConsent: (() => {
-				try {
-					return localStorage.getItem(cookieConsentStorageKey);
-				} catch {
-					return null;
-				}
-			})(),
-			note:
-				'kapa_web_id is written by the Kapa SDK on query submit. On *.vercel.app public-suffix hosts the SDK domain cookie often fails to stick; trust userTrackingMode + localStorage on preview.',
-		};
-		debugWindow.__warpDocsKapaDebug = { ...next, refresh };
-		return next;
-	};
-	debugWindow.__warpDocsKapaDebug = { ...snapshot, refresh };
-	// eslint-disable-next-line no-console -- intentional preview QA signal
-	console.info('[warp-docs kapa consent]', snapshot);
-}
-
 function getChatErrorMessage(error: unknown) {
 	const message = typeof error === 'string' ? error : String(error ?? '');
 	const normalized = message.toLowerCase();
@@ -1331,28 +1270,6 @@ export default function KapaChatLauncher({ autoOpen = false }: { autoOpen?: bool
 	// Cookie mode only after explicit accept from CookieConsentBanner.
 	// https://docs.kapa.ai/dev/sdk/components/KapaProvider#user-tracking-mode
 	const userTrackingMode = trackingModeForConsent(cookieConsent);
-
-	useEffect(() => {
-		if (typeof window === 'undefined') return;
-		const hostname = window.location.hostname;
-		publishKapaConsentDebug({
-			consent: cookieConsent,
-			userTrackingMode,
-			hostname,
-			isPreviewHost: /\.(vercel\.app)$/i.test(hostname) || hostname === 'localhost',
-			kapaWebIdCookiePresent: readKapaWebIdFromDocumentCookie(),
-			documentCookie: document.cookie,
-			localStorageConsent: (() => {
-				try {
-					return localStorage.getItem(cookieConsentStorageKey);
-				} catch {
-					return null;
-				}
-			})(),
-			note:
-				'kapa_web_id is written by the Kapa SDK on query submit. On *.vercel.app public-suffix hosts the SDK domain cookie often fails to stick; trust userTrackingMode + localStorage on preview.',
-		});
-	}, [cookieConsent, userTrackingMode, chatSessionKey]);
 
 	if (!integrationId) {
 		return null;
