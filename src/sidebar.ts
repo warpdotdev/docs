@@ -379,17 +379,30 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			link: '/factories/',
 			icon: 'setting',
 			badge: { text: 'Early Access', variant: 'note' },
+			// Group labels are noun phrases naming a subject area, not imperative
+			// verbs. Every other tab does this -- 'Agent configuration',
+			// 'Triggers & integrations', 'Plans and billing', 'Team management' --
+			// so 'Configure / Connect / Operate' read as a different product's
+			// sidebar. Two of these deliberately mirror the Automation Platform tab
+			// next door, since the underlying concepts are the same.
 			items: [
 				{
-					label: 'Get started',
+					// 'Getting started', not 'Get started': matches the Terminal,
+					// Enterprise, and Guides tabs.
+					label: 'Getting started',
 					items: [
 						{ slug: 'factories', label: 'Overview' },
 						{ slug: 'factories/quickstart', label: 'Quickstart' },
-						{ slug: 'factories/how-factories-work', label: 'How Warp Factories work' },
+						// 'Warp' is redundant inside the Factories tab, and the sibling
+						// labels ('Factory agents', 'Factory MCP') drop it too. This also
+						// resolves a desync: the page's own frontmatter label already said
+						// 'How Factories work', which this override was silently shadowing.
+						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
 					],
 				},
 				{
-					label: 'Configure',
+					// Parallel to 'Agent configuration' in the Automation Platform tab.
+					label: 'Factory configuration',
 					items: [
 						{ slug: 'factories/factory-agents', label: 'Factory agents' },
 						{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
@@ -397,7 +410,14 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Connect',
+					// These pages all answer "how does work reach the factory?" --
+					// connections, integrations, the filters that decide which events
+					// qualify, and the MCP that hands work in. 'Work item' and 'intake'
+					// are the product's own vocabulary, not docs coinage.
+					//
+					// Not 'Integrations & intake', which would nest an Integrations group
+					// inside a group with Integrations in its name.
+					label: 'Work intake',
 					items: [
 						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
 						{
@@ -414,7 +434,11 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Operate',
+					// Same label as the Automation Platform tab's group for watching and
+					// steering runs, because it covers the same ground one level up: the
+					// control room is where you watch a factory, and scorers are how you
+					// measure it.
+					label: 'Management & observability',
 					items: [
 						{ slug: 'factories/control-room', label: 'Control room' },
 						{ slug: 'factories/measure-and-improve', label: 'Measure and improve' },
