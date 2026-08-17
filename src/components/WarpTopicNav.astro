@@ -25,7 +25,12 @@
 //     underline share `--sl-color-text-accent`, which auto-adapts to dark
 //     and light themes.
 //   - No surrounding chip / box / bg — just type + icon
-import { Badge, Icon } from '@astrojs/starlight/components';
+//   - Topic badge (e.g. Factories "Early Access"): rendered as a plain span
+//     styled as a compact brand pill (Inter, 11px/600, accent tint, fully
+//     rounded) instead of Starlight's `<Badge>`, whose monospace bordered
+//     box clashed with the nav type and was wide enough to wrap the nav
+//     onto a second row at common laptop widths.
+import { Icon } from '@astrojs/starlight/components';
 
 const { topics } = Astro.locals.starlightSidebarTopics;
 
@@ -122,9 +127,7 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 						) : null}
 						<span class="warp-topic-nav__label">{topic.label}</span>
 						{topic.badge && (
-							<span class="warp-topic-nav__badge">
-								<Badge text={topic.badge.text} variant={topic.badge.variant} />
-							</span>
+							<span class="warp-topic-nav__badge">{topic.badge.text}</span>
 						)}
 					</a>
 				</li>
@@ -214,10 +217,24 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 		color: var(--sl-color-text-accent);
 		font-weight: 600;
 	}
+	/* Compact brand pill for topic badges (currently only Factories "Early
+	   Access"). Deliberately quiet: one step smaller than the 14px label,
+	   tinted with the accent ramp rather than boxed in a border, and fully
+	   rounded to match the site's pill language (search, guide filters).
+	   `--sl-color-accent-low` + `--sl-color-text-accent` adapt to dark and
+	   light themes on their own. Font family inherits Inter from the link —
+	   no monospace. */
 	.warp-topic-nav__badge {
 		display: inline-flex;
 		align-items: center;
-		margin-inline-start: 0.125rem;
+		padding: 0.125rem 0.5rem;
+		border-radius: 9999px;
+		background: var(--sl-color-accent-low);
+		color: var(--sl-color-text-accent);
+		font-size: 0.6875rem; /* 11px against the 14px label */
+		font-weight: 600;
+		line-height: 1.2;
+		letter-spacing: 0.015em;
 	}
 
 	/* 2px accent underline under the active tab, anchored to the link's own
@@ -270,15 +287,26 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 		display: inline-block;
 	}
 
-	/* Mid-width fallback. Below ~80rem (~1280px) the topic items + logo +
-	   right-group start to crowd. Drop the per-item icons first so the labels
-	   keep room. The mobile drawer (rendered separately) takes over below
-	   50rem where this nav is hidden entirely. */
-	@media (max-width: 80rem) {
+	/* Mid-width fallbacks, tuned so the nav holds a single row through the
+	   common laptop range instead of wrapping "Guides" onto a second line.
+	   Measured on this branch's ten-topic nav (Chromium, Inter loaded):
+	   with icons + badge the row needs a ~1460px viewport; without icons it
+	   needs ~1280px; hiding the badge too buys roughly another 95px.
+	   So: drop the per-item icons first (labels keep the room), then the
+	   Factories badge at the tightest widths. Wrapping remains the graceful
+	   fallback below ~1160px, and the mobile drawer (rendered separately)
+	   takes over below 50rem where this nav is hidden entirely. */
+	@media (max-width: 94rem) {
 		ul {
 			gap: 0.25rem 1rem;
 		}
 		.warp-topic-nav__icon {
+			display: none;
+		}
+	}
+
+	@media (max-width: 80rem) {
+		.warp-topic-nav__badge {
 			display: none;
 		}
 	}
