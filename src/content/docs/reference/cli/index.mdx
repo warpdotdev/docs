@@ -9,14 +9,10 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 import { VARS } from '@data/vars';
 
 :::caution
-The {VARS.WARP_AGENT_CLI} (the `oz` binary) is being deprecated in favor of the {VARS.WARP_CLI} (the `warp` binary). See the [Warp Agent CLI docs](/agents/cli/) for the replacement.
+The {VARS.WARP_AGENT_CLI} (the `oz` binary, which previously shipped as `warp-cli`) is being deprecated in favor of the {VARS.WARP_CLI} (the `warp` binary). See the [Warp Agent CLI docs](/agents/cli/) for the replacement.
 :::
 
 The {VARS.WARP_AGENT_CLI} is the command-line tool for running and managing Warp's cloud agents from any terminal, script, or CI pipeline. Use it to start agents locally or in the cloud, connect MCP servers, configure integrations, and authenticate without requiring the Warp desktop app.
-
-:::note
-**`warp-cli` is deprecated and has been replaced by `oz`.** If you have `warp-cli` installed, it will auto-update to `oz`. All the same commands are available, just replace `warp-cli` with `oz` in your scripts and workflows.
-:::
 
 ## What is the CLI?
 

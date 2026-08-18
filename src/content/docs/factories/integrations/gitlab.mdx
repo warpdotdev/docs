@@ -29,7 +29,7 @@ When you create a factory, choose **I want to use repos from GitLab** as the cod
 
 That's the setup. A GitLab factory starts with one default automation, **gitlab-bot-mentions**, so mentioning the bot in a merge request comment starts work right away. To confirm it, do exactly that: comment on a merge request in one of the selected projects, mention the bot, and watch for a work item in the factory's [dashboard](/factories/factory-dashboard/).
 
-To start work from merge request events as well, add a **Merge request** trigger to an automation — see [automation filters](/factories/automation-filters/#edit-filters-on-an-automation).
+To start work from merge request events as well, add a **Merge request** trigger to an automation; [automation filters](/factories/automation-filters/#edit-filters-on-an-automation) covers the steps.
 
 ## Supported triggers
 
@@ -74,7 +74,7 @@ The factory acts on GitLab as its bot account:
 
 * **Replies in the thread it was mentioned in** - Its comments link back to the run session and the factory work item. New comments on the same merge request continue that work item instead of starting a new one.
 * **Pushes branches and opens draft merge requests** - Branches are named `factory/<slug>`, and merge requests open as drafts that the factory marks ready when the work is done. Commits and comments attribute to the bot's GitLab profile.
-* **Labels what it touches** - Merge requests and issues the factory opens or adopts carry its own label, named `factory:` followed by the factory's Foreman name.
+* **Labels what it touches** - Merge requests and issues the factory opens or adopts carry its own label, named `factory:` followed by the factory's [**Foreman name**](/factories/factory-dashboard/#change-factory-settings).
 * **Posts review feedback as comments** - A review lands as a summary note plus inline discussions on the diff. When a later revision addresses a finding, the factory replies in that discussion and resolves it.
 
 The factory never merges or approves a merge request, and your project's protection and approval rules apply to everything the bot does.
@@ -107,7 +107,7 @@ triggers:
 Triage newly opened merge requests and post an initial review.
 ```
 
-A `bot_mentioned` trigger takes only a `repos` filter — leave `mentioned` out, since the bot username isn't yours to set.
+A `bot_mentioned` trigger takes only a `repos` filter. Leave `mentioned` out, since the bot username isn't yours to set.
 
 A GitLab-backed factory can still be managed as code, but the definition itself lives either in Warp or in a GitHub repository — GitLab is not yet available as a definition host. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
 
