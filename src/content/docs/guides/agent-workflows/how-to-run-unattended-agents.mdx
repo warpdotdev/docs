@@ -26,7 +26,7 @@ Use this table to decide where an unattended agent should start.
 | Scheduled agents | Work should run on a predictable cadence, like weekly triage, nightly dependency checks, or monthly cleanup. | [Scheduled Agents](/platform/triggers/scheduled-agents/) or the [Scheduled Agents quickstart](/platform/triggers/scheduled-agents-quickstart/) | {VARS.WEB_APP} Runs page, Agent Management Panel in the Warp app, schedule history, and cloud agent session links |
 | Slack | A teammate should delegate work from a Slack message or thread. | [Slack integration](/platform/integrations/slack/) | Slack thread updates, {VARS.WEB_APP} Runs page, Agent Management Panel in the Warp app, and the shared run session |
 | Linear | An issue, comment, or assignment should start the agent. | [Linear integration](/platform/integrations/linear/) | Linear issue updates, {VARS.WEB_APP} Runs page, Agent Management Panel in the Warp app, and the shared run session |
-| GitHub | Someone should delegate work by mentioning `@oz-agent` on an issue, pull request, or review comment. | [GitHub integration](/platform/integrations/github/) | GitHub thread comments, {VARS.WEB_APP} Runs page, Agent Management Panel in the Warp app, and the shared run session |
+| GitHub | Someone should delegate work by mentioning `@warp-agent` on an issue, pull request, or review comment. | [GitHub integration](/platform/integrations/github/) | GitHub thread comments, {VARS.WEB_APP} Runs page, Agent Management Panel in the Warp app, and the shared run session |
 | GitHub Actions | A repository event, PR workflow, issue workflow, or CI failure should start the agent. | [GitHub Actions](/platform/integrations/github-actions/) | GitHub Actions logs, PR or issue comments, {VARS.WEB_APP}, and cloud agent runs |
 | {VARS.WARP_AGENT_CLI} | You want to start a named cloud run from a terminal, script, or local automation. | [{VARS.WARP_AGENT_CLI}](/reference/cli/#running-agents-remotely-oz-agent-run-cloud) | CLI output, {VARS.WEB_APP} Runs page, Agent Management Panel in the Warp app, and cloud agent session links |
 | {VARS.API_SDK_NAME} | Your internal system should create, query, or monitor runs programmatically. | [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) | Your system, API results, {VARS.WEB_APP}, and run sessions |
@@ -58,7 +58,7 @@ The agent posts progress updates back to the source thread or issue and provides
 
 ### Delegate work from a GitHub thread
 
-Use the [GitHub integration](/platform/integrations/github/) when the task starts from an issue, a pull request, or a review comment. Mention `@oz-agent` in the thread and the agent picks up that context, replies in place, and reports any pull request it opens. This fits:
+Use the [GitHub integration](/platform/integrations/github/) when the task starts from an issue, a pull request, or a review comment. Mention `@warp-agent` in the thread and the agent picks up that context, replies in place, and reports any pull request it opens. This fits:
 
 * asking for a fix from a review comment without leaving the diff
 * turning a bug report issue into a pull request
@@ -73,7 +73,7 @@ Use [GitHub Actions](/platform/integrations/github-actions/) when the trigger sh
 For example:
 
 * review a PR when it opens
-* respond to an `@oz-agent` comment
+* respond to an `@warp-agent` comment
 * summarize issues on a schedule
 * attempt a fix when CI fails
 * suggest fixes for review comments
@@ -132,6 +132,6 @@ Start with one narrow workflow before deploying many unattended agents:
 
 * [Scheduled Agents quickstart](/platform/triggers/scheduled-agents-quickstart/) - Create your first recurring agent in the {VARS.WEB_APP}.
 * [Integrations quickstart](/platform/integrations/quickstart/) - Trigger agents from Slack or Linear.
-* [GitHub integration](/platform/integrations/github/) - Set up `@oz-agent` mentions on issues and pull requests.
+* [GitHub integration](/platform/integrations/github/) - Set up `@warp-agent` mentions on issues and pull requests.
 * [GitHub Actions quickstart](/platform/integrations/quickstart-github-actions/) - Add an agent to a PR review workflow.
 * [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) - Inspect and share unattended run sessions.
