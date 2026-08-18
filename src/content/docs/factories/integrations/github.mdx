@@ -13,8 +13,8 @@ When you connect a factory to GitHub, repository activity starts work in your fa
 
 ## Prerequisites
 
-* **The Warp GitHub App** - Follow the [GitHub integration setup](/platform/integrations/github/) to install the app and grant it access to the repositories the factory works in. The same installation covers factories if your team already set it up for the platform integration.
-* **A factory with GitHub repositories** - At least one of the factory's repositories must also be one the Warp GitHub App has access to.
+* **The Warp GitHub App** - Follow the [GitHub integration setup](/platform/integrations/github/) if you haven't already. One installation serves both the platform integration and factories.
+* **A factory with GitHub repositories** - The app must have access to at least one of the factory's repositories.
 
 ## Connect GitHub to a factory
 
@@ -26,7 +26,7 @@ When you connect a factory to GitHub, repository activity starts work in your fa
 6. Select a repository, then use **More filters** to narrow which activity matches.
 7. Click **Save**. To confirm the automation works, trigger a matching event in GitHub, such as opening a test issue, and check that a work item starts in the control room.
 
-Managed GitHub factories start with two editable default automations: one for agent mentions and assignments (see [Mention the factory](#mention-the-factory)) and one that closes or merges pull requests. When Linear or Jira is connected, this automation can also complete the linked ticket after a merge.
+Managed GitHub factories start with two editable default automations. The first handles agent mentions and assignments (see [Mention the factory](#mention-the-factory)). The second runs when a pull request closes or merges: on a merge it finds the work items linked from the pull request and moves each one to its tracker's completed state, and on a close without a merge it does nothing.
 
 ## Supported triggers
 
@@ -81,7 +81,7 @@ The default mentions-and-assignments automation starts a work item in the matchi
 
 Mentions count only in new content; edits to existing comments, mentions inside code blocks, and mentions from bots are ignored.
 
-The handle and label are default filter values, not fixed rules. Edit the automation's **Mentioned users or teams** filter to respond to other handles, such as your own `@org/team` slug, or remove the label filter to catch every mention in its repositories.
+The handle and label are default filter values, not fixed rules. Edit the automation's **Mentioned users or teams** filter to respond to other handles, such as your own `@org/team` slug, or remove the label filter to catch every mention in the factory's repositories.
 
 ## How the factory responds on GitHub
 
@@ -89,7 +89,7 @@ The factory posts progress comments in the originating issue, pull request, or r
 
 New activity on an issue, pull request, or review thread the factory is already working on continues that work item instead of starting a new one.
 
-Issues and pull requests created by the factory carry a `factory:<alias>` label. Warp attempts to create the label in each connected repository and attempts to remove it when you remove the repository or delete the factory. You don't create it manually, though stale labels may require manual cleanup if GitHub removal fails.
+Issues and pull requests created by the factory carry a `factory:<alias>` label. Warp adds that label to every connected repository and removes it when you disconnect a repository or delete the factory, so you never create it by hand. Both passes are best-effort: if GitHub rejects one, a stale label can linger and needs deleting manually.
 
 Factory-created branches and pull requests follow the repository's normal rules: branch protection, required reviews, and merge requirements still apply.
 
@@ -97,7 +97,7 @@ Factory-created branches and pull requests follow the repository's normal rules:
 
 Runs authenticate with the GitHub App installation, not with the account of the person whose activity triggered them:
 
-* **The app installation decides what agents can reach.** A run can only read and write the repositories and permissions your team granted the Warp GitHub App at install time. Selecting repositories for a factory or tightening automation filters changes when work starts, not what a running agent can access. To change access, change the installation.
+* **The app installation decides what agents can reach.** Agents get exactly the repositories and permissions the installation grants. Factory repositories and automation filters control when work starts, not what a running agent can reach. To change access, change the installation.
 * **Anyone who can create matching activity can start work.** The event author doesn't need to be a Warp team member. Use author, label, and branch filters to control what starts runs.
 
 For the full credential model, see [Permissions and identity](/platform/integrations/github/#permissions-and-identity) on the GitHub integration page.
