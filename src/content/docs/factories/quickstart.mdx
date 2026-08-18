@@ -8,15 +8,17 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-A factory is a team of cloud agents: a foreman you talk to, plus the subagents it dispatches. Together they turn incoming requests into pull requests for your team to review. In this quickstart, you will create a factory and take one small work item from prompt to pull request in about 10 minutes.
+A factory is a team of cloud agents that turns your team's requests into pull requests. You talk to one agent, the **foreman**, from whichever tool the request starts in — Slack, an issue tracker, a code host — and it dispatches the factory's other agents, each owning one part of the software development lifecycle. People stay in the loop at the points that matter: approving the spec and merging the pull request.
+
+In this quickstart, you will create a factory and take one small work item from prompt to pull request in about 10 minutes.
 
 ## What you'll decide
 
-Warp walks you through factory setup in a wizard; your job is to decide four things:
+Warp walks you through factory setup; your job is to decide four things:
 
 * **Which code the factory works on** - The code host and the set of repositories.
-* **What it's called** - The factory's name, and the handle your team @-mentions to reach its foreman.
-* **Which agents it runs** - The subagents the foreman can dispatch.
+* **What it's called** - The factory's name, and the alias your team @-mentions to reach it.
+* **Which agents it runs** - The agents the foreman can dispatch.
 * **Where work comes from** - Optionally, a chat tool and an issue tracker.
 
 Every one of these is editable afterward, so pick something reasonable and keep moving.
@@ -33,30 +35,32 @@ _~5 minutes_
 
 Sign in to the {VARS.FACTORY_WEB_APP} at <a href={VARS.FACTORY_WEB_APP_URL}>platform.warp.dev</a> and start a new factory. Setup asks you for the following.
 
+You don't have to click through setup at all: an agent connected to the [Factory MCP](/factories/factory-mcp/) can create the factory for you with the `create_factory` tool — tell it which repositories to use and what to call the factory, and it makes the same decisions described below.
+
 ### Connect a code host and choose repositories
 
 Authorize GitHub or GitLab, then select the repositories the factory works in.
 
 Start with one or two. Every agent in the factory shares this repo set, so a focused set keeps their context tight, and you can add more later. Warp provisions a default [environment](/platform/environments/) for what you select.
 
-### Name the factory and its foreman
+### Name your factory
 
-**Factory name** identifies the factory in the app. **Foreman name** is the handle your team @-mentions to reach the foreman from connected tools like Slack and Linear, so keep it short and recognizable. Warp derives one from the factory name if you don't set it yourself.
+Name the factory, and give it an [alias](/factories/factory-as-code/#alias): the handle your team @-mentions to reach it from connected tools like Slack and Linear, so keep it short and recognizable. In setup, the alias is the **Foreman name** field, and Warp derives it from the factory name if you don't set one.
 
-### Confirm the agent roster
+### Design your factory
 
-The foreman is always on the roster: it's the agent you talk to. You choose which subagents it can dispatch:
+Every factory has a **foreman**: the one agent you talk to, no matter where the request starts. Around it, the factory is composed of four default agents, one for each part of the software development lifecycle, and this step is where you choose which of them your factory runs:
 
-| Subagent | What it does |
+| Agent | What it does |
 | --- | --- |
 | **Triage** | Accepts work from issue trackers and establishes scope |
 | **Spec** | Iterates with your team to produce a spec |
 | **Code** | Implements the change and opens the pull request |
 | **Review** | Inspects the result and reports findings |
 
-All four start enabled and a factory needs at least one, so this step is about turning off what you don't want yet. Leave **Code** on so this quickstart can end in a pull request.
+All four start enabled and a factory needs at least one, so this step is about turning off what you don't want yet. Leave **Code** on so this quickstart can end in a pull request. You can add your own agents and automations later.
 
-See [factory agents](/factories/factory-agents/) for what each role does in depth; the roster's **Code** toggle is the Implement role on that page.
+See [factory agents](/factories/factory-agents/) for what each agent does in depth; the **Code** toggle is the Implement role on that page.
 
 ### Optionally connect Slack and an issue tracker
 
@@ -68,8 +72,9 @@ Warp then creates the factory and opens its [dashboard](/factories/factory-dashb
 
 _~5 minutes_
 
-1. On your factory's **Runs** page, start a new run.
-2. Describe one small, verifiable change and submit it:
+Send the request from the tool your team already works in — that's what a factory is for. Mention the factory in a Slack channel, or assign it an issue in your tracker, and it replies right there. If you skipped the integrations, start a run from the **Runs** page of the factory's [dashboard](/factories/factory-dashboard/) instead.
+
+1. Describe one small, verifiable change and send it:
 
    ```text title="Example first request"
    Add a "Local development" section to README.md that summarizes the setup
@@ -79,14 +84,12 @@ _~5 minutes_
 
    Adapt the pattern to your repository: name the file, the change you expect, and the command that verifies it. A narrow, explicit request makes the first run easy to judge.
 
-   The foreman picks up the request and dispatches your subagents as child runs.
-
-3. Follow it from two places in the factory's [dashboard](/factories/factory-dashboard/):
+2. The foreman picks up the request, dispatches the factory's agents as child runs, and posts progress and questions back where the request started. Follow the details in the factory's [dashboard](/factories/factory-dashboard/):
 
    * **Runs** - The foreman's run and the child runs it dispatches.
    * **Activity** - The work item as it moves through its stages. Open it for the event history and pull request artifacts.
 
-4. When the Code agent finishes, the work item links a pull request. Review and merge it the way you would any other: a factory hands off at the pull request and never merges for you.
+3. When the Code agent finishes, the work item links a pull request. Review and merge it the way you would any other: a factory hands off at the pull request and never merges for you.
 
 ## Next steps
 
