@@ -62,12 +62,12 @@ Each default agent also has its own [Auto-memory store](/agents/agent-memory/). 
 
 ## Configure agent behavior
 
-Use the agent editor in the [control room](/factories/control-room/) to change an agent's description, model, runner, host, MCP servers, secrets, and instructions.
+Use the agent editor in the [factory dashboard](/factories/factory-dashboard/) to change an agent's description, model, runner, host, MCP servers, secrets, and instructions.
 
 You can also manage the whole factory as version-controlled code, with [factory definition files](/factories/factory-as-code/) in a Git repository, where changes get the same review, history, and rollback as any other code. A few agent settings can only be set in the files: harness, environment, and credential strategy. Where the repository lives determines how the two editing paths work together:
 
-* **Warp-managed repository** - Edit agents in the agent editor, or edit the definition files directly in the control room's **Code** tab, whichever fits the change. Both write to the same files, so the editor and the code always agree.
-* **A GitHub repository your team owns** - The files are the only way to change the factory. Edits go through pull requests, and the file-owned settings in the control room are read-only.
+* **Warp-managed repository** - Edit agents in the agent editor, or edit the definition files directly in the factory dashboard's **Factory definition** tab, whichever fits the change. Both write to the same files, so the editor and the code always agree.
+* **A GitHub repository your team owns** - The files are the only way to change the factory. Edits go through pull requests, and the file-owned settings in the factory dashboard are read-only.
 
 Factory setup doesn't choose models for you. To change the model a role uses, edit that agent.
 

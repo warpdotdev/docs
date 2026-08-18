@@ -1163,6 +1163,101 @@ def check_platform_determiner(lines: List[str], filepath: str) -> List[Issue]:
     return issues
 
 
+# "Warp Factories" is the product; a "factory" is an instance. A bare
+# capitalized "Factory" is never a proper noun, with two classes of exception:
+# the feature's own name (Factory MCP) and verbatim product strings the docs
+# quote from the app. Both are matched on the word that FOLLOWS "Factory".
+FACTORY_ALLOWED_NEXT_WORDS = {
+    # Feature name, shipped as such: the server registers as `warp-factory`.
+    "MCP",
+    # Verbatim UI strings. Changing these would make the docs disagree with the
+    # screen, so they are quoted as-is until the app copy changes.
+    "name",        # **Factory name** field in the setup wizard
+    "definition",  # **Factory definition** sidebar tab
+    "integrations",  # **Factory integrations** section in Settings
+    "running",     # "Factory running!" on the setup summary screen
+}
+# Whole phrases that are correct despite containing a bare "Factory": verbatim
+# UI strings the docs quote, and references to unrelated products that happen to
+# be named Factory.
+FACTORY_ALLOWED_PHRASES = (
+    "Add your Factory to your team",  # verbatim setup wizard heading
+    "Factory's CLI coding agent",     # Factory.ai, the company behind Droid
+)
+FACTORY_BARE = re.compile(r"\bFactory\b")
+# Markup that can sit between the start of a sentence and the word itself:
+# heading hashes, list bullets, blockquotes, emphasis, link text, quotes, and
+# table cell pipes. Stripped before deciding whether the position is initial.
+FACTORY_LEADING_MARKUP = re.compile(r"[\s*_\[\(\"'|>#\-\u2014\u2013]+$")
+
+
+def check_factory_proper_noun(lines: List[str], filepath: str) -> List[Issue]:
+    """Flag a bare capitalized "Factory" used as a proper noun.
+
+    The rule works like GitHub Actions: "Warp Factories" is the product and is
+    always written in full, an individual "factory" is a lowercase common noun,
+    and there is no product called "Factory". See AGENTS.md -> Warp Factories
+    terminology.
+
+    Quiet by construction, because most capitalized "Factory" occurrences are
+    legitimate:
+      * "Warp Factories" and "Warp Factory" -- the product name
+      * sentence-, heading-, bullet-, link-, quote-, and cell-initial position,
+        where the capital is positional rather than a proper noun
+      * fenced code blocks, inline code, link targets, and HTML attributes
+      * frontmatter, whose titles and sidebar labels are headline-style
+      * the exceptions in FACTORY_ALLOWED_NEXT_WORDS and
+        FACTORY_ALLOWED_PHRASES
+    """
+    issues = []
+    in_code_block = False
+    in_frontmatter = False
+    for i, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if i == 1 and stripped == "---":
+            in_frontmatter = True
+            continue
+        if in_frontmatter:
+            if stripped == "---":
+                in_frontmatter = False
+            continue
+        if stripped.startswith("```"):
+            in_code_block = not in_code_block
+            continue
+        if in_code_block or "Factory" not in line:
+            continue
+        if any(phrase in line for phrase in FACTORY_ALLOWED_PHRASES):
+            continue
+        # Strip inline code, link targets, and HTML/JSX attributes: a slug like
+        # `/factories/factory-as-code/` or an `alt="..."` value is not prose.
+        prose = re.sub(r"`[^`]*`", "", line)
+        prose = re.sub(r"\]\([^)]*\)", "]", prose)
+        prose = re.sub(r'\w+="[^"]*"', "", prose)
+        for m in FACTORY_BARE.finditer(prose):
+            before = prose[:m.start()]
+            after = prose[m.end():]
+            if before.rstrip().endswith("Warp"):
+                continue  # "Warp Factories" / "Warp Factory"
+            # Strip the markup between the sentence start and the word, then ask
+            # whether anything is left. Nothing left means the capital is
+            # positional; a preceding clause means it is being used as a name.
+            prefix = FACTORY_LEADING_MARKUP.sub("", before)
+            if not prefix or prefix.endswith((".", "!", "?", ":", "|", "—")):
+                continue
+            nxt = re.match(r"\s+(\w+)", after)
+            if nxt and nxt.group(1) in FACTORY_ALLOWED_NEXT_WORDS:
+                continue
+            issues.append(Issue(
+                filepath, i, "factory-proper-noun",
+                'Bare "Factory" used as a proper noun. "Warp Factories" is the '
+                'product and is written in full; an individual factory is '
+                'lowercase. Write "factory" (or "Warp Factories" if you mean '
+                "the product).",
+                "warning",
+            ))
+    return issues
+
+
 # Cache glossary terms once at module level
 _glossary_cache: Optional[set] = None
 
@@ -1193,6 +1288,7 @@ def run_all_checks(filepath: Path) -> List[Issue]:
     issues.extend(check_deprecated_terms(lines, str(filepath)))
     issues.extend(check_hardcoded_vars(lines, str(filepath)))
     issues.extend(check_platform_determiner(lines, str(filepath)))
+    issues.extend(check_factory_proper_noun(lines, str(filepath)))
     issues.extend(check_unrecognized_terms(lines, str(filepath), _get_glossary()))
     return issues
 

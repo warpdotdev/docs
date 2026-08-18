@@ -1,8 +1,8 @@
 ---
 title: Connect GitHub to your factory
 description: >-
-  Connect a factory to GitHub so issues, pull requests, reviews, and CI events
-  start factory work and results post back to GitHub.
+  Connect GitHub to your factory so issues, pull requests, reviews, and CI
+  events start factory work and results post back to GitHub.
 sidebar:
   label: "GitHub"
 topic: factories
@@ -20,11 +20,11 @@ When you connect a factory to GitHub, repository activity starts work in your fa
 
 1. In the {VARS.FACTORY_WEB_APP} at <a href={VARS.FACTORY_WEB_APP_URL}>platform.warp.dev</a>, click **+** next to **Factories** to open the setup wizard, then choose **I want to use repos from GitHub** under **Connect your code host**.
 2. Under **Select your repos**, choose the repositories to provide code and context for the factory.
-3. In the factory's [control room](/factories/control-room/), click **Automations**. Create an automation or edit a default one, choose the receiving agent, and add any **Additional instructions**.
+3. In the factory's [dashboard](/factories/factory-dashboard/), click **Automations**. Create an automation or edit a default one, choose the receiving agent, and add any **Additional instructions**.
 4. Under **Triggers**, click **Add trigger**.
 5. Choose **GitHub**, then choose an event.
 6. Select a repository, then use **More filters** to narrow which activity matches.
-7. Click **Save**. To confirm the automation works, trigger a matching event in GitHub, such as opening a test issue, and check that a work item starts in the control room.
+7. Click **Save**. To confirm the automation works, trigger a matching event in GitHub, such as opening a test issue, and check that a work item starts in the factory dashboard.
 
 Managed GitHub factories start with two editable default automations. The first handles agent mentions and assignments (see [Mention the factory](#mention-the-factory)). The second runs when a pull request closes or merges: on a merge it finds the work items linked from the pull request and moves each one to its tracker's completed state, and on a close without a merge it does nothing.
 

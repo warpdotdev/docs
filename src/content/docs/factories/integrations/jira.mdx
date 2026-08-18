@@ -1,8 +1,8 @@
 ---
 title: Connect Jira to your factory
 description: >-
-  Connect Jira Cloud to a factory so work items assigned to Warp start factory
-  runs and return results in Jira.
+  Connect Jira Cloud to your factory so work items assigned to Warp start
+  factory runs and return results in Jira.
 sidebar:
   label: Jira
 topic: factories
@@ -28,7 +28,7 @@ Connect Jira Cloud to your factory so your team can start factory work without l
 
 3. Connect Jira to your factory. Connecting the workspace in step 2 makes Jira available to every factory in it, but each factory still needs its own connection: in the factory's **Settings** tab, find **Jira** and click **Connect** (or **Install** if the workspace itself isn't connected yet). Select the Jira projects that should trigger this factory, then click **Enable**. This declares the `jira` integration for the factory. Without it, **Jira** in the automation editor's **Add trigger** menu stays a disabled "not connected" entry that links back to this step.
 
-4. Add a Jira trigger to an automation. In the control room, open the factory's **Automations** tab, then open an automation (or create a new one). Click **Add trigger**, choose **Jira**, and select **Agent session created**. Set **Projects** and, optionally, **Keywords** to scope which sessions start a run, then set the automation's agent to the one that should handle matching requests.
+4. Add a Jira trigger to an automation. In the factory's dashboard, open **Automations**, then open an automation (or create a new one). Click **Add trigger**, choose **Jira**, and select **Agent session created**. Set **Projects** and, optionally, **Keywords** to scope which sessions start a run, then set the automation's agent to the one that should handle matching requests.
 
    If you selected Jira projects when you created the factory, Warp already added an automation scoped to those projects; edit that automation instead of creating a second one.
 

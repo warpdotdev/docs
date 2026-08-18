@@ -1,7 +1,7 @@
 ---
 title: Connect Slack to your factory
 description: >-
-  Connect a factory to Slack so your team can start work with mentions,
+  Connect Slack to your factory so your team can start work with mentions,
   direct messages, and automations, and get results back in the same thread.
 sidebar:
   label: "Slack"
@@ -57,7 +57,7 @@ Automations don't run as a requester: they run as the factory agent selected und
 
 Use a factory automation to start work from Slack activity automatically, without anyone mentioning the app. For example, an automation can act on every message posted in a triage channel or on a specific emoji reaction.
 
-1. In the factory's control room, open **Automations**, then create or edit an automation.
+1. In the factory's dashboard, open **Automations**, then create or edit an automation.
 2. Under **Triggers**, click **Add trigger** > **Slack**, then choose an event.
 3. Select the conversations and people that the event must match. Click **More filters** to add the event's available content filters.
 4. Choose the receiving agent under **Agents**, add any **Additional instructions**, then click **Save**.
@@ -78,7 +78,7 @@ A single Slack message can match more than one automation. For example, if one a
 
 The Slack thread where work started is also where you follow it: the factory posts progress and the final response there. Reply in the thread to add information or attachments while work is active, or to pick the same work item back up later.
 
-For an overview of the factory's work items, open the app's **Home** tab in Slack. It groups them by the same stages as the control room's [Activity view](/factories/control-room/#track-work-items-on-activity) (Triage, Planning, Building, Reviewing, Completed, and Cancelled), offers stage and date filters, and links each work item back to its Slack thread, factory run, issue, or pull request when available.
+For an overview of the factory's work items, open the app's **Home** tab in Slack. It groups them by the same stages as the factory dashboard's [Activity view](/factories/factory-dashboard/#track-work-items-on-activity) (Triage, Planning, Building, Reviewing, Completed, and Cancelled), offers stage and date filters, and links each work item back to its Slack thread, factory run, issue, or pull request when available.
 
 A factory can create issues, branches, and pull requests, but your repository's review and merge rules still apply. Work that starts in Slack doesn't bypass required human review.
 

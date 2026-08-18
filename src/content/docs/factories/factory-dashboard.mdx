@@ -1,13 +1,17 @@
 ---
-title: Factory control room
+title: Factory dashboard
 description: >-
   Track work items, inspect runs, read factory metrics, and manage agents,
-  automations, and settings from the control room.
+  automations, and settings from the factory dashboard.
 sidebar:
-  label: "Control room"
+  label: "Factory dashboard"
 ---
 
-The control room is the web app for operating a single factory. Use it to track the work your agents are doing, inspect the runs and pull requests they produce, and manage the agents, automations, and settings the factory owns.
+The factory dashboard is the web app for operating a single factory. Use it to track the work your agents are doing, inspect the runs and pull requests they produce, and manage the agents, automations, and settings the factory owns.
+
+:::note
+"Factory dashboard" names the whole surface. **Dashboard**, in bold, is one page inside it — the metrics page a factory opens on.
+:::
 
 ## Pages at a glance
 
@@ -15,7 +19,7 @@ Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, 
 
 | Page | What it shows | What you do there |
 | --- | --- | --- |
-| **Dashboard** | Factory metrics: autonomy, PR cycle time, cost, and run volume | Compare periods and find work worth investigating |
+| **Dashboard** | The factory's metrics: autonomy, PR cycle time, cost, and run volume | Compare periods and find work worth investigating |
 | **Activity** | Work items grouped by stage | Search, filter, open, and stop work items |
 | **Agents** | The factory's agent roster | Create and edit agents |
 | **Automations** | Triggers that start runs | Create, edit, and delete automations |
@@ -23,8 +27,10 @@ Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, 
 | **Scorers** | Scorer definitions and results | Define rubrics and review classifications |
 | **Self-improvement** | Pull requests filed to fix Scorer-detected failures | Review fix PRs and open the runs behind them |
 | **Benchmarks** | Benchmark suites and their runs | Compare harness, model, and runner configurations |
-| **Code** | The factory's definition files | Browse and edit a Warp-managed definition |
+| **Factory definition** | The factory's definition files | Browse and edit a Warp-managed definition |
 | **Settings** | Configuration the factory owns | Change identity, repos, runners, and the integrations the factory can access |
+
+**Dashboard** is where a factory opens. **Factory definition** appears only on Warp-managed factories, since a factory whose definition lives in your own repository is edited there instead.
 
 ## Track work items on Activity
 
@@ -48,9 +54,9 @@ Click **New** on a factory's **Runs** page to send a prompt to the factory's for
 Run pages don't include a chat input, but you can still steer a run: **View session** opens its [shared agent session](/platform/viewing-cloud-agent-runs/), where you follow the agent in real time and send follow-up instructions while the run's environment is active. After the environment shuts down, the same button opens the conversation transcript.
 :::
 
-## Read dashboard metrics
+## Read metrics on the Dashboard page
 
-**Dashboard** summarizes the factory over a date range you choose:
+**Dashboard** is the factory's landing page. It summarizes the factory over a date range you choose:
 
 * **Autonomy** - The share of the factory's merged PRs that needed no human input beyond an approving review and the merge itself.
 * **PR cycle time** - The median time the factory's merged PRs took from run kickoff through PR, first review, and merge, with a median for each stage.
@@ -64,15 +70,15 @@ The page also charts opened versus merged PRs and a breakdown of runs, and the *
 
 Environment is set in the factory definition, not the agent editor, and automations never override execution settings. When the factory's definition lives in an external repository, Agents, Automations, and Scorers are read-only; make changes there through pull requests.
 
-## Edit definitions in the Code tab
+## Edit definitions in the Factory definition tab
 
-**Code** is the control room's view of the factory's definition files, which [Factory definitions as code](/factories/factory-as-code/) describes in full. What the tab offers depends on where the definition lives:
+**Factory definition** is the factory dashboard's view of the definition files that [definitions as code](/factories/factory-as-code/) describes in full. Where the definition lives decides what you get:
 
 * **Warp-managed** - Browse and edit the definition files. Saving validates the definition and commits all changes together.
-* **Managed in GitHub** - Links to the repository; edit the definition through pull requests there.
+* **Managed in GitHub** - The tab doesn't appear. Edit the definition through pull requests in your repository, and **Settings** links back to it.
 * **Live-managed** - The factory is managed through the API, so there are no definition files to browse.
 
-When an agent proposes a change to a Warp-managed definition, its work item on **Activity** links to a review of the branch inside the control room. From there, comment on the diff, use **Request changes** to send feedback back to the agent, or **Approve & merge**.
+When an agent proposes a change to a Warp-managed definition, its work item on **Activity** links to a review of the branch inside the factory dashboard. From there, comment on the diff, use **Request changes** to send feedback back to the agent, or **Approve & merge**.
 
 ## Score and benchmark
 
@@ -89,5 +95,7 @@ For a file-managed factory, `runners/*.yaml` in the repository is the source of 
 ## Next steps
 
 * [How Warp Factories work](/factories/how-factories-work/) - The lifecycle behind Activity's stages and where humans stay in the loop.
-* [Factory definitions as code](/factories/factory-as-code/) - Define agents, automations, runners, and source ownership in code.
-* [Measure and improve a factory](/factories/measure-and-improve/) - Configure the Scorers and benchmarks behind the Dashboard.
+* [Definitions as code](/factories/factory-as-code/) - Define agents, automations, runners, and source ownership in code.
+* [Factory agents](/factories/factory-agents/) - What each default role does and how to configure it.
+* [Measure and improve a factory](/factories/measure-and-improve/) - Configure the Scorers and benchmarks behind the **Dashboard** page.
+* [Troubleshooting Warp Factories](/factories/troubleshooting/) - Fixes for setup problems, work that doesn't start, and stuck runs.
