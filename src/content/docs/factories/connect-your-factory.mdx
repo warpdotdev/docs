@@ -20,7 +20,7 @@ Pick the sources that match where work starts for your team. You can connect mor
 | [GitLab](/factories/integrations/gitlab/) | Merge request activity and bot mentions | The merge request thread |
 | [Linear](/factories/integrations/linear/) | Planned issues | The Linear issue and its agent session |
 | [Jira](/factories/integrations/jira/) | Work items assigned to Warp | The Jira agent session |
-| [Factory MCP](/factories/factory-mcp/) | Sending work from a local coding agent | The factory work item |
+| [Factory MCP](/factories/factory-mcp/) | Exchanging work with a local coding agent, in both directions | The factory work item |
 | Direct runs and schedules | One-off or recurring work | The factory work item |
 
 ## Connect a source
@@ -68,7 +68,7 @@ These defaults are starting points. Review each automation's filters, agent, and
 
 ## Factory MCP
 
-The Factory MCP connects local coding agents and other MCP clients to your factory. Use it to send work to the factory from your terminal, check status, coordinate with the foreman agent, and hand finished work back to the same work item. See the [Factory MCP guide](/factories/factory-mcp/).
+The Factory MCP connects local coding agents and other MCP clients to your factory, and it works in both directions: send work to the factory, or take work over from it — pull a task down to your machine, iterate on it locally, and hand it back to the same work item. See the [Factory MCP guide](/factories/factory-mcp/).
 
 ## Direct runs and schedules
 
@@ -84,6 +84,6 @@ See the [triggers overview](/platform/triggers/) for how schedules and other tri
 * **Follow-ups continue the same work item** - Replying in the same Slack thread, GitHub issue or pull request, Linear issue, or Jira agent session adds to the existing work item instead of starting a new one. Repeated event deliveries from a provider don't create duplicate work either.
 * **One issue tracker per factory** - A factory can use [Linear](/factories/integrations/linear/) or [Jira](/factories/integrations/jira/), or no tracker at all, but not both at once. The setup wizard currently offers Linear; to use Jira, connect it after setup or in your [factory definition](/factories/factory-as-code/).
 * **Filters route work; they don't restrict access** - Choosing which requests start work is separate from what a running agent can reach. See [automation filters](/factories/automation-filters/#filters-route-work-they-dont-restrict-access).
-* **The factory hands off at the pull request** - It pushes branches and opens pull requests, then waits for a person. See [what humans decide](/factories/how-factories-work/#what-humans-decide).
+* **The factory hands off at the pull request** - It pushes branches and opens pull requests, then waits for a person. See [where your team stays in charge](/factories/how-factories-work/#where-your-team-stays-in-charge).
 
 Next, customize which agents receive work and how it's routed with [factory definitions as code](/factories/factory-as-code/).

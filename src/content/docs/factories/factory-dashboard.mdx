@@ -21,7 +21,7 @@ Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, 
 | --- | --- | --- |
 | **Dashboard** | The factory's metrics: autonomy, PR cycle time, cost, and run volume | Compare periods and find work worth investigating |
 | **Activity** | Work items grouped by stage | Search, filter, open, and stop work items |
-| **Agents** | The factory's agent roster | Create and edit agents |
+| **Agents** | The factory's agents | Create and edit agents |
 | **Automations** | Triggers that start runs | Create, edit, and delete automations |
 | **Runs** | The factory's individual agent runs | Start, stop, and score runs |
 | **Scorers** | Scorer definitions and results | Define rubrics and review classifications |
@@ -51,7 +51,7 @@ A run is a single agent execution. A work item on **Activity** tracks one piece 
 Click **New** on a factory's **Runs** page to send a prompt to the factory's foreman agent. Open a run to see its timeline and cost, plus a **Sub-agents** tab for an orchestrator run's child runs. From there you can view the agent's full session, stop or score the run, or turn it into a benchmark task.
 
 :::note
-Run pages don't include a chat input, but you can still steer a run: **View session** opens its [shared agent session](/platform/viewing-cloud-agent-runs/), where you follow the agent in real time and send follow-up instructions while the run's environment is active. After the environment shuts down, the same button opens the conversation transcript.
+Run pages don't include a chat input, but you can still steer a run: **View session** opens its [shared agent session](/platform/viewing-cloud-agent-runs/), where you follow the agent in real time and send follow-up instructions while the run's sandbox is active. After it shuts down, the same button opens the conversation transcript.
 :::
 
 ## Read metrics on the Dashboard page
@@ -66,9 +66,9 @@ The page also charts opened versus merged PRs and a breakdown of runs, and the *
 
 ## Manage agents and automations
 
-**Agents** is the factory's roster. Create agents and edit their instructions, model or harness, runner, host, secrets, and MCP servers. **Automations** defines the triggers that start runs: a schedule (including custom cron expressions) or a GitHub, Linear, Slack, or Jira event.
+**Agents** lists the factory's agents. Create agents and edit their instructions, model or harness, runner, host, secrets, and MCP servers. **Automations** defines the triggers that start runs: a schedule (including custom cron expressions) or a GitHub, Linear, Slack, or Jira event.
 
-Environment is set in the factory definition, not the agent editor. The automation editor doesn't change execution settings either; an automation only overrides them through [execution overrides in the definition files](/factories/factory-as-code/#execution-overrides). When the factory's definition lives in an external repository, Agents, Automations, and Scorers are read-only; make changes there through pull requests.
+The automation editor doesn't change execution settings; an automation only overrides them through [execution overrides in the definition files](/factories/factory-as-code/#execution-overrides). When the factory's definition lives in an external repository, Agents, Automations, and Scorers are read-only; make changes there through pull requests.
 
 ## Edit definitions in the Factory definition tab
 
@@ -104,6 +104,6 @@ For a file-managed factory, `runners/*.yaml` in the repository is the source of 
 
 * [How Warp Factories work](/factories/how-factories-work/) - The lifecycle behind Activity's stages and where humans stay in the loop.
 * [Definitions as code](/factories/factory-as-code/) - Define agents, automations, runners, and source ownership in code.
-* [Factory agents](/factories/factory-agents/) - What each default role does and how to configure it.
+* [Factory agents](/factories/factory-agents/) - What each default agent does and how to configure it.
 * [Measure and improve a factory](/factories/measure-and-improve/) - Configure the Scorers and benchmarks behind the **Dashboard** page.
 * [Troubleshooting Warp Factories](/factories/troubleshooting/) - Fixes for setup problems, work that doesn't start, and stuck runs.
