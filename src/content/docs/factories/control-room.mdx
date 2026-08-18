@@ -1,5 +1,5 @@
 ---
-title: The Factory control room
+title: Factory control room
 description: >-
   Track work items, inspect runs, read factory metrics, and manage agents,
   automations, and settings from the control room.
@@ -15,13 +15,13 @@ Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, 
 
 | Page | What it shows | What you do there |
 | --- | --- | --- |
-| **Dashboard** | Factory metrics: autonomy, time saved, PR latency, cost, and run volume | Compare periods and find work worth investigating |
+| **Dashboard** | Factory metrics: autonomy, PR cycle time, cost, and run volume | Compare periods and find work worth investigating |
 | **Activity** | Work items grouped by stage | Search, filter, open, and stop work items |
 | **Agents** | The factory's agent roster | Create and edit agents |
 | **Automations** | Triggers that start runs | Create, edit, and delete automations |
 | **Runs** | The factory's individual agent runs | Start, stop, and score runs |
 | **Scorers** | Scorer definitions and results | Define rubrics and review classifications |
-| **Self-improvement** | Pull requests filed to fix scorer-detected failures | Review fix PRs and open the runs behind them |
+| **Self-improvement** | Pull requests filed to fix Scorer-detected failures | Review fix PRs and open the runs behind them |
 | **Benchmarks** | Benchmark suites and their runs | Compare harness, model, and runner configurations |
 | **Code** | The factory's definition files | Browse and edit a Warp-managed definition |
 | **Settings** | Configuration the factory owns | Change identity, repos, runners, and the integrations the factory can access |
@@ -52,12 +52,11 @@ Run pages don't include a chat input, but you can still steer a run: **View sess
 
 **Dashboard** summarizes the factory over a date range you choose:
 
-* **Autonomy** - The share of merged PRs that needed no human input beyond an approving review.
-* **Time saved** - Approximate engineer-hours saved, estimated from the line changes in merged PRs.
-* **PR latency** - The median time from run kickoff through PR, review, and merge.
+* **Autonomy** - The share of the factory's merged PRs that needed no human input beyond an approving review and the merge itself.
+* **PR cycle time** - The median time the factory's merged PRs took from run kickoff through PR, first review, and merge, with a median for each stage.
 * **Cost per PR** - The median cost of PRs opened in the range. Treat it as a lower-bound estimate: it can miss some run usage and does not match billing. See [Measure and improve a factory](/factories/measure-and-improve/) for its limitations.
 
-The page also charts opened versus merged PRs and a breakdown of runs, and the **Cost per PR** card expands to list the most expensive PRs in the range. When scorers are set up, scorer cards summarize recent classification results.
+The page also charts opened versus merged PRs and a breakdown of runs, and the **Cost per PR** card expands to list the most expensive PRs in the range. When Scorers are set up, Scorer cards summarize recent classification results.
 
 ## Manage agents and automations
 
@@ -71,19 +70,19 @@ Environment is set in the factory definition, not the agent editor, and automati
 
 * **Warp-managed** - Browse and edit the definition files. Saving validates the definition and commits all changes together.
 * **Managed in GitHub** - Links to the repository; edit the definition through pull requests there.
-* **Live-managed** - The factory is edited directly in the control room, so there are no definition files to browse.
+* **Live-managed** - The factory is managed through the API, so there are no definition files to browse.
 
 When an agent proposes a change to a Warp-managed definition, its work item on **Activity** links to a review of the branch inside the control room. From there, comment on the diff, use **Request changes** to send feedback back to the agent, or **Approve & merge**.
 
 ## Score and benchmark
 
-A scorer is an LLM judge that classifies completed runs against a rubric you define, scoped to the agents you choose and sampled at a rate you set. Each scorer has a **Self-improvement** toggle: when it's on, the factory periodically triages the runs that scorer marks as failing and files fixes for recurring issues. The **Self-improvement** page tracks the pull requests those fixes open, linking each one to the run that produced it.
+A Scorer is an LLM judge that classifies completed runs against a rubric you define, scoped to the agents you choose and sampled at a rate you set. Each Scorer has a **Self-improvement** toggle: when it's on, the factory periodically triages the runs that Scorer marks as failing and files fixes for recurring issues. The **Self-improvement** page tracks the pull requests those fixes open, linking each one to the run that produced it.
 
-**Benchmarks** compares harness, model, and runner configurations against a fixed set of tasks with success criteria. Benchmark results are only as reliable as the scorers behind them, so read them alongside [Measure and improve a factory](/factories/measure-and-improve/).
+**Benchmarks** compares harness, model, and runner configurations against a fixed set of tasks with success criteria. Benchmark results are only as reliable as the Scorers behind them, so read them alongside [Measure and improve a factory](/factories/measure-and-improve/).
 
 ## Change factory settings
 
-**Settings** holds the configuration the factory owns: the factory's name and connected repos, whether pull requests are authored by the agent or the run creator, the **Analysis model** self-improvement uses to analyze failed runs, runners, the integrations accessible to this factory, and deletion. Deleting a factory cannot be undone.
+**Settings** holds the configuration the factory owns: the factory's name and connected repos, whether pull requests are authored by the agent or the run creator (the definition's [`credentialStrategy`](/factories/factory-as-code/#credentialstrategy)), the **Analysis model** [Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement) uses to analyze failed runs, runners, the integrations accessible to this factory, and deletion. Deleting a factory cannot be undone.
 
 For a file-managed factory, `runners/*.yaml` in the repository is the source of truth. Anything managed in an external repository is read-only in Settings.
 
@@ -91,4 +90,4 @@ For a file-managed factory, `runners/*.yaml` in the repository is the source of 
 
 * [How Warp Factories work](/factories/how-factories-work/) - The lifecycle behind Activity's stages and where humans stay in the loop.
 * [Factory definitions as code](/factories/factory-as-code/) - Define agents, automations, runners, and source ownership in code.
-* [Measure and improve a factory](/factories/measure-and-improve/) - Configure the scorers and benchmarks behind the Dashboard.
+* [Measure and improve a factory](/factories/measure-and-improve/) - Configure the Scorers and benchmarks behind the Dashboard.

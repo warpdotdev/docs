@@ -1,5 +1,5 @@
 ---
-title: Connect a factory to Slack
+title: Connect Slack to your factory
 description: >-
   Connect a factory to Slack so your team can start work with mentions,
   direct messages, and automations, and get results back in the same thread.
@@ -8,7 +8,7 @@ sidebar:
 topic: factories
 ---
 
-Connect a factory to Slack so your team can send it work without leaving their conversations. Each factory gets its own dedicated Slack app: mention the app in a channel or send it a direct message, and the factory picks up the request with the conversation as context, then posts progress and results back into the same thread. You can also set up automations that start work from Slack events without a mention. If you're new to factories, see [How factories work](/factories/how-factories-work/) for what a factory is and how it runs work.
+Connect a factory to Slack so your team can send it work without leaving their conversations. Each factory gets its own dedicated Slack app: mention the app in a channel or send it a direct message, and the factory picks up the request with the conversation as context, then posts progress and results back into the same thread. You can also set up automations that start work from Slack events without a mention. If you're new to factories, see [how Warp Factories work](/factories/how-factories-work/) for what a factory is and how it runs work.
 
 ## Prerequisites and authorization
 
@@ -18,7 +18,9 @@ Installing the app grants the Slack permissions shown on the authorization scree
 
 ### How the Slack connection works
 
-Warp uses Slack's managed apps model: Warp's main Slack app acts as the manager. The first time you connect a factory, you authorize the manager once for your workspace. That authorization lets Warp create and install Slack apps on your behalf, but nothing is created until you connect a factory. Each time you click **Add to Slack**, Warp creates that factory's dedicated app, installs it, and manages it from then on: the app's name, icon, and configuration stay in sync with the factory. The manager's permissions apply only to apps it created. Depending on your workspace's app-approval settings, a Slack administrator may need to approve the manager authorization once, and each factory's app before it installs.
+Warp uses Slack's managed apps model: Warp's main Slack app acts as the manager. The first time you connect a factory, you authorize the manager once for your workspace. That authorization lets Warp create and install Slack apps on your behalf, but nothing is created until you connect a factory.
+
+Each time you click **Add to Slack**, Warp creates that factory's dedicated app, installs it, and manages it from then on: the app's name, icon, and configuration stay in sync with the factory. The manager's permissions apply only to apps it created. Depending on your workspace's app-approval settings, a Slack administrator may need to approve the manager authorization once, and each factory's app before it installs.
 
 ## Connect the factory
 
@@ -76,7 +78,7 @@ A single Slack message can match more than one automation. For example, if one a
 
 The Slack thread where work started is also where you follow it: the factory posts progress and the final response there. Reply in the thread to add information or attachments while work is active, or to pick the same work item back up later.
 
-For an overview of your factory tasks, open the app's **Home** tab in Slack. It groups tasks by stage (Triage, Planning, Building, Reviewing, Completed, and Cancelled), offers stage and date filters, and links each task back to its Slack thread, factory run, issue, or pull request when available.
+For an overview of the factory's work items, open the app's **Home** tab in Slack. It groups them by the same stages as the control room's [Activity view](/factories/control-room/#track-work-items-on-activity) (Triage, Planning, Building, Reviewing, Completed, and Cancelled), offers stage and date filters, and links each work item back to its Slack thread, factory run, issue, or pull request when available.
 
 A factory can create issues, branches, and pull requests, but your repository's review and merge rules still apply. Work that starts in Slack doesn't bypass required human review.
 

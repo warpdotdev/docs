@@ -26,18 +26,17 @@ The control room dashboard shows activity, cost, autonomy, and evaluation result
 | **Total runs** | All agent runs, with breakdowns by agent type, status, source, model, and more. |
 | **PRs opened** | Pull requests created from factory work. |
 | **PRs merged** | Pull requests that merged. |
-| **Autonomy %** | The share of merged work that shipped without human edits. |
-| **Time saved** | An estimate of engineer-hours saved by merged factory PRs. |
-| **PR latency** | How long pull requests spend in each stage. |
+| **Autonomy** | The share of the factory's merged PRs that needed no human input beyond an approving review and the merge itself. |
+| **PR cycle time** | The median time the factory's merged PRs took from run kickoff through PR, first review, and merge, with a median for each stage. |
 | **Cost per PR** | An estimate of credits spent per pull request. |
 | **Most expensive PRs** | The highest-cost pull requests. |
 | **Scorer cards** | Results from your Scorers. |
 | **Self-improvement PRs** | The three newest Self-improvement pull requests, regardless of the selected date range. |
 
-**Time saved** and **Cost per PR** are estimates, not billing figures. Time saved converts merged pull requests into engineer-hours, and the per-teammate view divides that estimate by your team size. Cost per PR counts recorded credits and can undercount actual usage.
+**Cost per PR** is an estimate, not a billing figure: it counts recorded credits and can undercount actual usage.
 
 :::caution
-**PRs merged**, **PR latency**, and the detail in **Most expensive PRs** require the GitHub App and only cover activity from after you install it.
+**PRs merged**, **Autonomy**, **PR cycle time**, and the detail in **Most expensive PRs** require the GitHub App and only cover activity from after you install it.
 :::
 
 Use the dashboard to pick which runs to investigate, not to conclude what caused a change. **Total runs** includes evaluation, benchmark, and Self-improvement runs, so a higher run count with a flat PR count could mean harder tasks, retries, or measurement activity.
@@ -73,7 +72,7 @@ A benchmark compares configurations of a single agent on the same fixed tasks, s
 
 You can create a benchmark task from a completed run's detail pane, and Warp copies the run's input into the task. Add success criteria before you launch.
 
-Every benchmark also runs **Correctness**, a built-in scorer that marks each trial as pass or fail against the task's success criteria. Results show pass rates, cost, and quality for each configuration, with per-task detail. Warp doesn't combine these signals into one score or pick a winner; you weigh the results and decide. Benchmark credit totals don't include model usage, so the true cost is higher.
+Every benchmark also runs **Correctness**, a built-in Scorer that marks each trial as pass or fail against the task's success criteria. Results show pass rates, cost, and quality for each configuration, with per-task detail. Warp doesn't combine these signals into one score or pick a winner; you weigh the results and decide. Benchmark credit totals don't include model usage, so the true cost is higher.
 
 ## Configure and review Self-improvement
 
