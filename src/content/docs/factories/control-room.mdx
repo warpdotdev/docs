@@ -82,7 +82,7 @@ A Scorer is an LLM judge that classifies completed runs against a rubric you def
 
 ## Change factory settings
 
-**Settings** holds the configuration the factory owns: the factory's name and connected repos, whether pull requests are authored by the agent or the run creator (the definition's [`credentialStrategy`](/factories/factory-as-code/#credentialstrategy)), the **Analysis model** [Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement) uses to analyze failed runs, runners, the integrations accessible to this factory, and deletion. Deleting a factory cannot be undone.
+**Settings** holds the configuration the factory owns: the factory's identity (its name, avatar, and [**Foreman name**](/factories/factory-as-code/#alias), the @-mention handle), the connected repos, whether pull requests are authored by the agent or the run creator (the definition's [`credentialStrategy`](/factories/factory-as-code/#credentialstrategy)), the **Analysis model** [Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement) uses to analyze failed runs, runners, the integrations accessible to this factory, and deletion. Deleting a factory cannot be undone.
 
 For a file-managed factory, `runners/*.yaml` in the repository is the source of truth. Anything managed in an external repository is read-only in Settings.
 
