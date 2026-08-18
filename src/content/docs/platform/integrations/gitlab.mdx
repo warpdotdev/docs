@@ -46,7 +46,7 @@ These steps generate a personal access token tied to your GitLab account. If you
 2. Click your avatar in the top-right corner, then click **Edit profile**.
 3. In the left sidebar, click **Access**, then click **Personal access tokens**.
 4. Click **Add new token**.
-5. Enter a descriptive name for the token (e.g. `warp-oz-agent`), and choose an expiration date that matches your team's rotation policy.
+5. Enter a descriptive name for the token (e.g. `warp-agent`), and choose an expiration date that matches your team's rotation policy.
 6. Under **Select scopes**, select **read\_repository**.
 7. Click **Generate token**.
 8. Copy the token value immediately. GitLab will not show it again.
@@ -124,6 +124,6 @@ oz agent run-cloud --environment <ENV_ID> --prompt "Your task here"
 
 With your environment configured, you can connect it to any Warp trigger:
 
-* **Slack** — Tag **@Oz** in a message to start an agent run against your GitLab repo. See [Slack](/platform/integrations/slack/).
-* **Linear** — Tag **@Oz** on an issue to kick off a workflow. See [Linear](/platform/integrations/linear/).
+* **Slack** — Tag **@warp** in a message to start an agent run against your GitLab repo. See [Slack](/platform/integrations/slack/).
+* **Linear** — Tag **@warp** on an issue to kick off a workflow. See [Linear](/platform/integrations/linear/).
 * **Scheduled agents** — Run agents on a recurring schedule. See [Scheduled Agents](/platform/triggers/scheduled-agents/).
