@@ -20,13 +20,20 @@ When you connect a factory to GitHub, repository activity starts work in your fa
 
 1. In the {VARS.FACTORY_WEB_APP} at <a href={VARS.FACTORY_WEB_APP_URL}>platform.warp.dev</a>, click **+** next to **Factories** to open the setup wizard, then choose **I want to use repos from GitHub** under **Connect your code host**.
 2. Under **Select your repos**, choose the repositories to provide code and context for the factory.
-3. In the factory's [control room](/factories/control-room/), click **Automations**. Create an automation or edit a default one, choose the receiving agent, and add any **Additional instructions**.
-4. Under **Triggers**, click **Add trigger**.
-5. Choose **GitHub**, then choose an event.
-6. Select a repository, then use **More filters** to narrow which activity matches.
-7. Click **Save**. To confirm the automation works, trigger a matching event in GitHub, such as opening a test issue, and check that a work item starts in the control room.
 
-Managed GitHub factories start with two editable default automations. The first handles agent mentions and assignments (see [Mention the factory](#mention-the-factory)). The second runs when a pull request closes or merges: on a merge it finds the work items linked from the pull request and moves each one to its tracker's completed state, and on a close without a merge it does nothing.
+That's all the setup GitHub needs. Managed GitHub factories are created with two editable default automations, so the factory responds to GitHub activity without you configuring anything else. The first handles agent mentions and assignments (see [Mention the factory](#mention-the-factory)). The second runs when a pull request closes or merges: on a merge it finds the work items linked from the pull request and moves each one to its tracker's completed state, and on a close without a merge it does nothing.
+
+To confirm the connection works, mention the factory on a test issue and check that a work item starts in the factory's [control room](/factories/control-room/).
+
+## Add a custom automation
+
+The defaults cover mentions, assignments, and pull request completion. To start work from any other GitHub activity, such as a failed CI run or a review request, add your own automation:
+
+1. In the factory's [control room](/factories/control-room/), click **Automations**. Create an automation or edit a default one, choose the receiving agent, and add any **Additional instructions**.
+2. Under **Triggers**, click **Add trigger**.
+3. Choose **GitHub**, then choose an event.
+4. Select a repository, then use **More filters** to narrow which activity matches.
+5. Click **Save**. To confirm the automation works, trigger a matching event in GitHub, such as opening a test issue, and check that a work item starts in the control room.
 
 ## Supported triggers
 
@@ -72,10 +79,10 @@ Use filters to route work precisely. For example, send failed runs of a specific
 
 ## Mention the factory
 
-A factory doesn't get its own GitHub handle. Every factory listens through the same Warp agent account, **@oz-agent**, and the factory's `factory:<alias>` label decides which factory a mention reaches, where `<alias>` is the factory's [**Foreman name**](/factories/factory-as-code/#alias):
+A factory doesn't get its own GitHub handle. Every factory listens through the same Warp agent account, **@warp-factory**, and the factory's `factory:<alias>` label decides which factory a mention reaches, where `<alias>` is the factory's [**Foreman name**](/factories/factory-as-code/#alias):
 
 1. Apply the factory's `factory:<alias>` label to the issue or pull request. Warp creates the label in each connected repository.
-2. Assign **@oz-agent** to the issue or pull request, or mention **@oz-agent** in the body or in any new comment.
+2. Assign **@warp-factory** to the issue or pull request, or mention **@warp-factory** in the body or in any new comment.
 
 The default mentions-and-assignments automation starts a work item in the matching factory, and the factory replies in the same thread. The label is what routes the request. A mention without the factory's label doesn't match the default automation.
 
