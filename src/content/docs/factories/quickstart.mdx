@@ -37,7 +37,11 @@ You can change any of these after setup, so a best guess is fine for now.
 
 _~5 minutes_
 
-Warp walks you through a setup wizard:
+:::note
+Already using an agent connected to [Factory MCP](/factories/factory-mcp/)? Ask it to run `create_factory` with the team, repositories, and factory name to create the factory directly, skipping the wizard below. Choose agents and connect your tools afterward in the factory's dashboard.
+:::
+
+Otherwise, Warp walks you through a setup wizard:
 
 1. Sign in to the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. Next to **Factories**, click **+**.
 
@@ -78,10 +82,6 @@ Warp walks you through a setup wizard:
 7. Optionally, connect an issue tracker so teammates can hand work to the factory from Linear or Jira, or skip it and add one later from [connect your factory](/factories/connect-your-factory/).
 
 Warp creates the factory and opens its [dashboard](/factories/factory-dashboard/).
-
-:::note
-Want to skip the wizard? Ask an agent connected to the [Factory MCP](/factories/factory-mcp/) to run the `create_factory` tool. Tell it the team, repositories, and factory name, then choose agents and connect your tools afterward in the factory's dashboard.
-:::
 
 ## Send your first work item
 
