@@ -3,6 +3,7 @@ title: "Changelog — 2025"
 description: >-
   Warp release notes for 2025. Updates ship weekly, typically on Thursdays.
 ---
+import { VARS } from '@data/vars';
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
@@ -18,7 +19,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **Bug fixes**
 
-* Fixed a bug where Oz CLI runs could get stuck trying to run a denylisted command.
+* Fixed a bug where {VARS.WARP_AGENT_CLI} runs could get stuck trying to run a denylisted command.
 
 ### 2025.12.10 (v0.2025.12.10.08.12)
 
@@ -42,7 +43,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **Improvements**
 
-* The Oz CLI now displays more detailed information when the agent tries to take a prohibited action.
+* The {VARS.WARP_AGENT_CLI} now displays more detailed information when the agent tries to take a prohibited action.
 * Allow dragging file paths from the Project Explorer into active terminal commands like claude code and gemini for referencing files and folders.
 
 **Bug fixes**
@@ -50,7 +51,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Fixed a bug that could cause unbounded memory growth when using Warpified subshells or the legacy (non-tmux) SSH Warpify implementation.
 * Fixed a bug that could cause `comm` errors to appear in Warpified subshells.
 * \[Windows] Fixed keybinding for "find in code editor." This is now `CTRL-SHIFT-F` and configurable from Settings > Keyboard shortcuts.
-* Ensured that the Oz CLI is available automatically on macOS.
+* Ensured that the {VARS.WARP_AGENT_CLI} is available automatically on macOS.
 * Fixed toast messages showing "Notebook" instead of "Plan" when taking actions on Plans in Warp Drive.
 
 ### 2025.11.19 (v0.2025.11.19.08.12)
@@ -100,7 +101,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **Improvements**
 
 * Display conversation summaries when summarization is triggered.
-* Added completions for the Oz CLI.
+* Added completions for the {VARS.WARP_AGENT_CLI}.
 * Updated community links from Discord to Slack throughout the app.
 
 **Bug Fixes**
@@ -136,7 +137,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Added confirmation dialog when cancelling AI summarization requests.
 * You can now expand Suggested Code Diffs further on down arrow.
 * Restore closed panes using `CMD-SHIFT-T` or `CTRL-ALT-T` on Windows / Linux within 60 seconds of them being closed.
-* Added shell completions for the Oz CLI.
+* Added shell completions for the {VARS.WARP_AGENT_CLI}.
 * Warp Drive Environment Variables are now supported for Warp for Windows (PowerShell, Git Bash, and WSL).
 * Enriched the model picker to include detailed specs of each model's intelligence, speed and cost.
 

@@ -59,7 +59,7 @@ Avoid words that are ambiguous between singular and plural.
 - **Serial comma**: Always use it. "Environments, integrations, and schedules" — not "Environments, integrations and schedules."
 - **Contractions**: Allowed and encouraged to match our approachable tone. Use "you're," "don't," "it's," "can't." Exception: avoid contractions in error messages or formal warnings.
 - **Tense**: Use present tense to describe how things work ("Warp indexes your codebase"). Use imperative for instructions ("Configure your environment").
-- **Person**: Use second person ("you") for instructions. Avoid first person plural ("we") in procedural content. First person is acceptable in conceptual or narrative text when referring to Warp as a company ("We designed Oz to...").
+- **Person**: Use second person ("you") for instructions. Avoid first person plural ("we") in procedural content. First person is acceptable in conceptual or narrative text when referring to Warp as a company ("We designed the Automation Platform to...").
 
 ### Inclusive language
 - Use gender-neutral pronouns ("they/them") for unknown users
@@ -116,7 +116,7 @@ Every description answers "what will I get from this page?" The shape of that an
   - ✅ `Environments give cloud agents the same toolchain and setup on every run, no matter what triggers them.`
   - ❌ `Learn about environments and why they are useful.`
 - **Procedural** - Say what task the reader will complete. Start with an imperative verb.
-  - ✅ `Connect Slack to Oz so mentions and channel messages can trigger cloud agent runs.`
+  - ✅ `Connect Slack to the Automation Platform so mentions and channel messages can trigger cloud agent runs.`
   - ❌ `This page explains the Slack integration setup process.`
 - **Quickstart** - Say what the reader ends up with, plus the time budget. Start with an imperative verb.
   - ✅ `Install the Warp Agent CLI, log in, and run your first agent conversation in about five minutes.`
@@ -639,7 +639,7 @@ Product feature names retain their standard capitalization. Match the exact casi
 - **Codebase Context** - Warp indexes your Git-tracked codebase to help Agents understand your code.
 - **Admin Panel** - Team management surface for controlling members, roles, and billing.
 - **Agent Management Panel** - Interface for viewing and managing running agents (not "agent dashboard" or "agent manager").
-- **Agent Memory** - Persistent, cross-harness memory layer for Oz agents that captures durable facts, decisions, and outcomes across conversations (currently in research preview). Capitalize as a feature name; use lowercase "memory store" for individual stores.
+- **Agent Memory** - Persistent, cross-harness memory layer for cloud agents that captures durable facts, decisions, and outcomes across conversations (currently in research preview). Capitalize as a feature name; use lowercase "memory store" for individual stores.
 - **Handoff** - Feature for moving agent work between a local Warp session and the cloud, or continuing a finished cloud run; supports local-to-cloud, cloud-to-cloud, and cloud-to-local. Capitalize as a feature name; lowercase "hand off" only as a verb.
 
 ### Capitalizing "agent"
@@ -662,24 +662,34 @@ This is the single most drifted term in the docs, so the rule is narrow on purpo
 ❌ "Profiles control how Warp's agents behave." (ambiguous)
 ❌ "Warp's agent can run commands." (ambiguous)
 
-### Oz terminology
+### Automation Platform terminology
 
-#### Warp Agent vs Oz
+Renamed from "Oz" on 2026-08-18. The `oz` CLI binary and the Oz v1 web app at `oz.warp.dev` keep the Oz name until 2026-09-15 and are not stale in the meantime. See `.agents/references/terminology.md` → "What still says Oz" for the full holdout list.
+
+#### The article rule
+"Oz" was a proper noun and read correctly bare. "Automation Platform" is a common-noun phrase, so it needs a definite article in referential positions. This is the most common mistake when writing about the platform.
+
+- **Referential** (subject, object, possessor) takes "the": "with the Automation Platform", "The Automation Platform provides", "the Automation Platform's backend".
+- **Attributive** (modifying a following noun) stays bare: "Automation Platform settings", "Automation Platform-hosted", "Automation Platform overview".
+
+Write the name as `{VARS.WARP_AUTOMATION_PLATFORM}` in body prose or `{{WARP_AUTOMATION_PLATFORM}}` in frontmatter, never as a literal string, and keep the article outside the token. `style_lint` enforces both halves: `hardcoded-var` catches the literal, `platform-determiner` catches the missing article.
+
+#### Warp Agent vs the Automation Platform
 - **Warp Agent** — Warp's built-in agent harness. Use "Warp Agent" when specifically referring to the built-in harness, especially when contrasting with third-party agents (Claude Code, Codex, etc.), or when referencing the Settings label (**Settings** > **Agents** > **Warp Agent**).
-- **Oz is the platform, not the agent.** Never introduce Oz as "Warp's agent" or equate the two. Oz runs and coordinates agents; the Warp Agent is the agent.
-- **Oz** — Warp's programmable platform for running and coordinating agents at scale
-- There is typically one Warp environment per user session. Oz can run many agents concurrently, across machines, repos, and teams.
+- **The Automation Platform is the platform, not the agent.** Never introduce it as "Warp's agent" or equate the two. The Automation Platform runs and coordinates agents; the Warp Agent is the agent.
+- **Automation Platform** — Warp's programmable platform for running and coordinating agents at scale
+- There is typically one Warp environment per user session. The Automation Platform can run many agents concurrently, across machines, repos, and teams.
 
 #### Core terms
 - **agent** - A combination of agent instructions (skill or prompt), trigger (cron, webhook, manual), environment (local, cloud), profile, and host. Agents can be local or cloud. Use lowercase "agent" in most contexts; use "Warp Agent" only when referring specifically to the built-in Warp harness.
 - **cloud agent** - An agent running in the cloud, from a trigger, schedule, or started from someone's local machine
 - **subagent** - A child agent created by a parent agent to parallelize or delegate work
 - **conversation** - An interactive execution lifecycle within the Warp Terminal, regardless of whether it's local or in the cloud
-- **Oz** - Warp's programmable platform for running and coordinating agents at scale
-- **Oz run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based.
+- **Automation Platform** - Warp's programmable platform for running and coordinating agents at scale
+- **cloud agent run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based. Use `{VARS.PLATFORM_RUN}`. On factory-specific pages, write "factory run" directly.
 - **Environment** - The execution context for an agent, including repo access, dependencies, secrets, compute, and runtime configuration
-- **Oz dashboard** - The app surface to manage all Oz runs, unified across the Warp app and web
-- **Oz web app** - The web app for configuring agents and managing runs
+- **cloud agent dashboard** - The app surface to manage all runs, unified across the Warp app and web. Use `{VARS.DASHBOARD}`. On factory-specific pages, write "factory dashboard" directly.
+- **Oz web app** - The web app for configuring agents and managing runs. Holds the Oz name until 2026-09-15; use `{VARS.WEB_APP}`.
 
 #### Oz CLI commands
 - `oz agent run` - Run a local agent
@@ -691,9 +701,12 @@ This is the single most drifted term in the docs, so the rule is narrow on purpo
 - `oz run list/get` - Get info on cloud agent runs
 
 #### Preferred phrases
-- ✅ "Ask Oz to..."
-- ✅ "Oz can help you..."
-- ✅ "What would you like Oz to do?"
+The platform is not something you address — it runs and coordinates agents, and the agent is what you ask. The older "Ask Oz to..." phrasings worked only because "Oz" was doing double duty as both platform and assistant, which the rename ended.
+
+- ✅ "Ask the agent to..."
+- ✅ "Run an agent on the Automation Platform"
+- ✅ "The Automation Platform can run this on a schedule"
+- ❌ "Ask the Automation Platform to..." — you ask an agent, not a platform
 
 #### Terms to avoid
 - ❌ "Oz agent" / "Oz agents" → Use "agent" / "agents" (or "Warp Agent" / "Warp Agents" when referring to the built-in harness)
@@ -708,6 +721,23 @@ This is the single most drifted term in the docs, so the rule is narrow on purpo
 - ❌ "Ambient Agents" / "ambient agents" → Use "Cloud Agents" / "cloud agents" ("ambient" is no longer a product term)
 - ❌ "Agent Modality" or "agent modality" → Use "Terminal and Agent modes" (this was an internal name, not user-facing)
 - ❌ "agent identity" / "agent identities" → Use "agent," "agents," or "cloud agent(s)" in user-facing copy. Use legacy API names such as `agent_identity_uid` or `/agent/identities` only when documenting the exact field, path, or compatibility behavior.
+- ❌ A bare "Automation Platform" in a referential position → Add "the". See [The article rule](#the-article-rule).
+- ❌ The literal string "Automation Platform" in prose → Use `{VARS.WARP_AUTOMATION_PLATFORM}` / `{{WARP_AUTOMATION_PLATFORM}}`.
+
+### Warp Factories terminology
+
+This works like GitHub Actions. **Warp Factories** is the product and is always written in full. An individual **factory** is a common noun and is always lowercase. A bare capitalized **Factory** is never a proper noun.
+
+- ✅ "Warp Factories is in Early Access" (the product)
+- ✅ "your factory", "each factory's agents", "factory dashboard", "factory run", "factory agents"
+- ❌ "the Factory", "your Factory", "Factory runs", "Factory metrics"
+- ❌ "Factories" on its own to mean the product → write "Warp Factories"
+
+Sentence-initial capitals are positional, not proper nouns — a heading or sidebar label may begin "Factory agents" for the same reason it would begin "Cloud agents." The rule governs mid-sentence prose. `style_lint` enforces it with the `factory-proper-noun` check.
+
+**Exceptions, quoted as they ship:** **Factory MCP** is the feature's own name (the server registers as `warp-factory`). Verbatim UI strings — **Factory name**, **Foreman name**, **Factory integrations**, **Add your Factory to your team**, "Factory running!", and the **Factory definition** sidebar label — are quoted as the app renders them.
+
+See `.agents/references/terminology.md` → "Warp Factories terminology" for the full glossary.
 
 ### Technical terms
 - **AI** (not "A.I.")

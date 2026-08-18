@@ -1,16 +1,25 @@
 ---
-title: Oz Platform overview
+title: "{{WARP_AUTOMATION_PLATFORM}} overview"
 description: >-
-  The Oz Platform provides the CLI, API/SDK, orchestration, environments, and
+  The {{WARP_AUTOMATION_PLATFORM}} provides the CLI, API/SDK, orchestration, environments, and
   observability for cloud agents.
 sidebar:
-  label: "Oz platform"
+  label: "{{WARP_AUTOMATION_PLATFORM}}"
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
-Cloud agents run on the **Oz Platform**. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [environment](/platform/environments/), on a host), and inspect outcomes with team visibility. First-party [integrations](/platform/integrations/) connect external events — like Slack messages, GitHub PRs, or CI failures — to cloud agents automatically.
+Cloud agents run on the **{VARS.WARP_AUTOMATION_PLATFORM}**. The platform gives you a consistent way to **trigger work**, **orchestrate and track tasks**, **execute agents** (in an optional [environment](/platform/environments/), on a host), and inspect outcomes with team visibility. First-party [integrations](/platform/integrations/) connect external events — like Slack messages, GitHub PRs, or CI failures — to cloud agents automatically.
 
-<VideoEmbed url="https://youtu.be/poLkJhO7fdo" title="Oz Platform cloud agents overview video" />
+{/* Transition notice for the 2026-08-18 rename. Remove after 2026-09-15, when
+    the CLI and web app take their new names and the old one stops appearing. */}
+:::note
+**Oz is now the {VARS.WARP_AUTOMATION_PLATFORM}.** Only the name changed. Your existing integrations, API keys, scheduled agents, and scripts keep working exactly as before — nothing to migrate.
+
+The `oz` CLI and the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> keep the Oz name until September 15, 2026, which is why you'll still see it in commands and URLs.
+:::
+
+<VideoEmbed url="https://youtu.be/poLkJhO7fdo" title={`${VARS.WARP_AUTOMATION_PLATFORM} cloud agents overview video`} />
 
 :::note
 **New to cloud agents?** Start with the [Cloud agents quickstart](/platform/quickstart/) to run your first agent in ~10 minutes.
@@ -23,11 +32,11 @@ Cloud agents run on the **Oz Platform**. The platform gives you a consistent way
 3. The agent executes on a **host**, optionally inside an environment, using the required configuration and credentials.
 4. The task produces a **persistent record** (status, metadata, transcript, outputs) your team can review and manage.
 
-![Oz Platform architecture showing Trigger, Agent, Environment, and Artifacts components](../../../assets/agent-platform/most-flexible-platform-for-building-with-agents.png)
+![Flow diagram: a trigger kicks off an agent, which runs in an environment and creates artifacts, on either Warp-hosted or self-hosted infrastructure](../../../assets/agent-platform/most-flexible-platform-for-building-with-agents.png)
 
-![Oz Platform detailed architecture showing components, triggers, orchestrator, and agent runners](../../../assets/agent-platform/oz-diagram.png)
+![Architecture diagram: Warp-designed and customer-defined triggers create an agent task, which the agent orchestrator routes to agent runners on Warp or customer infrastructure](../../../assets/agent-platform/platform-architecture.png)
 
-The sections below describe the Oz Platform primitives that power this flow, and how they compose.
+The sections below describe the {VARS.WARP_AUTOMATION_PLATFORM} primitives that power this flow, and how they compose.
 
 ---
 
@@ -44,9 +53,15 @@ In practice: **triggers create tasks; tasks execute on a host (optionally in an 
 
 ---
 
-### Oz CLI
+### Warp Factories
 
-The [Oz CLI](/reference/cli/) is the **headless interface** for running agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](/agents/) embedded in Warp's desktop app.
+[Warp Factories](/factories/) builds on the primitives described on this page to run persistent, multi-agent development workflows. A factory coordinates specialized cloud agents that move each work item through triage, specification, implementation, and review. It's in Early Access — [request access](https://www.warp.dev/factories/request-access) to use it with your team.
+
+---
+
+### CLI
+
+The [{VARS.WARP_AGENT_CLI}](/reference/cli/) is the **headless interface** for running agents in non-interactive mode. It's commonly used in CI, scripts, and server environments where there is no interactive UI. For interactive workflows, use the [agent](/agents/) embedded in Warp's desktop app.
 
 A key property of the CLI is that it is **cloud-connected**. Even when an agent is started on a local machine or in CI, it reports progress to Warp’s servers. This enables team visibility, session sharing (where supported), and programmatic tracking through the API.
 
@@ -58,7 +73,7 @@ Use the CLI when:
 * An external system is orchestrating runs (for example GitHub Actions, custom automation, incident tooling).
 * You want task observability and auditing without requiring Warp desktop.
 
-#### How it fits in the Oz Platform
+#### How the CLI fits into cloud agent runs
 
 Depending on the command, the CLI typically:
 
@@ -88,7 +103,7 @@ The orchestrator:
 * Runs on Warp's servers (cloud control plane).
 * Creates tasks when triggers fire (integrations, schedules, API calls, or explicit starts).
 * Tracks lifecycle state (created → running → completed/failed) and associated metadata.
-* Exposes task lifecycle operations via the [Oz CLI](/reference/cli/) and a [REST API](/reference/api-and-sdk/) (create tasks, query history, and inspect status/outputs).
+* Exposes task lifecycle operations via the [{VARS.WARP_AGENT_CLI}](/reference/cli/) and a [REST API](/reference/api-and-sdk/) (create tasks, query history, and inspect status/outputs).
 * Powers SDKs (TypeScript/Python) for programmatic usage on top of the orchestrator API.
 * Supports [multi-agent orchestration](/platform/orchestration/) for parent/child workflows, fan-out, and review swarms.
 
@@ -133,9 +148,9 @@ Environments are recommended when:
 
 ---
 
-### Oz API and SDK
+### API and SDK
 
-The Oz [Agent API](/reference/api-and-sdk/) is the HTTP interface to the Oz Platform. It lets you create and inspect cloud agent tasks from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
+The {VARS.WARP_AUTOMATION_PLATFORM} [Agent API](/reference/api-and-sdk/) is the HTTP interface to the {VARS.WARP_AUTOMATION_PLATFORM}. It lets you create and inspect cloud agent tasks from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
 
 **What you can do with the API**
 
@@ -143,9 +158,9 @@ The Oz [Agent API](/reference/api-and-sdk/) is the HTTP interface to the Oz Plat
 * Monitor execution by listing tasks and tracking state transitions over time (for example: `QUEUED` → `INPROGRESS` → `SUCCEEDED/FAILED`).
 * Inspect results and provenance by fetching a task’s full details, including the original prompt, creator/source metadata, session link, and resolved agent configuration.
 
-**Oz SDKs**
+**SDKs**
 
-Oz provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDKs](https://github.com/warpdotdev/oz-sdk-typescript) that wrap the Oz API with:
+Warp provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDKs](https://github.com/warpdotdev/oz-sdk-typescript) that wrap the {VARS.API_SDK_NAME} with:
 
 * Typed requests/responses (autocomplete, fewer schema mistakes)
 * Built-in retries and timeouts (with per-request overrides)
@@ -182,7 +197,7 @@ With Warp hosting:
 With self-hosting:
 
 * The agent runs on customer-managed infrastructure.
-* Oz orchestrator still manages lifecycle and observability.
+* The {VARS.WARP_AUTOMATION_PLATFORM} orchestrator still manages lifecycle and observability.
 * This is used when teams want code and execution to remain on their own systems rather than being cloned or executed in Warp's cloud.
 
 :::note
@@ -218,7 +233,7 @@ Examples of context extracted by first-party integrations:
 
 #### Custom integrations
 
-With custom integrations, you own the webhook and event-handling logic. Your system receives an event, applies any filtering or enrichment you need, and then calls the Oz API (directly or via an SDK) to create a task. The resulting task is still a full cloud agent run — observable, manageable, and auditable like any other.
+With custom integrations, you own the webhook and event-handling logic. Your system receives an event, applies any filtering or enrichment you need, and then calls the API (directly or via an SDK) to create a task. The resulting task is still a full cloud agent run — observable, manageable, and auditable like any other.
 
 Custom integrations are a good fit when:
 
@@ -283,17 +298,10 @@ Warp supports centralized configuration so these settings apply consistently reg
 
 This is especially useful when the same workflow can be triggered from multiple places (for example Slack, CI, and schedules). Instead of duplicating setup across systems, teams can keep configuration in one place and reuse it across triggers.
 
-### Using the Oz Platform with or without the Warp app
+### Where to go next
 
-[Cloud agents](/platform/) do not require Warp's desktop terminal. Teams can operate cloud agent workflows using:
-
-* [Oz CLI](/reference/cli/) — run agents from scripts, CI, or the terminal
-* [Oz web app](/platform/oz-web-app/) — visual interface for managing runs, schedules, environments, and integrations from any browser, including mobile
-* [Session sharing](/agents/local-agents/session-sharing/) — attach to running tasks to monitor or steer
-* [Management UI](/platform/managing-cloud-agents/) — view agent activity and run history
-* [APIs and SDKs](/reference/api-and-sdk/) — programmatic access for custom integrations
-
-**If your team also uses Warp’s terminal, you gain an additional workflow:**
-
-* Tasks launched via the CLI can be handed off into an interactive session for review, edits, or continuation.
-* This is useful when you want a human checkpoint (final edits, validation, merge decisions) without losing the audit trail from the cloud agent run.
+* [Cloud agents](/platform/) — what cloud agents are, how they get triggered, and how to run them with or without the Warp app.
+* [Cloud agents quickstart](/platform/quickstart/) — run your first cloud agent in about ten minutes.
+* [Warp Factories](/factories/) — build a software factory on these primitives.
+* [Environments](/platform/environments/) — define the toolchain and repos a run executes against.
+* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) — drive the platform programmatically.

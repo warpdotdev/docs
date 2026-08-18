@@ -4,9 +4,12 @@ description: >-
   The Warp Agent runs commands in a real terminal, carries your context across
   every surface, and works interactively or in the background.
 ---
+import { VARS } from '@data/vars';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
 The **Warp Agent** is Warp's built-in coding agent. It works through multi-step tasks on its own, running commands in a real terminal and using the output to decide what to do next. You stay in the loop, approving actions and reviewing diffs before anything lands.
+
+This page covers where to run the agent, the third-party CLI agents Warp supports, and the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/), which runs and coordinates agents at scale.
 
 ---
 
@@ -16,7 +19,7 @@ You reach the same agent three ways. Which one you pick depends on where you're 
 
 * **In the Warp app** - The full experience, with code review, agent management, and the terminal beside your conversation.
 * [**In any terminal, with the Warp Agent CLI**](/agents/cli/) - Run the `warp` command to start a conversation in any terminal emulator, over SSH, or on a machine where the Warp app isn't installed.
-* [**In the cloud, as a cloud agent**](/platform/) - Run the agent in the background from a trigger, a schedule, or an integration, without keeping a session open. Cloud agents run on [Oz](/platform/overview/), Warp's platform for environments, triggers, orchestration, and observability.
+* [**In the cloud, as a cloud agent**](/platform/) - Run the agent in the background from a trigger, a schedule, or an integration, without keeping a session open. Cloud agents run on the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/), Warp's platform for environments, triggers, orchestration, and observability.
 
 ---
 
@@ -44,6 +47,16 @@ Then, clone the official Warp themes repository using SSH (git@github.com:warpdo
 Separately from the Warp Agent, Warp gives third-party CLI coding agents first-class support. Run Claude Code, Codex, OpenCode, and others inside Warp and get rich input, agent notifications, inline code review, and remote session control.
 
 → [Learn about third-party CLI agents](/agents/cli-agents/overview/)
+
+---
+
+## The platform behind the agent
+
+The [**{VARS.WARP_AUTOMATION_PLATFORM}**](/platform/overview/) is Warp's programmable system for running and coordinating agents at scale. It provides the environments, triggers, integrations, orchestration, and observability that cloud agents run on, along with a CLI, API, and SDK for driving agents programmatically.
+
+To automate an entire workflow rather than a single task, use [Warp Factories](/factories/). Built on the {VARS.WARP_AUTOMATION_PLATFORM}, a factory runs a team of cloud agents that triage, spec, implement, review, and verify work.
+
+The {VARS.WARP_AUTOMATION_PLATFORM} tab covers the platform in full.
 
 ---
 

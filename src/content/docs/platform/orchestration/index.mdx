@@ -1,12 +1,13 @@
 ---
 title: Multi-agent orchestration
-description: Coordinate parent and child agents across local and cloud runs to build supervisor/worker, fan-out, critic, DAG, and swarm workflows on the Oz Platform.
+description: Coordinate parent and child agents across local and cloud runs to build supervisor/worker, fan-out, critic, DAG, and swarm workflows in Warp.
 sidebar:
   label: "Orchestration"
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
-Multi-agent orchestration lets one agent spawn and coordinate other agents to parallelize work, delegate specialized tasks, or verify another agent's output. The parent/child model works from the Warp app, the [Oz CLI](/reference/cli/), and the [Oz API](/reference/api-and-sdk/), and supports local, cloud, and mixed execution.
+Multi-agent orchestration lets one agent spawn and coordinate other agents to parallelize work, delegate specialized tasks, or verify another agent's output. The parent/child model works from the Warp app, the [{VARS.WARP_AGENT_CLI}](/reference/cli/), and the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/), and supports local, cloud, and mixed execution.
 
 Watch this walkthrough to see how a cloud agent can coordinate a team of agents in the cloud.
 
@@ -21,7 +22,7 @@ An orchestrated workflow always has one **parent agent** and one or more **child
 * **Parent agent** - the agent that decides what work needs to be done, spawns child agents, and (optionally) merges their results. Any agent can become a parent the first time it spawns a child.
 * **Child agent** - an agent spawned by a parent with its own prompt, environment, and (optionally) a different model or agent runtime. A child runs its own work and reports back; it does not spawn its own children.
 
-Orchestrations today are exactly one level deep: a parent and its direct children. The Warp app, the [Oz web app](/platform/oz-web-app/), and the [Oz API](/reference/api-and-sdk/) render that single level. The parent and each child each have an independent **run** with its own lifecycle, transcript, conversation, and credit usage.
+Orchestrations today are exactly one level deep: a parent and its direct children. The Warp app, the [{VARS.WEB_APP}](/platform/oz-web-app/), and the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) render that single level. The parent and each child each have an independent **run** with its own lifecycle, transcript, conversation, and credit usage.
 
 ### Where parent and child agents can run
 
@@ -51,8 +52,8 @@ Track run state transitions in these places:
 
 * **The parent's transcript** - the parent agent receives child state transitions as it runs and reflects them in its own conversation.
 * **The orchestration pill bar** - in the Warp app, while you're viewing the parent agent, a horizontal pill bar above the agent view header shows the parent on the left and one pill per child. Each pill displays the child's name and a status badge that updates live. Click a pill to switch the pane to that child's conversation in place; click the parent pill to switch back.
-* **The Oz web app** - cloud children appear under the parent on the [Runs page](https://oz.warp.dev/runs) and in the parent's **Sub-agents** tab, with their status updating live.
-* **The Oz API** - `GET /agent/runs/{runId}` returns the latest state of any run, and `GET /agent/runs?ancestor_run_id=PARENT_RUN_ID` lists every descendant in one call.
+* **The {VARS.WEB_APP}** - cloud children appear under the parent on the <a href={`${VARS.WEB_APP_URL}/runs`}>Runs page</a> and in the parent's **Sub-agents** tab, with their status updating live.
+* **The {VARS.API_SDK_NAME}** - `GET /agent/runs/{runId}` returns the latest state of any run, and `GET /agent/runs?ancestor_run_id=PARENT_RUN_ID` lists every descendant in one call.
 
 ## Messaging between agents
 
@@ -112,14 +113,14 @@ In both cases, approval is required before the parent launches children. Approvi
 Because every parent and child is tracked as its own conversation or run, the existing observability surfaces work without changes:
 
 * **[Managing cloud agents](/platform/managing-cloud-agents/)** - in the Warp app, the orchestration pill bar above the agent view header lets you switch between the parent and each child while you're viewing the parent. Cloud children also appear as their own rows in the Agent Management Panel list.
-* **[Oz web app](/platform/oz-web-app/)** - the Runs page groups cloud children under the parent's row, and the parent's detail pane adds a **Sub-agents** tab.
-* **[Oz API](/reference/api-and-sdk/)** - list every descendant of a parent in one call and fetch any run with its conversation, transcript, and artifacts. See [Running orchestrated agents](/platform/orchestration/multi-agent-runs/#retrieving-conversations-and-artifacts).
+* **[{VARS.WEB_APP}](/platform/oz-web-app/)** - the Runs page groups cloud children under the parent's row, and the parent's detail pane adds a **Sub-agents** tab.
+* **[{VARS.API_SDK_NAME}](/reference/api-and-sdk/)** - list every descendant of a parent in one call and fetch any run with its conversation, transcript, and artifacts. See [Running orchestrated agents](/platform/orchestration/multi-agent-runs/#retrieving-conversations-and-artifacts).
 * **[Agent notifications](/agents/capabilities/agent-notifications/)** - in-app notifications fire on the parent agent's conversation only. Use the pill bar or the **Sub-agents** tab to drill into a specific child.
 
 ## Related pages
 
 * [Running orchestrated agents](/platform/orchestration/multi-agent-runs/) - how to start an orchestrated run from the CLI, slash command, web app, or API.
 * [How to run multiple AI coding agents](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/) - practical guidance for splitting tasks, assigning worktrees, validating child output, and handing work off for review.
-* [Oz API and SDK](/reference/api-and-sdk/) - REST endpoints for runs, conversations, and artifacts.
-* [Cloud agents overview](/platform/) - what a cloud agent run is and how it fits into the Oz Platform.
+* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) - REST endpoints for runs, conversations, and artifacts.
+* [Cloud agents overview](/platform/) - what a cloud agent run is and how it fits into the {VARS.WARP_AUTOMATION_PLATFORM}.
 * [Deployment patterns](/platform/deployment-patterns/) - higher-level deployment models that orchestration composes with.

@@ -13,7 +13,7 @@ Computer Use enables agents to interact with desktop environments. The agent can
 
 A key use case is **testing UI changes** with a self-contained feedback loop, where the agent can verify that your code changes produce the expected visual and behavioral results without requiring manual testing.
 
-## Overview
+## Capabilities
 
 With Computer Use, agents can:
 
@@ -42,7 +42,7 @@ Computer Use is **enabled by default** for cloud agent runs on Warp's built-in h
 
 Runs started from the Warp app don't use the server default: they always follow the app's **Computer use in Cloud Agents** setting ([`cloud_agent_computer_use_enabled`](/terminal/settings/all-settings/)), which is off by default. To control Computer Use for [Cloud Agents](/platform/) started from the Warp app, navigate to **Settings** > **Agents** > **Warp Agent** > **Experimental** > **Computer use in Cloud Agents**.
 
-### Oz CLI
+### CLI
 
 When running cloud agents with the [{VARS.WARP_AGENT_CLI}](/reference/cli/), use flags to control Computer Use per run:
 
@@ -51,9 +51,9 @@ oz agent run-cloud --computer-use --prompt "<task>"
 oz agent run-cloud --no-computer-use --prompt "<task>"
 ```
 
-### Oz API
+### API
 
-When creating a cloud agent run with the [Oz API](/reference/api-and-sdk/), the optional `config.computer_use_enabled` field controls Computer Use. When omitted, it defaults to `true` for runs on Warp's built-in harness and `false` for runs on third-party harnesses. Set it to `false` to disable Computer Use for the run:
+When creating a cloud agent run with the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/), the optional `config.computer_use_enabled` field controls Computer Use. When omitted, it defaults to `true` for runs on Warp's built-in harness and `false` for runs on third-party harnesses. Set it to `false` to disable Computer Use for the run:
 
 ```json
 {
@@ -65,9 +65,9 @@ When creating a cloud agent run with the [Oz API](/reference/api-and-sdk/), the 
 }
 ```
 
-For full API documentation, see the [Oz API & SDK](/reference/api-and-sdk/) reference.
+For full API documentation, see the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) reference.
 
-### Oz web app
+### Web app
 
 In the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>, you can enable or disable Computer Use for:
 

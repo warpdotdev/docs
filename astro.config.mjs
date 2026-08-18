@@ -200,18 +200,23 @@ export default defineConfig({
 				// llms-small.txt; our patch (patches/starlight-llms-txt+0.8.1.patch)
 				// extends it to llms-full.txt and custom sets as well.
 				exclude: ['support-and-community/community/open-source-licenses'],
+					// This string is the first thing an AI engine reads about Warp, so it
+					// carries the product lineup. Kept in sync with the rename and with
+					// launches: it said "the Oz platform" until the 8/18 rename, which
+					// left the most-consumed AI-facing artifact on the old name.
 					description:
-						'Documentation for Warp, the agentic development environment. Covers Warp Terminal, Warp Agents, and the Oz platform for cloud agents and orchestration at scale.',
+						'Documentation for Warp, the agentic development environment. Covers the Warp terminal, Warp agents, the Automation Platform for cloud agents and orchestration at scale, and Warp Factories for running software factories.',
 					customSets: [
 						{ label: 'Terminal', description: 'Warp Terminal features and configuration.', paths: ['terminal/**'] },
 						{ label: 'Agents', description: 'Warp\'s agents: capabilities, local agents, and CLI agents.', paths: ['agents/**'] },
+						{ label: 'Factories', description: 'Warp Factories documentation for setup, agent roles, definitions as code, integrations, measurement, and infrastructure.', paths: ['factories/**'] },
 						{ label: 'Warp Agent CLI', description: 'The Warp Agent CLI: agent conversations, shell commands, permissions, and configuration in any terminal.', paths: ['agents/cli/**'] },
-						{ label: 'Oz Platform', description: 'Warp\'s Oz platform: cloud agents, orchestration, triggers, integrations, environments, harnesses, and self-hosting.', paths: ['platform/**'] },
+						{ label: 'Automation Platform', description: 'Warp\'s Automation Platform: cloud agents, orchestration, triggers, integrations, environments, harnesses, and self-hosting.', paths: ['platform/**'] },
 						{ label: 'Code', description: 'Code editor, code review, and Git worktrees.', paths: ['code/**'] },
 						{ label: 'Enterprise', description: 'Enterprise features, SSO, team management, and security.', paths: ['enterprise/**'] },
 						{ label: 'Getting Started', description: 'Installation, quickstart, and migration guides.', paths: ['index', 'quickstart', 'getting-started/**'] },
 						{ label: 'Knowledge and Collaboration', description: 'Warp Drive, teams, and the Admin Panel.', paths: ['knowledge-and-collaboration/**'] },
-						{ label: 'Reference', description: 'CLI and API reference.', paths: ['reference/**'] },
+						{ label: 'API & Reference', description: 'CLI and API reference.', paths: ['reference/**'] },
 						// All support-and-community/ pages. open-source-licenses.mdx is excluded
 						// globally above (stack overflow in hast-util-to-text); the patch ensures
 						// it's excluded from this custom set as well.

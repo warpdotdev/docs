@@ -6,6 +6,7 @@ description: >-
   Choose from a curated set of top LLMs for Warp's Agents (or let Warp
   auto-select the best model).
 ---
+import { VARS } from '@data/vars';
 
 Warp lets you choose from a curated set of large language models to power your agents, or let Warp auto-select the best model for each task. Models from OpenAI, Anthropic, Google, and open source providers are available, with configurable reasoning levels and per-profile defaults. You can also define [custom routers](/agents/inference/custom-routers/) that pick a model for each task using your own logic.
 
@@ -15,7 +16,7 @@ Warp lets you choose from a curated set of large language models (LLMs) to power
 
 **Warp supports the following models.**
 
-The `model_id` values shown below can be used when configuring models via the [Oz Platform](/platform/overview/) or [CLI](/reference/cli/).
+The `model_id` values shown below can be used when configuring models via the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) or [CLI](/reference/cli/).
 
 ### Auto models
 

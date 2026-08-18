@@ -5,6 +5,7 @@ description: >-
   to monitor live output and run commands.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { VARS } from '@data/vars';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
 Full Terminal Use lets the Warp Agent operate directly inside interactive terminal applications like database shells, debuggers, text editors, and long-running servers. The agent can see the live terminal buffer, write commands, respond to prompts, and hand control back to you at any time.
@@ -191,7 +192,7 @@ These settings apply to every session that uses Full Terminal Use. You can still
 
 All AI interactions from Full Terminal Use consume [credits](/support-and-community/plans-and-billing/credits/), including understanding your natural language requests.
 
-Credits are consumed in a similar way as other Oz actions that use the same model and a similar context size.
+Credits are consumed in a similar way as other Warp actions that use the same model and a similar context size.
 
 **Interactive sessions can consume more credits if:**
 

@@ -39,7 +39,7 @@ PROPER_FEATURE_NAMES = {
     "Codebase Context", "Code Review", "Command Palette", "Global Rules",
     "Oz CLI", "Oz Platform", "Project Rules",
     "Slash Commands", "Terminal Mode", "Universal Input", "Warp Drive",
-    "Warp Platform",
+    "Warp Platform", "Automation Platform", "Warp Factories", "Factory MCP",
 }
 
 # Terminology: wrong → right (case-sensitive checks)
@@ -76,6 +76,13 @@ DEPRECATED_TERMS = [
 # entries whose values are expected to change at a product rename. Stable feature
 # names (AGENT_MODE, WARP_DRIVE, etc.) are intentionally excluded.
 #
+# The bare "Oz" entries do double duty after the 8/18 rename. They no longer
+# only mean "this should have been tokenized" -- a hardcoded "Oz" in prose is
+# now a *stale* product name as well. Both readings want the same fix, so the
+# entries stay. The "Automation Platform" entry is the mirror image: it catches
+# the new name being hardcoded, which would silently miss the 9/15 changes and
+# any later rename.
+#
 # Each entry: (literal_string, var_key, suggestion)
 RENAME_SENSITIVE_VAR_STRINGS: List[Tuple[str, str, str]] = [
     ("Oz CLI",       "WARP_AGENT_CLI",           "{VARS.WARP_AGENT_CLI} in prose or {{WARP_AGENT_CLI}} in frontmatter"),
@@ -83,7 +90,82 @@ RENAME_SENSITIVE_VAR_STRINGS: List[Tuple[str, str, str]] = [
     ("oz.warp.dev",  "WEB_APP_URL",              "{VARS.WEB_APP_URL} in prose or {{WEB_APP_URL}} in frontmatter"),
     ("Oz dashboard", "DASHBOARD",                "{VARS.DASHBOARD} in prose or {{DASHBOARD}} in frontmatter"),
     ("Oz run",       "PLATFORM_RUN",             "{VARS.PLATFORM_RUN} in prose or {{PLATFORM_RUN}} in frontmatter"),
+    ("Oz API & SDK", "API_SDK_NAME",             "{VARS.API_SDK_NAME} in prose or {{API_SDK_NAME}} in frontmatter"),
+    ("Oz Platform",  "WARP_AUTOMATION_PLATFORM", "{VARS.WARP_AUTOMATION_PLATFORM} in prose or {{WARP_AUTOMATION_PLATFORM}} in frontmatter"),
+    ("Automation Platform", "WARP_AUTOMATION_PLATFORM", "{VARS.WARP_AUTOMATION_PLATFORM} in prose or {{WARP_AUTOMATION_PLATFORM}} in frontmatter"),
+    ("Oz",           "WARP_AUTOMATION_PLATFORM", "{VARS.WARP_AUTOMATION_PLATFORM} in prose or {{WARP_AUTOMATION_PLATFORM}} in frontmatter"),
 ]
+
+# Phrasings that deliberately name the old product. A transition callout has to
+# say "Oz" to do its job, so without this the guard would fight the very copy
+# that explains the rename -- and the author's only workaround would be to
+# backtick a product name, which is semantically wrong.
+#
+# Keyed on explicit transition phrasings rather than a per-file or per-page
+# opt-out, so an unrelated stale "Oz" elsewhere on the same page is still
+# caught. Only old-name literals are suppressed; a hardcoded *new* name on the
+# same line still gets flagged, since nothing about a transition sentence
+# excuses that.
+RENAME_TRANSITION_MARKERS: Tuple[str, ...] = (
+    "formerly Oz",
+    "formerly called Oz",
+    "formerly the Oz",
+    "Oz is now",
+    "was called Oz",
+    "renamed from Oz",
+    # Explains why "Oz" still appears in commands and URLs before 9/15.
+    "the Oz name",
+)
+
+# Product names that merely contain "Oz" but are not the platform name, so they
+# do not change when it does. "Oz by Warp" is the GitHub App as it appears in
+# GitHub's own UI, at github.com/apps/oz-by-warp, and is what PRs and commits
+# are attributed to. Renaming it in the docs would make them disagree with what
+# the reader sees on GitHub. Same reasoning as the `@oz-agent` handle.
+#
+# Matched as a suffix on the literal rather than added as its own entry,
+# because the goal is to suppress rather than redirect: there is no variable
+# these should be using instead.
+RENAME_EXEMPT_SUFFIXES: Tuple[str, ...] = (
+    " by Warp",
+)
+
+# Determiner check for WARP_AUTOMATION_PLATFORM. See check_platform_determiner.
+#
+# "Oz" was a proper noun and read correctly bare. "Automation Platform" is a
+# common-noun phrase and needs a definite article in referential positions. The
+# defect is invisible in source -- `The {{WARP_AUTOMATION_PLATFORM}} provides`
+# looks fine in the .mdx and only reads wrong once rendered -- so it needs a
+# lint rule rather than review attention.
+PLATFORM_TOKEN = re.compile(r"\{VARS\.WARP_AUTOMATION_PLATFORM\}|\{\{WARP_AUTOMATION_PLATFORM\}\}")
+PLATFORM_DETERMINER = re.compile(r"\b(the|a|an|its|their|your|our|this|that)\s*(\*\*|\*|\[)?\s*$", re.IGNORECASE)
+# Prepositions that take a noun phrase, so a bare platform name after one reads
+# as a proper noun and is wrong under the new name.
+PLATFORM_PREPOSITIONS = re.compile(
+    r"\b(with|to|in|on|by|from|for|into|across|via|using|of|about|through|within)\s*(\*\*|\*|\[)?\s*$",
+    re.IGNORECASE,
+)
+# Verbs that mark the token as a clause subject.
+PLATFORM_SUBJECT_VERBS = re.compile(
+    r"^\s*(\*\*|\*)?\s*(is|are|was|were|can|will|provides|gives|uses|reads|detects|supports|posts|runs|orchestrates|handles|manages|creates|lets|exposes|routes|tracks)\b"
+)
+# A lowercase word directly after the token usually means the token is
+# modifying it -- "{...} orchestration", "automated {...} runs", "{...} cloud
+# environments" -- which is attributive and correctly bare. Function words are
+# excluded because they continue the sentence rather than extend the noun
+# phrase, so "with {...} for cloud runs" is still referential.
+PLATFORM_FUNCTION_WORDS = {
+    "a", "an", "and", "are", "as", "at", "be", "blocks", "but", "by", "can",
+    "for", "from", "if", "in", "is", "of", "on", "or", "so", "than", "that",
+    "the", "then", "to", "was", "were", "when", "which", "while", "will", "with",
+}
+PLATFORM_NEXT_WORD = re.compile(r"^\s+([a-z][a-z-]*)")
+# Several subject verbs double as nouns -- "runs", "uses", "reads". Requiring
+# the token to actually begin a clause keeps "automated {...} runs" (a noun
+# phrase) from being read as "{...} runs" (a subject and its verb).
+PLATFORM_CLAUSE_START = re.compile(
+    r"(^|[.:!?]\s+|[-\u2013\u2014]\s+|^\s*[*-]\s+)(\*\*|\*|\[)?\s*$"
+)
 
 # Oz terms to avoid (case-insensitive patterns)
 OZ_TERMS_TO_AVOID = [
@@ -181,6 +263,11 @@ RAW_URL_ANCHOR = re.compile(
 )
 MARKDOWN_LINK = re.compile(r"\[([^\]]*)\]\(([^)]+)\)")
 VIDEO_EMBED_TITLE = re.compile(r"\btitle\s*=\s*([\"'])(.*?)\1", re.DOTALL)
+# JSX expression titles, e.g. title={`${VARS.WEB_APP} walkthrough`} — used when
+# the title includes a rename-sensitive {VARS.KEY} reference. Content can't be
+# statically evaluated, so these are treated as present but skipped by the
+# generic-title check below.
+VIDEO_EMBED_TITLE_EXPR = re.compile(r"\btitle\s*=\s*\{(.*?)\}", re.DOTALL)
 
 # Common bolded words that are NOT product terms (false positive suppression)
 COMMON_BOLD_WORDS = {
@@ -656,21 +743,29 @@ def check_video_embed_titles(lines: List[str], filepath: str) -> List[Issue]:
     issues = []
     for line_number, tag in _iter_video_embed_tags(lines):
         title_match = VIDEO_EMBED_TITLE.search(tag)
-        if not title_match or not title_match.group(2).strip():
-            issues.append(Issue(
-                filepath, line_number, "video-title",
-                "VideoEmbed missing title prop. Add a specific title that describes the integration, workflow, feature, or task shown.",
-                "error",
-            ))
+        if title_match and title_match.group(2).strip():
+            title = title_match.group(2).strip()
+            if _is_generic_video_title(title):
+                issues.append(Issue(
+                    filepath, line_number, "video-title",
+                    f"Generic VideoEmbed title: \"{title}\". Use a specific title that describes what the video shows.",
+                    "warning",
+                ))
             continue
 
-        title = title_match.group(2).strip()
-        if _is_generic_video_title(title):
-            issues.append(Issue(
-                filepath, line_number, "video-title",
-                f"Generic VideoEmbed title: \"{title}\". Use a specific title that describes what the video shows.",
-                "warning",
-            ))
+        # Not a quoted string literal — check for a JSX expression title, e.g.
+        # title={`${VARS.WEB_APP} walkthrough`}. Content isn't statically
+        # evaluable, so skip the generic-title check but still confirm a
+        # non-empty title prop is present.
+        expr_match = VIDEO_EMBED_TITLE_EXPR.search(tag)
+        if expr_match and expr_match.group(1).strip():
+            continue
+
+        issues.append(Issue(
+            filepath, line_number, "video-title",
+            "VideoEmbed missing title prop. Add a specific title that describes the integration, workflow, feature, or task shown.",
+            "error",
+        ))
     return issues
 
 
@@ -890,24 +985,276 @@ def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
 
     Skips fenced code blocks and inline code spans so that CLI examples like
     `oz.warp.dev` in a code fence are not flagged.
+
+    Literals are checked longest-first and matches are deduplicated by span so
+    overlapping rename-sensitive names are not double-flagged.
+
+    Matches use word boundaries (`\b`) rather than plain substring search, so
+    literals don't false-positive inside unrelated tokens such as URL query
+    params, hashes, or other identifiers.
+
+    An "@"-prefixed occurrence is skipped because mention handles are literal
+    strings that do not necessarily change with product names. Variabilizing
+    a handle could silently rewrite it into an invalid value at rename time.
+
+    Old-name literals are also skipped on lines carrying a phrase from
+    RENAME_TRANSITION_MARKERS, so "formerly Oz" copy can name the old product
+    without the guard objecting. New-name literals on those lines still flag.
     """
     issues = []
     in_code_block = False
+    sorted_strings = sorted(RENAME_SENSITIVE_VAR_STRINGS, key=lambda entry: -len(entry[0]))
+    compiled = [
+        (literal, var_key, suggestion, re.compile(r"\b" + re.escape(literal) + r"\b"))
+        for literal, var_key, suggestion in sorted_strings
+    ]
     for i, line in enumerate(lines, 1):
         if line.strip().startswith("```"):
             in_code_block = not in_code_block
             continue
         if in_code_block:
             continue
+        # Text that describes an image must match the image, so it cannot be
+        # tokenized. Two separate reasons, same conclusion:
+        #
+        # Alt text is markdown, not JSX -- `![... {VARS.WEB_APP}](...)` renders
+        # the literal "VARS.WEB_APP" on the page, so tokenizing it is simply
+        # broken. Figcaptions *are* JSX and would substitute correctly, but a
+        # caption that auto-flips ahead of the screenshot it captions is worse
+        # than one that stays stale: the page would claim a name the image
+        # visibly contradicts. Both have to be updated by hand, together with
+        # the images, when the screenshots are retaken.
+        if line.lstrip().startswith("![") or "<figcaption" in line:
+            continue
         # Strip inline code spans so backtick-wrapped references are not flagged
         prose_line = re.sub(r"`[^`]+`", "", line)
-        for literal, var_key, suggestion in RENAME_SENSITIVE_VAR_STRINGS:
-            if literal in prose_line:
+        # Deliberate historical reference on this line. See docstring.
+        is_transition_line = any(
+            marker in prose_line for marker in RENAME_TRANSITION_MARKERS
+        )
+        matched_spans: List[Tuple[int, int]] = []
+        for literal, var_key, suggestion, pattern in compiled:
+            for m in pattern.finditer(prose_line):
+                span = m.span()
+                if any(span[0] >= s and span[1] <= e for s, e in matched_spans):
+                    continue
+                # Mention handles are literal strings, not prose. See docstring.
+                if span[0] > 0 and prose_line[span[0] - 1] == "@":
+                    continue
+                # Only the old name is excused by transition phrasing; a
+                # hardcoded new name is still a bug on the same line.
+                if is_transition_line and literal.startswith(("Oz", "oz")):
+                    continue
+                # Distinct product names that happen to contain "Oz".
+                if any(
+                    prose_line[span[1]:].startswith(suffix)
+                    for suffix in RENAME_EXEMPT_SUFFIXES
+                ):
+                    continue
+                matched_spans.append(span)
                 issues.append(Issue(
                     filepath, i, "hardcoded-var",
                     f'Hardcoded "{literal}" should use {suggestion} (see src/data/vars.ts)',
                     "warning",
                 ))
+    return issues
+
+
+def check_platform_determiner(lines: List[str], filepath: str) -> List[Issue]:
+    """Flag {VARS.WARP_AUTOMATION_PLATFORM} used referentially without an article.
+
+    "Oz" was a proper noun and read correctly bare: "with Oz", "Oz provides",
+    "Oz's backend". "Automation Platform" is a common-noun phrase, so the same
+    positions need a definite article: "with the ...", "The ... provides",
+    "the ...'s backend".
+
+    This is worth a lint rule rather than review attention because the defect is
+    invisible in the source file. `The {{WARP_AUTOMATION_PLATFORM}} provides`
+    looks correct in the .mdx and only reads wrong once the variable is
+    substituted at build time.
+
+    Only high-confidence positions are flagged, so that attributive uses stay
+    quiet:
+      * possessive   -- token followed by 's
+      * prepositional -- token directly after "with", "to", "in", and friends
+      * subject      -- token directly before a finite verb
+
+    Deliberately NOT flagged, because bare is correct there:
+      * attributive compounds  -- "{{...}} settings", "{{...}}-hosted", and any
+        token directly followed by a lowercase noun it modifies
+      * frontmatter title/label values -- "{{...}} overview"
+      * bold term leads in definition lists -- "* **{VARS....}** - ..."
+
+    A determiner on the previous line still counts, so a soft-wrapped sentence
+    or a wrapped frontmatter description is not falsely flagged.
+    """
+    issues = []
+    in_code_block = False
+    in_frontmatter = False
+    # Frontmatter is not uniformly exempt. `title` and `sidebar.label` are
+    # headline-style and correctly bare, but `description` is a sentence, and it
+    # becomes the meta description -- the text search engines and AI engines
+    # read before deciding whether to cite the page. Skipping all of
+    # frontmatter left exactly that field unguarded against the defect this
+    # check exists to catch.
+    in_description = False
+    for i, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if i == 1 and stripped == "---":
+            in_frontmatter = True
+            continue
+        if in_frontmatter:
+            if stripped == "---":
+                in_frontmatter = False
+                in_description = False
+                continue
+            # A description can be inline or a folded block (`description: >-`)
+            # continuing over several indented lines. Track which key we are
+            # inside so the continuation lines are scanned too.
+            key = re.match(r"([a-zA-Z_]+):", stripped)
+            if key:
+                in_description = key.group(1) == "description"
+            if not in_description:
+                continue
+            # fall through and scan this line
+        if stripped.startswith("```"):
+            in_code_block = not in_code_block
+            continue
+        if in_code_block or not PLATFORM_TOKEN.search(line):
+            continue
+        for m in PLATFORM_TOKEN.finditer(line):
+            before = line[:m.start()]
+            after = line[m.end():]
+            # A wrapped line can leave the determiner on the previous line.
+            lookback = before if before.strip() else (lines[i - 2] if i >= 2 else "")
+            if PLATFORM_DETERMINER.search(lookback):
+                continue
+            if after[:1] == "-":  # attributive compound, e.g. "{{...}}-hosted"
+                continue
+            if re.match(r"^\s*[*-]\s+\*\*\s*$", before):  # bold term lead
+                continue
+
+            # Order matters. Possessive and subject positions are unambiguous,
+            # so they are classified first. The attributive exemption applies
+            # only to the prepositional case, which is the one that is genuinely
+            # ambiguous: "with {...} orchestration" modifies a noun and is fine
+            # bare, while "with {...}." is referential and needs the article.
+            # Applying the exemption earlier would swallow "{...} provides ...",
+            # since "provides" is just a lowercase word to a regex.
+            if after.startswith("'s") or after.startswith("\u2019s"):
+                position = "possessive"
+            elif PLATFORM_SUBJECT_VERBS.match(after) and PLATFORM_CLAUSE_START.search(before):
+                position = "as a clause subject"
+            elif PLATFORM_PREPOSITIONS.search(lookback):
+                nxt = PLATFORM_NEXT_WORD.match(after)
+                if nxt and nxt.group(1) not in PLATFORM_FUNCTION_WORDS:
+                    continue  # attributive: the token modifies the next noun
+                position = "after a preposition"
+            else:
+                continue
+
+            issues.append(Issue(
+                filepath, i, "platform-determiner",
+                f"{{VARS.WARP_AUTOMATION_PLATFORM}} used {position} without a "
+                f"determiner. The value is a common-noun phrase, so this renders "
+                f'as e.g. "with Automation Platform". Add "the" before it.',
+                "warning",
+            ))
+    return issues
+
+
+# "Warp Factories" is the product; a "factory" is an instance. A bare
+# capitalized "Factory" is never a proper noun, with two classes of exception:
+# the feature's own name (Factory MCP) and verbatim product strings the docs
+# quote from the app. Both are matched on the word that FOLLOWS "Factory".
+FACTORY_ALLOWED_NEXT_WORDS = {
+    # Feature name, shipped as such: the server registers as `warp-factory`.
+    "MCP",
+    # Verbatim UI strings. Changing these would make the docs disagree with the
+    # screen, so they are quoted as-is until the app copy changes.
+    "name",        # **Factory name** field in the setup wizard
+    "definition",  # **Factory definition** sidebar tab
+    "integrations",  # **Factory integrations** section in Settings
+    "running",     # "Factory running!" on the setup summary screen
+}
+# Whole phrases that are correct despite containing a bare "Factory": verbatim
+# UI strings the docs quote, and references to unrelated products that happen to
+# be named Factory.
+FACTORY_ALLOWED_PHRASES = (
+    "Add your Factory to your team",  # verbatim setup wizard heading
+    "Factory's CLI coding agent",     # Factory.ai, the company behind Droid
+)
+FACTORY_BARE = re.compile(r"\bFactory\b")
+# Markup that can sit between the start of a sentence and the word itself:
+# heading hashes, list bullets, blockquotes, emphasis, link text, quotes, and
+# table cell pipes. Stripped before deciding whether the position is initial.
+FACTORY_LEADING_MARKUP = re.compile(r"[\s*_\[\(\"'|>#\-\u2014\u2013]+$")
+
+
+def check_factory_proper_noun(lines: List[str], filepath: str) -> List[Issue]:
+    """Flag a bare capitalized "Factory" used as a proper noun.
+
+    The rule works like GitHub Actions: "Warp Factories" is the product and is
+    always written in full, an individual "factory" is a lowercase common noun,
+    and there is no product called "Factory". See AGENTS.md -> Warp Factories
+    terminology.
+
+    Quiet by construction, because most capitalized "Factory" occurrences are
+    legitimate:
+      * "Warp Factories" and "Warp Factory" -- the product name
+      * sentence-, heading-, bullet-, link-, quote-, and cell-initial position,
+        where the capital is positional rather than a proper noun
+      * fenced code blocks, inline code, link targets, and HTML attributes
+      * frontmatter, whose titles and sidebar labels are headline-style
+      * the exceptions in FACTORY_ALLOWED_NEXT_WORDS and
+        FACTORY_ALLOWED_PHRASES
+    """
+    issues = []
+    in_code_block = False
+    in_frontmatter = False
+    for i, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if i == 1 and stripped == "---":
+            in_frontmatter = True
+            continue
+        if in_frontmatter:
+            if stripped == "---":
+                in_frontmatter = False
+            continue
+        if stripped.startswith("```"):
+            in_code_block = not in_code_block
+            continue
+        if in_code_block or "Factory" not in line:
+            continue
+        if any(phrase in line for phrase in FACTORY_ALLOWED_PHRASES):
+            continue
+        # Strip inline code, link targets, and HTML/JSX attributes: a slug like
+        # `/factories/factory-as-code/` or an `alt="..."` value is not prose.
+        prose = re.sub(r"`[^`]*`", "", line)
+        prose = re.sub(r"\]\([^)]*\)", "]", prose)
+        prose = re.sub(r'\w+="[^"]*"', "", prose)
+        for m in FACTORY_BARE.finditer(prose):
+            before = prose[:m.start()]
+            after = prose[m.end():]
+            if before.rstrip().endswith("Warp"):
+                continue  # "Warp Factories" / "Warp Factory"
+            # Strip the markup between the sentence start and the word, then ask
+            # whether anything is left. Nothing left means the capital is
+            # positional; a preceding clause means it is being used as a name.
+            prefix = FACTORY_LEADING_MARKUP.sub("", before)
+            if not prefix or prefix.endswith((".", "!", "?", ":", "|", "—")):
+                continue
+            nxt = re.match(r"\s+(\w+)", after)
+            if nxt and nxt.group(1) in FACTORY_ALLOWED_NEXT_WORDS:
+                continue
+            issues.append(Issue(
+                filepath, i, "factory-proper-noun",
+                'Bare "Factory" used as a proper noun. "Warp Factories" is the '
+                'product and is written in full; an individual factory is '
+                'lowercase. Write "factory" (or "Warp Factories" if you mean '
+                "the product).",
+                "warning",
+            ))
     return issues
 
 
@@ -940,6 +1287,8 @@ def run_all_checks(filepath: Path) -> List[Issue]:
     issues.extend(check_oz_terms(lines, str(filepath)))
     issues.extend(check_deprecated_terms(lines, str(filepath)))
     issues.extend(check_hardcoded_vars(lines, str(filepath)))
+    issues.extend(check_platform_determiner(lines, str(filepath)))
+    issues.extend(check_factory_proper_noun(lines, str(filepath)))
     issues.extend(check_unrecognized_terms(lines, str(filepath), _get_glossary()))
     return issues
 

@@ -7,6 +7,7 @@ sidebar:
   label: "Local to cloud"
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
 Local-to-cloud handoff in Warp promotes an active local Warp Agent conversation into a cloud agent run. Warp forks the conversation, snapshots your uncommitted workspace changes, and sends both to the cloud so the agent can continue the same task with the context and files it needs.
 
@@ -74,7 +75,7 @@ The cloud agent runs with the same model your local conversation was using. Chan
 
 After you submit, the cloud agent applies your workspace snapshot and responds to your follow-up. The local conversation is not modified, so you can keep working in it locally or close it.
 
-To check on the new run, open it from the [Runs page](https://oz.warp.dev/runs) in the Oz web app or the conversation panel in the Warp app.
+To check on the new run, open it from the <a href={`${VARS.WEB_APP_URL}/runs`}>Runs page</a> in the {VARS.WEB_APP} or the conversation panel in the Warp app.
 
 ## Troubleshooting
 

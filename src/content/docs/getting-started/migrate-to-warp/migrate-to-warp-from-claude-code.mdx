@@ -5,6 +5,7 @@ description: >-
   notifications — or switch from Claude Code to Warp's Agent Mode as your
   primary coding agent.
 ---
+import { VARS } from '@data/vars';
 
 Claude Code is different from the other sources in this section: it's not a terminal emulator, it's a CLI agent that runs inside any terminal. Warp is an agentic development environment with a built-in [code editor](/code/code-editor/), [Code Review](/code/code-review/), [team collaboration](/knowledge-and-collaboration/warp-drive/), and [MCP](/agents/capabilities/mcp/) support — so you have two paths to choose from:
 
@@ -75,7 +76,7 @@ Warp's Agent also pulls context from several other explicit sources:
 * **Tight terminal integration.** Agent Mode runs inside Warp and sees the full state of your terminal session — open files, command history, environment variables — without needing you to paste context.
 * **Parallel agents.** Warp runs multiple agent conversations across tabs simultaneously, each with its own state, which you can track in the Agent Management Panel.
 * **Code Review built in.** Agent-generated diffs open in Warp's [Code Review](/code/code-review/) panel, not the terminal.
-* **Cloud orchestration.** Long-running or scheduled agent work can be offloaded to [Oz](/platform/).
+* **Cloud orchestration.** Long-running or scheduled agent work can be offloaded to the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/).
 
 ## Warp-native equivalents
 
