@@ -16,7 +16,7 @@ This guide takes you from installing the {VARS.WARP_CLI} to your first agent con
 
 ## 1. Install the Warp Agent CLI
 
-Install the CLI with the command for your operating system.
+Install the CLI with the command for your operating system. The install script is the recommended method, because it's the only one that keeps the CLI up to date on its own.
 
 <Tabs>
   <TabItem label="macOS and Linux">
@@ -31,6 +31,17 @@ Install the CLI with the command for your operating system.
     Invoke-RestMethod "https://app.warp.dev/download/agent-cli.ps1" | Invoke-Expression
     ```
   </TabItem>
+  <TabItem label="Homebrew">
+    On macOS 14 or later and on Linux, install the `warp-agent-cli` cask. It's in the main Homebrew cask repository, so you don't need to tap anything first:
+
+    ```bash
+    brew install --cask warp-agent-cli
+    ```
+
+    :::caution
+    Homebrew installations don't update themselves. The CLI still tells you when a new version is available, but you install it by running `brew upgrade --cask warp-agent-cli`. To get background updates instead, use the install script.
+    :::
+  </TabItem>
 </Tabs>
 
 After installing, verify that the `warp` command is available:
@@ -42,9 +53,12 @@ warp --version
 The command prints the installed version.
 
 :::note
-The CLI keeps itself up to date. While it runs, it periodically checks for a newer version, downloads it in the background, and stages it without interrupting your session. The staged version takes effect the next time you launch `warp`, and the start screen shows an "update installed, restart to apply" notice next to the version.
+How the CLI updates depends on how you installed it.
 
-To turn off background updates, set `general.autoupdate_enabled` to `false` in the [settings file](/agents/cli/configuration/#the-settings-file). To turn them off for a single launch, set the `WARP_TUI_DISABLE_AUTOUPDATE` environment variable to any value.
+* **Install script** - The CLI updates itself. While it runs, it periodically checks for a newer version, downloads it in the background, and stages it without interrupting your session. The staged version takes effect the next time you launch `warp`, and the start screen shows an "update installed, restart to apply" notice next to the version.
+* **Homebrew** - Homebrew owns the installation, so the CLI never replaces it. It still checks for newer versions and shows an "update available" notice next to the version on the start screen. Install the update yourself by running `brew upgrade --cask warp-agent-cli`.
+
+To turn off update checks, set `general.autoupdate_enabled` to `false` in the [settings file](/agents/cli/configuration/#the-settings-file). To turn them off for a single launch, set the `WARP_TUI_DISABLE_AUTOUPDATE` environment variable to any value.
 :::
 
 ## 2. Log in
