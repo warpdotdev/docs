@@ -7,6 +7,7 @@ description: >-
 sidebar:
   label: "Admin panel"
 ---
+import { VARS } from '@data/vars';
 
 The Admin Panel provides administrators with centralized control over team settings in Warp. Configure agent behavior, security policies, codebase indexing, and collaboration features for your entire organization from a single interface.
 
@@ -268,7 +269,7 @@ Controls how screenshots and video recordings captured with [Computer Use](/agen
 
 **Enabled GitHub Orgs**
 
-The **Enabled GitHub Orgs** setting associates your Warp team with one or more GitHub App installations. That association does two things: it lets cloud agents initiated with an [agent API key](/reference/cli/api-keys/) clone repositories and open pull requests using the Oz by Warp GitHub App, and it tells Warp which team owns runs started from the [GitHub integration](/platform/integrations/github/) when someone mentions `@oz-agent` in those repositories.
+The **Enabled GitHub Orgs** setting associates your Warp team with one or more GitHub App installations. That association does two things: it lets cloud agents initiated with an [agent API key](/reference/cli/api-keys/) clone repositories and open pull requests using the Oz by Warp GitHub App, and it tells Warp which team owns runs started from the [GitHub integration](/platform/integrations/github/) when someone mentions `@warp-agent` in those repositories.
 
 To configure:
 
@@ -284,7 +285,7 @@ To configure:
 The organizations and repository access shown here reflect the Oz by Warp GitHub App installation scope, which is configured in [GitHub settings](https://github.com/settings/installations). To change which repositories the app can access, edit the installation directly in GitHub.
 
 :::note
-This setting controls which GitHub App installation agent API key runs authenticate with, and which GitHub organizations can start [GitHub integration](/platform/integrations/github/) runs for this team. Runs from an `@oz-agent` mention also authenticate with the installation's GitHub App token, so their repository access comes from the app installation rather than the person who wrote the mention. Runs triggered from a personal API key, Slack, Linear, or the Warp app continue to use that user's own GitHub authorization. For more details, see [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization).
+This setting controls which GitHub App installation agent API key runs authenticate with, and which GitHub organizations can start [GitHub integration](/platform/integrations/github/) runs for this team. Runs from an `@warp-agent` mention also authenticate with the installation's GitHub App token, so their repository access comes from the app installation rather than the person who wrote the mention. Runs triggered from a personal API key, Slack, Linear, or the Warp app continue to use that user's own GitHub authorization. For more details, see [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization).
 :::
 
 ## Multi-admin functionality

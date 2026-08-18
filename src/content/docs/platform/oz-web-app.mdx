@@ -1,21 +1,22 @@
 ---
-title: Oz web app for cloud agents
+title: "{{WEB_APP}} for cloud agents"
 description: >-
-  Use the Oz web app to manage cloud agents, view runs, create schedules, and
+  Use the {{WEB_APP}} to manage cloud agents, view runs, create schedules, and
   configure environments and integrations from any browser or mobile device.
 sidebar:
-  label: "Oz web app"
+  label: "{{WEB_APP}}"
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
-The [Oz web app](https://oz.warp.dev) provides a visual interface for managing cloud agents. You can start runs, browse agents and skills, create schedules, configure environments, and set up integrations—all without installing Warp or using the CLI.
+The <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> provides a visual interface for managing cloud agents. You can start runs, browse agents and skills, create schedules, configure environments, and set up integrations—all without installing Warp or using the CLI.
 
 :::note
-The Oz web app works on mobile devices, so you can monitor and manage your cloud agents from anywhere.
+The {VARS.WEB_APP} works on mobile devices, so you can monitor and manage your cloud agents from anywhere.
 :::
 
-Watch this short demo to create an environment and run an agent using the Oz web app:
-<VideoEmbed url="https://youtu.be/h9Wd77leIYg" title="Oz web app cloud agents walkthrough" />
+Watch this short demo to create an environment and run an agent using the {VARS.WEB_APP}:
+<VideoEmbed url="https://youtu.be/h9Wd77leIYg" title={`${VARS.WEB_APP} cloud agents walkthrough`} />
 
 ## Quick reference
 
@@ -28,7 +29,7 @@ Watch this short demo to create an environment and run an agent using the Oz web
 
 ## When to use the web app
 
-The Oz web app is ideal when you want to:
+The {VARS.WEB_APP} is ideal when you want to:
 
 * **Monitor agent activity** — View runs, check status, and inspect outputs from any device
 * **Start quick runs** — Dispatch agents without opening a terminal
@@ -37,17 +38,17 @@ The Oz web app is ideal when you want to:
 * **Configure environments** — Set up repos, Docker images, and setup commands through a form-based flow
 * **Set up integrations** — Connect Slack and Linear with a guided setup flow, and configure how [GitHub](/platform/integrations/github/) mention-triggered runs execute
 
-For scripting, automation, and CI/CD workflows, use the [Oz CLI](/reference/cli/) or [API](/reference/api-and-sdk/).
+For scripting, automation, and CI/CD workflows, use the [{VARS.WARP_AGENT_CLI}](/reference/cli/) or [API](/reference/api-and-sdk/).
 
 ## Getting started
 
-When you first sign in to the Oz web app, you'll see a guided onboarding flow that helps you get started based on your goals.
+When you first sign in to the {VARS.WEB_APP}, you'll see a guided onboarding flow that helps you get started based on your goals.
 
-The onboarding asks "What brings you to Oz?" and offers three paths:
+The onboarding asks "What brings you to the {VARS.WARP_AUTOMATION_PLATFORM}?" and offers three paths:
 
 * **Create an agent automation** — Walks you through setting up a scheduled agent, integration-triggered agent, or other automation
 * **Run Cloud Agents in Warp** — Opens the Warp app (or takes you to the download page) to run cloud agents interactively
-* **Build an app that uses agents** — Links to the [Oz Platform](/platform/overview/) docs for using the CLI, SDK, or API
+* **Build an app that uses agents** — Links to the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) docs for using the CLI, SDK, or API
 
 You can skip onboarding at any time to go directly to the Runs page.
 
@@ -82,7 +83,7 @@ To start a new run:
 
 ### Inspecting orchestrated runs
 
-The Oz web app renders [multi-agent orchestrations](/platform/orchestration/) as nested rows on the **Runs** page, so you can follow parent and child execution together.
+The {VARS.WEB_APP} renders [multi-agent orchestrations](/platform/orchestration/) as nested rows on the **Runs** page, so you can follow parent and child execution together.
 
 Open a parent run from the Runs page. When the run has children, the detail pane adds a **Sub-agents** tab next to **Details**:
 
@@ -147,7 +148,7 @@ To create a skill for agents:
 <figcaption>Creating a skill in the Oz web app.</figcaption>
 </figure>
 
-After the PR is merged, refresh skills so the new skill appears in the Oz web app.
+After the PR is merged, refresh skills so the new skill appears in the {VARS.WEB_APP}.
 
 ## Schedules
 
@@ -225,7 +226,7 @@ The **Integrations** page (`/integrations`) lets you configure first-party integ
 
 ### Available integrations
 
-<table><thead><tr><th width="120">Integration</th><th>Description</th></tr></thead><tbody><tr><td><strong>Slack</strong></td><td>Tag @Oz in messages or threads to trigger agents directly from Slack conversations</td></tr><tr><td><strong>Linear</strong></td><td>Tag @Oz on issues to trigger agents from your issue tracker</td></tr><tr><td><strong>GitHub</strong></td><td>Mention @oz-agent on issues, pull requests, and review comments to trigger agents from GitHub</td></tr></tbody></table>
+<table><thead><tr><th width="120">Integration</th><th>Description</th></tr></thead><tbody><tr><td><strong>Slack</strong></td><td>Tag @warp in messages or threads to trigger agents directly from Slack conversations</td></tr><tr><td><strong>Linear</strong></td><td>Tag @warp on issues to trigger agents from your issue tracker</td></tr><tr><td><strong>GitHub</strong></td><td>Mention @warp-agent on issues, pull requests, and review comments to trigger agents from GitHub</td></tr></tbody></table>
 
 <figure style={{ maxWidth: "563px" }}>
 ![The Integrations page in the Oz web app.](../../../assets/agent-platform/oz-web-app-integrations.png)
@@ -250,5 +251,5 @@ For detailed integration setup instructions, see [Slack](/platform/integrations/
 * [Scheduled Agents](/platform/triggers/scheduled-agents/) — Run agents automatically on a cron schedule
 * [Environments](/platform/environments/) — Configure runtime context for cloud agents
 * [Managing Cloud Agents](/platform/managing-cloud-agents/) — Monitor agent activity and inspect runs
-* [Oz CLI](/reference/cli/) — Command-line interface for running agents
-* [Oz API & SDK](/reference/api-and-sdk/) — Programmatic access to cloud agents
+* [{VARS.WARP_AGENT_CLI}](/reference/cli/) — Command-line interface for running agents
+* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) — Programmatic access to cloud agents

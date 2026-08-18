@@ -3,12 +3,12 @@ title: GitHub integration
 sidebar:
   label: "GitHub"
 description: >-
-  Mention @oz-agent on a GitHub issue, pull request, or review comment to start
+  Mention @warp-agent on a GitHub issue, pull request, or review comment to start
   a cloud agent that replies in the thread and opens pull requests.
 ---
 import { VARS } from '@data/vars';
 
-The GitHub integration lets your team start cloud agents from GitHub itself. Mention **@oz-agent** in an issue comment, a pull request review comment, or the body of a new pull request, and Warp starts a cloud agent that reads the surrounding context, works the task in your codebase, and posts its progress and results back into the same thread.
+The GitHub integration lets your team start cloud agents from GitHub itself. Mention **@warp-agent** in an issue comment, a pull request review comment, or the body of a new pull request, and Warp starts a cloud agent that reads the surrounding context, works the task in your codebase, and posts its progress and results back into the same thread.
 
 The integration is powered by the **Oz by Warp** GitHub App. Once a team admin installs the app and enables the GitHub organization, every teammate who has connected their GitHub account can trigger agents from GitHub without leaving a review or an issue.
 
@@ -23,7 +23,7 @@ This page covers the native GitHub App integration. It is distinct from two othe
 
 ## What the GitHub integration does
 
-* **@oz-agent mentions** - Mention the agent in a comment or pull request body to start a cloud agent run with the issue or pull request as context.
+* **@warp-agent mentions** - Mention the agent in a comment or pull request body to start a cloud agent run with the issue or pull request as context.
 * **In-thread status** - Warp posts a status comment carrying the run link, then follows up with progress comments and a final summary in the same issue, pull request, or review thread.
 * **Thread-aware follow-ups** - Mention the agent again in the same thread and Warp continues the existing run instead of starting a new one.
 * **Automatic repository access** - The repository the event came from is cloned for the run, alongside any repositories in the environment you configure for the integration.
@@ -31,9 +31,9 @@ This page covers the native GitHub App integration. It is distinct from two othe
 
 ## How it works
 
-When you mention `@oz-agent`, GitHub sends the event to Warp through the Oz by Warp GitHub App installation. Warp then:
+When you mention `@warp-agent`, GitHub sends the event to Warp through the Oz by Warp GitHub App installation. Warp then:
 
-1. Confirms the comment or pull request body contains the `@oz-agent` mention and that the author is a person rather than a bot.
+1. Confirms the comment or pull request body contains the `@warp-agent` mention and that the author is a person rather than a bot.
 2. Maps the GitHub App installation to a Warp team using the organizations enabled in the Admin Panel.
 3. Maps the GitHub account that posted the mention to a Warp account, so the run is attributed to that person.
 4. Posts a status comment in the thread and starts the cloud agent run with the issue, pull request, or review thread as context.
@@ -43,12 +43,12 @@ The agent replies through Warp's status comments, which are posted by the GitHub
 
 ### Supported triggers
 
-The integration starts or continues a run for these GitHub events when the text contains `@oz-agent`:
+The integration starts or continues a run for these GitHub events when the text contains `@warp-agent`:
 
 * **Issue comments** - A new comment on an issue. Warp reads the issue title, description, labels, state, and the recent comment thread.
 * **Pull request comments** - A new top-level comment on a pull request. These continue the pull request's existing run when one exists.
 * **Pull request review comments** - A new inline review comment or a reply in a review thread. Warp reads the pull request, the review thread, and the diff of the commented file, and replies inside the same review thread.
-* **New pull requests** - A pull request opened with `@oz-agent` in its description. Warp reads the title, description, and the head and base branches.
+* **New pull requests** - A pull request opened with `@warp-agent` in its description. Warp reads the title, description, and the head and base branches.
 
 Mentions in other places don't start a run. Editing a comment to add the mention, mentioning the agent in an issue or pull request title, and mentions posted by bots are all ignored.
 
@@ -65,7 +65,7 @@ When a run for that thread is already in flight, a new mention is delivered to t
 ## Requirements
 
 * **Team membership** - The GitHub integration requires a [Warp team](/knowledge-and-collaboration/teams/). Configuration is team-scoped, and runs are owned by the team associated with the GitHub App installation.
-* **Plan and credits** - Your team must be on a Build, Max, or Business plan with at least 20 credits available, or on an Enterprise plan with a team credit pool per your contract. See [Access, billing, and identity](/platform/team-access-billing-and-identity/).
+* **Plan and credits** - Your team must have cloud agents enabled and credits available. On Enterprise plans, runs draw from a team credit pool per your contract. See [Access, billing, and identity](/platform/team-access-billing-and-identity/).
 * **Oz by Warp GitHub App** - A GitHub organization owner installs the [Oz by Warp](https://github.com/apps/oz-by-warp) GitHub App on the organization or account that owns the repositories, granting it access to all repositories or a selected set. The installation's repository access is what agents act with, so scope it deliberately.
 * **An enabled GitHub organization** - A Warp team admin adds the organization under **Enabled GitHub Orgs** in the Admin Panel so the installation maps to your Warp team.
 * **A connected GitHub account** - Each teammate connects their GitHub account to Warp once, so Warp can identify who triggered the run and which team to bill. The connection identifies the requester; it doesn't determine what the agent can reach on GitHub.
@@ -98,7 +98,7 @@ In the Warp app, a team admin goes to **Settings** > **Admin Panel** > **Platfor
 <figcaption>Enabled GitHub Orgs setting in the Admin Panel.</figcaption>
 </figure>
 
-Until the organization is enabled, mentions in its repositories return a comment asking a Warp team admin to enable the organization.
+Until the organization is enabled, mentions in its repositories return a comment asking a Warp workspace admin to configure GitHub repository access in the Admin Panel.
 
 ### 3. Configure how GitHub-triggered runs execute
 
@@ -120,15 +120,15 @@ Each teammate connects their GitHub account so Warp can match the mention to a W
 
 Connect the account from the GitHub integration row in the {VARS.WEB_APP}, or the first time you trigger a run: when Warp can't match your GitHub account, it replies in the thread with a link to connect.
 
-## Using @oz-agent in GitHub
+## Using @warp-agent in GitHub
 
 Mention the agent and describe the task in the same comment:
 
-> @oz-agent this test is flaky on CI. Find the race condition and open a PR with a fix.
+> @warp-agent this test is flaky on CI. Find the race condition and open a PR with a fix.
 
 On a pull request review comment, the agent also receives the diff for the file you commented on, so you can ask for a targeted change:
 
-> @oz-agent rename this helper to `parseRepoRef` and update the call sites.
+> @warp-agent rename this helper to `parseRepoRef` and update the call sites.
 
 Warp responds in the thread with a status comment that links to the run, then posts progress updates as the agent works, and finally posts the agent's summary along with any pull requests it opened and branches it pushed.
 
@@ -144,12 +144,12 @@ Every GitHub-triggered run is a cloud agent run:
 
 GitHub-triggered runs separate **what the agent can do on GitHub** from **who the run belongs to**.
 
-**Access comes from the GitHub App installation.** A run started by an `@oz-agent` mention authenticates with a token minted for the Oz by Warp GitHub App installation that delivered the event, not with the mentioning user's GitHub authorization. Cloning, branches, commits, pull requests, and the status comments all use that installation token, so on GitHub the work is attributed to the Oz by Warp GitHub App rather than to the person who wrote the mention. The installation's repository selection is therefore the boundary on what the agent can reach: adjust it in your [GitHub settings](https://github.com/settings/installations).
+**Access comes from the GitHub App installation.** A run started by an `@warp-agent` mention authenticates with a token minted for the Oz by Warp GitHub App installation that delivered the event, not with the mentioning user's GitHub authorization. Cloning, branches, commits, pull requests, and the status comments all use that installation token, so on GitHub the work is attributed to the Oz by Warp GitHub App rather than to the person who wrote the mention. The boundary on what the agent can reach is the installation's repository selection, optionally narrowed further by the repository access a Warp admin grants the team in the Admin Panel. Adjust the installation in your [GitHub settings](https://github.com/settings/installations).
 
 **Identity comes from the account connection.** Warp matches the GitHub account that posted the mention to the Warp account that connected it, not by email address. That binding decides who the run is attributed to in Warp, which team owns it, and whose credits pay for it. The person must be a member of the Warp team that enabled the organization.
 
 :::caution
-Because the run uses the installation's access rather than the mentioner's, anyone who can comment in a repository covered by the installation — and who has a connected GitHub account on that Warp team — can start an agent that acts with the installation's full repository access. Grant the app only the repositories your team wants agents to work in.
+Because the run uses the installation's access rather than the mentioner's, anyone who can comment in a repository covered by the installation — and who has a connected GitHub account on that Warp team — can start an agent that acts with all the repository access granted to that team. Grant the app, and the team, only the repositories your team wants agents to work in.
 :::
 
 For fully automated workflows that run without a triggering user, such as scheduled agents or runs started with an agent API key, see [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization).
@@ -167,11 +167,11 @@ For fully automated workflows that run without a triggering user, such as schedu
 
 ## Troubleshooting
 
-### Nothing happens after mentioning @oz-agent
+### Nothing happens after mentioning @warp-agent
 
 The event never reached Warp, or it was filtered out. Check in this order:
 
-1. The comment body contains `@oz-agent`, spelled exactly, rather than only the issue or pull request title.
+1. The comment body contains `@warp-agent`, spelled exactly, rather than only the issue or pull request title.
 2. The Oz by Warp GitHub App is installed on the organization and has access to that repository.
 3. The mention was posted by a person. Bot-authored comments are ignored.
 4. The comment is new. Editing an existing comment to add the mention doesn't start a run.
@@ -180,13 +180,13 @@ The event never reached Warp, or it was filtered out. Check in this order:
 
 Warp received the mention but couldn't match your GitHub account to a Warp account. Use the link in the reply to connect your GitHub account, then mention the agent again.
 
-### "This repository's GitHub App installation is not associated with a Warp team"
+### "This repository is not enabled for a Warp team"
 
-The app is installed, but no Warp team has enabled that GitHub organization. A Warp team admin adds the organization under **Enabled GitHub Orgs** in **Settings** > **Admin Panel** > **Platform** in the Warp app.
+The app is installed, but no Warp team has access to that repository. A Warp workspace admin configures GitHub repository access in **Settings** > **Admin Panel** > **Platform** in the Warp app.
 
-### "Your Warp account is not a member of any team associated with this repository"
+### "Your Warp account is not a member of any team with access to this repository"
 
-Your GitHub account is connected, but your Warp account isn't in the team that enabled the organization. Ask a team admin to add you to the Warp team.
+Your GitHub account is connected, but your Warp account isn't in a team with access to that repository. Ask a team admin to add you to the Warp team.
 
 ### The run starts but fails immediately
 

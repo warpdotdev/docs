@@ -1,0 +1,105 @@
+---
+title: Factory agents
+description: >-
+  Every factory has a team of default agents: a foreman that coordinates the
+  work, plus triage, spec, implement, and review agents.
+sidebar:
+  label: "Factory agents"
+---
+
+Every factory has a **foreman**, the one agent you talk to from whichever tool a request starts in. Around it sit four default agents, one for each part of the software development lifecycle: triage scopes the request, spec writes the plan, implement writes the code, and review checks it. Together they take a work item from the moment it reaches your factory to a pull request ready for a person to review.
+
+## The default agents
+
+Every factory gets a foreman, and you choose one to four of the others to go with it. These defaults are a starting point — you can [add custom agents and automations](#add-custom-agents-and-automations) for work they don't cover.
+
+| Agent | What it does | What it produces |
+| --- | --- | --- |
+| Foreman | Coordinates the work and talks to the requester | Decisions, questions, status updates, and the final handoff |
+| Triage | Investigates the request and establishes scope | Evidence, issue context, complexity, and open questions |
+| Spec | Turns requirements into a concrete plan with validation criteria | Product and technical specs in a draft pull request |
+| Implement | Makes and validates the code change | Code, tests, validation results, and visual evidence |
+| Review | Checks the finished change with fresh eyes | Findings and a recommendation |
+
+These are responsibilities, not a fixed pipeline. A small, well-understood change can skip the spec stage entirely, and review can send work back to implementation for another pass. By default, work that goes through the spec stage needs a human to approve the spec before implementation starts.
+
+For the complete lifecycle, see [how Warp Factories work](/factories/how-factories-work/).
+
+## Foreman
+
+The **foreman agent** runs the factory floor. It decides which agent a work item needs next, hands the work over, and keeps the requester informed. It's the only default agent that talks to the requester directly: when another agent needs a human answer, the foreman asks the question and routes the answer back. For revisions and follow-ups, the foreman goes back to the same agent and continues its existing conversation instead of starting a new one, so no context is lost.
+
+When the work is done, the foreman presents the final pull request and its supporting evidence, then marks the work item complete. Complete means the work was handed to a human, not that the change was merged or deployed. Merging stays with your team.
+
+## Triage, spec, implement, and review
+
+### Triage
+
+Triage researches the codebase and related issues first, and reproduces a problem only when research can't establish the cause. Its report — context, scope, complexity, open questions — is what the foreman uses to decide whether to ask the requester for clarification, request a spec, or go straight to implementation.
+
+### Spec
+
+Spec works through the foreman to pin down requirements, then writes product and technical specifications in a draft pull request with criteria for validating the change. The implement agent later continues that pull request. By default, the foreman waits for a person to approve the spec before implementation starts; change that in the foreman's instructions.
+
+### Implement
+
+Implement continues the spec's branch and draft pull request rather than starting over. It adds tests, runs the repository's validation, and, when [computer use](/agents/capabilities/computer-use/) is available, captures visual evidence of user-facing changes. If review finds problems, implement revises. It never merges.
+
+### Review
+
+Review comes to the change with fresh eyes, hunting for unmet requirements, broken conventions, missing or failing tests, security issues, and evidence that doesn't hold up. It reruns or extends validation where the evidence is thin, then recommends one of three things to the foreman: accept, revise, or ask a person to decide. The recommendation is advice — review doesn't approve or merge the pull request.
+
+## Built-in skills
+
+Every default agent comes with GitHub skills, and the foreman also comes with a Slack skill. The issue tracker you choose during setup adds to that baseline: choosing Linear or Jira gives the agents that tracker's skill and instructions for working with it. If you don't choose a tracker, the agents get only the baseline.
+
+## Configure agent behavior
+
+Use the agent editor in the [factory dashboard](/factories/factory-dashboard/) to change an agent's description, model, runner, host, MCP servers, secrets, and instructions.
+
+You can also manage the whole factory as version-controlled code, with [factory definition files](/factories/factory-as-code/) in a Git repository, where changes get the same review, history, and rollback as any other code. A few agent settings can only be set in the files, such as harness and credential strategy. Where the repository lives determines how the two editing paths work together:
+
+* **Warp-managed repository** - Edit agents in the agent editor, or edit the definition files directly in the factory dashboard's **Factory definition** tab, whichever fits the change. Both write to the same files, so the editor and the code always agree.
+* **A GitHub repository your team owns** - The files are the only way to change the factory. Edits go through pull requests, and the file-owned settings in the factory dashboard are read-only.
+
+Factory setup doesn't choose models for you. To change the model an agent uses, edit that agent.
+
+## Choose models and harnesses per agent
+
+Each agent can run on its own model and harness. Supported harnesses include the Warp Agent harness, Claude Code, and Codex, and any agent can use any of them. A foreman running on Claude Code or Codex can still dispatch the factory's other agents, and the runs it starts are still tracked as its children.
+
+:::note
+Third-party harnesses require a Build plan or higher; on the Free plan every agent runs on the Warp Agent harness. See [harnesses](/platform/harnesses/#plan-requirements).
+:::
+
+Default model IDs change over time, so choose based on what each agent has to do well:
+
+| Agent | What to optimize for |
+| --- | --- |
+| Foreman | Orchestration, instruction following, and long-running conversations |
+| Triage | Research, evidence gathering, and working with connected tools |
+| Spec | Synthesizing requirements, technical reasoning, and precise writing |
+| Implement | Coding strength, with a harness that fits your repositories and toolchain |
+| Review | A different model or harness from the implement agent, so the two don't share blind spots |
+
+See [model choice for agents](/agents/inference/model-choice/) and [harnesses for cloud agents](/platform/harnesses/) for available options. Define reusable procedures with [skills](/agents/capabilities/skills/), and scope each agent's external access through [MCP servers](/platform/mcp/) and [cloud agent secrets](/platform/secrets/).
+
+## Add custom agents and automations
+
+Add custom agents for jobs the default agents don't handle, such as documentation, security analysis, migrations, or release checks. A custom agent doesn't have to be a required step for every work item.
+
+Automations start a chosen agent on a schedule or when an event fires. They're one more way for work to enter your factory; the foreman still coordinates whatever they start. For all the ways to route work into a factory, see [connect your factory](/factories/connect-your-factory/).
+
+## Human decision points and permissions
+
+| Decision | Default behavior | What enforces it |
+| --- | --- | --- |
+| Spec approval | The foreman asks a human to clarify ambiguity and approve every spec | Workflow policy in the foreman's instructions, which your team can change |
+| Merging | Agents never merge; the foreman hands the finished pull request to a human | Your repository's permissions decide who can approve and merge |
+| Runtime access | Each agent reaches only the repositories, secrets, and MCP servers in its configuration | Platform configuration and the permissions of the connected providers |
+
+The first two rows are conventions: they live in the foreman's instructions and your repository settings, and your team can change them. Access is different. What an agent can reach comes from its configuration and the permissions of the connected providers, never from its instructions — changing what an agent is told to do doesn't change what it's able to do.
+
+So enforce with the real controls: branch protection and repository permissions decide who merges, and each agent's configuration decides what it can reach.
+
+Next, capture these choices in [factory definitions as code](/factories/factory-as-code/).

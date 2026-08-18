@@ -5,6 +5,7 @@ description: >-
   and multi-thread support.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { VARS } from '@data/vars';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
 Agent conversations in Warp are multi-turn interactions tied to terminal sessions. Continue previous threads with follow-ups, manage conversation history, attach context from blocks and files, and run multiple conversations simultaneously across windows, tabs, or panes.
@@ -197,7 +198,7 @@ The **Active** dropdown lists conversations where you have sent at least one que
 
 * Select a conversation to switch to it immediately.
 * The conversation you're currently viewing is highlighted.
-* Cloud agent conversations and Oz runs always appear in **Active** while they are open.
+* Cloud agent conversations and runs always appear in **Active** while they are open.
 
 #### Past
 

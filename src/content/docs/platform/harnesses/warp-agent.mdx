@@ -1,13 +1,14 @@
 ---
-title: Warp Agent with Oz
+title: Warp Agent with the {{WARP_AUTOMATION_PLATFORM}}
 description: >-
-  Warp Agent is Oz's default harness. It routes across leading models, has full
+  Warp Agent is the {{WARP_AUTOMATION_PLATFORM}}'s default harness. It routes across leading models, has full
   terminal access, and is the only harness that can orchestrate subagents.
 sidebar:
   label: "Warp Agent"
 ---
+import { VARS } from '@data/vars';
 
-Warp Agent is the harness Warp builds and ships with Oz. It's the default for every cloud agent run unless you pick another harness, and it's the only harness that can spawn cross-harness subagents (for example, a Warp Agent parent dispatching a Claude Code or Codex child).
+Warp Agent is the harness Warp builds and ships with the {VARS.WARP_AUTOMATION_PLATFORM}. It's the default for every cloud agent run unless you pick another harness, and it's the only harness that can spawn cross-harness subagents (for example, a Warp Agent parent dispatching a Claude Code or Codex child).
 
 Warp Agent is the same agent runtime that powers Agent Mode in the Warp terminal. Running it as a cloud harness gives you the same behavior — model routing, tool access, Skills, Rules, Memory — without tying execution to a single laptop.
 
@@ -22,7 +23,7 @@ Warp Agent is the same agent runtime that powers Agent Mode in the Warp terminal
 
 ## How it works
 
-Warp Agent is the same agent runtime as Agent Mode in the Warp terminal: it plans, calls tools, edits code, runs tests, and reports progress. The cloud platform adds the [environment](/platform/environments/), triggers, observability, and team governance around the run, and the transcript is inspectable in real time and replayable afterward from the [Oz dashboard](/platform/managing-cloud-agents/).
+Warp Agent is the same agent runtime as Agent Mode in the Warp terminal: it plans, calls tools, edits code, runs tests, and reports progress. The cloud platform adds the [environment](/platform/environments/), triggers, observability, and team governance around the run, and the transcript is inspectable in real time and replayable afterward from the [{VARS.DASHBOARD}](/platform/managing-cloud-agents/).
 
 Team admins can disable any harness for their workspace. Users on that team can only start runs with the harnesses that remain enabled.
 
@@ -53,17 +54,17 @@ Subagents run in the same environment as the parent and share the same secrets, 
 Warp Agent is the default, so there's nothing extra to configure.
 
 * **Warp app** - Start a cloud agent run from the input. The **Agent harness** dropdown defaults to **Warp Agent**.
-* **Oz web app** - On a new run or new schedule pane, leave the **Harness** field set to **Warp Agent**.
-* **Oz CLI** - Run `oz agent run-cloud --prompt "..."` with no `--harness` flag, or pass `--harness oz` explicitly.
+* **{VARS.WEB_APP}** - On a new run or new schedule pane, leave the **Harness** field set to **Warp Agent**.
+* **{VARS.WARP_AGENT_CLI}** - Run `oz agent run-cloud --prompt "..."` with no `--harness` flag, or pass `--harness oz` explicitly.
 * **API and SDK** - Omit the `harness` field on the agent config, or set it to `oz`. See the [API reference](/reference/api-and-sdk/).
 
 For a complete walkthrough, see the [Cloud agents quickstart](/platform/quickstart/).
 
 ## Related pages
 
-* [Harnesses in Oz](/platform/harnesses/) — choose between Warp Agent, Claude Code, and Codex.
-* [Claude Code with Oz](/platform/harnesses/claude-code/) — Claude Code as a cloud harness.
-* [Codex with Oz](/platform/harnesses/codex/) — Codex as a cloud harness.
+* [Harnesses in the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/) — choose between Warp Agent, Claude Code, and Codex.
+* [Claude Code with the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/claude-code/) — Claude Code as a cloud harness.
+* [Codex with the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/codex/) — Codex as a cloud harness.
 * [Model choice](/agents/inference/model-choice/) — the model catalog Warp Agent routes across.
 * [Agent Profiles and permissions](/agents/capabilities/agent-profiles-permissions/) — configure the default model, autonomy, and tool access for Warp Agent.
 * [Skills as agents](/platform/skills-as-agents/) — turn a saved skill into a reusable Warp Agent run.

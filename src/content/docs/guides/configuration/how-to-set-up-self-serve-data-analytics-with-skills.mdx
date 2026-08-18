@@ -10,6 +10,7 @@ tags:
 
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
 Self-serve data analytics means anyone on your team can ask a data question and get a trustworthy answer, without pinging the data team. This guide sets up that workflow using two community Skills that chain together: one resolves vague questions to the right BigQuery tables, and the other structures deep-dive analyses into reproducible folders. Plan on about 10 minutes for initial setup, plus time to customize the model index for your warehouse.
 
@@ -179,7 +180,7 @@ The `analysis-artifacts` Skill is largely stack-agnostic. It structures outputs,
 
 You installed two community Skills, customized the model index for your warehouse, and ran both a simple lookup and a full deep-dive analysis.
 
-**Extend to Slack.** Wire the same two Skills into a cloud agent configured with your dbt repo, and your teammates can ask data questions by @-mentioning Oz in a Slack channel, without opening a terminal. The agent clones the repo, picks up the Skills from `.agents/skills/`, and replies in-thread. See the [Slack integration docs](https://docs.warp.dev/platform/integrations/slack/) and [Skills as Agents](https://docs.warp.dev/platform/skills-as-agents/) for setup.
+**Extend to Slack.** Wire the same two Skills into a cloud agent configured with your dbt repo, and your teammates can ask data questions by tagging @warp in a Slack channel, without opening a terminal. The agent clones the repo, picks up the Skills from `.agents/skills/`, and replies in-thread. See the [Slack integration docs](https://docs.warp.dev/platform/integrations/slack/) and [Skills as Agents](https://docs.warp.dev/platform/skills-as-agents/) for setup.
 
 Explore related guides and features:
 

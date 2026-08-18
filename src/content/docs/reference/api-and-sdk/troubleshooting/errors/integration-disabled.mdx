@@ -1,11 +1,12 @@
 ---
 title: integration_disabled
 description: >-
-  The integration (Slack, Linear, etc.) is currently disabled in the Oz
-  settings. Enable it to continue.
+  The integration (Slack, Linear, etc.) is currently disabled in the
+  {{WARP_AUTOMATION_PLATFORM}} settings. Enable it to continue.
 ---
+import { VARS } from '@data/vars';
 
-The `integration_disabled` error occurs when a task targets an integration that is currently disabled in the Oz settings.
+The `integration_disabled` error occurs when a task targets an integration that is currently disabled in the {VARS.WARP_AUTOMATION_PLATFORM} settings.
 
 ---
 
@@ -21,7 +22,7 @@ The `integration_disabled` error occurs when a task targets an integration that 
 
 This error is returned when:
 
-* A Slack message, Linear issue, or other integration event triggers a cloud agent, but the corresponding integration has been disabled in the Oz settings
+* A Slack message, Linear issue, or other integration event triggers a cloud agent, but the corresponding integration has been disabled in the {VARS.WARP_AUTOMATION_PLATFORM} settings
 * The integration was previously active but has been turned off by a team admin
 
 ---
@@ -43,7 +44,7 @@ This error is returned when:
 
 ## How to resolve
 
-1. Go to the [Oz integrations page](https://oz.warp.dev/integrations).
+1. Go to the <a href={`${VARS.WEB_APP_URL}/integrations`}>{VARS.WARP_AUTOMATION_PLATFORM} integrations page</a>.
 2. Enable the integration that was disabled.
 3. Retry the triggering event or task.
 
@@ -52,4 +53,4 @@ This error is returned when:
 ## Related
 
 * [Integrations](/platform/integrations/) — Configuring Slack, Linear, and GitHub integrations
-* [Oz Web App](/platform/oz-web-app/) — Managing integrations via the web interface
+* [{VARS.WEB_APP}](/platform/oz-web-app/) — Managing integrations via the web interface

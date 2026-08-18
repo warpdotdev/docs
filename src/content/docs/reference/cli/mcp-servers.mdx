@@ -6,6 +6,11 @@ description: >-
 sidebar:
   label: "MCP servers"
 ---
+import { VARS } from '@data/vars';
+
+:::caution
+The {VARS.WARP_AGENT_CLI} (the `oz` binary) is being deprecated in favor of the {VARS.WARP_CLI} (the `warp` binary). See the [Warp Agent CLI docs](/agents/cli/) for the replacement.
+:::
 
 MCP servers connect agents to external systems like GitHub, Linear, or Sentry. To use a [Model Context Protocol (MCP)](/agents/capabilities/mcp/) server from the CLI, use the `--mcp` flag with `oz agent run` or `oz agent run-cloud`.
 
@@ -102,7 +107,7 @@ $ oz agent run --mcp "904a8936-fa82-4571-b1d6-166c26197981" --prompt "use my MCP
 ```
 
 :::note
-For cloud agent workflows, use [Oz-managed secrets](/platform/secrets/) to store and inject credentials safely — secrets are stored in the cloud and referenced by name in your config. For local runs, a secrets manager CLI such as [`op`](https://developer.1password.com/docs/cli/get-started/), [`pass`](https://www.passwordstore.org/), or [`gcloud secrets versions access`](https://cloud.google.com/secret-manager/docs/create-secret-quickstart#secretmanager-quickstart-gcloud) can fetch secrets on remote hosts without exposing them in your shell history.
+For cloud agent workflows, use [{VARS.WARP_AUTOMATION_PLATFORM}-managed secrets](/platform/secrets/) to store and inject credentials safely — secrets are stored in the cloud and referenced by name in your config. For local runs, a secrets manager CLI such as [`op`](https://developer.1password.com/docs/cli/get-started/), [`pass`](https://www.passwordstore.org/), or [`gcloud secrets versions access`](https://cloud.google.com/secret-manager/docs/create-secret-quickstart#secretmanager-quickstart-gcloud) can fetch secrets on remote hosts without exposing them in your shell history.
 :::
 
 ---

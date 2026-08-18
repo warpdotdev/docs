@@ -34,7 +34,20 @@ const pageUrl = Astro.url.href;
     footer {
       flex-direction: column;
       gap: 1.25rem;
-      margin-top: 2rem;
+      /* Hairline marking the end of page content, so the CTA below reads as
+         footer chrome rather than a trailing sentence of the article.
+         Matches the divider treatment on the "On this page" panel footer
+         (`CustomPageSidebar.astro`).
+
+         Spacing above the rule is NOT set here: this footer is a sibling of
+         `.sl-markdown-content` inside Starlight's ContentPanel, whose
+         `.sl-container > * + *` rule (specificity 0,1,1) already applies
+         `margin-top: 1.5rem` and outranks a bare `footer` selector (0,0,1).
+         A `margin-top: 2rem` previously declared here never took effect;
+         padding is used instead so the space below the rule is ours to set
+         and matches the 1.5rem gap above it. */
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--sl-color-hairline-light);
     }
     .kudos {
       align-items: center;

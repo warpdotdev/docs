@@ -1,11 +1,27 @@
 ---
 /**
  * CopyPageButton — Scalar-style dropdown with:
- * - Copy page (copies raw MDX body as markdown)
+ * - Copy page (copies the MDX body as markdown, with imports stripped and
+ *   product-name variables resolved -- see resolveMdxSource below)
  * - Copy agent prompt (copies a context-appropriate prompt for the page type)
  * - View as Markdown (opens .md URL in new tab)
  * - Export as PDF (window.print)
  */
+import { VARS } from '@data/vars';
+
+// Not global, and applied line by line from the top of the file rather than
+// across the whole body: an MDX component import only ever appears in the
+// leading block, while a code sample can legitimately contain the same shape.
+// A global replace ate `import OpenAI from "openai";` out of the Node example
+// in guides/external-tools/how-to-set-up-ollama.mdx, so the copied snippet no
+// longer ran.
+const IMPORT_LINE = /^import\s+[^\n]*?from\s+['"][^'"]+['"];?\s*$/;
+// The optional leading `$` matters: MDX authors write `{VARS.KEY}` in prose but
+// `${VARS.KEY}` inside JSX template literals, e.g. href={`${VARS.WEB_APP_URL}/runs`}.
+// Matching only the braces leaves the dollar behind and yields `$https://...`.
+const PROSE_TOKEN = /\$?\{VARS\.([A-Z0-9_]+)\}/g;
+const FRONTMATTER_TOKEN = /\{\{([A-Z0-9_]+)\}\}/g;
+
 interface Props {
   body: string;
   title: string;
@@ -13,7 +29,48 @@ interface Props {
   agentPrompt?: string;
 }
 const { body, title, agentPrompt } = Astro.props;
-const markdownContent = `# ${title}\n\n${body}`;
+
+/**
+ * `body` arrives as raw MDX source, so it still carries authoring scaffolding:
+ * `import` statements at the top and unsubstituted `{VARS.KEY}` / `{{KEY}}`
+ * product-name tokens throughout.
+ *
+ * That matters more than it looks. This payload is what "Copy page as Markdown
+ * for LLMs" puts on the clipboard, so without this an assistant reading the
+ * copied text sees the literal string `{VARS.WARP_AUTOMATION_PLATFORM}` instead
+ * of the product name -- worse than the stale name it replaced.
+ *
+ * The sibling `.md` route does not have this problem because
+ * `docs-markdown-integration.js` derives those files from the *rendered* HTML
+ * after the build, by which point Astro has resolved everything. This component
+ * runs during render and only has the source, so it repeats the two cleanups.
+ *
+ * Known gap: raw JSX (`<VideoEmbed />`) and directive syntax (`:::note`) still
+ * pass through here, where the `.md` route renders them properly. The durable
+ * fix is for this button to fetch the page's own `.md` URL on click rather than
+ * carry a second copy of the content.
+ */
+/** Drops the leading `import` block, stopping at the first line of content. */
+function stripLeadingImports(source: string): string {
+  const lines = source.split('\n');
+  let start = 0;
+  while (
+    start < lines.length &&
+    (lines[start].trim() === '' || IMPORT_LINE.test(lines[start]))
+  ) {
+    start++;
+  }
+  return lines.slice(start).join('\n');
+}
+
+function resolveMdxSource(source: string): string {
+  const vars = VARS as unknown as Record<string, string>;
+  return stripLeadingImports(source)
+    .replace(PROSE_TOKEN, (match, key) => vars[key] ?? match)
+    .replace(FRONTMATTER_TOKEN, (match, key) => vars[key] ?? match);
+}
+
+const markdownContent = `# ${title}\n\n${resolveMdxSource(body)}`;
 const pageUrl = Astro.url.href;
 const pathname = Astro.url.pathname;
 

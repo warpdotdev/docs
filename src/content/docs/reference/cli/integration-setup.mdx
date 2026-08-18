@@ -1,11 +1,16 @@
 ---
 title: Integration setup
 description: >-
-  Learn how to set up environments and integrations so you can trigger Oz
+  Learn how to set up environments and integrations so you can trigger
   agents from external tools.
 sidebar:
   label: "Integration Setup"
 ---
+import { VARS } from '@data/vars';
+
+:::caution
+The {VARS.WARP_AGENT_CLI} (the `oz` binary) is being deprecated in favor of the {VARS.WARP_CLI} (the `warp` binary). See the [Warp Agent CLI docs](/agents/cli/) for the replacement.
+:::
 
 This article describes the environment and integration setup that is required before you can trigger agents from external tools, like Slack or Linear. You will learn how to:
 
@@ -29,7 +34,7 @@ Warp integrations connect external tools, like Slack or Linear, to agents that r
 
 There are three main components to know:
 
-* **Triggers** provide the context that tells Warp _what_ to run. A trigger could be a Slack message where you tag @Oz, or a Linear issue or comment.
+* **Triggers** provide the context that tells Warp _what_ to run. A trigger could be a Slack message where you tag @warp, or a Linear issue or comment.
 * [**Integrations**](/platform/integrations/) are what connect the trigger surface (Slack, Linear) to Warp. An integration links the trigger to your [Warp team](/knowledge-and-collaboration/teams/) and handles posting results to the original tool, for example, replying in Slack.
 * **Environments** define how and where agents run your code. When an agent is triggered, Warp uses the environment to spin up a container, clone repositories, and execute the agent's workflow.
 
@@ -50,7 +55,7 @@ Setting up an integration consists of three steps.
 
 1. **Create an environment** for the agent to run your code.
 2. **Authorize GitHub** so Warp can clone repositories, write code, debug issues, open pull requests, and more.
-3. **Configure** the Oz app with an integration.
+3. **Configure** the {VARS.WARP_AUTOMATION_PLATFORM} app with an integration.
 
 :::tip
 If setup fails, use the returned error code to narrow the fix. Common errors include:
@@ -203,7 +208,7 @@ For full setup instructions, see [Team GitHub authorization](/platform/team-acce
 Once you have set up at least one environment, you can create integrations that connect it to Slack or Linear.
 
 :::note
-For easier setup, use the [Oz web app](https://oz.warp.dev) to configure integrations with a guided flow.
+For easier setup, use the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> to configure integrations with a guided flow.
 :::
 
 Alternatively, use the CLI where `<ENV_ID>` is your environment ID:
@@ -221,11 +226,11 @@ If you omit `--environment`, the CLI will show a list of environments and prompt
 The CLI then:
 
 1. Links the integration to your Warp team and environment.
-2. Opens a browser flow to install the Oz app into your Slack workspace or Linear workspace.
+2. Opens a browser flow to install the {VARS.WARP_AUTOMATION_PLATFORM} app into your Slack workspace or Linear workspace.
 3. Generates an **integration ID** you can later list or delete.
 
 :::note
-The [GitHub integration](/platform/integrations/github/), which starts agents from `@oz-agent` mentions on issues and pull requests, isn't created with `oz integration create`. It's set up by installing the Oz by Warp GitHub App and enabling the GitHub organization in the Admin Panel.
+The [GitHub integration](/platform/integrations/github/), which starts agents from `@warp-agent` mentions on issues and pull requests, isn't created with `oz integration create`. It's set up by installing the Oz by Warp GitHub App and enabling the GitHub organization in the Admin Panel.
 :::
 
 **Additional `integration create` flags:**
@@ -302,6 +307,6 @@ You now have everything needed to trigger agents from your team's tools. From he
 **Additional reading**
 
 * [Cloud Agents Overview](/platform/)
-* [Oz Platform](/platform/overview/)
+* [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/)
 * [Slack](/platform/integrations/slack/), [Linear](/platform/integrations/linear/), [GitHub](/platform/integrations/github/), and [GitHub Actions](/platform/integrations/github-actions/) integrations
 * [Troubleshooting](/reference/cli/troubleshooting/)

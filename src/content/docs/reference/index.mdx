@@ -1,16 +1,17 @@
 ---
 title: Technical reference
 description: >-
-  Technical reference documentation for the Oz CLI, API, and SDK.
+  Technical reference documentation for the {{WARP_AGENT_CLI}}, API, and SDK.
 ---
+import { VARS } from '@data/vars';
 
-Technical reference documentation for the Oz CLI, API, and SDKs. Use these programmatic interfaces to run and manage agents from CI pipelines, scripts, backend services, and custom tooling without requiring the Warp desktop app.
+Technical reference documentation for the {VARS.WARP_AGENT_CLI}, API, and SDKs. Use these programmatic interfaces to run and manage agents from CI pipelines, scripts, backend services, and custom tooling without requiring the Warp desktop app.
 
 ## CLI
 
-The [Oz CLI](/reference/cli/) lets you run and configure agents from any environment — locally, in CI pipelines, or on remote machines.
+The [{VARS.WARP_AGENT_CLI}](/reference/cli/) lets you run and configure agents from any environment — locally, in CI pipelines, or on remote machines.
 
-- [API Keys](/reference/cli/api-keys/) - Create and manage API keys to authenticate the Oz CLI without human interaction, ideal for CI pipelines, headless servers, and containers.
+- [API Keys](/reference/cli/api-keys/) - Create and manage API keys to authenticate the {VARS.WARP_AGENT_CLI} without human interaction, ideal for CI pipelines, headless servers, and containers.
 - [Agent Profiles](/reference/cli/agent-profiles/) - Use agent profiles to control what the agent can access, how it behaves, and where it can act, including file access, command execution, and MCP server usage.
 - [MCP Servers](/reference/cli/mcp-servers/) - Pass MCP server configuration to agent runs using the `--mcp` flag, by UUID, inline JSON, or file path.
 - [Skills](/reference/cli/skills/) - Run agents from reusable instruction sets stored in your repositories using the `--skill` flag.
@@ -20,6 +21,6 @@ The [Oz CLI](/reference/cli/) lets you run and configure agents from any environ
 
 ## API & SDK
 
-The [Oz API](/reference/api-and-sdk/) lets you create and monitor cloud agent runs over HTTP. Official SDKs for [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) provide typed clients with built-in retries and error handling.
+The [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) lets you create and monitor cloud agent runs over HTTP. Official SDKs for [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) provide typed clients with built-in retries and error handling.
 
 - [Demo: Sentry monitoring with SDK](/reference/api-and-sdk/demo-sentry-monitoring-with-sdk/) - example integration
