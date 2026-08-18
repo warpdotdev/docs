@@ -11,7 +11,7 @@ tags:
 ---
 import { VARS } from '@data/vars';
 
-This guide adds the implementation and reviewer agents to the [triage](/guides/agent-workflows/build-a-triage-agent) and [spec](/guides/agent-workflows/write-product-and-tech-specs-with-agents) agents you set up previously, then connects all four into a software factory using GitHub labels as the state machine. Issues flow automatically from triage to a reviewable pull request.
+This guide adds the implementation and reviewer agents to the [triage](/guides/agent-workflows/build-a-triage-agent) and [spec](/guides/agent-workflows/write-product-and-tech-specs-with-agents) agents you set up previously, then connects all four into a software factory using GitHub labels as the state machine. Issues flow automatically from triage to a reviewable pull request. To run this same loop as a managed product instead of wiring it yourself, see [Warp Factories](/factories/).
 
 ## Prerequisites
 
@@ -162,7 +162,7 @@ The reviewer agent surfaces issues and inconsistencies; the human makes the fina
 
 ## Next steps
 
-* [Warp Factories overview](/factories/) — The conceptual overview of the full loop.
+* [Warp Factories overview](/factories/) — The managed product that runs this same intake-to-review loop, without the workflow wiring.
 * [Run a software factory in the cloud](/guides/agent-workflows/run-a-software-factory-in-the-cloud) — Move the loop into a managed {VARS.WARP_AUTOMATION_PLATFORM} deployment.
 * [Build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) — Add the outer improvement loop.
 * [Review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code) — The human review workflow for agent-generated PRs.

@@ -13,7 +13,7 @@ tags:
 ---
 import { VARS } from '@data/vars';
 
-The GitHub Actions approach in [Set up your software factory](/guides/agent-workflows/set-up-a-software-factory) gets the four-agent loop working. This guide covers the {VARS.WARP_AUTOMATION_PLATFORM}-native production setup for teams running the factory at scale: cloud environments, secrets and permissions, triggers, and observability.
+The GitHub Actions approach in [Set up your software factory](/guides/agent-workflows/set-up-a-software-factory) gets the four-agent loop working. This guide covers the {VARS.WARP_AUTOMATION_PLATFORM}-native production setup for teams running the factory at scale: cloud environments, secrets and permissions, triggers, and observability. To run the same loop as a managed product instead, see [Warp Factories](/factories/).
 
 ## Prerequisites
 
@@ -71,7 +71,7 @@ With GitHub Actions, your factory already has event-based triggers. The {VARS.WA
 
 ## 4. Monitor factory runs
 
-Every cloud agent run in your factory appears in the Factory dashboard with:
+Every cloud agent run in your factory appears in the {VARS.DASHBOARD} with:
 
 * A session transcript showing every action the agent took
 * Artifacts: PRs, branches, plans, and reports the agent produced
@@ -96,7 +96,7 @@ See [Multi-agent orchestration](/platform/orchestration) for fan-out, sharding, 
 
 ## Next steps
 
-* [Warp Factories overview](/factories/) — The conceptual overview of the full loop.
+* [Warp Factories overview](/factories/) — The managed product that runs this same loop end to end.
 * [Build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) — Add the outer improvement loop on a schedule.
 * [Environments](/platform/environments) — Full reference for cloud agent environments.
 * [Deployment patterns](/platform/deployment-patterns) — Choose the right architecture for your team.
