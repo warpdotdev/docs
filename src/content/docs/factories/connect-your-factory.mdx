@@ -1,8 +1,8 @@
 ---
 title: Connect your factory
 description: >-
-  Route work into your factory from Slack, GitHub, Linear, Jira, local agents,
-  direct runs, and schedules.
+  Route work into your factory from Slack, GitHub, GitLab, Linear, Jira, local
+  agents, direct runs, and schedules.
 sidebar:
   label: "Connect your factory"
 ---
@@ -44,7 +44,7 @@ flowchart LR
 
 An event from a connected tool starts the automation whose filters match it, such as a specific repository, channel, or label. Schedules start their automation on a timer, and direct requests go straight to the factory.
 
-Every request then lands with the foreman agent, the factory's orchestrator. The foreman turns the request into a work item, works out which stage the work needs next, and dispatches a specialized agent for each stage: triage to scope the request, spec when the design needs agreement, implementation to write the code, and review to check it. Between stages it relays questions and progress back to the source, and it pauses wherever a decision belongs to a human, such as approving a spec or merging a pull request. See [how Warp Factories work](/factories/how-factories-work/) for the full lifecycle.
+Every request then lands with the foreman agent, the factory's orchestrator. The foreman turns the request into a work item, determines which stage the work needs next, and dispatches a specialized agent for each stage: triage to scope the request, spec when the design needs agreement, implementation to write the code, and review to check it. Between stages it relays questions and progress back to the source, and it pauses wherever a decision belongs to a human, such as approving a spec or merging a pull request. See [how Warp Factories work](/factories/how-factories-work/) for the full lifecycle.
 
 ## Review the default automations
 

@@ -142,7 +142,7 @@ agentDefaults:
 
 ### `agentDefaults.model`
 
-The model runs execute with, as a `model_id` from [model choice for agents](/agents/inference/model-choice/). `model` is shorthand for running on the Warp Agent harness:
+The model that runs execute with, as a `model_id` from [model choice for agents](/agents/inference/model-choice/). `model` is shorthand for running on the Warp Agent harness:
 
 ```yaml
 model: auto
@@ -160,7 +160,7 @@ harness:
 
 ### `agentDefaults.harness`
 
-The harness and model runs execute with. Use the `harness` form to run a third-party harness or to set advanced options. `type` accepts `oz`, `claude` (alias `claude-code`), `codex`, or `gemini` — the values the definition schema validates. For what each harness does and which ones your team can run, see [supported harnesses](/platform/harnesses/).
+The harness and model that runs execute with. Use the `harness` form to run a third-party harness or to set advanced options. `type` accepts `oz`, `claude` (alias `claude-code`), `codex`, or `gemini` — the values the definition schema validates. For what each harness does and which ones your team can run, see [supported harnesses](/platform/harnesses/).
 
 ```yaml
 harness:
@@ -180,7 +180,7 @@ The name of a runner defined under [`runners/`](#runnersnameyaml) that provides 
 
 ### `agentDefaults.environmentId`
 
-The ID of an existing [environment](/platform/environments/) runs execute in.
+The ID of an existing [environment](/platform/environments/) that runs execute in.
 
 ### `agentDefaults.secrets`
 

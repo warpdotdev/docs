@@ -10,7 +10,7 @@ sidebar:
 The factory dashboard is the web app for operating a single factory. Use it to track the work your agents are doing, inspect the runs and pull requests they produce, and manage the agents, automations, and settings the factory owns.
 
 :::note
-"Factory dashboard" names the whole surface. **Dashboard**, in bold, is one page inside it — the metrics page a factory opens on.
+"Factory dashboard" names the whole surface. **Dashboard**, in bold, is one page inside it: the metrics page you land on when you open a factory.
 :::
 
 ## Pages at a glance
@@ -30,7 +30,7 @@ Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, 
 | **Factory definition** | The factory's definition files | Browse and edit a Warp-managed definition |
 | **Settings** | Configuration the factory owns | Change identity, repos, runners, and the integrations the factory can access |
 
-**Dashboard** is where a factory opens. **Factory definition** appears only on Warp-managed factories, since a factory whose definition lives in your own repository is edited there instead.
+A factory opens on its **Dashboard** page. **Factory definition** appears only on Warp-managed factories, since a factory whose definition lives in your own repository is edited there instead.
 
 ## Track work items on Activity
 
@@ -68,7 +68,7 @@ The page also charts opened versus merged PRs and a breakdown of runs, and the *
 
 **Agents** is the factory's roster. Create agents and edit their instructions, model or harness, runner, host, secrets, and MCP servers. **Automations** defines the triggers that start runs: a schedule (including custom cron expressions) or a GitHub, Linear, Slack, or Jira event.
 
-Environment is set in the factory definition, not the agent editor, and automations never override execution settings. When the factory's definition lives in an external repository, Agents, Automations, and Scorers are read-only; make changes there through pull requests.
+Environment is set in the factory definition, not the agent editor. The automation editor doesn't change execution settings either; an automation only overrides them through [execution overrides in the definition files](/factories/factory-as-code/#execution-overrides). When the factory's definition lives in an external repository, Agents, Automations, and Scorers are read-only; make changes there through pull requests.
 
 ## Edit definitions in the Factory definition tab
 
@@ -88,7 +88,15 @@ A Scorer is an LLM judge that classifies completed runs against a rubric you def
 
 ## Change factory settings
 
-**Settings** holds the configuration the factory owns: the factory's identity (its name, avatar, and [**Foreman name**](/factories/factory-as-code/#alias), the @-mention handle), the connected repos, whether pull requests are authored by the agent or the run creator (the definition's [`credentialStrategy`](/factories/factory-as-code/#credentialstrategy)), the **Analysis model** [Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement) uses to analyze failed runs, runners, the integrations accessible to this factory, and deletion. Deleting a factory cannot be undone.
+**Settings** holds the configuration the factory owns:
+
+* **Identity** - The factory's name, avatar, and [**Foreman name**](/factories/factory-as-code/#alias), the handle your team @-mentions.
+* **Repositories** - The repos the factory works in.
+* **Pull request authorship** - Whether pull requests are authored by the agent or the run creator (the definition's [`credentialStrategy`](/factories/factory-as-code/#credentialstrategy)).
+* **Analysis model** - The model [Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement) uses to analyze failed runs.
+* **Runners** - The compute the factory's runs execute on.
+* **Integrations** - The integrations this factory can access.
+* **Deletion** - Deletes the factory. This cannot be undone.
 
 For a file-managed factory, `runners/*.yaml` in the repository is the source of truth. Anything managed in an external repository is read-only in Settings.
 

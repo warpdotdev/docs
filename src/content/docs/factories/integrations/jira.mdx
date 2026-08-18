@@ -27,7 +27,7 @@ Connect Jira Cloud to your factory so your team can start factory work without l
 
    If you picked Jira projects when you created the factory, that automation already exists — edit it rather than adding a second one.
 
-   Prefer definitions as code? Declare the `jira` integration in the factory's `factory.yaml` (`integrations: [{type: jira}]`), then add a file under `automations/`, such as `automations/jira-assignment/automation.md`, with an `agent_session_created` trigger:
+   To set this up in code instead, declare the `jira` integration in the factory's `factory.yaml` (`integrations: [{type: jira}]`), then add a file under `automations/`, such as `automations/jira-assignment/automation.md`, with an `agent_session_created` trigger:
 
    ```markdown title="automations/jira-assignment/automation.md"
    ---
@@ -73,7 +73,7 @@ When the run finishes, the result appears in the agent session. The agent doesn'
 
 ## Permissions
 
-* **A bound Jira user becomes the run's creator, not its agent** - [Connect your Jira account to Warp](/platform/integrations/jira/#connecting-your-jira-account-to-warp) so a session you start is attributed to you; an unconnected account gets a prompt to connect instead of a run starting. Either way, the run executes as the agent selected by the automation, not as that Jira user.
+* **A connected Jira user becomes the run's creator, not its agent** - [Connect your Jira account to Warp](/platform/integrations/jira/#connecting-your-jira-account-to-warp) so a session you start is attributed to you; an unconnected account gets a prompt to connect instead of a run starting. Either way, the run executes as the agent selected by the automation, not as that Jira user.
 * **Jira access doesn't include code access** - Connecting Jira lets agents read and update Jira work items, nothing more. Repository access comes from the factory itself.
 
 ## Troubleshooting
@@ -83,4 +83,4 @@ When the run finishes, the result appears in the agent session. The agent doesn'
 * **The session shows no result** - Open the matching automation's run to see whether the agent is still working, waiting for input, or failed.
 * **A Jira update fails** - Confirm the app can access the work item's project and that the requested action or workflow transition is valid.
 
-For the other ways to route work into a factory, see [connecting your factory](/factories/connect-your-factory/).
+For the other ways to route work into a factory, see [Connect your factory](/factories/connect-your-factory/).

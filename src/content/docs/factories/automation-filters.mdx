@@ -2,7 +2,7 @@
 title: Automation filters
 description: >-
   Automation filters decide which events from connected tools start factory
-  runs — matching rules, per-source filters, and what they don't control.
+  runs: matching rules, per-source filters, and what filters don't control.
 sidebar:
   label: Automation filters
 ---
@@ -59,7 +59,7 @@ triggers:
   - provider: github
     event: issue_labeled
     filter:
-      repos: [ACME/PAYMENTS_SERVICE]
+      repos: [acme/payments-service]
       labels: [factory-ready]
 ---
 

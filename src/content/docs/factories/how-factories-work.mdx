@@ -41,7 +41,7 @@ flowchart LR
 ```
 
 * **Intake** - A work item enters from a [connected integration](/factories/connect-your-factory/), an automation, a direct run, or the [Factory MCP](/factories/factory-mcp/). It keeps its source context as it moves through later stages.
-* **Triage** - The triage agent researches the request, reproduces it when needed, and defines its scope and complexity. The foreman skips this stage when the request is already well bounded.
+* **Triage** - The triage agent researches the request, reproduces the problem when needed, and defines the scope and complexity of the change. The foreman skips this stage when the request is already well bounded.
 * **Specification** - The specification agent defines product behavior, technical constraints, and validation criteria. The foreman skips this stage for localized changes.
 * **Implementation** - The implementation agent makes the code change on a branch and opens a pull request with test and visual evidence.
 * **Review and verification** - The review agent checks the change against the requirements, tests, and security expectations, then sends findings back to implementation. Its verdict is advisory.
