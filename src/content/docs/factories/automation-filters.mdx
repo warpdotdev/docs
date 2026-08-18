@@ -5,7 +5,6 @@ description: >-
   runs — matching rules, per-source filters, and what they don't control.
 sidebar:
   label: Automation filters
-topic: factories
 ---
 
 Automation filters decide which events from your connected tools start factory work. Every trigger on a [factory automation](/factories/connect-your-factory/) carries filters — conditions such as a repository, channel, team, project, label, or author — and an event starts a run only when it matches them. Filters let a factory watch busy channels and repositories without acting on everything in them.
@@ -14,9 +13,9 @@ Automation filters decide which events from your connected tools start factory w
 
 An event starts an automation only when it matches the trigger's provider, its event type, and every filter set on that trigger:
 
-* **Every filter must match** - Filters combine with AND. A trigger that sets both a team and a label matches only events that carry both.
-* **Within a filter, any value matches** - Values combine with OR. A **Labels** filter listing `bug` and `regression` matches an issue that carries either label.
-* **An empty filter matches everything** - A filter you leave unset doesn't constrain matching, and a trigger with no filters starts work for every event of its type that the connection delivers.
+* **Every filter must match.** A trigger that sets both a team and a label matches only events carrying both.
+* **Within one filter, any value matches.** A **Labels** filter listing `bug` and `regression` matches an issue with either label.
+* **A filter you leave empty matches everything.** A trigger with no filters at all starts work for every event of its type.
 
 One event can match more than one automation, and each match starts its own run. If a single action starts duplicate runs, narrow or remove one of the overlapping triggers.
 

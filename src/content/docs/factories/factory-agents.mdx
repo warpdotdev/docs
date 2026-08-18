@@ -5,7 +5,6 @@ description: >-
   the work, plus triage, spec, implement, and review agents.
 sidebar:
   label: "Factory agents"
-topic: factories
 ---
 
 Every factory has a small team of agents, and each agent has a specific job. The foreman coordinates the work and holds one continuous conversation with the person who requested it; the other agents investigate, plan, build, and check the work. Together, they take a work item from the moment it reaches your factory to a finished pull request that's ready for a human to review.
@@ -76,7 +75,7 @@ Factory setup doesn't choose models for you. To change the model a role uses, ed
 Each role can run on its own model and harness. Supported harnesses include the Warp Agent harness, Claude Code, and Codex, and any role can use any of them. A foreman running on Claude Code or Codex can still dispatch the factory's other agents, and the runs it starts are still tracked as its children.
 
 :::note
-Third-party harnesses require a Build plan or higher. On the Free plan, every role runs on the Warp Agent harness. See [Warp pricing](https://www.warp.dev/pricing) for what each plan includes.
+Third-party harnesses require a Build plan or higher; on the Free plan every role runs on the Warp Agent harness. See [harnesses](/platform/harnesses/#plan-requirements).
 :::
 
 Default model IDs change over time, so choose based on what each role has to do well:

@@ -5,7 +5,6 @@ description: >-
   factory runs and return results in Jira.
 sidebar:
   label: Jira
-topic: factories
 ---
 import { VARS } from '@data/vars';
 
@@ -20,17 +19,13 @@ Connect Jira Cloud to your factory so your team can start factory work without l
 
 ## Connect Jira and add an automation
 
-1. Install the Warp app on your Jira site. In the <a href={`${VARS.WEB_APP_URL}/integrations`}>Integrations page of the {VARS.WEB_APP}</a>, find Jira and click **Set up**, then click **Get app** on the Atlassian installation page and install the app on your Jira Cloud site.
+1. **Install the Warp app on your Jira site and connect it to your Warp workspace.** The [Jira integration setup](/platform/integrations/jira/#setup) walks through both. Once connected, every factory in the workspace can use it. (That page's `warp-agent` label flow starts standalone cloud agent runs; factories skip the label and use an automation instead.)
 
-2. Connect the installation to your Warp workspace. In Jira, open **Manage apps** and open the Warp app's **Configure** page, then click **Connect to Warp** and sign in to Warp if prompted. The page shows **Connected to Warp** when the connection succeeds, and every factory in the workspace can then use it.
+2. **Connect Jira to this factory.** A workspace connection makes Jira available to your factories, but each one opts in separately: in the factory's **Settings**, connect **Jira** and select the projects that should trigger it.
 
-   The [Jira integration setup](/platform/integrations/jira/#setup) covers installation in more detail. The `warp-agent` label flow on that page starts standalone cloud agent runs; factories skip the label and start runs through an automation instead.
+3. **Point an automation at Jira.** In the factory's dashboard, open **Automations** and add a trigger for **Jira** > **Agent session created**. Use **Projects** and, optionally, **Keywords** to scope which sessions start a run, and choose the agent that handles them.
 
-3. Connect Jira to your factory. Connecting the workspace in step 2 makes Jira available to every factory in it, but each factory still needs its own connection: in the factory's **Settings** tab, find **Jira** and click **Connect** (or **Install** if the workspace itself isn't connected yet). Select the Jira projects that should trigger this factory, then click **Enable**. This declares the `jira` integration for the factory. Without it, **Jira** in the automation editor's **Add trigger** menu stays a disabled "not connected" entry that links back to this step.
-
-4. Add a Jira trigger to an automation. In the factory's dashboard, open **Automations**, then open an automation (or create a new one). Click **Add trigger**, choose **Jira**, and select **Agent session created**. Set **Projects** and, optionally, **Keywords** to scope which sessions start a run, then set the automation's agent to the one that should handle matching requests.
-
-   If you selected Jira projects when you created the factory, Warp already added an automation scoped to those projects; edit that automation instead of creating a second one.
+   If you picked Jira projects when you created the factory, that automation already exists — edit it rather than adding a second one.
 
    Prefer definitions as code? Declare the `jira` integration in the factory's `factory.yaml` (`integrations: [{type: jira}]`), then add a file under `automations/`, such as `automations/jira-assignment/automation.md`, with an `agent_session_created` trigger:
 
@@ -51,7 +46,7 @@ Connect Jira Cloud to your factory so your team can start factory work without l
 
    With this automation, the agent named `foreman` handles sessions for work items in the `ENG` project whose assignment text contains `investigate` or `fix`. Commit and push the files to apply them; see [definitions as code](/factories/factory-as-code/) for the full syntax.
 
-5. Save the automation, or commit and push the definition if you used definitions as code. Then test it: assign or mention **Warp** on a work item and include an instruction. Jira starts an agent session, and the run appears under the matching automation in your factory.
+4. **Test it.** Assign or mention **Warp** on a work item and include an instruction. Jira starts an agent session, and the run appears under the matching automation in your factory.
 
 ## Filter which sessions start runs
 
@@ -63,7 +58,7 @@ All Jira work reaches the factory through a single event, `agent_session_created
 A session must match every field you set; within a field, any listed value is a match. Omit a field to match everything. For the matching rules shared by every source, see [automation filters](/factories/automation-filters/).
 
 :::caution
-Filters like `project_keys` decide whether *your* automation starts a run; they aren't an access boundary. A Jira event is evaluated against every team's automations in the connected workspace, so another team's automation with a broader or different filter can still start its own run on the same work item. Installing the Warp app doesn't scope its Jira access to specific projects either.
+A Jira event is offered to every automation in the connected workspace, so another team's automation with a broader filter can start its own run on the same work item. Filters decide what *your* automation picks up, not who else can see the event — see [automation filters](/factories/automation-filters/#filters-route-work-they-dont-restrict-access).
 :::
 
 ## What happens during a run
@@ -79,7 +74,7 @@ When the run finishes, the result appears in the agent session. The agent doesn'
 ## Permissions
 
 * **A bound Jira user becomes the run's creator, not its agent** - [Connect your Jira account to Warp](/platform/integrations/jira/#connecting-your-jira-account-to-warp) so a session you start is attributed to you; an unconnected account gets a prompt to connect instead of a run starting. Either way, the run executes as the agent selected by the automation, not as that Jira user.
-* **Jira access doesn't include code access** - Connecting Jira lets agents read and update Jira work items, nothing more. Agents get repository access from the factory itself, and pull requests they open go through your usual review and merge process.
+* **Jira access doesn't include code access** - Connecting Jira lets agents read and update Jira work items, nothing more. Repository access comes from the factory itself.
 
 ## Troubleshooting
 

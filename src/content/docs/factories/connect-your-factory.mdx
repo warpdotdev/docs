@@ -83,7 +83,7 @@ See the [triggers overview](/platform/triggers/) for how schedules and other tri
 
 * **Follow-ups continue the same work item** - Replying in the same Slack thread, GitHub issue or pull request, Linear issue, or Jira agent session adds to the existing work item instead of starting a new one. Repeated event deliveries from a provider don't create duplicate work either.
 * **One issue tracker per factory** - A factory can use [Linear](/factories/integrations/linear/) or [Jira](/factories/integrations/jira/), or no tracker at all, but not both at once. The setup wizard currently offers Linear; to use Jira, connect it after setup or in your [factory definition](/factories/factory-as-code/).
-* **Filters route work; they don't restrict access** - Automation filters (repository, channel, team, project, label, author, or status) choose which requests start work. To limit what an integration can reach, change what you authorize for that provider instead. See [automation filters](/factories/automation-filters/) for the matching rules.
-* **The factory hands off at the pull request** - It pushes branches and opens pull requests with the repository credentials you configure, and waits for a human to review and merge. Branch protection and required reviews apply as usual.
+* **Filters route work; they don't restrict access** - Choosing which requests start work is separate from what a running agent can reach. See [automation filters](/factories/automation-filters/#filters-route-work-they-dont-restrict-access).
+* **The factory hands off at the pull request** - It pushes branches and opens pull requests, then waits for a person. See [what humans decide](/factories/how-factories-work/#what-humans-decide).
 
 Next, customize which agents receive work and how it's routed with [factory definitions as code](/factories/factory-as-code/).
