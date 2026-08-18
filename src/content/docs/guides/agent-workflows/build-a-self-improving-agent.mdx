@@ -1,7 +1,8 @@
 ---
 title: Build a self-improving agent
 description: >-
-  Build an outer improvement loop where a scheduled agent reviews past runs, learns from team corrections, and proposes skill file updates — so your factory gets better over time.
+  Build an outer loop where a scheduled agent reviews past runs, learns from
+  corrections, and proposes skill file updates.
 sidebar:
   label: "Build a self-improving agent"
 tags:
@@ -10,6 +11,7 @@ tags:
   - "cloud-agents"
   - "schedules"
 ---
+import { VARS } from '@data/vars';
 
 A self-improving agent is the outer loop of the [software factory](/guides/agent-workflows/set-up-a-software-factory) you've built in the previous guides. It watches how maintainers correct the inner-loop agents — relabeled issues, edited comments, changed code — and opens a pull request to improve the skill files that drive those agents. Every correction from a teammate becomes a proposed improvement to the factory.
 
@@ -23,7 +25,7 @@ The outer loop proposes improvements; it doesn't apply them silently. Every chan
 
 * A working inner loop with at least one agent running ([set up your software factory](/guides/agent-workflows/set-up-a-software-factory))
 * A Warp account ([sign up at warp.dev](https://www.warp.dev))
-* An Oz cloud environment with access to your repository ([create one](/platform/environments))
+* A cloud environment with access to your repository ([create one](/platform/environments))
 
 ## Why principles beat rules
 
@@ -82,7 +84,7 @@ The [`update-triage`](https://github.com/warpdotdev/oz-for-oss/blob/main/.agents
 
 Weekly is a good starting cadence: it processes the previous week's corrections and opens PRs for review at the start of the week.
 
-1. Create a scheduled cloud agent from the Oz CLI:
+1. Create a scheduled cloud agent from the {VARS.WARP_AGENT_CLI}:
 
    ```bash
    oz schedule create \
@@ -92,9 +94,9 @@ Weekly is a good starting cadence: it processes the previous week's corrections 
      --cron "0 9 * * 1"
    ```
 
-   Or, from the Oz web app: open **Agents** > **Schedules**, click **New schedule**, and set the skill, environment, and cron expression.
+   Or, from the {VARS.WEB_APP}: open **Agents** > **Schedules**, click **New schedule**, and set the skill, environment, and cron expression.
 
-2. Replace `YOUR_ENVIRONMENT_SLUG` with the slug of your Oz environment.
+2. Replace `YOUR_ENVIRONMENT_SLUG` with the slug of your {VARS.WARP_AUTOMATION_PLATFORM} environment.
 
 See [Scheduled agents](/platform/triggers/scheduled-agents) for the full reference.
 
@@ -118,9 +120,9 @@ Over time, the companion skill accumulates a clear description of how your team 
 
 ## Next steps
 
-* [What is a software factory?](/platform/software-factory) — How the outer improvement loop fits into the full factory model.
+* [Self-improvement in Warp Factories](/factories/measure-and-improve/#configure-and-review-self-improvement) — The managed version of this outer loop, run inside a factory.
 * [Set up your software factory](/guides/agent-workflows/set-up-a-software-factory) — The inner loop the outer loop improves.
-* [Run a software factory in the cloud](/guides/agent-workflows/run-a-software-factory-in-the-cloud) — Move the loop to Oz for team-wide visibility.
+* [Run a software factory in the cloud](/guides/agent-workflows/run-a-software-factory-in-the-cloud) — Move the loop to the {VARS.WARP_AUTOMATION_PLATFORM} for team-wide visibility.
 * [Scheduled agents](/platform/triggers/scheduled-agents) — Full reference for running cloud agents on a cadence.
 * [`warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss) — The complete reference implementation including all outer-loop skills.
-* [Skills](/agents/capabilities/skills) — How skill files work in Warp and Oz.
+* [Skills](/agents/capabilities/skills) — How skill files work in Warp and the {VARS.WARP_AUTOMATION_PLATFORM}.

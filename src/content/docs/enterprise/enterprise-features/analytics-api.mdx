@@ -6,8 +6,9 @@ description: >-
 sidebar:
   label: "Analytics API"
 ---
+import { VARS } from '@data/vars';
 
-The Enterprise Analytics API lets enterprise admins pull Warp usage data into their own dashboards, cost-allocation tooling, or audit pipelines. It exposes three read-only endpoints over HTTPS that return aggregated team metrics, per-user rollups, and message-level activity events for the agents your team runs in Warp and Oz.
+The Enterprise Analytics API lets enterprise admins pull Warp usage data into their own dashboards, cost-allocation tooling, or audit pipelines. It exposes three read-only endpoints over HTTPS that return aggregated team metrics, per-user rollups, and message-level activity events for the agents your team runs in Warp and the {VARS.WARP_AUTOMATION_PLATFORM}.
 
 :::note[Early access]
 The Enterprise Analytics API is in Early Access. It is available to all enterprise teams. To start collecting data for your team, an admin must open the Warp app and turn on **Enterprise Usage Reporting (Early Access)** in **Admin Panel** > **Privacy** — no usage data is recorded until that toggle is on.
@@ -28,7 +29,7 @@ Before you can call the API, your team must satisfy all of the following:
 
 * **Enterprise plan** - The Analytics API is available to all enterprise teams during Early Access; no separate enrollment is required.
 * **Admin role on the team** - Calls are rejected unless the authenticated user has admin-level permissions on the enterprise team. See [Roles and permissions](/enterprise/team-management/roles-and-permissions/).
-* **A personal Warp API key** - Authenticate requests with a key from **Settings** > **Cloud platform** > **Oz Cloud API Keys** in the Warp app. See [API Keys](/reference/cli/api-keys/) for step-by-step instructions. Agent API keys (including legacy team keys) are not accepted by these endpoints — only personal API keys belonging to a team admin work.
+* **A personal Warp API key** - Authenticate requests with a key from **Settings** > **Cloud platform** > **{VARS.WARP_AUTOMATION_PLATFORM} Cloud API Keys** in the Warp app. See [API Keys](/reference/cli/api-keys/) for step-by-step instructions. Agent API keys (including legacy team keys) are not accepted by these endpoints — only personal API keys belonging to a team admin work.
 * **Enterprise Usage Reporting toggle enabled** - In the Warp app, go to **Admin Panel** > **Privacy** and turn on **Enterprise Usage Reporting (Early Access)**. Until this toggle is on, no usage data is recorded for your team and the endpoints will return empty datasets even if every other prerequisite is met.
 
 :::caution
@@ -296,7 +297,7 @@ Any authenticated user with admin-level permissions on an enterprise team. Calls
 
 ### What kind of API key works?
 
-Only **personal** Warp API keys created by an admin from **Settings** > **Cloud platform** > **Oz Cloud API Keys**. Agent API keys (including legacy team keys) are explicitly rejected by these endpoints. See [API Keys](/reference/cli/api-keys/) for how to create one.
+Only **personal** Warp API keys created by an admin from **Settings** > **Cloud platform** > **{VARS.WARP_AUTOMATION_PLATFORM} Cloud API Keys**. Agent API keys (including legacy team keys) are explicitly rejected by these endpoints. See [API Keys](/reference/cli/api-keys/) for how to create one.
 
 ### Are these calls billed?
 

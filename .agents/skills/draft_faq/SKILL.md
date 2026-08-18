@@ -11,6 +11,14 @@ Draft an FAQ page with questions grouped by theme and answers that lead with a d
 
 Follow the workflow in `.warp/skills/draft_docs/SKILL.md`, using the **FAQ template** at `.warp/templates/faq.md`.
 
+## Frontmatter description
+
+One sentence, 50-160 characters, naming the topic area the questions cover.
+- ✅ `Answers to common questions about cloud agent billing, credits, and plan limits.`
+- ❌ `Frequently asked questions.`
+
+See "Descriptions by content type" under Frontmatter in `AGENTS.md` for the full rules.
+
 ## Content type rules
 
 These rules are specific to FAQ pages (from the "Drafting by content type" section of `AGENTS.md`):

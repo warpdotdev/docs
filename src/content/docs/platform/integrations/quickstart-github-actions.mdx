@@ -6,6 +6,7 @@ description: >-
 sidebar:
   label: "Quickstart"
 ---
+import { VARS } from '@data/vars';
 
 Add agents to your GitHub Actions workflows with [`oz-agent-action`](https://github.com/warpdotdev/oz-agent-action). This quickstart walks you through setting up your first GitHub Actions integration: a PR review workflow that automatically analyzes pull requests and posts inline review comments.
 
@@ -13,7 +14,7 @@ Add agents to your GitHub Actions workflows with [`oz-agent-action`](https://git
 
 ## Prerequisites
 
-* **Warp API key** - Create one in the [Oz web app](https://oz.warp.dev/settings). Use a personal key if the agent should commit as you, or an agent key (which runs as a [cloud agent](/platform/agents/) on your team) with [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization). See [API Keys](/reference/cli/api-keys/) for the full creation flow.
+* **Warp API key** - Create one in the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP}</a>. Use a personal key if the agent should commit as you, or an agent key (which runs as a [cloud agent](/platform/agents/) on your team) with [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization). See [API Keys](/reference/cli/api-keys/) for the full creation flow.
 * **A GitHub repository with Actions enabled** - The workflow file will live in `.github/workflows/` in your repo.
 
 ---
@@ -35,7 +36,7 @@ This workflow triggers an agent whenever a PR is opened or marked ready for revi
 Create `.github/workflows/oz-pr-review.yml` in your repository with the following content:
 
 ```yaml
-name: Oz PR review
+name: Warp PR review
 
 on:
   pull_request:
@@ -51,7 +52,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Review PR with Oz
+      - name: Review PR with Warp
         uses: warpdotdev/oz-agent-action@v1
         with:
           prompt: |
@@ -71,14 +72,14 @@ Create a new pull request in your repository to trigger the workflow.
 To verify the workflow ran:
 
 1. Go to the **Actions** tab in your repository.
-2. Click **Oz PR review** in the list of workflows.
+2. Click **Warp PR review** in the list of workflows.
 3. Select the most recent run to see the agent's output in the job logs.
 
 ## 4. View the run
 
-Each `oz-agent-action` step creates a cloud agent run you can inspect from the Oz dashboard:
+Each `oz-agent-action` step creates a run you can inspect from the {VARS.DASHBOARD}:
 
-* **Oz web app** - Go to the [Runs page in the Oz web app](https://oz.warp.dev/runs) to see the full run transcript: status, commands executed, files changed, and agent output. See [Viewing Cloud Agent Runs](/platform/viewing-cloud-agent-runs/) for a complete walkthrough.
+* **{VARS.WEB_APP}** - Go to the <a href={`${VARS.WEB_APP_URL}/runs`}>Runs page in the {VARS.WEB_APP}</a> to see the full run transcript: status, commands executed, files changed, and agent output. See [Viewing Cloud Agent Runs](/platform/viewing-cloud-agent-runs/) for a complete walkthrough.
 * **Warp app** - Open the conversations panel to see the run alongside your other agent activity.
 
 When the run completes, the agent posts feedback as inline review comments on the PR.

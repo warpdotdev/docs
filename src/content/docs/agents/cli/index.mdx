@@ -1,0 +1,55 @@
+---
+title: "Warp Agent CLI overview"
+description: >-
+  Run the Warp Agent in any terminal with the Warp Agent CLI. Prompt the agent,
+  run shell commands, and hand work off to cloud agents.
+---
+import { VARS } from '@data/vars';
+
+The {VARS.WARP_CLI} brings the Warp Agent from the Warp app to the terminal you already use. Run the `warp` command to start an agent conversation. You can prompt the agent in natural language, review and approve its actions, and run shell commands in the same input, without changing your terminal setup.
+
+## What is the Warp Agent CLI?
+
+The {VARS.WARP_CLI} is a standalone terminal program that runs [the Warp Agent](/platform/harnesses/warp-agent/), the same agent that powers the Warp app. It renders conversations as a scrolling transcript in your terminal, with streaming responses, code diffs, tool calls, and permission requests you approve inline.
+
+The CLI is also a native terminal multiplexer. It creates and maintains its own pseudoterminal (PTY), which lets you and the agent execute commands and interact with running processes through the same terminal, including prompts and full-screen terminal apps. Because it's a regular command-line program, it works in any terminal emulator, including over SSH.
+
+To get a working setup in a few minutes, follow the [quickstart](/agents/cli/quickstart/).
+
+## Key features
+
+* **[Agent conversations](/agents/cli/agent-conversations/)** - Follow the agent's work in a scrollable transcript with streamed responses, Markdown formatting, file-edit diffs, tool calls, plans, and task lists.
+* **[Shell commands](/agents/cli/input-and-shell-commands/#shell-mode)** - Run shell commands from the same input you use to prompt the agent, including long-running and interactive ones.
+* **[Permissions and profiles](/agents/cli/permissions-and-profiles/)** - Approve commands and file edits from inline request cards, or configure execution profiles and auto-approve.
+* **[Persistent conversations](/agents/cli/agent-conversations/#managing-conversations)** - Conversations save to your Warp account, so you can exit and resume later or switch between them.
+* **[Cloud handoff and orchestration](/agents/cli/cloud-and-orchestration/)** - Hand off a conversation to a cloud agent, continue cloud runs in the CLI, and coordinate multiple agents.
+* **[Project context](/agents/cli/configuration/#project-context-and-rules)** - The agent automatically picks up your project's rules (like `AGENTS.md`), skills, and MCP servers.
+* **[Model choice](/agents/cli/models-and-usage/)** - Pick a model per conversation, bring your own provider API keys, and track credit usage.
+* **[Customization](/agents/cli/configuration/)** - Configure themes, the statusline, and the start screen through a local settings file.
+
+## How it relates to the Warp app and cloud agents
+
+* **The Warp app** - The CLI runs the same [Warp Agent](/platform/harnesses/warp-agent/) harness as the Warp app, so your account, plan, model access, rules, and skills work the same in both. The CLI doesn't require the Warp app to be installed.
+* **{VARS.WARP_AUTOMATION_PLATFORM}** - The {VARS.WARP_AUTOMATION_PLATFORM} is Warp's programmable platform for running and coordinating agents at scale. The CLI connects to the same platform. Conversations sync to your Warp account, and you can hand work off to [cloud agents](/agents/cli/cloud-and-orchestration/) or continue a cloud run from your terminal.
+
+## Checking your account, plan, and billing
+
+The CLI has slash commands for the account details you'd otherwise look up in the Warp app or the {VARS.WEB_APP}.
+
+* **Session and account status** - Run `/status` to open a read-only panel with the installed version, the current conversation's name and ID, the working directory, and the organization and email you're signed in as. Press `Esc` to close it. Include these details when you report a problem.
+* **Upgrade your plan** - Run `/upgrade` to open Warp's upgrade page in your browser.
+* **Manage team billing** - Run `/manage-billing` to open your team's billing page in your browser. The command is listed only when you administer billing for your team.
+
+For how usage is metered as you work, see [models and usage](/agents/cli/models-and-usage/#usage-and-cost).
+
+## Coming from the Warp app
+
+If you already use the Warp app, most of your setup carries over. Rules and skills are discovered from the same shared paths, and your saved Warp Drive prompts are available after you log in (other Warp Drive object types aren't available in the CLI). To copy compatible settings and global MCP server configurations, run the bundled `/tui-migrate-setup` skill and follow the agent's instructions. Credentials are never copied, so MCP servers that require authentication must be reauthenticated in the CLI.
+
+## Next steps
+
+* [Quickstart](/agents/cli/quickstart/) - Install the CLI, log in, run your first prompt, and see the supported platforms.
+* [Agent conversations](/agents/cli/agent-conversations/) - Learn how the transcript, diffs, and approvals work.
+* [Input and shell commands](/agents/cli/input-and-shell-commands/) - Compose prompts and run shell commands from the same input.
+* [Configuration](/agents/cli/configuration/) - Customize the CLI with the settings file.
+* [Reference](/agents/cli/reference/) - Flags, slash commands, and keyboard shortcuts.

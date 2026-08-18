@@ -11,6 +11,14 @@ Draft a conceptual documentation page that explains what a feature or concept is
 
 Follow the workflow in `.warp/skills/draft_docs/SKILL.md`, using the **conceptual template** at `.warp/templates/conceptual.md`.
 
+## Frontmatter description
+
+One sentence, 50-160 characters, saying what the concept is and why it matters. Start with the subject.
+- ✅ `Environments give cloud agents the same toolchain and setup on every run, no matter what triggers them.`
+- ❌ `Learn about environments and why they are useful.`
+
+See "Descriptions by content type" under Frontmatter in `AGENTS.md` for the full rules.
+
 ## Content type rules
 
 These rules are specific to conceptual pages (from the "Drafting by content type" section of `AGENTS.md`):

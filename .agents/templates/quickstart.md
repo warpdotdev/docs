@@ -1,7 +1,9 @@
 ---
 description: >-
-  [1-2 sentences: what the reader will accomplish + time estimate.
-  Example: "Learn how to run your first cloud agent in ~10 minutes."
+  [One sentence, 50-160 characters: what the reader ends up with, plus the time budget.
+  Start with an imperative verb, not "Learn how to" or "Get started with."
+  Example: "Install the {{WARP_AGENT_CLI}}, log in, and run your first agent conversation in about five minutes."
+  See AGENTS.md > Frontmatter > Descriptions by content type for the full rules.
   Use {{TOKEN}} syntax here for any product names that have a var in src/data/vars.ts.]
 ---
 [VARS: Add this line immediately after the closing --- above if this page references any product names from src/data/vars.ts. Then use {VARS.KEY} for those names in the prose below.

@@ -1,13 +1,14 @@
 ---
 title: "Managed: Direct backend"
 description: >-
-  Run the Oz managed worker with the Direct backend to execute cloud agent
+  Run the {{WARP_AUTOMATION_PLATFORM}} managed worker with the Direct backend to execute cloud agent
   tasks directly on the host, without Docker or Kubernetes.
 sidebar:
   label: "Managed: Direct"
 ---
+import { VARS } from '@data/vars';
 
-Run the `oz-agent-worker` daemon with the **Direct backend** — tasks execute directly on the worker host without Docker or Kubernetes. Oz still orchestrates runs end to end (Slack, Linear, schedules, API, `oz agent run-cloud`); the worker just runs the agent in a per-task workspace on its own filesystem.
+Run the `oz-agent-worker` daemon with the **Direct backend** — tasks execute directly on the worker host without Docker or Kubernetes. The {VARS.WARP_AUTOMATION_PLATFORM} still orchestrates runs end to end (Slack, Linear, schedules, API, `oz agent run-cloud`); the worker just runs the agent in a per-task workspace on its own filesystem.
 
 :::note
 This page covers the [managed architecture](/platform/self-hosting/#managed-architecture) with the Direct backend. For container-based task isolation, see [Managed: Docker](/platform/self-hosting/managed-docker/) or [Managed: Kubernetes](/platform/self-hosting/managed-kubernetes/). For invocation-driven use cases, see [Unmanaged](/platform/self-hosting/unmanaged/).
@@ -38,8 +39,8 @@ The Direct backend does not provide per-task container isolation. Each task runs
 
 * **Enterprise plan with self-hosting enabled** — [Contact sales](https://www.warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
 * **A worker host** with write access to `workspace_root` (defaults to `/var/lib/oz/workspaces`).
-* **The Oz CLI** installed and available in `PATH` on the worker host (or specify `oz_path` in the config file). See [Installing the CLI](/reference/cli/#installing-the-cli).
-* **An agent API key** — Create one in the [Oz web app](https://oz.warp.dev/settings) so the worker can authenticate to Oz. You can bind the key to any cloud agent — that choice doesn't restrict which agents can run on the worker. See [API Keys](/reference/cli/api-keys/) for the full creation flow.
+* **The {VARS.WARP_AGENT_CLI}** installed and available in `PATH` on the worker host (or specify `oz_path` in the config file). See [Installing the CLI](/reference/cli/#installing-the-cli).
+* **An agent API key** — Create one in the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP}</a> so the worker can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}. You can bind the key to any cloud agent — that choice doesn't restrict which agents can run on the worker. See [API Keys](/reference/cli/api-keys/) for the full creation flow.
 
 ---
 
@@ -47,7 +48,7 @@ The Direct backend does not provide per-task container isolation. Each task runs
 
 ### 1. Set your API key
 
-Export the API key so the worker can authenticate to Oz:
+Export the API key so the worker can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}:
 
 ```bash
 export WARP_API_KEY="your_agent_api_key"
@@ -70,7 +71,7 @@ backend:
     workspace_root: "/var/lib/oz/workspaces"
 ```
 
-**Expected outcome:** The worker connects to Oz and begins listening for tasks. Each assigned task runs in a freshly-created subdirectory of `workspace_root`.
+**Expected outcome:** The worker connects to the {VARS.WARP_AUTOMATION_PLATFORM} and begins listening for tasks. Each assigned task runs in a freshly-created subdirectory of `workspace_root`.
 
 ---
 

@@ -2,8 +2,10 @@
 title: [Feature or concept name — sentence case. Title convention: noun or "About [subject]". The title field renders as the page H1; do not add a separate H1 in the body.
   Use {{TOKEN}} syntax for any product names in src/data/vars.ts.]
 description: >-
-  [1-2 sentences: what the concept/feature is + why it matters.
-  Write as a standalone summary for search results. Lead with user benefit.
+  [One sentence, 50-160 characters: what the concept is and why it matters.
+  Start with the subject, not "Learn about" or "This page covers."
+  Example: "Environments give cloud agents the same toolchain and setup on every run, no matter what triggers them."
+  See AGENTS.md > Frontmatter > Descriptions by content type for the full rules.
   Use {{TOKEN}} syntax for any product names in src/data/vars.ts.]
 ---
 [VARS: Add this line immediately after the closing --- above if this page references any product names from src/data/vars.ts. Then use {VARS.KEY} for those names in the prose below.
@@ -13,10 +15,10 @@ See AGENTS.md → Content variables for the full variable list and usage rules.]
 [Opening paragraph: What this feature/concept is and its primary benefit.
 1-3 sentences. Lead with what the user gains from understanding this.]
 
-## [Key concepts or components — sentence case. Rename to match the subject]
+## [Key concepts or components — sentence case, specific to the subject. Not "Overview", "More details", or "Other"]
 
 [Explain the main ideas, components, or building blocks the reader needs
-to understand. Use bulleted lists with bold term + dash + description.]
+to understand. Use `*` bulleted lists with bold term + hyphen + description.]
 
 * **Concept A** - What it is and why it matters.
 * **Concept B** - What it is and why it matters.
@@ -37,8 +39,9 @@ Help the reader decide if this is the right tool for their situation.]
 
 ## Related pages
 
-[Cross-references to related features, procedural guides, and deeper references.
-Use descriptive link text.]
+[Required on new conceptual pages so the page does not dead-end.
+Cross-reference related features, procedural guides, and deeper references.
+Use descriptive link text that names the destination — not "here" or "this page".]
 
 * [Related feature](path/to/page.md)
 * [How to configure X](path/to/procedural-page.md)

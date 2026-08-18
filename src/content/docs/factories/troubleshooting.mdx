@@ -1,0 +1,94 @@
+---
+title: Troubleshooting Warp Factories
+description: >-
+  Fix factory setup problems, events that don't start work, and runs that
+  stall or need stopping.
+sidebar:
+  label: "Troubleshooting"
+---
+import { VARS } from '@data/vars';
+
+This page covers the problems teams hit most often when setting up a factory and running their first work through it. Each entry names the symptom you'd see in the {VARS.FACTORY_WEB_APP}.
+
+## Setting up a factory
+
+### You don't have access to Warp Factories
+
+**Cause:** Warp Factories is in Early Access and enabled per team.
+
+**Fix:** [Request access](https://www.warp.dev/factories/request-access) for your team. If a teammate already has it, ask a team admin to confirm you're on that team.
+
+### A repository doesn't appear in the picker
+
+**Cause:** The code host connection doesn't cover the repository.
+
+**Fix:**
+
+1. Confirm the connection includes the repository and the intended organization or group. See the [GitHub](/factories/integrations/github/) and [GitLab](/factories/integrations/gitlab/) integration guides for how each connection is scoped.
+2. If you can't update it yourself, ask a GitHub organization owner, a GitLab group owner, or a Warp team admin to extend the connection.
+
+### Setup stops at an agent limit
+
+**Cause:** Your team's plan limits how many factory agents it can run.
+
+**Fix:**
+
+1. Ask a team admin to confirm the team's capacity.
+2. If the team needs more agents, [contact sales](https://www.warp.dev/contact-sales).
+
+## Work isn't starting
+
+### An event that should start work doesn't
+
+**Cause:** Nearly always an automation that doesn't match the event, rather than a broken connection.
+
+**Fix:**
+
+1. Confirm the automation is enabled and its trigger's event type matches what happened.
+2. Check every filter on the trigger. Filters combine with AND, so a single mismatched repository, label, author, or state stops the routing. See [automation filters](/factories/automation-filters/#troubleshooting).
+3. Confirm the source is connected to *this* factory. Connecting a provider to your workspace doesn't attach it to every factory in that workspace.
+
+Then check the causes specific to where the work came from:
+
+| Source | Common causes |
+| --- | --- |
+| [Slack](/factories/integrations/slack/#troubleshooting-and-reconnection) | The app isn't in the channel, installation is pending admin approval, or your Slack account isn't linked to a Warp team member |
+| [GitHub](/factories/integrations/github/#troubleshooting) | The app installation doesn't cover the repository, or the factory's routing label is missing |
+| [GitLab](/factories/integrations/gitlab/#troubleshooting) | The mention was an edit rather than a new comment, or your plan doesn't include the group webhooks that deliver events |
+| [Linear](/factories/integrations/linear/#troubleshooting) | The agent session needs a linked Warp account, or teams and filters don't match |
+| [Jira](/factories/integrations/jira/#troubleshooting) | The Warp app isn't connected to your workspace, or project and keyword filters don't match |
+
+### One action starts two runs
+
+**Cause:** Two automations match the same event — commonly an app-mention trigger and a channel-message trigger pointed at the same place.
+
+**Fix:** Narrow or remove one of the overlapping triggers so a single path owns each kind of request. See [how matching works](/factories/automation-filters/#how-matching-works).
+
+## Runs and work items
+
+### You need to stop a run
+
+**Fix:** Open **Activity** in your factory's [dashboard](/factories/factory-dashboard/), select the work item, and click **Stop task**. It takes effect immediately, with no confirmation prompt.
+
+### A work item looks stuck
+
+**Cause:** The factory is often waiting on a person rather than failing. By default it pauses for spec approval, for answers to clarifying questions, and at the pull request.
+
+**Fix:**
+
+1. Open the work item on **Activity** and read its event history to see which agent ran last.
+2. Use **View agent** to open that agent's session, where a question waiting on a human is visible and answerable.
+3. If the run is still active, you can steer it directly. See [cloud agent session sharing](/platform/viewing-cloud-agent-runs/).
+
+### No pull request appears
+
+**Cause:** The factory can't push, or the work never reached implementation.
+
+**Fix:** Confirm that the **Code** agent is enabled on the factory, that the code host connection still grants write access to the target repository, and that the work item actually reached the implementation stage. Branch protection rules apply to everything the factory pushes.
+
+## Related pages
+
+* [**Warp Factories quickstart**](/factories/quickstart/) - Create a factory and submit your first work item.
+* [**Connect your factory**](/factories/connect-your-factory/) - Route work in from Slack threads, Linear issues, and other intake paths.
+* [**Automation filters**](/factories/automation-filters/) - The matching rules that decide which events start work.
+* [**Factory dashboard**](/factories/factory-dashboard/) - Where to watch work items, runs, and their outputs.

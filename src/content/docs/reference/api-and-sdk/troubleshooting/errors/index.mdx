@@ -1,12 +1,13 @@
 ---
 title: Errors Overview
 description: >-
-  Reference for all error codes returned by the Oz platform API. Each error
+  Reference for all error codes returned by the {{API_SDK_NAME}}. Each error
   includes an HTTP status, machine-readable code, and actionable resolution
   steps.
 ---
+import { VARS } from '@data/vars';
 
-When the Oz platform API encounters an error, it returns a structured JSON response following [RFC 7807 (Problem Details for HTTP APIs)](https://datatracker.ietf.org/doc/html/rfc7807). Every error response includes a machine-readable error code, a human-readable message, and metadata to help you diagnose and resolve the issue.
+When the {VARS.API_SDK_NAME} encounters an error, it returns a structured JSON response following [RFC 7807 (Problem Details for HTTP APIs)](https://datatracker.ietf.org/doc/html/rfc7807). Every error response includes a machine-readable error code, a human-readable message, and metadata to help you diagnose and resolve the issue.
 
 ---
 
@@ -86,6 +87,6 @@ When an error response includes a `trace_id`, you can include it when [contactin
 
 ## Related
 
-* [Oz API & SDK](/reference/api-and-sdk/) — API reference for creating and managing agent tasks
+* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) — API reference for creating and managing agent tasks
 * [Cloud Agents Overview](/platform/) — How cloud agents work
 * [Access, Billing, and Identity](/platform/team-access-billing-and-identity/) — Plan requirements and billing details

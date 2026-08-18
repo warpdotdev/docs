@@ -6,11 +6,12 @@ description: >-
 sidebar:
   label: "Unmanaged"
 ---
+import { VARS } from '@data/vars';
 
 With the unmanaged architecture, **you orchestrate agent runs** by invoking `oz agent run` directly from your existing CI pipelines, Kubernetes pods, VMs, or dev boxes. The agent runs on whatever host the command is executed from; Warp tracks the session for you but does not start or stop agents.
 
 :::note
-Unmanaged is the right choice if you already have a system that schedules work (CI, internal orchestrators, cron, dev environments). If you'd rather have Oz trigger and route runs from Slack, Linear, schedules, or the API, use the [managed architecture](/platform/self-hosting/#managed-architecture) instead.
+Unmanaged is the right choice if you already have a system that schedules work (CI, internal orchestrators, cron, dev environments). If you'd rather have the {VARS.WARP_AUTOMATION_PLATFORM} trigger and route runs from Slack, Linear, schedules, or the API, use the [managed architecture](/platform/self-hosting/#managed-architecture) instead.
 :::
 
 ## When to use unmanaged
@@ -28,12 +29,12 @@ Unmanaged works on any platform Warp supports (Linux, macOS, Windows) with no de
 
 _~5 minutes_
 
-No Docker, no worker daemon, no environment required — just the Oz CLI on any host that can reach the internet.
+No Docker, no worker daemon, no environment required — just the {VARS.WARP_AGENT_CLI} on any host that can reach the internet.
 
 ### Prerequisites
 
-* **The Oz CLI** installed on the machine where agents will run. See [Installing the CLI](/reference/cli/#installing-the-cli) for platform-specific instructions.
-* **A Warp API key** — For automation, create an agent API key in the [Oz web app](https://oz.warp.dev/settings). See [API Keys](/reference/cli/api-keys/) for personal vs. agent guidance.
+* **The {VARS.WARP_AGENT_CLI}** installed on the machine where agents will run. See [Installing the CLI](/reference/cli/#installing-the-cli) for platform-specific instructions.
+* **A Warp API key** — For automation, create an agent API key in the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP}</a>. See [API Keys](/reference/cli/api-keys/) for personal vs. agent guidance.
 
 ### 1. Authenticate
 
@@ -51,7 +52,7 @@ Invoke `oz agent run` in the directory where you want the agent to operate. The 
 oz agent run --prompt "Refactor the authentication module" --share team
 ```
 
-**Expected outcome:** The agent starts immediately in the current working directory, and a tracked session appears in the [Oz dashboard](https://oz.warp.dev).
+**Expected outcome:** The agent starts immediately in the current working directory, and a tracked session appears in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>.
 
 ### 3. Control sharing
 
@@ -120,9 +121,9 @@ Whether Kubernetes pods provide sufficient sandboxing for agents depends on your
 
 Unmanaged agents are tracked on Warp's backend. Each run creates a persistent session that your team can:
 
-* **View** in the [Oz dashboard](https://oz.warp.dev).
+* **View** in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>.
 * **Attach to** via [Agent Session Sharing](/agents/local-agents/session-sharing/) to monitor or steer.
-* **Query** through the [Oz API/SDK](/reference/api-and-sdk/) for custom dashboards or monitoring.
+* **Query** through the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) for custom dashboards or monitoring.
 
 Unmanaged sessions benefit from the same shared configuration as other cloud agent runs — [MCP servers](/platform/mcp/), [secrets](/platform/secrets/), Warp Drive context, and saved prompts all apply.
 
@@ -135,5 +136,5 @@ Unmanaged runs don't ship with the bundled declarations script, so end-of-run wo
 * [Self-hosting overview](/platform/self-hosting/) — Compare managed and unmanaged, plus the architecture decision guide.
 * [GitHub Actions integration](/platform/integrations/github-actions/) — Run agents in CI with the official action.
 * [Deployment patterns](/platform/deployment-patterns/) — Pattern 1 (CLI-only) explains the unmanaged model conceptually.
-* [Oz CLI](/reference/cli/) — Full CLI reference for `oz agent run` and related commands.
+* [{VARS.WARP_AGENT_CLI}](/reference/cli/) — Full CLI reference for `oz agent run` and related commands.
 * [Agent Session Sharing](/agents/local-agents/session-sharing/) — Attach to running sessions to monitor or steer them.

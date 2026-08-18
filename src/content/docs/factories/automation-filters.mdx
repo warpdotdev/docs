@@ -1,0 +1,80 @@
+---
+title: Automation filters
+description: >-
+  Automation filters decide which events from connected tools start factory
+  runs: matching rules, per-source filters, and what filters don't control.
+sidebar:
+  label: Automation filters
+---
+
+Automation filters decide which events from your connected tools start factory work. Every trigger on a [factory automation](/factories/connect-your-factory/) carries filters — conditions such as a repository, channel, team, project, label, or author — and an event starts a run only when it matches them. Filters let a factory watch busy channels and repositories without acting on everything in them.
+
+## How matching works
+
+An event starts an automation only when it matches the trigger's provider, its event type, and every filter set on that trigger:
+
+* **Every filter must match.** A trigger that sets both a team and a label matches only events carrying both.
+* **Within one filter, any value matches.** A **Labels** filter listing `bug` and `regression` matches an issue with either label.
+* **A filter you leave empty matches everything.** A trigger with no filters at all starts work for every event of its type.
+
+One event can match more than one automation, and each match starts its own run. If a single action starts duplicate runs, narrow or remove one of the overlapping triggers.
+
+## Filters route work; they don't restrict access
+
+Filters decide when work starts, not what a running agent can reach. Access comes from what you authorize on each provider — the GitHub App installation, the GitLab bot's project membership, the Slack app's authorization, the Linear OAuth scope, or the Jira app installation. Tightening a filter never shrinks that access, and removing one never widens it. To change what an integration can reach, change what you authorize for that provider.
+
+Filters are still your main control over who starts runs. On GitHub and GitLab, the event author doesn't need to be a Warp team member, so use author, member, and branch filters to decide whose activity starts work. Slack mentions and direct messages additionally require a Slack account linked to a member of the factory's Warp team.
+
+## What each source can filter on
+
+Every source filters on where the event happened — a repository, project, conversation, or team. The remaining filters vary by source and event type:
+
+| Source | Filters |
+| --- | --- |
+| [Slack](/factories/integrations/slack/) | Conversations, authors or members, keywords, emoji, and reacted-message authors |
+| [GitHub](/factories/integrations/github/) | Repository, branches, base branches, paths, labels, authors, assignees, mentioned users or teams, reviewers, review states, workflows, and conclusions |
+| [GitLab](/factories/integrations/gitlab/) | Project, actions, and base branch |
+| [Linear](/factories/integrations/linear/) | Teams, labels, project, workflow state, assignee, mentioned user, and, for comment events, a specific issue |
+| [Jira](/factories/integrations/jira/) | Jira projects and assignment keywords |
+
+Each integration guide lists which filters appear on which event types.
+
+## Edit filters on an automation
+
+1. In the factory's dashboard, open **Automations**, then create an automation or edit an existing one.
+2. Under **Triggers**, open a trigger and set the filters shown for its event. Click **More filters** for the event-specific options.
+3. Click **Save**. To confirm the routing works, send a matching test event, such as opening a test issue, and check that a work item starts in the factory dashboard.
+
+Review the default automations Warp creates when you connect a provider, too: their filters are starting points, not fixed rules.
+
+## Filters in definitions as code
+
+In a [factory definition](/factories/factory-as-code/), each entry under an automation's `triggers` takes an optional `filter` whose keys mirror the filters in the automation editor:
+
+```markdown title="automations/labeled-issue/automation.md"
+---
+enabled: true
+agent: foreman
+triggers:
+  - provider: github
+    event: issue_labeled
+    filter:
+      repos: [acme/payments-service]
+      labels: [factory-ready]
+---
+
+Review the labeled issue and decide the next required stage.
+```
+
+The same matching rules apply: every key must match, any listed value within a key matches, and an omitted key matches everything. Each integration guide shows the keys its provider accepts.
+
+## Troubleshooting
+
+* **A matching event doesn't start work** - Confirm the automation is enabled and the trigger's event type matches, then check every filter; a single mismatch prevents routing. Each integration guide's troubleshooting section covers provider-specific causes, such as app installation coverage.
+
+## Related pages
+
+* [Connect your factory](/factories/connect-your-factory/) - Choose the sources that route work into the factory.
+* [Slack](/factories/integrations/slack/), [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), [Linear](/factories/integrations/linear/), and [Jira](/factories/integrations/jira/) integration guides - Per-source setup, events, and filter details.
+* [Definitions as code](/factories/factory-as-code/) - Manage automations, triggers, and filters as version-controlled files.
+* [Factory dashboard](/factories/factory-dashboard/) - Create and edit automations in the factory's **Automations** view.

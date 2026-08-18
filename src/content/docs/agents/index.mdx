@@ -1,52 +1,85 @@
 ---
 title: Agents overview
 description: >-
-  Oz is the orchestration platform for cloud agents, powering both interactive
-  and autonomous agents for development workflows.
+  The Warp Agent runs commands in a real terminal, carries your context across
+  every surface, and works interactively or in the background.
 ---
+import { VARS } from '@data/vars';
+import VideoEmbed from '@components/VideoEmbed.astro';
 
-Warp includes **Oz**, the orchestration platform that powers all of Warp's agents. Oz runs interactive agents locally inside Warp for real-time coding assistance and deploys autonomous agents in the cloud for background automation, event-driven workflows, and parallel execution across repos and teams.
+The **Warp Agent** is Warp's built-in coding agent. It works through multi-step tasks on its own, running commands in a real terminal and using the output to decide what to do next. You stay in the loop, approving actions and reviewing diffs before anything lands.
 
-Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL), so the editor and terminal that host your agents are fully auditable. See [Contributing to Warp](/support-and-community/community/contributing/) for the source and contribution flow.
-
-With Oz, you can:
-
-* Run interactive agent conversations in Warp for real-time coding assistance
-* Deploy autonomous agents that run in the cloud from triggers, schedules, or integrations
-* Coordinate multiple agents concurrently across machines, repos, and teams
-* Track, audit, and share agent activity with full visibility into what ran and what it did
-
-Oz is fully programmable—launch agents manually or build custom logic around them with triggers, schedules, environments, and your choice of hosting (Warp's cloud or your own).
+This page covers where to run the agent, the third-party CLI agents Warp supports, and the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/), which runs and coordinates agents at scale.
 
 ---
 
-## Key capabilities
+## Where to use the Warp Agent
 
-* [**Local Agents**](/agents/local-agents/overview/) - Interactive agents embedded in Warp. Use natural language to write code, debug issues, run commands, and automate development tasks with full terminal access.
-* [**Third-party CLI agents**](/agents/cli-agents/overview/) - Use Claude Code, Codex, OpenCode, and other CLI coding agents in Warp with rich input, notifications, code review, and remote session control.
-* [**Cloud Agents**](/platform/) - Autonomous agents that run in the background in response to system events, schedules, or integrations.
-* [**Integrations**](/platform/integrations/) - Connect external system events to autonomous agent execution. Use [Slack](/platform/integrations/slack/), [Linear](/platform/integrations/linear/), [GitHub Actions](/platform/integrations/github-actions/), and other integrations to trigger agents in the cloud.
-* [**Oz Platform**](/platform/overview/) - The underlying infrastructure that powers Oz, including the CLI, API/SDK, orchestration layer, environments, secrets, and management/observability.
+You reach the same agent three ways. Which one you pick depends on where you're working, not on what the agent can do.
 
----
-
-## Getting started
-
-* [**Agents in Warp**](/agents/getting-started/agents-in-warp/) - Start using agents interactively in Warp
-* [**Oz web app**](https://oz.warp.dev) - Create runs, manage schedules, browse skills, and configure integrations
-* [**Oz CLI**](/reference/cli/) - Run agents from the command line, in CI, or on remote machines
-* [**Oz API & SDK**](/reference/api-and-sdk/) - Programmatically create and monitor agent runs
+* **In the Warp app** - The full experience, with code review, agent management, and the terminal beside your conversation.
+* [**In any terminal, with the Warp Agent CLI**](/agents/cli/) - Run the `warp` command to start a conversation in any terminal emulator, over SSH, or on a machine where the Warp app isn't installed.
+* [**In the cloud, as a cloud agent**](/platform/) - Run the agent in the background from a trigger, a schedule, or an integration, without keeping a session open. Cloud agents run on the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/), Warp's platform for environments, triggers, orchestration, and observability.
 
 ---
 
-## Learn more
+## What makes the Warp Agent different
 
-* [Warp Agents overview](/agents/local-agents/overview/) - Interactive agents in Warp
-* [Third-party CLI agents](/agents/cli-agents/overview/) - Claude Code, Codex, OpenCode, and more
-* [Cloud Agents overview](/platform/) - Background agents for automation at scale
-* [Agent Capabilities](/agents/capabilities/) - Skills, planning, MCP, rules, and more
-* [Oz Platform](/platform/overview/) - CLI, API/SDK, orchestration, environments, and hosts
-* [Environments](/platform/environments/) - Configure execution context for cloud agents
-* [Integrations](/platform/integrations/) - Slack, Linear, GitHub Actions, and custom integrations
-* [Skills as Agents](/platform/skills-as-agents/) - Run agents from reusable skill definitions
-* [Managing Cloud Agents](/platform/managing-cloud-agents/) - Monitor and manage agent activity
+* **It works in a real terminal** - The agent runs shell commands, reads live output, and drives interactive programs like REPLs, database shells, and full-screen apps. See [Full terminal use](/agents/capabilities/full-terminal-use/).
+* **Your context follows it everywhere** - [Rules](/agents/capabilities/rules/), [Skills](/agents/capabilities/skills/), [MCP servers](/agents/capabilities/mcp/), and [Codebase Context](/agents/capabilities/codebase-context/) apply the same way in the app, the CLI, and the cloud.
+* **Interactive or delegated, and you can switch mid-task** - Steer a conversation while it runs, or [hand it off](/platform/handoff/) to a cloud agent and pick it back up locally when it's done.
+* **You approve before anything lands** - The agent asks before it runs commands, edits files, or calls MCP servers. Set how much it does on its own with [Agent Profiles and permissions](/agents/capabilities/agent-profiles-permissions/), and review generated changes in [interactive code review](/agents/local-agents/interactive-code-review/).
+* **Many agents at once** - Run several conversations in parallel and track them in the [Agent Management Panel](/platform/managing-cloud-agents/), or use [orchestration](/platform/orchestration/) to have a parent agent spawn and coordinate children.
+
+<VideoEmbed url="https://youtu.be/qiQtD1jPF6s" title="Agent Mode Overview" />
+
+**Try this prompt** — [_open in Warp_](https://app.warp.dev/drive/prompt/Clone-and-install-Warps-themes-repository-PkK9Zw16SCD3JKzOUoGuj4)
+
+```text
+Detect my current operating system. Based on that, navigate to the appropriate Warp themes directory (e.g. ~/.warp/ on macOS). 
+
+Then, clone the official Warp themes repository using SSH (git@github.com:warpdotdev/themes.git) into that directory, following the structure and instructions provided in the repo's README. If SSH does not work, try HTTPS (https://github.com/warpdotdev/themes.git) or via the GitHub CLI (gh repo clone warpdotdev/themes).
+```
+---
+
+## Third-party CLI agents
+
+Separately from the Warp Agent, Warp gives third-party CLI coding agents first-class support. Run Claude Code, Codex, OpenCode, and others inside Warp and get rich input, agent notifications, inline code review, and remote session control.
+
+→ [Learn about third-party CLI agents](/agents/cli-agents/overview/)
+
+---
+
+## The platform behind the agent
+
+The [**{VARS.WARP_AUTOMATION_PLATFORM}**](/platform/overview/) is Warp's programmable system for running and coordinating agents at scale. It provides the environments, triggers, integrations, orchestration, and observability that cloud agents run on, along with a CLI, API, and SDK for driving agents programmatically.
+
+To automate an entire workflow rather than a single task, use [Warp Factories](/factories/). Built on the {VARS.WARP_AUTOMATION_PLATFORM}, a factory runs a team of cloud agents that triage, spec, implement, review, and verify work.
+
+The {VARS.WARP_AUTOMATION_PLATFORM} tab covers the platform in full.
+
+---
+
+## Privacy and security
+
+Warp is **SOC 2 compliant** and has **Zero Data Retention** policies with all contracted LLM providers. No customer AI data is retained, stored, or used for training.
+
+You can disable Warp's AI features entirely in **Settings** > **Agents** > **Warp Agent**.
+
+→ [Read more about data privacy](https://www.warp.dev/privacy)
+
+---
+
+## Where to go next
+
+* [**Interacting with agents**](/agents/local-agents/interacting-with-agents/) - Conversations, context, code review, and voice in the Warp app.
+* [**Agent capabilities**](/agents/capabilities/) - Planning, skills, rules, MCP servers, task lists, and model choice.
+* [**Warp Agent CLI quickstart**](/agents/cli/quickstart/) - Install the CLI and run your first conversation.
+* [**Cloud agents quickstart**](/platform/quickstart/) - Run your first agent in the cloud, or put one on a [schedule](/platform/triggers/scheduled-agents/). For a comparison of triggers across schedules, Slack, Linear, GitHub Actions, the CLI, and the API, see [Run unattended agents](/guides/agent-workflows/how-to-run-unattended-agents/).
+* [**Agent FAQs**](/agents/getting-started/faqs/) - Models, privacy, credits, and limits.
+
+---
+
+## Open source
+
+Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL), so the editor and terminal that host your agents are fully auditable. See [Contributing to Warp](/support-and-community/community/contributing/).

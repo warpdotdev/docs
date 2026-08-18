@@ -6,6 +6,7 @@ description: >-
   The request conflicts with the current state of the resource. Wait for the
   resource to reach the expected state and retry.
 ---
+import { VARS } from '@data/vars';
 
 The `conflict` error occurs when a request cannot be completed because the resource is in a state that conflicts with the requested operation.
 
@@ -56,4 +57,4 @@ For task cancellation specifically, wait until the task moves from **pending** t
 ## Related
 
 * [Managing Cloud Agents](/platform/managing-cloud-agents/) — Viewing and managing agent tasks
-* [Oz API & SDK](/reference/api-and-sdk/) — API reference for managing agent tasks
+* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) — API reference for managing agent tasks

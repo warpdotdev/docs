@@ -1,16 +1,17 @@
 ---
 title: "Managed: Kubernetes backend"
 description: >-
-  Deploy the Oz managed worker into a Kubernetes cluster with the included
+  Deploy the {{WARP_AUTOMATION_PLATFORM}} managed worker into a Kubernetes cluster with the included
   Helm chart. Each agent task runs as a Kubernetes Job in your cluster.
 sidebar:
   label: "Managed: Kubernetes"
 ---
+import { VARS } from '@data/vars';
 
-Deploy the `oz-agent-worker` daemon into a Kubernetes cluster using the included Helm chart. Each agent task runs as a **Kubernetes Job** in your cluster. Oz orchestrates runs end to end (Slack, Linear, schedules, API, `oz agent run-cloud`); your cluster provides the compute, scheduling, and policy enforcement.
+Deploy the `oz-agent-worker` daemon into a Kubernetes cluster using the included Helm chart. Each agent task runs as a **Kubernetes Job** in your cluster. The {VARS.WARP_AUTOMATION_PLATFORM} orchestrates runs end to end (Slack, Linear, schedules, API, `oz agent run-cloud`); your cluster provides the compute, scheduling, and policy enforcement.
 
 :::note
-This page covers the [managed architecture](/platform/self-hosting/#managed-architecture) with the Kubernetes backend. For the default Docker backend, see [Managed: Docker](/platform/self-hosting/managed-docker/). For host execution without a container runtime, see [Managed: Direct](/platform/self-hosting/managed-direct/). To route runs to a connected worker, see [Routing runs to self-hosted workers](/platform/self-hosting/managed-docker/#routing-runs-to-self-hosted-workers).
+This page covers the [managed architecture](/platform/self-hosting/#managed-architecture) with the Kubernetes backend. For the default Docker backend, see [Managed: Docker](/platform/self-hosting/managed-docker/). For host execution without a container runtime, see [Managed: Direct](/platform/self-hosting/managed-direct/). To route runs to a connected worker, see [Routing runs to this worker](/platform/self-hosting/managed-docker/#routing-runs-to-this-worker).
 :::
 
 ## When to use the Kubernetes backend
@@ -38,7 +39,7 @@ This page covers the [managed architecture](/platform/self-hosting/#managed-arch
   * Allow the worker's namespace to create Jobs with a **root init container** (sidecar materialization depends on this pattern).
   * Grant the worker these namespace-scoped permissions: `create`, `get`, `list`, `watch`, `delete` on `jobs`; `get`, `list`, `watch` on `pods`; `get` on `pods/log`; `list` on `events`.
 * **[Helm](https://helm.sh/docs/intro/install/)** installed locally, plus `kubectl` authenticated against the target cluster.
-* **An agent API key** — Create one in the [Oz web app](https://oz.warp.dev/settings) so the worker can authenticate to Oz. You can bind the key to any cloud agent — that choice doesn't restrict which agents can run on the worker. See [API Keys](/reference/cli/api-keys/) for the full creation flow.
+* **An agent API key** — Create one in the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP}</a> so the worker can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}. You can bind the key to any cloud agent — that choice doesn't restrict which agents can run on the worker. See [API Keys](/reference/cli/api-keys/) for the full creation flow.
 
 ---
 
@@ -267,7 +268,7 @@ See [Monitoring](/platform/self-hosting/monitoring/) for the full list of Helm v
 
 * [Self-hosted worker reference](/platform/self-hosting/reference/) — Full CLI flag and config file schema, including every Kubernetes backend field.
 * [Self-hosting overview](/platform/self-hosting/) — Managed vs unmanaged and the backend decision guide.
-* [Routing runs to self-hosted workers](/platform/self-hosting/#routing-runs-to-self-hosted-workers) — How to send tasks to your connected worker from the CLI, schedules, integrations, the API, and the web UI.
+* [Routing runs to this worker](/platform/self-hosting/#routing-runs-to-self-hosted-workers) — How to send tasks to your connected worker from the CLI, schedules, integrations, the API, and the web UI.
 * [Environments](/platform/environments/) — Define the task image, repos, and setup commands.
 * [Monitoring](/platform/self-hosting/monitoring/) — OpenTelemetry metrics, including Helm chart metrics values.
 * [Security and networking](/platform/self-hosting/security-and-networking/) — RBAC, admission policies, and data boundaries.

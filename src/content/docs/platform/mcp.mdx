@@ -6,6 +6,7 @@ description: >-
 sidebar:
   label: "MCP servers"
 ---
+import { VARS } from '@data/vars';
 
 Cloud agents can call external tools through [Model Context Protocol (MCP) servers](/agents/capabilities/mcp/). This lets agents reach beyond the terminal to automatically interact with systems like GitHub, dbt, Sentry, or any custom internal service, whenever the workflow requires it.
 
@@ -45,7 +46,7 @@ Each MCP server entry is keyed by a name you choose. A server config must have *
 * **`url`** — HTTP or HTTPS endpoint URL (streamable HTTP or SSE transport)
 * **`headers`** — HTTP headers sent with requests (only valid with `url`)
 
-You may define any number of MCP servers in a single config.
+You can define any number of MCP servers in a single config.
 
 ### Example configuration
 
@@ -66,7 +67,7 @@ You may define any number of MCP servers in a single config.
 ```
 
 :::note
-If the config passes through a system that pre-processes `{{...}}` before it reaches Oz (for example, Jira/Atlassian Automation), use JSON unicode escapes for the braces: `\u007b\u007bMY_SECRET\u007d\u007d` decodes to `{{MY_SECRET}}`, which Oz resolves normally.
+If the config passes through a system that pre-processes `{{...}}` before it reaches the {VARS.WARP_AUTOMATION_PLATFORM} (for example, Jira/Atlassian Automation), use JSON unicode escapes for the braces: `\u007b\u007bMY_SECRET\u007d\u007d` decodes to `{{MY_SECRET}}`, which the {VARS.WARP_AUTOMATION_PLATFORM} resolves normally.
 :::
 
 ## Using MCP servers in an agent config file

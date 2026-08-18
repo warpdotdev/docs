@@ -59,7 +59,7 @@ Avoid words that are ambiguous between singular and plural.
 - **Serial comma**: Always use it. "Environments, integrations, and schedules" — not "Environments, integrations and schedules."
 - **Contractions**: Allowed and encouraged to match our approachable tone. Use "you're," "don't," "it's," "can't." Exception: avoid contractions in error messages or formal warnings.
 - **Tense**: Use present tense to describe how things work ("Warp indexes your codebase"). Use imperative for instructions ("Configure your environment").
-- **Person**: Use second person ("you") for instructions. Avoid first person plural ("we") in procedural content. First person is acceptable in conceptual or narrative text when referring to Warp as a company ("We designed Oz to...").
+- **Person**: Use second person ("you") for instructions. Avoid first person plural ("we") in procedural content. First person is acceptable in conceptual or narrative text when referring to Warp as a company ("We designed the Automation Platform to...").
 
 ### Inclusive language
 - Use gender-neutral pronouns ("they/them") for unknown users
@@ -94,16 +94,48 @@ Every page must include YAML frontmatter with a `description` field.
 ```yaml
 ---
 description: >-
-  A concise 1-2 sentence summary that explains what the page covers and
-  what value it provides to the reader.
+  One sentence, 50-160 characters, stating what the reader gets from this page.
 ---
 ```
 
-Write descriptions as standalone summaries that would make sense in a search result. Lead with the user benefit, include key terms for the topic.
-- ✅ `description: Environments ensure your cloud agents run with consistent toolchains across all triggers. Learn when to use environments and how to configure them.`
+The `description` field is the meta description in search results and the snippet AI engines read before deciding whether to cite the page. Write it as a standalone summary for someone who has never seen the page.
+- ✅ `description: Environments give cloud agents the same toolchain and setup on every run, no matter what triggers them.`
 - ❌ `description: This page describes environments.`
 
-The `description` field is used as the meta description in search results — write it as a summary that would make someone click.
+#### Description rules
+These apply to every page, regardless of content type.
+- **One sentence, 50-160 characters.** Search engines truncate past roughly 160. Two sentences almost always overshoot the budget, so prefer one that earns its length.
+- **Cut filler openers.** "Learn about," "This page covers," "A guide to," and "Documentation for" spend characters without adding meaning. Start with the verb or the subject instead.
+- **Describe what the reader gets, not what the page is.** "This page explains X" is always weaker than explaining X.
+- **Lead with the primary keyword** when it reads naturally, ideally within the first few words.
+- **Match the page's actual scope.** A description that promises more than the page delivers reads as a bait-and-switch in search results.
+
+#### Descriptions by content type
+Every description answers "what will I get from this page?" The shape of that answer depends on the type.
+- **Conceptual** - Say what the thing is and why it matters. Start with the subject.
+  - ✅ `Environments give cloud agents the same toolchain and setup on every run, no matter what triggers them.`
+  - ❌ `Learn about environments and why they are useful.`
+- **Procedural** - Say what task the reader will complete. Start with an imperative verb.
+  - ✅ `Connect Slack to the Automation Platform so mentions and channel messages can trigger cloud agent runs.`
+  - ❌ `This page explains the Slack integration setup process.`
+- **Quickstart** - Say what the reader ends up with, plus the time budget. Start with an imperative verb.
+  - ✅ `Install the Warp Agent CLI, log in, and run your first agent conversation in about five minutes.`
+  - ❌ `Get started with the Warp Agent CLI.`
+- **Reference** - Say what the reader can look up. Name the artifacts rather than the genre.
+  - ✅ `Look up Warp Agent CLI flags, environment variables, slash commands, and keyboard shortcuts.`
+  - ❌ `Reference documentation for the Warp Agent CLI.`
+- **Troubleshooting** - Name the symptoms covered, not the act of troubleshooting.
+  - ✅ `Fix sign-in failures, failed conversation resumes, and update problems in the Warp Agent CLI.`
+  - ❌ `Troubleshooting information for common problems.`
+- **FAQ** - Name the topic area the questions cover.
+  - ✅ `Answers to common questions about cloud agent billing, credits, and plan limits.`
+  - ❌ `Frequently asked questions.`
+- **Feature documentation** - Say what the feature does and its primary benefit.
+  - ✅ `Control what the agent can do with permission cards, auto-approve, and execution profiles.`
+  - ❌ `Documentation for permissions and profiles.`
+- **Guide** - Say what the reader will build or accomplish, using the non-branded phrasing they would search for.
+  - ✅ `Set up Claude Code and run your first agentic coding session from the terminal.`
+  - ❌ `A guide to using Claude Code with Warp.`
 
 ### Headers
 - Use sentence case for all headers (not title case)
@@ -196,15 +228,17 @@ Use screenshots to clarify product surfaces, configuration points, or visual sta
 Use consistent screenshot widths so docs pages feel visually balanced. Crop unnecessary empty space before resizing, then choose the closest standard size.
 
 **Standard widths:**
-- **Large screenshots: default content width** — Use normal `<figure>` or Markdown image rendering for full-window, full-pane, or broad product-surface screenshots where the surrounding layout matters. In legacy GitBook screenshots, this was usually `563px`.
+- **Full content width: 736px** — Use for wide screenshots whose content cannot be cropped narrower without clipping, such as full-width terminal strips, wide status bars, and wide tables. `736px` equals the content column (`46rem`, set on `.main-pane .sl-container` in `src/styles/custom.css`), so it renders the same as omitting `maxWidth`. Set it explicitly anyway: it records that the width is deliberate rather than forgotten, and the style lint treats a missing width as an error. Reach for this tier only when a narrower size would make text illegible.
+- **Large screenshots: 563px** — The default for full-window, full-pane, or broad product-surface screenshots where the surrounding layout matters. This was the usual width in legacy GitBook screenshots. Prefer this over `736px` unless the content genuinely needs the extra room.
 - **Medium screenshots: ~375px** — Use for narrow UI surfaces such as popovers, command menus, side panes, dropdowns, and focused interaction flows. This is the preferred constrained size for most small Warp UI screenshots.
 - **Small screenshots: ~300-350px** — Use for tightly cropped controls, chips, buttons, tooltips, and small menus. Use a smaller width only when the UI remains legible and the crop is intentionally compact.
 
 **Rules:**
 - **Avoid arbitrary widths** — Choose the nearest standard size instead of one-off values. If a screenshot needs a different size, the reason should be clear from the UI being shown.
 - **Keep sequences consistent** — Screenshots in the same section or step sequence should use the same width unless they show meaningfully different UI surfaces.
-- **Preserve legibility** — Text in the screenshot must remain readable at the chosen size on the docs page.
-- **Prefer the default figure size for large screenshots** — Only constrain width when the screenshot is a narrow UI element that looks oversized at full content width.
+- **Preserve legibility** — Text in the screenshot must remain readable at the chosen size on the docs page. This rule outranks the preference for a smaller tier: if text is unreadable at `563px`, move up to `736px` rather than shipping an illegible image.
+- **Crop before widening** — Widening is the last resort. First crop out empty space and anything that is not the subject, and re-capture at a narrower terminal or window size if you can. Only step up a tier when the content itself sets the floor, as with a status bar that clips instead of reflowing.
+- **Prefer the default figure size for large screenshots** — Only constrain width below `563px` when the screenshot is a narrow UI element that looks oversized at full content width.
 
 #### Image caption guidelines
 Captions orient the reader — they identify what the image shows so the reader knows where to look. They are not a place for instructions, marketing language, or exhaustive descriptions.
@@ -597,7 +631,7 @@ Use these terms consistently throughout all documentation. For the full canonica
 Product feature names retain their standard capitalization. Match the exact casing shown in the UI.
 
 - **Warp** (not "Warp Terminal" unless specifically distinguishing)
-- **Agent** or **Agents** (capitalized when referring to Warp's AI agents)
+- **agent** / **agents** (lowercase) - the generic concept, covering any agent on any surface. See [Capitalizing "agent"](#capitalizing-agent) for the full rule.
 - **Agent Mode** (not "agent mode" or "Agent-mode")
 - **Terminal and Agent modes** - The two distinct modes in Warp: terminal mode (for shell commands) and Agent Mode (for multi-turn agent conversations). Use "Terminal and Agent modes" on first reference; use "terminal mode" or "Agent Mode" individually in subsequent references. Do not use "agent modality" or "Agent Modality" — this was an internal name that is not user-facing.
 - **Cloud Agents** (capitalized as a product section/feature name; lowercase "cloud agents" in most contexts)
@@ -605,26 +639,57 @@ Product feature names retain their standard capitalization. Match the exact casi
 - **Codebase Context** - Warp indexes your Git-tracked codebase to help Agents understand your code.
 - **Admin Panel** - Team management surface for controlling members, roles, and billing.
 - **Agent Management Panel** - Interface for viewing and managing running agents (not "agent dashboard" or "agent manager").
-- **Agent Memory** - Persistent, cross-harness memory layer for Oz agents that captures durable facts, decisions, and outcomes across conversations (currently in research preview). Capitalize as a feature name; use lowercase "memory store" for individual stores.
+- **Agent Memory** - Persistent, cross-harness memory layer for cloud agents that captures durable facts, decisions, and outcomes across conversations (currently in research preview). Capitalize as a feature name; use lowercase "memory store" for individual stores.
 - **Handoff** - Feature for moving agent work between a local Warp session and the cloud, or continuing a finished cloud run; supports local-to-cloud, cloud-to-cloud, and cloud-to-local. Capitalize as a feature name; lowercase "hand off" only as a verb.
 
-### Oz terminology
+### Capitalizing "agent"
 
-#### Warp Agent vs Oz
+This is the single most drifted term in the docs, so the rule is narrow on purpose.
+
+- **Warp Agent** - Capitalized, singular, treated as a proper noun. Use it for Warp's built-in agent harness, especially when contrasting with third-party agents (Claude Code, Codex, and so on) or when referencing the Settings label (**Settings** > **Agents** > **Warp Agent**).
+- **In prose, it takes the definite article: "the Warp Agent".** The bare form is for headings, sidebar labels, page titles, and the Settings path. "Runs the Warp Agent" reads correctly; "runs Warp Agent" reads as a different product.
+- **agent** / **agents** - Lowercase everywhere else. This is the generic concept and covers any agent on any surface, including cloud agents and third-party CLI agents.
+- **Proper nouns keep their capital A.** `Agent Mode`, `Agent Profiles`, `Agent Memory`, `Agent Management Panel`, `Agent API`, and `Warp Agent CLI` are feature names, not instances of the generic term.
+
+❌ **Avoid "Warp's agent" and "Warp's agents".** This is the ambiguous middle ground and the main source of drift. It reads as neither the proper noun nor the generic term, so it blurs exactly the distinction that matters. Rewrite instead:
+
+- Referring to the built-in harness → "the Warp Agent"
+- Referring to agents generally → "agents" or "agents in Warp"
+- Referring to the server-side runtime → "the Warp Agent harness"
+
+✅ "The Warp Agent can run commands and edit files." (the built-in harness)
+✅ "Profiles control how agents behave." (generic)
+❌ "Profiles control how Warp's agents behave." (ambiguous)
+❌ "Warp's agent can run commands." (ambiguous)
+
+### Automation Platform terminology
+
+Renamed from "Oz" on 2026-08-18. The `oz` CLI binary and the Oz v1 web app at `oz.warp.dev` keep the Oz name until 2026-09-15 and are not stale in the meantime. See `.agents/references/terminology.md` → "What still says Oz" for the full holdout list.
+
+#### The article rule
+"Oz" was a proper noun and read correctly bare. "Automation Platform" is a common-noun phrase, so it needs a definite article in referential positions. This is the most common mistake when writing about the platform.
+
+- **Referential** (subject, object, possessor) takes "the": "with the Automation Platform", "The Automation Platform provides", "the Automation Platform's backend".
+- **Attributive** (modifying a following noun) stays bare: "Automation Platform settings", "Automation Platform-hosted", "Automation Platform overview".
+
+Write the name as `{VARS.WARP_AUTOMATION_PLATFORM}` in body prose or `{{WARP_AUTOMATION_PLATFORM}}` in frontmatter, never as a literal string, and keep the article outside the token. `style_lint` enforces both halves: `hardcoded-var` catches the literal, `platform-determiner` catches the missing article.
+
+#### Warp Agent vs the Automation Platform
 - **Warp Agent** — Warp's built-in agent harness. Use "Warp Agent" when specifically referring to the built-in harness, especially when contrasting with third-party agents (Claude Code, Codex, etc.), or when referencing the Settings label (**Settings** > **Agents** > **Warp Agent**).
-- **Oz** — Warp's programmable platform for running and coordinating agents at scale
-- There is typically one Warp environment per user session. Oz can run many agents concurrently, across machines, repos, and teams.
+- **The Automation Platform is the platform, not the agent.** Never introduce it as "Warp's agent" or equate the two. The Automation Platform runs and coordinates agents; the Warp Agent is the agent.
+- **Automation Platform** — Warp's programmable platform for running and coordinating agents at scale
+- There is typically one Warp environment per user session. The Automation Platform can run many agents concurrently, across machines, repos, and teams.
 
 #### Core terms
 - **agent** - A combination of agent instructions (skill or prompt), trigger (cron, webhook, manual), environment (local, cloud), profile, and host. Agents can be local or cloud. Use lowercase "agent" in most contexts; use "Warp Agent" only when referring specifically to the built-in Warp harness.
 - **cloud agent** - An agent running in the cloud, from a trigger, schedule, or started from someone's local machine
 - **subagent** - A child agent created by a parent agent to parallelize or delegate work
 - **conversation** - An interactive execution lifecycle within the Warp Terminal, regardless of whether it's local or in the cloud
-- **Oz** - Warp's programmable platform for running and coordinating agents at scale
-- **Oz run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based.
+- **Automation Platform** - Warp's programmable platform for running and coordinating agents at scale
+- **cloud agent run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based. Use `{VARS.PLATFORM_RUN}`. On factory-specific pages, write "factory run" directly.
 - **Environment** - The execution context for an agent, including repo access, dependencies, secrets, compute, and runtime configuration
-- **Oz dashboard** - The app surface to manage all Oz runs, unified across the Warp app and web
-- **Oz web app** - The web app for configuring agents and managing runs
+- **cloud agent dashboard** - The app surface to manage all runs, unified across the Warp app and web. Use `{VARS.DASHBOARD}`. On factory-specific pages, write "factory dashboard" directly.
+- **Oz web app** - The web app for configuring agents and managing runs. Holds the Oz name until 2026-09-15; use `{VARS.WEB_APP}`.
 
 #### Oz CLI commands
 - `oz agent run` - Run a local agent
@@ -636,9 +701,12 @@ Product feature names retain their standard capitalization. Match the exact casi
 - `oz run list/get` - Get info on cloud agent runs
 
 #### Preferred phrases
-- ✅ "Ask Oz to..."
-- ✅ "Oz can help you..."
-- ✅ "What would you like Oz to do?"
+The platform is not something you address — it runs and coordinates agents, and the agent is what you ask. The older "Ask Oz to..." phrasings worked only because "Oz" was doing double duty as both platform and assistant, which the rename ended.
+
+- ✅ "Ask the agent to..."
+- ✅ "Run an agent on the Automation Platform"
+- ✅ "The Automation Platform can run this on a schedule"
+- ❌ "Ask the Automation Platform to..." — you ask an agent, not a platform
 
 #### Terms to avoid
 - ❌ "Oz agent" / "Oz agents" → Use "agent" / "agents" (or "Warp Agent" / "Warp Agents" when referring to the built-in harness)
@@ -653,6 +721,23 @@ Product feature names retain their standard capitalization. Match the exact casi
 - ❌ "Ambient Agents" / "ambient agents" → Use "Cloud Agents" / "cloud agents" ("ambient" is no longer a product term)
 - ❌ "Agent Modality" or "agent modality" → Use "Terminal and Agent modes" (this was an internal name, not user-facing)
 - ❌ "agent identity" / "agent identities" → Use "agent," "agents," or "cloud agent(s)" in user-facing copy. Use legacy API names such as `agent_identity_uid` or `/agent/identities` only when documenting the exact field, path, or compatibility behavior.
+- ❌ A bare "Automation Platform" in a referential position → Add "the". See [The article rule](#the-article-rule).
+- ❌ The literal string "Automation Platform" in prose → Use `{VARS.WARP_AUTOMATION_PLATFORM}` / `{{WARP_AUTOMATION_PLATFORM}}`.
+
+### Warp Factories terminology
+
+This works like GitHub Actions. **Warp Factories** is the product and is always written in full. An individual **factory** is a common noun and is always lowercase. A bare capitalized **Factory** is never a proper noun.
+
+- ✅ "Warp Factories is in Early Access" (the product)
+- ✅ "your factory", "each factory's agents", "factory dashboard", "factory run", "factory agents"
+- ❌ "the Factory", "your Factory", "Factory runs", "Factory metrics"
+- ❌ "Factories" on its own to mean the product → write "Warp Factories"
+
+Sentence-initial capitals are positional, not proper nouns — a heading or sidebar label may begin "Factory agents" for the same reason it would begin "Cloud agents." The rule governs mid-sentence prose. `style_lint` enforces it with the `factory-proper-noun` check.
+
+**Exceptions, quoted as they ship:** **Factory MCP** is the feature's own name (the server registers as `warp-factory`). Verbatim UI strings — **Factory name**, **Foreman name**, **Factory integrations**, **Add your Factory to your team**, "Factory running!", and the **Factory definition** sidebar label — are quoted as the app renders them.
+
+See `.agents/references/terminology.md` → "Warp Factories terminology" for the full glossary.
 
 ### Technical terms
 - **AI** (not "A.I.")
@@ -715,8 +800,9 @@ Add the key-value pair to `src/data/vars.ts` only. Both Option A (TypeScript imp
 All documentation should be written with search discoverability in mind — both for traditional search engines (Google) and AI engines (ChatGPT, Gemini, Perplexity, Copilot).
 
 ### Frontmatter descriptions
-- Every page must have a `description` in frontmatter. Write it as a standalone summary (50-160 characters) that includes the primary keyword naturally.
+- Every page must have a `description` in frontmatter. Write it as a standalone summary (one sentence, 50-160 characters) that includes the primary keyword naturally.
 - Descriptions appear in search results and AI citations. Write for humans, but include the key terms a developer would search for.
+- For the full rules and per-content-type patterns with examples, see [Frontmatter](#frontmatter) under Content structure. That section is the source of truth.
 
 ### Title framing
 - For guides and educational content: capture the **non-branded query** when possible. Write the title a developer would actually search for.
@@ -731,7 +817,7 @@ When creating or updating content, use SEO and AEO data to inform titles, descri
 
 Before publishing any documentation, verify:
 
-- [ ] Frontmatter includes a clear, 1-2 sentence description written as a standalone summary
+- [ ] Frontmatter includes a one-sentence description (50-160 chars) written as a standalone summary, with no filler opener
 - [ ] Content type is identified and the page follows the structure for that type (see `.warp/templates/`)
 - [ ] Headers use sentence case (with proper feature name capitalization)
 - [ ] Lists use bold term + dash + explanation format

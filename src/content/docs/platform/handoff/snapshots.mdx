@@ -7,6 +7,7 @@ description: >-
 sidebar:
   label: "Snapshots"
 ---
+import { VARS } from '@data/vars';
 
 Workspace snapshots are how [handoff](/platform/handoff/) carries repository changes and other workspace state across cloud agent runs. At the end of every cloud agent run, Warp asks a small declarations script which repositories and files to snapshot, then uploads the resulting git diffs and file contents so the next cloud agent run can apply them.
 
@@ -230,4 +231,4 @@ Snapshotting is also skipped automatically when cloud conversations are disabled
 * [Handoff from cloud to cloud](/platform/handoff/cloud-to-cloud/) - Continue a finished cloud run; the prior session's workspace snapshot is what gets restored.
 * [Self-hosting overview](/platform/self-hosting/) - Architecture decision guide for self-hosted workers, where customizing snapshots is most often needed.
 * [Unmanaged architecture](/platform/self-hosting/unmanaged/) - Run `oz agent run` in CI, Kubernetes, or your dev environment outside the bundled image.
-* [Oz CLI](/reference/cli/) - Full reference for `oz agent run` and `oz agent run-cloud`.
+* [{VARS.WARP_AGENT_CLI}](/reference/cli/) - Full reference for `oz agent run` and `oz agent run-cloud`.
