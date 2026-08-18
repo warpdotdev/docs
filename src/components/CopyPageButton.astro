@@ -9,7 +9,13 @@
  */
 import { VARS } from '@data/vars';
 
-const IMPORT_LINE = /^import\s+[^\n]*?from\s+['"][^'"]+['"];?\s*$/gm;
+// Not global, and applied line by line from the top of the file rather than
+// across the whole body: an MDX component import only ever appears in the
+// leading block, while a code sample can legitimately contain the same shape.
+// A global replace ate `import OpenAI from "openai";` out of the Node example
+// in guides/external-tools/how-to-set-up-ollama.mdx, so the copied snippet no
+// longer ran.
+const IMPORT_LINE = /^import\s+[^\n]*?from\s+['"][^'"]+['"];?\s*$/;
 // The optional leading `$` matters: MDX authors write `{VARS.KEY}` in prose but
 // `${VARS.KEY}` inside JSX template literals, e.g. href={`${VARS.WEB_APP_URL}/runs`}.
 // Matching only the braces leaves the dollar behind and yields `$https://...`.
@@ -44,13 +50,24 @@ const { body, title, agentPrompt } = Astro.props;
  * fix is for this button to fetch the page's own `.md` URL on click rather than
  * carry a second copy of the content.
  */
+/** Drops the leading `import` block, stopping at the first line of content. */
+function stripLeadingImports(source: string): string {
+  const lines = source.split('\n');
+  let start = 0;
+  while (
+    start < lines.length &&
+    (lines[start].trim() === '' || IMPORT_LINE.test(lines[start]))
+  ) {
+    start++;
+  }
+  return lines.slice(start).join('\n');
+}
+
 function resolveMdxSource(source: string): string {
   const vars = VARS as unknown as Record<string, string>;
-  return source
-    .replace(IMPORT_LINE, '')
+  return stripLeadingImports(source)
     .replace(PROSE_TOKEN, (match, key) => vars[key] ?? match)
-    .replace(FRONTMATTER_TOKEN, (match, key) => vars[key] ?? match)
-    .replace(/^\n+/, '');
+    .replace(FRONTMATTER_TOKEN, (match, key) => vars[key] ?? match);
 }
 
 const markdownContent = `# ${title}\n\n${resolveMdxSource(body)}`;

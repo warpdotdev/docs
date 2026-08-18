@@ -38,7 +38,7 @@ Whether platform credits apply depends on where the agent runs and who's paying 
 
 ### Uses platform credits
 
-* **Cloud agents on any plan** use platform credits for every cloud agent run, regardless of which agent runs the task (Warp Agent, Claude Code, or Codex), inference source (Warp-managed, BYOK, or BYOLLM), or compute source (Warp-hosted or self-hosted workers). Warp's platform infrastructure coordinates every cloud agent run.
+* **Cloud agents on any plan** use platform credits for every cloud agent run, regardless of which agent runs the task (Warp Agent, Claude Code, or Codex), inference source (Warp-managed, BYOK, or BYOLLM), or compute source (Warp-hosted or self-hosted workers). Warp's platform infrastructure coordinates every cloud agent run. [Warp Factories](/factories/) runs are cloud agent runs, so a factory's agents draw platform credits the same way.
 * **Local agents on Business or Enterprise with customer-supplied inference** use platform credits when the local agent run uses [BYOK](/agents/inference/bring-your-own-api-key/), a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or BYOLLM. Warp isn't paying for the model call, but Warp's platform infrastructure is still running the local agent. BYOK and customer-supplied inference are subject to plan-size eligibility — see the callout above.
 
 ### Doesn't use platform credits
