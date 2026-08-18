@@ -50,7 +50,7 @@ Both paths end in the same state: Linear is connected to your factory, and a def
 
 ## Route agent sessions
 
-When someone mentions, assigns, or delegates the Warp app on an issue, Linear starts an agent session. The default automation created when you connected Linear routes new sessions from your selected teams to the factory, so assigning an issue or tagging the factory in a comment is enough to start work. If a session doesn't match any automation, the [Linear integration](/platform/integrations/linear/) handles it with its default behavior.
+When someone mentions, assigns, or delegates the Warp app on an issue, Linear starts an agent session. The default automation created when you connected Linear routes new sessions from your selected teams to the factory, so assigning an issue or tagging the factory in a comment is enough to start work. The factory takes precedence for the teams its automations cover: a matching session routes to the factory rather than to the [Linear integration](/platform/integrations/linear/), which still handles any session that matches no automation.
 
 Agent sessions don't appear as a trigger in the [automation editor](#configure-linear-triggers). To change how sessions route, for example by creator or keyword, edit the `agent_session_created` event in the factory's [version-controlled definition](/factories/factory-as-code/). Replies in an existing session continue that run; they aren't separate triggers.
 

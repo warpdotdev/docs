@@ -66,6 +66,14 @@ Because PRs are created as _you_, this makes code review, auditing, and team col
 
 ---
 
+### Factories and this integration
+
+If your team also runs a [software factory](/factories/), both keep working. This integration continues to handle the Linear teams that no factory covers, so an existing setup needs no changes.
+
+Where the two overlap, the factory takes precedence: when a factory automation matches an agent session, that session routes to the factory instead of starting a run here. A session that matches no factory automation falls back to the behavior described above. For how that routing is configured, see [Connect Linear to your factory](/factories/integrations/linear/).
+
+---
+
 ### Requirements
 
 * **Team membership** - The Linear integration requires you to be part of a [Warp team](/knowledge-and-collaboration/teams/). Teams can be created on any plan, including Free.
