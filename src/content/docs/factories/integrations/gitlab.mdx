@@ -15,7 +15,7 @@ When you connect a factory to GitLab, project activity starts work in your facto
 
 * **GitLab.com** - The integration supports GitLab.com only, not self-managed GitLab instances. To use a self-managed instance with standalone cloud agents instead, see the [GitLab access token setup](/platform/integrations/gitlab/).
 * **A top-level GitLab group you own** - Connecting GitLab links one top-level group to your Warp workspace, one-to-one. Creating the link requires the Owner role on the group and workspace admin permissions in Warp.
-* **A paid GitLab plan (Premium or Ultimate)** - Warp provisions [service accounts](https://docs.gitlab.com/user/profile/service_accounts/) in your group and installs a [group webhook](https://docs.gitlab.com/user/project/integrations/webhooks/#group-webhooks). GitLab offers both only on Premium and Ultimate plans. On the Free tier, GitLab can't deliver the webhook events that trigger runs: factory credentials still work, but nothing starts work from GitLab.
+* **A paid GitLab plan (Premium or Ultimate)** - Warp provisions [service accounts](https://docs.gitlab.com/user/profile/service_accounts/) in your group and installs a [group webhook](https://docs.gitlab.com/user/project/integrations/webhooks/#group-webhooks). Group webhooks are available only on Premium and Ultimate plans. On the Free tier, GitLab can't deliver the webhook events that trigger runs: factory credentials still work, but nothing starts work from GitLab.
 
 ## Service accounts and access
 
