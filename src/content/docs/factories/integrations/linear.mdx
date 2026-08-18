@@ -1,18 +1,18 @@
 ---
 title: Connect Linear to your factory
 description: >-
-  Connect Warp to Linear so issues flow into your software factory and
+  Connect Linear to a factory so issues flow into your software factory and
   progress flows back to the issue.
 sidebar:
   label: "Linear"
 topic: factories
 ---
 
-Connect Warp to Linear to send issues directly into your software factory. Assign an issue to your factory or tag it in a comment, and the factory will pick up the issue with its full context.
+Connect Linear to your factory so your team can send it issues without leaving Linear. Assign an issue to the factory or tag it in a comment, and the factory picks up the issue with its full context.
 
-From there, your factory will spec, implement, review, and verify any work assigned to it. As work progresses, the factory keeps the Linear issue updated so your team can follow along without switching tools.
+From there, the factory routes the issue through its stages, triage through review, and keeps the Linear issue updated as work progresses, so your team can follow along without switching tools. If you're new to factories, see [how Warp Factories work](/factories/how-factories-work/) for the lifecycle.
 
-When human input is needed, your team can respond in Linear or open the live factory run to inspect and steer the agent directly.
+When the factory needs human input, respond in Linear or open the live factory run to inspect and steer the agent directly.
 
 Two parts work together:
 
@@ -24,7 +24,7 @@ Two parts work together:
 * **A factory** - Create a factory with the agents, repositories, and environment needed to handle Linear work.
 * **A Linear workspace** - Use a Linear account that can authorize the Warp app for the workspace.
 * **A linked Warp account (agent sessions only)** - Anyone who starts a Linear agent session must link their Linear user to their Warp account. If Warp can't identify the session creator, Linear shows an authentication prompt instead of starting work.
-* **Code host access** - Configure repository credentials separately. The factory needs them to change code or create a pull request.
+* **Code host access** - Configure repository access separately through the factory's [GitHub connection](/platform/integrations/github/). The factory needs it to change code or create a pull request.
 
 For workspace-level installation, reconnection, and removal steps, see the [Linear integration setup guide](/platform/integrations/linear/).
 

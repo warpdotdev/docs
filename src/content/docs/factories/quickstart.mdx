@@ -8,11 +8,11 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-A factory is a team of cloud agents — a foreman you talk to, plus the subagents it dispatches — that turns incoming requests into pull requests for your team to review. In this quickstart, you will create a factory, connect a GitHub repository, and take one small work item from prompt to pull request in about 10 minutes.
+A factory is a team of cloud agents: a foreman you talk to, plus the subagents it dispatches. Together they turn incoming requests into pull requests for your team to review. In this quickstart, you will create a factory, connect a GitHub repository, and take one small work item from prompt to pull request in about 10 minutes.
 
 ## Prerequisites
 
-* **A Warp team with credits** - A factory belongs to a [Warp team](/knowledge-and-collaboration/teams/). Factory agents consume the team's credits.
+* **A Warp team with credits** - A factory belongs to a [Warp team](/knowledge-and-collaboration/teams/). Factory agents consume the team's [credits](/support-and-community/plans-and-billing/platform-credits/).
 * **GitHub repository access** - Authorize GitHub and choose repositories during setup. If your organization restricts app installations, ask a GitHub organization owner to approve the connection. See the [GitHub integration](/platform/integrations/github/) for details.
 
 ## Create your factory
@@ -23,7 +23,7 @@ _~5 minutes_
 2. In the sidebar, next to **Factories**, click **+** to start the setup wizard.
 
    :::note
-   **No team yet?** If the team that owns the factory has no plan or credits, the wizard will ask you to select one. A factory needs credits to run its agents.
+   **No team yet?** If the team that owns the factory has no plan or credits, the wizard asks you to select one. A factory needs credits to run its agents.
    :::
 
 3. Click **I want to use repos from GitHub** and complete the GitHub authorization.
@@ -31,7 +31,7 @@ _~5 minutes_
 
    Warp provisions a default [environment](/platform/environments/) for the selected repos.
 
-5. Enter a **Factory name**, e.g., `Payments services`. Warp derives a matching **Factory alias**, the handle teammates use to @-mention the factory from connected tools like Slack and Linear. Keep it short and recognizable.
+5. Enter a **Factory name**, such as `Payments services`. Warp derives a matching **Factory alias**, the handle teammates use to @-mention the factory from connected tools like Slack and Linear. Keep it short and recognizable.
 6. The next screen offers to connect Slack. Click **Next** to skip it for now. See [Connect your factory](/factories/connect-your-factory/) to add integrations later.
 7. Toggle the subagents the foreman can dispatch: **Triage**, **Spec**, **Code**, and **Review**. Keep **Code** on so this quickstart's work item can end in a pull request.
 
@@ -58,7 +58,7 @@ _~5 minutes_
 
    The foreman picks up the request as a run and dispatches your subagents as child runs.
 
-3. Follow progress from two pages in your factory's sidebar:
+3. Follow progress from two pages in the factory's [control room](/factories/control-room/) sidebar:
 
    * **Runs** - The foreman's run and the child runs it dispatches.
    * **Activity** - The work item as it moves through its stages. Open it to see its event history and pull request artifacts.

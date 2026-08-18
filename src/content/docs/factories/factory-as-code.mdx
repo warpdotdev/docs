@@ -98,11 +98,11 @@ repositories:
 
 ### `secrets`
 
-Optional. Names of [managed secrets](../platform/secrets) granted to every agent in the factory, in addition to anything individual agents declare.
+Optional. Names of [managed secrets](/platform/secrets/) granted to every agent in the factory, in addition to anything individual agents declare.
 
 ### `mcpServers`
 
-Optional. [MCP servers](../platform/mcp) granted to every agent, keyed by the name the agent sees. Each entry references a Warp-managed MCP server by `warpId`.
+Optional. [MCP servers](/platform/mcp/) granted to every agent, keyed by the name the agent sees. Each entry references a Warp-managed MCP server by `warpId`.
 
 ```yaml
 mcpServers:
@@ -143,7 +143,7 @@ agentDefaults:
 
 ### `agentDefaults.model`
 
-The model runs execute with, as an Oz model ID. `model` is shorthand for running on the Warp Agent harness:
+The model runs execute with, as a `model_id` from [model choice for agents](/agents/inference/model-choice/). `model` is shorthand for running on the Warp Agent harness:
 
 ```yaml
 model: auto
@@ -161,7 +161,7 @@ harness:
 
 ### `agentDefaults.harness`
 
-The harness and model runs execute with. Use the `harness` form to run a third-party harness or to set advanced options. `type` accepts `oz`, `claude` (alias `claude-code`), `codex`, or `gemini`; see [supported harnesses](../platform/harnesses/).
+The harness and model runs execute with. Use the `harness` form to run a third-party harness or to set advanced options. `type` accepts `oz`, `claude` (alias `claude-code`), `codex`, or `gemini`; see [supported harnesses](/platform/harnesses/).
 
 ```yaml
 harness:
@@ -173,7 +173,7 @@ harness:
     secretName: CODEX_API_KEY
 ```
 
-For a third-party harness, `auth` sets where credentials come from: `source: managedSecret` reads the [managed secret](../platform/secrets) named by `secretName`, and `source: workerEnvironment` reads them from your self-hosted worker's environment (and requires a self-hosted `workerHost`). The `oz` harness supplies its own credentials and takes no `auth` or `reasoningLevel`.
+For a third-party harness, `auth` sets where credentials come from: `source: managedSecret` reads the [managed secret](/platform/secrets/) named by `secretName`, and `source: workerEnvironment` reads them from your self-hosted worker's environment (and requires a self-hosted `workerHost`). The `oz` harness supplies its own credentials and takes no `auth` or `reasoningLevel`.
 
 ### `agentDefaults.runner`
 
@@ -181,7 +181,7 @@ The name of a runner defined under [`runners/`](#runnersnameyaml) that provides 
 
 ### `agentDefaults.environmentId`
 
-The ID of an existing [environment](../platform/environments) runs execute in.
+The ID of an existing [environment](/platform/environments/) runs execute in.
 
 ### `agentDefaults.secrets`
 
@@ -193,7 +193,7 @@ MCP servers for agents that don't declare their own, in the same form as [`mcpSe
 
 ### `agentDefaults.workerHost`
 
-Where runs execute: `warp` for Warp-hosted compute, or the ID of a connected [self-hosted worker](../platform/self-hosting/).
+Where runs execute: `warp` for Warp-hosted compute, or the ID of a connected [self-hosted worker](/platform/self-hosting/).
 
 ## `agents/<name>/agent.md`
 
@@ -260,7 +260,7 @@ The providers and their events:
 * `schedule` - `cron_fired`
 * `factory` - `work_item_stage_changed`
 
-Slack, Linear, and Jira triggers require the matching [integration](../platform/integrations/) to be connected. GitHub triggers work through the factory's `repositories`.
+Slack, Linear, and Jira triggers require the matching [integration](/platform/integrations/) to be connected. GitHub triggers work through the factory's `repositories`.
 
 ### `triggers[].filter`
 
@@ -285,7 +285,7 @@ An automation may also declare `model` or `harness`, `runner`, `environmentId`, 
 
 ## `runners/<name>.yaml`
 
-Optional. Each file defines a runner: the compute a run executes on. The runner's name comes from the file name, and agents and automations select it by that name. See [cloud agent runners](../platform/runners) for how runners behave.
+Optional. Each file defines a runner: the compute a run executes on. The runner's name comes from the file name, and agents and automations select it by that name. See [cloud agent runners](/platform/runners/) for how runners behave.
 
 ```yaml title="runners/linux-build.yaml"
 description: Linux runner for payments builds and tests
@@ -315,7 +315,7 @@ The operating system and architecture. `os` is `linux` (the default) or `macos`,
 
 ## Skills
 
-A skill is a directory containing a `SKILL.md`, not a YAML key. Skills under `skills/` are available to every agent in the factory; skills under `agents/<name>/skills/` are available only to that agent. See [Skills for agents](../agents/capabilities/skills).
+A skill is a directory containing a `SKILL.md`, not a YAML key. Skills under `skills/` are available to every agent in the factory; skills under `agents/<name>/skills/` are available only to that agent. See [Skills for agents](/agents/capabilities/skills/).
 
 ## Example factory definition
 
