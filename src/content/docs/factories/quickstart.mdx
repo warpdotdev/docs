@@ -20,13 +20,16 @@ A factory is a team of cloud agents: a foreman you talk to, plus the subagents i
 _~5 minutes_
 
 1. Go to the {VARS.FACTORY_WEB_APP} at <a href={VARS.FACTORY_WEB_APP_URL}>platform.warp.dev</a> and sign in.
-2. In the sidebar, next to **Factories**, click **+** to start the setup wizard.
+2. On the welcome screen, click **Let's get started** to open the setup wizard.
+
+   If your team already has a factory, you land in the app instead of the welcome screen. In the sidebar, click **+** next to **Factories** to open the same wizard.
+
 3. Click **I want to use repos from GitHub** and complete the GitHub authorization.
 4. Choose the repositories the factory will work in and click **Add repos**. Start with one or two repositories. Every agent in the factory shares this repo set, so a focused set keeps their context tight.
 
    Warp provisions a default [environment](/platform/environments/) for the selected repos.
 
-5. Enter a **Factory name**, such as `Payments services`. Warp derives a matching **Factory alias**, the handle teammates use to @-mention the factory from connected tools like Slack and Linear. Keep it short and recognizable.
+5. Enter a **Factory name**, such as `Payments services`. Warp derives a matching **Foreman name**, the handle teammates use to @-mention the factory's foreman from connected tools like Slack and Linear. Keep it short and recognizable.
 6. The next screen offers to connect Slack. Click **Next** to skip it for now. See [Connect your factory](/factories/connect-your-factory/) to add integrations later.
 7. Toggle the subagents the foreman can dispatch: **Triage**, **Spec**, **Code**, and **Review**. Keep **Code** on so this quickstart's work item can end in a pull request.
 
