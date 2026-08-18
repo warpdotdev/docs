@@ -30,7 +30,7 @@ The CLI opens a browser window to install the Warp app into your Slack workspace
 #### Requirements
 
 * **Team membership** - The Slack integration requires you to be part of a [Warp team](/knowledge-and-collaboration/teams/). Teams can be created on any plan, including Free.
-* **Plan and credits** - Your team must be on a plan that supports integrations (Build, Max, or Business) and have at least 20 credits available. See [Access, Billing, and Identity](/platform/team-access-billing-and-identity/) for details.
+* **Plan and credits** - Your team must have cloud agents enabled and credits available. See [Access, Billing, and Identity](/platform/team-access-billing-and-identity/) for details.
 * **Infrastructure** - By default, agents run on Warp-hosted infrastructure. Enterprise teams can [self-host agents](/platform/self-hosting/) on their own infrastructure.
 
 ---
@@ -74,7 +74,7 @@ To monitor Slack-triggered runs alongside the rest of your team's agents, open t
 
 ### Joining the live remote session
 
-Selecting **View Agent** opens the active agent session. Inside the session you’ll see:
+Selecting **View conversation** opens the active agent session. Inside the session you’ll see:
 
 * The agent’s full execution log
 * The plan/task list
@@ -145,14 +145,14 @@ If the integration cannot be created or a Slack-triggered run cannot start, use 
 
 * Integrations are scoped to your Warp team.
 * Any teammate in the same Slack workspace and Warp team can use the integration.
-* Warp maps Slack users to Warp accounts by email address.
+* The first time you mention the bot or DM it, Warp sends you a link to connect your Slack identity to your Warp account.
 * Teammates must individually authorize GitHub on their first run.
 
 ---
 
 ### Privacy
 
-The Warp app reads Slack messages only where it is mentioned or directly messaged: the triggering message, its thread history (used as task context), and your Slack profile email (used to map you to your Warp account). Message content is used to run the agent task and is handled per the [Warp Privacy Policy](https://www.warp.dev/privacy), which describes how Warp collects, manages, and stores third-party data.
+The Warp app reads Slack messages only where it is mentioned or directly messaged: the triggering message, its thread history (used as task context), and your Slack profile information. Message content is used to run the agent task and is handled per the [Warp Privacy Policy](https://www.warp.dev/privacy), which describes how Warp collects, manages, and stores third-party data.
 
 ### Uninstallation instructions
 
