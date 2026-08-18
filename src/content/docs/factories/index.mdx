@@ -46,6 +46,19 @@ Warp Factories is designed for engineering teams with repeatable work that exten
 | **{VARS.WARP_CLI}** | Runs the Warp Agent in any terminal and exchanges work with a factory through the Factory MCP. |
 | **{VARS.WARP_AUTOMATION_PLATFORM}** | Provides the cloud runs, environments, runners, integrations, secrets, orchestration, and APIs that a factory assembles into one workflow. |
 
+## The platform behind a factory
+
+Warp Factories is built on the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/), Warp's programmable system for running and coordinating agents at scale. A factory doesn't replace the platform; it assembles the platform's primitives into one standing workflow, so what you already know about cloud agents carries over:
+
+* **Runs** - Every factory agent executes as a [cloud agent run](/platform/), with the same run records and [session sharing](/platform/viewing-cloud-agent-runs/) as any other cloud agent.
+* **Execution** - [Environments](/platform/environments/) define the workspace, [runners](/platform/runners/) provide the compute, and eligible Enterprise teams can route execution to [managed self-hosted workers](/platform/self-hosting/).
+* **Agent configuration** - Each role runs on a supported [harness](/platform/harnesses/) and model, with [secrets](/platform/secrets/) and [MCP servers](/platform/mcp/) scoping what it can reach.
+* **Billing** - A factory's runs consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) the same way as any other cloud agent run.
+
+The factory layer adds the workflow on top: the foreman and its specialized roles, work items that carry each request across runs, definitions as code, default automations for connected tools, and the Scorer, benchmark, and Self-improvement loop.
+
+A standalone [cloud agent](/platform/) remains the right tool for a single task or a one-trigger automation. Reach for a factory when the work is a standing, multi-stage process your team wants to route, measure, and improve in one place.
+
 ## Next steps
 
 * [**Set up a factory**](/factories/quickstart/) - Create a factory and send its first work item.
