@@ -236,7 +236,11 @@ class LinkChecker:
         return parsed.scheme in ('http', 'https')
 
     def should_skip(self, url):
-        if not url or url.startswith('#'):
+        # A bare `#fragment` is a same-page link, not a no-op: it must still
+        # resolve to a heading on the source page itself, so it falls through
+        # to check_internal()/check_fragment() below instead of being skipped
+        # here. Only a truly empty url has nothing to check.
+        if not url:
             return True
         parsed = urlparse(url)
         if parsed.scheme in SKIP_SCHEMES:
@@ -360,8 +364,8 @@ class LinkChecker:
             return True, None, None
 
         route = url.split('#')[0]
-        # A bare `#frag` is same-page; should_skip() already drops those, but a
-        # self-referential `/page/#frag` resolves to the source file.
+        # A bare `#frag` and a self-referential `/page/#frag` are both
+        # same-page links, so either way the target is the source file.
         page = self.resolve_internal(url, source_file) if route else source_file
         if page is None:
             page = source_file
