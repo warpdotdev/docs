@@ -63,14 +63,14 @@ All Jira work reaches the factory through a single event, `agent_session_created
 A session must match every field you set; within a field, any listed value is a match. Omit a field to match everything. For the matching rules shared by every source, see [automation filters](/factories/automation-filters/).
 
 :::caution
-Filters like `project_keys` decide whether *your* automation starts a run; they aren't an access boundary. A Jira event is evaluated against every team's automations in the connected workspace, so another team's automation with a broader or different filter can still start its own run on the same work item. Installing the Warp app doesn't scope its Jira access to specific projects either — scoping Jira project access by Warp team is coming soon.
+Filters like `project_keys` decide whether *your* automation starts a run; they aren't an access boundary. A Jira event is evaluated against every team's automations in the connected workspace, so another team's automation with a broader or different filter can still start its own run on the same work item. Installing the Warp app doesn't scope its Jira access to specific projects either.
 :::
 
 ## What happens during a run
 
 The agent runs in the cloud and starts with the assignment text and the work item it came from. When the factory declares Jira as an integration, the agent can also read the work item's details, comments, and available workflow transitions.
 
-Jira shows the task's status as it progresses: submitted, working, waiting for input, completed, failed, or canceled. For more than status updates, open the run under the matching automation in your factory: [cloud agent session sharing](/platform/viewing-cloud-agent-runs/) shows the full run, including every command, log, and output, in real time or after the run finishes.
+Jira shows the task's status as it progresses: submitted, working, waiting for input, completed, failed, or cancelled. For more than status updates, open the run under the matching automation in your factory: [cloud agent session sharing](/platform/viewing-cloud-agent-runs/) shows the full run, including every command, log, and output, in real time or after the run finishes.
 
 Replies in the same agent session continue the same run, even after the agent finishes a turn, so you can answer questions or add direction mid-task.
 
