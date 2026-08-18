@@ -37,6 +37,8 @@ You can change any of these after setup, so a best guess now is fine.
 
 _~5 minutes_
 
+Warp walks you through a setup wizard:
+
 1. Sign in to the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. Next to **Factories**, click **+**.
 
    <figure style={{ maxWidth: "300px" }}>
@@ -65,7 +67,7 @@ _~5 minutes_
    <figcaption>Name the factory and, optionally, add a description and avatar.</figcaption>
    </figure>
 
-5. Optionally connect a chat tool so teammates can hand work to the factory from Slack, or skip it and add it later from [connect your factory](/factories/connect-your-factory/).
+5. Optionally, connect a chat tool so teammates can hand work to the factory from Slack, or skip it and add it later from [connect your factory](/factories/connect-your-factory/).
 6. Toggle the subagents the foreman can dispatch: **Triage**, **Spec**, **Code**, and **Review**. All four start enabled, and at least one is required. Leave **Code** on so this quickstart can end in a pull request. See [factory agents](/factories/factory-agents/) for what each does.
 
    <figure style={{ maxWidth: "563px" }}>
@@ -73,12 +75,12 @@ _~5 minutes_
    <figcaption>Toggle which default agents the foreman can dispatch.</figcaption>
    </figure>
 
-7. Optionally connect an issue tracker so teammates can hand work to the factory from Linear or Jira, or skip it and add one later from [connect your factory](/factories/connect-your-factory/).
+7. Optionally, connect an issue tracker so teammates can hand work to the factory from Linear or Jira, or skip it and add one later from [connect your factory](/factories/connect-your-factory/).
 
-Warp then creates the factory and opens its [dashboard](/factories/factory-dashboard/).
+Warp creates the factory and opens its [dashboard](/factories/factory-dashboard/).
 
 :::note
-You can also skip the wizard: ask an agent connected to the [Factory MCP](/factories/factory-mcp/) to create the factory with its `create_factory` tool, giving it the team, the repositories, and a name. That covers choosing repositories and naming the factory; choose the agents and connect your tools afterward in the factory's dashboard.
+Want to skip the wizard? Ask an agent connected to the [Factory MCP](/factories/factory-mcp/) to create the factory with its `create_factory` tool, giving it the team, the repositories, and a name. That covers choosing repositories and naming the factory; choose the agents and connect your tools afterward in the factory's dashboard.
 :::
 
 ## Send your first work item
