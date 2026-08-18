@@ -11,7 +11,7 @@ Connect your factory to the tools where your team already discusses, tracks, and
 
 ## Choose a source
 
-Pick the sources that match where work starts for your team. You can connect more than one.
+Pick the sources that match where work starts for your team. You can connect more than one, though a factory can use Linear or Jira, or no tracker at all, but not both at once. The setup wizard currently offers Linear; to use Jira, connect it after setup or in your [factory definition](/factories/factory-as-code/).
 
 | Source | Best for | Where follow-ups continue |
 | --- | --- | --- |
@@ -27,7 +27,7 @@ Pick the sources that match where work starts for your team. You can connect mor
 
 1. Pick the factory you want to connect. If you don't have one yet, follow the [Warp Factories quickstart](/factories/quickstart/).
 2. Connect the source: install the provider integration, set up the [Factory MCP](/factories/factory-mcp/), or create a schedule. Each integration guide below walks through authorization; grant only the access the factory needs.
-3. Tell the factory how to respond. Provider connections come with default automations that decide which events start work and which agent handles them; review their [filters](/factories/automation-filters/) and run settings. Schedules and direct runs skip this step.
+3. Tell the factory how to respond. Provider connections come with default automations that decide which events start work and which agent handles them. Review their [filters](/factories/automation-filters/) and run settings. Filters route work, not access: what a running agent can reach depends on its own configuration, not the filters that started it. Schedules and direct runs skip this step.
 4. Send a test request, such as mentioning the factory in Slack or assigning it an issue, and confirm it picks up the work and replies at the source.
 
 ## How work reaches your factory
@@ -44,7 +44,7 @@ flowchart LR
 
 An event from a connected tool starts the automation whose filters match it, such as a specific repository, channel, or label. Schedules start their automation on a timer, and direct requests go straight to the factory.
 
-Every request then lands with the foreman agent, the factory's orchestrator. The foreman turns the request into a work item, determines which stage the work needs next, and dispatches a specialized agent for each stage: triage to scope the request, spec when the design needs agreement, implementation to write the code, and review to check it. Between stages it relays questions and progress back to the source, and it pauses wherever a decision belongs to a human, such as approving a spec or merging a pull request. See [how Warp Factories work](/factories/how-factories-work/) for the full lifecycle.
+Every request then lands with the foreman agent, the factory's orchestrator. The foreman turns the request into a work item, determines which stage the work needs next, and dispatches a specialized agent for each stage: triage to scope the request, spec when the design needs agreement, implementation to write the code, and review to check it. Between stages it relays questions and progress back to the source, and it pauses wherever a decision belongs to a human, such as approving a spec or [merging a pull request](/factories/how-factories-work/#where-your-team-stays-in-charge). A reply in the same thread, issue, or pull request adds to that work item instead of starting a new one, and repeated event deliveries from a provider don't create duplicates. See [how Warp Factories work](/factories/how-factories-work/) for the full lifecycle.
 
 ## Review the default automations
 
@@ -78,12 +78,5 @@ Not every task starts in an external tool:
 * Create a scheduled automation for recurring work such as maintenance or reports.
 
 See the [triggers overview](/platform/triggers/) for how schedules and other triggers work across the platform.
-
-## Good to know
-
-* **Follow-ups continue the same work item** - Replying in the same Slack thread, GitHub issue or pull request, Linear issue, or Jira agent session adds to the existing work item instead of starting a new one. Repeated event deliveries from a provider don't create duplicate work either.
-* **One issue tracker per factory** - A factory can use [Linear](/factories/integrations/linear/) or [Jira](/factories/integrations/jira/), or no tracker at all, but not both at once. The setup wizard currently offers Linear; to use Jira, connect it after setup or in your [factory definition](/factories/factory-as-code/).
-* **Filters route work; they don't restrict access** - Choosing which requests start work is separate from what a running agent can reach. See [automation filters](/factories/automation-filters/#filters-route-work-they-dont-restrict-access).
-* **The factory hands off at the pull request** - It pushes branches and opens pull requests, then waits for a person. See [where your team stays in charge](/factories/how-factories-work/#where-your-team-stays-in-charge).
 
 Next, customize which agents receive work and how it's routed with [factory definitions as code](/factories/factory-as-code/).

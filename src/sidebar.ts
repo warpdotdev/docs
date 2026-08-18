@@ -462,9 +462,10 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			],
 		},
 		{
-			// Relabeled from 'Oz' for the 8/18 launch (HYC's IA doc, pending final
-			// ZL naming sign-off -- see .agents/references/terminology.md). Reorganized
-			// from 10 subsections into HYC's 6-group IA; all page slugs unchanged.
+			// Relabeled from 'Oz' to 'Automation Platform' for the 8/18 launch (HYC's
+			// IA doc; naming confirmed -- see .agents/references/terminology.md).
+			// Reorganized from 10 subsections into HYC's 6-group IA; all page slugs
+			// unchanged.
 			id: 'platform',
 			label: 'Automation Platform',
 			// The tab lands on the platform overview rather than /platform/, which
