@@ -15,7 +15,7 @@ When you connect a factory to GitLab, project activity starts work in your facto
 
 * **GitLab.com** - The integration supports GitLab.com only, not self-managed GitLab instances. To use a self-managed instance with standalone cloud agents instead, see the [GitLab access token setup](/platform/integrations/gitlab/).
 * **A top-level GitLab group you own** - Connecting GitLab links one top-level group to your Warp workspace, one-to-one. Creating the link requires the Owner role on the group and workspace admin permissions in Warp.
-* **A GitLab plan with service accounts and group webhooks** - Warp provisions service accounts in your group and installs a group webhook. Both are GitLab Premium and Ultimate features. On a plan without group webhooks, factory credentials still work, but GitLab cannot trigger runs.
+* **A paid GitLab plan (Premium or Ultimate)** - Warp provisions [service accounts](https://docs.gitlab.com/user/profile/service_accounts/) in your group and installs a [group webhook](https://docs.gitlab.com/user/project/integrations/webhooks/#group-webhooks). GitLab offers both only on Premium and Ultimate plans. On the Free tier, GitLab can't deliver the webhook events that trigger runs: factory credentials still work, but nothing starts work from GitLab.
 
 ## Service accounts and access
 
@@ -129,7 +129,7 @@ Confirm an enabled automation includes the **Merge request** trigger and check i
 
 ### Nothing starts work even though GitLab is connected
 
-Your GitLab plan may not include group webhooks (see [Prerequisites](#prerequisites)). Upgrade your GitLab plan to let GitLab trigger runs.
+Your GitLab plan may not include [group webhooks](https://docs.gitlab.com/user/project/integrations/webhooks/#group-webhooks), which are a GitLab Premium and Ultimate feature (see [Prerequisites](#prerequisites)). Upgrade your GitLab plan to let GitLab trigger runs.
 
 ### The bot can't push a branch or open a merge request
 
