@@ -182,10 +182,10 @@ catches the literal, `platform-determiner` catches a missing article.
   *Example:* With the Automation Platform, you can orchestrate multiple agents to automate and parallelize complex workflows.
 
 - **cloud agent dashboard** — The app surface to manage all runs, unified across the Warp app and web.
-  *Usage note:* Platform-level default (HYC, 2026-08-17). Use `{VARS.DASHBOARD}`. On pages specifically about a factory, write "Factory dashboard" directly. Lowercase common noun, so capitalize only at the start of a sentence or bullet — which the variable cannot do, so reword rather than leading a bullet with it.
+  *Usage note:* Platform-level default (HYC, 2026-08-17). Use `{VARS.DASHBOARD}`. On pages specifically about a factory, write "factory dashboard" directly. Both are lowercase common nouns, so capitalize only at the start of a sentence or bullet — which the variable cannot do, so reword rather than leading a bullet with it.
 
 - **cloud agent run** — A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based.
-  *Usage note:* This is the platform-level default (HYC, 2026-08-17). Use `{VARS.PLATFORM_RUN}`, or "Warp cloud agent run" when you need to disambiguate from another vendor's runs. On pages that are specifically about a factory, write "Factory run" directly instead — the variable holds the general term, so it cannot carry that distinction.
+  *Usage note:* This is the platform-level default (HYC, 2026-08-17). Use `{VARS.PLATFORM_RUN}`, or "Warp cloud agent run" when you need to disambiguate from another vendor's runs. On pages that are specifically about a factory, write "factory run" directly instead — the variable holds the general term, so it cannot carry that distinction.
 
 - **Oz web app** — The web app for configuring agents and managing runs.
   *Usage note:* Holds the Oz name until 2026-09-15. Use `{VARS.WEB_APP}`.
@@ -278,8 +278,30 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 
 ## Warp Factories terminology
 
-- **Warp Factories** — Warp's product for deploying and operating cloud software factories: automation loops around the SDLC where cloud agents triage, spec, implement, review, and verify work, with humans in the loop at key decision points. Launches in closed beta ~2026-08-18.
-  *Usage note:* Capitalize both words as the product name; plural "Factories." Distinct from "software factory" (see below), the generic industry term for the pattern.
+### The product/instance rule
+
+This works like GitHub Actions. **Warp Factories** is the product and is always
+written in full. An individual **factory** is a common noun and is always
+lowercase. A bare capitalized **Factory** is never a proper noun — there is no
+such product.
+
+- ✅ "Warp Factories is in Early Access" (the product)
+- ✅ "your factory", "each factory's agents", "set up a factory" (an instance)
+- ✅ "factory dashboard", "factory run", "factory agents", "factory definition"
+- ❌ "the Factory", "your Factory", "Factory runs", "Factory metrics"
+- ❌ "Factories" on its own to mean the product — write "Warp Factories"
+
+Sentence-initial capitals are positional, not proper nouns: a heading, sidebar
+label, or page title may begin "Factory agents" or "Factory dashboard" for the
+same reason it would begin "Cloud agents." The rule governs mid-sentence prose.
+
+Verbatim product strings are quoted as they ship, even when they break the rule.
+The setup wizard currently renders **Factory name**, **Add your Factory to your
+team**, and "Factory running!", and the sidebar renders **Factory definition**.
+Docs match the screen; the fix belongs in the app.
+
+- **Warp Factories** — Warp's product for deploying and operating cloud software factories: automation loops around the SDLC where cloud agents triage, spec, implement, review, and verify work, with humans in the loop at key decision points. Launched in Early Access 2026-08-18.
+  *Usage note:* Capitalize both words as the product name; plural "Factories." Always write it in full — never a bare "Factory" or "Factories." Distinct from "software factory" (see below), the generic industry term for the pattern.
 
 - **software factory** — The generic, lowercase industry term for an automation loop around the SDLC (triage, spec, implement, review, verify). Warp Factories is Warp's product implementation of this pattern.
   *Usage note:* Lowercase when used generically ("a software factory," "cloud software factories"). Capitalize only when part of the product name "Warp Factories."
@@ -294,10 +316,10 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 - **foreman agent** — The orchestrator agent that receives a work item's triggering context and dispatches subagents to move it through the factory, choosing model, harness, and context for each step.
 
 - **Factory MCP** — The MCP server that lets any coding agent or MCP client interact with a factory: push work in, pull status, or guide sessions.
-  *Usage note:* Capitalize as a feature/proper-noun name.
+  *Usage note:* The one sanctioned exception to the product/instance rule above, because it is the feature's own shipped name — the server registers as `warp-factory` and its skill calls itself "the Warp Factory MCP." Capitalize both words; do not generalize the exception to other phrases.
 
-- **control room** — The web app view showing all factory agent runs, work item status, automations, and configuration for a given factory.
-  *Usage note:* Lowercase common noun unless referring to a specific labeled UI element.
+- **factory dashboard** — The web app surface for operating a single factory: its work items, runs, agents, automations, and settings.
+  *Usage note:* Lowercase common noun. Distinct from **Dashboard**, the metrics page inside it, which is also the factory's landing page — bold **Dashboard** when you mean that page, and leave "factory dashboard" unbolded when you mean the surface. Replaced "control room," a docs-only coinage that appeared nowhere in the product.
 
 - **AI sovereignty** — Warp Factories' positioning around customer ownership and control of inference, hosting, and data exhaust (agent conversations, evals, memories) for their factory.
 

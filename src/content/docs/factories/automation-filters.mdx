@@ -30,13 +30,11 @@ Filters are still your main control over who starts runs. On GitHub and GitLab, 
 
 Every source filters on where the event happened — a repository, project, conversation, or team. The remaining filters vary by source and event type:
 
-{/* TODO: link the GitLab row to /factories/integrations/gitlab/ once the GitLab integration page lands (PR #549). */}
-
 | Source | Filters |
 | --- | --- |
 | [Slack](/factories/integrations/slack/) | Conversations, authors or members, keywords, emoji, and reacted-message authors |
 | [GitHub](/factories/integrations/github/) | Repository, branches, base branches, paths, labels, authors, assignees, mentioned users or teams, reviewers, review states, workflows, and conclusions |
-| GitLab | Project, actions, and base branch |
+| [GitLab](/factories/integrations/gitlab/) | Project, actions, and base branch |
 | [Linear](/factories/integrations/linear/) | Teams, labels, project, workflow state, assignee, mentioned user, and, for comment events, a specific issue |
 | [Jira](/factories/integrations/jira/) | Jira projects and assignment keywords |
 
@@ -44,9 +42,9 @@ Each integration guide lists which filters appear on which event types.
 
 ## Edit filters on an automation
 
-1. In the factory's control room, open **Automations**, then create an automation or edit an existing one.
+1. In the factory's dashboard, open **Automations**, then create an automation or edit an existing one.
 2. Under **Triggers**, open a trigger and set the filters shown for its event. Click **More filters** for the event-specific options.
-3. Click **Save**. To confirm the routing works, send a matching test event, such as opening a test issue, and check that a work item starts in the control room.
+3. Click **Save**. To confirm the routing works, send a matching test event, such as opening a test issue, and check that a work item starts in the factory dashboard.
 
 Review the default automations Warp creates when you connect a provider, too: their filters are starting points, not fixed rules.
 
@@ -78,6 +76,6 @@ The same matching rules apply: every key must match, any listed value within a k
 ## Related pages
 
 * [Connect your factory](/factories/connect-your-factory/) - Choose the sources that route work into the factory.
-* [Slack](/factories/integrations/slack/), [GitHub](/factories/integrations/github/), [Linear](/factories/integrations/linear/), and [Jira](/factories/integrations/jira/) integration guides - Per-source setup, events, and filter details.
+* [Slack](/factories/integrations/slack/), [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), [Linear](/factories/integrations/linear/), and [Jira](/factories/integrations/jira/) integration guides - Per-source setup, events, and filter details.
 * [Definitions as code](/factories/factory-as-code/) - Manage automations, triggers, and filters as version-controlled files.
-* [Control room](/factories/control-room/) - Create and edit automations in the factory's **Automations** view.
+* [Factory dashboard](/factories/factory-dashboard/) - Create and edit automations in the factory's **Automations** view.

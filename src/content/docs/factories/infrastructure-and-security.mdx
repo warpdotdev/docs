@@ -40,10 +40,10 @@ Two configurations define where and how a factory's agents work:
 
 You don't manage a factory's environment directly: each factory implicitly manages one based on the repositories configured in its [definition](/factories/factory-as-code/). Runners are the choice you make. When a run starts, Warp resolves its compute in a fixed order: the runner the run selects explicitly, then the environment's execution defaults, then the system default. See [environments](/platform/environments/) for the underlying workspace model and the [runner reference](/platform/runners/) for compute options and resolution behavior.
 
-The **Runners** page in the [control room](/factories/control-room/) shows each runner's operating system and architecture, setup commands, size, and whether it's the default. Where you edit runners depends on where the factory's source lives:
+The **Runners** section of a factory's **Settings** page in the [factory dashboard](/factories/factory-dashboard/) shows each runner's operating system and architecture, setup commands, size, and whether it's the default. Where you edit runners depends on where the factory's source lives:
 
 * **Externally managed source** - The `runners/*.yaml` files in the connected repository are the source of truth, and edits open in that repository.
-* **Warp-managed source** - Authorized users create and edit runner files directly in the control room.
+* **Warp-managed source** - Authorized users create and edit runner files directly in the factory dashboard.
 
 Your team's plan sets the default instance shape (vCPUs and memory) for Warp-hosted runners. The same maximum shape applies on every plan, and Warp rejects hosted shapes above it. Enterprise teams that need more can request a higher maximum. Managed self-hosted runners are exempt from the hosted maximum because your team supplies the compute.
 
