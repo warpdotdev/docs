@@ -65,7 +65,7 @@ When a run for that thread is already in flight, a new mention is delivered to t
 ## Requirements
 
 * **Team membership** - The GitHub integration requires a [Warp team](/knowledge-and-collaboration/teams/). Configuration is team-scoped, and runs are owned by the team associated with the GitHub App installation.
-* **Plan and credits** - Your team must be on a Build, Max, or Business plan with at least 20 credits available, or on an Enterprise plan with a team credit pool per your contract. See [Access, billing, and identity](/platform/team-access-billing-and-identity/).
+* **Plan and credits** - Your team must have cloud agents enabled and credits available. On Enterprise plans, runs draw from a team credit pool per your contract. See [Access, billing, and identity](/platform/team-access-billing-and-identity/).
 * **Oz by Warp GitHub App** - A GitHub organization owner installs the [Oz by Warp](https://github.com/apps/oz-by-warp) GitHub App on the organization or account that owns the repositories, granting it access to all repositories or a selected set. The installation's repository access is what agents act with, so scope it deliberately.
 * **An enabled GitHub organization** - A Warp team admin adds the organization under **Enabled GitHub Orgs** in the Admin Panel so the installation maps to your Warp team.
 * **A connected GitHub account** - Each teammate connects their GitHub account to Warp once, so Warp can identify who triggered the run and which team to bill. The connection identifies the requester; it doesn't determine what the agent can reach on GitHub.
@@ -98,7 +98,7 @@ In the Warp app, a team admin goes to **Settings** > **Admin Panel** > **Platfor
 <figcaption>Enabled GitHub Orgs setting in the Admin Panel.</figcaption>
 </figure>
 
-Until the organization is enabled, mentions in its repositories return a comment asking a Warp team admin to enable the organization.
+Until the organization is enabled, mentions in its repositories return a comment asking a Warp workspace admin to configure GitHub repository access in the Admin Panel.
 
 ### 3. Configure how GitHub-triggered runs execute
 
@@ -144,12 +144,12 @@ Every GitHub-triggered run is a cloud agent run:
 
 GitHub-triggered runs separate **what the agent can do on GitHub** from **who the run belongs to**.
 
-**Access comes from the GitHub App installation.** A run started by an `@oz-agent` mention authenticates with a token minted for the Oz by Warp GitHub App installation that delivered the event, not with the mentioning user's GitHub authorization. Cloning, branches, commits, pull requests, and the status comments all use that installation token, so on GitHub the work is attributed to the Oz by Warp GitHub App rather than to the person who wrote the mention. The installation's repository selection is therefore the boundary on what the agent can reach: adjust it in your [GitHub settings](https://github.com/settings/installations).
+**Access comes from the GitHub App installation.** A run started by an `@oz-agent` mention authenticates with a token minted for the Oz by Warp GitHub App installation that delivered the event, not with the mentioning user's GitHub authorization. Cloning, branches, commits, pull requests, and the status comments all use that installation token, so on GitHub the work is attributed to the Oz by Warp GitHub App rather than to the person who wrote the mention. The boundary on what the agent can reach is the installation's repository selection, optionally narrowed further by the repository access a Warp admin grants the team in the Admin Panel. Adjust the installation in your [GitHub settings](https://github.com/settings/installations).
 
 **Identity comes from the account connection.** Warp matches the GitHub account that posted the mention to the Warp account that connected it, not by email address. That binding decides who the run is attributed to in Warp, which team owns it, and whose credits pay for it. The person must be a member of the Warp team that enabled the organization.
 
 :::caution
-Because the run uses the installation's access rather than the mentioner's, anyone who can comment in a repository covered by the installation — and who has a connected GitHub account on that Warp team — can start an agent that acts with the installation's full repository access. Grant the app only the repositories your team wants agents to work in.
+Because the run uses the installation's access rather than the mentioner's, anyone who can comment in a repository covered by the installation — and who has a connected GitHub account on that Warp team — can start an agent that acts with all the repository access granted to that team. Grant the app, and the team, only the repositories your team wants agents to work in.
 :::
 
 For fully automated workflows that run without a triggering user, such as scheduled agents or runs started with an agent API key, see [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization).
@@ -180,13 +180,13 @@ The event never reached Warp, or it was filtered out. Check in this order:
 
 Warp received the mention but couldn't match your GitHub account to a Warp account. Use the link in the reply to connect your GitHub account, then mention the agent again.
 
-### "This repository's GitHub App installation is not associated with a Warp team"
+### "This repository is not enabled for a Warp team"
 
-The app is installed, but no Warp team has enabled that GitHub organization. A Warp team admin adds the organization under **Enabled GitHub Orgs** in **Settings** > **Admin Panel** > **Platform** in the Warp app.
+The app is installed, but no Warp team has access to that repository. A Warp workspace admin configures GitHub repository access in **Settings** > **Admin Panel** > **Platform** in the Warp app.
 
-### "Your Warp account is not a member of any team associated with this repository"
+### "Your Warp account is not a member of any team with access to this repository"
 
-Your GitHub account is connected, but your Warp account isn't in the team that enabled the organization. Ask a team admin to add you to the Warp team.
+Your GitHub account is connected, but your Warp account isn't in a team with access to that repository. Ask a team admin to add you to the Warp team.
 
 ### The run starts but fails immediately
 

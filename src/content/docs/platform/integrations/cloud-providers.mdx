@@ -202,7 +202,7 @@ for example, you would run:
 
 ```bash
 gcloud projects add-iam-policy-binding <project-id> \
-    --member "principalSet://iam.googleapis.com/projects/<project-number>/locations/global/workloadIdentityPools/<pool-id>/attribute.teams/<team-id>" \
+    --member "principalSet://iam.googleapis.com/projects/<project-number>/locations/global/workloadIdentityPools/<pool-id>/group/<team-uid>" \
     --role "roles/compute.viewer"
 ```
 
@@ -253,11 +253,13 @@ Within the agent environment, use the `oz federate issue-token` command to produ
 with your provider as the audience:
 
 ```bash
-oz federate issue-token --audience your-provider.com --output-format json
+oz federate issue-token --run-id <RUN_ID> --audience your-provider.com --output-format json
 ```
 
-Optionally, add `--duration <duration>` to customize the token validity. This cannot exceed the
-maximum runtime of an agent.
+Replace `<RUN_ID>` with the current agent run's ID.
+
+Optionally, add `--duration <duration>` to customize the token validity. Tokens are valid for
+between 5 minutes and 3 hours.
 
 You can then exchange this token for provider-specific credentials.
 
@@ -319,8 +321,9 @@ curl https://app.warp.dev/api/v1/agent/runs -H "Authorization: Bearer $WARP_API_
 
 ### Team
 
-Every token includes a `teams` claim. The value will be a list with your team UID - currently, this
-list only ever contains a single value.
+Tokens for principals on a team include a `teams` claim listing the UIDs of the teams the
+principal belongs to. Users on multiple teams get multiple values, and users on no team get no
+`teams` claim.
 
 ### Run
 
