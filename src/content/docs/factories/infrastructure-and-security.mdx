@@ -38,7 +38,7 @@ Two configurations define where and how a factory's agents work:
 | **Environment** | What an agent works on: the workspace and runtime context | Repositories, setup commands, secrets, toolchain image, and provider configuration |
 | **Runner** | Where the work executes: the compute | Operating system, architecture, sandbox image, vCPUs, and memory |
 
-You don't manage a factory's environment directly: each factory implicitly manages one based on the repositories configured in its [definition](/factories/factory-as-code/). Runners are the choice you make. When a run starts, Warp resolves its compute in a fixed order: the runner the run selects explicitly, then the environment's execution defaults, then the system default. See [environments](/platform/environments/) for the underlying workspace model and the [runner reference](/platform/runners/) for compute options and resolution behavior.
+You don't manage a factory's environment directly — each factory keeps one in step with the repositories in its [definition](/factories/factory-as-code/). Runners are the choice you make. See [environments](/platform/environments/) for the underlying workspace model and the [runner reference](/platform/runners/) for compute options and how a run picks one.
 
 The **Runners** section of a factory's **Settings** page in the [factory dashboard](/factories/factory-dashboard/) shows each runner's operating system and architecture, setup commands, size, and whether it's the default. Where you edit runners depends on where the factory's source lives:
 

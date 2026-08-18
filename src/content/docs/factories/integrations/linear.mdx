@@ -5,19 +5,11 @@ description: >-
   progress flows back to the issue.
 sidebar:
   label: "Linear"
-topic: factories
 ---
 
-Connect Linear to your factory so your team can send it issues without leaving Linear. Assign an issue to the factory or tag it in a comment, and the factory picks up the issue with its full context.
+Connect Linear to your factory so your team can send it issues without leaving Linear. Assign an issue to the factory or tag it in a comment, and the factory picks it up with the issue's full context, then keeps the issue updated as the work moves through [its stages](/factories/how-factories-work/).
 
-From there, the factory routes the issue through its stages, triage through review, and keeps the Linear issue updated as work progresses, so your team can follow along without switching tools. If you're new to factories, see [how Warp Factories work](/factories/how-factories-work/) for the lifecycle.
-
-When the factory needs human input, respond in Linear or open the live factory run to inspect and steer the agent directly.
-
-Two parts work together:
-
-* **The Linear connection** - Grants Warp access to your Linear workspace.
-* **Factory automations** - Decide which Linear events start work and which agent handles them.
+When the factory needs an answer, reply in Linear, or open the live run to steer the agent directly.
 
 ## Prerequisites
 
@@ -28,48 +20,26 @@ Two parts work together:
 
 For workspace-level installation, reconnection, and removal steps, see the [Linear integration setup guide](/platform/integrations/linear/).
 
-## Connect Linear during factory setup
+## Connect Linear
 
-When you create a factory, the setup flow includes a **Connect your issue trackers** step:
+You connect Linear either while creating a factory, at the **Connect your issue trackers** step, or afterward from the factory's **Settings**. Either way you do the same two things:
 
-1. On the **Linear** row, click **Connect**.
-2. Complete Linear's OAuth flow for the workspace you want to connect. When you return, the **Linear** row shows as connected.
-3. Under **Linear team**, select the Linear teams that should trigger your factory.
+1. **Authorize Warp for your Linear workspace.** This is Linear's own OAuth flow, and it's only needed once per workspace.
+2. **Choose which Linear teams trigger this factory.**
 
-When setup completes, Warp creates a default automation that routes new [agent sessions](#route-agent-sessions) from the selected teams to your factory. Issue and comment events don't start work until you [add triggers](#configure-linear-triggers) for them.
-
-## Connect Linear from factory settings
-
-If you skipped Linear during setup, connect it from the factory's settings:
-
-1. In your factory, open **Settings** and go to the **Factory integrations** section.
-2. On the **Linear** row, click **Connect**. If the workspace hasn't authorized Warp yet, complete Linear's OAuth flow first.
-3. Under **Linear teams**, select the teams that should trigger your factory, then click **Enable**.
-
-Both paths end in the same state: Linear is connected to your factory, and a default automation routes agent sessions from the selected teams.
+Warp then adds a default automation that routes new [agent sessions](#route-agent-sessions) from those teams to your factory. Issue and comment activity doesn't start work until you [add triggers](#configure-linear-triggers) for it.
 
 ## Route agent sessions
 
 When someone mentions, assigns, or delegates the Warp app on an issue, Linear starts an agent session. The default automation created when you connected Linear routes new sessions from your selected teams to the factory, so assigning an issue or tagging the factory in a comment is enough to start work. If a session doesn't match any automation, the [Linear integration](/platform/integrations/linear/) handles it with its default behavior.
 
-Agent sessions don't appear as a trigger in the [automation editor](#configure-linear-triggers). To change how sessions route, for example by creator or keyword, edit the `agent_session_created` event in the factory's [version-controlled definition](/factories/factory-as-code/). Replies in an existing session continue that run; they aren't separate triggers.
+Replies in an existing session continue that run rather than starting a new one. To narrow which sessions reach the factory — by creator or keyword, say — edit the `agent_session_created` trigger in the factory's [definition files](/factories/factory-as-code/); session routing isn't editable from the automation editor.
 
 ## Configure Linear triggers
 
-Agent sessions cover explicit requests. To also start work automatically from issue and comment activity, add triggers:
+Agent sessions cover explicit requests. To start work automatically from issue and comment activity too, add an automation with a **Linear** trigger for one of these events: **Issue created**, **Issue labeled**, **Issue state changed**, **Issue assigned**, or **Comment created**. [Automation filters](/factories/automation-filters/#edit-filters-on-an-automation) covers the steps.
 
-1. In your factory, open **Automations**, then click **New** to create an automation or select an existing one.
-2. Click **Add trigger** > **Linear**, then choose an event: **Issue created**, **Issue labeled**, **Issue state changed**, **Issue assigned**, or **Comment created**.
-3. Select teams and labels to filter on. Click **More filters** to also filter by project, workflow state, assignee, mentioned user, or, for comment events, a specific issue.
-4. Choose the agent that receives the work, add any instructions, and save.
-
-Filters control when a trigger fires. An empty filter matches everything in the connected workspace, and every filter you add must match. For example, a trigger can require that an issue belongs to one team, enters a selected workflow state, and carries a release label.
-
-If **Linear** shows **Not connected** in the **Add trigger** menu, selecting it opens the factory's settings so you can [connect Linear](#connect-linear-from-factory-settings) first.
-
-:::caution
-Team selections and filters only route events. They don't reduce what the connection is allowed to access; the OAuth flow sets the workspace and teams Warp can reach.
-:::
+Every Linear trigger filters on teams and labels, and **More filters** adds project, workflow state, assignee, mentioned user, and — for comment events — a specific issue. A trigger can require, say, that an issue belongs to one team, enters a chosen workflow state, and carries a release label.
 
 ## Supported events and outputs
 
@@ -92,13 +62,11 @@ One comment can match two routes: a comment that creates an agent session can al
 
 ## What the factory can do in Linear
 
-In an agent session, the factory posts its plan, actions, and results as it works. It can also attach a GitHub pull request to the issue, update the issue's workflow state or delegate, link back to the run, and acknowledge comments it acts on.
-
-The factory's own Linear activity never triggers automations, so its updates can't start a loop of new runs.
+In an agent session, the factory posts its plan, actions, and results as it works. It can also attach a GitHub pull request to the issue, update the issue's workflow state or delegate, link back to the run, and acknowledge comments it acts on. Its own Linear activity never triggers automations, so a factory can't set itself off in a loop.
 
 Only agent sessions require a linked Warp account. Issue and comment events from unlinked users still start work, but Warp may not record who requested it.
 
-The Linear connection doesn't grant repository access or merge permissions. Code-host credentials control branches and pull requests, and human review and merge requirements still come from your factory workflow and repository settings.
+Connecting Linear doesn't grant repository access. Branches and pull requests use the factory's code-host credentials, and the pull request still waits for a person to review and merge.
 
 ## Troubleshooting
 

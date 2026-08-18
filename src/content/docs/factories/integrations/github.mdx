@@ -5,7 +5,6 @@ description: >-
   events start factory work and results post back to GitHub.
 sidebar:
   label: "GitHub"
-topic: factories
 ---
 import { VARS } from '@data/vars';
 
@@ -30,13 +29,7 @@ To confirm the connection works, mention the factory on a test issue and check t
 
 ## Add a custom automation
 
-The defaults cover mentions, assignments, and pull request completion. To start work from any other GitHub activity, such as a failed CI run or a review request, add your own automation:
-
-1. In the factory's [dashboard](/factories/factory-dashboard/), click **Automations**. Create an automation or edit a default one, choose the receiving agent, and add any **Additional instructions**.
-2. Under **Triggers**, click **Add trigger**.
-3. Choose **GitHub**, then choose an event.
-4. Select a repository, then use **More filters** to narrow which activity matches.
-5. Click **Save**. To confirm the automation works, trigger a matching event in GitHub, such as opening a test issue, and check that a work item starts in the factory dashboard.
+The defaults cover mentions, assignments, and pull request completion. To start work from any other GitHub activity — a failed CI run or a review request, say — add an automation with a **GitHub** trigger for that event, then narrow it with the filters below. [Automation filters](/factories/automation-filters/#edit-filters-on-an-automation) covers the steps.
 
 ## Supported triggers
 
@@ -103,13 +96,13 @@ New activity on an issue, pull request, or review thread the factory is already 
 
 Issues and pull requests the factory opens carry its label, the same one you use to mention it. Warp adds the label to each repository you connect and removes it when you disconnect one or delete the factory, so you never create or clean it up by hand. If a label is ever left behind, delete it like any other GitHub label.
 
-Factory-created branches and pull requests follow the repository's normal rules: branch protection, required reviews, and merge requirements still apply.
+Branches and pull requests the factory creates follow the repository's normal rules — branch protection, required reviews, and merge requirements all still apply.
 
 ## Permissions
 
 Runs authenticate with the GitHub App installation, not with the account of the person whose activity triggered them:
 
-* **The app installation decides what agents can reach.** Agents get exactly the repositories and permissions the installation grants. Factory repositories and automation filters control when work starts, not what a running agent can reach. To change access, change the installation.
+* **The app installation decides what agents can reach.** Agents get exactly the repositories and permissions the installation grants, so change the installation to change access — [automation filters](/factories/automation-filters/) only change when work starts.
 * **Anyone who can create matching activity can start work.** The event author doesn't need to be a Warp team member. Use author, label, and branch filters to control what starts runs.
 
 For the full credential model, see [Permissions and identity](/platform/integrations/github/#permissions-and-identity) on the GitHub integration page.

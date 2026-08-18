@@ -25,6 +25,10 @@ Third-party harnesses inherit the same {VARS.WARP_AUTOMATION_PLATFORM} features 
 * **Skills and Rules** — Saved [Skills](/agents/capabilities/skills/) and [Rules](/agents/capabilities/rules/) apply across harnesses.
 * **Observability** — Every run produces a transcript and shareable session in the [{VARS.DASHBOARD}](/platform/managing-cloud-agents/).
 
+## Plan requirements
+
+Third-party harnesses require a Build plan or higher. On the Free plan, cloud agent runs use Warp Agent, and choosing another harness returns an upgrade prompt. See [Warp pricing](https://www.warp.dev/pricing) for what each plan includes.
+
 ## Billing
 
 Claude Code and Codex each call their provider directly using credentials you supply, and the provider bills your account for inference. Warp meters [compute credits](/support-and-community/plans-and-billing/credits/#compute-credits) for the run's sandbox and [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the orchestration layer.
