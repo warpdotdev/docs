@@ -80,7 +80,7 @@ The factory acts on GitLab as its bot account:
 
 * **Replies in the thread it was mentioned in** - Its comments link back to the run session and the factory work item. New comments on the same merge request continue that work item instead of starting a new one.
 * **Pushes branches and opens draft merge requests** - Branches are named `factory/<slug>`, and merge requests open as drafts that the factory marks ready when the work is done. Commits and comments attribute to the bot's GitLab profile.
-* **Labels what it touches** - Merge requests and issues the factory opens or adopts carry its `factory:<alias>` label.
+* **Labels what it touches** - Merge requests and issues the factory opens or adopts carry its own label, named `factory:` followed by the factory's Foreman name.
 * **Posts review feedback as comments** - A review lands as a summary note plus inline discussions on the diff. When a later revision addresses a finding, the factory replies in that discussion and resolves it.
 
 The factory never merges or approves a merge request. Those decisions stay with your team, and branch protection and approval rules apply to everything the bot does.
