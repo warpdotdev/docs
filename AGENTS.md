@@ -686,9 +686,9 @@ Write the name as `{VARS.WARP_AUTOMATION_PLATFORM}` in body prose or `{{WARP_AUT
 - **subagent** - A child agent created by a parent agent to parallelize or delegate work
 - **conversation** - An interactive execution lifecycle within the Warp Terminal, regardless of whether it's local or in the cloud
 - **Automation Platform** - Warp's programmable platform for running and coordinating agents at scale
-- **cloud agent run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based. Use `{VARS.PLATFORM_RUN}`. On factory-specific pages, write "Factory run" directly.
+- **cloud agent run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based. Use `{VARS.PLATFORM_RUN}`. On factory-specific pages, write "factory run" directly.
 - **Environment** - The execution context for an agent, including repo access, dependencies, secrets, compute, and runtime configuration
-- **cloud agent dashboard** - The app surface to manage all runs, unified across the Warp app and web. Use `{VARS.DASHBOARD}`. On factory-specific pages, write "Factory dashboard" directly.
+- **cloud agent dashboard** - The app surface to manage all runs, unified across the Warp app and web. Use `{VARS.DASHBOARD}`. On factory-specific pages, write "factory dashboard" directly.
 - **Oz web app** - The web app for configuring agents and managing runs. Holds the Oz name until 2026-09-15; use `{VARS.WEB_APP}`.
 
 #### Oz CLI commands
@@ -723,6 +723,21 @@ The platform is not something you address — it runs and coordinates agents, an
 - ❌ "agent identity" / "agent identities" → Use "agent," "agents," or "cloud agent(s)" in user-facing copy. Use legacy API names such as `agent_identity_uid` or `/agent/identities` only when documenting the exact field, path, or compatibility behavior.
 - ❌ A bare "Automation Platform" in a referential position → Add "the". See [The article rule](#the-article-rule).
 - ❌ The literal string "Automation Platform" in prose → Use `{VARS.WARP_AUTOMATION_PLATFORM}` / `{{WARP_AUTOMATION_PLATFORM}}`.
+
+### Warp Factories terminology
+
+This works like GitHub Actions. **Warp Factories** is the product and is always written in full. An individual **factory** is a common noun and is always lowercase. A bare capitalized **Factory** is never a proper noun.
+
+- ✅ "Warp Factories is in Early Access" (the product)
+- ✅ "your factory", "each factory's agents", "factory dashboard", "factory run", "factory agents"
+- ❌ "the Factory", "your Factory", "Factory runs", "Factory metrics"
+- ❌ "Factories" on its own to mean the product → write "Warp Factories"
+
+Sentence-initial capitals are positional, not proper nouns — a heading or sidebar label may begin "Factory agents" for the same reason it would begin "Cloud agents." The rule governs mid-sentence prose. `style_lint` enforces it with the `factory-proper-noun` check.
+
+**Exceptions, quoted as they ship:** **Factory MCP** is the feature's own name (the server registers as `warp-factory`). Verbatim UI strings — **Factory name**, **Foreman name**, **Factory integrations**, **Add your Factory to your team**, "Factory running!", and the **Factory definition** sidebar label — are quoted as the app renders them.
+
+See `.agents/references/terminology.md` → "Warp Factories terminology" for the full glossary.
 
 ### Technical terms
 - **AI** (not "A.I.")

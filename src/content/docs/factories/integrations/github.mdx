@@ -1,8 +1,8 @@
 ---
 title: Connect GitHub to your factory
 description: >-
-  Connect a factory to GitHub so issues, pull requests, reviews, and CI events
-  start factory work and results post back to GitHub.
+  Connect GitHub to your factory so issues, pull requests, reviews, and CI
+  events start factory work and results post back to GitHub.
 sidebar:
   label: "GitHub"
 topic: factories
@@ -23,17 +23,17 @@ When you connect a factory to GitHub, repository activity starts work in your fa
 
 That's all the setup GitHub needs. Managed GitHub factories are created with two editable default automations, so the factory responds to GitHub activity without you configuring anything else. The first handles agent mentions and assignments (see [Mention the factory](#mention-the-factory)). The second runs when a pull request closes or merges: on a merge it finds the work items linked from the pull request and moves each one to its tracker's completed state, and on a close without a merge it does nothing.
 
-To confirm the connection works, mention the factory on a test issue and check that a work item starts in the factory's [control room](/factories/control-room/).
+To confirm the connection works, mention the factory on a test issue and check that a work item starts in the factory's [dashboard](/factories/factory-dashboard/).
 
 ## Add a custom automation
 
 The defaults cover mentions, assignments, and pull request completion. To start work from any other GitHub activity, such as a failed CI run or a review request, add your own automation:
 
-1. In the factory's [control room](/factories/control-room/), click **Automations**. Create an automation or edit a default one, choose the receiving agent, and add any **Additional instructions**.
+1. In the factory's [dashboard](/factories/factory-dashboard/), click **Automations**. Create an automation or edit a default one, choose the receiving agent, and add any **Additional instructions**.
 2. Under **Triggers**, click **Add trigger**.
 3. Choose **GitHub**, then choose an event.
 4. Select a repository, then use **More filters** to narrow which activity matches.
-5. Click **Save**. To confirm the automation works, trigger a matching event in GitHub, such as opening a test issue, and check that a work item starts in the control room.
+5. Click **Save**. To confirm the automation works, trigger a matching event in GitHub, such as opening a test issue, and check that a work item starts in the factory dashboard.
 
 ## Supported triggers
 
