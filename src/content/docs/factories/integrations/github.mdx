@@ -72,7 +72,7 @@ Use filters to route work precisely. For example, send failed runs of a specific
 
 ## Mention the factory
 
-A factory doesn't get its own GitHub handle. Every factory listens through the same Warp agent account, **@oz-agent**, and the factory's `factory:<alias>` label decides which factory a mention reaches:
+A factory doesn't get its own GitHub handle. Every factory listens through the same Warp agent account, **@oz-agent**, and the factory's `factory:<alias>` label decides which factory a mention reaches, where `<alias>` is the factory's [**Foreman name**](/factories/factory-as-code/#alias):
 
 1. Apply the factory's `factory:<alias>` label to the issue or pull request. Warp creates the label in each connected repository.
 2. Assign **@oz-agent** to the issue or pull request, or mention **@oz-agent** in the body or in any new comment.
