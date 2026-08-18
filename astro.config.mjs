@@ -200,8 +200,12 @@ export default defineConfig({
 				// llms-small.txt; our patch (patches/starlight-llms-txt+0.8.1.patch)
 				// extends it to llms-full.txt and custom sets as well.
 				exclude: ['support-and-community/community/open-source-licenses'],
+					// This string is the first thing an AI engine reads about Warp, so it
+					// carries the product lineup. Kept in sync with the rename and with
+					// launches: it said "the Oz platform" until the 8/18 rename, which
+					// left the most-consumed AI-facing artifact on the old name.
 					description:
-						'Documentation for Warp, the agentic development environment. Covers Warp Terminal, Warp Agents, and the Oz platform for cloud agents and orchestration at scale.',
+						'Documentation for Warp, the agentic development environment. Covers the Warp terminal, Warp agents, the Automation Platform for cloud agents and orchestration at scale, and Warp Factories for running software factories.',
 					customSets: [
 						{ label: 'Terminal', description: 'Warp Terminal features and configuration.', paths: ['terminal/**'] },
 						{ label: 'Agents', description: 'Warp\'s agents: capabilities, local agents, and CLI agents.', paths: ['agents/**'] },
