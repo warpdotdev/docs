@@ -444,15 +444,21 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					// Same label as the Automation Platform tab's group for watching and
 					// steering runs, because it covers the same ground one level up: the
-					// control room is where you watch a factory, and scorers are how you
-					// measure it.
+					// factory dashboard is where you watch a factory, and scorers are how
+					// you measure it.
 					label: 'Management & observability',
 					items: [
-						{ slug: 'factories/control-room', label: 'Control room' },
+						{ slug: 'factories/factory-dashboard', label: 'Factory dashboard' },
 						{ slug: 'factories/measure-and-improve', label: 'Measure and improve' },
-						{ slug: 'factories/troubleshooting', label: 'Troubleshooting' },
 					],
 				},
+				// Troubleshooting sits outside the groups, last in the tab. It was in
+				// 'Management & observability' next to the dashboard and Scorers pages,
+				// which read as a sibling of the measurement surfaces rather than as
+				// the place you go when something is broken. A bare trailing item is
+				// the same shape the Automation Platform tab uses for its leading
+				// 'Overview'.
+				{ slug: 'factories/troubleshooting', label: 'Troubleshooting' },
 			],
 		},
 		{

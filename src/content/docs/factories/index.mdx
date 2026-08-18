@@ -11,7 +11,7 @@ import { VARS } from '@data/vars';
 Warp Factories lets engineering teams define and operate **software factories**, cloud workflows where specialized agents move engineering work from intake to a reviewed pull request. Your team sets the policy and makes the final decisions; the factory does the repetitive work and records the evidence you need to improve it.
 
 :::note
-Warp Factories is in **Early Access** and available to a limited set of teams.
+Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
 :::
 
 ## What is a software factory?
@@ -31,10 +31,10 @@ Warp Factories is designed for engineering teams with repeatable work that exten
 ## What you get with Warp Factories
 
 * **Coordinated specialist agents** - A team of [factory agents](/factories/factory-agents/) runs each work item. A coordinating foreman routes it through the triage, spec, implement, and review roles, skipping stages that don't apply. You can add custom agents and automations to handle work the default roles don't cover.
-* **Factory definitions as code** - [Version-controlled definition files](/factories/factory-as-code/) describe your repositories, agents, automations, runners, skills, and MCP servers, so factory changes get the same review, history, and rollback as code changes.
-* **Integrations and the Factory MCP** - Work flows in from [Slack](/factories/integrations/slack/), [Linear](/factories/integrations/linear/), [Jira](/factories/integrations/jira/), and [GitHub](/factories/integrations/github/), plus direct runs and schedules. The [Factory MCP](/factories/factory-mcp/) connects coding agents and other MCP clients.
+* **Definitions as code** - [Version-controlled definition files](/factories/factory-as-code/) describe your repositories, agents, automations, runners, skills, and MCP servers, so factory changes get the same review, history, and rollback as code changes.
+* **Integrations and the Factory MCP** - Work flows in from [Slack](/factories/integrations/slack/), [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), [Linear](/factories/integrations/linear/), and [Jira](/factories/integrations/jira/), plus direct runs and schedules. The [Factory MCP](/factories/factory-mcp/) connects coding agents and other MCP clients.
 * **Model and harness choice** - Each agent role can use a different model and [supported harness](/platform/harnesses/), including the Warp Agent, Claude Code, and Codex.
-* **Measurement and self-improvement** - The [control room](/factories/control-room/) shows work-item status, runs, automations, costs, and benchmarks. [Scorers](/factories/measure-and-improve/) grade completed work, and [Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement) turns repeated failures into follow-up work the factory proposes for review.
+* **Measurement and self-improvement** - The [factory dashboard](/factories/factory-dashboard/) shows work-item status, runs, automations, costs, and benchmarks. [Scorers](/factories/measure-and-improve/) grade completed work, and [Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement) turns repeated failures into follow-up work the factory proposes for review.
 * **Infrastructure control** - Run on Warp-hosted infrastructure, or self-host execution on an eligible Enterprise plan. Teams can also connect supported inference providers, scope secrets, and (if eligible) store transcripts, artifacts, and run attachments in their own S3 or GCS buckets. See [infrastructure and security](/factories/infrastructure-and-security/) for the available controls.
 
 ## How Warp Factories relates to other Warp products

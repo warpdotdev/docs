@@ -21,8 +21,10 @@ export const VARS = {
   WEB_APP:                  "Oz web app",     // legacy Oz v1 webapp (oz.warp.dev) — holds until 9/15
   WEB_APP_URL:              "https://oz.warp.dev", // holds until 9/15, then "https://app.warp.dev"
   // Renamed per HYC (8/17), same shape as PLATFORM_RUN below: a plain
-  // platform-level term, with "Factory dashboard" written directly on pages
-  // that are specifically about a factory.
+  // platform-level term, with "factory dashboard" written directly on pages
+  // that are specifically about a factory. Lowercase: "Warp Factories" is the
+  // product, a "factory" is an instance, and a bare capitalized "Factory" is
+  // never a proper noun (AGENTS.md -> Warp Factories terminology).
   //
   // "Runs page" was the other candidate and reads better in isolation, but it
   // names a single page in the web app. This surface is defined as unified
@@ -34,7 +36,7 @@ export const VARS = {
   DASHBOARD:                "cloud agent dashboard",
   // Renamed per HYC (8/17): the platform-level default is the plain
   // descriptive phrase, not a branded one. Factory-specific pages should write
-  // "Factory run" directly rather than reaching for this variable.
+  // "factory run" directly rather than reaching for this variable.
   //
   // Kept singular so `{VARS.PLATFORM_RUN}s` pluralizes correctly at the call
   // sites that do that.

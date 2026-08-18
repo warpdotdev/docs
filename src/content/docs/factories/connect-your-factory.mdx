@@ -17,6 +17,7 @@ Pick the sources that match where work starts for your team. You can connect mor
 | --- | --- | --- |
 | [Slack](/factories/integrations/slack/) | Chat and support requests | The Slack thread or DM |
 | [GitHub](/factories/integrations/github/) | Issues, pull requests, reviews, and CI | The issue, pull request, or review thread |
+| [GitLab](/factories/integrations/gitlab/) | Merge request activity and bot mentions | The merge request thread |
 | [Linear](/factories/integrations/linear/) | Planned issues | The Linear issue and its agent session |
 | [Jira](/factories/integrations/jira/) | Work items assigned to Warp | The Jira agent session |
 | [Factory MCP](/factories/factory-mcp/) | Sending work from a local coding agent | The factory work item |
@@ -50,6 +51,7 @@ Every request then lands with the foreman agent, the factory's orchestrator. The
 When you create a factory through the setup wizard, Warp adds default automations for each tool you connect, so common requests work immediately:
 
 * **GitHub** - Starts work when the factory is mentioned or assigned, and follows up when pull requests close or merge, completing a linked tracker issue when it can. See the [GitHub integration guide](/factories/integrations/github/).
+* **GitLab** - Starts work when someone mentions the factory's bot in a merge request comment. See the [GitLab integration guide](/factories/integrations/gitlab/).
 * **Jira** - Starts work when someone assigns or mentions Warp on a work item in one of the Jira projects you selected. See the [Jira integration guide](/factories/integrations/jira/).
 * **Linear** - Starts work when a new agent session arrives from one of the Linear teams you selected. See the [Linear integration guide](/factories/integrations/linear/).
 * **Slack** - Starts work from mentions and messages, as described in the [Slack integration guide](/factories/integrations/slack/).
@@ -60,6 +62,7 @@ These defaults are starting points. Review each automation's filters, agent, and
 
 * [Slack](/factories/integrations/slack/) - Route chat requests, direct messages, and thread follow-ups through a dedicated factory app.
 * [GitHub](/factories/integrations/github/) - Route repository events with issue, pull request, review, or CI context.
+* [GitLab](/factories/integrations/gitlab/) - Route merge request events and bot mentions through a per-factory service account.
 * [Linear](/factories/integrations/linear/) - Route planned issues through issue activity and agent sessions.
 * [Jira](/factories/integrations/jira/) - Route Jira work items assigned to Warp into factory work.
 
