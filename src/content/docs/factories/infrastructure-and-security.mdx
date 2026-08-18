@@ -29,16 +29,11 @@ flowchart LR
 
 Self-hosting moves only the execution plane: with a managed self-hosted worker, repository checkouts, command execution, and the sandbox filesystem stay on machines you control, but content that enters prompts, results, transcripts, attachments, artifacts, or telemetry still flows through Warp and the providers you configure. See [deployment patterns](/platform/deployment-patterns/) and [self-hosting security and networking](/platform/self-hosting/security-and-networking/) for the broader data model.
 
-## Environments and runners
+## Runners
 
-Two configurations define where and how a factory's agents work:
+A runner defines the compute a factory's agents work on: the operating system and architecture, the sandbox image, and the instance shape (vCPUs and memory). It's the infrastructure choice you make for a factory. The workspace itself — repositories, setup commands, and secrets — comes from the factory's [definition](/factories/factory-as-code/), and Warp keeps it in step for you. See the [runner reference](/platform/runners/) for the available compute options.
 
-| Configuration | Defines | Key settings |
-| --- | --- | --- |
-| **Environment** | What an agent works on: the workspace and runtime context | Repositories, setup commands, secrets, toolchain image, and provider configuration |
-| **Runner** | Where the work executes: the compute | Operating system, architecture, sandbox image, vCPUs, and memory |
-
-You don't manage a factory's environment directly — each factory keeps one in step with the repositories in its [definition](/factories/factory-as-code/). Runners are the choice you make. See [environments](/platform/environments/) for the underlying workspace model and the [runner reference](/platform/runners/) for compute options and how a run picks one.
+Runners are declared as `runners/*.yaml` files in the definition, and you can define more than one — a Linux runner with more cores and memory for builds, a macOS runner for platform-specific work. Every agent inherits the factory's default (`agentDefaults.runner`), and any agent or automation can name its own `runner` instead, so the foreman can send implementation to a macOS runner while every other agent stays on Linux.
 
 The **Runners** section of a factory's **Settings** page in the [factory dashboard](/factories/factory-dashboard/) shows each runner's operating system and architecture, setup commands, size, and whether it's the default. Where you edit runners depends on where the factory's source lives:
 
@@ -101,7 +96,7 @@ Scope each credential to the resources and actions its agent needs. Warp redacts
 
 ## Governance and metering
 
-Factories use your existing [team roles](/enterprise/team-management/roles-and-permissions/): Team Owners and Admins control factory definitions, environments, runners, secrets, and provider configuration. Warp Factories doesn't add a factory-specific approval role, so who reviews specifications and who approves merges stays a workflow and repository policy decision. Treat factory-definition changes as operational code: review them like any other change, and keep merge access with the people responsible for shipping.
+Factories use your existing [team roles](/enterprise/team-management/roles-and-permissions/): Team Owners and Admins control factory definitions, runners, secrets, and provider configuration. Warp Factories doesn't add a factory-specific approval role, so who reviews specifications and who approves merges stays a workflow and repository policy decision. Treat factory-definition changes as operational code: review them like any other change, and keep merge access with the people responsible for shipping.
 
 Warp meters hosted compute, Warp-provided inference, and platform services. Managed self-hosted execution moves compute costs to your own infrastructure, and customer-supplied inference bills model usage through your provider account. Platform services consume credits regardless of these choices. See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for details.
 
@@ -109,7 +104,7 @@ Warp meters hosted compute, Warp-provided inference, and platform services. Mana
 
 1. **Classify the workload** - Identify the repositories, data, internal services, and regulated systems the factory can reach.
 2. **Choose execution** - Decide where checkout, commands, and the sandbox filesystem must run.
-3. **Configure the workspace and runners** - Set the factory's repositories, setup commands, and secrets, and choose the runner operating system, architecture, image, and compute.
+3. **Configure the factory and its runners** - Set the repositories, setup commands, and secrets in the factory's definition, and choose each runner's operating system, architecture, image, and compute.
 4. **Choose inference and storage** - Select provider routing and where supported run data persists.
 5. **Scope credentials** - Set each agent's secret allowlist, harness authentication, and repository identity.
 6. **Set review gates** - Decide where humans review specifications and pull requests, and enforce those gates in workflow and repository policy.
