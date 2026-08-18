@@ -6,6 +6,7 @@ description: >-
   box.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { VARS } from '@data/vars';
 
 Classic Input corresponds to the **Shell (PS1)** option under **Settings** > **Appearance** > **Input**. It provides a traditional terminal experience with support for shell customizations like PS1 prompts, oh-my-zsh themes, same-line prompts, and more.
 
@@ -94,7 +95,7 @@ Warp input occasionally shows hints within the input editor in a light grey text
 
 ## How to run commands in Agent Mode
 
-Once you have typed your question or task in the input, press `Enter` to execute your AI query. Agent Mode will send your request to Oz and begin streaming output in the form of an AI block.
+Once you have typed your question or task in the input, press `Enter` to execute your AI query. Agent Mode will send your request to the {VARS.WARP_AUTOMATION_PLATFORM} and begin streaming output in the form of an AI block.
 
 Unlike a chat panel, Agent Mode can complete tasks for you by running commands directly in your session.
 
@@ -112,12 +113,12 @@ If the suggested command fails and you want to resolve the error, you can start 
 
 If Agent Mode doesn't have enough context to assist with a task, it will ask permission to run a command and read the output of that command.
 
-You must explicitly agree and press `Enter` to run the requested command. When you hit enter, both the command input and the output will be sent to Oz.
+You must explicitly agree and press `Enter` to run the requested command. When you hit enter, both the command input and the output will be sent to the {VARS.WARP_AUTOMATION_PLATFORM}.
 
 If you do not wish to send the command or its output to AI, you can click Cancel or press `Ctrl+C` to exit Agent Mode and return to the traditional command line.
 
 <figure>
-![Oz asks permission to run a command and read the output.](../../../../assets/terminal/warp-ai-permissions.png)
+![The agent asks permission to run a command and read the output.](../../../../assets/terminal/warp-ai-permissions.png)
 <figcaption>Agent command approval prompt.</figcaption>
 </figure>
 
@@ -128,6 +129,6 @@ Once a requested command is executed, you can click to expand the output and vie
 <figcaption>Viewing command details.</figcaption>
 </figure>
 
-If a requested command fails, Oz detects it. Agent Mode is self-correcting. It will request another command until it completes the task for you.
+If a requested command fails, the {VARS.WARP_AUTOMATION_PLATFORM} detects it. Agent Mode is self-correcting. It will request another command until it completes the task for you.
 
 Warp lets you choose from a curated list of LLMs for use in Agent Mode. By default, Warp uses **Auto (Responsive)**, which routes to the highest-quality, fastest available model. You can switch to other supported models — see [Model choice](/agents/inference/model-choice/) for the full list.

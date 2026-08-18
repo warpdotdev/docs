@@ -5,6 +5,7 @@ description: >-
   compliance certifications to ensure your organization's requirements are
   met.
 ---
+import { VARS } from '@data/vars';
 
 Warp builds security and compliance into its core, keeping **developers in control** while enabling powerful agent workflows. This overview explains how Warp handles your data, what security controls are available, and how Warp meets enterprise security standards.
 
@@ -31,7 +32,7 @@ How data collection works by plan:
 * **Business and Enterprise** - Team admins can enforce data collection settings for the entire team. Data collection is **disabled by default**.
 
 :::note
-Some product features — including cloud conversations and Oz runs — require storing conversation data to function. This data is stored to power the product experience and is separate from analytics or telemetry data collection.
+Some product features — including cloud conversations and {VARS.PLATFORM_RUN}s — require storing conversation data to function. This data is stored to power the product experience and is separate from analytics or telemetry data collection.
 :::
 
 Some models carry provider-specific data retention requirements and are therefore not covered by ZDR. For Enterprise teams, these models are **off by default**; a workspace admin must explicitly enable them in the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings).
@@ -131,7 +132,7 @@ Self-hosted deployments use a split architecture:
 
 Two deployment modes are available:
 * **Unmanaged** - Use `oz agent run` to run agents in your existing orchestrator or CI environment. Supports Linux, macOS, and Windows with no Docker dependency.
-* **Managed** - Run the `oz-agent-worker` daemon to let the Oz platform orchestrate agents in isolated Docker containers on your infrastructure.
+* **Managed** - Run the `oz-agent-worker` daemon to let Warp orchestrate agents in isolated Docker containers on your infrastructure.
 
 Agent runs are fully tracked and steerable in both modes. No inbound network access is required.
 

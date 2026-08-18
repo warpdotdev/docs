@@ -5,9 +5,8 @@
 // Reference, etc.) as an inline-flex row with a small icon + label. The list
 // is sourced from `starlight-sidebar-topics`'s middleware, which exposes
 // `Astro.locals.starlightSidebarTopics.topics` on every Starlight route.
-// Each topic carries `{ link, label, icon, badge, isCurrent }`; we consume
-// `link`/`label`/`icon`/`isCurrent` and ignore `badge` for now (none of our
-// topics ship one). The plugin's per-topic sidebar filtering lives in its
+// Each topic carries `{ link, label, icon, badge, isCurrent }`. The plugin's
+// per-topic sidebar filtering lives in its
 // middleware (it rewrites `starlightRoute.sidebar`), so removing the topic
 // list from the sidebar markup does NOT break that filtering — the same
 // filtered nav still renders below this row in the page sidebar.
@@ -26,6 +25,11 @@
 //     underline share `--sl-color-text-accent`, which auto-adapts to dark
 //     and light themes.
 //   - No surrounding chip / box / bg — just type + icon
+//   - Topic badge (e.g. Factories "Early Access"): rendered as a plain span
+//     styled as a compact brand pill (Inter, 11px/600, accent tint, fully
+//     rounded) instead of Starlight's `<Badge>`, whose monospace bordered
+//     box clashed with the nav type and was wide enough to wrap the nav
+//     onto a second row at common laptop widths.
 import { Icon } from '@astrojs/starlight/components';
 
 const { topics } = Astro.locals.starlightSidebarTopics;
@@ -33,14 +37,12 @@ const { topics } = Astro.locals.starlightSidebarTopics;
 // Per-topic icon overrides for topics where Starlight's icon registry doesn't
 // ship the right glyph (only 22 generic UI icons available; no robot/AI). The
 // `sidebar.ts` config keeps the closest Starlight name (e.g. `puzzle` for
-// Agents, `seti:json` for API) so the mobile drawer falls back gracefully;
-// this map points to a custom inline SVG that we render here in the header
-// instead.
+// Agents) so the mobile drawer falls back gracefully; this map points to a
+// custom inline SVG that we render here in the header instead.
 const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 	Agents: true,
-	API: true,
 	Enterprise: true,
-	Oz: true,
+	'Automation Platform': true,
 };
 ---
 
@@ -60,22 +62,7 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 								  this and the Starlight-rendered icons to a single
 								  uniform size. `currentColor` so each icon inherits the
 								  link's text color and picks up the active-state accent. */}
-								{topic.label === 'API' ? (
-									/* `</>` brackets — the conventional dev-API glyph.
-									   Two chevrons mirrored across center, stroke weight
-									   matched to the other topic icons. */
-									<svg
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									>
-										<path d="M16 18l6-6-6-6" />
-										<path d="M8 6l-6 6 6 6" />
-									</svg>
-								) : topic.label === 'Enterprise' ? (
+								{topic.label === 'Enterprise' ? (
 									/* Office building — simple outline: tall rectangle
 									   with window grid and entrance, stroke weight matched
 									   to the other topic icons. */
@@ -96,7 +83,7 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 										<line x1="15" y1="14" x2="15" y2="14.01" />
 										<path d="M10 22v-4h4v4" />
 									</svg>
-								) : topic.label === 'Oz' ? (
+								) : topic.label === 'Automation Platform' ? (
 									/* Cloud icon — Feather-style cloud outline, stroke weight
 									   matched to the other topic icons. */
 									<svg
@@ -139,6 +126,9 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 							</span>
 						) : null}
 						<span class="warp-topic-nav__label">{topic.label}</span>
+						{topic.badge && (
+							<span class="warp-topic-nav__badge">{topic.badge.text}</span>
+						)}
 					</a>
 				</li>
 			))}
@@ -149,13 +139,14 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 <style>
 	.warp-topic-nav {
 		/* Sits between SiteTitle and the right control group inside `.header`.
-		   `align-self: stretch` keeps the nav at full header height so its
-		   row(s) of tabs center vertically; `align-items: center` centers the
-		   tab list within that height — important once the list wraps to a
-		   second row on crowded widths. */
+		   The whole chain (nav → ul → li → a) stretches to the header's full
+		   content height so each tab is a full-height hit target and the
+		   active underline can drop onto the header's bottom divider (see the
+		   `::after` rule below). Tab content stays vertically centered by the
+		   link's own flex centering. */
 		align-self: stretch;
 		display: flex;
-		align-items: center;
+		align-items: stretch;
 		min-width: 0;
 	}
 
@@ -165,29 +156,32 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 		padding: 0;
 		display: flex;
 		flex-wrap: wrap;
-		align-items: center;
+		align-items: stretch;
 		/* Row gap applies only once the nav wraps to a second row on crowded
-		   mid-width viewports; column gap keeps the single-row spacing. */
+		   mid-width viewports (each row then shares the stretched height);
+		   column gap keeps the single-row spacing. */
 		gap: 0.25rem 1.25rem;
 		min-width: 0;
 	}
 
 	li {
 		display: flex;
-		align-items: center;
+		align-items: stretch;
 	}
 
 	a {
-		/* The link hugs its own content (icon + label) plus a little vertical
-		   padding, so the active-state `::after` underline sits just under the
-		   tab in both single-row and wrapped (two-row) layouts. Vertical
-		   centering of the row(s) is handled by the parent nav/ul rather than
-		   by stretching each link to the full header height. */
+		/* Full-height tab (stretched via the nav → ul → li chain) with its
+		   icon + label centered by the link's own flex alignment. Full height
+		   matters for the active-state `::after`: the link's bottom edge ends
+		   at the header's inner content box, a known `--sl-nav-pad-y` above
+		   the header's bottom divider, so the underline can be offset onto
+		   the divider itself. Horizontal padding only — vertical height comes
+		   from the stretch. */
 		position: relative;
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		padding: 0.4rem 0.25rem;
+		padding: 0 0.25rem;
 		font-size: var(--sl-text-sm);
 		font-weight: 500;
 		/* `1.25` is just enough to clear Inter's natural ascent + descent
@@ -212,7 +206,10 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 
 	a:focus-visible {
 		outline: 2px solid var(--sl-color-accent-high);
-		outline-offset: 4px;
+		/* Inset ring: the links now span the header's full content height, so
+		   an outward offset would collide with the header's top edge and
+		   bottom divider. */
+		outline-offset: -4px;
 		border-radius: var(--sl-radius-xs);
 	}
 
@@ -227,18 +224,42 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 		color: var(--sl-color-text-accent);
 		font-weight: 600;
 	}
+	/* Compact brand pill for topic badges (currently only Factories "Early
+	   Access"). Deliberately quiet: one step smaller than the 14px label,
+	   tinted with the accent ramp rather than boxed in a border, and fully
+	   rounded to match the site's pill language (search, guide filters).
+	   `--sl-color-accent-low` + `--sl-color-text-accent` adapt to dark and
+	   light themes on their own. Font family inherits Inter from the link —
+	   no monospace. */
+	.warp-topic-nav__badge {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.125rem 0.5rem;
+		border-radius: 9999px;
+		background: var(--sl-color-accent-low);
+		color: var(--sl-color-text-accent);
+		font-size: 0.6875rem; /* 11px against the 14px label */
+		font-weight: 600;
+		line-height: 1.2;
+		letter-spacing: 0.015em;
+	}
 
-	/* 2px accent underline under the active tab, anchored to the link's own
-	   bottom edge so it hugs the tab. It previously dropped down to the
-	   header's bottom hairline (Scalar pattern), but once the nav can wrap to
-	   a second row that pushed the line into the row below — `bottom: 0` keeps
-	   it attached to the active tab in every layout. */
+	/* 2px accent underline for the active tab, sitting ON the header's
+	   bottom divider (Cursor/Devin/Mintlify docs pattern) rather than
+	   hugging the tab label mid-header. Geometry: the stretched link's
+	   bottom edge is the header's inner content box, which sits exactly
+	   `--sl-nav-pad-y` above the 1px `border-bottom` divider drawn by
+	   Starlight's `header.header` (PageFrame) — so offsetting by that
+	   padding rests the line flush on the divider. In the crowded band
+	   (≤80rem) where the list may wrap to two rows, the media query below
+	   reverts to `bottom: 0` so a row-one tab's underline doesn't float
+	   between rows. */
 	a[aria-current='page']::after {
 		content: '';
 		position: absolute;
 		left: 0;
 		right: 0;
-		bottom: 0;
+		bottom: calc(-1 * var(--sl-nav-pad-y));
 		height: 2px;
 		background: var(--sl-color-text-accent);
 	}
@@ -278,16 +299,35 @@ const CUSTOM_TOPIC_ICONS: Record<string, true> = {
 		display: inline-block;
 	}
 
-	/* Mid-width fallback. Below ~80rem (~1280px) the topic items + logo +
-	   right-group start to crowd. Drop the per-item icons first so the labels
-	   keep room. The mobile drawer (rendered separately) takes over below
-	   50rem where this nav is hidden entirely. */
-	@media (max-width: 80rem) {
+	/* Mid-width fallbacks, tuned so the nav holds a single row through the
+	   common laptop range instead of wrapping "Guides" onto a second line.
+	   Measured on this branch's ten-topic nav (Chromium, Inter loaded):
+	   with icons + badge the row needs a ~1460px viewport; without icons it
+	   needs ~1280px; hiding the badge too buys roughly another 95px.
+	   So: drop the per-item icons first (labels keep the room), then the
+	   Factories badge at the tightest widths. Wrapping remains the graceful
+	   fallback below ~1160px, and the mobile drawer (rendered separately)
+	   takes over below 50rem where this nav is hidden entirely. */
+	@media (max-width: 94rem) {
 		ul {
 			gap: 0.25rem 1rem;
 		}
 		.warp-topic-nav__icon {
 			display: none;
+		}
+	}
+
+	@media (max-width: 80rem) {
+		.warp-topic-nav__badge {
+			display: none;
+		}
+		/* Crowded band: the list can wrap to two rows here (the header also
+		   reserves extra height for this range — warp-components.css §5), so
+		   anchor the underline back to the tab's own bottom edge instead of
+		   the header divider, where a wrapped row-one tab would leave the
+		   line stranded between rows. */
+		a[aria-current='page']::after {
+			bottom: 0;
 		}
 	}
 </style>
