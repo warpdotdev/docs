@@ -25,12 +25,20 @@ auto-surfaces for docs once the flag goes GA.
 
 ## Feature flags -> doc pages
 
-AgentMode -> src/content/docs/agents/local-agents/overview.mdx
+# AgentMode's old target (agents/local-agents/overview.mdx) was removed in the
+# agents-section reorg; the concept now lives on the Agents tab overview page
+# (which literally covers Agent Mode and embeds a video titled "Agent Mode
+# Overview").
+AgentMode -> src/content/docs/agents/index.mdx
 AgentManagementView -> src/content/docs/platform/managing-cloud-agents.md
 AgentManagementDetailsView -> src/content/docs/platform/managing-cloud-agents.md
 AgentModeComputerUse -> src/content/docs/agents/capabilities/computer-use/index.mdx
 AgentModeWorkflows -> src/content/docs/knowledge-and-collaboration/warp-drive/workflows.md
-AgentOnboarding -> src/content/docs/agents/getting-started/agents-in-warp.mdx
+# AgentOnboarding's old target (agents/getting-started/agents-in-warp.mdx) was
+# removed in the same reorg. The first-run agent-onboarding wizard (account
+# sign-up, choosing how to access AI) is covered by the "Log in to Warp
+# (optional)" section of the installation/setup quickstart.
+AgentOnboarding -> src/content/docs/getting-started/quickstart/installation-and-setup.mdx
 AIRules -> src/content/docs/agents/capabilities/rules.mdx
 AIResumeButton -> src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx
 InlineCodeReview -> src/content/docs/agents/local-agents/interactive-code-review.mdx
@@ -39,6 +47,9 @@ CodeFindReplace -> src/content/docs/code/code-editor/find-and-replace.md
 VimCodeEditor -> src/content/docs/code/code-editor/code-editor-vim-keybindings.md
 McpServer -> src/content/docs/agents/capabilities/mcp.mdx
 McpOauth -> src/content/docs/agents/capabilities/mcp.mdx
+# Factory MCP (the hosted MCP endpoint agents use to work with a factory) is
+# GA and documented on the Factory MCP page and related factories/* pages.
+FactoryMcp -> src/content/docs/factories/factory-mcp.mdx
 ImageAsContext -> src/content/docs/agents/local-agents/agent-context/images-as-context.mdx
 SelectionAsContext -> src/content/docs/agents/local-agents/agent-context/selection-as-context.mdx
 DiffSetAsContext -> src/content/docs/agents/local-agents/agent-context/selection-as-context.mdx
@@ -231,6 +242,11 @@ GeminiEnterprise -> src/content/docs/enterprise/enterprise-features/byollm-gemin
 # OSC 8 terminal hyperlinks (clickable link text emitted by CLI tools). Promoted
 # preview -> GA; documented with the rest of Warp's link handling.
 OscHyperlinks -> src/content/docs/terminal/more-features/files-and-links.mdx
+
+# `--mcp <well-known-id>` CLI shorthand (bare, non-UUID identifiers like
+# "linear" resolved server-side). GA; documented alongside the rest of the
+# --mcp flag formats.
+WellKnownMcpIds -> src/content/docs/reference/cli/mcp-servers.mdx
 
 ## CLI commands -> doc pages
 
@@ -459,6 +475,49 @@ GET /factory/{uid}/benchmarks/runs -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid} -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid}/results -> internal
 POST /factory/{uid}/benchmarks/runs/{run_uid}/cancel -> internal
+
+# Additional Factory web-app-only backend routes surfaced by the audit
+# (router/handlers/public_api/factories.go, factory_files.go,
+# factory_file_schemas.go, factory_file_validation.go, factory_access.go,
+# factory_scorers.go, benchmarks.go). Same unreleased Factory product as the
+# /factory/* routes above — Factory-UI-only backend routes, not part of the
+# released public Oz Agent API / OpenAPI spec.
+GET /factory-alias/{alias} -> internal
+GET /factory-files/schemas -> internal
+GET /factory-files/schemas/{schema_version} -> internal
+GET /factory-files/schemas/{schema_version}/{document} -> internal
+POST /factory-files/validate -> internal
+GET /factory-setup/integrations/jira/projects -> internal
+GET /factory-setup/integrations/linear/teams -> internal
+GET /factory/access -> internal
+GET /factory/scorers/{scorer_id}/metrics/pass-rate -> internal
+DELETE /factory/scorers/{scorer_id}/self-improvement-config -> internal
+GET /factory/scorers/{scorer_id}/self-improvement-config -> internal
+PUT /factory/scorers/{scorer_id}/self-improvement-config -> internal
+POST /factory/{uid}/benchmarks/suites/{suite_uid}/tasks -> internal
+GET /factory/{uid}/gitlab-automation-capability -> internal
+POST /factory/{uid}/gitlab-automation-capability/refresh -> internal
+GET /factory/{uid}/integration-activations -> internal
+GET /factory/{uid}/integration-destinations -> internal
+GET /factory/{uid}/integrations/jira/labels -> internal
+GET /factory/{uid}/integrations/jira/projects -> internal
+GET /factory/{uid}/integrations/jira/statuses -> internal
+POST /factory/{uid}/merges -> internal
+POST /factory/{uid}/merges/check -> internal
+GET /factory/{uid}/merges/{merge_uid} -> internal
+GET /factory/{uid}/metrics/cost-by-pr-size -> internal
+GET /factory/{uid}/metrics/run-breakdown -> internal
+GET /factory/{uid}/metrics/top-prs -> internal
+GET /factory/{uid}/review -> internal
+POST /factory/{uid}/review/refine -> internal
+GET /factory/{uid}/source/export -> internal
+GET /factory/{uid}/source/file -> internal
+GET /factory/{uid}/source/link-readiness -> internal
+GET /factory/{uid}/source/tree -> internal
+POST /factory/{uid}/source/clone-url -> internal
+PUT /factory/{uid}/source/files -> internal
+GET /factory/{uid}/task-by-run -> internal
+POST /factory/{uid}/tasks/{task_uid}/cancel -> internal
 
 # Orchestration messaging and lifecycle-event endpoints. These are marked
 # `x-internal: true` in warp-server's canonical spec (public_api/openapi.yaml),
@@ -740,6 +799,13 @@ EditableMarkdownMermaid
 # Directory-based tab colors: the user-facing knob is the setting
 # appearance.tabs.directory_tab_colors, documented in the all-settings reference.
 DirectoryTabColors
+# Internal client-side orchestration event-delivery plumbing (agent-to-agent
+# messaging/lifecycle-event transport). Both flags are explicitly documented
+# as "no user-visible behavior change" in their design specs (see
+# warp/specs/QUALITY-928/TECH.md and warp/specs/QUALITY-919/TECH.md), so they
+# need no doc page.
+OrchestrationUnifiedStack
+WaitForEventsParentRegistration
 CloudModeHostSelector
 CodebaseIndexSpeedbump
 CodebaseIndexPersistence

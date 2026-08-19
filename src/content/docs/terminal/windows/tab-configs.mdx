@@ -11,7 +11,7 @@ Tab Configs let you define reusable tab setups — including directory, startup 
 
 <VideoEmbed url="https://youtu.be/Bq30S3wIpOU" title="Tab Configs in Warp" />
 
-## How Tab Configs work
+## How tab configs work
 
 Each Tab Config is a `.toml` file stored in Warp's `tab_configs` directory. Every file defines a single tab layout with optional pane splits, startup commands, and parameterized inputs. Tab Configs appear in the `+` menu alongside your existing tabs, so you can launch a preconfigured workspace instantly.
 
@@ -31,7 +31,7 @@ The `tab_configs` directory lives in a different location on each platform:
 
 For the full list of Warp file locations, see [File and folder locations](/terminal/settings/file-locations/).
 
-## Creating a Tab Config
+## Creating a tab config
 
 ### From the UI
 
@@ -43,7 +43,7 @@ For the full list of Warp file locations, see [File and folder locations](/termi
 1. Create a new `.toml` file in the `tab_configs` directory shown above. Use snake_case for the file name (e.g., `dev_server.toml`).
 2. Define the tab layout using the schema below, then save the file. The new config appears in the `+` menu automatically.
 
-### Save an existing tab as a Tab Config
+### Save an existing tab as a tab config
 
 You can also capture a tab's current state as a reusable Tab Config without writing TOML. Right-click any tab in the [vertical tabs](/terminal/windows/vertical-tabs/) panel or horizontal tab bar to open the context menu, then click **Save as new config**. Warp generates a `.toml` file from the tab's layout, commands, and directory and adds it to the `+` menu.
 
@@ -52,7 +52,7 @@ You can also capture a tab's current state as a reusable Tab Config without writ
 <figcaption>Saving a tab config.</figcaption>
 </figure>
 
-## Managing Tab Configs
+## Managing tab configs
 
 Saved Tab Configs appear in the `+` menu for quick access. When you hover a Tab Config in the menu, a **sidecar panel** appears alongside it with options to:
 
@@ -65,7 +65,7 @@ Saved Tab Configs appear in the `+` menu for quick access. When you hover a Tab 
 <figcaption>Tab config menu with sidecar options.</figcaption>
 </figure>
 
-## Open a Tab Config from a URL
+## Open a tab config from a URL
 
 You can open a saved Tab Config directly via Warp's [URI scheme](/terminal/more-features/uri-scheme/). This is useful for browser bookmarks, scripts, and launchers like Raycast or Alfred that need to jump straight into a configured pane layout without going through the `+` menu.
 
@@ -87,7 +87,7 @@ If the Tab Config declares `[params.*]` entries, the params modal opens just lik
 On Warp Preview, use `warppreview://tab_config/<name>` instead.
 :::
 
-## Using skills to manage Tab Configs
+## Using skills to manage tab configs
 
 Warp includes built-in skills for creating and modifying Tab Configs through natural language:
 

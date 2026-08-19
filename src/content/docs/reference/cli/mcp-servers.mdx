@@ -2,7 +2,7 @@
 title: MCP servers (CLI reference)
 description: >-
   Connect agents to external tools like GitHub, Linear, and Sentry by passing
-  MCP servers to the --mcp flag as a UUID, inline JSON, or file path.
+  MCP servers to the --mcp flag as a UUID, well-known id, inline JSON, or file path.
 sidebar:
   label: "MCP servers"
 ---
@@ -20,9 +20,10 @@ For help choosing between local, cloud, and shared MCP workflows, see [Connect d
 
 ## Using the `--mcp` flag
 
-The `--mcp` flag accepts three formats:
+The `--mcp` flag accepts four formats:
 
 * **UUID** — reference a Warp-shared MCP server by its UUID (find UUIDs with `oz mcp list`)
+* **Well-known id** — a short identifier like `linear`, resolved server-side against a set of managed MCP servers
 * **Inline JSON** — pass a full MCP JSON configuration directly as a string
 * **File path** — path to a JSON file containing the MCP configuration
 
@@ -57,6 +58,16 @@ $ oz mcp list
 ```sh
 $ oz agent run --mcp "1deb1b14-b6e5-4996-ae99-233b7555d2d0" --prompt "who last updated the README?"
 ```
+
+### Passing a well-known managed MCP server
+
+A bare identifier made up of letters, digits, `-`, or `_` — such as `linear` — is treated as a well-known managed MCP id rather than a UUID or JSON. Warp resolves it server-side at run setup, so you don't need to look up a UUID first:
+
+```sh
+$ oz agent run --mcp linear --prompt "list my assigned issues"
+```
+
+The server owns the set of recognized well-known ids. An id it doesn't recognize is skipped at run setup rather than failing the run, so new managed servers can become available without a client update.
 
 ### Passing MCP servers as inline JSON or a file
 
