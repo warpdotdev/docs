@@ -11,7 +11,7 @@ Connect your factory to the tools where your team already discusses, tracks, and
 
 ## Choose a source
 
-Pick the sources that match where work starts for your team. You can connect more than one, though a factory can use Linear or Jira, or no tracker at all, but not both at once. The setup wizard currently offers Linear; to use Jira, connect it after setup or in your [factory definition](/factories/factory-as-code/).
+Pick the sources that match where work starts for your team. You can connect multiple sources, but not both Linear and Jira at the same time. The setup wizard currently offers Linear; to use Jira, connect it after setup or in your [factory definition](/factories/factory-as-code/).
 
 | Source | Best for | Where follow-ups continue |
 | --- | --- | --- |
@@ -25,10 +25,9 @@ Pick the sources that match where work starts for your team. You can connect mor
 
 ## Connect a source
 
-1. Pick the factory you want to connect. If you don't have one yet, follow the [Warp Factories quickstart](/factories/quickstart/).
-2. Connect the source: install the provider integration, set up the [Factory MCP](/factories/factory-mcp/), or create a schedule. Each integration guide below walks through authorization; grant only the access the factory needs.
-3. Tell the factory how to respond. Provider connections come with default automations that decide which events start work and which agent handles them. Review their [filters](/factories/automation-filters/) and run settings. Filters route work, not access: what a running agent can reach depends on its own configuration, not the filters that started it. Schedules and direct runs skip this step.
-4. Send a test request, such as mentioning the factory in Slack or assigning it an issue, and confirm it picks up the work and replies at the source.
+Each source's integration guide walks through authorizing access; grant only what the factory needs. Provider connections come with default automations that decide which events start work and which agent handles them. Review their [filters](/factories/automation-filters/) and run settings after connecting. Filters route work, not access: what a running agent can reach depends on its own configuration, not the filters that started it.
+
+After connecting, send a test request, such as mentioning the factory in Slack or assigning it an issue, and confirm it picks up the work and replies at the source.
 
 ## How work reaches your factory
 
@@ -42,9 +41,9 @@ flowchart LR
   Work --> Results["Results posted<br/>back to the source"]
 ```
 
-An event from a connected tool starts the automation whose filters match it, such as a specific repository, channel, or label. Schedules start their automation on a timer, and direct requests go straight to the factory.
+An event from a connected tool starts the automation based on filter matching, such as a specific repository, channel, or label. Schedules start their automation on a timer, and direct requests go straight to the factory.
 
-Every request then lands with the foreman agent, the factory's orchestrator. The foreman turns the request into a work item, determines which stage the work needs next, and dispatches a specialized agent for each stage: triage to scope the request, spec when the design needs agreement, implementation to write the code, and review to check it. Between stages it relays questions and progress back to the source, and it pauses wherever a decision belongs to a human, such as approving a spec or [merging a pull request](/factories/how-factories-work/#where-your-team-stays-in-charge). A reply in the same thread, issue, or pull request adds to that work item instead of starting a new one, and repeated event deliveries from a provider don't create duplicates. See [how Warp Factories work](/factories/how-factories-work/) for the full lifecycle.
+Every request lands with the foreman agent, which turns it into a work item and dispatches the agents each stage needs. A reply in the same thread, issue, or pull request continues that work item instead of starting a new one, and repeated event deliveries don't create duplicates. See [how Warp Factories work](/factories/how-factories-work/) for the full lifecycle, including where people stay in the loop.
 
 ## Review the default automations
 
@@ -58,25 +57,13 @@ When you create a factory through the setup wizard, Warp adds default automation
 
 These defaults are starting points. Review each automation's filters, agent, and run settings, and adjust them to match your workflow.
 
-## Integration guides
-
-* [Slack](/factories/integrations/slack/) - Route chat requests, direct messages, and thread follow-ups through a dedicated factory app.
-* [GitHub](/factories/integrations/github/) - Route repository events with issue, pull request, review, or CI context.
-* [GitLab](/factories/integrations/gitlab/) - Route merge request events and bot mentions through a per-factory service account.
-* [Linear](/factories/integrations/linear/) - Route planned issues through issue activity and agent sessions.
-* [Jira](/factories/integrations/jira/) - Route Jira work items assigned to Warp into factory work.
-
 ## Factory MCP
 
-The Factory MCP connects local coding agents and other MCP clients to your factory, and it works in both directions: send work to the factory, or take work over from it — pull a task down to your machine, iterate on it locally, and hand it back to the same work item. See the [Factory MCP guide](/factories/factory-mcp/).
+The Factory MCP connects local coding agents and other MCP clients to your factory, and it works in both directions. Send work to the factory, or take work over from it by pulling a task down to your machine, iterating on it locally, and handing it back to the same work item. See the [Factory MCP guide](/factories/factory-mcp/).
 
 ## Direct runs and schedules
 
 Not every task starts in an external tool:
 
-* Start a direct factory run for one-off work: describe the task and the foreman agent takes it from there.
-* Create a scheduled automation for recurring work such as maintenance or reports.
-
-See the [triggers overview](/platform/triggers/) for how schedules and other triggers work across the platform.
-
-Next, customize which agents receive work and how it's routed with [factory definitions as code](/factories/factory-as-code/).
+* Start a direct run for one-off work. Click **New** on the factory's Runs page and describe the task to the foreman, the same way you would from Slack or an issue tracker.
+* Create a scheduled automation for recurring work, such as maintenance or reports. See the [triggers overview](/platform/triggers/) for how schedules and other triggers work across the platform.

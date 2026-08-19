@@ -29,11 +29,26 @@ A factory opens on its **Dashboard** page, covered next. **Factory definition** 
 
 The page also charts opened versus merged PRs and a breakdown of runs, and the **Cost per PR** card expands to list the most expensive PRs in the range. When Scorers are set up, Scorer cards summarize recent classification results.
 
+<figure style={{ maxWidth: "563px" }}>
+![The Dashboard page showing a Cost per PR chart broken down by compute, platform, and inference cost, plus two example Scorer cards.](../../../assets/factories/factory-dashboard-metrics.png)
+<figcaption>Cost per PR and example Scorer cards on the Dashboard page.</figcaption>
+</figure>
+
 ## Track work items on Activity
 
 **Activity** shows the factory's work items grouped by stage: Triage, Planning, Building, and Reviewing. Finished work items move to two terminal stages, Complete and Cancelled.
 
+<figure style={{ maxWidth: "563px" }}>
+![The Activity page of the factory dashboard, listing work items grouped under Triage, Planning, Building, and Reviewing.](../../../assets/factories/factory-dashboard-activity.png)
+<figcaption>Activity groups work items by stage, with counts for each.</figcaption>
+</figure>
+
 By default, Activity shows only work items you created, and only the four active stages. Change the **Created by** filter to see a teammate's work, and add a **Stage** filter for **Complete** or **Cancelled** to see finished work.
+
+<figure style={{ maxWidth: "563px" }}>
+![The Activity page with a Stage filter chip applied above the work item list, plus a search box and results count.](../../../assets/factories/factory-dashboard-activity-filters.png)
+<figcaption>Filter Activity by stage, creator, or a text search.</figcaption>
+</figure>
 
 Click a work item to open its detail pane, which includes the prompt that started it, the ticket or thread it came from, the pull requests it produced, and its cost. **View agent** opens the agent's session, **Event history** lists the runs behind the work item, and **Stop task** cancels the current run.
 
