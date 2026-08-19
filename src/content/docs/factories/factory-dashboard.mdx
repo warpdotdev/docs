@@ -21,13 +21,7 @@ A factory opens on its **Dashboard** page, covered next. **Factory definition** 
 
 ## Read metrics on the Dashboard page
 
-**Dashboard** is the factory's landing page. It summarizes the factory over a date range you choose:
-
-* **Autonomy** - The share of the factory's merged PRs that needed no human input beyond an approving review and the merge itself. A PR counts as autonomous only if no person added commits, requested changes, or otherwise edited it before merge.
-* **PR cycle time** - The median time the factory's merged PRs took from run kickoff through PR, first review, and merge, with a median for each stage.
-* **Cost per PR** - The median cost of PRs opened in the range. Treat it as a lower-bound estimate: it can miss some run usage and does not match billing. See [Measure and improve a factory](/factories/measure-and-improve/) for its limitations.
-
-The page also charts opened versus merged PRs and a breakdown of runs, and the **Cost per PR** card expands to list the most expensive PRs in the range. When Scorers are set up, Scorer cards summarize recent classification results.
+**Dashboard** is the factory's landing page. It summarizes the factory over a date range you choose: Total runs, Pull requests (opened and merged), Autonomy, Cycle time, and Cost per PR (which expands to list the most expensive PRs in the range). When Scorers are set up, Scorer cards summarize recent classification results. See the [Metrics reference](/factories/metrics-reference/) for what each metric counts, how it's computed, and its data-coverage limits.
 
 ## Track work items on Activity
 
@@ -93,4 +87,5 @@ For a file-managed factory, `runners/*.yaml` in the repository is the source of 
 * [Definitions as code](/factories/factory-as-code/) - Define agents, automations, runners, and source ownership in code.
 * [Factory agents](/factories/factory-agents/) - What each default agent does and how to configure it.
 * [Measure and improve a factory](/factories/measure-and-improve/) - Configure the Scorers and benchmarks behind the **Dashboard** page.
+* [Metrics reference](/factories/metrics-reference/) - What each **Dashboard** metric counts, how it's computed, and its data-coverage limits.
 * [Troubleshooting Warp Factories](/factories/troubleshooting/) - Fixes for setup problems, work that doesn't start, and stuck runs.
