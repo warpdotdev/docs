@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression cases for the RENAME_EXEMPT_SUFFIXES guard in check_hardcoded_vars.
+"""Regression cases for the RENAME_EXEMPT_SUFFIXES_BY_LITERAL guard in check_hardcoded_vars.
 
 Run from the repo root:
     python3 .agents/skills/style_lint/test_hardcoded_var_exemptions.py
@@ -10,8 +10,13 @@ followed by " Cloud API Keys" must not be flagged as a hardcoded var that
 should use {VARS.WARP_AUTOMATION_PLATFORM}. A previous migration got this
 wrong exactly once (QUALITY-1768); this guard is what would have caught it.
 
-The exemption is a suffix match, so it must stay narrow: a bare "Oz" on its
-own, or "Oz" followed by unrelated text, must still be flagged.
+The exemption is scoped to the "Oz" literal only, and within that literal it
+is still just a suffix match, so it must stay narrow on two axes: a bare "Oz"
+on its own, or "Oz" followed by unrelated text, must still be flagged; and a
+*different* rename-sensitive literal that happens to end in the same suffix
+(e.g. a hardcoded "Automation Platform Cloud API Keys") must still be flagged
+too -- an earlier draft of this guard used one suffix list shared by every
+literal, which silently suppressed that exact case.
 """
 import importlib.util
 import pathlib
@@ -33,6 +38,11 @@ CASES = [
     ("Oz is deprecated in favor of the platform.", True, "bare Oz still flagged"),
     ("Ask Oz to do this.", True, "bare Oz followed by unrelated text"),
     ("Install the Oz CLI globally.", True, "distinct rename-sensitive entry still flagged"),
+    (
+        "Click **Automation Platform Cloud API Keys**.",
+        True,
+        "different literal sharing the exempt suffix still flagged",
+    ),
 ]
 
 

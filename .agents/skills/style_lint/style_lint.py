@@ -18,7 +18,7 @@ import subprocess
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -131,10 +131,16 @@ RENAME_TRANSITION_MARKERS: Tuple[str, ...] = (
 # Matched as a suffix on the literal rather than added as its own entry,
 # because the goal is to suppress rather than redirect: there is no variable
 # these should be using instead.
-RENAME_EXEMPT_SUFFIXES: Tuple[str, ...] = (
-    " by Warp",
-    " Cloud API Keys",
-)
+#
+# Keyed per-literal (not a single flat tuple shared by every entry) because
+# the exemption must not bleed into other rename-sensitive literals. A flat
+# tuple would suppress a hardcoded "Automation Platform Cloud API Keys" too --
+# exactly the new-name literal this check exists to catch -- since that
+# string also ends in " Cloud API Keys". Only the "Oz" literal gets these
+# suffix exemptions.
+RENAME_EXEMPT_SUFFIXES_BY_LITERAL: Dict[str, Tuple[str, ...]] = {
+    "Oz": (" by Warp", " Cloud API Keys"),
+}
 
 # Determiner check for WARP_AUTOMATION_PLATFORM. See check_platform_determiner.
 #
@@ -1051,10 +1057,14 @@ def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
                 # hardcoded new name is still a bug on the same line.
                 if is_transition_line and literal.startswith(("Oz", "oz")):
                     continue
-                # Distinct product names that happen to contain "Oz".
+                # Distinct product names that happen to contain "Oz", or the
+                # literal "Oz Cloud API Keys" Settings label. Looked up by the
+                # exact literal that matched, so this never suppresses a
+                # different rename-sensitive literal (e.g. "Automation
+                # Platform") that happens to share the same suffix.
                 if any(
                     prose_line[span[1]:].startswith(suffix)
-                    for suffix in RENAME_EXEMPT_SUFFIXES
+                    for suffix in RENAME_EXEMPT_SUFFIXES_BY_LITERAL.get(literal, ())
                 ):
                     continue
                 matched_spans.append(span)
