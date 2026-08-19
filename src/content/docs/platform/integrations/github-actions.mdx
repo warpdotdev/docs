@@ -14,7 +14,7 @@ Run agents directly in your GitHub Actions workflows using `oz-agent-action`. Th
 :::
 
 :::note
-GitHub Actions is different from the [GitHub integration](/platform/integrations/github/). GitHub Actions runs agents inside workflows you define in your repository, and you control the trigger, permissions, and prompt in YAML. The GitHub integration starts agents when someone mentions `@warp-agent` on an issue, pull request, or review comment, using the Oz by Warp GitHub App with no workflow file.
+GitHub Actions is different from the [GitHub integration](/platform/integrations/github/). GitHub Actions runs agents inside workflows you define in your repository, and you control the trigger, permissions, and prompt in YAML. The GitHub integration starts agents when someone mentions `@warp-agent` on an issue, pull request, or review comment, using the Warp Factories GitHub App with no workflow file.
 :::
 
 If you're comparing GitHub Actions with schedules, Slack, Linear, the GitHub integration, the {VARS.WARP_AGENT_CLI}, or API-triggered runs, see [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
@@ -113,7 +113,7 @@ The `oz-agent-action` supports several automation patterns commonly used in CI.
 * **Use case**: Add "@oz-agent fix this typo" or similar comments to a PR or Issue.
 
 :::note
-The [GitHub integration](/platform/integrations/github/) responds to `@warp-agent` mentions without a workflow file. Use this Actions pattern when you want the run to happen inside your CI pipeline with workflow-scoped permissions; use the GitHub integration when you want mention-triggered runs on every repository the Oz by Warp GitHub App can access.
+The [GitHub integration](/platform/integrations/github/) responds to `@warp-agent` mentions without a workflow file. Use this Actions pattern when you want the run to happen inside your CI pipeline with workflow-scoped permissions; use the GitHub integration when you want mention-triggered runs on every repository the Warp Factories GitHub App can access.
 :::
 
 What it does:

@@ -8,24 +8,28 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-A factory is a team of cloud agents that turns your team's requests into pull requests. You talk to one agent, the **foreman**, from whichever tool the request starts in, such as Slack, an issue tracker, or a code host. The foreman dispatches the factory's other agents, each owning one part of the software development lifecycle. People stay in the loop at the points that matter: approving specs when needed and merging pull requests.
+:::note
+Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
+:::
+
+A factory is a group of cloud agents that turns incoming requests into pull requests. You talk to one agent, the **foreman**. It picks up the request from wherever it starts, such as Slack, an issue tracker, or a code host, then dispatches the factory's other agents, each owning one part of the software development lifecycle. People stay in the loop at the points that matter: approving specs when needed and merging pull requests.
 
 In this quickstart, you will create a factory and take one small work item from prompt to pull request in about 10 minutes.
 
 ## What you'll decide
 
-Warp walks you through factory setup; your job is to decide four things:
+Warp walks you through factory setup. Along the way, you decide:
 
-* **Which code the factory works on** - The code host and the set of repositories.
-* **What it's called** - The factory's name, and the alias your team @-mentions to reach it.
-* **Which agents it runs** - The agents the foreman can dispatch.
-* **Where work comes from** - Optionally, a chat tool and an issue tracker.
+* The code host and repositories the factory works on.
+* The factory's name and its foreman's @-mention alias.
+* Which default agents the foreman can dispatch.
+* Whether to connect a chat tool and an issue tracker, or add them later.
 
-Every one of these is editable afterward, so pick something reasonable and keep moving.
+You can change any of these after setup, so a best guess is fine for now.
 
 ## Prerequisites
 
-* **Warp Factories access** - Warp Factories is in Early Access. [Request access](https://www.warp.dev/factories/request-access) if your team doesn't have it yet.
+* **Warp Factories access** - Warp Factories is in Early Access. [Request access](https://www.warp.dev/factories/request-access) for your team.
 * **A Warp team with credits** - A factory belongs to a [Warp team](/knowledge-and-collaboration/teams/). Factory agents consume the team's [credits](/support-and-community/plans-and-billing/platform-credits/).
 * **Repository access** - You authorize a code host during setup and choose which repositories the factory can reach. If your organization restricts app installations, ask an owner to approve the connection. See the [GitHub](/factories/integrations/github/) and [GitLab](/factories/integrations/gitlab/) integration guides.
 
@@ -33,40 +37,51 @@ Every one of these is editable afterward, so pick something reasonable and keep 
 
 _~5 minutes_
 
-Sign in to the {VARS.FACTORY_WEB_APP} at <a href={VARS.FACTORY_WEB_APP_URL}>platform.warp.dev</a> and start a new factory. Setup asks you for the following.
+:::note
+Already using an agent connected to [Factory MCP](/factories/factory-mcp/)? Ask it to run `create_factory` with the team, repositories, and factory name to create the factory directly, skipping the wizard below. Choose agents and connect your tools afterward in the factory's dashboard.
+:::
 
-You can also skip the wizard: ask an agent connected to the [Factory MCP](/factories/factory-mcp/) to create the factory with its `create_factory` tool, giving it the team, the repositories, and a name. That covers the first two steps below; choose the agents and connect your tools afterward in the factory's dashboard.
+Otherwise, Warp walks you through a setup wizard:
 
-### Connect a code host and choose repositories
+1. Sign in to the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. Next to **Factories**, click **+**.
 
-Authorize GitHub or GitLab, then select the repositories the factory works in.
+   <figure style={{ maxWidth: "300px" }}>
+   ![The Factories section of the sidebar, with the + button used to start a new factory highlighted.](../../../assets/factories/quickstart-open-setup-wizard.png)
+   <figcaption>Click + next to Factories to open the setup wizard.</figcaption>
+   </figure>
 
-Start with one or two. Every agent in the factory shares this repo set, so a focused set keeps their context tight, and you can add more later.
+2. Click **I want to use repos from GitHub** or **I want to use repos from GitLab**, then choose the organization or group you want to connect.
 
-### Name your factory
+   <figure style={{ maxWidth: "563px" }}>
+   ![The Connect a GitHub organization screen, with an already-connected organization shown as an option.](../../../assets/factories/quickstart-connect-organization.png)
+   <figcaption>Choose the organization or group whose repositories the factory will use. GitLab shows an equivalent screen for groups.</figcaption>
+   </figure>
 
-Name the factory, and give it an [alias](/factories/factory-as-code/#alias): the handle your team @-mentions to reach it from connected tools like Slack and Linear, so keep it short and recognizable. In setup, the alias is the **Foreman name** field, and Warp derives it from the factory name if you don't set one.
+3. On **Select your repos**, search for and select the repositories the factory works in, then click **Add repos**. Start with one or two. Every agent in the factory shares this repo set, so a focused set keeps their context tight, and you can add more later.
 
-### Design your factory
+   <figure style={{ maxWidth: "563px" }}>
+   ![The Select your repos screen, searching for repositories by name.](../../../assets/factories/quickstart-select-repos.png)
+   <figcaption>Search for and select the repositories the factory works in.</figcaption>
+   </figure>
 
-Every factory has a **foreman**: the one agent you talk to, no matter where the request starts. Around it, the factory is composed of four default agents, one for each part of the software development lifecycle, and this step is where you choose which of them your factory runs:
+4. Name the factory. Warp derives a matching [**Foreman name**](/factories/factory-as-code/#alias) from it, the handle your team @-mentions to reach the factory from connected tools like Slack and Linear. Keep it short and recognizable, or set your own.
 
-| Agent | What it does |
-| --- | --- |
-| **Triage** | Accepts work from issue trackers and establishes scope |
-| **Spec** | Iterates with your team to produce a spec |
-| **Code** | Implements the change and opens the pull request |
-| **Review** | Inspects the result and reports findings |
+   <figure style={{ maxWidth: "563px" }}>
+   ![The Give your factory some personality screen, with Factory name and Foreman name fields filled in.](../../../assets/factories/quickstart-name-factory.png)
+   <figcaption>Name the factory and, optionally, add a description and avatar.</figcaption>
+   </figure>
 
-All four start enabled and a factory needs at least one, so this step is about turning off what you don't want yet. Leave **Code** on so this quickstart can end in a pull request. You can add your own agents and automations later.
+5. Optionally, connect a chat tool so teammates can hand work to the factory from Slack, or skip it and add it later from [connect your factory](/factories/connect-your-factory/).
+6. Toggle the subagents the foreman can dispatch: **Triage**, **Spec**, **Code**, and **Review**. All four start enabled, and at least one is required. Leave **Code** on so this quickstart can end in a pull request. See [factory agents](/factories/factory-agents/) for what each does.
 
-See [factory agents](/factories/factory-agents/) for what each agent does in depth; the **Code** toggle is that page's Implement agent.
+   <figure style={{ maxWidth: "563px" }}>
+   ![The Pick your factory agents screen, with the Foreman and all four default subagents shown as enabled.](../../../assets/factories/quickstart-pick-agents.png)
+   <figcaption>Toggle which default agents the foreman can dispatch.</figcaption>
+   </figure>
 
-### Optionally connect Slack and an issue tracker
+7. Optionally, connect an issue tracker so teammates can hand work to the factory from Linear or Jira, or skip it and add one later from [connect your factory](/factories/connect-your-factory/).
 
-Setup offers to connect a chat tool and an issue tracker, so teammates can hand work to the factory from where they already work. Skip both if you want to finish quickly; [connect your factory](/factories/connect-your-factory/) covers adding them later.
-
-Warp then creates the factory and opens its [dashboard](/factories/factory-dashboard/).
+Warp creates the factory and opens its [dashboard](/factories/factory-dashboard/).
 
 ## Send your first work item
 

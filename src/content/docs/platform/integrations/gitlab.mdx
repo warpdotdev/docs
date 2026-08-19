@@ -8,6 +8,7 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
+{/* OPEN QUESTION for tech review (PR #549): confirm whether a native OAuth-based GitLab.com integration actually exists today. Our branch's prior copy claimed GitLab has no native integration (token-only); main@79f77e55 (below) claims native GitLab.com support exists. Verify against the product before merging. */}
 Cloud agents work natively with repositories hosted on GitLab.com. Connect your GitLab account when you create an environment in the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>, select the projects agents need, and Warp handles the rest at runtime: repositories are cloned automatically, your GitLab credentials are injected into the run, the `glab` CLI is authenticated, and agents can push branches and open merge requests on your behalf. Merge requests the agent opens are reported as run outputs.
 
 For self-managed GitLab instances, native connection isn't available yet. Instead, grant agents access using a personal access token and Warp-managed secrets, as described in [Self-managed GitLab instances](#self-managed-gitlab-instances).

@@ -102,25 +102,25 @@ Warp needs a reliable way to know which person a cloud agent run is acting for, 
 * Each teammate must authorize GitHub before an agent can write PRs or push branches on their behalf
 * For Slack-triggered, Linear-triggered, and locally triggered runs, agents operate using the GitHub permissions of the triggering user
 
-This ensures runs are scoped to what the user is allowed to see and modify, and that ownership of PRs remains clear across teams and repositories. The two exceptions are agent API key runs with [team GitHub authorization](#team-github-authorization) and runs started from an `@warp-agent` mention, which both authenticate as the Oz by Warp GitHub App installation.
+This ensures runs are scoped to what the user is allowed to see and modify, and that ownership of PRs remains clear across teams and repositories. The two exceptions are agent API key runs with [team GitHub authorization](#team-github-authorization) and runs started from an `@warp-agent` mention, which both authenticate as the Warp Factories GitHub App installation.
 
 ---
 
 ## Team GitHub authorization
 
-By default, cloud agents authenticate with GitHub using the personal token of the user who triggered the run. Team GitHub authorization gives you an alternative: authenticate with the **Oz by Warp** GitHub App instead, so agents can clone repositories and open pull requests without relying on any individual's token.
+By default, cloud agents authenticate with GitHub using the personal token of the user who triggered the run. Team GitHub authorization gives you an alternative: authenticate with the **Warp Factories** GitHub App instead, so agents can clone repositories and open pull requests without relying on any individual's token.
 
 This is useful for fully automated workflows that use an [agent API key](/reference/cli/api-keys/), like CI/CD pipelines, scheduled agents, and SDK-triggered runs, where you want code changes attributed to the GitHub App rather than a specific person.
 
 ### How it works
 
-When an agent task is initiated with an agent API key, there is no individual user to authenticate on behalf of. Instead, Warp uses tokens issued by the **Oz by Warp** GitHub App installation to authenticate directly with GitHub.
+When an agent task is initiated with an agent API key, there is no individual user to authenticate on behalf of. Instead, Warp uses tokens issued by the **Warp Factories** GitHub App installation to authenticate directly with GitHub.
 
 The GitHub App token gives the agent access to the repositories included in the app installation — it can clone repos, create branches, push commits, and open pull requests. During installation, you choose whether the app can access **all repositories** or only **selected repositories** in your GitHub organization, and this controls what agent API key runs can access.
 
 ### Setting up team GitHub authorization
 
-1. **Install the Oz by Warp GitHub App.** A user with admin permissions on the GitHub organization installs the [Oz by Warp](https://github.com/apps/oz-by-warp) GitHub App. During installation, grant the app access to **all repositories** or **selected repositories** in your org.
+1. **Install the Warp Factories GitHub App.** A user with admin permissions on the GitHub organization installs the [Warp Factories](https://github.com/apps/warp-factories) GitHub App. During installation, grant the app access to **all repositories** or **selected repositories** in your org.
 
    :::note
 There are two places you may encounter this installation flow:
@@ -131,8 +131,8 @@ There are two places you may encounter this installation flow:
 :::
 
    <figure>
-   ![Oz by Warp GitHub App installation page showing repository access options](../../../assets/agent-platform/oz-github-app-installation.png)
-   <figcaption>Installing the Oz by Warp GitHub App.</figcaption>
+   ![Warp Factories GitHub App installation page showing repository access options](../../../assets/agent-platform/oz-github-app-installation.png)
+   <figcaption>Installing the Warp Factories GitHub App.</figcaption>
    </figure>
 
 2. **Enable the GitHub org for your Warp team.** A Warp team admin opens the Admin Panel in the Warp app (**Settings** > **Admin Panel** > **Platform**) and adds the GitHub organization under **Enabled GitHub Orgs**. This associates the GitHub App installation with your Warp team.
@@ -142,7 +142,7 @@ There are two places you may encounter this installation flow:
    <figcaption>Enabled GitHub Orgs setting in the Admin Panel.</figcaption>
    </figure>
 
-3. **Use an agent API key.** Tasks initiated with an agent API key on the team now use tokens from the GitHub App installation to clone repos and push changes. No individual GitHub authorization is needed. On GitHub, commits and pull requests are opened by the Oz by Warp GitHub App rather than any individual user; in the {VARS.DASHBOARD}, the run is attributed to the bound [cloud agent](/platform/agents/).
+3. **Use an agent API key.** Tasks initiated with an agent API key on the team now use tokens from the GitHub App installation to clone repos and push changes. No individual GitHub authorization is needed. On GitHub, commits and pull requests are opened by the Warp Factories GitHub App rather than any individual user; in the {VARS.DASHBOARD}, the run is attributed to the bound [cloud agent](/platform/agents/).
 
 ### How this relates to environments
 
@@ -151,14 +151,14 @@ An [environment](/platform/environments/) is a template for a cloud agent's sand
 The environment configuration and the **Enabled GitHub Orgs** setting in the Admin Panel serve different purposes:
 
 * **Environment repo list** - "This agent needs repos A, B, and C."
-* **Enabled GitHub Orgs** - "This team can use the Oz by Warp GitHub App to access repos in this GitHub organization."
+* **Enabled GitHub Orgs** - "This team can use the Warp Factories GitHub App to access repos in this GitHub organization."
 
 ### Personal tokens vs. GitHub App tokens
 
 Team GitHub authorization is complementary to the existing personal token flow:
 
 * **User-triggered runs** (personal API key, Slack, Linear, Warp app) - The agent authenticates using the triggering user's personal token. PRs and commits are attributed to that user.
-* **Agent API key runs with GitHub App authorization** - The agent authenticates as the GitHub App installation. On GitHub, PRs and commits are attributed to the Oz by Warp GitHub App rather than any individual user. In the {VARS.DASHBOARD}, the run is attributed to the bound [cloud agent](/platform/agents/), which controls run filtering and audit attribution on the Warp side.
+* **Agent API key runs with GitHub App authorization** - The agent authenticates as the GitHub App installation. On GitHub, PRs and commits are attributed to the Warp Factories GitHub App rather than any individual user. In the {VARS.DASHBOARD}, the run is attributed to the bound [cloud agent](/platform/agents/), which controls run filtering and audit attribution on the Warp side.
 * **[GitHub integration](/platform/integrations/github/) runs** (an `@warp-agent` mention on an issue or pull request) - The agent authenticates as the installation that delivered the event, so its repository access and its GitHub attribution match the agent API key flow. In the {VARS.DASHBOARD} the run is still attributed to the teammate who wrote the mention, and their team is billed.
 
 These flows can coexist on the same team. Personal tokens are still used for user-triggered runs from a personal API key, Slack, Linear, and the Warp app, and the GitHub App installation token is used for agent API key runs and for GitHub integration runs.
@@ -230,7 +230,7 @@ How credits are consumed depends on how the agent run is triggered and authentic
 * On Build, Max, and Business plans, Warp bills the team owner: the owner's plan-included credits, then the owner's add-on credits. With auto-reload off, the request is blocked when both pools are depleted. With auto-reload on, usage can trigger a reload on the owner's add-on credit pool subject to the team-wide monthly spend cap.
 * On Enterprise plans, these runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 * Ideal for CI/CD pipelines, scheduled tasks, and other automated workflows.
-* For workflows that require code changes (opening pull requests, pushing branches, or writing to a repository), configure [team GitHub authorization](#team-github-authorization) so the agent can authenticate with the Oz by Warp GitHub App. Alternatively, use a [personal API key](/reference/cli/api-keys/) to authenticate as an individual user.
+* For workflows that require code changes (opening pull requests, pushing branches, or writing to a repository), configure [team GitHub authorization](#team-github-authorization) so the agent can authenticate with the Warp Factories GitHub App. Alternatively, use a [personal API key](/reference/cli/api-keys/) to authenticate as an individual user.
 
 For more details on creating and using API keys, see [API Keys](/reference/cli/api-keys/).
 
