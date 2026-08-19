@@ -2,7 +2,6 @@
   "umbrellas": {
     "Agents": {
       "subpages": [
-        "Oz",
         "Warp Agent",
         "Profiles",
         "MCP servers",
@@ -29,13 +28,13 @@
   "deprecated_sections": {
     "AI": {
       "umbrella": "Agents",
-      "default_subpage": "Oz",
+      "default_subpage": "Warp Agent",
       "subsection_to_subpage": {
-        "Active AI": "Oz",
-        "Input": "Oz",
-        "Voice": "Oz",
-        "Other": "Oz",
-        "Experimental": "Oz",
+        "Active AI": "Warp Agent",
+        "Input": "Warp Agent",
+        "Voice": "Warp Agent",
+        "Other": "Warp Agent",
+        "Experimental": "Warp Agent",
         "Usage": "Profiles",
         "Agents": "Profiles",
         "Profiles": "Profiles",
