@@ -123,11 +123,17 @@ RENAME_TRANSITION_MARKERS: Tuple[str, ...] = (
 # are attributed to. Renaming it in the docs would make them disagree with what
 # the reader sees on GitHub. Same reasoning as the `@oz-agent` handle.
 #
+# "Oz Cloud API Keys" is the literal Settings label the Warp client still
+# renders (`SettingsSection::OzCloudAPIKeys`, per terminology.md's "What still
+# says Oz"). It changes only when the app renames that page, not at the
+# Automation Platform rename, so it must stay hardcoded rather than tokenized.
+#
 # Matched as a suffix on the literal rather than added as its own entry,
 # because the goal is to suppress rather than redirect: there is no variable
 # these should be using instead.
 RENAME_EXEMPT_SUFFIXES: Tuple[str, ...] = (
     " by Warp",
+    " Cloud API Keys",
 )
 
 # Determiner check for WARP_AUTOMATION_PLATFORM. See check_platform_determiner.
