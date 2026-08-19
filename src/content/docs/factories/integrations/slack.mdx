@@ -41,11 +41,6 @@ A single Slack message can match more than one automation. For example, if one a
 
 Mention the app in a channel or thread, or send it a direct message, to start work. The factory picks up the message, including available thread history and supported attachments, and replies in the same place with an acknowledgment, progress updates, and links to results.
 
-<figure style={{ maxWidth: "450px" }}>
-![A Slack channel where the factory's app acknowledges a bug report, then replies with a follow-up explaining the fix requires an API change, along with a tracked ticket number and links to open the session or view the factory task.](../../../../assets/factories/slack-automation-example.png)
-<figcaption>The factory acknowledging a request, then following up with progress and a tracked task.</figcaption>
-</figure>
-
 A plain reply in a thread continues work only if that thread already has a factory work item; to start new work in a channel, mention the app instead. Slack activity that matches an automation starts work the same way, without a mention, using the event details and the automation's assigned agent.
 
 You can attach files to a request or a follow-up. The factory includes the files it supports, and a file it can't include doesn't stop the text of your request from going through.
