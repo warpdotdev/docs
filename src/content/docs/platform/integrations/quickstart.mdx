@@ -8,7 +8,7 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-{VARS.WARP_AUTOMATION_PLATFORM} integrations let you trigger cloud agents directly from the tools your team already uses. This guide walks you through connecting the {VARS.WARP_AUTOMATION_PLATFORM} to Slack. Once set up, anyone on your team can tag @warp in a message or thread to kick off a cloud agent that runs the task and posts results back to the conversation.
+{VARS.WARP_AUTOMATION_PLATFORM} integrations let you trigger cloud agents directly from the tools your team already uses. This guide walks you through connecting Warp to Slack. Once set up, anyone on your team can tag @warp in a message or thread to kick off a cloud agent that runs the task and posts results back to the conversation.
 
 :::note
 **Want to connect with Linear instead?** The setup is the same — just substitute `slack` with `linear` in the CLI commands, or select Linear in the {VARS.WEB_APP}. See [Linear](/platform/integrations/linear/) for details.
@@ -30,7 +30,7 @@ The simplest way to set up the integration is **using the {VARS.WEB_APP}**:
 
 1. Navigate to the <a href={`${VARS.WEB_APP_URL}/integrations`}>Integrations page in the {VARS.WEB_APP}</a>.
 2. Click **Slack**.
-3. Follow the guided flow to select your environment and authorize the {VARS.WARP_AUTOMATION_PLATFORM} in your Slack workspace.
+3. Follow the guided flow to select your environment and authorize the Warp app in your Slack workspace.
 
 All members of your Warp team can now use the integration.
 
@@ -42,7 +42,7 @@ Run `oz integration create` to connect the Slack integration:
 oz integration create slack --environment <ENV_ID>
 ```
 
-Replace `<ENV_ID>` with your environment ID (see [Environments](/platform/environments/) if you need to create one). Find it with `oz environment list` on the {VARS.WARP_AGENT_CLI} or in the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>. The CLI opens a browser window to authorize the {VARS.WARP_AUTOMATION_PLATFORM} app in your workspace.
+Replace `<ENV_ID>` with your environment ID (see [Environments](/platform/environments/) if you need to create one). Find it with `oz environment list` on the {VARS.WARP_AGENT_CLI} or in the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>. The CLI opens a browser window to authorize the Warp app in your workspace.
 
 :::tip
 If the integration cannot be created or your first run cannot start, use the returned error code to narrow the fix. Common errors include:
@@ -65,25 +65,25 @@ In any channel or thread in your Slack workspace, tag @warp with a task:
 
 > @warp scan the authentication module for security issues and summarize what you find
 
-The {VARS.WARP_AUTOMATION_PLATFORM} acknowledges the request immediately and starts an agent run in the cloud. You'll see progress updates appear in the thread as the agent works.
+Warp acknowledges the request immediately and starts an agent run in the cloud. You'll see progress updates appear in the thread as the agent works.
 
-You can also tag @warp inside an existing thread. The {VARS.WARP_AUTOMATION_PLATFORM} picks up the full thread history as context automatically, so you can tag it mid-discussion without repeating background.
+You can also tag @warp inside an existing thread. Warp picks up the full thread history as context automatically, so you can tag it mid-discussion without repeating background.
 
 ## 3. Watch the run
 
 While the agent works, progress updates appear directly in the Slack thread. To inspect the run in more detail:
 
-* **Click the session link** - The {VARS.WARP_AUTOMATION_PLATFORM} posts a link in the thread to open a live terminal view of the agent. Watch in real time, add follow-up instructions, or let it run to completion.
+* **Click the session link** - Warp posts a link in the thread to open a live terminal view of the agent. Watch in real time, add follow-up instructions, or let it run to completion.
 * **Go to the <a href={`${VARS.WEB_APP_URL}/runs`}>Runs page in the {VARS.WEB_APP}</a>** - See the full run transcript: status, commands executed, files changed, and agent output. See [Viewing Cloud Agent Runs](/platform/viewing-cloud-agent-runs/) for a complete walkthrough.
 
-When the task is complete, the {VARS.WARP_AUTOMATION_PLATFORM} posts a summary back to the original Slack thread.
+When the task is complete, Warp posts a summary back to the original Slack thread.
 
-**Breaking it down:** The {VARS.WARP_AUTOMATION_PLATFORM} reads the Slack thread as context, runs the agent inside the environment you configured — with your repos cloned and Docker image running — and returns results where the conversation started, in Slack, without anyone leaving the thread.
+**Breaking it down:** Warp reads the Slack thread as context, runs the agent inside the environment you configured — with your repos cloned and Docker image running — and returns results where the conversation started, in Slack, without anyone leaving the thread.
 
 ---
 
 ## Next steps
 
-* **Customize agent behavior** - Use a [skill](/platform/skills-as-agents/) as the base prompt for your integration to give the {VARS.WARP_AUTOMATION_PLATFORM} consistent, reusable instructions across every run.
+* **Customize agent behavior** - Use a [skill](/platform/skills-as-agents/) as the base prompt for your integration to give agents consistent, reusable instructions across every run.
 * **Trigger agents programmatically** - Use the [API & SDK](/reference/api-and-sdk/) to build custom automations and integrations on top of agents.
 * **Read the full Slack reference** - [Slack](/platform/integrations/slack/) covers identity mapping, team access, monitoring runs, troubleshooting, and uninstall instructions.
