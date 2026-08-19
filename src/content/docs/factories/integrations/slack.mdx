@@ -39,14 +39,11 @@ A single Slack message can match more than one automation. For example, if one a
 
 ## Start and continue work from Slack
 
-| Slack activity                         | Context used by the factory                                             | Slack output                                                                           |
-| -------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| Mention the app in a channel or thread | The triggering message, available thread history, and supported attachments | An acknowledgment, progress updates, a final summary, and links to the run, issue, or pull request when available |
-| Send the app a direct message          | The direct-message conversation and supported attachments                   | An acknowledgment, progress updates, and links to results when available               |
-| Reply in an existing factory thread    | The existing work item and your reply                                       | A follow-up on the existing work item instead of new work                              |
-| Slack activity matches an automation   | The event details plus the automation's agent and instructions              | A factory run, with results posted back to the source conversation when supported      |
+Mention the app in a channel or thread, or send it a direct message, to start work. The factory picks up the message, including available thread history and supported attachments, and replies in the same place with an acknowledgment, progress updates, and links to results.
 
-A plain reply in a thread continues work only if that thread already has a factory work item; to start new work in a channel, mention the app. You can attach files to a request or a follow-up. The factory includes the files it supports, and a file it can't include doesn't stop the text of your request from going through.
+A plain reply in a thread continues work only if that thread already has a factory work item; to start new work in a channel, mention the app instead. Slack activity that matches an automation starts work the same way, without a mention, using the event details and the automation's assigned agent.
+
+You can attach files to a request or a follow-up. The factory includes the files it supports, and a file it can't include doesn't stop the text of your request from going through.
 
 ## Follow work and review outputs
 
