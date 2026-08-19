@@ -524,6 +524,24 @@ def check_ui_element_backticks(lines: List[str], filepath: str) -> List[Issue]:
     return issues
 
 
+# Marks the end of a rendered sentence within a single header/line: a
+# `.`/`!`/`?`, optionally followed by a closing quote or bracket. A header can
+# legitimately contain more than one sentence (e.g. a two-question FAQ title
+# or a comment-hidden boundary), and only the very first word of *each*
+# sentence is sentence-initial -- not just the first word of the whole line.
+_SENTENCE_END_RE = re.compile(r'[.!?]["\')\]]*$')
+
+
+def _sentence_start_indices(words: List[str]) -> set:
+    """Return word indices that start a sentence: index 0, plus any word
+    immediately following another word ending in `.`, `!`, or `?`."""
+    starts = {0}
+    for idx in range(1, len(words)):
+        if _SENTENCE_END_RE.search(words[idx - 1]):
+            starts.add(idx)
+    return starts
+
+
 def _to_sentence_case(text: str) -> str:
     """Convert header text to sentence case, preserving proper feature names and acronyms."""
     skip_words = {"I", "A", "API", "CLI", "SDK", "SSH", "UI", "URL", "PR", "CI", "CD"}
@@ -539,9 +557,11 @@ def _to_sentence_case(text: str) -> str:
                 for j in range(len(fn_words)):
                     protected[start + j] = True
 
+    sentence_starts = _sentence_start_indices(words)
+
     result = []
     for idx, w in enumerate(words):
-        if idx == 0 or protected[idx]:
+        if idx in sentence_starts or protected[idx]:
             result.append(w)
             continue
         clean = re.sub(r"[^a-zA-Z]", "", w)
@@ -570,10 +590,16 @@ def check_header_case(lines: List[str], filepath: str) -> List[Issue]:
         words = text.split()
         if len(words) < 2:
             continue
-        # Count capitalized non-first words (excluding proper feature names, short words)
+        # Count capitalized non-first words (excluding proper feature names,
+        # short words, and the first word of any later sentence in the same
+        # header -- a header can contain more than one sentence, e.g. a
+        # two-question FAQ title, and each one gets its own capitalized start).
         skip_words = {"I", "A", "API", "CLI", "SDK", "SSH", "UI", "URL", "PR", "CI", "CD"}
+        sentence_starts = _sentence_start_indices(words)
         title_case_count = 0
-        for w in words[1:]:
+        for idx, w in enumerate(words):
+            if idx in sentence_starts:
+                continue
             clean = re.sub(r"[^a-zA-Z]", "", w)
             if not clean or clean in skip_words or len(clean) <= 2:
                 continue
@@ -1245,11 +1271,16 @@ def check_factory_proper_noun(lines: List[str], filepath: str) -> List[Issue]:
             continue
         if any(phrase in line for phrase in FACTORY_ALLOWED_PHRASES):
             continue
-        # Strip inline code, link targets, and HTML/JSX attributes: a slug like
-        # `/factories/factory-as-code/` or an `alt="..."` value is not prose.
+        # Strip inline code, link targets, HTML/JSX attributes, and JSX/MDX
+        # comments: a slug like `/factories/factory-as-code/` or an
+        # `alt="..."` value is not prose, and a `{/* ... */}` comment renders
+        # to nothing, so the text right after one is not mid-sentence just
+        # because the raw source has no space/punctuation there -- the actual
+        # sentence boundary can be hidden inside the stripped comment.
         prose = re.sub(r"`[^`]*`", "", line)
         prose = re.sub(r"\]\([^)]*\)", "]", prose)
         prose = re.sub(r'\w+="[^"]*"', "", prose)
+        prose = re.sub(r"\{/\*.*?\*/\}", "", prose)
         for m in FACTORY_BARE.finditer(prose):
             before = prose[:m.start()]
             after = prose[m.end():]
