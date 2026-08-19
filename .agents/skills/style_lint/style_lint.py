@@ -40,6 +40,7 @@ PROPER_FEATURE_NAMES = {
     "Oz CLI", "Oz Platform", "Project Rules",
     "Slash Commands", "Terminal Mode", "Universal Input", "Warp Drive",
     "Warp Platform", "Automation Platform", "Warp Factories", "Factory MCP",
+    "Computer Use", "Full Terminal Use", "Zero Data Retention", "Single Sign-On",
 }
 
 # Terminology: wrong → right (case-sensitive checks)

@@ -107,6 +107,12 @@ For the summary of the most critical terms (core features, Automation Platform t
 - **Active AI** — The feature that proactively surfaces fixes and next actions based on terminal errors, inputs, and outputs. Covers Prompt Suggestions, Next Command predictions, and Suggested Code Diffs.
   *Usage note:* Always capitalize "Active AI" — it is a proper feature name and the label of the Settings toggle. Write the full capability as **Active AI Recommendations**, matching the page title. Lowercase the following word only when it is a plain common noun rather than part of the name, as in "Active AI features" or "the Active AI toggle".
 
+- **Computer Use** — The capability that lets agents interact with a desktop environment (screenshots, clicks, typing) inside a sandboxed cloud environment.
+  *Usage note:* Capitalize as a feature name, including in headings ("Enabling Computer Use", "How Computer Use works").
+
+- **Full Terminal Use** — The capability that lets an agent attach to and drive interactive terminal programs (for example `psql`, `vim`, a dev server) by reading live PTY output.
+  *Usage note:* Capitalize as a feature name, including in headings.
+
 ## Coding terms (Warp features)
 
 - **Code** — Warp's coding experience for agent-assisted changes (editing, diffs, code review).
@@ -331,6 +337,8 @@ Docs match the screen; the fix belongs in the app.
 - **command-line** — hyphenated when used as an adjective
 - **Git repository** or **repo** — not "git repository" (capitalize "Git")
 - **macOS** — not "Mac OS" or "Mac"
+- **Zero Data Retention (ZDR)** — Warp's agreements with contracted LLM providers not to train on or retain customer data. Capitalize as a proper term, including in headings ("Zero Data Retention (ZDR)"); keep the "(ZDR)" acronym on first mention in a section.
+- **SSO (Single Sign-On)** — Authentication through an organization's identity provider (Okta, Microsoft Entra ID, Google Workspace, or any SAML 2.0/OIDC provider). Always capitalize the acronym "SSO"; capitalize "Single Sign-On" when spelled out as the feature name.
 
 ## Branded and informal terms
 

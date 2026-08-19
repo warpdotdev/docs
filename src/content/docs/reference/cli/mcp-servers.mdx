@@ -59,7 +59,7 @@ $ oz mcp list
 $ oz agent run --mcp "1deb1b14-b6e5-4996-ae99-233b7555d2d0" --prompt "who last updated the README?"
 ```
 
-### Passing a well-known managed MCP server
+### Passing MCP servers by well-known id
 
 A bare identifier made up of letters, digits, `-`, or `_` — such as `linear` — is treated as a well-known managed MCP id rather than a UUID or JSON. Warp resolves it server-side at run setup, so you don't need to look up a UUID first:
 
