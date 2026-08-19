@@ -17,7 +17,7 @@ The Jira integration lets your team kick off cloud agent runs directly from Jira
 * **Team membership** - The Jira integration requires you to be part of a [Warp team](/knowledge-and-collaboration/teams/). Teams can be created on any plan, including Free.
 * **Plan and credits** - Your team must be on a plan that supports integrations (Build, Max, or Business) and have at least 20 credits available. See [Access, Billing, and Identity](/platform/team-access-billing-and-identity/) for details.
 * **Infrastructure** - By default, agents run on Warp-hosted infrastructure. Enterprise teams can [self-host agents](/platform/self-hosting/) on their own infrastructure.
-* **Jira site admin** - Installing the {VARS.WARP_AUTOMATION_PLATFORM} app in Jira requires site admin permissions.
+* **Jira site admin** - Installing the Warp app on your Jira site requires site admin permissions.
 
 ---
 
@@ -29,11 +29,11 @@ In the <a href={`${VARS.WEB_APP_URL}/integrations`}>{VARS.WEB_APP}</a>, find Jir
 
 #### 2. Install the app on your Jira site
 
-Choose the Jira Cloud site you want to connect, review the requested permissions, and install the {VARS.WARP_AUTOMATION_PLATFORM}. Only Jira site admins can install apps.
+Choose the Jira Cloud site you want to connect, review the requested permissions, and install the Warp app. Only Jira site admins can install apps.
 
 #### 3. Open the app configuration page
 
-In your Jira site, open **Manage apps**. Find the {VARS.WARP_AUTOMATION_PLATFORM}, open its three-dot actions menu, then click **Configure**.
+In your Jira site, open **Manage apps**. Find **Warp**, open its three-dot actions menu, then click **Configure**.
 
 The configuration page URL for the production app follows this pattern:
 
@@ -51,19 +51,19 @@ The confirmation page displays **Jira connected** when the connection succeeds. 
 
 #### 5. (Optional) Configure the default environment, model, and harness
 
-Return to the <a href={`${VARS.WEB_APP_URL}/integrations`}>Integrations page in the {VARS.WEB_APP}</a>, then click **Edit Jira** to set the default [environment](/platform/environments/), model, harness, and agent for Jira-triggered runs. If you don't change these settings, the {VARS.WARP_AUTOMATION_PLATFORM} uses your workspace's default configuration.
+Return to the <a href={`${VARS.WEB_APP_URL}/integrations`}>Integrations page in the {VARS.WEB_APP}</a>, then click **Edit Jira** to set the default [environment](/platform/environments/), model, harness, and agent for Jira-triggered runs. If you don't change these settings, Jira-triggered runs use your workspace's default configuration.
 
 ---
 
 ### How to start a run
 
-Add the label **`warp-agent`** to any Jira issue. The {VARS.WARP_AUTOMATION_PLATFORM} will pick it up, post a comment to let you know it's started, and begin working through the task using the issue title, description, and recent comments as context.
+Add the label **`warp-agent`** to any Jira issue. Warp will pick it up, post a comment to let you know it's started, and begin working through the task using the issue title, description, and recent comments as context.
 
-When the run finishes, the {VARS.WARP_AUTOMATION_PLATFORM} posts a summary comment to the issue with links to any pull requests or branches it created, along with a link to the full conversation in Warp. To track runs across your team, open the [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app, where Jira-triggered runs appear in the **All** tab.
+When the run finishes, Warp posts a summary comment to the issue with links to any pull requests or branches it created, along with a link to the full conversation in Warp. To track runs across your team, open the [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app, where Jira-triggered runs appear in the **All** tab.
 
 #### Connecting your Jira account to Warp
 
-This step is for any user who triggers runs — it doesn't require Jira admin permissions. The first time you trigger a run, the {VARS.WARP_AUTOMATION_PLATFORM} posts a comment prompting you to connect your Jira account to Warp. Connecting attributes your Jira-triggered runs to your Warp account; the run doesn't start until your account is connected. After connecting, re-add the `warp-agent` label to start the run.
+This step is for any user who triggers runs — it doesn't require Jira admin permissions. The first time you trigger a run, Warp posts a comment prompting you to connect your Jira account to Warp. Connecting attributes your Jira-triggered runs to your Warp account; the run doesn't start until your account is connected. After connecting, re-add the `warp-agent` label to start the run.
 
 1. Follow the link in the comment to open the Warp page in your Jira personal settings. The link for the production app follows this pattern:
 
@@ -79,13 +79,13 @@ The page displays **Jira account connected** when the link succeeds, and the set
 
 ### Troubleshooting
 
-If the {VARS.WARP_AUTOMATION_PLATFORM} doesn't respond after adding the label, check that:
+If Warp doesn't respond after adding the label, check that:
 
-* The {VARS.WARP_AUTOMATION_PLATFORM} app is installed and the workspace is connected (see the app's **Configure** screen in Jira).
+* The Warp app is installed on your Jira site and the workspace is connected (see the app's **Configure** screen in Jira).
 * The issue is in Jira Cloud (not Server or Data Center).
 
 :::note
-When a Jira-triggered run fails to start, the {VARS.WARP_AUTOMATION_PLATFORM} updates its comment on the issue to say it could not start the task. Re-add the `warp-agent` label to try again; a new attempt starts a new comment thread.
+When a Jira-triggered run fails to start, Warp updates its comment on the issue to say it could not start the task. Re-add the `warp-agent` label to try again; a new attempt starts a new comment thread.
 :::
 
 For other issues, reach out to your Warp contact or join the [Warp community on Slack](https://go.warp.dev/join-preview).
