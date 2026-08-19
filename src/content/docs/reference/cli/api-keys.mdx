@@ -64,7 +64,7 @@ The key type determines who the run is attributed to, which credit pool is bille
 
 * Run as a cloud agent on your team.
 * On Build, Max, and Business plans, bill the team owner: the owner's plan-included credits, then the owner's add-on credits. With auto-reload on, usage can trigger a reload on the owner's pool, subject to the team-wide monthly spend cap. On Enterprise plans, use the team-scoped credit pool.
-* Use the **Oz by Warp** GitHub App when [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) is configured. Without team GitHub authorization, agent keys are still useful for tasks that don't need to write to GitHub, such as analysis, monitoring, or triage.
+* Use the **Warp Factories** GitHub App when [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) is configured. Without team GitHub authorization, agent keys are still useful for tasks that don't need to write to GitHub, such as analysis, monitoring, or triage.
 
 For the full credit waterfall, see [Access, billing, and identity permissions](/platform/team-access-billing-and-identity/) and [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
 
@@ -158,6 +158,6 @@ oz api-key expire "ci-pipeline" --force
 * **Use personal keys for runs that should act as you.** When code changes should be attributed to your GitHub account, a personal key is the right choice. Use agent keys for automation that isn't tied to a specific user.
 * **Use environment variables.** Avoid passing API keys directly in commands where they may be logged or visible in shell history.
 * **Set appropriate expiration.** Use shorter expiration times for development and testing; consider longer durations for stable production workflows.
-* **Configure team GitHub authorization for agents that write to GitHub.** Personal keys authenticate as you with your GitHub permissions. Agent keys authenticate via the [Oz by Warp GitHub App](/platform/team-access-billing-and-identity/#team-github-authorization) when team GitHub authorization is configured in the Admin Panel.
+* **Configure team GitHub authorization for agents that write to GitHub.** Personal keys authenticate as you with your GitHub permissions. Agent keys authenticate via the [Warp Factories GitHub App](/platform/team-access-billing-and-identity/#team-github-authorization) when team GitHub authorization is configured in the Admin Panel.
 * **Rotate keys periodically.** Create new keys and retire old ones on a regular schedule to limit exposure from compromised credentials.
 * **Store securely.** Use secret managers (like 1Password CLI, HashiCorp Vault, or cloud provider secret services) rather than plain text files.

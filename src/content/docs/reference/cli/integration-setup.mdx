@@ -191,7 +191,7 @@ You typically only need to handle this once per team, unless your repo access ch
 
 #### Team-level GitHub authorization
 
-For automated workflows that use an [agent API key](/reference/cli/api-keys/) (CI/CD pipelines, scheduled agents, SDK-triggered runs), you can configure team GitHub authorization so the agent authenticates with the Oz by Warp GitHub App instead of an individual's personal token.
+For automated workflows that use an [agent API key](/reference/cli/api-keys/) (CI/CD pipelines, scheduled agents, SDK-triggered runs), you can configure team GitHub authorization so the agent authenticates with the Warp Factories GitHub App instead of an individual's personal token.
 
 This requires a Warp team admin to enable the GitHub organization in the Admin Panel (**Settings** > **Admin Panel** > **Platform**). Once configured, tasks initiated with an agent API key can clone repos and open pull requests using the GitHub App installation token.
 
@@ -230,7 +230,7 @@ The CLI then:
 3. Generates an **integration ID** you can later list or delete.
 
 :::note
-The [GitHub integration](/platform/integrations/github/), which starts agents from `@warp-agent` mentions on issues and pull requests, isn't created with `oz integration create`. It's set up by installing the Oz by Warp GitHub App and enabling the GitHub organization in the Admin Panel.
+The [GitHub integration](/platform/integrations/github/), which starts agents from `@warp-agent` mentions on issues and pull requests, isn't created with `oz integration create`. It's set up by installing the Warp Factories GitHub App and enabling the GitHub organization in the Admin Panel.
 :::
 
 **Additional `integration create` flags:**

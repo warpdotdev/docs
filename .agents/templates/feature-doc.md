@@ -24,7 +24,8 @@ Remove this callout if not needed.]
 ## Key features
 
 [Bulleted list. Bold term + dash + description for each.
-Focus on what each capability means for the user.]
+Focus on what each capability means for the user.
+If one capability is a genuine differentiator (e.g., an agent- or API-driven alternative to the default UI flow), give it real visual weight here or in its own callout near the top of the relevant section — don't bury it as a footnote after the primary flow is already documented.]
 
 * **Feature A** - What it does and why it matters to the user.
 * **Feature B** - What it does and why it matters to the user.
@@ -38,6 +39,7 @@ IMPORTANT: Do NOT include step-by-step procedures in this section.
 Keep the conceptual and procedural sections clearly separated.
 State platform, plan, preview, or interactive-only limits next to the behavior they constrain.
 Do not invent internal tool names or implementation details the reader cannot act on.
+Do not cite exact counts of tools, steps, or subcomponents (e.g., "ten tools") if they could change — describe the capability instead; a stale number is worse than no number.
 Do NOT embed full error messages here — put failures in Troubleshooting at the end.]
 
 [SCREENSHOTS: If this feature has a distinctive visual surface (statusline, tab bar, side pane, multi-control layout), place a screenshot immediately after the paragraph that introduces that surface. Use descriptive alt text. Skip screenshots for purely textual CLI behavior.]

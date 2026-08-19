@@ -13,6 +13,7 @@ This guide establishes standards for writing Warp documentation. It covers voice
 - **Direct and action-oriented**: Lead with what users can accomplish, not just what features exist
 - **User-focused**: Use second person ("you can", "allows you to") rather than passive voice
 - **Confident without jargon**: Explain technical concepts clearly without oversimplifying
+- **Avoid copy that reads as AI-generated**: Watch for over-explained cause-and-effect, excessive hedging, or the same rhetorical pattern repeated across sections. Read a paragraph aloud — if it doesn't sound like something a person would say to a colleague, rewrite it plainly.
 
 ### Language guidelines
 - Use consistent terminology throughout (see [Terminology standards](#terminology-standards) and the full glossary in `.agents/references/terminology.md`)
@@ -411,8 +412,13 @@ These rules apply regardless of content type:
 - **Provide inline context for first references**: Assume the reader arrived directly at this page, not from a parent page. When a prerequisite, concept, or tool is mentioned for the first time, include: what the thing is (1 short clause), where to get or create it, and a link to the full reference.
   - ✅ "**A Warp API key** - Authenticate API requests with a key from **Settings** > **Platform** in the Warp app. See the API Keys reference for details."
   - ❌ "**An API key** - Create one in **Settings** > **Platform**." (what kind of key? Settings where?)
-- **Include practical examples**: Show real-world scenarios, not just toy examples. Concrete examples help the reader understand when and why to use a feature.
+- **Include practical examples**: Show real-world scenarios, not just toy examples. Concrete examples help the reader understand when and why to use a feature. For enterprise or infrastructure-heavy features, prefer a complete example (a full config file, a linked sample repository) over a fragment — abstract features are hardest to trust without something concrete to point at.
 - **Cross-reference related pages**: Link to related features, next steps, and deeper references so the reader can continue learning.
+- **Sequence basics before jargon**: Explain what something is in plain language before introducing internal-sounding framing, deep lifecycle terminology, or advanced configuration. A reader who doesn't know the concept yet should never hit unexplained jargon in the first few paragraphs. Save advanced or self-referential concepts (e.g., a system that improves itself) for after the reader understands the basic flow.
+- **Avoid appendix-style content**: Don't add a bullet list or table whose only job is to restate content already covered elsewhere on the page, such as an exhaustive index of tabs or settings that duplicates the dedicated sections below it. Weave supplementary details into the section they relate to instead of bolting them onto the end under a generic heading like "Good to know."
+- **Don't over-specify counts or internals that will drift**: Describe a capability rather than naming an exact count of tools, steps, or subcomponents behind it (e.g., "a small set of tools" instead of "ten tools"). Precise counts go stale the moment the implementation changes, and a stale number is worse than no number.
+- **Feature real differentiators structurally**: If a capability is a genuine advantage over the default path (an agent- or API-driven alternative to a UI flow, for example), give it real visual weight — a clear callout near the top of the relevant section, not a footnote after the primary steps are already done. Where something sits on the page communicates how important it is.
+- **Verify claims against the live product, not just prior drafts**: Terminology, UI labels, and calculated values drift between rounds of review. Confirm names, labels, and metric definitions against the actual app, API, or codebase before publishing — especially for pages describing metrics or anything computed.
 
 ### Conceptual
 
@@ -461,6 +467,7 @@ These rules apply regardless of content type:
 - Include expected outcomes after key steps so the reader can confirm they're on track.
 - Test all instructions for accuracy.
 - Provide troubleshooting for common failure points.
+- **Explain the default before the override.** When documenting configurable infrastructure or advanced settings, state the default behavior and the common case first, then cover manual overrides. Don't lead with the full matrix of options before establishing what "just works" out of the box.
 
 **Existing examples**: `reference/cli/api-keys.mdx`, `platform/integrations/slack.mdx`
 

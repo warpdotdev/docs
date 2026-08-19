@@ -13,24 +13,21 @@ The factory dashboard is the web app for operating a single factory. Use it to t
 "Factory dashboard" names the whole surface. **Dashboard**, in bold, is one page inside it: the metrics page you land on when you open a factory.
 :::
 
-## Pages at a glance
+## Getting oriented
 
-Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, **Secrets**, and **Integrations** sit above the factory list and cover your whole team, not a single factory.
+Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, **Secrets**, and **Integrations** sit above the factory list and cover your whole team, not a single factory; everything else on this page is scoped to the factory you select.
 
-| Page | What it shows | What you do there |
-| --- | --- | --- |
-| **Dashboard** | The factory's metrics: autonomy, PR cycle time, cost, and run volume | Compare periods and find work worth investigating |
-| **Activity** | Work items grouped by stage | Search, filter, open, and stop work items |
-| **Agents** | The factory's agents | Create and edit agents |
-| **Automations** | Triggers that start runs | Create, edit, and delete automations |
-| **Runs** | The factory's individual agent runs | Start, stop, and score runs |
-| **Scorers** | Scorer definitions and results | Define rubrics and review classifications |
-| **Self-improvement** | Pull requests filed to fix Scorer-detected failures | Review fix PRs and open the runs behind them |
-| **Benchmarks** | Benchmark suites and their runs | Compare harness, model, and runner configurations |
-| **Factory definition** | The factory's definition files | Browse and edit a Warp-managed definition |
-| **Settings** | Configuration the factory owns | Change identity, repos, runners, and the integrations the factory can access |
+A factory opens on its **Dashboard** page, covered next. **Factory definition** appears only on Warp-managed factories, since a factory whose definition lives in your own repository is edited there instead.
 
-A factory opens on its **Dashboard** page. **Factory definition** appears only on Warp-managed factories, since a factory whose definition lives in your own repository is edited there instead.
+## Read metrics on the Dashboard page
+
+**Dashboard** is the factory's landing page. It summarizes the factory over a date range you choose:
+
+* **Autonomy** - The share of the factory's merged PRs that needed no human input beyond an approving review and the merge itself. A PR counts as autonomous only if no person added commits, requested changes, or otherwise edited it before merge.
+* **PR cycle time** - The median time the factory's merged PRs took from run kickoff through PR, first review, and merge, with a median for each stage.
+* **Cost per PR** - The median cost of PRs opened in the range. Treat it as a lower-bound estimate: it can miss some run usage and does not match billing. See [Measure and improve a factory](/factories/measure-and-improve/) for its limitations.
+
+The page also charts opened versus merged PRs and a breakdown of runs, and the **Cost per PR** card expands to list the most expensive PRs in the range. When Scorers are set up, Scorer cards summarize recent classification results.
 
 ## Track work items on Activity
 
@@ -53,16 +50,6 @@ Click **New** on a factory's **Runs** page to send a prompt to the factory's for
 :::note
 Run pages don't include a chat input, but you can still steer a run: **View session** opens its [shared agent session](/platform/viewing-cloud-agent-runs/), where you follow the agent in real time and send follow-up instructions while the run's sandbox is active. After it shuts down, the same button opens the conversation transcript.
 :::
-
-## Read metrics on the Dashboard page
-
-**Dashboard** is the factory's landing page. It summarizes the factory over a date range you choose:
-
-* **Autonomy** - The share of the factory's merged PRs that needed no human input beyond an approving review and the merge itself.
-* **PR cycle time** - The median time the factory's merged PRs took from run kickoff through PR, first review, and merge, with a median for each stage.
-* **Cost per PR** - The median cost of PRs opened in the range. Treat it as a lower-bound estimate: it can miss some run usage and does not match billing. See [Measure and improve a factory](/factories/measure-and-improve/) for its limitations.
-
-The page also charts opened versus merged PRs and a breakdown of runs, and the **Cost per PR** card expands to list the most expensive PRs in the range. When Scorers are set up, Scorer cards summarize recent classification results.
 
 ## Manage agents and automations
 

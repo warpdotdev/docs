@@ -10,7 +10,7 @@ import { VARS } from '@data/vars';
 
 The GitHub integration lets your team start cloud agents from GitHub itself. Mention **@warp-agent** in an issue comment, a pull request review comment, or the body of a new pull request, and Warp starts a cloud agent that reads the surrounding context, works the task in your codebase, and posts its progress and results back into the same thread.
 
-The integration is powered by the **Oz by Warp** GitHub App. Once a team admin installs the app and enables the GitHub organization, every teammate who has connected their GitHub account can trigger agents from GitHub without leaving a review or an issue.
+The integration is powered by the **Warp Factories** GitHub App. Once a team admin installs the app and enables the GitHub organization, every teammate who has connected their GitHub account can trigger agents from GitHub without leaving a review or an issue.
 
 :::note
 This page covers the native GitHub App integration. It is distinct from two other GitHub surfaces:
@@ -31,7 +31,7 @@ This page covers the native GitHub App integration. It is distinct from two othe
 
 ## How it works
 
-When you mention `@warp-agent`, GitHub sends the event to Warp through the Oz by Warp GitHub App installation. Warp then:
+When you mention `@warp-agent`, GitHub sends the event to Warp through the Warp Factories GitHub App installation. Warp then:
 
 1. Confirms the comment or pull request body contains the `@warp-agent` mention and that the author is a person rather than a bot.
 2. Maps the GitHub App installation to a Warp team using the organizations enabled in the Admin Panel.
@@ -66,7 +66,7 @@ When a run for that thread is already in flight, a new mention is delivered to t
 
 * **Team membership** - The GitHub integration requires a [Warp team](/knowledge-and-collaboration/teams/). Configuration is team-scoped, and runs are owned by the team associated with the GitHub App installation.
 * **Plan and credits** - Your team must have cloud agents enabled and credits available. On Enterprise plans, runs draw from a team credit pool per your contract. See [Access, billing, and identity](/platform/team-access-billing-and-identity/).
-* **Oz by Warp GitHub App** - A GitHub organization owner installs the [Oz by Warp](https://github.com/apps/oz-by-warp) GitHub App on the organization or account that owns the repositories, granting it access to all repositories or a selected set. The installation's repository access is what agents act with, so scope it deliberately.
+* **Warp Factories GitHub App** - A GitHub organization owner installs the [Warp Factories](https://github.com/apps/warp-factories) GitHub App on the organization or account that owns the repositories, granting it access to all repositories or a selected set. The installation's repository access is what agents act with, so scope it deliberately.
 * **An enabled GitHub organization** - A Warp team admin adds the organization under **Enabled GitHub Orgs** in the Admin Panel so the installation maps to your Warp team.
 * **A connected GitHub account** - Each teammate connects their GitHub account to Warp once, so Warp can identify who triggered the run and which team to bill. The connection identifies the requester; it doesn't determine what the agent can reach on GitHub.
 
@@ -78,11 +78,11 @@ Complete steps 1 through 3 once per team. Step 4 is per teammate.
 
 Install the app so GitHub can deliver issue and pull request events to Warp, and so agents can read repository context and post comments.
 
-A user with admin permissions on the GitHub organization installs the [Oz by Warp](https://github.com/apps/oz-by-warp) GitHub App and grants it access to **all repositories** or **selected repositories**. Each installation covers a single GitHub organization or personal account, so install the app separately for every organization your team works in.
+A user with admin permissions on the GitHub organization installs the [Warp Factories](https://github.com/apps/warp-factories) GitHub App and grants it access to **all repositories** or **selected repositories**. Each installation covers a single GitHub organization or personal account, so install the app separately for every organization your team works in.
 
 <figure style={{ maxWidth: "563px" }}>
-![Oz by Warp GitHub App installation page showing repository access options](../../../../assets/agent-platform/oz-github-app-installation.png)
-<figcaption>Installing the Oz by Warp GitHub App.</figcaption>
+![Warp Factories GitHub App installation page showing repository access options](../../../../assets/agent-platform/oz-github-app-installation.png)
+<figcaption>Installing the Warp Factories GitHub App.</figcaption>
 </figure>
 
 The agent can only act on repositories included in this installation.
@@ -111,7 +111,7 @@ Configure the integration so every GitHub-triggered run uses the environment and
 The repository that triggered the event is always cloned for the run, so an environment is optional. Configure one when runs need additional repositories, a specific Docker image, or setup commands. Pick a GitHub environment whose repositories the same installation covers, since the run authenticates with that installation's token.
 
 :::note
-Unlike Slack and Linear, the GitHub integration isn't created with `oz integration create`. It appears once the Oz by Warp GitHub App installation is associated with your team in the Admin Panel.
+Unlike Slack and Linear, the GitHub integration isn't created with `oz integration create`. It appears once the Warp Factories GitHub App installation is associated with your team in the Admin Panel.
 :::
 
 ### 4. Connect your GitHub account
@@ -144,7 +144,7 @@ Every GitHub-triggered run is a cloud agent run:
 
 GitHub-triggered runs separate **what the agent can do on GitHub** from **who the run belongs to**.
 
-**Access comes from the GitHub App installation.** A run started by an `@warp-agent` mention authenticates with a token minted for the Oz by Warp GitHub App installation that delivered the event, not with the mentioning user's GitHub authorization. Cloning, branches, commits, pull requests, and the status comments all use that installation token, so on GitHub the work is attributed to the Oz by Warp GitHub App rather than to the person who wrote the mention. The boundary on what the agent can reach is the installation's repository selection, optionally narrowed further by the repository access a Warp admin grants the team in the Admin Panel. Adjust the installation in your [GitHub settings](https://github.com/settings/installations).
+**Access comes from the GitHub App installation.** A run started by an `@warp-agent` mention authenticates with a token minted for the Warp Factories GitHub App installation that delivered the event, not with the mentioning user's GitHub authorization. Cloning, branches, commits, pull requests, and the status comments all use that installation token, so on GitHub the work is attributed to the Warp Factories GitHub App rather than to the person who wrote the mention. The boundary on what the agent can reach is the installation's repository selection, optionally narrowed further by the repository access a Warp admin grants the team in the Admin Panel. Adjust the installation in your [GitHub settings](https://github.com/settings/installations).
 
 **Identity comes from the account connection.** Warp matches the GitHub account that posted the mention to the Warp account that connected it, not by email address. That binding decides who the run is attributed to in Warp, which team owns it, and whose credits pay for it. The person must be a member of the Warp team that enabled the organization.
 
@@ -161,7 +161,7 @@ For fully automated workflows that run without a triggering user, such as schedu
 * **One run per thread at a time.** While a run for an issue, pull request, or review thread is active, further mentions become follow-ups to that run.
 * **The installation must map to a Warp team.** Repositories in an organization that no Warp team has enabled can't start runs.
 * **Installations are scoped to one organization each.** Install the app separately for every GitHub organization whose repositories your team works in.
-* **Everything on GitHub is done by the app.** Comments, commits, branches, and pull requests come from Oz by Warp rather than the person who mentioned the agent, so the run can't reach anything the installation can't reach, and it isn't narrowed to what that person can reach either.
+* **Everything on GitHub is done by the app.** Comments, commits, branches, and pull requests come from Warp Factories rather than the person who mentioned the agent, so the run can't reach anything the installation can't reach, and it isn't narrowed to what that person can reach either.
 * **The configured environment must be a GitHub environment.** A GitHub-triggered run rejects an environment built for another provider, such as GitLab or Bitbucket, and asks you to configure a GitHub environment instead.
 * **Environment repositories outside the installation stay out of reach.** The installation token only covers the repositories the app is installed on, so a repository in the environment that the installation doesn't cover isn't available to the agent.
 
@@ -172,7 +172,7 @@ For fully automated workflows that run without a triggering user, such as schedu
 The event never reached Warp, or it was filtered out. Check in this order:
 
 1. The comment body contains `@warp-agent`, spelled exactly, rather than only the issue or pull request title.
-2. The Oz by Warp GitHub App is installed on the organization and has access to that repository.
+2. The Warp Factories GitHub App is installed on the organization and has access to that repository.
 3. The mention was posted by a person. Bot-authored comments are ignored.
 4. The comment is new. Editing an existing comment to add the mention doesn't start a run.
 
@@ -198,13 +198,13 @@ Use the error code in the thread's status comment to narrow the fix. Common erro
 
 ### The agent finished but opened no pull request
 
-Confirm the Oz by Warp GitHub App installation covers the repository and still grants write access to it. Because the run acts with the installation's token, removing a repository from the installation, or narrowing the app's permissions, stops the agent from pushing branches or opening pull requests there.
+Confirm the Warp Factories GitHub App installation covers the repository and still grants write access to it. Because the run acts with the installation's token, removing a repository from the installation, or narrowing the app's permissions, stops the agent from pushing branches or opening pull requests there.
 
 ## Removing or changing the integration
 
-* **Change repository access** - Edit the Oz by Warp installation in your [GitHub settings](https://github.com/settings/installations).
+* **Change repository access** - Edit the Warp Factories installation in your [GitHub settings](https://github.com/settings/installations).
 * **Stop runs for an organization** - A Warp team admin removes the organization from **Enabled GitHub Orgs** in the Admin Panel. Mentions in its repositories stop starting runs.
-* **Remove the integration entirely** - Uninstall the Oz by Warp GitHub App from the GitHub organization. GitHub stops delivering events to Warp for every repository in that installation.
+* **Remove the integration entirely** - Uninstall the Warp Factories GitHub App from the GitHub organization. GitHub stops delivering events to Warp for every repository in that installation.
 
 ## Related resources
 

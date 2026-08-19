@@ -382,6 +382,19 @@ platform:
     dockerImage: ubuntu:22.04
 ```
 
+### Routing to a self-hosted worker
+
+To route this factory's work to a [managed self-hosted worker](/factories/infrastructure-and-security/#choose-an-execution-host) instead of Warp-hosted compute, set `workerHost` on `agentDefaults` (or override it per agent or automation) to the worker's ID:
+
+```yaml title="factory.yaml"
+agentDefaults:
+  model: auto
+  runner: linux-build
+  workerHost: SELF_HOSTED_WORKER_ID
+```
+
+Pair `workerHost` with a runner whose `platform` matches the worker's operating system and architecture. See [choose an execution host](/factories/infrastructure-and-security/#choose-an-execution-host) for the full setup, including how to deploy and connect the worker.
+
 ## Pull request checks for GitHub-backed factories
 
 When your definition lives in GitHub, Warp validates every change before it takes effect:
