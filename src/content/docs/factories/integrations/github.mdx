@@ -96,13 +96,13 @@ New activity on an issue, pull request, or review thread the factory is already 
 
 Issues and pull requests the factory opens carry its label, the same one you use to mention it. Warp adds the label to each repository you connect and removes it when you disconnect one or delete the factory, so you never create or clean it up by hand. If a label is ever left behind, delete it like any other GitHub label.
 
-Branches and pull requests the factory creates follow the repository's normal rules — branch protection, required reviews, and merge requirements all still apply.
+Branches and pull requests the factory creates follow the repository's normal rules: branch protection, required reviews, and merge requirements all still apply.
 
 ## Permissions
 
 Runs authenticate with the GitHub App installation, not with the account of the person whose activity triggered them:
 
-* **The app installation decides what agents can reach.** Agents get exactly the repositories and permissions the installation grants, so change the installation to change access — [automation filters](/factories/automation-filters/) only change when work starts.
+* **The app installation decides what agents can reach.** Agents get exactly the repositories and permissions the installation grants, so change the installation to change access. [Automation filters](/factories/automation-filters/) only change when work starts.
 * **Anyone who can create matching activity can start work.** The event author doesn't need to be a Warp team member. Use author, label, and branch filters to control what starts runs.
 
 For the full credential model, see [Permissions and identity](/platform/integrations/github/#permissions-and-identity) on the GitHub integration page.
