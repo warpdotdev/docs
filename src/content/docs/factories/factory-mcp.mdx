@@ -37,12 +37,18 @@ Set up a Warp Factory for me. Read https://docs.warp.dev/factories/factory-mcp.m
 Your agent will:
 
 1. Check whether Factory MCP is already available.
-2. Add `https://app.warp.dev/api/v1/mcp/factory` using its own MCP configuration mechanism.
+2. If it is not available, identify the coding environment and add `https://app.warp.dev/api/v1/mcp/factory` using that client's current MCP configuration mechanism.
 3. Open the browser-based Warp authorization flow.
 4. Verify the Factory MCP tools are available.
 5. Use the onboarding guidance published by Factory MCP to help you select a team, repositories, factory agents, and optional integrations before creating the factory.
 
-Some MCP clients load newly added servers only when a new session starts. If a reload is required, the agent will tell you how to resume onboarding after the server becomes available.
+#### Guidance for coding agents
+Before configuring anything, the agent should identify its coding environment and use that client's current MCP management mechanism. If it is unsure how the client manages MCP servers, it should check the client's help or official documentation rather than guess.
+
+* **Warp:** Factory MCP is built in. Use the existing connection instead of adding another server.
+* **Claude Code:** A server added after the session starts is not available to that running session. After adding Factory MCP, tell the user to exit and resume the same conversation from the same directory with `claude --continue`. Once resumed, complete authentication through the client's MCP controls if needed, then continue onboarding without asking the user to restate their goal.
+* **Codex:** Add Factory MCP as a remote HTTP server, use Codex's built-in OAuth flow, and confirm the server is active through its MCP controls before onboarding. Only ask the user to restart or resume if the configured server is not available to the current session.
+* **Other MCP clients:** Add the remote server using the client's supported configuration and authentication flow. If the client cannot load a newly added server into the current session, explain how to restart or resume while preserving the onboarding context when possible.
 
 ### In other MCP clients
 
