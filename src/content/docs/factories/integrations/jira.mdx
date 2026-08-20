@@ -48,6 +48,8 @@ Connect Jira Cloud to your factory so your team can start factory work without l
 
 4. **Test it.** Assign or mention **Warp** on a work item and include an instruction. Jira starts an agent session, and the run appears under the matching automation in your factory.
 
+   {/* VISUAL: A Jira work item assigned to Warp, showing the resulting agent session. */}
+
 ## Filter which sessions start runs
 
 All Jira work reaches the factory through a single event, `agent_session_created`, which fires when someone assigns or mentions **Warp** on a work item. A session starts a run only when it matches an enabled automation. Use the trigger's `filter` to narrow what matches:

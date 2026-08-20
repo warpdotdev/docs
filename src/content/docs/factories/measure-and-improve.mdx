@@ -53,6 +53,8 @@ Configure these fields:
 * **Pass threshold** - The score a conversation needs to pass.
 * **Sample rate** - The share of the selected agents' completed conversations to evaluate.
 
+{/* VISUAL: The Scorer create/edit form (judge instructions, judge model, classifications, pass threshold, sample rate). */}
+
 While the sample rate is above 0, scoring runs automatically: shortly after a sampled conversation completes, the judge evaluates it and records a classification, a score, and its reasoning. To stop automatic scoring, set the sample rate to 0.
 
 You can also score any single conversation on demand, which is useful for testing new judge instructions before raising the sample rate. Scoring a conversation again replaces its previous result from that Scorer.
@@ -74,6 +76,8 @@ You can create a benchmark task from a completed run's detail pane, and Warp cop
 Every benchmark also runs **Correctness**, a built-in Scorer that marks each trial as pass or fail against the task's success criteria. Results show pass rates, cost, and quality for each configuration, with per-task detail. Warp doesn't combine these signals into one score or pick a winner; you weigh the results and decide. Benchmark credit totals don't include model usage, so the true cost is higher.
 
 ## Configure and review Self-improvement
+
+{/* VISUAL: The Self-improvement pull request list, or a Benchmarks suite run -- this section is text-only today. */}
 
 Turn on **Self-improvement** for each Scorer whose failures you want investigated automatically. Self-improvement groups related failures and files follow-up tasks as ordinary agent runs. A follow-up run can propose changes to application code. It can also improve the factory itself: when you manage your factory as [definitions as code](/factories/factory-as-code/), its prompts, skills, and configuration are version-controlled files, so a follow-up run can open a pull request against the factory definition the same way it would against application code. Nothing is adopted without your review.
 

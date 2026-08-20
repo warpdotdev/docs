@@ -1,8 +1,8 @@
 ---
-title: Connect a factory to GitLab
+title: Connect GitLab to your factory
 description: >-
-  Connect a factory to GitLab so merge request events and bot mentions start
-  factory work and results post back as comments and merge requests.
+  Connect GitLab to your factory so merge request events and bot mentions
+  start factory work and results post back as comments and merge requests.
 sidebar:
   label: "GitLab"
 ---
@@ -71,6 +71,8 @@ Each GitLab factory has its own bot account, so the mention itself routes the re
 
 The **gitlab-bot-mentions** automation starts a work item, and the factory replies in the same thread. To find the bot's username, check that automation's trigger in the [factory dashboard](/factories/factory-dashboard/).
 
+{/* VISUAL: A merge request comment mentioning the factory's bot username, parallel to the GitHub mention visual. */}
+
 Mentions count only in new comments. Edits and activity from Warp's own service accounts never trigger work, so a factory can't re-trigger itself or a sibling factory.
 
 ## How the factory responds on GitLab
@@ -112,7 +114,7 @@ triggers:
 Triage newly opened merge requests and post an initial review.
 ```
 
-A `bot_mentioned` trigger takes only a `repos` filter. Leave `mentioned` out. Warp seeds it with the factory's bot username and rejects definitions that set it. {/* OPEN QUESTION for tech review (PR #549): confirm GitLab is actually supported as a definition host today. main@79f77e55 states GitLab is "not yet available as a definition host" -- this contradicts the claim below. Verify before merging. */}Factory definitions hosted in GitLab repositories sync the same way GitHub-hosted ones do.
+A `bot_mentioned` trigger takes only a `repos` filter. Leave `mentioned` out. Warp seeds it with the factory's bot username and rejects definitions that set it. GitLab isn't yet supported as a definition-hosting repository, so declare these triggers in a Warp-managed or GitHub-hosted definition even when the factory's automations and mentions run through GitLab; see [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
 
 ## Troubleshooting
 
@@ -136,4 +138,4 @@ Confirm the target project is one of the factory's selected projects and the ope
 
 Only top-level groups you own appear, and a group already connected to another Warp workspace can't be connected again. If you don't own the group, ask an owner to establish the connection in Warp.
 
-For the other ways to route work into a factory, see [connecting your factory](/factories/connect-your-factory/).
+For the other ways to route work into a factory, see [Connect your factory](/factories/connect-your-factory/).
