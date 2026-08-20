@@ -41,6 +41,8 @@ PROPER_FEATURE_NAMES = {
     "Slash Commands", "Terminal Mode", "Universal Input", "Warp Drive",
     "Warp Platform", "Automation Platform", "Warp Factories", "Factory MCP",
     "Computer Use", "Full Terminal Use", "Zero Data Retention", "Single Sign-On",
+    "Blocks", "Block", "Tab Configs", "Tab Config",
+    "Launch Configuration", "Launch Configurations",
 }
 
 # Terminology: wrong → right (case-sensitive checks)

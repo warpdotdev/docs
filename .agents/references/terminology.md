@@ -66,6 +66,9 @@ For the summary of the most critical terms (core features, Automation Platform t
 - **Tab Configs** — Reusable TOML-based tab layout definitions that launch preconfigured terminal sessions.
   *Usage note:* Capitalize as a feature name.
 
+- **Launch Configuration** / **Launch Configurations** — The legacy, YAML-based way to save a configuration of windows, tabs, and panes. Replaced by Tab Configs; existing Launch Configurations still work but aren't being extended.
+  *Usage note:* Capitalize as a feature name, including in headings ("Creating a Launch Configuration"). Use "Tab Configs" for new content.
+
 - **Vertical Tabs** — The sidebar-based tab management panel that replaces the horizontal tab bar.
   *Usage note:* Capitalize as a feature name.
 
