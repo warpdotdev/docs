@@ -9,7 +9,7 @@ Draft a reference documentation page with structured, exhaustive information for
 
 ## Workflow
 
-Follow the workflow in `.warp/skills/draft_docs/SKILL.md`, using the **reference template** at `.warp/templates/reference.md`.
+Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **reference template** at `.agents/templates/reference.md`.
 
 ## Frontmatter description
 

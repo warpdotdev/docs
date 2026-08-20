@@ -76,9 +76,14 @@ Record the content type chosen in the design plan, and pick its template and typ
 | **Quickstart** | Fast path to a working result | `.agents/templates/quickstart.md` | `draft_quickstart` |
 | **Reference** | Structured information for lookup | `.agents/templates/reference.md` | `draft_reference` |
 | **Troubleshooting** | Problem → cause → solution | `.agents/templates/troubleshooting.md` | `draft_troubleshooting` |
-| **FAQ** | Question-and-answer format | `.agents/templates/faq.md` | `draft_faq` |
-| **Guide** | Task-oriented walkthrough (Guides section) | `.agents/templates/guide-page.md` | `draft_guide` |
+| **FAQ** | Rarely — cross-cutting questions with no canonical home | `.agents/templates/faq.md` | `draft_faq` |
+| **Tutorial** | Full workflow walkthrough (Guides section) | `.agents/templates/guide-page.md` | `draft_guide` |
 | **Feature documentation** | Combined conceptual + procedural (most common) | `.agents/templates/feature-doc.md` | `draft_feature_doc` |
+
+Two of these carry admission rules rather than just structure, and both are checked in review:
+
+- **FAQ** defaults to "not an FAQ." All three admission rules in `AGENTS.md` must hold before you create or extend one. Most FAQ-shaped content belongs on the page that owns the topic.
+- **Quickstart vs. tutorial** is a scope decision, not a location one. A quickstart is ~5 minutes and ~600 words for someone who already knows the product; a tutorial walks a full workflow and requires that a quickstart already exists. "Guides" is the section name and holds both.
 
 Once the content type is identified:
 - Use the corresponding **template** as the starting scaffold for the page.
