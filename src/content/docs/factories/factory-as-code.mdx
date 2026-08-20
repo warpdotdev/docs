@@ -343,10 +343,17 @@ exactly one declared label.
 
 Required. The agents (by name) whose runs this scorer evaluates.
 
+### `enabled`
+
+Optional. Set to `false` to pause scoring without deleting the scorer. Defaults to `true`.
+
+### `output`
+
+Optional. The scorer output form. `classification` is the current supported value.
+
 ### `labels`
 
 Required. The classifications the judge may return, each with a `value`, a numeric `score` from 0 through 1, and an optional `description`. At least one label must score at or above `passingScore` and at least one below it.
-
 ### `passingScore`
 
 Required. The threshold, from 0 through 1, at or above which a run counts as passing.
