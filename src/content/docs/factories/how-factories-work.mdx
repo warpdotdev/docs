@@ -11,9 +11,9 @@ sidebar:
 Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
 :::
 
-A factory is a team of cloud agents that ships software the way your team does: a request comes in, moves through the stages it needs, and comes back as a pull request for a person to review. You talk to one agent — the **foreman** — from whichever tool a request starts in, and it dispatches the factory's other agents, each owning one part of the software development lifecycle.
+A factory is a team of cloud agents that ships software the way your team does: a request comes in, moves through the stages it needs, and comes back as a pull request ready for review. You talk to one agent, the **foreman**, from the tool that sends the request, such as Slack or Linear. The foreman dispatches the factory's other agents, and each one owns a part of the software development lifecycle.
 
-A **work item** is one unit of that engineering work, such as an issue, support request, pull request, or Factory MCP task. It keeps its identity from intake to handoff, however many agents contribute to it along the way.
+A **work item** is a single request the factory acts on, such as an issue, support request, pull request, or Factory MCP task. It keeps its identity from intake to handoff, however many agents contribute to it along the way.
 
 ## How a work item moves through the factory
 
@@ -42,18 +42,18 @@ flowchart LR
 ```
 
 * **Intake** - A work item enters from a [connected integration](/factories/connect-your-factory/), an automation, a direct run, or the [Factory MCP](/factories/factory-mcp/). It keeps its source context as it moves through later stages.
-* **Triage** - The triage agent researches the request, reproduces the problem when needed, and defines the scope and complexity of the change. The foreman skips this stage when the request is already well bounded.
-* **Specification** - The specification agent defines product behavior, technical constraints, and validation criteria. The foreman skips this stage for localized changes.
+* **Triage** - The triage agent researches the request, reproduces the problem when needed, and defines the scope and complexity of the change. The foreman skips this stage when the request already explains the problem and what needs to change.
+* **Specification** - The specification agent defines product behavior, technical constraints, and validation criteria. The foreman skips this stage for small, well-understood changes.
 * **Implementation** - The implementation agent makes the code change on a branch and opens a pull request with test and visual evidence.
 * **Review and verification** - The review agent checks the change against the requirements, tests, and security expectations, then sends findings back to implementation. Its verdict is advisory.
 * **Human handoff** - The factory presents the result, its evidence, and any findings. A person decides what happens next.
 * **Complete or Cancelled** - The work item ends when the factory finishes its work, or stops early if someone cancels it.
 
-In the [factory dashboard](/factories/factory-dashboard/), the **Activity** view is where you find, filter, and stop work items. It groups these stages under its own names — Triage, Planning (specification), Building (implementation), and Reviewing — and each agent's run within a work item is an ordinary [cloud agent run](/platform/) you can watch and steer.
+In the [factory dashboard](/factories/factory-dashboard/), the **Activity** view is where you find, filter, and stop work items. It groups these stages under its own names: Triage, Planning (specification), Building (implementation), and Reviewing. Each agent's run within a work item is an ordinary [cloud agent run](/platform/) you can watch and steer.
 
 ## Where your team stays in charge
 
-A factory is built to pause where the call belongs to a person. By default, that's three places:
+A factory is built to pause when there is a decision that needs to be made by a person. By default, that's three places:
 
 * **Approving the spec** - When work goes through the spec stage, implementation waits until a person signs off on the plan.
 * **Answering questions** - When requirements are unclear or a review finding is ambiguous, the foreman asks instead of guessing.
