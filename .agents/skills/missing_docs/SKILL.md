@@ -212,6 +212,32 @@ Diff mode reports, since the snapshot was last updated:
   it becomes actionable — most will not. Read
   `references/changelog_decisions.md` first and skip any PR number already decided.
 
+#### Sources beyond the client changelog
+
+The client changelog only covers `warpdotdev/warp`. Server and platform features ship
+continuously and never appear in it, which is how they used to reach docs through the
+retired spec-scan path — and why that path produced most of the unvetted drafts. Cover
+them through these three layers instead, in order of preference:
+
+1. **`oz_updates`** — the separate array in the same `client_version` payload the release
+   gate already fetches. Release-gated, low-noise, and currently the most direct signal
+   for platform-side changes. Triage these bullets exactly like changelog bullets: same
+   gates, same ledger, same evidence requirement.
+2. **The public Agent API surface** — already covered by audit category 3 and
+   `sync-openapi-spec`. No new machinery; just confirm the release run actually triages
+   these findings rather than deferring them by habit. A released endpoint reaches docs
+   through the spec, never through hand-drafting.
+3. **`warp-server` product specs** — the last resort, and the most conservative layer.
+   Apply a hard rollout check *before* the worthiness gates: only consider a spec whose
+   feature is verifiably enabled for users. A merged spec is not a shipped feature. If
+   you cannot confirm the rollout from code or the changelog, defer it and record the
+   blocking condition — do not draft against the spec text.
+
+Layer 3 is where the old pipeline went wrong: it treated spec merge as the trigger, so it
+drafted for features that had not shipped and sometimes never would. Reach for it only
+when layers 1 and 2 cannot see a user-visible change you have independent evidence has
+shipped.
+
 After triaging and addressing diff findings, refresh the snapshot and commit it with
 your PR so the next run diffs against the new baseline:
 

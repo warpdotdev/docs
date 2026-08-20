@@ -50,8 +50,24 @@ Also clarify: Is this a new page or an update to an existing page?
 ### 3. Read the style guide
 Read `AGENTS.md` in the docs repo root. This is required — it contains all voice/tone rules, formatting standards, content type structures, terminology, and the quality checklist. Do not draft without reading it first.
 
+### 3.5. Confirm the doc should exist, then design it
+
+Two gates, in order. Both come before you open a template.
+
+**First, should this doc exist at all?** Apply `.agents/references/docs-worthiness-criteria.md`. The default is no docs, and the burden is on the change to earn a page. Record the verdict with the gate it passed and the concrete evidence — a setting key, CLI flag, quoted error string, changed default, or API field. If nothing passes, say so and stop; "this is new and users should know about it" is not a reason to write a page.
+
+This applies to human-invoked drafting too. A person asking for a page is not by itself evidence that the page should exist — if the request fails the gates, say so and propose the alternative (usually a section on an existing page).
+
+When the change passes, choose the outcome explicitly: **update an existing page** (preferred), **new page**, or **no docs**. Prefer updating whenever a page already covers the surface.
+
+**Second, what should the doc be?** Write a content design plan per `.agents/references/content-design-plan.md`, filling in every field: audience and JTBD, problem statement, goals, purpose and value, content type and model, skills and templates, and high-impact scenarios with explicit exclusions.
+
+The plan decides the content type — step 4 records that decision rather than making it. Starting at the template produces pages shaped by the template instead of by the reader's need.
+
+Carry the completed plan into the PR body as a `## Content design plan` section. Small corrections listed under "When a plan can be skipped" in that reference are exempt from both gates.
+
 ### 4. Identify the content type and template
-Using the "Drafting by content type" section in `AGENTS.md`, determine which content type the page is:
+Record the content type chosen in the design plan, and pick its template and type-specific skill from this table. If drafting has diverged from the plan's chosen type, revisit the plan rather than silently switching templates.
 
 | Content type | Use when | Template | Skill |
 |---|---|---|---|
@@ -139,6 +155,9 @@ Skip steps 1–3 in local/interactive sessions.
 
 ### 9. Review against checklist
 Before presenting the draft, verify against the quality checklist in `AGENTS.md`:
+- [ ] The change passed `.agents/references/docs-worthiness-criteria.md`, and the verdict names a gate plus concrete evidence
+- [ ] A content design plan exists with every field filled in, and the draft matches the content type it chose
+- [ ] The outcome is the lightest correct one — an existing page was updated unless a new page is genuinely justified
 - [ ] Frontmatter description is a standalone search summary (benefit + keywords; not "This page describes..." and not a restatement of the title)
 - [ ] Content follows the structure for its content type
 - [ ] Section order follows reader chronology (requirements → setup → usage → advanced → troubleshooting)
