@@ -65,11 +65,15 @@ How much of the gate applies depends on who is asking:
 
 When the change passes, choose the outcome explicitly: **update an existing page** (preferred), **new page**, or **no docs**. Prefer updating whenever a page already covers the surface.
 
-**Second, what should the doc be?** Write a content design plan per `.agents/references/content-design-plan.md`, filling in every field: audience and JTBD, problem statement, goals, purpose and value, content type and model, skills and templates, and high-impact scenarios with explicit exclusions.
+**Second, what should the doc be?** Fill in `.agents/templates/content-design-plan.md`, using `.agents/references/content-design-plan.md` for what each field is asking.
 
 The plan decides the content type — step 4 records that decision rather than making it. Starting at the template produces pages shaped by the template instead of by the reader's need.
 
-Carry the completed plan into the PR body as a `## Content design plan` section. Small corrections listed under "When a plan can be skipped" in that reference are exempt from both gates.
+**When a person invoked this skill, present the plan and wait before drafting.** This is the checkpoint: redirecting the audience or content type now costs a conversation, and after the prose exists it costs a rewrite. Do not skip it just because the requester seems confident about what they want.
+
+Carry the completed plan into the PR body as a `## Content design plan` section either way. In an unattended run there is no one to present it to, so the PR body is the only place a human will see the reasoning.
+
+Small corrections listed under "When a plan can be skipped" in that reference are exempt from both gates.
 
 ### 4. Identify the content type and template
 Record the content type chosen in the design plan, and pick its template and type-specific skill from this table. If drafting has diverged from the plan's chosen type, revisit the plan rather than silently switching templates.

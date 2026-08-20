@@ -680,9 +680,11 @@ Concrete page scaffolds for each content type are in `.agents/templates/`. Use t
 - **Tutorial** — `.agents/templates/guide-page.md` (filename is a holdover from when the type was called "guide")
 - **Feature documentation (combined)** — `.agents/templates/feature-doc.md`
 
-Each template carries its guidance as **bracketed instructions** in the body, not HTML comments — agents deprioritize comments, so the guidance would be skipped. Every template opens with a `[BEFORE PUBLISHING: ...]` note; delete every bracketed instruction, including that one, before the page ships.
+One template is not a page scaffold: `.agents/templates/content-design-plan.md` is the fill-in artifact completed *before* drafting, presented to the requester in an interactive session and included in the PR body in every case. See `.agents/references/content-design-plan.md`.
 
-Each template also sets `title` in frontmatter and adds no H1 to the body. Starlight renders the frontmatter title as the page H1, so a body H1 produces a duplicate.
+Every template carries its guidance as **bracketed instructions** in the body, not HTML comments — agents deprioritize comments, so the guidance would be skipped. Each one opens with a removal note; delete every bracketed instruction, including that one, before shipping.
+
+Each **page** template also sets `title` in frontmatter and adds no H1 to the body. Starlight renders the frontmatter title as the page H1, so a body H1 produces a duplicate. This does not apply to the content design plan template, which is a PR body section rather than a page.
 
 ### Closing section
 

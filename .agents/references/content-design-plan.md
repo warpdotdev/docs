@@ -1,6 +1,6 @@
 # Content design plan
 
-Before we begin drafting a docs page, we need to be extremely clear on it's purpose, value, and audience. We define these things by completing a content design plan before making any changes to the docs.
+Before we begin drafting a docs page, we need to be extremely clear on its purpose, value, and audience. We define these things by completing a content design plan before making any changes to the docs.
 
 Read this after a change has passed `.agents/references/docs-worthiness-criteria.md`, and before opening any template. Every new page and every substantive update to an existing page needs a content design plan — whether the drafting is done by a scheduled agent or by a person invoking a drafting skill directly.
 
@@ -10,7 +10,14 @@ Drafting that starts at the template produces pages shaped by the template. The 
 
 The plan inverts that. Start by determining who the reader is and what they are trying to do, and the content type falls out of the answer instead of dictating it.
 
-It is also the artifact a reviewer can actually disagree with. Reviewing a finished draft means arguing about prose. Reviewing a plan means arguing about whether the doc is aimed at the right person solving the right problem, which is the disagreement worth having and the one that is expensive to resolve after the page is written.
+That benefit does not depend on when a human reads the plan. Writing it is what shapes the draft.
+
+**What the plan is for depends on where it is reviewed**, and the two cases are genuinely different:
+
+- **Interactive drafting — a real checkpoint.** When a person invoked the drafting skill, present the plan and wait before writing any prose. Here the plan is cheap to disagree with: redirecting the audience or the content type costs a conversation instead of a rewrite. `write-feature-docs` already works this way with its Step 3 outline confirmation.
+- **Automated runs — a record and a consistency check.** A scheduled run opens a draft PR without a pre-draft checkpoint, so by the time anyone reads the plan the prose exists. It is not saving the reviewer a rewrite. What it does is make the reasoning inspectable next to the diff, so a reviewer can catch drift — the plan says "backend engineer configuring self-hosted GitLab" and the page reads like a conceptual overview — and can reject on aim rather than on prose.
+
+Do not claim the automated path buys early disagreement. It does not, and pretending otherwise obscures a real tradeoff: the pipeline was deliberately built to open draft PRs rather than propose first, accepting late review in exchange for not gating every candidate on a human.
 
 ## Principles
 
@@ -91,33 +98,10 @@ List the scenarios worth covering, in priority order. Then **name what you are l
 
 ## Where the plan lives
 
-**A required section in the docs PR body**, filled in before the diff is reviewed.
+Fill in `.agents/templates/content-design-plan.md`, then:
 
-Keeping it next to the diff is the point. A plan buried in an agent run log is not reviewable in practice — nobody opens the run to check the reasoning behind a page. In the PR body, the reviewer sees the intent and the execution together and can catch a well-written page aimed at the wrong reader.
-
-Use this structure:
-
-```markdown
-## Content design plan
-
-**Audience and JTBD:** [Specific reader in a specific situation, and the outcome they want]
-
-**Problem:** [What breaks down without this doc]
-
-**Goals:**
-- [Reader capability]
-- [Reader capability]
-
-**Purpose and value:** [Why this page earns its place]
-
-**Content type:** [Type] — [one-line rationale]
-
-**Skill and template:** `[skill]` / `.agents/templates/[template].md`
-
-**High-impact scenarios:**
-- Covers: [scenario], [scenario]
-- Excludes: [scenario] — [why]
-```
+- **Present it to the requester before drafting** when a person invoked the drafting skill. This is the checkpoint, and skipping it forfeits the only cheap chance to redirect.
+- **Include it in the PR body** as a `## Content design plan` section, in every case. A plan that lives only in an agent run log is not reviewable in practice — nobody opens the run to check the reasoning behind a page.
 
 For an update to an existing page rather than a new page, the same fields apply, scoped to the change: the audience and job for the section being added or revised, and what the page fails to do for that reader today.
 
@@ -134,6 +118,7 @@ If the change adds, removes, or reframes information a reader acts on, it needs 
 
 ## Related references
 
+- `.agents/templates/content-design-plan.md` — the fill-in artifact this reference explains
 - `.agents/references/docs-worthiness-criteria.md` — whether the doc should exist, applied before this
 - `AGENTS.md` → "Drafting by content type" — the content type definitions and rules
 - `.agents/templates/` — the page scaffolds
