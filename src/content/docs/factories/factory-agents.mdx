@@ -6,7 +6,6 @@ description: >-
 sidebar:
   label: "Factory agents"
 ---
-import { Steps } from '@astrojs/starlight/components';
 
 :::note
 Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
@@ -58,8 +57,6 @@ Every default agent comes with GitHub skills, and the foreman also comes with a 
 
 ## Configure agent behavior
 
-<Steps>
-
 1. In the [factory dashboard](/factories/factory-dashboard/), select your factory and click **Agents** in the sidebar.
 
    <figure style={{ maxWidth: "563px" }}>
@@ -73,8 +70,6 @@ Every default agent comes with GitHub skills, and the foreman also comes with a 
    ![An agent's settings page, showing its description, MCPs, secrets, harness, model, runner, and host fields.](../../../assets/factories/factory-agent-settings.png)
    <figcaption>An agent's settings page, where you configure its model, harness, runner, and host.</figcaption>
    </figure>
-
-</Steps>
 
 You can also manage the whole factory as version-controlled code, with [factory definition files](/factories/factory-as-code/) in a Git repository. A few agent settings, such as harness and credential strategy, can only be set in the files. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives) for how Warp-managed and GitHub-backed factories differ in what you can edit from the factory dashboard.
 
