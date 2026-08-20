@@ -1,8 +1,8 @@
 ---
 title: Factory MCP for coding agents
 description: >-
-  Connect any coding agent to your team's factories to send in work, continue
-  tasks locally, and hand results back.
+  Connect any coding agent to create and operate your team's factories, send in
+  work, continue tasks locally, and hand results back.
 sidebar:
   label: "Factory MCP"
 ---
@@ -16,7 +16,7 @@ The factory keeps a single record of each task throughout. Whether a change happ
 * **Send work in** - Turn anything from your local session into a factory task: a bug you found, review feedback, or a half-finished change.
 * **Continue a task locally** - Pull a task's context into your own checkout, work with your own tools, and return the result to the same task.
 * **Stay in sync** - List and search tasks, read a task's conversation, and message its [foreman](/factories/factory-agents/), the agent that orchestrates each task inside the factory.
-* **Create a factory** - Set up a new factory when you know the team, repositories, and source-control details.
+* **Create a factory** - Let your coding agent guide you through choosing a team, code forge, repositories, factory agents, and integrations.
 
 Factory MCP is one of several ways work enters a factory, alongside Slack, GitHub, GitLab, Linear, and Jira. See [connect your factory](/factories/connect-your-factory/) for all intake paths and [how Warp Factories work](/factories/how-factories-work/) for how tasks move through a factory.
 
@@ -25,6 +25,24 @@ Factory MCP is one of several ways work enters a factory, alongside Slack, GitHu
 ### In Warp
 
 There is nothing to configure. When your account has access, Warp connects agent sessions to Factory MCP and handles authentication for you.
+
+### Set up with your coding agent
+
+Paste this prompt into a coding agent that can run commands and configure MCP servers:
+
+```text
+Set up a Warp Factory for me. Read https://docs.warp.dev/factories/factory-mcp.md, follow the setup instructions for your coding environment to connect to and authenticate with Factory MCP, then use Factory MCP to onboard me.
+```
+
+Your agent will:
+
+1. Check whether Factory MCP is already available.
+2. Add `https://app.warp.dev/api/v1/mcp/factory` using its own MCP configuration mechanism.
+3. Open the browser-based Warp authorization flow.
+4. Verify the Factory MCP tools are available.
+5. Use the onboarding guidance published by Factory MCP to help you select a team, repositories, factory agents, and optional integrations before creating the factory.
+
+Some MCP clients load newly added servers only when a new session starts. If a reload is required, the agent will tell you how to resume onboarding after the server becomes available.
 
 ### In other MCP clients
 
@@ -76,8 +94,9 @@ Factory MCP exposes a small set of tools that your agent calls on your behalf. Y
 * "Send this bug to the factory, including my branch."
 * "What's the status of the checkout-flow task?"
 * "Pull down ENG-123 so we can finish it here."
+* "Set up a Warp Factory for me."
 
-The rest of this page describes what happens behind those prompts.
+For factory creation, the server-provided onboarding guidance walks the agent through team selection, code-forge authorization, repositories, agent roles, optional integrations, creation, and verification. The rest of this page describes what happens behind these prompts.
 
 ## Send new work to a factory
 
@@ -112,7 +131,11 @@ Your MCP client fetches the full input schemas from the server, and tool results
 | Tool | What it does |
 | --- | --- |
 | `list_factories` | Lists the factories you can access. |
-| `create_factory` | Creates a factory for a team, with its repositories and source-control details. |
+| `list_teams` | Lists the teams that can own a new factory. |
+| `list_forge_repositories` | Lists repositories available through a team's connected GitHub or GitLab account. |
+| `start_connection` | Starts or checks setup for GitHub, GitLab, Slack, Linear, or Jira. |
+| `get_connection_status` | Checks whether a browser authorization flow completed. |
+| `create_factory` | Creates a factory with the selected repositories, integrations, and optional factory agents. |
 | `list_tasks` | Lists the tasks in one factory, with filters such as creator, stage, and date. |
 | `search_task` | Searches task titles across all factories you can access. |
 | `get_task` | Reads a task's status, run history, and outputs. Accepts a task ID or a reference such as a URL, issue, pull request, or branch. With `start_working=true`, also returns local setup guidance. |
