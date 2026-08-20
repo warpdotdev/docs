@@ -26,11 +26,12 @@ This ledger is that missing key. **Triage reads it first and skips any PR number
 
 ## Ledger
 
-Newest first. One row per changelog PR number.
+Newest first. One row per PR number — usually a `warpdotdev/warp` changelog item, occasionally a `warpdotdev/docs` PR evaluated against the gate after the fact.
 
 | PR | Decided | Verdict | Gate / disqualifier | Reason and outcome |
 |---|---|---|---|---|
-| [#581](https://github.com/warpdotdev/docs/pull/581) | 2026-08-20 | deferred | Gate 0 | `agentDefaults.computerUseModel` is unreleased — the drafting PR said so in its own title. Real knob, would pass Gate 1, but Gate 0 is a hard prerequisite. Re-check when the setting ships to GA. |
+| [docs#582](https://github.com/warpdotdev/docs/pull/582) | 2026-08-20 | yes | Gate 3 | Factory Dashboard metric definitions (APP-5546). The counting rules are non-obvious and currently live only in hover tooltips: the By-model view caps at eight and folds the rest into Other, there is an Unknown bucket, and opened/merged pull request counts can legitimately disagree. A reader reading the dashboard without them draws wrong conclusions. New reference page justified — no existing page carries per-metric detail. |
+| [docs#581](https://github.com/warpdotdev/docs/pull/581) | 2026-08-20 | deferred | Gate 0 | `agentDefaults.computerUseModel` is unreleased — the drafting PR said so in its own title. Real knob, would pass Gate 1, but Gate 0 is a hard prerequisite. Re-check when the setting ships to GA. |
 | [#14418](https://github.com/warpdotdev/warp/pull/14418) | 2026-08-20 | yes | Gate 1 | Agent execution profiles configurable from settings files for all users. Named settings-file configuration. Update the existing agent profiles page. |
 | [#14344](https://github.com/warpdotdev/warp/pull/14344) | 2026-08-20 | no | Disqualified: pure UI affordance | Armadillo icon replaced with the theme-adaptive Warp "W" logo. Nothing configurable, nothing to get stuck on. |
 | [#14298](https://github.com/warpdotdev/warp/pull/14298) | 2026-08-20 | no | Disqualified: small and intuitive | MCP tool confirmations now show the running tool and its source server. Understood on sight. |
@@ -42,4 +43,6 @@ Newest first. One row per changelog PR number.
 
 ## Notes
 
-These seed rows come from the `v0.2026.07.29.09.05.stable_02` changelog and double as the calibration set in `.agents/references/docs-worthiness-criteria.md`. Rows marked `yes` record the verdict, not that the docs change has shipped — several are still open PRs.
+The `warpdotdev/warp` rows come from the `v0.2026.07.29.09.05.stable_02` changelog and double as the calibration set in `.agents/references/docs-worthiness-criteria.md`. Rows marked `yes` record the verdict, not that the docs change has shipped — several are still open PRs.
+
+The two `warpdotdev/docs` rows were the regression cases used to validate the gate when it was introduced: docs#581 must fail Gate 0 because it documents an unreleased setting, and docs#582 must pass, because a gate that rejects everything is as broken as one that accepts everything.
