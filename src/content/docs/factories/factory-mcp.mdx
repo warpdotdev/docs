@@ -81,6 +81,8 @@ The rest of this page describes what happens behind those prompts.
 
 ## Send new work to a factory
 
+{/* VISUAL: An MCP client connected to Factory MCP (Warp or Cursor), or a factory task created via send_task -- this page has no product chrome today. */}
+
 To create a task, your agent calls `send_task` with the target factory, a title, and a note. The note is what the foreman starts from, so a good one states the goal, the relevant context and constraints, and any work already done. The foreman takes it from there and reports progress on the task's conversation.
 
 If the new task builds on local changes, push the branch or open a pull request first and reference it in the note, so the factory can see that work.
@@ -122,9 +124,9 @@ Your MCP client fetches the full input schemas from the server, and tool results
 
 ## Related pages
 
-* [Connect your factory](/factories/connect-your-factory/) - Every way work can enter a factory, including the Slack, GitHub, GitLab, Linear, and Jira integrations.
-* [Factory agents](/factories/factory-agents/) - The foreman and the other agents that carry out a factory's tasks.
-* [How Warp Factories work](/factories/how-factories-work/) - The task lifecycle and the agents that move work through it.
-* [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send it its first work item.
-* [Model Context Protocol in Warp](/agents/capabilities/mcp/) - How MCP servers work in the Warp app, with a catalog of popular MCP servers you can add to Warp directly.
-* [Handoff between local and cloud agents](/platform/handoff/) - Move workspaces and conversations between local and cloud outside a factory.
+* [**Connect your factory**](/factories/connect-your-factory/) - Every way work can enter a factory, including the Slack, GitHub, GitLab, Linear, and Jira integrations.
+* [**Factory agents**](/factories/factory-agents/) - The foreman and the other agents that carry out a factory's tasks.
+* [**How Warp Factories work**](/factories/how-factories-work/) - The task lifecycle and the agents that move work through it.
+* [**Warp Factories quickstart**](/factories/quickstart/) - Create a factory and send it its first work item.
+* [**Model Context Protocol in Warp**](/agents/capabilities/mcp/) - How MCP servers work in the Warp app, with a catalog of popular MCP servers you can add to Warp directly.
+* [**Handoff between local and cloud agents**](/platform/handoff/) - Move workspaces and conversations between local and cloud outside a factory.
