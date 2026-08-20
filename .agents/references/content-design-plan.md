@@ -1,6 +1,6 @@
 # Content design plan
 
-Decide what a doc should be, before writing a word of it.
+Before we begin drafting a docs page, we need to be extremely clear on it's purpose, value, and audience. We define these things by completing a content design plan before making any changes to the docs.
 
 Read this after a change has passed `.agents/references/docs-worthiness-criteria.md`, and before opening any template. Every new page and every substantive update to an existing page needs a content design plan — whether the drafting is done by a scheduled agent or by a person invoking a drafting skill directly.
 
@@ -8,7 +8,7 @@ Read this after a change has passed `.agents/references/docs-worthiness-criteria
 
 Drafting that starts at the template produces pages shaped by the template. The scaffold has a "Key features" section, so the draft gets a key features list; it has a "How it works" section, so the draft explains how it works — whether or not any reader needed either.
 
-The plan inverts that. Decide who the reader is and what they are trying to do, and the content type falls out of the answer instead of dictating it.
+The plan inverts that. Start by determining who the reader is and what they are trying to do, and the content type falls out of the answer instead of dictating it.
 
 It is also the artifact a reviewer can actually disagree with. Reviewing a finished draft means arguing about prose. Reviewing a plan means arguing about whether the doc is aimed at the right person solving the right problem, which is the disagreement worth having and the one that is expensive to resolve after the page is written.
 
