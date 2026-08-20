@@ -680,7 +680,18 @@ Concrete page scaffolds for each content type are in `.agents/templates/`. Use t
 - **Tutorial** — `.agents/templates/guide-page.md` (filename is a holdover from when the type was called "guide")
 - **Feature documentation (combined)** — `.agents/templates/feature-doc.md`
 
-Each template includes inline HTML comments explaining what to put in each section and why.
+Each template carries its guidance as **bracketed instructions** in the body, not HTML comments — agents deprioritize comments, so the guidance would be skipped. Every template opens with a `[BEFORE PUBLISHING: ...]` note; delete every bracketed instruction, including that one, before the page ships.
+
+Each template also sets `title` in frontmatter and adds no H1 to the body. Starlight renders the frontmatter title as the page H1, so a body H1 produces a duplicate.
+
+### Closing section
+
+Every page ends with one of two sections, chosen by content type:
+
+- **`## Next steps`** — quickstarts and tutorials. The reader just finished something and needs forward momentum: a one-line recap, then 2-3 actionable next steps, always including the conceptual page for the feature.
+- **`## Related pages`** — every other type. The reader wants lateral material, not a sequel.
+
+Do not use "Further reading" or "See also"; neither appears anywhere in the corpus. Whichever section applies, it goes last and contains at least one internal link whose anchor text names the destination.
 
 ## Terminology standards
 
