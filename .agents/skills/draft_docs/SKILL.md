@@ -54,9 +54,14 @@ Read `AGENTS.md` in the docs repo root. This is required — it contains all voi
 
 Two gates, in order. Both come before you open a template.
 
-**First, should this doc exist at all?** Apply `.agents/references/docs-worthiness-criteria.md`. The default is no docs, and the burden is on the change to earn a page. Record the verdict with the gate it passed and the concrete evidence — a setting key, CLI flag, quoted error string, changed default, or API field. If nothing passes, say so and stop; "this is new and users should know about it" is not a reason to write a page.
+**First, should this doc exist at all?** Apply `.agents/references/docs-worthiness-criteria.md`.
 
-This applies to human-invoked drafting too. A person asking for a page is not by itself evidence that the page should exist — if the request fails the gates, say so and propose the alternative (usually a section on an existing page).
+How much of the gate applies depends on who is asking:
+
+- **Automated runs** (`missing_docs` drift-watch, or any scheduled agent) apply the **full gate**. The default is no docs and the burden is on the change to earn a page. Record the verdict with the gate it passed and the concrete evidence — a setting key, CLI flag, quoted error string, changed default, or API field. If nothing passes, say so and stop; "this is new and users should know about it" is not a reason to write a page.
+- **A person asking directly** is subject to **Gate 0 only**. Gate 0 is a factual check — has this shipped, is the surface public — and a requester can simply be wrong about it, so verify it and stop if it fails. Drafting for an unshipped feature is the most common failure regardless of who asked.
+
+  Gates 1 through 3 are judgment, and a person requesting the page usually has context you do not: the roadmap, the support queue, a conversation you were not in. **Do not decline their request on Gates 1-3.** If something looks off — an existing page already covers the surface, or the change looks like a pure UI affordance — say so once, then defer to their answer and proceed.
 
 When the change passes, choose the outcome explicitly: **update an existing page** (preferred), **new page**, or **no docs**. Prefer updating whenever a page already covers the surface.
 

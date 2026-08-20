@@ -20,6 +20,16 @@ These criteria govern the **weekly release stream** — changes that reached use
 
 Major launches (Warp Factories, for example) are planned in advance and documented by the docs team on a proactive, human-led path. They do not run through these gates. If you encounter a change that is clearly part of an announced launch, defer it rather than gating it.
 
+### How much applies depends on who is asking
+
+**Automated runs apply the full gate.** A scheduled agent has no context beyond what it can read, and unattended drafting at scale is what this reference exists to control. Default to no docs; make the change earn the page.
+
+**A person asking directly is subject to Gate 0 only.** Gate 0 is factual — has this shipped, is the surface public — and a requester can be wrong about it, so it is worth verifying no matter who asked. Gates 1 through 3 are judgment, and someone requesting a page usually has context an agent does not: the roadmap, the support queue, a conversation the agent was not in.
+
+So do not decline a person's request on Gates 1-3. Raise the concern once — "an existing page already covers this," "this looks like a UI-only change" — then defer to their answer. An agent arguing with someone who knows more than it does is a worse failure than one extra page.
+
+The gates still shape *how* you draft for a human request: they push toward updating an existing page over creating a new one, and toward naming the concrete thing a reader needs.
+
 ## Decision procedure
 
 Work through the gates in order. Gate 0 is a hard prerequisite. Gates 1 through 3 are alternatives — passing any one is enough. Then check the disqualifiers, which override a pass on any gate.

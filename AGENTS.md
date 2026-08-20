@@ -877,7 +877,7 @@ When creating or updating content, use SEO and AEO data to inform titles, descri
 
 Before publishing any documentation, verify:
 
-- [ ] The change passed `.agents/references/docs-worthiness-criteria.md`, with a recorded gate and concrete evidence — not just "it's new"
+- [ ] The change passed `.agents/references/docs-worthiness-criteria.md` — the full gate with recorded evidence for automated runs, Gate 0 (shipped and public) for human-requested pages
 - [ ] A content design plan exists per `.agents/references/content-design-plan.md` and appears in the PR body
 - [ ] An existing page was updated rather than a new page created, unless a new page is genuinely justified
 - [ ] Frontmatter includes a one-sentence description (50-160 chars) written as a standalone summary, with no filler opener
