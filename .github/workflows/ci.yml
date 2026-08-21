@@ -46,6 +46,7 @@ jobs:
         run: |
           python3 .agents/skills/missing_docs/scripts/test_suggest_reviewers.py
           python3 .agents/skills/missing_docs/scripts/test_audit_docs.py
+          python3 .agents/skills/missing_docs/scripts/test_check_new_release.py
 
       # Stdlib-only tests for the PR body integrity checker, including the
       # feature-summary lead section that drafting PRs must open with.

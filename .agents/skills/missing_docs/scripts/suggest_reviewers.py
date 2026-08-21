@@ -125,9 +125,19 @@ def main():
         return 0
 
     def report(message=""):
-        """Print human-readable progress, suppressed under --reviewers-only."""
+        """Print human-readable progress on stdout, suppressed under --reviewers-only."""
         if not quiet:
             print(message)
+
+    def diagnose(message):
+        """Report a resolution problem.
+
+        Under --reviewers-only this goes to stderr, so `$(...)` still captures only
+        the reviewer list while the run log keeps a record of why a fallback
+        happened. A silent fallback is indistinguishable from a correct resolution
+        when you are reading the log afterwards.
+        """
+        print(message, file=sys.stderr if quiet else sys.stdout)
 
     users, teams = [], []
     unresolved = []
@@ -135,18 +145,18 @@ def main():
     for item in inputs:
         if ":" not in item:
             unresolved.append(item)
-            report(f"  ? {item} — missing repo prefix (use warp: or warp-server:)")
+            diagnose(f"  ? {item} — missing repo prefix (use warp: or warp-server:)")
             continue
         repo, rel = item.split(":", 1)
         rules = repos.get(repo)
         if rules is None:
             unresolved.append(item)
-            report(f"  ? {item} — no ownership file loaded for repo '{repo}'")
+            diagnose(f"  ? {item} — no ownership file loaded for repo '{repo}'")
             continue
         owners, pattern = owners_for(rel, rules)
         if not owners:
             unresolved.append(item)
-            report(f"  ? {repo}:{rel} — no owner match")
+            diagnose(f"  ? {repo}:{rel} — no owner match")
             continue
         report(f"  - {repo}:{rel} -> {' '.join(owners)}  (matched: {pattern})")
         for o in owners:
@@ -160,10 +170,16 @@ def main():
     joined = ",".join(review_args)
 
     if quiet:
-        # Sole output: the --add-reviewer argument, or nothing at all. An empty
-        # result is the caller's cue to use the fallback reviewer, never to skip
-        # the request.
-        if joined:
+        # Sole *stdout* output: the --add-reviewer argument, or nothing at all. An
+        # empty result is the caller's cue to use the fallback reviewer, never to
+        # skip the request. Diagnostics already went to stderr.
+        if not joined:
+            print(
+                "suggest_reviewers: no owners resolved from "
+                f"{len(inputs)} path(s); caller must use its fallback reviewer.",
+                file=sys.stderr,
+            )
+        else:
             print(joined)
         return 0
 

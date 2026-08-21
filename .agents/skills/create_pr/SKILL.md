@@ -131,7 +131,7 @@ Write "shipped in `<version>` (`<date>`)". Do not write a target or predicted sh
 ```markdown
 ## What this feature does
 
-Workspace admin roles let a workspace owner delegate whole-workspace management — membership, billing, and cloud agent run visibility — to an admin without handing over ownership. Shipped in `v0.2026.08.18.02.52.stable_00` (2026-08-18).
+Workspace admin roles let a workspace owner delegate whole-workspace management — membership, billing, and cloud agent run visibility — to an admin without handing over ownership. Shipped in `v0.2026.08.18.02.52.stable_00` (`2026-08-18`).
 ```
 
 Verify it before submitting, along with the other body checks:
@@ -141,7 +141,7 @@ python3 .agents/skills/create_pr/check_pr_body.py /tmp/pr-body.md \
   --require-lead-section "## What this feature does"
 ```
 
-The check fails if the section is missing, is not the first heading, is empty, or exceeds the word budget. Omit the section — and the flag — only for the small corrections listed under "When a plan can be skipped": typos, link fixes, terminology sweeps, generated updates, and screenshot swaps have no feature to summarize.
+The check fails if the section is missing, is not the first content in the body, is empty, or exceeds the word budget. Position is checked against content rather than headings, so a body cannot open with a few unheaded lines of spec/workflow/run-ID preamble and still pass. Omit the section — and the flag — only for the small corrections listed under "When a plan can be skipped": typos, link fixes, terminology sweeps, generated updates, and screenshot swaps have no feature to summarize.
 
 ### Summary
 Brief explanation of what the PR accomplishes and why. This is where the pipeline detail goes: the source spec, the generating workflow, the new page path, and the sidebar entry.
@@ -235,7 +235,10 @@ Exit code 0 if PR exists, 1 if not.
 :::
 
 ```bash
-# 1. Write the description to a temp file using the create_file tool or a heredoc
+# 1. Write the description to a temp file using the create_file tool or a heredoc.
+#    The `## What this feature does` block is DRAFTING-PR ONLY - drop it (and the
+#    --require-lead-section flag in step 2) for typos, link fixes, terminology
+#    sweeps, generated updates, and screenshot swaps.
 cat > /tmp/pr-body.md << 'EOF'
 ## What this feature does
 One short paragraph: what the feature does for the user, ending with
@@ -252,9 +255,11 @@ Co-Authored-By: Oz <oz-agent@warp.dev>
 EOF
 
 # 2. Verify the body for corruption before submitting (exits non-zero on failure).
-#    On a drafting PR, also assert the feature-summary lead section.
 python3 .agents/skills/create_pr/check_pr_body.py /tmp/pr-body.md \
-  --require-lead-section "## What this feature does"
+  --require-lead-section "## What this feature does"   # drafting PRs only
+
+# For a non-drafting correction, run the check without the flag:
+# python3 .agents/skills/create_pr/check_pr_body.py /tmp/pr-body.md
 
 # 3. Create the PR using the file (only if the check passed)
 gh pr create --title "docs: Add feature documentation" --body-file /tmp/pr-body.md
@@ -274,6 +279,11 @@ So the mention stays, and a real request is added alongside it. **A PR is not co
 
 A resolution failure must fall back, never no-op. When no owner resolves, assign `dannyneira`, matching the fallback the release docs workflow already uses (`.github/workflows/release-docs-update.yml`, "Assign last docs PR reviewer"). An unassignable reviewer is a problem to surface, not a reason to ship an unreviewed PR.
 
+Two details below are load-bearing, and getting either wrong reintroduces the silent drop this section exists to prevent:
+
+- **Request one reviewer per call.** `gh pr edit --add-reviewer a,b,c` sends a single atomic mutation, so one unassignable entry rejects the whole list. Since a resolution routinely mixes users with a team, and a team with no access to this repo cannot be requested here, a comma-joined call can fail wholesale and take every valid owner down with it.
+- **Verify against the resolved set, not against emptiness.** "Is the list non-empty?" passes when the real owner was dropped and only the fallback landed, which looks identical to success.
+
 ```bash
 PR=123
 FALLBACK_REVIEWER=dannyneira
@@ -281,6 +291,7 @@ FALLBACK_REVIEWER=dannyneira
 # 1. Resolve the owning engineer(s). For missing_docs drift-watch runs, use the
 #    ownership resolver with the source files behind the change; see the
 #    missing_docs skill's "Reviewer routing" section for how to pick those files.
+#    Diagnostics go to stderr, so this captures only the reviewer list.
 REVIEWERS=$(python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
   --reviewers-only --warp ../warp --warp-server ../warp-server \
   warp:app/src/settings/ssh.rs < /dev/null)
@@ -291,25 +302,44 @@ if [[ -z "$REVIEWERS" ]]; then
   REVIEWERS="$FALLBACK_REVIEWER"
 fi
 
-# 3. Make the request.
-gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$REVIEWERS" ||
-  gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$FALLBACK_REVIEWER"
+# 3. Request each reviewer separately so one bad entry cannot drop the rest.
+IFS=',' read -ra WANT <<< "$REVIEWERS"
+GOT=()
+for R in "${WANT[@]}"; do
+  if gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$R"; then
+    GOT+=("$R")
+  else
+    echo "warning: could not request $R on PR $PR"
+  fi
+done
 
-# 4. Verify it landed. gh exits 0 even when it silently skips a reviewer it
-#    cannot assign (no repo access, a bad handle, or the PR author themselves),
-#    so confirm against the PR rather than trusting the exit code.
-REQUESTED=$(gh pr view "$PR" --repo warpdotdev/docs \
-  --json reviewRequests --jq '[.reviewRequests[].login // .reviewRequests[].name] | join(",")')
-if [[ -z "$REQUESTED" ]]; then
-  gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$FALLBACK_REVIEWER"
-  REQUESTED=$(gh pr view "$PR" --repo warpdotdev/docs \
-    --json reviewRequests --jq '[.reviewRequests[].login // .reviewRequests[].name] | join(",")')
+# 4. If nothing at all landed, fall back rather than ship an unreviewed PR.
+if (( ${#GOT[@]} == 0 )); then
+  gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$FALLBACK_REVIEWER" &&
+    GOT+=("$FALLBACK_REVIEWER")
 fi
-[[ -n "$REQUESTED" ]] || { echo "ERROR: no reviewer requested on PR $PR"; exit 1; }
+
+# 5. Read back and compare against what was resolved. `gh` can exit 0 while
+#    skipping a reviewer, so the PR is the source of truth. Note the jq: teams
+#    have no .login, and `[.reviewRequests[].login // .reviewRequests[].name]`
+#    silently drops them from a mixed list.
+REQUESTED=$(gh pr view "$PR" --repo warpdotdev/docs \
+  --json reviewRequests --jq '[.reviewRequests[] | .login // .slug // .name] | join(",")')
+if (( ${#GOT[@]} < ${#WANT[@]} )); then
+  echo "warning: requested ${#GOT[@]}/${#WANT[@]} resolved reviewers on PR $PR"
+fi
+if [[ -z "$REQUESTED" ]]; then
+  echo "ERROR: no reviewer requested on PR $PR"
+  exit 1
+fi
 echo "Requested reviewers: $REQUESTED"
 ```
 
-If even the fallback cannot be assigned, report it as a failure of the run. Do not close out a PR whose requested-reviewers list is empty.
+A partial result is a reportable outcome, not a pass: if some owners could not be requested, say which ones and why in the run output, so the gap is visible rather than buried. If even the fallback cannot be assigned, report the run as failed. Do not close out a PR whose requested-reviewers list is empty.
+
+:::caution
+A team handle resolved from `STAKEHOLDERS` or `CODEOWNERS` can only be requested on a repo that team has access to. `warpdotdev/oss-maintainers` is the root-rule owner in the warp client repo and therefore appears in most resolutions, but it has no access to `warpdotdev/docs`, so requesting it here fails. That is why step 3 requests one at a time.
+:::
 
 :::note
 Auto-requesting the review does not make it *block* merge. Whether an ambient docs PR should require that approval through branch protection is an open question for the docs owner, not something this skill decides.
