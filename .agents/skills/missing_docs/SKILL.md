@@ -449,26 +449,26 @@ run.
 Recommended scheduled-agent prompt (copy when setting up the agent):
 
 > Run the missing_docs skill in drift-watch mode. First run
-> scripts/check_new_release.py; if it reports no new stable release, record the no-op
-> outcome and stop. Otherwise use the audit script with explicit --warp (public
-> warpdotdev/warp checkout) and --warp-server paths and --diff. If the script exits
-> non-zero with skipped audits, report the environment problem and stop. Otherwise read
-> references/changelog_decisions.md and drop already-decided items, then triage the
-> remaining surface_changes and changelog_review findings plus high/medium coverage
-> findings against .agents/references/docs-worthiness-criteria.md. The default is no
-> docs: record a verdict and concrete evidence for every item, and expect most to fail.
-> For items that pass, write a content design plan per
+> .agents/skills/missing_docs/scripts/check_new_release.py; if it reports no new stable
+> release, record the no-op outcome and stop. Otherwise use the audit script with
+> explicit --warp (public warpdotdev/warp checkout) and --warp-server paths and --diff.
+> If the script exits non-zero with skipped audits, report the environment problem and
+> stop. Otherwise read references/changelog_decisions.md and drop already-decided items,
+> then triage the remaining surface_changes and changelog_review findings plus
+> high/medium coverage findings against .agents/references/docs-worthiness-criteria.md.
+> The default is no docs: record a verdict and concrete evidence for every item, and
+> expect most to fail. For items that pass, write a content design plan per
 > .agents/references/content-design-plan.md before drafting, prefer updating an existing
 > page over creating a new one, and use the sync-openapi-spec skill for API spec gaps.
 > Update the surface map for every triaged flag, append every verdict to
 > changelog_decisions.md, and regenerate the surface snapshot with --update-snapshot.
-> Resolve reviewers by running scripts/suggest_reviewers.py against the source files
-> behind each addressed finding. Open one focused PR per documented feature (grouping only
-> features that share a doc file or owner), each with the content design plan as a section
-> in its body, plus a single companion bookkeeping PR for the feature_surface_map.md,
-> changelog_decisions.md, last_release_processed.json, and surface_snapshot.json changes;
-> assign each PR's resolved owner as reviewer, and list any findings you deferred in the
-> relevant PR body.
+> Resolve reviewers by running .agents/skills/missing_docs/scripts/suggest_reviewers.py
+> against the source files behind each addressed finding. Open one focused PR per
+> documented feature (grouping only features that share a doc file or owner), each with
+> the content design plan as a section in its body, plus a single companion bookkeeping
+> PR for the feature_surface_map.md, changelog_decisions.md, last_release_processed.json,
+> and surface_snapshot.json changes; assign each PR's resolved owner as reviewer, and
+> list any findings you deferred in the relevant PR body.
 
 ### Invocation modes
 
