@@ -20,9 +20,10 @@ For help choosing between local, cloud, and shared MCP workflows, see [Connect d
 
 ## Using the `--mcp` flag
 
-The `--mcp` flag accepts three formats:
+The `--mcp` flag accepts four formats:
 
 * **UUID** — reference a Warp-shared MCP server by its UUID (find UUIDs with `oz mcp list`)
+* **Managed integration id** — reference a Warp-managed integration MCP server by its short id, such as `linear` (see [Passing Warp-managed integration servers by id](#passing-warp-managed-integration-servers-by-id))
 * **Inline JSON** — pass a full MCP JSON configuration directly as a string
 * **File path** — path to a JSON file containing the MCP configuration
 
@@ -57,6 +58,22 @@ $ oz mcp list
 ```sh
 $ oz agent run --mcp "1deb1b14-b6e5-4996-ae99-233b7555d2d0" --prompt "who last updated the README?"
 ```
+
+### Passing Warp-managed integration servers by id
+
+Some MCP servers are hosted by Warp and backed by an [integration](/platform/integrations/) your team has already connected, so they have no UUID of their own. Reference them by their short id instead:
+
+```sh
+$ oz agent run --mcp linear --prompt "summarize the tickets assigned to me"
+```
+
+Warp recognizes these managed integration ids:
+
+* `linear` — the hosted [Linear](/platform/integrations/linear/) MCP server
+* `slack` — the hosted [Slack](/platform/integrations/slack/) MCP server
+* `jira` — the hosted [Jira](/platform/integrations/jira/) MCP server
+
+The id is resolved when the run starts, using the integration connection that belongs to your team. If the integration isn't connected, or the id isn't one Warp recognizes, the server is skipped and the run continues without it.
 
 ### Passing MCP servers as inline JSON or a file
 
