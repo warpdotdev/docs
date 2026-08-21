@@ -18,6 +18,8 @@ export default function docsMarkdownIntegration() {
 	};
 }
 
+export { convertHtmlToMarkdown };
+
 const turndown = createMarkdownConverter();
 
 async function generateMarkdownFiles(outputRoot) {
@@ -86,6 +88,7 @@ function convertHtmlToMarkdown(html) {
 	if (!title || !contentRoot) return '';
 
 	const clone = /** @type {HTMLElement} */ (contentRoot.cloneNode(true));
+	expandAgentOnlyTemplates(clone);
 	sanitizeRoot(clone);
 	const markdownBody = turndown.turndown(clone.innerHTML).trim();
 	const llmsDirective =
@@ -104,6 +107,12 @@ function convertHtmlToMarkdown(html) {
 	return `${sections.join('\n\n').trim()}\n`;
 }
 
+function expandAgentOnlyTemplates(root) {
+	for (const template of root.querySelectorAll('template[data-agent-only]')) {
+		const content = /** @type {HTMLTemplateElement} */ (template).content;
+		template.replaceWith(content.cloneNode(true));
+	}
+}
 function sanitizeRoot(root) {
 	for (const selector of [
 		'script',
