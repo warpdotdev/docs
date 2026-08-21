@@ -54,12 +54,13 @@ export const VARS = {
   // Launch name confirmed via the launch blog draft (2026-07-28).
   //
   // NOTE: the WARP_AGENT_CLI key above was reserved for renaming the Oz CLI to
-  // this same name. That overlap is now resolved by product direction: at the
-  // next launch (approximately 2026-08-18) the Oz CLI is retired and wrapped
-  // into the Warp Agent CLI, leaving a single CLI. The two keys are expected to
-  // collapse into one at that point. Keeping them separate until the
-  // convergence ships, since merging them now would rewrite prose across both
-  // CLI doc surfaces.
+  // this same name. That overlap is now resolved by product direction: on
+  // 2026-09-15 (the same holdout date as the WARP_AGENT_CLI value above, not
+  // the 8/18 platform rename) the Oz CLI is retired and wrapped into the Warp
+  // Agent CLI, leaving a single CLI. The two keys are expected to collapse
+  // into one at that point. Keeping them separate until the convergence
+  // ships, since merging them now would rewrite prose across both CLI doc
+  // surfaces.
   WARP_CLI:                 "Warp Agent CLI",
 
   // Feature names (stable — keys and values expected to remain unchanged)
