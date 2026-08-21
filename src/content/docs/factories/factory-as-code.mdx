@@ -318,10 +318,11 @@ The operating system and architecture. `os` is `linux` (the default) or `macos`,
 
 ## `scorers/<name>/scorer.md`
 
-Optional. Each file defines a scorer: an LLM judge that classifies a sample of an agent's finished runs against a rubric. The scorer's name comes from its directory. The YAML frontmatter declares the classification contract, and the Markdown body after the closing `---` fence is the rubric. See [Measure and improve](/factories/measure-and-improve/) for how scores are used.
+Optional. Each file defines a scorer: an LLM judge that classifies a sample of an agent's finished runs against a rubric. The directory segment is only a stable filesystem slug — the required `name` field is the scorer's identity. The YAML frontmatter declares the classification contract, and the Markdown body after the closing `---` fence is the rubric. See [Measure and improve](/factories/measure-and-improve/) for how scores are used.
 
 ```markdown title="scorers/tests-run/scorer.md"
 ---
+name: tests-run
 description: Checks whether implementation runs include test evidence.
 agents:
   - reviewer
@@ -339,13 +340,13 @@ Evaluate whether the agent ran the relevant tests before finishing. Return
 exactly one declared label.
 ```
 
+### `name`
+
+Required. The scorer's identity. Renaming it is a content edit, not a directory move.
+
 ### `agents`
 
 Required. The agents (by name) whose runs this scorer evaluates.
-
-### `enabled`
-
-Optional. Set to `false` to pause scoring without deleting the scorer. Defaults to `true`.
 
 ### `output`
 
