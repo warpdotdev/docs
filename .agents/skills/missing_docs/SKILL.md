@@ -469,30 +469,22 @@ with the product. Each run:
    is exactly how #414–#417 ended up with zero reviews.
 
    **A PR is not complete until `gh pr edit --add-reviewer` has succeeded and the
-   requested-reviewers list is non-empty.** A resolution failure falls back to
-   `dannyneira`; it never no-ops. This matches the fallback in
+   requested reviewers read back as the owners you resolved.** A resolution failure
+   falls back to `dannyneira`; it never no-ops. This matches the fallback in
    `.github/workflows/release-docs-update.yml` (the "Assign last docs PR reviewer" step).
-   ```bash
-   PR=<pr-number>
-   FALLBACK_REVIEWER=dannyneira
 
-   REVIEWERS=$(python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
-     --reviewers-only --warp ../warp --warp-server ../warp-server \
-     warp:app/src/settings/ssh.rs < /dev/null)
-   [[ -z "$REVIEWERS" ]] && REVIEWERS="$FALLBACK_REVIEWER"
+   **Use the snippet in the `create_pr` skill under "Request reviewers (required)" —
+   it is the canonical copy; do not paste a second version here.** It requests each
+   reviewer in a separate `gh` call (a comma-joined call is atomic, so one
+   unassignable entry drops every valid owner with it) and verifies the read-back
+   against the resolved set rather than merely against empty. Feed it the reviewers
+   from `suggest_reviewers.py --reviewers-only`, using the source files behind the
+   addressed findings.
 
-   gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$REVIEWERS" ||
-     gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$FALLBACK_REVIEWER"
-
-   # gh exits 0 even when it silently skips a reviewer it cannot assign, so verify.
-   REQUESTED=$(gh pr view "$PR" --repo warpdotdev/docs \
-     --json reviewRequests --jq '[.reviewRequests[].login // .reviewRequests[].name] | join(",")')
-   [[ -n "$REQUESTED" ]] || { echo "ERROR: no reviewer requested on PR $PR"; exit 1; }
-   echo "PR $PR reviewers: $REQUESTED"
-   ```
    Keep the prose `/cc @engineer` mention in the body as well — this adds the real
-   request, it does not replace the mention. Report any PR whose requested-reviewers list
-   is still empty as a run failure.
+   request, it does not replace the mention. Report any PR whose requested-reviewers
+   list is empty as a run failure, and any PR that got only some of its resolved
+   owners as a partial result worth naming in the run output.
 8. **Open one PR per feature** following the PR strategy above (not a single mega PR):
    one focused PR per documented feature (grouping only features that share a doc file or
    owner), each carrying its content design plan as a section in the PR body, plus a

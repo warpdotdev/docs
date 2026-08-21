@@ -196,6 +196,33 @@ class TestMainCLI(unittest.TestCase):
             )
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(result.stdout, "")
+        # A silent fallback is indistinguishable from a correct resolution when you
+        # read the log afterwards, so the reason must still surface on stderr.
+        self.assertIn("no owner match", result.stderr)
+        self.assertIn("no owners resolved", result.stderr)
+
+    def test_reviewers_only_keeps_stdout_clean_when_diagnosing(self):
+        """Diagnostics must not leak into the captured reviewer list."""
+        with tempfile.TemporaryDirectory() as d:
+            warp = Path(d) / "warp"
+            self._make_repo(warp, "/app/src/settings/ @lucie\n")
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(_MODULE_PATH),
+                    "--reviewers-only",
+                    "--warp",
+                    str(warp),
+                    "warp:app/src/settings/ssh.rs",  # resolves
+                    "warp:crates/nothing/owns/this.rs",  # does not
+                ],
+                capture_output=True,
+                text=True,
+                stdin=subprocess.DEVNULL,
+            )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout, "lucie\n")
+        self.assertIn("no owner match", result.stderr)
 
     def test_warp_internal_alias(self):
         with tempfile.TemporaryDirectory() as d:
