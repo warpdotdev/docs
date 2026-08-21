@@ -450,7 +450,7 @@ def _suggest_migration_for_deprecated_section(
     Handles patterns like:
         Settings > AI > Input        -> Settings > Agents > Oz > Input
         Settings > AI > Knowledge    -> Settings > Agents > Knowledge
-        Settings > Platform          -> Settings > Cloud platform > Oz Cloud API Keys
+        Settings > Platform          -> Settings > Cloud platform > API keys
         Settings > Environments      -> Settings > Cloud platform > Environments
         Settings > MCP Servers       -> Settings > Agents > MCP servers
     """
@@ -465,7 +465,7 @@ def _suggest_migration_for_deprecated_section(
     subsection_map = info.get("subsection_to_subpage", {})
 
     if len(segments) == 2:
-        # Settings > Platform -> Settings > Cloud platform > Oz Cloud API Keys
+        # Settings > Platform -> Settings > Cloud platform > API keys
         new_path = ["Settings", umbrella, default_subpage]
         return {
             "valid": False,
@@ -1876,7 +1876,7 @@ impl Display for SettingsSection {
             SettingsSection::CodeIndexing => write!(f, "Indexing and projects"),
             SettingsSection::EditorAndCodeReview => write!(f, "Editor and Code Review"),
             SettingsSection::CloudEnvironments => write!(f, "Environments"),
-            SettingsSection::OzCloudAPIKeys => write!(f, "Oz Cloud API Keys"),
+            SettingsSection::OzCloudAPIKeys => write!(f, "API keys"),
             _ => write!(f, "{self:?}"),
         }
     }
@@ -2001,7 +2001,7 @@ def _run_self_test(valid_paths_path: Path) -> int:
             "Indexing and projects",
             "Editor and Code Review",
             "Environments",
-            "Oz Cloud API Keys",
+            "API keys",
         ):
             if expected_subpage not in refreshed.get("settings_sections", {}):
                 failures.append(
