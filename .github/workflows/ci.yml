@@ -47,6 +47,11 @@ jobs:
           python3 .agents/skills/missing_docs/scripts/test_suggest_reviewers.py
           python3 .agents/skills/missing_docs/scripts/test_audit_docs.py
 
+      # Stdlib-only tests for the PR body integrity checker, including the
+      # feature-summary lead section that drafting PRs must open with.
+      - name: Test create_pr body checker
+        run: python3 .agents/skills/create_pr/test_check_pr_body.py
+
       # Validate the validate_ui_refs snapshot and script invariants. Uses
       # a synthetic warp client fixture internally — no checkout required.
       - name: Self-test validate_ui_refs skill

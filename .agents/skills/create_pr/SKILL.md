@@ -109,10 +109,42 @@ Include the trailing slash on `destination` and the `statusCode`, matching the e
 
 ## PR Description Guidelines
 
-Structure your PR description with these sections:
+Structure your PR description with these sections, in this order. The feature summary comes first; everything else follows it.
+
+### What this feature does (required on drafting PRs)
+
+Open the body with a plain-language summary of what the feature does **for the user**. This is the first thing a reviewing engineer reads, so it must not be pipeline bookkeeping — which spec produced the draft, which workflow generated it, and which run it came from all belong further down. A reviewer who only reads this section should be able to tell whether the docs describe the right thing.
+
+End the summary with the shipped-in fact, not a forecast. Read the version and date from the release accessor the drift-watch gate already uses, rather than adding a second way to look up a release:
+
+```bash
+# Exits 10 when the current stable release was already processed, which is not an
+# error for this purpose — we only want the version and date it reports.
+python3 .agents/skills/missing_docs/scripts/check_new_release.py --json > /tmp/release.json || true
+python3 -c "import json; d=json.load(open('/tmp/release.json')); print(d['current_version'], d['release_date'])"
+```
+
+Write "shipped in `<version>` (`<date>`)". Do not write a target or predicted ship date: there is no trustworthy source for one, and a forecast in a merged PR body ages into a false claim.
+
+**Length budget: 75 words maximum**, ideally two to four sentences. Drafts are already too wordy; a summary that runs longer than a short paragraph has stopped being a summary. `check_pr_body.py` enforces the budget, the heading text, and the position.
+
+```markdown
+## What this feature does
+
+Workspace admin roles let a workspace owner delegate whole-workspace management — membership, billing, and cloud agent run visibility — to an admin without handing over ownership. Shipped in `v0.2026.08.18.02.52.stable_00` (2026-08-18).
+```
+
+Verify it before submitting, along with the other body checks:
+
+```bash
+python3 .agents/skills/create_pr/check_pr_body.py /tmp/pr-body.md \
+  --require-lead-section "## What this feature does"
+```
+
+The check fails if the section is missing, is not the first heading, is empty, or exceeds the word budget. Omit the section — and the flag — only for the small corrections listed under "When a plan can be skipped": typos, link fixes, terminology sweeps, generated updates, and screenshot swaps have no feature to summarize.
 
 ### Summary
-Brief explanation of what the PR accomplishes and why.
+Brief explanation of what the PR accomplishes and why. This is where the pipeline detail goes: the source spec, the generating workflow, the new page path, and the sidebar entry.
 
 ### Changes
 Bulleted list of specific changes, organized by file or area:
@@ -205,6 +237,10 @@ Exit code 0 if PR exists, 1 if not.
 ```bash
 # 1. Write the description to a temp file using the create_file tool or a heredoc
 cat > /tmp/pr-body.md << 'EOF'
+## What this feature does
+One short paragraph: what the feature does for the user, ending with
+shipped in `<version>` (`<date>`).
+
 ## Summary
 Description of changes
 
@@ -215,15 +251,69 @@ Description of changes
 Co-Authored-By: Oz <oz-agent@warp.dev>
 EOF
 
-# 2. Verify the body for corruption before submitting (exits non-zero on failure)
-python3 .agents/skills/create_pr/check_pr_body.py /tmp/pr-body.md
+# 2. Verify the body for corruption before submitting (exits non-zero on failure).
+#    On a drafting PR, also assert the feature-summary lead section.
+python3 .agents/skills/create_pr/check_pr_body.py /tmp/pr-body.md \
+  --require-lead-section "## What this feature does"
 
 # 3. Create the PR using the file (only if the check passed)
 gh pr create --title "docs: Add feature documentation" --body-file /tmp/pr-body.md
 
+# 4. REQUIRED: request the reviewer for real (see "Request reviewers" below).
+#    The PR is not complete until this has succeeded.
+
 # Open in browser to fill details
 gh pr create --web
 ```
+
+### Request reviewers (required)
+
+**Naming a reviewer in the body is not a review request.** A `/cc @engineer` mention notifies nobody through GitHub's review queue: the PR shows no requested reviewer, never appears in that engineer's "Review requested" filter, and quietly goes unreviewed. Every one of the four ambient-drafted docs PRs — #414, #415, #416, #417 — named reviewers in prose and received zero reviews; three had an empty requested-reviewers list and the fourth had a single reviewer added by hand.
+
+So the mention stays, and a real request is added alongside it. **A PR is not complete until `gh pr edit --add-reviewer` has succeeded and been verified.**
+
+A resolution failure must fall back, never no-op. When no owner resolves, assign `dannyneira`, matching the fallback the release docs workflow already uses (`.github/workflows/release-docs-update.yml`, "Assign last docs PR reviewer"). An unassignable reviewer is a problem to surface, not a reason to ship an unreviewed PR.
+
+```bash
+PR=123
+FALLBACK_REVIEWER=dannyneira
+
+# 1. Resolve the owning engineer(s). For missing_docs drift-watch runs, use the
+#    ownership resolver with the source files behind the change; see the
+#    missing_docs skill's "Reviewer routing" section for how to pick those files.
+REVIEWERS=$(python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
+  --reviewers-only --warp ../warp --warp-server ../warp-server \
+  warp:app/src/settings/ssh.rs < /dev/null)
+
+# 2. Never let an empty resolution drop the request.
+if [[ -z "$REVIEWERS" ]]; then
+  echo "warning: no owner resolved - falling back to $FALLBACK_REVIEWER"
+  REVIEWERS="$FALLBACK_REVIEWER"
+fi
+
+# 3. Make the request.
+gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$REVIEWERS" ||
+  gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$FALLBACK_REVIEWER"
+
+# 4. Verify it landed. gh exits 0 even when it silently skips a reviewer it
+#    cannot assign (no repo access, a bad handle, or the PR author themselves),
+#    so confirm against the PR rather than trusting the exit code.
+REQUESTED=$(gh pr view "$PR" --repo warpdotdev/docs \
+  --json reviewRequests --jq '[.reviewRequests[].login // .reviewRequests[].name] | join(",")')
+if [[ -z "$REQUESTED" ]]; then
+  gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$FALLBACK_REVIEWER"
+  REQUESTED=$(gh pr view "$PR" --repo warpdotdev/docs \
+    --json reviewRequests --jq '[.reviewRequests[].login // .reviewRequests[].name] | join(",")')
+fi
+[[ -n "$REQUESTED" ]] || { echo "ERROR: no reviewer requested on PR $PR"; exit 1; }
+echo "Requested reviewers: $REQUESTED"
+```
+
+If even the fallback cannot be assigned, report it as a failure of the run. Do not close out a PR whose requested-reviewers list is empty.
+
+:::note
+Auto-requesting the review does not make it *block* merge. Whether an ambient docs PR should require that approval through branch protection is an open question for the docs owner, not something this skill decides.
+:::
 
 ### Update an existing PR
 
@@ -245,8 +335,12 @@ gh pr edit 123 --body-file /tmp/pr-body.md
 # Edit title only
 gh pr edit 123 --title "New title"
 
-# Add reviewers or labels
-gh pr edit 123 --add-reviewer username --add-label documentation
+# Add labels
+gh pr edit 123 --add-label documentation
+
+# Add reviewers - see "Request reviewers (required)" above; this is mandatory on a
+# new PR, not an optional extra.
+gh pr edit 123 --add-reviewer username
 ```
 
 ### View PR status
@@ -266,10 +360,11 @@ Co-Authored-By: Oz <oz-agent@warp.dev>
 
 ## After Opening the PR
 
-1. **Monitor for merge conflicts** - If main is updated, merge it into your branch
-2. **Respond to review comments** - Address feedback promptly
-3. **Re-run checks after changes** - Run `trunk check` and link checker after making updates
-4. **Verify Astro Starlight preview** - Astro Starlight automatically generates a preview for PRs; check that rendering looks correct
+1. **Confirm the review request landed** - Re-read `reviewRequests` on the PR. An empty list means the PR is not finished, whatever the body says. See "Request reviewers (required)".
+2. **Monitor for merge conflicts** - If main is updated, merge it into your branch
+3. **Respond to review comments** - Address feedback promptly
+4. **Re-run checks after changes** - Run `trunk check` and link checker after making updates
+5. **Verify Astro Starlight preview** - Astro Starlight automatically generates a preview for PRs; check that rendering looks correct
 
 ## Best Practices
 

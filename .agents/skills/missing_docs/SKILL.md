@@ -365,7 +365,11 @@ python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
   warp:app/src/search/slash_command_menu/static_commands/commands.rs
 ```
 
-Then assign the resolved reviewers on the PR with `gh pr edit <PR> --add-reviewer <logins/teams>`. Unresolved paths are non-fatal — leave them for manual assignment rather than blocking the run.
+Add `--reviewers-only` to get just the comma-joined `--add-reviewer` argument (empty output when nothing resolved), which is the form the mandatory request step below consumes.
+
+Then **actually request the review on GitHub** with `gh pr edit <PR> --add-reviewer <logins/teams>`. A `/cc @engineer` line in the PR body is not a review request: it puts nothing in the engineer's review queue. All four ambient-drafted docs PRs (#414, #415, #416, #417) named reviewers in prose and got zero reviews, three of them with an empty requested-reviewers list.
+
+An individual unresolved *path* is non-fatal — other paths usually resolve the same owner. An empty *result* is not: fall back to `dannyneira` rather than opening the PR with no reviewer. See step 7 of drift-watch mode for the required command.
 
 ### PR strategy: one PR per feature
 
@@ -458,17 +462,46 @@ with the product. Each run:
    ```
 6. **Validate**: `npm run build` if doc pages changed; re-run the audit and confirm
    the addressed findings are gone.
-7. **Route reviewers**: run `scripts/suggest_reviewers.py` (see Reviewer routing)
-   with the source files behind the addressed findings to resolve the owning
-   engineers for the PR.
+7. **Route reviewers and request the review** (required, not advisory): resolve the
+   owning engineers with `scripts/suggest_reviewers.py` (see Reviewer routing), passing
+   the source files behind the addressed findings, then make a real GitHub review request
+   on each PR you open in step 8. Naming the engineer in the body is not a request — that
+   is exactly how #414–#417 ended up with zero reviews.
+
+   **A PR is not complete until `gh pr edit --add-reviewer` has succeeded and the
+   requested-reviewers list is non-empty.** A resolution failure falls back to
+   `dannyneira`; it never no-ops. This matches the fallback in
+   `.github/workflows/release-docs-update.yml` (the "Assign last docs PR reviewer" step).
+   ```bash
+   PR=<pr-number>
+   FALLBACK_REVIEWER=dannyneira
+
+   REVIEWERS=$(python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
+     --reviewers-only --warp ../warp --warp-server ../warp-server \
+     warp:app/src/settings/ssh.rs < /dev/null)
+   [[ -z "$REVIEWERS" ]] && REVIEWERS="$FALLBACK_REVIEWER"
+
+   gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$REVIEWERS" ||
+     gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$FALLBACK_REVIEWER"
+
+   # gh exits 0 even when it silently skips a reviewer it cannot assign, so verify.
+   REQUESTED=$(gh pr view "$PR" --repo warpdotdev/docs \
+     --json reviewRequests --jq '[.reviewRequests[].login // .reviewRequests[].name] | join(",")')
+   [[ -n "$REQUESTED" ]] || { echo "ERROR: no reviewer requested on PR $PR"; exit 1; }
+   echo "PR $PR reviewers: $REQUESTED"
+   ```
+   Keep the prose `/cc @engineer` mention in the body as well — this adds the real
+   request, it does not replace the mention. Report any PR whose requested-reviewers list
+   is still empty as a run failure.
 8. **Open one PR per feature** following the PR strategy above (not a single mega PR):
    one focused PR per documented feature (grouping only features that share a doc file or
    owner), each carrying its content design plan as a section in the PR body, plus a
    single companion audit-bookkeeping PR for all `feature_surface_map.md`,
    `changelog_decisions.md`, `last_release_processed.json`, and `surface_snapshot.json`
-   changes. Use the `create_pr` skill, assign each PR's owning reviewer from step 7
-   (`gh pr edit <PR> --add-reviewer ...`), and summarize remaining (deferred) findings in
-   the relevant PR body so nothing is silently dropped.
+   changes. Use the `create_pr` skill: every drafting PR body opens with the required
+   `## What this feature does` summary, and every PR gets its owning reviewer requested
+   per step 7 before the run is done. Summarize remaining (deferred) findings in the
+   relevant PR body so nothing is silently dropped.
 
 A run that gates out every candidate is a successful run. It opens no feature PRs and
 only the bookkeeping PR recording the verdicts. Do not manufacture work to justify the
@@ -490,13 +523,17 @@ Recommended scheduled-agent prompt (copy when setting up the agent):
 > page over creating a new one, and use the sync-openapi-spec skill for API spec gaps.
 > Update the surface map for every triaged flag, append every verdict to
 > changelog_decisions.md, and regenerate the surface snapshot with --update-snapshot.
-> Resolve reviewers by running .agents/skills/missing_docs/scripts/suggest_reviewers.py
-> against the source files behind each addressed finding. Open one focused PR per
-> documented feature (grouping only features that share a doc file or owner), each with
-> the content design plan as a section in its body, plus a single companion bookkeeping
-> PR for the feature_surface_map.md, changelog_decisions.md, last_release_processed.json,
-> and surface_snapshot.json changes; assign each PR's resolved owner as reviewer, and
-> list any findings you deferred in the relevant PR body.
+> Resolve reviewers by running
+> .agents/skills/missing_docs/scripts/suggest_reviewers.py --reviewers-only against the
+> source files behind each addressed finding. Open one focused PR per documented feature
+> (grouping only features that share a doc file or owner), each opening with the required
+> "## What this feature does" summary and carrying the content design plan as a section in
+> its body, plus a single companion bookkeeping PR for the feature_surface_map.md,
+> changelog_decisions.md, last_release_processed.json, and surface_snapshot.json changes.
+> Request the resolved owner as reviewer on every PR with gh pr edit --add-reviewer,
+> falling back to dannyneira when nothing resolves, and verify the requested-reviewers
+> list is non-empty before you finish — a PR with no requested reviewer is an incomplete
+> run, not a delivered one. List any findings you deferred in the relevant PR body.
 
 ### Invocation modes
 
