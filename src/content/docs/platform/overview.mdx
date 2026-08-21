@@ -28,7 +28,7 @@ The `oz` CLI and the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> keep the Oz n
 Every run follows the same path, whatever starts it:
 
 1. A **trigger** fires: a schedule, an integration event like a Slack mention or a CI failure, an API call, or a manual start.
-2. Warp creates a **task**, the tracked record of the run.
+2. Warp creates a **task**, the tracked record of the run. The trigger's context travels with it: the Slack thread, the PR metadata, the CI logs.
 3. The agent executes on a **host**, optionally inside an [environment](/platform/environments/) that defines its image, repos, and setup.
 4. The task produces **outputs**: a pull request, a Slack reply, a report, or just a transcript and summary.
 
@@ -37,6 +37,8 @@ Every run follows the same path, whatever starts it:
 ## Integrations and triggers
 
 Every run starts with a trigger. [Integrations](/platform/integrations/) turn events in other tools into runs: mention @warp in [Slack](/platform/integrations/slack/) and the agent gets the message and its thread, or run agents inside your [GitHub Actions](/platform/integrations/github-actions/) workflows with your CI context. [Scheduled agents](/platform/triggers/scheduled-agents/) start runs on a cron schedule. For event sources Warp doesn't cover, receive the event in your own system and start the run through the [API](/reference/api-and-sdk/); it becomes a normal, fully tracked task.
+
+Set up a first-party integration with `oz integration create` on the {VARS.WARP_AGENT_CLI}; the [integration setup guide](/reference/cli/integration-setup/) covers it end to end.
 
 ## Tasks and tracking
 
@@ -52,17 +54,19 @@ An [environment](/platform/environments/) defines what a run needs: a Docker ima
 
 A host is where the agent executes. By default runs execute on [Warp-hosted infrastructure](/platform/warp-hosting/), with nothing to set up. On Enterprise plans, [self-hosted runners](/platform/self-hosting/) keep code and execution inside your own network while Warp still tracks the runs.
 
+![Architecture diagram: Warp-designed and customer-defined triggers create an agent task, which is routed to agent runners on Warp or customer infrastructure](../../../assets/agent-platform/platform-architecture.png)
+
 ## The CLI
 
 The [{VARS.WARP_AGENT_CLI}](/reference/cli/) starts and manages runs where there's no UI: CI jobs, scripts, and remote servers. Start a run with `oz agent run`, and it reports progress to Warp like any other task, so work that starts on a CI runner shows up alongside everything else your team runs. For interactive sessions, use [agents in the Warp app](/agents/).
 
 ## API and SDKs
 
-The [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) creates and inspects tasks over HTTP: submit a prompt with optional configuration, poll status, and fetch results with full provenance. Official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs add typed requests and responses, built-in retries, and consistent errors. Start with an SDK unless you need full control over your HTTP client.
+The [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) creates and inspects tasks over HTTP: submit a prompt with optional configuration, poll status, and fetch results with full provenance. Teams use it to start agents from incident tooling and internal systems, build dashboards over run history, and coordinate large batches of runs. Official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs add typed requests and responses, built-in retries, and consistent errors. Start with an SDK unless you need full control over your HTTP client.
 
 ## Secrets
 
-Agents often need credentials for APIs, databases, and MCP servers. Store them as [secrets](/platform/secrets/), and Warp injects them at runtime without exposing the values in logs or the UI. Secrets can be scoped to the whole team or to one person.
+Agents often need credentials for APIs, cloud providers, databases, and MCP servers. Store them as [secrets](/platform/secrets/), and Warp injects them at runtime without exposing the values in logs or the UI. Secrets can be scoped to the whole team or to one person.
 
 ## Shared configuration
 
