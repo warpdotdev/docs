@@ -62,6 +62,8 @@ A run is a single agent execution. A work item on **Activity** tracks one piece 
 
 Click **New** on a factory's **Runs** page to send a prompt to the factory's foreman agent. Open a run to see its timeline and cost, plus a **Sub-agents** tab for an orchestrator run's child runs. From there you can view the agent's full session, stop or score the run, or turn it into a benchmark task.
 
+{/* VISUAL: The Runs page with the New button, showing an empty or sample run list. */}
+
 :::note
 Run pages don't include a chat input, but you can still steer a run: **View session** opens its [shared agent session](/platform/viewing-cloud-agent-runs/), where you follow the agent in real time and send follow-up instructions while the run's sandbox is active. After it shuts down, the same button opens the conversation transcript.
 :::
@@ -69,6 +71,8 @@ Run pages don't include a chat input, but you can still steer a run: **View sess
 ## Manage agents and automations
 
 **Agents** lists the factory's agents. Create agents and edit their instructions, model or harness, runner, host, secrets, and MCP servers. **Automations** defines the triggers that start runs: a schedule (including custom cron expressions) or a GitHub, Linear, Slack, or Jira event.
+
+{/* VISUAL: The Automations editor, to complement the Agents list already shown in Configure agent behavior on the factory agents page. */}
 
 The automation editor doesn't change execution settings; an automation only overrides them through [execution overrides in the definition files](/factories/factory-as-code/#execution-overrides). When the factory's definition lives in an external repository, Agents, Automations, and Scorers are read-only; make changes there through pull requests.
 
