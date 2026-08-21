@@ -264,6 +264,8 @@ oz agent run-cloud \
 * `--no-environment` — run without an environment (not recommended).
 * `--open` — view the agent's session in Warp once it's available.
 * `--name <NAME>` (`-n`) — label the run for grouping and traceability (see [Naming runs](/reference/cli/#naming-runs) below).
+* `--title <TITLE>` — set the title shown for the run and its conversation (see [Titling runs](/reference/cli/#titling-runs) below).
+* `--parent-run-id <RUN_ID>` — start the run as an orchestration child of an existing run (see [Starting a run as an orchestration child](/reference/cli/#starting-a-run-as-an-orchestration-child) below).
 * `--agent <UID>` — run as a saved [named agent](/platform/agents/), applying its configuration (skills, secrets, base model, and default environment) and attributing credit usage to it (see [Managing named agents](/reference/cli/#managing-named-agents) below).
 * `--mcp <SPEC>` — start one or more MCP servers before execution (UUID, JSON file path, or inline JSON). Can be repeated.
 * `--model <MODEL_ID>` — override the default model.
@@ -324,6 +326,33 @@ oz agent run-cloud \
   --skill "myorg/backend:code-review" \
   --prompt "review the latest PR"
 ```
+
+#### Titling runs
+
+The `--title` flag sets the title shown for the run and its conversation in Warp and the [{VARS.WEB_APP}](/platform/oz-web-app/). Use it when the auto-generated title isn't descriptive enough:
+
+```sh
+oz agent run-cloud \
+  --environment <ENVIRONMENT_ID> \
+  --title "Upgrade Postgres driver to 5.2" \
+  --prompt "Upgrade the Postgres driver and fix any resulting build errors"
+```
+
+`--title` and `--name` do different things: `--name` sets the run's config name, which groups related runs under a shared label, while `--title` labels this one run for humans reading it.
+
+#### Starting a run as an orchestration child
+
+The `--parent-run-id` flag attaches the new run to an existing run as an [orchestration](/platform/orchestration/multi-agent-runs/) child. The child inherits the parent's lineage and scope, and it appears alongside the parent's other children instead of as a standalone run:
+
+```sh
+oz agent run-cloud \
+  --environment <ENVIRONMENT_ID> \
+  --parent-run-id <PARENT_RUN_ID> \
+  --title "Backfill integration tests" \
+  --prompt "Add integration tests for the new endpoints"
+```
+
+Pass the run ID of the run doing the spawning. Omit the flag for ordinary standalone runs.
 
 **When cloud runs fail**
 
