@@ -118,7 +118,7 @@ Before making any changes, read these references:
 2. **Meta descriptions come from frontmatter**. To fix a description, edit the `description:` field in the page's YAML frontmatter.
 3. **OG and Twitter tags mirror title and description** automatically. No separate fix needed.
 4. **Changing a sidebar config label has side effects**: it also changes the sidebar label, breadcrumbs, and prev/next pagination. URLs are NOT affected (URLs are based on the file path/slug).
-5. **When changing a title, also update the H1** in the markdown file for consistency.
+5. **Never add or edit a manual H1 heading in a markdown file.** Astro Starlight auto-generates the page's H1 from the frontmatter `title` (falling back to the sidebar label or slug, per the precedence in `references/starlight-seo.md`), so this repo's pages never write an explicit `# Heading` at the top of the body — that pattern is leftover behavior from the old GitBook-based docs platform. Changing a `title` or sidebar `label` never requires a matching H1 edit, because there is no H1 in the markdown to edit. If the audit's `multiple_h1` or `missing_h1` check flags a page and you find a manual H1 in its body, treat that as an incidental defect: remove the manual H1 (do not keep it in sync with the title) as its own cleanup, separate from any title/description fix.
 6. **All titles, labels, and H1 headings must use sentence case.** Capitalize only the first word and proper nouns. Only recognized proper feature names retain their capitalization — check `AGENTS.md` and `.agents/references/terminology.md` for the canonical list. Common mistakes to avoid:
    - ✅ `Computer use for agents` — generic term, sentence case
    - ❌ `Computer Use for Agents` — not a proper feature name, don't capitalize
@@ -151,13 +151,13 @@ When the audit flags these pages for `title_too_short`, exclude them from your f
 
 If you believe a new title should be added to this exceptions list, flag it for human review before proceeding.
 
-### Sidebar config labels vs. H1 headings
+### Sidebar config labels vs. page titles
 
-Sidebar config labels (the `label` property in `src/sidebar.ts`) and H1 page headings are **intentionally different** in some cases. Do not change either to match the other unless you are fixing a genuine duplicate title collision. Specifically:
+Sidebar config labels (the `label` property in `src/sidebar.ts`) and frontmatter `title` values are **intentionally different** in some cases. Do not change either to match the other unless you are fixing a genuine duplicate title collision. Specifically:
 
 - Do **not** add section-context prefixes (like "Terminal", "Warp", or "Agent") to short but accurate titles just because the title appears generic in isolation. Sidebar context already provides that disambiguation.
 - Do **not** rename sidebar config labels for pages in the exceptions list above.
-- Do **not** sync sidebar config label text to match H1 headings (or vice versa) as a standalone change — the two are allowed to differ.
+- Do **not** sync sidebar config label text to match the frontmatter `title` (or vice versa) as a standalone change — the two are allowed to differ. Neither one requires touching an H1 in the markdown body, since there isn't one (see Key principle #5).
 
 ### Fixing duplicate titles
 
@@ -185,7 +185,7 @@ Example:
 - `agent-platform/capabilities/index.mdx`: `title: 'Capabilities overview'` + `sidebar.label: 'Overview'`
 - `platform/integrations/index.mdx`: `title: 'Integrations overview'` + `sidebar.label: 'Overview'`
 
-When using this approach, also update the H1 in the markdown file to match the new `title`.
+Do not add or update an H1 in the markdown file — Starlight renders the page's H1 from this frontmatter `title` automatically (see Key principle #5 above).
 
 #### Alternative: rename the sidebar config label
 
@@ -193,7 +193,7 @@ If the short label is not intentional, rename the `label` in `src/sidebar.ts` to
 - Before: `{ slug: 'agent-platform/local-agents', label: 'Overview' }` + `{ slug: 'platform', label: 'Overview' }`
 - After: `{ slug: 'agent-platform/local-agents', label: 'Local agents overview' }` + `{ slug: 'platform', label: 'Cloud agents overview' }`
 
-When changing a sidebar config label, also update the H1 in the markdown file for consistency.
+Do not add or update an H1 in the markdown file for this — Starlight renders the page's H1 from the frontmatter `title` (or the slug when no `title` is set), never from the sidebar label (see Key principle #5 above).
 
 ### Fixing missing descriptions
 
@@ -219,7 +219,7 @@ After making fixes, review every change before presenting to the user. Run throu
 
 - **Does this still mean the same thing?** Titles and descriptions must accurately represent the page content. Read the actual page before writing or rewriting anything. Never invent features, capabilities, or details that aren't on the page. If unsure what the page covers, read it first.
 - **Did I introduce a new duplicate?** Scan the full sidebar config in `src/sidebar.ts`. Verify every label is unique within the site. This is the most common mistake — fixing one duplicate by picking a name that collides with an existing entry.
-- **Does the H1 match?** Every sidebar config label change needs a corresponding H1 update in the markdown file. Mismatches between sidebar label and page heading confuse readers.
+- **Did I leave any manual H1 behind?** Scan every file you touched for a body-level `# Heading` and remove it — Starlight already renders the page's H1 from frontmatter `title`, so a manual H1 is always a duplicate, never something to add or sync with a title/label change.
 - **Is the terminology right?** Cross-check against `AGENTS.md` and how the feature is actually referred to in the existing docs. Don't rename things to terms that aren't used elsewhere in the docs.
 - **Is the casing right?** All labels and H1 headings must use sentence case. Proper product feature names (e.g., "Agent Mode", "Codebase Context", "Admin Panel", "Remote Control", "Warp Drive") retain their capitalization, but generic terms ("overview", "quickstart", "agents", "notifications") are lowercase. Never use title case.
 - **Does this read naturally in context?** Consider how the title appears (a) as a sidebar label under its section header, and (b) as a search result: `{Title} | {Topic} | Warp`. If it sounds awkward or uses internal jargon that users wouldn't recognize, rephrase.
