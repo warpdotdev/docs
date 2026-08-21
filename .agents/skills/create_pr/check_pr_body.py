@@ -23,6 +23,11 @@ Checks performed:
   * Duplicate heading  - the same Markdown heading text appearing more than once.
   * Required heading    - (optional) assert specific headings are present exactly
                          once, for skills that emit a fixed body template.
+  * Lead section        - (optional) assert a heading is the FIRST heading in the
+                         body, has prose under it, and stays within a word budget.
+                         Drafting PRs must open with a plain-language summary of
+                         what the feature does for the user, so a reviewer learns
+                         that before any pipeline bookkeeping.
 
 Usage:
     python3 check_pr_body.py /tmp/pr-body.md
@@ -30,6 +35,8 @@ Usage:
     python3 check_pr_body.py /tmp/pr-body.md \
         --require-heading "## Patterns addressed" \
         --require-heading "## Improvement targets"
+    python3 check_pr_body.py /tmp/pr-body.md \
+        --require-lead-section "## What this feature does"
 
 Exit codes:
     0  no issues found
@@ -51,6 +58,11 @@ SHORT_WINDOW = 40
 SHORT_MIN_COUNT = 3
 LONG_WINDOW = 80
 LONG_MIN_COUNT = 2
+
+# Word budget for the lead section. "Drafts are too wordy" is a standing complaint,
+# and a summary that runs past a short paragraph stops being a summary. Two to four
+# sentences fit comfortably under this cap.
+LEAD_SECTION_MAX_WORDS = 75
 
 
 def _strip_urls(text: str) -> str:
@@ -133,6 +145,60 @@ def check_required_headings(lines: List[str], required: List[str]) -> List[str]:
     return problems
 
 
+def check_lead_section(lines: List[str], heading: str) -> List[str]:
+    """Return messages if the lead section is missing, misplaced, empty, or too long.
+
+    The lead section is the plain-language answer to "what does this feature do for
+    the user?", and it only does that job if the reviewer hits it first. Ambient
+    drafts previously opened with pipeline bookkeeping (which spec, which workflow,
+    which run), so the check asserts position as well as presence.
+    """
+    wanted = heading.strip()
+    problems: List[str] = []
+
+    headings: List[Tuple[int, str]] = []
+    for line_num, line in _iter_non_code_lines(lines):
+        if re.match(r"^#{1,6}\s+\S", line):
+            headings.append((line_num, line.strip()))
+
+    matches = [ln for ln, text in headings if text == wanted]
+    if not matches:
+        return [f"missing required lead section: {wanted!r} (must be the first heading in the body)"]
+    if len(matches) > 1:
+        problems.append(
+            f"lead section appears {len(matches)}x (expected once): {wanted!r}"
+        )
+
+    first_line, first_text = headings[0]
+    if first_text != wanted:
+        problems.append(
+            f"lead section is not first: {first_text!r} (line {first_line}) precedes "
+            f"{wanted!r} (line {matches[0]}). The reader must get the feature summary "
+            "before any other section."
+        )
+
+    # Collect the prose between the lead heading and the next heading.
+    start = matches[0]
+    body_words: List[str] = []
+    for line_num, line in _iter_non_code_lines(lines):
+        if line_num <= start:
+            continue
+        if re.match(r"^#{1,6}\s+\S", line):
+            break
+        body_words.extend(line.split())
+
+    if not body_words:
+        problems.append(f"lead section {wanted!r} has no content under it")
+    elif len(body_words) > LEAD_SECTION_MAX_WORDS:
+        problems.append(
+            f"lead section {wanted!r} is {len(body_words)} words "
+            f"(budget: {LEAD_SECTION_MAX_WORDS}). Cut it to a short paragraph: what the "
+            "feature does for the user, plus the shipped-in version and date."
+        )
+
+    return problems
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("body", help="path to the PR body file, or '-' for stdin")
@@ -142,6 +208,14 @@ def main(argv: Optional[List[str]] = None) -> int:
         default=[],
         metavar="HEADING",
         help="assert this exact heading line is present exactly once (repeatable)",
+    )
+    parser.add_argument(
+        "--require-lead-section",
+        metavar="HEADING",
+        help=(
+            "assert this exact heading is the FIRST heading in the body, appears once, "
+            f"and carries 1-{LEAD_SECTION_MAX_WORDS} words of prose"
+        ),
     )
     args = parser.parse_args(argv)
 
@@ -175,6 +249,9 @@ def main(argv: Optional[List[str]] = None) -> int:
         issues.append(f"duplicate heading: {heading!r}")
 
     issues.extend(check_required_headings(lines, args.require_heading))
+
+    if args.require_lead_section:
+        issues.extend(check_lead_section(lines, args.require_lead_section))
 
     if issues:
         print("PR body integrity check FAILED:\n", file=sys.stderr)
