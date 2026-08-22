@@ -29,6 +29,8 @@ Describe what the reader sees and does. Internal components get at most one sent
 
 This is the voice-level version of "Don't over-specify counts or internals that will drift" (see General guidance): internals aren't just a staleness risk, they're noise between the reader and the task.
 
+When a page carries real information in the wrong register (provenance, pinned versions, maintainer process), relocate it to the surface whose audience needs it: a reference page, a script docstring, a code comment. Leave a pointer if the reader might follow the thread. Cutting for tone must not lose facts; it changes where they live.
+
 #### Every sentence earns its place
 Cut sentences that narrate the page, restate what the reader just read, or explain the obvious consequence of the previous sentence.
 - **No meta-openers** - Never open with "This page covers/explains/walks through...". The title and description already frame the page; state the thing itself.
@@ -38,7 +40,7 @@ Cut sentences that narrate the page, restate what the reader just read, or expla
   - ✅ "The container is destroyed after each run, so every run starts clean."
   - ❌ "The container is destroyed after each run. This process ensures every run starts from the same baseline, making results reproducible and debugging straightforward."
 - **No recap lines** - Don't end a section by summarizing it ("In practice: triggers create tasks; tasks produce outputs.").
-- **Say it once** - Don't repeat a caveat or definition across multiple sections of the same page. Put it where it matters most.
+- **Say it once** - Don't repeat a caveat or definition across multiple sections of the same page. Put it where it matters most. The same goes for sibling pages: boilerplate like validation steps or shared prerequisites lives once on the parent or reference page, linked from the rest.
 
 #### Words to avoid
 These words are the strongest tell of an AI-generated draft and rarely add meaning. Replace them with the specific fact they're hiding, or delete them.
@@ -60,10 +62,26 @@ AI-drafted pages share a rhythm. Break it.
 - **Hedging stacks** - Chains of "typically", "often", "generally", "where supported", and "as applicable" read as evasive. State what happens, then note the exception if there is one.
 - **Bold-everything** - Bolding several phrases per paragraph kills emphasis. Reserve bold for UI elements and lead terms of list items (see Emphasis).
 - **Bullets as a substitute for prose** - Bullets are for short, parallel, scannable items. If every bullet is a full paragraph, or the bullets tell a story in order, write prose.
+- **Slashed shorthand** - Write "mentions and assignments", not "mention/assignment", and "4 vCPU / 8 GB", not "4/8". Slashed pairs and bare number pairs read as notes, not prose.
 - **Callout spam** - Callouts follow the same restraint: never consecutive, at most one per section (see Callouts and hints).
+
+#### Keep the author out of it
+The reader came for the product, not the writer's presence in the page.
+- **No self-commentary** - Don't narrate authorial intent: "deliberately unremarkable", "each prompt is worth reading", "that is the point of this example". State the fact and let it stand.
+- **State rules calmly, once** - Defensive phrasing ("Do not describe or imply otherwise", "CI green is not the bar") argues with an imagined reader. Write the rule once, plainly, and give a reason only when the reason changes what the reader does.
+- **Describe the present** - Write how the product works now. Renames and history belong in time-boxed transition notes or the changelog, not woven through pages ("the built-in harness is the Warp Agent harness", not "Oz is retired product language").
 
 #### The read-aloud test
 Read the paragraph aloud. If it doesn't sound like something you'd say to a colleague, rewrite it plainly. This catches over-explained cause-and-effect, hedging, and repeated rhetorical patterns faster than any checklist.
+
+#### Cut again
+A plain-language rewrite still under-cuts on the first pass. Follow it with a deletion-only pass that removes:
+- Framing lines that describe the docs instead of the product ("Each example demonstrates one concept").
+- Explanations of command output that the command already prints, or that a linked page already owns.
+- Recaps and comparison sections that restate what the reader just read.
+- Justifications for rules and defaults that don't change what the reader does.
+
+Expect the second pass to find real deletions even after a careful first one; review feedback on past copy passes has consistently asked for more cutting, not less.
 
 ### Language guidelines
 - Use consistent terminology throughout (see [Terminology standards](#terminology-standards) and the full glossary in `.agents/references/terminology.md`)

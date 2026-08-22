@@ -147,7 +147,8 @@ Before presenting the draft, verify against the quality checklist in `AGENTS.md`
 - [ ] Error messages and failure modes live in Troubleshooting, not woven through the main flow
 - [ ] Callouts are sparse (usually 0–2 per page), never consecutive, and not used as a substitute for body prose
 - [ ] Prose passes the tone rules: no marketing buzzwords, no meta-openers ("This page covers..."), no restated cause-and-effect or recap lines, and it reads naturally aloud (AGENTS.md → Voice & tone)
-- [ ] Internal architecture (orchestrators, control planes, lifecycle states) appears only where the reader can act on it
+- [ ] Internal architecture (orchestrators, control planes, lifecycle states) appears only where the reader can act on it, and relocated detail landed on a maintainer-facing surface instead of being deleted
+- [ ] A deletion-only second pass removed framing lines, self-commentary, rule justifications, and boilerplate a parent page already covers (AGENTS.md → Voice & tone → Cut again)
 - [ ] Terminology matches the glossary (`.agents/references/terminology.md`)
 - [ ] Headers use sentence case (with proper feature name capitalization)
 - [ ] Headers name a specific topic (not bare Overview / More details / Other)
