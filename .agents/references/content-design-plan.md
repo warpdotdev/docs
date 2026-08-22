@@ -96,6 +96,31 @@ List the scenarios worth covering, in priority order. Then **name what you are l
 - ✅ "Covers: self-hosted GitLab with a personal access token; GitLab.com with OAuth. Excludes: self-managed GitLab behind a corporate proxy — rare, and the proxy configuration is the user's own infrastructure concern, not ours."
 - ❌ "Covers all GitLab setups."
 
+## Where the inputs come from
+
+Audience, problem, and goals are the fields most often invented, because code cannot answer
+them. A setting registration tells you what a toggle does, never who needed it. Work through
+these before falling back on your own reasoning:
+
+- **The product spec** — warp-server `specs/<id>/PRODUCT.md`, the closest thing to a direct
+  answer. Its `Problem`, `Goals`, `Non-goals`, and `User experience` sections line up with this
+  plan's Problem, Goals, Excludes, and high-impact scenarios. Only some specs have one, and
+  `TECH.md` is not a substitute.
+- **The page you are updating** — for an update, the audience is usually already established.
+  Match it instead of re-deriving it.
+- **Support and community signal** — a reported failure is stronger evidence for the Problem
+  field than a plausible one you reasoned your way to.
+
+Three limits on spec use, because specs are private and forward-looking:
+
+- Framing only. Labels, flags, and defaults get verified against code, never against the spec.
+- Never evidence that a feature shipped — that is Gate 0, settled before this plan.
+- Never quoted into a public page.
+
+If no source answers a field, say so rather than inventing an answer. "No spec exists; audience
+inferred from the setting's placement under **Settings** > **AI**" is a claim a reviewer can
+check. An invented reader is not.
+
 ## Where the plan lives
 
 Fill in `.agents/templates/content-design-plan.md`, then:

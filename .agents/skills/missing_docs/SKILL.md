@@ -275,6 +275,25 @@ For each gap to address (prioritize high → medium → low):
    - **CLI gaps** → read command definition in `crates/warp_cli/src/`, extract flags, arguments, help text
    - **API gaps** → read handler in warp-server `router/handlers/public_api/`, route definition, request/response types; prefer fixing the OpenAPI spec via the `sync-openapi-spec` skill. Only act on endpoints already publicly released (see Public vs. private surfaces); never draft docs for unreleased warp-server endpoints.
    - **Slash command gaps** → read the registry entry and gating flags in `app/src/search/slash_command_menu/`
+
+   **Then look for a product spec.** Code tells you what a surface does; it never tells you who
+   it is for or what problem it solves — and those are the content design plan's first three
+   fields. Check warp-server for `specs/<id>/PRODUCT.md`. Only some specs have one, and
+   `TECH.md` is the implementation plan, not a substitute. Where it exists, its `Problem`,
+   `Goals`, `Non-goals`, and `User experience` sections map onto the plan's Problem, Goals,
+   Excludes, and high-impact scenarios almost directly.
+
+   Three limits, all load-bearing:
+   - **Framing only, never behavior.** Labels, flags, and defaults drift between spec and ship,
+     so every concrete claim is still verified against code. A spec is context, not a source of
+     truth.
+   - **Never evidence that something shipped.** A merged spec is not a release. Gate 0 is
+     settled before this step, and a spec cannot reopen it.
+   - **Never quoted into a public page.** warp-server is private and specs routinely describe
+     unshipped plans. Use one to understand the reader, then write the page from scratch.
+
+   If no spec exists, proceed without one and record that in the content design plan. An
+   acknowledged gap is reviewable; an invented audience is not.
 5. Draft the doc following style guide conventions:
    - YAML frontmatter with description
    - **All headings (H1–H4) must use sentence case** — capitalize only the first word and proper feature names (e.g., "Agent Mode", "Warp Drive"). ✅ `## How it works` ❌ `## How It Works`

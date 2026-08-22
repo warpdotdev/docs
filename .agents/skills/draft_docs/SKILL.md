@@ -28,6 +28,18 @@ Review all provided context (PRD, spec, existing doc, etc.). Identify:
 - Key user benefits and capabilities
 - Technical details that need explaining
 
+**If no spec was provided, go looking for one.** "Provided" assumes a requester, and a
+scheduled run has none — which is how automated drafts end up with an audience invented from a
+one-line changelog bullet. Check warp-server for a `specs/<id>/PRODUCT.md` matching the
+feature. Only some specs have one, and `TECH.md` is the implementation plan, not the product
+reasoning.
+
+Use it for framing only: audience, problem, goals, and explicit non-goals. Per step 6 it is
+never verification for labels, flags, or defaults, and it is never evidence that a feature
+shipped. Never quote it into a page — warp-server is private and specs describe unshipped
+plans. If none exists, proceed without one and note the absence in the content design plan
+rather than inventing an audience.
+
 ### 1.5. Create an AEO brief when source data drives the request
 If the request mentions AEO, SEO, Peec, answer-engine visibility, search-query vocabulary, content gaps, or whether to create a new page versus update an existing page, read `.agents/skills/aeo_brief/SKILL.md` and create the brief before drafting. Use the brief to decide:
 - Which page or section should change
