@@ -6,6 +6,23 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.08.19 (v0.2026.08.19.08.15)
+
+**New features**
+
+* Warp Factories is now live in Early Access! Read the [Warp Factories launch announcement](https://www.warp.dev/blog/open-infrastructure-for-building-a-software-factory) for more details.
+* Added an inline `/usage` command to the Warp Agent CLI showing plan, credit usage, and billing links. ([#14968](https://github.com/warpdotdev/warp/pull/14968))
+
+**Bug fixes**
+
+* Fixed an unbounded memory leak in the terminal completions engine where large or unusual input (e.g. pasting a large blob of text) could permanently grow memory usage over a session. ([#15181](https://github.com/warpdotdev/warp/pull/15181))
+* Fixed a font-fallback bug on web that made the ⇧ (Shift) key glyph in keyboard shortcut hints render heavier, larger, and misaligned compared to neighboring ⌘/⌥ glyphs. ([#15261](https://github.com/warpdotdev/warp/pull/15261))
+* Removed a stray 1px border around the workspace on Warp Web that could get clipped by rounded browser corners. ([#15259](https://github.com/warpdotdev/warp/pull/15259))
+
+**Oz updates**
+
+* Fixed intermittent “MCP server not found” errors after a cloud agent sandbox is rebuilt mid-task.
+
 ### 2026.08.18 (v0.2026.08.18.02.52)
 
 **New features**
