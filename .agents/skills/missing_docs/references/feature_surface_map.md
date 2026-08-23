@@ -397,11 +397,12 @@ POST /harness-support/commit-snapshot -> internal
 
 # Oz Factory REST API (router/handlers/public_api/factory*.go). Warp Factories
 # is now documented publicly (src/content/docs/factories/) as an Early Access
-# product, but its REST API is a different question: none of these routes appear
-# in warp-server's canonical public spec, so they are not part of the released
-# public Oz Agent API and must not be hand-documented. They stay internal;
-# revisit and route through the sync-openapi-spec skill if/when the Factory REST
-# API is released into the spec. See SKILL.md "Public vs. private surfaces".
+# product, but its REST API is a different question: these routes are defined in
+# warp-server's canonical spec but marked `x-internal: true`, so the publish
+# filter strips them from the public docs copy and they are not part of the
+# released public Oz Agent API. They must not be hand-documented and stay
+# internal; revisit and route through the sync-openapi-spec skill if/when those
+# `x-internal` markers come off. See SKILL.md "Public vs. private surfaces".
 GET /factory -> internal
 GET /factory/access -> internal
 GET /factory-alias/{alias} -> internal
