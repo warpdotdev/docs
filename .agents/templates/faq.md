@@ -15,6 +15,8 @@ See AGENTS.md → Content variables for the full variable list and usage rules.]
 [Opening paragraph: Brief context about what this FAQ covers and
 who it's for. 1-2 sentences.]
 
+[BREVITY: Delete any section below you don't need — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
+
 ## [Theme group — sentence case. e.g., "General", "Billing", "Configuration"]
 
 [Group questions by theme so readers can scan for their topic.]
