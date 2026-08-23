@@ -53,10 +53,11 @@ For the summary of the most critical terms (core features, Automation Platform t
   *Usage note:* Capitalize as a UI name. The Settings sidebar has three **umbrellas** (**Agents**, **Code**, and **Cloud platform**) that expand into subpages — always reference the specific subpage in paths, not the umbrella alone.
   - **Agents** umbrella subpages: **Warp Agent**, **Profiles**, **MCP servers**, **Knowledge**, **Third party CLI agents**.
   - **Code** umbrella subpages: **Indexing and projects**, **Editor and Code Review**.
-  - **Cloud platform** umbrella subpages: **Environments**, **Oz Cloud API Keys**.
+  - **Cloud platform** umbrella subpages: **Environments**, **API keys**.
   - Deprecated labels to avoid:
     - **Settings** > **AI** — now under the **Agents** umbrella; pick the relevant subpage (**Warp Agent** for the global toggle + Active AI/Input/Voice/Other/Experimental; **Profiles** for permissions and allow/denylists; **Knowledge**; **Third party CLI agents**).
-    - **Settings** > **Platform** — now **Settings** > **Cloud platform** > **Oz Cloud API Keys** for `oz agent` API keys.
+    - **Settings** > **Platform** — now **Settings** > **Cloud platform** > **API keys** for Warp API keys.
+    - **Settings** > **Cloud platform** > **Oz Cloud API Keys** — now **Settings** > **Cloud platform** > **API keys**.
     - **Settings** > **MCP Servers** (top-level) — now **Settings** > **Agents** > **MCP servers**.
     - **Settings** > **Environments** (top-level) — now **Settings** > **Cloud platform** > **Environments**.
 
@@ -249,8 +250,6 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
   when the answer came back, rather than something a variable flip had already
   broken.*
 - **Changelog entries.** Historical records of what shipped under the old name.
-- **Settings labels** such as **Settings** > **Cloud platform** > **Oz Cloud API
-  Keys**. These are literal UI strings and change only when the app does.
 
 ## Platform terms
 
