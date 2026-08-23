@@ -67,7 +67,7 @@ python3 .agents/skills/style_lint/style_lint.py --all --fix --create-pr
 
 These enforce the "Voice & tone" section of `AGENTS.md`. Every hit needs a human rewrite, so they are always warnings and never auto-fixed:
 
-- **Buzzwords** (`tone-buzzword`): AI-ism words like "seamless", "powerful", "robust", "comprehensive", "leverage", "streamline", "empower", "delve", and filler frames like "it's important to note". Words with legitimate technical uses in these docs ("harness", "unlock", "elevated", "journey") are deliberately excluded from the lint and covered by prose guidance only.
+- **Buzzwords** (`tone-buzzword`): AI-ism words like "seamless", "powerful", "robust", "comprehensive", "leverage", "streamline", "empower", "delve", abstract metaphors ("landscape", "realm", "tapestry", "testament to"), and filler frames ("it's important to note", "designed to", "ensures that", "allows you to", "in order to"). Words with legitimate technical uses in these docs ("harness", "unlock", "elevated", "journey") are deliberately excluded from the lint and covered by prose guidance only.
 - **Meta-openers** (`tone-meta-opener`): Page-narrating text like "This page covers/explains/walks through...". The fix is to cut the sentence and state the thing itself.
 - **Consecutive callouts** (`callout-consecutive`): Two `:::` asides back to back with nothing between them. Merge them or move one into body prose.
 - **Callout budget** (`callout-density`): More than 4 callouts on one page. The style guide allows at most one per section; the per-page count is the lintable proxy.
@@ -85,12 +85,14 @@ This skill checks broader formatting and terminology. The `validate_ui_refs` ski
 
 ## Tests
 
-Two checks have regression suites, because both are narrow rules where the hard
-part is not firing on legitimate text. Run them after touching either check:
+Three checks have regression suites, because each is a narrow rule where the
+hard part is not firing on legitimate text. Run them after touching any of
+these checks:
 
 ```bash
 python3 .agents/skills/style_lint/test_platform_determiner.py
 python3 .agents/skills/style_lint/test_factory_proper_noun.py
+python3 .agents/skills/style_lint/test_tone_checks.py
 ```
 
 ## Dependencies

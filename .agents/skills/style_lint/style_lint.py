@@ -217,9 +217,15 @@ TONE_BUZZWORDS: List[Tuple[str, str]] = [
     (r"\bstreamlin(?:e|es|ed|ing)\b", "Say what gets shorter or removed instead"),
     (r"\bempower(?:s|ed|ing)?\b", "Use 'let' or name the capability"),
     (r"\bdelv(?:e|es|ed|ing)\b", "Use 'cover' or name the topic directly"),
+    (r"\blandscape\b", "Abstract metaphor; name the concrete thing"),
+    (r"\brealm\b", "Abstract metaphor; name the concrete thing"),
     (r"\btapestry\b", "Abstract metaphor; name the concrete thing"),
     (r"\btestament to\b", "Filler phrase; state the fact directly"),
     (r"\b(?:it'?s|it is) (?:important to note|worth noting)\b", "Filler frame; cut it and state the fact directly"),
+    (r"\bdesigned to\b", "Filler frame; say what it actually does instead"),
+    (r"\bensur(?:e|es|ed|ing) that\b", "Filler frame; state the fact directly"),
+    (r"\ballow(?:s|ed|ing)? you to\b", "Filler frame; use 'lets' or rewrite as a direct instruction"),
+    (r"\bin order to\b", "Use 'to'"),
 ]
 
 # Tone: meta-text that narrates the page instead of stating the thing itself.

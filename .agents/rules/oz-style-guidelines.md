@@ -164,6 +164,7 @@ The authoritative tone rules live in the "Voice & tone" section of the docs styl
 - Don't use AI-slop buzzwords ("seamless," "powerful," "robust," "leverage," "streamline"): name the specific capability instead
 - Don't open pages with meta-text ("This page covers...") or narrate the page's structure
 - Don't document internal architecture (orchestrators, control planes, lifecycle states): describe the user-visible model the reader acts on
+- Don't stack an em dash and a colon in the same sentence: pick one, or split into two direct sentences
 
 ## Writing Guidelines
 

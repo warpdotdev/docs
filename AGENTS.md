@@ -227,7 +227,7 @@ Clean, descriptive URLs rank better in search and are more shareable.
 
 ### Page length and scannability
 - Aim for scannable pages. Use clear section headers, short paragraphs (2-4 sentences), and bulleted lists.
-- If a page exceeds ~1500 words, consider breaking it into sub-pages or using clear anchor links.
+- **Cut first, split only if it's still long.** A page over ~1500 words is usually carrying framing, restated cause-and-effect, or boilerplate a parent page already owns — run the deletion-only "Cut again" pass (see Voice & tone → Cut again) before reaching for sub-pages or anchor links. Splitting a bloated page produces two bloated pages; only split once the content itself, not the padding, still doesn't fit on one page.
 - Avoid thin pages with only a sentence or two — consolidate with related content instead. When two pages cover nearly the same topic, merge them.
 
 ### Opening paragraphs
@@ -911,6 +911,9 @@ Before publishing any documentation, verify:
 - [ ] Instructions include expected outcomes after key steps
 - [ ] First references to prerequisites, tools, or surfaces include inline context
 - [ ] Content is scannable with clear headers and lists
+- [ ] Prose passes the tone rules: no marketing buzzwords, no meta-openers ("This page covers..."), no restated cause-and-effect or recap lines, and it reads naturally aloud (see Voice & tone)
+- [ ] Callouts are sparse (usually 0-2 per page), never consecutive, and not a substitute for body prose
+- [ ] A deletion-only "Cut again" pass removed framing lines, self-commentary, and boilerplate a parent page already covers (see Voice & tone → Cut again) before splitting a long page into sub-pages
 - [ ] Images have descriptive alt text (not "screenshot" or empty)
 - [ ] File name is lowercase, hyphenated, and descriptive (it becomes the URL slug)
 - [ ] Frontmatter description includes the primary keyword naturally (50-160 chars)
