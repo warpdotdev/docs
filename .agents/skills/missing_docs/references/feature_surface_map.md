@@ -438,10 +438,12 @@ POST /factory/{uid}/review/refine -> internal
 # Factory outbound webhooks: CRUD, delivery history, and secret rotation.
 GET /factory/webhooks -> internal
 POST /factory/webhooks -> internal
+POST /factory/webhooks/dry-run -> internal
 GET /factory/webhooks/{uid} -> internal
 PUT /factory/webhooks/{uid} -> internal
 DELETE /factory/webhooks/{uid} -> internal
 GET /factory/webhooks/{uid}/deliveries -> internal
+GET /factory/webhooks/{uid}/deliveries/{delivery_id} -> internal
 POST /factory/webhooks/{uid}/rotate -> internal
 GET /factory/{uid}/syncs -> internal
 GET /factory/{uid}/task-by-conversation -> internal
@@ -577,6 +579,10 @@ GET /memory_stores/{uid}/memories/{memoryUid}/versions -> gated:AIMemories
 # TUI-only voice input command (Warp Agent CLI surface). The /version command was
 # removed from code; its entry has been pruned.
 /voice -> internal
+# TUI-only team switcher (SlashCommandSurfaces::TuiOnly in static_commands/
+# commands.rs). The GUI switches teams from the title-bar pill instead, so this
+# isn't documented on the public slash-commands page.
+/team -> internal
 # More Warp Agent CLI-only (SlashCommandSurfaces::TuiOnly in static_commands/
 # commands.rs) commands. None are present in the GUI desktop app, so they aren't
 # documented on the public slash-commands page:
