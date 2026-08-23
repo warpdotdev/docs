@@ -1,14 +1,14 @@
 ---
-title: Use the Factory API
+title: Use the factory API
 description: >-
-  Discover factories and dispatch tasks by UID with the public Factory API,
+  Discover factories and dispatch tasks by UID with the public factory API,
   without learning the foreman agent's internals.
 sidebar:
   label: "Factory API"
 ---
 import { VARS } from '@data/vars';
 
-The Factory API lets your code find a factory and start work on it by UID, without knowing which agent handles the work or how it's wired up. Use it to build custom integrations, such as a chat bot for a tool Warp doesn't integrate with directly, the way you'd use a webhook or REST API for any other service.
+The factory API lets your code find a factory and start work on it by UID, without knowing which agent handles the work or how it's wired up. Use it to build custom integrations, such as a chat bot for a tool Warp doesn't integrate with directly, the way you'd use a webhook or REST API for any other service.
 
 :::note
 Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
@@ -23,7 +23,7 @@ Warp Factories is in **Early Access** and available to a limited set of teams. [
 
 ## How it works
 
-Earlier integrations that sent work to a factory had to call the lower-level Agent API and pass the factory's foreman agent as an `agent_identity_uid` - an implementation detail a caller had to look up and store out of band. The Factory API removes that step: **program against the factory, not the foreman**.
+Earlier integrations that sent work to a factory had to call the lower-level Agent API and pass the factory's foreman agent as an `agent_identity_uid` - an implementation detail a caller had to look up and store out of band. The factory API removes that step: **program against the factory, not the foreman**.
 
 A factory exposes a public UID, the same UID shown in the [factory dashboard](/factories/factory-dashboard/) and used by [Factory MCP](/factories/factory-mcp/). Two endpoints work with that UID:
 
@@ -34,21 +34,21 @@ Dispatching work is a single call:
 
 * `POST /factory/{uid}/runs` - creates a run on the factory's foreman agent. The server looks up the foreman for you, so the request body only needs a `prompt`, a `title`, and optionally a `ticket_ref`/`ticket_url` pair identifying the originating ticket in your own tracker.
 
-The response is an ordinary run: a `run_id`, a `run_url`, and a `state`. From there, the run behaves like any other [cloud agent run](/platform/) - list it, retrieve it, or send it follow-ups through the same [Agent API](/reference/api-and-sdk/) endpoints you'd use for a run started any other way. The Factory API only changes how a run gets *started*; everything downstream is unchanged. Full endpoint parameters, request and response schemas, and error codes for every operation on this page are documented in the [Agents API Reference](/api).
+The response is an ordinary run: a `run_id`, a `run_url`, and a `state`. From there, the run behaves like any other [cloud agent run](/platform/) - list it, retrieve it, or send it follow-ups through the same [Agent API](/reference/api-and-sdk/) endpoints you'd use for a run started any other way. The factory API only changes how a run gets *started*; everything downstream is unchanged. Full endpoint parameters, request and response schemas, and error codes for every operation on this page are documented in the [Agents API Reference](/api).
 
-## When to use the Factory API vs the Agent API
+## When to use the factory API vs the Agent API
 
-Use the Factory API to start work whenever the destination is a factory. Reach for the lower-level Agent API only when you're working with a standalone cloud agent that isn't part of a factory, or when you need a capability the Factory API doesn't expose yet, such as full orchestration control.
+Use the factory API to start work whenever the destination is a factory. Reach for the lower-level Agent API only when you're working with a standalone cloud agent that isn't part of a factory, or when you need a capability the factory API doesn't expose yet, such as full orchestration control.
 
 | Task | Recommended API |
 | --- | --- |
-| Find a factory by name before dispatching to it | Factory API - `GET /factory?search=` |
-| Start a new task on a factory | Factory API - `POST /factory/{uid}/runs` |
+| Find a factory by name before dispatching to it | factory API - `GET /factory?search=` |
+| Start a new task on a factory | factory API - `POST /factory/{uid}/runs` |
 | Continue, monitor, or cancel a run (factory or standalone) | Agent API - `GET /agent/runs/{runId}`, `POST /agent/runs/{runId}/followups`, `POST /agent/runs/{runId}/cancel` |
 | Run a standalone cloud agent with no factory involved | Agent API - `POST /agent/run` |
 | Build a multi-agent orchestration | Agent API - see [multi-agent orchestration](/platform/orchestration/) |
 
-The Agent API isn't deprecated. Every factory run is still an ordinary run under the hood, so status, follow-ups, and cancellation all go through the same Agent API endpoints regardless of which API started the run. The Factory API only replaces the *dispatch* step for factory work, and it's the recommended path for that step going forward.
+The Agent API isn't deprecated. Every factory run is still an ordinary run under the hood, so status, follow-ups, and cancellation all go through the same Agent API endpoints regardless of which API started the run. The factory API only replaces the *dispatch* step for factory work, and it's the recommended path for that step going forward.
 
 ## Discover a factory
 
@@ -142,7 +142,7 @@ See [key endpoints](/reference/api-and-sdk/#key-endpoints) for the full set of r
 
 ## Migrating from `agent_identity_uid`
 
-If your integration currently dispatches to a factory with the lower-level Agent API, replace the foreman lookup and `agent_identity_uid` with a single Factory API call.
+If your integration currently dispatches to a factory with the lower-level Agent API, replace the foreman lookup and `agent_identity_uid` with a single factory API call.
 
 **Before** - the caller has to already know the foreman's agent UID:
 
@@ -160,15 +160,15 @@ run = client.factories.runs.create(
 )
 ```
 
-Nothing about how the run executes changes - the foreman agent still receives the prompt and drives the same triage, spec, implement, and review stages. The `agent_identity_uid` path keeps working for existing integrations, but new integrations should dispatch through the Factory API instead of looking up and storing a foreman agent UID.
+Nothing about how the run executes changes - the foreman agent still receives the prompt and drives the same triage, spec, implement, and review stages. The `agent_identity_uid` path keeps working for existing integrations, but new integrations should dispatch through the factory API instead of looking up and storing a foreman agent UID.
 
 :::note
-The {VARS.API_SDK_NAME} is in the middle of a rename to align with the {VARS.WARP_AUTOMATION_PLATFORM}: today's `oz_agent_sdk` package and `OzAPI` client will eventually ship under Warp Agent and Factory API names. The endpoints and fields on this page keep working across that rename; watch the [Python SDK](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript) repos for the updated names.
+The {VARS.API_SDK_NAME} is in the middle of a rename to align with the {VARS.WARP_AUTOMATION_PLATFORM}: today's `oz_agent_sdk` package and `OzAPI` client will eventually carry renamed Warp Agent and factory API names. The endpoints and fields on this page keep working across that rename; watch the [Python SDK](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript) repos for the updated names.
 :::
 
 ## Related pages
 
-* [Connect your factory](/factories/connect-your-factory/) - Every way work can enter a factory, including the Factory API alongside Slack, GitHub, and Factory MCP.
+* [Connect your factory](/factories/connect-your-factory/) - Every way work can enter a factory, including the factory API alongside Slack, GitHub, and Factory MCP.
 * [Build a Mattermost bot for Warp Factories](/guides/external-tools/build-a-mattermost-bot-for-warp-factories/) - A worked example that discovers a factory and dispatches and continues a task from a custom chat integration.
 * [Factory MCP](/factories/factory-mcp/) - Connect a local coding agent to a factory instead of calling the REST API directly.
 * [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) - Full endpoint reference, SDKs, and error codes for the underlying Agent API.
