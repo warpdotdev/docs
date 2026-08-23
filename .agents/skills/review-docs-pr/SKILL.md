@@ -27,7 +27,9 @@ Focus on:
 4. **Code snippets**: Verify that any code examples, commands, or configuration snippets are correct and will work as documented. If you're unsure about technical details, use the `answer_question` skill to verify against the docs or search the source code.
 5. **Astro Starlight structure**: Verify `src/sidebar.ts` updates if files were added, moved, or renamed, and that redirects are added to the `redirects` array in `vercel.json` when needed.
 6. **Product name variables**: Check whether any product names with a corresponding entry in `src/data/vars.ts` are hardcoded as literal strings instead of using `{VARS.KEY}` (prose) or `{{TOKEN}}` (frontmatter). Key strings to watch for: "Oz CLI", "Oz web app", "oz.warp.dev", "Oz dashboard", "Oz run". Flag as `⚠️ [IMPORTANT]` if a new file adds these without using the variable system. For existing files, flag as `💡 [SUGGESTION]`.
-7. **AEO/source-data fit**:
+7. **Tone and AI-isms**: Flag marketing buzzwords (seamless, powerful, robust, comprehensive, leverage, streamline), meta-openers ("This page covers/explains/walks through..."), restated cause-and-effect ("This process ensures..."), recap lines, consecutive callouts or more than one callout per section, and internal-architecture detail the reader can't act on (orchestrators, control planes, lifecycle states). Reference the "Voice & tone" section of `AGENTS.md`. Use `💡 [SUGGESTION]` for isolated instances; use `⚠️ [IMPORTANT]` when the pattern is pervasive in new content.
+8. **Length and brevity**: Flag a page that could be materially shorter, not just wordy sentences — a 2,000-word page that should be 600 is a more expensive problem than an isolated buzzword. Check whether a deletion-only "Cut again" pass (AGENTS.md → Voice & tone → Cut again) happened before the page was split into sub-pages, since splitting a bloated page produces two bloated pages. Use `💡 [SUGGESTION]` unless the page is far outside its content type's expected length, then use `⚠️ [IMPORTANT]`.
+9. **AEO/source-data fit**:
 
 Provide actionable, constructive feedback. Focus on documentation quality issues, not code bugs.
 
