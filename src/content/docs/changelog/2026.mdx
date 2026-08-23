@@ -27,13 +27,13 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Warp Factories are now live in Early Access! Check out more details [here](https://www.warp.dev/blog/open-infrastructure-for-building-a-software-factory).
+* Warp Factories is now live in Early Access! Read the [Warp Factories announcement](https://www.warp.dev/blog/open-infrastructure-for-building-a-software-factory).
 * Warp now includes a built-in Factory MCP server for logged-in users.
 
 **Improvements**
 
 * Added completions for `mpv` and `ruff`, and refreshed `deno` completions. ([#15248](https://github.com/warpdotdev/warp/pull/15248))
-* Teamless users in a native workspace now see an admin panel link and joinable teams on the Teams settings page instead of team creation. ([#15246](https://github.com/warpdotdev/warp/pull/15246))
+* Teamless users in a native workspace now see an Admin Panel link and joinable teams on the Teams settings page instead of team creation. ([#15246](https://github.com/warpdotdev/warp/pull/15246))
 * `oz agent run-cloud` now accepts `--title` and `--parent-run-id`, so third-party harnesses can set a run's title and orchestration lineage. ([#15187](https://github.com/warpdotdev/warp/pull/15187))
 * The agent run details panel now has a copy button on the Initial query field, matching the Error and Environment details fields. ([#15156](https://github.com/warpdotdev/warp/pull/15156))
 * Workspace admins can now manage team membership (promote/demote/remove) on their current team, and show a "Workspace admin"/"Workspace owner" badge in the team members list. ([#15123](https://github.com/warpdotdev/warp/pull/15123))
@@ -48,20 +48,20 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 * Fixed a memory leak where repeatedly re-parsing and deep-cloning `.gitignore` matchers during file-tree watcher updates could allocate an unbounded number of regex caches in large repositories. ([#15240](https://github.com/warpdotdev/warp/pull/15240))
 * Fixed billing copy that described add-on credit purchases as going to your personal balance instead of the team's shared pool. ([#15207](https://github.com/warpdotdev/warp/pull/15207))
-* Fixed the client failing to load an ambient agent task list that included an orchestration-sourced task. ([#15164](https://github.com/warpdotdev/warp/pull/15164))
+* Fixed the client failing to load a cloud agent task list that included an orchestration-sourced task. ([#15164](https://github.com/warpdotdev/warp/pull/15164))
 * Fixed `paru` completions to match the real v2.1.0 CLI (options, operations, and argument types). ([#15159](https://github.com/warpdotdev/warp/pull/15159))
 * Fixed excessive memory growth where a burst of repository-indexing updates could spawn many concurrent background tasks re-reading project rule files (WARP.md/AGENTS.md). ([#15147](https://github.com/warpdotdev/warp/pull/15147))
 * Fixed a runaway loop of duplicate network requests that could fire while viewing a completed cloud agent conversation. ([#15138](https://github.com/warpdotdev/warp/pull/15138))
 * Fixed the Teams settings page showing an invite-by-link option for Private and Hidden teams, which don't support it. ([#15129](https://github.com/warpdotdev/warp/pull/15129))
 * Fixed the Teams settings page showing another team's pending email invites in a multi-team workspace. ([#15121](https://github.com/warpdotdev/warp/pull/15121))
-* Fixed zsh sessions occasionally echoing Warp's own shell-integration bootstrap script into the terminal when `cursor_mode``/prezto`'s `init.zsh` was loaded. ([#15118](https://github.com/warpdotdev/warp/pull/15118))
+* Fixed zsh sessions occasionally echoing Warp's own shell-integration bootstrap script into the terminal when `cursor_mode`/prezto's `init.zsh` was loaded. ([#15118](https://github.com/warpdotdev/warp/pull/15118))
 * Fixed the Teams settings page's "Open admin panel" link sending workspace admins to the team admin page instead of the workspace admin panel. ([#15113](https://github.com/warpdotdev/warp/pull/15113))
 * Fixed `kubectl` completions ignoring a `--context`, `--cluster`, or `--user` flag on the command line; `kubecolor`/`oc` now complete those flags too, and `nx run` completions were fixed. ([#15109](https://github.com/warpdotdev/warp/pull/15109))
 * Fixed `ip nexthop` filter completions suggesting protocol names that iproute2 rejects, and completed the `ip rule`/`ip mrule` flush selector sets. ([#15102](https://github.com/warpdotdev/warp/pull/15102))
 * Fixed `ip` completions not appearing for iproute2's bare keyword arguments, along with missing `ip addr`/`ip a`/`ip neighbor` aliases. ([#15101](https://github.com/warpdotdev/warp/pull/15101))
 * Fixed missing product logos for MCP servers with decorated titles (e.g. "Sentry (OAuth)") in MCP settings. ([#15037](https://github.com/warpdotdev/warp/pull/15037))
 * Cancelling a conversation while an orchestration tool call was still streaming left the card stuck on "Configuring agents…"; it now shows a cancelled state. ([#14972](https://github.com/warpdotdev/warp/pull/14972))
-* Fixed an issue where removing a team member from Settings > Teams would fail silently with no error shown if the removal was rejected by the server. ([#14964](https://github.com/warpdotdev/warp/pull/14964))
+* Fixed an issue where removing a team member from **Settings** > **Teams** would fail silently with no error shown if the removal was rejected by the server. ([#14964](https://github.com/warpdotdev/warp/pull/14964))
 * [Windows] Stopped enumerating the full process table with per-process CPU sampling on every terminal session, which could cause DPC_WATCHDOG_VIOLATION / high CPU on machines with many cores. ([#13405](https://github.com/warpdotdev/warp/pull/13405)) — [@npapano42](https://github.com/npapano42) ✨
 * Fixed excessive memory usage when opening code review in a repository with large untracked directories (e.g. `node_modules`). ([#13393](https://github.com/warpdotdev/warp/pull/13393))
 * Fixed a performance issue where every file-tree change deep-cloned compiled `.gitignore` matchers in large repositories. ([#13290](https://github.com/warpdotdev/warp/pull/13290))
