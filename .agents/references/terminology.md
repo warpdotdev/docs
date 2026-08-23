@@ -250,8 +250,6 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
   when the answer came back, rather than something a variable flip had already
   broken.*
 - **Changelog entries.** Historical records of what shipped under the old name.
-- **Settings labels** such as **Settings** > **Cloud platform** > **API keys**.
-  These are literal UI strings and change only when the app does.
 
 ## Platform terms
 

@@ -22,6 +22,9 @@
         "Environments",
         "API keys"
       ],
+      "deprecated_subpages": {
+        "Oz Cloud API Keys": "API keys"
+      },
       "source_file": "app/src/settings_view/mod.rs"
     }
   },
