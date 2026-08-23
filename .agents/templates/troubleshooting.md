@@ -11,6 +11,8 @@ See AGENTS.md → Content variables for the full variable list and usage rules.]
 
 # [Title — sentence case. Title convention: "Troubleshooting [feature]" or "Known issues with [feature]"]
 
+[BREVITY: Delete any section below you don't need — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
+
 :::note
 [Optional: link to GitHub issues page, support channels, or related resources.]
 For a complete list of issues and feature requests, visit our [GitHub issues page](https://github.com/warpdotdev/Warp/issues).
