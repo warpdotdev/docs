@@ -880,6 +880,7 @@
     "GET /api/v1/factory/webhooks",
     "GET /api/v1/factory/webhooks/{uid}",
     "GET /api/v1/factory/webhooks/{uid}/deliveries",
+    "GET /api/v1/factory/webhooks/{uid}/deliveries/{delivery_id}",
     "GET /api/v1/factory/{uid}",
     "GET /api/v1/factory/{uid}/benchmarks/runs",
     "GET /api/v1/factory/{uid}/benchmarks/runs/{run_uid}",
@@ -962,6 +963,7 @@
     "POST /api/v1/factory/run-scoring/dispatches",
     "POST /api/v1/factory/scorers",
     "POST /api/v1/factory/webhooks",
+    "POST /api/v1/factory/webhooks/dry-run",
     "POST /api/v1/factory/webhooks/{uid}/rotate",
     "POST /api/v1/factory/{uid}/apply",
     "POST /api/v1/factory/{uid}/benchmarks/runs/{run_uid}/cancel",
@@ -1067,6 +1069,7 @@
     "/skills",
     "/status",
     "/statusline",
+    "/team",
     "/theme",
     "/upgrade",
     "/usage",
@@ -1421,5 +1424,5 @@
     "verify-ui-change-in-cloud": "dogfood",
     "warpctrl": "bundled"
   },
-  "changelog_last_version": "2026.08.13"
+  "changelog_last_version": "2026.08.19"
 }
