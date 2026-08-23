@@ -25,13 +25,29 @@ Each factory appears in Slack as its own app with the factory's name and avatar.
 
 ## Configure factory automations for Slack
 
-Use a factory automation to start work from Slack activity automatically, without anyone mentioning the app, such as on every message in a triage channel or on a specific emoji reaction. Add a **Slack** trigger to an automation and pick one of these events; [automation filters](/factories/automation-filters/#edit-filters-on-an-automation) covers the steps. For an example, see the reaction-intake automation in [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository: a `:ticket:` reaction files a GitHub issue from the thread.
+Use a factory automation to start work from Slack activity automatically, without anyone mentioning the app, such as on every message in a triage channel or on a specific emoji reaction. Add a **Slack** trigger to an automation and pick one of these events; [automation filters](/factories/automation-filters/#edit-filters-on-an-automation) covers the steps.
 
 - **App mentioned** - Filter by joined conversations, authors, and keywords.
 - **Direct message received** - Filter by direct-message conversations, authors, and keywords.
 - **Message posted in channel** - Filter by joined conversations, authors, and keywords.
 - **Reaction added** - Filter by conversations, reactors, keywords, emoji, and reacted-message authors.
 - **Member joined channel** - Filter by conversations and members.
+
+The reaction-intake automation in [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository files a GitHub issue when someone reacts with `:ticket:`:
+
+```markdown title="automations/slack-reaction-intake/automation.md"
+---
+triggers:
+  - provider: slack
+    event: reaction_added
+    filter:
+      emojis: [ticket]
+---
+Someone reacted with :ticket: to a Slack message. Read the thread, file a
+GitHub issue that captures the request with a link back to the thread, and
+reply in the thread with the issue link. Do not start the work; this
+automation only files it.
+```
 
 The **Conversations** picker only shows conversations the factory's app has joined. If a channel is missing, invite the app to it; for direct messages, send the app a DM first. Then refresh the automation editor.
 

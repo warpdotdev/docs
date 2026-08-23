@@ -70,7 +70,25 @@ Review the labeled issue and decide the next required stage.
 
 The same matching rules apply: every key must match, any listed value within a key matches, and an omitted key matches everything. Each integration guide shows the keys its provider accepts.
 
-For automations that use these filters, including labels, branches, paths, workflow conclusions, and emoji reactions, see [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository. [`04-code-review-only`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only) and [`05-ui-verification`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/05-ui-verification) trigger on a single label.
+For example, this automation from [`04-code-review-only`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository scopes reviews to one base branch and excludes work-in-progress PRs with a `not_in` list:
+
+```markdown title="automations/pr-opened/automation.md"
+---
+triggers:
+  - provider: github
+    event: pull_request_opened
+    filter:
+      repos: [acme/api-service]
+      base_branches: [main]
+      labels:
+        not_in: [wip]
+---
+A pull request was opened against the default branch. If it is a draft,
+stop silently. Otherwise review it and post your findings and verdict on
+the PR.
+```
+
+For more automations that use these filters, including branches, paths, workflow conclusions, and emoji reactions, see [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations).
 
 ## Troubleshooting
 

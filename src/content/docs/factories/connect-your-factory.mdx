@@ -68,4 +68,20 @@ The Factory MCP connects local coding agents and other MCP clients to your facto
 Not every task starts in an external tool:
 
 * Start a direct run for one-off work. Click **New** on the factory's Runs page and describe the task to the foreman, the same way you would from Slack or an issue tracker.
-* Create a scheduled automation for recurring work, such as maintenance or reports. See the [triggers overview](/platform/triggers/) for how schedules and other triggers work across the platform. The weekly dependency audit in [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations) is a working cron automation.
+* Create a scheduled automation for recurring work, such as maintenance or reports. See the [triggers overview](/platform/triggers/) for how schedules and other triggers work across the platform.
+
+This automation from [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations) runs a dependency audit every Monday:
+
+```markdown title="automations/weekly-dependency-audit/automation.md"
+---
+triggers:
+  - provider: schedule
+    event: cron_fired
+    schedule:
+      name: weekly-dependency-audit
+      cron: "0 9 * * 1"
+---
+Run the weekly dependency audit. List outdated and vulnerable dependencies,
+apply safe minor and patch upgrades on a branch, run the tests, and open a
+PR with the changes and a summary of anything that needs a human decision.
+```
