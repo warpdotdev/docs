@@ -191,8 +191,10 @@ Settings that control terminal behavior, input, and event handling.
 * `show_terminal_input_message_bar` — Whether the terminal input message bar is shown. Type: boolean. Default: `true`.
 * `enable_slash_commands_in_terminal` — Whether slash commands are available in the terminal input. Type: boolean. Default: `true`.
 * `at_context_menu_in_terminal_mode` — Whether the @ context menu is available in terminal mode. Type: boolean. Default: `true`.
+* `enable_ai_command_search_hash_trigger` — Whether typing `#` at the start of terminal input opens [Command Search](/terminal/entry/command-search/). When disabled, Command Search is still reachable through its keyboard shortcut. Type: boolean. Default: `true`.
 * `outline_codebase_symbols_for_at_context_menu` — Whether codebase symbols appear in the @ context menu. Type: boolean. Default: `true`.
 * `middle_click_paste_enabled` — Whether middle-click pastes from the clipboard. Type: boolean. Default: `true`.
+* `right_click_behavior` — What a bare right-click does in the terminal. Type: string. Default: `"context_menu"`. Options: `"context_menu"` (open the context menu), `"paste"` (paste from the clipboard; `Shift`+right-click opens the context menu instead).
 * `extra_meta_keys` — Controls which additional keys are treated as meta keys. Type: object. Default: `{ left_alt = false, right_alt = false }`.
 
 #### Autosuggestions
