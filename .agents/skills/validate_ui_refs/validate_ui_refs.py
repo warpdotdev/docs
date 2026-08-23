@@ -450,7 +450,7 @@ def _suggest_migration_for_deprecated_section(
     Handles patterns like:
         Settings > AI > Input        -> Settings > Agents > Oz > Input
         Settings > AI > Knowledge    -> Settings > Agents > Knowledge
-        Settings > Platform          -> Settings > Cloud platform > Oz Cloud API Keys
+        Settings > Platform          -> Settings > Cloud platform > API keys
         Settings > Environments      -> Settings > Cloud platform > Environments
         Settings > MCP Servers       -> Settings > Agents > MCP servers
     """
@@ -465,7 +465,7 @@ def _suggest_migration_for_deprecated_section(
     subsection_map = info.get("subsection_to_subpage", {})
 
     if len(segments) == 2:
-        # Settings > Platform -> Settings > Cloud platform > Oz Cloud API Keys
+        # Settings > Platform -> Settings > Cloud platform > API keys
         new_path = ["Settings", umbrella, default_subpage]
         return {
             "valid": False,

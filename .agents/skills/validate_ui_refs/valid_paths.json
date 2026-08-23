@@ -20,7 +20,7 @@
     "Cloud platform": {
       "subpages": [
         "Environments",
-        "Oz Cloud API Keys"
+        "API keys"
       ],
       "source_file": "app/src/settings_view/mod.rs"
     }
@@ -68,7 +68,7 @@
     },
     "Platform": {
       "umbrella": "Cloud platform",
-      "default_subpage": "Oz Cloud API Keys"
+      "default_subpage": "API keys"
     }
   },
   "settings_sections": {
@@ -236,7 +236,8 @@
     "API keys": {
       "display_name": "API keys",
       "sub_sections": [],
-      "source_file": "app/src/settings_view/mod.rs"
+      "source_file": "app/src/settings_view/mod.rs",
+      "umbrella": "Cloud platform"
     }
   },
   "top_level_sidebar": [
