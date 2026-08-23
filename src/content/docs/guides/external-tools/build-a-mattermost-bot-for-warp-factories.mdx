@@ -19,36 +19,45 @@ Build a Mattermost bot that sends work to a [Warp factory](/factories/) and post
 
 ## 1. Store your credentials
 
-Export your Warp API key and Mattermost bot token as environment variables so neither one ends up hardcoded in your bot's source:
+Export your Warp API key, Mattermost bot token, and a webhook token as environment variables so none of them end up hardcoded in your bot's source. You'll generate the webhook token in the next step:
 
 ```bash
 export WARP_API_KEY=YOUR_WARP_API_KEY
 export MATTERMOST_BOT_TOKEN=YOUR_MATTERMOST_BOT_TOKEN
+export MATTERMOST_WEBHOOK_TOKEN=YOUR_MATTERMOST_WEBHOOK_TOKEN
 export MATTERMOST_URL=https://YOUR_MATTERMOST_SERVER
 ```
 
-The bot needs the Warp API key to call the factory API, and the Mattermost token to post replies back into the channel.
+The bot uses the Warp API key to call the factory API, the bot token to post replies back into the channel, and the webhook token to confirm each inbound request actually came from Mattermost.
 
-## 2. Receive mentions from Mattermost
+## 2. Create an outgoing webhook in Mattermost
 
-Configure a [Mattermost outgoing webhook](https://developers.mattermost.com/integrate/webhooks/outgoing/) that fires when someone mentions your bot in a channel, and points at an endpoint your bot serves. Mattermost POSTs form-encoded fields for the triggering message, including `channel_id`, `post_id`, `user_name`, and `text`; confirm the exact field set against Mattermost's outgoing webhook reference for your version, since it can change between releases.
+[Mattermost outgoing webhooks](https://developers.mattermost.com/integrate/webhooks/outgoing/) fire on messages in a specific public channel, a specific trigger word, or both - not on arbitrary @-mentions the way a Slack app receives them. To get mention-like behavior, set the trigger word to something like `factory:` and require your team to lead requests with it.
 
-A minimal Flask receiver looks like this:
+From **Product menu** > **Integrations** > **Outgoing Webhooks** in Mattermost:
+
+1. Select **Add Outgoing Webhook** and choose the channel to watch. Outgoing webhooks only work in public channels; use a [slash command](https://developers.mattermost.com/integrate/slash-commands/) instead for private channels or DMs.
+2. Set the trigger word (for example `factory:`) and set **Trigger When** to "first word starts with a trigger word."
+3. Set the callback URL to the endpoint your bot serves, and set the content type to `application/x-www-form-urlencoded`.
+4. Save the webhook and copy the generated token into `MATTERMOST_WEBHOOK_TOKEN`.
+
+Mattermost POSTs form-encoded fields for the triggering message: `token`, `channel_id`, `post_id`, `user_name`, `text`, `trigger_word`, and a few others. Your bot must reject any request whose `token` doesn't match, before reading anything else from it - otherwise anyone who finds the URL can dispatch factory runs using your bot's credentials:
 
 ```python
+import hmac
 import os
 from flask import Flask, request
 from oz_agent_sdk import OzAPI
 
 app = Flask(__name__)
 client = OzAPI(api_key=os.environ["WARP_API_KEY"])
+WEBHOOK_TOKEN = os.environ["MATTERMOST_WEBHOOK_TOKEN"]
 
-@app.route("/mattermost/mention", methods=["POST"])
-def handle_mention():
-    post_id = request.form["post_id"]
-    text = request.form["text"]
-    channel_id = request.form["channel_id"]
-    # Steps 3-5 fill in this handler.
+@app.route("/mattermost/dispatch", methods=["POST"])
+def handle_message():
+    if not hmac.compare_digest(request.form.get("token", ""), WEBHOOK_TOKEN):
+        return "", 403
+    # Step 5 fills in the rest of this handler.
     return "", 200
 ```
 
@@ -64,33 +73,47 @@ def find_factory(name: str):
     return page.factories[0]
 ```
 
-If your bot only ever talks to one factory, look it up once at startup and cache the UID instead of searching on every mention.
+If your bot only ever talks to one factory, look it up once at startup and cache the UID instead of searching on every message.
 
-## 4. Dispatch a task on mention
+## 4. Read the triggering post's thread
 
-When someone mentions the bot, dispatch a run to the factory with the message text as the prompt. Pass `ticket_ref` as `mattermost:<post_id>` so the factory's task record ties back to the exact post that started it:
+The webhook payload tells you which post triggered it, but not whether that post is a reply. Fetch the post from the Mattermost API to read its `root_id`: empty for a new top-level message, or the ID of the thread's first post for a reply.
 
 ```python
+import requests
+
+def get_post(post_id: str) -> dict:
+    resp = requests.get(
+        f"{os.environ['MATTERMOST_URL']}/api/v4/posts/{post_id}",
+        headers={"Authorization": f"Bearer {os.environ['MATTERMOST_BOT_TOKEN']}"},
+    )
+    resp.raise_for_status()
+    return resp.json()
+```
+
+## 5. Dispatch new work or continue an existing run
+
+Keep a lookup of thread root post ID to `run_id`. A message with a known root continues that run with a follow-up; anything else dispatches a new one, keyed by its own post ID so later replies in the same thread find it:
+
+```python
+run_ids_by_thread: dict[str, str] = {}
+
 def dispatch_task(text: str, post_id: str, permalink: str):
     factory = find_factory("payments")  # or a UID you already have
-    run = client.factories.runs.create(
+    return client.factories.runs.create(
         factory.uid,
         prompt=text,
         title=text[:80],
         ticket_ref=f"mattermost:{post_id}",
         ticket_url=permalink,
     )
-    return run
-```
 
-Build `permalink` from your Mattermost server URL and the post ID (`{MATTERMOST_URL}/_redirect/pl/{post_id}`), so the factory's task record links straight back to the triggering post.
-
-## 5. Reply with the run link
-
-Post the dispatched run's URL back into the same thread so the requester can watch progress without leaving Mattermost:
-
-```python
-import requests
+def send_followup(run_id: str, text: str):
+    requests.post(
+        f"https://app.warp.dev/api/v1/agent/runs/{run_id}/followups",
+        headers={"Authorization": f"Bearer {os.environ['WARP_API_KEY']}"},
+        json={"prompt": text},
+    )
 
 def post_reply(channel_id: str, root_id: str, message: str):
     requests.post(
@@ -100,44 +123,38 @@ def post_reply(channel_id: str, root_id: str, message: str):
     )
 ```
 
-Wire steps 3-5 into the handler from step 2:
+Combine these functions into the handler from step 2:
 
 ```python
-@app.route("/mattermost/mention", methods=["POST"])
-def handle_mention():
+@app.route("/mattermost/dispatch", methods=["POST"])
+def handle_message():
+    if not hmac.compare_digest(request.form.get("token", ""), WEBHOOK_TOKEN):
+        return "", 403
+
     post_id = request.form["post_id"]
     channel_id = request.form["channel_id"]
     text = request.form["text"]
-    permalink = f"{os.environ['MATTERMOST_URL']}/_redirect/pl/{post_id}"
 
-    run = dispatch_task(text, post_id, permalink)
-    post_reply(channel_id, post_id, f"Started work on this: {run.run_url}")
+    post = get_post(post_id)
+    root_id = post["root_id"] or post_id
+
+    existing_run_id = run_ids_by_thread.get(root_id)
+    if existing_run_id:
+        send_followup(existing_run_id, text)
+    else:
+        permalink = f"{os.environ['MATTERMOST_URL']}/_redirect/pl/{post_id}"
+        run = dispatch_task(text, post_id, permalink)
+        run_ids_by_thread[root_id] = run.run_id
+        post_reply(channel_id, post_id, f"Started work on this: {run.run_url}")
+
     return "", 200
 ```
 
-Send a test mention in Mattermost. Your bot should reply in the same thread with a link to the new run, and the run should appear on the factory's [Activity view](/factories/factory-dashboard/#track-work-items-on-activity).
+Use a real database for `run_ids_by_thread` once you move past local testing; an in-memory dictionary loses every mapping when the process restarts.
 
-## 6. Continue the conversation from replies
+Post a message starting with your trigger word in the watched channel. Your bot should reply in the same thread with a link to the new run, and the run should appear on the factory's [Activity view](/factories/factory-dashboard/#track-work-items-on-activity). Reply to that post (starting your reply with the trigger word too, so the webhook fires) and the bot sends a follow-up to the same run instead of starting a new one.
 
-A reply in the thread should steer the same run instead of starting a new one. Keep a small lookup of `post_id` (or thread root ID) to `run_id` as you dispatch each run, then send replies as follow-ups instead of new dispatches:
-
-```python
-run_ids_by_thread: dict[str, str] = {}
-
-def handle_reply(root_id: str, text: str):
-    run_id = run_ids_by_thread.get(root_id)
-    if run_id is None:
-        return  # Not a reply to a thread this bot started.
-    requests.post(
-        f"https://app.warp.dev/api/v1/agent/runs/{run_id}/followups",
-        headers={"Authorization": f"Bearer {os.environ['WARP_API_KEY']}"},
-        json={"prompt": text},
-    )
-```
-
-Store `run_ids_by_thread[post_id] = run.run_id` when you dispatch in step 4, using a real database instead of an in-memory dictionary once you move past local testing.
-
-## 7. Post completion updates
+## 6. Post completion updates
 
 Poll the run's state and post a final update to the thread once it leaves an in-progress state:
 
@@ -153,7 +170,7 @@ Call `check_and_report` from a scheduled job (a cron-triggered script, or a ligh
 
 ## Next steps
 
-You've built a Mattermost bot that discovers a factory by name, dispatches tasks with source context attached, and keeps replying in the same thread as the run progresses - the same pattern Warp's [Slack integration](/factories/integrations/slack/) uses natively. From here:
+You've built a Mattermost bot that discovers a factory by name, dispatches tasks with source context attached, and routes replies to the run that's already in progress. From here:
 
 * [Use the factory API](/factories/factory-api/) - The full discover, dispatch, and migration reference this guide builds on.
 * [Connect your factory](/factories/connect-your-factory/) - Compare this custom integration against Warp's built-in intake sources.

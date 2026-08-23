@@ -8,7 +8,7 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-The factory API lets your code find a factory and start work on it by UID, without knowing which agent handles the work or how it's wired up. Use it to build custom integrations, such as a chat bot for a tool Warp doesn't integrate with directly, the way you'd use a webhook or REST API for any other service.
+Use the factory API to find a factory and start work from a custom integration without managing agent details. Build it into a chat bot, script, or service for any tool Warp doesn't connect to directly.
 
 :::note
 Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
@@ -34,7 +34,7 @@ Dispatching work is a single call:
 
 * `POST /factory/{uid}/runs` - creates a run on the factory's foreman agent. The server looks up the foreman for you, so the request body only needs a `prompt`, a `title`, and optionally a `ticket_ref`/`ticket_url` pair identifying the originating ticket in your own tracker.
 
-The response is an ordinary run: a `run_id`, a `run_url`, and a `state`. From there, the run behaves like any other [cloud agent run](/platform/) - list it, retrieve it, or send it follow-ups through the same [Agent API](/reference/api-and-sdk/) endpoints you'd use for a run started any other way. The factory API only changes how a run gets *started*; everything downstream is unchanged. Full endpoint parameters, request and response schemas, and error codes for every operation on this page are documented in the [Agents API Reference](/api).
+The response is an ordinary run: a `run_id`, a `run_url`, and a `state`. From there, the run behaves like any other [cloud agent run](/platform/) - list it, retrieve it, or send it follow-ups through the same [Agent API](/reference/api-and-sdk/) endpoints you'd use for a run started any other way. The factory API only changes how a run gets *started*; everything downstream is unchanged. See the [Agents API Reference](/api) for full parameters and error codes on those run-management endpoints.
 
 ## When to use the factory API vs the Agent API
 
@@ -48,7 +48,7 @@ Use the factory API to start work whenever the destination is a factory. Reach f
 | Run a standalone cloud agent with no factory involved | Agent API - `POST /agent/run` |
 | Build a multi-agent orchestration | Agent API - see [multi-agent orchestration](/platform/orchestration/) |
 
-The Agent API isn't deprecated. Every factory run is still an ordinary run under the hood, so status, follow-ups, and cancellation all go through the same Agent API endpoints regardless of which API started the run. The factory API only replaces the *dispatch* step for factory work, and it's the recommended path for that step going forward.
+The Agent API isn't deprecated. Every factory run is still an ordinary run under the hood, so status, follow-ups, and cancellation all go through the same Agent API endpoints regardless of which API started the run. The factory API only replaces the *dispatch* step for factory work.
 
 ## Discover a factory
 
@@ -160,7 +160,7 @@ run = client.factories.runs.create(
 )
 ```
 
-Nothing about how the run executes changes - the foreman agent still receives the prompt and drives the same triage, spec, implement, and review stages. The `agent_identity_uid` path keeps working for existing integrations, but new integrations should dispatch through the factory API instead of looking up and storing a foreman agent UID.
+The run executes exactly the same way, and existing run-management APIs keep working on it. The `agent_identity_uid` path still works for existing integrations, but new integrations should dispatch through the factory API instead of looking up and storing a foreman agent UID.
 
 :::note
 The {VARS.API_SDK_NAME} is in the middle of a rename to align with the {VARS.WARP_AUTOMATION_PLATFORM}: today's `oz_agent_sdk` package and `OzAPI` client will eventually carry renamed Warp Agent and factory API names. The endpoints and fields on this page keep working across that rename; watch the [Python SDK](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript) repos for the updated names.
