@@ -450,7 +450,7 @@ def _suggest_migration_for_deprecated_section(
     Handles patterns like:
         Settings > AI > Input        -> Settings > Agents > Oz > Input
         Settings > AI > Knowledge    -> Settings > Agents > Knowledge
-        Settings > Platform          -> Settings > Cloud platform > Oz Cloud API Keys
+        Settings > Platform          -> Settings > Cloud platform > API keys
         Settings > Environments      -> Settings > Cloud platform > Environments
         Settings > MCP Servers       -> Settings > Agents > MCP servers
     """
@@ -465,7 +465,7 @@ def _suggest_migration_for_deprecated_section(
     subsection_map = info.get("subsection_to_subpage", {})
 
     if len(segments) == 2:
-        # Settings > Platform -> Settings > Cloud platform > Oz Cloud API Keys
+        # Settings > Platform -> Settings > Cloud platform > API keys
         new_path = ["Settings", umbrella, default_subpage]
         return {
             "valid": False,
@@ -560,6 +560,26 @@ def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
                 }
             subpage = segments[2]
             if subpage not in subpages:
+                # A subpage may itself have been renamed within the same
+                # umbrella (e.g. "Oz Cloud API Keys" -> "API keys" under
+                # "Cloud platform"). Check this deterministic alias map before
+                # falling through to case-insensitive/fuzzy matching, so a
+                # historical full path resolves to an exact migration instead
+                # of an unfixed fuzzy suggestion.
+                deprecated_subpages = umbrella_data.get("deprecated_subpages", {})
+                if subpage in deprecated_subpages:
+                    mapped_subpage = deprecated_subpages[subpage]
+                    new_path = ["Settings", section, mapped_subpage] + segments[3:]
+                    return {
+                        "valid": False,
+                        "issue": (
+                            f"\"{subpage}\" was renamed to \"{mapped_subpage}\" "
+                            f"under the \"{section}\" umbrella"
+                        ),
+                        "suggestion": " > ".join(new_path),
+                        "confidence": 0.95,
+                        "fix_type": "deprecated_section",
+                    }
                 ci_match = next(
                     (s for s in subpages if s.lower() == subpage.lower()), None
                 )
@@ -1876,7 +1896,7 @@ impl Display for SettingsSection {
             SettingsSection::CodeIndexing => write!(f, "Indexing and projects"),
             SettingsSection::EditorAndCodeReview => write!(f, "Editor and Code Review"),
             SettingsSection::CloudEnvironments => write!(f, "Environments"),
-            SettingsSection::OzCloudAPIKeys => write!(f, "Oz Cloud API Keys"),
+            SettingsSection::OzCloudAPIKeys => write!(f, "API keys"),
             _ => write!(f, "{self:?}"),
         }
     }
@@ -2001,7 +2021,7 @@ def _run_self_test(valid_paths_path: Path) -> int:
             "Indexing and projects",
             "Editor and Code Review",
             "Environments",
-            "Oz Cloud API Keys",
+            "API keys",
         ):
             if expected_subpage not in refreshed.get("settings_sections", {}):
                 failures.append(
@@ -2077,6 +2097,28 @@ def _run_self_test(valid_paths_path: Path) -> int:
                 failures.append(
                     f"extract_command_palette_refs() missed prose reference {expected!r}"
                 )
+
+    # --- 6. "Oz Cloud API Keys" -> "API keys" migration, both legacy forms.
+    # The label was renamed twice over: first the whole page moved under the
+    # "Cloud platform" umbrella (as the bare top-level "Oz Cloud API Keys"
+    # section), then the subpage itself was renamed to "API keys". Both
+    # historical spellings must resolve to the same current path.
+    expected_suggestion = "Settings > Cloud platform > API keys"
+    bare_legacy = validate_ui_path("Settings > Oz Cloud API Keys", data)
+    if bare_legacy["valid"] or bare_legacy.get("suggestion") != expected_suggestion:
+        failures.append(
+            "validate_ui_path() did not migrate the bare legacy "
+            f"\"Settings > Oz Cloud API Keys\" path: {bare_legacy}"
+        )
+    full_legacy = validate_ui_path(
+        "Settings > Cloud platform > Oz Cloud API Keys", data
+    )
+    if full_legacy["valid"] or full_legacy.get("suggestion") != expected_suggestion:
+        failures.append(
+            "validate_ui_path() did not migrate the full legacy "
+            "\"Settings > Cloud platform > Oz Cloud API Keys\" path "
+            f"(deprecated_subpages regression): {full_legacy}"
+        )
 
     if failures:
         print("SELF-TEST FAILED:")
