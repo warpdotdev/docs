@@ -152,7 +152,7 @@ def handle_message():
 
 Use a real database for `run_ids_by_thread` once you move past local testing; an in-memory dictionary loses every mapping when the process restarts.
 
-Post a message starting with your trigger word in the watched channel. Your bot should reply in the same thread with a link to the new run, and the run should appear on the factory's [Activity view](/factories/factory-dashboard/#track-work-items-on-activity). Reply to that post (starting your reply with the trigger word too, so the webhook fires) and the bot sends a follow-up to the same run instead of starting a new one.
+Post a message starting with your trigger word in the watched channel; the bot replies in the same thread with a link to the new run, which appears on the factory's [Activity view](/factories/factory-dashboard/#track-work-items-on-activity). Reply with the trigger word again, and the bot sends a follow-up instead of starting a new run.
 
 ## 6. Post completion updates
 

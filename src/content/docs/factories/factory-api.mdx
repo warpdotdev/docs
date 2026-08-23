@@ -14,31 +14,17 @@ Use the factory API to find a factory and start work from a custom integration w
 Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
 :::
 
-## Key features
-
-* **Discover factories by name** - Search factories your account can access by name or alias, so your integration doesn't need to hardcode factory UIDs.
-* **Dispatch by UID, not by agent** - Start a run with only a factory's UID. The server resolves the factory's foreman agent for you.
-* **Ticket metadata built in** - Attach a `ticket_ref` (and optional `ticket_url`) to a dispatched run so the factory's task ties back to your own tracker from the start.
-* **Continue with the existing {VARS.API_SDK_NAME}** - Once a run is dispatched, every other Agent API operation (retrieving status, sending follow-ups) works on it unchanged.
-
 ## How it works
 
-Earlier integrations that sent work to a factory had to call the lower-level Agent API and pass the factory's foreman agent as an `agent_identity_uid` - an implementation detail a caller had to look up and store out of band. The factory API removes that step: **program against the factory, not the foreman**.
+* `GET /factory` - list factories your account can access. Add `search` to filter by name or alias, case-insensitive.
+* `GET /factory/{uid}` - retrieve one factory by UID.
+* `POST /factory/{uid}/runs` - dispatch a run to the factory's foreman agent. Pass a `prompt` and a `title`; the server resolves the foreman for you.
 
-A factory exposes a public UID, the same UID shown in the [factory dashboard](/factories/factory-dashboard/) and used by [Factory MCP](/factories/factory-mcp/). Two endpoints work with that UID:
-
-* `GET /factory` - list factories your account can access, optionally filtered with a `search` parameter that matches the factory's name or alias, case-insensitively.
-* `GET /factory/{uid}` - retrieve a single factory by UID.
-
-Dispatching work is a single call:
-
-* `POST /factory/{uid}/runs` - creates a run on the factory's foreman agent. The server looks up the foreman for you, so the request body only needs a `prompt`, a `title`, and optionally a `ticket_ref`/`ticket_url` pair identifying the originating ticket in your own tracker.
-
-The response is an ordinary run: a `run_id`, a `run_url`, and a `state`. From there, the run behaves like any other [cloud agent run](/platform/) - list it, retrieve it, or send it follow-ups through the same [Agent API](/reference/api-and-sdk/) endpoints you'd use for a run started any other way. The factory API only changes how a run gets *started*; everything downstream is unchanged. See the [Agents API Reference](/api) for full parameters and error codes on those run-management endpoints.
+A dispatched run is an ordinary [cloud agent run](/platform/): retrieve it, send it follow-ups, or cancel it through the same [Agent API](/reference/api-and-sdk/) you'd use for any run. See [migrating from `agent_identity_uid`](#migrating-from-agentidentityuid) if your integration dispatches to factories today by looking up their foreman agent directly.
 
 ## When to use the factory API vs the Agent API
 
-Use the factory API to start work whenever the destination is a factory. Reach for the lower-level Agent API only when you're working with a standalone cloud agent that isn't part of a factory, or when you need a capability the factory API doesn't expose yet, such as full orchestration control.
+Use the factory API to find or start work on a factory. Use the Agent API for everything else - a standalone cloud agent, run management, or orchestration.
 
 | Task | Recommended API |
 | --- | --- |
@@ -48,11 +34,9 @@ Use the factory API to start work whenever the destination is a factory. Reach f
 | Run a standalone cloud agent with no factory involved | Agent API - `POST /agent/run` |
 | Build a multi-agent orchestration | Agent API - see [multi-agent orchestration](/platform/orchestration/) |
 
-The Agent API isn't deprecated. Every factory run is still an ordinary run under the hood, so status, follow-ups, and cancellation all go through the same Agent API endpoints regardless of which API started the run. The factory API only replaces the *dispatch* step for factory work.
+The Agent API isn't deprecated: every factory run is still an ordinary run, so the same endpoints handle status, follow-ups, and cancellation no matter which API started it.
 
 ## Discover a factory
-
-Before dispatching work, find the factory's UID. If your integration already stores the UID (for example, from when it was configured), skip ahead to [dispatching a run](#dispatch-a-run-to-a-factory).
 
 ### Search factories by name
 
@@ -91,7 +75,7 @@ Authorization: Bearer YOUR_API_KEY
 
 ## Dispatch a run to a factory
 
-Dispatching a run only needs the factory's UID, a `prompt`, and a `title`. Foreman resolution happens server-side, so there's no separate lookup step.
+Dispatch with just the factory's UID, a `prompt`, and a `title`:
 
 ```python
 run = client.factories.runs.create(
@@ -115,18 +99,15 @@ Content-Type: application/json
 }
 ```
 
-`ticket_ref` identifies the originating ticket in `<source>:<id>` form (for example `linear:PAY-123` or `jira:PROJ-456`). Pass an optional `ticket_url` alongside it so the factory's task record links straight back to your tracker. Omit both to let the server mint an adhoc reference.
+`ticket_ref` identifies the originating ticket in `<source>:<id>` form (for example `linear:PAY-123` or `jira:PROJ-456`). Pass `ticket_url` to link the factory's task record back to it. Omit both for an adhoc reference.
 
 ## Continue and monitor the run
 
-A dispatched run is an ordinary run, so the rest of the {VARS.API_SDK_NAME} works on it unchanged:
-
 ```python
-# Check status the same way you would for any other run
 status = client.agent.runs.retrieve(run.run_id)
 ```
 
-To steer the run instead of just checking on it, send a follow-up the same way you would for a run started with `POST /agent/run`:
+Send a follow-up the same way you would for any run:
 
 ```http
 POST /api/v1/agent/runs/YOUR_RUN_ID/followups
@@ -160,7 +141,7 @@ run = client.factories.runs.create(
 )
 ```
 
-The run executes exactly the same way, and existing run-management APIs keep working on it. The `agent_identity_uid` path still works for existing integrations, but new integrations should dispatch through the factory API instead of looking up and storing a foreman agent UID.
+The run executes exactly the same way, and existing run-management APIs keep working on it. The `agent_identity_uid` path still works for existing integrations.
 
 :::note
 The {VARS.API_SDK_NAME} is in the middle of a rename to align with the {VARS.WARP_AUTOMATION_PLATFORM}: today's `oz_agent_sdk` package and `OzAPI` client will eventually carry renamed Warp Agent and factory API names. The endpoints and fields on this page keep working across that rename; watch the [Python SDK](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript) repos for the updated names.
