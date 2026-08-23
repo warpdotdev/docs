@@ -11,7 +11,7 @@ import { VARS } from '@data/vars';
 Deploy the `oz-agent-worker` daemon into a Kubernetes cluster using the included Helm chart. Each agent task runs as a **Kubernetes Job** in your cluster. The {VARS.WARP_AUTOMATION_PLATFORM} orchestrates runs end to end (Slack, Linear, schedules, API, `oz agent run-cloud`); your cluster provides the compute, scheduling, and policy enforcement.
 
 :::note
-This page covers the [managed architecture](/platform/self-hosting/#managed-architecture) with the Kubernetes backend. For the default Docker backend, see [Managed: Docker](/platform/self-hosting/managed-docker/). For host execution without a container runtime, see [Managed: Direct](/platform/self-hosting/managed-direct/). To route runs to a connected worker, see [Routing runs to self-hosted workers](/platform/self-hosting/managed-docker/#routing-runs-to-self-hosted-workers).
+This page covers the [managed architecture](/platform/self-hosting/#managed-architecture) with the Kubernetes backend. For the default Docker backend, see [Managed: Docker](/platform/self-hosting/managed-docker/). For host execution without a container runtime, see [Managed: Direct](/platform/self-hosting/managed-direct/). To route runs to a connected worker, see [Routing runs to this worker](/platform/self-hosting/managed-docker/#routing-runs-to-this-worker).
 :::
 
 ## When to use the Kubernetes backend
@@ -268,7 +268,7 @@ See [Monitoring](/platform/self-hosting/monitoring/) for the full list of Helm v
 
 * [Self-hosted worker reference](/platform/self-hosting/reference/) — Full CLI flag and config file schema, including every Kubernetes backend field.
 * [Self-hosting overview](/platform/self-hosting/) — Managed vs unmanaged and the backend decision guide.
-* [Routing runs to self-hosted workers](/platform/self-hosting/#routing-runs-to-self-hosted-workers) — How to send tasks to your connected worker from the CLI, schedules, integrations, the API, and the web UI.
+* [Routing runs to this worker](/platform/self-hosting/#routing-runs-to-self-hosted-workers) — How to send tasks to your connected worker from the CLI, schedules, integrations, the API, and the web UI.
 * [Environments](/platform/environments/) — Define the task image, repos, and setup commands.
 * [Monitoring](/platform/self-hosting/monitoring/) — OpenTelemetry metrics, including Helm chart metrics values.
 * [Security and networking](/platform/self-hosting/security-and-networking/) — RBAC, admission policies, and data boundaries.

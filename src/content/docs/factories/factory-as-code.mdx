@@ -23,6 +23,8 @@ Both modes use the same files, so everything on this page applies to either. You
 
 Definition files describe how the factory is configured, not what it is doing: work items, runs, and metrics live in the web app and are never written to the files.
 
+{/* VISUAL: The Factory definition tab's file browser for a Warp-managed factory -- this reference page has no screenshots. */}
+
 ## Directory structure
 
 Each resource takes its name from its path: `agents/reviewer/agent.md` defines an agent named `reviewer`.
@@ -176,7 +178,7 @@ For a third-party harness, `auth` sets where credentials come from: `source: man
 
 ### `agentDefaults.runner`
 
-The name of a runner defined under [`runners/`](#runnersnameyaml) that provides the compute for runs.
+The name of a runner defined under [`runners/`](#runnersyaml) that provides the compute for runs.
 
 ### `agentDefaults.environmentId`
 
@@ -381,6 +383,19 @@ platform:
   linux:
     dockerImage: ubuntu:22.04
 ```
+
+### Routing to a self-hosted worker
+
+To route this factory's work to a [managed self-hosted worker](/factories/infrastructure-and-security/#choose-an-execution-host) instead of Warp-hosted compute, set `workerHost` on `agentDefaults` (or override it per agent or automation) to the worker's ID:
+
+```yaml title="factory.yaml"
+agentDefaults:
+  model: auto
+  runner: linux-build
+  workerHost: SELF_HOSTED_WORKER_ID
+```
+
+Pair `workerHost` with a runner whose `platform` matches the worker's operating system and architecture. See [choose an execution host](/factories/infrastructure-and-security/#choose-an-execution-host) for the full setup, including how to deploy and connect the worker.
 
 ## Pull request checks for GitHub-backed factories
 

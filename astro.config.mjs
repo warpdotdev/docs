@@ -208,10 +208,10 @@ export default defineConfig({
 						'Documentation for Warp, the agentic development environment. Covers the Warp terminal, Warp agents, the Automation Platform for cloud agents and orchestration at scale, and Warp Factories for running software factories.',
 					customSets: [
 						{ label: 'Terminal', description: 'Warp Terminal features and configuration.', paths: ['terminal/**'] },
-						{ label: 'Agents', description: 'Warp\'s agents: capabilities, local agents, and CLI agents.', paths: ['agents/**'] },
+						{ label: 'Agents', description: 'Agents in Warp: capabilities, local agents, and CLI agents.', paths: ['agents/**'] },
 						{ label: 'Factories', description: 'Warp Factories documentation for setup, agent roles, definitions as code, integrations, measurement, and infrastructure.', paths: ['factories/**'] },
 						{ label: 'Warp Agent CLI', description: 'The Warp Agent CLI: agent conversations, shell commands, permissions, and configuration in any terminal.', paths: ['agents/cli/**'] },
-						{ label: 'Automation Platform', description: 'Warp\'s Automation Platform: cloud agents, orchestration, triggers, integrations, environments, harnesses, and self-hosting.', paths: ['platform/**'] },
+						{ label: 'Automation Platform', description: 'The Automation Platform: cloud agents, orchestration, triggers, integrations, environments, harnesses, and self-hosting.', paths: ['platform/**'] },
 						{ label: 'Code', description: 'Code editor, code review, and Git worktrees.', paths: ['code/**'] },
 						{ label: 'Enterprise', description: 'Enterprise features, SSO, team management, and security.', paths: ['enterprise/**'] },
 						{ label: 'Getting Started', description: 'Installation, quickstart, and migration guides.', paths: ['index', 'quickstart', 'getting-started/**'] },

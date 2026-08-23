@@ -7,7 +7,7 @@ sidebar:
   label: "Linear"
 ---
 
-Connect Linear to your factory so your team can send it issues without leaving Linear. Assign an issue to the factory or tag it in a comment, and the factory picks it up with the issue's full context, then keeps the issue updated as the work moves through [its stages](/factories/how-factories-work/).
+Connect Linear to your factory so your team can send issues without leaving Linear. Assign an issue to the factory or tag it in a comment, and the factory picks it up with the issue's full context, then keeps the issue updated as the work moves through [its stages](/factories/how-factories-work/).
 
 When the factory needs an answer, reply in Linear, or open the live run to steer the agent directly.
 
@@ -32,6 +32,8 @@ Warp then adds a default automation that routes new [agent sessions](#route-agen
 ## Route agent sessions
 
 When someone mentions, assigns, or delegates the Warp app on an issue, Linear starts an agent session. The default automation created when you connected Linear routes new sessions from your selected teams to the factory, so assigning an issue or tagging the factory in a comment is enough to start work. If a session doesn't match any automation, the [Linear integration](/platform/integrations/linear/) handles it with its default behavior.
+
+{/* VISUAL: A Linear issue with an assigned or mentioned Warp agent session. */}
 
 Replies in an existing session continue that run rather than starting a new one. To narrow which sessions reach the factory, such as by creator or keyword, edit the `agent_session_created` trigger in the factory's [definition files](/factories/factory-as-code/); session routing isn't editable from the automation editor.
 

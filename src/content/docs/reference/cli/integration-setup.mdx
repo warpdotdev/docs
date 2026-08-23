@@ -55,7 +55,7 @@ Setting up an integration consists of three steps.
 
 1. **Create an environment** for the agent to run your code.
 2. **Authorize GitHub** so Warp can clone repositories, write code, debug issues, open pull requests, and more.
-3. **Configure** the {VARS.WARP_AUTOMATION_PLATFORM} app with an integration.
+3. **Configure** the Warp app with an integration.
 
 :::tip
 If setup fails, use the returned error code to narrow the fix. Common errors include:
@@ -191,7 +191,7 @@ You typically only need to handle this once per team, unless your repo access ch
 
 #### Team-level GitHub authorization
 
-For automated workflows that use an [agent API key](/reference/cli/api-keys/) (CI/CD pipelines, scheduled agents, SDK-triggered runs), you can configure team GitHub authorization so the agent authenticates with the Oz by Warp GitHub App instead of an individual's personal token.
+For automated workflows that use an [agent API key](/reference/cli/api-keys/) (CI/CD pipelines, scheduled agents, SDK-triggered runs), you can configure team GitHub authorization so the agent authenticates with the Warp Factories GitHub App instead of an individual's personal token.
 
 This requires a Warp team admin to enable the GitHub organization in the Admin Panel (**Settings** > **Admin Panel** > **Platform**). Once configured, tasks initiated with an agent API key can clone repos and open pull requests using the GitHub App installation token.
 
@@ -226,11 +226,11 @@ If you omit `--environment`, the CLI will show a list of environments and prompt
 The CLI then:
 
 1. Links the integration to your Warp team and environment.
-2. Opens a browser flow to install the {VARS.WARP_AUTOMATION_PLATFORM} app into your Slack workspace or Linear workspace.
+2. Opens a browser flow to install the Warp app into your Slack workspace or Linear workspace.
 3. Generates an **integration ID** you can later list or delete.
 
 :::note
-The [GitHub integration](/platform/integrations/github/), which starts agents from `@warp-agent` mentions on issues and pull requests, isn't created with `oz integration create`. It's set up by installing the Oz by Warp GitHub App and enabling the GitHub organization in the Admin Panel.
+The [GitHub integration](/platform/integrations/github/), which starts agents from `@warp-agent` mentions on issues and pull requests, isn't created with `oz integration create`. It's set up by installing the Warp Factories GitHub App and enabling the GitHub organization in the Admin Panel.
 :::
 
 **Additional `integration create` flags:**
