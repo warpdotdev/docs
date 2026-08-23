@@ -15,6 +15,8 @@ See AGENTS.md → Content variables for the full variable list and usage rules.]
 [Opening paragraph: What the reader will accomplish and why.
 1-2 sentences. Focus on the goal, not the tool.]
 
+[BREVITY: Delete any section below you don't need for this task — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
+
 [AEO GUIDANCE: If this procedure is based on Peec, answer-engine prompts, search-query data, or AEO goals, create an AEO brief first using `.agents/skills/aeo_brief/SKILL.md`. Use the brief to translate source-data vocabulary into precise, natural docs language and confirm whether this belongs in a new page or an existing page.]
 
 ## Prerequisites

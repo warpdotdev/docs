@@ -15,6 +15,8 @@ See AGENTS.md → Content variables for the full variable list and usage rules.]
 [Brief intro: what this reference covers and how to use it.
 1-2 sentences. This is for lookup, not learning.]
 
+[BREVITY: Delete any section below you don't need — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
+
 ## [Section name — sentence case and specific. e.g., "Installing the CLI", "Authentication". Not "More details".]
 
 [Introductory sentence or conceptual context for this section.]
