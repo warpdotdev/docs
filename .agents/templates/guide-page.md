@@ -9,6 +9,8 @@ description: >-
 
 [One sentence: what you'll accomplish by following this guide. Mention Warp by name. Include a time estimate if possible (e.g., "takes about 10 minutes").]
 
+[BREVITY: Delete any section below you don't need — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
+
 [AEO GUIDANCE: If this guide is based on Peec, answer-engine prompts, search-query data, or AEO goals, create an AEO brief first using `.agents/skills/aeo_brief/SKILL.md`. Use the brief to preserve high-intent vocabulary naturally, translate awkward source-data phrasing into developer-friendly docs language, and decide whether this should be a new guide or an update to an existing page.]
 
 import VideoEmbed from '@components/VideoEmbed.astro';

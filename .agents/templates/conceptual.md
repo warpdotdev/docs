@@ -15,6 +15,8 @@ See AGENTS.md → Content variables for the full variable list and usage rules.]
 [Opening paragraph: What this feature/concept is and its primary benefit.
 1-3 sentences. Lead with what the user gains from understanding this.]
 
+[BREVITY: Delete any section below you don't need for this page — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
+
 ## [Key concepts or components — sentence case, specific to the subject. Not "Overview", "More details", or "Other"]
 
 [Explain the main ideas, components, or building blocks the reader needs

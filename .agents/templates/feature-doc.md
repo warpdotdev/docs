@@ -15,6 +15,8 @@ See AGENTS.md → Content variables for the full variable list and usage rules.]
 [Opening paragraph: What this feature does and its primary benefit.
 1-3 sentences. Lead with what the user can accomplish.]
 
+[BREVITY: Delete any section below you don't need — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
+
 :::note
 [Optional: Key context the reader needs upfront, e.g., when they
 DON'T need this feature, or a prerequisite they should know about.

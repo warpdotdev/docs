@@ -31,6 +31,7 @@ These rules are specific to quickstart pages (from the "Drafting by content type
 - All procedural rules apply (focused steps, motivate steps, expected outcomes).
 - End with 2-3 actionable next steps linking to deeper content.
 - Title convention: "[Feature] quickstart" or "Quickstart for [product]"
+- **Length is the constraint, not just the tone.** A quickstart has a hard ~600-word budget — tighter than any other content type, because speed to a working result is the entire point. Cut every section that isn't on the critical path (AGENTS.md → Voice & tone → Cut again) before adding a word of new content. Also apply the general tone rules: no marketing buzzwords, no meta-openers.
 
 ## Heading case
 
