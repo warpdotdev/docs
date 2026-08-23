@@ -15,7 +15,7 @@ Every factory has a **foreman**, the agent you talk to from the tool that sends 
 
 ## The default agents
 
-Every factory gets a foreman, and you choose one to four other agents to go with it. These defaults are a starting point — you can [add custom agents and automations](#add-custom-agents-and-automations) for work they don't cover.
+Every factory gets a foreman, and you choose one to four other agents to go with it. These defaults are a starting point — you can [add custom agents and automations](#add-custom-agents-and-automations) for work they don't cover. The default agents' prompts, descriptions, and models are reproduced as files in [`00-warp-default-agents`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/00-warp-default-agents) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
 
 | Agent | What it does | What it produces |
 | --- | --- | --- |
@@ -93,7 +93,7 @@ Default model IDs change over time, so choose based on what each agent has to do
 | Implement | Coding strength, with a harness that fits your repositories and toolchain |
 | Review | A different model or harness from the implement agent, so the two don't share blind spots |
 
-See [model choice for agents](/agents/inference/model-choice/) and [harnesses for cloud agents](/platform/harnesses/) for available options.
+See [model choice for agents](/agents/inference/model-choice/) and [harnesses for cloud agents](/platform/harnesses/) for available options. For a definition that gives each agent its own harness, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness).
 
 ## Add custom agents and automations
 

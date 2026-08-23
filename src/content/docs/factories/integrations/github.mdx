@@ -31,6 +31,26 @@ To confirm the connection works, mention the factory on a test issue and check t
 
 The defaults cover mentions, assignments, and pull request completion. To start work from any other GitHub activity, such as a failed CI run or a review request, add an automation with a **GitHub** trigger for that event, then narrow it with the filters below. [Automation filters](/factories/automation-filters/#edit-filters-on-an-automation) covers the steps.
 
+The CI failure triage automation in [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository starts work when a workflow run fails on the default branch:
+
+```markdown title="automations/ci-failure-triage/automation.md"
+---
+triggers:
+  - provider: github
+    event: workflow_run_completed
+    filter:
+      repos: [acme/api-service]
+      branches: [main]
+      conclusions: [failure]
+---
+A workflow run failed on the default branch. Read the run's logs and find
+the failing step. If the cause is small and clear, open a fix PR. Otherwise
+open an issue with the failing step, the error, and the commit range, and
+link the run.
+```
+
+For a review automation that fires when pull requests open, see [`04-code-review-only`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only).
+
 ## Supported triggers
 
 <table>
