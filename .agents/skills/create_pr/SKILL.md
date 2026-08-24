@@ -296,10 +296,13 @@ REVIEWERS=$(python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
   --reviewers-only --warp ../warp --warp-server ../warp-server \
   warp:app/src/settings/ssh.rs < /dev/null)
 
-# 2. Never let an empty resolution drop the request.
+# 2. Never let an empty resolution drop the request. Track that this was a
+#    fallback so step 5 does not report it as an owner who was requested.
+RESOLUTION_WAS_EMPTY=0
 if [[ -z "$REVIEWERS" ]]; then
   echo "warning: no owner resolved - falling back to $FALLBACK_REVIEWER"
   REVIEWERS="$FALLBACK_REVIEWER"
+  RESOLUTION_WAS_EMPTY=1
 fi
 
 # 3. Request each reviewer separately so one bad entry cannot drop the rest.
@@ -314,9 +317,13 @@ for R in "${WANT[@]}"; do
 done
 
 # 4. If nothing at all landed, fall back rather than ship an unreviewed PR.
+#    Keep the fallback OUT of GOT. GOT answers "which resolved owners did I
+#    actually request", and counting the fallback there makes step 5 pass on a
+#    run where every real owner was dropped — the exact silent failure this
+#    section exists to prevent.
 if (( ${#GOT[@]} == 0 )); then
-  gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$FALLBACK_REVIEWER" &&
-    GOT+=("$FALLBACK_REVIEWER")
+  gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$FALLBACK_REVIEWER" ||
+    echo "warning: fallback $FALLBACK_REVIEWER could not be requested either"
 fi
 
 # 5. Read back and compare against what was resolved. `gh` can exit 0 while
@@ -325,13 +332,25 @@ fi
 #    silently drops them from a mixed list.
 REQUESTED=$(gh pr view "$PR" --repo warpdotdev/docs \
   --json reviewRequests --jq '[.reviewRequests[] | .login // .slug // .name] | join(",")')
-if (( ${#GOT[@]} < ${#WANT[@]} )); then
-  echo "warning: requested ${#GOT[@]}/${#WANT[@]} resolved reviewers on PR $PR"
-fi
 if [[ -z "$REQUESTED" ]]; then
-  echo "ERROR: no reviewer requested on PR $PR"
+  echo "ERROR: no reviewer requested on PR $PR - not even the fallback landed"
   exit 1
 fi
+
+if (( RESOLUTION_WAS_EMPTY )); then
+  # Nothing resolved, so the fallback is the intended outcome, not a gap.
+  echo "note: no owner resolved for PR $PR; fallback $FALLBACK_REVIEWER requested"
+elif (( ${#GOT[@]} == 0 )); then
+  # Owners resolved and every one was rejected. The PR has a reviewer, but not
+  # the right one, and that must not read as success.
+  echo "ERROR: none of the ${#WANT[@]} resolved owners could be requested on PR $PR" \
+       "(wanted: ${WANT[*]}); only the fallback is assigned. Report this run as failed."
+  exit 1
+elif (( ${#GOT[@]} < ${#WANT[@]} )); then
+  echo "warning: requested ${#GOT[@]}/${#WANT[@]} resolved owners on PR $PR" \
+       "(got: ${GOT[*]}); name the missing owners and why in the run output"
+fi
+
 echo "Requested reviewers: $REQUESTED"
 ```
 
