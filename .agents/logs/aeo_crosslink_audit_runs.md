@@ -8,6 +8,17 @@ This log tracks every run of the `aeo_crosslink_audit` skill — both runs that 
 
 ---
 
+## 2026-08-24 — PR opened
+
+- **Run**: https://oz.warp.dev/runs/01a03449-1e89-737d-8dd1-825950d10c8c
+- **Source signals**: Peec available, GSC available
+- **PR**: https://github.com/warpdotdev/docs/pull/612
+- **Links proposed / added**: 5 proposed, 5 added
+- **Pages touched**: src/content/docs/agents/cli-agents/codex.mdx, src/content/docs/agents/cli-agents/opencode.mdx, src/content/docs/factories/index.mdx, src/content/docs/factories/factory-agents.mdx, src/content/docs/platform/harnesses/index.mdx
+- **Themes**: Remote Control parity for CLI agents; factories/harnesses → multi-agent orchestration; factory automations → schedules
+- **No-change reason**: N/A
+
+
 ## 2026-08-17 — PR opened
 
 - **Run**: https://app.warp.dev/conversation/79e45390-6945-43b4-aa11-70e9ecd3061c
