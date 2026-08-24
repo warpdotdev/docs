@@ -17,10 +17,10 @@ Warp Factories is in **Early Access** and available to a limited set of teams. [
 ## How it works
 
 * `GET /factory` - list factories your account can access. Add `search` to filter by name or alias, case-insensitive.
-* `GET /factory/{uid}` - retrieve one factory by UID.
-* `POST /factory/{uid}/runs` - dispatch a run to the factory's foreman agent. Pass a `prompt` and a `title`; the server resolves the foreman for you.
+* `GET /factory/{uid}` - get one factory by UID.
+* `POST /factory/{uid}/runs` - dispatch a run to the factory's foreman agent. Pass a `prompt`; the server resolves the foreman for you.
 
-A dispatched run is an ordinary [cloud agent run](/platform/): retrieve it, send it follow-ups, or cancel it through the same [Agent API](/reference/api-and-sdk/) you'd use for any run. See [migrating from `agent_identity_uid`](#migrating-from-agentidentityuid) if your integration dispatches to factories today by looking up their foreman agent directly.
+A dispatched run is an ordinary [cloud agent run](/platform/): retrieve it, send it follow-ups, or cancel it through the same [Agent API](/reference/api-and-sdk/) you'd use for any run.
 
 ## When to use the factory API vs the Agent API
 
@@ -62,10 +62,10 @@ GET /api/v1/factory?search=payments
 Authorization: Bearer YOUR_API_KEY
 ```
 
-### Retrieve a factory when the UID is already known
+### Get a factory when the UID is already known
 
 ```python
-factory = client.factories.retrieve(factory.uid)
+factory = client.factories.get(factory.uid)
 ```
 
 ```http
@@ -75,14 +75,14 @@ Authorization: Bearer YOUR_API_KEY
 
 ## Dispatch a run to a factory
 
-Dispatch with just the factory's UID, a `prompt`, and a `title`:
+Dispatch with just the factory's UID and a `prompt`:
 
 ```python
 run = client.factories.runs.create(
     factory.uid,
     prompt="Investigate and fix the flaky payment webhook retry test",
     title="Fix flaky payment webhook retry test",
-    ticket_ref="linear:PAY-123",  # optional; omitted -> adhoc ref
+    ticket_ref="linear:PAY-123",
 )
 print(run.run_id, run.run_url, run.state)
 ```
@@ -99,7 +99,7 @@ Content-Type: application/json
 }
 ```
 
-`ticket_ref` identifies the originating ticket in `<source>:<id>` form (for example `linear:PAY-123` or `jira:PROJ-456`). Pass `ticket_url` to link the factory's task record back to it. Omit both for an adhoc reference.
+Every field except `prompt` is optional. Omit `title` and the server derives one from the prompt. `ticket_ref` identifies the originating ticket in `<source>:<id>` form (for example `linear:PAY-123` or `jira:PROJ-456`); pass `ticket_url` to link the factory's task record back to it, or omit both for an adhoc reference.
 
 ## Continue and monitor the run
 
@@ -115,33 +115,11 @@ Authorization: Bearer YOUR_API_KEY
 Content-Type: application/json
 
 {
-  "prompt": "Also add a regression test for the retry backoff"
+  "message": "Also add a regression test for the retry backoff"
 }
 ```
 
 See [key endpoints](/reference/api-and-sdk/#key-endpoints) for the full set of run-management operations, including cancellation.
-
-## Migrating from `agent_identity_uid`
-
-If your integration currently dispatches to a factory with the lower-level Agent API, replace the foreman lookup and `agent_identity_uid` with a single factory API call.
-
-**Before** - the caller has to already know the foreman's agent UID:
-
-```python
-client.agent.run(prompt="Fix the flaky test", agent_identity_uid="YOUR_FOREMAN_AGENT_UID")
-```
-
-**After** - the caller only needs the factory's UID; the server resolves the foreman:
-
-```python
-run = client.factories.runs.create(
-    factory.uid,
-    prompt="Fix the flaky test",
-    title="Fix the flaky test",
-)
-```
-
-The run executes exactly the same way, and existing run-management APIs keep working on it. The `agent_identity_uid` path still works for existing integrations.
 
 :::note
 The {VARS.API_SDK_NAME} is in the middle of a rename to align with the {VARS.WARP_AUTOMATION_PLATFORM}: today's `oz_agent_sdk` package and `OzAPI` client will eventually carry renamed Warp Agent and factory API names. The endpoints and fields on this page keep working across that rename; watch the [Python SDK](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript) repos for the updated names.

@@ -15,7 +15,7 @@ Build a Mattermost bot that sends work to a [Warp factory](/factories/) and post
 * **A Warp Factories factory** - [Set up a factory](/factories/quickstart/) before starting; this guide dispatches work to an existing factory rather than creating one.
 * **A Warp API key** - Create an [agent API key](/reference/cli/api-keys/#personal-vs-agent-keys) rather than a personal key, so the bot's requests aren't tied to your individual account.
 * **A Mattermost bot account and access token** - Create one from your Mattermost System Console under **Integrations** > **Bot Accounts**, and generate a personal access token for it. Mattermost's own [bot accounts documentation](https://developers.mattermost.com/integrate/reference/bot-accounts/) covers the exact steps, since they vary by Mattermost version and hosting setup.
-* **The {VARS.API_SDK_NAME} Python SDK** - Install it with `pip install oz-agent-sdk`. The examples below also show the raw REST calls if you're working in another language.
+* **The {VARS.API_SDK_NAME} Python SDK** - Install it with `pip install oz-agent-sdk`. If you're working in another language, the [factory API page](/factories/factory-api/) shows the equivalent REST calls.
 
 ## 1. Store your credentials
 
@@ -103,17 +103,12 @@ def dispatch_task(text: str, post_id: str, permalink: str):
     return client.factories.runs.create(
         factory.uid,
         prompt=text,
-        title=text[:80],
         ticket_ref=f"mattermost:{post_id}",
         ticket_url=permalink,
     )
 
 def send_followup(run_id: str, text: str):
-    requests.post(
-        f"https://app.warp.dev/api/v1/agent/runs/{run_id}/followups",
-        headers={"Authorization": f"Bearer {os.environ['WARP_API_KEY']}"},
-        json={"prompt": text},
-    )
+    client.agent.runs.submit_followup(run_id, message=text)
 
 def post_reply(channel_id: str, root_id: str, message: str):
     requests.post(
@@ -163,7 +158,7 @@ def check_and_report(root_id: str, channel_id: str):
     run_id = run_ids_by_thread[root_id]
     status = client.agent.runs.retrieve(run_id)
     if status.state in ("SUCCEEDED", "FAILED", "ERROR", "CANCELLED"):
-        post_reply(channel_id, root_id, f"Run {status.state.lower()}: {status.run_url}")
+        post_reply(channel_id, root_id, f"Run {status.state.lower()}: {status.session_link}")
 ```
 
 Call `check_and_report` from a scheduled job (a cron-triggered script, or a lightweight background worker) rather than blocking the webhook handler, since a run can take much longer than an HTTP request should wait.
@@ -172,6 +167,6 @@ Call `check_and_report` from a scheduled job (a cron-triggered script, or a ligh
 
 You've built a Mattermost bot that discovers a factory by name, dispatches tasks with source context attached, and routes replies to the run that's already in progress. From here:
 
-* [Use the factory API](/factories/factory-api/) - The full discover, dispatch, and migration reference this guide builds on.
+* [Use the factory API](/factories/factory-api/) - The full discover-and-dispatch reference this guide builds on.
 * [Connect your factory](/factories/connect-your-factory/) - Compare this custom integration against Warp's built-in intake sources.
 * [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) - Full endpoint reference for run status, follow-ups, and cancellation.
