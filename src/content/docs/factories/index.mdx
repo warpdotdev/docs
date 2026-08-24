@@ -30,10 +30,10 @@ A factory is one deployed instance of that pattern, connecting your repositories
 A factory, the foreman that runs it, and the Factory MCP server are distinct things that are easy to conflate, partly because setup gives the first two the same name.
 
 * **Warp Factories** - The product, always plural and written in full. One deployment of it is a *factory*, lowercase.
-* **Factory** - A single deployment: its repositories, agents, integrations, and policy. This is what you create during setup and what the [factory dashboard](/factories/factory-dashboard/) shows you.
-* **Foreman** - The coordinating agent inside a factory, and the only one you talk to. It dispatches the other [factory agents](/factories/factory-agents/) and reports back. Every factory has exactly one.
-* **Foreman name** - The handle your team @-mentions to reach the foreman from Slack and Linear, such as `@payments`. Setup copies it from the factory's name, so the two usually match, but what you mention is the foreman, which speaks for the factory. Change it under **Settings** > **Identity** in the factory dashboard, or with the [`alias`](/factories/factory-as-code/#alias) key in the definition.
-* **Work item** - One request the factory is working, from intake to handoff. [Factory MCP](/factories/factory-mcp/) calls the same thing a task.
+* **factory** - A single deployment: its repositories, agents, integrations, and policy. This is what you create during setup and what the [factory dashboard](/factories/factory-dashboard/) shows you.
+* **foreman** - The coordinating agent inside a factory, and the only one you talk to. It dispatches the other [factory agents](/factories/factory-agents/) and reports back. Every factory has exactly one.
+* **Foreman name** - The handle your team @-mentions in Slack and Linear, such as `@payments`. Setup copies it from the factory's name, so the two usually match, but what you mention is the foreman, which speaks for the factory. In the factory dashboard, change it under **Settings** > **Identity**, or use the [`alias`](/factories/factory-as-code/#alias) key in the definition.
+* **work item** - One request the factory is working, from intake to handoff. [Factory MCP](/factories/factory-mcp/) calls the same thing a task.
 * **Factory MCP** - A hosted MCP server that connects a coding agent to your factories, so it can send work in or pull a work item down to finish locally. It is a way into a factory, not a factory itself. MCP clients conventionally key it `warp-factory`, a name you choose that has nothing to do with any factory's name or foreman handle.
 
 ```mermaid
