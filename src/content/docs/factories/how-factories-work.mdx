@@ -1,8 +1,8 @@
 ---
 title: How Warp Factories work
 description: >-
-  A factory's foreman routes each work item through triage, specification,
-  implementation, and review, with humans making the key decisions.
+  A factory's foreman routes each work item through triage, planning,
+  building, and reviewing, with humans making the key decisions.
 sidebar:
   label: "How factories work"
 ---
@@ -49,13 +49,13 @@ flowchart LR
 * **Human handoff** - The factory presents the result, its evidence, and any findings. A person decides what happens next.
 * **Complete or Cancelled** - The work item ends when the factory finishes its work, or stops early if someone cancels it.
 
-These are the stage names the [factory dashboard](/factories/factory-dashboard/) uses, where the **Activity** view is where you find, filter, and stop work items. Stages and agents are named separately, so the spec agent works the Planning stage, the implement agent works the Building stage, and the review agent works Reviewing. Each agent's run within a work item is an ordinary [cloud agent run](/platform/) you can watch and steer.
+These are the stage names the [factory dashboard](/factories/factory-dashboard/)'s **Activity** view uses, where you find, filter, and stop work items. Stages and agents are named separately, so the spec agent works the Planning stage, the implement agent works the Building stage, and the review agent works the Reviewing stage. Each agent's run within a work item is an ordinary [cloud agent run](/platform/) you can watch and steer.
 
 ## Where your team stays in charge
 
 A factory is built to pause when there is a decision that needs to be made by a person. By default, that's three places:
 
-* **Approving the spec** - When work goes through the Planning stage, building waits until a person signs off on the plan.
+* **Approving the spec** - When work goes through the Planning stage, the Building stage waits until a person signs off on the plan.
 * **Answering questions** - When requirements are unclear or a review finding is ambiguous, the foreman asks instead of guessing.
 * **Merging** - The factory opens the pull request and hands it off. Whether and when it merges is your team's call.
 
