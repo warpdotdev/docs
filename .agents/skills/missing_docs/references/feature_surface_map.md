@@ -482,6 +482,11 @@ PUT /factory/automations/{id} -> internal
 DELETE /factory/automations/{id} -> internal
 PUT /factory/automations/{id}/subscriptions -> internal
 DELETE /factory/automations/{id}/subscriptions/{subscription_id} -> internal
+# Manual/trigger run endpoints for factories and automations. Same unreleased
+# Factory REST surface as the routes above (`x-internal: true` / absent from the
+# public OpenAPI publish set) — not part of the released public Oz Agent API.
+POST /factory/automations/{id}/run -> internal
+POST /factory/{uid}/runs -> internal
 GET /factory/scorers -> internal
 POST /factory/scorers -> internal
 PATCH /factory/scorers/{scorer_id} -> internal
