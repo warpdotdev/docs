@@ -11,9 +11,77 @@ This guide establishes standards for writing Warp documentation. It covers voice
 ### Voice & tone
 - **Professional yet approachable**: Write with authority but remain accessible to developers of all skill levels
 - **Direct and action-oriented**: Lead with what users can accomplish, not just what features exist
-- **User-focused**: Use second person ("you can", "allows you to") rather than passive voice
+- **User-focused**: Use second person ("you") and active voice
 - **Confident without jargon**: Explain technical concepts clearly without oversimplifying
-- **Avoid copy that reads as AI-generated**: Watch for over-explained cause-and-effect, excessive hedging, or the same rhetorical pattern repeated across sections. Read a paragraph aloud — if it doesn't sound like something a person would say to a colleague, rewrite it plainly.
+- **Plain over polished**: Prefer the short word and the declarative sentence. A page should read like a capable colleague explaining something, not like a spec or a launch post.
+
+Our reference points are the GitHub and Vercel docs: short declarative sentences, concrete examples, restrained formatting, and no selling.
+
+#### Define, show, link
+Introduce a concept in one to three plain sentences, give a concrete example, then link out for depth. Repeat that pattern instead of front-loading the page with context.
+- ✅ "A workflow is an automated process that runs one or more jobs. For example, a workflow can label new issues automatically. For more information, see [Writing workflows](...)."
+- ❌ "Before diving into the components, it helps to align on a few terms:" followed by a glossary of everything the page explains later anyway.
+
+#### Document the user-visible model, not our architecture
+Describe what the reader sees and does. Internal components get at most one sentence, and only when the reader can act on them. GitHub Actions runs on an orchestrator and a control plane; its docs never mention either. They describe workflows, events, jobs, and runners, because those are what users touch.
+- ✅ "Warp tracks every run. Check its status from the CLI, the API, or the dashboard."
+- ❌ "The orchestration layer runs on Warp's servers (cloud control plane), creates tasks when triggers fire, and tracks lifecycle state (created → running → completed/failed)."
+
+This is the voice-level version of "Don't over-specify counts or internals that will drift" (see General guidance): internals aren't just a staleness risk, they're noise between the reader and the task.
+
+When a page carries real information in the wrong register (provenance, pinned versions, maintainer process), relocate it to the surface whose audience needs it: a reference page, a script docstring, a code comment. Leave a pointer if the reader might follow the thread. Cutting for tone must not lose facts; it changes where they live.
+
+#### Every sentence earns its place
+Cut sentences that narrate the page, restate what the reader just read, or explain the obvious consequence of the previous sentence.
+- **No meta-openers** - Never open with "This page covers/explains/walks through...". The title and description already frame the page; state the thing itself.
+  - ✅ "Run agents directly in your GitHub Actions workflows using `oz-agent-action`."
+  - ❌ "This page covers how the integration works, how to set it up, and common automation patterns for development teams."
+- **No restated cause-and-effect** - Don't follow a fact with a sentence explaining why that fact is good.
+  - ✅ "The container is destroyed after each run, so every run starts clean."
+  - ❌ "The container is destroyed after each run. This process ensures every run starts from the same baseline, making results reproducible and debugging straightforward."
+- **No recap lines** - Don't end a section by summarizing it ("In practice: triggers create tasks; tasks produce outputs.").
+- **Say it once** - Don't repeat a caveat or definition across multiple sections of the same page. Put it where it matters most. The same goes for sibling pages: boilerplate like validation steps or shared prerequisites lives once on the parent or reference page, linked from the rest.
+
+#### Words to avoid
+These words are the strongest tell of an AI-generated draft and rarely add meaning. Replace them with the specific fact they're hiding, or delete them.
+- **Marketing adjectives** - seamless(ly), powerful, robust, comprehensive, effortless, cutting-edge, game-changing, supercharged
+- **Inflated verbs** - leverage (→ use), streamline (→ remove steps), empower (→ let), unlock (→ name the capability, or delete), delve into (→ cover), elevate, harness
+- **Filler frames** - "designed to", "ensures that", "allows you to", "it's important to note", "it's worth noting", "in order to" (→ to)
+- **Abstract dramatics** - landscape, realm, journey, tapestry, testament to
+
+**Examples:**
+- ✅ "The agent runs in your CI pipeline. It can review code, triage issues, and fix failing checks."
+- ❌ "The agent integrates seamlessly into your CI pipeline, automating tasks like code review, issue triage, bug fixing, and maintenance."
+
+If the claim is true, the reader notices without the adjective. If it isn't, the adjective won't save it.
+
+#### Structural patterns to avoid
+AI-drafted pages share a rhythm. Break it.
+- **Rule-of-three padding** - Triplets of adjectives or clauses used for cadence rather than information ("scalable, autonomous, and auditable"). Keep the items that carry weight and cut the rest.
+- **Rhetorical question openers** - Don't open a section with a question you immediately answer. Use a descriptive header and a declarative first sentence.
+- **Hedging stacks** - Chains of "typically", "often", "generally", "where supported", and "as applicable" read as evasive. State what happens, then note the exception if there is one.
+- **Bold-everything** - Bolding several phrases per paragraph kills emphasis. Reserve bold for UI elements and lead terms of list items (see Emphasis).
+- **Bullets as a substitute for prose** - Bullets are for short, parallel, scannable items. If every bullet is a full paragraph, or the bullets tell a story in order, write prose.
+- **Slashed shorthand** - Write "mentions and assignments", not "mention/assignment", and "4 vCPU / 8 GB", not "4/8". Slashed pairs and bare number pairs read as notes, not prose.
+- **Callout spam** - Callouts follow the same restraint: never consecutive, at most one per section (see Callouts and hints).
+
+#### Keep the author out of it
+The reader came for the product, not the writer's presence in the page.
+- **No self-commentary** - Don't narrate authorial intent: "deliberately unremarkable", "each prompt is worth reading", "that is the point of this example". State the fact and let it stand.
+- **State rules calmly, once** - Defensive phrasing ("Do not describe or imply otherwise", "CI green is not the bar") argues with an imagined reader. Write the rule once, plainly, and give a reason only when the reason changes what the reader does.
+- **Describe the present** - Write how the product works now. Renames and history belong in time-boxed transition notes or the changelog, not woven through pages ("the built-in harness is the Warp Agent harness", not "Oz is retired product language").
+
+#### The read-aloud test
+Read the paragraph aloud. If it doesn't sound like something you'd say to a colleague, rewrite it plainly. This catches over-explained cause-and-effect, hedging, and repeated rhetorical patterns faster than any checklist.
+
+#### Cut again
+A plain-language rewrite still under-cuts on the first pass. Follow it with a deletion-only pass that removes:
+- Framing lines that describe the docs instead of the product ("Each example demonstrates one concept").
+- Explanations of command output that the command already prints, or that a linked page already owns.
+- Recaps and comparison sections that restate what the reader just read.
+- Justifications for rules and defaults that don't change what the reader does.
+
+Expect the second pass to find real deletions even after a careful first one; review feedback on past copy passes has consistently asked for more cutting, not less.
 
 ### Language guidelines
 - Use consistent terminology throughout (see [Terminology standards](#terminology-standards) and the full glossary in `.agents/references/terminology.md`)
@@ -159,7 +227,7 @@ Clean, descriptive URLs rank better in search and are more shareable.
 
 ### Page length and scannability
 - Aim for scannable pages. Use clear section headers, short paragraphs (2-4 sentences), and bulleted lists.
-- If a page exceeds ~1500 words, consider breaking it into sub-pages or using clear anchor links.
+- **Cut first, split only if it's still long.** A page over ~1500 words is usually carrying framing, restated cause-and-effect, or boilerplate a parent page already owns — run the deletion-only "Cut again" pass (see Voice & tone → Cut again) before reaching for sub-pages or anchor links. Splitting a bloated page produces two bloated pages; only split once the content itself, not the padding, still doesn't fit on one page.
 - Avoid thin pages with only a sentence or two — consolidate with related content instead. When two pages cover nearly the same topic, merge them.
 
 ### Opening paragraphs
@@ -306,7 +374,12 @@ For important caveats, limitations, or things to watch out for
 :::
 ```
 
-Use callouts sparingly. A page with 5+ callouts loses its visual impact.
+Use callouts sparingly:
+- Never place two callouts back to back, and keep to at most one per section.
+- Keep callouts to a sentence or two. Information that needs a list or several sentences belongs in the body under a header.
+- A caveat that applies to one step belongs in that step's prose, not in a callout.
+
+Callouts interrupt the reader. Each one spends attention the page can't get back.
 
 ### Placeholders and dynamic text
 - Use ALL_CAPS for placeholder values in commands: `git clone REPO_URL`
@@ -909,6 +982,9 @@ Before publishing any documentation, verify:
 - [ ] Instructions include expected outcomes after key steps
 - [ ] First references to prerequisites, tools, or surfaces include inline context
 - [ ] Content is scannable with clear headers and lists
+- [ ] Prose passes the tone rules: no marketing buzzwords, no meta-openers ("This page covers..."), no restated cause-and-effect or recap lines, and it reads naturally aloud (see Voice & tone)
+- [ ] Callouts are sparse (usually 0-2 per page), never consecutive, and not a substitute for body prose
+- [ ] A deletion-only "Cut again" pass removed framing lines, self-commentary, and boilerplate a parent page already covers (see Voice & tone → Cut again) before splitting a long page into sub-pages
 - [ ] Images have descriptive alt text (not "screenshot" or empty)
 - [ ] File name is lowercase, hyphenated, and descriptive (it becomes the URL slug)
 - [ ] Frontmatter description includes the primary keyword naturally (50-160 chars)

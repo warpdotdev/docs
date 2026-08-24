@@ -11,6 +11,8 @@ description: >-
 
 [Opening paragraph: what this concept is and its primary benefit. 1-3 sentences. Lead with what the reader gains from understanding it. Assume they arrived here directly, not from a parent page.]
 
+[BREVITY: Delete any section below you don't need for this page — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
+
 ## [Key concepts — sentence case, renamed to match the subject]
 
 [The main ideas or components the reader needs. Bold term + hyphen + description.]

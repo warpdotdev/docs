@@ -11,6 +11,8 @@ description: >-
 
 [Opening: what this reference covers and how to use it. 1-2 sentences. The reader already knows what they want — this is for lookup, not learning.]
 
+[BREVITY: Delete any section below you don't need — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
+
 ## [Entry group — sentence case and specific, e.g. "Running agents"]
 
 [One sentence introducing the group.]

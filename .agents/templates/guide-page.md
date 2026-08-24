@@ -13,6 +13,8 @@ description: >-
 
 [Introduction: who this is for, what prior knowledge it assumes, and what the reader will build. Do NOT state an expected completion time — it varies too much by experience level. (Quickstarts do state one; tutorials do not.)]
 
+[BREVITY: Delete any section below you don't need — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
+
 import VideoEmbed from '@components/VideoEmbed.astro';
 
 [VIDEO: The `title` prop must name the workflow or feature shown, never "video" or "demo". Delete this block entirely if there is no video. The written content must stand alone either way — a reader should never need to watch to follow along.]

@@ -15,6 +15,8 @@ description: >-
 
 [Opening paragraph: what the feature does and its primary benefit. 1-3 sentences. Lead with what the reader can accomplish, not the implementation.]
 
+[BREVITY: Delete any section below you don't need — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
+
 :::note
 [Optional. Key context the reader needs upfront — a prerequisite, a limitation, or when NOT to use this. Delete if nothing applies.]
 :::

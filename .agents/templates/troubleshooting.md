@@ -11,6 +11,8 @@ description: >-
 
 [The reader arrived because something broke. Lead with the fix, not background. Skip a general introduction unless it genuinely helps them find their symptom faster.]
 
+[BREVITY: Delete any section below you don't need — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
+
 :::note
 [Optional. Link to the GitHub issues page or support channels. Delete if not useful.]
 For a complete list of issues and feature requests, visit our [GitHub issues page](https://github.com/warpdotdev/Warp/issues).

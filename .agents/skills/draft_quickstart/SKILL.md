@@ -41,6 +41,7 @@ These rules are specific to quickstart pages (from the "Drafting by content type
 - **Troubleshooting is optional and link-only.** Point at existing troubleshooting content; do not write new troubleshooting into a quickstart.
 - End with a one-line recap, then 2-3 actionable next steps. Always include a link to the conceptual page for the feature.
 - Title convention: "[Feature] quickstart" or "Quickstart for [product]"
+- **Length is the constraint, not just the tone.** A quickstart has a hard ~600-word budget — tighter than any other content type, because speed to a working result is the entire point. Cut every section that isn't on the critical path (AGENTS.md → Voice & tone → Cut again) before adding a word of new content. Also apply the general tone rules: no marketing buzzwords, no meta-openers.
 
 ## Heading case
 

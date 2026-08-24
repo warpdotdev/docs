@@ -12,11 +12,13 @@ description: >-
 
 [Opening paragraph: what the reader will accomplish and why. 1-2 sentences. Focus on the goal, not the tool.]
 
+[BREVITY: Delete any section below you don't need for this task — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
+
 ## Prerequisites
 
 [Only if needed. Each item needs inline context: what it is in one clause, where to get it, and a link to the full reference. Assume the reader arrived here directly.]
 
-* **A Warp API key** - Authenticate API requests with a key from **Settings** > **Platform** in the Warp app. See [API keys](path) for details.
+* **A Warp API key** - Authenticate API requests with a key from **Settings** > **Cloud platform** > **API keys** in the Warp app. See [API keys](path) for details.
 
 ## [Primary task — sentence case, e.g. "Creating an API key"]
 

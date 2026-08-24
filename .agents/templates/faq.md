@@ -22,6 +22,8 @@ If the rules do not all hold: "What is X?" → conceptual page. "What are the li
 
 [Opening: what this FAQ covers and who it is for. 1-2 sentences.]
 
+[BREVITY: Delete any section below you don't need — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
+
 ## [Theme — sentence case, e.g. "Billing", "Configuration"]
 
 [Group by theme so readers can scan to their topic.]
