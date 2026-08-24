@@ -136,7 +136,7 @@ Sending work to a factory means you're no longer watching it. To be notified whe
 ## Tool reference
 
 Your MCP client fetches the full input schemas from the server, and tool results include links that open the corresponding task or run in the factory's [factory dashboard](/factories/factory-dashboard/).
-The onboarding tools from `list_teams` through `create_factory` require browser sign-in or a personal API key. Agent API keys are for operating an existing factory and cannot use these setup tools.
+The onboarding tools from `list_teams` through `create_factory` require browser sign-in.
 
 | Tool | What it does |
 | --- | --- |
@@ -148,7 +148,7 @@ The onboarding tools from `list_teams` through `create_factory` require browser 
 | `join_team` | Joins a team selected from the first-time discovery choices. |
 | `get_team_funding_status` | Checks first-team credit readiness and returns the browser checkout step when required. |
 | `list_forge_repositories` | Lists repositories available through a team's connected GitHub or GitLab account. |
-| `list_tracker_scopes` | Lists Linear teams or Jira projects available for scoping which of them route issues to a new factory. |
+| `list_tracker_scopes` | Lists the Linear teams or Jira projects that can be scoped to route issues to a new factory. |
 | `start_connection` | Starts or checks setup for GitHub, GitLab, Slack, Linear, or Jira. |
 | `get_connection_status` | Checks whether a browser authorization flow completed. |
 | `create_factory` | Creates a factory with the selected repositories, integrations, and optional factory agents. |
