@@ -438,6 +438,10 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						// about the factory itself. "It is configuration" does not separate
 						// it from the integration pages, which are equally configuration.
 						{ slug: 'factories/automation-filters', label: 'Automation filters' },
+						// Alongside Factory MCP: both are direct API-style connection
+						// mechanisms rather than third-party services, so they trail the
+						// per-service integrations above.
+						{ slug: 'factories/factory-api', label: 'Factory API' },
 						{ slug: 'factories/factory-mcp', label: 'Factory MCP' },
 					],
 				},
@@ -912,6 +916,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'guides/external-tools/context7-mcp-update-astro-project-with-best-practices', label: 'Context7 MCP: update with best practices' },
 						{ slug: 'guides/external-tools/sqlite-and-stripe-mcp-basic-queries-you-can-make-after-set-up', label: 'SQLite and Stripe MCP: basic queries' },
 						{ slug: 'guides/external-tools/using-mcp-servers-with-warp', label: 'Connect agents to MCP servers' },
+						{ slug: 'guides/external-tools/build-a-mattermost-bot-for-warp-factories', label: 'Build a Mattermost bot for Warp Factories' },
 					],
 				},
 				{
