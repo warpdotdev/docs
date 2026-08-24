@@ -79,6 +79,8 @@ The parent run starts and children appear in the Runs list as the parent spawns 
 
 Spawn the parent with `POST /agent/runs`. Children can either be spawned by the parent agent at runtime, or you can spawn each child explicitly from your code and link it to the parent with `parent_run_id`. Once they're running, coordination between the parent and its children flows through Warp's durable agent-to-agent messaging - see [Messaging between agents](/platform/orchestration/#messaging-between-agents) for the model.
 
+This section spawns a standalone parent run. If the parent you want to start is a [Warp factory](/factories/)'s foreman, use the [factory API](/factories/factory-api/) to dispatch by factory UID instead of looking up the foreman's `agent_identity_uid` and calling `POST /agent/run` directly.
+
 ### Agent-driven orchestration
 
 Start a single parent run with `mode: orchestrate`:

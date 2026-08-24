@@ -183,6 +183,14 @@ def main() -> int:
             print(f"Recorded {version} as processed in {args.state}")
         return EXIT_NEW_RELEASE
 
+    # `oz_updates` is a separate array in the client_version payload, not part
+    # of the markdown changelog the audit parses. The audit is offline by
+    # design and never sees it, so this is the only place those bullets surface
+    # — print the content, not just a count, or the skill's instruction to
+    # triage them cannot be carried out. The field name is the API's, and stays
+    # `oz_updates` regardless of product naming.
+    oz_updates = changelog.get("oz_updates", []) or []
+
     if args.as_json:
         print(
             json.dumps(
@@ -191,7 +199,8 @@ def main() -> int:
                     "current_version": version,
                     "last_processed_version": last_processed,
                     "release_date": release_date,
-                    "oz_updates_count": len(changelog.get("oz_updates", []) or []),
+                    "oz_updates_count": len(oz_updates),
+                    "oz_updates": oz_updates,
                 },
                 indent=2,
             )
@@ -201,7 +210,14 @@ def main() -> int:
         print(f"New stable release: {version}")
         print(f"  Released:        {release_date or 'unknown'}")
         print(f"  Last processed:  {previous}")
-        print(f"  Oz updates:      {len(changelog.get('oz_updates', []) or [])}")
+        print(f"  Oz updates:      {len(oz_updates)}")
+        for bullet in oz_updates:
+            print(f"    - {bullet}")
+        if oz_updates:
+            print(
+                "  These are platform-side changes the audit cannot see. "
+                "Triage them against the worthiness criteria like changelog bullets."
+            )
         print("Proceed with the audit.")
     else:
         print(f"No new release. Current stable {version} was already processed.")
