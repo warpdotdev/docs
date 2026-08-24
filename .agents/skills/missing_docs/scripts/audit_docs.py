@@ -2342,8 +2342,8 @@ def read_last_processed_release(snapshot_path: Path) -> str | None:
     """Read the triage marker that sits alongside the snapshot.
 
     Returns the normalized version last *triaged*, or None if the marker is
-    missing or unreadable. A missing marker means "never triaged", which is the
-    safe direction: nothing gets skipped.
+    missing, unreadable, or not a JSON object. A missing marker means "never
+    triaged", which is the safe direction: nothing gets skipped.
     """
     marker = snapshot_path.parent / "last_release_processed.json"
     if not marker.exists():
@@ -2352,6 +2352,17 @@ def read_last_processed_release(snapshot_path: Path) -> str | None:
         data = json.loads(marker.read_text(encoding="utf-8"))
     except Exception as exc:
         print(f"Warning: failed to parse {marker}: {exc}", file=sys.stderr)
+        return None
+    # Valid JSON of the wrong shape (a list, a bare string) would raise on
+    # .get and abort diff-mode triage. Treat it like a parse failure so the
+    # baseline falls back to the snapshot instead. check_new_release.py's
+    # read_state() guards the same file the same way.
+    if not isinstance(data, dict):
+        print(
+            f"Warning: {marker} is not a JSON object (got {type(data).__name__}); "
+            "treating the release as never triaged",
+            file=sys.stderr,
+        )
         return None
     return normalize_release_version(data.get("last_processed_version"))
 

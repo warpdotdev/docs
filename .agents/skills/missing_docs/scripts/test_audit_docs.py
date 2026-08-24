@@ -306,6 +306,48 @@ class TestChangelogTriage(unittest.TestCase):
             ["sparkles"],
             "an unrecognized heading in a pending entry must fail loud")
 
+    def test_marker_reader_survives_every_bad_shape(self):
+        """A malformed marker must degrade to "never triaged", never raise.
+
+        Raising here aborts diff-mode triage entirely, which is a worse failure
+        than the desync this reader exists to fix. Valid JSON of the wrong
+        top-level type is the case that bites: `[]` reaches `.get` and throws.
+        """
+        cases = {
+            "list": "[]",
+            "bare string": '"v0.2026.08.18.02.52.stable_00"',
+            "number": "42",
+            "null": "null",
+            "truncated json": '{"last_processed_version":',
+            "empty file": "",
+            "object, wrong key": '{"version": "v0.2026.08.18.02.52.stable_00"}',
+        }
+        for label, payload in cases.items():
+            with self.subTest(shape=label), tempfile.TemporaryDirectory() as d:
+                refs = Path(d)
+                (refs / "last_release_processed.json").write_text(
+                    payload, encoding="utf-8")
+                self.assertIsNone(
+                    audit_docs.read_last_processed_release(
+                        refs / "surface_snapshot.json"),
+                    f"{label} marker should fall back to None")
+
+        # A missing marker is the ordinary first-run case, not an error.
+        with tempfile.TemporaryDirectory() as d:
+            self.assertIsNone(audit_docs.read_last_processed_release(
+                Path(d) / "surface_snapshot.json"))
+
+        # The well-formed case still reads through.
+        with tempfile.TemporaryDirectory() as d:
+            refs = Path(d)
+            (refs / "last_release_processed.json").write_text(
+                '{"last_processed_version": "v0.2026.08.18.02.52.stable_00"}',
+                encoding="utf-8")
+            self.assertEqual(
+                audit_docs.read_last_processed_release(
+                    refs / "surface_snapshot.json"),
+                "2026.08.18")
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
