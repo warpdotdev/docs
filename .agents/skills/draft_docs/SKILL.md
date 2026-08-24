@@ -28,6 +28,18 @@ Review all provided context (PRD, spec, existing doc, etc.). Identify:
 - Key user benefits and capabilities
 - Technical details that need explaining
 
+**If no spec was provided, go looking for one.** "Provided" assumes a requester, and a
+scheduled run has none — which is how automated drafts end up with an audience invented from a
+one-line changelog bullet. Check warp-server for a `specs/<id>/PRODUCT.md` matching the
+feature. Only some specs have one, and `TECH.md` is the implementation plan, not the product
+reasoning.
+
+Use it for framing only: audience, problem, goals, and explicit non-goals. Per step 6 it is
+never verification for labels, flags, or defaults, and it is never evidence that a feature
+shipped. Never quote it into a page — warp-server is private and specs describe unshipped
+plans. If none exists, proceed without one and note the absence in the content design plan
+rather than inventing an audience.
+
 ### 1.5. Create an AEO brief when source data drives the request
 If the request mentions AEO, SEO, Peec, answer-engine visibility, search-query vocabulary, content gaps, or whether to create a new page versus update an existing page, read `.agents/skills/aeo_brief/SKILL.md` and create the brief before drafting. Use the brief to decide:
 - Which page or section should change
@@ -50,8 +62,33 @@ Also clarify: Is this a new page or an update to an existing page?
 ### 3. Read the style guide
 Read `AGENTS.md` in the docs repo root. This is required — it contains all voice/tone rules, formatting standards, content type structures, terminology, and the quality checklist. Do not draft without reading it first.
 
+### 3.5. Confirm the doc should exist, then design it
+
+Two gates, in order. Both come before you open a template.
+
+**First, should this doc exist at all?** Apply `.agents/references/docs-worthiness-criteria.md`.
+
+How much of the gate applies depends on who is asking:
+
+- **Automated runs** (`missing_docs` drift-watch, or any scheduled agent) apply the **full gate**. The default is no docs and the burden is on the change to earn a page. Record the verdict with the gate it passed and the concrete evidence — a setting key, CLI flag, quoted error string, changed default, API field, or (for Gate 4) the newly possible job plus the in-product surfaces you checked and found silent. If nothing passes, say so and stop; "this is new and users should know about it" is not a reason to write a page.
+- **A person asking directly** is subject to **Gate 0 only**. Gate 0 is a factual check — has this shipped, is the surface public — and a requester can simply be wrong about it, so verify it and stop if it fails. Drafting for an unshipped feature is the most common failure regardless of who asked.
+
+  Gates 1 through 4 are judgment, and a person requesting the page usually has context you do not: the roadmap, the support queue, a conversation you were not in. **Do not decline their request on Gates 1-4.** If something looks off — an existing page already covers the surface, or the change looks like a pure UI affordance — say so once, then defer to their answer and proceed.
+
+When the change passes, choose the outcome explicitly: **update an existing page** (preferred), **new page**, or **no docs**. Prefer updating whenever a page already covers the surface. When Gate 4 is the only gate it passed, the outcome is capped at an update.
+
+**Second, what should the doc be?** Pick the form with the routing rule in `.agents/references/content-design-plan.md`: a new page gets the full form in `.agents/templates/content-design-plan.md`, an update that adds a concept gets the three-line short form, and a correction gets no plan. Use the reference for what each field is asking.
+
+The plan decides the content type — step 4 records that decision rather than making it. Starting at the template produces pages shaped by the template instead of by the reader's need.
+
+**When a person invoked this skill, present the plan and wait before drafting.** This is the checkpoint: redirecting the audience or content type now costs a conversation, and after the prose exists it costs a rewrite. Do not skip it just because the requester seems confident about what they want.
+
+Carry the completed plan into the PR body as a `## Content design plan` section either way. In an unattended run there is no one to present it to, so the PR body is the only place a human will see the reasoning.
+
+Small corrections listed under "When a plan can be skipped" in that reference are exempt from both gates.
+
 ### 4. Identify the content type and template
-Using the "Drafting by content type" section in `AGENTS.md`, determine which content type the page is:
+Record the content type chosen in the design plan, and pick its template and type-specific skill from this table. If drafting has diverged from the plan's chosen type, revisit the plan rather than silently switching templates.
 
 | Content type | Use when | Template | Skill |
 |---|---|---|---|
@@ -60,9 +97,14 @@ Using the "Drafting by content type" section in `AGENTS.md`, determine which con
 | **Quickstart** | Fast path to a working result | `.agents/templates/quickstart.md` | `draft_quickstart` |
 | **Reference** | Structured information for lookup | `.agents/templates/reference.md` | `draft_reference` |
 | **Troubleshooting** | Problem → cause → solution | `.agents/templates/troubleshooting.md` | `draft_troubleshooting` |
-| **FAQ** | Question-and-answer format | `.agents/templates/faq.md` | `draft_faq` |
-| **Guide** | Task-oriented walkthrough (Guides section) | `.agents/templates/guide-page.md` | `draft_guide` |
+| **FAQ** | Rarely — cross-cutting questions with no canonical home | `.agents/templates/faq.md` | `draft_faq` |
+| **Tutorial** | Full workflow walkthrough (Guides section) | `.agents/templates/guide-page.md` | `draft_guide` |
 | **Feature documentation** | Combined conceptual + procedural (most common) | `.agents/templates/feature-doc.md` | `draft_feature_doc` |
+
+Two of these carry admission rules rather than just structure, and both are checked in review:
+
+- **FAQ** defaults to "not an FAQ." All three admission rules in `AGENTS.md` must hold before you create or extend one. Most FAQ-shaped content belongs on the page that owns the topic.
+- **Quickstart vs. tutorial** is a scope decision, not a location one. A quickstart is ~5 minutes and ~600 words for someone who already knows the product; a tutorial walks a full workflow and requires that a quickstart already exists. "Guides" is the section name and holds both.
 
 Once the content type is identified:
 - Use the corresponding **template** as the starting scaffold for the page.
@@ -114,7 +156,7 @@ These rules are frequently violated by agents. Apply them carefully during draft
 - **Use callouts sparingly** — Prefer body prose. At most one or two callouts per page unless the content type template requires more, never two callouts back to back, and at most one per section. ✅ a single `:::note` for a non-obvious prerequisite ❌ a `:::note` / `:::tip` after every subsection
 - **No AI-ism buzzwords or meta-openers** — Never open with "This page covers/explains/walks through..."; state the thing itself. Avoid marketing adjectives (seamless, powerful, robust, comprehensive), inflated verbs (leverage, streamline, empower, unlock), restated cause-and-effect ("This process ensures..."), and recap lines. See AGENTS.md → Voice & tone for the full lists. ✅ "Run agents directly in your GitHub Actions workflows using `oz-agent-action`." ❌ "This page covers how the integration works, how to set it up, and common automation patterns."
 - **Document the user-visible model, not internal architecture** — Internal components (orchestrators, control planes, lifecycle state machines) get at most one sentence, and only when the reader can act on them. ✅ "Warp tracks every run. Check its status from the CLI, the API, or the dashboard." ❌ "The orchestration layer runs on Warp's servers (cloud control plane) and tracks lifecycle state (created → running → completed/failed)."
-- **Descriptive link text, and no dead-end pages** — Never use "here", "this page", or a bare URL as link text. End every new page with a `## Related pages` section (or the type-equivalent, such as `## Next steps` on a quickstart) containing at least one internal link whose anchor names the destination topic. ✅ `Learn more about [Codebase Context](/code/codebase-context/)` ❌ `Click [here](/code/codebase-context/)` ❌ ending a new feature page with no cross-links
+- **Descriptive link text, and no dead-end pages** — Never use "here", "this page", or a bare URL as link text. End every new page with `## Next steps` (quickstarts and tutorials) or `## Related pages` (every other type), containing at least one internal link whose anchor names the destination topic. Do not use "Further reading" or "See also". ✅ `Learn more about [Codebase Context](/code/codebase-context/)` ❌ `Click [here](/code/codebase-context/)` ❌ ending a new feature page with no cross-links
 - **Disambiguate conditional and multi-clause wording** — If a sentence has two plausible readings (especially with "when", "if", "can", or stacked clauses), rewrite it so only one meaning remains. Prefer one idea per sentence. ✅ `Cloud handoff keeps your conversation's model only when that model is available in the cloud.` ❌ `Cloud handoff keeps your conversation's model when it can run in the cloud.` (keeps the model when it can? or only when cloud supports the model?)
 - **Lead instructional sentences with the action or goal** — In steps, keyboard shortcuts, and "how to" sentences, put the action or goal first, then the control or condition. Readers should not need prior context to know what values or targets you mean. ✅ `To open the searchable environment and model selectors, press Ctrl+E.` ❌ `To change either value, press Ctrl+E.` (which values?)
 - **Screenshots for hard-to-describe UI** — When a page documents a visual surface (statusline chips, tab bars, settings panes, multi-control layouts), include a screenshot after the prose that introduces that surface. Prefer prose for straightforward clicks, and prefer one well-placed figure over repeating the same surface. Always use descriptive alt text, never "screenshot". Do not invent or request screenshots of internal-only, flagged, or unfinished UI. ✅ a statusline screenshot after the paragraph that names the chips ❌ describing chip layout in a long paragraph with no image when humans keep asking "should we include a screenshot?"
@@ -141,6 +183,9 @@ Skip steps 1–3 in local/interactive sessions.
 
 ### 9. Review against checklist
 Before presenting the draft, verify against the quality checklist in `AGENTS.md`:
+- [ ] The change passed `.agents/references/docs-worthiness-criteria.md`, and the verdict names a gate plus concrete evidence
+- [ ] A content design plan exists with every field filled in, and the draft matches the content type it chose
+- [ ] The outcome is the lightest correct one — an existing page was updated unless a new page is genuinely justified
 - [ ] Frontmatter description is a standalone search summary (benefit + keywords; not "This page describes..." and not a restatement of the title)
 - [ ] Content follows the structure for its content type
 - [ ] Section order follows reader chronology (requirements → setup → usage → advanced → troubleshooting)
@@ -153,7 +198,9 @@ Before presenting the draft, verify against the quality checklist in `AGENTS.md`
 - [ ] Headers use sentence case (with proper feature name capitalization)
 - [ ] Headers name a specific topic (not bare Overview / More details / Other)
 - [ ] Lists use `*` markers with bold term + hyphen + explanation format
-- [ ] Cross-references are included, and every new page ends with `## Related pages` or a type-equivalent `## Next steps`
+- [ ] Cross-references are included, and the page ends with `## Next steps` (quickstart or tutorial) or `## Related pages` (every other type)
+- [ ] Every bracketed template instruction has been deleted, including the `[BEFORE PUBLISHING: ...]` note
+- [ ] The title is in frontmatter and there is no H1 in the body
 - [ ] Link text names the destination topic (not "here" / "this page" / raw URLs)
 - [ ] The first Settings path, CLI command, or URL on the page names the app or tool
 - [ ] Instructions include expected outcomes

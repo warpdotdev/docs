@@ -58,7 +58,7 @@ When you create a factory through the setup wizard, Warp adds default automation
 * **Linear** - Starts work when a new agent session arrives from one of the Linear teams you selected. See the [Linear integration guide](/factories/integrations/linear/).
 * **Slack** - Starts work from mentions and messages, as described in the [Slack integration guide](/factories/integrations/slack/).
 
-These defaults are starting points. Review each automation's filters, agent, and run settings, and adjust them to match your workflow.
+These defaults are starting points. Review each automation's filters, agent, and run settings, and adjust them to match your workflow. For automation files you can adapt, such as CI failure triage, a scheduled dependency audit, and Slack reaction intake, see [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
 
 ## Factory API
 
@@ -74,3 +74,19 @@ Not every task starts in an external tool:
 
 * Start a direct run for one-off work. Click **New** on the factory's Runs page and describe the task to the foreman, the same way you would from Slack or an issue tracker.
 * Create a scheduled automation for recurring work, such as maintenance or reports. See the [triggers overview](/platform/triggers/) for how schedules and other triggers work across the platform.
+
+This automation from [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations) runs a dependency audit every Monday:
+
+```markdown title="automations/weekly-dependency-audit/automation.md"
+---
+triggers:
+  - provider: schedule
+    event: cron_fired
+    schedule:
+      name: weekly-dependency-audit
+      cron: "0 9 * * 1"
+---
+Run the weekly dependency audit. List outdated and vulnerable dependencies,
+apply safe minor and patch upgrades on a branch, run the tests, and open a
+PR with the changes and a summary of anything that needs a human decision.
+```
