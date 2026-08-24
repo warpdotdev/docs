@@ -132,6 +132,34 @@ This PR updates the Terminal and Agent modes documentation for the Oz launch.
 - Updated navigation entry title
 ```
 
+### Content design plan (required on drafting PRs)
+
+Any PR that adds a page or makes a substantive update to one must carry the content design plan that preceded the draft. Keeping it next to the diff is the point: a reviewer can then disagree with who the page is for and what job it serves, which is far cheaper to resolve before the prose is written. See `.agents/references/content-design-plan.md` for the field definitions and `.agents/references/docs-worthiness-criteria.md` for the gate that runs before it.
+
+```markdown
+## Content design plan
+
+**Audience and JTBD:** A backend engineer connecting their first factory to a self-hosted GitLab instance, who needs runs to authenticate without a personal token.
+
+**Problem:** The GitLab integration page covers GitLab.com only, so self-hosted users follow steps that silently fail at the auth step.
+
+**Goals:**
+- The reader can tell whether their GitLab instance needs the self-hosted path.
+- The reader can complete the self-hosted connection and confirm it worked.
+
+**Purpose and value:** Without it, self-hosted users file support tickets after the happy path fails. No existing page covers the self-hosted variant.
+
+**Content type:** Procedural — the reader is performing a setup task, not learning a concept.
+
+**Skill and template:** `draft_procedural` / `.agents/templates/procedural.md`
+
+**High-impact scenarios:**
+- Covers: self-hosted GitLab with a project access token; verifying the connection.
+- Excludes: GitLab behind a corporate proxy — rare, and the proxy config is the user's own infrastructure concern.
+```
+
+For the small corrections listed under "When a plan can be skipped" — typos, link fixes, terminology sweeps, generated updates, screenshot swaps — omit the section rather than filling it with placeholders.
+
 ### Unverified claims (required on drafting PRs)
 
 Any PR that adds or updates page content must state which UI labels, Settings paths, CLI flags, permission defaults, plan eligibility, and platform-support claims could not be verified against `warp-internal`, `warp-server`, or a live build. See step 9.5 of the `draft_docs` skill.

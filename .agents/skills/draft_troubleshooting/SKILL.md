@@ -9,7 +9,7 @@ Draft a troubleshooting page that helps users diagnose and fix common issues.
 
 ## Workflow
 
-Follow the workflow in `.warp/skills/draft_docs/SKILL.md`, using the **troubleshooting template** at `.warp/templates/troubleshooting.md`.
+Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **troubleshooting template** at `.agents/templates/troubleshooting.md`.
 
 ## Frontmatter description
 
