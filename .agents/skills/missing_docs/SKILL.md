@@ -223,6 +223,11 @@ them through these three layers instead, in order of preference:
    gate already fetches. Release-gated, low-noise, and currently the most direct signal
    for platform-side changes. Triage these bullets exactly like changelog bullets: same
    gates, same ledger, same evidence requirement.
+
+   `check_new_release.py` prints them; the audit never sees them, because it is offline
+   by design and they are not part of the markdown changelog it parses. Read them from
+   the gate's output, or `--json` for the full array. `oz_updates` is the API's field
+   name and stays as-is regardless of product naming.
 2. **The public Agent API surface** — already covered by audit category 3 and
    `sync-openapi-spec`. No new machinery; just confirm the release run actually triages
    these findings rather than deferring them by habit. A released endpoint reaches docs
@@ -409,6 +414,9 @@ with the product. Each run:
    Exit `0` means a new stable release is available — continue. Exit `10` means no new
    release; record the no-op outcome in run output and **stop**. Exit `1` is a fetch or
    parse failure; report it and stop rather than proceeding as if nothing shipped.
+
+   The gate also prints any `oz_updates` bullets for the release. Keep them — they are
+   platform-side changes the audit cannot see, and this is the only place they surface.
 
    Do not update the state file yet. It is written in step 5, after triage, so a run that
    crashes mid-triage retries the same release instead of skipping it.
