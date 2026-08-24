@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
-  title: Oz Agent API
+  title: Warp Agent API
   version: 1.0.0
-  description: "API for creating, managing, and querying Oz cloud agent runs.\n\nThese endpoints allow users to programmatically spawn agents, list runs, \nand retrieve detailed run information.\n"
+  description: "API for creating, managing, and querying Warp cloud agent runs.\n\nThese endpoints allow users to programmatically spawn agents, list runs, \nand retrieve detailed run information.\n"
   contact:
     name: Warp Support
     url: https://docs.warp.dev
@@ -2401,7 +2401,7 @@ components:
           type: string
           description: |
             Short, badge-visible label for the artifact. For recording artifacts,
-            this is the agent-authored title shown in Oz web and blocklist badges.
+            this is the agent-authored title shown in Warp web and blocklist badges.
             Distinct from description, which is longer and shown in detail views.
         description:
           type: string
@@ -2491,20 +2491,144 @@ components:
           type: number
           format: double
           description: |
-            inference_cost in US dollars, converted at a fixed rate. An
-            approximate cost, not a billed amount.
+            inference_cost in US dollars, converted at the owning team's
+            current credit price. An approximate cost, not a billed amount.
         compute_cost_usd:
           type: number
           format: double
           description: |
-            compute_cost in US dollars, converted at a fixed rate. An
-            approximate cost, not a billed amount.
+            compute_cost in US dollars, converted at the owning team's
+            current credit price. An approximate cost, not a billed amount.
         platform_cost_usd:
           type: number
           format: double
           description: |
-            platform_cost in US dollars, converted at a fixed rate. An
-            approximate cost, not a billed amount.
+            platform_cost in US dollars, converted at the owning team's
+            current credit price. An approximate cost, not a billed amount.
+        total_tokens:
+          type: integer
+          format: int64
+          description: |
+            Total LLM token count (summed across every usage category and model) for the run's
+            conversation. Omitted when the data is not available.
+        inference_cost_breakdown_usd:
+          $ref: '#/components/schemas/InferenceCostBreakdownUsd'
+        usage_by_category:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ChargedUsageDetail'
+          description: |
+            Full-granularity token and dollar-cost breakdown for the run's
+            conversation, keyed by usage category (e.g. "primary_agent",
+            "conversation_compaction") and model id.
+            This differs from total_tokens/inference_cost_breakdown_usd which
+            combine usage across all categories and models.
+            Omitted when the data is not available.
+    InferenceCostBreakdownUsd:
+      type: object
+      description: |
+        Charged dollar cost of LLM inference, split by token type.
+        Omitted when the data is not available.
+      required:
+      - input_cost_usd
+      - input_cache_read_cost_usd
+      - input_cache_write_cost_usd
+      - output_cost_usd
+      properties:
+        input_cost_usd:
+          type: number
+          format: double
+          description: Cost of non-cached input tokens, in US dollars.
+        input_cache_read_cost_usd:
+          type: number
+          format: double
+          description: Cost of cache-read input tokens, in US dollars.
+        input_cache_write_cost_usd:
+          type: number
+          format: double
+          description: Cost of cache-write input tokens, in US dollars.
+        output_cost_usd:
+          type: number
+          format: double
+          description: Cost of output tokens, in US dollars.
+    TokenCountBreakdown:
+      type: object
+      description: A per-token-type token count.
+      required:
+      - input
+      - output
+      - input_cache_read
+      - input_cache_write
+      properties:
+        input:
+          type: integer
+          format: int64
+          description: Count of non-cached input tokens.
+        output:
+          type: integer
+          format: int64
+          description: Count of output tokens.
+        input_cache_read:
+          type: integer
+          format: int64
+          description: Count of cache-read input tokens.
+        input_cache_write:
+          type: integer
+          format: int64
+          description: Count of cache-write input tokens.
+    InferenceUsageDetail:
+      type: object
+      description: |
+        Full token count and dollar-cost detail inference usage.
+        The counts and cost describe the same usage (e.g. token_count.input
+        tokens cost cost_usd.input_cost_usd in total).
+      required:
+      - token_count
+      - cost_usd
+      - web_search_count
+      - web_search_cost_usd
+      properties:
+        token_count:
+          $ref: '#/components/schemas/TokenCountBreakdown'
+        cost_usd:
+          $ref: '#/components/schemas/InferenceCostBreakdownUsd'
+        web_search_count:
+          type: integer
+          format: int64
+          description: Number of web searches performed by this model.
+        web_search_cost_usd:
+          type: number
+          format: double
+          description: Total cost of those web searches, in US dollars.
+    ChargedUsageDetail:
+      type: object
+      description: |
+        Usage charged for a single usage category, broken down by usage type
+        (direct API/BYOK/custom endpoint) and, within each, by model ID.
+      required:
+      - platform_usage_usd
+      properties:
+        direct_api_inference_usage:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InferenceUsageDetail'
+          description: Inference usage incurred through Warp-provided model access, keyed by model ID.
+        byok_inference_usage:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InferenceUsageDetail'
+          description: Inference usage charged using a user's own API key, keyed by model ID.
+        custom_endpoint_inference_usage:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InferenceUsageDetail'
+          description: |
+            Inference usage charged using a custom endpoint, keyed by the
+            custom model's config key.
+        platform_usage_usd:
+          type: number
+          format: double
+          description: Platform usage charged for this category, in US dollars.
     RunCreatorInfo:
       type: object
       properties:
@@ -2594,7 +2718,7 @@ components:
       - REMOTE
       description: |
         Where the run executed:
-        - LOCAL: Executed in the user's local Oz environment
+        - LOCAL: Executed in the user's local Warp environment
         - REMOTE: Executed by a remote/cloud worker
     AmbientAgentConfig:
       type: object
@@ -2652,6 +2776,15 @@ components:
           description: |
             Controls whether computer use is enabled for this agent.
             If not set, defaults to true.
+        computer_use_model_id:
+          type: string
+          description: |
+            Model the computer use subagent runs on. If not set, the subagent
+            picks its own model automatically.
+            Only applies to the built-in Oz harness; the value is accepted but
+            has no effect under a third-party harness or when computer use is
+            disabled. Requires an agent CLI version that supports the
+            --computer-use-model flag.
         idle_timeout_minutes:
           type: integer
           format: int32
@@ -2753,7 +2886,7 @@ components:
           description: |
             Model to use with a third-party harness (e.g. "claude-haiku-4-5").
             Only applies when type is a non-oz harness; the top-level config
-            model_id targets the built-in Oz harness instead. When omitted or
+            model_id targets the built-in Warp harness instead. When omitted or
             empty, the harness uses its own default model.
         reasoning_level:
           type: string
@@ -3029,7 +3162,7 @@ components:
           type: string
           description: |
             Short, badge-visible label for the artifact. For recording artifacts,
-            this is the agent-authored title shown in Oz web and blocklist badges.
+            this is the agent-authored title shown in Warp web and blocklist badges.
             Distinct from description, which is longer and shown in detail views.
         description:
           type: string
@@ -4220,7 +4353,7 @@ components:
             5. System defaults
         available:
           type: boolean
-          description: Whether this agent is within the team's plan limit and can be used for runs
+          description: Whether the agent is currently enabled. Defaults to true.
         created_at:
           type: string
           format: date-time
@@ -4276,7 +4409,7 @@ components:
             Default harness for runs executed by this agent. The precedence order for harness resolution is:
             1. The harness specified on the run itself
             2. The agent's base harness
-            3. Oz
+            3. Warp
             Deprecated - use harness instead, which carries the full
             {type, model_id, reasoning_level} default.
         harness:

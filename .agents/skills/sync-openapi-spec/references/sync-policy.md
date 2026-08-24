@@ -1,6 +1,6 @@
 # Sync Policy
 
-This document records what `developers/agent-api-openapi.yaml` keeps from `warp-server/public_api/openapi.yaml`, and why. The exclusion lists live in `scripts/sync_openapi.py` as `EXCLUDED_TAGS`, `EXCLUDED_PATHS`, and `EXCLUDED_PATH_PREFIXES`. Update both this document and the script when the policy changes.
+This document records what `developers/agent-api-openapi.yaml` keeps from `warp-server/public_api/openapi.yaml`, and why. The exclusion lists live in `scripts/sync_openapi.py` as `EXCLUDED_TAGS`, `EXCLUDED_PATHS`, `EXCLUDED_PATH_PREFIXES`, and `PRUNABLE_COMPONENT_SECTIONS`. Update both this document and the script when the policy changes.
 
 ## Relationship to warp-server's release automation
 
@@ -19,7 +19,7 @@ This skill is the manual fallback for the same job, so its output has to match t
 2. Drop every tag listed in `EXCLUDED_TAGS`.
 3. Drop every path whose tags are a subset of `EXCLUDED_TAGS`, plus every path listed explicitly in `EXCLUDED_PATHS` or matching a prefix in `EXCLUDED_PATH_PREFIXES`.
 4. Keep top-level `openapi`, `info`, `servers`, and `components.securitySchemes` verbatim.
-5. Keep only the `components.schemas` entries that are reachable from the surviving paths via `$ref` walking (recursive over `allOf`/`oneOf`/`anyOf`/`items`/`additionalProperties`/etc.).
+5. Keep only the entries in each `PRUNABLE_COMPONENT_SECTIONS` section (`schemas`, `parameters`, `examples`, `headers`, `requestBodies`, `responses`, `mediaTypes`) that are reachable from the surviving paths via `$ref` walking (recursive over `allOf`/`oneOf`/`anyOf`/`items`/`additionalProperties`/etc., and across sections — a shared response pulls in the schemas it references).
 6. Recursively strip every key in `STRIP_FLAGS` from whatever survives
    steps 1-5, wherever it appears in the tree (operations, schemas,
    individual properties, parameters).
@@ -48,6 +48,20 @@ already covered. `STRIP_FLAGS` (rule 6) then only has to clean up the
 `x-internal` key on anything that rule 1 doesn't fully own removing (there
 is normally nothing left, since every `x-internal: true` object is deleted
 outright) plus the other seven implementation-only extensions.
+
+## Every shared component section is pruned, not just `schemas` (`PRUNABLE_COMPONENT_SECTIONS`)
+
+`PRUNABLE_COMPONENT_SECTIONS` mirrors the `unusedComponents` list in
+`warp-server/public_api/public-openapi-filter.yaml`. An earlier version of
+this script pruned `components.schemas` and copied every other section
+verbatim, so a shared component referenced only by an excluded path stayed
+in the published copy: `FactoryAccessDenied`, a `components.responses` entry
+used solely by the private `/factory/*` operations, shipped in the Scalar
+reference as an orphan definition.
+
+Sections outside the set are copied verbatim. Today that means
+`securitySchemes`, which no operation `$ref`s — pruning it by reachability
+would delete it.
 
 ## Implementation-only extensions are stripped everywhere (`STRIP_FLAGS`)
 

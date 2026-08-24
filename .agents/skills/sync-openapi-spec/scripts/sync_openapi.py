@@ -10,7 +10,8 @@ This script generates the docs subset deterministically:
     every operation is internal is dropped entirely
   * tags listed in EXCLUDED_TAGS are removed (and their paths/schemas)
   * paths listed in EXCLUDED_PATHS are removed
-  * components/schemas is pruned to only schemas reachable from the
+  * every section in PRUNABLE_COMPONENT_SECTIONS (schemas, responses,
+    parameters, ...) is pruned to only the entries reachable from the
     surviving paths via $ref walking
   * every key in STRIP_FLAGS (implementation-only extensions such as
     ``x-go-type`` and ``x-stainless-naming``) is removed recursively from
@@ -85,6 +86,22 @@ STRIP_FLAGS: frozenset[str] = frozenset(
 # Path-item keys that are HTTP operations rather than shared path metadata.
 HTTP_METHODS: frozenset[str] = frozenset(
     {"get", "put", "post", "delete", "options", "head", "patch", "trace"}
+)
+
+# Component sections pruned down to entries reachable from the surviving
+# paths. Mirrors `unusedComponents` in
+# warp-server/public_api/public-openapi-filter.yaml. Sections outside this set
+# (notably `securitySchemes`, which nothing $refs) are copied verbatim.
+PRUNABLE_COMPONENT_SECTIONS: frozenset[str] = frozenset(
+    {
+        "schemas",
+        "parameters",
+        "examples",
+        "headers",
+        "requestBodies",
+        "responses",
+        "mediaTypes",
+    }
 )
 
 # Specific paths under otherwise-public tags that should be hidden from
@@ -262,21 +279,20 @@ def _strip_flags(node: Any) -> Any:
     return node
 
 
-def _collect_refs(node: Any, refs: set[str]) -> None:
-    """Recursively collect every component schema name referenced from ``node``.
+def _collect_refs(node: Any, refs: set[tuple[str, str]]) -> None:
+    """Recursively collect every ``(section, name)`` component ref in ``node``.
 
     Walks dicts and lists, picking up any string under a ``$ref`` key that
-    points into ``#/components/schemas/``. Captures refs nested anywhere
-    (allOf/oneOf/anyOf, items, additionalProperties, etc.).
+    points into ``#/components/<section>/<name>``. Captures refs nested
+    anywhere (allOf/oneOf/anyOf, items, additionalProperties, a shared
+    response under an operation's ``responses``, etc.).
     """
     if isinstance(node, dict):
         for k, v in node.items():
-            if (
-                k == "$ref"
-                and isinstance(v, str)
-                and v.startswith("#/components/schemas/")
-            ):
-                refs.add(v[len("#/components/schemas/") :])
+            if k == "$ref" and isinstance(v, str) and v.startswith("#/components/"):
+                section, _, name = v[len("#/components/") :].partition("/")
+                if section and name:
+                    refs.add((section, name))
             else:
                 _collect_refs(v, refs)
     elif isinstance(node, list):
@@ -284,27 +300,31 @@ def _collect_refs(node: Any, refs: set[str]) -> None:
             _collect_refs(item, refs)
 
 
-def _transitive_schemas(
-    seed_refs: set[str], schemas: dict[str, Any]
-) -> set[str]:
-    """Closure of ``seed_refs`` under transitive $ref edges in ``schemas``."""
-    reachable: set[str] = set()
+def _reachable_components(
+    seed_refs: set[tuple[str, str]], components: dict[str, Any]
+) -> set[tuple[str, str]]:
+    """Closure of ``seed_refs`` under transitive $ref edges in ``components``.
+
+    Component entries reference each other across sections — a shared
+    response $refs a schema, a schema $refs another schema — so the walk
+    has to follow every section, not just ``schemas``.
+    """
+    reachable: set[tuple[str, str]] = set()
     pending = list(seed_refs)
     while pending:
-        name = pending.pop()
-        if name in reachable:
+        ref = pending.pop()
+        if ref in reachable:
             continue
-        if name not in schemas:
-            # Dangling ref — skip silently. The diff will surface it via
-            # the resulting schema set comparison.
-            reachable.add(name)
+        reachable.add(ref)
+        section, name = ref
+        entry = (components.get(section) or {}).get(name)
+        if entry is None:
+            # Dangling ref — skip silently. _validate_output surfaces it
+            # before apply mode writes anything.
             continue
-        reachable.add(name)
-        new_refs: set[str] = set()
-        _collect_refs(schemas[name], new_refs)
-        for ref in new_refs:
-            if ref not in reachable:
-                pending.append(ref)
+        new_refs: set[tuple[str, str]] = set()
+        _collect_refs(entry, new_refs)
+        pending.extend(r for r in new_refs if r not in reachable)
     return reachable
 
 
@@ -380,21 +400,20 @@ def transform(source: dict[str, Any]) -> dict[str, Any]:
     }
     out["paths"] = kept_paths
 
-    seed_refs: set[str] = set()
+    seed_refs: set[tuple[str, str]] = set()
     _collect_refs(kept_paths, seed_refs)
 
     src_components = source.get("components") or {}
-    src_schemas = src_components.get("schemas") or {}
-    reachable = _transitive_schemas(seed_refs, src_schemas)
+    reachable = _reachable_components(seed_refs, src_components)
 
     out_components: dict[str, Any] = {}
     for ck, cv in src_components.items():
-        if ck == "schemas":
-            out_components["schemas"] = {
-                name: src_schemas[name]
-                for name in src_schemas
-                if name in reachable
+        if ck in PRUNABLE_COMPONENT_SECTIONS and isinstance(cv, dict):
+            kept = {
+                name: entry for name, entry in cv.items() if (ck, name) in reachable
             }
+            if kept:
+                out_components[ck] = kept
         else:
             out_components[ck] = cv
     if out_components:
@@ -437,28 +456,37 @@ def _summarize_drift(
         notes.append("Paths whose operations differ between source and target:")
         notes.extend(f"  ~ {p}" for p in changed_paths)
 
-    exp_schemas = set(((expected.get("components") or {}).get("schemas") or {}).keys())
-    act_schemas = set(((actual.get("components") or {}).get("schemas") or {}).keys())
+    # Every pruned section is compared, not just `schemas`: a stale entry in
+    # `components.responses` (or any other shared section) is drift too, and
+    # reporting only schemas let one sit in the target unnoticed.
+    exp_components = expected.get("components") or {}
+    act_components = actual.get("components") or {}
+    for section in sorted(PRUNABLE_COMPONENT_SECTIONS):
+        exp_entries = (exp_components.get(section) or {})
+        act_entries = (act_components.get(section) or {})
+        exp_names = set(exp_entries.keys())
+        act_names = set(act_entries.keys())
+        label = "Schemas" if section == "schemas" else f"Component {section}"
 
-    missing_schemas = sorted(exp_schemas - act_schemas)
-    extra_schemas = sorted(act_schemas - exp_schemas)
+        missing = sorted(exp_names - act_names)
+        extra = sorted(act_names - exp_names)
+        if missing:
+            notes.append(f"{label} present in source subset but missing from target:")
+            notes.extend(f"  + {name}" for name in missing)
+        if extra:
+            notes.append(f"{label} present in target but absent from source subset:")
+            notes.extend(f"  - {name}" for name in extra)
 
-    if missing_schemas:
-        notes.append("Schemas present in source subset but missing from target:")
-        notes.extend(f"  + {s}" for s in missing_schemas)
-    if extra_schemas:
-        notes.append("Schemas present in target but absent from source subset:")
-        notes.extend(f"  - {s}" for s in extra_schemas)
-
-    common_schemas = exp_schemas & act_schemas
-    schema_changes = sorted(
-        s
-        for s in common_schemas
-        if expected["components"]["schemas"][s] != actual["components"]["schemas"][s]
-    )
-    if schema_changes:
-        notes.append("Schemas whose definitions differ between source subset and target:")
-        notes.extend(f"  ~ {s}" for s in schema_changes)
+        changed = sorted(
+            name
+            for name in exp_names & act_names
+            if exp_entries[name] != act_entries[name]
+        )
+        if changed:
+            notes.append(
+                f"{label} whose definitions differ between source subset and target:"
+            )
+            notes.extend(f"  ~ {name}" for name in changed)
 
     for top_key in ("openapi", "info", "servers"):
         if expected.get(top_key) != actual.get(top_key):
@@ -545,7 +573,8 @@ def _self_test() -> int:
                                     "schema": {"$ref": "#/components/schemas/RunResp"}
                                 }
                             },
-                        }
+                        },
+                        "401": {"$ref": "#/components/responses/Unauthorized"},
                     },
                 }
             },
@@ -574,6 +603,20 @@ def _self_test() -> int:
         },
         "components": {
             "securitySchemes": {"bearerAuth": {"type": "http", "scheme": "bearer"}},
+            "responses": {
+                # Referenced by a surviving operation, and pulls a schema of
+                # its own into the output.
+                "Unauthorized": {
+                    "description": "auth required",
+                    "content": {
+                        "application/json": {
+                            "schema": {"$ref": "#/components/schemas/Err"}
+                        }
+                    },
+                },
+                # Referenced only by dropped Factory paths.
+                "FactoryAccessDenied": {"description": "factory access denied"},
+            },
             "schemas": {
                 "RunReq": {
                     "type": "object",
@@ -613,6 +656,7 @@ def _self_test() -> int:
                     "x-stainless-naming": {"typescript": {"type": "Mode"}},
                 },
                 "RunResp": {"type": "object"},
+                "Err": {"type": "object"},  # only reachable via a shared response
                 "MSItem": {"type": "object"},  # only referenced by dropped path
                 "Followup": {"type": "object"},
             },
@@ -627,8 +671,21 @@ def _self_test() -> int:
     }, f"unexpected paths: {paths}"
 
     schemas = set(out["components"]["schemas"].keys())
-    # Config and Mode are reachable transitively (allOf, items)
-    assert schemas == {"RunReq", "Config", "Mode", "RunResp"}, f"unexpected schemas: {schemas}"
+    # Config and Mode are reachable transitively (allOf, items); Err only
+    # through the shared Unauthorized response.
+    assert schemas == {
+        "RunReq",
+        "Config",
+        "Mode",
+        "RunResp",
+        "Err",
+    }, f"unexpected schemas: {schemas}"
+
+    # Shared components outside `schemas` are pruned the same way, so a
+    # response only referenced by a dropped path cannot linger in the
+    # published spec.
+    responses = set(out["components"]["responses"].keys())
+    assert responses == {"Unauthorized"}, f"unexpected responses: {responses}"
 
     tag_names = [t["name"] for t in out.get("tags") or []]
     assert tag_names == ["agent"], f"unexpected tags: {tag_names}"
