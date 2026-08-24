@@ -25,7 +25,7 @@ Every factory gets a foreman, and you choose one to four other agents to go with
 | Implement | Makes and validates the code change | Code, tests, validation results, and visual evidence |
 | Review | Independently checks the finished change | Findings and a recommendation |
 
-These are responsibilities, not a fixed pipeline. A small, well-understood change can skip the spec stage entirely, and review can send work back to implementation for another pass. By default, work that goes through the spec stage needs a human to approve the spec before implementation starts.
+These are responsibilities, not a fixed pipeline. A small, well-understood change can skip the Planning stage entirely, and review can send work back for another pass. By default, work that goes through Planning needs a human to approve the spec before building starts.
 
 For the complete lifecycle, see [how Warp Factories work](/factories/how-factories-work/).
 
@@ -34,6 +34,12 @@ For the complete lifecycle, see [how Warp Factories work](/factories/how-factori
 The **foreman agent** runs the factory floor. It decides which agent a work item goes to next, hands the work over, and keeps the requester informed. It's the only default agent that talks to the requester directly. When another agent needs a human answer, the foreman asks the question and routes the answer back. For revisions and follow-ups, the foreman goes back to the same agent and continues its existing conversation instead of starting a new one, so no context is lost.
 
 When the work is done, the foreman presents the final pull request and its supporting evidence, then marks the work item complete. Complete means the work was handed to a human, not that the change was merged or deployed. Merging stays with your team.
+
+#### Foreman name
+
+The foreman answers to a handle your team @-mentions from Slack and Linear, labeled **Foreman name** under **Settings** > **Identity** in the [factory dashboard](/factories/factory-dashboard/) and written as [`alias`](/factories/factory-as-code/#alias) in the definition. Factory setup copies it from the factory's name, so unless you change one of them, `@payments` is both the factory's name and the way to reach its foreman.
+
+They are still two things: the handle addresses the foreman, and the foreman speaks for the factory. Give them different names if the overlap causes confusion on your team.
 
 ### Triage
 
