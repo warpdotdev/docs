@@ -253,12 +253,13 @@ python3 .agents/skills/missing_docs/scripts/audit_docs.py --update-snapshot
    `.agents/references/docs-worthiness-criteria.md`, with the gate and its concrete
    evidence written down. No recorded verdict means no drafting. For changelog-derived
    findings the verdict also belongs in `references/changelog_decisions.md`.
-2. **A content design plan.** Fill in `.agents/templates/content-design-plan.md` before
-   opening a page template, using `.agents/references/content-design-plan.md` for what each
-   field is asking. The plan decides the content type; the template does not. Carry it into
-   the PR body verbatim — a scheduled run has no one to present it to, so the PR body is the
-   only place a human will see the reasoning. Small corrections listed in that reference's
-   "When a plan can be skipped" section are exempt.
+2. **A content design plan.** Route it with the rule in
+   `.agents/references/content-design-plan.md`: a new page gets the full form in
+   `.agents/templates/content-design-plan.md`, an update that adds a concept gets the
+   three-line short form, and a correction gets no plan. Write it before opening a page
+   template — the plan decides the content type; the template does not. Carry it into the PR
+   body verbatim: a scheduled run has no one to present it to, so the PR body is the only
+   place a human will see the reasoning.
 
 A finding that passes the gate with the **update an existing page** outcome is still a
 drafting task — it just edits a page instead of creating one. Prefer it; new pages need

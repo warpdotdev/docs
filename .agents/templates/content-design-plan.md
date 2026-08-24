@@ -1,5 +1,7 @@
 ## Content design plan
 
+[WRONG FORM? This is the **full form**, for a **new page**. An update that adds a concept to an existing page uses the three-line short form in `.agents/references/content-design-plan.md` instead, and a correction needs no plan at all. Check the routing rule there before filling this in.]
+
 [BEFORE SUBMITTING: Delete every bracketed instruction, including this one. Fill in every field — "not applicable" is a valid answer only with a reason. See `.agents/references/content-design-plan.md` for what each field is asking and why.]
 
 [WHERE THIS GOES: Present it to the requester before drafting when a person invoked the drafting skill. Include it in the PR body either way. This is not a page — it is a section of a PR description, or terminal output during an interactive session.]

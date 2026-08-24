@@ -70,14 +70,14 @@ Two gates, in order. Both come before you open a template.
 
 How much of the gate applies depends on who is asking:
 
-- **Automated runs** (`missing_docs` drift-watch, or any scheduled agent) apply the **full gate**. The default is no docs and the burden is on the change to earn a page. Record the verdict with the gate it passed and the concrete evidence — a setting key, CLI flag, quoted error string, changed default, or API field. If nothing passes, say so and stop; "this is new and users should know about it" is not a reason to write a page.
+- **Automated runs** (`missing_docs` drift-watch, or any scheduled agent) apply the **full gate**. The default is no docs and the burden is on the change to earn a page. Record the verdict with the gate it passed and the concrete evidence — a setting key, CLI flag, quoted error string, changed default, API field, or (for Gate 4) the newly possible job plus the in-product surfaces you checked and found silent. If nothing passes, say so and stop; "this is new and users should know about it" is not a reason to write a page.
 - **A person asking directly** is subject to **Gate 0 only**. Gate 0 is a factual check — has this shipped, is the surface public — and a requester can simply be wrong about it, so verify it and stop if it fails. Drafting for an unshipped feature is the most common failure regardless of who asked.
 
-  Gates 1 through 3 are judgment, and a person requesting the page usually has context you do not: the roadmap, the support queue, a conversation you were not in. **Do not decline their request on Gates 1-3.** If something looks off — an existing page already covers the surface, or the change looks like a pure UI affordance — say so once, then defer to their answer and proceed.
+  Gates 1 through 4 are judgment, and a person requesting the page usually has context you do not: the roadmap, the support queue, a conversation you were not in. **Do not decline their request on Gates 1-4.** If something looks off — an existing page already covers the surface, or the change looks like a pure UI affordance — say so once, then defer to their answer and proceed.
 
-When the change passes, choose the outcome explicitly: **update an existing page** (preferred), **new page**, or **no docs**. Prefer updating whenever a page already covers the surface.
+When the change passes, choose the outcome explicitly: **update an existing page** (preferred), **new page**, or **no docs**. Prefer updating whenever a page already covers the surface. When Gate 4 is the only gate it passed, the outcome is capped at an update.
 
-**Second, what should the doc be?** Fill in `.agents/templates/content-design-plan.md`, using `.agents/references/content-design-plan.md` for what each field is asking.
+**Second, what should the doc be?** Pick the form with the routing rule in `.agents/references/content-design-plan.md`: a new page gets the full form in `.agents/templates/content-design-plan.md`, an update that adds a concept gets the three-line short form, and a correction gets no plan. Use the reference for what each field is asking.
 
 The plan decides the content type — step 4 records that decision rather than making it. Starting at the template produces pages shaped by the template instead of by the reader's need.
 

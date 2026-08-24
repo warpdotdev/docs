@@ -24,6 +24,8 @@ This ledger is that missing key. **Triage reads it first and skips any PR number
 - **no** — failed all gates, or a disqualifier applied. Permanent; do not re-evaluate.
 - **deferred** — Gate 0 failed. Re-check when the named condition clears.
 
+A row whose only passing gate is **Gate 4** must record an update as its outcome, never a new page — see the outcome cap in `.agents/references/docs-worthiness-criteria.md`. Its reason also has to carry both halves of the gate's evidence: the job that was impossible before, and the in-product surfaces checked and found silent.
+
 ## Ledger
 
 Newest first. One row per PR number — usually a `warpdotdev/warp` changelog item, occasionally a `warpdotdev/docs` PR evaluated against the gate after the fact.

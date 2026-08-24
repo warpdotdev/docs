@@ -2,7 +2,9 @@
 
 Before we begin drafting a docs page, we need to be extremely clear on its purpose, value, and audience. We define these things by completing a content design plan before making any changes to the docs.
 
-Read this after a change has passed `.agents/references/docs-worthiness-criteria.md`, and before opening any template. Every new page and every substantive update to an existing page needs a content design plan — whether the drafting is done by a scheduled agent or by a person invoking a drafting skill directly.
+Read this after a change has passed `.agents/references/docs-worthiness-criteria.md`, and before opening any template. This applies whether the drafting is done by a scheduled agent or by a person invoking a drafting skill directly.
+
+How much plan a change needs depends on what it is. A new page gets the full form; an update that adds a concept gets a three-line short form; a correction gets none.
 
 ## Why this step exists
 
@@ -29,9 +31,33 @@ These come from [GitHub's content design principles](https://docs.github.com/en/
 - **Decide based on what people are trying to do**, not on what is technically correct or structurally tidy. When a style or structure question is genuinely open, resolve it by asking what best supports the reader's goal.
 - **Be user-centered and inclusive.** Respect everyone who visits the docs and make content that works for them.
 
-## Required fields
+## Which form to write
 
-Fill in every field. "Not applicable" is a valid answer only with a reason.
+Route on what the change is, not on how important it feels:
+
+- **New page** → **full form**. Fill in `.agents/templates/content-design-plan.md`, every field.
+- **Update that adds a new concept or section to an existing page** → **short form**, below.
+- **Correction or extension of existing content** → **no plan**. See "When a plan can be skipped".
+
+### The short form
+
+Three lines. An update inherits the page's content type, never opens a template, and does not have to justify the page's existence — so the full form's Content type, Skills and templates, and Purpose and value fields have no work to do.
+
+- **Reader and job:** who arrives at this page, and what they are trying to accomplish
+- **Gap today:** what the page fails to do for that reader right now
+- **Change:** the section or paragraph being added, and what it deliberately leaves out
+
+Filled in, for adding the secret size limit to the existing secrets page:
+
+- **Reader and job:** A platform engineer storing a service-account JSON key as a team secret so cloud agents can authenticate to GCP.
+- **Gap today:** The page covers creating a secret but never mentions that values are capped, so an oversized key fails at save time and the page offers no explanation.
+- **Change:** One paragraph under "Creating a secret" naming the 128 KiB limit and the error it produces. Excludes per-plan quota differences, which belong on the billing page.
+
+That is the entire artifact. A short form running long usually means the change is a new page in disguise — go back to the routing rule.
+
+## Required fields (full form)
+
+These are the fields of the full form, for a new page. Fill in every one — "not applicable" is a valid answer only with a reason. For an update, use the short form above.
 
 ### Target audience and their JTBD
 
@@ -48,7 +74,9 @@ If you cannot describe a reader arriving at this page with a problem, that is a 
 
 What specific difficulty does the reader hit without this doc?
 
-Describe the failure: what they try, where it breaks down, and what it costs them. If the honest answer is "nothing, they just would not know this exists," the change probably failed the worthiness gates and should not have reached this step.
+Describe the failure: what they try, where it breaks down, and what it costs them.
+
+"They would not know this exists" is a legitimate answer only when the change passed **Gate 4**, and then the problem statement has to carry that gate's evidence: the job the reader could not do before, and the in-product surfaces that stay silent about it. Without those, the change did not pass the worthiness gates and should not have reached this step.
 
 ### Goals
 
@@ -123,27 +151,28 @@ check. An invented reader is not.
 
 ## Where the plan lives
 
-Fill in `.agents/templates/content-design-plan.md`, then:
+Either form:
 
 - **Present it to the requester before drafting** when a person invoked the drafting skill. This is the checkpoint, and skipping it forfeits the only cheap chance to redirect.
 - **Include it in the PR body** as a `## Content design plan` section, in every case. A plan that lives only in an agent run log is not reviewable in practice — nobody opens the run to check the reasoning behind a page.
 
-For an update to an existing page rather than a new page, the same fields apply, scoped to the change: the audience and job for the section being added or revised, and what the page fails to do for that reader today.
-
 ## When a plan can be skipped
 
-Small corrections do not need one. Skip the plan for:
+Corrections and mechanical edits do not need one. Skip the plan for:
 
 - Typo, grammar, link, and formatting fixes
+- **Docs bug fixes** — the page describes the product incorrectly and you are making it match reality
+- **Factual corrections** — a renamed setting, a changed default, a stale Settings path, an outdated screenshot
+- **Adding a missing entry to an existing reference table or list** — a flag, endpoint, shortcut, or setting, where the surrounding page already establishes the reader and the format
 - Terminology sweeps that do not change meaning
 - Mechanical or generated updates (changelog entries, OpenAPI spec sync, snapshot and bookkeeping refreshes)
-- Screenshot replacements
+- Redirect and navigation-only changes
 
-If the change adds, removes, or reframes information a reader acts on, it needs a plan. If in doubt, write one — it is four sentences.
+The test is whether the reader gains information or has information corrected. Correcting is a skip. Adding a concept is a short form. A new page is the full form.
 
 ## Related references
 
-- `.agents/templates/content-design-plan.md` — the fill-in artifact this reference explains
+- `.agents/templates/content-design-plan.md` — the full form, for new pages. The short form lives in this reference, under "Which form to write".
 - `.agents/references/docs-worthiness-criteria.md` — whether the doc should exist, applied before this
 - `AGENTS.md` → "Drafting by content type" — the content type definitions and rules
 - `.agents/templates/` — the page scaffolds
