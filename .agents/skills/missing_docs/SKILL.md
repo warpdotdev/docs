@@ -444,10 +444,11 @@ their area. Do NOT bundle unrelated features into a single mega PR.
   Update its title and body to name them all. The one exception: if it is already approved
   and about to merge, wait for the merge and branch from the result.
 
-  For the search to find it, title every bookkeeping PR `missing_docs bookkeeping:
-  <version>` and name its branch `missing-docs/bookkeeping-<version>`. #614 and #624 used
-  two different branch-naming schemes and neither run looked for the other's PR, which is
-  how both ended up adding the same two `/factory` map entries.
+  For the search to find it, title every bookkeeping PR `chore(missing_docs): bookkeeping
+  for <version>` and name its branch `missing-docs/bookkeeping-<version>`. The title keeps
+  the repo's existing prefix style (see `create_pr` → Best Practices) while carrying both
+  search terms. #614 and #624 used two different naming schemes and neither run looked for
+  the other's PR, which is how both ended up adding the same two `/factory` map entries.
 - **API spec gaps stay separate** — released endpoints go through the `sync-openapi-spec`
   skill as their own change, never bundled into a feature PR.
 - **Validate once, then split.** Run `npm run build` on the combined working tree (all
@@ -550,11 +551,11 @@ with the product. Each run:
    owner), each carrying its content design plan as a section in the PR body, plus the
    run's bookkeeping changes to `feature_surface_map.md`, `changelog_decisions.md`,
    `last_release_processed.json`, and `surface_snapshot.json`. Extend the open bookkeeping
-   PR if there is one; open a new one titled `missing_docs bookkeeping: <version>` only if
-   there is not. Use the `create_pr` skill: every drafting PR body opens with the required
-   `## What this feature does` summary, and every PR gets its owning reviewer requested
-   per step 7 before the run is done. Summarize remaining (deferred) findings in the
-   relevant PR body so nothing is silently dropped.
+   PR if there is one; open a new one titled `chore(missing_docs): bookkeeping for
+   <version>` only if there is not. Use the `create_pr` skill: every drafting PR body
+   opens with the required `## What this feature does` summary, and every PR gets its
+   owning reviewer requested per step 7 before the run is done. Summarize remaining
+   (deferred) findings in the relevant PR body so nothing is silently dropped.
 
 A run that gates out every candidate is a successful run. It opens no feature PRs and
 only the bookkeeping PR recording the verdicts. Do not manufacture work to justify the
@@ -588,7 +589,7 @@ Recommended scheduled-agent prompt (copy when setting up the agent):
 > opening a bookkeeping PR, search for an open one with gh pr list --state open --search
 > "missing_docs bookkeeping in:title" and extend that branch instead of opening a second;
 > two open bookkeeping PRs conflict on a snapshot that is regenerated wholesale. Title a
-> new one "missing_docs bookkeeping: <version>".
+> new one "chore(missing_docs): bookkeeping for <version>".
 > Request the resolved owner as reviewer on every PR with gh pr edit --add-reviewer,
 > falling back to dannyneira when nothing resolves, and verify the requested-reviewers
 > list is non-empty before you finish — a PR with no requested reviewer is an incomplete
