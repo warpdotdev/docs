@@ -33,6 +33,29 @@ audits in the report's `audits_skipped` field (`extraction:*` entries identify
 broken parsers). Never treat an exit-2 run as a clean audit — fix the problem
 and re-run. Exit 0 means all requested audits ran (findings may still exist).
 
+### Run every command from the docs repo root
+
+Every path in this skill — scripts, references, doc pages — is relative to the docs
+repo root, and nothing resolves them for you. A sandbox commonly starts a run one level
+up (`/workspace`, with the checkout at `/workspace/docs`), so `cd` before anything else:
+
+```bash
+cd "$(git rev-parse --show-toplevel)"
+```
+
+A wrong working directory fails in a way that reads like a real failure: `python3` exits
+**2** with `can't open file`, the same exit code `audit_docs.py` uses to fail loud on a
+broken environment. Read the message before concluding a sanity guard tripped.
+
+### Install Node dependencies before the first build
+
+`npm run build` is the only validation this repo has, and it needs `node_modules`, which
+a fresh sandbox does not have. Install once per sandbox:
+
+```bash
+npm ci
+```
+
 ## Public vs. private surfaces (what you may document)
 
 Only document surfaces that are **publicly released**. This is the most important guardrail in this skill: do not reveal private or unreleased surfaces in public docs. Two independent gates, both required:
@@ -315,6 +338,15 @@ For each gap to address (prioritize high → medium → low):
    repeat findings, and an unmaintained map is how gaps get lost. Per the PR strategy
    below, collect all map edits into the single companion audit-bookkeeping PR (only fold
    them into a feature PR when the run documents exactly one feature).
+
+   **Edit map entries individually; never find-and-replace across the file.** The
+   left-hand side of every entry is a literal code identifier — a flag name, command,
+   route, setting key, or doc slug — and it only matches code because it matches exactly.
+   A rename sweep applied to the whole map (say, replacing `cost` with `usage` while
+   renaming a feature) rewrites unrelated keys into surfaces that do not exist. Map
+   hygiene catches the corruption on the next audit, but only after it has shipped in a
+   PR. Change the entries you mean to change, then re-run `--category map` to confirm
+   nothing else moved.
 9. Run `--update-snapshot` and commit the refreshed `surface_snapshot.json` in that same
    bookkeeping PR. Never split the snapshot across multiple PRs.
 
@@ -365,7 +397,11 @@ python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
   warp:app/src/search/slash_command_menu/static_commands/commands.rs
 ```
 
-Then assign the resolved reviewers on the PR with `gh pr edit <PR> --add-reviewer <logins/teams>`. Unresolved paths are non-fatal — leave them for manual assignment rather than blocking the run.
+Add `--reviewers-only` to get just the comma-joined `--add-reviewer` argument (empty output when nothing resolved), which is the form the mandatory request step below consumes.
+
+Then **actually request the review on GitHub** with `gh pr edit <PR> --add-reviewer <logins/teams>`. A `/cc @engineer` line in the PR body is not a review request: it puts nothing in the engineer's review queue. All four ambient-drafted docs PRs (#414, #415, #416, #417) named reviewers in prose and got zero reviews, three of them with an empty requested-reviewers list.
+
+An individual unresolved *path* is non-fatal — other paths usually resolve the same owner. An empty *result* is not: fall back to `dannyneira` rather than opening the PR with no reviewer. See step 7 of drift-watch mode for the required command.
 
 ### PR strategy: one PR per feature
 
@@ -393,10 +429,10 @@ their area. Do NOT bundle unrelated features into a single mega PR.
 - **API spec gaps stay separate** — released endpoints go through the `sync-openapi-spec`
   skill as their own change, never bundled into a feature PR.
 - **Validate once, then split.** Run `npm run build` on the combined working tree (all
-  features together) to confirm everything compiles, then peel each feature onto its own
-  branch off `main` (e.g. `git checkout <base> -b <branch>` then
-  `git checkout <combined-ref> -- <files>`). Each feature branch is then a strict subset
-  of the already-validated tree.
+  features together) to confirm everything compiles — `npm ci` first if the sandbox has
+  no `node_modules` — then peel each feature onto its own branch off `main` (e.g.
+  `git checkout <base> -b <branch>` then `git checkout <combined-ref> -- <files>`). Each
+  feature branch is then a strict subset of the already-validated tree.
 - List any deferred findings in the most relevant PR body (or the bookkeeping PR) so
   nothing is silently dropped.
 
@@ -413,7 +449,9 @@ with the product. Each run:
    ```
    Exit `0` means a new stable release is available — continue. Exit `10` means no new
    release; record the no-op outcome in run output and **stop**. Exit `1` is a fetch or
-   parse failure; report it and stop rather than proceeding as if nothing shipped.
+   parse failure; report it and stop rather than proceeding as if nothing shipped. Exit
+   `2` with `can't open file` is not a gate outcome at all — it is `python3` reporting the
+   wrong working directory. `cd` to the docs repo root and re-run.
 
    The gate also prints any `oz_updates` bullets for the release. Keep them — they are
    platform-side changes the audit cannot see, and this is the only place they surface.
@@ -456,19 +494,41 @@ with the product. Each run:
    python3 .agents/skills/missing_docs/scripts/check_new_release.py --commit
    python3 .agents/skills/missing_docs/scripts/audit_docs.py --update-snapshot
    ```
-6. **Validate**: `npm run build` if doc pages changed; re-run the audit and confirm
-   the addressed findings are gone.
-7. **Route reviewers**: run `scripts/suggest_reviewers.py` (see Reviewer routing)
-   with the source files behind the addressed findings to resolve the owning
-   engineers for the PR.
+6. **Validate**: if doc pages changed, run `npm ci && npm run build` — a fresh sandbox
+   has no `node_modules`, and the build is the only validation this repo has. Then
+   re-run the audit and confirm the addressed findings are gone.
+7. **Route reviewers and request the review** (required, not advisory): resolve the
+   owning engineers with `scripts/suggest_reviewers.py` (see Reviewer routing), passing
+   the source files behind the addressed findings, then make a real GitHub review request
+   on each PR you open in step 8. Naming the engineer in the body is not a request — that
+   is exactly how #414–#417 ended up with zero reviews.
+
+   **A PR is not complete until `gh pr edit --add-reviewer` has succeeded and the
+   requested reviewers read back as the owners you resolved.** A resolution failure
+   falls back to `dannyneira`; it never no-ops. This matches the fallback in
+   `.github/workflows/release-docs-update.yml` (the "Assign last docs PR reviewer" step).
+
+   **Use the snippet in the `create_pr` skill under "Request reviewers (required)" —
+   it is the canonical copy; do not paste a second version here.** It requests each
+   reviewer in a separate `gh` call (a comma-joined call is atomic, so one
+   unassignable entry drops every valid owner with it) and verifies the read-back
+   against the resolved set rather than merely against empty. Feed it the reviewers
+   from `suggest_reviewers.py --reviewers-only`, using the source files behind the
+   addressed findings.
+
+   Keep the prose `/cc @engineer` mention in the body as well — this adds the real
+   request, it does not replace the mention. Report any PR whose requested-reviewers
+   list is empty as a run failure, and any PR that got only some of its resolved
+   owners as a partial result worth naming in the run output.
 8. **Open one PR per feature** following the PR strategy above (not a single mega PR):
    one focused PR per documented feature (grouping only features that share a doc file or
    owner), each carrying its content design plan as a section in the PR body, plus a
    single companion audit-bookkeeping PR for all `feature_surface_map.md`,
    `changelog_decisions.md`, `last_release_processed.json`, and `surface_snapshot.json`
-   changes. Use the `create_pr` skill, assign each PR's owning reviewer from step 7
-   (`gh pr edit <PR> --add-reviewer ...`), and summarize remaining (deferred) findings in
-   the relevant PR body so nothing is silently dropped.
+   changes. Use the `create_pr` skill: every drafting PR body opens with the required
+   `## What this feature does` summary, and every PR gets its owning reviewer requested
+   per step 7 before the run is done. Summarize remaining (deferred) findings in the
+   relevant PR body so nothing is silently dropped.
 
 A run that gates out every candidate is a successful run. It opens no feature PRs and
 only the bookkeeping PR recording the verdicts. Do not manufacture work to justify the
@@ -476,7 +536,9 @@ run.
 
 Recommended scheduled-agent prompt (copy when setting up the agent):
 
-> Run the missing_docs skill in drift-watch mode. First run
+> Run the missing_docs skill in drift-watch mode. Work from the docs repo root — every
+> path below is relative to it, and a python exit code of 2 with "can't open file" means
+> you are in the wrong directory, not that a check failed. First run
 > .agents/skills/missing_docs/scripts/check_new_release.py; if it reports no new stable
 > release, record the no-op outcome and stop. Otherwise use the audit script with
 > explicit --warp (public warpdotdev/warp checkout) and --warp-server paths and --diff.
@@ -490,13 +552,17 @@ Recommended scheduled-agent prompt (copy when setting up the agent):
 > page over creating a new one, and use the sync-openapi-spec skill for API spec gaps.
 > Update the surface map for every triaged flag, append every verdict to
 > changelog_decisions.md, and regenerate the surface snapshot with --update-snapshot.
-> Resolve reviewers by running .agents/skills/missing_docs/scripts/suggest_reviewers.py
-> against the source files behind each addressed finding. Open one focused PR per
-> documented feature (grouping only features that share a doc file or owner), each with
-> the content design plan as a section in its body, plus a single companion bookkeeping
-> PR for the feature_surface_map.md, changelog_decisions.md, last_release_processed.json,
-> and surface_snapshot.json changes; assign each PR's resolved owner as reviewer, and
-> list any findings you deferred in the relevant PR body.
+> Resolve reviewers by running
+> .agents/skills/missing_docs/scripts/suggest_reviewers.py --reviewers-only against the
+> source files behind each addressed finding. Open one focused PR per documented feature
+> (grouping only features that share a doc file or owner), each opening with the required
+> "## What this feature does" summary and carrying the content design plan as a section in
+> its body, plus a single companion bookkeeping PR for the feature_surface_map.md,
+> changelog_decisions.md, last_release_processed.json, and surface_snapshot.json changes.
+> Request the resolved owner as reviewer on every PR with gh pr edit --add-reviewer,
+> falling back to dannyneira when nothing resolves, and verify the requested-reviewers
+> list is non-empty before you finish — a PR with no requested reviewer is an incomplete
+> run, not a delivered one. List any findings you deferred in the relevant PR body.
 
 ### Invocation modes
 

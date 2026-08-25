@@ -23,6 +23,13 @@ Checks performed:
   * Duplicate heading  - the same Markdown heading text appearing more than once.
   * Required heading    - (optional) assert specific headings are present exactly
                          once, for skills that emit a fixed body template.
+  * Lead section        - (optional) assert a heading is the FIRST content in the
+                         body, has prose under it, and stays within a word budget.
+                         Drafting PRs must open with a plain-language summary of
+                         what the feature does for the user, so a reviewer learns
+                         that before any pipeline bookkeeping. Position is checked
+                         against content, not just headings, so a body cannot open
+                         with unheaded spec/workflow/run-ID preamble.
 
 Usage:
     python3 check_pr_body.py /tmp/pr-body.md
@@ -30,6 +37,8 @@ Usage:
     python3 check_pr_body.py /tmp/pr-body.md \
         --require-heading "## Patterns addressed" \
         --require-heading "## Improvement targets"
+    python3 check_pr_body.py /tmp/pr-body.md \
+        --require-lead-section "## What this feature does"
 
 Exit codes:
     0  no issues found
@@ -51,6 +60,11 @@ SHORT_WINDOW = 40
 SHORT_MIN_COUNT = 3
 LONG_WINDOW = 80
 LONG_MIN_COUNT = 2
+
+# Word budget for the lead section. "Drafts are too wordy" is a standing complaint,
+# and a summary that runs past a short paragraph stops being a summary. Two to four
+# sentences fit comfortably under this cap.
+LEAD_SECTION_MAX_WORDS = 75
 
 
 def _strip_urls(text: str) -> str:
@@ -83,18 +97,86 @@ def find_repeated_span(text: str) -> Optional[Tuple[str, int]]:
 
 
 def _iter_non_code_lines(lines: List[str]):
-    """Yield (line_num, text) for lines outside fenced code blocks."""
+    """Yield (line_num, text) for lines outside fenced code blocks and HTML comments.
+
+    HTML comments are skipped for the same reason code fences are: a `##` line or a
+    stray backtick inside `<!-- ... -->` is commentary, not real body content. PR
+    bodies carry machine-managed comment banners, so this is a live case.
+    """
     fence: Optional[str] = None
+    in_comment = False
     for line_num, line in enumerate(lines, start=1):
-        fence_match = re.match(r"^\s*(`{3,}|~{3,})", line)
+        # Inside a code fence, only a matching fence closes it. `<!--` in there
+        # is sample content, not structure, so comments are not parsed.
         if fence is not None:
+            fence_match = re.match(r"^\s*(`{3,}|~{3,})", line)
             if fence_match and fence_match.group(1)[0] == fence[0]:
                 fence = None
             continue
+
+        # Strip comments *before* looking for a fence. A ``` line inside an HTML
+        # comment is commentary; treating it as a real fence opens a block that
+        # then swallows the closing `-->` and everything after it — including the
+        # lead heading — so a valid body fails the check.
+        was_in_comment = in_comment
+        visible, in_comment = _strip_html_comments(line, in_comment)
+
+        if not visible.strip():
+            # Either a genuinely blank line or a line that was entirely comment.
+            # Yield blanks so callers still see the line, but drop comment-only
+            # lines, including the one carrying the closing `-->`.
+            if was_in_comment or in_comment or visible != line:
+                continue
+            yield line_num, visible
+            continue
+
+        fence_match = re.match(r"^\s*(`{3,}|~{3,})", visible)
         if fence_match:
             fence = fence_match.group(1)
             continue
-        yield line_num, line
+
+        yield line_num, visible
+
+
+def _strip_html_comments(line: str, in_comment: bool) -> Tuple[str, bool]:
+    """Remove HTML-comment spans from one line. Returns (visible_text, still_open)."""
+    out = []
+    rest = line
+    while rest:
+        if in_comment:
+            end = rest.find("-->")
+            if end == -1:
+                rest = ""
+                break
+            rest = rest[end + 3 :]
+            in_comment = False
+        else:
+            start = rest.find("<!--")
+            if start == -1:
+                out.append(rest)
+                break
+            out.append(rest[:start])
+            rest = rest[start + 4 :]
+            in_comment = True
+    return "".join(out), in_comment
+
+
+def _content_lines_before(lines: List[str], stop_line: int) -> List[Tuple[int, str]]:
+    """Return (line_num, text) for real content appearing before `stop_line`.
+
+    Blank lines and HTML comments do not count as content; anything else does,
+    including a fenced code block, which is exactly the kind of thing that must not
+    push the feature summary below the fold.
+    """
+    found: List[Tuple[int, str]] = []
+    in_comment = False
+    for line_num, line in enumerate(lines, start=1):
+        if line_num >= stop_line:
+            break
+        visible, in_comment = _strip_html_comments(line, in_comment)
+        if visible.strip():
+            found.append((line_num, visible.strip()))
+    return found
 
 
 def find_unbalanced_backticks(lines: List[str]) -> List[Tuple[int, str]]:
@@ -133,6 +215,67 @@ def check_required_headings(lines: List[str], required: List[str]) -> List[str]:
     return problems
 
 
+def check_lead_section(lines: List[str], heading: str) -> List[str]:
+    """Return messages if the lead section is missing, misplaced, empty, or too long.
+
+    The lead section is the plain-language answer to "what does this feature do for
+    the user?", and it only does that job if the reviewer hits it first. Ambient
+    drafts previously opened with pipeline bookkeeping (which spec, which workflow,
+    which run), so the check asserts position as well as presence.
+    """
+    wanted = heading.strip()
+    problems: List[str] = []
+
+    headings: List[Tuple[int, str]] = []
+    for line_num, line in _iter_non_code_lines(lines):
+        if re.match(r"^#{1,6}\s+\S", line):
+            headings.append((line_num, line.strip()))
+
+    matches = [ln for ln, text in headings if text == wanted]
+    if not matches:
+        return [f"missing required lead section: {wanted!r} (must be the first content in the body)"]
+    if len(matches) > 1:
+        problems.append(
+            f"lead section appears {len(matches)}x (expected once): {wanted!r}"
+        )
+
+    # Require the summary to be the first *content*, not merely the first heading.
+    # A body can open with several lines of unheaded bookkeeping -- the spec name,
+    # the generating workflow, the run ID -- and still have the summary as its first
+    # heading. That is the exact shape the lead section exists to prevent.
+    preceding = _content_lines_before(lines, matches[0])
+    if preceding:
+        line_num, text = preceding[0]
+        preview = text if len(text) <= 60 else text[:57] + "..."
+        kind = "heading" if re.match(r"^#{1,6}\s+\S", text) else "text"
+        problems.append(
+            f"lead section is not first: {kind} {preview!r} (line {line_num}) precedes "
+            f"{wanted!r} (line {matches[0]}); {len(preceding)} line(s) of content come "
+            "before it. The reader must get the feature summary before anything else."
+        )
+
+    # Collect the prose between the lead heading and the next heading.
+    start = matches[0]
+    body_words: List[str] = []
+    for line_num, line in _iter_non_code_lines(lines):
+        if line_num <= start:
+            continue
+        if re.match(r"^#{1,6}\s+\S", line):
+            break
+        body_words.extend(line.split())
+
+    if not body_words:
+        problems.append(f"lead section {wanted!r} has no content under it")
+    elif len(body_words) > LEAD_SECTION_MAX_WORDS:
+        problems.append(
+            f"lead section {wanted!r} is {len(body_words)} words "
+            f"(budget: {LEAD_SECTION_MAX_WORDS}). Cut it to a short paragraph: what the "
+            "feature does for the user, plus the shipped-in version and date."
+        )
+
+    return problems
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("body", help="path to the PR body file, or '-' for stdin")
@@ -142,6 +285,14 @@ def main(argv: Optional[List[str]] = None) -> int:
         default=[],
         metavar="HEADING",
         help="assert this exact heading line is present exactly once (repeatable)",
+    )
+    parser.add_argument(
+        "--require-lead-section",
+        metavar="HEADING",
+        help=(
+            "assert this exact heading is the FIRST content in the body, appears once, "
+            f"and carries 1-{LEAD_SECTION_MAX_WORDS} words of prose"
+        ),
     )
     args = parser.parse_args(argv)
 
@@ -175,6 +326,9 @@ def main(argv: Optional[List[str]] = None) -> int:
         issues.append(f"duplicate heading: {heading!r}")
 
     issues.extend(check_required_headings(lines, args.require_heading))
+
+    if args.require_lead_section:
+        issues.extend(check_lead_section(lines, args.require_lead_section))
 
     if issues:
         print("PR body integrity check FAILED:\n", file=sys.stderr)
