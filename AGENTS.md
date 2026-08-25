@@ -151,11 +151,11 @@ These practices serve both human accessibility needs and AI agent consumption (A
 - **Explicit context**: Don't assume the reader arrived from a parent page. State what a thing is before explaining how to use it. This helps agents extract self-contained answers.
 - **Frontmatter descriptions**: Agents and search engines use the `description` field to determine relevance before reading the full page. Write descriptions as standalone summaries.
 - **Consistent terminology**: Agents struggle when the same concept has multiple names. Use the glossary terms consistently.
-- **Machine-parseable patterns**: Consistent list formats, code block labeling, and parameter tables help agents extract structured information. The templates in `.warp/templates/` enforce this.
+- **Machine-parseable patterns**: Consistent list formats, code block labeling, and parameter tables help agents extract structured information. The templates in `.agents/templates/` enforce this.
 
 ## Content structure
 
-These structural rules apply to all pages regardless of content type. For type-specific page structures, see the templates in `.warp/templates/`.
+These structural rules apply to all pages regardless of content type. For type-specific page structures, see the templates in `.agents/templates/`.
 
 ### Frontmatter
 Every page must include YAML frontmatter with a `description` field.
@@ -473,6 +473,20 @@ Use consistent verbs that match the type of UI element:
 
 Every documentation page should be drafted according to its content type. Identify the type before you start writing, then follow the structure and rules for that type below.
 
+The type is not a formatting choice — it follows from what the reader is trying to do. Decide that first in the content design plan (`.agents/references/content-design-plan.md`), then pick the type that serves it. Picking a template first produces pages shaped by the template.
+
+### Titles by content type
+
+Each type has its own title convention. Sentence case applies to all of them; this is the additional per-type rule.
+
+- **Conceptual** — "About [subject]", or a plain noun phrase naming the subject. ✅ `About environments` ✅ `Deployment patterns` ❌ `Understanding how environments work`
+- **Procedural** — begin with a gerund, naming the task. ✅ `Configuring a self-hosted GitLab integration` ❌ `Self-hosted GitLab integration setup`
+- **Reference** — a noun phrase naming what can be looked up. Avoid stacked nouns; use prepositions to break them up. ✅ `Keyboard shortcuts for the code editor` ❌ `Code editor keyboard shortcut reference`
+- **Troubleshooting** — the symptom or the exact error message, so search matches what the reader typed.
+- **Quickstart** — name the feature. ✅ `Quickstart for cloud agents` ❌ a bare `Quickstart`
+- **Tutorial** — follow the procedural convention. Do not put "tutorial" or "guide" in the title.
+- **Feature documentation (combined)** — if the page contains a procedure, use a task-based gerund title. Keep it general enough to cover the range of tasks on the page, and agnostic about which option the reader picks. ✅ `Setting repository visibility` ❌ `Making a private repository public`
+
 ### General guidance (all content types)
 
 These rules apply regardless of content type:
@@ -515,7 +529,7 @@ These rules apply regardless of content type:
 
 **Existing examples**: `platform/deployment-patterns.mdx`, `platform/index.mdx`
 
-**Template**: `.warp/templates/conceptual.md`
+**Template**: `.agents/templates/conceptual.md`
 
 ### Procedural
 
@@ -544,32 +558,37 @@ These rules apply regardless of content type:
 
 **Existing examples**: `reference/cli/api-keys.mdx`, `platform/integrations/slack.mdx`
 
-**Template**: `.warp/templates/procedural.md`
+**Template**: `.agents/templates/procedural.md`
 
 ### Quickstart
 
-**What it is**: A specialized procedural doc designed to get the reader to a working result fast. Style "quickstart" as one word, lowercase (unless starting a sentence or in a title).
+**What it is**: A specialized procedural doc that gets the reader to a working result fast, with only the essential steps. Style "quickstart" as one word, lowercase (unless starting a sentence or in a title).
 
-**When to use**: For first-time experiences with a product area. The reader should go from zero to a working result in ~10 minutes.
+**When to use**: When the reader already understands the feature or product and is ready to try it. A quickstart deliberately omits explanation of how something works or why they would want it — if the reader needs that, they need conceptual content, and if the task is complex enough to need context along the way, they need a tutorial.
+
+**Scope**: About five minutes and roughly 600 words. That budget is the defining constraint, not a suggestion. A quickstart that no longer fits it has become a tutorial and should be reworked as one.
 
 **Structure**:
-1. Opening paragraph with what the reader will accomplish and a time estimate
+1. Opening paragraph: who it is for, the prerequisites and prior knowledge assumed, what the reader will end up with, and the time budget ("in about five minutes")
 2. Prerequisites (minimal — link to full setup docs rather than inlining lengthy setup)
 3. Numbered steps (as few as possible to reach a working result)
-4. Next steps (links to deeper guides, advanced usage, related features)
+4. Troubleshooting (optional — link to existing troubleshooting content rather than writing new)
+5. Next steps: a one-line recap, then 2-3 actionable next steps, always including a link to the conceptual page for the feature
 
 **Rules**:
 - **Give every quickstart a descriptive H1 title.** Don't use a bare "Quickstart" — include the feature or topic name.
-  - ✅ `# Cloud Agents Quick Start`
+  - ✅ `# Quickstart for cloud agents`
   - ❌ `# Quickstart` (quickstart for what?)
 - Minimize prerequisites — the reader should be able to start quickly.
-- Target ~10 minutes or less.
 - Keep steps focused on the critical path — defer edge cases and advanced options to other pages.
+- Link out rather than replicating content, so the flow is not interrupted.
+- Use code blocks and screenshots generously; visual confirmation reassures the reader they are on track.
+- Steps can be less explicit than in full procedural content, because the audience already knows the product.
 - All procedural rules apply (focused steps, motivate steps, expected outcomes).
 
 **Existing examples**: `platform/quickstart.mdx`, `getting-started/quickstart/installation-and-setup.mdx`
 
-**Template**: `.warp/templates/quickstart.md`
+**Template**: `.agents/templates/quickstart.md`
 
 ### Reference
 
@@ -592,7 +611,7 @@ These rules apply regardless of content type:
 
 **Existing examples**: `reference/cli/index.mdx`, `reference/api-and-sdk/index.mdx`
 
-**Template**: `.warp/templates/reference.md`
+**Template**: `.agents/templates/reference.md`
 
 ### Troubleshooting
 
@@ -614,13 +633,30 @@ These rules apply regardless of content type:
 
 **Existing examples**: `support-and-community/troubleshooting-and-support/known-issues.mdx`, `reference/cli/troubleshooting.mdx`
 
-**Template**: `.warp/templates/troubleshooting.md`
+**Template**: `.agents/templates/troubleshooting.md`
 
 ### FAQ
 
 **What it is**: Question-and-answer format for common questions.
 
-**When to use**: For pages that collect frequently asked questions about a topic area.
+**When to use**: Rarely. **Default to "not an FAQ."**
+
+An FAQ page pulls answers away from the page that owns the topic. The reader who lands on the owning page does not find the answer, the reader who lands on the FAQ gets an answer without its context, and the two drift apart as the product changes. Most content that arrives as "we should FAQ this" belongs on an existing conceptual, reference, or troubleshooting page.
+
+**Admission rules — all three must hold before creating or extending an FAQ page:**
+
+1. **The questions are genuinely cross-cutting.** They span several features or pages, so no single page owns them. Questions about one feature belong on that feature's page.
+2. **There is no canonical home.** If any existing page could answer the question in context, answer it there instead. "It would be buried on that page" is a signal the page needs restructuring, not that the answer needs a second home.
+3. **The question is one a reader actually asks**, in their own words, sourced from support tickets, Slack, or community threads — not one invented to organize existing content.
+
+Before adding a question to an existing FAQ page, apply the same test. FAQ pages grow by accretion; each addition should have to justify itself.
+
+**Where it goes instead:**
+
+- "What is X / how does X work?" → conceptual page for X
+- "What are the limits / which plans include X?" → reference section on the owning page
+- "Why did I get error Y?" → troubleshooting section, keyed on the error
+- "How do I do Z?" → procedural section on the owning page
 
 **Structure**:
 ```markdown
@@ -633,16 +669,24 @@ Direct answer with actionable information. Include links to relevant documentati
 - Lead with a direct answer, then provide detail.
 - Keep answers concise — link to full documentation for deeper topics.
 - Group questions by theme (e.g., "General", "Billing", "Errors").
+- Never let an FAQ answer become the only place a fact lives. It should summarize and link, not own.
 
-**Template**: `.warp/templates/faq.md`
+**Template**: `.agents/templates/faq.md`
 
 **Existing examples**: `agent-platform/getting-started/faqs.mdx`, `support-and-community/plans-and-billing/pricing-faqs.mdx`
 
-### Guide (Guides section)
+### Tutorial (Guides section)
 
-**What it is**: A practical, task-oriented walkthrough that helps a developer accomplish a specific goal using Warp. Guides live in the `src/content/docs/university/` directory (the "Guides" Astro Starlight space) and can include video, written steps, or both.
+**What it is**: A practical, task-oriented walkthrough of an entire workflow, start to finish. Tutorials live in the `src/content/docs/guides/` directory (the "Guides" Astro Starlight space) and can include video, written steps, or both.
 
-**When to use**: For educational content that teaches a workflow or use case — not feature documentation (which belongs in the main docs). Guides focus on the "how" with real prompts and reproducible results.
+"Guides" is the name of the section, not a content type. It holds both **tutorials** and **quickstarts**; pick between them by scope before drafting:
+
+- **Quickstart** — about five minutes, ~600 words, essential steps only, for someone who already understands the product.
+- **Tutorial** — a full workflow with context at the decision points, for someone extending a basic understanding to solve a real problem.
+
+**A tutorial requires that a quickstart already exists** for the product area. If there is no quickstart, write that first — otherwise the tutorial absorbs setup content that belongs in a shorter page, and readers who only wanted to get started have to wade through the whole workflow.
+
+**When to use**: For educational content that teaches a workflow or use case — not feature documentation (which belongs in the main docs). Tutorials focus on the "how" with real prompts and reproducible results, and are more conversational than other content: a developer-to-developer conversation that stays accessible to varied technical backgrounds.
 
 **Structure**:
 1. Frontmatter with `description` (for SEO and search)
@@ -656,15 +700,19 @@ Direct answer with actionable information. Include links to relevant documentati
 9. "What you achieved" summary at the end with links to related docs
 
 **Rules**:
-- Titles should be task-oriented and scannable. Use shortened titles in the Astro Starlight nav and full descriptive titles in the article H1.
+- Titles should be task-oriented and scannable. Use shortened titles in the Astro Starlight nav and full descriptive titles in the article H1. Do not put "tutorial" or "guide" in the title.
 - For SEO: capture the non-branded query when possible. Write the title a developer would actually search for ("How to Set Up Claude Code" not "How to Set Up Claude Code in Warp").
 - All procedural rules apply (focused steps, motivate steps, expected outcomes).
+- **Give real examples, not placeholders.** Do not write "enter a commit message" — supply an appropriate one that matches the preceding steps.
+- **Include troubleshooting.** Acknowledge what commonly goes wrong in this workflow and how to recover. This is what most distinguishes a tutorial from a quickstart, which only links to existing troubleshooting.
+- **End with a conclusion, then next steps.** Review what the reader built, referring back to the example from the introduction, then give 2-3 actionable next steps.
+- Do not state an expected completion time — it varies too much by experience level. (Quickstarts do state one.)
 - Link to relevant feature documentation in the main docs where concepts need deeper explanation.
-- When a guide has a companion video, the written content should stand alone — a reader should be able to follow the guide without watching the video.
+- When a tutorial has a companion video, the written content should stand alone — a reader should be able to follow it without watching the video.
 
-**Template**: A copyable starting template is available at `.warp/templates/guide-page.md`. Use this when creating new guide pages.
+**Template**: A copyable starting template is available at `.agents/templates/guide-page.md`. The filename is a holdover from when this type was called "guide"; the `draft_guide` skill uses it too.
 
-**Existing examples**: `university/mcp-servers/sentry-mcp-fix-sentry-error-in-empower-website.mdx`, `university/end-to-end-builds/building-a-real-time-chat-app-github-mcp-+-railway.mdx`
+**Existing examples**: `guides/external-tools/sentry-mcp-fix-sentry-error-in-empower-website.mdx`, `guides/build-an-app-in-warp/building-a-real-time-chat-app-github-mcp-railway.mdx`
 
 
 ### Feature documentation (combined pattern)
@@ -682,25 +730,43 @@ This is the most common page type in Warp's docs (~75+ pages). A feature documen
 - Apply the **conceptual** rules to the explanatory sections (explain what and why, define terms, no procedures in the overview).
 - Apply the **procedural** rules to the step-by-step sections (one action per step, motivate steps, expected outcomes).
 - Keep the conceptual and procedural sections clearly separated with distinct headers.
+- **Never fold quickstart or tutorial content into a combined page.** Conceptual, procedural, reference, and troubleshooting sections can coexist here; quickstarts and tutorials cannot. Both are defined by a scope budget and a single continuous path, and both lose their purpose once embedded in a longer page. Link to them instead.
+- **Order sections from broad to specific**: conceptual, then reference, then procedures in lifecycle order (enable, use, manage, disable, destructive actions), then troubleshooting.
+- Use a task-based gerund title that stays agnostic about which option the reader chooses — `Setting repository visibility`, not `Making a private repository public`.
+
+This is the type most prone to sprawl, precisely because it accepts the most kinds of content. If the page is growing past roughly 1500 words, split the procedures onto their own pages rather than adding another section.
 
 **Existing examples**: `agent-platform/capabilities/skills.mdx`, `platform/environments.mdx`
 
-**Template**: `.warp/templates/feature-doc.md`
+**Template**: `.agents/templates/feature-doc.md`
 
 ## Page templates
 
-Concrete page scaffolds for each content type are in `.warp/templates/`. Use these as starting points when creating new pages:
+Concrete page scaffolds for each content type are in `.agents/templates/`. Use these as starting points when creating new pages — but pick the type from the content design plan first, not by browsing this list:
 
-- `.warp/templates/conceptual.md`
-- `.warp/templates/procedural.md`
-- `.warp/templates/quickstart.md`
-- `.warp/templates/reference.md`
-- `.warp/templates/troubleshooting.md`
-- `.warp/templates/faq.md`
-- `.warp/templates/guide-page.md`
-- `.warp/templates/feature-doc.md`
+- **Conceptual** — `.agents/templates/conceptual.md`
+- **Procedural** — `.agents/templates/procedural.md`
+- **Quickstart** — `.agents/templates/quickstart.md`
+- **Reference** — `.agents/templates/reference.md`
+- **Troubleshooting** — `.agents/templates/troubleshooting.md`
+- **FAQ** — `.agents/templates/faq.md` (read the FAQ admission rules before using this one)
+- **Tutorial** — `.agents/templates/guide-page.md` (filename is a holdover from when the type was called "guide")
+- **Feature documentation (combined)** — `.agents/templates/feature-doc.md`
 
-Each template includes inline HTML comments explaining what to put in each section and why.
+One template is not a page scaffold: `.agents/templates/content-design-plan.md` is the fill-in artifact completed *before* drafting, presented to the requester in an interactive session and included in the PR body in every case. See `.agents/references/content-design-plan.md`.
+
+Every template carries its guidance as **bracketed instructions** in the body, not HTML comments — agents deprioritize comments, so the guidance would be skipped. Each one opens with a removal note; delete every bracketed instruction, including that one, before shipping.
+
+Each **page** template also sets `title` in frontmatter and adds no H1 to the body. Starlight renders the frontmatter title as the page H1, so a body H1 produces a duplicate. This does not apply to the content design plan template, which is a PR body section rather than a page.
+
+### Closing section
+
+Every page ends with one of two sections, chosen by content type:
+
+- **`## Next steps`** — quickstarts and tutorials. The reader just finished something and needs forward momentum: a one-line recap, then 2-3 actionable next steps, always including the conceptual page for the feature.
+- **`## Related pages`** — every other type. The reader wants lateral material, not a sequel.
+
+Do not use "Further reading" or "See also"; neither appears anywhere in the corpus. Whichever section applies, it goes last and contains at least one internal link whose anchor text names the destination.
 
 ## Terminology standards
 
@@ -891,14 +957,19 @@ All documentation should be written with search discoverability in mind — both
 - For feature documentation: use the feature name as the developer knows it.
 
 ### SEO data
-When creating or updating content, use SEO and AEO data to inform titles, descriptions, and content coverage. The `docs-seo-audit` skill (`.warp/skills/docs-seo-audit/`) can identify technical SEO issues.
+When creating or updating content, use SEO and AEO data to inform titles, descriptions, and content coverage. The `docs-seo-audit` skill (`.agents/skills/docs-seo-audit/`) can identify technical SEO issues.
 
 ## Quality checklist
 
 Before publishing any documentation, verify:
 
+- [ ] The change passed `.agents/references/docs-worthiness-criteria.md` — the full gate with recorded evidence for automated runs, Gate 0 (shipped and public) for human-requested pages
+- [ ] A content design plan exists per `.agents/references/content-design-plan.md` and appears in the PR body
+- [ ] An existing page was updated rather than a new page created, unless a new page is genuinely justified
 - [ ] Frontmatter includes a one-sentence description (50-160 chars) written as a standalone summary, with no filler opener
-- [ ] Content type is identified and the page follows the structure for that type (see `.warp/templates/`)
+- [ ] Content type is identified and the page follows the structure for that type (see `.agents/templates/`)
+- [ ] The title follows the convention for its content type (see "Titles by content type")
+- [ ] No quickstart or tutorial content is folded into a combined feature page
 - [ ] Headers use sentence case (with proper feature name capitalization)
 - [ ] Lists use bold term + dash + explanation format
 - [ ] All links work and point to correct destinations
@@ -998,7 +1069,7 @@ Content lives in `src/content/docs/`, organized by topic:
 - **support-and-community/** — Troubleshooting, billing, privacy
 - **enterprise/** — Enterprise features, SSO, team management
 - **changelog/** — Release changelog
-- **university/** — Guides and tutorials
+- **guides/** — Quickstarts and tutorials (the "Guides" space)
 
 ### Content model
 The docs site has multiple levels of hierarchy:
