@@ -1794,9 +1794,10 @@ def audit_staleness(warp_repo: Path, docs_root: Path,
         # its event names and descriptions are code-derived strings. Editing
         # the wording here is reverted on the next release; the fix belongs
         # upstream in the event definition.
-        marker = content.find(GENERATED_SECTION_MARKER)
-        if marker != -1:
-            content = content[:marker]
+        if doc_path.endswith("privacy.mdx"):
+            marker = content.find(GENERATED_SECTION_MARKER)
+            if marker != -1:
+                content = content[:marker]
         prose = strip_code_spans(content)
         stale_found = []
         for term, reason, pattern in term_patterns:
