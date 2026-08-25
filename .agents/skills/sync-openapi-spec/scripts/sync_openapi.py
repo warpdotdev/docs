@@ -53,11 +53,16 @@ import yaml
 # Tags whose paths and tag entry should be removed entirely.
 # `memory_stores` / `memory` back Agent Memory, which is a research preview.
 # `harness-support` is the worker-to-server contract — not a public API.
-# `factory` is Oz Factory, which has not shipped publicly.
 # These are belt-and-braces on top of the `x-internal` filter below: a tag can
 # be private even when individual operations aren't marked internal yet.
+#
+# `factory` is deliberately NOT excluded. Warp Factories shipped in Early
+# Access, /factories/factory-api/ documents the public endpoints, and the
+# server spec marks every private factory operation `x-internal`
+# individually — so the `x-internal` filter is the source of truth for
+# which factory operations are public, same as the `agent` tag.
 EXCLUDED_TAGS: frozenset[str] = frozenset(
-    {"memory_stores", "memory", "harness-support", "factory"}
+    {"memory_stores", "memory", "harness-support"}
 )
 
 # OpenAPI extension warp-server uses to mark an operation private. Mirrors
@@ -98,11 +103,12 @@ EXCLUDED_PATHS: frozenset[str] = frozenset(
     }
 )
 
-# Path prefixes that are private no matter how the operation is tagged. Tag
-# checks alone are not enough here: some Factory operations are tagged `agent`
-# upstream (for example `GET /factory/scorers/{scorer_id}/results`), so a
-# tags-only rule would leak them into the public reference.
-EXCLUDED_PATH_PREFIXES: tuple[str, ...] = ("/factory",)
+# Path prefixes that are private no matter how the operation is tagged,
+# regardless of `x-internal` markers. Empty today: `/factory` was listed here
+# while Warp Factories was pre-launch, and came out when the factory API went
+# public (see references/sync-policy.md). Use a prefix only when a whole URL
+# namespace is private.
+EXCLUDED_PATH_PREFIXES: tuple[str, ...] = ()
 
 # Default checkout layout: docs/ and warp-server/ as siblings.
 DEFAULT_SOURCE = Path("../warp-server/public_api/openapi.yaml")
@@ -470,11 +476,11 @@ def _summarize_drift(
 def _unknown_classifications(source: dict[str, Any]) -> list[str]:
     """Flag tags or paths the policy doesn't already cover.
 
-    The skill's policy currently knows about the `agent` and `schedules`
-    tags (kept) and `memory_stores`/`harness-support` (dropped). Anything
-    else needs human triage.
+    The skill's policy currently knows about the `agent`, `schedules`, and
+    `factory` tags (kept) and `memory_stores`/`memory`/`harness-support`
+    (dropped). Anything else needs human triage.
     """
-    KNOWN_TAGS = {"agent", "schedules"} | set(EXCLUDED_TAGS)
+    KNOWN_TAGS = {"agent", "schedules", "factory"} | set(EXCLUDED_TAGS)
 
     notes: list[str] = []
     for tag in source.get("tags") or []:
