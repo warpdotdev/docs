@@ -53,6 +53,12 @@ jobs:
       - name: Test create_pr body checker
         run: python3 .agents/skills/create_pr/test_check_pr_body.py
 
+      # Extracts the documented reviewer-request bash snippet from SKILL.md and
+      # runs it against a stubbed gh/suggest_reviewers.py, so CI exercises the
+      # exact text agents copy rather than a paraphrase of it.
+      - name: Test create_pr reviewer-request snippet
+        run: python3 .agents/skills/create_pr/test_request_reviewers.py
+
       # Validate the validate_ui_refs snapshot and script invariants. Uses
       # a synthetic warp client fixture internally — no checkout required.
       - name: Self-test validate_ui_refs skill

@@ -297,7 +297,7 @@ REVIEWERS=$(python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
   warp:app/src/settings/ssh.rs < /dev/null)
 
 # 2. Never let an empty resolution drop the request. Track that this was a
-#    fallback so step 5 does not report it as an owner who was requested.
+#    fallback so step 6 does not report it as an owner who was requested.
 RESOLUTION_WAS_EMPTY=0
 if [[ -z "$REVIEWERS" ]]; then
   echo "warning: no owner resolved - falling back to $FALLBACK_REVIEWER"
@@ -328,11 +328,35 @@ read_requested() {
 }
 REQUESTED=$(read_requested)
 
-# 5. If nothing actually landed, fall back rather than ship an unreviewed PR,
-#    then read back again. Keying this off the read-back rather than GOT
-#    matters: when gh exits 0 for every owner but requests none of them, a
-#    GOT-based check skips the fallback and leaves the PR with no reviewer.
-if [[ -z "$REQUESTED" ]]; then
+# 5. A helper to check whether a specific reviewer is present in the
+#    read-back, not just whether the read-back is non-empty. Match on the
+#    last path segment, lowercased: a team resolves as `org/team` but reads
+#    back as its bare slug, and GitHub logins are case-insensitive.
+_norm() { printf '%s' "${1##*/}" | tr 'A-Z' 'a-z'; }
+has_reviewer() {
+  local want target
+  want=$(_norm "$1")
+  IFS=',' read -ra _have <<< "$REQUESTED"
+  for target in "${_have[@]}"; do
+    [[ "$(_norm "$target")" == "$want" ]] && return 0
+  done
+  return 1
+}
+
+# 6. Verify the fallback actually landed whenever resolution came back empty,
+#    and otherwise fall back when nothing at all landed. An emptiness check on
+#    $REQUESTED alone is wrong for the empty-resolution case: a PR that
+#    already carries an unrelated reviewer (requested before this script ran,
+#    e.g. by a human) makes $REQUESTED non-empty even though the fallback was
+#    never assigned, which would skip re-requesting it here and then have the
+#    next step falsely report it as requested when it never landed.
+if (( RESOLUTION_WAS_EMPTY )); then
+  if ! has_reviewer "$FALLBACK_REVIEWER"; then
+    gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$FALLBACK_REVIEWER" ||
+      echo "warning: fallback $FALLBACK_REVIEWER could not be requested"
+    REQUESTED=$(read_requested)
+  fi
+elif [[ -z "$REQUESTED" ]]; then
   gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$FALLBACK_REVIEWER" ||
     echo "warning: fallback $FALLBACK_REVIEWER could not be requested"
   REQUESTED=$(read_requested)
@@ -342,11 +366,13 @@ if [[ -z "$REQUESTED" ]]; then
   echo "ERROR: no reviewer is on PR $PR - not even the fallback landed"
   exit 1
 fi
+if (( RESOLUTION_WAS_EMPTY )) && ! has_reviewer "$FALLBACK_REVIEWER"; then
+  echo "ERROR: fallback $FALLBACK_REVIEWER could not be requested on PR $PR" \
+       "(existing reviewers: $REQUESTED); report this run as failed."
+  exit 1
+fi
 
-# 6. Compare the read-back against what was resolved. Match on the last path
-#    segment, lowercased: a team resolves as `org/team` but reads back as its
-#    bare slug, and GitHub logins are case-insensitive.
-_norm() { printf '%s' "${1##*/}" | tr 'A-Z' 'a-z'; }
+# 7. Compare the read-back against what was resolved.
 IFS=',' read -ra HAVE <<< "$REQUESTED"
 MISSING=()
 for R in "${WANT[@]}"; do
@@ -358,7 +384,8 @@ for R in "${WANT[@]}"; do
 done
 
 if (( RESOLUTION_WAS_EMPTY )); then
-  # Nothing resolved, so the fallback is the intended outcome, not a gap.
+  # Step 6 already guaranteed the fallback landed (or exited above), so this
+  # always reports a true outcome, not just "nothing resolved."
   echo "note: no owner resolved for PR $PR; fallback $FALLBACK_REVIEWER requested"
 elif (( ${#MISSING[@]} == ${#WANT[@]} )); then
   # Owners resolved and none of them are on the PR. It has a reviewer, but not
