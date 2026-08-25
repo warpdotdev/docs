@@ -33,6 +33,29 @@ audits in the report's `audits_skipped` field (`extraction:*` entries identify
 broken parsers). Never treat an exit-2 run as a clean audit — fix the problem
 and re-run. Exit 0 means all requested audits ran (findings may still exist).
 
+### Run every command from the docs repo root
+
+Every path in this skill — scripts, references, doc pages — is relative to the docs
+repo root, and nothing resolves them for you. A sandbox commonly starts a run one level
+up (`/workspace`, with the checkout at `/workspace/docs`), so `cd` before anything else:
+
+```bash
+cd "$(git rev-parse --show-toplevel)"
+```
+
+A wrong working directory fails in a way that reads like a real failure: `python3` exits
+**2** with `can't open file`, the same exit code `audit_docs.py` uses to fail loud on a
+broken environment. Read the message before concluding a sanity guard tripped.
+
+### Install Node dependencies before the first build
+
+`npm run build` is the only validation this repo has, and it needs `node_modules`, which
+a fresh sandbox does not have. Install once per sandbox:
+
+```bash
+npm ci
+```
+
 ## Public vs. private surfaces (what you may document)
 
 Only document surfaces that are **publicly released**. This is the most important guardrail in this skill: do not reveal private or unreleased surfaces in public docs. Two independent gates, both required:
@@ -315,6 +338,15 @@ For each gap to address (prioritize high → medium → low):
    repeat findings, and an unmaintained map is how gaps get lost. Per the PR strategy
    below, collect all map edits into the single companion audit-bookkeeping PR (only fold
    them into a feature PR when the run documents exactly one feature).
+
+   **Edit map entries individually; never find-and-replace across the file.** The
+   left-hand side of every entry is a literal code identifier — a flag name, command,
+   route, setting key, or doc slug — and it only matches code because it matches exactly.
+   A rename sweep applied to the whole map (say, replacing `cost` with `usage` while
+   renaming a feature) rewrites unrelated keys into surfaces that do not exist. Map
+   hygiene catches the corruption on the next audit, but only after it has shipped in a
+   PR. Change the entries you mean to change, then re-run `--category map` to confirm
+   nothing else moved.
 9. Run `--update-snapshot` and commit the refreshed `surface_snapshot.json` in that same
    bookkeeping PR. Never split the snapshot across multiple PRs.
 
@@ -397,10 +429,10 @@ their area. Do NOT bundle unrelated features into a single mega PR.
 - **API spec gaps stay separate** — released endpoints go through the `sync-openapi-spec`
   skill as their own change, never bundled into a feature PR.
 - **Validate once, then split.** Run `npm run build` on the combined working tree (all
-  features together) to confirm everything compiles, then peel each feature onto its own
-  branch off `main` (e.g. `git checkout <base> -b <branch>` then
-  `git checkout <combined-ref> -- <files>`). Each feature branch is then a strict subset
-  of the already-validated tree.
+  features together) to confirm everything compiles — `npm ci` first if the sandbox has
+  no `node_modules` — then peel each feature onto its own branch off `main` (e.g.
+  `git checkout <base> -b <branch>` then `git checkout <combined-ref> -- <files>`). Each
+  feature branch is then a strict subset of the already-validated tree.
 - List any deferred findings in the most relevant PR body (or the bookkeeping PR) so
   nothing is silently dropped.
 
@@ -417,7 +449,9 @@ with the product. Each run:
    ```
    Exit `0` means a new stable release is available — continue. Exit `10` means no new
    release; record the no-op outcome in run output and **stop**. Exit `1` is a fetch or
-   parse failure; report it and stop rather than proceeding as if nothing shipped.
+   parse failure; report it and stop rather than proceeding as if nothing shipped. Exit
+   `2` with `can't open file` is not a gate outcome at all — it is `python3` reporting the
+   wrong working directory. `cd` to the docs repo root and re-run.
 
    The gate also prints any `oz_updates` bullets for the release. Keep them — they are
    platform-side changes the audit cannot see, and this is the only place they surface.
@@ -460,8 +494,9 @@ with the product. Each run:
    python3 .agents/skills/missing_docs/scripts/check_new_release.py --commit
    python3 .agents/skills/missing_docs/scripts/audit_docs.py --update-snapshot
    ```
-6. **Validate**: `npm run build` if doc pages changed; re-run the audit and confirm
-   the addressed findings are gone.
+6. **Validate**: if doc pages changed, run `npm ci && npm run build` — a fresh sandbox
+   has no `node_modules`, and the build is the only validation this repo has. Then
+   re-run the audit and confirm the addressed findings are gone.
 7. **Route reviewers and request the review** (required, not advisory): resolve the
    owning engineers with `scripts/suggest_reviewers.py` (see Reviewer routing), passing
    the source files behind the addressed findings, then make a real GitHub review request
@@ -501,7 +536,9 @@ run.
 
 Recommended scheduled-agent prompt (copy when setting up the agent):
 
-> Run the missing_docs skill in drift-watch mode. First run
+> Run the missing_docs skill in drift-watch mode. Work from the docs repo root — every
+> path below is relative to it, and a python exit code of 2 with "can't open file" means
+> you are in the wrong directory, not that a check failed. First run
 > .agents/skills/missing_docs/scripts/check_new_release.py; if it reports no new stable
 > release, record the no-op outcome and stop. Otherwise use the audit script with
 > explicit --warp (public warpdotdev/warp checkout) and --warp-server paths and --diff.
