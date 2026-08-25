@@ -63,7 +63,7 @@ repos hold at that moment, and it cannot tell a current checkout from a stale on
 it against an old or feature-branched `warp` / `warp-server` writes a baseline describing
 surfaces that are not on the default branch, and the next `--diff` then reports the gap
 between two wrong baselines as real drift. Confirm both repos are current and on their
-default branch — `main` for `warp`, `develop` for `warp-server` — before regenerating:
+default branch — `master` for `warp`, `develop` for `warp-server` — before regenerating:
 
 ```bash
 for repo in ../warp ../warp-server; do
