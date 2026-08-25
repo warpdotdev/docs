@@ -1,26 +1,24 @@
 ---
 title: Legacy SSH wrapper
 description: >-
-  Legacy SSH wrapper that bootstraps Warp features on remote machines without
-  tmux.
+  Fall back to Warp's legacy SSH wrapper when the SSH extension isn't
+  installed on a remote host.
 ---
 import DemoVideo from '@components/DemoVideo.astro';
 
 :::note
-If you are looking to troubleshoot the tmux SSH feature, see the [SSH page](/terminal/warpify/ssh/).
+This page covers the legacy SSH wrapper, a fallback path. For the current, fully-featured way to use Warp over SSH, see the [SSH extension](/terminal/warpify/ssh/).
 :::
 
-When you SSH into a remote box, you get all the features of Warp without any configuration on your part. The input editor, auto-completions, and history search work the same, regardless of machine.
+The legacy SSH wrapper brings a subset of Warp's features, such as Blocks, the input editor, and command completions, to a remote session without installing anything on the remote host. Warp falls back to it when [SSH extension install mode](/terminal/settings/all-settings/#ssh) is set to **Never install**, or when a host doesn't meet the SSH extension's [requirements](/terminal/warpify/ssh/#requirements).
 
 :::caution
-[Limitations of SSH](https://github.com/warpdotdev/Warp/issues/578) (as of May 2024):
+Limitations of the legacy SSH wrapper:
 
-* The SSH wrapper only supports `bash` or `zsh` shells in remote sessions.
-* If you're using a different shell, you'll want to use `command ssh` directly (see below for more details).
-* For zsh, xxd is required to bootstrap Warp.
+* It only supports `bash` or `zsh` shells in remote sessions. If you're using a different shell, use `command ssh` directly (see below for more details).
+* For zsh, `xxd` is required to bootstrap Warp.
 * For Windows, [Cygwin](https://www.cygwin.com/) is required to bootstrap the SSH wrapper.
-* RemoteCommand causes the SSH wrapper to fail.
-* [Tmux is not currently supported.](https://github.com/warpdotdev/Warp/discussions/501)
+* `RemoteCommand` in your SSH config causes the SSH wrapper to fail.
 :::
 
 :::note
@@ -56,10 +54,6 @@ Write access in `/etc/ssh/` typically requires sudo access. After any edits, you
 
 ### SSH wrapper fails
 
-There are several [known issues with SSH wrapper](https://github.com/warpdotdev/Warp/issues?q=is%3Aissue+is%3Aopen+sort%3Acreated-desc+label%3ABugs+label%3ASSH). As a workaround to the SSH wrapper, you can add `command ssh` to your **Settings** > **Warpify** > **Subshells** > **Added commands**, then run `command ssh <user@server>` to connect to a remote session, this will attempt to enable Warp features as a [subshell](/terminal/warpify/subshells/).
-
-:::note
-If the subshell workaround helps, we recommend you disable the SSH wrapper in **Settings** > **Features** > **Session**. You'll need to start a new session before a change is reflected or try invoking the SSH binary directly with `command ssh`.
-:::
+There are several [known issues with the SSH wrapper](https://github.com/warpdotdev/Warp/issues?q=is%3Aissue+is%3Aopen+sort%3Acreated-desc+label%3ABugs+label%3ASSH). As a workaround, add `command ssh` to **Settings** > **Warpify** > **Subshells** > **Added commands**, then run `command ssh <user@server>` to connect. Warp then tries to enable features as a [subshell](/terminal/warpify/subshells/) instead of through the SSH wrapper.
 
 <DemoVideo src="/assets/terminal/subshell-ssh-demo.mp4" label="Command SSH subshell workaround" />

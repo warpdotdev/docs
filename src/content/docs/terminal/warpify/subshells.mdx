@@ -17,11 +17,15 @@ Note that Warp's definition of a subshell differs from the more common definitio
 
 By default, Warp automatically recognizes the following commands as **subshell-compatible**:
 
-* bash, fish, zsh
-* docker exec
-* gcloud compute ssh
-* eb ssh
-* poetry shell
+* `bash`, `zsh`, `fish`
+* `docker run` and `podman run` (when launching `bash`, `zsh`, or `fish`)
+* `docker exec` and `podman exec` (when launching `bash`, `zsh`, or `fish`)
+* `poetry shell`
+* `pipenv shell`
+* `aws-vault exec`
+* `flox activate`
+
+Commands that start an interactive SSH session, such as `ssh`, `gcloud compute ssh`, and `eb ssh`, go through [SSH Warpification](/terminal/warpify/ssh/) instead of the subshell flow described here.
 
 When you run a command that's subshell-compatible, Warp will prompt you and invite you to "Warpify" the subshell which makes all of the modern IDE features of Warp available in that subshell. The list of subshell-compatible commands is configurable in Subshell settings as described [below](/terminal/warpify/subshells/#configuring-subshell-compatible-commands).
 
