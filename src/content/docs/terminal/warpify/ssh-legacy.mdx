@@ -7,7 +7,7 @@ description: >-
 import DemoVideo from '@components/DemoVideo.astro';
 
 :::note
-This page covers the legacy SSH wrapper, a fallback path. For the current, fully-featured way to use Warp over SSH, see the [SSH extension](/terminal/warpify/ssh/).
+This is a fallback path. For the current, fully-featured way to use Warp over SSH, see the [SSH extension](/terminal/warpify/ssh/).
 :::
 
 The legacy SSH wrapper brings a subset of Warp's features, such as Blocks, the input editor, and command completions, to a remote session without installing anything on the remote host. Warp falls back to it when [SSH extension install mode](/terminal/settings/all-settings/#ssh) is set to **Never install**, or when a host doesn't meet the SSH extension's [requirements](/terminal/warpify/ssh/#requirements).
@@ -16,16 +16,15 @@ The legacy SSH wrapper brings a subset of Warp's features, such as Blocks, the i
 Limitations of the legacy SSH wrapper:
 
 * It only supports `bash` or `zsh` shells in remote sessions. If you're using a different shell, use `command ssh` directly (see below for more details).
-* For zsh, `xxd` is required to bootstrap Warp.
+* For zsh, `xxd` is required to bootstrap Warp. Warp creates a temporary ZDOTDIR to bootstrap the shell and removes it once setup finishes.
 * For Windows, [Cygwin](https://www.cygwin.com/) is required to bootstrap the SSH wrapper.
 * `RemoteCommand` in your SSH config causes the SSH wrapper to fail.
 :::
 
-:::note
-If you're using zsh on the remote host, Warp creates a temp folder to act as the ZDOTDIR during the bootstrapping process and removes it when the shell is set up.
-:::
-
-![SSH](../../../../assets/terminal/ssh-1.png)
+<figure style={{ maxWidth: "563px" }}>
+![A remote session bootstrapped by the legacy SSH wrapper.](../../../../assets/terminal/ssh-1.png)
+<figcaption>A remote session bootstrapped by the legacy SSH wrapper.</figcaption>
+</figure>
 
 ## Implementation
 
@@ -48,7 +47,7 @@ Warp [Completions](/terminal/command-completions/completions/) for ssh show entr
 
 If you're seeing these errors, you may have some config on your server (usually in `/etc/ssh/sshd_config`) preventing Warp's ControlMaster connection from working. In this state, completions that require information from your remote host won't work and your history also won't work.
 
-You should ensure that `MaxSessions` is either commented out or is at least `2`.
+`MaxSessions` must be either commented out or set to at least `2`.
 
 Write access in `/etc/ssh/` typically requires sudo access. After any edits, you'd also need to restart the `sshd` daemon.
 
