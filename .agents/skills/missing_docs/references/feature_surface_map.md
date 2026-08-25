@@ -482,6 +482,8 @@ PUT /factory/automations/{id} -> internal
 DELETE /factory/automations/{id} -> internal
 PUT /factory/automations/{id}/subscriptions -> internal
 DELETE /factory/automations/{id}/subscriptions/{subscription_id} -> internal
+POST /factory/automations/{id}/run -> internal
+POST /factory/{uid}/runs -> internal
 GET /factory/scorers -> internal
 POST /factory/scorers -> internal
 PATCH /factory/scorers/{scorer_id} -> internal
@@ -767,7 +769,6 @@ RememberFastForwardState
 HoaCodeReview
 AgentToolbarEditor
 SkipFirebaseAnonymousUser
-OpenWarpNewSettingsModes
 HOAOnboardingFlow
 AgentViewConversationListView
 BuildPlanAutoReloadBannerToggle
@@ -787,6 +788,10 @@ GitCredentialRefresh
 # State-mutating recovery for abnormal terminal lifecycle sequences — an internal
 # reliability mechanism with no user-facing configuration or UI, so it needs no docs.
 TerminalLifecycleRecovery
+# When Ctrl-C is forwarded to a third-party harness PTY, synthesize Cancelled for
+# the CLI agent session if the plugin never reports the interrupt. No setting,
+# menu, or CLI flag; Ctrl-C behavior is already documented.
+CtrlCCancelsThirdPartyHarness
 # Orchestration plumbing promoted dogfood -> GA. Neither changes what a user sees
 # or configures, so both are internal implementation details of the documented
 # multi-agent orchestration feature (platform/orchestration/multi-agent-runs.mdx):
