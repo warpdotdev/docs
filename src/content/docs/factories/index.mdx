@@ -25,23 +25,6 @@ A factory is one deployed instance of that pattern, connecting your repositories
 <figcaption>The general software factory loop. Warp Factories' default agents cover triage through review; add custom agents for the rest.</figcaption>
 </figure>
 
-## Key terms
-
-A factory and its foreman are easy to conflate, partly because setup gives them the same name by default. Factory MCP adds a third, unrelated name into the mix.
-
-* **foreman** - The coordinating agent inside a factory, and the only one you talk to. It dispatches the other [factory agents](/factories/factory-agents/) and reports back. Every factory has exactly one.
-* **Foreman name** - The handle your team @-mentions in Slack and Linear to reach the foreman. Setup copies it from the factory's name, so the two usually match even though they're different things. See [Foreman name](/factories/factory-agents/#foreman-name).
-* **Factory MCP** - A hosted MCP server that connects a coding agent to your factories, so it can send work in or pull work down to finish locally. It's a way into a factory, not a factory itself, and the client-side name `warp-factory` is something you choose, unrelated to any factory or foreman name. See [Factory MCP](/factories/factory-mcp/).
-
-```mermaid
-flowchart LR
-  subgraph Factory["One factory"]
-    Foreman["Foreman"] --> Agents["Triage, spec, implement,<br/>and review agents"]
-  end
-  Slack["Slack or Linear"] -->|"@handle"| Foreman
-  Coding["Your coding agent"] -->|"Factory MCP"| Foreman
-```
-
 ## Who benefits from Warp Factories
 
 Warp Factories is designed for engineering teams with repeatable work that extends beyond one coding session. Here's where it helps most:
@@ -80,6 +63,21 @@ Warp Factories is built on the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overv
 The factory layer adds the workflow on top: the foreman and its agents, work items that carry each request across runs, definitions as code, default automations for connected tools, and the Scorer and Self-improvement loop.
 
 A standalone [cloud agent](/platform/) remains the right tool for a single task or a one-trigger automation. Reach for a factory when the work is a standing, multi-stage process your team wants to route, measure, and improve in one place.
+
+## Key terms
+
+Setup names a factory and its foreman the same thing by default, so it's easy to read them as one entity. They're not:
+
+* **foreman** - The coordinating agent inside a factory, and the only one you talk to. It dispatches the other [factory agents](/factories/factory-agents/) and reports back. Every factory has exactly one.
+* **Foreman name** - The handle your team @-mentions in Slack and Linear to reach the foreman. Setup copies it from the factory's name, so the two usually match even though they're different things. See [Foreman name](/factories/factory-agents/#foreman-name).
+
+```mermaid
+flowchart LR
+  subgraph Factory["One factory"]
+    Foreman["Foreman"] --> Agents["Triage, spec, implement,<br/>and review agents"]
+  end
+  Slack["Slack or Linear"] -->|"@handle"| Foreman
+```
 
 ## Next steps
 
