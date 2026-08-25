@@ -29,7 +29,7 @@ To confirm the connection works, mention the factory on a test issue and check t
 
 ## Add a custom automation
 
-The defaults cover mentions, assignments, and pull request completion. To start work from any other GitHub activity, such as a failed CI run or a review request, add an automation with a **GitHub** trigger for that event, then narrow it with the filters below. [Automation filters](/factories/automation-filters/#edit-filters-on-an-automation) covers the steps.
+The defaults cover mentions, assignments, and pull request completion. To start work from any other GitHub activity, such as a failed CI run or a review request, add an automation with a **GitHub** trigger for that event, then narrow it with the filters below. [Automation filters](/factories/automations/#edit-filters-on-an-automation) covers the steps.
 
 The CI failure triage automation in [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository starts work when a workflow run fails on the default branch:
 
@@ -124,7 +124,7 @@ Branches and pull requests the factory creates follow the repository's normal ru
 
 Runs authenticate with the GitHub App installation, not with the account of the person whose activity triggered them:
 
-* **The app installation decides what agents can reach.** Agents get exactly the repositories and permissions the installation grants, so change the installation to change access. [Automation filters](/factories/automation-filters/) only change when work starts.
+* **The app installation decides what agents can reach.** Agents get exactly the repositories and permissions the installation grants, so change the installation to change access. [Automation filters](/factories/automations/) only change when work starts.
 * **Anyone who can create matching activity can start work.** The event author doesn't need to be a Warp team member. Use author, label, and branch filters to control what starts runs.
 
 For the full credential model, see [Permissions and identity](/platform/integrations/github/#permissions-and-identity) on the GitHub integration page.

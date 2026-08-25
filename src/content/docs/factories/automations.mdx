@@ -1,13 +1,15 @@
 ---
-title: Automation filters
+title: Automations
 description: >-
-  Automation filters decide which events from connected tools start factory
-  runs: matching rules, per-source filters, and what filters don't control.
+  An automation starts factory runs on a trigger from a connected tool or a
+  schedule, routes them to an agent, and filters which events qualify.
 sidebar:
-  label: Automation filters
+  label: Automations
 ---
 
-Automation filters decide which events from your connected tools start factory work. Every trigger on a [factory automation](/factories/connect-your-factory/) carries filters — conditions such as a repository, channel, team, project, label, or author — and an event starts a run only when it matches them. Filters let a factory watch busy channels and repositories without acting on everything in them.
+An **automation** is a factory resource that starts runs: it declares one or more triggers (an event from a connected tool, or a schedule), the agent that handles the run, and, for connected-tool triggers, the filters that decide which events qualify. Every default automation Warp creates when you connect a provider, and every custom one you add, is this same resource. See [`automations/<name>/automation.md`](/factories/factory-as-code/#automationsautomationmd) for the full schema.
+
+Automation filters decide which events from your connected tools start factory work. Every trigger on an automation carries filters — conditions such as a repository, channel, team, project, label, or author — and an event starts a run only when it matches them. Filters let a factory watch busy channels and repositories without acting on everything in them.
 
 ## How matching works
 

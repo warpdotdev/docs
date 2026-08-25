@@ -20,6 +20,8 @@ In practice, that means tracking each request as a **work item**, such as an iss
 
 A **factory** is one deployed instance of that pattern. It connects your repositories and engineering tools to a team of agents, execution infrastructure, and a measurable workflow. Each factory applies a single policy across all of its work sources, so deploy separate factories for repository groups that need different policies.
 
+Size a factory by product surface, not by workflow: one factory per repository group that ships as a unit — your main application, your marketing site, your data pipelines — rather than separate factories for each kind of work (frontend, platform, docs) layered on top of repositories another factory already covers. Specialization happens through the factory's [agents](/factories/factory-agents/) and [skills](/factories/factory-skills/), which the foreman can invoke differently per request, not through deploying additional factories over the same repositories.
+
 <figure style={{ maxWidth: "563px" }}>
 ![A circular diagram of the software factory loop: triage, spec, implement, review, verify, ship, and monitor, with human review checkpoints for the spec, code, and product.](../../../assets/factories/factories-concept-loop.png)
 <figcaption>The general software factory loop. Warp Factories' default agents cover triage through review; add custom agents for the rest.</figcaption>
@@ -36,7 +38,7 @@ Warp Factories is designed for engineering teams with repeatable work that exten
 ## What you get with Warp Factories
 
 * **Coordinated specialist agents** - A team of [factory agents](/factories/factory-agents/) handles each work item. A coordinating foreman routes it through the triage, spec, implement, and review agents, skipping stages that don't apply. You can add custom agents and automations to handle work the defaults don't cover.
-* **Definitions as code** - [Version-controlled definition files](/factories/factory-as-code/) describe your repositories, agents, automations, runners, skills, and MCP servers, so factory changes get the same review, history, and rollback as code changes.
+* **Definitions as code** - [Version-controlled definition files](/factories/factory-as-code/) describe your repositories, agents, automations, runners, [skills](/factories/factory-skills/), and MCP servers, so factory changes get the same review, history, and rollback as code changes.
 * **Integrations and the Factory MCP** - Work flows in from [Slack](/factories/integrations/slack/), [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), [Linear](/factories/integrations/linear/), and [Jira](/factories/integrations/jira/), plus direct runs and schedules. The [Factory MCP](/factories/factory-mcp/) connects coding agents and other MCP clients.
 * **Model and harness choice** - Each agent can use a different model and [supported harness](/platform/harnesses/), including the Warp Agent, Claude Code, and Codex.
 * **Measurement and self-improvement** - The [factory dashboard](/factories/factory-dashboard/) shows work-item status, runs, automations, costs, and benchmarks. [Scorers](/factories/measure-and-improve/) grade completed work, and [Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement) turns repeated failures into follow-up work the factory proposes for review.
