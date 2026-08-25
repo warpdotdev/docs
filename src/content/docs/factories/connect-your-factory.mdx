@@ -62,11 +62,11 @@ These defaults are starting points. Review each automation's filters, agent, and
 
 ## Factory API
 
-The [factory API](/factories/factory-api/) lets your own code discover a factory and dispatch a task to it by UID, without knowing which agent handles the work. Use it to build a custom integration for a tool Warp doesn't connect to directly - see [Build a Mattermost bot for Warp Factories](/guides/external-tools/build-a-mattermost-bot-for-warp-factories/) for a worked example.
+The [factory API](/factories/factory-api/) lets your own code discover a factory and dispatch a task to it by UID, without knowing which agent handles the work. Reach for it when a bot, service, or script needs to start or check work - see [Build a Mattermost bot for Warp Factories](/guides/external-tools/build-a-mattermost-bot-for-warp-factories/) for a worked example, or [choosing how work reaches a factory](/factories/factory-api/#choosing-how-work-reaches-a-factory) for how it compares to Factory MCP and the integrations above.
 
 ## Factory MCP
 
-The Factory MCP connects local coding agents and other MCP clients to your factory, and it works in both directions. Send work to the factory, or take work over from it by pulling a task down to your machine, iterating on it locally, and handing it back to the same work item. See the [Factory MCP guide](/factories/factory-mcp/).
+The [Factory MCP](/factories/factory-mcp/) connects local coding agents and other MCP clients to your factory, and it works in both directions. Send work to the factory, or take work over from it by pulling a task down to your machine, iterating on it locally, and handing it back to the same work item.
 
 ## Direct runs and schedules
 

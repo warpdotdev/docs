@@ -22,7 +22,17 @@ Warp Factories is in **Early Access** and available to a limited set of teams. [
 
 A dispatched run is an ordinary [cloud agent run](/platform/): retrieve it, send it follow-ups, or cancel it through the same [Agent API](/reference/api-and-sdk/) you'd use for any run.
 
-## When to use the factory API vs the Agent API
+## Choosing how work reaches a factory
+
+The factory API is one of several ways to get work into a factory, and each fits a different caller:
+
+* **A bot, service, or script you control** - use the factory API to find a factory and dispatch to it.
+* **A coding agent session**, local or in another MCP client - use [Factory MCP](/factories/factory-mcp/) to send work in or pull a task down to work on locally.
+* **A chat platform or issue tracker your team already uses** - connect it as an [integration](/factories/connect-your-factory/) so matching events start work automatically, with no code to write.
+
+See [connect your factory](/factories/connect-your-factory/) for the full comparison across every intake path.
+
+### The factory API vs the Agent API
 
 Use the factory API to find or start work on a factory. Use the Agent API for everything else - a standalone cloud agent, run management, or orchestration.
 
