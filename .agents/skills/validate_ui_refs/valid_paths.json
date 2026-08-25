@@ -243,7 +243,7 @@
     "API keys": {
       "display_name": "API keys",
       "sub_sections": [],
-      "source_file": "app/src/settings_view/platform_page.rs",
+      "source_file": "app/src/settings_view/mod.rs",
       "umbrella": "Cloud platform"
     }
   },
@@ -1523,5 +1523,5 @@
       "description": "Toggle Maximize Code Review Panel"
     }
   ],
-  "generated_at": "2026-08-21T20:34:56.380949+00:00"
+  "generated_at": "2026-08-25T01:06:08.738260+00:00"
 }
