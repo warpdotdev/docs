@@ -61,6 +61,8 @@ To route factory work to a managed self-hosted worker (an Enterprise feature):
 2. **Pair it with a compatible runner** - Choose a runner that matches the worker's platform.
 3. **Select the worker in the factory definition** - Set [`workerHost`](/factories/factory-as-code/) so the factory routes work to it.
 
+For a working definition with `workerHost` set and a platform-matched runner, see [`07-self-hosted-worker`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/07-self-hosted-worker).
+
 Unmanaged self-hosted agents and other CLI agents can't serve as a factory's execution host, but they can exchange work with a factory through [Factory MCP](/factories/factory-mcp/).
 
 ## Choose execution, inference, and storage independently
