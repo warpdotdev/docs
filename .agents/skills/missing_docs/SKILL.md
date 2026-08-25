@@ -567,6 +567,24 @@ A run that gates out every candidate is a successful run. It opens no feature PR
 only the bookkeeping PR recording the verdicts. Do not manufacture work to justify the
 run.
 
+#### Schedule setup
+
+Two configuration choices decide whether the schedule behaves, and neither is visible from
+the prompt below:
+
+- **Select a cloud agent, not Quick run.** Quick run executes as the calling user, so its
+  pull requests are authored by that person — which for a schedule means whoever created
+  it. Selecting a cloud agent runs as that agent instead, and with team GitHub
+  authorization configured its pull requests are authored by the Warp Factories GitHub
+  App. Any schedule that opens PRs wants the agent. See
+  [Cloud agent accounts](https://docs.warp.dev/platform/agents/).
+- **Give that agent this skill and nothing else.** A run inherits every skill attached to
+  the agent it runs as, and the schedule form will not let you detach an agent-level
+  skill. Pointing drift-watch at a general-purpose docs agent therefore pulls that agent's
+  other skills into every run — and a weekly release-updates skill that defaults to
+  running all of its tasks will do exactly that, daily. Create a dedicated agent rather
+  than reusing one that already carries other work.
+
 Recommended scheduled-agent prompt (copy when setting up the agent):
 
 > Run the missing_docs skill in drift-watch mode. Work from the docs repo root — every
