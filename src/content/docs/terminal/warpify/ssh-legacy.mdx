@@ -1,8 +1,8 @@
 ---
 title: Legacy SSH wrapper
 description: >-
-  Use Warp's legacy SSH wrapper as a fallback when you skip the SSH extension
-  or it can't run on a remote host.
+  Use the legacy SSH wrapper as a fallback when skipping the SSH extension or
+  when it can't run on a remote host.
 ---
 import DemoVideo from '@components/DemoVideo.astro';
 
@@ -15,7 +15,7 @@ The legacy SSH wrapper brings a subset of Warp's features, such as Blocks, the i
 :::caution
 Limitations of the legacy SSH wrapper:
 
-* It only supports `bash` or `zsh` shells in remote sessions. If you're using a different shell, use `command ssh` directly (see below for more details).
+* In remote sessions, only `bash` or `zsh` shells are supported. If you're using a different shell, use `command ssh` directly (see below for more details).
 * For zsh, `xxd` is required to bootstrap Warp. Warp creates a temporary ZDOTDIR to bootstrap the shell and removes it once setup finishes.
 * For Windows, [Cygwin](https://www.cygwin.com/) is required to bootstrap the SSH wrapper.
 * `RemoteCommand` in your SSH config causes the SSH wrapper to fail.
