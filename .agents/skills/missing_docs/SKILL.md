@@ -423,9 +423,31 @@ their area. Do NOT bundle unrelated features into a single mega PR.
   snapshot is a wholesale regen. Put every `Flag -> page` mapping, ignore/`internal`/
   `gated:` entry, and the `--update-snapshot` regen into one bookkeeping PR. Its mappings
   may point at pages that land in the sibling feature PRs — map hygiene only requires the
-  target page to exist on the base branch, so the bookkeeping PR is independently
-  mergeable in any order. If a run documents exactly one feature, fold its map + snapshot
-  changes into that single PR and skip the companion.
+  target page to exist on the base branch, so the bookkeeping PR merges independently of
+  those feature PRs, in any order. If a run documents exactly one feature, fold its map +
+  snapshot changes into that single PR and skip the companion.
+- **Keep at most one bookkeeping PR open. Extend the open one rather than opening a
+  second.** The independence above holds against *feature* PRs; it does not hold against
+  another bookkeeping PR. Two of those edit the same shared files, and
+  `surface_snapshot.json` is regenerated wholesale, so a conflict between them cannot be
+  resolved by hand — it has to be regenerated on the merged tree. Look for an existing one
+  before opening yours:
+
+  ```bash
+  gh pr list --state open --search "missing_docs bookkeeping in:title" \
+    --json number,headRefName,title
+  ```
+
+  If one exists, check out its branch and add this run's map entries and ledger rows on
+  top, then re-run `check_new_release.py --commit` and `--update-snapshot` there so the
+  marker and snapshot stay a single regen covering every release the PR now carries.
+  Update its title and body to name them all. The one exception: if it is already approved
+  and about to merge, wait for the merge and branch from the result.
+
+  For the search to find it, title every bookkeeping PR `missing_docs bookkeeping:
+  <version>` and name its branch `missing-docs/bookkeeping-<version>`. #614 and #624 used
+  two different branch-naming schemes and neither run looked for the other's PR, which is
+  how both ended up adding the same two `/factory` map entries.
 - **API spec gaps stay separate** — released endpoints go through the `sync-openapi-spec`
   skill as their own change, never bundled into a feature PR.
 - **Validate once, then split.** Run `npm run build` on the combined working tree (all
@@ -467,10 +489,13 @@ with the product. Each run:
      --diff --output /tmp/docs_audit.json
    ```
 3. **Triage**: read `references/changelog_decisions.md` first and drop any changelog item
-   already decided. Then work through `surface_changes` and `changelog_review` (what
-   changed since last run), then standing coverage findings (high → medium → low)
-   across all categories: features, CLI, API, slash commands, settings, stale doc
-   references, unlisted pages, map hygiene, staleness.
+   already decided. Read the ledger and surface map as they stand on any open bookkeeping
+   PR too, not only the copies on `main` — a verdict recorded in an unmerged PR is still a
+   verdict, and re-triaging it burns the run and produces duplicate map entries. Then work
+   through `surface_changes` and `changelog_review` (what changed since last run), then
+   standing coverage findings (high → medium → low) across all categories: features, CLI,
+   API, slash commands, settings, stale doc references, unlisted pages, map hygiene,
+   staleness.
 
    **Apply `.agents/references/docs-worthiness-criteria.md` to every remaining item
    before deciding anything else.** The default is no docs; the burden is on the change
@@ -522,10 +547,11 @@ with the product. Each run:
    owners as a partial result worth naming in the run output.
 8. **Open one PR per feature** following the PR strategy above (not a single mega PR):
    one focused PR per documented feature (grouping only features that share a doc file or
-   owner), each carrying its content design plan as a section in the PR body, plus a
-   single companion audit-bookkeeping PR for all `feature_surface_map.md`,
-   `changelog_decisions.md`, `last_release_processed.json`, and `surface_snapshot.json`
-   changes. Use the `create_pr` skill: every drafting PR body opens with the required
+   owner), each carrying its content design plan as a section in the PR body, plus the
+   run's bookkeeping changes to `feature_surface_map.md`, `changelog_decisions.md`,
+   `last_release_processed.json`, and `surface_snapshot.json`. Extend the open bookkeeping
+   PR if there is one; open a new one titled `missing_docs bookkeeping: <version>` only if
+   there is not. Use the `create_pr` skill: every drafting PR body opens with the required
    `## What this feature does` summary, and every PR gets its owning reviewer requested
    per step 7 before the run is done. Summarize remaining (deferred) findings in the
    relevant PR body so nothing is silently dropped.
@@ -557,8 +583,12 @@ Recommended scheduled-agent prompt (copy when setting up the agent):
 > source files behind each addressed finding. Open one focused PR per documented feature
 > (grouping only features that share a doc file or owner), each opening with the required
 > "## What this feature does" summary and carrying the content design plan as a section in
-> its body, plus a single companion bookkeeping PR for the feature_surface_map.md,
-> changelog_decisions.md, last_release_processed.json, and surface_snapshot.json changes.
+> its body, plus the bookkeeping changes to feature_surface_map.md,
+> changelog_decisions.md, last_release_processed.json, and surface_snapshot.json. Before
+> opening a bookkeeping PR, search for an open one with gh pr list --state open --search
+> "missing_docs bookkeeping in:title" and extend that branch instead of opening a second;
+> two open bookkeeping PRs conflict on a snapshot that is regenerated wholesale. Title a
+> new one "missing_docs bookkeeping: <version>".
 > Request the resolved owner as reviewer on every PR with gh pr edit --add-reviewer,
 > falling back to dannyneira when nothing resolves, and verify the requested-reviewers
 > list is non-empty before you finish — a PR with no requested reviewer is an incomplete
