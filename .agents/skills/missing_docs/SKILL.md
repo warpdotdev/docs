@@ -434,21 +434,29 @@ their area. Do NOT bundle unrelated features into a single mega PR.
   before opening yours:
 
   ```bash
-  gh pr list --state open --search "missing_docs bookkeeping in:title" \
-    --json number,headRefName,title
+  gh pr list --state open --search '"bookkeeping for" in:title' \
+    --json number,headRefName,title,reviewDecision
   ```
 
-  If one exists, check out its branch and add this run's map entries and ledger rows on
-  top, then re-run `check_new_release.py --commit` and `--update-snapshot` there so the
-  marker and snapshot stay a single regen covering every release the PR now carries.
-  Update its title and body to name them all. The one exception: if it is already approved
-  and about to merge, wait for the merge and branch from the result.
+  Match on the quoted phrase, not the two words separately. An unquoted
+  `missing_docs bookkeeping in:title` search ANDs the two words anywhere in the title, so
+  it also matches this rule-only PR's own title ("...keep at most one bookkeeping PR
+  open") — the next run would then check out and extend this PR's branch instead of a real
+  bookkeeping PR.
+
+  If one exists and `reviewDecision` is not `APPROVED`, check out its branch and add this
+  run's map entries and ledger rows on top, then re-run `check_new_release.py --commit` and
+  `--update-snapshot` there so the marker and snapshot stay a single regen covering every
+  release the PR now carries. Update its title and body to name them all. The one
+  exception: if `reviewDecision` is already `APPROVED` (it's about to merge), wait for the
+  merge and branch from the result instead of extending it.
 
   For the search to find it, title every bookkeeping PR `chore(missing_docs): bookkeeping
   for <version>` and name its branch `missing-docs/bookkeeping-<version>`. The title keeps
-  the repo's existing prefix style (see `create_pr` → Best Practices) while carrying both
-  search terms. #614 and #624 used two different naming schemes and neither run looked for
-  the other's PR, which is how both ended up adding the same two `/factory` map entries.
+  the repo's existing prefix style (see `create_pr` → Best Practices) while carrying the
+  `bookkeeping for` phrase the search matches on. #614 and #624 used two different naming
+  schemes and neither run looked for the other's PR, which is how both ended up adding the
+  same two `/factory` map entries.
 - **API spec gaps stay separate** — released endpoints go through the `sync-openapi-spec`
   skill as their own change, never bundled into a feature PR.
 - **Validate once, then split.** Run `npm run build` on the combined working tree (all
@@ -587,9 +595,12 @@ Recommended scheduled-agent prompt (copy when setting up the agent):
 > its body, plus the bookkeeping changes to feature_surface_map.md,
 > changelog_decisions.md, last_release_processed.json, and surface_snapshot.json. Before
 > opening a bookkeeping PR, search for an open one with gh pr list --state open --search
-> "missing_docs bookkeeping in:title" and extend that branch instead of opening a second;
-> two open bookkeeping PRs conflict on a snapshot that is regenerated wholesale. Title a
-> new one "chore(missing_docs): bookkeeping for <version>".
+> '"bookkeeping for" in:title' --json number,headRefName,title,reviewDecision — the quoted
+> phrase, not the two words separately, so the search doesn't also match this rule-only
+> PR's own title. Extend that branch instead of opening a second, unless reviewDecision is
+> already APPROVED, in which case wait for the merge and branch from the result; two open
+> bookkeeping PRs conflict on a snapshot that is regenerated wholesale. Title a new one
+> "chore(missing_docs): bookkeeping for <version>".
 > Request the resolved owner as reviewer on every PR with gh pr edit --add-reviewer,
 > falling back to dannyneira when nothing resolves, and verify the requested-reviewers
 > list is non-empty before you finish — a PR with no requested reviewer is an incomplete
