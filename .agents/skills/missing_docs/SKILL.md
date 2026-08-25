@@ -56,6 +56,27 @@ a fresh sandbox does not have. Install once per sandbox:
 npm ci
 ```
 
+### Regenerate the snapshot only from current checkouts
+
+`--update-snapshot` rewrites `references/surface_snapshot.json` from whatever the sibling
+repos hold at that moment, and it cannot tell a current checkout from a stale one. Running
+it against an old or feature-branched `warp` / `warp-server` writes a baseline describing
+surfaces that are not on the default branch, and the next `--diff` then reports the gap
+between two wrong baselines as real drift. Confirm both repos are current and on their
+default branch — `main` for `warp`, `develop` for `warp-server` — before regenerating:
+
+```bash
+for repo in ../warp ../warp-server; do
+  git -C "$repo" fetch --quiet origin
+  echo "$repo $(git -C "$repo" rev-parse --abbrev-ref HEAD) \
+$(git -C "$repo" log -1 --format=%cd --date=short)"
+done
+```
+
+A cloud sandbox provisions fresh checkouts and satisfies this by construction; a
+developer's machine usually does not. When you cannot confirm it, leave the regen to a
+scheduled run rather than committing a snapshot you cannot vouch for.
+
 ## Public vs. private surfaces (what you may document)
 
 Only document surfaces that are **publicly released**. This is the most important guardrail in this skill: do not reveal private or unreleased surfaces in public docs. Two independent gates, both required:
@@ -66,6 +87,7 @@ Only document surfaces that are **publicly released**. This is the most importan
 Rules of thumb:
 - A `warp-server` API endpoint that is **not already in the OpenAPI spec** is treated as not-yet-public: do NOT hand-write docs for it. Either confirm it has been publicly released and let the `sync-openapi-spec` skill bring it into the spec, or map it `-> internal` / defer it. When unsure, defer — never expose an unreleased endpoint or feature in public docs.
 - A CLI command or API route gated by a **non-GA feature flag** should be mapped `-> gated:<Flag>` (for example, `gated:AIMemories`) rather than `-> internal`: the audit auto-defers it while the flag is non-GA and auto-surfaces it for docs once the flag goes GA. (Feature flags and settings already auto-defer by rollout status; `gated:` extends that to CLI/API.)
+- **A published docs page is not evidence that an API is released.** Early Access features routinely have public pages describing what the product does while their REST routes stay out of the released spec, so "we already document this feature" does not clear Gate 0 for an endpoint. For API surfaces the released OpenAPI spec is the only test. The Factory pages describe dispatching a run, yet no `/factory` path appears in `developers/agent-api-openapi.yaml` — those routes are Gate 0 deferrals despite the prose.
 - The audit still *detects* these as gaps (useful signal), but detection is not permission to document. Every resolution must respect this boundary.
 
 This section is the source of truth for **Gate 0** in
@@ -121,6 +143,15 @@ The script performs these coverage audits:
 4. **Slash command coverage** — parses the static registry in the warp client repo's
    `app/src/search/slash_command_menu/static_commands/` and checks each `/command`
    is mentioned in docs.
+
+   **Known limitation: this check is repo-wide, not surface-scoped.** A command counts as
+   covered when *any* page mentions it (`audit_slash_commands` in `scripts/audit_docs.py`
+   searches every docs page), so a command documented on the GUI slash-commands page reads
+   as covered even when the CLI reference omits it. That is how `/usage` reached a release
+   undocumented for CLI users — only the changelog cross-check caught it. The CLI and
+   settings audits scope their search to the pages that own those surfaces; this one does
+   not. Until that is fixed, do not read a slash command's `doc_covered` bucket as
+   "documented in the right place."
 5. **Settings coverage** — parses every `toml_path: "section.key"` setting
    registration in the warp client repo (the same registry the JSON-schema generator uses)
    and checks the all-settings reference page documents it. Private and
@@ -402,6 +433,8 @@ Add `--reviewers-only` to get just the comma-joined `--add-reviewer` argument (e
 Then **actually request the review on GitHub** with `gh pr edit <PR> --add-reviewer <logins/teams>`. A `/cc @engineer` line in the PR body is not a review request: it puts nothing in the engineer's review queue. All four ambient-drafted docs PRs (#414, #415, #416, #417) named reviewers in prose and got zero reviews, three of them with an empty requested-reviewers list.
 
 An individual unresolved *path* is non-fatal — other paths usually resolve the same owner. An empty *result* is not: fall back to `dannyneira` rather than opening the PR with no reviewer. See step 7 of drift-watch mode for the required command.
+
+**Expect warp-server-only findings to fall back.** The warp client repo's ownership file has a root rule, so nearly any path in it resolves. warp-server's does not, and whole areas — the `/factory` handlers among them — carry no entry, so a finding whose only source file is a warp-server handler resolves to nothing and lands on `dannyneira`. That is the fallback doing its job; report it that way rather than as a resolution failure. Do not hardcode an owner here to paper over it — the fix belongs in warp-server's ownership file, and once an entry exists resolution starts working with no change to this skill.
 
 ### PR strategy: one PR per feature
 
