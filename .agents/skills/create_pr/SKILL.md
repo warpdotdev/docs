@@ -316,39 +316,59 @@ for R in "${WANT[@]}"; do
   fi
 done
 
-# 4. If nothing at all landed, fall back rather than ship an unreviewed PR.
-#    Keep the fallback OUT of GOT. GOT answers "which resolved owners did I
-#    actually request", and counting the fallback there makes step 5 pass on a
-#    run where every real owner was dropped — the exact silent failure this
-#    section exists to prevent.
-if (( ${#GOT[@]} == 0 )); then
+# 4. Read back from the PR. This is the only trustworthy signal: `gh pr edit`
+#    can exit 0 while quietly skipping a reviewer, so GOT records what gh
+#    *claimed* and the read-back is what actually landed. Every decision below
+#    keys off the read-back. Note the jq: teams have no .login, and
+#    `[.reviewRequests[].login // .reviewRequests[].name]` silently drops them
+#    from a mixed list.
+read_requested() {
+  gh pr view "$PR" --repo warpdotdev/docs \
+    --json reviewRequests --jq '[.reviewRequests[] | .login // .slug // .name] | join(",")'
+}
+REQUESTED=$(read_requested)
+
+# 5. If nothing actually landed, fall back rather than ship an unreviewed PR,
+#    then read back again. Keying this off the read-back rather than GOT
+#    matters: when gh exits 0 for every owner but requests none of them, a
+#    GOT-based check skips the fallback and leaves the PR with no reviewer.
+if [[ -z "$REQUESTED" ]]; then
   gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$FALLBACK_REVIEWER" ||
-    echo "warning: fallback $FALLBACK_REVIEWER could not be requested either"
+    echo "warning: fallback $FALLBACK_REVIEWER could not be requested"
+  REQUESTED=$(read_requested)
 fi
 
-# 5. Read back and compare against what was resolved. `gh` can exit 0 while
-#    skipping a reviewer, so the PR is the source of truth. Note the jq: teams
-#    have no .login, and `[.reviewRequests[].login // .reviewRequests[].name]`
-#    silently drops them from a mixed list.
-REQUESTED=$(gh pr view "$PR" --repo warpdotdev/docs \
-  --json reviewRequests --jq '[.reviewRequests[] | .login // .slug // .name] | join(",")')
 if [[ -z "$REQUESTED" ]]; then
-  echo "ERROR: no reviewer requested on PR $PR - not even the fallback landed"
+  echo "ERROR: no reviewer is on PR $PR - not even the fallback landed"
   exit 1
 fi
+
+# 6. Compare the read-back against what was resolved. Match on the last path
+#    segment, lowercased: a team resolves as `org/team` but reads back as its
+#    bare slug, and GitHub logins are case-insensitive.
+_norm() { printf '%s' "${1##*/}" | tr 'A-Z' 'a-z'; }
+IFS=',' read -ra HAVE <<< "$REQUESTED"
+MISSING=()
+for R in "${WANT[@]}"; do
+  found=0
+  for H in "${HAVE[@]}"; do
+    [[ "$(_norm "$R")" == "$(_norm "$H")" ]] && { found=1; break; }
+  done
+  (( found )) || MISSING+=("$R")
+done
 
 if (( RESOLUTION_WAS_EMPTY )); then
   # Nothing resolved, so the fallback is the intended outcome, not a gap.
   echo "note: no owner resolved for PR $PR; fallback $FALLBACK_REVIEWER requested"
-elif (( ${#GOT[@]} == 0 )); then
-  # Owners resolved and every one was rejected. The PR has a reviewer, but not
+elif (( ${#MISSING[@]} == ${#WANT[@]} )); then
+  # Owners resolved and none of them are on the PR. It has a reviewer, but not
   # the right one, and that must not read as success.
-  echo "ERROR: none of the ${#WANT[@]} resolved owners could be requested on PR $PR" \
+  echo "ERROR: none of the ${#WANT[@]} resolved owners are on PR $PR" \
        "(wanted: ${WANT[*]}); only the fallback is assigned. Report this run as failed."
   exit 1
-elif (( ${#GOT[@]} < ${#WANT[@]} )); then
-  echo "warning: requested ${#GOT[@]}/${#WANT[@]} resolved owners on PR $PR" \
-       "(got: ${GOT[*]}); name the missing owners and why in the run output"
+elif (( ${#MISSING[@]} > 0 )); then
+  echo "warning: ${#MISSING[@]}/${#WANT[@]} resolved owners missing from PR $PR" \
+       "(missing: ${MISSING[*]}); name them and why in the run output"
 fi
 
 echo "Requested reviewers: $REQUESTED"

@@ -106,21 +106,35 @@ def _iter_non_code_lines(lines: List[str]):
     fence: Optional[str] = None
     in_comment = False
     for line_num, line in enumerate(lines, start=1):
-        fence_match = re.match(r"^\s*(`{3,}|~{3,})", line)
+        # Inside a code fence, only a matching fence closes it. `<!--` in there
+        # is sample content, not structure, so comments are not parsed.
         if fence is not None:
+            fence_match = re.match(r"^\s*(`{3,}|~{3,})", line)
             if fence_match and fence_match.group(1)[0] == fence[0]:
                 fence = None
             continue
+
+        # Strip comments *before* looking for a fence. A ``` line inside an HTML
+        # comment is commentary; treating it as a real fence opens a block that
+        # then swallows the closing `-->` and everything after it — including the
+        # lead heading — so a valid body fails the check.
+        was_in_comment = in_comment
+        visible, in_comment = _strip_html_comments(line, in_comment)
+
+        if not visible.strip():
+            # Either a genuinely blank line or a line that was entirely comment.
+            # Yield blanks so callers still see the line, but drop comment-only
+            # lines, including the one carrying the closing `-->`.
+            if was_in_comment or in_comment or visible != line:
+                continue
+            yield line_num, visible
+            continue
+
+        fence_match = re.match(r"^\s*(`{3,}|~{3,})", visible)
         if fence_match:
             fence = fence_match.group(1)
             continue
 
-        visible, in_comment = _strip_html_comments(line, in_comment)
-        if not visible.strip():
-            # Either a genuinely blank line or a line that was entirely comment.
-            # Yield blanks so callers still see the line, but drop comment-only lines.
-            if in_comment or visible != line:
-                continue
         yield line_num, visible
 
 

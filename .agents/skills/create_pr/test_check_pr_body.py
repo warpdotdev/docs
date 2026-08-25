@@ -161,6 +161,64 @@ class TestCheckLeadSection(unittest.TestCase):
         )
         self.assertEqual(cpb.check_lead_section(lines(body), LEAD), [])
 
+    def test_balanced_code_fence_inside_an_html_comment_is_fine(self):
+        """A balanced fence inside a comment. Passed before the fix, by luck.
+
+        Fence detection ran before comment stripping, so the ``` lines opened
+        and closed a phantom block that happened to end before the `-->`. Kept
+        as a guard: the fix must not break the case that already worked.
+        """
+        body = (
+            "<!--\n"
+            "Template notes. Example of what to write:\n"
+            "```\n"
+            "## What this feature does\n"
+            "```\n"
+            "Delete this block before shipping.\n"
+            "-->\n\n"
+            f"{LEAD}\n\nIt delegates workspace management. Shipped in `v1` (2026-08-18).\n"
+        )
+        self.assertEqual(cpb.check_lead_section(lines(body), LEAD), [])
+
+    def test_unbalanced_fence_inside_an_html_comment_does_not_swallow_the_body(self):
+        """The actual regression: an odd number of ``` lines inside a comment.
+
+        Fence detection ran before comment stripping, so a lone ``` opened a
+        phantom block that then ate the closing `-->` and every line after it,
+        including the real lead heading. The body was valid; the check reported
+        "missing required lead section", which reads as an authoring mistake
+        rather than a parser bug. This is the only one of these four that fails
+        against the pre-fix parser.
+        """
+        body = (
+            "<!--\n```\nstray fence in a banner\n-->\n\n"
+            f"{LEAD}\n\nIt delegates workspace management. Shipped in `v1` (2026-08-18).\n"
+        )
+        self.assertEqual(cpb.check_lead_section(lines(body), LEAD), [])
+
+    def test_comment_marker_inside_a_code_fence_does_not_open_a_comment(self):
+        """The mirror case. Stripping comments first would break this instead.
+
+        `<!--` inside a fenced block is sample code. Treating it as a real
+        comment would swallow the closing fence and the headings below it, so
+        the fix has to honor fence state first, not simply reorder the two.
+        """
+        body = (
+            f"{LEAD}\n\nIt delegates workspace management. Shipped in `v1` (2026-08-18).\n\n"
+            "```html\n<!-- an unclosed comment shown as example markup\n```\n\n"
+            "## Summary\n\nAuto-drafted documentation.\n"
+        )
+        self.assertEqual(cpb.check_lead_section(lines(body), LEAD), [])
+
+    def test_commented_out_lead_heading_still_fails(self):
+        """The fix must not become so permissive that a hidden heading counts."""
+        body = (
+            f"<!--\n{LEAD}\n-->\n\n## Summary\n\nNo real lead section here.\n"
+        )
+        problems = cpb.check_lead_section(lines(body), LEAD)
+        self.assertEqual(len(problems), 1, problems)
+        self.assertIn("missing required lead section", problems[0])
+
 
 class TestMainExitCodes(unittest.TestCase):
     def _write(self, tmpdir: Path, text: str) -> str:
