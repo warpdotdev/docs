@@ -54,13 +54,17 @@ To remember your preferences for a command and bypass the confirmation banner, y
 
 ```bash
 # For zsh subshells, add to ~/.zshrc.
-printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh"}}\x9c'
+if [[ "$TERM_PROGRAM" == "WarpTerminal" ]]; then
+  printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh"}}\x9c'
+fi
 
 # For bash subshells, add to ~/.bashrc or ~/.bash_profile.
-printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash"}}\x9c'
+if [[ "$TERM_PROGRAM" == "WarpTerminal" ]]; then
+  printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash"}}\x9c'
+fi
 
 # For fish subshells, add to ~/.config/fish/config.fish.
-if status is-interactive
+if status is-interactive; and test "$TERM_PROGRAM" = "WarpTerminal"
   printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "fish"}}\x9c'
 end
 ```
