@@ -55,7 +55,7 @@ Yes. Cloud agent runs execute in a full Linux environment and behave like a loca
 
 ### Do cloud agents run as root inside the container?
 
-No. By default, cloud agents run as a dedicated non-root `agent` user (UID/GID 1000 where available) with passwordless sudo. If your environment's image sets a non-root `USER`, Warp runs the agent as that user instead. Commands that need root access, like `apt-get install`, work with a `sudo` prefix. See [Container user and permissions](/platform/environments/#container-user-and-permissions) for details on home directory location, file ownership, and fallback behavior.
+No. By default, cloud agents run as a dedicated non-root `agent` user (UID/GID 1000 where available) with passwordless sudo. If your environment's image sets a non-root `USER`, Warp runs the agent as that user instead, unchanged. For images that start as root, commands that need root access, like `apt-get install`, work with a `sudo` prefix. See [Container user and permissions](/platform/environments/#container-user-and-permissions) for details on home directory location, file ownership, and fallback behavior.
 
 ### Do cloud agents support a fully self-hosted, on-prem, or offline mode?
 

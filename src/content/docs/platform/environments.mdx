@@ -36,7 +36,7 @@ An environment typically includes:
 
 * **Docker image (required)** – The task/workspace image with the toolchain and dependencies your code needs. For self-hosted Kubernetes workers, a [`default_image`](/platform/self-hosting/managed-kubernetes/) on the worker lets you skip creating an environment entirely.
 * **Repository/workspace** – One or more repos the agent can clone and operate on.
-* **Setup commands** – Commands to prepare the workspace (e.g., dependency install, builds, bootstrapping). Setup commands run as the [container user](#container-user-and-permissions), so prefix commands that need root access with `sudo`.
+* **Setup commands** – Commands to prepare the workspace (e.g., dependency install, builds, bootstrapping). Setup commands run as the [container user](#container-user-and-permissions). When Warp creates the default `agent` user for an image that starts as root, prefix commands that need root access with `sudo`.
 
 Use the Docker image for language runtimes, package managers, system libraries, and scripts needed by your project. Custom images do not need to handle installing the Warp CLI binary; Warp supplies the agent runtime separately. You can start from an official image or one of Warp's [prebuilt dev images](https://github.com/warpdotdev/oz-dev-environments).
 
