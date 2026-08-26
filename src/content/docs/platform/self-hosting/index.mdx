@@ -1,10 +1,10 @@
 ---
 title: Self-hosting overview
 description: >-
-  Run cloud agents on your own infrastructure. Choose between a managed
-  worker daemon orchestrated by Oz or unmanaged CLI-based execution you
-  control.
+  Run cloud agents on your own infrastructure with a managed worker daemon or
+  unmanaged CLI-based execution you control.
 ---
+import { VARS } from '@data/vars';
 
 Self-hosting lets your team run cloud agent workloads on your own infrastructure instead of Warp-managed servers. You control the execution environment, compute resources, and network access. Repository clones, source files, build artifacts, runtime secrets, and agent execution workspaces stay on your infrastructure, and agents can reach services behind your VPN or firewall.
 
@@ -20,14 +20,14 @@ Self-hosting lets your team run cloud agent workloads on your own infrastructure
 
 Self-hosting has two architectures. The core distinction is **who orchestrates agent runs** — not who owns the compute. Both models keep code and execution on your infrastructure.
 
-* **Managed** — Oz orchestrates agent runs. You run the `oz-agent-worker` daemon on your infrastructure; it connects to Oz and waits for work. Slack mentions, Linear comments, schedules, API calls, and `oz agent run-cloud` commands all route tasks to your worker, which executes them in isolated Docker containers, Kubernetes Jobs, or directly on the host. Similar to a [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners).
-* **Unmanaged** — You orchestrate agent runs. You invoke `oz agent run` directly from your existing CI pipeline, Kubernetes pod, VM, or dev box. Oz provides session tracking and observability for each run, but does not start or stop agents for you.
+* **Managed** — The {VARS.WARP_AUTOMATION_PLATFORM} orchestrates agent runs. You run the `oz-agent-worker` daemon on your infrastructure; it connects to the {VARS.WARP_AUTOMATION_PLATFORM} and waits for work. Slack mentions, Linear comments, schedules, API calls, and `oz agent run-cloud` commands all route tasks to your worker, which executes them in isolated Docker containers, Kubernetes Jobs, or directly on the host. Similar to a [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners).
+* **Unmanaged** — You orchestrate agent runs. You invoke `oz agent run` directly from your existing CI pipeline, Kubernetes pod, VM, or dev box. The {VARS.WARP_AUTOMATION_PLATFORM} provides session tracking and observability for each run, but does not start or stop agents for you.
 
 ### At a glance
 
 | Aspect | **Managed** | **Unmanaged** |
 | --- | --- | --- |
-| **Who triggers runs** | Oz (Slack, Linear, schedules, API, `run-cloud`) | Your system (CI, cron, scripts) |
+| **Who triggers runs** | The {VARS.WARP_AUTOMATION_PLATFORM} (Slack, Linear, schedules, API, `run-cloud`) | Your system (CI, cron, scripts) |
 | **What runs on your infra** | Long-lived `oz-agent-worker` daemon | One-shot `oz agent run` invocations |
 | **OS support** | Linux (macOS/Windows coming) | Linux, macOS, Windows |
 | **Execution isolation** | Docker container, Kubernetes Job, or direct host | Whatever your host provides |
@@ -46,12 +46,12 @@ If your security requirement is "repository clones and execution must stay on ou
 
 With any self-hosted architecture:
 
-* **Agent runs are tracked and steerable** — View status, metadata, and session transcripts in the [Oz dashboard](https://oz.warp.dev), the Warp app, or via the [API/SDK](/reference/api-and-sdk/). Authorized teammates can attach to running sessions to monitor or steer agents.
+* **Agent runs are tracked and steerable** — View status, metadata, and session transcripts in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>, the Warp app, or via the [API/SDK](/reference/api-and-sdk/). Authorized teammates can attach to running sessions to monitor or steer agents.
 * **Connectivity to Warp's backend is required** — Agents need outbound access to Warp for orchestration, session storage, and LLM inference. No inbound ports need to be opened.
 * **Resource limits are controlled by your infrastructure** — Concurrency and compute are only limited by the machines you provision, not by Warp.
 
 :::note
-Enterprise teams that need full control over LLM inference routing can use [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) to route inference through their own cloud provider accounts. BYOLLM currently applies to interactive (local) agents; cloud agent support is coming.
+Enterprise teams that need full control over LLM inference routing can use [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) to route inference through their own cloud provider accounts. Cloud agent support varies by provider; see each provider's setup guide for details.
 :::
 
 ---
@@ -67,7 +67,7 @@ Use these questions to decide between managed and unmanaged:
 1. **Do you need agents to run on Windows or macOS?**
    * Yes → Use the [unmanaged](/platform/self-hosting/unmanaged/) architecture. Managed is Linux-only today.
    * No, Linux works → Continue to the next question.
-2. **Do you want Oz to handle starting and stopping agents** (from Slack, the web interface, the Warp app, schedules, or the API)?
+2. **Do you want the {VARS.WARP_AUTOMATION_PLATFORM} to handle starting and stopping agents** (from Slack, the web interface, the Warp app, schedules, or the API)?
    * Yes → Use the [managed](#managed-architecture) architecture.
    * No, you have your own triggering mechanism → Use the [unmanaged](/platform/self-hosting/unmanaged/) architecture.
 3. **Can your development environment run in a Docker container or Kubernetes pod?**
@@ -99,13 +99,13 @@ The managed architecture supports three backends for task execution:
 
 ## Managed architecture
 
-With the managed architecture, you run the `oz-agent-worker` daemon on your infrastructure. The daemon connects to Oz's backend, waits for tasks to be assigned to it, and executes those tasks on its host using one of three backends:
+With the managed architecture, you run the `oz-agent-worker` daemon on your infrastructure. The daemon connects to the {VARS.WARP_AUTOMATION_PLATFORM}'s backend, waits for tasks to be assigned to it, and executes those tasks on its host using one of three backends:
 
 * **[Docker backend](/platform/self-hosting/managed-docker/)** (default) — Runs each task in an isolated Docker container.
 * **[Kubernetes backend](/platform/self-hosting/managed-kubernetes/)** — Runs each task as a Kubernetes Job in your cluster.
 * **[Direct backend](/platform/self-hosting/managed-direct/)** — Runs each task directly on the host without a container runtime.
 
-The managed architecture enables full orchestration by Oz — it can remotely start agents via Slack, Linear, the [Oz web app](https://oz.warp.dev), the API/SDK, and the `oz agent run-cloud` command. Agents can access host resources through volume mounts (Docker), Kubernetes-native configuration (Kubernetes), and injected environment variables.
+The managed architecture enables full orchestration by the {VARS.WARP_AUTOMATION_PLATFORM} — it can remotely start agents via Slack, Linear, the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>, the API/SDK, and the `oz agent run-cloud` command. Agents can access host resources through volume mounts (Docker), Kubernetes-native configuration (Kubernetes), and injected environment variables.
 
 ## Unmanaged architecture
 
@@ -158,7 +158,7 @@ All tasks created through that integration route to your self-hosted worker.
 
 ### From the API and SDKs
 
-When creating a run via the [Oz API](/reference/api-and-sdk/), include `worker_host` in the config:
+When creating a run via the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/), include `worker_host` in the config:
 
 ```bash
 curl -X POST https://app.warp.dev/api/v1/agent/run \
@@ -175,7 +175,7 @@ curl -X POST https://app.warp.dev/api/v1/agent/run \
 
 ### From the web UI
 
-When creating a run, schedule, or integration in the [Oz web app](https://oz.warp.dev), select your self-hosted worker from the host dropdown.
+When creating a run, schedule, or integration in the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>, select your self-hosted worker from the host dropdown.
 
 ---
 
@@ -197,9 +197,9 @@ Musl-based Docker images (such as Alpine Linux) are not supported as task images
 
 Self-hosted runs have the same observability as Warp-hosted runs:
 
-* **Oz dashboard** — View task status, history, and metadata from the [Oz web app](https://oz.warp.dev).
+* **Run history** — View task status, history, and metadata in the {VARS.DASHBOARD}, hosted in the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>.
 * **Session sharing** — Authorized teammates can attach to running tasks to monitor progress.
-* **APIs and SDKs** — Query task history and build monitoring using the [Oz API](/reference/api-and-sdk/).
+* **APIs and SDKs** — Query task history and build monitoring using the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/).
 
 For infrastructure-level observability, the `oz-agent-worker` daemon can export OpenTelemetry metrics (worker health, task throughput, capacity saturation) to Prometheus, an OTLP collector, or the console. See [Monitoring](/platform/self-hosting/monitoring/) for setup, the full metric catalog, and sample PromQL queries.
 

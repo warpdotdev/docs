@@ -9,13 +9,14 @@ tags:
   - "software-factory"
   - "cloud-agents"
 ---
+import { VARS } from '@data/vars';
 
-This guide adds the implementation and reviewer agents to the [triage](/guides/agent-workflows/build-a-triage-agent) and [spec](/guides/agent-workflows/write-product-and-tech-specs-with-agents) agents you set up previously, then connects all four into a software factory using GitHub labels as the state machine. Issues flow automatically from triage to a reviewable pull request.
+This guide adds the implementation and reviewer agents to the [triage](/guides/agent-workflows/build-a-triage-agent) and [spec](/guides/agent-workflows/write-product-and-tech-specs-with-agents) agents you set up previously, then connects all four into a software factory using GitHub labels as the state machine. Issues flow automatically from triage to a reviewable pull request. To run this same loop as a managed product instead of wiring it yourself, see [Warp Factories](/factories/).
 
 ## Prerequisites
 
 * A working [triage agent](/guides/agent-workflows/build-a-triage-agent) and [spec agent](/guides/agent-workflows/write-product-and-tech-specs-with-agents), each deployed individually
-* An Oz cloud environment with access to your repository ([create one](/platform/environments))
+* A cloud environment with access to your repository ([create one](/platform/environments))
 * `warpdotdev/oz-agent-action` installed (see [GitHub Actions integration](/platform/integrations/github-actions))
 
 ## How the loop works
@@ -156,14 +157,14 @@ The reviewer agent surfaces issues and inconsistencies; the human makes the fina
 
 * **Validate before the reviewer runs** — After the implementation agent opens a PR, run `/validate-changes-match-specs` to check the diff against `PRODUCT.md` and `TECH.md`. This catches any misalignments before the reviewer agent posts comments. The skill is available from [`warpdotdev/common-skills`](https://github.com/warpdotdev/common-skills).
 * **Start with triage only** — Get your triage agent running well before adding spec and implementation. A groomed, labeled backlog is immediately useful to every developer on the team.
-* **Use `@oz-agent` for one-off requests** — Teammates can mention `@oz-agent` in an issue comment to kick off an agent run directly, bypassing the label workflow for urgent requests.
-* **Monitor runs in the Oz web app** — Every cloud agent run appears in the [Oz web app](https://oz.warp.dev) with a session link. Use it to inspect what each agent did, steer a stuck run, or hand work back to a local session.
+* **Use `@warp-agent` for one-off requests** — Teammates can mention `@warp-agent` in an issue comment to kick off an agent run directly, bypassing the label workflow for urgent requests.
+* **Monitor runs in the {VARS.WEB_APP}** — Every cloud agent run appears in the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> with a session link. Use it to inspect what each agent did, steer a stuck run, or hand work back to a local session.
 
 ## Next steps
 
-* [What is a software factory?](/platform/software-factory) — The conceptual overview of the full loop.
-* [Run a software factory in the cloud](/guides/agent-workflows/run-a-software-factory-in-the-cloud) — Move the loop into a managed Oz deployment.
+* [Warp Factories overview](/factories/) — The managed product that runs this same intake-to-review loop, without the workflow wiring.
+* [Run a software factory in the cloud](/guides/agent-workflows/run-a-software-factory-in-the-cloud) — Move the loop into a managed {VARS.WARP_AUTOMATION_PLATFORM} deployment.
 * [Build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) — Add the outer improvement loop.
 * [Review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code) — The human review workflow for agent-generated PRs.
 * [`warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss) — The complete reference implementation.
-* [GitHub Actions integration](/platform/integrations/github-actions) — Full documentation for triggering Oz agents from CI.
+* [GitHub Actions integration](/platform/integrations/github-actions) — Full documentation for triggering cloud agents from CI.

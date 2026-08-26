@@ -179,6 +179,18 @@
 pre.astro-code,
 .sl-markdown-content pre {
   overflow-x: auto;
+  overflow-y: hidden;
+  white-space: pre;
+}
+
+.expressive-code pre code,
+.sl-kapa-codeblock pre code {
+  display: block;
+  min-width: max-content;
+}
+
+.expressive-code pre {
+  scrollbar-width: thin;
 }
 
 /* Code block copy button — frosted glass effect (Scalar pattern) */
@@ -1560,4 +1572,28 @@ site-search #starlight__search .pagefind-ui__result-nested .pagefind-ui__result-
 
 :root[data-theme='light'] .warp-search-keyboard-hints__kbd {
   background: rgba(0, 0, 0, 0.06);
+}
+
+/* --------------------------------------------------------------------------
+   20. Terminal status glyphs — inline color for CLI transcript indicators
+   --------------------------------------------------------------------------
+   The Warp Agent CLI paints status glyphs with the active terminal theme's
+   ANSI colors — yellow while something is in progress, green once it
+   succeeds. Tinting the same glyph inline lets a docs bullet read the way
+   the transcript actually looks on screen.
+
+   Applied to `<code>` so the glyph keeps the inline-code chip that plain
+   Markdown backticks produce; only the foreground changes. Starlight's
+   mode-aware `-high` hue tokens are used instead of fixed hex values, so
+   the glyphs stay legible when the page flips between dark and light mode.
+
+   Color is decorative here: every glyph is paired with a text label, so
+   meaning never depends on color alone. */
+
+.sl-markdown-content code.glyph-attention {
+  color: var(--sl-color-orange-high);
+}
+
+.sl-markdown-content code.glyph-success {
+  color: var(--sl-color-green-high);
 }

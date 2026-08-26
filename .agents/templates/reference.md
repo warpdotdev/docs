@@ -1,45 +1,41 @@
 ---
+title: [Sentence case. A noun phrase naming what can be looked up. Break up stacked nouns with prepositions: "Keyboard shortcuts for the code editor", not "Code editor keyboard shortcut reference". Never a bare "Overview" or "Reference". This renders as the page H1 — do not add an H1 in the body.]
 description: >-
-  [1-2 sentences: what is documented and how to use this reference.
-  Example: "Use the {{WARP_AGENT_CLI}} to run, configure, and manage agents from the terminal."
-  Use {{TOKEN}} syntax for any product names in src/data/vars.ts.]
+  [One sentence, 50-160 characters: what the reader can look up here. Name the artifacts —
+  flags, endpoints, shortcuts — not the genre. Example: "Look up {{WARP_AGENT_CLI}} flags,
+  environment variables, slash commands, and keyboard shortcuts."
+  Use {{TOKEN}} syntax for product names in src/data/vars.ts.]
 ---
-[VARS: Add this line immediately after the closing --- above if this page references any product names from src/data/vars.ts. Then use {VARS.KEY} for those names in the prose below.
-`import { VARS } from '@data/vars';`
-See AGENTS.md → Content variables for the full variable list and usage rules.]
+[BEFORE PUBLISHING: Delete every bracketed instruction in this file, including this one. They are guidance for the author, not page content.]
+[VARS: If this page names a product from src/data/vars.ts, add `import { VARS } from '@data/vars';` on the line directly below the frontmatter, then use {VARS.KEY} in prose. See AGENTS.md → Content variables.]
 
-# [Title — sentence case. Title convention: noun describing contents, e.g., "CLI commands", "Keyboard shortcuts"]
+[Opening: what this reference covers and how to use it. 1-2 sentences. The reader already knows what they want — this is for lookup, not learning.]
 
-[Brief intro: what this reference covers and how to use it.
-1-2 sentences. This is for lookup, not learning.]
+[BREVITY: Delete any section below you don't need — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
 
-## [Section name — sentence case. e.g., "Installing the CLI", "Authentication"]
+## [Entry group — sentence case and specific, e.g. "Running agents"]
 
-[Introductory sentence or conceptual context for this section.]
+[One sentence introducing the group.]
 
-## [Command/endpoint/option group — sentence case. e.g., "Running agents"]
+[REPEATING PATTERN: pick one structure per page and apply it to every entry without exception. Consistency matters more here than in any other content type, because readers scan rather than read.
 
-[Use a strict repeating pattern for each entry. Every entry must
-follow the same structure. Consistency is more important than style.
+For commands and endpoints: name → syntax → description → flags → example.
+For settings and options: name → type → default → description.
 
-For commands/endpoints: name → syntax → description → flags/params → example
-For settings/options: name → type → default → description
-
-Use H2 for major sections, H3 for individual entries.
-Use tables for multiple parameters, lists for single elements.]
+Use H2 for groups, H3 for individual entries. Tables for multiple parameters, lists for single elements. Alphabetize where order does not carry meaning.]
 
 ### `command-name`
 
-[Brief description of what this command does.]
+[What this command does, in one or two sentences.]
 
 ```sh
 command-name [options] <required-arg>
 ```
 
-**Key flags:**
+**Flags:**
 
-* `--flag-name` (`-f`) — Description of what this flag does.
-* `--another-flag` — Description.
+* `--flag-name` (`-f`) — What it does.
+* `--another-flag` — What it does.
 
 **Example:**
 
@@ -49,5 +45,11 @@ command-name --flag-name value
 
 ### `another-command`
 
-[Repeat the same structure for every entry.
-Alphabetize entries where ordering doesn't matter.]
+[Same structure, every time. Be exhaustive: document every option, flag, and value. A reference with gaps sends the reader to the source.]
+
+## Related pages
+
+[Cross-links. Use descriptive link text that names the destination.]
+
+* [Conceptual page for this feature](path/to/page.md)
+* [How to use it](path/to/procedural-page.md)

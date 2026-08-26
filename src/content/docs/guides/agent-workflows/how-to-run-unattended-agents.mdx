@@ -2,7 +2,7 @@
 title: How to run unattended agents
 description: >-
   Start unattended cloud agents from schedules, Slack, Linear, GitHub, GitHub
-  Actions, the Oz CLI, or the Oz API, then inspect every run.
+  Actions, the {{WARP_AGENT_CLI}}, or the {{WARP_AUTOMATION_PLATFORM}} API, then inspect every run.
 sidebar:
   label: "Run unattended agents"
 featured: true
@@ -11,10 +11,11 @@ tags:
   - "cloud-agents"
   - "schedules"
 ---
+import { VARS } from '@data/vars';
 
-Warp cloud agents can run unattended from schedules, team tools, CI, the Oz CLI, or the API. Use them when you want an agent to keep working after you leave your terminal, react to external events, or run recurring maintenance without a human starting each run.
+Warp cloud agents can run unattended from schedules, team tools, CI, the {VARS.WARP_AGENT_CLI}, or the API. Use them when you want an agent to keep working after you leave your terminal, react to external events, or run recurring maintenance without a human starting each run.
 
-Every unattended workflow creates a cloud agent run that your team can inspect later. Open runs from the [Runs page in the Oz web app](/platform/oz-web-app/#runs), the [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app, or the session link posted back to the tool that triggered the agent.
+Every unattended workflow creates a cloud agent run that your team can inspect later. Open runs from the [Runs page in the {VARS.WEB_APP}](/platform/oz-web-app/#runs), the [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app, or the session link posted back to the tool that triggered the agent.
 
 ## Choose a trigger
 
@@ -22,13 +23,13 @@ Use this table to decide where an unattended agent should start.
 
 | Trigger | Use it when | Where to configure | Where to inspect |
 | ------- | ----------- | ------------------ | ---------------- |
-| Scheduled agents | Work should run on a predictable cadence, like weekly triage, nightly dependency checks, or monthly cleanup. | [Scheduled Agents](/platform/triggers/scheduled-agents/) or the [Scheduled Agents quickstart](/platform/triggers/scheduled-agents-quickstart/) | Oz web app Runs page, Agent Management Panel in the Warp app, schedule history, and cloud agent session links |
-| Slack | A teammate should delegate work from a Slack message or thread. | [Slack integration](/platform/integrations/slack/) | Slack thread updates, Oz web app Runs page, Agent Management Panel in the Warp app, and the shared run session |
-| Linear | An issue, comment, or assignment should start the agent. | [Linear integration](/platform/integrations/linear/) | Linear issue updates, Oz web app Runs page, Agent Management Panel in the Warp app, and the shared run session |
-| GitHub | Someone should delegate work by mentioning `@oz-agent` on an issue, pull request, or review comment. | [GitHub integration](/platform/integrations/github/) | GitHub thread comments, Oz web app Runs page, Agent Management Panel in the Warp app, and the shared run session |
-| GitHub Actions | A repository event, PR workflow, issue workflow, or CI failure should start the agent. | [GitHub Actions](/platform/integrations/github-actions/) | GitHub Actions logs, PR or issue comments, Oz web app, and cloud agent runs |
-| Oz CLI | You want to start a named cloud run from a terminal, script, or local automation. | [Oz CLI](/reference/cli/#running-agents-remotely-oz-agent-run-cloud) | CLI output, Oz web app Runs page, Agent Management Panel in the Warp app, and cloud agent session links |
-| Oz API or SDK | Your internal system should create, query, or monitor runs programmatically. | [Oz API and SDK](/reference/api-and-sdk/) | Your system, API results, Oz web app, and run sessions |
+| Scheduled agents | Work should run on a predictable cadence, like weekly triage, nightly dependency checks, or monthly cleanup. | [Scheduled Agents](/platform/triggers/scheduled-agents/) or the [Scheduled Agents quickstart](/platform/triggers/scheduled-agents-quickstart/) | {VARS.WEB_APP} Runs page, Agent Management Panel in the Warp app, schedule history, and cloud agent session links |
+| Slack | A teammate should delegate work from a Slack message or thread. | [Slack integration](/platform/integrations/slack/) | Slack thread updates, {VARS.WEB_APP} Runs page, Agent Management Panel in the Warp app, and the shared run session |
+| Linear | An issue, comment, or assignment should start the agent. | [Linear integration](/platform/integrations/linear/) | Linear issue updates, {VARS.WEB_APP} Runs page, Agent Management Panel in the Warp app, and the shared run session |
+| GitHub | Someone should delegate work by mentioning `@warp-agent` on an issue, pull request, or review comment. | [GitHub integration](/platform/integrations/github/) | GitHub thread comments, {VARS.WEB_APP} Runs page, Agent Management Panel in the Warp app, and the shared run session |
+| GitHub Actions | A repository event, PR workflow, issue workflow, or CI failure should start the agent. | [GitHub Actions](/platform/integrations/github-actions/) | GitHub Actions logs, PR or issue comments, {VARS.WEB_APP}, and cloud agent runs |
+| {VARS.WARP_AGENT_CLI} | You want to start a named cloud run from a terminal, script, or local automation. | [{VARS.WARP_AGENT_CLI}](/reference/cli/#running-agents-remotely-oz-agent-run-cloud) | CLI output, {VARS.WEB_APP} Runs page, Agent Management Panel in the Warp app, and cloud agent session links |
+| {VARS.API_SDK_NAME} | Your internal system should create, query, or monitor runs programmatically. | [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) | Your system, API results, {VARS.WEB_APP}, and run sessions |
 
 ## Choose a workflow pattern
 
@@ -57,7 +58,7 @@ The agent posts progress updates back to the source thread or issue and provides
 
 ### Delegate work from a GitHub thread
 
-Use the [GitHub integration](/platform/integrations/github/) when the task starts from an issue, a pull request, or a review comment. Mention `@oz-agent` in the thread and the agent picks up that context, replies in place, and reports any pull request it opens. This fits:
+Use the [GitHub integration](/platform/integrations/github/) when the task starts from an issue, a pull request, or a review comment. Mention `@warp-agent` in the thread and the agent picks up that context, replies in place, and reports any pull request it opens. This fits:
 
 * asking for a fix from a review comment without leaving the diff
 * turning a bug report issue into a pull request
@@ -72,7 +73,7 @@ Use [GitHub Actions](/platform/integrations/github-actions/) when the trigger sh
 For example:
 
 * review a PR when it opens
-* respond to an `@oz-agent` comment
+* respond to an `@warp-agent` comment
 * summarize issues on a schedule
 * attempt a fix when CI fails
 * suggest fixes for review comments
@@ -81,7 +82,7 @@ The GitHub Action can pass event data, prior step output, and repository context
 
 ### Start runs from scripts or internal systems
 
-Use the [Oz CLI](/reference/cli/#running-agents-remotely-oz-agent-run-cloud) for scripts and terminal workflows. Use the [Oz API and SDK](/reference/api-and-sdk/) when another service should create or monitor runs. This is useful for:
+Use the [{VARS.WARP_AGENT_CLI}](/reference/cli/#running-agents-remotely-oz-agent-run-cloud) for scripts and terminal workflows. Use the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) when another service should create or monitor runs. This is useful for:
 
 * internal dashboards
 * custom webhooks
@@ -108,10 +109,10 @@ If the agent can change code or infrastructure, keep the instructions narrow and
 
 Unattended does not mean invisible. Use these surfaces to review what happened:
 
-* [Oz web app](/platform/oz-web-app/) - View runs, schedules, run metadata, and session transcripts from a browser or mobile device.
+* [{VARS.WEB_APP}](/platform/oz-web-app/) - View runs, schedules, run metadata, and session transcripts from a browser or mobile device.
 * [Managing cloud agents](/platform/managing-cloud-agents/) - Filter runs by source, status, day, creator, or trigger.
 * [Cloud agent session sharing](/platform/viewing-cloud-agent-runs/) - Inspect the prompt, plan, commands, logs, output, and follow-up messages where available.
-* [Oz API and SDK](/reference/api-and-sdk/) - Query runs and build internal monitoring around status, runtime, or outcomes.
+* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) - Query runs and build internal monitoring around status, runtime, or outcomes.
 
 When a run creates a PR, include the cloud run link in the PR description or a comment. See [Attach agent session context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs/) for a template.
 
@@ -129,8 +130,8 @@ Start with one narrow workflow before deploying many unattended agents:
 
 ## Next steps
 
-* [Scheduled Agents quickstart](/platform/triggers/scheduled-agents-quickstart/) - Create your first recurring agent in the Oz web app.
+* [Scheduled Agents quickstart](/platform/triggers/scheduled-agents-quickstart/) - Create your first recurring agent in the {VARS.WEB_APP}.
 * [Integrations quickstart](/platform/integrations/quickstart/) - Trigger agents from Slack or Linear.
-* [GitHub integration](/platform/integrations/github/) - Set up `@oz-agent` mentions on issues and pull requests.
+* [GitHub integration](/platform/integrations/github/) - Set up `@warp-agent` mentions on issues and pull requests.
 * [GitHub Actions quickstart](/platform/integrations/quickstart-github-actions/) - Add an agent to a PR review workflow.
 * [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) - Inspect and share unattended run sessions.

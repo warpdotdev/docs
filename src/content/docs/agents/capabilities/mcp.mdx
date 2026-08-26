@@ -107,7 +107,7 @@ To add multiple MCP servers, you can click the **+ Add** button then paste in a 
 
 Compared to manually adding a server in the Warp settings, file-based servers are defined in config files that Warp detects and can spawn automatically. They offer a few additional benefits:
 
-* **Configurable directly with an agent** - Use the [bundled skill](#using-agent-add-mcp) `/agent-add-mcp` so Warp's agent can add or update an MCP server without leaving the conversation.
+* **Configurable directly with an agent** - Use the [bundled skill](#using-agent-add-mcp) `/agent-add-mcp` so the Warp Agent can add or update an MCP server without leaving the conversation.
 * **Inherited across providers and repos** - Warp reads `.warp/.mcp.json` files and also picks up config from third-party agent providers (Claude Code, Codex, and others). The same server definition follows you across tools and repos.
 
 #### Supported providers
@@ -143,7 +143,7 @@ Project-scoped servers from any provider must be toggled on individually from th
 
 #### Using `/agent-add-mcp`
 
-The built-in `/agent-add-mcp` skill lets Warp's agent create or update file-based MCP server definitions. Choose whether to save globally or in the current project — the skill writes the server definition to the matching file:
+The built-in `/agent-add-mcp` skill lets the Warp Agent create or update file-based MCP server definitions. Choose whether to save globally or in the current project — the skill writes the server definition to the matching file:
 
 * **Global:** `~/.warp/.mcp.json`
 * **Project-scoped:** `{repo_root}/.warp/.mcp.json`
@@ -214,7 +214,7 @@ In some cases you may need to reset the auth token for some MCP servers. To do t
 Note this will delete all your MCP auth tokens stored locally so you will need to login and re-authenticate.
 :::
 
-If the above doesn't help and you need to reset or change authentication, you may need to switch to a CLI-based MCP server configuration and provide the token via environment variables. See [Sentry CLI MCP Example](/agents/capabilities/mcp/#sentry).
+If the above doesn't help and you need to reset or change authentication, you may need to switch to a CLI-based MCP server configuration and provide the token via environment variables. See the Sentry tab under [MCP server configuration examples](/agents/capabilities/mcp/#mcp-server-configuration-examples).
 
 ### Where MCP logs are stored
 

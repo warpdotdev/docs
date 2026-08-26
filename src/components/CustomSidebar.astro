@@ -69,17 +69,23 @@ import KapaLauncher from './KapaLauncher.astro';
 			'getting-started': 'Getting started',
 			'knowledge-and-collaboration': 'Knowledge & collaboration',
 			'agents': 'Agents',
-			'reference': 'Reference',
+			'factories': 'Factories',
+			// The slug stayed `platform` through the 8/18 rename, so without an
+			// entry here every result under it breadcrumbed as "Platform".
+			'platform': 'Automation Platform',
+			'reference': 'API & Reference',
 			'changelog': 'Changelog',
 			'support-and-community': 'Support',
 			'enterprise': 'Enterprise',
 			'guides': 'Guides',
+			// No longer a top-level tab (folded into API & Reference at the 8/18
+			// launch), but /api is still a route, so results still need a label.
 			'api': 'API',
 		};
 
-		// Detect Apple platforms once so the Ask AI kbd reads ⌘+I on Macs and
-		// Ctrl+I elsewhere. Mirrors KapaChatLauncher.tsx which binds the same
-		// shortcut via keymatch's `CmdOrCtrl+I`.
+// Detect Apple platforms once so the Ask AI kbd reads ⌘+I on Macs and
+		// Ctrl+I elsewhere. Mirrors KapaLauncher.astro which binds the same
+		// shortcut for opening the Kapa Website Widget.
 		var isMac = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform || '');
 		var modKey = isMac ? '\u2318' : 'Ctrl';
 
@@ -143,9 +149,9 @@ import KapaLauncher from './KapaLauncher.astro';
 				+ '</svg>'
 				+ '<span class="warp-search-ask-ai-row__label">Ask AI</span>'
 				+ '<kbd class="warp-search-ask-ai-row__kbd" aria-hidden="true">' + modKey + '<span class="warp-search-ask-ai-row__kbd-plus">+</span>I</kbd>';
-			askAi.addEventListener('click', function () {
-				// openPanel() in KapaChatLauncher reads the live search input and
-				// closes the search dialog itself, so we just route the click.
+askAi.addEventListener('click', function () {
+				// KapaLauncher reads the live search input and closes the search
+				// dialog itself, then opens the widget with that query prefilled.
 				var kapaBtn = document.querySelector('.warp-kapa-button');
 				if (kapaBtn) kapaBtn.click();
 			});

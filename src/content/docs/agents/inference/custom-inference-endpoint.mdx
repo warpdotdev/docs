@@ -1,11 +1,11 @@
 ---
 title: Custom inference endpoint
 description: >-
-  Connect Warp's agents to any OpenAI-compatible inference endpoint —
+  Connect agents to any OpenAI-compatible inference endpoint —
   OpenRouter, LiteLLM, z.ai, or an internal gateway exposed at a public URL.
 ---
 
-Warp supports **custom inference endpoints** for users who want to power Warp's agents with any OpenAI-compatible inference endpoint — a model router, hosted gateway, or internal infrastructure they already run.
+Warp supports **custom inference endpoints** for users who want to power agents with any OpenAI-compatible inference endpoint — a model router, hosted gateway, or internal infrastructure they already run.
 
 This lets you route AI requests through your preferred provider, run inference behind your own gateway, or use a router like OpenRouter or LiteLLM, while keeping the agent experience inside Warp.
 
@@ -36,13 +36,13 @@ When you configure a custom inference endpoint, your endpoint URL, model identif
 When you send a prompt using an endpoint-routed model:
 
 1. Your local Warp client pulls your endpoint URL and API key from your device's secure storage and sends them up to Warp's backend along with your prompt.
-2. Warp's agent harness, which runs on Warp's backend, assembles the full request (system instructions, conversation context, tools) and uses your key in-flight to call your configured endpoint.
+2. The Warp Agent harness, which runs on Warp's backend, assembles the full request (system instructions, conversation context, tools) and uses your key in-flight to call your configured endpoint.
 3. Your endpoint's response streams back through Warp's backend to your client.
 
 Your API key passes through Warp's servers each time you send a request, but Warp never stores it there — it's used only in-flight to call your endpoint, then discarded.
 
 :::note
-**Why does the request route through Warp's backend?** Warp's agent harness runs server-side — the same runtime that powers [Agent Mode](/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/) with Warp-billed models and [BYOK](/agents/inference/bring-your-own-api-key/). A custom inference endpoint swaps the upstream destination and credential; it does not change where the harness runs.
+**Why does the request route through Warp's backend?** The Warp Agent harness runs server-side — the same runtime that powers [Agent Mode](/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/) with Warp-billed models and [BYOK](/agents/inference/bring-your-own-api-key/). A custom inference endpoint swaps the upstream destination and credential; it does not change where the harness runs.
 :::
 
 :::caution

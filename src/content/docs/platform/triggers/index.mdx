@@ -4,20 +4,21 @@ description: >-
   Configure triggers to run cloud agents automatically based on schedules or
   events.
 ---
+import { VARS } from '@data/vars';
 
-Triggers allow you to run cloud agents automatically without manual intervention. You can set up agents to run on schedules, in response to webhooks, or through other automation patterns.
+A trigger is anything that starts a cloud agent run without you typing a prompt: a recurring schedule, an integration like Slack or Linear, a CI event, or a call to the API. This page covers the full set, including the [integrations](/platform/integrations/) that connect agents to the tools your team already uses.
 
 To set up your first recurring agent, follow the [Scheduled Agents Quickstart](/platform/triggers/scheduled-agents-quickstart/).
 
-If you're choosing between schedules, Slack, Linear, GitHub, GitHub Actions, the Oz CLI, or the API, start with [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
+If you're choosing between schedules, Slack, Linear, GitHub, GitHub Actions, the {VARS.WARP_AGENT_CLI}, or the API, start with [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
 
 ## Available trigger types
 
 * **[Scheduled Agents](/platform/triggers/scheduled-agents/)** - Run agents on a recurring schedule using cron expressions.
-* **[CLI](/reference/cli/)** - Trigger cloud agents directly from your terminal using the Oz CLI.
+* **[CLI](/reference/cli/)** - Trigger cloud agents directly from your terminal using the {VARS.WARP_AGENT_CLI}.
 * **[API & SDK](/reference/api-and-sdk/)** - Programmatically trigger agents via the Warp API or SDK.
 * **[Integrations](/platform/integrations/)** - Trigger agents from external services like Slack, Linear, or Jira.
-* **[GitHub](/platform/integrations/github/)** - Mention `@oz-agent` on an issue, pull request, or review comment to start an agent that replies in the thread.
+* **[GitHub](/platform/integrations/github/)** - Mention `@warp-agent` on an issue, pull request, or review comment to start an agent that replies in the thread.
 * **[GitHub Actions](/platform/integrations/github-actions/)** - Run agents from your own CI workflows and repository events.
 
-After a trigger fires, track and review the resulting runs across your team from the [Agent Management Panel and Oz web app Runs page](/platform/managing-cloud-agents/), where you can filter by source, status, day, or creator.
+After a trigger fires, track and review the resulting runs across your team from the [Agent Management Panel and {VARS.WEB_APP} Runs page](/platform/managing-cloud-agents/), where you can filter by source, status, day, or creator.

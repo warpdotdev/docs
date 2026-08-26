@@ -1,59 +1,53 @@
 ---
+title: [Sentence case, beginning with a gerund that names the task. Example: "Configuring a self-hosted GitLab integration". Not "Self-hosted GitLab integration setup". This renders as the page H1 — do not add an H1 in the body.]
 description: >-
-  [1-2 sentences: what the reader will accomplish.
-  Task-oriented: "Create and manage X" or "Configure Y for Z."
-  Use {{TOKEN}} syntax here for any product names that have a var in src/data/vars.ts.]
+  [One sentence, 50-160 characters: the task the reader will complete. Start with an
+  imperative verb, not "This page explains". Example: "Connect Slack to the Automation
+  Platform so mentions and channel messages can trigger cloud agent runs."
+  Use {{TOKEN}} syntax for product names in src/data/vars.ts.]
 ---
-[VARS: Add this line immediately after the closing --- above if this page references any product names from src/data/vars.ts. Then use {VARS.KEY} for those names in the prose below.
-`import { VARS } from '@data/vars';`
-See AGENTS.md → Content variables for the full variable list and usage rules.]
+[BEFORE PUBLISHING: Delete every bracketed instruction in this file, including this one. They are guidance for the author, not page content.]
+[VARS: If this page names a product from src/data/vars.ts, add `import { VARS } from '@data/vars';` on the line directly below the frontmatter, then use {VARS.KEY} in prose. See AGENTS.md → Content variables.]
+[AEO: If this page is driven by Peec, search-query, or answer-engine data, run `.agents/skills/aeo_brief/SKILL.md` first.]
 
-# [Task-oriented title — sentence case. Title convention: gerund, e.g., "Configuring X" or "Managing X"]
+[Opening paragraph: what the reader will accomplish and why. 1-2 sentences. Focus on the goal, not the tool.]
 
-[Opening paragraph: What the reader will accomplish and why.
-1-2 sentences. Focus on the goal, not the tool.]
-
-[AEO GUIDANCE: If this procedure is based on Peec, answer-engine prompts, search-query data, or AEO goals, create an AEO brief first using `.agents/skills/aeo_brief/SKILL.md`. Use the brief to translate source-data vocabulary into precise, natural docs language and confirm whether this belongs in a new page or an existing page.]
+[BREVITY: Delete any section below you don't need for this task — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
 
 ## Prerequisites
 
-[Only if needed. Bulleted list with inline context for each prerequisite.
-Each item should include: what it is (1 short clause), where to get or
-create it, and a link to the full reference.
-Example:
-* **A Warp API key** - Authenticate API requests with a key from
-  **Settings** > **Cloud platform** > **Oz Cloud API Keys** in the Warp app. See [API Keys](path) for details.]
+[Only if needed. Each item needs inline context: what it is in one clause, where to get it, and a link to the full reference. Assume the reader arrived here directly.]
 
-## [Primary task name — sentence case. e.g., "Creating API keys"]
+* **A Warp API key** - Authenticate API requests with a key from **Settings** > **Cloud platform** > **API keys** in the Warp app. See [API keys](path) for details.
 
-[Brief motivation: why the reader would do this (1 sentence).
-Then numbered steps.]
+## [Primary task — sentence case, e.g. "Creating an API key"]
 
-1. Step description.
+[One sentence of motivation before the steps. Explain why the reader is doing this, so they are not left wondering. Then the numbered steps.]
+
+1. Step description. [Include the expected outcome where it is not obvious, so the reader can confirm they are on track.]
 2. Step description.
 3. Step description.
 
+[STEP SIZING: Aim for one primary action per step, but group tightly related actions that share the same UI context — up to about three. A simple task should not need 10+ steps, and a single step should not be a mini-procedure.]
+
 :::note
-[Optional: tip, clarification, or "good to know" context
-relevant to the steps above.]
+[Optional. One or two callouts per page at most; prefer body prose. Delete if nothing applies.]
 :::
 
-## [Secondary task or follow-up — sentence case. e.g., "Managing API keys"]
+## [Secondary task — sentence case, e.g. "Rotating an API key"]
 
-[Repeat the pattern: brief context, then numbered steps or
-descriptive content as appropriate.]
+[Same pattern: motivation, then steps. Order sections by reader chronology — requirements, setup, usage, management, then destructive actions.]
 
 ## Troubleshooting
 
-[Optional but recommended. Common issues the reader might encounter
-while following these steps.
-Format: symptom/error as bold text, then cause and fix.]
+[Recommended. Keep error messages here rather than woven through the steps above. Format each as the symptom in bold, then cause, then fix.]
 
-## Best practices
+**Exact error message the user sees**\
+Why it happens, and how to fix it.
 
-[Optional. Bulleted list of actionable recommendations.
-Bold the key action at the start of each item.]
+## Related pages
 
-* **Use environment variables** - Avoid passing secrets directly in commands.
+[Cross-links. Use descriptive link text that names the destination.]
 
-[PRE-HANDOFF REVIEW: Before presenting the draft, check whether steps are easy to scan, whether each important step has an expected outcome, whether UI names and Settings paths are current, whether AEO vocabulary is natural rather than stuffed, and whether any step needs human product testing.]
+* [Conceptual page for this feature](path/to/page.md)
+* [Related task](path/to/page.md)

@@ -1,6 +1,6 @@
 # Redirect Patterns
 
-Two types of redirects are needed for each error code to ensure the API's `type` URI resolves to the correct documentation page.
+How an API error's `type` URI resolves to its documentation page, and what (if anything) a new error code needs.
 
 ## Background
 
@@ -10,75 +10,100 @@ The `platformerrors` package defines `ProblemTypeBaseURI = "https://docs.warp.de
 https://docs.warp.dev/errors/insufficient_credits
 ```
 
-But the actual documentation page lives at:
+The documentation page lives at:
 
 ```
 https://docs.warp.dev/reference/api-and-sdk/troubleshooting/errors/insufficient-credits
 ```
 
-Two redirects bridge this gap:
-1. A **site-level redirect** from `/errors/{underscore_code}` to the full doc page URL
-2. A **Astro Starlight space redirect** from the underscore filename to the hyphen filename (within the reference space)
+Two gaps separate them:
 
-## 1. Site-level redirect (Astro Starlight API)
+1. **Path prefix** — `/errors/{code}` versus the full `/reference/api-and-sdk/troubleshooting/errors/{code}` path.
+2. **Separator** — error codes are underscored (`insufficient_credits`); page slugs are hyphenated (`insufficient-credits`). A single-word code such as `conflict` has no separator to convert, so this gap does not exist for it.
 
-<!-- TODO: Post-migration, update this to use vercel.json redirects instead of the GitBook API. -->
-This redirect is created via the GitBook API using `scripts/docs_redirects.py`. It requires the `GITBOOK_TOKEN` environment variable.
+Both are handled by entries in `vercel.json` at the repo root. All redirects for the site live in that one file.
 
-### Create a redirect
+## 1. Prefix redirect (already generic — no per-code work)
+
+Catch-alls already cover every error code, current and future, in both slash forms:
+
+```json
+{
+  "source": "/errors/:code",
+  "destination": "/reference/api-and-sdk/troubleshooting/errors/:code/",
+  "statusCode": 308
+},
+{
+  "source": "/errors/:code/",
+  "destination": "/reference/api-and-sdk/troubleshooting/errors/:code/",
+  "statusCode": 308
+}
+```
+
+`:code` is forwarded unchanged, so `/errors/insufficient_credits` lands on the underscored path, which the separator redirects below then resolve. For a single-word code the forwarded path is already the canonical slug, so nothing further is needed. Note that the trailing-slash catch-all preserves the slash into the destination, which is why the separator step must also cover the slashed form whenever it applies.
+
+Because these rules are generic, **adding a new error code requires no change here.** Just confirm both still exist:
 
 ```bash
-python3 docs/scripts/docs_redirects.py create \
-  --source "/errors/{underscore_code}" \
-  --destination-json '{"kind": "url", "url": "https://docs.warp.dev/reference/api-and-sdk/troubleshooting/errors/{hyphen-code}"}'
+grep -F '"/errors/:code"' vercel.json
+grep -F '"/errors/:code/"' vercel.json
 ```
 
-### Check if a redirect already exists
+If either is missing, restore that rule rather than adding one entry per code.
 
-```bash
-python3 docs/scripts/docs_redirects.py get-by-source \
-  --source "/errors/{underscore_code}"
+There are also bare `/errors` and `/errors/` redirects pointing at the errors index, which likewise need no per-code maintenance.
+
+## 2. Separator redirects (zero or two entries per code)
+
+These are the only redirects a new error code can need, and some codes need none.
+
+**First check whether the code contains an underscore.** If it does not, its hyphenated slug is the same string, there is no separator to bridge, and you add nothing — skip to the rules below for why. Only codes whose underscored and hyphenated forms actually differ get entries, and those get two.
+
+For a code that does differ, map the underscored form to the hyphenated page slug in both slash forms:
+
+```json
+{
+  "source": "/reference/api-and-sdk/troubleshooting/errors/{underscore_code}",
+  "destination": "/reference/api-and-sdk/troubleshooting/errors/{hyphen-code}/",
+  "statusCode": 308
+},
+{
+  "source": "/reference/api-and-sdk/troubleshooting/errors/{underscore_code}/",
+  "destination": "/reference/api-and-sdk/troubleshooting/errors/{hyphen-code}/",
+  "statusCode": 308
+}
 ```
 
-### List existing error redirects
+Example for `insufficient_credits`, whose forms differ:
 
-```bash
-python3 docs/scripts/docs_redirects.py list --search "/errors/"
+```json
+{
+  "source": "/reference/api-and-sdk/troubleshooting/errors/insufficient_credits",
+  "destination": "/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/",
+  "statusCode": 308
+},
+{
+  "source": "/reference/api-and-sdk/troubleshooting/errors/insufficient_credits/",
+  "destination": "/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/",
+  "statusCode": 308
+}
 ```
 
-### Notes
+Rules:
 
-- The script uses hardcoded org ID (`-MbqIZLCtzerswjFm7mh`) and site ID (`site_FKhQ8`) which are the Warp docs defaults
-- If `GITBOOK_TOKEN` is not set, skip this step and report it — the redirect can be created manually later
-- The destination `kind` is `"url"` (external URL redirect), not `"site-page"`
+- **Skip a code with no underscore.** If `{underscore_code}` and `{hyphen-code}` are the same string, there is nothing to bridge. The no-slash entry would be a redundant trailing-slash normalization and the trailing-slash entry would be a self-redirect with `source` equal to `destination` — an infinite loop. `conflict` is the current example and correctly has no entries.
+- **Otherwise add both slash variants.** All 17 multi-word codes currently in `vercel.json` have both (34 entries); none has only one. A single variant leaves the new code less covered than every existing one, and the trailing-slash catch-all in section 1 forwards its slash through, so the slashed underscore path would otherwise 404.
+- `source` has a **leading slash** and no file extension.
+- `destination` has a **trailing slash** in both entries. Every existing error redirect does.
+- Always set `"statusCode": 308`.
+- Add the entries near the other `/reference/api-and-sdk/troubleshooting/errors/` redirects so they stay grouped.
+- Check for existing entries before adding, so re-runs stay idempotent:
 
-## 2. Astro Starlight space redirect (vercel.json (redirects))
+  ```bash
+  grep -F '"/reference/api-and-sdk/troubleshooting/errors/{underscore_code}"' vercel.json
+  grep -F '"/reference/api-and-sdk/troubleshooting/errors/{underscore_code}/"' vercel.json
+  ```
 
-This redirect lives in `docs/src/content/docs/reference/vercel.json (redirects)` and handles in-space navigation where someone might visit the underscore form of the path.
+## Note on the former GitBook flow
 
-### Format
-
-Add an entry under the `redirects:` key:
-
-```yaml
-redirects:
-    # ... existing redirects ...
-
-    # Error code underscore→hyphen redirects
-    api-and-sdk/troubleshooting/errors/{underscore_code}: api-and-sdk/troubleshooting/errors/{hyphen-code}.md
-```
-
-### Example
-
-For `insufficient_credits`:
-
-```yaml
-    api-and-sdk/troubleshooting/errors/insufficient_credits: api-and-sdk/troubleshooting/errors/insufficient-credits.md
-```
-
-### Notes
-
-- Paths are relative to the space root (defined by `root: ./` in the yaml)
-- The source path has NO leading slash and NO `.md` extension
-- The destination path includes the `.md` extension
-- Group error redirect entries together with a comment for clarity
+Earlier versions of this reference created the prefix redirect through the GitBook API using `scripts/docs_redirects.py` and a `GITBOOK_TOKEN` secret. That approach no longer applies: the docs moved from GitBook to Astro Starlight on Vercel, redirects are plain JSON in `vercel.json`, and the prefix case is now covered by the generic `/errors/:code` rule. Neither the script nor the token is needed.

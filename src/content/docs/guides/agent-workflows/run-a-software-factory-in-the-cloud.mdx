@@ -1,7 +1,8 @@
 ---
 title: Run a software factory in the cloud
 description: >-
-  Set up the Oz-native production path for your software factory: dedicated cloud environments, team-scoped secrets, native event triggers, and full audit trails for every agent run.
+  Set up the {{WARP_AUTOMATION_PLATFORM}}-native production path for your software factory with cloud
+  environments, secrets, triggers, and audit trails.
 sidebar:
   label: "Run a software factory in the cloud"
 tags:
@@ -10,8 +11,9 @@ tags:
   - "software-factory"
   - "orchestration"
 ---
+import { VARS } from '@data/vars';
 
-The GitHub Actions approach in [Set up your software factory](/guides/agent-workflows/set-up-a-software-factory) gets the four-agent loop working. This guide covers the Oz-native production setup for teams running the factory at scale: cloud environments, secrets and permissions, triggers, and observability.
+The GitHub Actions approach in [Set up your software factory](/guides/agent-workflows/set-up-a-software-factory) gets the four-agent loop working. This guide covers the {VARS.WARP_AUTOMATION_PLATFORM}-native production setup for teams running the factory at scale: cloud environments, secrets and permissions, triggers, and observability. To run the same loop as a managed product instead, see [Warp Factories](/factories/).
 
 ## Prerequisites
 
@@ -20,20 +22,20 @@ The GitHub Actions approach in [Set up your software factory](/guides/agent-work
 
 ## Why cloud agents, not cloud computers
 
-A common approach to cloud-based agents is to spin up a persistent virtual machine, or "cloud computer", that the agent logs into and uses like a developer's laptop. Oz uses a different model where each agent run is a short-lived, scoped execution with its own environment and permissions, similar to a cloud function rather than a long-running server.
+A common approach to cloud-based agents is to spin up a persistent virtual machine, or "cloud computer", that the agent logs into and uses like a developer's laptop. The {VARS.WARP_AUTOMATION_PLATFORM} uses a different model where each agent run is a short-lived, scoped execution with its own environment and permissions, similar to a cloud function rather than a long-running server.
 
 The practical difference:
 
 * **Per-agent permissions** — Your triage agent only needs to read issues and post comments. Your implementation agent needs to push branches and open PRs. Each agent gets exactly the permissions it needs, not a single shared credential that everything uses.
 * **Audit trails** — Every cloud agent run is logged separately. You can see exactly what the triage agent did versus what the implementation agent did, when it ran, and what it produced.
-* **Team visibility** — Any teammate can open a run in the Oz web app to inspect the session transcript, steer a stuck agent, or pick up where the agent left off.
+* **Team visibility** — Any teammate can open a run in the {VARS.WEB_APP} to inspect the session transcript, steer a stuck agent, or pick up where the agent left off.
 * **Scale without contention** — Multiple triage runs can execute in parallel without fighting over a shared dev box, local git checkouts, or CPU.
 
-See [Deployment patterns](/platform/deployment-patterns) for a full comparison of Oz-hosted, CLI-based, and self-hosted execution patterns.
+See [Deployment patterns](/platform/deployment-patterns) for a full comparison of {VARS.WARP_AUTOMATION_PLATFORM}-hosted, CLI-based, and self-hosted execution patterns.
 
 ## 1. Set up a cloud environment
 
-An Oz environment is a Docker-based sandbox with your repository, secrets, and any tools the agents need. If you don't already have one from the previous guides, create one now: run [`/create-environment`](warp://action/create_environment) in Warp and Oz detects your stack, suggests a Docker image, and creates the environment automatically.
+A cloud environment is a Docker-based sandbox with your repository, secrets, and any tools the agents need. If you don't already have one from the previous guides, create one now: run [`/create-environment`](warp://action/create_environment) in Warp and the {VARS.WARP_AUTOMATION_PLATFORM} detects your stack, suggests a Docker image, and creates the environment automatically.
 
 For repositories that need specific toolchains or dependencies, [`warpdotdev/oz-dev-environments`](https://github.com/warpdotdev/oz-dev-environments) has prebuilt Docker images for common stacks.
 
@@ -60,42 +62,42 @@ Use fine-grained personal access tokens or separate GitHub App installations to 
 
 ## 3. Configure triggers
 
-With GitHub Actions, your factory already has event-based triggers. Oz also provides first-party integrations that handle triggering without GitHub Actions boilerplate:
+With GitHub Actions, your factory already has event-based triggers. The {VARS.WARP_AUTOMATION_PLATFORM} also provides first-party integrations that handle triggering without GitHub Actions boilerplate:
 
 * **Slack** — Teammates can kick off a run by mentioning `@warp` in a Slack thread. Useful for one-off requests that don't need the full label workflow. See [Slack integration](/platform/integrations/slack).
 * **Linear** — When an issue in Linear reaches a specific status, a cloud agent run starts automatically. Useful for teams that track work in Linear rather than GitHub Issues. See [Linear integration](/platform/integrations/linear).
 * **Scheduled agents** — For the outer improvement loop (which runs on a cadence rather than an event), use a scheduled cloud agent. See [Scheduled agents](/platform/triggers/scheduled-agents).
-* **Oz API and SDK** — For custom triggers — webhooks, internal dashboards, other events — use the [Oz API and SDK](/reference/api-and-sdk) to start runs programmatically.
+* **{VARS.API_SDK_NAME}** — For custom triggers — webhooks, internal dashboards, other events — use the [{VARS.API_SDK_NAME}](/reference/api-and-sdk) to start runs programmatically.
 
 ## 4. Monitor factory runs
 
-Every cloud agent run in your factory appears in the Oz dashboard with:
+Every cloud agent run in your factory appears in the {VARS.DASHBOARD} with:
 
 * A session transcript showing every action the agent took
 * Artifacts: PRs, branches, plans, and reports the agent produced
 * Status history: queued, in progress, succeeded, or failed with error details
 * A session sharing link any teammate can open to inspect or steer the run
 
-Open runs from [oz.warp.dev](https://oz.warp.dev) or from the **Agent Management Panel** in the Warp app. Include the session link in PR descriptions so reviewers can see exactly how the agent built the change — see [Attach agent context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs).
+Open runs from <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP_URL}</a> or from the **Agent Management Panel** in the Warp app. Include the session link in PR descriptions so reviewers can see exactly how the agent built the change — see [Attach agent context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs).
 
 See [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs) for the full reference.
 
 ## 5. Use multi-agent orchestration for large backlogs
 
-When a sprint starts and you want to process many issues in parallel, Oz can fan out to child agents — one per issue — from a single parent run. The parent coordinates; the children execute in parallel, each with their own environment, prompt, and permissions.
+When a sprint starts and you want to process many issues in parallel, the {VARS.WARP_AUTOMATION_PLATFORM} can fan out to child agents — one per issue — from a single parent run. The parent coordinates; the children execute in parallel, each with their own environment, prompt, and permissions.
 
 See [Multi-agent orchestration](/platform/orchestration) for fan-out, sharding, and result aggregation patterns.
 
 ## Productivity tips
 
 * **Start with one agent role in the cloud** — Get the triage agent running as a cloud run before moving all four roles. Confirm that the environment, secrets, and permissions work correctly before expanding.
-* **Add session links to PR descriptions** — When the implementation agent opens a PR, include the Oz run link so reviewers get the full context. See [Attach agent context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs) for a template.
-* **Monitor credit usage** — Cloud agent runs consume credits. Monitor usage in the Oz web app and adjust run scope if needed. See [Credits](/support-and-community/plans-and-billing/credits).
+* **Add session links to PR descriptions** — When the implementation agent opens a PR, include the {VARS.PLATFORM_RUN} link so reviewers get the full context. See [Attach agent context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs) for a template.
+* **Monitor credit usage** — Cloud agent runs consume credits. Monitor usage in the {VARS.WEB_APP} and adjust run scope if needed. See [Credits](/support-and-community/plans-and-billing/credits).
 
 ## Next steps
 
-* [What is a software factory?](/platform/software-factory) — The conceptual overview of the full loop.
+* [Warp Factories overview](/factories/) — The managed product that runs this same loop end to end.
 * [Build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) — Add the outer improvement loop on a schedule.
 * [Environments](/platform/environments) — Full reference for cloud agent environments.
 * [Deployment patterns](/platform/deployment-patterns) — Choose the right architecture for your team.
-* [Self-hosting](/platform/self-hosting) — Run Oz agent workers on your own infrastructure when code must stay on-premises.
+* [Self-hosting](/platform/self-hosting) — Run cloud agent workers on your own infrastructure when code must stay on-premises.

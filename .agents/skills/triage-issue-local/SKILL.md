@@ -17,7 +17,7 @@ marks as overridable.
 - Distinguish between **site bugs** (the docs platform is broken — search, navigation, rendering, styling, build errors) and **content issues** (documentation is incorrect, outdated, missing, unclear, has typos, or has formatting problems). Most issues will be content issues.
 - When the reporter provides a `docs.warp.dev` URL, map it to the source file: `docs.warp.dev/agent-platform/capabilities/skills` → `src/content/docs/agent-platform/capabilities/skills.mdx`.
 - When an issue claims documentation is wrong about a feature's behavior, verify against the source repos (`warp-internal` for client/Rust, `warp-server` for server/Go) before concluding the docs are incorrect. Docs are the primary source of truth for user-facing content, but source code is essential for validating accuracy when disputed.
-- Check the docs style guide (`AGENTS.md`) and terminology glossary (`.warp/references/terminology.md`) to validate that issue reports reference features by their correct names and that any proposed fixes would align with current terminology.
+- Check the docs style guide (`AGENTS.md`) and terminology glossary (`.agents/references/terminology.md`) to validate that issue reports reference features by their correct names and that any proposed fixes would align with current terminology.
 - If the report is a support question (e.g., "How do I do X?") rather than an issue with the docs themselves, direct the reporter to the [Warp community Slack](https://go.warp.dev/join-preview) and the [docs site](https://docs.warp.dev).
 
 ## Follow-up question limit

@@ -1,11 +1,11 @@
 ---
 name: validate_ui_refs
-description: Scan Warp Astro Starlight documentation for UI menu paths and Command Palette command names, then validate them against the warp-internal codebase for accuracy. Catch and surface outdated steps automatically.
+description: Scan Warp Astro Starlight documentation for UI menu paths and Command Palette command names, then validate them against the public warp client codebase for accuracy. Catch and surface outdated steps automatically.
 ---
 
 # Validate UI References
 
-This skill scans Warp's Astro Starlight documentation for references to UI paths (e.g. `Settings > AI > Active AI`) and Command Palette command names (e.g. "Open Theme Picker"), then validates them against a snapshot of known-valid paths extracted from the `warp-internal` codebase.
+This skill scans Warp's Astro Starlight documentation for references to UI paths (e.g. `Settings > AI > Active AI`) and Command Palette command names (e.g. "Open Theme Picker"), then validates them against a snapshot of known-valid paths extracted from the public warp client repo ([warpdotdev/warp](https://github.com/warpdotdev/warp)).
 
 ## Running the Check
 
@@ -25,10 +25,10 @@ python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --all
 - `--create-pr`: Create a branch and PR with auto-fixes (requires `gh` CLI)
 - `--slack-notify`: Post results to `#growth-docs` Slack channel when unfixed issues remain (requires `SLACK_BOT_TOKEN` env var; channel is hardcoded in the script)
 - `--slack-channel ID`: Override the default Slack channel (`C09BVK0PL3Y`)
-- `--self-test`: Run internal sanity checks against the current snapshot and exit (no `warp-internal` needed)
+- `--self-test`: Run internal sanity checks against the current snapshot and exit (no warp checkout needed)
 - `--include-changelog`: Include `changelog/` in the scan (excluded by default since it's a historical record)
-- `--refresh-valid-paths`: Re-extract valid paths from `warp-internal` and update `valid_paths.json`
-- `--warp-internal-path PATH`: Path to the `warp-internal` repo (default: `../warp-internal` relative to docs root, or `WARP_INTERNAL_PATH` env var)
+- `--refresh-valid-paths`: Re-extract valid paths from the warp client repo and update `valid_paths.json`
+- `--warp PATH`: Path to the public warp client repo (auto-detected as a sibling of the docs repo named `warp`, with `warp-internal` as a fallback, or the `WARP_REPO_PATH` env var). `--warp-internal-path` is a deprecated alias, and `WARP_INTERNAL_PATH` is still honored as a deprecated env var fallback.
 - `--output FILE`: Save results to a JSON file
 
 ### Quick path-only check:
@@ -72,10 +72,10 @@ Files scanned: 174
 
 ## Refreshing Valid Paths
 
-The `valid_paths.json` file is a static snapshot of valid UI paths. To update it from the latest `warp-internal` source:
+The `valid_paths.json` file is a static snapshot of valid UI paths. To update it from the latest warp client source:
 
 ```bash
-python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --refresh-valid-paths --warp-internal-path /path/to/warp-internal
+python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --refresh-valid-paths --warp /path/to/warp
 ```
 
 This parses:
@@ -157,7 +157,7 @@ python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --all --slack-notify
 
 1. A push to `master` in `warpdotdev/warp` that touches `app/src/settings_view/**` sends a `repository_dispatch` event (`settings-ui-changed`) to `warpdotdev/docs`.
 2. The `refresh-ui-paths` GHA workflow fires and dispatches an Oz cloud agent to the Docs Agent environment (`K5KStCm5aYvhfBJb8cHol6`).
-3. The cloud agent runs `--refresh-valid-paths` using the `warp-internal` checkout available in that environment.
+3. The cloud agent runs `--refresh-valid-paths` using the `warpdotdev/warp` checkout available in that environment.
 4. If the snapshot changed, the agent runs `--all --fix --create-pr --slack-notify` to validate, auto-fix, open a PR, and post to `#growth-docs` if issues remain.
 5. If the snapshot is unchanged, the agent exits with no-op.
 
@@ -181,7 +181,7 @@ To trigger the workflow manually (e.g., if the PAT expired or a migration was mi
 ```bash
 python3 .agents/skills/validate_ui_refs/validate_ui_refs.py \
   --refresh-valid-paths \
-  --warp-internal-path /path/to/warp-internal
+  --warp /path/to/warp
 ```
 
 ## Dependencies
@@ -189,4 +189,4 @@ python3 .agents/skills/validate_ui_refs/validate_ui_refs.py \
 - Python 3.7+
 - `requests` (for Slack notifications): `pip3 install requests`
 - `gh` CLI (for PR creation)
-- Access to `warp-internal` repo (only for `--refresh-valid-paths`)
+- A checkout of the public warp client repo ([warpdotdev/warp](https://github.com/warpdotdev/warp)) (only for `--refresh-valid-paths`)

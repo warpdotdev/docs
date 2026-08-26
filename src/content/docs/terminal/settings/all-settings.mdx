@@ -191,8 +191,10 @@ Settings that control terminal behavior, input, and event handling.
 * `show_terminal_input_message_bar` — Whether the terminal input message bar is shown. Type: boolean. Default: `true`.
 * `enable_slash_commands_in_terminal` — Whether slash commands are available in the terminal input. Type: boolean. Default: `true`.
 * `at_context_menu_in_terminal_mode` — Whether the @ context menu is available in terminal mode. Type: boolean. Default: `true`.
+* `enable_ai_command_search_hash_trigger` — Whether typing `#` at the start of terminal input opens [Command Search](/terminal/entry/command-search/). When disabled, Command Search is still reachable through its keyboard shortcut. Type: boolean. Default: `true`.
 * `outline_codebase_symbols_for_at_context_menu` — Whether codebase symbols appear in the @ context menu. Type: boolean. Default: `true`.
 * `middle_click_paste_enabled` — Whether middle-click pastes from the clipboard. Type: boolean. Default: `true`.
+* `right_click_behavior` — What a bare right-click does in the terminal. Type: string. Default: `"context_menu"`. Options: `"context_menu"` (open the context menu), `"paste"` (paste from the clipboard; `Shift`+right-click opens the context menu instead).
 * `extra_meta_keys` — Controls which additional keys are treated as meta keys. Type: object. Default: `{ left_alt = false, right_alt = false }`.
 
 #### Autosuggestions
@@ -492,10 +494,10 @@ Settings for Warp features in SSH sessions and subshells.
 **Section**: `[warpify.ssh]`
 
 * `enable_ssh_warpification` — Whether to enable Warp features in SSH sessions. Type: boolean. Default: `true`.
-* `enable_legacy_ssh_wrapper` — Whether the legacy SSH wrapper is enabled for SSH sessions. Type: boolean. Default: `true`.
-* `use_ssh_tmux_wrapper` — Whether to use a tmux-based wrapper for SSH warpification. Type: boolean. Default: `false`.
+* `enable_legacy_ssh_wrapper` — Deprecated in favor of `enable_ssh_warpification`. Type: boolean. Default: `true`.
+* `use_ssh_tmux_wrapper` — Deprecated in favor of the [SSH extension](/terminal/warpify/ssh/). Type: boolean. Default: `false`.
 * `reuse_existing_control_master` — Whether the legacy SSH wrapper attaches to an existing SSH `ControlMaster` for the destination host instead of always creating its own. Type: boolean. Default: `false`.
-* `ssh_extension_install_mode` — Controls SSH extension installation behavior. Type: string. Default: `"always_ask"`. Options: `"always_ask"` (always prompt before installing), `"always_install"` (auto-install and connect without prompting), `"never_install"` (fall back to legacy warpification).
+* `ssh_extension_install_mode` — Controls SSH extension installation behavior. Type: string. Default: `"always_ask"`. Options: `"always_ask"` (always prompt before installing), `"always_install"` (auto-install and connect without prompting), `"never_install"` (fall back to the legacy, wrapper-only SSH warpification).
 * `ssh_hosts_denylist` — SSH hosts that should not trigger the warpification prompt. Type: array of strings. Default: `[]`.
 
 ### Subshells

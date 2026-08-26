@@ -6,6 +6,7 @@ description: >-
   Frequently asked questions about upgrading, managing billing, refunds, and
   invoicing with Warp's paid plans.
 ---
+import { VARS } from '@data/vars';
 
 ### How can I upgrade and subscribe to a Warp plan?
 
@@ -127,7 +128,7 @@ If there are multiple unpaid invoices and you need help resolving them, contact 
 
 ### What counts as a credit?
 
-Each time you submit a prompt in Warp, whether to generate code, suggest a command, or accomplish a task, you initiate an interaction with the Agent. Please see more details in our [credits](/support-and-community/plans-and-billing/credits/) page.
+Each time you submit a prompt in Warp, whether to generate code, suggest a command, or accomplish a task, you initiate an interaction with the Agent. See more details on our [credits](/support-and-community/plans-and-billing/credits/) page.
 
 ### What counts as an AI token?
 
@@ -149,12 +150,12 @@ Unused credits do not rollover to the next cycle and can't be transferred to oth
 
 ### How do credits work for multi-seat teams?
 
-On the new multi-seat paid plans, credits attribute differently than they did on Warp's older pooled-credit teams:
+On the multi-seat paid plans, plan-included credits are per-seat while add-on credits are shared across the team:
 
 * **Plan-included monthly credits** — Each seat receives its own monthly credit allowance that resets every 30 days based on the team's renewal date. See [Warp pricing](https://www.warp.dev/pricing) for the current per-seat allowance on your plan.
-* **Add-on credits** — As of May 21, 2026, [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) are scoped to the individual user who purchased or was allocated them, not pooled across the team. A single heavy user can no longer drain the whole team's purchased credits.
-* **Grandfathered pooled credits** — Teams that purchased add-on credits before May 21, 2026 keep their existing pooled balance until it's exhausted. Pooled credits are spent down first across the team; all new add-on credit purchases after May 21, 2026 are user-scoped.
-* **Team-wide spend cap** — Admins set a single team-wide monthly spend cap that governs auto-reload across the team. See [How does auto-reload work for teams?](#how-does-auto-reload-work-for-teams) below.
+* **Add-on credits** — As of August 2026, [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) purchased by any team member go into a single team-wide pool. Once a member's plan-included credits are used up, their usage draws from the shared pool — including credits another member purchased.
+* **User-scoped credits from May–August 2026** — Add-on credits purchased between May 21, 2026 and August 2026 were scoped to the purchasing member. Any remaining user-scoped balance stays attributed to that member and is consumed after the shared team pool.
+* **Team-wide spend cap** — Admins set a single team-wide monthly spend cap that governs add-on credit purchases across the team. See [How does auto-reload work for teams?](#how-does-auto-reload-work-for-teams) below.
 
 Enterprise plans support team-scoped credit pools and per-user spend limits separately — see [enterprise billing](/enterprise/support-and-resources/billing/).
 
@@ -174,7 +175,7 @@ Local agent runs on Free, Build, or Max — and local runs on Business or Enterp
 If you regularly run through your plan's monthly credit allowance, you have a few options:
 
 * **Upgrade to Max** — Designed for developers with heavier AI usage. Max includes a higher monthly credit allowance than Build, plus a better effective rate for credits than buying [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) on Build. See [Warp pricing](https://www.warp.dev/pricing) for current allowances.
-* **Purchase add-on credits** — Top up your account on demand. Larger denominations have a better effective rate. Add-on credits roll over month-to-month and remain valid for 12 months from purchase. If you move to the Free plan, your remaining add-on credits aren't removed. You just can't use them until you re-subscribe on the same team. See [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) for current denominations.
+* **Purchase add-on credits** — Top up your account on demand. Larger denominations have a better effective rate. Add-on credits roll over month-to-month and remain valid for 12 months from purchase, and they stay usable if you later move to the Free plan. See [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) for current denominations.
 * **Enable auto-reload** — Pick a denomination and a monthly spend cap, and Warp will automatically purchase add-on credits when your balance drops below 100 credits, up to your cap.
 * **Bring Your Own API Key (BYOK)** — Point Warp at your own OpenAI, Anthropic, or Google API key. Requests routed through BYOK don't consume Warp credits — you're billed directly by the model provider. See [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/). On Business and Enterprise, platform credits may apply for local agent runs (billing starts July 1, 2026 on self-serve plans — see [When do platform credits start being charged on self-serve plans?](#when-do-platform-credits-start-being-charged-on-self-serve-plans)).
 * **Use a custom inference endpoint** — Route requests through any OpenAI-compatible endpoint (OpenRouter, LiteLLM, z.ai, an internal gateway, etc.) without spending Warp credits. See [Custom inference endpoint](/agents/inference/custom-inference-endpoint/). On Business and Enterprise, platform credits may apply for local agent runs (billing starts July 1, 2026 on self-serve plans — see [When do platform credits start being charged on self-serve plans?](#when-do-platform-credits-start-being-charged-on-self-serve-plans)).
@@ -183,6 +184,45 @@ If you regularly run through your plan's monthly credit allowance, you have a fe
 
 For organization-scale needs (cloud-provider managed inference, granular admin controls, or higher seat counts), Enterprise plans include [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/).
 
+### Can I buy credits on the Free plan without subscribing?
+
+Yes. Free plan users can buy the same [add-on credit](/support-and-community/plans-and-billing/add-on-credits/) packs as paid plans and spend them on any model, without a subscription. Free plan packs cost more per credit than the same packs on a paid plan — see [Warp pricing](https://www.warp.dev/pricing) for current rates.
+
+Buy from **Settings** > **Billing and usage** in the Warp app, or from the **Add-on credits** card on the [Warp upgrade page](https://app.warp.dev/upgrade).
+
+Credits you buy this way behave like any other add-on credits: they roll over, stay valid for 12 months from purchase, and remain usable if your team later moves between plans.
+
+### Who on my team can purchase add-on credits?
+
+Any active team member can purchase add-on credits. Admin permissions aren't required, and the team doesn't need a paid subscription. Purchased credits go into the team's shared pool, so any member's usage can draw them down.
+
+Two team-level settings still apply, and both are admin-only:
+
+* **Team-wide monthly spend cap** — Every purchase counts against one cap for the whole team per calendar month. Purchases that would exceed the cap are rejected.
+* **Auto-reload** — While an admin has auto-reload on, individual members can't purchase add-on credits manually.
+
+Upgrading the team to a paid plan is still admin-only. A member who can't upgrade the team can still buy add-on credits for the team.
+
+### Which card is charged when a team member buys add-on credits?
+
+Add-on credit purchases charge the payment method saved for the **team**, not a per-member card. That's whichever card the team already has on file — usually the one an admin entered when subscribing, or the one the first member entered when buying credits on a team that had no card yet.
+
+If the team has no saved payment method, the first purchase adds one and that card becomes the team's default. Later add-on credit purchases and auto-reload charge it. On a Free plan team, that means the first member to buy credits can end up supplying the card a teammate's later purchase is billed to.
+
+If you see an add-on credit charge you don't recognize:
+
+* Check **Settings** > **Billing and usage** in the Warp app for the team's add-on credit purchases this month.
+* Ask a team admin to review the invoices in the billing portal, which lists each purchase and the member who made it. See [How do I manage my billing?](#how-do-i-manage-my-billing).
+* Email [billing@warp.dev](mailto:billing@warp.dev) if the charge still looks wrong.
+
+### How do I change or remove the card saved for my team?
+
+Team admins change or remove the saved card in the billing portal, reachable from **Settings** > **Billing and usage** in the Warp app or from the [Warp Admin Panel](https://app.warp.dev/admin/) on the web. See [How do I manage my billing?](#how-do-i-manage-my-billing) for both paths.
+
+Non-admin members can't open the billing portal. If you added a card to your team through a credit purchase and want it removed, ask a team admin to do it, or email [billing@warp.dev](mailto:billing@warp.dev).
+
+Admins who want to limit exposure without removing the card can lower the team-wide monthly spend cap under **Settings** > **Billing and usage**. Setting a lower cap bounds what the team can spend on add-on credits in a calendar month, no matter who makes the purchase.
+
 ### How does auto-reload work for teams?
 
 Auto-reload prevents team members from getting blocked by credit exhaustion. It works the same way for individual and multi-seat paid plans, with one extra knob for teams.
@@ -190,13 +230,13 @@ Auto-reload prevents team members from getting blocked by credit exhaustion. It 
 When auto-reload is **on**:
 
 * The admin chooses an add-on credit **denomination**. Larger denominations have a better effective per-credit rate.
-* Whenever any individual user's balance (their plan credits plus their user-scoped add-on credits balance) drops below **100 credits**, Warp automatically purchases another bundle of the configured denomination on the team's behalf.
-* All auto-reload purchases count against a single **team-wide monthly spend cap** that the admin sets. Once the team hits the cap in a given month, auto-reload pauses until the next billing cycle or until the admin raises the cap.
+* Whenever a member has used up their plan-included credits and the add-on credit balance available to them drops below **100 credits**, Warp automatically purchases another bundle of the configured denomination and adds it to the team's shared pool.
+* All auto-reload purchases count against a single **team-wide monthly spend cap** that the admin sets. Once the team hits the cap in a given month, auto-reload pauses until the next calendar month or until the admin raises the cap.
 * While auto-reload is on, **individual team members cannot purchase add-on credits manually** — the team-wide auto-reload configuration governs all purchases.
 
-Teams with a pre-May 21, 2026 grandfathered pooled add-on credit balance: that pooled balance drains first across the team before user-scoped add-on credits and is not counted toward any individual user's 100-credit auto-reload threshold.
+Reloaded credits land in the team's shared pool, so sustained usage by any member — not just the one who purchased credits — can drain the pool and trigger repeated reloads until the team-wide spend cap is reached. Lower the cap to limit what the team can spend in a month.
 
-When auto-reload is **off**, eligible team members can purchase add-on credits for themselves, as long as the team stays below the team-wide monthly spend cap. Users keep working as long as they have plan credits, previously purchased add-on credits, or have routed Warp at their own API key or [custom inference endpoint](/agents/inference/custom-inference-endpoint/). Once those run out, premium-model usage is blocked until credits are topped up or the next billing cycle begins.
+When auto-reload is **off**, eligible team members can buy add-on credits for the team's shared pool, as long as the team stays below the team-wide monthly spend cap. Users keep working as long as they have plan credits, previously purchased add-on credits, or have routed Warp at their own API key or [custom inference endpoint](/agents/inference/custom-inference-endpoint/). Once those run out, premium-model usage is blocked until credits are topped up or the next billing cycle begins.
 
 Auto-reload can be enabled, paused, or reconfigured at any time in **Settings** > **Billing and usage**.
 
@@ -205,17 +245,17 @@ Auto-reload can be enabled, paused, or reconfigured at any time in **Settings** 
 Some cloud agent runs aren't initiated by a specific team member — for example, scheduled runs or runs triggered through an agent API key. On self-serve plans (Build, Max, Business), these runs are billed to the **team owner**.
 
 :::caution
-Team owners: scheduled runs and runs triggered through an agent API key draw from your personal credit pool. If auto-reload is enabled on your account, automated jobs can consume your add-on credits and count toward your spend cap. Review your auto-reload settings and team-wide spend cap in **Settings** > **Billing and usage** before relying on scheduled or API-key-triggered cloud agents.
+Team owners: scheduled runs and runs triggered through an agent API key draw from your plan-included credits and then the team's shared add-on credit pool. If auto-reload is enabled, automated jobs can trigger add-on credit purchases that count toward the team-wide spend cap. Review your auto-reload settings and team-wide spend cap in **Settings** > **Billing and usage** before relying on scheduled or API-key-triggered cloud agents.
 :::
 
-The waterfall on the owner's account is:
+The waterfall is:
 
 1. First, the owner's plan-included monthly credits are consumed.
-2. Once those are exhausted, the owner's add-on credits are consumed.
+2. Once those are exhausted, the team's shared add-on credit pool is consumed.
 
-When auto-reload is **off**, the request is blocked once both buckets are depleted. When auto-reload is **on**, cloud agent usage can trigger auto-reload on the owner's pool subject to the team-wide spend cap; further cloud agent runs then draw from that reloaded balance until the cap is reached.
+When auto-reload is **off**, the request is blocked once both buckets are depleted. When auto-reload is **on**, cloud agent usage can trigger auto-reload into the team's shared pool subject to the team-wide spend cap; further cloud agent runs then draw from that reloaded balance until the cap is reached.
 
-"Blocked" means the run fails immediately with an insufficient-credits error rather than queuing or retrying. For unattended runs (scheduled jobs, team-API-key triggers), this manifests as a failed run in the Oz dashboard with an [insufficient credits](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/) error code; the run won't be retried automatically. Owners should monitor the dashboard and configure spend caps with headroom for critical scheduled workloads.
+"Blocked" means the run fails immediately with an insufficient-credits error rather than queuing or retrying. For unattended runs (scheduled jobs, team-API-key triggers), this manifests as a failed run in the {VARS.DASHBOARD} with an [insufficient credits](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/) error code; the run won't be retried automatically. Owners should monitor the dashboard and configure spend caps with headroom for critical scheduled workloads.
 
 :::note
 Enterprise plans support team-scoped credit pools, so this traffic draws from the team pool rather than an individual admin. See [enterprise billing](/enterprise/support-and-resources/billing/) for overage and contract terms.
@@ -223,12 +263,13 @@ Enterprise plans support team-scoped credit pools, so this traffic draws from th
 
 ### Does the Free plan include AI usage?
 
-The Free plan doesn't include bundled AI usage for the Warp Agent. To use the Warp Agent, you have two options:
+The Free plan doesn't include bundled AI usage for the Warp Agent. To use the Warp Agent, you have three options:
 
 * **Upgrade to a paid plan** — paid plans include a monthly allowance of Warp-provided AI usage with no extra setup. See [Warp pricing](https://www.warp.dev/pricing).
+* **Buy add-on credits** — purchase a credit pack without subscribing and spend it on any model. See [Can I buy credits on the Free plan without subscribing?](#can-i-buy-credits-on-the-free-plan-without-subscribing).
 * **Bring your own inference** — connect your own API key with [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), point Warp at a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or use a [SuperGrok or X Premium subscription](/agents/inference/grok-subscription/). Requests routed through your own inference don't consume Warp credits.
 
-Without a paid plan or your own inference, conversations on the Free plan can't run on Warp-provided models. This includes conversations started from prompt suggestions in the input.
+Without a paid plan, purchased add-on credits, or your own inference, conversations on the Free plan can't run on Warp-provided models. This includes conversations started from prompt suggestions in the input.
 
 ### Can I use a Free plan if I'm a developer at a large company or organization?
 
@@ -242,14 +283,14 @@ Warp doesn’t currently offer discounts for students or non-profits. We recomme
 
 For open source teams, two paths are available:
 
-* The [Oz Open Source Partnership](/support-and-community/community/open-source-partnership/) program offers free agent credits to high-impact open source projects.
+* The [{VARS.WARP_AUTOMATION_PLATFORM} Open Source Partnership](/support-and-community/community/open-source-partnership/) program offers free agent credits to high-impact open source projects.
 * Warp's client itself is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL), so you can build, run, and contribute to it directly. See [Contributing to Warp](/support-and-community/community/contributing/) for the flow.
 
 ### Where is Warp Drive data for my team stored?
 
 Warp Drive data is securely stored on Google Cloud Platform servers located in the United States. All data is encrypted in transit and at rest.
 
-For more details, please [visit the Security Overview](https://www.warp.dev/legal/security) or contact [security@warp.dev](mailto:security@warp.dev).
+For more details, [visit the Security Overview](https://www.warp.dev/legal/security) or contact [security@warp.dev](mailto:security@warp.dev).
 
 ### Does Warp have a SOC 2 Type 2 attestation?
 
@@ -307,7 +348,7 @@ For lighter-weight routing through any OpenAI-compatible endpoint (OpenRouter, L
 
 ### What features are available during multi-harness orchestration beta?
 
-Multi-harness orchestration is currently in beta and available to all users. You can use the [Warp Agent](/platform/harnesses/warp-agent/) alongside [Claude Code](/platform/harnesses/claude-code/) and [Codex](/platform/harnesses/codex/) in Oz cloud environments, and mix and match harnesses across workflows.
+Multi-harness orchestration is currently in beta and available to all users. You can use the [Warp Agent](/platform/harnesses/warp-agent/) alongside [Claude Code](/platform/harnesses/claude-code/) and [Codex](/platform/harnesses/codex/) in {VARS.WARP_AUTOMATION_PLATFORM} cloud environments, and mix and match harnesses across workflows.
 
 [Agent Memory](/agents/agent-memory/) is currently in Research Preview. It lets preferences, project knowledge, and learnings from past sessions carry across harnesses and future agent runs. [Contact our sales team](https://www.warp.dev/contact-sales) to request access.
 
@@ -328,7 +369,7 @@ To checkout with Google Pay, use Chrome, make sure you're logged into your Googl
 
 For monthly subscriptions, we can issue a full refund if you cancel within 24 hours of being charged and no credits have been used.
 
-For annual subscriptions, we can issue a full refund within 15 days if no credits have been used, or a prorated refund for remaining months after that. Please see [Warp's Refund Policy](/support-and-community/plans-and-billing/plans-pricing-refunds/#warps-refund-policies) for full details and exceptions.
+For annual subscriptions, we can issue a full refund within 15 days if no credits have been used, or a prorated refund for remaining months after that. See [Warp's Refund Policy](/support-and-community/plans-and-billing/plans-pricing-refunds/#warps-refund-policies) for full details and exceptions.
 
 ### Why doesn't my promo code work or why was it disabled?
 
@@ -377,12 +418,13 @@ The cap only governs **adding new members**. While your team is at or above the 
 
 #### How are add-on credits being attributed differently?
 
-Before May 21, 2026, add-on credits on multi-seat teams were **pooled**. Every team member drew from a single shared balance. As of May 21, 2026, **add-on credits are user-scoped**. Each user has their own balance, and a single heavy user can no longer drain the whole team's purchased credits.
+Add-on credit attribution has changed twice in 2026:
 
-Two practical changes for teams:
+* **Before May 21, 2026** — Add-on credits on multi-seat teams were pooled; every member drew from a single shared balance.
+* **May 21 – August 2026** — Add-on credits were user-scoped; each user had their own balance.
+* **As of August 2026** — Add-on credits are **team-pooled again**. Purchases from any member go into the team's shared pool, and any member's usage draws the pool down once their plan-included credits are used up. Remaining user-scoped balances from the May–August window stay attributed to the purchasing member and are consumed after the shared pool.
 
-* **Anyone on the team can now purchase add-on credits** for their own usage, subject to the team-wide spend cap admins set under **Settings** > **Billing and usage**. Previously, admins typically managed the shared pool on behalf of the team.
-* **Grandfathered pooled credits**: Existing pooled add-on credit balances purchased before May 21, 2026 are honored. They drain first across the team before any user-scoped add-on credits are consumed. No new credits are added to the pooled balance. Once it's exhausted, all future add-on credit purchases are user-scoped.
+Anyone on the team can purchase add-on credits, subject to the team-wide spend cap admins set under **Settings** > **Billing and usage**.
 
 For details, see [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
 
@@ -394,7 +436,7 @@ Add-on credits are tied to the team that paid for them, so team-membership chang
 * **An admin removes you from a team**: You lose access to any add-on credits tied to that team. If you rejoin later, you regain access to any unused, non-expired credits.
 * **An admin deletes the team**: Any remaining add-on credits tied to the team are no longer usable by anyone.
 
-Unused add-on credits remain valid for 12 months from purchase, as long as you have an active subscription. See [When team membership changes](/support-and-community/plans-and-billing/add-on-credits/#when-team-membership-changes) on the add-on credits page for full details.
+Unused add-on credits remain valid for 12 months from purchase and stay tied to the team they were purchased under. See [When team membership changes](/support-and-community/plans-and-billing/add-on-credits/#when-team-membership-changes) on the add-on credits page for full details.
 
 #### Can I bring my own API key on the Free plan now?
 
@@ -432,6 +474,7 @@ On **July 1, 2026**, Warp begins consuming platform credits for:
 A short checklist to triage the May 2026 changes for your team:
 
 * **Check your seat count.** Go to **Settings** > **Teams** to see whether your team is at or above your plan's new seat limit. If you are, see [What if my team is already above the new seat limit?](#what-if-my-team-is-already-above-the-new-seat-limit).
-* **Set your team's add-on credit spend cap.** Under **Settings** > **Billing and usage**, configure the monthly cap that applies to add-on credit purchases across your team. Team members can now buy their own add-on credits, but every purchase counts against this cap.
-* **Let your team know add-on credits are user-scoped now.** Each member can purchase add-on credits for their own usage without affecting anyone else's balance.
+* **Set your team's add-on credit spend cap.** Under **Settings** > **Billing and usage**, configure the monthly cap that applies to add-on credit purchases across your team. Team members can buy add-on credits for the team, but every purchase counts against this cap.
+* **Let your team know add-on credits are shared team-wide.** Purchases from any member land in the team's shared pool, and the whole team's usage draws it down.
+* **Confirm which card your team has on file.** Every add-on credit purchase charges the team's saved payment method, including purchases made by members who aren't admins. Review it in the billing portal. See [Which card is charged when a team member buys add-on credits?](#which-card-is-charged-when-a-team-member-buys-add-on-credits).
 * **Plan for platform credits on July 1, 2026.** If your team is on Business and uses BYOK or a custom inference endpoint locally, those local runs will start consuming platform credits when the preview period ends. See [When do platform credits start being charged on self-serve plans?](#when-do-platform-credits-start-being-charged-on-self-serve-plans).

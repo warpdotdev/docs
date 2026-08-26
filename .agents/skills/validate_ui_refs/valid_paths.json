@@ -2,7 +2,6 @@
   "umbrellas": {
     "Agents": {
       "subpages": [
-        "Oz",
         "Warp Agent",
         "Profiles",
         "MCP servers",
@@ -21,21 +20,24 @@
     "Cloud platform": {
       "subpages": [
         "Environments",
-        "Oz Cloud API Keys"
+        "API keys"
       ],
+      "deprecated_subpages": {
+        "Oz Cloud API Keys": "API keys"
+      },
       "source_file": "app/src/settings_view/mod.rs"
     }
   },
   "deprecated_sections": {
     "AI": {
       "umbrella": "Agents",
-      "default_subpage": "Oz",
+      "default_subpage": "Warp Agent",
       "subsection_to_subpage": {
-        "Active AI": "Oz",
-        "Input": "Oz",
-        "Voice": "Oz",
-        "Other": "Oz",
-        "Experimental": "Oz",
+        "Active AI": "Warp Agent",
+        "Input": "Warp Agent",
+        "Voice": "Warp Agent",
+        "Other": "Warp Agent",
+        "Experimental": "Warp Agent",
         "Usage": "Profiles",
         "Agents": "Profiles",
         "Profiles": "Profiles",
@@ -69,7 +71,11 @@
     },
     "Platform": {
       "umbrella": "Cloud platform",
-      "default_subpage": "Oz Cloud API Keys"
+      "default_subpage": "API keys"
+    },
+    "Oz Cloud API Keys": {
+      "umbrella": "Cloud platform",
+      "default_subpage": "API keys"
     }
   },
   "settings_sections": {
@@ -82,11 +88,6 @@
       "display_name": "Account",
       "sub_sections": [],
       "source_file": "app/src/settings_view/mod.rs"
-    },
-    "MCP Servers": {
-      "display_name": "MCP Servers",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mcp_servers_page.rs"
     },
     "Billing and usage": {
       "display_name": "Billing and usage",
@@ -168,30 +169,6 @@
       ],
       "source_file": "app/src/settings_view/warpify_page.rs"
     },
-    "AI": {
-      "display_name": "AI",
-      "sub_sections": [
-        "Usage",
-        "Active AI",
-        "Agents",
-        "Profiles",
-        "Input",
-        "MCP Servers",
-        "Knowledge",
-        "Voice",
-        "Other",
-        "Third party CLI agents",
-        "Agent Attribution",
-        "Experimental",
-        "Cloud Handoff",
-        "Custom Inference",
-        "API Keys",
-        "AWS Bedrock",
-        "Gemini Enterprise",
-        "Custom Routers"
-      ],
-      "source_file": "app/src/settings_view/ai_page.rs"
-    },
     "Warp Agent": {
       "display_name": "Warp Agent",
       "sub_sections": [
@@ -241,14 +218,6 @@
       "source_file": "app/src/settings_view/ai_page.rs",
       "umbrella": "Agents"
     },
-    "Code": {
-      "display_name": "Code",
-      "sub_sections": [
-        "Codebase Indexing",
-        "Code Editor and Review"
-      ],
-      "source_file": "app/src/settings_view/code_page.rs"
-    },
     "Indexing and projects": {
       "display_name": "Indexing and projects",
       "sub_sections": [
@@ -271,10 +240,10 @@
       "source_file": "app/src/settings_view/environments_page.rs",
       "umbrella": "Cloud platform"
     },
-    "Oz Cloud API Keys": {
-      "display_name": "Oz Cloud API Keys",
+    "API keys": {
+      "display_name": "API keys",
       "sub_sections": [],
-      "source_file": "app/src/settings_view/platform_page.rs",
+      "source_file": "app/src/settings_view/mod.rs",
       "umbrella": "Cloud platform"
     }
   },
@@ -337,6 +306,550 @@
     ]
   },
   "command_palette_commands": [
+    {
+      "name": "root_view:toggle_fullscreen",
+      "description": "Toggle fullscreen"
+    },
+    {
+      "name": "ai_assistant_panel:focus_terminal_input",
+      "description": "Focus Terminal Input From Warp AI"
+    },
+    {
+      "name": "ai_assistant_panel:reset_context",
+      "description": "Restart Warp AI"
+    },
+    {
+      "name": "code_view:save_as",
+      "description": "Save file as"
+    },
+    {
+      "name": "code_view:close_all_tabs",
+      "description": "Close all tabs"
+    },
+    {
+      "name": "code_view:close_saved_tabs",
+      "description": "Close saved tabs"
+    },
+    {
+      "name": "find:find_next_occurrence",
+      "description": "Find the next occurrence of your search query"
+    },
+    {
+      "name": "find:find_prev_occurrence",
+      "description": "Find the previous occurrence of your search query"
+    },
+    {
+      "name": "editor_view:move_backward_one_word",
+      "description": "Move Backward One Word"
+    },
+    {
+      "name": "editor_view:move_forward_one_word",
+      "description": "Move Forward One Word"
+    },
+    {
+      "name": "editor_view:move_forward_one_word",
+      "description": "Move forward one word"
+    },
+    {
+      "name": "editor_view:move_backward_one_word",
+      "description": "Move backward one word"
+    },
+    {
+      "name": "editor_view:up",
+      "description": "Move cursor up"
+    },
+    {
+      "name": "editor_view:down",
+      "description": "Move cursor down"
+    },
+    {
+      "name": "editor_view:left",
+      "description": "Move cursor left"
+    },
+    {
+      "name": "editor_view:right",
+      "description": "Move cursor right"
+    },
+    {
+      "name": "editor_view:move_to_line_start",
+      "description": "Move to line start"
+    },
+    {
+      "name": "editor_view:home",
+      "description": "Home"
+    },
+    {
+      "name": "editor_view:move_to_line_end",
+      "description": "Move to line end"
+    },
+    {
+      "name": "editor_view:end",
+      "description": "End"
+    },
+    {
+      "name": "editor_view:cursor_at_buffer_start",
+      "description": "Cursor at buffer start"
+    },
+    {
+      "name": "editor_view:cursor_at_buffer_end",
+      "description": "Cursor at buffer end"
+    },
+    {
+      "name": "editor_view:select_left_by_word",
+      "description": "Select one word to the left"
+    },
+    {
+      "name": "editor_view:select_right_by_word",
+      "description": "Select one word to the right"
+    },
+    {
+      "name": "editor_view:select_left",
+      "description": "Select one character to the left"
+    },
+    {
+      "name": "editor_view:select_right",
+      "description": "Select one character to the right"
+    },
+    {
+      "name": "editor_view:select_up",
+      "description": "Select up"
+    },
+    {
+      "name": "editor_view:select_down",
+      "description": "Select down"
+    },
+    {
+      "name": "editor_view:select_all",
+      "description": "Select all"
+    },
+    {
+      "name": "editor:select_to_line_start",
+      "description": "Select to start of line"
+    },
+    {
+      "name": "editor:select_to_line_end",
+      "description": "Select to end of line"
+    },
+    {
+      "name": "editor_view:select_to_line_end",
+      "description": "Select To Line End"
+    },
+    {
+      "name": "editor_view:select_to_line_start",
+      "description": "Select To Line Start"
+    },
+    {
+      "name": "editor_view:backspace",
+      "description": "Remove the previous character"
+    },
+    {
+      "name": "editor_view:toggle_comment",
+      "description": "Toggle comment"
+    },
+    {
+      "name": "editor_view:delete",
+      "description": "Delete"
+    },
+    {
+      "name": "editor_view:vim_scroll_half_page_down",
+      "description": "Scroll down half a page (vim)"
+    },
+    {
+      "name": "editor_view:vim_scroll_half_page_up",
+      "description": "Scroll up half a page (vim)"
+    },
+    {
+      "name": "editor_view:cut_word_left",
+      "description": "Cut word left"
+    },
+    {
+      "name": "editor:delete_word_left",
+      "description": "Delete word left"
+    },
+    {
+      "name": "editor_view:cut_word_right",
+      "description": "Cut word right"
+    },
+    {
+      "name": "editor:delete_word_right",
+      "description": "Delete word right"
+    },
+    {
+      "name": "editor_view:cut_all_left",
+      "description": "Cut all left"
+    },
+    {
+      "name": "editor_view:delete_all_left",
+      "description": "Delete all left"
+    },
+    {
+      "name": "editor_view:cut_all_right",
+      "description": "Cut all right"
+    },
+    {
+      "name": "editor_view:delete_all_right",
+      "description": "Delete all right"
+    },
+    {
+      "name": "editor_view:vim_exit_insert_mode",
+      "description": "Exit Vim insert mode"
+    },
+    {
+      "name": "code_editor:find",
+      "description": "Find in code editor"
+    },
+    {
+      "name": "editor_view:go_to_line",
+      "description": "Go to line"
+    },
+    {
+      "name": "code_review:save_all_unsaved_files",
+      "description": "Save all unsaved files in code review"
+    },
+    {
+      "name": "code_review:show_find_bar",
+      "description": "Show find bar in code review"
+    },
+    {
+      "name": "code_review:toggle_file_navigation",
+      "description": "Toggle file navigation in code review"
+    },
+    {
+      "name": "project_buttons:open_repository",
+      "description": "Open repository"
+    },
+    {
+      "name": "project_buttons:create_new_project",
+      "description": "Create new project"
+    },
+    {
+      "name": "editor_view:clear_and_copy_lines",
+      "description": "Copy and clear selected lines"
+    },
+    {
+      "name": "editor_view:add_next_occurrence",
+      "description": "Add selection for next occurrence"
+    },
+    {
+      "name": "editor_view:move_to_line_start",
+      "description": "Move to start of line"
+    },
+    {
+      "name": "editor_view:move_to_line_end",
+      "description": "Move to end of line"
+    },
+    {
+      "name": "editor_view:cmd_down",
+      "description": "Move cursor to the bottom"
+    },
+    {
+      "name": "editor_view:cmd_up",
+      "description": "Move cursor to the top"
+    },
+    {
+      "name": "editor_view:move_to_and_select_buffer_start",
+      "description": "Select and move to the top"
+    },
+    {
+      "name": "editor_view:move_to_and_select_buffer_end",
+      "description": "Select and move to the bottom"
+    },
+    {
+      "name": "editor_view:move_to_paragraph_start",
+      "description": "Move to the start of the paragraph"
+    },
+    {
+      "name": "editor_view:move_to_paragraph_end",
+      "description": "Move to the end of the paragraph"
+    },
+    {
+      "name": "editor_view:move_to_buffer_start",
+      "description": "Move to the start of the buffer"
+    },
+    {
+      "name": "editor_view:move_to_buffer_end",
+      "description": "Move to the end of the buffer"
+    },
+    {
+      "name": "editor_view:clear_lines",
+      "description": "Clear selected lines"
+    },
+    {
+      "name": "editor_view:insert_newline",
+      "description": "Insert newline"
+    },
+    {
+      "name": "editor_view:fold",
+      "description": "Fold"
+    },
+    {
+      "name": "editor_view:unfold",
+      "description": "Unfold"
+    },
+    {
+      "name": "editor_view:fold_selected_ranges",
+      "description": "Fold selected ranges"
+    },
+    {
+      "name": "editor:insert_last_word_previous_command",
+      "description": "Insert last word of previous command"
+    },
+    {
+      "name": "editor_view:move_backward_one_subword",
+      "description": "Move Backward One Subword"
+    },
+    {
+      "name": "editor_view:move_forward_one_subword",
+      "description": "Move Forward One Subword"
+    },
+    {
+      "name": "editor_view:select_left_by_subword",
+      "description": "Select one subword to the left"
+    },
+    {
+      "name": "editor_view:select_right_by_subword",
+      "description": "Select one subword to the right"
+    },
+    {
+      "name": "editor_view:inspect_command",
+      "description": "Inspect Command"
+    },
+    {
+      "name": "editor_view:clear_buffer",
+      "description": "Clear command editor"
+    },
+    {
+      "name": "editor_view:add_cursor_above",
+      "description": "Add cursor above"
+    },
+    {
+      "name": "editor_view:add_cursor_below",
+      "description": "Add cursor below"
+    },
+    {
+      "name": "editor_view:insert_nonexpanding_space",
+      "description": "Insert non-expanding space"
+    },
+    {
+      "name": "Close Env Var Collection",
+      "description": "Close"
+    },
+    {
+      "name": "notebookview:increase_font_size",
+      "description": "Increase notebook font size"
+    },
+    {
+      "name": "notebookview:decrease_font_size",
+      "description": "Decrease notebook font size"
+    },
+    {
+      "name": "notebookview:reset_font_size",
+      "description": "Reset notebook font size"
+    },
+    {
+      "name": "notebookview:focus_terminal_input",
+      "description": "Focus Terminal Input from Notebook"
+    },
+    {
+      "name": "editor_view:deselect_command",
+      "description": "De-select shell commands"
+    },
+    {
+      "name": "editor_view:select_command",
+      "description": "Select shell command at cursor"
+    },
+    {
+      "name": "editor_view:select_previous_command",
+      "description": "Select previous command"
+    },
+    {
+      "name": "editor_view:select_next_command",
+      "description": "Select next command"
+    },
+    {
+      "name": "editor_view:run_commands",
+      "description": "Run selected commands"
+    },
+    {
+      "name": "editor_view:toggle_debug_mode",
+      "description": "Toggle rich-text debug mode"
+    },
+    {
+      "name": "editor_view:debug_copy_buffer",
+      "description": "Copy rich-text buffer"
+    },
+    {
+      "name": "editor_view:debug_copy_selection",
+      "description": "Copy rich-text selection"
+    },
+    {
+      "name": "editor_view:log_state",
+      "description": "Log editor state"
+    },
+    {
+      "name": "editor_view:move_to_paragraph_end",
+      "description": "Move to end of paragraph"
+    },
+    {
+      "name": "editor:select_to_paragraph_start",
+      "description": "Select to start of paragraph"
+    },
+    {
+      "name": "editor:select_to_paragraph_end",
+      "description": "Select to end of paragraph"
+    },
+    {
+      "name": "editor:edit_link",
+      "description": "Create or edit link"
+    },
+    {
+      "name": "editor_view:inline_code",
+      "description": "Toggle inline code styling"
+    },
+    {
+      "name": "editor_view:strikethrough",
+      "description": "Toggle strikethrough styling"
+    },
+    {
+      "name": "editor_view:underline",
+      "description": "Toggle underline styling"
+    },
+    {
+      "name": "editor:find",
+      "description": "Find in Notebook"
+    },
+    {
+      "name": "editor:next_find_match",
+      "description": "Focus next match"
+    },
+    {
+      "name": "editor:previous_find_match",
+      "description": "Focus previous match"
+    },
+    {
+      "name": "editor:toggle_regex_find",
+      "description": "Toggle regular expression search"
+    },
+    {
+      "name": "editor:toggle_case_sensitive_find",
+      "description": "Toggle case-sensitive search"
+    },
+    {
+      "name": "notebookview:focus_terminal_input",
+      "description": "Focus Terminal Input from File"
+    },
+    {
+      "name": "notebookview:reload_file",
+      "description": "Reload file"
+    },
+    {
+      "name": "pane_group:close_current_session",
+      "description": "Close Current Session"
+    },
+    {
+      "name": "pane_group:add_left",
+      "description": "Split pane left"
+    },
+    {
+      "name": "pane_group:add_up",
+      "description": "Split pane up"
+    },
+    {
+      "name": "pane_group:navigate_left",
+      "description": "Switch panes left"
+    },
+    {
+      "name": "pane_group:navigate_right",
+      "description": "Switch panes right"
+    },
+    {
+      "name": "pane_group:navigate_up",
+      "description": "Switch panes up"
+    },
+    {
+      "name": "pane_group:navigate_down",
+      "description": "Switch panes down"
+    },
+    {
+      "name": "pane_group:resize_left",
+      "description": "Resize pane > Move divider left"
+    },
+    {
+      "name": "pane_group:resize_right",
+      "description": "Resize pane > Move divider right"
+    },
+    {
+      "name": "pane_group:resize_up",
+      "description": "Resize pane > Move divider up"
+    },
+    {
+      "name": "pane_group:resize_down",
+      "description": "Resize pane > Move divider down"
+    },
+    {
+      "name": "pane_group:add_down",
+      "description": "Split pane down"
+    },
+    {
+      "name": "pane_group:add_right",
+      "description": "Split pane right"
+    },
+    {
+      "name": "workspace:new_tab",
+      "description": "Terminal session"
+    },
+    {
+      "name": "pane:share_pane_contents",
+      "description": "Share pane"
+    },
+    {
+      "name": "input:insert_network_logging_workflow",
+      "description": "Show Warp network log"
+    },
+    {
+      "name": "input:clear_screen",
+      "description": "Clear screen"
+    },
+    {
+      "name": "terminal:scroll_up_one_page",
+      "description": "Scroll terminal output up one page"
+    },
+    {
+      "name": "terminal:scroll_down_one_page",
+      "description": "Scroll terminal output down one page"
+    },
+    {
+      "name": "workspace:edit_prompt",
+      "description": "Edit Prompt"
+    },
+    {
+      "name": "input:toggle_classic_completions_mode",
+      "description": "(Experimental) Toggle classic completions mode"
+    },
+    {
+      "name": "workspace:show_command_search",
+      "description": "Command Search"
+    },
+    {
+      "name": "input:search_command_history",
+      "description": "History Search"
+    },
+    {
+      "name": "input:toggle_workflows",
+      "description": "Workflows"
+    },
+    {
+      "name": "input:toggle_natural_language_command_search",
+      "description": "Open AI Command Suggestions"
+    },
+    {
+      "name": "input:enable_auto_detection",
+      "description": "Trigger Auto Detection"
+    },
+    {
+      "name": "input:clear_and_reset_ai_context_menu_query",
+      "description": "Clear and reset AI context menu query"
+    },
     {
       "name": "terminal:alternate_terminal_paste",
       "description": "Alternate terminal paste"
@@ -462,14 +975,6 @@
       "description": "Scroll terminal output down one line"
     },
     {
-      "name": "terminal:scroll_up_one_page",
-      "description": "Scroll terminal output up one page"
-    },
-    {
-      "name": "terminal:scroll_down_one_page",
-      "description": "Scroll terminal output down one page"
-    },
-    {
       "name": "terminal:scroll_to_top_of_selected_block",
       "description": "Scroll to top of selected block"
     },
@@ -488,6 +993,14 @@
     {
       "name": "terminal:expand_block_selection_below",
       "description": "Expand selected blocks below"
+    },
+    {
+      "name": "terminal:ask_ai_assistant",
+      "description": "Attach Selected Block as Agent Context"
+    },
+    {
+      "name": "terminal:ask_ai_assistant",
+      "description": "Attach Selected Text as Agent Context"
     },
     {
       "name": "terminal:ask_ai_assistant",
@@ -522,6 +1035,10 @@
       "description": "Toggle Sticky Command Header in Active Pane"
     },
     {
+      "name": "workspace:write_codebase_index",
+      "description": "Write current codebase index snapshot"
+    },
+    {
       "name": "terminal:load_agent_mode_conversation",
       "description": "Load agent mode conversation (from debug link in clipboard)"
     },
@@ -530,28 +1047,24 @@
       "description": "Toggle PTY Recording for Session"
     },
     {
-      "name": "terminal:toggle_conversation_details_panel",
-      "description": "Toggle Conversation Details Panel"
-    },
-    {
-      "name": "terminal:ask_ai_assistant",
-      "description": "Attach Selected Block as Agent Context"
-    },
-    {
-      "name": "terminal:ask_ai_assistant",
-      "description": "Attach Selected Text as Agent Context"
-    },
-    {
-      "name": "workspace:write_codebase_index",
-      "description": "Write current codebase index snapshot"
-    },
-    {
       "name": "workspace:init_project_rules",
       "description": "Initiate project for warp"
     },
     {
       "name": "workspace:add_current_dir_as_project",
       "description": "Add current folder as project"
+    },
+    {
+      "name": "terminal:toggle_conversation_details_panel",
+      "description": "Toggle Conversation Details Panel"
+    },
+    {
+      "name": "app:reopen_closed_session",
+      "description": "Reopen closed session"
+    },
+    {
+      "name": "workflowview:save",
+      "description": "Save workflow"
     },
     {
       "name": "workspace:panic",
@@ -650,6 +1163,54 @@
       "description": "Activate next pane"
     },
     {
+      "name": "workspace:create_team_notebook",
+      "description": "Create a new team notebook"
+    },
+    {
+      "name": "workspace:create_personal_notebook",
+      "description": "Create a new personal notebook"
+    },
+    {
+      "name": "workspace:create_team_workflow",
+      "description": "Create a new team workflow"
+    },
+    {
+      "name": "workspace:create_personal_workflow",
+      "description": "Create a new personal workflow"
+    },
+    {
+      "name": "workspace:create_team_folder",
+      "description": "Create a new team folder"
+    },
+    {
+      "name": "workspace:create_personal_folder",
+      "description": "Create a new personal folder"
+    },
+    {
+      "name": "workspace:toggle_left_panel",
+      "description": "Open Left Panel"
+    },
+    {
+      "name": "file_tree:toggle_hidden_files",
+      "description": "Toggle hidden files in Project Explorer"
+    },
+    {
+      "name": "workspace:close_panel",
+      "description": "Close focused panel"
+    },
+    {
+      "name": "workspace:toggle_command_palette",
+      "description": "Toggle command palette"
+    },
+    {
+      "name": "workspace:move_tab_left",
+      "description": "Move tab left"
+    },
+    {
+      "name": "workspace:move_tab_right",
+      "description": "Move tab right"
+    },
+    {
       "name": "workspace:toggle_keybindings_page",
       "description": "Toggle keyboard shortcuts"
     },
@@ -676,6 +1237,10 @@
     {
       "name": "workspace:rename_active_pane",
       "description": "Rename the current pane"
+    },
+    {
+      "name": "workspace:cycle_active_tab_color",
+      "description": "Cycle current tab color"
     },
     {
       "name": "workspace:new_tab_group",
@@ -710,6 +1275,10 @@
       "description": "Quit Warp"
     },
     {
+      "name": "workspace:close_window",
+      "description": "Close Window"
+    },
+    {
       "name": "workspace:close_active_tab",
       "description": "Close the current tab"
     },
@@ -718,12 +1287,20 @@
       "description": "Close other tabs"
     },
     {
+      "name": "workspace:close_tabs_right_active_tab",
+      "description": "Close tabs to the right"
+    },
+    {
       "name": "workspace:toggle_notifications_on",
       "description": "Turn notifications on"
     },
     {
       "name": "workspace:toggle_notifications_off",
       "description": "Turn notifications off"
+    },
+    {
+      "name": "workspace:toggle_navigation_palette",
+      "description": "Toggle navigation palette"
     },
     {
       "name": "workspace:toggle_launch_config_palette",
@@ -782,6 +1359,22 @@
       "description": "Toggle Warp AI"
     },
     {
+      "name": "workspace:create_team_env_vars",
+      "description": "Create new team environment variables"
+    },
+    {
+      "name": "workspace:create_personal_env_vars",
+      "description": "Create new personal environment variables"
+    },
+    {
+      "name": "workspace:create_personal_ai_prompt",
+      "description": "Create a new personal prompt"
+    },
+    {
+      "name": "workspace:create_team_ai_prompt",
+      "description": "Create a new team prompt"
+    },
+    {
       "name": "workspace:shift_focus_left",
       "description": "Switch Focus to Left Panel"
     },
@@ -802,128 +1395,8 @@
       "description": "Copy access token to clipboard"
     },
     {
-      "name": "workspace:jump_to_latest_toast",
-      "description": "Jump to latest agent task"
-    },
-    {
-      "name": "workspace:toggle_agent_management_view",
-      "description": "Toggle the agent management view"
-    },
-    {
-      "name": "workspace:show_settings_account_page",
-      "description": "Open Settings: Account"
-    },
-    {
-      "name": "workspace:show_settings_features_page",
-      "description": "Open Settings: Features"
-    },
-    {
-      "name": "workspace:open_settings_file",
-      "description": "Open settings file"
-    },
-    {
-      "name": "workspace:show_invite_modal",
-      "description": "Invite People..."
-    },
-    {
-      "name": "workspace:link_to_slack",
-      "description": "Join our Slack community (opens external link)"
-    },
-    {
-      "name": "workspace:link_to_user_docs",
-      "description": "View user docs (opens external link)"
-    },
-    {
-      "name": "workspace:view_logs",
-      "description": "View Warp logs"
-    },
-    {
-      "name": "workspace:link_to_privacy_policy",
-      "description": "View privacy policy (opens external link)"
-    },
-    {
-      "name": "workspace:create_team_notebook",
-      "description": "Create a new team notebook"
-    },
-    {
-      "name": "workspace:create_personal_notebook",
-      "description": "Create a new personal notebook"
-    },
-    {
-      "name": "workspace:create_team_workflow",
-      "description": "Create a new team workflow"
-    },
-    {
-      "name": "workspace:create_personal_workflow",
-      "description": "Create a new personal workflow"
-    },
-    {
-      "name": "workspace:create_team_folder",
-      "description": "Create a new team folder"
-    },
-    {
-      "name": "workspace:create_personal_folder",
-      "description": "Create a new personal folder"
-    },
-    {
-      "name": "workspace:toggle_left_panel",
-      "description": "Open Left Panel"
-    },
-    {
-      "name": "file_tree:toggle_hidden_files",
-      "description": "Toggle hidden files in Project Explorer"
-    },
-    {
-      "name": "workspace:close_panel",
-      "description": "Close focused panel"
-    },
-    {
-      "name": "workspace:toggle_command_palette",
-      "description": "Toggle command palette"
-    },
-    {
-      "name": "workspace:move_tab_left",
-      "description": "Move tab left"
-    },
-    {
-      "name": "workspace:move_tab_right",
-      "description": "Move tab right"
-    },
-    {
-      "name": "workspace:close_window",
-      "description": "Close Window"
-    },
-    {
-      "name": "workspace:close_tabs_right_active_tab",
-      "description": "Close tabs to the right"
-    },
-    {
-      "name": "workspace:toggle_navigation_palette",
-      "description": "Toggle navigation palette"
-    },
-    {
-      "name": "workspace:create_team_env_vars",
-      "description": "Create new team environment variables"
-    },
-    {
-      "name": "workspace:create_personal_env_vars",
-      "description": "Create new personal environment variables"
-    },
-    {
-      "name": "workspace:create_personal_ai_prompt",
-      "description": "Create a new personal prompt"
-    },
-    {
-      "name": "workspace:create_team_ai_prompt",
-      "description": "Create a new team prompt"
-    },
-    {
       "name": "workspace:copy_current_path",
       "description": "Copy current path"
-    },
-    {
-      "name": "workspace:open_repository",
-      "description": "Open repository"
     },
     {
       "name": "workspace:open_ai_fact_collection",
@@ -934,12 +1407,28 @@
       "description": "Open MCP Servers"
     },
     {
+      "name": "workspace:jump_to_latest_toast",
+      "description": "Jump to latest agent task"
+    },
+    {
+      "name": "workspace:toggle_agent_management_view",
+      "description": "Toggle the agent management view"
+    },
+    {
       "name": "workspace:show_settings",
       "description": "Open Settings"
     },
     {
+      "name": "workspace:show_settings_account_page",
+      "description": "Open Settings: Account"
+    },
+    {
       "name": "workspace:show_settings_appearance_page",
       "description": "Open Settings: Appearance"
+    },
+    {
+      "name": "workspace:show_settings_features_page",
+      "description": "Open Settings: Features"
     },
     {
       "name": "workspace:show_settings_shared_blocks_page",
@@ -990,9 +1479,49 @@
       "description": "Open Settings: MCP Servers"
     },
     {
+      "name": "workspace:open_settings_file",
+      "description": "Open settings file"
+    },
+    {
+      "name": "workspace:show_invite_modal",
+      "description": "Invite People..."
+    },
+    {
+      "name": "workspace:link_to_slack",
+      "description": "Join our Slack community (opens external link)"
+    },
+    {
+      "name": "workspace:link_to_user_docs",
+      "description": "View user docs (opens external link)"
+    },
+    {
       "name": "workspace:send_feedback",
       "description": "Send feedback (opens external link)"
+    },
+    {
+      "name": "workspace:view_logs",
+      "description": "View Warp logs"
+    },
+    {
+      "name": "workspace:link_to_privacy_policy",
+      "description": "View privacy policy (opens external link)"
+    },
+    {
+      "name": "workspace:disable_terminal_input_syncing",
+      "description": "Stop Synchronizing Any Panes"
+    },
+    {
+      "name": "workspace:toggle_sync_terminal_inputs_in_tab",
+      "description": "Toggle Synchronizing All Panes in Current Tab"
+    },
+    {
+      "name": "workspace:toggle_sync_all_terminal_inputs_in_all_tabs",
+      "description": "Toggle Synchronizing All Panes in All Tabs"
+    },
+    {
+      "name": "workspace:toggle_maximize_code_review_panel",
+      "description": "Toggle Maximize Code Review Panel"
     }
   ],
-  "generated_at": "2026-07-23T18:48:57.057380+00:00"
+  "generated_at": "2026-08-26T17:34:04.788992+00:00"
 }

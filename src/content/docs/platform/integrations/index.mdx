@@ -6,6 +6,7 @@ description: >-
   development workflows.
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
 Warp integrations let your team trigger agents directly from the terminal, or from tools like [Slack](/platform/integrations/slack/), [Linear](/platform/integrations/linear/), [Jira](/platform/integrations/jira/), and [GitHub](/platform/integrations/github/). Once set up, agents can:
 
@@ -13,17 +14,13 @@ Warp integrations let your team trigger agents directly from the terminal, or fr
 * Run code inside your codebase in a remote environment
 * Open pull requests and perform other multi-step agent workflows on your behalf
 
-If you're deciding whether an agent should run from a schedule, Slack, Linear, GitHub, GitHub Actions, the Oz CLI, or the API, see [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
+Integrations are one way to start a cloud agent. For the full set, including schedules, the {VARS.WARP_AGENT_CLI}, and the API, see [Triggers](/platform/triggers/). If you're deciding which one to use, see [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
 
 :::note
-Warp has two distinct GitHub surfaces. The [GitHub integration](/platform/integrations/github/) starts agents when someone mentions `@oz-agent` on an issue, pull request, or review comment, using the Oz by Warp GitHub App. [GitHub Actions](/platform/integrations/github-actions/) runs agents inside workflows you define in your own CI pipeline.
+Warp has two distinct GitHub surfaces. The [GitHub integration](/platform/integrations/github/) starts agents when someone mentions `@warp-agent` on an issue, pull request, or review comment, using the Warp Factories GitHub App. [GitHub Actions](/platform/integrations/github-actions/) runs agents inside workflows you define in your own CI pipeline.
 :::
 
-:::note
-For a full walkthrough of Warp's integrations and configurable environments, please refer to [Integration setup](/reference/cli/integration-setup/).
-:::
-
-All of this is powered by the [Oz CLI](/reference/cli/).
+Integrations run on the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) (formerly Oz), which handles the trigger, the [environment](/platform/environments/) the agent executes in, and the record of each run.
 
 ---
 
@@ -36,8 +33,9 @@ Use the setup walkthrough below for a quick look at how environments connect to 
 * [Integrations quickstart](/platform/integrations/quickstart/) - Trigger your first agent from Slack and watch the run from start to finish.
 * [Integration setup](/reference/cli/integration-setup/) - Configure environments, GitHub authorization, CLI flags, and integrations in more detail.
 * [Slack](/platform/integrations/slack/), [Linear](/platform/integrations/linear/), and [Jira](/platform/integrations/jira/) - Trigger agents from team conversations, issues, and comments.
-* [GitHub](/platform/integrations/github/) - Mention `@oz-agent` on issues, pull requests, and review comments to start agents that reply in the thread.
+* [GitHub](/platform/integrations/github/) - Mention `@warp-agent` on issues, pull requests, and review comments to start agents that reply in the thread.
 * [GitHub Actions](/platform/integrations/github-actions/) - Run agents from CI workflows and repository events.
-* [GitLab](/platform/integrations/gitlab/), [Bitbucket](/platform/integrations/bitbucket/), and [Azure DevOps](/platform/integrations/azure-devops/) - Connect non-GitHub repositories with tokens and Warp-managed secrets.
+* [GitLab](/platform/integrations/gitlab/) - Connect GitLab.com repos natively, or self-managed instances with tokens and Warp-managed secrets.
+* [Bitbucket](/platform/integrations/bitbucket/) and [Azure DevOps](/platform/integrations/azure-devops/) - Connect repositories with tokens and Warp-managed secrets.
 * [AWS, GCP, and other cloud providers](/platform/integrations/cloud-providers/) - Give cloud agents short-lived access to cloud services.
 * [Managing cloud agents](/platform/managing-cloud-agents/) - Monitor and review integration-triggered runs across your team by source, status, or creator.

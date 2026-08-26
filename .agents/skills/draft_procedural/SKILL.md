@@ -11,6 +11,14 @@ Draft a procedural documentation page with step-by-step instructions to accompli
 
 Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **procedural template** at `.agents/templates/procedural.md`.
 
+## Frontmatter description
+
+One sentence, 50-160 characters, naming the task the reader will complete. Start with an imperative verb.
+- ✅ `Connect Slack to Oz so mentions and channel messages can trigger cloud agent runs.`
+- ❌ `This page explains the Slack integration setup process.`
+
+See "Descriptions by content type" under Frontmatter in `AGENTS.md` for the full rules.
+
 ## Content type rules
 
 These rules are specific to procedural pages (from the "Drafting by content type" section of `AGENTS.md`):

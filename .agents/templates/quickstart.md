@@ -1,59 +1,41 @@
 ---
+title: [Sentence case, naming the feature. Use "Quickstart for [product]" or "[Feature] quickstart". Never a bare "Quickstart". This renders as the page H1 — do not add an H1 in the body.]
 description: >-
-  [1-2 sentences: what the reader will accomplish + time estimate.
-  Example: "Learn how to run your first cloud agent in ~10 minutes."
-  Use {{TOKEN}} syntax here for any product names that have a var in src/data/vars.ts.]
+  [One sentence, 50-160 characters: what the reader ends up with, plus the time budget.
+  Start with an imperative verb, not "Learn how to" or "Get started with". Example:
+  "Install the {{WARP_AGENT_CLI}}, log in, and run your first agent conversation in about
+  five minutes." Use {{TOKEN}} syntax for product names in src/data/vars.ts.]
 ---
-[VARS: Add this line immediately after the closing --- above if this page references any product names from src/data/vars.ts. Then use {VARS.KEY} for those names in the prose below.
-`import { VARS } from '@data/vars';`
-See AGENTS.md → Content variables for the full variable list and usage rules.]
+[BEFORE PUBLISHING: Delete every bracketed instruction in this file, including this one. They are guidance for the author, not page content.]
+[VARS: If this page names a product from src/data/vars.ts, add `import { VARS } from '@data/vars';` on the line directly below the frontmatter, then use {VARS.KEY} in prose. See AGENTS.md → Content variables.]
 
-# [Descriptive title — sentence case. Title convention: "[Feature] quickstart" or "Quickstart for [product]". Do NOT use a bare "Quickstart" — include the feature name.]
+[SCOPE — the defining constraint: about five minutes and roughly 600 words. This is a budget, not a target. A quickstart that outgrows it has become a tutorial and should be reworked as one. Written for someone who already understands the product and is ready to try it, so leave out how it works and why they would want it. If the task needs context at its decision points, it is a tutorial.]
 
-[Opening paragraph: What the reader will accomplish, who it's for,
-and approximately how long it takes (~10 minutes).
-1-3 sentences. Keep it brief — this is about speed.]
-
-***
+[Opening paragraph: who this is for, what prior knowledge it assumes, what the reader will end up with, and the time budget. 2-3 sentences.]
 
 ## Prerequisites
 
-[Minimal. Link to full setup docs rather than inlining lengthy setup.
-The reader should be able to start quickly.]
+[Minimal. Link to full setup docs rather than inlining them — interrupting the flow defeats the purpose.]
 
-* **Prerequisite 1** - Brief description with [link to details](path)
-* **Prerequisite 2** - Brief description
+* **Prerequisite** - Brief description with a [link to details](path).
 
-***
+## [Primary workflow — sentence case, e.g. "Run your first cloud agent"]
 
-## [Primary workflow — sentence case. e.g., "Running your first cloud agent"]
+### 1. [Step title]
 
-_~10 minutes_
+[Steps can be less explicit than full procedural content, because the audience already knows the product. Use code blocks and screenshots generously — visual confirmation reassures the reader they are on track. Stay on the critical path and defer edge cases to other pages.]
 
-### 1. Step title
+### 2. [Step title]
 
-[Steps can be less formal than full procedural content.
-Use heavy visual cues: code blocks, screenshots.
-Keep on the critical path — defer edge cases to other pages.]
-
-### 2. Step title
-
-### 3. Step title
-
-***
-
-## Next steps
-
-[2-3 actionable next steps. Always link to conceptual content about the
-feature and to deeper procedural guides.]
-
-* [Deeper guide](path/to/page.md)
-* [Related feature](path/to/page.md)
+### 3. [Step title]
 
 ## Troubleshooting
 
-[Brief. Only the most common issues someone might hit during the quickstart.
-For comprehensive troubleshooting, link to the dedicated page.]
+[Optional, and link-only. Point at existing troubleshooting content. Do not write new troubleshooting here — that is tutorial territory and it will blow the word budget.]
 
-**Issue description**\
-Cause and fix.
+## Next steps
+
+[One-line recap of what the reader just accomplished, then 2-3 actionable next steps. Always include a link to the conceptual page for the feature. This section goes last.]
+
+* [Conceptual page for this feature](path/to/page.md)
+* [Deeper guide](path/to/page.md)

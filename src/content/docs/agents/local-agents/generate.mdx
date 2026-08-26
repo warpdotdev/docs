@@ -41,7 +41,7 @@ Type `#` on the command-line input to generate command suggestions.
 ### \[Legacy] Generate text and contextual suggestions in interactive CLIs
 
 :::caution
-**Our legacy Generate feature which works in interactive CLIs has been replaced by** [Full Terminal Use](/agents/capabilities/full-terminal-use/)**, where Warp's agent can now run and control long-running or full-screen terminal applications**.\
+**Our legacy Generate feature which works in interactive CLIs has been replaced by** [Full Terminal Use](/agents/capabilities/full-terminal-use/)**, where the Warp Agent can now run and control long-running or full-screen terminal applications**.\
 The agent can provide input when prompted, navigate interactive screens, and continue execution without stalling.
 :::
 
@@ -61,21 +61,21 @@ In interactive CLI applications, you can generate input using natural language.
   <TabItem label="macOS">
     1. Inside a long-running, interactive command, press `CMD-I` when you see the hint text appear.
     2. Type what you would like to generate in the input box. For example, "show me all tables in my Postgres database" or in Vim, "generate a recursive Fibonacci function and save it to the file."
-    3. Results are generated in real time using the [LLM of your choice](/agents/local-agents/generate/#supported-interactive-cli-models).
+    3. Results are generated in real time using the [LLM of your choice](/agents/inference/model-choice/).
     4. To refine or follow up on your query, press `CMD-Y`. You can then either edit your last message by pressing `UP ↑` or add a follow-up by typing in new text.
     5. When you've found the text you want to add or execute, press `Enter` or click the Accept button.
   </TabItem>
   <TabItem label="Windows">
     1. Inside a long-running, interactive command, press `CTRL-SHIFT-I` when you see the hint text appear.
     2. Type what you would like to generate in the input box. For example, "show me all tables in my Postgres database" or in Vim, "generate a recursive Fibonacci function and save it to the file."
-    3. Results are generated in real time using the [LLM of your choice](/agents/local-agents/generate/#supported-interactive-cli-models)
+    3. Results are generated in real time using the [LLM of your choice](/agents/inference/model-choice/)
     4. To refine or follow up on your query, press `CTRL-SHIFT-Y`. You can then either edit your last message by pressing `UP ↑` or add a follow-up by typing in new text.
     5. When you've found the text you want to add or execute, press `Enter` or click the Accept button.
   </TabItem>
   <TabItem label="Linux">
     1. Inside a long-running, interactive command, press `CTRL-SHIFT-I` when you see the hint text appear.
     2. Type what you would like to generate in the input box. For example, "show me all tables in my Postgres database" or in Vim, "generate a recursive Fibonacci function and save it to the file."
-    3. Results are generated in real time using the [LLM of your choice](/agents/local-agents/generate/#supported-interactive-cli-models)
+    3. Results are generated in real time using the [LLM of your choice](/agents/inference/model-choice/)
     4. To refine or follow up on your query, press `CTRL-SHIFT-Y`. You can then either edit your last message by pressing `UP ↑` or add a follow-up by typing in new text.
     5. When you've found the text you want to add or execute, press `Enter` or click the Accept button.
   </TabItem>
@@ -91,5 +91,5 @@ A couple of other examples of interactive CLIs where you can invoke Generate:
 * **Cloud provider shells** (e.g. `gcloud`, `aws cli`): faster setup or resource management such as "create a new Kubernetes cluster" or "provision a new RDS instance"
 
 :::caution
-If you experience any issues with Generate, please visit known issues for [troubleshooting steps](/support-and-community/troubleshooting-and-support/known-issues/#online-features-dont-work).
+If you experience any issues with Generate, see known issues for [troubleshooting steps](/support-and-community/troubleshooting-and-support/known-issues/#online-features-dont-work).
 :::

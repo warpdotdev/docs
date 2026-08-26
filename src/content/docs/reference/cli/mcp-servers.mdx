@@ -6,6 +6,11 @@ description: >-
 sidebar:
   label: "MCP servers"
 ---
+import { VARS } from '@data/vars';
+
+:::caution
+The {VARS.WARP_AGENT_CLI} (the `oz` binary) is being deprecated in favor of the {VARS.WARP_CLI} (the `warp` binary). See the [Warp Agent CLI docs](/agents/cli/) for the replacement.
+:::
 
 MCP servers connect agents to external systems like GitHub, Linear, or Sentry. To use a [Model Context Protocol (MCP)](/agents/capabilities/mcp/) server from the CLI, use the `--mcp` flag with `oz agent run` or `oz agent run-cloud`.
 
@@ -15,9 +20,10 @@ For help choosing between local, cloud, and shared MCP workflows, see [Connect d
 
 ## Using the `--mcp` flag
 
-The `--mcp` flag accepts three formats:
+The `--mcp` flag accepts four formats:
 
 * **UUID** — reference a Warp-shared MCP server by its UUID (find UUIDs with `oz mcp list`)
+* **Managed integration id** — reference a Warp-managed integration MCP server by its short id, such as `linear` (see [Passing Warp-managed integration servers by id](#passing-warp-managed-integration-servers-by-id))
 * **Inline JSON** — pass a full MCP JSON configuration directly as a string
 * **File path** — path to a JSON file containing the MCP configuration
 
@@ -52,6 +58,26 @@ $ oz mcp list
 ```sh
 $ oz agent run --mcp "1deb1b14-b6e5-4996-ae99-233b7555d2d0" --prompt "who last updated the README?"
 ```
+
+### Passing Warp-managed integration servers by id
+
+Some MCP servers are hosted by Warp and backed by an [integration](/platform/integrations/) your team has already connected, so they have no UUID of their own. Reference them by their short id instead:
+
+```sh
+$ oz agent run --mcp linear --prompt "summarize the tickets assigned to me"
+```
+
+Warp recognizes these managed integration ids:
+
+* `linear` — the hosted [Linear](/platform/integrations/linear/) MCP server
+* `slack` — the hosted [Slack](/platform/integrations/slack/) MCP server
+* `jira` — the hosted [Jira](/platform/integrations/jira/) MCP server
+
+:::caution
+`linear` and `slack` resolve only for runs executing inside a [factory](/factories/) with that integration connected; `jira` also resolves for a run triggered directly by a Jira event. Outside those cases — including a plain `oz agent run` like the example above — the server is silently skipped and the run continues without it.
+:::
+
+The id is resolved when the run starts, using the integration connection that belongs to the run's team. If the id isn't one Warp recognizes, the server is also skipped.
 
 ### Passing MCP servers as inline JSON or a file
 
@@ -102,7 +128,7 @@ $ oz agent run --mcp "904a8936-fa82-4571-b1d6-166c26197981" --prompt "use my MCP
 ```
 
 :::note
-For cloud agent workflows, use [Oz-managed secrets](/platform/secrets/) to store and inject credentials safely — secrets are stored in the cloud and referenced by name in your config. For local runs, a secrets manager CLI such as [`op`](https://developer.1password.com/docs/cli/get-started/), [`pass`](https://www.passwordstore.org/), or [`gcloud secrets versions access`](https://cloud.google.com/secret-manager/docs/create-secret-quickstart#secretmanager-quickstart-gcloud) can fetch secrets on remote hosts without exposing them in your shell history.
+For cloud agent workflows, use [{VARS.WARP_AUTOMATION_PLATFORM}-managed secrets](/platform/secrets/) to store and inject credentials safely — secrets are stored in the cloud and referenced by name in your config. For local runs, a secrets manager CLI such as [`op`](https://developer.1password.com/docs/cli/get-started/), [`pass`](https://www.passwordstore.org/), or [`gcloud secrets versions access`](https://cloud.google.com/secret-manager/docs/create-secret-quickstart#secretmanager-quickstart-gcloud) can fetch secrets on remote hosts without exposing them in your shell history.
 :::
 
 ---

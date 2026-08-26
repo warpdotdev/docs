@@ -9,7 +9,15 @@ Draft a reference documentation page with structured, exhaustive information for
 
 ## Workflow
 
-Follow the workflow in `.warp/skills/draft_docs/SKILL.md`, using the **reference template** at `.warp/templates/reference.md`.
+Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **reference template** at `.agents/templates/reference.md`.
+
+## Frontmatter description
+
+One sentence, 50-160 characters, saying what the reader can look up. Name the artifacts, not the genre.
+- ✅ `Look up Warp Agent CLI flags, environment variables, slash commands, and keyboard shortcuts.`
+- ❌ `Reference documentation for the Warp Agent CLI.`
+
+See "Descriptions by content type" under Frontmatter in `AGENTS.md` for the full rules.
 
 ## Content type rules
 
