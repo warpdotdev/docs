@@ -25,7 +25,7 @@ Connect Jira Cloud to your factory so your team can start factory work without l
 
 3. **Point an automation at Jira.** In the factory's dashboard, open **Automations** and add a trigger for **Jira** > **Agent session created**. Use **Projects** and, optionally, **Keywords** to scope which sessions start a run, and choose the agent that handles them.
 
-   If you picked Jira projects when you created the factory, that automation already exists — edit it rather than adding a second one.
+   If you picked Jira projects when you created the factory, that automation already exists. Edit it rather than adding a second one.
 
    To set this up in code instead, declare the `jira` integration in the factory's `factory.yaml` (`integrations: [{type: jira}]`), then add a file under `automations/`, such as `automations/jira-assignment/automation.md`, with an `agent_session_created` trigger:
 
@@ -47,6 +47,8 @@ Connect Jira Cloud to your factory so your team can start factory work without l
    With this automation, the agent named `foreman` handles sessions for work items in the `ENG` project whose assignment text contains `investigate` or `fix`. Commit and push the files to apply them; see [definitions as code](/factories/factory-as-code/) for the full syntax.
 
 4. **Test it.** Assign or mention **Warp** on a work item and include an instruction. Jira starts an agent session, and the run appears under the matching automation in your factory.
+
+   {/* VISUAL: A Jira work item assigned to Warp, showing the resulting agent session. */}
 
 ## Filter which sessions start runs
 

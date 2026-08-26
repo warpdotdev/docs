@@ -24,3 +24,11 @@ Entry format:
 For a `blocked` run, omit the score line rather than recording the meaningless value.
 
 ---
+
+## 2026-08-21 — valid
+- **Score**: 76/100 (C)
+- **Checks**: 23 total — 15 pass, 4 fail, 2 warn
+- **Failing check ids**: llms-txt-links-markdown, content-negotiation, page-size-html, markdown-content-parity
+- **Allowlisted**: 4
+- **Oz run**: https://oz.warp.dev/runs/01a02355-8faa-7396-9e54-e49391c8fb53
+- **Notes**: All 4 failures match known-exceptions.md. Warnings: llms-txt-directive-html (48/49; 1 failed to fetch), llms-txt-directive-md (47/48; 2 no markdown). No genuine fixable site issues; first logged baseline on chore/afdocs-audit-log. markdown-url-support 100% (49/49). llms.txt coverage 100% of 377 sitemap pages.
