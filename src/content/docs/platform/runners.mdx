@@ -6,6 +6,7 @@ description: >-
   Runners define the OS, architecture, instance size, and sandbox image cloud
   agents run on, managed with the {{WARP_AGENT_CLI}}.
 ---
+import { VARS } from '@data/vars';
 
 Runners define the compute a [cloud agent](/platform/) runs on: the operating system, CPU architecture, instance size, and sandbox image used to execute a run.
 
@@ -24,7 +25,7 @@ What runners give you:
 * **Flexible OS targets** – Run agents on Linux with a custom Docker image. macOS runners are in limited preview.
 * **Independent of environments** – Override an environment's default runner per run without changing the environment itself.
 
-## How runners fit into the Oz Platform
+## How runners fit into cloud agent runs
 
 A runner is the compute layer for a cloud agent run. When a run starts, Warp provisions a sandbox on the runner's shape, then prepares the workspace defined by the environment (cloning repos and executing setup commands) before the agent begins.
 
@@ -36,7 +37,7 @@ Each environment has a default runner. Specifying a runner for a run overrides t
 
 ## Managing runners with the CLI
 
-Use the [Oz CLI](/reference/cli/) to create, list, update, and delete runners. Runner commands require an authenticated CLI—see the [CLI quickstart](/reference/cli/quickstart/) to get set up.
+Use the [{VARS.WARP_AGENT_CLI}](/reference/cli/) to create, list, update, and delete runners. Runner commands require an authenticated CLI—see the [CLI quickstart](/reference/cli/quickstart/) to get set up.
 
 ### Create a runner
 
@@ -117,4 +118,4 @@ You can also select a runner when [running orchestrated agents](/platform/orches
 
 * [Environments](/platform/environments/) – Define the repos, image, and setup commands an agent works with.
 * [Managing cloud agents](/platform/managing-cloud-agents/) – Start, monitor, and manage cloud agent runs.
-* [Oz CLI reference](/reference/cli/) – Full command-line reference for the Oz platform.
+* [{VARS.WARP_AGENT_CLI} reference](/reference/cli/) – Full command-line reference for runners and every other cloud agent command.

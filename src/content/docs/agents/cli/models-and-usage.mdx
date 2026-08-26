@@ -24,10 +24,10 @@ Run `/api-keys` to open the key management menu. It lists each provider with its
 
 * **Set a key** - Press `Enter` on OpenAI, Anthropic, or Google and enter the key. Input is masked, so the key never appears in your transcript or shell history, and it's saved to your device's secure storage. Warp does not store provider keys on its servers.
 * **Replace or clear a key** - On a connected provider, `Enter` loads the stored key (still masked) for editing, and saving an empty field clears it. `Ctrl+X` clears the highlighted provider's key from the list.
-* **Connect X Premium or SuperGrok** - Press `Enter` on the subscription row and the CLI opens your browser to sign in to your xAI account. `Ctrl+X` disconnects it.
+* **Connect X Premium or SuperGrok** - Press `Enter` on the subscription row and the CLI opens your browser to sign in to your xAI account. `Ctrl+X` disconnects it. Running `/connect-grok` jumps straight to this row and starts the sign-in.
 * **Warp credit fallback** - Press `Enter` to toggle whether a request that fails through your key is retried with Warp credits. See [failover and fallback behavior](/agents/inference/bring-your-own-api-key/#failover-and-fallback-behavior).
 
-You can also store or clear keys outside a session with the `--set-provider-api-key` and `--clear-provider-api-key` flags. See the [{VARS.WARP_CLI} reference](/agents/cli/reference/#command-line-flags). X Premium/SuperGrok connections can only be managed through `/api-keys`.
+You can also store or clear keys outside a session with the `--set-provider-api-key` and `--clear-provider-api-key` flags. See the [{VARS.WARP_CLI} reference](/agents/cli/reference/#command-line-flags). X Premium/SuperGrok connections can only be managed from inside a session, with `/api-keys` or `/connect-grok`.
 
 :::note
 Warp's built-in Auto models always consume Warp credits, even with BYOK configured. To bill through your own account, select a specific provider model, or use a [custom router](/agents/inference/custom-routers/#using-your-own-api-keys-byok) whose targets your keys cover. See [BYOK usage and billing behavior](/agents/inference/bring-your-own-api-key/#byok-usage-and-billing-behavior) for the full rules.
@@ -41,8 +41,9 @@ The CLI loads the same router definitions as the Warp app. These are YAML files 
 
 ## Usage and cost
 
-The CLI shows usage at two levels:
+The CLI shows usage at three levels:
 
+* **Account usage** - Run `/usage` to open a read-only panel with your plan, credit balances and consumption, and links to manage billing or upgrade. Press `Esc` to close it. Unlike `/cost`, this is account-level, not conversation-level.
 * **Conversation total** - Once a conversation has reported any usage, the [statusline](/agents/cli/configuration/#statusline) shows its accumulated credits (e.g., `2.5 credits`). Click the entry to switch between credits and the equivalent provider cost in dollars. Your choice persists across sessions.
 * **Per-response details** - Run `/cost` to toggle a summary row under the latest response showing how long it took and how many credits it spent (e.g., `12s • 1.2 credits`). The summary appears once the response finishes.
 

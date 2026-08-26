@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig, envField } from 'astro/config';
 import remarkGfm from 'remark-gfm';
+import mermaid from 'astro-mermaid';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
@@ -28,6 +29,11 @@ export default defineConfig({
 				access: 'public',
 				optional: true,
 			}),
+			PUBLIC_KAPA_PROJECT_ID: envField.string({
+				context: 'client',
+				access: 'public',
+				optional: true,
+			}),
 			PUBLIC_RUDDERSTACK_WRITE_KEY: envField.string({
 				context: 'client',
 				access: 'public',
@@ -43,9 +49,32 @@ export default defineConfig({
 				access: 'public',
 				optional: true,
 			}),
+			SUPPORT_HANDOFF_ENDPOINT_URL: envField.string({
+				context: 'server',
+				access: 'secret',
+				optional: true,
+			}),
+			SUPPORT_HANDOFF_SHARED_SECRET: envField.string({
+				context: 'server',
+				access: 'secret',
+				optional: true,
+			}),
 		},
 	},
 	integrations: [
+		mermaid({
+			autoTheme: true,
+			enableLog: false,
+			mermaidConfig: {
+				fontFamily: "'Inter', 'Inter Fallback', sans-serif",
+				themeVariables: {
+					fontFamily: "'Inter', 'Inter Fallback', sans-serif",
+					primaryBorderColor: '#51a6ec',
+					nodeBorder: '#51a6ec',
+					lineColor: '#51a6ec',
+				},
+			},
+		}),
 		react(),
 		sitemap(),
 		starlight({
@@ -61,15 +90,24 @@ export default defineConfig({
 				baseUrl: 'https://github.com/warpdotdev/docs/edit/main/',
 			},
 			lastUpdated: true,
-			// Soft-wrap long lines by default. Expressive Code defaults to
-			// `overflow-x: auto` for `<pre>`, which combined with macOS's
-			// auto-hidden scrollbars made wide lines silently truncate.
-			// `wrap: true` adds the `.wrap` class so EC's `white-space: pre-wrap`
-			// kicks in; leading indents are preserved via its `span.indent` rule.
+			// Keep long lines unwrapped so code blocks use horizontal scrolling.
+			// This aligns docs behavior with the side chat renderer and preserves
+			// exact line shape for commands and snippets.
 			expressiveCode: {
 				defaultProps: {
-					wrap: true,
+					wrap: false,
 				},
+				// IMPORTANT: Expressive Code's Vite plugin rewrites Shiki's bundled
+				// theme registry (shiki/dist/themes.mjs) and strips every theme not
+				// listed as a *string* in its `themes` config. Starlight passes its
+				// themes as objects, so the registry is emptied for the entire Vite
+				// module graph — including the Kapa side-chat island, whose runtime
+				// createHighlighter(['github-light', 'github-dark']) then throws
+				// "theme is not included in this bundle" and falls back to plaintext.
+				// Keeping the registry intact restores chat code block highlighting.
+				// Only the requested themes are ever fetched at runtime (lazy chunks),
+				// so this does not bloat the pages served to visitors.
+				removeUnusedThemes: false,
 				// Map languages Shiki doesn't bundle to a safe fallback. PromQL
 				// blocks live in platform/self-hosting/monitoring.mdx;
 				// without this alias every build emits noisy "language could not be
@@ -162,18 +200,23 @@ export default defineConfig({
 				// llms-small.txt; our patch (patches/starlight-llms-txt+0.8.1.patch)
 				// extends it to llms-full.txt and custom sets as well.
 				exclude: ['support-and-community/community/open-source-licenses'],
+					// This string is the first thing an AI engine reads about Warp, so it
+					// carries the product lineup. Kept in sync with the rename and with
+					// launches: it said "the Oz platform" until the 8/18 rename, which
+					// left the most-consumed AI-facing artifact on the old name.
 					description:
-						'Documentation for Warp, the agentic development environment. Covers Warp Terminal, Warp Agents, and the Oz platform for cloud agents and orchestration at scale.',
+						'Documentation for Warp, the agentic development environment. Covers the Warp terminal, Warp agents, the Automation Platform for cloud agents and orchestration at scale, and Warp Factories for running software factories.',
 					customSets: [
 						{ label: 'Terminal', description: 'Warp Terminal features and configuration.', paths: ['terminal/**'] },
-						{ label: 'Agents', description: 'Warp\'s agents: capabilities, local agents, and CLI agents.', paths: ['agents/**'] },
+						{ label: 'Agents', description: 'Agents in Warp: capabilities, local agents, and CLI agents.', paths: ['agents/**'] },
+						{ label: 'Factories', description: 'Warp Factories documentation for setup, agent roles, definitions as code, integrations, measurement, and infrastructure.', paths: ['factories/**'] },
 						{ label: 'Warp Agent CLI', description: 'The Warp Agent CLI: agent conversations, shell commands, permissions, and configuration in any terminal.', paths: ['agents/cli/**'] },
-						{ label: 'Oz Platform', description: 'Warp\'s Oz platform: cloud agents, orchestration, triggers, integrations, environments, harnesses, and self-hosting.', paths: ['platform/**'] },
+						{ label: 'Automation Platform', description: 'The Automation Platform: cloud agents, orchestration, triggers, integrations, environments, harnesses, and self-hosting.', paths: ['platform/**'] },
 						{ label: 'Code', description: 'Code editor, code review, and Git worktrees.', paths: ['code/**'] },
 						{ label: 'Enterprise', description: 'Enterprise features, SSO, team management, and security.', paths: ['enterprise/**'] },
 						{ label: 'Getting Started', description: 'Installation, quickstart, and migration guides.', paths: ['index', 'quickstart', 'getting-started/**'] },
 						{ label: 'Knowledge and Collaboration', description: 'Warp Drive, teams, and the Admin Panel.', paths: ['knowledge-and-collaboration/**'] },
-						{ label: 'Reference', description: 'CLI and API reference.', paths: ['reference/**'] },
+						{ label: 'API & Reference', description: 'CLI and API reference.', paths: ['reference/**'] },
 						// All support-and-community/ pages. open-source-licenses.mdx is excluded
 						// globally above (stack overflow in hast-util-to-text); the patch ensures
 						// it's excluded from this custom set as well.

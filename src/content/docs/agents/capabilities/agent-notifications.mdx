@@ -4,6 +4,7 @@ description: >-
   Warp surfaces notifications from coding agents, both in-app and via desktop
   alerts, so you know exactly when an agent needs your attention.
 ---
+import { VARS } from '@data/vars';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
 Warp delivers notifications from any supported coding agent so you always know when an agent finishes a task, encounters an error, or needs your input. Notifications work whether you're in a different tab or a different app.
@@ -106,7 +107,7 @@ In a [multi-agent orchestration](/platform/orchestration/), the parent agent and
 That means:
 
 * **Toasts and the mailbox** - watch the parent's conversation for `Complete`, `Request`, and `Error` notifications.
-* **Per-child state** - use the orchestration pill bar above the agent view header (in the Warp app) or the parent's **Sub-agents** tab on the [Runs page](https://oz.warp.dev/runs) (in the Oz web app) to see each child's live status. Both surfaces update as children transition through `INPROGRESS`, `SUCCEEDED`, `BLOCKED`, `FAILED`, `ERROR`, and `CANCELLED`.
+* **Per-child state** - use the orchestration pill bar above the agent view header (in the Warp app) or the parent's **Sub-agents** tab on the <a href={`${VARS.WEB_APP_URL}/runs`}>Runs page</a> (in the {VARS.WEB_APP}) to see each child's live status. Both surfaces update as children transition through `INPROGRESS`, `SUCCEEDED`, `BLOCKED`, `FAILED`, `ERROR`, and `CANCELLED`.
 * **Blocked children** - if a child blocks on user input (for example, a command approval request), open that child from the pill bar to resolve the block. The parent's transcript also reflects the child's `BLOCKED` state so the parent can wait, send a follow-up, or cancel the child.
 
 ## Related pages

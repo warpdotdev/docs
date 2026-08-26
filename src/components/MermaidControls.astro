@@ -1,0 +1,54 @@
+<script>
+  import { SvgToolbelt } from 'svg-toolbelt';
+  import 'svg-toolbelt/dist/svg-toolbelt.css';
+
+  const enhanced = new WeakMap<Element, SvgToolbelt>();
+
+  const FULLSCREEN_ICON =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>';
+
+  function enhanceDiagrams() {
+    document.querySelectorAll('pre.mermaid[data-processed]').forEach((pre) => {
+      // Check `.svg-toolbelt-controls`, not `.svg-toolbelt-wrapper` (never created here).
+      if (!pre.querySelector('svg') || pre.querySelector('.svg-toolbelt-controls')) return;
+
+      enhanced.get(pre)?.destroy();
+      const instance = new SvgToolbelt(pre as HTMLElement, {
+        controlsPosition: 'top-right',
+        minScale: 0.5,
+        maxScale: 4,
+      });
+      instance.init();
+      enhanced.set(pre, instance);
+
+      const fsBtn = pre.querySelector<HTMLButtonElement>('.svg-toolbelt-controls button[title="Toggle Fullscreen"]');
+      if (fsBtn) fsBtn.innerHTML = FULLSCREEN_ICON;
+    });
+  }
+
+  function init() {
+    enhanceDiagrams();
+
+    const observer = new MutationObserver(() => enhanceDiagrams());
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['data-processed'],
+      subtree: true,
+    });
+
+    let attempts = 0;
+    const poll = setInterval(() => {
+      attempts += 1;
+      enhanceDiagrams();
+      if (document.querySelector('pre.mermaid[data-processed] svg') || attempts > 20) {
+        clearInterval(poll);
+      }
+    }, 250);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+</script>

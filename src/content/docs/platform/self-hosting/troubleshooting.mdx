@@ -1,11 +1,12 @@
 ---
 title: Self-hosting troubleshooting
 description: >-
-  Diagnose and fix common problems with self-hosted Oz worker daemons across
+  Diagnose and fix common problems with self-hosted {{WARP_AUTOMATION_PLATFORM}} worker daemons across
   Docker, Kubernetes, and Direct backends.
 sidebar:
   label: "Troubleshooting"
 ---
+import { VARS } from '@data/vars';
 
 Diagnostic guides for the `oz-agent-worker` daemon and its task execution. Use this page when a worker won't start, won't connect, tasks stay queued, or tasks fail.
 
@@ -45,19 +46,19 @@ The steps below apply to the [managed architecture](/platform/self-hosting/#mana
 
 **Fix:**
 
-1. Install the Oz CLI on the worker host. See [Installing the CLI](/reference/cli/#installing-the-cli).
+1. Install the {VARS.WARP_AGENT_CLI} on the worker host. See [Installing the CLI](/reference/cli/#installing-the-cli).
 2. If the CLI isn't on `PATH`, set `oz_path` in the config file to the absolute path of the `oz` binary.
 
 ---
 
 ## Worker won't connect
 
-**Cause:** The API key is invalid, expired, or the host cannot reach Oz's backend.
+**Cause:** The API key is invalid, expired, or the host cannot reach the {VARS.WARP_AUTOMATION_PLATFORM}'s backend.
 
 **Fix:**
 
 1. Confirm your API key is correct, not expired, and has team scope.
-2. Regenerate the API key in **Settings** > **Cloud platform** > **Oz Cloud API Keys** if you suspect it's invalid.
+2. Regenerate the API key in **Settings** > **Cloud platform** > **API keys** if you suspect it's invalid.
 3. Ensure the host has outbound internet access to `oz.warp.dev:443`.
 4. Check that no firewall rules are blocking WebSocket connections to `wss://oz.warp.dev`.
 5. Increase log verbosity with `--log-level debug` to see connection details.
@@ -102,7 +103,7 @@ See [Monitoring](/platform/self-hosting/monitoring/) for the full setup guide.
 
 **Fix (all backends):**
 
-1. Review task logs in the [Oz dashboard](https://oz.warp.dev) or via [session sharing](/agents/local-agents/session-sharing/).
+1. Review task logs in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a> or via [session sharing](/agents/local-agents/session-sharing/).
 2. Use `--no-cleanup` to keep the container, Job, or workspace around for inspection after failure.
 3. Use `--log-level debug` to see detailed execution logs.
 4. Ensure the worker machine or cluster has sufficient resources (CPU, memory, disk).
@@ -123,7 +124,7 @@ See [Monitoring](/platform/self-hosting/monitoring/) for the full setup guide.
 
 ### Direct backend (task failures)
 
-1. Verify the Oz CLI is accessible.
+1. Verify the {VARS.WARP_AGENT_CLI} is accessible.
 2. Verify the workspace root directory has write permissions for the user running the worker.
 
 ---

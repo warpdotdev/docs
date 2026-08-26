@@ -3,12 +3,12 @@ title: Self-hosted worker monitoring
 sidebar:
   label: "Monitoring"
 description: >-
-  Monitor self-hosted Oz workers with OpenTelemetry metrics. Export to
-  Prometheus, OTLP, or console to track worker health, task throughput,
-  and saturation.
+  Monitor self-hosted {{WARP_AUTOMATION_PLATFORM}} workers with OpenTelemetry
+  metrics via Prometheus, OTLP, or console export.
 ---
+import { VARS } from '@data/vars';
 
-The `oz-agent-worker` daemon exports infrastructure-level metrics over [OpenTelemetry](https://opentelemetry.io/), giving your team real-time visibility into worker health, task throughput, and capacity. Combine these metrics with the [Oz dashboard](https://oz.warp.dev) for full observability across both the orchestration plane and your self-hosted compute.
+The `oz-agent-worker` daemon exports infrastructure-level metrics over [OpenTelemetry](https://opentelemetry.io/), giving your team real-time visibility into worker health, task throughput, and capacity. Combine these metrics with the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a> for full observability across both the orchestration plane and your self-hosted compute.
 
 :::note
 When running the binary directly, metrics export follows the [OpenTelemetry autoexport](https://github.com/open-telemetry/opentelemetry-go-contrib/tree/main/exporters/autoexport) default — if `OTEL_METRICS_EXPORTER` is unset, the worker pushes OTLP to `localhost:4318`. Set `OTEL_METRICS_EXPORTER=none` to disable export. The Helm chart is opt-in: it only enables export when `metrics.enabled=true`.
@@ -136,7 +136,7 @@ metrics:
 
 All metrics use the `oz_worker_` prefix. Each worker process emits a distinct set of series, identified by the resource attributes `service.name`, `service.version`, `worker.id`, and `worker.backend`.
 
-* **`oz_worker_connected`** (gauge) — `1` while the worker has an active WebSocket connection to Oz's backend, `0` otherwise.
+* **`oz_worker_connected`** (gauge) — `1` while the worker has an active WebSocket connection to the {VARS.WARP_AUTOMATION_PLATFORM}'s backend, `0` otherwise.
 * **`oz_worker_tasks_active`** (gauge / UpDownCounter) — Tasks currently executing on this worker.
 * **`oz_worker_tasks_max_concurrent`** (gauge) — Configured concurrency limit (`0` means unlimited).
 * **`oz_worker_tasks_claimed_total`** (counter) — Total tasks accepted since process start.

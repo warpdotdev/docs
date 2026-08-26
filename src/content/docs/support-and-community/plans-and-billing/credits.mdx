@@ -5,6 +5,7 @@ sidebar:
 description: >-
   Details on Warp credits and how they are calculated.
 ---
+import { VARS } from '@data/vars';
 
 ### What are Warp credits?
 
@@ -129,7 +130,7 @@ The following scenarios use compute credits:
 
 * **First-party integrations** - Running agents through Slack or Linear integrations
 * **Cloud agent runs** - Using `oz agent run-cloud` via the CLI
-* **Oz API** - Running agents through Warp's Oz API
+* **{VARS.API_SDK_NAME}** - Running agents through Warp's API
 * **Cloud Mode** - Running an agent from Cloud Mode in the Warp app
 
 #### Not eligible for compute credits
@@ -155,12 +156,12 @@ The following scenarios do **not** use platform credits:
 * **Local agents on Free, Build, or Max plans** don't use platform credits, regardless of inference source.
 * **Local agents on Business or Enterprise using Warp-managed inference** don't use platform credits because Warp is already paying for the model call through AI credits.
 * **Regular terminal usage** doesn't use platform credits. Shell commands and non-AI Warp features don't consume credits.
-* **Third-party agent CLIs run directly** don't use platform credits when you run `claude`, `codex`, or another agent CLI outside of Oz.
+* **Third-party agent CLIs run directly** don't use platform credits when you run `claude`, `codex`, or another agent CLI outside of Warp.
 
 For a full breakdown of how platform credits work, see [platform credits](/support-and-community/plans-and-billing/platform-credits/).
 
 ### Cloud agent runs on team plans
 
-Cloud agent runs that aren't initiated by a specific team member — for example, scheduled runs or runs triggered through an agent API key — follow plan-specific billing rules. On self-serve plans (Build, Max, Business), these runs are billed to the team owner: the owner's plan-included credits first, then their add-on credits. With auto-reload off, the request is blocked when both pools are depleted (insufficient credits error). With auto-reload on, usage can trigger a reload on the owner's pool subject to the team-wide spend cap. On Enterprise plans, these runs draw from the team-scoped credit pool per your contract.
+Cloud agent runs that aren't initiated by a specific team member — for example, scheduled runs or runs triggered through an agent API key — follow plan-specific billing rules. On self-serve plans (Build, Max, Business), these runs are billed to the team owner: the owner's plan-included credits first, then the team's shared add-on credit pool. With auto-reload off, the request is blocked when both are depleted (insufficient credits error). With auto-reload on, usage can trigger a reload into the team's shared pool subject to the team-wide spend cap. On Enterprise plans, these runs draw from the team-scoped credit pool per your contract.
 
 For the full waterfall, see [How are cloud agent runs on team plans billed when no individual user triggered them?](/support-and-community/plans-and-billing/pricing-faqs/#how-are-cloud-agent-runs-on-team-plans-billed-when-no-individual-user-triggered-them) in the Pricing FAQs.

@@ -7,6 +7,7 @@ sidebar:
   label: "Local to cloud"
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
 Local-to-cloud handoff in Warp promotes an active local Warp Agent conversation into a cloud agent run. Warp forks the conversation, snapshots your uncommitted workspace changes, and sends both to the cloud so the agent can continue the same task with the context and files it needs.
 
@@ -33,7 +34,7 @@ If any changes fail to apply in the cloud run, the cloud agent reports which cha
 
 ## Prerequisites
 
-* **An active local conversation** - Have a [Warp Agent](/agents/getting-started/agents-in-warp/) conversation open in Warp with the work you want to hand off.
+* **An active local conversation** - Have a [Warp Agent](/agents/) conversation open in Warp with the work you want to hand off.
 * **A configured environment** - The cloud agent needs an [environment](/platform/environments/) that includes the same repositories you're working in locally. The environment's repos must match your local checkout so the workspace snapshot applies cleanly.
 * **Cloud conversation storage enabled** - In the Warp app, go to **Settings** > **Privacy** and turn on **Store AI conversations in the cloud** so the conversation can be forked. See [Cloud-synced conversations](/agents/local-agents/cloud-conversations/).
 * **Sufficient credits** - Cloud agent runs consume credits. See [Credits](/support-and-community/plans-and-billing/credits/) for how credit usage works, and [Access, billing, and identity](/platform/team-access-billing-and-identity/) for team-specific credit requirements.
@@ -74,7 +75,7 @@ The cloud agent runs with the same model your local conversation was using. Chan
 
 After you submit, the cloud agent applies your workspace snapshot and responds to your follow-up. The local conversation is not modified, so you can keep working in it locally or close it.
 
-To check on the new run, open it from the [Runs page](https://oz.warp.dev/runs) in the Oz web app or the conversation panel in the Warp app.
+To check on the new run, open it from the <a href={`${VARS.WEB_APP_URL}/runs`}>Runs page</a> in the {VARS.WEB_APP} or the conversation panel in the Warp app.
 
 ## Troubleshooting
 
@@ -92,4 +93,6 @@ The source conversation may not have finished syncing to the cloud when you trig
 * [Handoff overview](/platform/handoff/) - What handoff is, the directions it supports, and what carries over.
 * [Handoff from cloud to cloud](/platform/handoff/cloud-to-cloud/) - Continue a finished cloud run with workspace state restored.
 * [Environments](/platform/environments/) - Configure the repos, image, and setup commands the cloud agent starts in.
+* [Multi-agent orchestration](/platform/orchestration/) - Fan the handed-off work across parallel cloud child agents.
+* [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) - Open and steer the cloud run after handoff.
 * [Cloud agents quickstart](/platform/quickstart/) - Run your first cloud agent from scratch.

@@ -33,13 +33,13 @@ Each MCP server entry is keyed by a name you choose. A server config must have *
 
 | Transport | Field(s) | When to use |
 |-----------|----------|-------------|
-| Warp-shared server or managed MCP install | `warp_id` | Reference an MCP server already configured in Warp — including an OAuth-authorized [managed MCP installation](#oauth-authentication) — by its UUID |
+| Warp-shared server, managed MCP install, or integration server | `warp_id` | Reference an MCP server already configured in Warp — including an OAuth-authorized [managed MCP installation](#oauth-authentication) — by its UUID, or a Warp-managed integration server by its id |
 | Stdio (local process) | `command`, `args` | Launch a local executable as an MCP server |
 | Streamable HTTP / SSE | `url` | Connect to a remote or locally hosted MCP endpoint |
 
 ### Supported fields
 
-* **`warp_id`** — UUID of a Warp-shared MCP server or a [managed MCP installation](#oauth-authentication) (find UUIDs with `oz mcp list`, from **Settings** > **Agents** > **MCP servers**, or from the [{VARS.WEB_APP}](/platform/oz-web-app/#integrations) **Integrations** page)
+* **`warp_id`** — UUID of a Warp-shared MCP server or a [managed MCP installation](#oauth-authentication) (find UUIDs with `oz mcp list`, from **Settings** > **Agents** > **MCP servers**, or from the [{VARS.WEB_APP}](/platform/oz-web-app/#integrations) **Integrations** page), or the id of a Warp-managed integration server: `linear`, `slack`, or `jira`
 * **`command`** — Executable to launch (stdio transport)
 * **`args`** — Arguments passed to `command` (only valid with `command`)
 * **`env`** — Environment variables passed to the process (only valid with `command`)
@@ -67,7 +67,7 @@ You can define any number of MCP servers in a single config.
 ```
 
 :::note
-If the config passes through a system that pre-processes `{{...}}` before it reaches Oz (for example, Jira/Atlassian Automation), use JSON unicode escapes for the braces: `\u007b\u007bMY_SECRET\u007d\u007d` decodes to `{{MY_SECRET}}`, which Oz resolves normally.
+If the config passes through a system that pre-processes `{{...}}` before it reaches the {VARS.WARP_AUTOMATION_PLATFORM} (for example, Jira/Atlassian Automation), use JSON unicode escapes for the braces: `\u007b\u007bMY_SECRET\u007d\u007d` decodes to `{{MY_SECRET}}`, which the {VARS.WARP_AUTOMATION_PLATFORM} resolves normally.
 :::
 
 ## Using MCP servers in an agent config file
@@ -108,6 +108,7 @@ oz agent run-cloud --environment <ENV_ID> -f my-agent-config.json --prompt "Chec
 * If `mcp_servers` is omitted, the agent runs with no MCP servers enabled.
 * Each server name must be unique and non-empty.
 * The `warp_id` transport is validated against your Warp account. Referenced servers must be accessible to you.
+* A `warp_id` that names a Warp-managed integration server (`linear`, `slack`, or `jira`) resolves against your team's [integration](/platform/integrations/) connection, but only for a run executing inside a [factory](/factories/) (`jira` also resolves for a run triggered directly by a Jira event). Outside those cases, or when the integration isn't connected, the server is skipped and the run continues without it.
 
 ## OAuth authentication
 

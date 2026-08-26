@@ -1,67 +1,67 @@
 ---
-title: [Task-oriented title in sentence case — reads like a search query. Capture the non-branded query a developer would actually search for, not "How to do X in Warp." The title field renders as the page H1; do not add a separate H1 in the body.]
+title: [Sentence case, task-oriented, reading like a search query. Capture the non-branded query a developer would actually type: "How to set up Claude Code", not "How to set up Claude Code in Warp". Do not put "tutorial" or "guide" in the title. This renders as the page H1 — do not add an H1 in the body.]
 description: >-
-  [One sentence, 50-160 characters: what the reader will build or accomplish,
-  using the non-branded phrasing they would actually search for.
-  Example: "Set up Claude Code and run your first agentic coding session from the terminal."
-  See AGENTS.md > Frontmatter > Descriptions by content type for the full rules.]
+  [One sentence, 50-160 characters: what the reader will build or accomplish, in the
+  non-branded phrasing they would search for. Example: "Set up Claude Code and run your
+  first agentic coding session from the terminal."]
 ---
+[BEFORE PUBLISHING: Delete every bracketed instruction in this file, including this one. They are guidance for the author, not page content.]
+[VARS: If this page names a product from src/data/vars.ts, add `import { VARS } from '@data/vars';` below, then use {VARS.KEY} in prose and {{TOKEN}} in frontmatter. See AGENTS.md → Content variables.]
+[AEO: If this page is driven by Peec, search-query, or answer-engine data, run `.agents/skills/aeo_brief/SKILL.md` first.]
 
-[One sentence: what you'll accomplish by following this guide. Mention Warp by name. Include a time estimate if possible (e.g., "takes about 10 minutes").]
+[SCOPE: This is a tutorial — a full workflow, start to finish, with context at the decision points. If the task fits in about five minutes and 600 words of essential steps, it is a quickstart instead; use `.agents/templates/quickstart.md`. A tutorial also requires that a quickstart already exists for this product area. If none does, write that first.]
 
-[AEO GUIDANCE: If this guide is based on Peec, answer-engine prompts, search-query data, or AEO goals, create an AEO brief first using `.agents/skills/aeo_brief/SKILL.md`. Use the brief to preserve high-intent vocabulary naturally, translate awkward source-data phrasing into developer-friendly docs language, and decide whether this should be a new guide or an update to an existing page.]
+[Introduction: who this is for, what prior knowledge it assumes, and what the reader will build. Do NOT state an expected completion time — it varies too much by experience level. (Quickstarts do state one; tutorials do not.)]
+
+[BREVITY: Delete any section below you don't need — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
 
 import VideoEmbed from '@components/VideoEmbed.astro';
-{/* VARS: Also add the line below if this guide references product names from src/data/vars.ts. Then use {VARS.KEY} in prose. Use {{TOKEN}} in frontmatter YAML values above. See AGENTS.md → Content variables. */}
-{/* import { VARS } from '@data/vars'; */}
 
-{/* VIDEO: Always include a specific title prop naming the workflow/feature shown. Remove the entire VideoEmbed block if there is no video. */}
-<VideoEmbed url="[YouTube or Loom URL]" title="[Specific title: integration, workflow, or task shown — not generic 'video' or 'demo']" />
+[VIDEO: The `title` prop must name the workflow or feature shown, never "video" or "demo". Delete this block entirely if there is no video. The written content must stand alone either way — a reader should never need to watch to follow along.]
+<VideoEmbed url="[YouTube or Loom URL]" title="[Specific workflow, integration, or task shown]" />
 
 ## Prerequisites
 
-[List what the reader needs before starting. Include inline context: what each prerequisite is, where to get it, and a link to more info. Orient the reader by naming the application before any menu paths.]
+[Each item: what it is, where to get it, and a link. Name the application before any menu path.]
 
-* **[Prerequisite 1]** — [What it is and where to get it]. See [link to docs] for details.
-* **[Prerequisite 2]** — [Brief context].
+* **[Prerequisite]** — [What it is and where to get it]. See [link](path) for details.
 
-[Use numbered H2 headings for each step (e.g., "## 1. Install Claude Code"). Do not add a "## Steps" wrapper heading — jump straight into the numbered steps after Prerequisites. Motivate each step: explain WHY before HOW, especially for setup steps. End each numbered sub-step with a period. Use ALL_CAPS for placeholder values in commands (e.g., YOUR_API_KEY). Do not use em dashes in procedural or instructional text. If there's an open-source repo for an example, link it. When referencing a Settings path or menu for the first time, orient the reader: "in the Warp app, go to **Settings** > ...".]
+## [1. First step — action-oriented title]
 
-## [Action-oriented step title]
+[STEP HEADINGS: Number each H2. Do not add a "## Steps" wrapper heading — go straight into the numbered steps after Prerequisites.]
 
-[Why you're doing this step — 1 sentence of motivation.]
+[One sentence of motivation: why the reader is doing this.]
 
-[Exact prompt, command, or instruction:]
+[Give the real prompt or command, not a placeholder. Use ALL_CAPS for values the reader substitutes, like YOUR_API_KEY.]
 
 ```
-[prompt or command here]
+[prompt or command]
 ```
 
-[Expected outcome — what should happen after this step.]
+[Expected outcome: what should happen after this step.]
 
-## [Next step title]
+## [2. Next step]
 
-[Motivation + instruction + expected outcome, same pattern as above.]
+[Same pattern: motivation, instruction, expected outcome.]
 
-## [Final step title]
+## Troubleshooting
 
-[Complete the workflow.]
+[Required for tutorials — this is the clearest line between a tutorial and a quickstart, which only links out. Name what commonly goes wrong in this specific workflow and how to recover.]
+
+**[What the reader sees when it breaks]**\
+Why it happens, and how to recover.
 
 ## Productivity tips
 
-[OPTIONAL SECTION — include when the guide naturally leads to workflow improvements. Use this to showcase Warp features (voice, images, vertical tabs, notifications, code review, etc.) as natural extensions of the workflow the reader just completed — not as a separate sales pitch. Remove this section if there are no relevant tips for the guide topic.]
+[OPTIONAL. Warp features that extend the workflow the reader just completed — not a sales pitch. Delete this section if nothing fits naturally.]
 
-* **[Tip 1 — feature name]** — [How it improves the workflow the reader just learned. Link to feature docs.]
-* **[Tip 2]** — [Same pattern.]
+* **[Feature]** — [How it improves the workflow they just learned.] See [link](path).
 
 ## Next steps
 
-[2-3 sentence summary of what the reader accomplished. Then list links to related content. CROSS-LINKING: Always link to at least one other guide in the Guides section and one feature documentation page in the main docs. If this guide relates to features covered in the Third-Party CLI Agents section (src/content/docs/agent-platform/cli-agents/), link there too. If a standalone summary section feels valuable, add a ## Recap heading above the summary paragraph.]
+[Recap what the reader built, referring back to the example from the introduction. Then 2-3 actionable next steps.]
 
-* [Link to related guide in the Guides section]
-* [Link to relevant feature documentation in the main docs]
-* [Link to deeper reference or advanced usage]
+[CROSS-LINKING: Link at least one other page in the Guides section and one feature page in the main docs. Verify every internal link resolves to a real file under `src/content/docs/` before publishing — do not invent plausible-looking paths.]
 
-[LINK VERIFICATION: Before publishing, verify every internal link points to an existing file under `src/content/docs/` and, when the page should appear in navigation, a matching entry in `src/sidebar.ts`. If a target page is planned but not live, use the closest existing page and add a TODO comment.]
-
-[PRE-HANDOFF REVIEW: Before presenting the draft, check whether procedures are easy to scan, whether dense sections should become numbered steps or bullets, whether UI surfaces use canonical product names, whether the page adds value beyond existing docs, and whether any product behavior needs human testing.]
+* [Related tutorial in the Guides section](path/to/page.md)
+* [Feature documentation in the main docs](path/to/page.md)

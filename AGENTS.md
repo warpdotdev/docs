@@ -11,8 +11,77 @@ This guide establishes standards for writing Warp documentation. It covers voice
 ### Voice & tone
 - **Professional yet approachable**: Write with authority but remain accessible to developers of all skill levels
 - **Direct and action-oriented**: Lead with what users can accomplish, not just what features exist
-- **User-focused**: Use second person ("you can", "allows you to") rather than passive voice
+- **User-focused**: Use second person ("you") and active voice
 - **Confident without jargon**: Explain technical concepts clearly without oversimplifying
+- **Plain over polished**: Prefer the short word and the declarative sentence. A page should read like a capable colleague explaining something, not like a spec or a launch post.
+
+Our reference points are the GitHub and Vercel docs: short declarative sentences, concrete examples, restrained formatting, and no selling.
+
+#### Define, show, link
+Introduce a concept in one to three plain sentences, give a concrete example, then link out for depth. Repeat that pattern instead of front-loading the page with context.
+- ✅ "A workflow is an automated process that runs one or more jobs. For example, a workflow can label new issues automatically. For more information, see [Writing workflows](...)."
+- ❌ "Before diving into the components, it helps to align on a few terms:" followed by a glossary of everything the page explains later anyway.
+
+#### Document the user-visible model, not our architecture
+Describe what the reader sees and does. Internal components get at most one sentence, and only when the reader can act on them. GitHub Actions runs on an orchestrator and a control plane; its docs never mention either. They describe workflows, events, jobs, and runners, because those are what users touch.
+- ✅ "Warp tracks every run. Check its status from the CLI, the API, or the dashboard."
+- ❌ "The orchestration layer runs on Warp's servers (cloud control plane), creates tasks when triggers fire, and tracks lifecycle state (created → running → completed/failed)."
+
+This is the voice-level version of "Don't over-specify counts or internals that will drift" (see General guidance): internals aren't just a staleness risk, they're noise between the reader and the task.
+
+When a page carries real information in the wrong register (provenance, pinned versions, maintainer process), relocate it to the surface whose audience needs it: a reference page, a script docstring, a code comment. Leave a pointer if the reader might follow the thread. Cutting for tone must not lose facts; it changes where they live.
+
+#### Every sentence earns its place
+Cut sentences that narrate the page, restate what the reader just read, or explain the obvious consequence of the previous sentence.
+- **No meta-openers** - Never open with "This page covers/explains/walks through...". The title and description already frame the page; state the thing itself.
+  - ✅ "Run agents directly in your GitHub Actions workflows using `oz-agent-action`."
+  - ❌ "This page covers how the integration works, how to set it up, and common automation patterns for development teams."
+- **No restated cause-and-effect** - Don't follow a fact with a sentence explaining why that fact is good.
+  - ✅ "The container is destroyed after each run, so every run starts clean."
+  - ❌ "The container is destroyed after each run. This process ensures every run starts from the same baseline, making results reproducible and debugging straightforward."
+- **No recap lines** - Don't end a section by summarizing it ("In practice: triggers create tasks; tasks produce outputs.").
+- **Say it once** - Don't repeat a caveat or definition across multiple sections of the same page. Put it where it matters most. The same goes for sibling pages: boilerplate like validation steps or shared prerequisites lives once on the parent or reference page, linked from the rest.
+
+#### Words to avoid
+These words are the strongest tell of an AI-generated draft and rarely add meaning. Replace them with the specific fact they're hiding, or delete them.
+- **Marketing adjectives** - seamless(ly), powerful, robust, comprehensive, effortless, cutting-edge, game-changing, supercharged
+- **Inflated verbs** - leverage (→ use), streamline (→ remove steps), empower (→ let), unlock (→ name the capability, or delete), delve into (→ cover), elevate, harness
+- **Filler frames** - "designed to", "ensures that", "allows you to", "it's important to note", "it's worth noting", "in order to" (→ to)
+- **Abstract dramatics** - landscape, realm, journey, tapestry, testament to
+
+**Examples:**
+- ✅ "The agent runs in your CI pipeline. It can review code, triage issues, and fix failing checks."
+- ❌ "The agent integrates seamlessly into your CI pipeline, automating tasks like code review, issue triage, bug fixing, and maintenance."
+
+If the claim is true, the reader notices without the adjective. If it isn't, the adjective won't save it.
+
+#### Structural patterns to avoid
+AI-drafted pages share a rhythm. Break it.
+- **Rule-of-three padding** - Triplets of adjectives or clauses used for cadence rather than information ("scalable, autonomous, and auditable"). Keep the items that carry weight and cut the rest.
+- **Rhetorical question openers** - Don't open a section with a question you immediately answer. Use a descriptive header and a declarative first sentence.
+- **Hedging stacks** - Chains of "typically", "often", "generally", "where supported", and "as applicable" read as evasive. State what happens, then note the exception if there is one.
+- **Bold-everything** - Bolding several phrases per paragraph kills emphasis. Reserve bold for UI elements and lead terms of list items (see Emphasis).
+- **Bullets as a substitute for prose** - Bullets are for short, parallel, scannable items. If every bullet is a full paragraph, or the bullets tell a story in order, write prose.
+- **Slashed shorthand** - Write "mentions and assignments", not "mention/assignment", and "4 vCPU / 8 GB", not "4/8". Slashed pairs and bare number pairs read as notes, not prose.
+- **Callout spam** - Callouts follow the same restraint: never consecutive, at most one per section (see Callouts and hints).
+
+#### Keep the author out of it
+The reader came for the product, not the writer's presence in the page.
+- **No self-commentary** - Don't narrate authorial intent: "deliberately unremarkable", "each prompt is worth reading", "that is the point of this example". State the fact and let it stand.
+- **State rules calmly, once** - Defensive phrasing ("Do not describe or imply otherwise", "CI green is not the bar") argues with an imagined reader. Write the rule once, plainly, and give a reason only when the reason changes what the reader does.
+- **Describe the present** - Write how the product works now. Renames and history belong in time-boxed transition notes or the changelog, not woven through pages ("the built-in harness is the Warp Agent harness", not "Oz is retired product language").
+
+#### The read-aloud test
+Read the paragraph aloud. If it doesn't sound like something you'd say to a colleague, rewrite it plainly. This catches over-explained cause-and-effect, hedging, and repeated rhetorical patterns faster than any checklist.
+
+#### Cut again
+A plain-language rewrite still under-cuts on the first pass. Follow it with a deletion-only pass that removes:
+- Framing lines that describe the docs instead of the product ("Each example demonstrates one concept").
+- Explanations of command output that the command already prints, or that a linked page already owns.
+- Recaps and comparison sections that restate what the reader just read.
+- Justifications for rules and defaults that don't change what the reader does.
+
+Expect the second pass to find real deletions even after a careful first one; review feedback on past copy passes has consistently asked for more cutting, not less.
 
 ### Language guidelines
 - Use consistent terminology throughout (see [Terminology standards](#terminology-standards) and the full glossary in `.agents/references/terminology.md`)
@@ -59,7 +128,7 @@ Avoid words that are ambiguous between singular and plural.
 - **Serial comma**: Always use it. "Environments, integrations, and schedules" — not "Environments, integrations and schedules."
 - **Contractions**: Allowed and encouraged to match our approachable tone. Use "you're," "don't," "it's," "can't." Exception: avoid contractions in error messages or formal warnings.
 - **Tense**: Use present tense to describe how things work ("Warp indexes your codebase"). Use imperative for instructions ("Configure your environment").
-- **Person**: Use second person ("you") for instructions. Avoid first person plural ("we") in procedural content. First person is acceptable in conceptual or narrative text when referring to Warp as a company ("We designed Oz to...").
+- **Person**: Use second person ("you") for instructions. Avoid first person plural ("we") in procedural content. First person is acceptable in conceptual or narrative text when referring to Warp as a company ("We designed the Automation Platform to...").
 
 ### Inclusive language
 - Use gender-neutral pronouns ("they/them") for unknown users
@@ -82,11 +151,11 @@ These practices serve both human accessibility needs and AI agent consumption (A
 - **Explicit context**: Don't assume the reader arrived from a parent page. State what a thing is before explaining how to use it. This helps agents extract self-contained answers.
 - **Frontmatter descriptions**: Agents and search engines use the `description` field to determine relevance before reading the full page. Write descriptions as standalone summaries.
 - **Consistent terminology**: Agents struggle when the same concept has multiple names. Use the glossary terms consistently.
-- **Machine-parseable patterns**: Consistent list formats, code block labeling, and parameter tables help agents extract structured information. The templates in `.warp/templates/` enforce this.
+- **Machine-parseable patterns**: Consistent list formats, code block labeling, and parameter tables help agents extract structured information. The templates in `.agents/templates/` enforce this.
 
 ## Content structure
 
-These structural rules apply to all pages regardless of content type. For type-specific page structures, see the templates in `.warp/templates/`.
+These structural rules apply to all pages regardless of content type. For type-specific page structures, see the templates in `.agents/templates/`.
 
 ### Frontmatter
 Every page must include YAML frontmatter with a `description` field.
@@ -116,7 +185,7 @@ Every description answers "what will I get from this page?" The shape of that an
   - ✅ `Environments give cloud agents the same toolchain and setup on every run, no matter what triggers them.`
   - ❌ `Learn about environments and why they are useful.`
 - **Procedural** - Say what task the reader will complete. Start with an imperative verb.
-  - ✅ `Connect Slack to Oz so mentions and channel messages can trigger cloud agent runs.`
+  - ✅ `Connect Slack to the Automation Platform so mentions and channel messages can trigger cloud agent runs.`
   - ❌ `This page explains the Slack integration setup process.`
 - **Quickstart** - Say what the reader ends up with, plus the time budget. Start with an imperative verb.
   - ✅ `Install the Warp Agent CLI, log in, and run your first agent conversation in about five minutes.`
@@ -158,7 +227,7 @@ Clean, descriptive URLs rank better in search and are more shareable.
 
 ### Page length and scannability
 - Aim for scannable pages. Use clear section headers, short paragraphs (2-4 sentences), and bulleted lists.
-- If a page exceeds ~1500 words, consider breaking it into sub-pages or using clear anchor links.
+- **Cut first, split only if it's still long.** A page over ~1500 words is usually carrying framing, restated cause-and-effect, or boilerplate a parent page already owns — run the deletion-only "Cut again" pass (see Voice & tone → Cut again) before reaching for sub-pages or anchor links. Splitting a bloated page produces two bloated pages; only split once the content itself, not the padding, still doesn't fit on one page.
 - Avoid thin pages with only a sentence or two — consolidate with related content instead. When two pages cover nearly the same topic, merge them.
 
 ### Opening paragraphs
@@ -305,7 +374,12 @@ For important caveats, limitations, or things to watch out for
 :::
 ```
 
-Use callouts sparingly. A page with 5+ callouts loses its visual impact.
+Use callouts sparingly:
+- Never place two callouts back to back, and keep to at most one per section.
+- Keep callouts to a sentence or two. Information that needs a list or several sentences belongs in the body under a header.
+- A caveat that applies to one step belongs in that step's prose, not in a callout.
+
+Callouts interrupt the reader. Each one spends attention the page can't get back.
 
 ### Placeholders and dynamic text
 - Use ALL_CAPS for placeholder values in commands: `git clone REPO_URL`
@@ -399,6 +473,20 @@ Use consistent verbs that match the type of UI element:
 
 Every documentation page should be drafted according to its content type. Identify the type before you start writing, then follow the structure and rules for that type below.
 
+The type is not a formatting choice — it follows from what the reader is trying to do. Decide that first in the content design plan (`.agents/references/content-design-plan.md`), then pick the type that serves it. Picking a template first produces pages shaped by the template.
+
+### Titles by content type
+
+Each type has its own title convention. Sentence case applies to all of them; this is the additional per-type rule.
+
+- **Conceptual** — "About [subject]", or a plain noun phrase naming the subject. ✅ `About environments` ✅ `Deployment patterns` ❌ `Understanding how environments work`
+- **Procedural** — begin with a gerund, naming the task. ✅ `Configuring a self-hosted GitLab integration` ❌ `Self-hosted GitLab integration setup`
+- **Reference** — a noun phrase naming what can be looked up. Avoid stacked nouns; use prepositions to break them up. ✅ `Keyboard shortcuts for the code editor` ❌ `Code editor keyboard shortcut reference`
+- **Troubleshooting** — the symptom or the exact error message, so search matches what the reader typed.
+- **Quickstart** — name the feature. ✅ `Quickstart for cloud agents` ❌ a bare `Quickstart`
+- **Tutorial** — follow the procedural convention. Do not put "tutorial" or "guide" in the title.
+- **Feature documentation (combined)** — if the page contains a procedure, use a task-based gerund title. Keep it general enough to cover the range of tasks on the page, and agnostic about which option the reader picks. ✅ `Setting repository visibility` ❌ `Making a private repository public`
+
 ### General guidance (all content types)
 
 These rules apply regardless of content type:
@@ -411,8 +499,13 @@ These rules apply regardless of content type:
 - **Provide inline context for first references**: Assume the reader arrived directly at this page, not from a parent page. When a prerequisite, concept, or tool is mentioned for the first time, include: what the thing is (1 short clause), where to get or create it, and a link to the full reference.
   - ✅ "**A Warp API key** - Authenticate API requests with a key from **Settings** > **Platform** in the Warp app. See the API Keys reference for details."
   - ❌ "**An API key** - Create one in **Settings** > **Platform**." (what kind of key? Settings where?)
-- **Include practical examples**: Show real-world scenarios, not just toy examples. Concrete examples help the reader understand when and why to use a feature.
+- **Include practical examples**: Show real-world scenarios, not just toy examples. Concrete examples help the reader understand when and why to use a feature. For enterprise or infrastructure-heavy features, prefer a complete example (a full config file, a linked sample repository) over a fragment — abstract features are hardest to trust without something concrete to point at.
 - **Cross-reference related pages**: Link to related features, next steps, and deeper references so the reader can continue learning.
+- **Sequence basics before jargon**: Explain what something is in plain language before introducing internal-sounding framing, deep lifecycle terminology, or advanced configuration. A reader who doesn't know the concept yet should never hit unexplained jargon in the first few paragraphs. Save advanced or self-referential concepts (e.g., a system that improves itself) for after the reader understands the basic flow.
+- **Avoid appendix-style content**: Don't add a bullet list or table whose only job is to restate content already covered elsewhere on the page, such as an exhaustive index of tabs or settings that duplicates the dedicated sections below it. Weave supplementary details into the section they relate to instead of bolting them onto the end under a generic heading like "Good to know."
+- **Don't over-specify counts or internals that will drift**: Describe a capability rather than naming an exact count of tools, steps, or subcomponents behind it (e.g., "a small set of tools" instead of "ten tools"). Precise counts go stale the moment the implementation changes, and a stale number is worse than no number.
+- **Feature real differentiators structurally**: If a capability is a genuine advantage over the default path (an agent- or API-driven alternative to a UI flow, for example), give it real visual weight — a clear callout near the top of the relevant section, not a footnote after the primary steps are already done. Where something sits on the page communicates how important it is.
+- **Verify claims against the live product, not just prior drafts**: Terminology, UI labels, and calculated values drift between rounds of review. Confirm names, labels, and metric definitions against the actual app, API, or codebase before publishing — especially for pages describing metrics or anything computed.
 
 ### Conceptual
 
@@ -436,7 +529,7 @@ These rules apply regardless of content type:
 
 **Existing examples**: `platform/deployment-patterns.mdx`, `platform/index.mdx`
 
-**Template**: `.warp/templates/conceptual.md`
+**Template**: `.agents/templates/conceptual.md`
 
 ### Procedural
 
@@ -461,35 +554,41 @@ These rules apply regardless of content type:
 - Include expected outcomes after key steps so the reader can confirm they're on track.
 - Test all instructions for accuracy.
 - Provide troubleshooting for common failure points.
+- **Explain the default before the override.** When documenting configurable infrastructure or advanced settings, state the default behavior and the common case first, then cover manual overrides. Don't lead with the full matrix of options before establishing what "just works" out of the box.
 
 **Existing examples**: `reference/cli/api-keys.mdx`, `platform/integrations/slack.mdx`
 
-**Template**: `.warp/templates/procedural.md`
+**Template**: `.agents/templates/procedural.md`
 
 ### Quickstart
 
-**What it is**: A specialized procedural doc designed to get the reader to a working result fast. Style "quickstart" as one word, lowercase (unless starting a sentence or in a title).
+**What it is**: A specialized procedural doc that gets the reader to a working result fast, with only the essential steps. Style "quickstart" as one word, lowercase (unless starting a sentence or in a title).
 
-**When to use**: For first-time experiences with a product area. The reader should go from zero to a working result in ~10 minutes.
+**When to use**: When the reader already understands the feature or product and is ready to try it. A quickstart deliberately omits explanation of how something works or why they would want it — if the reader needs that, they need conceptual content, and if the task is complex enough to need context along the way, they need a tutorial.
+
+**Scope**: About five minutes and roughly 600 words. That budget is the defining constraint, not a suggestion. A quickstart that no longer fits it has become a tutorial and should be reworked as one.
 
 **Structure**:
-1. Opening paragraph with what the reader will accomplish and a time estimate
+1. Opening paragraph: who it is for, the prerequisites and prior knowledge assumed, what the reader will end up with, and the time budget ("in about five minutes")
 2. Prerequisites (minimal — link to full setup docs rather than inlining lengthy setup)
 3. Numbered steps (as few as possible to reach a working result)
-4. Next steps (links to deeper guides, advanced usage, related features)
+4. Troubleshooting (optional — link to existing troubleshooting content rather than writing new)
+5. Next steps: a one-line recap, then 2-3 actionable next steps, always including a link to the conceptual page for the feature
 
 **Rules**:
 - **Give every quickstart a descriptive H1 title.** Don't use a bare "Quickstart" — include the feature or topic name.
-  - ✅ `# Cloud Agents Quick Start`
+  - ✅ `# Quickstart for cloud agents`
   - ❌ `# Quickstart` (quickstart for what?)
 - Minimize prerequisites — the reader should be able to start quickly.
-- Target ~10 minutes or less.
 - Keep steps focused on the critical path — defer edge cases and advanced options to other pages.
+- Link out rather than replicating content, so the flow is not interrupted.
+- Use code blocks and screenshots generously; visual confirmation reassures the reader they are on track.
+- Steps can be less explicit than in full procedural content, because the audience already knows the product.
 - All procedural rules apply (focused steps, motivate steps, expected outcomes).
 
 **Existing examples**: `platform/quickstart.mdx`, `getting-started/quickstart/installation-and-setup.mdx`
 
-**Template**: `.warp/templates/quickstart.md`
+**Template**: `.agents/templates/quickstart.md`
 
 ### Reference
 
@@ -512,7 +611,7 @@ These rules apply regardless of content type:
 
 **Existing examples**: `reference/cli/index.mdx`, `reference/api-and-sdk/index.mdx`
 
-**Template**: `.warp/templates/reference.md`
+**Template**: `.agents/templates/reference.md`
 
 ### Troubleshooting
 
@@ -534,13 +633,30 @@ These rules apply regardless of content type:
 
 **Existing examples**: `support-and-community/troubleshooting-and-support/known-issues.mdx`, `reference/cli/troubleshooting.mdx`
 
-**Template**: `.warp/templates/troubleshooting.md`
+**Template**: `.agents/templates/troubleshooting.md`
 
 ### FAQ
 
 **What it is**: Question-and-answer format for common questions.
 
-**When to use**: For pages that collect frequently asked questions about a topic area.
+**When to use**: Rarely. **Default to "not an FAQ."**
+
+An FAQ page pulls answers away from the page that owns the topic. The reader who lands on the owning page does not find the answer, the reader who lands on the FAQ gets an answer without its context, and the two drift apart as the product changes. Most content that arrives as "we should FAQ this" belongs on an existing conceptual, reference, or troubleshooting page.
+
+**Admission rules — all three must hold before creating or extending an FAQ page:**
+
+1. **The questions are genuinely cross-cutting.** They span several features or pages, so no single page owns them. Questions about one feature belong on that feature's page.
+2. **There is no canonical home.** If any existing page could answer the question in context, answer it there instead. "It would be buried on that page" is a signal the page needs restructuring, not that the answer needs a second home.
+3. **The question is one a reader actually asks**, in their own words, sourced from support tickets, Slack, or community threads — not one invented to organize existing content.
+
+Before adding a question to an existing FAQ page, apply the same test. FAQ pages grow by accretion; each addition should have to justify itself.
+
+**Where it goes instead:**
+
+- "What is X / how does X work?" → conceptual page for X
+- "What are the limits / which plans include X?" → reference section on the owning page
+- "Why did I get error Y?" → troubleshooting section, keyed on the error
+- "How do I do Z?" → procedural section on the owning page
 
 **Structure**:
 ```markdown
@@ -553,16 +669,24 @@ Direct answer with actionable information. Include links to relevant documentati
 - Lead with a direct answer, then provide detail.
 - Keep answers concise — link to full documentation for deeper topics.
 - Group questions by theme (e.g., "General", "Billing", "Errors").
+- Never let an FAQ answer become the only place a fact lives. It should summarize and link, not own.
 
-**Template**: `.warp/templates/faq.md`
+**Template**: `.agents/templates/faq.md`
 
 **Existing examples**: `agent-platform/getting-started/faqs.mdx`, `support-and-community/plans-and-billing/pricing-faqs.mdx`
 
-### Guide (Guides section)
+### Tutorial (Guides section)
 
-**What it is**: A practical, task-oriented walkthrough that helps a developer accomplish a specific goal using Warp. Guides live in the `src/content/docs/university/` directory (the "Guides" Astro Starlight space) and can include video, written steps, or both.
+**What it is**: A practical, task-oriented walkthrough of an entire workflow, start to finish. Tutorials live in the `src/content/docs/guides/` directory (the "Guides" Astro Starlight space) and can include video, written steps, or both.
 
-**When to use**: For educational content that teaches a workflow or use case — not feature documentation (which belongs in the main docs). Guides focus on the "how" with real prompts and reproducible results.
+"Guides" is the name of the section, not a content type. It holds both **tutorials** and **quickstarts**; pick between them by scope before drafting:
+
+- **Quickstart** — about five minutes, ~600 words, essential steps only, for someone who already understands the product.
+- **Tutorial** — a full workflow with context at the decision points, for someone extending a basic understanding to solve a real problem.
+
+**A tutorial requires that a quickstart already exists** for the product area. If there is no quickstart, write that first — otherwise the tutorial absorbs setup content that belongs in a shorter page, and readers who only wanted to get started have to wade through the whole workflow.
+
+**When to use**: For educational content that teaches a workflow or use case — not feature documentation (which belongs in the main docs). Tutorials focus on the "how" with real prompts and reproducible results, and are more conversational than other content: a developer-to-developer conversation that stays accessible to varied technical backgrounds.
 
 **Structure**:
 1. Frontmatter with `description` (for SEO and search)
@@ -576,15 +700,19 @@ Direct answer with actionable information. Include links to relevant documentati
 9. "What you achieved" summary at the end with links to related docs
 
 **Rules**:
-- Titles should be task-oriented and scannable. Use shortened titles in the Astro Starlight nav and full descriptive titles in the article H1.
+- Titles should be task-oriented and scannable. Use shortened titles in the Astro Starlight nav and full descriptive titles in the article H1. Do not put "tutorial" or "guide" in the title.
 - For SEO: capture the non-branded query when possible. Write the title a developer would actually search for ("How to Set Up Claude Code" not "How to Set Up Claude Code in Warp").
 - All procedural rules apply (focused steps, motivate steps, expected outcomes).
+- **Give real examples, not placeholders.** Do not write "enter a commit message" — supply an appropriate one that matches the preceding steps.
+- **Include troubleshooting.** Acknowledge what commonly goes wrong in this workflow and how to recover. This is what most distinguishes a tutorial from a quickstart, which only links to existing troubleshooting.
+- **End with a conclusion, then next steps.** Review what the reader built, referring back to the example from the introduction, then give 2-3 actionable next steps.
+- Do not state an expected completion time — it varies too much by experience level. (Quickstarts do state one.)
 - Link to relevant feature documentation in the main docs where concepts need deeper explanation.
-- When a guide has a companion video, the written content should stand alone — a reader should be able to follow the guide without watching the video.
+- When a tutorial has a companion video, the written content should stand alone — a reader should be able to follow it without watching the video.
 
-**Template**: A copyable starting template is available at `.warp/templates/guide-page.md`. Use this when creating new guide pages.
+**Template**: A copyable starting template is available at `.agents/templates/guide-page.md`. The filename is a holdover from when this type was called "guide"; the `draft_guide` skill uses it too.
 
-**Existing examples**: `university/mcp-servers/sentry-mcp-fix-sentry-error-in-empower-website.mdx`, `university/end-to-end-builds/building-a-real-time-chat-app-github-mcp-+-railway.mdx`
+**Existing examples**: `guides/external-tools/sentry-mcp-fix-sentry-error-in-empower-website.mdx`, `guides/build-an-app-in-warp/building-a-real-time-chat-app-github-mcp-railway.mdx`
 
 
 ### Feature documentation (combined pattern)
@@ -602,25 +730,43 @@ This is the most common page type in Warp's docs (~75+ pages). A feature documen
 - Apply the **conceptual** rules to the explanatory sections (explain what and why, define terms, no procedures in the overview).
 - Apply the **procedural** rules to the step-by-step sections (one action per step, motivate steps, expected outcomes).
 - Keep the conceptual and procedural sections clearly separated with distinct headers.
+- **Never fold quickstart or tutorial content into a combined page.** Conceptual, procedural, reference, and troubleshooting sections can coexist here; quickstarts and tutorials cannot. Both are defined by a scope budget and a single continuous path, and both lose their purpose once embedded in a longer page. Link to them instead.
+- **Order sections from broad to specific**: conceptual, then reference, then procedures in lifecycle order (enable, use, manage, disable, destructive actions), then troubleshooting.
+- Use a task-based gerund title that stays agnostic about which option the reader chooses — `Setting repository visibility`, not `Making a private repository public`.
+
+This is the type most prone to sprawl, precisely because it accepts the most kinds of content. If the page is growing past roughly 1500 words, split the procedures onto their own pages rather than adding another section.
 
 **Existing examples**: `agent-platform/capabilities/skills.mdx`, `platform/environments.mdx`
 
-**Template**: `.warp/templates/feature-doc.md`
+**Template**: `.agents/templates/feature-doc.md`
 
 ## Page templates
 
-Concrete page scaffolds for each content type are in `.warp/templates/`. Use these as starting points when creating new pages:
+Concrete page scaffolds for each content type are in `.agents/templates/`. Use these as starting points when creating new pages — but pick the type from the content design plan first, not by browsing this list:
 
-- `.warp/templates/conceptual.md`
-- `.warp/templates/procedural.md`
-- `.warp/templates/quickstart.md`
-- `.warp/templates/reference.md`
-- `.warp/templates/troubleshooting.md`
-- `.warp/templates/faq.md`
-- `.warp/templates/guide-page.md`
-- `.warp/templates/feature-doc.md`
+- **Conceptual** — `.agents/templates/conceptual.md`
+- **Procedural** — `.agents/templates/procedural.md`
+- **Quickstart** — `.agents/templates/quickstart.md`
+- **Reference** — `.agents/templates/reference.md`
+- **Troubleshooting** — `.agents/templates/troubleshooting.md`
+- **FAQ** — `.agents/templates/faq.md` (read the FAQ admission rules before using this one)
+- **Tutorial** — `.agents/templates/guide-page.md` (filename is a holdover from when the type was called "guide")
+- **Feature documentation (combined)** — `.agents/templates/feature-doc.md`
 
-Each template includes inline HTML comments explaining what to put in each section and why.
+One template is not a page scaffold: `.agents/templates/content-design-plan.md` is the fill-in artifact completed *before* drafting, presented to the requester in an interactive session and included in the PR body in every case. See `.agents/references/content-design-plan.md`.
+
+Every template carries its guidance as **bracketed instructions** in the body, not HTML comments — agents deprioritize comments, so the guidance would be skipped. Each one opens with a removal note; delete every bracketed instruction, including that one, before shipping.
+
+Each **page** template also sets `title` in frontmatter and adds no H1 to the body. Starlight renders the frontmatter title as the page H1, so a body H1 produces a duplicate. This does not apply to the content design plan template, which is a PR body section rather than a page.
+
+### Closing section
+
+Every page ends with one of two sections, chosen by content type:
+
+- **`## Next steps`** — quickstarts and tutorials. The reader just finished something and needs forward momentum: a one-line recap, then 2-3 actionable next steps, always including the conceptual page for the feature.
+- **`## Related pages`** — every other type. The reader wants lateral material, not a sequel.
+
+Do not use "Further reading" or "See also"; neither appears anywhere in the corpus. Whichever section applies, it goes last and contains at least one internal link whose anchor text names the destination.
 
 ## Terminology standards
 
@@ -639,7 +785,7 @@ Product feature names retain their standard capitalization. Match the exact casi
 - **Codebase Context** - Warp indexes your Git-tracked codebase to help Agents understand your code.
 - **Admin Panel** - Team management surface for controlling members, roles, and billing.
 - **Agent Management Panel** - Interface for viewing and managing running agents (not "agent dashboard" or "agent manager").
-- **Agent Memory** - Persistent, cross-harness memory layer for Oz agents that captures durable facts, decisions, and outcomes across conversations (currently in research preview). Capitalize as a feature name; use lowercase "memory store" for individual stores.
+- **Agent Memory** - Persistent, cross-harness memory layer for cloud agents that captures durable facts, decisions, and outcomes across conversations (currently in research preview). Capitalize as a feature name; use lowercase "memory store" for individual stores.
 - **Handoff** - Feature for moving agent work between a local Warp session and the cloud, or continuing a finished cloud run; supports local-to-cloud, cloud-to-cloud, and cloud-to-local. Capitalize as a feature name; lowercase "hand off" only as a verb.
 
 ### Capitalizing "agent"
@@ -662,24 +808,34 @@ This is the single most drifted term in the docs, so the rule is narrow on purpo
 ❌ "Profiles control how Warp's agents behave." (ambiguous)
 ❌ "Warp's agent can run commands." (ambiguous)
 
-### Oz terminology
+### Automation Platform terminology
 
-#### Warp Agent vs Oz
+Renamed from "Oz" on 2026-08-18. The `oz` CLI binary and the Oz v1 web app at `oz.warp.dev` keep the Oz name until 2026-09-15 and are not stale in the meantime. See `.agents/references/terminology.md` → "What still says Oz" for the full holdout list.
+
+#### The article rule
+"Oz" was a proper noun and read correctly bare. "Automation Platform" is a common-noun phrase, so it needs a definite article in referential positions. This is the most common mistake when writing about the platform.
+
+- **Referential** (subject, object, possessor) takes "the": "with the Automation Platform", "The Automation Platform provides", "the Automation Platform's backend".
+- **Attributive** (modifying a following noun) stays bare: "Automation Platform settings", "Automation Platform-hosted", "Automation Platform overview".
+
+Write the name as `{VARS.WARP_AUTOMATION_PLATFORM}` in body prose or `{{WARP_AUTOMATION_PLATFORM}}` in frontmatter, never as a literal string, and keep the article outside the token. `style_lint` enforces both halves: `hardcoded-var` catches the literal, `platform-determiner` catches the missing article.
+
+#### Warp Agent vs the Automation Platform
 - **Warp Agent** — Warp's built-in agent harness. Use "Warp Agent" when specifically referring to the built-in harness, especially when contrasting with third-party agents (Claude Code, Codex, etc.), or when referencing the Settings label (**Settings** > **Agents** > **Warp Agent**).
-- **Oz is the platform, not the agent.** Never introduce Oz as "Warp's agent" or equate the two. Oz runs and coordinates agents; the Warp Agent is the agent.
-- **Oz** — Warp's programmable platform for running and coordinating agents at scale
-- There is typically one Warp environment per user session. Oz can run many agents concurrently, across machines, repos, and teams.
+- **The Automation Platform is the platform, not the agent.** Never introduce it as "Warp's agent" or equate the two. The Automation Platform runs and coordinates agents; the Warp Agent is the agent.
+- **Automation Platform** — Warp's programmable platform for running and coordinating agents at scale
+- There is typically one Warp environment per user session. The Automation Platform can run many agents concurrently, across machines, repos, and teams.
 
 #### Core terms
 - **agent** - A combination of agent instructions (skill or prompt), trigger (cron, webhook, manual), environment (local, cloud), profile, and host. Agents can be local or cloud. Use lowercase "agent" in most contexts; use "Warp Agent" only when referring specifically to the built-in Warp harness.
 - **cloud agent** - An agent running in the cloud, from a trigger, schedule, or started from someone's local machine
 - **subagent** - A child agent created by a parent agent to parallelize or delegate work
 - **conversation** - An interactive execution lifecycle within the Warp Terminal, regardless of whether it's local or in the cloud
-- **Oz** - Warp's programmable platform for running and coordinating agents at scale
-- **Oz run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based.
+- **Automation Platform** - Warp's programmable platform for running and coordinating agents at scale
+- **cloud agent run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based. Use `{VARS.PLATFORM_RUN}`. On factory-specific pages, write "factory run" directly.
 - **Environment** - The execution context for an agent, including repo access, dependencies, secrets, compute, and runtime configuration
-- **Oz dashboard** - The app surface to manage all Oz runs, unified across the Warp app and web
-- **Oz web app** - The web app for configuring agents and managing runs
+- **cloud agent dashboard** - The app surface to manage all runs, unified across the Warp app and web. Use `{VARS.DASHBOARD}`. On factory-specific pages, write "factory dashboard" directly.
+- **Oz web app** - The web app for configuring agents and managing runs. Holds the Oz name until 2026-09-15; use `{VARS.WEB_APP}`.
 
 #### Oz CLI commands
 - `oz agent run` - Run a local agent
@@ -691,9 +847,12 @@ This is the single most drifted term in the docs, so the rule is narrow on purpo
 - `oz run list/get` - Get info on cloud agent runs
 
 #### Preferred phrases
-- ✅ "Ask Oz to..."
-- ✅ "Oz can help you..."
-- ✅ "What would you like Oz to do?"
+The platform is not something you address — it runs and coordinates agents, and the agent is what you ask. The older "Ask Oz to..." phrasings worked only because "Oz" was doing double duty as both platform and assistant, which the rename ended.
+
+- ✅ "Ask the agent to..."
+- ✅ "Run an agent on the Automation Platform"
+- ✅ "The Automation Platform can run this on a schedule"
+- ❌ "Ask the Automation Platform to..." — you ask an agent, not a platform
 
 #### Terms to avoid
 - ❌ "Oz agent" / "Oz agents" → Use "agent" / "agents" (or "Warp Agent" / "Warp Agents" when referring to the built-in harness)
@@ -708,6 +867,23 @@ This is the single most drifted term in the docs, so the rule is narrow on purpo
 - ❌ "Ambient Agents" / "ambient agents" → Use "Cloud Agents" / "cloud agents" ("ambient" is no longer a product term)
 - ❌ "Agent Modality" or "agent modality" → Use "Terminal and Agent modes" (this was an internal name, not user-facing)
 - ❌ "agent identity" / "agent identities" → Use "agent," "agents," or "cloud agent(s)" in user-facing copy. Use legacy API names such as `agent_identity_uid` or `/agent/identities` only when documenting the exact field, path, or compatibility behavior.
+- ❌ A bare "Automation Platform" in a referential position → Add "the". See [The article rule](#the-article-rule).
+- ❌ The literal string "Automation Platform" in prose → Use `{VARS.WARP_AUTOMATION_PLATFORM}` / `{{WARP_AUTOMATION_PLATFORM}}`.
+
+### Warp Factories terminology
+
+This works like GitHub Actions. **Warp Factories** is the product and is always written in full. An individual **factory** is a common noun and is always lowercase. A bare capitalized **Factory** is never a proper noun.
+
+- ✅ "Warp Factories is in Early Access" (the product)
+- ✅ "your factory", "each factory's agents", "factory dashboard", "factory run", "factory agents"
+- ❌ "the Factory", "your Factory", "Factory runs", "Factory metrics"
+- ❌ "Factories" on its own to mean the product → write "Warp Factories"
+
+Sentence-initial capitals are positional, not proper nouns — a heading or sidebar label may begin "Factory agents" for the same reason it would begin "Cloud agents." The rule governs mid-sentence prose. `style_lint` enforces it with the `factory-proper-noun` check.
+
+**Exceptions, quoted as they ship:** **Factory MCP** is the feature's own name (the server registers as `warp-factory`). Verbatim UI strings — **Factory name**, **Foreman name**, **Factory integrations**, **Add your Factory to your team**, "Factory running!", and the **Factory definition** sidebar label — are quoted as the app renders them.
+
+See `.agents/references/terminology.md` → "Warp Factories terminology" for the full glossary.
 
 ### Technical terms
 - **AI** (not "A.I.")
@@ -781,14 +957,19 @@ All documentation should be written with search discoverability in mind — both
 - For feature documentation: use the feature name as the developer knows it.
 
 ### SEO data
-When creating or updating content, use SEO and AEO data to inform titles, descriptions, and content coverage. The `docs-seo-audit` skill (`.warp/skills/docs-seo-audit/`) can identify technical SEO issues.
+When creating or updating content, use SEO and AEO data to inform titles, descriptions, and content coverage. The `docs-seo-audit` skill (`.agents/skills/docs-seo-audit/`) can identify technical SEO issues.
 
 ## Quality checklist
 
 Before publishing any documentation, verify:
 
+- [ ] The change passed `.agents/references/docs-worthiness-criteria.md` — the full gate with recorded evidence for automated runs, Gate 0 (shipped and public) for human-requested pages
+- [ ] A content design plan exists per `.agents/references/content-design-plan.md` and appears in the PR body
+- [ ] An existing page was updated rather than a new page created, unless a new page is genuinely justified
 - [ ] Frontmatter includes a one-sentence description (50-160 chars) written as a standalone summary, with no filler opener
-- [ ] Content type is identified and the page follows the structure for that type (see `.warp/templates/`)
+- [ ] Content type is identified and the page follows the structure for that type (see `.agents/templates/`)
+- [ ] The title follows the convention for its content type (see "Titles by content type")
+- [ ] No quickstart or tutorial content is folded into a combined feature page
 - [ ] Headers use sentence case (with proper feature name capitalization)
 - [ ] Lists use bold term + dash + explanation format
 - [ ] All links work and point to correct destinations
@@ -801,6 +982,9 @@ Before publishing any documentation, verify:
 - [ ] Instructions include expected outcomes after key steps
 - [ ] First references to prerequisites, tools, or surfaces include inline context
 - [ ] Content is scannable with clear headers and lists
+- [ ] Prose passes the tone rules: no marketing buzzwords, no meta-openers ("This page covers..."), no restated cause-and-effect or recap lines, and it reads naturally aloud (see Voice & tone)
+- [ ] Callouts are sparse (usually 0-2 per page), never consecutive, and not a substitute for body prose
+- [ ] A deletion-only "Cut again" pass removed framing lines, self-commentary, and boilerplate a parent page already covers (see Voice & tone → Cut again) before splitting a long page into sub-pages
 - [ ] Images have descriptive alt text (not "screenshot" or empty)
 - [ ] File name is lowercase, hyphenated, and descriptive (it becomes the URL slug)
 - [ ] Frontmatter description includes the primary keyword naturally (50-160 chars)
@@ -885,7 +1069,7 @@ Content lives in `src/content/docs/`, organized by topic:
 - **support-and-community/** — Troubleshooting, billing, privacy
 - **enterprise/** — Enterprise features, SSO, team management
 - **changelog/** — Release changelog
-- **university/** — Guides and tutorials
+- **guides/** — Quickstarts and tutorials (the "Guides" space)
 
 ### Content model
 The docs site has multiple levels of hierarchy:

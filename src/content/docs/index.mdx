@@ -1,18 +1,19 @@
 ---
-title: Getting started with Warp and Oz
+title: Getting started with Warp
 description: >-
-  Get started with Warp, the Agentic Development Environment, and Oz, the
-  orchestration platform for cloud agents.
+  Get started with Warp, the Agentic Development Environment, and the
+  {{WARP_AUTOMATION_PLATFORM}}, which orchestrates cloud agents at scale.
 sidebar:
-  label: Getting started with Warp and Oz
+  label: Getting started with Warp
 ---
+import { VARS } from '@data/vars';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-Warp is an [open source](https://github.com/warpdotdev/warp) **Agentic Development Environment** that combines a modern, high-performance terminal with powerful agents to help you build, test, deploy, and debug code. Agents in Warp are powered by **Oz**, the orchestration platform for running agents locally or in the cloud at scale.
+Warp is an [open source](https://github.com/warpdotdev/warp) **Agentic Development Environment** that combines a modern, high-performance terminal with powerful agents to help you build, test, deploy, and debug code. Agents in Warp are powered by the **{VARS.WARP_AUTOMATION_PLATFORM}**, which orchestrates agents locally or in the cloud at scale.
 
 <figure>
-![Warp, the Agentic Development Environment: Warp (a modern terminal built for coding with agents) and Oz (the orchestration platform for cloud agents)](../../assets/terminal/warp-oz-welcome.png)
-<figcaption>Warp terminal with Oz orchestration.</figcaption>
+![Two panels side by side: Warp, a modern terminal built for coding with agents, and Warp Factories, open infrastructure for building cloud software factories](../../assets/terminal/warp-factories-welcome.png)
+<figcaption>Warp and Warp Factories in the Agentic Development Environment.</figcaption>
 </figure>
 
 ---
@@ -47,7 +48,7 @@ Real-time, interactive coding assistance alongside your terminal.
 
 You stay in control. Review changes, steer the agent mid-task, and approve actions before they execute.
 
-→ [Get started with agents in Warp](/agents/getting-started/agents-in-warp/)
+→ [Get started with agents in Warp](/agents/)
 
 ### In any terminal, with the Warp Agent CLI
 
@@ -70,15 +71,23 @@ Cloud agents are ideal for work that doesn't need your immediate attention, like
 
 ### The platform behind them
 
-**Oz** is Warp's programmable platform for running and coordinating agents at scale. It provides the environments, triggers, integrations, orchestration, and observability that cloud agents run on, plus a CLI, API, and SDK.
+The **{VARS.WARP_AUTOMATION_PLATFORM}** is Warp's programmable system for running and coordinating agents at scale. It provides the environments, triggers, integrations, orchestration, and observability that cloud agents run on, plus a CLI, API, and SDK.
 
-→ [Learn about the Oz platform](/platform/overview/)
+→ [Learn about the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/)
+
+---
+
+## Repeatable development workflows with Warp Factories
+
+A single cloud agent handles one task. **Warp Factories**, now in Early Access, lets your team run a software factory: a repeatable process where cloud agents triage, spec, implement, review, and verify work, and humans approve key decisions.
+
+→ [Learn about Warp Factories](/factories/) or [request access](https://www.warp.dev/factories/request-access)
 
 ---
 
 ## How they work together
 
-Warp and Oz provide a unified experience across local and cloud development:
+Warp and the {VARS.WARP_AUTOMATION_PLATFORM} provide a unified experience across local and cloud development:
 
 * **Same agent, anywhere**: Whether you're working in the Warp app, in another terminal through the Warp Agent CLI, or running agents in the cloud, you're using the same underlying agent capabilities.
 * **Seamless handoff**: Start a task in the cloud and take over locally in Warp when you want hands-on control, without losing progress or context.
@@ -89,13 +98,13 @@ Warp and Oz provide a unified experience across local and cloud development:
 
 ## Multi-model support
 
-Oz is multi-model by design. You can [choose your preferred LLM](/agents/inference/model-choice/) from a curated set of top models.
+The {VARS.WARP_AUTOMATION_PLATFORM} is multi-model by design. You can [choose your preferred LLM](/agents/inference/model-choice/) from a curated set of top models.
 
 ---
 
 ## Open source
 
-Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL). The source lives at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), where you can read the code, file issues, and contribute alongside the Warp team. Development happens in the open with an agent-first workflow managed by Oz.
+Warp's client is open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL). The source lives at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), where you can read the code, file issues, and contribute alongside the Warp team. Development happens in the open with an agent-first workflow managed by the {VARS.WARP_AUTOMATION_PLATFORM}.
 
 → [Contributing to Warp](/support-and-community/community/contributing/) explains how to file issues, claim work, and ship code or themes.
 
@@ -114,7 +123,7 @@ Warp's AI features can be globally disabled in **Settings** > **Agents** > **War
 ## Next steps
 
 * [**Quickstart**](/quickstart/): Get Warp installed and start coding
-* [**Using the Warp Agent**](/agents/local-agents/overview/): Explore all AI features available in Warp
+* [**Agents overview**](/agents/): What the Warp Agent does, how to control it, and where to run it
 * [**Warp Agent CLI**](/agents/cli/): Run the Warp Agent in any terminal
 * [**Cloud Agents overview**](/platform/): Set up background automation
-* [**Oz Platform**](/platform/overview/): Learn about the CLI, API, SDK, and infrastructure
+* [**{VARS.WARP_AUTOMATION_PLATFORM}**](/platform/overview/): Learn about the CLI, API, SDK, and infrastructure

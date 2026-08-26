@@ -12,11 +12,11 @@ This guide takes you from installing the {VARS.WARP_CLI} to your first agent con
 ## Prerequisites
 
 * **A Warp account** - The login step opens your browser, where you can sign in or [create an account](https://app.warp.dev/signup). The CLI uses the same account as the Warp app, but doesn't require the app to be installed.
-* **A supported platform** - macOS, Linux, or Windows. See [supported platforms](/agents/cli/#supported-platforms).
+* **A supported platform** - macOS (Apple Silicon or Intel), Linux (x64 or Arm64), or Windows (x64 or Arm64).
 
 ## 1. Install the Warp Agent CLI
 
-Install the CLI with the command for your operating system.
+Install the CLI with the command for your operating system. The install script is the recommended method, because it's the only one that keeps the CLI up to date on its own.
 
 <Tabs>
   <TabItem label="macOS and Linux">
@@ -31,6 +31,17 @@ Install the CLI with the command for your operating system.
     Invoke-RestMethod "https://app.warp.dev/download/agent-cli.ps1" | Invoke-Expression
     ```
   </TabItem>
+  <TabItem label="Homebrew">
+    On macOS 14 or later and on Linux, install the `warp-agent-cli` cask. It's in the main Homebrew cask repository, so you don't need to tap anything first:
+
+    ```bash
+    brew install --cask warp-agent-cli
+    ```
+
+    :::caution
+    Homebrew installations don't update themselves. The CLI still tells you when a new version is available, but you install it by running `brew upgrade --cask warp-agent-cli`. To get background updates instead, use the install script.
+    :::
+  </TabItem>
 </Tabs>
 
 After installing, verify that the `warp` command is available:
@@ -39,7 +50,16 @@ After installing, verify that the `warp` command is available:
 warp --version
 ```
 
-The command prints the installed version. From here on, the CLI updates automatically. See [automatic updates](/agents/cli/#automatic-updates).
+The command prints the installed version.
+
+:::note
+How the CLI updates depends on how you installed it.
+
+* **Install script** - The CLI updates itself. While it runs, it periodically checks for a newer version, downloads it in the background, and stages it without interrupting your session. The staged version takes effect the next time you launch `warp`, and the start screen shows an "update installed, restart to apply" notice next to the version.
+* **Homebrew** - Homebrew owns the installation, so the CLI never replaces it. It still checks for newer versions and shows an "update available" notice next to the version on the start screen. Install the update yourself by running `brew upgrade --cask warp-agent-cli`.
+
+To turn off update checks, set `general.autoupdate_enabled` to `false` in the [settings file](/agents/cli/configuration/#the-settings-file). To turn them off for a single launch, set the `WARP_TUI_DISABLE_AUTOUPDATE` environment variable to any value.
+:::
 
 ## 2. Log in
 
@@ -51,7 +71,7 @@ warp
 
 The CLI shows a verification link and a device code, and opens the link in your browser. Approve the login there and the CLI unlocks automatically, so you don't need to restart it. If the browser doesn't open, visit the link shown in the CLI and enter the code.
 
-When login completes, the CLI shows its start screen with the version, a short "What's new" list, and the rules, skills, and MCP servers it discovered for your current directory.
+When login completes, the CLI shows its start screen with the version, a short "What's new" list, and the rules, skills, and MCP servers it discovered for your current directory. You stay signed in across sessions. To sign out later, run `/logout`, which returns the CLI to its login screen and signs out your browser session too.
 
 :::note
 **Running in CI or a headless environment?** Authenticate with a Warp API key instead by setting the `WARP_API_KEY` environment variable:

@@ -1,13 +1,14 @@
 ---
 title: Third-party cloud agent authentication
 description: >-
-  Connect your Anthropic or OpenAI credentials to Oz, then launch Claude Code
-  or Codex as cloud agents from the desktop app, Oz web app, or API.
+  Connect Anthropic or OpenAI credentials to the {{WARP_AUTOMATION_PLATFORM}} to
+  run Claude Code or Codex as cloud agents.
 sidebar:
   label: "Authentication"
 ---
+import { VARS } from '@data/vars';
 
-Third-party cloud agent authentication in Oz stores provider credentials for cloud runs as Warp-managed secrets. Third-party cloud agents, like [Claude Code](#connecting-claude-code-credentials) and [Codex](#connecting-codex-credentials), call their providers directly, so set up an Anthropic or OpenAI credential once before launching a third-party harness.
+Third-party cloud agent authentication in the {VARS.WARP_AUTOMATION_PLATFORM} stores provider credentials for cloud runs as Warp-managed secrets. Third-party cloud agents, like [Claude Code](#connecting-claude-code-credentials) and [Codex](#connecting-codex-credentials), call their providers directly, so set up an Anthropic or OpenAI credential once before launching a third-party harness.
 
 Auth secrets can be scoped to a **team** (available to all teammates' runs) or **personal** (only your own runs), like any other Warp-managed secret.
 
@@ -26,24 +27,24 @@ Claude Code is Anthropic's agentic coding tool. For more on Claude Code authenti
 3. Navigate to the API keys section, then click **Get API key**.
 4. Create a new API key and copy the value.
 
-Oz also supports Bedrock-routed credentials (**Anthropic Bedrock API key** and **Anthropic Bedrock access key**) if your team consumes Anthropic models through AWS.
+The {VARS.WARP_AUTOMATION_PLATFORM} also supports Bedrock-routed credentials (**Anthropic Bedrock API key** and **Anthropic Bedrock access key**) if your team consumes Anthropic models through AWS.
 
-### Store API key in Oz
+### Store the API key
 
 #### Warp desktop app
 
 Start a new cloud agent run and choose **Claude Code** from the **Agent harness** dropdown. In the harness auth secret field, add or select your Anthropic credential.
 
-#### Oz web app
+#### Web app
 
-Start a [new run](https://oz.warp.dev/runs/new), choose **Claude Code** as the harness, and add a new key in the Claude Code auth secret dialog.
+Start a <a href={`${VARS.WEB_APP_URL}/runs/new`}>new run</a>, choose **Claude Code** as the harness, and add a new key in the Claude Code auth secret dialog.
 
 <figure style={{ maxWidth: "563px" }}>
 ![The Oz web app dialog for adding a new Claude Code auth secret.](../../../../assets/agent-platform/claude-code-auth-secret-setup.png)
 <figcaption>The Claude Code auth secret dialog.</figcaption>
 </figure>
 
-#### Oz CLI
+#### CLI
 
 ```bash
 oz secret create claude api-key --team <KEY_NAME>
@@ -69,17 +70,17 @@ A ChatGPT subscription (Plus, Pro, Team) does not include API access. You need a
 4. In the **Create new secret key** dialog, choose the owner, project, and permissions for the key.
 5. Click **Create secret key**, then copy the value.
 
-### Store API key in Oz
+### Store the API key
 
 #### Warp desktop app
 
 Start a new cloud agent run and choose **Codex** from the **Agent harness** dropdown. In the harness auth secret field, add or select your OpenAI credential.
 
-#### Oz web app
+#### Web app
 
-Start a [new run](https://oz.warp.dev/runs/new), choose **Codex** as the harness, and add a new key in the Codex auth secret dialog.
+Start a <a href={`${VARS.WEB_APP_URL}/runs/new`}>new run</a>, choose **Codex** as the harness, and add a new key in the Codex auth secret dialog.
 
-#### Oz CLI
+#### CLI
 
 ```bash
 oz secret create codex api-key --team <KEY_NAME>
@@ -114,7 +115,7 @@ Deleting an auth secret breaks any scheduled or integration-triggered run that r
 ## Troubleshooting
 
 **Claude Code or Codex run fails with an authentication error.**\
-Confirm the run was started with a harness auth secret selected. From the Oz web app's run detail pane, the **Harness auth secret** field shows which secret (if any) was used. Re-launch the run with the correct secret selected, or create one if your team doesn't have one yet.
+Confirm the run was started with a harness auth secret selected. From the {VARS.WEB_APP}'s run detail pane, the **Harness auth secret** field shows which secret (if any) was used. Re-launch the run with the correct secret selected, or create one if your team doesn't have one yet.
 
 **The harness auth secret dropdown is empty.**\
 The dropdown only lists secrets whose type matches the selected harness — Anthropic types for Claude Code, OpenAI for Codex. If you stored the credential as a raw value, recreate it using the typed flow above.
@@ -124,7 +125,7 @@ Your team admin has disabled the harness for your workspace. Contact your admin 
 
 ## Related pages
 
-* [Harnesses in Oz](/platform/harnesses/) — overview of third-party harnesses in Oz.
+* [Harnesses in the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/) — overview of third-party harnesses in the {VARS.WARP_AUTOMATION_PLATFORM}.
 * [Claude Code in Warp](/agents/cli-agents/claude-code/) — run Claude Code locally in the Warp terminal.
 * [Codex CLI in Warp](/agents/cli-agents/codex/) — run Codex locally in the Warp terminal.
 * [Cloud agent secrets](/platform/secrets/) — the full Warp-managed secrets reference.

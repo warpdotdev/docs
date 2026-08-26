@@ -1,0 +1,154 @@
+---
+title: Connect GitHub to your factory
+description: >-
+  Connect GitHub to your factory so issues, pull requests, reviews, and CI
+  events start factory work and results post back to GitHub.
+sidebar:
+  label: "GitHub"
+---
+import { VARS } from '@data/vars';
+
+When you connect a factory to GitHub, repository activity starts work in your factory. Issues, pull requests, reviews, and CI events can all trigger automations, and the factory posts results back to GitHub as comments, branches, and pull requests.
+
+## Prerequisites
+
+* **The Warp GitHub App** - Follow the [GitHub integration setup](/platform/integrations/github/) if you haven't already. One installation serves both the platform integration and factories.
+* **A factory with GitHub repositories** - The app must have access to at least one of the factory's repositories.
+
+## Connect GitHub to a factory
+
+1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, click **+** next to **Factories** to open the setup wizard, then choose **I want to use repos from GitHub** under **Connect your code host**.
+2. Under **Select your repos**, choose the repositories to provide code and context for the factory.
+
+That's all the setup GitHub needs. A new factory arrives with two automations already switched on, so it responds to GitHub activity right away:
+
+* **Mentions and assignments** - Start work. See [Mention the factory](#mention-the-factory) below.
+* **Pull request merges** - Close out work. Any work items linked to the pull request move to their tracker's completed state. Closing without merging does nothing.
+
+To confirm the connection works, mention the factory on a test issue and check that a work item starts in the factory's [dashboard](/factories/factory-dashboard/).
+
+## Add a custom automation
+
+The defaults cover mentions, assignments, and pull request completion. To start work from any other GitHub activity, such as a failed CI run or a review request, add an automation with a **GitHub** trigger for that event, then narrow it with the filters below. [Automation filters](/factories/automation-filters/#edit-filters-on-an-automation) covers the steps.
+
+The CI failure triage automation in [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository starts work when a workflow run fails on the default branch:
+
+```markdown title="automations/ci-failure-triage/automation.md"
+---
+triggers:
+  - provider: github
+    event: workflow_run_completed
+    filter:
+      repos: [acme/api-service]
+      branches: [main]
+      conclusions: [failure]
+---
+A workflow run failed on the default branch. Read the run's logs and find
+the failing step. If the cause is small and clear, open a fix PR. Otherwise
+open an issue with the failing step, the error, and the commit range, and
+link the run.
+```
+
+For a review automation that fires when pull requests open, see [`04-code-review-only`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only).
+
+## Supported triggers
+
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col />
+</colgroup>
+<thead>
+<tr><th>Trigger</th><th>Supported activity</th></tr>
+</thead>
+<tbody>
+<tr><td>Issues</td><td>Created, labeled, assigned, or agent mentioned</td></tr>
+<tr><td>Pull requests</td><td>Opened, marked ready, reopened, updated with commits, assigned, labeled, mentioned, closed, or merged</td></tr>
+<tr><td>Reviews</td><td>Review requested or review submitted</td></tr>
+<tr><td>Code and CI</td><td>Push, a completed check suite or workflow run, or a re-run of a Warp check</td></tr>
+</tbody>
+</table>
+
+Re-running a check starts work only for checks Warp itself created. GitHub doesn't send re-run events for other providers' checks, so those can't trigger a factory.
+
+### Automation filters
+
+Every trigger names the repository it watches. The remaining filters appear only on the event types they apply to:
+
+| Filter | Matches | Appears on |
+| --- | --- | --- |
+| **Branches** | The pushed branch, or a CI run's head branch | Push and CI triggers |
+| **Base branches** | The branch the pull request targets | Pull request triggers |
+| **Paths** | The files the change touches | Push and pull request triggers |
+| **Labels** | Labels on the issue or pull request | Issue, pull request, review submitted, and CI triggers |
+| **Authors** | Who opened the issue or pull request | Issue, pull request, and CI triggers |
+| **Assignees** | Who the issue or pull request is assigned to | Issue and pull request triggers |
+| **Mentioned users or teams** | Which user or team is @mentioned | Mention and review submitted triggers |
+| **Reviewers** and **Reviewer teams** | Who review was requested from | Review requested triggers |
+| **Review states** | Whether the review approved, requested changes, or commented | Review submitted triggers |
+| **Workflows** | The GitHub Actions workflow, by name | Workflow run triggers |
+| **Conclusions** | The run's result: success, failure, cancelled, and so on | Check suite and workflow run triggers |
+
+On check suite and workflow run triggers, **Labels** and **Authors** match the pull request linked to the run rather than the run itself.
+
+Use filters to route work precisely. For example, send failed runs of a specific workflow to a CI-repair automation.
+
+## Mention the factory
+
+Handing an issue or pull request to a factory takes two things:
+
+1. **Add the factory's label.** Each factory has one, named `factory:` followed by its [**Foreman name**](/factories/factory-dashboard/#change-factory-settings). For example, a factory whose foreman is named `payments` uses `factory:payments`. Warp creates the label in every connected repository, so it's already in the list.
+2. **Mention or assign @warp-factory**, in the body or in any new comment.
+
+The factory picks up the request and replies in the same thread.
+
+{/* VISUAL: An issue with the factory:<alias> label and an @warp-factory mention -- the two-part mention ritual is easy to miss from prose alone. */}
+
+Both halves matter, because **@warp-factory** is the account every factory listens through. The label is what decides which of your factories answers, so a mention without one doesn't start work.
+
+Only new content counts as a mention. Edits to existing comments, mentions inside code blocks, and mentions from bots are ignored.
+
+You can change what the factory answers to. The handle and the label are the starting filters on its mentions automation: edit them to respond to a different handle, such as your own `@org/team` slug, or remove the label filter so that any mention in the factory's repositories starts work.
+
+## How the factory responds on GitHub
+
+The factory posts progress comments in the originating issue, pull request, or review thread, with links to the run and to any branches or pull requests it creates. Events without a comment surface, such as a push or a workflow run, report their results on the work item instead.
+
+New activity on an issue, pull request, or review thread the factory is already working on continues that work item instead of starting a new one.
+
+Issues and pull requests the factory opens carry its label, the same one you use to mention it. Warp adds the label to each repository you connect and removes it when you disconnect one or delete the factory, so you never create or clean it up by hand. If a label is ever left behind, delete it like any other GitHub label.
+
+Branches and pull requests the factory creates follow the repository's normal rules: branch protection, required reviews, and merge requirements all still apply.
+
+## Permissions
+
+Runs authenticate with the GitHub App installation, not with the account of the person whose activity triggered them:
+
+* **The app installation decides what agents can reach.** Agents get exactly the repositories and permissions the installation grants, so change the installation to change access. [Automation filters](/factories/automation-filters/) only change when work starts.
+* **Anyone who can create matching activity can start work.** The event author doesn't need to be a Warp team member. Use author, label, and branch filters to control what starts runs.
+
+For the full credential model, see [Permissions and identity](/platform/integrations/github/#permissions-and-identity) on the GitHub integration page.
+
+## Factory-definition pull request checks
+
+If the factory's [definition is managed as code](/factories/factory-as-code/) in a GitHub repository, Warp reviews changes to it the way CI reviews code. Open a pull request that touches the definition files and a **warp/factory-config** check runs: it passes with a summary of what the change does, or fails with the specific fields to fix. Require the check in branch protection to stop an invalid definition from merging.
+
+These checks validate the factory's configuration files only. They don't create work items, and pull requests that don't touch the factory directory don't get the check.
+
+## Troubleshooting
+
+### A GitHub event doesn't start work
+
+Confirm the app installation covers the event's repository, the repository belongs to the factory, and the automation includes that event. Then check each filter; a label, author, branch, workflow, conclusion, or state mismatch prevents routing.
+
+### Filter options don't load
+
+Select a repository first. If the automation editor shows **Connect GitHub**, complete the account connection and retry. You can enter a value manually when suggestions are unavailable.
+
+### An agent can't push a branch or open a pull request
+
+Check that the installation still covers the target repository and grants the required write permissions. Automation filters don't affect GitHub authorization.
+
+### A factory-definition check doesn't appear
+
+The check runs only for factories whose [definition is managed as code](/factories/factory-as-code/) in a GitHub repository. Confirm the pull request targets the branch the factory runs from, that it changes files in the factory's definition directory, and that the GitHub App covers the repository.

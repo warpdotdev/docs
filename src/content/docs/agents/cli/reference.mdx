@@ -32,7 +32,7 @@ warp --api-key YOUR_API_KEY
 Command-line arguments can be captured in shell history and process listings. Prefer the `WARP_API_KEY` environment variable, ideally populated from a secret manager.
 :::
 
-Create a key in the Warp app under **Settings** > **Cloud platform** > **Oz Cloud API Keys**. See the [API keys reference](/reference/cli/api-keys/) for details.
+Create a key in the Warp app under **Settings** > **Cloud platform** > **API keys**. See the [API keys reference](/reference/cli/api-keys/) for details.
 
 ### `--auto-approve`
 
@@ -124,6 +124,7 @@ Type `/` at the start of the input to open the slash command menu. Commands that
 | `/auto-approve` | | Toggle auto-approve for agent actions |
 | `/clear` | `[prompt]` | Clear the transcript and start a new conversation |
 | `/compact` | `[instructions]` | Free up context by summarizing the conversation history |
+| `/connect-grok` | | Connect an X Premium or SuperGrok subscription for Grok models |
 | `/conversations` | | Open conversation history |
 | `/copy-debugging-id` | | Copy the current conversation's debugging information to the clipboard |
 | `/cost` | | Toggle per-response credit usage details |
@@ -131,19 +132,32 @@ Type `/` at the start of the input to open the slash command menu. Commands that
 | `/exit` | | Exit the CLI |
 | `/export-to-clipboard` | | Export the current conversation to the clipboard as Markdown |
 | `/export-to-file` | `[filename]` | Export the current conversation to a Markdown file |
+| `/fork` | `[prompt]` | Fork the current conversation into a copy, optionally sending a prompt in the copy |
 | `/handoff` | `[prompt]` | Hand off this conversation to a cloud agent |
 | `/logout` | | Log out of Warp |
+| `/manage-billing` | | Open your team's billing page in the browser |
 | `/mcp` | | View and manage MCP servers |
 | `/model` | | Switch the base agent model |
 | `/natural-language-detection` | | Toggle natural language detection for shell input |
 | `/new` | `[prompt]` | Start a new conversation (alias for `/agent`) |
+| `/orchestrate` | `[task]` | Break a task into subtasks and run them in parallel with multiple agents. See [multi-agent orchestration](/agents/cli/cloud-and-orchestration/#multi-agent-orchestration) |
 | `/plan` | `[task]` | Ask the agent to research and create a plan for a task |
+| `/reset-statusline` | | Restore the statusline to its default items and ordering |
 | `/skills` | | Browse skills in scope and insert one into the input |
+| `/status` | | Show session and account status |
 | `/statusline` | | Configure the statusline |
 | `/theme` | `<auto\|light\|dark>` | Set the color theme |
-| `/version` | | Show the installed version |
+| `/upgrade` | | Open the Warp upgrade page in the browser |
+| `/usage` | | View plan, credit usage, and billing links |
 | `/view-logs` | | Bundle your logs into a zip archive |
+| `/vim-mode` | | Toggle Vim keybindings in the input |
 | `/voice` | | Start voice input |
+
+Some commands appear only when they apply to your account. `/manage-billing` is listed when you administer billing for your team, and opens that team's billing page; it isn't available to members without billing access. `/connect-grok` opens the same subscription row as [`/api-keys`](/agents/cli/models-and-usage/#bring-your-own-api-key) and starts the xAI sign-in directly.
+
+`/status` opens a read-only panel with the installed version, the current conversation's name and ID, the working directory, and the organization and email you're signed in as. Press `Esc` to close it, and include those details when you report a problem.
+
+`/usage` opens a read-only panel with your plan, credit balances and consumption, and links to manage billing or upgrade. See [models and usage](/agents/cli/models-and-usage/#usage-and-cost).
 
 Skills also appear in the same menu under their own names, so you can invoke a skill directly as `/skill-name`. [Customizing the CLI](/agents/cli/configuration/) covers how skills are discovered.
 
@@ -283,7 +297,7 @@ The sign-in attempt was rejected or timed out. The error message in the CLI name
 
 The CLI updates automatically. Installed builds check for updates in the background, download new versions, and apply them the next time you launch `warp`. A running session is never interrupted.
 
-To check which version you're running, use `/version` in a session, or run:
+To check which version you're running, use `/status` in a session, or run:
 
 ```bash
 warp --version

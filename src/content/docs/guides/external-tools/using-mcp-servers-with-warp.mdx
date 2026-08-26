@@ -19,7 +19,7 @@ MCP servers let Warp agents use external tools and data sources through a standa
 Warp supports MCP in two places:
 
 * **Local agents in the Warp app** use MCP servers configured in **Settings** > **Agents** > **MCP servers**, Warp Drive, or file-based config.
-* **Cloud agents** use MCP servers passed through the Oz CLI, agent config files, or Warp-shared MCP server UUIDs.
+* **Cloud agents** use MCP servers passed through the {VARS.WARP_AGENT_CLI}, agent config files, or Warp-shared MCP server UUIDs.
 
 Use this guide to choose the right setup path, then jump to the source docs for exact configuration syntax.
 
@@ -57,8 +57,8 @@ Example workflow:
 1. Create or identify the MCP server the cloud agent should use.
 2. Store required credentials as [Agent Secrets](/platform/secrets/) instead of hardcoding tokens in config files.
 3. Attach the MCP server with `--mcp`, a config file, or a Warp-shared MCP UUID.
-4. Run the cloud agent from the Oz CLI, Slack, Linear, GitHub Actions, a schedule, or the API.
-5. Inspect the run in the [Oz web app](/platform/oz-web-app/) or [Cloud agent session sharing](/platform/viewing-cloud-agent-runs/).
+4. Run the cloud agent from the {VARS.WARP_AGENT_CLI}, Slack, Linear, GitHub Actions, a schedule, or the API.
+5. Inspect the run in the [{VARS.WEB_APP}](/platform/oz-web-app/) or [Cloud agent session sharing](/platform/viewing-cloud-agent-runs/).
 
 For schema and cloud-specific limitations, see [MCP Servers for cloud agents](/platform/mcp/).
 
@@ -68,7 +68,7 @@ Use shared MCP servers when multiple teammates or workflows need the same tool c
 
 For local agents, share the server from the MCP settings page. Warp scrubs sensitive environment values and prompts teammates to provide their own values when they install it.
 
-For cloud agents, reference a Warp-shared MCP server by UUID with the Oz CLI:
+For cloud agents, reference a Warp-shared MCP server by UUID with the {VARS.WARP_AGENT_CLI}:
 
 ```sh
 oz mcp list

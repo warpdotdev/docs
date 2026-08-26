@@ -6,6 +6,7 @@ description: >-
   Set up Codex in Warp with notification support, rich input, code review, and
   more.
 ---
+import { VARS } from '@data/vars';
 
 Codex is OpenAI's open-source coding agent that runs in your terminal. It can write and edit code, execute commands, and navigate your codebase through natural language. For full documentation, see the [Codex GitHub repository](https://github.com/openai/codex).
 
@@ -14,7 +15,7 @@ Warp auto-detects Codex when you run it, giving you access to rich input control
 For installation, authentication, project configuration, and productivity tips, see the [How to set up Codex CLI](/guides/external-tools/how-to-set-up-codex-cli/) guide.
 
 :::note
-Codex is also available as a harness in Oz for cloud orchestration. See [Codex with Oz](/platform/harnesses/codex/).
+Codex is also available as a harness in the {VARS.WARP_AUTOMATION_PLATFORM} for cloud orchestration. See [Codex with the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/codex/).
 :::
 
 ## Setting up notifications
@@ -51,13 +52,13 @@ Codex supports Warp's full set of agent integration features:
 * **Attach code as context** - Select code and send it to the agent as context.
 * **Vertical tabs with agent metadata** - Monitor Codex sessions with status indicators in Warp's tab bar.
 * **Tab Configs** - Save and restore Codex session configurations.
-* **Remote Control** - Share your Codex session with teammates via session sharing.
+* **[Remote Control](/agents/cli-agents/remote-control/)** - Publish your Codex session so you can monitor and steer it from another device.
 
 ## Related pages
 
 * [How to set up Codex CLI](/guides/external-tools/how-to-set-up-codex-cli/) — step-by-step setup guide
 * [Codex in Warp](https://www.warp.dev/agents/codex) — product overview
 * [Third-party CLI agents overview](/agents/cli-agents/overview/) — supported CLI agent integrations
-* [Codex with Oz](/platform/harnesses/codex/) — Codex as a cloud harness
+* [Codex with the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/codex/) — Codex as a cloud harness
 * [Claude Code](/agents/cli-agents/claude-code/) — Claude Code in Warp
 * [OpenCode](/agents/cli-agents/opencode/) — OpenCode in Warp

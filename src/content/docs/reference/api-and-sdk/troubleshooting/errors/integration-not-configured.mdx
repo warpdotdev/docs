@@ -4,6 +4,7 @@ description: >-
   The integration's setup is incomplete. Visit the setup URL to finish
   configuring the integration.
 ---
+import { VARS } from '@data/vars';
 
 The `integration_not_configured` error occurs when a task requires an integration whose setup has not been completed (for example, missing OAuth tokens or unfinished configuration steps).
 
@@ -55,7 +56,7 @@ This error includes extra fields beyond the standard response format:
 
 ## How to resolve
 
-1. Visit the `setup_url` provided in the response metadata (or go to the [Oz integrations page](https://oz.warp.dev/integrations)).
+1. Visit the `setup_url` provided in the response metadata (or go to the <a href={`${VARS.WEB_APP_URL}/integrations`}>{VARS.WARP_AUTOMATION_PLATFORM} integrations page</a>).
 2. Complete all setup steps for the integration.
 3. Retry the triggering event or task.
 

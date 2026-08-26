@@ -27,32 +27,20 @@ To get a working setup in a few minutes, follow the [quickstart](/agents/cli/qui
 * **[Model choice](/agents/cli/models-and-usage/)** - Pick a model per conversation, bring your own provider API keys, and track credit usage.
 * **[Customization](/agents/cli/configuration/)** - Configure themes, the statusline, and the start screen through a local settings file.
 
-## How it relates to the Warp app and Oz
+## How it relates to the Warp app and cloud agents
 
 * **The Warp app** - The CLI runs the same [Warp Agent](/platform/harnesses/warp-agent/) harness as the Warp app, so your account, plan, model access, rules, and skills work the same in both. The CLI doesn't require the Warp app to be installed.
-* **{VARS.WARP_AUTOMATION_PLATFORM}** - {VARS.WARP_AUTOMATION_PLATFORM} is Warp's programmable platform for running and coordinating agents at scale. The CLI connects to the same platform. Conversations sync to your Warp account, and you can hand work off to [cloud agents](/agents/cli/cloud-and-orchestration/) or continue a cloud run from your terminal.
+* **{VARS.WARP_AUTOMATION_PLATFORM}** - The {VARS.WARP_AUTOMATION_PLATFORM} is Warp's programmable platform for running and coordinating agents at scale. The CLI connects to the same platform. Conversations sync to your Warp account, and you can hand work off to [cloud agents](/agents/cli/cloud-and-orchestration/) or continue a cloud run from your terminal.
 
-## Supported platforms
+## Checking your account, plan, and billing
 
-The CLI runs on:
+The CLI has slash commands for the account details you'd otherwise look up in the Warp app or the {VARS.WEB_APP}.
 
-* **macOS** - Apple Silicon and Intel.
-* **Linux** - x64 and Arm64.
-* **Windows** - x64 and Arm64.
+* **Session and account status** - Run `/status` to open a read-only panel with the installed version, the current conversation's name and ID, the working directory, and the organization and email you're signed in as. Press `Esc` to close it. Include these details when you report a problem.
+* **Upgrade your plan** - Run `/upgrade` to open Warp's upgrade page in your browser.
+* **Manage team billing** - Run `/manage-billing` to open your team's billing page in your browser. The command is listed only when you administer billing for your team.
 
-## Logging in and out
-
-You sign in once, and the CLI stays signed in across sessions.
-
-* **Sign in through your browser** - The first time you run `warp`, the CLI shows a verification link and code and opens the link in your browser. It unlocks automatically once you approve the login. See [logging in](/agents/cli/quickstart/#2-log-in) for the full walkthrough.
-* **Sign in with an API key** - In non-interactive environments such as CI, authenticate with a Warp API key through the `WARP_API_KEY` environment variable or the `--api-key` flag. See [command-line flags](/agents/cli/reference/#command-line-flags).
-* **Sign out** - Run `/logout`. The CLI returns to its login screen and opens Warp's web sign-out page, so your browser session is signed out too.
-
-## Automatic updates
-
-The CLI updates automatically. While it runs, it periodically checks for a newer version, downloads it in the background, and stages it without interrupting your session. The staged version takes effect the next time you launch `warp`. When an update is ready, the start screen shows an "update installed, restart to apply" notice next to the version.
-
-To turn off background updates, set `general.autoupdate_enabled` to `false` in the [settings file](/agents/cli/configuration/#the-settings-file). To turn them off for a single launch, set the `WARP_TUI_DISABLE_AUTOUPDATE` environment variable to any value.
+For how usage is metered as you work, see [models and usage](/agents/cli/models-and-usage/#usage-and-cost).
 
 ## Coming from the Warp app
 
@@ -60,7 +48,7 @@ If you already use the Warp app, most of your setup carries over. Rules and skil
 
 ## Next steps
 
-* [Quickstart](/agents/cli/quickstart/) - Install the CLI, log in, and run your first prompt.
+* [Quickstart](/agents/cli/quickstart/) - Install the CLI, log in, run your first prompt, and see the supported platforms.
 * [Agent conversations](/agents/cli/agent-conversations/) - Learn how the transcript, diffs, and approvals work.
 * [Input and shell commands](/agents/cli/input-and-shell-commands/) - Compose prompts and run shell commands from the same input.
 * [Configuration](/agents/cli/configuration/) - Customize the CLI with the settings file.
