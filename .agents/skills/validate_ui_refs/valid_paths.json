@@ -20,8 +20,11 @@
     "Cloud platform": {
       "subpages": [
         "Environments",
-        "Oz Cloud API Keys"
+        "API keys"
       ],
+      "deprecated_subpages": {
+        "Oz Cloud API Keys": "API keys"
+      },
       "source_file": "app/src/settings_view/mod.rs"
     }
   },
@@ -68,7 +71,11 @@
     },
     "Platform": {
       "umbrella": "Cloud platform",
-      "default_subpage": "Oz Cloud API Keys"
+      "default_subpage": "API keys"
+    },
+    "Oz Cloud API Keys": {
+      "umbrella": "Cloud platform",
+      "default_subpage": "API keys"
     }
   },
   "settings_sections": {
@@ -81,11 +88,6 @@
       "display_name": "Account",
       "sub_sections": [],
       "source_file": "app/src/settings_view/mod.rs"
-    },
-    "MCP Servers": {
-      "display_name": "MCP Servers",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mcp_servers_page.rs"
     },
     "Billing and usage": {
       "display_name": "Billing and usage",
@@ -167,30 +169,6 @@
       ],
       "source_file": "app/src/settings_view/warpify_page.rs"
     },
-    "AI": {
-      "display_name": "AI",
-      "sub_sections": [
-        "Usage",
-        "Active AI",
-        "Agents",
-        "Profiles",
-        "Input",
-        "MCP Servers",
-        "Knowledge",
-        "Voice",
-        "Other",
-        "Third party CLI agents",
-        "Agent Attribution",
-        "Experimental",
-        "Cloud Handoff",
-        "Custom Inference",
-        "API Keys",
-        "AWS Bedrock",
-        "Gemini Enterprise",
-        "Custom Routers"
-      ],
-      "source_file": "app/src/settings_view/ai_page.rs"
-    },
     "Warp Agent": {
       "display_name": "Warp Agent",
       "sub_sections": [
@@ -240,14 +218,6 @@
       "source_file": "app/src/settings_view/ai_page.rs",
       "umbrella": "Agents"
     },
-    "Code": {
-      "display_name": "Code",
-      "sub_sections": [
-        "Codebase Indexing",
-        "Code Editor and Review"
-      ],
-      "source_file": "app/src/settings_view/code_page.rs"
-    },
     "Indexing and projects": {
       "display_name": "Indexing and projects",
       "sub_sections": [
@@ -270,10 +240,10 @@
       "source_file": "app/src/settings_view/environments_page.rs",
       "umbrella": "Cloud platform"
     },
-    "Oz Cloud API Keys": {
-      "display_name": "Oz Cloud API Keys",
+    "API keys": {
+      "display_name": "API keys",
       "sub_sections": [],
-      "source_file": "app/src/settings_view/platform_page.rs",
+      "source_file": "app/src/settings_view/mod.rs",
       "umbrella": "Cloud platform"
     }
   },
@@ -1553,5 +1523,5 @@
       "description": "Toggle Maximize Code Review Panel"
     }
   ],
-  "generated_at": "2026-08-12T00:53:01.810914+00:00"
+  "generated_at": "2026-08-26T17:34:04.788992+00:00"
 }

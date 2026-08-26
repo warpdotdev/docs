@@ -1,0 +1,11 @@
+---
+/**
+ * Content for agent-readable Markdown that should not render in the docs UI.
+ * This is a presentation boundary, not an access-control boundary: the inert
+ * template remains visible in the page's HTML source.
+ */
+---
+
+<template data-agent-only data-pagefind-ignore>
+  <slot />
+</template>
