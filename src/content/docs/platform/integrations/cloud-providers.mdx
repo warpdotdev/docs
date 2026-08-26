@@ -151,7 +151,7 @@ AWS authentication mechanism. The following environment variables are set while 
 
 ## GCP
 
-### Step 1: Create a workload identity pool and provider
+### Step 1: Create a Workload Identity Pool and Provider
 
 The {VARS.WARP_AUTOMATION_PLATFORM} GCP integration uses [Workload Identity Federation](https://docs.cloud.google.com/iam/docs/workload-identity-federation).
 You will need to configure a pool and provider to trust OIDC tokens produced by the {VARS.WARP_AUTOMATION_PLATFORM}.
@@ -209,7 +209,7 @@ gcloud projects add-iam-policy-binding <project-id> \
 See [Workload Identity Federation principal types](https://docs.cloud.google.com/iam/docs/workload-identity-federation#principal-types)
 for the full syntax supported.
 
-### Step 3: Enable workload identity federation in your cloud agent environment
+### Step 3: Enable Workload Identity Federation in your cloud agent environment
 
 Finally, configure the cloud agent environment to use your Workload Identity Federation provider.
 

@@ -43,6 +43,13 @@ PROPER_FEATURE_NAMES = {
     "Computer Use", "Full Terminal Use", "Zero Data Retention", "Single Sign-On",
     "Blocks", "Block", "Tab Configs", "Tab Config",
     "Launch Configuration", "Launch Configurations",
+    # Warp's own feature name.
+    "Bring Your Own LLM",
+    # Third-party/technical proper nouns. style_lint's proper-noun protection
+    # is scoped to Warp's own product names by design; these are narrow,
+    # named exceptions rather than a generalization of that scope.
+    "Bitbucket Data Center", "Workload Identity Pool and Provider",
+    "Workload Identity Federation", "Direct backend",
 }
 
 # Terminology: wrong → right (case-sensitive checks)
@@ -840,6 +847,33 @@ def check_callout_syntax(lines: List[str], filepath: str) -> List[Issue]:
     return issues
 
 
+def _word_bounded_pattern(term: str) -> re.Pattern:
+    """Compile a case-sensitive pattern that only matches `term` as a whole
+    word/phrase, not as a substring of a longer token.
+
+    A plain `str.find` (the previous implementation) matched "agent mode"
+    inside "agent model", since "agent mode" is literally a substring of
+    "agent model" -- and corrupted it into "Agent Model" on `--fix`. A plain
+    `\\b...\\b` regex doesn't fully fix this either: `\\b` requires a
+    transition to/from a word character, which fails for terms ending in
+    punctuation (e.g. "A.I." followed by a space or end of line has no such
+    transition). Lookarounds that only check the adjacent character is not a
+    word character work for both cases regardless of the term's own leading
+    or trailing characters.
+    """
+    return re.compile(r"(?<!\w)" + re.escape(term) + r"(?!\w)")
+
+
+_PRODUCT_CASING_PATTERNS = [
+    (_word_bounded_pattern(wrong), wrong, right, note)
+    for wrong, (right, note) in PRODUCT_CASING.items()
+]
+_EXTERNAL_CASING_PATTERNS = [
+    (_word_bounded_pattern(wrong), wrong, right, note)
+    for wrong, (right, note) in EXTERNAL_CASING.items()
+]
+
+
 def check_product_casing(lines: List[str], filepath: str) -> List[Issue]:
     """Check for incorrect product name casing."""
     issues = []
@@ -847,26 +881,21 @@ def check_product_casing(lines: List[str], filepath: str) -> List[Issue]:
         # Skip code blocks
         if line.strip().startswith("```") or line.strip().startswith("`"):
             continue
-        for wrong, (right, note) in PRODUCT_CASING.items():
-            # Case-sensitive search
-            idx = line.find(wrong)
-            while idx != -1:
+        for pattern, wrong, right, note in _PRODUCT_CASING_PATTERNS:
+            for _ in pattern.finditer(line):
                 issues.append(Issue(
                     filepath, i, "product-casing",
                     f"\"{wrong}\" → \"{right}\" ({note})",
                     "warning", fixable=True, fix_from=wrong, fix_to=right,
                 ))
-                idx = line.find(wrong, idx + len(wrong))
 
-        for wrong, (right, note) in EXTERNAL_CASING.items():
-            idx = line.find(wrong)
-            while idx != -1:
+        for pattern, wrong, right, note in _EXTERNAL_CASING_PATTERNS:
+            for _ in pattern.finditer(line):
                 issues.append(Issue(
                     filepath, i, "external-casing",
                     f"\"{wrong}\" → \"{right}\" ({note})",
                     "warning", fixable=True, fix_from=wrong, fix_to=right,
                 ))
-                idx = line.find(wrong, idx + len(wrong))
     return issues
 
 

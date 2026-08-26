@@ -75,12 +75,17 @@ This skill checks broader formatting and terminology. The `validate_ui_refs` ski
 
 ## Tests
 
-Two checks have regression suites, because both are narrow rules where the hard
-part is not firing on legitimate text. Run them after touching either check:
+Several checks have regression suites, because each is a narrow rule where the
+hard part is not firing on legitimate text. Run the relevant one(s) after
+touching the corresponding check:
 
 ```bash
 python3 .agents/skills/style_lint/test_platform_determiner.py
 python3 .agents/skills/style_lint/test_factory_proper_noun.py
+python3 .agents/skills/style_lint/test_hardcoded_var_exemptions.py
+python3 .agents/skills/style_lint/test_header_case_sentence_boundary.py
+python3 .agents/skills/style_lint/test_product_casing_word_boundary.py
+python3 .agents/skills/style_lint/test_proper_feature_names_third_party.py
 ```
 
 ## Dependencies

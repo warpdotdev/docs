@@ -285,6 +285,9 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 - **Automation Platform** — Warp's cloud agent platform, covering environments, integrations, orchestration, self-hosting, and the Agent API/SDK. Renamed from "Oz" on 2026-08-18.
   *Usage note:* See "Automation Platform terminology" above for the full entry and the article rule. Always write it as `{VARS.WARP_AUTOMATION_PLATFORM}` / `{{WARP_AUTOMATION_PLATFORM}}`, never as a literal string, so a future rename stays a one-line change.
 
+- **Direct backend** — The self-hosted worker backend that runs cloud agent tasks directly on the worker host, without Docker or Kubernetes. One of three self-hosting backends alongside the Docker and Kubernetes backends.
+  *Usage note:* Capitalize "Direct" as part of the compound proper term, including in headings ("Start the worker with the Direct backend"); lowercase "backend" as the common noun.
+
 ## Warp Factories terminology
 
 ### The product/instance rule
@@ -342,6 +345,7 @@ Docs match the screen; the fix belongs in the app.
 - **macOS** — not "Mac OS" or "Mac"
 - **Zero Data Retention (ZDR)** — Warp's agreements with contracted LLM providers not to train on or retain customer data. Capitalize as a proper term, including in headings ("Zero Data Retention (ZDR)"); keep the "(ZDR)" acronym on first mention in a section.
 - **SSO (Single Sign-On)** — Authentication through an organization's identity provider (Okta, Microsoft Entra ID, Google Workspace, or any SAML 2.0/OIDC provider). Always capitalize the acronym "SSO"; capitalize "Single Sign-On" when spelled out as the feature name.
+- **Bring Your Own LLM (BYOLLM)** — Warp Enterprise's routing of agent inference through a customer's own cloud infrastructure (AWS Bedrock or Google Cloud via Gemini Enterprise). Capitalize as a proper feature name, including in headings; keep the "(BYOLLM)" acronym on first mention in a section. Distinct from BYOK (Bring Your Own API Key), a self-serve, user-level feature.
 
 ## Branded and informal terms
 
@@ -385,3 +389,6 @@ Docs match the screen; the fix belongs in the app.
 - **GitHub App** — GitHub's installation/auth mechanism used for repo access in integrations
 - **Linear** — capitalize
 - **Slack** — capitalize
+- **Bitbucket Data Center** — Atlassian's official self-hosted Bitbucket edition name (alongside Bitbucket Server and Bitbucket Cloud). Capitalize all three words, including in headings ("Bitbucket Data Center / Server").
+- **Workload Identity Pool and Provider** — GCP's IAM resources for federating external identities. Capitalize as GCP's official term, including in headings.
+- **Workload Identity Federation** — GCP's mechanism for granting external identities access without a long-lived service account key. Capitalize as GCP's official term, including in headings.
