@@ -41,8 +41,9 @@ The CLI loads the same router definitions as the Warp app. These are YAML files 
 
 ## Usage and cost
 
-The CLI shows usage at two levels:
+The CLI shows usage at three levels:
 
+* **Account usage** - Run `/usage` to open a read-only panel with your plan, credit balances and consumption, and links to manage billing or upgrade. Press `Esc` to close it. Unlike `/cost`, this is account-level, not conversation-level.
 * **Conversation total** - Once a conversation has reported any usage, the [statusline](/agents/cli/configuration/#statusline) shows its accumulated credits (e.g., `2.5 credits`). Click the entry to switch between credits and the equivalent provider cost in dollars. Your choice persists across sessions.
 * **Per-response details** - Run `/cost` to toggle a summary row under the latest response showing how long it took and how many credits it spent (e.g., `12s • 1.2 credits`). The summary appears once the response finishes.
 

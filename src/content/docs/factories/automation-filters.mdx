@@ -70,6 +70,26 @@ Review the labeled issue and decide the next required stage.
 
 The same matching rules apply: every key must match, any listed value within a key matches, and an omitted key matches everything. Each integration guide shows the keys its provider accepts.
 
+For example, this automation from [`04-code-review-only`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository scopes reviews to one base branch and excludes work-in-progress PRs with a `not_in` list:
+
+```markdown title="automations/pr-opened/automation.md"
+---
+triggers:
+  - provider: github
+    event: pull_request_opened
+    filter:
+      repos: [acme/api-service]
+      base_branches: [main]
+      labels:
+        not_in: [wip]
+---
+A pull request was opened against the default branch. If it is a draft,
+stop silently. Otherwise review it and post your findings and verdict on
+the PR.
+```
+
+For more automations that use these filters, including branches, paths, workflow conclusions, and emoji reactions, see [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations).
+
 ## Troubleshooting
 
 * **A matching event doesn't start work** - Confirm the automation is enabled and the trigger's event type matches, then check every filter; a single mismatch prevents routing. Each integration guide's troubleshooting section covers provider-specific causes, such as app installation coverage.
@@ -79,4 +99,5 @@ The same matching rules apply: every key must match, any listed value within a k
 * [**Connect your factory**](/factories/connect-your-factory/) - Choose the sources that route work into the factory.
 * [Slack](/factories/integrations/slack/), [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), [Linear](/factories/integrations/linear/), and [Jira](/factories/integrations/jira/) integration guides - Per-source setup, events, and filter details.
 * [**Definitions as code**](/factories/factory-as-code/) - Manage automations, triggers, and filters as version-controlled files.
+* [**warp-factory-examples**](https://github.com/warpdotdev/warp-factory-examples) - Complete factory definitions with example automations and filters.
 * [**Factory dashboard**](/factories/factory-dashboard/) - Create and edit automations in the factory's **Automations** view.

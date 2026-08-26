@@ -33,6 +33,23 @@ Use a factory automation to start work from Slack activity automatically, withou
 - **Reaction added** - Filter by conversations, reactors, keywords, emoji, and reacted-message authors.
 - **Member joined channel** - Filter by conversations and members.
 
+The reaction-intake automation in [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository files a GitHub issue when someone reacts with `:ticket:`:
+
+```markdown title="automations/slack-reaction-intake/automation.md"
+---
+triggers:
+  - provider: slack
+    event: reaction_added
+    filter:
+      channels: [your-intake-channel]
+      emojis: [ticket]
+---
+Someone reacted with :ticket: to a Slack message. Read the thread, file a
+GitHub issue that captures the request with a link back to the thread, and
+reply in the thread with the issue link. Do not start the work; this
+automation only files it.
+```
+
 The **Conversations** picker only shows conversations the factory's app has joined. If a channel is missing, invite the app to it; for direct messages, send the app a DM first. Then refresh the automation editor.
 
 A single Slack message can match more than one automation. For example, if one automation triggers on **App mentioned** and another triggers on **Message posted in channel** in the same channel, a channel message that mentions the app starts two separate runs, one for each automation. To avoid duplicate runs, don't point both triggers at the same channel.

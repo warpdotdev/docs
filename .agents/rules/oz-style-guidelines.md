@@ -144,6 +144,8 @@ Avoid framing Warp as:
 
 ## Voice and Style
 
+The authoritative tone rules live in the "Voice & tone" section of the docs style guide (`AGENTS.md`), including the lists of AI-generated-sounding words and structural patterns to avoid. The points below cover positioning-specific guidance.
+
 ### Do's:
 - **Talk about outcomes, not hype** - Show what changes when agents are reliable and orchestrated
 - **Emphasize control and trust** - Warp augments developers, doesn't replace them
@@ -159,6 +161,10 @@ Avoid framing Warp as:
 - Don't use corporate or disconnected language
 - Skip theoretical posts without practical value
 - Don't list features without context or problem-solving
+- Don't use AI-slop buzzwords ("seamless," "powerful," "robust," "leverage," "streamline"): name the specific capability instead
+- Don't open pages with meta-text ("This page covers...") or narrate the page's structure
+- Don't document internal architecture (orchestrators, control planes, lifecycle states): describe the user-visible model the reader acts on
+- Don't stack an em dash and a colon in the same sentence: pick one, or split into two direct sentences
 
 ## Writing Guidelines
 
@@ -172,9 +178,11 @@ Avoid framing Warp as:
 - Descriptive text and captions end in periods
 
 ### Preferred Phrases
-- ✅ "Ask Oz to..."
-- ✅ "Oz can help you..."
-- ✅ "What would you like Oz to do?"
+- ✅ "Ask the agent to..."
+- ✅ "Run an agent on the Automation Platform"
+- ✅ "The Automation Platform can run this on a schedule"
+- ❌ "Ask Oz to..." (stale: Oz was renamed to the Automation Platform on 2026-08-18)
+- ❌ "Ask the Automation Platform to..." (you ask an agent, not a platform)
 
 ## Problem Framing
 
