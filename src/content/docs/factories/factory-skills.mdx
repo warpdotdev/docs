@@ -15,7 +15,7 @@ Warp Factories is in **Early Access** and available to a limited set of teams. [
 
 ## Factory-wide and per-agent skills
 
-A skill is a directory containing a `SKILL.md`, not a configuration key, so it follows the factory's [definition](/factories/factory-as-code/) rather than an agent's settings. Where you place that directory decides who can use it:
+A skill is a directory containing a `SKILL.md`. It's part of the factory's [definition](/factories/factory-as-code/), not an agent's settings. Where you place the directory decides who can use it:
 
 ```text
 skills/
@@ -50,9 +50,9 @@ Add a custom skill when a default agent needs to do something the built-in basel
 * Enforcing a specific test, lint, or validation command before a change is considered complete.
 * Following a runbook for a category of incident or request your triage agent sees repeatedly.
 * Applying a security or compliance checklist during review that goes beyond general code quality.
-* Teaching a custom agent (one you've added beyond the defaults) how to do its job at all, since a custom agent has no built-in skills of its own.
+* Teaching a custom agent its job. Custom agents have no built-in skills.
 
-A skill changes what an agent knows how to do, not what it can reach. Scoping what an agent can access is a [secrets](/platform/secrets/) and [MCP server](/platform/mcp/) configuration question, covered in [factory agents](/factories/factory-agents/#configure-agent-behavior) and [infrastructure and security](/factories/infrastructure-and-security/#credential-boundaries).
+A skill changes what an agent knows how to do, not what it can reach. To scope access, configure the agent's [secrets](/platform/secrets/) and [MCP servers](/platform/mcp/) — see [factory agents](/factories/factory-agents/#configure-agent-behavior) and [infrastructure and security](/factories/infrastructure-and-security/#credential-boundaries).
 
 ## Add or edit a skill
 
