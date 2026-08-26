@@ -105,7 +105,7 @@ For cloud agents, choose one of these paths:
 Cloud agents run away from your desktop. Any secrets required by MCP tools should be available in the cloud run through [Agent Secrets](/platform/secrets/) or the execution environment, not only in your local shell.
 
 :::caution
-A cloud agent can't complete a browser-based OAuth login mid-run, so a raw `url` MCP config that requires OAuth isn't supported directly. Set it up as a managed MCP installation instead: authorize it once from the [{VARS.WEB_APP}](/platform/oz-web-app/#integrations) **Integrations** page, then reference the installation by `warp_id`. See [OAuth authentication](/platform/mcp/#oauth-authentication) for the setup steps.
+A raw `url` MCP config that requires OAuth isn't supported for cloud agents — they can't complete a browser login mid-run. Authorize it once as a managed MCP installation from the [{VARS.WEB_APP}](/platform/oz-web-app/#integrations) **Integrations** page, then reference it by `warp_id`. See [OAuth authentication](/platform/mcp/#oauth-authentication) for the setup steps.
 :::
 
 ## Example tools MCP can connect

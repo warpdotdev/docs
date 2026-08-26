@@ -112,23 +112,23 @@ oz agent run-cloud --environment <ENV_ID> -f my-agent-config.json --prompt "Chec
 
 ## OAuth authentication
 
-Cloud agents support OAuth-protected MCP servers, but only through a **managed MCP installation** — not a raw `url` config. An unattended cloud run can't complete the interactive browser login a direct OAuth handshake needs, so authorization has to happen ahead of time instead.
+Cloud agents support OAuth-protected MCP servers through a **managed MCP installation** — a cloud run can't complete an interactive browser login, so authorization happens ahead of time instead.
 
 To use an OAuth-gated server with a cloud agent:
 
 1. In the [{VARS.WEB_APP}](/platform/oz-web-app/#integrations), open **Integrations** and add the server as a managed MCP server.
-2. Authorize it once. Warp completes the OAuth flow in a browser and stores the resulting credentials.
+2. Authorize it once. Warp completes the OAuth flow in a browser and stores the credentials.
 3. Reference the installation's UUID as `warp_id` in your `--mcp` flag or agent config, the same way you'd reference any Warp-shared server.
 
-Cloud agent runs use the stored credentials automatically — no browser interaction happens during the run. This is the supported path for hosted OAuth servers such as Figma's remote MCP server.
+Cloud agent runs then use the stored credentials automatically, with no browser interaction. This is the supported path for hosted OAuth servers such as Figma's remote MCP server.
 
 ## Limitations
 
 :::caution
-A direct `url` MCP server that requires OAuth and has no `Authorization` header can't be used as-is by cloud agents. Set it up as a [managed MCP installation](#oauth-authentication) first so authorization happens ahead of time, then reference it by `warp_id`.
+A direct `url` MCP server that requires OAuth and has no `Authorization` header can't be used by cloud agents. Set it up as a [managed MCP installation](#oauth-authentication) instead, then reference it by `warp_id`.
 :::
 
-Token- or header-based authentication on a `url` server, `env`-based secrets on a `command` server, and `warp_id` references to a Warp-shared or managed server all work without any additional setup.
+Token- or header-based authentication on a `url` server, `env`-based secrets on a `command` server, and `warp_id` references to a Warp-shared or managed server all work without additional setup.
 
 ## Learn more
 
