@@ -81,6 +81,12 @@ To start a new run:
 
 **Quick run** runs as your own user. A saved agent uses its saved defaults, and your prompt adds context for this particular execution.
 
+### Artifact media pages
+
+A screenshot or video recording an agent captured also has its own page at `/artifacts/<artifact-uid>`, showing that single capture with its description. Agents link to these pages when they attach captures to a pull request or share them in Slack, an issue comment, or a chat reply, so a reviewer can open one capture without opening the whole run.
+
+Access follows the artifact: private captures require signing in with an account that can access the run, while captures your team has published for embedding open without signing in. See [Screenshots and videos in pull requests](/agents/capabilities/computer-use/artifacts-in-prs/) for the team setting that controls this.
+
 ### Inspecting orchestrated runs
 
 The {VARS.WEB_APP} renders [multi-agent orchestrations](/platform/orchestration/) as nested rows on the **Runs** page, so you can follow parent and child execution together.
