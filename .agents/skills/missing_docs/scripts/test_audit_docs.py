@@ -223,5 +223,131 @@ class TestGatedLogic(unittest.TestCase):
         self.assertEqual(gated_findings[0]["entry"], "oz bad")
 
 
+class TestChangelogTriage(unittest.TestCase):
+    """Regression cases for the drift-watch triage baseline and section guard.
+
+    All three failures these cover are silent: the run exits 0 and reports
+    nothing, which is indistinguishable from "nothing shipped".
+    """
+
+    ENTRY = (
+        "### 2099.01.02 (v0.2099.01.02.00.00)\n\n"
+        "**New features**\n\n"
+        "* A tracked bullet.\n\n"
+        "**Automation Platform updates**\n\n"
+        "* A bullet under the post-rename platform heading.\n\n"
+        "**Bug fixes**\n\n"
+        "* Deliberately untracked.\n\n"
+        "**Sparkles**\n\n"
+        "* A bullet under a heading the parser has never seen.\n"
+    )
+
+    def _entries(self, text):
+        with tempfile.TemporaryDirectory() as d:
+            changelog = Path(d) / "src" / "content" / "docs" / "changelog"
+            changelog.mkdir(parents=True)
+            (changelog / "2099.mdx").write_text(text, encoding="utf-8")
+            return audit_docs.parse_changelog_entries(Path(d))
+
+    def test_normalize_release_version(self):
+        """The marker and the snapshot store versions in different shapes."""
+        self.assertEqual(
+            audit_docs.normalize_release_version("v0.2026.08.18.02.52.stable_00"),
+            "2026.08.18")
+        self.assertEqual(
+            audit_docs.normalize_release_version("2026.08.19"), "2026.08.19")
+        self.assertIsNone(audit_docs.normalize_release_version(None))
+        self.assertIsNone(audit_docs.normalize_release_version("not-a-version"))
+
+    def test_baseline_uses_the_earlier_marker(self):
+        """A snapshot refresh must not skip a release that was never triaged.
+
+        Bookkeeping PRs regenerate surface_snapshot.json, advancing its
+        changelog pointer without triaging anything. Taking the snapshot alone
+        as the baseline drops every entry in between.
+        """
+        self.assertEqual(
+            audit_docs.changelog_review_baseline(
+                "2026.08.19", "v0.2026.08.18.02.52.stable_00"),
+            "2026.08.18")
+        # Either side missing falls back to the other rather than to "all seen".
+        self.assertEqual(
+            audit_docs.changelog_review_baseline("2026.08.19", None), "2026.08.19")
+        self.assertEqual(
+            audit_docs.changelog_review_baseline(None, "v0.2026.08.18.02.52.stable_00"),
+            "2026.08.18")
+        # No markers at all means nothing has been triaged; review everything.
+        self.assertIsNone(audit_docs.changelog_review_baseline(None, None))
+
+    def test_desynced_markers_still_surface_the_release(self):
+        """End to end: the snapshot ahead of the marker must not hide bullets."""
+        entries = self._entries(self.ENTRY)
+        ahead = audit_docs.changelog_review_findings(entries, "2099.01.02")
+        self.assertEqual(ahead, [], "snapshot-only baseline hides the entry")
+        recovered = audit_docs.changelog_review_findings(
+            entries, "2099.01.02", "2099.01.01")
+        self.assertEqual(len(recovered), 2, recovered)
+
+    def test_tracked_untracked_and_unknown_sections(self):
+        entry = self._entries(self.ENTRY)[0]
+        categories = sorted(i["category"] for i in entry["items"])
+        self.assertEqual(categories, ["automation platform updates", "new features"])
+        # Bug fixes are skipped on purpose, so they must not read as a rename.
+        self.assertEqual(entry["unknown_sections"], ["sparkles"])
+
+    def test_unknown_section_guard_ignores_already_triaged_history(self):
+        """Old launch posts use prose headings; policing them fails every run."""
+        entries = self._entries(self.ENTRY)
+        self.assertEqual(
+            audit_docs.unreviewed_unknown_sections(entries, "2099.01.02"), [],
+            "entries at or below the baseline are already triaged")
+        self.assertEqual(
+            audit_docs.unreviewed_unknown_sections(entries, "2099.01.01"),
+            ["sparkles"],
+            "an unrecognized heading in a pending entry must fail loud")
+
+    def test_marker_reader_survives_every_bad_shape(self):
+        """A malformed marker must degrade to "never triaged", never raise.
+
+        Raising here aborts diff-mode triage entirely, which is a worse failure
+        than the desync this reader exists to fix. Valid JSON of the wrong
+        top-level type is the case that bites: `[]` reaches `.get` and throws.
+        """
+        cases = {
+            "list": "[]",
+            "bare string": '"v0.2026.08.18.02.52.stable_00"',
+            "number": "42",
+            "null": "null",
+            "truncated json": '{"last_processed_version":',
+            "empty file": "",
+            "object, wrong key": '{"version": "v0.2026.08.18.02.52.stable_00"}',
+        }
+        for label, payload in cases.items():
+            with self.subTest(shape=label), tempfile.TemporaryDirectory() as d:
+                refs = Path(d)
+                (refs / "last_release_processed.json").write_text(
+                    payload, encoding="utf-8")
+                self.assertIsNone(
+                    audit_docs.read_last_processed_release(
+                        refs / "surface_snapshot.json"),
+                    f"{label} marker should fall back to None")
+
+        # A missing marker is the ordinary first-run case, not an error.
+        with tempfile.TemporaryDirectory() as d:
+            self.assertIsNone(audit_docs.read_last_processed_release(
+                Path(d) / "surface_snapshot.json"))
+
+        # The well-formed case still reads through.
+        with tempfile.TemporaryDirectory() as d:
+            refs = Path(d)
+            (refs / "last_release_processed.json").write_text(
+                '{"last_processed_version": "v0.2026.08.18.02.52.stable_00"}',
+                encoding="utf-8")
+            self.assertEqual(
+                audit_docs.read_last_processed_release(
+                    refs / "surface_snapshot.json"),
+                "2026.08.18")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

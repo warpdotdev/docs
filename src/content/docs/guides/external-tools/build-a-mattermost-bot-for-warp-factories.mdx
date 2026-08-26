@@ -1,0 +1,172 @@
+---
+title: Build a Mattermost bot for Warp Factories
+description: >-
+  Build a Mattermost bot that discovers a Warp factory by name, dispatches
+  tasks to it, and continues the conversation from replies in a thread.
+sidebar:
+  label: "Build a Mattermost bot for Warp Factories"
+---
+import { VARS } from '@data/vars';
+
+Build a Mattermost bot that sends work to a [Warp factory](/factories/) and posts progress back into the thread where it started, the same experience Warp's own [Slack integration](/factories/integrations/slack/) gives teams that use Slack. Warp doesn't ship a Mattermost integration directly, so this guide uses the [factory API](/factories/factory-api/) to build the equivalent yourself. It takes about 20 minutes if you already have a Mattermost bot account and a factory set up.
+
+## Prerequisites
+
+* **A Warp Factories factory** - [Set up a factory](/factories/quickstart/) before starting; this guide dispatches work to an existing factory rather than creating one.
+* **A Warp API key** - Create an [agent API key](/reference/cli/api-keys/#personal-vs-agent-keys) rather than a personal key, so the bot's requests aren't tied to your individual account.
+* **A Mattermost bot account and access token** - Create one from your Mattermost System Console under **Integrations** > **Bot Accounts**, and generate a personal access token for it. Mattermost's own [bot accounts documentation](https://developers.mattermost.com/integrate/reference/bot-accounts/) covers the exact steps, since they vary by Mattermost version and hosting setup.
+* **The {VARS.API_SDK_NAME} Python SDK** - Install it with `pip install oz-agent-sdk`. If you're working in another language, the [factory API page](/factories/factory-api/) shows the equivalent REST calls.
+
+## 1. Store your credentials
+
+Export your Warp API key, Mattermost bot token, and a webhook token as environment variables so none of them end up hardcoded in your bot's source. You'll generate the webhook token in the next step:
+
+```bash
+export WARP_API_KEY=YOUR_WARP_API_KEY
+export MATTERMOST_BOT_TOKEN=YOUR_MATTERMOST_BOT_TOKEN
+export MATTERMOST_WEBHOOK_TOKEN=YOUR_MATTERMOST_WEBHOOK_TOKEN
+export MATTERMOST_URL=https://YOUR_MATTERMOST_SERVER
+```
+
+The bot uses the Warp API key to call the factory API, the bot token to post replies back into the channel, and the webhook token to confirm each inbound request actually came from Mattermost.
+
+## 2. Create an outgoing webhook in Mattermost
+
+[Mattermost outgoing webhooks](https://developers.mattermost.com/integrate/webhooks/outgoing/) fire on messages in a specific public channel, a specific trigger word, or both - not on arbitrary @-mentions the way a Slack app receives them. To get mention-like behavior, set the trigger word to something like `factory:` and require your team to lead requests with it.
+
+From **Product menu** > **Integrations** > **Outgoing Webhooks** in Mattermost:
+
+1. Select **Add Outgoing Webhook** and choose the channel to watch. Outgoing webhooks only work in public channels; use a [slash command](https://developers.mattermost.com/integrate/slash-commands/) instead for private channels or DMs.
+2. Set the trigger word (for example `factory:`) and set **Trigger When** to "first word starts with a trigger word."
+3. Set the callback URL to the endpoint your bot serves, and set the content type to `application/x-www-form-urlencoded`.
+4. Save the webhook and copy the generated token into `MATTERMOST_WEBHOOK_TOKEN`.
+
+Mattermost POSTs form-encoded fields for the triggering message: `token`, `channel_id`, `post_id`, `user_name`, `text`, `trigger_word`, and a few others. Your bot must reject any request whose `token` doesn't match, before reading anything else from it - otherwise anyone who finds the URL can dispatch factory runs using your bot's credentials:
+
+```python
+import hmac
+import os
+from flask import Flask, request
+from oz_agent_sdk import OzAPI
+
+app = Flask(__name__)
+client = OzAPI(api_key=os.environ["WARP_API_KEY"])
+WEBHOOK_TOKEN = os.environ["MATTERMOST_WEBHOOK_TOKEN"]
+
+@app.route("/mattermost/dispatch", methods=["POST"])
+def handle_message():
+    if not hmac.compare_digest(request.form.get("token", ""), WEBHOOK_TOKEN):
+        return "", 403
+    # Step 5 fills in the rest of this handler.
+    return "", 200
+```
+
+## 3. Find the target factory
+
+Search for the factory by name instead of hardcoding its UID, so the bot keeps working if the factory is ever recreated:
+
+```python
+def find_factory(name: str):
+    page = client.factories.list(search=name)
+    if not page.factories:
+        raise ValueError(f"No factory found matching '{name}'")
+    return page.factories[0]
+```
+
+If your bot only ever talks to one factory, look it up once at startup and cache the UID instead of searching on every message.
+
+## 4. Read the triggering post's thread
+
+The webhook payload tells you which post triggered it, but not whether that post is a reply. Fetch the post from the Mattermost API to read its `root_id`: empty for a new top-level message, or the ID of the thread's first post for a reply.
+
+```python
+import requests
+
+def get_post(post_id: str) -> dict:
+    resp = requests.get(
+        f"{os.environ['MATTERMOST_URL']}/api/v4/posts/{post_id}",
+        headers={"Authorization": f"Bearer {os.environ['MATTERMOST_BOT_TOKEN']}"},
+    )
+    resp.raise_for_status()
+    return resp.json()
+```
+
+## 5. Dispatch new work or continue an existing run
+
+Keep a lookup of thread root post ID to `run_id`. A message with a known root continues that run with a follow-up; anything else dispatches a new one, keyed by its own post ID so later replies in the same thread find it:
+
+```python
+run_ids_by_thread: dict[str, str] = {}
+
+def dispatch_task(text: str, post_id: str, permalink: str):
+    factory = find_factory("payments")  # or a UID you already have
+    return client.factories.runs.create(
+        factory.uid,
+        prompt=text,
+        ticket_ref=f"mattermost:{post_id}",
+        ticket_url=permalink,
+    )
+
+def send_followup(run_id: str, text: str):
+    client.agent.runs.submit_followup(run_id, message=text)
+
+def post_reply(channel_id: str, root_id: str, message: str):
+    requests.post(
+        f"{os.environ['MATTERMOST_URL']}/api/v4/posts",
+        headers={"Authorization": f"Bearer {os.environ['MATTERMOST_BOT_TOKEN']}"},
+        json={"channel_id": channel_id, "root_id": root_id, "message": message},
+    )
+```
+
+Combine these functions into the handler from step 2:
+
+```python
+@app.route("/mattermost/dispatch", methods=["POST"])
+def handle_message():
+    if not hmac.compare_digest(request.form.get("token", ""), WEBHOOK_TOKEN):
+        return "", 403
+
+    post_id = request.form["post_id"]
+    channel_id = request.form["channel_id"]
+    text = request.form["text"]
+
+    post = get_post(post_id)
+    root_id = post["root_id"] or post_id
+
+    existing_run_id = run_ids_by_thread.get(root_id)
+    if existing_run_id:
+        send_followup(existing_run_id, text)
+    else:
+        permalink = f"{os.environ['MATTERMOST_URL']}/_redirect/pl/{post_id}"
+        run = dispatch_task(text, post_id, permalink)
+        run_ids_by_thread[root_id] = run.run_id
+        post_reply(channel_id, post_id, f"Started work on this: {run.run_url}")
+
+    return "", 200
+```
+
+Use a real database for `run_ids_by_thread` once you move past local testing; an in-memory dictionary loses every mapping when the process restarts.
+
+Post a message starting with your trigger word in the watched channel; the bot replies in the same thread with a link to the new run, which appears on the factory's [Activity view](/factories/factory-dashboard/#track-work-items-on-activity). Reply with the trigger word again, and the bot sends a follow-up instead of starting a new run.
+
+## 6. Post completion updates
+
+Poll the run's state and post a final update to the thread once it leaves an in-progress state:
+
+```python
+def check_and_report(root_id: str, channel_id: str):
+    run_id = run_ids_by_thread[root_id]
+    status = client.agent.runs.retrieve(run_id)
+    if status.state in ("SUCCEEDED", "FAILED", "ERROR", "CANCELLED"):
+        post_reply(channel_id, root_id, f"Run {status.state.lower()}: {status.session_link}")
+```
+
+Call `check_and_report` from a scheduled job (a cron-triggered script, or a lightweight background worker) rather than blocking the webhook handler, since a run can take much longer than an HTTP request should wait.
+
+## Next steps
+
+You've built a Mattermost bot that discovers a factory by name, dispatches tasks with source context attached, and routes replies to the run that's already in progress. From here:
+
+* [Use the factory API](/factories/factory-api/) - The full discover-and-dispatch reference this guide builds on.
+* [Connect your factory](/factories/connect-your-factory/) - Compare this custom integration against Warp's built-in intake sources.
+* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) - Full endpoint reference for run status, follow-ups, and cancellation.

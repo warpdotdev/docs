@@ -9,7 +9,7 @@ Draft a conceptual documentation page that explains what a feature or concept is
 
 ## Workflow
 
-Follow the workflow in `.warp/skills/draft_docs/SKILL.md`, using the **conceptual template** at `.warp/templates/conceptual.md`.
+Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **conceptual template** at `.agents/templates/conceptual.md`.
 
 ## Frontmatter description
 
@@ -29,6 +29,7 @@ These rules are specific to conceptual pages (from the "Drafting by content type
 - **Do NOT include step-by-step procedures** — link to a procedural or quickstart page instead
 - Show real-world scenarios, not just abstract descriptions
 - Title convention: noun or "About [subject]"
+- Apply the tone rules in AGENTS.md → Voice & tone: no marketing buzzwords or meta-openers, and no internal architecture the reader can't act on. Run a deletion-only "Cut again" pass before presenting the draft — a short page is a finished page.
 
 ## Heading case
 

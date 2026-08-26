@@ -12,6 +12,8 @@ Every factory is defined by files: a `factory.yaml` plus directories of agents, 
 
 Definition files are YAML and Markdown. Keys are case-sensitive.
 
+For complete working definitions you can copy, see the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository. Its examples range from a single-repo quickstart to a full issue-to-PR lifecycle.
+
 ## Where the definition lives
 
 You choose who hosts the definition repository when you create a factory:
@@ -22,6 +24,8 @@ You choose who hosts the definition repository when you create a factory:
 Both modes use the same files, so everything on this page applies to either. You can also link a GitHub repository to a Warp-managed factory later.
 
 Definition files describe how the factory is configured, not what it is doing: work items, runs, and metrics live in the web app and are never written to the files.
+
+{/* VISUAL: The Factory definition tab's file browser for a Warp-managed factory -- this reference page has no screenshots. */}
 
 ## Directory structure
 
@@ -47,7 +51,7 @@ skills/
     SKILL.md
 ```
 
-Only `factory.yaml` and at least one agent are required. For a complete working definition, see the [example factory definition](#example-factory-definition) below.
+Only `factory.yaml` and at least one agent are required. For a complete working definition, see the [example factory definition](#example-factory-definition) below. The smallest complete example tree is [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart); the fullest is [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr).
 
 ## `factory.yaml`
 
@@ -174,6 +178,8 @@ harness:
 
 For a third-party harness, `auth` sets where credentials come from: `source: managedSecret` reads the [managed secret](/platform/secrets/) named by `secretName`, and `source: workerEnvironment` reads them from your self-hosted worker's environment (and requires a self-hosted `workerHost`). The `oz` harness supplies its own credentials and takes no `auth` or `reasoningLevel`.
 
+For a definition that runs a different harness per agent, with managed-secret auth for Claude Code and Codex, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness).
+
 ### `agentDefaults.runner`
 
 The name of a runner defined under [`runners/`](#runnersyaml) that provides the compute for runs.
@@ -285,7 +291,7 @@ An automation may also declare `model` or `harness`, `runner`, `environmentId`, 
 
 ## `runners/<name>.yaml`
 
-Optional. Each file defines a runner: the compute a run executes on. The runner's name comes from the file name, and agents and automations select it by that name. See [cloud agent runners](/platform/runners/) for how runners behave.
+Optional. Each file defines a runner: the compute a run executes on. The runner's name comes from the file name, and agents and automations select it by that name. See [cloud agent runners](/platform/runners/) for how runners behave. For three runners selected per agent, including a macOS runner, see [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr).
 
 ```yaml title="runners/linux-build.yaml"
 description: Linux runner for payments builds and tests
@@ -320,6 +326,8 @@ A skill is a directory containing a `SKILL.md`, not a YAML key. Skills under `sk
 ## Example factory definition
 
 A complete, working definition: one repository, a foreman, an automation triggered by a GitHub label, and a Linux runner. `PAYMENTS_ENVIRONMENT_ID` and `SENTRY_MCP_SERVER_ID` stand in for the IDs of an existing environment and MCP server.
+
+The [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository has more definitions like this one: the default agents as files, the full lifecycle with scorers and skills, a harness per agent, single-agent factories for code review and UI verification, and a catalog of common automations.
 
 ```yaml title="factory.yaml"
 schemaVersion: v1alpha1
@@ -393,7 +401,7 @@ agentDefaults:
   workerHost: SELF_HOSTED_WORKER_ID
 ```
 
-Pair `workerHost` with a runner whose `platform` matches the worker's operating system and architecture. See [choose an execution host](/factories/infrastructure-and-security/#choose-an-execution-host) for the full setup, including how to deploy and connect the worker.
+Pair `workerHost` with a runner whose `platform` matches the worker's operating system and architecture. See [choose an execution host](/factories/infrastructure-and-security/#choose-an-execution-host) for the full setup, including how to deploy and connect the worker. For a working definition, see [`07-self-hosted-worker`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/07-self-hosted-worker).
 
 ## Pull request checks for GitHub-backed factories
 
