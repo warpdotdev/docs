@@ -1,12 +1,8 @@
-// One-shot script to render public/assets/og/api.png — the social-card image
-// (1200×630) used by /api's og:image and twitter:image meta tags.
-//
-// Run with: node scripts/generate-og-api.mjs
-//
-// Reads the Warp wordmark from src/assets/warp-logo-dark.svg (no font
-// dependency on the social scraper) so the raster card can't drift from the
-// canonical asset. Sharp rasterizes the SVG to a PNG that's safe to embed
-// everywhere (Facebook/Twitter/LinkedIn don't reliably accept SVG og:image).
+// Renders public/assets/og/api.png (npm run og:api) — the 1200x630 social
+// card used by /api's og:image and twitter:image meta tags. Reads the
+// wordmark from src/assets/warp-logo-dark.svg so the raster card can't drift
+// from the canonical asset, then rasterizes to PNG since scrapers don't
+// reliably accept SVG og:image.
 import { mkdirSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -16,10 +12,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const outPath = resolve(__dirname, '../public/assets/og/api.png');
 mkdirSync(dirname(outPath), { recursive: true });
 
-// The source asset omits root width/height (each consumer owns presentation
-// sizing), but a nested <svg> defaults its viewport to 100% of its parent
-// without them. Add the native 598×209 dimensions so the scale(1.05) below
-// operates on the wordmark's real size, matching the spec's math.
+// The source asset has no root width/height, so a nested <svg> would default
+// to 100% of its parent; add the native 598x209 dimensions explicitly.
 const wordmarkSvg = readFileSync(resolve(__dirname, '../src/assets/warp-logo-dark.svg'), 'utf-8')
   .trim()
   .replace('<svg ', '<svg width="598" height="209" ');

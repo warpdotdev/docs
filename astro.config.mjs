@@ -86,9 +86,8 @@ export default defineConfig({
 				dark: './src/assets/warp-logo-dark.svg',
 				replacesTitle: true,
 			},
-			// Starlight's default is already '/favicon.svg'; set it explicitly
-			// alongside the PNG/touch-icon family below so the full icon set is
-			// declared in one place.
+			// Explicit alongside the PNG/touch-icon links below (favicon.svg is
+			// already Starlight's default) so the full icon set is declared together.
 			favicon: '/favicon.svg',
 			editLink: {
 				baseUrl: 'https://github.com/warpdotdev/docs/edit/main/',

@@ -1,13 +1,7 @@
-// One-shot script to generate the docs site's favicon family from the
-// canonical icon-only source asset.
-//
-// Run with: node scripts/generate-favicons.mjs
-//
-// Composes src/assets/warp-icon-white.svg onto a fixed #121212 background so
-// the glyph stays visible against both light and dark browser chrome,
-// independent of the page's own theme. Rasterizes that composition to the
-// PNG fallback sizes browsers and Apple require, using the repository's
-// existing sharp dependency (no new image-encoding dependency).
+// Generates the docs site's favicon family (npm run favicon:generate) by
+// compositing src/assets/warp-icon-white.svg onto a fixed #121212 background,
+// so the glyph stays visible regardless of the page's own theme, then
+// rasterizing that composition to the PNG sizes browsers and Apple require.
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -25,18 +19,14 @@ if (!innerMarkup) {
 
 const BACKGROUND = '#121212';
 
-// Browser favicon: rounded-square background so the icon reads as an app
-// icon in browser tabs and bookmark bars, with the source glyph unchanged
-// on top.
+// Rounded corners so the favicon reads as an app icon in tabs/bookmarks.
 const faviconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
   <rect width="800" height="800" rx="144" fill="${BACKGROUND}"/>
   ${innerMarkup}
 </svg>
 `;
 
-// Apple touch icon: full-bleed background with no pre-rounded corners.
-// iOS/iPadOS apply their own rounded-square mask to whatever square image
-// they're given, so a source with its own rounding would double up.
+// No pre-rounded corners: iOS/iPadOS apply their own mask to touch icons.
 const touchIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
   <rect width="800" height="800" fill="${BACKGROUND}"/>
   ${innerMarkup}
