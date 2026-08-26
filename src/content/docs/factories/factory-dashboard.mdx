@@ -21,7 +21,13 @@ A factory opens on its **Dashboard** page, covered next. **Factory definition** 
 
 ## Read metrics on the Dashboard page
 
-**Dashboard** is the factory's landing page. It summarizes the factory over a date range you choose: Total runs, Pull requests (opened and merged), Autonomy, Cycle time, and Cost per PR (which expands to list the most expensive PRs in the range). When Scorers are set up, Scorer cards summarize recent classification results. See the [Metrics reference](/factories/metrics-reference/) for what each metric counts, how it's computed, and its data-coverage limits.
+**Dashboard** is the factory's landing page. It summarizes the factory over a date range you choose:
+
+* **Autonomy** - The share of the factory's merged PRs that needed no human code push before merging. Opening the PR counts as a push, so a human-authored PR that a factory run later revised doesn't count as autonomous; comments, reviews, requested changes, and the merge itself don't count as a push.
+* **PR cycle time** - The median time the factory's merged PRs took from run kickoff through PR, first review, and merge, with an independent median for each stage - the stage medians don't sum to the headline.
+* **Cost per PR** - The median cost of PRs opened in the range. When a single run produces more than one PR, its cost splits evenly across them. Treat it as a lower-bound estimate: it can miss some run usage and does not match billing. See [Measure and improve a factory](/factories/measure-and-improve/) for its limitations.
+
+The page also charts opened versus merged PRs and a breakdown of runs, and the **Cost per PR** card expands to list the most expensive PRs in the range. When Scorers are set up, Scorer cards summarize recent classification results.
 
 <figure style={{ maxWidth: "563px" }}>
 ![The Dashboard page showing a Cost per PR chart broken down by compute, platform, and inference cost, plus two example Scorer cards.](../../../assets/factories/factory-dashboard-metrics.png)
@@ -106,5 +112,4 @@ For a file-managed factory, `runners/*.yaml` in the repository is the source of 
 * [Definitions as code](/factories/factory-as-code/) - Define agents, automations, runners, and source ownership in code.
 * [Factory agents](/factories/factory-agents/) - What each default agent does and how to configure it.
 * [Measure and improve a factory](/factories/measure-and-improve/) - Configure the Scorers and benchmarks behind the **Dashboard** page.
-* [Metrics reference](/factories/metrics-reference/) - What each **Dashboard** metric counts, how it's computed, and its data-coverage limits.
 * [Troubleshooting Warp Factories](/factories/troubleshooting/) - Fixes for setup problems, work that doesn't start, and stuck runs.
