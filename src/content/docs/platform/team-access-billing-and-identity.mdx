@@ -82,7 +82,7 @@ Your team must meet the following requirements to run integrations:
 
 When a user triggers an agent through an integration (like Slack or Linear), the run draws from credits based on who the run is billed to:
 
-* **User-triggered runs on Build, Max, or Business** - Warp draws from any [cloud agent credits](/support-and-community/plans-and-billing/credits/#compute-credits) the user has, then the user's plan-included credits, then the team's shared add-on credit pool. Add-on credits are shared across the whole team.
+* **User-triggered runs on Build, Max, or Business** - Warp draws from any [cloud agent credits](/support-and-community/plans-and-billing/credits/#compute-credits) the user has, then the user's plan-included credits, then the team's shared add-on credit pool.
 * **Agent API key or scheduled cloud agent runs on Build, Max, or Business** - Warp bills the team owner. The waterfall is: the owner's plan-included credits, then the team's shared add-on credit pool. With auto-reload off, the request is blocked when both are depleted. With auto-reload on, usage can trigger a reload into the team's shared pool subject to the team-wide monthly spend cap; once the cap is reached, runs are blocked until the cap resets or increases.
 * **Enterprise plans** - Runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 

@@ -230,13 +230,13 @@ Auto-reload prevents team members from getting blocked by credit exhaustion. It 
 When auto-reload is **on**:
 
 * The admin chooses an add-on credit **denomination**. Larger denominations have a better effective per-credit rate.
-* Whenever a member has used up their plan-included credits and the add-on credit balance available to them drops below **100 credits**, Warp automatically purchases another bundle of the configured denomination into the team's shared pool.
+* Whenever a member has used up their plan-included credits and the add-on credit balance available to them drops below **100 credits**, Warp automatically purchases another bundle of the configured denomination and adds it to the team's shared pool.
 * All auto-reload purchases count against a single **team-wide monthly spend cap** that the admin sets. Once the team hits the cap in a given month, auto-reload pauses until the next calendar month or until the admin raises the cap.
 * While auto-reload is on, **individual team members cannot purchase add-on credits manually** — the team-wide auto-reload configuration governs all purchases.
 
-Because reloaded credits land in the team's shared pool, sustained usage by any member — not just the member who purchased credits — can drain the pool and trigger repeated reloads until the team-wide spend cap is reached. Lower the cap to bound how much the team can spend in a month.
+Reloaded credits land in the team's shared pool, so sustained usage by any member — not just the one who purchased credits — can drain the pool and trigger repeated reloads until the team-wide spend cap is reached. Lower the cap to limit what the team can spend in a month.
 
-When auto-reload is **off**, eligible team members can purchase add-on credits into the team's shared pool, as long as the team stays below the team-wide monthly spend cap. Users keep working as long as they have plan credits, previously purchased add-on credits, or have routed Warp at their own API key or [custom inference endpoint](/agents/inference/custom-inference-endpoint/). Once those run out, premium-model usage is blocked until credits are topped up or the next billing cycle begins.
+When auto-reload is **off**, eligible team members can buy add-on credits for the team's shared pool, as long as the team stays below the team-wide monthly spend cap. Users keep working as long as they have plan credits, previously purchased add-on credits, or have routed Warp at their own API key or [custom inference endpoint](/agents/inference/custom-inference-endpoint/). Once those run out, premium-model usage is blocked until credits are topped up or the next billing cycle begins.
 
 Auto-reload can be enabled, paused, or reconfigured at any time in **Settings** > **Billing and usage**.
 
@@ -424,7 +424,7 @@ Add-on credit attribution has changed twice in 2026:
 * **May 21 – August 2026** — Add-on credits were user-scoped; each user had their own balance.
 * **As of August 2026** — Add-on credits are **team-pooled again**. Purchases from any member go into the team's shared pool, and any member's usage draws the pool down once their plan-included credits are used up. Remaining user-scoped balances from the May–August window stay attributed to the purchasing member and are consumed after the shared pool.
 
-Anyone on the team can purchase add-on credits into the shared pool, subject to the team-wide spend cap admins set under **Settings** > **Billing and usage**.
+Anyone on the team can purchase add-on credits, subject to the team-wide spend cap admins set under **Settings** > **Billing and usage**.
 
 For details, see [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
 
@@ -475,6 +475,6 @@ A short checklist to triage the May 2026 changes for your team:
 
 * **Check your seat count.** Go to **Settings** > **Teams** to see whether your team is at or above your plan's new seat limit. If you are, see [What if my team is already above the new seat limit?](#what-if-my-team-is-already-above-the-new-seat-limit).
 * **Set your team's add-on credit spend cap.** Under **Settings** > **Billing and usage**, configure the monthly cap that applies to add-on credit purchases across your team. Team members can buy add-on credits for the team, but every purchase counts against this cap.
-* **Let your team know add-on credits are shared team-wide.** Any member can purchase add-on credits, purchases land in the team's shared pool, and any member's usage can draw the pool down.
+* **Let your team know add-on credits are shared team-wide.** Purchases from any member land in the team's shared pool, and the whole team's usage draws it down.
 * **Confirm which card your team has on file.** Every add-on credit purchase charges the team's saved payment method, including purchases made by members who aren't admins. Review it in the billing portal. See [Which card is charged when a team member buys add-on credits?](#which-card-is-charged-when-a-team-member-buys-add-on-credits).
 * **Plan for platform credits on July 1, 2026.** If your team is on Business and uses BYOK or a custom inference endpoint locally, those local runs will start consuming platform credits when the preview period ends. See [When do platform credits start being charged on self-serve plans?](#when-do-platform-credits-start-being-charged-on-self-serve-plans).
