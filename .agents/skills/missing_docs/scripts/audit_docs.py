@@ -71,6 +71,12 @@ DEFAULT_SNAPSHOT_PATH = SKILL_DIR / "references" / "surface_snapshot.json"
 
 SNAPSHOT_SCHEMA_VERSION = 2
 
+# Heading that starts the machine-generated telemetry table in privacy.mdx.
+# Matches TELEMETRY_TABLE_HEADING in the release_updates skill's
+# update_telemetry.py, which rewrites everything below it. Lowercased because
+# the staleness audit reads lowercased doc text.
+GENERATED_SECTION_MARKER = "### exhaustive telemetry table"
+
 # Extraction sanity floors: if a parser returns fewer surfaces than this, the
 # code layout probably changed and the parser is broken. The audit fails loud
 # (exit 2) instead of silently under-reporting.
@@ -253,17 +259,28 @@ def read_all_docs_text(docs_root: Path) -> dict[str, str]:
 _FENCED_CODE_RE = re.compile(r"```.*?```", re.DOTALL)
 _INLINE_CODE_RE = re.compile(r"`[^`\n]*`")
 _HTML_CODE_RE = re.compile(r"<code>.*?</code>", re.DOTALL | re.IGNORECASE)
+# The `(...)` destination of a markdown link or image. The `[...]` label is
+# left alone — that half is prose.
+_LINK_TARGET_RE = re.compile(r"\]\([^)\s]*\)")
 
 
 def strip_code_spans(text: str) -> str:
-    """Remove fenced code blocks, inline code spans, and <code> elements.
+    """Remove code spans and link destinations, leaving prose behind.
 
     Used by the staleness audit so CLI examples (e.g. `oz agent run`) don't
-    trigger terminology findings meant for prose.
+    trigger terminology findings meant for prose. Link and image destinations
+    are stripped for the same reason: a URL slug or an asset filename is an
+    identifier, not wording a writer can fix. Renaming a published page to
+    chase a terminology change would break every inbound link, and image
+    filenames are not reader-visible at all, so
+    `](/knowledge-and-collaboration/warp-drive/agent-mode-context/)` and
+    `](../../assets/terminal/agent-mode-suggestion-1.png)` are noise here.
+    Genuinely stale slugs are the `check_for_broken_links` skill's job.
     """
     text = _FENCED_CODE_RE.sub(" ", text)
     text = _HTML_CODE_RE.sub(" ", text)
     text = _INLINE_CODE_RE.sub(" ", text)
+    text = _LINK_TARGET_RE.sub("] ", text)
     return text
 
 
@@ -1754,11 +1771,11 @@ def audit_staleness(warp_repo: Path, docs_root: Path,
                     stale_terms_path: Path = STALE_TERMS_PATH) -> list[dict]:
     """Check existing docs for stale terminology.
 
-    Code spans are stripped first (CLI examples like `oz agent run` are
-    legitimate command syntax, not terminology) and terms match on word
-    boundaries only. Broader terminology enforcement is owned by the
-    style_lint skill; this audit only flags terms tied to renamed/removed
-    features.
+    Code spans and link destinations are stripped first (CLI examples like
+    `oz agent run` are legitimate command syntax, not terminology; a URL slug
+    is an identifier) and terms match on word boundaries only. Broader
+    terminology enforcement is owned by the style_lint skill; this audit only
+    flags terms tied to renamed/removed features.
     """
     stale_terms = parse_stale_terms(stale_terms_path)
     term_patterns = [
@@ -1772,6 +1789,15 @@ def audit_staleness(warp_repo: Path, docs_root: Path,
         # time — old feature names there are correct, not stale.
         if "/changelog/" in doc_path or doc_path.startswith("changelog/"):
             continue
+        # The telemetry table is regenerated wholesale from the client's event
+        # definitions by the release_updates skill's update_telemetry.py, so
+        # its event names and descriptions are code-derived strings. Editing
+        # the wording here is reverted on the next release; the fix belongs
+        # upstream in the event definition.
+        if doc_path.endswith("privacy.mdx"):
+            marker = content.find(GENERATED_SECTION_MARKER)
+            if marker != -1:
+                content = content[:marker]
         prose = strip_code_spans(content)
         stale_found = []
         for term, reason, pattern in term_patterns:

@@ -108,7 +108,7 @@ oz agent run-cloud --environment <ENV_ID> -f my-agent-config.json --prompt "Chec
 * If `mcp_servers` is omitted, the agent runs with no MCP servers enabled.
 * Each server name must be unique and non-empty.
 * The `warp_id` transport is validated against your Warp account. Referenced servers must be accessible to you.
-* A `warp_id` that names a Warp-managed integration server (`linear`, `slack`, or `jira`) resolves against your team's [integration](/platform/integrations/) connection, but only for a run executing inside a [Warp Factory](/factories/) (`jira` also resolves for a run triggered directly by a Jira event). Outside those cases, or when the integration isn't connected, the server is skipped and the run continues without it.
+* A `warp_id` that names a Warp-managed integration server (`linear`, `slack`, or `jira`) resolves against your team's [integration](/platform/integrations/) connection, but only for a run executing inside a [factory](/factories/) (`jira` also resolves for a run triggered directly by a Jira event). Outside those cases, or when the integration isn't connected, the server is skipped and the run continues without it.
 
 ## Limitations
 

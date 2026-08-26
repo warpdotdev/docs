@@ -310,12 +310,26 @@ Docs match the screen; the fix belongs in the app.
 
 - **factory definitions as code** — The practice of specifying a factory's repos, agent roles, skills, MCPs, and permissions as version-controlled code, similar to infrastructure-as-code. Enables rollback, canarying, and agentic self-improvement of the factory itself.
 
-- **work item** — A unit of work moving through a factory (for example an issue, ticket, or triggered task) as it passes through triage, spec, implementation, review, and verification.
+- **work item** — A unit of work moving through a factory (for example an issue, ticket, or triggered task) as it passes through the factory's stages.
+  *Usage note:* The canonical term across the docs. Factory MCP calls the same thing a **task** (see below); prefer "work item" everywhere except when documenting Factory MCP's own tools and parameters.
+
+- **task** (Factory MCP) — Factory MCP's name for a work item. The MCP tools are named for it (`send_task`, `get_task`, `complete_task`), so the term is unavoidable on that page.
+  *Usage note:* Not a second concept. Use "task" only where the MCP surface forces it, and say once on the page that a task is the factory's work item. Never introduce "task" as a distinct unit of work.
+
+- **stages** — The phases a work item moves through, named as the factory dashboard's **Activity** view names them: **Triage**, **Planning**, **Building**, and **Reviewing**, plus the terminal stages **Complete** and **Cancelled**.
+  *Usage note:* Stage names are not agent names. The spec agent works the Planning stage, the implement agent works the Building stage, and the review agent works the Reviewing stage. Write stages with the dashboard's names so docs and screen agree; write agents with their own names (triage, spec, implement, review).
 
 - **foreman agent** — The orchestrator agent that receives a work item's triggering context and dispatches subagents to move it through the factory, choosing model, harness, and context for each step.
+  *Usage note:* Lowercase "foreman" in prose. The foreman is an agent inside a factory, not the factory itself — never use the two interchangeably, and never call the foreman "the factory" even though setup gives them the same name by default.
+
+- **Foreman name** / **`alias`** — The handle a team @-mentions to reach a factory's foreman from Slack and Linear. The factory dashboard labels the field **Foreman name** under **Settings** > **Identity**; the definition file key is [`alias`](/factories/factory-as-code/#alias).
+  *Usage note:* Bold **Foreman name** when referring to the field, and use `alias` when referring to the definition key. Factory setup defaults it to the factory's name, so the two usually match — say so wherever a reader could mistake the handle for the factory itself. This collision is the main reported source of foreman/factory confusion.
 
 - **Factory MCP** — The MCP server that lets any coding agent or MCP client interact with a factory: push work in, pull status, or guide sessions.
   *Usage note:* The one sanctioned exception to the product/instance rule above, because it is the feature's own shipped name — the server registers as `warp-factory` and its skill calls itself "the Warp Factory MCP." Capitalize both words; do not generalize the exception to other phrases.
+
+- **`warp-factory`** — The conventional key for the Factory MCP server in an MCP client's configuration, as in `claude mcp add ... warp-factory` or a `"warp-factory": { "url": ... }` entry.
+  *Usage note:* A name the reader chooses in their own client, not a Warp-owned identifier, and unrelated to a factory's name or a foreman's handle. Always code-formatted. Do not write it as `@warp-factory`, and do not introduce it as if it names a factory. Note that the same string also appears in the `warp-factory-examples` repository name and in an example IAM role — those are unrelated.
 
 - **factory dashboard** — The web app surface for operating a single factory: its work items, runs, agents, automations, and settings.
   *Usage note:* Lowercase common noun. Distinct from **Dashboard**, the metrics page inside it, which is also the factory's landing page — bold **Dashboard** when you mean that page, and leave "factory dashboard" unbolded when you mean the surface. Replaced "control room," a docs-only coinage that appeared nowhere in the product.
