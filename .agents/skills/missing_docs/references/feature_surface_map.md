@@ -25,20 +25,16 @@ auto-surfaces for docs once the flag goes GA.
 
 ## Feature flags -> doc pages
 
-# AgentMode's old target (agents/local-agents/overview.mdx) was removed in the
-# agents-section reorg; the concept now lives on the Agents tab overview page
-# (which literally covers Agent Mode and embeds a video titled "Agent Mode
-# Overview").
+# The local-agents overview page was folded into the agents landing page
+# (/agents/local-agents/overview now 308s to /agents/ in vercel.json).
 AgentMode -> src/content/docs/agents/index.mdx
 AgentManagementView -> src/content/docs/platform/managing-cloud-agents.md
 AgentManagementDetailsView -> src/content/docs/platform/managing-cloud-agents.md
 AgentModeComputerUse -> src/content/docs/agents/capabilities/computer-use/index.mdx
 AgentModeWorkflows -> src/content/docs/knowledge-and-collaboration/warp-drive/workflows.md
-# AgentOnboarding's old target (agents/getting-started/agents-in-warp.mdx) was
-# removed in the same reorg. The first-run agent-onboarding wizard (account
-# sign-up, choosing how to access AI) is covered by the "Log in to Warp
-# (optional)" section of the installation/setup quickstart.
-AgentOnboarding -> src/content/docs/getting-started/quickstart/installation-and-setup.mdx
+# agents-in-warp was folded into the agents landing page as well
+# (/agents/getting-started/agents-in-warp now 308s to /agents/).
+AgentOnboarding -> src/content/docs/agents/index.mdx
 AIRules -> src/content/docs/agents/capabilities/rules.mdx
 AIResumeButton -> src/content/docs/agents/local-agents/interacting-with-agents/terminal-and-agent-modes.mdx
 InlineCodeReview -> src/content/docs/agents/local-agents/interactive-code-review.mdx
@@ -243,9 +239,10 @@ GeminiEnterprise -> src/content/docs/enterprise/enterprise-features/byollm-gemin
 # preview -> GA; documented with the rest of Warp's link handling.
 OscHyperlinks -> src/content/docs/terminal/more-features/files-and-links.mdx
 
-# `--mcp <well-known-id>` CLI shorthand (bare, non-UUID identifiers like
-# "linear" resolved server-side). GA; documented alongside the rest of the
-# --mcp flag formats.
+# Well-known managed MCP ids: accepts short integration ids (linear, slack,
+# jira) wherever a Warp MCP server UUID is accepted — bare `--mcp` arguments and
+# `warp_id` values in MCP configs. Promoted dogfood -> GA; documented in the CLI
+# MCP reference (and the cloud agent MCP schema page).
 WellKnownMcpIds -> src/content/docs/reference/cli/mcp-servers.mdx
 
 ## CLI commands -> doc pages
@@ -381,6 +378,10 @@ GET /agent/runs/{runId}/handoff/attachments -> internal
 POST /agent/handoff/upload-snapshot -> internal
 PATCH /agent/runs/{runId}/event-sequence -> internal
 POST /agent/runs/{runId}/client-events -> internal
+# Records the repositories and revisions a run checked out, written by the run's
+# own cloud agent before setup commands run. Marked `x-internal: true` upstream
+# and guarded by RequireCloudAgent, so it is never callable by an API consumer.
+POST /agent/runs/{runId}/environment-snapshot -> internal
 GET /agent/conversations/{conversation_id}/block-snapshot -> internal
 
 # Support endpoints for third-party harnesses (hidden `oz harness-support` CLI).
@@ -396,14 +397,17 @@ POST /harness-support/report-shutdown -> internal
 POST /harness-support/upload-snapshot -> internal
 POST /harness-support/commit-snapshot -> internal
 
-# Oz Factory REST API (router/handlers/public_api/factory*.go). Factory is a
-# private, not-yet-released product (the FactoryMcp flag is dogfood and the
-# @warp/factory front-end is internal/computer-use gated), so none of these
-# endpoints are part of the released public Oz Agent API. They are marked
-# internal until Factory ships publicly; revisit and route through the
-# sync-openapi-spec skill if/when Factory goes GA. See SKILL.md "Public vs.
-# private surfaces".
+# Oz Factory REST API (router/handlers/public_api/factory*.go). Warp Factories
+# is now documented publicly (src/content/docs/factories/) as an Early Access
+# product, but its REST API is a different question: these routes are defined in
+# warp-server's canonical spec but marked `x-internal: true`, so the publish
+# filter strips them from the public docs copy and they are not part of the
+# released public Oz Agent API. They must not be hand-documented and stay
+# internal; revisit and route through the sync-openapi-spec skill if/when those
+# `x-internal` markers come off. See SKILL.md "Public vs. private surfaces".
 GET /factory -> internal
+GET /factory/access -> internal
+GET /factory-alias/{alias} -> internal
 POST /factory -> internal
 POST /factory/avatar -> internal
 GET /factory/{uid} -> internal
@@ -411,9 +415,46 @@ PATCH /factory/{uid} -> internal
 DELETE /factory/{uid} -> internal
 POST /factory/{uid}/apply -> internal
 POST /factory/{uid}/plan -> internal
+# Opens/refreshes the throwaway branch and PR that verify a factory's GitHub
+# connection during onboarding.
+POST /factory/{uid}/github-onboarding-pr -> internal
 GET /factory/{uid}/source -> internal
 PUT /factory/{uid}/source -> internal
 DELETE /factory/{uid}/source -> internal
+# Factory-as-code source browsing, editing, export, and merge plumbing backing
+# the factory definition editor in the Oz web app.
+GET /factory/{uid}/source/tree -> internal
+GET /factory/{uid}/source/file -> internal
+PUT /factory/{uid}/source/files -> internal
+GET /factory/{uid}/source/export -> internal
+POST /factory/{uid}/source/clone-url -> internal
+GET /factory/{uid}/source/link-readiness -> internal
+# Integrating production drift into, and discarding, a warp/code/* working
+# branch behind the factory definition editor.
+POST /factory/{uid}/source/branch/sync -> internal
+DELETE /factory/{uid}/source/branch -> internal
+POST /factory/{uid}/merges -> internal
+POST /factory/{uid}/merges/check -> internal
+GET /factory/{uid}/merges/{merge_uid} -> internal
+# Factory file JSON schemas and validation, consumed by the factory definition
+# editor and the factory-files authoring tooling.
+GET /factory-files/schemas -> internal
+GET /factory-files/schemas/{schema_version} -> internal
+GET /factory-files/schemas/{schema_version}/{document} -> internal
+POST /factory-files/validate -> internal
+# Factory review (AI review of a factory definition) and its refine loop.
+GET /factory/{uid}/review -> internal
+POST /factory/{uid}/review/refine -> internal
+# Factory outbound webhooks: CRUD, delivery history, and secret rotation.
+GET /factory/webhooks -> internal
+POST /factory/webhooks -> internal
+POST /factory/webhooks/dry-run -> internal
+GET /factory/webhooks/{uid} -> internal
+PUT /factory/webhooks/{uid} -> internal
+DELETE /factory/webhooks/{uid} -> internal
+GET /factory/webhooks/{uid}/deliveries -> internal
+GET /factory/webhooks/{uid}/deliveries/{delivery_id} -> internal
+POST /factory/webhooks/{uid}/rotate -> internal
 GET /factory/{uid}/syncs -> internal
 GET /factory/{uid}/task-by-conversation -> internal
 GET /factory/{uid}/tasks -> internal
@@ -421,12 +462,34 @@ POST /factory/{uid}/tasks -> internal
 GET /factory/{uid}/tasks/{task_uid} -> internal
 PATCH /factory/{uid}/tasks/{task_uid} -> internal
 DELETE /factory/{uid}/tasks/{task_uid} -> internal
+POST /factory/{uid}/tasks/{task_uid}/cancel -> internal
+GET /factory/{uid}/task-by-run -> internal
+# Dispatching a run to a factory. Unlike its neighbours this operation is NOT
+# marked `x-internal: true` upstream, so warp-server's own publish filter would
+# keep it. It stays out of the docs copy because the whole `/factory` namespace
+# is excluded by the sync-openapi-spec policy (`factory` in EXCLUDED_TAGS plus
+# the `/factory` prefix) while the Factory REST API is unreleased. Revisit
+# together with that exclusion when the Factory API ships publicly.
+POST /factory/{uid}/runs -> internal
 # Also marked `x-internal: true` in warp-server's canonical spec, so the publish
 # filter strips it from the public docs copy.
 GET /factory/{uid}/metrics -> internal
+GET /factory/{uid}/metrics/cost-by-pr-size -> internal
+GET /factory/{uid}/metrics/run-breakdown -> internal
+GET /factory/{uid}/metrics/top-prs -> internal
 GET /factory/{uid}/integrations/linear/teams -> internal
 GET /factory/{uid}/integrations/linear/teams/{team_id}/labels -> internal
 PUT /factory/{uid}/integrations/linear/teams/{team_id}/labels -> internal
+GET /factory/{uid}/integrations/jira/projects -> internal
+GET /factory/{uid}/integrations/jira/labels -> internal
+GET /factory/{uid}/integrations/jira/statuses -> internal
+GET /factory/{uid}/integration-activations -> internal
+GET /factory/{uid}/integration-destinations -> internal
+GET /factory/{uid}/gitlab-automation-capability -> internal
+POST /factory/{uid}/gitlab-automation-capability/refresh -> internal
+# Integration pickers used during factory setup, before a factory exists.
+GET /factory-setup/integrations/jira/projects -> internal
+GET /factory-setup/integrations/linear/teams -> internal
 GET /factory/automations -> internal
 POST /factory/automations -> internal
 GET /factory/automations/events/{provider} -> internal
@@ -435,21 +498,22 @@ PUT /factory/automations/{id} -> internal
 DELETE /factory/automations/{id} -> internal
 PUT /factory/automations/{id}/subscriptions -> internal
 DELETE /factory/automations/{id}/subscriptions/{subscription_id} -> internal
+# Fires an automation's cron trigger immediately; `x-internal: true` upstream.
+POST /factory/automations/{id}/run -> internal
 GET /factory/scorers -> internal
 POST /factory/scorers -> internal
 PATCH /factory/scorers/{scorer_id} -> internal
 DELETE /factory/scorers/{scorer_id} -> internal
-POST /factory/scorers/{scorer_id}/pause -> internal
-POST /factory/scorers/{scorer_id}/resume -> internal
 GET /factory/scorers/{scorer_id}/results -> internal
 GET /factory/scorers/{scorer_id}/results/reasons -> internal
-GET /factory/scorers/{scorer_id}/autofix-config -> internal
-PUT /factory/scorers/{scorer_id}/autofix-config -> internal
-DELETE /factory/scorers/{scorer_id}/autofix-config -> internal
+GET /factory/scorers/{scorer_id}/metrics/pass-rate -> internal
+# The scorer pause/resume routes and the autofix-config trio were replaced by
+# the self-improvement-config routes below; their dead map entries were pruned.
+GET /factory/scorers/{scorer_id}/self-improvement-config -> internal
+PUT /factory/scorers/{scorer_id}/self-improvement-config -> internal
+DELETE /factory/scorers/{scorer_id}/self-improvement-config -> internal
 GET /factory/runs/{run_id}/scores -> internal
 POST /factory/run-scoring/dispatches -> internal
-POST /factory/autofix/runs/{autofix_run_id}/file-tasks -> internal
-POST /factory/autofix/worker-results/{worker_result_id}/report -> internal
 PUT /factory/automations/{id}/subscriptions/{subscription_id} -> internal
 GET /factory/{uid}/integrations/github/branches -> internal
 GET /factory/{uid}/integrations/github/labels -> internal
@@ -471,6 +535,10 @@ GET /factory/{uid}/benchmarks/suites/{suite_uid} -> internal
 PATCH /factory/{uid}/benchmarks/suites/{suite_uid} -> internal
 DELETE /factory/{uid}/benchmarks/suites/{suite_uid} -> internal
 POST /factory/{uid}/benchmarks/suites/{suite_uid}/runs -> internal
+POST /factory/{uid}/benchmarks/suites/{suite_uid}/tasks -> internal
+# Moved out from under /suites/{suite_uid} in warp-server: composing a benchmark
+# task from a production run no longer requires a target suite up front.
+POST /factory/{uid}/benchmarks/tasks/compose-from-run -> internal
 GET /factory/{uid}/benchmarks/runs -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid} -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid}/results -> internal
@@ -575,6 +643,10 @@ GET /memory_stores/{uid}/memories/{memoryUid}/versions -> gated:AIMemories
 # TUI-only voice input command (Warp Agent CLI surface). The /version command was
 # removed from code; its entry has been pruned.
 /voice -> internal
+# TUI-only team switcher (SlashCommandSurfaces::TuiOnly in static_commands/
+# commands.rs). The GUI switches teams from the title-bar pill instead, so this
+# isn't documented on the public slash-commands page.
+/team -> internal
 # More Warp Agent CLI-only (SlashCommandSurfaces::TuiOnly in static_commands/
 # commands.rs) commands. None are present in the GUI desktop app, so they aren't
 # documented on the public slash-commands page:
@@ -667,10 +739,8 @@ guides/agent-workflows/warp-vs-claude-code
 # Custom Starlight 404 page (template: splash). Starlight renders it through its
 # own prerendered /404 route, so it is intentionally not in the sidebar.
 404
-# Jira integration page is draft: true (private beta — the Oz Jira app is not yet
-# published to the Atlassian marketplace). Kept out of the sidebar until the
-# integration goes GA; the snapshot diff will flag it for docs on promotion.
-platform/integrations/jira
+# The Jira integration page left draft status and is now listed in src/sidebar.ts,
+# so its allowlist entry was pruned.
 
 ## Flags to ignore (internal-only, not user-facing)
 
@@ -760,7 +830,6 @@ RememberFastForwardState
 HoaCodeReview
 AgentToolbarEditor
 SkipFirebaseAnonymousUser
-OpenWarpNewSettingsModes
 HOAOnboardingFlow
 AgentViewConversationListView
 BuildPlanAutoReloadBannerToggle
@@ -780,6 +849,20 @@ GitCredentialRefresh
 # State-mutating recovery for abnormal terminal lifecycle sequences — an internal
 # reliability mechanism with no user-facing configuration or UI, so it needs no docs.
 TerminalLifecycleRecovery
+# When Ctrl-C is forwarded to a third-party harness PTY, synthesize Cancelled for
+# the CLI agent session if the plugin never reports the interrupt. No setting,
+# menu, or CLI flag; Ctrl-C behavior is already documented.
+CtrlCCancelsThirdPartyHarness
+# Orchestration plumbing promoted dogfood -> GA. Neither changes what a user sees
+# or configures, so both are internal implementation details of the documented
+# multi-agent orchestration feature (platform/orchestration/multi-agent-runs.mdx):
+# - WaitForEventsParentRegistration: on `wait_for_events`, confirms parent status
+#   with the server and registers an orchestrator for the ancestor event stream so
+#   children created out-of-band (CLI/API) still deliver events.
+# - OrchestrationUnifiedStack: consolidates child-state tracking behind a single
+#   tracker, one ancestor SSE per parent family, and one remote-child placeholder.
+WaitForEventsParentRegistration
+OrchestrationUnifiedStack
 # Internal persistence-backend detail: gates storing execution profiles in a
 # file-backed settings collection (agents.execution_profiles) versus the legacy
 # per-profile Warp Drive cloud objects. It changes where profiles are stored, not

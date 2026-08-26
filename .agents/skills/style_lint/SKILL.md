@@ -63,11 +63,21 @@ python3 .agents/skills/style_lint/style_lint.py --all --fix --create-pr
 - **Warp Factories naming**: A bare capitalized "Factory" used as a proper noun. "Warp Factories" is the product and is written in full; an individual "factory" is lowercase. Sentence-, heading-, bullet-, quote-, and cell-initial capitals are positional and stay, as do frontmatter titles and labels, the shipped feature name "Factory MCP", and verbatim UI strings such as **Factory name** and **Add your Factory to your team**. Regression cases live in `test_factory_proper_noun.py`.
 - **Hardcoded product name strings**: Product name strings that have a corresponding key in `src/data/vars.ts` but appear as literal text rather than variable syntax. Reports instances of known strings like "Oz CLI", "Oz web app", "oz.warp.dev", "Oz dashboard", "Oz run" (any value currently in `src/data/vars.ts`) in body prose and frontmatter. These are flagged as `⚠️ [IMPORTANT]` in PR context and reported (not auto-fixed) — they should use `{VARS.KEY}` in prose and `{{TOKEN}}` in frontmatter.
 
+### Tone checks (report-only, never auto-fixed)
+
+These enforce the "Voice & tone" section of `AGENTS.md`. Every hit needs a human rewrite, so they are always warnings and never auto-fixed:
+
+- **Buzzwords** (`tone-buzzword`): AI-ism words like "seamless", "powerful", "robust", "comprehensive", "leverage", "streamline", "empower", "delve", abstract metaphors ("landscape", "realm", "tapestry", "testament to"), and filler frames ("it's important to note", "designed to", "ensures that", "allows you to", "in order to"). Words with legitimate technical uses in these docs ("harness", "unlock", "elevated", "journey") are deliberately excluded from the lint and covered by prose guidance only.
+- **Meta-openers** (`tone-meta-opener`): Page-narrating text like "This page covers/explains/walks through...". The fix is to cut the sentence and state the thing itself.
+- **Consecutive callouts** (`callout-consecutive`): Two `:::` asides back to back with nothing between them. Merge them or move one into body prose.
+- **Callout budget** (`callout-density`): More than 4 callouts on one page. The style guide allows at most one per section; the per-page count is the lintable proxy.
+
 ## Auto-fix behavior
 
 When run with `--fix`:
 - **High-confidence fixes applied automatically**: Settings path format, UI element format, product name casing, external product name casing
 - **Low-confidence issues reported but not auto-fixed**: link quality, VideoEmbed title specificity, list format, header case (due to feature name exceptions), ambiguous terminology
+- **Tone checks are never auto-fixed**: buzzwords, meta-openers, and callout budget issues always need a human rewrite
 
 ## Relationship to validate_ui_refs
 
@@ -86,6 +96,7 @@ python3 .agents/skills/style_lint/test_hardcoded_var_exemptions.py
 python3 .agents/skills/style_lint/test_header_case_sentence_boundary.py
 python3 .agents/skills/style_lint/test_product_casing_word_boundary.py
 python3 .agents/skills/style_lint/test_proper_feature_names_third_party.py
+python3 .agents/skills/style_lint/test_tone_checks.py
 ```
 
 ## Dependencies

@@ -2,7 +2,7 @@
 title: Warp Factories quickstart
 description: >-
   Set up a factory, connect your repositories, and take your first work item
-  from prompt to pull request in about 10 minutes.
+  from prompt to pull request in less than 10 minutes.
 sidebar:
   label: "Quickstart"
 ---
@@ -14,7 +14,7 @@ Warp Factories is in **Early Access** and available to a limited set of teams. [
 
 A factory is a group of cloud agents that turns incoming requests into pull requests. You talk to one agent, the **foreman**. It picks up the request from wherever it starts, such as Slack, an issue tracker, or a code host, then dispatches the factory's other agents, each owning one part of the software development lifecycle. People stay in the loop at the points that matter: approving specs when needed and merging pull requests.
 
-In this quickstart, you will create a factory and take one small work item from prompt to pull request in about 10 minutes.
+In this quickstart, you will create a factory and take one small work item from prompt to pull request in less than 10 minutes.
 
 ## What you'll decide
 
@@ -38,10 +38,10 @@ You can change any of these after setup, so a best guess is fine for now.
 _~5 minutes_
 
 :::note
-Already using an agent connected to [Factory MCP](/factories/factory-mcp/)? Ask it to run `create_factory` with the team, repositories, and factory name to create the factory directly, skipping the wizard below. Choose agents and connect your tools afterward in the factory's dashboard.
+An agent connected to [Factory MCP](/factories/factory-mcp/#set-up-with-your-coding-agent) can run this whole setup: ask it to set up a factory, and it walks you through the same choices as the wizard. If this wizard is still open when the agent finishes, refresh the page to see the new factory.
 :::
 
-Otherwise, Warp walks you through a setup wizard:
+Warp walks you through a setup wizard:
 
 1. Sign in to the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. Next to **Factories**, click **+**.
 
@@ -64,22 +64,22 @@ Otherwise, Warp walks you through a setup wizard:
    <figcaption>Search for and select the repositories the factory works in.</figcaption>
    </figure>
 
-4. Name the factory. Warp derives a matching [**Foreman name**](/factories/factory-as-code/#alias) from it, the handle your team @-mentions to reach the factory from connected tools like Slack and Linear. Keep it short and recognizable, or set your own.
+4. Name the factory. This also sets its [**Foreman name**](/factories/factory-agents/#foreman-name), the handle your team @-mentions in Slack and Linear. Keep it short and recognizable, or set your own. The two match by default, but they name different things: the handle reaches the factory's foreman, the agent that coordinates its work.
 
    <figure style={{ maxWidth: "563px" }}>
    ![The Give your factory some personality screen, with Factory name and Foreman name fields filled in.](../../../assets/factories/quickstart-name-factory.png)
    <figcaption>Name the factory and, optionally, add a description and avatar.</figcaption>
    </figure>
 
-5. Optionally, connect a chat tool so teammates can hand work to the factory from Slack, or skip it and add it later from [connect your factory](/factories/connect-your-factory/).
-6. Toggle the subagents the foreman can dispatch: **Triage**, **Spec**, **Code**, and **Review**. All four start enabled, and at least one is required. Leave **Code** on so this quickstart can end in a pull request. See [factory agents](/factories/factory-agents/) for what each does.
+5. Optionally, connect a chat tool so teammates can hand work to the factory from Slack. You can also skip this step and connect Slack later. See [connect your factory](/factories/connect-your-factory/).
+6. Toggle the agents the foreman can dispatch: **Triage**, **Spec**, **Implement**, and **Review**. All four start enabled, and at least one is required. Leave **Implement** on so this quickstart can end in a pull request. See [factory agents](/factories/factory-agents/) for what each does.
 
    <figure style={{ maxWidth: "563px" }}>
-   ![The Pick your factory agents screen, with the Foreman and all four default subagents shown as enabled.](../../../assets/factories/quickstart-pick-agents.png)
+   ![The Pick your factory agents screen, with the Foreman and all four default agents shown as enabled.](../../../assets/factories/quickstart-pick-agents.png)
    <figcaption>Toggle which default agents the foreman can dispatch.</figcaption>
    </figure>
 
-7. Optionally, connect an issue tracker so teammates can hand work to the factory from Linear or Jira, or skip it and add one later from [connect your factory](/factories/connect-your-factory/).
+7. Optionally, connect an issue tracker so teammates can hand work to the factory from Linear or Jira. You can also skip this step and connect one later. See [connect your factory](/factories/connect-your-factory/).
 
 Warp creates the factory and opens its [dashboard](/factories/factory-dashboard/).
 
@@ -87,7 +87,7 @@ Warp creates the factory and opens its [dashboard](/factories/factory-dashboard/
 
 _~5 minutes_
 
-Send the request from the tool your team already works in. Mention the factory in a Slack channel, or assign it an issue in your tracker, and it replies right there. If you skipped the integrations, start a run from the **Runs** page of the factory's [dashboard](/factories/factory-dashboard/) instead.
+You can request work from the tools your team already uses. Mention the factory in a Slack channel, or assign it an issue in your tracker, and it replies right there. If you skipped the integrations, start a run from the **Runs** page of the factory's [dashboard](/factories/factory-dashboard/) instead.
 
 1. Describe one small, verifiable change and send it:
 
@@ -104,11 +104,19 @@ Send the request from the tool your team already works in. Mention the factory i
    * **Runs** - The foreman's run and the child runs it dispatches.
    * **Activity** - The work item as it moves through its stages. Open it for the event history and pull request artifacts.
 
-3. When the Code agent finishes, the work item links to the pull request. Review and merge it the way you would any other: a factory hands off at the pull request and never merges for you.
+   If you connected Slack, you can follow along there instead:
+
+   <figure style={{ maxWidth: "563px" }}>
+   ![A Slack thread where the Warp Factories app replies with tracking and triage progress updates, including links to open the session and view it in the factory.](../../../assets/factories/slack-factory-thread-reply.png)
+   <figcaption>The factory's Slack app posting progress updates back in the thread where you sent the request.</figcaption>
+   </figure>
+
+3. When the Implement agent finishes, the work item links to the pull request. Review and merge it the way you would any other: a factory hands off at the pull request and never merges for you.
 
 ## Next steps
 
 * [**Connect your factory**](/factories/connect-your-factory/) - Route work in from Slack threads, Linear issues, and other intake paths.
 * [**Factory MCP**](/factories/factory-mcp/) - Send work to the factory from a coding agent or MCP client.
 * [**How Warp Factories work**](/factories/how-factories-work/) - The work-item lifecycle and where people stay in the loop.
-* [**Troubleshooting**](/factories/troubleshooting/) - Fixes for common issues during setup and your first runs.
+* [**warp-factory-examples**](https://github.com/warpdotdev/warp-factory-examples) - Complete working definitions to copy, from a single-repo quickstart to the full issue-to-PR lifecycle.
+* [**Troubleshooting Warp Factories**](/factories/troubleshooting/) - Fixes for common issues during setup and your first runs.

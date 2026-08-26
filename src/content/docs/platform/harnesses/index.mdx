@@ -31,7 +31,7 @@ Third-party harnesses require a Build plan or higher. On the Free plan, cloud ag
 
 ## Billing
 
-Claude Code and Codex each call their provider directly using credentials you supply, and the provider bills your account for inference. Warp meters [compute credits](/support-and-community/plans-and-billing/credits/#compute-credits) for the run's sandbox and [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the orchestration layer.
+Claude Code and Codex each call their provider directly using credentials you supply, and the provider bills your account for inference. Warp meters [compute credits](/support-and-community/plans-and-billing/credits/#compute-credits) for the run's sandbox and [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the [multi-agent orchestration](/platform/orchestration/) layer.
 
 ## How to switch harnesses
 
@@ -62,4 +62,5 @@ Set the `harness` field on the agent config. See the [API reference](/reference/
 * [Claude Code with the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/claude-code/) — Claude Code as a cloud harness.
 * [Codex with the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/codex/) — Codex as a cloud harness.
 * [Authentication](/platform/harnesses/authentication/) — connect credentials and launch Claude Code or Codex.
+* [Multi-agent orchestration](/platform/orchestration/) — run parent and child agents across harnesses and locations.
 * [Third-party CLI agents in the Warp terminal](/agents/cli-agents/overview/) — run Claude Code, Codex, and other CLI agents locally.

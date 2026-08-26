@@ -1,0 +1,130 @@
+---
+title: Use the factory API
+description: >-
+  Discover factories and dispatch tasks by UID with the public factory API,
+  without learning the foreman agent's internals.
+sidebar:
+  label: "Factory API"
+---
+import { VARS } from '@data/vars';
+
+Use the factory API to find a factory and start work from a custom integration without managing agent details. Build it into a chat bot, script, or service for any tool Warp doesn't connect to directly.
+
+:::note
+Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
+:::
+
+## How it works
+
+* `GET /factory` - list factories your account can access. Add `search` to filter by name or alias, case-insensitive.
+* `GET /factory/{uid}` - get one factory by UID.
+* `POST /factory/{uid}/runs` - dispatch a run to the factory's foreman agent. Pass a `prompt`; the server resolves the foreman for you.
+
+A dispatched run is an ordinary [cloud agent run](/platform/): retrieve it, send it follow-ups, or cancel it through the same [Agent API](/reference/api-and-sdk/) you'd use for any run.
+
+## When to use the factory API vs the Agent API
+
+Use the factory API to find or start work on a factory. Use the Agent API for everything else - a standalone cloud agent, run management, or orchestration.
+
+| Task | Recommended API |
+| --- | --- |
+| Find a factory by name before dispatching to it | factory API - `GET /factory?search=` |
+| Start a new task on a factory | factory API - `POST /factory/{uid}/runs` |
+| Continue, monitor, or cancel a run (factory or standalone) | Agent API - `GET /agent/runs/{runId}`, `POST /agent/runs/{runId}/followups`, `POST /agent/runs/{runId}/cancel` |
+| Run a standalone cloud agent with no factory involved | Agent API - `POST /agent/run` |
+| Build a multi-agent orchestration | Agent API - see [multi-agent orchestration](/platform/orchestration/) |
+
+The Agent API isn't deprecated: every factory run is still an ordinary run, so the same endpoints handle status, follow-ups, and cancellation no matter which API started it.
+
+## Discover a factory
+
+### Search factories by name
+
+```python
+import os
+from oz_agent_sdk import OzAPI
+
+client = OzAPI(api_key=os.environ.get("WARP_API_KEY"))
+
+# Find a factory by name or alias — no UIDs needed up front
+page = client.factories.list(search="payments")
+factory = page.factories[0]
+
+# With the pagination scheme wired, iteration auto-pages
+for f in client.factories.list(search="payments"):
+    print(f.uid, f.name)
+```
+
+The REST equivalent:
+
+```http
+GET /api/v1/factory?search=payments
+Authorization: Bearer YOUR_API_KEY
+```
+
+### Get a factory when the UID is already known
+
+```python
+factory = client.factories.get(factory.uid)
+```
+
+```http
+GET /api/v1/factory/YOUR_FACTORY_UID
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Dispatch a run to a factory
+
+Dispatch with just the factory's UID and a `prompt`:
+
+```python
+run = client.factories.runs.create(
+    factory.uid,
+    prompt="Investigate and fix the flaky payment webhook retry test",
+    title="Fix flaky payment webhook retry test",
+    ticket_ref="linear:PAY-123",
+)
+print(run.run_id, run.run_url, run.state)
+```
+
+```http
+POST /api/v1/factory/YOUR_FACTORY_UID/runs
+Authorization: Bearer YOUR_API_KEY
+Content-Type: application/json
+
+{
+  "prompt": "Investigate and fix the flaky payment webhook retry test",
+  "title": "Fix flaky payment webhook retry test",
+  "ticket_ref": "linear:PAY-123"
+}
+```
+
+Every field except `prompt` is optional. Omit `title` and the server derives one from the prompt. `ticket_ref` identifies the originating ticket in `<source>:<id>` form (for example `linear:PAY-123` or `jira:PROJ-456`); pass `ticket_url` to link the factory's task record back to it, or omit both for an adhoc reference.
+
+## Continue and monitor the run
+
+```python
+status = client.agent.runs.retrieve(run.run_id)
+```
+
+Send a follow-up the same way you would for any run:
+
+```http
+POST /api/v1/agent/runs/YOUR_RUN_ID/followups
+Authorization: Bearer YOUR_API_KEY
+Content-Type: application/json
+
+{
+  "message": "Also add a regression test for the retry backoff"
+}
+```
+
+See [key endpoints](/reference/api-and-sdk/#key-endpoints) for the full set of run-management operations, including cancellation.
+
+## Related pages
+
+* [Connect your factory](/factories/connect-your-factory/) - Every way work can enter a factory, including the factory API alongside Slack, GitHub, and Factory MCP.
+* [Build a Mattermost bot for Warp Factories](/guides/external-tools/build-a-mattermost-bot-for-warp-factories/) - A worked example that discovers a factory and dispatches and continues a task from a custom chat integration.
+* [Factory MCP](/factories/factory-mcp/) - Connect a local coding agent to a factory instead of calling the REST API directly.
+* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) - Full endpoint reference, SDKs, and error codes for the underlying Agent API.
+* [How Warp Factories work](/factories/how-factories-work/) - The stages a dispatched task moves through after the foreman picks it up.

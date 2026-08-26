@@ -205,6 +205,52 @@ OZ_TERMS_TO_AVOID = [
     (r"\b[Aa]mbient [Aa]gents?\b", "Use 'cloud agent(s)' — 'ambient' is no longer a product term"),
 ]
 
+# Tone: AI-generated-sounding words from AGENTS.md → Voice & tone → "Words to
+# avoid". Report-only (never auto-fixed): every hit needs a human rewrite that
+# names the specific capability, not a mechanical substitution.
+#
+# Deliberately narrower than the prose guidance. Words with legitimate
+# technical uses in these docs are excluded so warnings stay trustworthy:
+# "harness" (agent harness), "unlock" (login/keychain unlock), "elevate(d)"
+# (elevated permissions), and "journey" stay out of the lint and are covered
+# by AGENTS.md only.
+TONE_BUZZWORDS: List[Tuple[str, str]] = [
+    (r"\bseamless(?:ly)?\b", "Marketing adjective; describe the specific behavior instead"),
+    (r"\beffortless(?:ly)?\b", "Marketing adjective; describe the specific behavior instead"),
+    (r"\bpowerful\b", "Marketing adjective; name what the feature does instead"),
+    (r"\brobust\b", "Marketing adjective; name what the feature does instead"),
+    (r"\bcomprehensive(?:ly)?\b", "Marketing adjective; say what is included instead"),
+    (r"\bcutting-edge\b", "Marketing adjective; delete it or name the capability"),
+    (r"\bgame-chang\w+\b", "Marketing adjective; delete it or name the capability"),
+    (r"\bsupercharg\w+\b", "Marketing verb; name the specific improvement instead"),
+    (r"\bleverag(?:e|es|ed|ing)\b", "Use 'use'"),
+    (r"\bstreamlin(?:e|es|ed|ing)\b", "Say what gets shorter or removed instead"),
+    (r"\bempower(?:s|ed|ing)?\b", "Use 'let' or name the capability"),
+    (r"\bdelv(?:e|es|ed|ing)\b", "Use 'cover' or name the topic directly"),
+    (r"\blandscape\b", "Abstract metaphor; name the concrete thing"),
+    (r"\brealm\b", "Abstract metaphor; name the concrete thing"),
+    (r"\btapestry\b", "Abstract metaphor; name the concrete thing"),
+    (r"\btestament to\b", "Filler phrase; state the fact directly"),
+    (r"\b(?:it'?s|it is) (?:important to note|worth noting)\b", "Filler frame; cut it and state the fact directly"),
+    (r"\bdesigned to\b", "Filler frame; say what it actually does instead"),
+    (r"\bensur(?:e|es|ed|ing) that\b", "Filler frame; state the fact directly"),
+    (r"\ballow(?:s|ed|ing)? you to\b", "Filler frame; use 'lets' or rewrite as a direct instruction"),
+    (r"\bin order to\b", "Use 'to'"),
+]
+
+# Tone: meta-text that narrates the page instead of stating the thing itself.
+# AGENTS.md → Voice & tone → "Every sentence earns its place".
+META_OPENER = re.compile(
+    r"\bThis (?:page|guide|section|article|document) (?:covers|explains|describes|walks(?: you)? through)\b"
+)
+
+# Starlight aside fences, for the callout-budget checks.
+CALLOUT_OPEN = re.compile(r"^\s*:::(note|tip|caution|danger)\b")
+CALLOUT_CLOSE = re.compile(r"^\s*:::\s*$")
+# More callouts than this on one page almost always means caveats that belong
+# in body prose. AGENTS.md allows at most one callout per section.
+CALLOUT_PAGE_BUDGET = 4
+
 # Action verbs that precede UI elements (should be bold, not backtick)
 UI_ACTION_VERBS = r"(?:click|select|toggle|enable|disable|choose|check|uncheck|expand|collapse|open|close|tap)"
 
@@ -1275,13 +1321,19 @@ def check_factory_proper_noun(lines: List[str], filepath: str) -> List[Issue]:
 
     Quiet by construction, because most capitalized "Factory" occurrences are
     legitimate:
-      * "Warp Factories" and "Warp Factory" -- the product name
       * sentence-, heading-, bullet-, link-, quote-, and cell-initial position,
         where the capital is positional rather than a proper noun
       * fenced code blocks, inline code, link targets, and HTML attributes
       * frontmatter, whose titles and sidebar labels are headline-style
       * the exceptions in FACTORY_ALLOWED_NEXT_WORDS and
         FACTORY_ALLOWED_PHRASES
+
+    The singular "Warp Factory" is NOT exempt. The product is "Warp Factories",
+    always plural, and one deployment of it is a lowercase "factory", so the
+    singular is wrong in both senses. It gets its own message because the fix
+    differs from the bare-"Factory" case. "Warp Factory MCP" still passes, via
+    FACTORY_ALLOWED_NEXT_WORDS. The plural never reaches this check at all:
+    FACTORY_BARE is \\bFactory\\b, which cannot match "Factories".
     """
     issues = []
     in_code_block = False
@@ -1315,25 +1367,141 @@ def check_factory_proper_noun(lines: List[str], filepath: str) -> List[Issue]:
         for m in FACTORY_BARE.finditer(prose):
             before = prose[:m.start()]
             after = prose[m.end():]
-            if before.rstrip().endswith("Warp"):
-                continue  # "Warp Factories" / "Warp Factory"
+            preceded_by_warp = before.rstrip().endswith("Warp")
             # Strip the markup between the sentence start and the word, then ask
             # whether anything is left. Nothing left means the capital is
             # positional; a preceding clause means it is being used as a name.
+            # "Warp" is itself a preceding clause, so the singular product name
+            # is caught here even at the start of a sentence or heading.
             prefix = FACTORY_LEADING_MARKUP.sub("", before)
             if not prefix or prefix.endswith((".", "!", "?", ":", "|", "—")):
                 continue
             nxt = re.match(r"\s+(\w+)", after)
             if nxt and nxt.group(1) in FACTORY_ALLOWED_NEXT_WORDS:
                 continue
+            if preceded_by_warp:
+                message = (
+                    'Singular "Warp Factory" used as a product name. The '
+                    'product is "Warp Factories", always plural and written in '
+                    'full; one deployment of it is a lowercase "factory". '
+                    'Write "Warp Factories" for the product, or "a factory" '
+                    "for an instance."
+                )
+            else:
+                message = (
+                    'Bare "Factory" used as a proper noun. "Warp Factories" is '
+                    'the product and is written in full; an individual factory '
+                    'is lowercase. Write "factory" (or "Warp Factories" if you '
+                    "mean the product)."
+                )
             issues.append(Issue(
-                filepath, i, "factory-proper-noun",
-                'Bare "Factory" used as a proper noun. "Warp Factories" is the '
-                'product and is written in full; an individual factory is '
-                'lowercase. Write "factory" (or "Warp Factories" if you mean '
-                "the product).",
+                filepath, i, "factory-proper-noun", message, "warning",
+            ))
+    return issues
+
+
+# ---------------------------------------------------------------------------
+# Tone checks (report-only, never auto-fixed)
+# ---------------------------------------------------------------------------
+
+def _strip_inline_code(line: str) -> str:
+    """Remove inline code spans so CLI flags and API fields never trip tone checks."""
+    return re.sub(r"`[^`]*`", "", line)
+
+
+def check_tone_buzzwords(lines: List[str], filepath: str) -> List[Issue]:
+    """Flag AI-ism buzzwords (AGENTS.md → Voice & tone → Words to avoid).
+
+    Report-only: the fix is a rewrite that names the specific capability,
+    which cannot be automated. Frontmatter is scanned too — a buzzword in a
+    description is still a buzzword in search results.
+    """
+    issues = []
+    in_code_block = False
+    for i, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code_block = not in_code_block
+            continue
+        if in_code_block:
+            continue
+        prose = _strip_inline_code(line)
+        for pattern, suggestion in TONE_BUZZWORDS:
+            for m in re.finditer(pattern, prose, re.IGNORECASE):
+                issues.append(Issue(
+                    filepath, i, "tone-buzzword",
+                    f'"{m.group(0)}": {suggestion}',
+                    "warning",
+                ))
+    return issues
+
+
+def check_meta_openers(lines: List[str], filepath: str) -> List[Issue]:
+    """Flag meta-text that narrates the page ("This page covers...").
+
+    The title and description already frame the page; body prose should state
+    the thing itself. AGENTS.md → Voice & tone → Every sentence earns its place.
+    """
+    issues = []
+    in_code_block = False
+    for i, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code_block = not in_code_block
+            continue
+        if in_code_block:
+            continue
+        if META_OPENER.search(_strip_inline_code(line)):
+            issues.append(Issue(
+                filepath, i, "tone-meta-opener",
+                "Meta-text that narrates the page ('This page covers...'). "
+                "Cut it and state the thing itself",
                 "warning",
             ))
+    return issues
+
+
+def check_callout_density(lines: List[str], filepath: str) -> List[Issue]:
+    """Flag back-to-back callouts and pages over the callout budget.
+
+    AGENTS.md → Callouts and hints: never consecutive, at most one per
+    section. Per-page count is the lintable proxy for the per-section rule.
+    """
+    issues = []
+    in_code_block = False
+    in_callout = False
+    open_lines: List[int] = []
+    last_close_line: Optional[int] = None
+    for i, line in enumerate(lines, 1):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code_block = not in_code_block
+            continue
+        if in_code_block:
+            continue
+        if not in_callout and CALLOUT_OPEN.match(line):
+            open_lines.append(i)
+            if last_close_line is not None and all(
+                not lines[j].strip() for j in range(last_close_line, i - 1)
+            ):
+                issues.append(Issue(
+                    filepath, i, "callout-consecutive",
+                    "Two callouts back to back; merge them or move one into "
+                    "body prose (AGENTS.md → Callouts and hints)",
+                    "warning",
+                ))
+            in_callout = True
+            continue
+        if in_callout and CALLOUT_CLOSE.match(line):
+            in_callout = False
+            last_close_line = i
+    if len(open_lines) > CALLOUT_PAGE_BUDGET:
+        issues.append(Issue(
+            filepath, open_lines[CALLOUT_PAGE_BUDGET], "callout-density",
+            f"{len(open_lines)} callouts on one page; keep to at most one per "
+            "section and move the rest into body prose",
+            "warning",
+        ))
     return issues
 
 
@@ -1362,6 +1530,9 @@ def run_all_checks(filepath: Path) -> List[Issue]:
     issues.extend(check_screenshot_widths(lines, str(filepath)))
     issues.extend(check_video_embed_titles(lines, str(filepath)))
     issues.extend(check_callout_syntax(lines, str(filepath)))
+    issues.extend(check_tone_buzzwords(lines, str(filepath)))
+    issues.extend(check_meta_openers(lines, str(filepath)))
+    issues.extend(check_callout_density(lines, str(filepath)))
     issues.extend(check_product_casing(lines, str(filepath)))
     issues.extend(check_oz_terms(lines, str(filepath)))
     issues.extend(check_deprecated_terms(lines, str(filepath)))

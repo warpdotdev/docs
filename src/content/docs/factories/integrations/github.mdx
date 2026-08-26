@@ -31,6 +31,26 @@ To confirm the connection works, mention the factory on a test issue and check t
 
 The defaults cover mentions, assignments, and pull request completion. To start work from any other GitHub activity, such as a failed CI run or a review request, add an automation with a **GitHub** trigger for that event, then narrow it with the filters below. [Automation filters](/factories/automation-filters/#edit-filters-on-an-automation) covers the steps.
 
+The CI failure triage automation in [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository starts work when a workflow run fails on the default branch:
+
+```markdown title="automations/ci-failure-triage/automation.md"
+---
+triggers:
+  - provider: github
+    event: workflow_run_completed
+    filter:
+      repos: [acme/api-service]
+      branches: [main]
+      conclusions: [failure]
+---
+A workflow run failed on the default branch. Read the run's logs and find
+the failing step. If the cause is small and clear, open a fix PR. Otherwise
+open an issue with the failing step, the error, and the commit range, and
+link the run.
+```
+
+For a review automation that fires when pull requests open, see [`04-code-review-only`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only).
+
 ## Supported triggers
 
 <table>
@@ -82,6 +102,8 @@ Handing an issue or pull request to a factory takes two things:
 
 The factory picks up the request and replies in the same thread.
 
+{/* VISUAL: An issue with the factory:<alias> label and an @warp-factory mention -- the two-part mention ritual is easy to miss from prose alone. */}
+
 Both halves matter, because **@warp-factory** is the account every factory listens through. The label is what decides which of your factories answers, so a mention without one doesn't start work.
 
 Only new content counts as a mention. Edits to existing comments, mentions inside code blocks, and mentions from bots are ignored.
@@ -96,13 +118,13 @@ New activity on an issue, pull request, or review thread the factory is already 
 
 Issues and pull requests the factory opens carry its label, the same one you use to mention it. Warp adds the label to each repository you connect and removes it when you disconnect one or delete the factory, so you never create or clean it up by hand. If a label is ever left behind, delete it like any other GitHub label.
 
-Branches and pull requests the factory creates follow the repository's normal rules — branch protection, required reviews, and merge requirements all still apply.
+Branches and pull requests the factory creates follow the repository's normal rules: branch protection, required reviews, and merge requirements all still apply.
 
 ## Permissions
 
 Runs authenticate with the GitHub App installation, not with the account of the person whose activity triggered them:
 
-* **The app installation decides what agents can reach.** Agents get exactly the repositories and permissions the installation grants, so change the installation to change access — [automation filters](/factories/automation-filters/) only change when work starts.
+* **The app installation decides what agents can reach.** Agents get exactly the repositories and permissions the installation grants, so change the installation to change access. [Automation filters](/factories/automation-filters/) only change when work starts.
 * **Anyone who can create matching activity can start work.** The event author doesn't need to be a Warp team member. Use author, label, and branch filters to control what starts runs.
 
 For the full credential model, see [Permissions and identity](/platform/integrations/github/#permissions-and-identity) on the GitHub integration page.
