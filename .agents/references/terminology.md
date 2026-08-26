@@ -334,6 +334,9 @@ Docs match the screen; the fix belongs in the app.
 - **factory dashboard** — The web app surface for operating a single factory: its work items, runs, agents, automations, and settings.
   *Usage note:* Lowercase common noun. Distinct from **Dashboard**, the metrics page inside it, which is also the factory's landing page — bold **Dashboard** when you mean that page, and leave "factory dashboard" unbolded when you mean the surface. Replaced "control room," a docs-only coinage that appeared nowhere in the product.
 
+- **Scorer** — A configured LLM judge that classifies completed runs against criteria you write, such as "did the agent run the tests before opening a PR?" A Scorer assigns a label (a classification with a score), not a freeform numeric grade.
+  *Usage note:* Capitalize "Scorer"/"Scorers" when referring to the feature or a configured instance ("create a Scorer," "Scorer cards"); lowercase only for a generic instance count or file listing ("two scorers," alongside "skills" in an example tree). Say "classify," never "grade" — the docs draw this distinction deliberately. The unit a Scorer evaluates is a **run** (a single agent execution), not a "conversation" or "completed work." `measure-and-improve.mdx` is the canonical page for what a Scorer is and how to configure one; other pages link there rather than repeating the definition.
+
 - **AI sovereignty** — Warp Factories' positioning around customer ownership and control of inference, hosting, and data exhaust (agent conversations, evals, memories) for their factory.
 
 ## Technical terms

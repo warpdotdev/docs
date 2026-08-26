@@ -1,7 +1,7 @@
 ---
 title: Measure and improve a factory
 description: >-
-  Measure factory activity and costs, evaluate completed conversations, compare
+  Measure factory activity and costs, evaluate completed runs, compare
   agent configurations, and turn failures into follow-up work.
 sidebar:
   label: "Measure and improve"
@@ -12,7 +12,7 @@ Warp Factories tracks what your factory produces and how well it performs, so yo
 | Feature | What it tells you |
 | --- | --- |
 | Dashboard metrics | How much work the factory produced, and what it cost. |
-| Scorers | Whether completed conversations meet criteria you define. |
+| Scorers | Whether completed runs meet criteria you define. |
 | Benchmarks | How different configurations perform on the same tasks. |
 | Self-improvement | Which repeated failures get investigated and turned into follow-up work. |
 
@@ -42,7 +42,7 @@ Use the **Dashboard** page to pick which runs to investigate, not to conclude wh
 
 ## Configure Scorers
 
-A **Scorer** uses an LLM judge to classify completed conversations against criteria you write, such as "did the agent run the tests before opening a PR?" Scorers classify conversations rather than grading them on a numeric scale. Keep each Scorer focused on one question so its failures point to a specific fix. For Scorers defined as files in a factory definition, see the two scorers in [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
+A **Scorer** uses an LLM judge to classify completed runs against criteria you write — for example, "did the agent run the tests before opening a PR?" It assigns a label, not a numeric grade, so keep each Scorer focused on one question its failures can point back to. For Scorers defined as files in a factory definition, see the two scorers in [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
 
 Configure these fields:
 
@@ -50,14 +50,14 @@ Configure these fields:
 * **Judge instructions** - The criteria the judge checks for.
 * **Judge model** - The model that acts as the judge.
 * **Classifications** - The labels the judge can assign, each with a score.
-* **Pass threshold** - The score a conversation needs to pass.
-* **Sample rate** - The share of the selected agents' completed conversations to evaluate.
+* **Pass threshold** - The score a run needs to pass.
+* **Sample rate** - The share of the selected agents' completed runs to evaluate.
 
 {/* VISUAL: The Scorer create/edit form (judge instructions, judge model, classifications, pass threshold, sample rate). */}
 
-While the sample rate is above 0, scoring runs automatically: shortly after a sampled conversation completes, the judge evaluates it and records a classification, a score, and its reasoning. To stop automatic scoring, set the sample rate to 0.
+While the sample rate is above 0, scoring happens automatically: shortly after a sampled run completes, the judge evaluates it and records a classification, a score, and its reasoning. To stop automatic scoring, set the sample rate to 0.
 
-You can also score any single conversation on demand, which is useful for testing new judge instructions before raising the sample rate. Scoring a conversation again replaces its previous result from that Scorer.
+You can also score any single run on demand, which is useful for testing new judge instructions before raising the sample rate. Scoring a run again replaces its previous result from that Scorer.
 
 Changing **Pass threshold** updates how past scores display as pass or fail; the recorded results don't change.
 
@@ -99,9 +99,9 @@ flowchart LR
   Improve -.-> Adopt
 ```
 
-1. **Define a Scorer.** Pick one agent and one failure mode you can observe. Write the judge instructions and classifications, then score a few conversations manually and compare the judge's results against your own review.
+1. **Define a Scorer.** Pick one agent and one failure mode you can observe. Write the judge instructions and classifications, then score a few runs manually and compare the judge's results against your own review.
 2. **Collect a baseline.** Let automatic scoring run until results reflect normal work. Record the Scorer settings, date range, and relevant costs.
-3. **Inspect failures.** Read the judge's reasoning and the underlying conversations. Look for causes like missing context, unclear instructions, or missing tools. Turn on Self-improvement when the same failure keeps repeating.
+3. **Inspect failures.** Read the judge's reasoning and the underlying runs. Look for causes like missing context, unclear instructions, or missing tools. Turn on Self-improvement when the same failure keeps repeating.
 4. **Benchmark a candidate.** Compare configurations of that agent on the same tasks, with enough repetitions to trust the difference.
 5. **Review and adopt.** If the evidence supports the change, make it. Review Self-improvement pull requests with the same standards as human-authored ones.
 6. **Keep monitoring.** Leave the Scorer active and compare new results against your baseline. Revise the Scorer, or set its sample rate to 0, when its criteria no longer match what your team needs.
