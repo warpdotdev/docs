@@ -36,7 +36,7 @@ An environment typically includes:
 
 * **Docker image (required)** – The task/workspace image with the toolchain and dependencies your code needs. For self-hosted Kubernetes workers, a [`default_image`](/platform/self-hosting/managed-kubernetes/) on the worker lets you skip creating an environment entirely.
 * **Repository/workspace** – One or more repos the agent can clone and operate on.
-* **Setup commands** – Commands to prepare the workspace (e.g., dependency install, builds, bootstrapping).
+* **Setup commands** – Commands to prepare the workspace (e.g., dependency install, builds, bootstrapping). Setup commands run as the [container user](#container-user-and-permissions). When Warp creates the default `agent` user for an image that starts as root, prefix commands that need root access with `sudo`.
 
 Use the Docker image for language runtimes, package managers, system libraries, and scripts needed by your project. Custom images do not need to handle installing the Warp CLI binary; Warp supplies the agent runtime separately. You can start from an official image or one of Warp's [prebuilt dev images](https://github.com/warpdotdev/oz-dev-environments).
 
@@ -97,6 +97,28 @@ When you trigger an agent, Warp follows this process:
 7. **The container is destroyed.** After completion, the container is torn down. Each run starts from a clean, isolated environment.
 
 This process ensures every run starts from the same baseline, making results reproducible and debugging straightforward.
+
+---
+
+## Container user and permissions
+
+Cloud agents run as a non-root user inside the container. Running without root privileges by default improves the security of agent environments.
+
+Warp determines the user when the container starts:
+
+* **Your image sets a non-root `USER`** – Warp respects the `USER` directive in your Dockerfile and runs the agent as that user, unchanged.
+* **Your image starts as root (no `USER` directive)** – Warp runs the agent as a dedicated `agent` user (UID/GID 1000 where available) with passwordless `sudo` instead of running as root.
+* **The image can't support a non-root user** – If `sudo` can't be installed or the workspace isn't writable by the agent user, the agent logs a warning and keeps running as root, so runs don't fail at startup.
+
+When your image starts as root, design the image and setup commands with the `agent` user in mind:
+
+* **Prefix commands that need root with `sudo`** – Commands that require root access (`apt-get install`, writing to `/usr/local` or `/etc`, `chown`, etc.) fail without a `sudo` prefix. Passwordless sudo is preconfigured and preserves your `PATH`, though sudo still strips a small set of variables it treats as unsafe (for example, `LD_*` and `BASH_ENV`).
+* **Install tools outside of `/root`** – The agent's home directory is `/home/agent`, so tools or configuration stored only in root's home directory (`~/.bashrc`, `~/.cargo`, `~/.nvm`, etc.) aren't picked up. Install these system-wide or somewhere the `agent` user can access.
+* **Keep directories writable by UID/GID 1000** – Files the agent creates are owned by UID 1000, and any directories baked into your image that the agent writes to must be writable by UID/GID 1000.
+
+:::note
+Cloud agents previously ran as root. To temporarily restore that behavior while you update your image or setup commands, set the environment variable `WARP_AGENT_NONROOT=0` in your image (for example, with an `ENV` directive in your Dockerfile). This opt-out is available for a limited deprecation window after the change ships.
+:::
 
 ---
 
@@ -304,6 +326,8 @@ If your setup commands depend on secrets or credentials, configure them through 
 
 * **Setup assumes previous state** – Steps that rely on leftover caches, existing directories, or already-cloned repos can make runs unreliable. Setup failures can surface as [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/).
   * Solution: Write idempotent setup commands that work on a fresh container.
+* **Permission denied during setup commands or agent runs** – Commands fail with `Permission denied` (or `EACCES`) because the agent runs as a non-root user by default.
+  * Solution: Prefix commands that need root access with `sudo`, and make sure directories baked into your image are writable by UID/GID 1000. See [Container user and permissions](#container-user-and-permissions).
 * **Missing credentials or secrets** – Builds fail when private repos, package registries, or external services require authorization.
   * Solution: Configure credentials with [Agent Secrets](/platform/secrets/).
 * **Repo access and GitHub authorization issues** – Runs fail when GitHub doesn't have repo access or the triggering user lacks permissions. Missing external authorization can surface as [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/).

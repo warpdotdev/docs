@@ -74,7 +74,7 @@ Warp recognizes these managed integration ids:
 * `jira` — the hosted [Jira](/platform/integrations/jira/) MCP server
 
 :::caution
-`linear` and `slack` resolve only for runs executing inside a [Warp Factory](/factories/) with that integration connected; `jira` also resolves for a run triggered directly by a Jira event. Outside those cases — including a plain `oz agent run` like the example above — the server is silently skipped and the run continues without it.
+`linear` and `slack` resolve only for runs executing inside a [factory](/factories/) with that integration connected; `jira` also resolves for a run triggered directly by a Jira event. Outside those cases — including a plain `oz agent run` like the example above — the server is silently skipped and the run continues without it.
 :::
 
 The id is resolved when the run starts, using the integration connection that belongs to the run's team. If the id isn't one Warp recognizes, the server is also skipped.

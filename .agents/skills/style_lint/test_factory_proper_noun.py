@@ -37,6 +37,13 @@ CASES = [
      "definite article plus a capital"),
     ("Review the Factory metrics before deciding.", True,
      "mid-sentence attributive use of the banned form"),
+    # --- the singular product name, always wrong ---
+    ("A run executing inside a Warp Factory is tracked.", True,
+     "singular product name mid-sentence"),
+    ("Warp Factory is in Early Access.", True,
+     "singular product name, sentence-initial (preceded-by-Warp still counts as a clause)"),
+    ("## Connect a Warp Factory to GitHub", True,
+     "singular product name, heading-initial"),
     # --- the product name, written correctly ---
     ("Warp Factories is in Early Access.", False, "the product name"),
     ("Connect Warp Factories to your repository.", False, "product name mid-sentence"),
@@ -52,6 +59,8 @@ CASES = [
      "initial after a sentence boundary"),
     # --- sanctioned exceptions ---
     ("Send work through the Factory MCP.", False, "Factory MCP is the shipped feature name"),
+    ("Send work through the Warp Factory MCP.", False,
+     "Warp Factory MCP is the shipped feature name, singular exemption still applies"),
     ("Enter a **Factory name**, such as `Payments`.", False, "verbatim UI field label"),
     ("The **Factory definition** tab lists the files.", False, "verbatim UI tab label"),
     ("1. In factory setup, go to **Add your Factory to your team**.", False,
