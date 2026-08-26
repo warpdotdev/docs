@@ -6,6 +6,7 @@ description: >-
 sidebar:
   label: "Handoff overview"
 ---
+import { VARS } from '@data/vars';
 
 Handoff moves agent work between local Warp sessions and cloud agent runs without making you restart the task. Depending on the direction, Warp carries over conversation history, workspace changes, and attachments so the receiving agent can continue from the prior session instead of starting from scratch.
 
@@ -22,11 +23,23 @@ Handoff supports three directions:
 * **Cloud to cloud** - Send a follow-up to a cloud run after its session has ended. The run continues in the same conversation, with the prior session's workspace state restored. See [Handoff from cloud to cloud](/platform/handoff/cloud-to-cloud/).
 * **Cloud to local** - Fork a cloud conversation into a local Warp session with **Continue locally** or `/continue-locally`. See [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/#5-fork-the-session-to-your-local-warp).
 
+```mermaid
+flowchart TD
+    Local("Local Warp session")
+    Cloud1("Cloud agent run")
+    Cloud2("Cloud agent run (follow-up)")
+    NewLocal("New local Warp session")
+
+    Local -- "Local to cloud" --> Cloud1
+    Cloud1 -- "Cloud to cloud" --> Cloud2
+    Cloud1 -- "Cloud to local" --> NewLocal
+```
+
 ### Third-party agent runtime coverage
 
 Handoff coverage depends on which agent is running the conversation:
 
-* **Cloud to cloud** works for the Warp Agent and the [third-party cloud harnesses currently supported in Oz](/platform/harnesses/): Claude Code and Codex. For Claude Code and Codex runs, click **Continue**, then enter your follow-up prompt. Warp Agent runs use the streamlined follow-up input.
+* **Cloud to cloud** works for the Warp Agent and the [third-party cloud harnesses currently supported in the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/): Claude Code and Codex. For Claude Code and Codex runs, click **Continue**, then enter your follow-up prompt. Warp Agent runs use the streamlined follow-up input.
 * **Local to cloud** works for the Warp Agent. It isn't available for third-party CLI agent sessions.
 
 ## What carries over
@@ -49,8 +62,8 @@ Each direction has a clear motivating workflow.
 
 ## Related pages
 
-* [Cloud agents overview](/platform/) - What cloud agents are, when to use them, and how they fit into the Oz Platform.
-* [Managing cloud agents](/platform/managing-cloud-agents/) - Inspect handoff runs from the Agent Management Panel in the Warp app or the Runs page in the Oz web app alongside local conversations.
+* [Cloud agents overview](/platform/) - What cloud agents are, when to use them, and how they fit into the {VARS.WARP_AUTOMATION_PLATFORM}.
+* [Managing cloud agents](/platform/managing-cloud-agents/) - Inspect handoff runs from the Agent Management Panel in the Warp app or the Runs page in the {VARS.WEB_APP} alongside local conversations.
 * [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) - Open and continue a cloud run locally with **Continue locally** or `/continue-locally`.
-* [Cloud-synced conversations](/agent-platform/local-agents/cloud-conversations/) - How conversations sync between local and cloud so handoff can find them.
+* [Cloud-synced conversations](/agents/local-agents/cloud-conversations/) - How conversations sync between local and cloud so handoff can find them.
 * [Environments](/platform/environments/) - The runtime context a cloud agent runs in after a handoff.

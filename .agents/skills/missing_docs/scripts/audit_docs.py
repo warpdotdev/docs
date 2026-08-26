@@ -36,6 +36,13 @@ Exit codes:
         clean audit.
 """
 
+# Postponed annotation evaluation keeps `X | None` annotations working on
+# Python 3.9, which is still the system interpreter on some contributor
+# machines. Without it this module cannot even be imported there, so
+# test_audit_docs.py fails before a single test runs. check_new_release.py
+# already does this.
+from __future__ import annotations
+
 import argparse
 import json
 import os
@@ -63,6 +70,12 @@ STALE_TERMS_PATH = SKILL_DIR / "references" / "stale_terms.md"
 DEFAULT_SNAPSHOT_PATH = SKILL_DIR / "references" / "surface_snapshot.json"
 
 SNAPSHOT_SCHEMA_VERSION = 2
+
+# Heading that starts the machine-generated telemetry table in privacy.mdx.
+# Matches TELEMETRY_TABLE_HEADING in the release_updates skill's
+# update_telemetry.py, which rewrites everything below it. Lowercased because
+# the staleness audit reads lowercased doc text.
+GENERATED_SECTION_MARKER = "### exhaustive telemetry table"
 
 # Extraction sanity floors: if a parser returns fewer surfaces than this, the
 # code layout probably changed and the parser is broken. The audit fails loud
@@ -246,17 +259,28 @@ def read_all_docs_text(docs_root: Path) -> dict[str, str]:
 _FENCED_CODE_RE = re.compile(r"```.*?```", re.DOTALL)
 _INLINE_CODE_RE = re.compile(r"`[^`\n]*`")
 _HTML_CODE_RE = re.compile(r"<code>.*?</code>", re.DOTALL | re.IGNORECASE)
+# The `(...)` destination of a markdown link or image. The `[...]` label is
+# left alone — that half is prose.
+_LINK_TARGET_RE = re.compile(r"\]\([^)\s]*\)")
 
 
 def strip_code_spans(text: str) -> str:
-    """Remove fenced code blocks, inline code spans, and <code> elements.
+    """Remove code spans and link destinations, leaving prose behind.
 
     Used by the staleness audit so CLI examples (e.g. `oz agent run`) don't
-    trigger terminology findings meant for prose.
+    trigger terminology findings meant for prose. Link and image destinations
+    are stripped for the same reason: a URL slug or an asset filename is an
+    identifier, not wording a writer can fix. Renaming a published page to
+    chase a terminology change would break every inbound link, and image
+    filenames are not reader-visible at all, so
+    `](/knowledge-and-collaboration/warp-drive/agent-mode-context/)` and
+    `](../../assets/terminal/agent-mode-suggestion-1.png)` are noise here.
+    Genuinely stale slugs are the `check_for_broken_links` skill's job.
     """
     text = _FENCED_CODE_RE.sub(" ", text)
     text = _HTML_CODE_RE.sub(" ", text)
     text = _INLINE_CODE_RE.sub(" ", text)
+    text = _LINK_TARGET_RE.sub("] ", text)
     return text
 
 
@@ -745,9 +769,20 @@ def _split_top_level_args(s: str) -> list[str]:
     return args
 
 
+def _is_route_registrar(name: str) -> bool:
+    """Whether a Go function name looks like a route-registration helper.
+
+    Matches both the exported `RegisterFooRoutes` entry points and unexported
+    helpers like `registerMCPDiscoveryRoutes`, which real handlers use to split
+    a large registration function up. Missing the unexported ones silently
+    dropped their routes from the audit universe.
+    """
+    return name.startswith(("Register", "register"))
+
+
 def _iter_register_calls(body: str):
-    """Yield (callee, start_pos, args) for Register*(...) calls, paren-matched."""
-    for match in re.finditer(r"\b(Register\w+)\(", body):
+    """Yield (callee, start_pos, args) for [Rr]egister*(...) calls, paren-matched."""
+    for match in re.finditer(r"\b([Rr]egister\w+)\(", body):
         start = match.end()
         depth = 1
         i = start
@@ -911,7 +946,7 @@ def parse_public_api_routes(warp_server: Path) -> list[dict]:
     # to hang off the /api/v1 group (conservative default so routes are never
     # silently dropped).
     for fn_name in sorted(analyzed):
-        if fn_name.startswith("Register") and fn_name not in emitted_fns:
+        if _is_route_registrar(fn_name) and fn_name not in emitted_fns:
             emit(fn_name, "/api/v1")
 
     routes = []
@@ -939,10 +974,17 @@ def _normalize_path_params(path: str) -> str:
 
 
 def parse_openapi_paths(openapi_text: str) -> set[str]:
-    """Extract normalized path keys from the OpenAPI YAML text."""
+    """Extract normalized path keys from the OpenAPI YAML text.
+
+    Path keys containing `{param}` are usually emitted quoted (YAML treats a
+    leading `{` as a flow mapping), so both `  /agent/runs:` and
+    `  '/agent/runs/{runId}':` must be recognized. Missing the quoted form made
+    every parameterized endpoint look absent from the spec.
+    """
     paths = set()
-    for match in re.finditer(r"(?m)^\s{2}(/[^\s:]+):", openapi_text):
-        paths.add(_normalize_path_params(match.group(1)))
+    for match in re.finditer(r"""(?m)^\s{2}(?:'(/[^']+)'|"(/[^"]+)"|(/[^\s:'"]+)):""", openapi_text):
+        path = match.group(1) or match.group(2) or match.group(3)
+        paths.add(_normalize_path_params(path))
     return paths
 
 # ---------------------------------------------------------------------------
@@ -1171,18 +1213,40 @@ def page_slug(md_file: Path, docs_root: Path) -> str:
 
 
 _CHANGELOG_HEADER_RE = re.compile(r"^### (\d{4}\.\d{2}\.\d{2})", re.MULTILINE)
-# "Bug fixes" is deliberately untracked: fix bullets rarely create doc surface
-# and would double the weekly triage volume.
-_CHANGELOG_TRACKED_SECTIONS = ("new features", "improvements", "oz updates")
+
+# Bold section labels in the docs changelog whose bullets are triaged.
+#
+# These match a *user-facing heading*, not an API field, so they are exposed to
+# product renames. The Automation Platform variants are accepted ahead of the
+# rename: if the changelog heading changes and this tuple has not, the section
+# silently yields zero bullets and the run under-reports. The guard in
+# parse_changelog_entries() is the backstop for a name nobody anticipated.
+_CHANGELOG_TRACKED_SECTIONS = (
+    "new features",
+    "improvements",
+    "oz updates",
+    "automation platform updates",
+    "platform updates",
+)
+
+# Sections deliberately not triaged, listed so the unknown-section guard can
+# tell "intentionally skipped" from "renamed out from under us". Bug fixes are
+# excluded on purpose to keep weekly triage volume manageable.
+_CHANGELOG_UNTRACKED_SECTIONS = ("bug fixes", "fixes")
 
 
 def parse_changelog_entries(repo_root: Path) -> list[dict]:
     """Parse release entries from src/content/docs/changelog/<year>.mdx.
 
     Returns [{"version": "2026.06.03", "file": str, "items":
-              [{"category": "new features", "text": str}]}] sorted newest first.
-    "New features", "Improvements", and "Oz updates" bullets are tracked —
-    the sections that may represent undocumented feature launches.
+              [{"category": "new features", "text": str}],
+              "unknown_sections": [str]}] sorted newest first.
+
+    Only _CHANGELOG_TRACKED_SECTIONS bullets are collected — the sections that
+    may represent undocumented feature launches. Any other bold section that
+    contains bullets and is not in _CHANGELOG_UNTRACKED_SECTIONS is reported in
+    `unknown_sections` so a renamed heading surfaces as a loud failure instead
+    of an empty result.
     """
     changelog_dir = repo_root / "src" / "content" / "docs" / "changelog"
     if not changelog_dir.exists():
@@ -1198,6 +1262,7 @@ def parse_changelog_entries(repo_root: Path) -> list[dict]:
             end = headers[i + 1].start() if i + 1 < len(headers) else len(content)
             body = content[header.end():end]
             items = []
+            unknown_sections = set()
             current_section = None
             for line in body.splitlines():
                 stripped = line.strip()
@@ -1205,15 +1270,20 @@ def parse_changelog_entries(repo_root: Path) -> list[dict]:
                 if section_match:
                     current_section = section_match.group(1).strip().lower()
                     continue
-                if current_section in _CHANGELOG_TRACKED_SECTIONS and stripped.startswith("* "):
+                if not stripped.startswith("* ") or not current_section:
+                    continue
+                if current_section in _CHANGELOG_TRACKED_SECTIONS:
                     items.append({
                         "category": current_section,
                         "text": stripped[2:].strip(),
                     })
+                elif current_section not in _CHANGELOG_UNTRACKED_SECTIONS:
+                    unknown_sections.add(current_section)
             entries.append({
                 "version": header.group(1),
                 "file": str(mdx.relative_to(repo_root)),
                 "items": items,
+                "unknown_sections": sorted(unknown_sections),
             })
     entries.sort(key=lambda e: e["version"], reverse=True)
     return entries
@@ -1701,11 +1771,11 @@ def audit_staleness(warp_repo: Path, docs_root: Path,
                     stale_terms_path: Path = STALE_TERMS_PATH) -> list[dict]:
     """Check existing docs for stale terminology.
 
-    Code spans are stripped first (CLI examples like `oz agent run` are
-    legitimate command syntax, not terminology) and terms match on word
-    boundaries only. Broader terminology enforcement is owned by the
-    style_lint skill; this audit only flags terms tied to renamed/removed
-    features.
+    Code spans and link destinations are stripped first (CLI examples like
+    `oz agent run` are legitimate command syntax, not terminology; a URL slug
+    is an identifier) and terms match on word boundaries only. Broader
+    terminology enforcement is owned by the style_lint skill; this audit only
+    flags terms tied to renamed/removed features.
     """
     stale_terms = parse_stale_terms(stale_terms_path)
     term_patterns = [
@@ -1719,6 +1789,15 @@ def audit_staleness(warp_repo: Path, docs_root: Path,
         # time — old feature names there are correct, not stale.
         if "/changelog/" in doc_path or doc_path.startswith("changelog/"):
             continue
+        # The telemetry table is regenerated wholesale from the client's event
+        # definitions by the release_updates skill's update_telemetry.py, so
+        # its event names and descriptions are code-derived strings. Editing
+        # the wording here is reverted on the next release; the fix belongs
+        # upstream in the event definition.
+        if doc_path.endswith("privacy.mdx"):
+            marker = content.find(GENERATED_SECTION_MARKER)
+            if marker != -1:
+                content = content[:marker]
         prose = strip_code_spans(content)
         stale_found = []
         for term, reason, pattern in term_patterns:
@@ -2269,18 +2348,103 @@ def diff_snapshots(old: dict, new: dict) -> list[dict]:
     return findings
 
 
+_RELEASE_VERSION_RE = re.compile(r"(\d{4}\.\d{2}\.\d{2})")
+
+
+def normalize_release_version(value: str | None) -> str | None:
+    """Reduce any release identifier to the YYYY.MM.DD form changelog headers use.
+
+    The snapshot stores `2026.08.19`; the release marker stores
+    `v0.2026.08.19.08.15.stable_01`. Both must compare against changelog entry
+    versions, so both are normalized through here.
+    """
+    if not value:
+        return None
+    match = _RELEASE_VERSION_RE.search(str(value))
+    return match.group(1) if match else None
+
+
+def read_last_processed_release(snapshot_path: Path) -> str | None:
+    """Read the triage marker that sits alongside the snapshot.
+
+    Returns the normalized version last *triaged*, or None if the marker is
+    missing, unreadable, or not a JSON object. A missing marker means "never
+    triaged", which is the safe direction: nothing gets skipped.
+    """
+    marker = snapshot_path.parent / "last_release_processed.json"
+    if not marker.exists():
+        return None
+    try:
+        data = json.loads(marker.read_text(encoding="utf-8"))
+    except Exception as exc:
+        print(f"Warning: failed to parse {marker}: {exc}", file=sys.stderr)
+        return None
+    # Valid JSON of the wrong shape (a list, a bare string) would raise on
+    # .get and abort diff-mode triage. Treat it like a parse failure so the
+    # baseline falls back to the snapshot instead. check_new_release.py's
+    # read_state() guards the same file the same way.
+    if not isinstance(data, dict):
+        print(
+            f"Warning: {marker} is not a JSON object (got {type(data).__name__}); "
+            "treating the release as never triaged",
+            file=sys.stderr,
+        )
+        return None
+    return normalize_release_version(data.get("last_processed_version"))
+
+
+def changelog_review_baseline(last_seen_version: str | None,
+                              last_triaged_version: str | None) -> str | None:
+    """Earliest of the observed and triaged markers, normalized.
+
+    Using the earlier of the two is what stops a bookkeeping-only run — which
+    advances the snapshot without triaging — from hiding a release.
+    """
+    return min(
+        (v for v in (normalize_release_version(last_seen_version),
+                     normalize_release_version(last_triaged_version)) if v),
+        default=None,
+    )
+
+
+def unreviewed_unknown_sections(changelog_entries: list[dict],
+                                baseline: str | None) -> list[str]:
+    """Unrecognized bold sections among the entries actually being triaged.
+
+    Scoped to unreviewed entries on purpose. Older launch posts use prose
+    headings ("Multithread yourself with agents") that are neither tracked
+    sections nor renames; policing the whole file would fail every run on
+    history nobody is going to re-triage.
+    """
+    return sorted({
+        section
+        for entry in changelog_entries
+        if not (baseline and entry["version"] <= baseline)
+        for section in entry.get("unknown_sections", [])
+    })
+
+
 def changelog_review_findings(changelog_entries: list[dict],
-                              last_seen_version: str | None) -> list[dict]:
-    """Emit verification findings for changelog entries newer than the snapshot.
+                              last_seen_version: str | None,
+                              last_triaged_version: str | None = None) -> list[dict]:
+    """Emit verification findings for changelog entries not yet triaged.
 
     The weekly human-curated changelog is the best signal for launches that no
     static code parse can see (server-side features, Oz web app, experiment
     rollouts). Each bullet should be verified for real docs coverage — a
     changelog mention alone is not documentation.
+
+    Two independent markers exist and they can disagree. The snapshot's
+    `changelog_last_version` records what was last *observed*; bookkeeping that
+    regenerates the snapshot advances it without triaging anything.
+    `last_release_processed.json` records what was last *triaged*. Using the
+    snapshot alone silently drops every entry a bookkeeping-only run skipped
+    past, so the baseline is the earlier of the two.
     """
+    baseline = changelog_review_baseline(last_seen_version, last_triaged_version)
     findings = []
     for entry in changelog_entries:
-        if last_seen_version and entry["version"] <= last_seen_version:
+        if baseline and entry["version"] <= baseline:
             continue
         for item in entry["items"]:
             findings.append({
@@ -2854,6 +3018,7 @@ def main():
     # Change detection (diff + snapshot update)
     changelog_entries = parse_changelog_entries(repo_root)
     snapshot_path = Path(args.snapshot)
+
     if args.diff or args.update_snapshot:
         if warp_repo and warp_server and extraction_ok:
             current_snapshot = build_snapshot(
@@ -2873,8 +3038,42 @@ def main():
                 else:
                     print("Running surface change detection (diff)...", file=sys.stderr)
                     findings["surface_changes"] = diff_snapshots(previous, current_snapshot)
+                    snapshot_version = normalize_release_version(
+                        previous.get("changelog_last_version"))
+                    triaged_version = read_last_processed_release(snapshot_path)
                     findings["changelog_review"] = changelog_review_findings(
-                        changelog_entries, previous.get("changelog_last_version"))
+                        changelog_entries,
+                        previous.get("changelog_last_version"),
+                        triaged_version)
+                    if (snapshot_version and triaged_version
+                            and snapshot_version != triaged_version):
+                        print(
+                            "Note: snapshot last saw "
+                            f"{snapshot_version} but {triaged_version} was the last "
+                            "release triaged. Reviewing from the earlier of the two "
+                            "so bookkeeping-only runs cannot skip a release.",
+                            file=sys.stderr,
+                        )
+
+                    # Bullets under a heading the parser does not recognize are
+                    # invisible to triage. Silence there looks identical to "nothing
+                    # shipped", so treat it as an extraction failure instead.
+                    unknown_sections = unreviewed_unknown_sections(
+                        changelog_entries,
+                        changelog_review_baseline(
+                            previous.get("changelog_last_version"), triaged_version))
+                    if unknown_sections:
+                        audits_skipped.append({
+                            "audit": "extraction:changelog_sections",
+                            "reason": (
+                                "bullets found under unrecognized changelog headings "
+                                f"{unknown_sections} in entries awaiting triage \u2014 a "
+                                "section was renamed or added. Add each heading to "
+                                "_CHANGELOG_TRACKED_SECTIONS or "
+                                "_CHANGELOG_UNTRACKED_SECTIONS in audit_docs.py; until "
+                                "then those bullets are invisible to triage"
+                            ),
+                        })
                     audits_run.append("diff")
             if args.update_snapshot:
                 snapshot_path.parent.mkdir(parents=True, exist_ok=True)

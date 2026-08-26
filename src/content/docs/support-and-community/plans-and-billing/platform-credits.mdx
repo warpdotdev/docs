@@ -4,12 +4,13 @@ description: >-
   Platform credits cover Warp's platform layer on every cloud agent run
   and on local runs with customer-supplied inference. Learn when they apply.
 ---
+import { VARS } from '@data/vars';
 
 Platform credits cover Warp's platform infrastructure for coordinating, observing, and integrating agent runs. They apply to every cloud agent run, plus local agent runs on Business and Enterprise plans that use customer-supplied inference such as BYOK, a custom inference endpoint, or BYOLLM.
 
 Warp meters credits across three types of infrastructure: **inference** (the model call), **compute** (the sandbox an agent runs in), and **platform** (everything that runs around the agent — run lifecycle, integrations, dashboard, APIs, and observability). Each type maps to one credit bucket: [AI credits](/support-and-community/plans-and-billing/credits/), [compute credits](/support-and-community/plans-and-billing/credits/#compute-credits), and platform credits. Credit types and where an agent runs (local or cloud) are independent.
 
-Customer-supplied inference covers [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/), [custom inference endpoints](/agent-platform/inference/custom-inference-endpoint/), [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), and Enterprise [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/).
+Customer-supplied inference covers [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), [custom inference endpoints](/agents/inference/custom-inference-endpoint/), [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), and Enterprise [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/).
 
 :::caution
 BYOK and customer-supplied inference (custom inference endpoints, plus BYOLLM) are available to individual users and organizations with 10 or fewer employees on any plan. Organizations with more than 10 employees need a Warp Business or Enterprise plan to use BYOK or customer-supplied inference. See Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service) for details.
@@ -19,8 +20,8 @@ BYOK and customer-supplied inference (custom inference endpoints, plus BYOLLM) a
 
 Each credit bucket covers a different layer of the infrastructure Warp provides. Credit types and where an agent runs (local or cloud) are independent — each agent run consumes from whichever credit types apply to it.
 
-* **AI credits** cover inference: the LLM call itself. Consumed when Warp pays for the model call through Warp-managed providers. Used by agent conversations, [Generate](/agent-platform/local-agents/generate/), [AI Autofill](/knowledge-and-collaboration/warp-drive/workflows/#ai-autofill), and other AI features. See [credits](/support-and-community/plans-and-billing/credits/) for how AI credits are calculated.
-* **Compute credits** cover compute: the sandbox an agent runs in. Consumed when an agent run uses Warp-hosted compute. In practice this is cloud agent runs (Slack and Linear integrations, `oz agent run-cloud`, the Oz API, and Cloud Mode in the Warp app); local agent runs use your own machine and don't consume compute credits. See [compute credits](/support-and-community/plans-and-billing/credits/#compute-credits).
+* **AI credits** cover inference: the LLM call itself. Consumed when Warp pays for the model call through Warp-managed providers. Used by agent conversations, [Generate](/agents/local-agents/generate/), [AI Autofill](/knowledge-and-collaboration/warp-drive/workflows/#ai-autofill), and other AI features. See [credits](/support-and-community/plans-and-billing/credits/) for how AI credits are calculated.
+* **Compute credits** cover compute: the sandbox an agent runs in. Consumed when an agent run uses Warp-hosted compute. In practice this is cloud agent runs (Slack and Linear integrations, `oz agent run-cloud`, the {VARS.API_SDK_NAME}, and Cloud Mode in the Warp app); local agent runs use your own machine and don't consume compute credits. See [compute credits](/support-and-community/plans-and-billing/credits/#compute-credits).
 * **Platform credits** cover Warp's platform layer: run lifecycle, integrations, dashboard, APIs, and observability. Apply to every cloud agent run, plus local agent runs on Business and Enterprise plans that use customer-supplied inference.
 
 The three buckets are independent and a single run can consume from more than one. A Warp-managed cloud agent run, for example, consumes AI credits for the model call, compute credits for the hosted compute, and platform credits for the platform infrastructure that runs the agent.
@@ -37,15 +38,15 @@ Whether platform credits apply depends on where the agent runs and who's paying 
 
 ### Uses platform credits
 
-* **Cloud agents on any plan** use platform credits for every cloud agent run, regardless of which agent runs the task (Warp Agent, Claude Code, or Codex), inference source (Warp-managed, BYOK, or BYOLLM), or compute source (Warp-hosted or self-hosted workers). Warp's platform infrastructure coordinates every cloud agent run.
-* **Local agents on Business or Enterprise with customer-supplied inference** use platform credits when the local agent run uses [BYOK](/agent-platform/inference/bring-your-own-api-key/), a [custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/), or BYOLLM. Warp isn't paying for the model call, but Warp's platform infrastructure is still running the local agent. BYOK and customer-supplied inference are subject to plan-size eligibility — see the callout above.
+* **Cloud agents on any plan** use platform credits for every cloud agent run, regardless of which agent runs the task (Warp Agent, Claude Code, or Codex), inference source (Warp-managed, BYOK, or BYOLLM), or compute source (Warp-hosted or self-hosted workers). Warp's platform infrastructure coordinates every cloud agent run. [Warp Factories](/factories/) runs are cloud agent runs, so a factory's agents draw platform credits the same way.
+* **Local agents on Business or Enterprise with customer-supplied inference** use platform credits when the local agent run uses [BYOK](/agents/inference/bring-your-own-api-key/), a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or BYOLLM. Warp isn't paying for the model call, but Warp's platform infrastructure is still running the local agent. BYOK and customer-supplied inference are subject to plan-size eligibility — see the callout above.
 
 ### Doesn't use platform credits
 
 * **Local agents on Free, Build, or Max plans** don't use platform credits, regardless of whether you use Warp-managed inference or BYOK.
 * **Local agents on Business or Enterprise using Warp-managed inference** don't use platform credits because Warp is already paying for the model call through AI credits.
 * **Regular terminal usage** doesn't use platform credits. Shell commands and non-AI Warp features don't consume credits.
-* **Third-party agent CLIs run directly** don't use platform credits when you run `claude`, `codex`, or another agent CLI without going through Oz.
+* **Third-party agent CLIs run directly** don't use platform credits when you run `claude`, `codex`, or another agent CLI without going through Warp.
 
 ## Where platform credits appear
 
@@ -59,6 +60,6 @@ Platform credits appear in the same billing views as your other credit usage.
 
 * [Credits](/support-and-community/plans-and-billing/credits/) - How AI credits are measured and calculated.
 * [Add-on credits](/support-and-community/plans-and-billing/add-on-credits/) - Purchase additional credits or enable auto-reload.
-* [Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/) - Connect your own model provider keys.
-* [Custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/) - Route Warp through any OpenAI-compatible endpoint.
+* [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) - Connect your own model provider keys.
+* [Custom inference endpoint](/agents/inference/custom-inference-endpoint/) - Route Warp through any OpenAI-compatible endpoint.
 * [Plans, pricing, and refunds](/support-and-community/plans-and-billing/plans-pricing-refunds/) - Compare plans and refund policies.

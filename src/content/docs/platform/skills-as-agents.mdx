@@ -2,12 +2,13 @@
 title: Skills as Agents
 description: >-
   Run agents based on skills for consistent, repeatable workflows. Use skills
-  with local or cloud agents from the CLI, Oz web app, API, or on a schedule.
+  with local or cloud agents from the CLI, {{WEB_APP}}, API, or on a schedule.
 sidebar:
   label: "Skills as agents"
 ---
+import { VARS } from '@data/vars';
 
-You can start an agent from a [skill](/agent-platform/capabilities/skills/)—a reusable set of instructions that defines what the agent should do. When you run an agent based on a skill, the skill provides the base prompt and behavior, while you supply additional context for that specific run.
+You can start an agent from a [skill](/agents/capabilities/skills/)—a reusable set of instructions that defines what the agent should do. When you run an agent based on a skill, the skill provides the base prompt and behavior, while you supply additional context for that specific run.
 
 Skills work with both **local agents** (running on your machine) and **cloud agents** (running in Warp's infrastructure).
 
@@ -46,13 +47,31 @@ For cloud agent runs (`oz agent run-cloud`), skills are discovered from reposito
 
 **Discovery workflow:**
 
-1. **Create a skill** in your repository (see [Creating skills](/agent-platform/capabilities/skills/#creating-skills))
+1. **Create a skill** in your repository (see [Creating skills](/agents/capabilities/skills/#creating-skills))
 2. **Add the repository** to an environment
-3. **The skill appears** in the Agents list in the Oz web app
+3. **The skill appears** in the Agents list in the {VARS.WEB_APP}
 
 :::note
-You can also list available skills programmatically using the `GET /agent` endpoint. See the [Oz API](/reference/api-and-sdk/) reference for details.
+You can also list available skills programmatically using the `GET /agent` endpoint. See the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) reference for details.
 :::
+
+### Extra skill directories in cloud runs
+
+Skills that don't live in a cloned repository's standard skill directories can still be indexed. Set the `WARP_SKILL_DIRS` environment variable to a comma-separated list of skill directories, and a cloud run picks them up alongside the skills it discovers from your repositories. This is useful for skills baked into a custom Docker image, mounted from shared storage, or installed by a setup step outside a repo.
+
+Set the variable in the environment's Docker image so it's present when the agent starts:
+
+```dockerfile title="Dockerfile"
+ENV WARP_SKILL_DIRS="/opt/team-skills,tooling/skills"
+```
+
+How the value is interpreted:
+
+* **Directory layout** - Each entry is a skills directory whose direct children are skill folders containing a `SKILL.md`, the same layout as `.agents/skills/`. Point the variable at the parent directory, not at an individual skill folder.
+* **Path resolution** - A leading `~` expands to the home directory. Relative entries resolve against the run's working directory rather than the agent process's current directory, so they stay stable even when setup steps change directories.
+* **Precedence** - Skills loaded this way are treated as personal (home) skills, so they stay in scope for the whole run regardless of which directory the agent is working in. Repository skills of the same name still appear separately, as described in [skill name conflicts](/agents/capabilities/skills/#skill-name-conflicts).
+
+The Warp Agent harness reads `WARP_SKILL_DIRS` directly. For [third-party harnesses](/platform/harnesses/) such as Claude Code and Codex, a cloud run publishes each of these skills into that harness's own skill root before launch, so the harness discovers them through its native skill system.
 
 ---
 
@@ -60,20 +79,20 @@ You can also list available skills programmatically using the `GET /agent` endpo
 
 You can start an agent from a skill using multiple entry points.
 
-### Oz web app
+### Web app
 
-Use the [Oz web app](/platform/oz-web-app/) to run skill-based agents from a visual interface. From the web app, you can:
+Use the [{VARS.WEB_APP}](/platform/oz-web-app/) to run skill-based agents from a visual interface. From the web app, you can:
 
 * Browse all skills available from your environments on the **Agents** page
 * View suggested agents from Warp's public [oz-skills repository](https://github.com/warpdotdev/oz-skills)
 * Start a new run by selecting a skill, environment, and prompt
 * Create scheduled agents that run skills on a cron schedule
 
-For a complete walkthrough of the web app interface, see [Oz Web App](/platform/oz-web-app/).
+For a complete walkthrough of the web app interface, see [{VARS.WEB_APP}](/platform/oz-web-app/).
 
 ### CLI
 
-Use the `--skill` flag with the Oz CLI:
+Use the `--skill` flag with the {VARS.WARP_AGENT_CLI}:
 
 ```sh
 # Run locally with a skill
@@ -125,7 +144,7 @@ oz schedule create \
   --prompt "Scan for dead code and unused feature flags. Open a PR with removals."
 ```
 
-You can also create schedules from the [Oz web app](/platform/oz-web-app/) using the **New schedule** action.
+You can also create schedules from the [{VARS.WEB_APP}](/platform/oz-web-app/) using the **New schedule** action.
 
 For full scheduling documentation, see [Scheduled Agents](/platform/triggers/scheduled-agents/).
 
@@ -133,7 +152,7 @@ For full scheduling documentation, see [Scheduled Agents](/platform/triggers/sch
 
 ## Suggested Skills
 
-The [Oz web app](/platform/oz-web-app/) displays suggested agents from the public [warpdotdev/oz-skills](https://github.com/warpdotdev/oz-skills) repository. These are pre-built skills that demonstrate common use cases and can be used as starting points for your own workflows.
+The [{VARS.WEB_APP}](/platform/oz-web-app/) displays suggested agents from the public [warpdotdev/oz-skills](https://github.com/warpdotdev/oz-skills) repository. These are pre-built skills that demonstrate common use cases and can be used as starting points for your own workflows.
 
 Suggested skills appear on the Agents page under the **Suggested** filter.
 
@@ -141,9 +160,9 @@ Suggested skills appear on the Agents page under the **Suggested** filter.
 
 ## Related resources
 
-* [Skills](/agent-platform/capabilities/skills/) — How to create skills and skill file format
+* [Skills](/agents/capabilities/skills/) — How to create skills and skill file format
 * [Environments](/platform/environments/) — Configure repositories and runtime context for cloud agents
 * [Scheduled Agents](/platform/triggers/scheduled-agents/) — Run agents automatically on a cron schedule
-* [Oz Web App](/platform/oz-web-app/) — Visual interface for managing cloud agents
-* [Oz CLI](/reference/cli/) — Command-line interface for running agents
-* [Oz API & SDK](/reference/api-and-sdk/) — Programmatic access to cloud agents
+* [{VARS.WEB_APP}](/platform/oz-web-app/) — Visual interface for managing cloud agents
+* [{VARS.WARP_AGENT_CLI}](/reference/cli/) — Command-line interface for running agents
+* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) — Programmatic access to cloud agents

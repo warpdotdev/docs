@@ -1,18 +1,19 @@
 ---
-title: "Oz API & SDK reference"
+title: "{{API_SDK_NAME}} reference"
 sidebar:
-  label: "Oz API & SDK"
+  label: "{{API_SDK_NAME}}"
 description: >-
-  Create and inspect cloud agent runs over HTTP with the Oz API, or use the
-  Python and TypeScript SDKs for typed requests, retries, and error handling.
+  Create and inspect cloud agent runs over HTTP, or use the Python and
+  TypeScript SDKs for typed requests, retries, and error handling.
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
-The Oz API and SDKs let you create, monitor, and inspect cloud agent runs programmatically. Use the REST API from any HTTP client, or the official Python and TypeScript SDKs for typed requests, built-in retries, and structured error handling. The SDKs are ideal for CI pipelines, internal tools, and custom integrations.
+The {VARS.API_SDK_NAME} lets you create, monitor, and inspect cloud agent runs programmatically. Use the REST API from any HTTP client, or the official Python and TypeScript SDKs for typed requests, built-in retries, and structured error handling. The SDKs are ideal for CI pipelines, internal tools, and custom integrations.
 
-### Oz API
+### API overview
 
-The Oz API lets you create and inspect [Cloud Agent](/platform/) runs over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
+The {VARS.API_SDK_NAME} lets you create and inspect [Cloud Agent](/platform/) runs over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
 
 **With the API you can:**
 
@@ -26,9 +27,11 @@ This page is a high-level overview.\
 For full API endpoint details, refer to the [**Agents API Reference**](/api). For schema definitions, see the SDK repos: [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript).
 :::
 
-### Oz SDK
+To send work to a [Warp factory](/factories/), use the [factory API](/factories/factory-api/) to discover it and dispatch by UID instead of calling `POST /agent/run` with a foreman's `agent_identity_uid`. Everything on this page - follow-ups, cancellation, status - still applies once a factory run is dispatched.
 
-Oz provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs that wrap the Oz API with:
+### SDK overview
+
+Warp provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs that wrap the {VARS.API_SDK_NAME} with:
 
 * **Typed requests and responses** (editor autocomplete, fewer schema mistakes)
 * **Built-in retries and timeouts** (with per-request overrides)
@@ -37,7 +40,7 @@ Oz provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [
 
 If you’re building an integration (CI, Slack bots, internal tooling, orchestrators), the SDKs are typically the quickest and safest starting point.
 
-<VideoEmbed url="https://www.youtube.com/watch?v=0cf7383MZSk" title="Oz API and SDK reference overview video" />
+<VideoEmbed url="https://www.youtube.com/watch?v=0cf7383MZSk" title={`${VARS.API_SDK_NAME} reference overview video`} />
 
 **SDK vs raw REST**
 
@@ -50,7 +53,7 @@ For the full SDK surface area and latest usage, refer to the GitHub repos: [**Py
 
 ---
 
-## Oz API
+## API reference
 
 ### REST API base URL
 
@@ -80,11 +83,11 @@ See the [**Agents API Reference**](/api) for details on how runs are created and
 
 You can influence how an agent runs using AmbientAgentConfig, including:
 
-* `name` — a human-readable label for grouping, filtering, and traceability. When you run an agent from a [skill](/agent-platform/capabilities/skills/), `name` is automatically set to the skill name. You can also set `name` explicitly via the API, SDK, or CLI (`--name`) to categorize runs by intent — for example, grouping all runs of a particular workflow regardless of how they were triggered. Use the `name` query parameter on `GET /agent/runs` to filter runs by config name.
+* `name` — a human-readable label for grouping, filtering, and traceability. When you run an agent from a [skill](/agents/capabilities/skills/), `name` is automatically set to the skill name. You can also set `name` explicitly via the API, SDK, or CLI (`--name`) to categorize runs by intent — for example, grouping all runs of a particular workflow regardless of how they were triggered. Use the `name` query parameter on `GET /agent/runs` to filter runs by config name.
 * `model_id` for LLM selection
 * `base_prompt` to shape behavior
 * `environment_id` to choose a `CloudEnvironment`
-* `skill_spec` to use a [skill](/agent-platform/capabilities/skills/) as the base prompt (format: `owner/repo:skill-name` or `owner/repo:path/to/SKILL.md`)
+* `skill_spec` to use a [skill](/agents/capabilities/skills/) as the base prompt (format: `owner/repo:skill-name` or `owner/repo:path/to/SKILL.md`)
 * `mcp_servers` to enable specific tools via MCP
 
 See the [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) or [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript) for the full configuration schema.
@@ -135,11 +138,11 @@ The API shares a set of reusable models across endpoints. Detailed JSON schemas,
 
 ---
 
-## Oz SDKs
+## SDKs
 
 ### Python SDK
 
-The Python SDK is the recommended way to call the Oz API from Python services and scripts. It provides:
+The Python SDK is the recommended way to call the API from Python services and scripts. It provides:
 
 * Sync + async clients
 * Typed request/response models
@@ -149,7 +152,7 @@ See the [**Python SDK GitHub repo**](https://github.com/warpdotdev/oz-sdk-python
 
 ### TypeScript SDK
 
-The TypeScript SDK is the recommended way to call the Oz API from Node.js services and modern TS/JS runtimes. It provides:
+The TypeScript SDK is the recommended way to call the API from Node.js services and modern TS/JS runtimes. It provides:
 
 * Fully typed params/responses
 * First-class error handling, retries/timeouts

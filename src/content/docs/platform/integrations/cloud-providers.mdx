@@ -5,6 +5,7 @@ description: >-
 sidebar:
   label: "AWS, GCP, and other cloud providers"
 ---
+import { VARS } from '@data/vars';
 
 Cloud agents can securely access AWS, GCP, and other cloud providers using short-lived OpenID Connect (OIDC) credentials. Configure your cloud agent environment to automatically authenticate to your cloud provider without storing long-lived keys, using Warp's built-in OIDC federation support.
 
@@ -12,7 +13,7 @@ Cloud agents can securely access AWS, GCP, and other cloud providers using short
 
 ## Prerequisites
 
-* A Warp account. You can [create an account in the Oz web app](https://oz.warp.dev).
+* A Warp account. You can <a href={VARS.WEB_APP_URL}>create an account in the {VARS.WEB_APP}</a>.
 * A cloud provider account
 
 Follow the section for your cloud provider.
@@ -23,7 +24,7 @@ Follow the section for your cloud provider.
 
 ### Step 1: Create an OIDC identity provider
 
-The first step is to configure your AWS account to trust OIDC tokens produced by Oz.
+The first step is to configure your AWS account to trust OIDC tokens produced by the {VARS.WARP_AUTOMATION_PLATFORM}.
 
 1. Open the [AWS IAM console](https://console.aws.amazon.com/iam).
 2. Click **Identity Providers**, then click **Add provider**.
@@ -126,23 +127,23 @@ To allow multiple specific principals, use a list of subjects:
 
 Finally, configure the cloud agent environment to use your new AWS role.
 
-1. Open the [Oz web app](https://oz.warp.dev).
+1. Open the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>.
 2. Create or edit an environment. See [Environments](/platform/oz-web-app/#environments) for instructions.
 3. Expand the **AWS** section and enter the AWS role ARN from Step 2.
 4. Save the environment.
 
 :::caution
-Currently, AWS federation can only be configured in the Oz web app, not the CLI.
+Currently, AWS federation can only be configured in the {VARS.WEB_APP}, not the CLI.
 :::
 
 Agents running in this environment will now automatically assume the configured role when using
 the `aws` CLI or a compatible SDK.
 
 :::note
-Oz uses the [**Assume role with web identity**](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-role.html#cli-configure-role-oidc)
+The {VARS.WARP_AUTOMATION_PLATFORM} uses the [**Assume role with web identity**](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-role.html#cli-configure-role-oidc)
 AWS authentication mechanism. The following environment variables are set while the agent is running:
 * `AWS_ROLE_ARN`: the ARN of the role configured above
-* `AWS_WEB_IDENTITY_TOKEN_FILE`: the path to a temporary file containing the agent's Oz OIDC token
+* `AWS_WEB_IDENTITY_TOKEN_FILE`: the path to a temporary file containing the agent's {VARS.WARP_AUTOMATION_PLATFORM} OIDC token
 * `AWS_ROLE_SESSION_NAME`: a derived session name, of the form `Oz_Run_<run-id>`.
 :::
 
@@ -152,10 +153,10 @@ AWS authentication mechanism. The following environment variables are set while 
 
 ### Step 1: Create a Workload Identity Pool and Provider
 
-The Oz GCP integration uses [Workload Identity Federation](https://docs.cloud.google.com/iam/docs/workload-identity-federation).
-You will need to configure a pool and provider to trust OIDC tokens produced by Oz.
+The {VARS.WARP_AUTOMATION_PLATFORM} GCP integration uses [Workload Identity Federation](https://docs.cloud.google.com/iam/docs/workload-identity-federation).
+You will need to configure a pool and provider to trust OIDC tokens produced by the {VARS.WARP_AUTOMATION_PLATFORM}.
 
-These instructions use the `gcloud` tool. You may also follow the OIDC instructions in
+These instructions use the `gcloud` tool. You can also follow the OIDC instructions in
 [Configure Workload Identity Federation with other identity providers](https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-providers)
 to use the GCP console or Terraform.
 
@@ -201,7 +202,7 @@ for example, you would run:
 
 ```bash
 gcloud projects add-iam-policy-binding <project-id> \
-    --member "principalSet://iam.googleapis.com/projects/<project-number>/locations/global/workloadIdentityPools/<pool-id>/attribute.teams/<team-id>" \
+    --member "principalSet://iam.googleapis.com/projects/<project-number>/locations/global/workloadIdentityPools/<pool-id>/group/<team-uid>" \
     --role "roles/compute.viewer"
 ```
 
@@ -212,43 +213,59 @@ for the full syntax supported.
 
 Finally, configure the cloud agent environment to use your Workload Identity Federation provider.
 
-1. Open the [Oz web app](https://oz.warp.dev).
+1. Open the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>.
 2. Create or edit an environment. See [Environments](/platform/oz-web-app/#environments) for instructions.
 3. Expand the **GCP** section and enter the project number, pool ID, and provider ID from Step 1.
 4. Save the environment.
 
 :::caution
-Currently, Workload Identity Federation can only be configured in the Oz web app, not the CLI.
+Currently, Workload Identity Federation can only be configured in the {VARS.WEB_APP}, not the CLI.
 :::
 
 Agents running in this environment will now automatically configure
 [Application Default Credentials](https://docs.cloud.google.com/docs/authentication/application-default-credentials)
 to use the configured pool. Both the `GOOGLE_APPLICATION_CREDENTIALS` and `CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE`
-environment variables are set, so both the `gcloud` CLI and official Google SDKs will use the Oz
-federated credentials. Oz uses
+environment variables are set, so both the `gcloud` CLI and official Google SDKs will use the {VARS.WARP_AUTOMATION_PLATFORM}
+federated credentials. The {VARS.WARP_AUTOMATION_PLATFORM} uses
 [**executable-sourced credentials**](https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-providers#create-credential-config)
 to configure ADC for automatic token rotation.
 
+#### Automatic `gcloud` sign-in
+
+Environment variables alone are enough for the Google SDKs, but `gcloud` reports no active account until
+it signs in through its own auth system, and some tooling depends on an active account. During provider
+setup, the {VARS.WARP_AUTOMATION_PLATFORM} therefore also runs `gcloud auth login` against the federated credential file so `gcloud` reports
+the federated identity as its active account.
+
+This step is best-effort and never blocks the run:
+
+* **`gcloud` isn't installed** - The {VARS.WARP_AUTOMATION_PLATFORM} skips the sign-in. The ADC environment variables still provide credentials to the Google SDKs.
+* **Sign-in fails or times out** - The {VARS.WARP_AUTOMATION_PLATFORM} logs the failure and continues. The ADC environment variables still work, so a run only loses the active-account convenience.
+
+To confirm the account inside a run, use `gcloud auth list`.
+
 ## Other providers
 
-To authenticate from Oz to another provider that supports OIDC federation, you can issue tokens
+To authenticate from the {VARS.WARP_AUTOMATION_PLATFORM} to another provider that supports OIDC federation, you can issue tokens
 directly.
 
 Within the agent environment, use the `oz federate issue-token` command to produce an OIDC token
 with your provider as the audience:
 
 ```bash
-oz federate issue-token --audience your-provider.com --output-format json
+oz federate issue-token --run-id <RUN_ID> --audience your-provider.com --output-format json
 ```
 
-Optionally, add `--duration <duration>` to customize the token validity. This cannot exceed the
-maximum runtime of an agent.
+Replace `<RUN_ID>` with the current agent run's ID.
 
-You may then exchange this token for provider-specific credentials.
+Optionally, add `--duration <duration>` to customize the token validity. Tokens are valid for
+between 5 minutes and 3 hours.
+
+You can then exchange this token for provider-specific credentials.
 
 ## OIDC token claims
 
-All Oz OIDC tokens include standard claims like `iss` (issuer) and `iat` (issued at).
+All {VARS.WARP_AUTOMATION_PLATFORM} OIDC tokens include standard claims like `iss` (issuer) and `iat` (issued at).
 
 ### Audience
 
@@ -265,7 +282,7 @@ By default, the `sub` claim uses the format `<principal-type>:<principal-id>`:
 * `user:abc123def456`: Identifies a user with ID `abc123def456`
 * `service_account:abc123def456`: Identifies your autogenerated team account
 
-When authenticating to AWS, Oz will use a different `sub` claim format, because AWS trust policies cannot
+When authenticating to AWS, the {VARS.WARP_AUTOMATION_PLATFORM} will use a different `sub` claim format, because AWS trust policies cannot
 match on custom OIDC claims. The format above will be prefixed with your team UID:
 * `scoped_principal:xyz789/user:abc123def456`: Identifies the user `abc123def456`, who is a member of team `xyz789`.
 * `scoped_principal:user:abc123def456`: Identifies the user `abc123def456`, who is not on any team.
@@ -283,7 +300,7 @@ Team ID: xyz789
 Team Name: My Team
 ```
 
-You can also check the user IDs from past runs using the Oz API:
+You can also check the user IDs from past runs using the {VARS.API_SDK_NAME}:
 
 ```bash
 curl https://app.warp.dev/api/v1/agent/runs -H "Authorization: Bearer $WARP_API_KEY"
@@ -304,10 +321,11 @@ curl https://app.warp.dev/api/v1/agent/runs -H "Authorization: Bearer $WARP_API_
 
 ### Team
 
-Every token includes a `teams` claim. The value will be a list with your team UID - currently, this
-list only ever contains a single value.
+Tokens for principals on a team include a `teams` claim listing the UIDs of the teams the
+principal belongs to. Users on multiple teams get multiple values, and users on no team get no
+`teams` claim.
 
-### Oz run
+### Run
 
 The following claims are derived from an agent run:
 

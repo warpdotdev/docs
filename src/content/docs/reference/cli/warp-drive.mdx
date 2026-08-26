@@ -6,8 +6,13 @@ description: >-
 sidebar:
   label: "Warp Drive Context"
 ---
+import { VARS } from '@data/vars';
 
-Reference saved Warp Drive objects in Oz CLI commands to reuse prompts, notebooks, workflows, and rules as agent context. Pass a saved prompt ID with `--saved-prompt` or inline Warp Drive references using `<workflow:id>`, `<notebook:id>`, or `<rule:id>` syntax.
+:::caution
+The {VARS.WARP_AGENT_CLI} (the `oz` binary) is being deprecated in favor of the {VARS.WARP_CLI} (the `warp` binary). See the [Warp Agent CLI docs](/agents/cli/) for the replacement.
+:::
+
+Reference saved Warp Drive objects in {VARS.WARP_AGENT_CLI} commands to reuse prompts, notebooks, workflows, and rules as agent context. Pass a saved prompt ID with `--saved-prompt` or inline Warp Drive references using `<workflow:id>`, `<notebook:id>`, or `<rule:id>` syntax.
 
 ## Reusing saved prompts
 
@@ -31,10 +36,10 @@ $ oz agent run --saved-prompt sgNpbUgDkmp2IImUVDc8kR
 
 ## Referencing Warp Drive objects as context
 
-Use `<workflow:id>`, `<notebook:id>`, or `<rule:id>` in prompts to attach [Warp Drive objects](/knowledge-and-collaboration/warp-drive/) and [rules](/agent-platform/capabilities/rules/) as context for the agent.
+Use `<workflow:id>`, `<notebook:id>`, or `<rule:id>` in prompts to attach [Warp Drive objects](/knowledge-and-collaboration/warp-drive/) and [rules](/agents/capabilities/rules/) as context for the agent.
 
 :::note
-**Tip:** Use the [@ context menu](/agent-platform/local-agents/agent-context/using-to-add-context/) in Warp to construct a prompt with the right references, then copy it into your CLI command.
+**Tip:** Use the [@ context menu](/agents/local-agents/agent-context/using-to-add-context/) in Warp to construct a prompt with the right references, then copy it into your CLI command.
 :::
 
 ```bash

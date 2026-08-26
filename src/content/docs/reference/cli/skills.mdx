@@ -1,13 +1,18 @@
 ---
-title: "Skills via the Oz CLI"
+title: "Skills via the {{WARP_AGENT_CLI}}"
 sidebar:
   label: "Skills"
 description: >-
-  Use skills with the Oz CLI to run agents from reusable skill definitions
+  Use skills with the {{WARP_AGENT_CLI}} to run agents from reusable skill definitions
   stored in your repositories.
 ---
+import { VARS } from '@data/vars';
 
-[Skills](/agent-platform/capabilities/skills/) are reusable instruction sets that teach agents how to perform specific tasks. Use the `--skill` flag to run an agent from a skill in a repository accessible to your environment.
+:::caution
+The {VARS.WARP_AGENT_CLI} (the `oz` binary) is being deprecated in favor of the {VARS.WARP_CLI} (the `warp` binary). See the [Warp Agent CLI docs](/agents/cli/) for the replacement.
+:::
+
+[Skills](/agents/capabilities/skills/) are reusable instruction sets that teach agents how to perform specific tasks. Use the `--skill` flag to run an agent from a skill in a repository accessible to your environment.
 
 ## Skill spec format
 
@@ -59,4 +64,4 @@ For local agent runs, skills from your current repository are automatically disc
 oz agent run --skill "owner/repo:skill-name" --prompt "additional context"
 ```
 
-For more information about creating and managing skills, see [Skills](/agent-platform/capabilities/skills/).
+For more information about creating and managing skills, see [Skills](/agents/capabilities/skills/).

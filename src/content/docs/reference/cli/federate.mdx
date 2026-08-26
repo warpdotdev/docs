@@ -6,10 +6,15 @@ description: >-
 sidebar:
   label: "Federated identity"
 ---
+import { VARS } from '@data/vars';
+
+:::caution
+The {VARS.WARP_AGENT_CLI} (the `oz` binary) is being deprecated in favor of the {VARS.WARP_CLI} (the `warp` binary). See the [Warp Agent CLI docs](/agents/cli/) for the replacement.
+:::
 
 `oz federate` issues short-lived OIDC identity tokens for the agent that's currently running. Use these tokens to authenticate to cloud providers (AWS, GCP, Azure, and other OIDC-aware systems) without baking long-lived credentials into your environment.
 
-This command can only be called from inside a running agent session — typically as part of a [skill](/agent-platform/capabilities/skills/), a tool, or a script the agent executes while a run is in progress.
+This command can only be called from inside a running agent session — typically as part of a [skill](/agents/capabilities/skills/), a tool, or a script the agent executes while a run is in progress.
 
 ## When to use federation
 
@@ -35,7 +40,7 @@ oz federate issue-token \
 
 ### Flags
 
-* **`--run-id <RUN_ID>`** - The ID of the Oz run requesting the token. The token is bound to this run.
+* **`--run-id <RUN_ID>`** - The ID of the {VARS.PLATFORM_RUN} requesting the token. The token is bound to this run.
 * **`--audience <AUDIENCE>`** - The `aud` claim for the issued token. Set this to the value your cloud provider's identity pool expects (for example, an AWS IAM Identity Center audience or a GCP workload identity pool URL).
 * **`--duration <DURATION>`** - Requested token lifetime. Accepts human-readable durations like `15m`, `1h`, or `2h30m`. Defaults to `1h`.
 * **`--subject-template <COMPONENT> ...`** - Controls how the OIDC token's `sub` claim is formatted. Pass one or more components, which are joined to form the subject. Defaults to `principal` (for example, `user:my-user-id`).
@@ -78,7 +83,7 @@ oz federate issue-token \
 
 ## Using tokens with cloud providers
 
-Once you have a token, exchange it for cloud credentials using your provider's standard OIDC federation flow. The exchange happens between the cloud provider and your script — Oz only issues the OIDC token.
+Once you have a token, exchange it for cloud credentials using your provider's standard OIDC federation flow. The exchange happens between the cloud provider and your script — the {VARS.WARP_AUTOMATION_PLATFORM} only issues the OIDC token.
 
 A typical AWS flow:
 

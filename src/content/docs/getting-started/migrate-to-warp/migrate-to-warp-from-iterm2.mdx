@@ -36,7 +36,7 @@ To run the importer:
 
 If the importer doesn't pick up something you care about, such as a non-default profile, an unusual keybinding, or a specific setting, ask Warp's Agent to translate it directly. Warp ships a [`settings.toml` file](/terminal/settings/) and a bundled `modify-settings` skill that lets the Agent read your iTerm2 plist and write equivalent values into Warp's settings.
 
-1. In the Warp app, switch to [Agent Mode](/agent-platform/local-agents/overview/) with `⌘+I`.
+1. In the Warp app, switch to [Agent Mode](/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/) with `⌘+I`.
 2. Paste this prompt into Agent Mode, then press `Enter`.
 
    > Read my iTerm2 preferences with `defaults read com.googlecode.iterm2` and port any settings that the importer didn't cover (extra profiles, custom keybindings) into my Warp `settings.toml` using the `modify-settings` skill. Show me a diff before applying.
@@ -57,7 +57,7 @@ A few iTerm2 features don't map directly and need a manual pass after import:
 After the import, choose which [prompt](/terminal/appearance/prompt/) to use:
 
 1. [**Warp prompt**](/terminal/appearance/prompt/#warp-prompt) - Warp's native prompt with drag-and-drop context chips for git branch, directory, timestamps, and more. Configure in **Settings** > **Appearance** > **Prompt**.
-2. [**Shell prompt (PS1)**](/terminal/appearance/prompt/#custom-prompt) - inherits your existing shell prompt configuration unchanged. Pick this if you want Warp to match your iTerm2 prompt exactly.
+2. [**Shell prompt (PS1)**](/terminal/appearance/prompt/#shell-prompt-ps1) - inherits your existing shell prompt configuration unchanged. Pick this if you want Warp to match your iTerm2 prompt exactly.
 
 ## Warp-native equivalents
 

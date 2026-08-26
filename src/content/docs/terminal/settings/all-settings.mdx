@@ -191,8 +191,10 @@ Settings that control terminal behavior, input, and event handling.
 * `show_terminal_input_message_bar` — Whether the terminal input message bar is shown. Type: boolean. Default: `true`.
 * `enable_slash_commands_in_terminal` — Whether slash commands are available in the terminal input. Type: boolean. Default: `true`.
 * `at_context_menu_in_terminal_mode` — Whether the @ context menu is available in terminal mode. Type: boolean. Default: `true`.
+* `enable_ai_command_search_hash_trigger` — Whether typing `#` at the start of terminal input opens [Command Search](/terminal/entry/command-search/). When disabled, Command Search is still reachable through its keyboard shortcut. Type: boolean. Default: `true`.
 * `outline_codebase_symbols_for_at_context_menu` — Whether codebase symbols appear in the @ context menu. Type: boolean. Default: `true`.
 * `middle_click_paste_enabled` — Whether middle-click pastes from the clipboard. Type: boolean. Default: `true`.
+* `right_click_behavior` — What a bare right-click does in the terminal. Type: string. Default: `"context_menu"`. Options: `"context_menu"` (open the context menu), `"paste"` (paste from the clipboard; `Shift`+right-click opens the context menu instead).
 * `extra_meta_keys` — Controls which additional keys are treated as meta keys. Type: object. Default: `{ left_alt = false, right_alt = false }`.
 
 #### Autosuggestions
@@ -262,7 +264,7 @@ Settings for Warp's agents, including model behavior, permissions, knowledge, MC
 
 * `cloud_conversation_storage_enabled` — Whether conversations are stored in the cloud. Type: boolean. Default: `true`.
 * `usage_display_mode` — Which unit the terminal agent's usage entry displays. Applies only to the terminal agent's settings file; click the usage entry to flip between units. Type: string. Default: `"credits"`. Options: `"credits"` (the same number the desktop app's usage footer shows), `"cost"` (provider dollar cost).
-* `execution_profiles` — The collection of [agent profiles](/agent-platform/capabilities/agent-profiles-permissions/) and their permissions, shared by Agent Mode and the terminal agent. This is a structured object that Warp manages when you create and edit profiles in **Settings** > **Agents** > **Profiles**; edit it through the UI rather than by hand. Type: object. Default: `{}` (Warp's built-in profiles).
+* `execution_profiles` — The collection of [agent profiles](/agents/capabilities/agent-profiles-permissions/) and their permissions, shared by Agent Mode and the terminal agent. This is a structured object that Warp manages when you create and edit profiles in **Settings** > **Agents** > **Profiles**; edit it through the UI rather than by hand. Type: object. Default: `{}` (Warp's built-in profiles).
 
 ### Knowledge
 
@@ -330,9 +332,10 @@ Settings for Warp's agents, including model behavior, permissions, knowledge, MC
 * `cloud_agent_computer_use_enabled` — Whether computer use is enabled for cloud agent conversations. Type: boolean. Default: `false`.
 * `agent_attribution_enabled` — Whether the Warp Agent adds an attribution co-author line to commit messages and pull requests it creates. Type: boolean. Default: `true`.
 * `auto_handoff_on_sleep_enabled` — Whether Warp automatically hands off local agent conversations to the cloud when your computer is about to sleep (macOS). See [local-to-cloud handoff](/platform/handoff/local-to-cloud/). Type: boolean. Default: `false`.
-* `default_prompt_submission_mode` — Default behavior when submitting a new prompt while the agent is still responding. See [Prompt Queueing](/agent-platform/local-agents/interacting-with-agents/prompt-queueing/). Type: string. Default: `"interrupt"`. Options: `"interrupt"`, `"queue"`.
-* `long_running_command_submission_mode` — What happens when you submit a prompt while the agent is running an agent-requested long-running command. Only applies when `default_prompt_submission_mode` is `"interrupt"`. See [Prompt Queueing](/agent-platform/local-agents/interacting-with-agents/prompt-queueing/). Type: string. Default: `"queue_until_command_completes"`. Options: `"send_immediately"`, `"queue_until_command_completes"`.
+* `default_prompt_submission_mode` — Default behavior when submitting a new prompt while the agent is still responding. See [Prompt Queueing](/agents/local-agents/interacting-with-agents/prompt-queueing/). Type: string. Default: `"interrupt"`. Options: `"interrupt"`, `"queue"`.
+* `long_running_command_submission_mode` — What happens when you submit a prompt while the agent is running an agent-requested long-running command. Only applies when `default_prompt_submission_mode` is `"interrupt"`. See [Prompt Queueing](/agents/local-agents/interacting-with-agents/prompt-queueing/). Type: string. Default: `"queue_until_command_completes"`. Options: `"send_immediately"`, `"queue_until_command_completes"`.
 * `orchestration_message_display_mode` — How child-agent message bodies are displayed during [multi-agent runs](/platform/orchestration/multi-agent-runs/). Type: string. Default: `"always_collapse"`. Options: `"show_and_collapse"`, `"always_show"`, `"always_collapse"`.
+* `auto_approve_bypasses_command_denylist` — Whether auto-approve and fast forward run commands that match your [command denylist](/agents/capabilities/agent-profiles-permissions/#command-denylist) without asking for confirmation. Denylist rules enforced by your organization through the [Admin Panel](/enterprise/team-management/admin-panel/) are never bypassed. Type: boolean. Default: `true`.
 * `should_force_disable_cloud_handoff` — Whether to force-disable [local-to-cloud handoff](/platform/handoff/local-to-cloud/). Type: boolean. Default: `false`.
 * `should_force_disable_ampersand_handoff` — Whether to force-disable the `&` prefix that composes a prompt for cloud handoff. Type: boolean. Default: `false`.
 
@@ -491,10 +494,10 @@ Settings for Warp features in SSH sessions and subshells.
 **Section**: `[warpify.ssh]`
 
 * `enable_ssh_warpification` — Whether to enable Warp features in SSH sessions. Type: boolean. Default: `true`.
-* `enable_legacy_ssh_wrapper` — Whether the legacy SSH wrapper is enabled for SSH sessions. Type: boolean. Default: `true`.
-* `use_ssh_tmux_wrapper` — Whether to use a tmux-based wrapper for SSH warpification. Type: boolean. Default: `false`.
+* `enable_legacy_ssh_wrapper` — Deprecated in favor of `enable_ssh_warpification`. Type: boolean. Default: `true`.
+* `use_ssh_tmux_wrapper` — Deprecated in favor of the [SSH extension](/terminal/warpify/ssh/). Type: boolean. Default: `false`.
 * `reuse_existing_control_master` — Whether the legacy SSH wrapper attaches to an existing SSH `ControlMaster` for the destination host instead of always creating its own. Type: boolean. Default: `false`.
-* `ssh_extension_install_mode` — Controls SSH extension installation behavior. Type: string. Default: `"always_ask"`. Options: `"always_ask"` (always prompt before installing), `"always_install"` (auto-install and connect without prompting), `"never_install"` (fall back to legacy warpification).
+* `ssh_extension_install_mode` — Controls SSH extension installation behavior. Type: string. Default: `"always_ask"`. Options: `"always_ask"` (always prompt before installing), `"always_install"` (auto-install and connect without prompting), `"never_install"` (fall back to the legacy, wrapper-only SSH warpification).
 * `ssh_hosts_denylist` — SSH hosts that should not trigger the warpification prompt. Type: array of strings. Default: `[]`.
 
 ### Subshells

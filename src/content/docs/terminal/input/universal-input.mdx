@@ -10,7 +10,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
 :::caution
-**This is legacy documentation.** Universal Input has been replaced by [Terminal and Agent modes](/agent-platform/local-agents/interacting-with-agents/terminal-and-agent-modes/), which provides a cleaner terminal experience with a dedicated conversation view for agent interactions.
+**This is legacy documentation.** Universal Input has been replaced by [Terminal and Agent modes](/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/), which provides a cleaner terminal experience with a dedicated conversation view for agent interactions.
 :::
 
 The **Universal Input** was the main input interface for using Warp.
@@ -26,12 +26,12 @@ The **Universal Input** was the main input interface for using Warp.
 
 The Universal Input brings together all of Warp's input features into one streamlined editor:
 
-* **Natural language auto-detection**: Warp can automatically detect when you're writing in plain English, as opposed to a shell command, and switch you into [Agent Mode](/agent-platform/local-agents/interacting-with-agents/#what-is-agent-mode).
+* **Natural language auto-detection**: Warp can automatically detect when you're writing in plain English, as opposed to a shell command, and switch you into [Agent Mode](/agents/local-agents/interacting-with-agents/#conversations-with-warps-agent).
 * **Contextual chips**: See your current directory, previous conversations, Git status, node version, and more, all inline with your input.
-* [**Modern text editing**](/terminal/editor/): Enjoy IDE-like editing features such as [completions](/terminal/command-completions/), [syntax highlighting](/terminal/editor/syntax-error-highlighting/), mouse support, [rectangular selection](/terminal/more-features/text-selection/), and [Next Command](/agent-platform/local-agents/active-ai/) predictions.
-* **Input toolbelt**: Quickly access [@-context](/agent-platform/local-agents/agent-context/using-to-add-context/), [Slash Commands](/agent-platform/capabilities/slash-commands/), [voice input](/agent-platform/local-agents/interacting-with-agents/voice/), [image attachments](/agent-platform/local-agents/agent-context/images-as-context/) as context, and other AI features.
+* [**Modern text editing**](/terminal/editor/): Enjoy IDE-like editing features such as [completions](/terminal/command-completions/), [syntax highlighting](/terminal/editor/syntax-error-highlighting/), mouse support, [rectangular selection](/terminal/more-features/text-selection/), and [Next Command](/agents/local-agents/active-ai/) predictions.
+* **Input toolbelt**: Quickly access [@-context](/agents/local-agents/agent-context/using-to-add-context/), [Slash Commands](/agents/capabilities/slash-commands/), [voice input](/agents/local-agents/interacting-with-agents/voice/), [image attachments](/agents/local-agents/agent-context/images-as-context/) as context, and other AI features.
 
-If you prefer a more traditional terminal input experience, you can switch to [Classic Input](/terminal/input/classic-input/) in **Settings** > **Appearance** > **Input**. Classic input also supports oh-my-posh, PS1 customizations, and [same line prompt.](/terminal/appearance/prompt/#same-line-prompt)
+If you prefer a more traditional terminal input experience, you can switch to [Classic Input](/terminal/input/classic-input/) in **Settings** > **Appearance** > **Input**. Classic input also supports oh-my-posh and [shell prompt (PS1) customizations](/terminal/appearance/prompt/#shell-prompt-ps1).
 
 ## Input modes
 
@@ -90,7 +90,7 @@ The model Warp uses to detect natural language automatically is completely local
 
 By default, auto-detection is enabled. This means Warp decides whether to treat your input as a command or an Agent prompt.
 
-* **To turn off auto-detection**: go to **Settings** > **Agents** > **Oz** > **Input** > **Natural Language Detection**
+* **To turn off auto-detection**: go to **Settings** > **Agents** > **Warp Agent** > **Input** > **Natural Language Detection**
 * When disabled: You’ll explicitly be in either Terminal or Agent Mode. Use the following keyboard shortcuts to switch between modes:
   * `CMD+I` (macOS)
   * `CTRL+I` (Windows/Linux)
@@ -107,7 +107,7 @@ By default, auto-detection is enabled. This means Warp decides whether to treat 
 
 ### Entering Agent Mode
 
-[Agent Mode](/agent-platform/local-agents/interacting-with-agents/) is how you interact directly with Warp's AI to ask questions, run tasks, and collaborate in natural language. There are multiple ways to enter Agent Mode depending on where you are in your workflow:
+[Agent Mode](/agents/local-agents/interacting-with-agents/) is how you interact directly with Warp's AI to ask questions, run tasks, and collaborate in natural language. There are multiple ways to enter Agent Mode depending on where you are in your workflow:
 
 <Tabs>
   <TabItem label="macOS">
@@ -195,11 +195,11 @@ Warp can automatically detect when you’re writing in plain English and switch 
 
 #### Fixing false detections
 
-If certain shell commands are mistakenly detected as natural language, you can add them to the denylist: **Settings** > **Agents** > **Oz** > **Input** > **Natural language denylist**
+If certain shell commands are mistakenly detected as natural language, you can add them to the denylist: **Settings** > **Agents** > **Warp Agent** > **Input** > **Natural language denylist**
 
 #### Turning off auto-detection
 
-To disable natural language detection entirely, go to: **Settings** > **Agents** > **Oz** > **Input Auto-detection**
+To disable natural language detection entirely, go to: **Settings** > **Agents** > **Warp Agent** > **Input Auto-detection**
 
 When auto-detection is turned off, you’ll need to explicitly switch between Terminal Mode and Agent Mode using `CMD + I` (macOS) or `CTRL + I` (Windows/Linux).
 
@@ -225,16 +225,16 @@ The Universal Input includes **contextual chips** that provide inline informatio
 
 #### Conversation Management chip
 
-The conversation management chip shows your recent [Agent conversations](/agent-platform/local-agents/interacting-with-agents/), allowing you to reference or reopen them directly.
+The conversation management chip shows your recent [Agent conversations](/agents/local-agents/interacting-with-agents/), allowing you to reference or reopen them directly.
 
-These chips appear in both Agent Mode and Terminal Mode, so you can continue a previous conversation without starting from scratch. For more details, see [Agent Conversations](/agent-platform/local-agents/interacting-with-agents/).
+These chips appear in both Agent Mode and Terminal Mode, so you can continue a previous conversation without starting from scratch. For more details, see [Agent Conversations](/agents/local-agents/interacting-with-agents/).
 
 <figure>
 ![The Conversation Management chip displays recent Agent conversations and lets you continue or reopen them directly from the input.](../../../../assets/terminal/conversation-management-chip-universal-input.png)
 <figcaption>The Conversation Management chip.</figcaption>
 </figure>
 
-These chips appear in both Agent Mode and Terminal Mode, helping you continue a previous conversation without starting from scratch. For more details, refer to [Agent Conversations](/agent-platform/local-agents/interacting-with-agents/).
+These chips appear in both Agent Mode and Terminal Mode, helping you continue a previous conversation without starting from scratch. For more details, refer to [Agent Conversations](/agents/local-agents/interacting-with-agents/).
 
 #### Active directory chip
 
@@ -258,7 +258,7 @@ The chip updates automatically as files are added, removed, or changed, giving y
 
 #### File attachments chips
 
-The file attachments chip lets you attach images and other files directly to a prompt. You can upload up to five [images at a time (as Agent Context)](/agent-platform/local-agents/agent-context/images-as-context/) using the upload button in the toolbelt or by dragging and dropping files into the input. This makes it possible to add screenshots, diagrams, PDFs, or other references directly to your query, giving the Agent richer context.
+The file attachments chip lets you attach images and other files directly to a prompt. You can upload up to five [images at a time (as Agent Context)](/agents/local-agents/agent-context/images-as-context/) using the upload button in the toolbelt or by dragging and dropping files into the input. This makes it possible to add screenshots, diagrams, PDFs, or other references directly to your query, giving the Agent richer context.
 
 <figure>
 ![The File Attachments chip allows you to add images or files as context for your queries.](../../../../assets/terminal/images-as-context-chip.png)
@@ -291,7 +291,7 @@ The **Input Toolbelt** provides quick-access controls alongside the Universal In
 
 #### @ - Context
 
-The [@ context chip](/agent-platform/local-agents/agent-context/using-to-add-context/) is available when you are working in a Git repository. Outside of a Git repo, it appears dimmed.
+The [@ context chip](/agents/local-agents/agent-context/using-to-add-context/) is available when you are working in a Git repository. Outside of a Git repo, it appears dimmed.
 
 This feature allows you to attach specific files, folders, code symbols, Warp Drive objects, or blocks from other sessions as context for a prompt. Typing **@** inside the input also opens a context menu where you can search for and select files or directories to include.
 
@@ -299,17 +299,17 @@ Attaching context with @ works in both Agent Mode (when interacting with Agents)
 
 **Slash Commands**
 
-[Slash Commands](/agent-platform/capabilities/slash-commands/) are available in Agent Mode and Auto-detection Modes. They allow you to quickly run built-in actions or saved prompts without leaving the input field. Typing / displays a menu of available commands, which can be customized or extended.
+[Slash Commands](/agents/capabilities/slash-commands/) are available in Agent Mode and Auto-detection Modes. They allow you to quickly run built-in actions or saved prompts without leaving the input field. Typing / displays a menu of available commands, which can be customized or extended.
 
 **Voice Input**
 
-[Voice Input](/agent-platform/local-agents/interacting-with-agents/voice/) automatically places you in Agent Mode. Speaking directly into Warp lets you phrase tasks, commands, or queries in natural language, and Warp will interpret them as if you had typed them. This feature is especially useful when you want hands-free interaction or when dictating longer tasks.
+[Voice Input](/agents/local-agents/interacting-with-agents/voice/) automatically places you in Agent Mode. Speaking directly into Warp lets you phrase tasks, commands, or queries in natural language, and Warp will interpret them as if you had typed them. This feature is especially useful when you want hands-free interaction or when dictating longer tasks.
 
 **Image Attachments**
 
-You can [attach images as context](/agent-platform/local-agents/agent-context/images-as-context/) directly to a prompt, which will automatically place you in Agent Mode. This is useful when you want the Agent to reference visual materials such as screenshots, diagrams, or other assets.
+You can [attach images as context](/agents/local-agents/agent-context/images-as-context/) directly to a prompt, which will automatically place you in Agent Mode. This is useful when you want the Agent to reference visual materials such as screenshots, diagrams, or other assets.
 
-You can add images using the image upload button in the toolbelt (located at the bottom left or right, depending on your input layout). For additional methods of attaching images, see [Images as Context](/agent-platform/local-agents/agent-context/images-as-context/).
+You can add images using the image upload button in the toolbelt (located at the bottom left or right, depending on your input layout). For additional methods of attaching images, see [Images as Context](/agents/local-agents/agent-context/images-as-context/).
 
 **Fast Forward**
 
@@ -317,7 +317,7 @@ Fast Forward gives the Agent full autonomy for the remainder of a task or conver
 
 #### Profile Picker
 
-The Profile Picker allows you to select from different [Agent Profiles](/agent-platform/capabilities/agent-profiles-permissions/), each with its own configuration of autonomy, tools, and default model. If you have only one profile, the picker will not appear in the UI.
+The Profile Picker allows you to select from different [Agent Profiles](/agents/capabilities/agent-profiles-permissions/), each with its own configuration of autonomy, tools, and default model. If you have only one profile, the picker will not appear in the UI.
 
 From the Profile Picker, you can view all available profiles, switch between them, and quickly see the default model attached to each one. Profiles make it possible to tailor Agent behavior for different types of tasks or projects.
 
@@ -325,4 +325,4 @@ From the Profile Picker, you can view all available profiles, switch between the
 
 The Model Picker is tied to your current Agent Profile. Each profile has a default model, but you can override it at any time using the picker. Warp curates a selection of top large language models (LLMs) for you to choose from, balancing speed, quality, and reasoning ability depending on your needs.
 
-For a full list of supported models and guidance on when to use them, see [Model Choice](/agent-platform/inference/model-choice/).
+For a full list of supported models and guidance on when to use them, see [Model Choice](/agents/inference/model-choice/).

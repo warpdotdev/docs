@@ -1,0 +1,129 @@
+---
+title: Testing with Computer Use and video recordings
+sidebar:
+  label: "Testing and recordings"
+description: >-
+  Use Computer Use to test desktop UIs in a sandbox and capture annotated
+  recordings for UI validation, end-to-end QA, and bug reproduction.
+---
+
+import { VARS } from '@data/vars';
+import DemoVideo from '@components/DemoVideo.astro';
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+Agents don't just write code; with [Computer Use](/agents/capabilities/computer-use/) enabled they can drive a real desktop GUI in an isolated sandbox, record everything they do, and hand you a trimmed, annotated video as concrete proof of the result.
+
+This page explains when to use Computer Use with recordings, how the recording pipeline works, where your recordings end up, what the finished video contains, and how to handle common recording failures.
+
+Here's Warp engineer Varoon Kodithala to walk you through it.
+
+<VideoEmbed url="https://www.loom.com/share/fb3190a2e4c442aba76e5145da019b20" title="Testing with Computer Use and video recordings walkthrough" />
+
+## When to use it
+
+Computer Use with recordings fits a wide range of tasks. Three common examples:
+
+- **UI change evidence** - After a code change lands, ask an agent to boot the app, exercise the affected surface, and record the session. You get a video showing the change works without running the app yourself.
+- **End-to-end QA of existing flows** - Run an agent through a critical workflow (for example, Warp's onboarding flow or a multi-step form) and capture the full interaction as a single clip for review or a regression archive.
+- **Reproducing a bug** - Ask an agent to reproduce the exact steps from a bug report and record them. The resulting video is the definitive reproduction artifact: shareable, time-stamped, and independent of local environment differences.
+
+You don't need to ask the agent to record explicitly. Prompts like "test this change", "verify the fix works", or "produce evidence" naturally lead an agent with Computer Use enabled to start and stop a recording as part of its workflow.
+
+## How it works
+
+1. **Confirm Computer Use is enabled.** Computer Use is enabled by default for cloud agent runs on Warp's built-in harness, so no setup is needed unless it was turned off for your run. See the [Computer Use](/agents/capabilities/computer-use/#enabling-computer-use) page for how to control it via the Warp app, the {VARS.WARP_AGENT_CLI}, or the {VARS.WARP_AUTOMATION_PLATFORM} API.
+2. **Agent starts recording.** Once Computer Use is active, the agent begins a screen capture inside the sandbox. The recording is gated by your session's Computer Use approval. If you've already approved Computer Use for the run, recording starts automatically without a separate prompt.
+3. **Agent exercises the UI.** The agent takes screenshots, clicks, types, scrolls, and drives the interface. Each successful interaction is tracked: when it started, when it finished, what actions it contained, and where the cursor moved.
+4. **Agent stops and processes.** When the task is complete (or when the recording's configured time or size limit is reached), the agent stops capture. Before upload, the recording is post-processed: idle and thinking gaps are cut, leaving only the windows where real interaction happened, and action overlays are burned in so the video is annotated.
+5. **Artifact is published.** The processed video is uploaded as a run artifact, ready to view wherever the run's artifacts appear.
+
+## Where to find recordings
+
+### In Warp
+
+After the agent finishes its Computer Use session, any video recording appears as a block in the conversation. Clicking the block opens the full conversation view alongside the recording artifact. If the recording was produced by a cloud agent run, you can also access it by opening that run's transcript as a [cloud-synced conversation](/platform/viewing-cloud-agent-runs/).
+
+### In the web app
+
+Cloud agent runs are listed on the [Runs page of the {VARS.WEB_APP}](/platform/oz-web-app/#runs). Open a run to see its artifacts section, which lists any video recordings produced during that run. You can play the video directly from the run page or download it.
+
+### On pull requests
+
+Recordings are also attached to the PR description when the agent opens or updates a pull request — see [Screenshots and videos in pull requests](/agents/capabilities/computer-use/artifacts-in-prs/).
+
+## What's in a recording
+
+The finished video is not raw screen capture. After the agent stops recording, Warp post-processes the video before uploading it:
+
+- **Smart cut of idle and thinking time** - Gaps where the agent is planning, waiting on a network call, or idle between actions are removed. What remains are only the windows where real interaction happened, played back at normal speed. This makes recordings significantly shorter than the raw capture duration.
+- **Action overlays** - Each interaction is burned into the video as overlay pills. Keyboard shortcuts (such as `Ctrl+C`, `Return`, or `Escape`) appear as labels on the frame where they were pressed, so non-visible keys like modifier chords show up clearly. Text typing is labeled "typing…" to avoid leaking sensitive input. Scroll events show a directional label.
+- **Click ripples and drag trails** - Pointer events (mouse clicks, drags, and moves) are captured with their coordinates and burned into the video as click ripples and movement trails, so cursor activity is visible even when the cursor itself is small on screen.
+- **Sandbox-only capture** - The recording is taken from inside the isolated sandbox environment. It never captures your local desktop, terminal, credentials, or anything outside the sandbox.
+
+:::note
+Post-processing is best-effort: if the cut or overlay burn-in step fails for any reason, the original capture is uploaded without annotations. You still get a video, just without the smart cut or overlay pills.
+:::
+
+## Example recordings
+
+### UI change evidence
+
+An agent validates a visual change, records the before-and-after behavior, and attaches the recording to the pull request for the reviewer.
+
+Example prompt:
+```text
+Add a feature to tab groups where each new tab group is assigned a default color that differs from colors already in use. Disable it by default and expose it as a Setting users can toggle on. Once implemented, record a demo that first shows new tab groups getting no color while the setting is off, then enables the setting and shows new tab groups receiving sequential palette colors that cycle back to the start once the palette is exhausted.
+```
+
+The finished recording is attached to the pull request, giving a reviewer proof that both states behave correctly without building the change themselves.
+
+<DemoVideo src="/assets/agent-platform/tab-group-demo.mp4" label="Agent validating the tab group default-color feature with Computer Use and recording the session" />
+
+### End-to-end QA of an existing flow
+
+An agent walks through a critical user journey, such as the "New run" creation flow in the {VARS.WEB_APP}, capturing the complete interaction.
+
+Example prompt:
+```text
+Build the Oz web app and walk through the entire "New run" creation flow end to end. Exercise every entrypoint into the flow: the primary New run button, the command palette, and any contextual entrypoints. Then step through each stage from opening the New run surface to submitting a run.
+```
+
+This gives you a reproducible, time-stamped clip of the flow that can be archived, diffed across releases, or shared with the team as a baseline.
+
+<DemoVideo src="/assets/agent-platform/new-run-demo.mp4" label={`Agent walking through the New run creation flow in the ${VARS.WEB_APP} with Computer Use`} />
+
+### Reproducing a bug
+
+An agent follows the exact steps from a bug report and records them, producing a shareable reproduction artifact. This is a core part of Warp's open-source workflow: when a user files a bug against [warpdotdev/warp](https://github.com/warpdotdev/warp), we spin off a cloud agent to reproduce and verify it before reviewing any contribution that claims to fix it.
+
+Example prompt:
+```text
+Reproduce warpdotdev/warp#13480 ("ctrl+c does not set focus on prompt"): build warp-oss, select a command block, then press Ctrl+C. The block should be deselected and focus should return to the prompt. Record the session so it can be attached to the issue as reproduction proof.
+```
+
+In [warpdotdev/warp#13480](https://github.com/warpdotdev/warp/issues/13480), pressing Ctrl+C while a block is selected fails to return focus to the prompt: the block stays selected and its focus annotations linger. The agent reproduces the bug by driving a sandboxed Warp build and pressing Ctrl+C on a selected block on camera. Bug reproductions are one of the strongest use cases because the video is unambiguous: the recording either shows the bug or it doesn't.
+
+<DemoVideo src="/assets/agent-platform/ctrl-c-bug.mp4" label="Agent reproducing warpdotdev/warp#13480, where Ctrl+C on a selected block fails to refocus the prompt, with Computer Use" />
+
+## Troubleshooting
+
+### Recording was cut short
+
+Each recording has a maximum duration of **10 minutes** and a maximum file size of **1 GiB**. When either limit is hit, the capture is stopped and finalized automatically.
+
+If the conversation is cancelled while a recording is active, the recording is discarded rather than uploaded.
+
+### Retry guidance
+
+Most recording failures are transient. If a recording fails or produces an unexpected result:
+1. Check the agent's output for the specific error message.
+2. Retry the run; recording substrate errors typically clear on the next attempt.
+3. If the failure repeats consistently across multiple runs, file an issue on the [open-source Warp client repository](https://github.com/warpdotdev/warp/issues) with the error message.
+
+## Related
+
+- [Computer Use](/agents/capabilities/computer-use/) - enable Computer Use, understand security considerations, and configure models for Computer Use sessions.
+- [Screenshots and videos in pull requests](/agents/capabilities/computer-use/artifacts-in-prs/) - how captured artifacts are attached to PR descriptions and the team setting that controls it.
+- [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) - open and inspect cloud agent run transcripts in Warp or the browser.
+- [Security considerations](/agents/capabilities/computer-use/#security-considerations) - understand the sandboxed environment and data isolation model.
+- [Privacy](/support-and-community/privacy-and-security/privacy/) - Warp's data handling policies, including how run artifacts are stored.

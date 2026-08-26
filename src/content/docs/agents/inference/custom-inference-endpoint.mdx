@@ -1,0 +1,141 @@
+---
+title: Custom inference endpoint
+description: >-
+  Connect agents to any OpenAI-compatible inference endpoint —
+  OpenRouter, LiteLLM, z.ai, or an internal gateway exposed at a public URL.
+---
+
+Warp supports **custom inference endpoints** for users who want to power agents with any OpenAI-compatible inference endpoint — a model router, hosted gateway, or internal infrastructure they already run.
+
+This lets you route AI requests through your preferred provider, run inference behind your own gateway, or use a router like OpenRouter or LiteLLM, while keeping the agent experience inside Warp.
+
+**Your endpoint must be reachable at a public URL.** Requests route through Warp's servers (see [How it works](#how-it-works)), so Warp must be able to reach your endpoint over the public internet. `localhost`, private or internal network addresses, and internal-only services — such as a LiteLLM proxy that's only reachable inside your network — are rejected. To use an internal or local endpoint, first expose it at a public HTTPS URL. See [Network requirements](#network-requirements) for details.
+
+:::note
+Custom inference endpoints are available on Free and all eligible paid plans for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service). Larger organizations need a Business or Enterprise plan. See [Warp pricing](https://www.warp.dev/pricing) for current availability.
+:::
+
+## Key features
+
+* **OpenAI-compatible** - Works with any endpoint that implements the OpenAI Chat Completions API.
+* **Provider flexibility** - Use a model router (OpenRouter, LiteLLM), a model provider with an OpenAI-compatible surface (z.ai), or your own internal gateway exposed at a public URL.
+* **No AI credits consumed for inference** - Inference is billed directly by your endpoint provider. On Business and Enterprise, local agent runs that route through a custom inference endpoint still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for Warp's platform infrastructure.
+* **Local API key storage** - Your endpoint API key is stored **only on your device** (in your OS keychain or equivalent secure storage), never on Warp's servers. It's used to make requests to your configured endpoint.
+
+## How it works
+
+A custom inference endpoint expects your endpoint to implement the **OpenAI Chat Completions API** (`POST /v1/chat/completions`). Any service that exposes a compatible surface can be used as a target:
+
+* **OpenRouter** - Aggregates many model providers behind a single OpenAI-compatible API and consolidated billing.
+* **LiteLLM** - A self-hosted proxy that exposes a unified, OpenAI-compatible API across providers.
+* **z.ai** - A model provider with an OpenAI-compatible API surface for its models.
+* **Internal gateways (exposed at a public URL)** - An in-house service that fronts model providers behind an OpenAI-compatible endpoint (for example, a corporate AI gateway with logging, redaction, or access control). The gateway must be reachable from the public internet — an internal-only service, such as a LiteLLM proxy that only resolves inside your network or VPN, won't work until it's exposed at a public URL (see [Network requirements](#network-requirements)).
+
+When you configure a custom inference endpoint, your endpoint URL, model identifiers, and API key are stored **only on your device**, never on Warp's servers. Your API key is used to make requests to your configured endpoint.
+
+When you send a prompt using an endpoint-routed model:
+
+1. Your local Warp client pulls your endpoint URL and API key from your device's secure storage and sends them up to Warp's backend along with your prompt.
+2. The Warp Agent harness, which runs on Warp's backend, assembles the full request (system instructions, conversation context, tools) and uses your key in-flight to call your configured endpoint.
+3. Your endpoint's response streams back through Warp's backend to your client.
+
+Your API key passes through Warp's servers each time you send a request, but Warp never stores it there — it's used only in-flight to call your endpoint, then discarded.
+
+:::note
+**Why does the request route through Warp's backend?** The Warp Agent harness runs server-side — the same runtime that powers [Agent Mode](/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/) with Warp-billed models and [BYOK](/agents/inference/bring-your-own-api-key/). A custom inference endpoint swaps the upstream destination and credential; it does not change where the harness runs.
+:::
+
+:::caution
+Custom inference endpoints don't apply to [Cloud Agents](/platform/). Because the configuration is stored locally, it isn't available to cloud-hosted agent runs. Cloud agent runs always consume [Warp credits](/support-and-community/plans-and-billing/credits/).
+:::
+
+When a model routed through your endpoint is selected:
+
+* Warp **doesn't consume** your [AI credits](/support-and-community/plans-and-billing/credits/) for that request.
+* Costs are billed directly by your endpoint provider.
+* Warp doesn't retain or store your API key on any of its servers.
+
+## Enabling a custom inference endpoint
+
+To enable and configure a custom inference endpoint:
+
+1. In Warp, open **Settings** and search for `inference endpoint` to jump to the configuration.
+2. Add your endpoint URL (the base URL that exposes `/v1/chat/completions`) and any required credentials (typically an API key).
+3. Specify the model identifier(s) you want to route through this endpoint.
+4. Save the configuration. Once added, you'll see your custom models appear in the model picker.
+
+When you explicitly select an endpoint-routed model from the model picker, Warp routes the request through your endpoint instead of consuming Warp's AI credits.
+
+The configuration flow mirrors the [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) setup, so the steps will feel familiar if you've already configured BYOK.
+
+## Network requirements
+
+Warp routes inference requests through its servers, so **your endpoint must be reachable from the public internet**. `localhost`, `127.0.0.1`, and other private or local network URLs are rejected when configuring a custom inference endpoint.
+
+This requirement applies to any endpoint that isn't already publicly accessible:
+
+* **Internal gateways and proxies** - An internal LiteLLM proxy, corporate AI gateway, or other service that only resolves inside your private network or VPN can't be reached by Warp. Expose it at a public HTTPS URL — for example, through a load balancer, an API gateway, or a tunneling service — before configuring it in Warp.
+* **Local models** - To route through a model running on your own machine (for example, Ollama, LM Studio, vLLM, or llama.cpp), expose it through a tunneling service like [ngrok](https://ngrok.com/) and use the public tunnel URL as the base URL in your endpoint configuration.
+
+For example, with a default Ollama install listening on port `11434`, run `ngrok http 11434` and use the resulting `https://*.ngrok-free.app/v1` URL as your endpoint. Other tunneling services that produce a publicly reachable HTTPS URL (Cloudflare Tunnel, Tailscale Funnel, and similar) work the same way.
+
+## Billing behavior
+
+### Warp AI credits
+
+When you select an endpoint-routed model from the model picker, inference is billed directly by your endpoint provider, according to their pricing, rather than drawing from your Warp AI credits.
+
+:::note
+On Business and Enterprise plans, local agent runs that route through a custom inference endpoint still consume platform credits for Warp's platform infrastructure. See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the full breakdown.
+:::
+
+### Auto routing still uses Warp credits
+
+Warp's **Auto** models dynamically route across providers using Warp's infrastructure. Because Auto routing depends on Warp, **Auto always consumes Warp's credits**, even if you've configured a custom inference endpoint.
+
+To use your endpoint, select the specific endpoint-routed model from the model picker rather than an Auto option.
+
+[Custom routers](/agents/inference/custom-routers/) can't use your endpoint either: routing targets must be Warp-supported models, so a router never resolves to an endpoint-routed model. Custom routers do apply [BYOK](/agents/inference/bring-your-own-api-key/) provider keys after resolving a model.
+
+### Other AI features in Warp
+
+Some AI-powered features (Codebase Context, Active AI recommendations, cloud agent runs) rely on Warp's infrastructure and are unaffected by a custom inference endpoint. See the [feature breakdown on the BYOK page](/agents/inference/bring-your-own-api-key/#byok-usage-and-billing-behavior) for which features still consume Warp credits.
+
+## Zero Data Retention (ZDR)
+
+Warp is **SOC 2 compliant** and has **Zero Data Retention (ZDR)** agreements with all of its contracted LLM providers.
+
+Custom inference endpoint prompts and responses transit Warp's backend (see [How it works](#how-it-works)). Warp does not use this content for training; retention and analytics handling follow the same account-level privacy and telemetry settings that apply to Warp-billed traffic.
+
+When you use a custom inference endpoint:
+
+* Data retention on the **provider side** is determined by your endpoint provider and any upstream model providers they route to.
+* Warp **cannot enforce ZDR** for requests sent through a custom inference endpoint.
+* If your endpoint provider does not have ZDR with the underlying model provider, your requests may be retained according to their terms.
+
+Warp itself never stores your endpoint API key. Review your endpoint provider's data handling and retention policies before routing sensitive prompts through a custom inference endpoint.
+
+## Centrally managed configuration
+
+The custom inference endpoints described on this page are configured at the **user level** on every plan. Each user adds their own endpoint locally, and it works only for interactive requests, not [cloud agents](/platform/).
+
+Enterprise teams can also configure **team-managed custom endpoints** centrally: an admin sets shared endpoints in the [Admin Panel](/enterprise/team-management/admin-panel/), and they work for both interactive requests and cloud agents. See [Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), or [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) for AWS Bedrock or Gemini Enterprise (Vertex AI) routing.
+
+## How custom inference endpoints differ from BYOK and BYOLLM
+
+Warp offers three ways to bring your own AI infrastructure. Use this table to pick the right one, and follow the links for full details.
+
+| Name | Meaning | Plans |
+| --- | --- | --- |
+| **[Bring Your Own API Key](/agents/inference/bring-your-own-api-key/)** (BYOK) | Use your own API key for OpenAI, Anthropic, or Google models. Keys are stored locally on your device. | Free and all eligible paid plans |
+| **Custom inference endpoint** | Connect Warp to an OpenAI-compatible endpoint such as OpenRouter, LiteLLM, z.ai, or an internal gateway. | Free and all eligible paid plans |
+| **[Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/)** (BYOLLM) | Enterprise-managed inference through your cloud provider (AWS Bedrock and Gemini Enterprise Agent Platform (Vertex AI) today; Azure Foundry coming soon), with Warp handling routing, orchestration, governance, and observability. | Enterprise only |
+
+Platform credits may apply for local agent runs on Business and Enterprise when using BYOK, a custom inference endpoint, or BYOLLM. See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
+
+## Related resources
+
+* [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) — Use your own OpenAI, Anthropic, or Google API keys.
+* [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) — Enterprise-managed inference through your cloud provider or approved infrastructure.
+* [Model Choice](/agents/inference/model-choice/) — Full list of supported models and `model_id` values.
+* [Credits](/support-and-community/plans-and-billing/credits/) — How Warp credits work and when they're consumed.

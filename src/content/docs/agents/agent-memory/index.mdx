@@ -1,0 +1,100 @@
+---
+title: Agent Memory (Research Preview)
+description: >-
+  Agent Memory gives agents in Warp persistent memory across supported harnesses,
+  including the Warp Agent, Claude Code, and Codex.
+sidebar:
+  label: "Agent Memory (Research Preview)"
+---
+import { VARS } from '@data/vars';
+import VideoEmbed from '@components/VideoEmbed.astro';
+
+:::caution
+Agent Memory is in **research preview** and is enabled per team for design partners. [Join the waitlist](https://www.warp.dev/oz/agent-memory#waitlist) to request access for your team.
+:::
+
+Agent Memory is a persistent memory system that lives on Warp and is shared across every supported agent harness, including the built-in Warp Agent, Claude Code, Codex, and others as they're added. Agents read from and write to this memory system as they run, so durable facts, decisions, and outcomes from one conversation are available to the next — regardless of which harness, machine, or teammate triggers the work.
+
+Memory creation and retrieval are asynchronous and run in the background, so they don't consume tokens or add latency to the active task.
+
+Watch this short preview to see Agent Memory in context.
+
+<VideoEmbed url="https://www.youtube.com/watch?v=ED9g1shmiEE" title="Agent Memory" />
+
+[Join the Agent Memory waitlist](https://www.warp.dev/oz/agent-memory#waitlist).
+
+## Key features
+
+* **Cross-harness memory** - One memory system is shared across the Warp Agent, Claude Code, Codex, and other harnesses as they're added. Third-party harnesses are covered when they run as cloud agents.
+* **Both local and cloud agents** - Supports interactive local agents in Warp and background cloud agents.
+* **Asynchronous by design** - Memory creation runs after a conversation ends. Retrieval runs in the background during a run. Neither consumes tokens or adds latency to the active task.
+* **Automatic memory creation from conversations** - When a conversation ends, Warp extracts durable facts, learnings, and outcomes and writes them as memories. New knowledge merges with existing memories or supersedes them on conflict.
+* **Shareable stores** - Memory is organized into stores. A store can be attached to one or more agents, so the same knowledge is available wherever those agents run. To share knowledge across a team, attach a store to an agent the whole team uses.
+* **Auto-memory for new agents** - New agents get a dedicated, agent-owned memory store by default, so they start building long-term memory from their first run. You can turn this off when you create the agent.
+* **Per-agent access and instructions** - Attach stores to specific agents with read-only or read-write access. Per-store instructions tell each agent how and when to use the store.
+* **Traceability** - Each memory records where it came from, so teams can trace a memory back to its source.
+* **Auditability** - Every change to a memory is recorded so teams can inspect how a memory has changed over time.
+
+## Where Agent Memory runs
+
+Agent Memory is part of Warp. Storage, memory creation, and retrieval all run on Warp alongside your agents. The same memory is accessible from any agent you run in Warp:
+
+* The local Warp Agent.
+* Cloud agents triggered from the CLI, web app, schedules, or integrations.
+* Third-party harnesses running as cloud agents: Claude Code, Codex, and others as they're added. (Running third-party harnesses locally isn't supported during the research preview.)
+
+Memory stays bound to its owner (a user, an agent, or a team), independent of which harness reads or writes.
+
+## Memory stores
+
+A memory store is a collection of memories. Stores are used by attaching them to agents: a store can be attached to a single agent or to several agents that need the same knowledge. To make knowledge available across a team, attach a store to an agent the whole team uses; there's no separate step for sharing a store with individual teammates.
+
+Stores differ by who owns them:
+
+* **Personal stores** - Owned by a user. Hold memories about preferences, working notes, and individual patterns.
+* **Agent stores** - Owned by an agent. A new agent gets one by default as its auto-memory store (see below).
+* **Team stores** - Owned by a team. Hold shared knowledge like deployment runbooks, code review conventions, or on-call procedures. Attach a team store to any agent the team uses so everyone's work draws on the same knowledge.
+
+Teams can use multiple stores to keep contexts separate, and attach the same store to several agents when needed. For example, a code review agent can use a dedicated store of review patterns, while a repo-specific store of architectural decisions is attached to both the code review agent and a Sentry triage agent so both reason about the same codebase.
+
+### Auto-memory for new agents
+
+When you create an agent in the {VARS.WEB_APP}, **Auto-memory** is on by default. With it enabled, Warp creates a dedicated memory store owned by that agent and uses it as the agent's default long-term memory: the agent reads relevant memories before it acts and writes durable facts, decisions, and preferences for future runs. Each agent has a single auto-memory store.
+
+Auto-memory is different from automatic memory creation from conversations, described below: auto-memory is the store an agent gets by default, while automatic memory creation from conversations is how memories are written to a store after a conversation ends.
+
+You can turn Auto-memory off when you create the agent, and you can attach existing team stores at the same time, each with its own access level and instructions.
+
+## Automatic memory creation from conversations
+
+When a conversation finishes, Warp extracts durable facts, learnings, and outcomes from the transcript and writes them as memories. Memory creation runs in the background after the conversation ends, so it doesn't consume tokens or add latency during that run.
+
+* **Memories evolve over time** - Agents update and supersede their own memories as new information arrives, including to resolve contradictions with prior memories.
+
+You can also explicitly ask an agent to remember something during a conversation. Warp saves that memory to the appropriate store.
+
+## How agents use memory
+
+When an agent starts a task, Warp searches the stores the agent can access for relevant memories and injects them as context. The search runs in the background, so the agent only sees the memories returned. Agents can also retrieve additional memories on demand mid-conversation when they determine it's relevant, similar to how they consult [Rules](/agents/capabilities/rules/) or [Codebase Context](/agents/capabilities/codebase-context/). You don't need to write retrieval queries or pre-load memory.
+
+## Attaching memory to your agents
+
+Attach stores to agents with read-only or read-write access. Each attachment includes per-store instructions that tell the agent how and when to use the store. For example, use instructions like "Reference this store for team naming conventions" or "Write a new memory after each successful deployment." Instructions are required on every attachment so the agent knows the purpose of each store.
+
+## Coming soon
+
+These capabilities aren't part of the research preview yet, but they're on the way:
+
+* **Programmatic API access** - Read and manage memories and stores through the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/), in addition to managing them in the {VARS.WEB_APP}.
+* **Self-hosting support** - Run Agent Memory on a [self-hosted {VARS.WARP_AUTOMATION_PLATFORM}](/platform/self-hosting/) instance to meet security, privacy, and compliance requirements.
+
+## Join the waitlist
+
+Agent Memory is rolling out to design partner teams during research preview. [Join the waitlist](https://www.warp.dev/oz/agent-memory#waitlist) to request access.
+
+## Related pages
+
+* [Codebase Context](/agents/capabilities/codebase-context/) - Let agents understand your codebase through semantic indexing.
+* [Rules](/agents/capabilities/rules/) - Define global and project-level guidelines that shape agent behavior.
+* [Skills](/agents/capabilities/skills/) - Reusable, scoped instructions that teach agents how to perform specific tasks.
+* [Agent profiles and permissions](/agents/capabilities/agent-profiles-permissions/) - Control what permissions and autonomy agents have.

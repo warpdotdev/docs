@@ -5,6 +5,7 @@ sidebar:
 description: >-
   Details on Warp credits and how they are calculated.
 ---
+import { VARS } from '@data/vars';
 
 ### What are Warp credits?
 
@@ -21,7 +22,7 @@ All three buckets draw from the same Warp credit pool and [add-on credits](/supp
 Each interaction consumes **at least one credit**, though more complex interactions may use **multiple credits**. Because of factors such as codebase size, model choice, number of tool calls, and the nature of LLMs, credit usage is **non-deterministic** — two similar prompts can still use a different number of credits.
 
 :::note
-For a general breakdown of what factors contribute to how many credits are consumed, please refer to: [How are Warp credits calculated?](/support-and-community/plans-and-billing/credits/#how-are-warp-credits-calculated)
+For a general breakdown of what factors contribute to how many credits are consumed, see [How are Warp credits calculated?](/support-and-community/plans-and-billing/credits/#how-are-warp-credits-calculated)
 :::
 
 Since there's no exact formula for predicting usage, we recommend building an intuitive understanding by experimenting with different prompts, models, and tracking how many credits they consume.
@@ -43,13 +44,13 @@ You can view your total credit usage, along with other billing details, in **Set
 
 * **Seat-level allocation**: On team plans, credit limits apply per seat — each team member has their own allowance. Individual users (not on a team) also have their own credit allocation.
 * **Cloud agents and integrations**: Individual users can run cloud agents via the CLI and API, drawing from their Warp credits. Slack and Linear integrations require team membership.
-* **Credit limits by plan**: The Free plan doesn't include bundled AI usage for the Warp Agent. To use the Warp Agent, [upgrade to a paid plan](https://www.warp.dev/pricing) or bring your own inference with [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/), a [custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/), or a [SuperGrok or X Premium subscription](/agent-platform/inference/grok-subscription/). On paid plans, once you reach your monthly credit limit you can continue using AI with usage-based billing via [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
+* **Credit limits by plan**: The Free plan doesn't include bundled AI usage for the Warp Agent. To use the Warp Agent, [upgrade to a paid plan](https://www.warp.dev/pricing), buy [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) without subscribing, or bring your own inference with [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or a [SuperGrok or X Premium subscription](/agents/inference/grok-subscription/). On paid plans, once you reach your monthly credit limit you can continue using AI with usage-based billing via [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
 
 #### **Other features that use credits**
 
 In addition to direct Agent conversations, the following features also consume credits:
 
-* [Generate](/agent-platform/local-agents/overview/) helps you look up commands and suggestions as you type. As you refine your input, multiple credits may be used before you select a final suggestion.
+* [Generate](/agents/local-agents/generate/) helps you look up commands and suggestions as you type. As you refine your input, multiple credits may be used before you select a final suggestion.
 * [AI Autofill in Workflows](/knowledge-and-collaboration/warp-drive/workflows/#ai-autofill) counts as a credit each time it is run.
 
 :::tip
@@ -96,7 +97,7 @@ Some tasks are straightforward and may require only a single quick response, wit
 
 #### 4. Amount of context passed to the model
 
-Prompts that include large amounts of context (such as [attached blocks](/agent-platform/local-agents/agent-context/blocks-as-context/), long user query messages, etc.) or file attachments like [images](/agent-platform/local-agents/agent-context/images-as-context/) may also increase the number of credits used due to increased token consumption.
+Prompts that include large amounts of context (such as [attached blocks](/agents/local-agents/agent-context/blocks-as-context/), long user query messages, etc.) or file attachments like [images](/agents/local-agents/agent-context/images-as-context/) may also increase the number of credits used due to increased token consumption.
 
 :::note
 **Tip**: When sharing logs, code, or other large pieces of content, attach only the most relevant portions instead of full outputs.
@@ -129,7 +130,7 @@ The following scenarios use compute credits:
 
 * **First-party integrations** - Running agents through Slack or Linear integrations
 * **Cloud agent runs** - Using `oz agent run-cloud` via the CLI
-* **Oz API** - Running agents through Warp's Oz API
+* **{VARS.API_SDK_NAME}** - Running agents through Warp's API
 * **Cloud Mode** - Running an agent from Cloud Mode in the Warp app
 
 #### Not eligible for compute credits
@@ -146,7 +147,7 @@ Platform credits cover Warp's platform infrastructure — run lifecycle, schedul
 Platform credits are used in the following scenarios:
 
 * **Cloud agents on any plan** use platform credits for every cloud agent run, regardless of which agent runs the task or which inference source it uses.
-* **Local agents on Business or Enterprise with customer-supplied inference** use platform credits when the local agent run uses [Bring Your Own API Key (BYOK)](/agent-platform/inference/bring-your-own-api-key/), a [custom inference endpoint](/agent-platform/inference/custom-inference-endpoint/), or [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/).
+* **Local agents on Business or Enterprise with customer-supplied inference** use platform credits when the local agent run uses [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/).
 
 #### Not eligible for platform credits
 
@@ -155,12 +156,12 @@ The following scenarios do **not** use platform credits:
 * **Local agents on Free, Build, or Max plans** don't use platform credits, regardless of inference source.
 * **Local agents on Business or Enterprise using Warp-managed inference** don't use platform credits because Warp is already paying for the model call through AI credits.
 * **Regular terminal usage** doesn't use platform credits. Shell commands and non-AI Warp features don't consume credits.
-* **Third-party agent CLIs run directly** don't use platform credits when you run `claude`, `codex`, or another agent CLI outside of Oz.
+* **Third-party agent CLIs run directly** don't use platform credits when you run `claude`, `codex`, or another agent CLI outside of Warp.
 
 For a full breakdown of how platform credits work, see [platform credits](/support-and-community/plans-and-billing/platform-credits/).
 
 ### Cloud agent runs on team plans
 
-Cloud agent runs that aren't initiated by a specific team member — for example, scheduled runs or runs triggered through an agent API key — follow plan-specific billing rules. On self-serve plans (Build, Max, Business), these runs are billed to the team owner: the owner's plan-included credits first, then their add-on credits. With auto-reload off, the request is blocked when both pools are depleted (insufficient credits error). With auto-reload on, usage can trigger a reload on the owner's pool subject to the team-wide spend cap. On Enterprise plans, these runs draw from the team-scoped credit pool per your contract.
+Cloud agent runs that aren't initiated by a specific team member — for example, scheduled runs or runs triggered through an agent API key — follow plan-specific billing rules. On self-serve plans (Build, Max, Business), these runs are billed to the team owner: the owner's plan-included credits first, then the team's shared add-on credit pool. With auto-reload off, the request is blocked when both are depleted (insufficient credits error). With auto-reload on, usage can trigger a reload into the team's shared pool subject to the team-wide spend cap. On Enterprise plans, these runs draw from the team-scoped credit pool per your contract.
 
 For the full waterfall, see [How are cloud agent runs on team plans billed when no individual user triggered them?](/support-and-community/plans-and-billing/pricing-faqs/#how-are-cloud-agent-runs-on-team-plans-billed-when-no-individual-user-triggered-them) in the Pricing FAQs.

@@ -1,27 +1,32 @@
 ---
-title: API keys for the Oz CLI
+title: "API keys for the {{WARP_AGENT_CLI}}"
 description: >-
-  Create and manage API keys for authenticating the Oz CLI and cloud agents.
+  Create and manage API keys for authenticating the {{WARP_AGENT_CLI}} and cloud agents.
 sidebar:
   label: "API keys"
 ---
+import { VARS } from '@data/vars';
 
-API keys let the Oz CLI and cloud agents authenticate without human interaction. Use API keys for CI pipelines, headless servers, VMs, Codespaces, containers, and other automated environments.
+:::caution
+The {VARS.WARP_AGENT_CLI} (the `oz` binary) is being deprecated in favor of the {VARS.WARP_CLI} (the `warp` binary). See the [Warp Agent CLI docs](/agents/cli/) for the replacement.
+:::
+
+API keys let the {VARS.WARP_AGENT_CLI} and cloud agents authenticate without human interaction. Use API keys for CI pipelines, headless servers, VMs, Codespaces, containers, and other automated environments.
 
 ## Personal vs. agent keys
 
 Every API key is either a **personal API key** or an **agent API key**.
 
-* **Personal API keys** authenticate as you. Runs use your GitHub permissions, draw from your credit pool, and inherit your account's [skills](/agent-platform/capabilities/skills/). Use a personal key when the run should act on your behalf — for example, developer-triggered API automation, or the [Enterprise Analytics API](/enterprise/enterprise-features/analytics-api/), which only accepts personal keys.
+* **Personal API keys** authenticate as you. Runs use your GitHub permissions, draw from your credit pool, and inherit your account's [skills](/agents/capabilities/skills/). Use a personal key when the run should act on your behalf — for example, developer-triggered API automation, or the [Enterprise Analytics API](/enterprise/enterprise-features/analytics-api/), which only accepts personal keys.
 * **Agent API keys** run as a [cloud agent](/platform/agents/) on your team. Use an agent key for scheduled jobs, integrations (Slack, Linear, GitHub Actions), SDK-triggered runs, and other automation that isn't tied to a specific user. Billing and GitHub permissions are scoped to the team rather than to you.
 
 ## Creating an API key
 
-You can create an API key in either the [Oz web app](https://oz.warp.dev/settings) or the Warp app. Both surfaces produce keys that authenticate the CLI and SDK identically.
+You can create an API key in either the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP}</a> or the Warp app. Both surfaces produce keys that authenticate the CLI and SDK identically.
 
-### From the Oz web app (recommended)
+### From the web app (recommended)
 
-1. Open the [Oz web app settings page](https://oz.warp.dev/settings).
+1. Open the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP} settings page</a>.
 2. In the API keys section, click **Generate new token**.
 3. Choose the type:
    * **Personal** — Tied to your individual Warp account.
@@ -33,7 +38,7 @@ You can create an API key in either the [Oz web app](https://oz.warp.dev/setting
 ### From the Warp app
 
 1. In the Warp app, click your profile photo in the top-right corner, then click **Settings**.
-2. In the sidebar, expand **Cloud platform** and click **Oz Cloud API Keys**.
+2. In the sidebar, expand **Cloud platform** and click **API keys**.
 3. In the API Keys section, click **+ Create API Key**.
 4. Pick **Personal** for a personal key, or **Agent** / **Team** for an agent key tied to your team. (The toggle may still read **Team** in older versions of the desktop app.)
 5. Name the key and choose an expiration (1 day, 30 days, 90 days, or never).
@@ -59,7 +64,7 @@ The key type determines who the run is attributed to, which credit pool is bille
 
 * Run as a cloud agent on your team.
 * On Build, Max, and Business plans, bill the team owner: the owner's plan-included credits, then the owner's add-on credits. With auto-reload on, usage can trigger a reload on the owner's pool, subject to the team-wide monthly spend cap. On Enterprise plans, use the team-scoped credit pool.
-* Use the **Oz by Warp** GitHub App when [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) is configured. Without team GitHub authorization, agent keys are still useful for tasks that don't need to write to GitHub, such as analysis, monitoring, or triage.
+* Use the **Warp Factories** GitHub App when [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) is configured. Without team GitHub authorization, agent keys are still useful for tasks that don't need to write to GitHub, such as analysis, monitoring, or triage.
 
 For the full credit waterfall, see [Access, billing, and identity permissions](/platform/team-access-billing-and-identity/) and [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
 
@@ -86,13 +91,13 @@ API keys start with the prefix `wk-`. If your key doesn't have this prefix, it m
 
 ## Managing API keys
 
-The [Oz web app settings page](https://oz.warp.dev/settings) and the Warp app's **Settings** > **Cloud platform** > **Oz Cloud API Keys** both list your active keys. Both surfaces show:
+The <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP} settings page</a> and the Warp app's **Settings** > **Cloud platform** > **API keys** both list your active keys. Both surfaces show:
 
 * **Name** — The name you assigned when creating the key.
 * **Scope** — Personal keys show your user; agent keys show the cloud agent the key runs as.
 * **Expires at** — The key's expiration date, or "Never" if it doesn't expire.
 
-The Warp app also shows additional metadata that isn't surfaced in the Oz web app:
+The Warp app also shows additional metadata that isn't surfaced in the {VARS.WEB_APP}:
 
 * **Key** — A masked suffix (`wk-**xxxx`) to help identify the key.
 * **Created** — When the key was created.
@@ -100,13 +105,13 @@ The Warp app also shows additional metadata that isn't surfaced in the Oz web ap
 
 ### Deleting API keys
 
-To delete an API key, find it in either the Oz web app or the Warp app's API Keys list and click the delete icon next to the key.
+To delete an API key, find it in either the {VARS.WEB_APP} or the Warp app's API Keys list and click the delete icon next to the key.
 
 Deleted keys are immediately invalidated and cannot be recovered. Any services or scripts using the deleted key will lose access and may return an [`authentication_required` error](/reference/api-and-sdk/troubleshooting/errors/authentication-required/).
 
 ## Manage API keys from the CLI
 
-In addition to the web and Warp app surfaces, you can manage API keys directly with the [Oz CLI](/reference/cli/). These commands are useful for scripting key rotation and for headless environments.
+In addition to the web and Warp app surfaces, you can manage API keys directly with the [{VARS.WARP_AGENT_CLI}](/reference/cli/). These commands are useful for scripting key rotation and for headless environments.
 
 ### List keys
 
@@ -153,6 +158,6 @@ oz api-key expire "ci-pipeline" --force
 * **Use personal keys for runs that should act as you.** When code changes should be attributed to your GitHub account, a personal key is the right choice. Use agent keys for automation that isn't tied to a specific user.
 * **Use environment variables.** Avoid passing API keys directly in commands where they may be logged or visible in shell history.
 * **Set appropriate expiration.** Use shorter expiration times for development and testing; consider longer durations for stable production workflows.
-* **Configure team GitHub authorization for agents that write to GitHub.** Personal keys authenticate as you with your GitHub permissions. Agent keys authenticate via the [Oz by Warp GitHub App](/platform/team-access-billing-and-identity/#team-github-authorization) when team GitHub authorization is configured in the Admin Panel.
+* **Configure team GitHub authorization for agents that write to GitHub.** Personal keys authenticate as you with your GitHub permissions. Agent keys authenticate via the [Warp Factories GitHub App](/platform/team-access-billing-and-identity/#team-github-authorization) when team GitHub authorization is configured in the Admin Panel.
 * **Rotate keys periodically.** Create new keys and retire old ones on a regular schedule to limit exposure from compromised credentials.
 * **Store securely.** Use secret managers (like 1Password CLI, HashiCorp Vault, or cloud provider secret services) rather than plain text files.

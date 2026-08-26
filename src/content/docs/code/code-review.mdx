@@ -27,7 +27,7 @@ Any uncommitted changes appear in the panel (or compare the changes on your bran
 </figure>
 
 :::note
-To review agent-generated diffs, leave inline comments, batch your feedback, and have the agent apply all requested changes, see [Interactive Code Review](/agent-platform/local-agents/interactive-code-review/).
+To review agent-generated diffs, leave inline comments, batch your feedback, and have the agent apply all requested changes, see [Interactive Code Review](/agents/local-agents/interactive-code-review/).
 :::
 
 :::tip
@@ -58,7 +58,7 @@ In terminal mode, when you're in a Git repository with changes, the Git diff chi
 
 #### 2. Agent conversation: review changes button
 
-When an Agent makes code edits in an [Agent Conversation](/agent-platform/local-agents/interacting-with-agents/), a `Review changes` button appears at the bottom of the conversation. Click the button to open the code review panel.
+When an Agent makes code edits in an [Agent Conversation](/agents/local-agents/interacting-with-agents/), a `Review changes` button appears at the bottom of the conversation. Click the button to open the code review panel.
 
 <figure style={{ maxWidth: "563px" }}>
 ![Review changes at bottom of Agent Conversation.](../../../assets/terminal/Blocklist-with-review-changes.png)
@@ -135,7 +135,7 @@ The Code Review pane makes it simple to share changes with the Agent. You can at
 <figcaption>Attaching a diff as context from the Code Review panel.</figcaption>
 </figure>
 
-This ensures responses are grounded in your latest edits, whether you're asking for feedback, explanations, or follow-up changes. For more details, see [Selection as Context](/agent-platform/local-agents/agent-context/selection-as-context/).
+This ensures responses are grounded in your latest edits, whether you're asking for feedback, explanations, or follow-up changes. For more details, see [Selection as Context](/agents/local-agents/agent-context/selection-as-context/).
 
 #### Reverting diffs
 
@@ -166,7 +166,7 @@ In addition to reviewing and editing diffs directly in the Code Review pane, you
 
 #### Directly editing code diffs
 
-Alternatively, from the Code Review panel, you are able to click and edit the diffs directly:
+Alternatively, from the Code Review panel, you can click and edit the diffs directly:
 
 <figure style={{ maxWidth: "563px" }}>
 ![Directly editing code in the Code Review panel inline diff view](/assets/terminal/directly-editing-diffs.gif)
@@ -177,11 +177,11 @@ Alternatively, from the Code Review panel, you are able to click and edit the di
 
 You can leave inline comments in the Code Review panel and send them directly to a running coding agent session, including third-party CLI agents like Claude Code, Codex, and others.
 
-This extends Warp's [Interactive Code Review](/agent-platform/local-agents/interactive-code-review/) workflow to any supported CLI agent running in Warp. The agent receives your batch of comments and applies the requested changes.
+This extends Warp's [Interactive Code Review](/agents/local-agents/interactive-code-review/) workflow to any supported CLI agent running in Warp. The agent receives your batch of comments and applies the requested changes.
 
 <DemoVideo src="/assets/terminal/code-review-inline-comment.mp4" label="Adding an inline comment on a diff line and sending it to a running agent" />
 
-For more on supported agents, see [Third-party CLI agents](/agent-platform/cli-agents/overview/).
+For more on supported agents, see [Third-party CLI agents](/agents/cli-agents/overview/).
 
 ### Discarding all changes
 

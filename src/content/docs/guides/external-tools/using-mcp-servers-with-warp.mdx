@@ -10,6 +10,7 @@ tags:
 featured: true
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
 <VideoEmbed url="https://www.youtube.com/watch?v=8vn2brhJrF8" title="Using MCP servers with Warp agents video" />
 
@@ -18,7 +19,7 @@ MCP servers let Warp agents use external tools and data sources through a standa
 Warp supports MCP in two places:
 
 * **Local agents in the Warp app** use MCP servers configured in **Settings** > **Agents** > **MCP servers**, Warp Drive, or file-based config.
-* **Cloud agents** use MCP servers passed through the Oz CLI, agent config files, or Warp-shared MCP server UUIDs.
+* **Cloud agents** use MCP servers passed through the {VARS.WARP_AGENT_CLI}, agent config files, or Warp-shared MCP server UUIDs.
 
 Use this guide to choose the right setup path, then jump to the source docs for exact configuration syntax.
 
@@ -26,8 +27,8 @@ Use this guide to choose the right setup path, then jump to the source docs for 
 
 | Workflow | Use it when | Configure MCP with | Source docs |
 | -------- | ----------- | ------------------ | ----------- |
-| Local Warp agent | You are working interactively in Warp and want the agent to use tools from your machine or desktop-authenticated services. | Warp MCP settings, Warp Drive MCP servers, `.warp/.mcp.json`, or provider config files. | [Model Context Protocol (MCP)](/agent-platform/capabilities/mcp/) |
-| Third-party CLI agent in Warp | You run Claude Code, Codex, OpenCode, or another CLI agent in Warp and want shared MCP config across tools. | File-based MCP config that Warp can detect and approve. | [File-based MCP servers](/agent-platform/capabilities/mcp/#file-based-mcp-servers) |
+| Local Warp agent | You are working interactively in Warp and want the agent to use tools from your machine or desktop-authenticated services. | Warp MCP settings, Warp Drive MCP servers, `.warp/.mcp.json`, or provider config files. | [Model Context Protocol (MCP)](/agents/capabilities/mcp/) |
+| Third-party CLI agent in Warp | You run Claude Code, Codex, OpenCode, or another CLI agent in Warp and want shared MCP config across tools. | File-based MCP config that Warp can detect and approve. | [File-based MCP servers](/agents/capabilities/mcp/#file-based-mcp-servers) |
 | Cloud agent run | The agent runs in a cloud environment from Slack, Linear, schedules, GitHub Actions, the CLI, or the API. | `--mcp`, an agent config file, or a Warp-shared MCP UUID. | [MCP Servers for cloud agents](/platform/mcp/) |
 | Repeatable automation | You need the same MCP tools every time a scheduled agent, integration, or CI workflow runs. | Agent config files plus [Agent Secrets](/platform/secrets/) for credentials. | [MCP servers (CLI reference)](/reference/cli/mcp-servers/) |
 
@@ -43,9 +44,9 @@ Example workflow:
 2. Start a local agent conversation in the repo.
 3. Ask the agent to fetch the issue, inspect linked context, and make a plan.
 4. Review changes in the [Code Review panel](/code/code-review/).
-5. Use [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) if teammates need to inspect the agent context.
+5. Use [Agent Session Sharing](/agents/local-agents/session-sharing/) if teammates need to inspect the agent context.
 
-For setup details, see [Model Context Protocol (MCP)](/agent-platform/capabilities/mcp/).
+For setup details, see [Model Context Protocol (MCP)](/agents/capabilities/mcp/).
 
 ### Give cloud agents access to developer tools
 
@@ -56,8 +57,8 @@ Example workflow:
 1. Create or identify the MCP server the cloud agent should use.
 2. Store required credentials as [Agent Secrets](/platform/secrets/) instead of hardcoding tokens in config files.
 3. Attach the MCP server with `--mcp`, a config file, or a Warp-shared MCP UUID.
-4. Run the cloud agent from the Oz CLI, Slack, Linear, GitHub Actions, a schedule, or the API.
-5. Inspect the run in the [Oz web app](/platform/oz-web-app/) or [Cloud agent session sharing](/platform/viewing-cloud-agent-runs/).
+4. Run the cloud agent from the {VARS.WARP_AGENT_CLI}, Slack, Linear, GitHub Actions, a schedule, or the API.
+5. Inspect the run in the [{VARS.WEB_APP}](/platform/oz-web-app/) or [Cloud agent session sharing](/platform/viewing-cloud-agent-runs/).
 
 For schema and cloud-specific limitations, see [MCP Servers for cloud agents](/platform/mcp/).
 
@@ -67,7 +68,7 @@ Use shared MCP servers when multiple teammates or workflows need the same tool c
 
 For local agents, share the server from the MCP settings page. Warp scrubs sensitive environment values and prompts teammates to provide their own values when they install it.
 
-For cloud agents, reference a Warp-shared MCP server by UUID with the Oz CLI:
+For cloud agents, reference a Warp-shared MCP server by UUID with the {VARS.WARP_AGENT_CLI}:
 
 ```sh
 oz mcp list
@@ -118,7 +119,7 @@ Warp supports MCP servers for many developer tools, including:
 * **Notion** - Retrieve docs, specs, and project notes.
 * **Internal tools** - Expose your own APIs through a custom MCP server.
 
-For example configurations and demos, see the MCP server examples in [Model Context Protocol (MCP)](/agent-platform/capabilities/mcp/#mcp-server-configuration-examples) and the [MCP guides listed on the Guides page](/guides/).
+For example configurations and demos, see the MCP server examples in [Model Context Protocol (MCP)](/agents/capabilities/mcp/#mcp-server-configuration-examples) and the [MCP guides listed on the Guides page](/guides/).
 
 ## Security checklist
 
@@ -133,7 +134,7 @@ Before giving an agent tool access through MCP:
 
 ## Next steps
 
-* [Model Context Protocol (MCP)](/agent-platform/capabilities/mcp/) - Configure MCP servers for local agents in the Warp app.
+* [Model Context Protocol (MCP)](/agents/capabilities/mcp/) - Configure MCP servers for local agents in the Warp app.
 * [MCP Servers for cloud agents](/platform/mcp/) - Configure MCP servers for cloud runs and automation.
 * [MCP servers (CLI reference)](/reference/cli/mcp-servers/) - Use `--mcp` with UUIDs, inline JSON, or files.
 * [Agent Secrets](/platform/secrets/) - Store credentials for cloud agent runs.

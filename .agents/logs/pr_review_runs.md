@@ -15,3 +15,11 @@ This is a human-readable audit trail of `review-docs-pr` runs on agent-authored 
 ```
 
 ---
+## 2026-08-03 — collector scan (no [SIGNAL:pr-review] markers)
+- **Branch**: n/a
+- **Skill used**: improve-drafting-skills feedback collector
+- **Critical**: 0 · **Important**: 0 · **Suggestions**: 0 · **Nits**: 0
+- **Top issue categories**: none (0 markers across drafting-related Oz runs in the last 30 days)
+- **Oz run**: collector-only; style-lint/pr-review inner-loop markers still absent
+
+---

@@ -113,13 +113,13 @@ Create a `codex.md` or `AGENTS.md` file at your project root to teach Codex your
 Codex reads this file at the start of every session and follows your conventions automatically.
 
 :::note
-Warp supports agent notifications for Codex. Add `notification_condition = "always"` under `[tui]` in `~/.codex/config.toml` and restart Codex. See [Codex in Warp (docs)](/agent-platform/cli-agents/codex/#setting-up-notifications) for details. If the config isn't set, Warp displays a setup chip in the terminal.
+Warp supports agent notifications for Codex. Add `notification_condition = "always"` under `[tui]` in `~/.codex/config.toml` and restart Codex. See [Codex in Warp (docs)](/agents/cli-agents/codex/#setting-up-notifications) for details. If the config isn't set, Warp displays a setup chip in the terminal.
 :::
 
 ## Productivity tips
 
-* **Use voice to prompt Codex** — Dictate complex instructions instead of typing them. Warp supports [voice transcription](/agent-platform/local-agents/interacting-with-agents/voice/) that works with any CLI agent, including Codex.
-* **Attach images as context** — Paste screenshots of bugs, designs, or error messages into your prompt. Warp's [images as context](/agent-platform/local-agents/agent-context/images-as-context/) feature lets Codex see what you see.
+* **Use voice to prompt Codex** — Dictate complex instructions instead of typing them. Warp supports [voice transcription](/agents/local-agents/interacting-with-agents/voice/) that works with any CLI agent, including Codex.
+* **Attach images as context** — Paste screenshots of bugs, designs, or error messages into your prompt. Warp's [images as context](/agents/local-agents/agent-context/images-as-context/) feature lets Codex see what you see.
 * **Review diffs visually** — After Codex makes changes, open Warp's [Code Review panel](/code/code-review/) (`⌘+Shift++`) to see a visual diff. You can leave inline comments and send them back to Codex for corrections.
 * **Run Codex alongside Claude Code** — Use [vertical tabs](/terminal/windows/vertical-tabs/) to run Claude Code and Codex side by side on the same task. Compare their approaches and pick the best output, or combine elements from both.
 * **Compose richer prompts** — Press `Ctrl+G` to open Warp's rich input editor for Codex, giving you a full text editor experience instead of raw CLI input.
@@ -137,5 +137,5 @@ Explore related guides and features:
 * [Run multiple agents at once](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/) — use Codex and Claude Code side by side
 * [Codex CLI documentation](https://developers.openai.com/codex/cli/) — OpenAI's official reference
 * [Codex in Warp](https://www.warp.dev/agents/codex) — overview of Codex support in Warp
-* [Codex in Warp (docs)](/agent-platform/cli-agents/codex/) — full reference for Codex's Warp integration, including notification setup
-* [Third-party CLI agents](/agent-platform/cli-agents/overview/) — all supported agents and Warp's universal agent features
+* [Codex in Warp (docs)](/agents/cli-agents/codex/) — full reference for Codex's Warp integration, including notification setup
+* [Third-party CLI agents](/agents/cli-agents/overview/) — all supported agents and Warp's universal agent features

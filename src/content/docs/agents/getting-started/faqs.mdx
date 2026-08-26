@@ -1,0 +1,86 @@
+---
+title: Frequently asked questions about agents
+sidebar:
+  label: "Agent FAQs"
+description: >-
+  Frequently asked questions about Warp's AI features, including supported
+  models, privacy practices, credit limits, billing, and usage guidelines.
+---
+
+Answers to frequently asked questions about agents in Warp, including supported models, data privacy, credit limits, billing, and common error messages. For billing-specific questions, see the pricing FAQs.
+
+## General
+
+### What data is sent and/or stored when using Agents in Warp?
+
+See our [Privacy page](/support-and-community/privacy-and-security/privacy/) for more information on how we handle data used by Agents in Warp.
+
+### What happened to the old Warp AI chat panel?
+
+Agent Mode has replaced the previous AI chat panel. Agent Mode is more powerful in all of the chat panel's use cases. Not only can Agent Mode run commands for you, it can also gather context without you needing to copy and paste. To start a similar chat panel, click the AI button in the menu bar to open a new AI pane.
+
+### Is my data used for model training?
+
+Warp reserves the right to use data collected to train models and improve Warp. Warp has Zero Data Retention with all its model providers (e.g. Anthropic, OpenAI, etc.). Learn more about telemetry on our [Privacy page](/support-and-community/privacy-and-security/privacy/).
+
+### What model are you using for Agent Mode?
+
+Warp supports a curated list of LLMs from providers like OpenAI, Anthropic, and Gemini. To view the full list of supported models and learn how to switch between them, visit the [Model Choice](/agents/inference/model-choice/) page.
+
+### Can I use my own LLM API key?
+
+Yes. Warp supports [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/) on the Free plan and all eligible paid plans, so you can connect your own Anthropic, OpenAI, or Google API keys to route requests directly through your account. Because the Free plan doesn't include bundled AI usage for the Warp Agent, BYOK is one way to keep using the Warp Agent on the Free plan. BYOK and [custom inference endpoints](/agents/inference/custom-inference-endpoint/) are available for individual users and organizations with 10 or fewer employees, subject to Warp's Terms of Service.
+
+Larger organizations need a Warp Business or Enterprise plan. On the Enterprise plan, admins can additionally enable managed [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) configurations to meet strict security or compliance requirements, or centrally manage BYOK and custom endpoints for the whole team with [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), which also work for cloud agents.
+
+### Can I use my ChatGPT or Claude subscription with Warp?
+
+No. Warp doesn't support signing in with a ChatGPT (OpenAI) or Claude (Anthropic) consumer subscription to power its agents. OpenAI and Anthropic don't currently allow their subscription plans to be used in third-party clients like Warp. Warp has raised this with both providers and is open to supporting these subscriptions if that changes.
+
+Note that a ChatGPT or Claude subscription is different from API access. To use your own OpenAI or Anthropic account in Warp, you have two options:
+
+* **[Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/)** — Add your own OpenAI, Anthropic, or Google API key and pay your provider directly instead of using Warp credits.
+* **[Custom inference endpoint](/agents/inference/custom-inference-endpoint/)** — Route Warp through any OpenAI-compatible endpoint, such as OpenRouter or LiteLLM.
+
+For xAI's Grok models, you can connect a [SuperGrok subscription](/agents/inference/grok-subscription/) directly through your xAI account.
+
+## Billing
+
+Paid Warp plans include a set number of credits per user per month for Warp-provided AI usage. The Free plan doesn't include bundled AI usage for the Warp Agent; to use the Warp Agent, [upgrade to a paid plan](https://www.warp.dev/pricing) or bring your own inference (BYOK, a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or a [SuperGrok or X Premium subscription](/agents/inference/grok-subscription/)). See [pricing](https://www.warp.dev/pricing) to compare plans.
+
+Credit limits apply to Agent Mode, Generate (Legacy), and [AI autofill in Workflows](/knowledge-and-collaboration/warp-drive/workflows/#ai-autofill).
+
+For questions about what counts as a credit, what counts as a token, and how often credits refresh, see [Credits](/support-and-community/plans-and-billing/credits/) and the [Plans & Pricing](/support-and-community/plans-and-billing/plans-pricing-refunds/) page.
+
+## Common AI error messages
+
+#### "Message token limit exceeded" error
+
+This error means your input (plus attached context) exceeds the maximum context window of the model you're using. If you exceed the limit for your selected model, you may receive no output.
+
+To fix this, try:
+
+* Starting a new conversation
+* Reducing the number of blocks or lines attached to your query
+
+#### "Monthly request limit exceeded" or "Monthly credit limit exceeded" errors
+
+Once you exceed your monthly credit limit (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled until your quota resets at the start of your next billing cycle. On paid plans with add-on credits, you can continue using AI with usage-based billing.
+
+**Request failed with error: QuotaLimit**
+
+Once you exceed your AI token limits, all models will be disabled. Note that credits and tokens are calculated separately, and even though the plans may have a set number of credits, they also have a limited number of tokens.
+
+**Request failed with error: ErrorStatus (403, "Your account has been blocked from using AI features")**
+
+This message means your account has been blocked from using AI features, typically due to a violation of our [Terms of Service](https://www.warp.dev/legal/terms-of-service) or suspected abuse (e.g. attempting to bypass credit or token limits).
+
+To resolve or clarify this, please contact our team at [appeals@warp.dev](mailto:appeals@warp.dev) if you believe this was an error. We'll review your case and respond as soon as possible.
+
+:::caution
+Note that any error that does not mention appeals@warp.dev isn't related to being blocked and should be reported as feedback or a bug. See [Sending Us Feedback](/support-and-community/troubleshooting-and-support/sending-us-feedback/) for more.
+:::
+
+## Gathering AI conversation ID
+
+In cases where you have issues with the Agent, we may ask for the AI conversation ID to troubleshoot the specific conversation. To gather the conversation ID, see [Gathering AI conversation ID](/support-and-community/troubleshooting-and-support/sending-us-feedback/#gathering-ai-conversation-id) for detailed steps.

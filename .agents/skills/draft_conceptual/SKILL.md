@@ -9,7 +9,15 @@ Draft a conceptual documentation page that explains what a feature or concept is
 
 ## Workflow
 
-Follow the workflow in `.warp/skills/draft_docs/SKILL.md`, using the **conceptual template** at `.warp/templates/conceptual.md`.
+Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **conceptual template** at `.agents/templates/conceptual.md`.
+
+## Frontmatter description
+
+One sentence, 50-160 characters, saying what the concept is and why it matters. Start with the subject.
+- ✅ `Environments give cloud agents the same toolchain and setup on every run, no matter what triggers them.`
+- ❌ `Learn about environments and why they are useful.`
+
+See "Descriptions by content type" under Frontmatter in `AGENTS.md` for the full rules.
 
 ## Content type rules
 
@@ -21,6 +29,7 @@ These rules are specific to conceptual pages (from the "Drafting by content type
 - **Do NOT include step-by-step procedures** — link to a procedural or quickstart page instead
 - Show real-world scenarios, not just abstract descriptions
 - Title convention: noun or "About [subject]"
+- Apply the tone rules in AGENTS.md → Voice & tone: no marketing buzzwords or meta-openers, and no internal architecture the reader can't act on. Run a deletion-only "Cut again" pass before presenting the draft — a short page is a finished page.
 
 ## Heading case
 

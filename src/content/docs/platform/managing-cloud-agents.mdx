@@ -2,21 +2,22 @@
 title: Managing cloud agents
 description: >-
   Monitor and manage agent activity across your team with Warp's Agent
-  Management Panel and the Oz web app's Runs page.
+  Management Panel and the {{WEB_APP}}'s Runs page.
 sidebar:
   label: "Managing cloud agents"
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
-Warp provides two management surfaces for tracking and observing agent activity across your account and, where applicable, your team: the **Agent Management Panel** in the Warp app and the [**Runs** page in the Oz web app](/platform/oz-web-app/#runs), which also works on mobile devices.
+Warp provides two management surfaces for tracking and observing agent activity across your account and, where applicable, your team: the **Agent Management Panel** in the Warp app and the [**Runs** page in the {VARS.WEB_APP}](/platform/oz-web-app/#runs), which also works on mobile devices.
 
 Use these surfaces as the starting point for real-time agent observability in Warp. They help you see which agents are active, which runs are blocked or failed, where each run started, and which session link opens the prompt, plan, commands, logs, outputs, and follow-up messages behind the work.
 
-The Agent Management Panel and Oz web app Runs page are designed to answer, at a glance:
+The Agent Management Panel and {VARS.WEB_APP} Runs page are designed to answer, at a glance:
 
 * Which agents are active or have been running recently.
 * Which runs are working, blocked, failed, succeeded, or canceled.
-* Where an agent run was triggered from, such as a local agent conversation, the Oz CLI, Slack, Linear, a schedule, or the API.
+* Where an agent run was triggered from, such as a local agent conversation, the {VARS.WARP_AGENT_CLI}, Slack, Linear, a schedule, or the API.
 * How parent and child runs relate in orchestrated workflows.
 * Which session to open when you need prompt, plan, command, log, output, or follow-up context.
 * How many credits those runs consumed.
@@ -34,7 +35,7 @@ These management surfaces include your **local (interactive) agents** and [cloud
 
 ### What appears in the agent management surfaces
 
-The Agent Management Panel and Oz web app Runs page include two categories of agent activity.
+The Agent Management Panel and {VARS.WEB_APP} Runs page include two categories of agent activity.
 
 #### Interactive agents
 
@@ -58,7 +59,7 @@ In the **Personal** tab, you can view all of the interactive and cloud agent con
 
 ### Inspect or review an agent run
 
-Use the Agent Management Panel or Oz web app Runs page as the starting point when a teammate asks, "What did the agent do?"
+Use the Agent Management Panel or {VARS.WEB_APP} Runs page as the starting point when a teammate asks, "What did the agent do?"
 
 1. In the agents list, use the filter menu to filter by source, day, creator, or status.
 2. Select the matching row to open the shared session or local conversation.
@@ -66,13 +67,13 @@ Use the Agent Management Panel or Oz web app Runs page as the starting point whe
 4. Share the session link with teammates if they need to review the same context.
 5. For PR-producing workflows, include the session link alongside the PR link so reviewers can inspect both the code diff and the agent's execution context.
 
-For cloud agent runs, the session opens in [Cloud agent session sharing](/platform/viewing-cloud-agent-runs/). For local interactive agents, the conversation opens in Warp and can be shared with [Agent Session Sharing](/agent-platform/local-agents/session-sharing/).
+For cloud agent runs, the session opens in [Cloud agent session sharing](/platform/viewing-cloud-agent-runs/). For local interactive agents, the conversation opens in Warp and can be shared with [Agent Session Sharing](/agents/local-agents/session-sharing/).
 
 ---
 
 ### The agents list
 
-Each row represents a single item in the agents list (either an interactive conversation or a cloud agent run). The list is intended to be scannable: you should be able to understand “what happened” without opening anything.
+Each row represents a single item in the agents list (either an interactive conversation or a cloud agent run). The list is scannable: you can understand “what happened” without opening anything.
 
 #### Fields you’ll see
 
@@ -80,8 +81,8 @@ Each row represents a single item in the agents list (either an interactive conv
 
 Where the agent was launched from. Common sources include:
 
-* **Interactive:** an [agent conversation](/agent-platform/local-agents/overview/) started in the Warp app
-* **CLI**: a local run triggered by the [Oz CLI](/reference/cli/)
+* **Interactive:** an [agent conversation](/agents/) started in the Warp app
+* **CLI**: a local run triggered by the [{VARS.WARP_AGENT_CLI}](/reference/cli/)
 * **API**: a run triggered by [Warp's API](/reference/api-and-sdk/)
 * **Slack / Linear**: runs triggered by [integrations](/platform/integrations/)
 * **Scheduled**: runs triggered on a [cron schedule](/platform/triggers/scheduled-agents/)
@@ -127,9 +128,9 @@ When a parent agent spawns one or more child agents through [multi-agent orchest
 
 * **Local children in the Warp app** - while you're viewing the parent agent, an orchestration pill bar above the agent view header shows one pill per child with a live status badge. Click a child pill to switch the pane to that child's conversation in place; click the parent pill - or the breadcrumb that replaces the pill bar while you're viewing a child - to return. Local children don't appear as separate rows in the Agent Management Panel list.
 * **Cloud children in the Warp app** - appear in the Agent Management Panel list as their own rows alongside the parent and other runs. Filter by source, status, or creator to isolate them.
-* **Cloud children in the [Oz web app](/platform/oz-web-app/)** - grouped under the parent's row on the Runs page, and surfaced together inside the parent's detail pane on a **Sub-agents** tab.
+* **Cloud children in the [{VARS.WEB_APP}](/platform/oz-web-app/)** - grouped under the parent's row on the Runs page, and surfaced together inside the parent's detail pane on a **Sub-agents** tab.
 
-The parent's own status reflects only its work - a parent can finish successfully while a child is still running or has failed. To verify that an orchestration completed, check each child individually from the pill bar (in the Warp app) or the **Sub-agents** tab (in the Oz web app).
+The parent's own status reflects only its work - a parent can finish successfully while a child is still running or has failed. To verify that an orchestration completed, check each child individually from the pill bar (in the Warp app) or the **Sub-agents** tab (in the {VARS.WEB_APP}).
 
 ## Related pages
 
@@ -137,4 +138,4 @@ The parent's own status reflects only its work - a parent can finish successfull
 * [Multi-agent orchestration](/platform/orchestration/) — Parent/child model, run state transitions, and common orchestration patterns.
 * [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) — Open and inspect a remote cloud agent run.
 * [Handoff between local and cloud agents](/platform/handoff/) — Move agent work between local and cloud, or continue a finished cloud run.
-* [Oz web app](/platform/oz-web-app/) — Manage runs and schedules from any browser.
+* [{VARS.WEB_APP}](/platform/oz-web-app/) — Manage runs and schedules from any browser.

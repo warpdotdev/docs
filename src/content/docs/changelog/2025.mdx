@@ -3,6 +3,7 @@ title: "Changelog — 2025"
 description: >-
   Warp release notes for 2025. Updates ship weekly, typically on Thursdays.
 ---
+import { VARS } from '@data/vars';
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
@@ -18,7 +19,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **Bug fixes**
 
-* Fixed a bug where Oz CLI runs could get stuck trying to run a denylisted command.
+* Fixed a bug where {VARS.WARP_AGENT_CLI} runs could get stuck trying to run a denylisted command.
 
 ### 2025.12.10 (v0.2025.12.10.08.12)
 
@@ -42,7 +43,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **Improvements**
 
-* The Oz CLI now displays more detailed information when the agent tries to take a prohibited action.
+* The {VARS.WARP_AGENT_CLI} now displays more detailed information when the agent tries to take a prohibited action.
 * Allow dragging file paths from the Project Explorer into active terminal commands like claude code and gemini for referencing files and folders.
 
 **Bug fixes**
@@ -50,7 +51,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Fixed a bug that could cause unbounded memory growth when using Warpified subshells or the legacy (non-tmux) SSH Warpify implementation.
 * Fixed a bug that could cause `comm` errors to appear in Warpified subshells.
 * \[Windows] Fixed keybinding for "find in code editor." This is now `CTRL-SHIFT-F` and configurable from Settings > Keyboard shortcuts.
-* Ensured that the Oz CLI is available automatically on macOS.
+* Ensured that the {VARS.WARP_AGENT_CLI} is available automatically on macOS.
 * Fixed toast messages showing "Notebook" instead of "Plan" when taking actions on Plans in Warp Drive.
 
 ### 2025.11.19 (v0.2025.11.19.08.12)
@@ -65,11 +66,11 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* [Full Terminal Use](/agent-platform/capabilities/full-terminal-use/): Let the agent use the terminal as you would: interact with REPLs, debuggers, and full-screen apps like `top`. Warp is the only product on the market with Full Terminal Use capabilities.
-* [`/plan`](/agent-platform/capabilities/planning/): do spec-driven development in Warp. Work with an agent to align on an implementation plan that can be saved, versioned, and even attached to a PR for teammates.
-* [Interactive Code Review](/agent-platform/local-agents/interactive-code-review/): Review an agent's code like you would a teammate's, directly in Warp, and ask the agent to address the comments.
+* [Full Terminal Use](/agents/capabilities/full-terminal-use/): Let the agent use the terminal as you would: interact with REPLs, debuggers, and full-screen apps like `top`. Warp is the only product on the market with Full Terminal Use capabilities.
+* [`/plan`](/agents/capabilities/planning/): do spec-driven development in Warp. Work with an agent to align on an implementation plan that can be saved, versioned, and even attached to a PR for teammates.
+* [Interactive Code Review](/agents/local-agents/interactive-code-review/): Review an agent's code like you would a teammate's, directly in Warp, and ask the agent to address the comments.
 * [Slack and Linear integrations](https://docs.warp.dev/platform/integrations):\*\* Ask the agent to get to work from the tools you already use, track their progress, and take the wheel via live session sharing.
-* Warp's Agents can now [search the web](/agent-platform/capabilities/web-search/) to retrieve information, when relevant. This capability is configurable via Agent Profiles.
+* Warp's Agents can now [search the web](/agents/capabilities/web-search/) to retrieve information, when relevant. This capability is configurable via Agent Profiles.
 
 ### 2025.11.12 (v0.2025.11.12.08.12)
 
@@ -100,7 +101,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **Improvements**
 
 * Display conversation summaries when summarization is triggered.
-* Added completions for the Oz CLI.
+* Added completions for the {VARS.WARP_AGENT_CLI}.
 * Updated community links from Discord to Slack throughout the app.
 
 **Bug Fixes**
@@ -136,7 +137,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Added confirmation dialog when cancelling AI summarization requests.
 * You can now expand Suggested Code Diffs further on down arrow.
 * Restore closed panes using `CMD-SHIFT-T` or `CTRL-ALT-T` on Windows / Linux within 60 seconds of them being closed.
-* Added shell completions for the Oz CLI.
+* Added shell completions for the {VARS.WARP_AGENT_CLI}.
 * Warp Drive Environment Variables are now supported for Warp for Windows (PowerShell, Git Bash, and WSL).
 * Enriched the model picker to include detailed specs of each model's intelligence, speed and cost.
 
@@ -172,7 +173,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* You can now create new files directly in Warp. Search "New File" in the command palette. macOS users can find it in the app menu under "File".
+* You can now create new files directly in Warp. Search "New File" in the Command Palette. macOS users can find it in the app menu under "File".
 
 **Improvements**
 
@@ -266,7 +267,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New Features**
 
-* [Agent Profiles](/agent-platform/capabilities/agent-profiles-permissions/#agent-profiles): define how your agent operates.
+* [Agent Profiles](/agents/capabilities/agent-profiles-permissions/#agent-profiles): define how your agent operates.
 * New pane to view changes to a Git repository.
 * Files now open in a tabbed viewer.
 * Syntax highlighting for Scala files in Warp.
@@ -279,7 +280,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* [Suggested Code Diffs](/agent-platform/local-agents/active-ai/#suggested-code-diffs) - Warp now intelligently suggests the appropriate fixes for any simple errors encountered in the command line e.g. compiler errors. Head to `Settings > Active AI` to toggle this feature.
+* [Suggested Code Diffs](/agents/local-agents/active-ai/#suggested-code-diffs) - Warp now intelligently suggests the appropriate fixes for any simple errors encountered in the command line e.g. compiler errors. Head to `Settings > Active AI` to toggle this feature.
 
 **Improvements**
 
@@ -301,9 +302,9 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 **New Features**
 
 * Agent Mode now displays interactive code blocks when referencing snippets from your codebase. You can easily copy the snippet, add the snippet as Agent Mode context, or open the file in Warp's built-in editor.
-* Agent Mode now creates and tracks task lists for more complex workflows. See [Agent Task Lists](/agent-platform/capabilities/task-lists/).
-* Added support for defining project-scoped rules with a WARP.md file. See [Rules](/agent-platform/capabilities/rules/#project-rules).
-* Added Slash Commands (/) in Agent Mode or Auto-Detection Mode to quickly run built-in actions or saved prompts without leaving the input field. See [Slash Commands](/agent-platform/capabilities/slash-commands/).
+* Agent Mode now creates and tracks task lists for more complex workflows. See [Agent Task Lists](/agents/capabilities/task-lists/).
+* Added support for defining project-scoped rules with a WARP.md file. See [Rules](/agents/capabilities/rules/#project-rules).
+* Added Slash Commands (/) in Agent Mode or Auto-Detection Mode to quickly run built-in actions or saved prompts without leaving the input field. See [Slash Commands](/agents/capabilities/slash-commands/).
 
 **Improvements**
 
@@ -532,7 +533,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 **New Features**
 
-* Added MCP server support. It's now possible to extend Agent Mode's capabilities using programs that support the [Model Context Protocol](/agent-platform/capabilities/mcp/).
+* Added MCP server support. It's now possible to extend Agent Mode's capabilities using programs that support the [Model Context Protocol](/agents/capabilities/mcp/).
 
 ### 2025.05.21 (v0.2025.05.21.08.11)
 
@@ -603,7 +604,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 * Restored Agent Mode conversations can now be continued.
 * Agent Mode now has access to a filepath search tool for coding tasks.
 * Improved the reliability and positioning of suggestion dialogs for rules and Agent Mode workflows.
-* We reworked the command palette search to make it more useful.
+* We reworked the Command Palette search to make it more useful.
 
 **Bug Fixes**
 
@@ -727,7 +728,7 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 * Control whether Warp starts at login via a setting under Settings > Features > Start Warp at login (macOS only).
 * \[Windows] Fixed an issue where dynamic enums commands weren't being executed.
 * Fixed a bug with the mouse cursor when hovering over buttons.
-* Fixed a bug that causes high CPU load with codebase context.
+* Fixed a bug that causes high CPU load with Codebase Context.
 
 ### 2025.03.05 (v0.2025.03.05.08.02)
 
@@ -759,11 +760,11 @@ All of this comes with higher AI usage limits on our Pro and Turbo plans, plus n
 
 **New features**
 
-* Warp is now available for Windows! See our [Quickstart Guide](/getting-started/quickstart/installation-and-setup/#windows)
-* Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](/agent-platform/local-agents/interacting-with-agents/) (Beta)
-* Add codebase context support to Agent Mode. Currently enabled for Git repositories only.
+* Warp is now available for Windows! See our [Quickstart Guide](/getting-started/quickstart/installation-and-setup/#install-warp)
+* Prompt, plan, and execute fully autonomous tasks from [Agent Mode with Dispatch](/agents/local-agents/interacting-with-agents/) (Beta)
+* Add Codebase Context support to Agent Mode. Currently enabled for Git repositories only.
 * \[macOS] You can now customize your [App Icon](https://docs.warp.dev/terminal/appearance/app-icons) in `Settings > Appearance > Icon`.
-* Create and store [Rules](/agent-platform/capabilities/rules/) to use as Agent Mode context.
+* Create and store [Rules](/agents/capabilities/rules/) to use as Agent Mode context.
 * Show default suggestions in Agent Mode input.
 
 **Bug fixes**

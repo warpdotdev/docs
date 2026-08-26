@@ -26,7 +26,7 @@ Unlike the input editor, the Vim implementation in the code editor starts in Nor
 
 At the moment, Warp only supports default Vim keybindings.
 
-One exception is the keyboard shortcut for exiting insert mode, which can be rebound under **Settings** > **Keyboard shortcuts** > **Exit Vim Insert Mode**, or through the [Command Palette](/terminal/command-palette/) search for "Exit Vim Insert Mode".
+One exception is the keyboard shortcut for exiting insert mode, which can be rebound under **Settings** > **Keyboard shortcuts** > **Exit Vim insert mode**, or through the [Command Palette](/terminal/command-palette/) search for "Exit Vim insert mode".
 
 ## Supported keybindings
 
@@ -79,8 +79,27 @@ See [Vim docs: motion](https://vimdoc.sourceforge.net/htmldoc/motion.html) for m
 | `.`        | repeat last edit                                            |
 | `gcc`      | toggle comments on current line                             |
 | `gc`       | toggle comments on visual selection                         |
+| `>`, `<`   | indent or dedent a range or object                          |
+| `>>`, `<<` | indent or dedent the current line                           |
 
 See [Vim docs: editing](https://vimdoc.sourceforge.net/htmldoc/editing.html) for more information.
+
+#### Indenting and dedenting
+
+`>` and `<` are operators, so they combine with any supported motion or text object the same way `d` and `y` do:
+
+| Command   | Description                                              |
+| --------- | -------------------------------------------------------- |
+| `>>`      | indent the current line                                  |
+| `<<`      | dedent the current line                                  |
+| `>j`      | indent the current line and the line below               |
+| `>ap`     | indent the current paragraph                             |
+| `3>>`     | indent the current line and the two below it             |
+| `>` / `<` | indent or dedent the selection in visual or visual line mode |
+
+In visual mode, `>` and `<` shift the selected lines and return to Normal mode.
+
+See [Vim docs: shifting text](https://vimdoc.sourceforge.net/htmldoc/change.html#%3E) for more information.
 
 #### Text objects
 
@@ -148,4 +167,4 @@ See [Vim docs: registers](https://vimdoc.sourceforge.net/htmldoc/change.html#reg
 
 ## Feedback
 
-The best way to report bugs and request features is through Warp's [GitHub Issues](https://github.com/warpdotdev/Warp/issues) page. Please note that the issue or request is for Vim keybindings.
+The best way to report bugs and request features is through Warp's [GitHub Issues](https://github.com/warpdotdev/Warp/issues) page. Note that the issue or request is for Vim keybindings.

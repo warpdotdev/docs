@@ -44,7 +44,7 @@ Larger reasoning models process more tokens per turn than lighter ones, so the m
 * **Reserve high-reasoning models for hard problems** - Save heavier models like Claude Opus for deep debugging, architecture decisions, and planning, where the extra reasoning is worth the cost.
 * **Pick a model and stay with it** - Switching models mid-conversation can reset prompt caching and reprocess your context. Choose a model at the start of a task and keep it for the duration when you can.
 
-Change models with the model picker in the input, or run `/model`. See [Agent model choice](/agent-platform/inference/model-choice/) for the full model list.
+Change models with the model picker in the input, or run `/model`. See [Agent model choice](/agents/inference/model-choice/) for the full model list.
 
 ## Automate model selection with custom routers
 
@@ -54,7 +54,7 @@ Use a custom router to automatically choose a model. You define the routing logi
 * **Route by rules** - Write natural-language rules that pair a description (such as "debugging or fixing failing tests") with a model. Warp matches rules top to bottom and uses the first one that fits.
 * **Set a cost-efficient default** - Every router falls back to a default model for anything your tiers or rules don't cover, so choose a lighter model for the default.
 
-A router appears in the model picker like any other model and resolves per conversation, so token usage matches whichever model it picks. Create one in the Warp app under **Settings** > **Agents** > **Warp Agent** in the **Custom Routers** section. See [Custom routers](/agent-platform/inference/custom-routers/) for setup steps and YAML examples.
+A router appears in the model picker like any other model and resolves per conversation, so token usage matches whichever model it picks. Create one in the Warp app under **Settings** > **Agents** > **Warp Agent** in the **Custom Routers** section. See [Custom routers](/agents/inference/custom-routers/) for setup steps and YAML examples.
 
 ## Keep each conversation focused
 
@@ -64,14 +64,14 @@ Because every turn re-sends the current conversation to the model, long or unfoc
 * **Start a new conversation for a new task** - Run `/new` when you switch topics so unrelated history doesn't ride along in every turn.
 * **Compact long conversations** - When a useful thread grows long, run `/compact` to summarize the history and free up the context window. Use `/fork-and-compact` to branch into a fresh, summarized copy that keeps the relevant context and trims the rest.
 
-See [Conversation forking](/agent-platform/local-agents/interacting-with-agents/conversation-forking/) and the full [Slash Commands](/agent-platform/capabilities/slash-commands/) reference for more.
+See [Conversation forking](/agents/local-agents/interacting-with-agents/conversation-forking/) and the full [Slash Commands](/agents/capabilities/slash-commands/) reference for more.
 
 ## Be selective about the context you add
 
 Context you attach becomes tokens the model has to process. Adding only what's relevant keeps each turn lean.
 
 * **Attach focused snippets, not full dumps** - When sharing logs, code, or command output, include only the relevant portion instead of an entire file or output.
-* **Add context deliberately** - Attach the specific [blocks](/agent-platform/local-agents/agent-context/blocks-as-context/), files, or images the agent needs for the task, rather than broad, just-in-case context.
+* **Add context deliberately** - Attach the specific [blocks](/agents/local-agents/agent-context/blocks-as-context/), files, or images the agent needs for the task, rather than broad, just-in-case context.
 
 ## Let Codebase Context retrieve code for you
 
@@ -80,13 +80,13 @@ When an agent explores your repository by reading files one by one, each read is
 * **Index your repository** - Run `/index` so Warp can locate relevant code by meaning, reducing the number of exploratory tool calls and the amount of code you paste in manually.
 * **Let the agent search instead of pasting** - With an indexed codebase, ask about a feature or file directly rather than copying large sections into the prompt.
 
-Learn more in [Codebase Context](/agent-platform/capabilities/codebase-context/).
+Learn more in [Codebase Context](/agents/capabilities/codebase-context/).
 
 ## Set up Rules and AGENTS.md
 
 Without persistent guidance, agents re-derive your preferences every session and sometimes drift off course, which wastes tokens on corrections and rework. Rules encode that guidance once.
 
-* **Capture preferences as Rules** - Store your tools, conventions, and standards as [Rules](/agent-platform/capabilities/rules/) so you don't re-explain them in every conversation. Add one with `/add-rule`.
+* **Capture preferences as Rules** - Store your tools, conventions, and standards as [Rules](/agents/capabilities/rules/) so you don't re-explain them in every conversation. Add one with `/add-rule`.
 * **Add a project AGENTS.md** - Run `/init` to generate a project `AGENTS.md` that gives agents the context they need up front, reducing exploration and missteps.
 
 For examples, see [Set coding best practices with Rules](/guides/configuration/how-to-set-coding-best-practices/).
@@ -97,7 +97,7 @@ For big or ambiguous tasks, jumping straight to implementation often leads to wr
 
 * **Create a plan before executing** - Run `/plan` to have the agent research and outline the work in phases before it changes code. A clear plan reduces wasted exploratory work and backtracking on large tasks.
 
-See [Planning](/agent-platform/capabilities/planning/) for details.
+See [Planning](/agents/capabilities/planning/) for details.
 
 ## Next steps
 
@@ -106,6 +106,6 @@ Together, these habits help you get more out of every token: match the model to 
 Explore these related guides and references:
 
 * [Use Agent Profiles efficiently](/guides/configuration/how-to-use-agent-profiles-efficiently/)
-* [Agent model choice](/agent-platform/inference/model-choice/)
-* [Custom routers](/agent-platform/inference/custom-routers/)
-* [Slash Commands](/agent-platform/capabilities/slash-commands/)
+* [Agent model choice](/agents/inference/model-choice/)
+* [Custom routers](/agents/inference/custom-routers/)
+* [Slash Commands](/agents/capabilities/slash-commands/)

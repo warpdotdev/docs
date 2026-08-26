@@ -7,6 +7,7 @@ sidebar:
   label: "Sending Feedback & Logs"
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { VARS } from '@data/vars';
 
 ## Sending Warp feedback
 
@@ -24,7 +25,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 ## Using `/feedback` in Warp
 
-The `/feedback` [slash command](/agent-platform/capabilities/slash-commands/) is the fastest way to report a Warp bug, flag a regression, or file a feature request from inside the terminal. It opens the feedback form without starting an Agent conversation or consuming credits.
+The `/feedback` [slash command](/agents/capabilities/slash-commands/) is the fastest way to report a Warp bug, flag a regression, or file a feature request from inside the terminal. It opens the feedback form without starting an Agent conversation or consuming credits.
 
 ### What to include
 
@@ -36,7 +37,7 @@ Whether you use the `/feedback` slash command or file an issue manually, a good 
 * **What version of Warp are you on?** `/feedback` fills this in automatically; for manual reports, copy it from **Settings** > **Account**.
 * **Logs, screenshots, or conversation IDs.** See [Gathering Warp logs](#gathering-warp-logs), [Collecting crash reports on macOS](#collecting-crash-reports-on-macos), or [Gathering AI conversation ID](#gathering-ai-conversation-id) below.
 
-See the [Slash Commands reference](/agent-platform/capabilities/slash-commands/) for the full list of commands available in Warp.
+See the [Slash Commands reference](/agents/capabilities/slash-commands/) for the full list of commands available in Warp.
 
 ## Gathering Warp logs
 
@@ -67,7 +68,7 @@ Warp's logs and crash reports _**do not**_ contain any console input or output. 
     ```
 
     :::caution
-    If your issue is graphical (e.g. no display of windows) or a crash, please run Warp with the following command to capture more log information:
+    If your issue is graphical (e.g. no display of windows) or a crash, run Warp with the following command to capture more log information:
 
     ```bash
     # Run if Warp on macOS is installed
@@ -98,7 +99,7 @@ Warp's logs and crash reports _**do not**_ contain any console input or output. 
     ```
 
     :::caution
-    If your issue is graphical (e.g. no display of windows) or a crash, please run Warp with the following command to capture more log information:
+    If your issue is graphical (e.g. no display of windows) or a crash, run Warp with the following command to capture more log information:
 
     ```powershell
     # Run if Warp on Windows is installed for a single user
@@ -135,7 +136,7 @@ Warp's logs and crash reports _**do not**_ contain any console input or output. 
     ```
 
     :::caution
-    If your issue is graphical (e.g. no display of windows) or a crash, please run Warp with the following command to capture more log information:
+    If your issue is graphical (e.g. no display of windows) or a crash, run Warp with the following command to capture more log information:
 
     ```bash
     # Run if Warp on Linux is installed
@@ -259,5 +260,15 @@ Collect a sample using the steps for your platform and attach it to a new [GitHu
 To gather the conversation ID, `RIGHT-CLICK` on the AI conversation block in question and select "Copy conversation ID", then paste that into the [bug report](/support-and-community/troubleshooting-and-support/sending-us-feedback/#sending-warp-feedback) that you submit so that our team can investigate the issue.
 
 Whenever there is an error in the Agent Conversation, there will also be an option to directly copy the conversation ID for the bug report.
+
+### Using `/copy-debugging-id`
+
+The [`/copy-debugging-id`](/agents/capabilities/slash-commands/) slash command copies the same information without leaving the input. It works in both the Warp app and the [{VARS.WARP_CLI}](/agents/cli/), and it applies to the conversation you're currently in:
+
+1. Run `/copy-debugging-id` in the conversation you want to report.
+2. Warp confirms with a "Debugging information copied to clipboard" message.
+3. Paste the copied text into your bug report.
+
+The copied text is a small JSON payload with the conversation ID, plus the request ID when the command is run on a specific agent response — for example, `{"conversation_id":"abc123"}`. If the conversation hasn't reached Warp's servers yet, the command reports that no debugging ID is available; send a prompt first, then run it again.
 
 ![Agent Mode error message with Send Feedback button and debug information containing request and conversation IDs](../../../../assets/support-and-community/send-feedback-debugging-information.png)

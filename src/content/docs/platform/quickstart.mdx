@@ -7,8 +7,9 @@ description: >-
 sidebar:
   label: "Quickstart"
 ---
+import { VARS } from '@data/vars';
 
-**Cloud agents** run in a remote environment and can be triggered from events, schedules, integrations, or manually. This enables scaling agents off your laptop, automating development tasks, and building apps on top of agents. Oz handles the orchestration, execution, and observability.
+**Cloud agents** run in a remote environment and can be triggered from events, schedules, integrations, or manually. This enables scaling agents off your laptop, automating development tasks, and building apps on top of agents. The {VARS.WARP_AUTOMATION_PLATFORM} handles the orchestration, execution, and observability.
 
 Cloud agents can run interactively (where you steer them in real-time) or autonomously (as background tasks). Each run creates a persistent session that your team can inspect, share, and query through the Warp app, the CLI, web app, or API.
 
@@ -16,7 +17,7 @@ This guide walks you through running your first cloud agent with an environment 
 
 **Common use cases for cloud agents:**
 
-* Launch parallel cloud coding agents to multithread complex development tasks
+* Launch [parallel cloud coding agents](/platform/orchestration/) to multithread complex development tasks
 * Automate repetitive development tasks (e.g., feature-flag cleanup, documentation updates, fixing server crashes)
 * Build apps on top of agents, like bug triage and incident response systems
 
@@ -27,7 +28,7 @@ This guide walks you through running your first cloud agent with an environment 
 Before you begin, make sure you have:
 
 * **Warp desktop app** - Download from the [Warp website](https://www.warp.dev)
-* **Warp account** - Create an account from the [Oz web app](https://oz.warp.dev)
+* **Warp account** - Create an account from the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>
 
 :::note
 New to Warp? You'll get credits to try cloud agents. You need at least 20 credits available to run cloud agents and integrations.
@@ -82,10 +83,10 @@ You can continue conversing with the agent in real-time, watch its progress, and
 ### 5. View run details
 
 You can view details of your agent's run, including commands executed, files changed, and environment used, several different ways:
-* In the Warp app, open the [conversations panel](/agent-platform/local-agents/interacting-with-agents/#conversation-panel) to see all your agent runs.
+* In the Warp app, open the [conversations panel](/agents/local-agents/interacting-with-agents/#conversation-panel) to see all your agent runs.
 * Click the session link in your terminal output.
-* Go to the [Oz web app](https://oz.warp.dev) and navigate to the **Runs** tab.
-* Access from mobile via the [Oz web app](/platform/oz-web-app/).
+* Go to the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> and navigate to the **Runs** tab.
+* Access from mobile via the [{VARS.WEB_APP}](/platform/oz-web-app/).
 
 **Breaking it down:** Every cloud agent run is auto-tracked. You get a shareable link, a run record, and full visibility into what the agent did. You or your teammates can watch the agent's progress in real-time and even steer it if needed. The run record persists after completion so you can review it later.
 
@@ -101,7 +102,7 @@ Follow the prompts to save your task definition. Once created, you can run it ag
 
 **How this works:** Skills capture successful agent workflows as reusable building blocks. Instead of typing the same prompt repeatedly, you define it once. You can use it yourself, share it with teammates, schedule it to run automatically, or trigger it from integrations. Learn more about [Skills as Agents](/platform/skills-as-agents/).
 
-**Prefer using the CLI?** See the [Oz CLI quickstart](/reference/cli/quickstart/) for CLI-based workflows.
+**Prefer using the CLI?** See the [{VARS.WARP_AGENT_CLI} quickstart](/reference/cli/quickstart/) for CLI-based workflows.
 
 ---
 
@@ -110,9 +111,10 @@ Follow the prompts to save your task definition. Once created, you can run it ag
 Now that you've run your first cloud agent, try these next steps:
 
 * [**Schedule recurring work**](/platform/triggers/scheduled-agents-quickstart/) - Create a scheduled agent for maintenance tasks like dependency checks, cleanup, or triage.
-* [**Trigger agents from Slack or Linear**](/platform/integrations/quickstart/) - Connect Oz to team tools so mentions and issue updates can launch cloud agent runs.
+* [**Trigger agents from Slack or Linear**](/platform/integrations/quickstart/) - Connect Warp to team tools so mentions and issue updates can launch cloud agent runs.
+* [**Orchestrate multiple agents**](/platform/orchestration/multi-agent-runs/) - Fan work out across parent and child agents for large refactors, PR review swarms, and parallel package migrations.
 * [**Turn successful prompts into reusable skills**](/platform/skills-as-agents/) - Save repeatable agent workflows and run them again from the CLI, web app, API, or a schedule.
-* [**Build programmatic automations**](/reference/api-and-sdk/quickstart/) - Start cloud agent runs from your own systems with the Oz API or SDKs.
+* [**Build programmatic automations**](/reference/api-and-sdk/quickstart/) - Start cloud agent runs from your own systems with the {VARS.API_SDK_NAME}.
 
 For example, schedule a recurring agent from the CLI:
 

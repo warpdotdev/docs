@@ -1,15 +1,16 @@
 ---
-title: Cloud agents
+title: Cloud agent accounts
 description: >-
   Cloud agents are how Warp runs scheduled jobs, integration triggers, CI/CD
   automation, and API-driven tasks against your team's environments.
 sidebar:
   label: "Agents"
 ---
+import { VARS } from '@data/vars';
 
 A **cloud agent** is an agent that runs in Warp's cloud (or on a self-hosted worker) instead of on your local machine. Use a cloud agent when you want to give an automation its own settings, secrets, skills, and permissions instead of having it act as a user on your team.
 
-Every team starts with a default cloud agent, which is what runs when an automation triggers a task with no other configuration. You can optionally create additional cloud agents through the Oz web app's **Agents** page or the public API. See [Managing cloud agents](#managing-cloud-agents) below.
+Every team starts with a default cloud agent, which is what runs when an automation triggers a task with no other configuration. You can optionally create additional cloud agents through the {VARS.WEB_APP}'s **Agents** page or the public API. See [Managing cloud agents](#managing-cloud-agents) below.
 
 ## How cloud agents get triggered
 
@@ -17,10 +18,10 @@ A run executes as a cloud agent when it's authenticated with an [agent API key](
 
 * **Schedules** — Cron-style recurring runs. See [Scheduled agents](/platform/triggers/scheduled-agents/).
 * **Integrations** — Slack mentions, Linear issue updates, GitHub Actions workflow steps. See [Integrations](/platform/integrations/).
-* **API and SDK** — Programmatic runs from your own backend, scripts, or webhooks via the [Oz API](/reference/api-and-sdk/).
-* **CLI** — `oz agent run-cloud` from a developer machine, CI pipeline, or self-hosted worker. See the [Oz CLI](/reference/cli/).
+* **API and SDK** — Programmatic runs from your own backend, scripts, or webhooks via the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/).
+* **CLI** — `oz agent run-cloud` from a developer machine, CI pipeline, or self-hosted worker. See the [{VARS.WARP_AGENT_CLI}](/reference/cli/).
 
-Each run is tracked in the [Oz dashboard](https://oz.warp.dev/runs) with its trigger source, the environment it ran in, and the full transcript.
+Each run is tracked in the <a href={`${VARS.WEB_APP_URL}/runs`}>{VARS.DASHBOARD}</a> with its trigger source, the environment it ran in, and the full transcript.
 
 ## Agent API keys
 
@@ -32,7 +33,7 @@ In the CLI and REST API, a cloud agent is represented as a **service account**. 
 
 ## Managing cloud agents
 
-Use the [Oz web app's Agents page](/platform/oz-web-app/#agents) for day-to-day management. Use the public API when you need to create or update agents from scripts, CI/CD, or internal tooling. Full request and response formats, including error codes, live on the [API Reference](/api) page under the **agent** tag.
+Use the [{VARS.WEB_APP}'s Agents page](/platform/oz-web-app/#agents) for day-to-day management. Use the public API when you need to create or update agents from scripts, CI/CD, or internal tooling. Full request and response formats, including error codes, live on the [API Reference](/api) page under the **agent** tag.
 
 | Action | Endpoint | What it does |
 | --- | --- | --- |
@@ -56,17 +57,26 @@ When a team is over its plan limit (for example, after downgrading), the extra a
 
 ## Where cloud agents appear in the product
 
-* **Agents page** - The Agents page in the [Oz web app](/platform/oz-web-app/) is where teams view, create, edit, and delete cloud agents.
-* **Agent picker** - Forms that start a new run or schedule include an **Agent** dropdown. **Quick run** is the default (runs execute as the calling user); picking a cloud agent runs as the cloud agent instead.
+* **Agents page** - The Agents page in the [{VARS.WEB_APP}](/platform/oz-web-app/) is where teams view, create, edit, and delete cloud agents.
+* **Agent picker** - Forms that start a new run or schedule include an **Agent** dropdown. **Quick run** is the default: runs execute as the calling user, and pull requests are authored by that person. Picking a cloud agent runs as that agent instead, so with [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) configured, pull requests are authored by the **Warp Factories** GitHub App. Choose a cloud agent for any schedule that opens pull requests. See [Run identity and pull request authorship](/platform/triggers/scheduled-agents-quickstart/#run-identity-and-pull-request-authorship).
 * **Run filters and detail** - The Runs view lets you filter by cloud agent, and individual run detail pages show which agent executed the run.
 * **Admin Panel** - Billing usage in the [Admin Panel](/knowledge-and-collaboration/admin-panel/) attributes credits consumed by cloud agent runs to the team rather than to a person.
+
+## Capabilities
+
+Cloud agents — and individual runs — can also be granted specific capabilities:
+
+* [**Skills as agents**](/platform/skills-as-agents/) - Attach a skill directly to a cloud agent, or pass one at run time, so the agent starts from a reusable, version-controlled prompt instead of an ad hoc one.
+* [**MCP servers**](/platform/mcp/) - Connect a run to external tools and services (GitHub, dbt, Sentry, or a custom internal service) via Model Context Protocol.
+* [**Secrets**](/platform/secrets/) - Store and inject credentials into cloud agent runs without exposing secret values, scoped to a team, a person, or a specific cloud agent.
 
 ## Related pages
 
 * [Triggers](/platform/triggers/) - How schedules, integrations, and API calls invoke cloud agents.
 * [Environments](/platform/environments/) - The runtime context (Docker image, repos, setup commands) a cloud agent uses.
+* [Multi-agent orchestration](/platform/orchestration/) - Coordinate a parent cloud agent and its children across local and cloud runs.
 * [API keys](/reference/cli/api-keys/) - Create personal and agent API keys.
-* [Oz API & SDK](/reference/api-and-sdk/) - Programmatic access to the cloud agent endpoints.
+* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) - Programmatic access to the cloud agent endpoints.
 * [Federated identity tokens](/reference/cli/federate/) - Issue OIDC tokens from inside a run.
-* [Oz web app](/platform/oz-web-app/) - Manage cloud agents and inspect their runs in the web UI.
+* [{VARS.WEB_APP}](/platform/oz-web-app/) - Manage cloud agents and inspect their runs in the web UI.
 * [Admin Panel](/knowledge-and-collaboration/admin-panel/) - Team-level billing and access controls.

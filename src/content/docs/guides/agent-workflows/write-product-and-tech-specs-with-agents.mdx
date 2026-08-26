@@ -8,6 +8,7 @@ tags:
   - "agents"
   - "software-factory"
 ---
+import { VARS } from '@data/vars';
 
 Once your [triage agent](/guides/agent-workflows/build-a-triage-agent) is labeling issues as `ready-to-spec`, use agents to turn those issues into two spec files: a product spec that describes what the feature should do from the user's perspective, and a tech spec that describes how to implement it.
 
@@ -67,12 +68,12 @@ A tech spec defines how the feature will be implemented, including architecture 
 
 * **Spec before you code, not after** — The biggest value from specs is catching misaligned assumptions before any code is written. Running `/write-product-spec` first forces that alignment to happen early, when fixing it is cheap.
 * **Attach Figma mocks** — If your feature has a UI component, attach a Figma screenshot or mockup to your prompt when running `/write-product-spec`. The agent incorporates visual context into the acceptance criteria.
-* **Use `/plan` for smaller tasks** — For changes that don't warrant full specs, use Warp's built-in [planning feature](/agent-platform/capabilities/planning). Plans can be saved, versioned, and attached to PRs without a full spec workflow.
+* **Use `/plan` for smaller tasks** — For changes that don't warrant full specs, use Warp's built-in [planning feature](/agents/capabilities/planning). Plans can be saved, versioned, and attached to PRs without a full spec workflow.
 
 ## Next steps
 
-* [What is a software factory?](/platform/software-factory) — How specs fit into the full development loop.
+* [Warp Factories overview](/factories/) — The managed product where a spec stage gates implementation the same way.
 * [Set up your software factory](/guides/agent-workflows/set-up-a-software-factory) — Connect the spec role to implementation and review.
 * [`warpdotdev/common-skills`](https://github.com/warpdotdev/common-skills) — The full set of shared skills including `write-product-spec`, `write-tech-spec`, and `validate-changes-match-specs`.
-* [Planning](/agent-platform/capabilities/planning) — Warp's built-in planning feature for smaller tasks.
-* [Skills](/agent-platform/capabilities/skills) — How skill files work in Warp and Oz.
+* [Planning](/agents/capabilities/planning) — Warp's built-in planning feature for smaller tasks.
+* [Skills](/agents/capabilities/skills) — How skill files work in Warp and the {VARS.WARP_AUTOMATION_PLATFORM}.

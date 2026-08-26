@@ -10,6 +10,7 @@ tags:
   - "code-review"
   - "session-sharing"
 ---
+import { VARS } from '@data/vars';
 
 When an agent helps prepare a pull request, reviewers need the execution context behind the diff: the original prompt, plan, commands, validation results, code changes, and decisions that still need human review.
 
@@ -17,9 +18,9 @@ Add a Warp session or cloud agent run link to the PR description or a PR comment
 
 Use these Warp docs and surfaces to collect the right context:
 
-* [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) for local Warp agents or third-party CLI agents running in Warp.
-* [Cloud agent session sharing](/platform/viewing-cloud-agent-runs/) for cloud agent runs started from Slack, Linear, GitHub Actions, schedules, the Oz CLI, or the API.
-* The [Code Review panel](/code/code-review/) and [Interactive Code Review](/agent-platform/local-agents/interactive-code-review/) to inspect and refine the actual code diff before or after you share the PR.
+* [Agent Session Sharing](/agents/local-agents/session-sharing/) for local Warp agents or third-party CLI agents running in Warp.
+* [Cloud agent session sharing](/platform/viewing-cloud-agent-runs/) for cloud agent runs started from Slack, Linear, GitHub Actions, schedules, the {VARS.WARP_AGENT_CLI}, or the API.
+* The [Code Review panel](/code/code-review/) and [Interactive Code Review](/agents/local-agents/interactive-code-review/) to inspect and refine the actual code diff before or after you share the PR.
 
 ## What to include in the PR
 
@@ -65,13 +66,13 @@ If the agent ran locally in Warp, share the session:
 4. Copy the shared session link.
 5. Paste the link into the PR description or a PR comment.
 
-See [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) for the full sharing flow.
+See [Agent Session Sharing](/agents/local-agents/session-sharing/) for the full sharing flow.
 
 ### Cloud agent run
 
 If the agent ran in the cloud, use the cloud run session link:
 
-1. Open the run from the [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app or the [Runs page in the Oz web app](/platform/oz-web-app/#runs).
+1. Open the run from the [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app or the [Runs page in the {VARS.WEB_APP}](/platform/oz-web-app/#runs).
 2. Confirm the session shows the run context reviewers need.
 3. Copy the cloud agent session link.
 4. Paste the link into the PR description or a PR comment.
@@ -88,7 +89,7 @@ Before asking teammates to review the PR, inspect the code yourself in Warp:
 4. Run your project's tests, lint, typecheck, or build.
 5. Add validation results to the PR summary.
 
-For a detailed local workflow, see [How to review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code/) and [Interactive Code Review](/agent-platform/local-agents/interactive-code-review/).
+For a detailed local workflow, see [How to review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code/) and [Interactive Code Review](/agents/local-agents/interactive-code-review/).
 
 ## 3. Make the agent context easy to review
 
@@ -101,7 +102,7 @@ Reviewers should not have to read an entire transcript to understand what happen
 * Any failed commands and how they were resolved.
 * Any assumptions the agent made.
 
-If the PR came from an automated workflow, include the trigger source too. For example: Slack thread, Linear issue, GitHub Actions workflow, scheduled agent, Oz CLI command, or API call.
+If the PR came from an automated workflow, include the trigger source too. For example: Slack thread, Linear issue, GitHub Actions workflow, scheduled agent, {VARS.WARP_AGENT_CLI} command, or API call.
 
 ## 4. Watch for sensitive context before sharing
 
@@ -129,7 +130,7 @@ Avoid vague asks like "review the agent output." Point reviewers to the decision
 
 ## Next steps
 
-* Use [Agent Session Sharing](/agent-platform/local-agents/session-sharing/) to share local or third-party agent sessions.
+* Use [Agent Session Sharing](/agents/local-agents/session-sharing/) to share local or third-party agent sessions.
 * Use [Cloud agent session sharing](/platform/viewing-cloud-agent-runs/) to inspect cloud agent runs.
 * Use [Code Review panel](/code/code-review/) to review Git diffs in Warp.
-* Use [Interactive Code Review](/agent-platform/local-agents/interactive-code-review/) to leave inline comments and send feedback back to an agent.
+* Use [Interactive Code Review](/agents/local-agents/interactive-code-review/) to leave inline comments and send feedback back to an agent.

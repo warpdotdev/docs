@@ -1,0 +1,235 @@
+---
+// A singleton, delegated lightbox for article content and explicit chat image
+// triggers. Event delegation keeps it active for future Starlight client-side
+// swaps without wrapping article images in buttons or changing their layout.
+---
+
+<script>
+	const cleanupKey = '__warpDocsArticleImageLightboxCleanup';
+	type LightboxWindow = Window & {
+		__warpDocsArticleImageLightboxCleanup?: () => void;
+	};
+
+	function installArticleImageLightbox() {
+		const lightboxWindow = window as LightboxWindow;
+		lightboxWindow[cleanupKey]?.();
+
+		const lightbox = document.createElement('dialog');
+		lightbox.className = 'docs-image-lightbox';
+		lightbox.hidden = true;
+		lightbox.setAttribute('role', 'dialog');
+		lightbox.setAttribute('aria-modal', 'true');
+		lightbox.setAttribute('aria-labelledby', 'docs-image-lightbox-title');
+
+		const content = document.createElement('div');
+		content.className = 'docs-image-lightbox__content';
+		const title = document.createElement('span');
+		title.id = 'docs-image-lightbox-title';
+		title.className = 'sr-only';
+		const closeButton = document.createElement('button');
+		closeButton.type = 'button';
+		closeButton.className = 'docs-image-lightbox__close';
+		closeButton.setAttribute('aria-label', 'Close expanded image');
+		closeButton.innerHTML =
+			'<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 6 12 12M18 6 6 18"/></svg>';
+		const expandedImage = document.createElement('img');
+		expandedImage.className = 'docs-image-lightbox__image';
+		expandedImage.decoding = 'async';
+		expandedImage.loading = 'eager';
+		expandedImage.referrerPolicy = 'no-referrer';
+		const fallback = document.createElement('span');
+		fallback.className = 'docs-image-lightbox__fallback';
+		fallback.setAttribute('role', 'img');
+		fallback.textContent = 'Image unavailable';
+		fallback.hidden = true;
+
+		content.append(title, closeButton, expandedImage, fallback);
+		lightbox.append(content);
+		document.body.append(lightbox);
+
+		let activeTrigger: HTMLElement | null = null;
+
+		const isEligibleArticleImage = (image: HTMLImageElement) =>
+			image.matches('main .sl-markdown-content img') &&
+			!image.closest('.not-content, #sl-kapa-panel, [data-no-lightbox]');
+		const isEligibleKapaImage = (image: HTMLImageElement, trigger: HTMLElement) =>
+			trigger.matches('.sl-kapa-answer-image-button') &&
+			image.matches('.sl-kapa-answer-image') &&
+			image.closest('#sl-kapa-panel') !== null;
+
+		const isImageOnlyLink = (link: HTMLAnchorElement, image: HTMLImageElement) =>
+			link.textContent?.trim() === '' &&
+			link.children.length === 1 &&
+			link.firstElementChild?.contains(image);
+
+		const getImageTarget = (target: EventTarget | null) => {
+			if (!(target instanceof Element)) return null;
+			const trigger = target.closest<HTMLElement>('[data-warp-image-lightbox-trigger="true"]');
+			if (!trigger) return null;
+			const image =
+				trigger instanceof HTMLImageElement ? trigger : trigger.querySelector('img');
+			if (!(image instanceof HTMLImageElement)) return null;
+
+			return isEligibleArticleImage(image) || isEligibleKapaImage(image, trigger)
+				? { image, trigger }
+				: null;
+		};
+
+		const imageLabel = (image: HTMLImageElement) =>
+			image.alt.trim() || 'Documentation image';
+
+		const enhanceImages = () => {
+			document
+				.querySelectorAll<HTMLImageElement>('main .sl-markdown-content img')
+				.forEach((image) => {
+					if (!isEligibleArticleImage(image)) return;
+					const link = image.closest('a');
+					if (link instanceof HTMLAnchorElement) {
+						if (!isImageOnlyLink(link, image)) return;
+						image.dataset.docsImageLightboxImage = 'true';
+						link.dataset.warpImageLightboxTrigger = 'true';
+						link.setAttribute('role', 'button');
+						link.setAttribute('aria-haspopup', 'dialog');
+						link.setAttribute('aria-label', `Expand image: ${imageLabel(image)}`);
+						return;
+					}
+
+					image.dataset.docsImageLightboxImage = 'true';
+					image.dataset.warpImageLightboxTrigger = 'true';
+					image.tabIndex = 0;
+					image.setAttribute('role', 'button');
+					image.setAttribute('aria-haspopup', 'dialog');
+					image.setAttribute('aria-label', `Expand image: ${imageLabel(image)}`);
+				});
+		};
+
+		const close = ({ restoreFocus = true } = {}) => {
+			if (lightbox.hidden) return;
+			if (lightbox.open) {
+				lightbox.close();
+			}
+			lightbox.hidden = true;
+			expandedImage.removeAttribute('src');
+			document.documentElement.classList.remove('docs-image-lightbox-open');
+			document.body.classList.remove('docs-image-lightbox-open');
+			const trigger = activeTrigger;
+			activeTrigger = null;
+			if (restoreFocus) {
+				window.requestAnimationFrame(() => trigger?.focus());
+			}
+		};
+
+		const open = (image: HTMLImageElement, trigger: HTMLElement) => {
+			const source = image.currentSrc || image.src;
+			if (!source) return;
+
+			const label = imageLabel(image);
+			activeTrigger = trigger;
+			title.textContent = `Expanded image: ${label}`;
+			expandedImage.alt = label;
+			expandedImage.src = source;
+			expandedImage.hidden = false;
+			fallback.hidden = true;
+			fallback.setAttribute('aria-label', `${label} unavailable`);
+			lightbox.hidden = false;
+			if (!lightbox.open) {
+				lightbox.showModal();
+			}
+			document.documentElement.classList.add('docs-image-lightbox-open');
+			document.body.classList.add('docs-image-lightbox-open');
+			window.requestAnimationFrame(() => closeButton.focus());
+		};
+
+		const onDocumentClick = (event: MouseEvent) => {
+			const target = getImageTarget(event.target);
+			if (!target) return;
+			event.preventDefault();
+			event.stopPropagation();
+			open(target.image, target.trigger);
+		};
+
+		const onDocumentKeyDown = (event: KeyboardEvent) => {
+			if (!lightbox.hidden) {
+				event.stopPropagation();
+				if (event.key === 'Escape') {
+					event.preventDefault();
+					event.stopPropagation();
+					close();
+					return;
+				}
+				if (event.key === 'Tab') {
+					event.preventDefault();
+					closeButton.focus();
+				}
+				return;
+			}
+
+			if (event.key !== 'Enter' && event.key !== ' ') return;
+			const target = getImageTarget(event.target);
+			if (!target) return;
+			event.preventDefault();
+			open(target.image, target.trigger);
+		};
+
+		const onLightboxClick = (event: MouseEvent) => {
+			// The content wrapper fills the dialog, so its empty top and bottom
+			// areas are visually backdrop even though they are not the dialog
+			// element itself. Only the image, close control, and fallback count
+			// as lightbox content that must not dismiss the dialog.
+			const path = event.composedPath();
+			const clickedLightboxContent = path.some(
+				(target) =>
+					target === expandedImage || target === closeButton || target === fallback
+			);
+			if (!clickedLightboxContent) close();
+		};
+		const onLightboxCancel = (event: Event) => {
+			event.preventDefault();
+			close();
+		};
+
+		const onImageError = () => {
+			expandedImage.hidden = true;
+			fallback.hidden = false;
+		};
+
+		const onPageSwap = () => {
+			close({ restoreFocus: false });
+			if (!document.body.contains(lightbox)) {
+				document.body.append(lightbox);
+			}
+			enhanceImages();
+		};
+
+		const onCloseButtonClick = () => close();
+		closeButton.addEventListener('click', onCloseButtonClick);
+		expandedImage.addEventListener('error', onImageError);
+		lightbox.addEventListener('click', onLightboxClick);
+		lightbox.addEventListener('cancel', onLightboxCancel);
+		document.addEventListener('click', onDocumentClick);
+		document.addEventListener('keydown', onDocumentKeyDown, true);
+		document.addEventListener('astro:after-swap', onPageSwap);
+		document.addEventListener('astro:page-load', onPageSwap);
+		enhanceImages();
+
+		lightboxWindow[cleanupKey] = () => {
+			close({ restoreFocus: false });
+			closeButton.removeEventListener('click', onCloseButtonClick);
+			expandedImage.removeEventListener('error', onImageError);
+			lightbox.removeEventListener('click', onLightboxClick);
+			lightbox.removeEventListener('cancel', onLightboxCancel);
+			document.removeEventListener('click', onDocumentClick);
+			document.removeEventListener('keydown', onDocumentKeyDown, true);
+			document.removeEventListener('astro:after-swap', onPageSwap);
+			document.removeEventListener('astro:page-load', onPageSwap);
+			lightbox.remove();
+			delete lightboxWindow[cleanupKey];
+		};
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', installArticleImageLightbox, { once: true });
+	} else {
+		installArticleImageLightbox();
+	}
+</script>

@@ -30,10 +30,10 @@ Once the SSH extension is installed on a remote host, the following features wor
 * **File tree (Project Explorer)** - The left panel reflects the remote project's structure and updates as you `cd` between directories or change files. See [File Tree](/code/code-editor/file-tree/).
 * **Code editor on remote files** - Open remote files in Warp's [code editor](/code/code-editor/) from the file tree or the Command Palette, edit them, and save back to the remote host. Warp keeps the buffer in sync with the remote file and surfaces a conflict resolution prompt if the file changes on disk while you have unsaved edits.
 * **Code review and git operations** - The [code review panel](/code/code-review/) works on remote repositories, including reviewing diffs, discarding files, committing, pushing, and creating PRs. AI-generated commit messages and PR descriptions are produced on the remote host, so large diffs never leave the machine.
-* **Codebase indexing** - Warp indexes the remote repository so Agents can semantically search the remote codebase, just like [Codebase Context](/agent-platform/capabilities/codebase-context/) locally.
+* **Codebase indexing** - Warp indexes the remote repository so Agents can semantically search the remote codebase, just like [Codebase Context](/agents/capabilities/codebase-context/) locally.
 * **File search** - Search for remote files by name from the [Command Palette](/terminal/command-palette/).
 * **Project rules and skills** - Agents discover and use the remote project's rules (`WARP.md`) and skills, the same as in a local repo.
-* **Native file reads and code diffs** - The Agent reads files and applies edits through Warp's built-in diff tool. Code changes show up as inline diffs you can review and approve, instead of being applied via `sed` or other shell commands. See [Code diffs](/agent-platform/local-agents/code-diffs/).
+* **Native file reads and code diffs** - The Agent reads files and applies edits through Warp's built-in diff tool. Code changes show up as inline diffs you can review and approve, instead of being applied via `sed` or other shell commands. See [Code diffs](/agents/local-agents/code-diffs/).
 * **Reliable completions and autosuggestions** - Generators run in parallel over a single multiplexed connection instead of opening a new SSH session per command, so completions stop hitting the remote host's `MaxSessions` ceiling and stop occasionally injecting errors into your blocks.
 * **All core terminal features** - The input editor, blocks, command history, autosuggestions, and history search behave the same as in a local session.
 
@@ -110,7 +110,7 @@ Warp supports macOS and most flavors of Linux as remote hosts. Supported shells 
 
 ### What if Warp fails to detect my SSH session?
 
-If you're in a remote SSH session and Warp didn't detect it, you can manually Warpify by opening the [Command Palette](/terminal/command-palette/) and searching for "Warpify SSH Session".
+If you're in a remote SSH session and Warp didn't detect it, first check that **Settings** > **Warpify** > **Warpify SSH Sessions** is enabled. If it's already on, Warp likely skipped detection for that particular command. See [What triggers SSH session detection for Warpification?](#what-triggers-ssh-session-detection-for-warpification) for the cases Warp doesn't detect.
 
 ### What triggers SSH session detection for Warpification?
 
@@ -118,4 +118,4 @@ With SSH session detection enabled, Warp watches for `ssh` commands whose argume
 
 Once Warp is confident you've successfully authenticated (by detecting `Last login:` or something resembling a basic prompt), it prompts you to Warpify the active SSH session.
 
-If SSH session detection doesn't pick up your session, you can still [Warpify manually](#what-if-warp-fails-to-detect-my-ssh-session).
+If SSH session detection doesn't pick up your session, see [What if Warp fails to detect my SSH session?](#what-if-warp-fails-to-detect-my-ssh-session).
