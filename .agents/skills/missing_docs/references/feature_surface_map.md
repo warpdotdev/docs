@@ -380,6 +380,10 @@ GET /agent/runs/{runId}/handoff/attachments -> internal
 POST /agent/handoff/upload-snapshot -> internal
 PATCH /agent/runs/{runId}/event-sequence -> internal
 POST /agent/runs/{runId}/client-events -> internal
+# Records the repositories and revisions a run checked out, written by the run's
+# own cloud agent before setup commands run. Marked `x-internal: true` upstream
+# and guarded by RequireCloudAgent, so it is never callable by an API consumer.
+POST /agent/runs/{runId}/environment-snapshot -> internal
 GET /agent/conversations/{conversation_id}/block-snapshot -> internal
 
 # Support endpoints for third-party harnesses (hidden `oz harness-support` CLI).
@@ -413,6 +417,9 @@ PATCH /factory/{uid} -> internal
 DELETE /factory/{uid} -> internal
 POST /factory/{uid}/apply -> internal
 POST /factory/{uid}/plan -> internal
+# Opens/refreshes the throwaway branch and PR that verify a factory's GitHub
+# connection during onboarding.
+POST /factory/{uid}/github-onboarding-pr -> internal
 GET /factory/{uid}/source -> internal
 PUT /factory/{uid}/source -> internal
 DELETE /factory/{uid}/source -> internal
@@ -424,6 +431,10 @@ PUT /factory/{uid}/source/files -> internal
 GET /factory/{uid}/source/export -> internal
 POST /factory/{uid}/source/clone-url -> internal
 GET /factory/{uid}/source/link-readiness -> internal
+# Integrating production drift into, and discarding, a warp/code/* working
+# branch behind the factory definition editor.
+POST /factory/{uid}/source/branch/sync -> internal
+DELETE /factory/{uid}/source/branch -> internal
 POST /factory/{uid}/merges -> internal
 POST /factory/{uid}/merges/check -> internal
 GET /factory/{uid}/merges/{merge_uid} -> internal
@@ -527,7 +538,9 @@ PATCH /factory/{uid}/benchmarks/suites/{suite_uid} -> internal
 DELETE /factory/{uid}/benchmarks/suites/{suite_uid} -> internal
 POST /factory/{uid}/benchmarks/suites/{suite_uid}/runs -> internal
 POST /factory/{uid}/benchmarks/suites/{suite_uid}/tasks -> internal
-POST /factory/{uid}/benchmarks/suites/{suite_uid}/tasks/compose-from-run -> internal
+# Moved out from under /suites/{suite_uid} in warp-server: composing a benchmark
+# task from a production run no longer requires a target suite up front.
+POST /factory/{uid}/benchmarks/tasks/compose-from-run -> internal
 GET /factory/{uid}/benchmarks/runs -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid} -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid}/results -> internal
