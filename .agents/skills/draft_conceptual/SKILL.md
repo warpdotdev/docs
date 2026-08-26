@@ -9,7 +9,7 @@ Draft a conceptual documentation page that explains what a feature or concept is
 
 ## Workflow
 
-Follow the workflow in `.warp/skills/draft_docs/SKILL.md`, using the **conceptual template** at `.warp/templates/conceptual.md`.
+Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **conceptual template** at `.agents/templates/conceptual.md`.
 
 ## Frontmatter description
 

@@ -455,6 +455,13 @@ PATCH /factory/{uid}/tasks/{task_uid} -> internal
 DELETE /factory/{uid}/tasks/{task_uid} -> internal
 POST /factory/{uid}/tasks/{task_uid}/cancel -> internal
 GET /factory/{uid}/task-by-run -> internal
+# Dispatching a run to a factory. Unlike its neighbours this operation is NOT
+# marked `x-internal: true` upstream, so warp-server's own publish filter would
+# keep it. It stays out of the docs copy because the whole `/factory` namespace
+# is excluded by the sync-openapi-spec policy (`factory` in EXCLUDED_TAGS plus
+# the `/factory` prefix) while the Factory REST API is unreleased. Revisit
+# together with that exclusion when the Factory API ships publicly.
+POST /factory/{uid}/runs -> internal
 # Also marked `x-internal: true` in warp-server's canonical spec, so the publish
 # filter strips it from the public docs copy.
 GET /factory/{uid}/metrics -> internal
@@ -482,6 +489,8 @@ PUT /factory/automations/{id} -> internal
 DELETE /factory/automations/{id} -> internal
 PUT /factory/automations/{id}/subscriptions -> internal
 DELETE /factory/automations/{id}/subscriptions/{subscription_id} -> internal
+# Fires an automation's cron trigger immediately; `x-internal: true` upstream.
+POST /factory/automations/{id}/run -> internal
 GET /factory/scorers -> internal
 POST /factory/scorers -> internal
 PATCH /factory/scorers/{scorer_id} -> internal
@@ -767,7 +776,6 @@ RememberFastForwardState
 HoaCodeReview
 AgentToolbarEditor
 SkipFirebaseAnonymousUser
-OpenWarpNewSettingsModes
 HOAOnboardingFlow
 AgentViewConversationListView
 BuildPlanAutoReloadBannerToggle
@@ -787,6 +795,10 @@ GitCredentialRefresh
 # State-mutating recovery for abnormal terminal lifecycle sequences — an internal
 # reliability mechanism with no user-facing configuration or UI, so it needs no docs.
 TerminalLifecycleRecovery
+# When Ctrl-C is forwarded to a third-party harness PTY, synthesize Cancelled for
+# the CLI agent session if the plugin never reports the interrupt. No setting,
+# menu, or CLI flag; Ctrl-C behavior is already documented.
+CtrlCCancelsThirdPartyHarness
 # Orchestration plumbing promoted dogfood -> GA. Neither changes what a user sees
 # or configures, so both are internal implementation details of the documented
 # multi-agent orchestration feature (platform/orchestration/multi-agent-runs.mdx):
