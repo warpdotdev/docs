@@ -1,14 +1,16 @@
 ---
 name: missing_docs
 description: >-
-  Find and fill documentation gaps in Warp's Astro Starlight docs by auditing coverage
-  against code surfaces in the public warp client repo and warp-server, then drafting missing
-  pages. Use when asked to find missing docs, audit documentation coverage,
-  identify undocumented features, draft docs for new features, detect doc-impacting
-  code changes since the last audit, or do a docs coverage check. Runs a Python
-  audit script (coverage + snapshot-based change detection), then researches
-  source code and writes first-pass doc pages. Can run audit-only, draft-only,
-  drift-watch (recurring agent), or end-to-end.
+  Find documentation gaps in Warp's Astro Starlight docs by auditing coverage against
+  code surfaces in the public warp client repo and warp-server and against the weekly
+  release changelog, decide which gaps actually warrant docs, then draft only those.
+  Use when asked to find missing docs, audit documentation coverage, identify
+  undocumented features, draft docs for new features, detect doc-impacting code changes
+  since the last audit, or do a docs coverage check. Runs a Python audit script
+  (coverage + snapshot-based change detection), gates every candidate against the
+  documentation-worthiness criteria, then researches source code and writes first-pass
+  doc pages for the ones that pass. Can run audit-only, draft-only, drift-watch
+  (release-triggered recurring agent), or end-to-end.
 ---
 
 # Missing Docs
@@ -31,6 +33,50 @@ audits in the report's `audits_skipped` field (`extraction:*` entries identify
 broken parsers). Never treat an exit-2 run as a clean audit — fix the problem
 and re-run. Exit 0 means all requested audits ran (findings may still exist).
 
+### Run every command from the docs repo root
+
+Every path in this skill — scripts, references, doc pages — is relative to the docs
+repo root, and nothing resolves them for you. A sandbox commonly starts a run one level
+up (`/workspace`, with the checkout at `/workspace/docs`), so `cd` before anything else:
+
+```bash
+cd "$(git rev-parse --show-toplevel)"
+```
+
+A wrong working directory fails in a way that reads like a real failure: `python3` exits
+**2** with `can't open file`, the same exit code `audit_docs.py` uses to fail loud on a
+broken environment. Read the message before concluding a sanity guard tripped.
+
+### Install Node dependencies before the first build
+
+`npm run build` is the only validation this repo has, and it needs `node_modules`, which
+a fresh sandbox does not have. Install once per sandbox:
+
+```bash
+npm ci
+```
+
+### Regenerate the snapshot only from current checkouts
+
+`--update-snapshot` rewrites `references/surface_snapshot.json` from whatever the sibling
+repos hold at that moment, and it cannot tell a current checkout from a stale one. Running
+it against an old or feature-branched `warp` / `warp-server` writes a baseline describing
+surfaces that are not on the default branch, and the next `--diff` then reports the gap
+between two wrong baselines as real drift. Confirm both repos are current and on their
+default branch — `master` for `warp`, `develop` for `warp-server` — before regenerating:
+
+```bash
+for repo in ../warp ../warp-server; do
+  git -C "$repo" fetch --quiet origin
+  echo "$repo $(git -C "$repo" rev-parse --abbrev-ref HEAD) \
+$(git -C "$repo" log -1 --format=%cd --date=short)"
+done
+```
+
+A cloud sandbox provisions fresh checkouts and satisfies this by construction; a
+developer's machine usually does not. When you cannot confirm it, leave the regen to a
+scheduled run rather than committing a snapshot you cannot vouch for.
+
 ## Public vs. private surfaces (what you may document)
 
 Only document surfaces that are **publicly released**. This is the most important guardrail in this skill: do not reveal private or unreleased surfaces in public docs. Two independent gates, both required:
@@ -41,7 +87,13 @@ Only document surfaces that are **publicly released**. This is the most importan
 Rules of thumb:
 - A `warp-server` API endpoint that is **not already in the OpenAPI spec** is treated as not-yet-public: do NOT hand-write docs for it. Either confirm it has been publicly released and let the `sync-openapi-spec` skill bring it into the spec, or map it `-> internal` / defer it. When unsure, defer — never expose an unreleased endpoint or feature in public docs.
 - A CLI command or API route gated by a **non-GA feature flag** should be mapped `-> gated:<Flag>` (for example, `gated:AIMemories`) rather than `-> internal`: the audit auto-defers it while the flag is non-GA and auto-surfaces it for docs once the flag goes GA. (Feature flags and settings already auto-defer by rollout status; `gated:` extends that to CLI/API.)
+- **A published docs page is not evidence that an API is released.** Early Access features routinely have public pages describing what the product does while their REST routes stay out of the released spec, so "we already document this feature" does not clear Gate 0 for an endpoint. For API surfaces the released OpenAPI spec is the only test. The Factory pages describe dispatching a run, yet no `/factory` path appears in `developers/agent-api-openapi.yaml` — those routes are Gate 0 deferrals despite the prose.
 - The audit still *detects* these as gaps (useful signal), but detection is not permission to document. Every resolution must respect this boundary.
+
+This section is the source of truth for **Gate 0** in
+`.agents/references/docs-worthiness-criteria.md`. Passing Gate 0 only establishes that a
+surface *may* be documented — it does not establish that it *should* be. Work through the
+remaining gates before treating any finding as actionable.
 
 ## Workflows
 
@@ -91,6 +143,15 @@ The script performs these coverage audits:
 4. **Slash command coverage** — parses the static registry in the warp client repo's
    `app/src/search/slash_command_menu/static_commands/` and checks each `/command`
    is mentioned in docs.
+
+   **Known limitation: this check is repo-wide, not surface-scoped.** A command counts as
+   covered when *any* page mentions it (`audit_slash_commands` in `scripts/audit_docs.py`
+   searches every docs page), so a command documented on the GUI slash-commands page reads
+   as covered even when the CLI reference omits it. That is how `/usage` reached a release
+   undocumented for CLI users — only the changelog cross-check caught it. The CLI and
+   settings audits scope their search to the pages that own those surfaces; this one does
+   not. Until that is fixed, do not read a slash command's `doc_covered` bucket as
+   "documented in the right place."
 5. **Settings coverage** — parses every `toml_path: "section.key"` setting
    registration in the warp client repo (the same registry the JSON-schema generator uses)
    and checks the all-settings reference page documents it. Private and
@@ -200,6 +261,42 @@ Diff mode reports, since the snapshot was last updated:
   mention is NOT documentation — verify each item has real doc coverage. ("Bug fixes"
   bullets are deliberately untracked to keep weekly triage volume manageable.)
 
+  **A changelog item is a candidate, not a work item.** Detection is not permission to
+  document. Every item must pass `.agents/references/docs-worthiness-criteria.md` before
+  it becomes actionable — most will not. Read
+  `references/changelog_decisions.md` first and skip any PR number already decided.
+
+#### Sources beyond the client changelog
+
+The client changelog only covers `warpdotdev/warp`. Server and platform features ship
+continuously and never appear in it, which is how they used to reach docs through the
+retired spec-scan path — and why that path produced most of the unvetted drafts. Cover
+them through these three layers instead, in order of preference:
+
+1. **`oz_updates`** — the separate array in the same `client_version` payload the release
+   gate already fetches. Release-gated, low-noise, and currently the most direct signal
+   for platform-side changes. Triage these bullets exactly like changelog bullets: same
+   gates, same ledger, same evidence requirement.
+
+   `check_new_release.py` prints them; the audit never sees them, because it is offline
+   by design and they are not part of the markdown changelog it parses. Read them from
+   the gate's output, or `--json` for the full array. `oz_updates` is the API's field
+   name and stays as-is regardless of product naming.
+2. **The public Agent API surface** — already covered by audit category 3 and
+   `sync-openapi-spec`. No new machinery; just confirm the release run actually triages
+   these findings rather than deferring them by habit. A released endpoint reaches docs
+   through the spec, never through hand-drafting.
+3. **`warp-server` product specs** — the last resort, and the most conservative layer.
+   Apply a hard rollout check *before* the worthiness gates: only consider a spec whose
+   feature is verifiably enabled for users. A merged spec is not a shipped feature. If
+   you cannot confirm the rollout from code or the changelog, defer it and record the
+   blocking condition — do not draft against the spec text.
+
+Layer 3 is where the old pipeline went wrong: it treated spec merge as the trigger, so it
+drafted for features that had not shipped and sometimes never would. Reach for it only
+when layers 1 and 2 cannot see a user-visible change you have independent evidence has
+shipped.
+
 After triaging and addressing diff findings, refresh the snapshot and commit it with
 your PR so the next run diffs against the new baseline:
 
@@ -208,6 +305,25 @@ python3 .agents/skills/missing_docs/scripts/audit_docs.py --update-snapshot
 ```
 
 ### Phase 3: Draft
+
+**Preconditions — do not draft without both:**
+
+1. **A recorded pass verdict.** The finding must have passed
+   `.agents/references/docs-worthiness-criteria.md`, with the gate and its concrete
+   evidence written down. No recorded verdict means no drafting. For changelog-derived
+   findings the verdict also belongs in `references/changelog_decisions.md`.
+2. **A content design plan.** Route it with the rule in
+   `.agents/references/content-design-plan.md`: a new page gets the full form in
+   `.agents/templates/content-design-plan.md`, an update that adds a concept gets the
+   three-line short form, and a correction gets no plan. Write it before opening a page
+   template — the plan decides the content type; the template does not. Carry it into the PR
+   body verbatim: a scheduled run has no one to present it to, so the PR body is the only
+   place a human will see the reasoning.
+
+A finding that passes the gate with the **update an existing page** outcome is still a
+drafting task — it just edits a page instead of creating one. Prefer it; new pages need
+to be justified against the existing information architecture, not just against the
+change.
 
 For each gap to address (prioritize high → medium → low):
 
@@ -219,6 +335,25 @@ For each gap to address (prioritize high → medium → low):
    - **CLI gaps** → read command definition in `crates/warp_cli/src/`, extract flags, arguments, help text
    - **API gaps** → read handler in warp-server `router/handlers/public_api/`, route definition, request/response types; prefer fixing the OpenAPI spec via the `sync-openapi-spec` skill. Only act on endpoints already publicly released (see Public vs. private surfaces); never draft docs for unreleased warp-server endpoints.
    - **Slash command gaps** → read the registry entry and gating flags in `app/src/search/slash_command_menu/`
+
+   **Then look for a product spec.** Code tells you what a surface does; it never tells you who
+   it is for or what problem it solves — and those are the content design plan's first three
+   fields. Check warp-server for `specs/<id>/PRODUCT.md`. Only some specs have one, and
+   `TECH.md` is the implementation plan, not a substitute. Where it exists, its `Problem`,
+   `Goals`, `Non-goals`, and `User experience` sections map onto the plan's Problem, Goals,
+   Excludes, and high-impact scenarios almost directly.
+
+   Three limits, all load-bearing:
+   - **Framing only, never behavior.** Labels, flags, and defaults drift between spec and ship,
+     so every concrete claim is still verified against code. A spec is context, not a source of
+     truth.
+   - **Never evidence that something shipped.** A merged spec is not a release. Gate 0 is
+     settled before this step, and a spec cannot reopen it.
+   - **Never quoted into a public page.** warp-server is private and specs routinely describe
+     unshipped plans. Use one to understand the reader, then write the page from scratch.
+
+   If no spec exists, proceed without one and record that in the content design plan. An
+   acknowledged gap is reviewable; an invented audience is not.
 5. Draft the doc following style guide conventions:
    - YAML frontmatter with description
    - **All headings (H1–H4) must use sentence case** — capitalize only the first word and proper feature names (e.g., "Agent Mode", "Warp Drive"). ✅ `## How it works` ❌ `## How It Works`
@@ -234,6 +369,15 @@ For each gap to address (prioritize high → medium → low):
    repeat findings, and an unmaintained map is how gaps get lost. Per the PR strategy
    below, collect all map edits into the single companion audit-bookkeeping PR (only fold
    them into a feature PR when the run documents exactly one feature).
+
+   **Edit map entries individually; never find-and-replace across the file.** The
+   left-hand side of every entry is a literal code identifier — a flag name, command,
+   route, setting key, or doc slug — and it only matches code because it matches exactly.
+   A rename sweep applied to the whole map (say, replacing `cost` with `usage` while
+   renaming a feature) rewrites unrelated keys into surfaces that do not exist. Map
+   hygiene catches the corruption on the next audit, but only after it has shipped in a
+   PR. Change the entries you mean to change, then re-run `--category map` to confirm
+   nothing else moved.
 9. Run `--update-snapshot` and commit the refreshed `surface_snapshot.json` in that same
    bookkeeping PR. Never split the snapshot across multiple PRs.
 
@@ -241,6 +385,16 @@ For each gap to address (prioritize high → medium → low):
 
 Not every finding needs a new doc page — pick the lightest correct fix and verify it against source before applying:
 
+- **No docs needed** — the finding failed every worthiness gate, or a disqualifier applied.
+  This is a first-class resolution, not a silent skip: record the verdict, the
+  disqualifier or failed gates, and a one-line reason. Changelog items go in
+  `references/changelog_decisions.md`; code surfaces go in the surface map as an ignore
+  entry with a comment. An unrecorded rejection is re-proposed next run and has to be
+  rejected again by the same reviewer.
+- **Deferred (Gate 0)** — real user-facing surface, but not yet GA or not yet public.
+  Record it with the blocking condition so it re-surfaces when the flag goes GA or the
+  endpoint reaches the released OpenAPI spec. Never draft ahead of the release; a page
+  written for an unshipped feature is stale before it merges.
 - **User-facing setting** — document it in `terminal/settings/all-settings.mdx` under its TOML section (type/default/options come from the `toml_path` registration).
 - **Internal or state-only setting** (one-time banners, migration flags, telemetry-modeled state) — map `section.key -> internal` in the surface map instead of documenting it.
 - **Feature flag with a dedicated doc page** — map the flag to that page.
@@ -274,7 +428,13 @@ python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
   warp:app/src/search/slash_command_menu/static_commands/commands.rs
 ```
 
-Then assign the resolved reviewers on the PR with `gh pr edit <PR> --add-reviewer <logins/teams>`. Unresolved paths are non-fatal — leave them for manual assignment rather than blocking the run.
+Add `--reviewers-only` to get just the comma-joined `--add-reviewer` argument (empty output when nothing resolved), which is the form the mandatory request step below consumes.
+
+Then **actually request the review on GitHub** with `gh pr edit <PR> --add-reviewer <logins/teams>`. A `/cc @engineer` line in the PR body is not a review request: it puts nothing in the engineer's review queue. All four ambient-drafted docs PRs (#414, #415, #416, #417) named reviewers in prose and got zero reviews, three of them with an empty requested-reviewers list.
+
+An individual unresolved *path* is non-fatal — other paths usually resolve the same owner. An empty *result* is not: fall back to `dannyneira` rather than opening the PR with no reviewer. See step 7 of drift-watch mode for the required command.
+
+**Expect warp-server-only findings to fall back.** The warp client repo's ownership file has a root rule, so nearly any path in it resolves. warp-server's does not, and whole areas — the `/factory` handlers among them — carry no entry, so a finding whose only source file is a warp-server handler resolves to nothing and lands on `dannyneira`. That is the fallback doing its job; report it that way rather than as a resolution failure. Do not hardcode an owner here to paper over it — the fix belongs in warp-server's ownership file, and once an entry exists resolution starts working with no change to this skill.
 
 ### PR strategy: one PR per feature
 
@@ -296,16 +456,47 @@ their area. Do NOT bundle unrelated features into a single mega PR.
   snapshot is a wholesale regen. Put every `Flag -> page` mapping, ignore/`internal`/
   `gated:` entry, and the `--update-snapshot` regen into one bookkeeping PR. Its mappings
   may point at pages that land in the sibling feature PRs — map hygiene only requires the
-  target page to exist on the base branch, so the bookkeeping PR is independently
-  mergeable in any order. If a run documents exactly one feature, fold its map + snapshot
-  changes into that single PR and skip the companion.
+  target page to exist on the base branch, so the bookkeeping PR merges independently of
+  those feature PRs, in any order. If a run documents exactly one feature, fold its map +
+  snapshot changes into that single PR and skip the companion.
+- **Keep at most one bookkeeping PR open. Extend the open one rather than opening a
+  second.** The independence above holds against *feature* PRs; it does not hold against
+  another bookkeeping PR. Two of those edit the same shared files, and
+  `surface_snapshot.json` is regenerated wholesale, so a conflict between them cannot be
+  resolved by hand — it has to be regenerated on the merged tree. Look for an existing one
+  before opening yours:
+
+  ```bash
+  gh pr list --state open --search '"bookkeeping for" in:title' \
+    --json number,headRefName,title,reviewDecision
+  ```
+
+  Match on the quoted phrase, not the two words separately. An unquoted
+  `missing_docs bookkeeping in:title` search ANDs the two words anywhere in the title, so
+  it also matches this rule-only PR's own title ("...keep at most one bookkeeping PR
+  open") — the next run would then check out and extend this PR's branch instead of a real
+  bookkeeping PR.
+
+  If one exists and `reviewDecision` is not `APPROVED`, check out its branch and add this
+  run's map entries and ledger rows on top, then re-run `check_new_release.py --commit` and
+  `--update-snapshot` there so the marker and snapshot stay a single regen covering every
+  release the PR now carries. Update its title and body to name them all. The one
+  exception: if `reviewDecision` is already `APPROVED` (it's about to merge), wait for the
+  merge and branch from the result instead of extending it.
+
+  For the search to find it, title every bookkeeping PR `chore(missing_docs): bookkeeping
+  for <version>` and name its branch `missing-docs/bookkeeping-<version>`. The title keeps
+  the repo's existing prefix style (see `create_pr` → Best Practices) while carrying the
+  `bookkeeping for` phrase the search matches on. #614 and #624 used two different naming
+  schemes and neither run looked for the other's PR, which is how both ended up adding the
+  same two `/factory` map entries.
 - **API spec gaps stay separate** — released endpoints go through the `sync-openapi-spec`
   skill as their own change, never bundled into a feature PR.
 - **Validate once, then split.** Run `npm run build` on the combined working tree (all
-  features together) to confirm everything compiles, then peel each feature onto its own
-  branch off `main` (e.g. `git checkout <base> -b <branch>` then
-  `git checkout <combined-ref> -- <files>`). Each feature branch is then a strict subset
-  of the already-validated tree.
+  features together) to confirm everything compiles — `npm ci` first if the sandbox has
+  no `node_modules` — then peel each feature onto its own branch off `main` (e.g.
+  `git checkout <base> -b <branch>` then `git checkout <combined-ref> -- <files>`). Each
+  feature branch is then a strict subset of the already-validated tree.
 - List any deferred findings in the most relevant PR body (or the bookkeeping PR) so
   nothing is silently dropped.
 
@@ -314,7 +505,24 @@ their area. Do NOT bundle unrelated features into a single mega PR.
 This is the end-to-end workflow for the scheduled cloud agent that keeps docs in sync
 with the product. Each run:
 
-1. **Audit**: run both modes and save reports. Pass explicit repo paths; verify
+1. **Release gate**: check whether a new stable release has shipped since the last
+   processed run. The schedule runs daily so it can catch a release whenever it lands,
+   but the work only happens once per release:
+   ```bash
+   python3 .agents/skills/missing_docs/scripts/check_new_release.py
+   ```
+   Exit `0` means a new stable release is available — continue. Exit `10` means no new
+   release; record the no-op outcome in run output and **stop**. Exit `1` is a fetch or
+   parse failure; report it and stop rather than proceeding as if nothing shipped. Exit
+   `2` with `can't open file` is not a gate outcome at all — it is `python3` reporting the
+   wrong working directory. `cd` to the docs repo root and re-run.
+
+   The gate also prints any `oz_updates` bullets for the release. Keep them — they are
+   platform-side changes the audit cannot see, and this is the only place they surface.
+
+   Do not update the state file yet. It is written in step 5, after triage, so a run that
+   crashes mid-triage retries the same release instead of skipping it.
+2. **Audit**: run both modes and save reports. Pass explicit repo paths; verify
    exit code 0 — if the script exits 2, STOP and report the environment problem
    instead of concluding "no gaps":
    ```bash
@@ -322,44 +530,132 @@ with the product. Each run:
      --warp ../warp --warp-server ../warp-server \
      --diff --output /tmp/docs_audit.json
    ```
-2. **Triage**: work through `surface_changes` and `changelog_review` first (what
-   changed since last run), then standing coverage findings (high → medium → low)
-   across all categories: features, CLI, API, slash commands, settings, stale doc
-   references, unlisted pages, map hygiene, staleness. For each item decide:
-   draft/update a doc page, update the OpenAPI spec via `sync-openapi-spec`, add a
-   surface-map entry (documented elsewhere), or add an ignore/`internal`/allowlist
-   entry with a comment (internal-only or intentionally unlisted).
-3. **Draft**: follow Phase 3 for every item that needs docs.
-4. **Update references**: apply surface-map edits, then regenerate the snapshot:
+3. **Triage**: read `references/changelog_decisions.md` first and drop any changelog item
+   already decided. Read the ledger and surface map as they stand on any open bookkeeping
+   PR too, not only the copies on `main` — a verdict recorded in an unmerged PR is still a
+   verdict, and re-triaging it burns the run and produces duplicate map entries. Then work
+   through `surface_changes` and `changelog_review` (what changed since last run), then
+   standing coverage findings (high → medium → low) across all categories: features, CLI,
+   API, slash commands, settings, stale doc references, unlisted pages, map hygiene,
+   staleness.
+
+   **Apply `.agents/references/docs-worthiness-criteria.md` to every remaining item
+   before deciding anything else.** The default is no docs; the burden is on the change
+   to earn a page. Record a verdict for each item with the gate it passed (or the
+   disqualifier that stopped it) and the concrete evidence — a setting key, CLI flag,
+   quoted error string, changed default, or API field. Restating the changelog entry is
+   not evidence. Expect most items to resolve to "no docs needed"; a run that passes
+   everything it looked at has not applied the gate.
+
+   For each item that passes, decide: update an existing page (preferred), draft a new
+   page, or update the OpenAPI spec via `sync-openapi-spec`. For each item that does not,
+   decide: no docs needed, deferred with a blocking condition, a surface-map entry
+   (documented elsewhere), or an ignore/`internal`/allowlist entry with a comment.
+4. **Draft**: follow Phase 3 for every item that needs docs. Every drafted page or
+   substantive page update needs a content design plan first, carried into its PR body.
+5. **Update references**: append every verdict from step 3 to
+   `references/changelog_decisions.md` (rejections included), record the processed
+   release with `check_new_release.py --commit`, apply surface-map edits, then regenerate
+   the snapshot:
    ```bash
+   python3 .agents/skills/missing_docs/scripts/check_new_release.py --commit
    python3 .agents/skills/missing_docs/scripts/audit_docs.py --update-snapshot
    ```
-5. **Validate**: `npm run build` if doc pages changed; re-run the audit and confirm
-   the addressed findings are gone.
-6. **Route reviewers**: run `scripts/suggest_reviewers.py` (see Reviewer routing)
-   with the source files behind the addressed findings to resolve the owning
-   engineers for the PR.
-7. **Open one PR per feature** following the PR strategy above (not a single mega PR):
+6. **Validate**: if doc pages changed, run `npm ci && npm run build` — a fresh sandbox
+   has no `node_modules`, and the build is the only validation this repo has. Then
+   re-run the audit and confirm the addressed findings are gone.
+7. **Route reviewers and request the review** (required, not advisory): resolve the
+   owning engineers with `scripts/suggest_reviewers.py` (see Reviewer routing), passing
+   the source files behind the addressed findings, then make a real GitHub review request
+   on each PR you open in step 8. Naming the engineer in the body is not a request — that
+   is exactly how #414–#417 ended up with zero reviews.
+
+   **A PR is not complete until `gh pr edit --add-reviewer` has succeeded and the
+   requested reviewers read back as the owners you resolved.** A resolution failure
+   falls back to `dannyneira`; it never no-ops. This matches the fallback in
+   `.github/workflows/release-docs-update.yml` (the "Assign last docs PR reviewer" step).
+
+   **Use the snippet in the `create_pr` skill under "Request reviewers (required)" —
+   it is the canonical copy; do not paste a second version here.** It requests each
+   reviewer in a separate `gh` call (a comma-joined call is atomic, so one
+   unassignable entry drops every valid owner with it) and verifies the read-back
+   against the resolved set rather than merely against empty. Feed it the reviewers
+   from `suggest_reviewers.py --reviewers-only`, using the source files behind the
+   addressed findings.
+
+   Keep the prose `/cc @engineer` mention in the body as well — this adds the real
+   request, it does not replace the mention. Report any PR whose requested-reviewers
+   list is empty as a run failure, and any PR that got only some of its resolved
+   owners as a partial result worth naming in the run output.
+8. **Open one PR per feature** following the PR strategy above (not a single mega PR):
    one focused PR per documented feature (grouping only features that share a doc file or
-   owner), plus a single companion audit-bookkeeping PR for all `feature_surface_map.md`
-   and `surface_snapshot.json` changes. Use the `create_pr` skill, assign each PR's owning
-   reviewer from step 6 (`gh pr edit <PR> --add-reviewer ...`), and summarize remaining
+   owner), each carrying its content design plan as a section in the PR body, plus the
+   run's bookkeeping changes to `feature_surface_map.md`, `changelog_decisions.md`,
+   `last_release_processed.json`, and `surface_snapshot.json`. Extend the open bookkeeping
+   PR if there is one; open a new one titled `chore(missing_docs): bookkeeping for
+   <version>` only if there is not. Use the `create_pr` skill: every drafting PR body
+   opens with the required `## What this feature does` summary, and every PR gets its
+   owning reviewer requested per step 7 before the run is done. Summarize remaining
    (deferred) findings in the relevant PR body so nothing is silently dropped.
+
+A run that gates out every candidate is a successful run. It opens no feature PRs and
+only the bookkeeping PR recording the verdicts. Do not manufacture work to justify the
+run.
+
+#### Schedule setup
+
+Two configuration choices decide whether the schedule behaves, and neither is visible from
+the prompt below:
+
+- **Select a cloud agent, not Quick run.** Quick run executes as the calling user, so its
+  pull requests are authored by that person — which for a schedule means whoever created
+  it. Selecting a cloud agent runs as that agent instead, and with team GitHub
+  authorization configured its pull requests are authored by the Warp Factories GitHub
+  App. Any schedule that opens PRs wants the agent. See
+  [Cloud agent accounts](https://docs.warp.dev/platform/agents/).
+- **Give that agent this skill and nothing else.** A run inherits every skill attached to
+  the agent it runs as, and the schedule form will not let you detach an agent-level
+  skill. Pointing drift-watch at a general-purpose docs agent therefore pulls that agent's
+  other skills into every run — and a weekly release-updates skill that defaults to
+  running all of its tasks will do exactly that, daily. Create a dedicated agent rather
+  than reusing one that already carries other work.
 
 Recommended scheduled-agent prompt (copy when setting up the agent):
 
-> Run the missing_docs skill in drift-watch mode. Use the audit script with explicit
-> --warp (public warpdotdev/warp checkout) and --warp-server paths and --diff. If the script exits non-zero with
-> skipped audits, report the environment problem and stop. Otherwise triage all
-> surface_changes and changelog_review findings plus high/medium coverage findings:
-> draft or update doc pages, update the surface map (mapping or ignore entry with a
-> comment) for every triaged flag, and use the sync-openapi-spec skill for API spec
-> gaps. Regenerate the surface snapshot with --update-snapshot. Resolve reviewers by
-> running scripts/suggest_reviewers.py against the source files behind each addressed
-> finding. Open one focused PR per documented feature (grouping only features that share a
-> doc file or owner), plus a single companion bookkeeping PR for the feature_surface_map.md
-> and surface_snapshot.json changes; assign each PR's resolved owner as reviewer, and list
-> any findings you deferred in the relevant PR body.
+> Run the missing_docs skill in drift-watch mode. Work from the docs repo root — every
+> path below is relative to it, and a python exit code of 2 with "can't open file" means
+> you are in the wrong directory, not that a check failed. First run
+> .agents/skills/missing_docs/scripts/check_new_release.py; if it reports no new stable
+> release, record the no-op outcome and stop. Otherwise use the audit script with
+> explicit --warp (public warpdotdev/warp checkout) and --warp-server paths and --diff.
+> If the script exits non-zero with skipped audits, report the environment problem and
+> stop. Otherwise read references/changelog_decisions.md and drop already-decided items,
+> then triage the remaining surface_changes and changelog_review findings plus
+> high/medium coverage findings against .agents/references/docs-worthiness-criteria.md.
+> The default is no docs: record a verdict and concrete evidence for every item, and
+> expect most to fail. For items that pass, write a content design plan per
+> .agents/references/content-design-plan.md before drafting, prefer updating an existing
+> page over creating a new one, and use the sync-openapi-spec skill for API spec gaps.
+> Update the surface map for every triaged flag, append every verdict to
+> changelog_decisions.md, and regenerate the surface snapshot with --update-snapshot.
+> Resolve reviewers by running
+> .agents/skills/missing_docs/scripts/suggest_reviewers.py --reviewers-only against the
+> source files behind each addressed finding. Open one focused PR per documented feature
+> (grouping only features that share a doc file or owner), each opening with the required
+> "## What this feature does" summary and carrying the content design plan as a section in
+> its body, plus the bookkeeping changes to feature_surface_map.md,
+> changelog_decisions.md, last_release_processed.json, and surface_snapshot.json. Before
+> opening a bookkeeping PR, search for an open one with gh pr list --state open --search
+> '"bookkeeping for" in:title' --json number,headRefName,title,reviewDecision — the quoted
+> phrase, not the two words separately, so the search doesn't also match this rule-only
+> PR's own title. Extend that branch instead of opening a second, unless reviewDecision is
+> already APPROVED, in which case wait for the merge and branch from the result; two open
+> bookkeeping PRs conflict on a snapshot that is regenerated wholesale. Title a new one
+> "chore(missing_docs): bookkeeping for <version>".
+> Request the resolved owner as reviewer on every PR with gh pr edit --add-reviewer,
+> falling back to dannyneira when nothing resolves, and verify the requested-reviewers
+> list is non-empty before you finish — a PR with no requested reviewer is an incomplete
+> run, not a delivered one. List any findings you deferred in the relevant PR body.
 
 ### Invocation modes
 
@@ -385,8 +681,13 @@ The skill's scripts have a stdlib-only test suite (no third-party dependencies):
 ```bash
 python3 .agents/skills/missing_docs/scripts/test_suggest_reviewers.py
 python3 .agents/skills/missing_docs/scripts/test_audit_docs.py
+python3 .agents/skills/missing_docs/scripts/test_check_new_release.py
 ```
 
+- `test_check_new_release.py` unit-tests the release gate with the network stubbed: exit-code
+  contract (0 new / 10 no-op / 1 fetch failure), that a fetch failure is never reported as
+  "no new release", that a plain check never writes state, and the full
+  check → commit → no-op → next-release cycle.
 - `test_suggest_reviewers.py` unit-tests reviewer resolution (CODEOWNERS matching, last-match-wins, user/team split, dedup, unresolved paths).
 - `test_audit_docs.py` runs behavioral checks against the sibling code repos — clean exit, completeness accounting (`unaccounted` empty), category/severity scoping, fail-loud (exit 2) on a missing repo, snapshot round-trip, and research-preview deferral (the public/private boundary) — and skips gracefully when those repos aren't checked out.
 
@@ -400,8 +701,23 @@ python3 .agents/skills/missing_docs/scripts/test_audit_docs.py
   that ships a feature.
 - `references/surface_snapshot.json` — generated snapshot of all code surfaces used by
   `--diff`. Regenerate with `--update-snapshot`; never hand-edit.
+- `references/last_release_processed.json` — the release gate's state: which stable
+  version was last triaged. Written by `check_new_release.py --commit`, never by hand.
+  Deliberately separate from `surface_snapshot.json`, which is regenerated wholesale and
+  would lose the marker. Delete it to force a re-run of the current release.
+- `references/changelog_decisions.md` — append-only ledger of docs-worthiness verdicts on
+  changelog items. Read before triage to skip already-decided items; append a row for
+  every item evaluated, rejections included. Commit it in the companion bookkeeping PR.
 - `references/stale_terms.md` — renamed/removed-feature terms to flag during staleness
   audits. Pure terminology/style policing belongs to the `style_lint` skill.
+- `.agents/references/docs-worthiness-criteria.md` — the gate that decides whether a
+  finding should produce docs at all. Applied during triage, before any drafting.
+- `.agents/references/content-design-plan.md` — the audience, problem, goals, and content
+  type decisions required before drafting a page that passed the gate.
+- `scripts/check_new_release.py` — the release gate. Compares the current stable version
+  from `app.warp.dev/client_version` against `last_release_processed.json` so a daily
+  schedule does per-release work. Run it first in drift-watch mode; run it again with
+  `--commit` only after triage succeeds.
 - `scripts/suggest_reviewers.py` — resolves PR reviewers from the warp and warp-server
   `.github/STAKEHOLDERS` and `CODEOWNERS` files (CODEOWNERS-format, last-match-wins),
   given the source files behind each finding. Used by the drift-watch reviewer-routing step.

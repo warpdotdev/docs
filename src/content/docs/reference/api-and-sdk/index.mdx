@@ -27,6 +27,8 @@ This page is a high-level overview.\
 For full API endpoint details, refer to the [**Agents API Reference**](/api). For schema definitions, see the SDK repos: [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript).
 :::
 
+To send work to a [Warp factory](/factories/), use the [factory API](/factories/factory-api/) to discover it and dispatch by UID instead of calling `POST /agent/run` with a foreman's `agent_identity_uid`. Everything on this page - follow-ups, cancellation, status - still applies once a factory run is dispatched.
+
 ### SDK overview
 
 Warp provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs that wrap the {VARS.API_SDK_NAME} with:
