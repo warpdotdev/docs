@@ -1,0 +1,8 @@
+{
+  "last_processed_version": "v0.2026.08.19.08.15.stable_01",
+  "release_date": "2026-08-19T22:28:46Z",
+  "processed_at": "2026-08-25T00:58:59Z",
+  "changelog_entry_count": 5,
+  "oz_updates_count": 1,
+  "_comment": "Written by check_new_release.py --commit after a drift-watch run completes triage. Kept separate from surface_snapshot.json, which is regenerated wholesale and would lose this marker. Do not hand-edit; to force a re-run of the current release, delete this file."
+}

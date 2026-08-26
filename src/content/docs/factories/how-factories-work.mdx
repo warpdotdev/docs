@@ -1,19 +1,19 @@
 ---
 title: How Warp Factories work
 description: >-
-  A factory's foreman routes each work item through triage, specification,
-  implementation, and review, with humans making the key decisions.
+  A factory's foreman routes each work item through triage, planning,
+  building, and reviewing, with humans making the key decisions.
 sidebar:
-  label: "How Factories work"
+  label: "How factories work"
 ---
 
 :::note
 Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
 :::
 
-A factory is a team of cloud agents that ships software the way your team does: a request comes in, moves through the stages it needs, and comes back as a pull request for a person to review. You talk to one agent — the **foreman** — from whichever tool a request starts in, and it dispatches the factory's other agents, each owning one part of the software development lifecycle.
+A factory is a team of cloud agents that ships software the way your team does: a request comes in, moves through the stages it needs, and comes back as a pull request ready for review. You talk to one agent, the **foreman**, from the tool that sends the request, such as Slack or Linear. The foreman dispatches the factory's other agents, and each one owns a part of the software development lifecycle.
 
-A **work item** is one unit of that engineering work, such as an issue, support request, pull request, or Factory MCP task. It keeps its identity from intake to handoff, however many agents contribute to it along the way.
+A **work item** is a single request the factory acts on, such as an issue, support request, pull request, or Factory MCP task. It keeps its identity from intake to handoff, however many agents contribute to it along the way.
 
 ## How a work item moves through the factory
 
@@ -29,33 +29,33 @@ The diagram below shows the default path through a factory's stages.
 flowchart LR
   Intake[Intake] --> Foreman[Foreman]
   Foreman --> Triage[Triage]
-  Triage --> Decision{Specification needed?}
-  Decision -->|Yes| Spec[Specify]
-  Decision -->|No| Implement[Implement]
-  Spec --> Approval["Human review<br/>(default policy)"]
-  Approval --> Implement
-  Implement --> Review[Review and verify]
-  Review --> Revision{Revision needed?}
-  Revision -->|Yes| Implement
+  Triage --> Decision{Plan needed?}
+  Decision -->|Yes| Planning[Planning]
+  Decision -->|No| Building[Building]
+  Planning --> Approval["Human review<br/>(default policy)"]
+  Approval --> Building
+  Building --> Reviewing[Reviewing]
+  Reviewing --> Revision{Revision needed?}
+  Revision -->|Yes| Building
   Revision -->|No| Handoff["Human handoff<br/>(default policy)"]
   Handoff --> Complete[Complete]
 ```
 
 * **Intake** - A work item enters from a [connected integration](/factories/connect-your-factory/), an automation, a direct run, or the [Factory MCP](/factories/factory-mcp/). It keeps its source context as it moves through later stages.
-* **Triage** - The triage agent researches the request, reproduces the problem when needed, and defines the scope and complexity of the change. The foreman skips this stage when the request is already well bounded.
-* **Specification** - The specification agent defines product behavior, technical constraints, and validation criteria. The foreman skips this stage for localized changes.
-* **Implementation** - The implementation agent makes the code change on a branch and opens a pull request with test and visual evidence.
-* **Review and verification** - The review agent checks the change against the requirements, tests, and security expectations, then sends findings back to implementation. Its verdict is advisory.
+* **Triage** - The triage agent researches the request, reproduces the problem when needed, and defines the scope and complexity of the change. The foreman skips this stage when the request already explains the problem and what needs to change.
+* **Planning** - The spec agent defines product behavior, technical constraints, and validation criteria. The foreman skips this stage for small, well-understood changes.
+* **Building** - The implement agent makes the code change on a branch and opens a pull request with test and visual evidence.
+* **Reviewing** - The review agent checks the change against the requirements, tests, and security expectations, then sends findings back for another pass. Its verdict is advisory.
 * **Human handoff** - The factory presents the result, its evidence, and any findings. A person decides what happens next.
 * **Complete or Cancelled** - The work item ends when the factory finishes its work, or stops early if someone cancels it.
 
-In the [factory dashboard](/factories/factory-dashboard/), the **Activity** view is where you find, filter, and stop work items. It groups these stages under its own names — Triage, Planning (specification), Building (implementation), and Reviewing — and each agent's run within a work item is an ordinary [cloud agent run](/platform/) you can watch and steer.
+These are the stage names the [factory dashboard](/factories/factory-dashboard/)'s **Activity** view uses, where you find, filter, and stop work items. Stages and agents are named separately, so the spec agent works the Planning stage, the implement agent works the Building stage, and the review agent works the Reviewing stage. Each agent's run within a work item is an ordinary [cloud agent run](/platform/) you can watch and steer.
 
 ## Where your team stays in charge
 
-A factory is built to pause where the call belongs to a person. By default, that's three places:
+A factory is built to pause when there is a decision that needs to be made by a person. By default, that's three places:
 
-* **Approving the spec** - When work goes through the spec stage, implementation waits until a person signs off on the plan.
+* **Approving the spec** - When work goes through the Planning stage, the Building stage waits until a person signs off on the plan.
 * **Answering questions** - When requirements are unclear or a review finding is ambiguous, the foreman asks instead of guessing.
 * **Merging** - The factory opens the pull request and hands it off. Whether and when it merges is your team's call.
 

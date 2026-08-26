@@ -9,7 +9,7 @@ Draft a troubleshooting page that helps users diagnose and fix common issues.
 
 ## Workflow
 
-Follow the workflow in `.warp/skills/draft_docs/SKILL.md`, using the **troubleshooting template** at `.warp/templates/troubleshooting.md`.
+Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **troubleshooting template** at `.agents/templates/troubleshooting.md`.
 
 ## Frontmatter description
 
@@ -30,6 +30,7 @@ These rules are specific to troubleshooting pages (from the "Drafting by content
 - Link to related troubleshooting pages and support channels.
 - Include workarounds even when no fix exists — documenting a known issue without a workaround still saves the user time searching.
 - Title convention: "Troubleshooting [feature]" or "Error: [error name]"
+- Apply the tone rules in AGENTS.md → Voice & tone: lead with the fix, not framing; no marketing buzzwords or meta-openers. Delete any category or symptom section you don't have real content for — a short page is a finished page.
 
 ## Heading case
 

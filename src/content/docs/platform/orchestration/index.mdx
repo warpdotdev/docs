@@ -15,6 +15,8 @@ Watch this walkthrough to see how a cloud agent can coordinate a team of agents 
 
 This page covers the orchestration model and the patterns it supports. To learn how to start an orchestrated run, see [Running orchestrated agents](/platform/orchestration/multi-agent-runs/).
 
+To orchestrate work inside a [Warp factory](/factories/), dispatch through the [factory API](/factories/factory-api/) instead of calling `POST /agent/runs` with the foreman's `agent_identity_uid` directly. The server resolves the foreman for you, and everything on this page still applies to the run it starts.
+
 ## The parent/child model
 
 An orchestrated workflow always has one **parent agent** and one or more **child agents**.

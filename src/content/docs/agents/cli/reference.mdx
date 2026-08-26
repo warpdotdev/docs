@@ -32,7 +32,7 @@ warp --api-key YOUR_API_KEY
 Command-line arguments can be captured in shell history and process listings. Prefer the `WARP_API_KEY` environment variable, ideally populated from a secret manager.
 :::
 
-Create a key in the Warp app under **Settings** > **Cloud platform** > **Oz Cloud API Keys**. See the [API keys reference](/reference/cli/api-keys/) for details.
+Create a key in the Warp app under **Settings** > **Cloud platform** > **API keys**. See the [API keys reference](/reference/cli/api-keys/) for details.
 
 ### `--auto-approve`
 
@@ -148,6 +148,7 @@ Type `/` at the start of the input to open the slash command menu. Commands that
 | `/statusline` | | Configure the statusline |
 | `/theme` | `<auto\|light\|dark>` | Set the color theme |
 | `/upgrade` | | Open the Warp upgrade page in the browser |
+| `/usage` | | View plan, credit usage, and billing links |
 | `/view-logs` | | Bundle your logs into a zip archive |
 | `/vim-mode` | | Toggle Vim keybindings in the input |
 | `/voice` | | Start voice input |
@@ -155,6 +156,8 @@ Type `/` at the start of the input to open the slash command menu. Commands that
 Some commands appear only when they apply to your account. `/manage-billing` is listed when you administer billing for your team, and opens that team's billing page; it isn't available to members without billing access. `/connect-grok` opens the same subscription row as [`/api-keys`](/agents/cli/models-and-usage/#bring-your-own-api-key) and starts the xAI sign-in directly.
 
 `/status` opens a read-only panel with the installed version, the current conversation's name and ID, the working directory, and the organization and email you're signed in as. Press `Esc` to close it, and include those details when you report a problem.
+
+`/usage` opens a read-only panel with your plan, credit balances and consumption, and links to manage billing or upgrade. See [models and usage](/agents/cli/models-and-usage/#usage-and-cost).
 
 Skills also appear in the same menu under their own names, so you can invoke a skill directly as `/skill-name`. [Customizing the CLI](/agents/cli/configuration/) covers how skills are discovered.
 

@@ -17,13 +17,13 @@ Add-on credits extend your AI usage beyond the included monthly quota in your pl
 
 If you’ve enabled **auto-reload**, new credits will be added automatically and billed based on your selected configuration of monthly spending limit and selected purchase amount.
 
-Add-on credits are available on every self-serve plan — Free, Build, Max, and Business — plus Enterprise. The Free plan buys the same packs at a higher rate than paid plans; see [Warp pricing](https://www.warp.dev/pricing) for current rates. On self-serve plans, add-on credits are scoped to each individual user; Enterprise uses a team-pooled model. These credits **roll over across billing cycles** and remain valid for **12 months from the purchase date**.
+Add-on credits are available on every self-serve plan — Free, Build, Max, and Business — plus Enterprise. The Free plan buys the same packs at a higher rate than paid plans; see [Warp pricing](https://www.warp.dev/pricing) for current rates. On both self-serve and Enterprise plans, add-on credits are shared across your team: every purchase goes into a single team-wide pool that all members draw from. These credits **roll over across billing cycles** and remain valid for **12 months from the purchase date**.
 
 Add-on credits draw from the same pool as [platform credits](/support-and-community/plans-and-billing/platform-credits/) and compute credits, so a single balance covers all three credit types.
 
 ### Who can purchase add-on credits
 
-Any active member of a team can purchase add-on credits for their own usage. You don't need to be a team admin, and you don't need a paid subscription — Free plan users can buy packs and spend them on any model. Credits you buy are scoped to you, so they only draw down for your own usage.
+Any active member of a team can purchase add-on credits. You don't need to be a team admin, and you don't need a paid subscription — Free plan users can buy packs and spend them on any model. Credits you buy go into your team's shared pool, so any member's usage can draw them down.
 
 Team admins keep the team-level controls:
 
@@ -45,7 +45,7 @@ The table below shows the available credit denominations, their prices, and corr
 
 #### 2. Enable auto-reload
 
-Auto-reload automatically purchases more credits whenever your balance reaches **100 credits**, ensuring uninterrupted access to premium AI features.
+Auto-reload automatically purchases more credits whenever the available add-on credit balance drops below **100 credits**. On a team, reloaded credits are added to the team's shared pool.
 
 By default, **auto-reload is disabled for new subscribers**. When you turn it on, it starts with a **$200 monthly spend limit**, which you can adjust anytime in **Settings** > **Billing and usage**.
 
@@ -83,13 +83,13 @@ You can track your remaining credits and spending in the credits transparency fo
 
 #### Teams using add-on credits
 
-On self-serve plans (Free, Build, Max, and Business), add-on credits are scoped to individual users. Each team member's add-on credits draw down only for their own usage.
+On self-serve plans (Free, Build, Max, and Business), add-on credits are shared across the team. Purchases from any member — manual or auto-reload — go into a single team-wide pool, and every member's usage draws from that pool once their plan-included credits are used up. One member's heavy usage can consume credits another member purchased; use the team-wide spend cap to limit what the team spends each month.
 
 Team admins manage add-on credit settings for the team in **Settings** > **Billing and usage**:
 
 * **Team-wide spend cap** — Sets the maximum amount the team can spend on add-on credits per calendar month, applied across all members.
-* **Auto-reload** — When enabled, the admin selects an add-on credit denomination for the team. Warp automatically purchases that denomination for any user whose add-on credit balance drops below 100 credits, subject to the team-wide spend cap. While auto-reload is on, individual users cannot purchase add-on credits manually.
-* **Manual purchases** — When auto-reload is off, eligible team members can purchase add-on credits for themselves, as long as the team stays below the team-wide spend cap.
+* **Auto-reload** — When enabled, the admin selects an add-on credit denomination for the team. Warp automatically purchases that denomination and adds it to the team's shared pool whenever the add-on credit balance available to a member drops below 100 credits, subject to the team-wide spend cap. While auto-reload is on, individual users cannot purchase add-on credits manually.
+* **Manual purchases** — When auto-reload is off, eligible team members can buy add-on credits for the team's shared pool, as long as the team stays below the team-wide spend cap.
 
 For how cloud agent runs that aren't initiated by a specific team member (scheduled runs, agent API key runs) are billed, see [How are cloud agent runs on team plans billed when no individual user triggered them?](/support-and-community/plans-and-billing/pricing-faqs/#how-are-cloud-agent-runs-on-team-plans-billed-when-no-individual-user-triggered-them) in the Pricing FAQs.
 
