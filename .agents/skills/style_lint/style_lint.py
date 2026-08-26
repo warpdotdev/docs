@@ -1263,13 +1263,19 @@ def check_factory_proper_noun(lines: List[str], filepath: str) -> List[Issue]:
 
     Quiet by construction, because most capitalized "Factory" occurrences are
     legitimate:
-      * "Warp Factories" and "Warp Factory" -- the product name
       * sentence-, heading-, bullet-, link-, quote-, and cell-initial position,
         where the capital is positional rather than a proper noun
       * fenced code blocks, inline code, link targets, and HTML attributes
       * frontmatter, whose titles and sidebar labels are headline-style
       * the exceptions in FACTORY_ALLOWED_NEXT_WORDS and
         FACTORY_ALLOWED_PHRASES
+
+    The singular "Warp Factory" is NOT exempt. The product is "Warp Factories",
+    always plural, and one deployment of it is a lowercase "factory", so the
+    singular is wrong in both senses. It gets its own message because the fix
+    differs from the bare-"Factory" case. "Warp Factory MCP" still passes, via
+    FACTORY_ALLOWED_NEXT_WORDS. The plural never reaches this check at all:
+    FACTORY_BARE is \\bFactory\\b, which cannot match "Factories".
     """
     issues = []
     in_code_block = False
@@ -1298,24 +1304,35 @@ def check_factory_proper_noun(lines: List[str], filepath: str) -> List[Issue]:
         for m in FACTORY_BARE.finditer(prose):
             before = prose[:m.start()]
             after = prose[m.end():]
-            if before.rstrip().endswith("Warp"):
-                continue  # "Warp Factories" / "Warp Factory"
+            preceded_by_warp = before.rstrip().endswith("Warp")
             # Strip the markup between the sentence start and the word, then ask
             # whether anything is left. Nothing left means the capital is
             # positional; a preceding clause means it is being used as a name.
+            # "Warp" is itself a preceding clause, so the singular product name
+            # is caught here even at the start of a sentence or heading.
             prefix = FACTORY_LEADING_MARKUP.sub("", before)
             if not prefix or prefix.endswith((".", "!", "?", ":", "|", "—")):
                 continue
             nxt = re.match(r"\s+(\w+)", after)
             if nxt and nxt.group(1) in FACTORY_ALLOWED_NEXT_WORDS:
                 continue
+            if preceded_by_warp:
+                message = (
+                    'Singular "Warp Factory" used as a product name. The '
+                    'product is "Warp Factories", always plural and written in '
+                    'full; one deployment of it is a lowercase "factory". '
+                    'Write "Warp Factories" for the product, or "a factory" '
+                    "for an instance."
+                )
+            else:
+                message = (
+                    'Bare "Factory" used as a proper noun. "Warp Factories" is '
+                    'the product and is written in full; an individual factory '
+                    'is lowercase. Write "factory" (or "Warp Factories" if you '
+                    "mean the product)."
+                )
             issues.append(Issue(
-                filepath, i, "factory-proper-noun",
-                'Bare "Factory" used as a proper noun. "Warp Factories" is the '
-                'product and is written in full; an individual factory is '
-                'lowercase. Write "factory" (or "Warp Factories" if you mean '
-                "the product).",
-                "warning",
+                filepath, i, "factory-proper-noun", message, "warning",
             ))
     return issues
 
