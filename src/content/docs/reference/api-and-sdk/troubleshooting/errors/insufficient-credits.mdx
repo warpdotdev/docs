@@ -2,17 +2,17 @@
 title: insufficient_credits
 description: >-
   The principal billed for the run has no remaining credits. Top up the
-  triggering user's or the team owner's credit pool to continue.
+  team's shared add-on credit pool or wait for plan credits to refresh.
 ---
 
 The `insufficient_credits` error occurs when the principal billed for a cloud agent run has no remaining credits to charge against.
 
 On self-serve plans (Build, Max, Business), the billed principal depends on how the run was triggered:
 
-* **User-triggered runs** draw from the triggering user's pool: plan-included credits first, then their user-scoped add-on credits.
-* **Agent API key and scheduled runs** draw from the team owner's pool: the owner's plan-included credits first, then the owner's add-on credits.
+* **User-triggered runs** draw from the triggering user's plan-included credits first, then the team's shared add-on credit pool.
+* **Agent API key and scheduled runs** draw from the team owner's plan-included credits first, then the team's shared add-on credit pool.
 
-When both pools are depleted and [auto-reload](/support-and-community/plans-and-billing/add-on-credits/) is off, new runs return this error. On Enterprise plans, runs draw from the team-scoped credit pool per your contract — contact your account manager when the pool is exhausted.
+When both are depleted and [auto-reload](/support-and-community/plans-and-billing/add-on-credits/) is off, new runs return this error. On Enterprise plans, runs draw from the team-scoped credit pool per your contract — contact your account manager when the pool is exhausted.
 
 ---
 
@@ -28,8 +28,8 @@ When both pools are depleted and [auto-reload](/support-and-community/plans-and-
 
 This error is returned when:
 
-* A user-triggered run runs out of the user's plan-included credits and their user-scoped add-on credits.
-* An agent API key or scheduled run runs out of the team owner's plan-included credits and the owner's add-on credits.
+* A user-triggered run runs out of the user's plan-included credits and the team's shared add-on credit pool.
+* An agent API key or scheduled run runs out of the team owner's plan-included credits and the team's shared add-on credit pool.
 * Auto-reload is off, or auto-reload is on but the team-wide monthly spend cap has been reached.
 
 For the full waterfall, see [How are cloud agent runs on team plans billed when no individual user triggered them?](/support-and-community/plans-and-billing/pricing-faqs/#how-are-cloud-agent-runs-on-team-plans-billed-when-no-individual-user-triggered-them) in the Pricing FAQs.
@@ -54,19 +54,19 @@ For the full waterfall, see [How are cloud agent runs on team plans billed when 
 
 The fix depends on which principal was billed.
 
-**For user-triggered runs (your own pool was exhausted):**
+**For user-triggered runs (your plan credits and the team's add-on pool were exhausted):**
 
-1. Purchase [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) in **Settings** > **Billing and usage**, or wait for your monthly credits to refresh.
+1. Purchase [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) in **Settings** > **Billing and usage** — any active member's purchase tops up the team's shared pool — or wait for your monthly credits to refresh.
 2. Alternatively, enable auto-reload, subject to your team's monthly spend cap.
 3. Retry the failed operation.
 
-**For agent API key or scheduled runs (the team owner's pool was exhausted):**
+**For agent API key or scheduled runs (the owner's plan credits and the team's add-on pool were exhausted):**
 
-1. The team owner tops up their pool: purchase add-on credits or wait for the monthly refresh.
+1. Top up the team's shared pool by purchasing add-on credits, or wait for the owner's monthly credits to refresh.
 2. If auto-reload is on but the team-wide spend cap was reached, an admin can raise the cap in **Settings** > **Billing and usage**.
 3. Retry the failed operation.
 
-If you are not a team admin or the team owner, contact them to top up the right pool.
+Any active team member can top up the shared pool; raising the spend cap or changing auto-reload requires a team admin.
 
 ---
 
