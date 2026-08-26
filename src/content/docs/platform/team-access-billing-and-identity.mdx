@@ -82,8 +82,8 @@ Your team must meet the following requirements to run integrations:
 
 When a user triggers an agent through an integration (like Slack or Linear), the run draws from credits based on who the run is billed to:
 
-* **User-triggered runs on Build, Max, or Business** - Warp draws from any [cloud agent credits](/support-and-community/plans-and-billing/credits/#compute-credits) the user has, then the user's plan-included credits, then the user's add-on credits. Add-on credits are scoped to the individual user and are not shared across the team.
-* **Agent API key or scheduled cloud agent runs on Build, Max, or Business** - Warp bills the team owner. The waterfall is: the owner's plan-included credits, then the owner's add-on credits. With auto-reload off, the request is blocked when both pools are depleted. With auto-reload on, usage can trigger a reload on the owner's pool subject to the team-wide monthly spend cap; once the cap is reached, runs are blocked until the cap resets or increases.
+* **User-triggered runs on Build, Max, or Business** - Warp draws from any [cloud agent credits](/support-and-community/plans-and-billing/credits/#compute-credits) the user has, then the user's plan-included credits, then the team's shared add-on credit pool. Add-on credits are shared across the whole team.
+* **Agent API key or scheduled cloud agent runs on Build, Max, or Business** - Warp bills the team owner. The waterfall is: the owner's plan-included credits, then the team's shared add-on credit pool. With auto-reload off, the request is blocked when both are depleted. With auto-reload on, usage can trigger a reload into the team's shared pool subject to the team-wide monthly spend cap; once the cap is reached, runs are blocked until the cap resets or increases.
 * **Enterprise plans** - Runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 
 If all applicable credit sources are exhausted and no auto-reload is configured, integrations and cloud agents will not run until credits are added. See [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) for the full self-serve waterfall and [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the third bucket that applies to every cloud agent run.
@@ -221,13 +221,13 @@ How credits are consumed depends on how the agent run is triggered and authentic
 **User-triggered runs** (CLI with personal API key, Slack, Linear, or the Warp app):
 
 * Runs are tied to the triggering user's identity.
-* On Build, Max, and Business plans, credits are consumed starting with any [cloud agent credits](/support-and-community/plans-and-billing/credits/#compute-credits) allocated to the user, then the user's plan-included credits, then the user's add-on credits. Add-on credits are scoped to the individual user.
+* On Build, Max, and Business plans, credits are consumed starting with any [cloud agent credits](/support-and-community/plans-and-billing/credits/#compute-credits) allocated to the user, then the user's plan-included credits, then the team's shared add-on credit pool.
 * On Enterprise plans, runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 
 **Agent API key and scheduled cloud agent runs** (fully automated workflows):
 
 * Runs are not tied to any individual user.
-* On Build, Max, and Business plans, Warp bills the team owner: the owner's plan-included credits, then the owner's add-on credits. With auto-reload off, the request is blocked when both pools are depleted. With auto-reload on, usage can trigger a reload on the owner's add-on credit pool subject to the team-wide monthly spend cap.
+* On Build, Max, and Business plans, Warp bills the team owner: the owner's plan-included credits, then the team's shared add-on credit pool. With auto-reload off, the request is blocked when both are depleted. With auto-reload on, usage can trigger a reload into the team's shared pool subject to the team-wide monthly spend cap.
 * On Enterprise plans, these runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 * Ideal for CI/CD pipelines, scheduled tasks, and other automated workflows.
 * For workflows that require code changes (opening pull requests, pushing branches, or writing to a repository), configure [team GitHub authorization](#team-github-authorization) so the agent can authenticate with the Warp Factories GitHub App. Alternatively, use a [personal API key](/reference/cli/api-keys/) to authenticate as an individual user.
@@ -249,7 +249,7 @@ All triggers and instructions used by cloud agents are defined and controlled by
 
 Because triggers and instructions are configured by your team, the credits consumed when an agent runs are billed according to the model above:
 
-* **Build, Max, Business** - User-triggered runs draw from the triggering user's pools (plan-included credits, then their add-on credits). Agent API key runs and scheduled cloud agent runs are billed to the team owner (the owner's plan-included credits, then the owner's add-on credits, subject to the team-wide spend cap when auto-reload is on).
+* **Build, Max, Business** - User-triggered runs draw from the triggering user's plan-included credits, then the team's shared add-on credit pool. Agent API key runs and scheduled cloud agent runs are billed to the team owner (the owner's plan-included credits, then the team's shared add-on credit pool, subject to the team-wide spend cap when auto-reload is on).
 * **Enterprise** - All runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 
 It's the team's responsibility to manage triggers, confirm they behave as intended, and monitor usage. Reviewing triggers, prompts, and agent behavior periodically helps ensure that credit usage aligns with expectations.
@@ -268,6 +268,6 @@ If a cloud agent or integration run fails with an error code, use the error refe
 
 ## Related resources
 
-* [Add-on credits](/support-and-community/plans-and-billing/add-on-credits/) - How user-scoped add-on credits, auto-reload, and the team-wide spend cap work on self-serve plans.
+* [Add-on credits](/support-and-community/plans-and-billing/add-on-credits/) - How team-shared add-on credits, auto-reload, and the team-wide spend cap work on self-serve plans.
 * [Platform credits](/support-and-community/plans-and-billing/platform-credits/) - The third credit bucket that applies to every cloud agent run, alongside AI credits and compute credits.
 * [Credits overview](/support-and-community/plans-and-billing/credits/) - The full credit model across plans.
