@@ -81,10 +81,23 @@ FENCE = re.compile(r'^\s*(`{3,}|~{3,})')
 def slugify_heading(text):
     """Approximate github-slugger, which is what Starlight uses for anchor ids."""
     text = re.sub(r'\{[^}]*\}', '', text)                 # MDX expressions, e.g. {VARS.X}
+
+    # A code span's content renders as literal text -- markdown never parses
+    # `<name>` inside backticks as an HTML/JSX tag, so a heading like
+    # `` ## `scorers/<name>/scorer.md` `` keeps "name" in its visible text and
+    # thus its anchor id. Stash code-span content before the inline-HTML strip
+    # below so that strip only touches real markup, then restore it verbatim.
+    code_spans = []
+
+    def _stash_code(match):
+        code_spans.append(match.group(1))
+        return f'\x00{len(code_spans) - 1}\x00'
+
+    text = re.sub(r'`([^`]*)`', _stash_code, text)         # code spans (stashed)
     text = re.sub(r'<[^>]+>', '', text)                   # inline HTML/JSX
-    text = re.sub(r'`([^`]*)`', r'\1', text)              # code spans
     text = re.sub(r'\[([^\]]*)\]\([^)]*\)', r'\1', text)  # links keep their text
     text = re.sub(r'[*_]{1,3}', '', text)                 # emphasis
+    text = re.sub(r'\x00(\d+)\x00', lambda m: code_spans[int(m.group(1))], text)
     text = text.strip().lower()
     text = re.sub(r'[^\w\- ]+', '', text, flags=re.UNICODE)
     return text.replace(' ', '-')
