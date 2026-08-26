@@ -66,8 +66,9 @@ A standalone [cloud agent](/platform/) remains the right tool for a single task 
 
 ## Key terms
 
-Setup names a factory and its foreman the same thing by default, so it's easy to read them as one entity. They're not:
+Setup gives a factory and its foreman the same name by default, so it's easy to mistake one for the other. Here's how the terms differ:
 
+* **factory** - An individual deployed instance of Warp Factories, connecting your repositories and tools to a team of agents. Distinct from Warp Factories, the product, and from the foreman, its coordinating agent.
 * **foreman** - The coordinating agent inside a factory, and the only one you talk to. It dispatches the other [factory agents](/factories/factory-agents/) and reports back. Every factory has exactly one.
 * **Foreman name** - The handle your team @-mentions in Slack and Linear to reach the foreman. Setup copies it from the factory's name, so the two usually match even though they're different things. See [Foreman name](/factories/factory-agents/#foreman-name).
 
