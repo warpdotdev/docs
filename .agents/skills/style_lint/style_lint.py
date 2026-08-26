@@ -458,6 +458,22 @@ def _normalize_link_text(text: str) -> str:
     return text.strip(" \t\n\r.,:;!?()[]{}\"'")
 
 
+def _strip_markdown_destinations(line: str) -> str:
+    """Remove Markdown image/link destination text, keeping the associated
+    human-visible alt/link text in place.
+
+    A destination is a literal filename or URL (e.g. the
+    "Blocklist-with-review-changes.png" in
+    `![Review changes...](../../assets/Blocklist-with-review-changes.png)`),
+    not prose -- casing and deprecated-term checks must not fire on it. The
+    `![alt](...)` / `[text](...)` syntax is identical for images and links,
+    so `](...)` -> `]` strips the destination from both while leaving the
+    bracketed text (and the leading `!` for images) for the surrounding
+    prose checks to scan normally.
+    """
+    return re.sub(r"\]\([^)]*\)", "]", line)
+
+
 def _meaningful_words(text: str) -> List[str]:
     """Return lowercase words that carry semantic meaning for comparisons."""
     stopwords = {"a", "an", "and", "for", "in", "of", "on", "the", "to", "with", "x"}
@@ -921,14 +937,27 @@ _EXTERNAL_CASING_PATTERNS = [
 
 
 def check_product_casing(lines: List[str], filepath: str) -> List[Issue]:
-    """Check for incorrect product name casing."""
+    """Check for incorrect product name casing.
+
+    Tracks complete fenced code blocks (not just a line that happens to start
+    with a backtick) so a wrong-cased term inside a multi-line code fence --
+    e.g. a literal `/Applications/Warp.app/Contents/MacOS/stable` path in a
+    shell snippet -- is left alone as executable/literal text. Markdown
+    image/link destinations are stripped for the same reason: a filename in a
+    link target is not prose, even though the line itself is not code.
+    """
     issues = []
+    in_code_block = False
     for i, line in enumerate(lines, 1):
-        # Skip code blocks
-        if line.strip().startswith("```") or line.strip().startswith("`"):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code_block = not in_code_block
             continue
+        if in_code_block or stripped.startswith("`"):
+            continue
+        prose_line = _strip_markdown_destinations(line)
         for pattern, wrong, right, note in _PRODUCT_CASING_PATTERNS:
-            for _ in pattern.finditer(line):
+            for _ in pattern.finditer(prose_line):
                 issues.append(Issue(
                     filepath, i, "product-casing",
                     f"\"{wrong}\" → \"{right}\" ({note})",
@@ -936,7 +965,7 @@ def check_product_casing(lines: List[str], filepath: str) -> List[Issue]:
                 ))
 
         for pattern, wrong, right, note in _EXTERNAL_CASING_PATTERNS:
-            for _ in pattern.finditer(line):
+            for _ in pattern.finditer(prose_line):
                 issues.append(Issue(
                     filepath, i, "external-casing",
                     f"\"{wrong}\" → \"{right}\" ({note})",
@@ -972,13 +1001,25 @@ def check_oz_terms(lines: List[str], filepath: str) -> List[Issue]:
 
 
 def check_deprecated_terms(lines: List[str], filepath: str) -> List[Issue]:
-    """Check for deprecated terminology (whitelist/blacklist/blocklist)."""
+    """Check for deprecated terminology (whitelist/blacklist/blocklist).
+
+    Tracks complete fenced code blocks (see check_product_casing) and strips
+    Markdown image/link destinations so a literal filename like
+    "Blocklist-with-review-changes.png" in a link target is not flagged as
+    prose using the deprecated term.
+    """
     issues = []
+    in_code_block = False
     for i, line in enumerate(lines, 1):
-        if line.strip().startswith("```") or line.strip().startswith("`"):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code_block = not in_code_block
             continue
+        if in_code_block or stripped.startswith("`"):
+            continue
+        prose_line = _strip_markdown_destinations(line)
         for pattern, suggestion in DEPRECATED_TERMS:
-            for m in re.finditer(pattern, line, re.IGNORECASE):
+            for m in re.finditer(pattern, prose_line, re.IGNORECASE):
                 issues.append(Issue(
                     filepath, i, "deprecated-term",
                     f"Avoid \"{m.group(0)}\" → {suggestion}",

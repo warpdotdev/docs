@@ -97,6 +97,7 @@ python3 .agents/skills/style_lint/test_header_case_sentence_boundary.py
 python3 .agents/skills/style_lint/test_product_casing_word_boundary.py
 python3 .agents/skills/style_lint/test_proper_feature_names_third_party.py
 python3 .agents/skills/style_lint/test_tone_checks.py
+python3 .agents/skills/style_lint/test_context_aware_terminology.py
 ```
 
 ## Dependencies

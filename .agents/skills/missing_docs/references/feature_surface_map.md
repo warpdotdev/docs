@@ -544,49 +544,6 @@ GET /factory/{uid}/benchmarks/runs/{run_uid} -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid}/results -> internal
 POST /factory/{uid}/benchmarks/runs/{run_uid}/cancel -> internal
 
-# Additional Factory web-app-only backend routes surfaced by the audit
-# (router/handlers/public_api/factories.go, factory_files.go,
-# factory_file_schemas.go, factory_file_validation.go, factory_access.go,
-# factory_scorers.go, benchmarks.go). Same unreleased Factory product as the
-# /factory/* routes above — Factory-UI-only backend routes, not part of the
-# released public Oz Agent API / OpenAPI spec.
-GET /factory-alias/{alias} -> internal
-GET /factory-files/schemas -> internal
-GET /factory-files/schemas/{schema_version} -> internal
-GET /factory-files/schemas/{schema_version}/{document} -> internal
-POST /factory-files/validate -> internal
-GET /factory-setup/integrations/jira/projects -> internal
-GET /factory-setup/integrations/linear/teams -> internal
-GET /factory/access -> internal
-GET /factory/scorers/{scorer_id}/metrics/pass-rate -> internal
-DELETE /factory/scorers/{scorer_id}/self-improvement-config -> internal
-GET /factory/scorers/{scorer_id}/self-improvement-config -> internal
-PUT /factory/scorers/{scorer_id}/self-improvement-config -> internal
-POST /factory/{uid}/benchmarks/suites/{suite_uid}/tasks -> internal
-GET /factory/{uid}/gitlab-automation-capability -> internal
-POST /factory/{uid}/gitlab-automation-capability/refresh -> internal
-GET /factory/{uid}/integration-activations -> internal
-GET /factory/{uid}/integration-destinations -> internal
-GET /factory/{uid}/integrations/jira/labels -> internal
-GET /factory/{uid}/integrations/jira/projects -> internal
-GET /factory/{uid}/integrations/jira/statuses -> internal
-POST /factory/{uid}/merges -> internal
-POST /factory/{uid}/merges/check -> internal
-GET /factory/{uid}/merges/{merge_uid} -> internal
-GET /factory/{uid}/metrics/cost-by-pr-size -> internal
-GET /factory/{uid}/metrics/run-breakdown -> internal
-GET /factory/{uid}/metrics/top-prs -> internal
-GET /factory/{uid}/review -> internal
-POST /factory/{uid}/review/refine -> internal
-GET /factory/{uid}/source/export -> internal
-GET /factory/{uid}/source/file -> internal
-GET /factory/{uid}/source/link-readiness -> internal
-GET /factory/{uid}/source/tree -> internal
-POST /factory/{uid}/source/clone-url -> internal
-PUT /factory/{uid}/source/files -> internal
-GET /factory/{uid}/task-by-run -> internal
-POST /factory/{uid}/tasks/{task_uid}/cancel -> internal
-
 # Orchestration messaging and lifecycle-event endpoints. These are marked
 # `x-internal: true` in warp-server's canonical spec (public_api/openapi.yaml),
 # so the publish filter deliberately strips them from the public docs copy.
@@ -882,13 +839,6 @@ EditableMarkdownMermaid
 # Directory-based tab colors: the user-facing knob is the setting
 # appearance.tabs.directory_tab_colors, documented in the all-settings reference.
 DirectoryTabColors
-# Internal client-side orchestration event-delivery plumbing (agent-to-agent
-# messaging/lifecycle-event transport). Both flags are explicitly documented
-# as "no user-visible behavior change" in their design specs (see
-# warp/specs/QUALITY-928/TECH.md and warp/specs/QUALITY-919/TECH.md), so they
-# need no doc page.
-OrchestrationUnifiedStack
-WaitForEventsParentRegistration
 CloudModeHostSelector
 CodebaseIndexSpeedbump
 CodebaseIndexPersistence
