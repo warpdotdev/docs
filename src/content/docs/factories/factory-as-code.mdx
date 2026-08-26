@@ -202,7 +202,7 @@ Where runs execute: `warp` for Warp-hosted compute, or the ID of a connected [se
 
 ### `agentDefaults.computerUseModel`
 
-Optional. The model the computer use subagent runs with, as a `model_id`. When unset, Warp chooses the computer use model automatically.
+Optional. The model computer use runs with, as a `model_id`. When unset, Warp chooses the computer use model automatically.
 
 ```yaml
 agentDefaults:
@@ -210,7 +210,7 @@ agentDefaults:
   computerUseModel: claude-4-5-sonnet
 ```
 
-Applies only to runs on the Warp Agent harness (`type: oz`); a third-party harness ignores it. It's also ignored when computer use is disabled for the run. Unlike `model`, this key isn't mutually exclusive with `harness` — it selects the model for the computer use subagent, not the model the agent itself runs on.
+Applies only to runs on the Warp Agent harness (`type: oz`); third-party harnesses ignore it. It's also ignored when computer use is disabled for the run. Unlike `model`, this key isn't mutually exclusive with `harness` — it selects the model for computer use, not the model the agent itself runs on.
 
 Computer use supports a restricted set of models. See [model choice for agents](/agents/inference/model-choice/) for the full catalog Warp supports; not every listed model supports computer use.
 
