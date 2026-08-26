@@ -10,7 +10,11 @@ import AgentOnly from '@components/AgentOnly.astro';
 
 Factory MCP is a hosted Model Context Protocol (MCP) server that connects coding agents to your team's factories, in both directions: the agent you already work with — in Warp or in any MCP-capable tool — can send work to a factory, or take work over from one by pulling a task down, continuing it locally, and handing the result back.
 
-The factory keeps a single record of each task throughout. Whether a change happens in the cloud or on your machine, it lands on the same task with the same history and conversation. A task is the factory's work item: the same unit of work that appears in the factory dashboard's [Activity view](/factories/factory-dashboard/#track-work-items-on-activity).
+The factory keeps a single record of each task throughout. Whether a change happens in the cloud or on your machine, it lands on the same task with the same history and conversation.
+
+:::note
+**Task** is this page's word for a factory's work item, because the MCP tools are named for it (`send_task`, `get_task`, `complete_task`). It is the same unit of work the factory dashboard's [Activity view](/factories/factory-dashboard/#track-work-items-on-activity) calls a work item, not a second kind of thing.
+:::
 
 ## What you can use it for
 
@@ -76,6 +80,8 @@ In clients that use the `mcpServers` JSON format, such as Cursor:
   }
 }
 ```
+
+In both examples, `warp-factory` is just the name your client files the server under, and you can call it whatever you like. It doesn't name a particular factory, and it has nothing to do with your factory's name or its [Foreman name](/factories/factory-agents/#foreman-name). A single connection reaches every factory you have access to.
 
 For Codex and other clients, follow the [client's own remote-server instructions](https://developers.openai.com/codex/mcp/#connect-codex-to-an-mcp-server) with the same URL.
 

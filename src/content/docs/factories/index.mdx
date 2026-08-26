@@ -16,9 +16,9 @@ A software factory takes in requests (bug reports, feature specs, support escala
 
 ## What is a software factory?
 
-In practice, that means tracking each request as a **work item**, such as an issue, ticket, or triggered task, and moving it through specialized agents that triage it, write a specification when one is needed, implement the change, and review the result.
+In practice, that means tracking each request as a work item, such as an issue, ticket, or triggered task, and moving it through specialized agents that triage it, write a specification when one is needed, implement the change, and review the result.
 
-A **factory** is one deployed instance of that pattern. It connects your repositories and engineering tools to a team of agents, execution infrastructure, and a measurable workflow. Each factory applies a single policy across all of its work sources, so deploy separate factories for repository groups that need different policies.
+A factory is one deployed instance of that pattern, connecting your repositories and engineering tools to a team of agents, execution infrastructure, and a measurable workflow. Each factory applies a single policy across all of its work sources, so deploy separate factories for repository groups that need different policies.
 
 <figure style={{ maxWidth: "563px" }}>
 ![A circular diagram of the software factory loop: triage, spec, implement, review, verify, ship, and monitor, with human review checkpoints for the spec, code, and product.](../../../assets/factories/factories-concept-loop.png)
@@ -63,6 +63,21 @@ Warp Factories is built on the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overv
 The factory layer adds the workflow on top: the foreman and its agents, work items that carry each request across runs, definitions as code, default automations for connected tools, and the Scorer and Self-improvement loop.
 
 A standalone [cloud agent](/platform/) remains the right tool for a single task or a one-trigger automation. Reach for a factory when the work is a standing, multi-stage process your team wants to route, measure, and improve in one place.
+
+## Key terms
+
+Setup names a factory and its foreman the same thing by default, so it's easy to read them as one entity. They're not:
+
+* **foreman** - The coordinating agent inside a factory, and the only one you talk to. It dispatches the other [factory agents](/factories/factory-agents/) and reports back. Every factory has exactly one.
+* **Foreman name** - The handle your team @-mentions in Slack and Linear to reach the foreman. Setup copies it from the factory's name, so the two usually match even though they're different things. See [Foreman name](/factories/factory-agents/#foreman-name).
+
+```mermaid
+flowchart LR
+  subgraph Factory["One factory"]
+    Foreman["Foreman"] --> Agents["Triage, spec, implement,<br/>and review agents"]
+  end
+  Slack["Slack or Linear"] -->|"@handle"| Foreman
+```
 
 ## Next steps
 
