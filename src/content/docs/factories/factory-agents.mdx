@@ -70,14 +70,14 @@ Every default agent comes with GitHub skills, and the foreman also comes with a 
    <figcaption>The Agents page lists a factory's foreman and default agents.</figcaption>
    </figure>
 
-2. Click an agent to open its settings, where you can change its description, model, runner, host, [MCP servers](/platform/mcp/), [secrets](/platform/secrets/), and instructions.
+2. Click an agent to open its settings, where you can change its description, harness, model, runner, host, [MCP servers](/platform/mcp/), [secrets](/platform/secrets/), and instructions.
 
    <figure style={{ maxWidth: "563px" }}>
    ![An agent's settings page, showing its description, MCPs, secrets, harness, model, runner, and host fields.](../../../assets/factories/factory-agent-settings.png)
    <figcaption>An agent's settings page, where you configure its model, harness, runner, and host.</figcaption>
    </figure>
 
-You can also manage the whole factory as version-controlled code, with [factory definition files](/factories/factory-as-code/) in a Git repository. A few agent settings, such as harness and credential strategy, can only be set in the files. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives) for how Warp-managed and GitHub-backed factories differ in what you can edit from the factory dashboard.
+You can also manage the whole factory as version-controlled code, with [factory definition files](/factories/factory-as-code/) in a Git repository. A Warp-managed factory edits every setting, including harness, auth, and credential strategy, from the dashboard; a GitHub-backed factory shows those same settings read-only, since its files are the only way to change them. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives) for the full difference.
 
 Factory setup doesn't choose models for you. To change the model an agent uses, edit that agent.
 
@@ -86,7 +86,7 @@ Factory setup doesn't choose models for you. To change the model an agent uses, 
 Each agent can run on its own model and harness. Supported harnesses include the Warp Agent harness, Claude Code, and Codex, and any agent can use any of them. A foreman running on Claude Code or Codex can still dispatch the factory's other agents, and the runs it starts are still tracked as its children.
 
 :::note
-Third-party harnesses require a Build plan or higher; on the Free plan every agent runs on the Warp Agent harness. See [harnesses](/platform/harnesses/#plan-requirements).
+Third-party harnesses require a Build plan or higher; on the Free plan every agent runs on the Warp Agent harness. See [Warp pricing](https://www.warp.dev/pricing) for what each plan includes.
 :::
 
 Default model IDs change over time, so choose based on what each agent has to do well:
@@ -99,7 +99,18 @@ Default model IDs change over time, so choose based on what each agent has to do
 | Implement | Coding strength, with a harness that fits your repositories and toolchain |
 | Review | A different model or harness from the implement agent, so the two don't share blind spots |
 
-See [model choice for agents](/agents/inference/model-choice/) and [harnesses for cloud agents](/platform/harnesses/) for available options. For a definition that gives each agent its own harness, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness).
+See [model choice for agents](/agents/inference/model-choice/) and [harnesses for cloud agents](/platform/harnesses/) for available options.
+
+### Configuring Claude Code or Codex for an agent
+
+Switch an agent onto Claude Code or Codex to run it with that provider's own coding tool instead of the Warp Agent.
+
+1. Open the agent's settings (see [Configure agent behavior](#configure-agent-behavior)) and choose **Claude Code** or **Codex** in the **Harness** field. A harness your plan or workspace doesn't allow shows "This harness is not available on your plan. Switch to Warp to continue." — you can only move it back to the Warp Agent until an admin re-enables the harness or your team upgrades.
+2. Choose or create a credential in the **Auth** field that appears below **Harness**. The dropdown lists only compatible, team-owned secrets: Claude Code accepts an Anthropic API key, an Anthropic Bedrock API key, or an Anthropic Bedrock access key; Codex accepts an OpenAI API key. Pick an existing secret, or choose **New auth secret** (**New OpenAI API Key** for Codex) to store one without leaving the page. See [connecting Claude Code credentials](/platform/harnesses/authentication/#connecting-claude-code-credentials) and [connecting Codex credentials](/platform/harnesses/authentication/#connecting-codex-credentials) for how to obtain each key. When the agent's host is a self-hosted worker, **Auth** also offers **From worker environment**, which reads the credential from that worker instead of a managed secret; switching the host back to Warp-hosted compute clears this selection, so pick a managed secret first.
+3. Choose a **Model**. The options come from the selected harness's own catalog, not Warp's, so changing harness always clears the model and auth you had selected — reselect both afterward. A Codex model option pairs a model with a reasoning level (for example, `gpt-5.5 (high)`), so pick the combined option rather than setting reasoning separately; Codex has no `default` entry that picks a model automatically.
+4. Click **Save changes**.
+
+A Warp-managed factory edits harness, auth, and model from the dashboard. A GitHub-backed factory sets them instead through [`agentDefaults.harness` or a per-agent `harness` override](/factories/factory-as-code/#agentdefaultsharness) in the definition files. For a definition that gives each agent its own harness, with managed-secret auth for Claude Code and Codex, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness).
 
 ## Add custom agents and automations
 
