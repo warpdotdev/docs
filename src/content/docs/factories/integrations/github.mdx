@@ -71,6 +71,8 @@ For a review automation that fires when pull requests open, see [`04-code-review
 
 Re-running a check starts work only for checks Warp itself created. GitHub doesn't send re-run events for other providers' checks, so those can't trigger a factory.
 
+For the exact `event` value each trigger uses in a definition file, see [triggers](/factories/factory-as-code/#triggers).
+
 ### Automation filters
 
 Every trigger names the repository it watches. The remaining filters appear only on the event types they apply to:

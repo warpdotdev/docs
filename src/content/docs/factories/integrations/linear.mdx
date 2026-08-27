@@ -43,6 +43,8 @@ Agent sessions cover explicit requests. To start work automatically from issue a
 
 Every Linear trigger filters on teams and labels, and **More filters** adds project, workflow state, assignee, mentioned user, and, for comment events, a specific issue. For example, a trigger can require that an issue belongs to one team, enters a chosen workflow state, and carries a release label.
 
+For the exact `event` value each of these triggers uses in a definition file, see [triggers](/factories/factory-as-code/#triggers).
+
 ## Supported events and outputs
 
 Each event determines the context the agent receives and the updates the factory sends back.
