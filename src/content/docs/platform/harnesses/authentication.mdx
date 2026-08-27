@@ -10,7 +10,7 @@ import { VARS } from '@data/vars';
 
 Third-party cloud agent authentication in the {VARS.WARP_AUTOMATION_PLATFORM} stores provider credentials for cloud runs as Warp-managed secrets. Third-party cloud agents, like [Claude Code](#connecting-claude-code-credentials) and [Codex](#connecting-codex-credentials), call their providers directly, so set up an Anthropic or OpenAI credential once before launching a third-party harness.
 
-Auth secrets can be scoped to a **team** (available to all teammates' runs) or **personal** (only your own runs), like any other Warp-managed secret. A [factory agent](/factories/factory-agents/#configuring-claude-code-or-codex-for-an-agent) can only select **team**-scoped secrets, since a factory's runs aren't tied to one person; personal secrets remain available when you start an ad hoc cloud run instead.
+Auth secrets can be scoped to a **team** (available to all teammates' runs) or **personal** (only your own runs), like any other Warp-managed secret. A [factory agent](/factories/factory-agents/#configuring-a-third-party-harness) can only select **team**-scoped secrets, since a factory's runs aren't tied to one person; personal secrets remain available when you start an ad hoc cloud run instead.
 
 :::note
 [Bring Your Own Key (BYOK)](/agents/inference/bring-your-own-api-key/) configured in the Warp desktop app applies to local agent runs only. Cloud runs of Claude Code and Codex always use Warp-managed secrets.
