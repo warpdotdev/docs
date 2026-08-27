@@ -404,12 +404,17 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// Parallel to 'Agent configuration' in the Automation Platform tab.
 					// Scoped to the factory itself: who runs the work, how it is defined,
 					// and where it runs.
-					label: 'Factory configuration',
-					items: [
-						{ slug: 'factories/factory-agents', label: 'Factory agents' },
-						{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
-						{ slug: 'factories/infrastructure-and-security', label: 'Infrastructure & security' },
-					],
+				label: 'Factory configuration',
+				items: [
+					{ slug: 'factories/factory-agents', label: 'Factory agents' },
+					{ slug: 'factories/factory-skills', label: 'Factory skills' },
+					// Moved from 'Integrations' (was 'Automation filters'): this page is
+					// now the Automations primitive's conceptual home, parallel to Factory
+					// agents and Factory skills, not just a filters reference.
+					{ slug: 'factories/automations', label: 'Automations' },
+					{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
+					{ slug: 'factories/infrastructure-and-security', label: 'Infrastructure & security' },
+				],
 				},
 				{
 					// 'Integrations' per HYC (8/17), replacing 'Work intake'.
@@ -430,14 +435,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories/integrations/gitlab', label: 'GitLab' },
 						{ slug: 'factories/integrations/linear', label: 'Linear' },
 						{ slug: 'factories/integrations/jira', label: 'Jira' },
-						// Kept with the integrations rather than moved to Factory
-						// configuration. Filters act on "events from your connected tools",
-						// and the page's core reference is a per-source table that links out
-						// to the Slack, GitHub, and Linear pages directly above. It reads as
-						// the last step of wiring up a source, not as something you define
-						// about the factory itself. "It is configuration" does not separate
-						// it from the integration pages, which are equally configuration.
-						{ slug: 'factories/automation-filters', label: 'Automation filters' },
 						// Alongside Factory MCP: both are direct API-style connection
 						// mechanisms rather than third-party services, so they trail the
 						// per-service integrations above.

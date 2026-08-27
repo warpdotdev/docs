@@ -334,6 +334,15 @@ Docs match the screen; the fix belongs in the app.
 - **factory dashboard** — The web app surface for operating a single factory: its work items, runs, agents, automations, and settings.
   *Usage note:* Lowercase common noun. Distinct from **Dashboard**, the metrics page inside it, which is also the factory's landing page — bold **Dashboard** when you mean that page, and leave "factory dashboard" unbolded when you mean the surface. Replaced "control room," a docs-only coinage that appeared nowhere in the product.
 
+- **automation** — A factory resource, defined by an `automations/<name>/automation.md` file, that starts runs on one or more triggers (a connected-tool event or a schedule) and routes them to a chosen agent, with optional filters and execution overrides.
+  *Usage note:* Lowercase common noun. Distinct from the **Automation Platform**, the product; and from a **trigger**, the event that fires an automation.
+
+- **runner** — A factory resource, defined by a `runners/<name>.yaml` file, that defines the compute a run executes on: operating system, architecture, sandbox image, and instance shape. Agents and automations select a runner by name, or inherit the factory's default.
+  *Usage note:* Lowercase common noun. Scoped to a factory's definition; distinct from the general [cloud agent runner](/platform/runners/) reference, which covers the same concept for standalone cloud agents outside a factory.
+
+- **Scorer** — An LLM judge, configured per factory, that classifies completed agent conversations against criteria a team defines, scoped to chosen agents and sampled at a set rate. Feeds the **Dashboard** page's Scorer cards, benchmarks, and Self-improvement.
+  *Usage note:* Capitalize, since it names a specific configured entity in the factory dashboard's UI (parallel to **Dashboard**), not a generic industry term.
+
 - **AI sovereignty** — Warp Factories' positioning around customer ownership and control of inference, hosting, and data exhaust (agent conversations, evals, memories) for their factory.
 
 ## Technical terms

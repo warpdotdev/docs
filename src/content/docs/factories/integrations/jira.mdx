@@ -57,10 +57,10 @@ All Jira work reaches the factory through a single event, `agent_session_created
 * **`project_keys`** - Match work items in these Jira projects.
 * **`keywords`** - Match assignment text that contains any of these words. Matching is case-insensitive.
 
-A session must match every field you set; within a field, any listed value is a match. Omit a field to match everything. For the matching rules shared by every source, see [automation filters](/factories/automation-filters/).
+A session must match every field you set; within a field, any listed value is a match. Omit a field to match everything. For the matching rules shared by every source, see [automation filters](/factories/automations/).
 
 :::caution
-A Jira event is offered to every automation in the connected workspace, so another team's automation with a broader filter can start its own run on the same work item. Filters decide what *your* automation picks up, not who else can see the event. See [automation filters](/factories/automation-filters/#filters-route-work-they-dont-restrict-access).
+A Jira event is offered to every automation in the connected workspace, so another team's automation with a broader filter can start its own run on the same work item. Filters decide what *your* automation picks up, not who else can see the event. See [Automations](/factories/automations/#filters-dont-control-access).
 :::
 
 ## What happens during a run

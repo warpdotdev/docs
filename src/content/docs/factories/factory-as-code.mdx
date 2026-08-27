@@ -182,7 +182,7 @@ For a definition that runs a different harness per agent, with managed-secret au
 
 ### `agentDefaults.runner`
 
-The name of a runner defined under [`runners/`](#runnersyaml) that provides the compute for runs.
+The name of a runner defined under [`runners/`](#runnersnameyaml) that provides the compute for runs.
 
 ### `agentDefaults.environmentId`
 
@@ -321,7 +321,7 @@ The operating system and architecture. `os` is `linux` (the default) or `macos`,
 
 ## Skills
 
-A skill is a directory containing a `SKILL.md`, not a YAML key. Skills under `skills/` are available to every agent in the factory; skills under `agents/<name>/skills/` are available only to that agent. See [Skills for agents](/agents/capabilities/skills/).
+A skill is a directory containing a `SKILL.md`, not a YAML key. Skills under `skills/` are available to every agent in the factory; skills under `agents/<name>/skills/` are available only to that agent. See [factory skills](/factories/factory-skills/) for when to add one, and [Skills](/agents/capabilities/skills/) for the file format.
 
 ## Example factory definition
 
