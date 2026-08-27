@@ -25,13 +25,15 @@ Each factory appears in Slack as its own app with the factory's name and avatar.
 
 ## Configure factory automations for Slack
 
-Use a factory automation to start work from Slack activity automatically, without anyone mentioning the app, such as on every message in a triage channel or on a specific emoji reaction. Add a **Slack** trigger to an automation and pick one of these events; [automation filters](/factories/automation-filters/#edit-filters-on-an-automation) covers the steps.
+Use a factory automation to start work from Slack activity automatically, without anyone mentioning the app, such as on every message in a triage channel or on a specific emoji reaction. Add a **Slack** trigger to an automation and pick one of these events. To learn how to edit those filters, see [Automations](/factories/automations/#edit-filters-on-an-automation).
 
 - **App mentioned** - Filter by joined conversations, authors, and keywords.
 - **Direct message received** - Filter by direct-message conversations, authors, and keywords.
 - **Message posted in channel** - Filter by joined conversations, authors, and keywords.
 - **Reaction added** - Filter by conversations, reactors, keywords, emoji, and reacted-message authors.
 - **Member joined channel** - Filter by conversations and members.
+
+For the exact `event` value each of these triggers uses in a definition file, see [triggers](/factories/factory-as-code/#triggers).
 
 The reaction-intake automation in [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository files a GitHub issue when someone reacts with `:ticket:`:
 

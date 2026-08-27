@@ -83,6 +83,11 @@
       "statusCode": 308
     },
     {
+      "source": "/factories/automation-filters(/?)",
+      "destination": "/factories/automations/",
+      "statusCode": 308
+    },
+    {
       "source": "/cli/",
       "destination": "/agents/cli/",
       "statusCode": 308
