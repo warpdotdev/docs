@@ -24,9 +24,10 @@ This page covers Codex as a **cloud** harness, dispatched and orchestrated by th
 
 The Codex harness exposes OpenAI's Codex-tuned and general coding models, each available at a configurable reasoning level (low, medium, high, or extra-high). Common choices include:
 
-* `gpt-5.5`, `gpt-5.4` - Recent strong coding models from OpenAI.
-* `gpt-5.4-mini` - A faster, lower-cost option for lighter coding tasks or subagents.
-* `gpt-5.3-codex` - An earlier Codex-tuned model, still available as an alternative.
+* `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna` - The latest generation of Codex-tuned coding models.
+* `gpt-5.5` - The prior generation's coding model, still supported.
+* `gpt-5.4`, `gpt-5.4-mini` - Fallback options for accounts without access to the newer models; `gpt-5.4-mini` is faster and lower-cost for lighter coding tasks or subagents.
+* `gpt-5.3-codex` - An older Codex-tuned model, still available as an alternative.
 
 Codex has no `default` model that picks automatically; every option names a specific model and reasoning level. For the full list, including Codex-tuned and general models, open the model picker on the {VARS.WEB_APP}'s new-run pane. For details on each model, see [OpenAI's Codex model docs](https://developers.openai.com/codex/models).
 
