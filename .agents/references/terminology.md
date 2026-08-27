@@ -255,10 +255,19 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 
 - **Agent API** — The HTTP API for triggering and inspecting Platform runs programmatically.
 
+- **Auth** — The agent settings field for choosing or creating the credential (a team-owned secret) a harness uses to authenticate with its provider, matched to that harness's supported credential types (Anthropic keys for Claude Code, an OpenAI key for Codex).
+  *Usage note:* Capitalize as **Auth** when referring to the settings field name.
+
+- **Harness** — The agent runtime that executes a cloud agent's work, such as Warp Agent, Claude Code, or Codex. Configurable per agent, independent of the platform features (triggers, environments, secrets, observability) around the run.
+  *Usage note:* Capitalize as **Harness** when referring to the settings field name; lowercase "harness" as a generic noun.
+
 - **Host** — Where a task executes (Warp-hosted or customer-hosted).
 
 - **Integration** / **Integrations** — Configured connections between Warp and external tools (Slack, Linear, GitHub Actions) that trigger runs and post results back.
   *Usage note:* Use for the configured connection, not "plugin."
+
+- **Model** — The agent settings field for choosing which model a harness runs. Options come from the selected harness's own catalog, not Warp's, so changing harness clears the model and auth selections.
+  *Usage note:* Capitalize as **Model** when referring to the settings field name.
 
 - **Outputs** — What a run produces (PRs, messages, reports, transcripts).
 
@@ -383,6 +392,8 @@ Docs match the screen; the fix belongs in the app.
 
 ## External product names
 
+- **Codex** — OpenAI's coding agent, available in Warp as a local CLI agent and as a third-party cloud harness in the Automation Platform.
+  *Usage note:* Capitalize as the product name, matching OpenAI's own branding.
 - **GitHub Actions** — capitalize "GitHub"
 - **GitHub App** — GitHub's installation/auth mechanism used for repo access in integrations
 - **Linear** — capitalize
