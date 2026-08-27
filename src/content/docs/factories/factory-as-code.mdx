@@ -8,7 +8,7 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Every factory is defined by files: a `factory.yaml` plus directories of agents, automations, and runners, versioned in a Git repository. The files are the source of truth — when they change, Warp updates the factory to match. This page describes every file and key in a definition.
+Every factory is defined by files: a `factory.yaml` plus directories of agents, automations, runners, scorers, and skills, versioned in a Git repository. The files are the source of truth — when they change, Warp updates the factory to match. This page describes every file and key in a definition.
 
 Definition files are YAML and Markdown. Keys are case-sensitive.
 
@@ -356,7 +356,7 @@ Optional. A short summary of what the scorer checks.
 
 ### `agents`
 
-Required. The agents (by name) whose runs this scorer evaluates.
+Required. The agents whose runs this scorer evaluates, as a list of one or more agent names. Each name matches an agent defined under [`agents/`](#agentsnameagentmd).
 
 ### `output`
 

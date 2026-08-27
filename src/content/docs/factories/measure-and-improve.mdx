@@ -42,7 +42,7 @@ Use the **Dashboard** page to pick which runs to investigate, not to conclude wh
 
 ## Configure Scorers
 
-A **Scorer** uses an LLM judge to classify completed runs against criteria you write — for example, "did the agent run the tests before opening a PR?" It assigns a label, not a numeric grade, so keep each Scorer focused on one question its failures can point back to. For Scorers defined as files in a factory definition, see the [`scorers/<name>/scorer.md` syntax](/factories/factory-as-code/#scorersnamescorermd) and the two scorers in [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
+A **Scorer** uses an LLM judge to classify completed runs against criteria you write — for example, "did the agent run the tests before opening a PR?" It assigns a label, not a numeric grade, so keep each Scorer focused on one question its failures can point back to. Create Scorers on the factory dashboard's **Scorers** page, which also holds each Scorer's results. For Scorers defined as files in a factory definition, see the [`scorers/<name>/scorer.md` syntax](/factories/factory-as-code/#scorersnamescorermd) and the two scorers in [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
 
 Configure these fields:
 
@@ -81,7 +81,7 @@ Every benchmark also runs **Correctness**, a built-in Scorer that marks each tri
 
 Turn on **Self-improvement** for each Scorer whose failures you want investigated automatically. Self-improvement groups related failures and files follow-up tasks as ordinary agent runs. A follow-up run can propose changes to application code. It can also improve the factory itself: when you manage your factory as [definitions as code](/factories/factory-as-code/), its prompts, skills, and configuration are version-controlled files, so a follow-up run can open a pull request against the factory definition the same way it would against application code. Nothing is adopted without your review.
 
-Each Self-improvement pull request includes a **Regressions addressed** section that links the failing runs and Scorer results behind it, so you can trace the change back to its evidence.
+The factory dashboard's **Self-improvement** page lists the pull requests these follow-up runs open. Each pull request includes a **Regressions addressed** section that links the failing runs and Scorer results behind it, so you can trace the change back to its evidence.
 
 ## Run a practical improvement loop
 
