@@ -2,18 +2,18 @@
 title: Automations
 description: >-
   An automation starts factory runs from a trigger, routes them to an agent,
-  and filters which events qualify.
+  and filters which events start a run.
 sidebar:
   label: Automations
 ---
 
-An **automation** is a factory resource that starts runs: it declares one or more triggers (an event from a connected tool, or a schedule), the agent that handles the run, and, for connected-tool triggers, the filters that decide which events qualify. Every default automation Warp creates when you connect a provider, and every custom one you add, is this same resource. See [`automations/<name>/automation.md`](/factories/factory-as-code/#automationsnameautomationmd) for the full schema.
+An **automation** is a factory resource that starts runs from a trigger and routes them to an agent. Triggers fired by a connected tool also carry filters that decide which events start a run. Every default automation Warp creates when you connect a provider, and every custom one you add, is this same resource. See [`automations/<name>/automation.md`](/factories/factory-as-code/#automationsnameautomationmd) for the full schema.
 
-Automation filters decide which events from your connected tools start factory work. Every trigger on an automation carries filters — conditions such as a repository, channel, team, project, label, or author — and an event starts a run only when it matches them. Filters let a factory watch busy channels and repositories without acting on everything in them.
+Automation filters decide which events from your connected tools start factory work. Every trigger on an automation carries filters (e.g., a repository, channel, team, project, label, or author) and an event starts a run only when it matches them. Filters let a factory watch busy channels and repositories without acting on everything in them.
 
 ## How matching works
 
-An event starts an automation only when it matches the trigger's provider, its event type, and every filter set on that trigger:
+An event starts an automation only when it matches the trigger's provider, event type, and filters:
 
 * **Every filter must match.** A trigger that sets both a team and a label matches only events carrying both.
 * **Within one filter, any value matches.** A **Labels** filter listing `bug` and `regression` matches an issue with either label.
@@ -21,9 +21,9 @@ An event starts an automation only when it matches the trigger's provider, its e
 
 One event can match more than one automation, and each match starts its own run. If a single action starts duplicate runs, narrow or remove one of the overlapping triggers.
 
-## Filters route work; they don't restrict access
+## Filters don't control access
 
-Filters decide when work starts, not what a running agent can reach. Access comes from what you authorize on each provider — the GitHub App installation, the GitLab bot's project membership, the Slack app's authorization, the Linear OAuth scope, or the Jira app installation. Tightening a filter never shrinks that access, and removing one never widens it. To change what an integration can reach, change what you authorize for that provider.
+Filters decide when work starts, not what a running agent can reach. Access comes from what you authorize on each provider: the GitHub App installation, the GitLab bot's project membership, the Slack app's authorization, the Linear OAuth scope, or the Jira app installation. Tightening a filter never shrinks that access, and removing one never widens it. To change what an integration can reach, change what you authorize for that provider.
 
 Filters are still your main control over who starts runs. On GitHub and GitLab, the event author doesn't need to be a Warp team member, so use author, member, and branch filters to decide whose activity starts work. Slack mentions and direct messages additionally require a Slack account linked to a member of the factory's Warp team.
 
