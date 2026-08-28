@@ -65,7 +65,7 @@ The first two are workflow policy, written into the foreman's instructions; edit
 
 ## How the factory improves itself
 
-Your factory is self-improving, and you define what "better" means. [Scorers](/factories/measure-and-improve/) grade completed runs against criteria you write, and [Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement) groups the failures they flag into follow-up runs that propose fixes — to the application code or to the factory's own definition. Every proposal arrives as a change for your review; nothing is adopted on its own.
+Your factory is self-improving, and you define what "better" means. [Scorers](/factories/measure-and-improve/) classify completed runs against criteria you write, and [Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement) groups the failures they flag into follow-up runs that propose fixes — to the application code or to the factory's own definition. Every proposal arrives as a change for your review; nothing is adopted on its own.
 
 The factory's definition is open to the same loop. Anyone on the team, or an agent, can propose changes to its instructions, skills, models, or other [definition files](/factories/factory-as-code/), and definitions stored in GitHub go through pull request review and [configuration checks](/factories/factory-as-code/#pull-request-checks-for-github-backed-factories) before a change reaches the production branch.
 
