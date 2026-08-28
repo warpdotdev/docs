@@ -103,7 +103,7 @@ See [model choice for agents](/agents/inference/model-choice/) and [harnesses fo
 
 ### Configuring a third-party harness
 
-Switch an agent onto Claude Code or Codex to run it with that provider's own coding tool instead of the Warp Agent.
+Change an agent's harness to Claude Code or Codex to run it with that provider's own coding tool instead of the Warp Agent.
 
 1. Open the agent's settings (see [Configure agent behavior](#configure-agent-behavior)) and choose **Claude Code** or **Codex** in the **Harness** field. Third-party harnesses require a Build plan or higher; without one, you can only use the Warp Agent harness until your team upgrades or an admin enables it.
 2. Choose or create a credential in the **Auth** field that appears below **Harness**. The dropdown lists compatible, team-owned secrets: Claude Code accepts an Anthropic API key, an Anthropic Bedrock API key, or an Anthropic Bedrock access key; Codex accepts an OpenAI API key. Pick an existing secret, or choose **New auth secret** to store one without leaving the page. See [connecting Claude Code credentials](/platform/harnesses/authentication/#connecting-claude-code-credentials) and [connecting Codex credentials](/platform/harnesses/authentication/#connecting-codex-credentials) for how to obtain each key.
