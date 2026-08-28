@@ -239,11 +239,19 @@ jobs:
             fi
           done
 
+          # This scheduled/dispatched workflow has no run requester to prefer
+          # (unlike the ambient create_pr skill runs, it isn't tied to any
+          # particular person) — so it keeps a secondary human fallback
+          # (hongyi-chen, "HYC") ahead of the final dannyneira safety net
+          # instead.
           if [[ -z "$LAST_REVIEWER" ]]; then
-            echo "::warning::No recent reviewer found — using default reviewer dannyneira"
-            LAST_REVIEWER="dannyneira"
+            echo "::warning::No recent reviewer found — trying secondary fallback hongyi-chen"
+            LAST_REVIEWER="hongyi-chen"
           fi
 
           echo "Assigning reviewer: $LAST_REVIEWER"
-          gh pr edit "$PR_NUMBER" --add-reviewer "$LAST_REVIEWER" --repo warpdotdev/docs 2>&1 || \
-            echo "::warning::Could not assign $LAST_REVIEWER as reviewer"
+          gh pr edit "$PR_NUMBER" --add-reviewer "$LAST_REVIEWER" --repo warpdotdev/docs 2>&1 || {
+            echo "::warning::Could not assign $LAST_REVIEWER as reviewer — falling back to dannyneira"
+            gh pr edit "$PR_NUMBER" --add-reviewer dannyneira --repo warpdotdev/docs 2>&1 || \
+              echo "::warning::Could not assign dannyneira as reviewer"
+          }

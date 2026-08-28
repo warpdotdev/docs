@@ -277,7 +277,11 @@ gh pr create --web
 
 So the mention stays, and a real request is added alongside it. **A PR is not complete until `gh pr edit --add-reviewer` has succeeded and been verified.**
 
-A resolution failure must fall back, never no-op. When no owner resolves, assign `dannyneira`, matching the fallback the release docs workflow already uses (`.github/workflows/release-docs-update.yml`, "Assign last docs PR reviewer"). An unassignable reviewer is a problem to surface, not a reason to ship an unreviewed PR.
+A resolution failure must fall back, never no-op. When no owner resolves — the common case for a small, ambient/agent-generated docs PR — prefer the run's requester next, then a secondary human fallback, and only then `dannyneira` as the final safety net (the release docs workflow keeps its own last-resort `dannyneira` fallback too — `.github/workflows/release-docs-update.yml`, "Assign last docs PR reviewer"). An unassignable reviewer is a problem to surface, not a reason to ship an unreviewed PR.
+
+The full priority chain, in order: (1) the CODEOWNERS/git-blame owner from `suggest_reviewers.py`; (2) the run's requester, resolved the same Slack-first way `factory-github-ops` resolves any requester (`scripts/factory-resolve-reviewer --user <requester_slack_id> --repo warpdotdev/docs`, which checks `reviewer_overrides.json` first, then a public-email search); (3) a secondary human fallback, currently `hongyi-chen` ("HYC"); (4) `dannyneira`. This repo has no `reviewer_overrides.json` of its own — the factory-agents-level `scripts/reviewer_overrides.json` is the source of truth for step 2's override lookups.
+
+**TODO for a human:** the requester behind this chain's design (Slack id `U0A1Z732333`) did not resolve to a GitHub handle automatically (no public email and no override on file). Confirm their GitHub username and add it to `scripts/reviewer_overrides.json` (factory-agents-level) so future runs from them resolve step 2 automatically, then set `REQUESTER_SLACK_ID` below to exercise it end to end.
 
 Two details below are load-bearing, and getting either wrong reintroduces the silent drop this section exists to prevent:
 
@@ -286,7 +290,9 @@ Two details below are load-bearing, and getting either wrong reintroduces the si
 
 ```bash
 PR=123
-FALLBACK_REVIEWER=dannyneira
+REQUESTER_SLACK_ID=""        # this run's requester Slack user id, when known
+SECONDARY_FALLBACK_REVIEWER=hongyi-chen   # HYC - confirmed second-tier fallback
+FALLBACK_REVIEWER=dannyneira               # final safety net; never remove
 
 # 1. Resolve the owning engineer(s). For missing_docs drift-watch runs, use the
 #    ownership resolver with the source files behind the change; see the
@@ -296,13 +302,22 @@ REVIEWERS=$(python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
   --reviewers-only --warp ../warp --warp-server ../warp-server \
   warp:app/src/settings/ssh.rs < /dev/null)
 
-# 2. Never let an empty resolution drop the request. Track that this was a
-#    fallback so step 6 does not report it as an owner who was requested.
+# 2. No code-owner resolved. For a small, ambient/agent-generated PR with no
+#    clear owner - the common case here - prefer the run's requester over
+#    paging dannyneira: resolve their GitHub handle the same Slack-first way
+#    factory-github-ops resolves any requester. Fall to the secondary human
+#    fallback next, and only then to the final dannyneira safety net. Never
+#    let an empty resolution drop the request. Track that this was a fallback
+#    so step 6 does not report it as an owner who was requested.
 RESOLUTION_WAS_EMPTY=0
 if [[ -z "$REVIEWERS" ]]; then
-  echo "warning: no owner resolved - falling back to $FALLBACK_REVIEWER"
-  REVIEWERS="$FALLBACK_REVIEWER"
   RESOLUTION_WAS_EMPTY=1
+  if [[ -n "$REQUESTER_SLACK_ID" ]]; then
+    REVIEWERS=$(scripts/factory-resolve-reviewer --user "$REQUESTER_SLACK_ID" --repo warpdotdev/docs)
+  fi
+  [[ -z "$REVIEWERS" ]] && REVIEWERS="$SECONDARY_FALLBACK_REVIEWER"
+  [[ -z "$REVIEWERS" ]] && REVIEWERS="$FALLBACK_REVIEWER"
+  echo "warning: no owner resolved - falling back to $REVIEWERS"
 fi
 
 # 3. Request each reviewer separately so one bad entry cannot drop the rest.
@@ -351,9 +366,9 @@ has_reviewer() {
 #    never assigned, which would skip re-requesting it here and then have the
 #    next step falsely report it as requested when it never landed.
 if (( RESOLUTION_WAS_EMPTY )); then
-  if ! has_reviewer "$FALLBACK_REVIEWER"; then
-    gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$FALLBACK_REVIEWER" ||
-      echo "warning: fallback $FALLBACK_REVIEWER could not be requested"
+  if ! has_reviewer "$REVIEWERS"; then
+    gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$REVIEWERS" ||
+      echo "warning: fallback $REVIEWERS could not be requested"
     REQUESTED=$(read_requested)
   fi
 elif [[ -z "$REQUESTED" ]]; then
@@ -366,8 +381,8 @@ if [[ -z "$REQUESTED" ]]; then
   echo "ERROR: no reviewer is on PR $PR - not even the fallback landed"
   exit 1
 fi
-if (( RESOLUTION_WAS_EMPTY )) && ! has_reviewer "$FALLBACK_REVIEWER"; then
-  echo "ERROR: fallback $FALLBACK_REVIEWER could not be requested on PR $PR" \
+if (( RESOLUTION_WAS_EMPTY )) && ! has_reviewer "$REVIEWERS"; then
+  echo "ERROR: fallback $REVIEWERS could not be requested on PR $PR" \
        "(existing reviewers: $REQUESTED); report this run as failed."
   exit 1
 fi
@@ -384,9 +399,10 @@ for R in "${WANT[@]}"; do
 done
 
 if (( RESOLUTION_WAS_EMPTY )); then
-  # Step 6 already guaranteed the fallback landed (or exited above), so this
-  # always reports a true outcome, not just "nothing resolved."
-  echo "note: no owner resolved for PR $PR; fallback $FALLBACK_REVIEWER requested"
+  # Step 6 already guaranteed the settled-on fallback landed (or exited
+  # above), so this always reports a true outcome, not just "nothing
+  # resolved."
+  echo "note: no owner resolved for PR $PR; fallback $REVIEWERS requested"
 elif (( ${#MISSING[@]} == ${#WANT[@]} )); then
   # Owners resolved and none of them are on the PR. It has a reviewer, but not
   # the right one, and that must not read as success.
