@@ -14,6 +14,7 @@
     "lint": "trunk check",
     "fmt": "trunk fmt",
     "og:api": "node scripts/generate-og-api.mjs",
+    "favicon:generate": "node scripts/generate-favicons.mjs",
     "seo:audit": "node scripts/seo-audit.mjs",
     "postinstall": "patch-package"
   },

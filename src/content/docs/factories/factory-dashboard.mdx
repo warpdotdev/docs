@@ -23,9 +23,9 @@ A factory opens on its **Dashboard** page, covered next. **Factory definition** 
 
 **Dashboard** is the factory's landing page. It summarizes the factory over a date range you choose:
 
-* **Autonomy** - The share of the factory's merged PRs that needed no human input beyond an approving review and the merge itself. A PR counts as autonomous only if no person added commits, requested changes, or otherwise edited it before merge.
-* **PR cycle time** - The median time the factory's merged PRs took from run kickoff through PR, first review, and merge, with a median for each stage.
-* **Cost per PR** - The median cost of PRs opened in the range. Treat it as a lower-bound estimate: it can miss some run usage and does not match billing. See [Measure and improve a factory](/factories/measure-and-improve/) for its limitations.
+* **Autonomy** - The share of the factory's merged PRs that needed no human code push before merging. Opening the PR counts as a push, so a human-authored PR that a factory run later revised doesn't count as autonomous; comments, reviews, requested changes, and the merge itself don't count as a push.
+* **PR cycle time** - The median time the factory's merged PRs took from run kickoff through PR, first review, and merge, with an independent median for each stage - the stage medians don't sum to the headline.
+* **Cost per PR** - The median cost of PRs opened in the range. When a single run produces more than one PR, its cost splits evenly across them. Treat it as a lower-bound estimate: it can miss some run usage and does not match billing. See [Measure and improve a factory](/factories/measure-and-improve/) for its limitations.
 
 The page also charts opened versus merged PRs and a breakdown of runs, and the **Cost per PR** card expands to list the most expensive PRs in the range. When Scorers are set up, Scorer cards summarize recent classification results.
 
@@ -88,9 +88,7 @@ When an agent proposes a change to a Warp-managed definition, its work item on *
 
 ## Score and benchmark
 
-A Scorer is an LLM judge that classifies completed runs against a rubric you define, scoped to the agents you choose and sampled at a rate you set. Each Scorer has a **Self-improvement** toggle: when it's on, the factory periodically triages the runs that Scorer marks as failing and files fixes for recurring issues. The **Self-improvement** page tracks the pull requests those fixes open, linking each one to the run that produced it.
-
-**Benchmarks** compares harness, model, and runner configurations against a fixed set of tasks with success criteria. Benchmark results are only as reliable as the Scorers behind them, so read them alongside [Measure and improve a factory](/factories/measure-and-improve/).
+**Scorers** is where you create Scorers and read their results. **Self-improvement** lists the pull requests the self-improvement flow opens after analyzing runs your Scorers mark as failing, and **Benchmarks** compares harness, model, and runner configurations against a fixed set of tasks. See [Configure Scorers](/factories/measure-and-improve/#configure-scorers), [Configure and review Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement), and [Compare configurations with benchmarks](/factories/measure-and-improve/#compare-configurations-with-benchmarks) for what each one is and how to set it up.
 
 ## Change factory settings
 

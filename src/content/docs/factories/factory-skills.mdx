@@ -1,0 +1,75 @@
+---
+title: Factory skills
+description: >-
+  Skills give a factory's agents repeatable, version-controlled procedures
+  that can be shared across every agent or scoped to just one.
+sidebar:
+  label: "Factory skills"
+---
+
+:::note
+Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
+:::
+
+A skill tells an agent what to check, how to classify results, what to produce, and when to escalate. In a factory, skills are how you extend or override [default agents](/factories/factory-agents/), without editing their prompts directly.
+
+## Factory-wide and per-agent skills
+
+A skill is a directory containing a `SKILL.md`. It's part of the factory's [definition](/factories/factory-as-code/), not an agent's settings. Where you place the directory decides who can use it:
+
+```text
+skills/
+  repository-conventions/
+    SKILL.md
+agents/
+  foreman/
+    skills/
+      incident-triage/
+        SKILL.md
+```
+
+* **`skills/<name>/SKILL.md`** - Available to every agent in the factory. Use this for procedures that apply regardless of role, such as your repository's coding conventions or a shared escalation policy.
+* **`agents/<name>/skills/<name>/SKILL.md`** - Available only to that agent. Use this for procedures specific to one role, such as how the review agent should apply your security checklist.
+
+Both forms use the same `SKILL.md` format as skills anywhere else in Warp. See [Skills](/agents/capabilities/skills/) for the file format, front matter, and argument syntax.
+
+## Built-in skills
+
+Every default agent starts with a baseline of built-in skills so the factory works immediately after setup, before you write anything custom:
+
+* **GitHub** - Every default agent gets a GitHub skill, covering how to read issues, open pull requests, and follow your repository's conventions.
+* **Slack** - The foreman also gets a Slack skill, since it's the agent that replies in threads and DMs.
+* **Issue tracker** - The tracker you choose during setup, Linear or Jira, adds that tracker's skill and instructions to the agents that use it. If you don't connect a tracker, agents keep only the GitHub and Slack skills.
+
+These baseline skills aren't files in your definition; they come from the agent roles and integrations you choose. Anything you add under `skills/` or `agents/<name>/skills/` extends this baseline rather than replacing it.
+
+## When to add a custom skill
+
+Add a custom skill when a default agent needs to do something the built-in baseline doesn't cover, such as:
+
+* Enforcing a specific test, lint, or validation command before a change is considered complete.
+* Following a runbook for a category of incident or request your triage agent sees repeatedly.
+* Applying a security or compliance checklist during review that goes beyond general code quality.
+* Teaching a custom agent its job. Custom agents have no built-in skills.
+
+A skill changes what an agent knows how to do, not what it can reach. To scope access, configure the agent's [secrets](/platform/secrets/) and [MCP servers](/platform/mcp/) — see [factory agents](/factories/factory-agents/#configure-agent-behavior) and [infrastructure and security](/factories/infrastructure-and-security/#credential-boundaries).
+
+## Add or edit a skill
+
+Where you edit a skill depends on [where the factory's definition lives](/factories/factory-as-code/#where-the-definition-lives):
+
+* **Warp-managed** - Add or edit `SKILL.md` files directly in the **Factory definition** tab of the [factory dashboard](/factories/factory-dashboard/). Saving validates and commits the change in one step.
+* **GitHub** - Add or edit the files in the connected definition repository and open a pull request. The same [pull request checks](/factories/factory-as-code/#pull-request-checks-for-github-backed-factories) that validate the rest of the definition apply to skill files.
+
+For worked examples, including a factory-wide skill and a per-agent skill together, see [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
+
+## Skills and self-improvement
+
+A factory can propose changes to a skill. When [Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement) is on for a Scorer and it flags a recurring failure, it can edit the responsible skill in a follow-up run, the same way it can edit application code. The change still arrives as a pull request for your team to review, whether that's through the factory dashboard or your Git host.
+
+## Related pages
+
+* [Factory agents](/factories/factory-agents/) - The agents that use a factory's skills, and how to configure each one.
+* [Definitions as code](/factories/factory-as-code/) - The full schema for `factory.yaml`, agents, automations, and runners alongside skills.
+* [Skills](/agents/capabilities/skills/) - The general skill file format, shared across Warp, cloud agents, and factories.
+* [Measure and improve a factory](/factories/measure-and-improve/) - How Self-improvement turns repeated failures into skill and code changes.

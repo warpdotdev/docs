@@ -1,8 +1,8 @@
 ---
 title: How Warp Factories work
 description: >-
-  A factory's foreman routes each work item through triage, specification,
-  implementation, and review, with humans making the key decisions.
+  A factory's foreman routes each work item through triage, planning,
+  building, and reviewing, with humans making the key decisions.
 sidebar:
   label: "How factories work"
 ---
@@ -12,6 +12,8 @@ Warp Factories is in **Early Access** and available to a limited set of teams. [
 :::
 
 A factory is a team of cloud agents that ships software the way your team does: a request comes in, moves through the stages it needs, and comes back as a pull request ready for review. You talk to one agent, the **foreman**, from the tool that sends the request, such as Slack or Linear. The foreman dispatches the factory's other agents, and each one owns a part of the software development lifecycle.
+
+Deciding which repositories belong in this factory is a separate question. See [sizing a factory](/factories/#sizing-a-factory) for that guidance.
 
 A **work item** is a single request the factory acts on, such as an issue, support request, pull request, or Factory MCP task. It keeps its identity from intake to handoff, however many agents contribute to it along the way.
 
@@ -29,33 +31,33 @@ The diagram below shows the default path through a factory's stages.
 flowchart LR
   Intake[Intake] --> Foreman[Foreman]
   Foreman --> Triage[Triage]
-  Triage --> Decision{Specification needed?}
-  Decision -->|Yes| Spec[Specify]
-  Decision -->|No| Implement[Implement]
-  Spec --> Approval["Human review<br/>(default policy)"]
-  Approval --> Implement
-  Implement --> Review[Review and verify]
-  Review --> Revision{Revision needed?}
-  Revision -->|Yes| Implement
+  Triage --> Decision{Plan needed?}
+  Decision -->|Yes| Planning[Planning]
+  Decision -->|No| Building[Building]
+  Planning --> Approval["Human review<br/>(default policy)"]
+  Approval --> Building
+  Building --> Reviewing[Reviewing]
+  Reviewing --> Revision{Revision needed?}
+  Revision -->|Yes| Building
   Revision -->|No| Handoff["Human handoff<br/>(default policy)"]
   Handoff --> Complete[Complete]
 ```
 
 * **Intake** - A work item enters from a [connected integration](/factories/connect-your-factory/), an automation, a direct run, or the [Factory MCP](/factories/factory-mcp/). It keeps its source context as it moves through later stages.
 * **Triage** - The triage agent researches the request, reproduces the problem when needed, and defines the scope and complexity of the change. The foreman skips this stage when the request already explains the problem and what needs to change.
-* **Specification** - The specification agent defines product behavior, technical constraints, and validation criteria. The foreman skips this stage for small, well-understood changes.
-* **Implementation** - The implementation agent makes the code change on a branch and opens a pull request with test and visual evidence.
-* **Review and verification** - The review agent checks the change against the requirements, tests, and security expectations, then sends findings back to implementation. Its verdict is advisory.
+* **Planning** - The spec agent defines product behavior, technical constraints, and validation criteria. The foreman skips this stage for small, well-understood changes.
+* **Building** - The implement agent makes the code change on a branch and opens a pull request with test and visual evidence.
+* **Reviewing** - The review agent checks the change against the requirements, tests, and security expectations, then sends findings back for another pass. Its verdict is advisory.
 * **Human handoff** - The factory presents the result, its evidence, and any findings. A person decides what happens next.
 * **Complete or Cancelled** - The work item ends when the factory finishes its work, or stops early if someone cancels it.
 
-In the [factory dashboard](/factories/factory-dashboard/), the **Activity** view is where you find, filter, and stop work items. It groups these stages under its own names: Triage, Planning (specification), Building (implementation), and Reviewing. Each agent's run within a work item is an ordinary [cloud agent run](/platform/) you can watch and steer.
+These are the stage names the [factory dashboard](/factories/factory-dashboard/)'s **Activity** view uses, where you find, filter, and stop work items. Stages and agents are named separately, so the spec agent works the Planning stage, the implement agent works the Building stage, and the review agent works the Reviewing stage. Each agent's run within a work item is an ordinary [cloud agent run](/platform/) you can watch and steer.
 
 ## Where your team stays in charge
 
 A factory is built to pause when there is a decision that needs to be made by a person. By default, that's three places:
 
-* **Approving the spec** - When work goes through the spec stage, implementation waits until a person signs off on the plan.
+* **Approving the spec** - When work goes through the Planning stage, the Building stage waits until a person signs off on the plan.
 * **Answering questions** - When requirements are unclear or a review finding is ambiguous, the foreman asks instead of guessing.
 * **Merging** - The factory opens the pull request and hands it off. Whether and when it merges is your team's call.
 
@@ -63,7 +65,7 @@ The first two are workflow policy, written into the foreman's instructions; edit
 
 ## How the factory improves itself
 
-Your factory is self-improving, and you define what "better" means. [Scorers](/factories/measure-and-improve/) grade completed runs against criteria you write, and [Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement) groups the failures they flag into follow-up runs that propose fixes — to the application code or to the factory's own definition. Every proposal arrives as a change for your review; nothing is adopted on its own.
+Your factory is self-improving, and you define what "better" means. [Scorers](/factories/measure-and-improve/) classify completed runs against criteria you write, and [Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement) groups the failures they flag into follow-up runs that propose fixes — to the application code or to the factory's own definition. Every proposal arrives as a change for your review; nothing is adopted on its own.
 
 The factory's definition is open to the same loop. Anyone on the team, or an agent, can propose changes to its instructions, skills, models, or other [definition files](/factories/factory-as-code/), and definitions stored in GitHub go through pull request review and [configuration checks](/factories/factory-as-code/#pull-request-checks-for-github-backed-factories) before a change reaches the production branch.
 

@@ -36,6 +36,12 @@ Fix the problems teams hit most often when setting up a factory and running thei
 1. Ask a team admin to confirm the team's capacity.
 2. If the team needs more agents, [contact sales](https://www.warp.dev/contact-sales).
 
+### The web app still shows the setup wizard after your agent created a factory
+
+**Cause:** Completing setup through [Factory MCP](/factories/factory-mcp/) doesn't update a {VARS.FACTORY_WEB_APP} page that's already open in your browser.
+
+**Fix:** Refresh the page. Once your account has a factory, the web app opens it instead of the setup wizard. The factory link your agent shares at the end of setup opens the same place.
+
 ## Work isn't starting
 
 ### An event that should start work doesn't
@@ -45,7 +51,7 @@ Fix the problems teams hit most often when setting up a factory and running thei
 **Fix:**
 
 1. Confirm the automation is enabled and its trigger's event type matches what happened.
-2. Check every filter on the trigger. Filters combine with AND, so a single mismatched repository, label, author, or state stops the routing. See [automation filters](/factories/automation-filters/#troubleshooting).
+2. Check every filter on the trigger. Filters combine with AND, so a single mismatched repository, label, author, or state stops the routing. See [automation filters](/factories/automations/#troubleshooting).
 3. Confirm the source is connected to *this* factory. Connecting a provider to your workspace doesn't attach it to every factory in that workspace.
 
 Then check the causes specific to where the work came from:
@@ -62,7 +68,7 @@ Then check the causes specific to where the work came from:
 
 **Cause:** Two automations match the same event — commonly an app-mention trigger and a channel-message trigger pointed at the same place.
 
-**Fix:** Narrow or remove one of the overlapping triggers so a single path owns each kind of request. See [how matching works](/factories/automation-filters/#how-matching-works).
+**Fix:** Narrow or remove one of the overlapping triggers so a single path owns each kind of request. See [how matching works](/factories/automations/#how-matching-works).
 
 ## Runs and work items
 
@@ -82,13 +88,13 @@ Then check the causes specific to where the work came from:
 
 ### No pull request appears
 
-**Cause:** The factory can't push, or the work never reached implementation.
+**Cause:** The factory can't push, or the work never reached the implement agent.
 
-**Fix:** Confirm that the **Implement** agent is enabled on the factory, that the code host connection still grants write access to the target repository, and that the work item actually reached the implementation stage. Branch protection rules apply to everything the factory pushes.
+**Fix:** Confirm that the **Implement** agent is enabled on the factory, that the code host connection still grants write access to the target repository, and that the work item actually reached the Building stage. Branch protection rules apply to everything the factory pushes.
 
 ## Related pages
 
 * [**Warp Factories quickstart**](/factories/quickstart/) - Create a factory and submit your first work item.
 * [**Connect your factory**](/factories/connect-your-factory/) - Route work in from Slack threads, Linear issues, and other intake paths.
-* [**Automation filters**](/factories/automation-filters/) - The matching rules that decide which events start work.
+* [**Automations**](/factories/automations/) - The matching rules that decide which events start work.
 * [**Factory dashboard**](/factories/factory-dashboard/) - Where to watch work items, runs, and their outputs.

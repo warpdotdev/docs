@@ -2,13 +2,13 @@
 title: Factory definition syntax
 description: >-
   Look up every file and key in a factory definition: factory.yaml, agents,
-  automations, runners, and skills.
+  automations, runners, scorers, and skills.
 sidebar:
   label: "Definitions as code"
 ---
 import { VARS } from '@data/vars';
 
-Every factory is defined by files: a `factory.yaml` plus directories of agents, automations, and runners, versioned in a Git repository. The files are the source of truth — when they change, Warp updates the factory to match. This page describes every file and key in a definition.
+Every factory is defined by files: a `factory.yaml` plus directories of agents, automations, runners, scorers, and skills, versioned in a Git repository. The files are the source of truth — when they change, Warp updates the factory to match. This page describes every file and key in a definition.
 
 Definition files are YAML and Markdown. Keys are case-sensitive.
 
@@ -46,6 +46,9 @@ automations/
     automation.md
 runners/
   linux-build.yaml
+scorers/
+  tests-run/
+    scorer.md
 skills/
   repository-conventions/
     SKILL.md
@@ -182,7 +185,7 @@ For a definition that runs a different harness per agent, with managed-secret au
 
 ### `agentDefaults.runner`
 
-The name of a runner defined under [`runners/`](#runnersyaml) that provides the compute for runs.
+The name of a runner defined under [`runners/`](#runnersnameyaml) that provides the compute for runs.
 
 ### `agentDefaults.environmentId`
 
@@ -319,9 +322,69 @@ Optional. The compute size, as `vcpus` and `memoryGb`. Omit it to take the works
 
 The operating system and architecture. `os` is `linux` (the default) or `macos`, and `arch` is `x86_64` (the default on Linux) or `aarch64` (the only option on macOS). Linux runners require `linux.dockerImage`, the container image the sandbox boots, so every Linux runner declares a `platform` section. macOS runners accept an optional `mac.version` (`"14"`, `"15"`, `"26"`, or `"27"`; quote it, and it defaults to `"26"`).
 
+## `scorers/<name>/scorer.md`
+
+Optional. Each file defines a scorer: an LLM judge that classifies a sample of an agent's finished runs against a rubric. The directory segment is only a stable filesystem slug — the required `name` field is the scorer's identity. The YAML frontmatter declares the classification contract, and the Markdown body after the closing `---` fence is the rubric. See [Configure Scorers](/factories/measure-and-improve/#configure-scorers) for how scores are used.
+
+```markdown title="scorers/tests-run/scorer.md"
+---
+name: tests-run
+description: Checks whether implementation runs include test evidence.
+agents:
+  - reviewer
+labels:
+  - value: tests_run
+    description: The transcript contains a test command and its result.
+    score: 1
+  - value: tests_skipped
+    score: 0
+passingScore: 1
+samplingRate: 25
+model: claude-4-5-haiku
+---
+Evaluate whether the agent ran the relevant tests before finishing. Return
+exactly one declared label.
+```
+
+### `name`
+
+Required. The scorer's identity. Renaming it is a content edit, not a directory move.
+
+### `description`
+
+Optional. A short summary of what the scorer checks.
+
+### `agents`
+
+Required. The agents whose runs this scorer evaluates, as a list of one or more agent names. Each name matches an agent defined under [`agents/`](#agentsnameagentmd).
+
+### `output`
+
+Optional. The scorer output form. `classification` is the current supported value.
+
+### `labels`
+
+Required. The classifications the judge may return, each with a `value`, a numeric `score` from 0 through 1, and an optional `description`. At least one label must score at or above `passingScore` and at least one below it.
+
+### `passingScore`
+
+Required. The threshold, from 0 through 1, at or above which a run counts as passing.
+
+### `samplingRate`
+
+Optional. The percentage of eligible runs to score. Defaults to 25.
+
+### `model`
+
+Required. The model that judges the runs.
+
+### `selfImprovement`
+
+Optional. When `true`, failing scores can feed the factory's self-improvement flow, which proposes definition changes as pull requests. Defaults to `false`.
+
 ## Skills
 
-A skill is a directory containing a `SKILL.md`, not a YAML key. Skills under `skills/` are available to every agent in the factory; skills under `agents/<name>/skills/` are available only to that agent. See [Skills for agents](/agents/capabilities/skills/).
+A skill is a directory containing a `SKILL.md`, not a YAML key. Skills under `skills/` are available to every agent in the factory; skills under `agents/<name>/skills/` are available only to that agent. See [factory skills](/factories/factory-skills/) for when to add one, and [Skills](/agents/capabilities/skills/) for the file format.
 
 ## Example factory definition
 
