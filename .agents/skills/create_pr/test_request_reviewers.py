@@ -5,10 +5,10 @@ The tests extract the documented bash snippet and run it against a stubbed
 `gh` and `suggest_reviewers.py`. Most cases also stub the requester-tier
 resolver to drive specific resolutions deterministically, but
 `test_real_resolver_*` below runs the actual checked-in
-`resolve_reviewer.py` + `reviewer_overrides.json` unmodified, so the
-requester tier is proven callable from a plain docs checkout rather than
-assumed from a stub. This exercises the text users copy rather than a
-paraphrased implementation.
+`resolve_reviewer.py` against a private-map fixture, so the requester tier is
+proven callable from a plain docs checkout without committing requester
+identity data. This exercises the text users copy rather than a paraphrased
+implementation.
 
 Run with: python3 .agents/skills/create_pr/test_request_reviewers.py
 """
@@ -144,13 +144,22 @@ class ReviewerSnippetTest(unittest.TestCase):
             )
             requester_resolver.parent.mkdir(parents=True)
             if use_real_requester_resolver:
-                # Copy the actual checked-in resolver + override map (not a
-                # stub) so the test exercises the real requester tier exactly
-                # as a plain docs checkout would run it.
+                # Copy the actual checked-in resolver (not a stub), and mount
+                # a test-only private map as the invoking factory would.
                 shutil.copy(HERE / "resolve_reviewer.py", requester_resolver)
-                shutil.copy(
-                    HERE / "reviewer_overrides.json",
-                    requester_resolver.parent / "reviewer_overrides.json",
+                private_overrides = root / "private-reviewer-overrides.json"
+                private_overrides.write_text(
+                    json.dumps(
+                        {
+                            "users": [
+                                {
+                                    "slack_id": "U_TEST_REAL_REQUESTER",
+                                    "github": "the-real-requester",
+                                }
+                            ]
+                        }
+                    ),
+                    encoding="utf-8",
                 )
             else:
                 requester_resolver.write_text(
@@ -172,6 +181,9 @@ class ReviewerSnippetTest(unittest.TestCase):
                     "GH_STUB_REJECT": reject,
                     "STUB_REVIEWERS": resolved,
                     "STUB_REQUESTER_REVIEWER": requester_resolved,
+                    "REVIEWER_OVERRIDES_PATH": str(
+                        root / "private-reviewer-overrides.json"
+                    ),
                 }
             )
             snippet = extract_reviewer_snippet(
@@ -245,20 +257,19 @@ class ReviewerSnippetTest(unittest.TestCase):
         )
 
     def test_real_resolver_resolves_seeded_requester(self):
-        """Runs the actual resolve_reviewer.py + reviewer_overrides.json
-        checked into this repo (not a stub) against the requester seeded for
-        this chain's design, proving the requester tier genuinely resolves
-        from a plain docs checkout instead of always falling through."""
+        """Runs the actual resolve_reviewer.py (not a stub) against a private-map fixture,
+        proving the requester tier resolves from a plain docs checkout without
+        a committed Slack-to-GitHub mapping."""
         result, state, calls = self.run_snippet(
-            requester_slack_id="U0A1Z732333",  # rachaelrenk's seeded Slack id
+            requester_slack_id="U_TEST_REAL_REQUESTER",
             use_real_requester_resolver=True,
         )
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(state, ["rachaelrenk"])
-        self.assertEqual(self.requested_reviewers(calls), ["rachaelrenk"])
+        self.assertEqual(state, ["the-real-requester"])
+        self.assertEqual(self.requested_reviewers(calls), ["the-real-requester"])
 
     def test_real_resolver_falls_through_for_unknown_requester(self):
-        """An id absent from the real override map must fall through to the
+        """An id absent from the private override map must fall through to the
         secondary fallback rather than erroring or guessing."""
         result, state, calls = self.run_snippet(
             requester_slack_id="U_NOT_IN_OVERRIDES",

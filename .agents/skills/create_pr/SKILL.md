@@ -279,11 +279,11 @@ So the mention stays, and a real request is added alongside it. **A PR is not co
 
 A resolution failure must fall back, never no-op. When no owner resolves — the common case for a small, ambient/agent-generated docs PR — prefer the run's requester next, then a secondary human fallback, and only then `dannyneira` as the final safety net (the release docs workflow keeps its own last-resort `dannyneira` fallback too — `.github/workflows/release-docs-update.yml`, "Assign last docs PR reviewer"). An unassignable reviewer is a problem to surface, not a reason to ship an unreviewed PR.
 
-The full priority chain, in order: (1) the CODEOWNERS/git-blame owner from `suggest_reviewers.py`; (2) the run's requester, resolved via this repo's own `.agents/skills/create_pr/resolve_reviewer.py --user <requester_slack_id>`; (3) a secondary human fallback, currently `hongyi-chen` ("HYC"); (4) `dannyneira`.
+The full priority chain, in order: (1) the CODEOWNERS/git-blame owner from `suggest_reviewers.py`; (2) the run's requester, resolved via this repo's own `.agents/skills/create_pr/resolve_reviewer.py --user <requester_slack_id>` and a runtime-supplied private override map; (3) a secondary human fallback, currently `hongyi-chen` ("HYC"); (4) `dannyneira`.
 
-Step 2's resolver is a docs-repo-local script, not `factory-agents`' `scripts/factory-resolve-reviewer`: that script lives in the separate `factory-agents` repo and is not checked out alongside a normal `warpdotdev/docs` clone, so calling it by that relative path fails in a real docs run and silently falls through to the next tier. `resolve_reviewer.py` reads the checked-in `reviewer_overrides.json` (sibling to it, in this same directory) and does nothing else — no public-email search, no cross-repo assumptions — so the requester tier actually resolves from a plain docs checkout. Like `factory-resolve-reviewer`, it never guesses: an unresolved Slack id prints nothing and the chain moves to the next tier.
+Step 2's resolver is a docs-repo-local script, not `factory-agents`' `scripts/factory-resolve-reviewer`: that script lives in the separate `factory-agents` repo and is not checked out alongside a normal `warpdotdev/docs` clone, so calling it by that relative path fails in a real docs run and silently falls through to the next tier. The invoking factory must mount its private Slack-to-GitHub override map and set `REVIEWER_OVERRIDES_PATH` before calling `resolve_reviewer.py`; never commit Slack user IDs or mappings to this repository. The helper does nothing else — no public-email search, no cross-repo assumptions — so the requester tier resolves from a plain docs checkout when that private runtime context is available. Like `factory-resolve-reviewer`, it never guesses: an unavailable map or unresolved Slack id prints nothing and the chain moves to the next tier.
 
-The requester behind this chain's design (Slack id `U0A1Z732333`, GitHub `rachaelrenk`) is on file in this repo's `.agents/skills/create_pr/reviewer_overrides.json`, alongside the secondary fallback `hongyi-chen`, so setting `REQUESTER_SLACK_ID` below to their Slack id resolves step 2 directly instead of falling through to the secondary fallback. Add new entries there directly — this file does not sync from `factory-agents`' broader `scripts/reviewer_overrides.json`, which covers the wider roster for the whole factory pipeline.
+The factory-level private override map owns requester identity mappings. This repository stores no real Slack IDs: keep `REQUESTER_SLACK_ID` as a runtime value and use a placeholder in examples and tests.
 
 Two details below are load-bearing, and getting either wrong reintroduces the silent drop this section exists to prevent:
 
@@ -306,10 +306,11 @@ REVIEWERS=$(python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
 
 # 2. No code-owner resolved. For a small, ambient/agent-generated PR with no
 #    clear owner - the common case here - prefer the run's requester over
-#    paging dannyneira: resolve their GitHub handle via this repo's own
-#    checked-in override map (resolve_reviewer.py), which is callable from a
-#    plain docs checkout (unlike factory-agents' scripts/factory-resolve-reviewer,
-#    which lives in a separate repo that isn't checked out alongside this one).
+#    paging dannyneira: resolve their GitHub handle with this docs-local helper
+#    and the invoking factory's private REVIEWER_OVERRIDES_PATH map. The helper
+#    is callable from a plain docs checkout, unlike factory-agents'
+#    scripts/factory-resolve-reviewer, which lives in a separate repo that
+#    isn't checked out alongside this one.
 #    Fall to the secondary human fallback next, and only then to the final
 #    dannyneira safety net. Never let an empty resolution drop the request.
 #    Track that this was a fallback so step 6 does not report it as an owner

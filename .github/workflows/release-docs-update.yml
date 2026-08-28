@@ -276,6 +276,7 @@ jobs:
             gh pr edit "$PR_NUMBER" --add-reviewer dannyneira --repo warpdotdev/docs 2>&1 || \
               echo "::warning::Could not assign dannyneira as reviewer"
             if ! has_reviewer "dannyneira"; then
-              echo "::warning::dannyneira is not on the reviewRequests read-back either — no reviewer could be confirmed on PR #$PR_NUMBER"
+              echo "::error::dannyneira is not on the reviewRequests read-back either — no reviewer could be confirmed on PR #$PR_NUMBER"
+              exit 1
             fi
           fi

@@ -1,22 +1,20 @@
 #!/usr/bin/env python3
 """Resolve a task requester's Slack user id to a GitHub handle, for this repo.
 
-This is the docs-repo-local counterpart to `factory-agents`' broader
-`scripts/factory-resolve-reviewer`. That script lives in the separate
-`factory-agents` repo and is not checked out alongside a normal
-`warpdotdev/docs` clone, so a call to it from this repo's `create_pr/SKILL.md`
-reviewer-request chain fails in a real docs run and silently falls through to
-the next tier. This script covers exactly the requester tier: a manual,
-checked-in override map (`reviewer_overrides.json`, sibling to this script)
-keyed by Slack user id.
+This docs-repo-local helper covers only the requester tier. Its private
+Slack-to-GitHub mapping is supplied at runtime through
+`REVIEWER_OVERRIDES_PATH`; it is intentionally not committed to this
+repository. This keeps requester identity data in the factory-level private
+override map while allowing a normal docs checkout to resolve a requester when
+that map is mounted by the invoking environment.
 
 It intentionally does the bare minimum and nothing more — no public-email
-search, no cross-repo assumptions, no guessing. An unresolved Slack id prints
-nothing (exit 0) and the caller's chain moves to the next tier, matching the
-"never guesses" contract of `factory-resolve-reviewer`.
+search, no cross-repo assumptions, no guessing. A missing map or unresolved
+Slack id prints nothing (exit 0) and the caller's chain moves to the next tier.
 
 Usage:
-    python3 resolve_reviewer.py --user <slack_id>
+    REVIEWER_OVERRIDES_PATH=/private/path/reviewer_overrides.json \
+      python3 resolve_reviewer.py --user <slack_id>
 
 Prints the resolved GitHub handle to stdout, or nothing when unresolved.
 """
@@ -25,16 +23,16 @@ import json
 import os
 import sys
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-OVERRIDES_PATH = os.path.join(SCRIPT_DIR, "reviewer_overrides.json")
 
+def load_overrides(path):
+    """Return a {slack_id: github_handle} map from a private override map.
 
-def load_overrides(path=OVERRIDES_PATH):
-    """Return a {slack_id: github_handle} map from reviewer_overrides.json.
-
-    Returns an empty map when the file is absent, malformed, or has no usable
-    entries — a missing override is not an error, it just fails to resolve.
+    Returns an empty map when its runtime path is absent, missing, malformed,
+    or has no usable entries — a missing override is not an error, it just
+    fails to resolve.
     """
+    if not path:
+        return {}
     try:
         with open(path, encoding="utf-8") as fh:
             data = json.load(fh)
@@ -57,15 +55,20 @@ def load_overrides(path=OVERRIDES_PATH):
 def main(argv=None):
     parser = argparse.ArgumentParser(
         prog="resolve_reviewer.py",
-        description="Resolve a Slack user id to a GitHub handle via this repo's checked-in override map.",
+        description="Resolve a Slack user id to a GitHub handle via a private override map.",
     )
     parser.add_argument("--user", dest="user", help="Slack user id to resolve.")
+    parser.add_argument(
+        "--overrides",
+        help="Private override-map path; defaults to REVIEWER_OVERRIDES_PATH.",
+    )
     args = parser.parse_args(argv)
 
     if not args.user:
         return 0
-
-    handle = load_overrides().get(args.user)
+    handle = load_overrides(
+        args.overrides or os.environ.get("REVIEWER_OVERRIDES_PATH")
+    ).get(args.user)
     if handle:
         print(handle)
     return 0
