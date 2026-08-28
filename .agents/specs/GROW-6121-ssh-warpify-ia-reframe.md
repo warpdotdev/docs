@@ -1,6 +1,6 @@
 *Spec: SSH/Warpify docs information-architecture reframe*
 
-_Ticket: pending — Linear was unreachable factory-wide at spec time. This is the carved-out other half of [GROW-6086](https://linear.app/warpdotdev/issue/GROW-6086/update-terminal-docs) (see [PR #595](https://github.com/warpdotdev/docs/pull/595), Follow-ups). Once the ticket is created, this line and the spec filename will be updated with the real issue id._
+_Ticket: [GROW-6121](https://linear.app/warpdotdev/issue/GROW-6121/sshwarpify-docs-information-architecture-reframe). This is the carved-out other half of [GROW-6086](https://linear.app/warpdotdev/issue/GROW-6086/update-terminal-docs) (see [PR #595](https://github.com/warpdotdev/docs/pull/595), Follow-ups). Linear was unreachable factory-wide during the initial spec-alignment round; the ticket was created once connectivity was restored, after the requester had already approved the spec._
 
 == PRODUCT ==
 
