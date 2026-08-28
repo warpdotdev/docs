@@ -42,6 +42,12 @@ Use an environment when your run needs a predictable toolchain and repeatable se
 
 You can skip an environment for an interactive local run in a working checkout. The local agent uses your existing machine setup.
 
+<a id="container-user-and-permissions"></a>
+
+## Container users and permissions
+
+Cloud agents run as a non-root user inside the container. See [configuring container users](environments/configuring-environments/#configure-container-users) for image, setup-command, and migration requirements.
+
 ## Related pages
 
 * [Configuring cloud agent environments](environments/configuring-environments/) to create, configure, and manage environments.
