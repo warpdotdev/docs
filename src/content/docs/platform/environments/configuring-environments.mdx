@@ -68,6 +68,27 @@ oz environment create \
 
 Replace `ENVIRONMENT_NAME` with a human-readable label, `IMAGE_REFERENCE` with a Docker Hub image, `OWNER/REPO` with a repository to clone, `SETUP_COMMAND` with a workspace command, and `DESCRIPTION` with an optional summary. Repeat `--repo` and `--setup-command` for each additional repository or command.
 
+## Environment design and best practices
+
+Design the image and setup commands so they produce the same workspace on every run.
+
+* **Keep setup repeatable** - Write setup commands that are safe to rerun and produce the same toolchain and workspace state for a given repository revision.
+* **Pin toolchain versions** - Pin language runtimes and core tools in a Docker image, then use lockfiles such as `package-lock.json` for dependencies.
+* **Define the workspace boundary** - In a multi-repo environment, state which repositories are cloned and where setup commands run.
+* **Make prerequisites explicit** - Add any required build, code generation, or system-package installation steps to the setup commands.
+
+```bash
+# Repeatable setup
+mkdir -p .cache
+npm ci
+
+# Setup that can fail on rerun or drift over time
+mkdir .cache
+npm install
+```
+
+If setup commands need credentials, configure [Agent Secrets](/platform/secrets/) instead of hardcoding tokens.
+
 ## Configure container users
 
 Cloud agents run as a non-root user inside the container. Configure your image and setup commands for that user before you create the environment.
