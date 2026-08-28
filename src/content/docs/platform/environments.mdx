@@ -7,9 +7,11 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-Environments give cloud agents the same container, repositories, and setup every time they run. Use an environment for a cloud agent run that needs a repeatable toolchain. Interactive local runs use your current checkout and machine setup, so they don't need one.
+Environments describe how an agent executes a task, not what it does. They give cloud agents the same container, repositories, and setup every time they run. Use an environment for a cloud agent run that needs a repeatable toolchain. Interactive local runs use your current checkout and machine setup, so they don't need one.
 
 ## What an environment includes
+
+An environment groups the runtime configuration for a cloud agent run:
 
 * **Docker image** - The image that provides the toolchain and dependencies for your code. A self-hosted Kubernetes worker with a [`default_image`](/platform/self-hosting/managed-kubernetes/) can run without a separate environment.
 * **Repositories** - One or more repos that the agent clones into its workspace.
@@ -17,11 +19,11 @@ Environments give cloud agents the same container, repositories, and setup every
 * **Environment variables** - Runtime values that you set in the Docker image or container configuration.
 * **Agent Secrets** - Credentials and sensitive values that Warp injects at runtime. Configure them separately with [Agent Secrets](/platform/secrets/).
 
-Warp provides [prebuilt dev images](https://github.com/warpdotdev/oz-dev-environments) with common languages and tools. You can also use an official image or publish your own.
+Together, these settings create a fresh workspace for each run. Warp provides [prebuilt dev images](https://github.com/warpdotdev/oz-dev-environments) with common languages and tools. You can also use an official image or publish your own.
 
 ## How environments fit into cloud agent runs
 
-The {VARS.WARP_AUTOMATION_PLATFORM} uses an environment when it starts a cloud agent run. The environment supplies the workspace and toolchain. A host supplies the compute that runs it.
+When the {VARS.WARP_AUTOMATION_PLATFORM} starts a cloud agent run, it combines the environment with a host, an agent profile, and task-specific context. Each part serves a distinct purpose:
 
 * **Host** - Determines where the run executes. Choose [Warp-hosted](warp-hosting/) infrastructure or [self-hosted](/platform/self-hosting/) runners.
 * **Agent Profiles** - Set the agent's permissions, model choice, and defaults. See [Agent Profiles](/agents/capabilities/agent-profiles-permissions/).
@@ -31,7 +33,7 @@ The {VARS.WARP_AUTOMATION_PLATFORM} uses an environment when it starts a cloud a
 
 ## When to use an environment
 
-Use an environment when your run needs a predictable toolchain and repeatable setup.
+Use an environment when your run needs a predictable toolchain and repeatable setup. This is common in the following cases:
 
 * **Integrations and schedules** - Runs from Slack, Linear, GitHub Actions, or a schedule need the same workspace each time.
 * **CI and remote automation** - An environment prevents different runners or base images from changing the result.
