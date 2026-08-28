@@ -528,6 +528,10 @@ GET /factory/{uid}/integrations/linear/users -> internal
 GET /factory/{uid}/integrations/linear/workflow-states -> internal
 GET /factory/{uid}/integrations/slack/conversations -> internal
 GET /factory/{uid}/integrations/slack/users -> internal
+# Issue-tracker issue picker and Slack connection-test greeting used by the
+# factory integrations UI. Same unreleased `/factory` namespace as siblings above.
+GET /factory/{uid}/integrations/issue-tracker/issues -> internal
+POST /factory/{uid}/integrations/slack/connection-test-greeting -> internal
 # Factory benchmark suites and benchmark runs
 # (router/handlers/public_api/benchmarks.go). Same unreleased Factory product as
 # the routes above, and absent from warp-server's canonical public spec.
