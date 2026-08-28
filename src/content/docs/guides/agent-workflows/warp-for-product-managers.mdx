@@ -7,12 +7,12 @@ tags:
   - "agents"
 
 ---
-Most PM work involves gathering information, synthesizing it, and communicating the result. These five workflows use Warp agents and MCP servers to automate research and speed up synthesis. You'll spend less time switching between tools and more time making decisions. Each workflow takes 5–10 minutes to set up.
+Most PM work involves gathering information, synthesizing it, and communicating the result. These five workflows use agents in Warp and MCP servers to gather context and speed up synthesis. You'll spend less time switching between tools and more time making decisions. Each workflow takes 5–10 minutes to set up.
 
 ## Prerequisites
 
 * **Warp** - Install Warp and sign in. See [Installation and setup](/getting-started/quickstart/installation-and-setup/).
-* **MCP servers (optional but recommended)** - MCP servers connect agents to tools and data sources such as Slack, Linear, and Notion. See [MCP](https://docs.warp.dev/agents/capabilities/mcp/) for setup instructions. Each workflow below identifies the MCP servers it uses and includes a fallback for users without MCP.
+* **MCP servers** (optional but recommended) - Connect agents to tools and data sources such as Slack, Linear, and Notion. See [MCP](https://docs.warp.dev/agents/capabilities/mcp/) for setup instructions. Each workflow identifies the servers it uses and includes a fallback.
 
 :::note
 These workflows work with the Warp Agent or third-party CLI agents running in Warp, including Claude Code, Codex, OpenCode, and Gemini CLI. See [Third-party CLI agents](https://docs.warp.dev/agents/cli-agents/overview/) for the full list.
@@ -23,7 +23,7 @@ These workflows work with the Warp Agent or third-party CLI agents running in Wa
 Compiling a status update across multiple projects usually means opening Slack, Linear, Notion, and email in separate tabs, reading through each one, and manually synthesizing a summary. With MCP-connected agents, you can pull context from all of these tools in a single prompt.
 
 1. Tell the agent which projects, tools, and time range to cover. Be specific about the audience and format you need.
-2. Submit a prompt that queries your connected tools. For example, enter the following.
+2. Submit a prompt that queries your connected tools. For example:
 
 ```text
 Pull updates from the last week across #project-atlas and #project-beacon
@@ -40,15 +40,14 @@ You'll have a formatted status update ready to paste into Slack or email.
 This workflow uses Slack, Linear, and Notion MCP servers.
 
 :::note
-**Without MCP**
-Copy relevant updates from each tool and paste them into your prompt. Ask the agent to synthesize and format the summary. The workflow remains the same, but MCP automates the gathering step.
+**Without MCP:** Copy relevant updates from each tool and paste them into your prompt. Ask the agent to synthesize and format the summary. The workflow remains the same, but MCP automates the gathering step.
 :::
 
 ## 2. Draft documents from the terminal
 
 Writing a rollout doc, product brief, or strategy doc usually starts with a blank page in Google Docs or Notion. Instead, describe what you need to the agent and iterate on a draft without leaving Warp.
 
-1. Describe the document type, audience, and structure. For example, ask the agent for the following.
+1. Describe the document type, audience, and structure. For example, ask the agent for the following:
 
 ```text
 Draft a product brief for a new onboarding flow redesign. The audience
@@ -65,15 +64,14 @@ You'll have a structured first draft, grounded in your specific context and read
 This workflow can use the Notion MCP server to push content directly.
 
 :::note
-**Without MCP**
-Copy the finished draft and paste it into your documentation tool.
+**Without MCP:** Copy the finished draft and paste it into your documentation tool.
 :::
 
 ## 3. Search Slack for meeting prep
 
 Before a meeting or project check-in, you often need to catch up on activity across multiple Slack channels. Reading through 10 or more channels manually takes time. With the Slack MCP server, you can search and summarize in one prompt.
 
-1. Tell the agent which channels and time range to search. For example, enter the following.
+1. Tell the agent which channels and time range to search. For example:
 
 ```text
 Search #eng-backend, #design-reviews, #project-atlas, and
@@ -90,16 +88,15 @@ You'll have a briefing document that summarizes recent activity across channels.
 This workflow uses the Slack MCP server.
 
 :::note
-**Without MCP**
-Copy key messages or thread summaries from Slack and paste them into your prompt. Ask the agent to organize and summarize them. This works well for a smaller number of channels.
+**Without MCP:** Copy key messages or thread summaries from Slack and paste them into your prompt. Ask the agent to organize and summarize them. This works well for a smaller number of channels.
 :::
 
 ## 4. Run parallel workstreams in tabs
 
-PM work often involves several threads at once, such as researching a competitor, drafting a brief, and reviewing a teammate's document. Warp's vertical tabs let you run separate agent sessions side by side, each focused on a different task.
+PM work often involves several threads at once, such as researching a competitor, drafting a brief, and reviewing a teammate's document. Warp's vertical tabs let you run separate agent sessions side by side, with each focused on a different task. To enable vertical tabs:
 
 1. In the Warp app, go to **Settings** > **Appearance** > **Tabs**, then toggle **Use vertical tab layout** on.
-2. Open a separate tab for each workstream, and give each tab a clear deliverable. Use prompts such as the following.
+2. Open a separate tab for each workstream, and give each tab a clear deliverable:
    * **Competitor research (Tab 1)** - Ask the agent to compare competitor pricing, packaging, and positioning, then return a five-bullet summary with source links.
    * **Product brief (Tab 2)** - Ask the agent to draft a product brief with a problem statement, target users, success metrics, and open questions.
    * **Stakeholder update (Tab 3)** - Ask the agent to summarize relevant Slack threads into decisions, risks, and next steps.
@@ -113,7 +110,7 @@ When thinking through a brief, strategy doc, or stakeholder update, talking is o
 
 1. Click the **microphone icon** in the input area or press the voice input key to start recording. By default, the voice input key is `fn`.
 2. Talk through your document naturally. Describe the problem, your proposed approach, open questions, and next steps. Don't worry about structure or polish.
-3. After the transcription appears, submit this follow-up prompt.
+3. After the transcription appears, submit this follow-up prompt:
 
 ```text
 Clean up that transcription into a structured strategy doc. Add an
