@@ -100,7 +100,7 @@ Use filters to route work precisely. For example, send failed runs of a specific
 Handing an issue or pull request to a factory takes two things:
 
 1. **Add the factory's label.** Each factory has one, derived from its [alias](/factories/factory-as-code/#alias) (the **Foreman name** under **Settings** > **Identity** in the factory dashboard) as `factory:<alias>`. Warp normalizes the alias and shortens it if needed so the full name stays within GitHub's label limit. For example, alias `payments` uses `factory:payments`, not the factory's display name. Warp attempts, asynchronously and best-effort, to create the label in each configured GitHub user repository covered by an active GitHub App installation. If that attempt fails, the label can be missing from the list.
-2. **Mention or assign @warp-factory** in the opening body or in a new comment.
+2. Mention **@warp-factory** in the opening body or a new comment, or assign **@warp-factory** with GitHub's assignee control.
 
 {/* VISUAL: An issue with the factory:<alias> label and an @warp-factory mention -- the two-part mention ritual is easy to miss from prose alone. */}
 
