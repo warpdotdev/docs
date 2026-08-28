@@ -106,7 +106,14 @@ See [model choice for agents](/agents/inference/model-choice/) and [harnesses fo
 Change an agent's harness to Claude Code or Codex to run it with that provider's own coding tool instead of the Warp Agent.
 
 1. Open the agent's settings (see [Configure agent behavior](#configure-agent-behavior)) and choose **Claude Code** or **Codex** in the **Harness** field. Third-party harnesses require a Build plan or higher; without one, you can only use the Warp Agent harness until your team upgrades or an admin enables it.
-2. Choose or create a credential in the **Auth** field that appears below **Harness**. The dropdown lists compatible, team-owned secrets: Claude Code accepts an Anthropic API key, an Anthropic Bedrock API key, or an Anthropic Bedrock access key; Codex accepts an OpenAI API key. Pick an existing secret, or choose **New auth secret** to store one without leaving the page. See [connecting Claude Code credentials](/platform/harnesses/authentication/#connecting-claude-code-credentials) and [connecting Codex credentials](/platform/harnesses/authentication/#connecting-codex-credentials) for how to obtain each key.
+3. In the **Auth** field, choose a compatible, team-owned secret from the list or click **New auth secret** to create one. 
+
+:::note
+* Claude Code accepts an Anthropic API key, Anthropic Bedrock API key, or Anthropic Bedrock access key.
+* Codex accepts an OpenAI API key. 
+
+See [connecting Claude Code credentials](/platform/harnesses/authentication/#connecting-claude-code-credentials) and [connecting Codex credentials](/platform/harnesses/authentication/#connecting-codex-credentials) for how to obtain a each key.
+:::
 3. Choose a **Model** from that harness's own catalog. Changing harness clears any previously selected model and auth, so reselect both. A Codex model option pairs a model with a reasoning level (for example, `gpt-5.5 (high)`).
 4. Click **Save changes** to confirm the agent's new **Harness**, **Auth**, and **Model**.
 
