@@ -1,0 +1,44 @@
+---
+title: Troubleshooting cloud agent environments
+description: >-
+  Fix environment setup failures, authorization errors, permission problems, and incompatible Docker images for cloud agents.
+---
+import { VARS } from '@data/vars';
+
+## Setup commands fail on a fresh container
+
+Setup commands run in a new container on every cloud agent run. Commands that depend on existing directories, caches, or cloned repositories can fail with [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/).
+
+1. Update the setup commands so they work in a fresh container. For example, use `mkdir -p .cache` instead of `mkdir .cache`.
+2. Use lockfile-based dependency commands such as `npm ci` when your project supports them.
+3. Run the complete setup from a clean container before updating the environment.
+
+## `Permission denied` or `EACCES`
+
+Cloud agents run as a non-root user by default. A command fails when it needs root access or writes to a directory that the agent user cannot modify.
+
+1. Prefix commands that require root access with `sudo`.
+2. Make directories in the Docker image writable by UID and GID 1000.
+3. Review [configuring container users](configuring-environments/#configure-container-users) for the image and setup-command requirements.
+
+## `external_authentication_required`
+
+Cloud agents need GitHub authorization to clone private repositories. This error can occur when GitHub lacks repository access or the user who started the run has not authorized GitHub.
+
+1. Authorize GitHub for the user who starts the run.
+2. For an automated workflow with an agent API key, configure [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization).
+3. Follow [GitHub authorization setup](/reference/cli/integration-setup/#how-github-authorization-works) for the full flow.
+
+## "VM failed before the agent could run"
+
+This error often means the Docker image is incompatible with the agent runtime. Alpine Linux and other musl-based images are not supported because the runtime requires glibc.
+
+1. Switch to a glibc-based image such as Debian, Ubuntu, or a default non-Alpine official image such as `node`, `python`, or `rust`.
+2. Recreate or update the environment with the new image.
+3. If the error continues, review the environment configuration in the {VARS.WEB_APP} or run `oz environment get <ENV_ID>`.
+
+## Related pages
+
+* [Cloud agent environments](/platform/environments/) for the environment model and when to use one.
+* [Configuring cloud agent environments](configuring-environments/) to create, update, and manage environments.
+* [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/) for the API error reference.

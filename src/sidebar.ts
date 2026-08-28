@@ -551,7 +551,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Environments',
 					items: [
-						'platform/environments',
+						{ slug: 'platform/environments', label: 'Overview' },
+						{ slug: 'platform/environments/configuring-environments', label: 'Configuring environments' },
+						{ slug: 'platform/environments/troubleshooting-environments', label: 'Troubleshooting' },
 						{ slug: 'platform/runners', label: 'Runners' },
 					],
 				},
