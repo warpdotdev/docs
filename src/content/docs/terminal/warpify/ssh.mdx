@@ -25,19 +25,7 @@ A few properties worth knowing:
 
 ## What you get over SSH
 
-Once the SSH extension is installed on a remote host, the following features work the same way they do locally:
-
-* **File tree (Project Explorer)** - The left panel reflects the remote project's structure and updates as you `cd` between directories or change files. See [File Tree](/code/code-editor/file-tree/).
-* **Code editor on remote files** - Open remote files in Warp's [code editor](/code/code-editor/) from the file tree or the Command Palette, edit them, and save back to the remote host. Warp keeps the buffer in sync with the remote file and surfaces a conflict resolution prompt if the file changes on disk while you have unsaved edits.
-* **Code review and git operations** - The [code review panel](/code/code-review/) works on remote repositories, including reviewing diffs, discarding files, committing, pushing, and creating PRs. AI-generated commit messages and PR descriptions are produced on the remote host, so large diffs never leave the machine.
-* **Codebase indexing** - Warp indexes the remote repository so Agents can semantically search the remote codebase, just like [Codebase Context](/agents/capabilities/codebase-context/) locally.
-* **File search** - Search for remote files by name from the [Command Palette](/terminal/command-palette/).
-* **Project rules and skills** - Agents discover and use the remote project's rules (`WARP.md`) and skills, the same as in a local repo.
-* **Native file reads and code diffs** - The Agent reads files and applies edits through Warp's built-in diff tool. Code changes show up as inline diffs you can review and approve, instead of being applied via `sed` or other shell commands. See [Code diffs](/agents/local-agents/code-diffs/).
-* **Reliable completions and autosuggestions** - Generators run in parallel over a single multiplexed connection instead of opening a new SSH session per command, so completions stop hitting the remote host's `MaxSessions` ceiling and stop occasionally injecting errors into your blocks.
-* **All core terminal features** - The input editor, blocks, command history, autosuggestions, and history search behave the same as in a local session.
-
-For a full breakdown of what works over SSH and what doesn't, see [Feature support over SSH](/code/ssh-feature-support/).
+Once the SSH extension is installed on a remote host, most of Warp's coding features work the same way they do locally. See [Feature support over SSH](/code/ssh-feature-support/) for the full breakdown of what's included and what isn't. Headline features include a real file tree backed by the remote filesystem, Warp's code editor and code review on remote files, codebase indexing for the remote repo, and native code diffs applied through Warp's built-in diff tool instead of `sed`. Core terminal features like the input editor, blocks, and completions also work the same as they do locally.
 
 ![Warp prompting to Warpify a freshly-connected SSH session.](../../../../assets/terminal/warpify_ssh_prompt.png)
 
@@ -52,6 +40,8 @@ The SSH extension has the following requirements on the remote host:
 * **Home directory and Unix sockets** - The install writes only under `~/.warp*/`, so your home directory must be writable. The server also needs to create Unix domain sockets under your home directory and run as a background process under your user.
 * **Outbound HTTPS for install** - The install script downloads the server binary from `app.warp.dev` using `curl` or `wget`, so the host needs outbound HTTPS access to `app.warp.dev`. If neither `curl` nor `wget` is available, Warp uploads the binary over the SSH connection instead.
 * **Outbound HTTPS for account-backed features** - Features that use your Warp account, such as codebase indexing and AI-generated commit messages, require the server on the remote host to reach Warp's servers over HTTPS. The server authenticates with credentials forwarded from your local Warp session over the SSH connection; you never log in on the remote host. Core features like the file tree, file reads and edits, and completions work without any outbound access from the host.
+
+When a host doesn't meet these requirements, or when [SSH extension install mode](/terminal/settings/all-settings/#ssh) is set to **Never install**, Warp falls back to the [legacy SSH wrapper](/terminal/warpify/ssh-legacy/).
 
 :::note
 We are actively working on extending support to older glibc versions and more operating systems.
@@ -82,11 +72,7 @@ The same setting can also be changed inline from the install prompt by selecting
 
 ## Legacy: tmux-based Warpification
 
-Tmux-based Warpification is an older approach to enabling Warp features in SSH sessions that uses [`tmux`](https://github.com/tmux/tmux/wiki) to multiplex commands over your SSH connection. The SSH extension supersedes it entirely.
-
-:::caution
-Tmux-based Warpification is **deprecated**. It will not receive new features, updates, or fixes, and it will eventually be removed. Use the SSH extension instead.
-:::
+Tmux-based Warpification was an older approach to enabling Warp features in SSH sessions that used [`tmux`](https://github.com/tmux/tmux/wiki) to multiplex commands over your SSH connection. It has been removed in favor of the SSH extension described on this page.
 
 ## FAQs
 
