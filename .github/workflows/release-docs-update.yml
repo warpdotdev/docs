@@ -249,9 +249,33 @@ jobs:
             LAST_REVIEWER="hongyi-chen"
           fi
 
+          # A helper for the reviewRequests read-back: `gh pr edit` can exit 0
+          # while quietly failing to add a reviewer, so the read-back — not the
+          # exit code — decides whether the hard dannyneira fallback runs.
+          read_requested() {
+            gh pr view "$PR_NUMBER" --repo warpdotdev/docs \
+              --json reviewRequests --jq '[.reviewRequests[] | .login // .slug // .name] | join(",")'
+          }
+          has_reviewer() {
+            local want target requested
+            want=$(printf '%s' "$1" | tr 'A-Z' 'a-z')
+            requested=$(read_requested)
+            IFS=',' read -ra _have <<< "$requested"
+            for target in "${_have[@]}"; do
+              [[ "$(printf '%s' "$target" | tr 'A-Z' 'a-z')" == "$want" ]] && return 0
+            done
+            return 1
+          }
+
           echo "Assigning reviewer: $LAST_REVIEWER"
-          gh pr edit "$PR_NUMBER" --add-reviewer "$LAST_REVIEWER" --repo warpdotdev/docs 2>&1 || {
-            echo "::warning::Could not assign $LAST_REVIEWER as reviewer — falling back to dannyneira"
+          gh pr edit "$PR_NUMBER" --add-reviewer "$LAST_REVIEWER" --repo warpdotdev/docs 2>&1 || \
+            echo "::warning::gh pr edit exited nonzero for $LAST_REVIEWER — verifying via read-back"
+
+          if ! has_reviewer "$LAST_REVIEWER"; then
+            echo "::warning::$LAST_REVIEWER is not on the reviewRequests read-back — falling back to dannyneira"
             gh pr edit "$PR_NUMBER" --add-reviewer dannyneira --repo warpdotdev/docs 2>&1 || \
               echo "::warning::Could not assign dannyneira as reviewer"
-          }
+            if ! has_reviewer "dannyneira"; then
+              echo "::warning::dannyneira is not on the reviewRequests read-back either — no reviewer could be confirmed on PR #$PR_NUMBER"
+            fi
+          fi

@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 """Regression tests for the reviewer-request snippet in create_pr/SKILL.md.
 
-The tests extract the documented bash snippet and run it against stubbed `gh`,
-`suggest_reviewers.py`, and `factory-resolve-reviewer` commands. This exercises
-the text users copy rather than a paraphrased implementation.
+The tests extract the documented bash snippet and run it against a stubbed
+`gh` and `suggest_reviewers.py`. Most cases also stub the requester-tier
+resolver to drive specific resolutions deterministically, but
+`test_real_resolver_*` below runs the actual checked-in
+`resolve_reviewer.py` + `reviewer_overrides.json` unmodified, so the
+requester tier is proven callable from a plain docs checkout rather than
+assumed from a stub. This exercises the text users copy rather than a
+paraphrased implementation.
 
 Run with: python3 .agents/skills/create_pr/test_request_reviewers.py
 """
@@ -11,6 +16,7 @@ Run with: python3 .agents/skills/create_pr/test_request_reviewers.py
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -116,6 +122,7 @@ class ReviewerSnippetTest(unittest.TestCase):
         requester_slack_id=None,
         requester_resolved="",
         secondary_fallback=None,
+        use_real_requester_resolver=False,
     ):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -132,9 +139,23 @@ class ReviewerSnippetTest(unittest.TestCase):
             resolver.write_text(RESOLVER_STUB, encoding="utf-8")
             resolver.chmod(0o755)
 
-            requester_resolver = root / "scripts/factory-resolve-reviewer"
+            requester_resolver = (
+                root / ".agents/skills/create_pr/resolve_reviewer.py"
+            )
             requester_resolver.parent.mkdir(parents=True)
-            requester_resolver.write_text(REQUESTER_RESOLVER_STUB, encoding="utf-8")
+            if use_real_requester_resolver:
+                # Copy the actual checked-in resolver + override map (not a
+                # stub) so the test exercises the real requester tier exactly
+                # as a plain docs checkout would run it.
+                shutil.copy(HERE / "resolve_reviewer.py", requester_resolver)
+                shutil.copy(
+                    HERE / "reviewer_overrides.json",
+                    requester_resolver.parent / "reviewer_overrides.json",
+                )
+            else:
+                requester_resolver.write_text(
+                    REQUESTER_RESOLVER_STUB, encoding="utf-8"
+                )
             requester_resolver.chmod(0o755)
 
             state_file = root / "state.json"
@@ -223,15 +244,57 @@ class ReviewerSnippetTest(unittest.TestCase):
             result.stdout,
         )
 
-    def test_unrelated_reviewer_does_not_mask_fallback_failure(self):
+    def test_real_resolver_resolves_seeded_requester(self):
+        """Runs the actual resolve_reviewer.py + reviewer_overrides.json
+        checked into this repo (not a stub) against the requester seeded for
+        this chain's design, proving the requester tier genuinely resolves
+        from a plain docs checkout instead of always falling through."""
+        result, state, calls = self.run_snippet(
+            requester_slack_id="U0A1Z732333",  # rachaelrenk's seeded Slack id
+            use_real_requester_resolver=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(state, ["rachaelrenk"])
+        self.assertEqual(self.requested_reviewers(calls), ["rachaelrenk"])
+
+    def test_real_resolver_falls_through_for_unknown_requester(self):
+        """An id absent from the real override map must fall through to the
+        secondary fallback rather than erroring or guessing."""
+        result, state, calls = self.run_snippet(
+            requester_slack_id="U_NOT_IN_OVERRIDES",
+            use_real_requester_resolver=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(state, ["hongyi-chen"])
+
+    def test_hyc_rejection_falls_through_to_final_fallback(self):
+        """A HYC rejection must not stop the chain - dannyneira is attempted
+        next and its landing is confirmed via read-back, not assumed."""
         result, state, calls = self.run_snippet(
             initial=["carol"], reject="hongyi-chen"
         )
+        self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("hongyi-chen", self.requested_reviewers(calls))
+        self.assertIn("dannyneira", self.requested_reviewers(calls))
+        self.assertEqual(set(state), {"carol", "dannyneira"})
+        self.assertIn(
+            "hongyi-chen rejected - advancing to final fallback dannyneira",
+            result.stdout,
+        )
+
+    def test_unrelated_reviewer_does_not_mask_fallback_failure(self):
+        """When even the final dannyneira safety net is rejected, the run must
+        fail loudly rather than quietly accept the unrelated pre-existing
+        reviewer as if the fallback chain had succeeded."""
+        result, state, calls = self.run_snippet(
+            initial=["carol"], reject="hongyi-chen,dannyneira"
+        )
+        self.assertIn("hongyi-chen", self.requested_reviewers(calls))
+        self.assertIn("dannyneira", self.requested_reviewers(calls))
         self.assertEqual(state, ["carol"])
         self.assertNotEqual(result.returncode, 0)
         self.assertIn(
-            "ERROR: fallback hongyi-chen could not be requested on PR 123",
+            "ERROR: fallback dannyneira could not be requested on PR 123",
             result.stdout,
         )
         self.assertNotIn("note: no owner resolved", result.stdout)

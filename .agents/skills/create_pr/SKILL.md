@@ -279,9 +279,11 @@ So the mention stays, and a real request is added alongside it. **A PR is not co
 
 A resolution failure must fall back, never no-op. When no owner resolves — the common case for a small, ambient/agent-generated docs PR — prefer the run's requester next, then a secondary human fallback, and only then `dannyneira` as the final safety net (the release docs workflow keeps its own last-resort `dannyneira` fallback too — `.github/workflows/release-docs-update.yml`, "Assign last docs PR reviewer"). An unassignable reviewer is a problem to surface, not a reason to ship an unreviewed PR.
 
-The full priority chain, in order: (1) the CODEOWNERS/git-blame owner from `suggest_reviewers.py`; (2) the run's requester, resolved the same Slack-first way `factory-github-ops` resolves any requester (`scripts/factory-resolve-reviewer --user <requester_slack_id> --repo warpdotdev/docs`, which checks `reviewer_overrides.json` first, then a public-email search); (3) a secondary human fallback, currently `hongyi-chen` ("HYC"); (4) `dannyneira`. This repo has no `reviewer_overrides.json` of its own — the factory-agents-level `scripts/reviewer_overrides.json` is the source of truth for step 2's override lookups.
+The full priority chain, in order: (1) the CODEOWNERS/git-blame owner from `suggest_reviewers.py`; (2) the run's requester, resolved via this repo's own `.agents/skills/create_pr/resolve_reviewer.py --user <requester_slack_id>`; (3) a secondary human fallback, currently `hongyi-chen` ("HYC"); (4) `dannyneira`.
 
-The requester behind this chain's design (Slack id `U0A1Z732333`, GitHub `rachaelrenk`) is now on file in `scripts/reviewer_overrides.json` (factory-agents-level), so setting `REQUESTER_SLACK_ID` below to their Slack id resolves step 2 directly instead of falling through to the secondary fallback.
+Step 2's resolver is a docs-repo-local script, not `factory-agents`' `scripts/factory-resolve-reviewer`: that script lives in the separate `factory-agents` repo and is not checked out alongside a normal `warpdotdev/docs` clone, so calling it by that relative path fails in a real docs run and silently falls through to the next tier. `resolve_reviewer.py` reads the checked-in `reviewer_overrides.json` (sibling to it, in this same directory) and does nothing else — no public-email search, no cross-repo assumptions — so the requester tier actually resolves from a plain docs checkout. Like `factory-resolve-reviewer`, it never guesses: an unresolved Slack id prints nothing and the chain moves to the next tier.
+
+The requester behind this chain's design (Slack id `U0A1Z732333`, GitHub `rachaelrenk`) is on file in this repo's `.agents/skills/create_pr/reviewer_overrides.json`, alongside the secondary fallback `hongyi-chen`, so setting `REQUESTER_SLACK_ID` below to their Slack id resolves step 2 directly instead of falling through to the secondary fallback. Add new entries there directly — this file does not sync from `factory-agents`' broader `scripts/reviewer_overrides.json`, which covers the wider roster for the whole factory pipeline.
 
 Two details below are load-bearing, and getting either wrong reintroduces the silent drop this section exists to prevent:
 
@@ -304,16 +306,19 @@ REVIEWERS=$(python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
 
 # 2. No code-owner resolved. For a small, ambient/agent-generated PR with no
 #    clear owner - the common case here - prefer the run's requester over
-#    paging dannyneira: resolve their GitHub handle the same Slack-first way
-#    factory-github-ops resolves any requester. Fall to the secondary human
-#    fallback next, and only then to the final dannyneira safety net. Never
-#    let an empty resolution drop the request. Track that this was a fallback
-#    so step 6 does not report it as an owner who was requested.
+#    paging dannyneira: resolve their GitHub handle via this repo's own
+#    checked-in override map (resolve_reviewer.py), which is callable from a
+#    plain docs checkout (unlike factory-agents' scripts/factory-resolve-reviewer,
+#    which lives in a separate repo that isn't checked out alongside this one).
+#    Fall to the secondary human fallback next, and only then to the final
+#    dannyneira safety net. Never let an empty resolution drop the request.
+#    Track that this was a fallback so step 6 does not report it as an owner
+#    who was requested.
 RESOLUTION_WAS_EMPTY=0
 if [[ -z "$REVIEWERS" ]]; then
   RESOLUTION_WAS_EMPTY=1
   if [[ -n "$REQUESTER_SLACK_ID" ]]; then
-    REVIEWERS=$(scripts/factory-resolve-reviewer --user "$REQUESTER_SLACK_ID" --repo warpdotdev/docs)
+    REVIEWERS=$(python3 .agents/skills/create_pr/resolve_reviewer.py --user "$REQUESTER_SLACK_ID")
   fi
   [[ -z "$REVIEWERS" ]] && REVIEWERS="$SECONDARY_FALLBACK_REVIEWER"
   [[ -z "$REVIEWERS" ]] && REVIEWERS="$FALLBACK_REVIEWER"
@@ -365,16 +370,27 @@ has_reviewer() {
 #    e.g. by a human) makes $REQUESTED non-empty even though the fallback was
 #    never assigned, which would skip re-requesting it here and then have the
 #    next step falsely report it as requested when it never landed.
-if (( RESOLUTION_WAS_EMPTY )); then
-  if ! has_reviewer "$REVIEWERS"; then
-    gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$REVIEWERS" ||
-      echo "warning: fallback $REVIEWERS could not be requested"
+request_fallback() {
+  local candidate="$1"
+  if ! has_reviewer "$candidate"; then
+    gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$candidate" ||
+      echo "warning: fallback $candidate could not be requested"
     REQUESTED=$(read_requested)
   fi
+}
+
+if (( RESOLUTION_WAS_EMPTY )); then
+  request_fallback "$REVIEWERS"
+  if [[ "$REVIEWERS" != "$FALLBACK_REVIEWER" ]] && ! has_reviewer "$REVIEWERS"; then
+    # The settled-on fallback (requester tier or HYC) was rejected - a
+    # rejection at this tier must still reach the final dannyneira safety net
+    # rather than stopping here.
+    echo "warning: $REVIEWERS rejected - advancing to final fallback $FALLBACK_REVIEWER"
+    REVIEWERS="$FALLBACK_REVIEWER"
+    request_fallback "$REVIEWERS"
+  fi
 elif [[ -z "$REQUESTED" ]]; then
-  gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$FALLBACK_REVIEWER" ||
-    echo "warning: fallback $FALLBACK_REVIEWER could not be requested"
-  REQUESTED=$(read_requested)
+  request_fallback "$FALLBACK_REVIEWER"
 fi
 
 if [[ -z "$REQUESTED" ]]; then
