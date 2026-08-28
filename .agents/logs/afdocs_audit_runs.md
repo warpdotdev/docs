@@ -25,6 +25,14 @@ For a `blocked` run, omit the score line rather than recording the meaningless v
 
 ---
 
+## 2026-08-28 — valid
+- **Score**: 86/100 (B)
+- **Checks**: 23 total — 17 pass, 2 fail, 2 warn
+- **Failing check ids**: llms-txt-links-markdown, content-negotiation
+- **Allowlisted**: 4
+- **Oz run**: https://oz.warp.dev/runs/01a04762-139a-7f02-8a22-28c574a00654
+- **Notes**: Score up from 76/100 (2026-08-21). Both failures and both warnings match known-exceptions.md (OpenAPI links in llms.txt; Vercel static Accept negotiation; Turndown escaping parity; 1/50 sampled md page missing directive — sampling noise, /api.md has no Starlight md variant by design). No genuine remaining issues; skipped afdocs-fix. markdown-url-support 50/50. page-size checks passed this sample.
+
 ## 2026-08-21 — valid
 - **Score**: 76/100 (C)
 - **Checks**: 23 total — 15 pass, 4 fail, 2 warn
