@@ -181,7 +181,7 @@ harness:
 
 For a third-party harness, `auth` sets where credentials come from: `source: managedSecret` reads the [managed secret](/platform/secrets/) named by `secretName`, and `source: workerEnvironment` reads them from your self-hosted worker's environment (and requires a self-hosted `workerHost`). The `oz` harness supplies its own credentials and takes no `auth` or `reasoningLevel`.
 
-For a definition that runs a different harness per agent, with managed-secret auth for Claude Code and Codex, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness).
+For a definition that runs a different harness per agent, with managed-secret auth for Claude Code and Codex, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness). To configure the same third-party harness from the dashboard instead, see [configuring a third-party harness](/factories/factory-agents/#configuring-a-third-party-harness).
 
 ### `agentDefaults.runner`
 
