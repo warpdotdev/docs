@@ -281,7 +281,7 @@ A resolution failure must fall back, never no-op. When no owner resolves — the
 
 The full priority chain, in order: (1) the CODEOWNERS/git-blame owner from `suggest_reviewers.py`; (2) the run's requester, resolved the same Slack-first way `factory-github-ops` resolves any requester (`scripts/factory-resolve-reviewer --user <requester_slack_id> --repo warpdotdev/docs`, which checks `reviewer_overrides.json` first, then a public-email search); (3) a secondary human fallback, currently `hongyi-chen` ("HYC"); (4) `dannyneira`. This repo has no `reviewer_overrides.json` of its own — the factory-agents-level `scripts/reviewer_overrides.json` is the source of truth for step 2's override lookups.
 
-**TODO for a human:** the requester behind this chain's design (Slack id `U0A1Z732333`) did not resolve to a GitHub handle automatically (no public email and no override on file). Confirm their GitHub username and add it to `scripts/reviewer_overrides.json` (factory-agents-level) so future runs from them resolve step 2 automatically, then set `REQUESTER_SLACK_ID` below to exercise it end to end.
+The requester behind this chain's design (Slack id `U0A1Z732333`, GitHub `rachaelrenk`) is now on file in `scripts/reviewer_overrides.json` (factory-agents-level), so setting `REQUESTER_SLACK_ID` below to their Slack id resolves step 2 directly instead of falling through to the secondary fallback.
 
 Two details below are load-bearing, and getting either wrong reintroduces the silent drop this section exists to prevent:
 
