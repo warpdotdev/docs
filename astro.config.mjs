@@ -86,6 +86,9 @@ export default defineConfig({
 				dark: './src/assets/warp-logo-dark.svg',
 				replacesTitle: true,
 			},
+			// Explicit alongside the PNG/touch-icon links below (favicon.svg is
+			// already Starlight's default) so the full icon set is declared together.
+			favicon: '/favicon.svg',
 			editLink: {
 				baseUrl: 'https://github.com/warpdotdev/docs/edit/main/',
 			},
@@ -145,7 +148,15 @@ export default defineConfig({
 				},
 				{
 					tag: 'link',
-					attrs: { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+					attrs: { rel: 'icon', href: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+				},
+				{
+					tag: 'link',
+					attrs: { rel: 'icon', href: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+				},
+				{
+					tag: 'link',
+					attrs: { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' },
 				},
 			],
 			customCss: ['./src/styles/custom.css', './src/styles/warp-components.css', './src/styles/kapa.css'],

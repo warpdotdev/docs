@@ -23,11 +23,11 @@ The **Dashboard** page shows activity, cost, autonomy, and evaluation results:
 | Metric | What it shows |
 | --- | --- |
 | **Total runs** | All agent runs, with breakdowns by agent type, status, source, model, and more. |
-| **PRs opened** | Pull requests created from factory work. |
-| **PRs merged** | Pull requests that merged. |
-| **Autonomy** | The share of the factory's merged PRs that needed no human input beyond an approving review and the merge itself. A PR counts as autonomous only if no person added commits, requested changes, or otherwise edited it before merge. |
+| **PRs opened** | Pull requests created from factory work, counted once, in the period they were first observed. |
+| **PRs merged** | Of the PRs opened in a period, how many later merged. Opened and merged draw from different data sources, so a period's merged count can occasionally read higher than its opened count for that period. |
+| **Autonomy** | The share of the factory's merged PRs that needed no human code push before merging. Opening the PR counts as a push, so a human-authored PR that a factory run later revised doesn't count as autonomous. |
 | **PR cycle time** | The median time the factory's merged PRs took from run kickoff through PR, first review, and merge, with a median for each stage. |
-| **Cost per PR** | An estimate of credits spent per pull request. |
+| **Cost per PR** | The median cost of PRs opened in the range, split evenly across a run's PRs when one run produces more than one. View it broken down by cost component or by PR size (S/M/L/XL, split at 100/500/1,000 changed lines). |
 | **Most expensive PRs** | The highest-cost pull requests. |
 | **Scorer cards** | Results from your Scorers. |
 | **Self-improvement PRs** | The three newest Self-improvement pull requests, regardless of the selected date range. |
@@ -35,7 +35,7 @@ The **Dashboard** page shows activity, cost, autonomy, and evaluation results:
 **Cost per PR** is an estimate, not a billing figure: it counts recorded credits and can undercount actual usage.
 
 :::caution
-**PRs merged**, **Autonomy**, **PR cycle time**, and the detail in **Most expensive PRs** require the GitHub App and only cover activity from after you install it.
+**PRs merged**, **Autonomy**, **PR cycle time**, and the detail in **Most expensive PRs** require a connected code host - the GitHub App, or the GitLab webhook Warp installs when you [connect GitLab](/factories/integrations/gitlab/) - and only cover activity from after you connect it. A PR's cost, creator, source, and requested model come from the run itself, so those still show without that connection.
 :::
 
 Use the **Dashboard** page to pick which runs to investigate, not to conclude what caused a change. **Total runs** includes evaluation, benchmark, and Self-improvement runs, so a higher run count with a flat PR count could mean harder tasks, retries, or measurement activity.

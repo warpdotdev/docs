@@ -112,14 +112,14 @@ The behavior differs based on where you start the long-running command:
 <Tabs>
   <TabItem label="From terminal view">
     1. Run an interactive command (e.g., `python`, `psql`)
-    2. Press `⌘↩` (macOS) or `Ctrl+Shift+Enter` (Windows/Linux), or use `⌘I` (macOS) / `Ctrl+I` (Windows/Linux), to tag in the agent
+    2. Press `⌘+Enter` (macOS) or `Ctrl+Shift+Enter` (Windows/Linux), or use `⌘+I` (macOS) / `Ctrl+I` (Windows/Linux), to tag in the agent
     3. The input switches to Agent Mode with full controls
     4. When you exit, an agent conversation block appears in your terminal block list
     5. Click the block to reopen the full conversation with your LRC interaction context
   </TabItem>
   <TabItem label="From agent view">
     1. The agent runs an interactive command as part of your conversation
-    2. Use `⌘↩` (macOS) or `Ctrl+Shift+Enter` (Windows/Linux) to tag in if the agent isn't already interacting
+    2. Use `⌘+Enter` (macOS) or `Ctrl+Shift+Enter` (Windows/Linux) to tag in if the agent isn't already interacting
     3. The UI stays the same since you're already in agent view
     4. When you exit, the interaction remains part of your conversation. No separate block is created in the terminal block list
     5. Commands run in agent view are automatically included as context
@@ -127,7 +127,7 @@ The behavior differs based on where you start the long-running command:
 </Tabs>
 
 :::note
-You can also use `CMD + I` (macOS) or `CTRL + I` (Windows/Linux) to toggle agent control in either view.
+You can also use `⌘+I` (macOS) or `Ctrl+I` (Windows/Linux) to toggle agent control in either view.
 :::
 
 #### Showing and hiding agent responses
@@ -136,7 +136,7 @@ Warp gives you control over how much agent output appears in Full Terminal Use.
 
 **Toggle visibility**
 
-Use the `Hide responses` or `Show responses` button or `CMD + G` in the interactive command footer to switch between showing all agent output or hiding it from the terminal view.
+Use the `Hide responses` or `Show responses` button or `⌘+G` in the interactive command footer to switch between showing all agent output or hiding it from the terminal view.
 
 Note that this only affects the agent's messages and proposals; your terminal state and command output remain unchanged.
 
@@ -157,10 +157,10 @@ You control how much autonomy the agent has when interacting with the terminal.
 
 Each time the agent wants to take an action inside an interactive shell, you’ll see the agent’s reasoning, a brief explanation, and the proposed command. From there you can:
 
-* Allow the command once (for example by approving it or pressing `ENTER`).
-* Turn on auto-approval for similar commands in this session (for example with `CMD + SHIFT + I`).
-* Refine the request with `CTRL + C`, which clears the proposed action and lets you follow up with a different query.
-* Take over manually with `CMD + I`, which stops the agent from issuing any further PTY writes until you hand control back.
+* Allow the command once (for example by approving it or pressing `Enter`).
+* Turn on auto-approval for similar commands in this session (for example with `⌘+Shift+I`).
+* Refine the request with `Ctrl+C`, which clears the proposed action and lets you follow up with a different query.
+* Take over manually with `⌘+I`, which stops the agent from issuing any further PTY writes until you hand control back.
 
 <figure>
 ![Allow, Refine, or Take over an agent response.](../../../../assets/agent-platform/allow-refine-takeover.png)
