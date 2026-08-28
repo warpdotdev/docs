@@ -141,7 +141,9 @@ Changelog -> src/content/docs/changelog/index.mdx
 Autoupdate -> src/content/docs/support-and-community/troubleshooting-and-support/updating-warp.mdx
 ShellSelector -> src/content/docs/getting-started/supported-shells.mdx
 WorkflowAliases -> src/content/docs/terminal/entry/yaml-workflows.mdx
-KittyImages -> src/content/docs/terminal/more-features/full-screen-apps.mdx
+# The Kitty *image* protocol is documented on files-and-links.mdx; full-screen-apps.mdx
+# covers the Kitty *keyboard* protocol, which is a different surface.
+KittyImages -> src/content/docs/terminal/more-features/files-and-links.mdx
 UndoClosedPanes -> src/content/docs/terminal/windows/tabs.mdx
 # Tab groups (organize tabs into named, collapsible groups) — GA (in the default
 # feature set).
