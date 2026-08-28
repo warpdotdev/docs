@@ -41,7 +41,7 @@ The sidebar nav is defined in `src/sidebar.ts`, which organizes guides into topi
 
 ## Frontmatter description
 
-One sentence, 50-160 characters, saying what the reader will build or accomplish, using the non-branded phrasing they would search for.
+One to two sentences, 50-160 characters, saying what the reader will build or accomplish, using the non-branded phrasing they would search for.
 - ✅ `Set up Claude Code and run your first agentic coding session from the terminal.`
 - ❌ `A guide to using Claude Code with Warp.`
 

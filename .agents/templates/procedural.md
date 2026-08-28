@@ -1,7 +1,7 @@
 ---
 title: [Sentence case, beginning with a gerund that names the task. Example: "Configuring a self-hosted GitLab integration". Not "Self-hosted GitLab integration setup". This renders as the page H1 — do not add an H1 in the body.]
 description: >-
-  [One sentence, 50-160 characters: the task the reader will complete. Start with an
+  [One to two sentences, 50-160 characters: the task the reader will complete. Start with an
   imperative verb, not "This page explains". Example: "Connect Slack to the Automation
   Platform so mentions and channel messages can trigger cloud agent runs."
   Use {{TOKEN}} syntax for product names in src/data/vars.ts.]
