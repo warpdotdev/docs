@@ -13,6 +13,7 @@ Environments ensure your [cloud agents](/platform/) run with the same toolchain 
 An environment defines the execution context for automated agent runs. It specifies the **Docker image**, **repositories**, **setup commands**, and **runtime configuration** that prepare the workspace before an agent starts.
 
 :::note
+
 You don't need an environment for an interactive local run in a working checkout that uses your existing machine setup.
 :::
 
@@ -164,7 +165,6 @@ Musl-based Docker images (such as Alpine Linux) are not supported. The agent run
 
 :::note
 Create an environment for each codebase, then reuse it across Slack, Linear, and CLI runs.
-:::
 
 ### Create an environment from the web app
 
