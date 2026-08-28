@@ -349,8 +349,8 @@ Docs match the screen; the fix belongs in the app.
 - **runner** — A factory resource, defined by a `runners/<name>.yaml` file, that defines the compute a run executes on: operating system, architecture, sandbox image, and instance shape. Agents and automations select a runner by name, or inherit the factory's default.
   *Usage note:* Lowercase common noun. Scoped to a factory's definition; distinct from the general [cloud agent runner](/platform/runners/) reference, which covers the same concept for standalone cloud agents outside a factory.
 
-- **Scorer** — An LLM judge, configured per factory, that classifies completed agent conversations against criteria a team defines, scoped to chosen agents and sampled at a set rate. Feeds the **Dashboard** page's Scorer cards, benchmarks, and Self-improvement.
-  *Usage note:* Capitalize, since it names a specific configured entity in the factory dashboard's UI (parallel to **Dashboard**), not a generic industry term.
+- **Scorer** — A configured LLM judge, scoped per factory to chosen agents and sampled at a set rate, that classifies completed runs against criteria you write, such as "did the agent run the tests before opening a PR?" A Scorer assigns a label (a classification with a score), not a freeform numeric grade. Feeds the **Dashboard** page's Scorer cards, benchmarks, and Self-improvement.
+  *Usage note:* Capitalize "Scorer"/"Scorers" when referring to the feature or a configured instance ("create a Scorer," "Scorer cards"); lowercase only for a generic instance count or file listing ("two scorers," alongside "skills" in an example tree). Say "classify," never "grade" — the docs draw this distinction deliberately. The unit a Scorer evaluates is a **run** (a single agent execution), not a "conversation" or "completed work." `measure-and-improve.mdx` is the canonical page for what a Scorer is and how to configure one; other pages link there rather than repeating the definition.
 
 - **AI sovereignty** — Warp Factories' positioning around customer ownership and control of inference, hosting, and data exhaust (agent conversations, evals, memories) for their factory.
 
