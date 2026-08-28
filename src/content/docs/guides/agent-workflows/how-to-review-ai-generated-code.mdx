@@ -28,13 +28,13 @@ Review AI-generated code for the following issues.
 * **Hallucinated imports** - Referencing packages or modules that don't exist in your project.
 * **Redundant logic** - Duplicating existing functionality instead of reusing it.
 * **Questionable architectural decisions** - Adding new patterns instead of following existing ones, or restructuring code in ways that conflict with your project's architecture.
-* **Security gaps** - Hardcoding credentials, omitting input validation, or granting overly permissive permissions.
+* **Security gaps** - Hardcoding credentials, omitting input validation, or using overly broad access controls.
 * **Style drift** - Ignoring your project's conventions for naming, error handling, or file structure.
 * **Incomplete error handling** - Writing happy-path code that crashes on edge cases.
 
 ## 1. Give the agent a task
 
-Start by giving the agent a task. For example, try the following prompt:
+Start by giving the agent a task. Try the following prompt:
 
 ```text
 Fix the authentication middleware to handle expired tokens gracefully
@@ -49,7 +49,7 @@ Once the agent has finished the task, open Warp's [Code Review panel](/code/code
 * **Keyboard shortcut** - Press `⌘+Shift++` (macOS) or `Ctrl+Shift++` (Windows/Linux).
 * **Git diff chip** - Click the diff chip in the terminal input that shows files modified and lines changed.
 * **Review changes button** - After an agent conversation, click **Review changes** at the bottom of the conversation.
-* **Tab bar** - Click the Code Review button in the top-right corner of Warp.
+* **Tab bar** - Click the Code Review button in the top-right corner.
 
 <figure style={{ maxWidth: "350px" }}>
 ![Code Review button in the top-right corner of the Warp title bar showing file and line change counts](../../../../assets/guides/code-review-button.png)
@@ -65,10 +65,10 @@ The panel shows all uncommitted changes as a visual diff, grouped by file. Addit
 
 ## 3. Review diffs by file
 
-Use the Code Review panel to review changes file by file.
+Use the Code Review panel to inspect each changed file, compare changes against a base branch, and edit the diff when needed:
 
 * **Browse all changed files** - Use the file sidebar.
-* **Switch diff views** - Compare against uncommitted changes or `main`/`master` to see the full scope of what would land in a PR.
+* **Choose a comparison view** - Use the comparison menu to inspect uncommitted changes, compare against the detected `main` or `master` branch, or choose another branch.
 * **Edit a diff** - Click anywhere in the code to edit directly in the panel.
 
 Pay particular attention to imports, error handling, and code that touches security or authentication.
@@ -80,7 +80,7 @@ Pay particular attention to imports, error handling, and code that touches secur
 
 ## 4. Leave inline comments on issues
 
-Click **Add comment** on any line or block of code, then describe what needs to change. Warp anchors each comment to the exact file and line, so the agent knows precisely what to fix.
+Click **Add comment** on any line or block of code, then describe the change. Warp anchors each comment to the exact file and line, so the agent knows precisely what to fix.
 Add as many comments as you need before you submit. Warp sends the complete batch at once, rather than asking the agent to process changes one at a time.
 
 <figure style={{ maxWidth: "563px" }}>
@@ -132,7 +132,7 @@ You now have a structured workflow for reviewing AI-generated code in Warp. It c
 
 Explore related guides and features:
 
-* [Attach agent session context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs/) to give reviewers the prompt, plan, commands, logs, and validation behind agent-generated changes.
-* [Run multiple agents at once](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/) to compare outputs from different agents on the same task.
+* [Attach agent session context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs/) to give reviewers the full context behind agent-generated changes.
+* [Run multiple agents at once](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/) to compare their outputs on the same task.
 * [Code Review panel](/code/code-review/) for a full reference to Code Review features.
 * [Interactive Code Review](/agents/local-agents/interactive-code-review/) for detailed instructions on inline comments and batch feedback.
