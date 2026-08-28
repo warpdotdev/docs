@@ -1,7 +1,7 @@
 ---
 title: [Sentence case, task-oriented, reading like a search query. Capture the non-branded query a developer would actually type: "How to set up Claude Code", not "How to set up Claude Code in Warp". Do not put "tutorial" or "guide" in the title. This renders as the page H1 — do not add an H1 in the body.]
 description: >-
-  [One sentence, 50-160 characters: what the reader will build or accomplish, in the
+  [One to two sentences, 50-160 characters: what the reader will build or accomplish, in the
   non-branded phrasing they would search for. Example: "Set up Claude Code and run your
   first agentic coding session from the terminal."]
 ---

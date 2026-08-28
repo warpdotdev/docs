@@ -1,7 +1,7 @@
 ---
 title: [Sentence case, task-based gerund when the page contains a procedure. Keep it general enough to cover the range of tasks on the page and agnostic about which option the reader picks: "Setting repository visibility", not "Making a private repository public". This renders as the page H1 — do not add an H1 in the body.]
 description: >-
-  [One sentence, 50-160 characters: what the feature does and its primary benefit. Example:
+  [One to two sentences, 50-160 characters: what the feature does and its primary benefit. Example:
   "Control what the agent can do with permission cards, auto-approve, and execution profiles."
   Use {{TOKEN}} syntax for product names in src/data/vars.ts.]
 ---
