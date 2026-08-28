@@ -781,7 +781,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'support-and-community/community/contributing',
 						'support-and-community/community/warp-preview-and-alpha-program',
 						{ slug: 'support-and-community/community/refer-a-friend', label: 'Refer a Friend & Earn Rewards' },
-						'support-and-community/community/open-source-partnership',
 					],
 				},
 			],
