@@ -6,6 +6,77 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.08.27 (v0.2026.08.26.17.59)
+
+**New features**
+
+* Warp Factories are now live in Early Access! Check out more details [here](https://www.warp.dev/blog/open-infrastructure-for-building-a-software-factory).
+
+**Improvements**
+
+* Removed unnecessary first-time-user banners and prompts (credits, notifications, desktop download) when viewing a shared session or conversation transcript on the web. ([#15515](https://github.com/warpdotdev/warp/pull/15515))
+* Disabled team/workspace members are now shown grayed out with an explanatory tooltip instead of appearing active. ([#15258](https://github.com/warpdotdev/warp/pull/15258))
+* Renamed the "Oz Cloud API Keys" settings page to "API keys" under Cloud platform. ([#15424](https://github.com/warpdotdev/warp/pull/15424))
+* Enabled IME marked text (composition) input on Windows and Linux, previously macOS-only. ([#15395](https://github.com/warpdotdev/warp/pull/15395))
+* Added a setting to make bare right-click paste from the clipboard, with Shift+right-click still opening the context menu. ([#15365](https://github.com/warpdotdev/warp/pull/15365))
+* Added a setting to stop ‘#’ at the start of terminal input from opening AI Command Search, so shell comments aren't interrupted. ([#15340](https://github.com/warpdotdev/warp/pull/15340))
+* Usage displays (agent block usage, conversation footer, usage history, and task details) now show a per-category dollar cost breakdown alongside credits. ([#15148](https://github.com/warpdotdev/warp/pull/15148))
+* Added a "Paste" item to the terminal block list's right-click context menu. ([#15346](https://github.com/warpdotdev/warp/pull/15346))
+* The markdown viewer now preserves your scroll position when switching between Rendered and Raw view modes. ([#13967](https://github.com/warpdotdev/warp/pull/13967)) — [@slash9494](https://github.com/slash9494) ✨
+* Holding a modifier now shows each tab's switch-to-tab keyboard shortcut on the tab itself. ([#15221](https://github.com/warpdotdev/warp/pull/15221)) — [@JJack27](https://github.com/JJack27) ✨
+
+**Bug fixes**
+
+* Fixed bash sessions never reporting detected shell plugins (e.g. Starship) back to Warp. ([#15518](https://github.com/warpdotdev/warp/pull/15518))
+* Fixed mismatched Shift/Command/Option key icons in keybinding chips (Command Palette, context menus, tooltips) on the web build. ([#15569](https://github.com/warpdotdev/warp/pull/15569))
+* [Windows] Fixed Warp becoming unresponsive after disconnecting and reconnecting a Remote Desktop session. ([#15566](https://github.com/warpdotdev/warp/pull/15566)) — [@bbbiggest](https://github.com/bbbiggest) ✨
+* Fixed the Teams settings confirmation dialogs (remove member, transfer ownership, leave/delete team) landing at the top or bottom edge of the window depending on the page's scroll position instead of staying centered. ([#15542](https://github.com/warpdotdev/warp/pull/15542))
+* Fixed automatic CLI plugin installation failing in Windows PowerShell 5.1. ([#15544](https://github.com/warpdotdev/warp/pull/15544))
+* Fixed a multi-gigabyte memory spike when editing very large files, caused by unbounded parallel text-layout work. ([#15128](https://github.com/warpdotdev/warp/pull/15128))
+* Fixed cloud agent runs occasionally getting stuck showing in progress when a child agent finished right as the parent run began tearing down. ([#15432](https://github.com/warpdotdev/warp/pull/15432))
+* Pressing Ctrl-C in an attached third-party agent harness session (e.g. Claude Code) now correctly resolves it to cancelled instead of leaving it stuck showing in progress. ([#15506](https://github.com/warpdotdev/warp/pull/15506))
+* Cloud agent runs now always report a terminal status (succeeded, failed, or error) when the agent process exits, instead of occasionally being left stuck in progress after sandbox deadlines, SIGTERM shutdowns, or exit races. ([#15387](https://github.com/warpdotdev/warp/pull/15387))
+* Fixed a memory spike when opening large files in the code editor caused by an unnecessary full-file clone. ([#13508](https://github.com/warpdotdev/warp/pull/13508))
+* Fixed completions for many commands' multi-argument options that were mis-modelled (e.g. `git branch`/`git switch`, `rsync --info`/`--debug`, `rustc -L`, `dart format`, `hugo new`, `date`), so they no longer offer the wrong arguments. ([#15487](https://github.com/warpdotdev/warp/pull/15487))
+* Fixed `ln -s <path>` and `ln -F/-f/-i <path>` not offering file path completions. ([#15480](https://github.com/warpdotdev/warp/pull/15480))
+* Fixed shell command completions resolving the wrong argument for options that take multiple arguments of differing types (such as `cargo fmt -- --print-config` and `jq --rawfile`), where a value before the last received a later argument's suggestions. ([#15475](https://github.com/warpdotdev/warp/pull/15475))
+* Fixed PowerShell sessions using PSReadLine's vi edit mode submitting mangled commands. ([#15476](https://github.com/warpdotdev/warp/pull/15476))
+* Cloud agent environments no longer hang with runaway "cloning" output when running `git log`, `git blame`, or other path-limited history commands. ([#15281](https://github.com/warpdotdev/warp/pull/15281))
+* Fixed several latent shell-integration bugs, including a crash from slicing spans on non-UTF-8 character boundaries. ([#15428](https://github.com/warpdotdev/warp/pull/15428))
+* Fixed the usage footer's conversation-total dollar amount reading higher than the per-response breakdown by aligning both with the same charged-usage figures. ([#15423](https://github.com/warpdotdev/warp/pull/15423))
+* Fixed the agent `grep` tool returning a parse error, or in rare cases a wrong file/line, when a matched file path contained a colon (e.g. Windows paths, some Go module paths). ([#15422](https://github.com/warpdotdev/warp/pull/15422))
+* Retry transient server errors when resolving a managed MCP server's connection, instead of permanently failing the agent run on the first blip. ([#15426](https://github.com/warpdotdev/warp/pull/15426))
+* Fixed a hidden Alt+1 (Ctrl+1 on Mac) binding for Project Explorer that could not be remapped or disabled from Settings > Keyboard shortcuts. ([#15310](https://github.com/warpdotdev/warp/pull/15310))
+* Fixed stdio MCP servers failing to start on a fresh `oz agent run` with "Unknown PATH when trying to launch MCP command." ([#15396](https://github.com/warpdotdev/warp/pull/15396))
+* Fixed zsh tab completions losing their descriptions for commands using clustered short options. ([#15313](https://github.com/warpdotdev/warp/pull/15313))
+* Fixed unbounded memory growth from rebuilding the launch-config search index on every rapid configuration-file change. ([#15119](https://github.com/warpdotdev/warp/pull/15119))
+* Tab autocomplete now follows symlinks to directories in WSL sessions. ([#14755](https://github.com/warpdotdev/warp/pull/14755))
+* Improved scrolling performance in transcripts with many Agent Mode blocks. ([#15280](https://github.com/warpdotdev/warp/pull/15280))
+* Fixed a "double cursor" issue where a finished background block kept showing a cursor alongside the input editor or the next block. ([#15322](https://github.com/warpdotdev/warp/pull/15322))
+* Fixed a stray “(1)” badge appearing on the Code Indexing and Profiles settings sub-pages during search. ([#15319](https://github.com/warpdotdev/warp/pull/15319))
+* Fixed cloud agent runs having too small a recovery budget to retry a mid-stream connection reset, sometimes failing runs instead of automatically retrying. ([#15293](https://github.com/warpdotdev/warp/pull/15293))
+
+**Oz updates**
+
+* Fixed handoff snapshot files not reaching a rebuilt cloud sandbox, which left the agent referencing files that were never downloaded. ([#15505](https://github.com/warpdotdev/warp/pull/15505))
+
+### 2026.08.25 (v0.2026.08.25.19.26)
+
+**New features**
+
+* Warp Factories are now live in Early Access! Check out more details [here](https://www.warp.dev/blog/open-infrastructure-for-building-a-software-factory).
+* Added an inline `/usage` command to the Warp Agent CLI showing plan, credit usage, and billing links. ([#14968](https://github.com/warpdotdev/warp/pull/14968))
+
+**Bug fixes**
+
+* Fixed an unbounded memory leak in the terminal completions engine where large or unusual input (e.g. pasting a large blob of text) could permanently grow memory usage over a session. ([#15181](https://github.com/warpdotdev/warp/pull/15181))
+* Fixed a font-fallback bug on web that made the ⇧ (Shift) key glyph in keyboard shortcut hints render heavier, larger, and misaligned compared to neighboring ⌘/⌥ glyphs. ([#15261](https://github.com/warpdotdev/warp/pull/15261))
+* Removed a stray 1px border around the workspace on Warp Web that could get clipped by rounded browser corners. ([#15259](https://github.com/warpdotdev/warp/pull/15259))
+
+**Oz updates**
+
+* Fixed intermittent “MCP server not found” errors after a cloud agent sandbox is rebuilt mid-task.
+
 ### 2026.08.19 (v0.2026.08.19.08.15)
 
 **New features**
