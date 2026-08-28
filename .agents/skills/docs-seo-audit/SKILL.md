@@ -240,8 +240,12 @@ After making fixes, review every change before presenting to the user. Run throu
 
 If instructed to send a report to Slack, post a summary after the audit completes. This works regardless of whether fixes were made.
 
+**Post at most once per run.** This mirrors the "Never post twice for one run" rule in `.agents/references/skill-authoring-guidelines.md` and the same-run guard in `weekly-404-monitor`. Revise the summary wording as many times as you like before sending — never after. Once a post attempt succeeds (`ok: true`), treat the notification as terminal for this run: do not re-post to fix a typo, tighten wording, or add a detail you forgot. A second, "cleaned up" post is a worse outcome than an imperfect first one.
+
+**Check for an existing same-day post before sending.** Before posting, check whether a top-level message matching `*SEO Audit — <today's date>*` already exists in the target channel — this catches both a rerun of this agent for the same day and a mid-run retry after an apparent failure that actually succeeded. Skip the post if one is found.
+
 1. Check if `BUZZ_SLACK_TOKEN` environment variable exists.
-2. If the token exists, send a summary to the channel the user specified (or the channel configured in the agent's instructions).
+2. If the token exists, compose the summary (see the categorization and format rules below) and send it with the one-shot poster script in the "Sending the notification" section, which performs the dedupe check and the post in a single invocation.
 
 **Categorizing issues in the summary:** Before composing the message, cross-reference every issue against the title exceptions list above and check whether the issue has a local source file. Classify each issue into exactly one bucket:
 - **Fixed** — issues you resolved in this run
@@ -299,21 +303,22 @@ PR: <pr_url>
 • <N> titles too short/long
 ```
 
-Send using:
+### Sending the notification
+
+Use the one-shot poster script rather than a raw `curl chat.postMessage` call. `curl` has no dedupe check and no `ok` verification, which is exactly the gap that let this skill post the same run's summary twice: an agent revised the wording mid-run and re-sent instead of treating the first successful post as final. The script (following the `aeo_crosslink_audit` one-shot-poster pattern) reads the token from the environment, checks channel history for an existing same-day post, and posts only when none is found:
 
 ```bash
-curl -X POST https://slack.com/api/chat.postMessage \
-  -H "Authorization: Bearer $BUZZ_SLACK_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "channel": "<CHANNEL_ID>",
-    "text": "<formatted_summary>",
-    "unfurl_links": false,
-    "unfurl_media": false
-  }'
+cat > /tmp/seo-audit-summary.txt << 'EOF'
+<formatted_summary>
+EOF
+
+python3 .agents/skills/docs-seo-audit/scripts/notify_seo_slack.py \
+  --channel "<CHANNEL_ID>" \
+  --date "$(date +%Y-%m-%d)" \
+  --message-file /tmp/seo-audit-summary.txt
 ```
 
-If `BUZZ_SLACK_TOKEN` is not set, skip the notification and note that the token is required.
+The script exits `0` whether it skipped (dedupe hit), posted successfully, or found no token — the only case it exits non-zero is an actual Slack API failure. A non-zero exit means the post did not go through, so a retry there is a fresh attempt, not a duplicate of a completed post; do not retry after a `0` exit. If `BUZZ_SLACK_TOKEN` is not set, the script skips the notification and says so on stderr — no separate check is needed.
 
 ## Dependencies
 
