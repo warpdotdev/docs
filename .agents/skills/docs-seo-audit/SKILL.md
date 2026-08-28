@@ -318,7 +318,7 @@ python3 .agents/skills/docs-seo-audit/scripts/notify_seo_slack.py \
   --message-file /tmp/seo-audit-summary.txt
 ```
 
-The script exits `0` whether it skipped (dedupe hit), posted successfully, or found no token — the only case it exits non-zero is an actual Slack API failure. A non-zero exit means the post did not go through, so a retry there is a fresh attempt, not a duplicate of a completed post; do not retry after a `0` exit. If `BUZZ_SLACK_TOKEN` is not set, the script skips the notification and says so on stderr — no separate check is needed.
+The script exits `0` whether it skipped (dedupe hit), posted successfully, or found no token. It exits non-zero both for an actual Slack API post failure and for a same-day history check that could not be verified (a paginated `conversations.history` call failing or erroring) — an unverified history check is never treated as an empty one, since that would risk posting a duplicate on exactly the ambiguous retry path this script exists to prevent. A non-zero exit means the post did not go through, so a retry there is a fresh attempt, not a duplicate of a completed post; do not retry after a `0` exit. If `BUZZ_SLACK_TOKEN` is not set, the script skips the notification and says so on stderr — no separate check is needed.
 
 ## Dependencies
 

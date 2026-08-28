@@ -13,11 +13,15 @@ Usage:
         --message-file /path/to/summary.txt
 
 Exits 0 when the notification was posted, skipped due to dedupe, or
-skipped because the token env var is unset. Exits non-zero only on an
-actual Slack API failure, so a non-zero exit is the only case that
+skipped because the token env var is unset. Exits non-zero when the
+Slack API fails to post, or when the same-day history check itself
+could not be verified — an unverified history check is treated as a
+failure rather than an empty history, so a duplicate is never posted
+on the ambiguous retry path. A non-zero exit is the only case that
 warrants a retry.
 """
 import argparse
+import datetime
 import json
 import os
 import sys
@@ -47,14 +51,40 @@ def find_existing_post(messages: list, date_str: str) -> bool:
     return False
 
 
-def fetch_recent_messages(token: str, channel: str, limit: int = 50) -> list:
-    url = f"{SLACK_API}/conversations.history?channel={channel}&limit={limit}"
-    req = urllib.request.Request(url, headers={"Authorization": f"Bearer {token}"})
-    with urllib.request.urlopen(req) as resp:
-        result = json.load(resp)
-    if not result.get("ok"):
-        raise RuntimeError(f"conversations.history failed: {result.get('error')}")
-    return result.get("messages", [])
+def day_start_ts(date_str: str) -> float:
+    """Return the Unix timestamp for the start (UTC midnight) of ``date_str``,
+    used as the ``oldest`` bound so pagination can stop once history is older
+    than the target date."""
+    day = datetime.datetime.strptime(date_str, "%Y-%m-%d").replace(tzinfo=datetime.timezone.utc)
+    return day.timestamp()
+
+
+def fetch_messages_for_date(token: str, channel: str, date_str: str, page_size: int = 200) -> list:
+    """Fetch every message posted on or after the start of ``date_str`` by
+    paginating ``conversations.history`` with ``oldest`` set to that day's
+    start. A fixed-size single page can push an earlier same-day summary out
+    of a busy channel's dedupe window, so this keeps requesting the next
+    cursor until Slack reports no more pages."""
+    oldest = day_start_ts(date_str)
+    messages = []
+    cursor = None
+    while True:
+        url = (
+            f"{SLACK_API}/conversations.history?channel={channel}"
+            f"&limit={page_size}&oldest={oldest}"
+        )
+        if cursor:
+            url += f"&cursor={cursor}"
+        req = urllib.request.Request(url, headers={"Authorization": f"Bearer {token}"})
+        with urllib.request.urlopen(req) as resp:
+            result = json.load(resp)
+        if not result.get("ok"):
+            raise RuntimeError(f"conversations.history failed: {result.get('error')}")
+        messages.extend(result.get("messages", []))
+        cursor = result.get("response_metadata", {}).get("next_cursor")
+        if not cursor:
+            break
+    return messages
 
 
 def post_message(token: str, channel: str, text: str) -> dict:
@@ -92,10 +122,13 @@ def main() -> int:
         message = f.read()
 
     try:
-        recent = fetch_recent_messages(token, args.channel)
+        recent = fetch_messages_for_date(token, args.channel, args.date)
     except (urllib.error.URLError, RuntimeError) as exc:
-        print(f"warning: could not check channel history ({exc}); posting anyway", file=sys.stderr)
-        recent = []
+        # An unverified history check can't rule out an earlier same-day post,
+        # so fail closed rather than risk sending a duplicate: report the
+        # failure and skip the post instead of posting on an empty history.
+        print(f"error: could not check channel history ({exc}); skipping post to avoid a possible duplicate", file=sys.stderr)
+        return 1
 
     if find_existing_post(recent, args.date):
         print(f"Skipping post: a SEO Audit summary for {args.date} already exists in {args.channel}.")
