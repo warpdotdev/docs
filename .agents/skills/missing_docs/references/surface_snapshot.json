@@ -173,6 +173,7 @@
     "LocalComputerUse": "dogfood",
     "LocalDockerSandbox": "dogfood",
     "LogExpensiveFramesInSentry": "dogfood",
+    "LrcActivitySignal": "dogfood",
     "MCPGroupedServerContext": "ga",
     "MSYS2Shells": "dogfood",
     "MarkdownImages": "dogfood",
