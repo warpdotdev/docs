@@ -1,8 +1,8 @@
 ---
 title: Stack overview
 description: >-
-  The layers of the Warp stack: clients, the control plane, execution
-  planes, data stores, and the external systems agents work with.
+  The layers of the Warp stack: clients, the Warp control plane, the
+  execution planes, and the external systems agents work with.
 ---
 import { VARS } from '@data/vars';
 
@@ -12,13 +12,12 @@ The {VARS.WARP_AUTOMATION_PLATFORM} splits into a small number of layers: client
 
 ## Components
 
-1. **Clients** - The surfaces that start and observe work: the Warp app, the {VARS.WARP_AGENT_CLI}, the web app and cloud agent dashboard, the Warp Factories control room, and MCP clients connected through the [Factory MCP](/factories/factory-mcp/). All clients talk to the same control plane APIs.
-2. **APIs** - The control plane's entry points: a GraphQL API used by Warp's own clients, the REST [Agent API and SDKs](/reference/api-and-sdk/) for programmatic use, a webhook receiver for [integration](/platform/integrations/) events, and the hosted Factory MCP endpoint.
-3. **Control plane services** - The coordination layer. Agent orchestration owns run workflows and state; triggers evaluate [schedules](/platform/triggers/scheduled-agents/) and automations; identity and configuration manage teams, [secrets](/platform/secrets/), [environments](/platform/environments/), and [runners](/platform/runners/); inference routing brokers every model call; observability keeps run records and shared sessions; and the codebase index powers [Codebase Context](/agents/capabilities/codebase-context/) retrieval.
-4. **Data stores** - A relational database for platform state, a vector index for codebase embeddings, object storage for run data such as transcripts and artifacts, and a cache plus event delivery for real-time updates. All stored data is encrypted at rest.
-5. **Warp-hosted execution** - The default execution plane. Each cloud agent run gets an isolated, per-run sandbox provisioned on a runner's compute shape (OS, architecture, vCPUs, memory), with the workspace prepared from an environment. See [Warp-hosted execution](/platform/warp-hosting/).
-6. **Customer-hosted execution** - The Enterprise execution plane on your infrastructure. A managed worker (the `oz-agent-worker` daemon) connects outbound and executes tasks in Docker containers, Kubernetes Jobs, or directly on the host; unmanaged setups run the {VARS.WARP_AGENT_CLI} inside your own CI or orchestrator. See [Self-hosting](/platform/self-hosting/).
-7. **External systems** - Everything the platform integrates with: your SSO or identity provider for authentication, source control (GitHub, GitLab, Bitbucket, Azure DevOps), integration providers (Slack, Linear, Jira), LLM providers under [Zero Data Retention](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) (Anthropic, OpenAI, Google, xAI, Fireworks), embedding providers for the codebase index, and Stripe for billing.
+1. **Clients** - The surfaces that start and observe work: the Warp app, the {VARS.WARP_AGENT_CLI}, the web app and cloud agent dashboard, the [factory dashboard](/factories/factory-dashboard/) (the control room in the diagram), and MCP clients connected through the [Factory MCP](/factories/factory-mcp/). All clients talk to the same control plane APIs.
+2. **APIs** - The control plane's entry points: the REST [Agent API and SDKs](/reference/api-and-sdk/), a webhook receiver for [integration](/platform/integrations/) events, and the hosted Factory MCP endpoint.
+3. **Control plane services** - The coordination layer. Agent orchestration owns run workflows and state; triggers evaluate [schedules](/platform/triggers/scheduled-agents/) and automations; identity and configuration manage teams, [secrets](/platform/secrets/), [environments](/platform/environments/), and [runners](/platform/runners/); inference routing brokers every model call; and run history, sessions, and costs keep every run observable. Run data — transcripts and selected outputs — is retained by Warp, with an optional export copy to customer-owned S3 or GCS on Enterprise plans.
+4. **Warp-hosted execution** - The default execution plane. Each cloud agent run gets an isolated, per-run sandbox provisioned on a runner's compute shape (OS, architecture, vCPUs, memory), with the workspace prepared from an environment. See [Warp-hosted execution](/platform/warp-hosting/).
+5. **Customer-hosted execution** - The Enterprise execution plane on your infrastructure. A managed worker (the `oz-agent-worker` daemon) connects outbound and executes tasks in Docker containers, Kubernetes Jobs, or directly on the host; unmanaged setups run the {VARS.WARP_AGENT_CLI} inside your own CI or orchestrator. See [Self-hosting](/platform/self-hosting/).
+6. **External systems** - Everything the platform integrates with: your SSO or identity provider for authentication, source control (GitHub, GitLab, Bitbucket, Azure DevOps), integration providers (Slack, Linear, Jira), LLM providers under [Zero Data Retention](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) (Anthropic, OpenAI, Google, xAI, Fireworks), embedding providers, the compute providers that host Warp-hosted sandboxes, and billing.
 
 ## Related pages
 
