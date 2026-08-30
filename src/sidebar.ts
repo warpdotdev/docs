@@ -623,6 +623,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// 'Warp-hosted agents' under its own opposite.
 					label: 'Deployment & hosting',
 					items: [
+						{ slug: 'platform/architecture', label: 'Architecture' },
 						{ slug: 'platform/deployment-patterns', label: 'Deployment patterns' },
 						{ slug: 'platform/warp-hosting', label: 'Warp-hosted agents' },
 						// Qualified: a bare 'Overview'/'Quickstart' would now read as the
@@ -637,19 +638,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/self-hosting/reference', label: 'Self-hosted worker reference' },
 						'platform/self-hosting/security-and-networking',
 						{ slug: 'platform/self-hosting/troubleshooting', label: 'Troubleshooting' },
-					],
-				},
-				{
-					// Cloudflare-style reference architecture suite: each page pairs a
-					// numbered diagram with matching numbered prose sections.
-					label: 'Architecture',
-					items: [
-						{ slug: 'platform/architecture', label: 'Overview' },
-						{ slug: 'platform/architecture/stack-overview', label: 'Stack overview' },
-						{ slug: 'platform/architecture/cloud-agent-run-lifecycle', label: 'Cloud agent run lifecycle' },
-						{ slug: 'platform/architecture/self-hosted-execution', label: 'Self-hosted execution flow' },
-						{ slug: 'platform/architecture/factories-work-item-flow', label: 'Factories work-item flow' },
-						{ slug: 'platform/architecture/data-security-boundaries', label: 'Data security & boundaries' },
 					],
 				},
 			],
