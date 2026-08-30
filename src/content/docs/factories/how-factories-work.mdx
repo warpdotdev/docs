@@ -17,6 +17,10 @@ Deciding which repositories belong in this factory is a separate question. See [
 
 A **work item** is a single request the factory acts on, such as an issue, support request, pull request, or Factory MCP task. It keeps its identity from intake to handoff, however many agents contribute to it along the way.
 
+![Warp Factories system diagram showing work sources, automations, the foreman and stage agents, human handoff, the factory definition, platform execution, and the outer loop](../../../assets/agent-platform/factories-work-item-flow.png)
+
+For a numbered walkthrough of every component in this diagram, see the [Warp Factories work-item flow](/platform/architecture/factories-work-item-flow/) architecture reference.
+
 ## How a work item moves through the factory
 
 The foreman coordinates every work item. It routes work between the factory's agents, passes each one the context it needs, and continues existing agent conversations instead of starting new ones. See [factory agents](/factories/factory-agents/) for what each agent does.

@@ -10,6 +10,8 @@ import { VARS } from '@data/vars';
 
 Teams adopt cloud agents in a few repeatable ways. This page outlines the most common architectures, what they're good for, and how they fit together.
 
+![Deployment models diagram comparing Warp-hosted, managed self-hosted, and unmanaged self-hosted patterns by what runs on Warp versus customer infrastructure](../../../assets/agent-platform/deployment-models.png)
+
 ## Quick mental model
 
 Cloud agent setups usually have four moving parts:
@@ -64,7 +66,9 @@ Use this when you already have a system that schedules work (CI, dev boxes, inte
 
 Use this when you want the {VARS.WARP_AUTOMATION_PLATFORM} to run agent workloads on Warp-managed infrastructure, typically inside reproducible Docker environments, with built-in lifecycle management.
 
-![Warp enterprise SaaS architecture showing customer infrastructure, isolated tenant sandboxes, Warp backend, and LLM providers](../../../assets/agent-platform/cloud-agents-infra.png)
+![Warp-hosted execution architecture showing customer infrastructure, triggers and integrations, isolated tenant sandboxes, the Warp control plane, and LLM providers](../../../assets/agent-platform/cloud-agents-infra.png)
+
+For numbered, step-by-step versions of this architecture, see the [architecture reference](/platform/architecture/) — in particular the [cloud agent run lifecycle](/platform/architecture/cloud-agent-run-lifecycle/).
 
 ### What it looks like
 

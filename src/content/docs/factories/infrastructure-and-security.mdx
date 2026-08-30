@@ -29,6 +29,10 @@ flowchart LR
 
 Self-hosting moves only the execution plane: with a managed self-hosted worker, repository checkouts, command execution, and the sandbox filesystem stay on machines you control, but content that enters prompts, results, transcripts, attachments, artifacts, or telemetry still flows through Warp and the providers you configure. See [deployment patterns](/platform/deployment-patterns/) and [self-hosting security and networking](/platform/self-hosting/security-and-networking/) for the broader data model.
 
+The diagram below maps those boundaries for self-hosted execution; factory runs follow the same data model. The [data security and boundaries](/platform/architecture/data-security-boundaries/) reference walks through each data class, including the Warp-hosted variant.
+
+![Self-hosted data security and boundaries diagram showing what stays in customer infrastructure, what Warp retains, and what transits Warp to model providers](../../../assets/agent-platform/data-security-boundaries.png)
+
 ## Runners
 
 A runner defines the compute a factory's agents work on: the operating system and architecture, the sandbox image, and the instance shape (vCPUs and memory). It's the infrastructure choice you make for a factory. The workspace itself — repositories, setup commands, and secrets — comes from the factory's [definition](/factories/factory-as-code/), and Warp keeps it in step for you. See the [runner reference](/platform/runners/) for the available compute options.

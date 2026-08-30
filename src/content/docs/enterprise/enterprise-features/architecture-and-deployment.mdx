@@ -19,7 +19,9 @@ Warp's cloud agent infrastructure has four key components:
 3. **Execution** - Where the agent actually runs (Warp-hosted environment, your infrastructure, or your existing CI/orchestrator).
 4. **Visibility** - How the team monitors and intervenes ({VARS.DASHBOARD}, session sharing, APIs/SDKs).
 
-{/* TODO: Insert system architecture diagram once received from design team */}
+![Warp stack overview diagram showing clients, the Warp control plane, Warp-hosted and customer-hosted execution planes, and external systems](../../../../assets/agent-platform/warp-stack-overview.png)
+
+For a component-by-component walkthrough of this diagram, see the [stack overview](/platform/architecture/stack-overview/) in the architecture reference.
 
 ### High-level data flow
 
@@ -136,6 +138,8 @@ Understanding what data stays where is critical for security and compliance deci
 
 Consider the following when selecting a deployment model:
 
+![Deployment models diagram comparing Warp-hosted, managed self-hosted, and unmanaged self-hosted patterns by what runs on Warp versus customer infrastructure](../../../../assets/agent-platform/deployment-models.png)
+
 **Warp-hosted** is right if:
 * You want zero infrastructure management for agent execution.
 * Your security team is comfortable with SOC 2 Type II certified, ZDR-covered infrastructure.
@@ -152,6 +156,7 @@ Consider the following when selecting a deployment model:
 
 ## Related resources
 
+* [Architecture reference](/platform/architecture/) - Diagrams of the stack, the run lifecycle, self-hosted execution, and data boundaries
 * [Deployment Patterns](/platform/deployment-patterns/) - Detailed patterns for CLI-only, {VARS.WARP_AUTOMATION_PLATFORM}-hosted, and self-hosted setups
 * [Security overview](/enterprise/security-and-compliance/security-overview/) - Data handling, encryption, and compliance details
 * [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) - Route inference through your own cloud infrastructure
