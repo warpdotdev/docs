@@ -8,6 +8,16 @@ This log tracks every run of the `aeo_crosslink_audit` skill — both runs that 
 
 ---
 
+## 2026-08-31 — PR opened
+
+- **Run**: https://oz.warp.dev/runs/01a05855-a305-72b3-a85f-ce45a8ad7840
+- **Source signals**: Peec available, GSC available
+- **PR**: https://github.com/warpdotdev/docs/pull/662
+- **Links proposed / added**: 11 proposed, 11 added
+- **Pages touched**: src/content/docs/platform/harnesses/claude-code.mdx, src/content/docs/platform/harnesses/codex.mdx, src/content/docs/platform/self-hosting/index.mdx, src/content/docs/platform/handoff/index.mdx, src/content/docs/platform/orchestration/multi-agent-runs.mdx
+- **Themes**: Claude Code/Codex cloud harnesses → schedules/Slack/orchestration; self-host observability and trigger routing; handoff/multi-agent launch paths to schedules, integrations, self-hosting
+- **No-change reason**: N/A
+
 ## 2026-08-24 — PR opened
 
 - **Run**: https://oz.warp.dev/runs/01a03449-1e89-737d-8dd1-825950d10c8c
