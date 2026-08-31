@@ -478,9 +478,13 @@ POST /factory/{uid}/runs -> internal
 # Also marked `x-internal: true` in warp-server's canonical spec, so the publish
 # filter strips it from the public docs copy.
 GET /factory/{uid}/metrics -> internal
-GET /factory/{uid}/metrics/cost-by-pr-size -> internal
 GET /factory/{uid}/metrics/run-breakdown -> internal
-GET /factory/{uid}/metrics/top-prs -> internal
+# Cost breakdown and per-PR cost views moved under /costs/* (former
+# metrics/cost-by-pr-size and metrics/top-prs paths removed in warp-server).
+GET /factory/{uid}/costs/breakdown -> internal
+GET /factory/{uid}/costs/per-pr -> internal
+GET /factory/{uid}/costs/per-pr/by-size -> internal
+GET /factory/{uid}/costs/per-pr/top -> internal
 GET /factory/{uid}/integrations/linear/teams -> internal
 GET /factory/{uid}/integrations/linear/teams/{team_id}/labels -> internal
 PUT /factory/{uid}/integrations/linear/teams/{team_id}/labels -> internal
