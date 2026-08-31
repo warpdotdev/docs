@@ -905,6 +905,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'guides/external-tools/how-to-set-up-opencode', label: 'Set up OpenCode' },
 						{ slug: 'guides/external-tools/how-to-set-up-gemini-cli', label: 'Set up Gemini CLI' },
 						{ slug: 'guides/external-tools/how-to-set-up-ollama', label: 'Set up Ollama for local models' },
+        { slug: 'guides/external-tools/how-to-set-up-gbr', label: 'Set up Build Remote Agent' },
 						{ slug: 'guides/external-tools/sentry-mcp-fix-sentry-error-in-empower-website', label: 'Sentry MCP: fix errors' },
 						{ slug: 'guides/external-tools/figma-remote-mcp-create-a-website-from-a-figma-file-from-scratch', label: 'Figma remote MCP: create a website from a Figma file' },
 						{ slug: 'guides/external-tools/linear-mcp-retrieve-issue-data', label: 'Linear MCP: retrieve issue data' },
