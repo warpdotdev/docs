@@ -50,10 +50,10 @@ scorers/
   tests-run/
     scorer.md
 benchmarks/
-  implementation-quality/
+  review-quality/
     suite.yaml
     tasks/
-      fix-flaky-test.yaml
+      flag-missing-tests.yaml
 skills/
   repository-conventions/
     SKILL.md
@@ -391,12 +391,12 @@ Optional. When `true`, failing scores can feed the factory's self-improvement fl
 
 Optional. Each directory under `benchmarks/` defines a benchmark suite: fixed tasks that compare configurations of one agent. The directory segment is a stable filesystem slug — the required `name` field is the suite's identity, so renaming the suite doesn't move its files. See [Compare configurations with benchmarks](/factories/measure-and-improve/#compare-configurations-with-benchmarks) for how suites run and how to read the results.
 
-```yaml title="benchmarks/implementation-quality/suite.yaml"
-name: implementation-quality
-description: Fixed implementation tasks for comparing models and runners
-agent: implementer
+```yaml title="benchmarks/review-quality/suite.yaml"
+name: review-quality
+description: Fixed review tasks for comparing models and runners
+agent: reviewer
 tasks:
-  - fix-flaky-test
+  - flag-missing-tests
 ```
 
 ### `name`
@@ -419,14 +419,14 @@ Optional. Ordered task slugs, each naming a file at `benchmarks/<suite-slug>/tas
 
 One benchmark task, referenced from its suite's `tasks` list by slug — the file name without the extension.
 
-```yaml title="benchmarks/implementation-quality/tasks/fix-flaky-test.yaml"
-title: Fix the flaky payments integration test
+```yaml title="benchmarks/review-quality/tasks/flag-missing-tests.yaml"
+title: Flag the missing tests in a risky diff
 prompt: |
-  The payments integration test fails intermittently on CI. Find the cause
-  and fix it without changing the test's assertions.
+  Review the latest payments-service diff. Identify the changed code paths
+  that lack test coverage and name the specific tests that are missing.
 successCriteria: |
-  The flaky test is deterministic, the fix explains the root cause, and the
-  full test suite passes.
+  The review names every untested changed code path and proposes a concrete
+  test for each one.
 startingRepoRefs:
   - github.com:acme/payments-service@0123456789abcdef0123456789abcdef01234567
 ```
