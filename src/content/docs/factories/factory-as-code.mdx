@@ -2,13 +2,13 @@
 title: Factory definition syntax
 description: >-
   Look up every file and key in a factory definition: factory.yaml, agents,
-  automations, runners, scorers, and skills.
+  automations, runners, scorers, benchmarks, and skills.
 sidebar:
   label: "Definitions as code"
 ---
 import { VARS } from '@data/vars';
 
-Every factory is defined by files: a `factory.yaml` plus directories of agents, automations, runners, scorers, and skills, versioned in a Git repository. The files are the source of truth — when they change, Warp updates the factory to match. This page describes every file and key in a definition.
+Every factory is defined by files: a `factory.yaml` plus directories of agents, automations, runners, scorers, benchmarks, and skills, versioned in a Git repository. The files are the source of truth — when they change, Warp updates the factory to match. This page describes every file and key in a definition.
 
 Definition files are YAML and Markdown. Keys are case-sensitive.
 
@@ -49,6 +49,11 @@ runners/
 scorers/
   tests-run/
     scorer.md
+benchmarks/
+  implementation-quality/
+    suite.yaml
+    tasks/
+      fix-flaky-test.yaml
 skills/
   repository-conventions/
     SKILL.md
@@ -381,6 +386,70 @@ Required. The model that judges the runs.
 ### `selfImprovement`
 
 Optional. When `true`, failing scores can feed the factory's self-improvement flow, which proposes definition changes as pull requests. Defaults to `false`.
+
+## `benchmarks/<suite-slug>/suite.yaml`
+
+Optional. Each directory under `benchmarks/` defines a benchmark suite: fixed tasks that compare configurations of one agent. The directory segment is a stable filesystem slug — the required `name` field is the suite's identity, so renaming the suite doesn't move its files. See [Compare configurations with benchmarks](/factories/measure-and-improve/#compare-configurations-with-benchmarks) for how suites run and how to read the results.
+
+```yaml title="benchmarks/implementation-quality/suite.yaml"
+name: implementation-quality
+description: Fixed implementation tasks for comparing models and runners
+agent: implementer
+tasks:
+  - fix-flaky-test
+```
+
+### `name`
+
+Required. The suite's display name. Must be unique across the factory.
+
+### `description`
+
+Optional. What the suite measures.
+
+### `agent`
+
+Required. The name of an agent defined under [`agents/`](#agentsnameagentmd). Every task in the suite dispatches as this agent.
+
+### `tasks`
+
+Optional. Ordered task slugs, each naming a file at `benchmarks/<suite-slug>/tasks/<slug>.yaml`. Every slug listed here must have a matching file, and every task file must appear here exactly once. A suite with no tasks can be saved, but it can't launch until at least one task exists.
+
+## `benchmarks/<suite-slug>/tasks/<task-slug>.yaml`
+
+One benchmark task, referenced from its suite's `tasks` list by slug — the file name without the extension.
+
+```yaml title="benchmarks/implementation-quality/tasks/fix-flaky-test.yaml"
+title: Fix the flaky payments integration test
+prompt: |
+  The payments integration test fails intermittently on CI. Find the cause
+  and fix it without changing the test's assertions.
+successCriteria: |
+  The flaky test is deterministic, the fix explains the root cause, and the
+  full test suite passes.
+startingRepoRefs:
+  - github.com:acme/payments-service@0123456789abcdef0123456789abcdef01234567
+```
+
+### `title`
+
+Required. The task's display name. It doesn't need to match the file name.
+
+### `prompt`
+
+Required. The input the agent receives on every trial.
+
+### `successCriteria`
+
+Required. What a passing result looks like. The built-in **Correctness** Scorer judges every trial against these criteria.
+
+### `sourceRunId`
+
+Optional. Provenance for a task created from a completed run. It may later point to a deleted run.
+
+### `startingRepoRefs`
+
+Optional. Repositories the task starts from, each pinned to an exact commit so every launch reproduces the same starting state. Each entry is the shorthand `<host>:<owner>/<repo>@<commit-sha>` (the host is `github.com` or `gitlab.com`) or an object with `codeForge` (`GITHUB` or `GITLAB`), `owner`, `repo`, and `ref`. The `ref` is always a full 40-character commit SHA, never a branch or tag. Entries aren't checked against the factory's `repositories` until a run launches.
 
 ## Skills
 
