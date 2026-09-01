@@ -35,7 +35,7 @@ The SSH extension has the following requirements on the remote host:
 
 * **Operating system** - Linux or macOS. Windows remote hosts are not supported. The extension is also not available from Warp's Windows client.
 * **Architecture** - `x86_64` (amd64) or `aarch64` (arm64).
-* **glibc 2.31 or newer (Linux)** - The prebuilt server binary requires glibc 2.31+ (Ubuntu 20.04 or equivalent). Hosts with an older glibc (for example RHEL/CentOS 7 and 8, Amazon Linux 2, Ubuntu 18.04, Debian 10) or a non-glibc libc (for example Alpine's musl) are not supported. Warp detects this before installing anything and quietly falls back to a regular SSH session.
+* **glibc 2.31 or newer (Linux)** - The prebuilt server binary requires glibc 2.31+ (Ubuntu 20.04 or equivalent). Hosts with an older glibc (for example RHEL/CentOS 7 and 8, Amazon Linux 2, Ubuntu 18.04, Debian 10) or a non-glibc libc (for example Alpine's musl) are not supported. Warp detects this before installing anything and quietly falls back to the [legacy SSH wrapper](/terminal/warpify/ssh-legacy/).
 * **Shell** - `bash` or `zsh` as the remote shell.
 * **Home directory and Unix sockets** - The install writes only under `~/.warp*/`, so your home directory must be writable. The server also needs to create Unix domain sockets under your home directory and run as a background process under your user.
 * **Outbound HTTPS for install** - The install script downloads the server binary from `app.warp.dev` using `curl` or `wget`, so the host needs outbound HTTPS access to `app.warp.dev`. If neither `curl` nor `wget` is available, Warp uploads the binary over the SSH connection instead.
