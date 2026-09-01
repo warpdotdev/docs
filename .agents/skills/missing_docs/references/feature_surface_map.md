@@ -411,6 +411,11 @@ POST /harness-support/commit-snapshot -> internal
 # `x-internal` markers come off. See SKILL.md "Public vs. private surfaces".
 GET /factory -> internal
 GET /factory/access -> internal
+# Personal factory task inbox (router/handlers/public_api/factory_inbox.go).
+# Sibling of the unreleased `/factory` REST surface; released OpenAPI has no
+# `/factory-inbox` paths either. Stays internal until the Factory API ships.
+GET /factory-inbox -> internal
+POST /factory-inbox/notifications/{uid}/dismiss -> internal
 GET /factory-alias/{alias} -> internal
 POST /factory -> internal
 POST /factory/avatar -> internal
@@ -475,6 +480,9 @@ GET /factory/{uid}/task-by-run -> internal
 # the `/factory` prefix) while the Factory REST API is unreleased. Revisit
 # together with that exclusion when the Factory API ships publicly.
 POST /factory/{uid}/runs -> internal
+# Starts a factory learning run from production feedback
+# (StartFactoryLearningHandler). Same unreleased `/factory` namespace exclusion.
+POST /factory/{uid}/learning -> internal
 # Also marked `x-internal: true` in warp-server's canonical spec, so the publish
 # filter strips it from the public docs copy.
 GET /factory/{uid}/metrics -> internal
