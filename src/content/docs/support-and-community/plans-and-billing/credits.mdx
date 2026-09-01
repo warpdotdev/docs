@@ -3,7 +3,8 @@ title: Warp credits and billing
 sidebar:
   label: "Credits"
 description: >-
-  Details on Warp credits and how they are calculated.
+  How Warp credits work: the AI, compute, and platform credit buckets, what
+  drives credit usage, and how limits and billing apply.
 ---
 import { VARS } from '@data/vars';
 
@@ -31,7 +32,7 @@ Since there's no exact formula for predicting usage, we recommend building an in
 
 In an Agent conversation, a **turn** represents a single exchange (a response from the LLM). To see how many credits a turn consumed, hover over the **credit count chip** at the bottom of the Agent's response:
 
-<figure>
+<figure style={{ maxWidth: "563px" }}>
 ![The conversation usage footer shows how many credits a conversation has consumed, and breaks down the usage by credits, tool calls, context window, files changed, diffs applied, and more.](../../../../assets/support-and-community/inline-credit-usage-footer.png)
 <figcaption>Conversation usage footer.</figcaption>
 </figure>
@@ -140,7 +141,7 @@ The following scenarios use compute credits:
 
 ### Platform credits
 
-Platform credits cover Warp's platform infrastructure — run lifecycle, scheduling, integrations, dashboard, APIs, and observability — for every cloud agent run, plus local agent runs on Business and Enterprise plans that use customer-supplied inference.
+Platform credits are calculated from agent hours, the time an agent spends actively working on a task. They cover Warp's platform layer (run lifecycle, integrations, dashboard, APIs, and observability) and apply to every cloud agent run, plus local agent runs on Business and Enterprise plans that use customer-supplied inference.
 
 #### Eligible for platform credits
 
