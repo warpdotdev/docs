@@ -11,11 +11,21 @@ Draft a procedural documentation page with step-by-step instructions to accompli
 
 Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **procedural template** at `.agents/templates/procedural.md`.
 
+## Frontmatter description
+
+One to two sentences, 50-160 characters, naming the task the reader will complete. Start with an imperative verb.
+- ✅ `Connect Slack to Oz so mentions and channel messages can trigger cloud agent runs.`
+- ❌ `This page explains the Slack integration setup process.`
+
+See "Descriptions by content type" under Frontmatter in `AGENTS.md` for the full rules.
+
 ## Content type rules
 
 These rules are specific to procedural pages (from the "Drafting by content type" section of `AGENTS.md`):
 
 - **Keep steps focused, not artificially atomic.** Aim for one primary action per step, but group tightly related actions together when they share the same UI context. Up to ~3 related actions per step is acceptable.
+- **Move reference detail out of the step into a `:::note`.** When a step's supporting detail is a list of facts (accepted credential types, valid formats) rather than an instruction, keep the step to its one action and put the list in a `:::note` immediately after it.
+- **Orient within the step, not just on first mention.** Name the field, dropdown, or location the action happens in before naming the action itself ("In the 'Harness' dropdown, select **Claude Code**", not "Choose **Claude Code** in the **Harness** field"). A step should stand on its own for a reader who lands on it directly, not rely on referring back to an earlier section.
 - **Motivate steps before giving instructions.** Briefly explain WHY before HOW, especially for setup steps.
 - Include expected outcomes after key steps so the reader can confirm they're on track.
 - Test all instructions for accuracy.

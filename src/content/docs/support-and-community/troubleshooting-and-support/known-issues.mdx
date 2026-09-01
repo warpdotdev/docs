@@ -10,20 +10,20 @@ import DemoVideo from '@components/DemoVideo.astro';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 :::note
-To see a complete list of Warp issues and feature requests, please visit our [GitHub issues page](https://github.com/warpdotdev/Warp/issues?q=is%3Aissue+is%3Aopen+sort%3Acreated-desc).
+To see a complete list of Warp issues and feature requests, visit our [GitHub issues page](https://github.com/warpdotdev/Warp/issues?q=is%3Aissue+is%3Aopen+sort%3Acreated-desc).
 
-Please note that there are tools that are incompatible with Warp, as listed [below](/support-and-community/troubleshooting-and-support/known-issues/#list-of-incompatible-tools). You can find debugging information in this [section](/support-and-community/troubleshooting-and-support/known-issues/#debugging).
+Note that some tools are incompatible with Warp, as listed [below](/support-and-community/troubleshooting-and-support/known-issues/#list-of-incompatible-tools). You can find debugging information in this [section](/support-and-community/troubleshooting-and-support/known-issues/#debugging).
 :::
 
 ## General
 
 ### SSH
 
-To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to **Settings** > **Features** if you need to disable it. Please see [Troubleshooting Legacy SSH](/terminal/warpify/ssh-legacy/#troubleshooting-ssh) for more info on workarounds to SSH issues, or see the [new SSH Page](/terminal/warpify/ssh/) for more on the upcoming features.
+To enable Blocks over SSH, Warp uses an SSH Wrapper function; navigate to **Settings** > **Features** if you need to disable it. See [Troubleshooting Legacy SSH](/terminal/warpify/ssh-legacy/#troubleshooting-ssh) for more info on workarounds to SSH issues, or see the [new SSH Page](/terminal/warpify/ssh/) for more on the upcoming features.
 
 ### Online features don't work
 
-There is a known issue that can occur that causes online features to break ([Agent](/agents/local-agents/overview/), [Generate](/agents/local-agents/generate/), [Block Sharing](/terminal/blocks/block-sharing/), [Refer a Friend](/support-and-community/community/refer-a-friend/) ). This is due to the login token going stale, typically due to a password change, and can be resolved by the following steps:
+There is a known issue that can occur that causes online features to break ([Agent](/agents/), [Generate](/agents/local-agents/generate/), [Block Sharing](/terminal/blocks/block-sharing/), [Refer a Friend](/support-and-community/community/refer-a-friend/) ). This is due to the login token going stale, typically due to a password change, and can be resolved by the following steps:
 
 <Tabs>
   <TabItem label="macOS">
@@ -62,7 +62,7 @@ Nov 2021: We have added character support for Chinese, Korean, and Japanese, but
 
 ### Abnormal rendering of Chinese characters
 
-If you notice issues with the terminal rendering Chinese characters (i.e. [#3366](https://github.com/warpdotdev/Warp/issues/3366)). Please try adding the following lines to your rc file.
+If you notice issues with the terminal rendering Chinese characters (i.e. [#3366](https://github.com/warpdotdev/Warp/issues/3366)), try adding the following lines to your rc file.
 
 ```
 export LC_ALL=zh_CN.UTF-8
@@ -71,7 +71,7 @@ export LANG=zh_CN.UTF-8
 
 ### Warp fails to render a window
 
-This can likely occur due to some corruption in the local sqlite db. You may see a similar error your [logs](/support-and-community/#gathering-warp-logs):
+This can likely occur due to some corruption in the local sqlite db. You may see a similar error your [logs](/support-and-community/troubleshooting-and-support/sending-us-feedback/#gathering-warp-logs):
 
 ```
 [WARN] SQLite error 283 (A WAL mode database file was recovered): recovered 383 frames from WAL file /home/xxxxx/.local/state/warp-terminal/warp.sqlite-wal
@@ -101,13 +101,13 @@ There is an issue in fish shell version 3.6 and below that causes the `read` bui
 
 ### Warp shell loads slowly due to EDR
 
-If you comment out the rc files (i.e. `~/.zshrc`, `~/.bashrc`, `~/.config/fish/config.fish`), and still notice a slowdown on loading the shell, it is likely due to an Endpoint Detection and Response or EDR (i.e. Sentinel One, CrowdStrike, Carbon Black) causing the issue. Please restart your system and see if the issue persists. If so, please [Send us Feedback](/support-and-community/) and provide details of your EDR, OS, shell, etc.
+If you comment out the rc files (i.e. `~/.zshrc`, `~/.bashrc`, `~/.config/fish/config.fish`), and still notice a slowdown on loading the shell, it is likely due to an Endpoint Detection and Response or EDR (i.e. Sentinel One, CrowdStrike, Carbon Black) causing the issue. Restart your system and see if the issue persists. If so, [Send us Feedback](/support-and-community/) and provide details of your EDR, OS, shell, etc.
 
 ### Configuring and debugging your RC files
 
-To support Blocks ([custom hooks](https://www.warp.dev/blog/how-warp-works#implementing-blocks)), a native Input Editor experience, AI blocks, etc. we have built custom support for a subset of shell functionality (decouple functionality from the shell and move to the terminal). This leads to Warp being incompatible with various tools and plugins. Please see the [list of incompatible](/support-and-community/troubleshooting-and-support/known-issues/#list-of-incompatible-tools) tools to find the tools that are known not to work with Warp.
+To support Blocks ([custom hooks](https://www.warp.dev/blog/how-warp-works#implementing-blocks)), a native Input Editor experience, AI blocks, etc. we have built custom support for a subset of shell functionality (decouple functionality from the shell and move to the terminal). This leads to Warp being incompatible with various tools and plugins. See the [list of incompatible](/support-and-community/troubleshooting-and-support/known-issues/#list-of-incompatible-tools) tools to find the tools that are known not to work with Warp.
 
-Unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. Please see our [Prompt](/terminal/appearance/prompt/) page for more information on custom prompts.
+Unlike typical terminals which are essentially continuous character grids, each section of Warp is its own (separate) UI element. See our [Prompt](/terminal/appearance/prompt/) page for more information on custom prompts.
 
 #### Debugging
 
@@ -176,8 +176,8 @@ If Warp is not working with your dotfile configuration, you can run your shell i
 
 The following non-exhaustive list of plugins, prompts, or tools can cause potential issues in Warp:
 
-* oh-my-fish, oh-my-bash, or other unsupported shell prompts. See our [Custom Prompt Compatibility Table](/terminal/appearance/prompt/#custom-prompt-compatibility-table).
-* [iterm shell integration](https://iterm2.com/documentation-shell-integration.html)
+* oh-my-fish, oh-my-bash, or other unsupported shell prompts. See our [Custom Prompt Compatibility Table](/terminal/appearance/prompt/#shell-prompt-compatibility-table).
+* [iTerm2 shell integration](https://iterm2.com/documentation-shell-integration.html)
   * `test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true`
 * [Termium](https://codeium.com/blog/termium-codeium-in-terminal-launch)
   * `eval "$(termium shell-hook show pre)"`
@@ -233,7 +233,7 @@ The following non-exhaustive list of plugins, prompts, or tools can cause potent
 
     Warp may have an error opening after auto-update on macOS Ventura. This issue has been resolved for current and future releases of Warp. To avoid the issue, [update Warp](/support-and-community/troubleshooting-and-support/updating-warp/) _before_ you upgrade to macOS Ventura.\
     \
-    If you experience an error opening Warp, please try the following:
+    If you experience an error opening Warp, try the following:
 
     * Go to the macOS Applications folder, right-click on Warp, choose Open, then the '"Warp" is damaged' dialog will have the option to click the Open button.
 
@@ -252,13 +252,13 @@ The following non-exhaustive list of plugins, prompts, or tools can cause potent
   <TabItem label="Windows">
     **Unsupported in Warp on Windows**
 
-    The following features are not supported in Warp on Windows. Please track the relevant GitHub issues linked below for any changes:
+    The following features are not supported in Warp on Windows. Track the relevant GitHub issues linked below for any changes:
 
     * [cmd.exe](https://github.com/warpdotdev/Warp/issues/5882) or [fish](https://github.com/warpdotdev/Warp/issues/6060) shells
 
     **Warp won't run on Windows**
 
-    We're tracking some issues on Windows where [Warp crashes on startup](https://github.com/warpdotdev/Warp/issues/5840) or doesn't render, with some possible workarounds below. If none of the workarounds help, please open a [new GitHub issue](https://github.com/warpdotdev/warp/issues/new/choose) and include [logs](/support-and-community/#gathering-warp-logs), installation (Baremetal or VM, x86\_64 or ARM64), and the issue you had.
+    We're tracking some issues on Windows where [Warp crashes on startup](https://github.com/warpdotdev/Warp/issues/5840) or doesn't render, with some possible workarounds below. If none of the workarounds help, please open a [new GitHub issue](https://github.com/warpdotdev/warp/issues/new/choose) and include [logs](/support-and-community/troubleshooting-and-support/sending-us-feedback/#gathering-warp-logs), installation (Baremetal or VM, x86\_64 or ARM64), and the issue you had.
 
     * Graphics
       * You can select the graphics backend used to render new Warp windows in the Settings menu, under **Features** > **System** > **Preferred graphics backend**.
@@ -266,7 +266,7 @@ The following non-exhaustive list of plugins, prompts, or tools can cause potent
 
     **Crash on opening a Launch configuration or doesn't become transparent on Windows**
 
-    When a user has an Nvidia 572.xx or AMD 23.10.x drivers or above, Warp may [crash when trying to open a Launch Configuration](https://github.com/warpdotdev/Warp/issues/5875), or [Warp fails to become transparent](https://github.com/warpdotdev/Warp/issues/5903) (opacity setting doesn't work). These are known limitations of the graphics drivers. We're investigating the issues and will update the GitHub issues above. You can workaround this by forcing the graphics backend to Vulkan or OpenGL by running the following from another terminal and setting your GPU driver Vulkan/OpenGL render method setting to "Prefer Native", or using the [DX12 backend](/support-and-community/troubleshooting-and-support/known-issues/#warp-wont-run-or-render-on-windows):
+    When a user has an Nvidia 572.xx or AMD 23.10.x drivers or above, Warp may [crash when trying to open a Launch Configuration](https://github.com/warpdotdev/Warp/issues/5875), or [Warp fails to become transparent](https://github.com/warpdotdev/Warp/issues/5903) (opacity setting doesn't work). These are known limitations of the graphics drivers. We're investigating the issues and will update the GitHub issues above. You can workaround this by forcing the graphics backend to Vulkan or OpenGL by running the following from another terminal and setting your GPU driver Vulkan/OpenGL render method setting to "Prefer Native", or using the [DX12 backend](/support-and-community/troubleshooting-and-support/known-issues/#operating-systems):
 
     ```powershell
     # Run if Warp on Windows is installed for a single user
@@ -279,7 +279,7 @@ The following non-exhaustive list of plugins, prompts, or tools can cause potent
   <TabItem label="Linux">
     **Warp won't run on Linux**
 
-    We're tracking some issues on Linux where a [Warp window doesn't show/render](https://github.com/warpdotdev/Warp/issues/4215) and won't run in [Virtual Machines](https://github.com/warpdotdev/Warp/issues/4476), over [remote desktops](https://github.com/warpdotdev/Warp/issues/4435), or on [WSL](https://github.com/warpdotdev/Warp/issues/4240). Some possible workarounds are below. If none of the workarounds help, please open a [new GitHub issue](https://github.com/warpdotdev/warp/issues/new/choose) and include [logs](/support-and-community/#gathering-warp-logs) with your Linux distro, installation (WSL, Baremetal or VM, x86\_64 or ARM64), and the issue you had.
+    We're tracking some issues on Linux where a [Warp window doesn't show/render](https://github.com/warpdotdev/Warp/issues/4215) and won't run in [Virtual Machines](https://github.com/warpdotdev/Warp/issues/4476), over [remote desktops](https://github.com/warpdotdev/Warp/issues/4435), or on [WSL](https://github.com/warpdotdev/Warp/issues/4240). Some possible workarounds are below. If none of the workarounds help, please open a [new GitHub issue](https://github.com/warpdotdev/warp/issues/new/choose) and include [logs](/support-and-community/troubleshooting-and-support/sending-us-feedback/#gathering-warp-logs) with your Linux distro, installation (WSL, Baremetal or VM, x86\_64 or ARM64), and the issue you had.
 
     :::note
     * Many package install examples are for Ubuntu using `apt`, your distro may use different commands (`dnf`, `pacman`, `zypper`) or package names.
@@ -322,6 +322,6 @@ The following non-exhaustive list of plugins, prompts, or tools can cause potent
     sudo apt update && sudo apt install warp-terminal
     ```
 
-See the instructions for other Linux distros on our [quickstart guide](/getting-started/quickstart/installation-and-setup/#linux).
+See the instructions for other Linux distros on our [quickstart guide](/getting-started/quickstart/installation-and-setup/#install-warp).
   </TabItem>
 </Tabs>

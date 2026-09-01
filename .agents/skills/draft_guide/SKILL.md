@@ -1,11 +1,22 @@
 ---
 name: draft_guide
-description: Draft a new guide page for the Guides section (src/content/docs/guides/). Use for practical, task-oriented walkthroughs that help developers accomplish a specific goal — like setting up a tool, completing a workflow, or learning a technique. Guides focus on the "how" with real prompts and reproducible results, targeting non-branded search queries.
+description: Draft a tutorial for the Guides section (src/content/docs/guides/). Use for a full workflow walkthrough that helps a developer solve a real problem end to end - setting up a tool, completing a workflow, or learning a technique. Tutorials focus on the "how" with real prompts and reproducible results, targeting non-branded search queries. For a five-minute essential-steps path, use draft_quickstart instead.
 ---
 
-# Draft guide page
+# Draft tutorial page
 
-Draft a practical guide that walks a developer through accomplishing a specific goal.
+Draft a tutorial that walks a developer through an entire workflow, start to finish.
+
+## Tutorial or quickstart?
+
+"Guides" is the name of the section, not a content type. It holds both, and the choice is about scope:
+
+- **Quickstart** — about five minutes, ~600 words, essential steps only, for someone who already knows the product. Use `draft_quickstart`.
+- **Tutorial** — a full workflow with context at the decision points, for someone extending a basic understanding to solve a real problem. This skill.
+
+**A tutorial requires that a quickstart already exists** for the product area. Check before drafting. If there is no quickstart, write that first — otherwise the tutorial absorbs setup content that belongs in a shorter page, and readers who only wanted to get started have to wade through the whole workflow.
+
+Tutorials are more conversational than other content: a developer-to-developer conversation that stays accessible to varied technical backgrounds.
 
 ## Workflow
 
@@ -28,15 +39,27 @@ The sidebar nav is defined in `src/sidebar.ts`, which organizes guides into topi
 - **DevOps & infrastructure** — Cloud logs, Docker, Kubernetes, testing, database optimization
 - **Frontend & UI** — Building and refining UI components with coding agents
 
+## Frontmatter description
+
+One to two sentences, 50-160 characters, saying what the reader will build or accomplish, using the non-branded phrasing they would search for.
+- ✅ `Set up Claude Code and run your first agentic coding session from the terminal.`
+- ❌ `A guide to using Claude Code with Warp.`
+
+See "Descriptions by content type" under Frontmatter in `AGENTS.md` for the full rules.
+
 ## Content type rules
 
 These rules are specific to guide pages (from the "Drafting by content type" section of `AGENTS.md`):
 
-- **Titles should be task-oriented** and read like a search query. Use shortened titles in the Astro Starlight nav and full descriptive titles in the article H1.
+- **Titles should be task-oriented** and read like a search query. Use shortened titles in the Astro Starlight nav and full descriptive titles in the article H1. Do not put "tutorial" or "guide" in the title.
 - **For SEO: capture the non-branded query.** Write the title a developer would actually search for, not "How to do X in Warp." Example: "How to set up Claude Code" not "How to set up Claude Code in Warp."
 - All procedural rules apply (focused steps, motivate steps, expected outcomes).
-- Link to relevant feature documentation in the main docs (`docs/`) where concepts need deeper explanation.
-- When a guide has a companion video, the written content should stand alone.
+- **Give real examples, not placeholders.** Do not write "enter a commit message" — supply an appropriate one that matches the preceding steps.
+- **Include troubleshooting.** Name what commonly goes wrong in this workflow and how to recover. This is the clearest line between a tutorial and a quickstart, which only links to existing troubleshooting.
+- **End with a conclusion, then next steps.** Review what the reader built, referring back to the example from the introduction, then give 2-3 actionable next steps.
+- **Do not state an expected completion time.** It varies too much by experience level. (Quickstarts do state one; tutorials do not.)
+- Link to relevant feature documentation in the main docs where concepts need deeper explanation.
+- When a tutorial has a companion video, the written content should stand alone.
 - The optional **Productivity tips** section should showcase Warp features as natural extensions of the workflow — not as a separate pitch.
 
 ## SEO and AEO optimization

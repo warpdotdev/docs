@@ -4,9 +4,10 @@ description: >-
   Warp provides two distinct modes: a clean terminal for commands, and a
   dedicated conversation view for multi-turn agent workflows.
 ---
+import { VARS } from '@data/vars';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-Warp provides two distinct modes: a clean terminal for running shell commands, and a dedicated conversation view for multi-turn interactions with Oz, Warp's agent. Terminal mode keeps the interface minimal by default, while Agent Mode surfaces full controls for model selection, voice input, image attachments, and conversation management.
+Warp provides two distinct modes: a clean terminal for running shell commands, and a dedicated conversation view for multi-turn interactions with the Warp Agent. Terminal mode keeps the interface minimal by default, while Agent Mode surfaces full controls for model selection, voice input, image attachments, and conversation management.
 
 <VideoEmbed url="https://youtu.be/J715YW5VC18" title="Switching between Terminal and Agent modes video" />
 
@@ -17,7 +18,7 @@ Warp provides two distinct modes: a clean terminal for running shell commands, a
 Before diving in, here are two key concepts:
 
 * **Terminal session** - Your shell environment where you run commands. This is the default mode when you open Warp—a clean, traditional terminal input.
-* **Agent conversation** - A multi-turn interaction with Oz. Conversations maintain context across exchanges and have their own dedicated view with richer controls.
+* **Agent conversation** - A multi-turn interaction with the {VARS.WARP_AUTOMATION_PLATFORM}. Conversations maintain context across exchanges and have their own dedicated view with richer controls.
 
 Terminal and Agent modes make switching between these two contexts seamless while keeping them visually distinct.
 
@@ -132,7 +133,7 @@ Cloud agent conversations are always stored in the cloud. For more details on ac
 
 * **From the conversation list panel** - Cloud conversations appear alongside local conversations. Click to open.
 * **From the management view** - Use the [Agent Management view](/platform/managing-cloud-agents/) to see all cloud agent runs, filter by status, and click any row to open the conversation.
-* **From the Oz web app** - Access your cloud agents from the [Oz web app](https://oz.warp.dev) to manage runs from any browser.
+* **From the {VARS.WEB_APP}** - Access your cloud agents from the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> to manage runs from any browser.
 
 For more on cloud agents, see [Cloud Agents overview](/platform/).
 

@@ -1,13 +1,14 @@
 ---
 title: "Managed: Docker backend"
 description: >-
-  Run the Oz managed worker daemon with the Docker backend to execute cloud
+  Run the {{WARP_AUTOMATION_PLATFORM}} managed worker daemon with the Docker backend to execute cloud
   agent tasks in isolated containers on your infrastructure.
 sidebar:
   label: "Managed: Docker"
 ---
+import { VARS } from '@data/vars';
 
-Run the `oz-agent-worker` daemon with the **Docker backend** — the default managed path. Each agent task runs in an isolated Docker container spawned from the worker, with full orchestration by Oz (Slack, Linear, schedules, API, `oz agent run-cloud`).
+Run the `oz-agent-worker` daemon with the **Docker backend** — the default managed path. Each agent task runs in an isolated Docker container spawned from the worker, with full orchestration by the {VARS.WARP_AUTOMATION_PLATFORM} (Slack, Linear, schedules, API, `oz agent run-cloud`).
 
 :::note
 This page covers the [managed architecture](/platform/self-hosting/#managed-architecture) with the Docker backend. For the Kubernetes backend, see [Managed: Kubernetes](/platform/self-hosting/managed-kubernetes/). For host execution without a container runtime, see [Managed: Direct](/platform/self-hosting/managed-direct/). If you'd rather invoke agents yourself, see [Unmanaged](/platform/self-hosting/unmanaged/).
@@ -26,7 +27,7 @@ This page covers the [managed architecture](/platform/self-hosting/#managed-arch
 * **Enterprise plan with self-hosting enabled** — [Contact sales](https://www.warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
 * **A machine to run the worker** — A VM, server, or local machine running Linux (recommended for production). For testing, macOS and Windows hosts running Docker Desktop work.
 * **Docker installed** — The worker uses Docker to spawn task containers. The Docker daemon must run Linux containers (Windows containers are not supported). Verify with `docker info`.
-* **An agent API key** — Create one in the [Oz web app](https://oz.warp.dev/settings) so the worker can authenticate to Oz. You can bind the key to any cloud agent — that choice doesn't restrict which agents can run on the worker. See [API Keys](/reference/cli/api-keys/) for the full creation flow.
+* **An agent API key** — Create one in the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP}</a> so the worker can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}. You can bind the key to any cloud agent — that choice doesn't restrict which agents can run on the worker. See [API Keys](/reference/cli/api-keys/) for the full creation flow.
 
 :::caution
 Task containers require a **linux/amd64** or **linux/arm64** Docker daemon. The worker host itself can be any OS — Docker Desktop on macOS and Windows runs a Linux VM that satisfies this requirement.
@@ -46,7 +47,7 @@ docker info
 
 ## Set your API key
 
-Export your agent API key so the worker can authenticate to Oz:
+Export your agent API key so the worker can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}:
 
 ```bash
 export WARP_API_KEY="your_agent_api_key"
@@ -70,7 +71,7 @@ docker run -v /var/run/docker.sock:/var/run/docker.sock \
   warpdotdev/oz-agent-worker --worker-id "my-worker"
 ```
 
-**Expected outcome:** The worker connects to Oz and logs that it's listening for tasks.
+**Expected outcome:** The worker connects to the {VARS.WARP_AUTOMATION_PLATFORM} and logs that it's listening for tasks.
 
 ### Option 2: Go install
 
@@ -88,9 +89,9 @@ go build -o oz-agent-worker
 ./oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker"
 ```
 
-Once started, the worker connects to Oz, waits for tasks routed to its `--worker-id`, runs each task in an isolated Docker container, and reports status and results back. The worker automatically reconnects if the connection drops.
+Once started, the worker connects to the {VARS.WARP_AUTOMATION_PLATFORM}, waits for tasks routed to its `--worker-id`, runs each task in an isolated Docker container, and reports status and results back. The worker automatically reconnects if the connection drops.
 
-You can run multiple workers with the same `--worker-id` for redundancy — Oz distributes tasks across connected workers.
+You can run multiple workers with the same `--worker-id` for redundancy — the {VARS.WARP_AUTOMATION_PLATFORM} distributes tasks across connected workers.
 
 ---
 

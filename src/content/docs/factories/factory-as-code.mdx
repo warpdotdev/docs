@@ -1,0 +1,480 @@
+---
+title: Factory definition syntax
+description: >-
+  Look up every file and key in a factory definition: factory.yaml, agents,
+  automations, runners, scorers, and skills.
+sidebar:
+  label: "Definitions as code"
+---
+import { VARS } from '@data/vars';
+
+Every factory is defined by files: a `factory.yaml` plus directories of agents, automations, runners, scorers, and skills, versioned in a Git repository. The files are the source of truth — when they change, Warp updates the factory to match. This page describes every file and key in a definition.
+
+Definition files are YAML and Markdown. Keys are case-sensitive.
+
+For complete working definitions you can copy, see the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository. Its examples range from a single-repo quickstart to a full issue-to-PR lifecycle.
+
+## Where the definition lives
+
+You choose who hosts the definition repository when you create a factory:
+
+* **Warp-managed (default)** - Warp hosts the repository for you. You edit the factory in the [{VARS.FACTORY_WEB_APP}](/factories/factory-dashboard/), and every change is validated, committed to the files, and applied in one step. You never interact with the repository directly, and the definition can't end up in an invalid state.
+* **GitHub** - The definition lives in a repository you own. The repository is the only way to change the factory: the web app shows the configuration read-only and links back to the files. Open a pull request, and any change merged to the production branch (`main` by default) updates the factory. See [Pull request checks](#pull-request-checks-for-github-backed-factories).
+
+Both modes use the same files, so everything on this page applies to either. You can also link a GitHub repository to a Warp-managed factory later.
+
+Definition files describe how the factory is configured, not what it is doing: work items, runs, and metrics live in the web app and are never written to the files.
+
+{/* VISUAL: The Factory definition tab's file browser for a Warp-managed factory -- this reference page has no screenshots. */}
+
+## Directory structure
+
+Each resource takes its name from its path: `agents/reviewer/agent.md` defines an agent named `reviewer`.
+
+```text
+factory.yaml
+agents/
+  foreman/
+    agent.md
+    skills/
+      incident-triage/
+        SKILL.md
+  reviewer/
+    agent.md
+automations/
+  labeled-issue/
+    automation.md
+runners/
+  linux-build.yaml
+scorers/
+  tests-run/
+    scorer.md
+skills/
+  repository-conventions/
+    SKILL.md
+```
+
+Only `factory.yaml` and at least one agent are required. For a complete working definition, see the [example factory definition](#example-factory-definition) below. The smallest complete example tree is [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart); the fullest is [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr).
+
+## `factory.yaml`
+
+The factory's root document. It names the factory, scopes it to repositories, and sets the execution defaults every agent inherits.
+
+```yaml title="factory.yaml"
+schemaVersion: v1alpha1
+name: payments-factory
+repositories:
+  - owner: acme
+    name: payments-service
+agentDefaults:
+  model: auto
+```
+
+### `schemaVersion`
+
+Required. The definition schema version. The only supported value is `v1alpha1`.
+
+### `name`
+
+Required. The factory's name.
+
+### `description`
+
+Optional. What the factory is for.
+
+### `alias`
+
+Optional. The handle used to @-mention the factory's foreman on connected platforms like Slack and Linear; the factory dashboard labels this field **Foreman name**. Up to 60 characters: letters, numbers, spaces, `.`, `_`, and `-`. Must be unique across your workspace (compared case-insensitively).
+
+### `credentialStrategy`
+
+Optional. Whose credentials the factory's runs execute with: `EXECUTOR` (the principal executing the run, the default) or `CREATOR` (the user who created the run). Agents can override it per role.
+
+### `repositories`
+
+Required. The repositories the factory works in, as `owner` and `name` pairs. On a GitLab-backed factory these are the projects you selected under the connected group.
+
+```yaml
+repositories:
+  - owner: acme
+    name: payments-service
+  - owner: acme
+    name: payments-docs
+```
+
+### `secrets`
+
+Optional. Names of [managed secrets](/platform/secrets/) granted to every agent in the factory, in addition to anything individual agents declare.
+
+### `mcpServers`
+
+Optional. [MCP servers](/platform/mcp/) granted to every agent, keyed by the name the agent sees. Each entry references a Warp-managed MCP server by `warpId`.
+
+```yaml
+mcpServers:
+  sentry:
+    warpId: SENTRY_MCP_SERVER_ID
+```
+
+### `cloudProviders`
+
+Optional. Cloud-provider identity federation for agent runs. `gcp` accepts `projectNumber` (quote it so YAML keeps it a string), `workloadIdentityFederationPoolId`, `workloadIdentityFederationProviderId`, and an optional `serviceAccountEmail`. `aws` accepts `roleArn`.
+
+```yaml
+cloudProviders:
+  aws:
+    roleArn: arn:aws:iam::123456789012:role/warp-factory
+```
+
+### `integrations`
+
+Optional. The integration providers attached to the factory. `type` accepts `slack`, `linear`, or `jira`. Declare at most one issue tracker: `linear` and `jira` are mutually exclusive, and omitting a tracker is also valid. GitHub is not declared here; repository access comes from `repositories` and the connected GitHub App.
+
+```yaml
+integrations:
+  - type: slack
+  - type: linear
+```
+
+### `agentDefaults`
+
+Required. The execution defaults every agent inherits. Declare exactly one of `model` or `harness`; the other keys are optional. An agent that sets one of these keys for itself overrides the default.
+
+```yaml
+agentDefaults:
+  model: auto
+  runner: linux-build
+  environmentId: PAYMENTS_ENVIRONMENT_ID
+```
+
+### `agentDefaults.model`
+
+The model that runs execute with, as a `model_id` from [model choice for agents](/agents/inference/model-choice/). `model` is shorthand for running on the Warp Agent harness:
+
+```yaml
+model: auto
+```
+
+is equivalent to:
+
+```yaml
+harness:
+  type: oz
+  model: auto
+```
+
+`model` and `harness` are mutually exclusive everywhere they appear.
+
+### `agentDefaults.harness`
+
+The harness and model that runs execute with. Use the `harness` form to run a third-party harness or to set advanced options. `type` accepts `oz`, `claude` (alias `claude-code`), `codex`, or `gemini` — the values the definition schema validates. For what each harness does and which ones your team can run, see [supported harnesses](/platform/harnesses/).
+
+```yaml
+harness:
+  type: codex
+  model: gpt-5.3-codex
+  reasoningLevel: high
+  auth:
+    source: managedSecret
+    secretName: CODEX_API_KEY
+```
+
+For a third-party harness, `auth` sets where credentials come from: `source: managedSecret` reads the [managed secret](/platform/secrets/) named by `secretName`, and `source: workerEnvironment` reads them from your self-hosted worker's environment (and requires a self-hosted `workerHost`). The `oz` harness supplies its own credentials and takes no `auth` or `reasoningLevel`.
+
+For a definition that runs a different harness per agent, with managed-secret auth for Claude Code and Codex, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness). To configure the same third-party harness from the dashboard instead, see [configuring a third-party harness](/factories/factory-agents/#configuring-a-third-party-harness).
+
+### `agentDefaults.runner`
+
+The name of a runner defined under [`runners/`](#runnersnameyaml) that provides the compute for runs.
+
+### `agentDefaults.environmentId`
+
+The ID of an existing [environment](/platform/environments/) that runs execute in. Most factories never set this: leave it out, and Warp manages the workspace from the factory's repositories.
+
+### `agentDefaults.secrets`
+
+Managed secrets for agents that don't declare their own. An agent that declares `secrets` replaces this list rather than adding to it; factory-wide [`secrets`](#secrets) always apply.
+
+### `agentDefaults.mcpServers`
+
+MCP servers for agents that don't declare their own, in the same form as [`mcpServers`](#mcpservers). Like secrets, an agent that declares its own map replaces this one, and factory-wide servers always apply.
+
+### `agentDefaults.workerHost`
+
+Where runs execute: `warp` for Warp-hosted compute, or the ID of a connected [self-hosted worker](/platform/self-hosting/).
+
+## `agents/<name>/agent.md`
+
+One file per agent. The YAML frontmatter configures how the agent runs, and the Markdown body is the agent's prompt: the durable instructions for its role. The agent's name comes from its directory.
+
+```markdown title="agents/reviewer/agent.md"
+---
+description: Reviews factory-produced pull requests
+agentType: REVIEW
+---
+
+Review each pull request against the repository's standards. Request
+changes when tests are missing; never approve your own edits.
+```
+
+The frontmatter accepts:
+
+* `description` - Optional. What the agent does.
+* [`agentType`](#agenttype) - Optional. The agent's role.
+* `credentialStrategy` - Optional. Overrides the factory-level [`credentialStrategy`](#credentialstrategy) for this agent's runs.
+* `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost` - Optional. The same keys as [`agentDefaults`](#agentdefaults); a key declared here overrides the default for this agent.
+
+### `agentType`
+
+The agent's role: `CUSTOM` (the default), `FOREMAN` (alias `MAIN`), `TRIAGE`, `SPEC`, `IMPLEMENT`, `REVIEW`, or `VERIFY`. Every definition declares exactly one foreman — the factory's entry point and the default target for automations. See [factory agents](/factories/factory-agents/) for what each role does.
+
+## `automations/<name>/automation.md`
+
+One file per automation. The frontmatter declares when runs start and how they execute, and the Markdown body is the prompt each run starts with. The automation's name comes from its directory.
+
+```markdown title="automations/labeled-issue/automation.md"
+---
+agent: foreman
+triggers:
+  - provider: github
+    event: issue_labeled
+    filter:
+      repos: [acme/payments-service]
+      labels: [factory-ready]
+---
+
+Review the labeled issue and decide the next required stage. Return
+unresolved product questions to a human.
+```
+
+### `enabled`
+
+Optional. Turns the automation on or off. Defaults to `true`.
+
+### `agent`
+
+Optional. The name of the agent that handles this automation's runs. Defaults to the foreman.
+
+### `triggers`
+
+Required. One or more events that start runs. Each trigger declares a `provider` and an `event`, an optional `filter`, and, for schedules, a `schedule`.
+
+The providers and their events:
+
+* `github` - `issue_created`, `issue_labeled`, `issue_assigned`, `issue_mentioned`, `pull_request_opened`, `pull_request_closed`, `pull_request_merged`, `pull_request_labeled`, `pull_request_assigned`, `pull_request_mentioned`, `pull_request_ready`, `pull_request_reopened`, `pull_request_synchronized`, `pull_request_review_requested`, `pull_request_review_submitted`, `push`, `check_suite_completed`, `check_run_rerequested`, `check_suite_rerequested`, `workflow_run_completed`
+* `gitlab` - `merge_request`, `bot_mentioned`
+* `linear` - `issue_created`, `issue_labeled`, `issue_assigned`, `issue_state_changed`, `comment_created`, `agent_session_created`
+* `jira` - `issue_created`, `issue_labeled`, `status_changed`, `agent_session_created`
+* `slack` - `app_mention`, `message_posted`, `message_dm`, `message_im`, `message_mpim`, `member_joined_channel`, `reaction_added`
+* `schedule` - `cron_fired`
+* `factory` - `work_item_stage_changed`
+
+Slack, Linear, and Jira triggers require the matching [integration](/platform/integrations/) to be connected. GitHub triggers work through the factory's `repositories`, and GitLab triggers through the group connected to your workspace — see the [GitLab integration](/factories/integrations/gitlab/).
+
+### `triggers[].filter`
+
+Optional. Narrows which events start runs. The keys a filter accepts depend on the provider and event: for example `repos`, `labels`, and `authors` for GitHub events, or `channels`, `users`, and `keywords` for Slack messages. Filter keys combine with AND, an omitted key matches everything, and each key takes a list that matches any of its values (or an `in`/`not_in` object to include or exclude). Slack and Linear filters take names (channels, users, teams, projects, states), and Warp resolves them to IDs when it applies the change.
+
+### `triggers[].schedule`
+
+Declares a cron schedule inline on a `schedule` / `cron_fired` trigger: a five-field cron expression or a descriptor like `@daily` or `@every 1h`, always interpreted in UTC. An optional `name` distinguishes multiple schedules on one automation.
+
+```yaml
+triggers:
+  - provider: schedule
+    event: cron_fired
+    schedule:
+      name: weekday-mornings
+      cron: "0 9 * * 1-5"
+```
+
+### Execution overrides
+
+An automation may also declare `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, and `workerHost` (the same keys as [`agentDefaults`](#agentdefaults)) to override the target agent's settings for the runs it starts.
+
+## `runners/<name>.yaml`
+
+Optional. Each file defines a runner: the compute a run executes on. The runner's name comes from the file name, and agents and automations select it by that name. See [cloud agent runners](/platform/runners/) for how runners behave. For three runners selected per agent, including a macOS runner, see [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr).
+
+```yaml title="runners/linux-build.yaml"
+description: Linux runner for payments builds and tests
+setupCommands:
+  - corepack enable
+instanceShape:
+  vcpus: 4
+  memoryGb: 8
+platform:
+  os: linux
+  arch: x86_64
+  linux:
+    dockerImage: ubuntu:22.04
+```
+
+### `setupCommands`
+
+Optional. Shell commands run in order while the sandbox is prepared.
+
+### `instanceShape`
+
+Optional. The compute size, as `vcpus` and `memoryGb`. Omit it to take the workspace default.
+
+### `platform`
+
+The operating system and architecture. `os` is `linux` (the default) or `macos`, and `arch` is `x86_64` (the default on Linux) or `aarch64` (the only option on macOS). Linux runners require `linux.dockerImage`, the container image the sandbox boots, so every Linux runner declares a `platform` section. macOS runners accept an optional `mac.version` (`"14"`, `"15"`, `"26"`, or `"27"`; quote it, and it defaults to `"26"`).
+
+## `scorers/<name>/scorer.md`
+
+Optional. Each file defines a scorer: an LLM judge that classifies a sample of an agent's finished runs against a rubric. The directory segment is only a stable filesystem slug — the required `name` field is the scorer's identity. The YAML frontmatter declares the classification contract, and the Markdown body after the closing `---` fence is the rubric. See [Configure Scorers](/factories/measure-and-improve/#configure-scorers) for how scores are used.
+
+```markdown title="scorers/tests-run/scorer.md"
+---
+name: tests-run
+description: Checks whether implementation runs include test evidence.
+agents:
+  - reviewer
+labels:
+  - value: tests_run
+    description: The transcript contains a test command and its result.
+    score: 1
+  - value: tests_skipped
+    score: 0
+passingScore: 1
+samplingRate: 25
+model: claude-4-5-haiku
+---
+Evaluate whether the agent ran the relevant tests before finishing. Return
+exactly one declared label.
+```
+
+### `name`
+
+Required. The scorer's identity. Renaming it is a content edit, not a directory move.
+
+### `description`
+
+Optional. A short summary of what the scorer checks.
+
+### `agents`
+
+Required. The agents whose runs this scorer evaluates, as a list of one or more agent names. Each name matches an agent defined under [`agents/`](#agentsnameagentmd).
+
+### `output`
+
+Optional. The scorer output form. `classification` is the current supported value.
+
+### `labels`
+
+Required. The classifications the judge may return, each with a `value`, a numeric `score` from 0 through 1, and an optional `description`. At least one label must score at or above `passingScore` and at least one below it.
+
+### `passingScore`
+
+Required. The threshold, from 0 through 1, at or above which a run counts as passing.
+
+### `samplingRate`
+
+Optional. The percentage of eligible runs to score. Defaults to 25.
+
+### `model`
+
+Required. The model that judges the runs.
+
+### `selfImprovement`
+
+Optional. When `true`, failing scores can feed the factory's self-improvement flow, which proposes definition changes as pull requests. Defaults to `false`.
+
+## Skills
+
+A skill is a directory containing a `SKILL.md`, not a YAML key. Skills under `skills/` are available to every agent in the factory; skills under `agents/<name>/skills/` are available only to that agent. See [factory skills](/factories/factory-skills/) for when to add one, and [Skills](/agents/capabilities/skills/) for the file format.
+
+## Example factory definition
+
+A complete, working definition: one repository, a foreman, an automation triggered by a GitHub label, and a Linux runner. `PAYMENTS_ENVIRONMENT_ID` and `SENTRY_MCP_SERVER_ID` stand in for the IDs of an existing environment and MCP server.
+
+The [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository has more definitions like this one: the default agents as files, the full lifecycle with scorers and skills, a harness per agent, single-agent factories for code review and UI verification, and a catalog of common automations.
+
+```yaml title="factory.yaml"
+schemaVersion: v1alpha1
+name: payments-factory
+description: Processes approved work for the payments service
+alias: payments
+repositories:
+  - owner: acme
+    name: payments-service
+agentDefaults:
+  model: auto
+  runner: linux-build
+  environmentId: PAYMENTS_ENVIRONMENT_ID
+```
+
+```markdown title="agents/foreman/agent.md"
+---
+description: Routes approved payments work through the factory
+agentType: FOREMAN
+secrets:
+  - SENTRY_AUTH_TOKEN
+mcpServers:
+  sentry:
+    warpId: SENTRY_MCP_SERVER_ID
+---
+
+Own each work item from intake through human handoff.
+
+Confirm the request is ready before dispatching implementation. Require
+repository validation and independent review before marking work complete.
+```
+
+```markdown title="automations/labeled-issue/automation.md"
+---
+enabled: true
+agent: foreman
+triggers:
+  - provider: github
+    event: issue_labeled
+    filter:
+      repos: [acme/payments-service]
+      labels: [factory-ready]
+---
+
+Review the labeled issue and decide the next required stage. Preserve the
+issue's acceptance criteria and return unresolved product questions to a human.
+```
+
+```yaml title="runners/linux-build.yaml"
+description: Linux runner for payments builds and tests
+setupCommands:
+  - corepack enable
+instanceShape:
+  vcpus: 4
+  memoryGb: 8
+platform:
+  os: linux
+  arch: x86_64
+  linux:
+    dockerImage: ubuntu:22.04
+```
+
+### Routing to a self-hosted worker
+
+To route this factory's work to a [managed self-hosted worker](/factories/infrastructure-and-security/#choose-an-execution-host) instead of Warp-hosted compute, set `workerHost` on `agentDefaults` (or override it per agent or automation) to the worker's ID:
+
+```yaml title="factory.yaml"
+agentDefaults:
+  model: auto
+  runner: linux-build
+  workerHost: SELF_HOSTED_WORKER_ID
+```
+
+Pair `workerHost` with a runner whose `platform` matches the worker's operating system and architecture. See [choose an execution host](/factories/infrastructure-and-security/#choose-an-execution-host) for the full setup, including how to deploy and connect the worker. For a working definition, see [`07-self-hosted-worker`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/07-self-hosted-worker).
+
+## Pull request checks for GitHub-backed factories
+
+When your definition lives in GitHub, Warp validates every change before it takes effect:
+
+* Every pull request that targets the production branch gets a **warp/factory-config** check. The check annotates invalid fields and unresolvable references with the file and line that caused them, and summarizes what the change would apply.
+* When a change lands on the production branch, Warp applies it as a whole. A definition that fails validation never partially applies: the factory keeps running on its last valid definition until the branch is fixed.
+
+Warp-managed factories skip all of this. Every edit in the web app is validated when you save it, so the definition can't become invalid.
+
+## Machine-readable schema
+
+Warp publishes the definition schema as JSON Schema documents, generated from the same parser that validates your files. Fetch the supported versions from `https://app.warp.dev/api/v1/factory-files/schemas` and the `v1alpha1` documents from `https://app.warp.dev/api/v1/factory-files/schemas/v1alpha1`. Both endpoints are unauthenticated, so editors and agents can validate a definition without a Warp login.

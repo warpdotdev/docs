@@ -7,8 +7,9 @@ sidebar:
   label: "Quickstart"
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
-Scheduled agents are cloud agents that run on a recurring cron schedule, handling recurring tasks automatically without manual triggers. This guide walks you through setting up an agent that triages your GitHub bug reports every week, checks whether each issue has enough detail to investigate, and posts follow-up comments when information is missing. You'll use a prebundled skill and the Oz web app; no CLI or custom code required.
+Scheduled agents are cloud agents that run on a recurring cron schedule, handling recurring tasks automatically without manual triggers. This guide walks you through setting up an agent that triages your GitHub bug reports every week, checks whether each issue has enough detail to investigate, and posts follow-up comments when information is missing. You'll use a prebundled skill and the {VARS.WEB_APP}; no CLI or custom code required.
 
 Watch this short demo of creating and testing a scheduled agent:
 <VideoEmbed url="https://youtu.be/M-zyyrGt2ug" title="Scheduled agents quickstart walkthrough" />
@@ -24,14 +25,28 @@ Watch this short demo of creating and testing a scheduled agent:
 
 ## 1. Set up a scheduled agent
 
-1. From the [Schedules page](https://oz.warp.dev/schedules) in the Oz web app, click **New schedule**.
-2. Enter a name, e.g. `Weekly bug report triage`.
-3. Under **Agent**, select **github-bug-report-triage** from the suggested skills.
-4. Choose your environment.
-5. Under **Frequency**, choose a preset or enter a custom cron expression (e.g., `0 9 * * 1` for every Monday at 9 AM).
-6. Click **Create schedule**.
+1. From the <a href={`${VARS.WEB_APP_URL}/schedules`}>Schedules page</a> in the {VARS.WEB_APP}, click **New schedule**.
+2. Enter a schedule name, e.g. `Weekly bug report triage`.
+3. Expand **General**, then under **Agent**, choose the identity that will run the schedule. **Quick run** is the default and runs every execution as you. See [Run identity and pull request authorship](#run-identity-and-pull-request-authorship) before you decide.
+4. Under **Skills**, select **github-bug-report-triage**.
+5. Choose your environment.
+6. Under **Frequency**, choose a preset or enter a custom cron expression (e.g., `0 9 * * 1` for every Monday at 9 AM).
+7. Click **Create schedule**.
 
-**Breaking it down:** The schedule lives in Oz's cloud infrastructure. Unlike a local cron job, it fires even when your machine is off. Each run starts a fresh, isolated session with no state carried over from previous executions, and every run is tracked and reviewable in the [Oz web app](/platform/oz-web-app/).
+**Breaking it down:** The schedule lives in the {VARS.WARP_AUTOMATION_PLATFORM}'s cloud infrastructure. Unlike a local cron job, it fires even when your machine is off. Each run starts a fresh, isolated session with no state carried over from previous executions, and every run is tracked and reviewable in the [{VARS.WEB_APP}](/platform/oz-web-app/).
+
+### Run identity and pull request authorship
+
+The **Agent** setting controls the identity behind every run, which determines how the agent authenticates to GitHub:
+
+* **Quick run** (default) - Runs execute as the user who created the schedule, using that person's GitHub credentials. Pull requests the agent opens are authored by that person.
+* **Cloud agent** - Runs execute as the [cloud agent](/platform/agents/) you select. With [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) configured, the agent authenticates as the **Warp Factories** GitHub App, so pull requests are authored by the app instead of an individual.
+
+Choose a cloud agent for any schedule that opens pull requests. Pull requests authored by the app are clearly attributable to automation, and anyone on the team can review and approve them — including the person who created the schedule, who cannot approve a pull request authored by their own account.
+
+:::caution
+The {VARS.WARP_AGENT_CLI} has no **Agent** flag, so a schedule created with `oz schedule create` always runs as its creator. To run it as a cloud agent, set **Agent** on the schedule in the {VARS.WEB_APP} after creating it.
+:::
 
 ---
 
@@ -39,12 +54,12 @@ Watch this short demo of creating and testing a scheduled agent:
 
 To verify your setup without waiting for the schedule to fire, trigger a test run now:
 
-1. From the [Schedules page](https://oz.warp.dev/schedules) in the Oz web app, click the schedule you just created.
+1. From the <a href={`${VARS.WEB_APP_URL}/schedules`}>Schedules page</a> in the {VARS.WEB_APP}, click the schedule you just created.
 2. Click ⋮ and select **Run now**, then click **Run** to confirm.
 
-Your test run will appear under **All** on the [Runs page](https://oz.warp.dev/runs). Once the schedule fires on its cron, those runs will appear under **Recurring**.
+Your test run will appear under **All** on the <a href={`${VARS.WEB_APP_URL}/runs`}>Runs page</a>. Once the schedule fires on its cron, those runs will appear under **Recurring**.
 
-Runs are also accessible from the conversation panel view in the Warp app and on mobile via the Oz web app.
+Runs are also accessible from the conversation panel view in the Warp app and on mobile via the {VARS.WEB_APP}.
 
 :::note
 **Prefer the CLI?** See [Scheduled Agents](/platform/triggers/scheduled-agents/) for `oz schedule create`, `oz schedule list`, and full schedule management commands. To use a custom skill instead of a prebundled one, see [Skills as Agents](/platform/skills-as-agents/).
@@ -55,6 +70,6 @@ Runs are also accessible from the conversation panel view in the Warp app and on
 ## Next steps
 
 * **Choose the right unattended trigger** - Compare schedules, Slack, Linear, GitHub Actions, CLI, and API workflows in [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
-* **Trigger agents from your tools** - Connect Oz to Slack or Linear to trigger agents from mentions or issue updates. See [Integrations Quickstart](/platform/integrations/quickstart/).
+* **Trigger agents from your tools** - Connect the {VARS.WARP_AUTOMATION_PLATFORM} to Slack or Linear to trigger agents from mentions or issue updates. See [Integrations Quickstart](/platform/integrations/quickstart/).
 * **Manage and refine your schedule** - Change the frequency, swap skills, or pause and resume the schedule. See [Scheduled Agents](/platform/triggers/scheduled-agents/) for the full reference.
 * **Share with your team** - Schedules and environments are shared across your Warp team, so everyone benefits automatically.

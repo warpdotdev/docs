@@ -150,6 +150,80 @@ class TestMainCLI(unittest.TestCase):
         # The unmatched server path is reported, not fatal.
         self.assertIn("no owner match", out)
 
+    def test_reviewers_only_prints_bare_add_reviewer_argument(self):
+        """--reviewers-only must be directly consumable by `gh pr edit --add-reviewer`."""
+        with tempfile.TemporaryDirectory() as d:
+            warp = Path(d) / "warp"
+            self._make_repo(
+                warp,
+                "/ @warpdotdev/oss-maintainers\n/app/src/settings/ @lucie\n",
+            )
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(_MODULE_PATH),
+                    "--reviewers-only",
+                    "--warp",
+                    str(warp),
+                    "warp:app/src/settings/ssh.rs",
+                    "warp:crates/warp_features/src/lib.rs",  # default team fallback
+                ],
+                capture_output=True,
+                text=True,
+                stdin=subprocess.DEVNULL,
+            )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        # Exactly one line, no resolution table, no "Suggested command" prose.
+        self.assertEqual(result.stdout, "lucie,warpdotdev/oss-maintainers\n")
+
+    def test_reviewers_only_is_empty_when_nothing_resolves(self):
+        """An empty result is the caller's cue to use the fallback reviewer."""
+        with tempfile.TemporaryDirectory() as d:
+            warp = Path(d) / "warp"
+            self._make_repo(warp, "/app/src/settings/ @lucie\n")
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(_MODULE_PATH),
+                    "--reviewers-only",
+                    "--warp",
+                    str(warp),
+                    "warp:crates/nothing/owns/this.rs",
+                ],
+                capture_output=True,
+                text=True,
+                stdin=subprocess.DEVNULL,
+            )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout, "")
+        # A silent fallback is indistinguishable from a correct resolution when you
+        # read the log afterwards, so the reason must still surface on stderr.
+        self.assertIn("no owner match", result.stderr)
+        self.assertIn("no owners resolved", result.stderr)
+
+    def test_reviewers_only_keeps_stdout_clean_when_diagnosing(self):
+        """Diagnostics must not leak into the captured reviewer list."""
+        with tempfile.TemporaryDirectory() as d:
+            warp = Path(d) / "warp"
+            self._make_repo(warp, "/app/src/settings/ @lucie\n")
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(_MODULE_PATH),
+                    "--reviewers-only",
+                    "--warp",
+                    str(warp),
+                    "warp:app/src/settings/ssh.rs",  # resolves
+                    "warp:crates/nothing/owns/this.rs",  # does not
+                ],
+                capture_output=True,
+                text=True,
+                stdin=subprocess.DEVNULL,
+            )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout, "lucie\n")
+        self.assertIn("no owner match", result.stderr)
+
     def test_warp_internal_alias(self):
         with tempfile.TemporaryDirectory() as d:
             warp = Path(d) / "warp"

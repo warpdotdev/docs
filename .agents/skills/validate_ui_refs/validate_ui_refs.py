@@ -3,14 +3,14 @@
 
 Scans markdown files for references to Warp UI paths (Settings > ..., File > ..., etc.)
 and Command Palette command names, then validates them against a snapshot of known-valid
-paths extracted from the warp-internal codebase.
+paths extracted from the public warp client repo (warpdotdev/warp).
 
 Usage:
     python3 validate_ui_refs.py --all
     python3 validate_ui_refs.py --check-paths
     python3 validate_ui_refs.py --check-commands
     python3 validate_ui_refs.py --all --fix --create-pr --slack-notify
-    python3 validate_ui_refs.py --refresh-valid-paths --warp-internal-path /path/to/warp-internal
+    python3 validate_ui_refs.py --refresh-valid-paths --warp /path/to/warp
 """
 from __future__ import annotations
 
@@ -34,6 +34,10 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 DEFAULT_VALID_PATHS_FILE = SCRIPT_DIR / "valid_paths.json"
 DEFAULT_DOCS_DIR = SCRIPT_DIR.parents[2] / "src" / "content" / "docs"
 DEFAULT_SLACK_CHANNEL = "C09BVK0PL3Y"  # #growth-docs
+
+# Sibling directory names tried when auto-detecting the warp client checkout.
+# Prefer the public warpdotdev/warp repo; `warp-internal` is a legacy fallback.
+WARP_REPO_SIBLING_NAMES = ("warp", "warp-internal")
 
 # Known Warp UI roots — paths starting with these are Warp UI paths
 WARP_UI_ROOTS = {"Settings", "File", "View", "Warp", "Warp Drive", "Personal"}
@@ -256,6 +260,27 @@ _RE_UI_LABEL_PREFIX = re.compile(
     re.IGNORECASE,
 )
 
+# Opening/self-closing HTML or JSX tag on a single line, e.g.
+#   <DemoVideo src="..." label="Block Divider Demo" />
+#   <figure style={{ maxWidth: "375px" }}>
+# Quoted strings *inside* such a tag are component props or CSS values, never
+# Command Palette commands. Matching the tag span (rather than sniffing for a
+# `word=` prefix) keeps legitimate prose like `Palette: "Open theme picker"`
+# from being suppressed.
+_RE_HTML_JSX_TAG = re.compile(r"<[A-Za-z][^<>]*>")
+
+# Markdown fenced code block delimiter. Fenced blocks hold prompt and CLI
+# examples (e.g. an agent prompt that happens to quote a UI label), which are
+# illustrative text rather than live references to Warp's Command Palette.
+_RE_CODE_FENCE = re.compile(r"^\s*(?:```|~~~)")
+
+
+def _is_inside_jsx_tag(line: str, index: int) -> bool:
+    """Return True if `index` falls within an HTML/JSX tag on `line`."""
+    return any(
+        m.start() <= index < m.end() for m in _RE_HTML_JSX_TAG.finditer(line)
+    )
+
 
 def _is_plausible_command_name(name: str) -> bool:
     """Filter false positives for command palette names."""
@@ -317,6 +342,11 @@ def _is_plausible_command_name(name: str) -> bool:
         "tab indicators", "show sticky command header",
         "settings sync", "empty session", "secret redaction",
         "sticky command header", "vim keybindings",
+        # Mouse reporting is a Settings > Features toggle. The Command Palette
+        # does surface it, but with a state-dependent label ("Enable ..." /
+        # "Disable ..."), and it is registered as a settings row rather than an
+        # EditableBinding, so it never appears in the extracted snapshot.
+        "mouse reporting", "enable mouse reporting", "disable mouse reporting",
     }
     if name_lower in _settings_toggle_phrases:
         return False
@@ -335,7 +365,16 @@ def extract_command_palette_refs(file_path: Path) -> List[Dict[str, Any]]:
         return results
 
     lines = text.splitlines()
+    in_code_fence = False
     for line_num, line in enumerate(lines, start=1):
+        # Skip fenced code blocks — they contain prompt/CLI examples, not
+        # live UI references.
+        if _RE_CODE_FENCE.match(line):
+            in_code_fence = not in_code_fence
+            continue
+        if in_code_fence:
+            continue
+
         # Check if "Command Palette" is mentioned nearby (within 2 lines)
         context_start = max(0, line_num - 3)
         context_end = min(len(lines), line_num + 1)
@@ -363,6 +402,10 @@ def extract_command_palette_refs(file_path: Path) -> List[Dict[str, Any]]:
                     # — these are toggle/button labels, not CP commands
                     prefix = line[:match.start()]
                     if _RE_UI_LABEL_PREFIX.search(prefix):
+                        continue
+                    # Skip component props and CSS values inside JSX/HTML tags
+                    # (e.g. `label="..."`, `title="..."`, `maxWidth: "375px"`)
+                    if _is_inside_jsx_tag(line, match.start()):
                         continue
                     # Skip if already captured by arrow pattern
                     if not any(
@@ -407,7 +450,7 @@ def _suggest_migration_for_deprecated_section(
     Handles patterns like:
         Settings > AI > Input        -> Settings > Agents > Oz > Input
         Settings > AI > Knowledge    -> Settings > Agents > Knowledge
-        Settings > Platform          -> Settings > Cloud platform > Oz Cloud API Keys
+        Settings > Platform          -> Settings > Cloud platform > API keys
         Settings > Environments      -> Settings > Cloud platform > Environments
         Settings > MCP Servers       -> Settings > Agents > MCP servers
     """
@@ -422,7 +465,7 @@ def _suggest_migration_for_deprecated_section(
     subsection_map = info.get("subsection_to_subpage", {})
 
     if len(segments) == 2:
-        # Settings > Platform -> Settings > Cloud platform > Oz Cloud API Keys
+        # Settings > Platform -> Settings > Cloud platform > API keys
         new_path = ["Settings", umbrella, default_subpage]
         return {
             "valid": False,
@@ -517,6 +560,26 @@ def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
                 }
             subpage = segments[2]
             if subpage not in subpages:
+                # A subpage may itself have been renamed within the same
+                # umbrella (e.g. "Oz Cloud API Keys" -> "API keys" under
+                # "Cloud platform"). Check this deterministic alias map before
+                # falling through to case-insensitive/fuzzy matching, so a
+                # historical full path resolves to an exact migration instead
+                # of an unfixed fuzzy suggestion.
+                deprecated_subpages = umbrella_data.get("deprecated_subpages", {})
+                if subpage in deprecated_subpages:
+                    mapped_subpage = deprecated_subpages[subpage]
+                    new_path = ["Settings", section, mapped_subpage] + segments[3:]
+                    return {
+                        "valid": False,
+                        "issue": (
+                            f"\"{subpage}\" was renamed to \"{mapped_subpage}\" "
+                            f"under the \"{section}\" umbrella"
+                        ),
+                        "suggestion": " > ".join(new_path),
+                        "confidence": 0.95,
+                        "fix_type": "deprecated_section",
+                    }
                 ci_match = next(
                     (s for s in subpages if s.lower() == subpage.lower()), None
                 )
@@ -1358,11 +1421,38 @@ def notify_slack(
 
 
 # ---------------------------------------------------------------------------
-# Refresh valid_paths.json from warp-internal
+# Refresh valid_paths.json from the warp client repo
 # ---------------------------------------------------------------------------
 
-def refresh_valid_paths(warp_internal_path: Path, output_path: Path) -> None:
-    """Re-extract valid paths from warp-internal Rust sources and save to JSON.
+def resolve_warp_repo(explicit_path: Optional[str]) -> Path:
+    """Resolve the warp client repo checkout used for snapshot extraction.
+
+    Resolution order:
+    1. An explicit `--warp PATH` (or the deprecated `--warp-internal-path`).
+    2. The `WARP_REPO_PATH` env var, or the deprecated `WARP_INTERNAL_PATH`.
+    3. A sibling of the docs repo named `warp` (the public warpdotdev/warp
+       checkout), falling back to a legacy `warp-internal` sibling.
+
+    When nothing is found, returns the preferred sibling path so the caller
+    can report a useful "not found" error.
+    """
+    if explicit_path:
+        return Path(explicit_path)
+
+    env_path = os.environ.get("WARP_REPO_PATH") or os.environ.get("WARP_INTERNAL_PATH")
+    if env_path:
+        return Path(env_path)
+
+    siblings_root = SCRIPT_DIR.parents[2].parent
+    for name in WARP_REPO_SIBLING_NAMES:
+        candidate = siblings_root / name
+        if candidate.exists():
+            return candidate
+    return siblings_root / WARP_REPO_SIBLING_NAMES[0]
+
+
+def refresh_valid_paths(warp_repo_path: Path, output_path: Path) -> None:
+    """Re-extract valid paths from the warp client repo's Rust sources and save to JSON.
 
     Preserves hand-maintained lists (macos_menu_bar, warp_drive, umbrellas,
     deprecated_sections, top_level_sidebar) from the existing snapshot.
@@ -1378,10 +1468,10 @@ def refresh_valid_paths(warp_internal_path: Path, output_path: Path) -> None:
     other's sub_sections. Any sub_sections value curated in the existing
     snapshot is treated as authoritative and is not overwritten.
     """
-    print(f"Refreshing valid_paths.json from {warp_internal_path}...")
+    print(f"Refreshing valid_paths.json from {warp_repo_path}...")
 
-    settings_sections = _extract_settings_sections(warp_internal_path)
-    command_palette = _extract_command_palette_commands(warp_internal_path)
+    settings_sections = _extract_settings_sections(warp_repo_path)
+    command_palette = _extract_command_palette_commands(warp_repo_path)
 
     # Load existing for menu bar, warp drive, umbrellas, deprecated_sections,
     # and top_level_sidebar (all manually maintained lists).
@@ -1394,7 +1484,7 @@ def refresh_valid_paths(warp_internal_path: Path, output_path: Path) -> None:
     # Best-effort: pull umbrellas from `SettingsUmbrella::new(...)` calls in mod.rs
     # and merge into the existing snapshot (existing entries win on conflict).
     try:
-        extracted_umbrellas = _extract_umbrellas(warp_internal_path)
+        extracted_umbrellas = _extract_umbrellas(warp_repo_path)
     except Exception as e:  # pragma: no cover - defensive, parser errors
         print(f"  Warning: umbrella extraction failed: {e}", file=sys.stderr)
         extracted_umbrellas = {}
@@ -1445,14 +1535,14 @@ def refresh_valid_paths(warp_internal_path: Path, output_path: Path) -> None:
     )
 
 
-def _extract_umbrellas(warp_internal: Path) -> Dict[str, Any]:
+def _extract_umbrellas(warp_repo: Path) -> Dict[str, Any]:
     """Parse SettingsUmbrella::new("Label", vec![...]) calls from mod.rs.
 
     Maps each umbrella label to its ordered list of subpage **display names**
     (resolved via the `Display for SettingsSection` impl). Returns a dict
     shaped like the `umbrellas` field in valid_paths.json.
     """
-    mod_rs = warp_internal / "app" / "src" / "settings_view" / "mod.rs"
+    mod_rs = warp_repo / "app" / "src" / "settings_view" / "mod.rs"
     umbrellas: Dict[str, Any] = {}
     try:
         mod_text = mod_rs.read_text(encoding="utf-8")
@@ -1512,9 +1602,9 @@ def _extract_umbrellas(warp_internal: Path) -> Dict[str, Any]:
     return umbrellas
 
 
-def _extract_settings_sections(warp_internal: Path) -> Dict[str, Any]:
+def _extract_settings_sections(warp_repo: Path) -> Dict[str, Any]:
     """Parse SettingsSection enum and sub-sections from Rust source files."""
-    mod_rs = warp_internal / "app" / "src" / "settings_view" / "mod.rs"
+    mod_rs = warp_repo / "app" / "src" / "settings_view" / "mod.rs"
     sections = {}
 
     # Parse Display impl for section display names
@@ -1590,7 +1680,7 @@ def _extract_settings_sections(warp_internal: Path) -> Dict[str, Any]:
         "Privacy": "privacy_page.rs",
     }
 
-    settings_dir = warp_internal / "app" / "src" / "settings_view"
+    settings_dir = warp_repo / "app" / "src" / "settings_view"
 
     for variant, display_name in display_map.items():
         source_file = page_files.get(variant, "mod.rs")
@@ -1622,43 +1712,62 @@ def _extract_settings_sections(warp_internal: Path) -> Dict[str, Any]:
     return sections
 
 
-def _extract_command_palette_commands(warp_internal: Path) -> List[Dict[str, str]]:
+# `EditableBinding::new("action", "Description", ...)` and the
+# `BindingDescription::new("Description")` variant.
+_RE_EDITABLE_BINDING = re.compile(
+    r'EditableBinding::new\(\s*"([^"]+)",\s*'
+    r'(?:BindingDescription::new\(\s*"([^"]+)"|"([^"]+)")'
+)
+
+
+def _iter_binding_source_files(warp_repo: Path):
+    """Yield Rust files under `app/src` that may register command bindings.
+
+    Walks the whole desktop app tree rather than a hand-picked file list:
+    bindings are registered across many view modules (for example
+    `pane_group/pane/view/mod.rs` registers "Share pane"), and hardcoding
+    files silently drops any command defined elsewhere.
+
+    Excluded:
+    - test modules, whose fixture bindings are not real commands
+    - `crates/warp_tui`, which is the headless TUI front-end and does not
+      share the desktop Command Palette
+
+    Traversal is sorted so the generated snapshot is deterministic.
+    """
+    app_src = warp_repo / "app" / "src"
+    if not app_src.exists():
+        return
+    for root, dirs, filenames in os.walk(app_src):
+        dirs[:] = sorted(d for d in dirs if d not in {"tests", "target"})
+        for filename in sorted(filenames):
+            if not filename.endswith(".rs"):
+                continue
+            if filename.endswith(("_tests.rs", "_test.rs")) or filename == "mod_test.rs":
+                continue
+            yield Path(root) / filename
+
+
+def _extract_command_palette_commands(warp_repo: Path) -> List[Dict[str, str]]:
     """Parse EditableBinding registrations to extract command palette commands."""
     commands = []
     seen_descriptions = set()
 
-    source_files = [
-        warp_internal / "app" / "src" / "terminal" / "view" / "init.rs",
-        warp_internal / "app" / "src" / "workspace" / "mod.rs",
-    ]
-
-    for source_file in source_files:
-        if not source_file.exists():
-            continue
+    for source_file in _iter_binding_source_files(warp_repo):
         try:
             text = source_file.read_text(encoding="utf-8")
-        except OSError:
+        except (OSError, UnicodeDecodeError):
             continue
 
-        # Pattern: EditableBinding::new("name", "description", ...)
-        for m in re.finditer(
-            r'EditableBinding::new\(\s*"([^"]+)",\s*"([^"]+)"',
-            text,
-        ):
-            name, desc = m.group(1), m.group(2)
-            if desc not in seen_descriptions and not desc.startswith("[Debug]"):
-                commands.append({"name": name, "description": desc})
-                seen_descriptions.add(desc)
-
-        # Pattern: EditableBinding::new("name", BindingDescription::new("description"), ...)
-        for m in re.finditer(
-            r'EditableBinding::new\(\s*"([^"]+)",\s*BindingDescription::new\("([^"]+)"\)',
-            text,
-        ):
-            name, desc = m.group(1), m.group(2)
-            if desc not in seen_descriptions and not desc.startswith("[Debug]"):
-                commands.append({"name": name, "description": desc})
-                seen_descriptions.add(desc)
+        for m in _RE_EDITABLE_BINDING.finditer(text):
+            name = m.group(1)
+            # group(2) is the BindingDescription::new(...) form, group(3) the
+            # plain string literal form; exactly one of them matches.
+            desc = m.group(2) or m.group(3)
+            if not desc or desc in seen_descriptions or desc.startswith("[Debug]"):
+                continue
+            commands.append({"name": name, "description": desc})
+            seen_descriptions.add(desc)
 
     return commands
 
@@ -1787,7 +1896,7 @@ impl Display for SettingsSection {
             SettingsSection::CodeIndexing => write!(f, "Indexing and projects"),
             SettingsSection::EditorAndCodeReview => write!(f, "Editor and Code Review"),
             SettingsSection::CloudEnvironments => write!(f, "Environments"),
-            SettingsSection::OzCloudAPIKeys => write!(f, "Oz Cloud API Keys"),
+            SettingsSection::OzCloudAPIKeys => write!(f, "API keys"),
             _ => write!(f, "{self:?}"),
         }
     }
@@ -1832,8 +1941,10 @@ def _run_self_test(valid_paths_path: Path) -> int:
     2. `_is_external_path()` no longer suppresses `Settings > MCP Servers` in a
        sentence containing GitHub / Linear mentions (previous bug).
     3. `refresh_valid_paths()` preserves umbrellas + deprecated_sections when
-       run against a synthetic warp-internal with the new enum, and populates
+       run against a synthetic warp checkout with the new enum, and populates
        the new subpage entries.
+    4. `resolve_warp_repo()` honors the explicit path, the `WARP_REPO_PATH` env
+       var, and the deprecated `WARP_INTERNAL_PATH` fallback in that order.
     """
     import textwrap
 
@@ -1872,8 +1983,8 @@ def _run_self_test(valid_paths_path: Path) -> int:
 
     # --- 3. refresh_valid_paths preservation + extraction
     with tempfile.TemporaryDirectory() as td:
-        wi_root = Path(td) / "warp-internal"
-        mod_rs = wi_root / "app" / "src" / "settings_view" / "mod.rs"
+        warp_root = Path(td) / "warp"
+        mod_rs = warp_root / "app" / "src" / "settings_view" / "mod.rs"
         mod_rs.parent.mkdir(parents=True)
         mod_rs.write_text(textwrap.dedent(_SYNTHETIC_MOD_RS))
 
@@ -1881,7 +1992,7 @@ def _run_self_test(valid_paths_path: Path) -> int:
         snap_path = Path(td) / "valid_paths.json"
         snap_path.write_text(valid_paths_path.read_text())
 
-        refresh_valid_paths(wi_root, snap_path)
+        refresh_valid_paths(warp_root, snap_path)
 
         refreshed = load_valid_paths(snap_path)
 
@@ -1893,7 +2004,7 @@ def _run_self_test(valid_paths_path: Path) -> int:
             failures.append("refresh lost the Agents umbrella")
 
         # The extractor should have picked up the synthetic umbrellas too.
-        extracted = _extract_umbrellas(wi_root)
+        extracted = _extract_umbrellas(warp_root)
         for expected in ("Agents", "Code", "Cloud platform"):
             if expected not in extracted:
                 failures.append(
@@ -1910,12 +2021,104 @@ def _run_self_test(valid_paths_path: Path) -> int:
             "Indexing and projects",
             "Editor and Code Review",
             "Environments",
-            "Oz Cloud API Keys",
+            "API keys",
         ):
             if expected_subpage not in refreshed.get("settings_sections", {}):
                 failures.append(
                     f"settings_sections missing subpage `{expected_subpage}` after refresh"
                 )
+
+    # --- 4. resolve_warp_repo precedence (explicit > WARP_REPO_PATH >
+    # deprecated WARP_INTERNAL_PATH > sibling auto-detect)
+    saved_env = {
+        key: os.environ.get(key) for key in ("WARP_REPO_PATH", "WARP_INTERNAL_PATH")
+    }
+    try:
+        os.environ["WARP_REPO_PATH"] = "/tmp/from-warp-repo-path"
+        os.environ["WARP_INTERNAL_PATH"] = "/tmp/from-warp-internal-path"
+
+        if resolve_warp_repo("/tmp/explicit") != Path("/tmp/explicit"):
+            failures.append("resolve_warp_repo() ignored the explicit --warp path")
+        if resolve_warp_repo(None) != Path("/tmp/from-warp-repo-path"):
+            failures.append("resolve_warp_repo() did not prefer WARP_REPO_PATH")
+
+        del os.environ["WARP_REPO_PATH"]
+        if resolve_warp_repo(None) != Path("/tmp/from-warp-internal-path"):
+            failures.append(
+                "resolve_warp_repo() dropped the deprecated WARP_INTERNAL_PATH fallback"
+            )
+    finally:
+        for key, value in saved_env.items():
+            if value is None:
+                os.environ.pop(key, None)
+            else:
+                os.environ[key] = value
+
+    # --- 5. Command Palette extraction ignores JSX attributes and code fences
+    with tempfile.TemporaryDirectory() as td:
+        sample = Path(td) / "sample.mdx"
+        sample.write_text(textwrap.dedent("""\
+            Open the Command Palette and search for "Open theme picker".
+
+            <DemoVideo src="/assets/x.mp4" label="Block Divider Demo" />
+            <VideoEmbed url="https://example.com/v" title="Command Palette Demo" />
+            <figure style={{ maxWidth: "375px" }}>
+
+            Example prompt for the command palette:
+            ```text
+            Walk through the entire "New run" creation flow end to end.
+            ```
+
+            In the Command Palette, search for "Warpify SSH Session".
+            """))
+
+        found = {r["name"] for r in extract_command_palette_refs(sample)}
+
+        # JSX component props and CSS values must not be treated as commands.
+        for bogus in (
+            "Block Divider Demo",
+            "Command Palette Demo",
+            "375px",
+        ):
+            if bogus in found:
+                failures.append(
+                    f"extract_command_palette_refs() captured JSX attribute {bogus!r}"
+                )
+
+        # Quoted labels inside fenced code blocks are examples, not references.
+        if "New run" in found:
+            failures.append(
+                "extract_command_palette_refs() captured a name inside a code fence"
+            )
+
+        # Genuine prose references must still be captured.
+        for expected in ("Open theme picker", "Warpify SSH Session"):
+            if expected not in found:
+                failures.append(
+                    f"extract_command_palette_refs() missed prose reference {expected!r}"
+                )
+
+    # --- 6. "Oz Cloud API Keys" -> "API keys" migration, both legacy forms.
+    # The label was renamed twice over: first the whole page moved under the
+    # "Cloud platform" umbrella (as the bare top-level "Oz Cloud API Keys"
+    # section), then the subpage itself was renamed to "API keys". Both
+    # historical spellings must resolve to the same current path.
+    expected_suggestion = "Settings > Cloud platform > API keys"
+    bare_legacy = validate_ui_path("Settings > Oz Cloud API Keys", data)
+    if bare_legacy["valid"] or bare_legacy.get("suggestion") != expected_suggestion:
+        failures.append(
+            "validate_ui_path() did not migrate the bare legacy "
+            f"\"Settings > Oz Cloud API Keys\" path: {bare_legacy}"
+        )
+    full_legacy = validate_ui_path(
+        "Settings > Cloud platform > Oz Cloud API Keys", data
+    )
+    if full_legacy["valid"] or full_legacy.get("suggestion") != expected_suggestion:
+        failures.append(
+            "validate_ui_path() did not migrate the full legacy "
+            "\"Settings > Cloud platform > Oz Cloud API Keys\" path "
+            f"(deprecated_subpages regression): {full_legacy}"
+        )
 
     if failures:
         print("SELF-TEST FAILED:")
@@ -1944,11 +2147,18 @@ def main() -> int:
     parser.add_argument("--slack-notify", action="store_true", help="Post results to Slack")
     parser.add_argument("--slack-channel", default=DEFAULT_SLACK_CHANNEL, help="Slack channel ID")
     parser.add_argument("--include-changelog", action="store_true", help="Include changelog/ in scan")
-    parser.add_argument("--refresh-valid-paths", action="store_true", help="Re-extract from warp-internal")
+    parser.add_argument("--refresh-valid-paths", action="store_true", help="Re-extract from the warp client repo")
+    parser.add_argument(
+        "--warp",
+        dest="warp_repo_path",
+        help="Path to the public warp client repo (auto-detected as a sibling "
+             "of the docs repo named 'warp', with 'warp-internal' as fallback; "
+             "also reads the WARP_REPO_PATH env var)",
+    )
     parser.add_argument(
         "--warp-internal-path",
-        default=os.environ.get("WARP_INTERNAL_PATH", str(SCRIPT_DIR.parents[2].parent / "warp-internal")),
-        help="Path to warp-internal repo",
+        dest="warp_repo_path",
+        help="Deprecated alias for --warp",
     )
     parser.add_argument("--valid-paths", default=str(DEFAULT_VALID_PATHS_FILE), help="Path to valid_paths.json")
     parser.add_argument("--docs-dir", default=str(DEFAULT_DOCS_DIR), help="Path to docs directory")
@@ -1966,14 +2176,18 @@ def main() -> int:
         args.all = True
 
     valid_paths_file = Path(args.valid_paths)
-    warp_internal = Path(args.warp_internal_path)
+    warp_repo = resolve_warp_repo(args.warp_repo_path)
 
     # Refresh valid paths if requested
     if args.refresh_valid_paths:
-        if not warp_internal.exists():
-            print(f"Error: warp-internal not found at {warp_internal}", file=sys.stderr)
+        if not warp_repo.exists():
+            print(
+                f"Error: warp client repo not found at {warp_repo}. Pass --warp PATH "
+                "or set WARP_REPO_PATH.",
+                file=sys.stderr,
+            )
             return 1
-        refresh_valid_paths(warp_internal, valid_paths_file)
+        refresh_valid_paths(warp_repo, valid_paths_file)
         if not args.all and not args.check_paths and not args.check_commands:
             return 0
 

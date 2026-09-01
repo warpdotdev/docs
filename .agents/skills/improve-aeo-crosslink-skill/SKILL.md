@@ -13,13 +13,31 @@ This skill is part of the self-improvement loop architecture. The `aeo_crosslink
 
 Monthly, first Monday of each month, 9am PT. Start this agent on month 3 after `aeo_crosslink_audit` is running regularly (requires at least 8 run log entries for meaningful pattern analysis).
 
-Suggested cron: `0 17 1-7 * 1` (UTC) = first Monday of each month at 9am PT.
+Cron: `0 17 * * 1` (UTC) — every Monday — combined with the first-week guard in step 0 below.
+
+:::caution
+Do **not** use `0 17 1-7 * 1`. That expression looks like "first Monday" but is not: when a cron expression restricts **both** day-of-month and day-of-week, the two fields are **ORed**, so it fires on every day of the 1st through 7th **and** every Monday — roughly 11 times a month. The `improve-drafting-skills` agent shipped with this exact expression and opened four conflicting PRs in six days before it was caught. Standard cron cannot express "first Monday," so the day-of-month guard is required.
+:::
+
+## Step 0: First-week guard
+
+Run this before anything else. The schedule fires every Monday, so a run outside the first week of the month must exit immediately without reading logs, editing files, opening a PR, or posting to Slack.
+
+```bash
+DAY_OF_MONTH=$(date -u +%d)
+if [ "$DAY_OF_MONTH" -gt 7 ]; then
+  echo "Skipping: today is day $DAY_OF_MONTH, not the first Monday of the month. This agent runs monthly."
+  exit 0
+fi
+```
+
+A skipped run is a no-op, not a failure. Write the skip line to the run output and post nothing.
 
 ## Prerequisites
 
 - Docs repo checked out at `main`
 - `gh` CLI authenticated with write access to `warpdotdev/docs`
-- `SLACK_BOT_TOKEN` — for posting summary to `#growth-docs`
+- `BUZZ_SLACK_TOKEN` — for posting a summary to `#growth-docs`. This token posts as `buzz`, the bot account that is a member of that channel. Do not substitute another Slack token: several exist in the Oz secret store, and one that authenticates successfully can still fail with `channel_not_found` if its bot is not in the channel.
 - `GROWTH_DOCS_SLACK_CHANNEL_ID` — channel ID for `#growth-docs`
 
 ## Signal
@@ -30,47 +48,22 @@ Do not act if fewer than 8 entries exist. Write a "too early to analyze" notice 
 
 ## Workflow
 
-### 0. Merge the standing log PR
+### 0. Read the run log from its branch
 
-Before reading the run log, ensure all accumulated entries are on `main` by merging the standing log PR. This is the PR from `chore/aeo-crosslink-audit-log` that the `aeo_crosslink_audit` agent continuously appends to.
-
-```bash
-# Find the open log PR (there should be at most one)
-OPEN_LOG_PR=$(gh pr list --repo warpdotdev/docs \
-  --head chore/aeo-crosslink-audit-log \
-  --state open \
-  --json number \
-  --jq '.[0].number' 2>/dev/null)
-
-if [[ -n "$OPEN_LOG_PR" ]]; then
-  # Safety check: only merge if the PR touches exactly the expected log file.
-  CHANGED_FILES=$(gh pr view "$OPEN_LOG_PR" --repo warpdotdev/docs --json files --jq '[.files[].path]')
-  ONLY_LOG=$(echo "$CHANGED_FILES" | python3 -c "
-import json, sys
-files = json.load(sys.stdin)
-print('yes' if all(f == '.agents/logs/aeo_crosslink_audit_runs.md' for f in files) else 'no')
-")
-  if [[ "$ONLY_LOG" == 'yes' ]]; then
-    gh pr merge "$OPEN_LOG_PR" --repo warpdotdev/docs --merge
-    # Non-destructive fast-forward: fails loudly if worktree is dirty or not fast-forwardable.
-    git fetch origin main
-    git merge --ff-only origin/main
-  else
-    echo "Log PR contains unexpected files — skipping merge, reading log from branch instead."
-    git fetch origin chore/aeo-crosslink-audit-log
-    git checkout origin/chore/aeo-crosslink-audit-log -- .agents/logs/aeo_crosslink_audit_runs.md
-  fi
-fi
-```
-
-If the merge fails (conflict, permissions, or the branch is ahead of main in an unexpected way), log the failure to run output and read the log from the `chore/aeo-crosslink-audit-log` branch instead:
+Read the log directly from `chore/aeo-crosslink-audit-log`, the branch the `aeo_crosslink_audit` agent appends to after every run:
 
 ```bash
 git fetch origin chore/aeo-crosslink-audit-log
 git checkout origin/chore/aeo-crosslink-audit-log -- .agents/logs/aeo_crosslink_audit_runs.md
 ```
 
-Do not abort the skill run because the log PR could not be merged. Proceed with whatever log entries are available.
+The branch always holds the complete history. `main` only has entries up to the last time a human merged the standing log PR, so reading `main` would silently analyze a truncated set and skew every pattern threshold below.
+
+**Do not merge the standing log PR.** An earlier version of this skill attempted the merge as its first step. That coupled the analysis to a repo write the agent may not have permission to perform, and turned an unmerged PR into a hard failure rather than a non-event. Merging is human housekeeping; see "Log availability" in `.agents/references/skill-authoring-guidelines.md`.
+
+**If the branch does not exist or the fetch fails, stop before step 1.** Do not fall back to the copy in the current checkout. That copy comes from `main`, which is exactly the truncated history this step exists to avoid — and a truncated log does not fail loudly, it silently changes the answer. With fewer entries the run either drops below the 8-entry minimum and reports "too early to analyze," or clears it with stale entries and proposes skill edits from an incomplete picture. Both look like normal outcomes.
+
+A fetch failure is a blocked run, not a no-op: post the "run blocked" message (see step 6) naming the branch that could not be fetched, and end the run without analyzing or opening a PR.
 
 ### 1. Parse the run log
 
@@ -114,7 +107,7 @@ Note: this requires checking GitHub PR history. Use `gh pr list --repo warpdotde
 For each confirmed pattern, draft the smallest edit that addresses it:
 
 - **No-change too frequent**: Lower the "at least 2 high-confidence link additions" threshold to 1, or add new topic areas to the pilot scope under `## Scope`.
-- **Peec unavailable**: Update the snapshot path references or add a fallback instruction in `## Source data`.
+- **Peec unavailable**: This is usually a credential or config problem rather than a skill problem. Confirm the `PEEC_PAT` secret is valid and that the schedule still passes the `peec-ai` MCP server, and flag it for a human instead of editing the skill. Only change `## Source data` if the call contract itself has drifted.
 - **Links proposed not added**: Loosen the specific gate in `## Self-review before opening a PR` that is rejecting otherwise valid candidates (identify which gate by reading the no-change reports in run output).
 - **Recurring theme**: Move the theme from `## Future expansion boundaries` to `## Scope` with a clear instruction.
 - **PR acceptance problems**: Strengthen the specific heuristic that led to incorrect link proposals.
@@ -131,42 +124,54 @@ Before opening a PR, verify:
 - Verify the YAML frontmatter of any changed `.md` file is parseable: `python3 -c "import sys; content = open(sys.argv[1]).read(); parts = content.split('---', 2); assert len(parts) >= 3" .agents/skills/aeo_crosslink_audit/SKILL.md`
 - Note: `style_lint.py --changed` only scans `src/content/docs/` and does not cover `.agents/skills/`; do not rely on it to validate skill file edits
 
-### 5. Open a draft PR
+### 5. Create or update the standing improvement PR
 
-Open a draft PR with title:
+This agent maintains **one** long-lived improvement PR, never one per run — see "One standing PR per automation" in `.agents/references/skill-authoring-guidelines.md`.
+
+Stable branch: `docs/improve-aeo-crosslink-skill`
+Stable title (no date — the date goes in the body):
 ```text
-docs(skills): improve aeo_crosslink_audit skill from run log analysis YYYY-MM-DD
+docs(skills): improve aeo_crosslink_audit skill from run log analysis
 ```
 
-PR body must include:
+Look for an existing open PR first:
+```bash
+gh pr list --repo warpdotdev/docs --state open \
+  --search 'improve aeo_crosslink_audit skill from run log analysis in:title' \
+  --json number,headRefName
+```
+If one exists, check out its branch, rebase on the latest `origin/main`, apply this run's edits, push, and append dated bullets under the existing headings. If none exists, create the branch from the latest `origin/main` and open a draft PR.
+
+PR body carries these headings, each appearing exactly once (`check_pr_body.py` rejects duplicates, so do not add a per-run copy):
 - **Entries analyzed**: N run log entries, date range
 - **Patterns identified**: each pattern, evidence (entry count and dates), and proposed fix
 - **Patterns reviewed but not acted on**: patterns observed but below threshold or already addressed
 - **Open questions for human review**: anything that requires editorial judgment before the change is applied
 
-### 6. Post Slack notification
+Prefix each appended bullet with its run date so the reviewer can tell runs apart.
 
-Post to `#growth-docs`:
+### 6. Notify only if there is something to act on
 
-**PR opened:**
+Post to `#growth-docs` **only** when the standing PR was created or received new commits, or when the run was blocked by a failure. Follow the actionable-only rule in `.agents/references/skill-authoring-guidelines.md`. A run that finds no actionable patterns — or that skips via the step 0 guard, or exits because fewer than 8 entries exist — posts nothing and is recorded in the run output only.
+
+**PR opened or updated:**
 ```
 ✅ AEO crosslink audit skill improvement · YYYY-MM-DD
-PR: [PR URL]
+PR [created | updated]: [PR URL]
 Patterns addressed: N
 Evidence base: N run log entries (last N weeks)
 Oz run: [run URL]
 ```
 
-**No action (too few patterns or too few entries):**
+**Run blocked by a failure:**
 ```
-ℹ️ AEO crosslink audit skill review · YYYY-MM-DD — No changes
-Entries analyzed: N
-No actionable patterns found: [brief reason]
+⚠️ AEO crosslink audit skill review · YYYY-MM-DD — run blocked
+What failed: [brief reason — e.g., "could not fetch the log branch"]
 Oz run: [run URL]
 ```
 In both messages, build the `Oz run` link at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run, substituting the run ID this agent is executing as:
 ```bash
-oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'
+oz run get "<your run ID>" --output-format json | jq -r '.session_link'
 ```
 If the command fails or returns an empty value, omit the `Oz run` line rather than posting a hard-coded or broken URL.
 
@@ -176,9 +181,9 @@ This skill is designed for a monthly Oz scheduled agent. Start it on month 3 aft
 
 To deploy:
 1. Push this skill to `main` in the docs repo.
-2. Verify the Oz environment has `SLACK_BOT_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` set.
+2. Verify the Oz environment has `BUZZ_SLACK_TOKEN` and `GROWTH_DOCS_SLACK_CHANNEL_ID` set.
 3. In the Oz web app, create a new scheduled agent:
    - **Skill**: `improve-aeo-crosslink-skill` from `warpdotdev/docs`
-   - **Schedule**: `0 17 1-7 * 1` (UTC) = first Monday of each month at 9am PT
+   - **Schedule**: `0 17 * * 1` (UTC) = every Monday at 9am PT. The step 0 first-week guard narrows this to the first Monday only. See the caution in `## Schedule` for why the day-of-month field must stay `*`.
    - **Environment**: the same environment used for `aeo_crosslink_audit` (has `warpdotdev/docs` and buzz workspace checked out)
    - **Branch**: `main`

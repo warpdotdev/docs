@@ -8,6 +8,39 @@ This log tracks every run of the `weekly-404-monitor` skill — both runs that o
 
 ---
 
+## 2026-08-24 — No data
+- **Total 404s this week**: n/a
+- **Total 404s last week**: n/a
+- **Trend**: n/a
+- **Significant gaps (≥5 hits)**: n/a
+- **Redirect candidates processed**: 0  (hits ≥ 5)
+- **HIGH-confidence redirects**: 0
+- **PR**: none
+- **Oz run**: https://app.warp.dev/conversation/afcb6bda-7cf7-499a-9d75-6a1c30f65097
+- **Notes**: Metabase query failed with HTTP 401 Unauthenticated. `METABASE_API_KEY` is present in environment K5KStCm5aYvhfBJb8cHol6 but is a short placeholder/invalid value (len=16, not an `mb_` key), not a real Metabase API key for https://warp.metabaseapp.com. Posted failure notice to #growth-docs. Action needed: replace the secret with a valid Metabase API key and re-run. Same failure mode as 2026-08-10.
+
+## 2026-08-17 — No data
+- **Total 404s this week**: n/a
+- **Total 404s last week**: n/a
+- **Trend**: n/a
+- **Significant gaps (≥5 hits)**: n/a
+- **Redirect candidates processed**: 0  (hits ≥ 5)
+- **HIGH-confidence redirects**: 0
+- **PR**: none
+- **Oz run**: https://app.warp.dev/conversation/3a498bed-08eb-4a2e-a05d-52a979d997c1
+- **Notes**: Metabase query failed with HTTP 401 Unauthenticated. `METABASE_API_KEY` is present in environment K5KStCm5aYvhfBJb8cHol6 but is a short placeholder/invalid value, not a real Metabase API key for https://warp.metabaseapp.com. Same failure mode as 2026-08-10. Posted failure notice to #growth-docs. Action needed: replace the secret with a valid Metabase API key and re-run.
+
+## 2026-08-10 — No data
+- **Total 404s this week**: n/a
+- **Total 404s last week**: n/a
+- **Trend**: n/a
+- **Significant gaps (≥5 hits)**: n/a
+- **Redirect candidates processed**: 0  (hits ≥ 5)
+- **HIGH-confidence redirects**: 0
+- **PR**: none
+- **Oz run**: https://app.warp.dev/conversation/28103b9a-cbdb-4b07-b73e-555b88656028
+- **Notes**: Metabase query failed with HTTP 401 Unauthenticated. `METABASE_API_KEY` is present in environment K5KStCm5aYvhfBJb8cHol6 but is a short placeholder/invalid value, not a real Metabase API key for https://warp.metabaseapp.com. Posted failure notice to #growth-docs. Action needed: replace the secret with a valid Metabase API key and re-run.
+
 ## 2026-08-03 — No PR
 - **Total 404s this week**: 323
 - **Total 404s last week**: 458

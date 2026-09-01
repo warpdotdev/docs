@@ -1,11 +1,23 @@
 ---
-// Custom footer: drops EditLink + LastUpdated from Starlight's default
-// footer and keeps Pagination + the Starlight credits link.
+// Custom footer: drops Starlight's default EditLink + LastUpdated, replacing
+// EditLink with DocsFeedbackLinks (an "Edit this page" / "open an issue"
+// CTA, since Warp Docs is open source) and keeps Pagination + the Starlight
+// credits link.
 import Pagination from 'virtual:starlight/components/Pagination';
 import config from 'virtual:starlight/user-config';
+import DocsFeedbackLinks from './DocsFeedbackLinks.astro';
+import MermaidControls from './MermaidControls.astro';
+
+// `starlightRoute.editUrl` is typed as `URL | undefined`; DocsFeedbackLinks
+// expects a plain string so it can pass the same value through untouched
+// for both Starlight and non-Starlight (e.g. /api) callers.
+const { editUrl } = Astro.locals.starlightRoute;
+const pageUrl = Astro.url.href;
 ---
 
+<MermaidControls />
 <footer class="sl-flex">
+  <DocsFeedbackLinks editUrl={editUrl?.toString()} pageUrl={pageUrl} />
   <Pagination />
 
   {
@@ -22,7 +34,20 @@ import config from 'virtual:starlight/user-config';
     footer {
       flex-direction: column;
       gap: 1.25rem;
-      margin-top: 2rem;
+      /* Hairline marking the end of page content, so the CTA below reads as
+         footer chrome rather than a trailing sentence of the article.
+         Matches the divider treatment on the "On this page" panel footer
+         (`CustomPageSidebar.astro`).
+
+         Spacing above the rule is NOT set here: this footer is a sibling of
+         `.sl-markdown-content` inside Starlight's ContentPanel, whose
+         `.sl-container > * + *` rule (specificity 0,1,1) already applies
+         `margin-top: 1.5rem` and outranks a bare `footer` selector (0,0,1).
+         A `margin-top: 2rem` previously declared here never took effect;
+         padding is used instead so the space below the rule is ours to set
+         and matches the 1.5rem gap above it. */
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--sl-color-hairline-light);
     }
     .kudos {
       align-items: center;

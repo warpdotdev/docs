@@ -1,37 +1,39 @@
 ---
-title: Codex with Oz
+title: Codex with the {{WARP_AUTOMATION_PLATFORM}}
 description: >-
-  Run Codex with Oz for codebase migrations, release coordination, batch test
+  Run Codex with the {{WARP_AUTOMATION_PLATFORM}} for codebase migrations, release coordination, batch test
   generation, and backend or DevOps automation.
 sidebar:
   label: "Codex"
 ---
+import { VARS } from '@data/vars';
 
-Codex is OpenAI's coding agent. Running it with Oz puts Codex inside a Warp-managed environment and connects it to the rest of the Oz platform — including triggers, environments, secrets, observability, and governance — while still behaving like the Codex CLI your team already uses.
+Codex is OpenAI's coding agent. Running it with the {VARS.WARP_AUTOMATION_PLATFORM} puts Codex inside a Warp-managed environment and connects it to the rest of the {VARS.WARP_AUTOMATION_PLATFORM} — including triggers, environments, secrets, observability, and governance — while still behaving like the Codex CLI your team already uses.
 
 :::note
-This page covers Codex as a **cloud** harness, dispatched and orchestrated by Oz. To run Codex locally in your Warp terminal, see [Codex CLI in Warp](/agents/cli-agents/codex/) instead.
+This page covers Codex as a **cloud** harness, dispatched and orchestrated by the {VARS.WARP_AUTOMATION_PLATFORM}. To run Codex locally in your Warp terminal, see [Codex CLI in Warp](/agents/cli-agents/codex/) instead.
 :::
 
 ## Key features
 
-* **Cloud orchestration** - Launch Codex from any Oz trigger: the Warp app, the Oz web app, the Oz CLI, the REST API, schedules, Slack mentions, Linear issues, or GitHub Actions.
-* **Codex model picker** - Choose the OpenAI model Codex uses, including the GPT-5 lineup, Codex-tuned variants, and a `default` option that lets Codex pick its own recommended model.
+* **Cloud orchestration** - Launch Codex from any {VARS.WARP_AUTOMATION_PLATFORM} trigger: the Warp app, the {VARS.WEB_APP}, the {VARS.WARP_AGENT_CLI}, the REST API, schedules, Slack mentions, Linear issues, or GitHub Actions.
+* **Codex model picker** - Choose the OpenAI model Codex uses, including the GPT-5 lineup and Codex-tuned variants, each available at a configurable reasoning level.
 * **First-class subagent** - A Warp Agent parent can dispatch Codex subagents to handle high-volume or well-defined coding steps inside a larger orchestration.
 
 ## Available models
 
-The Codex harness exposes OpenAI's Codex-tuned and general coding models. Common choices include:
+The Codex harness exposes OpenAI's Codex-tuned and general coding models, each available at a configurable reasoning level (low, medium, high, or extra-high). Common choices include:
 
-* `default` - Lets Codex pick its own recommended model based on your OpenAI account access.
-* `gpt-5.5`, `gpt-5.4` - Recent strong coding models from OpenAI with a configurable reasoning level.
-* `gpt-5.4-mini` - A faster, lower-cost option for lighter coding tasks or subagents.
+* `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna` - The latest generation of Codex-tuned coding models.
+* `gpt-5.5` - The prior generation's coding model, still supported.
+* `gpt-5.4`, `gpt-5.4-mini` - Fallback options for accounts without access to the newer models; `gpt-5.4-mini` is faster and lower-cost for lighter coding tasks or subagents.
+* `gpt-5.3-codex` - An older Codex-tuned model, still available as an alternative.
 
-For the full list, including Codex-tuned and general models, open the model picker on the Oz web app's new-run pane. For details on each model, see [OpenAI's Codex model docs](https://developers.openai.com/codex/models).
+Codex has no `default` model that picks automatically; every option names a specific model and reasoning level. For the full list, including Codex-tuned and general models, open the model picker on the {VARS.WEB_APP}'s new-run pane. For details on each model, see [OpenAI's Codex model docs](https://developers.openai.com/codex/models).
 
 ## Credentials and billing
 
-Codex calls OpenAI directly using credentials your team provides. Oz supports one credential type today, stored as a [Warp-managed secret](/platform/secrets/):
+Codex calls OpenAI directly using credentials your team provides. The {VARS.WARP_AUTOMATION_PLATFORM} supports one credential type today, stored as a [Warp-managed secret](/platform/secrets/):
 
 * **OpenAI API key** - The Codex harness authenticates to OpenAI using this key for every run.
 
@@ -42,13 +44,14 @@ For setup steps, see [Connecting Codex credentials](/platform/harnesses/authenti
 ## Starting a Codex run
 
 * **Warp app** - In Cloud Mode, click the **Agent harness** dropdown above the input and choose **Codex**.
-* **Oz web app** - On the new run or new schedule pane, choose **Codex** in the **Harness** field. A **Codex auth secret** field appears below it; pick the OpenAI secret your team has stored.
+* **{VARS.WEB_APP}** - On the new run or new schedule pane, choose **Codex** in the **Harness** field. A **Codex auth secret** field appears below it; pick the OpenAI secret your team has stored.
 * **API and SDK** - Set the agent config `harness` to `codex` and the OpenAI secret name on the matching auth-secret field. See the [API reference](/reference/api-and-sdk/).
 
 ## Related pages
 
-* [Harnesses in Oz](/platform/harnesses/) — choose between Warp Agent, Claude Code, and Codex.
+* [Harnesses in the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/) — choose between Warp Agent, Claude Code, and Codex.
 * [Authentication](/platform/harnesses/authentication/) — store OpenAI credentials as Warp-managed secrets.
-* [Warp Agent with Oz](/platform/harnesses/warp-agent/) — Oz's default harness, the only one that can orchestrate Codex subagents.
-* [Claude Code with Oz](/platform/harnesses/claude-code/) — Claude Code as a cloud harness.
+* [Warp Agent with the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/warp-agent/) — the {VARS.WARP_AUTOMATION_PLATFORM}'s default harness, the only one that can orchestrate Codex subagents.
+* [Claude Code with the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/claude-code/) — Claude Code as a cloud harness.
 * [Codex CLI in Warp](/agents/cli-agents/codex/) — Codex in your local Warp terminal.
+* [Factory agents](/factories/factory-agents/#configuring-a-third-party-harness) — configure Codex as a factory agent's harness.

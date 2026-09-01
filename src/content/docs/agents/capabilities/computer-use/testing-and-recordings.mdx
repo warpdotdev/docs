@@ -31,7 +31,7 @@ You don't need to ask the agent to record explicitly. Prompts like "test this ch
 
 ## How it works
 
-1. **Confirm Computer Use is enabled.** Computer Use is enabled by default for cloud agent runs on Warp's built-in harness, so no setup is needed unless it was turned off for your run. See the [Computer Use](/agents/capabilities/computer-use/#enabling-computer-use) page for how to control it via the Warp app, the {VARS.WARP_AGENT_CLI}, or the Oz API.
+1. **Confirm Computer Use is enabled.** Computer Use is enabled by default for cloud agent runs on Warp's built-in harness, so no setup is needed unless it was turned off for your run. See the [Computer Use](/agents/capabilities/computer-use/#enabling-computer-use) page for how to control it via the Warp app, the {VARS.WARP_AGENT_CLI}, or the {VARS.WARP_AUTOMATION_PLATFORM} API.
 2. **Agent starts recording.** Once Computer Use is active, the agent begins a screen capture inside the sandbox. The recording is gated by your session's Computer Use approval. If you've already approved Computer Use for the run, recording starts automatically without a separate prompt.
 3. **Agent exercises the UI.** The agent takes screenshots, clicks, types, scrolls, and drives the interface. Each successful interaction is tracked: when it started, when it finished, what actions it contained, and where the cursor moved.
 4. **Agent stops and processes.** When the task is complete (or when the recording's configured time or size limit is reached), the agent stops capture. Before upload, the recording is post-processed: idle and thinking gaps are cut, leaving only the windows where real interaction happened, and action overlays are burned in so the video is annotated.
@@ -43,7 +43,7 @@ You don't need to ask the agent to record explicitly. Prompts like "test this ch
 
 After the agent finishes its Computer Use session, any video recording appears as a block in the conversation. Clicking the block opens the full conversation view alongside the recording artifact. If the recording was produced by a cloud agent run, you can also access it by opening that run's transcript as a [cloud-synced conversation](/platform/viewing-cloud-agent-runs/).
 
-### In the Oz web app
+### In the web app
 
 Cloud agent runs are listed on the [Runs page of the {VARS.WEB_APP}](/platform/oz-web-app/#runs). Open a run to see its artifacts section, which lists any video recordings produced during that run. You can play the video directly from the run page or download it.
 
@@ -81,7 +81,7 @@ The finished recording is attached to the pull request, giving a reviewer proof 
 
 ### End-to-end QA of an existing flow
 
-An agent walks through a critical user journey, such as the "New run" creation flow in the Oz web app, capturing the complete interaction.
+An agent walks through a critical user journey, such as the "New run" creation flow in the {VARS.WEB_APP}, capturing the complete interaction.
 
 Example prompt:
 ```text
@@ -90,7 +90,7 @@ Build the Oz web app and walk through the entire "New run" creation flow end to 
 
 This gives you a reproducible, time-stamped clip of the flow that can be archived, diffed across releases, or shared with the team as a baseline.
 
-<DemoVideo src="/assets/agent-platform/new-run-demo.mp4" label="Agent walking through the New run creation flow in the Oz web app with Computer Use" />
+<DemoVideo src="/assets/agent-platform/new-run-demo.mp4" label={`Agent walking through the New run creation flow in the ${VARS.WEB_APP} with Computer Use`} />
 
 ### Reproducing a bug
 

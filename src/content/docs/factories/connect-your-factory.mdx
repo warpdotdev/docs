@@ -1,0 +1,94 @@
+---
+title: Connect your factory
+description: >-
+  Route work into your factory from Slack, GitHub, GitLab, Linear, Jira, local
+  agents, direct runs, and schedules.
+sidebar:
+  label: "Connect your factory"
+---
+
+Connect your factory to the tools where your team already discusses, tracks, and reviews work. Wherever work starts, the factory keeps the original context from that source (the thread, issue, or pull request), and posts results in the same place.
+
+Each source feeds into this factory's repositories. If the work belongs to a different product surface, [start a new factory](/factories/#sizing-a-factory) for it instead.
+
+## Choose a source
+
+Pick the sources that match where work starts for your team. You can connect multiple sources, but not both Linear and Jira at the same time. The setup wizard currently offers Linear; to use Jira, connect it after setup or in your [factory definition](/factories/factory-as-code/).
+
+| Source | Best for | Continues in |
+| --- | --- | --- |
+| [Slack](/factories/integrations/slack/) | Chat and support requests | The Slack thread or DM |
+| [GitHub](/factories/integrations/github/) | Issues, pull requests, reviews, and CI | The issue, pull request, or review thread |
+| [GitLab](/factories/integrations/gitlab/) | Merge request activity and bot mentions | The merge request thread |
+| [Linear](/factories/integrations/linear/) | Planned issues | The Linear issue and its agent session |
+| [Jira](/factories/integrations/jira/) | Work items assigned to Warp | The Jira agent session |
+| [Factory API](/factories/factory-api/) | Custom integrations and scripts that dispatch by factory UID | The factory work item |
+| [Factory MCP](/factories/factory-mcp/) | Exchanging work with a local coding agent, in both directions | The factory work item |
+| Direct runs and schedules | One-off or recurring work | The factory work item |
+
+## Connect a source
+
+Each integration guide walks through authorizing access — grant only what the factory needs. New connections add default automations, so events start working right away. Review the [automations](/factories/automations/) and adjust their filters and run settings to fit your workflow.
+
+After connecting, send a test request, such as mentioning the factory in Slack or assigning it an issue, and confirm it picks up the work and replies at the source.
+
+{/* VISUAL: The factory's Integrations settings connect screen, to ground the abstract source table above in the actual setup flow. */}
+
+## How work reaches your factory
+
+```mermaid
+flowchart LR
+  Event["Event from a<br/>connected tool"] --> Automation["Matching<br/>automation"]
+  Schedule["Schedule"] --> Automation
+  Automation --> Foreman["Foreman agent"]
+  Direct["Direct request"] --> Foreman
+  Foreman --> Work["Work item"]
+  Work --> Results["Results posted<br/>back to the source"]
+```
+
+An event from a connected tool starts the automation based on filter matching, such as a specific repository, channel, or label. Schedules start their automation on a timer, and direct requests go straight to the factory.
+
+Every request lands with the foreman agent, which turns it into a work item and dispatches the agents each stage needs. A reply in the same thread, issue, or pull request continues that work item instead of starting a new one, and repeated event deliveries don't create duplicates. See [how Warp Factories work](/factories/how-factories-work/) for the full lifecycle, including where people stay in the loop.
+
+## Review the default automations
+
+When you create a factory through the setup wizard, Warp adds default automations for each tool you connect, so common requests work immediately:
+
+* **GitHub** - Starts work when the factory is mentioned or assigned, and follows up when pull requests close or merge, completing a linked tracker issue when it can. See the [GitHub integration guide](/factories/integrations/github/).
+* **GitLab** - Starts work when someone mentions the factory's bot in a merge request comment. See the [GitLab integration guide](/factories/integrations/gitlab/).
+* **Jira** - Starts work when someone assigns or mentions Warp on a work item in one of the Jira projects you selected. See the [Jira integration guide](/factories/integrations/jira/).
+* **Linear** - Starts work when a new agent session arrives from one of the Linear teams you selected. See the [Linear integration guide](/factories/integrations/linear/).
+* **Slack** - Starts work from mentions and messages, as described in the [Slack integration guide](/factories/integrations/slack/).
+
+These defaults are starting points. Review each automation's filters, agent, and run settings, and adjust them to match your workflow. For automation files you can adapt, such as CI failure triage, a scheduled dependency audit, and Slack reaction intake, see [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
+
+## Factory API
+
+The [factory API](/factories/factory-api/) lets your own code discover a factory and dispatch a task to it by UID, without knowing which agent handles the work. Use it to build a custom integration for a tool Warp doesn't connect to directly - see [Build a Mattermost bot for Warp Factories](/guides/external-tools/build-a-mattermost-bot-for-warp-factories/) for a worked example.
+
+## Factory MCP
+
+The Factory MCP connects local coding agents and other MCP clients to your factory, and it works in both directions. Send work to the factory, or take work over from it by pulling a task down to your machine, iterating on it locally, and handing it back to the same work item. See the [Factory MCP guide](/factories/factory-mcp/).
+
+## Direct runs and schedules
+
+Not every task starts in an external tool:
+
+* Start a direct run for one-off work. Click **New** on the factory's Runs page and describe the task to the foreman, the same way you would from Slack or an issue tracker.
+* Create a scheduled automation for recurring work, such as maintenance or reports. See the [triggers overview](/platform/triggers/) for how schedules and other triggers work across the platform.
+
+This automation from [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations) runs a dependency audit every Monday:
+
+```markdown title="automations/weekly-dependency-audit/automation.md"
+---
+triggers:
+  - provider: schedule
+    event: cron_fired
+    schedule:
+      name: weekly-dependency-audit
+      cron: "0 9 * * 1"
+---
+Run the weekly dependency audit. List outdated and vulnerable dependencies,
+apply safe minor and patch upgrades on a branch, run the tests, and open a
+PR with the changes and a summary of anything that needs a human decision.
+```

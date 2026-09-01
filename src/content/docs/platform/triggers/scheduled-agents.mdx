@@ -7,6 +7,7 @@ sidebar:
   label: "Scheduled agents"
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
 Warp's Scheduled Agents let you run cloud agents automatically on a **recurring schedule**. They are designed for routine, repeatable tasks that should happen without manual intervention, such as dead code cleanup, dependency maintenance, issue triage, or periodic refactors.
 
@@ -14,9 +15,9 @@ Warp's Scheduled Agents let you run cloud agents automatically on a **recurring 
 
 Scheduled Agents run in the background on Warp’s infrastructure. Each run starts from a clean session, executes a fixed prompt, and produces its own task and session history that can be inspected after the fact.
 
-For a guided, no-CLI walkthrough that creates a recurring agent from the Oz web app, see the [Scheduled Agents quickstart](/platform/triggers/scheduled-agents-quickstart/). This page is the full reference for managing schedules with the Oz CLI.
+For a guided, no-CLI walkthrough that creates a recurring agent from the {VARS.WEB_APP}, see the [Scheduled Agents quickstart](/platform/triggers/scheduled-agents-quickstart/). This page is the full reference for managing schedules with the {VARS.WARP_AGENT_CLI}.
 
-If you're deciding whether to use a schedule, Slack or Linear trigger, GitHub Actions, the Oz CLI, or the API, see [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
+If you're deciding whether to use a schedule, Slack or Linear trigger, GitHub Actions, the {VARS.WARP_AGENT_CLI}, or the API, see [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
 
 ---
 
@@ -29,7 +30,7 @@ A Scheduled Agent is a [cloud agent](/platform/) that runs on a cron-based sched
 * Runs automatically based on a cron expression.
 * Uses a fixed prompt defined at schedule creation time.
 * Starts a fresh agent session for every run.
-* Executes in a specific Warp Environment, if provided.
+* Executes in a specific Warp [Environment](/platform/environments/), if provided.
 * Consumes credits when it runs.
 * Can be paused, updated, or deleted at any time.
 
@@ -52,11 +53,11 @@ Because each run is isolated, Scheduled Agents are safe to use for tasks that be
 
 ---
 
-### Scheduling agents with the Oz CLI
+### Scheduling agents with the CLI
 
-Oz scheduled agents are managed through the Oz `schedule` family of CLI commands.
+{VARS.WARP_AUTOMATION_PLATFORM} scheduled agents are managed through the {VARS.WARP_AUTOMATION_PLATFORM} `schedule` family of CLI commands.
 
-All scheduling operations require the Oz CLI and an authenticated session.
+All scheduling operations require the {VARS.WARP_AGENT_CLI} and an authenticated session.
 
 #### Creating a schedule
 
@@ -93,7 +94,11 @@ oz schedule create \
 * `--file <PATH>` — load schedule configuration from a YAML or JSON file.
 
 :::note
-Environments are optional — if you don't specify one, the scheduled agent runs in a barebones sandbox. Without an environment, the agent won't have access to your code repositories, pre-installed tools, or setup commands, so this is only suited for tasks that don't need your codebase.
+[Environments](/platform/environments/) are optional — if you don't specify one, the scheduled agent runs in a barebones sandbox. Without an environment, the agent won't have access to your code repositories, pre-installed tools, or setup commands, so this is only suited for tasks that don't need your codebase.
+:::
+
+:::caution
+`oz schedule create` has no **Agent** flag, so a schedule created with the CLI runs as its creator and opens pull requests under that person's GitHub account. To run it as a [cloud agent](/platform/agents/) instead, set **Agent** on the schedule from the <a href={`${VARS.WEB_APP_URL}/schedules`}>Schedules page</a> in the {VARS.WEB_APP} after creating it. See [Run identity and pull request authorship](/platform/triggers/scheduled-agents-quickstart/#run-identity-and-pull-request-authorship).
 :::
 
 **Example**
@@ -206,7 +211,7 @@ Once unpaused, the agent resumes running according to its original cron schedule
 
 You can modify an existing schedule using `oz schedule update`.
 
-You may update one or more properties at a time, including:
+You can update one or more properties at a time, including:
 
 * The schedule name.
 * The cron schedule.
@@ -214,6 +219,8 @@ You may update one or more properties at a time, including:
 * The skill used as the base prompt.
 * The environment used for execution.
 * The model, MCP, and host configuration used for future runs.
+
+The **Agent** setting can't be changed with this command. Change it from the <a href={`${VARS.WEB_APP_URL}/schedules`}>Schedules page</a> in the {VARS.WEB_APP}.
 
 #### Command
 
@@ -305,3 +312,10 @@ Scheduled Agents are best when work should happen on a predictable cadence.
 If you want an agent to run in response to an event, such as a Slack mention, PR update, or issue change, use [integrations](/platform/integrations/) to trigger cloud agents instead.
 
 Many teams use both together: [triggers](/platform/triggers/) for reactive workflows, and Scheduled Agents for proactive maintenance.
+
+## Related pages
+
+* [Environments](/platform/environments/) — configure the repo, image, and setup commands scheduled runs execute with
+* [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) — inspect transcripts, logs, and outputs from each scheduled run
+* [Skills as Agents](/platform/skills-as-agents/) — run a reusable skill definition on a schedule
+* [Run unattended agents](/guides/agent-workflows/how-to-run-unattended-agents/) — compare schedules with Slack, Linear, GitHub Actions, CLI, and API triggers

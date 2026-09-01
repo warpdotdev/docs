@@ -4,6 +4,7 @@ description: >-
   The API key in the request is invalid, expired, or missing. Generate a new
   key and update your client configuration.
 ---
+import { VARS } from '@data/vars';
 
 The `authentication_required` error occurs when the API request lacks valid authentication credentials.
 
@@ -48,7 +49,7 @@ This error is returned when:
 
 ## How to resolve
 
-1. Generate a new API key from the [Oz web app](https://oz.warp.dev) or via the Oz CLI.
+1. Generate a new API key from the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> or via the {VARS.WARP_AGENT_CLI}.
 2. Update your client configuration with the new key.
 3. Retry the request.
 
@@ -56,5 +57,5 @@ This error is returned when:
 
 ## Related
 
-* [Oz API & SDK](/reference/api-and-sdk/) — API authentication
-* [Oz Platform](/platform/overview/) — API key management
+* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) — API authentication
+* [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) — API key management

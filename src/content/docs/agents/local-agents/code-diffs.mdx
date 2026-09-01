@@ -8,7 +8,7 @@ description: >-
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-When Warp's agent generates code changes, they appear as visual diffs in a built-in editor. Review proposed changes line by line, refine them with natural language, make manual edits, or accept them to apply the modifications to your files.
+When the Warp Agent generates code changes, they appear as visual diffs in a built-in editor. Review proposed changes line by line, refine them with natural language, make manual edits, or accept them to apply the modifications to your files.
 
 ## Reviewing code diffs
 
@@ -35,9 +35,9 @@ You can also choose whether Warp automatically opens the [Code Review](/code/cod
 
 When an Agent generates a code diff, Warp opens it in a built-in text editor with a visual diff view. Changes are grouped into clear hunks for easy inspection.
 
-* Use the `UP` and `DOWN` arrow keys (or mouse clicks) to move between hunks.
-* For multi-file changes, use `LEFT` and `RIGHT` arrow keys to switch between files.
-* Once satisfied with the changes, you can apply the diffs using `ENTER` or clicking "**Accept Changes**" to apply the modifications.
+* Use the `↑` and `↓` arrow keys (or mouse clicks) to move between hunks.
+* For multi-file changes, use `←` and `→` arrow keys to switch between files.
+* Once satisfied with the changes, you can apply the diffs using `Enter` or clicking "**Accept Changes**" to apply the modifications.
 
 :::caution
 These modifications will not be applied to the files unless you explicitly accept them.
@@ -49,7 +49,7 @@ If the initial suggestion needs more work:
 
 * Press `R` or select the "**Refine**" button to provide follow-up instructions in natural language. The agent will regenerate the diff based on your input.
 * To manually adjust the code, press `E` or click "**Edit**" to switch into an editable view.
-* To cancel a pending operation, use `CTRL-C` (on macOS, Windows, or Linux). Similarly, you can exit the editor at any time with `ESC`.
+* To cancel a pending operation, use `Ctrl+C` (on macOS, Windows, or Linux). Similarly, you can exit the editor at any time with `Esc`.
 
 :::note
 You can open up code files in Warp in various different ways, refer to: [Opening files in Warp](/code/code-editor/#opening-files-in-warp)

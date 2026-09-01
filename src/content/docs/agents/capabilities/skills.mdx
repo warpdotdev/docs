@@ -6,6 +6,7 @@ description: >-
   Create reusable instruction sets that teach agents specific tasks and share
   expertise across your team.
 ---
+import { VARS } from '@data/vars';
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { FileTree } from '@astrojs/starlight/components';
 
@@ -292,6 +293,10 @@ Understanding when to use each level:
 * Cross-project automation (git workflows, documentation templates)
 * Professional standards you apply everywhere
 
+### Extra directories for cloud runs
+
+[Cloud agents](/platform/) discover skills from the repositories in their [environment](/platform/environments/). To index skills that live outside those repositories — for example, skills baked into a custom Docker image — set the `WARP_SKILL_DIRS` environment variable. See [extra skill directories in cloud runs](/platform/skills-as-agents/#extra-skill-directories-in-cloud-runs).
+
 ## Creating skills
 
 ### Step 1: Choose a location
@@ -409,7 +414,7 @@ This opens an interactive menu where you can:
 
 Warp maintains a public collection of ready-to-use skills in the [warpdotdev/oz-skills](https://github.com/warpdotdev/oz-skills) repository. You can browse these skills for inspiration, copy them directly into your project's `.agents/skills/` directory, or adapt them to fit your team's workflows.
 
-These same skills also appear as suggested agents in the [Oz web app](/platform/oz-web-app/), where you can run them directly in the cloud.
+These same skills also appear as suggested agents in the [{VARS.WEB_APP}](/platform/oz-web-app/), where you can run them directly in the cloud.
 
 ## Suggested skills from Agent Memory
 
@@ -430,7 +435,7 @@ This is useful when you want to reuse a skill's workflow but tailor the executio
 
 Skills can be used with both local and [cloud agents](/platform/) to create reusable, automated workflows. When running an agent via the CLI, web app, or API, you can specify a skill to provide the base instructions for the agent.
 
-For a complete guide to running skill-based agents—including CLI usage, the Oz web app, scheduling, skill discovery, and API integration—see [Skills as Agents](/platform/skills-as-agents/).
+For a complete guide to running skill-based agents—including CLI usage, the {VARS.WEB_APP}, scheduling, skill discovery, and API integration—see [Skills as Agents](/platform/skills-as-agents/).
 
 ## Related features
 

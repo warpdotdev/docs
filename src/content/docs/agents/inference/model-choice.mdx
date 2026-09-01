@@ -6,6 +6,7 @@ description: >-
   Choose from a curated set of top LLMs for Warp's Agents (or let Warp
   auto-select the best model).
 ---
+import { VARS } from '@data/vars';
 
 Warp lets you choose from a curated set of large language models to power your agents, or let Warp auto-select the best model for each task. Models from OpenAI, Anthropic, Google, and open source providers are available, with configurable reasoning levels and per-profile defaults. You can also define [custom routers](/agents/inference/custom-routers/) that pick a model for each task using your own logic.
 
@@ -15,7 +16,7 @@ Warp lets you choose from a curated set of large language models (LLMs) to power
 
 **Warp supports the following models.**
 
-The `model_id` values shown below can be used when configuring models via the [Oz Platform](/platform/overview/) or [CLI](/reference/cli/).
+The `model_id` values shown below can be used when configuring models via the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) or [CLI](/reference/cli/).
 
 ### Auto models
 
@@ -73,6 +74,7 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 | Claude Opus 5 | `claude-5-opus-low` | Low effort |
 | Claude Opus 5 | `claude-5-opus-medium` | Medium effort |
 | Claude Opus 5 | `claude-5-opus-xhigh` | Extra high effort |
+| Claude Opus 5 | `claude-5-opus-xhigh-fast` | Fast mode |
 | Claude Opus 5 | `claude-5-opus-max` | Max effort |
 | Claude Fable 5 | `claude-5-fable-high` | Default effort |
 | Claude Fable 5 | `claude-5-fable-low` | Low effort |
@@ -113,12 +115,18 @@ Anthropic requires data retention for Claude Fable 5 for safety, abuse monitorin
 | Model | `model_id` |
 | --- | --- |
 | Gemini 3.1 Pro | `gemini-3.1-pro` |
+| Gemini 3.7 Flash | `gemini-3.7-flash` |
+| Gemini 3.6 Flash | `gemini-3.6-flash` |
 | Gemini 3.5 Flash | `gemini-3.5-flash` |
 
 #### xAI
 
 | Model | `model_id` | Reasoning Level |
 | --- | --- | --- |
+| Grok 4.6 | `grok-4-6-low` | Low |
+| Grok 4.6 | `grok-4-6-medium` | Medium |
+| Grok 4.6 | `grok-4-6-high` | High |
+| Grok 4.6 | `grok-4-6-xhigh` | Extra High |
 | Grok 4.5 | `grok-4-5-low` | Low |
 | Grok 4.5 | `grok-4-5-medium` | Medium |
 | Grok 4.5 | `grok-4-5-high` | High |
@@ -135,14 +143,13 @@ Warp also supports leading open source models hosted via Fireworks AI, so you ca
 
 | Model | `model_id` |
 | --- | --- |
+| GLM 5.3 Flash | `glm-5.3-flash-fireworks` |
 | GLM 5.2 | `glm-5.2-fireworks` |
 | Kimi K3 | `kimi-k3-fireworks` |
 | Kimi K2.7 Code | `kimi-k27-code-fireworks` |
 | Kimi K2.6 | `kimi-k26-fireworks` |
 | Minimax 3 | `minimax-3-fireworks` |
-| Minimax 2.7 | `minimax-2.7-fireworks` |
-| Qwen 3.7 Plus | `qwen-3.7-plus-fireworks` |
-| Qwen 3.6 Plus | `qwen-3.6-plus-fireworks` |
+| Qwen 3.8 Max | `qwen-3.8-max-fireworks` |
 | DeepSeek V4 Pro | `deepseek-v4-pro-fireworks` |
 
 ### How to change models

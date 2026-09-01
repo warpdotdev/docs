@@ -1,0 +1,111 @@
+---
+title: Measure and improve a factory
+description: >-
+  Measure factory activity and costs, evaluate completed runs, compare
+  agent configurations, and turn failures into follow-up work.
+sidebar:
+  label: "Measure and improve"
+---
+
+Warp Factories tracks what your factory produces and how well it performs, so you can spot a problem, test a fix, and decide whether to keep it.
+
+| Feature | What it tells you |
+| --- | --- |
+| Dashboard metrics | How much work the factory produced, and what it cost. |
+| Scorers | Whether completed runs meet criteria you define. |
+| Benchmarks | How different configurations perform on the same tasks. |
+| Self-improvement | Which repeated failures get investigated and turned into follow-up work. |
+
+## Read metrics on the Dashboard page
+
+The **Dashboard** page shows activity, cost, autonomy, and evaluation results:
+
+| Metric | What it shows |
+| --- | --- |
+| **Total runs** | All agent runs, with breakdowns by agent type, status, source, model, and more. |
+| **PRs opened** | Pull requests created from factory work, counted once, in the period they were first observed. |
+| **PRs merged** | Of the PRs opened in a period, how many later merged. Opened and merged draw from different data sources, so a period's merged count can occasionally read higher than its opened count for that period. |
+| **Autonomy** | The share of the factory's merged PRs that needed no human code push before merging. Opening the PR counts as a push, so a human-authored PR that a factory run later revised doesn't count as autonomous. |
+| **PR cycle time** | The median time the factory's merged PRs took from run kickoff through PR, first review, and merge, with a median for each stage. |
+| **Cost per PR** | The median cost of PRs opened in the range, split evenly across a run's PRs when one run produces more than one. View it broken down by cost component or by PR size (S/M/L/XL, split at 100/500/1,000 changed lines). |
+| **Most expensive PRs** | The highest-cost pull requests. |
+| **Scorer cards** | Results from your Scorers. |
+| **Self-improvement PRs** | The three newest Self-improvement pull requests, regardless of the selected date range. |
+
+**Cost per PR** is an estimate, not a billing figure: it counts recorded credits and can undercount actual usage.
+
+:::caution
+**PRs merged**, **Autonomy**, **PR cycle time**, and the detail in **Most expensive PRs** require a connected code host - the GitHub App, or the GitLab webhook Warp installs when you [connect GitLab](/factories/integrations/gitlab/) - and only cover activity from after you connect it. A PR's cost, creator, source, and requested model come from the run itself, so those still show without that connection.
+:::
+
+Use the **Dashboard** page to pick which runs to investigate, not to conclude what caused a change. **Total runs** includes evaluation, benchmark, and Self-improvement runs, so a higher run count with a flat PR count could mean harder tasks, retries, or measurement activity.
+
+## Configure Scorers
+
+A **Scorer** uses an LLM judge to classify completed runs against criteria you write — for example, "did the agent run the tests before opening a PR?" It assigns a label, not a numeric grade, so keep each Scorer focused on one question its failures can point back to. Create Scorers on the factory dashboard's **Scorers** page, which also holds each Scorer's results. For Scorers defined as files in a factory definition, see the [`scorers/<name>/scorer.md` syntax](/factories/factory-as-code/#scorersnamescorermd) and the two scorers in [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
+
+Configure these fields:
+
+* **Agent(s) to evaluate** - The agents this Scorer applies to. Select at least one.
+* **Judge instructions** - The criteria the judge checks for.
+* **Judge model** - The model that acts as the judge.
+* **Classifications** - The labels the judge can assign, each with a score.
+* **Pass threshold** - The score a run needs to pass.
+* **Sample rate** - The share of the selected agents' completed runs to evaluate.
+
+{/* VISUAL: The Scorer create/edit form (judge instructions, judge model, classifications, pass threshold, sample rate). */}
+
+While the sample rate is above 0, scoring happens automatically: shortly after a sampled run completes, the judge evaluates it and records a classification, a score, and its reasoning. To stop automatic scoring, set the sample rate to 0.
+
+You can also score any single run on demand, which is useful for testing new judge instructions before raising the sample rate. Scoring a run again replaces its previous result from that Scorer.
+
+Changing **Pass threshold** updates how past scores display as pass or fail; the recorded results don't change.
+
+## Compare configurations with benchmarks
+
+A benchmark compares configurations of a single agent on the same fixed tasks, so you can test a model, harness, or runner change before adopting it. A benchmark suite includes:
+
+* **Agent** - The agent whose configurations you compare.
+* **Tasks** - Fixed prompts with success criteria.
+* **Configurations** - The harness, model, and runner combinations to test.
+* **Scorers** - Your classification Scorers, applied to every trial.
+* **Repetitions** - The number of trials per task and configuration.
+
+You can create a benchmark task from a completed run's detail pane, and Warp copies the run's input into the task. Add success criteria before you launch.
+
+Every benchmark also runs **Correctness**, a built-in Scorer that marks each trial as pass or fail against the task's success criteria. Results show pass rates, cost, and quality for each configuration, with per-task detail. Warp doesn't combine these signals into one score or pick a winner; you weigh the results and decide. Benchmark credit totals don't include model usage, so the true cost is higher.
+
+## Configure and review Self-improvement
+
+{/* VISUAL: The Self-improvement pull request list, or a Benchmarks suite run -- this section is text-only today. */}
+
+Turn on **Self-improvement** for each Scorer whose failures you want investigated automatically. Self-improvement groups related failures and files follow-up tasks as ordinary agent runs. A follow-up run can propose changes to application code. It can also improve the factory itself: when you manage your factory as [definitions as code](/factories/factory-as-code/), its prompts, skills, and configuration are version-controlled files, so a follow-up run can open a pull request against the factory definition the same way it would against application code. Nothing is adopted without your review.
+
+The factory dashboard's **Self-improvement** page lists the pull requests these follow-up runs open. Each pull request includes a **Regressions addressed** section that links the failing runs and Scorer results behind it, so you can trace the change back to its evidence.
+
+## Run a practical improvement loop
+
+Change one measurable thing at a time:
+
+```mermaid
+flowchart LR
+  Define[Define a Scorer] --> Baseline[Collect a baseline]
+  Baseline --> Inspect[Inspect failures]
+  Inspect --> Benchmark[Benchmark a candidate]
+  Benchmark --> Adopt[Review and adopt]
+  Adopt --> Monitor[Keep monitoring]
+  Monitor --> Inspect
+  Inspect -.->|Repeated failures| Improve[Self-improvement]
+  Improve -.-> Adopt
+```
+
+1. **Define a Scorer.** Pick one agent and one failure mode you can observe. Write the judge instructions and classifications, then score a few runs manually and compare the judge's results against your own review.
+2. **Collect a baseline.** Let automatic scoring run until results reflect normal work. Record the Scorer settings, date range, and relevant costs.
+3. **Inspect failures.** Read the judge's reasoning and the underlying runs. Look for causes like missing context, unclear instructions, or missing tools. Turn on Self-improvement when the same failure keeps repeating.
+4. **Benchmark a candidate.** Compare configurations of that agent on the same tasks, with enough repetitions to trust the difference.
+5. **Review and adopt.** If the evidence supports the change, make it. Review Self-improvement pull requests with the same standards as human-authored ones.
+6. **Keep monitoring.** Leave the Scorer active and compare new results against your baseline. Revise the Scorer, or set its sample rate to 0, when its criteria no longer match what your team needs.
+
+## Next step
+
+Record an adopted change in [factory definitions as code](/factories/factory-as-code/) so your team can review the factory configuration.

@@ -110,7 +110,7 @@ Warp supports macOS and most flavors of Linux as remote hosts. Supported shells 
 
 ### What if Warp fails to detect my SSH session?
 
-If you're in a remote SSH session and Warp didn't detect it, you can manually Warpify by opening the [Command Palette](/terminal/command-palette/) and searching for "Warpify SSH Session".
+If you're in a remote SSH session and Warp didn't detect it, first check that **Settings** > **Warpify** > **Warpify SSH Sessions** is enabled. If it's already on, Warp likely skipped detection for that particular command. See [What triggers SSH session detection for Warpification?](#what-triggers-ssh-session-detection-for-warpification) for the cases Warp doesn't detect.
 
 ### What triggers SSH session detection for Warpification?
 
@@ -118,4 +118,4 @@ With SSH session detection enabled, Warp watches for `ssh` commands whose argume
 
 Once Warp is confident you've successfully authenticated (by detecting `Last login:` or something resembling a basic prompt), it prompts you to Warpify the active SSH session.
 
-If SSH session detection doesn't pick up your session, you can still [Warpify manually](#what-if-warp-fails-to-detect-my-ssh-session).
+If SSH session detection doesn't pick up your session, see [What if Warp fails to detect my SSH session?](#what-if-warp-fails-to-detect-my-ssh-session).

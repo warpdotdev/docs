@@ -61,8 +61,15 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+# Keep this in sync with the heading emitted by `_table_markdown`. The heading is
+# matched literally to find where the generated table starts, so renaming it in
+# privacy.mdx without updating it here makes the whole file look like intro and
+# appends a duplicate table on the next run.
+TELEMETRY_TABLE_HEADING = "### Exhaustive telemetry table"
+
+
 def _extract_intro(content: str) -> str:
-    marker = "\n### Exhaustive Telemetry Table"
+    marker = f"\n{TELEMETRY_TABLE_HEADING}"
     index = content.find(marker)
     if index == -1:
         return content.rstrip() + "\n"
@@ -71,7 +78,7 @@ def _extract_intro(content: str) -> str:
 
 def _table_markdown(events: dict[str, Any]) -> str:
     lines: list[str] = [
-        "### Exhaustive Telemetry Table",
+        TELEMETRY_TABLE_HEADING,
         "",
         "| Event Name | Description |",
         "|---|---|",

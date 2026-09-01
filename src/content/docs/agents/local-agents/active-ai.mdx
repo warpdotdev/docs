@@ -15,16 +15,16 @@ Active AI features can be disabled in **Settings** > **Agents** > **Warp Agent**
 
 Prompt Suggestions are contextual, AI-powered suggestions that activate Agent Mode. These banners will provide suggestions for what to ask Agent Mode in specific scenarios, similar to how Warp already suggests commands to run.
 
-To disable, please visit **Settings** > **Agents** > **Warp Agent** > **Active AI** > **Prompt Suggestions**
+To disable, go to **Settings** > **Agents** > **Warp Agent** > **Active AI** > **Prompt Suggestions**.
 
 ![Example of inline banner popping up when relevant contextually.](../../../../assets/agent-platform/prompt-suggestions-example-1.png)
 
 #### Accepting a prompt suggestion
 
-If you press `CTRL-ENTER` (on macOS), `ALT-SHIFT-ENTER` (on Linux/Windows), or click on the chip, the suggestion will auto-populate into your input and run against [Agent Mode](/agents/local-agents/interacting-with-agents/) (with the most recent block attached).
+If you press `Ctrl+Enter` (on macOS), `Alt+Shift+Enter` (on Linux/Windows), or click on the chip, the suggestion will auto-populate into your input and run against [Agent Mode](/agents/local-agents/interacting-with-agents/) (with the most recent block attached).
 
 :::note
-Prompt Suggestions use an LLM to generate prompts based on your terminal session, specifically the most recent block. These AI requests do not contribute towards your AI limits, however, any accepted prompts run in Agent Mode contribute as normal. Visit **Settings** > **Agents** > **Warp Agent** > **Active AI** if you'd like to turn it off.
+Prompt Suggestions use an LLM to generate prompts based on your terminal session, specifically the most recent block. These AI requests do not contribute towards your AI limits. However, any accepted prompts run in Agent Mode contribute as normal. To turn it off, go to **Settings** > **Agents** > **Warp Agent** > **Active AI**.
 
 If [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) is enabled, any selected regexes are applied to content sent to Active AI features to prevent any sensitive data being leaked.
 :::
@@ -35,7 +35,7 @@ If [Secret Redaction](/support-and-community/privacy-and-security/secret-redacti
 
 Next Command uses AI to suggest the next command to run based on your active terminal session and command history. It uses your active terminal session contents and an LLM to generate commands.
 
-To disable, please visit **Settings** > **Agents** > **Warp Agent** > **Active AI** > **Next Command**
+To disable, go to **Settings** > **Agents** > **Warp Agent** > **Active AI** > **Next Command**.
 
 ![Next Command suggestion appearing inline based on the active terminal session and command history.](../../../../assets/agent-platform/next-command.png)
 
@@ -47,7 +47,7 @@ Next Command is an LLM-based feature that uses your command history (enriched wi
 
 #### Accepting Next Command suggestions
 
-Press `→` or `CTRL-F` to accept a Next Command suggestion into your input buffer, then press `ENTER` to execute it. You can change the accept keybinding (for example, to `TAB`) via the inline keybinding picker that appears next to the suggestion.
+Press `→` or `Ctrl+F` to accept a Next Command suggestion into your input buffer, then press `Enter` to execute it. You can change the accept keybinding (for example, to `Tab`) via the inline keybinding picker that appears next to the suggestion.
 
 #### Billing
 
@@ -59,15 +59,15 @@ Suggested Code Diffs automatically surface potential fixes for command-line erro
 
 !["Generating fix" banner shown after a command-line error while Warp prepares a proposed diff.](../../../../assets/agent-platform/suggested-code-diffs-generating-fix.png)
 
-When an error occurs, Warp evaluates whether it is appropriate for an LLM to generate a fix. If so, a “Generating fix” banner will appear while Warp prepares a proposed diff. You can stop this process at any time by pressing `CTRL + C` or the stop button.
+When an error occurs, Warp evaluates whether it is appropriate for an LLM to generate a fix. If so, a “Generating fix” banner will appear while Warp prepares a proposed diff. You can stop this process at any time by pressing `Ctrl+C` or the stop button.
 
 ![Suggested code diff with options to dismiss or accept the proposed fix.](../../../../assets/agent-platform/suggested-code-diffs.png)
 
 #### Using a suggested code diff
 
-Once the diff is generated, you can either dismiss it or accept it. Acceptance can be done directly via the buttons in the diff view, or with `CMD + ENTER` on macOS and `CTRL + ENTER` on Windows/Linux.
+Once the diff is generated, you can either dismiss it or accept it. Acceptance can be done directly via the buttons in the diff view, or with `⌘+Enter` on macOS and `Ctrl+Enter` on Windows/Linux.
 
-You can also view additional details of the diff by pressing `CMD + E` (macOS) or `CTRL + E` (Windows/Linux), which expands the view to allow further inspection (including refining or editing it). You can also use `↓` to view the entire diff.
+You can also view additional details of the diff by pressing `⌘+E` (macOS) or `Ctrl+E` (Windows/Linux), which expands the view to allow further inspection (including refining or editing it). You can also use `↓` to view the entire diff.
 
 **Billing**
 

@@ -6,8 +6,9 @@ description: >-
   Connect cloud agents to Bitbucket repos using access tokens and
   Warp-managed secrets.
 ---
+import { VARS } from '@data/vars';
 
-Cloud agents work with any Git repository, including those hosted on Bitbucket. Unlike GitHub, Bitbucket does not have a native Warp integration, but you can grant agents access to your Bitbucket repositories using an access token and Warp-managed secrets. Once configured, your environment works with any Oz trigger—Slack, Linear, schedules, or the CLI.
+Cloud agents work with any Git repository, including those hosted on Bitbucket. Unlike GitHub and GitLab, Bitbucket does not have a native Warp integration, but you can grant agents access to your Bitbucket repositories using an access token and Warp-managed secrets. Once configured, your environment works with any {VARS.WARP_AUTOMATION_PLATFORM} trigger—Slack, Linear, schedules, or the CLI.
 
 This page explains how to generate a Bitbucket access token, store it securely, and configure a cloud agent environment that clones your repository at runtime.
 
@@ -22,9 +23,9 @@ Follow the section that matches your setup.
 
 ## Prerequisites
 
-* A Warp account ([create an account at oz.warp.dev](https://oz.warp.dev))
+* A Warp account (<a href={VARS.WEB_APP_URL}>create an account at {VARS.WEB_APP_URL}</a>)
 * A repository hosted on Bitbucket (Cloud or Data Center/Server)
-* The [Oz CLI](/reference/cli/) installed and authenticated
+* The [{VARS.WARP_AGENT_CLI}](/reference/cli/) installed and authenticated
 
 ---
 
@@ -103,7 +104,7 @@ Use single quotes around setup commands that reference secrets. Double quotes ca
    * The second `--setup-command` with any dependency install or build steps your project requires (for example, `npm ci` or `pip install -r requirements.txt`)
 
 :::caution
-Setup commands run on a fresh container for every agent run. Write them to be idempotent — commands that assume existing state (such as a partially cloned repo or a pre-built cache) can fail unpredictably. See [Environment design and best practices](/platform/environments/#environment-design-and-best-practices) for guidance.
+Setup commands run on a fresh container for every agent run. Write them to be idempotent — commands that assume existing state (such as a partially cloned repo or a pre-built cache) can fail unpredictably. See [environment design and best practices](/platform/environments/configuring-environments/#environment-design-and-best-practices) for guidance.
 :::
 
 3. Note the environment ID returned. You will need it in the next step.
@@ -178,18 +179,18 @@ Use single quotes around setup commands that reference secrets, so `$BITBUCKET_T
    * The second `--setup-command` with any dependency install or build steps your project requires (for example, `npm ci` or `pip install -r requirements.txt`)
 
 :::caution
-Setup commands run on a fresh container for every agent run. Write them to be idempotent — commands that assume existing state (such as a partially cloned repo or a pre-built cache) can fail unpredictably. See [Environment design and best practices](/platform/environments/#environment-design-and-best-practices) for guidance.
+Setup commands run on a fresh container for every agent run. Write them to be idempotent — commands that assume existing state (such as a partially cloned repo or a pre-built cache) can fail unpredictably. See [environment design and best practices](/platform/environments/configuring-environments/#environment-design-and-best-practices) for guidance.
 :::
 
 3. Note the environment ID returned. You will need it in the next step.
 
 ---
 
-## Step 4: Test your environment
+## Test your environment
 
-Before connecting to integrations, verify the environment works by running a one-off agent.
+Before connecting to integrations, verify the environment works by running a one-off agent. This applies to both Bitbucket Cloud and Bitbucket Data Center / Server.
 
-1. Run the following command, replacing `<ENV_ID>` with the environment ID from Step 3:
+1. Run the following command, replacing `<ENV_ID>` with the environment ID from Step 3 of whichever setup you followed:
 
 ```bash
 oz agent run-cloud --environment <ENV_ID> --prompt "Your task here"
@@ -201,8 +202,8 @@ oz agent run-cloud --environment <ENV_ID> --prompt "Your task here"
 
 With your environment configured, you can connect it to any Warp trigger exactly as you would with a GitHub-backed environment:
 
-* **Slack** — Tag **@Oz** in a message to start an agent run against your Bitbucket repo. See [Slack](/platform/integrations/slack/).
-* **Linear** — Tag **@Oz** on an issue to kick off a workflow. See [Linear](/platform/integrations/linear/).
+* **Slack** — Tag **@warp** in a message to start an agent run against your Bitbucket repo. See [Slack](/platform/integrations/slack/).
+* **Linear** — Tag **@warp** on an issue to kick off a workflow. See [Linear](/platform/integrations/linear/).
 * **Scheduled agents** — Run agents on a recurring schedule. See [Scheduled Agents](/platform/triggers/scheduled-agents/).
 
 :::note

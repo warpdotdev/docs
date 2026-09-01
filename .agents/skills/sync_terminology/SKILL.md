@@ -2,14 +2,14 @@
 name: sync_terminology
 description: >-
   Sync the Warp terminology glossary from the Notion Dictionary to the repo.
-  Fetches the Notion Dictionary page, compares with .warp/references/terminology.md,
+  Fetches the Notion Dictionary page, compares with .agents/references/terminology.md,
   and opens a PR for any additions or changes. Flags repo-only terms that are
   missing from Notion. Use on a weekly schedule or manually when terminology changes.
 ---
 
 # Sync Terminology from Notion
 
-Keep `.warp/references/terminology.md` in sync with the canonical Notion Dictionary.
+Keep `.agents/references/terminology.md` in sync with the canonical Notion Dictionary.
 
 **Direction:** Notion → repo. Notion is the source of truth. If the repo has terms not in Notion, flag them for addition to Notion rather than removing them from the repo.
 
@@ -42,7 +42,7 @@ Parse both sections. Extract each term with its:
 
 ### Step 2: Read the current terminology.md
 
-Read `.warp/references/terminology.md` from the repo. Parse each entry, extracting:
+Read `.agents/references/terminology.md` from the repo. Parse each entry, extracting:
 - **Name** (the bolded term)
 - **Definition** (the text after the em dash)
 - **Usage note** (the italic `*Usage note:*` line, if present)
@@ -69,10 +69,19 @@ If both lists are empty, report "Terminology is in sync" and stop. Do not create
 
 If there are new or changed terms from Notion:
 
-1. Create a new branch:
+1. Check out the standing branch. This skill maintains **one** long-lived sync PR rather than one per run — see "One standing PR per automation" in `.agents/references/skill-authoring-guidelines.md`.
    ```bash
-   git checkout -b sync-terminology/YYYY-MM-DD
+   # Is there already an open terminology sync PR?
+   gh pr list --repo warpdotdev/docs --state open \
+     --search 'sync terminology from Notion Dictionary in:title' \
+     --json number,headRefName
+
+   git fetch origin
+   # If the PR exists, continue on its branch and rebase; otherwise create it from main.
+   git checkout sync-terminology 2>/dev/null || git checkout -b sync-terminology origin/main
+   git rebase origin/main
    ```
+   Do not create a date-suffixed branch. Terminology drift accumulates across weeks, and a dated branch per run produces a pile of PRs that all edit the same two files and conflict with each other.
 
 2. For each **new term**, add it to the appropriate category section in `terminology.md`:
    - Match the category from Notion to the existing `##` sections in the file
@@ -95,14 +104,16 @@ If there are new or changed terms from Notion:
 ### Step 6: Commit and open a PR
 
 ```bash
-git add .warp/references/terminology.md AGENTS.md
+git add .agents/references/terminology.md AGENTS.md
 git commit -m "docs: sync terminology from Notion Dictionary
 
 Co-Authored-By: Oz <oz-agent@warp.dev>"
-git push origin sync-terminology/YYYY-MM-DD
+git push origin sync-terminology
 ```
 
-Open a PR. Write the body to a file before creating the PR — lists of changed terms can be long and are prone to repetition-loop degeneration when passed inline:
+If a PR already exists for this branch, the push updates it — do not open a second one. Append this run's terms to the existing body under its existing headings rather than adding a new dated section: `check_pr_body.py` rejects duplicate headings, so per-run copies of `## Terms added` would fail the check and block the update. Fetch the current body first and make a minimal additive edit.
+
+If no PR exists, open one. Write the body to a file before creating the PR — lists of changed terms can be long and are prone to repetition-loop degeneration when passed inline:
 
 ```bash
 # Write body to a temp file first

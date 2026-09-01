@@ -179,6 +179,18 @@
 pre.astro-code,
 .sl-markdown-content pre {
   overflow-x: auto;
+  overflow-y: hidden;
+  white-space: pre;
+}
+
+.expressive-code pre code,
+.sl-kapa-codeblock pre code {
+  display: block;
+  min-width: max-content;
+}
+
+.expressive-code pre {
+  scrollbar-width: thin;
 }
 
 /* Code block copy button — frosted glass effect (Scalar pattern) */

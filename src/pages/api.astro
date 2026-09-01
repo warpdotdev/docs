@@ -13,6 +13,7 @@
 import fs from 'node:fs';
 import { parse } from 'yaml';
 import WarpTopbar from '../components/WarpTopbar.astro';
+import DocsFeedbackLinks from '../components/DocsFeedbackLinks.astro';
 const yamlContent = fs.readFileSync('developers/agent-api-openapi.yaml', 'utf-8');
 const specObject = parse(yamlContent);
 const specJson = JSON.stringify(specObject);
@@ -55,6 +56,9 @@ const specBaseUrl = (specObject.servers as Array<{ url?: string }> | undefined)?
     <meta name="twitter:description" content="Interactive API reference for the Agent API. Create and manage cloud agent runs, schedules, and more." />
     <meta name="twitter:image" content="https://docs.warp.dev/assets/og/api.png" />
     <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <script is:inline>
       // Theme persistence: shared between Starlight pages and this Scalar
       // /api page. `localStorage['starlight-theme']` is the single source
@@ -198,7 +202,7 @@ const specBaseUrl = (specObject.servers as Array<{ url?: string }> | undefined)?
     <WarpTopbar crumb="API Reference" />
     <!-- llms.txt directive: machine-readable signal for agents and AI tools. -->
     <span class="api-visually-hidden" aria-hidden="true">For the complete documentation in markdown, see <a href="/llms.txt" tabindex="-1">llms.txt</a>.</span>
-    <h1 class="api-visually-hidden">Warp & Oz HTTP API reference</h1>
+    <h1 class="api-visually-hidden">Warp Automation Platform HTTP API reference</h1>
     <!--
       Server-rendered API index for crawlers and agents that don't execute JS.
       Scalar (below) provides the interactive experience for browser users.
@@ -391,5 +395,64 @@ const specBaseUrl = (specObject.servers as Array<{ url?: string }> | undefined)?
       })();
     </script>
     <script is:inline src="https://cdn.jsdelivr.net/npm/@scalar/api-reference@1.57.1" crossorigin="anonymous"></script>
+    <div class="api-feedback-links">
+      <DocsFeedbackLinks
+        editUrl="https://github.com/warpdotdev/docs/edit/main/developers/agent-api-openapi.yaml"
+        pageUrl="https://docs.warp.dev/api/"
+      />
+    </div>
+    <style is:inline>
+      /* `.warp-topbar*` rules ship with `<WarpTopbar />` itself; only the
+         /api-specific feedback CTA styling lives here.
+
+         Anchored to the bottom-RIGHT so the CTA sits where users naturally
+         look for inline page actions (matches the removed PushFeedback
+         widget's placement). Scalar's Shell client picker / dark-mode
+         toggle live inside the operations column rather than fixed to the
+         viewport, so the two don't actually collide at this z-index.
+
+         `.docs-feedback-links` comes from `<DocsFeedbackLinks />`; its own
+         scoped styles use Starlight's `--sl-*` tokens, which aren't defined
+         on this standalone Scalar page, so we override color/size here with
+         a higher-specificity descendant selector and Scalar's `--scalar-*`
+         tokens instead. */
+      .api-feedback-links {
+        position: fixed;
+        bottom: 1.25rem;
+        right: 1.25rem;
+        max-width: min(20rem, calc(100vw - 2.5rem));
+        padding: 0.5625rem 0.875rem;
+        border-radius: 0.625rem;
+        background: var(--scalar-background-2);
+        border: 1px solid var(--scalar-border-color);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18), 0 1px 2px rgba(0, 0, 0, 0.12);
+        z-index: 1000;
+      }
+      .light-mode .api-feedback-links {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+      }
+      .api-feedback-links .docs-feedback-links {
+        color: var(--scalar-color-2);
+        font-size: 0.8125rem;
+        font-family: var(--scalar-font, 'Inter', sans-serif);
+        line-height: 1.4;
+      }
+      .api-feedback-links .docs-feedback-links a {
+        color: var(--scalar-color-accent);
+      }
+      .api-feedback-links .docs-feedback-links a:hover {
+        color: var(--scalar-color-1);
+      }
+      @media (max-width: 640px) {
+        .api-feedback-links {
+          bottom: 1rem;
+          right: 1rem;
+          padding: 0.5rem 0.75rem;
+        }
+        .api-feedback-links .docs-feedback-links {
+          font-size: 0.75rem;
+        }
+      }
+    </style>
   </body>
 </html>

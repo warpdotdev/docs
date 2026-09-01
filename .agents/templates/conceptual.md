@@ -1,44 +1,40 @@
 ---
-title: [Feature or concept name — sentence case. Title convention: noun or "About [subject]". The title field renders as the page H1; do not add a separate H1 in the body.
-  Use {{TOKEN}} syntax for any product names in src/data/vars.ts.]
+title: [Sentence case. Use "About [subject]" or a plain noun phrase naming the subject. Not "Understanding how X works". This renders as the page H1 — do not add an H1 in the body.]
 description: >-
-  [1-2 sentences: what the concept/feature is + why it matters.
-  Write as a standalone summary for search results. Lead with user benefit.
-  Use {{TOKEN}} syntax for any product names in src/data/vars.ts.]
+  [One to two sentences, 50-160 characters: what the thing is and why it matters. Start with the
+  subject, not "Learn about". Example: "Environments give cloud agents the same toolchain
+  and setup on every run, no matter what triggers them."
+  Use {{TOKEN}} syntax for product names in src/data/vars.ts.]
 ---
-[VARS: Add this line immediately after the closing --- above if this page references any product names from src/data/vars.ts. Then use {VARS.KEY} for those names in the prose below.
-`import { VARS } from '@data/vars';`
-See AGENTS.md → Content variables for the full variable list and usage rules.]
+[BEFORE PUBLISHING: Delete every bracketed instruction in this file, including this one. They are guidance for the author, not page content.]
+[VARS: If this page names a product from src/data/vars.ts, add `import { VARS } from '@data/vars';` on the line directly below the frontmatter, then use {VARS.KEY} in prose. See AGENTS.md → Content variables.]
 
-[Opening paragraph: What this feature/concept is and its primary benefit.
-1-3 sentences. Lead with what the user gains from understanding this.]
+[Opening paragraph: what this concept is and its primary benefit. 1-3 sentences. Lead with what the reader gains from understanding it. Assume they arrived here directly, not from a parent page.]
 
-## [Key concepts or components — sentence case. Rename to match the subject]
+[BREVITY: Delete any section below you don't need for this page — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
 
-[Explain the main ideas, components, or building blocks the reader needs
-to understand. Use bulleted lists with bold term + dash + description.]
+## [Key concepts — sentence case, renamed to match the subject]
+
+[The main ideas or components the reader needs. Bold term + hyphen + description.]
 
 * **Concept A** - What it is and why it matters.
 * **Concept B** - What it is and why it matters.
 
 ## How it works
 
-[Explain the system behavior, architecture, or data flow.
-Focus on "what" and "why" before "how."
-Define new terms when they first appear.
-Use diagrams or architecture descriptions where they clarify relationships.
-IMPORTANT: Do NOT include step-by-step procedures here.
-Link to a procedural or quickstart page instead.]
+[System behavior, architecture, or data flow. Answer "what" and "why" before "how". Define new terms on first use. Diagrams help where relationships are hard to describe in prose.]
 
-## When to use [feature name]
+[Do NOT put step-by-step procedures here. Link to a procedural or quickstart page instead.]
 
-[Decision guidance: when to use this feature and when not to.
-Help the reader decide if this is the right tool for their situation.]
+## When to use [subject]
+
+[Decision guidance: when this is the right tool, and when it is not. The "when not to" half is the part readers cannot get anywhere else.]
 
 ## Related pages
 
-[Cross-references to related features, procedural guides, and deeper references.
-Use descriptive link text.]
+[Cross-links to related features, the procedural page for doing this, and deeper references. Use descriptive link text that names the destination.]
 
 * [Related feature](path/to/page.md)
 * [How to configure X](path/to/procedural-page.md)
+
+[STRUCTURE: Every block of content should sit under a header. Content before the first header is not linkable in the table of contents.]

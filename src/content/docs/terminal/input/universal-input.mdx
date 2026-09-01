@@ -26,12 +26,12 @@ The **Universal Input** was the main input interface for using Warp.
 
 The Universal Input brings together all of Warp's input features into one streamlined editor:
 
-* **Natural language auto-detection**: Warp can automatically detect when you're writing in plain English, as opposed to a shell command, and switch you into [Agent Mode](/agents/local-agents/interacting-with-agents/#what-is-agent-mode).
+* **Natural language auto-detection**: Warp can automatically detect when you're writing in plain English, as opposed to a shell command, and switch you into [Agent Mode](/agents/local-agents/interacting-with-agents/#conversations-with-warps-agent).
 * **Contextual chips**: See your current directory, previous conversations, Git status, node version, and more, all inline with your input.
 * [**Modern text editing**](/terminal/editor/): Enjoy IDE-like editing features such as [completions](/terminal/command-completions/), [syntax highlighting](/terminal/editor/syntax-error-highlighting/), mouse support, [rectangular selection](/terminal/more-features/text-selection/), and [Next Command](/agents/local-agents/active-ai/) predictions.
 * **Input toolbelt**: Quickly access [@-context](/agents/local-agents/agent-context/using-to-add-context/), [Slash Commands](/agents/capabilities/slash-commands/), [voice input](/agents/local-agents/interacting-with-agents/voice/), [image attachments](/agents/local-agents/agent-context/images-as-context/) as context, and other AI features.
 
-If you prefer a more traditional terminal input experience, you can switch to [Classic Input](/terminal/input/classic-input/) in **Settings** > **Appearance** > **Input**. Classic input also supports oh-my-posh, PS1 customizations, and [same line prompt.](/terminal/appearance/prompt/#same-line-prompt)
+If you prefer a more traditional terminal input experience, you can switch to [Classic Input](/terminal/input/classic-input/) in **Settings** > **Appearance** > **Input**. Classic input also supports oh-my-posh and [shell prompt (PS1) customizations](/terminal/appearance/prompt/#shell-prompt-ps1).
 
 ## Input modes
 
@@ -92,8 +92,8 @@ By default, auto-detection is enabled. This means Warp decides whether to treat 
 
 * **To turn off auto-detection**: go to **Settings** > **Agents** > **Warp Agent** > **Input** > **Natural Language Detection**
 * When disabled: You’ll explicitly be in either Terminal or Agent Mode. Use the following keyboard shortcuts to switch between modes:
-  * `CMD+I` (macOS)
-  * `CTRL+I` (Windows/Linux)
+  * `⌘+I` (macOS)
+  * `Ctrl+I` (Windows/Linux)
 
 <figure>
 ![Universal Input with auto-detection off in Agent Mode.](../../../../assets/terminal/auto-detection-off-agent-mode.png)
@@ -112,7 +112,7 @@ By default, auto-detection is enabled. This means Warp decides whether to treat 
 <Tabs>
   <TabItem label="macOS">
     * **Type natural language directly**: If auto-detection is enabled, you can type a task or question into the input, and Warp will recognize it as natural language using its local auto-detection feature.
-    * **Use keyboard shortcuts**: Quickly toggle into Agent Mode with `CMD + I`.
+    * **Use keyboard shortcuts**: Quickly toggle into Agent Mode with `⌘+I`.
     * **Attach blocks to a prompt**: From any block you want to use as context, click the ✨ icon in the toolbelt or select "Attach block(s)" to AI query from the block’s context menu.
     * **Force a mode with special characters**:
       * `!` at the start of input forces Terminal Mode.
@@ -121,7 +121,7 @@ By default, auto-detection is enabled. This means Warp decides whether to treat 
   </TabItem>
   <TabItem label="Windows">
     * **Type natural language directly**: If auto-detection is enabled, you can type a task or question into the input, and Warp will recognize it as natural language using its local auto-detection feature.
-    * **Use keyboard shortcuts**: Quickly toggle into Agent Mode with `CTRL + I`.
+    * **Use keyboard shortcuts**: Quickly toggle into Agent Mode with `Ctrl+I`.
     * **Attach blocks to a prompt**: From any block you want to use as context, click the ✨ icon in the toolbelt or select "Attach block(s)" to AI query from the block’s context menu.
     * **Force a mode with special characters**:
       * `!` at the start of input forces Terminal Mode.
@@ -130,7 +130,7 @@ By default, auto-detection is enabled. This means Warp decides whether to treat 
   </TabItem>
   <TabItem label="Linux">
     * **Type natural language directly**: If auto-detection is enabled, you can type a task or question into the input, and Warp will recognize it as natural language using its local auto-detection feature.
-    * **Use keyboard shortcuts**: Quickly toggle into Agent Mode with `CTRL + I`.
+    * **Use keyboard shortcuts**: Quickly toggle into Agent Mode with `Ctrl+I`.
     * **Attach blocks to a prompt**: From any block you want to use as context, click the ✨ icon in the toolbelt or select "Attach block(s)" to AI query from the block’s context menu.
     * **Force a mode with special characters**:
       * `!` at the start of input forces Terminal Mode.
@@ -162,8 +162,8 @@ You can leave Agent or Terminal Modes in several ways:
 <Tabs>
   <TabItem label="macOS">
     * **Keyboard shortcuts**
-      * Press `ESC` to quit the current mode.
-      * Toggle modes with `CMD + I`
+      * Press `Esc` to quit the current mode.
+      * Toggle modes with `⌘+I`
     * **Force modes with special characters**
       * `!` at the start of input forces Terminal Mode.
       * `*` at the start of input forces Agent Mode.
@@ -171,8 +171,8 @@ You can leave Agent or Terminal Modes in several ways:
   </TabItem>
   <TabItem label="Windows">
     * **Keyboard shortcuts**
-      * Press `ESC` to quit the current mode.
-      * Toggle modes with `CTRL + I`
+      * Press `Esc` to quit the current mode.
+      * Toggle modes with `Ctrl+I`
     * **Force modes with special characters**
       * `!` at the start of input forces Terminal Mode.
       * `*` at the start of input forces Agent Mode.
@@ -180,8 +180,8 @@ You can leave Agent or Terminal Modes in several ways:
   </TabItem>
   <TabItem label="Linux">
     * **Keyboard shortcuts**
-      * Press `ESC` to quit the current mode.
-      * Toggle modes with `CTRL + I`
+      * Press `Esc` to quit the current mode.
+      * Toggle modes with `Ctrl+I`
     * **Force modes with special characters**
       * `!` at the start of input forces Terminal Mode.
       * `*` at the start of input forces Agent Mode.
@@ -201,7 +201,7 @@ If certain shell commands are mistakenly detected as natural language, you can a
 
 To disable natural language detection entirely, go to: **Settings** > **Agents** > **Warp Agent** > **Input Auto-detection**
 
-When auto-detection is turned off, you’ll need to explicitly switch between Terminal Mode and Agent Mode using `CMD + I` (macOS) or `CTRL + I` (Windows/Linux).
+When auto-detection is turned off, you’ll need to explicitly switch between Terminal Mode and Agent Mode using `⌘+I` (macOS) or `Ctrl+I` (Windows/Linux).
 
 #### First-time setup
 
