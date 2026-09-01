@@ -7,6 +7,15 @@ This is a human-readable audit trail of `review-docs-pr` runs on agent-authored 
 **Format**:
 ```markdown
 
+## 2026-09-01 — collector scan (improve-drafting-skills monthly)
+
+- Source: GitHub API human reviews/comments on agent-authored merged PRs (oz-agent / warp-agent commits), past ~30 days through 2026-09-01
+- New human feedback records appended: 171 (review_comment + review_verdict; bots filtered; injection filter ran, discarded=0)
+- PRs sampled: #526, #527, #528, #529, #530, #531, #539, #546, #548, #549, #563, #566, #569, #572, #577, #578, #582, #588, #590, #595, #596, #603, #605, #606, #608, #609, #612, #614, #619, #627, #629, #630, #631, #639, #641, #643, #644, #645, #646, #647... (44 total)
+- Category counts (new batch): general=113, code_fence=24, terminology=7, content_structure=5, frontmatter=4, link_quality=4, heading_specificity=3, list_format=3, missing_media=2, settings_path=2, video_embed=1, action_first=1, ui_label_accuracy=1, vague_wording=1
+- Oz run SIGNAL markers: none found in drafting/review skill runs this window (`draft_*`/`review-docs-pr`/`style_lint` returned 0 runs; `missing_docs`=2, `improve-drafting-skills` prior runs had no `[SIGNAL:]` markers)
+- Actionable gaps selected for skill edits: ui_field_label_quotes (non-clickable labels), drafting_brevity_cut_again
+
 ## 2026-08-06 · improve-drafting-skills collector
 
 - **Branch**: chore/drafting-signal-logs
