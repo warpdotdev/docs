@@ -255,10 +255,19 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 
 - **Agent API** — The HTTP API for triggering and inspecting Platform runs programmatically.
 
+- **Auth** — The agent settings field for choosing or creating the credential (a team-owned secret) a harness uses to authenticate with its provider, matched to that harness's supported credential types (Anthropic keys for Claude Code, an OpenAI key for Codex).
+  *Usage note:* Capitalize as **Auth** when referring to the settings field name.
+
+- **Harness** — The agent runtime that executes a cloud agent's work, such as Warp Agent, Claude Code, or Codex. Configurable per agent, independent of the platform features (triggers, environments, secrets, observability) around the run.
+  *Usage note:* Capitalize as **Harness** when referring to the settings field name; lowercase "harness" as a generic noun.
+
 - **Host** — Where a task executes (Warp-hosted or customer-hosted).
 
 - **Integration** / **Integrations** — Configured connections between Warp and external tools (Slack, Linear, GitHub Actions) that trigger runs and post results back.
   *Usage note:* Use for the configured connection, not "plugin."
+
+- **Model** — The agent settings field for choosing which model a harness runs. Options come from the selected harness's own catalog, not Warp's, so changing harness clears the model and auth selections.
+  *Usage note:* Capitalize as **Model** when referring to the settings field name.
 
 - **Outputs** — What a run produces (PRs, messages, reports, transcripts).
 
@@ -334,6 +343,15 @@ Docs match the screen; the fix belongs in the app.
 - **factory dashboard** — The web app surface for operating a single factory: its work items, runs, agents, automations, and settings.
   *Usage note:* Lowercase common noun. Distinct from **Dashboard**, the metrics page inside it, which is also the factory's landing page — bold **Dashboard** when you mean that page, and leave "factory dashboard" unbolded when you mean the surface. Replaced "control room," a docs-only coinage that appeared nowhere in the product.
 
+- **automation** — A factory resource, defined by an `automations/<name>/automation.md` file, that starts runs on one or more triggers (a connected-tool event or a schedule) and routes them to a chosen agent, with optional filters and execution overrides.
+  *Usage note:* Lowercase common noun. Distinct from the **Automation Platform**, the product; and from a **trigger**, the event that fires an automation.
+
+- **runner** — A factory resource, defined by a `runners/<name>.yaml` file, that defines the compute a run executes on: operating system, architecture, sandbox image, and instance shape. Agents and automations select a runner by name, or inherit the factory's default.
+  *Usage note:* Lowercase common noun. Scoped to a factory's definition; distinct from the general [cloud agent runner](/platform/runners/) reference, which covers the same concept for standalone cloud agents outside a factory.
+
+- **Scorer** — A configured LLM judge, scoped per factory to chosen agents and sampled at a set rate, that classifies completed runs against criteria you write, such as "did the agent run the tests before opening a PR?" A Scorer assigns a label (a classification with a score), not a freeform numeric grade. Feeds the **Dashboard** page's Scorer cards, benchmarks, and Self-improvement.
+  *Usage note:* Capitalize "Scorer"/"Scorers" when referring to the feature or a configured instance ("create a Scorer," "Scorer cards"); lowercase only for a generic instance count or file listing ("two scorers," alongside "skills" in an example tree). Say "classify," never "grade" — the docs draw this distinction deliberately. The unit a Scorer evaluates is a **run** (a single agent execution), not a "conversation" or "completed work." `measure-and-improve.mdx` is the canonical page for what a Scorer is and how to configure one; other pages link there rather than repeating the definition.
+
 - **AI sovereignty** — Warp Factories' positioning around customer ownership and control of inference, hosting, and data exhaust (agent conversations, evals, memories) for their factory.
 
 ## Technical terms
@@ -383,6 +401,8 @@ Docs match the screen; the fix belongs in the app.
 
 ## External product names
 
+- **Codex** — OpenAI's coding agent, available in Warp as a local CLI agent and as a third-party cloud harness in the Automation Platform.
+  *Usage note:* Capitalize as the product name, matching OpenAI's own branding.
 - **GitHub Actions** — capitalize "GitHub"
 - **GitHub App** — GitHub's installation/auth mechanism used for repo access in integrations
 - **Linear** — capitalize

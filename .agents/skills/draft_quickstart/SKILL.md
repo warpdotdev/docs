@@ -21,7 +21,7 @@ Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **quickst
 
 ## Frontmatter description
 
-One sentence, 50-160 characters, saying what the reader ends up with plus the time budget. Start with an imperative verb.
+One to two sentences, 50-160 characters, saying what the reader ends up with plus the time budget. Start with an imperative verb.
 - ✅ `Install the Warp Agent CLI, log in, and run your first agent conversation in about five minutes.`
 - ❌ `Get started with the Warp Agent CLI.`
 

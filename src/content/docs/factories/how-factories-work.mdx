@@ -13,6 +13,8 @@ Warp Factories is in **Early Access** and available to a limited set of teams. [
 
 A factory is a team of cloud agents that ships software the way your team does: a request comes in, moves through the stages it needs, and comes back as a pull request ready for review. You talk to one agent, the **foreman**, from the tool that sends the request, such as Slack or Linear. The foreman dispatches the factory's other agents, and each one owns a part of the software development lifecycle.
 
+Deciding which repositories belong in this factory is a separate question. See [sizing a factory](/factories/#sizing-a-factory) for that guidance.
+
 A **work item** is a single request the factory acts on, such as an issue, support request, pull request, or Factory MCP task. It keeps its identity from intake to handoff, however many agents contribute to it along the way.
 
 ## How a work item moves through the factory
@@ -63,7 +65,7 @@ The first two are workflow policy, written into the foreman's instructions; edit
 
 ## How the factory improves itself
 
-Your factory is self-improving, and you define what "better" means. [Scorers](/factories/measure-and-improve/) grade completed runs against criteria you write, and [Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement) groups the failures they flag into follow-up runs that propose fixes — to the application code or to the factory's own definition. Every proposal arrives as a change for your review; nothing is adopted on its own.
+Your factory is self-improving, and you define what "better" means. [Scorers](/factories/measure-and-improve/) classify completed runs against criteria you write, and [Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement) groups the failures they flag into follow-up runs that propose fixes — to the application code or to the factory's own definition. Every proposal arrives as a change for your review; nothing is adopted on its own.
 
 The factory's definition is open to the same loop. Anyone on the team, or an agent, can propose changes to its instructions, skills, models, or other [definition files](/factories/factory-as-code/), and definitions stored in GitHub go through pull request review and [configuration checks](/factories/factory-as-code/#pull-request-checks-for-github-backed-factories) before a change reaches the production branch.
 
