@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
-  title: Oz Agent API
+  title: Warp Agent API
   version: 1.0.0
-  description: "API for creating, managing, and querying Oz cloud agent runs.\n\nThese endpoints allow users to programmatically spawn agents, list runs, \nand retrieve detailed run information.\n"
+  description: "API for creating, managing, and querying Warp cloud agent runs.\n\nThese endpoints allow users to programmatically spawn agents, list runs, \nand retrieve detailed run information.\n"
   contact:
     name: Warp Support
     url: https://docs.warp.dev
@@ -18,6 +18,177 @@ tags:
 - name: schedules
   description: Operations for creating and managing scheduled agents
 paths:
+  /factory:
+    get:
+      summary: List factories
+      description: |
+        List factories accessible to the authenticated principal. An optional
+        team_uid query parameter restricts results to a single team, and an
+        optional search query parameter filters by a case-insensitive
+        substring match on the factory name or alias.
+      operationId: listFactories
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: team_uid
+        in: query
+        description: Optional team UID to filter factories by ownership.
+        required: false
+        schema:
+          type: string
+      - name: search
+        in: query
+        description: |
+          Case-insensitive substring search over the factory name and
+          alias.
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of factories to return (default 50, max 100).
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+      - name: cursor
+        in: query
+        description: Opaque cursor returned by a previous list response.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of factories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListFactoriesResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /factory/{uid}:
+    get:
+      summary: Get a factory
+      description: Get a factory by its public UID.
+      operationId: getFactory
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: uid
+        in: path
+        description: The public UID of the factory.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Factory details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Factory'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Factory not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /factory/{uid}/runs:
+    post:
+      summary: Dispatch a run to a factory
+      description: |
+        Dispatch a run to a factory by its UID, using prompt as the run's
+        prompt and an optional title, ticket_ref, and ticket_url. Returns
+        the created run; its factory task is created asynchronously and can
+        be resolved afterwards with GET /factory/{uid}/task-by-run.
+      operationId: createFactoryRun
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: uid
+        in: path
+        description: The public UID of the factory.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactoryRunRequest'
+      responses:
+        '201':
+          description: Run dispatched successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryRunResponse'
+        '400':
+          description: Invalid request body or ticket_ref
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Factory not found or not accessible
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: The factory has no foreman agent to receive work
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /agent:
     get:
       summary: List available agents
@@ -433,10 +604,10 @@ paths:
       - name: metadata
         in: query
         description: |
-          Filter by exact metadata key/value pairs using object notation (e.g.
-          `metadata[ticket_id]=VIS-238`). Multiple pairs combine with AND semantics.
-          At most 5 pairs per request. Returns `feature_not_available` when metadata
-          filtering is not enabled.
+          Filter by exact metadata key/value pairs using object notation
+          (e.g. `metadata[ticket_id]=VIS-238`), combining multiple pairs
+          with AND semantics, up to 5 per request. Returns
+          `feature_not_available` when metadata filtering is not enabled.
         required: false
         schema:
           type: object
@@ -699,13 +870,11 @@ paths:
     post:
       summary: Cancel a run
       description: |
-        Cancel an agent run that is currently queued or in progress.
-        Once cancelled, the run will transition to a cancelled state.
-
-        Not all runs can be cancelled. Runs that are in a terminal state
-        (SUCCEEDED, FAILED, ERROR, BLOCKED, CANCELLED) return 400. Runs in
-        PENDING state return 409 (retry after a moment). Self-hosted, local,
-        and GitHub Action runs return 422.
+        Cancel an agent run that is currently queued or in progress; once
+        cancelled, the run transitions to a cancelled state. Not all runs can
+        be cancelled: a run already in a terminal state, in PENDING, or of an
+        unsupported type (self-hosted, local, GitHub Action) is rejected
+        instead — see the error responses below for each case.
       operationId: cancelRun
       tags:
       - agent
@@ -1309,13 +1478,11 @@ paths:
     get:
       summary: Get artifact details
       description: |
-        Retrieve an artifact by its UUID. For downloadable file-like artifacts,
-        returns a time-limited signed download URL. For plan artifacts, returns
-        the current plan content inline.
-
-        Public artifacts can be read without authentication; private artifacts
-        require the caller to be authenticated and authorized. Anonymous reads
-        of public file artifacts omit the `filepath` field.
+        Retrieve an artifact by its UUID: a time-limited signed download URL
+        for downloadable file-like artifacts, or the current plan content
+        inline for plan artifacts. Public artifacts can be read without
+        authentication; private artifacts require the caller to be
+        authenticated and authorized.
       operationId: getArtifact
       tags:
       - agent
@@ -1421,6 +1588,122 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /factory/scorers/{scorer_id}:
+    patch:
+      summary: Update a scorer's definition
+      description: |
+        Apply a partial update to a scorer's definition; omitted fields are
+        left unchanged, but at least one field must be provided, and the
+        owning factory is immutable. Each update bumps the scorer's version
+        without invalidating any scoring judge already in flight, since
+        judges validate against the definition snapshot taken at dispatch
+        time, and historical scores keep their recorded classification
+        values. Supplying `scope_mode` or `agent_uids` replaces the scorer's
+        scope in full.
+      operationId: updateScorer
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: scorer_id
+        in: path
+        description: The scorer identifier
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateScorerRequest'
+      responses:
+        '200':
+          description: The updated scorer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScorerResponse'
+        '400':
+          description: Invalid scorer update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Scorer not found, or the caller cannot manage its factory
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete a scorer
+      description: |
+        Permanently delete a scorer. This is not reversible and it is not an
+        archive: the scorer's scoring attempts, scores, judge reasoning, self-improvement
+        config, and self-improvement triage results go with it, and the scorer stops
+        being readable through this API as soon as the call returns.
+
+        The underlying rows and the judge-reasoning blobs stored outside the
+        database are destroyed shortly afterwards by the deletion sweep, which
+        removes each blob before the record that references it and retries until
+        both are gone.
+      operationId: deleteScorer
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: scorer_id
+        in: path
+        description: The scorer identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Scorer deleted
+        '400':
+          description: Invalid scorer ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Scorer not found, or the caller cannot manage its factory
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /agent/identities:
     post:
       summary: Create an agent
@@ -1512,15 +1795,561 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /factory/scorers:
+    post:
+      summary: Create a scorer
+      description: |
+        Create an active run scorer for a factory with either selected-agent or
+        all-agent scope. Creating a scorer does not start scoring. Pass
+        self_improvement_enabled to also turn on self-improvement for the new scorer in the same
+        request; the scorer and its self-improvement config are created atomically, so
+        a failure leaves neither behind.
+      operationId: createScorer
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateScorerRequest'
+      responses:
+        '201':
+          description: Scorer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScorerResponse'
+        '400':
+          description: Invalid scorer definition
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Caller cannot edit the factory
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Factory not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: List agent scorers
+      description: |
+        List the scorers owned by the caller's team, including scope agents
+        and aggregate scoring stats. Pass factory_uid to narrow the result to a
+        single factory.
+      operationId: listScorers
+      tags:
+      - agent
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: Scorers for the caller's team
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListScorersResponse'
+        '400':
+          description: |
+            Invalid recent_outcomes_limit (not an integer in 1-100), or an
+            invalid start_date/end_date pair: one given without the other,
+            an unparseable RFC3339 timestamp, or start_date not strictly
+            before end_date.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Only human users can list scorers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /factory/scorers/{scorer_id}/results:
+    get:
+      summary: List recent results for an scorer
+      description: |
+        List the scorer's most recent scoring attempts, newest first. A
+        failed attempt carries no classification. Pagination is a keyset
+        cursor over attempted_at with the attempt id as a stable tiebreak.
+      operationId: listScorerResults
+      tags:
+      - agent
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: scorer_id
+        in: path
+        description: The scorer identifier
+        required: true
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        description: Maximum number of results to return (1-100, default 50)
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+      - name: cursor
+        in: query
+        description: Opaque cursor returned by a previous list response.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Recent results for the scorer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListScorerResultsResponse'
+        '400':
+          description: Invalid scorer ID, limit, or cursor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Scorer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /factory/scorers/{scorer_id}/results/reasons:
+    get:
+      summary: Read judge reasons for a page of scorer results
+      description: |
+        Read the judge's reasoning for the given runs in one request, so a page
+        of results can show reasons alongside classifications. Reasons are
+        stored outside the database and read per run with bounded concurrency;
+        a run whose reason is missing or unreadable is reported individually so
+        one unavailable reason never fails the request.
+      operationId: listScorerResultReasons
+      tags:
+      - agent
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: scorer_id
+        in: path
+        description: The scorer identifier
+        required: true
+        schema:
+          type: integer
+      - name: run_id
+        in: query
+        description: |
+          Runs to read reasons for. Repeat the parameter once per run; at
+          most 100 distinct runs (the results page maximum) per request.
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: One entry per requested run, in request order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListScorerResultReasonsResponse'
+        '400':
+          description: Invalid scorer ID, missing run_id, or too many runs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Scorer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /factory/scorers/{scorer_id}/metrics/pass-rate:
+    get:
+      summary: Get a scorer's pass-rate metric over a date range
+      description: |
+        Returns a period-aligned pass-rate series plus a full-range aggregate
+        for the scorer's dashboard chart, computed directly from every live
+        score in [start_date, end_date) rather than the capped,
+        unfiltered recent-attempts list /results returns. The headline
+        pass_rate and the series describe the same window and denominator, so
+        they cannot disagree. Binning follows the same day/week/month rules
+        and 365-period cap as GET /factory/{uid}/metrics.
+      operationId: getScorerPassRateSeries
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: scorer_id
+        in: path
+        description: The scorer identifier
+        required: true
+        schema:
+          type: integer
+      - name: start_date
+        in: query
+        description: RFC3339 UTC range start, inclusive. Defaults to 30 days before end_date.
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: end_date
+        in: query
+        description: RFC3339 UTC range end, exclusive. Defaults to now.
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: group_by_period
+        in: query
+        description: Binning granularity for the series. Defaults to day.
+        required: false
+        schema:
+          $ref: '#/components/schemas/FactoryMetricsGroupByPeriod'
+      responses:
+        '200':
+          description: The scorer's pass-rate series and range aggregate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScorerPassRateSeriesResponse'
+        '400':
+          description: Invalid scorer ID, date range, or group_by_period
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Scorer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /factory/scorers/{scorer_id}/self-improvement-config:
+    get:
+      summary: Get a scorer's self-improvement config
+      description: |
+        Retrieve the self-improvement configuration for a scorer: whether self-improvement is
+        enabled for it.
+      operationId: getScorerSelfImprovementConfig
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: scorer_id
+        in: path
+        description: The scorer identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The scorer's self-improvement config
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelfImprovementConfigResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Scorer not found or self-improvement not configured
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Enable self-improvement for a scorer
+      description: |
+        Turn self-improvement on for a scorer, marking its config active. Self-improvement acts
+        on runs the scorer itself already scores as failing (scored label's
+        score below the scorer's threshold); this endpoint carries no
+        classification data of its own.
+      operationId: updateScorerSelfImprovementConfig
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: scorer_id
+        in: path
+        description: The scorer identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The updated self-improvement config
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelfImprovementConfigResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Scorer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Disable self-improvement for a scorer
+      description: Turn self-improvement off for a scorer by removing its config.
+      operationId: deleteScorerSelfImprovementConfig
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: scorer_id
+        in: path
+        description: The scorer identifier
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Self-improvement config deleted
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Scorer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /factory/run-scoring/dispatches:
+    post:
+      summary: Manually dispatch scoring for one or more runs
+      description: |
+        Immediately dispatch judge runs for the named (run, scorer) pairs,
+        bypassing the two-hour idle cool-down, automatic sampling, and the
+        scorer-created-after-run gate, since the caller selected the exact
+        run — even a 0% sampling rate still accepts a manual dispatch. The
+        full target set is validated before dispatch begins, and each pair's
+        outcome (dispatched, already in flight, or failed) is reported
+        independently.
+      operationId: dispatchManualScoring
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManualScoringDispatchRequest'
+      responses:
+        '202':
+          description: |
+            The request was validated; judge evaluation continues
+            asynchronously. Individual pairs may still report a
+            failed_to_dispatch outcome.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManualScoringDispatchResponse'
+        '400':
+          description: |
+            Malformed request, non-named-agent run, judge
+            run, wrong factory, wrong agent scope, or more than 100 pairs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: A named run or scorer does not exist, or the caller lacks access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error; no judge run was created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /factory/runs/{run_id}/scores:
+    get:
+      summary: Read a run's current scores
+      description: |
+        List the current live attempt for each evaluation that has attempted
+        the given run, most recent attempt first. Excludes a deleted
+        evaluation's data. Requires
+        only view access to the run, since reading scores is part of viewing
+        the run.
+      operationId: listRunScores
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: run_id
+        in: path
+        description: The run identifier
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The run's current scores
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRunScoresResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Run not found, or the caller cannot view it
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /agent/runs/{runId}/scores:
     post:
       summary: Report evaluation scores for a run
       description: |
-        Report one or more evaluation verdicts for a run. Called by the judge run
-        that was dispatched to score this run, authenticating with that judge
-        run's API key. Each verdict is processed independently: the response
-        reports per-verdict acceptance, and a rejected verdict does not block the
-        others. Reporting a subset of the run's evaluations is valid.
+        Report one or more evaluation verdicts for a run, called by the judge
+        run dispatched to score it and authenticated with that judge run's
+        API key. Each verdict is processed independently — the response
+        reports per-verdict acceptance, and a rejected verdict does not block
+        the others — so reporting a subset of the run's evaluations is valid.
       operationId: reportRunScores
       tags:
       - agent
@@ -1730,7 +2559,328 @@ components:
       scheme: bearer
       description: |
         Authentication via a Warp API key.
+  responses:
+    FactoryAccessDenied:
+      description: Factory access is not enabled for the authenticated principal
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Factory:
+      type: object
+      description: Public representation of a factory.
+      required:
+      - uid
+      - team_uid
+      - name
+      - description
+      - alias
+      - avatar_url
+      - code_forge
+      - repositories
+      - default_environment
+      - default_model
+      - scoring
+      - credential_strategy
+      - integrations
+      - agent_defaults
+      - created_at
+      - updated_at
+      properties:
+        uid:
+          type: string
+          description: Public UID of the factory.
+        team_uid:
+          type: string
+          description: Public UID of the team that owns the factory.
+        name:
+          type: string
+          description: Display name of the factory.
+        description:
+          type: string
+          nullable: true
+          description: Optional description of the factory.
+        alias:
+          type: string
+          nullable: true
+          description: |
+            Optional display handle for the factory, unique across the team's
+            Warp workspace when set.
+        avatar_url:
+          type: string
+          nullable: true
+          description: |
+            Short-lived signed URL for displaying the factory's avatar. The URL
+            may change between reads.
+        code_forge:
+          $ref: '#/components/schemas/FactoryCodeForge'
+        repositories:
+          type: array
+          items:
+            $ref: '#/components/schemas/FactoryRepository'
+          description: Repositories scoped to the factory, independent of its default environment.
+        default_environment:
+          type: string
+          nullable: true
+          description: |
+            Public UID of the factory's default environment. File-managed
+            factories may omit this default.
+        default_model:
+          type: string
+          nullable: true
+          description: |
+            The default model ID for the factory's runs. File-managed factories
+            may omit this default. Live-managed create and PATCH requests still
+            capture a concrete validated model ID.
+        scoring:
+          $ref: '#/components/schemas/FactoryScoringConfig'
+        credential_strategy:
+          allOf:
+          - $ref: '#/components/schemas/FactoryCredentialStrategy'
+          description: |
+            Default credential strategy for runs executed by the factory's
+            named agents. Always a concrete value; factories default to
+            EXECUTOR unless explicitly set to CREATOR.
+        integrations:
+          type: array
+          items:
+            $ref: '#/components/schemas/FactoryIntegration'
+          nullable: true
+          description: |
+            Integration providers attached to the factory, independent of the
+            automation triggers configured for it. null means the factory has
+            not declared anything yet; an empty array means no providers are
+            attached.
+        agent_defaults:
+          $ref: '#/components/schemas/FactoryAgentDefaults'
+        creator:
+          allOf:
+          - $ref: '#/components/schemas/FactoryCreator'
+          description: |
+            The user who created the factory. Absent when there is no
+            resolvable creator: the factory predates creator tracking, it was
+            created by a service account, or the creating user's account no
+            longer exists.
+        created_at:
+          type: string
+          format: date-time
+          description: Time the factory was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Time the factory was last updated.
+    FactoryCreator:
+      type: object
+      description: The user who created a factory, when resolvable.
+      required:
+      - uid
+      properties:
+        uid:
+          type: string
+          description: Firebase UID of the user who created the factory.
+        email:
+          type: string
+          nullable: true
+          description: Creator's email, when available.
+    FactoryAgentDefaults:
+      type: object
+      description: |
+        Default execution settings inherited by the factory's named agents
+        when they declare no override of their own.
+      required:
+      - default_runner_uid
+      - secrets
+      - mcp_servers
+      - worker_host
+      properties:
+        harness:
+          allOf:
+          - $ref: '#/components/schemas/Harness'
+          description: |
+            Default harness for the factory's named agents. Absent when the
+            factory defaults to Warp's built-in harness. model_id and
+            reasoning_level carry the harness-scoped default model, which is
+            also reported in the factory's default_model.
+        harness_auth_secrets:
+          allOf:
+          - $ref: '#/components/schemas/HarnessAuthSecrets'
+          description: |
+            Per-harness authentication secrets inherited by the factory's
+            named agents. Only the secret for the default harness is ever
+            populated. A third-party default harness with no secret here
+            takes its credentials from the worker environment.
+        default_runner_uid:
+          type: string
+          description: |
+            Default runner UID for the factory's named agents. Empty when
+            unset, in which case the environment's default runner applies.
+        secrets:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretRef'
+          description: Secrets attached to the factory's named agents by default.
+        mcp_servers:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/MCPServerConfig'
+          description: |
+            MCP server configurations attached to the factory's named agents
+            by default. Only warp_id (managed MCP) entries are representable
+            for a Warp-managed factory.
+        worker_host:
+          type: string
+          description: |
+            Default worker host for the factory's named agents. Empty when
+            unset, in which case the workspace default applies.
+    FactoryScoringConfig:
+      type: object
+      required:
+      - default_model
+      properties:
+        default_model:
+          type: string
+          nullable: true
+          description: |
+            Optional factory override for the model used by managed scorers and
+            scorer-creation prefills. null or absent resolves to the platform
+            judge default. User-created scorers still require an explicit
+            model_id on create.
+    FactoryIntegration:
+      type: object
+      description: |
+        An integration provider attached to a factory.
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/FactoryIntegrationProvider'
+    FactoryIntegrationProvider:
+      type: string
+      description: |
+        Integration provider that can be attached to a factory. github is not
+        accepted here; repository access comes from the factory's code forge.
+      enum:
+      - jira
+      - linear
+      - slack
+    FactoryCodeForge:
+      type: string
+      description: |
+        Source-control provider hosting the factory's repositories. NONE
+        declares a repo-less factory with no native repositories; its
+        environment relies on setup_commands to clone from any host instead.
+      enum:
+      - GITHUB
+      - GITLAB
+      - NONE
+    FactoryCredentialStrategy:
+      type: string
+      description: |
+        Default credential strategy for runs executed by the factory's named
+        agents.
+        - EXECUTOR (default): runs authenticate with the named agent's own
+          credentials (e.g. a GitHub App installation token for the
+          factory's team).
+        - CREATOR: runs authenticate with the credentials of the principal
+          that created the run.
+      enum:
+      - CREATOR
+      - EXECUTOR
+    FactoryRepository:
+      type: object
+      description: A repository scoped to a factory.
+      required:
+      - owner
+      - repo
+      properties:
+        owner:
+          type: string
+          description: Repository owner (or full namespace for GitLab).
+        repo:
+          type: string
+          description: Repository name.
+    FactoryMetricsGroupByPeriod:
+      type: string
+      description: |
+        Binning granularity for factory metrics series. Weeks start on
+        Sunday (UTC), consistent with existing Warp analytics.
+      enum:
+      - day
+      - week
+      - month
+    ListFactoriesResponse:
+      type: object
+      description: Response body for listing factories.
+      required:
+      - factories
+      - page_info
+      properties:
+        factories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Factory'
+        page_info:
+          $ref: '#/components/schemas/PageInfo'
+    FactoryRunRequest:
+      type: object
+      description: Request body for dispatching a run to a factory.
+      required:
+      - prompt
+      properties:
+        prompt:
+          type: string
+          description: |
+            The prompt sent to the factory's foreman, not wrapped in any
+            factory intake envelope. Required and non-empty.
+        title:
+          type: string
+          description: |
+            Human-readable title for the dispatched run and its factory task.
+            Omit to derive one automatically from the prompt.
+        ticket_ref:
+          type: string
+          description: |
+            Originating ticket reference in <source>:<id> form (for
+            example, linear:REMOTE-123); omit to mint an adhoc reference.
+            Stamped onto the run as ticket_id/ticket_source metadata.
+        ticket_url:
+          type: string
+          description: |
+            Optional URL of the ticket named by ticket_ref. Stamped onto
+            the run as ticket_url metadata when given.
+    FactoryRunResponse:
+      type: object
+      description: Response body for a dispatched factory run.
+      required:
+      - run_id
+      - state
+      - factory_uid
+      - foreman_agent
+      - ticket_ref
+      properties:
+        run_id:
+          type: string
+          description: Unique identifier for the dispatched run.
+        run_url:
+          type: string
+          description: |
+            URL to view the dispatched run in the Factory app. Empty when
+            the Factory app origin is not configured.
+        state:
+          $ref: '#/components/schemas/RunState'
+        factory_uid:
+          type: string
+          description: Public UID of the factory the run was dispatched to.
+        foreman_agent:
+          type: string
+          description: Name of the factory's foreman agent that received the run.
+        ticket_ref:
+          type: string
+          description: |
+            The canonical <source>:<id> ticket reference the run was
+            stamped with, either the caller-supplied ticket_ref or a
+            minted adhoc reference.
     RunAgentRequest:
       type: object
       description: |
@@ -1778,12 +2928,13 @@ components:
         on_behalf_of:
           type: string
           description: |
-            Optional email address or user ID of a Warp user to attribute the run to.
-            When set, the resolved user becomes the run's creator instead of the caller.
-            Only agent API keys may use this field, and the calling agent must have
-            on_behalf_of enabled in its configuration (`on_behalf_of_enabled`), which a
-            team admin must intentionally turn on per agent. The target user must be an
-            active member of the run's owner team. Only valid for team-owned runs.
+            Optional email address or user ID of a Warp user to attribute
+            the run to; when set, the resolved user becomes the run's
+            creator instead of the caller. Only agent API keys may use this
+            field, only when the calling agent has on_behalf_of enabled in
+            its configuration (a team admin must turn this on per agent),
+            and only for team-owned runs. The target user must be an active
+            member of the run's owner team.
         conversation_id:
           type: string
           description: |
@@ -1799,12 +2950,12 @@ components:
         parent_run_id:
           type: string
           description: |
-            Optional run ID of the parent that spawned this run.
-            Used for orchestration hierarchies.
-            The parent run must exist and be visible to the caller; otherwise the
-            request is rejected with a 400. Child runs are also subject to the
-            server's maximum orchestration depth, and requests that would exceed
-            it are rejected with a 400.
+            Optional run ID of the parent that spawned this run, used for
+            orchestration hierarchies; the parent run must exist and be
+            visible to the caller, or the request is rejected with a 400.
+            Child runs are also subject to the server's maximum
+            orchestration depth, and requests that would exceed it are
+            rejected with a 400.
         interactive:
           type: boolean
           description: |
@@ -1817,13 +2968,14 @@ components:
       additionalProperties:
         type: string
       description: |
-        Custom key/value metadata attached to a run at creation time and immutable afterward.
-        At most 20 keys. Keys are 1-64 bytes matching [a-zA-Z0-9._-]+ (case-sensitive);
-        values are 0-256 bytes of UTF-8 and cannot contain NUL characters.
-        Requests with invalid metadata are rejected.
-        A run's effective metadata is merged per key at creation: explicit request keys
-        override keys inherited from the parent run, which override automatic keys
-        (ticket_id and ticket_source on Linear- and Jira-triggered runs).
+        Custom key/value metadata attached to a run at creation time and
+        immutable afterward; at most 20 keys, with keys 1-64 bytes matching
+        [a-zA-Z0-9._-]+ (case-sensitive) and values 0-256 bytes of UTF-8 with
+        no NUL characters. Requests with invalid metadata are rejected. A
+        run's effective metadata is merged per key at creation: explicit
+        request keys override keys inherited from the parent run, which
+        override automatic keys (ticket_id and ticket_source on Linear- and
+        Jira-triggered runs).
     RunAgentResponse:
       type: object
       required:
@@ -2393,7 +3545,9 @@ components:
           description: Unique identifier for the file artifact
         filepath:
           type: string
-          description: Conversation-relative filepath for the uploaded file
+          description: |
+            Conversation-relative filepath for the uploaded file. Omitted on
+            an anonymous read of a public file artifact.
         filename:
           type: string
           description: Last path component of filepath
@@ -2401,7 +3555,7 @@ components:
           type: string
           description: |
             Short, badge-visible label for the artifact. For recording artifacts,
-            this is the agent-authored title shown in Oz web and blocklist badges.
+            this is the agent-authored title shown in Warp web and blocklist badges.
             Distinct from description, which is longer and shown in detail views.
         description:
           type: string
@@ -2464,13 +3618,13 @@ components:
           type: string
           format: date-time
           description: |
-            When a failed run's shared session stops being held open for debugging.
-            Only present while that window is open.
-
-            The window is an idle window owned by the agent process: activity in the
-            session pushes this deadline out. The agent republishes it periodically
-            rather than on every keystroke, so the value can lag the true deadline by
-            up to a throttle interval, and always in the conservative direction.
+            When a failed run's shared session stops being held open for
+            debugging; only present while that window is open. The window
+            is an idle window owned by the agent process: activity in the
+            session pushes this deadline out. The agent republishes it
+            periodically rather than on every keystroke, so the value can
+            lag the true deadline by up to a throttle interval, always in
+            the conservative direction.
     RequestUsage:
       type: object
       description: Resource usage information for the run
@@ -2491,20 +3645,144 @@ components:
           type: number
           format: double
           description: |
-            inference_cost in US dollars, converted at a fixed rate. An
-            approximate cost, not a billed amount.
+            inference_cost in US dollars, converted at the owning team's
+            current credit price. An approximate cost, not a billed amount.
         compute_cost_usd:
           type: number
           format: double
           description: |
-            compute_cost in US dollars, converted at a fixed rate. An
-            approximate cost, not a billed amount.
+            compute_cost in US dollars, converted at the owning team's
+            current credit price. An approximate cost, not a billed amount.
         platform_cost_usd:
           type: number
           format: double
           description: |
-            platform_cost in US dollars, converted at a fixed rate. An
-            approximate cost, not a billed amount.
+            platform_cost in US dollars, converted at the owning team's
+            current credit price. An approximate cost, not a billed amount.
+        total_tokens:
+          type: integer
+          format: int64
+          description: |
+            Total LLM token count (summed across every usage category and model) for the run's
+            conversation. Omitted when the data is not available.
+        inference_cost_breakdown_usd:
+          $ref: '#/components/schemas/InferenceCostBreakdownUsd'
+        usage_by_category:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ChargedUsageDetail'
+          description: |
+            Full-granularity token and dollar-cost breakdown for the run's
+            conversation, keyed by usage category (for example,
+            primary_agent or conversation_compaction) and model id; differs
+            from total_tokens/inference_cost_breakdown_usd, which combine
+            usage across all categories and models. Omitted when the data
+            is not available.
+    InferenceCostBreakdownUsd:
+      type: object
+      description: |
+        Charged dollar cost of LLM inference, split by token type.
+        Omitted when the data is not available.
+      required:
+      - input_cost_usd
+      - input_cache_read_cost_usd
+      - input_cache_write_cost_usd
+      - output_cost_usd
+      properties:
+        input_cost_usd:
+          type: number
+          format: double
+          description: Cost of non-cached input tokens, in US dollars.
+        input_cache_read_cost_usd:
+          type: number
+          format: double
+          description: Cost of cache-read input tokens, in US dollars.
+        input_cache_write_cost_usd:
+          type: number
+          format: double
+          description: Cost of cache-write input tokens, in US dollars.
+        output_cost_usd:
+          type: number
+          format: double
+          description: Cost of output tokens, in US dollars.
+    TokenCountBreakdown:
+      type: object
+      description: A per-token-type token count.
+      required:
+      - input
+      - output
+      - input_cache_read
+      - input_cache_write
+      properties:
+        input:
+          type: integer
+          format: int64
+          description: Count of non-cached input tokens.
+        output:
+          type: integer
+          format: int64
+          description: Count of output tokens.
+        input_cache_read:
+          type: integer
+          format: int64
+          description: Count of cache-read input tokens.
+        input_cache_write:
+          type: integer
+          format: int64
+          description: Count of cache-write input tokens.
+    InferenceUsageDetail:
+      type: object
+      description: |
+        Full token count and dollar-cost detail inference usage.
+        The counts and cost describe the same usage (e.g. token_count.input
+        tokens cost cost_usd.input_cost_usd in total).
+      required:
+      - token_count
+      - cost_usd
+      - web_search_count
+      - web_search_cost_usd
+      properties:
+        token_count:
+          $ref: '#/components/schemas/TokenCountBreakdown'
+        cost_usd:
+          $ref: '#/components/schemas/InferenceCostBreakdownUsd'
+        web_search_count:
+          type: integer
+          format: int64
+          description: Number of web searches performed by this model.
+        web_search_cost_usd:
+          type: number
+          format: double
+          description: Total cost of those web searches, in US dollars.
+    ChargedUsageDetail:
+      type: object
+      description: |
+        Usage charged for a single usage category, broken down by usage type
+        (direct API/BYOK/custom endpoint) and, within each, by model ID.
+      required:
+      - platform_usage_usd
+      properties:
+        direct_api_inference_usage:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InferenceUsageDetail'
+          description: Inference usage incurred through Warp-provided model access, keyed by model ID.
+        byok_inference_usage:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InferenceUsageDetail'
+          description: Inference usage charged using a user's own API key, keyed by model ID.
+        custom_endpoint_inference_usage:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InferenceUsageDetail'
+          description: |
+            Inference usage charged using a custom endpoint, keyed by the
+            custom model's config key.
+        platform_usage_usd:
+          type: number
+          format: double
+          description: Platform usage charged for this category, in US dollars.
     RunCreatorInfo:
       type: object
       properties:
@@ -2594,7 +3872,7 @@ components:
       - REMOTE
       description: |
         Where the run executed:
-        - LOCAL: Executed in the user's local Oz environment
+        - LOCAL: Executed in the user's local Warp environment
         - REMOTE: Executed by a remote/cloud worker
     AmbientAgentConfig:
       type: object
@@ -2627,12 +3905,13 @@ components:
         skill_spec:
           type: string
           description: |
-            Skill specification identifying the primary agent skill to use.
-            Format: "{owner}/{repo}:{skill_path}"
-            Example: "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md"
-            Mutually exclusive with skills in create/update requests.
-            Responses include the first skills entry here for backward compatibility.
-            Use the list agents endpoint to discover available skills.
+            Skill specification identifying the primary agent skill to use,
+            in `{owner}/{repo}:{skill_path}` format (e.g.
+            `warpdotdev/warp-server:.claude/skills/deploy/SKILL.md`);
+            mutually exclusive with `skills` in create/update requests.
+            Responses include the first `skills` entry here for backward
+            compatibility; use the list agents endpoint to discover
+            available skills.
         skills:
           type: array
           items:
@@ -2652,6 +3931,14 @@ components:
           description: |
             Controls whether computer use is enabled for this agent.
             If not set, defaults to true.
+        computer_use_model_id:
+          type: string
+          description: |
+            Model the computer use subagent runs on; if omitted, the subagent
+            picks its own model automatically. Only applies to the built-in
+            Warp harness — the value is accepted but has no effect under a
+            third-party harness or when computer use is disabled. Requires an
+            agent CLI version that supports the --computer-use-model flag.
         idle_timeout_minutes:
           type: integer
           format: int32
@@ -2691,27 +3978,27 @@ components:
           - CREATOR
           - EXECUTOR
           description: |
-            Controls which principal's credentials are used when the platform mints
-            tokens (e.g. GitHub or GitLab OAuth tokens) on behalf of this run.
-            - EXECUTOR (default when unset): credentials are sourced from the run's
-              execution principal. For agent principals this produces a
-              GitHub App installation token; for user principals this produces their
-              personal OAuth token.
-            - CREATOR: credentials are always sourced from the run creator,
-              regardless of the execution principal. Useful when a service account
-              executes the run but Git operations should authenticate as the human
-              who triggered it.
-            When unset, behavior is identical to EXECUTOR and no additional
-            pre-flight validation is performed.
+            Controls which principal's credentials are used when the
+            platform mints tokens (e.g. GitHub or GitLab OAuth tokens) on
+            behalf of this run.
+            - EXECUTOR (default when unset): credentials are sourced from
+              the run's execution principal — a GitHub App installation
+              token for agent principals, a personal OAuth token for user
+              principals.
+            - CREATOR: credentials are always sourced from the run creator
+              regardless of the execution principal, useful when a service
+              account executes the run but Git operations should
+              authenticate as the triggering human.
     SessionSharingConfig:
       type: object
       description: |
-        Configures sharing behavior for the run's shared session.
-        When set, the worker emits `--share public:<level>` and the bundled Warp
-        client applies an anyone-with-link ACL to the shared session once it has
-        bootstrapped. The same ACL is mirrored onto the backing conversation so
-        link viewers can read the conversation without being on the run's team.
-        Subject to the workspace-level anyone-with-link sharing setting.
+        Configures sharing behavior for the run's shared session; when set,
+        the worker emits `--share public:<level>` and the bundled Warp
+        client applies an anyone-with-link ACL to the shared session once it
+        has bootstrapped. The same ACL is mirrored onto the backing
+        conversation so link viewers can read it without being on the run's
+        team, subject to the workspace-level anyone-with-link sharing
+        setting.
       properties:
         public_access:
           type: string
@@ -2719,12 +4006,12 @@ components:
           - VIEWER
           - EDITOR
           description: |
-            Grants anyone-with-link access at the specified level to the run's
-            shared session and backing conversation.
+            Grants anyone-with-link access at the specified level to the
+            run's shared session and backing conversation; link viewers
+            must still be authenticated Warp users (anonymous reads are not
+            supported in this release).
             - VIEWER: link viewers can read the session and conversation.
             - EDITOR: link viewers can also interact with the session.
-            Anonymous (unauthenticated) reads are not supported in this release;
-            link viewers must still be authenticated Warp users.
     Harness:
       type: object
       description: |
@@ -2732,8 +4019,8 @@ components:
         Default (nil/empty) uses Warp's built-in harness.
         When stored as a named agent's default (create/update agent identity),
         this field replaces the deprecated base_harness/base_model pair: a
-        non-oz type here requires the agent's base_model to be empty, since
-        the two describe mutually exclusive default models.
+        harness other than `oz` here requires the agent's base_model to be
+        empty, since the two describe mutually exclusive default models.
       properties:
         type:
           type: string
@@ -2752,15 +4039,16 @@ components:
           type: string
           description: |
             Model to use with a third-party harness (e.g. "claude-haiku-4-5").
-            Only applies when type is a non-oz harness; the top-level config
-            model_id targets the built-in Oz harness instead. When omitted or
-            empty, the harness uses its own default model.
+            Only applies when type is a harness other than `oz`; the
+            top-level config model_id targets the built-in Warp harness
+            instead. When omitted or empty, the harness uses its own default
+            model.
         reasoning_level:
           type: string
           description: |
             Reasoning effort for harnesses that support it (e.g. Codex).
-            Only applies when type is a non-oz harness. Ignored by harnesses
-            that do not support reasoning levels.
+            Only applies when type is a harness other than `oz`. Ignored by
+            harnesses that do not support reasoning levels.
     HarnessAuthSecrets:
       type: object
       description: |
@@ -2815,12 +4103,10 @@ components:
     Error:
       type: object
       description: |
-        Error response following RFC 7807 (Problem Details for HTTP APIs).
-        Includes backward-compatible extension members.
-
-        The response uses the `application/problem+json` content type.
-        Additional extension members (e.g., `auth_url`, `provider`) may be
-        present depending on the error code.
+        Error response following RFC 7807 (Problem Details for HTTP APIs),
+        using the `application/problem+json` content type. Includes
+        backward-compatible extension members; additional ones (e.g.,
+        `auth_url`, `provider`) may be present depending on the error code.
       required:
       - type
       - title
@@ -3029,7 +4315,7 @@ components:
           type: string
           description: |
             Short, badge-visible label for the artifact. For recording artifacts,
-            this is the agent-authored title shown in Oz web and blocklist badges.
+            this is the agent-authored title shown in Warp web and blocklist badges.
             Distinct from description, which is longer and shown in detail views.
         description:
           type: string
@@ -3276,18 +4562,16 @@ components:
           minimum: 1
           maximum: 60
           description: |
-            When set (1–60 minutes), a failed run using this environment keeps its session open
-            for this many minutes so it can be inspected. null or absent means immediate teardown
-            (disabled by default).
-
-            The window is an idle window held open by the agent process itself: working in the
-            session pushes the deadline out, so a session in active use is not torn down
-            mid-debug. It ends early if the run's sandbox reaches its own deadline first.
-
-            This policy applies to future failures of runs using this environment; it does not
-            change the window a currently-failed run was already started with. Opting in keeps
-            injected environment data (including secrets) alive and incurs compute usage for as
-            long as the session is held open.
+            When set (1–60 minutes), a failed run using this environment
+            keeps its session open for this many minutes so it can be
+            inspected; null or absent means immediate teardown (disabled by
+            default). This is an idle window held open by the agent process:
+            activity in the session pushes the deadline out (so an active
+            session is not torn down mid-debug), and it ends early if the
+            run's sandbox reaches its own deadline first. Applies only to
+            future failures of runs using this environment; opting in keeps
+            injected environment data (including secrets) alive and incurs
+            compute usage for as long as the session is held open.
     ProvidersConfig:
       type: object
       description: Optional cloud provider configurations for automatic auth
@@ -3846,20 +5130,827 @@ components:
     AgentCredentialStrategy:
       type: string
       description: |
-        Default credential strategy for runs executed by a named agent.
+        Default credential strategy for runs executed by a named agent; an
+        agent may leave this unset (see AgentResponse.credential_strategy
+        for the full resolution order).
         - EXECUTOR: runs authenticate with the named agent's own credentials
           (e.g. a GitHub App installation token for the agent's team).
         - CREATOR: runs authenticate with the credentials of the principal
           that created the run.
-        Unlike the factory default, an agent may leave this unset. The
-        strategy applied to a run is resolved in this order: the run's
-        config.credential_strategy, then the agent's default, then the
-        factory's default for factory-seeded agents, and finally EXECUTOR.
-        The inherited strategy is validated at run creation time (the required
-        credential must be mintable), like an explicit run-level value.
       enum:
       - CREATOR
       - EXECUTOR
+    ScorerClassification:
+      type: object
+      required:
+      - value
+      - score
+      properties:
+        value:
+          type: string
+          minLength: 1
+          maxLength: 1048576
+          description: Classification value returned by the scorer
+        description:
+          type: string
+          nullable: true
+          maxLength: 1048576
+          description: |
+            Optional free-text meaning of this classification, surfaced to the
+            judge alongside the value. Omit or leave blank for a score-only
+            label.
+        score:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          description: |
+            Score this classification carries, from 0 to 1. A run passes when
+            its scored label's score is greater than or equal to the scorer's
+            threshold. A score of exactly 0 is valid, so this is not enforced
+            with a "required" binding (which would reject the zero value);
+            handlers validate its range explicitly instead.
+    CreateScorerRequest:
+      type: object
+      description: |
+        Scorer definition. Text fields are trimmed of surrounding whitespace
+        before validation; required text fields must not be blank after trimming,
+        and no text field may exceed 1 MiB (1048576 bytes).
+      required:
+      - factory_uid
+      - name
+      - scoring_prompt
+      - allowed_classifications
+      - threshold
+      - scope_mode
+      - model_id
+      properties:
+        factory_uid:
+          type: string
+          minLength: 1
+          description: UID of the factory that owns the scorer
+        name:
+          type: string
+          minLength: 1
+          maxLength: 1048576
+          description: Display name for the scorer
+        description:
+          type: string
+          nullable: true
+          maxLength: 1048576
+          description: Optional description of the scorer
+        scoring_prompt:
+          type: string
+          minLength: 1
+          maxLength: 1048576
+          description: Instructions used to score matching runs
+        allowed_classifications:
+          type: array
+          minItems: 1
+          maxItems: 20
+          description: Values the scorer may return; classification values must be unique
+          items:
+            $ref: '#/components/schemas/ScorerClassification'
+        threshold:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          description: |
+            Score a run's classified label must meet or exceed to pass, from 0
+            to 1.
+        scope_mode:
+          type: string
+          enum:
+          - all_agents
+          - selected_agents
+          description: Whether the scorer applies to every factory agent or only agent_uids
+        agent_uids:
+          type: array
+          description: Required and non-empty for selected_agents; must be empty for all_agents
+          items:
+            type: string
+        sampling_rate:
+          type: number
+          format: double
+          nullable: true
+          minimum: 0
+          maximum: 100
+          description: |
+            Percentage of the scorer's eligible runs to score, from 0 to
+            100; omit to score every eligible run, and 0 stops automatic
+            scoring (manual dispatch still works). A value with more than
+            two decimal places is rounded to two rather than rejected, and
+            the rounded value is what is stored. Sampling applies to
+            periodic scoring only, and runs are chosen deterministically per
+            (scorer, run), so lowering the rate reduces how many runs are
+            scored rather than how often.
+        model_id:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: |
+            LLM model dispatched judge runs use to evaluate this scorer's
+            rubric.
+        self_improvement_enabled:
+          type: boolean
+          description: |
+            Optionally enable self-improvement for the newly created scorer
+            in the same transactional request, instead of a separate call to
+            PUT /factory/scorers/{scorer_id}/self-improvement-config
+            afterward; defaults to false. The response does not echo this
+            back — a successful (2xx) response means the requested state was
+            applied, confirmable at any time with GET .../self-improvement-config.
+            Setting this to true requires a human user principal, matching
+            the restriction on the PUT endpoint; a service-account principal
+            gets the same error as calling that endpoint directly.
+    UpdateScorerRequest:
+      type: object
+      description: |
+        Partial scorer definition update. Every field is optional, but at least
+        one must be present. Text fields are trimmed of surrounding whitespace
+        before validation; a provided required text field must not be blank after
+        trimming, and no text field may exceed 1 MiB (1048576 bytes).
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 1048576
+          description: New display name for the scorer
+        description:
+          type: string
+          maxLength: 1048576
+          description: New description; an empty string clears it
+        scoring_prompt:
+          type: string
+          minLength: 1
+          maxLength: 1048576
+          description: New instructions used to score matching runs
+        allowed_classifications:
+          type: array
+          minItems: 1
+          maxItems: 20
+          description: |
+            Replacement set of values the scorer may return; classification
+            values must be unique. Removing a classification the scorer's
+            self-improvement config still targets is rejected.
+          items:
+            $ref: '#/components/schemas/ScorerClassification'
+        threshold:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 1
+          description: |
+            New score a run's classified label must meet or exceed to pass,
+            from 0 to 1.
+        sampling_rate:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 100
+          description: |
+            New percentage of eligible runs this scorer should score, rounded
+            to two decimal places. 0 stops automatic scoring; manual dispatch
+            still works.
+        scope_mode:
+          type: string
+          enum:
+          - all_agents
+          - selected_agents
+          description: |
+            New scope mode. Defaults to the scorer's current mode when only
+            agent_uids is supplied.
+        agent_uids:
+          type: array
+          description: |
+            Complete replacement membership for the scorer's scope. Required and
+            non-empty when the resulting scope_mode is selected_agents; must be
+            empty for all_agents.
+          items:
+            type: string
+        model_id:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: |
+            New LLM model dispatched judge runs use to evaluate this scorer's
+            rubric. Must not be blank when provided.
+    ScorerKind:
+      type: string
+      description: |
+        Whether the scorer is user-defined or a platform-owned managed scorer.
+        Read-only on responses; create input does not accept scorer_kind.
+      enum:
+      - user
+      - benchmark_task_correctness
+    ScorerResponse:
+      type: object
+      required:
+      - id
+      - factory_uid
+      - name
+      - description
+      - scoring_prompt
+      - allowed_classifications
+      - threshold
+      - scorer_kind
+      - version
+      - scope_mode
+      - agent_uids
+      - sampling_rate
+      - model_id
+      - created_at
+      - updated_at
+      properties:
+        id:
+          type: integer
+          description: Scorer identifier
+        factory_uid:
+          type: string
+          description: UID of the factory that owns the scorer
+        name:
+          type: string
+          description: Display name for the scorer
+        description:
+          type: string
+          description: Description of the scorer
+        scoring_prompt:
+          type: string
+          description: Instructions used to score matching runs
+        allowed_classifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScorerClassification'
+        threshold:
+          type: number
+          format: double
+          description: Score a run's classified label must meet or exceed to pass, from 0 to 1
+        scorer_kind:
+          $ref: '#/components/schemas/ScorerKind'
+        version:
+          type: integer
+          description: Scorer definition version
+        scope_mode:
+          type: string
+          enum:
+          - all_agents
+          - selected_agents
+          description: Whether the scorer applies to every factory agent or selected agent_uids
+        agent_uids:
+          type: array
+          description: Agents attached to a selected_agents scorer; empty for all_agents
+          items:
+            type: string
+        sampling_rate:
+          type: number
+          format: double
+          description: |
+            Percentage of the scorer's eligible runs that periodic scoring scores,
+            to two decimal places. 0 stops automatic scoring.
+        model_id:
+          type: string
+          description: |
+            LLM model dispatched judge runs use to evaluate this scorer's
+            rubric.
+        created_at:
+          type: string
+          format: date-time
+          description: When the scorer was created
+        updated_at:
+          type: string
+          format: date-time
+          description: When the scorer was updated
+    ScorerScopeAgent:
+      type: object
+      required:
+      - uid
+      - name
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the agent
+        name:
+          type: string
+          description: Display name of the agent
+    ScorerListItem:
+      type: object
+      required:
+      - id
+      - factory_uid
+      - name
+      - description
+      - scoring_prompt
+      - allowed_classifications
+      - threshold
+      - scope_mode
+      - agents
+      - scorer_kind
+      - version
+      - sampling_rate
+      - created_at
+      - updated_at
+      - result_count
+      - model_id
+      - pass_rate_summary
+      - self_improvement_enabled
+      properties:
+        id:
+          type: integer
+          description: Scorer identifier
+        factory_uid:
+          type: string
+          description: Public UID of the factory that owns the scorer
+        name:
+          type: string
+          description: Display name for the scorer
+        description:
+          type: string
+          description: Description of the scorer
+        scoring_prompt:
+          type: string
+          description: Instructions used to score the agent's runs
+        allowed_classifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScorerClassification'
+        threshold:
+          type: number
+          format: double
+          description: Score a run's classified label must meet or exceed to pass, from 0 to 1
+        scope_mode:
+          type: string
+          description: all_agents (every agent in the scorer's factory) or selected_agents
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScorerScopeAgent'
+          description: Named agents in scope; empty when the scorer covers all factory agents
+        scorer_kind:
+          $ref: '#/components/schemas/ScorerKind'
+        version:
+          type: integer
+          description: Scorer definition version
+        sampling_rate:
+          type: number
+          format: double
+          description: |
+            Percentage of the scorer's eligible runs that periodic scoring scores,
+            to two decimal places. 0 stops automatic scoring.
+        created_at:
+          type: string
+          format: date-time
+          description: When the scorer was created
+        updated_at:
+          type: string
+          format: date-time
+          description: When the scorer was last updated
+        result_count:
+          type: integer
+          description: Number of live scores recorded for the scorer
+        last_scored_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the scorer last recorded a score
+        model_id:
+          type: string
+          description: |
+            LLM model dispatched judge runs use to evaluate this scorer's
+            rubric.
+        pass_rate_summary:
+          $ref: '#/components/schemas/ScorerPassRateSummary'
+        self_improvement_enabled:
+          type: boolean
+          description: Whether self-improvement is enabled for this scorer
+    ListScorersResponse:
+      type: object
+      required:
+      - scorers
+      properties:
+        scorers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScorerListItem'
+    ScorerOutcome:
+      type: string
+      enum:
+      - pass
+      - fail
+      description: |
+        Pass/fail verdict of a recorded score, derived at read time against
+        the evaluation's current threshold rather than frozen at scoring
+        time — editing the threshold retroactively changes the outcome of
+        already-scored runs. Today this is "pass" or "fail"; clients should
+        tolerate additional values so future non-scoreable verdicts (for
+        example, excluded from scoring) do not break them. Do not use
+        result_count as a pass-rate denominator: only pass and fail count.
+    ScorerPassRateSummary:
+      type: object
+      required:
+      - pass_count
+      - fail_count
+      - recent_outcomes
+      properties:
+        pass_count:
+          type: integer
+          description: |
+            Number of live scores whose derived outcome is pass, within the
+            same recent_outcomes_limit window as recent_outcomes (not the
+            scorer's all-time history).
+        fail_count:
+          type: integer
+          description: |
+            Number of live scores whose derived outcome is fail, within the
+            same recent_outcomes_limit window as recent_outcomes (not the
+            scorer's all-time history).
+        pass_rate:
+          type: number
+          format: double
+          nullable: true
+          description: |
+            pass_count / (pass_count + fail_count), over the same recent
+            window as pass_count and fail_count. Null when there are no
+            scoreable (pass or fail) scores in that window. Clients must not
+            use result_count as the denominator.
+        recent_outcomes:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScorerOutcome'
+          description: |
+            The scorer's most recent live scores' outcomes, oldest first,
+            for a compact history strip; length is bounded by
+            recent_outcomes_limit, and failed attempts (no live score) are
+            not included. pass_count and fail_count are computed over this
+            exact same windowed set, so the headline rate and the strip
+            always describe the same scores.
+    ScorerResultStatus:
+      type: string
+      description: |
+        Outcome of a scoring attempt: "scored", "failed", or "in_flight" (no
+        live score yet and a judge is currently running). A failed or
+        in_flight attempt has no classification. A scored attempt whose
+        is_in_flight is also true has a live classification while a
+        replacement judge runs.
+    ScorerResult:
+      type: object
+      required:
+      - run_id
+      - status
+      - attempted_at
+      - is_in_flight
+      properties:
+        run_id:
+          type: string
+          description: The scored agent run
+        conversation_id:
+          type: string
+          nullable: true
+          description: Conversation whose transcript was judged
+        conversation_title:
+          type: string
+          nullable: true
+          description: Title of the judged conversation
+        status:
+          $ref: '#/components/schemas/ScorerResultStatus'
+        classification:
+          type: string
+          nullable: true
+          description: The chosen classification; absent when the attempt failed
+        attempted_at:
+          type: string
+          format: date-time
+          description: When the scorer last attempted this run
+        scored_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the live score was recorded; absent for failed attempts
+        scoring_run_id:
+          type: string
+          nullable: true
+          description: The Warp run that performed the judging; absent when scoring was never dispatched for this attempt
+        scoring_run_usage:
+          allOf:
+          - $ref: '#/components/schemas/RequestUsage'
+          description: |
+            Cost of the scoring run (the Warp judge run), independent of the
+            scored run's own cost. Absent when there is no scoring run yet, or
+            its usage is not yet available (e.g. the judge is still in flight).
+        scoring_run_time:
+          type: string
+          nullable: true
+          description: |
+            Total runtime of the scoring run as an ISO 8601 duration. Absent
+            when there is no scoring run or its execution duration is not yet
+            available.
+        score:
+          type: number
+          format: double
+          nullable: true
+          description: |
+            Numeric score of the classified label, resolved from the attempt's
+            config snapshot at scoring time. Absent when the attempt failed.
+        outcome:
+          allOf:
+          - $ref: '#/components/schemas/ScorerOutcome'
+          nullable: true
+          description: |
+            Pass/fail verdict for this score, derived at read time against the
+            evaluation's current threshold. Absent when the attempt failed.
+        is_in_flight:
+          type: boolean
+          description: |
+            True when a non-terminal judge run currently holds this pair.
+            Independent of status/classification: a previous live
+            classification stays visible while a replacement judge runs.
+    ListScorerResultsResponse:
+      type: object
+      required:
+      - results
+      - page_info
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScorerResult'
+        page_info:
+          $ref: '#/components/schemas/PageInfo'
+    ScorerPassRateSeriesResponse:
+      type: object
+      description: |
+        A scorer's pass-rate series over one date range, period-aligned to
+        period_list, plus a full-range aggregate computed over the exact
+        same set of live scores as the series.
+      required:
+      - group_by_period
+      - period_list
+      - pass_count
+      - fail_count
+      - pass_rate
+      - pass_count_series
+      - fail_count_series
+      - pass_rate_series
+      properties:
+        group_by_period:
+          $ref: '#/components/schemas/FactoryMetricsGroupByPeriod'
+        period_list:
+          type: array
+          description: |
+            Period labels every series aligns to (dates like 2026-07-01;
+            weeks labeled by their Sunday start date).
+          items:
+            type: string
+        pass_count:
+          type: integer
+          format: int64
+          description: Live scores whose derived outcome is pass, over the whole range.
+        fail_count:
+          type: integer
+          format: int64
+          description: Live scores whose derived outcome is fail, over the whole range.
+        pass_rate:
+          type: number
+          format: double
+          nullable: true
+          description: |
+            pass_count / (pass_count + fail_count) over the whole range; null
+            when the range has no pass/fail scores. The dashboard headline
+            should use this field, not a per-period value, so it always
+            describes the same window as the chart.
+        pass_count_series:
+          type: array
+          description: One entry per period_list entry, zero-filled.
+          items:
+            type: integer
+            format: int64
+        fail_count_series:
+          type: array
+          description: One entry per period_list entry, zero-filled.
+          items:
+            type: integer
+            format: int64
+        pass_rate_series:
+          type: array
+          description: |
+            One entry per period_list entry; pass_count_series[i] /
+            (pass_count_series[i] + fail_count_series[i]). Null for a period
+            with no pass/fail scores, so the chart renders a gap there
+            instead of a false 0%.
+          items:
+            type: number
+            format: double
+            nullable: true
+    ManualScoringTarget:
+      type: object
+      required:
+      - run_id
+      - scorer_ids
+      properties:
+        run_id:
+          type: string
+          description: The run to score
+        scorer_ids:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+          description: Scorer IDs to invoke against run_id
+    ManualScoringDispatchRequest:
+      type: object
+      required:
+      - targets
+      properties:
+        targets:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            $ref: '#/components/schemas/ManualScoringTarget'
+          description: |
+            One or more (run, scorer) targets, expressed as one entry per run
+            with its scorer IDs. Duplicate (run_id, scorer_id) pairs across
+            entries are collapsed. At most 100 unique pairs total.
+    ManualScoringDispatchStatus:
+      type: string
+      enum:
+      - dispatched
+      - already_in_flight
+      - failed_no_transcript
+      - failed_to_dispatch
+      description: |
+        Outcome of one dispatched (run, scorer) pair: "dispatched" (stamped
+        with a new or shared judge run), "already_in_flight" (an existing live
+        judge already holds the pair; it is not queued, cancelled, or
+        replaced), "failed_no_transcript" (no scoreable transcript existed, so
+        a failed attempt was stamped instead), or "failed_to_dispatch" (an
+        operational error occurred after validation passed; retryable).
+    ManualScoringDispatchResult:
+      type: object
+      required:
+      - run_id
+      - scorer_id
+      - status
+      properties:
+        run_id:
+          type: string
+          description: The scored agent run
+        scorer_id:
+          type: integer
+          description: The invoked scorer
+        status:
+          $ref: '#/components/schemas/ManualScoringDispatchStatus'
+        scoring_run_id:
+          type: string
+          nullable: true
+          description: |
+            The judge run covering this pair; present for dispatched and
+            already_in_flight, absent otherwise. Multiple pairs for the same
+            run can share one scoring_run_id.
+        error:
+          type: string
+          nullable: true
+          description: Safe error detail; present only for failed_to_dispatch
+    ManualScoringDispatchResponse:
+      type: object
+      required:
+      - results
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ManualScoringDispatchResult'
+          description: One entry per requested pair, in no particular order
+    RunScoreAttemptStatus:
+      type: string
+      enum:
+      - in_flight
+      - scored
+      - failed
+      description: |
+        Classification of a run's current attempt against one evaluation.
+        "scored" takes precedence over in-flight: a live score reads as
+        scored even while a replacement judge runs, and is_in_flight reports
+        that overlap independently.
+    RunScoreTriggerSource:
+      type: string
+      enum:
+      - automatic
+      - manual
+      description: Whether the current attempt was requested by the periodic job or a manual dispatch request
+    RunScoreItem:
+      type: object
+      required:
+      - scorer_id
+      - scorer_name
+      - attempt_status
+      - is_in_flight
+      - trigger_source
+      - attempted_at
+      properties:
+        scorer_id:
+          type: integer
+          description: The evaluation that attempted this run
+        scorer_name:
+          type: string
+          description: Display name of the evaluation
+        attempt_status:
+          $ref: '#/components/schemas/RunScoreAttemptStatus'
+        is_in_flight:
+          type: boolean
+          description: True when a non-terminal judge run currently holds this pair
+        trigger_source:
+          $ref: '#/components/schemas/RunScoreTriggerSource'
+        classification:
+          type: string
+          nullable: true
+          description: The live classification; absent when there is no live score
+        attempted_at:
+          type: string
+          format: date-time
+          description: When the evaluation last attempted this run
+        scored_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the live score was recorded; absent when there is no live score
+        scoring_run_id:
+          type: string
+          nullable: true
+          description: The Warp run that performed the judging; absent when scoring was never dispatched for this attempt
+    GetRunScoresResponse:
+      type: object
+      required:
+      - run_id
+      - scores
+      properties:
+        run_id:
+          type: string
+          description: The run these scores belong to
+        scores:
+          type: array
+          items:
+            $ref: '#/components/schemas/RunScoreItem'
+          description: One entry per evaluation that has attempted the run, most recent attempt first
+    ScorerResultReason:
+      type: object
+      required:
+      - run_id
+      - status
+      properties:
+        run_id:
+          type: string
+          description: The run this reason belongs to
+        status:
+          type: string
+          enum:
+          - available
+          - absent
+          - unavailable
+          description: |
+            Availability of the run's judge reason: "available" when the reason
+            was read, "absent" when the judge recorded none, and "unavailable"
+            when a recorded reason could not be read back.
+        reason:
+          type: string
+          nullable: true
+          description: |
+            The judge's reasoning, truncated beyond 8KB when it was recorded;
+            absent unless status is "available".
+    ListScorerResultReasonsResponse:
+      type: object
+      required:
+      - reasons
+      properties:
+        reasons:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScorerResultReason'
+    SelfImprovementConfigResponse:
+      type: object
+      required:
+      - scorer_id
+      - status
+      - created_at
+      - updated_at
+      properties:
+        scorer_id:
+          type: integer
+          description: Identifier of the scorer this self-improvement config belongs to
+        status:
+          type: string
+          enum:
+          - active
+          - paused
+          description: Self-improvement config lifecycle status (active means self-improvement is enabled)
+        created_at:
+          type: string
+          format: date-time
+          description: When the self-improvement config was created
+        updated_at:
+          type: string
+          format: date-time
+          description: When the self-improvement config was last updated
     ReportedRunScore:
       type: object
       required:
@@ -4030,19 +6121,19 @@ components:
           type: string
           nullable: true
           description: |
-            Optional default worker host for runs executed by this agent.
-            Omission, null, or an empty value stores no Agent default, in which
-            case the workspace default applies. A non-empty value is trimmed
-            and stored; use "warp" to force Warp-hosted execution over a
-            self-hosted workspace default. The precedence order for worker
-            host resolution is:
+            Optional default worker host for runs executed by this agent;
+            omission, null, or an empty value stores no Agent default, in
+            which case the workspace default applies. A non-empty value is
+            trimmed and stored (use "warp" to force Warp-hosted execution
+            over a self-hosted workspace default), and is resolved in this
+            order:
             1. The host specified on the run itself
             2. The agent's default host
             3. The workspace default host
     UpdateAgentRequest:
       type: object
       description: |
-        Partial update for an agent. Each field is optional:
+        Partial update for an agent; each field is optional:
           * Omitted or `null`: leave the field unchanged.
           * Empty value: clear the field.
           * Non-empty: replace the field wholesale with the provided value.
@@ -4116,20 +6207,20 @@ components:
           - $ref: '#/components/schemas/InferenceProvidersConfig'
           nullable: true
           description: |
-            Replacement inference provider settings for this agent.
-            Agent-level config takes precedence over the workspace's
-            admin-configured defaults. Omit or pass `null` to leave
-            unchanged. Pass an empty object `{}` to clear.
+            Replacement inference provider settings for this agent, which
+            take precedence over the workspace's admin-configured defaults;
+            omit or pass `null` to leave unchanged, or pass an empty object
+            `{}` to clear.
         base_harness:
           type: string
           nullable: true
           deprecated: true
           description: |
-            Replacement default harness. Omit or pass `null` to leave unchanged,
-            or pass an empty string to clear.
-            Deprecated - use harness instead. Kept for backward compatibility;
-            when both are sent, harness is authoritative and a conflicting
-            type is rejected with invalid_request.
+            Replacement default harness; omit or pass `null` to leave
+            unchanged, or pass an empty string to clear. Deprecated - use
+            harness instead, kept only for backward compatibility: when both
+            are sent, harness is authoritative and a conflicting type is
+            rejected with invalid_request.
         harness:
           allOf:
           - $ref: '#/components/schemas/Harness'
@@ -4203,16 +6294,18 @@ components:
         environment_id:
           type: string
           description: |
-            Default cloud environment ID for runs executed by this agent. The precedence order for environment resolution is:
+            Default cloud environment ID for runs executed by this agent;
+            the precedence order for environment resolution is:
             1. The environment specified on the run itself
             2. The agent's default environment
             3. An empty environment
         default_runner_uid:
           type: string
           description: |
-            Default runner UID for runs executed by this agent. When set, it overrides the
-            selected environment's default runner for runs that do not specify their own
-            `runner_id`. The precedence order for runner resolution is:
+            Default runner UID for runs executed by this agent; when set,
+            it overrides the selected environment's default runner for
+            runs that do not specify their own `runner_id`. The precedence
+            order for runner resolution is:
             1. The runner specified on the run itself
             2. The agent's default runner
             3. The selected environment's default runner
@@ -4220,7 +6313,7 @@ components:
             5. System defaults
         available:
           type: boolean
-          description: Whether this agent is within the team's plan limit and can be used for runs
+          description: Whether the agent is currently enabled. Defaults to true.
         created_at:
           type: string
           format: date-time
@@ -4245,7 +6338,8 @@ components:
         base_model:
           type: string
           description: |
-            Base model for runs executed by this agent. The precedence order for model resolution is:
+            Base model for runs executed by this agent; the precedence
+            order for model resolution is:
             1. The model specified on the run itself
             2. The agent's base model
             3. The team's default model
@@ -4273,11 +6367,12 @@ components:
           type: string
           deprecated: true
           description: |
-            Default harness for runs executed by this agent. The precedence order for harness resolution is:
+            Default harness for runs executed by this agent; the
+            precedence order for harness resolution is:
             1. The harness specified on the run itself
             2. The agent's base harness
-            3. Oz
-            Deprecated - use harness instead, which carries the full
+            3. Warp
+            Deprecated: use harness instead, which carries the full
             {type, model_id, reasoning_level} default.
         harness:
           allOf:
@@ -4298,6 +6393,8 @@ components:
             2. The agent's default strategy
             3. The factory's default strategy, for factory-seeded agents
             4. EXECUTOR
+            The resolved strategy is credential-validated at run creation;
+            an unavailable credential rejects the request before execution.
         harness_auth_secrets:
           allOf:
           - $ref: '#/components/schemas/HarnessAuthSecrets'
@@ -4313,8 +6410,8 @@ components:
         worker_host:
           type: string
           description: |
-            Default worker host for runs executed by this agent, or empty when
-            unset. The precedence order for worker host resolution is:
+            Default worker host for runs executed by this agent, or empty
+            when unset; the precedence order for worker host resolution is:
             1. The host specified on the run itself
             2. The agent's default host
             3. The workspace default host

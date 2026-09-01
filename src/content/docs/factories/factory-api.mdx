@@ -14,13 +14,13 @@ Use the factory API to find a factory and start work from a custom integration w
 Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
 :::
 
-## How it works
+## Endpoints
 
 * `GET /factory` - list factories your account can access. Add `search` to filter by name or alias, case-insensitive.
 * `GET /factory/{uid}` - get one factory by UID.
 * `POST /factory/{uid}/runs` - dispatch a run to the factory's foreman agent. Pass a `prompt`; the server resolves the foreman for you.
 
-A dispatched run is an ordinary [cloud agent run](/platform/): retrieve it, send it follow-ups, or cancel it through the same [Agent API](/reference/api-and-sdk/) you'd use for any run.
+The interactive [Agent API reference](/api) documents each endpoint's parameters and schemas. A dispatched run is an ordinary [cloud agent run](/platform/): retrieve it, send it follow-ups, or cancel it through the same [Agent API](/reference/api-and-sdk/) you'd use for any run.
 
 ## Choosing how work reaches a factory
 
@@ -60,7 +60,7 @@ client = OzAPI(api_key=os.environ.get("WARP_API_KEY"))
 page = client.factories.list(search="payments")
 factory = page.factories[0]
 
-# With the pagination scheme wired, iteration auto-pages
+# Iteration fetches additional pages automatically
 for f in client.factories.list(search="payments"):
     print(f.uid, f.name)
 ```
