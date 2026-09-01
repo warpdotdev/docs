@@ -1,5 +1,5 @@
 ---
-title: Errors Overview
+title: Errors overview
 description: >-
   Reference for all error codes returned by the {{API_SDK_NAME}}. Each error
   includes an HTTP status, machine-readable code, and actionable resolution
@@ -8,8 +8,6 @@ description: >-
 import { VARS } from '@data/vars';
 
 When the {VARS.API_SDK_NAME} encounters an error, it returns a structured JSON response following [RFC 7807 (Problem Details for HTTP APIs)](https://datatracker.ietf.org/doc/html/rfc7807). Every error response includes a machine-readable error code, a human-readable message, and metadata to help you diagnose and resolve the issue.
-
----
 
 ## Response format
 
@@ -43,8 +41,6 @@ Error responses use the `application/problem+json` content type per RFC 7807.
 
 Some errors include additional metadata fields (for example, `auth_url`, `provider`, or `inaccessible_repos`). These are documented on each error's page.
 
----
-
 ## Error categories
 
 Errors are split into two categories based on what caused the failure:
@@ -77,15 +73,11 @@ These indicate a Warp-side issue. When a cloud agent task encounters a platform 
 * [`infrastructure_timeout`](/reference/api-and-sdk/troubleshooting/errors/infrastructure-timeout/) — Task terminated after exceeding the maximum allowed runtime
 * [`agent_process_failed`](/reference/api-and-sdk/troubleshooting/errors/agent-process-failed/) — Agent process exited unexpectedly during task execution
 
----
-
 ## Using the `trace_id`
 
 When an error response includes a `trace_id`, you can include it when [contacting Warp support](/support-and-community/troubleshooting-and-support/sending-us-feedback/) to help the team locate the specific request in internal logs. This is especially useful for `internal_error` and `resource_unavailable` errors.
 
----
-
-## Related
+## Related pages
 
 * [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) — API reference for creating and managing agent tasks
 * [Cloud Agents Overview](/platform/) — How cloud agents work

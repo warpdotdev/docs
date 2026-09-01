@@ -7,22 +7,20 @@ description: >-
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
 
-### Turn production errors into draft PRs with Cloud Agents + TypeScript SDK
+Turn production errors into draft pull requests: this demo builds a small TypeScript "Sentry monitor" service that listens for specific Sentry alerts, such as a Go nil pointer dereference, and triggers a Warp cloud agent to investigate. The service validates the webhook, extracts the stack trace, and injects it into an agent run inside a [cloud environment](/platform/environments/) so the agent can inspect the repo and propose a fix. The full source is in the [Sentry monitor example repository](https://github.com/warpdotdev/warp-agents-sdk-demo-sentry-monitor).
 
 <VideoEmbed url="https://www.youtube.com/watch?feature=youtu.be&v=fHQXLg9ybi4" title="Monitoring Sentry with the TypeScript SDK demo video" />
 
-:::note
-Example repository: [**Sentry monitor example repository**](https://github.com/warpdotdev/warp-agents-sdk-demo-sentry-monitor)
-:::
+## What the demo covers
 
-In this demo, Ben builds a small TypeScript “Sentry monitor” service that listens for specific Sentry alerts (like a Go nil pointer dereference) and triggers a Warp cloud agent to investigate. The server validates the webhook, extracts the stack trace, and injects it into an agent run inside a Warp Environment so the agent can inspect the repo and propose a fix.
-
-He also covers the task lifecycle basics in the TypeScript SDK (running an agent, polling task state to fetch a session link for debugging), and shows the end result: a draft GitHub pull request created from the Sentry event for a maintainer to review.
-
-**What Ben covers**
-
-* Using Warp's TypeScript SDK to trigger agent runs and retrieve run details.
-* Handling run lifecycle states (queued → running) to reliably fetch a session link.
-* Running agents inside a Warp Environment so they can investigate real code, run tests, and validate fixes.
+* Using the [TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript) to trigger agent runs and retrieve run details.
+* Handling run lifecycle states (queued → running) to reliably fetch a session link for debugging.
+* Running agents inside a cloud environment so they can investigate real code, run tests, and validate fixes.
 * Building a lightweight Sentry webhook server that filters, validates, and routes only the right errors to an agent.
-* Creating a workflow that results in draft PRs for human review, instead of silent autonomous changes.
+* Ending the workflow in a draft GitHub pull request for a maintainer to review, instead of silent autonomous changes.
+
+## Related pages
+
+* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) - The API surface and SDKs the demo builds on.
+* [API & SDK quickstart](/reference/api-and-sdk/quickstart/) - Create and monitor your first run in about five minutes.
+* [Cloud agents quickstart](/platform/quickstart/) - Set up the environment an agent run executes in.

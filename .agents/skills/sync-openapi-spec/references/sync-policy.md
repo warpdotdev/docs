@@ -83,8 +83,8 @@ These tags back Agent Memory, which is a research preview. The tag was renamed `
 ### `harness-support`
 The `/harness-support/*` endpoints form the worker-to-server contract used by Oz workers (transcripts, snapshots, finish-task signaling, etc.). They are not part of the public API contract — customers should not call them directly. Excluded permanently.
 
-### `factory`
-Oz Factory has not shipped publicly. Its `FactoryMcp` flag is dogfood and the `@warp/factory` front end is internal, so none of its endpoints belong in the public reference. Remove this tag when Factory goes GA.
+### `factory` (no longer excluded)
+The `factory` tag was excluded while Warp Factories was pre-launch. It came out of `EXCLUDED_TAGS` (and `/factory` out of `EXCLUDED_PATH_PREFIXES`) when Warp Factories shipped in Early Access and `/factories/factory-api/` began documenting `GET /factory`, `GET /factory/{uid}`, and `POST /factory/{uid}/runs`. Factory operations now follow the `x-internal` markers like every other kept tag: the server spec marks each private factory operation individually, so only the public discover-and-dispatch and scorer operations reach the reference. Do not re-add a blanket exclusion; ask the server team to mark specific operations `x-internal` instead.
 
 ## Excluded paths (within otherwise-public tags)
 
@@ -99,7 +99,7 @@ If any of these become stable public surfaces, remove them from `EXCLUDED_PATHS`
 
 ## Excluded path prefixes
 
-`EXCLUDED_PATH_PREFIXES` drops a path by prefix regardless of how its operations are tagged. Today it holds a single entry, `/factory`, because some Factory operations are tagged `agent` upstream — `GET /factory/scorers/{scorer_id}/results` is one — so a tags-only rule leaks them into the public reference. Use a prefix only when a whole URL namespace is private; prefer a tag or an explicit path everywhere else.
+`EXCLUDED_PATH_PREFIXES` drops a path by prefix regardless of how its operations are tagged or marked. It is empty today; `/factory` was its only entry while Warp Factories was pre-launch (see "`factory` (no longer excluded)" above). Use a prefix only when a whole URL namespace is private; prefer a tag or an explicit path everywhere else.
 
 ## `x-internal` operations are dropped
 

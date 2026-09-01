@@ -9,153 +9,70 @@ description: >-
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
 
-The {VARS.API_SDK_NAME} lets you create, monitor, and inspect cloud agent runs programmatically. Use the REST API from any HTTP client, or the official Python and TypeScript SDKs for typed requests, built-in retries, and structured error handling. The SDKs are ideal for CI pipelines, internal tools, and custom integrations.
+The {VARS.API_SDK_NAME} lets you create, monitor, and inspect [cloud agent](/platform/) runs from any system that can make HTTP requests — CI pipelines, cron jobs, backend services, and internal tools — without the Warp desktop app. Call the REST API from any HTTP client, or use the official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs for typed requests, built-in retries, and structured error handling.
 
-### API overview
+For every endpoint's parameters, schemas, and error responses, see the interactive [Agent API reference](/api). To make your first request, start with the [API & SDK quickstart](/reference/api-and-sdk/quickstart/).
 
-The {VARS.API_SDK_NAME} lets you create and inspect [Cloud Agent](/platform/) runs over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
+With the API you can:
 
-**With the API you can:**
+* **Run agents** - Submit a prompt plus optional configuration: model, environment, MCP servers, and base prompt.
+* **Monitor execution** - List runs and track state transitions (queued → in progress → succeeded or failed).
+* **Inspect results** - Fetch a run's full details, including the original prompt, creator metadata, session link, and resolved configuration.
 
-* Run an agent by submitting a prompt plus optional config (model, environment, MCP servers, base prompt, etc.)
-* Monitor execution by listing runs and tracking state transitions over time (queued → in progress → succeeded/failed)
-* Inspect results and provenance by fetching a run's full details, including the original prompt, source/creator metadata, session link, and resolved agent configuration
-
-:::caution
-This page is a high-level overview.\
-\
-For full API endpoint details, refer to the [**Agents API Reference**](/api). For schema definitions, see the SDK repos: [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript).
-:::
-
-To send work to a [Warp factory](/factories/), use the [factory API](/factories/factory-api/) to discover it and dispatch by UID instead of calling `POST /agent/run` with a foreman's `agent_identity_uid`. Everything on this page - follow-ups, cancellation, status - still applies once a factory run is dispatched.
-
-### SDK overview
-
-Warp provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs that wrap the {VARS.API_SDK_NAME} with:
-
-* **Typed requests and responses** (editor autocomplete, fewer schema mistakes)
-* **Built-in retries and timeouts** (with per-request overrides)
-* [**Consistent error types**](/reference/api-and-sdk/troubleshooting/errors/) that map to API status codes
-* **Helpers for raw responses** when you need headers/status or custom parsing
-
-If you’re building an integration (CI, Slack bots, internal tooling, orchestrators), the SDKs are typically the quickest and safest starting point.
+To send work to a [Warp factory](/factories/), use the [factory API](/factories/factory-api/) to discover the factory and dispatch by UID instead of calling `POST /agent/run` with a foreman's `agent_identity_uid`. See [choosing how work reaches a factory](/factories/factory-api/#choosing-how-work-reaches-a-factory) if a coding agent or a connected integration should start the work instead. A dispatched factory run is still an ordinary run, so everything on this page — follow-ups, cancellation, status — applies to it.
 
 <VideoEmbed url="https://www.youtube.com/watch?v=0cf7383MZSk" title={`${VARS.API_SDK_NAME} reference overview video`} />
 
-**SDK vs raw REST**
+## REST API
 
-* Use the SDK when you want strong typing, standardized error handling, and easy concurrency patterns.
-* Use raw REST when you want minimal dependencies or full control over your HTTP client (the SDKs also support calling undocumented endpoints when needed).
-
-:::caution
-For the full SDK surface area and latest usage, refer to the GitHub repos: [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript).
-:::
-
----
-
-## API reference
-
-### REST API base URL
-
-All endpoints are served over HTTPS:
+All endpoints are served over HTTPS from this base URL, and authenticated with a [Warp API key](/reference/cli/api-keys/) passed as a bearer token:
 
 ```http
 https://app.warp.dev/api/v1
 ```
 
-### Core concepts
+### Agent runs
 
-#### **Agent runs**
+An agent run is a single execution of a cloud agent, created from a prompt and optional configuration. Each run has:
 
-An agent run represents a single execution of a cloud agent, created with a prompt and optional configuration. Each run has:
-
-* A unique `run_id`
-* A human-readable `title`
-* A `prompt` that the agent executes
+* A unique `run_id` and a human-readable `title`
+* The `prompt` the agent executes
 * A `state` (for example `QUEUED`, `INPROGRESS`, `SUCCEEDED`, `FAILED`)
 * Timestamps (`created_at`, `updated_at`)
-* Optional session information (`session_id`, `session_link`)
-* Optional resolved configuration (`agent_config`)
+* Optional session information (`session_id`, `session_link`) and resolved configuration (`agent_config`)
 
-See the [**Agents API Reference**](/api) for details on how runs are created and listed.
+### Agent configuration
 
-#### **Agent configuration**
+Shape how an agent runs with the `AmbientAgentConfig` object. The most commonly set fields:
 
-You can influence how an agent runs using AmbientAgentConfig, including:
-
-* `name` — a human-readable label for grouping, filtering, and traceability. When you run an agent from a [skill](/agents/capabilities/skills/), `name` is automatically set to the skill name. You can also set `name` explicitly via the API, SDK, or CLI (`--name`) to categorize runs by intent — for example, grouping all runs of a particular workflow regardless of how they were triggered. Use the `name` query parameter on `GET /agent/runs` to filter runs by config name.
-* `model_id` for LLM selection
-* `base_prompt` to shape behavior
-* `environment_id` to choose a `CloudEnvironment`
-* `skill_spec` to use a [skill](/agents/capabilities/skills/) as the base prompt (format: `owner/repo:skill-name` or `owner/repo:path/to/SKILL.md`)
-* `mcp_servers` to enable specific tools via MCP
-
-See the [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) or [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript) for the full configuration schema.
-
----
+* `name` - A label for grouping, filtering, and traceability. When you run an agent from a [skill](/agents/capabilities/skills/), `name` is set to the skill name automatically; set it explicitly (via the API, SDK, or `--name` on the CLI) to categorize runs by intent, and filter with the `name` query parameter on `GET /agent/runs`.
+* `model_id` - The LLM the run uses.
+* `base_prompt` - Standing instructions that shape the agent's behavior.
+* `environment_id` - The [cloud environment](/platform/environments/) the run executes in.
+* `skill_spec` - A [skill](/agents/capabilities/skills/) to use as the base prompt (format: `owner/repo:skill-name` or `owner/repo:path/to/SKILL.md`).
+* `mcp_servers` - MCP servers that give the run specific tools.
 
 ### Key endpoints
 
-**The Agents API exposes these primary endpoints:**
+* `POST /agent/run` - Create a run from a prompt and optional config and title. Returns `run_id` and the initial state.
+* `GET /agent/runs` - List runs, with pagination and filters for state, config name, model, creator, source, and creation time.
+* `GET /agent/runs/{runId}` - Fetch one run's full details, including its session link and resolved configuration.
+* `POST /agent/runs/{runId}/followups` - Send a follow-up message to steer or continue a run — the same capability the Slack and Linear integrations use.
+* `POST /agent/runs/{runId}/cancel` - Cancel a queued or in-progress run.
 
-*   `POST /agent/run`
-
-    Create a new agent run with a prompt and optional config and title. Returns run\_id and initial state.
-*   `GET /agent/runs`
-
-    List runs with pagination and filters for state, config\_name, model\_id, creator, source, and creation time.
-*   `GET /agent/runs/{runId}`
-
-    Fetch full details for a single run, including session link and resolved configuration.
-*   `POST /agent/runs/{runId}/followups`
-
-    Send a follow-up message to an existing run to steer or continue it, the same capability the Slack and Linear integrations use.
-*   `POST /agent/runs/{runId}/cancel`
-
-    Cancel a run that is currently queued or in progress. Returns the ID of the cancelled run.
-
-All endpoint semantics, query parameters, and [error codes](/reference/api-and-sdk/troubleshooting/errors/) are documented on the [Agents API Reference](/api).
-
----
-
-#### Models reference
-
-The API shares a set of reusable models across endpoints. Detailed JSON schemas, types, and enums are available in the SDK repos ([Python](https://github.com/warpdotdev/oz-sdk-python), [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript)). Key models include:
-
-* `RunAgentRequest`
-* `RunAgentResponse`
-* `ListRunsResponse`
-* `RunItem`
-* `PageInfo`
-* `RunStatusMessage`
-* `RunCreatorInfo`
-* `RunState`
-* `RunSourceType`
-* `RunFollowupRequest`
-* `AmbientAgentConfig`
-* `MCPServerConfig`
-* `Error`
-
----
+The [Agent API reference](/api) documents all endpoint semantics, query parameters, and [error codes](/reference/api-and-sdk/troubleshooting/errors/) — including the factory and scorer endpoints and shared models such as `RunAgentRequest`, `RunItem`, `AmbientAgentConfig`, and `Error`.
 
 ## SDKs
 
-### Python SDK
+The SDKs wrap the same API with typed request and response models, configurable retries and timeouts, [consistent error types](/reference/api-and-sdk/troubleshooting/errors/) that map to API status codes, and helpers for reading raw responses. Use an SDK when you want strong typing and standardized error handling; use raw REST when you want minimal dependencies or full control over your HTTP client.
 
-The Python SDK is the recommended way to call the API from Python services and scripts. It provides:
+* **[Python SDK](https://github.com/warpdotdev/oz-sdk-python)** - Sync and async clients for Python services and scripts. The repo covers installation, the full API surface (`api.md`), and current examples.
+* **[TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript)** - Fully typed client for Node.js and other runtimes where `fetch` is available. The repo covers installation, the full API surface (`api.md`), and current examples.
 
-* Sync + async clients
-* Typed request/response models
-* Configurable retries/timeouts and structured errors
+## Related pages
 
-See the [**Python SDK GitHub repo**](https://github.com/warpdotdev/oz-sdk-python) for installation, full API reference (api.md), and up-to-date examples.
-
-### TypeScript SDK
-
-The TypeScript SDK is the recommended way to call the API from Node.js services and modern TS/JS runtimes. It provides:
-
-* Fully typed params/responses
-* First-class error handling, retries/timeouts
-* Support across common runtimes where fetch is available or polyfilled
-
-See the [**TypeScript SDK GitHub repo**](https://github.com/warpdotdev/oz-sdk-typescript) for installation, full API reference (api.md), and up-to-date examples.
+* [Agent API reference](/api) - Interactive reference for every endpoint, parameter, and schema.
+* [Use the factory API](/factories/factory-api/) - Discover a factory and dispatch work to it by UID.
+* [API error reference](/reference/api-and-sdk/troubleshooting/errors/) - Error codes, response format, and resolution steps.
+* [API keys](/reference/cli/api-keys/) - Create and manage the keys that authenticate API requests.
+* [Demo: Sentry monitoring with SDK](/reference/api-and-sdk/demo-sentry-monitoring-with-sdk/) - A webhook handler that triggers agents from production errors.
