@@ -13,7 +13,7 @@ Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **trouble
 
 ## Frontmatter description
 
-One sentence, 50-160 characters, naming the symptoms covered rather than the act of troubleshooting.
+One to two sentences, 50-160 characters, naming the symptoms covered rather than the act of troubleshooting.
 - ✅ `Fix sign-in failures, failed conversation resumes, and update problems in the Warp Agent CLI.`
 - ❌ `Troubleshooting information for common problems.`
 
