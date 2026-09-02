@@ -18,7 +18,7 @@ Watch this walkthrough to see how to start and inspect an orchestrated agent run
 Pick where the parent will run. Every orchestration starts with a single parent that spawns children:
 
 * **Parent in the Warp app** - use the `/orchestrate` or `/plan` slash command. This is the fastest way to try orchestration.
-* **Parent in the cloud** - trigger the parent through the {VARS.WARP_AGENT_CLI} (`oz agent run-cloud`), the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/), or any [integration](/platform/integrations/) such as [Slack](/platform/integrations/slack/), Linear, or a [schedule](/platform/triggers/scheduled-agents/). The parent runs in an environment and spawns children from there.
+* **Parent in the cloud** - trigger the parent through the {VARS.WARP_AGENT_CLI} (`oz agent run-cloud`), the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/), any [integration](/platform/integrations/) such as [Slack](/platform/integrations/slack/) or [Linear](/platform/integrations/linear/), or a [schedule](/platform/triggers/scheduled-agents/). The parent runs in an environment and spawns children from there.
 
 Cloud parents that spawn cloud children need access to one or more [environments](/platform/environments/) the children can run in. To keep child execution on your own infrastructure, route those children to a [self-hosted worker](/platform/self-hosting/).
 
