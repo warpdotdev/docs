@@ -89,12 +89,14 @@ CASES = [
 ]
 
 
-def _paged_urlopen(pages: list):
+def _paged_urlopen(pages: list, request_urls=None):
     """Return a urlopen() stand-in that serves ``pages`` in order, one per
-    call, ignoring the request URL beyond counting calls."""
+    call, recording each request URL when ``request_urls`` is supplied."""
     call_count = {"n": 0}
 
     def _urlopen(req, *args, **kwargs):
+        if request_urls is not None:
+            request_urls.append(req.full_url)
         index = min(call_count["n"], len(pages) - 1)
         call_count["n"] += 1
         return _FakeResponse(pages[index])
@@ -109,16 +111,28 @@ def check_pagination_finds_later_page_match() -> bool:
     page_1 = {
         "ok": True,
         "messages": [{"ts": "3.0", "text": "unrelated chatter"}],
-        "response_metadata": {"next_cursor": "cursor-abc"},
+        "response_metadata": {"next_cursor": "cursor+abc&next=value"},
     }
     page_2 = {
         "ok": True,
         "messages": [{"ts": "1.0", "text": f"*SEO Audit — {DATE}*\nfound on a later page"}],
         "response_metadata": {},
     }
-    with mock.patch.object(notify_seo_slack.urllib.request, "urlopen", _paged_urlopen([page_1, page_2])):
+    request_urls = []
+    with mock.patch.object(
+        notify_seo_slack.urllib.request,
+        "urlopen",
+        _paged_urlopen([page_1, page_2], request_urls),
+    ):
         messages = notify_seo_slack.fetch_messages_for_date("tok", "C123", DATE, page_size=1)
-    return notify_seo_slack.find_existing_post(messages, DATE) is True
+    expected_follow_up_url = (
+        f"{notify_seo_slack.SLACK_API}/conversations.history?"
+        "channel=C123&limit=1&oldest=1787875200.0&cursor=cursor%2Babc%26next%3Dvalue"
+    )
+    return (
+        notify_seo_slack.find_existing_post(messages, DATE) is True
+        and request_urls[1] == expected_follow_up_url
+    )
 
 
 def check_fetch_stops_pagination_when_no_next_cursor() -> bool:

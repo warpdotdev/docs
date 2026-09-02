@@ -26,6 +26,7 @@ import json
 import os
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 
 SLACK_API = "https://slack.com/api"
@@ -69,12 +70,14 @@ def fetch_messages_for_date(token: str, channel: str, date_str: str, page_size: 
     messages = []
     cursor = None
     while True:
-        url = (
-            f"{SLACK_API}/conversations.history?channel={channel}"
-            f"&limit={page_size}&oldest={oldest}"
-        )
+        params = {
+            "channel": channel,
+            "limit": page_size,
+            "oldest": oldest,
+        }
         if cursor:
-            url += f"&cursor={cursor}"
+            params["cursor"] = cursor
+        url = f"{SLACK_API}/conversations.history?{urllib.parse.urlencode(params)}"
         req = urllib.request.Request(url, headers={"Authorization": f"Bearer {token}"})
         with urllib.request.urlopen(req) as resp:
             result = json.load(resp)
