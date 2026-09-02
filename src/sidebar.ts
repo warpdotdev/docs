@@ -411,7 +411,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// Moved from 'Integrations' (was 'Automation filters'): this page is
 					// now the Automations primitive's conceptual home, parallel to Factory
 					// agents and Factory skills, not just a filters reference.
-					{ slug: 'factories/automations', label: 'Automations' },
+					{ slug: 'factories/automations', label: 'Factory automations' },
 					{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
 					{ slug: 'factories/infrastructure-and-security', label: 'Infrastructure & security' },
 				],
