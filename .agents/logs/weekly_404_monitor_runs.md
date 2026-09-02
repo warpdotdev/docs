@@ -8,6 +8,17 @@ This log tracks every run of the `weekly-404-monitor` skill — both runs that o
 
 ---
 
+## 2026-08-31 — No data
+- **Total 404s this week**: n/a
+- **Total 404s last week**: n/a
+- **Trend**: n/a
+- **Significant gaps (≥5 hits)**: n/a
+- **Redirect candidates processed**: 0  (hits ≥ 5)
+- **HIGH-confidence redirects**: 0
+- **PR**: none
+- **Oz run**: https://app.warp.dev/conversation/b421fdd1-e5eb-479c-a5f4-37e2c1c9b2fb
+- **Notes**: Metabase query failed with HTTP 401 Unauthenticated. `METABASE_API_KEY` is present in environment K5KStCm5aYvhfBJb8cHol6 but is a short placeholder/invalid value (len=16, not an `mb_` key), not a real Metabase API key for https://warp.metabaseapp.com. Posted failure notice to #growth-docs. Action needed: replace the secret with a valid Metabase API key and re-run. Same failure mode as 2026-08-10, 2026-08-17, and 2026-08-24.
+
 ## 2026-08-24 — No data
 - **Total 404s this week**: n/a
 - **Total 404s last week**: n/a
