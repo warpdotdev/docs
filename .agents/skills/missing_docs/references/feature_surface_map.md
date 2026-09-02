@@ -546,6 +546,10 @@ GET /factory/{uid}/integrations/slack/users -> internal
 # factory integrations UI. Same unreleased `/factory` namespace as siblings above.
 GET /factory/{uid}/integrations/issue-tracker/issues -> internal
 POST /factory/{uid}/integrations/slack/connection-test-greeting -> internal
+# Hands a Linear issue to the factory from the integrations test-connections
+# flow (CreateFactoryLinearTaskHandoffHandler). Same unreleased `/factory`
+# namespace exclusion as the integration routes above.
+POST /factory/{uid}/integrations/linear/handoff -> internal
 # Factory benchmark suites and benchmark runs
 # (router/handlers/public_api/benchmarks.go). Same unreleased Factory product as
 # the routes above, and absent from warp-server's canonical public spec.
@@ -873,6 +877,10 @@ NativeShellCompletions
 # Preview ranking experiment for command history search. No dedicated user-facing
 # knob beyond the existing history search UI; re-check when the flag goes GA.
 HistorySearchRankingV2
+# Preview flag that hands Ctrl+R history search off to the shell's own widget
+# (fzf or atuin) instead of Warp's command search. Not GA, so not documentable;
+# re-check when the flag goes GA.
+ShellWidgetHandoff
 SshDragAndDrop
 ITermImages
 AIGeneratedOnboardingSuggestions
