@@ -23,7 +23,7 @@ When you connect a factory to GitHub, repository activity starts work in your fa
 That's all the setup GitHub needs. A new factory arrives with two automations already switched on, so it responds to GitHub activity right away:
 
 * **Mentions and assignments** - Start work by mentioning **@warp-factory**. See [Mention the factory](#mention-the-factory) below.
-* **Pull request merges** - Close out work by merging a pull request with your factory's label.
+* **Pull request merges** - Close out work by merging a pull request with your factory's label. Any work items linked to the pull request move to their tracker's completed state. Closing without merging does nothing.
 
 To confirm the connection works, mention **@warp-factory** on a test issue and check that a work item starts in the factory's [dashboard](/factories/factory-dashboard/).
 
@@ -101,6 +101,8 @@ Handing an issue or pull request to a factory takes two things:
 
 1. **Add the factory's label.** Each factory has one, derived from its [alias](/factories/factory-as-code/#alias) (the **Foreman name** under **Settings** > **Identity** in the factory dashboard) as `factory:<alias>`. For example, alias `payments` uses `factory:payments`, not the factory's display name. Warp creates the label automatically when you create the factory.
 2. Mention **@warp-factory** in the opening body or a new comment.
+
+The factory picks up the request and replies in the same thread.
 
 {/* VISUAL: An issue with the factory:<alias> label and an @warp-factory mention -- the two-part mention ritual is easy to miss from prose alone. */}
 
