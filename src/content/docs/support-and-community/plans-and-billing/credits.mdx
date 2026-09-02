@@ -8,9 +8,9 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-### What are Warp credits?
+## What are Warp credits?
 
-Any interaction with Warp's Agent consumes credits. Credits are primarily based on AI usage — the number of credits a task consumes varies based on the size and complexity of your codebase, the size of the task, the model you're using, the amount of context the agent needs to gather, and more.
+Any interaction with the Warp Agent consumes credits. Credits are primarily based on AI usage — the number of credits a task consumes varies based on the size and complexity of your codebase, the size of the task, the model you're using, the amount of context the agent needs to gather, and more.
 
 Warp meters credits across three types of infrastructure — inference, compute, and platform — each with its own bucket. Credit types and where an agent runs (local or cloud) are independent: each agent run consumes from whichever credit types apply to it.
 
@@ -28,9 +28,9 @@ For a general breakdown of what factors contribute to how many credits are consu
 
 Since there's no exact formula for predicting usage, we recommend building an intuitive understanding by experimenting with different prompts, models, and tracking how many credits they consume.
 
-**Tracking your credit usage**
+### Tracking your credit usage
 
-In an Agent conversation, a **turn** represents a single exchange (a response from the LLM). To see how many credits a turn consumed, hover over the **credit count chip** at the bottom of the Agent's response:
+In an agent conversation, a **turn** represents a single exchange (a response from the LLM). To see how many credits a turn consumed, hover over the **credit count chip** at the bottom of the agent's response:
 
 <figure style={{ maxWidth: "563px" }}>
 ![The conversation usage footer shows how many credits a conversation has consumed, and breaks down the usage by credits, tool calls, context window, files changed, diffs applied, and more.](../../../../assets/support-and-community/inline-credit-usage-footer.png)
@@ -41,15 +41,15 @@ In an Agent conversation, a **turn** represents a single exchange (a response fr
 You can view your total credit usage, along with other billing details, in **Settings** > **Billing and usage**.
 :::
 
-#### Credit **limits and billing**
+### Credit limits and billing
 
 * **Seat-level allocation**: On team plans, credit limits apply per seat — each team member has their own allowance. Individual users (not on a team) also have their own credit allocation.
 * **Cloud agents and integrations**: Individual users can run cloud agents via the CLI and API, drawing from their Warp credits. Slack and Linear integrations require team membership.
 * **Credit limits by plan**: The Free plan doesn't include bundled AI usage for the Warp Agent. To use the Warp Agent, [upgrade to a paid plan](https://www.warp.dev/pricing), buy [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) without subscribing, or bring your own inference with [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or a [SuperGrok or X Premium subscription](/agents/inference/grok-subscription/). On paid plans, once you reach your monthly credit limit you can continue using AI with usage-based billing via [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
 
-#### **Other features that use credits**
+### Other features that use credits
 
-In addition to direct Agent conversations, the following features also consume credits:
+In addition to direct agent conversations, the following features also consume credits:
 
 * [Generate](/agents/local-agents/generate/) helps you look up commands and suggestions as you type. As you refine your input, multiple credits may be used before you select a final suggestion.
 * [AI Autofill in Workflows](/knowledge-and-collaboration/warp-drive/workflows/#ai-autofill) counts as a credit each time it is run.
@@ -58,27 +58,25 @@ In addition to direct Agent conversations, the following features also consume c
 Regular shell commands in Warp do not consume or count towards credits.
 :::
 
-### How are Warp credits calculated?
+## How are Warp credits calculated?
 
-A **credit** in Warp is a unit of work representing the total processing required to complete an interaction with an Agent. It is **not** the same as "one user message" — instead, it scales with the number of tokens processed during the interaction.
+A **credit** in Warp is a unit of work representing the total processing required to complete an interaction with an agent. It is **not** the same as "one user message" — instead, it scales with the number of tokens processed during the interaction.
 
 In short: **the more tokens used, the more credits consumed**.
 
 Several factors influence how many credits are counted for a single interaction:
 
-#### **1. The LLM model used**
+### 1. The LLM model used
 
-Generally, smaller, faster models typically consume fewer credits than larger, reasoning-based models.
-
-For example, **Claude Opus 4.7** tends to consume the most tokens and credits in Warp, followed by **Claude Sonnet 4.6, GPT-5.5, Gemini 3.1 Pro**, and others in roughly that order. This generally correlates with model pricing as well.
+Smaller, faster models consume fewer credits than larger reasoning models. The largest frontier reasoning models (the latest Claude Opus models, for example) consume the most tokens and credits per interaction. Credit usage generally tracks the model's API pricing.
 
 :::note
 **Tip**: If your task doesn't require deep reasoning, planning, or multi-step problem solving, choose a more lightweight model to reduce credit usage.
 :::
 
-#### 2. Tool calls triggered by the Agent
+### 2. Tool calls triggered by the agent
 
-Warp's Agents make a variety of tool calls, including:
+Agents in Warp make a variety of tool calls, including:
 
 * Searching for files (grep)
 * Retrieving and reading files
@@ -86,17 +84,17 @@ Warp's Agents make a variety of tool calls, including:
 * Gathering web or documentation context
 * Running other utilities
 
-Some prompts require only a couple of tool calls, while others may trigger many — especially if the Agent needs to explore your development environment, navigate a large codebase, or apply complex changes. **More tool calls = more credits**.
+Some prompts require only a couple of tool calls, while others may trigger many — especially if the agent needs to explore your development environment, navigate a large codebase, or apply complex changes. **More tool calls = more credits**.
 
-#### 3. Task complexity and number of steps
+### 3. Task complexity and number of steps
 
 Some tasks are straightforward and may require only a single quick response, without much thinking or reasoning. Others can involve multiple stages—such as planning, generating intermediate outputs, verifying results, applying changes, and self-correcting—each of which can add to the credits count.
 
 :::note
-**Tip**: Keep tasks that you give to the Agent well-scoped, work incrementally, and break large changes into smaller, contained steps.
+**Tip**: Keep tasks that you give to the agent well-scoped, work incrementally, and break large changes into smaller, contained steps.
 :::
 
-#### 4. Amount of context passed to the model
+### 4. Amount of context passed to the model
 
 Prompts that include large amounts of context (such as [attached blocks](/agents/local-agents/agent-context/blocks-as-context/), long user query messages, etc.) or file attachments like [images](/agents/local-agents/agent-context/images-as-context/) may also increase the number of credits used due to increased token consumption.
 
@@ -104,7 +102,7 @@ Prompts that include large amounts of context (such as [attached blocks](/agents
 **Tip**: When sharing logs, code, or other large pieces of content, attach only the most relevant portions instead of full outputs.
 :::
 
-#### 5. Prompt caching (hits and misses)
+### 5. Prompt caching (hits and misses)
 
 Many model prompts include repeated content, like system instructions:
 
@@ -119,49 +117,50 @@ Because cache results depend on model provider behavior and timing, two similar 
 
 These are the most common factors affecting credit usage, though there are others. Understanding them can help you manage your credits more efficiently and get the most from your plan.
 
-### Compute credits
+## Compute credits
 
-Compute credits cover Warp-hosted compute consumed by an agent run. In practice, cloud agent runs consume them because they run on Warp's compute; local agent runs typically don't, since they run on your own machine.
+Compute credits cover Warp-hosted compute consumed by an agent run. Cloud agent runs on Warp-hosted workers consume them; local agent runs don't, since they run on your own machine.
 
-Compute credits are sometimes referred to as **cloud agent credits** when the conversation is framed around cloud agents vs local agents — they're the same bucket described from a different angle.
+Compute credits are sometimes called **cloud agent credits** when the conversation is framed around cloud agents versus local agents. They're the same bucket described from a different angle.
 
-#### Eligible for compute credits
+### Eligible for compute credits
 
 The following scenarios use compute credits:
 
-* **First-party integrations** - Running agents through Slack or Linear integrations
+* **First-party integrations** - Running agents through Warp's integrations (Slack, Linear, GitHub, and others)
 * **Cloud agent runs** - Using `oz agent run-cloud` via the CLI
 * **{VARS.API_SDK_NAME}** - Running agents through Warp's API
 * **Cloud Mode** - Running an agent from Cloud Mode in the Warp app
 
-#### Not eligible for compute credits
+### Not eligible for compute credits
 
-* **Local agent runs** — Using `oz agent run` on your local machine
-* **Self-hosted compute** — Using `oz agent run` on GitHub Actions, CI/CD pipelines, or other self-hosted infrastructure
+* **Local agent runs** - Using `oz agent run` on your local machine
+* **Self-hosted compute** - Using `oz agent run` on GitHub Actions, CI/CD pipelines, or other self-hosted infrastructure
+* **Self-hosted workers** - Cloud agent runs on your own infrastructure through Enterprise self-hosted workers. These runs still use platform credits.
 
-### Platform credits
+## Platform credits
 
-Platform credits are calculated from agent hours, the time an agent spends actively working on a task. They cover Warp's platform layer (run lifecycle, integrations, dashboard, APIs, and observability) and apply to every cloud agent run, plus local agent runs on Business and Enterprise plans that use customer-supplied inference.
+Platform credits are calculated from agent hours, the time an agent spends working on a task. They cover Warp's platform layer (run lifecycle, integrations, dashboard, APIs, and observability) and apply to every cloud agent run, plus local agent runs on Business and Enterprise plans that use customer-supplied inference.
 
-#### Eligible for platform credits
+### Eligible for platform credits
 
 Platform credits are used in the following scenarios:
 
-* **Cloud agents on any plan** use platform credits for every cloud agent run, regardless of which agent runs the task or which inference source it uses.
+* **Cloud agents on any plan** use platform credits for every cloud agent run, whichever harness, inference source, or compute source it uses.
 * **Local agents on Business or Enterprise with customer-supplied inference** use platform credits when the local agent run uses [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/).
 
-#### Not eligible for platform credits
+### Not eligible for platform credits
 
 The following scenarios do **not** use platform credits:
 
-* **Local agents on Free, Build, or Max plans** don't use platform credits, regardless of inference source.
+* **Local agents on Free, Build, or Max plans** don't use platform credits, whichever inference source they use.
 * **Local agents on Business or Enterprise using Warp-managed inference** don't use platform credits because Warp is already paying for the model call through AI credits.
 * **Regular terminal usage** doesn't use platform credits. Shell commands and non-AI Warp features don't consume credits.
 * **Third-party agent CLIs run directly** don't use platform credits when you run `claude`, `codex`, or another agent CLI outside of Warp.
 
 For a full breakdown of how platform credits work, see [platform credits](/support-and-community/plans-and-billing/platform-credits/).
 
-### Cloud agent runs on team plans
+## Cloud agent runs on team plans
 
 Cloud agent runs that aren't initiated by a specific team member — for example, scheduled runs or runs triggered through an agent API key — follow plan-specific billing rules. On self-serve plans (Build, Max, Business), these runs are billed to the team owner: the owner's plan-included credits first, then the team's shared add-on credit pool. With auto-reload off, the request is blocked when both are depleted (insufficient credits error). With auto-reload on, usage can trigger a reload into the team's shared pool subject to the team-wide spend cap. On Enterprise plans, these runs draw from the team-scoped credit pool per your contract.
 
