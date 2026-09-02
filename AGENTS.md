@@ -165,7 +165,7 @@ Every page must include YAML frontmatter with a `description` field.
 ```yaml
 ---
 description: >-
-  One sentence, 50-160 characters, stating what the reader gets from this page.
+  One to two sentences, 50-160 characters, stating what the reader gets from this page.
 ---
 ```
 
@@ -175,7 +175,7 @@ The `description` field is the meta description in search results and the snippe
 
 #### Description rules
 These apply to every page, regardless of content type.
-- **One sentence, 50-160 characters.** Search engines truncate past roughly 160. Two sentences almost always overshoot the budget, so prefer one that earns its length.
+- **One to two sentences, 50-160 characters.** Search engines truncate past roughly 160. Prefer one sentence when it earns its length; use a second only when both stay within budget and add real clarity, not padding.
 - **Cut filler openers.** "Learn about," "This page covers," "A guide to," and "Documentation for" spend characters without adding meaning. Start with the verb or the subject instead.
 - **Describe what the reader gets, not what the page is.** "This page explains X" is always weaker than explaining X.
 - **Lead with the primary keyword** when it reads naturally, ideally within the first few words.
@@ -957,7 +957,7 @@ Add the key-value pair to `src/data/vars.ts` only. Both Option A (TypeScript imp
 All documentation should be written with search discoverability in mind — both for traditional search engines (Google) and AI engines (ChatGPT, Gemini, Perplexity, Copilot).
 
 ### Frontmatter descriptions
-- Every page must have a `description` in frontmatter. Write it as a standalone summary (one sentence, 50-160 characters) that includes the primary keyword naturally.
+- Every page must have a `description` in frontmatter. Write it as a standalone summary (one to two sentences, 50-160 characters) that includes the primary keyword naturally.
 - Descriptions appear in search results and AI citations. Write for humans, but include the key terms a developer would search for.
 - For the full rules and per-content-type patterns with examples, see [Frontmatter](#frontmatter) under Content structure. That section is the source of truth.
 
@@ -977,7 +977,7 @@ Before publishing any documentation, verify:
 - [ ] The change passed `.agents/references/docs-worthiness-criteria.md` — the full gate with recorded evidence for automated runs, Gate 0 (shipped and public) for human-requested pages
 - [ ] A content design plan exists per `.agents/references/content-design-plan.md` and appears in the PR body
 - [ ] An existing page was updated rather than a new page created, unless a new page is genuinely justified
-- [ ] Frontmatter includes a one-sentence description (50-160 chars) written as a standalone summary, with no filler opener
+- [ ] Frontmatter includes a one-to-two-sentence description (50-160 chars) written as a standalone summary, with no filler opener
 - [ ] Content type is identified and the page follows the structure for that type (see `.agents/templates/`)
 - [ ] The title follows the convention for its content type (see "Titles by content type")
 - [ ] No quickstart or tutorial content is folded into a combined feature page

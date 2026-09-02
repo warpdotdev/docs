@@ -13,7 +13,7 @@ Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **procedu
 
 ## Frontmatter description
 
-One sentence, 50-160 characters, naming the task the reader will complete. Start with an imperative verb.
+One to two sentences, 50-160 characters, naming the task the reader will complete. Start with an imperative verb.
 - ✅ `Connect Slack to Oz so mentions and channel messages can trigger cloud agent runs.`
 - ❌ `This page explains the Slack integration setup process.`
 
