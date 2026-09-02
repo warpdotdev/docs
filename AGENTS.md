@@ -41,6 +41,8 @@ Cut sentences that narrate the page, restate what the reader just read, or expla
   - ❌ "The container is destroyed after each run. This process ensures every run starts from the same baseline, making results reproducible and debugging straightforward."
 - **No recap lines** - Don't end a section by summarizing it ("In practice: triggers create tasks; tasks produce outputs.").
 - **Say it once** - Don't repeat a caveat or definition across multiple sections of the same page. Put it where it matters most. The same goes for sibling pages: boilerplate like validation steps or shared prerequisites lives once on the parent or reference page, linked from the rest.
+  - ✅ State a plan-tier requirement once in a `:::note` near the top of the section, then let a later procedure that depends on it link back rather than restating it.
+  - ❌ Repeating the same "requires a Build plan or higher" caveat both in a section-level note and again inside a numbered step further down the page.
 
 #### Words to avoid
 These words are the strongest tell of an AI-generated draft and rarely add meaning. Replace them with the specific fact they're hiding, or delete them.
@@ -163,7 +165,7 @@ Every page must include YAML frontmatter with a `description` field.
 ```yaml
 ---
 description: >-
-  One sentence, 50-160 characters, stating what the reader gets from this page.
+  One to two sentences, 50-160 characters, stating what the reader gets from this page.
 ---
 ```
 
@@ -173,7 +175,7 @@ The `description` field is the meta description in search results and the snippe
 
 #### Description rules
 These apply to every page, regardless of content type.
-- **One sentence, 50-160 characters.** Search engines truncate past roughly 160. Two sentences almost always overshoot the budget, so prefer one that earns its length.
+- **One to two sentences, 50-160 characters.** Search engines truncate past roughly 160. Prefer one sentence when it earns its length; use a second only when both stay within budget and add real clarity, not padding.
 - **Cut filler openers.** "Learn about," "This page covers," "A guide to," and "Documentation for" spend characters without adding meaning. Start with the verb or the subject instead.
 - **Describe what the reader gets, not what the page is.** "This page explains X" is always weaker than explaining X.
 - **Lead with the primary keyword** when it reads naturally, ideally within the first few words.
@@ -436,18 +438,21 @@ Keyboard keys and shortcuts use backticks. Use `+` as the separator between keys
 - ❌ **System Settings** > **Privacy & Security** > **Local Network** (macOS path missing the Apple icon — `U+F8FF` must appear before the first `>`)
 
 ### UI elements
-- Use bold for interactive UI elements (e.g., buttons, toggles, dropdowns)
+- Use bold for interactive UI elements (e.g., buttons, toggles, dropdowns, and the option you select from one)
 - Describe UI elements by name, not just appearance or location. Prefer "In the sidebar, click **Platform**" over "Click the button on the left."
 - Format checkbox names in bold. Omit the word "checkbox." Use "select" or "deselect," not "check" or "uncheck."
+- Use quotation marks, not bold, for a field or label name that is not itself clickable. The interactive control next to it (the dropdown, the input, the option you choose from it) still gets bold.
 
 **Use:**
 - ✅ Click your profile photo in the top-right corner, then click **Settings**.
 - ✅ In the sidebar, click **Platform**.
+- ✅ In the "Harness" dropdown, select **Claude Code** or **Codex**. ("Harness" labels the field but isn't itself clickable; the dropdown and its options are)
 
 **Don't use:**
 - ❌ In the API Keys section, click `+ Create API Key`.
 - ❌ In the API Keys section, click `+ Create API Key`. (use bold, not backticks)
 - ❌ Click `Create key`. (use bold, not backticks)
+- ❌ Choose **Claude Code** or **Codex** in the **Harness** field. (the field label isn't interactive, so it shouldn't be bold)
 
 #### Verbs for UI interactions
 Use consistent verbs that match the type of UI element:
@@ -548,9 +553,15 @@ These rules apply regardless of content type:
 - **Keep steps focused, not artificially atomic.** Aim for one primary action per step, but group tightly related actions together when they share the same UI context and doing so keeps the procedure at a readable length. Up to ~3 related actions per step is acceptable. Use judgment: a simple task shouldn't require 10+ steps, but a single step shouldn't be a mini-procedure either.
   - Acceptable groupings: actions on the same form (entering a name and choosing an expiration date), a click that reveals the next target (clicking to expand a section, then clicking the revealed item), or a short natural sequence within the same UI area.
   - Avoid grouping actions that span different areas of the UI or that would make a step hard to scan at a glance.
+  - **Move reference detail out of the step into a `:::note`.** When a step's supporting detail is a list of facts a reader might check rather than an instruction (accepted credential types, valid formats), keep the step to its one action and put the list in a `:::note` immediately after it.
+    - ✅ A step reading "In the **Auth** field, choose a compatible, team-owned secret from the list or click **New auth secret** to create one," followed by a `:::note` listing which credential type each option accepts.
+    - ❌ Folding the full list of accepted credential types into the same sentence as the instruction, so the action is buried in reference detail.
 - **Motivate steps before giving instructions.** Briefly explain WHY before HOW, especially for setup steps. A single sentence of motivation prevents the reader from wondering "why am I doing this?"
   - ✅ "Export your API key so the CLI can authenticate your requests automatically."
   - ❌ "Export your API key as an environment variable." (why?)
+- **Orient within the step, not just on first mention.** The page-level rule above ("Orient the reader before UI, CLI, or URL instructions") also applies inside a single step: name the field, dropdown, or location the action happens in before naming the action itself. Don't rely on referring the reader back to an earlier section instead — a step should stand on its own for a reader who lands on it directly.
+  - ✅ "In the 'Harness' dropdown, select **Claude Code** or **Codex**."
+  - ❌ "Choose **Claude Code** or **Codex** in the **Harness** field." (names the action before the location)
 - Include expected outcomes after key steps so the reader can confirm they're on track.
 - Test all instructions for accuracy.
 - Provide troubleshooting for common failure points.
@@ -946,7 +957,7 @@ Add the key-value pair to `src/data/vars.ts` only. Both Option A (TypeScript imp
 All documentation should be written with search discoverability in mind — both for traditional search engines (Google) and AI engines (ChatGPT, Gemini, Perplexity, Copilot).
 
 ### Frontmatter descriptions
-- Every page must have a `description` in frontmatter. Write it as a standalone summary (one sentence, 50-160 characters) that includes the primary keyword naturally.
+- Every page must have a `description` in frontmatter. Write it as a standalone summary (one to two sentences, 50-160 characters) that includes the primary keyword naturally.
 - Descriptions appear in search results and AI citations. Write for humans, but include the key terms a developer would search for.
 - For the full rules and per-content-type patterns with examples, see [Frontmatter](#frontmatter) under Content structure. That section is the source of truth.
 
@@ -966,7 +977,7 @@ Before publishing any documentation, verify:
 - [ ] The change passed `.agents/references/docs-worthiness-criteria.md` — the full gate with recorded evidence for automated runs, Gate 0 (shipped and public) for human-requested pages
 - [ ] A content design plan exists per `.agents/references/content-design-plan.md` and appears in the PR body
 - [ ] An existing page was updated rather than a new page created, unless a new page is genuinely justified
-- [ ] Frontmatter includes a one-sentence description (50-160 chars) written as a standalone summary, with no filler opener
+- [ ] Frontmatter includes a one-to-two-sentence description (50-160 chars) written as a standalone summary, with no filler opener
 - [ ] Content type is identified and the page follows the structure for that type (see `.agents/templates/`)
 - [ ] The title follows the convention for its content type (see "Titles by content type")
 - [ ] No quickstart or tutorial content is folded into a combined feature page

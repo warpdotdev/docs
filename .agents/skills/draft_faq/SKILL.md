@@ -32,7 +32,7 @@ Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **FAQ tem
 
 ## Frontmatter description
 
-One sentence, 50-160 characters, naming the topic area the questions cover.
+One to two sentences, 50-160 characters, naming the topic area the questions cover.
 - ✅ `Answers to common questions about cloud agent billing, credits, and plan limits.`
 - ❌ `Frequently asked questions.`
 

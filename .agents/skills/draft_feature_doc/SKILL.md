@@ -13,7 +13,7 @@ Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **feature
 
 ## Frontmatter description
 
-One sentence, 50-160 characters, saying what the feature does and its primary benefit.
+One to two sentences, 50-160 characters, saying what the feature does and its primary benefit.
 - ✅ `Control what the agent can do with permission cards, auto-approve, and execution profiles.`
 - ❌ `Documentation for permissions and profiles.`
 

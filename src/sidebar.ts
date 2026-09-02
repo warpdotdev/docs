@@ -19,6 +19,7 @@ import { VARS } from './data/vars';
  */
 export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 		{
+			id: 'terminal',
 			label: 'Terminal',
 			link: '/',
 			icon: 'laptop',
@@ -161,7 +162,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'terminal/warpify', label: 'Overview' },
 								{ slug: 'terminal/warpify/subshells', label: 'Warpify subshells' },
 								{ slug: 'terminal/warpify/ssh', label: 'SSH with Warp features' },
-								{ slug: 'terminal/warpify/ssh-legacy', label: 'Legacy SSH wrapper' },
+								// ssh-legacy is intentionally omitted: it's a fallback page linked
+								// from the SSH page rather than surfaced as a co-equal nav item.
 							],
 						},
 						{
@@ -551,7 +553,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Environments',
 					items: [
-						'platform/environments',
+						{ slug: 'platform/environments', label: 'Overview' },
+						{ slug: 'platform/environments/configuring-environments', label: 'Configuring environments' },
+						{ slug: 'platform/environments/troubleshooting-environments', label: 'Troubleshooting' },
 						{ slug: 'platform/runners', label: 'Runners' },
 					],
 				},
@@ -779,7 +783,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'support-and-community/community/contributing',
 						'support-and-community/community/warp-preview-and-alpha-program',
 						{ slug: 'support-and-community/community/refer-a-friend', label: 'Refer a Friend & Earn Rewards' },
-						'support-and-community/community/open-source-partnership',
 					],
 				},
 			],

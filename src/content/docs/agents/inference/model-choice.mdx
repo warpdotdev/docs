@@ -76,6 +76,11 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 | Claude Opus 5 | `claude-5-opus-xhigh` | Extra high effort |
 | Claude Opus 5 | `claude-5-opus-xhigh-fast` | Fast mode |
 | Claude Opus 5 | `claude-5-opus-max` | Max effort |
+| Claude Fable 5.1 | `claude-5-1-fable-high` | Default effort |
+| Claude Fable 5.1 | `claude-5-1-fable-low` | Low effort |
+| Claude Fable 5.1 | `claude-5-1-fable-medium` | Medium effort |
+| Claude Fable 5.1 | `claude-5-1-fable-xhigh` | Extra high effort |
+| Claude Fable 5.1 | `claude-5-1-fable-max` | Max effort |
 | Claude Fable 5 | `claude-5-fable-high` | Default effort |
 | Claude Fable 5 | `claude-5-fable-low` | Low effort |
 | Claude Fable 5 | `claude-5-fable-medium` | Medium effort |
@@ -107,7 +112,7 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 | Claude Haiku 4.5 | `claude-4-5-haiku` | — |
 
 :::caution
-Anthropic requires data retention for Claude Fable 5 for safety, abuse monitoring, and compliance reasons, so it is **not available under Zero Data Retention (ZDR)**. This requirement is specific to Claude Fable 5 and doesn't change the ZDR behavior of any other supported model. For Enterprise teams, the model is off by default and a workspace admin must enable it — see the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings) and the [Security overview](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr).
+Anthropic requires data retention for Claude Fable 5 and Claude Fable 5.1 for safety, abuse monitoring, and compliance reasons, so these models are **not available under Zero Data Retention (ZDR)**. This requirement is specific to the Claude Fable models and doesn't change the ZDR behavior of any other supported model. For Enterprise teams, these models are off by default and a workspace admin must enable them — see the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings) and the [Security overview](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr).
 :::
 
 #### Google
@@ -143,14 +148,13 @@ Warp also supports leading open source models hosted via Fireworks AI, so you ca
 
 | Model | `model_id` |
 | --- | --- |
+| GLM 5.3 Flash | `glm-5.3-flash-fireworks` |
 | GLM 5.2 | `glm-5.2-fireworks` |
 | Kimi K3 | `kimi-k3-fireworks` |
 | Kimi K2.7 Code | `kimi-k27-code-fireworks` |
 | Kimi K2.6 | `kimi-k26-fireworks` |
 | Minimax 3 | `minimax-3-fireworks` |
-| Minimax 2.7 | `minimax-2.7-fireworks` |
-| Qwen 3.7 Plus | `qwen-3.7-plus-fireworks` |
-| Qwen 3.6 Plus | `qwen-3.6-plus-fireworks` |
+| Qwen 3.8 Max | `qwen-3.8-max-fireworks` |
 | DeepSeek V4 Pro | `deepseek-v4-pro-fireworks` |
 
 ### How to change models
