@@ -1,7 +1,7 @@
 ---
 title: [Sentence case. A noun phrase naming what can be looked up. Break up stacked nouns with prepositions: "Keyboard shortcuts for the code editor", not "Code editor keyboard shortcut reference". Never a bare "Overview" or "Reference". This renders as the page H1 — do not add an H1 in the body.]
 description: >-
-  [One sentence, 50-160 characters: what the reader can look up here. Name the artifacts —
+  [One to two sentences, 50-160 characters: what the reader can look up here. Name the artifacts —
   flags, endpoints, shortcuts — not the genre. Example: "Look up {{WARP_AGENT_CLI}} flags,
   environment variables, slash commands, and keyboard shortcuts."
   Use {{TOKEN}} syntax for product names in src/data/vars.ts.]

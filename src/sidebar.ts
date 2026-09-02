@@ -551,7 +551,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Environments',
 					items: [
-						'platform/environments',
+						{ slug: 'platform/environments', label: 'Overview' },
+						{ slug: 'platform/environments/configuring-environments', label: 'Configuring environments' },
+						{ slug: 'platform/environments/troubleshooting-environments', label: 'Troubleshooting' },
 						{ slug: 'platform/runners', label: 'Runners' },
 					],
 				},
@@ -779,7 +781,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'support-and-community/community/contributing',
 						'support-and-community/community/warp-preview-and-alpha-program',
 						{ slug: 'support-and-community/community/refer-a-friend', label: 'Refer a Friend & Earn Rewards' },
-						'support-and-community/community/open-source-partnership',
 					],
 				},
 			],
