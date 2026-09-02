@@ -69,12 +69,13 @@ sys.stdout.write(os.environ.get("STUB_REQUESTER_REVIEWER", ""))
 """
 
 
-def extract_reviewer_snippet(requester_slack_id=None, secondary_fallback=None):
+def extract_reviewer_snippet(
+    requester_slack_id=None, secondary_fallback=None, tertiary_fallback=None
+):
     """Extract the bash fence whose first assignments identify the snippet.
 
-    ``requester_slack_id`` / ``secondary_fallback``, when given, override the
-    documented placeholder values via targeted substitution so tests can
-    exercise the requester and secondary-fallback tiers without hand-copying
+    The fallback arguments, when given, override documented values via
+    targeted substitution so tests can exercise each tier without hand-copying
     the script's logic.
     """
     text = SKILL.read_text(encoding="utf-8")
@@ -108,6 +109,17 @@ def extract_reviewer_snippet(requester_slack_id=None, secondary_fallback=None):
             raise AssertionError(
                 "could not override SECONDARY_FALLBACK_REVIEWER in snippet"
             )
+    if tertiary_fallback is not None:
+        snippet, count = re.subn(
+            r"TERTIARY_FALLBACK_REVIEWER=\S+",
+            "TERTIARY_FALLBACK_REVIEWER=%s" % tertiary_fallback,
+            snippet,
+            count=1,
+        )
+        if count != 1:
+            raise AssertionError(
+                "could not override TERTIARY_FALLBACK_REVIEWER in snippet"
+            )
 
     return snippet
 
@@ -122,6 +134,7 @@ class ReviewerSnippetTest(unittest.TestCase):
         requester_slack_id=None,
         requester_resolved="",
         secondary_fallback=None,
+        tertiary_fallback=None,
         use_real_requester_resolver=False,
     ):
         with tempfile.TemporaryDirectory() as tmp:
@@ -189,6 +202,7 @@ class ReviewerSnippetTest(unittest.TestCase):
             snippet = extract_reviewer_snippet(
                 requester_slack_id=requester_slack_id,
                 secondary_fallback=secondary_fallback,
+                tertiary_fallback=tertiary_fallback,
             )
             result = subprocess.run(
                 ["bash", "-c", snippet],
@@ -239,9 +253,29 @@ class ReviewerSnippetTest(unittest.TestCase):
         self.assertEqual(state, ["hongyi-chen"])
         self.assertEqual(self.requested_reviewers(calls), ["hongyi-chen"])
 
-    def test_final_fallback_still_reachable_when_secondary_unset(self):
-        """dannyneira remains the ultimate safety net if HYC is ever blanked."""
+    def test_requester_rejection_advances_to_hyc(self):
+        result, state, calls = self.run_snippet(
+            requester_slack_id="U_TEST",
+            requester_resolved="the-requester",
+            reject="the-requester",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("the-requester", self.requested_reviewers(calls))
+        self.assertIn("hongyi-chen", self.requested_reviewers(calls))
+        self.assertEqual(state, ["hongyi-chen"])
+
+    def test_tertiary_fallback_used_when_secondary_is_unset(self):
+        """rachaelrenk is used when HYC is unavailable."""
         result, state, calls = self.run_snippet(secondary_fallback="")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(state, ["rachaelrenk"])
+        self.assertEqual(self.requested_reviewers(calls), ["rachaelrenk"])
+
+    def test_final_fallback_reachable_when_human_fallbacks_are_unset(self):
+        """dannyneira remains the ultimate safety net."""
+        result, state, calls = self.run_snippet(
+            secondary_fallback="", tertiary_fallback=""
+        )
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(state, ["dannyneira"])
         self.assertEqual(self.requested_reviewers(calls), ["dannyneira"])
@@ -255,6 +289,17 @@ class ReviewerSnippetTest(unittest.TestCase):
             "no owner resolved for PR 123; fallback hongyi-chen requested",
             result.stdout,
         )
+
+    def test_rachaelrenk_rejection_falls_through_to_final_fallback(self):
+        """dannyneira is attempted after both human fallbacks are rejected."""
+        result, state, calls = self.run_snippet(
+            initial=["carol"], reject="hongyi-chen,rachaelrenk"
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("hongyi-chen", self.requested_reviewers(calls))
+        self.assertIn("rachaelrenk", self.requested_reviewers(calls))
+        self.assertIn("dannyneira", self.requested_reviewers(calls))
+        self.assertEqual(set(state), {"carol", "dannyneira"})
 
     def test_real_resolver_resolves_seeded_requester(self):
         """Runs the actual resolve_reviewer.py (not a stub) against a private-map fixture,
@@ -278,18 +323,17 @@ class ReviewerSnippetTest(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(state, ["hongyi-chen"])
 
-    def test_hyc_rejection_falls_through_to_final_fallback(self):
-        """A HYC rejection must not stop the chain - dannyneira is attempted
-        next and its landing is confirmed via read-back, not assumed."""
+    def test_hyc_rejection_falls_through_to_rachaelrenk(self):
+        """A HYC rejection must advance to rachaelrenk."""
         result, state, calls = self.run_snippet(
             initial=["carol"], reject="hongyi-chen"
         )
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("hongyi-chen", self.requested_reviewers(calls))
-        self.assertIn("dannyneira", self.requested_reviewers(calls))
-        self.assertEqual(set(state), {"carol", "dannyneira"})
+        self.assertIn("rachaelrenk", self.requested_reviewers(calls))
+        self.assertEqual(set(state), {"carol", "rachaelrenk"})
         self.assertIn(
-            "hongyi-chen rejected - advancing to final fallback dannyneira",
+            "hongyi-chen rejected - advancing to next fallback",
             result.stdout,
         )
 
@@ -298,9 +342,10 @@ class ReviewerSnippetTest(unittest.TestCase):
         fail loudly rather than quietly accept the unrelated pre-existing
         reviewer as if the fallback chain had succeeded."""
         result, state, calls = self.run_snippet(
-            initial=["carol"], reject="hongyi-chen,dannyneira"
+            initial=["carol"], reject="hongyi-chen,rachaelrenk,dannyneira"
         )
         self.assertIn("hongyi-chen", self.requested_reviewers(calls))
+        self.assertIn("rachaelrenk", self.requested_reviewers(calls))
         self.assertIn("dannyneira", self.requested_reviewers(calls))
         self.assertEqual(state, ["carol"])
         self.assertNotEqual(result.returncode, 0)

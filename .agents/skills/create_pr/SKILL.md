@@ -277,9 +277,9 @@ gh pr create --web
 
 So the mention stays, and a real request is added alongside it. **A PR is not complete until `gh pr edit --add-reviewer` has succeeded and been verified.**
 
-A resolution failure must fall back, never no-op. When no owner resolves — the common case for a small, ambient/agent-generated docs PR — prefer the run's requester next, then a secondary human fallback, and only then `dannyneira` as the final safety net (the release docs workflow keeps its own last-resort `dannyneira` fallback too — `.github/workflows/release-docs-update.yml`, "Assign last docs PR reviewer"). An unassignable reviewer is a problem to surface, not a reason to ship an unreviewed PR.
+A resolution failure must fall back, never no-op. When no owner resolves — the common case for a small, ambient/agent-generated docs PR — prefer the run's requester next, then `hongyi-chen`, then `rachaelrenk`, and only then `dannyneira` as the final safety net (the release docs workflow keeps its own last-resort `dannyneira` fallback too — `.github/workflows/release-docs-update.yml`, "Assign last docs PR reviewer"). An unassignable reviewer is a problem to surface, not a reason to ship an unreviewed PR.
 
-The full priority chain, in order: (1) the CODEOWNERS/git-blame owner from `suggest_reviewers.py`; (2) the run's requester, resolved via this repo's own `.agents/skills/create_pr/resolve_reviewer.py --user <requester_slack_id>` and a runtime-supplied private override map; (3) a secondary human fallback, currently `hongyi-chen` ("HYC"); (4) `dannyneira`.
+The full priority chain, in order: (1) the CODEOWNERS/git-blame owner from `suggest_reviewers.py`; (2) the run's requester, resolved via this repo's own `.agents/skills/create_pr/resolve_reviewer.py --user <requester_slack_id>` and a runtime-supplied private override map; (3) a secondary human fallback, `hongyi-chen` ("HYC"); (4) a tertiary human fallback, `rachaelrenk`; (5) `dannyneira` as the final safety net.
 
 Step 2's resolver is a docs-repo-local script, not `factory-agents`' `scripts/factory-resolve-reviewer`: that script lives in the separate `factory-agents` repo and is not checked out alongside a normal `warpdotdev/docs` clone, so calling it by that relative path fails in a real docs run and silently falls through to the next tier. The invoking factory must mount its private Slack-to-GitHub override map and set `REVIEWER_OVERRIDES_PATH` before calling `resolve_reviewer.py`; never commit Slack user IDs or mappings to this repository. The helper does nothing else — no public-email search, no cross-repo assumptions — so the requester tier resolves from a plain docs checkout when that private runtime context is available. Like `factory-resolve-reviewer`, it never guesses: an unavailable map or unresolved Slack id prints nothing and the chain moves to the next tier.
 
@@ -294,6 +294,7 @@ Two details below are load-bearing, and getting either wrong reintroduces the si
 PR=123
 REQUESTER_SLACK_ID=""        # this run's requester Slack user id, when known
 SECONDARY_FALLBACK_REVIEWER=hongyi-chen   # HYC - confirmed second-tier fallback
+TERTIARY_FALLBACK_REVIEWER=rachaelrenk     # third-tier human fallback
 FALLBACK_REVIEWER=dannyneira               # final safety net; never remove
 
 # 1. Resolve the owning engineer(s). For missing_docs drift-watch runs, use the
@@ -311,8 +312,8 @@ REVIEWERS=$(python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
 #    is callable from a plain docs checkout, unlike factory-agents'
 #    scripts/factory-resolve-reviewer, which lives in a separate repo that
 #    isn't checked out alongside this one.
-#    Fall to the secondary human fallback next, and only then to the final
-#    dannyneira safety net. Never let an empty resolution drop the request.
+#    Fall to HYC, then rachaelrenk, and only then to the final dannyneira
+#    safety net. Never let an empty resolution drop the request.
 #    Track that this was a fallback so step 6 does not report it as an owner
 #    who was requested.
 RESOLUTION_WAS_EMPTY=0
@@ -321,8 +322,21 @@ if [[ -z "$REVIEWERS" ]]; then
   if [[ -n "$REQUESTER_SLACK_ID" ]]; then
     REVIEWERS=$(python3 .agents/skills/create_pr/resolve_reviewer.py --user "$REQUESTER_SLACK_ID")
   fi
-  [[ -z "$REVIEWERS" ]] && REVIEWERS="$SECONDARY_FALLBACK_REVIEWER"
-  [[ -z "$REVIEWERS" ]] && REVIEWERS="$FALLBACK_REVIEWER"
+  FALLBACK_CANDIDATES=()
+  add_fallback_candidate() {
+    local candidate existing
+    candidate="$1"
+    [[ -z "$candidate" ]] && return
+    for existing in "${FALLBACK_CANDIDATES[@]}"; do
+      [[ "$existing" == "$candidate" ]] && return
+    done
+    FALLBACK_CANDIDATES+=("$candidate")
+  }
+  add_fallback_candidate "$REVIEWERS"
+  add_fallback_candidate "$SECONDARY_FALLBACK_REVIEWER"
+  add_fallback_candidate "$TERTIARY_FALLBACK_REVIEWER"
+  add_fallback_candidate "$FALLBACK_REVIEWER"
+  REVIEWERS="${FALLBACK_CANDIDATES[0]}"
   echo "warning: no owner resolved - falling back to $REVIEWERS"
 fi
 
@@ -381,15 +395,12 @@ request_fallback() {
 }
 
 if (( RESOLUTION_WAS_EMPTY )); then
-  request_fallback "$REVIEWERS"
-  if [[ "$REVIEWERS" != "$FALLBACK_REVIEWER" ]] && ! has_reviewer "$REVIEWERS"; then
-    # The settled-on fallback (requester tier or HYC) was rejected - a
-    # rejection at this tier must still reach the final dannyneira safety net
-    # rather than stopping here.
-    echo "warning: $REVIEWERS rejected - advancing to final fallback $FALLBACK_REVIEWER"
-    REVIEWERS="$FALLBACK_REVIEWER"
+  for candidate in "${FALLBACK_CANDIDATES[@]}"; do
+    REVIEWERS="$candidate"
     request_fallback "$REVIEWERS"
-  fi
+    has_reviewer "$REVIEWERS" && break
+    echo "warning: $REVIEWERS rejected - advancing to next fallback"
+  done
 elif [[ -z "$REQUESTED" ]]; then
   request_fallback "$FALLBACK_REVIEWER"
 fi
