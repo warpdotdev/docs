@@ -198,7 +198,7 @@ Musl-based Docker images (such as Alpine Linux) are not supported as task images
 Self-hosted runs have the same observability as Warp-hosted runs:
 
 * **Run history** — View task status, history, and metadata in the {VARS.DASHBOARD}, hosted in the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>, or filter by source and status in the [Agent Management Panel](/platform/managing-cloud-agents/).
-* **Session sharing** — Authorized teammates can attach to running tasks to [monitor progress](/agents/local-agents/session-sharing/).
+* **Session sharing** — Authorized teammates can attach to running tasks to [monitor progress](/platform/viewing-cloud-agent-runs/).
 * **APIs and SDKs** — Query task history and build monitoring using the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/).
 
 For infrastructure-level observability, the `oz-agent-worker` daemon can export OpenTelemetry metrics (worker health, task throughput, capacity saturation) to Prometheus, an OTLP collector, or the console. See [Monitoring](/platform/self-hosting/monitoring/) for setup, the full metric catalog, and sample PromQL queries.
