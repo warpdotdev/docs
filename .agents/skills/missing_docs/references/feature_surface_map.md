@@ -870,6 +870,9 @@ CodeModeChip
 # Internal agent file-search tool plumbing (read tools are not individually documented).
 GrepTool
 NativeShellCompletions
+# Preview ranking experiment for command history search. No dedicated user-facing
+# knob beyond the existing history search UI; re-check when the flag goes GA.
+HistorySearchRankingV2
 SshDragAndDrop
 ITermImages
 AIGeneratedOnboardingSuggestions
