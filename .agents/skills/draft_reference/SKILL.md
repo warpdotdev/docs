@@ -13,7 +13,7 @@ Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **referen
 
 ## Frontmatter description
 
-One sentence, 50-160 characters, saying what the reader can look up. Name the artifacts, not the genre.
+One to two sentences, 50-160 characters, saying what the reader can look up. Name the artifacts, not the genre.
 - ✅ `Look up Warp Agent CLI flags, environment variables, slash commands, and keyboard shortcuts.`
 - ❌ `Reference documentation for the Warp Agent CLI.`
 

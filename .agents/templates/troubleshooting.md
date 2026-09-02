@@ -1,7 +1,7 @@
 ---
 title: [Sentence case. Use "Troubleshooting [feature]" or "Known issues with [feature]". This renders as the page H1 — do not add an H1 in the body.]
 description: >-
-  [One sentence, 50-160 characters: name the symptoms covered, not the act of
+  [One to two sentences, 50-160 characters: name the symptoms covered, not the act of
   troubleshooting. Example: "Fix sign-in failures, failed conversation resumes, and update
   problems in the {{WARP_AGENT_CLI}}."
   Use {{TOKEN}} syntax for product names in src/data/vars.ts.]

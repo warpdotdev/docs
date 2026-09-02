@@ -104,7 +104,7 @@ Use single quotes around setup commands that reference secrets. Double quotes ca
    * The second `--setup-command` with any dependency install or build steps your project requires (for example, `npm ci` or `pip install -r requirements.txt`)
 
 :::caution
-Setup commands run on a fresh container for every agent run. Write them to be idempotent — commands that assume existing state (such as a partially cloned repo or a pre-built cache) can fail unpredictably. See [Environment design and best practices](/platform/environments/#environment-design-and-best-practices) for guidance.
+Setup commands run on a fresh container for every agent run. Write them to be idempotent — commands that assume existing state (such as a partially cloned repo or a pre-built cache) can fail unpredictably. See [environment design and best practices](/platform/environments/configuring-environments/#environment-design-and-best-practices) for guidance.
 :::
 
 3. Note the environment ID returned. You will need it in the next step.
@@ -179,7 +179,7 @@ Use single quotes around setup commands that reference secrets, so `$BITBUCKET_T
    * The second `--setup-command` with any dependency install or build steps your project requires (for example, `npm ci` or `pip install -r requirements.txt`)
 
 :::caution
-Setup commands run on a fresh container for every agent run. Write them to be idempotent — commands that assume existing state (such as a partially cloned repo or a pre-built cache) can fail unpredictably. See [Environment design and best practices](/platform/environments/#environment-design-and-best-practices) for guidance.
+Setup commands run on a fresh container for every agent run. Write them to be idempotent — commands that assume existing state (such as a partially cloned repo or a pre-built cache) can fail unpredictably. See [environment design and best practices](/platform/environments/configuring-environments/#environment-design-and-best-practices) for guidance.
 :::
 
 3. Note the environment ID returned. You will need it in the next step.
