@@ -97,11 +97,11 @@ For more automations that use these filters, including branches, paths, workflow
 
 A [custom webhook](/factories/webhooks/) trigger (`provider: webhook`, `event: received`) binds an automation to one or more webhooks with `webhook_ids`, which takes webhook UIDs and supports only `in`. Its optional `payload` filter is a pattern that mirrors the shape of the delivery's JSON body, so you can route on the payload without running an agent to decide:
 
-* **Keys AND together, and an omitted key matches everything.** `{"action": ["opened"]}` matches any delivery whose `action` is `opened`, whatever else the body contains.
-* **A bare array means any-of.** `["opened", "reopened"]` matches either value. Values are JSON scalars: strings match exactly and case-sensitively, numbers match numerically (`1` equals `1.0`), and booleans and `null` are matchable values.
-* **An operator object refines one field.** `in` is the same as a bare array, `not_in` excludes values, and `exists: true` or `exists: false` requires the key to be present or absent. Operators on the same field AND together.
-* **Objects nest.** A nested pattern object descends into a nested payload object. When the payload value is an array of objects, the nested pattern matches if any element matches; when it's an array of scalars, `in` matches on any overlap and `not_in` requires none.
-* **A missing key fails `in` and passes `not_in`.** A field the payload doesn't carry can't be in any set, so `{"env": {"not_in": ["dev"]}}` matches a delivery with no `env` field. A nested pattern object requires its key to be present.
+* Payload filters match against the webhook's JSON body.
+* Fields are ANDed together: every key in the pattern must match.
+* An array means "match any of these values."
+* `in`, `not_in`, and `exists` are supported as operators on a field.
+* Nested objects let you filter on nested payload fields.
 
 This trigger starts a run for opened or reopened pull requests from a GitHub webhook, skipping drafts and bot authors:
 
@@ -120,9 +120,19 @@ triggers:
             not_in: [Bot]
 ```
 
-A pattern nests up to 10 levels deep, holds up to 64 leaf fields, and lists up to 32 values per set. Warp rejects a pattern that lists the same value in both `in` and `not_in` on one field, or that combines `exists: false` with a non-empty `in`. A filter that can't be evaluated never matches, so a broken filter keeps an automation silent rather than firing it.
-
 In the dashboard, the **Webhook** trigger's JSON editor validates a pattern as you type, and **Test filter** evaluates it against a stored delivery. See [add a Webhook trigger to an automation](/factories/webhooks/#add-a-webhook-trigger-to-an-automation).
+
+For exact matching semantics, limits, and validation rules, see [payload filter reference](#payload-filter-reference).
+
+## Payload filter reference
+
+* **Values match by type.** Strings match exactly and case-sensitively, numbers match numerically (`1` equals `1.0`), and booleans and `null` are matchable values.
+* **A missing key fails `in` and passes `not_in`.** A field the payload doesn't carry can't be in any set, so `{"env": {"not_in": ["dev"]}}` matches a delivery with no `env` field. A nested pattern object requires its key to be present.
+* **Arrays of objects match on any element.** When the payload value is an array of objects, a nested pattern matches if any element matches; when it's an array of scalars, `in` matches on any overlap and `not_in` requires none.
+* **Operators on the same field AND together.** For example, combining `in` and `exists: true` on one field requires both to hold.
+* **Limits** - A pattern nests up to 10 levels deep, holds up to 64 leaf fields, and lists up to 32 values per set.
+* **Validation** - Warp rejects a pattern that lists the same value in both `in` and `not_in` on one field, or that combines `exists: false` with a non-empty `in`.
+* **Fail closed** - A filter that can't be evaluated never matches, so a broken filter keeps an automation silent rather than firing it.
 
 ## Troubleshooting
 
