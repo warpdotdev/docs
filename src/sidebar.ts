@@ -629,6 +629,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// 'Warp-hosted agents' under its own opposite.
 					label: 'Deployment & hosting',
 					items: [
+						{ slug: 'platform/architecture', label: 'Architecture' },
 						{ slug: 'platform/deployment-patterns', label: 'Deployment patterns' },
 						{ slug: 'platform/warp-hosting', label: 'Warp-hosted agents' },
 						// Qualified: a bare 'Overview'/'Quickstart' would now read as the
