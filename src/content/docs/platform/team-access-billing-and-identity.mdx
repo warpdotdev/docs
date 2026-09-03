@@ -221,7 +221,10 @@ How credits are consumed depends on how the agent run is triggered and authentic
 **User-triggered runs** (CLI with personal API key, Slack, Linear, or the Warp app):
 
 * Runs are tied to the triggering user's identity.
-* On Build, Max, and Business plans, credits are consumed starting with any [cloud agent credits](/support-and-community/plans-and-billing/credits/#compute-credits) allocated to the user, then the user's plan-included credits, then the team's shared add-on credit pool.
+* On Build, Max, and Business plans, Warp always drains credits in a fixed order — there is no setting to spend personal credits first while on a team:
+  1. The triggering user's plan-included monthly credits.
+  2. Shared bonus or add-on grants available to the active team (team-wide pool first).
+  3. Any remaining user-scoped bonus grants that apply on that team (for example, leftover personal add-on balances from May–August 2026), only after shared grants are exhausted.
 * On Enterprise plans, runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 
 **Agent API key and scheduled cloud agent runs** (fully automated workflows):
@@ -235,7 +238,7 @@ How credits are consumed depends on how the agent run is triggered and authentic
 For more details on creating and using API keys, see [API Keys](/reference/cli/api-keys/).
 
 :::note
-When a user triggers an agent via Slack or Linear, the run follows the standard credit precedence, starting with any credit grants specifically allocated for cloud agent usage. This applies even for integrations—as long as the triggering user's identity can be mapped to their Warp account.
+When a user triggers an agent via Slack or Linear, the run still follows that same order — plan-included credits first, then shared team grants, then any applicable user-scoped grants — as long as the triggering user's identity can be mapped to their Warp account.
 :::
 
 #### Who configures triggers and workflows
@@ -249,7 +252,7 @@ All triggers and instructions used by cloud agents are defined and controlled by
 
 Because triggers and instructions are configured by your team, the credits consumed when an agent runs are billed according to the model above:
 
-* **Build, Max, Business** - User-triggered runs draw from the triggering user's plan-included credits, then the team's shared add-on credit pool. Agent API key runs and scheduled cloud agent runs are billed to the team owner (the owner's plan-included credits, then the team's shared add-on credit pool, subject to the team-wide spend cap when auto-reload is on).
+* **Build, Max, Business** - User-triggered runs draw from the triggering user's plan-included credits, then shared team grants, then any remaining user-scoped grants. Agent API key runs and scheduled cloud agent runs are billed to the team owner (the owner's plan-included credits, then the team's shared add-on credit pool, subject to the team-wide spend cap when auto-reload is on).
 * **Enterprise** - All runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 
 It's the team's responsibility to manage triggers, confirm they behave as intended, and monitor usage. Reviewing triggers, prompts, and agent behavior periodically helps ensure that credit usage aligns with expectations.

@@ -9,10 +9,10 @@ The `insufficient_credits` error occurs when the principal billed for a cloud ag
 
 On self-serve plans (Build, Max, Business), the billed principal depends on how the run was triggered:
 
-* **User-triggered runs** draw from the triggering user's plan-included credits first, then the team's shared add-on credit pool.
+* **User-triggered runs** draw from the triggering user's plan-included credits first, then shared team add-on grants, then any remaining user-scoped grants that apply on the active team. There is no option to spend personal credits first while on a team.
 * **Agent API key and scheduled runs** draw from the team owner's plan-included credits first, then the team's shared add-on credit pool.
 
-When both are depleted and [auto-reload](/support-and-community/plans-and-billing/add-on-credits/) is off, new runs return this error. On Enterprise plans, runs draw from the team-scoped credit pool per your contract — contact your account manager when the pool is exhausted.
+When those sources are depleted and [auto-reload](/support-and-community/plans-and-billing/add-on-credits/) is off, new runs return this error. On Enterprise plans, runs draw from the team-scoped credit pool per your contract — contact your account manager when the pool is exhausted.
 
 ---
 
