@@ -40,6 +40,16 @@ PROPER_FEATURE_NAMES = {
     "Oz CLI", "Oz Platform", "Project Rules",
     "Slash Commands", "Terminal Mode", "Universal Input", "Warp Drive",
     "Warp Platform", "Automation Platform", "Warp Factories", "Factory MCP",
+    "Computer Use", "Full Terminal Use", "Zero Data Retention", "Single Sign-On",
+    "Blocks", "Block", "Tab Configs", "Tab Config",
+    "Launch Configuration", "Launch Configurations",
+    # Warp's own feature name.
+    "Bring Your Own LLM",
+    # Third-party/technical proper nouns. style_lint's proper-noun protection
+    # is scoped to Warp's own product names by design; these are narrow,
+    # named exceptions rather than a generalization of that scope.
+    "Bitbucket Data Center", "Workload Identity Pool and Provider",
+    "Workload Identity Federation", "Direct backend",
 }
 
 # Terminology: wrong → right (case-sensitive checks)
@@ -448,6 +458,22 @@ def _normalize_link_text(text: str) -> str:
     return text.strip(" \t\n\r.,:;!?()[]{}\"'")
 
 
+def _strip_markdown_destinations(line: str) -> str:
+    """Remove Markdown image/link destination text, keeping the associated
+    human-visible alt/link text in place.
+
+    A destination is a literal filename or URL (e.g. the
+    "Blocklist-with-review-changes.png" in
+    `![Review changes...](../../assets/Blocklist-with-review-changes.png)`),
+    not prose -- casing and deprecated-term checks must not fire on it. The
+    `![alt](...)` / `[text](...)` syntax is identical for images and links,
+    so `](...)` -> `]` strips the destination from both while leaving the
+    bracketed text (and the leading `!` for images) for the surrounding
+    prose checks to scan normally.
+    """
+    return re.sub(r"\]\([^)]*\)", "]", line)
+
+
 def _meaningful_words(text: str) -> List[str]:
     """Return lowercase words that carry semantic meaning for comparisons."""
     stopwords = {"a", "an", "and", "for", "in", "of", "on", "the", "to", "with", "x"}
@@ -569,6 +595,24 @@ def check_ui_element_backticks(lines: List[str], filepath: str) -> List[Issue]:
     return issues
 
 
+# Marks the end of a rendered sentence within a single header/line: a
+# `.`/`!`/`?`, optionally followed by a closing quote or bracket. A header can
+# legitimately contain more than one sentence (e.g. a two-question FAQ title
+# or a comment-hidden boundary), and only the very first word of *each*
+# sentence is sentence-initial -- not just the first word of the whole line.
+_SENTENCE_END_RE = re.compile(r'[.!?]["\')\]]*$')
+
+
+def _sentence_start_indices(words: List[str]) -> set:
+    """Return word indices that start a sentence: index 0, plus any word
+    immediately following another word ending in `.`, `!`, or `?`."""
+    starts = {0}
+    for idx in range(1, len(words)):
+        if _SENTENCE_END_RE.search(words[idx - 1]):
+            starts.add(idx)
+    return starts
+
+
 def _to_sentence_case(text: str) -> str:
     """Convert header text to sentence case, preserving proper feature names and acronyms."""
     skip_words = {"I", "A", "API", "CLI", "SDK", "SSH", "UI", "URL", "PR", "CI", "CD"}
@@ -584,9 +628,11 @@ def _to_sentence_case(text: str) -> str:
                 for j in range(len(fn_words)):
                     protected[start + j] = True
 
+    sentence_starts = _sentence_start_indices(words)
+
     result = []
     for idx, w in enumerate(words):
-        if idx == 0 or protected[idx]:
+        if idx in sentence_starts or protected[idx]:
             result.append(w)
             continue
         clean = re.sub(r"[^a-zA-Z]", "", w)
@@ -615,10 +661,16 @@ def check_header_case(lines: List[str], filepath: str) -> List[Issue]:
         words = text.split()
         if len(words) < 2:
             continue
-        # Count capitalized non-first words (excluding proper feature names, short words)
+        # Count capitalized non-first words (excluding proper feature names,
+        # short words, and the first word of any later sentence in the same
+        # header -- a header can contain more than one sentence, e.g. a
+        # two-question FAQ title, and each one gets its own capitalized start).
         skip_words = {"I", "A", "API", "CLI", "SDK", "SSH", "UI", "URL", "PR", "CI", "CD"}
+        sentence_starts = _sentence_start_indices(words)
         title_case_count = 0
-        for w in words[1:]:
+        for idx, w in enumerate(words):
+            if idx in sentence_starts:
+                continue
             clean = re.sub(r"[^a-zA-Z]", "", w)
             if not clean or clean in skip_words or len(clean) <= 2:
                 continue
@@ -857,33 +909,68 @@ def check_callout_syntax(lines: List[str], filepath: str) -> List[Issue]:
     return issues
 
 
+def _word_bounded_pattern(term: str) -> re.Pattern:
+    """Compile a case-sensitive pattern that only matches `term` as a whole
+    word/phrase, not as a substring of a longer token.
+
+    A plain `str.find` (the previous implementation) matched "agent mode"
+    inside "agent model", since "agent mode" is literally a substring of
+    "agent model" -- and corrupted it into "Agent Model" on `--fix`. A plain
+    `\\b...\\b` regex doesn't fully fix this either: `\\b` requires a
+    transition to/from a word character, which fails for terms ending in
+    punctuation (e.g. "A.I." followed by a space or end of line has no such
+    transition). Lookarounds that only check the adjacent character is not a
+    word character work for both cases regardless of the term's own leading
+    or trailing characters.
+    """
+    return re.compile(r"(?<!\w)" + re.escape(term) + r"(?!\w)")
+
+
+_PRODUCT_CASING_PATTERNS = [
+    (_word_bounded_pattern(wrong), wrong, right, note)
+    for wrong, (right, note) in PRODUCT_CASING.items()
+]
+_EXTERNAL_CASING_PATTERNS = [
+    (_word_bounded_pattern(wrong), wrong, right, note)
+    for wrong, (right, note) in EXTERNAL_CASING.items()
+]
+
+
 def check_product_casing(lines: List[str], filepath: str) -> List[Issue]:
-    """Check for incorrect product name casing."""
+    """Check for incorrect product name casing.
+
+    Tracks complete fenced code blocks (not just a line that happens to start
+    with a backtick) so a wrong-cased term inside a multi-line code fence --
+    e.g. a literal `/Applications/Warp.app/Contents/MacOS/stable` path in a
+    shell snippet -- is left alone as executable/literal text. Markdown
+    image/link destinations are stripped for the same reason: a filename in a
+    link target is not prose, even though the line itself is not code.
+    """
     issues = []
+    in_code_block = False
     for i, line in enumerate(lines, 1):
-        # Skip code blocks
-        if line.strip().startswith("```") or line.strip().startswith("`"):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code_block = not in_code_block
             continue
-        for wrong, (right, note) in PRODUCT_CASING.items():
-            # Case-sensitive search
-            idx = line.find(wrong)
-            while idx != -1:
+        if in_code_block or stripped.startswith("`"):
+            continue
+        prose_line = _strip_markdown_destinations(line)
+        for pattern, wrong, right, note in _PRODUCT_CASING_PATTERNS:
+            for _ in pattern.finditer(prose_line):
                 issues.append(Issue(
                     filepath, i, "product-casing",
                     f"\"{wrong}\" → \"{right}\" ({note})",
                     "warning", fixable=True, fix_from=wrong, fix_to=right,
                 ))
-                idx = line.find(wrong, idx + len(wrong))
 
-        for wrong, (right, note) in EXTERNAL_CASING.items():
-            idx = line.find(wrong)
-            while idx != -1:
+        for pattern, wrong, right, note in _EXTERNAL_CASING_PATTERNS:
+            for _ in pattern.finditer(prose_line):
                 issues.append(Issue(
                     filepath, i, "external-casing",
                     f"\"{wrong}\" → \"{right}\" ({note})",
                     "warning", fixable=True, fix_from=wrong, fix_to=right,
                 ))
-                idx = line.find(wrong, idx + len(wrong))
     return issues
 
 
@@ -914,13 +1001,25 @@ def check_oz_terms(lines: List[str], filepath: str) -> List[Issue]:
 
 
 def check_deprecated_terms(lines: List[str], filepath: str) -> List[Issue]:
-    """Check for deprecated terminology (whitelist/blacklist/blocklist)."""
+    """Check for deprecated terminology (whitelist/blacklist/blocklist).
+
+    Tracks complete fenced code blocks (see check_product_casing) and strips
+    Markdown image/link destinations so a literal filename like
+    "Blocklist-with-review-changes.png" in a link target is not flagged as
+    prose using the deprecated term.
+    """
     issues = []
+    in_code_block = False
     for i, line in enumerate(lines, 1):
-        if line.strip().startswith("```") or line.strip().startswith("`"):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code_block = not in_code_block
             continue
+        if in_code_block or stripped.startswith("`"):
+            continue
+        prose_line = _strip_markdown_destinations(line)
         for pattern, suggestion in DEPRECATED_TERMS:
-            for m in re.finditer(pattern, line, re.IGNORECASE):
+            for m in re.finditer(pattern, prose_line, re.IGNORECASE):
                 issues.append(Issue(
                     filepath, i, "deprecated-term",
                     f"Avoid \"{m.group(0)}\" → {suggestion}",
@@ -1296,11 +1395,16 @@ def check_factory_proper_noun(lines: List[str], filepath: str) -> List[Issue]:
             continue
         if any(phrase in line for phrase in FACTORY_ALLOWED_PHRASES):
             continue
-        # Strip inline code, link targets, and HTML/JSX attributes: a slug like
-        # `/factories/factory-as-code/` or an `alt="..."` value is not prose.
+        # Strip inline code, link targets, HTML/JSX attributes, and JSX/MDX
+        # comments: a slug like `/factories/factory-as-code/` or an
+        # `alt="..."` value is not prose, and a `{/* ... */}` comment renders
+        # to nothing, so the text right after one is not mid-sentence just
+        # because the raw source has no space/punctuation there -- the actual
+        # sentence boundary can be hidden inside the stripped comment.
         prose = re.sub(r"`[^`]*`", "", line)
         prose = re.sub(r"\]\([^)]*\)", "]", prose)
         prose = re.sub(r'\w+="[^"]*"', "", prose)
+        prose = re.sub(r"\{/\*.*?\*/\}", "", prose)
         for m in FACTORY_BARE.finditer(prose):
             before = prose[:m.start()]
             after = prose[m.end():]
