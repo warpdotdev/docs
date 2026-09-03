@@ -71,7 +71,7 @@ A benchmark compares configurations of a single agent on the same fixed tasks, s
 * **Scorers** - Your classification Scorers, applied to every trial.
 * **Repetitions** - The number of trials per task and configuration.
 
-You can create a benchmark task from a completed run's detail pane, and Warp copies the run's input into the task. Add success criteria before you launch.
+You can create a benchmark task from a completed run's detail pane, and Warp copies the run's input into the task. Add success criteria before you launch. For suites and tasks defined as files in a factory definition, see the [`benchmarks/` syntax](/factories/factory-as-code/#benchmarkssuite-slugsuiteyaml).
 
 Every benchmark also runs **Correctness**, a built-in Scorer that marks each trial as pass or fail against the task's success criteria. Results show pass rates, cost, and quality for each configuration, with per-task detail. Warp doesn't combine these signals into one score or pick a winner; you weigh the results and decide. Benchmark credit totals don't include model usage, so the true cost is higher.
 
