@@ -835,6 +835,10 @@
       "description": "History Search"
     },
     {
+      "name": "workspace:trigger_external_ctrl_t_file_search",
+      "description": "External File Search"
+    },
+    {
       "name": "input:toggle_workflows",
       "description": "Workflows"
     },
@@ -1524,6 +1528,6 @@
     }
   ],
   "source_repository": "warpdotdev/warp",
-  "source_sha": null,
-  "generated_at": "2026-08-26T17:34:04.788992+00:00"
+  "source_sha": "c3c397d6c0c7c2566d0a30329fef46f71b74fa30",
+  "generated_at": "2026-09-03T18:21:12.785789+00:00"
 }

@@ -1224,6 +1224,21 @@ def _fixes_already_in_pr(
 
 
 def _pr_body(fixes: List[Dict[str, Any]], repo_root: Path) -> str:
+    # This PR is a real, direct PR-creation code path (not delegated to
+    # create_pr), so it carries the same v1 doc-quality contract sections
+    # every other PR-producing skill does. It is mechanically `low` risk: an
+    # auto-fix only ever changes UI-reference casing/formatting to match an
+    # already-canonical name in valid_paths.json, never product meaning.
+    contract = (
+        "## Documentation risk\n"
+        "Risk: low\n"
+        "Rationale: Mechanical UI-reference casing/formatting fixes only, applied by "
+        "validate_ui_refs against the committed valid_paths.json snapshot; no product "
+        "meaning changes.\n"
+        "Docs override: none\n\n"
+        "## Unverified claims\n"
+        "None \u2014 every fix corrects formatting/casing to an already-canonical name."
+    )
     return (
         "## Summary\n"
         f"Auto-fixed {len(fixes)} UI reference issue(s) found by the `validate_ui_refs` skill.\n\n"
@@ -1233,7 +1248,7 @@ def _pr_body(fixes: List[Dict[str, Any]], repo_root: Path) -> str:
             f"`{f['old']}` → `{f['new']}`"
             for f in fixes
         )
-        + "\n\nCo-Authored-By: Warp <agent@warp.dev>"
+        + f"\n\n{contract}\n\nCo-Authored-By: Warp <agent@warp.dev>"
     )
 
 
@@ -1290,7 +1305,7 @@ def _update_existing_pr(
             body_file = tmp.name
         try:
             subprocess.run(
-                ["gh", "pr", "edit", str(pr_number), "--body-file", body_file],
+                ["gh", "pr", "edit", str(pr_number), "--body-file", body_file, "--add-label", "warpy-factory"],
                 cwd=repo_root,
                 check=True,
             )
@@ -1359,6 +1374,7 @@ def create_pr(fixes: List[Dict[str, Any]], repo_root: Path) -> Tuple[Optional[st
                     "--title", f"docs: fix {len(fixes)} UI reference issue(s)",
                     "--body-file", body_file,
                     "--draft",
+                    "--label", "warpy-factory",
                 ],
                 cwd=repo_root,
                 capture_output=True,
@@ -2237,6 +2253,12 @@ def main() -> int:
         help="Scan only files changed vs origin/main...HEAD (required CI scope; "
              "fails rather than falling back to a full scan when the diff can't be resolved)",
     )
+    parser.add_argument(
+        "--require-provenance", action="store_true",
+        help="Fail if the committed snapshot's source_repository/source_sha are missing. A "
+             "refresh failure must never silently advance provenance, so the required CI gate "
+             "passes this rather than trusting an unknown client revision.",
+    )
     parser.add_argument("--refresh-valid-paths", action="store_true", help="Re-extract from the warp client repo")
     parser.add_argument(
         "--warp",
@@ -2296,6 +2318,14 @@ def main() -> int:
         f"Trusted snapshot: source={snapshot_repo}@{snapshot_sha} "
         f"generated_at={snapshot_generated_at}"
     )
+    if args.require_provenance and (snapshot_repo == "unknown" or snapshot_sha == "unknown"):
+        print(
+            "Error: --require-provenance was set but the committed snapshot has incomplete "
+            "provenance (source_repository/source_sha). Refresh and commit a verified snapshot "
+            "before this gate can trust it -- an unknown client revision is not silently accepted.",
+            file=sys.stderr,
+        )
+        return 1
 
     # Scan docs
     docs_dir = Path(args.docs_dir)

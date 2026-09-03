@@ -178,6 +178,7 @@ PR body must include:
 - The broken URL, hit count, proposed destination, and confidence reason for each redirect
 - The hit threshold used (`hits_this_week >= N`)
 - A note that MEDIUM-confidence suggestions are in the Slack message and require human review before adding
+- The shared v1 agent-doc quality contract's `warpy-factory` label and `## Documentation risk` section (see `.agents/references/doc-quality-policy.md`; build the block with `.agents/skills/doc_quality_policy/finalize_pr_contract.py build`). A redirect-only change to `vercel.json` adds no product-meaning claim, so it is `low` risk under the allowlist.
 
 Run `python3 .agents/skills/check_for_broken_links/check_links.py --internal-only` after editing `vercel.json` to catch any malformed destinations.
 

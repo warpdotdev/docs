@@ -101,6 +101,39 @@ class TestEngineeringReviewCompletion(unittest.TestCase):
         self.assertAlmostEqual(eng["completion_rates"]["source_owner_approval"], 1 / 3, places=4)
 
 
+class TestGatePassRate(unittest.TestCase):
+    def test_all_passed_required_checks_true_when_every_pr_passes(self):
+        records = [_record(pr="1"), _record(pr="2")]  # check_outcome=pass, review_outcome=approve by default
+        report = cm.compute_metrics(records, date(2026, 1, 1), date(2026, 1, 31))
+        self.assertEqual(report["prs_with_passing_checks"], 2)
+        self.assertTrue(report["all_passed_required_checks"])
+
+    def test_all_passed_required_checks_false_when_one_pr_failed_checks(self):
+        records = [_record(pr="1"), _record(pr="2", check_outcome="fail")]
+        report = cm.compute_metrics(records, date(2026, 1, 1), date(2026, 1, 31))
+        self.assertEqual(report["prs_with_passing_checks"], 1)
+        self.assertFalse(report["all_passed_required_checks"])
+
+    def test_failed_check_still_counts_as_complete_gate_coverage(self):
+        # A failed check is data, not missing data -- coverage tracks
+        # whether the gate reported an outcome, separately from whether it passed.
+        records = [_record(pr="1", check_outcome="fail")]
+        report = cm.compute_metrics(records, date(2026, 1, 1), date(2026, 1, 31))
+        self.assertEqual(report["prs_with_complete_gate_coverage"], 1)
+        self.assertEqual(report["gate_coverage_missing_data_count"], 0)
+        self.assertFalse(report["all_passed_required_checks"])
+
+    def test_request_changes_review_outcome_is_not_passing(self):
+        records = [_record(pr="1", review_outcome="request_changes")]
+        report = cm.compute_metrics(records, date(2026, 1, 1), date(2026, 1, 31))
+        self.assertEqual(report["prs_with_passing_checks"], 0)
+        self.assertFalse(report["all_passed_required_checks"])
+
+    def test_no_in_scope_prs_is_not_trivially_all_passed(self):
+        report = cm.compute_metrics([], date(2026, 1, 1), date(2026, 1, 31))
+        self.assertFalse(report["all_passed_required_checks"])
+
+
 class TestReproducibility(unittest.TestCase):
     def test_running_twice_over_frozen_dates_is_byte_equivalent(self):
         records = [
@@ -121,11 +154,13 @@ class TestReproducibility(unittest.TestCase):
 
 
 class TestOutcomeEvaluation(unittest.TestCase):
-    def _report(self, in_scope, comments_mean, churn_mean):
+    def _report(self, in_scope, comments_mean, churn_mean, all_passed_required_checks=True):
         return {
             "in_scope_prs": in_scope,
             "human_review_comments": {"per_pr": {"mean": comments_mean}},
             "human_edit_churn_ratio": {"mean": churn_mean},
+            "all_passed_required_checks": all_passed_required_checks,
+            "prs_with_passing_checks": in_scope if all_passed_required_checks else in_scope - 1,
         }
 
     def test_small_sample_is_inconclusive(self):
@@ -151,6 +186,15 @@ class TestOutcomeEvaluation(unittest.TestCase):
         current = self._report(12, 3.0, 0.2)
         outcome = cm.evaluate_outcome(baseline, current)
         self.assertEqual(outcome["result"], "fail")
+
+    def test_fail_when_not_every_current_pr_passed_required_checks(self):
+        # Regression: comments/churn improving must not paper over a PR that
+        # didn't actually pass the required editorial/technical/review gates.
+        baseline = self._report(12, 3.0, 0.3)
+        current = self._report(12, 1.0, 0.1, all_passed_required_checks=False)
+        outcome = cm.evaluate_outcome(baseline, current)
+        self.assertEqual(outcome["result"], "fail")
+        self.assertIn("passed the required", outcome["reason"])
 
 
 if __name__ == "__main__":

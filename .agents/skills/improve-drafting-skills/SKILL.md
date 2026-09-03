@@ -330,6 +330,24 @@ the standing signal-log branch/PR flow above, alongside
 `.agents/logs/agent_doc_quality_baseline.md`, which records the exact window
 dates and report file used for each.
 
+`scripts/build_baseline_records.py` converts the existing per-comment
+`.agents/logs/human_review_feedback.jsonl` signal log into the per-PR record
+shape `compute_metrics.py` expects, resolving each PR's agent-vs-human line
+split from live `gh pr view --json additions,deletions` data:
+
+```bash
+python3 .agents/skills/improve-drafting-skills/scripts/build_baseline_records.py \
+  --repo warpdotdev/docs --input .agents/logs/human_review_feedback.jsonl \
+  --start 2026-08-01 --end 2026-08-30 --output /tmp/baseline-records.jsonl
+```
+
+The pre-rollout baseline (2026-08-01 to 2026-08-30, 62 PRs) is already
+captured this way in `.agents/logs/agent_doc_quality_baseline.md` and
+`.agents/logs/baseline/`. Compute the post-rollout comparison the same way
+once enough post-rollout data exists, passing `--baseline
+.agents/logs/baseline/pre-rollout-2026-08-01-to-2026-08-30-report.json` to
+get the `day_30_outcome` verdict.
+
 Pass `--baseline baseline-report.json` when computing the post-rollout report
 to also emit `day_30_outcome` (`pass`, `fail`, or `inconclusive-small-sample`
 per `evaluate_outcome()` — product behavior #17). A window with fewer than 10

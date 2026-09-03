@@ -365,13 +365,20 @@ def validate_engineering_gate(
         problems.append(f"docs override ({override_mode}) missing required field(s): {missing}")
         return problems
 
-    if authorized_docs_reviewers and risk_section.override_reviewer not in authorized_docs_reviewers:
+    # No truthy-guard on `authorized_docs_reviewers`: an empty allowlist (a
+    # failed or unavailable trusted-ref lookup) must fail closed -- treated
+    # as "no one is authorized" -- never as "the allowlist check is skipped".
+    if risk_section.override_reviewer not in authorized_docs_reviewers:
         problems.append(
             f"docs override author {risk_section.override_reviewer!r} is not an "
             "authorized Pod-Docs reviewer"
         )
 
-    if current_head_sha and risk_section.override_head_sha != current_head_sha:
+    if not current_head_sha:
+        problems.append(
+            "cannot verify docs override freshness: no current head SHA was supplied"
+        )
+    elif risk_section.override_head_sha != current_head_sha:
         problems.append(
             f"docs override head SHA {risk_section.override_head_sha!r} does not match "
             f"the current head {current_head_sha!r}; a new commit invalidates the override"

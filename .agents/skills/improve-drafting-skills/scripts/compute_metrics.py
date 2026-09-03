@@ -101,10 +101,21 @@ def compute_metrics(records: List[Dict[str, Any]], start: date, end: date) -> Di
     )
 
     in_scope_count = len(window_records)
+    # "Complete gate coverage" means every required check reported an actual
+    # outcome (data completeness) -- it does NOT mean the checks passed. A
+    # failed check_outcome still counts as coverage here; whether it *passed*
+    # is tracked separately by `prs_with_passing_checks` and is the only
+    # input `evaluate_outcome()`'s all-required-checks-passed rule may use.
     complete_gate_coverage = sum(
         1 for r in window_records
         if r.get("check_outcome") in ("pass", "fail") and r.get("review_outcome") != "unknown"
     )
+    passing_gate_records = [
+        r for r in window_records
+        if r.get("check_outcome") == "pass" and r.get("review_outcome") in ("approve", "approve_with_nits")
+    ]
+    prs_with_passing_checks = len(passing_gate_records)
+    all_passed_required_checks = in_scope_count > 0 and prs_with_passing_checks == in_scope_count
 
     critical_total = sum(int(r.get("review_critical", 0) or 0) for r in window_records)
     important_total = sum(int(r.get("review_important", 0) or 0) for r in window_records)
@@ -144,6 +155,8 @@ def compute_metrics(records: List[Dict[str, Any]], start: date, end: date) -> Di
         "in_scope_prs": in_scope_count,
         "prs_with_complete_gate_coverage": complete_gate_coverage,
         "gate_coverage_missing_data_count": in_scope_count - complete_gate_coverage,
+        "prs_with_passing_checks": prs_with_passing_checks,
+        "all_passed_required_checks": all_passed_required_checks,
         "review_findings": {
             "critical_total": critical_total,
             "important_total": important_total,
@@ -175,7 +188,11 @@ def compute_metrics(records: List[Dict[str, Any]], start: date, end: date) -> Di
 def evaluate_outcome(baseline: Dict[str, Any], current: Dict[str, Any]) -> Dict[str, Any]:
     """Evaluate the day-30 outcome rule against a completed baseline report.
 
-    Returns one of `pass`, `fail`, or `inconclusive-small-sample`.
+    Returns one of `pass`, `fail`, or `inconclusive-small-sample`. Success
+    requires every in-scope current-window PR to have carried the marker and
+    passed the required editorial/technical/agent-review checks, in addition
+    to the comment/churn comparison -- a regression in either dimension is a
+    `fail`, not a partial pass.
     """
     for label, report in (("baseline", baseline), ("current", current)):
         if report["in_scope_prs"] < MIN_SAMPLE_SIZE:
@@ -185,6 +202,16 @@ def evaluate_outcome(baseline: Dict[str, Any], current: Dict[str, Any]) -> Dict[
                           f"(minimum {MIN_SAMPLE_SIZE}); extend collection to 10 PRs or 60 days, "
                           "whichever comes first.",
             }
+
+    if not current.get("all_passed_required_checks"):
+        return {
+            "result": "fail",
+            "reason": (
+                f"only {current.get('prs_with_passing_checks', 0)}/{current['in_scope_prs']} "
+                "in-scope PRs in the current window passed the required editorial, technical, "
+                "and agent-review checks; all in-scope PRs must pass."
+            ),
+        }
 
     baseline_comments = baseline["human_review_comments"]["per_pr"]["mean"]
     current_comments = current["human_review_comments"]["per_pr"]["mean"]

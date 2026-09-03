@@ -376,6 +376,47 @@ class TestEngineeringGate(unittest.TestCase):
         )
         self.assertTrue(problems)
 
+    def test_empty_authorized_list_fails_closed_instead_of_skipping_the_check(self):
+        # A PR-controlled or unavailable allowlist lookup must never be read
+        # as "anyone may author an override" -- regression for a bypass where
+        # an empty list silently skipped the authorization check.
+        risk = self._risk(
+            docs_override="docs-verified",
+            override_reviewer="random-person",
+            override_reason="Confirmed.",
+            override_evidence="app/src/cli/args.rs@abc",
+            override_head_sha="sha1",
+        )
+        problems = policy.validate_engineering_gate(
+            risk,
+            current_head_sha="sha1",
+            authorized_docs_reviewers=(),
+            deterministic_checks_passed=True,
+            has_unresolved_critical_or_important_finding=False,
+            source_owner_approved_current_head=False,
+        )
+        self.assertTrue(any("not an authorized" in p for p in problems))
+
+    def test_override_with_no_current_head_sha_fails_closed(self):
+        # Regression for a bypass where omitting current_head_sha entirely
+        # skipped the staleness check rather than failing it.
+        risk = self._risk(
+            docs_override="docs-verified",
+            override_reviewer="hongyi-chen",
+            override_reason="Confirmed.",
+            override_evidence="app/src/cli/args.rs@abc",
+            override_head_sha="sha1",
+        )
+        problems = policy.validate_engineering_gate(
+            risk,
+            current_head_sha=None,
+            authorized_docs_reviewers=["hongyi-chen"],
+            deterministic_checks_passed=True,
+            has_unresolved_critical_or_important_finding=False,
+            source_owner_approved_current_head=False,
+        )
+        self.assertTrue(any("no current head SHA" in p for p in problems))
+
 
 class TestFullContractValidation(unittest.TestCase):
     def test_missing_documentation_risk_section(self):

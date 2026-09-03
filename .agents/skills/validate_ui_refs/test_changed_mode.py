@@ -12,7 +12,10 @@ Run:
 from __future__ import annotations
 
 import importlib.util
+import json
+import os
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -126,6 +129,50 @@ class TestFindChangedMdFiles(unittest.TestCase):
                     vur.find_changed_md_files(docs_dir)
             finally:
                 os.chdir(old_cwd)
+
+
+class TestRequireProvenanceFlag(unittest.TestCase):
+    """Regression for the required-CI-gate fail-closed rule: an incomplete
+    snapshot (missing source_repository/source_sha) must not be silently
+    trusted just because scanning found no other issues.
+    """
+
+    def _run_with_snapshot(self, valid_paths: dict) -> int:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = _init_repo_with_main_and_changes(Path(tmp))
+            valid_paths_file = repo / "valid_paths.json"
+            valid_paths_file.write_text(json.dumps(valid_paths), encoding="utf-8")
+            docs_dir = repo / "src" / "content" / "docs"
+            old_argv = sys.argv
+            sys.argv = [
+                "validate_ui_refs.py", "--changed", "--require-provenance",
+                "--docs-dir", str(docs_dir), "--valid-paths", str(valid_paths_file),
+            ]
+            old_cwd = os.getcwd()
+            os.chdir(repo)
+            try:
+                return vur.main()
+            finally:
+                sys.argv = old_argv
+                os.chdir(old_cwd)
+
+    def test_missing_provenance_fails_closed(self):
+        exit_code = self._run_with_snapshot({"settings_sections": {}, "generated_at": "2026-01-01T00:00:00Z"})
+        self.assertEqual(exit_code, 1)
+
+    def test_null_source_sha_fails_closed(self):
+        exit_code = self._run_with_snapshot({
+            "settings_sections": {}, "source_repository": "warpdotdev/warp",
+            "source_sha": None, "generated_at": "2026-01-01T00:00:00Z",
+        })
+        self.assertEqual(exit_code, 1)
+
+    def test_complete_provenance_passes(self):
+        exit_code = self._run_with_snapshot({
+            "settings_sections": {}, "source_repository": "warpdotdev/warp",
+            "source_sha": "abc123", "generated_at": "2026-01-01T00:00:00Z",
+        })
+        self.assertEqual(exit_code, 0)
 
 
 class TestSnapshotProvenance(unittest.TestCase):

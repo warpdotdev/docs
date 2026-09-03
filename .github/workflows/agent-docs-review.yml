@@ -107,3 +107,19 @@ jobs:
             exit 1
           fi
           echo "Oz run completed successfully."
+
+      # A successful agent process is not proof a review was actually
+      # published: the process could exit 0 after erroring internally, post
+      # to the wrong PR, or run against a since-superseded head. Fail this
+      # required check unless the authoritative GitHub review list shows a
+      # real review at the exact current head SHA that does not request
+      # changes -- so a stale, missing, or Request changes review cannot
+      # leave "Agent docs review" green.
+      - name: Verify a current, non-blocking review was actually published
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 .agents/skills/doc_quality_policy/verify_review_signal.py \
+            --repo "${{ github.repository }}" \
+            --pr "${{ github.event.pull_request.number }}" \
+            --head-sha "${{ github.event.pull_request.head.sha }}"

@@ -2,6 +2,12 @@ name: CI
 
 on:
   pull_request:
+    # Non-agent PRs are exempt from the agent-contract sections (see the
+    # "Check documentation-risk PR contract" step below), so the default
+    # trigger types are not enough on their own. `edited` re-runs the check
+    # when the finalizer repairs the PR body without pushing a new commit;
+    # `labeled` re-runs it when `warpy-factory` is applied after PR open.
+    types: [opened, synchronize, reopened, ready_for_review, edited, labeled]
   push:
     branches: [main]
 
@@ -46,7 +52,7 @@ jobs:
       # formatting against the committed valid_paths.json snapshot. Uses the
       # committed snapshot only — no warpdotdev/warp checkout required.
       - name: Validate changed UI references
-        run: python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --changed
+        run: python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --changed --require-provenance
 
       # Doc-quality policy unit tests (risk allowlist, VERIFY accounting,
       # override boundaries, PR-contract validation).
@@ -55,26 +61,36 @@ jobs:
           python3 .agents/skills/doc_quality_policy/test_policy.py
           python3 .agents/skills/doc_quality_policy/test_check_pr_contract.py
           python3 .agents/skills/doc_quality_policy/test_check_compression_contract.py
+          python3 .agents/skills/doc_quality_policy/test_verify_review_signal.py
           python3 .agents/skills/doc_quality_policy/test_manifest.py
 
       - name: Test validate_ui_refs --changed mode and snapshot provenance
         run: python3 .agents/skills/validate_ui_refs/test_changed_mode.py
 
       - name: Test improve-drafting-skills metrics command
-        run: python3 .agents/skills/improve-drafting-skills/scripts/test_compute_metrics.py
+        run: |
+          python3 .agents/skills/improve-drafting-skills/scripts/test_compute_metrics.py
+          python3 .agents/skills/improve-drafting-skills/scripts/test_build_baseline_records.py
 
       # PR-contract check: unlisted VERIFY markers, missing/invalid risk
-      # section. On a pull_request event this validates against the actual
-      # PR body; push-to-main runs (no open PR) skip gracefully since there
-      # is no PR body to fetch.
+      # section. Only agent-marked PRs carry this contract (see
+      # doc-quality-policy.md) — an ordinary human docs PR has no
+      # "## Documentation risk" section and must not be failed for lacking
+      # one, so this step is scoped to `warpy-factory` PRs. A push-to-main
+      # run (no open PR) also has nothing to check.
       - name: Check documentation-risk PR contract
-        if: github.event_name == 'pull_request'
+        if: >-
+          github.event_name == 'pull_request' &&
+          contains(github.event.pull_request.labels.*.name, 'warpy-factory')
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh pr view "${{ github.event.pull_request.number }}" --json body --jq .body > /tmp/pr-body.md
           python3 .agents/skills/doc_quality_policy/check_pr_contract.py \
-            --body /tmp/pr-body.md --head-sha "${{ github.event.pull_request.head.sha }}"
+            --body /tmp/pr-body.md \
+            --repo "${{ github.repository }}" \
+            --pr "${{ github.event.pull_request.number }}" \
+            --head-sha "${{ github.event.pull_request.head.sha }}"
 
   build:
     name: Build, link-check, audit
