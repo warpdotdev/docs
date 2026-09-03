@@ -19,6 +19,7 @@ import { VARS } from './data/vars';
  */
 export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 		{
+			id: 'terminal',
 			label: 'Terminal',
 			link: '/',
 			icon: 'laptop',
@@ -161,7 +162,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'terminal/warpify', label: 'Overview' },
 								{ slug: 'terminal/warpify/subshells', label: 'Warpify subshells' },
 								{ slug: 'terminal/warpify/ssh', label: 'SSH with Warp features' },
-								{ slug: 'terminal/warpify/ssh-legacy', label: 'Legacy SSH wrapper' },
+								// ssh-legacy is intentionally omitted: it's a fallback page linked
+								// from the SSH page rather than surfaced as a co-equal nav item.
 							],
 						},
 						{
