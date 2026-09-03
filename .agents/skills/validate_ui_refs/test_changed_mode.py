@@ -19,6 +19,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 _HERE = Path(__file__).resolve().parent
 _spec = importlib.util.spec_from_file_location("validate_ui_refs", _HERE / "validate_ui_refs.py")
@@ -194,6 +195,22 @@ class TestSnapshotProvenance(unittest.TestCase):
 
     def test_resolve_source_sha_missing_repo_returns_none(self):
         self.assertIsNone(vur._resolve_source_sha(Path("/nonexistent/path/xyz")))
+
+    def test_refresh_preserves_existing_source_sha_when_git_resolution_fails(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / "valid_paths.json"
+            output.write_text(
+                json.dumps({"source_repository": "warpdotdev/warp", "source_sha": "trusted-sha"}),
+                encoding="utf-8",
+            )
+            with mock.patch.object(vur, "_extract_settings_sections", return_value={}), \
+                 mock.patch.object(vur, "_extract_command_palette_commands", return_value={}), \
+                 mock.patch.object(vur, "_extract_umbrellas", return_value={}), \
+                 mock.patch.object(vur, "_resolve_source_repository", return_value=None), \
+                 mock.patch.object(vur, "_resolve_source_sha", return_value=None):
+                vur.refresh_valid_paths(Path(tmp) / "missing-warp", output)
+            refreshed = json.loads(output.read_text(encoding="utf-8"))
+            self.assertEqual(refreshed["source_sha"], "trusted-sha")
 
     def test_resolve_source_repository_parses_https_remote(self):
         with tempfile.TemporaryDirectory() as tmp:

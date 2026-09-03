@@ -69,10 +69,14 @@ never inferred from the absence of an obvious error.
 A PR is `low` risk only when **all** of the following hold:
 
 - It does not add a page about a new or materially changed feature or workflow.
-- It preserves product meaning and changes only spelling, grammar, tone,
-  formatting, descriptive links/cross-links to existing canonical pages,
-  search metadata, or generated changelog/license/telemetry data whose
-  source-verification script passed.
+- It is either:
+  - a product-meaning-preserving edit limited to spelling, grammar, tone,
+    formatting, descriptive links/cross-links to existing canonical pages,
+    search metadata, or generated changelog/license/telemetry data whose
+    source-verification script passed; or
+  - internal Docs-team tooling, skill, or CI workflow maintenance that makes
+    no public product claim and does not change the behavior of a
+    developer-facing command, API, setting, or integration.
 - It does not add or change: commands, code or configuration examples, API
   behavior, UI labels or paths, defaults, permissions, availability or
   platform support, plan eligibility, billing behavior, security or privacy
@@ -82,7 +86,8 @@ A PR is `low` risk only when **all** of the following hold:
 
 Every other content PR is `engineering-review-required`, including all new or
 materially changed feature docs and any change to the technical claim
-categories above.
+categories above. When the change cannot be shown to fit one of these
+low-risk categories, classify it as `engineering-review-required`.
 
 ## Human gate
 
@@ -109,6 +114,11 @@ an unlisted `VERIFY` marker, or an unresolved critical/important
 `review-docs-pr` finding. A new head commit invalidates both a prior
 engineering approval and a prior docs-team override — both must be re-recorded
 against the new head.
+
+The required push-time PR-contract check validates only the risk metadata and
+VERIFY accounting. It does not fail a draft PR merely because its requested
+human approval is still pending; `.github/workflows/docs-engineering-approval.yml`
+evaluates the human gate using current GitHub review data.
 
 ## VERIFY marker accounting
 
@@ -169,13 +179,12 @@ Actionable review feedback may start with one of exactly three tags:
 
 Every skill in this list must apply the `warpy-factory` marker and the
 `## Documentation risk` section before requesting review. See
-`.agents/skills/doc_quality_policy/test_policy.py::test_manifest_skills_reference_the_shared_contract`
+`.agents/skills/doc_quality_policy/test_manifest.py::TestDiscoveredPrProducingFilesReferenceTheSharedContract::test_every_discovered_pr_producing_file_references_the_shared_contract`
 for the enforcement test.
 
 - `create_pr` (the shared finalization path most drafting skills use)
-- `draft_docs` (and its type-specific skills: `draft_conceptual`,
-  `draft_procedural`, `draft_quickstart`, `draft_reference`,
-  `draft_troubleshooting`, `draft_faq`, `draft_guide`, `draft_feature_doc`)
+- `draft_docs` (including type-specific drafting templates that route their
+  PR creation through it)
 - `release_updates`
 - `missing_docs`
 - `aeo_crosslink_audit`

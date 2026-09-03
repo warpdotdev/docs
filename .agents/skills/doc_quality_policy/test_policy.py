@@ -122,6 +122,10 @@ class TestClassifyRisk(unittest.TestCase):
         signals = policy.RiskSignals.all_clear()
         self.assertEqual(policy.classify_risk(signals), policy.RISK_LOW)
 
+    def test_docs_workflow_tooling_with_no_product_claims_is_low_risk(self):
+        signals = policy.RiskSignals.all_clear(is_docs_workflow_tooling_only=True)
+        self.assertEqual(policy.classify_risk(signals), policy.RISK_LOW)
+
     def test_every_allowlist_trigger_forces_engineering_review(self):
         trigger_fields = [
             "adds_new_or_changed_feature_page",
@@ -241,6 +245,7 @@ class TestEngineeringGate(unittest.TestCase):
             deterministic_checks_passed=True,
             has_unresolved_critical_or_important_finding=False,
             source_owner_approved_current_head=False,
+            approved_reviewers_current_head=["hongyi-chen"],
         )
         self.assertEqual(problems, [])
 
@@ -259,9 +264,27 @@ class TestEngineeringGate(unittest.TestCase):
             deterministic_checks_passed=True,
             has_unresolved_critical_or_important_finding=False,
             source_owner_approved_current_head=False,
+            approved_reviewers_current_head=["rachaelrenk"],
         )
         self.assertEqual(problems, [])
 
+    def test_override_requires_the_named_reviewer_to_approve_the_current_head(self):
+        risk = self._risk(
+            docs_override="docs-verified",
+            override_reviewer="hongyi-chen",
+            override_reason="Confirmed.",
+            override_evidence="app/src/cli/args.rs@abc",
+            override_head_sha="sha1",
+        )
+        problems = policy.validate_engineering_gate(
+            risk,
+            current_head_sha="sha1",
+            authorized_docs_reviewers=["hongyi-chen"],
+            deterministic_checks_passed=True,
+            has_unresolved_critical_or_important_finding=False,
+            source_owner_approved_current_head=False,
+        )
+        self.assertTrue(any("has not approved" in p for p in problems))
     def test_override_missing_field_fails(self):
         risk = self._risk(
             docs_override="docs-verified",
@@ -438,6 +461,28 @@ class TestFullContractValidation(unittest.TestCase):
         )
         problems = policy.validate_pr_contract(body, [])
         self.assertTrue(any("invalid risk level" in p for p in problems))
+
+    def test_pending_engineering_review_is_valid_for_structural_ci(self):
+        body = (
+            "## Documentation risk\nRisk: engineering-review-required\n"
+            "Rationale: documents a new CLI flag.\nDocs override: none\n\n"
+            "## Unverified claims\nNone\n"
+        )
+        self.assertEqual(policy.validate_pr_contract(body, []), [])
+
+    def test_explicit_human_gate_rejects_pending_engineering_review(self):
+        body = (
+            "## Documentation risk\nRisk: engineering-review-required\n"
+            "Rationale: documents a new CLI flag.\nDocs override: none\n\n"
+            "## Unverified claims\nNone\n"
+        )
+        problems = policy.validate_pr_contract(
+            body,
+            [],
+            current_head_sha="sha1",
+            enforce_engineering_gate=True,
+        )
+        self.assertTrue(any("no source-owner approval" in p for p in problems))
 
 
 if __name__ == "__main__":

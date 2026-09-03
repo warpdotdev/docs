@@ -89,6 +89,7 @@ class TestCheckPrContractCli(unittest.TestCase):
             cpc.main([
                 "--body", str(body), str(content), "--head-sha", "deadbeef",
                 "--authorized-reviewers-file", str(authorized),
+                "--enforce-engineering-gate", "--approved-reviewer", "hongyi-chen",
             ]), 0,
         )
 
@@ -106,6 +107,7 @@ class TestCheckPrContractCli(unittest.TestCase):
             cpc.main([
                 "--body", str(body), str(content), "--head-sha", "new-sha",
                 "--authorized-reviewers-file", str(authorized),
+                "--enforce-engineering-gate", "--approved-reviewer", "hongyi-chen",
             ]), 1,
         )
 
@@ -126,6 +128,7 @@ class TestCheckPrContractCli(unittest.TestCase):
             cpc.main([
                 "--body", str(body), str(content), "--head-sha", "deadbeef",
                 "--authorized-reviewers-ref", "refs/does-not-exist",
+                "--enforce-engineering-gate", "--approved-reviewer", "hongyi-chen",
             ]), 1,
         )
 

@@ -123,6 +123,13 @@ class TestGatePassRate(unittest.TestCase):
         self.assertEqual(report["gate_coverage_missing_data_count"], 0)
         self.assertFalse(report["all_passed_required_checks"])
 
+    def test_missing_review_outcome_is_incomplete_gate_coverage(self):
+        record = _record(pr="1")
+        del record["review_outcome"]
+        report = cm.compute_metrics([record], date(2026, 1, 1), date(2026, 1, 31))
+        self.assertEqual(report["prs_with_complete_gate_coverage"], 0)
+        self.assertEqual(report["gate_coverage_missing_data_count"], 1)
+
     def test_request_changes_review_outcome_is_not_passing(self):
         records = [_record(pr="1", review_outcome="request_changes")]
         report = cm.compute_metrics(records, date(2026, 1, 1), date(2026, 1, 31))
@@ -161,6 +168,8 @@ class TestOutcomeEvaluation(unittest.TestCase):
             "human_edit_churn_ratio": {"mean": churn_mean},
             "all_passed_required_checks": all_passed_required_checks,
             "prs_with_passing_checks": in_scope if all_passed_required_checks else in_scope - 1,
+            "prs_with_complete_gate_coverage": in_scope,
+            "gate_coverage_missing_data_count": 0,
         }
 
     def test_small_sample_is_inconclusive(self):
@@ -195,6 +204,23 @@ class TestOutcomeEvaluation(unittest.TestCase):
         outcome = cm.evaluate_outcome(baseline, current)
         self.assertEqual(outcome["result"], "fail")
         self.assertIn("passed the required", outcome["reason"])
+
+    def test_fail_when_current_gate_coverage_is_incomplete(self):
+        baseline = self._report(12, 3.0, 0.3)
+        current = self._report(12, 1.0, 0.1)
+        current["prs_with_complete_gate_coverage"] = 11
+        current["gate_coverage_missing_data_count"] = 1
+        outcome = cm.evaluate_outcome(baseline, current)
+        self.assertEqual(outcome["result"], "fail")
+        self.assertIn("complete", outcome["reason"])
+
+
+class TestSummary(unittest.TestCase):
+    def test_summary_is_human_readable(self):
+        report = cm.compute_metrics([_record()], date(2026, 1, 1), date(2026, 1, 31))
+        summary = cm.format_summary(report)
+        self.assertIn("Window: 2026-01-01 to 2026-01-31", summary)
+        self.assertIn("Gate coverage:", summary)
 
 
 if __name__ == "__main__":

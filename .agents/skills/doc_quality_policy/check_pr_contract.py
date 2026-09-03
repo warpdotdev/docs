@@ -10,9 +10,11 @@ baked into the checker itself.
 Usage:
     python3 check_pr_contract.py --body /tmp/pr-body.md [changed_file ...]
     python3 check_pr_contract.py --body /tmp/pr-body.md \\
-        --repo owner/repo --pr 123 --head-sha "$HEAD_SHA"
+        --repo owner/repo --pr 123 --head-sha "$HEAD_SHA" \
+        --enforce-engineering-gate
 
-When `--repo`/`--pr` are given, the engineering-review gate signals
+When `--repo`/`--pr` are given with `--enforce-engineering-gate`, the
+engineering-review gate signals
 (deterministic-check outcome, source-owner approval, unresolved review
 findings) are derived live from GitHub via `gh api` for the exact head SHA,
 rather than trusted from caller-supplied flags -- a PR cannot claim its own
@@ -138,6 +140,7 @@ class LiveReviewSignals:
     deterministic_checks_passed: bool
     source_owner_approved_current_head: bool
     has_unresolved_critical_or_important_finding: bool
+    approved_reviewers_current_head: Sequence[str]
 
 
 def _run_gh_json(args: List[str]):
@@ -197,7 +200,12 @@ def _compute_review_signals(
     approvers = {user for user, state in latest_state_by_user.items() if state == "APPROVED"}
     source_owner_approved = bool(approvers & set(requested_reviewers))
 
-    return LiveReviewSignals(checks_passed, source_owner_approved, has_unresolved)
+    return LiveReviewSignals(
+        checks_passed,
+        source_owner_approved,
+        has_unresolved,
+        tuple(sorted(approvers)),
+    )
 
 
 def resolve_live_review_signals(repo: str, pr_number: str, head_sha: str) -> LiveReviewSignals:
@@ -213,7 +221,7 @@ def resolve_live_review_signals(repo: str, pr_number: str, head_sha: str) -> Liv
     try:
         reviews = _fetch_reviews(repo, pr_number)
     except RuntimeError:
-        return LiveReviewSignals(checks_passed, False, True)
+        return LiveReviewSignals(checks_passed, False, True, ())
 
     try:
         requested_reviewers = _fetch_requested_reviewers(repo, pr_number)
@@ -266,6 +274,14 @@ def main(argv: Optional[List[str]] = None) -> int:
         "--source-owner-approved", action="store_true",
         help="offline dry run only (ignored when --repo/--pr are given): pass when an engineer approved",
     )
+    parser.add_argument(
+        "--approved-reviewer", action="append", default=[],
+        help="offline dry run only: current-head approver; repeat once per approved GitHub handle",
+    )
+    parser.add_argument(
+        "--enforce-engineering-gate", action="store_true",
+        help="evaluate current-head human approval and override requirements; omit for structural CI validation",
+    )
     args = parser.parse_args(argv)
 
     body_path = Path(args.body)
@@ -290,7 +306,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     else:
         authorized_reviewers = _load_authorized_reviewers_from_ref(args.authorized_reviewers_ref)
 
-    if args.repo and args.pr:
+    if args.enforce_engineering_gate and args.repo and args.pr:
         if not args.head_sha:
             print("error: --head-sha is required together with --repo/--pr", file=sys.stderr)
             return 2
@@ -308,6 +324,10 @@ def main(argv: Optional[List[str]] = None) -> int:
         deterministic_checks_passed = not args.deterministic_checks_failed
         has_unresolved_finding = args.unresolved_important_finding
         source_owner_approved = args.source_owner_approved
+        approved_reviewers_current_head = tuple(args.approved_reviewer)
+
+    if args.enforce_engineering_gate and args.repo and args.pr:
+        approved_reviewers_current_head = signals.approved_reviewers_current_head
 
     problems = policy.validate_pr_contract(
         body,
@@ -317,6 +337,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         deterministic_checks_passed=deterministic_checks_passed,
         has_unresolved_critical_or_important_finding=has_unresolved_finding,
         source_owner_approved_current_head=source_owner_approved,
+        approved_reviewers_current_head=approved_reviewers_current_head,
+        enforce_engineering_gate=args.enforce_engineering_gate,
     )
 
     if problems:

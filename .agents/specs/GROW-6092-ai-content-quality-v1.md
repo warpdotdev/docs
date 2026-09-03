@@ -22,7 +22,7 @@ This scope covers every agent-authored content PR in `warpdotdev/docs`, includin
 4. The changed-file UI-reference check does not require a `warpdotdev/warp` checkout. CI uses the committed snapshot. The snapshot records the source repository, source commit SHA, and generation time so each check can report what client state it trusts.
 5. `.github/workflows/refresh-ui-paths.yml` refreshes the snapshot in three cases:
    - `warpdotdev/warp` merges a change under `app/src/settings_view/**` to `master`, and `.github/workflows/notify-docs-settings-changed.yml` sends the docs repository a `repository_dispatch` event of type `settings-ui-changed` with the source SHA.
-   - A daily scheduled run at `15:15 UTC` compares the snapshot's source SHA with the latest `master` commit affecting `app/src/settings_view/**`. A mismatch executes the same refresh path, limiting an unnoticed missed dispatch to one day.
+   - A daily scheduled run at `15:15 UTC` compares the snapshot's source SHA with the full `master` head used for snapshot generation. A mismatch executes the same refresh path, limiting an unnoticed missed dispatch to one day.
    - A maintainer starts `workflow_dispatch` as the documented fallback.
    Each path dispatches the `validate_ui_refs` skill, runs `--refresh-valid-paths` against `warpdotdev/warp`, validates and fixes stale references, and requires live Settings verification for ambiguous shared-source subsections. A dispatch, agent, refresh, or reconciliation failure leaves an observable failed workflow and alerts Pod-Docs; it never records a newer source SHA.
 6. An unresolved `VERIFY` marker does not silently pass as low risk. The PR is classified `engineering-review-required`, names the source surface that can resolve the claim, and requires either current-head source-owner approval or a recorded current-head Pod-Docs override.
@@ -30,7 +30,7 @@ This scope covers every agent-authored content PR in `warpdotdev/docs`, includin
 8. `review-docs-pr` blocks on critical or important findings, including a low-risk classification that is inconsistent with the diff. Suggestions and nits remain non-blocking.
 9. A PR is `low` risk only when all of these conditions hold:
    - It does not add a page about a new or materially changed feature or workflow.
-   - It preserves product meaning and changes only spelling, grammar, tone, formatting, descriptive links or cross-links to existing canonical pages, search metadata, or generated changelog/license/telemetry data whose source-verification script passes.
+   - It either preserves product meaning and changes only spelling, grammar, tone, formatting, descriptive links or cross-links to existing canonical pages, search metadata, or generated changelog/license/telemetry data whose source-verification script passes; or it is internal Docs-team tooling, skill, or CI workflow maintenance that makes no public product claim and does not change a developer-facing command, API, setting, or integration.
    - It does not add or change commands, code or configuration examples, API behavior, UI labels or paths, defaults, permissions, availability or platform support, plan eligibility, billing behavior, security or privacy claims, data handling, self-hosting behavior, or integration setup.
    - It contains no unresolved `VERIFY` marker and has no critical or important technical-accuracy finding from `review-docs-pr`.
 10. Every other content PR is `engineering-review-required`. This includes all new or materially changed feature docs and any change to the technical claim categories in behavior #9.
@@ -103,9 +103,9 @@ The specification is grounded at docs commit `6c9c5a9bbaab7f9c949bf563c6375bd852
    - `Docs technical references`: changed-file `validate_ui_refs` plus PR-contract and `VERIFY` validation.
 2. Add `--changed` to `validate_ui_refs.py`, matching `style_lint`'s `origin/main...HEAD` semantics, exclusions, deleted-file handling, and explicit failure if the base diff cannot be determined. Do not fall back to an unbounded full scan in required CI.
 3. Extend `valid_paths.json` with `source_repository`, `source_sha`, and `generated_at`. `validate_ui_refs` preserves the previous provenance on failure and prints the trusted source SHA and snapshot age in `Docs technical references`.
-4. Extend `.github/workflows/refresh-ui-paths.yml` with the daily `15 15 * * *` reconciliation. Repository, scheduled, and manual triggers all resolve the latest source commit affecting `app/src/settings_view/**`, invoke the same refresh command, and use the existing fix/create-PR flow. Alert Pod-Docs when the source dispatch, scheduled reconciliation, agent run, or refresh fails; document `workflow_dispatch` as the recovery action.
+4. Extend `.github/workflows/refresh-ui-paths.yml` with the daily `15 15 * * *` reconciliation. Repository, scheduled, and manual triggers all resolve the same full `master` HEAD SHA used for snapshot generation, invoke the same refresh command, and use the existing fix/create-PR flow. Alert Pod-Docs when the source dispatch, scheduled reconciliation, agent run, or refresh fails; document `workflow_dispatch` as the recovery action.
 5. Add fixtures proving each job fails on a known-bad changed file and passes a clean changed file. Keep scheduled full-tree `--all` validation behavior.
-6. Configure both named checks as required for the protected `main` branch. For non-agent PRs, the deterministic checks still run; only the agent-specific contract sections are conditional.
+6. Configure `Docs editorial quality`, `Docs technical references`, `Agent docs review`, and `Docs engineering approval` as required for the protected `main` branch. For non-agent PRs, the deterministic checks still run; only the agent-specific contract sections and engineering approval gate are conditional.
 
 #### 3. Make agent review and human routing enforceable
 
@@ -116,7 +116,7 @@ The specification is grounded at docs commit `6c9c5a9bbaab7f9c949bf563c6375bd852
    - Publishes one idempotent review summary and line findings.
    - Emits `[SIGNAL:pr-review]` with PR, branch, head SHA, skill used, verdict, severity counts, and top categories.
 3. Make the `Agent docs review` check fail when the run is missing a parseable signal, reviewed a stale SHA, returns `Request changes`, or reports any critical/important finding. Suggestions and nits pass with annotations.
-4. Extend the PR policy check:
+4. Extend the PR policy check and separate `Docs engineering approval` workflow:
    - `low`: require the docs reviewer path and no engineering-review triggers.
    - `engineering-review-required`: resolve and request owners from the cited product source files by default. Pass the human technical gate through either a requested source-owner approval or an authorized Pod-Docs `docs-verified`/`docs-waiver` override whose reviewer, reason, evidence, and SHA are complete.
    - Dismiss or invalidate approvals and overrides when the head changes, so stale human validation cannot satisfy the gate.

@@ -75,17 +75,15 @@ def count_words(text: str) -> int:
 def count_callouts(text: str) -> int:
     """Count Starlight `:::note` / `:::tip` / etc. callout blocks."""
     body = _strip_frontmatter(text)
-    return sum(1 for line in body.splitlines() if _CALLOUT_OPEN_RE.match(line.strip()))
+    return sum(1 for line in _strip_code_fences(body.splitlines()) if _CALLOUT_OPEN_RE.match(line.strip()))
 
 
 def check_compression_contract(text: str, content_type: str) -> List[str]:
     """Return a list of findings; empty means within the mechanical budget."""
     findings: List[str] = []
-    if content_type in EXEMPT_CONTENT_TYPES:
-        return findings
 
     budget = WORD_BUDGETS.get(content_type)
-    if budget is not None:
+    if content_type not in EXEMPT_CONTENT_TYPES and budget is not None:
         words = count_words(text)
         if words > budget:
             findings.append(

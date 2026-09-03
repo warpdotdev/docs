@@ -29,6 +29,7 @@ the documented "missing" bucket rather than raising):
                             "docs_waiver" | "unresolved_owner" | "unanswered_request"
     }
 
+
 Usage:
     python3 compute_metrics.py --input records.jsonl --start 2026-01-01 --end 2026-01-30
     python3 compute_metrics.py --input records.jsonl --start 2026-01-01 --end 2026-01-30 \
@@ -45,6 +46,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 MIN_SAMPLE_SIZE = 10
+REVIEW_OUTCOMES = ("approve", "approve_with_nits", "request_changes")
 COMPLETION_METHODS = (
     "source_owner_approval", "docs_verified", "docs_waiver",
     "unresolved_owner", "unanswered_request",
@@ -108,7 +110,7 @@ def compute_metrics(records: List[Dict[str, Any]], start: date, end: date) -> Di
     # input `evaluate_outcome()`'s all-required-checks-passed rule may use.
     complete_gate_coverage = sum(
         1 for r in window_records
-        if r.get("check_outcome") in ("pass", "fail") and r.get("review_outcome") != "unknown"
+        if r.get("check_outcome") in ("pass", "fail") and r.get("review_outcome") in REVIEW_OUTCOMES
     )
     passing_gate_records = [
         r for r in window_records
@@ -203,6 +205,18 @@ def evaluate_outcome(baseline: Dict[str, Any], current: Dict[str, Any]) -> Dict[
                           "whichever comes first.",
             }
 
+    if (
+        current.get("prs_with_complete_gate_coverage") != current["in_scope_prs"]
+        or current.get("gate_coverage_missing_data_count", 0) != 0
+    ):
+        return {
+            "result": "fail",
+            "reason": (
+                f"only {current.get('prs_with_complete_gate_coverage', 0)}/{current['in_scope_prs']} "
+                "in-scope PRs have complete editorial, technical, and agent-review gate coverage."
+            ),
+        }
+
     if not current.get("all_passed_required_checks"):
         return {
             "result": "fail",
@@ -238,6 +252,27 @@ def evaluate_outcome(baseline: Dict[str, Any], current: Dict[str, Any]) -> Dict[
     }
 
 
+
+def format_summary(report: Dict[str, Any]) -> str:
+    """Render a concise human-readable companion to the normalized JSON report."""
+    lines = [
+        f"Window: {report['window']['start']} to {report['window']['end']}",
+        f"In-scope PRs: {report['in_scope_prs']}",
+        (
+            "Gate coverage: "
+            f"{report['prs_with_complete_gate_coverage']}/{report['in_scope_prs']} complete; "
+            f"{report['prs_with_passing_checks']} passing"
+        ),
+        f"Human review comments/PR: {report['human_review_comments']['per_pr']['mean']}",
+        f"Human edit churn ratio: {report['human_edit_churn_ratio']['mean']}",
+    ]
+    if "day_30_outcome" in report:
+        lines.append(
+            f"Day-30 outcome: {report['day_30_outcome']['result']} — "
+            f"{report['day_30_outcome']['reason']}"
+        )
+    return "\n".join(lines)
+
 def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--input", required=True, help="JSONL file of in-scope PR records")
@@ -258,6 +293,7 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     normalized = json.dumps(report, indent=2, sort_keys=True)
     print(normalized)
+    print(f"\n{format_summary(report)}", file=sys.stderr)
     if args.output:
         Path(args.output).write_text(normalized + "\n", encoding="utf-8")
 

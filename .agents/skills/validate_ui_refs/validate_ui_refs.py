@@ -1588,7 +1588,7 @@ def refresh_valid_paths(warp_repo_path: Path, output_path: Path) -> None:
         "warp_drive": existing.get("warp_drive", {}),
         "command_palette_commands": command_palette,
         "source_repository": _resolve_source_repository(warp_repo_path) or existing.get("source_repository"),
-        "source_sha": _resolve_source_sha(warp_repo_path),
+        "source_sha": _resolve_source_sha(warp_repo_path) or existing.get("source_sha"),
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
 

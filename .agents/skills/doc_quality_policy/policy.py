@@ -206,6 +206,10 @@ class RiskSignals:
     changes_data_handling: bool = True
     changes_self_hosting_behavior: bool = True
     changes_integration_setup: bool = True
+    # Internal docs tooling, skills, and CI changes that make no public
+    # product claim may use the low-risk path when every technical-claim
+    # trigger above has been affirmatively cleared.
+    is_docs_workflow_tooling_only: bool = False
 
     # Not allowlist triggers themselves, but always force engineering review
     # when true, per the VERIFY-accounting and review-severity rules.
@@ -227,7 +231,11 @@ class RiskSignals:
 
 _ALLOWLIST_TRIGGER_FIELDS: Sequence[str] = tuple(
     f.name for f in fields(RiskSignals)
-    if f.name not in ("has_unresolved_verify_marker", "has_critical_or_important_review_finding")
+    if f.name not in (
+        "is_docs_workflow_tooling_only",
+        "has_unresolved_verify_marker",
+        "has_critical_or_important_review_finding",
+    )
 )
 
 
@@ -260,9 +268,15 @@ def validate_pr_contract(
     deterministic_checks_passed: bool = True,
     has_unresolved_critical_or_important_finding: bool = False,
     source_owner_approved_current_head: bool = False,
+    approved_reviewers_current_head: Sequence[str] = (),
+    enforce_engineering_gate: bool = False,
 ) -> List[str]:
-    """Validate the full PR contract. Returns a list of violation messages;
-    an empty list means the contract is satisfied.
+    """Validate the PR contract. Returns a list of violation messages.
+
+    Structural validation (the required CI check) always verifies the risk
+    metadata and VERIFY accounting. The human engineering gate is deliberately
+    opt-in because a pending approval is normal while an
+    engineering-review-required PR is being drafted and reviewed.
     """
     problems: List[str] = []
 
@@ -293,7 +307,7 @@ def validate_pr_contract(
             f"must be {RISK_ENGINEERING_REVIEW_REQUIRED!r}"
         )
 
-    if risk_section.risk == RISK_ENGINEERING_REVIEW_REQUIRED:
+    if enforce_engineering_gate and risk_section.risk == RISK_ENGINEERING_REVIEW_REQUIRED:
         problems.extend(
             validate_engineering_gate(
                 risk_section,
@@ -302,6 +316,7 @@ def validate_pr_contract(
                 deterministic_checks_passed=deterministic_checks_passed,
                 has_unresolved_critical_or_important_finding=has_unresolved_critical_or_important_finding,
                 source_owner_approved_current_head=source_owner_approved_current_head,
+                approved_reviewers_current_head=approved_reviewers_current_head,
             )
         )
 
@@ -316,6 +331,7 @@ def validate_engineering_gate(
     deterministic_checks_passed: bool,
     has_unresolved_critical_or_important_finding: bool,
     source_owner_approved_current_head: bool,
+    approved_reviewers_current_head: Sequence[str] = (),
 ) -> List[str]:
     """Validate the engineering-review-required human gate for one PR.
 
@@ -372,6 +388,11 @@ def validate_engineering_gate(
         problems.append(
             f"docs override author {risk_section.override_reviewer!r} is not an "
             "authorized Pod-Docs reviewer"
+        )
+    elif risk_section.override_reviewer not in approved_reviewers_current_head:
+        problems.append(
+            f"docs override author {risk_section.override_reviewer!r} has not approved "
+            "the current head"
         )
 
     if not current_head_sha:

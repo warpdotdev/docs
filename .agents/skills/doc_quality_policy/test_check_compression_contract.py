@@ -44,6 +44,10 @@ class TestCountCallouts(unittest.TestCase):
         text = "---\ndescription: y\n---\n:::note\nhi\n:::\n:::tip\nyo\n:::\n"
         self.assertEqual(ccc.count_callouts(text), 2)
 
+    def test_ignores_callout_examples_inside_code_fences(self):
+        text = ":::note\nreal\n:::\n```md\n:::tip\nexample\n:::\n```\n"
+        self.assertEqual(ccc.count_callouts(text), 1)
+
 
 class TestCheckCompressionContract(unittest.TestCase):
     def test_quickstart_within_budget_passes(self):
@@ -63,6 +67,11 @@ class TestCheckCompressionContract(unittest.TestCase):
     def test_generated_changelog_is_exempt_from_word_budget(self):
         text = _page(5000)
         self.assertEqual(ccc.check_compression_contract(text, "changelog"), [])
+
+    def test_generated_changelog_still_enforces_callout_budget(self):
+        text = _page(5000, callouts=3)
+        findings = ccc.check_compression_contract(text, "changelog")
+        self.assertTrue(any("callouts exceed" in f for f in findings))
 
     def test_too_many_callouts_fails(self):
         text = _page(100, callouts=3)

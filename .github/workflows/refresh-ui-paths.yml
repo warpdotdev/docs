@@ -4,9 +4,9 @@ name: Refresh UI paths snapshot
 #   1. `repository_dispatch` from warpdotdev/warp when `master` merges a
 #      change under app/src/settings_view/** (source-driven, same-day).
 #   2. A daily `15:15 UTC` schedule that reconciles the snapshot's recorded
-#      `source_sha` against the latest `master` commit touching
-#      app/src/settings_view/**, limiting an unnoticed missed dispatch to one
-#      day. A no-change reconciliation exits successfully without refreshing.
+#      `source_sha` against the full `master` head used to generate the
+#      snapshot, limiting an unnoticed missed dispatch to one day. A no-change
+#      reconciliation exits successfully without refreshing.
 #   3. `workflow_dispatch` as the documented manual fallback.
 on:
   repository_dispatch:
@@ -42,20 +42,20 @@ jobs:
       - name: Checkout docs
         uses: actions/checkout@v4
 
-      - name: Compare recorded source SHA against latest master
+      - name: Compare recorded source SHA against current master head
         id: compare
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           RECORDED_SHA=$(python3 -c "import json; print(json.load(open('.agents/skills/validate_ui_refs/valid_paths.json')).get('source_sha') or '')")
-          LATEST_SHA=$(gh api "repos/warpdotdev/warp/commits?path=app/src/settings_view&sha=master&per_page=1" --jq '.[0].sha')
+          LATEST_SHA=$(gh api "repos/warpdotdev/warp/commits/master" --jq .sha)
           if [ -z "$LATEST_SHA" ]; then
-            echo "::error::could not resolve the latest warpdotdev/warp commit touching app/src/settings_view — failing loud rather than silently skipping reconciliation."
+            echo "::error::could not resolve warpdotdev/warp master HEAD — failing loud rather than silently skipping reconciliation."
             exit 1
           fi
           echo "Recorded source SHA: ${RECORDED_SHA:-<none>}"
-          echo "Latest master SHA touching app/src/settings_view: $LATEST_SHA"
+          echo "Current master HEAD: $LATEST_SHA"
           if [ "$RECORDED_SHA" = "$LATEST_SHA" ]; then
             echo "Snapshot is already current — no refresh needed."
             echo "needs_refresh=false" >> "$GITHUB_OUTPUT"
@@ -93,9 +93,13 @@ jobs:
 
           Steps:
           1. Locate warpdotdev/warp. It should be checked out at
-             /workspace/warp in this environment. If that path does
-             not exist, clone it:
-               git clone git@github.com:warpdotdev/warp.git /workspace/warp
+             /workspace/warp in this environment. Ensure it is at the current
+             origin/master HEAD before refreshing. If that path does not exist,
+             clone it:
+               git clone --branch master --depth 1 git@github.com:warpdotdev/warp.git /workspace/warp
+             Otherwise run:
+               git -C /workspace/warp fetch origin master
+               git -C /workspace/warp checkout --detach origin/master
              Then run:
                python3 .agents/skills/validate_ui_refs/validate_ui_refs.py \\
                  --refresh-valid-paths \\
@@ -207,5 +211,5 @@ jobs:
           with urllib.request.urlopen(req) as resp:
               result = json.load(resp)
           if not result.get("ok"):
-              print(f"Slack error: {result.get('error')}")
+              raise SystemExit(f"Slack error: {result.get('error')}")
           PYEOF

@@ -32,94 +32,38 @@ jobs:
       - name: Checkout docs
         uses: actions/checkout@v4
 
-      - name: Install Oz CLI
-        run: |
-          curl -sL "https://app.warp.dev/download/cli?os=linux&package=deb&arch=x86_64" -o /tmp/oz.deb
-          sudo dpkg -i /tmp/oz.deb
+      - name: Run independent review-docs-pr agent
+        id: oz-review
+        uses: warpdotdev/oz-agent-action@main
+        with:
+          warp_api_key: ${{ secrets.WARP_API_KEY }}
+          profile: ${{ vars.WARP_AGENT_PROFILE || '' }}
+          prompt: |
+            Run the review-docs-pr skill against warpdotdev/docs PR #${{ github.event.pull_request.number }}
+            at head SHA ${{ github.event.pull_request.head.sha }}. This PR carries the warpy-factory agent
+            marker, so it requires the independent v1 agent-doc quality review pass (see
+            .agents/references/doc-quality-policy.md):
 
-      - name: Write Oz prompt
-        env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: |
-          cat > /tmp/oz_prompt.txt << PROMPT
-          Run the review-docs-pr skill against warpdotdev/docs PR #${PR_NUMBER}
-          at head SHA ${HEAD_SHA}. This PR carries the warpy-factory agent
-          marker, so it requires the independent v1 agent-doc quality review
-          pass (see .agents/references/doc-quality-policy.md):
+            1. Re-validate the declared "## Documentation risk" level against the actual diff using
+               the low-risk allowlist. A risk misclassification is an important finding.
+            2. Verify technical claims against cited source files when the PR is
+               engineering-review-required.
+            3. Publish the review, pinned to this exact head SHA. Request changes on any
+               critical/important finding; suggestions/nits pass.
+            4. Emit exactly one [SIGNAL:pr-review] JSON record including this head SHA, per
+               review-docs-pr/SKILL.md's Signal logging section.
 
-          1. Re-validate the PR's declared "## Documentation risk" level
-             against the actual diff using the low-risk allowlist there.
-             A risk misclassification is an important finding.
-          2. Verify technical claims against the cited source files when the
-             PR is engineering-review-required.
-          3. Publish the review (see review-docs-pr/SKILL.md's Output Format
-             and the "Post a review to GitHub" mechanics), pinned to head SHA
-             ${HEAD_SHA}. Request changes on any critical/important finding,
-             including a risk misclassification; suggestions/nits pass.
-          4. Emit exactly one [SIGNAL:pr-review] record including this head
-             SHA, per review-docs-pr/SKILL.md's Signal logging section.
-
-          Full instructions: .agents/skills/review-docs-pr/SKILL.md
-          PROMPT
-
-      - name: Dispatch Oz cloud agent
-        id: oz-dispatch
-        env:
-          WARP_API_KEY: ${{ secrets.WARP_API_KEY }}
-        run: |
-          OUTPUT=$(oz agent run-cloud \
-            --environment K5KStCm5aYvhfBJb8cHol6 \
-            --skill warpdotdev/docs:review-docs-pr \
-            --prompt "$(cat /tmp/oz_prompt.txt)")
-          echo "$OUTPUT"
-          RUN_ID=$(echo "$OUTPUT" | grep -oP 'run ID: \K[0-9a-f-]{36}')
-          echo "run_id=$RUN_ID" >> "$GITHUB_OUTPUT"
-          echo "Dispatched cloud agent run: $RUN_ID"
-
-      - name: Wait for Oz run to complete
-        env:
-          WARP_API_KEY: ${{ secrets.WARP_API_KEY }}
-        run: |
-          RUN_ID="${{ steps.oz-dispatch.outputs.run_id }}"
-          if [[ -z "$RUN_ID" ]]; then
-            echo "No run ID captured — cannot poll."
-            exit 1
-          fi
-          echo "Polling run $RUN_ID (max 30 min, 30s intervals)..."
-          FINAL_STATUS="timeout"
-          for i in $(seq 1 60); do
-            OUTPUT=$(oz run get "$RUN_ID" 2>/dev/null || echo "")
-            STATUS=$(echo "$OUTPUT" | grep -oP '(?<=\()\w+(?=\))' | head -1 | tr '[:upper:]' '[:lower:]')
-            ELAPSED="$((i * 30 / 60))m$((i * 30 % 60))s"
-            echo "[$ELAPSED] $STATUS"
-            if [[ "$STATUS" == "succeeded" ]]; then
-              FINAL_STATUS="succeeded"
-              break
-            elif [[ "$STATUS" == "failed" || "$STATUS" == "errored" || "$STATUS" == "cancelled" ]]; then
-              FINAL_STATUS="$STATUS"
-              break
-            fi
-            sleep 30
-          done
-          if [[ "$FINAL_STATUS" != "succeeded" ]]; then
-            echo "Oz run did not succeed (status: $FINAL_STATUS)"
-            exit 1
-          fi
-          echo "Oz run completed successfully."
-
-      # A successful agent process is not proof a review was actually
-      # published: the process could exit 0 after erroring internally, post
-      # to the wrong PR, or run against a since-superseded head. Fail this
-      # required check unless the authoritative GitHub review list shows a
-      # real review at the exact current head SHA that does not request
-      # changes -- so a stale, missing, or Request changes review cannot
-      # leave "Agent docs review" green.
-      - name: Verify a current, non-blocking review was actually published
+      # A successful agent action is not proof that the run reviewed this
+      # exact head or passed: require its one structured signal and an
+      # authoritative current GitHub review.
+      - name: Verify the current review signal and GitHub review
         env:
           GH_TOKEN: ${{ github.token }}
+          AGENT_OUTPUT: ${{ steps.oz-review.outputs.agent_output }}
         run: |
+          printf '%s' "$AGENT_OUTPUT" > /tmp/agent-output.txt
           python3 .agents/skills/doc_quality_policy/verify_review_signal.py \
             --repo "${{ github.repository }}" \
             --pr "${{ github.event.pull_request.number }}" \
-            --head-sha "${{ github.event.pull_request.head.sha }}"
+            --head-sha "${{ github.event.pull_request.head.sha }}" \
+            --agent-output /tmp/agent-output.txt

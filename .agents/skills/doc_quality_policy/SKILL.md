@@ -24,8 +24,10 @@ directory implements them:
   VERIFY markers in the changed docs files (auto-discovered via
   `git diff --diff-filter=d origin/main...HEAD` when not passed explicitly,
   matching `style_lint.py --changed`'s scope and its no-silent-fallback rule),
-  and validates the full contract. Exit 0 = pass, 1 = violations, 2 = usage
-  error.
+  and validates the structural contract. Its explicit
+  `--enforce-engineering-gate` mode additionally evaluates current-head human
+  approval and a docs override from trusted GitHub review data. Exit 0 = pass,
+  1 = violations, 2 = usage error.
 - `finalize_pr_contract.py build` — prints the `## Documentation risk` block
   for a PR-producing skill to insert into its PR body. Does not call `gh`
   itself; the invoking skill applies the `warpy-factory` label separately.
@@ -64,5 +66,6 @@ Before requesting review:
 The `Docs technical references` CI job (see `.github/workflows/ci.yml`) runs
 `check_pr_contract.py` against the PR body and the changed docs files on every
 pull request, failing on an unlisted `VERIFY` marker, a missing/invalid risk
-section, or (once wired to live PR review data) an unsatisfied engineering
-gate.
+section. It deliberately does not apply the human engineering gate on every
+push: an engineering-review-required PR may legitimately await review while
+the separate ready-to-merge routing step evaluates trusted live approval data.

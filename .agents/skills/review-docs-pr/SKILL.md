@@ -44,9 +44,11 @@ review focus areas, this pass is the human-review-blocking gate defined in
    each changed content-type page. An unjustified violation (no reasoning in
    the PR body for the overage) is `⚠️ [IMPORTANT]`; a justified one is
    `💡 [SUGGESTION]` at most.
-4. **Check VERIFY accounting.** Run
+4. **Check VERIFY accounting.** Run the structural mode of
    `.agents/skills/doc_quality_policy/check_pr_contract.py --body <file>
-   <changed files>` against the current head. Any reported contract
+   <changed files>` against the current head. Do not invoke
+   `--enforce-engineering-gate` during the independent review; a pending human
+   approval is not itself a contract violation. Any reported contract
    violation (missing section, unlisted marker, listed marker at `low` risk)
    is `🚨 [CRITICAL]`.
 
