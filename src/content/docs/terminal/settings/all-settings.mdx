@@ -497,8 +497,8 @@ Settings for Warp features in SSH sessions and subshells.
 **Section**: `[warpify.ssh]`
 
 * `enable_ssh_warpification` — Whether to enable Warp features in SSH sessions. Type: boolean. Default: `true`.
-* `enable_legacy_ssh_wrapper` — Deprecated in favor of `enable_ssh_warpification`. Type: boolean. Default: `true`.
-* `use_ssh_tmux_wrapper` — Deprecated in favor of the [SSH extension](/terminal/warpify/ssh/). Type: boolean. Default: `false`.
+* `enable_legacy_ssh_wrapper` — Has no effect on Warp's current behavior; retained only for a one-time migration to `enable_ssh_warpification`. Type: boolean. Default: `true`.
+* `use_ssh_tmux_wrapper` — Has no effect on Warp's current behavior now that tmux-based Warpification has been removed in favor of the [SSH extension](/terminal/warpify/ssh/); retained only for a one-time migration. Type: boolean. Default: `false`.
 * `reuse_existing_control_master` — Whether the legacy SSH wrapper attaches to an existing SSH `ControlMaster` for the destination host instead of always creating its own. Type: boolean. Default: `false`.
 * `ssh_extension_install_mode` — Controls SSH extension installation behavior. Type: string. Default: `"always_ask"`. Options: `"always_ask"` (always prompt before installing), `"always_install"` (auto-install and connect without prompting), `"never_install"` (fall back to the legacy, wrapper-only SSH warpification).
 * `ssh_hosts_denylist` — SSH hosts that should not trigger the warpification prompt. Type: array of strings. Default: `[]`.
