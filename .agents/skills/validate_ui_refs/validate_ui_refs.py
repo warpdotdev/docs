@@ -1055,6 +1055,56 @@ def scan_docs(
     return files
 
 
+class ChangedFilesUnresolvedError(RuntimeError):
+    """Raised when the changed-file diff against origin/main can't be resolved."""
+
+
+def find_changed_md_files(
+    docs_dir: Path,
+    include_changelog: bool = False,
+) -> List[Path]:
+    """Find .md/.mdx files under docs_dir changed vs origin/main...HEAD.
+
+    Matches `style_lint.py --changed`'s `origin/main...HEAD` semantics,
+    exclusions, and deleted-file handling (`--diff-filter=d` drops deletions
+    from the diff so a removed file is never "checked"). Unlike
+    `style_lint`'s `--changed`, this never falls back to an unbounded full
+    scan when the diff can't be resolved — required CI must fail loud instead
+    of silently widening scope.
+    """
+    try:
+        result = subprocess.run(
+            [
+                "git", "diff", "--name-only", "--diff-filter=d",
+                "origin/main...HEAD", "--", str(docs_dir),
+            ],
+            capture_output=True, text=True, check=True,
+        )
+    except (subprocess.CalledProcessError, OSError) as exc:
+        raise ChangedFilesUnresolvedError(
+            f"could not determine changed files vs origin/main...HEAD: {exc}"
+        ) from exc
+
+    files = []
+    for line in result.stdout.strip().splitlines():
+        line = line.strip()
+        if not line or not (line.endswith(".md") or line.endswith(".mdx")):
+            continue
+        p = Path(line)
+        if not p.exists():
+            continue
+        try:
+            rel_parts = set(p.resolve().relative_to(docs_dir.resolve()).parts)
+        except ValueError:
+            continue
+        if rel_parts & SKIP_DIRS:
+            continue
+        if not include_changelog and "changelog" in rel_parts:
+            continue
+        files.append(p)
+    return sorted(files)
+
+
 # ---------------------------------------------------------------------------
 # Auto-fix
 # ---------------------------------------------------------------------------
@@ -1521,6 +1571,8 @@ def refresh_valid_paths(warp_repo_path: Path, output_path: Path) -> None:
         "macos_menu_bar": existing.get("macos_menu_bar", {}),
         "warp_drive": existing.get("warp_drive", {}),
         "command_palette_commands": command_palette,
+        "source_repository": _resolve_source_repository(warp_repo_path) or existing.get("source_repository"),
+        "source_sha": _resolve_source_sha(warp_repo_path),
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
 
@@ -1533,6 +1585,39 @@ def refresh_valid_paths(warp_repo_path: Path, output_path: Path) -> None:
         f"{len(data['deprecated_sections'])} deprecated, "
         f"{len(command_palette)} commands)"
     )
+
+
+def _resolve_source_sha(warp_repo_path: Path) -> Optional[str]:
+    """Return the warp client repo's current commit SHA, or None if unavailable.
+
+    Best-effort: a shallow checkout, a missing `.git`, or any git failure
+    leaves the field absent rather than raising, since a missing SHA is a
+    visible "unknown" in the report (see main()'s provenance line) and never
+    silently advances a fabricated value.
+    """
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(warp_repo_path), "rev-parse", "HEAD"],
+            capture_output=True, text=True, check=True,
+        )
+    except (subprocess.CalledProcessError, OSError):
+        return None
+    sha = result.stdout.strip()
+    return sha or None
+
+
+def _resolve_source_repository(warp_repo_path: Path) -> Optional[str]:
+    """Return the warp client repo's `owner/repo` from its `origin` remote."""
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(warp_repo_path), "remote", "get-url", "origin"],
+            capture_output=True, text=True, check=True,
+        )
+    except (subprocess.CalledProcessError, OSError):
+        return None
+    url = result.stdout.strip()
+    m = re.search(r"[:/]([^/:]+/[^/]+?)(?:\.git)?$", url)
+    return m.group(1) if m else None
 
 
 def _extract_umbrellas(warp_repo: Path) -> Dict[str, Any]:
@@ -2147,6 +2232,11 @@ def main() -> int:
     parser.add_argument("--slack-notify", action="store_true", help="Post results to Slack")
     parser.add_argument("--slack-channel", default=DEFAULT_SLACK_CHANNEL, help="Slack channel ID")
     parser.add_argument("--include-changelog", action="store_true", help="Include changelog/ in scan")
+    parser.add_argument(
+        "--changed", action="store_true",
+        help="Scan only files changed vs origin/main...HEAD (required CI scope; "
+             "fails rather than falling back to a full scan when the diff can't be resolved)",
+    )
     parser.add_argument("--refresh-valid-paths", action="store_true", help="Re-extract from the warp client repo")
     parser.add_argument(
         "--warp",
@@ -2197,13 +2287,30 @@ def main() -> int:
         return 1
     valid_paths = load_valid_paths(valid_paths_file)
 
+    # Report the snapshot's trusted provenance so every technical-reference
+    # check states what client state it trusts (see doc-quality-policy.md).
+    snapshot_repo = valid_paths.get("source_repository") or "unknown"
+    snapshot_sha = valid_paths.get("source_sha") or "unknown"
+    snapshot_generated_at = valid_paths.get("generated_at") or "unknown"
+    print(
+        f"Trusted snapshot: source={snapshot_repo}@{snapshot_sha} "
+        f"generated_at={snapshot_generated_at}"
+    )
+
     # Scan docs
     docs_dir = Path(args.docs_dir)
     if not docs_dir.exists():
         print(f"Error: docs directory not found at {docs_dir}", file=sys.stderr)
         return 1
 
-    md_files = scan_docs(docs_dir, include_changelog=args.include_changelog)
+    if args.changed:
+        try:
+            md_files = find_changed_md_files(docs_dir, include_changelog=args.include_changelog)
+        except ChangedFilesUnresolvedError as exc:
+            print(f"Error: {exc}", file=sys.stderr)
+            return 1
+    else:
+        md_files = scan_docs(docs_dir, include_changelog=args.include_changelog)
     print(f"Scanning {len(md_files)} markdown files...")
 
     path_issues = []

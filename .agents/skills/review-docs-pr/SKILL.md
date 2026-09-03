@@ -16,6 +16,40 @@ Use this skill when reviewing documentation changes in PRs. The skill will:
 - Review AEO/source-data fit for docs changes that target search or answer-engine visibility
 - Check Astro Starlight structure integrity
 
+When the PR carries the `warpy-factory` label, this is the **independent v1
+agent-doc quality review pass** dispatched by
+`.github/workflows/agent-docs-review.yml` for the current head SHA (see
+"Agent-marked PR review (v1 contract)" below).
+
+## Agent-marked PR review (v1 contract)
+
+For a PR carrying the `warpy-factory` label, in addition to the standard
+review focus areas, this pass is the human-review-blocking gate defined in
+`.agents/references/doc-quality-policy.md`:
+
+1. **Re-validate the declared risk.** Parse the PR's `## Documentation risk`
+   section (`.agents/skills/doc_quality_policy/policy.py`'s
+   `parse_documentation_risk_section`). Walk the diff against the low-risk
+   allowlist yourself. A declared `low` risk that actually touches any
+   engineering-review trigger (a new/changed feature page, or any of the
+   technical claim categories in the allowlist) is a **risk
+   misclassification** — flag it `⚠️ [IMPORTANT]` and reflect it in the
+   verdict (see "Severity Labels" below); it is not a soft suggestion.
+2. **Verify technical claims against source** when the PR is (or should be)
+   `engineering-review-required`: confirm the cited `Source files consulted`
+   actually support the claims. Use `answer_question` when source access is
+   available.
+3. **Check the compression contract.** Run
+   `.agents/skills/doc_quality_policy/check_compression_contract.py` against
+   each changed content-type page. An unjustified violation (no reasoning in
+   the PR body for the overage) is `⚠️ [IMPORTANT]`; a justified one is
+   `💡 [SUGGESTION]` at most.
+4. **Check VERIFY accounting.** Run
+   `.agents/skills/doc_quality_policy/check_pr_contract.py --body <file>
+   <changed files>` against the current head. Any reported contract
+   violation (missing section, unlisted marker, listed marker at `low` risk)
+   is `🚨 [CRITICAL]`.
+
 ## Review Instructions
 
 Review this documentation PR for the docs repository.
@@ -36,10 +70,14 @@ Provide actionable, constructive feedback. Focus on documentation quality issues
 ### Severity Labels (Required)
 
 Every comment body MUST begin with one of:
-- `🚨 [CRITICAL]` — Broken links, incorrect commands/code, factually wrong information that could confuse users
-- `⚠️ [IMPORTANT]` — Style guide violations, missing redirects, structural issues
+- `🚨 [CRITICAL]` — Broken links, incorrect commands/code, factually wrong information that could confuse users, or a v1 contract violation (missing/invalid `## Documentation risk`, an unlisted `VERIFY` marker)
+- `⚠️ [IMPORTANT]` — Style guide violations, missing redirects, structural issues, a documentation-risk misclassification, or an unjustified compression-contract violation
 - `💡 [SUGGESTION]` — Improvements to clarity, wording, or structure
 - `🧹 [NIT]` — Typos, minor formatting (ONLY if providing a suggestion block)
+
+**Blocking rule for agent-marked PRs.** Any `🚨 [CRITICAL]` or `⚠️ [IMPORTANT]`
+finding — including a risk misclassification — means the verdict is
+**Request changes**. Suggestions and nits never block.
 
 ### Using answer_question for verification
 
@@ -131,7 +169,13 @@ After creating and validating `review.json` (immediately after the Validation se
 3. Determine the skill used from the PR branch name or PR description if available.
 4. Include the following structured marker in your **text response** (write it as part of your agent message, not via a shell `echo` command). This ensures it appears as a `TextContentBlock` in the conversation, where `oz run get --conversation` can reliably retrieve it:
    ```
-   [SIGNAL:pr-review] {"date":"YYYY-MM-DD","pr":"NNN","branch":"branch-name","skill_used":"draft_feature_doc","verdict":"Request changes","critical":N,"important":N,"suggestions":N,"nits":N,"top_categories":["category (N)","category (N)","category (N)"]}
+   [SIGNAL:pr-review] {"date":"YYYY-MM-DD","pr":"NNN","branch":"branch-name","head_sha":"abc1234","skill_used":"draft_feature_doc","verdict":"Request changes","critical":N,"important":N,"suggestions":N,"nits":N,"top_categories":["category (N)","category (N)","category (N)"]}
    ```
+   Set `head_sha` to the exact commit SHA this review evaluated (the head SHA
+   `.github/workflows/agent-docs-review.yml` passed in, or `gh pr view NNN
+   --json headRefOid --jq .headRefOid` when reviewing interactively). A push
+   of a new commit makes any earlier signal for this PR stale; the collector
+   in `improve-drafting-skills` keys its `review_outcome` lookup on this field
+   matching the PR's current head.
 
 The `improve-drafting-skills` outer loop reads this signal from the conversation via `oz run get --conversation`, scanning assistant `TextContentBlock` messages for the marker. No git operations are required.

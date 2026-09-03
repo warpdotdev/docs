@@ -9,6 +9,73 @@ permissions:
   contents: read
 
 jobs:
+  docs-editorial-quality:
+    name: Docs editorial quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Changed-file-only style lint. Error-severity findings block; warning-
+      # severity tone/judgment findings remain visible to review-docs-pr.
+      - name: Run style_lint --changed
+        run: python3 .agents/skills/style_lint/style_lint.py --changed
+
+  docs-technical-references:
+    name: Docs technical references
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Validates changed UI paths, Command Palette names, and UI-reference
+      # formatting against the committed valid_paths.json snapshot. Uses the
+      # committed snapshot only — no warpdotdev/warp checkout required.
+      - name: Validate changed UI references
+        run: python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --changed
+
+      # Doc-quality policy unit tests (risk allowlist, VERIFY accounting,
+      # override boundaries, PR-contract validation).
+      - name: Test doc_quality_policy
+        run: |
+          python3 .agents/skills/doc_quality_policy/test_policy.py
+          python3 .agents/skills/doc_quality_policy/test_check_pr_contract.py
+          python3 .agents/skills/doc_quality_policy/test_check_compression_contract.py
+          python3 .agents/skills/doc_quality_policy/test_manifest.py
+
+      - name: Test validate_ui_refs --changed mode and snapshot provenance
+        run: python3 .agents/skills/validate_ui_refs/test_changed_mode.py
+
+      - name: Test improve-drafting-skills metrics command
+        run: python3 .agents/skills/improve-drafting-skills/scripts/test_compute_metrics.py
+
+      # PR-contract check: unlisted VERIFY markers, missing/invalid risk
+      # section. On a pull_request event this validates against the actual
+      # PR body; push-to-main runs (no open PR) skip gracefully since there
+      # is no PR body to fetch.
+      - name: Check documentation-risk PR contract
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr view "${{ github.event.pull_request.number }}" --json body --jq .body > /tmp/pr-body.md
+          python3 .agents/skills/doc_quality_policy/check_pr_contract.py \
+            --body /tmp/pr-body.md --head-sha "${{ github.event.pull_request.head.sha }}"
+
   build:
     name: Build, link-check, audit
     runs-on: ubuntu-latest

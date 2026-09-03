@@ -1,0 +1,109 @@
+name: Agent docs review
+
+# Internal-PR-only: dispatches an independent review-docs-pr pass for every
+# agent-marked PR (the `warpy-factory` label), pinned to the exact head SHA.
+# A fork PR never receives secrets or dispatches agent work, since
+# `pull_request` (not `pull_request_target`) runs with the fork's own
+# read-only token and no repository secrets.
+on:
+  pull_request:
+    types: [opened, labeled, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  # One review run per PR; a new push (synchronize) cancels the stale-SHA
+  # run in progress rather than letting two reviews race on the same PR.
+  group: agent-docs-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    name: Dispatch review-docs-pr for the current head
+    runs-on: ubuntu-latest
+    # Only agent-marked PRs get the independent review pass, and only from
+    # this same repository (never a fork, which carries no secrets here).
+    if: |
+      contains(github.event.pull_request.labels.*.name, 'warpy-factory') &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Checkout docs
+        uses: actions/checkout@v4
+
+      - name: Install Oz CLI
+        run: |
+          curl -sL "https://app.warp.dev/download/cli?os=linux&package=deb&arch=x86_64" -o /tmp/oz.deb
+          sudo dpkg -i /tmp/oz.deb
+
+      - name: Write Oz prompt
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          cat > /tmp/oz_prompt.txt << PROMPT
+          Run the review-docs-pr skill against warpdotdev/docs PR #${PR_NUMBER}
+          at head SHA ${HEAD_SHA}. This PR carries the warpy-factory agent
+          marker, so it requires the independent v1 agent-doc quality review
+          pass (see .agents/references/doc-quality-policy.md):
+
+          1. Re-validate the PR's declared "## Documentation risk" level
+             against the actual diff using the low-risk allowlist there.
+             A risk misclassification is an important finding.
+          2. Verify technical claims against the cited source files when the
+             PR is engineering-review-required.
+          3. Publish the review (see review-docs-pr/SKILL.md's Output Format
+             and the "Post a review to GitHub" mechanics), pinned to head SHA
+             ${HEAD_SHA}. Request changes on any critical/important finding,
+             including a risk misclassification; suggestions/nits pass.
+          4. Emit exactly one [SIGNAL:pr-review] record including this head
+             SHA, per review-docs-pr/SKILL.md's Signal logging section.
+
+          Full instructions: .agents/skills/review-docs-pr/SKILL.md
+          PROMPT
+
+      - name: Dispatch Oz cloud agent
+        id: oz-dispatch
+        env:
+          WARP_API_KEY: ${{ secrets.WARP_API_KEY }}
+        run: |
+          OUTPUT=$(oz agent run-cloud \
+            --environment K5KStCm5aYvhfBJb8cHol6 \
+            --skill warpdotdev/docs:review-docs-pr \
+            --prompt "$(cat /tmp/oz_prompt.txt)")
+          echo "$OUTPUT"
+          RUN_ID=$(echo "$OUTPUT" | grep -oP 'run ID: \K[0-9a-f-]{36}')
+          echo "run_id=$RUN_ID" >> "$GITHUB_OUTPUT"
+          echo "Dispatched cloud agent run: $RUN_ID"
+
+      - name: Wait for Oz run to complete
+        env:
+          WARP_API_KEY: ${{ secrets.WARP_API_KEY }}
+        run: |
+          RUN_ID="${{ steps.oz-dispatch.outputs.run_id }}"
+          if [[ -z "$RUN_ID" ]]; then
+            echo "No run ID captured — cannot poll."
+            exit 1
+          fi
+          echo "Polling run $RUN_ID (max 30 min, 30s intervals)..."
+          FINAL_STATUS="timeout"
+          for i in $(seq 1 60); do
+            OUTPUT=$(oz run get "$RUN_ID" 2>/dev/null || echo "")
+            STATUS=$(echo "$OUTPUT" | grep -oP '(?<=\()\w+(?=\))' | head -1 | tr '[:upper:]' '[:lower:]')
+            ELAPSED="$((i * 30 / 60))m$((i * 30 % 60))s"
+            echo "[$ELAPSED] $STATUS"
+            if [[ "$STATUS" == "succeeded" ]]; then
+              FINAL_STATUS="succeeded"
+              break
+            elif [[ "$STATUS" == "failed" || "$STATUS" == "errored" || "$STATUS" == "cancelled" ]]; then
+              FINAL_STATUS="$STATUS"
+              break
+            fi
+            sleep 30
+          done
+          if [[ "$FINAL_STATUS" != "succeeded" ]]; then
+            echo "Oz run did not succeed (status: $FINAL_STATUS)"
+            exit 1
+          fi
+          echo "Oz run completed successfully."

@@ -1523,5 +1523,7 @@
       "description": "Toggle Maximize Code Review Panel"
     }
   ],
+  "source_repository": "warpdotdev/warp",
+  "source_sha": null,
   "generated_at": "2026-08-26T17:34:04.788992+00:00"
 }
