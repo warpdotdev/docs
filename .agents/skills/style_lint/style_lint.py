@@ -375,6 +375,8 @@ class Issue:
     fixable: bool = False
     fix_from: str = ""
     fix_to: str = ""
+    fix_start: int = -1
+    fix_end: int = -1
 
 
 @dataclass
@@ -460,18 +462,23 @@ def _normalize_link_text(text: str) -> str:
 
 def _strip_markdown_destinations(line: str) -> str:
     """Remove Markdown image/link destination text, keeping the associated
-    human-visible alt/link text in place.
+    human-visible alt/link text in place while preserving source offsets.
 
     A destination is a literal filename or URL (e.g. the
     "Blocklist-with-review-changes.png" in
     `![Review changes...](../../assets/Blocklist-with-review-changes.png)`),
     not prose -- casing and deprecated-term checks must not fire on it. The
     `![alt](...)` / `[text](...)` syntax is identical for images and links,
-    so `](...)` -> `]` strips the destination from both while leaving the
-    bracketed text (and the leading `!` for images) for the surrounding
-    prose checks to scan normally.
+    so `](...)` becomes `]` plus whitespace of the same length. This strips
+    the destination from both while leaving the bracketed text (and the
+    leading `!` for images) for the surrounding prose checks to scan
+    normally. Retaining the original length lets a match in the masked line
+    point back to the exact source span for `--fix`.
     """
-    return re.sub(r"\]\([^)]*\)", "]", line)
+    def replace_destination(match: re.Match) -> str:
+        return "]" + " " * (len(match.group(0)) - 1)
+
+    return re.sub(r"\]\([^)]*\)", replace_destination, line)
 
 
 def _meaningful_words(text: str) -> List[str]:
@@ -957,19 +964,21 @@ def check_product_casing(lines: List[str], filepath: str) -> List[Issue]:
             continue
         prose_line = _strip_markdown_destinations(line)
         for pattern, wrong, right, note in _PRODUCT_CASING_PATTERNS:
-            for _ in pattern.finditer(prose_line):
+            for match in pattern.finditer(prose_line):
                 issues.append(Issue(
                     filepath, i, "product-casing",
                     f"\"{wrong}\" → \"{right}\" ({note})",
                     "warning", fixable=True, fix_from=wrong, fix_to=right,
+                    fix_start=match.start(), fix_end=match.end(),
                 ))
 
         for pattern, wrong, right, note in _EXTERNAL_CASING_PATTERNS:
-            for _ in pattern.finditer(prose_line):
+            for match in pattern.finditer(prose_line):
                 issues.append(Issue(
                     filepath, i, "external-casing",
                     f"\"{wrong}\" → \"{right}\" ({note})",
                     "warning", fixable=True, fix_from=wrong, fix_to=right,
+                    fix_start=match.start(), fix_end=match.end(),
                 ))
     return issues
 
@@ -1589,20 +1598,44 @@ def run_all_checks(filepath: Path) -> List[Issue]:
 # ---------------------------------------------------------------------------
 
 def apply_fixes(filepath: Path, issues: List[Issue]) -> int:
-    """Apply fixable issues to a file. Returns count of fixes applied."""
+    """Apply fixable issues at their reported source locations.
+
+    A whole-file ``str.replace`` can rewrite an earlier matching literal in a
+    code block or Markdown destination even when scanning correctly reported a
+    later prose occurrence. Span-aware checks provide column offsets; process
+    those spans right-to-left on each line so earlier replacements do not shift
+    later offsets. Older checks without spans still replace only on their
+    reported line, never elsewhere in the file.
+    """
     fixable = [i for i in issues if i.fixable and i.fix_from and i.fix_to]
     if not fixable:
         return 0
-
-    content = filepath.read_text(encoding="utf-8")
+    lines = filepath.read_text(encoding="utf-8").splitlines(keepends=True)
     count = 0
+
+    spanned_issues = [issue for issue in fixable if issue.fix_start >= 0]
+    for issue in sorted(spanned_issues, key=lambda item: (item.line, item.fix_start), reverse=True):
+        line_index = issue.line - 1
+        if not 0 <= line_index < len(lines):
+            continue
+        line = lines[line_index]
+        if line[issue.fix_start:issue.fix_end] == issue.fix_from:
+            lines[line_index] = (
+                line[:issue.fix_start] + issue.fix_to + line[issue.fix_end:]
+            )
+            count += 1
     for issue in fixable:
-        if issue.fix_from in content:
-            content = content.replace(issue.fix_from, issue.fix_to, 1)
+        if issue.fix_start >= 0:
+            continue
+        line_index = issue.line - 1
+        if not 0 <= line_index < len(lines):
+            continue
+        if issue.fix_from in lines[line_index]:
+            lines[line_index] = lines[line_index].replace(issue.fix_from, issue.fix_to, 1)
             count += 1
 
     if count > 0:
-        filepath.write_text(content, encoding="utf-8")
+        filepath.write_text("".join(lines), encoding="utf-8")
     return count
 
 

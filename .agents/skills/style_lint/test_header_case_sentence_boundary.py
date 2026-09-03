@@ -24,7 +24,7 @@ spec.loader.exec_module(style_lint)
 CASES = [
     ("Enabling Computer Use", False,
      "single sentence, fully protected proper feature name"),
-    ("My co-workers are using Warp but were not on a Team Together yet. How does billing work?", True,
+    ("My co-workers are using Lovelace but were not on a Team Together yet. How does billing work?", True,
      "two-sentence FAQ title; genuine Title Case words (Team, Together) in the first sentence trigger the fix"),
     ("Is Warp Fully Free? No it Requires a plan", True,
      "second sentence starts right after a question mark, with a genuine mid-sentence Title Case word (Requires) later in that sentence"),
@@ -35,8 +35,8 @@ CASES = [
 # second sentence.
 FIX_CASES = [
     (
-        "My co-workers are using Warp but were not on a Team Together yet. How does billing work?",
-        "My co-workers are using warp but were not on a team together yet. How does billing work?",
+        "My co-workers are using Lovelace but were not on a Team Together yet. How does billing work?",
+        "My co-workers are using lovelace but were not on a team together yet. How does billing work?",
     ),
     (
         "Is Warp Fully Free? No it Requires a plan",

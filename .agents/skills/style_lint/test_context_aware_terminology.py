@@ -23,6 +23,7 @@ after touching `check_product_casing`, `check_deprecated_terms`, or
 import importlib.util
 import pathlib
 import sys
+import tempfile
 
 HERE = pathlib.Path(__file__).parent
 spec = importlib.util.spec_from_file_location("style_lint", HERE / "style_lint.py")
@@ -71,6 +72,34 @@ CASES = [
     ),
 ]
 
+def test_autofix_targets_reported_prose() -> bool:
+    """Skipped literals must not absorb a later prose issue's auto-fix."""
+    cases = [
+        (
+            "[Installer](https://example.com/downloads/MacOS/installer.dmg) runs on MacOS.\n",
+            "[Installer](https://example.com/downloads/MacOS/installer.dmg) runs on macOS.\n",
+            "an earlier Markdown destination",
+        ),
+        (
+            "```bash\n/Applications/Warp.app/Contents/MacOS/stable\n```\nThis build runs on MacOS.\n",
+            "```bash\n/Applications/Warp.app/Contents/MacOS/stable\n```\nThis build runs on macOS.\n",
+            "an earlier fenced code block",
+        ),
+    ]
+    failures = 0
+    with tempfile.TemporaryDirectory() as temp_dir:
+        for index, (original, expected, skipped_literal) in enumerate(cases):
+            filepath = pathlib.Path(temp_dir) / f"test-{index}.mdx"
+            filepath.write_text(original, encoding="utf-8")
+            issues = style_lint.check_product_casing(original.splitlines(), str(filepath))
+            fixed = style_lint.apply_fixes(filepath, issues)
+            result = filepath.read_text(encoding="utf-8")
+            ok = fixed == 1 and result == expected
+            if not ok:
+                failures += 1
+            print(f"  [{'PASS' if ok else 'FAIL'}] auto-fix changes prose, not {skipped_literal}")
+    return failures == 0
+
 
 def main() -> int:
     failures = 0
@@ -81,12 +110,15 @@ def main() -> int:
         if not ok:
             failures += 1
         print(f"  [{'PASS' if ok else 'FAIL'}] {description:<70} flagged={flagged}")
+    if not test_autofix_targets_reported_prose():
+        failures += 1
 
     print()
+    total = len(CASES) + 1
     if failures:
-        print(f"{failures} of {len(CASES)} cases regressed.")
+        print(f"{failures} of {total} cases regressed.")
         return 1
-    print(f"All {len(CASES)} cases behave correctly.")
+    print(f"All {total} cases behave correctly.")
     return 0
 
 
