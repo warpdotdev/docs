@@ -17,9 +17,18 @@ Deciding which repositories belong in this factory is a separate question. See [
 
 A **work item** is a single request the factory acts on, such as an issue, support request, pull request, or Factory MCP task. It keeps its identity from intake to handoff, however many agents contribute to it along the way.
 
-![Warp Factories system diagram showing work sources, automations, the foreman and stage agents, human handoff, the factory definition, platform execution, and the outer loop](../../../assets/agent-platform/factories-work-item-flow.png)
+![Warp Factories system diagram showing work sources, automations, the foreman and stage agents, human handoff, the factory definition, platform execution, the factory dashboard, and the measure-and-improve loop](../../../assets/agent-platform/factories-work-item-flow.png)
 
-The [Warp Factories work-item flow](/platform/architecture/#warp-factories-work-item-flow) reference explains each component in the diagram.
+The diagram's components, from intake to improvement:
+
+* **Work sources** - Work items arrive from [Slack](/factories/integrations/slack/), [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), [Linear](/factories/integrations/linear/), or [Jira](/factories/integrations/jira/), from local coding agents through the [Factory MCP](/factories/factory-mcp/), or from direct runs and schedules.
+* **Automations** - [Automations](/factories/automations/) filter provider events and decide which agent handles them. Schedules fire them on a timer; direct requests go straight to the foreman.
+* **Foreman and stage agents** - The foreman holds one conversation per work item and dispatches the Triage, Spec, Implement, and Review agents as the work needs them. See [factory agents](/factories/factory-agents/) and the stages below.
+* **Human handoff** - The factory opens a pull request with evidence, updates the original work item, and you review and merge.
+* **Factory definition** - Version-controlled agents, automations, runners, and skills define the factory, either Warp-managed or in a GitHub repository your team owns. See [definitions as code](/factories/factory-as-code/).
+* **Execution** - Every stage runs as a cloud agent run on Warp-hosted or [self-hosted](/platform/self-hosting/) compute, with the workspace from the factory's repositories and each stage's configured model and [harness](/platform/harnesses/).
+* **Factory dashboard** - Metrics, work items by stage, and runs and costs. See the [factory dashboard](/factories/factory-dashboard/).
+* **Measure and improve** - [Scorers](/factories/measure-and-improve/) grade completed work, benchmarks compare configurations, and self-improvement turns repeat failures into follow-up pull requests for your review.
 
 ## How a work item moves through the factory
 
