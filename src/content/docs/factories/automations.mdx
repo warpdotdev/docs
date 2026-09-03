@@ -7,9 +7,9 @@ sidebar:
   label: Factory automations
 ---
 
-An **automation** is a factory resource that starts runs from a trigger and routes them to an agent. Triggers fired by a connected tool also carry filters that decide which events start a run. Every default automation Warp creates when you connect a provider, and every custom one you add, is this same resource. See [`automations/<name>/automation.md`](/factories/factory-as-code/#automationsnameautomationmd) for the full schema.
+An **automation** is a factory resource that starts runs from a trigger and routes them to an agent. Triggers fired by a connected tool or a [custom webhook](/factories/webhooks/) also carry filters that decide which events start a run. Every default automation Warp creates when you connect a provider, and every custom one you add, is this same resource. See [`automations/<name>/automation.md`](/factories/factory-as-code/#automationsnameautomationmd) for the full schema.
 
-Automation filters decide which events from your connected tools start factory work. Every trigger on an automation carries filters (e.g., a repository, channel, team, project, label, or author) and an event starts a run only when it matches them. Filters let a factory watch busy channels and repositories without acting on everything in them.
+Automation filters decide which events from your connected tools start factory work. Every trigger on an automation carries filters (e.g., a repository, channel, team, project, label, author, or webhook payload field) and an event starts a run only when it matches them. Filters let a factory watch busy channels and repositories without acting on everything in them.
 
 ## How matching works
 
@@ -25,7 +25,7 @@ One event can match more than one automation, and each match starts its own run.
 
 Filters decide when work starts, not what a running agent can reach. Access comes from what you authorize on each provider: the GitHub App installation, the GitLab bot's project membership, the Slack app's authorization, the Linear OAuth scope, or the Jira app installation. Tightening a filter never shrinks that access, and removing one never widens it. To change what an integration can reach, change what you authorize for that provider.
 
-Filters are still your main control over who starts runs. On GitHub and GitLab, the event author doesn't need to be a Warp team member, so use author, member, and branch filters to decide whose activity starts work. Slack mentions and direct messages additionally require a Slack account linked to a member of the factory's Warp team.
+Filters are still your main control over who starts runs. On GitHub and GitLab, the event author doesn't need to be a Warp team member, so use author, member, and branch filters to decide whose activity starts work. Slack mentions and direct messages additionally require a Slack account linked to a member of the factory's Warp team. A custom webhook authenticates each delivery with the webhook's own secret or the sender's signature, so anyone holding that credential can start work; its filters only decide which deliveries do.
 
 ## What each source can filter on
 
@@ -38,8 +38,9 @@ Every source filters on where the event happened: a repository, project, convers
 | [GitLab](/factories/integrations/gitlab/) | Project, actions, and base branch |
 | [Linear](/factories/integrations/linear/) | Teams, labels, project, workflow state, assignee, mentioned user, and, for comment events, a specific issue |
 | [Jira](/factories/integrations/jira/) | Jira projects and assignment keywords |
+| [Custom webhooks](/factories/webhooks/) | The webhooks the trigger listens to, and a pattern over the delivery's JSON payload |
 
-Each integration guide lists which filters appear on which event types.
+Each integration guide lists which filters appear on which event types. Webhook payload patterns follow their own grammar, described in [payload filters for webhook triggers](#payload-filters-for-webhook-triggers).
 
 ## Edit filters on an automation
 
@@ -92,14 +93,57 @@ the PR.
 
 For more automations that use these filters, including branches, paths, workflow conclusions, and emoji reactions, see [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations).
 
+## Payload filters for webhook triggers
+
+A [custom webhook](/factories/webhooks/) trigger (`provider: webhook`, `event: received`) binds an automation to one or more webhooks with `webhook_ids`, which takes webhook UIDs and supports only `in`. Its optional `payload` filter is a pattern that mirrors the shape of the delivery's JSON body, so you can route on the payload without running an agent to decide:
+
+* Payload filters match against the webhook's JSON body.
+* Fields are ANDed together: every key in the pattern must match.
+* An array means "match any of these values."
+* `in`, `not_in`, and `exists` are supported as operators on a field.
+* Nested objects let you filter on nested payload fields.
+
+This trigger starts a run for opened or reopened pull requests from a GitHub webhook, skipping drafts and bot authors:
+
+```yaml
+triggers:
+  - provider: webhook
+    event: received
+    filter:
+      webhook_ids: [WEBHOOK_UID]
+      payload:
+        action: [opened, reopened]
+        pull_request:
+          draft: [false]
+        sender:
+          type:
+            not_in: [Bot]
+```
+
+In the dashboard, the **Webhook** trigger's JSON editor validates a pattern as you type, and **Test filter** evaluates it against a stored delivery. See [add a Webhook trigger to an automation](/factories/webhooks/#add-a-webhook-trigger-to-an-automation).
+
+For exact matching semantics, limits, and validation rules, see [payload filter reference](#payload-filter-reference).
+
+## Payload filter reference
+
+* **Values match by type.** Strings match exactly and case-sensitively, numbers match numerically (`1` equals `1.0`), and booleans and `null` are matchable values.
+* **A missing key fails `in` and passes `not_in`.** A field the payload doesn't carry can't be in any set, so `{"env": {"not_in": ["dev"]}}` matches a delivery with no `env` field. A nested pattern object requires its key to be present.
+* **Arrays of objects match on any element.** When the payload value is an array of objects, a nested pattern matches if any element matches; when it's an array of scalars, `in` matches on any overlap and `not_in` requires none.
+* **Operators on the same field AND together.** For example, combining `in` and `exists: true` on one field requires both to hold.
+* **Limits** - A pattern nests up to 10 levels deep, holds up to 64 leaf fields, and lists up to 32 values per set.
+* **Validation** - Warp rejects a pattern that lists the same value in both `in` and `not_in` on one field, or that combines `exists: false` with a non-empty `in`.
+* **Fail closed** - A filter that can't be evaluated never matches, so a broken filter keeps an automation silent rather than firing it.
+
 ## Troubleshooting
 
 * **A matching event doesn't start work** - Confirm the automation is enabled and the trigger's event type matches, then check every filter; a single mismatch prevents routing. Each integration guide's troubleshooting section covers provider-specific causes, such as app installation coverage.
+* **A webhook delivery doesn't start work** - Open the delivery in the webhook's **Recent deliveries** to confirm it was accepted rather than rejected or deduplicated, then use **Test filter** on the automation's **Webhook** trigger against that delivery. See [troubleshooting custom webhooks](/factories/webhooks/#troubleshooting).
 
 ## Related pages
 
 * [**Connect your factory**](/factories/connect-your-factory/) - Choose the sources that route work into the factory.
 * [Slack](/factories/integrations/slack/), [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), [Linear](/factories/integrations/linear/), and [Jira](/factories/integrations/jira/) integration guides - Per-source setup, events, and filter details.
+* [**Custom webhooks**](/factories/webhooks/) - Start automations from any system that can POST JSON, with the setup flow and authentication modes.
 * [**Definitions as code**](/factories/factory-as-code/) - Manage automations, triggers, and filters as version-controlled files.
 * [**warp-factory-examples**](https://github.com/warpdotdev/warp-factory-examples) - Complete factory definitions with example automations and filters.
 * [**Factory dashboard**](/factories/factory-dashboard/) - Create and edit automations in the factory's **Automations** view.

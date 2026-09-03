@@ -437,6 +437,10 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories/integrations/gitlab', label: 'GitLab' },
 						{ slug: 'factories/integrations/linear', label: 'Linear' },
 						{ slug: 'factories/integrations/jira', label: 'Jira' },
+						// Custom webhooks connect any JSON-posting system, so they sit
+						// between the named third-party services and the API-style
+						// mechanisms below. Label matches the factory dashboard's nav.
+						{ slug: 'factories/webhooks', label: 'Webhooks' },
 						// Alongside Factory MCP: both are direct API-style connection
 						// mechanisms rather than third-party services, so they trail the
 						// per-service integrations above.

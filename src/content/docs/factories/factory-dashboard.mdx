@@ -2,7 +2,7 @@
 title: Factory dashboard
 description: >-
   Track work items, inspect runs, read factory metrics, and manage agents,
-  automations, and settings from the factory dashboard.
+  automations, webhooks, and settings from the factory dashboard.
 sidebar:
   label: "Factory dashboard"
 ---
@@ -70,7 +70,7 @@ Run pages don't include a chat input, but you can still steer a run: **View sess
 
 ## Manage agents and automations
 
-**Agents** lists the factory's agents. Create agents and edit their instructions, model or harness, runner, host, secrets, and MCP servers. **Automations** defines the triggers that start runs: a schedule (including custom cron expressions) or a GitHub, Linear, Slack, or Jira event.
+**Agents** lists the factory's agents. Create agents and edit their instructions, model or harness, runner, host, secrets, and MCP servers. **Automations** defines the triggers that start runs: a schedule (including custom cron expressions), a GitHub, Linear, Slack, or Jira event, or a delivery to a custom webhook. **Webhooks** lists the factory's [custom webhooks](/factories/webhooks/), where you create them, copy their URLs, rotate secrets, and read the delivery log.
 
 {/* VISUAL: The Automations editor, to complement the Agents list already shown in Configure agent behavior on the factory agents page. */}
 
