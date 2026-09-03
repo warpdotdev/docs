@@ -82,9 +82,9 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AI Execution Profile: Removed From Denylist` | An item was removed from an AI execution profile denylist |
 | `AI Execution Profile: Setting Updated` | An AI execution profile setting was updated |
 | `AI Input Not Sent` | The AI input was not sent |
-| `AI Suggested Rule Added` | Clicked the Add Suggested Rule button in the AI blocklist |
+| `AI Suggested Rule Added` | Clicked the Add Suggested Rule button in the AI denylist |
 | `AI Suggested Rule Content Changed` | Content changed by the user in the suggested rule dialog |
-| `AI Suggested Rule Edited` | Clicked the Edit Suggested Rule button in the AI blocklist |
+| `AI Suggested Rule Edited` | Clicked the Edit Suggested Rule button in the AI denylist |
 | `AI.ProviderCredential.Changed` | A user added or removed a model-provider credential |
 | `AIAutonomy.AutoexecutedRequestedCommand` | Autoexecuted an Agent Mode requested command |
 | `AIAutonomy.ChangedAgentModeAskUserQuestionPermission` | Changed Agent Mode permission for asking user questions |
@@ -102,7 +102,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Agent Mode Setup Banner Accepted` | Agent Mode setup banner accepted |
 | `Agent Mode Setup Banner Dismissed` | Agent Mode setup banner dismissed |
 | `Agent Mode Setup Project Scoped Rules Action` | User clicked a button in the Agent Mode setup project scoped rules step |
-| `Agent Mode.Setup Codebase Context Action` | User clicked a button in the Agent Mode setup codebase context step |
+| `Agent Mode.Setup Codebase Context Action` | User clicked a button in the Agent Mode setup Codebase Context step |
 | `Agent Predict` | Completed an Agent Predict prediction |
 | `Agent Toolbar Dismissed` | User dismissed the use-agent toolbar |
 | `AgentManagement.AgentTypeSelectorOpened` | User opened the agent type selector from agent management |
@@ -114,9 +114,9 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AgentManagement.ConversationOpened` | User opened a conversation |
 | `AgentManagement.DetailsPanelContinueLocally` | User clicked Continue locally in the details panel |
 | `AgentManagement.DetailsViewed` | User clicked View details |
-| `AgentManagement.DismissSetupGuide` | User dismissed the ambient agent setup guide |
+| `AgentManagement.DismissSetupGuide` | User dismissed the cloud agent setup guide |
 | `AgentManagement.FilterChanged` | User changed a filter in the management view |
-| `AgentManagement.OpenSetupGuide` | User opened the ambient agent setup guide |
+| `AgentManagement.OpenSetupGuide` | User opened the cloud agent setup guide |
 | `AgentManagement.SessionLinkCopied` | User copied a session link |
 | `AgentManagement.SetupGuideDocsLink` | User clicked a docs URL in the setup guide |
 | `AgentManagement.SetupGuideStepCopy` | User copied a workflow step from the setup guide |
@@ -144,21 +144,21 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AgentMode.Code.SuggestedEditAcceptClicked` | User selected Accept for a code diff suggestion in Agent Mode |
 | `AgentMode.Code.SuggestedEditReceived` | Agent Mode suggested a code edit |
 | `AgentMode.Code.SuggestedEditResolved` | Agent Mode pending code edit suggestion resolved |
-| `AgentMode.CreatedAIBlock` | Created an AI block in agent mode |
+| `AgentMode.CreatedAIBlock` | Created an AI block in Agent Mode |
 | `AgentMode.Error` | Received an error when getting Agent Mode response |
 | `AgentMode.ExecutedWarpDrivePrompt` | Executed a saved prompt. |
 | `AgentMode.ExitedShellProcess` | An agent-requested command caused the shell process to exit |
 | `AgentMode.FileGlob.Failed` | The file glob tool failed to complete |
 | `AgentMode.FileGlob.Succeeded` | The file glob tool completed successfully |
-| `AgentMode.FullEmbedCodebaseContextSearch.Failed` | Failed to search full embed codebase context |
-| `AgentMode.FullEmbedCodebaseContextSearch.Success` | Successfully searched full embed codebase context |
+| `AgentMode.FullEmbedCodebaseContextSearch.Failed` | Failed to search full embed Codebase Context |
+| `AgentMode.FullEmbedCodebaseContextSearch.Success` | Successfully searched full embed Codebase Context |
 | `AgentMode.Grep.Failed` | The grep tool failed to complete |
 | `AgentMode.Grep.Succeeded` | The grep tool completed successfully |
 | `AgentMode.MerkleTreeSnapshot.Diff.Failed` | Failed to diff merkle tree snapshot |
 | `AgentMode.MerkleTreeSnapshot.Diff.Success` | Successfully diffed merkle tree snapshot |
 | `AgentMode.MerkleTreeSnapshot.Rebuild.Failed` | Failed to rebuild merkle tree from snapshot |
 | `AgentMode.MerkleTreeSnapshot.Rebuild.Success` | Successfully rebuilt merkle tree from snapshot |
-| `AgentMode.OpenedCitation` | Opened a citation that was surfaced in agent mode |
+| `AgentMode.OpenedCitation` | Opened a citation that was surfaced in Agent Mode |
 | `AgentMode.Orchestration.AgentProposedConfig` | An agent-authored orchestration config snapshot first became visible to the user on a plan card |
 | `AgentMode.Orchestration.Entered` | Orchestration was activated in a conversation via /orchestrate or a run_agents confirmation card surfacing. Plan-card entries are tracked separately via AgentProposedConfig + PlanConfigApprovalToggled. |
 | `AgentMode.Orchestration.PillBarInteraction` | User interacted with the orchestration pill bar (switch, pin, open in pane/tab, stop, kill, etc.) |
@@ -170,10 +170,10 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AgentMode.RequestRetrySucceeded` | Agent Mode request succeeded after retrying following an initial error |
 | `AgentMode.SetupCreateEnvironmentAction` | User clicked a button in the Agent Mode setup create environment step |
 | `AgentMode.SurfacedCitations` | Agent mode used and cited external sources that were used in its response |
-| `AgentMode.SyncCodebaseContext.BuildTree.Failed` | Failed to build merkle tree for codebase context |
-| `AgentMode.SyncCodebaseContext.BuildTree.Success` | Successfully built merkle tree for codebase context |
-| `AgentMode.SyncCodebaseContext.Failed` | Failed to sync codebase context |
-| `AgentMode.SyncCodebaseContext.Success` | Successfully synced codebase context |
+| `AgentMode.SyncCodebaseContext.BuildTree.Failed` | Failed to build merkle tree for Codebase Context |
+| `AgentMode.SyncCodebaseContext.BuildTree.Success` | Successfully built merkle tree for Codebase Context |
+| `AgentMode.SyncCodebaseContext.Failed` | Failed to sync Codebase Context |
+| `AgentMode.SyncCodebaseContext.Success` | Successfully synced Codebase Context |
 | `AgentMode.ToggleAutoDetectionSetting` | Toggled the setting that enables or disables natural language auto-detection in the input. |
 | `AgentNotification.Shown` | An agent notification was shown to the user (toast or mailbox) |
 | `AgentTip Clicked` | User clicked a link or action in an Agent Tip |
@@ -191,7 +191,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AmbientAgent.ConcurrencyModal.Dismissed` | User dismissed the cloud agent capacity modal |
 | `AmbientAgent.ConcurrencyModal.Opened` | User opened the cloud agent capacity modal |
 | `AmbientAgent.ConcurrencyModal.UpgradeClicked` | User clicked the upgrade button in the cloud agent capacity modal |
-| `AmbientAgent.DispatchFailed` | Ambient agent failed to dispatch or encountered an error |
+| `AmbientAgent.DispatchFailed` | Cloud agent failed to dispatch or encountered an error |
 | `AmbientAgent.EnvironmentSettings.CreatedEnvironment` | User created a new environment |
 | `AmbientAgent.EnvironmentSettings.DeletedEnvironment` | User deleted an environment |
 | `AmbientAgent.EnvironmentSettings.Image.Suggested` | Docker image was suggested for an environment |
@@ -234,7 +234,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CLI.Execute.Agent.List` | Listed agents from the Warp CLI |
 | `CLI.Execute.Agent.Profile.List` | Listed agent profiles from the Warp CLI |
 | `CLI.Execute.Agent.Run` | Ran an agent from the Warp CLI |
-| `CLI.Execute.Agent.RunAmbient` | Ran an ambient agent from the Warp CLI |
+| `CLI.Execute.Agent.RunAmbient` | Ran a cloud agent from the Warp CLI |
 | `CLI.Execute.Agent.Skills` | Listed agent skills from the Warp CLI |
 | `CLI.Execute.Agent.Update` | Updated an agent from the Warp CLI |
 | `CLI.Execute.ApiKey.Create` | Created an API key from the Warp CLI |
@@ -346,8 +346,8 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CodexModal.Opened` | User opened the Codex modal |
 | `CodexModal.UseCodexClicked` | User clicked 'Use Codex' in the Codex modal |
 | `Command File Run` | Opened a .cmd or unix executable file and ran it directly in Warp |
-| `Command Palette Search Accepted` | Accepted a command palette search result |
-| `Command Palette Search Exited` | Exited command palette search without accepting a result |
+| `Command Palette Search Accepted` | Accepted a Command Palette search result |
+| `Command Palette Search Exited` | Exited Command Palette search without accepting a result |
 | `Command Search Exited` | Exited command search (universal search panel to search) without accepting a result |
 | `Command Search Opened` | Opened command search (universal search panel to search) |
 | `Command Search Result Accepted` | Accepted command search result |
@@ -601,7 +601,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Thin Strokes Setting Changed` | Changed thin strokes setting in settings -> Appearance |
 | `Tier Limit Hit` | User hit the tier limit for a feature |
 | `Toggle Active AI Enablement` | Toggled active AI enablement. |
-| `Toggle Agent Mode Codebase Context` | Toggled on/off the enablement of codebase context usage for Agent Mode. |
+| `Toggle Agent Mode Codebase Context` | Toggled on/off the enablement of Codebase Context usage for Agent Mode. |
 | `Toggle Agent Mode Query Suggestions Setting` | Toggled on/off the prompt suggestions setting |
 | `Toggle Approvals Modal` | Opened or closed teams modal |
 | `Toggle Block Filter Case Sensitivity` | Toggled on/off case sensitivity within the block filter editor |
@@ -609,7 +609,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Toggle Block Filter Query` | Toggled on/off a block filter query |
 | `Toggle Block Filter Regex` | Toggled on/off regex within the block filter editor |
 | `Toggle Code Suggestions Setting` | Toggled on/off the code suggestions setting |
-| `Toggle Codebase Context Autoindexing` | Toggled on/off the enablement of autoindexing for codebase context. |
+| `Toggle Codebase Context Autoindexing` | Toggled on/off the enablement of autoindexing for Codebase Context. |
 | `Toggle Dim Inactive Panes` | Whether the dim inactive panes feature has been toggled |
 | `Toggle Focus Pane On Hover` | Toggled on/off focus pane on hover feature, which causes panes to automatically focus when hovering over them |
 | `Toggle Git Operations Autogen Setting` | Toggled on/off the git operations autogen setting |
