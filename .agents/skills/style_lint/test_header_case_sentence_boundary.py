@@ -40,7 +40,7 @@ FIX_CASES = [
     ),
     (
         "Is Warp Fully Free? No it Requires a plan",
-        "Is warp fully free? No it requires a plan",
+        "Is Warp fully free? No it requires a plan",
     ),
 ]
 

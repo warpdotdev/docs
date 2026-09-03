@@ -52,6 +52,13 @@ PROPER_FEATURE_NAMES = {
     "Workload Identity Federation", "Direct backend",
 }
 
+# Standalone proper nouns that must keep their capital even mid-sentence.
+# These are single words, so they can't live in PROPER_FEATURE_NAMES above --
+# that set only protects a word when the full multi-word name appears as an
+# exact sequence (e.g. "Warp Drive"), which leaves a bare "Warp" unprotected
+# and vulnerable to being sentence-cased like any other Title Case word.
+STANDALONE_PROPER_NOUNS = {"Warp"}
+
 # Terminology: wrong → right (case-sensitive checks)
 PRODUCT_CASING = {
     "Warp Terminal": ("Warp", "Use 'Warp' unless specifically distinguishing from Oz"),
@@ -644,6 +651,10 @@ def _to_sentence_case(text: str) -> str:
             continue
         clean = re.sub(r"[^a-zA-Z]", "", w)
         if not clean or clean in skip_words or len(clean) <= 1:
+            result.append(w)
+            continue
+        # Preserve standalone proper nouns (e.g. "Warp") regardless of position.
+        if clean in STANDALONE_PROPER_NOUNS:
             result.append(w)
             continue
         # Preserve all-caps words (acronyms not in skip_words)
