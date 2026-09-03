@@ -97,7 +97,7 @@ DEPRECATED_TERMS = [
 # only mean "this should have been tokenized" -- a hardcoded "Oz" in prose is
 # now a *stale* product name as well. Both readings want the same fix, so the
 # entries stay. The "Automation Platform" entry is the mirror image: it catches
-# the new name being hardcoded, which would silently miss the 9/15 changes and
+# the new name being hardcoded, which would silently miss the 10/6 changes and
 # any later rename.
 #
 # Each entry: (literal_string, var_key, suggestion)
@@ -130,7 +130,7 @@ RENAME_TRANSITION_MARKERS: Tuple[str, ...] = (
     "Oz is now",
     "was called Oz",
     "renamed from Oz",
-    # Explains why "Oz" still appears in commands and URLs before 9/15.
+    # Explains why "Oz" still appears in commands and URLs before 10/6.
     "the Oz name",
 )
 
