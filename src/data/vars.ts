@@ -8,7 +8,7 @@
 
 export const VARS = {
   // Platform — renamed 8/18. The remaining Oz-valued keys below are the
-  // deliberate 9/15 holdouts: the `oz` binary and the Oz v1 webapp keep their
+  // deliberate 10/6 holdouts: the `oz` binary and the Oz v1 webapp keep their
   // names until that date, so they are NOT stale, they are pending.
   //
   // IMPORTANT: "Automation Platform" is a common-noun phrase, not a proper
@@ -17,9 +17,9 @@ export const VARS = {
   // attributive uses do not ("{{…}} settings", "{{…}}-hosted"). style_lint
   // enforces this. Do not add a bare referential use.
   WARP_AUTOMATION_PLATFORM: "Automation Platform",
-  WARP_AGENT_CLI:           "Oz CLI",         // the `oz` binary — holds until 9/15, then "Warp Agent CLI"
-  WEB_APP:                  "Oz web app",     // legacy Oz v1 webapp (oz.warp.dev) — holds until 9/15
-  WEB_APP_URL:              "https://oz.warp.dev", // holds until 9/15, then "https://app.warp.dev"
+  WARP_AGENT_CLI:           "Oz CLI",         // the `oz` binary — holds until 10/6, then "Warp Agent CLI"
+  WEB_APP:                  "Oz web app",     // legacy Oz v1 webapp (oz.warp.dev) — holds until 10/6
+  WEB_APP_URL:              "https://oz.warp.dev", // holds until 10/6, then "https://app.warp.dev"
   // Renamed per HYC (8/17), same shape as PLATFORM_RUN below: a plain
   // platform-level term, with "factory dashboard" written directly on pages
   // that are specifically about a factory. Lowercase: "Warp Factories" is the
@@ -41,7 +41,7 @@ export const VARS = {
   // Kept singular so `{VARS.PLATFORM_RUN}s` pluralizes correctly at the call
   // sites that do that.
   PLATFORM_RUN:             "cloud agent run",
-  API_SDK_NAME:             "Oz API & SDK",   // holds until 9/15, then "Warp API & SDK"
+  API_SDK_NAME:             "Oz API & SDK",   // holds until 10/6, then "Warp API & SDK"
 
   // Warp Factories web app — a net-new product surface at platform.warp.dev
   // (soft launch ~2026-08-18), separate from the legacy Oz v1 webapp above.
@@ -55,7 +55,7 @@ export const VARS = {
   //
   // NOTE: the WARP_AGENT_CLI key above was reserved for renaming the Oz CLI to
   // this same name. That overlap is now resolved by product direction: on
-  // 2026-09-15 (the same holdout date as the WARP_AGENT_CLI value above, not
+  // 2026-10-06 (the same holdout date as the WARP_AGENT_CLI value above, not
   // the 8/18 platform rename) the Oz CLI is retired and wrapped into the Warp
   // Agent CLI, leaving a single CLI. The two keys are expected to collapse
   // into one at that point. Keeping them separate until the convergence
