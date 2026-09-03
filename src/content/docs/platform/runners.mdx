@@ -23,7 +23,7 @@ What runners give you:
 
 * **Reusable compute configs** – Define an OS, architecture, instance size, and sandbox image once, then reuse the runner across cloud agent runs and orchestration without repeating the configuration.
 * **Right-sized hardware** – Choose the number of vCPUs and amount of memory a run needs, so lightweight tasks stay cheap and heavy builds get enough resources.
-* **Flexible OS targets** – Run agents on Linux or macOS, with Windows support coming soon.
+* **Flexible OS targets** – Run agents on Linux or macOS.
 * **Independent of environments** – Override an environment's default runner per run without changing the environment itself.
 
 ## How runners fit into cloud agent runs
@@ -42,7 +42,7 @@ Each environment has a default runner. Specifying a runner for a run overrides t
   <TabItem label="Linux">
     Linux runners execute the agent in a fresh Docker container. Warp uses the Docker image you select to provide the agent's base filesystem and toolchains.
 
-    Warp-hosted Linux runners support any public x86-64 or ARM64 image. By default, runners use [`warpdotdev/dev-base:latest`](https://hub.docker.com/r/warpdotdev/dev-base).
+    Warp-hosted Linux runners support any public x86-64 or aarch64 image. By default, runners use [`warpdotdev/dev-base:latest`](https://hub.docker.com/r/warpdotdev/dev-base).
     Linux supports any combination of CPU and memory as long as both are a power of two and within your plan's maximum resource limit.
   </TabItem>
   <TabItem label="macOS">
@@ -52,11 +52,11 @@ Each environment has a default runner. Specifying a runner for a run overrides t
     managers are cached automatically.
 
     The following resource configurations are supported:
-    * 4 vCPUs, 7 GiB memory
-    * 6 vCPUs, 14 GiB memory
-    * 8 vCPUs, 14 GiB memory
-    * 12 vCPUs, 28 GiB memory
-    * 12 vCPUs, 56 GiB memory
+    * 4 vCPUs, 7 GB memory
+    * 6 vCPUs, 14 GB memory
+    * 8 vCPUs, 14 GB memory
+    * 12 vCPUs, 28 GB memory
+    * 12 vCPUs, 56 GB memory
   </TabItem>
 </Tabs>
 
