@@ -18,9 +18,9 @@ Watch this walkthrough to see how to start and inspect an orchestrated agent run
 Pick where the parent will run. Every orchestration starts with a single parent that spawns children:
 
 * **Parent in the Warp app** - use the `/orchestrate` or `/plan` slash command. This is the fastest way to try orchestration.
-* **Parent in the cloud** - trigger the parent through the {VARS.WARP_AGENT_CLI} (`oz agent run-cloud`), the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/), or any integration (Slack, Linear, schedule). The parent runs in an environment and spawns children from there.
+* **Parent in the cloud** - trigger the parent through the {VARS.WARP_AGENT_CLI} (`oz agent run-cloud`), the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/), any [integration](/platform/integrations/) such as [Slack](/platform/integrations/slack/) or [Linear](/platform/integrations/linear/), or a [schedule](/platform/triggers/scheduled-agents/). The parent runs in an environment and spawns children from there.
 
-Cloud parents that spawn cloud children need access to one or more [environments](/platform/environments/) the children can run in.
+Cloud parents that spawn cloud children need access to one or more [environments](/platform/environments/) the children can run in. To keep child execution on your own infrastructure, route those children to a [self-hosted worker](/platform/self-hosting/).
 
 ## Starting an orchestrated run from Warp
 
@@ -196,4 +196,7 @@ Self-hosted, local, and GitHub Action runs cannot be cancelled through this endp
 * [{VARS.WARP_AGENT_CLI}](/reference/cli/) - command reference for `oz agent run-cloud` and `oz run`.
 * [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) - full HTTP reference and typed SDKs.
 * [Managing cloud agents](/platform/managing-cloud-agents/) - how parent and child runs appear in the Agent Management Panel in the Warp app and the Runs page in the {VARS.WEB_APP}.
+* [Scheduled agents](/platform/triggers/scheduled-agents/) - start a recurring cloud parent that fans out children on a cron cadence.
+* [Self-hosting](/platform/self-hosting/) - keep parent or child execution on your infrastructure while Warp tracks the runs.
+* [Handoff between local and cloud agents](/platform/handoff/) - promote a local parent to the cloud, or continue a finished cloud parent with a follow-up.
 * [Environments](/platform/environments/) - configure the runtime context cloud children execute in.
