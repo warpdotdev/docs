@@ -53,6 +53,20 @@ jobs:
             4. Emit one [SIGNAL:pr-review] JSON record with this head SHA, verdict, severity
                counts, and top categories. Set reviewer_login to `github-actions[bot]`, the
                runner account that will publish the review.
+      - name: Dismiss stale automated change requests
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews?per_page=100" > /tmp/reviews.json
+          python3 .agents/skills/doc_quality_policy/stale_review_requests.py \
+            --reviews /tmp/reviews.json \
+            --head-sha "${{ github.event.pull_request.head.sha }}" |
+            while IFS= read -r review_id; do
+              [ -z "$review_id" ] && continue
+              gh api --method PUT \
+                "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews/${review_id}/dismissals" \
+                -f "message=Superseded by the current Agent docs review check."
+            done
 
       - name: Publish the independent review
         env:
