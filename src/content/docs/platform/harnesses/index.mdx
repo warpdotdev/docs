@@ -54,7 +54,17 @@ On the new run or new schedule pane, choose the harness in the **Harness** field
 
 ### API and SDK
 
-Set the `harness` field on the agent config. See the [API reference](/reference/api-and-sdk/) for the exact field names.
+Set the `harness` field on the agent config to one of the [harness identifiers](#harness-identifiers) below. See the [API reference](/reference/api-and-sdk/) for the exact field names.
+
+## Harness identifiers
+
+Surfaces that take the harness as a string all use the same identifiers: `oz` for the Warp Agent, `claude` for Claude Code, and `codex` for Codex. Write `claude` for Claude Code — not `claude-code`:
+
+* **API and SDK** — the agent config's `harness.type` accepts `oz`, `claude`, or `codex`.
+* **CLI** — `oz agent run-cloud --harness` accepts the same identifiers, plus `claude-code` as an alias for `claude`.
+* **Factory definition files** — [`harness.type`](/factories/factory-as-code/#agentdefaultsharness) accepts the same identifiers, plus the `claude-code` alias.
+
+Where the alias is accepted, it selects the same Claude Code harness as `claude`. Everywhere else — including the API — only the canonical identifiers are valid, so prefer them in anything you script, sync, or store.
 
 ## Related pages
 

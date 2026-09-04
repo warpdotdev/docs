@@ -273,13 +273,10 @@ oz agent run-cloud \
 * `--host <WORKER_ID>` — run on a specific self-hosted worker instead of Warp-hosted infrastructure.
 * `--attach <PATH>` — attach an image file to the agent query. Can be repeated (maximum 5).
 * `--computer-use` / `--no-computer-use` — enable or disable [Computer Use](/agents/capabilities/computer-use/) for this run.
-* `--harness <HARNESS>` — choose the execution harness for the run. Defaults to `oz` (Warp Agent). Set `claude` or `codex` to run [Claude Code or Codex as a cloud agent](/platform/harnesses/).
+* `--harness <HARNESS>` — choose the [execution harness](/platform/harnesses/) for the run: `oz` (default, the Warp Agent), `claude` (Claude Code), or `codex` (Codex). `claude-code` is accepted as an alias for `claude`. See [harness identifiers](/platform/harnesses/#harness-identifiers).
 * `--claude-auth-secret <NAME>` — name of the [Warp-managed secret](/platform/secrets/) that authenticates the Claude Code harness. Only valid with `--harness claude`. See [Third-party cloud agent authentication](/platform/harnesses/authentication/).
 * `--codex-auth-secret <NAME>` — name of the [Warp-managed secret](/platform/secrets/) that authenticates the Codex harness. Only valid with `--harness codex`. See [Third-party cloud agent authentication](/platform/harnesses/authentication/).
 * `--file <PATH>` (`-f`) — load run configuration from a YAML or JSON file.
-* `--harness <HARNESS>` — choose the [execution harness](/platform/harnesses/) for the run: `oz` (default, Warp's built-in agent infrastructure), `claude` (Claude Code), or `codex`.
-* `--claude-auth-secret <NAME>` — name of the [Warp-managed secret](/platform/harnesses/authentication/) that authenticates the Claude Code harness. Only valid with `--harness claude`.
-* `--codex-auth-secret <NAME>` — name of the [Warp-managed secret](/platform/harnesses/authentication/) that authenticates the Codex harness. Only valid with `--harness codex`.
 
 To run a third-party harness, first store the provider credential as a Warp-managed secret, then pass it with the matching flag:
 
