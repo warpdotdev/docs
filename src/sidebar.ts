@@ -534,8 +534,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'platform/viewing-cloud-agent-runs', label: 'Session sharing' },
 								{ slug: 'platform/managing-cloud-agents', label: 'Managing cloud agents' },
 								// Tokenized, not renamed: WEB_APP holds its "Oz web app" value
-								// until 9/15, so this renders identically today. Tokenizing now
-								// means the 9/15 flip reaches the sidebar, which the Vite
+								// until 10/6, so this renders identically today. Tokenizing now
+								// means the 10/6 flip reaches the sidebar, which the Vite
 								// transform does not process.
 								{ slug: 'platform/oz-web-app', label: VARS.WEB_APP },
 							],

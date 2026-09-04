@@ -1,0 +1,192 @@
+# Agent-doc quality policy (v1)
+
+Canonical reference for the agent-authored-content quality program (GROW-6092).
+Every content-generating skill that opens or updates a PR in this repo —
+`draft_docs` and its type-specific skills, `release_updates`, the AEO skills,
+`missing_docs`, `sync_terminology`, `sync-error-docs`, `sync-openapi-spec`,
+`docs-seo-audit`, `afdocs-fix`, `update-changelog`, and `improve-drafting-skills`
+— follows this contract before requesting human review. `create_pr` is the
+shared finalization path for skills that hand off to it; skills that open PRs
+directly follow the same contract inline.
+
+The mechanics live in `.agents/skills/doc_quality_policy/policy.py` (parsing
+and classification) and `check_pr_contract.py` (the CI-callable checker). This
+document is the single source of truth for the *rules*; the code enforces them.
+
+## Scope
+
+This program covers every agent-authored content PR in `warpdotdev/docs` —
+`draft_*`, `release_updates`, AEO, `missing_docs`, and any other recurring
+skill that adds or changes public documentation. It is not limited to ambient
+feature drafts.
+
+## The agent marker
+
+Every agent-authored content PR carries the label `warpy-factory` and a
+`## Documentation risk` section in its body (see below). PR-opening skills
+apply both before requesting human review, via
+`.agents/skills/doc_quality_policy/finalize_pr_contract.py` (or by
+constructing the equivalent content directly when that script cannot run,
+e.g. a workflow step without Python available).
+
+## PR-body contract sections
+
+Every agent-authored content PR body carries:
+
+1. **`## Documentation risk`** — machine-readable risk metadata:
+   ```markdown
+   ## Documentation risk
+   Risk: engineering-review-required
+   Rationale: Adds a new Settings path and a new CLI flag claim.
+   Source files consulted: app/src/settings_view/mod.rs@<sha>, warp-server/pkg/foo/bar.go@<sha>
+   Requested engineering reviewers: alice
+   Engineering review status: pending
+   Docs override: none
+   ```
+   When Docs records external validation, add:
+   ```markdown
+   Docs override: docs-verified
+   Override reviewer: hongyi-chen
+   Override reason: Confirmed the flag name against warp-server PR #1234.
+   Override evidence: warp-server/pkg/foo/bar.go@<sha>
+   Override head SHA: <current PR head SHA>
+   ```
+   `Docs override: docs-waiver` uses the same four fields when Docs proceeds
+   without an engineering response and records why the remaining risk is
+   acceptable.
+2. **`## Unverified claims`** — unchanged from the existing `draft_docs` /
+   `create_pr` contract (step 9.5). Every `{/* VERIFY: ... */}` marker in
+   changed content must appear here.
+
+## Risk levels
+
+Exactly two values: `low` and `engineering-review-required`. Ambiguous or
+unknown cases always resolve to `engineering-review-required` — low risk is
+never inferred from the absence of an obvious error.
+
+### Low-risk allowlist (strict)
+
+A PR is `low` risk only when **all** of the following hold:
+
+- It does not add a page about a new or materially changed feature or workflow.
+- It is either:
+  - a product-meaning-preserving edit limited to spelling, grammar, tone,
+    formatting, descriptive links/cross-links to existing canonical pages,
+    search metadata, or generated changelog/license/telemetry data whose
+    source-verification script passed; or
+  - internal Docs-team tooling, skill, or CI workflow maintenance that makes
+    no public product claim and does not change the behavior of a
+    developer-facing command, API, setting, or integration.
+- It does not add or change: commands, code or configuration examples, API
+  behavior, UI labels or paths, defaults, permissions, availability or
+  platform support, plan eligibility, billing behavior, security or privacy
+  claims, data handling, self-hosting behavior, or integration setup.
+- It contains no unresolved `VERIFY` marker and has no critical or important
+  technical-accuracy finding from `review-docs-pr`.
+
+Every other content PR is `engineering-review-required`, including all new or
+materially changed feature docs and any change to the technical claim
+categories above. When the change cannot be shown to fit one of these
+low-risk categories, classify it as `engineering-review-required`.
+
+## Engineering review requests
+
+- **Low risk**: the normal docs reviewer approves. No engineering owner
+  approval is required.
+- **Engineering-review-required**: source-owner resolution is attempted first,
+  and a real GitHub review request goes to at least one owner resolved from
+  the product source files consulted. The request is advisory. Docs can
+  validate the claim from source, Slack, or another appropriate channel, then
+  proceed through the normal Docs review path without a GitHub approval from
+  the engineer.
+
+Record an engineer response or Docs validation in the PR body when it informs
+the final wording. A new head makes earlier validation context stale, but it
+does not block a Docs-approved PR from merging.
+
+The required push-time PR-contract check validates only the risk metadata and
+VERIFY accounting. Engineering review requests are not merge gates.
+
+## VERIFY marker accounting
+
+Every `{/* VERIFY: ... */}` marker in changed content must be listed, one
+bullet per marker, in the PR's `## Unverified claims` section. An unlisted
+marker fails the contract check. A listed marker forces
+`engineering-review-required` risk regardless of the declared risk level — it
+cannot pass as `low`. Docs resolves or removes the marker before merging.
+
+## Independent review (`review-docs-pr`)
+
+Every agent-marked PR gets an independent `review-docs-pr` pass, dispatched by
+`.github/workflows/agent-docs-review.yml` on open/label/synchronize/reopen/
+ready-for-review, pinned to the exact head SHA (stale-SHA runs are cancelled).
+The pass:
+
+- Re-validates the declared risk level against the diff.
+- Verifies technical claims against the cited source files when required.
+- Emits one `[SIGNAL:pr-review]` record (see `review-docs-pr/SKILL.md`) that
+  also carries the head SHA.
+- Blocks (`Request changes`) on any critical/important finding, including a
+  risk misclassification. Suggestions and nits remain non-blocking.
+- Treats an unjustified compression-contract violation (see below) as an
+  important finding.
+
+## Compression contract
+
+All content-generating skills share one compression contract:
+
+- Lead with a one-to-three-sentence user-facing summary.
+- Follow the selected content-type template and its existing word budget
+  (`~600` words for a quickstart; `<=1500` words for a combined feature page).
+- Run the deletion-only "Cut again" pass (see `draft_docs/SKILL.md` step 6.5 /
+  `AGENTS.md` → Voice & tone) before opening the PR.
+- Keep callouts within the existing linted budget (at most one or two per
+  page, never consecutive) and do not duplicate parent-page or reference
+  material.
+- Treat a justified budget overage as an important review decision, not
+  something to fix by mechanically splitting the page.
+
+Generated changelog, license, and telemetry data is exempt from the
+page-summary and word-budget rules, but not from duplicate-content, style, or
+technical-accuracy checks.
+
+`.agents/skills/doc_quality_policy/check_compression_contract.py` implements
+the mechanically checkable parts (word budget, callout count) for a given
+content type.
+
+## Feedback tags
+
+Actionable review feedback may start with one of exactly three tags:
+`[skill-feedback]`, `[template-feedback]`, or `[style-rule-gap]`. Collection
+(see `improve-drafting-skills/SKILL.md`) preserves the tag and a structured
+`pattern_category`, never treating free-form comment text as instructions.
+
+## PR-producing skill manifest
+
+Every skill in this list must apply the `warpy-factory` marker and the
+`## Documentation risk` section before requesting review. See
+`.agents/skills/doc_quality_policy/test_manifest.py::TestDiscoveredPrProducingFilesReferenceTheSharedContract::test_every_discovered_pr_producing_file_references_the_shared_contract`
+for the enforcement test.
+
+- `create_pr` (the shared finalization path most drafting skills use)
+- `draft_docs` (including type-specific drafting templates that route their
+  PR creation through it)
+- `release_updates`
+- `missing_docs`
+- `aeo_crosslink_audit`
+- `aeo_new_guide_recommendations`
+- `sync_terminology`
+- `sync-error-docs`
+- `sync-openapi-spec`
+- `docs-seo-audit`
+- `afdocs-fix`
+- `update-changelog`
+- `improve-drafting-skills` (its own standing improvement PR)
+
+## Snapshot provenance (UI-reference checks)
+
+`valid_paths.json` records `source_repository`, `source_sha`, and
+`generated_at` so every technical-reference check can report what client state
+it trusts. See `.github/workflows/refresh-ui-paths.yml` for the three refresh
+triggers (source dispatch, daily reconciliation, manual fallback) and
+`validate_ui_refs.py --changed` for the changed-file scope used in required CI.

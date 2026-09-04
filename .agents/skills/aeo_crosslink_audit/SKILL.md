@@ -7,6 +7,15 @@ description: Run a narrow AEO cross-link audit for Warp docs using Peec, Google 
 
 Identify small, high-confidence internal cross-linking improvements for the Warp docs. This skill is designed for a recurring Oz scheduled agent that audits one narrow topic area, opens a small PR when there are safe changes, or writes a no-change report when there are not enough high-confidence opportunities.
 
+## Agent-doc quality contract
+
+Any PR this skill opens follows the shared v1 agent-doc quality contract in
+`.agents/references/doc-quality-policy.md`: apply the `warpy-factory` label
+and add the `## Documentation risk` block
+(`.agents/skills/doc_quality_policy/finalize_pr_contract.py build`). A
+cross-link-only change that adds no new claims is typically `low` risk under
+the allowlist.
+
 ## Scope
 
 Use this skill only for the pilot topic area:
