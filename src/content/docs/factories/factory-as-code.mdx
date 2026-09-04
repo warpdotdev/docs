@@ -169,7 +169,7 @@ harness:
 
 ### `agentDefaults.harness`
 
-The harness and model that runs execute with. Use the `harness` form to run a third-party harness or to set advanced options. `type` accepts `oz`, `claude` (alias `claude-code`), `codex`, or `gemini` — the values the definition schema validates. For what each harness does and which ones your team can run, see [supported harnesses](/platform/harnesses/).
+The harness and model that runs execute with. Use the `harness` form to run a third-party harness or to set advanced options. `type` accepts `oz`, `claude`, `codex`, or `gemini` — the values the definition schema validates. `claude-code` is also accepted as an alias for `claude`; prefer `claude`, the canonical [harness identifier](/platform/harnesses/#harness-identifiers) that the CLI and the Agent API use for the same harness. For what each harness does and which ones your team can run, see [supported harnesses](/platform/harnesses/).
 
 ```yaml
 harness:
