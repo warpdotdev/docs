@@ -15,14 +15,14 @@ BYOK and custom inference endpoint support are available for individual users an
 
 ## How platform credits are measured
 
-Platform usage is metered in **agent hours**, the time an agent spends working on a task, and billed as platform credits. Time is counted exactly rather than rounded up to whole hours, so a run that works for 15 minutes bills a quarter of an agent hour. See [Warp pricing](https://www.warp.dev/pricing) for current rates; on Enterprise plans, the rate is set by your contract.
+An *agent hour* is one hour an agent spends working on a task. Warp meters platform usage in agent hours and bills that usage as platform credits. Partial hours are billed proportionally, not rounded up: a 15-minute run is a quarter of an agent hour. See [Warp pricing](https://www.warp.dev/pricing) for current rates. Enterprise rates are set by contract.
 
-The clock starts when the agent starts up in its environment, including any environment setup the run performs, and stops when the run finishes, fails, or is cancelled. Time spent queued before the agent starts, and time a run spends idle waiting for your next message, don't count.
+A run accrues agent hours from the time the agent starts in its environment, including environment setup, until the run finishes, fails, or is cancelled. Time spent queued before the agent starts isn't billed, and neither is idle time between turns while the run waits for your next message.
 
-Within that window, how much time counts depends on the [harness](/platform/harnesses/):
+Within that period, what's billable depends on the [harness](/platform/harnesses/):
 
-* **Warp Agent** - The clock runs while the agent is generating a response and pauses while a command or tool the agent ran is executing, so a five-minute test suite doesn't add to the run's agent hours.
-* **Claude Code and Codex** - The clock runs for the whole run, including command execution and time spent waiting on the model provider.
+* **Warp Agent** - Time the agent spends generating a response. Execution time for commands and tools the agent runs in its environment, such as a five-minute test suite, isn't billable.
+* **Claude Code and Codex** - The entire run, including command execution and time spent waiting on the model provider.
 
 ## The three credit buckets
 
@@ -52,7 +52,7 @@ Whether a run uses platform credits depends on where it runs and who pays for in
 
 ## Where platform credits appear
 
-Platform credits appear in the same billing views as the rest of your credit usage, as credits rather than agent hours.
+Platform credits appear in the same billing views as the rest of your credit usage. Usage is shown in credits, not agent hours.
 
 * **Per-user credit totals** - In the Warp app, **Settings** > **Billing and usage** shows platform credits alongside AI credits and compute credits.
 * **Admin usage breakdown** - For team admins, the Admin Panel billing view shows a per-bucket breakdown for each member and for the team as a whole. Platform credits appear as their own segment in the stacked usage bar.
