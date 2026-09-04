@@ -25,6 +25,14 @@ For a `blocked` run, omit the score line rather than recording the meaningless v
 
 ---
 
+## 2026-09-04 — valid
+- **Score**: 83/100 (B)
+- **Checks**: 23 total — 16 pass, 2 fail, 3 warn
+- **Failing check ids**: llms-txt-links-markdown, content-negotiation
+- **Allowlisted**: 5
+- **Oz run**: https://oz.warp.dev/runs/01a06b6e-9cba-7348-9467-9a7f8189886c
+- **Notes**: Score down from 86/100 (2026-08-28) due to sampling: page-size-markdown, page-size-html, and markdown-content-parity warned this run (all allowlisted). Failing set unchanged (OpenAPI links in llms.txt; Vercel static Accept negotiation). No genuine remaining issues; skipped afdocs-fix.
+
 ## 2026-08-28 — valid
 - **Score**: 86/100 (B)
 - **Checks**: 23 total — 17 pass, 2 fail, 2 warn
