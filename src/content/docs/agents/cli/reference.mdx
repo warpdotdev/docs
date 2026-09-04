@@ -146,6 +146,7 @@ Type `/` at the start of the input to open the slash command menu. Commands that
 | `/skills` | | Browse skills in scope and insert one into the input |
 | `/status` | | Show session and account status |
 | `/statusline` | | Configure the statusline |
+| `/team` | | Switch the active team |
 | `/theme` | `<auto\|light\|dark>` | Set the color theme |
 | `/upgrade` | | Open the Warp upgrade page in the browser |
 | `/usage` | | View plan, credit usage, and billing links |
@@ -158,6 +159,8 @@ Some commands appear only when they apply to your account. `/manage-billing` is 
 `/status` opens a read-only panel with the installed version, the current conversation's name and ID, the working directory, and the organization and email you're signed in as. Press `Esc` to close it, and include those details when you report a problem.
 
 `/usage` opens a read-only panel with your plan, credit balances and consumption, and links to manage billing or upgrade. See [models and usage](/agents/cli/models-and-usage/#usage-and-cost).
+
+`/team` opens a searchable list of the teams you belong to, with the active one marked. Type to filter, then press `Enter` to switch. The CLI re-scopes the current session in place, unlike the desktop app, which opens a new window for the team you pick. The active team also appears in the statusline, and clicking it opens the same list.
 
 Skills also appear in the same menu under their own names, so you can invoke a skill directly as `/skill-name`. [Customizing the CLI](/agents/cli/configuration/) covers how skills are discovered.
 
