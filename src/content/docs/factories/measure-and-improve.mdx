@@ -63,17 +63,7 @@ Changing **Pass threshold** updates how past scores display as pass or fail; the
 
 ## Compare configurations with benchmarks
 
-A benchmark compares configurations of a single agent on the same fixed tasks, so you can test a model, harness, or runner change before adopting it. A benchmark suite includes:
-
-* **Agent** - The agent whose configurations you compare.
-* **Tasks** - Fixed prompts with success criteria.
-* **Configurations** - The harness, model, and runner combinations to test.
-* **Scorers** - Your classification Scorers, applied to every trial.
-* **Repetitions** - The number of trials per task and configuration.
-
-You can create a benchmark task from a completed run's detail pane, and Warp copies the run's input into the task. Add success criteria before you launch.
-
-Every benchmark also runs **Correctness**, a built-in Scorer that marks each trial as pass or fail against the task's success criteria. Results show pass rates, cost, and quality for each configuration, with per-task detail. Warp doesn't combine these signals into one score or pick a winner; you weigh the results and decide. Benchmark credit totals don't include model usage, so the true cost is higher.
+A benchmark compares model and runner configurations for a single agent on the same fixed tasks. Use it to test a configuration change before you apply it to production work. See [benchmarking factory agent configurations](/factories/benchmarks/) for the suite, launch, and result-review workflow.
 
 ## Configure and review Self-improvement
 
