@@ -1,11 +1,11 @@
 ---
 title: Platform credits
 description: >-
-  Platform credits are calculated from agent hours and cover Warp's platform
+  Platform credits are billed by the agent hour and cover Warp's platform
   layer on cloud agent runs and local runs with customer-supplied inference.
 ---
 
-Platform credits cover Warp's platform layer: run lifecycle, integrations, dashboard, APIs, and observability. They're metered in agent hours, the time an agent spends working on a task. Platform credits apply to every cloud agent run, including [Warp Factories](/factories/) runs, plus local agent runs on Business and Enterprise plans that use customer-supplied inference.
+Platform credits cover Warp's platform layer: run lifecycle, integrations, dashboard, APIs, and observability. They're billed by the agent hour, the time an agent spends working on a task. Platform credits apply to every cloud agent run, including [Warp Factories](/factories/) runs, plus local agent runs on Business and Enterprise plans that use customer-supplied inference.
 
 Customer-supplied inference is any setup where Warp isn't paying for the model call: [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), [custom inference endpoints](/agents/inference/custom-inference-endpoint/), [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), or Enterprise [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/).
 
@@ -48,7 +48,7 @@ Whether a run uses platform credits depends on where it runs and who pays for in
 * **Local agent runs on Free, Build, or Max plans** - Don't use platform credits, whether the run uses Warp-managed or customer-supplied inference.
 * **Local agent runs on Business or Enterprise with Warp-managed inference** - Don't use platform credits because Warp already charges AI credits for the model call.
 * **Regular terminal usage** - Shell commands and non-AI Warp features don't consume credits.
-* **Third-party agent CLIs run directly** - Running `claude`, `codex`, or another agent CLI outside Warp doesn't consume platform credits.
+* **Third-party agent CLIs run directly** - Running `claude`, `codex`, or another agent CLI yourself, whether in a Warp terminal pane or elsewhere, doesn't consume platform credits.
 
 ## Where platform credits appear
 
