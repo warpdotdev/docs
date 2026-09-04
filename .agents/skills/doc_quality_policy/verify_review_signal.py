@@ -20,7 +20,11 @@ _SIGNAL_RE = re.compile(r"\[SIGNAL:pr-review\]\s*(\{.*?\})", re.DOTALL)
 _PASSING_VERDICTS = {"approve", "approve with nits", "approve_with_nits"}
 
 
-def _parse_signal(text: str) -> Tuple[Optional[Dict[str, object]], List[str]]:
+def _parse_signal(
+    text: str,
+    pr_number: Optional[str] = None,
+    head_sha: Optional[str] = None,
+) -> Tuple[Optional[Dict[str, object]], List[str]]:
     matches = _SIGNAL_RE.findall(text)
     if not matches:
         return None, ["expected exactly one [SIGNAL:pr-review] record, found 0"]
@@ -37,17 +41,25 @@ def _parse_signal(text: str) -> Tuple[Optional[Dict[str, object]], List[str]]:
                 # JSON parsing has failed.
                 signal = json.loads(match.replace('\\"', '"'))
             except json.JSONDecodeError:
-                return None, [f"review signal is not valid JSON: {original_error}"]
+                # Agent output includes the skill's marker examples and prior
+                # review transcripts. Ignore malformed candidates and require
+                # a valid, current-head record below.
+                continue
         if not isinstance(signal, dict):
-            return None, ["review signal must contain a JSON object"]
+            continue
         unique_signals[json.dumps(signal, sort_keys=True, separators=(",", ":"))] = signal
+    signals = list(unique_signals.values())
+    if pr_number is not None:
+        signals = [signal for signal in signals if str(signal.get("pr")) == str(pr_number)]
+    if head_sha is not None:
+        signals = [signal for signal in signals if signal.get("head_sha") == head_sha]
 
-    if len(unique_signals) != 1:
+    if len(signals) != 1:
         return None, [
-            "expected one unique [SIGNAL:pr-review] record, "
-            f"found {len(unique_signals)} distinct records across {len(matches)} occurrences"
+            "expected one valid [SIGNAL:pr-review] record for the current PR head, "
+            f"found {len(signals)} across {len(matches)} occurrences"
         ]
-    return next(iter(unique_signals.values())), []
+    return signals[0], []
 
 
 def _validate_signal(signal: Dict[str, object], pr_number: str, head_sha: str) -> List[str]:
@@ -84,7 +96,11 @@ def _published_review_matches_signal(
             continue
         if (review.get("user") or {}).get("login") != reviewer_login:
             continue
-        published_signal, problems = _parse_signal(review.get("body") or "")
+        published_signal, problems = _parse_signal(
+            review.get("body") or "",
+            str(signal.get("pr")),
+            head_sha,
+        )
         if problems or published_signal is None:
             continue
         fields = ("pr", "head_sha", "verdict", "critical", "important", "reviewer_login")
@@ -95,7 +111,7 @@ def _published_review_matches_signal(
 
 def check_review_signal(repo: str, pr_number: str, head_sha: str, agent_output: str) -> List[str]:
     """Return problems; empty means the independent agent published a passing review."""
-    signal, problems = _parse_signal(agent_output)
+    signal, problems = _parse_signal(agent_output, pr_number, head_sha)
     if signal is None:
         return problems
     problems.extend(_validate_signal(signal, pr_number, head_sha))

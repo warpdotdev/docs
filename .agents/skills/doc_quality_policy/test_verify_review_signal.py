@@ -42,6 +42,19 @@ class TestCheckReviewSignal(unittest.TestCase):
         with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
             problems = vrs.check_review_signal("o/r", "1", "sha1", output)
         self.assertEqual(problems, [])
+    def test_ignores_malformed_marker_example_when_current_signal_is_valid(self):
+        example = '[SIGNAL:pr-review] {"pr":"NNN","head_sha":"SHA","critical":N}'
+        output = f"{example}\n\n{GOOD_OUTPUT}"
+        with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
+            problems = vrs.check_review_signal("o/r", "1", "sha1", output)
+        self.assertEqual(problems, [])
+
+    def test_ignores_a_valid_signal_for_an_older_head(self):
+        stale_signal = GOOD_OUTPUT.replace('"sha1"', '"old-sha"')
+        output = f"{stale_signal}\n\n{GOOD_OUTPUT}"
+        with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
+            problems = vrs.check_review_signal("o/r", "1", "sha1", output)
+        self.assertEqual(problems, [])
 
     def test_escaped_action_output_signal_passes(self):
         output = GOOD_OUTPUT.replace('"', '\\"')
@@ -54,7 +67,7 @@ class TestCheckReviewSignal(unittest.TestCase):
         output = f"{GOOD_OUTPUT}\n\n{different_signal}"
         with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
             problems = vrs.check_review_signal("o/r", "1", "sha1", output)
-        self.assertTrue(any("distinct records" in p for p in problems))
+        self.assertTrue(any("found 2" in p for p in problems))
 
     def test_signal_without_reviewer_identity_fails(self):
         output = GOOD_OUTPUT.replace(',"reviewer_login":"agent-bot"', "")
@@ -78,7 +91,7 @@ class TestCheckReviewSignal(unittest.TestCase):
         stale_output = GOOD_OUTPUT.replace('"sha1"', '"old-sha"')
         with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
             problems = vrs.check_review_signal("o/r", "1", "sha1", stale_output)
-        self.assertTrue(any("does not match current head" in p for p in problems))
+        self.assertTrue(any("found 0" in p for p in problems))
 
     def test_blocking_signal_fails(self):
         blocking_output = GOOD_OUTPUT.replace('"Approve"', '"Request changes"').replace('"critical":0', '"critical":1')
