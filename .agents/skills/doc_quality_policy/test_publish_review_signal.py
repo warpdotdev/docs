@@ -23,9 +23,9 @@ def _signal(verdict: str = "Approve") -> str:
 
 
 class TestBuildReviewPayload(unittest.TestCase):
-    def test_approve_maps_to_github_approval(self):
+    def test_approve_maps_to_non_blocking_github_comment(self):
         payload = prs.build_review_payload(_signal(), "1", "sha1", "github-actions[bot]")
-        self.assertEqual(payload["event"], "APPROVE")
+        self.assertEqual(payload["event"], "COMMENT")
         self.assertEqual(payload["commit_id"], "sha1")
         self.assertIn("## Verdict\nApprove", payload["body"])
         self.assertNotIn("## Review signal", payload["body"])
@@ -37,17 +37,17 @@ class TestBuildReviewPayload(unittest.TestCase):
         self.assertEqual(problems, [])
         self.assertEqual(published_signal["reviewer_login"], "github-actions[bot]")
 
-    def test_approve_with_nits_maps_to_github_approval(self):
+    def test_approve_with_nits_maps_to_non_blocking_github_comment(self):
         payload = prs.build_review_payload(
             _signal("Approve with nits"), "1", "sha1", "github-actions[bot]"
         )
-        self.assertEqual(payload["event"], "APPROVE")
+        self.assertEqual(payload["event"], "COMMENT")
 
-    def test_request_changes_maps_to_github_change_request(self):
+    def test_request_changes_maps_to_non_blocking_github_comment(self):
         payload = prs.build_review_payload(
             _signal("Request changes"), "1", "sha1", "github-actions[bot]"
         )
-        self.assertEqual(payload["event"], "REQUEST_CHANGES")
+        self.assertEqual(payload["event"], "COMMENT")
 
     def test_rejects_signal_for_another_head(self):
         with self.assertRaises(ValueError):
