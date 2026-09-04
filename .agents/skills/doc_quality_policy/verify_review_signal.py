@@ -22,15 +22,25 @@ _PASSING_VERDICTS = {"approve", "approve with nits", "approve_with_nits"}
 
 def _parse_signal(text: str) -> Tuple[Optional[Dict[str, object]], List[str]]:
     matches = _SIGNAL_RE.findall(text)
-    if len(matches) != 1:
-        return None, [f"expected exactly one [SIGNAL:pr-review] record, found {len(matches)}"]
-    try:
-        signal = json.loads(matches[0])
-    except json.JSONDecodeError as exc:
-        return None, [f"review signal is not valid JSON: {exc}"]
-    if not isinstance(signal, dict):
-        return None, ["review signal must contain a JSON object"]
-    return signal, []
+    if not matches:
+        return None, ["expected exactly one [SIGNAL:pr-review] record, found 0"]
+
+    unique_signals = {}
+    for match in matches:
+        try:
+            signal = json.loads(match)
+        except json.JSONDecodeError as exc:
+            return None, [f"review signal is not valid JSON: {exc}"]
+        if not isinstance(signal, dict):
+            return None, ["review signal must contain a JSON object"]
+        unique_signals[json.dumps(signal, sort_keys=True, separators=(",", ":"))] = signal
+
+    if len(unique_signals) != 1:
+        return None, [
+            "expected one unique [SIGNAL:pr-review] record, "
+            f"found {len(unique_signals)} distinct records across {len(matches)} occurrences"
+        ]
+    return next(iter(unique_signals.values())), []
 
 
 def _validate_signal(signal: Dict[str, object], pr_number: str, head_sha: str) -> List[str]:

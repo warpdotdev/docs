@@ -37,6 +37,19 @@ class TestCheckReviewSignal(unittest.TestCase):
             problems = vrs.check_review_signal("o/r", "1", "sha1", "review complete")
         self.assertTrue(any("expected exactly one" in p for p in problems))
 
+    def test_repeated_identical_signal_passes(self):
+        output = f"{GOOD_OUTPUT}\n\n{GOOD_OUTPUT}"
+        with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
+            problems = vrs.check_review_signal("o/r", "1", "sha1", output)
+        self.assertEqual(problems, [])
+
+    def test_distinct_signals_fail(self):
+        different_signal = GOOD_OUTPUT.replace('"Approve"', '"Approve with nits"')
+        output = f"{GOOD_OUTPUT}\n\n{different_signal}"
+        with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
+            problems = vrs.check_review_signal("o/r", "1", "sha1", output)
+        self.assertTrue(any("distinct records" in p for p in problems))
+
     def test_signal_without_reviewer_identity_fails(self):
         output = GOOD_OUTPUT.replace(',"reviewer_login":"agent-bot"', "")
         with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):

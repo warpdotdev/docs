@@ -21,7 +21,7 @@ concurrency:
 
 jobs:
   review:
-    name: Dispatch review-docs-pr for the current head
+    name: Agent docs review
     runs-on: ubuntu-latest
     # Only agent-marked PRs get the independent review pass, and only from
     # this same repository (never a fork, which carries no secrets here).
