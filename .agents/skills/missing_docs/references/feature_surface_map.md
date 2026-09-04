@@ -386,6 +386,10 @@ POST /agent/runs/{runId}/client-events -> internal
 # own cloud agent before setup commands run. Marked `x-internal: true` upstream
 # and guarded by RequireCloudAgent, so it is never callable by an API consumer.
 POST /agent/runs/{runId}/environment-snapshot -> internal
+# Stored computer-use screenshot download (x-internal: true in warp-server
+# public_api/openapi.yaml). Publish filter strips it from the docs OpenAPI copy;
+# backs dogfood StoredScreenshots offload, not the released public Agent API.
+GET /agent/conversations/{conversation_id}/screenshots/{screenshot_uid}/download -> internal
 GET /agent/conversations/{conversation_id}/block-snapshot -> internal
 
 # Support endpoints for third-party harnesses (hidden `oz harness-support` CLI).
@@ -442,6 +446,9 @@ GET /factory/{uid}/source/link-readiness -> internal
 # branch behind the factory definition editor.
 POST /factory/{uid}/source/branch/sync -> internal
 DELETE /factory/{uid}/source/branch -> internal
+# Validates factory-as-code source overlays on the pinned tree
+# (PostFactorySourceValidateHandler). Same unreleased /factory namespace.
+POST /factory/{uid}/source/validate -> internal
 POST /factory/{uid}/merges -> internal
 POST /factory/{uid}/merges/check -> internal
 GET /factory/{uid}/merges/{merge_uid} -> internal
@@ -560,9 +567,6 @@ PATCH /factory/{uid}/benchmarks/suites/{suite_uid} -> internal
 DELETE /factory/{uid}/benchmarks/suites/{suite_uid} -> internal
 POST /factory/{uid}/benchmarks/suites/{suite_uid}/runs -> internal
 POST /factory/{uid}/benchmarks/suites/{suite_uid}/tasks -> internal
-# Moved out from under /suites/{suite_uid} in warp-server: composing a benchmark
-# task from a production run no longer requires a target suite up front.
-POST /factory/{uid}/benchmarks/tasks/compose-from-run -> internal
 GET /factory/{uid}/benchmarks/runs -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid} -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid}/results -> internal
@@ -717,6 +721,9 @@ agents.voice.voice_input_hold_key -> internal
 # Per the page's frontmatter comment: not in the Guides sidebar yet, pending
 # team feedback.
 guides/agent-workflows/warp-vs-claude-code
+# Intentionally omitted from src/sidebar.ts: fallback page linked from the
+# SSH extension docs and settings, not a primary nav item.
+terminal/warpify/ssh-legacy
 # Custom Starlight 404 page (template: splash). Starlight renders it through its
 # own prerendered /404 route, so it is intentionally not in the sidebar.
 404
