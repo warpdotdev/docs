@@ -53,8 +53,7 @@ def build_review_payload(
             "The independent agent completed its review for this commit.\n\n"
             f"## Findings\n{findings}\n\n"
             f"## Verdict\n{signal['verdict']}\n\n"
-            "## Review signal\n"
-            f"[SIGNAL:pr-review] {json.dumps(signal, sort_keys=True)}"
+            f"<!-- [SIGNAL:pr-review] {json.dumps(signal, sort_keys=True)} -->"
         ),
     }
 
