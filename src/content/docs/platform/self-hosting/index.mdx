@@ -20,7 +20,7 @@ Self-hosting lets your team run cloud agent workloads on your own infrastructure
 
 Self-hosting has two architectures. The core distinction is **who orchestrates agent runs** — not who owns the compute. Both models keep code and execution on your infrastructure.
 
-* **Managed** — The {VARS.WARP_AUTOMATION_PLATFORM} orchestrates agent runs. You run the `oz-agent-worker` daemon on your infrastructure; it connects to the {VARS.WARP_AUTOMATION_PLATFORM} and waits for work. Slack mentions, Linear comments, schedules, API calls, and `oz agent run-cloud` commands all route tasks to your worker, which executes them in isolated Docker containers, Kubernetes Jobs, or directly on the host. Similar to a [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners).
+* **Managed** — The {VARS.WARP_AUTOMATION_PLATFORM} orchestrates agent runs. You run the `oz-agent-worker` daemon on your infrastructure; it connects to the {VARS.WARP_AUTOMATION_PLATFORM} and waits for work. [Slack](/platform/integrations/slack/) mentions, Linear comments, [schedules](/platform/triggers/scheduled-agents/), API calls, and `oz agent run-cloud` commands all route tasks to your worker, which executes them in isolated Docker containers, Kubernetes Jobs, or directly on the host. Similar to a [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners).
 * **Unmanaged** — You orchestrate agent runs. You invoke `oz agent run` directly from your existing CI pipeline, Kubernetes pod, VM, or dev box. The {VARS.WARP_AUTOMATION_PLATFORM} provides session tracking and observability for each run, but does not start or stop agents for you.
 
 ### At a glance
@@ -197,8 +197,8 @@ Musl-based Docker images (such as Alpine Linux) are not supported as task images
 
 Self-hosted runs have the same observability as Warp-hosted runs:
 
-* **Run history** — View task status, history, and metadata in the {VARS.DASHBOARD}, hosted in the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>.
-* **Session sharing** — Authorized teammates can attach to running tasks to monitor progress.
+* **Run history** — View task status, history, and metadata in the {VARS.DASHBOARD}, hosted in the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>, or filter by source and status in the [Agent Management Panel](/platform/managing-cloud-agents/).
+* **Session sharing** — Authorized teammates can attach to running tasks to [monitor progress](/platform/viewing-cloud-agent-runs/).
 * **APIs and SDKs** — Query task history and build monitoring using the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/).
 
 For infrastructure-level observability, the `oz-agent-worker` daemon can export OpenTelemetry metrics (worker health, task throughput, capacity saturation) to Prometheus, an OTLP collector, or the console. See [Monitoring](/platform/self-hosting/monitoring/) for setup, the full metric catalog, and sample PromQL queries.
@@ -217,5 +217,8 @@ For infrastructure-level observability, the `oz-agent-worker` daemon can export 
 * [Security and networking](/platform/self-hosting/security-and-networking/) — Data boundaries, network egress, and security considerations.
 * [Troubleshooting](/platform/self-hosting/troubleshooting/) — Worker won't start, tasks not picked up, and other common issues.
 * [Deployment patterns](/platform/deployment-patterns/) — How self-hosting compares to CLI-only and Warp-hosted deployment.
+* [Scheduled agents](/platform/triggers/scheduled-agents/) — Route recurring cloud agent work to a self-hosted worker with `--host`.
+* [Integrations](/platform/integrations/) — Point Slack, Linear, and other triggers at a self-hosted worker.
+* [Managing cloud agents](/platform/managing-cloud-agents/) — Inspect self-hosted runs alongside Warp-hosted ones.
 * [Environments](/platform/environments/) — Define the runtime context for agent tasks.
 * [Customizing workspace snapshots](/platform/handoff/snapshots/) — Configure end-of-run snapshots so handoff works when running outside the bundled cloud agent image.

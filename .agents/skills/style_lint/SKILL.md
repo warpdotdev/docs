@@ -79,20 +79,29 @@ When run with `--fix`:
 - **Low-confidence issues reported but not auto-fixed**: link quality, VideoEmbed title specificity, list format, header case (due to feature name exceptions), ambiguous terminology
 - **Tone checks are never auto-fixed**: buzzwords, meta-openers, and callout budget issues always need a human rewrite
 
+## Agent-doc quality contract
+
+The `--create-pr` auto-fix path is a direct PR-creation code path (`create_pr_with_fixes()` in `style_lint.py`), so it stamps the `warpy-factory` label and the `## Documentation risk` block itself — always `low` risk, since an auto-fix only ever corrects style/terminology wording, never product meaning. See `.agents/references/doc-quality-policy.md`.
+
 ## Relationship to validate_ui_refs
 
 This skill checks broader formatting and terminology. The `validate_ui_refs` skill validates UI paths and Command Palette names against the warp-internal codebase. They complement each other with no overlap. Both can run in scheduled cloud agent workflows.
 
 ## Tests
 
-Three checks have regression suites, because each is a narrow rule where the
-hard part is not firing on legitimate text. Run them after touching any of
-these checks:
+Several checks have regression suites, because each is a narrow rule where the
+hard part is not firing on legitimate text. Run the relevant one(s) after
+touching the corresponding check:
 
 ```bash
 python3 .agents/skills/style_lint/test_platform_determiner.py
 python3 .agents/skills/style_lint/test_factory_proper_noun.py
+python3 .agents/skills/style_lint/test_hardcoded_var_exemptions.py
+python3 .agents/skills/style_lint/test_header_case_sentence_boundary.py
+python3 .agents/skills/style_lint/test_product_casing_word_boundary.py
+python3 .agents/skills/style_lint/test_proper_feature_names_third_party.py
 python3 .agents/skills/style_lint/test_tone_checks.py
+python3 .agents/skills/style_lint/test_context_aware_terminology.py
 ```
 
 ## Dependencies

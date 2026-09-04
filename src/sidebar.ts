@@ -19,6 +19,7 @@ import { VARS } from './data/vars';
  */
 export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 		{
+			id: 'terminal',
 			label: 'Terminal',
 			link: '/',
 			icon: 'laptop',
@@ -161,7 +162,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'terminal/warpify', label: 'Overview' },
 								{ slug: 'terminal/warpify/subshells', label: 'Warpify subshells' },
 								{ slug: 'terminal/warpify/ssh', label: 'SSH with Warp features' },
-								{ slug: 'terminal/warpify/ssh-legacy', label: 'Legacy SSH wrapper' },
+								// ssh-legacy is intentionally omitted: it's a fallback page linked
+								// from the SSH page rather than surfaced as a co-equal nav item.
 							],
 						},
 						{
@@ -411,7 +413,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// Moved from 'Integrations' (was 'Automation filters'): this page is
 					// now the Automations primitive's conceptual home, parallel to Factory
 					// agents and Factory skills, not just a filters reference.
-					{ slug: 'factories/automations', label: 'Automations' },
+					{ slug: 'factories/automations', label: 'Factory automations' },
 					{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
 					{ slug: 'factories/infrastructure-and-security', label: 'Infrastructure & security' },
 				],
@@ -435,6 +437,10 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories/integrations/gitlab', label: 'GitLab' },
 						{ slug: 'factories/integrations/linear', label: 'Linear' },
 						{ slug: 'factories/integrations/jira', label: 'Jira' },
+						// Custom webhooks connect any JSON-posting system, so they sit
+						// between the named third-party services and the API-style
+						// mechanisms below. Label matches the factory dashboard's nav.
+						{ slug: 'factories/webhooks', label: 'Webhooks' },
 						// Alongside Factory MCP: both are direct API-style connection
 						// mechanisms rather than third-party services, so they trail the
 						// per-service integrations above.
@@ -528,8 +534,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'platform/viewing-cloud-agent-runs', label: 'Session sharing' },
 								{ slug: 'platform/managing-cloud-agents', label: 'Managing cloud agents' },
 								// Tokenized, not renamed: WEB_APP holds its "Oz web app" value
-								// until 9/15, so this renders identically today. Tokenizing now
-								// means the 9/15 flip reaches the sidebar, which the Vite
+								// until 10/6, so this renders identically today. Tokenizing now
+								// means the 10/6 flip reaches the sidebar, which the Vite
 								// transform does not process.
 								{ slug: 'platform/oz-web-app', label: VARS.WEB_APP },
 							],

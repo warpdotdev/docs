@@ -41,7 +41,7 @@ The [slash commands reference](/agents/cli/reference/#slash-commands) lists ever
 
 Press `↑` with the cursor on the first row of the input to open the history menu.
 
-* **What's listed** - In agent mode, the menu combines your previous prompts and shell commands in one list, with commands marked by a `!` prefix. In [shell mode](#shell-mode), the menu lists commands only.
+* **What's listed** - In Agent Mode, the menu combines your previous prompts and shell commands in one list, with commands marked by a `!` prefix. In [shell mode](#shell-mode), the menu lists commands only.
 * **Preview** - Moving the selection previews each entry in the input and switches the input to the matching mode: recalled commands run as shell commands, and recalled prompts go to the agent.
 * **Submit** - `Enter` runs the selection immediately. It doesn't insert it for editing.
 * **Dismiss** - `Esc` restores what you had typed. Pressing `↓` past the newest entry does the same.
@@ -71,7 +71,7 @@ Attach images to a prompt so the agent can analyze them:
 * **Paste an image** - Copy an image to your clipboard and press `Ctrl+V`.
 * **Paste or drop a file path** - Paste the path to an image file, or drag the file onto your terminal window to insert its path. Absolute paths, paths relative to the working directory, and `~` paths all resolve.
 
-Supported formats are PNG, JPEG, GIF, and WebP. Attaching an image locks the input to agent mode, since images are sent to the agent rather than the shell.
+Supported formats are PNG, JPEG, GIF, and WebP. Attaching an image locks the input to Agent Mode, since images are sent to the agent rather than the shell.
 
 Attached images appear in an attachment bar above the input. Press `Tab` to focus the bar, `Backspace` to remove the selected attachment, and `Esc` to return to the input.
 
@@ -95,14 +95,14 @@ Voice input in the CLI uses the same transcription service as the Warp app. See 
 The CLI shows its shortcuts in context, so you rarely need to memorize them:
 
 * **Placeholder hints** - An empty input shows the key triggers for the current mode.
-* **Shortcuts menu** - Type `?` in an empty input to open a shortcuts overview. Its contents adapt to what you're doing: agent mode lists the menu triggers and input history, shell mode shows how to return to agent mode, and extra sections appear during multi-agent sessions or agent-controlled terminal use. Press `Esc`, or start typing, to close it.
+* **Shortcuts menu** - Type `?` in an empty input to open a shortcuts overview. Its contents adapt to what you're doing: Agent Mode lists the menu triggers and input history, shell mode shows how to return to Agent Mode, and extra sections appear during multi-agent sessions or agent-controlled terminal use. Press `Esc`, or start typing, to close it.
 
 ## Shell mode
 
 The input is agent-first: by default, pressing `Enter` sends your text to the agent as a prompt. Use shell mode to run a command instead:
 
 1. Press `!` at the start of the input. The prompt marker changes from `>` to `!`, and the statusline below the input shows **Shell mode**.
-2. Run a command. The input returns to agent mode afterward.
+2. Run a command. The input returns to Agent Mode afterward.
 
 To leave shell mode without running a command, press `Esc`, or press `Backspace` at the start of the input. Any text you typed stays in the input.
 
@@ -118,9 +118,9 @@ Out of the box, the CLI never guesses what your input is: everything goes to the
 
 * **Toggle detection** - Run `/natural-language-detection` to turn detection on or off. The statusline confirms the change, and the setting persists across sessions.
 * **Automatic classification** - With detection on, the CLI classifies your input as you type. When the input looks like a shell command (for example, `git status`), the input switches to shell mode, and `Enter` runs it as a command. Everything else is sent to the agent.
-* **Ambiguous input** - Short or ambiguous input stays in agent mode, and a single word switches to shell mode only when it matches a command available in your shell.
+* **Ambiguous input** - Short or ambiguous input stays in Agent Mode, and a single word switches to shell mode only when it matches a command available in your shell.
 
-The prompt marker and statusline always show the current mode before you press `Enter`. If detection classifies input differently than you intended, press `Esc` to switch back to agent mode, or press `!` at the start of the input to force shell mode.
+The prompt marker and statusline always show the current mode before you press `Enter`. If detection classifies input differently than you intended, press `Esc` to switch back to Agent Mode, or press `!` at the start of the input to force shell mode.
 
 ## Long-running and interactive commands
 

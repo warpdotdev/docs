@@ -13,6 +13,7 @@ This guide covers best practices for creating pull requests in the docs document
 
 - `draft_docs` - Draft new documentation pages or update existing ones using established style conventions
 - `check_for_broken_links` - Check documentation for broken internal and external links before opening PR
+- `doc_quality_policy` - Shared v1 agent-doc quality contract (marker, risk classification, overrides) this skill's PRs must satisfy
 
 ## Pre-PR Checklist
 
@@ -211,6 +212,31 @@ When claims are outstanding, give the reviewer one bullet per claim with what wo
 - **Settings** > **Agents** > **Permissions** path — `permissions.mdx`, "Defaults" — source repos were not available in this environment.
 ```
 
+### Documentation risk (required on all content PRs)
+
+Every content PR carries a `## Documentation risk` section and the
+`warpy-factory` label, per the shared v1 agent-doc quality contract in
+`.agents/references/doc-quality-policy.md`. Classify risk against the
+low-risk allowlist there, then build the section:
+
+```bash
+python3 .agents/skills/doc_quality_policy/finalize_pr_contract.py build \
+  --risk low --rationale "One-line reason the change is low risk."
+```
+
+Insert the printed block into the body (after "Unverified claims" is a good
+place) and apply the label once the PR exists:
+
+```bash
+gh pr edit <pr> --repo warpdotdev/docs --add-label warpy-factory
+```
+
+Before marking the PR ready, verify the contract:
+
+```bash
+python3 .agents/skills/doc_quality_policy/check_pr_contract.py --body /tmp/pr-body.md
+```
+
 ### Additional context (optional)
 - Link to related issues or discussions
 - Screenshots for visual changes
@@ -277,7 +303,13 @@ gh pr create --web
 
 So the mention stays, and a real request is added alongside it. **A PR is not complete until `gh pr edit --add-reviewer` has succeeded and been verified.**
 
-A resolution failure must fall back, never no-op. When no owner resolves, assign `dannyneira`, matching the fallback the release docs workflow already uses (`.github/workflows/release-docs-update.yml`, "Assign last docs PR reviewer"). An unassignable reviewer is a problem to surface, not a reason to ship an unreviewed PR.
+A resolution failure must fall back, never no-op. When no owner resolves — the common case for a small, ambient/agent-generated docs PR — prefer the run's requester next, then `hongyi-chen`, then `rachaelrenk`, and only then `dannyneira` as the final safety net (the release docs workflow keeps its own last-resort `dannyneira` fallback too — `.github/workflows/release-docs-update.yml`, "Assign last docs PR reviewer"). An unassignable reviewer is a problem to surface, not a reason to ship an unreviewed PR.
+
+The full priority chain, in order: (1) the CODEOWNERS/git-blame owner from `suggest_reviewers.py`; (2) the run's requester, resolved via this repo's own `.agents/skills/create_pr/resolve_reviewer.py --user <requester_slack_id>` and a runtime-supplied private override map; (3) a secondary human fallback, `hongyi-chen` ("HYC"); (4) a tertiary human fallback, `rachaelrenk`; (5) `dannyneira` as the final safety net.
+
+Step 2's resolver is a docs-repo-local script, not `factory-agents`' `scripts/factory-resolve-reviewer`: that script lives in the separate `factory-agents` repo and is not checked out alongside a normal `warpdotdev/docs` clone, so calling it by that relative path fails in a real docs run and silently falls through to the next tier. The invoking factory must mount its private Slack-to-GitHub override map and set `REVIEWER_OVERRIDES_PATH` before calling `resolve_reviewer.py`; never commit Slack user IDs or mappings to this repository. The helper does nothing else — no public-email search, no cross-repo assumptions — so the requester tier resolves from a plain docs checkout when that private runtime context is available. Like `factory-resolve-reviewer`, it never guesses: an unavailable map or unresolved Slack id prints nothing and the chain moves to the next tier.
+
+The factory-level private override map owns requester identity mappings. This repository stores no real Slack IDs: keep `REQUESTER_SLACK_ID` as a runtime value and use a placeholder in examples and tests.
 
 Two details below are load-bearing, and getting either wrong reintroduces the silent drop this section exists to prevent:
 
@@ -286,7 +318,10 @@ Two details below are load-bearing, and getting either wrong reintroduces the si
 
 ```bash
 PR=123
-FALLBACK_REVIEWER=dannyneira
+REQUESTER_SLACK_ID=""        # this run's requester Slack user id, when known
+SECONDARY_FALLBACK_REVIEWER=hongyi-chen   # HYC - confirmed second-tier fallback
+TERTIARY_FALLBACK_REVIEWER=rachaelrenk     # third-tier human fallback
+FALLBACK_REVIEWER=dannyneira               # final safety net; never remove
 
 # 1. Resolve the owning engineer(s). For missing_docs drift-watch runs, use the
 #    ownership resolver with the source files behind the change; see the
@@ -296,13 +331,39 @@ REVIEWERS=$(python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
   --reviewers-only --warp ../warp --warp-server ../warp-server \
   warp:app/src/settings/ssh.rs < /dev/null)
 
-# 2. Never let an empty resolution drop the request. Track that this was a
-#    fallback so step 6 does not report it as an owner who was requested.
+# 2. No code-owner resolved. For a small, ambient/agent-generated PR with no
+#    clear owner - the common case here - prefer the run's requester over
+#    paging dannyneira: resolve their GitHub handle with this docs-local helper
+#    and the invoking factory's private REVIEWER_OVERRIDES_PATH map. The helper
+#    is callable from a plain docs checkout, unlike factory-agents'
+#    scripts/factory-resolve-reviewer, which lives in a separate repo that
+#    isn't checked out alongside this one.
+#    Fall to HYC, then rachaelrenk, and only then to the final dannyneira
+#    safety net. Never let an empty resolution drop the request.
+#    Track that this was a fallback so step 6 does not report it as an owner
+#    who was requested.
 RESOLUTION_WAS_EMPTY=0
 if [[ -z "$REVIEWERS" ]]; then
-  echo "warning: no owner resolved - falling back to $FALLBACK_REVIEWER"
-  REVIEWERS="$FALLBACK_REVIEWER"
   RESOLUTION_WAS_EMPTY=1
+  if [[ -n "$REQUESTER_SLACK_ID" ]]; then
+    REVIEWERS=$(python3 .agents/skills/create_pr/resolve_reviewer.py --user "$REQUESTER_SLACK_ID")
+  fi
+  FALLBACK_CANDIDATES=()
+  add_fallback_candidate() {
+    local candidate existing
+    candidate="$1"
+    [[ -z "$candidate" ]] && return
+    for existing in "${FALLBACK_CANDIDATES[@]}"; do
+      [[ "$existing" == "$candidate" ]] && return
+    done
+    FALLBACK_CANDIDATES+=("$candidate")
+  }
+  add_fallback_candidate "$REVIEWERS"
+  add_fallback_candidate "$SECONDARY_FALLBACK_REVIEWER"
+  add_fallback_candidate "$TERTIARY_FALLBACK_REVIEWER"
+  add_fallback_candidate "$FALLBACK_REVIEWER"
+  REVIEWERS="${FALLBACK_CANDIDATES[0]}"
+  echo "warning: no owner resolved - falling back to $REVIEWERS"
 fi
 
 # 3. Request each reviewer separately so one bad entry cannot drop the rest.
@@ -350,24 +411,32 @@ has_reviewer() {
 #    e.g. by a human) makes $REQUESTED non-empty even though the fallback was
 #    never assigned, which would skip re-requesting it here and then have the
 #    next step falsely report it as requested when it never landed.
-if (( RESOLUTION_WAS_EMPTY )); then
-  if ! has_reviewer "$FALLBACK_REVIEWER"; then
-    gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$FALLBACK_REVIEWER" ||
-      echo "warning: fallback $FALLBACK_REVIEWER could not be requested"
+request_fallback() {
+  local candidate="$1"
+  if ! has_reviewer "$candidate"; then
+    gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$candidate" ||
+      echo "warning: fallback $candidate could not be requested"
     REQUESTED=$(read_requested)
   fi
+}
+
+if (( RESOLUTION_WAS_EMPTY )); then
+  for candidate in "${FALLBACK_CANDIDATES[@]}"; do
+    REVIEWERS="$candidate"
+    request_fallback "$REVIEWERS"
+    has_reviewer "$REVIEWERS" && break
+    echo "warning: $REVIEWERS rejected - advancing to next fallback"
+  done
 elif [[ -z "$REQUESTED" ]]; then
-  gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$FALLBACK_REVIEWER" ||
-    echo "warning: fallback $FALLBACK_REVIEWER could not be requested"
-  REQUESTED=$(read_requested)
+  request_fallback "$FALLBACK_REVIEWER"
 fi
 
 if [[ -z "$REQUESTED" ]]; then
   echo "ERROR: no reviewer is on PR $PR - not even the fallback landed"
   exit 1
 fi
-if (( RESOLUTION_WAS_EMPTY )) && ! has_reviewer "$FALLBACK_REVIEWER"; then
-  echo "ERROR: fallback $FALLBACK_REVIEWER could not be requested on PR $PR" \
+if (( RESOLUTION_WAS_EMPTY )) && ! has_reviewer "$REVIEWERS"; then
+  echo "ERROR: fallback $REVIEWERS could not be requested on PR $PR" \
        "(existing reviewers: $REQUESTED); report this run as failed."
   exit 1
 fi
@@ -384,9 +453,10 @@ for R in "${WANT[@]}"; do
 done
 
 if (( RESOLUTION_WAS_EMPTY )); then
-  # Step 6 already guaranteed the fallback landed (or exited above), so this
-  # always reports a true outcome, not just "nothing resolved."
-  echo "note: no owner resolved for PR $PR; fallback $FALLBACK_REVIEWER requested"
+  # Step 6 already guaranteed the settled-on fallback landed (or exited
+  # above), so this always reports a true outcome, not just "nothing
+  # resolved."
+  echo "note: no owner resolved for PR $PR; fallback $REVIEWERS requested"
 elif (( ${#MISSING[@]} == ${#WANT[@]} )); then
   # Owners resolved and none of them are on the PR. It has a reviewer, but not
   # the right one, and that must not read as success.
@@ -408,7 +478,7 @@ A team handle resolved from `STAKEHOLDERS` or `CODEOWNERS` can only be requested
 :::
 
 :::note
-Auto-requesting the review does not make it *block* merge. Whether an ambient docs PR should require that approval through branch protection is an open question for the docs owner, not something this skill decides.
+Auto-requesting the review does not block merge. The Docs team owns the merge decision after its normal review, whether an engineer replies in GitHub, replies elsewhere, or does not reply.
 :::
 
 ### Update an existing PR
