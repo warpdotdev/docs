@@ -9,6 +9,14 @@ Monthly outer loop agent. Reads three signal logs accumulated from agent-authore
 
 This skill is part of the self-improvement loop architecture. See the architecture plan for context on the inner loops that populate the signal logs.
 
+The standing improvement PR this skill maintains follows the shared v1
+agent-doc quality contract in `.agents/references/doc-quality-policy.md`
+(`warpy-factory` label + `## Documentation risk` block via
+`.agents/skills/doc_quality_policy/finalize_pr_contract.py build`). A skill/
+template-prose-only edit is `engineering-review-required` by default
+(judgment call — it changes agent behavior, not just wording) unless the
+change is provably a wording-only fix with no behavior change.
+
 ## Schedule
 
 Monthly, on the 1st of each month.
@@ -108,8 +116,12 @@ For each agent-authored PR merged in the past 30 days (identified by `oz-agent@w
    - **Redact** any comment text that appears to contain secrets (tokens, API keys, passwords) — replace the value with `[REDACTED]` before storing.
    For accepted records, build the structured entry:
    ```json
-   {"date":"YYYY-MM-DD","pr":"NNN","skill_used":"draft_feature_doc","file":"src/content/docs/path.mdx","feedback_type":"review_comment","severity":"important","comment":"Comment text here","tag":"[skill-feedback]","pattern_category":"header_case","resolved_by":"human_edit"}
+   {"date":"YYYY-MM-DD","pr":"NNN","skill_used":"draft_feature_doc","file":"src/content/docs/path.mdx","feedback_type":"review_comment","severity":"important","comment":"Comment text here","tag":"[skill-feedback]","pattern_category":"header_case","resolved_by":"human_edit","risk":"low","head_sha":"abc1234","check_outcome":"pass","review_outcome":"approve_with_nits"}
    ```
+   - Set `risk` to the PR's declared `## Documentation risk` level (`low` or `engineering-review-required`; see `doc_quality_policy/SKILL.md`), read from the PR body at collection time. Use `"unknown"` when the PR predates the v1 contract or the section can't be parsed.
+   - Set `head_sha` to the PR's head commit SHA at the time of collection (`gh pr view NNN --json headRefOid --jq .headRefOid`).
+   - Set `check_outcome` to `"pass"` or `"fail"` from the `Docs editorial quality` / `Docs technical references` required checks on that head (`gh pr checks NNN`), or `"unknown"` if unavailable.
+   - Set `review_outcome` to the `review-docs-pr` verdict for that head (`approve`, `approve_with_nits`, or `request_changes`, parsed from the `[SIGNAL:pr-review]` record in Step A), or `"unknown"` if no signal was found for this PR.
    - Set `tag` to the prefix found in the comment (`[skill-feedback]`, `[template-feedback]`, `[style-rule-gap]`) or `""` if none.
    - Set `feedback_type` to `"review_comment"`, `"human_edit"`, or `"review_verdict"`.
    - **Set `pattern_category`** to a short, structured, collector-derived label for the type of issue — not a copy of the free-text comment. Derive it from:
@@ -297,6 +309,51 @@ This skill does not keep a separate run-log file. Its durable records are:
 Both satisfy the "durable record of its outcome" requirement in `.agents/references/skill-authoring-guidelines.md`, which is what makes the actionable-only Slack policy safe here: a silent run is still inspectable, so silence means "ran, nothing to do" rather than "possibly broken." Do not remove the skip line from the guard — without it, a guard-skipped run would be silent with no record at all, and the skill would have to post instead.
 
 Its other durable outputs are the standing improvement PR and, when warranted, the Slack message.
+
+## v1 baseline and outcome metrics (GROW-6092)
+
+`scripts/compute_metrics.py` computes the deterministic v1 report over an
+explicit date window from a JSONL file of in-scope PR records (schema
+documented in the script's docstring):
+
+```bash
+python3 .agents/skills/improve-drafting-skills/scripts/compute_metrics.py \
+  --input /path/to/records.jsonl --start 2026-01-01 --end 2026-01-30 \
+  --output /tmp/baseline-report.json
+```
+
+Running it twice over the same frozen input and date window yields
+byte-equivalent normalized JSON (see `test_compute_metrics.py`). Persist the
+pre-rollout **baseline** (the 30 days immediately preceding rollout, captured
+once and never recomputed) and the post-rollout **comparison** report through
+the standing signal-log branch/PR flow above, alongside
+`.agents/logs/agent_doc_quality_baseline.md`, which records the exact window
+dates and report file used for each.
+
+`scripts/build_baseline_records.py` converts the existing per-comment
+`.agents/logs/human_review_feedback.jsonl` signal log into the per-PR record
+shape `compute_metrics.py` expects, resolving each PR's agent-vs-human line
+split from live `gh pr view --json additions,deletions` data:
+
+```bash
+python3 .agents/skills/improve-drafting-skills/scripts/build_baseline_records.py \
+  --repo warpdotdev/docs --input .agents/logs/human_review_feedback.jsonl \
+  --start 2026-08-01 --end 2026-08-30 --output /tmp/baseline-records.jsonl
+```
+
+The pre-rollout baseline (2026-08-01 to 2026-08-30, 62 PRs) is already
+captured this way in `.agents/logs/agent_doc_quality_baseline.md` and
+`.agents/logs/baseline/`. Compute the post-rollout comparison the same way
+once enough post-rollout data exists, passing `--baseline
+.agents/logs/baseline/pre-rollout-2026-08-01-to-2026-08-30-report.json` to
+get the `day_30_outcome` verdict.
+
+Pass `--baseline baseline-report.json` when computing the post-rollout report
+to also emit `day_30_outcome` (`pass`, `fail`, or `inconclusive-small-sample`
+per `evaluate_outcome()` — product behavior #17). A window with fewer than 10
+in-scope PRs is `inconclusive-small-sample`; extend collection to 10 PRs or 60
+days, whichever comes first, rather than claiming success or failure on too
+small a sample.
 
 ## Deployment
 

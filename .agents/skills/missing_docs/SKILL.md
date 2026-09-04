@@ -17,6 +17,15 @@ description: >-
 
 Find documentation gaps, detect doc-impacting code changes, and draft missing pages.
 
+## Agent-doc quality contract
+
+Any PR this skill opens or updates follows the shared v1 agent-doc quality
+contract in `.agents/references/doc-quality-policy.md`: apply the
+`warpy-factory` label, add the `## Documentation risk` block
+(`.agents/skills/doc_quality_policy/finalize_pr_contract.py build`), and keep
+`## Unverified claims` (step 9.5 of `draft_docs`) current. A newly-drafted
+feature page is `engineering-review-required` by default per the allowlist.
+
 ## Requirements
 
 The audit compares docs against code, so both source repos must be available:
