@@ -46,7 +46,10 @@ review focus areas, this pass is the human-review-blocking gate defined in
    `💡 [SUGGESTION]` at most.
 4. **Check VERIFY accounting.** Run the structural mode of
    `.agents/skills/doc_quality_policy/check_pr_contract.py --body <file>
-   <changed files>` against the current head. Do not invoke
+   <changed public documentation files>` against the current head. Pass only
+   changed `.md` or `.mdx` files under `src/content/docs/`, matching the
+   checker's autodiscovery scope. Do not pass `.agents/` policy prose,
+   workflow files, tests, or other non-public documentation files. Do not invoke
    `--enforce-engineering-gate` during the independent review; a pending human
    approval is not itself a contract violation. Any reported contract
    violation (missing section, unlisted marker, listed marker at `low` risk)
@@ -124,11 +127,11 @@ Create a `review.json` file with the following structure:
 ### Summary Requirements
 
 The summary should:
-- Start with a brief (2-3 sentence) overview of what the PR changes and your assessment
-- Include issue counts: "Found: X critical, Y important, Z suggestions, N nits"
-- End with final recommendation: "Approve", "Approve with nits", or "Request changes"
+- Use at most three concise sentences describing the PR and its assessment.
+- Include issue counts: `Found: X critical, Y important, Z suggestions, N nits`.
+- End with the recommendation: `Approve`, `Approve with nits`, or `Request changes`.
 
-Keep the tone helpful and constructive. The summary can mention positive aspects (e.g., "good improvements to clarity") alongside concerns.
+The publishing step renders the summary under a `## Review summary` heading.
 
 ### Comment Format
 
@@ -211,10 +214,21 @@ After creating `review.json`, publishing the signal, and completing validation, 
        "Approve with nits": "COMMENT",
        "Request changes": "REQUEST_CHANGES",
    }[os.environ["VERDICT"]]
+   findings = []
+   for comment in review["comments"]:
+       location = f"`{comment['path']}:{comment['line']}`"
+       finding = comment["body"].splitlines()[0]
+       findings.append(f"- {location} — {finding}")
+   findings_text = "\n".join(findings) or "- No inline findings."
    payload = {
        "commit_id": os.environ["HEAD_SHA"],
        "event": event,
-       "body": f"{review['summary']}\n\n[SIGNAL:pr-review] {json.dumps(signal, sort_keys=True)}",
+       "body": (
+           f"## Review summary\n{review['summary'].strip()}\n\n"
+           f"## Findings\n{findings_text}\n\n"
+           f"## Verdict\n{os.environ['VERDICT']}\n\n"
+           f"## Review signal\n[SIGNAL:pr-review] {json.dumps(signal, sort_keys=True)}"
+       ),
        "comments": review["comments"],
    }
    Path("/tmp/review-request.json").write_text(json.dumps(payload))

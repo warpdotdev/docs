@@ -29,8 +29,15 @@ def _parse_signal(text: str) -> Tuple[Optional[Dict[str, object]], List[str]]:
     for match in matches:
         try:
             signal = json.loads(match)
-        except json.JSONDecodeError as exc:
-            return None, [f"review signal is not valid JSON: {exc}"]
+        except json.JSONDecodeError as original_error:
+            try:
+                # The GitHub Action can serialize its text output once more,
+                # leaving an otherwise valid object in the form
+                # {\"key\":\"value\"}. Decode that wrapper only after direct
+                # JSON parsing has failed.
+                signal = json.loads(match.replace('\\"', '"'))
+            except json.JSONDecodeError:
+                return None, [f"review signal is not valid JSON: {original_error}"]
         if not isinstance(signal, dict):
             return None, ["review signal must contain a JSON object"]
         unique_signals[json.dumps(signal, sort_keys=True, separators=(",", ":"))] = signal

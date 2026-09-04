@@ -43,6 +43,12 @@ class TestCheckReviewSignal(unittest.TestCase):
             problems = vrs.check_review_signal("o/r", "1", "sha1", output)
         self.assertEqual(problems, [])
 
+    def test_escaped_action_output_signal_passes(self):
+        output = GOOD_OUTPUT.replace('"', '\\"')
+        with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
+            problems = vrs.check_review_signal("o/r", "1", "sha1", output)
+        self.assertEqual(problems, [])
+
     def test_distinct_signals_fail(self):
         different_signal = GOOD_OUTPUT.replace('"Approve"', '"Approve with nits"')
         output = f"{GOOD_OUTPUT}\n\n{different_signal}"
