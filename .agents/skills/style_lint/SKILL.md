@@ -79,6 +79,10 @@ When run with `--fix`:
 - **Low-confidence issues reported but not auto-fixed**: link quality, VideoEmbed title specificity, list format, header case (due to feature name exceptions), ambiguous terminology
 - **Tone checks are never auto-fixed**: buzzwords, meta-openers, and callout budget issues always need a human rewrite
 
+## Agent-doc quality contract
+
+The `--create-pr` auto-fix path is a direct PR-creation code path (`create_pr_with_fixes()` in `style_lint.py`), so it stamps the `warpy-factory` label and the `## Documentation risk` block itself — always `low` risk, since an auto-fix only ever corrects style/terminology wording, never product meaning. See `.agents/references/doc-quality-policy.md`.
+
 ## Relationship to validate_ui_refs
 
 This skill checks broader formatting and terminology. The `validate_ui_refs` skill validates UI paths and Command Palette names against the warp-internal codebase. They complement each other with no overlap. Both can run in scheduled cloud agent workflows.
