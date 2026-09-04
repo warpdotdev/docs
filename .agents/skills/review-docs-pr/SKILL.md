@@ -193,7 +193,9 @@ After creating `review.json`, publishing the signal, and completing validation, 
    ```bash
    REVIEWER_LOGIN=$(gh api user --jq .login)
    ```
-   Use `APPROVE` for `Approve`, `REQUEST_CHANGES` for `Request changes`, and `COMMENT` for `Approve with nits`.
+   Use `APPROVE` for `Approve` and `Approve with nits`; nits do not block
+   merge, so an approval supersedes any earlier change request from the same
+   reviewer. Use `REQUEST_CHANGES` only for `Request changes`.
 2. Write the signal JSON object to `/tmp/review-signal.json`, set its
    `reviewer_login` to `$REVIEWER_LOGIN`, and render that same object as the
    `[SIGNAL:pr-review]` line in the final response. Then construct the
@@ -211,7 +213,7 @@ After creating `review.json`, publishing the signal, and completing validation, 
    signal = json.loads(Path("/tmp/review-signal.json").read_text())
    event = {
        "Approve": "APPROVE",
-       "Approve with nits": "COMMENT",
+       "Approve with nits": "APPROVE",
        "Request changes": "REQUEST_CHANGES",
    }[os.environ["VERDICT"]]
    findings = []

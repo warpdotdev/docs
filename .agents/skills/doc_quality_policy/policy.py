@@ -36,6 +36,7 @@ OVERRIDE_MODE_VERIFIED = "docs-verified"
 OVERRIDE_MODE_WAIVER = "docs-waiver"
 OVERRIDE_MODE_NONE = "none"
 VALID_OVERRIDE_MODES = (OVERRIDE_MODE_VERIFIED, OVERRIDE_MODE_WAIVER, OVERRIDE_MODE_NONE)
+VALID_ENGINEERING_REVIEW_STATUSES = ("not-applicable", "pending", "approved")
 
 # {/* VERIFY: flag name from PRD, unconfirmed against warp-internal */}
 VERIFY_MARKER_RE = re.compile(r"\{/\*\s*VERIFY:\s*(.*?)\s*\*/\}", re.DOTALL)
@@ -153,6 +154,9 @@ def parse_documentation_risk_section(body: str) -> Optional[DocumentationRisk]:
         kwargs["docs_override"] = docs_override.strip().lower()
     else:
         kwargs["docs_override"] = OVERRIDE_MODE_NONE
+    engineering_review_status = kwargs.get("engineering_review_status")
+    if isinstance(engineering_review_status, str):
+        kwargs["engineering_review_status"] = engineering_review_status.strip().lower()
 
     return DocumentationRisk(**kwargs)
 
@@ -299,6 +303,22 @@ def validate_pr_contract(
     if risk_section.risk not in VALID_RISK_LEVELS:
         problems.append(
             f"invalid risk level {risk_section.risk!r}; must be one of {VALID_RISK_LEVELS}"
+        )
+    if (
+        risk_section.engineering_review_status is not None
+        and risk_section.engineering_review_status not in VALID_ENGINEERING_REVIEW_STATUSES
+    ):
+        problems.append(
+            "invalid engineering review status "
+            f"{risk_section.engineering_review_status!r}; must be one of "
+            f"{VALID_ENGINEERING_REVIEW_STATUSES}"
+        )
+    if (
+        risk_section.risk == RISK_LOW
+        and risk_section.engineering_review_status not in (None, "not-applicable")
+    ):
+        problems.append(
+            "low-risk PRs must omit Engineering review status or set it to 'not-applicable'"
         )
 
     unlisted = [m for m in verify_markers if m not in claims]

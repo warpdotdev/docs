@@ -468,6 +468,24 @@ class TestFullContractValidation(unittest.TestCase):
         problems = policy.validate_pr_contract(body, [])
         self.assertTrue(any("invalid risk level" in p for p in problems))
 
+    def test_invalid_engineering_review_status_reported(self):
+        body = (
+            "## Documentation risk\nRisk: engineering-review-required\n"
+            "Rationale: x.\nEngineering review status: bogus\nDocs override: none\n\n"
+            "## Unverified claims\nNone\n"
+        )
+        problems = policy.validate_pr_contract(body, [])
+        self.assertTrue(any("invalid engineering review status" in p for p in problems))
+
+    def test_low_risk_pr_rejects_pending_engineering_review_status(self):
+        body = (
+            "## Documentation risk\nRisk: low\nRationale: x.\n"
+            "Engineering review status: pending\nDocs override: none\n\n"
+            "## Unverified claims\nNone\n"
+        )
+        problems = policy.validate_pr_contract(body, [])
+        self.assertTrue(any("low-risk PRs" in p for p in problems))
+
     def test_pending_engineering_review_is_valid_for_structural_ci(self):
         body = (
             "## Documentation risk\nRisk: engineering-review-required\n"
