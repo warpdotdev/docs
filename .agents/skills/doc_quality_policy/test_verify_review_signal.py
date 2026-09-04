@@ -15,11 +15,11 @@ sys.modules[_spec.name] = vrs
 _spec.loader.exec_module(vrs)
 
 GOOD_OUTPUT = (
-    '[SIGNAL:pr-review] {"pr":"1","head_sha":"sha1","reviewer_login":"agent-bot",'
+    '[SIGNAL:pr-review] {"pr":"1","head_sha":"sha1","reviewer_login":"github-actions[bot]",'
     '"verdict":"Approve","critical":0,"important":0}'
 )
 GOOD_REVIEW = {
-    "user": {"login": "agent-bot"},
+    "user": {"login": "github-actions[bot]"},
     "state": "APPROVED",
     "commit_id": "sha1",
     "body": GOOD_OUTPUT,
@@ -69,11 +69,11 @@ class TestCheckReviewSignal(unittest.TestCase):
             problems = vrs.check_review_signal("o/r", "1", "sha1", output)
         self.assertTrue(any("found 2" in p for p in problems))
 
-    def test_signal_without_reviewer_identity_fails(self):
-        output = GOOD_OUTPUT.replace(',"reviewer_login":"agent-bot"', "")
+    def test_runner_identity_is_used_when_agent_signal_omits_it(self):
+        output = GOOD_OUTPUT.replace(',"reviewer_login":"github-actions[bot]"', "")
         with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
             problems = vrs.check_review_signal("o/r", "1", "sha1", output)
-        self.assertTrue(any("missing reviewer_login" in p for p in problems))
+        self.assertEqual(problems, [])
 
     def test_human_approval_does_not_satisfy_agent_review_requirement(self):
         human_review = {**GOOD_REVIEW, "user": {"login": "human-reviewer"}}
@@ -90,13 +90,13 @@ class TestCheckReviewSignal(unittest.TestCase):
     def test_stale_signal_fails(self):
         stale_output = GOOD_OUTPUT.replace('"sha1"', '"old-sha"')
         with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
-            problems = vrs.check_review_signal("o/r", "1", "sha1", stale_output)
+            problems = vrs.check_review_signal("o/r", "1", "sha1", stale_output, "agent-bot")
         self.assertTrue(any("found 0" in p for p in problems))
 
     def test_blocking_signal_fails(self):
         blocking_output = GOOD_OUTPUT.replace('"Approve"', '"Request changes"').replace('"critical":0', '"critical":1')
         with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
-            problems = vrs.check_review_signal("o/r", "1", "sha1", blocking_output)
+            problems = vrs.check_review_signal("o/r", "1", "sha1", blocking_output, "agent-bot")
         self.assertTrue(any("blocking verdict" in p for p in problems))
         self.assertTrue(any("critical finding" in p for p in problems))
 

@@ -62,6 +62,7 @@ jobs:
           python3 .agents/skills/doc_quality_policy/test_check_pr_contract.py
           python3 .agents/skills/doc_quality_policy/test_check_compression_contract.py
           python3 .agents/skills/doc_quality_policy/test_verify_review_signal.py
+          python3 .agents/skills/doc_quality_policy/test_publish_review_signal.py
           python3 .agents/skills/doc_quality_policy/test_manifest.py
 
       - name: Test validate_ui_refs --changed mode and snapshot provenance

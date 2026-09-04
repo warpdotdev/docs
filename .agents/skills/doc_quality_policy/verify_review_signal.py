@@ -62,7 +62,12 @@ def _parse_signal(
     return signals[0], []
 
 
-def _validate_signal(signal: Dict[str, object], pr_number: str, head_sha: str) -> List[str]:
+def _validate_signal(
+    signal: Dict[str, object],
+    pr_number: str,
+    head_sha: str,
+    require_passing_verdict: bool = True,
+) -> List[str]:
     problems = []
     if str(signal.get("pr")) != str(pr_number):
         problems.append(f"review signal PR {signal.get('pr')!r} does not match {pr_number!r}")
@@ -70,7 +75,7 @@ def _validate_signal(signal: Dict[str, object], pr_number: str, head_sha: str) -
         problems.append(
             f"review signal head SHA {signal.get('head_sha')!r} does not match current head {head_sha!r}"
         )
-    if str(signal.get("verdict", "")).strip().lower() not in _PASSING_VERDICTS:
+    if require_passing_verdict and str(signal.get("verdict", "")).strip().lower() not in _PASSING_VERDICTS:
         problems.append(f"review signal has blocking verdict {signal.get('verdict')!r}")
     if not signal.get("reviewer_login"):
         problems.append("review signal is missing reviewer_login")
@@ -80,7 +85,7 @@ def _validate_signal(signal: Dict[str, object], pr_number: str, head_sha: str) -
         except (TypeError, ValueError):
             problems.append(f"review signal has invalid {field} count {signal.get(field)!r}")
             continue
-        if value != 0:
+        if require_passing_verdict and value != 0:
             problems.append(f"review signal reports {value} {field} finding(s)")
     return problems
 
@@ -109,11 +114,18 @@ def _published_review_matches_signal(
     return False
 
 
-def check_review_signal(repo: str, pr_number: str, head_sha: str, agent_output: str) -> List[str]:
+def check_review_signal(
+    repo: str,
+    pr_number: str,
+    head_sha: str,
+    agent_output: str,
+    reviewer_login: str = "github-actions[bot]",
+) -> List[str]:
     """Return problems; empty means the independent agent published a passing review."""
     signal, problems = _parse_signal(agent_output, pr_number, head_sha)
     if signal is None:
         return problems
+    signal["reviewer_login"] = reviewer_login
     problems.extend(_validate_signal(signal, pr_number, head_sha))
     if problems:
         return problems
@@ -135,6 +147,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser.add_argument("--pr", required=True, help="PR number")
     parser.add_argument("--head-sha", required=True, help="PR head SHA to verify a review against")
     parser.add_argument("--agent-output", required=True, help="file containing the agent's final text output")
+    parser.add_argument("--reviewer-login", default="github-actions[bot]", help="GitHub account publishing the review")
     args = parser.parse_args(argv)
     try:
         agent_output = Path(args.agent_output).read_text(encoding="utf-8")
@@ -142,7 +155,9 @@ def main(argv: Optional[List[str]] = None) -> int:
         print(f"error: could not read agent output: {exc}", file=sys.stderr)
         return 2
 
-    problems = check_review_signal(args.repo, args.pr, args.head_sha, agent_output)
+    problems = check_review_signal(
+        args.repo, args.pr, args.head_sha, agent_output, args.reviewer_login
+    )
     if problems:
         print("Agent docs review verification FAILED:", file=sys.stderr)
         for problem in problems:

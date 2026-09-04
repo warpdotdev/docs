@@ -189,6 +189,11 @@ The `improve-drafting-skills` outer loop reads this signal from the conversation
 
 After creating `review.json`, publishing the signal, and completing validation, create one GitHub PR review pinned to the evaluated head SHA. The review body must include the same `[SIGNAL:pr-review]` JSON record used in the text response.
 
+When `.github/workflows/agent-docs-review.yml` starts this skill, do not publish
+the review yourself. Emit the signal with `reviewer_login` set to
+`github-actions[bot]`; the GitHub Actions runner publishes the review with its
+short-lived token after the cloud agent returns.
+
 1. Determine the authenticated reviewer and map the verdict:
    ```bash
    REVIEWER_LOGIN=$(gh api user --jq .login)
