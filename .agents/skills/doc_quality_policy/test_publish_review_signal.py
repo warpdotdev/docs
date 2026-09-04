@@ -28,7 +28,14 @@ class TestBuildReviewPayload(unittest.TestCase):
         self.assertEqual(payload["event"], "APPROVE")
         self.assertEqual(payload["commit_id"], "sha1")
         self.assertIn("## Verdict\nApprove", payload["body"])
+        self.assertNotIn("## Review signal", payload["body"])
+        self.assertIn("<!-- [SIGNAL:pr-review]", payload["body"])
         self.assertIn('"reviewer_login": "github-actions[bot]"', payload["body"])
+        published_signal, problems = prs.vrs._parse_signal(
+            payload["body"], "1", "sha1"
+        )
+        self.assertEqual(problems, [])
+        self.assertEqual(published_signal["reviewer_login"], "github-actions[bot]")
 
     def test_approve_with_nits_maps_to_github_approval(self):
         payload = prs.build_review_payload(
