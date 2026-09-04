@@ -152,9 +152,10 @@ Unused credits do not rollover to the next cycle and can't be transferred to oth
 
 On the multi-seat paid plans, plan-included credits are per-seat while add-on credits are shared across the team:
 
-* **Plan-included monthly credits** — Each seat receives its own monthly credit allowance that resets every 30 days based on the team's renewal date. See [Warp pricing](https://www.warp.dev/pricing) for the current per-seat allowance on your plan.
+* **Plan-included monthly credits** — Each seat receives its own monthly credit allowance that resets every 30 days based on the team's renewal date. See [Warp pricing](https://www.warp.dev/pricing) for the current per-seat allowance on your plan. Warp always consumes this allowance before any bonus or add-on grants.
 * **Add-on credits** — As of August 2026, [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) purchased by any team member go into a single team-wide pool. Once a member's plan-included credits are used up, their usage draws from the shared pool — including credits another member purchased.
-* **User-scoped credits from May–August 2026** — Add-on credits purchased between May 21, 2026 and August 2026 were scoped to the purchasing member. Any remaining user-scoped balance stays attributed to that member and is consumed after the shared team pool.
+* **User-scoped credits from May–August 2026** — Add-on credits purchased between May 21, 2026 and August 2026 were scoped to the purchasing member. Any remaining user-scoped balance stays attributed to that member and is consumed only after shared team grants are exhausted. Personal grants are not blocked while you are on a team; they simply come after shared grants, and only when they apply to the active team.
+* **No personal-first option** — While you are on a team, you cannot spend personal or user-scoped credits before the team's shared grants. Team-first drawdown is intentional.
 * **Team-wide spend cap** — Admins set a single team-wide monthly spend cap that governs add-on credit purchases across the team. See [How does auto-reload work for teams?](#how-does-auto-reload-work-for-teams) below.
 
 Enterprise plans support team-scoped credit pools and per-user spend limits separately — see [enterprise billing](/enterprise/support-and-resources/billing/).
@@ -419,7 +420,7 @@ Add-on credit attribution has changed twice in 2026:
 
 * **Before May 21, 2026** — Add-on credits on multi-seat teams were pooled; every member drew from a single shared balance.
 * **May 21 – August 2026** — Add-on credits were user-scoped; each user had their own balance.
-* **As of August 2026** — Add-on credits are **team-pooled again**. Purchases from any member go into the team's shared pool, and any member's usage draws the pool down once their plan-included credits are used up. Remaining user-scoped balances from the May–August window stay attributed to the purchasing member and are consumed after the shared pool.
+* **As of August 2026** — Add-on credits are **team-pooled again**. Purchases from any member go into the team's shared pool, and any member's usage draws the pool down once their plan-included credits are used up. Remaining user-scoped balances from the May–August window stay attributed to the purchasing member and are consumed after the shared pool. There is no way to prefer personal credits first while on a team.
 
 Anyone on the team can purchase add-on credits, subject to the team-wide spend cap admins set under **Settings** > **Billing and usage**.
 
