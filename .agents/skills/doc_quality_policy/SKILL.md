@@ -17,17 +17,15 @@ directory implements them:
 
 - `policy.py` — pure parsing/classification/validation functions (the agent
   marker, risk levels, `## Documentation risk` / `## Unverified claims`
-  parsing, `{/* VERIFY: ... */}` marker accounting, the low-risk allowlist via
-  `RiskSignals` + `classify_risk`, and the engineering-review human gate via
-  `validate_engineering_gate`).
+  parsing, `{/* VERIFY: ... */}` marker accounting, and the low-risk allowlist
+  via `RiskSignals` + `classify_risk`).
 - `check_pr_contract.py` — CI-callable checker: reads a PR body file, finds
   VERIFY markers in the changed docs files (auto-discovered via
   `git diff --diff-filter=d origin/main...HEAD` when not passed explicitly,
   matching `style_lint.py --changed`'s scope and its no-silent-fallback rule),
-  and validates the structural contract. Its explicit
-  `--enforce-engineering-gate` mode additionally evaluates current-head human
-  approval and a docs override from trusted GitHub review data. Exit 0 = pass,
-  1 = violations, 2 = usage error.
+  and validates the structural contract. Engineering review requests are
+  advisory and do not affect the check result. Exit 0 = pass, 1 = violations,
+  2 = usage error.
 - `finalize_pr_contract.py build` — prints the `## Documentation risk` block
   for a PR-producing skill to insert into its PR body. Does not call `gh`
   itself; the invoking skill applies the `warpy-factory` label separately.
@@ -66,6 +64,6 @@ Before requesting review:
 The `Docs technical references` CI job (see `.github/workflows/ci.yml`) runs
 `check_pr_contract.py` against the PR body and the changed docs files on every
 pull request, failing on an unlisted `VERIFY` marker, a missing/invalid risk
-section. It deliberately does not apply the human engineering gate on every
-push: an engineering-review-required PR may legitimately await review while
-the separate ready-to-merge routing step evaluates trusted live approval data.
+section. An engineering-review-required PR requests source-owner review, but
+the Docs team can merge after its normal review without a GitHub approval from
+the engineer.

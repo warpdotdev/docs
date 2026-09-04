@@ -43,7 +43,7 @@ Every agent-authored content PR body carries:
    Engineering review status: pending
    Docs override: none
    ```
-   When a docs-team override completes or waives the engineering gate, add:
+   When Docs records external validation, add:
    ```markdown
    Docs override: docs-verified
    Override reviewer: hongyi-chen
@@ -51,9 +51,9 @@ Every agent-authored content PR body carries:
    Override evidence: warp-server/pkg/foo/bar.go@<sha>
    Override head SHA: <current PR head SHA>
    ```
-   `Docs override: docs-waiver` uses the same four override fields, with
-   `Override reason` stating why engineering validation could not be obtained
-   and why the remaining risk is acceptable.
+   `Docs override: docs-waiver` uses the same four fields when Docs proceeds
+   without an engineering response and records why the remaining risk is
+   acceptable.
 2. **`## Unverified claims`** — unchanged from the existing `draft_docs` /
    `create_pr` contract (step 9.5). Every `{/* VERIFY: ... */}` marker in
    changed content must appear here.
@@ -89,36 +89,23 @@ materially changed feature docs and any change to the technical claim
 categories above. When the change cannot be shown to fit one of these
 low-risk categories, classify it as `engineering-review-required`.
 
-## Human gate
+## Engineering review requests
 
 - **Low risk**: the normal docs reviewer approves. No engineering owner
   approval is required.
-- **Engineering-review-required**: source-owner resolution is always
-  attempted first — a real GitHub review request goes to at least one owner
-  resolved from the product source files consulted to verify the draft (reuse
-  `missing_docs/scripts/suggest_reviewers.py`'s resolution path). The gate is
-  satisfied by either:
-  1. An approval from a requested source-owning engineer **on the current
-     head**, or
-  2. An authorized Pod-Docs reviewer (see
-     `.agents/skills/doc_quality_policy/authorized_docs_reviewers.json`)
-     approving the current head and recording a complete `docs-verified` or
-     `docs-waiver` override (reviewer, reason, evidence, and the exact head
-     SHA).
+- **Engineering-review-required**: source-owner resolution is attempted first,
+  and a real GitHub review request goes to at least one owner resolved from
+  the product source files consulted. The request is advisory. Docs can
+  validate the claim from source, Slack, or another appropriate channel, then
+  proceed through the normal Docs review path without a GitHub approval from
+  the engineer.
 
-  A missing owner or an unanswered request is visible (noted in the PR body)
-  but does not block readiness indefinitely.
-
-**Overrides never bypass**: deterministic CI (`style_lint`, `validate_ui_refs`),
-an unlisted `VERIFY` marker, or an unresolved critical/important
-`review-docs-pr` finding. A new head commit invalidates both a prior
-engineering approval and a prior docs-team override — both must be re-recorded
-against the new head.
+Record an engineer response or Docs validation in the PR body when it informs
+the final wording. A new head makes earlier validation context stale, but it
+does not block a Docs-approved PR from merging.
 
 The required push-time PR-contract check validates only the risk metadata and
-VERIFY accounting. It does not fail a draft PR merely because its requested
-human approval is still pending; `.github/workflows/docs-engineering-approval.yml`
-evaluates the human gate using current GitHub review data.
+VERIFY accounting. Engineering review requests are not merge gates.
 
 ## VERIFY marker accounting
 
@@ -126,8 +113,7 @@ Every `{/* VERIFY: ... */}` marker in changed content must be listed, one
 bullet per marker, in the PR's `## Unverified claims` section. An unlisted
 marker fails the contract check. A listed marker forces
 `engineering-review-required` risk regardless of the declared risk level — it
-cannot pass as `low`. It is satisfied only via the human gate above (source-
-owner approval, `docs-verified`, or `docs-waiver`).
+cannot pass as `low`. Docs resolves or removes the marker before merging.
 
 ## Independent review (`review-docs-pr`)
 

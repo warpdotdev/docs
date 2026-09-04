@@ -478,7 +478,7 @@ A team handle resolved from `STAKEHOLDERS` or `CODEOWNERS` can only be requested
 :::
 
 :::note
-Auto-requesting the review does not make it *block* merge. Whether an ambient docs PR should require that approval through branch protection is an open question for the docs owner, not something this skill decides.
+Auto-requesting the review does not block merge. The Docs team owns the merge decision after its normal review, whether an engineer replies in GitHub, replies elsewhere, or does not reply.
 :::
 
 ### Update an existing PR
