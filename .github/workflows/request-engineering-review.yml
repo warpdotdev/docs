@@ -1,0 +1,50 @@
+name: Request engineering review
+
+# Technical documentation PRs request source-owner review, but a missing
+# GitHub approval does not block Docs from merging after its normal review.
+on:
+  pull_request:
+    types: [opened, labeled, synchronize, reopened, ready_for_review, edited]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  request-engineering-review:
+    name: Request engineering review
+    runs-on: ubuntu-latest
+    if: >-
+      contains(github.event.pull_request.labels.*.name, 'warpy-factory') &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Request listed source owners for technical documentation
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          printf '%s' "$PR_BODY" > /tmp/pr-body.md
+          python3 - <<'PY' > /tmp/requested-engineers.txt
+          import sys
+          from pathlib import Path
+
+          sys.path.insert(0, ".agents/skills/doc_quality_policy")
+          import policy
+
+          risk = policy.parse_documentation_risk_section(
+              Path("/tmp/pr-body.md").read_text(encoding="utf-8")
+          )
+          if risk and risk.risk == policy.RISK_ENGINEERING_REVIEW_REQUIRED:
+              print("\n".join(risk.requested_engineering_reviewers))
+          PY
+          while IFS= read -r reviewer; do
+            [ -z "$reviewer" ] && continue
+            if ! gh pr edit "$PR_NUMBER" --repo "$REPOSITORY" --add-reviewer "$reviewer"; then
+              echo "::warning::Could not request engineering review from $reviewer."
+            fi
+          done < /tmp/requested-engineers.txt
