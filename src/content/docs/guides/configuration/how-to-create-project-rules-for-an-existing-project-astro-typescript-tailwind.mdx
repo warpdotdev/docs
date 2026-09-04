@@ -70,7 +70,7 @@ Share Your Brewfiles is an Astro-based website that allows developers to share a
 * `exchangeCodeForAccessToken.ts` - GitHub OAuth token exchange
 * `logSearch.json.ts` - Analytics for search functionality
 
-### Core Library Functions (`src/lib/`)
+### Core library functions (`src/lib/`)
 * `generatePersonality.ts` - Complex algorithm that analyzes brewfile packages and assigns personality types (15 different personalities)
 * `personalityBuckets.ts` - Defines personality type metadata and descriptions
 * `validateBrewfileData.ts` - Data validation for brewfile uploads
@@ -124,7 +124,7 @@ curl "http://localhost:4321/api/getRankedPackages.json"
 
 ## Architecture Notes
 
-### Personality Generation System
+### Personality generation system
 The core feature analyzes brewfile packages against a curated dictionary (`labelledBrewfiles.ts`) that categorizes packages by:
 - Developer type (Backend, Frontend, DevOps, Security, Data, General)
 - Package characteristics (AI tools, organization tools, customization, popularity rank)
@@ -138,7 +138,7 @@ The system calculates percentage distributions and applies complex rules to assi
 - Real-time personality generation happens asynchronously after uploads
 - GitHub OAuth integration for user authentication
 
-### Path Alias System
+### Path alias system
 Uses TypeScript path mapping with `@/*` pointing to `./src/*` for clean imports.
 
 ### Astro Configuration
@@ -147,27 +147,27 @@ Uses TypeScript path mapping with `@/*` pointing to `./src/*` for clean imports.
 - Sitemap generation for SEO
 - Prefetch enabled for performance
 
-## Development Environment Setup
+## Development environment setup
 
 ### Prerequisites
 - Node.js (version compatible with Astro 4)
 - Access to Firebase project (config is in source but consider security implications)
 - GitHub OAuth app for testing upload functionality
 
-### Local Development Notes
+### Local development notes
 - The site uses server-side rendering so API routes work in development
 - Firebase config is currently in source code - be aware of security implications
 - GitHub OAuth integration requires valid access tokens for uploads
 - Personality generation is computationally expensive with large datasets
 
-### Custom Tailwind Configuration
+### Custom Tailwind configuration
 - Dark theme with custom color palette (`bkg: #111111`)
 - Custom accent colors (teal, orange, green, pink, blue variants)
 - Marquee animations for scrolling elements
 - Responsive typography with fluid scaling
 - Container queries support
 
-## File Structure Navigation
+## File structure navigation
 <FileTree>
 - src/
   - pages/
@@ -182,20 +182,20 @@ Uses TypeScript path mapping with `@/*` pointing to `./src/*` for clean imports.
   - firebase/ Firebase configuration
 </FileTree>
 
-## Common Development Tasks
+## Common development tasks
 
-### Adding New Personality Types
+### Adding new personality types
 1. Update `DeveloperPersonalityType` enum in `src/types/personality.ts`
 2. Add detection function in `src/lib/generatePersonality.ts`
 3. Update `personalityBuckets.ts` with new personality metadata
 4. Add corresponding image to `public/images/`
 
-### Modifying Package Analysis
+### Modifying package analysis
 - Update `labelledBrewfiles.ts` to modify package categorization
 - Adjust percentage thresholds in personality detection functions
 - Test with different brewfile compositions
 
-### API Route Development
+### API route development
 - All routes in `src/pages/api/` become serverless functions on Vercel
 - Use `export const prerender = false;` for dynamic routes
 - Handle errors consistently with try/catch blocks
