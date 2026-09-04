@@ -26,15 +26,13 @@ Use a suite for one focused question, such as whether a less expensive model pre
 
 To use Benchmarks, you need a factory with an agent to evaluate. Use a completed run from that agent when you want a task to reproduce real work, or write a task yourself.
 
-1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, open your factory.
-2. In the factory sidebar, click **Benchmarks**.
-3. Click **New benchmark**.
-4. Enter a name and optional description, then choose the agent to evaluate. The suite runs every task as that agent.
-5. Under **Tasks**, click **Add task**. Select a completed run, then click **Add task** to create a task from it. To write a task instead, click **Start from scratch instead**.
-6. Enter a task title, prompt, and "Correctness criteria." The criteria are required and are the authoritative requirements the built-in Correctness Scorer uses for every trial. Add a pinned repository only when the task must begin from a specific repository commit.
-7. Save the suite, then click **Run**. In the launch dialog, choose the model and runner for each configuration. Mark one configuration as the baseline when you want the results table to show each candidate's difference from it.
-8. Add configurations to compare, choose the Scorers that apply to the agent, and set "Repetitions." The dialog shows the number of trials that the selected tasks, configurations, and repetitions create. More trials and Scorers increase the run's cost.
-9. Click **Run benchmark**. While it runs, the benchmark page shows completed, running, pending, failed, and scored trials. You can cancel a running or scoring benchmark from this page.
+1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, open your factory, click **Benchmarks**, then click **New**.
+2. Enter a name and optional description, then choose the agent to evaluate. The suite runs every task as that agent.
+3. Under **Tasks**, click **Add task**. Select a completed run, then click **Add task** to create a task from it. To write a task instead, click **Start from scratch instead**.
+4. Enter a task title, prompt, and "Correctness criteria." The criteria are required and are the authoritative requirements the built-in Correctness Scorer uses for every trial. Add a pinned repository only when the task must begin from a specific repository commit.
+5. Save the suite, then click **Run**. In the launch dialog, choose the model and runner for each configuration. Mark one configuration as the baseline when you want the results table to show each candidate's difference from it.
+6. Add configurations to compare, choose the Scorers that apply to the agent, and set "Repetitions." The dialog shows the number of trials that the selected tasks, configurations, and repetitions create. More trials and Scorers increase the run's cost.
+7. Click **Run benchmark**. While it runs, the benchmark page shows completed, running, pending, failed, and scored trials. You can cancel a running or scoring benchmark from this page.
 
 :::caution
 Third-party harness comparison is not available in the current launch. The harness menu marks those choices as coming soon.
