@@ -1,7 +1,7 @@
 ---
 title: [Sentence case. Use "About [subject]" or a plain noun phrase naming the subject. Not "Understanding how X works". This renders as the page H1 — do not add an H1 in the body.]
 description: >-
-  [One sentence, 50-160 characters: what the thing is and why it matters. Start with the
+  [One to two sentences, 50-160 characters: what the thing is and why it matters. Start with the
   subject, not "Learn about". Example: "Environments give cloud agents the same toolchain
   and setup on every run, no matter what triggers them."
   Use {{TOKEN}} syntax for product names in src/data/vars.ts.]

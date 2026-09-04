@@ -2,13 +2,13 @@
 title: Factory definition syntax
 description: >-
   Look up every file and key in a factory definition: factory.yaml, agents,
-  automations, runners, scorers, and skills.
+  automations, runners, scorers, skills, and webhooks.
 sidebar:
   label: "Definitions as code"
 ---
 import { VARS } from '@data/vars';
 
-Every factory is defined by files: a `factory.yaml` plus directories of agents, automations, runners, scorers, and skills, versioned in a Git repository. The files are the source of truth — when they change, Warp updates the factory to match. This page describes every file and key in a definition.
+Every factory is defined by files: a `factory.yaml` plus directories of agents, automations, runners, scorers, skills, and webhooks, versioned in a Git repository. The files are the source of truth — when they change, Warp updates the factory to match. This page describes every file and key in a definition.
 
 Definition files are YAML and Markdown. Keys are case-sensitive.
 
@@ -52,6 +52,8 @@ scorers/
 skills/
   repository-conventions/
     SKILL.md
+webhooks/
+  internal-ci.yaml
 ```
 
 Only `factory.yaml` and at least one agent are required. For a complete working definition, see the [example factory definition](#example-factory-definition) below. The smallest complete example tree is [`01-single-repo-quickstart`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/01-single-repo-quickstart); the fullest is [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr).
@@ -181,7 +183,7 @@ harness:
 
 For a third-party harness, `auth` sets where credentials come from: `source: managedSecret` reads the [managed secret](/platform/secrets/) named by `secretName`, and `source: workerEnvironment` reads them from your self-hosted worker's environment (and requires a self-hosted `workerHost`). The `oz` harness supplies its own credentials and takes no `auth` or `reasoningLevel`.
 
-For a definition that runs a different harness per agent, with managed-secret auth for Claude Code and Codex, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness).
+For a definition that runs a different harness per agent, with managed-secret auth for Claude Code and Codex, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness). To configure the same third-party harness from the dashboard instead, see [configuring a third-party harness](/factories/factory-agents/#configuring-a-third-party-harness).
 
 ### `agentDefaults.runner`
 
@@ -267,13 +269,26 @@ The providers and their events:
 * `jira` - `issue_created`, `issue_labeled`, `status_changed`, `agent_session_created`
 * `slack` - `app_mention`, `message_posted`, `message_dm`, `message_im`, `message_mpim`, `member_joined_channel`, `reaction_added`
 * `schedule` - `cron_fired`
+* `webhook` - `received`
 * `factory` - `work_item_stage_changed`
 
-Slack, Linear, and Jira triggers require the matching [integration](/platform/integrations/) to be connected. GitHub triggers work through the factory's `repositories`, and GitLab triggers through the group connected to your workspace — see the [GitLab integration](/factories/integrations/gitlab/).
+Slack, Linear, and Jira triggers require the matching [integration](/platform/integrations/) to be connected. GitHub triggers work through the factory's `repositories`, and GitLab triggers through the group connected to your workspace — see the [GitLab integration](/factories/integrations/gitlab/). `webhook` triggers listen to [custom webhooks](/factories/webhooks/) declared under [`webhooks/`](#webhooksnameyaml).
 
 ### `triggers[].filter`
 
 Optional. Narrows which events start runs. The keys a filter accepts depend on the provider and event: for example `repos`, `labels`, and `authors` for GitHub events, or `channels`, `users`, and `keywords` for Slack messages. Filter keys combine with AND, an omitted key matches everything, and each key takes a list that matches any of its values (or an `in`/`not_in` object to include or exclude). Slack and Linear filters take names (channels, users, teams, projects, states), and Warp resolves them to IDs when it applies the change.
+
+A `webhook` trigger with the `received` event requires `webhook_ids` in its filter, a list of webhook UIDs (`in` only; the file name isn't accepted), and takes an optional `payload` pattern that mirrors the delivery's JSON body. See [payload filters for webhook triggers](/factories/automations/#payload-filters-for-webhook-triggers) for the pattern grammar.
+
+```yaml
+triggers:
+  - provider: webhook
+    event: received
+    filter:
+      webhook_ids: [WEBHOOK_UID]
+      payload:
+        status: [failed]
+```
 
 ### `triggers[].schedule`
 
@@ -381,6 +396,39 @@ Required. The model that judges the runs.
 ### `selfImprovement`
 
 Optional. When `true`, failing scores can feed the factory's self-improvement flow, which proposes definition changes as pull requests. Defaults to `false`.
+
+## `webhooks/<name>.yaml`
+
+Optional. Each file defines a [custom webhook](/factories/webhooks/): an authenticated URL that external systems POST JSON to, which `webhook` triggers on automations subscribe to. The webhook's name comes from the file name. The file never holds the secret itself: `secretName` references a [managed secret](/platform/secrets/) that already exists on the team, and Warp never generates one for a file-declared webhook.
+
+```yaml title="webhooks/internal-ci.yaml"
+authMode: token
+secretName: INTERNAL_CI_WEBHOOK_SECRET
+deliveryIdHeader: X-CI-Run-Id
+enabled: true
+```
+
+### `authMode`
+
+Optional. How deliveries authenticate: `token` (the default, an `Authorization: Bearer` header), `url_token` (the secret embedded in the URL path), or `signature` (the sending provider's own signature scheme). See [authentication modes](/factories/webhooks/#authentication-modes) for how each works.
+
+### `signatureScheme`
+
+The provider signature to verify: `github`, `pagerduty`, `sentry`, `standard_webhooks`, or `stripe`. Required when `authMode` is `signature`, and invalid otherwise.
+
+### `secretName`
+
+Required. The name of the managed secret holding the webhook's bearer token, URL token, or provider signing secret. A `url_token` secret must contain only URL-safe characters (letters, digits, `-`, `.`, `_`, and `~`), because it becomes a segment of the ingress URL.
+
+### `deliveryIdHeader`
+
+Optional. The header the sender stamps its own delivery identity into, used to deduplicate retries. Must be a valid HTTP header name; credential-bearing headers such as `Authorization`, `Cookie`, and provider signature headers are rejected.
+
+### `enabled`
+
+Optional. Defaults to `true`. Set it to `false` to stop deliveries immediately without deleting the webhook.
+
+On a Warp-managed factory, creating a webhook in the dashboard writes this file for you and stores the secret under the name you enter in the "Secret name" field.
 
 ## Skills
 

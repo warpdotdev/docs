@@ -7,6 +7,7 @@ description: >-
   agents run on, managed with the {{WARP_AGENT_CLI}}.
 ---
 import { VARS } from '@data/vars';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 Runners define the compute a [cloud agent](/platform/) runs on: the operating system, CPU architecture, instance size, and sandbox image used to execute a run.
 
@@ -22,7 +23,7 @@ What runners give you:
 
 * **Reusable compute configs** – Define an OS, architecture, instance size, and sandbox image once, then reuse the runner across cloud agent runs and orchestration without repeating the configuration.
 * **Right-sized hardware** – Choose the number of vCPUs and amount of memory a run needs, so lightweight tasks stay cheap and heavy builds get enough resources.
-* **Flexible OS targets** – Run agents on Linux with a custom Docker image. macOS runners are in limited preview.
+* **Flexible OS targets** – Run agents on Linux or macOS.
 * **Independent of environments** – Override an environment's default runner per run without changing the environment itself.
 
 ## How runners fit into cloud agent runs
@@ -34,6 +35,30 @@ A runner is the compute layer for a cloud agent run. When a run starts, Warp pro
 * **Host** – Determines where execution happens (Warp-hosted or [self-hosted](/platform/self-hosting/) infrastructure).
 
 Each environment has a default runner. Specifying a runner for a run overrides that default for that run only.
+
+## Operating systems
+
+<Tabs>
+  <TabItem label="Linux">
+    Linux runners execute the agent in a fresh Docker container. Warp uses the Docker image you select to provide the agent's base filesystem and toolchains.
+
+    Warp-hosted Linux runners support any public x86-64 or aarch64 image. By default, runners use [`warpdotdev/dev-base:latest`](https://hub.docker.com/r/warpdotdev/dev-base).
+    Linux supports any combination of CPU and memory as long as both are a power of two and within your plan's maximum resource limit.
+  </TabItem>
+  <TabItem label="macOS">
+    macOS runners execute the agent in a fresh VM on Apple Silicon. You can choose from macOS 14, 15, 26, or 27. If not specified, Warp uses the current macOS release.
+
+    The VM has Xcode and standard system tools installed. Use setup commands to install additional dependencies. Downloads from Homebrew and popular language package
+    managers are cached automatically.
+
+    The following resource configurations are supported:
+    * 4 vCPUs, 7 GB memory
+    * 6 vCPUs, 14 GB memory
+    * 8 vCPUs, 14 GB memory
+    * 12 vCPUs, 28 GB memory
+    * 12 vCPUs, 56 GB memory
+  </TabItem>
+</Tabs>
 
 ## Managing runners with the CLI
 
@@ -68,7 +93,7 @@ Key flags:
 * `--team` / `--personal` — create the runner at the team level or private to your account.
 
 :::caution
-OS-specific options must match `--os`. Use `--docker-image` only with `--os linux`, and `--macos-version` only with `--os macos`. macOS runners are in limited preview.
+OS-specific options must match `--os`. Use `--docker-image` only with `--os linux`, and `--macos-version` only with `--os macos`.
 :::
 
 ### List runners

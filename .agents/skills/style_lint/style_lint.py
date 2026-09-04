@@ -40,7 +40,24 @@ PROPER_FEATURE_NAMES = {
     "Oz CLI", "Oz Platform", "Project Rules",
     "Slash Commands", "Terminal Mode", "Universal Input", "Warp Drive",
     "Warp Platform", "Automation Platform", "Warp Factories", "Factory MCP",
+    "Computer Use", "Full Terminal Use", "Zero Data Retention", "Single Sign-On",
+    "Blocks", "Block", "Tab Configs", "Tab Config",
+    "Launch Configuration", "Launch Configurations",
+    # Warp's own feature name.
+    "Bring Your Own LLM",
+    # Third-party/technical proper nouns. style_lint's proper-noun protection
+    # is scoped to Warp's own product names by design; these are narrow,
+    # named exceptions rather than a generalization of that scope.
+    "Bitbucket Data Center", "Workload Identity Pool and Provider",
+    "Workload Identity Federation", "Direct backend",
 }
+
+# Standalone proper nouns that must keep their capital even mid-sentence.
+# These are single words, so they can't live in PROPER_FEATURE_NAMES above --
+# that set only protects a word when the full multi-word name appears as an
+# exact sequence (e.g. "Warp Drive"), which leaves a bare "Warp" unprotected
+# and vulnerable to being sentence-cased like any other Title Case word.
+STANDALONE_PROPER_NOUNS = {"Warp"}
 
 # Terminology: wrong → right (case-sensitive checks)
 PRODUCT_CASING = {
@@ -80,7 +97,7 @@ DEPRECATED_TERMS = [
 # only mean "this should have been tokenized" -- a hardcoded "Oz" in prose is
 # now a *stale* product name as well. Both readings want the same fix, so the
 # entries stay. The "Automation Platform" entry is the mirror image: it catches
-# the new name being hardcoded, which would silently miss the 9/15 changes and
+# the new name being hardcoded, which would silently miss the 10/6 changes and
 # any later rename.
 #
 # Each entry: (literal_string, var_key, suggestion)
@@ -113,7 +130,7 @@ RENAME_TRANSITION_MARKERS: Tuple[str, ...] = (
     "Oz is now",
     "was called Oz",
     "renamed from Oz",
-    # Explains why "Oz" still appears in commands and URLs before 9/15.
+    # Explains why "Oz" still appears in commands and URLs before 10/6.
     "the Oz name",
 )
 
@@ -365,6 +382,8 @@ class Issue:
     fixable: bool = False
     fix_from: str = ""
     fix_to: str = ""
+    fix_start: int = -1
+    fix_end: int = -1
 
 
 @dataclass
@@ -446,6 +465,27 @@ def _normalize_link_text(text: str) -> str:
     text = _strip_markdown_formatting(text)
     text = re.sub(r"\s+", " ", text).strip().lower()
     return text.strip(" \t\n\r.,:;!?()[]{}\"'")
+
+
+def _strip_markdown_destinations(line: str) -> str:
+    """Remove Markdown image/link destination text, keeping the associated
+    human-visible alt/link text in place while preserving source offsets.
+
+    A destination is a literal filename or URL (e.g. the
+    "Blocklist-with-review-changes.png" in
+    `![Review changes...](../../assets/Blocklist-with-review-changes.png)`),
+    not prose -- casing and deprecated-term checks must not fire on it. The
+    `![alt](...)` / `[text](...)` syntax is identical for images and links,
+    so `](...)` becomes `]` plus whitespace of the same length. This strips
+    the destination from both while leaving the bracketed text (and the
+    leading `!` for images) for the surrounding prose checks to scan
+    normally. Retaining the original length lets a match in the masked line
+    point back to the exact source span for `--fix`.
+    """
+    def replace_destination(match: re.Match) -> str:
+        return "]" + " " * (len(match.group(0)) - 1)
+
+    return re.sub(r"\]\([^)]*\)", replace_destination, line)
 
 
 def _meaningful_words(text: str) -> List[str]:
@@ -569,6 +609,24 @@ def check_ui_element_backticks(lines: List[str], filepath: str) -> List[Issue]:
     return issues
 
 
+# Marks the end of a rendered sentence within a single header/line: a
+# `.`/`!`/`?`, optionally followed by a closing quote or bracket. A header can
+# legitimately contain more than one sentence (e.g. a two-question FAQ title
+# or a comment-hidden boundary), and only the very first word of *each*
+# sentence is sentence-initial -- not just the first word of the whole line.
+_SENTENCE_END_RE = re.compile(r'[.!?]["\')\]]*$')
+
+
+def _sentence_start_indices(words: List[str]) -> set:
+    """Return word indices that start a sentence: index 0, plus any word
+    immediately following another word ending in `.`, `!`, or `?`."""
+    starts = {0}
+    for idx in range(1, len(words)):
+        if _SENTENCE_END_RE.search(words[idx - 1]):
+            starts.add(idx)
+    return starts
+
+
 def _to_sentence_case(text: str) -> str:
     """Convert header text to sentence case, preserving proper feature names and acronyms."""
     skip_words = {"I", "A", "API", "CLI", "SDK", "SSH", "UI", "URL", "PR", "CI", "CD"}
@@ -584,13 +642,19 @@ def _to_sentence_case(text: str) -> str:
                 for j in range(len(fn_words)):
                     protected[start + j] = True
 
+    sentence_starts = _sentence_start_indices(words)
+
     result = []
     for idx, w in enumerate(words):
-        if idx == 0 or protected[idx]:
+        if idx in sentence_starts or protected[idx]:
             result.append(w)
             continue
         clean = re.sub(r"[^a-zA-Z]", "", w)
         if not clean or clean in skip_words or len(clean) <= 1:
+            result.append(w)
+            continue
+        # Preserve standalone proper nouns (e.g. "Warp") regardless of position.
+        if clean in STANDALONE_PROPER_NOUNS:
             result.append(w)
             continue
         # Preserve all-caps words (acronyms not in skip_words)
@@ -615,10 +679,16 @@ def check_header_case(lines: List[str], filepath: str) -> List[Issue]:
         words = text.split()
         if len(words) < 2:
             continue
-        # Count capitalized non-first words (excluding proper feature names, short words)
+        # Count capitalized non-first words (excluding proper feature names,
+        # short words, and the first word of any later sentence in the same
+        # header -- a header can contain more than one sentence, e.g. a
+        # two-question FAQ title, and each one gets its own capitalized start).
         skip_words = {"I", "A", "API", "CLI", "SDK", "SSH", "UI", "URL", "PR", "CI", "CD"}
+        sentence_starts = _sentence_start_indices(words)
         title_case_count = 0
-        for w in words[1:]:
+        for idx, w in enumerate(words):
+            if idx in sentence_starts:
+                continue
             clean = re.sub(r"[^a-zA-Z]", "", w)
             if not clean or clean in skip_words or len(clean) <= 2:
                 continue
@@ -857,33 +927,70 @@ def check_callout_syntax(lines: List[str], filepath: str) -> List[Issue]:
     return issues
 
 
+def _word_bounded_pattern(term: str) -> re.Pattern:
+    """Compile a case-sensitive pattern that only matches `term` as a whole
+    word/phrase, not as a substring of a longer token.
+
+    A plain `str.find` (the previous implementation) matched "agent mode"
+    inside "agent model", since "agent mode" is literally a substring of
+    "agent model" -- and corrupted it into "Agent Model" on `--fix`. A plain
+    `\\b...\\b` regex doesn't fully fix this either: `\\b` requires a
+    transition to/from a word character, which fails for terms ending in
+    punctuation (e.g. "A.I." followed by a space or end of line has no such
+    transition). Lookarounds that only check the adjacent character is not a
+    word character work for both cases regardless of the term's own leading
+    or trailing characters.
+    """
+    return re.compile(r"(?<!\w)" + re.escape(term) + r"(?!\w)")
+
+
+_PRODUCT_CASING_PATTERNS = [
+    (_word_bounded_pattern(wrong), wrong, right, note)
+    for wrong, (right, note) in PRODUCT_CASING.items()
+]
+_EXTERNAL_CASING_PATTERNS = [
+    (_word_bounded_pattern(wrong), wrong, right, note)
+    for wrong, (right, note) in EXTERNAL_CASING.items()
+]
+
+
 def check_product_casing(lines: List[str], filepath: str) -> List[Issue]:
-    """Check for incorrect product name casing."""
+    """Check for incorrect product name casing.
+
+    Tracks complete fenced code blocks (not just a line that happens to start
+    with a backtick) so a wrong-cased term inside a multi-line code fence --
+    e.g. a literal `/Applications/Warp.app/Contents/MacOS/stable` path in a
+    shell snippet -- is left alone as executable/literal text. Markdown
+    image/link destinations are stripped for the same reason: a filename in a
+    link target is not prose, even though the line itself is not code.
+    """
     issues = []
+    in_code_block = False
     for i, line in enumerate(lines, 1):
-        # Skip code blocks
-        if line.strip().startswith("```") or line.strip().startswith("`"):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code_block = not in_code_block
             continue
-        for wrong, (right, note) in PRODUCT_CASING.items():
-            # Case-sensitive search
-            idx = line.find(wrong)
-            while idx != -1:
+        if in_code_block or stripped.startswith("`"):
+            continue
+        prose_line = _strip_markdown_destinations(line)
+        for pattern, wrong, right, note in _PRODUCT_CASING_PATTERNS:
+            for match in pattern.finditer(prose_line):
                 issues.append(Issue(
                     filepath, i, "product-casing",
                     f"\"{wrong}\" → \"{right}\" ({note})",
                     "warning", fixable=True, fix_from=wrong, fix_to=right,
+                    fix_start=match.start(), fix_end=match.end(),
                 ))
-                idx = line.find(wrong, idx + len(wrong))
 
-        for wrong, (right, note) in EXTERNAL_CASING.items():
-            idx = line.find(wrong)
-            while idx != -1:
+        for pattern, wrong, right, note in _EXTERNAL_CASING_PATTERNS:
+            for match in pattern.finditer(prose_line):
                 issues.append(Issue(
                     filepath, i, "external-casing",
                     f"\"{wrong}\" → \"{right}\" ({note})",
                     "warning", fixable=True, fix_from=wrong, fix_to=right,
+                    fix_start=match.start(), fix_end=match.end(),
                 ))
-                idx = line.find(wrong, idx + len(wrong))
     return issues
 
 
@@ -914,13 +1021,25 @@ def check_oz_terms(lines: List[str], filepath: str) -> List[Issue]:
 
 
 def check_deprecated_terms(lines: List[str], filepath: str) -> List[Issue]:
-    """Check for deprecated terminology (whitelist/blacklist/blocklist)."""
+    """Check for deprecated terminology (whitelist/blacklist/blocklist).
+
+    Tracks complete fenced code blocks (see check_product_casing) and strips
+    Markdown image/link destinations so a literal filename like
+    "Blocklist-with-review-changes.png" in a link target is not flagged as
+    prose using the deprecated term.
+    """
     issues = []
+    in_code_block = False
     for i, line in enumerate(lines, 1):
-        if line.strip().startswith("```") or line.strip().startswith("`"):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code_block = not in_code_block
             continue
+        if in_code_block or stripped.startswith("`"):
+            continue
+        prose_line = _strip_markdown_destinations(line)
         for pattern, suggestion in DEPRECATED_TERMS:
-            for m in re.finditer(pattern, line, re.IGNORECASE):
+            for m in re.finditer(pattern, prose_line, re.IGNORECASE):
                 issues.append(Issue(
                     filepath, i, "deprecated-term",
                     f"Avoid \"{m.group(0)}\" → {suggestion}",
@@ -1296,11 +1415,16 @@ def check_factory_proper_noun(lines: List[str], filepath: str) -> List[Issue]:
             continue
         if any(phrase in line for phrase in FACTORY_ALLOWED_PHRASES):
             continue
-        # Strip inline code, link targets, and HTML/JSX attributes: a slug like
-        # `/factories/factory-as-code/` or an `alt="..."` value is not prose.
+        # Strip inline code, link targets, HTML/JSX attributes, and JSX/MDX
+        # comments: a slug like `/factories/factory-as-code/` or an
+        # `alt="..."` value is not prose, and a `{/* ... */}` comment renders
+        # to nothing, so the text right after one is not mid-sentence just
+        # because the raw source has no space/punctuation there -- the actual
+        # sentence boundary can be hidden inside the stripped comment.
         prose = re.sub(r"`[^`]*`", "", line)
         prose = re.sub(r"\]\([^)]*\)", "]", prose)
         prose = re.sub(r'\w+="[^"]*"', "", prose)
+        prose = re.sub(r"\{/\*.*?\*/\}", "", prose)
         for m in FACTORY_BARE.finditer(prose):
             before = prose[:m.start()]
             after = prose[m.end():]
@@ -1485,20 +1609,44 @@ def run_all_checks(filepath: Path) -> List[Issue]:
 # ---------------------------------------------------------------------------
 
 def apply_fixes(filepath: Path, issues: List[Issue]) -> int:
-    """Apply fixable issues to a file. Returns count of fixes applied."""
+    """Apply fixable issues at their reported source locations.
+
+    A whole-file ``str.replace`` can rewrite an earlier matching literal in a
+    code block or Markdown destination even when scanning correctly reported a
+    later prose occurrence. Span-aware checks provide column offsets; process
+    those spans right-to-left on each line so earlier replacements do not shift
+    later offsets. Older checks without spans still replace only on their
+    reported line, never elsewhere in the file.
+    """
     fixable = [i for i in issues if i.fixable and i.fix_from and i.fix_to]
     if not fixable:
         return 0
-
-    content = filepath.read_text(encoding="utf-8")
+    lines = filepath.read_text(encoding="utf-8").splitlines(keepends=True)
     count = 0
+
+    spanned_issues = [issue for issue in fixable if issue.fix_start >= 0]
+    for issue in sorted(spanned_issues, key=lambda item: (item.line, item.fix_start), reverse=True):
+        line_index = issue.line - 1
+        if not 0 <= line_index < len(lines):
+            continue
+        line = lines[line_index]
+        if line[issue.fix_start:issue.fix_end] == issue.fix_from:
+            lines[line_index] = (
+                line[:issue.fix_start] + issue.fix_to + line[issue.fix_end:]
+            )
+            count += 1
     for issue in fixable:
-        if issue.fix_from in content:
-            content = content.replace(issue.fix_from, issue.fix_to, 1)
+        if issue.fix_start >= 0:
+            continue
+        line_index = issue.line - 1
+        if not 0 <= line_index < len(lines):
+            continue
+        if issue.fix_from in lines[line_index]:
+            lines[line_index] = lines[line_index].replace(issue.fix_from, issue.fix_to, 1)
             count += 1
 
     if count > 0:
-        filepath.write_text(content, encoding="utf-8")
+        filepath.write_text("".join(lines), encoding="utf-8")
     return count
 
 

@@ -16,9 +16,9 @@ This page covers Claude Code as a **cloud** harness, dispatched and orchestrated
 
 ## Key features
 
-* **Cloud orchestration** - Launch Claude Code from any {VARS.WARP_AUTOMATION_PLATFORM} trigger: the Warp app, the {VARS.WEB_APP}, the {VARS.WARP_AGENT_CLI}, the REST API, schedules, Slack mentions, Linear issues, or GitHub Actions.
+* **Cloud orchestration** - Launch Claude Code from any {VARS.WARP_AUTOMATION_PLATFORM} trigger: the Warp app, the {VARS.WEB_APP}, the {VARS.WARP_AGENT_CLI}, the REST API, [schedules](/platform/triggers/scheduled-agents/), [Slack](/platform/integrations/slack/) mentions, Linear issues, or GitHub Actions.
 * **Claude model picker** - Choose the Claude model the harness uses, including the latest pinned Opus, Sonnet, and Haiku releases, the `best`/`opus`/`sonnet`/`haiku` aliases, and 1M-context variants.
-* **First-class subagent** - A Warp Agent parent can dispatch Claude Code subagents to handle steps that require code review or nuanced judgment within a larger orchestration.
+* **First-class subagent** - A Warp Agent parent can dispatch Claude Code subagents to handle steps that require code review or nuanced judgment within a larger [multi-agent orchestration](/platform/orchestration/).
 
 ## Available models
 
@@ -52,5 +52,8 @@ For setup steps, see [Connecting Claude Code credentials](/platform/harnesses/au
 * [Harnesses in the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/) — choose between Warp Agent, Claude Code, and Codex.
 * [Authentication](/platform/harnesses/authentication/) — store Anthropic credentials as Warp-managed secrets.
 * [Warp Agent with the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/warp-agent/) — the {VARS.WARP_AUTOMATION_PLATFORM}'s default harness, the only one that can orchestrate Claude Code subagents.
+* [Multi-agent orchestration](/platform/orchestration/) — coordinate a Warp Agent parent with Claude Code children across local and cloud runs.
+* [Managing cloud agents](/platform/managing-cloud-agents/) — inspect Claude Code cloud runs in the Agent Management Panel and the Runs page.
 * [Codex with the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/codex/) — Codex as a cloud harness.
 * [Claude Code in Warp](/agents/cli-agents/claude-code/) — Claude Code in your local Warp terminal.
+* [Factory agents](/factories/factory-agents/#configuring-a-third-party-harness) — configure Claude Code as a factory agent's harness.
