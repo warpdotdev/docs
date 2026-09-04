@@ -18,7 +18,7 @@ Benchmarks compare model and runner configurations for one factory agent on the 
 
 A benchmark suite is a reusable collection of tasks that evaluates one factory agent. Each task has a prompt and "Correctness criteria," which tell the built-in Correctness Scorer what a successful trial must do. A trial is one run of one task under one configuration. Repetitions create additional trials.
 
-When you launch a suite, you choose the configurations to compare, the Scorers to use, and the number of repetitions. Warp runs every task once for every configuration and repetition, then scores the completed trials. The run keeps those inputs, so later changes to the suite do not change its past results.
+When you launch a suite, you choose the configurations to compare, the Scorers to use, and the number of repetitions. Warp runs the trials, then scores the completed ones. The run keeps those inputs, so later changes to the suite do not change its past results.
 
 Use a suite for one focused question, such as whether a less expensive model preserves the quality of a review agent's work. Test a different agent or job with a separate suite.
 
