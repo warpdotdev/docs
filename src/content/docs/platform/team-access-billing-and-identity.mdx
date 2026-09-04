@@ -221,12 +221,10 @@ How credits are consumed depends on how the agent run is triggered and authentic
 **User-triggered runs** (CLI with personal API key, Slack, Linear, or the Warp app):
 
 * Runs are tied to the triggering user's identity.
-* On Build, Max, and Business plans, Warp always drains credits in a fixed order — there is no setting to spend personal credits first while on a team:
-  1. The triggering user's plan-included monthly credits.
+* On Build, Max, and Business plans, Warp consumes credits in a fixed order. You cannot prioritize user-scoped grants ahead of shared team grants:
+  1. The triggering user's monthly credits included with their plan.
   2. Shared bonus or add-on grants available to the active team (team-wide pool first).
-  3. Any remaining user-scoped bonus grants that apply on that team.
-     Leftover personal add-on balances from May–August 2026 are one example.
-     These are used only after shared grants are exhausted.
+  3. The triggering user's remaining user-scoped bonus or add-on grants that apply to the active team. This includes any remaining add-on credit balance purchased between May and August 2026. Warp uses these grants only after shared team grants are exhausted.
 * On Enterprise plans, runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 
 **Agent API key and scheduled cloud agent runs** (fully automated workflows):
