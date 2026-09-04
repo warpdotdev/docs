@@ -1,21 +1,22 @@
 ---
 title: Benchmarking factory agent configurations
 description: >-
-  Benchmarks compare factory agent configurations on fixed tasks before you
-  change the model or runner your production work uses.
+  Benchmarks compare model and runner configurations for a factory agent on a
+  fixed set of tasks. Use the results to decide which configuration to use in production.
 sidebar:
   label: "Benchmarks"
 ---
-
-Benchmarks compare model and runner configurations for one factory agent on the same fixed tasks. Use a benchmark to test a change on representative work before you apply it to your factory.
+import { VARS } from '@data/vars';
 
 :::note
 Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
 :::
 
+Benchmarks compare model and runner configurations for one factory agent on the same fixed tasks. Use a benchmark to test a change on representative work before you apply it to your factory.
+
 ## How benchmarks work
 
-A benchmark suite holds one agent and a reusable set of tasks. Each task has a prompt and "Correctness criteria," which tell the built-in Correctness Scorer what a successful trial must do.
+A benchmark suite is a reusable collection of tasks that evaluates one factory agent. Each task has a prompt and "Correctness criteria," which tell the built-in Correctness Scorer what a successful trial must do. A trial is one run of one task under one configuration. Repetitions create additional trials.
 
 When you launch a suite, you choose the configurations to compare, the Scorers to use, and the number of repetitions. Warp runs every task once for every configuration and repetition, then scores the completed trials. The run keeps those inputs, so later changes to the suite do not change its past results.
 
@@ -23,15 +24,17 @@ Use a suite for one focused question, such as whether a less expensive model pre
 
 ## Create and run a benchmark
 
-You need a factory with an agent to evaluate. A completed run from that agent is useful when you want a task to reproduce real work, but you can also write a task yourself.
+To use Benchmarks, you need a factory with an agent to evaluate. Use a completed run from that agent when you want a task to reproduce real work, or write a task yourself.
 
-1. In the [Warp Factories web app](https://platform.warp.dev), open your factory and click **Benchmarks**. Click **New**.
-2. Enter a name and optional description, then choose the agent to evaluate. The suite runs every task as that agent.
-3. Under **Tasks**, click **Add task**. Select a completed run, then click **Add task** to create a task from it. To write a task instead, click **Start from scratch instead**.
-4. Enter a task title, prompt, and "Correctness criteria." The criteria are required and are the authoritative requirements the built-in Correctness Scorer uses for every trial. Add a pinned repository only when the task must begin from a specific repository commit.
-5. Save the suite, then click **Run**. In the launch dialog, choose the model and runner for each configuration. Mark one configuration as the baseline when you want the results table to show each candidate's difference from it.
-6. Add configurations to compare, choose the Scorers that apply to the agent, and set "Repetitions." The dialog shows the number of trials that the selected tasks, configurations, and repetitions create. More trials and Scorers increase the run's cost.
-7. Click **Run benchmark**. While it runs, the benchmark page shows completed, running, pending, failed, and scored trials. You can cancel a running or scoring benchmark from this page.
+1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, open your factory.
+2. In the factory sidebar, click **Benchmarks**.
+3. Click **New benchmark**.
+4. Enter a name and optional description, then choose the agent to evaluate. The suite runs every task as that agent.
+5. Under **Tasks**, click **Add task**. Select a completed run, then click **Add task** to create a task from it. To write a task instead, click **Start from scratch instead**.
+6. Enter a task title, prompt, and "Correctness criteria." The criteria are required and are the authoritative requirements the built-in Correctness Scorer uses for every trial. Add a pinned repository only when the task must begin from a specific repository commit.
+7. Save the suite, then click **Run**. In the launch dialog, choose the model and runner for each configuration. Mark one configuration as the baseline when you want the results table to show each candidate's difference from it.
+8. Add configurations to compare, choose the Scorers that apply to the agent, and set "Repetitions." The dialog shows the number of trials that the selected tasks, configurations, and repetitions create. More trials and Scorers increase the run's cost.
+9. Click **Run benchmark**. While it runs, the benchmark page shows completed, running, pending, failed, and scored trials. You can cancel a running or scoring benchmark from this page.
 
 :::caution
 Third-party harness comparison is not available in the current launch. The harness menu marks those choices as coming soon.
