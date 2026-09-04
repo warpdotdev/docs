@@ -629,9 +629,13 @@ GET /memory_stores/{uid}/memories/{memoryUid}/versions -> gated:AIMemories
 # removed from code; its entry has been pruned.
 /voice -> internal
 # TUI-only team switcher (SlashCommandSurfaces::TuiOnly in static_commands/
-# commands.rs). The GUI switches teams from the title-bar pill instead, so this
-# isn't documented on the public slash-commands page.
-/team -> internal
+# commands.rs). The GUI switches teams from the title-bar pill instead, so it
+# isn't on the public slash-commands page — but it IS in the Warp Agent CLI
+# reference's slash command table, so it maps to that page rather than
+# `internal`. NOTE: the sibling TUI-only commands below are still mapped
+# `internal` even though they also appear in that table; suppression behaves
+# the same either way, but those entries overstate "no public docs".
+/team -> src/content/docs/agents/cli/reference.mdx
 # More Warp Agent CLI-only (SlashCommandSurfaces::TuiOnly in static_commands/
 # commands.rs) commands. None are present in the GUI desktop app, so they aren't
 # documented on the public slash-commands page:
