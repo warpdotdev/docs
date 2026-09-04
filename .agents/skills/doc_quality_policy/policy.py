@@ -206,6 +206,9 @@ class RiskSignals:
     changes_data_handling: bool = True
     changes_self_hosting_behavior: bool = True
     changes_integration_setup: bool = True
+    # Low risk requires a positive match to one of these allowlisted
+    # categories after every technical-claim trigger above has been cleared.
+    is_editorial_or_metadata_only: bool = False
     # Internal docs tooling, skills, and CI changes that make no public
     # product claim may use the low-risk path when every technical-claim
     # trigger above has been affirmatively cleared.
@@ -225,6 +228,7 @@ class RiskSignals:
         clear = {f.name: False for f in fields(cls) if f.name not in (
             "has_unresolved_verify_marker", "has_critical_or_important_review_finding",
         )}
+        clear["is_editorial_or_metadata_only"] = True
         clear.update(overrides)
         return cls(**clear)
 
@@ -233,6 +237,7 @@ _ALLOWLIST_TRIGGER_FIELDS: Sequence[str] = tuple(
     f.name for f in fields(RiskSignals)
     if f.name not in (
         "is_docs_workflow_tooling_only",
+        "is_editorial_or_metadata_only",
         "has_unresolved_verify_marker",
         "has_critical_or_important_review_finding",
     )
@@ -251,6 +256,8 @@ def classify_risk(signals: RiskSignals) -> str:
     if signals.has_critical_or_important_review_finding:
         return RISK_ENGINEERING_REVIEW_REQUIRED
     if any(getattr(signals, name) for name in _ALLOWLIST_TRIGGER_FIELDS):
+        return RISK_ENGINEERING_REVIEW_REQUIRED
+    if not (signals.is_editorial_or_metadata_only or signals.is_docs_workflow_tooling_only):
         return RISK_ENGINEERING_REVIEW_REQUIRED
     return RISK_LOW
 

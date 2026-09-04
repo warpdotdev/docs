@@ -122,6 +122,8 @@ def build_baseline_records(
         )
         comment_categories: Dict[str, int] = {}
         for r in rows:
+            if r.get("feedback_type") not in ("review_comment", "review_verdict"):
+                continue
             category = r.get("pattern_category") or "general"
             comment_categories[category] = comment_categories.get(category, 0) + 1
 

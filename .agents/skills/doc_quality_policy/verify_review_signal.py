@@ -1,22 +1,5 @@
 #!/usr/bin/env python3
-"""Verify a real, current independent-review signal and GitHub review.
-
-A successful cloud-agent process is not proof that `review-docs-pr` actually
-published a review: the agent could error after its shell exits 0, publish to
-the wrong PR, or the push that triggered this run could already be stale by
-the time the review posts. The workflow receives the agent's final text
-output, where review-docs-pr is required to emit exactly one parseable
-`[SIGNAL:pr-review]` JSON record. This script checks both sources.
-
-Usage:
-    python3 verify_review_signal.py --repo owner/repo --pr 123 --head-sha $SHA \
-        --agent-output /tmp/agent-output.txt
-
-Exit codes:
-    0  a passing signal and review exist for this exact head SHA
-    1  the signal/review is missing, stale, blocking, or malformed
-    2  usage / lookup error
-"""
+"""Verify a current independent-agent review and its structured signal."""
 from __future__ import annotations
 
 import argparse
@@ -25,7 +8,7 @@ import json
 import re
 import sys
 from pathlib import Path
-from typing import List, Optional
+from typing import Dict, List, Optional, Tuple
 
 _HERE = Path(__file__).resolve().parent
 _spec = importlib.util.spec_from_file_location("check_pr_contract", _HERE / "check_pr_contract.py")
@@ -37,15 +20,20 @@ _SIGNAL_RE = re.compile(r"\[SIGNAL:pr-review\]\s*(\{.*?\})", re.DOTALL)
 _PASSING_VERDICTS = {"approve", "approve with nits", "approve_with_nits"}
 
 
-def _validate_signal(agent_output: str, pr_number: str, head_sha: str) -> List[str]:
-    matches = _SIGNAL_RE.findall(agent_output)
+def _parse_signal(text: str) -> Tuple[Optional[Dict[str, object]], List[str]]:
+    matches = _SIGNAL_RE.findall(text)
     if len(matches) != 1:
-        return [f"expected exactly one [SIGNAL:pr-review] record, found {len(matches)}"]
+        return None, [f"expected exactly one [SIGNAL:pr-review] record, found {len(matches)}"]
     try:
         signal = json.loads(matches[0])
     except json.JSONDecodeError as exc:
-        return [f"review signal is not valid JSON: {exc}"]
+        return None, [f"review signal is not valid JSON: {exc}"]
+    if not isinstance(signal, dict):
+        return None, ["review signal must contain a JSON object"]
+    return signal, []
 
+
+def _validate_signal(signal: Dict[str, object], pr_number: str, head_sha: str) -> List[str]:
     problems = []
     if str(signal.get("pr")) != str(pr_number):
         problems.append(f"review signal PR {signal.get('pr')!r} does not match {pr_number!r}")
@@ -55,6 +43,8 @@ def _validate_signal(agent_output: str, pr_number: str, head_sha: str) -> List[s
         )
     if str(signal.get("verdict", "")).strip().lower() not in _PASSING_VERDICTS:
         problems.append(f"review signal has blocking verdict {signal.get('verdict')!r}")
+    if not signal.get("reviewer_login"):
+        problems.append("review signal is missing reviewer_login")
     for field in ("critical", "important"):
         try:
             value = int(signal.get(field))
@@ -66,27 +56,44 @@ def _validate_signal(agent_output: str, pr_number: str, head_sha: str) -> List[s
     return problems
 
 
+def _published_review_matches_signal(
+    reviews: List[dict],
+    signal: Dict[str, object],
+    head_sha: str,
+) -> bool:
+    reviewer_login = signal.get("reviewer_login")
+    for review in reviews:
+        if review.get("commit_id") != head_sha:
+            continue
+        if (review.get("user") or {}).get("login") != reviewer_login:
+            continue
+        published_signal, problems = _parse_signal(review.get("body") or "")
+        if problems or published_signal is None:
+            continue
+        fields = ("pr", "head_sha", "verdict", "critical", "important", "reviewer_login")
+        if all(published_signal.get(field) == signal.get(field) for field in fields):
+            return True
+    return False
+
+
 def check_review_signal(repo: str, pr_number: str, head_sha: str, agent_output: str) -> List[str]:
-    """Return problems; empty means the signal and review pass for the current head."""
-    problems = _validate_signal(agent_output, pr_number, head_sha)
+    """Return problems; empty means the independent agent published a passing review."""
+    signal, problems = _parse_signal(agent_output)
+    if signal is None:
+        return problems
+    problems.extend(_validate_signal(signal, pr_number, head_sha))
+    if problems:
+        return problems
     try:
         reviews = cpc._fetch_reviews(repo, pr_number)
     except RuntimeError as exc:
-        return [*problems, f"could not fetch reviews: {exc}"]
-
-    signals = cpc._compute_review_signals(reviews, requested_reviewers=[], head_sha=head_sha, checks_passed=True)
-    head_reviews = [
-        r for r in reviews
-        if r.get("commit_id") == head_sha and r.get("state") in ("APPROVED", "CHANGES_REQUESTED")
-    ]
-    if not head_reviews:
-        problems.append(
-            f"no review found for head {head_sha} -- the agent process succeeded but "
-            "posted no verifiable review at the current head"
-        )
-    if signals.has_unresolved_critical_or_important_finding:
-        problems.append(f"the latest review for head {head_sha} requests changes")
-    return problems
+        return [f"could not fetch reviews: {exc}"]
+    if not _published_review_matches_signal(reviews, signal, head_sha):
+        return [
+            f"no current GitHub review by {signal['reviewer_login']!r} contains the matching "
+            "[SIGNAL:pr-review] record"
+        ]
+    return []
 
 
 def main(argv: Optional[List[str]] = None) -> int:
@@ -109,7 +116,7 @@ def main(argv: Optional[List[str]] = None) -> int:
             print(f"  - {problem}", file=sys.stderr)
         return 1
 
-    print(f"Confirmed a passing signal and current review for head {args.head_sha}.")
+    print(f"Confirmed a passing independent review for head {args.head_sha}.")
     return 0
 
 

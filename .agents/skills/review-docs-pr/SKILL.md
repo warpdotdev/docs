@@ -171,7 +171,7 @@ After creating and validating `review.json` (immediately after the Validation se
 3. Determine the skill used from the PR branch name or PR description if available.
 4. Include the following structured marker in your **text response** (write it as part of your agent message, not via a shell `echo` command). This ensures it appears as a `TextContentBlock` in the conversation, where `oz run get --conversation` can reliably retrieve it:
    ```
-   [SIGNAL:pr-review] {"date":"YYYY-MM-DD","pr":"NNN","branch":"branch-name","head_sha":"abc1234","skill_used":"draft_feature_doc","verdict":"Request changes","critical":N,"important":N,"suggestions":N,"nits":N,"top_categories":["category (N)","category (N)","category (N)"]}
+   [SIGNAL:pr-review] {"date":"YYYY-MM-DD","pr":"NNN","branch":"branch-name","head_sha":"abc1234","skill_used":"draft_feature_doc","reviewer_login":"GITHUB_LOGIN","verdict":"Request changes","critical":N,"important":N,"suggestions":N,"nits":N,"top_categories":["category (N)","category (N)","category (N)"]}
    ```
    Set `head_sha` to the exact commit SHA this review evaluated (the head SHA
    `.github/workflows/agent-docs-review.yml` passed in, or `gh pr view NNN
@@ -181,3 +181,50 @@ After creating and validating `review.json` (immediately after the Validation se
    matching the PR's current head.
 
 The `improve-drafting-skills` outer loop reads this signal from the conversation via `oz run get --conversation`, scanning assistant `TextContentBlock` messages for the marker. No git operations are required.
+
+## Publishing a GitHub review
+
+After creating `review.json`, publishing the signal, and completing validation, create one GitHub PR review pinned to the evaluated head SHA. The review body must include the same `[SIGNAL:pr-review]` JSON record used in the text response.
+
+1. Determine the authenticated reviewer and map the verdict:
+   ```bash
+   REVIEWER_LOGIN=$(gh api user --jq .login)
+   ```
+   Use `APPROVE` for `Approve`, `REQUEST_CHANGES` for `Request changes`, and `COMMENT` for `Approve with nits`.
+2. Write the signal JSON object to `/tmp/review-signal.json`, set its
+   `reviewer_login` to `$REVIEWER_LOGIN`, and render that same object as the
+   `[SIGNAL:pr-review]` line in the final response. Then construct the
+   pinned review request from `review.json`:
+   ```bash
+   HEAD_SHA="<evaluated PR head SHA>"
+   VERDICT="<Approve|Approve with nits|Request changes>"
+   export HEAD_SHA VERDICT
+   python3 - <<'PY'
+   import json
+   import os
+   from pathlib import Path
+
+   review = json.loads(Path("review.json").read_text())
+   signal = json.loads(Path("/tmp/review-signal.json").read_text())
+   event = {
+       "Approve": "APPROVE",
+       "Approve with nits": "COMMENT",
+       "Request changes": "REQUEST_CHANGES",
+   }[os.environ["VERDICT"]]
+   payload = {
+       "commit_id": os.environ["HEAD_SHA"],
+       "event": event,
+       "body": f"{review['summary']}\n\n[SIGNAL:pr-review] {json.dumps(signal, sort_keys=True)}",
+       "comments": review["comments"],
+   }
+   Path("/tmp/review-request.json").write_text(json.dumps(payload))
+   PY
+   ```
+3. Submit the review:
+   ```bash
+   gh api --method POST "repos/OWNER/REPO/pulls/PR_NUMBER/reviews" \
+     --input /tmp/review-request.json
+   ```
+   Replace `OWNER/REPO`, `PR_NUMBER`, and `commit_id` with the pull request being reviewed and its exact head SHA.
+
+The workflow verifies that a current-head review from `reviewer_login` contains the exact signal fields. Do not leave the signal only in the agent response or an issue comment.

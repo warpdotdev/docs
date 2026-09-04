@@ -17,6 +17,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 _HERE = Path(__file__).resolve().parent
 
@@ -239,6 +240,56 @@ class TestComputeReviewSignals(unittest.TestCase):
         signals = cpc._compute_review_signals([], ["alice"], "sha1", checks_passed=True)
         self.assertFalse(signals.source_owner_approved_current_head)
         self.assertFalse(signals.has_unresolved_critical_or_important_finding)
+
+    def test_declared_source_owner_counts_after_pending_request_is_removed(self):
+        reviews = [{"user": {"login": "alice"}, "state": "APPROVED", "commit_id": "sha1"}]
+        with mock.patch.object(cpc, "_resolve_required_checks_passed", return_value=True), \
+             mock.patch.object(cpc, "_fetch_reviews", return_value=reviews), \
+             mock.patch.object(cpc, "_fetch_requested_reviewers", return_value=[]):
+            signals = cpc.resolve_live_review_signals("o/r", "1", "sha1", ["alice"])
+        self.assertTrue(signals.source_owner_approved_current_head)
+
+    def test_override_requires_the_same_fields_in_an_approved_review_body(self):
+        override = policy.DocumentationRisk(
+            risk=policy.RISK_ENGINEERING_REVIEW_REQUIRED,
+            docs_override=policy.OVERRIDE_MODE_VERIFIED,
+            override_reviewer="hongyi-chen",
+            override_reason="Confirmed against source.",
+            override_evidence="app/foo.rs@abc",
+            override_head_sha="sha1",
+        )
+        review = {
+            "user": {"login": "hongyi-chen"},
+            "state": "APPROVED",
+            "commit_id": "sha1",
+            "body": (
+                "Docs override: docs-verified\n"
+                "Override reviewer: hongyi-chen\n"
+                "Override reason: Confirmed against source.\n"
+                "Override evidence: app/foo.rs@abc\n"
+                "Override head SHA: sha1"
+            ),
+        }
+        signals = cpc._compute_review_signals([review], [], "sha1", True, override)
+        self.assertEqual(signals.approved_reviewers_current_head, ("hongyi-chen",))
+
+    def test_unrecorded_override_approval_does_not_count(self):
+        override = policy.DocumentationRisk(
+            risk=policy.RISK_ENGINEERING_REVIEW_REQUIRED,
+            docs_override=policy.OVERRIDE_MODE_VERIFIED,
+            override_reviewer="hongyi-chen",
+            override_reason="Confirmed against source.",
+            override_evidence="app/foo.rs@abc",
+            override_head_sha="sha1",
+        )
+        review = {
+            "user": {"login": "hongyi-chen"},
+            "state": "APPROVED",
+            "commit_id": "sha1",
+            "body": "Looks good.",
+        }
+        signals = cpc._compute_review_signals([review], [], "sha1", True, override)
+        self.assertEqual(signals.approved_reviewers_current_head, ())
 
 
 if __name__ == "__main__":

@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""Unit tests for verify_review_signal.py.
-
-Stubs `cpc._fetch_reviews` so these run without a live `gh` call.
-"""
+"""Unit tests for verify_review_signal.py."""
 from __future__ import annotations
 
 import importlib.util
@@ -18,47 +15,61 @@ sys.modules[_spec.name] = vrs
 _spec.loader.exec_module(vrs)
 
 GOOD_OUTPUT = (
-    '[SIGNAL:pr-review] {"pr":"1","head_sha":"sha1",'
+    '[SIGNAL:pr-review] {"pr":"1","head_sha":"sha1","reviewer_login":"agent-bot",'
     '"verdict":"Approve","critical":0,"important":0}'
 )
+GOOD_REVIEW = {
+    "user": {"login": "agent-bot"},
+    "state": "APPROVED",
+    "commit_id": "sha1",
+    "body": GOOD_OUTPUT,
+}
 
 
 class TestCheckReviewSignal(unittest.TestCase):
-    def test_no_review_at_all_fails(self):
+    def test_missing_published_review_fails(self):
         with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[]):
             problems = vrs.check_review_signal("o/r", "1", "sha1", GOOD_OUTPUT)
-        self.assertTrue(any("no review found" in p for p in problems))
+        self.assertTrue(any("no current GitHub review" in p for p in problems))
 
     def test_missing_signal_fails(self):
-        reviews = [{"user": {"login": "bot"}, "state": "APPROVED", "commit_id": "sha1"}]
-        with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=reviews):
+        with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
             problems = vrs.check_review_signal("o/r", "1", "sha1", "review complete")
         self.assertTrue(any("expected exactly one" in p for p in problems))
 
+    def test_signal_without_reviewer_identity_fails(self):
+        output = GOOD_OUTPUT.replace(',"reviewer_login":"agent-bot"', "")
+        with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
+            problems = vrs.check_review_signal("o/r", "1", "sha1", output)
+        self.assertTrue(any("missing reviewer_login" in p for p in problems))
+
+    def test_human_approval_does_not_satisfy_agent_review_requirement(self):
+        human_review = {**GOOD_REVIEW, "user": {"login": "human-reviewer"}}
+        with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[human_review]):
+            problems = vrs.check_review_signal("o/r", "1", "sha1", GOOD_OUTPUT)
+        self.assertTrue(any("no current GitHub review" in p for p in problems))
+
+    def test_review_without_matching_published_signal_fails(self):
+        review = {**GOOD_REVIEW, "body": "Approve"}
+        with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[review]):
+            problems = vrs.check_review_signal("o/r", "1", "sha1", GOOD_OUTPUT)
+        self.assertTrue(any("no current GitHub review" in p for p in problems))
+
     def test_stale_signal_fails(self):
-        reviews = [{"user": {"login": "bot"}, "state": "APPROVED", "commit_id": "sha1"}]
         stale_output = GOOD_OUTPUT.replace('"sha1"', '"old-sha"')
-        with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=reviews):
+        with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
             problems = vrs.check_review_signal("o/r", "1", "sha1", stale_output)
         self.assertTrue(any("does not match current head" in p for p in problems))
 
     def test_blocking_signal_fails(self):
-        reviews = [{"user": {"login": "bot"}, "state": "APPROVED", "commit_id": "sha1"}]
         blocking_output = GOOD_OUTPUT.replace('"Approve"', '"Request changes"').replace('"critical":0', '"critical":1')
-        with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=reviews):
+        with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
             problems = vrs.check_review_signal("o/r", "1", "sha1", blocking_output)
         self.assertTrue(any("blocking verdict" in p for p in problems))
         self.assertTrue(any("critical finding" in p for p in problems))
 
-    def test_changes_requested_on_current_head_fails(self):
-        reviews = [{"user": {"login": "bot"}, "state": "CHANGES_REQUESTED", "commit_id": "sha1"}]
-        with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=reviews):
-            problems = vrs.check_review_signal("o/r", "1", "sha1", GOOD_OUTPUT)
-        self.assertTrue(any("requests changes" in p for p in problems))
-
-    def test_approved_review_and_passing_signal_on_current_head_passes(self):
-        reviews = [{"user": {"login": "bot"}, "state": "APPROVED", "commit_id": "sha1"}]
-        with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=reviews):
+    def test_matching_published_review_and_passing_signal_pass(self):
+        with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
             problems = vrs.check_review_signal("o/r", "1", "sha1", GOOD_OUTPUT)
         self.assertEqual(problems, [])
 

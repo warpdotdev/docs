@@ -175,10 +175,27 @@ def _fetch_reviews(repo: str, pr_number: str) -> List[dict]:
 def _fetch_requested_reviewers(repo: str, pr_number: str) -> List[str]:
     data = _run_gh_json(["pr", "view", pr_number, "--repo", repo, "--json", "reviewRequests"])
     return [r.get("login") for r in (data or {}).get("reviewRequests", []) if r.get("login")]
+def _review_records_override(review: dict, override: Optional[policy.DocumentationRisk]) -> bool:
+    """True when an approved current-head review records every override field."""
+    if override is None or override.docs_override == policy.OVERRIDE_MODE_NONE:
+        return False
+    body = review.get("body") or ""
+    fields = {
+        "Docs override": override.docs_override,
+        "Override reviewer": override.override_reviewer,
+        "Override reason": override.override_reason,
+        "Override evidence": override.override_evidence,
+        "Override head SHA": override.override_head_sha,
+    }
+    return all(value and f"{name}: {value}" in body for name, value in fields.items())
 
 
 def _compute_review_signals(
-    reviews: List[dict], requested_reviewers: Sequence[str], head_sha: str, checks_passed: bool,
+    reviews: List[dict],
+    requested_reviewers: Sequence[str],
+    head_sha: str,
+    checks_passed: bool,
+    override: Optional[policy.DocumentationRisk] = None,
 ) -> LiveReviewSignals:
     """Pure computation over already-fetched review data, kept separate from
     the `gh` calls so the review-state logic (stale-review exclusion, latest-
@@ -199,16 +216,27 @@ def _compute_review_signals(
     has_unresolved = any(state == "CHANGES_REQUESTED" for state in latest_state_by_user.values())
     approvers = {user for user, state in latest_state_by_user.items() if state == "APPROVED"}
     source_owner_approved = bool(approvers & set(requested_reviewers))
+    override_approvers = {
+        (review.get("user") or {}).get("login")
+        for review in head_reviews
+        if review.get("state") == "APPROVED" and _review_records_override(review, override)
+    }
 
     return LiveReviewSignals(
         checks_passed,
         source_owner_approved,
         has_unresolved,
-        tuple(sorted(approvers)),
+        tuple(sorted(user for user in override_approvers if user)),
     )
 
 
-def resolve_live_review_signals(repo: str, pr_number: str, head_sha: str) -> LiveReviewSignals:
+def resolve_live_review_signals(
+    repo: str,
+    pr_number: str,
+    head_sha: str,
+    declared_requested_reviewers: Sequence[str] = (),
+    override: Optional[policy.DocumentationRisk] = None,
+) -> LiveReviewSignals:
     """Derive the engineering-review gate signals from live GitHub state for
     the exact current head SHA, instead of trusting caller-supplied flags.
     Any lookup failure fails closed: checks are treated as not-passed, no
@@ -228,7 +256,8 @@ def resolve_live_review_signals(repo: str, pr_number: str, head_sha: str) -> Liv
     except RuntimeError:
         requested_reviewers = []
 
-    return _compute_review_signals(reviews, requested_reviewers, head_sha, checks_passed)
+    requested_reviewers = sorted(set(requested_reviewers) | set(declared_requested_reviewers))
+    return _compute_review_signals(reviews, requested_reviewers, head_sha, checks_passed, override)
 
 
 def _collect_verify_markers(files: List[Path]) -> List[str]:
@@ -290,6 +319,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     except OSError as exc:
         print(f"error: could not read {args.body}: {exc}", file=sys.stderr)
         return 2
+    risk_section = policy.parse_documentation_risk_section(body)
 
     if args.changed_files:
         changed_files = [Path(p) for p in args.changed_files]
@@ -310,7 +340,16 @@ def main(argv: Optional[List[str]] = None) -> int:
         if not args.head_sha:
             print("error: --head-sha is required together with --repo/--pr", file=sys.stderr)
             return 2
-        signals = resolve_live_review_signals(args.repo, args.pr, args.head_sha)
+        declared_requested_reviewers = (
+            risk_section.requested_engineering_reviewers if risk_section is not None else ()
+        )
+        signals = resolve_live_review_signals(
+            args.repo,
+            args.pr,
+            args.head_sha,
+            declared_requested_reviewers,
+            risk_section,
+        )
         deterministic_checks_passed = signals.deterministic_checks_passed
         has_unresolved_finding = signals.has_unresolved_critical_or_important_finding
         source_owner_approved = signals.source_owner_approved_current_head

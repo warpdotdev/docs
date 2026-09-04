@@ -46,6 +46,7 @@ class TestBuildBaselineRecords(unittest.TestCase):
         record = records[0]
         self.assertEqual(record["pr"], "100")
         self.assertEqual(record["human_review_comments"], 2)
+        self.assertEqual(record["human_review_comment_categories"], {"general": 2})
         self.assertEqual(record["human_lines_changed_after_last_agent_commit"], 15)
         self.assertEqual(record["agent_lines_changed"], 25)  # 40 - 15
         self.assertEqual(record["risk"], "unknown")

@@ -121,9 +121,15 @@ class TestClassifyRisk(unittest.TestCase):
     def test_all_clear_is_low_risk(self):
         signals = policy.RiskSignals.all_clear()
         self.assertEqual(policy.classify_risk(signals), policy.RISK_LOW)
+    def test_diff_with_no_allowlisted_low_risk_category_requires_engineering_review(self):
+        signals = policy.RiskSignals.all_clear(is_editorial_or_metadata_only=False)
+        self.assertEqual(policy.classify_risk(signals), policy.RISK_ENGINEERING_REVIEW_REQUIRED)
 
     def test_docs_workflow_tooling_with_no_product_claims_is_low_risk(self):
-        signals = policy.RiskSignals.all_clear(is_docs_workflow_tooling_only=True)
+        signals = policy.RiskSignals.all_clear(
+            is_editorial_or_metadata_only=False,
+            is_docs_workflow_tooling_only=True,
+        )
         self.assertEqual(policy.classify_risk(signals), policy.RISK_LOW)
 
     def test_every_allowlist_trigger_forces_engineering_review(self):

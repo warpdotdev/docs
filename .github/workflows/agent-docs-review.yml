@@ -50,8 +50,10 @@ jobs:
                engineering-review-required.
             3. Publish the review, pinned to this exact head SHA. Request changes on any
                critical/important finding; suggestions/nits pass.
-            4. Emit exactly one [SIGNAL:pr-review] JSON record including this head SHA, per
-               review-docs-pr/SKILL.md's Signal logging section.
+            4. Publish exactly one GitHub review pinned to this head SHA, using the procedure in
+               review-docs-pr/SKILL.md. Include exactly one [SIGNAL:pr-review] JSON record in
+               both the review body and final response. The signal must include your authenticated
+               GitHub reviewer_login and this head SHA.
 
       # A successful agent action is not proof that the run reviewed this
       # exact head or passed: require its one structured signal and an
