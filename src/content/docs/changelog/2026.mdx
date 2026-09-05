@@ -6,6 +6,41 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.09.02 (v0.2026.09.02.08.27)
+
+**New features**
+
+* Start a debug agent inside the retained session of a cloud run that failed during environment setup. The run keeps its original failure record. ([#14916](https://github.com/warpdotdev/warp/pull/14916))
+
+**Improvements**
+
+* Text inside "Thought" dropdowns in agent conversations can now be selected and copied. ([#15691](https://github.com/warpdotdev/warp/pull/15691))
+* Show the live cloud connection indicator on third-party agent rich input. ([#15625](https://github.com/warpdotdev/warp/pull/15625))
+* Faster conversation restore for conversations containing plan documents. ([#15579](https://github.com/warpdotdev/warp/pull/15579))
+* `oz run get --conversation` and `oz run conversation get` now print the raw transcript for third-party harness runs instead of failing with operation_not_supported. ([#15642](https://github.com/warpdotdev/warp/pull/15642))
+* Hovering over the profile icon on user messages in agent conversations now shows message timestamps, along with a "Copy timestamp" affordance in the overflow menu. ([#15605](https://github.com/warpdotdev/warp/pull/15605))
+* The `create_file` tool can now fully replace an existing file's contents in one step (`allow_overwrite: true`) instead of failing and requiring a separate edit. ([#15380](https://github.com/warpdotdev/warp/pull/15380))
+* Custom inference endpoint definitions now use validated file-backed settings shared by Warp and Warp Agent CLI. ([#15574](https://github.com/warpdotdev/warp/pull/15574))
+
+**Bug fixes**
+
+* Fixed MCP servers that reject a configured credential being reported as though they required OAuth sign-in. Warp now distinguishes a rejected token from a genuine OAuth challenge, and refuses to send a credential header whose secret placeholder was never filled in. ([#15714](https://github.com/warpdotdev/warp/pull/15714))
+* Fixed a crash when Agent streamed an empty update into a plan document. ([#15720](https://github.com/warpdotdev/warp/pull/15720))
+* Prevent a crash on Linux/X11 when Warp requests user attention over a dead display connection. ([#15717](https://github.com/warpdotdev/warp/pull/15717))
+* Fix a crash that could occur when extending a shared session after its terminal window had already closed. ([#15695](https://github.com/warpdotdev/warp/pull/15695))
+* Fixed a crash when selecting some Windows fonts, such as Noto Sans Mono CJK SC, that expose a glyph advance without an outline bounding box. ([#15705](https://github.com/warpdotdev/warp/pull/15705))
+* Fixed the built-in Factory MCP failing to reconnect during credential refresh. ([#15628](https://github.com/warpdotdev/warp/pull/15628))
+* Fixed a race that could make a single local Oz `run_agents` child appear as two orchestration pills. ([#15583](https://github.com/warpdotdev/warp/pull/15583))
+* Avoid repeated share-modal rendering when no terminal session is available. ([#13942](https://github.com/warpdotdev/warp/pull/13942)) — [@KRRT7](https://github.com/KRRT7) ✨
+* Fixed animated GIF background images freezing on their first frame in the terminal window. ([#14618](https://github.com/warpdotdev/warp/pull/14618)) — [@niyasrad](https://github.com/niyasrad) ✨
+* Fixed the SuperGrok / X Premium connect button getting stuck when the browser was closed mid-authentication, and added a Cancel button to recover without waiting for a timeout. ([#15576](https://github.com/warpdotdev/warp/pull/15576))
+* Fixed onboarding interrupting a workspace opened from a shared session or agent-conversation link. ([#15550](https://github.com/warpdotdev/warp/pull/15550))
+
+**Oz updates**
+
+* Cloud agents now report why an MCP server failed to connect — a rejected credential, or a secret that was not available to the run — instead of asking you to authenticate in the desktop app. ([#15714](https://github.com/warpdotdev/warp/pull/15714))
+* Mixed GitHub and GitLab environments clone each repository from its own host and keep credentials for both forges on refresh. ([#15616](https://github.com/warpdotdev/warp/pull/15616))
+
 ### 2026.08.27 (v0.2026.08.26.17.59)
 
 **New features**
@@ -64,7 +99,6 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Warp Factories are now live in Early Access! Check out more details [here](https://www.warp.dev/blog/open-infrastructure-for-building-a-software-factory).
 * Added an inline `/usage` command to the Warp Agent CLI showing plan, credit usage, and billing links. ([#14968](https://github.com/warpdotdev/warp/pull/14968))
 
 **Bug fixes**
@@ -81,7 +115,6 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Warp Factories is now live in Early Access! Read the [Warp Factories launch announcement](https://www.warp.dev/blog/open-infrastructure-for-building-a-software-factory) for more details.
 * Added an inline `/usage` command to the Warp Agent CLI showing plan, credit usage, and billing links. ([#14968](https://github.com/warpdotdev/warp/pull/14968))
 
 **Bug fixes**
@@ -98,7 +131,6 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 
 **New features**
 
-* Warp Factories is now live in Early Access! Read the [Warp Factories announcement](https://www.warp.dev/blog/open-infrastructure-for-building-a-software-factory).
 * Warp now includes a built-in Factory MCP server for logged-in users.
 
 **Improvements**

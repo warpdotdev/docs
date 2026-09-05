@@ -10,6 +10,15 @@ description: >-
 
 Ensure every `ErrorCode` in `platformerrors.go` has a corresponding documentation page, sidebar entry, and redirect.
 
+## Agent-doc quality contract
+
+The PR this skill opens or updates follows the shared v1 agent-doc quality
+contract in `.agents/references/doc-quality-policy.md`: apply the
+`warpy-factory` label and add the `## Documentation risk` block
+(`.agents/skills/doc_quality_policy/finalize_pr_contract.py build`). New error
+pages are `engineering-review-required` (new page, technical claims) unless
+generated verbatim from `platformerrors.go` with no invented prose.
+
 ## Repos
 
 This skill requires two repos in the agent's environment:

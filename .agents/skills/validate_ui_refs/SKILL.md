@@ -184,6 +184,10 @@ python3 .agents/skills/validate_ui_refs/validate_ui_refs.py \
   --warp /path/to/warp
 ```
 
+## Agent-doc quality contract
+
+The `--create-pr` auto-fix path is a direct PR-creation code path (`create_pr()` in `validate_ui_refs.py`), so it stamps the `warpy-factory` label and the `## Documentation risk` block itself — always `low` risk, since an auto-fix only ever corrects UI-reference casing/formatting to an already-canonical name, never product meaning. See `.agents/references/doc-quality-policy.md`.
+
 ## Dependencies
 
 - Python 3.7+

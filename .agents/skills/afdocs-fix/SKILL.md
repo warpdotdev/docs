@@ -12,6 +12,16 @@ description: >-
 
 Apply automated fixes for issues found by the `afdocs-audit` skill. This skill reads an AFDocs audit report and remediates fixable issues.
 
+## Agent-doc quality contract
+
+The standing PR this skill maintains follows the shared v1 agent-doc quality
+contract in `.agents/references/doc-quality-policy.md`: apply the
+`warpy-factory` label and add the `## Documentation risk` block
+(`.agents/skills/doc_quality_policy/finalize_pr_contract.py build`). These
+fixes touch site infrastructure (middleware, integrations, config), not
+content claims, and are typically `engineering-review-required` unless the
+change is provably a mechanical config update.
+
 ## Prerequisites
 
 1. Run the audit skill first to produce a report:

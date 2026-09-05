@@ -43,6 +43,9 @@ CodeFindReplace -> src/content/docs/code/code-editor/find-and-replace.md
 VimCodeEditor -> src/content/docs/code/code-editor/code-editor-vim-keybindings.md
 McpServer -> src/content/docs/agents/capabilities/mcp.mdx
 McpOauth -> src/content/docs/agents/capabilities/mcp.mdx
+# Factory MCP (the hosted MCP endpoint agents use to work with a factory) is
+# GA and documented on the Factory MCP page and related factories/* pages.
+FactoryMcp -> src/content/docs/factories/factory-mcp.mdx
 ImageAsContext -> src/content/docs/agents/local-agents/agent-context/images-as-context.mdx
 SelectionAsContext -> src/content/docs/agents/local-agents/agent-context/selection-as-context.mdx
 DiffSetAsContext -> src/content/docs/agents/local-agents/agent-context/selection-as-context.mdx
@@ -243,11 +246,6 @@ OscHyperlinks -> src/content/docs/terminal/more-features/files-and-links.mdx
 # `warp_id` values in MCP configs. Promoted dogfood -> GA; documented in the CLI
 # MCP reference (and the cloud agent MCP schema page).
 WellKnownMcpIds -> src/content/docs/reference/cli/mcp-servers.mdx
-
-# Auto-attaches the Warp-hosted Factory MCP server to agent sessions with no
-# manual setup. Promoted dogfood -> GA; that zero-config behavior is documented
-# in the "Connect and authenticate" section of the Factory MCP page.
-FactoryMcp -> src/content/docs/factories/factory-mcp.mdx
 
 ## CLI commands -> doc pages
 

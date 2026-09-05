@@ -331,6 +331,21 @@ def _default_pr_body(*, ordered_tasks: Sequence[str], changed_files: Sequence[st
             "",
             "## Validation",
             "- Ran the release update scripts successfully.",
+            "",
+            # This is a real, direct PR-creation code path (not delegated to
+            # create_pr), so it carries the same v1 doc-quality contract
+            # sections every other PR-producing skill does. Changelog/license/
+            # telemetry updates are generated verbatim from their source of
+            # record, which is the allowlisted "low" category for generated data.
+            "## Documentation risk",
+            "Risk: low",
+            "Rationale: Changelog/license/telemetry entries generated verbatim from "
+            "channel_versions.json / the license scan / the telemetry command; no "
+            "hand-authored product claim.",
+            "Docs override: none",
+            "",
+            "## Unverified claims",
+            "None \u2014 generated data copied from its source of record.",
         ],
     )
     return _ensure_coauthor_line("\n".join(lines))
@@ -377,6 +392,8 @@ def _create_or_update_pull_request(
                 pr_title,
                 "--body",
                 pr_body,
+                "--add-label",
+                "warpy-factory",
             ],
             cwd=repo_path,
         )
@@ -392,6 +409,8 @@ def _create_or_update_pull_request(
         pr_title,
         "--body",
         pr_body,
+        "--label",
+        "warpy-factory",
     ]
     if pr_draft:
         command.append("--draft")

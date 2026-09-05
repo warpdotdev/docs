@@ -37,6 +37,8 @@ CASES = [
      "definite article plus a capital"),
     ("Review the Factory metrics before deciding.", True,
      "mid-sentence attributive use of the banned form"),
+    ("Review the {/* internal */} Factory metrics before deciding.", True,
+     "mid-sentence even with an adjacent stripped JSX/MDX comment"),
     # --- the singular product name, always wrong ---
     ("A run executing inside a Warp Factory is tracked.", True,
      "singular product name mid-sentence"),
@@ -57,6 +59,8 @@ CASES = [
     ("| **Factory definition** | The definition files |", False, "table-cell-initial"),
     ("The tab is read-only. Factory owners can still edit it.", False,
      "initial after a sentence boundary"),
+    ("Verify before merging. {/* internal reviewer note, strips to nothing */}Factory definitions sync the same way.", False,
+     "sentence-initial after a stripped JSX/MDX comment"),
     # --- sanctioned exceptions ---
     ("Send work through the Factory MCP.", False, "Factory MCP is the shipped feature name"),
     ("Send work through the Warp Factory MCP.", False,

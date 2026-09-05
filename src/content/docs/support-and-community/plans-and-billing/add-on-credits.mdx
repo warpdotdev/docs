@@ -9,7 +9,10 @@ Add-on credits let you continue using premium AI models even after you've reache
 
 In the Warp app, you can manage and purchase add-on credits directly in **Settings** > **Billing and usage**.
 
-![Add-on credits management surface under **Settings** > **Billing and usage**.](../../../../assets/support-and-community/reload-credits.png)
+<figure style={{ maxWidth: "563px" }}>
+![The Add-on credits card in Billing and usage settings, showing the monthly spend limit, the auto reload toggle, and one-time purchase denominations.](../../../../assets/support-and-community/reload-credits.png)
+<figcaption>Add-on credit settings under Billing and usage.</figcaption>
+</figure>
 
 ### How do add-on credits work?
 
@@ -19,7 +22,7 @@ If you’ve enabled **auto-reload**, new credits will be added automatically and
 
 Add-on credits are available on every self-serve plan — Free, Build, Max, and Business — plus Enterprise. The Free plan buys the same packs at a higher rate than paid plans; see [Warp pricing](https://www.warp.dev/pricing) for current rates. On both self-serve and Enterprise plans, add-on credits are shared across your team: every purchase goes into a single team-wide pool that all members draw from. These credits **roll over across billing cycles** and remain valid for **12 months from the purchase date**.
 
-Add-on credits draw from the same pool as [platform credits](/support-and-community/plans-and-billing/platform-credits/) and compute credits, so a single balance covers all three credit types.
+Add-on credits can be spent on any credit type, so a single balance covers AI credits, compute credits, and [platform credits](/support-and-community/plans-and-billing/platform-credits/).
 
 ### Who can purchase add-on credits
 
@@ -55,9 +58,9 @@ Auto-reload uses the same denominations and discounts as manual purchases. The d
 You can opt in and choose your reload amount when subscribing to a paid plan on the [Warp upgrade page](https://app.warp.dev/upgrade), or change your configuration anytime in **Settings** > **Billing and usage**.
 :::
 
-#### **Configuring a monthly spend limit**
+#### Configuring a monthly spend limit
 
-Your monthly spend limit sets the maximum amount you can spend on add-on credits in a single calendar month. This ensures you have full control over your AI usage costs while still allowing flexibility for automatic top-ups when needed, keeping your workflow uninterrupted.
+Your monthly spend limit sets the maximum amount you can spend on add-on credits in a single calendar month.
 
 * The default limit is $200, but you can increase or decrease it anytime in **Settings** > **Billing and usage**.
 * **If a credit purchase would exceed your limit, it won’t process** — you’ll need to either raise your limit or choose a smaller add-on credit amount.
@@ -66,9 +69,7 @@ Your monthly spend limit sets the maximum amount you can spend on add-on credits
   * You update your limit in settings.
 
 :::caution
-Your monthly spend limit is separate from your billing cycle (which determines when your subscription renews).\
-\
-The limit resets automatically at the start of each calendar month, so you can manage recurring AI usage with predictable spending and clear visibility into your costs.
+Your monthly spend limit is separate from your billing cycle (which determines when your subscription renews). The limit resets at the start of each calendar month.
 :::
 
 ### Billing and credit usage
@@ -79,11 +80,13 @@ When your monthly credit balance renews:
 2. After those are used, Warp continues to draw from any available add-on credits.
 3. If your add-on credits run out and auto-reload is enabled, Warp will automatically purchase more up to your monthly limit.
 
+On a team, that add-on step is also fixed: shared team grants drain before any remaining user-scoped grants. You cannot choose to spend personal credits first while on a team.
+
 You can track your remaining credits and spending in the credits transparency footer and in **Settings** > **Billing and usage**.
 
 #### Teams using add-on credits
 
-On self-serve plans (Free, Build, Max, and Business), add-on credits are shared across the team. Purchases from any member — manual or auto-reload — go into a single team-wide pool, and every member's usage draws from that pool once their plan-included credits are used up. One member's heavy usage can consume credits another member purchased; use the team-wide spend cap to limit what the team spends each month.
+On self-serve plans (Free, Build, Max, and Business), add-on credits are shared across the team. Purchases from any member — manual or auto-reload — go into a single team-wide pool, and every member's usage draws from that pool once their plan-included credits are used up. Any leftover user-scoped balances (from the May–August 2026 window) are used only after the shared pool is exhausted. One member's heavy usage can consume credits another member purchased; use the team-wide spend cap to limit what the team spends each month.
 
 Team admins manage add-on credit settings for the team in **Settings** > **Billing and usage**:
 
