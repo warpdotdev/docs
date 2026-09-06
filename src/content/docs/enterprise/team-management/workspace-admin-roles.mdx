@@ -1,0 +1,107 @@
+---
+title: Workspace admin roles
+description: >-
+  Workspace admin roles let designated members manage membership, billing,
+  settings, and policies across every team in a Warp workspace. Learn what the
+  User, Admin, and Owner roles can do.
+---
+
+A workspace is the primary organizational unit in Warp and can contain multiple teams. Workspace admin roles let you delegate management of the whole workspace — membership, billing, settings, and policies — to more than one person, with capabilities that are a superset of team-level admin capabilities.
+
+:::note
+Workspace roles are additive. They grant permissions on top of a member's existing team-level roles without changing their team memberships. Being a workspace admin does not change your role on any individual team.
+:::
+
+:::caution
+This page describes the behavioral contract for workspace admin roles. The dedicated management surfaces for workspace roles are being built as separate work. Some capabilities — workspace invite links, email invites, domain restrictions, and workspace-level spend limits — describe the intended contract but ship as follow-up after the role model lands. [TODO: engineer to verify which capabilities are available in the current release.]
+:::
+
+## Workspace roles
+
+Every workspace membership has exactly one role:
+
+* **User** - The default, non-privileged membership. Users can use Warp normally but cannot manage workspace settings, billing, or membership.
+* **Admin** - A workspace-level admin with broad management capabilities across the workspace. A workspace can have zero or more admins.
+* **Owner** - The highest-privilege role. There is exactly one owner per workspace at all times. The owner is the member who created the workspace, or who was explicitly transferred ownership.
+
+The term *admin-level* means Admin or Owner. Any capability described as requiring admin-level permissions is available to both roles unless it is explicitly marked as owner-only.
+
+## How workspace roles work
+
+Workspaces can contain many teams, so the workspace role sits above team-level roles:
+
+* **Admin-level permissions across every team** - A workspace admin has admin-level permissions on every team in the workspace, even if their membership role on a given team is User.
+* **Additive, not destructive** - Promoting or demoting a workspace role never changes a member's team-level roles. A member demoted from workspace Admin to User keeps any team-level admin role they already held.
+* **Team admin is not workspace admin** - A team-level admin who is not a workspace admin keeps their admin powers for that specific team only. Team-level admin does not grant workspace-level admin.
+* **Owner as a root of trust** - The owner cannot be removed by an admin and cannot be demoted without first transferring ownership, which bounds the impact of a compromised or rogue admin.
+
+### Two paths for managing roles
+
+How roles are managed depends on whether the plan supports multi-team workspaces:
+
+* **Self-serve plans (no multi-team workspace support)** - The team is the sole management surface. Roles are managed through the existing team actions, and team roles are mirrored to workspace roles, including ownership transfer. Workspace-level member management actions are unavailable.
+* **Multi-team-capable plans** - Workspace roles are managed independently through workspace-level actions. Team actions no longer mirror into workspace roles, and workspace ownership changes only through a workspace ownership transfer.
+
+## Workspace admin capabilities
+
+Workspace admins (Admin or Owner) can manage the workspace across the following areas.
+
+### Member management
+
+* **View members** - View all members of the workspace and their roles.
+* **Remove members** - Remove any User-role member from the workspace. Removing a member also removes them from all teams within the workspace. If the member owns a team, that team's ownership must be transferred before they can be removed.
+* **Remove other admins** - Remove another Admin from the workspace. An admin cannot remove the owner.
+* **Change roles** - Promote a User to Admin, or demote an Admin to User. Only the owner can promote someone to Owner, which is an ownership transfer.
+* **Invite members** - Invite new members to the workspace via invite link or email invite, subject to any domain restrictions in effect. [TODO: engineer to verify — invite links, email invites, and domain restrictions are listed as follow-up work in the spec; confirm availability.]
+* **Manage the invite link** - Enable, disable, or reset (regenerate) the workspace invite link. [TODO: engineer to verify availability.]
+* **Manage domain restrictions** - Add or remove approved email domains for the workspace invite link. [TODO: engineer to verify availability.]
+
+### Billing
+
+* **Manage spend limits** - Manage spend limits at the workspace level, team level, or for individual workspace members. [TODO: engineer to verify — workspace-level spend limits are listed as follow-up work; team- and member-level limits ship via team-level inheritance in V1.]
+
+### Oz agent run visibility
+
+Workspace admins have full access to all team-owned Oz agent runs across every team in the workspace:
+
+* **Full access, not view-only** - Admins can both view run details and take management actions, such as cancelling a run, on any team-owned run — including runs started by other members on teams the admin does not personally belong to.
+* **Same data boundary as a team member** - A workspace admin sees exactly what a member of the owning team can see for a run today, including prompts, logs, artifacts, and repository context. No redaction is applied.
+* **Personal runs stay private** - Runs owned directly by a user rather than a team — for example, runs created with the "Only visible to me" option — remain visible only to their owner. Neither team admins nor workspace admins gain access.
+
+A workspace User keeps the current behavior: they can see only their own runs and runs belonging to their team or teams.
+
+### Team-level management
+
+Because a workspace admin has admin-level permissions on every team in the workspace, they can perform all team admin operations on any team:
+
+* Remove team members.
+* Change team-level roles.
+* Manage team invite links and domain restrictions.
+* Rename teams.
+
+## Owner-only capabilities
+
+Some actions are reserved for the workspace owner:
+
+* **Transfer ownership** - Only the owner can transfer ownership to another workspace member. When ownership is transferred, the new owner's role becomes Owner. The previous owner becomes Admin when the workspace's plan supports multiple admins, or User otherwise. No team-level roles change.
+
+## Role changes and constraints
+
+Workspace role changes follow a few self-service safeguards:
+
+* **The owner cannot demote themselves** - To step down, the owner must transfer ownership to another member first.
+* **An admin cannot remove themselves** - Another admin or the owner must remove them.
+* **Demotion is immediate** - When an admin is demoted to User, they lose workspace-level admin capabilities right away, but keep any team-level admin role they already held.
+
+## Managing workspace roles
+
+[TODO: docs reviewer — add the step-by-step procedure and settings path for promoting, demoting, and transferring workspace roles once the workspace management UI ships. The dedicated workspace management surfaces are not yet defined in the spec (UI design is called out as separate follow-up work), so no settings path is documented here. UNVERIFIED: exact Settings menu path for workspace role management.]
+
+[TODO: docs reviewer — screenshot needed: workspace member management surface showing roles.]
+
+## Related pages
+
+* [Roles and permissions](/enterprise/team-management/roles-and-permissions/) - Team-level roles, permissions, and settings enforcement.
+* [Team management in Warp](/enterprise/team-management/teams/) - Create and manage teams, invites, and ownership transfer.
+* [Admin Panel](/enterprise/team-management/admin-panel/) - Configure settings and enforce policies.
+* [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) - How Oz agent run visibility works.

@@ -820,6 +820,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'enterprise/team-management/teams',
 						{ slug: 'enterprise/team-management/admin-panel', label: 'Admin panel' },
 						{ slug: 'enterprise/team-management/roles-and-permissions', label: 'Roles and permissions' },
+						// [TODO: docs reviewer — confirm placement]
+						{ slug: 'enterprise/team-management/workspace-admin-roles', label: 'Workspace admin roles' },
 					],
 				},
 				{
