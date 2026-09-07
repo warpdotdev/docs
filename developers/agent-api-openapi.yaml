@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
-  title: Oz Agent API
+  title: Warp Agent API
   version: 1.0.0
-  description: "API for creating, managing, and querying Oz cloud agent runs.\n\nThese endpoints allow users to programmatically spawn agents, list runs, \nand retrieve detailed run information.\n"
+  description: "API for creating, managing, and querying Warp cloud agent runs.\n\nThese endpoints allow users to programmatically spawn agents, list runs, \nand retrieve detailed run information.\n"
   contact:
     name: Warp Support
     url: https://docs.warp.dev
@@ -30,6 +30,7 @@ paths:
       security:
       - bearerAuth: []
       parameters:
+      - $ref: '#/components/parameters/TeamUidHeaderParam'
       - name: repo
         in: query
         description: |
@@ -93,6 +94,8 @@ paths:
       - agent
       security:
       - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/TeamUidHeaderParam'
       responses:
         '200':
           description: List of currently connected self-hosted workers
@@ -181,6 +184,8 @@ paths:
       - agent
       security:
       - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/TeamUidHeaderParam'
       requestBody:
         required: true
         content:
@@ -237,6 +242,8 @@ paths:
       - agent
       security:
       - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/TeamUidHeaderParam'
       requestBody:
         required: true
         content:
@@ -279,6 +286,7 @@ paths:
       security:
       - bearerAuth: []
       parameters:
+      - $ref: '#/components/parameters/TeamUidHeaderParam'
       - name: limit
         in: query
         description: Maximum number of runs to return
@@ -433,10 +441,10 @@ paths:
       - name: metadata
         in: query
         description: |
-          Filter by exact metadata key/value pairs using object notation (e.g.
-          `metadata[ticket_id]=VIS-238`). Multiple pairs combine with AND semantics.
-          At most 5 pairs per request. Returns `feature_not_available` when metadata
-          filtering is not enabled.
+          Filter by exact metadata key/value pairs using object notation
+          (e.g. `metadata[ticket_id]=VIS-238`), combining multiple pairs
+          with AND semantics, up to 5 per request. Returns
+          `feature_not_available` when metadata filtering is not enabled.
         required: false
         schema:
           type: object
@@ -699,13 +707,11 @@ paths:
     post:
       summary: Cancel a run
       description: |
-        Cancel an agent run that is currently queued or in progress.
-        Once cancelled, the run will transition to a cancelled state.
-
-        Not all runs can be cancelled. Runs that are in a terminal state
-        (SUCCEEDED, FAILED, ERROR, BLOCKED, CANCELLED) return 400. Runs in
-        PENDING state return 409 (retry after a moment). Self-hosted, local,
-        and GitHub Action runs return 422.
+        Cancel an agent run that is currently queued or in progress; once
+        cancelled, the run transitions to a cancelled state. Not all runs can
+        be cancelled: a run already in a terminal state, in PENDING, or of an
+        unsupported type (self-hosted, local, GitHub Action) is rejected
+        instead — see the error responses below for each case.
       operationId: cancelRun
       tags:
       - agent
@@ -778,6 +784,17 @@ paths:
         queued, actively running, or ended). A 200 response means the follow-up
         was accepted; updated run state can be observed via
         `GET /agent/runs/{runId}`.
+
+        A run that failed during environment setup keeps its retained session
+        reachable for a bounded debug window. A follow-up sent to an eligible
+        run in that window is delivered into the retained session to start or
+        continue a debug agent, without reopening the run: it stays in its
+        failed state, with its original failure message and error code
+        unchanged. This applies uniformly to every follow-up origin (this
+        endpoint, the Warp client, and integrations) and requires the same
+        authorization as any other follow-up. Once the debug window closes, or
+        when the run is not eligible, a follow-up falls back to the run's
+        ordinary continuation behavior (which may start a new execution).
       operationId: submitRunFollowup
       tags:
       - agent
@@ -893,6 +910,64 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /agent/conversations/{conversation_id}/transcript:
+    get:
+      summary: Get conversation transcript
+      description: |
+        Retrieve the raw conversation transcript for a conversation.
+        Returns a 302 redirect to a time-limited download URL for the transcript.
+        Supported for third-party harness conversations (Claude Code, Codex, Gemini).
+      operationId: getConversationTranscript
+      tags:
+      - agent
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: conversation_id
+        in: path
+        description: The unique identifier of the conversation
+        required: true
+        schema:
+          type: string
+      responses:
+        '302':
+          description: Redirect to a download URL for the transcript
+          headers:
+            Location:
+              description: URL to download the transcript
+              schema:
+                type: string
+                format: uri
+        '400':
+          description: Conversation format does not support raw transcript download
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to access conversation transcript
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Conversation not found or has no transcript
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /agent/schedules:
     post:
       summary: Create a scheduled agent
@@ -904,6 +979,8 @@ paths:
       - schedules
       security:
       - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/TeamUidHeaderParam'
       requestBody:
         required: true
         content:
@@ -962,6 +1039,8 @@ paths:
       - schedules
       security:
       - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/TeamUidHeaderParam'
       responses:
         '200':
           description: List of scheduled agents
@@ -1241,6 +1320,7 @@ paths:
       security:
       - bearerAuth: []
       parameters:
+      - $ref: '#/components/parameters/TeamUidHeaderParam'
       - name: sort_by
         in: query
         required: false
@@ -1309,13 +1389,11 @@ paths:
     get:
       summary: Get artifact details
       description: |
-        Retrieve an artifact by its UUID. For downloadable file-like artifacts,
-        returns a time-limited signed download URL. For plan artifacts, returns
-        the current plan content inline.
-
-        Public artifacts can be read without authentication; private artifacts
-        require the caller to be authenticated and authorized. Anonymous reads
-        of public file artifacts omit the `filepath` field.
+        Retrieve an artifact by its UUID: a time-limited signed download URL
+        for downloadable file-like artifacts, or the current plan content
+        inline for plan artifacts. Public artifacts can be read without
+        authentication; private artifacts require the caller to be
+        authenticated and authorized.
       operationId: getArtifact
       tags:
       - agent
@@ -1432,6 +1510,8 @@ paths:
       - agent
       security:
       - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/TeamUidHeaderParam'
       requestBody:
         required: true
         content:
@@ -1480,7 +1560,8 @@ paths:
       - agent
       security:
       - bearerAuth: []
-      parameters: []
+      parameters:
+      - $ref: '#/components/parameters/TeamUidHeaderParam'
       responses:
         '200':
           description: List of agents
@@ -1516,11 +1597,11 @@ paths:
     post:
       summary: Report evaluation scores for a run
       description: |
-        Report one or more evaluation verdicts for a run. Called by the judge run
-        that was dispatched to score this run, authenticating with that judge
-        run's API key. Each verdict is processed independently: the response
-        reports per-verdict acceptance, and a rejected verdict does not block the
-        others. Reporting a subset of the run's evaluations is valid.
+        Report one or more evaluation verdicts for a run, called by the judge
+        run dispatched to score it and authenticated with that judge run's
+        API key. Each verdict is processed independently — the response
+        reports per-verdict acceptance, and a rejected verdict does not block
+        the others — so reporting a subset of the run's evaluations is valid.
       operationId: reportRunScores
       tags:
       - agent
@@ -1730,6 +1811,23 @@ components:
       scheme: bearer
       description: |
         Authentication via a Warp API key.
+  parameters:
+    TeamUidHeaderParam:
+      name: X-Warp-Team-Uid
+      in: header
+      required: false
+      description: |
+        UID of the team to use as the request's active team. Ignored for
+        service-account callers, which always act as their bound team.
+      schema:
+        type: string
+  responses:
+    FactoryAccessDenied:
+      description: Factory access is not enabled for the authenticated principal
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     RunAgentRequest:
       type: object
@@ -1778,12 +1876,13 @@ components:
         on_behalf_of:
           type: string
           description: |
-            Optional email address or user ID of a Warp user to attribute the run to.
-            When set, the resolved user becomes the run's creator instead of the caller.
-            Only agent API keys may use this field, and the calling agent must have
-            on_behalf_of enabled in its configuration (`on_behalf_of_enabled`), which a
-            team admin must intentionally turn on per agent. The target user must be an
-            active member of the run's owner team. Only valid for team-owned runs.
+            Optional email address or user ID of a Warp user to attribute
+            the run to; when set, the resolved user becomes the run's
+            creator instead of the caller. Only agent API keys may use this
+            field, only when the calling agent has on_behalf_of enabled in
+            its configuration (a team admin must turn this on per agent),
+            and only for team-owned runs. The target user must be an active
+            member of the run's owner team.
         conversation_id:
           type: string
           description: |
@@ -1799,12 +1898,12 @@ components:
         parent_run_id:
           type: string
           description: |
-            Optional run ID of the parent that spawned this run.
-            Used for orchestration hierarchies.
-            The parent run must exist and be visible to the caller; otherwise the
-            request is rejected with a 400. Child runs are also subject to the
-            server's maximum orchestration depth, and requests that would exceed
-            it are rejected with a 400.
+            Optional run ID of the parent that spawned this run, used for
+            orchestration hierarchies; the parent run must exist and be
+            visible to the caller, or the request is rejected with a 400.
+            Child runs are also subject to the server's maximum
+            orchestration depth, and requests that would exceed it are
+            rejected with a 400.
         interactive:
           type: boolean
           description: |
@@ -1817,13 +1916,14 @@ components:
       additionalProperties:
         type: string
       description: |
-        Custom key/value metadata attached to a run at creation time and immutable afterward.
-        At most 20 keys. Keys are 1-64 bytes matching [a-zA-Z0-9._-]+ (case-sensitive);
-        values are 0-256 bytes of UTF-8 and cannot contain NUL characters.
-        Requests with invalid metadata are rejected.
-        A run's effective metadata is merged per key at creation: explicit request keys
-        override keys inherited from the parent run, which override automatic keys
-        (ticket_id and ticket_source on Linear- and Jira-triggered runs).
+        Custom key/value metadata attached to a run at creation time and
+        immutable afterward; at most 20 keys, with keys 1-64 bytes matching
+        [a-zA-Z0-9._-]+ (case-sensitive) and values 0-256 bytes of UTF-8 with
+        no NUL characters. Requests with invalid metadata are rejected. A
+        run's effective metadata is merged per key at creation: explicit
+        request keys override keys inherited from the parent run, which
+        override automatic keys (ticket_id and ticket_source on Linear- and
+        Jira-triggered runs).
     RunAgentResponse:
       type: object
       required:
@@ -1954,6 +2054,13 @@ components:
             Whether the run's type is eligible for cancellation via the API. State-independent:
             false for GitHub Action and local runs; true for all other run types (including
             self-hosted). Clients should still gate the control on the run's current state.
+        debug_agent_available:
+          type: boolean
+          description: |
+            Whether a debug agent can currently be started inside this run's retained
+            setup-failure session. Only true for a run that failed during environment setup,
+            whose retained execution is still reachable, and whose debug window has not
+            closed. See `POST /agent/runs/{runId}/followups`.
         artifacts:
           type: array
           items:
@@ -2001,7 +2108,7 @@ components:
         payload:
           type: object
           additionalProperties: true
-          description: Optional event-specific JSON payload.
+          description: Optional event-specific JSON payload. Contents vary by event type.
     AIRunTimelineEventType:
       type: string
       description: Type of timeline event recorded for a run.
@@ -2393,7 +2500,9 @@ components:
           description: Unique identifier for the file artifact
         filepath:
           type: string
-          description: Conversation-relative filepath for the uploaded file
+          description: |
+            Conversation-relative filepath for the uploaded file. Omitted on
+            an anonymous read of a public file artifact.
         filename:
           type: string
           description: Last path component of filepath
@@ -2401,7 +2510,7 @@ components:
           type: string
           description: |
             Short, badge-visible label for the artifact. For recording artifacts,
-            this is the agent-authored title shown in Oz web and blocklist badges.
+            this is the agent-authored title shown in Warp web and blocklist badges.
             Distinct from description, which is longer and shown in detail views.
         description:
           type: string
@@ -2471,6 +2580,12 @@ components:
             session pushes this deadline out. The agent republishes it periodically
             rather than on every keystroke, so the value can lag the true deadline by
             up to a throttle interval, and always in the conservative direction.
+        debug_agent_active:
+          type: boolean
+          description: |
+            Whether a setup-failure debug turn is actively pinning the idle timer open
+            right now. While true, session_debug_until can lag behind the real deadline;
+            clients should show an active-debugging state instead of a countdown.
     RequestUsage:
       type: object
       description: Resource usage information for the run
@@ -2491,20 +2606,144 @@ components:
           type: number
           format: double
           description: |
-            inference_cost in US dollars, converted at a fixed rate. An
-            approximate cost, not a billed amount.
+            inference_cost in US dollars, converted at the owning team's
+            current credit price. An approximate cost, not a billed amount.
         compute_cost_usd:
           type: number
           format: double
           description: |
-            compute_cost in US dollars, converted at a fixed rate. An
-            approximate cost, not a billed amount.
+            compute_cost in US dollars, converted at the owning team's
+            current credit price. An approximate cost, not a billed amount.
         platform_cost_usd:
           type: number
           format: double
           description: |
-            platform_cost in US dollars, converted at a fixed rate. An
-            approximate cost, not a billed amount.
+            platform_cost in US dollars, converted at the owning team's
+            current credit price. An approximate cost, not a billed amount.
+        total_tokens:
+          type: integer
+          format: int64
+          description: |
+            Total LLM token count (summed across every usage category and model) for the run's
+            conversation. Omitted when the data is not available.
+        inference_cost_breakdown_usd:
+          $ref: '#/components/schemas/InferenceCostBreakdownUsd'
+        usage_by_category:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/ChargedUsageDetail'
+          description: |
+            Full-granularity token and dollar-cost breakdown for the run's
+            conversation, keyed by usage category (for example,
+            primary_agent or conversation_compaction) and model id; differs
+            from total_tokens/inference_cost_breakdown_usd, which combine
+            usage across all categories and models. Omitted when the data
+            is not available.
+    InferenceCostBreakdownUsd:
+      type: object
+      description: |
+        Charged dollar cost of LLM inference, split by token type.
+        Omitted when the data is not available.
+      required:
+      - input_cost_usd
+      - input_cache_read_cost_usd
+      - input_cache_write_cost_usd
+      - output_cost_usd
+      properties:
+        input_cost_usd:
+          type: number
+          format: double
+          description: Cost of non-cached input tokens, in US dollars.
+        input_cache_read_cost_usd:
+          type: number
+          format: double
+          description: Cost of cache-read input tokens, in US dollars.
+        input_cache_write_cost_usd:
+          type: number
+          format: double
+          description: Cost of cache-write input tokens, in US dollars.
+        output_cost_usd:
+          type: number
+          format: double
+          description: Cost of output tokens, in US dollars.
+    TokenCountBreakdown:
+      type: object
+      description: A per-token-type token count.
+      required:
+      - input
+      - output
+      - input_cache_read
+      - input_cache_write
+      properties:
+        input:
+          type: integer
+          format: int64
+          description: Count of non-cached input tokens.
+        output:
+          type: integer
+          format: int64
+          description: Count of output tokens.
+        input_cache_read:
+          type: integer
+          format: int64
+          description: Count of cache-read input tokens.
+        input_cache_write:
+          type: integer
+          format: int64
+          description: Count of cache-write input tokens.
+    InferenceUsageDetail:
+      type: object
+      description: |
+        Full token count and dollar-cost detail inference usage.
+        The counts and cost describe the same usage (e.g. token_count.input
+        tokens cost cost_usd.input_cost_usd in total).
+      required:
+      - token_count
+      - cost_usd
+      - web_search_count
+      - web_search_cost_usd
+      properties:
+        token_count:
+          $ref: '#/components/schemas/TokenCountBreakdown'
+        cost_usd:
+          $ref: '#/components/schemas/InferenceCostBreakdownUsd'
+        web_search_count:
+          type: integer
+          format: int64
+          description: Number of web searches performed by this model.
+        web_search_cost_usd:
+          type: number
+          format: double
+          description: Total cost of those web searches, in US dollars.
+    ChargedUsageDetail:
+      type: object
+      description: |
+        Usage charged for a single usage category, broken down by usage type
+        (direct API/BYOK/custom endpoint) and, within each, by model ID.
+      required:
+      - platform_usage_usd
+      properties:
+        direct_api_inference_usage:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InferenceUsageDetail'
+          description: Inference usage incurred through Warp-provided model access, keyed by model ID.
+        byok_inference_usage:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InferenceUsageDetail'
+          description: Inference usage charged using a user's own API key, keyed by model ID.
+        custom_endpoint_inference_usage:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InferenceUsageDetail'
+          description: |
+            Inference usage charged using a custom endpoint, keyed by the
+            custom model's config key.
+        platform_usage_usd:
+          type: number
+          format: double
+          description: Platform usage charged for this category, in US dollars.
     RunCreatorInfo:
       type: object
       properties:
@@ -2569,6 +2808,9 @@ components:
       - AUTOFIX
       - RUN_SCORER
       - ORCHESTRATION
+      - BENCHMARK_TRIAL
+      - CREATE_BENCHMARK_TASK
+      - CUSTOM_WEBHOOK
       description: |
         Source that created the run:
         - LINEAR: Created from Linear integration
@@ -2587,6 +2829,9 @@ components:
         - AUTOFIX: Created by Warp's autofix pipeline
         - RUN_SCORER: Created by Warp's run-scoring judge
         - ORCHESTRATION: Created as a child run by the orchestration layer (parent_run_id set)
+        - BENCHMARK_TRIAL: Created as a factory benchmark trial
+        - CREATE_BENCHMARK_TASK: Created by a Factory foreman authoring a benchmark task from a completed run
+        - CUSTOM_WEBHOOK: Created by a factory automation subscribed to a custom webhook source
     RunExecutionLocation:
       type: string
       enum:
@@ -2594,7 +2839,7 @@ components:
       - REMOTE
       description: |
         Where the run executed:
-        - LOCAL: Executed in the user's local Oz environment
+        - LOCAL: Executed in the user's local Warp environment
         - REMOTE: Executed by a remote/cloud worker
     AmbientAgentConfig:
       type: object
@@ -2627,12 +2872,13 @@ components:
         skill_spec:
           type: string
           description: |
-            Skill specification identifying the primary agent skill to use.
-            Format: "{owner}/{repo}:{skill_path}"
-            Example: "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md"
-            Mutually exclusive with skills in create/update requests.
-            Responses include the first skills entry here for backward compatibility.
-            Use the list agents endpoint to discover available skills.
+            Skill specification identifying the primary agent skill to use,
+            in `{owner}/{repo}:{skill_path}` format (e.g.
+            `warpdotdev/warp-server:.claude/skills/deploy/SKILL.md`);
+            mutually exclusive with `skills` in create/update requests.
+            Responses include the first `skills` entry here for backward
+            compatibility; use the list agents endpoint to discover
+            available skills.
         skills:
           type: array
           items:
@@ -2652,6 +2898,14 @@ components:
           description: |
             Controls whether computer use is enabled for this agent.
             If not set, defaults to true.
+        computer_use_model_id:
+          type: string
+          description: |
+            Model the computer use subagent runs on; if omitted, the subagent
+            picks its own model automatically. Only applies to the built-in
+            Warp harness — the value is accepted but has no effect under a
+            third-party harness or when computer use is disabled. Requires an
+            agent CLI version that supports the --computer-use-model flag.
         idle_timeout_minutes:
           type: integer
           format: int32
@@ -2691,27 +2945,27 @@ components:
           - CREATOR
           - EXECUTOR
           description: |
-            Controls which principal's credentials are used when the platform mints
-            tokens (e.g. GitHub or GitLab OAuth tokens) on behalf of this run.
-            - EXECUTOR (default when unset): credentials are sourced from the run's
-              execution principal. For agent principals this produces a
-              GitHub App installation token; for user principals this produces their
-              personal OAuth token.
-            - CREATOR: credentials are always sourced from the run creator,
-              regardless of the execution principal. Useful when a service account
-              executes the run but Git operations should authenticate as the human
-              who triggered it.
-            When unset, behavior is identical to EXECUTOR and no additional
-            pre-flight validation is performed.
+            Controls which principal's credentials are used when the
+            platform mints tokens (e.g. GitHub or GitLab OAuth tokens) on
+            behalf of this run.
+            - EXECUTOR (default when unset): credentials are sourced from
+              the run's execution principal — a GitHub App installation
+              token for agent principals, a personal OAuth token for user
+              principals.
+            - CREATOR: credentials are always sourced from the run creator
+              regardless of the execution principal, useful when a service
+              account executes the run but Git operations should
+              authenticate as the triggering human.
     SessionSharingConfig:
       type: object
       description: |
-        Configures sharing behavior for the run's shared session.
-        When set, the worker emits `--share public:<level>` and the bundled Warp
-        client applies an anyone-with-link ACL to the shared session once it has
-        bootstrapped. The same ACL is mirrored onto the backing conversation so
-        link viewers can read the conversation without being on the run's team.
-        Subject to the workspace-level anyone-with-link sharing setting.
+        Configures sharing behavior for the run's shared session; when set,
+        the worker emits `--share public:<level>` and the bundled Warp
+        client applies an anyone-with-link ACL to the shared session once it
+        has bootstrapped. The same ACL is mirrored onto the backing
+        conversation so link viewers can read it without being on the run's
+        team, subject to the workspace-level anyone-with-link sharing
+        setting.
       properties:
         public_access:
           type: string
@@ -2719,12 +2973,12 @@ components:
           - VIEWER
           - EDITOR
           description: |
-            Grants anyone-with-link access at the specified level to the run's
-            shared session and backing conversation.
+            Grants anyone-with-link access at the specified level to the
+            run's shared session and backing conversation; link viewers
+            must still be authenticated Warp users (anonymous reads are not
+            supported in this release).
             - VIEWER: link viewers can read the session and conversation.
             - EDITOR: link viewers can also interact with the session.
-            Anonymous (unauthenticated) reads are not supported in this release;
-            link viewers must still be authenticated Warp users.
     Harness:
       type: object
       description: |
@@ -2732,8 +2986,8 @@ components:
         Default (nil/empty) uses Warp's built-in harness.
         When stored as a named agent's default (create/update agent identity),
         this field replaces the deprecated base_harness/base_model pair: a
-        non-oz type here requires the agent's base_model to be empty, since
-        the two describe mutually exclusive default models.
+        harness other than `oz` here requires the agent's base_model to be
+        empty, since the two describe mutually exclusive default models.
       properties:
         type:
           type: string
@@ -2752,15 +3006,16 @@ components:
           type: string
           description: |
             Model to use with a third-party harness (e.g. "claude-haiku-4-5").
-            Only applies when type is a non-oz harness; the top-level config
-            model_id targets the built-in Oz harness instead. When omitted or
-            empty, the harness uses its own default model.
+            Only applies when type is a harness other than `oz`; the
+            top-level config model_id targets the built-in Warp harness
+            instead. When omitted or empty, the harness uses its own default
+            model.
         reasoning_level:
           type: string
           description: |
             Reasoning effort for harnesses that support it (e.g. Codex).
-            Only applies when type is a non-oz harness. Ignored by harnesses
-            that do not support reasoning levels.
+            Only applies when type is a harness other than `oz`. Ignored by
+            harnesses that do not support reasoning levels.
     HarnessAuthSecrets:
       type: object
       description: |
@@ -2815,12 +3070,10 @@ components:
     Error:
       type: object
       description: |
-        Error response following RFC 7807 (Problem Details for HTTP APIs).
-        Includes backward-compatible extension members.
-
-        The response uses the `application/problem+json` content type.
-        Additional extension members (e.g., `auth_url`, `provider`) may be
-        present depending on the error code.
+        Error response following RFC 7807 (Problem Details for HTTP APIs),
+        using the `application/problem+json` content type. Includes
+        backward-compatible extension members; additional ones (e.g.,
+        `auth_url`, `provider`) may be present depending on the error code.
       required:
       - type
       - title
@@ -3029,7 +3282,7 @@ components:
           type: string
           description: |
             Short, badge-visible label for the artifact. For recording artifacts,
-            this is the agent-authored title shown in Oz web and blocklist badges.
+            this is the agent-authored title shown in Warp web and blocklist badges.
             Distinct from description, which is longer and shown in detail views.
         description:
           type: string
@@ -3276,18 +3529,16 @@ components:
           minimum: 1
           maximum: 60
           description: |
-            When set (1–60 minutes), a failed run using this environment keeps its session open
-            for this many minutes so it can be inspected. null or absent means immediate teardown
-            (disabled by default).
-
-            The window is an idle window held open by the agent process itself: working in the
-            session pushes the deadline out, so a session in active use is not torn down
-            mid-debug. It ends early if the run's sandbox reaches its own deadline first.
-
-            This policy applies to future failures of runs using this environment; it does not
-            change the window a currently-failed run was already started with. Opting in keeps
-            injected environment data (including secrets) alive and incurs compute usage for as
-            long as the session is held open.
+            When set (1–60 minutes), a failed run using this environment
+            keeps its session open for this many minutes so it can be
+            inspected; null or absent means immediate teardown (disabled by
+            default). This is an idle window held open by the agent process:
+            activity in the session pushes the deadline out (so an active
+            session is not torn down mid-debug), and it ends early if the
+            run's sandbox reaches its own deadline first. Applies only to
+            future failures of runs using this environment; opting in keeps
+            injected environment data (including secrets) alive and incurs
+            compute usage for as long as the session is held open.
     ProvidersConfig:
       type: object
       description: Optional cloud provider configurations for automatic auth
@@ -3846,17 +4097,13 @@ components:
     AgentCredentialStrategy:
       type: string
       description: |
-        Default credential strategy for runs executed by a named agent.
+        Default credential strategy for runs executed by a named agent; an
+        agent may leave this unset (see AgentResponse.credential_strategy
+        for the full resolution order).
         - EXECUTOR: runs authenticate with the named agent's own credentials
           (e.g. a GitHub App installation token for the agent's team).
         - CREATOR: runs authenticate with the credentials of the principal
           that created the run.
-        Unlike the factory default, an agent may leave this unset. The
-        strategy applied to a run is resolved in this order: the run's
-        config.credential_strategy, then the agent's default, then the
-        factory's default for factory-seeded agents, and finally EXECUTOR.
-        The inherited strategy is validated at run creation time (the required
-        credential must be mintable), like an explicit run-level value.
       enum:
       - CREATOR
       - EXECUTOR
@@ -4030,19 +4277,19 @@ components:
           type: string
           nullable: true
           description: |
-            Optional default worker host for runs executed by this agent.
-            Omission, null, or an empty value stores no Agent default, in which
-            case the workspace default applies. A non-empty value is trimmed
-            and stored; use "warp" to force Warp-hosted execution over a
-            self-hosted workspace default. The precedence order for worker
-            host resolution is:
+            Optional default worker host for runs executed by this agent;
+            omission, null, or an empty value stores no Agent default, in
+            which case the workspace default applies. A non-empty value is
+            trimmed and stored (use "warp" to force Warp-hosted execution
+            over a self-hosted workspace default), and is resolved in this
+            order:
             1. The host specified on the run itself
             2. The agent's default host
             3. The workspace default host
     UpdateAgentRequest:
       type: object
       description: |
-        Partial update for an agent. Each field is optional:
+        Partial update for an agent; each field is optional:
           * Omitted or `null`: leave the field unchanged.
           * Empty value: clear the field.
           * Non-empty: replace the field wholesale with the provided value.
@@ -4116,20 +4363,20 @@ components:
           - $ref: '#/components/schemas/InferenceProvidersConfig'
           nullable: true
           description: |
-            Replacement inference provider settings for this agent.
-            Agent-level config takes precedence over the workspace's
-            admin-configured defaults. Omit or pass `null` to leave
-            unchanged. Pass an empty object `{}` to clear.
+            Replacement inference provider settings for this agent, which
+            take precedence over the workspace's admin-configured defaults;
+            omit or pass `null` to leave unchanged, or pass an empty object
+            `{}` to clear.
         base_harness:
           type: string
           nullable: true
           deprecated: true
           description: |
-            Replacement default harness. Omit or pass `null` to leave unchanged,
-            or pass an empty string to clear.
-            Deprecated - use harness instead. Kept for backward compatibility;
-            when both are sent, harness is authoritative and a conflicting
-            type is rejected with invalid_request.
+            Replacement default harness; omit or pass `null` to leave
+            unchanged, or pass an empty string to clear. Deprecated - use
+            harness instead, kept only for backward compatibility: when both
+            are sent, harness is authoritative and a conflicting type is
+            rejected with invalid_request.
         harness:
           allOf:
           - $ref: '#/components/schemas/Harness'
@@ -4203,16 +4450,18 @@ components:
         environment_id:
           type: string
           description: |
-            Default cloud environment ID for runs executed by this agent. The precedence order for environment resolution is:
+            Default cloud environment ID for runs executed by this agent;
+            the precedence order for environment resolution is:
             1. The environment specified on the run itself
             2. The agent's default environment
             3. An empty environment
         default_runner_uid:
           type: string
           description: |
-            Default runner UID for runs executed by this agent. When set, it overrides the
-            selected environment's default runner for runs that do not specify their own
-            `runner_id`. The precedence order for runner resolution is:
+            Default runner UID for runs executed by this agent; when set,
+            it overrides the selected environment's default runner for
+            runs that do not specify their own `runner_id`. The precedence
+            order for runner resolution is:
             1. The runner specified on the run itself
             2. The agent's default runner
             3. The selected environment's default runner
@@ -4220,7 +4469,7 @@ components:
             5. System defaults
         available:
           type: boolean
-          description: Whether this agent is within the team's plan limit and can be used for runs
+          description: Whether the agent is currently enabled. Defaults to true.
         created_at:
           type: string
           format: date-time
@@ -4245,7 +4494,8 @@ components:
         base_model:
           type: string
           description: |
-            Base model for runs executed by this agent. The precedence order for model resolution is:
+            Base model for runs executed by this agent; the precedence
+            order for model resolution is:
             1. The model specified on the run itself
             2. The agent's base model
             3. The team's default model
@@ -4273,11 +4523,12 @@ components:
           type: string
           deprecated: true
           description: |
-            Default harness for runs executed by this agent. The precedence order for harness resolution is:
+            Default harness for runs executed by this agent; the
+            precedence order for harness resolution is:
             1. The harness specified on the run itself
             2. The agent's base harness
-            3. Oz
-            Deprecated - use harness instead, which carries the full
+            3. Warp
+            Deprecated: use harness instead, which carries the full
             {type, model_id, reasoning_level} default.
         harness:
           allOf:
@@ -4298,6 +4549,8 @@ components:
             2. The agent's default strategy
             3. The factory's default strategy, for factory-seeded agents
             4. EXECUTOR
+            The resolved strategy is credential-validated at run creation;
+            an unavailable credential rejects the request before execution.
         harness_auth_secrets:
           allOf:
           - $ref: '#/components/schemas/HarnessAuthSecrets'
@@ -4313,8 +4566,8 @@ components:
         worker_host:
           type: string
           description: |
-            Default worker host for runs executed by this agent, or empty when
-            unset. The precedence order for worker host resolution is:
+            Default worker host for runs executed by this agent, or empty
+            when unset; the precedence order for worker host resolution is:
             1. The host specified on the run itself
             2. The agent's default host
             3. The workspace default host
