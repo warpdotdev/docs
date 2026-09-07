@@ -8,6 +8,16 @@ This log tracks every run of the `aeo_crosslink_audit` skill — both runs that 
 
 ---
 
+## 2026-09-07 — PR opened
+
+- **Run**: https://app.warp.dev/conversation/2e55a2ca-745a-44ba-b579-00703a526637
+- **Source signals**: Peec available, GSC available
+- **PR**: https://github.com/warpdotdev/docs/pull/691
+- **Links proposed / added**: 5 proposed, 5 added
+- **Pages touched**: src/content/docs/platform/harnesses/warp-agent.mdx, src/content/docs/factories/factory-dashboard.mdx, src/content/docs/agents/cli/reference.mdx, src/content/docs/agents/agent-memory/index.mdx, src/content/docs/agents/capabilities/codebase-context.mdx
+- **Themes**: cross-harness multi-agent orchestration from Warp Agent and factory Sub-agents UI; CLI /handoff parity; harness hub from Agent Memory; cloud run viewing from Codebase Context
+- **No-change reason**: N/A
+
 ## 2026-08-31 — PR opened
 
 - **Run**: https://oz.warp.dev/runs/01a05855-a305-72b3-a85f-ce45a8ad7840
