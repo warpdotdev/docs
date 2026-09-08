@@ -33,6 +33,11 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 
 | Model | `model_id` | Reasoning Level |
 | --- | --- | --- |
+| GPT-6 Astra | `gpt-6-astra-low` | Low |
+| GPT-6 Astra | `gpt-6-astra-medium` | Medium |
+| GPT-6 Astra | `gpt-6-astra-high` | High |
+| GPT-6 Astra | `gpt-6-astra-xhigh` | Extra High |
+| GPT-6 Astra | `gpt-6-astra-max` | Max |
 | GPT-5.6 Sol | `gpt-5-6-sol-low` | Low |
 | GPT-5.6 Sol | `gpt-5-6-sol-medium` | Medium |
 | GPT-5.6 Sol | `gpt-5-6-sol-high` | High |
@@ -120,9 +125,11 @@ Anthropic requires data retention for Claude Fable 5 and Claude Fable 5.1 for sa
 | Model | `model_id` |
 | --- | --- |
 | Gemini 3.1 Pro | `gemini-3.1-pro` |
+| Gemini 3.8 Flash | `gemini-3.8-flash` |
 | Gemini 3.7 Flash | `gemini-3.7-flash` |
 | Gemini 3.6 Flash | `gemini-3.6-flash` |
 | Gemini 3.5 Flash | `gemini-3.5-flash` |
+| Gemini 3 Flash | `gemini-3-flash` |
 
 #### xAI
 
@@ -142,6 +149,12 @@ Anthropic requires data retention for Claude Fable 5 and Claude Fable 5.1 for sa
 
 You can run Grok models through your own SuperGrok subscription instead of Warp credits by connecting your xAI account. See [SuperGrok subscription](/agents/inference/grok-subscription/).
 
+#### Meta
+
+| Model | `model_id` |
+| --- | --- |
+| Muse Spark 1.2 | `muse-spark-1.2` |
+
 #### Hosted models (via [Fireworks AI](https://fireworks.ai))
 
 Warp also supports leading open source models hosted via Fireworks AI, so you can run them from inside Warp without setting up your own inference infrastructure.
@@ -156,6 +169,7 @@ Warp also supports leading open source models hosted via Fireworks AI, so you ca
 | Minimax 3 | `minimax-3-fireworks` |
 | Qwen 3.8 Max | `qwen-3.8-max-fireworks` |
 | DeepSeek V4 Pro | `deepseek-v4-pro-fireworks` |
+| Inkling | `inkling-fireworks` |
 
 ### How to change models
 
