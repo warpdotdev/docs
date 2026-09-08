@@ -7,9 +7,8 @@ rather than a paraphrased implementation.
 
 The policy under test: at most ONE human reviewer, requested only when
 ownership resolution names exactly one owning engineer; no fallback reviewer
-of any kind; teams are never requested; a PR that already has a reviewer gets
-no additions; and a reviewer a human removed (a `review_request_removed`
-timeline event) is never re-added.
+of any kind; teams are never requested; and any existing requested reviewer,
+submitted review, or reviewer-removal event stops new requests.
 
 Run with: python3 .agents/skills/create_pr/test_request_reviewers.py
 """
@@ -36,15 +35,24 @@ from pathlib import Path
 state_file = Path(os.environ["GH_STUB_STATE"])
 calls_file = Path(os.environ["GH_STUB_CALLS"])
 reject = set(filter(None, os.environ.get("GH_STUB_REJECT", "").split(",")))
+fail = os.environ.get("GH_STUB_FAIL", "")
 args = sys.argv[1:]
 
 with calls_file.open("a", encoding="utf-8") as stream:
     stream.write(json.dumps(args) + "\\n")
 
 if args[:1] == ["api"]:
-    # The snippet's only `gh api` call is the timeline query for
-    # review_request_removed events; answer with the pre-joined list.
-    print(os.environ.get("GH_STUB_REMOVED", ""))
+    endpoint = args[1]
+    if endpoint.endswith("/reviews"):
+        if fail == "reviews":
+            sys.exit(1)
+        print(os.environ.get("GH_STUB_REVIEWED", ""))
+    elif endpoint.endswith("/timeline"):
+        if fail == "timeline":
+            sys.exit(1)
+        print(os.environ.get("GH_STUB_REMOVED", ""))
+    else:
+        sys.exit(1)
     sys.exit(0)
 
 state = json.loads(state_file.read_text(encoding="utf-8"))
@@ -57,6 +65,8 @@ if args[:2] == ["pr", "edit"]:
     state_file.write_text(json.dumps(state), encoding="utf-8")
     sys.exit(0)
 if args[:2] == ["pr", "view"]:
+    if fail == "view":
+        sys.exit(1)
     print(",".join(state))
     sys.exit(0)
 sys.exit(1)
@@ -79,7 +89,16 @@ def extract_reviewer_snippet():
 
 
 class ReviewerSnippetTest(unittest.TestCase):
-    def run_snippet(self, *, initial=(), resolved="", reject="", removed=""):
+    def run_snippet(
+        self,
+        *,
+        initial=(),
+        resolved="",
+        reject="",
+        reviewed="",
+        removed="",
+        fail="",
+    ):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             bin_dir = root / "bin"
@@ -107,6 +126,8 @@ class ReviewerSnippetTest(unittest.TestCase):
                     "GH_STUB_STATE": str(state_file),
                     "GH_STUB_CALLS": str(calls_file),
                     "GH_STUB_REJECT": reject,
+                    "GH_STUB_FAIL": fail,
+                    "GH_STUB_REVIEWED": reviewed,
                     "GH_STUB_REMOVED": removed,
                     "STUB_REVIEWERS": resolved,
                 }
@@ -178,6 +199,12 @@ class ReviewerSnippetTest(unittest.TestCase):
         self.assertEqual(state, ["alice"])
         self.assertEqual(self.requested_reviewers(calls), ["alice"])
 
+    def test_duplicate_entries_are_case_insensitive(self):
+        result, state, calls = self.run_snippet(resolved="alice,Alice")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(state, ["alice"])
+        self.assertEqual(self.requested_reviewers(calls), ["alice"])
+
     def test_existing_reviewer_means_no_new_request(self):
         """A PR that already has any reviewer gets no additions."""
         result, state, calls = self.run_snippet(initial=["carol"], resolved="alice")
@@ -186,25 +213,48 @@ class ReviewerSnippetTest(unittest.TestCase):
         self.assertEqual(self.requested_reviewers(calls), [])
         self.assertIn("already has reviewer(s)", result.stdout)
 
+    def test_submitted_review_means_no_new_request(self):
+        result, state, calls = self.run_snippet(resolved="alice", reviewed="carol")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(state, [])
+        self.assertEqual(self.requested_reviewers(calls), [])
+        self.assertIn("already has submitted review(s)", result.stdout)
+
     def test_removed_reviewer_is_never_readded(self):
         """A human removed the resolved owner from this PR - stay removed."""
         result, state, calls = self.run_snippet(resolved="alice", removed="alice")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(state, [])
         self.assertEqual(self.requested_reviewers(calls), [])
-        self.assertIn("not re-adding", result.stdout)
+        self.assertIn("reviewer-removal event", result.stdout)
 
-    def test_removed_check_is_case_insensitive(self):
-        result, state, calls = self.run_snippet(resolved="alice", removed="Alice")
+    def test_any_removed_reviewer_blocks_new_requests(self):
+        result, state, calls = self.run_snippet(resolved="alice", removed="bob")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(state, [])
         self.assertEqual(self.requested_reviewers(calls), [])
+        self.assertIn("reviewer-removal event", result.stdout)
 
-    def test_unrelated_removed_reviewer_does_not_block(self):
-        result, state, calls = self.run_snippet(resolved="alice", removed="bob")
+    def test_requested_reviewer_read_failure_is_fail_closed(self):
+        result, state, calls = self.run_snippet(resolved="alice", fail="view")
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(state, ["alice"])
-        self.assertEqual(self.requested_reviewers(calls), ["alice"])
+        self.assertEqual(state, [])
+        self.assertEqual(self.requested_reviewers(calls), [])
+        self.assertIn("could not read requested reviewers", result.stdout)
+
+    def test_submitted_review_read_failure_is_fail_closed(self):
+        result, state, calls = self.run_snippet(resolved="alice", fail="reviews")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(state, [])
+        self.assertEqual(self.requested_reviewers(calls), [])
+        self.assertIn("could not read submitted reviews", result.stdout)
+
+    def test_reviewer_removal_read_failure_is_fail_closed(self):
+        result, state, calls = self.run_snippet(resolved="alice", fail="timeline")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(state, [])
+        self.assertEqual(self.requested_reviewers(calls), [])
+        self.assertIn("could not read reviewer-removal history", result.stdout)
 
     def test_failed_request_does_not_fall_back(self):
         """A rejected request is reported; nobody else is substituted."""
