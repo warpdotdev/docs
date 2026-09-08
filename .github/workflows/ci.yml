@@ -150,6 +150,11 @@ jobs:
       - name: Test create_pr reviewer-request snippet
         run: python3 .agents/skills/create_pr/test_request_reviewers.py
 
+      # Runs the engineering-review workflow's exact shell block against a
+      # stubbed GitHub CLI to keep its add-once policy executable in CI.
+      - name: Test engineering-review request workflow
+        run: python3 .github/workflows/test_request_engineering_review.py
+
       # Validate the validate_ui_refs snapshot and script invariants. Uses
       # a synthetic warp client fixture internally — no checkout required.
       - name: Self-test validate_ui_refs skill
