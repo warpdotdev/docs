@@ -127,7 +127,15 @@ def _published_review_matches_signal(
         )
         if problems or published_signal is None:
             continue
-        fields = ("pr", "head_sha", "verdict", "critical", "important", "reviewer_login")
+        fields = (
+            "pr",
+            "head_sha",
+            "verdict",
+            "critical",
+            "important",
+            "reviewer_login",
+            "blocking_findings",
+        )
         if all(published_signal.get(field) == signal.get(field) for field in fields):
             return True
     return False
