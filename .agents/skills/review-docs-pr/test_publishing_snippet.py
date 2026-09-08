@@ -114,6 +114,12 @@ class PublishingSnippetTest(unittest.TestCase):
         self.assertEqual(problems, [])
         self.assertEqual(parsed["verdict"], signal["verdict"])
 
+    def test_policy_distinguishes_comment_event_from_required_check(self):
+        text = SKILL.read_text(encoding="utf-8")
+        self.assertIn("non-blocking `COMMENT` GitHub review event", text)
+        self.assertIn("`Agent docs review` status check still fails", text)
+        self.assertIn("Engineering review requests remain advisory.", text)
+
     def test_findings_and_verdict_are_still_rendered(self):
         payload, _ = self._run(
             comments=[{"path": "a.md", "line": 3, "body": "Fix this typo."}],

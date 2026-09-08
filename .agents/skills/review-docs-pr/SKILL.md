@@ -205,9 +205,9 @@ short-lived token after the cloud agent returns.
    REVIEWER_LOGIN=$(gh api user --jq .login)
    ```
    Every verdict — `Approve`, `Approve with nits`, and `Request changes` —
-   publishes as a non-blocking `COMMENT` review. The independent agent's
-   review never blocks merge; only a human reviewer or the engineering-review
-   gate can request changes.
+   publishes as a non-blocking `COMMENT` GitHub review event. The required
+   `Agent docs review` status check still fails on critical or important
+   findings. Engineering review requests remain advisory.
 2. Write the signal JSON object to `/tmp/review-signal.json`, set its
    `reviewer_login` to `$REVIEWER_LOGIN`, and render that same object as the
    `[SIGNAL:pr-review]` line in the final response. Then construct the
