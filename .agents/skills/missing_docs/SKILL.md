@@ -428,7 +428,7 @@ For each addressed finding, note the defining source file you already consulted 
 - **CLI command** → `crates/warp_cli/src/`.
 - **API route** → warp-server `router/handlers/public_api/` (API gaps usually go to `sync-openapi-spec`).
 
-Resolve owners and get a ready-to-run assignment command:
+Resolve owners (the script prints a ready-to-run command only when a single owner resolves):
 
 ```bash
 python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
@@ -437,13 +437,13 @@ python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
   warp:app/src/search/slash_command_menu/static_commands/commands.rs
 ```
 
-Add `--reviewers-only` to get just the comma-joined `--add-reviewer` argument (empty output when nothing resolved), which is the form the mandatory request step below consumes.
+Add `--reviewers-only` to get just the comma-joined `--add-reviewer` argument (empty output when nothing resolved), which is the form the `create_pr` request snippet consumes.
 
-Then **actually request the review on GitHub** with `gh pr edit <PR> --add-reviewer <logins/teams>`. A `/cc @engineer` line in the PR body is not a review request: it puts nothing in the engineer's review queue. All four ambient-drafted docs PRs (#414, #415, #416, #417) named reviewers in prose and got zero reviews, three of them with an empty requested-reviewers list.
+Then apply the `create_pr` skill's reviewer policy ("Request a reviewer (at most one, only with conviction)"): request **at most one human** per PR — never a team — and only when the resolution names exactly one owning engineer. When you do request, make it a real GitHub request with `gh pr edit <PR> --add-reviewer <login>`; a `/cc @engineer` line in the PR body puts nothing in the engineer's review queue (PRs #414–#417 named reviewers in prose and got zero reviews).
 
-An individual unresolved *path* is non-fatal — other paths usually resolve the same owner. An empty *result* is not: fall back to `dannyneira` rather than opening the PR with no reviewer. See step 7 of drift-watch mode for the required command.
+An individual unresolved *path* is non-fatal — other paths usually resolve the same owner. An empty or multi-owner *result* means no request at all: open the PR with no requested reviewer and record why in the run output. There is no fallback reviewer, and never re-add a reviewer a human removed from the PR.
 
-**Expect warp-server-only findings to fall back.** The warp client repo's ownership file has a root rule, so nearly any path in it resolves. warp-server's does not, and whole areas — the `/factory` handlers among them — carry no entry, so a finding whose only source file is a warp-server handler resolves to nothing and lands on `dannyneira`. That is the fallback doing its job; report it that way rather than as a resolution failure. Do not hardcode an owner here to paper over it — the fix belongs in warp-server's ownership file, and once an entry exists resolution starts working with no change to this skill.
+**Expect warp-server-only findings to resolve to nothing.** The warp client repo's ownership file has a root rule, so nearly any path in it resolves. warp-server's does not, and whole areas — the `/factory` handlers among them — carry no entry, so a finding whose only source file is a warp-server handler resolves to no owner and its PR opens with no requested reviewer. Report it that way rather than as a resolution failure. Do not hardcode an owner here to paper over it — the fix belongs in warp-server's ownership file, and once an entry exists resolution starts working with no change to this skill.
 
 ### PR strategy: one PR per feature
 
@@ -573,29 +573,24 @@ with the product. Each run:
 6. **Validate**: if doc pages changed, run `npm ci && npm run build` — a fresh sandbox
    has no `node_modules`, and the build is the only validation this repo has. Then
    re-run the audit and confirm the addressed findings are gone.
-7. **Route reviewers and request the review** (required, not advisory): resolve the
-   owning engineers with `scripts/suggest_reviewers.py` (see Reviewer routing), passing
-   the source files behind the addressed findings, then make a real GitHub review request
-   on each PR you open in step 8. Naming the engineer in the body is not a request — that
-   is exactly how #414–#417 ended up with zero reviews.
+7. **Route the reviewer** (at most one, only with conviction): resolve the owning
+   engineer with `scripts/suggest_reviewers.py` (see Reviewer routing), passing the
+   source files behind the addressed findings. Request a review only when exactly one
+   owner resolves — one human per PR, never a team, never a substitute. When nothing
+   resolves (or several distinct owners do), open the PR with no requested reviewer
+   and record why in the run output; that is a valid outcome, not a run failure.
 
-   **A PR is not complete until `gh pr edit --add-reviewer` has succeeded and the
-   requested reviewers read back as the owners you resolved.** A resolution failure
-   falls back to `dannyneira`; it never no-ops. This matches the fallback in
-   `.github/workflows/release-docs-update.yml` (the "Assign last docs PR reviewer" step).
+   **Use the snippet in the `create_pr` skill under "Request a reviewer (at most one,
+   only with conviction)" — it is the canonical copy; do not paste a second version
+   here.** It distills the resolution to a single human, skips the request when the
+   PR already has a reviewer, and never re-adds a reviewer a human removed. Feed it
+   the reviewers from `suggest_reviewers.py --reviewers-only`, using the source files
+   behind the addressed findings.
 
-   **Use the snippet in the `create_pr` skill under "Request reviewers (required)" —
-   it is the canonical copy; do not paste a second version here.** It requests each
-   reviewer in a separate `gh` call (a comma-joined call is atomic, so one
-   unassignable entry drops every valid owner with it) and verifies the read-back
-   against the resolved set rather than merely against empty. Feed it the reviewers
-   from `suggest_reviewers.py --reviewers-only`, using the source files behind the
-   addressed findings.
-
-   Keep the prose `/cc @engineer` mention in the body as well — this adds the real
-   request, it does not replace the mention. Report any PR whose requested-reviewers
-   list is empty as a run failure, and any PR that got only some of its resolved
-   owners as a partial result worth naming in the run output.
+   When you do request an owner, a real request (`gh pr edit --add-reviewer`) is what
+   counts — naming the engineer in the body is not a request; that is exactly how
+   #414–#417 ended up with zero reviews. Mention and request the same single engineer
+   together, or do neither.
 8. **Open one PR per feature** following the PR strategy above (not a single mega PR):
    one focused PR per documented feature (grouping only features that share a doc file or
    owner), each carrying its content design plan as a section in the PR body, plus the
@@ -603,9 +598,10 @@ with the product. Each run:
    `last_release_processed.json`, and `surface_snapshot.json`. Extend the open bookkeeping
    PR if there is one; open a new one titled `chore(missing_docs): bookkeeping for
    <version>` only if there is not. Use the `create_pr` skill: every drafting PR body
-   opens with the required `## What this feature does` summary, and every PR gets its
-   owning reviewer requested per step 7 before the run is done. Summarize remaining
-   (deferred) findings in the relevant PR body so nothing is silently dropped.
+   opens with the required `## What this feature does` summary, and every PR goes
+   through the reviewer routing in step 7 before the run is done (which may
+   legitimately end with no requested reviewer). Summarize remaining (deferred)
+   findings in the relevant PR body so nothing is silently dropped.
 
 A run that gates out every candidate is a successful run. It opens no feature PRs and
 only the bookkeeping PR recording the verdicts. Do not manufacture work to justify the
@@ -661,10 +657,12 @@ Recommended scheduled-agent prompt (copy when setting up the agent):
 > already APPROVED, in which case wait for the merge and branch from the result; two open
 > bookkeeping PRs conflict on a snapshot that is regenerated wholesale. Title a new one
 > "chore(missing_docs): bookkeeping for <version>".
-> Request the resolved owner as reviewer on every PR with gh pr edit --add-reviewer,
-> falling back to dannyneira when nothing resolves, and verify the requested-reviewers
-> list is non-empty before you finish — a PR with no requested reviewer is an incomplete
-> run, not a delivered one. List any findings you deferred in the relevant PR body.
+> Request at most one reviewer per PR with gh pr edit --add-reviewer, and only when
+> suggest_reviewers.py resolves exactly one owning engineer — never request a team,
+> never substitute a fallback person when nothing resolves, and never re-add a
+> reviewer a human removed from a PR. A PR with no requested reviewer plus a note
+> explaining why is a valid outcome. List any findings you deferred in the relevant
+> PR body.
 
 ### Invocation modes
 
