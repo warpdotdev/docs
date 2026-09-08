@@ -9,6 +9,17 @@ from pathlib import Path
 from typing import Iterable, Mapping, Optional
 
 
+def flatten_review_pages(payload: object) -> list[Mapping[str, object]]:
+    """Accept one review page or the nested result from gh api --slurp."""
+    if not isinstance(payload, list):
+        raise ValueError("reviews JSON must be an array")
+    if all(isinstance(item, list) for item in payload):
+        payload = [review for page in payload for review in page]
+    if not all(isinstance(review, Mapping) for review in payload):
+        raise ValueError("reviews JSON must contain review objects")
+    return list(payload)
+
+
 def stale_review_ids(
     reviews: Iterable[Mapping[str, object]],
     head_sha: str,
@@ -40,8 +51,10 @@ def main(argv: Optional[list[str]] = None) -> int:
     except (OSError, json.JSONDecodeError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
-    if not isinstance(reviews, list):
-        print("error: reviews JSON must be an array", file=sys.stderr)
+    try:
+        reviews = flatten_review_pages(reviews)
+    except ValueError as exc:
+        print(f"error: {exc}", file=sys.stderr)
         return 1
     for review_id in stale_review_ids(
         reviews, args.head_sha, args.reviewer_login

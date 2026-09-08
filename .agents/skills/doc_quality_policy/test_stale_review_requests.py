@@ -48,6 +48,34 @@ class TestStaleReviewIds(unittest.TestCase):
 
         self.assertEqual(srr.stale_review_ids(reviews, "current-sha"), [1])
 
+    def test_flattens_paginated_review_results(self):
+        pages = [
+            [
+                {
+                    "id": 1,
+                    "state": "CHANGES_REQUESTED",
+                    "commit_id": "old-sha",
+                    "user": {"login": "github-actions[bot]"},
+                }
+            ],
+            [
+                {
+                    "id": 2,
+                    "state": "CHANGES_REQUESTED",
+                    "commit_id": "old-sha",
+                    "user": {"login": "human"},
+                }
+            ],
+        ]
+
+        reviews = srr.flatten_review_pages(pages)
+
+        self.assertEqual(srr.stale_review_ids(reviews, "current-sha"), [1])
+
+    def test_rejects_non_review_payloads(self):
+        with self.assertRaises(ValueError):
+            srr.flatten_review_pages([{"id": 1}, "not a review"])
+
 
 if __name__ == "__main__":
     unittest.main()
