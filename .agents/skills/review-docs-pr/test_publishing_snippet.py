@@ -122,7 +122,7 @@ class PublishingSnippetTest(unittest.TestCase):
         self.assertIn("## Findings", payload["body"])
         self.assertIn("`a.md:3` — Fix this typo.", payload["body"])
         self.assertIn("## Verdict\nRequest changes", payload["body"])
-        self.assertEqual(payload["event"], "REQUEST_CHANGES")
+        self.assertEqual(payload["event"], "COMMENT")
 
 
 if __name__ == "__main__":

@@ -20,6 +20,7 @@ _REVIEW_EVENTS = {
     "approve with nits": "COMMENT",
     "approve_with_nits": "COMMENT",
     "request changes": "COMMENT",
+    "request_changes": "COMMENT",
 }
 
 

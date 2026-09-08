@@ -200,13 +200,14 @@ the review yourself. Emit the signal with `reviewer_login` set to
 `github-actions[bot]`; the GitHub Actions runner publishes the review with its
 short-lived token after the cloud agent returns.
 
-1. Determine the authenticated reviewer and map the verdict:
+1. Determine the authenticated reviewer:
    ```bash
    REVIEWER_LOGIN=$(gh api user --jq .login)
    ```
-   Use `APPROVE` for `Approve` and `Approve with nits`; nits do not block
-   merge, so an approval supersedes any earlier change request from the same
-   reviewer. Use `REQUEST_CHANGES` only for `Request changes`.
+   Every verdict — `Approve`, `Approve with nits`, and `Request changes` —
+   publishes as a non-blocking `COMMENT` review. The independent agent's
+   review never blocks merge; only a human reviewer or the engineering-review
+   gate can request changes.
 2. Write the signal JSON object to `/tmp/review-signal.json`, set its
    `reviewer_login` to `$REVIEWER_LOGIN`, and render that same object as the
    `[SIGNAL:pr-review]` line in the final response. Then construct the
@@ -223,9 +224,9 @@ short-lived token after the cloud agent returns.
    review = json.loads(Path("review.json").read_text())
    signal = json.loads(Path("/tmp/review-signal.json").read_text())
    event = {
-       "Approve": "APPROVE",
-       "Approve with nits": "APPROVE",
-       "Request changes": "REQUEST_CHANGES",
+       "Approve": "COMMENT",
+       "Approve with nits": "COMMENT",
+       "Request changes": "COMMENT",
    }[os.environ["VERDICT"]]
    findings = []
    for comment in review["comments"]:

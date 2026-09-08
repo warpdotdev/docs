@@ -74,6 +74,22 @@ class TestBuildReviewPayload(unittest.TestCase):
         self.assertEqual(payload["event"], "COMMENT")
         self.assertIn("canonical subagent terminology", payload["body"])
 
+    def test_request_changes_underscore_spelling_maps_to_non_blocking_comment(self):
+        payload = prs.build_review_payload(
+            _signal(
+                "request_changes",
+                important=1,
+                blocking_findings=[
+                    "`src/content/docs/example.mdx:42` — Use the canonical subagent "
+                    "terminology. Requested change: replace `children` with `subagents`."
+                ],
+            ),
+            "1",
+            "sha1",
+            "github-actions[bot]",
+        )
+        self.assertEqual(payload["event"], "COMMENT")
+
     def test_rejects_blocking_verdict_without_actionable_findings(self):
         with self.assertRaisesRegex(ValueError, "blocking_findings"):
             prs.build_review_payload(
