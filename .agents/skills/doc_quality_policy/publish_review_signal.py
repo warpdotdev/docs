@@ -43,8 +43,14 @@ def build_review_payload(
     event = _REVIEW_EVENTS.get(verdict)
     if event is None:
         raise ValueError(f"unsupported review verdict: {signal['verdict']!r}")
+    blocking_findings = signal.get("blocking_findings") or []
     categories = signal.get("top_categories") or []
-    findings = "\n".join(f"- {category}" for category in categories) or "- No blocking findings."
+    findings = "\n".join(f"- {finding}" for finding in blocking_findings)
+    if not findings:
+        findings = (
+            "\n".join(f"- {category}" for category in categories)
+            or "- No blocking findings."
+        )
     return {
         "commit_id": head_sha,
         "event": event,
