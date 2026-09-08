@@ -144,7 +144,9 @@ Changelog -> src/content/docs/changelog/index.mdx
 Autoupdate -> src/content/docs/support-and-community/troubleshooting-and-support/updating-warp.mdx
 ShellSelector -> src/content/docs/getting-started/supported-shells.mdx
 WorkflowAliases -> src/content/docs/terminal/entry/yaml-workflows.mdx
-KittyImages -> src/content/docs/terminal/more-features/full-screen-apps.mdx
+# The Kitty *image* protocol is documented on files-and-links.mdx; full-screen-apps.mdx
+# covers the Kitty *keyboard* protocol, which is a different surface.
+KittyImages -> src/content/docs/terminal/more-features/files-and-links.mdx
 UndoClosedPanes -> src/content/docs/terminal/windows/tabs.mdx
 # Tab groups (organize tabs into named, collapsible groups) — GA (in the default
 # feature set).
@@ -382,6 +384,10 @@ POST /agent/runs/{runId}/client-events -> internal
 # own cloud agent before setup commands run. Marked `x-internal: true` upstream
 # and guarded by RequireCloudAgent, so it is never callable by an API consumer.
 POST /agent/runs/{runId}/environment-snapshot -> internal
+# Stored computer-use screenshot download (x-internal: true in warp-server
+# public_api/openapi.yaml). Publish filter strips it from the docs OpenAPI copy;
+# backs dogfood StoredScreenshots offload, not the released public Agent API.
+GET /agent/conversations/{conversation_id}/screenshots/{screenshot_uid}/download -> internal
 GET /agent/conversations/{conversation_id}/block-snapshot -> internal
 
 # Support endpoints for third-party harnesses (hidden `oz harness-support` CLI).
@@ -407,6 +413,11 @@ POST /harness-support/commit-snapshot -> internal
 # `x-internal` markers come off. See SKILL.md "Public vs. private surfaces".
 GET /factory -> internal
 GET /factory/access -> internal
+# Personal factory task inbox (router/handlers/public_api/factory_inbox.go).
+# Sibling of the unreleased `/factory` REST surface; released OpenAPI has no
+# `/factory-inbox` paths either. Stays internal until the Factory API ships.
+GET /factory-inbox -> internal
+POST /factory-inbox/notifications/{uid}/dismiss -> internal
 GET /factory-alias/{alias} -> internal
 POST /factory -> internal
 POST /factory/avatar -> internal
@@ -433,6 +444,9 @@ GET /factory/{uid}/source/link-readiness -> internal
 # branch behind the factory definition editor.
 POST /factory/{uid}/source/branch/sync -> internal
 DELETE /factory/{uid}/source/branch -> internal
+# Validates factory-as-code source overlays on the pinned tree
+# (PostFactorySourceValidateHandler). Same unreleased /factory namespace.
+POST /factory/{uid}/source/validate -> internal
 POST /factory/{uid}/merges -> internal
 POST /factory/{uid}/merges/check -> internal
 GET /factory/{uid}/merges/{merge_uid} -> internal
@@ -471,12 +485,19 @@ GET /factory/{uid}/task-by-run -> internal
 # the `/factory` prefix) while the Factory REST API is unreleased. Revisit
 # together with that exclusion when the Factory API ships publicly.
 POST /factory/{uid}/runs -> internal
+# Starts a factory learning run from production feedback
+# (StartFactoryLearningHandler). Same unreleased `/factory` namespace exclusion.
+POST /factory/{uid}/learning -> internal
 # Also marked `x-internal: true` in warp-server's canonical spec, so the publish
 # filter strips it from the public docs copy.
 GET /factory/{uid}/metrics -> internal
-GET /factory/{uid}/metrics/cost-by-pr-size -> internal
 GET /factory/{uid}/metrics/run-breakdown -> internal
-GET /factory/{uid}/metrics/top-prs -> internal
+# Cost breakdown and per-PR cost views moved under /costs/* (former
+# metrics/cost-by-pr-size and metrics/top-prs paths removed in warp-server).
+GET /factory/{uid}/costs/breakdown -> internal
+GET /factory/{uid}/costs/per-pr -> internal
+GET /factory/{uid}/costs/per-pr/by-size -> internal
+GET /factory/{uid}/costs/per-pr/top -> internal
 GET /factory/{uid}/integrations/linear/teams -> internal
 GET /factory/{uid}/integrations/linear/teams/{team_id}/labels -> internal
 PUT /factory/{uid}/integrations/linear/teams/{team_id}/labels -> internal
@@ -526,6 +547,14 @@ GET /factory/{uid}/integrations/linear/users -> internal
 GET /factory/{uid}/integrations/linear/workflow-states -> internal
 GET /factory/{uid}/integrations/slack/conversations -> internal
 GET /factory/{uid}/integrations/slack/users -> internal
+# Issue-tracker issue picker and Slack connection-test greeting used by the
+# factory integrations UI. Same unreleased `/factory` namespace as siblings above.
+GET /factory/{uid}/integrations/issue-tracker/issues -> internal
+POST /factory/{uid}/integrations/slack/connection-test-greeting -> internal
+# Hands a Linear issue to the factory from the integrations test-connections
+# flow (CreateFactoryLinearTaskHandoffHandler). Same unreleased `/factory`
+# namespace exclusion as the integration routes above.
+POST /factory/{uid}/integrations/linear/handoff -> internal
 # Factory benchmark suites and benchmark runs
 # (router/handlers/public_api/benchmarks.go). Same unreleased Factory product as
 # the routes above, and absent from warp-server's canonical public spec.
@@ -536,9 +565,6 @@ PATCH /factory/{uid}/benchmarks/suites/{suite_uid} -> internal
 DELETE /factory/{uid}/benchmarks/suites/{suite_uid} -> internal
 POST /factory/{uid}/benchmarks/suites/{suite_uid}/runs -> internal
 POST /factory/{uid}/benchmarks/suites/{suite_uid}/tasks -> internal
-# Moved out from under /suites/{suite_uid} in warp-server: composing a benchmark
-# task from a production run no longer requires a target suite up front.
-POST /factory/{uid}/benchmarks/tasks/compose-from-run -> internal
 GET /factory/{uid}/benchmarks/runs -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid} -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid}/results -> internal
@@ -601,9 +627,13 @@ GET /memory_stores/{uid}/memories/{memoryUid}/versions -> gated:AIMemories
 # removed from code; its entry has been pruned.
 /voice -> internal
 # TUI-only team switcher (SlashCommandSurfaces::TuiOnly in static_commands/
-# commands.rs). The GUI switches teams from the title-bar pill instead, so this
-# isn't documented on the public slash-commands page.
-/team -> internal
+# commands.rs). The GUI switches teams from the title-bar pill instead, so it
+# isn't on the public slash-commands page — but it IS in the Warp Agent CLI
+# reference's slash command table, so it maps to that page rather than
+# `internal`. NOTE: the sibling TUI-only commands below are still mapped
+# `internal` even though they also appear in that table; suppression behaves
+# the same either way, but those entries overstate "no public docs".
+/team -> src/content/docs/agents/cli/reference.mdx
 # More Warp Agent CLI-only (SlashCommandSurfaces::TuiOnly in static_commands/
 # commands.rs) commands. None are present in the GUI desktop app, so they aren't
 # documented on the public slash-commands page:
@@ -693,6 +723,9 @@ agents.voice.voice_input_hold_key -> internal
 # Per the page's frontmatter comment: not in the Guides sidebar yet, pending
 # team feedback.
 guides/agent-workflows/warp-vs-claude-code
+# Intentionally omitted from src/sidebar.ts: fallback page linked from the
+# SSH extension docs and settings, not a primary nav item.
+terminal/warpify/ssh-legacy
 # Custom Starlight 404 page (template: splash). Starlight renders it through its
 # own prerendered /404 route, so it is intentionally not in the sidebar.
 404
@@ -850,6 +883,13 @@ CodeModeChip
 # Internal agent file-search tool plumbing (read tools are not individually documented).
 GrepTool
 NativeShellCompletions
+# Preview ranking experiment for command history search. No dedicated user-facing
+# knob beyond the existing history search UI; re-check when the flag goes GA.
+HistorySearchRankingV2
+# Preview flag that hands Ctrl+R history search off to the shell's own widget
+# (fzf or atuin) instead of Warp's command search. Not GA, so not documentable;
+# re-check when the flag goes GA.
+ShellWidgetHandoff
 SshDragAndDrop
 ITermImages
 AIGeneratedOnboardingSuggestions
