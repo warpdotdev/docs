@@ -7,6 +7,14 @@ description: Run a recurring AEO new-guide recommendations brief for Warp docs u
 
 Produce 3–5 source-grounded AEO briefs that recommend whether to create a new guide, update an existing page, or avoid a topic — without drafting content. This skill is designed for an Oz scheduled agent that runs monthly. The goal is to give the Docs team a repeatable upstream input to content planning without generating more noise than the team can act on.
 
+## Agent-doc quality contract
+
+This skill does not draft content or open content PRs (see "Do not" below), so
+it does not stamp the `warpy-factory` marker itself. See
+`.agents/references/doc-quality-policy.md` for the contract that applies once
+a recommendation here becomes a real drafting task in `draft_docs` or a
+type-specific drafting skill.
+
 ## Scope
 
 Use this skill only for the pilot topic areas:

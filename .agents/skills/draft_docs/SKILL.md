@@ -230,6 +230,16 @@ Inline `{/* VERIFY: ... */}` markers alone are skippable: a reviewer who skims t
 
 A reviewer must be able to see every unconfirmed claim without opening the diff.
 
+### 9.6. Classify documentation risk and apply the marker
+
+Follow the shared v1 agent-doc quality contract in
+`.agents/references/doc-quality-policy.md`. Walk the low-risk allowlist there
+— a newly-drafted or materially-changed feature page is
+`engineering-review-required` by default, and so is any unresolved `VERIFY`
+marker from step 6/9.5. Build the `## Documentation risk` PR-body section and
+apply the `warpy-factory` label via `create_pr`'s "Documentation risk"
+subsection before requesting review.
+
 ### 10. Update navigation and redirects
 If this is a new page, remind the user to:
 - Add it to the relevant section in `src/sidebar.ts`.

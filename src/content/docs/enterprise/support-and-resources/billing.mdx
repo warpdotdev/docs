@@ -3,11 +3,11 @@ title: Enterprise billing
 sidebar:
   label: "Billing"
 description: >-
-  Learn about billing for Warp Enterprise, including credits, cloud agent
-  costs, and billing management.
+  Billing for Warp Enterprise: credits, cloud agent costs, spending controls,
+  and BYOLLM billing under your contract.
 ---
 
-This page covers general information about credits, cloud agent costs, and BYOLLM billing for enterprise teams. If you have specific questions about custom pricing, credit allocation, or contract terms, contact your Warp account manager.
+Warp Enterprise uses the same credit-based billing as other plans, with pool sizes, rates, and terms set by your contract. For questions about custom pricing, credit allocation, or contract terms, contact your Warp account manager.
 
 ## Credits
 
@@ -31,7 +31,7 @@ Credit allocations vary by contract. Contact your account manager for details on
 
 ## Cloud agent billing
 
-Cloud agents consume AI credits for inference, compute credits for the sandbox they run in, and platform credits for the orchestration layer. See [Credits](/support-and-community/plans-and-billing/credits/) for the full breakdown of how each credit type is metered.
+Cloud agents consume AI credits for inference, compute credits for the sandbox they run in, and [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the platform layer. Platform credits are billed by the agent hour, the time an agent spends working on a task, at the rate set by your contract. Cloud agent runs on self-hosted workers don't consume compute credits but still consume platform credits. See [Credits](/support-and-community/plans-and-billing/credits/) for the full breakdown of how each credit type is metered.
 
 ### How credits are consumed
 
@@ -43,7 +43,7 @@ For more details, see [Access, Billing, and Identity](/platform/team-access-bill
 
 ## BYOLLM billing
 
-When using [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/), Warp routes requests through your cloud infrastructure ([AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/) and [Gemini Enterprise Agent Platform (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/) today, with Azure Foundry coming soon). Customer-routed BYOLLM inference **consumes no credits** — Warp does not charge credits for requests that execute in your cloud. Inference costs are billed directly to your cloud account. Local agent runs that use BYOLLM still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for Warp's platform infrastructure.
+When using [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/), Warp routes requests through your cloud infrastructure ([AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/) and [Gemini Enterprise Agent Platform (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/) today, with Azure Foundry coming soon). Customer-routed BYOLLM inference **consumes no credits** — Warp does not charge credits for requests that execute in your cloud. Inference costs are billed directly to your cloud account. Local agent runs that use BYOLLM still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/).
 
 If a BYOLLM request fails and Warp falls back to a direct API model, that fallback request consumes Warp credits at the standard rate.
 
@@ -88,7 +88,7 @@ For enterprises with credit pools, administrators receive alerts as the team cre
 
 * [Credits](/support-and-community/plans-and-billing/credits/) - How credits are calculated and consumed
 * [Add-on credits](/support-and-community/plans-and-billing/add-on-credits/) - Purchase additional credits and configure auto-reload
-* [Platform credits](/support-and-community/plans-and-billing/platform-credits/) - The third credit bucket alongside AI credits and compute credits, covering Warp's platform infrastructure
+* [Platform credits](/support-and-community/plans-and-billing/platform-credits/) - Billed by the agent hour; cover Warp's platform layer on cloud agent runs and local runs with customer-supplied inference
 * [Pricing FAQs](/support-and-community/plans-and-billing/pricing-faqs/) - Common billing questions
 * [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) - BYOLLM billing and configuration
 * [Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Share provider keys and custom endpoints across the team; inference routes through your accounts
