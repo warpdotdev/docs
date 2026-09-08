@@ -323,13 +323,16 @@ REVIEWERS=$(python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
 #    are never requested. Two or more distinct users is ambiguity, not
 #    conviction: request nobody and name the candidates in the PR body.
 CANDIDATE=""
+CANDIDATE_KEY=""
 AMBIGUOUS=0
 IFS=',' read -ra RESOLVED <<< "$REVIEWERS"
 for R in "${RESOLVED[@]}"; do
   [[ -z "$R" || "$R" == */* ]] && continue
+  R_KEY="${R,,}"
   if [[ -z "$CANDIDATE" ]]; then
     CANDIDATE="$R"
-  elif [[ "$R" != "$CANDIDATE" ]]; then
+    CANDIDATE_KEY="$R_KEY"
+  elif [[ "$R_KEY" != "$CANDIDATE_KEY" ]]; then
     AMBIGUOUS=1
   fi
 done

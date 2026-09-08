@@ -28,18 +28,25 @@ import sys
 from pathlib import Path
 
 args = sys.argv[1:]
+fail = os.environ.get("GH_STUB_FAIL", "")
 calls_file = Path(os.environ["GH_STUB_CALLS"])
 with calls_file.open("a", encoding="utf-8") as stream:
     stream.write(json.dumps(args) + "\\n")
 
 if args[:2] == ["pr", "view"]:
+    if fail == "view":
+        sys.exit(1)
     print(os.environ.get("GH_STUB_REQUESTED", ""))
     sys.exit(0)
 if args[:1] == ["api"]:
     endpoint = args[1]
     if endpoint.endswith("/reviews"):
+        if fail == "reviews":
+            sys.exit(1)
         print(os.environ.get("GH_STUB_REVIEWED", ""))
     elif endpoint.endswith("/timeline"):
+        if fail == "timeline":
+            sys.exit(1)
         print(os.environ.get("GH_STUB_REMOVED", ""))
     else:
         sys.exit(1)
@@ -70,7 +77,7 @@ def risk_body(reviewers):
 
 class EngineeringReviewRequestTest(unittest.TestCase):
     def run_request(
-        self, reviewers, *, requested="", reviewed="", removed=""
+        self, reviewers, *, requested="", reviewed="", removed="", fail=""
     ):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -87,6 +94,7 @@ class EngineeringReviewRequestTest(unittest.TestCase):
                 {
                     "PATH": f"{bin_dir}{os.pathsep}{env['PATH']}",
                     "GH_STUB_CALLS": str(calls_file),
+                    "GH_STUB_FAIL": fail,
                     "GH_STUB_REQUESTED": requested,
                     "GH_STUB_REVIEWED": reviewed,
                     "GH_STUB_REMOVED": removed,
@@ -153,6 +161,24 @@ class EngineeringReviewRequestTest(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(self.requested_reviewers(calls), [])
         self.assertIn("reviewer-removal event(s)", result.stdout)
+
+    def test_requested_reviewer_read_failure_is_fail_closed(self):
+        result, calls = self.run_request("alice", fail="view")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(self.requested_reviewers(calls), [])
+        self.assertIn("Could not read requested reviewers", result.stdout)
+
+    def test_submitted_review_read_failure_is_fail_closed(self):
+        result, calls = self.run_request("alice", fail="reviews")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(self.requested_reviewers(calls), [])
+        self.assertIn("Could not read submitted reviews", result.stdout)
+
+    def test_reviewer_removal_read_failure_is_fail_closed(self):
+        result, calls = self.run_request("alice", fail="timeline")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(self.requested_reviewers(calls), [])
+        self.assertIn("Could not read reviewer-removal history", result.stdout)
 
 
 if __name__ == "__main__":
