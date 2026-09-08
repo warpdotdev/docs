@@ -24,6 +24,12 @@ GOOD_REVIEW = {
     "commit_id": "sha1",
     "body": GOOD_OUTPUT,
 }
+BLOCKING_OUTPUT = (
+    '[SIGNAL:pr-review] {"pr":"1","head_sha":"sha1","reviewer_login":"github-actions[bot]",'
+    '"verdict":"Request changes","critical":0,"important":1,'
+    '"blocking_findings":["`src/content/docs/example.mdx:42` — Explain the issue. '
+    'Requested change: make the required edit."]}'
+)
 
 
 class TestCheckReviewSignal(unittest.TestCase):
@@ -86,6 +92,18 @@ class TestCheckReviewSignal(unittest.TestCase):
         with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[review]):
             problems = vrs.check_review_signal("o/r", "1", "sha1", GOOD_OUTPUT)
         self.assertTrue(any("no current GitHub review" in p for p in problems))
+    def test_published_blocking_review_must_preserve_actionable_findings(self):
+        signal, problems = vrs._parse_signal(BLOCKING_OUTPUT, "1", "sha1")
+        self.assertEqual(problems, [])
+        review = {
+            **GOOD_REVIEW,
+            "body": BLOCKING_OUTPUT.replace(
+                ',"blocking_findings":["`src/content/docs/example.mdx:42` — Explain the issue. '
+                'Requested change: make the required edit."]',
+                "",
+            ),
+        }
+        self.assertFalse(vrs._published_review_matches_signal([review], signal, "sha1"))
 
     def test_stale_signal_fails(self):
         stale_output = GOOD_OUTPUT.replace('"sha1"', '"old-sha"')

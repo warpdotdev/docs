@@ -18,6 +18,7 @@ _spec.loader.exec_module(cpc)
 
 _SIGNAL_RE = re.compile(r"\[SIGNAL:pr-review\]\s*(\{.*?\})", re.DOTALL)
 _PASSING_VERDICTS = {"approve", "approve with nits", "approve_with_nits"}
+_BLOCKING_VERDICTS = {"request changes", "request_changes"}
 
 
 def _parse_signal(
@@ -87,6 +88,24 @@ def _validate_signal(
             continue
         if require_passing_verdict and value != 0:
             problems.append(f"review signal reports {value} {field} finding(s)")
+    verdict = str(signal.get("verdict", "")).strip().lower()
+    if verdict in _BLOCKING_VERDICTS:
+        try:
+            blocking_count = int(signal.get("critical")) + int(signal.get("important"))
+        except (TypeError, ValueError):
+            blocking_count = 0
+        findings = signal.get("blocking_findings")
+        if not isinstance(findings, list) or any(
+            not isinstance(finding, str) or not finding.strip() for finding in findings
+        ):
+            problems.append(
+                "blocking review signal must include non-empty blocking_findings strings"
+            )
+        elif len(findings) < blocking_count:
+            problems.append(
+                "blocking review signal must include one actionable blocking_findings entry "
+                "per critical or important finding"
+            )
     return problems
 
 
@@ -108,7 +127,15 @@ def _published_review_matches_signal(
         )
         if problems or published_signal is None:
             continue
-        fields = ("pr", "head_sha", "verdict", "critical", "important", "reviewer_login")
+        fields = (
+            "pr",
+            "head_sha",
+            "verdict",
+            "critical",
+            "important",
+            "reviewer_login",
+            "blocking_findings",
+        )
         if all(published_signal.get(field) == signal.get(field) for field in fields):
             return True
     return False
