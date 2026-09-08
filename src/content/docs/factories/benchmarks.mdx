@@ -7,6 +7,7 @@ sidebar:
   label: "Benchmarks"
 ---
 import { VARS } from '@data/vars';
+import VideoEmbed from '@components/VideoEmbed.astro';
 
 :::note
 Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
@@ -16,11 +17,20 @@ Benchmarks compare model and runner configurations for one factory agent on the 
 
 ## How benchmarks work
 
+A benchmark helps you choose an agent configuration based on repeatable evidence. Run representative tasks with different configurations, then compare their results before you change a live factory.
+
 A benchmark suite is a reusable collection of tasks that evaluates one factory agent. Each task has a prompt and "Correctness criteria," which tell the built-in Correctness Scorer what a successful trial must do. A trial is one run of one task under one configuration. Repetitions create additional trials.
 
-When you launch a suite, you choose the configurations to compare, the Scorers to use, and the number of repetitions. Warp runs the trials, then scores the completed ones. The run keeps those inputs, so later changes to the suite do not change its past results.
+When you launch a suite, choose the configurations, Scorers, and repetitions to compare. Warp runs the trials, then scores the completed ones. The run keeps those inputs, so later changes to the suite do not change its past results.
 
-Use a suite for one focused question, such as whether a less expensive model preserves the quality of a review agent's work. Test a different agent or job with a separate suite.
+<VideoEmbed url="https://www.youtube.com/watch?v=mojpQjwBXN0" title="Creating a model benchmark from your team's coding tasks" />
+
+<VideoEmbed url="https://www.youtube.com/watch?v=LKx5MeUsptQ" title="Comparing Factory Benchmark results to reduce coding agent costs" />
+
+Use separate suites for focused questions:
+
+* **Factory default** - Compare models and runners to choose the default configuration for a coding agent.
+* **Frontend changes** - Compare configurations on representative frontend tasks before applying one to that workflow.
 
 ## Create and run a benchmark
 
@@ -39,10 +49,6 @@ To use Benchmarks, you need a factory with an agent to evaluate. Use a completed
 5. Click **Run**. In the launch dialog, choose the model and runner for each configuration. Optionally mark one configuration as the baseline.
 6. Add configurations, select Scorers, and set "Repetitions." The dialog shows the number of trials created. More trials and Scorers increase the run's cost.
 7. Click **Run benchmark**. The benchmark page shows its status and scored trials. You can cancel a running or scoring benchmark.
-
-:::caution
-Third-party harness comparison is not available in the current launch. The harness menu marks those choices as coming soon.
-:::
 
 ## Review benchmark results
 
