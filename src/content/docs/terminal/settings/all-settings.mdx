@@ -187,6 +187,8 @@ Settings that control terminal behavior, input, and event handling.
 * `error_underlining_enabled` — Whether command errors are underlined in the input. Type: boolean. Default: `true`.
 * `completions_open_while_typing` — Whether the completions menu opens automatically while typing. Type: boolean. Default: `false`.
 * `classic_completions_mode` — Whether classic completions mode is enabled. Type: boolean. Default: `false`.
+* `warp_completions_enabled` — Whether Warp's built-in completions are shown for shell commands. Effective only while the Native shell completions Preview is enabled for your account; otherwise Warp always uses built-in completions. When this setting is in effect and enabled, **Settings** > **Features** > **Terminal Input** also exposes "Open completions menu as you type" as a nested control (the same knob as `completions_open_while_typing`). Type: boolean. Default: `true`.
+* `native_shell_completions_enabled` — Whether your shell's own completions are used for shell commands. Effective only while the Native shell completions Preview is enabled for your account; otherwise the setting is ignored and native completions stay off. Native shell completions are not generated as you type; press `Tab` (or your completions keybinding) to fetch them. Type: boolean. Default: `true`.
 * `show_hint_text` — Whether hint text is shown in the terminal input. Type: boolean. Default: `true`.
 * `show_terminal_input_message_bar` — Whether the terminal input message bar is shown. Type: boolean. Default: `true`.
 * `enable_slash_commands_in_terminal` — Whether slash commands are available in the terminal input. Type: boolean. Default: `true`.
@@ -265,6 +267,7 @@ Settings for Warp's agents, including model behavior, permissions, knowledge, MC
 * `cloud_conversation_storage_enabled` — Whether conversations are stored in the cloud. Type: boolean. Default: `true`.
 * `usage_display_mode` — Which unit the terminal agent's usage entry displays. Applies only to the terminal agent's settings file; click the usage entry to flip between units. Type: string. Default: `"credits"`. Options: `"credits"` (the same number the desktop app's usage footer shows), `"cost"` (provider dollar cost).
 * `execution_profiles` — The collection of [agent profiles](/agents/capabilities/agent-profiles-permissions/) and their permissions, shared by Agent Mode and the terminal agent. This is a structured object that Warp manages when you create and edit profiles in **Settings** > **Agents** > **Profiles**; edit it through the UI rather than by hand. Type: object. Default: `{}` (Warp's built-in profiles).
+* `custom_endpoints` — Non-secret [custom inference endpoint](/agents/inference/custom-inference-endpoint/) definitions (URL, models, schema). Credentials stay in local secure storage, not in this object. Warp manages the collection from **Settings**; edit it through the UI rather than by hand. Type: object. Default: `{}`.
 
 ### Knowledge
 
