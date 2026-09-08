@@ -1821,13 +1821,7 @@ components:
         service-account callers, which always act as their bound team.
       schema:
         type: string
-  responses:
-    FactoryAccessDenied:
-      description: Factory access is not enabled for the authenticated principal
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  responses: {}
   schemas:
     RunAgentRequest:
       type: object
@@ -2808,10 +2802,7 @@ components:
       - AUTOFIX
       - RUN_SCORER
       - ORCHESTRATION
-      - BENCHMARK_TRIAL
-      - CREATE_BENCHMARK_TASK
-      - CUSTOM_WEBHOOK
-      description: |
+      description: |-
         Source that created the run:
         - LINEAR: Created from Linear integration
         - API: Created via the Warp API
@@ -2829,9 +2820,6 @@ components:
         - AUTOFIX: Created by Warp's autofix pipeline
         - RUN_SCORER: Created by Warp's run-scoring judge
         - ORCHESTRATION: Created as a child run by the orchestration layer (parent_run_id set)
-        - BENCHMARK_TRIAL: Created as a factory benchmark trial
-        - CREATE_BENCHMARK_TASK: Created by a Factory foreman authoring a benchmark task from a completed run
-        - CUSTOM_WEBHOOK: Created by a factory automation subscribed to a custom webhook source
     RunExecutionLocation:
       type: string
       enum:
