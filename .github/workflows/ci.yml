@@ -65,6 +65,13 @@ jobs:
           python3 .agents/skills/doc_quality_policy/test_publish_review_signal.py
           python3 .agents/skills/doc_quality_policy/test_manifest.py
 
+      # Extracts the documented manual review-publishing snippet from
+      # review-docs-pr/SKILL.md and runs it against a stub, so CI catches
+      # this documented path drifting from publish_review_signal.py (e.g.
+      # the signal-hiding format going out of sync between the two).
+      - name: Test review-docs-pr publishing snippet
+        run: python3 .agents/skills/review-docs-pr/test_publishing_snippet.py
+
       - name: Test validate_ui_refs --changed mode and snapshot provenance
         run: python3 .agents/skills/validate_ui_refs/test_changed_mode.py
 
@@ -141,6 +148,11 @@ jobs:
       # exact text agents copy rather than a paraphrase of it.
       - name: Test create_pr reviewer-request snippet
         run: python3 .agents/skills/create_pr/test_request_reviewers.py
+
+      # Runs the engineering-review workflow's exact shell block against a
+      # stubbed GitHub CLI to keep its add-once policy executable in CI.
+      - name: Test engineering-review request workflow
+        run: python3 .github/workflows/test_request_engineering_review.py
 
       # Validate the validate_ui_refs snapshot and script invariants. Uses
       # a synthetic warp client fixture internally — no checkout required.
