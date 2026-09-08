@@ -145,10 +145,38 @@ class TestMainCLI(unittest.TestCase):
         # Users deduped (lucie once) and ordered; teams separated.
         self.assertIn("Reviewers (users): lucie, zach, ian", out)
         self.assertIn("Reviewers (teams): warpdotdev/oss-maintainers", out)
-        # gh snippet present.
-        self.assertIn("--add-reviewer lucie,zach,ian,warpdotdev/oss-maintainers", out)
+        # Multiple owners is not a single clear owner: no ready-to-run command,
+        # just the candidate list for the PR body.
+        self.assertIn("Multiple owners resolved", out)
+        self.assertIn("candidates: lucie, zach, ian", out)
+        self.assertNotIn("gh pr edit <PR> --add-reviewer", out)
         # The unmatched server path is reported, not fatal.
         self.assertIn("no owner match", out)
+
+    def test_single_owner_prints_single_reviewer_command(self):
+        """Exactly one resolved user yields a one-human suggested command."""
+        with tempfile.TemporaryDirectory() as d:
+            warp = Path(d) / "warp"
+            self._make_repo(
+                warp,
+                "/ @warpdotdev/oss-maintainers\n/app/src/settings/ @lucie\n",
+            )
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(_MODULE_PATH),
+                    "--warp",
+                    str(warp),
+                    "warp:app/src/settings/ssh.rs",
+                ],
+                capture_output=True,
+                text=True,
+                stdin=subprocess.DEVNULL,
+            )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("gh pr edit <PR> --add-reviewer lucie", result.stdout)
+        # Never a comma-joined multi-reviewer suggestion.
+        self.assertNotIn("--add-reviewer lucie,", result.stdout)
 
     def test_reviewers_only_prints_bare_add_reviewer_argument(self):
         """--reviewers-only must be directly consumable by `gh pr edit --add-reviewer`."""
@@ -177,7 +205,7 @@ class TestMainCLI(unittest.TestCase):
         self.assertEqual(result.stdout, "lucie,warpdotdev/oss-maintainers\n")
 
     def test_reviewers_only_is_empty_when_nothing_resolves(self):
-        """An empty result is the caller's cue to use the fallback reviewer."""
+        """An empty result means the PR opens with no requested reviewer."""
         with tempfile.TemporaryDirectory() as d:
             warp = Path(d) / "warp"
             self._make_repo(warp, "/app/src/settings/ @lucie\n")
