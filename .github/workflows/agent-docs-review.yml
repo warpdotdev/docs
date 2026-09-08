@@ -1,0 +1,86 @@
+name: Agent docs review
+
+# Internal-PR-only: dispatches an independent review-docs-pr pass for every
+# agent-marked PR (the `warpy-factory` label), pinned to the exact head SHA.
+# A fork PR never receives secrets or dispatches agent work, since
+# `pull_request` (not `pull_request_target`) runs with the fork's own
+# read-only token and no repository secrets.
+on:
+  pull_request:
+    types: [opened, labeled, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  # One review run per PR; a new push (synchronize) cancels the stale-SHA
+  # run in progress rather than letting two reviews race on the same PR.
+  group: agent-docs-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    name: Agent docs review
+    runs-on: ubuntu-latest
+    # Only agent-marked PRs get the independent review pass, and only from
+    # this same repository (never a fork, which carries no secrets here).
+    if: |
+      contains(github.event.pull_request.labels.*.name, 'warpy-factory') &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Checkout docs
+        uses: actions/checkout@v4
+
+      - name: Run independent review-docs-pr agent
+        id: oz-review
+        uses: warpdotdev/oz-agent-action@main
+        with:
+          warp_api_key: ${{ secrets.WARP_API_KEY }}
+          profile: ${{ vars.WARP_AGENT_PROFILE || '' }}
+          prompt: |
+            Run the review-docs-pr skill against warpdotdev/docs PR #${{ github.event.pull_request.number }}
+            at head SHA ${{ github.event.pull_request.head.sha }}. This PR carries the warpy-factory agent
+            marker, so it requires the independent v1 agent-doc quality review pass (see
+            .agents/references/doc-quality-policy.md):
+
+            1. Re-validate the declared "## Documentation risk" level against the actual diff using
+               the low-risk allowlist. A risk misclassification is an important finding.
+            2. Verify technical claims against cited source files when the PR is
+               engineering-review-required.
+            3. Do not use `gh` or attempt to publish a GitHub review. The GitHub Actions runner
+               publishes the review using its short-lived token after this run completes.
+            4. Emit one [SIGNAL:pr-review] JSON record with this head SHA, verdict, severity
+               counts, and top categories. Set reviewer_login to `github-actions[bot]`, the
+               runner account that will publish the review.
+
+      - name: Publish the independent review
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AGENT_OUTPUT: ${{ steps.oz-review.outputs.agent_output }}
+        run: |
+          printf '%s' "$AGENT_OUTPUT" > /tmp/agent-output.txt
+          python3 .agents/skills/doc_quality_policy/publish_review_signal.py \
+            --agent-output /tmp/agent-output.txt \
+            --pr "${{ github.event.pull_request.number }}" \
+            --head-sha "${{ github.event.pull_request.head.sha }}" \
+            --output /tmp/review-request.json
+          gh api --method POST \
+            "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews" \
+            --input /tmp/review-request.json
+
+      # A successful agent action is not proof that the run reviewed this
+      # exact head or passed: require its one structured signal and an
+      # authoritative current GitHub review.
+      - name: Verify the current review signal and GitHub review
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AGENT_OUTPUT: ${{ steps.oz-review.outputs.agent_output }}
+        run: |
+          printf '%s' "$AGENT_OUTPUT" > /tmp/agent-output.txt
+          python3 .agents/skills/doc_quality_policy/verify_review_signal.py \
+            --repo "${{ github.repository }}" \
+            --pr "${{ github.event.pull_request.number }}" \
+            --head-sha "${{ github.event.pull_request.head.sha }}" \
+            --agent-output /tmp/agent-output.txt \
+            --reviewer-login github-actions[bot]

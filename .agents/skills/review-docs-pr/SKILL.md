@@ -16,6 +16,45 @@ Use this skill when reviewing documentation changes in PRs. The skill will:
 - Review AEO/source-data fit for docs changes that target search or answer-engine visibility
 - Check Astro Starlight structure integrity
 
+When the PR carries the `warpy-factory` label, this is the **independent v1
+agent-doc quality review pass** dispatched by
+`.github/workflows/agent-docs-review.yml` for the current head SHA (see
+"Agent-marked PR review (v1 contract)" below).
+
+## Agent-marked PR review (v1 contract)
+
+For a PR carrying the `warpy-factory` label, in addition to the standard
+review focus areas, this pass is the human-review-blocking gate defined in
+`.agents/references/doc-quality-policy.md`:
+
+1. **Re-validate the declared risk.** Parse the PR's `## Documentation risk`
+   section (`.agents/skills/doc_quality_policy/policy.py`'s
+   `parse_documentation_risk_section`). Walk the diff against the low-risk
+   allowlist yourself. A declared `low` risk that actually touches any
+   engineering-review trigger (a new/changed feature page, or any of the
+   technical claim categories in the allowlist) is a **risk
+   misclassification** — flag it `⚠️ [IMPORTANT]` and reflect it in the
+   verdict (see "Severity Labels" below); it is not a soft suggestion.
+2. **Verify technical claims against source** when the PR is (or should be)
+   `engineering-review-required`: confirm the cited `Source files consulted`
+   actually support the claims. Use `answer_question` when source access is
+   available.
+3. **Check the compression contract.** Run
+   `.agents/skills/doc_quality_policy/check_compression_contract.py` against
+   each changed content-type page. An unjustified violation (no reasoning in
+   the PR body for the overage) is `⚠️ [IMPORTANT]`; a justified one is
+   `💡 [SUGGESTION]` at most.
+4. **Check VERIFY accounting.** Run the structural mode of
+   `.agents/skills/doc_quality_policy/check_pr_contract.py --body <file>
+   <changed public documentation files>` against the current head. Pass only
+   changed `.md` or `.mdx` files under `src/content/docs/`, matching the
+   checker's autodiscovery scope. Do not pass `.agents/` policy prose,
+   workflow files, tests, or other non-public documentation files. Do not invoke
+   `--enforce-engineering-gate` during the independent review; a pending human
+   approval is not itself a contract violation. Any reported contract
+   violation (missing section, unlisted marker, listed marker at `low` risk)
+   is `🚨 [CRITICAL]`.
+
 ## Review Instructions
 
 Review this documentation PR for the docs repository.
@@ -36,10 +75,14 @@ Provide actionable, constructive feedback. Focus on documentation quality issues
 ### Severity Labels (Required)
 
 Every comment body MUST begin with one of:
-- `🚨 [CRITICAL]` — Broken links, incorrect commands/code, factually wrong information that could confuse users
-- `⚠️ [IMPORTANT]` — Style guide violations, missing redirects, structural issues
+- `🚨 [CRITICAL]` — Broken links, incorrect commands/code, factually wrong information that could confuse users, or a v1 contract violation (missing/invalid `## Documentation risk`, an unlisted `VERIFY` marker)
+- `⚠️ [IMPORTANT]` — Style guide violations, missing redirects, structural issues, a documentation-risk misclassification, or an unjustified compression-contract violation
 - `💡 [SUGGESTION]` — Improvements to clarity, wording, or structure
 - `🧹 [NIT]` — Typos, minor formatting (ONLY if providing a suggestion block)
+
+**Blocking rule for agent-marked PRs.** Any `🚨 [CRITICAL]` or `⚠️ [IMPORTANT]`
+finding — including a risk misclassification — means the verdict is
+**Request changes**. Suggestions and nits never block.
 
 ### Using answer_question for verification
 
@@ -84,11 +127,11 @@ Create a `review.json` file with the following structure:
 ### Summary Requirements
 
 The summary should:
-- Start with a brief (2-3 sentence) overview of what the PR changes and your assessment
-- Include issue counts: "Found: X critical, Y important, Z suggestions, N nits"
-- End with final recommendation: "Approve", "Approve with nits", or "Request changes"
+- Use at most three concise sentences describing the PR and its assessment.
+- Include issue counts: `Found: X critical, Y important, Z suggestions, N nits`.
+- End with the recommendation: `Approve`, `Approve with nits`, or `Request changes`.
 
-Keep the tone helpful and constructive. The summary can mention positive aspects (e.g., "good improvements to clarity") alongside concerns.
+The publishing step renders the summary under a `## Review summary` heading.
 
 ### Comment Format
 
@@ -131,7 +174,78 @@ After creating and validating `review.json` (immediately after the Validation se
 3. Determine the skill used from the PR branch name or PR description if available.
 4. Include the following structured marker in your **text response** (write it as part of your agent message, not via a shell `echo` command). This ensures it appears as a `TextContentBlock` in the conversation, where `oz run get --conversation` can reliably retrieve it:
    ```
-   [SIGNAL:pr-review] {"date":"YYYY-MM-DD","pr":"NNN","branch":"branch-name","skill_used":"draft_feature_doc","verdict":"Request changes","critical":N,"important":N,"suggestions":N,"nits":N,"top_categories":["category (N)","category (N)","category (N)"]}
+   [SIGNAL:pr-review] {"date":"YYYY-MM-DD","pr":"NNN","branch":"branch-name","head_sha":"abc1234","skill_used":"draft_feature_doc","reviewer_login":"GITHUB_LOGIN","verdict":"Request changes","critical":N,"important":N,"suggestions":N,"nits":N,"top_categories":["category (N)","category (N)","category (N)"]}
    ```
+   Set `head_sha` to the exact commit SHA this review evaluated (the head SHA
+   `.github/workflows/agent-docs-review.yml` passed in, or `gh pr view NNN
+   --json headRefOid --jq .headRefOid` when reviewing interactively). A push
+   of a new commit makes any earlier signal for this PR stale; the collector
+   in `improve-drafting-skills` keys its `review_outcome` lookup on this field
+   matching the PR's current head.
 
 The `improve-drafting-skills` outer loop reads this signal from the conversation via `oz run get --conversation`, scanning assistant `TextContentBlock` messages for the marker. No git operations are required.
+
+## Publishing a GitHub review
+
+After creating `review.json`, publishing the signal, and completing validation, create one GitHub PR review pinned to the evaluated head SHA. The review body must include the same `[SIGNAL:pr-review]` JSON record used in the text response.
+
+When `.github/workflows/agent-docs-review.yml` starts this skill, do not publish
+the review yourself. Emit the signal with `reviewer_login` set to
+`github-actions[bot]`; the GitHub Actions runner publishes the review with its
+short-lived token after the cloud agent returns.
+
+1. Determine the authenticated reviewer and map the verdict:
+   ```bash
+   REVIEWER_LOGIN=$(gh api user --jq .login)
+   ```
+   Use `APPROVE` for `Approve` and `Approve with nits`; nits do not block
+   merge, so an approval supersedes any earlier change request from the same
+   reviewer. Use `REQUEST_CHANGES` only for `Request changes`.
+2. Write the signal JSON object to `/tmp/review-signal.json`, set its
+   `reviewer_login` to `$REVIEWER_LOGIN`, and render that same object as the
+   `[SIGNAL:pr-review]` line in the final response. Then construct the
+   pinned review request from `review.json`:
+   ```bash
+   HEAD_SHA="<evaluated PR head SHA>"
+   VERDICT="<Approve|Approve with nits|Request changes>"
+   export HEAD_SHA VERDICT
+   python3 - <<'PY'
+   import json
+   import os
+   from pathlib import Path
+
+   review = json.loads(Path("review.json").read_text())
+   signal = json.loads(Path("/tmp/review-signal.json").read_text())
+   event = {
+       "Approve": "APPROVE",
+       "Approve with nits": "APPROVE",
+       "Request changes": "REQUEST_CHANGES",
+   }[os.environ["VERDICT"]]
+   findings = []
+   for comment in review["comments"]:
+       location = f"`{comment['path']}:{comment['line']}`"
+       finding = comment["body"].splitlines()[0]
+       findings.append(f"- {location} — {finding}")
+   findings_text = "\n".join(findings) or "- No inline findings."
+   payload = {
+       "commit_id": os.environ["HEAD_SHA"],
+       "event": event,
+       "body": (
+           f"## Review summary\n{review['summary'].strip()}\n\n"
+           f"## Findings\n{findings_text}\n\n"
+           f"## Verdict\n{os.environ['VERDICT']}\n\n"
+           f"## Review signal\n[SIGNAL:pr-review] {json.dumps(signal, sort_keys=True)}"
+       ),
+       "comments": review["comments"],
+   }
+   Path("/tmp/review-request.json").write_text(json.dumps(payload))
+   PY
+   ```
+3. Submit the review:
+   ```bash
+   gh api --method POST "repos/OWNER/REPO/pulls/PR_NUMBER/reviews" \
+     --input /tmp/review-request.json
+   ```
+   Replace `OWNER/REPO`, `PR_NUMBER`, and `commit_id` with the pull request being reviewed and its exact head SHA.
+
+The workflow verifies that a current-head review from `reviewer_login` contains the exact signal fields. Do not leave the signal only in the agent response or an issue comment.

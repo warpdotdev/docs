@@ -15,6 +15,16 @@ Keep `developers/agent-api-openapi.yaml` in sync with the canonical spec at `war
 
 **Direction:** warp-server → docs. The server spec is the source of truth. The docs file is a curated subset (drops `memory_stores`/`harness-support` and a handful of internal `agent` paths) that Scalar renders on `docs.warp.dev/api`.
 
+## Agent-doc quality contract
+
+The PR this skill opens or updates follows the shared v1 agent-doc quality
+contract in `.agents/references/doc-quality-policy.md`: apply the
+`warpy-factory` label and add the `## Documentation risk` block
+(`.agents/skills/doc_quality_policy/finalize_pr_contract.py build`). A
+regenerated spec sync is `engineering-review-required` (changes API behavior
+claims) unless the diff is provably a mechanical passthrough of the source
+spec with no manual edits.
+
 ## Repos
 
 This skill requires two repos in the agent's environment:

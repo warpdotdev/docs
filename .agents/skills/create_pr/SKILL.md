@@ -13,6 +13,7 @@ This guide covers best practices for creating pull requests in the docs document
 
 - `draft_docs` - Draft new documentation pages or update existing ones using established style conventions
 - `check_for_broken_links` - Check documentation for broken internal and external links before opening PR
+- `doc_quality_policy` - Shared v1 agent-doc quality contract (marker, risk classification, overrides) this skill's PRs must satisfy
 
 ## Pre-PR Checklist
 
@@ -209,6 +210,31 @@ When claims are outstanding, give the reviewer one bullet per claim with what wo
 ## Unverified claims
 - `--auto-approve` flag name — `cloud-agents.mdx`, "Run an agent" — taken from the PRD; confirm against `TuiArgs` in `warp-internal`.
 - **Settings** > **Agents** > **Permissions** path — `permissions.mdx`, "Defaults" — source repos were not available in this environment.
+```
+
+### Documentation risk (required on all content PRs)
+
+Every content PR carries a `## Documentation risk` section and the
+`warpy-factory` label, per the shared v1 agent-doc quality contract in
+`.agents/references/doc-quality-policy.md`. Classify risk against the
+low-risk allowlist there, then build the section:
+
+```bash
+python3 .agents/skills/doc_quality_policy/finalize_pr_contract.py build \
+  --risk low --rationale "One-line reason the change is low risk."
+```
+
+Insert the printed block into the body (after "Unverified claims" is a good
+place) and apply the label once the PR exists:
+
+```bash
+gh pr edit <pr> --repo warpdotdev/docs --add-label warpy-factory
+```
+
+Before marking the PR ready, verify the contract:
+
+```bash
+python3 .agents/skills/doc_quality_policy/check_pr_contract.py --body /tmp/pr-body.md
 ```
 
 ### Additional context (optional)
@@ -452,7 +478,7 @@ A team handle resolved from `STAKEHOLDERS` or `CODEOWNERS` can only be requested
 :::
 
 :::note
-Auto-requesting the review does not make it *block* merge. Whether an ambient docs PR should require that approval through branch protection is an open question for the docs owner, not something this skill decides.
+Auto-requesting the review does not block merge. The Docs team owns the merge decision after its normal review, whether an engineer replies in GitHub, replies elsewhere, or does not reply.
 :::
 
 ### Update an existing PR

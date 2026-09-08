@@ -19,6 +19,17 @@ They support the following:
   (`/channel-versions`, sibling repo)
 - running one task or all tasks in the required order
 
+## Agent-doc quality contract
+
+Before requesting review on a PR this skill opens, follow the shared v1
+agent-doc quality contract in `.agents/references/doc-quality-policy.md`:
+add the `## Documentation risk` block
+(`.agents/skills/doc_quality_policy/finalize_pr_contract.py build`) and apply
+the `warpy-factory` label. Generated changelog/license/telemetry updates are
+exempt from the compression word-budget rules but not from the risk/marker
+contract — classify them per the low-risk allowlist (they are typically `low`
+when the source-verification step passed).
+
 ## Environment requirements (Oz cloud)
 
 ### Required

@@ -1749,10 +1749,25 @@ def create_pr_with_fixes() -> None:
         "docs: auto-fix style lint issues\n\nCo-Authored-By: Oz <oz-agent@warp.dev>",
     ], check=True)
     subprocess.run(["git", "push", "origin", branch], check=True)
+    # This is a real, direct PR-creation code path (not delegated to
+    # create_pr), so it carries the same v1 doc-quality contract sections
+    # every other PR-producing skill does. Auto-fixed style/terminology
+    # corrections are mechanically `low` risk: they never change product
+    # meaning, only wording/formatting to match AGENTS.md.
+    contract = (
+        "## Documentation risk\n"
+        "Risk: low\n"
+        "Rationale: Mechanical style/terminology auto-fixes only, applied by "
+        "style_lint.py --fix; no product meaning changes.\n"
+        "Docs override: none\n\n"
+        "## Unverified claims\n"
+        "None \u2014 formatting/terminology fixes only."
+    )
     subprocess.run([
         "gh", "pr", "create",
         "--title", "docs: auto-fix style lint issues",
-        "--body", "Automated fixes from `style_lint.py --fix`.\n\nCo-Authored-By: Oz <oz-agent@warp.dev>",
+        "--body", f"Automated fixes from `style_lint.py --fix`.\n\n{contract}\n\nCo-Authored-By: Oz <oz-agent@warp.dev>",
+        "--label", "warpy-factory",
     ], check=True)
 
 

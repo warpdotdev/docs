@@ -12,6 +12,15 @@ description: >-
 
 Crawl the live docs.warp.dev sitemap to find SEO issues and fix them in the source files.
 
+## Agent-doc quality contract
+
+Any PR this skill opens follows the shared v1 agent-doc quality contract in
+`.agents/references/doc-quality-policy.md`: apply the `warpy-factory` label
+and add the `## Documentation risk` block
+(`.agents/skills/doc_quality_policy/finalize_pr_contract.py build`). Title,
+description, and metadata fixes that preserve product meaning are typically
+`low` risk under the allowlist.
+
 ## Running the audit
 
 From the docs repo root:
