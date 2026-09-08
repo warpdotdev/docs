@@ -7,9 +7,8 @@ rather than a paraphrased implementation.
 
 The policy under test: at most ONE human reviewer, requested only when
 ownership resolution names exactly one owning engineer; no fallback reviewer
-of any kind; teams are never requested; a PR that already has a reviewer gets
-no additions; and a reviewer a human removed (a `review_request_removed`
-timeline event) is never re-added.
+of any kind; teams are never requested; and any existing requested reviewer,
+submitted review, or reviewer-removal event stops new requests.
 
 Run with: python3 .agents/skills/create_pr/test_request_reviewers.py
 """
@@ -42,9 +41,13 @@ with calls_file.open("a", encoding="utf-8") as stream:
     stream.write(json.dumps(args) + "\\n")
 
 if args[:1] == ["api"]:
-    # The snippet's only `gh api` call is the timeline query for
-    # review_request_removed events; answer with the pre-joined list.
-    print(os.environ.get("GH_STUB_REMOVED", ""))
+    endpoint = args[1]
+    if endpoint.endswith("/reviews"):
+        print(os.environ.get("GH_STUB_REVIEWED", ""))
+    elif endpoint.endswith("/timeline"):
+        print(os.environ.get("GH_STUB_REMOVED", ""))
+    else:
+        sys.exit(1)
     sys.exit(0)
 
 state = json.loads(state_file.read_text(encoding="utf-8"))
@@ -79,7 +82,9 @@ def extract_reviewer_snippet():
 
 
 class ReviewerSnippetTest(unittest.TestCase):
-    def run_snippet(self, *, initial=(), resolved="", reject="", removed=""):
+    def run_snippet(
+        self, *, initial=(), resolved="", reject="", reviewed="", removed=""
+    ):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             bin_dir = root / "bin"
@@ -107,6 +112,7 @@ class ReviewerSnippetTest(unittest.TestCase):
                     "GH_STUB_STATE": str(state_file),
                     "GH_STUB_CALLS": str(calls_file),
                     "GH_STUB_REJECT": reject,
+                    "GH_STUB_REVIEWED": reviewed,
                     "GH_STUB_REMOVED": removed,
                     "STUB_REVIEWERS": resolved,
                 }
@@ -186,25 +192,27 @@ class ReviewerSnippetTest(unittest.TestCase):
         self.assertEqual(self.requested_reviewers(calls), [])
         self.assertIn("already has reviewer(s)", result.stdout)
 
+    def test_submitted_review_means_no_new_request(self):
+        result, state, calls = self.run_snippet(resolved="alice", reviewed="carol")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(state, [])
+        self.assertEqual(self.requested_reviewers(calls), [])
+        self.assertIn("already has submitted review(s)", result.stdout)
+
     def test_removed_reviewer_is_never_readded(self):
         """A human removed the resolved owner from this PR - stay removed."""
         result, state, calls = self.run_snippet(resolved="alice", removed="alice")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(state, [])
         self.assertEqual(self.requested_reviewers(calls), [])
-        self.assertIn("not re-adding", result.stdout)
+        self.assertIn("reviewer-removal event", result.stdout)
 
-    def test_removed_check_is_case_insensitive(self):
-        result, state, calls = self.run_snippet(resolved="alice", removed="Alice")
+    def test_any_removed_reviewer_blocks_new_requests(self):
+        result, state, calls = self.run_snippet(resolved="alice", removed="bob")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(state, [])
         self.assertEqual(self.requested_reviewers(calls), [])
-
-    def test_unrelated_removed_reviewer_does_not_block(self):
-        result, state, calls = self.run_snippet(resolved="alice", removed="bob")
-        self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(state, ["alice"])
-        self.assertEqual(self.requested_reviewers(calls), ["alice"])
+        self.assertIn("reviewer-removal event", result.stdout)
 
     def test_failed_request_does_not_fall_back(self):
         """A rejected request is reported; nobody else is substituted."""
