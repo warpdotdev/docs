@@ -15,6 +15,11 @@ Warp Factories is in **Early Access** and available to a limited set of teams. [
 
 Benchmarks compare model and runner configurations for one factory agent on the same fixed tasks. Use a benchmark to test a change on representative work before you apply it to your factory.
 
+<figure style={{ maxWidth: "563px" }}>
+![The Benchmarks page showing saved benchmark suites, a search field, and the New button.](../../../assets/factories/factory-benchmarks-list.png)
+<figcaption>The Benchmarks page for a factory.</figcaption>
+</figure>
+
 ## How benchmarks work
 
 A benchmark helps you choose an agent configuration based on repeatable evidence. Run representative tasks with different configurations, then compare their results before you change a live factory.
@@ -22,6 +27,11 @@ A benchmark helps you choose an agent configuration based on repeatable evidence
 A benchmark suite is a reusable collection of tasks that evaluates one factory agent. Each task has a prompt and "Correctness criteria," which tell the built-in Correctness Scorer what a successful trial must do. A trial is one run of one task under one configuration. Repetitions create additional trials.
 
 When you launch a suite, choose the configurations, Scorers, and repetitions to compare. Warp runs the trials, then scores the completed ones. The run keeps those inputs, so later changes to the suite do not change its past results.
+
+<figure style={{ maxWidth: "563px" }}>
+![The Runs tab for a benchmark suite, with task, configuration, run time, and cost columns.](../../../assets/factories/benchmark-suite-runs.png)
+<figcaption>The Runs tab for a benchmark suite.</figcaption>
+</figure>
 
 The following videos show how to create a benchmark suite from team coding tasks and compare cost-focused results.
 <VideoEmbed url="https://www.youtube.com/watch?v=mojpQjwBXN0" title="Creating a model benchmark from your team's coding tasks" />
@@ -46,20 +56,43 @@ To use Benchmarks, you need a factory with an agent to evaluate. Use a completed
 
 3. Click **Add task**. Warp saves the benchmark, then opens task setup.
 4. Select a completed run, then click **Add task**. To write a task instead, click **Start from scratch instead**.
+
+   <figure style={{ maxWidth: "375px" }}>
+   ![The Add task pane with a run search field, the list of completed runs, and the Start from scratch instead option.](../../../assets/factories/benchmark-task-source-run.png)
+   <figcaption>The task source picker.</figcaption>
+   </figure>
 5. Review the task prompt and enter "Correctness criteria" for the task.
+
+   <figure style={{ maxWidth: "375px" }}>
+   ![The task editor with fields for a title, prompt, correctness criteria, and pinned repositories.](../../../assets/factories/benchmark-task-editor.png)
+   <figcaption>The task editor for a benchmark suite.</figcaption>
+   </figure>
 6. Click **Run**. In the launch dialog, choose the model and runner for each configuration. Optionally mark one configuration as the baseline. Third-party harness comparisons are not available yet.
 7. Add configurations, select Scorers, and set "Repetitions." The dialog shows the number of trials created. More trials and Scorers increase the run's cost.
+
+   <figure style={{ maxWidth: "736px" }}>
+   ![The New benchmark run dialog with model and runner configurations, a baseline option, selected Scorers, a repetition count, and projected trial count.](../../../assets/factories/benchmark-run-launch.png)
+   <figcaption>The launch configuration for a benchmark run.</figcaption>
+   </figure>
 8. Click **Run benchmark**. The benchmark page shows its status and scored trials. You can cancel a running or scoring benchmark.
 
 ## Review benchmark results
 
 After the run completes, review the result as a comparison, not as a universal model ranking:
+<figure style={{ maxWidth: "736px" }}>
+![A completed benchmark result showing the overall recommendation, additional recommendations, total cost, and a correctness versus average cost chart.](../../../assets/factories/benchmark-run-results-overview.png)
+<figcaption>A completed benchmark result and comparison chart.</figcaption>
+</figure>
 
 * **Overall recommendation** - Identifies the highest-quality configuration when at least two configurations have comparable results.
 * **Additional recommendations** - Highlight the most efficient and lowest-cost configurations when the result supports those comparisons.
 * **Comparison chart** - Compare the selected result dimensions across configurations.
 * **Overall table** - Compare each Scorer's average and the combined Overall value. Expand a configuration, task, and repetition to inspect its individual trials.
 * **Scorer grids** - Show each task's results across configurations for a selected Scorer.
+<figure style={{ maxWidth: "736px" }}>
+![Expanded benchmark results showing trial run duration, cost, and scores for a configuration.](../../../assets/factories/benchmark-run-results-detail.png)
+<figcaption>Expanded trial results for a configuration.</figcaption>
+</figure>
 
 The run's "Total cost" includes model usage for trials and Scorer usage. It estimates those costs from credits at your team's current rate, so it is not a billed amount. A failed or cancelled benchmark shows only results that finished scoring before the run stopped.
 
