@@ -2,6 +2,13 @@ name: Request engineering review
 
 # Technical documentation PRs request source-owner review, but a missing
 # GitHub approval does not block Docs from merging after its normal review.
+#
+# Reviewer policy (see .agents/references/doc-quality-policy.md): at most one
+# human reviewer per PR, requested once. This workflow re-fires on every PR
+# event, so it must be idempotent and must never fight a human: it adds
+# nothing when the PR already has a requested reviewer or a submitted review,
+# and it never re-requests anyone who was removed from the PR
+# (review_request_removed).
 on:
   pull_request:
     types: [opened, labeled, synchronize, reopened, ready_for_review, edited]
@@ -21,7 +28,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Request listed source owners for technical documentation
+      - name: Request the listed source owner for technical documentation
         env:
           GH_TOKEN: ${{ github.token }}
           PR_BODY: ${{ github.event.pull_request.body }}
@@ -42,9 +49,52 @@ jobs:
           if risk and risk.risk == policy.RISK_ENGINEERING_REVIEW_REQUIRED:
               print("\n".join(risk.requested_engineering_reviewers))
           PY
+
+          norm() { printf '%s' "${1##*/}" | tr 'A-Z' 'a-z'; }
+          in_list() {
+            local want item
+            want=$(norm "$1")
+            IFS=',' read -ra items <<< "$2"
+            for item in "${items[@]}"; do
+              [ -n "$item" ] && [ "$(norm "$item")" = "$want" ] && return 0
+            done
+            return 1
+          }
+
+          CURRENT=$(gh pr view "$PR_NUMBER" --repo "$REPOSITORY" \
+            --json reviewRequests --jq '[.reviewRequests[] | .login // .slug // .name] | join(",")')
+          if [ -n "$CURRENT" ]; then
+            echo "PR #$PR_NUMBER already has requested reviewer(s): $CURRENT - not adding more."
+            exit 0
+          fi
+
+          REVIEWED=$(gh api "repos/$REPOSITORY/pulls/$PR_NUMBER/reviews" --paginate \
+            --jq '[.[].user.login] | unique | join(",")' 2>/dev/null || echo "")
+          REMOVED=$(gh api "repos/$REPOSITORY/issues/$PR_NUMBER/timeline" --paginate \
+            --jq '[.[] | select(.event == "review_request_removed")
+                   | (.requested_reviewer.login // .requested_team.slug // empty)] | unique | join(",")' \
+            2>/dev/null || echo "")
+
           while IFS= read -r reviewer; do
             [ -z "$reviewer" ] && continue
-            if ! gh pr edit "$PR_NUMBER" --repo "$REPOSITORY" --add-reviewer "$reviewer"; then
-              echo "::warning::Could not request engineering review from $reviewer."
+            case "$reviewer" in */*)
+              echo "Skipping team handle $reviewer - teams are never requested."
+              continue;;
+            esac
+            if in_list "$reviewer" "$REMOVED"; then
+              echo "Skipping $reviewer - a human removed them from PR #$PR_NUMBER; not re-adding."
+              continue
             fi
+            if in_list "$reviewer" "$REVIEWED"; then
+              echo "Skipping $reviewer - they already reviewed PR #$PR_NUMBER."
+              continue
+            fi
+            if gh pr edit "$PR_NUMBER" --repo "$REPOSITORY" --add-reviewer "$reviewer"; then
+              echo "Requested engineering review from $reviewer."
+            else
+              echo "::warning::Could not request engineering review from $reviewer - leaving the PR without a requested reviewer."
+            fi
+            # At most one reviewer per PR: stop after the first attempt,
+            # successful or not - there is no fallback reviewer.
+            break
           done < /tmp/requested-engineers.txt

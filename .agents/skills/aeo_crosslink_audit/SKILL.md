@@ -204,12 +204,7 @@ The PR body must include an AEO brief. Use `.agents/skills/aeo_brief/SKILL.md` a
 - **Reader next step** - What the reader is likely trying to do next and why each destination helps.
 - **Open questions for human review** - Anything that affects product accuracy, terminology, or placement.
 
-Request review from docs and growth-docs reviewers where possible, including:
-- Rachael
-- Petra
-- Hong Yi
-- Danny
-- Other active reviewers in `#growth-docs`
+Reviewer requests follow the `create_pr` skill's policy ("Request a reviewer (at most one, only with conviction)"): request at most one human reviewer, and only when a single clear owner exists. For cross-link PRs there rarely is one, so the default is to open the PR with no requested reviewer and let `#growth-docs` pick it up from the Slack notification. Never tag a list of people, never stack reviewers onto the PR, and never re-add a reviewer someone removed.
 
 ## No-change report
 
