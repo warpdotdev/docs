@@ -16,10 +16,10 @@ sys.modules[_spec.name] = vrs
 _spec.loader.exec_module(vrs)
 
 _REVIEW_EVENTS = {
-    "approve": "APPROVE",
-    "approve with nits": "APPROVE",
-    "approve_with_nits": "APPROVE",
-    "request changes": "REQUEST_CHANGES",
+    "approve": "COMMENT",
+    "approve with nits": "COMMENT",
+    "approve_with_nits": "COMMENT",
+    "request changes": "COMMENT",
 }
 
 
