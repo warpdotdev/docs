@@ -65,6 +65,13 @@ jobs:
           python3 .agents/skills/doc_quality_policy/test_publish_review_signal.py
           python3 .agents/skills/doc_quality_policy/test_manifest.py
 
+      # Extracts the documented manual review-publishing snippet from
+      # review-docs-pr/SKILL.md and runs it against a stub, so CI catches
+      # this documented path drifting from publish_review_signal.py (e.g.
+      # the signal-hiding format going out of sync between the two).
+      - name: Test review-docs-pr publishing snippet
+        run: python3 .agents/skills/review-docs-pr/test_publishing_snippet.py
+
       - name: Test validate_ui_refs --changed mode and snapshot provenance
         run: python3 .agents/skills/validate_ui_refs/test_changed_mode.py
 
