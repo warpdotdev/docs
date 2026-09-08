@@ -234,7 +234,7 @@ short-lived token after the cloud agent returns.
            f"## Review summary\n{review['summary'].strip()}\n\n"
            f"## Findings\n{findings_text}\n\n"
            f"## Verdict\n{os.environ['VERDICT']}\n\n"
-           f"## Review signal\n[SIGNAL:pr-review] {json.dumps(signal, sort_keys=True)}"
+           f"<!-- [SIGNAL:pr-review] {json.dumps(signal, sort_keys=True)} -->"
        ),
        "comments": review["comments"],
    }
