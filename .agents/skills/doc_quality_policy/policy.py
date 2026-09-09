@@ -218,10 +218,12 @@ class RiskSignals:
     # trigger above has been affirmatively cleared.
     is_docs_workflow_tooling_only: bool = False
     # Internal handoff material may repeat already-documented commands or UI
-    # paths when it cites the public Docs sources that verify them. This
+    # paths when both explicit preconditions below are satisfied. This
     # exception is limited to those two reference types; every other
     # technical-claim trigger remains disqualifying.
     is_verified_internal_handoff_reference_only: bool = False
+    repeats_only_already_documented_references: bool = False
+    cites_verifying_docs_pages: bool = False
 
     # Not allowlist triggers themselves, but always force engineering review
     # when true, per the VERIFY-accounting and review-severity rules.
@@ -247,6 +249,8 @@ _ALLOWLIST_TRIGGER_FIELDS: Sequence[str] = tuple(
     if f.name not in (
         "is_docs_workflow_tooling_only",
         "is_verified_internal_handoff_reference_only",
+        "repeats_only_already_documented_references",
+        "cites_verifying_docs_pages",
         "is_editorial_or_metadata_only",
         "has_unresolved_verify_marker",
         "has_critical_or_important_review_finding",
@@ -257,9 +261,10 @@ _ALLOWLIST_TRIGGER_FIELDS: Sequence[str] = tuple(
 def classify_risk(signals: RiskSignals) -> str:
     """Classify a PR's risk from explicit low-risk-allowlist signals.
 
-    Any allowlist trigger, an unresolved VERIFY marker, or a critical/
-    important review finding forces `engineering-review-required`. Only a PR
-    with every trigger cleared is `low`.
+    An unresolved VERIFY marker or critical/important review finding forces
+    `engineering-review-required`. Technical-claim triggers also force that
+    level except for source-cited, repeat-only command/UI references in an
+    internal Docs handoff.
     """
     if signals.has_unresolved_verify_marker:
         return RISK_ENGINEERING_REVIEW_REQUIRED
@@ -274,13 +279,19 @@ def classify_risk(signals: RiskSignals) -> str:
     }
     if active_triggers and not (
         signals.is_verified_internal_handoff_reference_only
+        and signals.repeats_only_already_documented_references
+        and signals.cites_verifying_docs_pages
         and active_triggers.issubset(handoff_reference_triggers)
     ):
         return RISK_ENGINEERING_REVIEW_REQUIRED
     if not (
         signals.is_editorial_or_metadata_only
         or signals.is_docs_workflow_tooling_only
-        or signals.is_verified_internal_handoff_reference_only
+        or (
+            signals.is_verified_internal_handoff_reference_only
+            and signals.repeats_only_already_documented_references
+            and signals.cites_verifying_docs_pages
+        )
     ):
         return RISK_ENGINEERING_REVIEW_REQUIRED
     return RISK_LOW
