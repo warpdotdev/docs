@@ -130,6 +130,8 @@ def _published_review_matches_signal(
             "verdict",
             "critical",
             "important",
+            "critical",
+            "important",
             "suggestions",
             "nits",
             "reviewer_login",
