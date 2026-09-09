@@ -8,6 +8,17 @@ This log tracks every run of the `weekly-404-monitor` skill — both runs that o
 
 ---
 
+## 2026-09-09 — PR opened
+- **Total 404s this week**: 270
+- **Total 404s last week**: 299
+- **Trend**: ▼ 29 (-9.7%)
+- **Significant gaps (≥5 hits)**: 5 (3 new)
+- **Redirect candidates processed**: 3  (hits ≥ 5, excluding 2 malformed captures)
+- **HIGH-confidence redirects**: 2
+- **PR**: https://github.com/warpdotdev/docs/pull/715
+- **Oz run**: https://app.warp.dev/conversation/0d43fcb7-95f8-4b8e-9b9a-8fccf962631b
+- **Notes**: `METABASE_API_KEY` now a valid `mb_...` key, but every query failed with `ValueError: Invalid header value` because the env-injected secret carries a trailing newline that urllib rejects in an HTTP header. Patched `run_404_report.py` to strip the key before use (PR #716) and re-ran successfully. 161 pages had SQL-normalised hits; 134 uncovered (129 below threshold). `/agents/agent-mode` (6 hits) → `/agents/` and `/features/session_management/launch-configuration` (5 hits) → `/terminal/sessions/launch-configurations/` added as HIGH-confidence redirects, mirroring existing analogous patterns already in `vercel.json`. `/agents/inference` (6 hits) posted to Slack as a MEDIUM-confidence suggestion (no exact index page under that directory). Two top gaps — `/support-and-community/troubleshooting-and-support/logging-out-and-uninstalling/:*logging` (10 hits) and `/agents/local-agents/interacting-with-agents/voice/:)%3cb%3evoice` (9 hits) — excluded from the redirect PR: their underlying pages already exist, and the malformed `:`-containing suffixes look like a `docs_404` capture/encoding artifact (a literal `:` is also unsafe as a vercel.json route source, since path-to-regexp treats it as a named parameter). Recommend the docs team check the `broken_url` capture for links with raw punctuation. 135 resolved since last week. Posted summary to #growth-docs.
+
 ## 2026-09-09 — No data
 - **Total 404s this week**: n/a
 - **Total 404s last week**: n/a
