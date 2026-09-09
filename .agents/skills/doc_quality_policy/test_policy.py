@@ -132,42 +132,6 @@ class TestClassifyRisk(unittest.TestCase):
         )
         self.assertEqual(policy.classify_risk(signals), policy.RISK_LOW)
 
-    def test_verified_internal_handoff_references_are_low_risk(self):
-        signals = policy.RiskSignals.all_clear(
-            is_editorial_or_metadata_only=False,
-            changes_commands_or_code_examples=True,
-            changes_ui_labels_or_paths=True,
-            is_verified_internal_handoff_reference_only=True,
-            repeats_only_already_documented_references=True,
-            cites_verifying_docs_pages=True,
-        )
-        self.assertEqual(policy.classify_risk(signals), policy.RISK_LOW)
-
-    def test_internal_handoff_references_require_both_preconditions(self):
-        signals = policy.RiskSignals.all_clear(
-            is_editorial_or_metadata_only=False,
-            changes_commands_or_code_examples=True,
-            is_verified_internal_handoff_reference_only=True,
-            repeats_only_already_documented_references=True,
-        )
-        self.assertEqual(
-            policy.classify_risk(signals),
-            policy.RISK_ENGINEERING_REVIEW_REQUIRED,
-        )
-    def test_internal_handoff_references_do_not_allow_other_technical_claims(self):
-        signals = policy.RiskSignals.all_clear(
-            is_editorial_or_metadata_only=False,
-            changes_commands_or_code_examples=True,
-            changes_api_behavior=True,
-            is_verified_internal_handoff_reference_only=True,
-            repeats_only_already_documented_references=True,
-            cites_verifying_docs_pages=True,
-        )
-        self.assertEqual(
-            policy.classify_risk(signals),
-            policy.RISK_ENGINEERING_REVIEW_REQUIRED,
-        )
-
     def test_every_allowlist_trigger_forces_engineering_review(self):
         trigger_fields = [
             "adds_new_or_changed_feature_page",

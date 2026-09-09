@@ -17,11 +17,12 @@ that's controlled at the Warp platform level.
    ```
    Run this once per schedule found in step 1 and note its `model_id`.
 
-3. **Find the Agent Profile for ad hoc/event-triggered runs.** A drafting run
-   that isn't `oz schedule`-triggered (a Slack- or Linear-triggered request, for
-   example) uses an Agent Profile's base model instead. In the Warp app, go to
-   **Settings** > **Agents** > **Profiles** and identify which profile owns docs
-   drafting requests, then note its base model.
+3. **Review the Agent Profile for ad hoc/event-triggered runs.** In the Warp
+   app, go to [Agent Profiles](/agents/capabilities/agent-profiles-permissions/)
+   at **Settings** > **Agents** > **Profiles** and identify which profile owns
+   docs drafting requests, then note its base model. See [Warp Agent model
+   configuration](/platform/harnesses/warp-agent/#available-models) for how an
+   Agent Profile supplies the default model.
 
 4. **Apply the eval's recommended model.**
    - For a schedule found in step 1:
