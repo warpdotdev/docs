@@ -230,7 +230,7 @@ else:
         print(f'Slack notification sent to {channel}')
 ```
 
-The GitHub Actions workflow handles assigning the last human reviewer from recent docs PRs — the agent does not need to assign reviewers.
+The GitHub Actions workflow assigns at most one reviewer (the most recent human reviewer from recent docs PRs) and leaves the PR with no requested reviewer when none resolves — there is no hardcoded fallback person, and a reviewer a human removed is never re-added. The agent does not assign reviewers.
 
 ### Explicit repo paths
 

@@ -93,12 +93,20 @@ low-risk categories, classify it as `engineering-review-required`.
 
 - **Low risk**: the normal docs reviewer approves. No engineering owner
   approval is required.
-- **Engineering-review-required**: source-owner resolution is attempted first,
-  and a real GitHub review request goes to at least one owner resolved from
-  the product source files consulted. The request is advisory. Docs can
+- **Engineering-review-required**: source-owner resolution is attempted first.
+  When it names exactly one owning engineer, a real GitHub review request goes
+  to that single owner — at most one human reviewer per PR, never a team. When
+  no owner resolves with certainty (an empty or multi-owner resolution), no
+  request is made: the PR opens with no requested reviewer and the run output
+  records why. There is no fallback reviewer. The request is advisory. Docs can
   validate the claim from source, Slack, or another appropriate channel, then
   proceed through the normal Docs review path without a GitHub approval from
   the engineer.
+
+A reviewer a human removed from a PR stays removed: neither agents nor
+automation re-request anyone who appears in a `review_request_removed` event
+on that PR, and reviewer lists are never topped back up on later pushes or
+body edits.
 
 Record an engineer response or Docs validation in the PR body when it informs
 the final wording. A new head makes earlier validation context stale, but it

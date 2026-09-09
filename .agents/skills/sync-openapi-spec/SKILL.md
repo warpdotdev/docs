@@ -159,7 +159,7 @@ Summarize:
 
 ## Sync policy
 
-The policy is encoded in `scripts/sync_openapi.py` as `EXCLUDED_TAGS` and `EXCLUDED_PATHS`. See `references/sync-policy.md` for the rationale behind each entry and the rules for adding new ones.
+The policy is encoded in `scripts/sync_openapi.py` as `EXCLUDED_TAGS`, `EXCLUDED_PATHS`, `EXCLUDED_PATH_PREFIXES`, and `EXCLUDED_RUN_SOURCE_VALUES`. See `references/sync-policy.md` for the rationale behind each entry and the rules for adding new ones.
 
 ## Schedule
 

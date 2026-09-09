@@ -19,9 +19,10 @@ This skill is the manual fallback for the same job, so its output has to match t
 2. Drop every tag listed in `EXCLUDED_TAGS`.
 3. Drop every path whose tags are a subset of `EXCLUDED_TAGS`, plus every path listed explicitly in `EXCLUDED_PATHS` or matching a prefix in `EXCLUDED_PATH_PREFIXES`.
 4. Keep top-level `openapi`, `info`, `servers`, and `components.securitySchemes` verbatim.
-5. Keep only the `components.schemas` entries that are reachable from the surviving paths via `$ref` walking (recursive over `allOf`/`oneOf`/`anyOf`/`items`/`additionalProperties`/etc.).
-6. Recursively strip every key in `STRIP_FLAGS` from whatever survives
-   steps 1-5, wherever it appears in the tree (operations, schemas,
+5. Keep only reusable component entries that are reachable from surviving paths via `$ref` walking (recursive over `allOf`/`oneOf`/`anyOf`/`items`/`additionalProperties`/etc.).
+6. Remove Factory-only values and matching description lines from `RunSourceType`.
+7. Recursively strip every key in `STRIP_FLAGS` from whatever survives
+   steps 1-6, wherever it appears in the tree (operations, schemas,
    individual properties, parameters).
 
 Rule 1 mirrors warp-server's own filter, so a surface the server team marks private stays private here without anyone having to maintain a matching allowlist entry.
@@ -100,6 +101,15 @@ If any of these become stable public surfaces, remove them from `EXCLUDED_PATHS`
 ## Excluded path prefixes
 
 `EXCLUDED_PATH_PREFIXES` drops a path by prefix regardless of how its operations are tagged. Today it holds a single entry, `/factory`, because some Factory operations are tagged `agent` upstream — `GET /factory/scorers/{scorer_id}/results` is one — so a tags-only rule leaks them into the public reference. Use a prefix only when a whole URL namespace is private; prefer a tag or an explicit path everywhere else.
+
+## Excluded enum values in public schemas
+
+`RunSourceType` is used by public run endpoints but includes three values that
+describe Factory-only behavior. `EXCLUDED_RUN_SOURCE_VALUES` removes
+`BENCHMARK_TRIAL`, `CREATE_BENCHMARK_TASK`, and `CUSTOM_WEBHOOK`, plus their
+matching description lines, from the docs subset. Keep `RUN_SCORER`: its
+description identifies a generic run-scoring judge rather than a Factory-only
+surface.
 
 ## `x-internal` operations are dropped
 

@@ -221,5 +221,117 @@ class TestSnapshotProvenance(unittest.TestCase):
             self.assertEqual(vur._resolve_source_repository(repo), "warpdotdev/warp")
 
 
+class TestUnresolvedIssueSignature(unittest.TestCase):
+    """Regression for QUALITY-2038: the `UI Reference Validation Report` Slack
+    notification reposted an identical report on consecutive scheduled runs
+    because `main()` notified whenever *any* unresolved issue remained, with
+    no comparison to what was already reported. These tests cover the pure
+    decision logic that fixes that: `unresolved_issue_signature()` must be
+    stable/order-independent so two runs finding the same issues compare
+    equal, and `should_notify_slack()` must only return True when that
+    signature actually changes.
+    """
+
+    def _issue(self, file: str, line: int, issue_text: str) -> dict:
+        return {"file": file, "line": line, "validation": {"issue": issue_text}}
+
+    def test_signature_is_stable_across_runs_with_identical_issues(self):
+        repo_root = Path("/repo")
+        issues_a = [
+            self._issue("/repo/docs/a.mdx", 10, "bad path"),
+            self._issue("/repo/docs/b.mdx", 20, "bad command"),
+        ]
+        issues_b = [
+            self._issue("/repo/docs/b.mdx", 20, "bad command"),
+            self._issue("/repo/docs/a.mdx", 10, "bad path"),
+        ]
+        sig_a = vur.unresolved_issue_signature(issues_a, [], [], repo_root)
+        sig_b = vur.unresolved_issue_signature(issues_b, [], [], repo_root)
+        self.assertEqual(sig_a, sig_b)
+
+    def test_signature_changes_when_issues_change(self):
+        repo_root = Path("/repo")
+        before = [self._issue("/repo/docs/a.mdx", 10, "bad path")]
+        after_new_issue = before + [self._issue("/repo/docs/c.mdx", 5, "new issue")]
+        after_resolved = []
+        sig_before = vur.unresolved_issue_signature(before, [], [], repo_root)
+        sig_new = vur.unresolved_issue_signature(after_new_issue, [], [], repo_root)
+        sig_resolved = vur.unresolved_issue_signature(after_resolved, [], [], repo_root)
+        self.assertNotEqual(sig_before, sig_new)
+        self.assertNotEqual(sig_before, sig_resolved)
+
+    def test_signature_round_trips_through_pr_body_marker(self):
+        repo_root = Path("/repo")
+        issues = [self._issue("/repo/docs/a.mdx", 10, "bad path")]
+        sig = vur.unresolved_issue_signature(issues, [], [], repo_root)
+        body = vur._pr_body([], repo_root, unresolved_signature=sig, remaining_count=1)
+        self.assertEqual(vur.extract_unresolved_signature(body), sig)
+
+    def test_extract_unresolved_signature_handles_missing_marker(self):
+        self.assertIsNone(vur.extract_unresolved_signature(None))
+        self.assertIsNone(vur.extract_unresolved_signature("## Summary\nNo marker here."))
+
+
+class TestShouldNotifySlack(unittest.TestCase):
+    """Regression for QUALITY-2038's core Slack-spam bug (see class docstring
+    above): identical unresolved issues must not trigger a second
+    notification, but a clean scan or a genuinely new/resolved issue must.
+    """
+
+    def test_no_issues_never_notifies(self):
+        self.assertFalse(vur.should_notify_slack(0, "anysig", None))
+        self.assertFalse(vur.should_notify_slack(0, "anysig", "anysig"))
+
+    def test_first_time_seeing_issues_notifies(self):
+        self.assertTrue(vur.should_notify_slack(2, "sig-a", None))
+
+    def test_identical_signature_does_not_renotify(self):
+        # This is the exact regression: a scheduled run finds the same
+        # unresolved issues as the last reported run and must not re-post.
+        self.assertFalse(vur.should_notify_slack(2, "sig-a", "sig-a"))
+
+    def test_changed_signature_notifies(self):
+        self.assertTrue(vur.should_notify_slack(2, "sig-b", "sig-a"))
+
+
+class TestSnapshotUncommittedChanges(unittest.TestCase):
+    """Regression for QUALITY-2038 hypothesis (a): a `--refresh-valid-paths`
+    run that bumps `source_sha` but finds no auto-fixable doc issues was
+    silently discarded (never committed) because `create_pr()` was gated on
+    `fixes` alone. `_snapshot_has_uncommitted_changes()` is the signal `main()`
+    now uses to also commit a fixless snapshot refresh.
+    """
+
+    def _init_repo(self, tmp: Path) -> Path:
+        repo = tmp / "repo"
+        repo.mkdir()
+        _run(["git", "init", "-q"], repo)
+        _run(["git", "config", "user.email", "test@example.com"], repo)
+        _run(["git", "config", "user.name", "Test"], repo)
+        return repo
+
+    def test_false_when_file_matches_last_commit(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = self._init_repo(Path(tmp))
+            valid_paths_file = repo / "valid_paths.json"
+            valid_paths_file.write_text(json.dumps({"source_sha": "abc"}), encoding="utf-8")
+            _run(["git", "add", "."], repo)
+            _run(["git", "commit", "-q", "-m", "initial"], repo)
+            self.assertFalse(vur._snapshot_has_uncommitted_changes(valid_paths_file, repo))
+
+    def test_true_after_a_refresh_bumps_source_sha_with_no_other_changes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            repo = self._init_repo(Path(tmp))
+            valid_paths_file = repo / "valid_paths.json"
+            valid_paths_file.write_text(json.dumps({"source_sha": "abc"}), encoding="utf-8")
+            _run(["git", "add", "."], repo)
+            _run(["git", "commit", "-q", "-m", "initial"], repo)
+
+            # Simulate `--refresh-valid-paths` advancing source_sha locally,
+            # uncommitted — the exact state that used to get silently dropped.
+            valid_paths_file.write_text(json.dumps({"source_sha": "def"}), encoding="utf-8")
+            self.assertTrue(vur._snapshot_has_uncommitted_changes(valid_paths_file, repo))
+
+
 if __name__ == "__main__":
     unittest.main()
