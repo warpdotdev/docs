@@ -214,8 +214,8 @@ def parse_judge_response(raw_text: str) -> Dict[str, float]:
         if dim not in data:
             raise ValueError(f"judge response missing dimension '{dim}'")
         score = data[dim]
-        if not isinstance(score, (int, float)) or isinstance(score, bool) or not (1 <= score <= 5):
-            raise ValueError(f"judge response dimension '{dim}' must be a number 1-5, got {score!r}")
+        if not isinstance(score, int) or isinstance(score, bool) or not (1 <= score <= 5):
+            raise ValueError(f"judge response dimension '{dim}' must be an integer 1-5, got {score!r}")
         result[dim] = score
     return result
 
