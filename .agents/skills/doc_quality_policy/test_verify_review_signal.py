@@ -124,6 +124,23 @@ class TestCheckReviewSignal(unittest.TestCase):
         }
         self.assertFalse(vrs._published_review_matches_signal([review], signal, "sha1"))
 
+    def test_published_review_with_mismatched_suggestion_count_fails(self):
+        """Rework finding: the published-review comparison omitted the
+        `suggestions` field, so a review whose published count silently
+        drifted from the internal signal was accepted as matching."""
+        signal, problems = vrs._parse_signal(SUGGESTION_OUTPUT, "1", "sha1")
+        self.assertEqual(problems, [])
+        mismatched_body = SUGGESTION_OUTPUT.replace('"suggestions":1', '"suggestions":2')
+        review = {**GOOD_REVIEW, "body": mismatched_body}
+        self.assertFalse(vrs._published_review_matches_signal([review], signal, "sha1"))
+
+    def test_published_review_with_mismatched_nit_count_fails(self):
+        signal, problems = vrs._parse_signal(SUGGESTION_OUTPUT, "1", "sha1")
+        self.assertEqual(problems, [])
+        mismatched_body = SUGGESTION_OUTPUT.replace('"nits":0', '"nits":1')
+        review = {**GOOD_REVIEW, "body": mismatched_body}
+        self.assertFalse(vrs._published_review_matches_signal([review], signal, "sha1"))
+
     def test_stale_signal_fails(self):
         stale_output = GOOD_OUTPUT.replace('"sha1"', '"old-sha"')
         with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
