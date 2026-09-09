@@ -53,6 +53,10 @@ Before reporting, cross-reference every issue against the known exceptions in `r
 
 Only include a section if its count is > 0. Never list allowlisted issues under "Remaining."
 
+### Sampling variance
+
+AFDocs samples ~50 of ~352 sitemap pages per run, so per-page checks can flip between `pass`, `warn`, and `fail` with no site changes. Re-run the audit before reporting a newly flagged per-page check as a regression, and report a check as reproducible only when it fails on both runs. See the "Sampling variance" section in `references/known-exceptions.md` for which checks fail deterministically.
+
 ## Invalid audits (Vercel Firewall challenge)
 
 Before trusting any failures, confirm the audit was actually able to reach the
