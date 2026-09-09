@@ -514,6 +514,68 @@ def _suggest_migration_for_deprecated_section(
     }
 
 
+def _control_label_owners(valid_paths: Dict[str, Any]) -> Dict[str, List[str]]:
+    """Map each known Settings control/widget label to the page(s) that own it.
+
+    Built from the `controls` list `_extract_settings_sections()` populates on
+    each `settings_sections` entry, keyed case-insensitively so a documented
+    label that differs only in casing still resolves to its owning page.
+    """
+    owners: Dict[str, List[str]] = {}
+    for display_name, entry in valid_paths.get("settings_sections", {}).items():
+        for control in entry.get("controls", []) or []:
+            owners.setdefault(control.casefold(), []).append(display_name)
+    return owners
+
+
+def _owning_settings_path(display_name: str, valid_paths: Dict[str, Any]) -> List[str]:
+    """Build the canonical `Settings > ... > display_name` path segments for a page."""
+    section_entry = valid_paths.get("settings_sections", {}).get(display_name, {})
+    umbrella = section_entry.get("umbrella")
+    if umbrella:
+        return ["Settings", umbrella, display_name]
+    return ["Settings", display_name]
+
+
+def _check_relocated_control(
+    trailing_label: str,
+    documented_page: str,
+    valid_paths: Dict[str, Any],
+) -> Optional[Dict[str, Any]]:
+    """Flag a trailing path segment naming a control now owned by another page.
+
+    `validate_ui_path` otherwise treats any trailing segment beyond the known
+    Settings navigation hierarchy as a free-form toggle/setting name and
+    accepts it unconditionally. That is exactly how a stale path like
+    "Settings > Features > General > Choose an editor to open file links"
+    keeps validating after the control moves to a different page but the old
+    section ("Features > General") still exists: nothing ever inspects the
+    trailing segment against where the control actually lives now. This
+    checks it against the control-to-page map extracted from the warp client
+    (see `_extract_control_labels_from_text`); when the label matches a
+    control owned by a page other than the one actually documented, the path
+    is stale. Returns None when the label is unknown or already matches the
+    documented page, so an ordinary undocumented toggle name is still allowed.
+    """
+    owning_pages = _control_label_owners(valid_paths).get(trailing_label.casefold())
+    if not owning_pages or documented_page in owning_pages:
+        return None
+    owning_page = owning_pages[0]
+    suggestion = " > ".join(
+        _owning_settings_path(owning_page, valid_paths) + [trailing_label]
+    )
+    return {
+        "valid": False,
+        "issue": (
+            f"\"{trailing_label}\" is a control on the \"{owning_page}\" Settings "
+            f"page, not \"{documented_page}\""
+        ),
+        "suggestion": suggestion,
+        "confidence": 0.9,
+        "fix_type": "relocated_control",
+    }
+
+
 def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
     """Validate a single UI path against valid_paths data.
 
@@ -655,7 +717,12 @@ def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
                             "confidence": 0.95,
                             "fix_type": "case_mismatch",
                         }
-                # Unknown sub-section — likely a toggle/setting name; allow.
+                # Unknown sub-section — likely a toggle/setting name; allow,
+                # unless it names a control that has since moved to a
+                # different Settings page (see _check_relocated_control).
+                relocation = _check_relocated_control(sub, subpage, valid_paths)
+                if relocation:
+                    return relocation
                 return {
                     "valid": True,
                     "issue": None,
@@ -729,8 +796,16 @@ def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
             sub_sections = section_data.get("sub_sections", [])
             sub = segments[2]
 
-            # Exact match — valid
+            # Exact match — valid, but a further trailing segment might name a
+            # control that has since moved to a different Settings page (this
+            # is how "Settings > Features > General > <moved control>" used to
+            # keep validating after the control relocated but "General" itself
+            # stayed a real Features sub-section).
             if sub in sub_sections:
+                if len(segments) >= 4:
+                    relocation = _check_relocated_control(segments[3], section, valid_paths)
+                    if relocation:
+                        return relocation
                 return {"valid": True, "issue": None, "suggestion": None, "confidence": 1.0, "fix_type": None}
 
             # Case mismatch against a known sub-section — still flag these
@@ -747,7 +822,12 @@ def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
                         "fix_type": "case_mismatch",
                     }
 
-            # Unrecognized sub-section — skip (likely a toggle/setting name)
+            # Unrecognized sub-section — skip (likely a toggle/setting name),
+            # unless it names a control that has since moved to a different
+            # Settings page (see _check_relocated_control).
+            relocation = _check_relocated_control(sub, section, valid_paths)
+            if relocation:
+                return relocation
             return {"valid": True, "issue": None, "suggestion": None, "confidence": 0.8, "fix_type": None}
 
         return {"valid": True, "issue": None, "suggestion": None, "confidence": 1.0, "fix_type": None}
@@ -1870,6 +1950,45 @@ def _extract_umbrellas(warp_repo: Path) -> Dict[str, Any]:
     return umbrellas
 
 
+# A label passed directly as a string literal, e.g.
+# `render_body_item::<FeaturesPageAction>("Show hidden files".into(), ...)`, or
+# indirected through a local `const NAME: &str = "...";` (resolved below).
+_RE_RENDER_BODY_ITEM_LABEL = re.compile(
+    r'render_body_item::<[\w:]+>\(\s*(?:"((?:[^"\\]|\\.)*)"|([A-Za-z_]\w*))'
+)
+# `render_dropdown_item(appearance, "Label", ...)` — the label is the second
+# positional argument, right after the `&Appearance` reference.
+_RE_RENDER_DROPDOWN_ITEM_LABEL = re.compile(
+    r'render_dropdown_item\(\s*\w+,\s*(?:"((?:[^"\\]|\\.)*)"|([A-Za-z_]\w*))'
+)
+# `const LABEL: &str = "...";` — resolves the identifier form of the two
+# patterns above (e.g. `TABBED_FILE_VIEWER_TOGGLE_HEADER`).
+_RE_CONST_STR = re.compile(
+    r'const\s+([A-Z][A-Z0-9_]*)\s*:\s*&\'?\w*\s*str\s*=\s*"((?:[^"\\]|\\.)*)"'
+)
+
+
+def _extract_control_labels_from_text(text: str) -> List[str]:
+    """Extract Settings widget/control label strings from a page's Rust source.
+
+    Looks for the label argument passed to `render_body_item::<...>(...)` and
+    `render_dropdown_item(appearance, ...)` call sites — the exact strings Warp
+    renders next to a toggle or dropdown — resolving simple
+    `const NAME: &str = "...";` indirection when the label isn't an inline
+    literal. This is the control-to-page map `validate_ui_path` uses to catch
+    a documented path whose trailing segment names a control that has since
+    moved to a different Settings page (see `_check_relocated_control`).
+    """
+    consts = dict(_RE_CONST_STR.findall(text))
+    labels: List[str] = []
+    for pattern in (_RE_RENDER_BODY_ITEM_LABEL, _RE_RENDER_DROPDOWN_ITEM_LABEL):
+        for literal, ident in pattern.findall(text):
+            label = literal or consts.get(ident)
+            if label and label not in labels:
+                labels.append(label)
+    return labels
+
+
 def _extract_settings_sections(warp_repo: Path) -> Dict[str, Any]:
     """Parse SettingsSection enum and sub-sections from Rust source files."""
     mod_rs = warp_repo / "app" / "src" / "settings_view" / "mod.rs"
@@ -1913,7 +2032,7 @@ def _extract_settings_sections(warp_repo: Path) -> Dict[str, Any]:
             display_map[m.group(1)] = m.group(2)
 
     # Map of source files for sub-sections. Includes both the legacy
-    # backing-page variants (`AI`, `Platform`, `Code`) and the new umbrella
+    # backing-page variants (`AI`, `Platform`) and the new umbrella
     # subpage variants (`Oz`, `AgentProfiles`, `AgentMCPServers`, `Knowledge`,
     # `ThirdPartyCLIAgents`, `CodeIndexing`, `EditorAndCodeReview`,
     # `CloudEnvironments`, `OzCloudAPIKeys`). Variants not listed here fall
@@ -1923,7 +2042,6 @@ def _extract_settings_sections(warp_repo: Path) -> Dict[str, Any]:
         # Legacy backing pages (still exist as internal enum variants).
         "AI": "ai_page.rs",
         "Platform": "platform_page.rs",
-        "Code": "code_page.rs",
         # Agents umbrella subpages (all render widgets defined in ai_page.rs).
         # WarpAgent is the current name; Oz is the legacy name kept for compat.
         "WarpAgent": "ai_page.rs",
@@ -1935,9 +2053,10 @@ def _extract_settings_sections(warp_repo: Path) -> Dict[str, Any]:
         # subpage and the legacy top-level MCPServers entry.
         "AgentMCPServers": "mcp_servers_page.rs",
         "MCPServers": "mcp_servers_page.rs",
-        # Code umbrella subpages.
-        "CodeIndexing": "code_page.rs",
-        "EditorAndCodeReview": "code_page.rs",
+        # Code umbrella subpages. The "Code" backing page was split into these
+        # two dedicated files; `code_page.rs` no longer exists (QUALITY-2052).
+        "CodeIndexing": "code_indexing_page.rs",
+        "EditorAndCodeReview": "code_editor_review_page.rs",
         # Cloud platform umbrella subpages.
         "CloudEnvironments": "environments_page.rs",
         "OzCloudAPIKeys": "platform_page.rs",
@@ -1948,11 +2067,26 @@ def _extract_settings_sections(warp_repo: Path) -> Dict[str, Any]:
         "Privacy": "privacy_page.rs",
     }
 
+    # A page's controls can only be attributed reliably when its source file
+    # is not shared with sibling pages — a shared file's controls would
+    # otherwise be misattributed to every page backed by it, the same failure
+    # mode noted for sub_sections in `refresh_valid_paths`'s docstring.
+    _shared_source_files = {"ai_page.rs", "mcp_servers_page.rs", "platform_page.rs"}
+
+    # Some pages embed a sub-view defined in a separate file (e.g. the
+    # external-editor controls rendered inside the "Editor and Code Review"
+    # page — see code_editor_review_page.rs's `ExternalEditorCodeWidget`).
+    # These are scanned in addition to the page's own primary file.
+    control_extra_files = {
+        "EditorAndCodeReview": ["features/external_editor.rs"],
+    }
+
     settings_dir = warp_repo / "app" / "src" / "settings_view"
 
     for variant, display_name in display_map.items():
         source_file = page_files.get(variant, "mod.rs")
         sub_sections = []
+        controls: List[str] = []
 
         page_path = settings_dir / source_file
         if page_path.exists() and source_file != "mod.rs":
@@ -1968,12 +2102,35 @@ def _extract_settings_sections(warp_repo: Path) -> Dict[str, Any]:
                     name = m.group(1)
                     if name not in sub_sections:
                         sub_sections.append(name)
+                if source_file not in _shared_source_files:
+                    controls.extend(_extract_control_labels_from_text(page_text))
             except OSError:
                 pass
+
+        for extra_file in control_extra_files.get(variant, []):
+            extra_path = settings_dir / extra_file
+            if extra_path.exists():
+                try:
+                    controls.extend(
+                        _extract_control_labels_from_text(
+                            extra_path.read_text(encoding="utf-8")
+                        )
+                    )
+                except OSError:
+                    pass
+
+        # De-dup while preserving discovery order.
+        seen_controls = set()
+        unique_controls = []
+        for control in controls:
+            if control not in seen_controls:
+                seen_controls.add(control)
+                unique_controls.append(control)
 
         sections[display_name] = {
             "display_name": display_name,
             "sub_sections": sub_sections,
+            "controls": unique_controls,
             "source_file": f"app/src/settings_view/{source_file}",
         }
 

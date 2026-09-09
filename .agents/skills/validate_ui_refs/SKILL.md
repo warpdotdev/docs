@@ -81,9 +81,18 @@ python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --refresh-valid-path
 This parses:
 - `SettingsSection` enum and `Display` impl from `settings_view/mod.rs`
 - `Category::new(...)` and `build_sub_header(...)` calls from settings page files
+- `render_body_item::<...>(...)` and `render_dropdown_item(...)` call sites in each page's own (non-shared) source file, to build a control/widget-label-to-page map (see "Control relocation detection" below)
 - `EditableBinding::new(...)` registrations from `terminal/view/init.rs` and `workspace/mod.rs`
 
 The macOS menu bar and Warp Drive sections are maintained as manual lists in `valid_paths.json` since they change infrequently.
+
+### Control relocation detection
+
+Validation used to stop at the Settings navigation hierarchy (section/umbrella/subpage + `Category`/`build_sub_header` sub-sections) and treat any trailing path segment as a free-form toggle/setting name, allowing it unconditionally. That let a stale path survive a control relocation indefinitely whenever the old section itself still exists: `Settings > Features > General > Choose an editor to open file links` kept validating after that control moved to `Settings > Code > Editor and Code Review`, because `Features > General` never stopped being a real section (see [QUALITY-2052](https://linear.app/warpdotdev/issue/QUALITY-2052)).
+
+`valid_paths.json`'s `settings_sections` entries now also carry a `controls` list — the exact widget/dropdown label strings each page renders, extracted from `render_body_item::<...>(...)` and `render_dropdown_item(...)` call sites (resolving simple `const NAME: &str = "...";` indirection). `validate_ui_path` checks any unrecognized trailing segment against this control-to-page map: when it names a control now owned by a different page than the one documented, the path fails with a suggestion pointing at the control's actual page. An unrecognized segment that matches no known control is still allowed as a free-form toggle name, and a section with no matching control in the trailing position (e.g. `Settings > Features > General` alone) stays valid.
+
+Controls are only extracted from a page's own, unshared source file — a file backing multiple pages (`ai_page.rs`, `mcp_servers_page.rs`, `platform_page.rs`) is skipped for control extraction, the same constraint noted above for sub-section accuracy, so a shared file's labels are never misattributed to every page it backs. This is the one place UI-path relocation detection lives; `missing_docs`'s settings audit only checks `toml_path` key coverage and defers here for navigation-path accuracy (see that skill's "Adjacent checks" section).
 
 ### Sub-section accuracy for shared-source-file pages
 
