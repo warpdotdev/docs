@@ -1528,6 +1528,8 @@
     }
   ],
   "source_repository": "warpdotdev/warp",
-  "source_sha": "558aba3bf7e4e9f7e88df18873266604f24d4e9d",
-  "generated_at": "2026-09-08T15:02:07.624514+00:00"
+  "source_sha": "6db7fb734885976bbc717591d48c46db9aad3c7f",
+  "generated_at": "2026-09-09T15:26:32.859165+00:00",
+  "last_notified_signature": "2eb3c4fdcd7a1451df7fc0eb52f45bc399694345271c145d04f990601e1e8bf3",
+  "last_notified_at": "2026-09-09T15:27:05.738924+00:00"
 }
