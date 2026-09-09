@@ -9,10 +9,6 @@ sidebar:
 
 **Inbox** collects everything your factories need from you specifically, across every factory you have access to, in one place. Instead of checking each factory's Runs page for stalled or waiting work, open Inbox from the sidebar to see it all at a glance.
 
-:::note
-Inbox replaced the per-factory **Activity** view. Inbox now surfaces what needs you, and each factory's [Runs page](/factories/factory-dashboard/#inspect-runs) lists every agent execution.
-:::
-
 ## What appears in your inbox
 
 Each item is one of six kinds:
@@ -24,15 +20,13 @@ Each item is one of six kinds:
 * **Blocked** - A run stopped and needs attention, and nothing else on that task already needs yours.
 * **Failed** - A run ended in an error, under the same condition as Blocked.
 
-Inbox only shows work tied to tasks *you* started. It's a personal queue, not a team-wide feed: a teammate's blocked run doesn't appear in your inbox unless they ask you directly.
+Inbox only shows work tied to tasks *you* started. It's a personal queue, not a team-wide feed: a teammate's task, even a blocked or failed one, never appears in your inbox.
 
 Items clear on their own once they stop being relevant. For example, a PR review clears when someone reviews or merges the pull request, and a question clears once it's answered. You can also resolve any item yourself.
 
-{/* VISUAL: The Inbox page showing a mix of item kinds with their chips, plus a selected row. */}
-
 ## Reviewing your inbox
 
-1. Click an item to open the run, pull request, spec, or the thread or ticket it came from.
+1. Click a row to open its details in a side pane. From there, click a chip or the primary action, like **View run**, to open the underlying resource: the run, pull request, spec, or originating thread or ticket.
 2. Once you've handled an item, mark it **resolved**. Click **Undo** in the confirmation to bring it back if you resolved it by mistake.
 3. Mark items **read** or **unread** to track what you've reviewed without resolving them.
 4. Filter by factory, read state, or kind, or search titles and descriptions, to narrow a long inbox.
