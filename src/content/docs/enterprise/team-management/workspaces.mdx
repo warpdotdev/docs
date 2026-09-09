@@ -1,0 +1,84 @@
+---
+title: Workspaces
+description: >-
+  Workspaces group multiple teams under one enterprise account, with
+  company-wide roles, billing, and settings that sit above each team's own
+  configuration.
+---
+
+:::note
+The workspace on this page is Warp's organizational layer above teams. It's unrelated to the per-team shared workspace in [Warp Drive](/knowledge-and-collaboration/warp-drive/), and to a Slack workspace, which is a separate company account you [connect through the Slack integration](/platform/integrations/slack/).
+:::
+
+A workspace is Warp's top-level organizational unit for enterprise accounts. It groups one or more teams under a single company account, with its own roles, billing, and governance settings that apply across every team inside it.
+
+{/* VERIFY: confirm current plan-tier availability for native (multi-team) workspaces; billing config shows it enabled only for Warp's own internal enterprise plan as of this writing */}
+Workspaces with more than one team are part of Warp's Enterprise plan. Self-serve and Business plans keep the single-team model described in [Team management](/knowledge-and-collaboration/teams/): the workspace still exists underneath, but it always contains exactly one team, so the team remains the only management surface you see.
+
+## Workspace vs. team
+
+A **team** is Warp's collaboration unit: members share a Warp Drive, cloud agent runs, environments, and secrets, and a team admin can configure team-level settings. A **workspace** is the account-level container above one or more teams. On an enterprise workspace with multiple teams:
+
+* Billing (the service agreement, credit pool, and spend caps) attaches to the workspace, not to any single team.
+* Company-wide governance settings — like secret redaction or AI autonomy limits — are configured once at the workspace level instead of being copied across teams.
+* A user is a member of the workspace first, and of zero or more teams inside it.
+
+## Workspace roles
+
+Every workspace member has one of three roles:
+
+* **Member** - Default role. Uses Warp within whatever teams they belong to and the settings admins configure.
+* **Admin** - Manages workspace membership, billing, and settings, and has admin-level access to every team in the workspace — including teams they don't personally belong to. A workspace can have any number of admins.
+* **Owner** - The workspace's single highest-privilege role. Has every admin capability, plus the ability to transfer ownership to another member. There's always exactly one owner, and they can't be removed or demoted without first transferring ownership.
+
+A workspace admin or owner automatically has admin-level permissions on every team in the workspace, regardless of their own membership role on that team. A team's own admin retains full control of that team, but has no authority outside it. In the team members list, a workspace-level admin or owner appears with a **Workspace admin** or **Workspace owner** badge, so members can tell a company-wide admin apart from a team-only one.
+
+## Teams inside a workspace
+
+Workspace admins create teams from the Admin Panel, giving each one a name, a color, and a visibility:
+
+* **Open** - Any workspace member can see the team and join it immediately.
+* **Private** - Any workspace member can see the team exists. {/* VERIFY: requesting to join a Private team isn't live yet per specs/team-joining-flows; confirm current UI before publishing */}
+* **Hidden** - The team doesn't appear in team discovery; an admin has to add members directly.
+
+Both workspace admins and a team's own admins can rename a team, change its color or visibility, and manage its members and its deletion. Only workspace admins can create a new team. A workspace member can belong to more than one team at a time.
+
+## Joining a workspace or team
+
+New members reach a workspace and its teams through a few paths:
+
+{/* VERIFY: confirm the workspace-level invite link and domain capture flows are live, not just specced */}
+* **Invite links** - A team's invite link adds someone directly to that team, and to the workspace if they're not already in it. A workspace-level invite link additionally lets a new member pick an open team as part of accepting.
+* **Email invites** - The team or workspace invite link, addressed to a specific email instead of shared as a link.
+* **Domain capture** - When a workspace admin enables it for a verified company domain, anyone who signs up with a matching work email is automatically added to the workspace.
+* **Team discovery** - Anyone who lands in the workspace without a team, from any of the paths above, sees a list of open teams they can join with one click under **Settings** > **Teams**.
+
+A user belongs to at most one workspace at a time.
+
+## Teamless members
+
+A workspace member isn't required to belong to a team. This "teamless" state is meant to be temporary — for example, right after joining the workspace and before an admin places them on a team.
+
+A teamless member is still a full workspace member: the workspace's plan, billing, and governance settings continue to apply to them, and workspace admins can see and manage them from the Admin Panel. {/* VERIFY: confirm the exact current scope of teamless-member restrictions (cloud agent runs, environments, secrets, scheduled agents) against shipped behavior */} What they lose access to is team-scoped collaboration and cloud agent surfaces — joining a team is required to trigger cloud agent runs or use team-owned environments and secrets. Workspace admins and owners are exempt from these restrictions, since they already have oversight access to every team's resources.
+
+## Workspace settings and team settings
+
+Settings that used to live only on the team — AI autonomy, secret redaction, sharing, codebase indexing, and similar policies in the [Admin Panel](/enterprise/team-management/admin-panel/) — now resolve across the workspace and team layers on a multi-team workspace. Each setting follows one of four patterns:
+
+* **Workspace-enforced** - The workspace admin sets one value that applies to every team; team admins can't override it. Billing caps, the credit pool, and domain capture always work this way.
+* **Delegated ("respect team setting")** - The workspace admin can either enforce a value or leave it to each team to decide, the same way a delegated team setting can respect each user's own preference.
+* **Combined** - Entries from both levels apply together. A blocked-commands list is a union — an entry from either level takes effect; an allowed-commands list is an intersection — only entries present at both levels apply.
+* **Team-controlled** - The workspace layer never touches this setting. Custom model configuration and enabled agent harnesses stay team-only.
+
+When a workspace enforces a setting, a team admin sees it locked with an indicator that the workspace controls it — the same pattern an individual user sees today for a team-enforced setting.
+
+## Workspace spend limits
+
+On a multi-team workspace, an optional workspace-level spend cap sits above the [team-level spend limits](/enterprise/support-and-resources/billing/#monthly-spending-limits) and any per-user limits. All three levels are independent and optional, and whichever cap is hit first blocks further usage in its scope: a workspace cap blocks every team, a team cap blocks only that team, and a per-user limit blocks only that person. Workspace admins can see spend at every level; a team admin sees only their own team's usage, plus a generic notice when a workspace-level cap is the one that blocked them.
+
+## Related pages
+
+* [Team management](/knowledge-and-collaboration/teams/) - Creating and joining a team
+* [Admin panel](/enterprise/team-management/admin-panel/) - Configure settings enforced across a workspace or team
+* [Roles and permissions](/enterprise/team-management/roles-and-permissions/) - Team-level roles and what each can do
+* [Enterprise billing](/enterprise/support-and-resources/billing/) - Credit pools, spend limits, and billing management

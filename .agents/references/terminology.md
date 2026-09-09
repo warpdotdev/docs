@@ -143,6 +143,11 @@ For the summary of the most critical terms (core features, Automation Platform t
 
 - **Workflow** / **Workflows** — Saved, runnable workflows in Warp Drive (often multi-step command sequences).
 
+## Team and workspace terms
+
+- **workspace** — Warp's top-level organizational unit for enterprise accounts. It groups one or more teams under a single company account, with its own roles (member/admin/owner), billing, and governance settings. See [Workspaces](/enterprise/team-management/workspaces/).
+  *Usage note:* Lowercase common noun, like "team." Distinct from two other uses of the word: the per-team shared workspace in **Warp Drive** ("teams share a dedicated workspace in Warp Drive"), and a **Slack workspace**, which is a separate company account in Slack. When the surrounding context doesn't already make clear which "workspace" is meant, say so explicitly (e.g. "your Warp workspace" or "your Slack workspace").
+
 ## Automation Platform terminology
 
 Renamed from "Oz" on 2026-08-18. Two surfaces keep the Oz name until 2026-10-06
