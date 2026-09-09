@@ -455,8 +455,10 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// you measure it.
 					label: 'Management & observability',
 					items: [
+						{ slug: 'factories/factory-inbox', label: 'Factory inbox' },
 						{ slug: 'factories/factory-dashboard', label: 'Factory dashboard' },
 						{ slug: 'factories/measure-and-improve', label: 'Measure and improve' },
+						{ slug: 'factories/benchmarks', label: 'Benchmarks' },
 					],
 				},
 				// Troubleshooting sits outside the groups, last in the tab. It was in

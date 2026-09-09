@@ -174,7 +174,7 @@ After creating and validating `review.json` (immediately after the Validation se
 3. Determine the skill used from the PR branch name or PR description if available.
 4. Include the following structured marker in your **text response** (write it as part of your agent message, not via a shell `echo` command). This ensures it appears as a `TextContentBlock` in the conversation, where `oz run get --conversation` can reliably retrieve it:
    ```
-   [SIGNAL:pr-review] {"date":"YYYY-MM-DD","pr":"NNN","branch":"branch-name","head_sha":"abc1234","skill_used":"draft_feature_doc","reviewer_login":"GITHUB_LOGIN","verdict":"Request changes","critical":N,"important":N,"suggestions":N,"nits":N,"top_categories":["category (N)","category (N)","category (N)"],"blocking_findings":["`path/to/file.mdx:42` — [IMPORTANT] Explain the problem. Requested change: state the concrete resolution."]}
+   [SIGNAL:pr-review] {"date":"YYYY-MM-DD","pr":"NNN","branch":"branch-name","head_sha":"abc1234","skill_used":"draft_feature_doc","reviewer_login":"GITHUB_LOGIN","verdict":"Request changes","critical":N,"important":N,"suggestions":N,"nits":N,"top_categories":["category (N)","category (N)","category (N)"],"actionable_findings":["`path/to/file.mdx:42` — [IMPORTANT] Explain the problem. Requested change: state the concrete resolution."]}
    ```
    Set `head_sha` to the exact commit SHA this review evaluated (the head SHA
    `.github/workflows/agent-docs-review.yml` passed in, or `gh pr view NNN
@@ -182,12 +182,11 @@ After creating and validating `review.json` (immediately after the Validation se
    of a new commit makes any earlier signal for this PR stale; the collector
    in `improve-drafting-skills` keys its `review_outcome` lookup on this field
    matching the PR's current head.
-   When the verdict is `Request changes`, include at least one
-   `blocking_findings` entry for every critical or important finding. Each
-   entry must identify the changed file and line (or quote the affected text),
-   explain the issue, and state the requested resolution. The GitHub Actions
-   publisher renders these entries in the review body, so category-only
-   blocking verdicts are invalid.
+   Include one `actionable_findings` entry for every critical, important,
+   suggestion, or nit. Each entry must identify the changed file and line (or
+   quote the affected text), explain the issue, and state the requested
+   resolution. The GitHub Actions publisher renders these entries in the
+   review body, so category-only findings are invalid.
 
 The `improve-drafting-skills` outer loop reads this signal from the conversation via `oz run get --conversation`, scanning assistant `TextContentBlock` messages for the marker. No git operations are required.
 
@@ -200,13 +199,14 @@ the review yourself. Emit the signal with `reviewer_login` set to
 `github-actions[bot]`; the GitHub Actions runner publishes the review with its
 short-lived token after the cloud agent returns.
 
-1. Determine the authenticated reviewer and map the verdict:
+1. Determine the authenticated reviewer:
    ```bash
    REVIEWER_LOGIN=$(gh api user --jq .login)
    ```
-   Use `APPROVE` for `Approve` and `Approve with nits`; nits do not block
-   merge, so an approval supersedes any earlier change request from the same
-   reviewer. Use `REQUEST_CHANGES` only for `Request changes`.
+   Every verdict — `Approve`, `Approve with nits`, and `Request changes` —
+   publishes as a non-blocking `COMMENT` GitHub review event. The required
+   `Agent docs review` status check still fails on critical or important
+   findings. Engineering review requests remain advisory.
 2. Write the signal JSON object to `/tmp/review-signal.json`, set its
    `reviewer_login` to `$REVIEWER_LOGIN`, and render that same object as the
    `[SIGNAL:pr-review]` line in the final response. Then construct the
@@ -223,9 +223,9 @@ short-lived token after the cloud agent returns.
    review = json.loads(Path("review.json").read_text())
    signal = json.loads(Path("/tmp/review-signal.json").read_text())
    event = {
-       "Approve": "APPROVE",
-       "Approve with nits": "APPROVE",
-       "Request changes": "REQUEST_CHANGES",
+       "Approve": "COMMENT",
+       "Approve with nits": "COMMENT",
+       "Request changes": "COMMENT",
    }[os.environ["VERDICT"]]
    findings = []
    for comment in review["comments"]:

@@ -82,16 +82,19 @@
     "About": {
       "display_name": "About",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
     "Account": {
       "display_name": "Account",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
     "Billing and usage": {
       "display_name": "Billing and usage",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
     "Appearance": {
@@ -109,6 +112,42 @@
         "Tabs",
         "Full-screen Apps"
       ],
+      "controls": [
+        "Sync with OS",
+        "Show Warp in Dock",
+        "Open new windows with custom size",
+        "Columns",
+        "Rows",
+        "Use Window Blur (Acrylic texture)",
+        "Tools panel visibility is consistent across tabs",
+        "Project explorer",
+        "Agent conversations",
+        "Global search",
+        "Warp Drive",
+        "Input type",
+        "Dim inactive panes",
+        "Focus follows mouse",
+        "Compact mode",
+        "Show Jump to Bottom of Block button",
+        "Show block dividers",
+        "Show ligatures in terminal",
+        "Cursor type",
+        "Blinking cursor",
+        "Show tab indicators",
+        "Preserve active tab color for new tabs",
+        "Use vertical tab layout",
+        "Show vertical tabs panel in restored windows",
+        "Hide search bar in vertical tab layout",
+        "Use latest user prompt as conversation title in tab names",
+        "Use custom padding in alt-screen",
+        "Customize your app icon",
+        "Input position",
+        "Use thin strokes",
+        "Enforce minimum contrast",
+        "Tab close button position",
+        "Show the tab bar",
+        "Zoom"
+      ],
       "source_file": "app/src/settings_view/appearance_page.rs"
     },
     "Features": {
@@ -124,41 +163,102 @@
         "Workflows",
         "System"
       ],
+      "controls": [
+        "Open links in desktop app",
+        "Restore windows, tabs, and panes on startup",
+        "Show sticky command header",
+        "Show tooltip on click on links",
+        "Show warning before quitting/logging out",
+        "Quit when all windows are closed",
+        "Show changelog toast after updates",
+        "Lines scrolled by mouse wheel interval",
+        "Maximum rows in a block",
+        "Receive desktop notifications from Warp",
+        "Show in-app agent notifications",
+        "Confirm before closing shared session",
+        "Global hotkey:",
+        "Autocomplete quotes, parentheses, and brackets",
+        "Error underlining for commands",
+        "Syntax highlighting for commands",
+        "Open completions menu as you type",
+        "Warp completions",
+        "Native shell completions",
+        "Suggest corrected commands",
+        "Expand aliases as you type",
+        "Middle-click to paste",
+        "Edit code and commands with Vim keybindings",
+        "Enable '@' context menu in terminal mode",
+        "Enable slash commands in terminal mode",
+        "Outline codebase symbols for '@' context menu",
+        "Show terminal input message line",
+        "Preserve input focus on block selection",
+        "Show autosuggestion keybinding hint",
+        "Show autosuggestion ignore button",
+        "Enable Mouse Reporting",
+        "Enable Scroll Reporting",
+        "Enable Focus Reporting",
+        "Use Audible Bell",
+        "Double-click smart selection",
+        "Show help block in new sessions",
+        "Copy on select",
+        "Show Global Workflows in Command Search (ctrl-r)",
+        "Honor linux selection clipboard",
+        "Prefer rendering new windows with integrated GPU (low power)",
+        "Use Wayland for window management",
+        "Right-click:",
+        "Ctrl+Tab behavior:",
+        "Clipboard access (OSC 52)",
+        "New tab placement",
+        "Preferred graphics backend"
+      ],
       "source_file": "app/src/settings_view/features_page.rs"
     },
     "Keyboard shortcuts": {
       "display_name": "Keyboard shortcuts",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
     "Privacy": {
       "display_name": "Privacy",
       "sub_sections": [],
+      "controls": [
+        "Send crash reports",
+        "Store AI conversations in the cloud",
+        "Network log console",
+        "Manage your data",
+        "Privacy policy"
+      ],
       "source_file": "app/src/settings_view/privacy_page.rs"
     },
     "Referrals": {
       "display_name": "Referrals",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
     "Scripting": {
       "display_name": "Scripting",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
     "Shared blocks": {
       "display_name": "Shared blocks",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
     "Teams": {
       "display_name": "Teams",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
     "Warp Drive": {
       "display_name": "Warp Drive",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
     "Warpify": {
@@ -166,6 +266,11 @@
       "sub_sections": [
         "Subshells",
         "SSH"
+      ],
+      "controls": [
+        "Warpify SSH Sessions",
+        "Reuse existing SSH ControlMaster",
+        "Install SSH extension"
       ],
       "source_file": "app/src/settings_view/warpify_page.rs"
     },
@@ -191,30 +296,35 @@
         "Gemini Enterprise",
         "Custom Routers"
       ],
+      "controls": [],
       "source_file": "app/src/settings_view/ai_page.rs",
       "umbrella": "Agents"
     },
     "Profiles": {
       "display_name": "Profiles",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/ai_page.rs",
       "umbrella": "Agents"
     },
     "MCP servers": {
       "display_name": "MCP servers",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mcp_servers_page.rs",
       "umbrella": "Agents"
     },
     "Knowledge": {
       "display_name": "Knowledge",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/ai_page.rs",
       "umbrella": "Agents"
     },
     "Third party CLI agents": {
       "display_name": "Third party CLI agents",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/ai_page.rs",
       "umbrella": "Agents"
     },
@@ -223,7 +333,11 @@
       "sub_sections": [
         "Codebase Indexing"
       ],
-      "source_file": "app/src/settings_view/code_page.rs",
+      "controls": [
+        "Codebase indexing",
+        "Index new folders by default"
+      ],
+      "source_file": "app/src/settings_view/code_indexing_page.rs",
       "umbrella": "Code"
     },
     "Editor and Code Review": {
@@ -231,18 +345,36 @@
       "sub_sections": [
         "Code Editor and Review"
       ],
-      "source_file": "app/src/settings_view/code_page.rs",
+      "controls": [
+        "Auto open code review panel",
+        "Show code review button",
+        "Show diff stats on code review button",
+        "Project explorer",
+        "Global file search",
+        "Show hidden files in project explorer",
+        "Format on save (requires an active language server)",
+        "Auto save",
+        "Code editor line numbers:",
+        "Group files into single editor pane",
+        "Open Markdown files in Warp's Markdown Viewer by default",
+        "Choose an editor to open file links",
+        "Choose an editor to open files from the code review panel, project explorer, and global search",
+        "Choose a layout to open files in Warp"
+      ],
+      "source_file": "app/src/settings_view/code_editor_review_page.rs",
       "umbrella": "Code"
     },
     "Environments": {
       "display_name": "Environments",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/environments_page.rs",
       "umbrella": "Cloud platform"
     },
     "API keys": {
       "display_name": "API keys",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs",
       "umbrella": "Cloud platform"
     }
@@ -1528,6 +1660,6 @@
     }
   ],
   "source_repository": "warpdotdev/warp",
-  "source_sha": "558aba3bf7e4e9f7e88df18873266604f24d4e9d",
-  "generated_at": "2026-09-08T15:02:07.624514+00:00"
+  "source_sha": "6db7fb734885976bbc717591d48c46db9aad3c7f",
+  "generated_at": "2026-09-09T05:48:45.197360+00:00"
 }
