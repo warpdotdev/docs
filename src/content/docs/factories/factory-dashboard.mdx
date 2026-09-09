@@ -15,7 +15,7 @@ The factory dashboard is the web app for operating a single factory. Use it to t
 
 ## Getting oriented
 
-Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, **Secrets**, and **Integrations** sit above the factory list and cover your whole team, not a single factory; everything else on this page is scoped to the factory you select.
+Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, **Secrets**, and **Integrations** sit above the factory list and cover your whole team, not a single factory. **Inbox** sits there too, but it's neither team-wide nor per-factory: there's a single global Inbox page, and it shows only the items waiting on you personally, across every factory you have access to. Everything else on this page is scoped to the factory you select.
 
 A factory opens on its **Dashboard** page, covered next. **Factory definition** appears only on Warp-managed factories, since a factory whose definition lives in your own repository is edited there instead.
 
@@ -34,31 +34,13 @@ The page also charts opened versus merged PRs and a breakdown of runs, and the *
 <figcaption>Cost per PR and example Scorer cards on the Dashboard page.</figcaption>
 </figure>
 
-## Track work items on Activity
+## Find what needs you in Inbox
 
-**Activity** shows the factory's work items grouped by stage: Triage, Planning, Building, and Reviewing. Finished work items move to two terminal stages, Complete and Cancelled.
-
-<figure style={{ maxWidth: "563px" }}>
-![The Activity page of the factory dashboard, listing work items grouped under Triage, Planning, Building, and Reviewing.](../../../assets/factories/factory-dashboard-activity.png)
-<figcaption>Activity groups work items by stage, with counts for each.</figcaption>
-</figure>
-
-By default, Activity shows only work items you created, and only the four active stages. Change the **Created by** filter to see a teammate's work, and add a **Stage** filter for **Complete** or **Cancelled** to see finished work.
-
-<figure style={{ maxWidth: "563px" }}>
-![The Activity page with a Stage filter chip applied above the work item list, plus a search box and results count.](../../../assets/factories/factory-dashboard-activity-filters.png)
-<figcaption>Filter Activity by stage, creator, or a text search.</figcaption>
-</figure>
-
-Click a work item to open its detail pane, which includes the prompt that started it, the ticket or thread it came from, the pull requests it produced, and its cost. **View agent** opens the agent's session, **Event history** lists the runs behind the work item, and **Stop task** cancels the current run.
-
-:::caution
-**Stop task** takes effect immediately, with no confirmation prompt.
-:::
+**Inbox** collects the questions, spec approvals, and pull request reviews waiting on you across every factory, so you don't have to check each factory's Runs page for stalled work. See the [factory inbox](/factories/factory-inbox/) page for the kinds of items it shows and how to resolve them.
 
 ## Inspect runs
 
-A run is a single agent execution. A work item on **Activity** tracks one piece of work through the factory's stages and can span several runs as different agents pick it up. The team-level **Runs** page lists every run you have access to; a factory's **Runs** page lists only runs from that factory's agents.
+A run is a single agent execution. A single request can span several runs as different agents pick it up, and related runs group under their parent in the list. The team-level **Runs** page lists every run you have access to; a factory's **Runs** page lists only runs from that factory's agents.
 
 Click **New** on a factory's **Runs** page to send a prompt to the factory's foreman agent. Open a run to see its timeline and cost, plus a **Sub-agents** tab for child runs when the agent used [multi-agent orchestration](/platform/orchestration/). From there you can view the agent's full session, stop or score the run, or turn it into a benchmark task.
 
@@ -84,7 +66,7 @@ The automation editor doesn't change execution settings; an automation only over
 * **Managed in GitHub** - The tab doesn't appear. Edit the definition through pull requests in your repository, and **Settings** links back to it.
 * **Live-managed** - The factory is managed through the API, so there are no definition files to browse.
 
-When an agent proposes a change to a Warp-managed definition, its work item on **Activity** links to a review of the branch inside the factory dashboard. From there, comment on the diff, use **Request changes** to send feedback back to the agent, or **Approve & merge**.
+When an agent proposes a change to a Warp-managed definition, a spec review for the branch appears in your [inbox](/factories/factory-inbox/). Open it to comment on the diff, use **Request changes** to send feedback back to the agent, or **Approve & merge**.
 
 ## Score and benchmark
 
@@ -106,7 +88,8 @@ For a file-managed factory, `runners/*.yaml` in the repository is the source of 
 
 ## Next steps
 
-* [How Warp Factories work](/factories/how-factories-work/) - The lifecycle behind Activity's stages and where humans stay in the loop.
+* [Factory inbox](/factories/factory-inbox/) - See and resolve the questions, spec approvals, and PR reviews waiting on you.
+* [How Warp Factories work](/factories/how-factories-work/) - The stages work moves through and where humans stay in the loop.
 * [Definitions as code](/factories/factory-as-code/) - Define agents, automations, runners, and source ownership in code.
 * [Factory agents](/factories/factory-agents/) - What each default agent does and how to configure it.
 * [Measure and improve a factory](/factories/measure-and-improve/) - Configure Scorers and use them in an improvement loop.
