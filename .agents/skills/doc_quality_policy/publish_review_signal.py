@@ -44,6 +44,10 @@ def build_review_payload(
     event = _REVIEW_EVENTS.get(verdict)
     if event is None:
         raise ValueError(f"unsupported review verdict: {signal['verdict']!r}")
+    # `blocking_findings` is a legacy key from pre-GROW-6137 signals;
+    # review-docs-pr/SKILL.md and agent-docs-review.yml now document only
+    # `actionable_findings`. This fallback can be removed once no cached
+    # review prompts emit the legacy key anymore.
     actionable_findings = (
         signal.get("actionable_findings")
         or signal.get("blocking_findings")

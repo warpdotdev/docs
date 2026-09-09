@@ -111,6 +111,7 @@ class TestCheckReviewSignal(unittest.TestCase):
                 "o/r", "1", "sha1", SUGGESTION_OUTPUT
             )
         self.assertEqual(problems, [])
+
     def test_published_blocking_review_must_preserve_actionable_findings(self):
         signal, problems = vrs._parse_signal(BLOCKING_OUTPUT, "1", "sha1")
         self.assertEqual(problems, [])

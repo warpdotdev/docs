@@ -18,7 +18,6 @@ _spec.loader.exec_module(cpc)
 
 _SIGNAL_RE = re.compile(r"\[SIGNAL:pr-review\]\s*(\{.*?\})", re.DOTALL)
 _PASSING_VERDICTS = {"approve", "approve with nits", "approve_with_nits"}
-_BLOCKING_VERDICTS = {"request changes", "request_changes"}
 
 
 def _parse_signal(
@@ -128,8 +127,6 @@ def _published_review_matches_signal(
             "pr",
             "head_sha",
             "verdict",
-            "critical",
-            "important",
             "critical",
             "important",
             "suggestions",
