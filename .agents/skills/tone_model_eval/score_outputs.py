@@ -31,6 +31,7 @@ import importlib.util
 import json
 import subprocess
 import sys
+from collections import Counter
 from pathlib import Path
 from types import ModuleType
 from typing import Dict, List, Optional
@@ -314,6 +315,44 @@ def _calibration_warning(aggregates: Dict[str, dict]) -> Optional[str]:
 # ---------------------------------------------------------------------------
 # Report assembly
 # ---------------------------------------------------------------------------
+def validate_report_fixture_coverage(rows: List[dict]) -> None:
+    """Require every model to have exactly one row for the same fixture-id set."""
+    if not rows:
+        raise ValueError("report requires at least one scored row")
+
+    fixture_ids_by_model: Dict[str, List[str]] = {}
+    for row in rows:
+        fixture_ids_by_model.setdefault(row["model_id"], []).append(row["fixture_id"])
+
+    for model_id, fixture_ids in fixture_ids_by_model.items():
+        duplicate_ids = sorted(
+            fixture_id
+            for fixture_id, count in Counter(fixture_ids).items()
+            if count > 1
+        )
+        if duplicate_ids:
+            raise ValueError(
+                f"report rows for model {model_id!r} contain duplicate fixture id(s): "
+                f"{', '.join(duplicate_ids)}"
+            )
+
+    reference_model_id = next(iter(fixture_ids_by_model))
+    expected_fixture_ids = set(fixture_ids_by_model[reference_model_id])
+    for model_id, fixture_ids in fixture_ids_by_model.items():
+        model_fixture_ids = set(fixture_ids)
+        if model_fixture_ids != expected_fixture_ids:
+            missing = sorted(expected_fixture_ids - model_fixture_ids)
+            unexpected = sorted(model_fixture_ids - expected_fixture_ids)
+            details = []
+            if missing:
+                details.append(f"missing fixture id(s): {', '.join(missing)}")
+            if unexpected:
+                details.append(f"unexpected fixture id(s): {', '.join(unexpected)}")
+            raise ValueError(
+                f"report rows for model {model_id!r} do not match the fixture coverage "
+                f"for model {reference_model_id!r} ({'; '.join(details)})"
+            )
+
 
 def build_report(
     rows: List[dict],
@@ -451,6 +490,11 @@ def cmd_report(args: argparse.Namespace) -> int:
         for line in Path(args.rows_file).read_text(encoding="utf-8").splitlines()
         if line.strip()
     ]
+    try:
+        validate_report_fixture_coverage(rows)
+    except ValueError as error:
+        print(f"error: {error}", file=sys.stderr)
+        return 2
     aggregates = aggregate_by_model(rows)
     missing = [m for m in (args.fable_model_id, args.default_model_id) if m not in aggregates]
     if missing:

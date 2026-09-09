@@ -122,6 +122,44 @@ class TestAggregateByModel(unittest.TestCase):
             rows[0]["mechanical"]["combined"] + rows[1]["mechanical"]["combined"],
         )
 
+class TestReportFixtureCoverage(unittest.TestCase):
+    def _row(self, fixture_id, model_id):
+        return so.score_row(
+            fixture_id,
+            model_id,
+            _WORDY_BEFORE,
+            _TIGHTENED_OUTPUT,
+            {"concision": 4, "avoids_over_explaining": 4, "technical_fidelity": 4},
+        )
+
+    def test_accepts_identical_one_per_fixture_coverage(self):
+        rows = [
+            self._row("fx1", "model-a"),
+            self._row("fx2", "model-a"),
+            self._row("fx1", "model-b"),
+            self._row("fx2", "model-b"),
+        ]
+        so.validate_report_fixture_coverage(rows)
+
+    def test_rejects_missing_fixture_for_a_model(self):
+        rows = [
+            self._row("fx1", "model-a"),
+            self._row("fx2", "model-a"),
+            self._row("fx1", "model-b"),
+        ]
+        with self.assertRaisesRegex(ValueError, r"model-b.*missing fixture id\(s\): fx2"):
+            so.validate_report_fixture_coverage(rows)
+
+    def test_rejects_duplicate_fixture_for_a_model(self):
+        rows = [
+            self._row("fx1", "model-a"),
+            self._row("fx2", "model-a"),
+            self._row("fx1", "model-b"),
+            self._row("fx1", "model-b"),
+        ]
+        with self.assertRaisesRegex(ValueError, r"model-b.*duplicate fixture id\(s\): fx1"):
+            so.validate_report_fixture_coverage(rows)
+
 
 class TestEvaluateAdoptGuidance(unittest.TestCase):
     def _agg(self, concision, combined_violations):
