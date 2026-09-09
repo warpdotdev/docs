@@ -2,13 +2,13 @@
 title: Factory definition syntax
 description: >-
   Look up every file and key in a factory definition: factory.yaml, agents,
-  automations, runners, scorers, skills, and webhooks.
+  automations, runners, benchmarks, scorers, skills, and webhooks.
 sidebar:
   label: "Definitions as code"
 ---
 import { VARS } from '@data/vars';
 
-Every factory is defined by files: a `factory.yaml` plus directories of agents, automations, runners, scorers, skills, and webhooks, versioned in a Git repository. The files are the source of truth — when they change, Warp updates the factory to match. This page describes every file and key in a definition.
+Every factory is defined by files: a `factory.yaml` plus directories of agents, automations, runners, benchmarks, scorers, skills, and webhooks, versioned in a Git repository. The files are the source of truth — when they change, Warp updates the factory to match.
 
 Definition files are YAML and Markdown. Keys are case-sensitive.
 
@@ -46,6 +46,11 @@ automations/
     automation.md
 runners/
   linux-build.yaml
+benchmarks/
+  pull-request-review/
+    suite.yaml
+    tasks/
+      broken-doc-link.yaml
 scorers/
   tests-run/
     scorer.md
@@ -336,6 +341,66 @@ Optional. The compute size, as `vcpus` and `memoryGb`. Omit it to take the works
 ### `platform`
 
 The operating system and architecture. `os` is `linux` (the default) or `macos`, and `arch` is `x86_64` (the default on Linux) or `aarch64` (the only option on macOS). Linux runners require `linux.dockerImage`, the container image the sandbox boots, so every Linux runner declares a `platform` section. macOS runners accept an optional `mac.version` (`"14"`, `"15"`, `"26"`, or `"27"`; quote it, and it defaults to `"26"`).
+
+## `benchmarks/<suite-slug>/suite.yaml`
+
+Optional. This file defines a [benchmark suite](/factories/benchmarks/): one agent and an ordered set of reusable tasks. The suite slug is its stable file location, not its display name, so renaming `name` does not move the file or change the suite's identity.
+
+```yaml title="benchmarks/pull-request-review/suite.yaml"
+name: Pull request review
+description: Compare configurations for the review agent.
+agent: reviewer
+tasks:
+  - broken-doc-link
+```
+
+### `name`
+
+Required. The suite display name. It must be unique in the factory.
+
+### `description`
+
+Optional. A short summary of what the suite measures.
+
+### `agent`
+
+Required. The name of an agent declared by the factory. Every task in the suite runs as this agent.
+
+### `tasks`
+
+Optional. An ordered list of unique task slugs. Each slug must match exactly one file under `benchmarks/<suite-slug>/tasks/`, and every task file must appear once in this list. A suite without tasks saves successfully but cannot run.
+
+## `benchmarks/<suite-slug>/tasks/<task-slug>.yaml`
+
+Optional. Each file defines one task in its parent suite. The task slug is the file name without `.yaml` and stays stable when you change the task's title.
+
+```yaml title="benchmarks/pull-request-review/tasks/broken-doc-link.yaml"
+title: Fix a broken documentation link
+prompt: Find the broken internal documentation link and update it.
+successCriteria: The destination resolves and the link text names the destination.
+startingRepoRefs:
+  - github.com:acme/payments-docs@0123456789abcdef0123456789abcdef01234567
+```
+
+### `title`
+
+Required. The task display name. It does not need to match the task slug.
+
+### `prompt`
+
+Required. The instructions the agent receives for the task.
+
+### `successCriteria`
+
+Required. The requirements the Correctness Scorer uses to evaluate each trial.
+
+### `sourceRunId`
+
+Optional. The ID of the prior run the task came from. This records provenance only and can refer to a deleted run.
+
+### `startingRepoRefs`
+
+Optional. The GitHub or GitLab repositories and exact commits the task starts from. Use either `github.com:OWNER/REPO@COMMIT_SHA` or `gitlab.com:OWNER/REPO@COMMIT_SHA`; `COMMIT_SHA` must be a full 40-character commit SHA, not a branch or tag. Omit this key to use the agent's normal checkout defaults.
 
 ## `scorers/<name>/scorer.md`
 
