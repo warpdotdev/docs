@@ -23,7 +23,7 @@ Warp's security philosophy centers on **transparency and developer control**:
 
 ### Zero Data Retention (ZDR)
 
-Warp has **Zero Data Retention (ZDR)** agreements with its contracted LLM providers (Anthropic, OpenAI, Google), meaning they do not store or train on your data. ZDR applies across all Warp plans.
+Warp has **Zero Data Retention (ZDR)** agreements with its contracted LLM providers (Anthropic, OpenAI, Google, xAI), meaning they do not store or train on your data. ZDR applies across all Warp plans.
 
 How data collection works by plan:
 
@@ -71,7 +71,7 @@ Team admins can enforce telemetry settings organization-wide through the Admin P
 
 * **Code and files** - Stay on your machine unless you explicitly use features that transmit them (e.g., Codebase Context indexing, session sharing, Warp Drive team resources)
 * **Codebase Context** - During indexing, code is sent to Warp's servers to generate embeddings; the raw code is not stored, only the resulting embeddings are retained
-* **Agent requests** - Warp sends requests to contracted LLM providers (Anthropic, OpenAI, Google) with Zero Data Retention agreements for Enterprise teams
+* **Agent requests** - Warp sends requests to contracted LLM providers (Anthropic, OpenAI, Google, xAI) with Zero Data Retention agreements for Enterprise teams
 * **BYOLLM** - Requests are proxied through Warp's servers to your cloud infrastructure, where inference runs. Warp does not store the content of these requests.
 * **Team-managed API keys and endpoints** - When an admin configures [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), the keys are encrypted and stored server-side, never synced to member devices, and never delivered to cloud agent environments. They're decrypted only in memory when serving a request.
 * **Self-hosted cloud agent execution** - Repository clones, build artifacts, runtime secrets, and execution workspaces stay on your infrastructure. Orchestration metadata, session transcripts, and LLM inference requests and responses route through Warp under ZDR, and can include code context from agent interactions.
