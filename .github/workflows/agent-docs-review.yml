@@ -23,10 +23,14 @@ jobs:
   review:
     name: Agent docs review
     runs-on: ubuntu-latest
-    # Only agent-marked PRs get the independent review pass, and only from
-    # this same repository (never a fork, which carries no secrets here).
+    # Only agent-marked PRs that are ready for human review get the
+    # independent review pass, and only from this same repository (never a
+    # fork, which carries no secrets here). Drafts may be opened, labeled, or
+    # updated without receiving a blocking review; `ready_for_review` starts
+    # the first eligible pass.
     if: |
       contains(github.event.pull_request.labels.*.name, 'warpy-factory') &&
+      github.event.pull_request.draft == false &&
       github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - name: Checkout docs
@@ -51,8 +55,25 @@ jobs:
             3. Do not use `gh` or attempt to publish a GitHub review. The GitHub Actions runner
                publishes the review using its short-lived token after this run completes.
             4. Emit one [SIGNAL:pr-review] JSON record with this head SHA, verdict, severity
-               counts, and top categories. Set reviewer_login to `github-actions[bot]`, the
-               runner account that will publish the review.
+               counts, and top categories. When the verdict is `Request changes`, also include
+               one actionable `blocking_findings` string for each critical or important finding.
+               Each string must name the changed file and line or quoted text, explain the
+               problem, and state the requested resolution. Set reviewer_login to
+               `github-actions[bot]`, the runner account that will publish the review.
+      - name: Dismiss stale automated change requests
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api --paginate --slurp "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews?per_page=100" > /tmp/reviews.json
+          python3 .agents/skills/doc_quality_policy/stale_review_requests.py \
+            --reviews /tmp/reviews.json \
+            --head-sha "${{ github.event.pull_request.head.sha }}" > /tmp/stale-review-ids.txt
+          while IFS= read -r review_id; do
+            [ -z "$review_id" ] && continue
+            gh api --method PUT \
+              "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews/${review_id}/dismissals" \
+              -f "message=Superseded by the current Agent docs review check."
+          done < /tmp/stale-review-ids.txt
 
       - name: Publish the independent review
         env:

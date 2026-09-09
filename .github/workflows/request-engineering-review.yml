@@ -2,6 +2,13 @@ name: Request engineering review
 
 # Technical documentation PRs request source-owner review, but a missing
 # GitHub approval does not block Docs from merging after its normal review.
+#
+# Reviewer policy (see .agents/references/doc-quality-policy.md): at most one
+# human reviewer per PR, requested once. This workflow re-fires on every PR
+# event, so it must be idempotent and must never fight a human: it adds
+# nothing when the PR already has a requested reviewer or a submitted review,
+# and it never re-requests anyone who was removed from the PR
+# (review_request_removed).
 on:
   pull_request:
     types: [opened, labeled, synchronize, reopened, ready_for_review, edited]
@@ -21,7 +28,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Request listed source owners for technical documentation
+      - name: Request the listed source owner for technical documentation
         env:
           GH_TOKEN: ${{ github.token }}
           PR_BODY: ${{ github.event.pull_request.body }}
@@ -40,11 +47,56 @@ jobs:
               Path("/tmp/pr-body.md").read_text(encoding="utf-8")
           )
           if risk and risk.risk == policy.RISK_ENGINEERING_REVIEW_REQUIRED:
-              print("\n".join(risk.requested_engineering_reviewers))
+              seen = set()
+              for reviewer in risk.requested_engineering_reviewers:
+                  if "/" in reviewer:
+                      continue
+                  key = reviewer.lower()
+                  if key not in seen:
+                      seen.add(key)
+                      print(reviewer)
           PY
-          while IFS= read -r reviewer; do
-            [ -z "$reviewer" ] && continue
-            if ! gh pr edit "$PR_NUMBER" --repo "$REPOSITORY" --add-reviewer "$reviewer"; then
-              echo "::warning::Could not request engineering review from $reviewer."
-            fi
-          done < /tmp/requested-engineers.txt
+
+          mapfile -t CANDIDATES < /tmp/requested-engineers.txt
+          if (( ${#CANDIDATES[@]} == 0 )); then
+            echo "PR #$PR_NUMBER has no single human owner - not requesting a reviewer."
+            exit 0
+          elif (( ${#CANDIDATES[@]} > 1 )); then
+            echo "PR #$PR_NUMBER has multiple human owners (${CANDIDATES[*]}) - not requesting a reviewer."
+            exit 0
+          fi
+          CANDIDATE="${CANDIDATES[0]}"
+
+          if ! CURRENT=$(gh pr view "$PR_NUMBER" --repo "$REPOSITORY" \
+            --json reviewRequests --jq '[.reviewRequests[] | .login // .slug // .name] | join(",")'); then
+            echo "::warning::Could not read requested reviewers for PR #$PR_NUMBER - requesting nobody."
+            exit 0
+          elif [ -n "$CURRENT" ]; then
+            echo "PR #$PR_NUMBER already has requested reviewer(s): $CURRENT - not adding more."
+            exit 0
+          fi
+
+          if ! REVIEWED=$(gh api "repos/$REPOSITORY/pulls/$PR_NUMBER/reviews" --paginate \
+            --jq '[.[].user.login] | unique | join(",")'); then
+            echo "::warning::Could not read submitted reviews for PR #$PR_NUMBER - requesting nobody."
+            exit 0
+          elif [ -n "$REVIEWED" ]; then
+            echo "PR #$PR_NUMBER already has submitted review(s): $REVIEWED - not adding a reviewer."
+            exit 0
+          fi
+
+          if ! REMOVED=$(gh api "repos/$REPOSITORY/issues/$PR_NUMBER/timeline" --paginate \
+            --jq '[.[] | select(.event == "review_request_removed")
+                   | (.requested_reviewer.login // .requested_team.slug // empty)] | unique | join(",")'); then
+            echo "::warning::Could not read reviewer-removal history for PR #$PR_NUMBER - requesting nobody."
+            exit 0
+          elif [ -n "$REMOVED" ]; then
+            echo "PR #$PR_NUMBER has reviewer-removal event(s): $REMOVED - not adding reviewers."
+            exit 0
+          fi
+
+          if gh pr edit "$PR_NUMBER" --repo "$REPOSITORY" --add-reviewer "$CANDIDATE"; then
+            echo "Requested engineering review from $CANDIDATE."
+          else
+            echo "::warning::Could not request engineering review from $CANDIDATE - leaving the PR without a requested reviewer."
+          fi

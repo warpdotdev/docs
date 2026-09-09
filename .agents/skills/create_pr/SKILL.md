@@ -290,195 +290,108 @@ python3 .agents/skills/create_pr/check_pr_body.py /tmp/pr-body.md \
 # 3. Create the PR using the file (only if the check passed)
 gh pr create --title "docs: Add feature documentation" --body-file /tmp/pr-body.md
 
-# 4. REQUIRED: request the reviewer for real (see "Request reviewers" below).
-#    The PR is not complete until this has succeeded.
+# 4. Optionally request ONE reviewer - only when ownership resolution names
+#    exactly one owning engineer (see "Request a reviewer" below).
+#    No clear owner means no request.
 
 # Open in browser to fill details
 gh pr create --web
 ```
 
-### Request reviewers (required)
+### Request a reviewer (at most one, only with conviction)
 
-**Naming a reviewer in the body is not a review request.** A `/cc @engineer` mention notifies nobody through GitHub's review queue: the PR shows no requested reviewer, never appears in that engineer's "Review requested" filter, and quietly goes unreviewed. Every one of the four ambient-drafted docs PRs — #414, #415, #416, #417 — named reviewers in prose and received zero reviews; three had an empty requested-reviewers list and the fourth had a single reviewer added by hand.
+Reviewer requests are rare and small by design. Docs PRs used to over-tag: multi-owner requests, a mandatory fallback chain, and re-requests on every update paged people who had no reason to look. Three rules replace all of that, and each one is load-bearing:
 
-So the mention stays, and a real request is added alongside it. **A PR is not complete until `gh pr edit --add-reviewer` has succeeded and been verified.**
+1. **At most one reviewer, always a human.** Never request more than one person on a PR, and never request a team — a team handle (e.g. `warpdotdev/oss-maintainers`) pages several people for a change one engineer can review, and most teams resolved from ownership files have no access to `warpdotdev/docs` anyway. If ownership genuinely spans several engineers, request nobody and name the candidates in the PR body instead.
+2. **Request only with 100% conviction.** Make a request only when ownership resolution (`suggest_reviewers.py` against the source files behind the change) identifies exactly one owning engineer. An empty resolution or a multi-owner resolution is not conviction: open the PR with no requested reviewer and record why in the run output. **There is no fallback reviewer.** Never substitute the run's requester, a teammate, or a default human when nothing resolves — a PR honestly waiting for triage beats a review request aimed at the wrong person.
+3. **Never fight a human over the reviewer list.** If someone removed a reviewer from the PR (a `review_request_removed` event in its timeline), do not add that person back — and treat the removal as a signal to stop adding reviewers to that PR at all. If the PR already has a requested reviewer or a submitted review, add nobody. A reviewer request happens at most once, immediately after PR creation; later pushes or body edits never top the list back up.
 
-A resolution failure must fall back, never no-op. When no owner resolves — the common case for a small, ambient/agent-generated docs PR — prefer the run's requester next, then `hongyi-chen`, then `rachaelrenk`, and only then `dannyneira` as the final safety net (the release docs workflow keeps its own last-resort `dannyneira` fallback too — `.github/workflows/release-docs-update.yml`, "Assign last docs PR reviewer"). An unassignable reviewer is a problem to surface, not a reason to ship an unreviewed PR.
-
-The full priority chain, in order: (1) the CODEOWNERS/git-blame owner from `suggest_reviewers.py`; (2) the run's requester, resolved via this repo's own `.agents/skills/create_pr/resolve_reviewer.py --user <requester_slack_id>` and a runtime-supplied private override map; (3) a secondary human fallback, `hongyi-chen` ("HYC"); (4) a tertiary human fallback, `rachaelrenk`; (5) `dannyneira` as the final safety net.
-
-Step 2's resolver is a docs-repo-local script, not `factory-agents`' `scripts/factory-resolve-reviewer`: that script lives in the separate `factory-agents` repo and is not checked out alongside a normal `warpdotdev/docs` clone, so calling it by that relative path fails in a real docs run and silently falls through to the next tier. The invoking factory must mount its private Slack-to-GitHub override map and set `REVIEWER_OVERRIDES_PATH` before calling `resolve_reviewer.py`; never commit Slack user IDs or mappings to this repository. The helper does nothing else — no public-email search, no cross-repo assumptions — so the requester tier resolves from a plain docs checkout when that private runtime context is available. Like `factory-resolve-reviewer`, it never guesses: an unavailable map or unresolved Slack id prints nothing and the chain moves to the next tier.
-
-The factory-level private override map owns requester identity mappings. This repository stores no real Slack IDs: keep `REQUESTER_SLACK_ID` as a runtime value and use a placeholder in examples and tests.
-
-Two details below are load-bearing, and getting either wrong reintroduces the silent drop this section exists to prevent:
-
-- **Request one reviewer per call.** `gh pr edit --add-reviewer a,b,c` sends a single atomic mutation, so one unassignable entry rejects the whole list. Since a resolution routinely mixes users with a team, and a team with no access to this repo cannot be requested here, a comma-joined call can fail wholesale and take every valid owner down with it.
-- **Verify against the resolved set, not against emptiness.** "Is the list non-empty?" passes when the real owner was dropped and only the fallback landed, which looks identical to success.
+When you do request the one resolved owner, make it a real request. A `/cc @engineer` mention in the body notifies nobody through GitHub's review queue — PRs #414–#417 named reviewers in prose and got zero reviews — so mention and request the same single engineer together, via `gh pr edit --add-reviewer`. When there is no conviction, do neither.
 
 ```bash
 PR=123
-REQUESTER_SLACK_ID=""        # this run's requester Slack user id, when known
-SECONDARY_FALLBACK_REVIEWER=hongyi-chen   # HYC - confirmed second-tier fallback
-TERTIARY_FALLBACK_REVIEWER=rachaelrenk     # third-tier human fallback
-FALLBACK_REVIEWER=dannyneira               # final safety net; never remove
 
-# 1. Resolve the owning engineer(s). For missing_docs drift-watch runs, use the
-#    ownership resolver with the source files behind the change; see the
-#    missing_docs skill's "Reviewer routing" section for how to pick those files.
-#    Diagnostics go to stderr, so this captures only the reviewer list.
+# 1. Resolve the owning engineer(s) for the source files behind the change.
+#    For missing_docs drift-watch runs, see that skill's "Reviewer routing"
+#    section for how to pick the source files. Diagnostics go to stderr, so
+#    this captures only the reviewer list.
 REVIEWERS=$(python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
   --reviewers-only --warp ../warp --warp-server ../warp-server \
   warp:app/src/settings/ssh.rs < /dev/null)
 
-# 2. No code-owner resolved. For a small, ambient/agent-generated PR with no
-#    clear owner - the common case here - prefer the run's requester over
-#    paging dannyneira: resolve their GitHub handle with this docs-local helper
-#    and the invoking factory's private REVIEWER_OVERRIDES_PATH map. The helper
-#    is callable from a plain docs checkout, unlike factory-agents'
-#    scripts/factory-resolve-reviewer, which lives in a separate repo that
-#    isn't checked out alongside this one.
-#    Fall to HYC, then rachaelrenk, and only then to the final dannyneira
-#    safety net. Never let an empty resolution drop the request.
-#    Track that this was a fallback so step 6 does not report it as an owner
-#    who was requested.
-RESOLUTION_WAS_EMPTY=0
-if [[ -z "$REVIEWERS" ]]; then
-  RESOLUTION_WAS_EMPTY=1
-  if [[ -n "$REQUESTER_SLACK_ID" ]]; then
-    REVIEWERS=$(python3 .agents/skills/create_pr/resolve_reviewer.py --user "$REQUESTER_SLACK_ID")
+# 2. Distill the resolution to at most ONE human. Team entries (org/slug)
+#    are never requested. Two or more distinct users is ambiguity, not
+#    conviction: request nobody and name the candidates in the PR body.
+CANDIDATE=""
+CANDIDATE_KEY=""
+AMBIGUOUS=0
+IFS=',' read -ra RESOLVED <<< "$REVIEWERS"
+for R in "${RESOLVED[@]}"; do
+  [[ -z "$R" || "$R" == */* ]] && continue
+  R_KEY="${R,,}"
+  if [[ -z "$CANDIDATE" ]]; then
+    CANDIDATE="$R"
+    CANDIDATE_KEY="$R_KEY"
+  elif [[ "$R_KEY" != "$CANDIDATE_KEY" ]]; then
+    AMBIGUOUS=1
   fi
-  FALLBACK_CANDIDATES=()
-  add_fallback_candidate() {
-    local candidate existing
-    candidate="$1"
-    [[ -z "$candidate" ]] && return
-    for existing in "${FALLBACK_CANDIDATES[@]}"; do
-      [[ "$existing" == "$candidate" ]] && return
-    done
-    FALLBACK_CANDIDATES+=("$candidate")
-  }
-  add_fallback_candidate "$REVIEWERS"
-  add_fallback_candidate "$SECONDARY_FALLBACK_REVIEWER"
-  add_fallback_candidate "$TERTIARY_FALLBACK_REVIEWER"
-  add_fallback_candidate "$FALLBACK_REVIEWER"
-  REVIEWERS="${FALLBACK_CANDIDATES[0]}"
-  echo "warning: no owner resolved - falling back to $REVIEWERS"
+done
+if [[ -z "$CANDIDATE" ]]; then
+  echo "note: no owner resolved for PR $PR - opening it with no requested reviewer"
+elif (( AMBIGUOUS )); then
+  echo "note: multiple owners resolved for PR $PR ($REVIEWERS) - no single clear owner, requesting nobody"
+  CANDIDATE=""
 fi
 
-# 3. Request each reviewer separately so one bad entry cannot drop the rest.
-IFS=',' read -ra WANT <<< "$REVIEWERS"
-GOT=()
-for R in "${WANT[@]}"; do
-  if gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$R"; then
-    GOT+=("$R")
+# 3. Requests are add-once. Skip when the PR already has a requested reviewer
+#    or a submitted review, and stop adding reviewers after any human removal.
+if [[ -n "$CANDIDATE" ]]; then
+  if ! REQUESTED=$(gh pr view "$PR" --repo warpdotdev/docs \
+    --json reviewRequests --jq '[.reviewRequests[] | .login // .slug // .name] | join(",")'); then
+    echo "warning: could not read requested reviewers for PR $PR - requesting nobody"
+    CANDIDATE=""
+  elif [[ -n "$REQUESTED" ]]; then
+    echo "note: PR $PR already has reviewer(s) ($REQUESTED) - not adding more"
+    CANDIDATE=""
+  fi
+fi
+if [[ -n "$CANDIDATE" ]]; then
+  if ! REVIEWED=$(gh api "repos/warpdotdev/docs/pulls/$PR/reviews" --paginate \
+    --jq '[.[].user.login] | unique | join(",")'); then
+    echo "warning: could not read submitted reviews for PR $PR - requesting nobody"
+    CANDIDATE=""
+  elif [[ -n "$REVIEWED" ]]; then
+    echo "note: PR $PR already has submitted review(s) ($REVIEWED) - not adding a reviewer"
+    CANDIDATE=""
+  fi
+fi
+if [[ -n "$CANDIDATE" ]]; then
+  if ! REMOVED=$(gh api "repos/warpdotdev/docs/issues/$PR/timeline" --paginate \
+    --jq '[.[] | select(.event == "review_request_removed")
+           | (.requested_reviewer.login // .requested_team.slug // empty)] | unique | join(",")'); then
+    echo "warning: could not read reviewer-removal history for PR $PR - requesting nobody"
+    CANDIDATE=""
+  elif [[ -n "$REMOVED" ]]; then
+    echo "note: PR $PR has a reviewer-removal event ($REMOVED) - not adding reviewers"
+    CANDIDATE=""
+  fi
+fi
+
+# 4. Request the single owner. A failed request is a reportable outcome,
+#    never a reason to substitute someone else.
+if [[ -n "$CANDIDATE" ]]; then
+  if gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$CANDIDATE"; then
+    echo "Requested reviewer: $CANDIDATE"
   else
-    echo "warning: could not request $R on PR $PR"
+    echo "warning: could not request $CANDIDATE on PR $PR - leaving it with no requested reviewer"
   fi
-done
-
-# 4. Read back from the PR. This is the only trustworthy signal: `gh pr edit`
-#    can exit 0 while quietly skipping a reviewer, so GOT records what gh
-#    *claimed* and the read-back is what actually landed. Every decision below
-#    keys off the read-back. Note the jq: teams have no .login, and
-#    `[.reviewRequests[].login // .reviewRequests[].name]` silently drops them
-#    from a mixed list.
-read_requested() {
-  gh pr view "$PR" --repo warpdotdev/docs \
-    --json reviewRequests --jq '[.reviewRequests[] | .login // .slug // .name] | join(",")'
-}
-REQUESTED=$(read_requested)
-
-# 5. A helper to check whether a specific reviewer is present in the
-#    read-back, not just whether the read-back is non-empty. Match on the
-#    last path segment, lowercased: a team resolves as `org/team` but reads
-#    back as its bare slug, and GitHub logins are case-insensitive.
-_norm() { printf '%s' "${1##*/}" | tr 'A-Z' 'a-z'; }
-has_reviewer() {
-  local want target
-  want=$(_norm "$1")
-  IFS=',' read -ra _have <<< "$REQUESTED"
-  for target in "${_have[@]}"; do
-    [[ "$(_norm "$target")" == "$want" ]] && return 0
-  done
-  return 1
-}
-
-# 6. Verify the fallback actually landed whenever resolution came back empty,
-#    and otherwise fall back when nothing at all landed. An emptiness check on
-#    $REQUESTED alone is wrong for the empty-resolution case: a PR that
-#    already carries an unrelated reviewer (requested before this script ran,
-#    e.g. by a human) makes $REQUESTED non-empty even though the fallback was
-#    never assigned, which would skip re-requesting it here and then have the
-#    next step falsely report it as requested when it never landed.
-request_fallback() {
-  local candidate="$1"
-  if ! has_reviewer "$candidate"; then
-    gh pr edit "$PR" --repo warpdotdev/docs --add-reviewer "$candidate" ||
-      echo "warning: fallback $candidate could not be requested"
-    REQUESTED=$(read_requested)
-  fi
-}
-
-if (( RESOLUTION_WAS_EMPTY )); then
-  for candidate in "${FALLBACK_CANDIDATES[@]}"; do
-    REVIEWERS="$candidate"
-    request_fallback "$REVIEWERS"
-    has_reviewer "$REVIEWERS" && break
-    echo "warning: $REVIEWERS rejected - advancing to next fallback"
-  done
-elif [[ -z "$REQUESTED" ]]; then
-  request_fallback "$FALLBACK_REVIEWER"
 fi
-
-if [[ -z "$REQUESTED" ]]; then
-  echo "ERROR: no reviewer is on PR $PR - not even the fallback landed"
-  exit 1
-fi
-if (( RESOLUTION_WAS_EMPTY )) && ! has_reviewer "$REVIEWERS"; then
-  echo "ERROR: fallback $REVIEWERS could not be requested on PR $PR" \
-       "(existing reviewers: $REQUESTED); report this run as failed."
-  exit 1
-fi
-
-# 7. Compare the read-back against what was resolved.
-IFS=',' read -ra HAVE <<< "$REQUESTED"
-MISSING=()
-for R in "${WANT[@]}"; do
-  found=0
-  for H in "${HAVE[@]}"; do
-    [[ "$(_norm "$R")" == "$(_norm "$H")" ]] && { found=1; break; }
-  done
-  (( found )) || MISSING+=("$R")
-done
-
-if (( RESOLUTION_WAS_EMPTY )); then
-  # Step 6 already guaranteed the settled-on fallback landed (or exited
-  # above), so this always reports a true outcome, not just "nothing
-  # resolved."
-  echo "note: no owner resolved for PR $PR; fallback $REVIEWERS requested"
-elif (( ${#MISSING[@]} == ${#WANT[@]} )); then
-  # Owners resolved and none of them are on the PR. It has a reviewer, but not
-  # the right one, and that must not read as success.
-  echo "ERROR: none of the ${#WANT[@]} resolved owners are on PR $PR" \
-       "(wanted: ${WANT[*]}); only the fallback is assigned. Report this run as failed."
-  exit 1
-elif (( ${#MISSING[@]} > 0 )); then
-  echo "warning: ${#MISSING[@]}/${#WANT[@]} resolved owners missing from PR $PR" \
-       "(missing: ${MISSING[*]}); name them and why in the run output"
-fi
-
-echo "Requested reviewers: $REQUESTED"
 ```
 
-A partial result is a reportable outcome, not a pass: if some owners could not be requested, say which ones and why in the run output, so the gap is visible rather than buried. If even the fallback cannot be assigned, report the run as failed. Do not close out a PR whose requested-reviewers list is empty.
-
-:::caution
-A team handle resolved from `STAKEHOLDERS` or `CODEOWNERS` can only be requested on a repo that team has access to. `warpdotdev/oss-maintainers` is the root-rule owner in the warp client repo and therefore appears in most resolutions, but it has no access to `warpdotdev/docs`, so requesting it here fails. That is why step 3 requests one at a time.
-:::
+A PR with an empty requested-reviewers list is a valid, reportable outcome — say why in the run output (no owner resolved, several owners resolved, a human removed the reviewer, or the request failed). What is never acceptable is inventing a reviewer just to make the list non-empty.
 
 :::note
-Auto-requesting the review does not block merge. The Docs team owns the merge decision after its normal review, whether an engineer replies in GitHub, replies elsewhere, or does not reply.
+A requested review does not block merge. The Docs team owns the merge decision after its normal review, whether the engineer replies in GitHub, replies elsewhere, or does not reply.
 :::
 
 ### Update an existing PR
@@ -504,9 +417,9 @@ gh pr edit 123 --title "New title"
 # Add labels
 gh pr edit 123 --add-label documentation
 
-# Add reviewers - see "Request reviewers (required)" above; this is mandatory on a
-# new PR, not an optional extra.
-gh pr edit 123 --add-reviewer username
+# Do NOT add reviewers while updating an existing PR. A reviewer request
+# happens at most once, at creation ("Request a reviewer" above) - and anyone
+# a human removed stays removed.
 ```
 
 ### View PR status
@@ -526,7 +439,7 @@ Co-Authored-By: Oz <oz-agent@warp.dev>
 
 ## After Opening the PR
 
-1. **Confirm the review request landed** - Re-read `reviewRequests` on the PR. An empty list means the PR is not finished, whatever the body says. See "Request reviewers (required)".
+1. **Leave the reviewer list to humans** - If you requested an owner, confirm once that it landed. An empty `reviewRequests` list is a valid outcome when no single owner resolved, and if anyone removes a reviewer later, do not re-add them. See "Request a reviewer (at most one, only with conviction)".
 2. **Monitor for merge conflicts** - If main is updated, merge it into your branch
 3. **Respond to review comments** - Address feedback promptly
 4. **Re-run checks after changes** - Run `trunk check` and link checker after making updates

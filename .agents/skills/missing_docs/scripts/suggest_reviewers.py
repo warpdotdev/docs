@@ -25,18 +25,24 @@ Source paths may also be piped on stdin (one `repo:relpath` per line). `repo`
 is `warp` (the client repo passed via --warp; `warp-internal` is accepted as an
 alias) or `warp-server`.
 
-Output: a per-path resolution table, the deduped reviewer set (users and teams),
-and a ready-to-run `gh pr edit --add-reviewer` snippet. Exit code is always 0;
-unresolved paths are reported but never fatal (so a scheduled run is not blocked
-by an ownership gap — it just falls back to the default owners or none).
+Output: a per-path resolution table and the deduped reviewer set (users and
+teams). Exit code is always 0; unresolved paths are reported but never fatal (so
+a scheduled run is not blocked by an ownership gap — the PR simply opens with no
+requested reviewer).
 
-Pass `--reviewers-only` to print just the comma-joined argument for
-`gh pr edit --add-reviewer` (empty output when nothing resolved). That is the form
-the mandatory reviewer-request step consumes, so callers never have to scrape the
-human-readable table:
+This script reports raw resolution data. The request policy lives in the
+`create_pr` skill ("Request a reviewer (at most one, only with conviction)"):
+at most ONE human reviewer per PR, requested only when exactly one owner
+resolves; teams are never requested; there is no fallback reviewer; and a
+reviewer a human removed from a PR is never re-added.
+
+Pass `--reviewers-only` to print just the comma-joined resolution (empty output
+when nothing resolved). That is the form the `create_pr` request snippet
+consumes — it distills the list to a single human or to nobody:
 
   REVIEWERS=$(python3 suggest_reviewers.py --reviewers-only --warp ../warp warp:app/src/x.rs)
-  [[ -z "$REVIEWERS" ]] && REVIEWERS=dannyneira   # never drop the review request
+  # Empty output means no owner resolved: open the PR with no requested
+  # reviewer and say so - never substitute a fallback person.
 """
 
 import argparse
@@ -133,8 +139,8 @@ def main():
         """Report a resolution problem.
 
         Under --reviewers-only this goes to stderr, so `$(...)` still captures only
-        the reviewer list while the run log keeps a record of why a fallback
-        happened. A silent fallback is indistinguishable from a correct resolution
+        the reviewer list while the run log keeps a record of why no reviewer was
+        requested. A silent skip is indistinguishable from a correct resolution
         when you are reading the log afterwards.
         """
         print(message, file=sys.stderr if quiet else sys.stdout)
@@ -170,13 +176,13 @@ def main():
     joined = ",".join(review_args)
 
     if quiet:
-        # Sole *stdout* output: the --add-reviewer argument, or nothing at all. An
-        # empty result is the caller's cue to use the fallback reviewer, never to
-        # skip the request. Diagnostics already went to stderr.
+        # Sole *stdout* output: the raw resolution, or nothing at all. An empty
+        # result is the caller's cue to open the PR with no requested reviewer,
+        # never to guess a substitute. Diagnostics already went to stderr.
         if not joined:
             print(
                 "suggest_reviewers: no owners resolved from "
-                f"{len(inputs)} path(s); caller must use its fallback reviewer.",
+                f"{len(inputs)} path(s); open the PR with no requested reviewer.",
                 file=sys.stderr,
             )
         else:
@@ -189,14 +195,24 @@ def main():
     if unresolved:
         report(f"Unresolved paths: {len(unresolved)} (left for manual assignment)")
 
-    if review_args:
+    if len(users) == 1:
         report()
-        report("Suggested command (replace <PR> with the PR number):")
-        report(f"  gh pr edit <PR> --add-reviewer {joined}")
+        report("Suggested command (replace <PR> with the PR number; at most one")
+        report("human reviewer per PR, and teams are never requested):")
+        report(f"  gh pr edit <PR> --add-reviewer {users[0]}")
+    elif len(users) > 1:
+        report()
+        report("Multiple owners resolved. That is not a single clear owner - request")
+        report("nobody and name the candidates in the PR body instead:")
+        report(f"  candidates: {', '.join(users)}")
+    elif teams:
+        report()
+        report("Only teams resolved. Teams are never requested - open the PR with no")
+        report("requested reviewer and name the owning team in the PR body.")
     else:
         report()
-        report("No owners resolved. Do NOT skip the review request — assign the")
-        report("fallback reviewer (dannyneira) so the PR still reaches a human.")
+        report("No owners resolved. Open the PR with no requested reviewer and say")
+        report("so in the run output - never substitute a fallback person.")
     return 0
 
 
