@@ -81,6 +81,10 @@ A PR is `low` risk only when **all** of the following hold:
   behavior, UI labels or paths, defaults, permissions, availability or
   platform support, plan eligibility, billing behavior, security or privacy
   claims, data handling, self-hosting behavior, or integration setup.
+- An internal Docs handoff document may repeat an already-documented command
+  or UI path at `low` risk only when it cites the existing Docs page that
+  verifies each reference. This exception does not cover new or changed
+  commands, UI labels, API behavior, or any other technical claim category.
 - It contains no unresolved `VERIFY` marker and has no critical or important
   technical-accuracy finding from `review-docs-pr`.
 
