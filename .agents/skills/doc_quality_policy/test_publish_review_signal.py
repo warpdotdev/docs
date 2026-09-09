@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -14,18 +15,31 @@ sys.modules[_spec.name] = prs
 _spec.loader.exec_module(prs)
 
 
-def _signal(verdict: str = "Approve") -> str:
-    return (
-        '[SIGNAL:pr-review] {"pr":"1","head_sha":"sha1",'
-        f'"verdict":"{verdict}","critical":0,"important":0,'
-        '"suggestions":0,"nits":0,"top_categories":[]}'
-    )
+def _signal(
+    verdict: str = "Approve",
+    critical: int = 0,
+    important: int = 0,
+    blocking_findings: list[str] | None = None,
+) -> str:
+    signal = {
+        "pr": "1",
+        "head_sha": "sha1",
+        "verdict": verdict,
+        "critical": critical,
+        "important": important,
+        "suggestions": 0,
+        "nits": 0,
+        "top_categories": [],
+    }
+    if blocking_findings is not None:
+        signal["blocking_findings"] = blocking_findings
+    return f"[SIGNAL:pr-review] {json.dumps(signal)}"
 
 
 class TestBuildReviewPayload(unittest.TestCase):
-    def test_approve_maps_to_github_approval(self):
+    def test_approve_maps_to_non_blocking_github_comment(self):
         payload = prs.build_review_payload(_signal(), "1", "sha1", "github-actions[bot]")
-        self.assertEqual(payload["event"], "APPROVE")
+        self.assertEqual(payload["event"], "COMMENT")
         self.assertEqual(payload["commit_id"], "sha1")
         self.assertIn("## Verdict\nApprove", payload["body"])
         self.assertNotIn("## Review signal", payload["body"])
@@ -37,17 +51,37 @@ class TestBuildReviewPayload(unittest.TestCase):
         self.assertEqual(problems, [])
         self.assertEqual(published_signal["reviewer_login"], "github-actions[bot]")
 
-    def test_approve_with_nits_maps_to_github_approval(self):
+    def test_approve_with_nits_maps_to_non_blocking_github_comment(self):
         payload = prs.build_review_payload(
             _signal("Approve with nits"), "1", "sha1", "github-actions[bot]"
         )
-        self.assertEqual(payload["event"], "APPROVE")
+        self.assertEqual(payload["event"], "COMMENT")
 
-    def test_request_changes_maps_to_github_change_request(self):
+    def test_request_changes_maps_to_non_blocking_github_comment(self):
         payload = prs.build_review_payload(
-            _signal("Request changes"), "1", "sha1", "github-actions[bot]"
+            _signal(
+                "Request changes",
+                important=1,
+                blocking_findings=[
+                    "`src/content/docs/example.mdx:42` — Use the canonical subagent "
+                    "terminology. Requested change: replace `children` with `subagents`."
+                ],
+            ),
+            "1",
+            "sha1",
+            "github-actions[bot]",
         )
-        self.assertEqual(payload["event"], "REQUEST_CHANGES")
+        self.assertEqual(payload["event"], "COMMENT")
+        self.assertIn("canonical subagent terminology", payload["body"])
+
+    def test_rejects_blocking_verdict_without_actionable_findings(self):
+        with self.assertRaisesRegex(ValueError, "blocking_findings"):
+            prs.build_review_payload(
+                _signal("Request changes", important=1),
+                "1",
+                "sha1",
+                "github-actions[bot]",
+            )
 
     def test_rejects_signal_for_another_head(self):
         with self.assertRaises(ValueError):

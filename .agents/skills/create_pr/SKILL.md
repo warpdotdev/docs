@@ -323,13 +323,16 @@ REVIEWERS=$(python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
 #    are never requested. Two or more distinct users is ambiguity, not
 #    conviction: request nobody and name the candidates in the PR body.
 CANDIDATE=""
+CANDIDATE_KEY=""
 AMBIGUOUS=0
 IFS=',' read -ra RESOLVED <<< "$REVIEWERS"
 for R in "${RESOLVED[@]}"; do
   [[ -z "$R" || "$R" == */* ]] && continue
+  R_KEY="${R,,}"
   if [[ -z "$CANDIDATE" ]]; then
     CANDIDATE="$R"
-  elif [[ "$R" != "$CANDIDATE" ]]; then
+    CANDIDATE_KEY="$R_KEY"
+  elif [[ "$R_KEY" != "$CANDIDATE_KEY" ]]; then
     AMBIGUOUS=1
   fi
 done
@@ -340,29 +343,38 @@ elif (( AMBIGUOUS )); then
   CANDIDATE=""
 fi
 
-# 3. Requests are add-once. Skip when the PR already has a reviewer, and
-#    never re-add anyone a human removed from it. Matching is on the last
-#    path segment, lowercased: GitHub logins are case-insensitive.
-_norm() { printf '%s' "${1##*/}" | tr 'A-Z' 'a-z'; }
+# 3. Requests are add-once. Skip when the PR already has a requested reviewer
+#    or a submitted review, and stop adding reviewers after any human removal.
 if [[ -n "$CANDIDATE" ]]; then
-  REQUESTED=$(gh pr view "$PR" --repo warpdotdev/docs \
-    --json reviewRequests --jq '[.reviewRequests[] | .login // .slug // .name] | join(",")')
-  if [[ -n "$REQUESTED" ]]; then
+  if ! REQUESTED=$(gh pr view "$PR" --repo warpdotdev/docs \
+    --json reviewRequests --jq '[.reviewRequests[] | .login // .slug // .name] | join(",")'); then
+    echo "warning: could not read requested reviewers for PR $PR - requesting nobody"
+    CANDIDATE=""
+  elif [[ -n "$REQUESTED" ]]; then
     echo "note: PR $PR already has reviewer(s) ($REQUESTED) - not adding more"
     CANDIDATE=""
   fi
 fi
 if [[ -n "$CANDIDATE" ]]; then
-  REMOVED=$(gh api "repos/warpdotdev/docs/issues/$PR/timeline" --paginate \
-    --jq '[.[] | select(.event == "review_request_removed")
-           | (.requested_reviewer.login // .requested_team.slug // empty)] | unique | join(",")')
-  IFS=',' read -ra GONE <<< "$REMOVED"
-  for G in "${GONE[@]}"; do
-    [[ -n "$G" && "$(_norm "$G")" == "$(_norm "$CANDIDATE")" ]] || continue
-    echo "note: a human removed $CANDIDATE from PR $PR - not re-adding"
+  if ! REVIEWED=$(gh api "repos/warpdotdev/docs/pulls/$PR/reviews" --paginate \
+    --jq '[.[].user.login] | unique | join(",")'); then
+    echo "warning: could not read submitted reviews for PR $PR - requesting nobody"
     CANDIDATE=""
-    break
-  done
+  elif [[ -n "$REVIEWED" ]]; then
+    echo "note: PR $PR already has submitted review(s) ($REVIEWED) - not adding a reviewer"
+    CANDIDATE=""
+  fi
+fi
+if [[ -n "$CANDIDATE" ]]; then
+  if ! REMOVED=$(gh api "repos/warpdotdev/docs/issues/$PR/timeline" --paginate \
+    --jq '[.[] | select(.event == "review_request_removed")
+           | (.requested_reviewer.login // .requested_team.slug // empty)] | unique | join(",")'); then
+    echo "warning: could not read reviewer-removal history for PR $PR - requesting nobody"
+    CANDIDATE=""
+  elif [[ -n "$REMOVED" ]]; then
+    echo "note: PR $PR has a reviewer-removal event ($REMOVED) - not adding reviewers"
+    CANDIDATE=""
+  fi
 fi
 
 # 4. Request the single owner. A failed request is a reportable outcome,
