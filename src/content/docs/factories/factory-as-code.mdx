@@ -205,6 +205,22 @@ MCP servers for agents that don't declare their own, in the same form as [`mcpSe
 
 Where runs execute: `warp` for Warp-hosted compute, or the ID of a connected [self-hosted worker](/platform/self-hosting/).
 
+### `agentDefaults.computerUseModel`
+
+Optional. The model computer use runs with, as a `model_id`. When unset, Warp chooses the computer use model automatically.
+
+```yaml
+agentDefaults:
+  model: auto
+  computerUseModel: claude-4-5-sonnet
+```
+
+Applies only to runs on the Warp Agent harness (`type: oz`); third-party harnesses ignore it. It's also ignored when computer use is disabled for the run. Unlike `model`, this key isn't mutually exclusive with `harness` — it selects the model for computer use, not the model the agent itself runs on.
+
+Computer use supports a restricted set of models. See [model choice for agents](/agents/inference/model-choice/) for the full catalog Warp supports; not every listed model supports computer use.
+
+A managed [self-hosted worker](/platform/self-hosting/) needs an up-to-date worker and agent CLI version that supports `computerUseModel`.
+
 ## `agents/<name>/agent.md`
 
 One file per agent. The YAML frontmatter configures how the agent runs, and the Markdown body is the agent's prompt: the durable instructions for its role. The agent's name comes from its directory.
@@ -224,7 +240,7 @@ The frontmatter accepts:
 * `description` - Optional. What the agent does.
 * [`agentType`](#agenttype) - Optional. The agent's role.
 * `credentialStrategy` - Optional. Overrides the factory-level [`credentialStrategy`](#credentialstrategy) for this agent's runs.
-* `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost` - Optional. The same keys as [`agentDefaults`](#agentdefaults); a key declared here overrides the default for this agent.
+* `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel` - Optional. The same keys as [`agentDefaults`](#agentdefaults); a key declared here overrides the default for this agent.
 
 ### `agentType`
 
@@ -305,7 +321,7 @@ triggers:
 
 ### Execution overrides
 
-An automation may also declare `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, and `workerHost` (the same keys as [`agentDefaults`](#agentdefaults)) to override the target agent's settings for the runs it starts.
+An automation may also declare `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, and `computerUseModel` (the same keys as [`agentDefaults`](#agentdefaults)) to override the target agent's settings for the runs it starts.
 
 ## `runners/<name>.yaml`
 
