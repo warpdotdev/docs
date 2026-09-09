@@ -136,7 +136,7 @@ Fixes that require manual review (e.g. renamed sections, removed features) are r
 
 Slack notifications are designed for automated runs, not ad-hoc usage. When running the skill manually, review results directly in the terminal output.
 
-The `--slack-notify` flag posts a summary to `#growth-docs` when unfixed issues remain after a run. If the scan is clean (0 issues), no notification is sent.
+The `--slack-notify` flag posts a summary to `#growth-docs` when unfixed issues remain after a run **and** that set of issues differs from what was already reported (tracked via an open `fix/ui-refs-*` PR's body, or `last_notified_signature` in `valid_paths.json` once such a PR merges). If the scan is clean (0 issues), or the exact same unresolved issues were already reported, no notification is sent — this keeps the daily reconciliation schedule from re-posting an identical report every day while a fix PR awaits review.
 
 ### Setup
 
@@ -158,7 +158,7 @@ python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --all --slack-notify
 1. A push to `master` in `warpdotdev/warp` that touches `app/src/settings_view/**` sends a `repository_dispatch` event (`settings-ui-changed`) to `warpdotdev/docs`.
 2. The `refresh-ui-paths` GHA workflow fires and dispatches an Oz cloud agent to the Docs Agent environment (`K5KStCm5aYvhfBJb8cHol6`).
 3. The cloud agent runs `--refresh-valid-paths` using the `warpdotdev/warp` checkout available in that environment.
-4. If the snapshot changed, the agent runs `--all --fix --create-pr --slack-notify` to validate, auto-fix, open a PR, and post to `#growth-docs` if issues remain.
+4. If the snapshot changed, the agent runs `--all --fix --create-pr --slack-notify` to validate and auto-fix. `--create-pr` commits and opens/updates a PR whenever there's a fix, a refreshed snapshot (e.g. a `source_sha` bump), or a newly-changed set of unresolved issues to report — not only when there's an auto-fixable doc issue, so the recorded `source_sha` keeps advancing even on a quiet day. `--slack-notify` only posts to `#growth-docs` when the unresolved-issue set is new (see "Slack Notifications" above).
 5. If the snapshot is unchanged, the agent exits with no-op.
 
 ### Secrets required
@@ -183,6 +183,10 @@ python3 .agents/skills/validate_ui_refs/validate_ui_refs.py \
   --refresh-valid-paths \
   --warp /path/to/warp
 ```
+
+## Agent-doc quality contract
+
+The `--create-pr` auto-fix path is a direct PR-creation code path (`create_pr()` in `validate_ui_refs.py`), so it stamps the `warpy-factory` label and the `## Documentation risk` block itself — always `low` risk, since an auto-fix only ever corrects UI-reference casing/formatting to an already-canonical name, never product meaning. See `.agents/references/doc-quality-policy.md`.
 
 ## Dependencies
 

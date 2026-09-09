@@ -67,6 +67,9 @@ For the summary of the most critical terms (core features, Automation Platform t
 - **Tab Configs** — Reusable TOML-based tab layout definitions that launch preconfigured terminal sessions.
   *Usage note:* Capitalize as a feature name.
 
+- **Launch Configuration** / **Launch Configurations** — The legacy, YAML-based way to save a configuration of windows, tabs, and panes. Replaced by Tab Configs; existing Launch Configurations still work but aren't being extended.
+  *Usage note:* Capitalize as a feature name, including in headings ("Creating a Launch Configuration"). Use "Tab Configs" for new content.
+
 - **Vertical Tabs** — The sidebar-based tab management panel that replaces the horizontal tab bar.
   *Usage note:* Capitalize as a feature name.
 
@@ -108,6 +111,12 @@ For the summary of the most critical terms (core features, Automation Platform t
 - **Active AI** — The feature that proactively surfaces fixes and next actions based on terminal errors, inputs, and outputs. Covers Prompt Suggestions, Next Command predictions, and Suggested Code Diffs.
   *Usage note:* Always capitalize "Active AI" — it is a proper feature name and the label of the Settings toggle. Write the full capability as **Active AI Recommendations**, matching the page title. Lowercase the following word only when it is a plain common noun rather than part of the name, as in "Active AI features" or "the Active AI toggle".
 
+- **Computer Use** — The capability that lets agents interact with a desktop environment (screenshots, clicks, typing) inside a sandboxed cloud environment.
+  *Usage note:* Capitalize as a feature name, including in headings ("Enabling Computer Use", "How Computer Use works").
+
+- **Full Terminal Use** — The capability that lets an agent attach to and drive interactive terminal programs (for example `psql`, `vim`, a dev server) by reading live PTY output.
+  *Usage note:* Capitalize as a feature name, including in headings.
+
 ## Coding terms (Warp features)
 
 - **Code** — Warp's coding experience for agent-assisted changes (editing, diffs, code review).
@@ -136,7 +145,7 @@ For the summary of the most critical terms (core features, Automation Platform t
 
 ## Automation Platform terminology
 
-Renamed from "Oz" on 2026-08-18. Two surfaces keep the Oz name until 2026-09-15
+Renamed from "Oz" on 2026-08-18. Two surfaces keep the Oz name until 2026-10-06
 and are **not** stale in the meantime: the `oz` CLI binary and the Oz v1 web app
 at `oz.warp.dev`. See "What still says Oz" at the end of this section.
 
@@ -164,7 +173,7 @@ catches the literal, `platform-determiner` catches a missing article.
   *Usage note:* In prose the term takes the definite article — "the Warp Agent". Reserve the bare form for headings, sidebar labels, page titles, and the Settings path. "Runs the Warp Agent" reads correctly; "runs Warp Agent" reads as a different product.
 - **The Automation Platform is the platform, not the agent.** Never introduce it as "Warp's agent" or equate the two. The Automation Platform runs and coordinates agents; the Warp Agent is the agent.
 - **Warp Agent CLI** — The standalone terminal program (the `warp` binary) that runs the Warp Agent in any terminal, including over SSH and on machines without the Warp app. Documented at `/agents/cli/`.
-  *Usage note:* Distinct from the Oz CLI (the `oz` binary), which runs and manages cloud agents. At the next launch (approximately August 18, 2026) the Oz CLI is retired and wrapped into the Warp Agent CLI, leaving a single CLI under this name. Until that ships, keep the two clearly separate in prose; afterwards, "Warp Agent CLI" covers both.
+  *Usage note:* Distinct from the Oz CLI (the `oz` binary), which runs and manages cloud agents. The Oz CLI is retired and wrapped into the Warp Agent CLI on 2026-10-06, matching the `oz` binary holdout in "What still says Oz" below — not the 8/18 platform rename. Until that ships, keep the two clearly separate in prose; afterwards, "Warp Agent CLI" covers both. `oz` commands themselves remain supported through the end of September 2026; the successor `warp` CLI commands for CLI-scripted workflows (environments, secrets, integrations, schedules) haven't been defined yet.
 - **Automation Platform** — Warp's programmable platform for running and coordinating agents at scale
 - There is typically one Warp environment per user session. The Automation Platform can run many agents concurrently, across machines, repos, and teams.
 
@@ -189,7 +198,7 @@ catches the literal, `platform-determiner` catches a missing article.
   *Usage note:* This is the platform-level default (HYC, 2026-08-17). Use `{VARS.PLATFORM_RUN}`, or "Warp cloud agent run" when you need to disambiguate from another vendor's runs. On pages that are specifically about a factory, write "factory run" directly instead — the variable holds the general term, so it cannot carry that distinction.
 
 - **Oz web app** — The web app for configuring agents and managing runs.
-  *Usage note:* Holds the Oz name until 2026-09-15. Use `{VARS.WEB_APP}`.
+  *Usage note:* Holds the Oz name until 2026-10-06. Use `{VARS.WEB_APP}`.
 
 - **subagent** — A child agent created by a parent agent to parallelize or delegate work.
 
@@ -234,7 +243,7 @@ ended — "Ask the Automation Platform to..." is plainly wrong. Address the agen
 ### What still says Oz
 
 Not every "Oz" in the docs is stale. These are deliberate and correct until
-2026-09-15, when they get their own value flip:
+2026-10-06, when they get their own value flip:
 
 - **The `oz` binary** and every `oz <command>` invocation. Commands inside code
   fences are never rewritten. `{VARS.WARP_AGENT_CLI}` renders "Oz CLI".
@@ -283,6 +292,9 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 
 - **Automation Platform** — Warp's cloud agent platform, covering environments, integrations, orchestration, self-hosting, and the Agent API/SDK. Renamed from "Oz" on 2026-08-18.
   *Usage note:* See "Automation Platform terminology" above for the full entry and the article rule. Always write it as `{VARS.WARP_AUTOMATION_PLATFORM}` / `{{WARP_AUTOMATION_PLATFORM}}`, never as a literal string, so a future rename stays a one-line change.
+
+- **Direct backend** — The self-hosted worker backend that runs cloud agent tasks directly on the worker host, without Docker or Kubernetes. One of three self-hosting backends alongside the Docker and Kubernetes backends.
+  *Usage note:* Capitalize "Direct" as part of the compound proper term, including in headings ("Start the worker with the Direct backend"); lowercase "backend" as the common noun.
 
 ## Warp Factories terminology
 
@@ -362,6 +374,9 @@ Docs match the screen; the fix belongs in the app.
 - **command-line** — hyphenated when used as an adjective
 - **Git repository** or **repo** — not "git repository" (capitalize "Git")
 - **macOS** — not "Mac OS" or "Mac"
+- **Zero Data Retention (ZDR)** — Warp's agreements with contracted LLM providers not to train on or retain customer data. Capitalize as a proper term, including in headings ("Zero Data Retention (ZDR)"); keep the "(ZDR)" acronym on first mention in a section.
+- **SSO (Single Sign-On)** — Authentication through an organization's identity provider (Okta, Microsoft Entra ID, Google Workspace, or any SAML 2.0/OIDC provider). Always capitalize the acronym "SSO"; capitalize "Single Sign-On" when spelled out as the feature name.
+- **Bring Your Own LLM (BYOLLM)** — Warp Enterprise's routing of agent inference through a customer's own cloud infrastructure (AWS Bedrock or Google Cloud via Gemini Enterprise). Capitalize as a proper feature name, including in headings; keep the "(BYOLLM)" acronym on first mention in a section. Distinct from BYOK (Bring Your Own API Key), a self-serve, user-level feature.
 
 ## Branded and informal terms
 
@@ -407,3 +422,6 @@ Docs match the screen; the fix belongs in the app.
 - **GitHub App** — GitHub's installation/auth mechanism used for repo access in integrations
 - **Linear** — capitalize
 - **Slack** — capitalize
+- **Bitbucket Data Center** — Atlassian's official self-hosted Bitbucket edition name (alongside Bitbucket Server and Bitbucket Cloud). Capitalize all three words, including in headings ("Bitbucket Data Center / Server").
+- **Workload Identity Pool and Provider** — GCP's IAM resources for federating external identities. Capitalize as GCP's official term, including in headings.
+- **Workload Identity Federation** — GCP's mechanism for granting external identities access without a long-lived service account key. Capitalize as GCP's official term, including in headings.

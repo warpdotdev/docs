@@ -19,6 +19,17 @@ They support the following:
   (`/channel-versions`, sibling repo)
 - running one task or all tasks in the required order
 
+## Agent-doc quality contract
+
+Before requesting review on a PR this skill opens, follow the shared v1
+agent-doc quality contract in `.agents/references/doc-quality-policy.md`:
+add the `## Documentation risk` block
+(`.agents/skills/doc_quality_policy/finalize_pr_contract.py build`) and apply
+the `warpy-factory` label. Generated changelog/license/telemetry updates are
+exempt from the compression word-budget rules but not from the risk/marker
+contract — classify them per the low-risk allowlist (they are typically `low`
+when the source-verification step passed).
+
 ## Environment requirements (Oz cloud)
 
 ### Required
@@ -219,7 +230,7 @@ else:
         print(f'Slack notification sent to {channel}')
 ```
 
-The GitHub Actions workflow handles assigning the last human reviewer from recent docs PRs — the agent does not need to assign reviewers.
+The GitHub Actions workflow assigns at most one reviewer (the most recent human reviewer from recent docs PRs) and leaves the PR with no requested reviewer when none resolves — there is no hardcoded fallback person, and a reviewer a human removed is never re-added. The agent does not assign reviewers.
 
 ### Explicit repo paths
 

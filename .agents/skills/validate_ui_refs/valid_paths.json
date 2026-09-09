@@ -835,6 +835,10 @@
       "description": "History Search"
     },
     {
+      "name": "workspace:trigger_external_ctrl_t_file_search",
+      "description": "External File Search"
+    },
+    {
       "name": "input:toggle_workflows",
       "description": "Workflows"
     },
@@ -1523,5 +1527,7 @@
       "description": "Toggle Maximize Code Review Panel"
     }
   ],
-  "generated_at": "2026-08-26T17:34:04.788992+00:00"
+  "source_repository": "warpdotdev/warp",
+  "source_sha": "558aba3bf7e4e9f7e88df18873266604f24d4e9d",
+  "generated_at": "2026-09-08T15:02:07.624514+00:00"
 }

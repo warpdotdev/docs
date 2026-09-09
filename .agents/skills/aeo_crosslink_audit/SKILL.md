@@ -7,6 +7,15 @@ description: Run a narrow AEO cross-link audit for Warp docs using Peec, Google 
 
 Identify small, high-confidence internal cross-linking improvements for the Warp docs. This skill is designed for a recurring Oz scheduled agent that audits one narrow topic area, opens a small PR when there are safe changes, or writes a no-change report when there are not enough high-confidence opportunities.
 
+## Agent-doc quality contract
+
+Any PR this skill opens follows the shared v1 agent-doc quality contract in
+`.agents/references/doc-quality-policy.md`: apply the `warpy-factory` label
+and add the `## Documentation risk` block
+(`.agents/skills/doc_quality_policy/finalize_pr_contract.py build`). A
+cross-link-only change that adds no new claims is typically `low` risk under
+the allowlist.
+
 ## Scope
 
 Use this skill only for the pilot topic area:
@@ -195,12 +204,7 @@ The PR body must include an AEO brief. Use `.agents/skills/aeo_brief/SKILL.md` a
 - **Reader next step** - What the reader is likely trying to do next and why each destination helps.
 - **Open questions for human review** - Anything that affects product accuracy, terminology, or placement.
 
-Request review from docs and growth-docs reviewers where possible, including:
-- Rachael
-- Petra
-- Hong Yi
-- Danny
-- Other active reviewers in `#growth-docs`
+Reviewer requests follow the `create_pr` skill's policy ("Request a reviewer (at most one, only with conviction)"): request at most one human reviewer, and only when a single clear owner exists. For cross-link PRs there rarely is one, so the default is to open the PR with no requested reviewer and let `#growth-docs` pick it up from the Slack notification. Never tag a list of people, never stack reviewers onto the PR, and never re-add a reviewer someone removed.
 
 ## No-change report
 

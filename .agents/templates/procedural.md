@@ -29,6 +29,8 @@ description: >-
 3. Step description.
 
 [STEP SIZING: Aim for one primary action per step, but group tightly related actions that share the same UI context — up to about three. A simple task should not need 10+ steps, and a single step should not be a mini-procedure.]
+[UI LABELS: Bold clickable controls and the option the reader selects. Put non-clickable field labels in quotation marks. Example: In the "Harness" dropdown, select **Claude Code**. Not: In the **Harness** dropdown...]
+[BREVITY IN STEPS: State the action and expected outcome only. Move reference lists (accepted credential types, valid formats) into a single :::note after the step, or link out — do not re-explain internals in the step body.]
 
 :::note
 [Optional. One or two callouts per page at most; prefer body prose. Delete if nothing applies.]

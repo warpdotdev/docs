@@ -187,6 +187,8 @@ Settings that control terminal behavior, input, and event handling.
 * `error_underlining_enabled` — Whether command errors are underlined in the input. Type: boolean. Default: `true`.
 * `completions_open_while_typing` — Whether the completions menu opens automatically while typing. Type: boolean. Default: `false`.
 * `classic_completions_mode` — Whether classic completions mode is enabled. Type: boolean. Default: `false`.
+* `warp_completions_enabled` — Whether Warp's built-in completions are shown for shell commands. Effective only while the Native shell completions Preview is enabled for your account; otherwise Warp always uses built-in completions. When this setting is in effect and enabled, **Settings** > **Features** > **Terminal Input** also exposes "Open completions menu as you type" as a nested control (the same knob as `completions_open_while_typing`). Type: boolean. Default: `true`.
+* `native_shell_completions_enabled` — Whether your shell's own completions are used for shell commands. Effective only while the Native shell completions Preview is enabled for your account; otherwise the setting is ignored and native completions stay off. Native shell completions are not generated as you type; press `Tab` (or your completions keybinding) to fetch them. Type: boolean. Default: `true`.
 * `show_hint_text` — Whether hint text is shown in the terminal input. Type: boolean. Default: `true`.
 * `show_terminal_input_message_bar` — Whether the terminal input message bar is shown. Type: boolean. Default: `true`.
 * `enable_slash_commands_in_terminal` — Whether slash commands are available in the terminal input. Type: boolean. Default: `true`.
@@ -265,6 +267,7 @@ Settings for Warp's agents, including model behavior, permissions, knowledge, MC
 * `cloud_conversation_storage_enabled` — Whether conversations are stored in the cloud. Type: boolean. Default: `true`.
 * `usage_display_mode` — Which unit the terminal agent's usage entry displays. Applies only to the terminal agent's settings file; click the usage entry to flip between units. Type: string. Default: `"credits"`. Options: `"credits"` (the same number the desktop app's usage footer shows), `"cost"` (provider dollar cost).
 * `execution_profiles` — The collection of [agent profiles](/agents/capabilities/agent-profiles-permissions/) and their permissions, shared by Agent Mode and the terminal agent. This is a structured object that Warp manages when you create and edit profiles in **Settings** > **Agents** > **Profiles**; edit it through the UI rather than by hand. Type: object. Default: `{}` (Warp's built-in profiles).
+* `custom_endpoints` — Non-secret [custom inference endpoint](/agents/inference/custom-inference-endpoint/) definitions (URL, models, schema). Credentials stay in local secure storage, not in this object. Warp manages the collection from **Settings**; edit it through the UI rather than by hand. Type: object. Default: `{}`.
 
 ### Knowledge
 
@@ -494,8 +497,8 @@ Settings for Warp features in SSH sessions and subshells.
 **Section**: `[warpify.ssh]`
 
 * `enable_ssh_warpification` — Whether to enable Warp features in SSH sessions. Type: boolean. Default: `true`.
-* `enable_legacy_ssh_wrapper` — Deprecated in favor of `enable_ssh_warpification`. Type: boolean. Default: `true`.
-* `use_ssh_tmux_wrapper` — Deprecated in favor of the [SSH extension](/terminal/warpify/ssh/). Type: boolean. Default: `false`.
+* `enable_legacy_ssh_wrapper` — Has no effect on Warp's current behavior; retained only for a one-time migration to `enable_ssh_warpification`. Type: boolean. Default: `true`.
+* `use_ssh_tmux_wrapper` — Has no effect on Warp's current behavior now that tmux-based Warpification has been removed in favor of the [SSH extension](/terminal/warpify/ssh/); retained only for a one-time migration. Type: boolean. Default: `false`.
 * `reuse_existing_control_master` — Whether the legacy SSH wrapper attaches to an existing SSH `ControlMaster` for the destination host instead of always creating its own. Type: boolean. Default: `false`.
 * `ssh_extension_install_mode` — Controls SSH extension installation behavior. Type: string. Default: `"always_ask"`. Options: `"always_ask"` (always prompt before installing), `"always_install"` (auto-install and connect without prompting), `"never_install"` (fall back to the legacy, wrapper-only SSH warpification).
 * `ssh_hosts_denylist` — SSH hosts that should not trigger the warpification prompt. Type: array of strings. Default: `[]`.

@@ -11,6 +11,10 @@ import { VARS } from '@data/vars';
 
 The {VARS.API_SDK_NAME} lets you create, monitor, and inspect cloud agent runs programmatically. Use the REST API from any HTTP client, or the official Python and TypeScript SDKs for typed requests, built-in retries, and structured error handling. The SDKs are ideal for CI pipelines, internal tools, and custom integrations.
 
+:::note
+Some examples in this reference and the [CLI reference](/reference/cli/) use `oz` commands (for example, `oz environment list`) from the {VARS.WARP_AGENT_CLI}. Those commands remain supported through the end of September 2026. The [Warp Agent CLI reference](/agents/cli/reference/) does not yet document a `warp` equivalent.
+:::
+
 ### API overview
 
 The {VARS.API_SDK_NAME} lets you create and inspect [Cloud Agent](/platform/) runs over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.

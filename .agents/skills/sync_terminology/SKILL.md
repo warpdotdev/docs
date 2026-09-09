@@ -13,6 +13,15 @@ Keep `.agents/references/terminology.md` in sync with the canonical Notion Dicti
 
 **Direction:** Notion → repo. Notion is the source of truth. If the repo has terms not in Notion, flag them for addition to Notion rather than removing them from the repo.
 
+## Agent-doc quality contract
+
+The PR this skill opens or updates follows the shared v1 agent-doc quality
+contract in `.agents/references/doc-quality-policy.md`: apply the
+`warpy-factory` label and add the `## Documentation risk` block
+(`.agents/skills/doc_quality_policy/finalize_pr_contract.py build`). A
+terminology sync is typically `low` risk — it preserves product meaning and
+changes only naming/formatting guidance.
+
 ## Prerequisites
 
 - Notion MCP server must be connected and authenticated

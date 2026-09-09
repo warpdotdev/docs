@@ -16,9 +16,9 @@ This page covers Codex as a **cloud** harness, dispatched and orchestrated by th
 
 ## Key features
 
-* **Cloud orchestration** - Launch Codex from any {VARS.WARP_AUTOMATION_PLATFORM} trigger: the Warp app, the {VARS.WEB_APP}, the {VARS.WARP_AGENT_CLI}, the REST API, schedules, Slack mentions, Linear issues, or GitHub Actions.
+* **Cloud orchestration** - Launch Codex from any {VARS.WARP_AUTOMATION_PLATFORM} trigger: the Warp app, the {VARS.WEB_APP}, the {VARS.WARP_AGENT_CLI}, the REST API, [schedules](/platform/triggers/scheduled-agents/), [Slack](/platform/integrations/slack/) mentions, Linear issues, or GitHub Actions.
 * **Codex model picker** - Choose the OpenAI model Codex uses, including the GPT-5 lineup and Codex-tuned variants, each available at a configurable reasoning level.
-* **First-class subagent** - A Warp Agent parent can dispatch Codex subagents to handle high-volume or well-defined coding steps inside a larger orchestration.
+* **First-class subagent** - A Warp Agent parent can dispatch Codex subagents to handle high-volume or well-defined coding steps inside a larger [multi-agent orchestration](/platform/orchestration/).
 
 ## Available models
 
@@ -52,6 +52,8 @@ For setup steps, see [Connecting Codex credentials](/platform/harnesses/authenti
 * [Harnesses in the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/) — choose between Warp Agent, Claude Code, and Codex.
 * [Authentication](/platform/harnesses/authentication/) — store OpenAI credentials as Warp-managed secrets.
 * [Warp Agent with the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/warp-agent/) — the {VARS.WARP_AUTOMATION_PLATFORM}'s default harness, the only one that can orchestrate Codex subagents.
+* [Multi-agent orchestration](/platform/orchestration/) — coordinate a Warp Agent parent with Codex children across local and cloud runs.
+* [Managing cloud agents](/platform/managing-cloud-agents/) — inspect Codex cloud runs in the Agent Management Panel and the Runs page.
 * [Claude Code with the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/claude-code/) — Claude Code as a cloud harness.
 * [Codex CLI in Warp](/agents/cli-agents/codex/) — Codex in your local Warp terminal.
 * [Factory agents](/factories/factory-agents/#configuring-a-third-party-harness) — configure Codex as a factory agent's harness.

@@ -34,7 +34,7 @@ description: >-
 
 ## [Usage or configuration — sentence case, renamed to match the feature, e.g. "Creating environments"]
 
-[PROCEDURAL section. Motivate before instructing, include expected outcomes after key steps, and group related actions that share a UI context.]
+[PROCEDURAL section. Motivate before instructing, include expected outcomes after key steps, and group related actions that share a UI context. Bold clickable controls and selected options; put non-clickable field labels in quotation marks ("Harness" dropdown, not **Harness** dropdown). Keep steps short — cut internal implementation detail and move reference lists into a :::note or a linked page.]
 
 ### Prerequisites
 

@@ -15,6 +15,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -1055,6 +1056,56 @@ def scan_docs(
     return files
 
 
+class ChangedFilesUnresolvedError(RuntimeError):
+    """Raised when the changed-file diff against origin/main can't be resolved."""
+
+
+def find_changed_md_files(
+    docs_dir: Path,
+    include_changelog: bool = False,
+) -> List[Path]:
+    """Find .md/.mdx files under docs_dir changed vs origin/main...HEAD.
+
+    Matches `style_lint.py --changed`'s `origin/main...HEAD` semantics,
+    exclusions, and deleted-file handling (`--diff-filter=d` drops deletions
+    from the diff so a removed file is never "checked"). Unlike
+    `style_lint`'s `--changed`, this never falls back to an unbounded full
+    scan when the diff can't be resolved — required CI must fail loud instead
+    of silently widening scope.
+    """
+    try:
+        result = subprocess.run(
+            [
+                "git", "diff", "--name-only", "--diff-filter=d",
+                "origin/main...HEAD", "--", str(docs_dir),
+            ],
+            capture_output=True, text=True, check=True,
+        )
+    except (subprocess.CalledProcessError, OSError) as exc:
+        raise ChangedFilesUnresolvedError(
+            f"could not determine changed files vs origin/main...HEAD: {exc}"
+        ) from exc
+
+    files = []
+    for line in result.stdout.strip().splitlines():
+        line = line.strip()
+        if not line or not (line.endswith(".md") or line.endswith(".mdx")):
+            continue
+        p = Path(line)
+        if not p.exists():
+            continue
+        try:
+            rel_parts = set(p.resolve().relative_to(docs_dir.resolve()).parts)
+        except ValueError:
+            continue
+        if rel_parts & SKIP_DIRS:
+            continue
+        if not include_changelog and "changelog" in rel_parts:
+            continue
+        files.append(p)
+    return sorted(files)
+
+
 # ---------------------------------------------------------------------------
 # Auto-fix
 # ---------------------------------------------------------------------------
@@ -1129,6 +1180,92 @@ def apply_fixes(issues: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
 
 # ---------------------------------------------------------------------------
+# Unresolved-issue signature (Slack notification de-duplication)
+# ---------------------------------------------------------------------------
+
+_UNRESOLVED_SIGNATURE_MARKER_RE = re.compile(
+    r"<!-- validate-ui-refs:unresolved-issues-signature:([0-9a-f]{64}) -->"
+)
+
+
+def unresolved_issue_signature(
+    path_issues: List[Dict[str, Any]],
+    command_issues: List[Dict[str, Any]],
+    format_issues: List[Dict[str, Any]],
+    repo_root: Path,
+) -> str:
+    """Build a stable signature for the currently-unresolved (unfixed) issues.
+
+    Two runs that find exactly the same issues produce the same signature,
+    regardless of scan order, absolute-path differences between environments,
+    or confidence-score jitter. Used by `main()` to avoid re-posting an
+    identical Slack report when a scheduled run has nothing new to say.
+    """
+    def _rel(file_path: str) -> str:
+        try:
+            return str(Path(file_path).resolve().relative_to(repo_root.resolve()))
+        except ValueError:
+            return file_path
+
+    entries = [
+        f"{_rel(issue['file'])}:{issue['line']}:{issue.get('validation', {}).get('issue', '')}"
+        for issue in path_issues + command_issues
+    ]
+    entries += [
+        f"{_rel(issue['file'])}:{issue['line']}:format:{issue.get('raw', '')}"
+        for issue in format_issues
+    ]
+    entries.sort()
+    return hashlib.sha256("\n".join(entries).encode("utf-8")).hexdigest()
+
+
+def extract_unresolved_signature(pr_body: Optional[str]) -> Optional[str]:
+    """Extract a previously-embedded unresolved-issue signature from a PR body."""
+    if not pr_body:
+        return None
+    m = _UNRESOLVED_SIGNATURE_MARKER_RE.search(pr_body)
+    return m.group(1) if m else None
+
+
+def should_notify_slack(
+    total_issues: int,
+    current_signature: str,
+    previous_signature: Optional[str],
+) -> bool:
+    """Decide whether a run has new information worth posting to Slack.
+
+    Notifies when there are unresolved issues AND the set of issues differs
+    from what was last reported (or nothing has ever been reported). Returns
+    False when the exact same unresolved issues were already reported, so an
+    unchanged report is not re-posted run after run (e.g. on every daily
+    reconciliation while a fix PR sits open awaiting review).
+    """
+    if total_issues == 0:
+        return False
+    return current_signature != previous_signature
+
+
+def _snapshot_has_uncommitted_changes(valid_paths_file: Path, repo_root: Path) -> bool:
+    """Return True if valid_paths_file differs from the last commit in repo_root.
+
+    A `--refresh-valid-paths` run (e.g. bumping `source_sha` to the current
+    warp client HEAD) writes this file locally, but committing it was
+    previously gated on `fixes` being non-empty (see `create_pr` callers in
+    `main()`). On a day with no auto-fixable doc issues, that silently
+    discarded the refreshed `source_sha`, so the committed snapshot never
+    advanced and the daily reconciliation job kept re-triggering forever.
+    """
+    try:
+        result = subprocess.run(
+            ["git", "status", "--porcelain", "--", str(valid_paths_file)],
+            cwd=repo_root, capture_output=True, text=True, check=True,
+        )
+    except (subprocess.CalledProcessError, OSError):
+        return False
+    return bool(result.stdout.strip())
+
+
+# ---------------------------------------------------------------------------
 # PR creation
 # ---------------------------------------------------------------------------
 
@@ -1173,21 +1310,81 @@ def _fixes_already_in_pr(
     return new_fixes
 
 
-def _pr_body(fixes: List[Dict[str, Any]], repo_root: Path) -> str:
-    return (
-        "## Summary\n"
-        f"Auto-fixed {len(fixes)} UI reference issue(s) found by the `validate_ui_refs` skill.\n\n"
-        "## Changes\n"
-        + "\n".join(
-            f"- `{Path(f['file']).relative_to(repo_root)}` line {f['line']}: "
-            f"`{f['old']}` → `{f['new']}`"
-            for f in fixes
+def _pr_body(
+    fixes: List[Dict[str, Any]],
+    repo_root: Path,
+    unresolved_signature: Optional[str] = None,
+    remaining_count: int = 0,
+) -> str:
+    # This PR is a real, direct PR-creation code path (not delegated to
+    # create_pr), so it carries the same v1 doc-quality contract sections
+    # every other PR-producing skill does. It is mechanically `low` risk: an
+    # auto-fix only ever changes UI-reference casing/formatting to match an
+    # already-canonical name in valid_paths.json, never product meaning.
+    contract = (
+        "## Documentation risk\n"
+        "Risk: low\n"
+        "Rationale: Mechanical UI-reference casing/formatting fixes only, applied by "
+        "validate_ui_refs against the committed valid_paths.json snapshot; no product "
+        "meaning changes.\n"
+        "Docs override: none\n\n"
+        "## Unverified claims\n"
+        "None \u2014 every fix corrects formatting/casing to an already-canonical name."
+    )
+    if fixes:
+        summary = (
+            "## Summary\n"
+            f"Auto-fixed {len(fixes)} UI reference issue(s) found by the `validate_ui_refs` skill.\n\n"
         )
+        changes = (
+            "## Changes\n"
+            + "\n".join(
+                f"- `{Path(f['file']).relative_to(repo_root)}` line {f['line']}: "
+                f"`{f['old']}` → `{f['new']}`"
+                for f in fixes
+            )
+            + "\n\n"
+        )
+    else:
+        # No auto-fixable issue existed this run, but the snapshot (e.g.
+        # `source_sha`) still needs to be committed — see
+        # `_snapshot_has_uncommitted_changes`. Silently dropping this used to
+        # leave the committed snapshot permanently stale.
+        summary = (
+            "## Summary\n"
+            "Refreshed the `valid_paths.json` provenance snapshot (e.g. `source_sha`) "
+            "so it reflects the current `warpdotdev/warp` HEAD. No auto-fixable UI "
+            "reference issues were found in this run.\n\n"
+        )
+        changes = ""
+    remaining = (
+        f"## Remaining issues ({remaining_count})\n"
+        "Could not be auto-fixed and need manual review. Already reported to "
+        "Slack for this exact set of issues; a further Slack notification is "
+        "only sent if this set changes.\n\n"
+        if remaining_count
+        else ""
+    )
+    marker = (
+        f"\n<!-- validate-ui-refs:unresolved-issues-signature:{unresolved_signature} -->"
+        if unresolved_signature
+        else ""
+    )
+    return (
+        summary + changes + remaining + contract
         + "\n\nCo-Authored-By: Warp <agent@warp.dev>"
+        + marker
     )
 
 
 def _commit_message(fixes: List[Dict[str, Any]], repo_root: Path) -> str:
+    if not fixes:
+        return (
+            "chore: refresh UI reference snapshot provenance\n\n"
+            "Refreshed by validate_ui_refs skill (e.g. a source_sha bump); no "
+            "auto-fixable UI reference issues were found.\n\n"
+            "Co-Authored-By: Warp <agent@warp.dev>"
+        )
     files_changed = {f["file"] for f in fixes}
     return (
         f"docs: fix {len(fixes)} UI reference issue(s)\n\n"
@@ -1201,6 +1398,8 @@ def _update_existing_pr(
     existing_pr: Dict[str, Any],
     all_fixes: List[Dict[str, Any]],
     repo_root: Path,
+    unresolved_signature: Optional[str] = None,
+    remaining_count: int = 0,
 ) -> Optional[str]:
     """Stash, checkout the existing PR branch, re-apply fixes, commit, push, update body."""
     branch = existing_pr["headRefName"]
@@ -1227,6 +1426,14 @@ def _update_existing_pr(
             )
             return None
         subprocess.run(["git", "add", "-A"], cwd=repo_root, check=True)
+        diff_check = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=repo_root)
+        if diff_check.returncode == 0:
+            # Nothing changed relative to the existing PR branch (the caller
+            # already checked fixes/signature before calling us, so this is a
+            # defensive no-op rather than the expected path).
+            subprocess.run(["git", "checkout", "-"], cwd=repo_root)
+            print(f"No changes to push to existing PR #{pr_number}.")
+            return existing_pr["url"]
         subprocess.run(
             ["git", "commit", "-m", _commit_message(all_fixes, repo_root)],
             cwd=repo_root,
@@ -1234,13 +1441,15 @@ def _update_existing_pr(
         )
         subprocess.run(["git", "push", "origin", branch], cwd=repo_root, check=True)
 
-        # Rewrite the PR body to list every fix (old + new)
+        # Rewrite the PR body to list every fix (old + new) and the latest
+        # unresolved-issue signature, so the next run can tell whether
+        # anything has actually changed since this report.
         with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False) as tmp:
-            tmp.write(_pr_body(all_fixes, repo_root))
+            tmp.write(_pr_body(all_fixes, repo_root, unresolved_signature, remaining_count))
             body_file = tmp.name
         try:
             subprocess.run(
-                ["gh", "pr", "edit", str(pr_number), "--body-file", body_file],
+                ["gh", "pr", "edit", str(pr_number), "--body-file", body_file, "--add-label", "warpy-factory"],
                 cwd=repo_root,
                 check=True,
             )
@@ -1254,35 +1463,47 @@ def _update_existing_pr(
         return None
 
 
-def create_pr(fixes: List[Dict[str, Any]], repo_root: Path) -> Tuple[Optional[str], str]:
+def create_pr(
+    fixes: List[Dict[str, Any]],
+    repo_root: Path,
+    unresolved_signature: Optional[str] = None,
+    remaining_count: int = 0,
+) -> Tuple[Optional[str], str]:
     """Create a draft PR, or update an existing open fix/ui-refs-* PR.
 
     Checks for an existing open PR whose branch matches fix/ui-refs-* before
     creating a new one.  When one is found:
-    - If all current fixes are already in the PR, returns without changes.
-    - If there are new fixes, updates the existing PR branch and description.
+    - If all current fixes and the unresolved-issue signature are already in
+      the PR, returns without changes.
+    - Otherwise, updates the existing PR branch and description.
+
+    `fixes` may be empty: a refreshed snapshot (e.g. a `source_sha` bump) with
+    no auto-fixable doc issues still needs to be committed so the recorded
+    provenance advances — see `_snapshot_has_uncommitted_changes`. Callers
+    should only invoke this when there is something to commit (a fix, a
+    changed snapshot, or a changed unresolved-issue signature); it degrades
+    gracefully (returns "error") if there ends up being no git diff at all.
 
     Returns (pr_url, action) where action is one of:
       "created"         – new draft PR opened
-      "updated"         – existing open PR updated with new fixes
-      "already_covered" – all fixes already present in an existing open PR
+      "updated"         – existing open PR updated
+      "already_covered" – fixes and unresolved issues already present in an existing open PR
       "error"           – PR could not be created or updated
     """
-    if not fixes:
-        print("No fixes to commit.")
-        return None, "error"
-
     existing_pr = find_existing_fix_pr(repo_root)
 
     if existing_pr:
         new_fixes = _fixes_already_in_pr(fixes, existing_pr.get("body", ""), repo_root)
-        if not new_fixes:
+        existing_signature = extract_unresolved_signature(existing_pr.get("body", ""))
+        if not new_fixes and existing_signature == unresolved_signature:
             print(
-                f"All fixes already covered by open PR #{existing_pr['number']}: "
-                f"{existing_pr['url']}"
+                f"All fixes and unresolved issues already covered by open PR "
+                f"#{existing_pr['number']}: {existing_pr['url']}"
             )
             return existing_pr["url"], "already_covered"
-        pr_url = _update_existing_pr(existing_pr, fixes, repo_root)
+        pr_url = _update_existing_pr(
+            existing_pr, fixes, repo_root, unresolved_signature, remaining_count
+        )
         if pr_url:
             return pr_url, "updated"
         # _update_existing_pr already printed a warning; fall through to create a new PR
@@ -1292,6 +1513,12 @@ def create_pr(fixes: List[Dict[str, Any]], repo_root: Path) -> Tuple[Optional[st
     try:
         subprocess.run(["git", "checkout", "-b", branch], cwd=repo_root, check=True)
         subprocess.run(["git", "add", "-A"], cwd=repo_root, check=True)
+        diff_check = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=repo_root)
+        if diff_check.returncode == 0:
+            print("Nothing to commit.")
+            subprocess.run(["git", "checkout", "-"], cwd=repo_root)
+            subprocess.run(["git", "branch", "-D", branch], cwd=repo_root)
+            return None, "error"
         subprocess.run(
             ["git", "commit", "-m", _commit_message(fixes, repo_root)],
             cwd=repo_root,
@@ -1300,15 +1527,21 @@ def create_pr(fixes: List[Dict[str, Any]], repo_root: Path) -> Tuple[Optional[st
         subprocess.run(["git", "push", "-u", "origin", branch], cwd=repo_root, check=True)
 
         with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False) as tmp:
-            tmp.write(_pr_body(fixes, repo_root))
+            tmp.write(_pr_body(fixes, repo_root, unresolved_signature, remaining_count))
             body_file = tmp.name
         try:
+            title = (
+                f"docs: fix {len(fixes)} UI reference issue(s)"
+                if fixes
+                else "chore: refresh UI reference snapshot provenance"
+            )
             result = subprocess.run(
                 [
                     "gh", "pr", "create",
-                    "--title", f"docs: fix {len(fixes)} UI reference issue(s)",
+                    "--title", title,
                     "--body-file", body_file,
                     "--draft",
+                    "--label", "warpy-factory",
                 ],
                 cwd=repo_root,
                 capture_output=True,
@@ -1521,6 +1754,8 @@ def refresh_valid_paths(warp_repo_path: Path, output_path: Path) -> None:
         "macos_menu_bar": existing.get("macos_menu_bar", {}),
         "warp_drive": existing.get("warp_drive", {}),
         "command_palette_commands": command_palette,
+        "source_repository": _resolve_source_repository(warp_repo_path) or existing.get("source_repository"),
+        "source_sha": _resolve_source_sha(warp_repo_path) or existing.get("source_sha"),
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
 
@@ -1533,6 +1768,39 @@ def refresh_valid_paths(warp_repo_path: Path, output_path: Path) -> None:
         f"{len(data['deprecated_sections'])} deprecated, "
         f"{len(command_palette)} commands)"
     )
+
+
+def _resolve_source_sha(warp_repo_path: Path) -> Optional[str]:
+    """Return the warp client repo's current commit SHA, or None if unavailable.
+
+    Best-effort: a shallow checkout, a missing `.git`, or any git failure
+    leaves the field absent rather than raising, since a missing SHA is a
+    visible "unknown" in the report (see main()'s provenance line) and never
+    silently advances a fabricated value.
+    """
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(warp_repo_path), "rev-parse", "HEAD"],
+            capture_output=True, text=True, check=True,
+        )
+    except (subprocess.CalledProcessError, OSError):
+        return None
+    sha = result.stdout.strip()
+    return sha or None
+
+
+def _resolve_source_repository(warp_repo_path: Path) -> Optional[str]:
+    """Return the warp client repo's `owner/repo` from its `origin` remote."""
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(warp_repo_path), "remote", "get-url", "origin"],
+            capture_output=True, text=True, check=True,
+        )
+    except (subprocess.CalledProcessError, OSError):
+        return None
+    url = result.stdout.strip()
+    m = re.search(r"[:/]([^/:]+/[^/]+?)(?:\.git)?$", url)
+    return m.group(1) if m else None
 
 
 def _extract_umbrellas(warp_repo: Path) -> Dict[str, Any]:
@@ -2147,6 +2415,17 @@ def main() -> int:
     parser.add_argument("--slack-notify", action="store_true", help="Post results to Slack")
     parser.add_argument("--slack-channel", default=DEFAULT_SLACK_CHANNEL, help="Slack channel ID")
     parser.add_argument("--include-changelog", action="store_true", help="Include changelog/ in scan")
+    parser.add_argument(
+        "--changed", action="store_true",
+        help="Scan only files changed vs origin/main...HEAD (required CI scope; "
+             "fails rather than falling back to a full scan when the diff can't be resolved)",
+    )
+    parser.add_argument(
+        "--require-provenance", action="store_true",
+        help="Fail if the committed snapshot's source_repository/source_sha are missing. A "
+             "refresh failure must never silently advance provenance, so the required CI gate "
+             "passes this rather than trusting an unknown client revision.",
+    )
     parser.add_argument("--refresh-valid-paths", action="store_true", help="Re-extract from the warp client repo")
     parser.add_argument(
         "--warp",
@@ -2197,13 +2476,38 @@ def main() -> int:
         return 1
     valid_paths = load_valid_paths(valid_paths_file)
 
+    # Report the snapshot's trusted provenance so every technical-reference
+    # check states what client state it trusts (see doc-quality-policy.md).
+    snapshot_repo = valid_paths.get("source_repository") or "unknown"
+    snapshot_sha = valid_paths.get("source_sha") or "unknown"
+    snapshot_generated_at = valid_paths.get("generated_at") or "unknown"
+    print(
+        f"Trusted snapshot: source={snapshot_repo}@{snapshot_sha} "
+        f"generated_at={snapshot_generated_at}"
+    )
+    if args.require_provenance and (snapshot_repo == "unknown" or snapshot_sha == "unknown"):
+        print(
+            "Error: --require-provenance was set but the committed snapshot has incomplete "
+            "provenance (source_repository/source_sha). Refresh and commit a verified snapshot "
+            "before this gate can trust it -- an unknown client revision is not silently accepted.",
+            file=sys.stderr,
+        )
+        return 1
+
     # Scan docs
     docs_dir = Path(args.docs_dir)
     if not docs_dir.exists():
         print(f"Error: docs directory not found at {docs_dir}", file=sys.stderr)
         return 1
 
-    md_files = scan_docs(docs_dir, include_changelog=args.include_changelog)
+    if args.changed:
+        try:
+            md_files = find_changed_md_files(docs_dir, include_changelog=args.include_changelog)
+        except ChangedFilesUnresolvedError as exc:
+            print(f"Error: {exc}", file=sys.stderr)
+            return 1
+    else:
+        md_files = scan_docs(docs_dir, include_changelog=args.include_changelog)
     print(f"Scanning {len(md_files)} markdown files...")
 
     path_issues = []
@@ -2255,12 +2559,56 @@ def main() -> int:
     report_text = generate_report(path_issues, command_issues, format_issues, len(md_files), fixes)
     print(report_text)
 
-    # Create PR
+    # Count remaining (unfixed) issues — used for Slack notification and exit code
+    total_issues = len(path_issues) + len(command_issues) + len(format_issues)
+    repo_root = SCRIPT_DIR.parents[2]
+    current_signature = unresolved_issue_signature(
+        path_issues, command_issues, format_issues, repo_root
+    )
+
+    # Decide whether there's anything genuinely new to report. Compare against
+    # an already-open fix/ui-refs-* PR first (it reflects the latest reported
+    # state even if unmerged for days — the scenario that caused the same
+    # report to repeat on consecutive scheduled runs), falling back to
+    # `last_notified_signature` recorded in the committed snapshot once such a
+    # PR has merged. See `should_notify_slack()`.
     pr_url = None
     pr_action = "none"
-    if args.create_pr and fixes:
-        repo_root = SCRIPT_DIR.parents[2]
-        pr_url, pr_action = create_pr(fixes, repo_root)
+    should_notify = False
+    if args.create_pr:
+        existing_pr = find_existing_fix_pr(repo_root)
+        previous_signature = (
+            extract_unresolved_signature(existing_pr.get("body", ""))
+            if existing_pr
+            else valid_paths.get("last_notified_signature")
+        )
+        should_notify = should_notify_slack(total_issues, current_signature, previous_signature)
+        if should_notify:
+            # Persist the signature we're about to report so it's committed
+            # alongside any fix/snapshot changes below and survives even if
+            # this PR isn't merged for a while (re-read from the open PR's
+            # body on the next run; falls back to this field once merged).
+            valid_paths["last_notified_signature"] = current_signature
+            valid_paths["last_notified_at"] = datetime.now(timezone.utc).isoformat()
+            with open(valid_paths_file, "w") as f:
+                json.dump(valid_paths, f, indent=2)
+        # A fix, a refreshed snapshot (e.g. a `source_sha` bump), or the
+        # signature update just written above are each reason enough to
+        # commit. This used to be gated on `fixes` alone, which silently
+        # discarded a refreshed `source_sha` on every run with nothing
+        # auto-fixable, so the committed snapshot never advanced and the
+        # daily reconciliation job kept re-triggering (see
+        # `_snapshot_has_uncommitted_changes`).
+        snapshot_changed = _snapshot_has_uncommitted_changes(valid_paths_file, repo_root)
+        if fixes or snapshot_changed:
+            pr_url, pr_action = create_pr(
+                fixes, repo_root,
+                unresolved_signature=current_signature if should_notify else previous_signature,
+                remaining_count=total_issues,
+            )
+    else:
+        previous_signature = valid_paths.get("last_notified_signature")
+        should_notify = should_notify_slack(total_issues, current_signature, previous_signature)
 
     # Save JSON output
     report_data = {
@@ -2276,14 +2624,13 @@ def main() -> int:
             json.dump(report_data, f, indent=2, default=str)
         print(f"Results saved to {args.output}")
 
-    # Count remaining (unfixed) issues — used for Slack notification and exit code
-    total_issues = len(path_issues) + len(command_issues) + len(format_issues)
-
-    # Slack notification: send when issues remain OR when a PR was created/updated
-    if args.slack_notify and (total_issues > 0 or pr_action in ("created", "updated")):
+    # Slack notification: only when there's something genuinely new to report.
+    # An unchanged set of unresolved issues is not re-posted on a subsequent
+    # scheduled run — see `should_notify_slack()`.
+    if args.slack_notify and should_notify:
         notify_slack(report_data, args.slack_channel, pr_url, pr_action)
     elif args.slack_notify:
-        print("No issues found — skipping Slack notification.")
+        print("No new unresolved issues since the last report — skipping Slack notification.")
     return 1 if total_issues > 0 else 0
 
 

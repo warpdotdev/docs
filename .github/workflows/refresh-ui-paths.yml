@@ -1,16 +1,26 @@
 name: Refresh UI paths snapshot
 
-# Triggered automatically when the warp client's Settings UI files change
-# (via repository_dispatch from warpdotdev/warp) or manually via
-# workflow_dispatch as a fallback.
+# Triggered in three ways:
+#   1. `repository_dispatch` from warpdotdev/warp when `master` merges a
+#      change under app/src/settings_view/** (source-driven, same-day).
+#   2. A daily `15:15 UTC` schedule that reconciles the snapshot's recorded
+#      `source_sha` against the full `master` head used to generate the
+#      snapshot, limiting an unnoticed missed dispatch to one day. A no-change
+#      reconciliation exits successfully without refreshing.
+#   3. `workflow_dispatch` as the documented manual fallback.
 on:
   repository_dispatch:
     types:
       - settings-ui-changed
+  schedule:
+    - cron: '15 15 * * *'
   workflow_dispatch:
 
 # Only WARP_API_KEY is needed here — warpdotdev/warp access and Slack
-# notifications are handled by the Oz cloud agent environment.
+# notifications are handled by the Oz cloud agent environment. The
+# reconciliation step additionally needs read access to warpdotdev/warp's
+# commit history, which GH_TOKEN (the default workflow token) covers for a
+# public repo.
 permissions:
   contents: read
 
@@ -22,9 +32,49 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  reconcile:
+    name: Reconcile recorded source SHA (scheduled runs only)
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    outputs:
+      needs_refresh: ${{ steps.compare.outputs.needs_refresh }}
+    steps:
+      - name: Checkout docs
+        uses: actions/checkout@v4
+
+      - name: Compare recorded source SHA against current master head
+        id: compare
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          RECORDED_SHA=$(python3 -c "import json; print(json.load(open('.agents/skills/validate_ui_refs/valid_paths.json')).get('source_sha') or '')")
+          LATEST_SHA=$(gh api "repos/warpdotdev/warp/commits/master" --jq .sha)
+          if [ -z "$LATEST_SHA" ]; then
+            echo "::error::could not resolve warpdotdev/warp master HEAD — failing loud rather than silently skipping reconciliation."
+            exit 1
+          fi
+          echo "Recorded source SHA: ${RECORDED_SHA:-<none>}"
+          echo "Current master HEAD: $LATEST_SHA"
+          if [ "$RECORDED_SHA" = "$LATEST_SHA" ]; then
+            echo "Snapshot is already current — no refresh needed."
+            echo "needs_refresh=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "needs_refresh=true" >> "$GITHUB_OUTPUT"
+          fi
+
   refresh:
     name: Dispatch Oz cloud agent to refresh UI path snapshot
     runs-on: ubuntu-latest
+    needs: [reconcile]
+    # Always run for a source dispatch or manual trigger. For the daily
+    # schedule, run only when reconciliation found the snapshot stale — a
+    # skipped `reconcile` job's output is empty, not "false", so the schedule
+    # branch checks needs_refresh explicitly rather than relying on !=  'false'.
+    if: |
+      always() &&
+      needs.reconcile.result != 'failure' &&
+      (github.event_name != 'schedule' || needs.reconcile.outputs.needs_refresh == 'true')
     steps:
       - name: Checkout docs
         uses: actions/checkout@v4
@@ -43,9 +93,13 @@ jobs:
 
           Steps:
           1. Locate warpdotdev/warp. It should be checked out at
-             /workspace/warp in this environment. If that path does
-             not exist, clone it:
-               git clone git@github.com:warpdotdev/warp.git /workspace/warp
+             /workspace/warp in this environment. Ensure it is at the current
+             origin/master HEAD before refreshing. If that path does not exist,
+             clone it:
+               git clone --branch master --depth 1 git@github.com:warpdotdev/warp.git /workspace/warp
+             Otherwise run:
+               git -C /workspace/warp fetch origin master
+               git -C /workspace/warp checkout --detach origin/master
              Then run:
                python3 .agents/skills/validate_ui_refs/validate_ui_refs.py \\
                  --refresh-valid-paths \\
@@ -115,3 +169,47 @@ jobs:
             exit 1
           fi
           echo "Oz run completed successfully."
+
+  alert-on-failure:
+    name: Alert Pod-Docs on a failed refresh
+    runs-on: ubuntu-latest
+    needs: [reconcile, refresh]
+    # A dispatch, agent, refresh, or reconciliation failure must be visible
+    # and alerted — it never silently advances the recorded source SHA.
+    # `always()` is required because a failed dependency otherwise skips
+    # this job entirely.
+    if: always() && (needs.reconcile.result == 'failure' || needs.refresh.result == 'failure')
+    steps:
+      - name: Post failure alert to #growth-docs
+        env:
+          BUZZ_SLACK_TOKEN: ${{ secrets.BUZZ_SLACK_TOKEN }}
+          GROWTH_DOCS_SLACK_CHANNEL_ID: ${{ secrets.GROWTH_DOCS_SLACK_CHANNEL_ID }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ -z "$BUZZ_SLACK_TOKEN" ] || [ -z "$GROWTH_DOCS_SLACK_CHANNEL_ID" ]; then
+            echo "::warning::BUZZ_SLACK_TOKEN or GROWTH_DOCS_SLACK_CHANNEL_ID not set — skipping Slack alert. Failed workflow run: $RUN_URL"
+            exit 0
+          fi
+          python3 - <<PYEOF
+          import json, os, urllib.request
+
+          token = os.environ["BUZZ_SLACK_TOKEN"]
+          channel = os.environ["GROWTH_DOCS_SLACK_CHANNEL_ID"]
+          run_url = os.environ["RUN_URL"]
+          event_name = os.environ["EVENT_NAME"]
+          message = (
+              f":rotating_light: Refresh UI paths snapshot failed (trigger: {event_name}). "
+              f"The recorded source SHA was NOT advanced. <{run_url}|View the failed run>."
+          )
+          payload = json.dumps({"channel": channel, "text": message}).encode()
+          req = urllib.request.Request(
+              "https://slack.com/api/chat.postMessage",
+              data=payload,
+              headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+          )
+          with urllib.request.urlopen(req) as resp:
+              result = json.load(resp)
+          if not result.get("ok"):
+              raise SystemExit(f"Slack error: {result.get('error')}")
+          PYEOF

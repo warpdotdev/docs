@@ -56,13 +56,14 @@ Handoff is best-effort. When the receiving agent can apply the prior session's c
 
 Each direction has a clear motivating workflow.
 
-* **Local to cloud** - Use when a local conversation has grown into work that's better done in the cloud: long-running tasks you don't want to keep your laptop awake for, parallel variants of the same task, or steering work from another device once it's running.
-* **Cloud to cloud** - Use when a cloud agent finished and you want to send a follow-up without losing the prior workspace state. Also useful when a Slack-triggered or scheduled run completes and someone on the team wants to push it further.
+* **Local to cloud** - Use when a local conversation has grown into work that's better done in the cloud: long-running tasks you don't want to keep your laptop awake for, [parallel variants of the same task](/platform/orchestration/), or steering work from another device once it's running.
+* **Cloud to cloud** - Use when a cloud agent finished and you want to send a follow-up without losing the prior workspace state. Also useful when a [Slack-triggered](/platform/integrations/slack/) or [scheduled](/platform/triggers/scheduled-agents/) run completes and someone on the team wants to push it further.
 * **Cloud to local** - Use when a cloud agent has done the heavy lifting and you want to take over locally to verify, iterate, or polish before shipping.
 
 ## Related pages
 
 * [Cloud agents overview](/platform/) - What cloud agents are, when to use them, and how they fit into the {VARS.WARP_AUTOMATION_PLATFORM}.
+* [Multi-agent orchestration](/platform/orchestration/) - Fan out parallel cloud variants after a local-to-cloud handoff.
 * [Managing cloud agents](/platform/managing-cloud-agents/) - Inspect handoff runs from the Agent Management Panel in the Warp app or the Runs page in the {VARS.WEB_APP} alongside local conversations.
 * [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) - Open and continue a cloud run locally with **Continue locally** or `/continue-locally`.
 * [Cloud-synced conversations](/agents/local-agents/cloud-conversations/) - How conversations sync between local and cloud so handoff can find them.

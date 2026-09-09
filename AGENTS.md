@@ -821,7 +821,7 @@ This is the single most drifted term in the docs, so the rule is narrow on purpo
 
 ### Automation Platform terminology
 
-Renamed from "Oz" on 2026-08-18. The `oz` CLI binary and the Oz v1 web app at `oz.warp.dev` keep the Oz name until 2026-09-15 and are not stale in the meantime. See `.agents/references/terminology.md` → "What still says Oz" for the full holdout list.
+Renamed from "Oz" on 2026-08-18. The `oz` CLI binary and the Oz v1 web app at `oz.warp.dev` keep the Oz name until 2026-10-06 and are not stale in the meantime. See `.agents/references/terminology.md` → "What still says Oz" for the full holdout list.
 
 #### The article rule
 "Oz" was a proper noun and read correctly bare. "Automation Platform" is a common-noun phrase, so it needs a definite article in referential positions. This is the most common mistake when writing about the platform.
@@ -846,7 +846,7 @@ Write the name as `{VARS.WARP_AUTOMATION_PLATFORM}` in body prose or `{{WARP_AUT
 - **cloud agent run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based. Use `{VARS.PLATFORM_RUN}`. On factory-specific pages, write "factory run" directly.
 - **Environment** - The execution context for an agent, including repo access, dependencies, secrets, compute, and runtime configuration
 - **cloud agent dashboard** - The app surface to manage all runs, unified across the Warp app and web. Use `{VARS.DASHBOARD}`. On factory-specific pages, write "factory dashboard" directly.
-- **Oz web app** - The web app for configuring agents and managing runs. Holds the Oz name until 2026-09-15; use `{VARS.WEB_APP}`.
+- **Oz web app** - The web app for configuring agents and managing runs. Holds the Oz name until 2026-10-06; use `{VARS.WEB_APP}`.
 
 #### Oz CLI commands
 - `oz agent run` - Run a local agent
