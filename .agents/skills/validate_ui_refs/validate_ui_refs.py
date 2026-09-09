@@ -514,6 +514,53 @@ def _suggest_migration_for_deprecated_section(
     }
 
 
+def _check_moved_control(
+    prefix_segments: List[str],
+    trailing_segments: List[str],
+    moved_controls: List[Dict[str, Any]],
+) -> Optional[Dict[str, Any]]:
+    """Check whether trailing path text names an individual settings control
+    that `moved_settings_controls` (in valid_paths.json) records as having
+    moved to a different section/subpage.
+
+    `sub_sections` only tracks section-header-level names, not individual
+    toggle/control labels (see verify-settings-subsections/SKILL.md). That
+    means a path like `Settings > Features > General > Group files into
+    single editor pane` resolves as valid purely from `Features` + `General`
+    still being real names — the 2026.04.22 reorg that moved that control to
+    `Settings > Code > Editor and Code Review` (QUALITY-2052) left the string
+    `Settings > Features > General` fully valid, so the control name itself
+    was never inspected and the drift went undetected. `moved_settings_controls`
+    is a hand-curated list (mirroring `deprecated_sections`) of specific
+    controls known to have moved; add an entry there whenever a docs fix
+    corrects one, so a future reintroduction of the stale path is caught
+    automatically.
+    """
+    if not trailing_segments or not moved_controls:
+        return None
+    control_text_lower = " > ".join(trailing_segments).lower()
+    current_path = " > ".join(["Settings"] + prefix_segments)
+    for entry in moved_controls:
+        candidates = [entry["label"]] + entry.get("aliases", [])
+        if not any(control_text_lower == c.lower() for c in candidates):
+            continue
+        new_path = entry["new_path"]
+        if current_path == new_path:
+            # Already referenced at its current location — nothing to flag.
+            return None
+        return {
+            "valid": False,
+            "issue": (
+                f"\"{entry['label']}\" moved from \"{entry['old_path']}\" to "
+                f"\"{new_path}\" ({entry.get('moved_in', 'a settings reorg')})"
+            ),
+            "suggestion": " > ".join([new_path, entry["label"]]),
+            "confidence": 0.9,
+            "fix_type": "moved_control",
+        }
+    return None
+
+
 def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
     """Validate a single UI path against valid_paths data.
 
@@ -527,6 +574,7 @@ def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
     deprecated = valid_paths.get("deprecated_sections", {})
     menu_bar = valid_paths.get("macos_menu_bar", {})
     warp_drive = valid_paths.get("warp_drive", {})
+    moved_controls = valid_paths.get("moved_settings_controls", [])
 
     # --- Settings paths ---
     if root == "Settings" and len(segments) >= 2:
@@ -629,6 +677,11 @@ def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
                 sub_sections = subpage_data.get("sub_sections", [])
                 sub = segments[3]
                 if sub in sub_sections:
+                    moved = _check_moved_control(
+                        [section, subpage, sub], segments[4:], moved_controls
+                    )
+                    if moved:
+                        return moved
                     return {
                         "valid": True,
                         "issue": None,
@@ -729,8 +782,13 @@ def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
             sub_sections = section_data.get("sub_sections", [])
             sub = segments[2]
 
-            # Exact match — valid
+            # Exact match — valid, unless the trailing text names a control
+            # known to have moved to a different section (see
+            # `_check_moved_control` / `moved_settings_controls`).
             if sub in sub_sections:
+                moved = _check_moved_control([section, sub], segments[3:], moved_controls)
+                if moved:
+                    return moved
                 return {"valid": True, "issue": None, "suggestion": None, "confidence": 1.0, "fix_type": None}
 
             # Case mismatch against a known sub-section — still flag these

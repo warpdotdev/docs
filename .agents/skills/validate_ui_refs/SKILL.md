@@ -99,6 +99,16 @@ After running `--refresh-valid-paths`, manually verify the sub-sections for thes
 - **Warp Drive**: `Warp Drive > ...`, `Personal > ...` — validates against known spaces and object types
 - **Multiple markdown formats**: backtick-wrapped, bold, italic, and bare inline paths
 
+### Individual settings controls that moved between sections (`moved_settings_controls`)
+
+`sub_sections` only tracks section-header-level names extracted from `Category::new(...)` calls — it does not (and, per `verify-settings-subsections/SKILL.md`, deliberately does not) track individual toggle/control labels. That is a real gap: when a control moves to a different section but its old section and sub-section names are still valid strings elsewhere (e.g. "General" is still a real sub-section of "Features"), the path segments up to that point all validate, and nothing ever inspects the control name itself.
+
+This is exactly what let the 2026.04.22 reorg go undetected (QUALITY-2052): four controls moved from `Settings > Features > General` to `Settings > Code > Editor and Code Review`, but `Settings > Features > General > <control>` kept validating because `Features` and `General` are both still real names — the drift was only caught later by a public user report (docs#587), not by this validator.
+
+`valid_paths.json`'s `moved_settings_controls` list closes this gap the same way `deprecated_sections` does for whole sections: a hand-curated array of `{label, aliases, old_path, new_path, moved_in}` entries. `validate_ui_path` checks the text following an otherwise-valid section/sub-section against this list (via `_check_moved_control`) and flags a path that still points at a control's `old_path`, suggesting `new_path`. It is strictly additive — an empty list changes nothing.
+
+**This list is not populated automatically** (individual control labels are ad-hoc string literals in Rust view code, not a uniform declarative registry, so reliable extraction isn't feasible the way it is for sub-section headers). Add an entry whenever a docs-fixing PR discovers a control has moved, so a future revert or duplicate mistake is caught automatically instead of relying on the next external bug report.
+
 ### Format Consistency
 - All UI paths should use per-segment bold formatting: **Settings** > **AI** > **Active AI**
 - Backtick formatting (`` `Settings > AI` ``), full bold wrapping (`**Settings > AI**`), italic, and bare formats are flagged

@@ -247,6 +247,36 @@
       "umbrella": "Cloud platform"
     }
   },
+  "moved_settings_controls": [
+    {
+      "label": "Group files into single editor pane",
+      "aliases": ["Group files into a single editor pane"],
+      "old_path": "Settings > Features > General",
+      "new_path": "Settings > Code > Editor and Code Review",
+      "moved_in": "2026.04.22 settings reorg (QUALITY-2052 / docs#587 / docs#708)"
+    },
+    {
+      "label": "Choose a layout to open files in Warp",
+      "aliases": [],
+      "old_path": "Settings > Features > General",
+      "new_path": "Settings > Code > Editor and Code Review",
+      "moved_in": "2026.04.22 settings reorg (QUALITY-2052 / docs#587 / docs#708)"
+    },
+    {
+      "label": "Choose an editor to open file links",
+      "aliases": [],
+      "old_path": "Settings > Features > General",
+      "new_path": "Settings > Code > Editor and Code Review",
+      "moved_in": "2026.04.22 settings reorg (QUALITY-2052 / docs#587 / docs#708)"
+    },
+    {
+      "label": "Open Markdown files in Warp's Markdown Viewer by default",
+      "aliases": ["Open Markdown files in Warp's Markdown viewer by default"],
+      "old_path": "Settings > Features > General",
+      "new_path": "Settings > Code > Editor and Code Review",
+      "moved_in": "2026.04.22 settings reorg (QUALITY-2052 / docs#587 / docs#708)"
+    }
+  ],
   "top_level_sidebar": [
     "Account",
     "Agents",
