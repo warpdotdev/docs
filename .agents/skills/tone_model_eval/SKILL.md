@@ -28,7 +28,11 @@ into one number:
   `check_meta_openers` checks, plus a word-count delta against the "before"
   text (reusing `doc_quality_policy.check_compression_contract.count_words`).
 - **Judge rubric** — a fixed 1-5 score on three dimensions (concision, avoids
-  over-explaining, technical fidelity) from an anonymized judge call. See
+  over-explaining, technical fidelity) from an anonymized judge call. The
+  before/candidate text is untrusted, model-produced content, so
+  `build_judge_prompt` wraps both in `<before>`/`<candidate_rewrite>` blocks
+  with an explicit instruction to treat their contents as data to score, not
+  as instructions to follow (prompt-injection resistance). See
   `judge_rubric.md`.
 
 ## Running the eval
@@ -53,12 +57,15 @@ into one number:
      --fixture-id <FIXTURE_ID> --output-file <OUTPUT_FILE>
    ```
    Send the printed prompt to the fixed judge model (or a human judge), save
-   its JSON response to a file, then score the row:
+   its JSON response to a file, then score the row. `--judge-model-id` is
+   required and explicit (pass the literal `human` for a human judge) so the
+   report can record judge provenance for the bias check in
+   `judge_rubric.md`:
    ```bash
    python3 .agents/skills/tone_model_eval/score_outputs.py score \
      --fixture-id <FIXTURE_ID> --model-id <MODEL_ID> \
      --output-file <OUTPUT_FILE> --judge-response-file <JUDGE_RESPONSE_FILE> \
-     --rows-file rows.jsonl
+     --judge-model-id <JUDGE_MODEL_ID_OR_human> --rows-file rows.jsonl
    ```
 4. **Read the report.** Once every fixture/model pair has a row in
    `rows.jsonl`:
@@ -68,12 +75,16 @@ into one number:
      --default-model-id <CURRENT_DEFAULT_MODEL_ID> \
      --output-json report.json --output-md report.md
    ```
-   The report applies the pinned adoption thresholds (`score_outputs.py`'s
-   `ADOPT_CONCISION_MARGIN`, `ADOPT_MECH_REDUCTION_PCT`,
-   `CHEAPER_JUDGE_TOLERANCE`, `CHEAPER_MIN_TECHNICAL_FIDELITY`) and states a
-   pass/fail verdict by name for each recommendation arm — including an
-   explicit "no meaningful difference found" verdict when neither adoption
-   threshold is met, which is a valid, reportable outcome, not a blocked eval.
+   `report` first checks that every model in `rows.jsonl` covers the exact
+   same set of fixture ids, with no duplicates, and fails loudly on any
+   missing, unexpected, or duplicate row rather than silently ranking models
+   over a mismatched fixture set. It then applies the pinned adoption
+   thresholds (`score_outputs.py`'s `ADOPT_CONCISION_MARGIN`,
+   `ADOPT_MECH_REDUCTION_PCT`, `CHEAPER_JUDGE_TOLERANCE`,
+   `CHEAPER_MIN_TECHNICAL_FIDELITY`) and states a pass/fail verdict by name
+   for each recommendation arm — including an explicit "no meaningful
+   difference found" verdict when neither adoption threshold is met, which is
+   a valid, reportable outcome, not a blocked eval.
 
 ## Scope
 

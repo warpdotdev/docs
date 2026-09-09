@@ -233,7 +233,22 @@ def composite_judge_score(judge_dims: Dict[str, float]) -> float:
 # Per-row scoring and aggregation
 # ---------------------------------------------------------------------------
 
-def score_row(fixture_id: str, model_id: str, before_text: str, output_text: str, judge_dims: Dict[str, float]) -> dict:
+def score_row(
+    fixture_id: str,
+    model_id: str,
+    before_text: str,
+    output_text: str,
+    judge_dims: Dict[str, float],
+    judge_model_id: str,
+) -> dict:
+    """Score one (fixture, model, output) row.
+
+    `judge_model_id` is required and explicit — the spec's judge-bias
+    mitigation needs to know which model (or "human") judged every row so a
+    reviewer can discount a same-family match against a candidate. Pass the
+    literal string "human" when a human filled in the rubric instead of a
+    model.
+    """
     return {
         "fixture_id": fixture_id,
         "model_id": model_id,
@@ -241,6 +256,7 @@ def score_row(fixture_id: str, model_id: str, before_text: str, output_text: str
         "word_count": word_delta(before_text, output_text),
         "judge": judge_dims,
         "judge_composite": composite_judge_score(judge_dims),
+        "judge_model_id": judge_model_id,
     }
 
 
@@ -354,6 +370,20 @@ def validate_report_fixture_coverage(rows: List[dict]) -> None:
             )
 
 
+def _consistent_judge_model_id(rows: List[dict]) -> str:
+    """Return the single `judge_model_id` shared by every row.
+
+    The judge-bias mitigation only makes sense against one judge per eval
+    run: a report built from rows judged by different models couldn't tell a
+    reviewer which one to check for a same-family match, so this fails
+    loudly on any inconsistency instead of silently picking one.
+    """
+    judge_ids = {row["judge_model_id"] for row in rows}
+    if len(judge_ids) != 1:
+        raise ValueError(f"rows recorded inconsistent judge_model_id values: {sorted(judge_ids)}")
+    return next(iter(judge_ids))
+
+
 def build_report(
     rows: List[dict],
     aggregates: Dict[str, dict],
@@ -365,6 +395,7 @@ def build_report(
     cheaper = evaluate_cheaper_model_candidates(aggregates[fable_model_id], cheaper_candidates)
     return {
         "scope_boundary": SCOPE_BOUNDARY_SECTION,
+        "judge_model_id": _consistent_judge_model_id(rows),
         "fable_model_id": fable_model_id,
         "default_model_id": default_model_id,
         "rows": rows,
@@ -380,6 +411,11 @@ def build_report(
 def render_markdown(report: dict) -> str:
     lines: List[str] = ["# Tone/concision model eval report", ""]
     lines.append(report["scope_boundary"])
+    lines.append("")
+    lines.append(
+        f"**Judge model:** {report['judge_model_id']} "
+        "(check for a same-family match against any candidate before trusting its score)"
+    )
     lines.append("")
     lines.append("## Per-model scores")
     for model_id, agg in report["aggregates"].items():
@@ -475,7 +511,7 @@ def cmd_score(args: argparse.Namespace) -> int:
     before_text = get_before_text(fixture, repo_root=repo_root)
     output_text = Path(args.output_file).read_text(encoding="utf-8")
     judge_dims = parse_judge_response(Path(args.judge_response_file).read_text(encoding="utf-8"))
-    row = score_row(args.fixture_id, args.model_id, before_text, output_text, judge_dims)
+    row = score_row(args.fixture_id, args.model_id, before_text, output_text, judge_dims, args.judge_model_id)
     line = json.dumps(row)
     if args.rows_file:
         with open(args.rows_file, "a", encoding="utf-8") as f:
@@ -532,6 +568,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     p_score.add_argument("--model-id", required=True)
     p_score.add_argument("--output-file", required=True)
     p_score.add_argument("--judge-response-file", required=True)
+    p_score.add_argument("--judge-model-id", required=True, help='the model id that judged this row, or "human"')
     p_score.add_argument("--fixtures", default=str(DEFAULT_FIXTURES_PATH))
     p_score.add_argument("--repo-root", default=None)
     p_score.add_argument("--rows-file", default=None, help="append the scored row as a JSON line to this file")
