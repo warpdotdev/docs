@@ -19,9 +19,6 @@ def _signal(
     verdict: str = "Approve",
     critical: int = 0,
     important: int = 0,
-    suggestions: int = 0,
-    nits: int = 0,
-    actionable_findings: list[str] | None = None,
     blocking_findings: list[str] | None = None,
 ) -> str:
     signal = {
@@ -30,12 +27,10 @@ def _signal(
         "verdict": verdict,
         "critical": critical,
         "important": important,
-        "suggestions": suggestions,
-        "nits": nits,
+        "suggestions": 0,
+        "nits": 0,
         "top_categories": [],
     }
-    if actionable_findings is not None:
-        signal["actionable_findings"] = actionable_findings
     if blocking_findings is not None:
         signal["blocking_findings"] = blocking_findings
     return f"[SIGNAL:pr-review] {json.dumps(signal)}"
@@ -67,7 +62,7 @@ class TestBuildReviewPayload(unittest.TestCase):
             _signal(
                 "Request changes",
                 important=1,
-                actionable_findings=[
+                blocking_findings=[
                     "`src/content/docs/example.mdx:42` — Use the canonical subagent "
                     "terminology. Requested change: replace `children` with `subagents`."
                 ],
@@ -84,7 +79,7 @@ class TestBuildReviewPayload(unittest.TestCase):
             _signal(
                 "request_changes",
                 important=1,
-                actionable_findings=[
+                blocking_findings=[
                     "`src/content/docs/example.mdx:42` — Use the canonical subagent "
                     "terminology. Requested change: replace `children` with `subagents`."
                 ],
@@ -95,27 +90,10 @@ class TestBuildReviewPayload(unittest.TestCase):
         )
         self.assertEqual(payload["event"], "COMMENT")
 
-    def test_approve_with_nits_renders_actionable_suggestion(self):
-        payload = prs.build_review_payload(
-            _signal(
-                "Approve with nits",
-                suggestions=1,
-                actionable_findings=[
-                    "`copy_pass_prompt.md:22` — Keep frontmatter and imports unchanged "
-                    "during copy passes."
-                ],
-            ),
-            "1",
-            "sha1",
-            "github-actions[bot]",
-        )
-        self.assertEqual(payload["event"], "COMMENT")
-        self.assertIn("Keep frontmatter and imports unchanged", payload["body"])
-
-    def test_rejects_finding_without_actionable_details(self):
-        with self.assertRaisesRegex(ValueError, "actionable_findings"):
+    def test_rejects_blocking_verdict_without_actionable_findings(self):
+        with self.assertRaisesRegex(ValueError, "blocking_findings"):
             prs.build_review_payload(
-                _signal("Approve with nits", suggestions=1),
+                _signal("Request changes", important=1),
                 "1",
                 "sha1",
                 "github-actions[bot]",

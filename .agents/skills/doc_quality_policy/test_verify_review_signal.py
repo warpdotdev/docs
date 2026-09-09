@@ -30,16 +30,6 @@ BLOCKING_OUTPUT = (
     '"blocking_findings":["`src/content/docs/example.mdx:42` — Explain the issue. '
     'Requested change: make the required edit."]}'
 )
-SUGGESTION_OUTPUT = (
-    '[SIGNAL:pr-review] {"pr":"1","head_sha":"sha1","reviewer_login":"github-actions[bot]",'
-    '"verdict":"Approve with nits","critical":0,"important":0,"suggestions":1,"nits":0,'
-    '"actionable_findings":["`copy_pass_prompt.md:22` — Preserve frontmatter and imports '
-    'during copy passes."]}'
-)
-SUGGESTION_REVIEW = {
-    **GOOD_REVIEW,
-    "body": SUGGESTION_OUTPUT,
-}
 
 
 class TestCheckReviewSignal(unittest.TestCase):
@@ -102,15 +92,6 @@ class TestCheckReviewSignal(unittest.TestCase):
         with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[review]):
             problems = vrs.check_review_signal("o/r", "1", "sha1", GOOD_OUTPUT)
         self.assertTrue(any("no current GitHub review" in p for p in problems))
-
-    def test_actionable_suggestion_round_trips_through_published_review(self):
-        with mock.patch.object(
-            vrs.cpc, "_fetch_reviews", return_value=[SUGGESTION_REVIEW]
-        ):
-            problems = vrs.check_review_signal(
-                "o/r", "1", "sha1", SUGGESTION_OUTPUT
-            )
-        self.assertEqual(problems, [])
     def test_published_blocking_review_must_preserve_actionable_findings(self):
         signal, problems = vrs._parse_signal(BLOCKING_OUTPUT, "1", "sha1")
         self.assertEqual(problems, [])

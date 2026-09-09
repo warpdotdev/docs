@@ -55,11 +55,11 @@ jobs:
             3. Do not use `gh` or attempt to publish a GitHub review. The GitHub Actions runner
                publishes the review using its short-lived token after this run completes.
             4. Emit one [SIGNAL:pr-review] JSON record with this head SHA, verdict, severity
-               counts, and top categories. For every critical, important, suggestion, or nit,
-               include one actionable `actionable_findings` string. Each string must name the
-               changed file and line or quoted text, explain the problem, and state the requested
-               resolution. Set reviewer_login to `github-actions[bot]`, the runner account that
-               will publish the review.
+               counts, and top categories. When the verdict is `Request changes`, also include
+               one actionable `blocking_findings` string for each critical or important finding.
+               Each string must name the changed file and line or quoted text, explain the
+               problem, and state the requested resolution. Set reviewer_login to
+               `github-actions[bot]`, the runner account that will publish the review.
       - name: Dismiss stale automated change requests
         env:
           GH_TOKEN: ${{ github.token }}

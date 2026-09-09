@@ -174,7 +174,7 @@ After creating and validating `review.json` (immediately after the Validation se
 3. Determine the skill used from the PR branch name or PR description if available.
 4. Include the following structured marker in your **text response** (write it as part of your agent message, not via a shell `echo` command). This ensures it appears as a `TextContentBlock` in the conversation, where `oz run get --conversation` can reliably retrieve it:
    ```
-   [SIGNAL:pr-review] {"date":"YYYY-MM-DD","pr":"NNN","branch":"branch-name","head_sha":"abc1234","skill_used":"draft_feature_doc","reviewer_login":"GITHUB_LOGIN","verdict":"Request changes","critical":N,"important":N,"suggestions":N,"nits":N,"top_categories":["category (N)","category (N)","category (N)"],"actionable_findings":["`path/to/file.mdx:42` — [IMPORTANT] Explain the problem. Requested change: state the concrete resolution."]}
+   [SIGNAL:pr-review] {"date":"YYYY-MM-DD","pr":"NNN","branch":"branch-name","head_sha":"abc1234","skill_used":"draft_feature_doc","reviewer_login":"GITHUB_LOGIN","verdict":"Request changes","critical":N,"important":N,"suggestions":N,"nits":N,"top_categories":["category (N)","category (N)","category (N)"],"blocking_findings":["`path/to/file.mdx:42` — [IMPORTANT] Explain the problem. Requested change: state the concrete resolution."]}
    ```
    Set `head_sha` to the exact commit SHA this review evaluated (the head SHA
    `.github/workflows/agent-docs-review.yml` passed in, or `gh pr view NNN
@@ -182,11 +182,12 @@ After creating and validating `review.json` (immediately after the Validation se
    of a new commit makes any earlier signal for this PR stale; the collector
    in `improve-drafting-skills` keys its `review_outcome` lookup on this field
    matching the PR's current head.
-   Include one `actionable_findings` entry for every critical, important,
-   suggestion, or nit. Each entry must identify the changed file and line (or
-   quote the affected text), explain the issue, and state the requested
-   resolution. The GitHub Actions publisher renders these entries in the
-   review body, so category-only findings are invalid.
+   When the verdict is `Request changes`, include at least one
+   `blocking_findings` entry for every critical or important finding. Each
+   entry must identify the changed file and line (or quote the affected text),
+   explain the issue, and state the requested resolution. The GitHub Actions
+   publisher renders these entries in the review body, so category-only
+   blocking verdicts are invalid.
 
 The `improve-drafting-skills` outer loop reads this signal from the conversation via `oz run get --conversation`, scanning assistant `TextContentBlock` messages for the marker. No git operations are required.
 

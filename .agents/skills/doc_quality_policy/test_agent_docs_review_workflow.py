@@ -29,9 +29,8 @@ class TestAgentDocsReviewWorkflow(unittest.TestCase):
         self.assertIn("ready_for_review", trigger_types)
         self.assertIn("github.event.pull_request.draft == false", self.workflow)
 
-    def test_all_review_findings_must_supply_actionable_details(self):
-        self.assertIn("actionable_findings", self.workflow)
-        self.assertIn("critical, important, suggestion, or nit", self.workflow)
+    def test_blocking_reviews_must_supply_actionable_findings(self):
+        self.assertIn("blocking_findings", self.workflow)
         self.assertIn("file and line or quoted text", self.workflow)
 
 
