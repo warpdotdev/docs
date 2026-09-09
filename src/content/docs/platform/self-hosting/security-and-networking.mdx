@@ -66,6 +66,8 @@ Tasks use the following Docker images:
 All traffic uses HTTPS (port 443). No inbound ports need to be opened.
 :::
 
+The exception runs the other way. [Team-managed inference endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) and URL-backed MCP servers that you host must be reachable from Warp's servers, because those requests route through Warp's backend rather than from the worker.
+
 ---
 
 ## Backend-specific security considerations
