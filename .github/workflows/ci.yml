@@ -63,6 +63,7 @@ jobs:
           python3 .agents/skills/doc_quality_policy/test_check_compression_contract.py
           python3 .agents/skills/doc_quality_policy/test_verify_review_signal.py
           python3 .agents/skills/doc_quality_policy/test_publish_review_signal.py
+          python3 .agents/skills/doc_quality_policy/test_agent_docs_review_workflow.py
           python3 .agents/skills/doc_quality_policy/test_manifest.py
 
       # Extracts the documented manual review-publishing snippet from
