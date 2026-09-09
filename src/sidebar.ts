@@ -457,8 +457,22 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'factories/factory-inbox', label: 'Factory inbox' },
 						{ slug: 'factories/factory-dashboard', label: 'Factory dashboard' },
-						{ slug: 'factories/measure-and-improve', label: 'Measure and improve' },
-						{ slug: 'factories/benchmarks', label: 'Benchmarks' },
+						{
+							// Nests Scorers, Self-improvement, and Benchmarks as coequal
+							// children, matching the factory dashboard's own "Score and
+							// benchmark" tab grouping instead of splitting them across a
+							// bundled page and a standalone one. Expanded by default (unlike
+							// Harnesses/Environments above): the point of nesting is to make
+							// the three siblings immediately visible, not tucked behind a click.
+							label: 'Measure and improve',
+							collapsed: false,
+							items: [
+								{ slug: 'factories/measure-and-improve', label: 'Overview' },
+								{ slug: 'factories/measure-and-improve/scorers', label: 'Scorers' },
+								{ slug: 'factories/measure-and-improve/self-improvement', label: 'Self-improvement' },
+								{ slug: 'factories/benchmarks', label: 'Benchmarks' },
+							],
+						},
 					],
 				},
 				// Troubleshooting sits outside the groups, last in the tab. It was in

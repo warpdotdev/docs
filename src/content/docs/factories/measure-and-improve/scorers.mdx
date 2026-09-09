@@ -1,0 +1,33 @@
+---
+title: Configuring Scorers
+description: >-
+  Configure a Scorer to have an LLM judge classify completed factory runs
+  against criteria you write.
+sidebar:
+  label: "Scorers"
+---
+
+A **Scorer** uses an LLM judge to classify completed runs against criteria you write — for example, "did the agent run the tests before opening a PR?" It assigns a label, not a numeric grade, so keep each Scorer focused on one question its failures can point back to. Create Scorers on the factory dashboard's **Scorers** page, which also holds each Scorer's results. For Scorers defined as files in a factory definition, see the [`scorers/<name>/scorer.md` syntax](/factories/factory-as-code/#scorersnamescorermd) and the two scorers in [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
+
+Configure these fields:
+
+* **Agent(s) to evaluate** - The agents this Scorer applies to. Select at least one.
+* **Judge instructions** - The criteria the judge checks for.
+* **Judge model** - The model that acts as the judge.
+* **Classifications** - The labels the judge can assign, each with a score.
+* **Pass threshold** - The score a run needs to pass.
+* **Sample rate** - The share of the selected agents' completed runs to evaluate.
+
+{/* VISUAL: The Scorer create/edit form (judge instructions, judge model, classifications, pass threshold, sample rate). */}
+
+While the sample rate is above 0, scoring happens automatically: shortly after a sampled run completes, the judge evaluates it and records a classification, a score, and its reasoning. To stop automatic scoring, set the sample rate to 0.
+
+You can also score any single run on demand, which is useful for testing new judge instructions before raising the sample rate. Scoring a run again replaces its previous result from that Scorer.
+
+Changing **Pass threshold** updates how past scores display as pass or fail; the recorded results don't change.
+
+## Related pages
+
+* [Measure and improve a factory](/factories/measure-and-improve/) - Read dashboard metrics and run a practical improvement loop.
+* [Configuring and reviewing Self-improvement](/factories/measure-and-improve/self-improvement/) - Turn repeated Scorer failures into follow-up pull requests.
+* [Benchmarking factory agent configurations](/factories/benchmarks/) - Compare model and runner configurations on the same tasks.
