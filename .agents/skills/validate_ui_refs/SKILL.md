@@ -145,7 +145,7 @@ Fixes that require manual review (e.g. renamed sections, removed features) are r
 
 Slack notifications are designed for automated runs, not ad-hoc usage. When running the skill manually, review results directly in the terminal output.
 
-The `--slack-notify` flag posts a summary to `#growth-docs` when unfixed issues remain after a run **and** that set of issues differs from what was already reported (tracked via an open `fix/ui-refs-*` PR's body, or `last_notified_signature` in `valid_paths.json` once such a PR merges). If the scan is clean (0 issues), or the exact same unresolved issues were already reported, no notification is sent — this keeps the daily reconciliation schedule from re-posting an identical report every day while a fix PR awaits review.
+The `--slack-notify` flag posts a summary to `#growth-docs` when unfixed issues remain after a run **and** that set of issues differs from what was already reported (tracked via an open `fix/ui-refs-*` PR's body, or `last_notified_signature` in `valid_paths.json` once such a PR merges). If the scan is clean (0 issues), or the exact same unresolved issues were already reported, no notification is sent — this keeps the weekly reconciliation schedule from re-posting an identical report while a fix PR awaits review.
 
 ### Setup
 
@@ -164,11 +164,18 @@ python3 .agents/skills/validate_ui_refs/validate_ui_refs.py --all --slack-notify
 
 ### How it works
 
-1. A push to `master` in `warpdotdev/warp` that touches `app/src/settings_view/**` sends a `repository_dispatch` event (`settings-ui-changed`) to `warpdotdev/docs`.
-2. The `refresh-ui-paths` GHA workflow fires and dispatches an Oz cloud agent to the Docs Agent environment (`K5KStCm5aYvhfBJb8cHol6`).
-3. The cloud agent runs `--refresh-valid-paths` using the `warpdotdev/warp` checkout available in that environment.
-4. If the snapshot changed, the agent runs `--all --fix --create-pr --slack-notify` to validate and auto-fix. `--create-pr` commits and opens/updates a PR whenever there's a fix, a refreshed snapshot (e.g. a `source_sha` bump), or a newly-changed set of unresolved issues to report — not only when there's an auto-fixable doc issue, so the recorded `source_sha` keeps advancing even on a quiet day. `--slack-notify` only posts to `#growth-docs` when the unresolved-issue set is new (see "Slack Notifications" above).
-5. If the snapshot is unchanged, the agent exits with no-op.
+The workflow runs on three triggers, only one of which is throttled:
+
+1. A push to `master` in `warpdotdev/warp` that touches `app/src/settings_view/**` sends a `repository_dispatch` event (`settings-ui-changed`) to `warpdotdev/docs`. This runs immediately, with no schedule-based delay.
+2. A weekly safety-net schedule (Fridays at `15:15 UTC`) reconciles the snapshot's recorded `source_sha` against the current `warpdotdev/warp` `master` HEAD, catching a missed or failed `repository_dispatch` within seven days. It refreshes only when the recorded and current SHAs differ; a no-change week exits without dispatching an agent.
+3. `workflow_dispatch` triggers immediately, the same as a source dispatch (see "Manual trigger" below).
+
+When a refresh runs (from any trigger):
+
+4. The `refresh-ui-paths` GHA workflow dispatches an Oz cloud agent to the Docs Agent environment (`K5KStCm5aYvhfBJb8cHol6`).
+5. The cloud agent runs `--refresh-valid-paths` using the `warpdotdev/warp` checkout available in that environment.
+6. If the snapshot changed, the agent runs `--all --fix --create-pr --slack-notify` to validate and auto-fix. `--create-pr` commits and opens/updates a PR whenever there's a fix, a refreshed snapshot (e.g. a `source_sha` bump), or a newly-changed set of unresolved issues to report — not only when there's an auto-fixable doc issue, so the recorded `source_sha` keeps advancing even on a quiet run. `--slack-notify` only posts to `#growth-docs` when the unresolved-issue set is new (see "Slack Notifications" above).
+7. If the snapshot is unchanged, the agent exits with no-op.
 
 ### Secrets required
 
