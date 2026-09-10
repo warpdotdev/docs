@@ -6,14 +6,14 @@ description: >-
   configuration.
 ---
 
-:::note
-The workspace on this page is Warp's organizational layer above teams. It's unrelated to the per-team shared workspace in [Warp Drive](/knowledge-and-collaboration/warp-drive/), and to a Slack workspace, which is a separate company account you [connect through the Slack integration](/platform/integrations/slack/).
-:::
-
 A workspace is Warp's top-level organizational unit for enterprise accounts. It groups one or more teams under a single company account, with its own roles, billing, and governance settings that apply across every team inside it.
 
 {/* VERIFY: confirm current plan-tier availability for native (multi-team) workspaces; billing config shows it enabled only for Warp's own internal enterprise plan as of this writing */}
 Multi-team workspaces are an Enterprise-plan capability, currently available to a limited set of accounts. Self-serve and Business plans keep the single-team model described in [Team management](/knowledge-and-collaboration/teams/): the workspace still exists underneath, but it always contains exactly one team, so the team remains the only management surface you see.
+
+:::note
+The workspace on this page is Warp's organizational layer above teams. It's unrelated to the per-team shared workspace in [Warp Drive](/knowledge-and-collaboration/warp-drive/), and to a Slack workspace, which is a separate company account you [connect through the Slack integration](/platform/integrations/slack/).
+:::
 
 ## Workspace vs. team
 
@@ -28,7 +28,7 @@ A **team** is Warp's collaboration unit: members share a Warp Drive, cloud agent
 Every workspace member has one of three roles:
 
 * **Member** - Default role. Uses Warp within whatever teams they belong to and the settings admins configure.
-* **Admin** - Manages workspace membership, billing, and settings, and has admin-level access to the teams in the workspace. A workspace can have any number of admins.
+* **Admin** - Manages workspace membership, billing, and settings. A workspace can have any number of admins.
 * **Owner** - The workspace's single highest-privilege role. Has every admin capability, plus the ability to transfer ownership to another member. There's always exactly one owner, and they can't be removed or demoted without first transferring ownership.
 
 {/* VERIFY: confirm a workspace admin's admin-level permissions extend to teams they don't belong to in the shipped client; specs/workspace-admin-roles invariants 18-19 define it, but changelog #15123 confirms only membership management on the admin's own team */}
@@ -78,11 +78,16 @@ When a workspace enforces a setting, team admins see it locked with an indicator
 
 ## Workspace spend limits
 
-On a multi-team workspace, an optional workspace-level spend cap sits above the [team-level spend limits](/enterprise/support-and-resources/billing/#monthly-spending-limits) and any per-user limits. All three levels are independent and optional, and whichever cap is hit first blocks further usage in its scope: a workspace cap blocks every team, a team cap blocks only that team, and a per-user limit blocks only that person. Workspace admins can see spend at every level; a team admin sees only their own team's usage, plus a generic notice when a workspace-level cap is the one that blocked them.
+On a multi-team workspace, an optional workspace-level spend cap sits above the [team-level spend limits](/enterprise/support-and-resources/billing/#monthly-spending-limits) and any per-user limits. All three levels are independent and optional, and whichever cap is hit first blocks further usage in its scope:
+
+* **Workspace cap** - Blocks every team in the workspace.
+* **Team cap** - Blocks only that team.
+* **Per-user limit** - Blocks only that person.
+* **Spend visibility** - Workspace admins see spend at every level. A team admin sees only their own team's usage, plus a generic notice when a workspace-level cap is the one that blocked them.
 
 ## Related pages
 
 * [Team management](/knowledge-and-collaboration/teams/) - Creating and joining a team
-* [Admin panel](/enterprise/team-management/admin-panel/) - Configure settings enforced across a workspace or team
+* [Admin Panel](/enterprise/team-management/admin-panel/) - Configure settings enforced across a workspace or team
 * [Roles and permissions](/enterprise/team-management/roles-and-permissions/) - Team-level roles and what each can do
 * [Enterprise billing](/enterprise/support-and-resources/billing/) - Credit pools, spend limits, and billing management

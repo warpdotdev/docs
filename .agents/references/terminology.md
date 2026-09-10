@@ -150,9 +150,11 @@ For the summary of the most critical terms (core features, Automation Platform t
 
 - **Member** (workspace role) — The default workspace role: uses Warp within whatever teams they belong to and the settings admins configure. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
 
-- **Admin** (workspace role) — Manages workspace membership, billing, and settings, and has admin-level access to the teams in the workspace. A workspace can have any number of admins. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+- **Admin** (workspace role) — Manages workspace membership, billing, and settings. A workspace can have any number of admins. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
 
 - **Owner** (workspace role) — The workspace's single highest-privilege role. Has every admin capability, plus the ability to transfer ownership to another member. Exactly one per workspace. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+
+- **Open** (team visibility) — A team any workspace member can see and join immediately. See [Teams inside a workspace](/enterprise/team-management/workspaces/#teams-inside-a-workspace).
 
 - **Private** (team visibility) — A team visible to every workspace member, but joinable only when an admin adds or invites the member directly. See [Teams inside a workspace](/enterprise/team-management/workspaces/#teams-inside-a-workspace).
 
