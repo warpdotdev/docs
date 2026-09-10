@@ -28,9 +28,10 @@ A **team** is Warp's collaboration unit: members share a Warp Drive, cloud agent
 Every workspace member has one of three roles:
 
 * **Member** - Default role. Uses Warp within whatever teams they belong to and the settings admins configure.
-* **Admin** - Manages workspace membership, billing, and settings, and has admin-level access to every team in the workspace — including teams they don't personally belong to. A workspace can have any number of admins.
+* **Admin** - Manages workspace membership, billing, and settings, and has admin-level access to the teams in the workspace. A workspace can have any number of admins.
 * **Owner** - The workspace's single highest-privilege role. Has every admin capability, plus the ability to transfer ownership to another member. There's always exactly one owner, and they can't be removed or demoted without first transferring ownership.
 
+{/* VERIFY: confirm a workspace admin's admin-level permissions extend to teams they don't belong to in the shipped client; specs/workspace-admin-roles invariants 18-19 define it, but changelog #15123 confirms only membership management on the admin's own team */}
 A workspace admin or owner has admin-level permissions on every team in the workspace, even ones they don't belong to. A team's own admin retains full control of that team, but no authority outside it. In the team members list, a workspace-level admin or owner carries a **Workspace admin** or **Workspace owner** badge, so members can tell a company-wide admin apart from a team-only one.
 
 ## Teams inside a workspace
@@ -42,6 +43,9 @@ Workspace admins create teams from the Admin Panel, giving each one a name, a co
 * **Hidden** - The team doesn't appear in team discovery; an admin has to add members directly.
 
 Both workspace admins and a team's own admins can rename a team, change its color or visibility, and manage its members and its deletion. Only workspace admins can create a new team. A workspace member can belong to more than one team at a time.
+
+{/* VERIFY: confirm the team Owner role stays hidden on multi-team workspaces in the shipped client; specs/team-crud deprecates it in favor of workspace-level ownership and drops the Owner chip and transfer-ownership action, but no public changelog entry confirms it */}
+A team itself has two roles, member and admin. Ownership belongs to the workspace rather than to any one team, so the [Team Owner role](/enterprise/team-management/teams/#team-roles-and-permissions) of the single-team model doesn't apply here.
 
 ## Joining a workspace or team
 
@@ -59,7 +63,7 @@ A user belongs to at most one workspace at a time.
 
 A workspace member isn't required to belong to a team. This "teamless" state is meant to be temporary — for example, right after joining the workspace and before an admin places them on a team.
 
-A teamless member is still a full workspace member: the workspace's plan, billing, and governance settings continue to apply to them, and workspace admins can see and manage them from the Admin Panel. {/* VERIFY: confirm the exact current scope of teamless-member restrictions (cloud agent runs, environments, secrets, scheduled agents) against shipped behavior */} What they lose access to is team-scoped collaboration: joining a team is required to trigger cloud agent runs or use team-owned environments and secrets — this applies to workspace admins and owners as well, even though they can already view and manage every team's resources from the Admin Panel.
+A teamless member is still a full workspace member: the workspace's plan, billing, and governance settings continue to apply to them, and workspace admins can see and manage them from the Admin Panel. {/* VERIFY: confirm the exact current scope of teamless-member restrictions (cloud agent runs, environments, secrets, scheduled agents) against shipped behavior */} What they lose access to is team-scoped collaboration: joining a team is required to trigger cloud agent runs or use team-owned environments and secrets — this applies to workspace admins and owners as well, even though they keep their workspace-level oversight in the Admin Panel.
 
 ## Workspace settings and team settings
 
