@@ -78,7 +78,7 @@ A clean result means the tree parses and passes every check that doesn't need yo
 
 ### Validate with a coding agent
 
-* **In Warp** - The Warp Agent has a built-in `factory-files` skill for authoring definitions. Ask it to change something in a factory repository or to check the tree, and it fetches the current schema, edits against it, and runs the tree through the validation endpoint before opening a pull request, reporting the server's diagnostics rather than its own reading of the files. For example: "Add a nightly dependency-audit automation to this factory and validate the definition."
+* **In Warp** - The Warp Agent's built-in `factory-files` skill authors and validates definitions for you: ask it to change something in a factory repository or check the tree, and it edits against the current schema, then validates before opening a pull request. For example: "Add a nightly dependency-audit automation to this factory and validate the definition."
 * **Through Factory MCP** - Connect any other coding agent to [Factory MCP](/factories/factory-mcp/) and it gets the same two operations as tools, `get_factory_file_schema` and `validate_factory_files`, along with the server's own guidance on using them. Neither needs a factory selected or a factory to exist. See [author and validate factory definitions](/factories/factory-mcp/#author-and-validate-factory-definitions).
 * **Anywhere else** - An agent that can run a shell can call the validation endpoint or the script directly, the same way you would.
 
