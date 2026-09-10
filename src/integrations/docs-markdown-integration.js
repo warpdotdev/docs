@@ -143,14 +143,16 @@ function createMarkdownConverter() {
 		replacement(_content, node) {
 			if (!isElement(node)) return '\n\n';
 
+			const pre = node.querySelector('pre');
 			const code = node.querySelector('pre code');
-			if (!code) return '\n\n';
+			if (!pre || !code) return '\n\n';
 
-			const language =
-				code.getAttribute('data-language') ?? code.className.match(/language-([\w-]+)/)?.[1] ?? '';
-			const rawCode = normalizeNewlines(code.textContent ?? '').replace(/\n$/, '');
+			const rawCode = getCodeBlockText(code);
 			const fence = getFence(rawCode);
-			const openingFence = language ? `${fence}${language}` : fence;
+			const info = [getCodeBlockLanguage(pre, code), getCodeBlockTitleAttribute(node)]
+				.filter(Boolean)
+				.join(' ');
+			const openingFence = info ? `${fence}${info}` : fence;
 
 			return `\n\n${openingFence}\n${rawCode}\n${fence}\n\n`;
 		},
@@ -161,6 +163,42 @@ function createMarkdownConverter() {
 
 function isElement(node) {
 	return node.nodeType === 1;
+}
+
+// Expressive Code renders each source line as its own `div.ec-line` and never
+// emits newline characters between them, so `textContent` on the `<code>`
+// element runs every line together. Rebuild the text line by line, taking
+// only each line's `.code` cell so gutter content (line numbers) stays out.
+// An empty source line is rendered as a cell holding a lone newline
+// character, so newlines inside a cell are dropped rather than kept.
+function getCodeBlockText(code) {
+	const lines = Array.from(code.querySelectorAll('.ec-line'));
+	const text =
+		lines.length > 0
+			? lines
+					.map((line) => ((line.querySelector('.code') ?? line).textContent ?? '').replace(/\r?\n/g, ''))
+					.join('\n')
+			: (code.textContent ?? '');
+	return normalizeNewlines(text).replace(/\n$/, '');
+}
+
+// Expressive Code puts `data-language` on the `<pre>`; the `<code>` fallbacks
+// cover blocks rendered by anything else.
+function getCodeBlockLanguage(pre, code) {
+	return (
+		pre.getAttribute('data-language') ??
+		code.getAttribute('data-language') ??
+		code.className.match(/language-([\w-]+)/)?.[1] ??
+		''
+	);
+}
+
+// A block's title (the file name on a ```yaml title="factory.yaml" fence) is
+// often the only thing that says which file a snippet belongs to, so it is
+// carried on the fence's info string in the same form the source uses.
+function getCodeBlockTitleAttribute(block) {
+	const title = block.querySelector('figcaption .title')?.textContent?.trim() ?? '';
+	return title ? `title="${title.replace(/"/g, '\\"')}"` : '';
 }
 
 function getFence(code) {

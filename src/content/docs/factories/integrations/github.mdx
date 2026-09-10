@@ -143,7 +143,7 @@ For the full credential model, see [Permissions and identity](/platform/integrat
 
 If the factory's [definition is managed as code](/factories/factory-as-code/) in a GitHub repository, Warp reviews changes to it the way CI reviews code. Open a pull request that touches the definition files and a **warp/factory-config** check runs: it passes with a summary of what the change does, or fails with the specific fields to fix. Require the check in branch protection to stop an invalid definition from merging.
 
-These checks validate the factory's configuration files only. They don't create work items, and pull requests that don't touch the factory directory don't get the check.
+These checks validate the factory's configuration files only. They don't create work items, and a pull request that doesn't touch the factory directory passes the check immediately, so requiring it doesn't hold up unrelated work. For what the check validates, and how to run the same validation before you open the pull request, see [Validate a definition](/factories/factory-as-code/#validate-a-definition).
 
 ## Troubleshooting
 
@@ -169,4 +169,4 @@ Check that the installation still covers the target repository and grants the re
 
 ### A factory-definition check doesn't appear
 
-The check runs only for factories whose [definition is managed as code](/factories/factory-as-code/) in a GitHub repository. Confirm the pull request targets the branch the factory runs from, that it changes files in the factory's definition directory, and that the GitHub App covers the repository.
+The check runs only for factories whose [definition is managed as code](/factories/factory-as-code/) in a GitHub repository. Confirm the pull request targets the branch the factory runs from and that the GitHub App covers the repository. A pull request that doesn't change definition files still gets the check; it passes with "No factory configuration changes".
