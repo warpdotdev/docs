@@ -57,6 +57,7 @@ New members reach a workspace and its teams through a few paths:
 * **Domain capture** - When a workspace admin enables it for a verified company domain, anyone who signs up with a matching work email is automatically added to the workspace.
 * **Team discovery** - Anyone who lands in the workspace without a team, from any of the paths above, sees a list of open teams they can join with one click in the Warp app under **Settings** > **Teams**.
 
+{/* VERIFY: confirm a user can belong to only one workspace at a time in shipped behavior; specs/team-joining-flows treats it as an invariant, but no public source states it */}
 A user belongs to at most one workspace at a time.
 
 ## Teamless members
@@ -69,6 +70,7 @@ A teamless member is still a full workspace member: the workspace's plan, billin
 
 Settings that used to live only on the team — AI autonomy, secret redaction, sharing, codebase indexing, and similar policies in the [Admin Panel](/enterprise/team-management/admin-panel/) — now resolve across the workspace and team layers on a multi-team workspace. Each setting follows one of four patterns:
 
+{/* VERIFY: confirm the four setting-resolution patterns and the examples assigned to each against shipped behavior; sourced from specs/multi-team-workspace-settings, with no public source */}
 * **Workspace-enforced** - The workspace admin sets one value that applies to every team; team admins can't override it. Billing caps, the credit pool, and domain capture always work this way.
 * **Delegated ("respect team setting")** - The workspace admin can either enforce a value or leave it to each team to decide, the same way a delegated team setting can respect each user's own preference.
 * **Combined** - Entries from both levels apply together. A blocked-commands list is a union — an entry from either level takes effect; an allowed-commands list is an intersection — only entries present at both levels apply.
@@ -80,6 +82,7 @@ When a workspace enforces a setting, team admins see it locked with an indicator
 
 On a multi-team workspace, an optional workspace-level spend cap sits above the [team-level spend limits](/enterprise/support-and-resources/billing/#monthly-spending-limits) and any per-user limits. All three levels are independent and optional, and whichever cap is hit first blocks further usage in its scope:
 
+{/* VERIFY: confirm cap precedence and the per-role spend visibility rules, including the generic blocked-by-workspace-cap notice, against shipped behavior; sourced from specs/workspace-spend-limits */}
 * **Workspace cap** - Blocks every team in the workspace.
 * **Team cap** - Blocks only that team.
 * **Per-user limit** - Blocks only that person.
