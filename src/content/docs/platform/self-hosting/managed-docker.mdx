@@ -57,7 +57,7 @@ export WARP_API_KEY="your_agent_api_key"
 
 The `oz-agent-worker` is open source. See the [oz-agent-worker repository](https://github.com/warpdotdev/oz-agent-worker) for source code, issues, and contribution guidelines.
 
-There are three production-ready ways to install and run the worker with the Docker backend: as a Docker container, via Homebrew or Linuxbrew, or as a prebuilt binary from GitHub Releases. Docker is the recommended default; `go install` and building from source are for contributors and one-off testing.
+There are three ways to install and run the worker: as a Docker container, via Homebrew, or as a prebuilt binary from GitHub Releases. Docker is the recommended default.
 
 The worker can be configured entirely via CLI flags, or via a YAML [config file](/platform/self-hosting/reference/#config-file) for more complex setups.
 
@@ -73,15 +73,15 @@ docker run -v /var/run/docker.sock:/var/run/docker.sock \
 
 **Expected outcome:** The worker connects to the {VARS.WARP_AUTOMATION_PLATFORM} and logs that it's listening for tasks.
 
-### Option 2: Homebrew or Linuxbrew
+### Option 2: Homebrew
 
-Install the worker binary with [Homebrew](https://brew.sh/) (macOS) or [Linuxbrew](https://docs.brew.sh/Homebrew-on-Linux) (Linux) from the [`warpdotdev/warp` tap](https://github.com/warpdotdev/homebrew-warp):
+Install the worker binary with [Homebrew](https://brew.sh/) on macOS or Linux from the [`warpdotdev/warp` tap](https://github.com/warpdotdev/homebrew-warp):
 
 ```bash
 brew install warpdotdev/warp/oz-agent-worker
 ```
 
-Then run the binary directly — it uses the same Docker-daemon discovery described in [Docker connectivity](#docker-connectivity) below:
+Run the binary directly. It uses the same Docker-daemon discovery described in [Docker connectivity](#docker-connectivity) below:
 
 ```bash
 oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker"
@@ -89,14 +89,12 @@ oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker"
 
 ### Option 3: GitHub Releases binary
 
-Download the archive for your platform from the [oz-agent-worker releases page](https://github.com/warpdotdev/oz-agent-worker/releases) (Linux, macOS, and Windows; amd64 and arm64), extract it, and run the binary:
+Download the archive for your platform from the [oz-agent-worker releases page](https://github.com/warpdotdev/oz-agent-worker/releases), extract it, and run the binary. The example below uses Linux amd64; choose the archive that matches your OS and CPU architecture:
 
 ```bash
 tar -xf oz-agent-worker-linux-amd64.tar.gz
 ./oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker"
 ```
-
-For contributors, `go install github.com/warpdotdev/oz-agent-worker@latest`, or cloning the repository and running `go build`, also produce a working binary.
 
 Once started, the worker connects to the {VARS.WARP_AUTOMATION_PLATFORM}, waits for tasks routed to its `--worker-id`, runs each task in an isolated Docker container, and reports status and results back. The worker automatically reconnects if the connection drops.
 
