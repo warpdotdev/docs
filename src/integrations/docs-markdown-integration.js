@@ -198,7 +198,8 @@ function getCodeBlockLanguage(pre, code) {
 // carried on the fence's info string in the same form the source uses.
 function getCodeBlockTitleAttribute(block) {
 	const title = block.querySelector('figcaption .title')?.textContent?.trim() ?? '';
-	return title ? `title="${title.replace(/"/g, '\\"')}"` : '';
+	// JSON.stringify yields a double-quoted string with backslashes and quotes escaped.
+	return title ? `title=${JSON.stringify(title)}` : '';
 }
 
 function getFence(code) {
