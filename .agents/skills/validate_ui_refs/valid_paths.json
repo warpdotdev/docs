@@ -118,7 +118,6 @@
         "Open new windows with custom size",
         "Columns",
         "Rows",
-        "Use Window Blur (Acrylic texture)",
         "Tools panel visibility is consistent across tabs",
         "Project explorer",
         "Agent conversations",
@@ -141,6 +140,7 @@
         "Use latest user prompt as conversation title in tab names",
         "Use custom padding in alt-screen",
         "Customize your app icon",
+        "Window backdrop",
         "Input position",
         "Use thin strokes",
         "Enforce minimum contrast",
@@ -1660,6 +1660,6 @@
     }
   ],
   "source_repository": "warpdotdev/warp",
-  "source_sha": "6db7fb734885976bbc717591d48c46db9aad3c7f",
-  "generated_at": "2026-09-09T05:48:45.197360+00:00"
+  "source_sha": "b61e936f40ce766d3321aa4b7a2c064f001df582",
+  "generated_at": "2026-09-10T05:18:35.729345+00:00"
 }
