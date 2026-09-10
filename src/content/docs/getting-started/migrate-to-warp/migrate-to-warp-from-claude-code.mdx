@@ -87,6 +87,8 @@ Use this table to find the closest Warp equivalent for Claude Code concepts:
 | `CLAUDE.md` | `AGENTS.md` (or `WARP.md`) at the project root, picked up as a [Rule](/agents/capabilities/rules/) |
 | Claude Code slash commands | Warp's own [slash commands](/agents/capabilities/slash-commands/) (`/init`, `/plan`, `/model`, etc.); save your own as [Warp Drive prompts](/knowledge-and-collaboration/warp-drive/prompts/) |
 | Tool definitions | [MCP](/agents/capabilities/mcp/) |
+| Skills (`.claude/skills/`) | [Skills](/agents/capabilities/skills/); Warp discovers `.claude/skills/` as-is, alongside `.agents/skills/` and the other supported directories |
+| Subagents (`.claude/agents/`) | [Multi-agent orchestration](/platform/orchestration/) spawns child agents from any conversation; move each subagent's prompt into a skill and ask the parent to have the child use it. For named agents with standing configuration, see [factory agents](/factories/factory-agents/) |
 | Resume conversation | Warp persists agent conversations per tab; pair with [tab configs](/terminal/windows/tab-configs/) to reopen the same project layout |
 
 For a deeper tour of Agent Mode, see [Coding in Warp](/getting-started/quickstart/coding-in-warp/) and the [Agents overview](/agents/).
