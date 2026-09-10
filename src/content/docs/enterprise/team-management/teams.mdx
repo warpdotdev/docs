@@ -14,7 +14,7 @@ A team is a group of Warp users who collaborate together. Teams share a dedicate
 Teams are the foundation of Warp's enterprise experience — they enable centralized administration, shared configuration, and team-wide policy enforcement through the [Admin Panel](/enterprise/team-management/admin-panel/).
 
 :::note
-Each Warp user can be an admin or member of one team at a time.
+A workspace with a single team keeps a user to one team. On an Enterprise account whose workspace has multiple teams, a user can belong to more than one — see [Workspaces](/enterprise/team-management/workspaces/).
 :::
 
 ## Creating a team
@@ -25,6 +25,8 @@ You can create a new team in two ways:
 * In Warp, navigate to **Settings** > **Teams** and follow the prompts.
 
 When creating a team, give it a meaningful name that represents your organization, company, or project. The person who creates the team becomes the **Team Owner**.
+
+On an Enterprise account whose workspace holds multiple teams, team creation works differently: a workspace admin creates teams from the Admin Panel, and ownership stays at the workspace level — see [Teams inside a workspace](/enterprise/team-management/workspaces/#teams-inside-a-workspace).
 
 :::note
 You can rename your team at any time by going to **Settings** > **Teams**, clicking on the team name, entering the new name, and pressing `Enter`.
@@ -115,6 +117,8 @@ We recommend having at least one Team Admin in addition to the Team Owner to pre
 
 ### Permissions overview
 
+This table covers a workspace with a single team. On a multi-team workspace, only a workspace admin creates teams and there is no team Owner column — see [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+
 | Action | Owner | Admin | Member |
 | --- | --- | --- | --- |
 | Create a team | ✓ | ✓ | ✓ |
@@ -145,8 +149,11 @@ Team Admins cannot demote or modify the Team Owner's role. The Owner role can on
 
 For detailed information on what each role can do and how settings enforcement works, see [Roles and permissions](/enterprise/team-management/roles-and-permissions/).
 
+The Team Owner role and the ownership transfer described above apply to a workspace with a single team. On an Enterprise account whose workspace holds multiple teams, ownership sits at the workspace level instead, and a company-wide workspace admin or owner sits above each team's own admins — see [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+
 ## Related resources
 
+* [Workspaces](/enterprise/team-management/workspaces/) - How workspaces, teams, and roles relate on a multi-team Enterprise account
 * [Admin Panel](/enterprise/team-management/admin-panel/) - Configure team settings and enforce policies
 * [Roles and permissions](/enterprise/team-management/roles-and-permissions/) - Detailed permission breakdowns and settings enforcement
 * [Getting started for admins](/enterprise/getting-started/getting-started-enterprise/) - Admin onboarding guide
