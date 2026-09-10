@@ -140,9 +140,9 @@ For the full credential model, see [Permissions and identity](/platform/integrat
 
 ## Factory-definition pull request checks
 
-If the factory's [definition is managed as code](/factories/factory-as-code/) in a GitHub repository, Warp reviews changes to it the way CI reviews code. Open a pull request that touches the definition files and a **warp/factory-config** check runs: it passes with a summary of what the change does, or fails with the specific fields to fix. Require the check in branch protection to stop an invalid definition from merging.
+If the factory's [definition is managed as code](/factories/factory-as-code/) in a GitHub repository, Warp reviews changes to it the way CI reviews code. Open a pull request that touches the definition files and a **warp/factory-config** check runs: it validates the head commit and dry-runs the change against your team, so it also catches a secret, runner, MCP server, or model that doesn't exist. It passes with a summary of what merging would create, update, and delete, or fails with the specific fields to fix. If the definition lives in a subdirectory of the repository, the directory is appended to the check name, as in **warp/factory-config (factory)**. Require the check in branch protection to stop an invalid definition from merging.
 
-These checks validate the factory's configuration files only. They don't create work items, and a pull request that doesn't touch the factory directory passes the check immediately, so requiring it doesn't hold up unrelated work. For what the check validates, and how to run the same validation before you open the pull request, see [Validate a definition](/factories/factory-as-code/#validate-a-definition).
+These checks validate the factory's configuration files only. They don't create work items, and a pull request that doesn't touch the factory directory passes the check immediately, so requiring it doesn't hold up unrelated work. For what the check validates in the parser, and how to run the same validation before you open the pull request, see [Validate a definition](/factories/factory-as-code/#validate-a-definition).
 
 ## Troubleshooting
 

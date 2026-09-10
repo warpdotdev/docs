@@ -10,7 +10,7 @@ import { VARS } from '@data/vars';
 
 Every factory is defined by files: a `factory.yaml` plus directories of agents, automations, runners, benchmarks, scorers, skills, and webhooks, versioned in a Git repository. The files are the source of truth — when they change, Warp updates the factory to match.
 
-Definition files are YAML and Markdown. Keys are case-sensitive, and the YAML is plain: anchors, aliases, tags, and duplicate keys are rejected. The same rules are published as a [JSON Schema](#json-schema), the exhaustive reference for editors and coding agents.
+Definition files are YAML and Markdown. Keys are case-sensitive, and the YAML is plain: anchors, aliases, tags, and duplicate keys are rejected. The accepted files and keys are published as a [JSON Schema](#json-schema) for editors and coding agents; use the [validation paths](#validate-a-definition) for parser checks and cross-file rules.
 
 Warp validates every change before it applies it. On a GitHub-backed factory, each pull request gets a **warp/factory-config** check that you can make required, and you can run the same parser yourself while you edit, from a script, a CI job, or a coding agent. See [Validate a definition](#validate-a-definition).
 
@@ -35,11 +35,11 @@ Every check below runs the same parser Warp uses to apply a definition, and repo
 
 ### Pull request checks
 
-When the definition lives in GitHub, every pull request that targets the production branch gets a **warp/factory-config** check. The check validates the head commit and dry-runs the change against your team, so it also catches a secret, runner, MCP server, or model that doesn't exist. It passes with a summary of what merging would create, update, and delete, or fails and annotates each problem on the line that caused it. A pull request that doesn't change the definition passes immediately. If the definition lives in a subdirectory of the repository, the directory is appended to the check name, as in **warp/factory-config (factory)**.
+When the definition lives in GitHub, every pull request that targets the production branch gets a **warp/factory-config** check. It reports each problem with its file and line, and a pull request that doesn't change the definition passes immediately. Make it required in your repository's branch protection rule or ruleset to stop an invalid definition from merging.
 
-To stop an invalid definition from merging, make the check required: add **warp/factory-config** to the production branch's required status checks in your repository's branch protection rule or ruleset. Warp doesn't configure this for you.
+When a change lands on the production branch, Warp applies it as a whole: a definition that fails validation never partially applies, and the factory keeps running its last valid definition until the branch is fixed. Warp-managed factories validate each edit when you save it in the web app instead.
 
-When a change lands on the production branch, Warp applies it as a whole. A definition that fails validation never partially applies: the factory keeps running on its last valid definition until the branch is fixed. Warp-managed factories validate each edit when you save it in the web app instead, so their definitions can't become invalid.
+For what the check validates under the hood and how it names a subdirectory definition, see [the GitHub integration reference](/factories/integrations/github/#factory-definition-pull-request-checks).
 
 ### Validate locally or in CI
 
@@ -78,9 +78,9 @@ A clean result means the tree parses and passes every check that doesn't need yo
 
 ### Validate with a coding agent
 
-* **In Warp** - The Warp Agent's built-in `factory-files` skill authors and validates definitions for you: ask it to change something in a factory repository or check the tree, and it edits against the current schema, then validates before opening a pull request. For example: "Add a nightly dependency-audit automation to this factory and validate the definition."
-* **Through Factory MCP** - Connect any other coding agent to [Factory MCP](/factories/factory-mcp/) and it gets the same two operations as tools, `get_factory_file_schema` and `validate_factory_files`, along with the server's own guidance on using them. Neither needs a factory selected or a factory to exist. See [author and validate factory definitions](/factories/factory-mcp/#author-and-validate-factory-definitions).
-* **Anywhere else** - An agent that can run a shell can call the validation endpoint or the script directly, the same way you would.
+* **In Warp** - Ask the Warp Agent to change or check a factory definition. Its built-in `factory-files` skill validates the result before opening a pull request. For example: "Add a nightly dependency-audit automation to this factory and validate the definition."
+* **Through Factory MCP** - Connect any other coding agent to [Factory MCP](/factories/factory-mcp/) for the same schema and validation tools. See [author and validate factory definitions](/factories/factory-mcp/#author-and-validate-factory-definitions).
+* **Anywhere else** - Have the agent call the [validation endpoint](#validate-locally-or-in-ci) or run the validator script itself.
 
 ## JSON Schema
 

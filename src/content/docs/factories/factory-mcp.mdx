@@ -148,12 +148,12 @@ Sending work to a factory means you're no longer watching it. To be notified whe
 
 ## Author and validate factory definitions
 
-Two tools cover editing a factory's [definition files](/factories/factory-as-code/) in a repository. Neither takes a factory ID, and both work before the factory exists:
+Two tools cover editing a factory's [definition files](/factories/factory-as-code/) before you open a pull request. Neither needs a factory ID, and both work before the factory exists:
 
-* `get_factory_file_schema` returns the JSON Schema for the definition format. Called with no arguments, it lists the available documents (`factory.schema.json`, `agent.schema.json`, and so on), the file each one governs, and a stable URL for each; called with `document`, it also returns that document's body. Warp owns the format, so agents read it from here instead of carrying a copy that would drift from what the server accepts.
-* `validate_factory_files` validates a complete tree without saving or applying it. The agent submits every definition file as a `path` and its `content`, and the server runs the same parser it uses to apply a definition, returning `valid`, a list of `diagnostics` with a path, line, column, and `FF_*` code, and the state-dependent checks it did not run. The whole tree goes in every call, not only the changed file, because rules such as "exactly one foreman" span files.
+* `get_factory_file_schema` returns the JSON Schema for one definition document, or the full catalog when called with no arguments.
+* `validate_factory_files` checks a complete tree — every file's `path` and `content` — without saving or applying it, and returns any diagnostics.
 
-A clean result means the tree parses and passes every check that doesn't need your team's state. Whether a secret, runner, model, or MCP server exists is settled when the change is applied, or by the **warp/factory-config** check on a GitHub-backed factory. A prompt like "Add a review agent to this factory definition and validate it" is enough: the agent edits against the schema and validates the tree before opening a pull request. For the pull request check, the validation endpoint, and editor schema support, see [Validate a definition](/factories/factory-as-code/#validate-a-definition).
+A prompt like "Add a review agent to this factory definition and validate it" is enough: the agent reads the schema, edits, and validates the tree before opening a pull request. For the schema catalog, validation semantics, and the pull request check, see [Validate a definition](/factories/factory-as-code/#validate-a-definition).
 
 ## Tool reference
 
