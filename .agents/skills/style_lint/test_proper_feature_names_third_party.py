@@ -33,6 +33,8 @@ CASES = [
      "GCP's official federation mechanism name"),
     ("2. Start the worker with the Direct backend", False,
      "Warp's own self-hosting backend name"),
+    ("Option 2: Homebrew or Linuxbrew", False,
+     "Homebrew/Linuxbrew package manager proper nouns"),
     # A generic Title Case header unrelated to any of these terms must still flag.
     ("This Is A Generic Title Case Heading", True,
      "unrelated Title Case header is still caught"),
