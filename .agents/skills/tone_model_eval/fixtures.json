@@ -1,0 +1,27 @@
+[
+  {
+    "id": "cli-agent-conversations-resume-menu-label",
+    "content_type": "feature-doc",
+    "source_path": "src/content/docs/cli/agent-conversations.mdx",
+    "before_commit": "cc9eb98e5fd3e35953bed31acb0c531f0b1b5bdc",
+    "known_feedback": "PR #411 review comment (2026-08-03, .agents/logs/human_review_feedback.jsonl): \"Saying this is the quickest route and one to use most of the time is overly wordy. Let's just label this as the recommended option, like with `(recommended)`.\"",
+    "synthetic": false
+  },
+  {
+    "id": "byollm-gemini-enterprise-google-cloud-setup",
+    "content_type": "procedural",
+    "source_path": "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+    "before_commit": "ca39ad1a0db873221fabf4bfc1f0e2417724b83a",
+    "known_feedback": "PR #407 review-round restructuring commit (abfb90bd, 2026-07-30): 'Rework the setup section so the console flow is the primary path and the gcloud CLI commands are a clearly scoped alternative' after review flagged the original numbered-step flow as confusing and hard to follow. Assumption to verify (per spec's fixture-selection latitude): this SHA is the implementor's own selection, not a value pinned by the spec itself.",
+    "synthetic": false
+  },
+  {
+    "id": "quickstart-synthetic-verbose-seed",
+    "content_type": "quickstart",
+    "source_path": null,
+    "before_commit": null,
+    "known_feedback": "Synthetic fixture (documented assumption per spec): no natural quickstart-page wordiness complaint was found in .agents/logs/human_review_feedback.jsonl, so this is a deliberately over-verbose seed draft written for eval purposes only, exhibiting the buzzwords/meta-openers/restated-cause-and-effect patterns AGENTS.md and style_lint flag.",
+    "synthetic": true,
+    "synthetic_content": "---\ndescription: Get Warp installed and running your first agent conversation in about five minutes.\n---\nThis quickstart covers how to seamlessly install Warp and walks you through effortlessly running your first agent conversation. It's important to note that Warp is designed to streamline your entire development workflow, empowering you to get started in just a few simple steps.\n\n## Installing Warp\n\nIn order to install Warp, you'll want to leverage the official installer for your platform. This ensures that you have the most robust and up-to-date version available. Once you've downloaded the installer, simply run it and follow the on-screen prompts. This process is designed to be effortless and should only take a couple of minutes.\n\n## Signing in\n\nAfter installation completes, you'll need to sign in. Signing in allows you to unlock the full comprehensive suite of Warp's powerful features. It's worth noting that signing in is a straightforward process that ensures your settings sync seamlessly across devices.\n\n## Running your first agent conversation\n\nNow that you're signed in, you can leverage the agent to accomplish real tasks. Simply open a new tab, type your request, and press Enter. The agent will then get to work, effortlessly handling the task on your behalf. This is designed to give you a powerful first taste of what Warp's agent capabilities can do for your workflow.\n\n## Next steps\nYou've installed Warp and run your first agent conversation. To keep learning, see [Agent Mode](/agents/using-agent-mode/) for a deeper look at multi-turn agent conversations.\n"
+  }
+]
