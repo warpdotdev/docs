@@ -247,6 +247,11 @@ OscHyperlinks -> src/content/docs/terminal/more-features/files-and-links.mdx
 # MCP reference (and the cloud agent MCP schema page).
 WellKnownMcpIds -> src/content/docs/reference/cli/mcp-servers.mdx
 
+# When the shell rebinds Ctrl+R / Ctrl+T to fzf, atuin, or fzf.fish, hand those
+# keypresses off to the shell widget instead of Warp's Command Search. Promoted
+# preview -> GA; behavior documented on the Command Search page.
+ShellWidgetHandoff -> src/content/docs/terminal/entry/command-search.mdx
+
 ## CLI commands -> doc pages
 
 # Top-level Oz CLI commands
@@ -422,6 +427,10 @@ GET /factory/access -> internal
 GET /factory-inbox -> internal
 POST /factory-inbox/notifications/dismiss -> internal
 POST /factory-inbox/notifications/restore -> internal
+# Resolve one inbox notification to its owning factory for deep-link routing
+# (getFactoryInboxNotification). Same unreleased `/factory-inbox` namespace;
+# marked `x-internal: true` upstream.
+GET /factory-inbox/notifications/{uid} -> internal
 GET /factory-alias/{alias} -> internal
 POST /factory -> internal
 POST /factory/avatar -> internal
@@ -502,6 +511,10 @@ GET /factory/{uid}/costs/breakdown -> internal
 GET /factory/{uid}/costs/per-pr -> internal
 GET /factory/{uid}/costs/per-pr/by-size -> internal
 GET /factory/{uid}/costs/per-pr/top -> internal
+# Self-improvement PR spend over a root-run creation range
+# (getFactorySelfImprovementSpend). Marked `x-internal: true`; same unreleased
+# `/factory` namespace.
+GET /factory/{uid}/self-improvement/costs -> internal
 GET /factory/{uid}/integrations/linear/teams -> internal
 GET /factory/{uid}/integrations/linear/teams/{team_id}/labels -> internal
 PUT /factory/{uid}/integrations/linear/teams/{team_id}/labels -> internal
@@ -546,6 +559,9 @@ GET /factory/{uid}/integrations/github/teams -> internal
 GET /factory/{uid}/integrations/github/users -> internal
 GET /factory/{uid}/integrations/github/workflows -> internal
 GET /factory/{uid}/integrations/linear/issues -> internal
+# Filter Linear issues by project, workflow state, and/or assignee without a
+# free-text search term (filterFactoryLinearIssues). Marked `x-internal: true`.
+GET /factory/{uid}/integrations/linear/issues/filter -> internal
 GET /factory/{uid}/integrations/linear/projects -> internal
 GET /factory/{uid}/integrations/linear/users -> internal
 GET /factory/{uid}/integrations/linear/workflow-states -> internal
@@ -577,6 +593,17 @@ GET /factory/{uid}/benchmarks/runs -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid} -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid}/results -> internal
 POST /factory/{uid}/benchmarks/runs/{run_uid}/cancel -> internal
+
+# Conversation steering and history routes marked `x-internal: true` upstream
+# (agent_conversation_steering.go, conversation_replay_history.go, agent_webhooks.go,
+# agent_trace.go). Publish filter strips them from the docs OpenAPI copy; they are
+# not part of the released public Agent API. Sibling public followups live at
+# POST /agent/runs/{runId}/followups.
+POST /agent/conversations/{conversation_id}/followups -> internal
+POST /agent/conversations/{conversation_id}/interrupt -> internal
+GET /agent/conversations/{conversation_id}/history -> internal
+POST /agent/runs/{runId}/interrupt -> internal
+GET /agent/runs/{runId}/trace -> internal
 
 # Orchestration messaging and lifecycle-event endpoints. These are marked
 # `x-internal: true` in warp-server's canonical spec (public_api/openapi.yaml),
@@ -896,14 +923,16 @@ AllowIgnoringInputSuggestions
 CodeModeChip
 # Internal agent file-search tool plumbing (read tools are not individually documented).
 GrepTool
+# Sub-feature toggle for combining Warp-built and native shell completions. The
+# documentable knobs are terminal.input.warp_completions_enabled and
+# terminal.input.native_shell_completions_enabled in all-settings.mdx. Promoted
+# preview -> GA; the Preview availability note was removed from those rows.
 NativeShellCompletions
-# Preview ranking experiment for command history search. No dedicated user-facing
-# knob beyond the existing history search UI; re-check when the flag goes GA.
+# Ranking algorithm for Ctrl+R / Command Search history. No user-facing knob;
+# ranking quality changes on its own. Promoted preview -> GA with no docs change.
 HistorySearchRankingV2
-# Preview flag that hands Ctrl+R history search off to the shell's own widget
-# (fzf or atuin) instead of Warp's command search. Not GA, so not documentable;
-# re-check when the flag goes GA.
-ShellWidgetHandoff
+# ShellWidgetHandoff was promoted preview -> GA and mapped to command-search.mdx
+# in "Feature flags -> doc pages" above; its ignore entry was pruned.
 # Preview flag that uploads workspace handoff snapshots periodically during a
 # cloud agent run instead of only at the end. Requires OzHandoff, and is a no-op
 # for local runs and when `--no-snapshot` is set. Promoted dogfood -> preview, so
