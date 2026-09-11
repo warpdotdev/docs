@@ -131,7 +131,24 @@ With a Warp-managed factory, you can edit harness, auth, and model from the dash
 
 ## Add custom agents and automations
 
-Add custom agents for jobs the default agents don't handle, such as documentation, security analysis, migrations, or release checks. A custom agent doesn't have to be a required step for every work item.
+Add custom agents for jobs the default agents don't handle, such as documentation, security analysis, migrations, or release checks. A custom agent is a named agent with its own instructions, model, harness, secrets, and MCP servers. The foreman dispatches it by name when a work item calls for it, so it doesn't have to be a required step for every work item.
+
+On a Warp-managed factory, add one from the **Agents** page in the [factory dashboard](/factories/factory-dashboard/): click **New**, then **Custom agent**. On a GitHub-backed factory, add an `agents/<name>/agent.md` file, where the frontmatter holds the configuration and the Markdown body holds the instructions:
+
+```markdown title="agents/docs-writer/agent.md"
+---
+description: Updates user-facing docs when a change affects documented behavior
+agentType: CUSTOM
+model: auto
+---
+
+Read the pull request the foreman hands you and update the affected pages
+under `docs/`. Push your changes to the same branch; never merge.
+```
+
+Custom agents have no built-in skills. Add the procedures a custom agent needs as [factory skills](/factories/factory-skills/), under `agents/<name>/skills/` when only that agent should use them. If the job is a procedure an existing agent should follow rather than a separate role, a skill on that agent is enough: a skill changes what an agent knows how to do, while a custom agent has its own configuration and its own runs. For every frontmatter key, see the [`agent.md` reference](/factories/factory-as-code/#agentsnameagentmd).
+
+Factory agents run in the cloud as part of a work item. To spawn ad hoc child agents from any Warp conversation, no factory required, see [multi-agent orchestration](/platform/orchestration/).
 
 Automations start a chosen agent on a [schedule](/factories/factory-as-code/#triggersschedule) or when an event fires. They're one more way for work to enter your factory; the foreman still coordinates whatever they start. For all the ways to route work into a factory, see [connect your factory](/factories/connect-your-factory/).
 
