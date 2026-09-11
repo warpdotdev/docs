@@ -1,0 +1,244 @@
+title: "BYOLLM: Gemini Enterprise (Vertex AI)"
+sidebar:
+  label: "BYOLLM: Gemini Enterprise"
+description: >-
+  Route Warp Agent inference through your own Google Cloud project with Gemini
+  Enterprise BYOLLM. Short-lived Workload Identity Federation credentials,
+  admin-controlled models, and inference billed to your GCP account.
+
+Warp's Gemini Enterprise BYOLLM integration routes agent inference through your Google Cloud project using Vertex AI. Eligible requests execute against models hosted in your GCP project, billed to your Google Cloud account and governed by your IAM controls. Admins configure routing and model mappings in the Admin Panel; members mint short-lived federated credentials from their Warp session.
+
+Gemini Enterprise is one provider option for Bring Your Own LLM (BYOLLM). For AWS routing, see AWS Bedrock BYOLLM.
+
+:::note
+Gemini Enterprise BYOLLM is available on Warp's Enterprise plan. Contact sales for access.
+:::
+
+:::caution
+Gemini Enterprise applies to interactive agent requests in the Warp app. Cloud agent runs do not route through Gemini Enterprise yet; use AWS Bedrock BYOLLM for cloud agent BYOLLM today.
+:::
+
+## Key features
+
+* Session-based federated authentication — Warp issues a Warp-signed OIDC token and exchanges it via Google Workload Identity Federation for short-lived Google Cloud credentials.
+* Admin-controlled routing and models — Admins set the GCP project, Vertex location, WIF provider, and which models map to Vertex references.
+* Gemini and Claude models — Route native Gemini models and Claude partner models offered on Vertex AI.
+* Consolidated billing and quota attribution — Inference runs against your project's Vertex AI quota and is billed to your Google Cloud account. Requests carry your project for quota attribution (X-Goog-User-Project).
+* No long-lived credentials — Warp does not store service account keys, refresh tokens, or credential files. The client holds short-lived access tokens in memory and refreshes them automatically.
+
+## How it works
+
+When enabled, Warp redirects eligible inference calls to Vertex AI in your project instead of using direct provider APIs. High-level flow:
+
+1. Admin configures routing in the Admin Panel (Models page) with project, location, and WIF provider.
+2. Members enable "Use Gemini Enterprise credentials" in Warp Settings or the admin enforces it.
+3. The Warp client exchanges a Warp-signed identity token at Google STS for a short-lived access token, optionally impersonating a designated service account.
+4. Warp routes eligible agent requests with that access token to Vertex AI in your project.
+5. Inference executes in your cloud and responses stream back to the Warp client.
+
+### Credential lifecycle
+
+Gemini Enterprise uses federated, short-lived credentials:
+
+* Rooted in the Warp session — Warp issues an OIDC token, exchanges it at Google STS for a federated access token, and may impersonate a service account.
+* Automatic refresh — Tokens are kept in memory and refreshed about five minutes before expiry.
+* Strict binding — Tokens stop minting if the signed-in user changes or the admin's WIF configuration changes.
+* No storage or logging — Warp does not persist or log the access token.
+
+### Model availability
+
+Gemini Enterprise supports models that Warp supports and that are available through Vertex AI in your project:
+
+* Native Gemini families (for example, Gemini 3.1 Pro and Gemini 3.6 Flash).
+* Claude partner families offered as Vertex AI partner models (Sonnet, Opus, Haiku, Fable).
+
+Check Warp's Model Choice for Warp-supported models and the Admin Panel's Models page for your team's enabled Vertex models.
+
+## Enabling Gemini Enterprise
+
+Setup has two parts: a Google Cloud configuration (WIF trust and IAM) and routing configuration in Warp's Admin Panel.
+
+### Prerequisites
+
+* Warp Enterprise plan with admin access.
+* A Google Cloud project with the Vertex AI API (aiplatform.googleapis.com) enabled.
+* Model access in Vertex AI (Gemini available by default; Claude partner models require enablement).
+* GCP IAM admin access to create a Workload Identity Pool, provider, and IAM bindings (or to set up a service account).
+
+### 1. Create a Workload Identity Federation pool and provider (cloud admin)
+
+Register Warp as an OIDC provider in a Workload Identity Pool so Google Cloud can trust Warp's tokens.
+
+Warp's OIDC tokens use issuer https://app.warp.dev and include these claims:
+
+* sub — scoped_principal:<team-uid>/<actor-type>:<principal-uid> (actor-type is user for interactive requests).
+* teams — list of Warp team UIDs the user belongs to. Map this claim to google.groups to grant access to your whole Warp team with one IAM binding.
+
+Find your team UID in the Admin Panel URL path after /admin/.
+
+Example gcloud commands:
+```bashgcloud iam workload-identity-pools create warp-byollm \
+  --project=PROJECT_ID \
+  --location=global \
+  --display-name="Warp BYOLLM"
+
+gcloud iam workload-identity-pools providers create-oidc warp \
+  --project=PROJECT_ID \
+  --location=global \
+  --workload-identity-pool=warp-byollm \
+  --issuer-uri="https://app.warp.dev" \
+  --attribute-mapping="google.subject=assertion.sub,google.groups=assertion.teams" \
+  --attribute-condition="'TEAM_UID' in assertion.teams"
+```
+After creating the provider, note its full resource name; paste it as the WIF audience in the Admin Panel.
+
+### 2. Grant Vertex AI access (cloud admin)
+
+Grant federated identities permission to run Vertex AI inference. Use least-privilege IAM bindings.
+
+Required roles:
+
+* roles/aiplatform.user — Allows Vertex AI inference calls.
+* roles/serviceusage.serviceUsageConsumer — Allows quota attribution to your project.
+
+Option A: Direct federated access — bind the roles directly to your Warp team's principal set. Leave the service account field empty in Warp.
+
+Option B: Service account impersonation — create a service account, grant it the roles, and allow the federated principal set to impersonate it by granting roles/iam.workloadIdentityUser on the service account. Enable the IAM Service Account Credentials API and enter the service account email in Warp. Warp never receives service account keys.
+
+### 3. Configure routing in the Admin Panel (Warp admin)
+
+Connect Warp to your GCP configuration:
+
+1. In the Admin Panel Models page, find Gemini Enterprise host configuration.
+2. Enter the GCP project ID, choose a location, and paste the WIF audience (provider resource name). Optionally enter the service account email if using impersonation.
+3. Toggle Gemini Enterprise on and enable the models that should route through your project. You can override the Vertex model reference per model; clearing an override restores Warp's default.
+4. Optionally disable Direct API access for those models to enforce provider-only routing.
+
+Default location is global. Multi-region values (global, us, eu) and specific regions (for example, us-central1) are supported.
+
+Choose credential behavior:
+
+* Enforce — Admin forces all members' clients to use Gemini Enterprise credentials.
+* Respect user setting — Members opt in with Use Gemini Enterprise credentials in Settings.
+
+### 4. Validate
+
+Run a test prompt in Warp with an enabled model and verify:
+
+* The model shows the Gemini Enterprise badge in the picker.
+* The request completes successfully.
+* The request appears in your project's Vertex AI monitoring or Cloud Logging.
+
+## Using Gemini Enterprise as a team member
+
+Members must be signed in; the flow is rooted in the Warp session.
+
+1. In the Warp app, go to Settings > Agents > Warp Agent and open the Gemini Enterprise section.
+2. Toggle Use Gemini Enterprise credentials on, unless the admin enforces it.
+3. Check the credential status card for the current state and use Refresh to force a new mint.
+4. Pick an eligible model; routed models show a Gemini Enterprise badge.
+
+If setup is incomplete, contact your team admin.
+
+## Routing and fallback behavior
+
+### Host priority
+
+Warp expands the selected model into enabled hosts and tries them in this fixed order:
+
+1. AWS Bedrock
+2. Gemini Enterprise
+3. Direct API
+
+The priority is fixed and not admin-configurable. A Gemini Enterprise route is used only when the request carries valid Gemini Enterprise credentials; otherwise Warp falls back to the next enabled host.
+
+### Failover behavior
+
+If a Gemini Enterprise request fails (for example, due to IAM misconfiguration or Vertex quota limits), Warp attempts the next enabled host. A fallback to a Direct API model consumes Warp credits. If no fallback is available, Warp displays a clear error.
+
+### Auto model selection
+
+Auto model selection is disabled if an admin disables any Direct API model. When Direct API models remain enabled, Auto selects the best model; if that model is enabled for Gemini Enterprise and credentials are active, the request routes through your project.
+
+## Billing behavior
+
+When a request routes through Gemini Enterprise:
+
+* Warp does not consume AI credits for that request. Inference is billed to your Google Cloud project.
+* Platform credits still apply — local agent runs that use customer-supplied inference consume platform credits for Warp's infrastructure on Business and Enterprise plans.
+* Fallbacks are billed normally — a request that falls back to a Direct API model consumes Warp credits at the standard rate.
+
+See The three credit buckets for details.
+
+## Security and data handling
+
+### Credential security
+
+* No long-lived credentials — The only long-lived credential is the member's Warp session. Access tokens are short-lived, held in memory, and not persisted.
+* Nothing sensitive leaves your boundary — Warp stores only non-secret routing configuration (project ID, location, WIF audience, and optional service account email). Service account keys, refresh tokens, and credential files are never uploaded.
+* Per-user identity — Each token is minted for the signed-in member, so access control and revocation stay in your identity stack.
+
+### Zero Data Retention (ZDR)
+
+Warp maintains SOC 2 compliance and has Zero Data Retention agreements with contracted LLM providers.
+
+However, when routing through Gemini Enterprise:
+
+* Your Google Cloud project settings determine data retention.
+* Warp cannot enforce ZDR for requests routed through your infrastructure.
+* Review Vertex AI data governance settings to control retention.
+
+### Auditability
+
+* Warp keeps conversations logged in Warp.
+* Your GCP project retains provider-side logs in Vertex AI monitoring and Cloud Logging, attributed to your project.
+
+## Troubleshooting
+
+### Common errors
+
+* Credentials expired or invalid — The request reached Vertex AI but was rejected as unauthenticated. Click Refresh credentials or use Settings > Agents > Warp Agent > Refresh, then retry.
+* Setup incomplete — The host is enabled but the WIF audience is missing. A team admin must complete the Models page configuration.
+* Token exchange or impersonation failed — Verify the WIF provider's issuer (https://app.warp.dev), attribute mapping, attribute condition, and (for impersonation) that the principal set holds roles/iam.workloadIdentityUser on the service account.
+* Permission denied from Vertex AI — Confirm the federated principal (or service account) holds roles/aiplatform.user and roles/serviceusage.serviceUsageConsumer on the project.
+* Model not found — Confirm the model is available in your configured location and, for Claude partner models, enabled in the Vertex AI Model Garden. Check per-model reference overrides on the Models page.
+* Provider quota limits — Check Vertex AI quotas and request increases if needed.
+
+### Debugging steps
+
+1. Confirm the WIF audience in the Admin Panel exactly matches the provider's resource name.
+2. Check the credential status card in Settings > Agents > Warp Agent for the failing state and recovery action.
+3. Verify IAM bindings for the principal set or service account.
+4. Confirm the model reference and location match what's available in your project.
+5. Inspect Cloud Logging for request details and errors.
+
+## FAQ
+
+### How is this different from BYOK with a Google API key?
+
+BYOK uses a personal API key stored on each member's device to call the Gemini Developer API. Gemini Enterprise BYOLLM routes requests to Vertex AI in your organization's GCP project using short-lived federated credentials, configured centrally by an admin, and billed and governed by your project's IAM and quota. See Bring Your Own API Key for the self-serve option.
+
+### Do members need the gcloud CLI installed?
+
+No. Gemini Enterprise mints credentials from the signed-in Warp session. No local Google tooling or configuration is required.
+
+### Does Gemini Enterprise work with cloud agents?
+
+Not yet. Gemini Enterprise currently routes interactive agent requests in the Warp app. Use AWS Bedrock BYOLLM for cloud agent BYOLLM today.
+
+### Which Claude models route through my project?
+
+Claude partner models offered on Vertex AI (Sonnet, Opus, Haiku, Fable families) can route through Gemini Enterprise when your admin enables them. Eligible models show the Gemini Enterprise badge in the picker.
+
+### Can admins enforce provider-only routing?
+
+Yes. Admins can disable Direct API access for models on the Models page so eligible requests only route through your project. Note that disabling any Direct API model also disables Auto model selection.
+
+## Related resources
+
+* Bring Your Own LLM — BYOLLM overview and AWS Bedrock setup
+* Team-managed API keys and endpoints — Admin-configured shared keys and custom endpoints
+* Bring Your Own API Key — Self-serve, user-level API keys
+* Model Choice — Full list of supported models
+* Admin Panel — Configure team settings
+* Contact sales — Get help with Enterprise setup
