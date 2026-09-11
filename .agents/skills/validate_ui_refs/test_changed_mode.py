@@ -211,6 +211,27 @@ class TestSnapshotProvenance(unittest.TestCase):
                 vur.refresh_valid_paths(Path(tmp) / "missing-warp", output)
             refreshed = json.loads(output.read_text(encoding="utf-8"))
             self.assertEqual(refreshed["source_sha"], "trusted-sha")
+    def test_refresh_preserves_notification_dedupe_metadata(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / "valid_paths.json"
+            output.write_text(
+                json.dumps(
+                    {
+                        "last_notified_signature": "report-signature",
+                        "last_notified_at": "2026-09-11T16:50:14+00:00",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            with mock.patch.object(vur, "_extract_settings_sections", return_value={}), \
+                 mock.patch.object(vur, "_extract_command_palette_commands", return_value={}), \
+                 mock.patch.object(vur, "_extract_umbrellas", return_value={}):
+                vur.refresh_valid_paths(Path(tmp) / "missing-warp", output)
+            refreshed = json.loads(output.read_text(encoding="utf-8"))
+            self.assertEqual(refreshed["last_notified_signature"], "report-signature")
+            self.assertEqual(
+                refreshed["last_notified_at"], "2026-09-11T16:50:14+00:00"
+            )
 
     def test_resolve_source_repository_parses_https_remote(self):
         with tempfile.TemporaryDirectory() as tmp:
