@@ -1,13 +1,13 @@
 ---
 title: Configuring Scorers
 description: >-
-  Configure a Scorer to have an LLM judge classify completed factory runs
-  against criteria you write.
+  Configure an LLM-based evaluation that checks completed factory runs from
+  selected agents against criteria you define.
 sidebar:
   label: "Scorers"
 ---
 
-A **Scorer** uses an LLM judge to classify completed runs against criteria you write — for example, "did the agent run the tests before opening a PR?" It assigns a label, not a numeric grade, so keep each Scorer focused on one question its failures can point back to. Create Scorers on the factory dashboard's **Scorers** page, which also holds each Scorer's results. For Scorers defined as files in a factory definition, see the [`scorers/<name>/scorer.md` syntax](/factories/factory-as-code/#scorersnamescorermd) and the two scorers in [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
+A **Scorer** is an LLM-based evaluation, or eval, that checks whether completed runs from selected agents meet criteria you define. For example, it can check, "Did the agent run the tests before opening a pull request?" A Scorer assigns a classification, not a numeric grade, so keep each one focused on a question its failures can point back to. Create Scorers on the factory dashboard's **Scorers** page, which also holds each Scorer's results. For Scorers defined as files in a factory definition, see the [`scorers/<name>/scorer.md` syntax](/factories/factory-as-code/#scorersnamescorermd) and the two scorers in [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
 
 Configure these fields:
 
@@ -16,15 +16,14 @@ Configure these fields:
 * **Judge model** - The model that acts as the judge.
 * **Classifications** - The labels the judge can assign, each with a score.
 * **Pass threshold** - The score a run needs to pass.
-* **Sample rate** - The share of the selected agents' completed runs to evaluate.
+* **Sample rate** - The percentage of completed runs from selected agents to evaluate. For example, a 10% sample rate evaluates about one in ten runs.
 
 {/* VISUAL: The Scorer create/edit form (judge instructions, judge model, classifications, pass threshold, sample rate). */}
 
-While the sample rate is above 0, scoring happens automatically: shortly after a sampled run completes, the judge evaluates it and records a classification, a score, and its reasoning. To stop automatic scoring, set the sample rate to 0.
+With a sample rate above 0%, the Scorer automatically evaluates sampled runs after they complete and records a classification, score, and reasoning.
 
 You can also score any single run on demand, which is useful for testing new judge instructions before raising the sample rate. Scoring a run again replaces its previous result from that Scorer.
 
-Changing **Pass threshold** updates how past scores display as pass or fail; the recorded results don't change.
 
 ## Related pages
 

@@ -9,7 +9,11 @@ sidebar:
 
 {/* VISUAL: The Self-improvement pull request list, or a Benchmarks suite run -- this section is text-only today. */}
 
-Turn on **Self-improvement** for each Scorer whose failures you want investigated automatically. Self-improvement groups related failures and files follow-up tasks as ordinary agent runs. A follow-up run can propose changes to application code. It can also improve the factory itself: when you manage your factory as [definitions as code](/factories/factory-as-code/), its prompts, skills, and configuration are version-controlled files, so a follow-up run can open a pull request against the factory definition the same way it would against application code. Nothing is adopted without your review.
+Turn on **Self-improvement** for each Scorer whose failures you want investigated automatically. A failure is a score below the Scorer's pass threshold. The scheduled check starts a Self-improvement run after an agent has 25 unreviewed failures, or when its oldest unreviewed failure is seven days old. It groups the failures for each agent into a follow-up run that proposes a fix.
+
+To run the check without waiting for the scheduled threshold, click **Run now** on the factory dashboard's **Self-improvement** page. An ad hoc run can include an agent with one unreviewed failure. You cannot choose which agents or failures it processes.
+
+A follow-up run can propose changes to application code. It can also improve the factory itself: when you manage your factory as [definitions as code](/factories/factory-as-code/), its prompts, skills, and configuration are version-controlled files, so a follow-up run can open a pull request against the factory definition the same way it would against application code. Nothing is adopted without your review.
 
 The factory dashboard's **Self-improvement** page lists the pull requests these follow-up runs open. Each pull request includes a **Regressions addressed** section that links the failing runs and Scorer results behind it, so you can trace the change back to its evidence.
 

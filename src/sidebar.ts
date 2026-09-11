@@ -423,8 +423,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					//
 					// The per-service pages are listed directly rather than in a nested
 					// Integrations subgroup, which would have rendered as
-					// Integrations > Integrations > Slack. Flattening also drops the tab
-					// to two levels, matching every other group in it.
+					// Integrations > Integrations > Slack.
 					//
 					// 'Connect your factory' leads because it is the overview for this
 					// group; Factory MCP trails because it is a connection mechanism
@@ -458,12 +457,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories/factory-inbox', label: 'Factory inbox' },
 						{ slug: 'factories/factory-dashboard', label: 'Factory dashboard' },
 						{
-							// Nests Scorers, Self-improvement, and Benchmarks as coequal
-							// children, matching the factory dashboard's own "Score and
-							// benchmark" tab grouping instead of splitting them across a
-							// bundled page and a standalone one. Expanded by default (unlike
-							// Harnesses/Environments above): the point of nesting is to make
-							// the three siblings immediately visible, not tucked behind a click.
 							label: 'Measure and improve',
 							collapsed: false,
 							items: [
