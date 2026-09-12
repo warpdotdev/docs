@@ -515,6 +515,9 @@ GET /factory/{uid}/costs/per-pr/top -> internal
 # (getFactorySelfImprovementSpend). Marked `x-internal: true`; same unreleased
 # `/factory` namespace.
 GET /factory/{uid}/self-improvement/costs -> internal
+# Shared factory setup-progress UI state (x-internal; unreleased /factory namespace).
+GET /factory/{uid}/setup-progress -> internal
+POST /factory/{uid}/setup-progress/dismiss -> internal
 GET /factory/{uid}/integrations/linear/teams -> internal
 GET /factory/{uid}/integrations/linear/teams/{team_id}/labels -> internal
 PUT /factory/{uid}/integrations/linear/teams/{team_id}/labels -> internal
@@ -721,6 +724,8 @@ agents.statusline -> internal
 # appearance.themes.theme, which is documented. Paired with the /theme Warp Agent
 # CLI slash command mapped internal above.
 appearance.theme -> internal
+# Windows window backdrop (mica/acrylic/mica_alt/none); replaces override_blur_texture.
+appearance.window.backdrop -> src/content/docs/terminal/settings/all-settings.mdx
 
 # Warp Agent CLI-only (crates/warp_tui) zero-state animation knobs (surface: Warp
 # Agent CLI, SettingSurfaces::TUI). They tune the rotating object shown in the
