@@ -29,10 +29,10 @@ To access it, go to **Settings** > **Appearance** > **Window**
 
 ### Window blurring
 
-After decreasing Opacity (moving the slider to a value less than `100`), you can also blur the background.
+After decreasing Opacity (moving the slider to a value less than `100`), you can also blur or materialize the background.
 
-* On macOS, this is done using the blur slider. Increasing the slider increases the blur radius that's applied to the background image.
-* On Windows, this is done by toggling the Acrylic background texture on or off.
+* On macOS, use the blur slider. Increasing the slider increases the blur radius applied to the background image.
+* On Windows, choose a **Window backdrop** material: **No material**, **Mica**, **Acrylic**, or **Mica Alt**. Backdrop is not visible at opacity 100%. In the settings file, this is `appearance.window.backdrop` (`none`, `mica`, `acrylic`, or `mica_alt`).
 
 :::caution
 On macOS, large blur radiuses may affect performance, especially on Retina displays.

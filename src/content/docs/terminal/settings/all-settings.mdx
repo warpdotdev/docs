@@ -152,8 +152,9 @@ theme = { custom = { name = "My Theme", path = "~/.warp/themes/my-theme.yaml" } 
 **Section**: `[appearance.window]`
 
 * `override_opacity` — The opacity of the window background, from 1 to 100 percent. Type: integer. Default: `100`.
-* `override_blur` — The blur radius applied to the window background. Type: integer. Default: `1`.
-* `override_blur_texture` — Whether to apply a blur texture to the window background. Type: boolean. Default: `false`.
+* `override_blur` — The blur radius applied to the window background. Type: integer. Default: `1`. macOS only.
+* `backdrop` — The system backdrop material applied to the window background when opacity is below 100%. Type: string. Default: `"none"`. Options: `"none"` (no material), `"mica"`, `"acrylic"`, `"mica_alt"`. Windows only. In the Warp app, go to **Settings** > **Appearance** > **Window** and choose **Window backdrop**.
+* `override_blur_texture` — Deprecated. Prefer `backdrop`. When `backdrop` is unset, a true value migrates to `"acrylic"`. Type: boolean. Default: `false`. Windows only.
 * `zoom_level` — The zoom level for the window, as a percentage. Type: integer. Default: `100`.
 * `open_windows_at_custom_size` — Whether to open new windows at a custom size instead of the default. Type: boolean. Default: `false`.
 * `new_windows_num_columns` — The number of columns for new windows when using a custom size. Type: integer. Default: `80`.
@@ -187,8 +188,8 @@ Settings that control terminal behavior, input, and event handling.
 * `error_underlining_enabled` — Whether command errors are underlined in the input. Type: boolean. Default: `true`.
 * `completions_open_while_typing` — Whether the completions menu opens automatically while typing. Type: boolean. Default: `false`.
 * `classic_completions_mode` — Whether classic completions mode is enabled. Type: boolean. Default: `false`.
-* `warp_completions_enabled` — Whether Warp's built-in completions are shown for shell commands. Effective only while the Native shell completions Preview is enabled for your account; otherwise Warp always uses built-in completions. When this setting is in effect and enabled, **Settings** > **Features** > **Terminal Input** also exposes "Open completions menu as you type" as a nested control (the same knob as `completions_open_while_typing`). Type: boolean. Default: `true`.
-* `native_shell_completions_enabled` — Whether your shell's own completions are used for shell commands. Effective only while the Native shell completions Preview is enabled for your account; otherwise the setting is ignored and native completions stay off. Native shell completions are not generated as you type; press `Tab` (or your completions keybinding) to fetch them. Type: boolean. Default: `true`.
+* `warp_completions_enabled` — Whether Warp's built-in completions are shown for shell commands. When enabled, **Settings** > **Features** > **Terminal Input** also exposes "Open completions menu as you type" as a nested control (the same knob as `completions_open_while_typing`). Type: boolean. Default: `true`.
+* `native_shell_completions_enabled` — Whether your shell's own completions are used for shell commands, alongside Warp's built-in completions when both are on. Native shell completions are not generated as you type; press `Tab` (or your completions keybinding) to fetch them. Type: boolean. Default: `true`.
 * `show_hint_text` — Whether hint text is shown in the terminal input. Type: boolean. Default: `true`.
 * `show_terminal_input_message_bar` — Whether the terminal input message bar is shown. Type: boolean. Default: `true`.
 * `enable_slash_commands_in_terminal` — Whether slash commands are available in the terminal input. Type: boolean. Default: `true`.
