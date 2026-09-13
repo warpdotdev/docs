@@ -13,7 +13,7 @@ Watch this walkthrough to see how a cloud agent can coordinate a team of agents 
 
 <VideoEmbed url="https://www.youtube.com/watch?v=qeR79bhyFOw" title="How to orchestrate a team of agents in the cloud with Warp" />
 
-This page covers the orchestration model and the patterns it supports. To learn how to start an orchestrated run, see [Running orchestrated agents](/platform/orchestration/multi-agent-runs/).
+To start an orchestrated run, see [Running orchestrated agents](/platform/orchestration/multi-agent-runs/).
 
 To orchestrate work inside a [Warp factory](/factories/), dispatch through the [factory API](/factories/factory-api/) instead of calling `POST /agent/runs` with the foreman's `agent_identity_uid` directly. The server resolves the foreman for you, and everything on this page still applies to the run it starts.
 
@@ -36,6 +36,14 @@ The parent and child don't have to run in the same place. Orchestration supports
 * **Cloud → cloud-local** - a cloud parent spawns children that run inside the parent's own cloud environment, rather than each child getting its own environment. Useful when children need to share state with the parent (a filesystem, a long-running process, a shell session) or when spinning up an environment per child would be wasteful.
 
 Children can also run with a different agent runtime than the parent. A parent running with the default Warp Agent can spawn children that run with [Claude Code](/agents/cli-agents/claude-code/) or [Codex](/agents/cli-agents/codex/), and vice versa.
+
+### How a child agent is configured
+
+An ad hoc child's prompt comes from the parent at spawn time. The model, harness, and execution settings apply to every child in the batch.
+
+Use a [skill](/agents/capabilities/skills/) for reusable instructions. A local child discovers the project and home-directory skills in scope from its working directory. For cloud children, the parent attaches skills from a repository in the [environment](/platform/environments/).
+
+For named agents with standing configuration, use [Warp Factories](/factories/). A factory's foreman can dispatch its [factory agents](/factories/factory-agents/#choose-a-configured-factory-agent).
 
 ## Run state transitions
 
@@ -99,7 +107,7 @@ The parent encodes a directed acyclic graph of subtasks where some nodes depend 
 
 ### Swarm
 
-A flat group of peer agents discover each other through messaging and coordinate without a strict hierarchy. The parent acts more like a coordinator than a supervisor. Use sparingly - swarms are powerful but harder to debug than hierarchical patterns.
+A flat group of peer agents discover each other through messaging and coordinate without a strict hierarchy. The parent acts more like a coordinator than a supervisor. Use sparingly - swarms are harder to debug than hierarchical patterns.
 
 ## Approval mode
 
