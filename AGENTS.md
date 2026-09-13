@@ -27,6 +27,8 @@ Describe what the reader sees and does. Internal components get at most one sent
 - ✅ "Warp tracks every run. Check its status from the CLI, the API, or the dashboard."
 - ❌ "The orchestration layer runs on Warp's servers (cloud control plane), creates tasks when triggers fire, and tracks lifecycle state (created → running → completed/failed)."
 
+#### Order from intent to technical detail
+
 When readers need exact fields, IDs, or runtime labels, order the explanation from intent to implementation:
 
 * **Intent** - Start with what the developer wants to accomplish.
@@ -95,6 +97,7 @@ Expect the second pass to find real deletions even after a careful first one; re
 
 ### Language guidelines
 - Use consistent terminology throughout (see [Terminology standards](#terminology-standards) and the full glossary in `.agents/references/terminology.md`)
+- Prefer simple, direct product language. Write "agents" instead of "agent roster" unless the specialized term communicates a necessary distinction.
 - Em dashes are acceptable for occasional variation in narrative/conceptual text, but use sparingly
 - Never use em dashes in procedural or instructional text
 
