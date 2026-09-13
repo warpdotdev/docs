@@ -145,28 +145,20 @@ For the summary of the most critical terms (core features, Automation Platform t
 
 ## Team and workspace terms
 
-- **workspace** — Warp's top-level organizational unit for enterprise accounts. It groups one or more teams under a single company account, with its own roles (member/admin/owner), billing, and governance settings. See [Workspaces](/enterprise/team-management/workspaces/).
-  *Usage note:* Lowercase common noun, like "team." Distinct from two other uses of the word: the per-team shared workspace in **Warp Drive** ("teams share a dedicated workspace in Warp Drive"), and a **Slack workspace**, which is a separate company account in Slack. When the surrounding context doesn't already make clear which "workspace" is meant, say so explicitly (e.g. "your Warp workspace" or "your Slack workspace").
+- **workspace** — Warp's top-level organizational unit for enterprise accounts. It groups teams under one company account with shared roles, billing, SSO, and settings. See [Workspaces](/enterprise/team-management/workspaces/).
+  *Usage note:* Lowercase common noun, like "team." Distinguish it from a team's shared workspace in **Warp Drive** and a **Slack workspace**. If the context is unclear, write "Warp workspace" or "Slack workspace."
 
 - **Member** (workspace role) — The default workspace role: uses Warp within whatever teams they belong to and the settings admins configure. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
 
-- **Admin** (workspace role) — Manages workspace membership, billing, and settings. A workspace can have any number of admins. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+- **Admin** (workspace role) — Manages workspace membership, billing, and settings. Can view and manage every team in the workspace, including teams they don't belong to. A workspace can have any number of admins. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
 
 - **Owner** (workspace role) — The workspace's single highest-privilege role. Has every admin capability, plus the ability to transfer ownership to another member. Exactly one per workspace. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
 
 - **Open** (team visibility) — A team any workspace member can see and join immediately. See [Teams inside a workspace](/enterprise/team-management/workspaces/#teams-inside-a-workspace).
 
-- **Private** (team visibility) — A team visible to every workspace member, but joinable only when an admin adds or invites the member directly. See [Teams inside a workspace](/enterprise/team-management/workspaces/#teams-inside-a-workspace).
-
 - **Hidden** (team visibility) — A team that doesn't appear in team discovery; an admin has to add members directly. See [Teams inside a workspace](/enterprise/team-management/workspaces/#teams-inside-a-workspace).
 
-- **Workspace-enforced** (setting pattern) — A workspace setting the workspace admin sets once for every team, with no per-team override. See [Workspace settings and team settings](/enterprise/team-management/workspaces/#workspace-settings-and-team-settings).
-
-- **Delegated** (setting pattern) — A setting the workspace admin can either enforce or leave to each team to decide. Also written "respect team setting." See [Workspace settings and team settings](/enterprise/team-management/workspaces/#workspace-settings-and-team-settings).
-
-- **Combined** (setting pattern) — A setting where entries from the workspace and team levels apply together: a blocked list is a union, an allowed list an intersection. See [Workspace settings and team settings](/enterprise/team-management/workspaces/#workspace-settings-and-team-settings).
-
-- **Team-controlled** (setting pattern) — A setting the workspace layer never touches; it stays team-only. See [Workspace settings and team settings](/enterprise/team-management/workspaces/#workspace-settings-and-team-settings).
+- **unassigned user** — A workspace member who doesn't belong to a team. Workspace admins manage unassigned users and can set a separate per-user spend limit for them. See [Unassigned users](/enterprise/team-management/workspaces/#unassigned-users).
 
 ## Automation Platform terminology
 
