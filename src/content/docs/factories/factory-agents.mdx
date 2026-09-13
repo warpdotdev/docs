@@ -137,7 +137,7 @@ Custom agents have no built-in skills. Add [factory skills](/factories/factory-s
 
 ### Dispatch named factory agents
 
-The foreman's `run_agents` tool provides a `Factory sibling agents` roster. To select a named agent, set `remote` and copy its exact roster UID into `agent_run_configs[].agent_identity_uid`. Every child in that batch needs a roster UID.
+The foreman's `run_agents` tool lists the other agents in the factory under `Factory sibling agents`. To select one, set `remote` and copy its exact UID into `agent_run_configs[].agent_identity_uid`. Every child in that batch needs an agent UID.
 
 The child `name` is only a display label. The selected agent supplies its environment, runner, host, harness, and model unless the call overrides them.
 
