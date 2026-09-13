@@ -1768,7 +1768,8 @@ def refresh_valid_paths(warp_repo_path: Path, output_path: Path) -> None:
     """Re-extract valid paths from the warp client repo's Rust sources and save to JSON.
 
     Preserves hand-maintained lists (macos_menu_bar, warp_drive, umbrellas,
-    deprecated_sections, top_level_sidebar) from the existing snapshot.
+    deprecated_sections, top_level_sidebar) and Slack notification
+    de-duplication state from the existing snapshot.
     Auto-detected umbrellas from `SettingsUmbrella::new(...)` calls in mod.rs
     are merged in; if a new umbrella is detected that's not in the existing
     snapshot, it's added. Existing umbrella entries take precedence on
@@ -1838,6 +1839,12 @@ def refresh_valid_paths(warp_repo_path: Path, output_path: Path) -> None:
         "source_sha": _resolve_source_sha(warp_repo_path) or existing.get("source_sha"),
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
+    # The scheduled workflow refreshes this file before it compares a report
+    # to the prior notification. Retain that state so unchanged reports do
+    # not produce duplicate Slack messages after a refresh.
+    for key in ("last_notified_signature", "last_notified_at"):
+        if key in existing:
+            data[key] = existing[key]
 
     with open(output_path, "w") as f:
         json.dump(data, f, indent=2)
