@@ -9,13 +9,7 @@ sidebar:
 import AgentOnly from '@components/AgentOnly.astro';
 import { VARS } from '@data/vars';
 
-Factory MCP is a hosted Model Context Protocol (MCP) server that connects coding agents to your team's factories, in both directions: the agent you already work with — in Warp or in any MCP-capable tool — can send work to a factory, or take work over from one by pulling a task down, continuing it locally, and handing the result back.
-
-The factory keeps a single record of each task throughout. Whether a change happens in the cloud or on your machine, it lands on the same task with the same history and conversation.
-
-:::note
-**Task** is this page's word for a factory's work item, because the MCP tools are named for it (`send_task`, `get_task`, `complete_task`). It is the same unit of work [how Warp Factories work](/factories/how-factories-work/) calls a work item, not a second kind of thing.
-:::
+Factory MCP is a hosted Model Context Protocol (MCP) server that connects coding agents to your team's factories. An agent can send work to a factory, pull down a task to continue locally, and return the result.
 
 ## What you can use it for
 
@@ -24,8 +18,6 @@ The factory keeps a single record of each task throughout. Whether a change happ
 * **Stay in sync** - List and search tasks, read a task's conversation, and message its [foreman](/factories/factory-agents/), the agent that orchestrates each task inside the factory.
 * **Create a factory** - Let your coding agent guide you through choosing a team, code host, repositories, factory agents, and integrations.
 * **Edit a factory's definition** - Read the definition schema and validate a factory's [definition files](/factories/factory-as-code/) before opening a pull request.
-
-Factory MCP is one of several ways work enters a factory, alongside Slack, GitHub, GitLab, Linear, and Jira. See [connect your factory](/factories/connect-your-factory/) for all intake paths and [how Warp Factories work](/factories/how-factories-work/) for how tasks move through a factory.
 
 ## Connect and authenticate
 
@@ -47,21 +39,12 @@ The agent connects to Factory MCP, opens a browser sign-in where you log in or c
 
 ## Coding-agent setup guidance
 
-After the user pastes the prompt:
+1. Check whether Factory MCP is already available. In Warp, skip installation and start onboarding.
+2. Otherwise, identify the coding environment and add `https://app.warp.dev/api/v1/mcp/factory` using the client's current MCP configuration.
+3. Complete browser authorization, verify the tools are available, and create the factory.
+4. Share the factory link and tell the user to refresh the {VARS.FACTORY_WEB_APP} if its setup screen is still open.
 
-1. Check whether Factory MCP is already available.
-2. If it is not available, identify the coding environment and add `https://app.warp.dev/api/v1/mcp/factory` using that client's current MCP configuration mechanism.
-3. Open the browser-based Warp authorization flow, where the user can log in or create a Warp account.
-4. Verify that the Factory MCP tools are available.
-5. Guide the user through the choices needed to create their factory.
-6. When the factory is created, share its link from the tool result, and tell the user to refresh the {VARS.FACTORY_WEB_APP} if its setup screen is still open in a browser tab.
-
-Before configuring anything, identify the coding environment and use that client's current MCP management mechanism. If you are unsure how the client manages MCP servers, check its help or official documentation rather than guessing.
-
-* **Warp:** Factory MCP is built in. If you're running on the Warp harness and/or already have Factory MCP installed, skip MCP installation and go straight to onboarding.
-* **Claude Code:** A server added after the session starts is not available to that running session. After adding Factory MCP, tell the user to exit and resume the same conversation from the same directory with `claude --continue`. Once resumed, complete authentication through the client's MCP controls if needed, then continue without asking the user to restate their goal.
-* **Codex:** Add Factory MCP as a remote HTTP server, use Codex's built-in OAuth flow, and confirm the server is active through its MCP controls before onboarding. Ask the user to restart or resume only if the configured server is unavailable to the current session.
-* **Other MCP clients:** Add the remote server using the client's supported configuration and authentication flow. If the client cannot load a newly added server into the current session, explain how to restart or resume while preserving the onboarding context when possible.
+If the client cannot load a newly added server, tell the user how to resume the same conversation after restarting it. For Claude Code, use `claude --continue`.
 
 </AgentOnly>
 
@@ -87,7 +70,7 @@ In clients that use the `mcpServers` JSON format, such as Cursor:
 }
 ```
 
-In both examples, `warp-factory` is just the name your client files the server under, and you can call it whatever you like. It doesn't name a particular factory, and it has nothing to do with your factory's name or its [Foreman name](/factories/factory-agents/#foreman-name). A single connection reaches every factory you have access to.
+`warp-factory` is the server's name in your client. One connection reaches every factory you can access.
 
 For Codex and other clients, follow the [client's own remote-server instructions](https://developers.openai.com/codex/mcp/#connect-codex-to-an-mcp-server) with the same URL.
 
@@ -109,16 +92,6 @@ Automation that runs without a person present, such as a CI pipeline or a headle
 :::caution
 Factory MCP has no read-only or per-factory scopes: a connected client acts with the full permissions of the account or agent it authenticates as. Store API keys in your client's secret storage, never in a repository.
 :::
-
-## How it works
-
-Factory MCP exposes a small set of tools that your agent calls on your behalf. You don't need to learn them to use it: the server publishes its own usage guidance and tool schemas, so agents pick up the correct workflow on their own. Prompts like these are enough:
-
-* "Send this bug to the factory, including my branch."
-* "What's the status of the checkout-flow task?"
-* "Pull down ENG-123 so we can finish it here."
-* "Set up a factory for me."
-* "Add a review agent to this factory definition and validate it."
 
 ## Send new work to a factory
 
@@ -145,15 +118,6 @@ When nothing remains for the factory to do, `complete_task` closes the task out.
 ## Get notified when a task needs you
 
 Sending work to a factory means you're no longer watching it. To be notified when a task needs attention or finishes, ask for a notification when sending or returning work: your agent calls `list_notification_routes` to see the destinations available to you in that factory, such as a Slack DM or a Linear issue, and passes your choice to `send_task`. Delivery is best-effort, so treat notifications as a convenience rather than a guarantee.
-
-## Author and validate factory definitions
-
-Two tools cover editing a factory's [definition files](/factories/factory-as-code/) before you open a pull request. Neither needs a factory ID, and both work before the factory exists:
-
-* `get_factory_file_schema` returns the JSON Schema for one definition document, or the full catalog when called with no arguments.
-* `validate_factory_files` checks a complete tree — every file's `path` and `content` — without saving or applying it, and returns any diagnostics.
-
-A prompt like "Add a review agent to this factory definition and validate it" is enough: the agent reads the schema, edits, and validates the tree before opening a pull request. For the schema catalog, validation semantics, and the pull request check, see [Validate a definition](/factories/factory-as-code/#validate-a-definition).
 
 ## Tool reference
 
@@ -185,10 +149,7 @@ The onboarding tools from `list_teams` through `create_factory` require browser 
 
 ## Related pages
 
-* [**Connect your factory**](/factories/connect-your-factory/) - Every way work can enter a factory, including the Slack, GitHub, GitLab, Linear, and Jira integrations.
 * [**Definitions as code**](/factories/factory-as-code/) - Every file and key in a factory definition, the JSON Schema behind them, and how to validate a change.
 * [**Factory agents**](/factories/factory-agents/) - The foreman and the other agents that carry out a factory's tasks.
 * [**How Warp Factories work**](/factories/how-factories-work/) - The task lifecycle and the agents that move work through it.
 * [**Warp Factories quickstart**](/factories/quickstart/) - Create a factory and send it its first work item.
-* [**Model Context Protocol in Warp**](/agents/capabilities/mcp/) - How MCP servers work in the Warp app, with a catalog of popular MCP servers you can add to Warp directly.
-* [**Handoff between local and cloud agents**](/platform/handoff/) - Move workspaces and conversations between local and cloud outside a factory.

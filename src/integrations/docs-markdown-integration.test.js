@@ -76,7 +76,7 @@ test('uses code text when Expressive Code line markup is absent', () => {
 	assert.ok(markdown.includes("```bash\nprintf 'one'\nprintf 'two'\n```"));
 });
 
-test('preserves non-Expressive-Code fenced code blocks', () => {
+test('leaves non-Expressive-Code blocks to the default fenced-code rule', () => {
 	const html = createPage(`
 		<pre><code class="language-shell">printf 'one'\nprintf 'two'\n</code></pre>
 	`);
