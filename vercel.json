@@ -368,6 +368,11 @@
       "statusCode": 308
     },
     {
+      "source": "/agents/agent-mode(/?)",
+      "destination": "/agents/",
+      "statusCode": 308
+    },
+    {
       "source": "/features/ai/warp-ai/external-ai-providers",
       "destination": "/agent-platform/cli-agents/overview/",
       "statusCode": 308
@@ -2249,6 +2254,11 @@
     },
     {
       "source": "/features/session-management/launch-configurations(/?)",
+      "destination": "/terminal/sessions/launch-configurations/",
+      "statusCode": 308
+    },
+    {
+      "source": "/features/session_management/launch-configuration(/?)",
       "destination": "/terminal/sessions/launch-configurations/",
       "statusCode": 308
     },

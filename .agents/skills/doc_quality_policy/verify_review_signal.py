@@ -18,7 +18,6 @@ _spec.loader.exec_module(cpc)
 
 _SIGNAL_RE = re.compile(r"\[SIGNAL:pr-review\]\s*(\{.*?\})", re.DOTALL)
 _PASSING_VERDICTS = {"approve", "approve with nits", "approve_with_nits"}
-_BLOCKING_VERDICTS = {"request changes", "request_changes"}
 
 
 def _parse_signal(
@@ -80,31 +79,28 @@ def _validate_signal(
         problems.append(f"review signal has blocking verdict {signal.get('verdict')!r}")
     if not signal.get("reviewer_login"):
         problems.append("review signal is missing reviewer_login")
-    for field in ("critical", "important"):
+    finding_counts = {}
+    for field in ("critical", "important", "suggestions", "nits"):
         try:
-            value = int(signal.get(field))
+            value = int(signal.get(field, 0))
         except (TypeError, ValueError):
             problems.append(f"review signal has invalid {field} count {signal.get(field)!r}")
             continue
-        if require_passing_verdict and value != 0:
+        finding_counts[field] = value
+        if require_passing_verdict and field in ("critical", "important") and value != 0:
             problems.append(f"review signal reports {value} {field} finding(s)")
-    verdict = str(signal.get("verdict", "")).strip().lower()
-    if verdict in _BLOCKING_VERDICTS:
-        try:
-            blocking_count = int(signal.get("critical")) + int(signal.get("important"))
-        except (TypeError, ValueError):
-            blocking_count = 0
-        findings = signal.get("blocking_findings")
+    finding_count = sum(finding_counts.values())
+    if finding_count:
+        findings = signal.get("actionable_findings") or signal.get("blocking_findings")
         if not isinstance(findings, list) or any(
             not isinstance(finding, str) or not finding.strip() for finding in findings
         ):
             problems.append(
-                "blocking review signal must include non-empty blocking_findings strings"
+                "review signal with findings must include non-empty actionable_findings strings"
             )
-        elif len(findings) < blocking_count:
+        elif len(findings) < finding_count:
             problems.append(
-                "blocking review signal must include one actionable blocking_findings entry "
-                "per critical or important finding"
+                "review signal must include one actionable_findings entry per reported finding"
             )
     return problems
 
@@ -133,7 +129,10 @@ def _published_review_matches_signal(
             "verdict",
             "critical",
             "important",
+            "suggestions",
+            "nits",
             "reviewer_login",
+            "actionable_findings",
             "blocking_findings",
         )
         if all(published_signal.get(field) == signal.get(field) for field in fields):

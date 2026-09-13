@@ -36,6 +36,8 @@ DB_ID = 2  # BigQuery prod
 
 def metabase_headers():
     key = os.environ.get("METABASE_API_KEY")
+    if key:
+        key = key.strip()
     if not key:
         print("ERROR: METABASE_API_KEY is not set.", file=sys.stderr)
         sys.exit(1)

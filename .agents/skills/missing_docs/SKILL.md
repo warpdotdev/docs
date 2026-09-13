@@ -190,7 +190,7 @@ flags.
 Present the report to the user, grouped by category and sorted by severity.
 
 Adjacent checks owned by other skills (do not duplicate them here):
-- UI menu paths and Command Palette names → `validate_ui_refs`
+- UI menu paths and Command Palette names, including detecting when a documented control has relocated to a different Settings page → `validate_ui_refs`
 - Platform error-code pages → `sync-error-docs`
 - Broken links and 404s/redirects → `check_for_broken_links` / `weekly-404-monitor`
 - Terminology/style sweeps → `style_lint`

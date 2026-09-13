@@ -3,17 +3,17 @@ name: Refresh UI paths snapshot
 # Triggered in three ways:
 #   1. `repository_dispatch` from warpdotdev/warp when `master` merges a
 #      change under app/src/settings_view/** (source-driven, same-day).
-#   2. A daily `15:15 UTC` schedule that reconciles the snapshot's recorded
-#      `source_sha` against the full `master` head used to generate the
-#      snapshot, limiting an unnoticed missed dispatch to one day. A no-change
-#      reconciliation exits successfully without refreshing.
+#   2. A weekly `Friday 15:15 UTC` schedule that reconciles the snapshot's
+#      recorded `source_sha` against the full `master` head used to generate
+#      the snapshot, limiting an unnoticed missed dispatch to seven days. A
+#      no-change reconciliation exits successfully without refreshing.
 #   3. `workflow_dispatch` as the documented manual fallback.
 on:
   repository_dispatch:
     types:
       - settings-ui-changed
   schedule:
-    - cron: '15 15 * * *'
+    - cron: '15 15 * * 5'
   workflow_dispatch:
 
 # Only WARP_API_KEY is needed here — warpdotdev/warp access and Slack
@@ -67,7 +67,7 @@ jobs:
     name: Dispatch Oz cloud agent to refresh UI path snapshot
     runs-on: ubuntu-latest
     needs: [reconcile]
-    # Always run for a source dispatch or manual trigger. For the daily
+    # Always run for a source dispatch or manual trigger. For the weekly
     # schedule, run only when reconciliation found the snapshot stale — a
     # skipped `reconcile` job's output is empty, not "false", so the schedule
     # branch checks needs_refresh explicitly rather than relying on !=  'false'.

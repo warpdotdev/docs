@@ -50,6 +50,7 @@ PROPER_FEATURE_NAMES = {
     # named exceptions rather than a generalization of that scope.
     "Bitbucket Data Center", "Workload Identity Pool and Provider",
     "Workload Identity Federation", "Direct backend",
+    "Homebrew", "Linuxbrew",
 }
 
 # Standalone proper nouns that must keep their capital even mid-sentence.

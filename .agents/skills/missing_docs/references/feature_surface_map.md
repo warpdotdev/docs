@@ -416,8 +416,12 @@ GET /factory/access -> internal
 # Personal factory task inbox (router/handlers/public_api/factory_inbox.go).
 # Sibling of the unreleased `/factory` REST surface; released OpenAPI has no
 # `/factory-inbox` paths either. Stays internal until the Factory API ships.
+# The dismiss route moved off the per-notification `{uid}` path onto a bulk
+# collection route, and gained a matching restore route; both take the
+# notification UIDs in the request body.
 GET /factory-inbox -> internal
-POST /factory-inbox/notifications/{uid}/dismiss -> internal
+POST /factory-inbox/notifications/dismiss -> internal
+POST /factory-inbox/notifications/restore -> internal
 GET /factory-alias/{alias} -> internal
 POST /factory -> internal
 POST /factory/avatar -> internal
@@ -551,10 +555,14 @@ GET /factory/{uid}/integrations/slack/users -> internal
 # factory integrations UI. Same unreleased `/factory` namespace as siblings above.
 GET /factory/{uid}/integrations/issue-tracker/issues -> internal
 POST /factory/{uid}/integrations/slack/connection-test-greeting -> internal
-# Hands a Linear issue to the factory from the integrations test-connections
-# flow (CreateFactoryLinearTaskHandoffHandler). Same unreleased `/factory`
-# namespace exclusion as the integration routes above.
+# Hands a Linear or Jira issue to the factory from the integrations
+# test-connections flow (CreateFactoryLinearTaskHandoffHandler,
+# CreateFactoryJiraTaskHandoffHandler). Same unreleased `/factory` namespace
+# exclusion as the integration routes above. The user-facing Jira flow is
+# already documented at factories/integrations/jira.mdx; only the REST route is
+# internal.
 POST /factory/{uid}/integrations/linear/handoff -> internal
+POST /factory/{uid}/integrations/jira/handoff -> internal
 # Factory benchmark suites and benchmark runs
 # (router/handlers/public_api/benchmarks.go). Same unreleased Factory product as
 # the routes above, and absent from warp-server's canonical public spec.
@@ -813,6 +821,12 @@ WarpifyFooter
 TransferControlTool
 TrimTrailingBlankLines
 InlineMenuHeaders
+# Opening the inline model selector from the model chip parks any text already in
+# the input so the input can filter the model list, then restores it when the
+# selector closes. Promoted dogfood -> GA. No setting, CLI flag, or API field,
+# and the prompt comes back on its own, so there is nothing for a reader to
+# configure or recover from.
+RestorePromptOnInlineModelSelectorSearch
 BlocklistMarkdownImages
 BlocklistMarkdownTableRendering
 PendingUserQueryIndicator
@@ -890,6 +904,12 @@ HistorySearchRankingV2
 # (fzf or atuin) instead of Warp's command search. Not GA, so not documentable;
 # re-check when the flag goes GA.
 ShellWidgetHandoff
+# Preview flag that uploads workspace handoff snapshots periodically during a
+# cloud agent run instead of only at the end. Requires OzHandoff, and is a no-op
+# for local runs and when `--no-snapshot` is set. Promoted dogfood -> preview, so
+# not GA and not documentable; re-check when the flag goes GA, at which point it
+# belongs on platform/handoff/.
+PeriodicHandoffCheckpoints
 SshDragAndDrop
 ITermImages
 AIGeneratedOnboardingSuggestions

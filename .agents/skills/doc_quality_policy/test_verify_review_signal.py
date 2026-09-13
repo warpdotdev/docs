@@ -30,6 +30,16 @@ BLOCKING_OUTPUT = (
     '"blocking_findings":["`src/content/docs/example.mdx:42` — Explain the issue. '
     'Requested change: make the required edit."]}'
 )
+SUGGESTION_OUTPUT = (
+    '[SIGNAL:pr-review] {"pr":"1","head_sha":"sha1","reviewer_login":"github-actions[bot]",'
+    '"verdict":"Approve with nits","critical":0,"important":0,"suggestions":1,"nits":0,'
+    '"actionable_findings":["`copy_pass_prompt.md:22` — Preserve frontmatter and imports '
+    'during copy passes."]}'
+)
+SUGGESTION_REVIEW = {
+    **GOOD_REVIEW,
+    "body": SUGGESTION_OUTPUT,
+}
 
 
 class TestCheckReviewSignal(unittest.TestCase):
@@ -92,6 +102,16 @@ class TestCheckReviewSignal(unittest.TestCase):
         with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[review]):
             problems = vrs.check_review_signal("o/r", "1", "sha1", GOOD_OUTPUT)
         self.assertTrue(any("no current GitHub review" in p for p in problems))
+
+    def test_actionable_suggestion_round_trips_through_published_review(self):
+        with mock.patch.object(
+            vrs.cpc, "_fetch_reviews", return_value=[SUGGESTION_REVIEW]
+        ):
+            problems = vrs.check_review_signal(
+                "o/r", "1", "sha1", SUGGESTION_OUTPUT
+            )
+        self.assertEqual(problems, [])
+
     def test_published_blocking_review_must_preserve_actionable_findings(self):
         signal, problems = vrs._parse_signal(BLOCKING_OUTPUT, "1", "sha1")
         self.assertEqual(problems, [])
@@ -103,6 +123,23 @@ class TestCheckReviewSignal(unittest.TestCase):
                 "",
             ),
         }
+        self.assertFalse(vrs._published_review_matches_signal([review], signal, "sha1"))
+
+    def test_published_review_with_mismatched_suggestion_count_fails(self):
+        """Rework finding: the published-review comparison omitted the
+        `suggestions` field, so a review whose published count silently
+        drifted from the internal signal was accepted as matching."""
+        signal, problems = vrs._parse_signal(SUGGESTION_OUTPUT, "1", "sha1")
+        self.assertEqual(problems, [])
+        mismatched_body = SUGGESTION_OUTPUT.replace('"suggestions":1', '"suggestions":2')
+        review = {**GOOD_REVIEW, "body": mismatched_body}
+        self.assertFalse(vrs._published_review_matches_signal([review], signal, "sha1"))
+
+    def test_published_review_with_mismatched_nit_count_fails(self):
+        signal, problems = vrs._parse_signal(SUGGESTION_OUTPUT, "1", "sha1")
+        self.assertEqual(problems, [])
+        mismatched_body = SUGGESTION_OUTPUT.replace('"nits":0', '"nits":1')
+        review = {**GOOD_REVIEW, "body": mismatched_body}
         self.assertFalse(vrs._published_review_matches_signal([review], signal, "sha1"))
 
     def test_stale_signal_fails(self):

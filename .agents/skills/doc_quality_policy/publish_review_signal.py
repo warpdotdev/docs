@@ -20,6 +20,7 @@ _REVIEW_EVENTS = {
     "approve with nits": "COMMENT",
     "approve_with_nits": "COMMENT",
     "request changes": "COMMENT",
+    "request_changes": "COMMENT",
 }
 
 
@@ -43,13 +44,21 @@ def build_review_payload(
     event = _REVIEW_EVENTS.get(verdict)
     if event is None:
         raise ValueError(f"unsupported review verdict: {signal['verdict']!r}")
-    blocking_findings = signal.get("blocking_findings") or []
+    # `blocking_findings` is a legacy key from pre-GROW-6137 signals;
+    # review-docs-pr/SKILL.md and agent-docs-review.yml now document only
+    # `actionable_findings`. This fallback can be removed once no cached
+    # review prompts emit the legacy key anymore.
+    actionable_findings = (
+        signal.get("actionable_findings")
+        or signal.get("blocking_findings")
+        or []
+    )
     categories = signal.get("top_categories") or []
-    findings = "\n".join(f"- {finding}" for finding in blocking_findings)
+    findings = "\n".join(f"- {finding}" for finding in actionable_findings)
     if not findings:
         findings = (
             "\n".join(f"- {category}" for category in categories)
-            or "- No blocking findings."
+            or "- No findings."
         )
     return {
         "commit_id": head_sha,

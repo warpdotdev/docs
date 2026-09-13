@@ -196,5 +196,5 @@ for the enforcement test.
 `valid_paths.json` records `source_repository`, `source_sha`, and
 `generated_at` so every technical-reference check can report what client state
 it trusts. See `.github/workflows/refresh-ui-paths.yml` for the three refresh
-triggers (source dispatch, daily reconciliation, manual fallback) and
+triggers (source dispatch, weekly reconciliation, manual fallback) and
 `validate_ui_refs.py --changed` for the changed-file scope used in required CI.
