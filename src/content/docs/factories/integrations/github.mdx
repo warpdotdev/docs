@@ -65,11 +65,10 @@ For a review automation that fires when pull requests open, see [`04-code-review
 <tr><td>Issues</td><td>Created, labeled, assigned, or agent mentioned</td></tr>
 <tr><td>Pull requests</td><td>Opened, marked ready, reopened, updated with commits, assigned, labeled, mentioned, closed, or merged</td></tr>
 <tr><td>Reviews</td><td>Review requested or review submitted</td></tr>
-<tr><td>Code and CI</td><td>Push, a completed check suite or workflow run, or a re-run of a Warp check</td></tr>
+<tr><td>Code and CI</td><td>Push, a completed check suite or workflow run</td></tr>
 </tbody>
 </table>
 
-Re-running a check starts work only for checks Warp itself created. GitHub doesn't send re-run events for other providers' checks, so those can't trigger a factory.
 
 For the exact `event` value each trigger uses in a definition file, see [triggers](/factories/factory-as-code/#triggers).
 
@@ -99,7 +98,7 @@ Use filters to route work precisely. For example, send failed runs of a specific
 
 Handing an issue or pull request to a factory takes two things:
 
-1. **Add the factory's label.** Each factory has one, derived from its [alias](/factories/factory-as-code/#alias) (the **Foreman name** under **Settings** > **Identity** in the factory dashboard) as `factory:<alias>`. For example, alias `payments` uses `factory:payments`, not the factory's display name. Warp creates the label automatically when you create the factory.
+1. **Add the factory's label.** Each factory has one, derived from its [alias](/factories/factory-as-code/#alias) (the **Foreman name** in the factory dashboard's **Identity** settings) as `factory:<alias>`. For example, alias `payments` uses `factory:payments`, not the factory's display name. Warp creates the label automatically when you create the factory.
 2. Mention **@warp-factory** in the opening body or a new comment.
 
 The factory picks up the request and replies in the same thread.
