@@ -404,7 +404,7 @@ Optional. The GitHub or GitLab repositories and exact commits the task starts fr
 
 ## `scorers/<name>/scorer.md`
 
-Optional. Each file defines a scorer: an LLM judge that classifies a sample of an agent's finished runs against a rubric. The directory segment is only a stable filesystem slug — the required `name` field is the scorer's identity. The YAML frontmatter declares the classification contract, and the Markdown body after the closing `---` fence is the rubric. See [Configure Scorers](/factories/measure-and-improve/#configure-scorers) for how scores are used.
+Optional. Each file defines a scorer: an LLM judge that classifies a sample of an agent's finished runs against a rubric. The directory segment is only a stable filesystem slug — the required `name` field is the scorer's identity. The YAML frontmatter declares the classification contract, and the Markdown body after the closing `---` fence is the rubric. See [Configuring Scorers](/factories/measure-and-improve/scorers/) for how scores are used.
 
 ```markdown title="scorers/tests-run/scorer.md"
 ---
