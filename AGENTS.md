@@ -87,6 +87,7 @@ Expect the second pass to find real deletions even after a careful first one; re
 
 ### Language guidelines
 - Use consistent terminology throughout (see [Terminology standards](#terminology-standards) and the full glossary in `.agents/references/terminology.md`)
+- Prefer simple, direct product language. Write "agents" instead of "agent roster" unless the specialized term communicates a necessary distinction.
 - Em dashes are acceptable for occasional variation in narrative/conceptual text, but use sparingly
 - Never use em dashes in procedural or instructional text
 
