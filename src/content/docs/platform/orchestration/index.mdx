@@ -39,11 +39,11 @@ Children can also run with a different agent runtime than the parent. A parent r
 
 ### How a child agent is configured
 
-A child agent has no definition file of its own: its prompt comes from the parent at spawn time, and the run-wide settings you approve (model, harness, and where the children run) apply to every child in the batch.
+An ad hoc child's prompt comes from the parent at spawn time. The model, harness, and execution settings apply to every child in the batch.
 
-To give a child a reusable role, put the role's instructions in a [skill](/agents/capabilities/skills/) and ask the parent to have the child use it, for example "spawn one child per package and have each one use the `migrate-tests` skill." A local child starts in the parent's working directory, so it discovers the same repository and home-directory skills as the parent. For a cloud child, the parent attaches the skill when it spawns the child, from a repository in the child's [environment](/platform/environments/).
+Use a [skill](/agents/capabilities/skills/) for reusable instructions. A local child discovers the project and home-directory skills in scope from its working directory. For cloud children, the parent attaches skills from a repository in the [environment](/platform/environments/).
 
-Named agents with their own standing configuration (instructions, model, harness, secrets, and MCP servers) are part of [Warp Factories](/factories/): a factory's foreman dispatches its [factory agents](/factories/factory-agents/) by name. Outside a factory, every child runs as the user or cloud agent that started the parent.
+For named agents with standing configuration, use [Warp Factories](/factories/). A factory's foreman can dispatch its [factory agents](/factories/factory-agents/#dispatch-named-factory-agents).
 
 ## Run state transitions
 
