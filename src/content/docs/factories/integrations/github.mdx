@@ -92,28 +92,19 @@ Every trigger names the repository it watches. The remaining filters appear only
 
 On check suite and workflow run triggers, **Labels** and **Authors** match the pull request linked to the run rather than the run itself.
 
-Use filters to route work precisely. For example, send failed runs of a specific workflow to a CI-repair automation.
-
 ## Mention the factory
 
-Handing an issue or pull request to a factory takes two things:
-
-1. **Add the factory's label.** Each factory has one, derived from its [alias](/factories/factory-as-code/#alias) (the **Foreman name** in the factory dashboard's **Identity** settings) as `factory:<alias>`. For example, alias `payments` uses `factory:payments`, not the factory's display name. Warp creates the label automatically when you create the factory.
-2. Mention **@warp-factory** in the opening body or a new comment.
-
-The factory picks up the request and replies in the same thread.
+Add the factory's `factory:<alias>` label to the issue or pull request, then mention **@warp-factory** in the opening body or a new comment. The alias is the **Foreman name** in the factory dashboard's **Identity** settings. Warp creates the label with the factory, and the factory replies in the same thread.
 
 {/* VISUAL: An issue with the factory:<alias> label and an @warp-factory mention -- the two-part mention ritual is easy to miss from prose alone. */}
 
-**@warp-factory** is the shared GitHub account every factory listens through. The label decides which factory answers. Default automations already filter on that label, and agents add it to every issue or pull request they open or adopt.
+Without the label, a linked Warp account can still route the mention:
 
-If you mention **@warp-factory** without the label and no automation matches, Warp still tries to route the request when your GitHub account is linked to Warp:
+* **One accessible factory** - Warp adds its label and starts work.
+* **Multiple accessible factories** - Warp asks you to add the right label and mention **@warp-factory** again.
+* **No accessible factory** - Warp asks you to connect the repository or request access.
 
-* **One accessible factory** is connected to the repository - Warp applies that factory's label and starts work.
-* **More than one accessible factory** - Warp asks you to add the right `factory:<alias>` label and mention **@warp-factory** again.
-* **None** - Warp tells you to connect the repository or ask a factory admin for access.
-
-Default automations fire on matching GitHub activity even if the author isn't a Warp team member. Unlabeled fallback routing needs a linked Warp account.
+Default automations can respond to authors whose GitHub accounts aren't linked to Warp.
 
 Only new content counts as a mention. Edits to existing comments, mentions inside code blocks, and mentions from bots are ignored.
 
@@ -121,11 +112,9 @@ You can change what the factory answers to. The handle and the label are the sta
 
 ## How the factory responds on GitHub
 
-The factory posts progress comments in the originating issue, pull request, or review thread, with links to the run and to any branches or pull requests it creates. Events without a comment surface, such as a push or a workflow run, report their results on the work item instead.
+The factory posts progress and links in the originating issue, pull request, or review thread. Pushes and workflow runs report on the work item instead. New activity on an existing thread continues the same work item.
 
-New activity on an issue, pull request, or review thread the factory is already working on continues that work item instead of starting a new one.
-
-Issues and pull requests the factory opens or adopts carry its `factory:<alias>` label. Warp removes the label when you disconnect the repository or delete the factory. Renaming the alias does not rename existing labels, so an old label can remain. Delete leftovers like any other GitHub label.
+Issues and pull requests the factory opens or adopts carry its `factory:<alias>` label. Warp removes it when you disconnect the repository or delete the factory. Delete old labels after renaming the alias.
 
 Branches and pull requests the factory creates follow the repository's normal rules: branch protection, required reviews, and merge requirements all still apply.
 
@@ -140,17 +129,15 @@ For the full credential model, see [Permissions and identity](/platform/integrat
 
 ## Factory-definition pull request checks
 
-If the factory's [definition is managed as code](/factories/factory-as-code/) in a GitHub repository, Warp reviews changes to it the way CI reviews code. Open a pull request that touches the definition files and a **warp/factory-config** check runs: it passes with a summary of what the change does, or fails with the specific fields to fix. Require the check in branch protection to stop an invalid definition from merging.
+If the factory's [definition is managed as code](/factories/factory-as-code/) in a GitHub repository, Warp reviews changes to it the way CI reviews code. Open a pull request that touches the definition files and a **warp/factory-config** check runs: it validates the head commit and dry-runs the change against your team, so it also catches a secret, runner, MCP server, or model that doesn't exist. It passes with a summary of what merging would create, update, and delete, or fails with the specific fields to fix. If the definition lives in a subdirectory of the repository, the directory is appended to the check name, as in **warp/factory-config (factory)**. Require the check in branch protection to stop an invalid definition from merging.
 
-These checks validate the factory's configuration files only. They don't create work items, and pull requests that don't touch the factory directory don't get the check.
+These checks validate configuration files only and don't create work items. Unchanged definitions pass immediately, so requiring the check doesn't block unrelated work. To check a definition before opening a pull request, see [Validate a definition](/factories/factory-as-code/#validate-a-definition).
 
 ## Troubleshooting
 
 ### A mention doesn't start work
 
-Confirm the mention is in new human-authored content, not an edit, a bot comment, or markdown code. The handle is **@warp-factory**, not **@warp-agent**. Then check that the issue or pull request has the factory's `factory:<alias>` label.
-
-If the label is missing, Warp routes an unlabeled mention only when your GitHub account is linked to Warp and you can access exactly one factory connected to the repository. If more than one accessible factory is connected to the repo, add the right label and mention **@warp-factory** again.
+Confirm the mention is new human-authored content, not an edit, bot comment, or markdown code. Use **@warp-factory**, and add the factory's `factory:<alias>` label. Without a label, routing works only when your linked Warp account can access exactly one factory connected to the repository.
 
 If you renamed the alias or changed repositories after creating the factory, the default automation's filters still use the original snapshot. Edit that automation so the label and repository filters match.
 
@@ -168,4 +155,4 @@ Check that the installation still covers the target repository and grants the re
 
 ### A factory-definition check doesn't appear
 
-The check runs only for factories whose [definition is managed as code](/factories/factory-as-code/) in a GitHub repository. Confirm the pull request targets the branch the factory runs from, that it changes files in the factory's definition directory, and that the GitHub App covers the repository.
+The check runs only for factories whose [definition is managed as code](/factories/factory-as-code/) in a GitHub repository. Confirm the pull request targets the branch the factory runs from and that the GitHub App covers the repository.
