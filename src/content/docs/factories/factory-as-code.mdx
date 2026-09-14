@@ -61,7 +61,7 @@ For a CI job built on the script, see the example repository's [validation workf
 
 ## JSON Schema
 
-Warp publishes the definition format as JSON Schema (draft 2020-12) documents. Every field carries a description, and an unknown field is an error, so the schema is the exhaustive answer to what a file accepts. The endpoints are unauthenticated:
+Warp publishes the definition format as JSON Schema documents for editor completion and validation. Each field has a description, and the schema flags unknown fields. The endpoints are unauthenticated:
 
 * `https://app.warp.dev/api/v1/factory-files/schemas` - The supported schema versions, and which one is current.
 * `https://app.warp.dev/api/v1/factory-files/schemas/v1alpha1` - Every `v1alpha1` document in one bundle, keyed by document name.
