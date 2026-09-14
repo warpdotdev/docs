@@ -162,7 +162,9 @@ def load_redirect_sources(vercel_json_path: Path) -> set[str]:
 
     sources = set()
     for r in redirects:
-        src = r.get("source", "").lower().rstrip("/").split("#")[0].split("?")[0]
+        src = r.get("source", "").lower()
+        src = src.removesuffix("(/?)")
+        src = src.rstrip("/").split("#")[0].split("?")[0]
         sources.add(src)
     return sources
 
@@ -196,6 +198,11 @@ def aggregate_by_norm(rows: list[dict]) -> dict[str, int]:
             continue
         agg[norm] = agg.get(norm, 0) + int(row.get("hits") or 0)
     return agg
+
+
+def is_unroutable_path(path: str) -> bool:
+    """Return whether a path contains malformed route-parameter syntax."""
+    return any(segment.startswith(":") for segment in path.split("/") if segment)
 
 
 def parse_min_hits(raw: str, default: int = 5) -> int:
@@ -314,15 +321,22 @@ def main():
     uncovered = [r for r in report_rows if not r["is_covered_by_redirect"]]
     new_gaps = [r for r in uncovered if r["is_new_gap"]]
 
-    # Split uncovered URLs into "signal" (enough hits to be worth a redirect)
-    # and long-tail "noise" (below the reporting threshold). In a low-sample
-    # dataset most broken URLs are hit once by bots/old links, so the raw
-    # uncovered and new-gap counts churn heavily week-over-week and overstate
-    # the problem. The headline leads with volume trend + significant gaps;
-    # the long tail is reported only as a single rolled-up count.
-    significant = [r for r in uncovered if r["hits_this_week"] >= report_min_hits]
+    # Malformed route-parameter captures remain in raw accounting and the CSV,
+    # but cannot produce useful redirects and are excluded from actionable
+    # metrics.
+    unroutable = [r for r in uncovered if is_unroutable_path(r["broken_url"])]
+    redirectable_uncovered = [
+        r for r in uncovered if not is_unroutable_path(r["broken_url"])
+    ]
+
+    # Split redirectable uncovered URLs into "signal" (enough hits to be worth
+    # a redirect) and long-tail "noise" (below the reporting threshold).
+    significant = [
+        r for r in redirectable_uncovered
+        if r["hits_this_week"] >= report_min_hits
+    ]
     significant_new_gaps = [r for r in significant if r["is_new_gap"]]
-    long_tail_count = len(uncovered) - len(significant)
+    long_tail_count = len(redirectable_uncovered) - len(significant)
 
     trend_delta, trend_pct, trend_summary = format_trend(total_current, total_prior)
 
@@ -343,6 +357,7 @@ def main():
         "uncovered_count": len(uncovered),
         "new_gaps_count": len(new_gaps),
         "long_tail_count": long_tail_count,
+        "unroutable_count": len(unroutable),
         "resolved_count": resolved_count,
         "csv_path": str(csv_path),
         "has_data": len(current_week) > 0,
