@@ -89,9 +89,7 @@ Factory setup doesn't choose models for you. To change the model an agent uses, 
 
 Each agent can run on its own model and harness. Supported harnesses include the Warp Agent harness, Claude Code, and Codex, and any agent can use any of them. A foreman running on Claude Code or Codex can still dispatch the factory's other agents, and the runs it starts are still tracked as its children.
 
-:::note
 Third-party harnesses require a Build plan or higher; on the Free plan every agent runs on the Warp Agent harness. See [Warp pricing](https://www.warp.dev/pricing) for what each plan includes.
-:::
 
 Default model IDs change over time, so choose based on what each agent has to do well:
 
@@ -124,6 +122,7 @@ Change an agent's harness to Claude Code or Codex to run it with that provider's
 
    See [connecting Claude Code credentials](/platform/harnesses/authentication/#connecting-claude-code-credentials) and [connecting Codex credentials](/platform/harnesses/authentication/#connecting-codex-credentials) for how to obtain each key.
    :::
+
 4. Choose a **Model** from that harness's own catalog.
 5. In the top-right corner, click **Save**.
 
@@ -131,7 +130,22 @@ With a Warp-managed factory, you can edit harness, auth, and model from the dash
 
 ## Add custom agents and automations
 
-Add custom agents for jobs the default agents don't handle, such as documentation, security analysis, migrations, or release checks. A custom agent doesn't have to be a required step for every work item.
+Add a custom agent for a role that needs separate instructions, configuration, and runs.
+
+For a Warp-managed factory, open **Agents** in the [factory dashboard](/factories/factory-dashboard/), click **New**, then click **Custom agent**. For a GitHub-backed factory, add `agents/<name>/agent.md`. See the [`agent.md` configuration keys](/factories/factory-as-code/#agentsnameagentmd).
+
+Custom agents have no built-in skills. Add [factory skills](/factories/factory-skills/) based on who needs them:
+
+* **One agent** - Put the skill under `agents/<name>/skills/`.
+* **Every agent** - Put the skill under `skills/`.
+
+### Choose a configured factory agent
+
+Use `run_agents` when the foreman should give work to one of the agents configured in your factory. The foreman receives a list of those agents, with a unique ID (UID) for each one.
+
+Run the child remotely by setting the call's `remote` field, then copy the chosen agent's UID into `agent_run_configs[].agent_identity_uid`. Only use UIDs from the list, and select an agent for every child in the call. The `name` field only labels the child run; it doesn't choose the factory agent.
+
+Warp uses the UID to load that agent's configured environment, runner, host, harness, and model unless the call overrides them. To start a child without factory configuration, use [multi-agent orchestration](/platform/orchestration/) from any Warp conversation.
 
 Automations start a chosen agent on a [schedule](/factories/factory-as-code/#triggersschedule) or when an event fires. They're one more way for work to enter your factory; the foreman still coordinates whatever they start. For all the ways to route work into a factory, see [connect your factory](/factories/connect-your-factory/).
 
