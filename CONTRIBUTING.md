@@ -130,7 +130,7 @@ If a merged head branch is still present (for example it was re-pushed after mer
 * Long-lived release, environment, integration, or `repo-sync/*` branches, if any exist
 * Closed-unmerged or no-PR branches whose ownership or intent is unresolved
 
-**Quarterly stale review:** About once a quarter, review same-repository branches with no commits for 90 days or more (GitHub's Stale view uses the same window). For closed-unmerged and no-PR branches, delete only with owner confirmation or clear evidence the work was abandoned or superseded. Age alone is not enough.
+**Quarterly stale review:** About once a quarter, review same-repository branches with no commits for 90 days or more (GitHub's Stale view shows branches with no commits in the last three months). For closed-unmerged and no-PR branches, delete only with owner confirmation or clear evidence the work was abandoned or superseded. Age alone is not enough.
 
 **Restoration:** GitHub can restore a deleted head branch from its closed pull request. Branches that never had a pull request, or that have disconnected history, are harder to recover—keep a SHA or avoid deleting them without confirmation.
 
