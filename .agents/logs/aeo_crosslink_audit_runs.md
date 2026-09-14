@@ -8,6 +8,27 @@ This log tracks every run of the `aeo_crosslink_audit` skill — both runs that 
 
 ---
 
+## 2026-09-14 — PR opened
+
+- **Run**: https://platform.warp.dev/runs/01a0a06e-ac51-7b7c-b9b0-492023bff60f
+- **Source signals**: Peec available, GSC available
+- **PR**: https://github.com/warpdotdev/docs/pull/741
+- **Links proposed / added**: 7 proposed, 7 added
+- **Pages touched**: src/content/docs/agents/capabilities/computer-use/index.mdx, src/content/docs/platform/index.mdx, src/content/docs/agents/agent-memory/index.mdx, src/content/docs/guides/agent-workflows/how-to-run-unattended-agents.mdx
+- **Themes**: Computer Use → schedules/integrations/harnesses; cloud agents hub → orchestration and Factories; Agent Memory cloud triggers; unattended agents → multi-agent fan-out
+- **No-change reason**: N/A
+
+## 2026-09-14 — PR opened
+
+- **Run**: https://platform.warp.dev/runs/01a0a06e-ac51-7b7c-b9b0-492023bff60f
+- **Source signals**: Peec available, GSC available
+- **PR**: https://github.com/warpdotdev/docs/pull/741
+- **Links proposed / added**: 7 proposed, 7 added
+- **Pages touched**: src/content/docs/agents/capabilities/computer-use/index.mdx, src/content/docs/platform/index.mdx, src/content/docs/agents/agent-memory/index.mdx, src/content/docs/guides/agent-workflows/how-to-run-unattended-agents.mdx
+- **Themes**: Computer Use → schedules/integrations/harnesses; cloud agents hub → orchestration and Factories; Agent Memory cloud triggers; unattended agents → multi-agent fan-out
+- **No-change reason**: N/A
+
+
 ## 2026-09-07 — PR opened
 
 - **Run**: https://app.warp.dev/conversation/2e55a2ca-745a-44ba-b579-00703a526637
