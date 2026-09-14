@@ -6556,6 +6556,11 @@
       "source": "/agents/getting-started/agents-in-warp/",
       "destination": "/agents/",
       "statusCode": 308
+    },
+    {
+      "source": "/agents/cli-agents(/?)",
+      "destination": "/agents/cli-agents/overview/",
+      "statusCode": 308
     }
   ]
 }
