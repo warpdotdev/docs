@@ -164,7 +164,7 @@ def load_redirect_sources(vercel_json_path: Path) -> set[str]:
     for r in redirects:
         src = r.get("source", "").lower()
         src = src.removesuffix("(/?)")
-        src = src.rstrip("/").split("#")[0].split("?")[0]
+        src = src.split("#")[0].split("?")[0].rstrip("/")
         sources.add(src)
     return sources
 

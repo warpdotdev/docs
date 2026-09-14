@@ -124,7 +124,7 @@ If the command fails or returns an empty value, omit the `→ Full breakdown` li
 
 Rules:
 - **Lead with volume trend, not distinct-URL counts.** The first line is always `trend_summary` — the pre-formatted total-404 trend, which reflects real user impact. It already includes the direction arrow (▼ fewer 404s, ▲ more, → no change) and falls back to a "no prior-week baseline yet" message when last week had no data, so the percentage is never rendered as null.
-- **Only list significant gaps.** List `top_significant_uncovered` (URLs with `hits_this_week >= report_min_hits`), capped at 10. If there are more, note "and N more — see full CSV in the run." If `significant_uncovered_count` is 0, write "None this week — remaining 404s are all low-hit long-tail traffic." and omit the list.
+- **Only list significant gaps.** List `top_significant_uncovered` (URLs with `hits_this_week >= report_min_hits`), capped at 10. If there are more, note "and N more — see full CSV in the run." If `significant_uncovered_count` is 0, write "None this week — no redirectable gaps met the hit threshold." and omit the list. Report long-tail and malformed counts on their separate summary lines.
 - **Roll up the long tail.** Never list sub-threshold URLs individually; collapse them into the single `long_tail_count` line so noise doesn't dominate the report.
 - **Summarise malformed paths.** If `unroutable_count` is greater than 0, report only the count. The CSV retains the paths for diagnosis.
 - Mark new gaps with 🆕.

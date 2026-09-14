@@ -44,16 +44,16 @@ class RedirectSourceNormalizationTests(unittest.TestCase):
             {"/features/session_management/launch-configuration"},
         )
 
-    def test_real_query_and_fragment_are_removed(self):
+    def test_query_fragment_and_trailing_slash_are_removed(self):
         redirects = {
             "redirects": [
                 {
-                    "source": "/Legacy/Query?campaign=docs",
+                    "source": "/Legacy/Query/?campaign=docs",
                     "destination": "/current/query/",
                     "statusCode": 308,
                 },
                 {
-                    "source": "/Legacy/Fragment#overview",
+                    "source": "/Legacy/Fragment/#overview",
                     "destination": "/current/fragment/",
                     "statusCode": 308,
                 },
@@ -142,6 +142,27 @@ class UnroutablePathTests(unittest.TestCase):
         self.assertEqual(
             {row["broken_url"] for row in csv_rows},
             {"/:*logging", "/:)%3cb%3evoice", "/real-gap", "/long-tail"},
+        )
+
+    def test_zero_significant_copy_accounts_for_unroutable_paths(self):
+        skill = (HERE / "SKILL.md").read_text(encoding="utf-8")
+
+        self.assertIn(
+            'If `significant_uncovered_count` is 0, write "None this week — '
+            'no redirectable gaps met the hit threshold."',
+            skill,
+        )
+        self.assertIn(
+            "Report long-tail and malformed counts on their separate summary lines.",
+            skill,
+        )
+        self.assertIn(
+            "_{unroutable_count} malformed paths excluded from redirect candidates",
+            skill,
+        )
+        self.assertIn(
+            "Omit the malformed-path line when `unroutable_count` is 0.",
+            skill,
         )
 
 
