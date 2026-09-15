@@ -389,18 +389,15 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			// next door, since the underlying concepts are the same.
 			items: [
 				{
-					// 'Getting started', not 'Get started': matches the Terminal,
-					// Enterprise, and Guides tabs.
-					label: 'Getting started',
+					label: 'Overview',
 					items: [
 						{ slug: 'factories', label: 'Overview' },
-						{ slug: 'factories/quickstart', label: 'Quickstart' },
-						// 'Warp' is redundant inside the Factories tab, and the sibling
-						// labels ('Factory agents', 'Factory MCP') drop it too. This also
-						// resolves a desync: the page's own frontmatter label already said
-						// 'How Factories work', which this override was silently shadowing.
 						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
 					],
+				},
+				{
+					label: 'Get started',
+					items: [{ slug: 'factories/quickstart', label: 'Quickstart' }],
 				},
 				{
 					// Parallel to 'Agent configuration' in the Automation Platform tab.
@@ -414,8 +411,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// now the Automations primitive's conceptual home, parallel to Factory
 					// agents and Factory skills, not just a filters reference.
 					{ slug: 'factories/automations', label: 'Factory automations' },
-					{ slug: 'factories/factory-as-code', label: 'Factory definition' },
-					{ slug: 'factories/infrastructure-and-security', label: 'Infrastructure & security' },
+					{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
 				],
 				},
 				{
@@ -466,6 +462,36 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						// per-service integrations above.
 						{ slug: 'factories/factory-api', label: 'Factory API' },
 						{ slug: 'factories/factory-mcp', label: 'Factory MCP' },
+					],
+				},
+				{
+					label: 'Developer tools',
+					items: [
+						{ slug: 'factories/developer-tools', label: 'Overview' },
+						{ slug: 'factories/factory-api', label: 'Factory API' },
+						{ slug: 'factories/api-and-sdk', label: VARS.API_SDK_NAME },
+						{ label: 'API reference', link: '/api' },
+						{ slug: 'factories/api-and-sdk/troubleshooting', label: 'API troubleshooting' },
+						{ slug: 'factories/api-and-sdk/troubleshooting/errors', label: 'API errors' },
+						{ slug: 'factories/factory-mcp', label: 'Factory MCP' },
+						{ slug: 'factories/webhooks', label: 'Webhooks' },
+					],
+				},
+				{
+					label: 'Infrastructure & security',
+					items: [
+						{ slug: 'factories/infrastructure-and-security', label: 'Overview' },
+						{ slug: 'factories/deployment-patterns', label: 'Deployment patterns' },
+						{ slug: 'factories/warp-hosting', label: 'Warp-hosted execution' },
+						{ slug: 'factories/runners', label: 'Runners' },
+						{ slug: 'factories/self-hosting', label: 'Managed self-hosting' },
+						{ slug: 'factories/self-hosting/quickstart', label: 'Self-hosting quickstart' },
+						{ slug: 'factories/self-hosting/managed-docker', label: 'Docker backend' },
+						{ slug: 'factories/self-hosting/managed-kubernetes', label: 'Kubernetes backend' },
+						{ slug: 'factories/self-hosting/managed-direct', label: 'Direct backend' },
+						'factories/self-hosting/monitoring',
+						{ slug: 'factories/self-hosting/reference', label: 'Worker reference' },
+						'factories/self-hosting/troubleshooting',
 					],
 				},
 				{
@@ -582,6 +608,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						{ slug: 'platform/team-access-billing-and-identity', label: 'Access, billing, and identity' },
 						{ slug: 'platform/faqs', label: 'Cloud agent FAQs' },
+						{ slug: 'platform/unmanaged-execution', label: 'Unmanaged execution' },
+						{ slug: 'platform/execution-security', label: 'Execution security' },
 					],
 				},
 				{
@@ -590,7 +618,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/environments', label: 'Overview' },
 						{ slug: 'platform/environments/configuring-environments', label: 'Configuring environments' },
 						{ slug: 'platform/environments/troubleshooting-environments', label: 'Troubleshooting' },
-						{ slug: 'platform/runners', label: 'Runners' },
 					],
 				},
 				{
@@ -650,105 +677,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'platform/orchestration', label: 'Multi-agent orchestration' },
 						{ slug: 'platform/orchestration/multi-agent-runs', label: 'Running orchestrated agents' },
-					],
-				},
-				{
-					// Named for what the group contains, not just its largest member: it
-					// holds a comparison page (deployment-patterns), a Warp-HOSTED page,
-					// and the self-hosting set. Labeling it 'Self-hosting' put
-					// 'Warp-hosted agents' under its own opposite.
-					label: 'Deployment & hosting',
-					items: [
-						{ slug: 'platform/architecture', label: 'Architecture' },
-						{ slug: 'platform/deployment-patterns', label: 'Deployment patterns' },
-						{ slug: 'platform/warp-hosting', label: 'Warp-hosted agents' },
-						// Qualified: a bare 'Overview'/'Quickstart' would now read as the
-						// whole group's, not self-hosting's. Both match their page titles.
-						{ slug: 'platform/self-hosting', label: 'Self-hosting overview' },
-						{ slug: 'platform/self-hosting/quickstart', label: 'Self-hosting quickstart' },
-						{ slug: 'platform/self-hosting/managed-docker', label: 'Managed: Docker' },
-						{ slug: 'platform/self-hosting/managed-kubernetes', label: 'Managed: Kubernetes' },
-						{ slug: 'platform/self-hosting/managed-direct', label: 'Managed: Direct' },
-						{ slug: 'platform/self-hosting/unmanaged', label: 'Unmanaged' },
-						'platform/self-hosting/monitoring',
-						{ slug: 'platform/self-hosting/reference', label: 'Self-hosted worker reference' },
-						'platform/self-hosting/security-and-networking',
-						{ slug: 'platform/self-hosting/troubleshooting', label: 'Troubleshooting' },
-					],
-				},
-			],
-		},
-		{
-			label: 'API & Reference',
-			link: '/reference/',
-			icon: 'open-book',
-			items: [
-				{
-					// API Reference promoted to the top of the sidebar (was buried 3
-					// levels deep under API & SDK) per HYC/Rachael's Slack discussion on
-					// discoverability after the top-level API tab was removed.
-					label: 'Technical Reference',
-					items: [
-						{ slug: 'reference', label: 'Overview' },
-						{ label: 'API Reference', link: '/api' },
-					],
-				},
-				{
-					label: 'CLI',
-					items: [
-						{ slug: 'reference/cli', label: `${VARS.WARP_AGENT_CLI} (legacy)` },
-						{ slug: 'reference/cli/quickstart', label: 'Quickstart' },
-						{ slug: 'reference/cli/api-keys', label: 'API Keys' },
-						{ slug: 'reference/cli/agent-profiles', label: 'Agent Profiles' },
-						{ slug: 'reference/cli/mcp-servers', label: 'MCP Servers' },
-						{ slug: 'reference/cli/skills', label: 'Skills' },
-						{ slug: 'reference/cli/warp-drive', label: 'Warp Drive Context' },
-						{ slug: 'reference/cli/integration-setup', label: 'Integration Setup' },
-						{ slug: 'reference/cli/artifacts', label: 'Artifacts' },
-						{ slug: 'reference/cli/federate', label: 'Federated identity' },
-						'reference/cli/troubleshooting',
-					],
-				},
-				{
-					label: 'API & SDK',
-					items: [
-						{ slug: 'reference/api-and-sdk', label: VARS.API_SDK_NAME },
-						{ slug: 'reference/api-and-sdk/quickstart', label: 'Quickstart' },
-						// API Reference link moved to the top-level 'Technical Reference'
-						// group above for discoverability -- not duplicated here.
-						'reference/api-and-sdk/demo-sentry-monitoring-with-sdk',
-						{
-							label: 'API Troubleshooting',
-							collapsed: true,
-							items: [
-								{ slug: 'reference/api-and-sdk/troubleshooting', label: 'API Troubleshooting' },
-								{
-									label: 'Errors',
-									collapsed: true,
-									items: [
-										{ slug: 'reference/api-and-sdk/troubleshooting/errors', label: 'Errors' },
-										'reference/api-and-sdk/troubleshooting/errors/insufficient-credits',
-										'reference/api-and-sdk/troubleshooting/errors/feature-not-available',
-										'reference/api-and-sdk/troubleshooting/errors/external-authentication-required',
-										'reference/api-and-sdk/troubleshooting/errors/not-authorized',
-										'reference/api-and-sdk/troubleshooting/errors/invalid-request',
-										'reference/api-and-sdk/troubleshooting/errors/resource-not-found',
-										'reference/api-and-sdk/troubleshooting/errors/budget-exceeded',
-										'reference/api-and-sdk/troubleshooting/errors/integration-disabled',
-										'reference/api-and-sdk/troubleshooting/errors/integration-not-configured',
-										'reference/api-and-sdk/troubleshooting/errors/operation-not-supported',
-										'reference/api-and-sdk/troubleshooting/errors/environment-setup-failed',
-										'reference/api-and-sdk/troubleshooting/errors/content-policy-violation',
-										'reference/api-and-sdk/troubleshooting/errors/conflict',
-										'reference/api-and-sdk/troubleshooting/errors/authentication-required',
-										'reference/api-and-sdk/troubleshooting/errors/resource-unavailable',
-										'reference/api-and-sdk/troubleshooting/errors/internal-error',
-										'reference/api-and-sdk/troubleshooting/errors/infrastructure-timeout',
-										'reference/api-and-sdk/troubleshooting/errors/agent-process-failed',
-									],
-								},
-							],
-						},
 					],
 				},
 			],
