@@ -27,12 +27,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Getting started',
 					items: [
-						// Shortened at the 8/18 rename. This label duplicates index.mdx's
-						// frontmatter title, which IS tokenized, so the two would have
-						// disagreed once the variable flipped. "Getting started with Warp
-						// and the Automation Platform" is too long for a sidebar row, and
-						// Warp is the umbrella product anyway. Keep both in sync.
-						{ label: 'Getting started with Warp', link: '/' },
+						// The root product overview remains in the Terminal topic until
+						// the GA navigation change adds a separate Terminal landing page.
+						{ label: 'Warp products', link: '/' },
 						{ slug: 'quickstart', label: 'Warp quickstart' },
 						'getting-started/quickstart/installation-and-setup',
 						'getting-started/quickstart/coding-in-warp',
