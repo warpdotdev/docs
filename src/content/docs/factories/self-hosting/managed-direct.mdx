@@ -11,7 +11,7 @@ import { VARS } from '@data/vars';
 Run the `oz-agent-worker` daemon with the **Direct backend** — tasks execute directly on the worker host without Docker or Kubernetes. The {VARS.WARP_AUTOMATION_PLATFORM} still orchestrates runs end to end (Slack, Linear, schedules, API, `oz agent run-cloud`); the worker just runs the agent in a per-task workspace on its own filesystem.
 
 :::note
-This page covers the [managed architecture](/factories/self-hosting/#managed-architecture) with the Direct backend. For container-based task isolation, see [Managed: Docker](/factories/self-hosting/managed-docker/) or [Managed: Kubernetes](/factories/self-hosting/managed-kubernetes/). For invocation-driven use cases, see [Unmanaged](/platform/unmanaged-execution/).
+The Direct backend uses the [managed architecture](/factories/self-hosting/#managed-architecture). For container-based task isolation, see [Managed: Docker](/factories/self-hosting/managed-docker/) or [Managed: Kubernetes](/factories/self-hosting/managed-kubernetes/). For invocation-driven use cases, see [Unmanaged](/platform/unmanaged-execution/).
 :::
 
 ## When to use the Direct backend
