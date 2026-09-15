@@ -27,6 +27,16 @@ Describe what the reader sees and does. Internal components get at most one sent
 - ✅ "Warp tracks every run. Check its status from the CLI, the API, or the dashboard."
 - ❌ "The orchestration layer runs on Warp's servers (cloud control plane), creates tasks when triggers fire, and tracks lifecycle state (created → running → completed/failed)."
 
+#### Order from intent to technical detail
+
+When readers need exact fields, IDs, or runtime labels, order the explanation from intent to implementation:
+
+* **Intent** - Start with what the developer wants to accomplish.
+* **Action** - Explain what to do with plain-language concepts.
+* **Technical detail** - Add the exact field, identifier, or label after the action is clear.
+
+Explain an identifier by what it lets the reader select or load, not by its storage or schema name. Include a literal product or runtime label only when the reader needs it to find a value, and introduce it after the plain-language concept.
+
 This is the voice-level version of "Don't over-specify counts or internals that will drift" (see General guidance): internals aren't just a staleness risk, they're noise between the reader and the task.
 
 When a page carries real information in the wrong register (provenance, pinned versions, maintainer process), relocate it to the surface whose audience needs it: a reference page, a script docstring, a code comment. Leave a pointer if the reader might follow the thread. Cutting for tone must not lose facts; it changes where they live.
@@ -87,6 +97,7 @@ Expect the second pass to find real deletions even after a careful first one; re
 
 ### Language guidelines
 - Use consistent terminology throughout (see [Terminology standards](#terminology-standards) and the full glossary in `.agents/references/terminology.md`)
+- Prefer simple, direct product language. Write "agents" instead of "agent roster" unless the specialized term communicates a necessary distinction.
 - Em dashes are acceptable for occasional variation in narrative/conceptual text, but use sparingly
 - Never use em dashes in procedural or instructional text
 

@@ -6,6 +6,50 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.09.09 (v0.2026.09.09.08.26)
+
+**New features**
+
+* First-class Grok Build (SpaceXAI `grok`) support. Detects sessions, adds branded chrome in the footer, and enables rich input mode. ([#14228](https://github.com/warpdotdev/warp/pull/14228)) — [@nwp](https://github.com/nwp) ✨
+
+**Improvements**
+
+* Create New Window is now an editable keyboard shortcut, so it can be remapped or unbound. ([#15771](https://github.com/warpdotdev/warp/pull/15771)) — [@tkossak](https://github.com/tkossak) ✨
+* Added completions for `git merge-base`. ([#15769](https://github.com/warpdotdev/warp/pull/15769))
+* Attach file is now a Command Palette action with an editable, unbound-by-default keybinding. ([#15762](https://github.com/warpdotdev/warp/pull/15762))
+* Fish ctrl-r now hands off to PatrickF1/fzf.fish history search, not only junegunn fzf. ([#15744](https://github.com/warpdotdev/warp/pull/15744))
+* Extended shell widget handoff to fzf's ctrl-t file search, alongside the existing ctrl-r history-search handoff. ([#15513](https://github.com/warpdotdev/warp/pull/15513))
+
+**Bug fixes**
+
+* Fixed remote orchestration children launched by team service accounts requesting invalid personal ownership. ([#15866](https://github.com/warpdotdev/warp/pull/15866))
+* Fixed unsent prompts being cleared after selecting a model through the `/model` keyboard shortcut. ([#15870](https://github.com/warpdotdev/warp/pull/15870))
+* Fixed Agent API key creation requiring users to re-select the default agent. ([#15825](https://github.com/warpdotdev/warp/pull/15825))
+* Fixed the prompt alert action for teamless native-workspace users who reach their limit. ([#15853](https://github.com/warpdotdev/warp/pull/15853))
+* Hid team creation and empty team discovery prompts for teamless native-workspace users in Warp Drive. ([#15790](https://github.com/warpdotdev/warp/pull/15790))
+* Teamless workspace users now see a clear Cloud Mode blocker instead of environment setup or a misleading agent-harness error. ([#15794](https://github.com/warpdotdev/warp/pull/15794))
+* Fixed global file-based MCP tools that were missing from the first agent turn. ([#15755](https://github.com/warpdotdev/warp/pull/15755))
+* Fixed dynamic Bash prompts being evaluated twice when Shell (PS1) is enabled. ([#15792](https://github.com/warpdotdev/warp/pull/15792))
+* Fixed transcript persistence and skill discovery for third-party agent harnesses in single-repository cloud workspaces. ([#15787](https://github.com/warpdotdev/warp/pull/15787))
+* Fixed a crash when a character at the end of a terminal line changes from single-width to double-width. ([#15763](https://github.com/warpdotdev/warp/pull/15763))
+* Prevent a crash when smart-selecting RTL text whose visual glyph order reverses logical indices. ([#15772](https://github.com/warpdotdev/warp/pull/15772))
+* On Warp on Web, switching teams now updates the current window instead of replacing the session. ([#15740](https://github.com/warpdotdev/warp/pull/15740))
+* Command X-Ray now describes `git ls-remote` flags such as `--branches`. ([#15756](https://github.com/warpdotdev/warp/pull/15756))
+* Third-party harnesses no longer hang the driver after `/exit` fails to stop the CLI. ([#15728](https://github.com/warpdotdev/warp/pull/15728))
+* WASM conversation viewer now shows the web top bar for orchestrated factory sessions. ([#15754](https://github.com/warpdotdev/warp/pull/15754))
+
+**Oz updates**
+
+* Environment pickers now show personal environments and environments for the selected window team. ([#15850](https://github.com/warpdotdev/warp/pull/15850))
+* Added team selection to `oz run list`. ([#15811](https://github.com/warpdotdev/warp/pull/15811))
+* Added team selection to runner listing and name-based updates. ([#15809](https://github.com/warpdotdev/warp/pull/15809))
+* API key list, create, and expire commands now respect the selected Oz CLI team. ([#15806](https://github.com/warpdotdev/warp/pull/15806))
+* Oz agent catalogs now follow active team selection. ([#15807](https://github.com/warpdotdev/warp/pull/15807))
+* Environment lists and interactive pickers now follow the selected team. ([#15805](https://github.com/warpdotdev/warp/pull/15805))
+* Added team selection to `oz model list` for team-specific model catalogs. ([#15804](https://github.com/warpdotdev/warp/pull/15804))
+* Oz agents can use refreshed Entra credentials to write to Azure DevOps. ([#15840](https://github.com/warpdotdev/warp/pull/15840))
+* Claude Code and Codex runs can now access Factory MCP automatically. ([#15827](https://github.com/warpdotdev/warp/pull/15827))
+
 ### 2026.09.02 (v0.2026.09.02.08.27)
 
 **New features**
