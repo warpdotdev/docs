@@ -6558,6 +6558,11 @@
       "statusCode": 308
     },
     {
+      "source": "/platform/deployment-patterns",
+      "destination": "/factories/deployment-patterns/",
+      "statusCode": 308
+    },
+    {
       "source": "/platform/warp-hosting",
       "destination": "/factories/warp-hosting/",
       "statusCode": 308
