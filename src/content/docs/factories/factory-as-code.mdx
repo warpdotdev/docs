@@ -320,11 +320,11 @@ Required. One or more events that start runs. Each trigger declares a `provider`
 
 The providers and their events:
 
-* `github` - `issue_created`, `issue_labeled`, `issue_assigned`, `issue_mentioned`, `pull_request_opened`, `pull_request_closed`, `pull_request_merged`, `pull_request_labeled`, `pull_request_assigned`, `pull_request_mentioned`, `pull_request_ready`, `pull_request_reopened`, `pull_request_synchronized`, `pull_request_review_requested`, `pull_request_review_submitted`, `push`, `check_suite_completed`, `workflow_run_completed`
-* `gitlab` - `merge_request`, `bot_mentioned`
+* `github` - `check_run_rerequested`, `check_suite_completed`, `check_suite_rerequested`, `issue_assigned`, `issue_created`, `issue_labeled`, `issue_mentioned`, `pull_request_assigned`, `pull_request_closed`, `pull_request_labeled`, `pull_request_mentioned`, `pull_request_merged`, `pull_request_opened`, `pull_request_ready`, `pull_request_reopened`, `pull_request_review_requested`, `pull_request_review_submitted`, `pull_request_synchronized`, `push`, `workflow_run_completed`
+* `gitlab` - `bot_mentioned`, `merge_request`, `push`
 * `linear` - `issue_created`, `issue_labeled`, `issue_assigned`, `issue_state_changed`, `comment_created`, `agent_session_created`
 * `jira` - `issue_created`, `issue_labeled`, `status_changed`, `agent_session_created`
-* `slack` - `app_mention`, `message_posted`, `message_dm`, `member_joined_channel`, `reaction_added`
+* `slack` - `app_mention`, `member_joined_channel`, `message_dm`, `message_im`, `message_mpim`, `message_posted`, `reaction_added`
 * `schedule` - `cron_fired`
 * `webhook` - `received`
 * `factory` - `work_item_stage_changed`
@@ -402,6 +402,17 @@ Optional. This file defines a [benchmark suite](/factories/benchmarks/): one age
 name: Pull request review
 description: Compare configurations for the review agent.
 agent: reviewer
+configurations:
+  - name: Baseline
+    role: baseline
+    agents:
+      - agent: reviewer
+        model: auto
+  - name: Candidate
+    role: candidate
+    agents:
+      - agent: reviewer
+        model: auto-efficient
 tasks:
   - broken-doc-link
 ```
@@ -417,6 +428,12 @@ Optional. A short summary of what the suite measures.
 ### `agent`
 
 Required. The name of an agent declared by the factory. Every task in the suite runs as this agent.
+
+### `configurations`
+
+Optional. One to six reusable configurations for benchmark runs. When a run doesn't supply its own configurations, Warp uses these presets. Each configuration requires a unique `name` and a `role` of `baseline` or `candidate`; a suite can have at most one baseline.
+
+The optional `agents` list pins named factory agents to the models and harnesses they use during that configuration's trials. Each entry requires `agent` and exactly one of `model` or `harness`, using the same model and harness forms as [`agentDefaults`](#agentdefaults). List an agent at most once per configuration. Agents omitted from the list use their configuration at launch time.
 
 ### `tasks`
 
