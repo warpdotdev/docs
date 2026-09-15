@@ -4,16 +4,18 @@ title: "{{API_SDK_NAME}} reference"
 sidebar:
   label: "{{API_SDK_NAME}}"
 description: >-
-  Create and inspect cloud agent runs over HTTP, or use the Python and
-  TypeScript SDKs for typed requests, retries, and error handling.
+  Create and operate factory and cloud agent runs over HTTP, or use the Python
+  and TypeScript SDKs for typed requests, retries, and error handling.
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
 
-The {VARS.API_SDK_NAME} lets you create, monitor, and inspect cloud agent runs programmatically. Use the REST API from any HTTP client, or the official Python and TypeScript SDKs for typed requests, built-in retries, and structured error handling. The SDKs are ideal for CI pipelines, internal tools, and custom integrations.
+The {VARS.API_SDK_NAME} lets you integrate with Warp Factories and operate the cloud agent runs behind them. Use the REST API from any HTTP client, or the official Python and TypeScript SDKs for typed requests, built-in retries, and structured error handling.
+
+Use the [factory API](/factories/factory-api/) to discover a factory and send it work. Use this API and SDK reference to monitor factory runs, submit follow-ups, inspect results, or start standalone cloud-agent runs from CI, internal tools, and custom integrations.
 
 :::note
-Some examples in this reference and the [CLI reference](/agents/cli/oz-cli/) use `oz` commands (for example, `oz environment list`) from the {VARS.WARP_AGENT_CLI}. Those commands remain supported through the end of September 2026. The [Warp Agent CLI reference](/agents/cli/reference/) does not yet document a `warp` equivalent.
+Some examples in this reference and the [CLI reference](/agents/cli/oz-cli/) use `oz` commands (for example, `oz environment list`) from the {VARS.WARP_AGENT_CLI}. Those commands remain available during the transition. The [Warp Agent CLI reference](/agents/cli/reference/) does not yet document a `warp` equivalent.
 :::
 
 ### API overview

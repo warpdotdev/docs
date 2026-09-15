@@ -1,15 +1,16 @@
 ---
-title: Warp-hosted agents
+title: Warp-hosted execution for Warp Factories
 description: >-
-  Run cloud agents on Warp's infrastructure. Warp handles scaling, isolation, and performance for agent execution.
+  Run factory work on Warp-hosted infrastructure, with managed compute,
+  isolation, networking, and capacity.
 sidebar:
-  label: "Warp-hosted agents"
+  label: "Warp-hosted execution"
 ---
 import { VARS } from '@data/vars';
 
-Warp's managed infrastructure lets your team run cloud agent workloads in fast, secure sandboxes.
+Warp-hosted execution runs factory work in managed sandboxes. Warp provisions the compute while your factory definition selects each agent's runner, repositories, setup, and credentials.
 
-Use Warp-hosted agents to quickly get started with the {VARS.WARP_AUTOMATION_PLATFORM}, without needing to configure compute resources or maintain services.
+Use it when your factory's repositories and services are reachable from the public internet and your team does not need to manage worker capacity or host maintenance. For private services or a network boundary that must contain checkout and execution, use [managed self-hosting](/factories/self-hosting/).
 
 ## Sandbox environment
 
@@ -17,7 +18,7 @@ All Warp-hosted agents run in fully-isolated sandboxes. Warp uses a mix of infra
 
 ### OS and architecture
 
-Warp-hosted agents use the container image specified in your [environment](/platform/environments/).
+Warp-hosted factory agents use the runner and workspace configuration in your [factory definition](/factories/factory-as-code/). A factory can also use an existing [environment](/platform/environments/) when its definition specifies one.
 They are compatible with any Linux x86-64 image that includes a `bash` shell and core utilities like `ls` and `mkdir`.
 
 ### Resources
@@ -51,5 +52,6 @@ Warp's hosted agents have network egress enabled by default. Outgoing requests m
 
 ## Related pages
 
-* [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) - Learn how Warp-hosted agents fit into the {VARS.WARP_AUTOMATION_PLATFORM}.
-* [Self-hosting](/factories/self-hosting/) - Run agents on infrastructure you manage when execution must stay inside your network.
+* [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) - Configure the shared cloud-agent primitives behind a factory.
+* [Factory runners](/factories/runners/) - Choose the operating system, architecture, and instance shape for factory work.
+* [Managed self-hosting](/factories/self-hosting/) - Run factory work on infrastructure you manage when execution must stay inside your network.
