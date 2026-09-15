@@ -28,8 +28,8 @@ Use this table to decide where an unattended agent should start.
 | Linear | An issue, comment, or assignment should start the agent. | [Linear integration](/platform/integrations/linear/) | Linear issue updates, {VARS.WEB_APP} Runs page, Agent Management Panel in the Warp app, and the shared run session |
 | GitHub | Someone should delegate work by mentioning `@warp-agent` on an issue, pull request, or review comment. | [GitHub integration](/platform/integrations/github/) | GitHub thread comments, {VARS.WEB_APP} Runs page, Agent Management Panel in the Warp app, and the shared run session |
 | GitHub Actions | A repository event, PR workflow, issue workflow, or CI failure should start the agent. | [GitHub Actions](/platform/integrations/github-actions/) | GitHub Actions logs, PR or issue comments, {VARS.WEB_APP}, and cloud agent runs |
-| {VARS.WARP_AGENT_CLI} | You want to start a named cloud run from a terminal, script, or local automation. | [{VARS.WARP_AGENT_CLI}](/reference/cli/#running-agents-remotely-oz-agent-run-cloud) | CLI output, {VARS.WEB_APP} Runs page, Agent Management Panel in the Warp app, and cloud agent session links |
-| {VARS.API_SDK_NAME} | Your internal system should create, query, or monitor runs programmatically. | [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) | Your system, API results, {VARS.WEB_APP}, and run sessions |
+| {VARS.WARP_AGENT_CLI} | You want to start a named cloud run from a terminal, script, or local automation. | [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/#running-agents-remotely-oz-agent-run-cloud) | CLI output, {VARS.WEB_APP} Runs page, Agent Management Panel in the Warp app, and cloud agent session links |
+| {VARS.API_SDK_NAME} | Your internal system should create, query, or monitor runs programmatically. | [{VARS.API_SDK_NAME}](/factories/api-and-sdk/) | Your system, API results, {VARS.WEB_APP}, and run sessions |
 
 ## Choose a workflow pattern
 
@@ -82,7 +82,7 @@ The GitHub Action can pass event data, prior step output, and repository context
 
 ### Start runs from scripts or internal systems
 
-Use the [{VARS.WARP_AGENT_CLI}](/reference/cli/#running-agents-remotely-oz-agent-run-cloud) for scripts and terminal workflows. Use the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) when another service should create or monitor runs. This is useful for:
+Use the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/#running-agents-remotely-oz-agent-run-cloud) for scripts and terminal workflows. Use the [{VARS.API_SDK_NAME}](/factories/api-and-sdk/) when another service should create or monitor runs. This is useful for:
 
 * internal dashboards
 * custom webhooks
@@ -112,7 +112,7 @@ Unattended does not mean invisible. Use these surfaces to review what happened:
 * [{VARS.WEB_APP}](/platform/oz-web-app/) - View runs, schedules, run metadata, and session transcripts from a browser or mobile device.
 * [Managing cloud agents](/platform/managing-cloud-agents/) - Filter runs by source, status, day, creator, or trigger.
 * [Cloud agent session sharing](/platform/viewing-cloud-agent-runs/) - Inspect the prompt, plan, commands, logs, output, and follow-up messages where available.
-* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) - Query runs and build internal monitoring around status, runtime, or outcomes.
+* [{VARS.API_SDK_NAME}](/factories/api-and-sdk/) - Query runs and build internal monitoring around status, runtime, or outcomes.
 
 When a run creates a PR, include the cloud run link in the PR description or a comment. See [Attach agent session context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs/) for a template.
 

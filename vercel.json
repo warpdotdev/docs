@@ -6556,6 +6556,91 @@
       "source": "/agents/getting-started/agents-in-warp/",
       "destination": "/agents/",
       "statusCode": 308
+    },
+    {
+      "source": "/platform/warp-hosting",
+      "destination": "/factories/warp-hosting/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/runners",
+      "destination": "/factories/runners/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/self-hosting",
+      "destination": "/factories/self-hosting/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/self-hosting/quickstart",
+      "destination": "/factories/self-hosting/quickstart/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/self-hosting/managed-docker",
+      "destination": "/factories/self-hosting/managed-docker/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/self-hosting/managed-kubernetes",
+      "destination": "/factories/self-hosting/managed-kubernetes/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/self-hosting/managed-direct",
+      "destination": "/factories/self-hosting/managed-direct/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/self-hosting/monitoring",
+      "destination": "/factories/self-hosting/monitoring/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/self-hosting/reference",
+      "destination": "/factories/self-hosting/reference/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/self-hosting/troubleshooting",
+      "destination": "/factories/self-hosting/troubleshooting/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/self-hosting/unmanaged",
+      "destination": "/platform/unmanaged-execution/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/self-hosting/security-and-networking",
+      "destination": "/platform/execution-security/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference",
+      "destination": "/factories/developer-tools/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/api-and-sdk",
+      "destination": "/factories/api-and-sdk/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/api-and-sdk/:path*",
+      "destination": "/factories/api-and-sdk/:path*",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/cli",
+      "destination": "/agents/cli/oz-cli/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/cli/:path*",
+      "destination": "/agents/cli/oz-cli/:path*",
+      "statusCode": 308
     }
   ]
 }

@@ -208,7 +208,7 @@ MCP servers for agents that don't declare their own, in the same form as [`mcpSe
 
 ### `agentDefaults.workerHost`
 
-Where runs execute: `warp` for Warp-hosted compute, or the ID of a connected [self-hosted worker](/platform/self-hosting/).
+Where runs execute: `warp` for Warp-hosted compute, or the ID of a connected [self-hosted worker](/factories/self-hosting/).
 
 ## `agents/<name>/agent.md`
 
@@ -314,7 +314,7 @@ An automation may also declare `model` or `harness`, `runner`, `environmentId`, 
 
 ## `runners/<name>.yaml`
 
-Optional. Each file defines a runner: the compute a run executes on. The runner's name comes from the file name, and agents and automations select it by that name. See [cloud agent runners](/platform/runners/) for how runners behave. For three runners selected per agent, including a macOS runner, see [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr).
+Optional. Each file defines a runner: the compute a run executes on. The runner's name comes from the file name, and agents and automations select it by that name. See [cloud agent runners](/factories/runners/) for how runners behave. For three runners selected per agent, including a macOS runner, see [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr).
 
 ```yaml title="runners/linux-build.yaml"
 description: Linux runner for payments builds and tests

@@ -44,7 +44,7 @@ Runs started from the Warp app don't use the server default: they always follow 
 
 ### CLI
 
-When running cloud agents with the [{VARS.WARP_AGENT_CLI}](/reference/cli/), use flags to control Computer Use per run:
+When running cloud agents with the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/), use flags to control Computer Use per run:
 
 ```bash
 oz agent run-cloud --computer-use --prompt "<task>"
@@ -53,7 +53,7 @@ oz agent run-cloud --no-computer-use --prompt "<task>"
 
 ### API
 
-When creating a cloud agent run with the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/), the optional `config.computer_use_enabled` field controls Computer Use. When omitted, it defaults to `true` for runs on Warp's built-in harness and `false` for runs on third-party harnesses. Set it to `false` to disable Computer Use for the run:
+When creating a cloud agent run with the [{VARS.API_SDK_NAME}](/factories/api-and-sdk/), the optional `config.computer_use_enabled` field controls Computer Use. When omitted, it defaults to `true` for runs on Warp's built-in harness and `false` for runs on third-party harnesses. Set it to `false` to disable Computer Use for the run:
 
 ```json
 {
@@ -65,7 +65,7 @@ When creating a cloud agent run with the [{VARS.API_SDK_NAME}](/reference/api-an
 }
 ```
 
-For full API documentation, see the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) reference.
+For full API documentation, see the [{VARS.API_SDK_NAME}](/factories/api-and-sdk/) reference.
 
 ### Web app
 
