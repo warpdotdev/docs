@@ -125,6 +125,38 @@ grep -A1 "label:" astro.config.mjs | grep "paths:"
 
 **Files**: `src/integrations/docs-markdown-integration.js`, `src/pages/[...slug].md.ts`
 
+### markdown-link-portability (Content Structure)
+
+**What's wrong**: Generated markdown contains root-relative or path-relative links, or `.md` links resolve to HTML/error content.
+
+**Fix**: Update `src/integrations/docs-markdown-integration.js` to rewrite internal links to absolute `https://docs.warp.dev/...` URLs after Turndown conversion. Preserve same-document fragment links (`#section`) unchanged. Add a test to `src/integrations/docs-markdown-integration.test.js` that verifies an internal link is absolute, then build and fetch a representative `.md` page to verify `Content-Type: text/markdown`.
+
+**Files**: `src/integrations/docs-markdown-integration.js`, `src/integrations/docs-markdown-integration.test.js`
+
+### single-fetch-completeness (Page Size and Truncation Risk)
+
+**What's wrong**: A served markdown response is paginated without a working, absolute continuation declared near the top of the content.
+
+**Fix**: Do not copy HTML-UI pagination into markdown when the complete resource fits within the page-size limits. Otherwise add an absolute continuation link before the main content and test that it returns substantive markdown rather than an error page. Audit the markdown generator and any data-driven route that produces paginated output.
+
+**Files**: `src/integrations/docs-markdown-integration.js`, `src/pages/[...slug].md.ts`, affected data-driven page or endpoint
+
+### page-size-transfer / embedded-data-serialization (Page Size and Content Structure)
+
+**What's wrong**: HTML responses are large before conversion, or static bulk data (tables, JSON, base64) dominates content that agents receive.
+
+**Fix**: Treat this as a design or rendering-pipeline change, not an automatic content split. Attribute the bytes to inline framework payloads, generated tables, or data blocks first. Move large payloads behind on-demand requests, split generated tables into self-contained topic pages, and keep prose before bulk content. Do not replace a complete markdown page with pagination windows.
+
+**Files**: Varies by the reported page and its rendering/data source.
+
+### bot-protection-interference (Authentication and Access)
+
+**What's wrong**: Sustained automated requests receive challenge pages, time out, or are blocked after volume thresholds are reached.
+
+**Fix**: This requires CDN/WAF configuration, not a docs-repository code change. Exempt public docs paths from behavioral enforcement or scope enforcement to interactive product surfaces. Prefer explicit `429` responses with `Retry-After` over challenge interstitials or stalled responses. A partial scan must not be compared with prior audit scores.
+
+**Files**: Vercel Firewall or the active CDN/WAF configuration; see `afdocs-audit/references/vercel-firewall-challenge.md`.
+
 ### http-status-codes (URL Stability)
 
 **What's wrong**: The site returns 200 for non-existent pages (soft 404).
@@ -157,6 +189,8 @@ These checks require infrastructure or design changes that can't be automated:
 
 - **content-start-position** — Inherent to Starlight's layout. Mitigated by content negotiation and llms.txt directives. See `known-exceptions.md`.
 - **page-size-markdown / page-size-html** — Requires editorial decision to split long pages. Flag in the report but do not auto-fix.
+- **page-size-transfer / embedded-data-serialization** — Requires rendering-pipeline or information-architecture decisions after attributing the bulk bytes.
+- **bot-protection-interference** — Requires CDN/WAF configuration and turns the scan into a partial observation rather than a deployable docs change.
 - **section-header-quality** — Content-level change requiring human judgment.
 
 ## Applying fixes
