@@ -451,34 +451,15 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// Integrations subgroup, which would have rendered as
 					// Integrations > Integrations > Slack.
 					//
-					// 'Connect your factory' leads because it is the overview for this
-					// group; Factory MCP trails because it is a connection mechanism
-					// rather than a third-party service.
+			// 'Connect your factory' leads because it is the overview for this
+			// group. The direct developer interfaces live in the Developer tools
+			// group rather than alongside third-party service integrations.
 					label: 'Integrations',
 					items: [
 						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
 						{ slug: 'factories/integrations/slack', label: 'Slack' },
 						{ slug: 'factories/integrations/linear', label: 'Linear' },
 						{ slug: 'factories/integrations/jira', label: 'Jira' },
-						// Custom webhooks connect any JSON-posting system, so they sit
-						// between the named third-party services and the API-style
-						// mechanisms below. Label matches the factory dashboard's nav.
-						// The overview holds the concept and the happy path; each
-						// provider whose setup differs from it gets its own page nested
-						// here (HYC, 9/15), same shape as 'Measure and improve' below.
-						{
-							label: 'Webhooks',
-							collapsed: false,
-							items: [
-								{ slug: 'factories/webhooks', label: 'Overview' },
-								{ slug: 'factories/webhooks/vercel', label: 'Vercel' },
-							],
-						},
-						// Alongside Factory MCP: both are direct API-style connection
-						// mechanisms rather than third-party services, so they trail the
-						// per-service integrations above.
-						{ slug: 'factories/factory-api', label: 'Factory API' },
-						{ slug: 'factories/factory-mcp', label: 'Factory MCP' },
 					],
 				},
 				{
@@ -566,6 +547,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'platform', label: 'Overview' },
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
+						{ slug: 'platform/transitioning-from-oz', label: 'Transitioning' },
 						{
 							// Runtime (which agent executes the run) is kept separate from
 							// configuration (how any run is set up) -- HYC review, 8/14.
