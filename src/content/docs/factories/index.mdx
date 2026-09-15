@@ -11,9 +11,11 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 
 :::note
 Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
+
+The {VARS.WEB_APP} will retire after Warp Factories reaches general availability. Existing workflows remain available today. See [Transitioning from the {VARS.WEB_APP}](/platform/transitioning-from-oz/) for the current transition guidance.
 :::
 
-A software factory takes in requests (bug reports, feature specs, support escalations), and a coordinated fleet of agents works them into a stream of mergeable pull requests instead of a growing backlog. Warp Factories gives you the building blocks, so your team stays in the loop where it matters, approving specs when needed and merging every pull request.
+A software factory uses a coordinated fleet of agents to take in requests, manage them from triage through review, and turn a growing backlog into mergeable pull requests. Your team stays in the loop to approve specifications and merge each pull request.
 
 <VideoEmbed url="https://www.youtube.com/watch?v=0WBk4ai8y1A" title="Introducing Warp Factories" />
 
@@ -69,7 +71,7 @@ Warp Factories is designed for engineering teams with repeatable work that exten
 Warp Factories is built on the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/), Warp's programmable system for running and coordinating agents at scale. A factory doesn't replace the platform; it assembles the platform's primitives into one standing workflow, so what you already know about cloud agents carries over:
 
 * **Runs** - Every factory agent executes as a [cloud agent run](/platform/), with the same run records and [session sharing](/platform/viewing-cloud-agent-runs/) as any other cloud agent.
-* **Execution** - [Runners](/platform/runners/) provide the compute each agent works on, and eligible Enterprise teams can route execution to [managed self-hosted workers](/platform/self-hosting/).
+* **Execution** - [Runners](/factories/runners/) provide the compute each agent works on, and eligible Enterprise teams can route execution to [managed self-hosted workers](/factories/self-hosting/).
 * **Agent configuration** - Each agent runs on a supported [harness](/platform/harnesses/) and model, with [secrets](/platform/secrets/) and [MCP servers](/platform/mcp/) scoping what it can reach.
 * **Billing** - A factory's runs consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) the same way as any other cloud agent run.
 
@@ -93,7 +95,7 @@ flowchart LR
   Slack["Slack or Linear"] -->|"@handle"| Foreman
 ```
 
-## Next steps
+## Related pages
 
 * [**Set up a factory**](/factories/quickstart/) - Create a factory and send its first work item.
 * [**Understand the execution model**](/factories/how-factories-work/) - See how the foreman coordinates stages, runs, and human decisions.

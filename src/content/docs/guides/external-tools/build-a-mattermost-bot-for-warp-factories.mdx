@@ -13,7 +13,7 @@ Build a Mattermost bot that sends work to a [Warp factory](/factories/) and post
 ## Prerequisites
 
 * **A Warp Factories factory** - [Set up a factory](/factories/quickstart/) before starting; this guide dispatches work to an existing factory rather than creating one.
-* **A Warp API key** - Create an [agent API key](/reference/cli/api-keys/#personal-vs-agent-keys) rather than a personal key, so the bot's requests aren't tied to your individual account.
+* **A Warp API key** - Create an [agent API key](/agents/cli/oz-cli/api-keys/#personal-vs-agent-keys) rather than a personal key, so the bot's requests aren't tied to your individual account.
 * **A Mattermost bot account and access token** - Create one from your Mattermost System Console under **Integrations** > **Bot Accounts**, and generate a personal access token for it. Mattermost's own [bot accounts documentation](https://developers.mattermost.com/integrate/reference/bot-accounts/) covers the exact steps, since they vary by Mattermost version and hosting setup.
 * **The {VARS.API_SDK_NAME} Python SDK** - Install it with `pip install oz-agent-sdk`. If you're working in another language, the [factory API page](/factories/factory-api/) shows the equivalent REST calls.
 
@@ -169,4 +169,4 @@ You've built a Mattermost bot that discovers a factory by name, dispatches tasks
 
 * [Use the factory API](/factories/factory-api/) - The full discover-and-dispatch reference this guide builds on.
 * [Connect your factory](/factories/connect-your-factory/) - Compare this custom integration against Warp's built-in intake sources.
-* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) - Full endpoint reference for run status, follow-ups, and cancellation.
+* [{VARS.API_SDK_NAME}](/factories/api-and-sdk/) - Full endpoint reference for run status, follow-ups, and cancellation.

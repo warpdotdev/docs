@@ -27,11 +27,11 @@ flowchart LR
   C --> D["Warp or supported<br/>customer-owned storage"]
 ```
 
-Self-hosting moves only the execution plane: with a managed self-hosted worker, repository checkouts, command execution, and the sandbox filesystem stay on machines you control, but content that enters prompts, results, transcripts, attachments, artifacts, or telemetry still flows through Warp and the providers you configure. See [deployment patterns](/platform/deployment-patterns/) and [self-hosting security and networking](/platform/self-hosting/security-and-networking/) for the broader data model.
+Self-hosting moves only the execution plane: with a managed self-hosted worker, repository checkouts, command execution, and the sandbox filesystem stay on machines you control, but content that enters prompts, results, transcripts, attachments, artifacts, or telemetry still flows through Warp and the providers you configure. See [deployment patterns](/factories/deployment-patterns/) and [self-hosting security and networking](/platform/execution-security/) for the broader data model.
 
 ## Runners
 
-A runner defines the compute a factory's agents work on: the operating system and architecture, the sandbox image, and the instance shape (vCPUs and memory). It's the infrastructure choice you make for a factory. The workspace itself — repositories, setup commands, and secrets — comes from the factory's [definition](/factories/factory-as-code/), and Warp keeps it in step for you. See the [runner reference](/platform/runners/) for the available compute options.
+A runner defines the compute a factory's agents work on: the operating system and architecture, the sandbox image, and the instance shape (vCPUs and memory). It's the infrastructure choice you make for a factory. The workspace itself — repositories, setup commands, and secrets — comes from the factory's [definition](/factories/factory-as-code/), and Warp keeps it in step for you. See the [runner reference](/factories/runners/) for the available compute options.
 
 Runners are declared as `runners/*.yaml` files in the definition, and you can define more than one — a Linux runner with more cores and memory for builds, a macOS runner for platform-specific work. Every agent inherits the factory's default (`agentDefaults.runner`), and any agent or automation can name its own `runner` instead, so the foreman can send implementation to a macOS runner while every other agent stays on Linux. For working runner files, see [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) (three runners selected per agent, including macOS) and [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness) (an `x86_64` and an `aarch64` runner) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
 
@@ -57,7 +57,7 @@ A factory runs its work on one of two execution hosts: Warp-hosted compute or a 
 
 To route factory work to a managed self-hosted worker (an Enterprise feature):
 
-1. **Deploy a worker** - Review the [self-hosting requirements](/platform/self-hosting/), then connect a worker that authenticates to Warp with an agent API key. Workers run on `linux/amd64` and `linux/arm64`, and the worker's platform determines which workloads it can run.
+1. **Deploy a worker** - Review the [self-hosting requirements](/factories/self-hosting/), then connect a worker that authenticates to Warp with an agent API key. Workers run on `linux/amd64` and `linux/arm64`, and the worker's platform determines which workloads it can run.
 2. **Pair it with a compatible runner** - Choose a runner that matches the worker's platform.
 3. **Select the worker in the factory definition** - Set [`workerHost`](/factories/factory-as-code/) so the factory routes work to it.
 
@@ -111,3 +111,10 @@ Warp meters hosted compute, Warp-provided inference, and platform services. Mana
 5. **Scope credentials** - Set each agent's secret allowlist, harness authentication, and repository identity.
 6. **Set review gates** - Decide where humans review specifications and pull requests, and enforce those gates in workflow and repository policy.
 7. **Validate operations** - Test network egress, isolation, rotation, redaction, capacity, observability, and metering before increasing volume.
+
+## Related pages
+
+* [Deployment patterns](/factories/deployment-patterns/) - Choose Warp-hosted or managed self-hosted execution.
+* [Managed self-hosting](/factories/self-hosting/) - Install a worker on infrastructure your team controls.
+* [Execution security](/platform/execution-security/) - Review the data and network boundaries that apply to managed and unmanaged execution.
+* [Team-managed model keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Configure customer-supplied inference credentials.
