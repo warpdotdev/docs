@@ -548,7 +548,7 @@ Optional. How deliveries authenticate: `token` (the default, an `Authorization: 
 
 ### `signatureScheme`
 
-The provider signature to verify: `github`, `pagerduty`, `sentry`, `standard_webhooks`, or `stripe`. Required when `authMode` is `signature`, and invalid otherwise.
+The provider signature to verify: `github`, `pagerduty`, `sentry`, `standard_webhooks`, `stripe`, or `vercel`. Required when `authMode` is `signature`, and invalid otherwise.
 
 ### `secretName`
 
@@ -560,7 +560,7 @@ Optional. The header the sender stamps its own delivery identity into, used to d
 
 ### `enabled`
 
-Optional. Defaults to `true`. Set it to `false` to stop deliveries immediately without deleting the webhook.
+Optional. Defaults to `true`. Set it to `false` to stop deliveries immediately without deleting the webhook, or to create a webhook before its provider has issued a signing secret; see [Setting up a Vercel webhook](/factories/webhooks/vercel/).
 
 On a Warp-managed factory, creating a webhook in the dashboard writes this file for you and stores the secret under the name you enter in the "Secret name" field.
 
