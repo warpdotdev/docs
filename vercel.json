@@ -6641,6 +6641,11 @@
       "source": "/reference/cli/:path*",
       "destination": "/agents/cli/oz-cli/:path*",
       "statusCode": 308
+    },
+    {
+      "source": "/agents/cli-agents(/?)",
+      "destination": "/agents/cli-agents/overview/",
+      "statusCode": 308
     }
   ]
 }

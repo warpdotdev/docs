@@ -37,7 +37,7 @@ The script:
 
 Fetch `vercel.json` from the docs repo (already checked out locally in the cloud environment, or via GitHub raw URL `https://raw.githubusercontent.com/warpdotdev/docs/main/vercel.json`).
 
-Extract all `source` values from the `redirects` array. Normalise: lowercase, strip trailing slashes and anchor fragments.
+Extract all `source` values from the `redirects` array. Normalise: lowercase, remove a trailing Vercel optional-slash suffix (`(/?)`) before parsing query strings, then strip trailing slashes, query strings, and anchor fragments.
 
 ### 3. Find uncovered URLs
 
@@ -56,6 +56,8 @@ Compare this week's uncovered gaps against last week's uncovered gaps (from step
 **Significant vs long-tail.** Split uncovered URLs by the reporting threshold (`REPORT_MIN_HITS`, default 5; must be a positive integer — invalid or non-positive values fall back to 5):
 - **Significant gaps** = uncovered URLs with `hits_this_week >= REPORT_MIN_HITS`. These are worth a redirect and belong in the headline.
 - **Long-tail noise** = uncovered URLs below the threshold. Because the monitor is only weeks old (low sample), most broken URLs are hit once by bots, crawlers, or stale bookmarks, so the raw uncovered and "new gap" counts churn heavily week-over-week and overstate the problem. Roll these up into a single count — never list them individually or put them in the headline.
+
+Before applying the threshold, exclude any normalised requested path whose non-empty path segment starts with `:`. These malformed route-parameter captures cannot produce a useful redirect. Keep them in the CSV and raw uncovered counts for diagnosis, but exclude them from `significant_uncovered_count`, `significant_new_gaps_count`, `top_significant_uncovered`, long-tail counts, and Phase 2 redirect candidates. Report only `unroutable_count`; never list the malformed paths in Slack.
 
 ### 5. Determine whether the run is actionable
 
@@ -101,6 +103,7 @@ Use Slack Block Kit. The message should be scannable in under 30 seconds.
 ...
 
 _+{long_tail_count} other uncovered URLs under {report_min_hits} hits each (mostly bots/old links) — see CSV._
+_{unroutable_count} malformed paths excluded from redirect candidates — see CSV._
 *{resolved_count} resolved since last week* (redirect added or traffic stopped)
 
 🔀 *Redirect drafter:* {N} HIGH-confidence redirects → {PR URL, or "none found this week"}
@@ -111,7 +114,7 @@ _+{long_tail_count} other uncovered URLs under {report_min_hits} hits each (most
 → Full breakdown: {oz_run_url}
 ```
 
-The redirect-drafter line is part of this single message, not a separate post. Omit the line entirely when Phase 2 found nothing and the message is being sent because of significant gaps alone.
+The redirect-drafter line is part of this single message, not a separate post. Omit the line entirely when Phase 2 found nothing and the message is being sent because of significant gaps alone. Omit the malformed-path line when `unroutable_count` is 0.
 
 Build `{oz_run_url}` at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run, substituting the run ID this agent is executing as:
 ```bash
@@ -121,8 +124,9 @@ If the command fails or returns an empty value, omit the `→ Full breakdown` li
 
 Rules:
 - **Lead with volume trend, not distinct-URL counts.** The first line is always `trend_summary` — the pre-formatted total-404 trend, which reflects real user impact. It already includes the direction arrow (▼ fewer 404s, ▲ more, → no change) and falls back to a "no prior-week baseline yet" message when last week had no data, so the percentage is never rendered as null.
-- **Only list significant gaps.** List `top_significant_uncovered` (URLs with `hits_this_week >= report_min_hits`), capped at 10. If there are more, note "and N more — see full CSV in the run." If `significant_uncovered_count` is 0, write "None this week — remaining 404s are all low-hit long-tail traffic." and omit the list.
+- **Only list significant gaps.** List `top_significant_uncovered` (URLs with `hits_this_week >= report_min_hits`), capped at 10. If there are more, note "and N more — see full CSV in the run." If `significant_uncovered_count` is 0, write "None this week — no redirectable gaps met the hit threshold." and omit the list. Report long-tail and malformed counts on their separate summary lines.
 - **Roll up the long tail.** Never list sub-threshold URLs individually; collapse them into the single `long_tail_count` line so noise doesn't dominate the report.
+- **Summarise malformed paths.** If `unroutable_count` is greater than 0, report only the count. The CSV retains the paths for diagnosis.
 - Mark new gaps with 🆕.
 - If `total_404s_this_week` is less than 50, add a brief positive note: "404 volume is low — good signal that redirect coverage is working."
 - Never include raw user data (e.g. query strings with user IDs, tokens) in the Slack message. Strip query params from broken_url before displaying.
@@ -135,7 +139,7 @@ Phase 2 runs **before** the Slack message is sent, so its results can be folded 
 
 ### Threshold and confidence scoring
 
-Only process gaps where `hits_this_week >= 5`. This is the **automation** threshold for opening redirect PRs — aligned with the **reporting** threshold (`REPORT_MIN_HITS`, default 5) used for the Phase 1 Slack summary. Review and adjust based on run log data (see `## Run log`).
+Only process redirectable gaps where `hits_this_week >= 5`. Exclude malformed paths identified in Phase 1 before matching redirect targets. This is the **automation** threshold for opening redirect PRs — aligned with the **reporting** threshold (`REPORT_MIN_HITS`, default 5) used for the Phase 1 Slack summary. Review and adjust based on run log data (see `## Run log`).
 
 For each qualifying uncovered URL, attempt to find a redirect target using these heuristics in order:
 
@@ -235,6 +239,7 @@ Before posting to Slack, verify:
 - The vercel.json redirect list was loaded successfully and contains more than 500 entries (sanity check that the file is not truncated).
 - The CSV artifact was written before posting to Slack.
 - The Slack summary leads with the volume trend and lists only significant gaps (`hits_this_week >= report_min_hits`); long-tail URLs are rolled up into the `long_tail_count` line, never listed individually.
+- Malformed paths appear only in the CSV and raw uncovered counts; Slack reports their `unroutable_count` without listing them.
 
 ## No-data report
 

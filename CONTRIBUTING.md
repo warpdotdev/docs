@@ -115,6 +115,25 @@ All pull requests should include a summary of what changed and why, related issu
 
 Keep pull requests small enough to review confidently. If the change affects multiple areas, split it into separate pull requests when possible.
 
+## Branch maintenance
+
+Use short-lived feature branches for docs work. Open a pull request against `main`, and prefer one logical change per branch.
+
+**Automatic deletion on merge is enabled.** After a pull request merges, GitHub deletes the head branch when it can. That removes the branch reference only. The merged pull request, reviews, discussion, and content on `main` remain.
+
+If a merged head branch is still present (for example it was re-pushed after merge, or automatic deletion did not run), delete it once you are sure there is no ongoing work on that branch name.
+
+**Do not delete:**
+
+* `main`
+* Any branch that is the head or base of an open pull request
+* Long-lived release, environment, integration, or `repo-sync/*` branches, if any exist
+* Closed-unmerged or no-PR branches whose ownership or intent is unresolved
+
+**Quarterly stale review:** About once a quarter, review same-repository branches with no commits for 90 days or more (GitHub's Stale view shows branches with no commits in the last three months). For closed-unmerged and no-PR branches, delete only with owner confirmation or clear evidence the work was abandoned or superseded. Age alone is not enough.
+
+**Restoration:** GitHub can restore a deleted head branch from its closed pull request. Branches that never had a pull request, or that have disconnected history, are harder to recover—keep a SHA or avoid deleting them without confirmation.
+
 ## Review process
 
 The Warp docs team reviews pull requests for:

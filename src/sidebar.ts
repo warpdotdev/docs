@@ -411,7 +411,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// now the Automations primitive's conceptual home, parallel to Factory
 					// agents and Factory skills, not just a filters reference.
 					{ slug: 'factories/automations', label: 'Factory automations' },
-					{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
+					{ slug: 'factories/factory-as-code', label: 'Factory definition' },
 				],
 				},
 				{
@@ -419,8 +419,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					//
 					// The per-service pages are listed directly rather than in a nested
 					// Integrations subgroup, which would have rendered as
-					// Integrations > Integrations > Slack. Flattening also drops the tab
-					// to two levels, matching every other group in it.
+					// Integrations > Integrations > Slack.
 					//
 					// 'Connect your factory' leads because it is the overview for this
 					// group; Factory MCP trails because it is a connection mechanism
@@ -483,8 +482,16 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'factories/factory-inbox', label: 'Factory inbox' },
 						{ slug: 'factories/factory-dashboard', label: 'Factory dashboard' },
-						{ slug: 'factories/measure-and-improve', label: 'Measure and improve' },
-						{ slug: 'factories/benchmarks', label: 'Benchmarks' },
+						{
+							label: 'Measure and improve',
+							collapsed: false,
+							items: [
+								{ slug: 'factories/measure-and-improve', label: 'Overview' },
+								{ slug: 'factories/measure-and-improve/scorers', label: 'Scorers' },
+								{ slug: 'factories/measure-and-improve/self-improvement', label: 'Self-improvement' },
+								{ slug: 'factories/benchmarks', label: 'Benchmarks' },
+							],
+						},
 					],
 				},
 				// Troubleshooting sits outside the groups, last in the tab. It was in
