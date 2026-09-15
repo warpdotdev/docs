@@ -31,16 +31,11 @@ Self-hosting moves only the execution plane: with a managed self-hosted worker, 
 
 ## Runners
 
-A runner defines the compute a factory's agents work on: the operating system and architecture, the sandbox image, and the instance shape (vCPUs and memory). It's the infrastructure choice you make for a factory. The workspace itself — repositories, setup commands, and secrets — comes from the factory's [definition](/factories/factory-as-code/), and Warp keeps it in step for you. See the [runner reference](/platform/runners/) for the available compute options.
+A runner defines the operating system, architecture, sandbox image, and instance shape (vCPUs and memory) for a factory agent. The factory's [definition](/factories/factory-as-code/) supplies its repositories, setup commands, and secrets; the execution host determines whether that runner uses Warp-hosted or self-hosted compute.
 
-Runners are declared as `runners/*.yaml` files in the definition, and you can define more than one — a Linux runner with more cores and memory for builds, a macOS runner for platform-specific work. Every agent inherits the factory's default (`agentDefaults.runner`), and any agent or automation can name its own `runner` instead, so the foreman can send implementation to a macOS runner while every other agent stays on Linux. For working runner files, see [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) (three runners selected per agent, including macOS) and [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness) (an `x86_64` and an `aarch64` runner) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
+Declare runners as `runners/*.yaml` files. Every agent inherits `agentDefaults.runner`, and an agent or automation can override it. A self-hosted runner must match the worker's operating system and architecture. Warp provisions hosted runners within your plan limits; your team provisions and operates self-hosted compute.
 
-The **Runners** section of a factory's **Settings** page in the [factory dashboard](/factories/factory-dashboard/) shows each runner's operating system and architecture, setup commands, size, and whether it's the default. Where you edit runners depends on where the factory's source lives:
-
-* **Externally managed source** - The `runners/*.yaml` files in the connected repository are the source of truth, and edits open in that repository.
-* **Warp-managed source** - Authorized users create and edit runner files directly in the factory dashboard.
-
-Your team's plan sets the default instance shape (vCPUs and memory) for Warp-hosted runners. The same maximum shape applies on every plan, and Warp rejects hosted shapes above it. Enterprise teams that need more can request a higher maximum. Managed self-hosted runners are exempt from the hosted maximum because your team supplies the compute.
+See the [runner reference](/platform/runners/) for compute options and factory runner syntax.
 
 ## Choose an execution host
 
@@ -65,23 +60,38 @@ For a working definition with `workerHost` set and a platform-matched runner, se
 
 Unmanaged self-hosted agents and other CLI agents can't serve as a factory's execution host, but they can exchange work with a factory through [Factory MCP](/factories/factory-mcp/).
 
-## Choose execution, inference, and storage independently
+### Managed self-hosting structures
 
-Execution, inference, and storage are independent choices: each moves one boundary and leaves the rest of the run flow with Warp.
+Factories use managed self-hosting, so Warp still orchestrates their runs. The worker backend sets isolation and scheduling on your infrastructure:
 
-| Team choice | What it changes | What stays with Warp |
-| --- | --- | --- |
-| **Execution**: Warp-hosted or managed self-hosted | Where checkout, commands, and the sandbox filesystem run | Coordination, configuration, observability, and inference routing |
-| **Inference**: Warp-managed, [team-managed keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), or [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/) | The provider account, model routing, billing, and provider-side retention | Run coordination and inference routing |
-| **Storage**: Warp or customer-owned | Where supported transcripts, artifacts, and run attachments persist | Orchestration, the write path, and other factory and control-plane state |
+| Structure | How factory runs execute | What your team operates | Use it when |
+| --- | --- | --- | --- |
+| **[Docker](/platform/self-hosting/managed-docker/)** (default) | In a separate Docker container on the worker host | The worker daemon, host, Docker daemon, images, capacity, and container policy | Docker is available and you want per-run container isolation without Kubernetes |
+| **[Kubernetes](/platform/self-hosting/managed-kubernetes/)** | As a Kubernetes Job in the worker's namespace | The worker deployment, cluster, namespace RBAC, scheduling, admission policy, and capacity | Your team already operates Kubernetes or needs cluster-native policy and scheduling |
+| **[Direct](/platform/self-hosting/managed-direct/)** | In a separate workspace directly on the worker host, sharing its OS and kernel | The worker daemon, host security, dependencies, capacity, and cleanup | A container runtime isn't available or runs need direct access to host resources |
 
-:::note
-Managed self-hosted execution, customer-supplied inference, and customer-owned storage all require an Enterprise plan.
-:::
+All three structures keep execution on your infrastructure while Warp operates the control plane.
 
-Factory runs execute as [cloud agents](/platform/), so customer-supplied inference is limited to providers that support cloud agents. The provider pages linked above list current support. When you supply the provider, provider-side retention follows your provider account and contract; Warp can't configure or enforce it for you. The [security overview](/enterprise/security-and-compliance/security-overview/) covers Warp's broader data handling.
+## Choose inference and storage independently
 
-For storage, Enterprise teams can keep the supported data classes above (transcripts, artifacts, and run attachments) in a customer-owned Amazon S3 or Google Cloud Storage bucket. Warp enables customer-owned storage for your team and writes the applicable data to the bucket you configure; your team owns the bucket's access and lifecycle policies. Customer-owned storage doesn't move all factory state into your account: configuration, run metadata, and other control-plane state stay with Warp.
+Execution hosting doesn't select inference or storage. Configure those boundaries separately.
+
+### Inference options for factory runs
+
+Factory agents execute as cloud agents, so only inference options that support cloud agent runs apply:
+
+| Option | Support for factory runs | Team controls | Key boundary |
+| --- | --- | --- | --- |
+| **Warp-managed inference** | Supported | The model selected for each agent | Warp provides the provider account and bills model usage with Warp credits |
+| **[Team-managed keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/)** | Supported on Enterprise | Shared OpenAI, Anthropic, or Google keys, or an OpenAI-compatible endpoint | Warp stores the encrypted credential and uses it only at the inference boundary; it never enters the worker or run environment |
+| **[BYOLLM: AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/)** | Supported on Enterprise | The AWS account, IAM role, available Claude models, and provider billing | Warp assumes your IAM role through OIDC; inference runs in your AWS account |
+| **[BYOLLM: Gemini Enterprise](/enterprise/enterprise-features/byollm-gemini-enterprise/)** | Not supported for factory runs | Interactive inference in your Google Cloud project | Gemini Enterprise BYOLLM currently supports interactive agent requests only |
+
+Self-serve BYOK and custom inference endpoints are stored on an individual member's device and don't apply to factory runs. With team-managed keys and endpoints, select a specific provider model or endpoint; Auto continues to use Warp-managed inference. When you supply the provider, its retention follows your account and contract, and Warp can't enforce ZDR for that provider.
+
+### Customer-owned storage
+
+Enterprise teams can keep supported transcripts, artifacts, and run attachments in a customer-owned Amazon S3 or Google Cloud Storage bucket. Your team owns the bucket's access and lifecycle policies. Factory configuration, run metadata, orchestration, and other control-plane state stay with Warp.
 
 ## Credential boundaries
 
@@ -106,7 +116,7 @@ Warp meters hosted compute, Warp-provided inference, and platform services. Mana
 
 1. **Classify the workload** - Identify the repositories, data, internal services, and regulated systems the factory can reach.
 2. **Choose execution** - Decide where checkout, commands, and the sandbox filesystem must run.
-3. **Configure the factory and its runners** - Set the repositories, setup commands, and secrets in the factory's definition, and choose each runner's operating system, architecture, image, and compute.
+3. **Configure the factory and its runners** - Set the repositories, setup commands, secrets, and compatible runners in the factory's definition.
 4. **Choose inference and storage** - Select provider routing and where supported run data persists.
 5. **Scope credentials** - Set each agent's secret allowlist, harness authentication, and repository identity.
 6. **Set review gates** - Decide where humans review specifications and pull requests, and enforce those gates in workflow and repository policy.
