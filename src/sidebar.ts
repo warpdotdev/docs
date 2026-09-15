@@ -439,7 +439,17 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						// Custom webhooks connect any JSON-posting system, so they sit
 						// between the named third-party services and the API-style
 						// mechanisms below. Label matches the factory dashboard's nav.
-						{ slug: 'factories/webhooks', label: 'Webhooks' },
+						// The overview holds the concept and the happy path; each
+						// provider whose setup differs from it gets its own page nested
+						// here (HYC, 9/15), same shape as 'Measure and improve' below.
+						{
+							label: 'Webhooks',
+							collapsed: false,
+							items: [
+								{ slug: 'factories/webhooks', label: 'Overview' },
+								{ slug: 'factories/webhooks/vercel', label: 'Vercel' },
+							],
+						},
 						// Alongside Factory MCP: both are direct API-style connection
 						// mechanisms rather than third-party services, so they trail the
 						// per-service integrations above.
