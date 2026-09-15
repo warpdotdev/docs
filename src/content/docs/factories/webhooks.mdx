@@ -7,7 +7,7 @@ sidebar:
   label: "Webhooks"
 ---
 
-A custom webhook gives your factory an HTTPS URL that any external system can POST JSON to: internal CI, PagerDuty, Sentry, Stripe, or a homegrown tool. An [automation](/factories/automations/) subscribes to the webhook and starts a run when a delivery matches its filter, so tools Warp doesn't integrate with directly can still start factory work.
+A custom webhook gives your factory an HTTPS URL that any external system can POST JSON to: internal CI, Vercel, PagerDuty, Sentry, Stripe, or a homegrown tool. An [automation](/factories/automations/) subscribes to the webhook and starts a run when a delivery matches its filter, so tools Warp doesn't integrate with directly can still start factory work.
 
 ## How custom webhooks work
 
@@ -30,9 +30,9 @@ Choose the mode that fits what the sender can do:
 | --- | --- | --- | --- |
 | **Bearer token** (default) | `token` | Sends the Warp-generated secret in an `Authorization: Bearer` header | Senders that can set request headers: CI jobs, scripts, Grafana, Alertmanager |
 | **URL token** | `url_token` | Posts to a URL that embeds the secret as a path segment | Senders that only take a URL and can't set headers |
-| **Provider signature** | `signature` | Signs each request with its own scheme; Warp verifies the signature with the provider's signing secret | Stripe, GitHub, Sentry, PagerDuty, and any sender that implements [Standard Webhooks](https://www.standardwebhooks.com/) (Svix-compatible headers are accepted) |
+| **Provider signature** | `signature` | Signs each request with its own scheme; Warp verifies the signature with the provider's signing secret | Vercel, Stripe, GitHub, Sentry, PagerDuty, and any sender that implements [Standard Webhooks](https://www.standardwebhooks.com/) (Svix-compatible headers are accepted) |
 
-Warp generates the secret for bearer token and URL token webhooks and shows it once when you create the webhook. For a provider signature webhook, you supply the provider's own signing secret instead — or leave it blank for a Standard Webhooks-compatible sender, and Warp generates one for you to give the sender. See [Manage webhooks](#manage-webhooks) to rotate a secret or roll a webhook over.
+Warp generates the secret for bearer token and URL token webhooks and shows it once when you create the webhook. For a provider signature webhook, you supply the provider's own signing secret instead — or leave it blank for a Standard Webhooks-compatible sender, and Warp generates one for you to give the sender. Vercel, Stripe, and PagerDuty only issue their secret after you give them a URL; leave the secret blank for those too, and Warp takes it in a second step. See [Setting up a Vercel webhook](#setting-up-a-vercel-webhook). See [Manage webhooks](#manage-webhooks) to rotate a secret or roll a webhook over.
 
 A URL token webhook's URL is itself the credential: treat it like a secret, and rotate it if it leaks.
 
@@ -46,7 +46,7 @@ A URL token webhook's URL is itself the credential: treat it like a secret, and 
 
 1. In the factory dashboard, open **Webhooks** and click **Add webhook**.
 2. Enter a "Name" the automation editor will show, such as `Internal CI`.
-3. In the "Authentication" dropdown, choose **Bearer token**, **URL token**, or **Provider signature**. For a provider signature, also choose the "Provider scheme" and paste the "Provider secret" from the provider.
+3. In the "Authentication" dropdown, choose **Bearer token**, **URL token**, or **Provider signature**. For a provider signature, also choose the "Provider scheme" and paste the "Provider secret" from the provider. If the provider hasn't issued a secret yet, leave "Provider secret" blank; see [Setting up a Vercel webhook](#setting-up-a-vercel-webhook).
 4. Keep the suggested "Secret name".
 5. Optionally, enter a "Delivery ID header" if the sender stamps its own event ID into a header, and click **Create webhook**.
 
@@ -94,6 +94,46 @@ Send another test delivery and confirm a run starts on the factory's **Runs** pa
 <figcaption>A Webhook trigger after a successful Test filter.</figcaption>
 </figure>
 
+## Setting up a Vercel webhook
+
+Vercel, Stripe, and PagerDuty only show a webhook's signing secret after you save its URL in their dashboard, and Warp only has a URL once the webhook exists. To break the loop, create the webhook without a secret: Warp creates it disabled, gives you the URL, and takes the secret in a second step. The steps below use Vercel; Stripe and PagerDuty work the same way.
+
+Vercel team webhooks require a Vercel Pro or Enterprise plan.
+
+### In the factory dashboard
+
+1. In the factory dashboard, open **Webhooks**, click **Add webhook**, and enter a "Name" such as `Vercel deploys`.
+2. In the "Authentication" dropdown, choose **Provider signature**, then in the "Provider scheme" dropdown, choose **Vercel**.
+3. Leave "Provider secret" blank and keep the suggested "Secret name". Click **Create and get URL**.
+
+   The pane changes to **Finish webhook setup** and shows the ingress URL. The webhook exists but is disabled, so it accepts no deliveries yet.
+4. In the Vercel dashboard, go to your team's **Settings** > **Webhooks** and click **Create Webhook**. Choose the events and projects, enter the ingress URL as the "Endpoint URL", and click **Create Webhook**. Vercel shows the webhook's secret once.
+5. In Warp, paste that secret into "Secret from Vercel" and click **Save and enable**.
+
+The webhook is enabled and verifies the `x-vercel-signature` header on every delivery. Trigger a deployment and confirm it appears under **Recent deliveries** as **Accepted**.
+
+To finish later, click **Finish later** instead. The webhook stays disabled: open it from the **Webhooks** page, supply the secret (click **Rotate secret** and paste it, or on a Warp-managed factory update the managed secret on the team's **Secrets** page), then toggle **Enabled** on.
+
+### In a definition that lives in GitHub
+
+A GitHub-backed factory has no dashboard editing, and a change applies only when it lands on the production branch. Order the steps so the change that enables the webhook is also the one that applies the secret:
+
+1. On the team's **Secrets** page, create a secret such as `VERCEL_WEBHOOK_SECRET` with any placeholder value. A webhook file must name a secret that already exists.
+2. Add `webhooks/vercel.yaml` with the webhook disabled, and merge it to the production branch:
+
+   ```yaml title="webhooks/vercel.yaml"
+   authMode: signature
+   signatureScheme: vercel
+   secretName: VERCEL_WEBHOOK_SECRET
+   enabled: false
+   ```
+
+   Once the change applies, the webhook appears on the **Webhooks** page with its ingress URL.
+3. Create the webhook in Vercel with that URL, as in step 4 above, then update `VERCEL_WEBHOOK_SECRET` on the **Secrets** page with the secret Vercel shows.
+4. Change `enabled: false` to `enabled: true` and merge. Applying this change reads the new secret value and enables the webhook.
+
+Creating the webhook with `enabled: true` from the start rejects every delivery with `401` until another change lands after you update the secret.
+
 ## Filter deliveries by payload
 
 Without a payload filter, an automation starts a run for every delivery from its selected webhooks. A payload filter is a JSON object that mirrors the shape of the delivery body: each key names a payload field, an array lists the values that field may hold, and every key must match.
@@ -123,7 +163,7 @@ Open a webhook on the **Webhooks** page to inspect and change it:
 * **Rotate secret** - Generates a new secret, or takes the provider's new signing secret for a provider signature webhook, and shows it once. The old secret stops working immediately, with no overlap window. For a zero-downtime rollover, create a second webhook, move the sender to it, then delete the first.
 * **Delete** - Senders get `404` immediately. Automations that select the deleted webhook stay visible but stop firing; point their triggers at another webhook or remove the trigger.
 
-On a Warp-managed factory, the dashboard writes each webhook to a definition file, so two actions work differently: rename isn't supported, and **Rotate secret** is replaced by rotating the managed secret the webhook references on the team's **Secrets** page. The webhook picks up the new value on its next sync.
+On a Warp-managed factory, the dashboard writes each webhook to a definition file, so two actions work differently: rename isn't supported, and **Rotate secret** is replaced by rotating the managed secret the webhook references on the team's **Secrets** page. The webhook picks up the new value the next time its definition applies: any change to the webhook in the dashboard, such as toggling **Enabled**, or for a GitHub-backed factory the next change merged to the production branch.
 
 ## Delivery rules
 
@@ -167,7 +207,7 @@ find the failing code path, and open a pull request with a fix and a test.
 
 ## Troubleshooting
 
-* **The sender gets `401`** - The credential doesn't match the webhook's mode: a bearer token webhook needs the `Authorization: Bearer` header, a URL token webhook needs the token segment in the URL, and a provider signature webhook needs the provider's current signing secret. After a rotation, update the sender with the new secret. Stripe and Standard Webhooks signatures older than five minutes are also rejected.
+* **The sender gets `401`** - The credential doesn't match the webhook's mode: a bearer token webhook needs the `Authorization: Bearer` header, a URL token webhook needs the token segment in the URL, and a provider signature webhook needs the provider's current signing secret. After a rotation, update the sender with the new secret. A webhook whose managed secret you updated keeps the old value until its definition next applies; see [Manage webhooks](#manage-webhooks). Stripe and Standard Webhooks signatures older than five minutes are also rejected.
 * **The sender gets `404`** - The webhook is disabled or deleted, or the UID in the URL is wrong. Enable it on the **Webhooks** page or check the URL against the webhook's detail pane.
 * **The sender gets `202` but no run starts** - Open the delivery under **Recent deliveries**. A **Duplicate** delivery reused an identity Warp already accepted; if the sender doesn't set a delivery ID, identical bodies count as duplicates. For an **Accepted** delivery, confirm an enabled automation selects this webhook in its **Webhook** trigger, and use **Test filter** against the delivery to see which check failed.
 * **The sender gets `429`** - The webhook exceeded 60 deliveries per minute. Retry after the interval in the `Retry-After` header. Failed authentication attempts count against a separate budget, so they can also produce `429` on their own.
