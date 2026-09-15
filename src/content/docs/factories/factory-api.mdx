@@ -20,7 +20,7 @@ Warp Factories is in **Early Access** and available to a limited set of teams. [
 * `GET /factory/{uid}` - get one factory by UID.
 * `POST /factory/{uid}/runs` - dispatch a run to the factory's foreman agent. Pass a `prompt`; the server resolves the foreman for you.
 
-A dispatched run is an ordinary [cloud agent run](/platform/): retrieve it, send it follow-ups, or cancel it through the same [Agent API](/reference/api-and-sdk/) you'd use for any run.
+A dispatched run is an ordinary [cloud agent run](/platform/): retrieve it, send it follow-ups, or cancel it through the same [Agent API](/factories/api-and-sdk/) you'd use for any run.
 
 ## When to use the factory API vs the Agent API
 
@@ -119,12 +119,12 @@ Content-Type: application/json
 }
 ```
 
-See [key endpoints](/reference/api-and-sdk/#key-endpoints) for the full set of run-management operations, including cancellation.
+See [key endpoints](/factories/api-and-sdk/#key-endpoints) for the full set of run-management operations, including cancellation.
 
 ## Related pages
 
 * [Connect your factory](/factories/connect-your-factory/) - Every way work can enter a factory, including the factory API alongside Slack, GitHub, and Factory MCP.
 * [Build a Mattermost bot for Warp Factories](/guides/external-tools/build-a-mattermost-bot-for-warp-factories/) - A worked example that discovers a factory and dispatches and continues a task from a custom chat integration.
 * [Factory MCP](/factories/factory-mcp/) - Connect a local coding agent to a factory instead of calling the REST API directly.
-* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) - Full endpoint reference, SDKs, and error codes for the underlying Agent API.
+* [{VARS.API_SDK_NAME}](/factories/api-and-sdk/) - Full endpoint reference, SDKs, and error codes for the underlying Agent API.
 * [How Warp Factories work](/factories/how-factories-work/) - The stages a dispatched task moves through after the foreman picks it up.

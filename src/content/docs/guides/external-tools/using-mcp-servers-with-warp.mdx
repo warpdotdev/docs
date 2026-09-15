@@ -30,7 +30,7 @@ Use this guide to choose the right setup path, then jump to the source docs for 
 | Local Warp agent | You are working interactively in Warp and want the agent to use tools from your machine or desktop-authenticated services. | Warp MCP settings, Warp Drive MCP servers, `.warp/.mcp.json`, or provider config files. | [Model Context Protocol (MCP)](/agents/capabilities/mcp/) |
 | Third-party CLI agent in Warp | You run Claude Code, Codex, OpenCode, or another CLI agent in Warp and want shared MCP config across tools. | File-based MCP config that Warp can detect and approve. | [File-based MCP servers](/agents/capabilities/mcp/#file-based-mcp-servers) |
 | Cloud agent run | The agent runs in a cloud environment from Slack, Linear, schedules, GitHub Actions, the CLI, or the API. | `--mcp`, an agent config file, or a Warp-shared MCP UUID. | [MCP Servers for cloud agents](/platform/mcp/) |
-| Repeatable automation | You need the same MCP tools every time a scheduled agent, integration, or CI workflow runs. | Agent config files plus [Agent Secrets](/platform/secrets/) for credentials. | [MCP servers (CLI reference)](/reference/cli/mcp-servers/) |
+| Repeatable automation | You need the same MCP tools every time a scheduled agent, integration, or CI workflow runs. | Agent config files plus [Agent Secrets](/platform/secrets/) for credentials. | [MCP servers (CLI reference)](/agents/cli/oz-cli/mcp-servers/) |
 
 ## Common MCP workflows
 
@@ -80,7 +80,7 @@ Then pass the UUID to an agent run:
 oz agent run-cloud --mcp "<MCP_SERVER_UUID>" --prompt "Summarize the latest production incidents"
 ```
 
-See [MCP servers (CLI reference)](/reference/cli/mcp-servers/) for all `--mcp` formats.
+See [MCP servers (CLI reference)](/agents/cli/oz-cli/mcp-servers/) for all `--mcp` formats.
 
 ## Local MCP setup paths
 
@@ -136,5 +136,5 @@ Before giving an agent tool access through MCP:
 
 * [Model Context Protocol (MCP)](/agents/capabilities/mcp/) - Configure MCP servers for local agents in the Warp app.
 * [MCP Servers for cloud agents](/platform/mcp/) - Configure MCP servers for cloud runs and automation.
-* [MCP servers (CLI reference)](/reference/cli/mcp-servers/) - Use `--mcp` with UUIDs, inline JSON, or files.
+* [MCP servers (CLI reference)](/agents/cli/oz-cli/mcp-servers/) - Use `--mcp` with UUIDs, inline JSON, or files.
 * [Agent Secrets](/platform/secrets/) - Store credentials for cloud agent runs.

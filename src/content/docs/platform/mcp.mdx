@@ -24,7 +24,7 @@ The agent calls MCP tools automatically based on what the task requires, without
 
 You can supply MCP configuration in two ways:
 
-* **At run time** — pass `--mcp` when calling `oz agent run` or `oz agent run-cloud`. See [MCP Servers](/reference/cli/mcp-servers/) in the CLI reference for the full syntax.
+* **At run time** — pass `--mcp` when calling `oz agent run` or `oz agent run-cloud`. See [MCP Servers](/agents/cli/oz-cli/mcp-servers/) in the CLI reference for the full syntax.
 * **In an agent config file** — define `mcp_servers` directly in a YAML or JSON agent config file (passed with `-f / --file`). This is the recommended approach for repeatable workflows.
 
 ## Configuration schema
@@ -133,7 +133,7 @@ Token- or header-based authentication on a `url` server, `env`-based secrets on 
 ## Learn more
 
 * [Connect developer tools to agents with MCP workflows](/guides/external-tools/using-mcp-servers-with-warp/) — choose between local, cloud, and shared MCP setup paths
-* [MCP Servers (CLI reference)](/reference/cli/mcp-servers/) — how to pass MCP configuration using the `--mcp` flag
+* [MCP Servers (CLI reference)](/agents/cli/oz-cli/mcp-servers/) — how to pass MCP configuration using the `--mcp` flag
 * [Model Context Protocol (MCP)](/agents/capabilities/mcp/) — configuring MCP servers in Warp for local agents
 * [Environments](/platform/environments/) — set up the runtime context (repo, image, startup commands) for cloud agent tasks
 * [Secrets](/platform/secrets/) — store and inject credentials into agent runs safely
