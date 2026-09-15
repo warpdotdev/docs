@@ -488,6 +488,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories/factory-api', label: 'Factory API' },
 						{ slug: 'factories/api-and-sdk', label: VARS.API_SDK_NAME },
 						{ label: 'API reference', link: '/api' },
+						{ slug: 'factories/api-and-sdk/demo-sentry-monitoring-with-sdk', label: 'Sentry monitoring with the SDK' },
 						{ slug: 'factories/api-and-sdk/troubleshooting', label: 'API troubleshooting' },
 						{ slug: 'factories/api-and-sdk/troubleshooting/errors', label: 'API errors' },
 						{ slug: 'factories/factory-mcp', label: 'Factory MCP' },
