@@ -396,7 +396,7 @@ The operating system and architecture. `os` is `linux` (the default) or `macos`,
 
 ## `benchmarks/<suite-slug>/suite.yaml`
 
-Optional. This file defines a [benchmark suite](/factories/benchmarks/): one agent and an ordered set of reusable tasks. The suite slug is its stable file location, not its display name, so renaming `name` does not move the file or change the suite's identity.
+Optional. This file defines a [benchmark suite](/factories/benchmarks/): one agent, optional reusable configurations, and an ordered set of reusable tasks. The suite slug is its stable file location, not its display name, so renaming `name` does not move the file or change the suite's identity.
 
 ```yaml title="benchmarks/pull-request-review/suite.yaml"
 name: Pull request review
