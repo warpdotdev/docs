@@ -342,7 +342,7 @@ async function collectSamples(baseUrl) {
 	return { llmsResponse, samples };
 }
 
-function assessBotProtection(samples) {
+export function assessBotProtection(samples) {
 	const observations = samples.flatMap((sample) => [sample.html, sample.markdown]);
 	if (observations.length === 0) {
 		return createResult(
@@ -404,11 +404,11 @@ function assessTransferSize(samples) {
 	);
 }
 
-function extractContinuation(markdown, headers) {
+export function extractContinuation(markdown, headers) {
 	const signals = [];
 	const linkHeader = headers.link || '';
 	const headerMatch = linkHeader.match(/<([^>]+)>;\s*rel="?next"?/i);
-	if (headerMatch) signals.push({ href: headerMatch[1], position: markdown.length, source: 'Link header' });
+	if (headerMatch) signals.push({ href: headerMatch[1], position: 0, source: 'Link header' });
 
 	const links = extractMarkdownLinks(markdown);
 	for (const href of links) {
@@ -422,7 +422,7 @@ function extractContinuation(markdown, headers) {
 	return signals;
 }
 
-async function assessSingleFetchCompleteness(samples) {
+export async function assessSingleFetchCompleteness(samples, fetcher = fetchResource) {
 	const markdownSamples = samples
 		.map((sample) => sample.markdown)
 		.filter((response) => response.status === 200 && response.body.length > 0);
@@ -449,7 +449,7 @@ async function assessSingleFetchCompleteness(samples) {
 				findings.push({ status: 'fail', response, continuation, reason: 'continuation URL cannot be resolved' });
 				continue;
 			}
-			const next = await fetchResource(target.toString(), {
+			const next = await fetcher(target.toString(), {
 				accept: 'text/markdown, text/plain;q=0.9, */*;q=0.1',
 			});
 			const absolute = /^https?:\/\//i.test(continuation.href);
@@ -494,7 +494,7 @@ async function assessSingleFetchCompleteness(samples) {
 	);
 }
 
-async function assessMarkdownLinkPortability(samples) {
+export async function assessMarkdownLinkPortability(samples, fetcher = fetchResource) {
 	const markdownSamples = samples
 		.map((sample) => sample.markdown)
 		.filter((response) => response.status === 200 && response.body.length > 0);
@@ -519,7 +519,7 @@ async function assessMarkdownLinkPortability(samples) {
 
 	for (const { href, response } of markdownLinks) {
 		const target = new URL(href, response.url).toString();
-		const resolved = await fetchResource(target, {
+		const resolved = await fetcher(target, {
 			accept: 'text/markdown, text/plain;q=0.9, */*;q=0.1',
 		});
 		const contentType = resolved.headers['content-type'] || '';
@@ -547,7 +547,7 @@ async function assessMarkdownLinkPortability(samples) {
 	);
 }
 
-function bulkElements(html) {
+export function bulkElements(html) {
 	const content = htmlToText(html);
 	const elements = [];
 	for (const table of html.match(/<table\b[^>]*>[\s\S]*?<\/table>/gi) || []) {
@@ -555,8 +555,15 @@ function bulkElements(html) {
 		const text = htmlToText(table);
 		if (rows >= 25) elements.push({ type: 'table', rows, characters: text.length });
 	}
-	for (const block of content.match(/```(?:json|ya?ml|csv)?[\s\S]{1024,}?```/gi) || []) {
-		elements.push({ type: 'data block', characters: block.length });
+	for (const block of html.match(/<pre\b[^>]*>\s*<code\b[^>]*>[\s\S]*?<\/code>\s*<\/pre>/gi) || []) {
+		const isDataBlock =
+			/\b(?:data-language|data-lang)\s*=\s*["'](?:json|ya?ml|csv)["']|\bclass\s*=\s*["'][^"']*\blanguage-(?:json|ya?ml|csv)\b/i.test(
+				block
+			);
+		const text = htmlToText(block);
+		if (isDataBlock && text.length >= 1024) {
+			elements.push({ type: 'data code block', characters: text.length });
+		}
 	}
 	for (const base64 of content.match(/[A-Za-z0-9+/]{1024,}={0,2}/g) || []) {
 		elements.push({ type: 'base64 payload', characters: base64.length });
@@ -564,9 +571,17 @@ function bulkElements(html) {
 	return { contentCharacters: content.length, elements };
 }
 
-function assessEmbeddedDataSerialization(samples) {
+export function assessEmbeddedDataSerialization(samples) {
 	const analyses = samples
-		.map((sample) => ({ url: sample.html.url, ...bulkElements(sample.html.body) }))
+		.map((sample) => sample.html)
+		.filter(
+			(response) =>
+				response.status >= 200 &&
+				response.status < 300 &&
+				!isChallenge(response) &&
+				!isSoft404(response)
+		)
+		.map((response) => ({ url: response.url, ...bulkElements(response.body) }))
 		.filter((analysis) => analysis.contentCharacters > 0);
 	if (analyses.length === 0) {
 		return createResult(
