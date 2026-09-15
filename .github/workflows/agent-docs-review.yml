@@ -60,6 +60,8 @@ jobs:
                changed file and line or quoted text, explain the problem, and state the requested
                resolution. Set reviewer_login to `github-actions[bot]`, the runner account that
                will publish the review.
+            5. Your final response must contain only the single [SIGNAL:pr-review] JSON record.
+               Do not repeat the diff, review rationale, or findings outside that record.
       - name: Dismiss stale automated change requests
         env:
           GH_TOKEN: ${{ github.token }}
