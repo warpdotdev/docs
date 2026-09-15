@@ -11,7 +11,7 @@ import { VARS } from '@data/vars';
 Deploy the `oz-agent-worker` daemon into a Kubernetes cluster using the included Helm chart. Each agent task runs as a **Kubernetes Job** in your cluster. The {VARS.WARP_AUTOMATION_PLATFORM} orchestrates runs end to end (Slack, Linear, schedules, API, `oz agent run-cloud`); your cluster provides the compute, scheduling, and policy enforcement.
 
 :::note
-This page covers the [managed architecture](/factories/self-hosting/#managed-architecture) with the Kubernetes backend. For the default Docker backend, see [Managed: Docker](/factories/self-hosting/managed-docker/). For host execution without a container runtime, see [Managed: Direct](/factories/self-hosting/managed-direct/). To route runs to a connected worker, see [Routing runs to this worker](/factories/self-hosting/managed-docker/#routing-runs-to-this-worker).
+The Kubernetes backend uses the [managed architecture](/factories/self-hosting/#managed-architecture). For the default Docker backend, see [Managed: Docker](/factories/self-hosting/managed-docker/). For host execution without a container runtime, see [Managed: Direct](/factories/self-hosting/managed-direct/). To route runs to a connected worker, see [Routing runs to this worker](/factories/self-hosting/managed-docker/#routing-runs-to-this-worker).
 :::
 
 ## When to use the Kubernetes backend
