@@ -44,7 +44,7 @@ Your team's plan sets the default instance shape (vCPUs and memory) for Warp-hos
 
 ## Choose an execution host
 
-A factory runs its work on one of two execution hosts: Warp-hosted compute or a managed self-hosted worker.
+A factory runs its work on one of two execution hosts: Warp-hosted compute or a worker in the [managed self-hosting architecture](/platform/self-hosting/#managed-architecture).
 
 | Decision area | Warp-hosted | Managed self-hosted |
 | --- | --- | --- |
@@ -57,7 +57,7 @@ A factory runs its work on one of two execution hosts: Warp-hosted compute or a 
 
 To route factory work to a managed self-hosted worker (an Enterprise feature):
 
-1. **Deploy a worker** - Review the [self-hosting requirements](/platform/self-hosting/), then connect a worker that authenticates to Warp with an agent API key. Workers run on `linux/amd64` and `linux/arm64`, and the worker's platform determines which workloads it can run.
+1. **Deploy a worker** - Use the [self-hosting overview](/platform/self-hosting/) to choose a managed backend and review its requirements, then connect a worker that authenticates to Warp with an agent API key. Workers run on `linux/amd64` and `linux/arm64`, and the worker's platform determines which workloads it can run.
 2. **Pair it with a compatible runner** - Choose a runner that matches the worker's platform.
 3. **Select the worker in the factory definition** - Set [`workerHost`](/factories/factory-as-code/) so the factory routes work to it.
 
@@ -72,14 +72,14 @@ Execution, inference, and storage are independent choices: each moves one bounda
 | Team choice | What it changes | What stays with Warp |
 | --- | --- | --- |
 | **Execution**: Warp-hosted or managed self-hosted | Where checkout, commands, and the sandbox filesystem run | Coordination, configuration, observability, and inference routing |
-| **Inference**: Warp-managed or customer-supplied | The provider account, model routing, billing, and provider-side retention | Run coordination and inference routing |
+| **Inference**: Warp-managed, [team-managed keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), or [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/) | The provider account, model routing, billing, and provider-side retention | Run coordination and inference routing |
 | **Storage**: Warp or customer-owned | Where supported transcripts, artifacts, and run attachments persist | Orchestration, the write path, and other factory and control-plane state |
 
 :::note
 Managed self-hosted execution, customer-supplied inference, and customer-owned storage all require an Enterprise plan.
 :::
 
-Factory runs execute as [cloud agents](/platform/), so customer-supplied inference is limited to providers that support cloud agents. See [team-managed model keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) and [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) for the supported providers. When you supply the provider, provider-side retention follows your provider account and contract; Warp can't configure or enforce it for you. The [security overview](/enterprise/security-and-compliance/security-overview/) covers Warp's broader data handling.
+Factory runs execute as [cloud agents](/platform/), so customer-supplied inference is limited to providers that support cloud agents. The provider pages linked above list current support. When you supply the provider, provider-side retention follows your provider account and contract; Warp can't configure or enforce it for you. The [security overview](/enterprise/security-and-compliance/security-overview/) covers Warp's broader data handling.
 
 For storage, Enterprise teams can keep the supported data classes above (transcripts, artifacts, and run attachments) in a customer-owned Amazon S3 or Google Cloud Storage bucket. Warp enables customer-owned storage for your team and writes the applicable data to the bucket you configure; your team owns the bucket's access and lifecycle policies. Customer-owned storage doesn't move all factory state into your account: configuration, run metadata, and other control-plane state stay with Warp.
 
@@ -111,3 +111,11 @@ Warp meters hosted compute, Warp-provided inference, and platform services. Mana
 5. **Scope credentials** - Set each agent's secret allowlist, harness authentication, and repository identity.
 6. **Set review gates** - Decide where humans review specifications and pull requests, and enforce those gates in workflow and repository policy.
 7. **Validate operations** - Test network egress, isolation, rotation, redaction, capacity, observability, and metering before increasing volume.
+
+## Related pages
+
+* [**Deployment patterns**](/platform/deployment-patterns/) - Compare Warp-hosted, managed self-hosted, and CLI-only execution.
+* [**Self-hosting overview**](/platform/self-hosting/) - Choose a managed worker backend and follow its setup guide.
+* [**Self-hosting security and networking**](/platform/self-hosting/security-and-networking/) - Review data boundaries, network egress, and backend-specific controls.
+* [**Bring Your Own LLM**](/enterprise/enterprise-features/bring-your-own-llm/) - Compare customer-owned inference options and provider support.
+* [**Enterprise security overview**](/enterprise/security-and-compliance/security-overview/) - Review data handling, ZDR, compliance, and access controls across Warp.
