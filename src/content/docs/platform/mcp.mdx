@@ -27,6 +27,8 @@ You can supply MCP configuration in two ways:
 * **At run time** — pass `--mcp` when calling `oz agent run` or `oz agent run-cloud`. See [MCP Servers](/agents/cli/oz-cli/mcp-servers/) in the CLI reference for the full syntax.
 * **In an agent config file** — define `mcp_servers` directly in a YAML or JSON agent config file (passed with `-f / --file`). This is the recommended approach for repeatable workflows.
 
+For factory work, declare factory-wide or per-agent MCP servers in the [factory definition](/factories/factory-as-code/#mcpservers). Use [Factory MCP](/factories/factory-mcp/) to connect an external coding agent to a factory.
+
 ## Configuration schema
 
 Each MCP server entry is keyed by a name you choose. A server config must have **exactly one** transport type:

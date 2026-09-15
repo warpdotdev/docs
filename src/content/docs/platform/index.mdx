@@ -9,15 +9,15 @@ sidebar:
 import { VARS } from '@data/vars';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-{/* Transition notice for the 2026-08-18 rename. Remove after 2026-10-06, when
-    the CLI and web app take their new names and the old one stops appearing. */}
 :::note
-**Oz is now the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/).** Only the name changed. Your existing cloud agents, integrations, API keys, and schedules keep working exactly as before. The `oz` CLI and the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> keep the Oz name until October 6, 2026.
+**The [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) is the current name.** Existing cloud agents, integrations, API keys, and schedules continue to work. The `oz` CLI and the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> retain their legacy names during the transition. See [Transitioning](/platform/transitioning-from-oz/) for the current guidance.
 :::
 
 Cloud agents are autonomous, background agents that run on Warp's cloud infrastructure or your own, triggered by system events, schedules, or integrations like Slack and GitHub. They execute tasks with full observability — every run is tracked, inspectable, and shareable across your team.
 
 **New to cloud agents?** Start with the [Cloud agents quickstart](/platform/quickstart/) to run your first cloud agent in ~10 minutes.
+
+For a standing, multi-stage workflow with named agents, automations, and measurement, use [Warp Factories](/factories/). The factory-specific setup and operations guidance complements this shared cloud-agent reference.
 
 ### Monitor, inspect, and share cloud agent runs
 

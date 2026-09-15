@@ -1,0 +1,37 @@
+---
+title: Transitioning to the {{WARP_AUTOMATION_PLATFORM}} and Warp Factories
+description: >-
+  Warp's documentation is moving to a factory-first structure while existing
+  workflows, configuration, and tools remain available.
+sidebar:
+  label: "Transitioning"
+---
+import { VARS } from '@data/vars';
+
+Warp's documentation is moving to a factory-first structure. Existing workflows, cloud agents, integrations, schedules, API keys, and the `oz` CLI remain available, so you don't need to migrate immediately.
+
+The {VARS.WARP_AUTOMATION_PLATFORM} remains the shared foundation for cloud agents. Warp Factories builds on those primitives for teams that need standing workflows with named agents, work intake, review stages, and measurement.
+
+## Choose the right entry point
+
+* **Use the {VARS.WARP_AUTOMATION_PLATFORM}** - Configure standalone cloud agents, environments, schedules, integrations, and orchestration. Start with the [{VARS.WARP_AUTOMATION_PLATFORM} overview](/platform/overview/) or [Cloud agents overview](/platform/).
+* **Warp Factories** - Use a repeatable workflow that routes work through named agents and tracks it in one place. Start with the [Warp Factories overview](/factories/) or the [factory quickstart](/factories/quickstart/).
+
+## What stays available
+
+Current workflows and configuration continue to work during this documentation transition. Links from legacy API, SDK, and CLI reference paths point to their current documentation locations:
+
+* **API and SDK documentation** - Available under [Developer tools for Warp Factories](/factories/developer-tools/).
+* **Legacy {VARS.WARP_AGENT_CLI} documentation** - Available in the [legacy CLI reference](/agents/cli/oz-cli/).
+* **Managed self-hosting documentation** - Available in [Managed self-hosting for Warp Factories](/factories/self-hosting/).
+* **Standalone cloud-agent execution** - Available in [Unmanaged execution](/platform/unmanaged-execution/).
+
+## What comes next
+
+This page will add verified migration actions, compatibility dates, and replacement destinations as the product transition is finalized. Until then, follow the documentation for the workflow you use today.
+
+## Related pages
+
+* [{VARS.WARP_AUTOMATION_PLATFORM} overview](/platform/overview/) - Configure the reusable primitives behind cloud-agent workflows.
+* [Warp Factories overview](/factories/) - Build and operate a standing software factory.
+* [Factory dashboard](/factories/factory-dashboard/) - Inspect work items, runs, and factory settings.

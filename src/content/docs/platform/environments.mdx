@@ -9,6 +9,8 @@ import { VARS } from '@data/vars';
 
 Environments describe _how_ an agent executes a task, not _what_ it does. They give cloud agents the same container, repositories, and setup every time they run. Use an environment for a cloud agent run that needs a repeatable toolchain. Interactive local runs use your current checkout and machine setup, so they don't need one.
 
+Factories manage their own repositories and workspace by default. Set `agentDefaults.environmentId` in a [factory definition](/factories/factory-as-code/#agentdefaultsenvironmentid) when a factory agent must use an existing environment.
+
 ## What an environment includes
 
 An environment groups the runtime configuration for a cloud agent run:
