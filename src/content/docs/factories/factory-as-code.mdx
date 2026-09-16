@@ -260,7 +260,7 @@ MCP servers for agents that don't declare their own, in the same form as [`mcpSe
 
 ### `agentDefaults.workerHost`
 
-Where runs execute: `warp` for Warp-hosted compute, or the ID of a connected [self-hosted worker](/platform/self-hosting/).
+Where runs execute: `warp` for Warp-hosted compute, or the ID of a connected worker in the [managed self-hosting architecture](/platform/self-hosting/#managed-architecture). Configure the worker's Docker, Kubernetes, or Direct backend on the worker itself; the factory definition selects the worker and a compatible runner.
 
 ## `agents/<name>/agent.md`
 
@@ -548,7 +548,7 @@ Optional. How deliveries authenticate: `token` (the default, an `Authorization: 
 
 ### `signatureScheme`
 
-The provider signature to verify: `github`, `pagerduty`, `sentry`, `standard_webhooks`, or `stripe`. Required when `authMode` is `signature`, and invalid otherwise.
+The provider signature to verify: `github`, `pagerduty`, `sentry`, `standard_webhooks`, `stripe`, or `vercel`. Required when `authMode` is `signature`, and invalid otherwise.
 
 ### `secretName`
 
@@ -560,7 +560,7 @@ Optional. The header the sender stamps its own delivery identity into, used to d
 
 ### `enabled`
 
-Optional. Defaults to `true`. Set it to `false` to stop deliveries immediately without deleting the webhook.
+Optional. Defaults to `true`. Set it to `false` to stop deliveries immediately without deleting the webhook, or to create a webhook before its provider has issued a signing secret; see [Setting up a Vercel webhook](/factories/webhooks/vercel/).
 
 On a Warp-managed factory, creating a webhook in the dashboard writes this file for you and stores the secret under the name you enter in the "Secret name" field.
 
@@ -646,7 +646,7 @@ agentDefaults:
   workerHost: SELF_HOSTED_WORKER_ID
 ```
 
-Pair `workerHost` with a runner whose `platform` matches the worker's operating system and architecture. See [choose an execution host](/factories/infrastructure-and-security/#choose-an-execution-host) for the full setup, including how to deploy and connect the worker. For a working definition, see [`07-self-hosted-worker`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/07-self-hosted-worker).
+Pair `workerHost` with a runner whose `platform` matches the worker's operating system and architecture. Follow the [Self-hosting quickstart](/platform/self-hosting/quickstart/) to deploy and connect a managed worker, then see [choose an execution host](/factories/infrastructure-and-security/#choose-an-execution-host) for the factory-specific setup. For a working definition, see [`07-self-hosted-worker`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/07-self-hosted-worker).
 
 ## Related pages
 

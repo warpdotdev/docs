@@ -8,6 +8,17 @@ This log tracks every run of the `weekly-404-monitor` skill — both runs that o
 
 ---
 
+## 2026-09-14 — PR opened
+- **Total 404s this week**: 327
+- **Total 404s last week**: 258
+- **Trend**: ▲ 69 (26.7%)
+- **Significant gaps (≥5 hits)**: 4 (3 new)
+- **Redirect candidates processed**: 1  (hits ≥ 5; excluded 2 malformed captures + 1 already-covered false positive)
+- **HIGH-confidence redirects**: 1
+- **PR**: https://github.com/warpdotdev/docs/pull/743
+- **Oz run**: https://app.warp.dev/conversation/28de86d1-5d63-4a6f-b819-bca298a6601b
+- **Notes**: 184 pages had SQL-normalised hits; 152 uncovered (148 below threshold). HIGH: `/agents/cli-agents` (5 hits) → `/agents/cli-agents/overview/` (section path has no index; overview is the landing page). `/features/session_management/launch-configuration` (5 hits) is a **false positive** — already covered by existing `vercel.json` source `/features/session_management/launch-configuration(/?)` from PR #715; `load_redirect_sources` does not strip the `(/?)` optional-slash pattern, so coverage detection misses it (follow-up: normalize `(/?)` when loading sources). Two recurring malformed gaps — `/support-and-community/troubleshooting-and-support/logging-out-and-uninstalling/:*logging` (10) and `/agents/local-agents/interacting-with-agents/voice/:)%3cb%3evoice` (9) — excluded again: underlying pages exist, and `:`-containing suffixes are path-to-regexp-unsafe + look like `docs_404` capture artifacts. 128 resolved since last week. Volume up 26.7% vs last week — worth watching. Posted summary to #growth-docs.
+
 ## 2026-09-09 — PR opened
 - **Total 404s this week**: 270
 - **Total 404s last week**: 299

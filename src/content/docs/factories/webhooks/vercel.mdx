@@ -1,0 +1,78 @@
+---
+title: Setting up a Vercel webhook
+description: >-
+  Start factory runs from Vercel deployments: create the webhook without a
+  secret, register its URL in Vercel, then save the secret Vercel issues.
+sidebar:
+  label: "Vercel"
+---
+import { VARS } from '@data/vars';
+
+Vercel shows a webhook's signing secret only after you save its URL, and Warp has a URL only once the webhook exists. To break the loop, create the webhook without a secret: Warp creates it disabled, gives you the URL, and takes the secret in a second step. Stripe and PagerDuty issue their secrets the same way, so the same steps work for them with **Stripe** or **PagerDuty** as the provider scheme.
+
+Vercel team webhooks require a Vercel Pro or Enterprise plan.
+
+## Prerequisites
+
+* **Permission to manage the factory** - Creating and editing webhooks changes the factory's configuration.
+* **The basics of custom webhooks** - Authentication modes, delivery rules, and how an automation subscribes to a webhook are covered in [Triggering automations with custom webhooks](/factories/webhooks/).
+
+## Creating the webhook in the factory dashboard
+
+1. In the factory dashboard, open **Webhooks**, click **Add webhook**, and enter a "Name" such as `Vercel deploys`.
+2. In the "Authentication" dropdown, choose **Provider signature**, then in the "Provider scheme" dropdown, choose **Vercel**.
+3. Leave "Provider secret" blank, keep the suggested "Secret name", and click **Create and get URL**.
+
+   The pane's title changes to "Finish webhook setup" and it shows the ingress URL. The webhook exists but is disabled, so it accepts no deliveries yet.
+4. In the Vercel dashboard, go to your team's **Settings** > **Webhooks**.
+5. Under "Projects", choose which projects send events, and under "Events", select the events you want. Enter the ingress URL as the "Endpoint URL" and click **Create Webhook**. Vercel shows the webhook's secret once.
+6. In Warp, paste that secret into "Secret from Vercel" and click **Save and enable**.
+
+The webhook is enabled and verifies the `x-vercel-signature` header on every delivery. Trigger a deployment and confirm it appears under **Recent deliveries** as **Accepted**, then [add a Webhook trigger to an automation](/factories/webhooks/#add-a-webhook-trigger-to-an-automation) so deliveries start runs.
+
+### Finishing later
+
+Click **Finish later** to close the pane and leave the webhook disabled. Warp stored a placeholder in the webhook's managed secret when it created the webhook. When you have the secret from Vercel, replace the placeholder from the {VARS.WARP_AGENT_CLI}; the command prompts for the value:
+
+```bash
+oz secret update --team --value VERCEL_DEPLOYS_WEBHOOK_SECRET
+```
+
+Then open the webhook on the **Webhooks** page and toggle **Enabled** on. Enabling it applies the webhook's definition again, which reads the new value.
+
+## Creating the webhook in a definition that lives in GitHub
+
+A GitHub-backed factory has no dashboard editing, and a change applies only when it lands on the production branch. Order the steps so the change that enables the webhook is also the one that applies the secret:
+
+1. On the team's **Secrets** page, create a secret such as `VERCEL_WEBHOOK_SECRET` with a temporary placeholder value that isn't used anywhere else. A webhook file must name a secret that already exists.
+2. Add `webhooks/vercel.yaml` with the webhook disabled, and merge it to the production branch:
+
+   ```yaml title="webhooks/vercel.yaml"
+   authMode: signature
+   signatureScheme: vercel
+   secretName: VERCEL_WEBHOOK_SECRET
+   enabled: false
+   ```
+
+   Once the change applies, the webhook appears on the **Webhooks** page with its ingress URL.
+3. Create the webhook in Vercel with that URL, as in steps 4 and 5 above, then replace the placeholder with the secret Vercel shows:
+
+   ```bash
+   oz secret update --team --value VERCEL_WEBHOOK_SECRET
+   ```
+
+4. Change `enabled: false` to `enabled: true` and merge. Applying this change reads the new secret value and enables the webhook.
+
+Creating the webhook with `enabled: true` from the start rejects every delivery with `401` until a later push to the production branch applies the updated secret.
+
+## Troubleshooting
+
+**Vercel deliveries get `401`**\
+The secret Warp verifies with doesn't match the one Vercel signs with: the placeholder is still in place, or you updated the secret but the webhook's definition hasn't applied since. Confirm the value against the webhook's settings in Vercel, then toggle **Enabled** off and on in the factory dashboard, or on a GitHub-backed factory merge a change to the production branch.
+
+## Related pages
+
+* [**Triggering automations with custom webhooks**](/factories/webhooks/) - Authentication modes, delivery rules, payload filters, and managing webhooks.
+* [**Definitions as code**](/factories/factory-as-code/#webhooksnameyaml) - Every key in `webhooks/<name>.yaml`.
+* [**Cloud agent secrets**](/platform/secrets/) - The managed secrets that webhooks reference, and the `oz secret` commands.
+* [**Vercel webhooks**](https://vercel.com/docs/webhooks) - Vercel's reference for webhook events and payloads.
