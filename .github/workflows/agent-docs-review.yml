@@ -37,12 +37,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run independent review-docs-pr agent
-        id: oz-review
-        uses: warpdotdev/oz-agent-action@main
-        with:
-          warp_api_key: ${{ secrets.WARP_API_KEY }}
-          profile: ${{ vars.WARP_AGENT_PROFILE || '' }}
-          prompt: |
+        env:
+          WARP_API_KEY: ${{ secrets.WARP_API_KEY }}
+          WARP_AGENT_PROFILE: ${{ vars.WARP_AGENT_PROFILE || '' }}
+        run: |
+          curl --fail --location \
+            "https://app.warp.dev/download/cli?os=linux&package=deb&arch=x86_64&channel=stable" \
+            --output /tmp/oz.deb
+          sudo dpkg -i /tmp/oz.deb
+          sudo apt-get -f install -y
+          PROMPT="$(cat <<'EOF'
             Run the review-docs-pr skill against warpdotdev/docs PR #${{ github.event.pull_request.number }}
             at head SHA ${{ github.event.pull_request.head.sha }}. This PR carries the warpy-factory agent
             marker, so it requires the independent v1 agent-doc quality review pass (see
@@ -60,19 +64,15 @@ jobs:
                changed file and line or quoted text, explain the problem, and state the requested
                resolution. Set reviewer_login to `github-actions[bot]`, the runner account that
                will publish the review.
-            5. Before your final response, write the single [SIGNAL:pr-review] JSON record to
-               ${{ github.workspace }}/.agent-docs-review-signal.txt. Your final response must
-               contain that same single record. Do not repeat the diff, review rationale, or
-               findings outside that record.
-
-      - name: Normalize the independent review signal
-        run: |
-          test -s .agent-docs-review-signal.txt
-          python3 .agents/skills/doc_quality_policy/normalize_review_signal.py \
-            --agent-output .agent-docs-review-signal.txt \
-            --pr "${{ github.event.pull_request.number }}" \
-            --head-sha "${{ github.event.pull_request.head.sha }}" \
-            --output /tmp/agent-review-signal.txt
+            5. Your final response must contain only the single [SIGNAL:pr-review] JSON record.
+               Do not repeat the diff, review rationale, or findings outside that record.
+          EOF
+          )"
+          args=(agent run --sandboxed --output-format text --prompt "$PROMPT")
+          if [ -n "$WARP_AGENT_PROFILE" ]; then
+            args+=(--profile "$WARP_AGENT_PROFILE")
+          fi
+          oz "${args[@]}" > /tmp/agent-output.txt
       - name: Dismiss stale automated change requests
         env:
           GH_TOKEN: ${{ github.token }}
@@ -93,7 +93,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           python3 .agents/skills/doc_quality_policy/publish_review_signal.py \
-            --agent-output /tmp/agent-review-signal.txt \
+            --agent-output /tmp/agent-output.txt \
             --pr "${{ github.event.pull_request.number }}" \
             --head-sha "${{ github.event.pull_request.head.sha }}" \
             --output /tmp/review-request.json
