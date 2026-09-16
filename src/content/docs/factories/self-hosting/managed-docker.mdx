@@ -212,7 +212,7 @@ Sidecar images (the `oz` binary and dependencies) are pulled from public registr
 
 ## Routing runs to this worker
 
-Once your Docker worker is connected, route tasks to it with `--host "<your-worker-id>"`. Routing is the same across all managed backends — see [Routing runs to self-hosted workers](/factories/self-hosting/#routing-runs-to-self-hosted-workers) for CLI, scheduled, integration, API, and web UI examples.
+Once your Docker worker is connected, route factory work to it with `workerHost` in the [factory definition](/factories/factory-as-code/#agentdefaultsworkerhost). To route a standalone cloud agent with `--host "<your-worker-id>"`, see the [CLI reference](/agents/cli/oz-cli/).
 
 ---
 
