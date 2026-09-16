@@ -126,7 +126,7 @@ Open a webhook on the **Webhooks** page to inspect and change it:
 
 On a Warp-managed factory, the dashboard writes each webhook to a definition file, so two actions work differently: rename isn't supported, and instead of **Rotate secret** you give the managed secret the webhook references a new value, with `oz secret update --team --value SECRET_NAME` on the {VARS.WARP_AGENT_CLI}. The webhook picks up the new value the next time its definition applies, such as when you toggle **Enabled** off and on.
 
-On a GitHub-backed factory, a managed secret's new value takes effect the next time a change merged to the production branch applies.
+On a GitHub-backed factory, a managed secret's new value takes effect the next time a change to the production branch applies.
 
 ## Delivery rules
 

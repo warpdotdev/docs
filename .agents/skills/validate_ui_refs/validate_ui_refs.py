@@ -54,6 +54,7 @@ EXTERNAL_CONTEXT_KEYWORDS = {
     "github", "gitlab", "bitbucket", "organization", "org settings",
     "slack", "linear", "notion", "jira", "figma",
     "raycast", "vs code", "vscode", "visual studio",
+    "vercel", "stripe", "pagerduty",
 }
 
 # Known external/OS Settings paths that look like Warp paths but aren't.
