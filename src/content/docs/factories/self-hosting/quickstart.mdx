@@ -80,16 +80,3 @@ Open the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>, find the new task, and
 * [CLI reference](/agents/cli/oz-cli/) — Route standalone cloud agents to the worker with `--host`.
 * [Managed: Kubernetes](/factories/self-hosting/managed-kubernetes/) — Deploy workers into a Kubernetes cluster with Helm.
 * [Self-hosted worker reference](/factories/self-hosting/reference/) — All CLI flags and config file options.
-
-## Troubleshooting
-
-**Worker won't start**\
-Verify Docker is running (`docker info`) and that the daemon platform is `linux/amd64` or `linux/arm64`. Musl-based (Alpine) worker hosts are not supported.
-
-**Worker won't connect**\
-Verify your API key has team scope. Ensure the machine has outbound internet access to `oz.warp.dev:443`. Increase log verbosity with `--log-level debug` to see connection details.
-
-**Task stays queued and never runs**\
-Confirm the `--host` value you passed to `oz agent run-cloud` matches your `--worker-id` exactly (case-sensitive). Check that the worker's team matches the team creating the task.
-
-For more, see [Troubleshooting](/factories/self-hosting/troubleshooting/).

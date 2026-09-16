@@ -14,7 +14,7 @@ Managed self-hosting runs factory work on infrastructure you control. A worker c
 Managed self-hosting is available to Enterprise teams. [Contact sales](https://www.warp.dev/contact-sales) to enable it for your team.
 :::
 
-Managed workers run on Linux `amd64` or `arm64` hosts.
+Managed workers run only on Linux `amd64` or `arm64` hosts. To run agents on macOS or Windows, use [unmanaged execution](/platform/unmanaged-execution/).
 
 <a id="managed-architecture"></a>
 
@@ -22,7 +22,7 @@ Managed workers run on Linux `amd64` or `arm64` hosts.
 
 Run the `oz-agent-worker` daemon on infrastructure that can reach your repositories and internal services. The worker connects outbound to the {VARS.WARP_AUTOMATION_PLATFORM}, waits for factory work, and runs each task using the backend you configure.
 
-A managed worker is the self-hosted execution option for a factory. [Unmanaged execution](/platform/unmanaged-execution/) runs `oz agent run` directly from your own CI or infrastructure, but it cannot run factory work.
+A managed worker is the self-hosted execution option for a factory. [Unmanaged execution](/platform/unmanaged-execution/) runs standalone agents directly from your own CI or infrastructure. Route factory work to a managed worker through the [factory definition](/factories/factory-as-code/#agentdefaultsworkerhost).
 
 <a id="choosing-a-managed-backend"></a>
 
