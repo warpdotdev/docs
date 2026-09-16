@@ -68,7 +68,7 @@ jobs:
                Do not repeat the diff, review rationale, or findings outside that record.
           EOF
           )"
-          args=(agent run --sandboxed --output-format text --prompt "$PROMPT")
+          args=(agent run --output-format text --prompt "$PROMPT")
           if [ -n "$WARP_AGENT_PROFILE" ]; then
             args+=(--profile "$WARP_AGENT_PROFILE")
           fi
