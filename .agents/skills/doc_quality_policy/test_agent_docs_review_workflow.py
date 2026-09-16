@@ -33,6 +33,11 @@ class TestAgentDocsReviewWorkflow(unittest.TestCase):
         self.assertIn("actionable_findings", self.workflow)
         self.assertIn("critical, important, suggestion, or nit", self.workflow)
         self.assertIn("file and line or quoted text", self.workflow)
+    def test_review_signal_is_passed_through_a_file(self):
+        self.assertIn(".agent-docs-review-signal.txt", self.workflow)
+        self.assertNotIn(
+            "AGENT_OUTPUT: ${{ steps.oz-review.outputs.agent_output }}", self.workflow
+        )
 
 
 if __name__ == "__main__":
