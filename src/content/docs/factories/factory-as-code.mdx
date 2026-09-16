@@ -291,7 +291,7 @@ Use `computer-use-agent-auto` for automatic selection. Pin a specific model when
 
 The selected value must be available to your plan and workspace. See [model choice for agents](/agents/inference/model-choice/) for model variants, availability, and data-retention details.
 
-An agent or automation can declare `computerUseModel` to override this default for its runs. Omitting the key or setting it to `null` inherits the default. The setting applies only to Computer Use on the Warp Agent harness (`type: oz`); Warp keeps but ignores it for a third-party harness or when Computer Use is disabled. It can appear alongside either `model` or `harness` because it doesn't select the agent's main model.
+An agent or automation can declare `computerUseModel` to override the inherited value for its runs. For an agent, omitting the key or setting it to `null` inherits `agentDefaults.computerUseModel`. For an automation, omitting the key or setting it to `null` inherits the selected agent's effective value, including an agent-level override. The setting applies only to Computer Use on the Warp Agent harness (`type: oz`); Warp keeps but ignores it for a third-party harness or when Computer Use is disabled. It can appear alongside either `model` or `harness` because it doesn't select the agent's main model.
 
 ## `agents/<name>/agent.md`
 
