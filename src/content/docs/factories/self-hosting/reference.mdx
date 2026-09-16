@@ -189,9 +189,9 @@ When deploying with the Helm chart, use the `metrics.*` values instead of settin
 
 ---
 
-## Routing runs to self-hosted workers
+## Routing work to self-hosted workers
 
-Once a worker is running, route cloud agent runs to it with the `--host` flag or its equivalents. See [Routing runs to self-hosted workers](/factories/self-hosting/#routing-runs-to-self-hosted-workers) for examples across the CLI, schedules, integrations, the API, and the web UI.
+To route factory work to a worker, set `workerHost` and a compatible runner in the [factory definition](/factories/factory-as-code/#agentdefaultsworkerhost). To route a standalone cloud agent to the worker with `--host`, see the [CLI reference](/agents/cli/oz-cli/).
 
 ---
 
