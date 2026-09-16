@@ -262,6 +262,37 @@ MCP servers for agents that don't declare their own, in the same form as [`mcpSe
 
 Where runs execute: `warp` for Warp-hosted compute, or the ID of a connected worker in the [managed self-hosting architecture](/platform/self-hosting/#managed-architecture). Configure the worker's Docker, Kubernetes, or Direct backend on the worker itself; the factory definition selects the worker and a compatible runner.
 
+### `agentDefaults.computerUseModel`
+
+Optional. The `model_id` that Computer Use runs with. Omit it to let Warp select the model automatically.
+
+```yaml
+agentDefaults:
+  model: auto
+  computerUseModel: claude-5-sonnet-high
+```
+
+Use `computer-use-agent-auto` for automatic selection. Pin a specific model when a benchmark or other repeatable workflow needs a fixed model. For models with multiple variants, the suffix selects the effort level; `thinking` enables thinking, and `xhigh-fast` selects fast mode.
+
+| Model | Supported values |
+| --- | --- |
+| Auto | `computer-use-agent-auto` |
+| Claude Sonnet 5 | `claude-5-sonnet-low`, `claude-5-sonnet-medium`, `claude-5-sonnet-high`, `claude-5-sonnet-xhigh`, `claude-5-sonnet-max` |
+| Claude Opus 5 | `claude-5-opus-low`, `claude-5-opus-medium`, `claude-5-opus-high`, `claude-5-opus-xhigh`, `claude-5-opus-xhigh-fast`, `claude-5-opus-max` |
+| Claude Fable 5.1 | `claude-5-1-fable-low`, `claude-5-1-fable-medium`, `claude-5-1-fable-high`, `claude-5-1-fable-xhigh`, `claude-5-1-fable-max` |
+| Claude Fable 5 | `claude-5-fable-low`, `claude-5-fable-medium`, `claude-5-fable-high`, `claude-5-fable-xhigh`, `claude-5-fable-max` |
+| Claude Opus 4.8 | `claude-4-8-opus-low`, `claude-4-8-opus-medium`, `claude-4-8-opus-high`, `claude-4-8-opus-xhigh`, `claude-4-8-opus-xhigh-fast`, `claude-4-8-opus-max` |
+| Claude Opus 4.7 | `claude-4-7-opus-high`, `claude-4-7-opus-xhigh`, `claude-4-7-opus-max` |
+| Claude Opus 4.6 | `claude-4-6-opus-high`, `claude-4-6-opus-max` |
+| Claude Sonnet 4.6 | `claude-4-6-sonnet-high`, `claude-4-6-sonnet-max` |
+| Claude Opus 4.5 | `claude-4-5-opus`, `claude-4-5-opus-thinking` |
+| Claude Sonnet 4.5 | `claude-4-5-sonnet`, `claude-4-5-sonnet-thinking` |
+| Claude Haiku 4.5 | `claude-4-5-haiku` |
+
+The selected value must be available to your plan and workspace. See [model choice for agents](/agents/inference/model-choice/) for model variants, availability, and data-retention details.
+
+An agent or automation can declare `computerUseModel` to override this default for its runs. Omitting the key or setting it to `null` inherits the default. The setting applies only to Computer Use on the Warp Agent harness (`type: oz`); Warp keeps but ignores it for a third-party harness or when Computer Use is disabled. It can appear alongside either `model` or `harness` because it doesn't select the agent's main model.
+
 ## `agents/<name>/agent.md`
 
 One file per agent. The YAML frontmatter configures how the agent runs, and the Markdown body is the agent's prompt: the durable instructions for its role. The agent's name comes from its directory.
@@ -281,7 +312,7 @@ The frontmatter accepts:
 * `description` - Optional. What the agent does.
 * [`agentType`](#agenttype) - Optional. The agent's role.
 * `credentialStrategy` - Optional. Overrides the factory-level [`credentialStrategy`](#credentialstrategy) for this agent's runs.
-* `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost` - Optional. The same keys as [`agentDefaults`](#agentdefaults); a key declared here overrides the default for this agent.
+* `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel` - Optional. The same keys as [`agentDefaults`](#agentdefaults); a key declared here overrides the default for this agent.
 
 ### `agentType`
 
@@ -362,7 +393,7 @@ triggers:
 
 ### Execution overrides
 
-An automation may also declare `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, and `workerHost` (the same keys as [`agentDefaults`](#agentdefaults)) to override the target agent's settings for the runs it starts.
+An automation may also declare `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, and `computerUseModel` (the same keys as [`agentDefaults`](#agentdefaults)) to override the target agent's settings for the runs it starts.
 
 ## `runners/<name>.yaml`
 
