@@ -60,8 +60,10 @@ jobs:
                changed file and line or quoted text, explain the problem, and state the requested
                resolution. Set reviewer_login to `github-actions[bot]`, the runner account that
                will publish the review.
-            5. Your final response must contain only the single [SIGNAL:pr-review] JSON record.
-               Do not repeat the diff, review rationale, or findings outside that record.
+            5. Before your final response, write the single [SIGNAL:pr-review] JSON record to
+               ${{ github.workspace }}/.agent-docs-review-signal.txt. Your final response must
+               contain that same single record. Do not repeat the diff, review rationale, or
+               findings outside that record.
       - name: Dismiss stale automated change requests
         env:
           GH_TOKEN: ${{ github.token }}
@@ -80,11 +82,10 @@ jobs:
       - name: Publish the independent review
         env:
           GH_TOKEN: ${{ github.token }}
-          AGENT_OUTPUT: ${{ steps.oz-review.outputs.agent_output }}
         run: |
-          printf '%s' "$AGENT_OUTPUT" > /tmp/agent-output.txt
+          test -s .agent-docs-review-signal.txt
           python3 .agents/skills/doc_quality_policy/publish_review_signal.py \
-            --agent-output /tmp/agent-output.txt \
+            --agent-output .agent-docs-review-signal.txt \
             --pr "${{ github.event.pull_request.number }}" \
             --head-sha "${{ github.event.pull_request.head.sha }}" \
             --output /tmp/review-request.json
@@ -98,12 +99,10 @@ jobs:
       - name: Verify the current review signal and GitHub review
         env:
           GH_TOKEN: ${{ github.token }}
-          AGENT_OUTPUT: ${{ steps.oz-review.outputs.agent_output }}
         run: |
-          printf '%s' "$AGENT_OUTPUT" > /tmp/agent-output.txt
           python3 .agents/skills/doc_quality_policy/verify_review_signal.py \
             --repo "${{ github.repository }}" \
             --pr "${{ github.event.pull_request.number }}" \
             --head-sha "${{ github.event.pull_request.head.sha }}" \
-            --agent-output /tmp/agent-output.txt \
+            --agent-output .agent-docs-review-signal.txt \
             --reviewer-login github-actions[bot]
