@@ -34,9 +34,8 @@ class TestAgentDocsReviewWorkflow(unittest.TestCase):
         self.assertIn("critical, important, suggestion, or nit", self.workflow)
         self.assertIn("file and line or quoted text", self.workflow)
     def test_review_signal_is_passed_through_a_file(self):
-        self.assertIn(".agent-docs-review-signal.txt", self.workflow)
-        self.assertIn("Normalize the independent review signal", self.workflow)
-        self.assertIn("--output /tmp/agent-review-signal.txt", self.workflow)
+        self.assertIn('oz "${args[@]}" > /tmp/agent-output.txt', self.workflow)
+        self.assertIn("--agent-output /tmp/agent-output.txt", self.workflow)
         self.assertNotIn(
             "AGENT_OUTPUT: ${{ steps.oz-review.outputs.agent_output }}", self.workflow
         )
