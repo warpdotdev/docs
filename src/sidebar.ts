@@ -403,15 +403,12 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			// next door, since the underlying concepts are the same.
 			items: [
 				{
-					label: 'Overview',
+					label: 'Factories',
 					items: [
 						{ slug: 'factories', label: 'Overview' },
 						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
+						{ slug: 'factories/quickstart', label: 'Quickstart' },
 					],
-				},
-				{
-					label: 'Get started',
-					items: [{ slug: 'factories/quickstart', label: 'Quickstart' }],
 				},
 				{
 					// Parallel to 'Agent configuration' in the Automation Platform tab.
