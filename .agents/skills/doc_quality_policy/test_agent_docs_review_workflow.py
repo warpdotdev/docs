@@ -36,6 +36,7 @@ class TestAgentDocsReviewWorkflow(unittest.TestCase):
     def test_review_signal_is_passed_through_a_file(self):
         self.assertIn('oz "${args[@]}" > /tmp/agent-output.txt', self.workflow)
         self.assertIn("--agent-output /tmp/agent-output.txt", self.workflow)
+        self.assertNotIn(".agent-docs-review-signal.txt", self.workflow)
         self.assertNotIn(
             "AGENT_OUTPUT: ${{ steps.oz-review.outputs.agent_output }}", self.workflow
         )

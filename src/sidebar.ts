@@ -459,7 +459,14 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories/api-and-sdk/troubleshooting', label: 'API troubleshooting' },
 						{ slug: 'factories/api-and-sdk/troubleshooting/errors', label: 'API errors' },
 						{ slug: 'factories/factory-mcp', label: 'Factory MCP' },
-						{ slug: 'factories/webhooks', label: 'Webhooks' },
+						{
+							label: 'Webhooks',
+							collapsed: false,
+							items: [
+								{ slug: 'factories/webhooks', label: 'Overview' },
+								{ slug: 'factories/webhooks/vercel', label: 'Vercel' },
+							],
+						},
 					],
 				},
 				{
