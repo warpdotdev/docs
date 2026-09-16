@@ -4,14 +4,18 @@ sidebar:
   label: "Runners"
 description: >-
   Runners define the OS, architecture, instance size, and sandbox image for
-  Warp Factories work.
+  cloud agent runs, including work from Warp Factories.
 ---
 import { VARS } from '@data/vars';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Runners define the compute a factory agent runs on: the operating system, CPU architecture, instance size, and sandbox image used to execute a run. Select runners in the [factory definition](/factories/factory-as-code/) or the [factory dashboard](/factories/factory-dashboard/).
+Runners define the compute a [cloud agent](/platform/) runs on: the operating system, CPU architecture, instance size, and sandbox image used to execute a run. Factory agents select runners through the [factory definition](/factories/factory-as-code/) or the [factory dashboard](/factories/factory-dashboard/).
 
-A runner is a reusable compute configuration. Where an [environment](/platform/environments/) defines _what_ an agent works on (the repos, setup commands, and toolchain), a runner defines _where and on what hardware_ that work executes. Separating the two lets a factory use a small Linux runner for triage and a larger runner for builds.
+A runner is a reusable compute configuration. Where an [environment](/platform/environments/) defines _what_ an agent works on (the repos, setup commands, and toolchain), a runner defines _where and on what hardware_ that work executes. This lets any cloud-agent workflow use different machine shapes for different workloads.
+
+## Configure runners for a factory
+
+Set a factory's default runner in `agentDefaults.runner`, then override it per agent or automation when the work needs different compute. For file-managed factories, edit `runners/*.yaml` in the factory definition. For Warp-managed factories, edit runner files in the factory dashboard.
 
 :::note
 Most runs don't need a custom runner. Every environment has a default runner, and Warp picks a sensible default shape when you don't specify one. Create a runner when you need a specific OS, architecture, instance size, or sandbox image.
@@ -64,7 +68,7 @@ Each environment has a default runner. Specifying a runner for a run overrides t
 
 ## Managing runners with the legacy CLI
 
-For a file-managed factory, edit `runners/*.yaml` in the factory definition. For a Warp-managed factory, edit runner files in the factory dashboard. The legacy [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) also supports creating, listing, updating, and deleting reusable runners.
+The legacy [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) also supports creating, listing, updating, and deleting reusable runners for standalone cloud-agent workflows.
 
 ### Create a runner
 
