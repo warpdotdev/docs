@@ -41,6 +41,11 @@ class TestAgentDocsReviewWorkflow(unittest.TestCase):
             "AGENT_OUTPUT: ${{ steps.oz-review.outputs.agent_output }}", self.workflow
         )
 
+    def test_review_uses_a_pinned_signed_oz_package(self):
+        self.assertIn("0913165C78D5B7A41B42AC657FF7AB39D60F803F", self.workflow)
+        self.assertIn("signed-by=/etc/apt/keyrings/warpdotdev.gpg", self.workflow)
+        self.assertIn("oz-stable=0.2026.09.09.08.26.stable.02", self.workflow)
+
 
 if __name__ == "__main__":
     unittest.main()
