@@ -10,9 +10,12 @@ description: >-
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
 
-The {VARS.API_SDK_NAME} lets you integrate with Warp Factories and operate the cloud agent runs behind them. Use the REST API from any HTTP client, or the official Python and TypeScript SDKs for typed requests, built-in retries, and structured error handling.
+Use the [factory API](/factories/factory-api/) to find a factory and send it new work. Use the {VARS.API_SDK_NAME} to start standalone cloud-agent runs, or to monitor, continue, and cancel any run after it starts.
 
-Use the [factory API](/factories/factory-api/) to discover a factory and send it work. Use this API and SDK reference to monitor factory runs, submit follow-ups, inspect results, or start standalone cloud-agent runs from CI, internal tools, and custom integrations.
+| API | Use it for |
+| --- | --- |
+| **Factory API** | Find a factory and dispatch new work to its foreman. |
+| **{VARS.API_SDK_NAME}** | Start standalone cloud-agent runs, and manage factory or standalone runs after they begin. |
 
 :::note
 Some examples in this reference and the [CLI reference](/agents/cli/oz-cli/) use `oz` commands (for example, `oz environment list`) from the {VARS.WARP_AGENT_CLI}. Those commands remain available during the transition. The [Warp Agent CLI reference](/agents/cli/reference/) does not yet document a `warp` equivalent.
