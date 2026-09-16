@@ -112,5 +112,5 @@ jobs:
             --repo "${{ github.repository }}" \
             --pr "${{ github.event.pull_request.number }}" \
             --head-sha "${{ github.event.pull_request.head.sha }}" \
-            --agent-output .agent-docs-review-signal.txt \
+            --agent-output /tmp/agent-output.txt \
             --reviewer-login github-actions[bot]
