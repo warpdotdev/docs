@@ -359,7 +359,7 @@
     },
     {
       "source": "/platform/api-sdk",
-      "destination": "/reference/api-and-sdk/",
+      "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
     {
@@ -1924,12 +1924,12 @@
     },
     {
       "source": "/errors",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/",
       "statusCode": 308
     },
     {
       "source": "/errors/:code",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/:code/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/:code/",
       "statusCode": 308
     },
     {
@@ -2759,12 +2759,12 @@
     },
     {
       "source": "/reference/agent-api-and-sdk(/?)",
-      "destination": "/reference/api-and-sdk/",
+      "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
     {
       "source": "/reference/ambient-agents/mcp-servers-for-agents(/?)",
-      "destination": "/reference/cli/mcp-servers/",
+      "destination": "/agents/cli/oz-cli/mcp-servers/",
       "statusCode": 308
     },
     {
@@ -2784,147 +2784,147 @@
     },
     {
       "source": "/reference/api-and-sdk/troubleshooting/errors/authentication_required(/?)",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/authentication-required/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/authentication-required/",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/troubleshooting/errors/budget_exceeded(/?)",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/budget-exceeded/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/troubleshooting/errors/content_policy_violation(/?)",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/content-policy-violation/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/content-policy-violation/",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/troubleshooting/errors/environment_setup_failed(/?)",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/troubleshooting/errors/external_authentication_required(/?)",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/troubleshooting/errors/agent_process_failed(/?)",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/agent-process-failed/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/agent-process-failed/",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/troubleshooting/errors/feature_not_available(/?)",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/feature-not-available/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/feature-not-available/",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/troubleshooting/errors/infrastructure_timeout(/?)",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/infrastructure-timeout/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/infrastructure-timeout/",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/troubleshooting/errors/insufficient_credits(/?)",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/troubleshooting/errors/integration_disabled(/?)",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/integration-disabled/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/integration-disabled/",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/troubleshooting/errors/integration_not_configured(/?)",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/integration-not-configured/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/integration-not-configured/",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/troubleshooting/errors/internal_error(/?)",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/internal-error/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/internal-error/",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/troubleshooting/errors/invalid_request(/?)",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/invalid-request/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/invalid-request/",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/troubleshooting/errors/not_authorized(/?)",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/not-authorized/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/not-authorized/",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/troubleshooting/errors/operation_not_supported(/?)",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/operation-not-supported/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/operation-not-supported/",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/troubleshooting/errors/resource_not_found(/?)",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/resource-not-found/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/resource-not-found/",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/troubleshooting/errors/resource_unavailable(/?)",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/resource-unavailable/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/resource-unavailable/",
       "statusCode": 308
     },
     {
       "source": "/reference/cli#api-key-authentication",
-      "destination": "/reference/cli/api-keys/",
+      "destination": "/agents/cli/oz-cli/api-keys/",
       "statusCode": 308
     },
     {
       "source": "/reference/cli#quickstart-guide",
-      "destination": "/reference/cli/quickstart/",
+      "destination": "/agents/cli/oz-cli/quickstart/",
       "statusCode": 308
     },
     {
       "source": "/reference/cli/README.md#api-key-authentication",
-      "destination": "/reference/cli/api-keys/",
+      "destination": "/agents/cli/oz-cli/api-keys/",
       "statusCode": 308
     },
     {
       "source": "/reference/cli/integrations-and-environments(/?)",
-      "destination": "/reference/cli/integration-setup/",
+      "destination": "/agents/cli/oz-cli/integration-setup/",
       "statusCode": 308
     },
     {
       "source": "/reference/cli/mcp-for-cloud-agents(/?)",
-      "destination": "/reference/cli/mcp-servers/",
+      "destination": "/agents/cli/oz-cli/mcp-servers/",
       "statusCode": 308
     },
     {
       "source": "/reference/cli/mcp-servers-for-cloud-agents(/?)",
-      "destination": "/reference/cli/mcp-servers/",
+      "destination": "/agents/cli/oz-cli/mcp-servers/",
       "statusCode": 308
     },
     {
       "source": "/reference/developers/cli(/?)",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
       "source": "/reference/developers/cli#api-key-authentication",
-      "destination": "/reference/cli/api-keys/#authenticating-with-api-keys",
+      "destination": "/agents/cli/oz-cli/api-keys/#authenticating-with-api-keys",
       "statusCode": 308
     },
     {
       "source": "/reference/developers/cli#generating-api-keys",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
       "source": "/reference/developers/cli#linux",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
       "source": "/reference/integrations/integrations-overview/integrations-and-environments(/?)",
-      "destination": "/reference/cli/integration-setup/",
+      "destination": "/agents/cli/oz-cli/integration-setup/",
       "statusCode": 308
     },
     {
       "source": "/reference/integrations/integrations-overview/integrations-and-environments#creating-an-environment",
-      "destination": "/reference/cli/integration-setup/#step-1-creating-an-environment",
+      "destination": "/agents/cli/oz-cli/integration-setup/#step-1-creating-an-environment",
       "statusCode": 308
     },
     {
@@ -2939,57 +2939,57 @@
     },
     {
       "source": "/reference/platform/agent-api-and-sdk(/?)",
-      "destination": "/reference/api-and-sdk/",
+      "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
     {
       "source": "/reference/platform/agent-api-and-sdk#agent-sdk",
-      "destination": "/reference/api-and-sdk/",
+      "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
     {
       "source": "/reference/platform/agent-api-and-sdk/agent(/?)",
-      "destination": "/reference/api-and-sdk/",
+      "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
     {
       "source": "/reference/platform/agent-api-and-sdk/agent-1(/?)",
-      "destination": "/reference/api-and-sdk/",
+      "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
     {
       "source": "/reference/platform/agent-api-and-sdk/demo-sentry-monitoring-with-sdk(/?)",
-      "destination": "/reference/api-and-sdk/demo-sentry-monitoring-with-sdk/",
+      "destination": "/factories/api-and-sdk/demo-sentry-monitoring-with-sdk/",
       "statusCode": 308
     },
     {
       "source": "/reference/platform/cli(/?)",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
       "source": "/reference/platform/cli#api-key-authentication",
-      "destination": "/reference/cli/api-keys/",
+      "destination": "/agents/cli/oz-cli/api-keys/",
       "statusCode": 308
     },
     {
       "source": "/reference/platform/cli/api-keys(/?)",
-      "destination": "/reference/cli/api-keys/",
+      "destination": "/agents/cli/oz-cli/api-keys/",
       "statusCode": 308
     },
     {
       "source": "/reference/platform/cli/integrations-and-environments(/?)",
-      "destination": "/reference/cli/integration-setup/",
+      "destination": "/agents/cli/oz-cli/integration-setup/",
       "statusCode": 308
     },
     {
       "source": "/reference/platform/cli/troubleshooting(/?)",
-      "destination": "/reference/cli/troubleshooting/",
+      "destination": "/agents/cli/oz-cli/troubleshooting/",
       "statusCode": 308
     },
     {
       "source": "/reference/platform/warp-platform(/?)",
-      "destination": "/reference/",
+      "destination": "/factories/developer-tools/",
       "statusCode": 308
     },
     {
@@ -4574,17 +4574,17 @@
     },
     {
       "source": "/reference/api-and-sdk/api-and-sdk(/?)",
-      "destination": "/reference/api-and-sdk/",
+      "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
     {
       "source": "/reference/api-and-sdk/models(/?)",
-      "destination": "/reference/api-and-sdk/",
+      "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
     {
       "source": "/reference/cli/cli(/?)",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
@@ -4724,7 +4724,7 @@
     },
     {
       "source": "/platform/warp-platform(/?)",
-      "destination": "/reference/",
+      "destination": "/factories/developer-tools/",
       "statusCode": 308
     },
     {
@@ -4779,12 +4779,12 @@
     },
     {
       "source": "/errors/",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/",
       "statusCode": 308
     },
     {
       "source": "/errors/:code/",
-      "destination": "/reference/api-and-sdk/troubleshooting/errors/:code/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/:code/",
       "statusCode": 308
     },
     {
@@ -4814,7 +4814,7 @@
     },
     {
       "source": "/platform/cli",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
@@ -4959,7 +4959,7 @@
     },
     {
       "source": "/platform/agent-api-and-sdk",
-      "destination": "/reference/api-and-sdk/",
+      "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
     {
@@ -5199,7 +5199,7 @@
     },
     {
       "source": "/platform/agent-api-and-sdk/agent-1",
-      "destination": "/reference/api-and-sdk/",
+      "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
     {
@@ -5254,7 +5254,7 @@
     },
     {
       "source": "/platform/cli/troubleshooting",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
@@ -5864,7 +5864,7 @@
     },
     {
       "source": "/developers/cli",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
@@ -6054,72 +6054,72 @@
     },
     {
       "source": "/platform/agent-api-and-sdk/agent",
-      "destination": "/reference/api-and-sdk/",
+      "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
     {
       "source": "/platform/agent-api-and-sdk/demo-sentry-monitoring-with-sdk",
-      "destination": "/reference/api-and-sdk/",
+      "destination": "/factories/api-and-sdk/",
       "statusCode": 308
     },
     {
       "source": "/platform/cli#api-key-authentication",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
       "source": "/platform/cli#bundled-with-warp",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
       "source": "/platform/cli#id-2.-authenticate",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
       "source": "/platform/cli#id-3.-run-an-agent",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
       "source": "/platform/cli#id-4.-add-github-context-optional",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
       "source": "/platform/cli#id-5.-next-steps",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
       "source": "/platform/cli#interactive-login-local-machines",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
       "source": "/platform/cli#running-agents",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
       "source": "/platform/cli#running-locally-warp-agent-run",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
       "source": "/platform/cli#running-the-cli",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
       "source": "/platform/cli#standalone-package",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
       "source": "/platform/cli#what-is-the-warp-cli",
-      "destination": "/reference/cli/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
@@ -6249,7 +6249,7 @@
     },
     {
       "source": "/integrations/integrations-overview/integrations-and-environments",
-      "destination": "/reference/cli/integration-setup/",
+      "destination": "/agents/cli/oz-cli/integration-setup/",
       "statusCode": 308
     },
     {
