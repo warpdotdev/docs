@@ -1,6 +1,6 @@
 ---
 topic: factories
-title: Errors Overview
+title: API errors
 description: >-
   Reference for all error codes returned by the {{API_SDK_NAME}}. Each error
   includes an HTTP status, machine-readable code, and actionable resolution
@@ -8,7 +8,7 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-When the {VARS.API_SDK_NAME} encounters an error, it returns a structured JSON response following [RFC 7807 (Problem Details for HTTP APIs)](https://datatracker.ietf.org/doc/html/rfc7807). Every error response includes a machine-readable error code, a human-readable message, and metadata to help you diagnose and resolve the issue.
+When the {VARS.API_SDK_NAME} encounters an error, it returns a structured JSON response following [RFC 7807 (Problem Details for HTTP APIs)](https://datatracker.ietf.org/doc/html/rfc7807). Every error response includes a machine-readable error code, HTTP status, human-readable message, and resolution details.
 
 ---
 

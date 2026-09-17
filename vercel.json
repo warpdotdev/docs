@@ -6628,6 +6628,16 @@
       "statusCode": 308
     },
     {
+      "source": "/reference/api-and-sdk/troubleshooting(/?)",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting(/?)",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/",
+      "statusCode": 308
+    },
+    {
       "source": "/reference/api-and-sdk/:path*",
       "destination": "/factories/api-and-sdk/:path*",
       "statusCode": 308
