@@ -247,13 +247,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			link: '/agents/',
 			icon: 'puzzle',
 			items: [
-				{
-					label: 'Agents',
-					items: [
-						{ slug: 'agents', label: 'Overview' },
-						'agents/getting-started/faqs',
-					],
-				},
+				{ slug: 'agents', label: 'Overview' },
+				'agents/getting-started/faqs',
 				{
 					label: 'Warp Agents',
 					items: [
@@ -388,20 +383,11 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			// sidebar. Two of these deliberately mirror the Automation Platform tab
 			// next door, since the underlying concepts are the same.
 			items: [
-				{
-					// 'Getting started', not 'Get started': matches the Terminal,
-					// Enterprise, and Guides tabs.
-					label: 'Getting started',
-					items: [
-						{ slug: 'factories', label: 'Overview' },
-						{ slug: 'factories/quickstart', label: 'Quickstart' },
-						// 'Warp' is redundant inside the Factories tab, and the sibling
-						// labels ('Factory agents', 'Factory MCP') drop it too. This also
-						// resolves a desync: the page's own frontmatter label already said
-						// 'How Factories work', which this override was silently shadowing.
-						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
-					],
-				},
+				{ slug: 'factories', label: 'Overview' },
+				{ slug: 'factories/quickstart', label: 'Quickstart' },
+				// 'Warp' is redundant inside the Factories tab, and the sibling labels
+				// ('Factory agents', 'Factory MCP') drop it too.
+				{ slug: 'factories/how-factories-work', label: 'How Factories work' },
 				{
 					// Parallel to 'Agent configuration' in the Automation Platform tab.
 					// Scoped to the factory itself: who runs the work, how it is defined,
