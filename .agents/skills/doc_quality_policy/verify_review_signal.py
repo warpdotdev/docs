@@ -5,7 +5,6 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
-import re
 import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
@@ -16,7 +15,7 @@ cpc = importlib.util.module_from_spec(_spec)
 sys.modules[_spec.name] = cpc
 _spec.loader.exec_module(cpc)
 
-_SIGNAL_RE = re.compile(r"\[SIGNAL:pr-review\]\s*(\{.*?\})", re.DOTALL)
+_SIGNAL_PREFIX = "[SIGNAL:pr-review]"
 _PASSING_VERDICTS = {"approve", "approve with nits", "approve_with_nits"}
 
 
@@ -25,25 +24,24 @@ def _parse_signal(
     pr_number: Optional[str] = None,
     head_sha: Optional[str] = None,
 ) -> Tuple[Optional[Dict[str, object]], List[str]]:
-    matches = _SIGNAL_RE.findall(text)
-    if not matches:
+    occurrences = text.count(_SIGNAL_PREFIX)
+    if not occurrences:
         return None, ["expected exactly one [SIGNAL:pr-review] record, found 0"]
 
     unique_signals = {}
-    for match in matches:
-        try:
-            signal = json.loads(match)
-        except json.JSONDecodeError as original_error:
+    offset = 0
+    while True:
+        marker = text.find(_SIGNAL_PREFIX, offset)
+        if marker == -1:
+            break
+        offset = marker + len(_SIGNAL_PREFIX)
+        candidate = text[offset:].lstrip()
+        signal = None
+        for payload in (candidate, candidate.replace('\\"', '"')):
             try:
-                # The GitHub Action can serialize its text output once more,
-                # leaving an otherwise valid object in the form
-                # {\"key\":\"value\"}. Decode that wrapper only after direct
-                # JSON parsing has failed.
-                signal = json.loads(match.replace('\\"', '"'))
+                signal, _ = json.JSONDecoder().raw_decode(payload)
+                break
             except json.JSONDecodeError:
-                # Agent output includes the skill's marker examples and prior
-                # review transcripts. Ignore malformed candidates and require
-                # a valid, current-head record below.
                 continue
         if not isinstance(signal, dict):
             continue
@@ -57,7 +55,7 @@ def _parse_signal(
     if len(signals) != 1:
         return None, [
             "expected one valid [SIGNAL:pr-review] record for the current PR head, "
-            f"found {len(signals)} across {len(matches)} occurrences"
+            f"found {len(signals)} across {occurrences} occurrences"
         ]
     return signals[0], []
 
