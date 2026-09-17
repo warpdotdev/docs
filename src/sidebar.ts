@@ -345,23 +345,23 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'agents/cli/reference', label: 'CLI reference' },
 					],
 				},
-			{
-				label: `${VARS.WARP_AGENT_CLI} (legacy)`,
-				collapsed: true,
-				items: [
-					{ slug: 'agents/cli/oz-cli', label: 'Overview' },
-					{ slug: 'agents/cli/oz-cli/quickstart', label: 'Quickstart' },
-					{ slug: 'agents/cli/oz-cli/api-keys', label: 'API keys' },
-					{ slug: 'agents/cli/oz-cli/agent-profiles', label: 'Agent profiles' },
-					{ slug: 'agents/cli/oz-cli/mcp-servers', label: 'MCP servers' },
-					{ slug: 'agents/cli/oz-cli/skills', label: 'Skills' },
-					{ slug: 'agents/cli/oz-cli/warp-drive', label: 'Warp Drive context' },
-					{ slug: 'agents/cli/oz-cli/integration-setup', label: 'Integration setup' },
-					{ slug: 'agents/cli/oz-cli/artifacts', label: 'Artifacts' },
-					{ slug: 'agents/cli/oz-cli/federate', label: 'Federated identity' },
-					'agents/cli/oz-cli/troubleshooting',
-				],
-			},
+				{
+					label: `${VARS.WARP_AGENT_CLI} (legacy)`,
+					collapsed: true,
+					items: [
+						{ slug: 'agents/cli/oz-cli', label: 'Overview' },
+						{ slug: 'agents/cli/oz-cli/quickstart', label: 'Quickstart' },
+						{ slug: 'agents/cli/oz-cli/api-keys', label: 'API keys' },
+						{ slug: 'agents/cli/oz-cli/agent-profiles', label: 'Agent profiles' },
+						{ slug: 'agents/cli/oz-cli/mcp-servers', label: 'MCP servers' },
+						{ slug: 'agents/cli/oz-cli/skills', label: 'Skills' },
+						{ slug: 'agents/cli/oz-cli/warp-drive', label: 'Warp Drive context' },
+						{ slug: 'agents/cli/oz-cli/integration-setup', label: 'Integration setup' },
+						{ slug: 'agents/cli/oz-cli/artifacts', label: 'Artifacts' },
+						{ slug: 'agents/cli/oz-cli/federate', label: 'Federated identity' },
+						'agents/cli/oz-cli/troubleshooting',
+					],
+				},
 				{
 					label: 'Third-Party CLI Agents',
 					items: [
@@ -422,9 +422,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// Integrations subgroup, which would have rendered as
 					// Integrations > Integrations > Slack.
 					//
-			// 'Connect your factory' leads because it is the overview for this
-			// group. The direct developer interfaces live in the Developer tools
-			// group rather than alongside third-party service integrations.
+					// 'Connect your factory' leads because it is the overview for this
+					// group. The direct developer interfaces live in the Developer tools
+					// group rather than alongside third-party service integrations.
 					label: 'Integrations',
 					items: [
 						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
