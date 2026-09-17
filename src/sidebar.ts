@@ -30,7 +30,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						// The root product overview remains in the Terminal topic until
 						// the GA navigation change adds a separate Terminal landing page.
 						{ label: 'Warp products', link: '/' },
-						{ slug: 'quickstart', label: 'Warp quickstart' },
+						{ slug: 'quickstart', label: 'Quickstart' },
 						'getting-started/quickstart/installation-and-setup',
 						'getting-started/quickstart/coding-in-warp',
 						'getting-started/quickstart/customizing-warp',
@@ -453,7 +453,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories/api-and-sdk', label: VARS.API_SDK_NAME },
 						{ label: 'API reference', link: '/api' },
 						{ slug: 'factories/api-and-sdk/demo-sentry-monitoring-with-sdk', label: 'Sentry monitoring with the SDK' },
-						{ slug: 'factories/api-and-sdk/troubleshooting', label: 'API troubleshooting' },
 						{ slug: 'factories/api-and-sdk/troubleshooting/errors', label: 'API errors' },
 						{ slug: 'factories/factory-mcp', label: 'Factory MCP' },
 						{
@@ -473,14 +472,20 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories/deployment-patterns', label: 'Deployment patterns' },
 						{ slug: 'factories/warp-hosting', label: 'Warp-hosted execution' },
 						{ slug: 'factories/runners', label: 'Runners' },
-						{ slug: 'factories/self-hosting', label: 'Managed self-hosting' },
-						{ slug: 'factories/self-hosting/quickstart', label: 'Self-hosting quickstart' },
-						{ slug: 'factories/self-hosting/managed-docker', label: 'Docker backend' },
-						{ slug: 'factories/self-hosting/managed-kubernetes', label: 'Kubernetes backend' },
-						{ slug: 'factories/self-hosting/managed-direct', label: 'Direct backend' },
-						'factories/self-hosting/monitoring',
-						{ slug: 'factories/self-hosting/reference', label: 'Worker reference' },
-						'factories/self-hosting/troubleshooting',
+						{
+							label: 'Managed self-hosting',
+							collapsed: false,
+							items: [
+								{ slug: 'factories/self-hosting', label: 'Overview' },
+								{ slug: 'factories/self-hosting/quickstart', label: 'Quickstart' },
+								{ slug: 'factories/self-hosting/managed-docker', label: 'Docker backend' },
+								{ slug: 'factories/self-hosting/managed-kubernetes', label: 'Kubernetes backend' },
+								{ slug: 'factories/self-hosting/managed-direct', label: 'Direct backend' },
+								'factories/self-hosting/monitoring',
+								{ slug: 'factories/self-hosting/reference', label: 'Worker reference' },
+								'factories/self-hosting/troubleshooting',
+							],
+						},
 					],
 				},
 				{
@@ -537,7 +542,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'platform', label: 'Overview' },
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
-						{ slug: 'platform/transitioning-from-oz', label: 'Transitioning' },
+						{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
 						{
 							// Runtime (which agent executes the run) is kept separate from
 							// configuration (how any run is set up) -- HYC review, 8/14.

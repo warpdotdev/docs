@@ -9,13 +9,12 @@ sidebar:
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
 
-[Cloud agents](/platform/) run on the {VARS.WARP_AUTOMATION_PLATFORM}. You define the work (a prompt or a skill) and what starts it, and the platform runs the agent and records what it did. For example, an agent can triage each new issue as it's filed, or start fixing a build the moment CI fails.
+[Cloud agents](/platform/) run on the {VARS.WARP_AUTOMATION_PLATFORM}. You define a task and its trigger. The {VARS.WARP_AUTOMATION_PLATFORM} runs the agent and records the results. For example, an agent can triage each new issue as it's filed, or start fixing a build the moment CI fails.
 
 If you're new to cloud agents, the [Cloud agents quickstart](/platform/quickstart/) gets you to your first run in about ten minutes.
 
 :::note
-**The {VARS.WARP_AUTOMATION_PLATFORM} is the current name.** Your existing integrations, API keys, scheduled agents, and scripts keep working exactly as before — nothing to migrate.
-The `oz` CLI and the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> retain their legacy names during the transition. See [Transitioning](/platform/transitioning-from-oz/) for the current guidance.
+The {VARS.WEB_APP} will retire after Warp Factories reaches general availability. Existing cloud-agent workflows remain available today, so you don't need to migrate immediately. The `oz` CLI retains its legacy name during the transition. See [Transitioning from Oz](/platform/transitioning-from-oz/) for the current guidance.
 :::
 
 <VideoEmbed url="https://youtu.be/poLkJhO7fdo" title={`${VARS.WARP_AUTOMATION_PLATFORM} cloud agents overview video`} />
