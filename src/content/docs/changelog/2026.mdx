@@ -6,6 +6,43 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.09.16 (v0.2026.09.16.08.27)
+
+**New features**
+
+* You can now trigger fzf (ctrl-r or ctrl-t) and atuin if it's set up with your shell. ([#15903](https://github.com/warpdotdev/warp/pull/15903))
+* Added native shell completions alongside Warp's built-in completion specs. By default, the native shell completions will be generated if Warp's built-in completion has no suggestions. This can be changed in Settings > Features > Terminal Input. ([#15903](https://github.com/warpdotdev/warp/pull/15903))
+
+**Improvements**
+
+* Improved parallel clone error reporting to list only the repositories that actually failed. ([#16006](https://github.com/warpdotdev/warp/pull/16006))
+* Added `oz secret create docker-registry` to create container registry credential secrets from the CLI. ([#15913](https://github.com/warpdotdev/warp/pull/15913))
+* Discover and cache build tools in nested repository directories. ([#15844](https://github.com/warpdotdev/warp/pull/15844))
+* Workspace admins can now remove members from a workspace directly from team settings. ([#15905](https://github.com/warpdotdev/warp/pull/15905))
+* [Windows] [Materials](https://learn.microsoft.com/en-us/windows/apps/design/signature-experiences/materials) are now supported for the backdrop of Warp windows in Settings > Appearance > Window > Backdrop. ([#15879](https://github.com/warpdotdev/warp/pull/15879))
+* Improved command history search ranking using match quality and usage signals. ([#15903](https://github.com/warpdotdev/warp/pull/15903))
+* Native workspace members can leave a team without losing workspace access. ([#15880](https://github.com/warpdotdev/warp/pull/15880))
+* Native workspace users can browse and join another open team from Teams settings. ([#15881](https://github.com/warpdotdev/warp/pull/15881))
+
+**Bug fixes**
+
+* Fixed an issue where new users who quit sign-up partway could be shown the existing-user 'Introducing universal agent support' onboarding on their next launch. ([#16010](https://github.com/warpdotdev/warp/pull/16010))
+* Stop Warp Agent CLI startup when team metadata cannot be refreshed. ([#15932](https://github.com/warpdotdev/warp/pull/15932))
+* Add tab group persistence to (legacy) launch configs. ([#14624](https://github.com/warpdotdev/warp/pull/14624)) — [@maxmilian](https://github.com/maxmilian) ✨
+* Fixed a crash after dragging a Settings tab between windows. ([#15948](https://github.com/warpdotdev/warp/pull/15948))
+* Fixed cloud agent commits sometimes ignoring a customer's `git config --global user.name/email` setup command. ([#15869](https://github.com/warpdotdev/warp/pull/15869))
+* Prevented a crash when confirming a file discard more than once in Code Review. ([#15884](https://github.com/warpdotdev/warp/pull/15884))
+* Opening a subagent in the web session viewer no longer replaces the run's URL, so refreshing or sharing the link keeps you on the whole run instead of a single subagent. ([#15317](https://github.com/warpdotdev/warp/pull/15317))
+* Stopping a shared Agent Mode conversation from a viewer or via conversation steering now interrupts the agent's running command instead of letting it run to completion. ([#15906](https://github.com/warpdotdev/warp/pull/15906))
+* Fixed a new tab group's terminal stealing focus while its name was being typed, which saved the partially-typed name. ([#14895](https://github.com/warpdotdev/warp/pull/14895)) — [@maxmilian](https://github.com/maxmilian) ✨
+* Fixed macOS computer-use recordings reporting near-zero duration. ([#15920](https://github.com/warpdotdev/warp/pull/15920))
+* Fixed duplicate network requests when loading agent shared sessions. ([#15829](https://github.com/warpdotdev/warp/pull/15829))
+
+**Oz updates**
+
+* Fixed native Oz follow-up prompts interrupting one another instead of each reaching the agent. ([#15921](https://github.com/warpdotdev/warp/pull/15921))
+* Preserved team-scoped credentials when launching orchestrated agent runs. ([#15863](https://github.com/warpdotdev/warp/pull/15863))
+
 ### 2026.09.09 (v0.2026.09.09.08.26)
 
 **New features**
