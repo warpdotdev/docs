@@ -20,8 +20,6 @@ These criteria govern the **weekly release stream** — changes that reached use
 
 Major launches (Warp Factories, for example) are planned in advance and documented by the docs team on a proactive, human-led path. They do not run through these gates. If you encounter a change that is clearly part of an announced launch, defer it rather than gating it.
 
-The Factory definition reference is exhaustive. A key in the production Factory schema registry has passed Gate 0 and must be covered there. A prior `deferred` ledger row cannot suppress a key after publication.
-
 ### How much applies depends on who is asking
 
 **Automated runs apply the full gate.** A scheduled agent has no context beyond what it can read, and unattended drafting at scale is what this reference exists to control. Default to no docs; make the change earn the page.
@@ -151,8 +149,6 @@ Drawn from the `v0.2026.07.29.09.05.stable_02` changelog. These calibrate the bo
 
 **Agent execution profiles configurable from settings files** ([#14418](https://github.com/warpdotdev/warp/pull/14418)) — **Gate 1, update existing page.** Named settings-file configuration, previously unavailable to all users.
 
-**`agentDefaults.computerUseModel`** (docs PR [#754](https://github.com/warpdotdev/docs/pull/754)) — **Gate 0 and Gate 1, update existing reference.** The key appears in the production Factory schema registry, which is the release gate for the exhaustive Factory definition reference. The older deferred verdict from docs PR #581 stopped applying when publication cleared Gate 0.
-
 **Drag and drop image files into an active CLI agent session** ([#9553](https://github.com/warpdotdev/warp/pull/9553)) — **Gate 4, update existing page.** The job — attaching a screenshot to a Claude Code session — was not possible before, not merely slower. There is no knob, so Gate 1 does not fire; nothing fails, so Gate 2 does not; behavior the reader relied on did not change, so Gate 3 does not. Checked for an affordance and found none: no Command Palette entry, no menu item, no toolbar control, no hint in the session UI. A reader who does not already know will never try it. One sentence on the CLI agent page; the Gate 4 cap rules out a new page.
 
 ### Fails
@@ -167,6 +163,7 @@ Drawn from the `v0.2026.07.29.09.05.stable_02` changelog. These calibrate the bo
 
 **MCP tool confirmations show the tool and source server** ([#14298](https://github.com/warpdotdev/warp/pull/14298)) — **Disqualified: small and intuitive.** The confirmation dialog now shows more context. A reader encountering it understands it immediately.
 
+**`agentDefaults.computerUseModel`** (docs PR [#581](https://github.com/warpdotdev/docs/pull/581)) — **Gate 0 failure: deferred, not documented.** This is the regression case. A drafting agent wrote the page and labeled it "(unreleased feature)" in the PR title, which is the gate failing out loud. An unreleased setting key is a real knob and would pass Gate 1 — but Gate 0 comes first and is a hard prerequisite. Defer with the blocking reason and re-surface it when the feature ships.
 
 ## Related references
 
