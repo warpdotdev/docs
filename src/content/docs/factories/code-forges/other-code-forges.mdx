@@ -8,24 +8,22 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Connect a factory to a repository on Bitbucket, Azure DevOps, self-managed GitLab, or another code forge without first-class factory support. Create the factory with no connected repository, then clone the repository from its default runner.
+Connect your factory to a repository on Bitbucket, Azure DevOps, self-managed GitLab, or another code forge without first-class factory support. You can create the factory with no connected repository, then clone the repository from its default runner.
 
 :::caution
-This setup gives factory agents repository access. It does not add provider-specific events or automations for that code forge.
+This setup gives factory agents repository access. It does not add provider-specific events or automations for the code forge.
 :::
 
 ## Prerequisites
 
-* **Permission to configure the factory** - Create the factory, add an Agent Secret, and edit its default runner.
-* **A repository access token** - Create a token that can read the repository. Use a service account where your code forge supports one, and grant only the permissions the factory needs.
-* **An authenticated clone command** - Use the HTTPS clone syntax your code forge documents. The command must read the token from an environment variable instead of including its value directly.
+* **Factory access** - Permission to create the factory, add Agent Secrets, and edit its default runner.
+* **Repository access** - An HTTPS clone URL and a token that can read the repository.
 
 For provider-specific token and clone formats, see [Bitbucket repository access](/platform/integrations/bitbucket/), [Azure DevOps repository access](/platform/integrations/azure-devops/), or [self-managed GitLab repository access](/platform/integrations/gitlab/#self-managed-gitlab-instances).
 
 ## Create the factory without a repository
 
-Start without a code-host connection so you can prepare the repository from the runner instead.
-{/* VERIFY: Safia confirmed the No repo factory onboarding path on 2026-09-15; verify the exact option label and default-runner path in the live factory setup flow. */}
+To prepare a repository from the default runner, create the factory without a code-host connection.
 
 1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, click **+** next to **Factories**.
 2. Under **Connect your code host**, select **No repo**.
@@ -37,10 +35,9 @@ The factory opens in its dashboard without a connected repository.
 
 Store the repository token as an Agent Secret so the default runner can use it without placing the token in a command or definition file.
 
-1. In the {VARS.FACTORY_WEB_APP}, open **Secrets** and create an Agent Secret named `CODE_FORGE_TOKEN`.
-2. Add the repository access token as the secret value.
-3. Grant `CODE_FORGE_TOKEN` to the factory agents that use the default runner.
-{/* VERIFY: Safia confirmed that wiring an Agent Secret makes it available to the clone setup commands on 2026-09-15; verify the secret-assignment UI and runtime injection in a factory run. */}
+1. From the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, click **Secrets**.
+2. Create an Agent Secret named `CODE_FORGE_TOKEN`.
+3. Enter the repository access token as the secret value, then grant `CODE_FORGE_TOKEN` to the factory agents that use the default runner.
 
 The secret is available to those agents and their runner setup commands as the `CODE_FORGE_TOKEN` environment variable.
 
@@ -48,9 +45,9 @@ The secret is available to those agents and their runner setup commands as the `
 
 Runner setup commands prepare each agent workspace before factory work starts.
 
-1. In the factory dashboard, open **Settings** > **Runners**.
-2. Open the default runner and add an authenticated `git clone` command that reads `$CODE_FORGE_TOKEN`.
-3. Add any project setup commands the repository needs, such as dependency installation, builds, or code generation.
+1. From the factory dashboard, click **Settings** and scroll down to the "Runners" section.
+2. Next to the default runner, click the edit pencil. In the "Setup commands" section, click **+** and add an authenticated `git clone` command that reads `$CODE_FORGE_TOKEN`.
+3. Add any other project setup commands the repository needs, such as dependency installation, builds, or code generation.
 
 Use your code forge's documented clone format. For example, Bitbucket Cloud requires the `x-bitbucket-api-token-auth` username, while other hosts use a different username or authorization header.
 
