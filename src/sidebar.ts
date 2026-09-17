@@ -244,12 +244,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			link: '/agents/',
 			icon: 'puzzle',
 			items: [
-				{
-					label: 'Overview',
-					items: [
-						{ slug: 'agents', label: 'Overview' },
-					],
-				},
+				{ slug: 'agents', label: 'Overview' },
 				{
 					label: 'Warp Agents',
 					items: [
@@ -402,19 +397,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			// sidebar. Two of these deliberately mirror the Automation Platform tab
 			// next door, since the underlying concepts are the same.
 			items: [
-				{
-					label: 'Overview',
-					items: [
-						{ slug: 'factories', label: 'Overview' },
-						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
-					],
-				},
-				{
-					label: 'Get started',
-					items: [
-						{ slug: 'factories/quickstart', label: 'Quickstart' },
-					],
-				},
+				{ slug: 'factories', label: 'Overview' },
+				{ slug: 'factories/how-factories-work', label: 'How Factories work' },
+				{ slug: 'factories/quickstart', label: 'Quickstart' },
 				{
 					// Parallel to 'Agent configuration' in the Automation Platform tab.
 					// Scoped to the factory itself: who runs the work, how it is defined,
@@ -762,7 +747,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Get started',
+					label: 'Getting started',
 					items: [
 						{ slug: 'enterprise/getting-started/quickstart', label: 'Quickstart' },
 						{ slug: 'enterprise/getting-started/getting-started-enterprise', label: 'Getting started for admins' },
