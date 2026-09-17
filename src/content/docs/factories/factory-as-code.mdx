@@ -380,11 +380,16 @@ A `webhook` trigger with the `received` event requires `webhook_ids` in its filt
 
 The published trigger catalog currently uses these filter keys across its provider and event combinations:
 
-* GitHub and GitLab: `actions`, `assignees`, `assignee_ids`, `authors`, `base_branches`, `branches`, `conclusions`, `labels`, `paths`, `pr_numbers`, `repos`, `review_states`, `reviewer_teams`, `reviewers`, and `workflows`.
-* Linear and Jira: `creator_ids`, `issue_ids`, `project_ids`, `project_keys`, `stages`, `state_ids`, `status_ids`, and `team_ids`.
-* Slack: `channel_ids`, `emojis`, `item_user_ids`, `keywords`, `mentioned`, `mentioned_user_ids`, and `user_ids`.
+* Factory: `stages`.
+* GitHub: `assignees`, `authors`, `baseBranches`, `base_branches`, `branches`, `conclusions`, `labels`, `mentioned`, `paths`, `prNumbers`, `pr_numbers`, `repos`, `review_states`, `reviewer_teams`, `reviewers`, and `workflows`.
+* GitLab: `actions`, `base_branches`, `branches`, `mentioned`, and `repos`.
+* Jira: `keywords`, `labels`, `project_keys`, and `status_ids`.
+* Linear: `assignee_ids`, `creator_ids`, `issue_ids`, `issues`, `keywords`, `labels`, `mentioned_user_ids`, `project_ids`, `projects`, `state_ids`, `states`, `team_ids`, and `teams`.
 * Schedule: `schedule_ids` is server-managed and cannot be set in a factory definition.
-* Webhook: `webhook_ids` and `payload`. Payload patterns also accept `exists`.
+* Slack: `channel_ids`, `channels`, `emojis`, `itemUsers`, `item_user_ids`, `keywords`, `user_ids`, and `users`.
+* Webhook: `payload` and `webhook_ids`.
+
+Payload patterns also accept `exists`.
 
 `baseBranches` and `prNumbers` are authoring aliases for `base_branches` and `pr_numbers`. `teams`, `projects`, `states`, `issues`, `channels`, `users`, and `itemUsers` are name-based aliases for their `_ids` counterparts. An alias and its canonical key are mutually exclusive.
 
