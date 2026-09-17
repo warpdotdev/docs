@@ -245,10 +245,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			icon: 'puzzle',
 			items: [
 				{
-					label: 'Agents',
+					label: 'Overview',
 					items: [
 						{ slug: 'agents', label: 'Overview' },
-						'agents/getting-started/faqs',
 					],
 				},
 				{
@@ -385,6 +384,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'agents/agent-memory', label: 'Agent Memory' },
 					],
 				},
+				{ slug: 'agents/getting-started/faqs', label: 'Agent FAQs' },
 			],
 		},
 		{
@@ -403,10 +403,15 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			// next door, since the underlying concepts are the same.
 			items: [
 				{
-					label: 'Factories',
+					label: 'Overview',
 					items: [
 						{ slug: 'factories', label: 'Overview' },
 						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
+					],
+				},
+				{
+					label: 'Get started',
+					items: [
 						{ slug: 'factories/quickstart', label: 'Quickstart' },
 					],
 				},
@@ -762,13 +767,17 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 		icon: 'setting',
 			items: [
 				{
-					label: 'Getting started',
+					label: 'Overview',
 					items: [
 						{ slug: 'enterprise', label: 'Overview' },
-						{ slug: 'enterprise/getting-started/quickstart', label: 'Quick start' },
+					],
+				},
+				{
+					label: 'Get started',
+					items: [
+						{ slug: 'enterprise/getting-started/quickstart', label: 'Quickstart' },
 						{ slug: 'enterprise/getting-started/getting-started-enterprise', label: 'Getting started for admins' },
 						{ slug: 'enterprise/getting-started/getting-started-developers', label: 'Getting started for developers' },
-						{ slug: 'enterprise/getting-started/faq', label: 'FAQ' },
 					],
 				},
 				{
@@ -804,6 +813,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'enterprise/support-and-resources/billing',
 						{ slug: 'enterprise/support-and-resources/troubleshooting-login', label: 'Troubleshooting login' },
 						{ slug: 'enterprise/support-and-resources/feedback-and-feature-requests', label: 'Feedback and feature requests' },
+						{ slug: 'enterprise/getting-started/faq', label: 'FAQ' },
 					],
 				},
 			],
@@ -814,7 +824,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 		link: '/guides/',
 		icon: 'rocket',
 			items: [
-				{ slug: 'guides', label: 'Guides' },
+				{ slug: 'guides', label: 'Overview' },
 				{
 					label: 'Getting started',
 					items: [
