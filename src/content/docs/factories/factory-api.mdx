@@ -1,14 +1,14 @@
 ---
-title: Use the Factory API
+title: Use the factory API
 description: >-
-  Discover factories and dispatch tasks by UID with the public Factory API,
+  Discover factories and dispatch tasks by UID with the public factory API,
   without learning the foreman agent's internals.
 sidebar:
   label: "Factory API"
 ---
 import { VARS } from '@data/vars';
 
-Use the Factory API to find a factory and start work from a custom integration without managing agent details. Build it into a chat bot, script, or service for any tool Warp doesn't connect to directly.
+Use the factory API to find a factory and start work from a custom integration without managing agent details. Build it into a chat bot, script, or service for any tool Warp doesn't connect to directly.
 
 :::note
 Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
@@ -22,14 +22,14 @@ Warp Factories is in **Early Access** and available to a limited set of teams. [
 
 A dispatched run is an ordinary [cloud agent run](/platform/): retrieve it, send it follow-ups, or cancel it through the same [Agent API](/factories/api-and-sdk/) you'd use for any run.
 
-## When to use the Factory API vs the Agent API
+## When to use the factory API vs the Agent API
 
-Use the Factory API to find or start work on a factory. Use the Agent API for everything else - a standalone cloud agent, run management, or orchestration.
+Use the factory API to find or start work on a factory. Use the Agent API for everything else - a standalone cloud agent, run management, or orchestration.
 
 | Task | Recommended API |
 | --- | --- |
-| Find a factory by name before dispatching to it | Factory API - `GET /factory?search=` |
-| Start a new task on a factory | Factory API - `POST /factory/{uid}/runs` |
+| Find a factory by name before dispatching to it | factory API - `GET /factory?search=` |
+| Start a new task on a factory | factory API - `POST /factory/{uid}/runs` |
 | Continue, monitor, or cancel a run (factory or standalone) | Agent API - `GET /agent/runs/{runId}`, `POST /agent/runs/{runId}/followups`, `POST /agent/runs/{runId}/cancel` |
 | Run a standalone cloud agent with no factory involved | Agent API - `POST /agent/run` |
 | Build a multi-agent orchestration | Agent API - see [multi-agent orchestration](/platform/orchestration/) |
@@ -123,7 +123,7 @@ See [key endpoints](/factories/api-and-sdk/#key-endpoints) for the full set of r
 
 ## Related pages
 
-* [Connect your factory](/factories/connect-your-factory/) - Every way work can enter a factory, including the Factory API alongside Slack, GitHub, and Factory MCP.
+* [Connect your factory](/factories/connect-your-factory/) - Every way work can enter a factory, including the factory API alongside Slack, GitHub, and Factory MCP.
 * [Build a Mattermost bot for Warp Factories](/guides/external-tools/build-a-mattermost-bot-for-warp-factories/) - A worked example that discovers a factory and dispatches and continues a task from a custom chat integration.
 * [Factory MCP](/factories/factory-mcp/) - Connect a local coding agent to a factory instead of calling the REST API directly.
 * [{VARS.API_SDK_NAME}](/factories/api-and-sdk/) - Full endpoint reference, SDKs, and error codes for the underlying Agent API.
