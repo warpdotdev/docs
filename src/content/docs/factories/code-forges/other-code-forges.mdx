@@ -46,7 +46,7 @@ The secret is available to those agents and their runner setup commands as the `
 Runner setup commands prepare each agent workspace before factory work starts.
 
 1. From the factory dashboard, click **Settings** and scroll down to the "Runners" section.
-2. Next to the default runner, click the edit pencil. In the "Setup commands" section, click **+** and add an authenticated `git clone` command that reads `$CODE_FORGE_TOKEN`.
+2. Next to the default runner, click the edit button. In the "Setup commands" section, click **+** and add an authenticated `git clone` command that reads `$CODE_FORGE_TOKEN`.
 3. Add any other project setup commands the repository needs, such as dependency installation, builds, or code generation.
 
 Use your code forge's documented clone format. For example, Bitbucket Cloud requires the `x-bitbucket-api-token-auth` username, while other hosts use a different username or authorization header.
