@@ -6,7 +6,7 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-The {VARS.WARP_AUTOMATION_PLATFORM} connects the tools that start agent work with the environments where that work runs. Warp operates the control plane, which coordinates runs and routes inference. Cloud agent runs execute in a Warp-hosted sandbox or on customer infrastructure. [Self-hosted](/platform/self-hosting/) execution, [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/), and customer-owned storage change where specific work and data stay.
+The {VARS.WARP_AUTOMATION_PLATFORM} connects the tools that start agent work with the environments where that work runs. Warp operates the control plane, which coordinates runs and routes inference. Cloud agent runs execute in a Warp-hosted sandbox or on customer infrastructure. [Self-hosted](/platform/self-hosting/) execution and [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) change where specific work happens.
 
 ## Stack overview
 
@@ -17,7 +17,7 @@ The platform has five layers: clients, the Warp-operated control plane that coor
 * **Clients** - The surfaces that start and observe work, like the Warp app, the {VARS.WARP_AGENT_CLI}, the web app, the [factory dashboard](/factories/factory-dashboard/), and clients connected through the [Factory MCP](/factories/factory-mcp/). All clients talk to the same control plane APIs.
 * **APIs** - The control plane's entry points: the [Agent API and SDKs](/reference/api-and-sdk/), a webhook receiver for [integration](/platform/integrations/) events, and the hosted Factory MCP endpoint.
 * **Control plane** - Warp coordinates runs, manages shared configuration, routes model calls, and records run history.
-* **Data plane** - Run data (transcripts, artifacts, and attachments) lives in Warp-managed storage or, on Enterprise plans, in your own Amazon S3 or Google Cloud Storage bucket. The choice is independent of where runs execute.
+* **Data plane** - Run data (transcripts, artifacts, and attachments) lives in Warp-managed storage, independent of where runs execute.
 * **Warp-hosted execution** - By default, each cloud agent run gets an isolated sandbox prepared from its environment. See [Warp-hosted execution](/platform/warp-hosting/).
 * **Self-hosted execution** - On Enterprise, a managed worker runs tasks on your infrastructure. Unmanaged setups run the {VARS.WARP_AGENT_CLI} in your CI or orchestrator. See [Self-hosting](/platform/self-hosting/).
 * **External systems** - The platform connects to identity providers, source control, integration providers, model providers, and a payment provider.
@@ -89,11 +89,11 @@ A software factory assembles the {VARS.WARP_AUTOMATION_PLATFORM}'s primitives â€
 
 Every run moves a few distinct classes of data, and each class has its own boundary. This section maps them across your infrastructure, the Warp platform, model providers, and the data plane where run data is stored. All communication is encrypted in transit (TLS 1.2+), all stored data is encrypted at rest (AES-256), and known secret values are redacted at output boundaries.
 
-![Warp-hosted data security and boundaries diagram showing repositories, clients, and integrations in customer infrastructure, the per-run sandbox and control plane on the Warp platform, model providers, and the Warp-managed or customer-owned data plane](../../../assets/agent-platform/warp-hosted-data-boundaries.png)
+![Warp-hosted data security and boundaries diagram showing repositories, clients, and integrations in customer infrastructure, the per-run sandbox and control plane on the Warp platform, model providers, and Warp-managed run-data storage](../../../assets/agent-platform/warp-hosted-data-boundaries.png)
 
 * **Source code** - For Warp-hosted runs, repositories are cloned into an isolated per-run sandbox and destroyed with it; Warp does not persistently store repository clones or train on your code. For [self-hosted execution](/platform/self-hosting/), checkout and the workspace stay on your infrastructure. Either way, code context the agent puts into prompts, transcripts, or artifacts transits Warp and may persist as run data.
 * **Prompts and context** - With the Warp Agent, model calls route through Warp to LLM providers under [Zero Data Retention](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements: providers don't retain or train on the traffic. [Team-managed keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) and [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) keep the same route but use your provider account. Claude Code and Codex call their provider directly from the execution environment, under your provider agreement rather than Warp's.
-* **Run data** - Transcripts, artifacts, and run attachments are stored in Warp-managed storage, encrypted at rest and access-controlled by your team's roles. Enterprise teams can instead write them to a customer-owned Amazon S3 or Google Cloud Storage bucket. Warp writes with a service identity you authorize on the bucket policy, so no cloud credentials are shared. The choice is independent of where runs execute.
+* **Run data** - Transcripts, artifacts, and run attachments are stored in Warp-managed storage, encrypted at rest and access-controlled by your team's roles.
 * **Control-plane data** - Warp always retains what it needs to operate the platform: user and organization settings, agent and factory configuration, orchestration and lifecycle metadata, trigger and integration metadata, operational logs, and usage and billing.
 * **Execution secrets** - Secrets you inject locally never transit Warp. [Managed secrets](/platform/secrets/) are stored encrypted and fetched just-in-time by the execution environment with a run-scoped token, and each delivery is audit-logged. Agents can also obtain short-lived cloud credentials at runtime through [workload identity federation](/platform/integrations/cloud-providers/) instead of holding long-lived secrets. [Secret redaction](/support-and-community/privacy-and-security/secret-redaction/) at output boundaries is a backstop, not a substitute for narrow scopes and rotation.
 * **Inference credentials** - With the Warp Agent, team-managed keys, and Bring Your Own LLM, provider credentials are used only at the Warpâ€“provider boundary and never enter the sandbox. Claude Code and Codex use your provider credentials inside the execution environment, delivered as managed secrets or injected locally.
@@ -102,9 +102,9 @@ Every run moves a few distinct classes of data, and each class has its own bound
 
 ### With self-hosted execution
 
-[Self-hosted execution](/platform/self-hosting/) moves the execution boundary: checkout, builds, and command execution stay on your infrastructure, and no Warp-hosted sandbox is involved. The control plane still coordinates runs, holds control-plane data, and routes inference for the Warp Agent. Run data goes to Warp-managed storage or your own bucket, the same as for Warp-hosted runs.
+[Self-hosted execution](/platform/self-hosting/) moves the execution boundary: checkout, builds, and command execution stay on your infrastructure, and no Warp-hosted sandbox is involved. The control plane still coordinates runs, holds control-plane data, routes inference for the Warp Agent, and stores run data.
 
-![Self-hosted data security and boundaries diagram showing what stays in customer infrastructure, what Warp retains, the Warp-managed or customer-owned data plane, and what transits Warp to model providers](../../../assets/agent-platform/data-security-boundaries.png)
+![Self-hosted data security and boundaries diagram showing what stays in customer infrastructure, what Warp retains, Warp-managed run-data storage, and what transits Warp to model providers](../../../assets/agent-platform/data-security-boundaries.png)
 
 ## Related pages
 
