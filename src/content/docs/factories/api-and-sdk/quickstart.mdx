@@ -1,8 +1,8 @@
 ---
 topic: factories
-title: "API & SDK quickstart"
+title: "Warp Platform API quickstart"
 description: >-
-  Create and monitor your first cloud agent run via the {{API_SDK_NAME}} in ~5
+  Create and monitor your first cloud agent run via the {{WARP_PLATFORM_API}} in ~5
   minutes.
 sidebar:
   label: "Quickstart"
@@ -10,12 +10,12 @@ sidebar:
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
 
-The {VARS.API_SDK_NAME} lets you run and manage cloud agents from anywhere — CI/CD pipelines, backend services, scripts, or custom tooling — without the Warp desktop app. This quickstart walks you through creating your first run and checking its status.
+The {VARS.WARP_PLATFORM_API} lets you run and manage cloud agents from CI/CD pipelines, backend services, scripts, or custom tooling without the Warp desktop app. This quickstart walks you through creating your first run and checking its status.
 
-To dispatch work through a factory's named agents and workflow, use the [factory API](/factories/factory-api/) after this quickstart. The run-management steps below also apply to the factory run that API creates.
+To dispatch work through a factory's named agents and workflow, use [factory endpoints](/factories/factory-api/) after this quickstart. The run-management steps below also apply to the factory run those endpoints create.
 
 Watch this short demo of how the REST API can power agent-backed apps like [PowerFixer](https://github.com/warpdotdev/power-fixer-setup), an issue triage bot built by the Warp team:
-<VideoEmbed url="https://youtu.be/N6qMe641K34" title={`${VARS.API_SDK_NAME} quickstart video`} />
+<VideoEmbed url="https://youtu.be/N6qMe641K34" title={`${VARS.WARP_PLATFORM_API} quickstart video`} />
 
 ---
 
@@ -76,7 +76,7 @@ The `state` has the following possible values:
 * `SUCCEEDED` - The run completed successfully.
 * `FAILED` - The run encountered an error. Check the `status_message` field in the response for details, then use the [API error reference](/factories/api-and-sdk/troubleshooting/errors/) to interpret the error code.
 
-These are the most common states. See the [full API reference](/factories/api-and-sdk/) for all possible values.
+These are the most common states. See the [Agent & run endpoints](/factories/api-and-sdk/) and [Warp Platform API reference](/api) for all possible values.
 
 To list all recent runs:
 
@@ -95,7 +95,7 @@ You can also view and manage all runs in the <a href={`${VARS.WEB_APP_URL}/runs`
 
 ## Next steps
 
-* **Read the full API reference** - [{VARS.API_SDK_NAME}](/factories/api-and-sdk/) documents all endpoint parameters, query filters, and response schemas.
+* **Read the endpoint guide** - [Agent & run endpoints](/factories/api-and-sdk/) documents the configuration and run lifecycle, while the [Warp Platform API reference](/api) lists all parameters, query filters, and response schemas.
 * **Explore the SDKs** - [Python SDK](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript) include typed request/response models, retries, and error handling.
 * **See a real-world example** - [Demo: Sentry monitoring with SDK](/factories/api-and-sdk/demo-sentry-monitoring-with-sdk/) shows how to build a webhook handler that triggers agents from production errors.
 * **Schedule and automate** - See [Scheduled Agents Quickstart](/platform/triggers/scheduled-agents-quickstart/) to run agents on a cron, or [Integrations Quickstart](/platform/integrations/quickstart/) to trigger agents from Slack or Linear.

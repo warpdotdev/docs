@@ -1,36 +1,42 @@
 ---
 title: Transitioning from the {{WEB_APP}}
 description: >-
-  Continue supported legacy cloud-agent workflows and decide whether Warp
-  Factories fits new multi-stage development work.
+  Understand how legacy web app, CLI, SDK, and API workflows remain supported
+  while Warp Factories becomes the path for new software factories.
 sidebar:
   label: "Transitioning from the {{WEB_APP}}"
 ---
 import { VARS } from '@data/vars';
 
-Existing {VARS.WARP_AUTOMATION_PLATFORM} workflows remain supported. You don't need to change an existing workflow to use Warp Factories.
+Existing users do not need to take action to keep using their current workflows. Warp Factories is the path for new standing, multi-stage software development workflows.
 
-For new multi-stage development workflows, use Warp Factories. A factory builds on the {VARS.WARP_AUTOMATION_PLATFORM} to route work through specialized agents, add review stages, and show the progress of work.
+## Current status and future direction
 
-## Where to manage work
+| Surface | Current status | Future direction |
+| --- | --- | --- |
+| **{VARS.WEB_APP}** | Existing workflows continue to work. | Existing workflows remain supported. Migration guidance will be available over time. |
+| **{VARS.WARP_AGENT_CLI} (`oz`)** | Existing commands continue to work. | Relevant functionality moves toward the {VARS.WARP_CLI}. Warp will publish migration guidance before support changes. |
+| **{VARS.WARP_CLI} (`warp`)** | Available for its current supported functionality. | The preferred direction for CLI functionality. |
+| **`oz-sdk-python` and `oz-sdk-typescript`** | Existing SDK packages continue to work. | Packages may be renamed or repackaged under Warp with migration guidance. |
+| **{VARS.WARP_PLATFORM_API}** | Existing endpoints continue to work; no endpoint migration is required. | Documentation and naming may change while compatibility remains. |
+| **New software factories** | Use [Warp Factories](https://platform.warp.dev) for new multi-stage development workflows. | Warp Factories remains the primary product experience for software factories. |
 
-* **Existing {VARS.WARP_AUTOMATION_PLATFORM} workflows** - Continue using the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> for existing cloud agents, environments, schedules, integrations, and runs.
-* **New factory workflows** - Use the <a href={VARS.FACTORY_WEB_APP_URL}>factory dashboard</a> to build and operate multi-stage development workflows. Start with the [Warp Factories overview](/factories/) or the [factory quickstart](/factories/quickstart/).
+## Moving an existing workflow
 
-## CLI, API, and SDK support
+### Existing web app workflows
 
-Existing interfaces remain supported:
+Continue using the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> for existing cloud agents, environments, schedules, integrations, and runs. Moving an existing workflow into a factory is optional and evaluated case by case with an engineering DRI.
 
-* **{VARS.WARP_AGENT_CLI}** - Existing `oz` commands continue to work.
-* **{VARS.API_SDK_NAME}** - Existing API endpoints and SDK packages continue to work.
-* **Cloud-agent configuration** - Existing agents, environments, schedules, integrations, API keys, and secrets remain available.
+### CLI functionality
 
-## Moving an existing workflow into a factory
+Continue using `oz` commands for existing workflows. Use the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) for current command reference and the [{VARS.WARP_CLI}](/agents/cli/) for current `warp` functionality.
 
-Moving an existing {VARS.WARP_AUTOMATION_PLATFORM} workflow into a factory is optional. Each workflow has different integrations, configuration, and operating requirements, so work with an engineering DRI to evaluate the move. Warp will publish guidance before any support change.
+### SDK packages and API
+
+The official SDK repositories retain their current package names: [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript). Existing API integrations remain compatible as documentation moves to the [{VARS.WARP_PLATFORM_API}](/factories/developer-tools/).
 
 ## Related pages
 
 * [{VARS.WARP_AUTOMATION_PLATFORM} overview](/platform/overview/) - Configure standalone cloud-agent workflows.
 * [Warp Factories overview](/factories/) - Build and operate a standing software factory.
-* [Factory dashboard](/factories/factory-dashboard/) - Inspect work items, runs, and factory settings.
+* [{VARS.WARP_PLATFORM_API} & SDKs](/factories/developer-tools/) - Use factory endpoints, Agent & run endpoints, SDKs, and API errors.

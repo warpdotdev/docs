@@ -13,7 +13,7 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team. If your team already has access, sign in to the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>.
 :::
 
-A software factory uses a coordinated fleet of agents to take in requests, manage them from triage through review, and turn a growing backlog into mergeable pull requests. Your team stays in the loop to approve specifications and merge each pull request.
+A factory is a standing software development workflow that connects your repositories and engineering tools to a team of agents and execution infrastructure. It takes in requests, manages them from triage through review, and turns a growing backlog into mergeable pull requests. Your team stays in the loop to approve specifications and merge each pull request.
 
 <VideoEmbed url="https://www.youtube.com/watch?v=0WBk4ai8y1A" title="Introducing Warp Factories" />
 
@@ -21,7 +21,7 @@ A software factory uses a coordinated fleet of agents to take in requests, manag
 
 In practice, that means tracking each request as a work item, such as an issue, ticket, or triggered task, and moving it through specialized agents that triage it, write a specification when one is needed, implement the change, and review the result.
 
-A factory is one deployed instance of that pattern, connecting your repositories and engineering tools to a team of agents, execution infrastructure, and a measurable workflow. Each factory applies a single policy across all of its work sources, so deploy separate factories for repository groups that need different policies.
+Each factory applies a single policy across its work sources, so deploy separate factories for repository groups that need different policies.
 
 ### Sizing a factory
 
@@ -55,33 +55,21 @@ Warp Factories is designed for engineering teams with repeatable work that exten
 * **Measurement and self-improvement** - The [factory dashboard](/factories/factory-dashboard/) shows work-item status, runs, automations, costs, and benchmarks. [Scorers](/factories/measure-and-improve/scorers/) classify completed runs, [Benchmarks](/factories/benchmarks/) compare fixed tasks across configurations, and [Self-improvement](/factories/measure-and-improve/self-improvement/) turns repeated failures into follow-up work the factory proposes for review.
 * **Infrastructure control** - Choose Warp-hosted or managed self-hosted execution on an eligible Enterprise plan. The [infrastructure and security](/factories/infrastructure-and-security/) page compares execution models and links to the self-hosting setup path, as well as available inference and credential controls.
 
-## How Warp Factories relates to other Warp products
+## How Warp Factories fits into Warp
 
-| Product | How it relates |
+Warp Factories builds on the same agent infrastructure used across Warp. Every factory agent produces a standard [cloud agent run](/platform/), so the same APIs, runners, models, security controls, and observability apply.
+
+| Product | Role |
 | --- | --- |
-| **Warp** | The interactive terminal where you develop locally with agents and code review. A factory runs independently in the cloud. |
-| **Warp Agent** | Warp's built-in agent harness. A factory's agents can run on it or on another supported harness. |
-| **{VARS.WARP_CLI}** | Runs the Warp Agent in any terminal and exchanges work with a factory through the Factory MCP. |
-| **{VARS.WARP_AUTOMATION_PLATFORM}** | Provides the cloud runs, runners, integrations, secrets, [multi-agent orchestration](/platform/orchestration/), and APIs that a factory assembles into one workflow. |
-
-## The platform behind a factory
-
-Warp Factories is built on the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/), Warp's programmable system for running and coordinating agents at scale. A factory doesn't replace the platform; it assembles the platform's primitives into one standing workflow, so what you already know about cloud agents carries over:
-
-* **Runs** - Every factory agent executes as a [cloud agent run](/platform/), with the same run records and [session sharing](/platform/viewing-cloud-agent-runs/) as any other cloud agent.
-* **Execution** - [Runners](/factories/runners/) provide the compute each agent works on, and eligible Enterprise teams can route execution to [managed self-hosted workers](/factories/self-hosting/).
-* **Agent configuration** - Each agent runs on a supported [harness](/platform/harnesses/) and model, with [secrets](/platform/secrets/) and [MCP servers](/platform/mcp/) scoping what it can reach.
-* **Billing** - A factory's runs consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) the same way as any other cloud agent run.
-
-The factory layer adds the workflow on top: the foreman and its agents, work items that carry each request across runs, definitions as code, default automations for connected tools, and the Scorer and Self-improvement loop.
-
-Use a standalone [cloud agent](/platform/) for a single task or one-trigger automation. Any agent can spawn children with [multi-agent orchestration](/platform/orchestration/) without a factory. Use a factory for standing, multi-stage work that needs named agents with separate configuration and one place to route, measure, and improve the process.
+| **Warp** | The interactive development experience for local work with agents and code review. |
+| **Warp Agent** | The built-in agent harness that can power an individual factory agent. |
+| **Warp Factories** | Standing multi-agent workflows for software development. |
 
 ## Key terms
 
 Setup gives a factory and its foreman the same name by default, so it's easy to mistake one for the other. Here's how the terms differ:
 
-* **factory** - An individual deployed software factory, built on Warp Factories infrastructure and connecting your repositories and tools to a team of agents. Distinct from Warp Factories, the product, and from the foreman, its coordinating agent.
+* **factory** - A standing software development workflow that connects repositories, tools, agents, execution infrastructure, and a measurable workflow. Distinct from Warp Factories, the product, and from the foreman, its coordinating agent.
 * **foreman** - The coordinating agent inside a factory, and the only one you talk to. It dispatches the other [factory agents](/factories/factory-agents/) and reports back. Every factory has exactly one.
 * **Foreman name** - The handle your team @-mentions in Slack and Linear to reach the foreman. Setup copies it from the factory's name, so the two usually match even though they're different things. See [Foreman name](/factories/factory-agents/#foreman-name).
 

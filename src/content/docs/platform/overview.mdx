@@ -54,7 +54,7 @@ The [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) starts and manages runs where t
 
 ## API and SDKs
 
-The [{VARS.API_SDK_NAME}](/factories/api-and-sdk/) creates and inspects tasks over HTTP: submit a prompt with optional configuration, poll status, and fetch results with full provenance. Teams use it to start agents from incident tooling and internal systems, build dashboards over run history, and coordinate large batches of runs. Official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs add typed requests and responses, built-in retries, and consistent errors. Start with an SDK unless you need full control over your HTTP client.
+The [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) creates and inspects tasks over HTTP: submit a prompt with optional configuration, poll status, and fetch results with full provenance. Teams use it to start agents from incident tooling and internal systems, build dashboards over run history, and coordinate large batches of runs. Official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs add typed requests and responses, built-in retries, and consistent errors. Start with an SDK unless you need full control over your HTTP client.
 
 ## Secrets
 
@@ -74,4 +74,4 @@ Runs pick up your team's shared setup no matter what triggered them: [MCP server
 * [Cloud agents](/platform/) - what cloud agents are, how they get triggered, and how to run them with or without the Warp app.
 * [Cloud agents quickstart](/platform/quickstart/) - run your first cloud agent in about ten minutes.
 * [Environments](/platform/environments/) - define the toolchain and repos a run executes against.
-* [{VARS.API_SDK_NAME}](/factories/api-and-sdk/) - drive the platform programmatically.
+* [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) - drive the platform programmatically.
