@@ -179,8 +179,10 @@ Optional. Names of [managed secrets](/platform/secrets/) granted to every agent 
 Optional. [MCP servers](/platform/mcp/) granted to every agent, keyed by the name the agent sees. Each entry selects exactly one transport:
 
 * `warpId` - A Warp-managed MCP server ID.
-* `command` - A stdio command. Optional `args` and `env` apply only to this transport.
-* `url` - An absolute HTTP or HTTPS URL. Optional `headers` apply only to this transport.
+* `command` - A stdio command. Optional `args` is a list of strings, and optional `env` maps names to string values.
+* `url` - An absolute HTTP or HTTPS URL. Optional `headers` maps header names to string values.
+
+Don't put credentials directly in `env` or `headers`. Reference a [Warp-managed secret](/platform/secrets/) as `{{SECRET_NAME}}`, or use `warpId` for a [managed MCP installation](/platform/mcp/#oauth-authentication).
 
 ```yaml
 mcpServers:
