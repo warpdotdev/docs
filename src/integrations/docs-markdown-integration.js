@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { parseHTML } from 'linkedom';
 import TurndownService from 'turndown';
 import { gfm } from 'turndown-plugin-gfm';
+import { DOCS_ORIGIN } from '../lib/site.js';
 
 export default function docsMarkdownIntegration() {
 	return {
@@ -79,8 +80,6 @@ function getMarkdownOutputPath(outputRoot, relativeHtmlPath) {
 	const htmlDir = path.dirname(relativeHtmlPath);
 	return path.join(outputRoot, `${htmlDir}.md`);
 }
-
-const DOCS_ORIGIN = 'https://docs.warp.dev';
 
 function convertHtmlToMarkdown(html) {
 	const { document } = parseHTML(html);
