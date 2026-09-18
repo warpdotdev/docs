@@ -11,7 +11,7 @@ sidebar:
 Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
 :::
 
-A factory is a team of cloud agents that ships software the way your team does: a request comes in, moves through the stages it needs, and comes back as a pull request ready for review. You talk to one agent, the **foreman**, from the tool that sends the request, such as Slack or Linear. The foreman dispatches the factory's other agents, and each one owns a part of the software development lifecycle.
+A factory is a standing software development workflow that connects your repositories and engineering tools to a team of agents and execution infrastructure. It takes in requests, moves them through the stages they need, and turns them into pull requests ready for review. You talk to one agent, the **foreman**, from the tool that sends the request, such as Slack or Linear. The foreman dispatches the factory's other agents, and each one owns a part of the software development lifecycle.
 
 Deciding which repositories belong in this factory is a separate question. See [sizing a factory](/factories/#sizing-a-factory) for that guidance.
 
@@ -21,12 +21,12 @@ A **work item** is a single request the factory acts on, such as an issue, suppo
 
 The diagram's components, from intake to improvement:
 
-* **Work sources** - Work items arrive from [Slack](/factories/integrations/slack/), [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), [Linear](/factories/integrations/linear/), or [Jira](/factories/integrations/jira/), from [custom webhooks](/factories/webhooks/) and the [factory API](/factories/factory-api/), from local coding agents through the [Factory MCP](/factories/factory-mcp/), or from direct runs and schedules.
+* **Work sources** - Work items arrive from [Slack](/factories/integrations/slack/), [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), [Linear](/factories/integrations/linear/), or [Jira](/factories/integrations/jira/), from [custom webhooks](/factories/webhooks/) and [factory endpoints](/factories/factory-api/), from local coding agents through the [Factory MCP](/factories/factory-mcp/), or from direct runs and schedules.
 * **Automations** - [Automations](/factories/automations/) filter provider events and decide which agent handles them. Schedules fire them on a timer; direct requests go straight to the foreman.
 * **Foreman and stage agents** - The foreman holds one conversation per work item and dispatches the Triage, Spec, Implement, and Review agents as the work needs them. See [factory agents](/factories/factory-agents/) and the stages below.
 * **Human handoff** - The factory opens a pull request with evidence, updates the original work item, and you review and merge.
 * **Factory definition** - Version-controlled agents, automations, runners, scorers, skills, and webhooks define the factory, either Warp-managed or in a GitHub repository your team owns. See [definitions as code](/factories/factory-as-code/).
-* **Execution** - Every stage runs as a cloud agent run on Warp-hosted or [self-hosted](/platform/self-hosting/) compute, with the workspace from the factory's repositories and each stage's configured model and [harness](/platform/harnesses/).
+* **Execution** - Every stage runs as a cloud agent run on Warp-hosted or [managed self-hosted](/factories/self-hosting/) compute, with the workspace from the factory's repositories and each stage's configured model and [harness](/platform/harnesses/).
 * **Factory dashboard** - Metrics, work items by stage, and runs and costs. See the [factory dashboard](/factories/factory-dashboard/).
 * **Measure and improve** - [Scorers](/factories/measure-and-improve/) classify completed runs, benchmarks compare configurations, and self-improvement turns repeat failures into follow-up pull requests for your review.
 

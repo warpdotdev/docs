@@ -37,12 +37,29 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run independent review-docs-pr agent
-        id: oz-review
-        uses: warpdotdev/oz-agent-action@main
-        with:
-          warp_api_key: ${{ secrets.WARP_API_KEY }}
-          profile: ${{ vars.WARP_AGENT_PROFILE || '' }}
-          prompt: |
+        env:
+          WARP_API_KEY: ${{ secrets.WARP_API_KEY }}
+          WARP_AGENT_PROFILE: ${{ vars.WARP_AGENT_PROFILE || '' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gpg
+          curl --fail --location https://releases.warp.dev/linux/keys/warp.asc \
+            --output /tmp/warpdotdev.asc
+          # Verified against releases.warp.dev/linux/keys/warp.asc on 2026-09-18.
+          # Reverify this fingerprint before updating the Warp signing key.
+          test "$(
+            gpg --show-keys --with-colons /tmp/warpdotdev.asc |
+              awk -F: '/^fpr:/ { print $10; exit }'
+          )" = "0913165C78D5B7A41B42AC657FF7AB39D60F803F"
+          gpg --dearmor --output /tmp/warpdotdev.gpg /tmp/warpdotdev.asc
+          sudo install -D -o root -g root -m 644 /tmp/warpdotdev.gpg \
+            /etc/apt/keyrings/warpdotdev.gpg
+          sudo tee /etc/apt/sources.list.d/warpdotdev.list > /dev/null <<'EOF'
+          deb [arch=amd64 signed-by=/etc/apt/keyrings/warpdotdev.gpg] https://releases.warp.dev/linux/deb stable main
+          EOF
+          sudo apt-get update
+          sudo apt-get install -y oz-stable
+          PROMPT="$(cat <<'EOF'
             Run the review-docs-pr skill against warpdotdev/docs PR #${{ github.event.pull_request.number }}
             at head SHA ${{ github.event.pull_request.head.sha }}. This PR carries the warpy-factory agent
             marker, so it requires the independent v1 agent-doc quality review pass (see
@@ -60,6 +77,15 @@ jobs:
                changed file and line or quoted text, explain the problem, and state the requested
                resolution. Set reviewer_login to `github-actions[bot]`, the runner account that
                will publish the review.
+            5. Your final response must contain only the single [SIGNAL:pr-review] JSON record.
+               Do not repeat the diff, review rationale, or findings outside that record.
+          EOF
+          )"
+          args=(agent run --output-format text --prompt "$PROMPT")
+          if [ -n "$WARP_AGENT_PROFILE" ]; then
+            args+=(--profile "$WARP_AGENT_PROFILE")
+          fi
+          oz "${args[@]}" > /tmp/agent-output.txt
       - name: Dismiss stale automated change requests
         env:
           GH_TOKEN: ${{ github.token }}
@@ -78,9 +104,7 @@ jobs:
       - name: Publish the independent review
         env:
           GH_TOKEN: ${{ github.token }}
-          AGENT_OUTPUT: ${{ steps.oz-review.outputs.agent_output }}
         run: |
-          printf '%s' "$AGENT_OUTPUT" > /tmp/agent-output.txt
           python3 .agents/skills/doc_quality_policy/publish_review_signal.py \
             --agent-output /tmp/agent-output.txt \
             --pr "${{ github.event.pull_request.number }}" \
@@ -96,9 +120,7 @@ jobs:
       - name: Verify the current review signal and GitHub review
         env:
           GH_TOKEN: ${{ github.token }}
-          AGENT_OUTPUT: ${{ steps.oz-review.outputs.agent_output }}
         run: |
-          printf '%s' "$AGENT_OUTPUT" > /tmp/agent-output.txt
           python3 .agents/skills/doc_quality_policy/verify_review_signal.py \
             --repo "${{ github.repository }}" \
             --pr "${{ github.event.pull_request.number }}" \

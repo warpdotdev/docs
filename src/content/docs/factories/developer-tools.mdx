@@ -1,0 +1,32 @@
+---
+title: "{{WARP_PLATFORM_API}} & SDKs"
+description: >-
+  Use the {{WARP_PLATFORM_API}}, SDKs, Factory MCP, and webhooks to integrate
+  factories and cloud agent runs with your tools and services.
+sidebar:
+  label: "Overview"
+---
+import { VARS } from '@data/vars';
+
+The {VARS.WARP_PLATFORM_API} serves both factories and standalone cloud agent runs. The factory endpoints send work to a factory; agent and run endpoints start and manage standalone runs. Both endpoint families use the same API key, API reference, SDKs, and error model.
+
+## Choose an API surface
+
+* **[Factory endpoints](/factories/factory-api/)** - Find a factory and send work to it by UID from your application or service.
+* **[Agent & run endpoints](/factories/api-and-sdk/)** - Start, monitor, continue, and cancel cloud agent runs from scripts, CI, and backend services.
+* **[Warp Platform API reference](/api)** - Look up the full HTTP schema, parameters, and responses.
+* **[Python SDK](https://github.com/warpdotdev/oz-sdk-python)** - Make typed requests from Python. The current package retains its `oz-sdk-python` name.
+* **[TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript)** - Make typed requests from TypeScript. The current package retains its `oz-sdk-typescript` name.
+* **[API errors](/factories/api-and-sdk/troubleshooting/errors/)** - Resolve error responses by HTTP status and machine-readable code.
+* **[Factory MCP](/factories/factory-mcp/)** - Exchange work between a factory and a connected coding agent or MCP client.
+* **[Webhooks](/factories/webhooks/)** - Receive events from systems that can send JSON and route matching deliveries into factory automations.
+
+## Get started
+
+Start with the [API & SDK quickstart](/factories/api-and-sdk/quickstart/) to create and inspect a run. For a production event source, use the [Sentry monitoring example](/factories/api-and-sdk/demo-sentry-monitoring-with-sdk/) to connect a webhook handler.
+
+## Related pages
+
+* [Connect your factory](/factories/connect-your-factory/) - Choose an integration or direct intake path.
+* [Factory automations](/factories/automations/) - Route events and schedules to factory agents.
+* [Factory dashboard](/factories/factory-dashboard/) - Inspect work items, runs, and factory settings.

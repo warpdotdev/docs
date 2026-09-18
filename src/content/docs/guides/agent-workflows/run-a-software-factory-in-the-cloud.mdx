@@ -31,7 +31,7 @@ The practical difference:
 * **Team visibility** — Any teammate can open a run in the {VARS.WEB_APP} to inspect the session transcript, steer a stuck agent, or pick up where the agent left off.
 * **Scale without contention** — Multiple triage runs can execute in parallel without fighting over a shared dev box, local git checkouts, or CPU.
 
-See [Deployment patterns](/platform/deployment-patterns) for a full comparison of {VARS.WARP_AUTOMATION_PLATFORM}-hosted, CLI-based, and self-hosted execution patterns.
+See [Deployment patterns](/factories/deployment-patterns) for a full comparison of {VARS.WARP_AUTOMATION_PLATFORM}-hosted, CLI-based, and self-hosted execution patterns.
 
 ## 1. Set up a cloud environment
 
@@ -67,7 +67,7 @@ With GitHub Actions, your factory already has event-based triggers. The {VARS.WA
 * **Slack** — Teammates can kick off a run by mentioning `@warp` in a Slack thread. Useful for one-off requests that don't need the full label workflow. See [Slack integration](/platform/integrations/slack).
 * **Linear** — When an issue in Linear reaches a specific status, a cloud agent run starts automatically. Useful for teams that track work in Linear rather than GitHub Issues. See [Linear integration](/platform/integrations/linear).
 * **Scheduled agents** — For the outer improvement loop (which runs on a cadence rather than an event), use a scheduled cloud agent. See [Scheduled agents](/platform/triggers/scheduled-agents).
-* **{VARS.API_SDK_NAME}** — For custom triggers — webhooks, internal dashboards, other events — use the [{VARS.API_SDK_NAME}](/reference/api-and-sdk) to start runs programmatically.
+* **{VARS.WARP_PLATFORM_API}** — For custom triggers — webhooks, internal dashboards, other events — use the [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk) to start runs programmatically.
 
 ## 4. Monitor factory runs
 
@@ -100,5 +100,5 @@ See [Multi-agent orchestration](/platform/orchestration) for fan-out, sharding, 
 * [Infrastructure and security](/factories/infrastructure-and-security/) — The environment, runner, and credential model behind the concerns you configured by hand here.
 * [Build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) — Add the outer improvement loop on a schedule.
 * [Environments](/platform/environments) — Full reference for cloud agent environments.
-* [Deployment patterns](/platform/deployment-patterns) — Choose the right architecture for your team.
-* [Self-hosting](/platform/self-hosting) — Run cloud agent workers on your own infrastructure when code must stay on-premises.
+* [Deployment patterns](/factories/deployment-patterns) — Choose the right architecture for your team.
+* [Self-hosting](/factories/self-hosting) — Run cloud agent workers on your own infrastructure when code must stay on-premises.

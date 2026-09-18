@@ -1,0 +1,57 @@
+---
+title: Managed self-hosting for Warp Factories
+description: >-
+  Run Warp Factories on your own infrastructure with a managed worker for
+  Docker, Kubernetes, or direct-host execution.
+sidebar:
+  label: "Managed self-hosting"
+---
+import { VARS } from '@data/vars';
+
+Managed self-hosting runs factory work on infrastructure you control. A worker connects to Warp, receives work from your factory, and executes it in Docker containers, Kubernetes Jobs, or directly on the worker host. Repository clones, build artifacts, and execution workspaces stay on your infrastructure.
+
+:::note
+Managed self-hosting is available to Enterprise teams. [Contact sales](https://www.warp.dev/contact-sales) to enable it for your team.
+:::
+
+Managed workers run only on Linux `amd64` or `arm64` hosts. To run agents on macOS or Windows, use [unmanaged execution](/platform/unmanaged-execution/).
+
+<a id="managed-architecture"></a>
+
+## How managed self-hosting works
+
+Run the `oz-agent-worker` daemon on infrastructure that can reach your repositories and internal services. The worker connects outbound to the {VARS.WARP_AUTOMATION_PLATFORM}, waits for factory work, and runs each task using the backend you configure.
+
+A managed worker is the self-hosted execution option for a factory. [Unmanaged execution](/platform/unmanaged-execution/) runs standalone agents directly from your own CI or infrastructure. Route factory work to a managed worker through the [factory definition](/factories/factory-as-code/#agentdefaultsworkerhost).
+
+<a id="choosing-a-managed-backend"></a>
+
+## Choose a backend
+
+* **Docker** - Run each factory task in an isolated container. Start with the [Docker quickstart](/factories/self-hosting/quickstart/) or see the [Docker backend](/factories/self-hosting/managed-docker/) for registries, volumes, and runtime configuration.
+* **Kubernetes** - Run each task as a Kubernetes Job in your cluster. See the [Kubernetes backend](/factories/self-hosting/managed-kubernetes/) for Helm installation, RBAC, and pod configuration.
+* **Direct** - Run tasks directly on the worker host when a container runtime is not available. See the [Direct backend](/factories/self-hosting/managed-direct/) for isolation and workspace requirements.
+
+## Data and network boundaries
+
+Managed self-hosting moves execution to your infrastructure. Warp still provides the service that coordinates runs, stores session data, and routes inference requests. Review [execution security](/platform/execution-security/) before connecting a worker to internal repositories or services.
+
+The worker requires outbound HTTPS access to Warp and any repositories, registries, and services that its tasks use. It does not require inbound firewall access.
+
+<a id="routing-runs-to-self-hosted-workers"></a>
+
+## Configure a factory to use a worker
+
+Define the worker host and a compatible runner in your [factory definition](/factories/factory-as-code/). The factory dashboard shows each configured runner and the worker that executes its work. Use the [worker reference](/factories/self-hosting/reference/) to configure the worker process and the [factory dashboard](/factories/factory-dashboard/) to inspect its runs.
+
+## Monitor and troubleshoot workers
+
+[Worker monitoring](/factories/self-hosting/monitoring/) exports OpenTelemetry metrics for worker health, capacity, and task throughput. If a worker cannot connect or tasks remain queued, use [self-hosting troubleshooting](/factories/self-hosting/troubleshooting/).
+
+## Related pages
+
+* [Docker quickstart](/factories/self-hosting/quickstart/) - Start a managed worker with Docker.
+* [Factory runners](/factories/runners/) - Choose the compute configuration for factory work.
+* [Infrastructure and security](/factories/infrastructure-and-security/) - Configure execution, inference, storage, and credentials.
+* [Worker reference](/factories/self-hosting/reference/) - Look up worker flags and configuration fields.
+* [Execution security](/platform/execution-security/) - Review data boundaries and network requirements.

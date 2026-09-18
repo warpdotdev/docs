@@ -27,13 +27,10 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Getting started',
 					items: [
-						// Shortened at the 8/18 rename. This label duplicates index.mdx's
-						// frontmatter title, which IS tokenized, so the two would have
-						// disagreed once the variable flipped. "Getting started with Warp
-						// and the Automation Platform" is too long for a sidebar row, and
-						// Warp is the umbrella product anyway. Keep both in sync.
-						{ label: 'Getting started with Warp', link: '/' },
-						{ slug: 'quickstart', label: 'Warp quickstart' },
+						// The root product overview remains in the Terminal topic until
+						// the GA navigation change adds a separate Terminal landing page.
+						{ label: 'Warp products', link: '/' },
+						{ slug: 'quickstart', label: 'Quickstart' },
 						'getting-started/quickstart/installation-and-setup',
 						'getting-started/quickstart/coding-in-warp',
 						'getting-started/quickstart/customizing-warp',
@@ -247,13 +244,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			link: '/agents/',
 			icon: 'puzzle',
 			items: [
-				{
-					label: 'Agents',
-					items: [
-						{ slug: 'agents', label: 'Overview' },
-						'agents/getting-started/faqs',
-					],
-				},
+				{ slug: 'agents', label: 'Overview' },
 				{
 					label: 'Warp Agents',
 					items: [
@@ -355,6 +346,23 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
+					label: `${VARS.WARP_AGENT_CLI} (legacy)`,
+					collapsed: true,
+					items: [
+						{ slug: 'agents/cli/oz-cli', label: 'Overview' },
+						{ slug: 'agents/cli/oz-cli/quickstart', label: 'Quickstart' },
+						{ slug: 'agents/cli/oz-cli/api-keys', label: 'API keys' },
+						{ slug: 'agents/cli/oz-cli/agent-profiles', label: 'Agent profiles' },
+						{ slug: 'agents/cli/oz-cli/mcp-servers', label: 'MCP servers' },
+						{ slug: 'agents/cli/oz-cli/skills', label: 'Skills' },
+						{ slug: 'agents/cli/oz-cli/warp-drive', label: 'Warp Drive context' },
+						{ slug: 'agents/cli/oz-cli/integration-setup', label: 'Integration setup' },
+						{ slug: 'agents/cli/oz-cli/artifacts', label: 'Artifacts' },
+						{ slug: 'agents/cli/oz-cli/federate', label: 'Federated identity' },
+						'agents/cli/oz-cli/troubleshooting',
+					],
+				},
+				{
 					label: 'Third-Party CLI Agents',
 					items: [
 						{ slug: 'agents/cli-agents/overview', label: 'Overview' },
@@ -371,6 +379,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'agents/agent-memory', label: 'Agent Memory' },
 					],
 				},
+				{ slug: 'agents/getting-started/faqs', label: 'Agent FAQs' },
 			],
 		},
 		{
@@ -389,17 +398,20 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			// next door, since the underlying concepts are the same.
 			items: [
 				{
-					// 'Getting started', not 'Get started': matches the Terminal,
-					// Enterprise, and Guides tabs.
-					label: 'Getting started',
+					label: 'Overview',
 					items: [
 						{ slug: 'factories', label: 'Overview' },
-						{ slug: 'factories/quickstart', label: 'Quickstart' },
-						// 'Warp' is redundant inside the Factories tab, and the sibling
-						// labels ('Factory agents', 'Factory MCP') drop it too. This also
-						// resolves a desync: the page's own frontmatter label already said
-						// 'How Factories work', which this override was silently shadowing.
 						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
+						{ slug: 'factories/quickstart', label: 'Quickstart' },
+					],
+				},
+				{
+					label: 'Measure and improve',
+					items: [
+						{ slug: 'factories/measure-and-improve', label: 'Overview' },
+						{ slug: 'factories/measure-and-improve/scorers', label: 'Scorers' },
+						{ slug: 'factories/measure-and-improve/self-improvement', label: 'Self-improvement' },
+						{ slug: 'factories/benchmarks', label: 'Benchmarks' },
 					],
 				},
 				{
@@ -414,8 +426,30 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// now the Automations primitive's conceptual home, parallel to Factory
 					// agents and Factory skills, not just a filters reference.
 					{ slug: 'factories/automations', label: 'Factory automations' },
-					{ slug: 'factories/factory-as-code', label: 'Factory definition' },
-					{ slug: 'factories/infrastructure-and-security', label: 'Infrastructure & security' },
+					{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
+					{
+						label: 'Infrastructure',
+						items: [
+							{ slug: 'factories/infrastructure-and-security', label: 'Overview' },
+							{ slug: 'factories/deployment-patterns', label: 'Deployment patterns' },
+							{ slug: 'factories/warp-hosting', label: 'Warp-hosted execution' },
+							{ slug: 'factories/runners', label: 'Runners' },
+							{
+								label: 'Managed self-hosting',
+								collapsed: false,
+								items: [
+									{ slug: 'factories/self-hosting', label: 'Overview' },
+									{ slug: 'factories/self-hosting/quickstart', label: 'Quickstart' },
+									{ slug: 'factories/self-hosting/managed-docker', label: 'Docker backend' },
+									{ slug: 'factories/self-hosting/managed-kubernetes', label: 'Kubernetes backend' },
+									{ slug: 'factories/self-hosting/managed-direct', label: 'Direct backend' },
+									'factories/self-hosting/monitoring',
+									{ slug: 'factories/self-hosting/reference', label: 'Worker reference' },
+									'factories/self-hosting/troubleshooting',
+								],
+							},
+						],
+					},
 				],
 				},
 				{
@@ -426,8 +460,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// Integrations > Integrations > Slack.
 					//
 					// 'Connect your factory' leads because it is the overview for this
-					// group; Factory MCP trails because it is a connection mechanism
-					// rather than a third-party service.
+					// group. The direct developer interfaces live in Developer tools
+					// rather than alongside third-party service integrations.
 					label: 'Integrations',
 					items: [
 						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
@@ -436,12 +470,24 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories/integrations/gitlab', label: 'GitLab' },
 						{ slug: 'factories/integrations/linear', label: 'Linear' },
 						{ slug: 'factories/integrations/jira', label: 'Jira' },
-						// Custom webhooks connect any JSON-posting system, so they sit
-						// between the named third-party services and the API-style
-						// mechanisms below. Label matches the factory dashboard's nav.
-						// The overview holds the concept and the happy path; each
-						// provider whose setup differs from it gets its own page nested
-						// here (HYC, 9/15), same shape as 'Measure and improve' below.
+					],
+				},
+				{
+					label: 'Developer tools',
+					items: [
+						{
+							label: 'API & SDKs',
+							items: [
+								{ slug: 'factories/developer-tools', label: 'Overview' },
+								{ slug: 'factories/factory-api', label: 'Factory endpoints' },
+								{ slug: 'factories/api-and-sdk', label: 'Agent & run endpoints' },
+								{ label: 'API reference', link: '/api' },
+								{ label: 'Python SDK', link: 'https://github.com/warpdotdev/oz-sdk-python' },
+								{ label: 'TypeScript SDK', link: 'https://github.com/warpdotdev/oz-sdk-typescript' },
+								{ slug: 'factories/api-and-sdk/troubleshooting/errors', label: 'Errors' },
+							],
+						},
+						{ slug: 'factories/factory-mcp', label: 'Factory MCP' },
 						{
 							label: 'Webhooks',
 							collapsed: false,
@@ -450,41 +496,21 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'factories/webhooks/vercel', label: 'Vercel' },
 							],
 						},
-						// Alongside Factory MCP: both are direct API-style connection
-						// mechanisms rather than third-party services, so they trail the
-						// per-service integrations above.
-						{ slug: 'factories/factory-api', label: 'Factory API' },
-						{ slug: 'factories/factory-mcp', label: 'Factory MCP' },
 					],
 				},
 				{
-					// Same label as the Automation Platform tab's group for watching and
-					// steering runs, because it covers the same ground one level up: the
-					// factory dashboard is where you watch a factory, and scorers are how
-					// you measure it.
+					// The factory dashboard and inbox are operational surfaces. Measurement
+					// and optimization pages live earlier under 'Measure and improve'.
 					label: 'Management & observability',
 					items: [
 						{ slug: 'factories/factory-inbox', label: 'Factory inbox' },
 						{ slug: 'factories/factory-dashboard', label: 'Factory dashboard' },
-						{
-							label: 'Measure and improve',
-							collapsed: false,
-							items: [
-								{ slug: 'factories/measure-and-improve', label: 'Overview' },
-								{ slug: 'factories/measure-and-improve/scorers', label: 'Scorers' },
-								{ slug: 'factories/measure-and-improve/self-improvement', label: 'Self-improvement' },
-								{ slug: 'factories/benchmarks', label: 'Benchmarks' },
-							],
-						},
 					],
 				},
-				// Troubleshooting sits outside the groups, last in the tab. It was in
-				// 'Management & observability' next to the dashboard and Scorers pages,
-				// which read as a sibling of the measurement surfaces rather than as
-				// the place you go when something is broken. A bare trailing item is
-				// the same shape the Automation Platform tab uses for its leading
-				// 'Overview'.
+				// Keep troubleshooting and legacy transition guidance as direct trailing
+				// items rather than creating singleton groups.
 				{ slug: 'factories/troubleshooting', label: 'Troubleshooting' },
+				{ slug: 'platform/transitioning-from-oz', label: 'Legacy Oz workflows' },
 			],
 		},
 		{
@@ -506,11 +532,13 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			icon: 'cloud-download',
 			items: [
 				{ slug: 'platform/overview', label: 'Overview' },
+				{ slug: 'platform/architecture', label: 'Architecture' },
 				{
 					label: 'Cloud Agents',
 					items: [
 						{ slug: 'platform', label: 'Overview' },
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
+						{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
 						{
 							// Runtime (which agent executes the run) is kept separate from
 							// configuration (how any run is set up) -- HYC review, 8/14.
@@ -571,6 +599,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						{ slug: 'platform/team-access-billing-and-identity', label: 'Access, billing, and identity' },
 						{ slug: 'platform/faqs', label: 'Cloud agent FAQs' },
+						{ slug: 'platform/unmanaged-execution', label: 'Unmanaged execution' },
+						{ slug: 'platform/execution-security', label: 'Execution security' },
 					],
 				},
 				{
@@ -579,7 +609,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/environments', label: 'Overview' },
 						{ slug: 'platform/environments/configuring-environments', label: 'Configuring environments' },
 						{ slug: 'platform/environments/troubleshooting-environments', label: 'Troubleshooting' },
-						{ slug: 'platform/runners', label: 'Runners' },
 					],
 				},
 				{
@@ -639,105 +668,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'platform/orchestration', label: 'Multi-agent orchestration' },
 						{ slug: 'platform/orchestration/multi-agent-runs', label: 'Running orchestrated agents' },
-					],
-				},
-				{
-					// Named for what the group contains, not just its largest member: it
-					// holds a comparison page (deployment-patterns), a Warp-HOSTED page,
-					// and the self-hosting set. Labeling it 'Self-hosting' put
-					// 'Warp-hosted agents' under its own opposite.
-					label: 'Deployment & hosting',
-					items: [
-						{ slug: 'platform/architecture', label: 'Architecture' },
-						{ slug: 'platform/deployment-patterns', label: 'Deployment patterns' },
-						{ slug: 'platform/warp-hosting', label: 'Warp-hosted agents' },
-						// Qualified: a bare 'Overview'/'Quickstart' would now read as the
-						// whole group's, not self-hosting's. Both match their page titles.
-						{ slug: 'platform/self-hosting', label: 'Self-hosting overview' },
-						{ slug: 'platform/self-hosting/quickstart', label: 'Self-hosting quickstart' },
-						{ slug: 'platform/self-hosting/managed-docker', label: 'Managed: Docker' },
-						{ slug: 'platform/self-hosting/managed-kubernetes', label: 'Managed: Kubernetes' },
-						{ slug: 'platform/self-hosting/managed-direct', label: 'Managed: Direct' },
-						{ slug: 'platform/self-hosting/unmanaged', label: 'Unmanaged' },
-						'platform/self-hosting/monitoring',
-						{ slug: 'platform/self-hosting/reference', label: 'Self-hosted worker reference' },
-						'platform/self-hosting/security-and-networking',
-						{ slug: 'platform/self-hosting/troubleshooting', label: 'Troubleshooting' },
-					],
-				},
-			],
-		},
-		{
-			label: 'API & Reference',
-			link: '/reference/',
-			icon: 'open-book',
-			items: [
-				{
-					// API Reference promoted to the top of the sidebar (was buried 3
-					// levels deep under API & SDK) per HYC/Rachael's Slack discussion on
-					// discoverability after the top-level API tab was removed.
-					label: 'Technical Reference',
-					items: [
-						{ slug: 'reference', label: 'Overview' },
-						{ label: 'API Reference', link: '/api' },
-					],
-				},
-				{
-					label: 'CLI',
-					items: [
-						{ slug: 'reference/cli', label: `${VARS.WARP_AGENT_CLI} (legacy)` },
-						{ slug: 'reference/cli/quickstart', label: 'Quickstart' },
-						{ slug: 'reference/cli/api-keys', label: 'API Keys' },
-						{ slug: 'reference/cli/agent-profiles', label: 'Agent Profiles' },
-						{ slug: 'reference/cli/mcp-servers', label: 'MCP Servers' },
-						{ slug: 'reference/cli/skills', label: 'Skills' },
-						{ slug: 'reference/cli/warp-drive', label: 'Warp Drive Context' },
-						{ slug: 'reference/cli/integration-setup', label: 'Integration Setup' },
-						{ slug: 'reference/cli/artifacts', label: 'Artifacts' },
-						{ slug: 'reference/cli/federate', label: 'Federated identity' },
-						'reference/cli/troubleshooting',
-					],
-				},
-				{
-					label: 'API & SDK',
-					items: [
-						{ slug: 'reference/api-and-sdk', label: VARS.API_SDK_NAME },
-						{ slug: 'reference/api-and-sdk/quickstart', label: 'Quickstart' },
-						// API Reference link moved to the top-level 'Technical Reference'
-						// group above for discoverability -- not duplicated here.
-						'reference/api-and-sdk/demo-sentry-monitoring-with-sdk',
-						{
-							label: 'API Troubleshooting',
-							collapsed: true,
-							items: [
-								{ slug: 'reference/api-and-sdk/troubleshooting', label: 'API Troubleshooting' },
-								{
-									label: 'Errors',
-									collapsed: true,
-									items: [
-										{ slug: 'reference/api-and-sdk/troubleshooting/errors', label: 'Errors' },
-										'reference/api-and-sdk/troubleshooting/errors/insufficient-credits',
-										'reference/api-and-sdk/troubleshooting/errors/feature-not-available',
-										'reference/api-and-sdk/troubleshooting/errors/external-authentication-required',
-										'reference/api-and-sdk/troubleshooting/errors/not-authorized',
-										'reference/api-and-sdk/troubleshooting/errors/invalid-request',
-										'reference/api-and-sdk/troubleshooting/errors/resource-not-found',
-										'reference/api-and-sdk/troubleshooting/errors/budget-exceeded',
-										'reference/api-and-sdk/troubleshooting/errors/integration-disabled',
-										'reference/api-and-sdk/troubleshooting/errors/integration-not-configured',
-										'reference/api-and-sdk/troubleshooting/errors/operation-not-supported',
-										'reference/api-and-sdk/troubleshooting/errors/environment-setup-failed',
-										'reference/api-and-sdk/troubleshooting/errors/content-policy-violation',
-										'reference/api-and-sdk/troubleshooting/errors/conflict',
-										'reference/api-and-sdk/troubleshooting/errors/authentication-required',
-										'reference/api-and-sdk/troubleshooting/errors/resource-unavailable',
-										'reference/api-and-sdk/troubleshooting/errors/internal-error',
-										'reference/api-and-sdk/troubleshooting/errors/infrastructure-timeout',
-										'reference/api-and-sdk/troubleshooting/errors/agent-process-failed',
-									],
-								},
-							],
-						},
 					],
 				},
 			],
@@ -817,13 +747,17 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 		icon: 'setting',
 			items: [
 				{
-					label: 'Getting started',
+					label: 'Overview',
 					items: [
 						{ slug: 'enterprise', label: 'Overview' },
-						{ slug: 'enterprise/getting-started/quickstart', label: 'Quick start' },
+					],
+				},
+				{
+					label: 'Getting started',
+					items: [
+						{ slug: 'enterprise/getting-started/quickstart', label: 'Quickstart' },
 						{ slug: 'enterprise/getting-started/getting-started-enterprise', label: 'Getting started for admins' },
 						{ slug: 'enterprise/getting-started/getting-started-developers', label: 'Getting started for developers' },
-						{ slug: 'enterprise/getting-started/faq', label: 'FAQ' },
 					],
 				},
 				{
@@ -859,6 +793,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						'enterprise/support-and-resources/billing',
 						{ slug: 'enterprise/support-and-resources/troubleshooting-login', label: 'Troubleshooting login' },
 						{ slug: 'enterprise/support-and-resources/feedback-and-feature-requests', label: 'Feedback and feature requests' },
+						{ slug: 'enterprise/getting-started/faq', label: 'FAQ' },
 					],
 				},
 			],
@@ -869,7 +804,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 		link: '/guides/',
 		icon: 'rocket',
 			items: [
-				{ slug: 'guides', label: 'Guides' },
+				{ slug: 'guides', label: 'Overview' },
 				{
 					label: 'Getting started',
 					items: [
