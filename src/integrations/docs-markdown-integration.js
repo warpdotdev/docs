@@ -111,9 +111,8 @@ function convertHtmlToMarkdown(html) {
 }
 
 /**
- * Rewrite root-relative and same-origin links/resources to absolute
- * docs.warp.dev URLs so served markdown remains portable when copied outside
- * the site. Same-document fragment links (#section) are left unchanged.
+ * Rewrite root-relative links/resources to absolute docs.warp.dev URLs so
+ * served markdown remains portable when copied outside the site.
  *
  * @param {HTMLElement} root
  */
@@ -134,20 +133,8 @@ function absolutizeInternalLinks(root) {
  * @returns {string | null} absolute docs URL when the value should be rewritten
  */
 function toAbsoluteDocsUrl(value) {
-	if (!value) return null;
-	if (value.startsWith('#')) return null;
-	if (value.startsWith('/')) return `${DOCS_ORIGIN}${value}`;
-
-	try {
-		const url = new URL(value, DOCS_ORIGIN);
-		if (url.origin === DOCS_ORIGIN && !/^https?:\/\//i.test(value)) {
-			return url.href;
-		}
-		return null;
-	} catch {
-		// Leave non-URL values (mailto:, data:, javascript:, malformed) alone.
-		return null;
-	}
+	if (!value?.startsWith('/') || value.startsWith('//')) return null;
+	return `${DOCS_ORIGIN}${value}`;
 }
 
 function expandAgentOnlyTemplates(root) {
