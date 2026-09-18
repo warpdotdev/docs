@@ -471,7 +471,7 @@ Optional. The compute size, as `vcpus` and `memoryGb`. Omit it to take the works
 
 The operating system and architecture. `os` is `linux` (the default) or `macos`, and `arch` is `x86_64` (the default on Linux) or `aarch64` (the only option on macOS). Linux runners require `linux.dockerImage`, the container image the sandbox boots, so every Linux runner declares a `platform` section. macOS runners accept an optional `mac.version` (`"14"`, `"15"`, `"26"`, or `"27"`; quote it, and it defaults to `"26"`).
 
-For a private Linux image, set `linux.registryCredentialSecretName` to the name of a managed `docker_registry` secret. The secret's registry host must match the host in `linux.dockerImage`.
+For a private Linux image, set `linux.registryCredentialSecretName` to the name of a managed private image credential (`docker_registry` secret). Create one with `oz secret create docker-registry` or in the Secrets UI — see [Private image credentials](/platform/secrets/#private-image-credentials). The secret's registry host must match the host in `linux.dockerImage`.
 
 ## `benchmarks/<suite-slug>/suite.yaml`
 
