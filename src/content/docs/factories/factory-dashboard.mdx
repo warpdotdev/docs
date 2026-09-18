@@ -6,8 +6,9 @@ description: >-
 sidebar:
   label: "Factory dashboard"
 ---
+import { VARS } from '@data/vars';
 
-The factory dashboard is the web app for operating a single factory. Use it to track the work your agents are doing, inspect the runs and pull requests they produce, and manage the agents, automations, and settings the factory owns.
+The factory dashboard is the web app for operating a single factory. Open the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, then select a factory to track its work, inspect its runs and pull requests, and manage its agents, automations, and settings.
 
 :::note
 "Factory dashboard" names the whole surface. **Dashboard**, in bold, is one page inside it: the metrics page you land on when you open a factory.
@@ -70,7 +71,7 @@ When an agent proposes a change to a Warp-managed definition, a spec review for 
 
 ## Score and benchmark
 
-**Scorers** is where you create Scorers and read their results. **Self-improvement** lists the pull requests the self-improvement flow opens after analyzing runs your Scorers mark as failing, and **Benchmarks** compares model and runner configurations against a fixed set of tasks. See [Configure Scorers](/factories/measure-and-improve/#configure-scorers), [Configure and review Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement), and [benchmarking factory agent configurations](/factories/benchmarks/) for what each one is and how to use it.
+**Scorers** is where you create Scorers and read their results. **Self-improvement** lists the pull requests the self-improvement flow opens after analyzing runs your Scorers mark as failing, and **Benchmarks** compares model and runner configurations against a fixed set of tasks. See [Configuring Scorers](/factories/measure-and-improve/scorers/), [Configuring and reviewing Self-improvement](/factories/measure-and-improve/self-improvement/), and [benchmarking factory agent configurations](/factories/benchmarks/) for what each one is and how to use it.
 
 ## Change factory settings
 
@@ -79,7 +80,7 @@ When an agent proposes a change to a Warp-managed definition, a spec review for 
 * **Identity** - The factory's name, avatar, and [**Foreman name**](/factories/factory-as-code/#alias), the handle your team @-mentions.
 * **Repositories** - The repos the factory works in.
 * **Pull request authorship** - Whether pull requests are authored by the agent or the run creator (the definition's [`credentialStrategy`](/factories/factory-as-code/#credentialstrategy)).
-* **Analysis model** - The model [Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement) uses to analyze failed runs.
+* **Analysis model** - The model [Self-improvement](/factories/measure-and-improve/self-improvement/) uses to analyze failed runs.
 * **Runners** - The compute the factory's runs execute on.
 * **Integrations** - The integrations this factory can access.
 * **Deletion** - Deletes the factory. This cannot be undone.

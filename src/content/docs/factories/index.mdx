@@ -1,8 +1,8 @@
 ---
 title: Warp Factories overview
 description: >-
-  Warp Factories runs cloud software factories where specialized agents work
-  engineering requests from intake to a mergeable pull request.
+  Warp Factories is open infrastructure for building internal software
+  factories as code, from triage to implementation, review, and monitoring.
 sidebar:
   label: "Overview"
 ---
@@ -10,7 +10,7 @@ import { VARS } from '@data/vars';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
 :::note
-Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
+Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team. If your team already has access, sign in to the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>.
 :::
 
 A software factory takes in requests (bug reports, feature specs, support escalations), and a coordinated fleet of agents works them into a stream of mergeable pull requests instead of a growing backlog. Warp Factories gives you the building blocks, so your team stays in the loop where it matters, approving specs when needed and merging every pull request.
@@ -52,7 +52,7 @@ Warp Factories is designed for engineering teams with repeatable work that exten
 * **Definitions as code** - [Version-controlled definition files](/factories/factory-as-code/) describe your repositories, agents, automations, runners, [skills](/factories/factory-skills/), and MCP servers, so factory changes get the same review, history, and rollback as code changes.
 * **Integrations and the Factory MCP** - Work flows in from [Slack](/factories/integrations/slack/), [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), [Linear](/factories/integrations/linear/), and [Jira](/factories/integrations/jira/), plus [custom webhooks](/factories/webhooks/), direct runs, and schedules. The [Factory MCP](/factories/factory-mcp/) connects coding agents and other MCP clients.
 * **Model and harness choice** - Each agent can use a different model and [supported harness](/platform/harnesses/), including the Warp Agent, Claude Code, and Codex.
-* **Measurement and self-improvement** - The [factory dashboard](/factories/factory-dashboard/) shows work-item status, runs, automations, costs, and benchmarks. [Scorers](/factories/measure-and-improve/) classify completed runs, [Benchmarks](/factories/benchmarks/) compare fixed tasks across configurations, and [Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement) turns repeated failures into follow-up work the factory proposes for review.
+* **Measurement and self-improvement** - The [factory dashboard](/factories/factory-dashboard/) shows work-item status, runs, automations, costs, and benchmarks. [Scorers](/factories/measure-and-improve/scorers/) classify completed runs, [Benchmarks](/factories/benchmarks/) compare fixed tasks across configurations, and [Self-improvement](/factories/measure-and-improve/self-improvement/) turns repeated failures into follow-up work the factory proposes for review.
 * **Infrastructure control** - Run on Warp-hosted infrastructure, or self-host execution on an eligible Enterprise plan. Teams can also connect supported inference providers, scope secrets, and (if eligible) store transcripts, artifacts, and run attachments in their own S3 or GCS buckets. See [infrastructure and security](/factories/infrastructure-and-security/) for the available controls.
 
 ## How Warp Factories relates to other Warp products
@@ -75,7 +75,7 @@ Warp Factories is built on the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overv
 
 The factory layer adds the workflow on top: the foreman and its agents, work items that carry each request across runs, definitions as code, default automations for connected tools, and the Scorer and Self-improvement loop.
 
-A standalone [cloud agent](/platform/) remains the right tool for a single task or a one-trigger automation. Reach for a factory when the work is a standing, multi-stage process your team wants to route, measure, and improve in one place.
+Use a standalone [cloud agent](/platform/) for a single task or one-trigger automation. Any agent can spawn children with [multi-agent orchestration](/platform/orchestration/) without a factory. Use a factory for standing, multi-stage work that needs named agents with separate configuration and one place to route, measure, and improve the process.
 
 ## Key terms
 
