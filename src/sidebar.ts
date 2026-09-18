@@ -473,8 +473,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// Integrations > Integrations > Slack.
 					//
 					// 'Connect your factory' leads because it is the overview for this
-					// group. The direct developer interfaces live in the API & SDKs
-					// group rather than alongside third-party service integrations.
+					// group. The direct developer interfaces live in Developer tools
+					// rather than alongside third-party service integrations.
 					label: 'Integrations',
 					items: [
 						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
@@ -484,15 +484,20 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'API & SDKs',
+					label: 'Developer tools',
 					items: [
-						{ slug: 'factories/developer-tools', label: 'Overview' },
-						{ slug: 'factories/factory-api', label: 'Factory endpoints' },
-						{ slug: 'factories/api-and-sdk', label: 'Agent & run endpoints' },
-						{ label: 'API reference', link: '/api' },
-						{ label: 'Python SDK', link: 'https://github.com/warpdotdev/oz-sdk-python' },
-						{ label: 'TypeScript SDK', link: 'https://github.com/warpdotdev/oz-sdk-typescript' },
-						{ slug: 'factories/api-and-sdk/troubleshooting/errors', label: 'Errors' },
+						{
+							label: 'API & SDKs',
+							items: [
+								{ slug: 'factories/developer-tools', label: 'Overview' },
+								{ slug: 'factories/factory-api', label: 'Factory endpoints' },
+								{ slug: 'factories/api-and-sdk', label: 'Agent & run endpoints' },
+								{ label: 'API reference', link: '/api' },
+								{ label: 'Python SDK', link: 'https://github.com/warpdotdev/oz-sdk-python' },
+								{ label: 'TypeScript SDK', link: 'https://github.com/warpdotdev/oz-sdk-typescript' },
+								{ slug: 'factories/api-and-sdk/troubleshooting/errors', label: 'Errors' },
+							],
+						},
 						{ slug: 'factories/factory-mcp', label: 'Factory MCP' },
 						{
 							label: 'Webhooks',
@@ -544,7 +549,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'platform', label: 'Overview' },
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
-						{ slug: 'platform/transitioning-from-oz', label: `Transitioning from the ${VARS.WEB_APP}` },
+						{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
 						{
 							// Runtime (which agent executes the run) is kept separate from
 							// configuration (how any run is set up) -- HYC review, 8/14.
