@@ -500,13 +500,14 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 					],
 				},
-				// Troubleshooting sits outside the groups, last in the tab. It was in
+				// Troubleshooting sits outside the groups near the end of the tab. It was in
 				// 'Management & observability' next to the dashboard and Scorers pages,
 				// which read as a sibling of the measurement surfaces rather than as
 				// the place you go when something is broken. A bare trailing item is
 				// the same shape the Automation Platform tab uses for its leading
 				// 'Overview'.
 				{ slug: 'factories/troubleshooting', label: 'Troubleshooting' },
+				{ slug: 'platform/transitioning-from-oz', label: 'Legacy Oz workflows' },
 			],
 		},
 		{
