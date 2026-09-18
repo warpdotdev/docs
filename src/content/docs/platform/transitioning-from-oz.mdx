@@ -1,36 +1,36 @@
 ---
 title: Transitioning from the {{WEB_APP}}
 description: >-
-  Understand the upcoming {{WEB_APP}} retirement while current cloud-agent
-  workflows remain available.
+  Continue supported legacy cloud-agent workflows and decide whether Warp
+  Factories fits new multi-stage development work.
 sidebar:
   label: "Transitioning from the {{WEB_APP}}"
 ---
 import { VARS } from '@data/vars';
 
-The {VARS.WEB_APP} will retire after Warp Factories reaches general availability. Existing cloud agents, integrations, schedules, API keys, and the `oz` CLI remain available today, so you don't need to migrate immediately.
+Existing Oz workflows remain supported. You don't need to change an existing workflow to use Warp Factories.
 
-The {VARS.WARP_AUTOMATION_PLATFORM} remains the shared foundation for cloud agents. Warp Factories builds on that foundation for teams that need standing workflows that route work through specialized agents, add review stages, and show the progress of work.
+For new multi-stage development workflows, use Warp Factories. A factory builds on the {VARS.WARP_AUTOMATION_PLATFORM} to route work through specialized agents, add review stages, and show the progress of work.
 
-## Choose the right entry point
+## Where to manage work
 
-* **{VARS.WARP_AUTOMATION_PLATFORM}** - Configure standalone cloud agents, environments, schedules, integrations, and orchestration. Start with the [{VARS.WARP_AUTOMATION_PLATFORM} overview](/platform/overview/) or [Cloud agents overview](/platform/).
-* **Warp Factories** - Build a repeatable workflow that routes work through specialized agents and tracks it in one place. Start with the [Warp Factories overview](/factories/) or the [factory quickstart](/factories/quickstart/).
+* **Existing Oz workflows** - Continue using the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> for existing cloud agents, environments, schedules, integrations, and runs.
+* **New Factory workflows** - Use the <a href={VARS.FACTORY_WEB_APP_URL}>Factory Dashboard</a> to build and operate multi-stage development workflows. Start with the [Warp Factories overview](/factories/) or the [factory quickstart](/factories/quickstart/).
 
-## What stays available
+## CLI, API, and SDK support
 
-These existing workflows and configuration continue to work today:
+Existing interfaces remain supported:
 
-* **Cloud agents** - Continue to run from existing events, schedules, integrations, APIs, and the CLI.
-* **Configuration** - Existing environments, integrations, schedules, API keys, and secrets remain available.
-* **Current tools** - The {VARS.WARP_AGENT_CLI}, API and SDK, and managed self-hosting continue to support their current workflows.
+* **{VARS.WARP_AGENT_CLI}** - Existing `oz` commands continue to work.
+* **{VARS.API_SDK_NAME}** - Existing API endpoints and SDK packages continue to work.
+* **Cloud-agent configuration** - Existing agents, environments, schedules, integrations, API keys, and secrets remain available.
 
-## What comes next
+## Moving an existing workflow into a factory
 
-Migration guidance will identify each replacement workflow and its compatibility dates as the transition progresses. Continue using the workflow that fits your work today.
+Moving an existing Oz workflow into a factory is optional. Each workflow has different integrations, configuration, and operating requirements, so work with an engineering DRI to evaluate the move. Warp will publish guidance before any support change.
 
 ## Related pages
 
-* [{VARS.WARP_AUTOMATION_PLATFORM} overview](/platform/overview/) - Configure the reusable primitives behind cloud-agent workflows.
+* [{VARS.WARP_AUTOMATION_PLATFORM} overview](/platform/overview/) - Configure standalone cloud-agent workflows.
 * [Warp Factories overview](/factories/) - Build and operate a standing software factory.
 * [Factory dashboard](/factories/factory-dashboard/) - Inspect work items, runs, and factory settings.
