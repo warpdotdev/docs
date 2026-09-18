@@ -16,6 +16,8 @@ export const VARS = {
   // attributive uses do not ("{{…}} settings", "{{…}}-hosted"). style_lint
   // enforces this. Do not add a bare referential use.
   WARP_AUTOMATION_PLATFORM: "Automation Platform",
+  // Legacy key retained for existing Oz CLI references. It refers only to the
+  // `oz` binary; use WARP_CLI for the separate Warp Agent CLI (`warp` binary).
   WARP_AGENT_CLI:           "Oz CLI",
   WEB_APP:                  "Oz web app",
   WEB_APP_URL:              "https://oz.warp.dev",
@@ -50,7 +52,9 @@ export const VARS = {
   FACTORY_WEB_APP_URL:      "https://platform.warp.dev",
 
   // Warp Agent CLI — the preferred direction for CLI functionality (the
-  // `warp` binary). Relevant Oz CLI functionality will move here over time.
+  // `warp` binary). This is distinct from WARP_AGENT_CLI, which references
+  // the legacy Oz CLI (`oz` binary). Relevant Oz CLI functionality will move
+  // here over time.
   WARP_CLI:                 "Warp Agent CLI",
 
   // Feature names (stable — keys and values expected to remain unchanged)
