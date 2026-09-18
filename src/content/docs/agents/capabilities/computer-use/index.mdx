@@ -53,7 +53,7 @@ oz agent run-cloud --no-computer-use --prompt "<task>"
 
 ### API
 
-When creating a cloud agent run with the [{VARS.API_SDK_NAME}](/factories/api-and-sdk/), the optional `config.computer_use_enabled` field controls Computer Use. When omitted, it defaults to `true` for runs on Warp's built-in harness and `false` for runs on third-party harnesses. Set it to `false` to disable Computer Use for the run:
+When creating a cloud agent run with the [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/), the optional `config.computer_use_enabled` field controls Computer Use. When omitted, it defaults to `true` for runs on Warp's built-in harness and `false` for runs on third-party harnesses. Set it to `false` to disable Computer Use for the run:
 
 ```json
 {
@@ -65,7 +65,7 @@ When creating a cloud agent run with the [{VARS.API_SDK_NAME}](/factories/api-an
 }
 ```
 
-For full API documentation, see the [{VARS.API_SDK_NAME}](/factories/api-and-sdk/) reference.
+For full API documentation, see the [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) reference.
 
 ### Web app
 

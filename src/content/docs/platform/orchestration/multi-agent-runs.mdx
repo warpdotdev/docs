@@ -1,13 +1,13 @@
 ---
 title: Running orchestrated agents
-description: Start multi-agent orchestrations from the Warp app, the {{WARP_AGENT_CLI}}, the {{WEB_APP}}, or the {{API_SDK_NAME}}, and inspect parent and child conversations and artifacts.
+description: Start multi-agent orchestrations from the Warp app, the {{WARP_AGENT_CLI}}, the {{WEB_APP}}, or the {{WARP_PLATFORM_API}}, and inspect parent and child conversations and artifacts.
 sidebar:
   label: "Running orchestrated agents"
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
 
-An orchestrated run starts with a parent agent that spawns one or more child agents. You can start a parent from the Warp app, the {VARS.WARP_AGENT_CLI}, the {VARS.WEB_APP}, or the {VARS.API_SDK_NAME}. Use orchestrated runs to review a plan before fan-out, execute children locally or in the cloud, and inspect parent and child conversations as they work.
+An orchestrated run starts with a parent agent that spawns one or more child agents. You can start a parent from the Warp app, the {VARS.WARP_AGENT_CLI}, the {VARS.WEB_APP}, or the {VARS.WARP_PLATFORM_API}. Use orchestrated runs to review a plan before fan-out, execute children locally or in the cloud, and inspect parent and child conversations as they work.
 
 Watch this walkthrough to see how to start and inspect an orchestrated agent run from Warp.
 
@@ -18,7 +18,7 @@ Watch this walkthrough to see how to start and inspect an orchestrated agent run
 Pick where the parent will run. Every orchestration starts with a single parent that spawns children:
 
 * **Parent in the Warp app** - use the `/orchestrate` or `/plan` slash command. This is the fastest way to try orchestration.
-* **Parent in the cloud** - trigger the parent through the {VARS.WARP_AGENT_CLI} (`oz agent run-cloud`), the [{VARS.API_SDK_NAME}](/factories/api-and-sdk/), any [integration](/platform/integrations/) such as [Slack](/platform/integrations/slack/) or [Linear](/platform/integrations/linear/), or a [schedule](/platform/triggers/scheduled-agents/). The parent runs in an environment and spawns children from there.
+* **Parent in the cloud** - trigger the parent through the {VARS.WARP_AGENT_CLI} (`oz agent run-cloud`), the [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/), any [integration](/platform/integrations/) such as [Slack](/platform/integrations/slack/) or [Linear](/platform/integrations/linear/), or a [schedule](/platform/triggers/scheduled-agents/). The parent runs in an environment and spawns children from there.
 
 Cloud parents that spawn cloud children need access to one or more [environments](/platform/environments/) the children can run in. To keep child execution on your own infrastructure, route those children to a [self-hosted worker](/factories/self-hosting/).
 
@@ -79,7 +79,7 @@ The parent run starts and children appear in the Runs list as the parent spawns 
 
 Spawn the parent with `POST /agent/runs`. Children can either be spawned by the parent agent at runtime, or you can spawn each child explicitly from your code and link it to the parent with `parent_run_id`. Once they're running, coordination between the parent and its children flows through Warp's durable agent-to-agent messaging - see [Messaging between agents](/platform/orchestration/#messaging-between-agents) for the model.
 
-This section spawns a standalone parent run. If the parent you want to start is a [Warp factory](/factories/)'s foreman, use the [factory API](/factories/factory-api/) to dispatch by factory UID instead of looking up the foreman's `agent_identity_uid` and calling `POST /agent/run` directly.
+This section spawns a standalone parent run. If the parent you want to start is a [Warp factory](/factories/)'s foreman, use [factory endpoints](/factories/factory-api/) to dispatch by factory UID instead of looking up the foreman's `agent_identity_uid` and calling `POST /agent/run` directly.
 
 ### Agent-driven orchestration
 
@@ -151,7 +151,7 @@ done
 
 ## Retrieving conversations and artifacts
 
-Every parent and child started through the {VARS.API_SDK_NAME} is tracked as a {VARS.PLATFORM_RUN}. Run responses include the run's `state`, `parent_run_id` (set on children only), `conversation_id`, `session_link`, and an `artifacts` array of any pull requests, plans, screenshots, or files the run produced. Use the same endpoints you'd use for any other run:
+Every parent and child started through the {VARS.WARP_PLATFORM_API} is tracked as a {VARS.PLATFORM_RUN}. Run responses include the run's `state`, `parent_run_id` (set on children only), `conversation_id`, `session_link`, and an `artifacts` array of any pull requests, plans, screenshots, or files the run produced. Use the same endpoints you'd use for any other run:
 
 * **List every descendant of a parent** - `GET /api/v1/agent/runs?ancestor_run_id=YOUR_PARENT_RUN_ID`. From the CLI: `oz run list --ancestor-run YOUR_PARENT_RUN_ID`.
 * **Get one run's details and artifacts** - `GET /api/v1/agent/runs/YOUR_RUN_ID`.
@@ -194,7 +194,7 @@ Self-hosted, local, and GitHub Action runs cannot be cancelled through this endp
 * [Multi-agent orchestration](/platform/orchestration/) - parent/child model, run state transitions, and common patterns.
 * [How to run multiple AI coding agents](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/) - practical task decomposition, worktree ownership, validation, and review handoff guidance.
 * [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) - command reference for `oz agent run-cloud` and `oz run`.
-* [{VARS.API_SDK_NAME}](/factories/api-and-sdk/) - full HTTP reference and typed SDKs.
+* [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) - full HTTP reference and typed SDKs.
 * [Managing cloud agents](/platform/managing-cloud-agents/) - how parent and child runs appear in the Agent Management Panel in the Warp app and the Runs page in the {VARS.WEB_APP}.
 * [Scheduled agents](/platform/triggers/scheduled-agents/) - start a recurring cloud parent that fans out children on a cron cadence.
 * [Self-hosting](/factories/self-hosting/) - keep parent or child execution on your infrastructure while Warp tracks the runs.

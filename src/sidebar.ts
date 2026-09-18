@@ -397,9 +397,23 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			// sidebar. Two of these deliberately mirror the Automation Platform tab
 			// next door, since the underlying concepts are the same.
 			items: [
-				{ slug: 'factories', label: 'Overview' },
-				{ slug: 'factories/how-factories-work', label: 'How Factories work' },
-				{ slug: 'factories/quickstart', label: 'Quickstart' },
+				{
+					label: 'Overview',
+					items: [
+						{ slug: 'factories', label: 'Overview' },
+						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
+						{ slug: 'factories/quickstart', label: 'Quickstart' },
+					],
+				},
+				{
+					label: 'Measure and improve',
+					items: [
+						{ slug: 'factories/measure-and-improve', label: 'Overview' },
+						{ slug: 'factories/measure-and-improve/scorers', label: 'Scorers' },
+						{ slug: 'factories/measure-and-improve/self-improvement', label: 'Self-improvement' },
+						{ slug: 'factories/benchmarks', label: 'Benchmarks' },
+					],
+				},
 				{
 					// Parallel to 'Agent configuration' in the Automation Platform tab.
 					// Scoped to the factory itself: who runs the work, how it is defined,
@@ -413,6 +427,29 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// agents and Factory skills, not just a filters reference.
 					{ slug: 'factories/automations', label: 'Factory automations' },
 					{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
+					{
+						label: 'Infrastructure',
+						items: [
+							{ slug: 'factories/infrastructure-and-security', label: 'Overview' },
+							{ slug: 'factories/deployment-patterns', label: 'Deployment patterns' },
+							{ slug: 'factories/warp-hosting', label: 'Warp-hosted execution' },
+							{ slug: 'factories/runners', label: 'Runners' },
+							{
+								label: 'Managed self-hosting',
+								collapsed: false,
+								items: [
+									{ slug: 'factories/self-hosting', label: 'Overview' },
+									{ slug: 'factories/self-hosting/quickstart', label: 'Quickstart' },
+									{ slug: 'factories/self-hosting/managed-docker', label: 'Docker backend' },
+									{ slug: 'factories/self-hosting/managed-kubernetes', label: 'Kubernetes backend' },
+									{ slug: 'factories/self-hosting/managed-direct', label: 'Direct backend' },
+									'factories/self-hosting/monitoring',
+									{ slug: 'factories/self-hosting/reference', label: 'Worker reference' },
+									'factories/self-hosting/troubleshooting',
+								],
+							},
+						],
+					},
 				],
 				},
 				{
@@ -436,7 +473,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// Integrations > Integrations > Slack.
 					//
 					// 'Connect your factory' leads because it is the overview for this
-					// group. The direct developer interfaces live in the Developer tools
+					// group. The direct developer interfaces live in the API & SDKs
 					// group rather than alongside third-party service integrations.
 					label: 'Integrations',
 					items: [
@@ -447,15 +484,15 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Developer tools',
+					label: 'API & SDKs',
 					items: [
 						{ slug: 'factories/developer-tools', label: 'Overview' },
-						{ slug: 'factories/factory-api', label: 'Factory API' },
-						{ slug: 'factories/api-and-sdk', label: VARS.API_SDK_NAME },
-						{ slug: 'factories/api-and-sdk/quickstart', label: 'Quickstart' },
+						{ slug: 'factories/factory-api', label: 'Factory endpoints' },
+						{ slug: 'factories/api-and-sdk', label: 'Agent & run endpoints' },
 						{ label: 'API reference', link: '/api' },
-						{ slug: 'factories/api-and-sdk/demo-sentry-monitoring-with-sdk', label: 'Sentry monitoring with the SDK' },
-						{ slug: 'factories/api-and-sdk/troubleshooting/errors', label: 'API errors' },
+						{ label: 'Python SDK', link: 'https://github.com/warpdotdev/oz-sdk-python' },
+						{ label: 'TypeScript SDK', link: 'https://github.com/warpdotdev/oz-sdk-typescript' },
+						{ slug: 'factories/api-and-sdk/troubleshooting/errors', label: 'Errors' },
 						{ slug: 'factories/factory-mcp', label: 'Factory MCP' },
 						{
 							label: 'Webhooks',
@@ -468,55 +505,16 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Infrastructure & security',
-					items: [
-						{ slug: 'factories/infrastructure-and-security', label: 'Overview' },
-						{ slug: 'factories/deployment-patterns', label: 'Deployment patterns' },
-						{ slug: 'factories/warp-hosting', label: 'Warp-hosted execution' },
-						{ slug: 'factories/runners', label: 'Runners' },
-						{
-							label: 'Managed self-hosting',
-							collapsed: false,
-							items: [
-								{ slug: 'factories/self-hosting', label: 'Overview' },
-								{ slug: 'factories/self-hosting/quickstart', label: 'Quickstart' },
-								{ slug: 'factories/self-hosting/managed-docker', label: 'Docker backend' },
-								{ slug: 'factories/self-hosting/managed-kubernetes', label: 'Kubernetes backend' },
-								{ slug: 'factories/self-hosting/managed-direct', label: 'Direct backend' },
-								'factories/self-hosting/monitoring',
-								{ slug: 'factories/self-hosting/reference', label: 'Worker reference' },
-								'factories/self-hosting/troubleshooting',
-							],
-						},
-					],
-				},
-				{
-					// Same label as the Automation Platform tab's group for watching and
-					// steering runs, because it covers the same ground one level up: the
-					// factory dashboard is where you watch a factory, and scorers are how
-					// you measure it.
+					// The factory dashboard and inbox are operational surfaces. Measurement
+					// and optimization pages live earlier under 'Measure and improve'.
 					label: 'Management & observability',
 					items: [
 						{ slug: 'factories/factory-inbox', label: 'Factory inbox' },
 						{ slug: 'factories/factory-dashboard', label: 'Factory dashboard' },
-						{
-							label: 'Measure and improve',
-							collapsed: false,
-							items: [
-								{ slug: 'factories/measure-and-improve', label: 'Overview' },
-								{ slug: 'factories/measure-and-improve/scorers', label: 'Scorers' },
-								{ slug: 'factories/measure-and-improve/self-improvement', label: 'Self-improvement' },
-								{ slug: 'factories/benchmarks', label: 'Benchmarks' },
-							],
-						},
 					],
 				},
-				// Troubleshooting sits outside the groups near the end of the tab. It was in
-				// 'Management & observability' next to the dashboard and Scorers pages,
-				// which read as a sibling of the measurement surfaces rather than as
-				// the place you go when something is broken. A bare trailing item is
-				// the same shape the Automation Platform tab uses for its leading
-				// 'Overview'.
+				// Keep troubleshooting and legacy transition guidance as direct trailing
+				// items rather than creating singleton groups.
 				{ slug: 'factories/troubleshooting', label: 'Troubleshooting' },
 				{ slug: 'platform/transitioning-from-oz', label: 'Legacy Oz workflows' },
 			],

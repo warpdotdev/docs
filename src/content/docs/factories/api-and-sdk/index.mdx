@@ -1,29 +1,24 @@
 ---
 topic: factories
-title: "{{API_SDK_NAME}} reference"
+title: Agent & run endpoints
 sidebar:
-  label: "{{API_SDK_NAME}}"
+  label: "Agent & run endpoints"
 description: >-
-  Create and operate factory and cloud agent runs over HTTP, or use the Python
-  and TypeScript SDKs for typed requests, retries, and error handling.
+  Start, manage, and inspect cloud agent runs with the Agent and run endpoints
+  in the Warp Platform API.
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
 
-Use the {VARS.API_SDK_NAME} to start standalone cloud-agent runs, or to monitor, continue, and cancel any run after it starts. To find a factory and send it new work, use the [factory API](/factories/factory-api/).
-
-| API | Use it for |
-| --- | --- |
-| **factory API** | Find a factory and dispatch new work to its foreman. |
-| **{VARS.API_SDK_NAME}** | Start standalone cloud-agent runs, and manage factory or standalone runs after they begin. |
+Agent & run endpoints are part of the {VARS.WARP_PLATFORM_API}. Use them to start standalone cloud agent runs and to monitor, continue, or cancel any run after it starts. To find a factory and send it new work, use [factory endpoints](/factories/factory-api/).
 
 :::note
-Some examples in this reference and the [CLI reference](/agents/cli/oz-cli/) use `oz` commands (for example, `oz environment list`) from the {VARS.WARP_AGENT_CLI}. Those commands remain available during the transition. The [Warp Agent CLI reference](/agents/cli/reference/) does not yet document a `warp` equivalent.
+Some examples use `oz` commands, such as `oz environment list`, from the {VARS.WARP_AGENT_CLI}. Existing commands remain supported during the transition.
 :::
 
-### API overview
+## Use Agent & run endpoints
 
-The {VARS.API_SDK_NAME} lets you create and inspect [Cloud Agent](/platform/) runs over HTTP from any system (CI, cron, backend services, internal tools), without requiring the Warp desktop app.
+Agent & run endpoints let you create and inspect [cloud agent](/platform/) runs over HTTP from CI, cron, backend services, and internal tools, without requiring the Warp desktop app.
 
 **With the API you can:**
 
@@ -34,14 +29,14 @@ The {VARS.API_SDK_NAME} lets you create and inspect [Cloud Agent](/platform/) ru
 :::caution
 This page is a high-level overview.\
 \
-For full API endpoint details, refer to the [**Agents API Reference**](/api). For schema definitions, see the SDK repos: [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript).
+For endpoint details, use the [**Warp Platform API reference**](/api). For SDK schemas, use the [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript) repositories.
 :::
 
-To send work to a [Warp factory](/factories/), use the [factory API](/factories/factory-api/) to discover it and dispatch by UID instead of calling `POST /agent/run` with a foreman's `agent_identity_uid`. Everything on this page - follow-ups, cancellation, status - still applies once a factory run is dispatched.
+To send work to a [Warp factory](/factories/), use [factory endpoints](/factories/factory-api/) to discover it and dispatch by UID instead of calling `POST /agent/run` with a foreman's `agent_identity_uid`. The follow-up, cancellation, and status endpoints still apply after a factory run is dispatched.
 
-### SDK overview
+## SDKs
 
-Warp provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs that wrap the {VARS.API_SDK_NAME} with:
+Warp provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs that wrap the {VARS.WARP_PLATFORM_API} with:
 
 * **Typed requests and responses** (editor autocomplete, fewer schema mistakes)
 * **Built-in retries and timeouts** (with per-request overrides)
@@ -50,7 +45,7 @@ Warp provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and
 
 If you’re building an integration (CI, Slack bots, internal tooling, orchestrators), the SDKs are typically the quickest and safest starting point.
 
-<VideoEmbed url="https://www.youtube.com/watch?v=0cf7383MZSk" title={`${VARS.API_SDK_NAME} reference overview video`} />
+<VideoEmbed url="https://www.youtube.com/watch?v=0cf7383MZSk" title={`${VARS.WARP_PLATFORM_API} reference overview video`} />
 
 **SDK vs raw REST**
 
@@ -63,9 +58,7 @@ For the full SDK surface area and latest usage, refer to the GitHub repos: [**Py
 
 ---
 
-## API reference
-
-### REST API base URL
+## API base URL
 
 All endpoints are served over HTTPS:
 
@@ -73,9 +66,7 @@ All endpoints are served over HTTPS:
 https://app.warp.dev/api/v1
 ```
 
-### Core concepts
-
-#### **Agent runs**
+### Agent runs
 
 An agent run represents a single execution of a cloud agent, created with a prompt and optional configuration. Each run has:
 
@@ -87,9 +78,9 @@ An agent run represents a single execution of a cloud agent, created with a prom
 * Optional session information (`session_id`, `session_link`)
 * Optional resolved configuration (`agent_config`)
 
-See the [**Agents API Reference**](/api) for details on how runs are created and listed.
+See the [**Warp Platform API reference**](/api) for details on how runs are created and listed.
 
-#### **Agent configuration**
+### Agent configuration
 
 You can influence how an agent runs using AmbientAgentConfig, including:
 
@@ -97,6 +88,7 @@ You can influence how an agent runs using AmbientAgentConfig, including:
 * `model_id` for LLM selection
 * `base_prompt` to shape behavior
 * `environment_id` to choose a `CloudEnvironment`
+* `worker_host` to run a standalone cloud agent on a [self-hosted worker](/factories/self-hosting/)
 * `skill_spec` to use a [skill](/agents/capabilities/skills/) as the base prompt (format: `owner/repo:skill-name` or `owner/repo:path/to/SKILL.md`)
 * `mcp_servers` to enable specific tools via MCP
 
@@ -104,9 +96,24 @@ See the [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) or [**Type
 
 ---
 
-### Key endpoints
+## Route a run to a self-hosted worker
 
-**The Agents API exposes these primary endpoints:**
+Set `worker_host` in the request configuration to select a connected self-hosted worker. Omit it, or set it to `warp`, to use Warp-hosted workers.
+
+```json
+{
+  "prompt": "Run the dependency audit",
+  "config": {
+    "worker_host": "WORKER_HOST"
+  }
+}
+```
+
+Replace `WORKER_HOST` with the ID of a connected worker. For factory work, set `workerHost` in the [factory definition](/factories/factory-as-code/#agentdefaultsworkerhost) instead.
+
+## Key endpoints
+
+Agent & run endpoints include:
 
 *   `POST /agent/run`
 
@@ -124,11 +131,11 @@ See the [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) or [**Type
 
     Cancel a run that is currently queued or in progress. Returns the ID of the cancelled run.
 
-All endpoint semantics, query parameters, and [error codes](/factories/api-and-sdk/troubleshooting/errors/) are documented on the [Agents API Reference](/api).
+All endpoint semantics, query parameters, and [error codes](/factories/api-and-sdk/troubleshooting/errors/) are documented in the [Warp Platform API reference](/api).
 
 ---
 
-#### Models reference
+## Models
 
 The API shares a set of reusable models across endpoints. Detailed JSON schemas, types, and enums are available in the SDK repos ([Python](https://github.com/warpdotdev/oz-sdk-python), [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript)). Key models include:
 

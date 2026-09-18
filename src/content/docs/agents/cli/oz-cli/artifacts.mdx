@@ -22,7 +22,7 @@ Use artifacts when you need to retrieve files an agent produced after a run comp
 * **Local inspection** - Pull a generated file (HTML, image, CSV) onto your laptop to review.
 * **CI integration** - Fetch an agent-produced build artifact from a pipeline step that runs after the agent finishes.
 
-Artifacts are referenced by an artifact UID. You can find UIDs in the agent's run detail view, in the JSON returned by [`oz run get`](/agents/cli/oz-cli/), or in the response from the [{VARS.API_SDK_NAME}](/factories/api-and-sdk/).
+Artifacts are referenced by an artifact UID. You can find UIDs in the agent's run detail view, in the JSON returned by [`oz run get`](/agents/cli/oz-cli/), or in the response from the [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/).
 
 ## `oz artifact get`
 
@@ -78,5 +78,5 @@ oz artifact download "$ARTIFACT_UID" --out ./latest-report.html
 
 ## Related
 
-* [{VARS.API_SDK_NAME}](/factories/api-and-sdk/) - retrieve artifacts programmatically over HTTP.
+* [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) - retrieve artifacts programmatically over HTTP.
 * [Scheduled cloud agents](/platform/triggers/scheduled-agents/) - common producer of recurring artifacts that downstream tooling consumes.

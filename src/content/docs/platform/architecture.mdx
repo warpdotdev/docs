@@ -15,7 +15,7 @@ The platform has five layers: clients, the Warp-operated control plane that coor
 ![Warp stack overview diagram showing clients, the Warp control plane, the data plane, Warp-hosted and customer-hosted execution planes, and external systems](../../../assets/agent-platform/warp-stack-overview.png)
 
 * **Clients** - The surfaces that start and observe work, like the Warp app, the {VARS.WARP_AGENT_CLI}, the web app, the [factory dashboard](/factories/factory-dashboard/), and clients connected through the [Factory MCP](/factories/factory-mcp/). All clients talk to the same control plane APIs.
-* **APIs** - The control plane's entry points: the [Agent API and SDKs](/factories/api-and-sdk/), a webhook receiver for [integration](/platform/integrations/) events, and the hosted Factory MCP endpoint.
+* **APIs** - The control plane's entry points: the [Warp Platform API and SDKs](/factories/developer-tools/), a webhook receiver for [integration](/platform/integrations/) events, and the hosted Factory MCP endpoint.
 * **Control plane** - Warp coordinates runs, manages shared configuration, routes model calls, and records run history.
 * **Data plane** - Run data (transcripts, artifacts, and attachments) lives in Warp-managed storage, independent of where runs execute.
 * **Warp-hosted execution** - By default, each cloud agent run gets an isolated sandbox prepared from its environment. See [Warp-hosted execution](/factories/warp-hosting/).

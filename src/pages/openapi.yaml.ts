@@ -4,7 +4,7 @@ import fs from 'node:fs';
 export const prerender = true;
 
 /**
- * Serves the raw Oz Agent API OpenAPI spec at /openapi.yaml so LLMs, crawlers,
+ * Serves the raw Warp Platform API OpenAPI spec at /openapi.yaml so LLMs, crawlers,
  * and developer tooling can consume the machine-readable definition directly.
  *
  * The spec source of truth is `developers/agent-api-openapi.yaml` (same file

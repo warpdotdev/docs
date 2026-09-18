@@ -1,28 +1,28 @@
 ---
-title: Developer tools for Warp Factories
+title: Warp Platform API & SDKs
 description: >-
-  Use APIs, SDKs, webhooks, and MCP to integrate Warp Factories with your
-  services, tools, and development workflows.
+  Use the Warp Platform API, SDKs, Factory MCP, and webhooks to integrate
+  factories and cloud agent runs with your tools and services.
 sidebar:
-  label: "Developer tools"
+  label: "Overview"
 ---
 import { VARS } from '@data/vars';
 
-Warp Factories provides programmatic interfaces for sending work to a factory, integrating external systems, and inspecting the runs a factory produces.
+The {VARS.WARP_PLATFORM_API} serves both factories and standalone cloud agent runs. factory endpoints send work to a factory; agent and run endpoints start and manage standalone runs. Both endpoint families use the same API key, API reference, SDKs, and error model.
 
-## Choose an interface
+## Choose an API surface
 
-* **[Factory API](/factories/factory-api/)** - Find a factory and send work to it by UID from your own application or service.
-* **[{VARS.API_SDK_NAME}](/factories/api-and-sdk/)** - Create, monitor, and manage cloud agent runs from scripts, CI, and backend services.
-* **[API reference](/api)** - Look up the full HTTP API schema, parameters, and responses.
+* **[factory endpoints](/factories/factory-api/)** - Find a factory and send work to it by UID from your application or service.
+* **[Agent & run endpoints](/factories/api-and-sdk/)** - Start, monitor, continue, and cancel cloud agent runs from scripts, CI, and backend services.
+* **[Warp Platform API reference](/api)** - Look up the full HTTP schema, parameters, and responses.
+* **[Python SDK](https://github.com/warpdotdev/oz-sdk-python)** - Make typed requests from Python. The current package retains its `oz-sdk-python` name.
+* **[TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript)** - Make typed requests from TypeScript. The current package retains its `oz-sdk-typescript` name.
+* **[API errors](/factories/api-and-sdk/troubleshooting/errors/)** - Resolve error responses by HTTP status and machine-readable code.
 * **[Factory MCP](/factories/factory-mcp/)** - Exchange work between a factory and a connected coding agent or MCP client.
 * **[Webhooks](/factories/webhooks/)** - Receive events from systems that can send JSON and route matching deliveries into factory automations.
+## Get started
 
-## Use the API and SDK
-
-Use the API and SDK for typed requests, retries, and error handling. Start with the [API and SDK quickstart](/factories/api-and-sdk/quickstart/) to create and inspect a run, or use the [Sentry monitoring example](/factories/api-and-sdk/demo-sentry-monitoring-with-sdk/) to connect an external event source.
-
-For request errors, see [API errors](/factories/api-and-sdk/troubleshooting/errors/).
+Start with the [API & SDK quickstart](/factories/api-and-sdk/quickstart/) to create and inspect a run. For a production event source, use the [Sentry monitoring example](/factories/api-and-sdk/demo-sentry-monitoring-with-sdk/) to connect a webhook handler.
 
 ## Related pages
 
