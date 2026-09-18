@@ -45,6 +45,8 @@ jobs:
           sudo apt-get install -y gpg
           curl --fail --location https://releases.warp.dev/linux/keys/warp.asc \
             --output /tmp/warpdotdev.asc
+          # Verified against releases.warp.dev/linux/keys/warp.asc on 2026-09-18.
+          # Reverify this fingerprint before updating the Warp signing key.
           test "$(
             gpg --show-keys --with-colons /tmp/warpdotdev.asc |
               awk -F: '/^fpr:/ { print $10; exit }'

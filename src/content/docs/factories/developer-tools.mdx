@@ -8,7 +8,7 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-The {VARS.WARP_PLATFORM_API} serves both factories and standalone cloud agent runs. factory endpoints send work to a factory; agent and run endpoints start and manage standalone runs. Both endpoint families use the same API key, API reference, SDKs, and error model.
+The {VARS.WARP_PLATFORM_API} serves both factories and standalone cloud agent runs. The factory endpoints send work to a factory; agent and run endpoints start and manage standalone runs. Both endpoint families use the same API key, API reference, SDKs, and error model.
 
 ## Choose an API surface
 
@@ -20,6 +20,7 @@ The {VARS.WARP_PLATFORM_API} serves both factories and standalone cloud agent ru
 * **[API errors](/factories/api-and-sdk/troubleshooting/errors/)** - Resolve error responses by HTTP status and machine-readable code.
 * **[Factory MCP](/factories/factory-mcp/)** - Exchange work between a factory and a connected coding agent or MCP client.
 * **[Webhooks](/factories/webhooks/)** - Receive events from systems that can send JSON and route matching deliveries into factory automations.
+
 ## Get started
 
 Start with the [API & SDK quickstart](/factories/api-and-sdk/quickstart/) to create and inspect a run. For a production event source, use the [Sentry monitoring example](/factories/api-and-sdk/demo-sentry-monitoring-with-sdk/) to connect a webhook handler.
