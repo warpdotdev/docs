@@ -80,6 +80,8 @@ function getMarkdownOutputPath(outputRoot, relativeHtmlPath) {
 	return path.join(outputRoot, `${htmlDir}.md`);
 }
 
+const DOCS_ORIGIN = 'https://docs.warp.dev';
+
 function convertHtmlToMarkdown(html) {
 	const { document } = parseHTML(html);
 	const title = document.querySelector('h1[data-page-title], main h1')?.textContent?.trim();
@@ -90,9 +92,10 @@ function convertHtmlToMarkdown(html) {
 	const clone = /** @type {HTMLElement} */ (contentRoot.cloneNode(true));
 	expandAgentOnlyTemplates(clone);
 	sanitizeRoot(clone);
+	absolutizeInternalLinks(clone);
 	const markdownBody = turndown.turndown(clone.innerHTML).trim();
 	const llmsDirective =
-		'> For the complete documentation index, see [llms.txt](/llms.txt).\n' +
+		`> For the complete documentation index, see [llms.txt](${DOCS_ORIGIN}/llms.txt).\n` +
 		'> Markdown versions of each page are available by appending .md to any URL.';
 	const sections = [llmsDirective, `# ${normalizeWhitespace(title)}`];
 
@@ -105,6 +108,46 @@ function convertHtmlToMarkdown(html) {
 	}
 
 	return `${sections.join('\n\n').trim()}\n`;
+}
+
+/**
+ * Rewrite root-relative and same-origin links/resources to absolute
+ * docs.warp.dev URLs so served markdown remains portable when copied outside
+ * the site. Same-document fragment links (#section) are left unchanged.
+ *
+ * @param {HTMLElement} root
+ */
+function absolutizeInternalLinks(root) {
+	for (const anchor of root.querySelectorAll('a[href]')) {
+		const absolute = toAbsoluteDocsUrl(anchor.getAttribute('href'));
+		if (absolute) anchor.setAttribute('href', absolute);
+	}
+
+	for (const image of root.querySelectorAll('img[src]')) {
+		const absolute = toAbsoluteDocsUrl(image.getAttribute('src'));
+		if (absolute) image.setAttribute('src', absolute);
+	}
+}
+
+/**
+ * @param {string | null} value
+ * @returns {string | null} absolute docs URL when the value should be rewritten
+ */
+function toAbsoluteDocsUrl(value) {
+	if (!value) return null;
+	if (value.startsWith('#')) return null;
+	if (value.startsWith('/')) return `${DOCS_ORIGIN}${value}`;
+
+	try {
+		const url = new URL(value, DOCS_ORIGIN);
+		if (url.origin === DOCS_ORIGIN && !/^https?:\/\//i.test(value)) {
+			return url.href;
+		}
+		return null;
+	} catch {
+		// Leave non-URL values (mailto:, data:, javascript:, malformed) alone.
+		return null;
+	}
 }
 
 function expandAgentOnlyTemplates(root) {
