@@ -149,21 +149,26 @@ Optional. The handle used to @-mention the factory's foreman on connected platfo
 
 Optional. Whose credentials the factory's runs execute with: `EXECUTOR` (the principal executing the run, the default) or `CREATOR` (the user who created the run). Agents can override it per role.
 
-### `repositories`
-
-Required. The repositories the factory works in, as `owner` and `name` pairs. The optional `codeForge` is `GITHUB` or `GITLAB`; omit it to use the factory's primary forge.
-
-```yaml
-repositories:
-  - owner: acme
-    name: payments-service
-  - owner: acme
-    name: payments-docs
-```
-
 ### `codeForges`
 
-Optional. The forges connected to the factory: `GITHUB` or `GITLAB`. Omit the key to keep the stored set. An empty list disables all forges, and a list with more than one forge requires `codeForge` on every [`repositories`](#repositories) entry.
+Optional. The code hosts enabled for the factory: `GITHUB` and `GITLAB`. Omit this key to use the factory's existing code host. To use repositories from both hosts, list both values and set `codeForge` on every repository. An empty `codeForges` list requires an empty `repositories` list and creates a factory with no code host.
+
+### `repositories`
+
+Required. The repositories the factory works in. Each entry requires `owner` and `name`; an optional `codeForge` selects `GITHUB` or `GITLAB`. Omit `codeForge` to use the factory's primary code host. When [`codeForges`](#codeforges) lists both hosts, every repository must declare `codeForge`.
+
+```yaml
+codeForges:
+  - GITHUB
+  - GITLAB
+repositories:
+  - codeForge: GITHUB
+    owner: acme
+    name: payments-service
+  - codeForge: GITLAB
+    owner: acme/platform
+    name: deployment-config
+```
 
 ### `secrets`
 
@@ -201,6 +206,20 @@ Optional. The integration providers attached to the factory. `type` accepts `sla
 integrations:
   - type: slack
   - type: linear
+    linear:
+      teamIds:
+        - LINEAR_TEAM_ID
+```
+
+For Linear, `linear.teamIds` limits issue discovery and routing to those team IDs. Omit it to include every team in the connected Linear workspace. For Jira, `jira.projectKeys` provides the equivalent scope; omit it to include every project on the connected Jira site.
+
+```yaml
+integrations:
+  - type: jira
+    jira:
+      projectKeys:
+        - ENG
+        - OPS
 ```
 
 The legacy `providers` key is accepted when reading older definitions. Use `cloudProviders`; when Warp rewrites the definition, it emits `cloudProviders`.
@@ -450,7 +469,7 @@ Optional. The compute size, as `vcpus` and `memoryGb`. Omit it to take the works
 
 The operating system and architecture. `os` is `linux` (the default) or `macos`, and `arch` is `x86_64` (the default on Linux) or `aarch64` (the only option on macOS). Linux runners require `linux.dockerImage`, the container image the sandbox boots, so every Linux runner declares a `platform` section. macOS runners accept an optional `mac.version` (`"14"`, `"15"`, `"26"`, or `"27"`; quote it, and it defaults to `"26"`).
 
-For a private Linux image, set `linux.registryCredentialSecretName` to a managed `docker_registry` secret whose registry host matches `linux.dockerImage`.
+For a private Linux image, set `linux.registryCredentialSecretName` to the name of a managed `docker_registry` secret. The secret's registry host must match the host in `linux.dockerImage`.
 
 ## `benchmarks/<suite-slug>/suite.yaml`
 

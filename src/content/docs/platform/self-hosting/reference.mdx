@@ -177,9 +177,9 @@ Only one backend can be configured at a time. Specifying more than one of `docke
 
 ## Metrics configuration
 
-The worker exports metrics over OpenTelemetry. Exporter selection is controlled by standard environment variables, not CLI flags or config file fields. Set these variables on the worker process (or the worker container via Docker `-e` / Kubernetes `env`).
+The worker exports metrics over OpenTelemetry when configured. Exporter selection is controlled by standard environment variables, not CLI flags or config file fields. Set these variables on the worker process (or the worker container via Docker `-e` / Kubernetes `env`).
 
-* `OTEL_METRICS_EXPORTER` — Exporter to use: `prometheus`, `otlp`, `console`, or `none`. When unset, defaults to `otlp`.
+* `OTEL_METRICS_EXPORTER` — Exporter to use: `prometheus`, `otlp`, or `console`. Unset, empty, whitespace-only, and `none` values disable metrics initialization.
 * `OTEL_EXPORTER_PROMETHEUS_HOST` — Bind address for the Prometheus exporter. Defaults to `localhost`. Set to `0.0.0.0` when running in Docker or Kubernetes.
 * `OTEL_EXPORTER_PROMETHEUS_PORT` — Port for the Prometheus exporter. Defaults to `9464`.
 * `OTEL_EXPORTER_OTLP_ENDPOINT` — OTLP collector endpoint (e.g., `http://otel-collector.observability.svc:4318`).
