@@ -26,7 +26,7 @@ The diagram's components, from intake to improvement:
 * **Foreman and stage agents** - The foreman holds one conversation per work item and dispatches the Triage, Spec, Implement, and Review agents as the work needs them. See [factory agents](/factories/factory-agents/) and the stages below.
 * **Human handoff** - The factory opens a pull request with evidence, updates the original work item, and you review and merge.
 * **Factory definition** - Version-controlled agents, automations, runners, scorers, skills, and webhooks define the factory, either Warp-managed or in a GitHub repository your team owns. See [definitions as code](/factories/factory-as-code/).
-* **Execution** - Every stage runs as a cloud agent run on Warp-hosted or [self-hosted](/platform/self-hosting/) compute, with the workspace from the factory's repositories and each stage's configured model and [harness](/platform/harnesses/).
+* **Execution** - Every stage runs as a cloud agent run on Warp-hosted or [managed self-hosted](/factories/self-hosting/) compute, with the workspace from the factory's repositories and each stage's configured model and [harness](/platform/harnesses/).
 * **Factory dashboard** - Metrics, work items by stage, and runs and costs. See the [factory dashboard](/factories/factory-dashboard/).
 * **Measure and improve** - [Scorers](/factories/measure-and-improve/) classify completed runs, benchmarks compare configurations, and self-improvement turns repeat failures into follow-up pull requests for your review.
 

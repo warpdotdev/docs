@@ -452,6 +452,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories/developer-tools', label: 'Overview' },
 						{ slug: 'factories/factory-api', label: 'Factory API' },
 						{ slug: 'factories/api-and-sdk', label: VARS.API_SDK_NAME },
+						{ slug: 'factories/api-and-sdk/quickstart', label: 'Quickstart' },
 						{ label: 'API reference', link: '/api' },
 						{ slug: 'factories/api-and-sdk/demo-sentry-monitoring-with-sdk', label: 'Sentry monitoring with the SDK' },
 						{ slug: 'factories/api-and-sdk/troubleshooting/errors', label: 'API errors' },
@@ -538,12 +539,13 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			icon: 'cloud-download',
 			items: [
 				{ slug: 'platform/overview', label: 'Overview' },
+				{ slug: 'platform/architecture', label: 'Architecture' },
 				{
 					label: 'Cloud Agents',
 					items: [
 						{ slug: 'platform', label: 'Overview' },
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
-						{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
+						{ slug: 'platform/transitioning-from-oz', label: `Transitioning from the ${VARS.WEB_APP}` },
 						{
 							// Runtime (which agent executes the run) is kept separate from
 							// configuration (how any run is set up) -- HYC review, 8/14.

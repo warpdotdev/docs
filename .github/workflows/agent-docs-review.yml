@@ -56,7 +56,7 @@ jobs:
           deb [arch=amd64 signed-by=/etc/apt/keyrings/warpdotdev.gpg] https://releases.warp.dev/linux/deb stable main
           EOF
           sudo apt-get update
-          sudo apt-get install -y oz-stable=0.2026.09.09.08.26.stable.02
+          sudo apt-get install -y oz-stable
           PROMPT="$(cat <<'EOF'
             Run the review-docs-pr skill against warpdotdev/docs PR #${{ github.event.pull_request.number }}
             at head SHA ${{ github.event.pull_request.head.sha }}. This PR carries the warpy-factory agent

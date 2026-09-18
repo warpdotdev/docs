@@ -1094,32 +1094,32 @@
     },
     {
       "source": "/agent-platform/cloud-agents/managed-worker-reference(/?)",
-      "destination": "/platform/self-hosting/reference/",
+      "destination": "/factories/self-hosting/reference/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/managed-worker-reference/direct-backend(/?)",
-      "destination": "/platform/self-hosting/managed-direct/",
+      "destination": "/factories/self-hosting/managed-direct/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/managed-worker-reference/docker-connectivity(/?)",
-      "destination": "/platform/self-hosting/managed-docker/",
+      "destination": "/factories/self-hosting/managed-docker/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/managed-worker-reference/helm-chart(/?)",
-      "destination": "/platform/self-hosting/managed-kubernetes/",
+      "destination": "/factories/self-hosting/managed-kubernetes/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/managed-worker-reference/kubernetes-backend(/?)",
-      "destination": "/platform/self-hosting/managed-kubernetes/",
+      "destination": "/factories/self-hosting/managed-kubernetes/",
       "statusCode": 308
     },
     {
       "source": "/agent-platform/cloud-agents/managed-worker-reference/private-docker-registries(/?)",
-      "destination": "/platform/self-hosting/managed-docker/",
+      "destination": "/factories/self-hosting/managed-docker/",
       "statusCode": 308
     },
     {
@@ -6619,7 +6619,7 @@
     },
     {
       "source": "/reference(/?)",
-      "destination": "/factories/developer-tools/",
+      "destination": "/agents/cli/oz-cli/",
       "statusCode": 308
     },
     {
