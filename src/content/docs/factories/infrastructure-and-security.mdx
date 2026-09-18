@@ -27,7 +27,7 @@ flowchart LR
   C --> D["Warp-managed storage"]
 ```
 
-Self-hosting moves only the execution plane: with a managed self-hosted worker, repository checkouts, command execution, and the sandbox filesystem stay on machines you control, but content that enters prompts, results, transcripts, attachments, artifacts, or telemetry still flows through Warp and the providers you configure. See [deployment patterns](/factories/deployment-patterns/) and [self-hosting security and networking](/platform/execution-security/) for the broader data model.
+Self-hosting moves only the execution plane: with a managed self-hosted worker, repository checkouts, command execution, and the sandbox filesystem stay on machines you control, but content that enters prompts, results, transcripts, attachments, artifacts, or telemetry still flows through Warp and the providers you configure. See [deployment patterns](/factories/deployment-patterns/) and [execution security](/platform/execution-security/) for the broader data model.
 
 The diagram below maps those boundaries for self-hosted execution; factory runs follow the same data model. See the [data security and boundaries](/platform/architecture/#data-security-and-boundaries) reference for a description of each data class.
 
@@ -35,7 +35,7 @@ The diagram below maps those boundaries for self-hosted execution; factory runs 
 
 ## Runners
 
-A runner defines the compute a factory's agents work on: the operating system and architecture, the sandbox image, and the instance shape (vCPUs and memory). It's the infrastructure choice you make for a factory. The workspace itself — repositories, setup commands, and secrets — comes from the factory's [definition](/factories/factory-as-code/), and Warp keeps it in step for you. See the [runner reference](/factories/runners/) for the available compute options.
+A runner defines the compute a factory's agents work on: the operating system and architecture, the sandbox image, and the instance shape (vCPUs and memory). The workspace itself — repositories, setup commands, and secrets — comes from the factory's [definition](/factories/factory-as-code/). See the [runner reference](/factories/runners/) for the available compute options.
 
 Declare runners as `runners/*.yaml` files. Every agent inherits `agentDefaults.runner`, and an agent or automation can override it. A self-hosted runner must match the worker's operating system and architecture. Warp provisions hosted runners within your plan limits; your team provisions and operates self-hosted compute.
 

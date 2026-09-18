@@ -33,6 +33,7 @@ class TestAgentDocsReviewWorkflow(unittest.TestCase):
         self.assertIn("actionable_findings", self.workflow)
         self.assertIn("critical, important, suggestion, or nit", self.workflow)
         self.assertIn("file and line or quoted text", self.workflow)
+
     def test_review_signal_is_passed_through_a_file(self):
         self.assertIn('oz "${args[@]}" > /tmp/agent-output.txt', self.workflow)
         self.assertIn("--agent-output /tmp/agent-output.txt", self.workflow)
@@ -41,10 +42,10 @@ class TestAgentDocsReviewWorkflow(unittest.TestCase):
             "AGENT_OUTPUT: ${{ steps.oz-review.outputs.agent_output }}", self.workflow
         )
 
-    def test_review_uses_a_pinned_signed_oz_package(self):
+    def test_review_uses_a_signed_oz_package(self):
         self.assertIn("0913165C78D5B7A41B42AC657FF7AB39D60F803F", self.workflow)
         self.assertIn("signed-by=/etc/apt/keyrings/warpdotdev.gpg", self.workflow)
-        self.assertIn("oz-stable=0.2026.09.09.08.26.stable.02", self.workflow)
+        self.assertIn("sudo apt-get install -y oz-stable", self.workflow)
 
 
 if __name__ == "__main__":

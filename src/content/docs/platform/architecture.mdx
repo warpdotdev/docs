@@ -6,7 +6,7 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-The {VARS.WARP_AUTOMATION_PLATFORM} connects the tools that start agent work with the environments where that work runs. Warp operates the control plane, which coordinates runs and routes inference. Cloud agent runs execute in a Warp-hosted sandbox or on customer infrastructure. [Self-hosted](/platform/self-hosting/) execution and [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) change where specific work happens.
+The {VARS.WARP_AUTOMATION_PLATFORM} connects the tools that start agent work with the environments where that work runs. Warp operates the control plane, which coordinates runs and routes inference. Cloud agent runs execute in a Warp-hosted sandbox or on customer infrastructure. [Managed self-hosting](/factories/self-hosting/) and [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) change where specific work happens.
 
 ## Stack overview
 
@@ -15,11 +15,11 @@ The platform has five layers: clients, the Warp-operated control plane that coor
 ![Warp stack overview diagram showing clients, the Warp control plane, the data plane, Warp-hosted and customer-hosted execution planes, and external systems](../../../assets/agent-platform/warp-stack-overview.png)
 
 * **Clients** - The surfaces that start and observe work, like the Warp app, the {VARS.WARP_AGENT_CLI}, the web app, the [factory dashboard](/factories/factory-dashboard/), and clients connected through the [Factory MCP](/factories/factory-mcp/). All clients talk to the same control plane APIs.
-* **APIs** - The control plane's entry points: the [Agent API and SDKs](/reference/api-and-sdk/), a webhook receiver for [integration](/platform/integrations/) events, and the hosted Factory MCP endpoint.
+* **APIs** - The control plane's entry points: the [Agent API and SDKs](/factories/api-and-sdk/), a webhook receiver for [integration](/platform/integrations/) events, and the hosted Factory MCP endpoint.
 * **Control plane** - Warp coordinates runs, manages shared configuration, routes model calls, and records run history.
 * **Data plane** - Run data (transcripts, artifacts, and attachments) lives in Warp-managed storage, independent of where runs execute.
-* **Warp-hosted execution** - By default, each cloud agent run gets an isolated sandbox prepared from its environment. See [Warp-hosted execution](/platform/warp-hosting/).
-* **Self-hosted execution** - On Enterprise, a managed worker runs tasks on your infrastructure. Unmanaged setups run the {VARS.WARP_AGENT_CLI} in your CI or orchestrator. See [Self-hosting](/platform/self-hosting/).
+* **Warp-hosted execution** - By default, each cloud agent run gets an isolated sandbox prepared from its environment. See [Warp-hosted execution](/factories/warp-hosting/).
+* **Self-hosted execution** - On Enterprise, a managed worker runs tasks on your infrastructure. Unmanaged setups run the {VARS.WARP_AGENT_CLI} in your CI or orchestrator. See [Managed self-hosting](/factories/self-hosting/) and [unmanaged execution](/platform/unmanaged-execution/).
 * **External systems** - The platform connects to identity providers, source control, integration providers, model providers, and a payment provider.
 
 ## Cloud agent run lifecycle
@@ -28,9 +28,9 @@ Every cloud agent run follows the same lifecycle, no matter what started it or w
 
 ![Cloud agent run lifecycle diagram showing triggers, the Warp control plane, the execution sandbox with its agent loop, LLM providers, and output targets](../../../assets/agent-platform/cloud-agent-run-lifecycle.png)
 
-1. **A trigger fires** - A [schedule](/platform/triggers/scheduled-agents/), an [integration](/platform/integrations/) event, an [API or SDK](/reference/api-and-sdk/) call, a CLI command, or a [Handoff](/platform/handoff/) from the Warp app starts the run.
+1. **A trigger fires** - A [schedule](/platform/triggers/scheduled-agents/), an [integration](/platform/integrations/) event, an [API or SDK](/factories/api-and-sdk/) call, a CLI command, or a [Handoff](/platform/handoff/) from the Warp app starts the run.
 2. **The task is created** - The control plane opens a run record that tracks the task's state, inputs, and provenance.
-3. **Configuration is resolved** - The platform picks the run's [environment](/platform/environments/), [runner](/platform/runners/), execution host, and [model and harness](/platform/harnesses/).
+3. **Configuration is resolved** - The platform picks the run's [environment](/platform/environments/), [runner](/factories/runners/), execution host, and [model and harness](/platform/harnesses/).
 4. **The sandbox is provisioned** - The execution host clones the environment's repositories, runs setup commands, and injects only the [secrets](/platform/secrets/) the run is allowed to use.
 5. **The agent loop runs** - The harness gathers context, calls the model, and runs tools until the task is done. Tools run in the sandbox. With the Warp Agent, model calls route through Warp to providers under [Zero Data Retention](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr); Claude Code and Codex call their provider directly.
 6. **Outputs land at their targets** - The agent pushes branches, opens pull requests, and replies to the Slack thread, Linear issue, or Jira work item that started the task.
@@ -54,10 +54,10 @@ Self-hosted execution keeps checkout, commands, and the workspace on your infras
 
 ![Self-hosted execution architecture diagram showing the managed worker on customer infrastructure connecting outbound to the Warp control plane, with numbered flow steps](../../../assets/agent-platform/self-hosted-execution-flow.png)
 
-1. **The worker connects** - You run the managed worker (`oz-agent-worker`) on your infrastructure. It authenticates with an agent API key and holds an outbound-only connection, waiting for tasks routed to its [`--host`](/platform/self-hosting/#routing-runs-to-self-hosted-workers) ID.
+1. **The worker connects** - You run the managed worker (`oz-agent-worker`) on your infrastructure. It authenticates with an agent API key and holds an outbound-only connection, waiting for tasks routed to its `--host` ID.
 2. **Warp assigns the task** - When a trigger targets your worker, the control plane sends the task, its resolved configuration, and scoped runtime credentials over that connection.
-3. **The agent runs on your backend** - The worker clones repositories, runs setup, injects allowed [secrets](/platform/secrets/), and executes in a Docker container, a Kubernetes Job, or directly on the host, depending on the [backend](/platform/self-hosting/#managed-architecture) you chose. Code, build artifacts, and workspaces stay on your machines.
-4. **Run data returns to Warp** - Status, transcripts, artifacts, attachments, and telemetry flow back for the run record. Content the agent puts into prompts or results can include code context; see [security and networking](/platform/self-hosting/security-and-networking/).
+3. **The agent runs on your backend** - The worker clones repositories, runs setup, injects allowed [secrets](/platform/secrets/), and executes in a Docker container, a Kubernetes Job, or directly on the host, depending on the [managed backend](/factories/self-hosting/#managed-architecture) you chose. Code, build artifacts, and workspaces stay on your machines.
+4. **Run data returns to Warp** - Status, transcripts, artifacts, attachments, and telemetry flow back for the run record. Content the agent puts into prompts or results can include code context; see [execution security](/platform/execution-security/).
 5. **Warp routes inference** - With the Warp Agent, model calls go from your worker through Warp to LLM providers under [Zero Data Retention](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr), or through your own provider account with [team-managed keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) or [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/). Claude Code and Codex call their provider directly from your infrastructure.
 6. **Your team monitors the run** - Runs on self-hosted workers appear in the {VARS.DASHBOARD} and support [Agent Session Sharing](/agents/local-agents/session-sharing/), the same as Warp-hosted runs.
 
@@ -91,7 +91,7 @@ Every run moves a few distinct classes of data, and each class has its own bound
 
 ![Warp-hosted data security and boundaries diagram showing repositories, clients, and integrations in customer infrastructure, the per-run sandbox and control plane on the Warp platform, model providers, and Warp-managed run-data storage](../../../assets/agent-platform/warp-hosted-data-boundaries.png)
 
-* **Source code** - For Warp-hosted runs, repositories are cloned into an isolated per-run sandbox and destroyed with it; Warp does not persistently store repository clones or train on your code. For [self-hosted execution](/platform/self-hosting/), checkout and the workspace stay on your infrastructure. Either way, code context the agent puts into prompts, transcripts, or artifacts transits Warp and may persist as run data.
+* **Source code** - For Warp-hosted runs, repositories are cloned into an isolated per-run sandbox and destroyed with it; Warp does not persistently store repository clones or train on your code. For [managed self-hosting](/factories/self-hosting/), checkout and the workspace stay on your infrastructure. Either way, code context the agent puts into prompts, transcripts, or artifacts transits Warp and may persist as run data.
 * **Prompts and context** - With the Warp Agent, model calls route through Warp to LLM providers under [Zero Data Retention](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr) agreements: providers don't retain or train on the traffic. [Team-managed keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) and [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) keep the same route but use your provider account. Claude Code and Codex call their provider directly from the execution environment, under your provider agreement rather than Warp's.
 * **Run data** - Transcripts, artifacts, and run attachments are stored in Warp-managed storage, encrypted at rest and access-controlled by your team's roles.
 * **Control-plane data** - Warp always retains what it needs to operate the platform: user and organization settings, agent and factory configuration, orchestration and lifecycle metadata, trigger and integration metadata, operational logs, and usage and billing.
@@ -102,15 +102,15 @@ Every run moves a few distinct classes of data, and each class has its own bound
 
 ### With self-hosted execution
 
-[Self-hosted execution](/platform/self-hosting/) moves the execution boundary: checkout, builds, and command execution stay on your infrastructure, and no Warp-hosted sandbox is involved. The control plane still coordinates runs, holds control-plane data, routes inference for the Warp Agent, and stores run data.
+[Managed self-hosting](/factories/self-hosting/) moves the execution boundary: checkout, builds, and command execution stay on your infrastructure, and no Warp-hosted sandbox is involved. The control plane still coordinates runs, holds control-plane data, routes inference for the Warp Agent, and stores run data.
 
 ![Self-hosted data security and boundaries diagram showing what stays in customer infrastructure, what Warp retains, Warp-managed run-data storage, and what transits Warp to model providers](../../../assets/agent-platform/data-security-boundaries.png)
 
 ## Related pages
 
-* [Deployment patterns](/platform/deployment-patterns/) - Choose between CLI-only, Warp-hosted, and self-hosted deployments.
-* [Self-hosting overview](/platform/self-hosting/) - Managed vs unmanaged architectures and setup guides.
-* [Self-hosting security and networking](/platform/self-hosting/security-and-networking/) - The data model and egress requirements for self-hosted workers.
+* [Deployment patterns](/factories/deployment-patterns/) - Choose between CLI-only, Warp-hosted, and self-hosted deployments.
+* [Managed self-hosting](/factories/self-hosting/) - Configure a managed worker for factory execution.
+* [Execution security](/platform/execution-security/) - The data model and egress requirements for self-hosted workers.
 * [Security overview](/enterprise/security-and-compliance/security-overview/) - Warp's data handling, encryption, and compliance posture.
 * [How Warp Factories work](/factories/how-factories-work/) - The work-item lifecycle in depth.
 * [Warp Factories infrastructure and security](/factories/infrastructure-and-security/) - The same boundaries applied to factories.

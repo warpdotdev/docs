@@ -77,6 +77,7 @@ class TestCheckReviewSignal(unittest.TestCase):
         with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
             problems = vrs.check_review_signal("o/r", "1", "sha1", output)
         self.assertEqual(problems, [])
+
     def test_signal_with_braces_in_an_actionable_finding_passes(self):
         output = (
             '[SIGNAL:pr-review] {"pr":"1","head_sha":"sha1",'
