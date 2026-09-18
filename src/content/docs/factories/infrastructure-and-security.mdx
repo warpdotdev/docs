@@ -1,13 +1,13 @@
 ---
 title: Warp Factories infrastructure and security
 description: >-
-  Warp Factories gives you control over inference, hosting, and run data so
-  you own your factory's infrastructure and outputs.
+  Warp Factories gives you control over inference and execution hosting while
+  Warp stores run records, transcripts, and outputs.
 sidebar:
   label: "Infrastructure & security"
 ---
 
-Warp Factories runs on the infrastructure your team chooses. You decide where a factory runs code, which model providers serve its inference requests, where run data such as transcripts and artifacts is stored, and which credentials each agent receives. Warp coordinates the work the same way regardless of these choices.
+Warp Factories runs on the infrastructure your team chooses. You decide where a factory runs code, which model providers serve its inference requests, and which credentials each agent receives. Warp coordinates the work and stores run data such as transcripts and artifacts.
 
 ## Control plane and execution plane
 
@@ -24,10 +24,14 @@ flowchart LR
   H -->|"results, transcripts,<br/>artifacts, telemetry"| C
   S -->|"results, transcripts, attachments,<br/>artifacts, and telemetry<br/>can contain code context"| C
   C --> P["Warp-managed or<br/>customer-configured inference"]
-  C --> D["Warp or supported<br/>customer-owned storage"]
+  C --> D["Warp-managed storage"]
 ```
 
 Self-hosting moves only the execution plane: with a managed self-hosted worker, repository checkouts, command execution, and the sandbox filesystem stay on machines you control, but content that enters prompts, results, transcripts, attachments, artifacts, or telemetry still flows through Warp and the providers you configure. See [deployment patterns](/platform/deployment-patterns/) and [self-hosting security and networking](/platform/self-hosting/security-and-networking/) for the broader data model.
+
+The diagram below maps those boundaries for self-hosted execution; factory runs follow the same data model. See the [data security and boundaries](/platform/architecture/#data-security-and-boundaries) reference for a description of each data class.
+
+![Self-hosted data security and boundaries diagram showing what stays in customer infrastructure, what Warp retains, and what transits Warp to model providers](../../../assets/agent-platform/data-security-boundaries.png)
 
 ## Runners
 
@@ -72,9 +76,9 @@ Factories use managed self-hosting, so Warp still orchestrates their runs. The w
 
 All three structures keep execution on your infrastructure while Warp operates the control plane.
 
-## Choose inference and storage independently
+## Choose inference independently
 
-Execution hosting doesn't select inference or storage. Configure those boundaries separately.
+Execution hosting doesn't select inference. Configure that boundary separately.
 
 ### Inference options for factory runs
 
@@ -88,10 +92,6 @@ Factory agents execute as cloud agents, so only inference options that support c
 | **[BYOLLM: Gemini Enterprise](/enterprise/enterprise-features/byollm-gemini-enterprise/)** | Not supported for factory runs | Interactive inference in your Google Cloud project | Gemini Enterprise BYOLLM currently supports interactive agent requests only |
 
 Self-serve BYOK and custom inference endpoints are stored on an individual member's device and don't apply to factory runs. With team-managed keys and endpoints, select a specific provider model or endpoint; Auto continues to use Warp-managed inference. When you supply the provider, its retention follows your account and contract, and Warp can't enforce ZDR for that provider.
-
-### Customer-owned storage
-
-Enterprise teams can keep supported transcripts, artifacts, and run attachments in a customer-owned Amazon S3 or Google Cloud Storage bucket. Your team owns the bucket's access and lifecycle policies. Factory configuration, run metadata, orchestration, and other control-plane state stay with Warp.
 
 ## Credential boundaries
 
@@ -117,7 +117,7 @@ Warp meters hosted compute, Warp-provided inference, and platform services. Mana
 1. **Classify the workload** - Identify the repositories, data, internal services, and regulated systems the factory can reach.
 2. **Choose execution** - Decide where checkout, commands, and the sandbox filesystem must run.
 3. **Configure the factory and its runners** - Set the repositories, setup commands, secrets, and compatible runners in the factory's definition.
-4. **Choose inference and storage** - Select provider routing and where supported run data persists.
+4. **Choose inference** - Select provider routing.
 5. **Scope credentials** - Set each agent's secret allowlist, harness authentication, and repository identity.
 6. **Set review gates** - Decide where humans review specifications and pull requests, and enforce those gates in workflow and repository policy.
 7. **Validate operations** - Test network egress, isolation, rotation, redaction, capacity, observability, and metering before increasing volume.
