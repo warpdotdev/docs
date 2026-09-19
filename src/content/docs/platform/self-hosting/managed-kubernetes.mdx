@@ -8,10 +8,10 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Deploy the `oz-agent-worker` daemon into a Kubernetes cluster using the included Helm chart. Each agent task runs as a **Kubernetes Job** in your cluster. The {VARS.WARP_AUTOMATION_PLATFORM} orchestrates runs end to end (Slack, Linear, schedules, API, `oz agent run-cloud`); your cluster provides the compute, scheduling, and policy enforcement.
+Deploy the `oz-agent-worker` daemon into a Kubernetes cluster using the included Helm chart. Each agent task runs as a Kubernetes Job in your cluster. The {VARS.WARP_AUTOMATION_PLATFORM} orchestrates runs end to end (Slack, Linear, schedules, API, `oz agent run-cloud`); your cluster provides the compute, scheduling, and policy enforcement.
 
 :::note
-This page covers the [managed architecture](/platform/self-hosting/#managed-architecture) with the Kubernetes backend. For the default Docker backend, see [Managed: Docker](/platform/self-hosting/managed-docker/). For host execution without a container runtime, see [Managed: Direct](/platform/self-hosting/managed-direct/). To route runs to a connected worker, see [Routing runs to this worker](/platform/self-hosting/managed-docker/#routing-runs-to-this-worker).
+Use the Kubernetes backend with the [managed architecture](/platform/self-hosting/#managed-architecture). For the default Docker backend, see [Managed: Docker](/platform/self-hosting/managed-docker/). For host execution without a container runtime, see [Managed: Direct](/platform/self-hosting/managed-direct/). To route runs to a connected worker, see [Routing runs to this worker](/platform/self-hosting/managed-docker/#routing-runs-to-this-worker).
 :::
 
 ## When to use the Kubernetes backend
@@ -28,7 +28,7 @@ This page covers the [managed architecture](/platform/self-hosting/#managed-arch
 2. On startup, the worker runs a short-lived **preflight Job** to verify that cluster permissions, admission policies, and Pod Security Standards are compatible. If the preflight fails, the worker exits with a diagnostic error before accepting any tasks.
 3. For each assigned task, the worker creates a Kubernetes Job in the configured namespace.
 4. The worker monitors the Job and Pod status via Kubernetes Watch (with a 30-second safety-net poll for watch disconnects).
-5. After the task completes, the Job is cleaned up (unless `--no-cleanup` is set).
+5. After a successful task completes, the worker deletes its Job. Failed Jobs remain available temporarily for diagnosis before Kubernetes TTL cleanup. Set `--no-cleanup` to retain task Jobs without worker-managed TTL cleanup.
 
 ---
 
@@ -117,7 +117,7 @@ To scale horizontally, deploy multiple Helm releases with distinct worker IDs ra
 * `worker.cleanup` — Whether to clean up task Jobs after execution. Defaults to `true`.
 * `worker.maxConcurrentTasks` — Maximum concurrent tasks. Defaults to `0` (unlimited).
 * `worker.idleOnComplete` — Duration to keep the oz process alive after task completion.
-* `worker.resources` — Resource requests/limits for the worker Deployment. Defaults to `100m` CPU and `128Mi` memory.
+* `worker.resources` — Resource requests and limits for the long-running worker Deployment, not task Jobs. The chart requests `100m` CPU and `128Mi` memory by default and sets no default limits.
 * `worker.livenessProbe` — Liveness probe for the worker Deployment. Defaults to an `exec` probe (`kill -0 1`). Override with a custom probe or set to `null` to disable.
 * `worker.nodeSelector`, `worker.tolerations`, `worker.affinity` — Scheduling constraints for the worker Deployment pod.
 
@@ -164,6 +164,17 @@ Cluster selection follows Kubernetes client config conventions:
 The `pod_template` field accepts standard Kubernetes PodSpec YAML and is the declarative way to configure task pod scheduling, service accounts, image pull secrets, resources, and environment variables.
 
 When using `pod_template`, define a container named `task` to customize the main task container directly. Otherwise, the worker appends its own `task` container to the PodSpec.
+
+### Size task workloads
+
+The worker does not set default CPU or memory resources on task containers. Configure workload resources in either of these places:
+
+* **Pod template** - Set `resources.requests` and `resources.limits` on the container named `task`. Use this for the worker's task baseline and use the rest of the PodSpec for scheduling controls such as node selectors, affinity, and tolerations.
+* **Runner instance shape** - Assign a [runner](/platform/runners/) with the vCPUs and memory needed for a specific workload. On the Kubernetes backend, an explicit instance shape sets the `task` container's CPU and memory requests equal to its limits for that run. These values override matching `task` container resources from `pod_template`.
+
+Runner instance shapes size only the `task` container. Configure resources for setup init containers or other containers directly in `pod_template`.
+
+Requests determine whether the scheduler can place a Pod, while limits constrain a running container. Account for concurrent task Jobs and leave node headroom for system and other workloads. Use workload-specific runners for occasional heavy builds or tests instead of increasing every task's baseline.
 
 Use `valueFrom.secretKeyRef` to inject Kubernetes Secret values into task container environment variables:
 

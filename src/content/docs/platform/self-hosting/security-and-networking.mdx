@@ -83,7 +83,7 @@ The exception runs the other way. [Team-managed inference endpoints](/enterprise
 * **Kubernetes RBAC** — The worker needs namespaced permissions to create, get, list, watch, and delete Jobs and Pods. The Helm chart creates a minimal Role/RoleBinding scoped to a single namespace. The task namespace must allow creating Jobs with a root init container, as sidecar materialization currently depends on that pattern. Review your Pod Security Standards and admission policies accordingly.
 * **Kubernetes service accounts** — The worker Deployment's ServiceAccount (used by the long-lived worker process) is separate from the optional task Job `serviceAccountName` you may configure in `pod_template`. Scope each appropriately.
 * **API key management** — Store `WARP_API_KEY` in a Kubernetes Secret. Avoid hardcoding it in scripts or config files. If your organization uses an external secrets manager (HashiCorp Vault, AWS Secrets Manager, GCP Secret Manager, etc.), you can inject secrets into task pods via the CSI Secrets Store Driver or a similar operator — configure the required `volumes`, `volumeMounts`, and annotations in `pod_template`.
-* **Task isolation** — Each task runs as a separate Kubernetes Job/Pod. Jobs are removed after execution by default (disable with `--no-cleanup` for debugging).
+* **Task isolation** — Each task runs as a separate Kubernetes Job/Pod. Successful Jobs are removed after execution. Failed Jobs remain temporarily available for diagnosis before Kubernetes TTL cleanup. Set `--no-cleanup` to retain task Jobs without worker-managed TTL cleanup.
 
 ### Direct backend
 

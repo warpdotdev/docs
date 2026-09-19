@@ -115,12 +115,78 @@ See [Monitoring](/platform/self-hosting/monitoring/) for the full setup guide.
 
 ### Kubernetes backend (task failures)
 
-1. Check task Job and Pod status: `kubectl get jobs,pods -n <namespace>`.
-2. Common issues:
-   * **Unschedulable pods** — Check node selectors, tolerations, and resource requests in `pod_template`.
-   * **Image pull failures** — Check `imagePullSecrets` in `pod_template`.
-   * **Admission policy rejections** — Review Pod Security Standards, OPA Gatekeeper, Kyverno, or similar admission controllers.
-3. The worker fails a task early if its pod remains unschedulable beyond `unschedulable_timeout` (default `30s`). Raise the timeout or fix the scheduling issue.
+First determine whether the task Pod started. A running container that exceeds its memory limit and a Pending Pod that cannot fit on a node require different fixes.
+
+The Helm chart's `worker.resources` configures the long-running worker Deployment only. Task containers have no worker-defined CPU or memory defaults unless you set resources in `pod_template` or assign an explicit [runner instance shape](/platform/self-hosting/managed-kubernetes/#size-task-workloads).
+
+#### Task container was terminated with `OOMKilled`
+
+`OOMKilled` means Kubernetes reports that a container started and then encountered an out-of-memory condition. Confirm the termination reason before changing resources.
+
+1. Find the failed task Pod:
+
+   ```bash
+   kubectl get jobs,pods -n NAMESPACE
+   ```
+
+   Replace `NAMESPACE` with the task namespace. Use the returned task Pod name as `POD_NAME` below.
+
+2. Inspect the `task` container's terminated state, resource settings, and Pod events:
+
+   ```bash
+   kubectl describe pod POD_NAME -n NAMESPACE
+   kubectl get pod POD_NAME -n NAMESPACE -o yaml
+   ```
+
+3. Compare peak memory usage with the configured limit using your cluster metrics. Check the node for `MemoryPressure` and eviction events.
+4. Reduce the task's peak memory use or increase its memory limit. For a workload-specific [runner](/platform/runners/), increase the instance shape. For a baseline shared by all tasks on the worker, change the `task` container's resources in `pod_template`.
+
+Increasing a runner's memory also increases the task container's memory request to the same value. Confirm that a compatible node has enough allocatable memory, or the replacement Pod can remain Pending.
+
+If the Pod reason is `Evicted` instead, diagnose node pressure rather than a container limit. Restore node headroom, add compatible capacity, or adjust scheduling and concurrency before rerunning the task.
+
+#### Task remains `Pending` with `FailedScheduling`
+
+A Pending Pod with a `PodScheduled=False` condition and `FailedScheduling` events has not started. Messages such as `Insufficient cpu` or `Insufficient memory` mean no eligible node has enough allocatable capacity for the Pod's requests.
+
+1. Read the scheduler message and recent events:
+
+   ```bash
+   kubectl describe pod POD_NAME -n NAMESPACE
+   kubectl get events -n NAMESPACE --sort-by=.lastTimestamp
+   ```
+
+2. Compare the Pod's requests with node allocatable capacity and, when resource metrics are available, current usage:
+
+   ```bash
+   kubectl describe nodes
+   kubectl top nodes
+   kubectl top pods -n NAMESPACE --containers
+   ```
+
+3. Review the Pod's `nodeSelector`, affinity, tolerations, and taints. A node with free resources is not eligible if another scheduling constraint excludes it.
+4. Check how many task Jobs run concurrently. Set `max_concurrent_tasks` to keep aggregate requests within cluster capacity when needed.
+5. Right-size requests only if the task can run reliably at the lower values. Otherwise, add compatible node capacity or configure cluster autoscaling for nodes that satisfy the Pod's scheduling constraints.
+
+Raising only a memory limit does not help an unschedulable Pod because the scheduler places Pods from requests. The worker stops waiting after the configured `unschedulable_timeout`; fix the scheduling constraint rather than extending the timeout when the cluster lacks capacity.
+
+#### Task exits with code `143`
+
+Exit code `143` generally indicates `SIGTERM`; it does not prove that a container ran out of memory. Check the container termination reason, Pod conditions, and events before choosing a remediation.
+
+```bash
+kubectl describe pod POD_NAME -n NAMESPACE
+kubectl get events -n NAMESPACE --sort-by=.lastTimestamp
+```
+
+Look for eviction, preemption, node drain, `activeDeadlineSeconds`, or manual deletion. Correlate the event timeline with node pressure and resource metrics. Treat the failure as OOM only when Kubernetes reports `OOMKilled`.
+
+#### Other Kubernetes task failures
+
+* **Image pull failures** - Inspect `imagePullSecrets` in `pod_template`.
+* **Admission policy rejections** - Review Pod Security Standards, OPA Gatekeeper, Kyverno, or similar admission controllers.
+
+With cleanup enabled, failed Jobs and Pods remain temporarily available for diagnosis before Kubernetes TTL cleanup. Use `--no-cleanup` when you need to retain them longer.
 
 ### Direct backend (task failures)
 

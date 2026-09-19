@@ -143,8 +143,11 @@ All metrics use the `oz_worker_` prefix. Each worker process with metrics enable
 * **`oz_worker_tasks_rejected_total{reason}`** (counter) — Tasks the worker declined (e.g., `reason="at_capacity"`).
 * **`oz_worker_tasks_completed_total{result}`** (counter) — Completed tasks labeled `result="succeeded"` or `result="failed"`.
 * **`oz_worker_task_duration_seconds{result}`** (histogram) — Wall-clock task duration on the worker, labeled by result.
+* **`oz_worker_task_failures_total{phase,reason}`** (counter) — Task failures by execution phase and bounded reason, including `container_oom`, `evicted`, and `unschedulable` for Kubernetes tasks.
 * **`oz_worker_websocket_reconnects_total{reason}`** (counter) — WebSocket reconnect attempts (e.g., `reason="dial_failed"`, `reason="remote_close"`). Spikes indicate flapping workers.
 * **`oz_worker_info{version,backend,worker_id}`** (gauge, constant `1`) — Build and runtime metadata. Useful for joining other series by labels.
+
+Worker metrics identify failure categories and concurrency. Use Kubernetes Pod events, termination states, scheduler messages, node conditions, and resource metrics to diagnose the underlying OOM, eviction, or scheduling constraint.
 
 ---
 
@@ -189,6 +192,16 @@ Direct mappings for common operational questions:
 
   ```promql
   sum(rate(oz_worker_tasks_completed_total{result="failed"}[5m]))
+  ```
+
+* **Kubernetes resource failures by reason:**
+
+  ```promql
+  sum by (reason) (
+    rate(oz_worker_task_failures_total{
+      reason=~"container_oom|evicted|unschedulable"
+    }[5m])
+  )
   ```
 
 * **Reconnect storms (alert threshold):**
