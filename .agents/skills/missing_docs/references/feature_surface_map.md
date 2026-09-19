@@ -407,6 +407,13 @@ POST /harness-support/finish-task -> internal
 POST /harness-support/report-shutdown -> internal
 POST /harness-support/upload-snapshot -> internal
 POST /harness-support/commit-snapshot -> internal
+# Cumulative Claude Code / Codex usage snapshot for the current cloud execution
+# (publishHarnessUsage). Marked `x-internal: true` upstream; harness-support tag
+# is excluded from the released docs OpenAPI copy.
+POST /harness-support/usage -> internal
+# Read harness usage for a run (getHarnessUsage / agent_webhooks.go). Marked
+# `x-internal: true` upstream; not in developers/agent-api-openapi.yaml.
+GET /agent/runs/{runId}/harness-usage -> internal
 
 # Oz Factory REST API (router/handlers/public_api/factory*.go). Warp Factories
 # is now documented publicly (src/content/docs/factories/) as an Early Access
@@ -548,6 +555,9 @@ DELETE /factory/scorers/{scorer_id} -> internal
 GET /factory/scorers/{scorer_id}/results -> internal
 GET /factory/scorers/{scorer_id}/results/reasons -> internal
 GET /factory/scorers/{scorer_id}/metrics/pass-rate -> internal
+# Date-bounded scoring backfill (createScoringBackfill). Factory tag; released
+# OpenAPI has zero /factory paths. Stays internal until the Factory API ships.
+POST /factory/scorers/{scorer_id}/backfill -> internal
 # The scorer pause/resume routes and the autofix-config trio were replaced by
 # the self-improvement-config routes below; their dead map entries were pruned.
 GET /factory/scorers/{scorer_id}/self-improvement-config -> internal

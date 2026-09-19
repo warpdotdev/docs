@@ -295,6 +295,7 @@
     "WelcomeBlock": "other",
     "WelcomeTips": "other",
     "WellKnownMcpIds": "ga",
+    "WindowsVideoRecording": "dogfood",
     "WithSandboxTelemetry": "other",
     "WorkflowAliases": "ga"
   },
@@ -864,6 +865,7 @@
     "GET /api/v1/agent/runs",
     "GET /api/v1/agent/runs/{runId}",
     "GET /api/v1/agent/runs/{runId}/handoff/attachments",
+    "GET /api/v1/agent/runs/{runId}/harness-usage",
     "GET /api/v1/agent/runs/{runId}/timeline",
     "GET /api/v1/agent/runs/{runId}/trace",
     "GET /api/v1/agent/runs/{runId}/transcript",
@@ -990,6 +992,7 @@
     "POST /api/v1/factory/avatar",
     "POST /api/v1/factory/run-scoring/dispatches",
     "POST /api/v1/factory/scorers",
+    "POST /api/v1/factory/scorers/{scorer_id}/backfill",
     "POST /api/v1/factory/webhooks",
     "POST /api/v1/factory/webhooks/dry-run",
     "POST /api/v1/factory/webhooks/{uid}/rotate",
@@ -1025,6 +1028,7 @@
     "POST /api/v1/harness-support/resolve-prompt",
     "POST /api/v1/harness-support/transcript",
     "POST /api/v1/harness-support/upload-snapshot",
+    "POST /api/v1/harness-support/usage",
     "POST /api/v1/memory_stores",
     "POST /api/v1/memory_stores/{uid}/memories",
     "POST /api/v1/oauth/consent",
@@ -1465,5 +1469,5 @@
     "verify-ui-change-in-cloud": "dogfood",
     "warpctrl": "bundled"
   },
-  "changelog_last_version": "2026.09.09"
+  "changelog_last_version": "2026.09.16"
 }
