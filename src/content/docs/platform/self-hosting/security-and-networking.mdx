@@ -7,10 +7,6 @@ description: >-
 
 Self-hosting uses a split-plane architecture. Understanding which data stays on your infrastructure and which data routes through Warp is critical for security evaluation. This page summarizes the data model, network egress requirements, and backend-specific security considerations for self-hosted workers.
 
-:::note
-This page applies to both the [managed](/platform/self-hosting/#managed-architecture) and [unmanaged](/platform/self-hosting/unmanaged/) architectures. Backend-specific notes call out Docker-, Kubernetes-, and Direct-only considerations.
-:::
-
 ## Data boundaries
 
 Self-hosted execution keeps repository clones, source files, build artifacts, runtime secrets, environment variables, and agent workspaces on infrastructure you control. Agents can also reach internal systems that your host can reach, such as VPN-only services, private databases, or self-hosted source control.

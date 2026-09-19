@@ -10,9 +10,6 @@ import { VARS } from '@data/vars';
 
 Deploy the `oz-agent-worker` daemon into a Kubernetes cluster using the included Helm chart. Each agent task runs as a Kubernetes Job in your cluster. The {VARS.WARP_AUTOMATION_PLATFORM} orchestrates runs end to end (Slack, Linear, schedules, API, `oz agent run-cloud`); your cluster provides the compute, scheduling, and policy enforcement.
 
-:::note
-Use the Kubernetes backend with the [managed architecture](/platform/self-hosting/#managed-architecture). For the default Docker backend, see [Managed: Docker](/platform/self-hosting/managed-docker/). For host execution without a container runtime, see [Managed: Direct](/platform/self-hosting/managed-direct/). To route runs to a connected worker, see [Routing runs to this worker](/platform/self-hosting/managed-docker/#routing-runs-to-this-worker).
-:::
 
 ## When to use the Kubernetes backend
 
@@ -28,7 +25,7 @@ Use the Kubernetes backend with the [managed architecture](/platform/self-hostin
 2. On startup, the worker runs a short-lived **preflight Job** to verify that cluster permissions, admission policies, and Pod Security Standards are compatible. If the preflight fails, the worker exits with a diagnostic error before accepting any tasks.
 3. For each assigned task, the worker creates a Kubernetes Job in the configured namespace.
 4. The worker monitors the Job and Pod status via Kubernetes Watch (with a 30-second safety-net poll for watch disconnects).
-5. After a successful task completes, the worker deletes its Job. Failed Jobs remain available temporarily for diagnosis before Kubernetes TTL cleanup. Set `--no-cleanup` to retain task Jobs without worker-managed TTL cleanup.
+5. The worker deletes successful Jobs. Failed Jobs remain until Kubernetes TTL cleanup. Set `--no-cleanup` to disable worker-managed cleanup.
 
 ---
 
@@ -106,44 +103,13 @@ To scale horizontally, deploy multiple Helm releases with distinct worker IDs ra
 
 ## Key chart values
 
-**Required:**
+Set `worker.workerId` and `image.tag` for each installation. These values affect capacity and task placement:
 
-* `worker.workerId` — The worker ID (same as `--worker-id`).
-* `image.tag` — The worker image tag to deploy.
+* `worker.resources` — CPU and memory for the worker Deployment, not task Jobs. The chart requests `100m` CPU and `128Mi` memory by default and sets no limits.
+* `worker.maxConcurrentTasks` — Maximum concurrent tasks. The default `0` allows unlimited tasks.
+* `kubernetesBackend.podTemplate` — Raw PodSpec YAML for task Jobs.
 
-**Worker configuration:**
-
-* `worker.logLevel` — Log verbosity (`debug`, `info`, `warn`, `error`). Defaults to `info`.
-* `worker.cleanup` — Whether to clean up task Jobs after execution. Defaults to `true`.
-* `worker.maxConcurrentTasks` — Maximum concurrent tasks. Defaults to `0` (unlimited).
-* `worker.idleOnComplete` — Duration to keep the oz process alive after task completion.
-* `worker.resources` — Resource requests and limits for the long-running worker Deployment, not task Jobs. The chart requests `100m` CPU and `128Mi` memory by default and sets no default limits.
-* `worker.livenessProbe` — Liveness probe for the worker Deployment. Defaults to an `exec` probe (`kill -0 1`). Override with a custom probe or set to `null` to disable.
-* `worker.nodeSelector`, `worker.tolerations`, `worker.affinity` — Scheduling constraints for the worker Deployment pod.
-
-**Kubernetes backend:**
-
-* `kubernetesBackend.namespace` — Namespace for task Jobs. Defaults to the release namespace.
-* `kubernetesBackend.defaultImage` — Default Docker image for task pods when no [Warp environment](/platform/environments/) has been supplied. Leave empty (default) to fall back to `ubuntu:22.04`.
-* `kubernetesBackend.imagePullPolicy` — Image pull policy for task pods. Defaults to `IfNotPresent`.
-* `kubernetesBackend.preflightImage` — Image for the startup preflight Job. Set this if your cluster restricts allowed registries.
-* `kubernetesBackend.unschedulableTimeout` — How long a pod may remain unschedulable before failing. Defaults to `30s`.
-* `kubernetesBackend.setupCommand` — Shell command to run before each task.
-* `kubernetesBackend.teardownCommand` — Shell command to run after each task.
-* `kubernetesBackend.extraLabels` — Additional labels for task Jobs and Pods.
-* `kubernetesBackend.extraAnnotations` — Additional annotations for task Jobs and Pods.
-* `kubernetesBackend.activeDeadlineSeconds` — Maximum task Job lifetime.
-* `kubernetesBackend.workspaceSizeLimit` — Size limit for workspace `emptyDir` volume.
-* `kubernetesBackend.podTemplate` — Raw PodSpec YAML for task Jobs (same as `backend.kubernetes.pod_template` in the [config file](/platform/self-hosting/reference/#config-file)).
-
-**API key Secret:**
-
-* `warp.apiKeySecret.create` — Set to `true` to have the chart create a Secret from `warp.apiKeySecret.value`. Defaults to `false` (expects a pre-existing Secret).
-* `warp.apiKeySecret.value` — The API key value to store in the chart-managed Secret. Only used when `warp.apiKeySecret.create` is `true`.
-* `warp.apiKeySecret.name` — Name of the Secret containing `WARP_API_KEY`. Defaults to `oz-agent-worker`.
-* `warp.apiKeySecret.key` — Key within the Secret. Defaults to `WARP_API_KEY`.
-
-See the [self-hosted worker reference](/platform/self-hosting/reference/#kubernetes-backend-config) for the full config file schema.
+See the [self-hosted worker reference](/platform/self-hosting/reference/#kubernetes-backend-config) for every worker, backend, API key, and metrics value.
 
 ---
 
@@ -167,14 +133,14 @@ When using `pod_template`, define a container named `task` to customize the main
 
 ### Size task workloads
 
-The worker does not set default CPU or memory resources on task containers. Configure workload resources in either of these places:
+The worker does not set default CPU or memory resources on task containers. Configure task resources in either of these places:
 
-* **Pod template** - Set `resources.requests` and `resources.limits` on the container named `task`. Use this for the worker's task baseline and use the rest of the PodSpec for scheduling controls such as node selectors, affinity, and tolerations.
-* **Runner instance shape** - Assign a [runner](/platform/runners/) with the vCPUs and memory needed for a specific workload. On the Kubernetes backend, an explicit instance shape sets the `task` container's CPU and memory requests equal to its limits for that run. These values override matching `task` container resources from `pod_template`.
+* **Pod template** — Set `resources.requests` and `resources.limits` on the container named `task`. Use the rest of the PodSpec for node selectors, affinity, and tolerations.
+* **Runner instance shape** — Assign a [runner](/platform/runners/) with the vCPUs and memory needed for a workload. An explicit shape sets the `task` container's CPU and memory requests equal to its limits and overrides matching `pod_template` values.
 
-Runner instance shapes size only the `task` container. Configure resources for setup init containers or other containers directly in `pod_template`.
+A runner instance shape sizes only `task`. A `pod_template` resource setting applies only to a container you define in the template; it does not alter worker-generated setup or materialization init containers.
 
-Requests determine whether the scheduler can place a Pod, while limits constrain a running container. Account for concurrent task Jobs and leave node headroom for system and other workloads. Use workload-specific runners for occasional heavy builds or tests instead of increasing every task's baseline.
+Requests determine Pod placement, while limits constrain a running container. Account for concurrent Jobs and node headroom. Use workload-specific runners for occasional heavy builds or tests instead of increasing every task's baseline.
 
 Use `valueFrom.secretKeyRef` to inject Kubernetes Secret values into task container environment variables:
 
@@ -204,9 +170,7 @@ pod_template:
       effect: "NoSchedule"
 ```
 
-:::note
-The worker Deployment's ServiceAccount is separate from the task Job `serviceAccountName` you configure in `pod_template`. The Deployment ServiceAccount needs RBAC to manage Jobs and Pods. The task ServiceAccount (if any) controls what the agent process can access at runtime.
-:::
+The task Job's `serviceAccountName` controls runtime access. It is separate from the worker Deployment's ServiceAccount, which manages Jobs and Pods.
 
 ---
 
@@ -247,31 +211,7 @@ Use `kubernetesBackend.setupCommand` (Helm value) or `backend.kubernetes.setup_c
 
 ## Metrics
 
-The Helm chart includes built-in support for exporting OpenTelemetry metrics from the worker. Enable metrics by setting `metrics.enabled=true`:
-
-```bash
-helm install oz-agent-worker ./charts/oz-agent-worker \
-  --namespace warp-oz \
-  --set worker.workerId=oz-k8s-worker \
-  --set image.tag=VERSION \
-  --set metrics.enabled=true
-```
-
-With the default `metrics.exporter=prometheus`, the chart creates a `Service` with Prometheus scrape annotations and exposes port `9464`. For clusters using the Prometheus Operator, set `metrics.podMonitor.create=true` to create a `PodMonitor`.
-
-To push metrics to an OTLP collector instead, set `metrics.exporter=otlp` and configure the endpoint via `metrics.extraEnv`.
-
-See [Monitoring](/platform/self-hosting/monitoring/) for the full list of Helm values, the metric catalog, and sample PromQL queries.
-
----
-
-## Operational notes
-
-* **Scaling** — The chart always deploys a single replica for a given `worker.workerId`. To run multiple workers, deploy multiple Helm releases with distinct worker IDs rather than scaling a single release horizontally.
-* **Security context** — The Deployment defaults to a non-root security context (`runAsUser: 10001`) with `allowPrivilegeEscalation: false` and all capabilities dropped.
-* **Liveness probe** — The Deployment includes a default `exec` liveness probe (`kill -0 1`). Override `worker.livenessProbe` for a custom probe, or set it to `null` to disable.
-* **In-cluster auth** — The chart assumes the worker runs inside the target cluster and uses in-cluster Kubernetes auth by default.
-* **Root init containers** — The worker Deployment itself is non-root, but task Jobs require a root init container for sidecar materialization. Ensure the task namespace's Pod Security Standards allow this.
+Enable worker OpenTelemetry metrics with `metrics.enabled=true`. See [Monitoring](/platform/self-hosting/monitoring/) for Helm values, the metric catalog, and sample PromQL queries.
 
 ---
 
