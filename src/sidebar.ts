@@ -436,7 +436,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							{ slug: 'factories/runners', label: 'Runners' },
 							{
 								label: 'Managed self-hosting',
-								collapsed: false,
+								collapsed: true,
 								items: [
 									{ slug: 'factories/self-hosting', label: 'Overview' },
 									{ slug: 'factories/self-hosting/quickstart', label: 'Quickstart' },
