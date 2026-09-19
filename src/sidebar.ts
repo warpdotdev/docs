@@ -406,15 +406,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: 'Measure and improve',
-					items: [
-						{ slug: 'factories/measure-and-improve', label: 'Overview' },
-						{ slug: 'factories/measure-and-improve/scorers', label: 'Scorers' },
-						{ slug: 'factories/measure-and-improve/self-improvement', label: 'Self-improvement' },
-						{ slug: 'factories/benchmarks', label: 'Benchmarks' },
-					],
-				},
-				{
 					// Parallel to 'Agent configuration' in the Automation Platform tab.
 					// Scoped to the factory itself: who runs the work, how it is defined,
 					// and where it runs.
@@ -460,6 +451,15 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories/integrations/github', label: 'GitHub' },
 						{ slug: 'factories/integrations/gitlab', label: 'GitLab' },
 						{ slug: 'factories/code-forges/other-code-forges', label: 'Other code forges' },
+					],
+				},
+				{
+					label: 'Measure & improve',
+					items: [
+						{ slug: 'factories/measure-and-improve', label: 'Overview' },
+						{ slug: 'factories/measure-and-improve/scorers', label: 'Scorers' },
+						{ slug: 'factories/measure-and-improve/self-improvement', label: 'Self-improvement' },
+						{ slug: 'factories/benchmarks', label: 'Benchmarks' },
 					],
 				},
 				{
@@ -521,7 +521,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				// Keep troubleshooting and legacy transition guidance as direct trailing
 				// items rather than creating singleton groups.
 				{ slug: 'factories/troubleshooting', label: 'Troubleshooting' },
-				{ slug: 'platform/transitioning-from-oz', label: 'Legacy Oz workflows' },
+				{ slug: 'platform/transitioning-from-oz', label: `Transitioning from the ${VARS.WEB_APP}` },
 			],
 		},
 		{
@@ -549,7 +549,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'platform', label: 'Overview' },
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
-						{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
+						{ slug: 'platform/transitioning-from-oz', label: `Transitioning from the ${VARS.WEB_APP}` },
 						{
 							// Runtime (which agent executes the run) is kept separate from
 							// configuration (how any run is set up) -- HYC review, 8/14.
