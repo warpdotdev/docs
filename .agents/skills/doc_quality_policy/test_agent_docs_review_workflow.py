@@ -46,6 +46,7 @@ class TestAgentDocsReviewWorkflow(unittest.TestCase):
         self.assertIn("0913165C78D5B7A41B42AC657FF7AB39D60F803F", self.workflow)
         self.assertIn("signed-by=/etc/apt/keyrings/warpdotdev.gpg", self.workflow)
         self.assertIn("sudo apt-get install -y oz-stable", self.workflow)
+        self.assertIn("oz --version", self.workflow)
 
 
 if __name__ == "__main__":

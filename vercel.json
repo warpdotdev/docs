@@ -5204,7 +5204,7 @@
     },
     {
       "source": "/agent-platform/cloud-agents/self-hosting/managed-worker-reference",
-      "destination": "/platform/self-hosting/",
+      "destination": "/factories/self-hosting/",
       "statusCode": 308
     },
     {
