@@ -13,7 +13,7 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team. If your team already has access, sign in to the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>.
 :::
 
-A factory is a standing software development workflow that connects your repositories and engineering tools to a team of agents and execution infrastructure. It takes in requests, manages them from triage through review, and turns a growing backlog into mergeable pull requests. Your team stays in the loop to approve specifications and merge each pull request.
+A factory is a cloud automation loop around your software development lifecycle. It combines repositories, tools, agents, and execution infrastructure to move requests through triage, specification, implementation, review, and verification, while people stay in control of key decisions.
 
 <VideoEmbed url="https://www.youtube.com/watch?v=0WBk4ai8y1A" title="Introducing Warp Factories" />
 
@@ -63,13 +63,13 @@ Warp Factories builds on the same agent infrastructure used across Warp. Every f
 | --- | --- |
 | **Warp** | The interactive development experience for local work with agents and code review. |
 | **Warp Agent** | The built-in agent harness that can power an individual factory agent. |
-| **Warp Factories** | Standing multi-agent workflows for software development. |
+| **Warp Factories** | Multi-agent workflows for software development. |
 
 ## Key terms
 
 Setup gives a factory and its foreman the same name by default, so it's easy to mistake one for the other. Here's how the terms differ:
 
-* **factory** - A standing software development workflow that connects repositories, tools, agents, execution infrastructure, and a measurable workflow. Distinct from Warp Factories, the product, and from the foreman, its coordinating agent.
+* **factory** - A cloud automation loop around your software development lifecycle. It combines repositories, tools, agents, and execution infrastructure to move requests through the factory workflow. Distinct from Warp Factories, the product, and from the foreman, its coordinating agent.
 * **foreman** - The coordinating agent inside a factory, and the only one you talk to. It dispatches the other [factory agents](/factories/factory-agents/) and reports back. Every factory has exactly one.
 * **Foreman name** - The handle your team @-mentions in Slack and Linear to reach the foreman. Setup copies it from the factory's name, so the two usually match even though they're different things. See [Foreman name](/factories/factory-agents/#foreman-name).
 
