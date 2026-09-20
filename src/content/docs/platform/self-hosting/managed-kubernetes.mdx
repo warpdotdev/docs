@@ -113,7 +113,7 @@ To scale horizontally, deploy multiple Helm releases with distinct worker IDs ra
 * `worker.cleanup` — Whether to clean up task Jobs after execution. Defaults to `true`.
 * `worker.maxConcurrentTasks` — Maximum concurrent tasks. Defaults to `0` (unlimited).
 * `worker.idleOnComplete` — Duration to keep the oz process alive after task completion.
-* `worker.resources` — Resource requests/limits for the worker Deployment. Defaults to `100m` CPU and `128Mi` memory.
+* `worker.resources` — Resources for the long-running worker Deployment, not task Jobs. The chart requests `100m` CPU and `128Mi` memory by default and sets no limits.
 * `worker.livenessProbe` — Liveness probe for the worker Deployment. Defaults to an `exec` probe (`kill -0 1`). Override with a custom probe or set to `null` to disable.
 * `worker.terminationGracePeriodSeconds` — Grace period for worker Deployment shutdown. Defaults to `30`.
 * `worker.nodeSelector`, `worker.tolerations`, `worker.affinity` — Scheduling constraints for the worker Deployment pod.
@@ -196,7 +196,11 @@ pod_template:
 
 The worker Deployment ServiceAccount needs RBAC to manage Jobs and Pods. The task Job `serviceAccountName` in `pod_template` controls the agent process's runtime access.
 
-A run's instance shape overrides the `task` container's CPU and memory values in `pod_template`.
+Task containers have no worker-defined CPU or memory defaults. Set resources on the `task` container in `pod_template`, or assign a [runner](/platform/runners/) with a workload-specific instance shape.
+
+For each specified resource, an instance shape sets the `task` container's request equal to its limit. These values override matching `task` resources in `pod_template`.
+
+Instance shapes affect only `task`. A `pod_template` can size containers you define, but it does not alter worker-generated setup or materialization init containers.
 
 ---
 
