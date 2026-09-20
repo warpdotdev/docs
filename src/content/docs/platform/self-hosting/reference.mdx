@@ -153,7 +153,7 @@ backend:
 * `teardown_command` — Shell command to run after each task completes.
 * `extra_labels` — Map of additional labels to add to task Jobs and Pods.
 * `extra_annotations` — Map of additional annotations to add to task Jobs and Pods.
-* `active_deadline_seconds` — Maximum lifetime for a task Job (Kubernetes `activeDeadlineSeconds`). Defaults to eight hours.
+* `active_deadline_seconds` — Maximum task Job lifetime (Kubernetes `activeDeadlineSeconds`). The worker has no default; the Helm chart defaults `kubernetesBackend.activeDeadlineSeconds` to eight hours.
 * `ttl_seconds_after_finished` — Retention period for failed or orphaned Jobs. Defaults to 24 hours when cleanup is enabled.
 * `workspace_size_limit` — Size limit for the workspace `emptyDir` volume (e.g., `10Gi`).
 * `unschedulable_timeout` — How long a pod may remain unschedulable before the task is failed early. Defaults to `30s`. Set to `0s` to disable the fail-fast behavior.
