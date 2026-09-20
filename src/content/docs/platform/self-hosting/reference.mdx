@@ -5,7 +5,7 @@ description: >-
   file schema for the Docker, Kubernetes, and Direct backends.
 ---
 
-Reference for the `oz-agent-worker` daemon: CLI flags and the full YAML config-file schema for all three [managed backends](/platform/self-hosting/#managed-architecture) — Docker, Kubernetes, and Direct. For installation instructions, see [Install and run the worker](/platform/self-hosting/managed-docker/#install-and-run-the-worker).
+Look up CLI flags and YAML config fields for the `oz-agent-worker` daemon's [managed backends](/platform/self-hosting/#managed-architecture). For installation, see [Install and run the worker](/platform/self-hosting/managed-docker/#install-and-run-the-worker).
 
 ---
 
@@ -145,8 +145,8 @@ backend:
 * `kubeconfig` — Path to an explicit kubeconfig file. If omitted, the worker uses in-cluster config when running inside Kubernetes, or falls back to the default kubeconfig loading rules.
 * `default_image` — Default Docker image for task Jobs when the run has no Warp environment image. Precedence: Warp environment image > `default_image` > `ubuntu:22.04`. Set this to skip creating a Warp environment when all your tasks use the same base image.
 * `image_pull_policy` — One of `Always`, `Never`, or `IfNotPresent`. Defaults to `IfNotPresent`.
-* `use_image_volumes` — Use native Kubernetes image volumes instead of root init containers to materialize sidecars. Defaults to `false`. Enable this only on a cluster and container runtime that support image volumes.
-* `preflight_image` — Image used for the startup preflight Job. Defaults to `busybox:1.36`. Override this if your cluster only allows pulling from an internal or allowlisted registry.
+* `use_image_volumes` — Use native image volumes instead of root init containers. Defaults to `false` and requires cluster and runtime support.
+* `preflight_image` — Startup preflight Job image. Defaults to `busybox:1.36`.
 * `preflight_resources` — CPU and memory requests and limits for startup preflight containers.
 * `sidecar_image` — Registry override for the Warp agent sidecar image.
 * `setup_command` — Shell command to run before each task.
@@ -154,7 +154,7 @@ backend:
 * `extra_labels` — Map of additional labels to add to task Jobs and Pods.
 * `extra_annotations` — Map of additional annotations to add to task Jobs and Pods.
 * `active_deadline_seconds` — Maximum lifetime for a task Job (Kubernetes `activeDeadlineSeconds`). Defaults to eight hours.
-* `ttl_seconds_after_finished` — Retention period for failed Jobs and Jobs orphaned by worker disruption. Defaults to 24 hours when cleanup is enabled.
+* `ttl_seconds_after_finished` — Retention period for failed or orphaned Jobs. Defaults to 24 hours when cleanup is enabled.
 * `workspace_size_limit` — Size limit for the workspace `emptyDir` volume (e.g., `10Gi`).
 * `unschedulable_timeout` — How long a pod may remain unschedulable before the task is failed early. Defaults to `30s`. Set to `0s` to disable the fail-fast behavior.
 * `pod_template` — Raw Kubernetes PodSpec YAML merged with the worker's required fields at runtime. Use this to configure task pod scheduling, `serviceAccountName`, `imagePullSecrets`, `nodeSelector`, `tolerations`, resources, and environment variables (including `valueFrom.secretKeyRef` for Kubernetes Secrets). Define a container named `task` to customize the main task container directly; otherwise the worker appends its own.
@@ -173,7 +173,7 @@ Only one backend can be configured at a time. Specifying more than one of `docke
 
 ## Metrics configuration
 
-The worker exports metrics over OpenTelemetry when configured. Exporter selection is controlled by standard environment variables, not CLI flags or config file fields. Set these variables on the worker process (or the worker container via Docker `-e` / Kubernetes `env`).
+Configure OpenTelemetry metrics with environment variables on the worker process or container:
 
 * `OTEL_METRICS_EXPORTER` — Exporter to use: `prometheus`, `otlp`, `console`, or `none`. When unset, the worker uses the OpenTelemetry autoexport default, OTLP. Set it to `none` to disable metrics initialization.
 * `OTEL_EXPORTER_PROMETHEUS_HOST` — Bind address for the Prometheus exporter. Defaults to `localhost`. Set to `0.0.0.0` when running in Docker or Kubernetes.

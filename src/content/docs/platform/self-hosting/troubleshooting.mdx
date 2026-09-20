@@ -8,7 +8,7 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Diagnostic guides for the `oz-agent-worker` daemon and its task execution. Use this page when a worker won't start, won't connect, tasks stay queued, or tasks fail.
+Use these checks when the `oz-agent-worker` daemon won't start or connect, tasks stay queued, or tasks fail.
 
 :::note
 The steps below apply to the [managed architecture](/platform/self-hosting/#managed-architecture) (`oz-agent-worker` daemon). For [unmanaged](/platform/self-hosting/unmanaged/) deployments, refer to the documentation for the environment running `oz agent run` (e.g., GitHub Actions, Kubernetes).
@@ -30,18 +30,18 @@ The steps below apply to the [managed architecture](/platform/self-hosting/#mana
 
 ### Kubernetes backend
 
-**Cause:** The worker Deployment could not start, reach the Kubernetes API, or create its startup preflight Job. Missing Secrets, insufficient RBAC, and admission policies are common causes.
+**Cause:** The worker Deployment couldn't start, reach the Kubernetes API, or create its preflight Job.
 
 **Fix:**
 
-1. Run `kubectl describe pod -n NAMESPACE WORKER_POD`. For Helm installs, if the pod reports `CreateContainerConfigError`, confirm the Secret configured by `warp.apiKeySecret.name` exists and contains the key configured by `warp.apiKeySecret.key`.
+1. Run `kubectl describe pod -n NAMESPACE WORKER_POD`. Replace `NAMESPACE` with the chart namespace and `WORKER_POD` with the worker pod name. For `CreateContainerConfigError`, verify the Secret and key configured by `warp.apiKeySecret`.
 2. Check the worker logs for Kubernetes API or preflight diagnostics: `kubectl logs -n NAMESPACE WORKER_POD`.
 3. Confirm the worker's namespace has these permissions: `create`, `get`, `list`, `watch`, `delete` on `jobs`; `get`, `list`, `watch` on `pods`; `get` on `pods/log`; `list` on `events`.
 4. Confirm the task namespace allows pods with a root init container, unless you enabled native image volumes with `kubernetesBackend.useImageVolumes=true`.
 5. If your cluster restricts image sources, set `kubernetesBackend.preflightImage` to an allowlisted image. The default is `busybox:1.36`.
 6. To pull the preflight image from a private registry, configure `imagePullSecrets` in `kubernetesBackend.podTemplate`.
 
-A successful preflight confirms that the cluster can create the configured pod shape. It does not validate every task image, task Secret, setup command, or runtime network dependency.
+A successful preflight validates the configured pod shape, not task-specific images, Secrets, setup commands, or network access.
 
 ### Direct backend
 
@@ -124,6 +124,8 @@ kubectl get jobs,pods -n NAMESPACE
 kubectl describe pod -n NAMESPACE TASK_POD
 ```
 
+Replace `NAMESPACE` with the task namespace and `TASK_POD` with the task pod name.
+
 #### Pod stays `Pending` with `FailedScheduling`
 
 **Verify:** In `kubectl describe pod`, look for `PodScheduled=False`, `FailedScheduling`, `Insufficient cpu`, or `Insufficient memory`. Check the Pod's requests and scheduling constraints against eligible node capacity.
@@ -152,9 +154,9 @@ Exit code `143` generally indicates `SIGTERM`; it does not prove an out-of-memor
 
 #### Other Kubernetes failures
 
-* **Image pull errors** - Confirm the image and architecture, registry access, and `imagePullSecrets`.
-* **`CreateContainerConfigError` or `FailedMount`** - Use Pod events to find the missing Secret, ConfigMap, service account, volume, or key.
-* **Init container failure** - Check each init container's status and logs. Custom init containers must finish before `task` starts.
+* **Image pull errors** - Follow [Image pull failures](#image-pull-failures). Preflight does not pull every task image.
+* **`CreateContainerConfigError` or `FailedMount`** - Pod events name the missing Secret, ConfigMap, service account, volume, or key.
+* **Init container failure** - Check each init container's status and logs. The Warp sidecar-loading init container runs as root unless native image volumes are enabled. Custom init containers must finish before `task` starts.
 * **Network failure** - Test DNS, TLS, and the destination from a task Pod, not the worker Pod.
 * **Missing task credentials** - Provide repository, registry, and application credentials through your approved Secret integration. The worker API key is not a task credential.
 

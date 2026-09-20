@@ -8,7 +8,7 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Deploy the `oz-agent-worker` daemon into a Kubernetes cluster using the included Helm chart. Each agent task runs as a Kubernetes Job in your cluster. The {VARS.WARP_AUTOMATION_PLATFORM} orchestrates runs end to end (Slack, Linear, schedules, API, `oz agent run-cloud`); your cluster provides the compute, scheduling, and policy enforcement.
+Deploy the `oz-agent-worker` daemon into a Kubernetes cluster with the included Helm chart. Each agent task runs as a Kubernetes Job. The {VARS.WARP_AUTOMATION_PLATFORM} orchestrates runs; your cluster handles compute, scheduling, and policy enforcement.
 
 ## When to use the Kubernetes backend
 
@@ -21,9 +21,9 @@ Deploy the `oz-agent-worker` daemon into a Kubernetes cluster using the included
 ## How it works
 
 1. The worker connects to the Kubernetes API server (using in-cluster auth by default, or an explicit kubeconfig).
-2. On startup, the worker creates a short-lived **preflight Job** with the configured task pod shape. This catches Job creation, admission policy, Pod Security, and some image-volume failures before the worker accepts tasks.
+2. On startup, the worker runs a preflight Job with the configured task pod shape.
 3. For each assigned task, the worker creates a Kubernetes Job in the configured namespace.
-4. The worker monitors the Job and Pod status via Kubernetes Watch (with a 30-second safety-net poll for watch disconnects).
+4. The worker monitors the Job and Pod status.
 5. After the task completes, the worker removes successful Jobs. Failed Jobs remain available for diagnosis for 24 hours by default.
 
 ---
@@ -35,7 +35,7 @@ Deploy the `oz-agent-worker` daemon into a Kubernetes cluster using the included
   * Allow the task namespace to create Jobs with a **root init container**, unless you enable native image volumes with `kubernetesBackend.useImageVolumes=true`.
   * Grant the worker these namespace-scoped permissions: `create`, `get`, `list`, `watch`, `delete` on `jobs`; `get`, `list`, `watch` on `pods`; `get` on `pods/log`; `list` on `events`.
 * **[Helm](https://helm.sh/docs/intro/install/)** installed locally, plus `kubectl` authenticated against the target cluster.
-* **An agent API key** — Create one in the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP}</a> so the worker can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}. You can bind the key to any cloud agent — that choice doesn't restrict which agents can run on the worker. See [API Keys](/reference/cli/api-keys/) for the full creation flow.
+* **An agent API key** — Create one in the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP}</a> so the worker can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}. Binding the key to a cloud agent doesn't restrict which agents can run on the worker. See [API Keys](/reference/cli/api-keys/).
 
 ---
 
@@ -194,7 +194,7 @@ pod_template:
       effect: "NoSchedule"
 ```
 
-The worker Deployment's ServiceAccount is separate from the task Job `serviceAccountName` you configure in `pod_template`. The Deployment ServiceAccount needs RBAC to manage Jobs and Pods. The task ServiceAccount (if any) controls what the agent process can access at runtime.
+The worker Deployment ServiceAccount needs RBAC to manage Jobs and Pods. The task Job `serviceAccountName` in `pod_template` controls the agent process's runtime access.
 
 Task containers have no worker-defined CPU or memory defaults. Set resources on the `task` container in `pod_template`, or assign a [runner](/platform/runners/) with a workload-specific instance shape.
 
@@ -206,15 +206,9 @@ Instance shapes affect only `task`. A `pod_template` can size containers you def
 
 ## Preflight check
 
-On startup, the worker creates a short-lived preflight Job that uses the configured task PodSpec. The preflight confirms that the worker can create the Job and that the cluster can create the expected pod shape. It surfaces early failures from:
+On startup, the worker runs a preflight Job with the configured task PodSpec. It catches insufficient RBAC, admission-policy failures, and sidecar-loading problems. If preflight fails, the worker exits before accepting tasks. A successful preflight does not validate task-specific images, Secrets, setup commands, or network access.
 
-* Insufficient worker RBAC permissions in the target namespace.
-* Cluster admission policies such as Pod Security Standards, OPA Gatekeeper, and Kyverno.
-* Sidecar-loading requirements, including native image-volume support when enabled.
-
-If the preflight fails, the worker logs a diagnostic error and exits before accepting tasks. A successful preflight does not validate every task image, task Secret, setup command, or network dependency.
-
-The preflight image defaults to `busybox:1.36`. If your cluster restricts allowed registries or images, set `kubernetesBackend.preflightImage` to an allowlisted image. When `imagePullSecrets` is configured in `kubernetesBackend.podTemplate`, those secrets apply to the preflight Job as well, so you can point `kubernetesBackend.preflightImage` at an image in your private registry.
+The preflight image defaults to `busybox:1.36`. For an allowlisted or private image, set `kubernetesBackend.preflightImage`. The `imagePullSecrets` in `kubernetesBackend.podTemplate` also apply to preflight.
 
 ---
 
@@ -227,7 +221,7 @@ There are two ways to pass environment variables to Kubernetes task containers:
 
 When configuring the Kubernetes backend via YAML or Helm, declarative task-container env belongs in `pod_template` rather than a separate top-level list.
 
-If your organization uses an external secrets manager (HashiCorp Vault, AWS Secrets Manager, GCP Secret Manager, etc.), you can inject secrets into task pods via the CSI Secrets Store Driver or a similar operator. Configure the required `volumes`, `volumeMounts`, and annotations in `pod_template` just as you would for any other Kubernetes workload. See your secrets provider's documentation for details.
+For an external secrets manager, inject task secrets through a CSI driver or operator. Add the provider's `volumes`, `volumeMounts`, and annotations to `pod_template`.
 
 ---
 
@@ -239,9 +233,7 @@ Use `kubernetesBackend.setupCommand` (Helm value) or `backend.kubernetes.setup_c
 
 ## Protect active task pods from disruption
 
-The worker Deployment and task Jobs have different disruption requirements. When Kubernetes terminates the worker pod normally, the worker leaves active task Jobs running. Replacing the worker pod does not intentionally stop their task pods.
-
-The task pod holds the live agent process and an `emptyDir` workspace. Evicting that pod interrupts the run and loses pod-local state. Configure node lifecycle tooling to avoid voluntary disruption of active task pods.
+Terminating the worker pod normally leaves active task Jobs running. Evicting a task pod interrupts the run and deletes its pod-local `emptyDir` workspace. Configure node lifecycle tooling to avoid voluntary disruption of active task pods.
 
 For Karpenter, add its pod-level disruption annotation to every task Job through the Helm values:
 
@@ -251,11 +243,11 @@ kubernetesBackend:
     karpenter.sh/do-not-disrupt: "true"
 ```
 
-Task pods exist only for the life of their Jobs. The annotation blocks Karpenter consolidation and, depending on your NodePool configuration, drift while a run is active. It does not prevent forceful expiration, interruption, node repair, or manual deletion. A configured NodePool `terminationGracePeriod` can also make a node eligible for drift and eventually terminate blocking pods. Review [Karpenter's disruption controls](https://karpenter.sh/docs/concepts/disruption/) against your NodePool policy.
+The annotation blocks Karpenter consolidation. It blocks drift only when the NodePool omits `terminationGracePeriod`. Expiration, interruption, node repair, and manual deletion can still terminate the node. With `terminationGracePeriod`, Karpenter can terminate blocking pods when the period ends. Review [Karpenter's pod-level disruption controls](https://karpenter.sh/docs/concepts/disruption/#pod-level-controls).
 
-A PodDisruptionBudget only constrains tools that use the Kubernetes Eviction API. It does not preserve the task process or workspace after deletion or protect against involuntary node loss. If your platform requires a PDB, validate its selector and availability rule against concurrent task Jobs. Keep the disruption protection required by your node lifecycle tool.
+A PodDisruptionBudget (PDB) constrains tools that use the Kubernetes Eviction API. It protects a group of pods, not an individual task's process or workspace. Direct deletion, kubelet pressure eviction, node failure, and controllers that bypass the Eviction API can still terminate a task.
 
-For other autoscalers or node lifecycle controllers, use their equivalent protection for active task pods. Do not assume that a replacement pod can resume an interrupted run.
+For other node lifecycle tools, use the equivalent protection and verify which disruption paths bypass it. A replacement pod cannot resume an interrupted run.
 
 ---
 
@@ -263,10 +255,10 @@ For other autoscalers or node lifecycle controllers, use their equivalent protec
 
 Task pods need capacity for their configured requests before the worker's unschedulable timeout expires.
 
-* Set `worker.maxConcurrentTasks` to a finite value based on the task capacity your cluster can provide. The default, `0`, does not cap concurrency.
-* Set task CPU and memory requests through a runner instance shape or the `task` container in `kubernetesBackend.podTemplate`. Leave headroom for init containers, node DaemonSets, and workload spikes.
-* Set `kubernetesBackend.unschedulableTimeout` longer than the slowest expected node provisioning time. The default is `30s`; set it to `0s` only when you want to disable the fail-fast check.
-* Use `worker.nodeSelector`, `worker.tolerations`, and `worker.affinity` for the worker Deployment. Use `kubernetesBackend.podTemplate` for task-pod selectors, tolerations, affinity, and topology constraints.
+* Set `worker.maxConcurrentTasks` to a finite value that matches cluster capacity. The default, `0`, does not cap concurrency.
+* Set task CPU and memory through a runner instance shape or the `task` container in `kubernetesBackend.podTemplate`. Reserve capacity for init containers, DaemonSets, and workload spikes.
+* Set `kubernetesBackend.unschedulableTimeout` longer than the slowest expected node provisioning time. The default is `30s`; `0s` disables the check.
+* Use `worker.nodeSelector`, `worker.tolerations`, and `worker.affinity` for the worker Deployment. Use the equivalent fields in `kubernetesBackend.podTemplate` for task pods.
 * A toleration makes a pod eligible for a tainted node; it does not reserve capacity. Pair dedicated-node tolerations with matching selectors or affinity and autoscaler capacity.
 
 ---
