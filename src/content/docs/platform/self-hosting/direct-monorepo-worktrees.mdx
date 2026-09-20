@@ -1,0 +1,165 @@
+---
+title: Isolating Direct backend tasks with Git worktrees
+description: >-
+  Give concurrent Direct backend tasks isolated monorepo checkouts with Git worktrees
+  and setup and teardown hooks.
+---
+import { VARS } from '@data/vars';
+
+Use one Git worktree per Direct backend task to share a large monorepo's Git object store without sharing its branch or working files. This pattern keeps concurrent agents from changing the same checkout while avoiding a full clone for every run.
+
+## How the worktree lifecycle works
+
+The worker creates a task workspace, then calls the configured hooks:
+
+1. `setup_command` adds a worktree at `OZ_WORKSPACE_ROOT/repo` from a shared base clone.
+2. The agent starts in `OZ_WORKSPACE_ROOT` and works in the `repo/` directory.
+3. `teardown_command` removes the worktree and its task branch.
+4. The worker removes the remaining task workspace.
+
+The worktree belongs under the workspace rather than at `OZ_WORKSPACE_ROOT` itself. Before the setup hook runs, the worker has already created the workspace and a temporary environment file inside it, so Git cannot turn that directory directly into a worktree.
+
+:::caution
+Direct backend tasks share the worker host's filesystem, network, processes, and Git object store. Worktrees isolate working files and branches, not the host OS. Use dedicated worker hosts and credentials that match the trust level of the repositories.
+:::
+
+## Preparing the base clone
+
+### Prerequisites
+
+* **A Direct backend worker host** - Install the worker and the {VARS.WARP_AGENT_CLI} as described in [Managed: Direct backend](/platform/self-hosting/managed-direct/).
+* **Git credentials for the monorepo** - Configure a non-interactive credential helper or SSH key for the worker service account.
+* **A base clone path** - Choose a dedicated path outside `workspace_root`, such as `/srv/warp/repos/product-base`. The worker account needs write access because Git stores worktree metadata in the base clone.
+
+Create a clone without a checked-out working tree:
+
+```bash
+export MONOREPO_BASE="/srv/warp/repos/product-base"
+
+install -d -m 0750 "$(dirname "$MONOREPO_BASE")"
+git clone --no-checkout \
+  YOUR_MONOREPO_URL \
+  "$MONOREPO_BASE"
+```
+
+Replace `YOUR_MONOREPO_URL` with the SSH or HTTPS clone URL. Refresh the base clone outside the task lifecycle, for example from a timer:
+
+```bash
+git -C /srv/warp/repos/product-base fetch --prune origin
+```
+
+Keeping fetches outside the setup hook prevents concurrent tasks from updating the same remote-tracking refs.
+
+## Creating the setup hook
+
+Save the following script as `/opt/warp/bin/setup-worktree.sh`:
+
+```bash title="/opt/warp/bin/setup-worktree.sh"
+#!/usr/bin/env bash
+set -euo pipefail
+
+: "${MONOREPO_BASE:?Set MONOREPO_BASE on the worker process}"
+: "${OZ_WORKSPACE_ROOT:?OZ_WORKSPACE_ROOT is set by the worker}"
+: "${OZ_RUN_ID:?OZ_RUN_ID is set by the worker}"
+: "${OZ_ENVIRONMENT_FILE:?OZ_ENVIRONMENT_FILE is set by the worker}"
+
+worktree_dir="${OZ_WORKSPACE_ROOT}/repo"
+branch="warp-agent/${OZ_RUN_ID}"
+
+git -C "$MONOREPO_BASE" worktree prune
+git -C "$MONOREPO_BASE" branch -D "$branch" 2>/dev/null || true
+git -C "$MONOREPO_BASE" worktree add \
+  -b "$branch" \
+  "$worktree_dir" \
+  origin/main
+
+{
+  printf 'REPO_ROOT=%s\n' "$worktree_dir"
+  printf 'AGENT_BRANCH=%s\n' "$branch"
+} >> "$OZ_ENVIRONMENT_FILE"
+```
+
+Change `origin/main` if the monorepo uses a different base branch. The script writes `REPO_ROOT` and `AGENT_BRANCH` into the task environment, which lets project scripts and agent instructions locate the checkout.
+
+## Creating the teardown hook
+
+Save the following script as `/opt/warp/bin/teardown-worktree.sh`:
+
+```bash title="/opt/warp/bin/teardown-worktree.sh"
+#!/usr/bin/env bash
+set -euo pipefail
+
+: "${MONOREPO_BASE:?Set MONOREPO_BASE on the worker process}"
+: "${OZ_WORKSPACE_ROOT:?OZ_WORKSPACE_ROOT is set by the worker}"
+: "${OZ_RUN_ID:?OZ_RUN_ID is set by the worker}"
+
+worktree_dir="${OZ_WORKSPACE_ROOT}/repo"
+branch="warp-agent/${OZ_RUN_ID}"
+
+git -C "$MONOREPO_BASE" worktree remove --force "$worktree_dir" \
+  2>/dev/null || true
+git -C "$MONOREPO_BASE" branch -D "$branch" \
+  2>/dev/null || true
+git -C "$MONOREPO_BASE" worktree prune
+```
+
+Make both scripts executable:
+
+```bash
+sudo chmod 0755 \
+  /opt/warp/bin/setup-worktree.sh \
+  /opt/warp/bin/teardown-worktree.sh
+```
+
+The teardown hook runs before the worker removes the task workspace. Deleting the local task branch does not delete a branch or pull request that the agent pushed to the remote.
+
+## Configuring the worker
+
+Point the Direct backend at the hooks and cap concurrency for the host:
+
+```yaml title="worker.yaml"
+worker_id: "monorepo-direct"
+max_concurrent_tasks: 4
+backend:
+  direct:
+    workspace_root: "/var/lib/oz/workspaces"
+    oz_path: "/usr/local/bin/oz"
+    setup_command: "/opt/warp/bin/setup-worktree.sh"
+    teardown_command: "/opt/warp/bin/teardown-worktree.sh"
+```
+
+Set `MONOREPO_BASE` on the worker process so both hooks receive it, then start the worker:
+
+```bash
+export MONOREPO_BASE="/srv/warp/repos/product-base"
+export WARP_API_KEY="YOUR_AGENT_API_KEY"
+
+oz-agent-worker --config-file worker.yaml
+```
+
+Route a test run to the worker:
+
+```bash
+oz agent run-cloud \
+  --host "monorepo-direct" \
+  --prompt "Work in the repo directory. Update the authentication package tests and open a pull request."
+```
+
+The run starts in its task workspace with the monorepo available at `repo/`. During the run, `git -C "$REPO_ROOT" worktree list` shows the isolated checkout and its `warp-agent/RUN_ID` branch. After the run, the worktree no longer appears in the base clone.
+
+## Troubleshooting
+
+**`fatal: '<workspace>' already exists`**\
+The setup hook tried to create a worktree at `OZ_WORKSPACE_ROOT`. Create it in a child directory such as `OZ_WORKSPACE_ROOT/repo`.
+
+**`fatal: invalid reference: origin/main`**\
+The base clone has not fetched the branch, or the monorepo uses a different default branch. Fetch the remote and update the final argument to `git worktree add`.
+
+**A stale worktree blocks branch creation**\
+Run `git -C "$MONOREPO_BASE" worktree prune`. Keep the prune calls in both lifecycle hooks so interrupted tasks recover automatically.
+
+## Related pages
+
+* [Managed: Direct backend](/platform/self-hosting/managed-direct/) - Configure Direct backend workspaces, environment variables, and lifecycle hooks.
+* [Git worktrees](/code/git-worktrees/) - Learn how Warp treats Git worktree checkouts.
+* [Self-hosted worker reference](/platform/self-hosting/reference/#direct-backend-config) - Look up Direct backend configuration fields.

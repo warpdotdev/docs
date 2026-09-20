@@ -81,6 +81,9 @@ backend:
 Each task gets its own directory under `workspace_root`. The default is `/var/lib/oz/workspaces`; override it with the `workspace_root` config option shown above.
 
 After the task completes, the workspace is deleted (unless `--no-cleanup` is set, which keeps the directory around for debugging).
+To reuse a large monorepo without sharing one checkout between concurrent tasks, see [Direct backend monorepo worktrees](/platform/self-hosting/direct-monorepo-worktrees/).
+
+Setting `target_dir` makes every task run in one shared directory and disables per-task workspace isolation. Use it only when the worker processes one task at a time.
 
 ---
 
@@ -126,6 +129,7 @@ backend:
 ## Related pages
 
 * [Self-hosted worker reference](/platform/self-hosting/reference/#direct-backend-config) — Full config schema for the Direct backend.
+* [Direct backend monorepo worktrees](/platform/self-hosting/direct-monorepo-worktrees/) — Create and remove one Git worktree per task with setup and teardown hooks.
 * [Self-hosting overview](/platform/self-hosting/) — Managed vs unmanaged and the backend decision guide.
 * [Routing runs to self-hosted workers](/platform/self-hosting/#routing-runs-to-self-hosted-workers) — How to send tasks to your connected worker from the CLI, schedules, integrations, the API, and the web UI.
 * [Security and networking](/platform/self-hosting/security-and-networking/) — Data boundaries and security considerations for the Direct backend.
