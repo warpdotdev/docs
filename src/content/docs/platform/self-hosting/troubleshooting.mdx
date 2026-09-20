@@ -91,7 +91,7 @@ See [Security and networking](/platform/self-hosting/security-and-networking/#ne
 1. For Prometheus, confirm `OTEL_METRICS_EXPORTER=prometheus`, bind to `0.0.0.0` in Docker or Kubernetes, and run `curl -s localhost:9464/metrics`.
 2. Confirm no firewall or network policy blocks the metrics port.
 3. For OTLP, confirm the collector endpoint is reachable and the protocol is correct.
-4. For Helm, confirm `metrics.enabled=true` and check the `Service` or `PodMonitor`. A `PodMonitor` requires the Prometheus Operator CRDs.
+4. For Helm, confirm `metrics.enabled=true` and check the Kubernetes Service or PodMonitor. A PodMonitor requires the Prometheus Operator CRDs.
 5. Restart the worker with `--log-level debug` and check for metrics errors.
 
 See [Monitoring](/platform/self-hosting/monitoring/) for the full setup guide.
