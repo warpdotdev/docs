@@ -57,7 +57,7 @@ Replace `YOUR_APPROVED_WARP_AGENT_TAG` with the source tag your organization has
 
 ## Configuring the Docker backend
 
-Authenticate the OS account that runs the worker:
+Authenticate the host Docker client so it can pull the mirrored worker image:
 
 ```bash
 docker login registry.internal.example.com
@@ -73,19 +73,40 @@ backend:
     sidecar_image: "registry.internal.example.com/warp/warp-agent:WARP_AGENT_TAG"
 ```
 
-If the worker runs as a container, pull it from the private registry and mount the Docker config so the worker can authenticate task and sidecar pulls:
+The published worker image runs as the non-root `oz` user with UID `10001`. If the worker runs as a container, create a dedicated Docker config that this UID can read:
+
+```bash
+export WORKER_DOCKER_CONFIG="/var/lib/oz-agent-worker/docker-config"
+
+sudo install -d -m 0700 -o 10001 "$WORKER_DOCKER_CONFIG"
+sudo docker --config "$WORKER_DOCKER_CONFIG" \
+  login registry.internal.example.com
+sudo chown 10001 "$WORKER_DOCKER_CONFIG/config.json"
+sudo chmod 0400 "$WORKER_DOCKER_CONFIG/config.json"
+```
+
+The worker also needs read and write access to the Docker daemon socket. This example supports a rootful Docker daemon on Linux whose socket grants read and write access to its group. Capture that numeric group ID:
+
+```bash
+export DOCKER_SOCKET_GID="$(stat -c '%g' /var/run/docker.sock)"
+stat -c '%A %g %n' /var/run/docker.sock
+```
+
+The group permission bits in the `stat` output must include `rw`. Start the worker with that group as a supplemental group:
 
 ```bash
 docker run \
+  --group-add "$DOCKER_SOCKET_GID" \
   --volume /var/run/docker.sock:/var/run/docker.sock \
-  --volume "$HOME/.docker/config.json:/root/.docker/config.json:ro" \
+  --volume "$WORKER_DOCKER_CONFIG:/home/oz/.docker:ro" \
   --volume "$PWD/worker.yaml:/etc/oz-agent-worker/config.yaml:ro" \
+  --env DOCKER_CONFIG=/home/oz/.docker \
   --env WARP_API_KEY="$WARP_API_KEY" \
   "registry.internal.example.com/warp/oz-agent-worker:WORKER_TAG" \
   --config-file /etc/oz-agent-worker/config.yaml
 ```
 
-Replace `WORKER_TAG` and `WARP_AGENT_TAG` with the mirrored tags. The task image must also point to the private registry through its Warp environment; the worker does not rewrite task image registry names.
+Replace `WORKER_TAG` and `WARP_AGENT_TAG` with the mirrored tags. The task image must also point to the private registry through its Warp environment; the worker does not rewrite task image registry names. Use a host process or a Docker endpoint with its own access controls when the daemon does not expose a group-readable and group-writable Linux socket.
 
 ## Configuring the Kubernetes backend
 
@@ -161,7 +182,10 @@ Block public-registry egress only after the worker, preflight Job, and task Pod 
 ## Troubleshooting
 
 **Docker reports `pull access denied`**\
-Run `docker login` as the worker's OS account. If the worker runs in Docker, confirm its Docker config is mounted at `/root/.docker/config.json`.
+Run `docker login` as the worker's OS account. If the worker runs in Docker, confirm `DOCKER_CONFIG` points to `/home/oz/.docker` and the mounted `config.json` is readable by UID `10001`.
+
+**Docker reports `permission denied` for `/var/run/docker.sock`**\
+Confirm the socket's group has read and write access, then pass its numeric group ID to the worker with `--group-add`.
 
 **Kubernetes reports `ImagePullBackOff`**\
 Confirm `warp-registry` exists in the task namespace. The worker Deployment needs `image.pullSecrets`, while task and preflight Pods need `podTemplate.imagePullSecrets`.
