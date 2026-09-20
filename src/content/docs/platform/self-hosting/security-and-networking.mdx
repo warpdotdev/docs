@@ -5,7 +5,7 @@ description: >-
   cloud agents — including per-backend considerations and BYOLLM.
 ---
 
-Self-hosting uses a split-plane architecture. Repository clones and agent workloads stay on your infrastructure, while orchestration and inference route through Warp. The boundaries below apply to both the [managed](/platform/self-hosting/#managed-architecture) and [unmanaged](/platform/self-hosting/unmanaged/) architectures.
+Repository clones and agent workloads stay on your infrastructure, while orchestration and inference route through Warp. These boundaries apply to [managed](/platform/self-hosting/#managed-architecture) and [unmanaged](/platform/self-hosting/unmanaged/) deployments.
 
 ## Data boundaries
 
@@ -60,7 +60,7 @@ Tasks use the following Docker images:
 
 All traffic uses HTTPS (port 443). No inbound ports need to be opened.
 
-The exception runs the other way. [Team-managed inference endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) and URL-backed MCP servers that you host must be reachable from Warp's servers.
+[Team-managed inference endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) and URL-backed MCP servers that you host must be reachable from Warp's servers.
 
 ---
 
@@ -74,10 +74,10 @@ The exception runs the other way. [Team-managed inference endpoints](/enterprise
 
 ### Kubernetes backend
 
-* **Kubernetes RBAC** — The worker needs namespaced permissions to create, get, list, watch, and delete Jobs; get, list, and watch Pods; get pod logs; and list events. The Helm chart creates a Role and RoleBinding scoped to one namespace. The task namespace must allow Jobs with a root init container unless native image volumes are enabled.
-* **Kubernetes service accounts** — The worker Deployment's ServiceAccount (used by the long-lived worker process) is separate from the optional task Job `serviceAccountName` you may configure in `pod_template`. Scope each appropriately.
-* **API key management** — Store `WARP_API_KEY` in a Kubernetes Secret. Avoid hardcoding it in scripts or config files. If your organization uses an external secrets manager (HashiCorp Vault, AWS Secrets Manager, GCP Secret Manager, etc.), you can inject secrets into task pods via the CSI Secrets Store Driver or a similar operator — configure the required `volumes`, `volumeMounts`, and annotations in `pod_template`.
-* **Task isolation** — Each task runs as a separate Kubernetes Job/Pod. Successful Jobs are removed after completion. With cleanup enabled, failed Jobs and Jobs orphaned by worker disruption remain for 24 hours by default; use `--no-cleanup` to keep them without a TTL for debugging.
+* **Kubernetes RBAC** — The worker uses namespace-scoped permissions to manage Jobs and read Pods, logs, and events. The task namespace must allow a root init container unless native image volumes are enabled.
+* **Kubernetes service accounts** — The worker Deployment ServiceAccount is separate from the task Job `serviceAccountName` in `pod_template`. Scope each to its workload.
+* **API key management** — Store `WARP_API_KEY` in a Kubernetes Secret and inject it only into the worker. Add task credentials through `pod_template` or an external secrets operator.
+* **Task isolation** — Each task runs as a Kubernetes Job and Pod. Successful Jobs are removed. With cleanup enabled, failed or orphaned Jobs remain for 24 hours; `--no-cleanup` keeps them without a TTL.
 
 ### Direct backend
 
@@ -94,7 +94,7 @@ The exception runs the other way. [Team-managed inference endpoints](/enterprise
 
 ## VPN and on-premises access
 
-Since self-hosted agents run on your infrastructure, they inherit your network access. Self-hosted agents can reach services behind VPNs, self-hosted GitLab/Bitbucket instances, databases, and any other internal resources your host can reach. This is one of the primary reasons teams choose self-hosting.
+Self-hosted agents inherit the host's network access, including VPN services, private source control, and databases.
 
 See [GitLab](/platform/integrations/gitlab/) and [Bitbucket](/platform/integrations/bitbucket/) setup guides for SCM integration details.
 

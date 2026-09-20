@@ -8,7 +8,7 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Diagnostic guides for the `oz-agent-worker` daemon and its task execution. Use this page when a worker won't start, won't connect, tasks stay queued, or tasks fail.
+Use these checks when the `oz-agent-worker` daemon won't start or connect, tasks stay queued, or tasks fail.
 
 :::note
 The steps below apply to the [managed architecture](/platform/self-hosting/#managed-architecture) (`oz-agent-worker` daemon). For [unmanaged](/platform/self-hosting/unmanaged/) deployments, refer to the documentation for the environment running `oz agent run` (e.g., GitHub Actions, Kubernetes).
@@ -30,18 +30,18 @@ The steps below apply to the [managed architecture](/platform/self-hosting/#mana
 
 ### Kubernetes backend
 
-**Cause:** The worker Deployment could not start, reach the Kubernetes API, or create its startup preflight Job. Missing Secrets, insufficient RBAC, and admission policies are common causes.
+**Cause:** The worker Deployment couldn't start, reach the Kubernetes API, or create its preflight Job.
 
 **Fix:**
 
-1. Run `kubectl describe pod -n NAMESPACE WORKER_POD`. For Helm installs, if the pod reports `CreateContainerConfigError`, confirm the Secret configured by `warp.apiKeySecret.name` exists and contains the key configured by `warp.apiKeySecret.key`.
+1. Run `kubectl describe pod -n NAMESPACE WORKER_POD`. Replace `NAMESPACE` with the chart namespace and `WORKER_POD` with the worker pod name. For `CreateContainerConfigError`, verify the Secret and key configured by `warp.apiKeySecret`.
 2. Check the worker logs for Kubernetes API or preflight diagnostics: `kubectl logs -n NAMESPACE WORKER_POD`.
 3. Confirm the worker's namespace has these permissions: `create`, `get`, `list`, `watch`, `delete` on `jobs`; `get`, `list`, `watch` on `pods`; `get` on `pods/log`; `list` on `events`.
 4. Confirm the task namespace allows pods with a root init container, unless you enabled native image volumes with `kubernetesBackend.useImageVolumes=true`.
 5. If your cluster restricts image sources, set `kubernetesBackend.preflightImage` to an allowlisted image. The default is `busybox:1.36`.
 6. To pull the preflight image from a private registry, configure `imagePullSecrets` in `kubernetesBackend.podTemplate`.
 
-A successful preflight confirms that the cluster can create the configured pod shape. It does not validate every task image, task Secret, setup command, or runtime network dependency.
+A successful preflight validates the configured pod shape, not task-specific images, Secrets, setup commands, or network access.
 
 ### Direct backend
 
@@ -92,7 +92,7 @@ See [Security and networking](/platform/self-hosting/security-and-networking/#ne
 2. For Prometheus scrape mode, confirm the bind address is `0.0.0.0` (not `localhost`) when running in Docker or Kubernetes. `localhost` is only reachable from inside the container.
 3. Confirm no firewall or network policy blocks the metrics port (default `9464`).
 4. For OTLP push mode, verify `OTEL_EXPORTER_OTLP_ENDPOINT` points to a reachable collector and that the protocol matches (`http/protobuf` vs `grpc`).
-5. When using the Helm chart, confirm `metrics.enabled=true` is set. Check that the `Service` and (optionally) `PodMonitor` were created: `kubectl get svc,podmonitor -n NAMESPACE`.
+5. When using the Helm chart, confirm `metrics.enabled=true` is set. Check that the `Service` and optional `PodMonitor` were created: `kubectl get svc,podmonitor -n NAMESPACE`. Replace `NAMESPACE` with the chart namespace.
 6. If using `metrics.podMonitor.create=true`, verify the `monitoring.coreos.com` CRDs are installed in the cluster. The `PodMonitor` resource requires the Prometheus Operator.
 7. Restart the worker with `--log-level debug` and look for metrics-related error messages at startup.
 
@@ -102,7 +102,7 @@ See [Monitoring](/platform/self-hosting/monitoring/) for the full setup guide.
 
 ## Task failures
 
-**Cause:** A variety of reasons depending on backend. Start with the diagnostic steps common to all backends, then follow the backend-specific checks.
+**Cause:** The backend logs identify why the task failed.
 
 **Fix (all backends):**
 
@@ -127,17 +127,17 @@ kubectl logs -n NAMESPACE TASK_POD -c CONTAINER_NAME
 kubectl logs -n NAMESPACE TASK_POD -c CONTAINER_NAME --previous
 ```
 
-Then match the reported reason to these checks:
+Replace `NAMESPACE` with the task namespace, `TASK_POD` with the task pod name, and `CONTAINER_NAME` with the failed container name. Match the reported reason:
 
-* **`Pending` or `Unschedulable`:** Read the pod's scheduling events. Confirm that at least one eligible node has enough unallocated CPU and memory for the complete pod request. Also check task-pod selectors, affinity, taints and tolerations, topology constraints, resource quotas, and persistent volume requirements. If you depend on a node autoscaler, allow for provisioning latency and keep enough headroom to start task pods before the configured unschedulable timeout.
-* **`OOMKilled`:** Increase the memory in the agent profile's instance shape. The selected instance shape sets the task container's CPU and memory requests and limits, overriding those fields for the task container in the pod template. Also confirm that sidecars and init containers have appropriate resources.
-* **`ErrImagePull`, `ImagePullBackOff`, or `InvalidImageName`:** Confirm the image exists for the node architecture, the registry is reachable, and the task pod or service account references the required `imagePullSecrets`. A successful startup preflight does not validate a later task image.
-* **`CreateContainerConfigError` or `FailedMount`:** Inspect the pod events for the named Secret, ConfigMap, service account, or volume. Confirm the object exists in the task namespace and that every referenced key is present.
-* **Init container failure:** Inspect each init container's status and logs. Admission policies must allow the worker's sidecar-materialization init container to run as root unless native image volumes are enabled. Custom init containers must finish successfully before the task containers start.
-* **`Evicted`, `DeadlineExceeded`, or exit code `143`:** Check node pressure, lifecycle-tool events, the Job's active deadline, and termination events. A task pod stores its workspace in pod-local ephemeral storage. Replacing an interrupted pod does not resume that run, so protect active task pods from voluntary node disruption. See [Protect active task pods from disruption](/platform/self-hosting/managed-kubernetes/#protect-active-task-pods-from-disruption).
-* **The task starts but cannot reach a dependency:** Test DNS resolution, TLS, and the destination from a task pod, not only from the worker pod. Worker connectivity to Warp does not prove that task-pod network policies, service mesh rules, proxies, or egress controls allow the task's own dependencies.
+* **`Pending` or `Unschedulable`:** Read the scheduling events. Check free CPU and memory, selectors and affinity, taints and tolerations, topology constraints, quotas, and volume binding. Allow enough time for node provisioning and reserve capacity for init containers, DaemonSets, and spikes.
+* **`OOMKilled`:** Increase memory in the agent profile's instance shape. The instance shape overrides the task container's CPU and memory values in the pod template. Check sidecar and init-container resources separately.
+* **`ErrImagePull`, `ImagePullBackOff`, or `InvalidImageName`:** Follow [Image pull failures](#image-pull-failures). Preflight does not pull every task image.
+* **`CreateContainerConfigError` or `FailedMount`:** Events name the missing Secret, ConfigMap, service account, key, or volume. Verify that it exists in the task namespace.
+* **Init container failure:** Check each init container's status and logs. The Warp sidecar-loading init container runs as root unless native image volumes are enabled. Custom init containers must finish before the task starts.
+* **`Evicted`, `DeadlineExceeded`, or exit code `143`:** Check node pressure, lifecycle-tool events, the Job deadline, and termination events. A replacement pod cannot recover the task's `emptyDir` workspace. See [protecting active task pods from voluntary disruption](/platform/self-hosting/managed-kubernetes/#protect-active-task-pods-from-disruption).
+* **The task cannot reach a dependency:** Test DNS, TLS, and the destination from the task pod. Worker connectivity to Warp does not test the task's network policies, service mesh, proxy, or dependency egress.
 
-The worker API key authenticates the worker to Warp. It is not injected as a general-purpose task credential. Provide repository, registry, and application credentials to task pods through your approved Secret integration and pod template.
+The worker API key authenticates the worker to Warp; it is not a task credential. Provide task credentials through your Secret integration and pod template.
 
 ### Direct backend (task failures)
 
