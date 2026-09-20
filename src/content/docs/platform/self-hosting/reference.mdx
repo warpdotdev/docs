@@ -143,6 +143,8 @@ backend:
 **`backend.docker`:**
 
 * `volumes` — List of volume mounts (same format as `-v` flag).
+* `image_pull_policy` — One of `Always`, `Never`, or `IfNotPresent`. Defaults to `Always`.
+* `sidecar_image` — Image reference that replaces the server-provided Warp Agent sidecar mounted at `/agent`. It does not replace additional sidecars.
 * `environment` — List of environment variables with `name` and optional `value`. If `value` is omitted, the variable is inherited from the host.
 
 **`backend.kubernetes`:**
@@ -152,6 +154,8 @@ backend:
 * `default_image` — Default Docker image for task Jobs when the run has no Warp environment image. Precedence: Warp environment image > `default_image` > `ubuntu:22.04`. Set this to skip creating a Warp environment when all your tasks use the same base image.
 * `image_pull_policy` — One of `Always`, `Never`, or `IfNotPresent`. Defaults to `IfNotPresent`.
 * `preflight_image` — Image used for the startup preflight Job. Defaults to `busybox:1.36`. Override this if your cluster only allows pulling from an internal or allowlisted registry.
+* `sidecar_image` — Image reference that replaces the server-provided Warp Agent sidecar mounted at `/agent`.
+* `coding_cli_sidecars` — Map of harness names such as `claude` or `codex` to custom coding CLI sidecar images. This config-file field is not exposed by the current Helm chart.
 * `setup_command` — Shell command to run before each task.
 * `teardown_command` — Shell command to run after each task completes.
 * `extra_labels` — Map of additional labels to add to task Jobs and Pods.
@@ -199,6 +203,7 @@ Once a worker is running, route cloud agent runs to it with the `--host` flag or
 
 * [Managed: Docker](/platform/self-hosting/managed-docker/) — Docker backend setup, connectivity, and private registries.
 * [Managed: Kubernetes](/platform/self-hosting/managed-kubernetes/) — Kubernetes backend setup, Helm chart, pod template, and operational notes.
+* [Private container registry](/platform/self-hosting/private-container-registry/) — Mirror and pull worker, task, sidecar, and preflight images from an internal registry.
 * [Managed: Direct](/platform/self-hosting/managed-direct/) — Direct backend setup and workspace model.
 * [Self-hosting overview](/platform/self-hosting/) — Architecture, decision guide, and Enterprise requirements.
 * [Environments](/platform/environments/) — Define the Docker image, repos, and setup commands used by task containers.

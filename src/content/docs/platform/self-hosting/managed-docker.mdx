@@ -188,25 +188,9 @@ oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker"
 
 ## Private Docker registries
 
-The worker automatically uses credentials from your Docker config (`~/.docker/config.json`) when pulling task images. If your [environments](/platform/environments/) use images from a private registry, authenticate the worker's host first:
+The Docker backend reads registry credentials from the worker's Docker config. You can also override the Warp Agent sidecar image when the worker host must pull it from an internal registry.
 
-```bash
-docker login your-registry.example.com
-```
-
-When running the worker via Docker, mount the Docker config into the container:
-
-```bash
-docker run \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  -v ~/.docker/config.json:/root/.docker/config.json:ro \
-  -e WARP_API_KEY="$WARP_API_KEY" \
-  warpdotdev/oz-agent-worker --worker-id "my-worker"
-```
-
-:::note
-Sidecar images (the `oz` binary and dependencies) are pulled from public registries and do not require authentication.
-:::
+See [Pulling self-hosted images from a private registry](/platform/self-hosting/private-container-registry/) for image mirroring, authentication, and worker configuration.
 
 ---
 
@@ -221,5 +205,6 @@ Once your Docker worker is connected, route tasks to it with `--host "<your-work
 * [Self-hosting quickstart](/platform/self-hosting/quickstart/) — ~10-minute path to a running Docker worker.
 * [Self-hosted worker reference](/platform/self-hosting/reference/) — Full CLI flag and config file schema.
 * [Environments](/platform/environments/) — Define the Docker image, repos, and setup commands for tasks.
+* [Private container registry](/platform/self-hosting/private-container-registry/) — Mirror worker and task images and configure private-registry pulls.
 * [Security and networking](/platform/self-hosting/security-and-networking/) — Data boundaries, egress, and Docker socket considerations.
 * [Troubleshooting](/platform/self-hosting/troubleshooting/) — Common issues with the Docker backend.
