@@ -17,13 +17,15 @@ Both patterns keep execution on your infrastructure and require outbound connect
 | **One-shot Direct worker** | Starts a worker process and creates a run for its unique worker ID | Runs one task on the allocated host, then exits | Your scheduler allocates a VM, pod, or CI runner for each job |
 | **Command backend** | Exposes an API or command that can accept a task payload and start the agent | Stays connected and invokes your dispatch command for each task | Your runtime already has its own job API, queue, or compute lifecycle |
 
-One-shot mode works only with the Direct backend. It forces `max_concurrent_tasks` to `1` and waits for one accepted task to finish, fail, or be cancelled before the worker exits. If no task arrives, the worker stays connected until your orchestrator stops it.
+One-shot mode works only with the Direct backend. It forces `max_concurrent_tasks` to `1` and waits for one accepted task's `oz` CLI process to exit before the worker exits. If no task arrives, the worker stays connected until your orchestrator stops it.
 
 The Command backend is fire-and-forget. The dispatch command returns after the external runtime durably accepts the task. The remote agent, not the worker process, reports progress and completion to Warp.
 
 ## Running a one-shot Direct worker
 
 This example starts a worker and routes one cloud agent run to it from the same job. Use a unique worker ID so another worker cannot claim the run.
+
+By default, the CLI stays open for 45 minutes after a conversation completes so users can send follow-up prompts. The example sets `--idle-on-complete 0s` so the CLI and worker exit without that idle period. A task-level `config.idle_timeout_minutes` value takes precedence, so leave it unset or set it to `0` for these tasks.
 
 ### Prerequisites
 
@@ -47,7 +49,8 @@ worker_id="external-${CI_JOB_ID}"
 oz-agent-worker \
   --worker-id "$worker_id" \
   --backend direct \
-  --one-shot &
+  --one-shot \
+  --idle-on-complete 0s &
 worker_pid=$!
 
 trap 'kill "$worker_pid" 2>/dev/null || true' EXIT
@@ -60,7 +63,7 @@ wait "$worker_pid"
 trap - EXIT
 ```
 
-The run may enter the queue before the worker finishes connecting. Warp assigns it after the matching worker ID is online. The job exits when the agent reaches a terminal state and the one-shot worker shuts down.
+The run may enter the queue before the worker finishes connecting. Warp assigns it after the matching worker ID is online. After the conversation completes, the `oz` CLI exits, then the one-shot worker and job exit.
 
 Use Direct backend [setup and teardown commands](/platform/self-hosting/managed-direct/#setup-and-teardown-commands) to prepare the workspace on the allocated host.
 
