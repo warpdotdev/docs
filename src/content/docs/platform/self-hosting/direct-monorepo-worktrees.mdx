@@ -13,9 +13,10 @@ Use one Git worktree per Direct backend task to share a large monorepo's Git obj
 The worker creates a task workspace, then calls the configured hooks:
 
 1. `setup_command` adds a worktree at `OZ_WORKSPACE_ROOT/repo` from a shared base clone.
-2. The agent starts in `OZ_WORKSPACE_ROOT` and works in the `repo/` directory.
-3. `teardown_command` removes the worktree and its task branch.
-4. The worker removes the remaining task workspace.
+2. The `oz` CLI starts with `OZ_WORKSPACE_ROOT` as its working directory. `REPO_ROOT` points to the checkout but does not change the working directory.
+3. The task prompt or loaded agent instructions direct all repository commands and edits to `repo/`.
+4. `teardown_command` removes the worktree and its task branch.
+5. The worker removes the remaining task workspace.
 
 The worktree belongs under the workspace rather than at `OZ_WORKSPACE_ROOT` itself. Before the setup hook runs, the worker has already created the workspace and a temporary environment file inside it, so Git cannot turn that directory directly into a worktree.
 
@@ -79,7 +80,7 @@ git -C "$MONOREPO_BASE" worktree add \
 } >> "$OZ_ENVIRONMENT_FILE"
 ```
 
-Change `origin/main` if the monorepo uses a different base branch. The script writes `REPO_ROOT` and `AGENT_BRANCH` into the task environment, which lets project scripts and agent instructions locate the checkout.
+Change `origin/main` if the monorepo uses a different base branch. The script writes `REPO_ROOT` and `AGENT_BRANCH` into the task environment, which lets project scripts and agent instructions locate the checkout. These variables do not change the task's working directory.
 
 ## Creating the teardown hook
 
@@ -137,15 +138,17 @@ export WARP_API_KEY="YOUR_AGENT_API_KEY"
 oz-agent-worker --config-file worker.yaml
 ```
 
+The Direct backend starts each `oz` CLI process in the task workspace, not the worktree. Require every task prompt or loaded agent instruction to keep repository commands and edits under `repo/`. A task without that instruction may not find the monorepo.
+
 Route a test run to the worker:
 
 ```bash
 oz agent run-cloud \
   --host "monorepo-direct" \
-  --prompt "Work in the repo directory. Update the authentication package tests and open a pull request."
+  --prompt "Work only in the repo/ directory. Update the authentication package tests and open a pull request."
 ```
 
-The run starts in its task workspace with the monorepo available at `repo/`. During the run, `git -C "$REPO_ROOT" worktree list` shows the isolated checkout and its `warp-agent/RUN_ID` branch. After the run, the worktree no longer appears in the base clone.
+The run starts in its task workspace with the monorepo available at `repo/`, and the prompt directs the agent into that checkout. During the run, `git -C "$REPO_ROOT" worktree list` shows the isolated checkout and its `warp-agent/RUN_ID` branch. After the run, the worktree no longer appears in the base clone.
 
 ## Troubleshooting
 
