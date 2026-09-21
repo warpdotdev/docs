@@ -34,7 +34,7 @@ Self-hosting has two architectures. The core distinction is **who orchestrates a
 | **Automatic environment setup** | Yes (via Warp [environments](/platform/environments/)) | No (you manage it) |
 | **Session tracking and steering** | Yes | Yes |
 
-The two architectures are not mutually exclusive. Some teams run managed workers for integration-triggered work and unmanaged agents in CI pipelines.
+The two architectures are not mutually exclusive. Some teams run managed workers for integration-triggered work and unmanaged agents in CI pipelines. The deployment models diagram on [Deployment patterns](/platform/deployment-patterns/) compares what runs where in each model.
 
 ## How self-hosting works
 
@@ -42,7 +42,9 @@ Warp uses a split-plane architecture: **execution happens on your infrastructure
 
 If your security requirement is "repository clones and execution must stay on our infrastructure," self-hosting is designed for that. If your requirement is "no code context can ever route through Warp or an external LLM provider," review [Security and networking](/platform/self-hosting/security-and-networking/) with your Warp account team before deploying.
 
-![Self-hosted Oz architecture showing customer-managed execution with Oz orchestration](../../../../assets/agent-platform/customer-dedicated-saas.png)
+![Self-hosted execution architecture showing the managed worker on customer infrastructure connecting outbound to the Warp control plane](../../../../assets/agent-platform/customer-dedicated-saas.png)
+
+The [self-hosted execution flow](/platform/architecture/#self-hosted-execution-flow) reference explains each numbered step in the diagram.
 
 With any self-hosted architecture:
 

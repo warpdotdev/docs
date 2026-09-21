@@ -12,10 +12,11 @@ import { varsTransformPlugin } from './src/plugins/vars-transform.ts';
 import vercel from '@astrojs/vercel';
 import { sidebarTopics } from './src/sidebar.ts';
 import docsMarkdownIntegration from './src/integrations/docs-markdown-integration.js';
+import { DOCS_ORIGIN } from './src/lib/site.js';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://docs.warp.dev',
+	site: DOCS_ORIGIN,
 	// Explicitly register remark-gfm so GitHub-Flavored Markdown (notably
 	// pipe tables) is reliably applied to .mdx content. Astro enables gfm by
 	// default, but the @astrojs/mdx 5.x + @astrojs/markdown-remark 7.2.0
