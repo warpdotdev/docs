@@ -28,7 +28,7 @@ The practical difference:
 
 * **Per-agent permissions** — Your triage agent only needs to read issues and post comments. Your implementation agent needs to push branches and open PRs. Each agent gets exactly the permissions it needs, not a single shared credential that everything uses.
 * **Audit trails** — Every cloud agent run is logged separately. You can see exactly what the triage agent did versus what the implementation agent did, when it ran, and what it produced.
-* **Team visibility** — Any teammate can open a run in the {VARS.WEB_APP} to inspect the session transcript, steer a stuck agent, or pick up where the agent left off.
+* **Team visibility** — Any teammate can open a run in the {VARS.WEB_APP} to inspect the session transcript, steer a stuck agent, or [hand the work off](/platform/handoff/) to keep going from another session.
 * **Scale without contention** — Multiple triage runs can execute in parallel without fighting over a shared dev box, local git checkouts, or CPU.
 
 See [Deployment patterns](/factories/deployment-patterns) for a full comparison of {VARS.WARP_AUTOMATION_PLATFORM}-hosted, CLI-based, and self-hosted execution patterns.
@@ -78,9 +78,9 @@ Every cloud agent run in your factory appears in the {VARS.DASHBOARD} with:
 * Status history: queued, in progress, succeeded, or failed with error details
 * A session sharing link any teammate can open to inspect or steer the run
 
-Open runs from <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP_URL}</a> or from the **Agent Management Panel** in the Warp app. Include the session link in PR descriptions so reviewers can see exactly how the agent built the change — see [Attach agent context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs).
+Open runs from the [{VARS.WEB_APP}](/platform/oz-web-app/) or from the [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app. Include the session link in PR descriptions so reviewers can see exactly how the agent built the change — see [Attach agent context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs/).
 
-See [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs) for the full reference.
+See [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) for the full reference.
 
 ## 5. Use multi-agent orchestration for large backlogs
 
