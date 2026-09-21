@@ -232,7 +232,7 @@ Cloud orchestration is the best fit when you need:
 Do not merge every agent's output automatically. Use a fan-in pass:
 
 1. Review each agent's summary, changed files, and validation results.
-2. Open the [Code Review panel](/code/code-review/) for local branches, or inspect cloud run artifacts and session links for cloud children.
+2. Open the [Code Review panel](/code/code-review/) for local branches, or use [session sharing](/platform/viewing-cloud-agent-runs/) to inspect cloud children's artifacts and session links.
 3. Merge or cherry-pick one branch at a time.
 4. Re-run the full validation suite from the final integrated branch.
 5. Attach context for reviewers: agent session links, changed files, validation commands, known risks, and reviewer asks.
@@ -241,7 +241,7 @@ For GitHub handoff, see [Attach agent session context to GitHub PRs](/guides/age
 
 ## Productivity tips
 
-* **Use the Agent Management Panel** — Open the Agent Management Panel to see all active agents across tabs. This gives you a dashboard view of what's running, what's waiting, and what's finished.
+* **Use the [Agent Management Panel](/platform/managing-cloud-agents/)** — Open it to see all active agents across tabs. This gives you a dashboard view of what's running, what's waiting, and what's finished.
 * **Color-code your tabs** — Assign different themes or colors to agent tabs so you can visually distinguish them at a glance in the vertical sidebar.
 * **Compose with `Ctrl+G`** — Use Warp's rich input editor (`Ctrl+G`) when composing prompts for third-party agents. This gives you click-to-edit instead of arrow-key navigation in the raw CLI.
 * **Review all changes before committing** — After running multiple agents, open the Code Review panel to see the combined diff across all files. Use "Changes vs. main" view to see the full scope of all agent-generated changes on your branch.
