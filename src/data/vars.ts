@@ -42,7 +42,7 @@ export const VARS = {
   // Kept singular so `{VARS.PLATFORM_RUN}s` pluralizes correctly at the call
   // sites that do that.
   PLATFORM_RUN:             "cloud agent run",
-  WARP_PLATFORM_API:       "Warp Platform API",
+  WARP_PLATFORM_API:        "Warp Platform API",
 
   // Warp Factories web app — a net-new product surface at platform.warp.dev
   // (soft launch ~2026-08-18), separate from the legacy Oz v1 webapp above.

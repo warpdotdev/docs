@@ -34,7 +34,6 @@ See the [cloud agent run lifecycle](/platform/architecture/#cloud-agent-run-life
 ### What it looks like
 
 * **Trigger**: first-party integrations, cron schedules, API/SDK calls, or on-demand commands
-* **Orchestration**: {VARS.WARP_AUTOMATION_PLATFORM} orchestrator
 * **Execution**: {VARS.WARP_AUTOMATION_PLATFORM}-hosted environments (Docker-based)
 * **Visibility**: {VARS.DASHBOARD} + session sharing + APIs/SDKs
 
@@ -62,7 +61,7 @@ See the [cloud agent run lifecycle](/platform/architecture/#cloud-agent-run-life
 
 1. Define a Warp Environment with the target repo.
 2. Register a Sentry webhook to your handler (server, cloud function, Zapier/n8n).
-3. Handler extracts crash details, constructs a prompt, and calls the {VARS.WARP_AUTOMATION_PLATFORM} orchestrator API/SDK to start a task.
+3. The handler extracts crash details, constructs a prompt, and calls the [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) to start a task.
 4. Warp spins up the run in the environment and you monitor progress via UI/API.
 
 ### Example recipe: fan-out parallel work (sharding)

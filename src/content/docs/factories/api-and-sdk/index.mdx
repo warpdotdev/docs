@@ -5,7 +5,7 @@ sidebar:
   label: "Agent & run endpoints"
 description: >-
   Start, manage, and inspect cloud agent runs with the Agent and run endpoints
-  in the Warp Platform API.
+  in the {{WARP_PLATFORM_API}}.
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
@@ -26,15 +26,11 @@ Agent & run endpoints let you create and inspect [cloud agent](/platform/) runs 
 * Monitor execution by listing runs and tracking state transitions over time (queued → in progress → succeeded/failed)
 * Inspect results and provenance by fetching a run's full details, including the original prompt, source/creator metadata, session link, and resolved agent configuration
 
-:::caution
-This page is a high-level overview.\
-\
-For endpoint details, use the [**Warp Platform API reference**](/api). For SDK schemas, use the [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript) repositories.
-:::
+For endpoint details, use the [**{VARS.WARP_PLATFORM_API} reference**](/api). For SDK schemas, use the [Python SDK](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript) repositories.
 
 To send work to a [Warp factory](/factories/), use [factory endpoints](/factories/factory-api/) to discover it and dispatch by UID instead of calling `POST /agent/run` with a foreman's `agent_identity_uid`. The follow-up, cancellation, and status endpoints still apply after a factory run is dispatched.
 
-## SDKs
+## Choose the SDK or raw REST
 
 Warp provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs that wrap the {VARS.WARP_PLATFORM_API} with:
 
@@ -52,9 +48,6 @@ If you’re building an integration (CI, Slack bots, internal tooling, orchestra
 * Use the SDK when you want strong typing, standardized error handling, and easy concurrency patterns.
 * Use raw REST when you want minimal dependencies or full control over your HTTP client (the SDKs also support calling undocumented endpoints when needed).
 
-:::caution
-For the full SDK surface area and latest usage, refer to the GitHub repos: [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript).
-:::
 
 ---
 
@@ -78,7 +71,7 @@ An agent run represents a single execution of a cloud agent, created with a prom
 * Optional session information (`session_id`, `session_link`)
 * Optional resolved configuration (`agent_config`)
 
-See the [**Warp Platform API reference**](/api) for details on how runs are created and listed.
+See the [**{VARS.WARP_PLATFORM_API} reference**](/api) for details on how runs are created and listed.
 
 ### Agent configuration
 
@@ -131,7 +124,7 @@ Agent & run endpoints include:
 
     Cancel a run that is currently queued or in progress. Returns the ID of the cancelled run.
 
-All endpoint semantics, query parameters, and [error codes](/factories/api-and-sdk/troubleshooting/errors/) are documented in the [Warp Platform API reference](/api).
+All endpoint semantics, query parameters, and [error codes](/factories/api-and-sdk/troubleshooting/errors/) are documented in the [{VARS.WARP_PLATFORM_API} reference](/api).
 
 ---
 
