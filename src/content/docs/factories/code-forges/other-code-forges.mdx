@@ -1,0 +1,81 @@
+---
+title: Connecting other code forges to your factory
+description: >-
+  Connect a factory to a repository from another code forge using Agent Secrets
+  and setup commands on the default runner.
+sidebar:
+  label: "Other code forges"
+---
+import { VARS } from '@data/vars';
+
+Connect your factory to a repository on Bitbucket, Azure DevOps, self-managed GitLab, or another code forge without first-class factory support. You can create the factory with no connected repository, then clone the repository from its default runner.
+
+:::caution
+This setup gives factory agents repository access. It does not add provider-specific events or automations for the code forge.
+:::
+
+## Prerequisites
+
+* **Factory access** - Permission to create the factory, add Agent Secrets, and edit its default runner.
+* **Repository access** - An HTTPS clone URL and a token that can read the repository.
+
+For provider-specific token and clone formats, see [Bitbucket repository access](/platform/integrations/bitbucket/), [Azure DevOps repository access](/platform/integrations/azure-devops/), or [self-managed GitLab repository access](/platform/integrations/gitlab/#self-managed-gitlab-instances).
+
+## Create the factory without a repository
+
+To prepare a repository from the default runner, create the factory without a code-host connection.
+
+1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, click **+** next to **Factories**.
+2. Under **Connect your code host**, select **No repo**.
+3. Complete the remaining setup choices to create the factory.
+
+The factory opens in its dashboard without a connected repository.
+
+## Grant the clone credential
+
+Store the repository token as an Agent Secret so the default runner can use it without placing the token in a command or definition file.
+
+1. From the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, click **Secrets**.
+2. Create an Agent Secret named `CODE_FORGE_TOKEN`.
+3. Enter the repository access token as the secret value, then grant `CODE_FORGE_TOKEN` to the factory agents that use the default runner.
+
+The secret is available to those agents and their runner setup commands as the `CODE_FORGE_TOKEN` environment variable.
+
+## Clone the repository from the default runner
+
+Runner setup commands prepare each agent workspace before factory work starts.
+
+1. From the factory dashboard, click **Settings** and scroll down to the "Runners" section.
+2. Next to the default runner, click the edit button. In the "Setup commands" section, click **+** and add an authenticated `git clone` command that reads `$CODE_FORGE_TOKEN`.
+3. Add any other project setup commands the repository needs, such as dependency installation, builds, or code generation.
+
+Use your code forge's documented clone format. For example, Bitbucket Cloud requires the `x-bitbucket-api-token-auth` username, while other hosts use a different username or authorization header.
+
+Setup commands run each time the runner prepares a workspace. Make the commands safe to run repeatedly.
+
+## Test repository access
+
+Start a direct factory run before you connect another work source.
+
+1. In the factory dashboard, open **Runs** and click **New**.
+2. Send a read-only request such as:
+
+   ```text title="Test repository access"
+   In the repository root, list the top-level files and report the current
+   branch. Do not change any files.
+   ```
+
+3. Confirm that the run reports files from the cloned repository.
+
+If the run cannot clone the repository, confirm that the Agent Secret is granted to the agent, the token has repository read access, and the clone command uses the token environment variable correctly.
+
+## Starting work
+
+This code forge cannot start factory work from its own repository events. Start work from a connected service such as [Slack](/factories/integrations/slack/), [Linear](/factories/integrations/linear/), or [Jira](/factories/integrations/jira/), through a [custom webhook](/factories/webhooks/), or with a direct factory run.
+
+## Related pages
+
+* [Connect GitHub to your factory](/factories/integrations/github/) - Use GitHub's first-class code-forge connection.
+* [Connect GitLab to your factory](/factories/integrations/gitlab/) - Use GitLab.com's first-class code-forge connection.
+* [Connect your factory](/factories/connect-your-factory/) - Add the sources that start work after the repository is available.
+* [Cloud agent secrets](/platform/secrets/) - Store and scope credentials for cloud agents.
