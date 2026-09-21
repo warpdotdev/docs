@@ -28,7 +28,7 @@ The practical difference:
 
 * **Per-agent permissions** — Your triage agent only needs to read issues and post comments. Your implementation agent needs to push branches and open PRs. Each agent gets exactly the permissions it needs, not a single shared credential that everything uses.
 * **Audit trails** — Every cloud agent run is logged separately. You can see exactly what the triage agent did versus what the implementation agent did, when it ran, and what it produced.
-* **Team visibility** — Any teammate can open a run in the {VARS.WEB_APP} to inspect the session transcript, steer a stuck agent, or [hand the work off](/platform/handoff/) and pick up where the agent left off.
+* **Team visibility** — Any teammate can open a run in the {VARS.WEB_APP} to inspect the session transcript, steer a stuck agent, or [hand the work off](/platform/handoff/) to keep going from another session.
 * **Scale without contention** — Multiple triage runs can execute in parallel without fighting over a shared dev box, local git checkouts, or CPU.
 
 See [Deployment patterns](/platform/deployment-patterns) for a full comparison of {VARS.WARP_AUTOMATION_PLATFORM}-hosted, CLI-based, and self-hosted execution patterns.
