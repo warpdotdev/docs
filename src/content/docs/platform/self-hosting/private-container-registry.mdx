@@ -116,11 +116,15 @@ Create one pull secret for the worker Deployment and task Jobs:
 kubectl create namespace warp-oz \
   --dry-run=client \
   --output yaml | kubectl apply --filename -
+read -r -p "Registry username: " REGISTRY_USERNAME
+read -r -s -p "Registry token: " REGISTRY_TOKEN
+printf '\n'
 kubectl create secret docker-registry warp-registry \
   --namespace warp-oz \
   --docker-server registry.internal.example.com \
-  --docker-username YOUR_REGISTRY_USERNAME \
-  --docker-password YOUR_REGISTRY_TOKEN
+  --docker-username "$REGISTRY_USERNAME" \
+  --docker-password "$REGISTRY_TOKEN"
+unset REGISTRY_USERNAME REGISTRY_TOKEN
 ```
 
 Set the worker, task, sidecar, and preflight image references in a Helm values file:
@@ -134,7 +138,7 @@ image:
     - name: warp-registry
 
 kubernetesBackend:
-  defaultImage: registry.internal.example.com/warp/agent-base:BASE_IMAGE_TAG
+  defaultImage: registry.internal.example.com/warp/agent-base:22.04
   preflightImage: registry.internal.example.com/warp/busybox:1.36
   sidecarImage: registry.internal.example.com/warp/warp-agent:WARP_AGENT_TAG
   podTemplate:
@@ -195,7 +199,7 @@ Check the Warp environment image. Environment images take precedence over the Ku
 
 ## Related pages
 
-* [Managed: Docker backend](/platform/self-hosting/managed-docker/) - Configure Docker daemon access and task containers.
-* [Managed: Kubernetes backend](/platform/self-hosting/managed-kubernetes/) - Configure the Helm chart, task Pod template, and preflight job.
-* [Environments](/platform/environments/) - Set the task image used by self-hosted runs.
-* [Security and networking](/platform/self-hosting/security-and-networking/) - Review image egress and other network requirements.
+* [Managed: Docker backend](/platform/self-hosting/managed-docker/) — Configure Docker daemon access and task containers.
+* [Managed: Kubernetes backend](/platform/self-hosting/managed-kubernetes/) — Configure the Helm chart, task Pod template, and preflight job.
+* [Environments](/platform/environments/) — Set the task image used by self-hosted runs.
+* [Security and networking](/platform/self-hosting/security-and-networking/) — Review image egress and other network requirements.
