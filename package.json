@@ -16,6 +16,7 @@
     "og:api": "node scripts/generate-og-api.mjs",
     "favicon:generate": "node scripts/generate-favicons.mjs",
     "seo:audit": "node scripts/seo-audit.mjs",
+    "test:homepage-json-ld": "node scripts/validate-homepage-json-ld.mjs",
     "postinstall": "patch-package"
   },
   "engines": {

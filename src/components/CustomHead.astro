@@ -4,6 +4,7 @@ import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from '@vercel/speed-insights/astro';
 import RudderStackAnalytics from './RudderStackAnalytics.astro';
 import ArticleImageLightbox from './ArticleImageLightbox.astro';
+import { DOCS_ORIGIN } from '../lib/site.js';
 
 // Note: `<ClientRouter />` (Astro View Transitions) is intentionally NOT
 // enabled here. Starlight's sidebar scroll persistence relies on the browser
@@ -20,9 +21,41 @@ import ArticleImageLightbox from './ArticleImageLightbox.astro';
 // and override its bare defaults instead of producing duplicates.
 const fontsHref =
   'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap';
+const WARP_ORIGIN = 'https://www.warp.dev';
+const organizationId = `${WARP_ORIGIN}/#organization`;
+const organizationJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': organizationId,
+  name: 'Warp',
+  url: WARP_ORIGIN,
+  logo: {
+    '@type': 'ImageObject',
+    url: `${WARP_ORIGIN}/android-chrome-512x512.png`,
+    width: 512,
+    height: 512,
+  },
+  sameAs: [
+    'https://x.com/warpdotdev',
+    'https://github.com/warpdotdev',
+    'https://www.youtube.com/@warpdotdev',
+    'https://go.warp.dev/join-preview',
+    'https://www.linkedin.com/company/warpdotdev',
+  ],
+}).replace(/</g, '\\u003c');
+const websiteJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${DOCS_ORIGIN}/#website`,
+  name: 'Warp Docs',
+  url: DOCS_ORIGIN,
+  publisher: { '@id': organizationId },
+}).replace(/</g, '\\u003c');
 ---
 
 <Default {...Astro.props}><slot /></Default>
+<script is:inline type="application/ld+json" set:html={organizationJsonLd} />
+<script is:inline type="application/ld+json" set:html={websiteJsonLd} />
 
 <!--
   Force the browser's native scroll restoration for back/forward navigation.
