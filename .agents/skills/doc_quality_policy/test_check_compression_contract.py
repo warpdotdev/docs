@@ -54,15 +54,21 @@ class TestCheckCompressionContract(unittest.TestCase):
         text = _page(500)
         self.assertEqual(ccc.check_compression_contract(text, "quickstart"), [])
 
-    def test_quickstart_over_budget_fails(self):
+    def test_quickstart_within_exception_range_passes(self):
         text = _page(700)
+        self.assertEqual(ccc.check_compression_contract(text, "quickstart"), [])
+        notices = ccc.check_compression_notices(text, "quickstart")
+        self.assertTrue(any("record the rationale" in f for f in notices))
+
+    def test_quickstart_over_maximum_fails(self):
+        text = _page(801)
         findings = ccc.check_compression_contract(text, "quickstart")
-        self.assertTrue(any("exceeds the quickstart budget" in f for f in findings))
+        self.assertTrue(any("exceeds the quickstart maximum" in f for f in findings))
 
     def test_feature_doc_over_budget_fails(self):
         text = _page(1600)
         findings = ccc.check_compression_contract(text, "feature-doc")
-        self.assertTrue(any("exceeds the feature-doc budget" in f for f in findings))
+        self.assertTrue(any("exceeds the feature-doc maximum" in f for f in findings))
 
     def test_generated_changelog_is_exempt_from_word_budget(self):
         text = _page(5000)
