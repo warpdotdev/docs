@@ -1,6 +1,6 @@
 ---
 name: aeo_crosslink_audit
-description: Run a narrow AEO cross-link audit for Warp docs using Peec, Google Search Console, and existing docs. Use for recurring or scheduled agents that should identify high-confidence internal cross-linking improvements for agents, cloud agents, and orchestration docs.
+description: Run a narrow AEO cross-link audit for Warp docs using Peec, Google Search Console, and existing docs. Use for recurring or scheduled agents that should identify high-confidence internal cross-linking improvements for agents, cloud agents, orchestration, and factories docs.
 ---
 
 # AEO cross-link audit
@@ -22,6 +22,7 @@ Use this skill only for the pilot topic area:
 - Agents
 - Cloud agents
 - Orchestration
+- Factories (`src/content/docs/factories/`) — audited as both source pages (scan for missing outbound links) and valid link targets, on the same footing as the other three topics
 
 The audit should focus on one improvement type:
 - Internal cross-links between existing docs pages
@@ -59,10 +60,10 @@ Do NOT print, log, commit, or include secret values in reports or Slack messages
 ## Source data
 
 Use the smallest reliable set of source data needed to justify link changes:
-- **Peec** - Use the Peec MCP (configured in the agent with a Personal Access Token via the `PEEC_PAT` secret) to collect prompts, search queries, actions/recommendations, and source URLs for agents, cloud agents, and orchestration (last 30 days). Filter prompts and queries for relevance to the topic area. If the Peec MCP returns an error or is unavailable (missing `PEEC_PAT`, expired token, or connection failure), log "Peec: unavailable" in the run output and proceed with GSC and docs-only signals only.
+- **Peec** - Use the Peec MCP (configured in the agent with a Personal Access Token via the `PEEC_PAT` secret) to collect prompts, search queries, actions/recommendations, and source URLs for agents, cloud agents, orchestration, and factories (last 30 days). Filter prompts and queries for relevance to the topic area. If the Peec MCP returns an error or is unavailable (missing `PEEC_PAT`, expired token, or connection failure), log "Peec: unavailable" in the run output and proceed with GSC and docs-only signals only.
   - A cloud run may not expose `peec-ai` as a native tool even when it is in the agent config. If no tool appears, call `https://api.peec.ai/mcp` directly over JSON-RPC with `Authorization: Bearer $PEEC_PAT` (initialize, capture the `Mcp-Session-Id` header, then `tools/call`) rather than declaring Peec unavailable.
   - Resolve the project with `list_projects` first; all other tools require `project_id`. `get_actions` needs `url_classification` for `scope=owned` and `scope=editorial` drill-downs, and `list_search_queries` returns `query_text` rather than `query`.
-- **Google Search Console** - When available, use the environment's `GSC_SERVICE_ACCOUNT_CREDENTIALS_JSON` secret to inspect recent queries and pages related to agents, cloud agents, and orchestration. Never print, log, commit, or include the secret value in reports. If a GSC client requires a credentials file path, write the secret to a restricted temporary file, use it for the run, and remove it before finishing.
+- **Google Search Console** - When available, use the environment's `GSC_SERVICE_ACCOUNT_CREDENTIALS_JSON` secret to inspect recent queries and pages related to agents, cloud agents, orchestration, and factories. Never print, log, commit, or include the secret value in reports. If a GSC client requires a credentials file path, write the secret to a restricted temporary file, use it for the run, and remove it before finishing.
 - **Docs repo** - Search existing pages under `src/content/docs/` for relevant source pages, link targets, and related terminology.
 
 If Google Search Console data is unavailable, say what could not be verified and proceed with Peec and docs-only analysis. If Peec MCP is unavailable, log the unavailability and proceed with GSC and docs-only analysis. Do not invent source signals.
@@ -71,8 +72,8 @@ If Google Search Console data is unavailable, say what could not be verified and
 
 ## Workflow
 
-1. **Collect Peec signals and gather source signals.** Use the Peec MCP to collect prompts, search queries, actions/recommendations, and source URLs for agents, cloud agents, and orchestration (last 30 days). If the Peec MCP is unavailable, log "Peec: unavailable" and continue. Also collect Google Search Console data, when available, to identify relevant user language, prompts, recommendations, or pages.
-2. **Search existing docs.** Look for pages under `src/content/docs/` that already mention or imply related concepts in agents, cloud agents, or orchestration.
+1. **Collect Peec signals and gather source signals.** Use the Peec MCP to collect prompts, search queries, actions/recommendations, and source URLs for agents, cloud agents, orchestration, and factories (last 30 days). If the Peec MCP is unavailable, log "Peec: unavailable" and continue. Also collect Google Search Console data, when available, to identify relevant user language, prompts, recommendations, or pages.
+2. **Search existing docs.** Look for pages under `src/content/docs/` that already mention or imply related concepts in agents, cloud agents, orchestration, or factories, including pages under `src/content/docs/factories/` itself.
 3. **Identify link opportunities.** Find up to 5 internal cross-link opportunities where:
    - The source page already mentions or implies the related concept.
    - The target page exists.
@@ -193,11 +194,11 @@ Open a PR only when there are at least 2 high-confidence link additions.
 Use this title format:
 
 ```text
-docs: add AEO cross-links for agents and orchestration
+docs: add AEO cross-links for agents, orchestration, and factories
 ```
 
 The PR body must include an AEO brief. Use `.agents/skills/aeo_brief/SKILL.md` as the format and include:
-- **Goal** - Identify small internal cross-link improvements for agents, cloud agents, and orchestration docs.
+- **Goal** - Identify small internal cross-link improvements for agents, cloud agents, orchestration, and factories docs.
 - **Source signals** - Peec prompts/recommendations, Google Search Console queries/pages, or existing-docs signals that justified the links.
 - **Pages touched** - Files edited and why.
 - **Links added** - Source page, target page, and rationale for each link.
@@ -215,7 +216,7 @@ Use this format:
 ```text
 ## AEO cross-link audit no-change report
 
-**Topic area:** Agents, cloud agents, and orchestration.
+**Topic area:** Agents, cloud agents, orchestration, and factories.
 
 **Source signals reviewed:**
 - [Peec prompt, recommendation, source URL, or query vocabulary.]
