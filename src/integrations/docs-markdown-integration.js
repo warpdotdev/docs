@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { parseHTML } from 'linkedom';
 import TurndownService from 'turndown';
 import { gfm } from 'turndown-plugin-gfm';
+import { DOCS_ORIGIN } from '../lib/site.js';
 
 export default function docsMarkdownIntegration() {
 	return {
@@ -90,9 +91,10 @@ function convertHtmlToMarkdown(html) {
 	const clone = /** @type {HTMLElement} */ (contentRoot.cloneNode(true));
 	expandAgentOnlyTemplates(clone);
 	sanitizeRoot(clone);
+	absolutizeInternalLinks(clone);
 	const markdownBody = turndown.turndown(clone.innerHTML).trim();
 	const llmsDirective =
-		'> For the complete documentation index, see [llms.txt](/llms.txt).\n' +
+		`> For the complete documentation index, see [llms.txt](${DOCS_ORIGIN}/llms.txt).\n` +
 		'> Markdown versions of each page are available by appending .md to any URL.';
 	const sections = [llmsDirective, `# ${normalizeWhitespace(title)}`];
 
@@ -105,6 +107,33 @@ function convertHtmlToMarkdown(html) {
 	}
 
 	return `${sections.join('\n\n').trim()}\n`;
+}
+
+/**
+ * Rewrite root-relative links/resources to absolute docs.warp.dev URLs so
+ * served markdown remains portable when copied outside the site.
+ *
+ * @param {HTMLElement} root
+ */
+function absolutizeInternalLinks(root) {
+	for (const anchor of root.querySelectorAll('a[href]')) {
+		const absolute = toAbsoluteDocsUrl(anchor.getAttribute('href'));
+		if (absolute) anchor.setAttribute('href', absolute);
+	}
+
+	for (const image of root.querySelectorAll('img[src]')) {
+		const absolute = toAbsoluteDocsUrl(image.getAttribute('src'));
+		if (absolute) image.setAttribute('src', absolute);
+	}
+}
+
+/**
+ * @param {string | null} value
+ * @returns {string | null} absolute docs URL when the value should be rewritten
+ */
+function toAbsoluteDocsUrl(value) {
+	if (!value?.startsWith('/') || value.startsWith('//')) return null;
+	return `${DOCS_ORIGIN}${value}`;
 }
 
 function expandAgentOnlyTemplates(root) {

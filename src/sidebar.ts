@@ -419,7 +419,20 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				],
 				},
 				{
+					label: 'Code forges',
+					items: [
+						// Keep these established URLs while grouping repository connections
+						// separately from the services that route work into a factory.
+						{ slug: 'factories/integrations/github', label: 'GitHub' },
+						{ slug: 'factories/integrations/gitlab', label: 'GitLab' },
+						{ slug: 'factories/code-forges/other-code-forges', label: 'Other code forges' },
+					],
+				},
+				{
 					// 'Integrations' per HYC (8/17), replacing 'Work intake'.
+					//
+					// Code forges have their own group above because repository access is
+					// distinct from a service that starts or routes factory work.
 					//
 					// The per-service pages are listed directly rather than in a nested
 					// Integrations subgroup, which would have rendered as
@@ -432,8 +445,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
 						{ slug: 'factories/integrations/slack', label: 'Slack' },
-						{ slug: 'factories/integrations/github', label: 'GitHub' },
-						{ slug: 'factories/integrations/gitlab', label: 'GitLab' },
 						{ slug: 'factories/integrations/linear', label: 'Linear' },
 						{ slug: 'factories/integrations/jira', label: 'Jira' },
 						// Custom webhooks connect any JSON-posting system, so they sit
@@ -648,6 +659,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// 'Warp-hosted agents' under its own opposite.
 					label: 'Deployment & hosting',
 					items: [
+						{ slug: 'platform/architecture', label: 'Architecture' },
 						{ slug: 'platform/deployment-patterns', label: 'Deployment patterns' },
 						{ slug: 'platform/warp-hosting', label: 'Warp-hosted agents' },
 						// Qualified: a bare 'Overview'/'Quickstart' would now read as the

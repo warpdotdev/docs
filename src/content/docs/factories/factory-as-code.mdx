@@ -176,7 +176,13 @@ Optional. Names of [managed secrets](/platform/secrets/) granted to every agent 
 
 ### `mcpServers`
 
-Optional. [MCP servers](/platform/mcp/) granted to every agent, keyed by the name the agent sees. Each entry references a Warp-managed MCP server by `warpId`.
+Optional. [MCP servers](/platform/mcp/) granted to every agent, keyed by the name the agent sees. Each entry selects exactly one transport:
+
+* `warpId` - A Warp-managed MCP server ID.
+* `command` - A stdio command. Optional `args` is a list of strings, and optional `env` maps names to string values.
+* `url` - An absolute HTTP or HTTPS URL. Optional `headers` maps header names to string values.
+
+Don't put credentials directly in `env` or `headers`. Reference a [Warp-managed secret](/platform/secrets/) as `{{SECRET_NAME}}`, or use `warpId` for a [managed MCP installation](/platform/mcp/#oauth-authentication).
 
 ```yaml
 mcpServers:
@@ -196,7 +202,7 @@ cloudProviders:
 
 ### `integrations`
 
-Optional. The integration providers attached to the factory. `type` accepts `slack`, `linear`, or `jira`. Declare at most one issue tracker: `linear` and `jira` are mutually exclusive, and omitting a tracker is also valid. GitHub is not declared here; repository access comes from `repositories` and the connected GitHub App.
+Optional. The integration providers attached to the factory. `type` accepts `slack`, `linear`, or `jira`. Use `linear.teamIds` or `jira.projectKeys` to limit the teams or projects available to the factory. Declare at most one issue tracker: `linear` and `jira` are mutually exclusive, and omitting a tracker is also valid. GitHub is not declared here; repository access comes from `repositories` and the connected GitHub App.
 
 ```yaml
 integrations:
@@ -217,6 +223,8 @@ integrations:
         - ENG
         - OPS
 ```
+
+The legacy `providers` key is accepted when reading older definitions. Use `cloudProviders`; when Warp rewrites the definition, it emits `cloudProviders`.
 
 ### `agentDefaults`
 
@@ -391,6 +399,21 @@ Optional. Narrows which events start runs. The keys a filter accepts depend on t
 
 A `webhook` trigger with the `received` event requires `webhook_ids` in its filter, a list of webhook UIDs (`in` only; the file name isn't accepted), and takes an optional `payload` pattern that mirrors the delivery's JSON body. See [payload filters for webhook triggers](/factories/automations/#payload-filters-for-webhook-triggers) for the pattern grammar.
 
+The published trigger catalog currently uses these filter keys across its provider and event combinations:
+
+* Factory: `stages`.
+* GitHub: `assignees`, `authors`, `baseBranches`, `base_branches`, `branches`, `conclusions`, `labels`, `mentioned`, `paths`, `prNumbers`, `pr_numbers`, `repos`, `review_states`, `reviewer_teams`, `reviewers`, and `workflows`.
+* GitLab: `actions`, `base_branches`, `branches`, `mentioned`, and `repos`.
+* Jira: `keywords`, `labels`, `project_keys`, and `status_ids`.
+* Linear: `assignee_ids`, `creator_ids`, `issue_ids`, `issues`, `keywords`, `labels`, `mentioned_user_ids`, `project_ids`, `projects`, `state_ids`, `states`, `team_ids`, and `teams`.
+* Schedule: `schedule_ids` is server-managed and cannot be set in a factory definition.
+* Slack: `channel_ids`, `channels`, `emojis`, `itemUsers`, `item_user_ids`, `keywords`, `user_ids`, and `users`.
+* Webhook: `payload` and `webhook_ids`.
+
+Payload patterns also accept `exists`.
+
+`baseBranches` and `prNumbers` are authoring aliases for `base_branches` and `pr_numbers`. `teams`, `projects`, `states`, `issues`, `channels`, `users`, and `itemUsers` are name-based aliases for their `_ids` counterparts. An alias and its canonical key are mutually exclusive.
+
 ```yaml
 triggers:
   - provider: webhook
@@ -525,7 +548,7 @@ Optional. The ID of the prior run the task came from. This records provenance on
 
 ### `startingRepoRefs`
 
-Optional. The GitHub or GitLab repositories and exact commits the task starts from. Use either `github.com:OWNER/REPO@COMMIT_SHA` or `gitlab.com:OWNER/REPO@COMMIT_SHA`; `COMMIT_SHA` must be a full 40-character commit SHA, not a branch or tag. Omit this key to use the agent's normal checkout defaults.
+Optional. The GitHub or GitLab repositories and exact commits the task starts from. Each entry can use `github.com:OWNER/REPO@COMMIT_SHA` or `gitlab.com:OWNER/REPO@COMMIT_SHA`. It can instead use an object with `codeForge` (`GITHUB` or `GITLAB`), `owner`, `repo`, and `ref`. `COMMIT_SHA` and `ref` must be full 40-character commit SHAs, not branches or tags. Omit this key to use the agent's normal checkout defaults.
 
 ## `scorers/<name>/scorer.md`
 

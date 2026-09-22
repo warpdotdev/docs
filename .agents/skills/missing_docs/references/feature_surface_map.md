@@ -626,6 +626,18 @@ POST /agent/events/{run_id} -> internal
 # on the RTC host, so it is not a released public API operation.
 GET /agent/events/stream -> internal
 
+# Canonical outbound IP ranges for Warp-hosted agents, scoped to the
+# authenticated principal's active team (RegisterNetworkingRoutes /
+# EgressRangesHandler, router/handlers/public_api/networking.go). Both the
+# `networking` tag and the getEgressRanges operation are marked
+# `x-internal: true` in warp-server's canonical spec, so the publish filter
+# strips the route from the docs OpenAPI copy; it backs the Admin Panel's
+# hosted-agent egress CIDR list rather than the released public Agent API. Not
+# a docs gap either: the ranges themselves are already published on
+# src/content/docs/platform/warp-hosting.mdx under "Networking". Revisit and
+# route through sync-openapi-spec if the x-internal marker comes off.
+GET /networking/egress-ranges -> internal
+
 # Agent Memory REST API — research preview (gating flag AIMemories is non-GA),
 # deferred via `gated:` and auto-surfaces when AIMemories goes GA. See
 # "Public vs. private surfaces" in SKILL.md.
