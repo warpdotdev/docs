@@ -7,12 +7,28 @@ const DOCS_ORIGIN = 'https://docs.warp.dev';
 const WARP_ORIGIN = 'https://www.warp.dev';
 const ORGANIZATION_ID = `${WARP_ORIGIN}/#organization`;
 const WEBSITE_ID = `${DOCS_ORIGIN}/#website`;
+const HOMEPAGE_URL = 'http://127.0.0.1:4321/';
 
 function parseJsonLd(html) {
 	const { document } = parseHTML(html);
 	return Array.from(document.querySelectorAll('script[type="application/ld+json"]'), (script) =>
 		JSON.parse(script.textContent),
 	);
+}
+
+async function fetchHomepage() {
+	let lastError;
+	for (let attempt = 0; attempt < 40; attempt += 1) {
+		try {
+			return await fetch(HOMEPAGE_URL);
+		} catch (error) {
+			lastError = error;
+			await new Promise((resolve) => setTimeout(resolve, 250));
+		}
+	}
+	throw new Error(`Docs homepage did not become available at ${HOMEPAGE_URL}`, {
+		cause: lastError,
+	});
 }
 
 const server = await dev({
@@ -28,7 +44,7 @@ const server = await dev({
 });
 
 try {
-	const response = await fetch('http://127.0.0.1:4321/');
+	const response = await fetchHomepage();
 	assert.equal(response.status, 200, 'Docs homepage should render successfully');
 
 	const payloads = parseJsonLd(await response.text());
