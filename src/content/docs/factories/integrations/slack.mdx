@@ -1,8 +1,8 @@
 ---
 title: Connect Slack to your factory
 description: >-
-  Connect Slack to your factory so your team can start work with mentions,
-  direct messages, and automations, and get results back in the same thread.
+  Connect Slack to your factory so people can start work from Slack and
+  scheduled runs can post reports to channels.
 sidebar:
   label: "Slack"
 ---
@@ -55,6 +55,38 @@ automation only files it.
 The **Conversations** picker only shows conversations the factory's app has joined. If a channel is missing, invite the app to it; for direct messages, send the app a DM first. Then refresh the automation editor.
 
 A single Slack message can match more than one automation. For example, if one automation triggers on **App mentioned** and another triggers on **Message posted in channel** in the same channel, a channel message that mentions the app starts two separate runs, one for each automation. To avoid duplicate runs, don't point both triggers at the same channel.
+
+## Use integration-provided tools
+
+When Slack is connected to a factory, Warp automatically gives its agents Slack tools during factory runs. The tools let an agent read channels and threads that the app can access, reply in a thread, and post a new top-level message to a channel. The run doesn't need to start from Slack.
+
+Warp also automatically makes tools from a connected Linear or Jira issue tracker available to the factory's agents. These are Warp-managed, integration-provided capabilities, separate from the [MCP servers you configure for cloud agents](/platform/mcp/). They may not appear alongside user-configured MCP servers in the factory's MCP list.
+
+You don't need to install a separate Slack MCP server to post factory output to Slack. The connected Slack app's authorization still controls which channels the tools can access, so invite the app to the destination channel first.
+
+## Post a scheduled factory digest to Slack
+
+A scheduled automation can compile a nightly report and post it to Slack. Put the destination's Slack channel ID directly in the automation instructions. An explicit channel ID is the most reliable way to target the intended channel.
+
+This automation runs every night at 2:00 AM UTC and tells the agent where to post:
+
+```markdown title="automations/nightly-factory-digest/automation.md"
+---
+agent: foreman
+triggers:
+  - provider: schedule
+    event: cron_fired
+    schedule:
+      name: nightly-factory-digest
+      cron: "0 2 * * *"
+---
+Summarize factory work completed or blocked in the last 24 hours.
+Post the digest as a new top-level message to Slack channel ID C0123456789
+using the connected Slack tools. Include links to each work item or pull
+request, and report the Slack posting error if delivery fails.
+```
+
+Replace `C0123456789` with the destination's channel ID. See [factory definition syntax](/factories/factory-as-code/#automationsnameautomationmd) for the other automation fields and schedule options.
 
 ## Start and continue work from Slack
 
