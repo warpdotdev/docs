@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
 import { dev } from 'astro';
+import { parseHTML } from 'linkedom';
 
 const DOCS_ORIGIN = 'https://docs.warp.dev';
 const WARP_ORIGIN = 'https://www.warp.dev';
@@ -8,15 +9,10 @@ const ORGANIZATION_ID = `${WARP_ORIGIN}/#organization`;
 const WEBSITE_ID = `${DOCS_ORIGIN}/#website`;
 
 function parseJsonLd(html) {
-	const payloads = [];
-	const scriptPattern = /<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi;
-
-	for (const match of html.matchAll(scriptPattern)) {
-		if (!/\btype=["']application\/ld\+json["']/i.test(match[1])) continue;
-		payloads.push(JSON.parse(match[2]));
-	}
-
-	return payloads;
+	const { document } = parseHTML(html);
+	return Array.from(document.querySelectorAll('script[type="application/ld+json"]'), (script) =>
+		JSON.parse(script.textContent),
+	);
 }
 
 const server = await dev({
