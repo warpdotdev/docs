@@ -12,6 +12,7 @@
 // script tag well-formed.
 import fs from 'node:fs';
 import { parse } from 'yaml';
+import { VARS } from '@data/vars';
 import WarpTopbar from '../components/WarpTopbar.astro';
 import DocsFeedbackLinks from '../components/DocsFeedbackLinks.astro';
 const yamlContent = fs.readFileSync('developers/agent-api-openapi.yaml', 'utf-8');
@@ -36,24 +37,24 @@ const specBaseUrl = (specObject.servers as Array<{ url?: string }> | undefined)?
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Warp Platform API reference | Warp</title>
-    <meta name="description" content="Interactive reference for the Warp Platform API. Send work to factories and create and manage cloud agent runs." />
+    <title>{VARS.WARP_PLATFORM_API} reference | Warp</title>
+    <meta name="description" content={`Interactive reference for the ${VARS.WARP_PLATFORM_API}. Send work to factories and create and manage cloud agent runs.`} />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://docs.warp.dev/api/" />
     <!-- Open Graph -->
-    <meta property="og:title" content="Warp Platform API reference | Warp" />
-    <meta property="og:description" content="Interactive reference for the Warp Platform API. Send work to factories and create and manage cloud agent runs." />
+    <meta property="og:title" content={`${VARS.WARP_PLATFORM_API} reference | Warp`} />
+    <meta property="og:description" content={`Interactive reference for the ${VARS.WARP_PLATFORM_API}. Send work to factories and create and manage cloud agent runs.`} />
     <meta property="og:url" content="https://docs.warp.dev/api/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Warp Docs" />
     <meta property="og:image" content="https://docs.warp.dev/assets/og/api.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Warp Platform API reference — Warp" />
+    <meta property="og:image:alt" content={`${VARS.WARP_PLATFORM_API} reference — Warp`} />
     <!-- Twitter / X card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Warp Platform API reference | Warp" />
-    <meta name="twitter:description" content="Interactive reference for the Warp Platform API. Send work to factories and create and manage cloud agent runs." />
+    <meta name="twitter:title" content={`${VARS.WARP_PLATFORM_API} reference | Warp`} />
+    <meta name="twitter:description" content={`Interactive reference for the ${VARS.WARP_PLATFORM_API}. Send work to factories and create and manage cloud agent runs.`} />
     <meta name="twitter:image" content="https://docs.warp.dev/assets/og/api.png" />
     <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
@@ -199,17 +200,17 @@ const specBaseUrl = (specObject.servers as Array<{ url?: string }> | undefined)?
         document.body.classList.add(resolved === 'dark' ? 'dark-mode' : 'light-mode');
       })();
     </script>
-    <WarpTopbar crumb="Warp Platform API" />
+    <WarpTopbar crumb={VARS.WARP_PLATFORM_API} />
     <!-- llms.txt directive: machine-readable signal for agents and AI tools. -->
     <span class="api-visually-hidden" aria-hidden="true">For the complete documentation in markdown, see <a href="/llms.txt" tabindex="-1">llms.txt</a>.</span>
-    <h1 class="api-visually-hidden">Warp Platform API reference</h1>
+    <h1 class="api-visually-hidden">{VARS.WARP_PLATFORM_API} reference</h1>
     <!--
       Server-rendered API index for crawlers and agents that don't execute JS.
       Scalar (below) provides the interactive experience for browser users.
       This section is visually hidden but fully in the DOM and accessible to
       any HTTP client that reads HTML — including AI crawlers, scanners and agents.
     -->
-    <section aria-label="Warp Platform API endpoint index" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">
+    <section aria-label={`${VARS.WARP_PLATFORM_API} endpoint index`} style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">
       <h2>{specInfo?.title}</h2>
       <p>{specInfo?.description}</p>
       <p>Base URL: {specBaseUrl}</p>
@@ -261,8 +262,8 @@ const specBaseUrl = (specObject.servers as Array<{ url?: string }> | undefined)?
         // doesn't show a fake "interactive" affordance (per scalar/scalar#5079).
         defaultOpenAllTags: true,
         metaData: {
-          title: 'Warp Platform API reference',
-          description: 'Interactive reference for the Warp Platform API.',
+          title: `${VARS.WARP_PLATFORM_API} reference`,
+          description: `Interactive reference for the ${VARS.WARP_PLATFORM_API}.`,
         },
         // ---------------------------------------------------------------
         // Scalar consumes `customCss` as a runtime string, so we can't
