@@ -85,3 +85,43 @@ test('leaves non-Expressive-Code blocks to the default fenced-code rule', () => 
 
 	assert.ok(markdown.includes("```shell\nprintf 'one'\nprintf 'two'\n```"));
 });
+
+test('rewrites root-relative links and images to absolute docs.warp.dev URLs', () => {
+	const html = createPage(`
+		<p>See <a href="/agent-platform/capabilities/skills/">Skills</a> and
+		<a href="/agent-platform/capabilities/skills/#next-steps">Skills next steps</a> and
+		<a href="https://docs.warp.dev/reference/cli/">CLI</a>.
+		Jump to <a href="#next-steps">Next steps</a>.
+		External: <a href="https://example.com/docs">Example</a>.
+		Relative: <a href="../reference/cli/">Relative CLI</a>.</p>
+		<img src="/_astro/example.webp" alt="Example diagram">
+		<img src="../assets/relative.webp" alt="Relative diagram">
+		<img src="//cdn.example.com/protocol-relative.webp" alt="Protocol-relative diagram">
+	`);
+
+	const markdown = convertHtmlToMarkdown(html);
+
+	assert.match(markdown, /\[Skills\]\(https:\/\/docs\.warp\.dev\/agent-platform\/capabilities\/skills\/\)/);
+	assert.match(
+		markdown,
+		/\[Skills next steps\]\(https:\/\/docs\.warp\.dev\/agent-platform\/capabilities\/skills\/#next-steps\)/,
+	);
+	assert.match(markdown, /\[CLI\]\(https:\/\/docs\.warp\.dev\/reference\/cli\/\)/);
+	assert.match(markdown, /\[Next steps\]\(#next-steps\)/);
+	assert.match(markdown, /\[Example\]\(https:\/\/example\.com\/docs\)/);
+	assert.match(markdown, /\[Relative CLI\]\(\.\.\/reference\/cli\/\)/);
+	assert.match(
+		markdown,
+		/!\[Example diagram\]\(https:\/\/docs\.warp\.dev\/_astro\/example\.webp\)/,
+	);
+	assert.match(markdown, /!\[Relative diagram\]\(\.\.\/assets\/relative\.webp\)/);
+	assert.match(
+		markdown,
+		/!\[Protocol-relative diagram\]\(\/\/cdn\.example\.com\/protocol-relative\.webp\)/,
+	);
+	assert.match(
+		markdown,
+		/\[llms\.txt\]\(https:\/\/docs\.warp\.dev\/llms\.txt\)/,
+	);
+	assert.doesNotMatch(markdown, /\]\(\/[^/)]/);
+});

@@ -233,6 +233,11 @@
       "statusCode": 308
     },
     {
+      "source": "/agent-platform/inference/bring-your-own-api-key.md",
+      "destination": "/agents/inference/bring-your-own-api-key/",
+      "statusCode": 308
+    },
+    {
       "source": "/agent-platform/inference/custom-inference-endpoint/",
       "destination": "/agents/inference/custom-inference-endpoint/",
       "statusCode": 308
