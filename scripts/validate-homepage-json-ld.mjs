@@ -9,7 +9,7 @@ const WEBSITE_ID = `${DOCS_ORIGIN}/#website`;
 
 function parseJsonLd(html) {
 	const payloads = [];
-	const scriptPattern = /<script\b([^>]*)>([\s\S]*?)<\/script>/gi;
+	const scriptPattern = /<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi;
 
 	for (const match of html.matchAll(scriptPattern)) {
 		if (!/\btype=["']application\/ld\+json["']/i.test(match[1])) continue;
@@ -24,6 +24,11 @@ const server = await dev({
 	host: '127.0.0.1',
 	port: 4321,
 	logLevel: 'error',
+	vite: {
+		optimizeDeps: {
+			noDiscovery: true,
+		},
+	},
 });
 
 try {
