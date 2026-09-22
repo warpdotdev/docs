@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Warp Platform API
   version: 1.0.0
-  description: "API for creating, managing, and querying factory and cloud agent runs.\n\nThese endpoints allow users to send work to factories, start standalone agents, list runs, \nand retrieve detailed run information.\n"
+  description: "API for creating, managing, and querying factory and cloud agent runs.\n\nThese endpoints allow users to send work to factories, start standalone agents, list runs, and retrieve detailed run information.\n"
   contact:
     name: Warp Support
     url: https://docs.warp.dev

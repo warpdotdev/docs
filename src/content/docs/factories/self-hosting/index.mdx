@@ -39,10 +39,17 @@ Managed self-hosting moves execution to your infrastructure. Warp still provides
 The worker requires outbound HTTPS access to Warp and any repositories, registries, and services that its tasks use. It does not require inbound firewall access.
 
 <a id="routing-runs-to-self-hosted-workers"></a>
+## Route runs to a worker
 
-## Configure a factory to use a worker
+For a factory, define the worker host and a compatible runner in the [factory definition](/factories/factory-as-code/#agentdefaultsworkerhost). The factory dashboard shows each configured runner and the worker that executes its work.
 
-Define the worker host and a compatible runner in your [factory definition](/factories/factory-as-code/). The factory dashboard shows each configured runner and the worker that executes its work. Use the [worker reference](/factories/self-hosting/reference/) to configure the worker process and the [factory dashboard](/factories/factory-dashboard/) to inspect its runs.
+For standalone cloud agents, choose the worker ID with `--host`:
+
+* `oz agent run-cloud --host WORKER_ID` - Start an ad hoc cloud agent on the worker. See the [CLI reference](/agents/cli/oz-cli/#running-agents-remotely-oz-agent-run-cloud).
+* `oz schedule create --host WORKER_ID` - Route future scheduled runs to the worker. See [scheduled agents](/platform/triggers/scheduled-agents/).
+* `oz integration create slack --host WORKER_ID` or `oz integration create linear --host WORKER_ID` - Route runs triggered by that integration to the worker. See [integration setup](/agents/cli/oz-cli/integration-setup/).
+
+Use the [worker reference](/factories/self-hosting/reference/) to configure the worker process and the [factory dashboard](/factories/factory-dashboard/) to inspect factory runs.
 
 ## Monitor and troubleshoot workers
 

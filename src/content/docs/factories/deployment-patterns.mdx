@@ -33,9 +33,9 @@ See the [cloud agent run lifecycle](/platform/architecture/#cloud-agent-run-life
 
 ### What it looks like
 
-* **Trigger**: first-party integrations, cron schedules, API/SDK calls, or on-demand commands
+* **Work intake**: Factory automations, configured integrations, Factory MCP, or factory endpoints
 * **Execution**: {VARS.WARP_AUTOMATION_PLATFORM}-hosted environments (Docker-based)
-* **Visibility**: {VARS.DASHBOARD} + session sharing + APIs/SDKs
+* **Visibility**: Factory dashboard, session sharing, and APIs
 
 ### Why teams choose it
 
@@ -43,37 +43,14 @@ See the [cloud agent run lifecycle](/platform/architecture/#cloud-agent-run-life
 * You want to run many tasks in parallel without building your own sandboxing and scaling layer.
 * You want a consistent "production" setup with standardized environments and centralized configuration.
 
-### Common ways to trigger
+### Send work to a factory
 
-* **First-party integrations (Slack, Linear, etc.)** that create tasks automatically from external events.
-* **[Scheduled agents](/platform/triggers/scheduled-agents/)** for recurring work (cron-like automation).
-* **Custom triggers** from your own systems using Warp's API/SDK.
-* **On-demand cloud jobs** using CLI commands like `oz agent run-cloud`.
+* [Factory automations](/factories/automations/) route integration events, schedules, and webhooks to agents in the factory.
+* [Factory integrations](/factories/connect-your-factory/) let teammates send work from Slack, Linear, Jira, GitHub, and GitLab.
+* [Factory endpoints](/factories/factory-api/) let your service find a factory and dispatch work by UID.
+* [Factory MCP](/factories/factory-mcp/) lets a coding agent hand work to a factory.
 
-### Example recipe: daily dead-code cleanup
-
-1. Define a Warp [Environment](/platform/environments/) with the repo + toolchain.
-2. Create a [schedule](/platform/triggers/scheduled-agents/) with a fixed prompt for cleanup.
-3. The {VARS.WARP_AUTOMATION_PLATFORM} runs the agent on the cadence.
-4. Your team monitors runs in the [{VARS.WEB_APP}](/platform/oz-web-app/) and [viewing cloud agent runs](/platform/viewing-cloud-agent-runs/), reviews artifacts (PRs, plans), and intervenes when needed.
-
-### Example recipe: crash triage via Sentry webhook
-
-1. Define a Warp Environment with the target repo.
-2. Register a Sentry webhook to your handler (server, cloud function, Zapier/n8n).
-3. The handler extracts crash details, constructs a prompt, and calls the [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) to start a task.
-4. Warp spins up the run in the environment and you monitor progress via UI/API.
-
-### Example recipe: fan-out parallel work (sharding)
-
-When a task is naturally divisible, use [multi-agent orchestration](/platform/orchestration/) to spawn one child agent per shard from a single parent run. The parent owns coordination and result aggregation; the children execute in parallel, each with their own repo subset, prompt, and (optionally) model. See [Running orchestrated agents](/platform/orchestration/multi-agent-runs/) for slash command, CLI, web app, and API examples.
-
-### Example recipe: same task across multiple models
-
-* Launch N runs with the same prompt, but different profiles that map to different models.
-* Compare results and choose the best output (or merge).
-
----
+For standalone cloud-agent triggers, see [cloud agents](/platform/).
 
 ## Managed self-hosting
 

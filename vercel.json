@@ -6619,7 +6619,7 @@
     },
     {
       "source": "/reference(/?)",
-      "destination": "/agents/cli/oz-cli/",
+      "destination": "/factories/developer-tools/",
       "statusCode": 308
     },
     {

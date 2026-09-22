@@ -521,7 +521,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				// Keep troubleshooting and legacy transition guidance as direct trailing
 				// items rather than creating singleton groups.
 				{ slug: 'factories/troubleshooting', label: 'Troubleshooting' },
-				{ slug: 'platform/transitioning-from-oz', label: `Transitioning from the ${VARS.WEB_APP}` },
+				{ label: `About the transition from the ${VARS.WEB_APP}`, link: '/platform/transitioning-from-oz/' },
 			],
 		},
 		{
@@ -549,7 +549,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'platform', label: 'Overview' },
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
-						{ slug: 'platform/transitioning-from-oz', label: `Transitioning from the ${VARS.WEB_APP}` },
+						{ slug: 'platform/transitioning-from-oz', label: `About the transition from the ${VARS.WEB_APP}` },
 						{
 							// Runtime (which agent executes the run) is kept separate from
 							// configuration (how any run is set up) -- HYC review, 8/14.
