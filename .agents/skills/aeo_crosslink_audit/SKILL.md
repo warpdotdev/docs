@@ -217,7 +217,7 @@ Text generation can silently corrupt a PR body — repeated or truncated word fr
 1. Write the body to a temp file (`/tmp/pr-body.md` or similar) rather than passing text inline.
 2. Run `python3 .agents/skills/create_pr/check_pr_body.py /tmp/pr-body.md` and do not submit if it fails. Fix the file and re-run until it passes.
 3. Submit with `--body-file`, never `--body`.
-4. Re-fetch the live body with `gh pr view <pr> --json body --jq .body` and diff it against the temp file. If they differ beyond a trailing newline, the corruption happened during submission — treat the live body as the source of truth, fix the temp file to match what you intended, and repeat from step 2 until the live PR body is verified clean.
+4. Re-fetch the live body with `gh pr view <pr> --json body --jq .body` and diff it against the validated temp file. The temp file remains authoritative. If they differ beyond a trailing newline, repair the live body with `gh pr edit <pr> --body-file /tmp/pr-body.md`, then re-fetch and verify it matches the temp file. Repeat until they match.
 
 This applies to every body update in this skill: the cross-link PR, the log PR, and any AEO brief content pasted into either.
 
