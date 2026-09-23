@@ -19,7 +19,7 @@ The Slack integration lets your team trigger cloud agents directly from Slack co
 3. After installing, you're returned to the Integrations page to finish setup: choose the [environment](/platform/environments/) agents should use, which defines the repos, Docker image, and setup commands.
 4. Start using Warp in Slack by mentioning **@Warp** with a task.
 
-Alternatively, install via the [{VARS.WARP_AGENT_CLI}](/reference/cli/):
+Alternatively, install via the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/):
 
 ```
 oz integration create slack --environment <ENV_ID>
@@ -31,7 +31,7 @@ The CLI opens a browser window to install the Warp app into your Slack workspace
 
 * **Team membership** - The Slack integration requires you to be part of a [Warp team](/knowledge-and-collaboration/teams/). Teams can be created on any plan, including Free.
 * **Plan and credits** - Your team must have cloud agents enabled and credits available. See [Access, Billing, and Identity](/platform/team-access-billing-and-identity/) for details.
-* **Infrastructure** - By default, agents run on Warp-hosted infrastructure. Enterprise teams can [self-host agents](/platform/self-hosting/) on their own infrastructure.
+* **Infrastructure** - By default, agents run on Warp-hosted infrastructure. Enterprise teams can [self-host agents](/factories/self-hosting/) on their own infrastructure.
 
 ---
 
@@ -137,8 +137,8 @@ oz integration create slack \
 :::tip
 If the integration cannot be created or a Slack-triggered run cannot start, use the returned error code to narrow the fix. Common errors include:
 
-* [`feature_not_available`](/reference/api-and-sdk/troubleshooting/errors/feature-not-available/) (plan does not support integrations)
-* [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/) (missing GitHub or Slack authorization)
+* [`feature_not_available`](/factories/api-and-sdk/troubleshooting/errors/feature-not-available/) (plan does not support integrations)
+* [`external_authentication_required`](/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/) (missing GitHub or Slack authorization)
 :::
 
 ### Identity mapping and team access
@@ -172,7 +172,7 @@ To remove the Warp app from your Slack workspace:
 
 ![Confirmation dialog to remove the Warp app from a Slack workspace.](../../../../assets/agent-platform/remove-slack-app.png)
 
-Once removed, Slack will immediately disable the integration for all teammates. Events for a disabled integration can return [`integration_disabled`](/reference/api-and-sdk/troubleshooting/errors/integration-disabled/).
+Once removed, Slack will immediately disable the integration for all teammates. Events for a disabled integration can return [`integration_disabled`](/factories/api-and-sdk/troubleshooting/errors/integration-disabled/).
 
 ### Troubleshooting
 

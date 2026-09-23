@@ -38,7 +38,7 @@ Individual users can run cloud agents via the CLI or API without being part of a
 
 **How it works:**
 
-* Run agents using `oz agent run-cloud` or the {VARS.API_SDK_NAME}
+* Run agents using `oz agent run-cloud` or the {VARS.WARP_PLATFORM_API}
 * Credits are drawn from your Warp credits (including cloud agent credits, when applicable)
 * Agents execute on Warp-hosted infrastructure
 
@@ -110,7 +110,7 @@ This ensures runs are scoped to what the user is allowed to see and modify, and 
 
 By default, cloud agents authenticate with GitHub using the personal token of the user who triggered the run. Team GitHub authorization gives you an alternative: authenticate with the **Warp Factories** GitHub App instead, so agents can clone repositories and open pull requests without relying on any individual's token.
 
-This is useful for fully automated workflows that use an [agent API key](/reference/cli/api-keys/), like CI/CD pipelines, scheduled agents, and SDK-triggered runs, where you want code changes attributed to the GitHub App rather than a specific person.
+This is useful for fully automated workflows that use an [agent API key](/agents/cli/oz-cli/api-keys/), like CI/CD pipelines, scheduled agents, and SDK-triggered runs, where you want code changes attributed to the GitHub App rather than a specific person.
 
 ### How it works
 
@@ -233,9 +233,9 @@ How credits are consumed depends on how the agent run is triggered and authentic
 * On Build, Max, and Business plans, Warp bills the team owner: the owner's plan-included credits, then the team's shared add-on credit pool. With auto-reload off, the request is blocked when both are depleted. With auto-reload on, usage can trigger a reload into the team's shared pool subject to the team-wide monthly spend cap.
 * On Enterprise plans, these runs draw from the team-scoped credit pool, per your Enterprise contract terms.
 * Ideal for CI/CD pipelines, scheduled tasks, and other automated workflows.
-* For workflows that require code changes (opening pull requests, pushing branches, or writing to a repository), configure [team GitHub authorization](#team-github-authorization) so the agent can authenticate with the Warp Factories GitHub App. Alternatively, use a [personal API key](/reference/cli/api-keys/) to authenticate as an individual user.
+* For workflows that require code changes (opening pull requests, pushing branches, or writing to a repository), configure [team GitHub authorization](#team-github-authorization) so the agent can authenticate with the Warp Factories GitHub App. Alternatively, use a [personal API key](/agents/cli/oz-cli/api-keys/) to authenticate as an individual user.
 
-For more details on creating and using API keys, see [API Keys](/reference/cli/api-keys/).
+For more details on creating and using API keys, see [API Keys](/agents/cli/oz-cli/api-keys/).
 
 :::note
 When a user triggers an agent via Slack or Linear, the run still follows that same order — plan-included credits first, then shared team grants, then any applicable user-scoped grants — as long as the triggering user's identity can be mapped to their Warp account.
@@ -263,9 +263,9 @@ It's the team's responsibility to manage triggers, confirm they behave as intend
 
 If a cloud agent or integration run fails with an error code, use the error reference to narrow the fix:
 
-* **Missing GitHub or external authorization** - See [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/) when a user needs to authorize GitHub, Slack, or Linear before a run can continue.
-* **Insufficient repo permissions** - See [`not_authorized`](/reference/api-and-sdk/troubleshooting/errors/not-authorized/) when the triggering user or GitHub App lacks access to the repo the agent needs.
-* **Credits or spend caps block a run** - See [`insufficient_credits`](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/) or [`budget_exceeded`](/reference/api-and-sdk/troubleshooting/errors/budget-exceeded/) when the billed account has depleted credits or reached a configured spend cap.
+* **Missing GitHub or external authorization** - See [`external_authentication_required`](/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/) when a user needs to authorize GitHub, Slack, or Linear before a run can continue.
+* **Insufficient repo permissions** - See [`not_authorized`](/factories/api-and-sdk/troubleshooting/errors/not-authorized/) when the triggering user or GitHub App lacks access to the repo the agent needs.
+* **Credits or spend caps block a run** - See [`insufficient_credits`](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) or [`budget_exceeded`](/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/) when the billed account has depleted credits or reached a configured spend cap.
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: draft_quickstart
-description: Draft a new quickstart documentation page or update an existing one. Use when the reader already understands the product and wants the fastest path to a working result - about five minutes and 600 words, essential steps only. If the task needs explanation along the way or exceeds that budget, it is a tutorial, not a quickstart.
+description: Draft a new quickstart documentation page or update an existing one. Use when the reader already understands the product and wants the fastest path to a working result - about five minutes and 600 words, with up to 800 words allowed when documented in the PR. If the task needs explanation along the way, it is a tutorial, not a quickstart.
 ---
 
 # Draft quickstart page
@@ -9,7 +9,7 @@ Draft a quickstart that gets the reader to a working result in about five minute
 
 ## Scope is the defining constraint
 
-**About five minutes and roughly 600 words.** This is a budget, not a target. A quickstart that outgrows it has become a tutorial and should be reworked as one rather than allowed to sprawl.
+**About five minutes and 600 words is the target.** Up to 800 words is acceptable when visual confirmation or a complete first-use path needs the room; record the rationale in the PR. Above 800 words, record the exception and schedule a later cut pass or reclassify the page as a tutorial.
 
 Quickstarts are for readers who **already understand the feature or product** and are ready to try it. Deliberately omit how it works and why they would want it — if the reader needs that, they need conceptual content. If the task needs context at its decision points, they need a tutorial.
 
@@ -41,7 +41,7 @@ These rules are specific to quickstart pages (from the "Drafting by content type
 - **Troubleshooting is optional and link-only.** Point at existing troubleshooting content; do not write new troubleshooting into a quickstart.
 - End with a one-line recap, then 2-3 actionable next steps. Always include a link to the conceptual page for the feature.
 - Title convention: "[Feature] quickstart" or "Quickstart for [product]"
-- **Length is the constraint, not just the tone.** A quickstart has a hard ~600-word budget — tighter than any other content type, because speed to a working result is the entire point. Cut every section that isn't on the critical path (AGENTS.md → Voice & tone → Cut again) before adding a word of new content. Also apply the general tone rules: no marketing buzzwords, no meta-openers.
+- **Length is the constraint, not just the tone.** A quickstart targets 600 words. Up to 800 words is acceptable with a PR rationale; above 800 words, record the exception and schedule a later cut pass or reclassify the page as a tutorial. Cut every section that isn't on the critical path (AGENTS.md → Voice & tone → Cut again) before adding new content. Also apply the general tone rules: no marketing buzzwords, no meta-openers.
 
 ## Heading case
 

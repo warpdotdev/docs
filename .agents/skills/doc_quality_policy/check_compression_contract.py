@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Check the mechanically-checkable parts of the shared compression contract.
 
-Word-budget and callout-count checks only — the rest of the contract (lead
+Word-target, maximum-length, and callout-count checks only — the rest of the contract (lead
 summary, "Cut again" pass, no duplication) needs human/agent judgment and is
 covered by `draft_docs`'s checklist and `review-docs-pr`. Generated
 changelog/license/telemetry pages are exempt from the word budget (see
@@ -12,8 +12,9 @@ Usage:
     python3 check_compression_contract.py FILE --content-type feature-doc
 
 Exit codes:
-    0  within budget
-    1  over budget (a reportable finding for review-docs-pr, not a hard CI gate)
+    0  within the hard maximum (may still print a documented-exception notice)
+    1  over the hard maximum or callout budget (a reportable finding for
+       review-docs-pr, not a hard CI gate)
     2  usage / file error
 """
 from __future__ import annotations
@@ -24,11 +25,14 @@ import sys
 from pathlib import Path
 from typing import List, Optional
 
-# ~600 words for a quickstart; <=1500 words for a combined feature page.
+# Quickstarts target 600 words and can extend to 800 with a PR rationale.
 # Other content types have no fixed budget here; the drafting skills' own
 # length guidance applies.
-WORD_BUDGETS = {
+WORD_TARGETS = {
     "quickstart": 600,
+}
+WORD_BUDGETS = {
+    "quickstart": 800,
     "feature-doc": 1500,
 }
 
@@ -79,7 +83,7 @@ def count_callouts(text: str) -> int:
 
 
 def check_compression_contract(text: str, content_type: str) -> List[str]:
-    """Return a list of findings; empty means within the mechanical budget."""
+    """Return hard-limit findings; empty means within the mechanical maximum."""
     findings: List[str] = []
 
     budget = WORD_BUDGETS.get(content_type)
@@ -87,8 +91,8 @@ def check_compression_contract(text: str, content_type: str) -> List[str]:
         words = count_words(text)
         if words > budget:
             findings.append(
-                f"word count {words} exceeds the {content_type} budget of {budget} "
-                "(a justified overage is an important review decision, not an automatic split)"
+                f"word count {words} exceeds the {content_type} maximum of {budget} "
+                "(record the exception in the PR and schedule a later cut pass or reclassify the page)"
             )
 
     callouts = count_callouts(text)
@@ -96,6 +100,22 @@ def check_compression_contract(text: str, content_type: str) -> List[str]:
         findings.append(f"{callouts} callouts exceed the linted budget of {MAX_CALLOUTS}")
 
     return findings
+
+
+def check_compression_notices(text: str, content_type: str) -> List[str]:
+    """Return non-blocking notices that still require a PR rationale."""
+    target = WORD_TARGETS.get(content_type)
+    maximum = WORD_BUDGETS.get(content_type)
+    if content_type in EXEMPT_CONTENT_TYPES or target is None or maximum is None:
+        return []
+
+    words = count_words(text)
+    if target < words <= maximum:
+        return [
+            f"word count {words} exceeds the {content_type} target of {target} "
+            f"but is within the documented exception range of {maximum}; record the rationale in the PR"
+        ]
+    return []
 
 
 def main(argv: Optional[List[str]] = None) -> int:
@@ -117,6 +137,11 @@ def main(argv: Optional[List[str]] = None) -> int:
             return 2
 
     findings = check_compression_contract(text, args.content_type)
+    notices = check_compression_notices(text, args.content_type)
+    if notices:
+        print("Compression contract notices:", file=sys.stderr)
+        for notice in notices:
+            print(f"  - {notice}", file=sys.stderr)
     if findings:
         print("Compression contract findings:", file=sys.stderr)
         for finding in findings:

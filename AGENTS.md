@@ -588,7 +588,7 @@ These rules apply regardless of content type:
 
 **When to use**: When the reader already understands the feature or product and is ready to try it. A quickstart deliberately omits explanation of how something works or why they would want it — if the reader needs that, they need conceptual content, and if the task is complex enough to need context along the way, they need a tutorial.
 
-**Scope**: About five minutes and roughly 600 words. That budget is the defining constraint, not a suggestion. A quickstart that no longer fits it has become a tutorial and should be reworked as one.
+**Scope**: About five minutes and 600 words is the target. A quickstart can run up to 800 words when visual confirmation or a complete first-use path needs the room; record the rationale in the PR. Above 800 words, record the exception and schedule a later cut pass or reclassify the page as a tutorial.
 
 **Structure**:
 1. Opening paragraph: who it is for, the prerequisites and prior knowledge assumed, what the reader will end up with, and the time budget ("in about five minutes")
@@ -703,7 +703,7 @@ Direct answer with actionable information. Include links to relevant documentati
 
 "Guides" is the name of the section, not a content type. It holds both **tutorials** and **quickstarts**; pick between them by scope before drafting:
 
-- **Quickstart** — about five minutes, ~600 words, essential steps only, for someone who already understands the product.
+- **Quickstart** — about five minutes, with 600 words as the target and up to 800 words allowed with a PR rationale, for someone who already understands the product.
 - **Tutorial** — a full workflow with context at the decision points, for someone extending a basic understanding to solve a real problem.
 
 **A tutorial requires that a quickstart already exists** for the product area. If there is no quickstart, write that first — otherwise the tutorial absorbs setup content that belongs in a shorter page, and readers who only wanted to get started have to wade through the whole workflow.

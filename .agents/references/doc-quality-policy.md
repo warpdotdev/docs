@@ -145,14 +145,17 @@ All content-generating skills share one compression contract:
 
 - Lead with a one-to-three-sentence user-facing summary.
 - Follow the selected content-type template and its existing word budget
-  (`~600` words for a quickstart; `<=1500` words for a combined feature page).
+  (600 words is the quickstart target; up to 800 words is acceptable with a
+  PR rationale; `<=1500` words for a combined feature page).
 - Run the deletion-only "Cut again" pass (see `draft_docs/SKILL.md` step 6.5 /
   `AGENTS.md` → Voice & tone) before opening the PR.
 - Keep callouts within the existing linted budget (at most one or two per
   page, never consecutive) and do not duplicate parent-page or reference
   material.
-- Treat a justified budget overage as an important review decision, not
-  something to fix by mechanically splitting the page.
+- Treat a quickstart between 601 and 800 words as a documented exception, not
+  something to fix by mechanically splitting the page. For a quickstart above
+  800 words or with more than two callouts, record the exception in the PR and
+  schedule a later cut pass or reclassify the page as a tutorial.
 
 Generated changelog, license, and telemetry data is exempt from the
 page-summary and word-budget rules, but not from duplicate-content, style, or

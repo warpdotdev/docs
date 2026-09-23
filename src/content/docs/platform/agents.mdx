@@ -14,22 +14,22 @@ Every team starts with a default cloud agent, which is what runs when an automat
 
 ## How cloud agents get triggered
 
-A run executes as a cloud agent when it's authenticated with an [agent API key](/reference/cli/api-keys/) or when an agent is explicitly selected; otherwise it runs as the calling user. The triggers that can run as a cloud agent are:
+A run executes as a cloud agent when it's authenticated with an [agent API key](/agents/cli/oz-cli/api-keys/) or when an agent is explicitly selected; otherwise it runs as the calling user. The triggers that can run as a cloud agent are:
 
 * **Schedules** — Cron-style recurring runs. See [Scheduled agents](/platform/triggers/scheduled-agents/).
 * **Integrations** — Slack mentions, Linear issue updates, GitHub Actions workflow steps. See [Integrations](/platform/integrations/).
-* **API and SDK** — Programmatic runs from your own backend, scripts, or webhooks via the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/).
-* **CLI** — `oz agent run-cloud` from a developer machine, CI pipeline, or self-hosted worker. See the [{VARS.WARP_AGENT_CLI}](/reference/cli/).
+* **API and SDK** — Programmatic runs from your own backend, scripts, or webhooks via the [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/).
+* **CLI** — `oz agent run-cloud` from a developer machine, CI pipeline, or self-hosted worker. See the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/).
 
 Each run is tracked in the <a href={`${VARS.WEB_APP_URL}/runs`}>{VARS.DASHBOARD}</a> with its trigger source, the environment it ran in, and the full transcript.
 
 ## Agent API keys
 
-Most automation triggers authenticate using an **agent API key** — a credential that runs as a cloud agent on your team rather than as an individual user. See [API keys](/reference/cli/api-keys/) for how personal and agent keys differ, and how to create one.
+Most automation triggers authenticate using an **agent API key** — a credential that runs as a cloud agent on your team rather than as an individual user. See [API keys](/agents/cli/oz-cli/api-keys/) for how personal and agent keys differ, and how to create one.
 
 ## Service accounts
 
-In the CLI and REST API, a cloud agent is represented as a **service account**. `oz whoami` reports `service_account:<uid>` when the CLI is authenticated as a service account, and [`oz federate issue-token`](/reference/cli/federate/) emits the same form in OIDC token subjects.
+In the CLI and REST API, a cloud agent is represented as a **service account**. `oz whoami` reports `service_account:<uid>` when the CLI is authenticated as a service account, and [`oz federate issue-token`](/agents/cli/oz-cli/federate/) emits the same form in OIDC token subjects.
 
 ## Managing cloud agents
 
@@ -75,8 +75,8 @@ Cloud agents — and individual runs — can also be granted specific capabiliti
 * [Triggers](/platform/triggers/) - How schedules, integrations, and API calls invoke cloud agents.
 * [Environments](/platform/environments/) - The runtime context (Docker image, repos, setup commands) a cloud agent uses.
 * [Multi-agent orchestration](/platform/orchestration/) - Coordinate a parent cloud agent and its children across local and cloud runs.
-* [API keys](/reference/cli/api-keys/) - Create personal and agent API keys.
-* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) - Programmatic access to the cloud agent endpoints.
-* [Federated identity tokens](/reference/cli/federate/) - Issue OIDC tokens from inside a run.
+* [API keys](/agents/cli/oz-cli/api-keys/) - Create personal and agent API keys.
+* [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) - Programmatic access to the cloud agent endpoints.
+* [Federated identity tokens](/agents/cli/oz-cli/federate/) - Issue OIDC tokens from inside a run.
 * [{VARS.WEB_APP}](/platform/oz-web-app/) - Manage cloud agents and inspect their runs in the web UI.
 * [Admin Panel](/knowledge-and-collaboration/admin-panel/) - Team-level billing and access controls.

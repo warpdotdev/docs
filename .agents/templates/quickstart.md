@@ -9,7 +9,7 @@ description: >-
 [BEFORE PUBLISHING: Delete every bracketed instruction in this file, including this one. They are guidance for the author, not page content.]
 [VARS: If this page names a product from src/data/vars.ts, add `import { VARS } from '@data/vars';` on the line directly below the frontmatter, then use {VARS.KEY} in prose. See AGENTS.md → Content variables.]
 
-[SCOPE — the defining constraint: about five minutes and roughly 600 words. This is a budget, not a target. A quickstart that outgrows it has become a tutorial and should be reworked as one. Written for someone who already understands the product and is ready to try it, so leave out how it works and why they would want it. If the task needs context at its decision points, it is a tutorial.]
+[SCOPE — the defining constraint: about five minutes and 600 words is the target. Up to 800 words is acceptable when visual confirmation or a complete first-use path needs the room; record why in the PR. Above 800 words, record the exception and schedule a later cut pass or reclassify it as a tutorial. Written for someone who already understands the product and is ready to try it, so leave out how it works and why they would want it. If the task needs context at its decision points, it is a tutorial.]
 
 [Opening paragraph: who this is for, what prior knowledge it assumes, what the reader will end up with, and the time budget. 2-3 sentences.]
 

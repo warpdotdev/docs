@@ -9,7 +9,7 @@ description: >-
 [VARS: If this page names a product from src/data/vars.ts, add `import { VARS } from '@data/vars';` below, then use {VARS.KEY} in prose and {{TOKEN}} in frontmatter. See AGENTS.md → Content variables.]
 [AEO: If this page is driven by Peec, search-query, or answer-engine data, run `.agents/skills/aeo_brief/SKILL.md` first.]
 
-[SCOPE: This is a tutorial — a full workflow, start to finish, with context at the decision points. If the task fits in about five minutes and 600 words of essential steps, it is a quickstart instead; use `.agents/templates/quickstart.md`. A tutorial also requires that a quickstart already exists for this product area. If none does, write that first.]
+[SCOPE: This is a tutorial — a full workflow, start to finish, with context at the decision points. If the task fits in about five minutes with 600 words as the target (up to 800 with a PR rationale), it is a quickstart instead; use `.agents/templates/quickstart.md`. A tutorial also requires that a quickstart already exists for this product area. If none does, write that first.]
 
 [Introduction: who this is for, what prior knowledge it assumes, and what the reader will build. Do NOT state an expected completion time — it varies too much by experience level. (Quickstarts do state one; tutorials do not.)]
 

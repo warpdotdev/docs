@@ -248,7 +248,6 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 - **The `oz` binary** and every `oz <command>` invocation. Commands inside code
   fences are never rewritten. `{VARS.WARP_AGENT_CLI}` renders "Oz CLI".
 - **`oz.warp.dev`** and the Oz v1 web app. `{VARS.WEB_APP}`, `{VARS.WEB_APP_URL}`.
-- **`{VARS.API_SDK_NAME}`**, which renders "Oz API & SDK".
 - **`oz-agent-worker`, `oz-agent-action`, `oz-skills`** — repository and package
   names, not product names. These may never change.
 - **The `@oz-agent` GitHub handle.** Handles are strings the product owns;
@@ -262,7 +261,8 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 
 ## Platform terms
 
-- **Agent API** — The HTTP API for triggering and inspecting Platform runs programmatically.
+- **Warp Platform API** — The HTTP API for sending work to factories and triggering and inspecting cloud agent runs programmatically.
+  *Usage note:* Use `{VARS.WARP_PLATFORM_API}` in body prose and `{{WARP_PLATFORM_API}}` in frontmatter.
 
 - **Auth** — The agent settings field for choosing or creating the credential (a team-owned secret) a harness uses to authenticate with its provider, matched to that harness's supported credential types (Anthropic keys for Claude Code, an OpenAI key for Codex).
   *Usage note:* Capitalize as **Auth** when referring to the settings field name.

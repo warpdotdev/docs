@@ -1,0 +1,42 @@
+---
+title: About the transition from the {{WEB_APP}}
+description: >-
+  Keep existing legacy web app, CLI, SDK, and API workflows while using Warp
+  Factories for new multi-stage software development workflows.
+sidebar:
+  label: "About the transition from the {{WEB_APP}}"
+---
+import { VARS } from '@data/vars';
+
+Warp Factories supports new multi-stage software development workflows. Existing users can continue using their current workflows without taking action.
+
+## Current status and future direction
+
+| Surface | Current status | Future direction |
+| --- | --- | --- |
+| **{VARS.WEB_APP}** | Existing workflows continue to work. | Existing workflows remain supported. Migration guidance will be available over time. |
+| **{VARS.WARP_AGENT_CLI} (`oz`)** | Existing commands continue to work. | Relevant functionality moves toward the {VARS.WARP_CLI}. Warp will publish migration guidance before support changes. |
+| **{VARS.WARP_CLI} (`warp`)** | Available for its current supported functionality. | The preferred direction for CLI functionality. |
+| **`oz-sdk-python` and `oz-sdk-typescript`** | Existing SDK packages continue to work. | Packages may be renamed or repackaged under Warp with migration guidance. |
+| **{VARS.WARP_PLATFORM_API}** | Existing endpoints continue to work; no endpoint migration is required. | Documentation and naming may change while compatibility remains. |
+| **New software factories** | Use <a href={VARS.FACTORY_WEB_APP_URL}>Warp Factories</a> for new multi-stage development workflows. | Warp Factories remains the primary product experience for software factories. |
+
+## Moving an existing workflow
+
+### Existing web app workflows
+
+Continue using the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> for existing cloud agents, environments, schedules, integrations, and runs. Moving an existing workflow into a factory is optional. Contact your account team to evaluate the move for your workflow.
+
+### CLI functionality
+
+Continue using `oz` commands for existing workflows. Use the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) for current command reference and the [{VARS.WARP_CLI}](/agents/cli/) for current `warp` functionality.
+
+### SDK packages and API
+
+The official SDK repositories retain their current package names: [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript). Existing API integrations remain compatible as documentation moves to the [{VARS.WARP_PLATFORM_API}](/factories/developer-tools/).
+
+## Related pages
+
+* [{VARS.WARP_AUTOMATION_PLATFORM} overview](/platform/overview/) - Configure standalone cloud-agent workflows.
+* [Warp Factories overview](/factories/) - Build and operate a standing software factory.
+* [{VARS.WARP_PLATFORM_API} & SDKs](/factories/developer-tools/) - Use factory endpoints, Agent & run endpoints, SDKs, and API errors.

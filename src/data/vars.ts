@@ -7,9 +7,8 @@
 // Use the future/conceptual name as the key; the value holds the current string.
 
 export const VARS = {
-  // Platform — renamed 8/18. The remaining Oz-valued keys below are the
-  // deliberate 10/6 holdouts: the `oz` binary and the Oz v1 webapp keep their
-  // names until that date, so they are NOT stale, they are pending.
+  // The `oz` binary and Oz web app are supported legacy surfaces. Their names
+  // remain in place while Warp publishes transition guidance for each surface.
   //
   // IMPORTANT: "Automation Platform" is a common-noun phrase, not a proper
   // noun like "Oz" was. Referential uses need a definite article in the prose
@@ -17,9 +16,11 @@ export const VARS = {
   // attributive uses do not ("{{…}} settings", "{{…}}-hosted"). style_lint
   // enforces this. Do not add a bare referential use.
   WARP_AUTOMATION_PLATFORM: "Automation Platform",
-  WARP_AGENT_CLI:           "Oz CLI",         // the `oz` binary — holds until 10/6, then "Warp Agent CLI"
-  WEB_APP:                  "Oz web app",     // legacy Oz v1 webapp (oz.warp.dev) — holds until 10/6
-  WEB_APP_URL:              "https://oz.warp.dev", // holds until 10/6, then "https://app.warp.dev"
+  // Legacy key retained for existing Oz CLI references. It refers only to the
+  // `oz` binary; use WARP_CLI for the separate Warp Agent CLI (`warp` binary).
+  WARP_AGENT_CLI:           "Oz CLI",
+  WEB_APP:                  "Oz web app",
+  WEB_APP_URL:              "https://oz.warp.dev",
   // Renamed per HYC (8/17), same shape as PLATFORM_RUN below: a plain
   // platform-level term, with "factory dashboard" written directly on pages
   // that are specifically about a factory. Lowercase: "Warp Factories" is the
@@ -41,7 +42,7 @@ export const VARS = {
   // Kept singular so `{VARS.PLATFORM_RUN}s` pluralizes correctly at the call
   // sites that do that.
   PLATFORM_RUN:             "cloud agent run",
-  API_SDK_NAME:             "Oz API & SDK",   // holds until 10/6, then "Warp API & SDK"
+  WARP_PLATFORM_API:        "Warp Platform API",
 
   // Warp Factories web app — a net-new product surface at platform.warp.dev
   // (soft launch ~2026-08-18), separate from the legacy Oz v1 webapp above.
@@ -50,17 +51,10 @@ export const VARS = {
   FACTORY_WEB_APP:          "Warp Factories web app",
   FACTORY_WEB_APP_URL:      "https://platform.warp.dev",
 
-  // Warp Agent CLI — the standalone terminal front-end (the `warp` binary).
-  // Launch name confirmed via the launch blog draft (2026-07-28).
-  //
-  // NOTE: the WARP_AGENT_CLI key above was reserved for renaming the Oz CLI to
-  // this same name. That overlap is now resolved by product direction: on
-  // 2026-10-06 (the same holdout date as the WARP_AGENT_CLI value above, not
-  // the 8/18 platform rename) the Oz CLI is retired and wrapped into the Warp
-  // Agent CLI, leaving a single CLI. The two keys are expected to collapse
-  // into one at that point. Keeping them separate until the convergence
-  // ships, since merging them now would rewrite prose across both CLI doc
-  // surfaces.
+  // Warp Agent CLI — the preferred direction for CLI functionality (the
+  // `warp` binary). This is distinct from WARP_AGENT_CLI, which references
+  // the legacy Oz CLI (`oz` binary). Relevant Oz CLI functionality will move
+  // here over time.
   WARP_CLI:                 "Warp Agent CLI",
 
   // Feature names (stable — keys and values expected to remain unchanged)

@@ -13,6 +13,8 @@ Warp provides two management surfaces for tracking and observing agent activity 
 
 Use these surfaces as the starting point for real-time agent observability in Warp. They help you see which agents are active, which runs are blocked or failed, where each run started, and which session link opens the prompt, plan, commands, logs, outputs, and follow-up messages behind the work.
 
+To inspect work from one factory, use that factory's [Runs page](/factories/factory-dashboard/#inspect-runs). This page remains the reference for interactive and standalone cloud-agent management.
+
 The Agent Management Panel and {VARS.WEB_APP} Runs page are designed to answer, at a glance:
 
 * Which agents are active or have been running recently.
@@ -82,8 +84,8 @@ Each row represents a single item in the agents list (either an interactive conv
 Where the agent was launched from. Common sources include:
 
 * **Interactive:** an [agent conversation](/agents/) started in the Warp app
-* **CLI**: a local run triggered by the [{VARS.WARP_AGENT_CLI}](/reference/cli/)
-* **API**: a run triggered by [Warp's API](/reference/api-and-sdk/)
+* **CLI**: a local run triggered by the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/)
+* **API**: a run triggered by [Warp's API](/factories/api-and-sdk/)
 * **Slack / Linear**: runs triggered by [integrations](/platform/integrations/)
 * **Scheduled**: runs triggered on a [cron schedule](/platform/triggers/scheduled-agents/)
 
@@ -91,7 +93,7 @@ Where the agent was launched from. Common sources include:
 
 Warp uses a small set of statuses to help you quickly identify what needs attention:
 
-<table><thead><tr><th width="173.375">Status</th><th width="78.41973876953125">Icon</th><th>Description</th></tr></thead><tbody><tr><td><code>Working</code></td><td>N/A</td><td>in progress (may include queued / running states)</td></tr><tr><td><code>Blocked</code></td><td>🟨</td><td><p><em>(interactive only)</em></p><p><br />the conversation is waiting on user input or a required step</p></td></tr><tr><td><code>Canceled</code></td><td>⬜️</td><td>(interactive only)<br /><br />the interactive conversation was canceled before completion</td></tr><tr><td><a href="/reference/api-and-sdk/troubleshooting/errors/"><code>Failed / Errored</code></a></td><td>🔺</td><td>something went wrong (applies to both interactive and cloud agent runs)</td></tr><tr><td><code>Success</code></td><td>✅</td><td>completed successfully (applies to both interactive and cloud agent runs)</td></tr></tbody></table>
+<table><thead><tr><th width="173.375">Status</th><th width="78.41973876953125">Icon</th><th>Description</th></tr></thead><tbody><tr><td><code>Working</code></td><td>N/A</td><td>in progress (may include queued / running states)</td></tr><tr><td><code>Blocked</code></td><td>🟨</td><td><p><em>(interactive only)</em></p><p><br />the conversation is waiting on user input or a required step</p></td></tr><tr><td><code>Canceled</code></td><td>⬜️</td><td>(interactive only)<br /><br />the interactive conversation was canceled before completion</td></tr><tr><td><a href="/factories/api-and-sdk/troubleshooting/errors/"><code>Failed / Errored</code></a></td><td>🔺</td><td>something went wrong (applies to both interactive and cloud agent runs)</td></tr><tr><td><code>Success</code></td><td>✅</td><td>completed successfully (applies to both interactive and cloud agent runs)</td></tr></tbody></table>
 
 **Duration (for cloud agent tasks)**
 

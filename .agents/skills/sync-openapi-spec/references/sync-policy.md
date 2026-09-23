@@ -18,7 +18,7 @@ This skill is the manual fallback for the same job, so its output has to match t
    top-level path operations.
 2. Drop every tag listed in `EXCLUDED_TAGS`.
 3. Drop every path whose tags are a subset of `EXCLUDED_TAGS`, plus every path listed explicitly in `EXCLUDED_PATHS` or matching a prefix in `EXCLUDED_PATH_PREFIXES`.
-4. Keep top-level `openapi`, `info`, `servers`, and `components.securitySchemes` verbatim.
+4. Keep top-level `openapi`, `servers`, and `components.securitySchemes` verbatim. Keep `info` from the source except for the docs-specific title and description override in `DOCS_INFO_OVERRIDES`.
 5. Keep only reusable component entries that are reachable from surviving paths via `$ref` walking (recursive over `allOf`/`oneOf`/`anyOf`/`items`/`additionalProperties`/etc.).
 6. Remove Factory-only values and matching description lines from `RunSourceType`.
 7. Recursively strip every key in `STRIP_FLAGS` from whatever survives
@@ -26,6 +26,17 @@ This skill is the manual fallback for the same job, so its output has to match t
    individual properties, parameters).
 
 Rule 1 mirrors warp-server's own filter, so a surface the server team marks private stays private here without anyone having to maintain a matching allowlist entry.
+
+## Public API metadata
+
+The docs copy keeps endpoint behavior, contact details, licensing, and server
+configuration from `warp-server/public_api/openapi.yaml`. It overrides only
+`info.title` and `info.description` through `DOCS_INFO_OVERRIDES` in
+`scripts/sync_openapi.py`, so the Scalar reference uses the public docs name,
+**Warp Platform API**, and describes both factory and cloud-agent runs.
+
+Keep this override when syncing the docs subset. Update the source spec when
+its endpoint behavior or non-product metadata changes.
 
 ## `x-internal` deletes the whole marked object, not just the flag (`_prune_internal`)
 

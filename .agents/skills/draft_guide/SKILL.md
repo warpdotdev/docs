@@ -11,7 +11,7 @@ Draft a tutorial that walks a developer through an entire workflow, start to fin
 
 "Guides" is the name of the section, not a content type. It holds both, and the choice is about scope:
 
-- **Quickstart** — about five minutes, ~600 words, essential steps only, for someone who already knows the product. Use `draft_quickstart`.
+- **Quickstart** — about five minutes, with 600 words as the target and up to 800 words allowed with a PR rationale, for someone who already knows the product. Use `draft_quickstart`.
 - **Tutorial** — a full workflow with context at the decision points, for someone extending a basic understanding to solve a real problem. This skill.
 
 **A tutorial requires that a quickstart already exists** for the product area. Check before drafting. If there is no quickstart, write that first — otherwise the tutorial absorbs setup content that belongs in a shorter page, and readers who only wanted to get started have to wade through the whole workflow.
