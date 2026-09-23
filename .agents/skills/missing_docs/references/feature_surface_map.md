@@ -580,6 +580,12 @@ GET /factory/{uid}/integrations/linear/users -> internal
 GET /factory/{uid}/integrations/linear/workflow-states -> internal
 GET /factory/{uid}/integrations/slack/conversations -> internal
 GET /factory/{uid}/integrations/slack/users -> internal
+# Microsoft Teams team/channel pickers for factory automations UI
+# (listFactoryMicrosoftTeamsTeams / listFactoryMicrosoftTeamsChannels).
+# Both marked `x-internal: true` under the factory tag; released OpenAPI has
+# zero `/factory` paths. Same unreleased namespace as sibling integration routes.
+GET /factory/{uid}/integrations/microsoft-teams/teams -> internal
+GET /factory/{uid}/integrations/microsoft-teams/teams/{team_id}/channels -> internal
 # Issue-tracker issue picker and Slack connection-test greeting used by the
 # factory integrations UI. Same unreleased `/factory` namespace as siblings above.
 GET /factory/{uid}/integrations/issue-tracker/issues -> internal
@@ -606,6 +612,10 @@ GET /factory/{uid}/benchmarks/runs -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid} -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid}/results -> internal
 POST /factory/{uid}/benchmarks/runs/{run_uid}/cancel -> internal
+# Rescore missing results on a completed benchmark run (rescoreBenchmarkRun).
+# Marked `x-internal: true` under the factory tag; released OpenAPI has zero
+# `/factory` paths.
+POST /factory/{uid}/benchmarks/runs/{run_uid}/rescore -> internal
 
 # Conversation steering and history routes marked `x-internal: true` upstream
 # (agent_conversation_steering.go, conversation_replay_history.go, agent_webhooks.go,
@@ -911,16 +921,10 @@ TerminalLifecycleRecovery
 # the CLI agent session if the plugin never reports the interrupt. No setting,
 # menu, or CLI flag; Ctrl-C behavior is already documented.
 CtrlCCancelsThirdPartyHarness
-# Orchestration plumbing promoted dogfood -> GA. Neither changes what a user sees
-# or configures, so both are internal implementation details of the documented
-# multi-agent orchestration feature (platform/orchestration/multi-agent-runs.mdx):
-# - WaitForEventsParentRegistration: on `wait_for_events`, confirms parent status
-#   with the server and registers an orchestrator for the ancestor event stream so
-#   children created out-of-band (CLI/API) still deliver events.
-# - OrchestrationUnifiedStack: consolidates child-state tracking behind a single
-#   tracker, one ancestor SSE per parent family, and one remote-child placeholder.
-WaitForEventsParentRegistration
-OrchestrationUnifiedStack
+# WaitForEventsParentRegistration and OrchestrationUnifiedStack were GA
+# orchestration-plumbing flags with no user-facing surface; both were removed
+# from code (flag cleanup) and their ignore-list entries pruned 2026-09-23.
+# Orchestration behavior remains documented at platform/orchestration/multi-agent-runs.mdx.
 # Internal persistence-backend detail: gates storing execution profiles in a
 # file-backed settings collection (agents.execution_profiles) versus the legacy
 # per-profile Warp Drive cloud objects. It changes where profiles are stored, not
