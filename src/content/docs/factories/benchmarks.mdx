@@ -1,8 +1,8 @@
 ---
-title: Benchmarking factory agent configurations
+title: Warp Factories benchmarks
 description: >-
-  Benchmarks compare a factory agent's model and runner configurations on fixed
-  tasks. Use the results to choose a production configuration.
+  Warp Factories benchmarks compare agent model and runner configurations on
+  fixed tasks so you can choose a production configuration.
 sidebar:
   label: "Benchmarks"
 ---
@@ -13,11 +13,11 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
 :::
 
-Benchmarks compare model and runner configurations for one factory agent on the same fixed tasks. Use a benchmark to test a change on representative work before you apply it to your factory.
+Warp Factories benchmarks compare model and runner configurations for one factory agent on the same fixed tasks. Use a benchmark to test a change on representative work before you apply it to your factory.
 This video shows how to compare benchmark results for quality and cost before changing a coding agent's configuration.
 <VideoEmbed url="https://www.youtube.com/watch?v=LKx5MeUsptQ" title="Comparing factory benchmark results to reduce coding agent costs" />
 
-## How benchmarks work
+## How Warp Factories benchmarks work
 
 A benchmark helps you choose an agent configuration based on repeatable evidence. Run representative tasks with different configurations, then compare their results before you change a live factory.
 
@@ -96,7 +96,7 @@ After the run completes, review the result as a comparison, not as a universal m
 
 The run's "Total cost" includes model usage for trials and Scorer usage. It estimates those costs from credits at your team's current rate, so it is not a billed amount. A failed or cancelled benchmark shows only results that finished scoring before the run stopped.
 
-## Apply a result
+## Apply a benchmark result
 
 Change one configuration at a time. If the evidence supports a candidate, update the agent's model or runner in the factory dashboard, or submit the change through your [factory definition](/factories/factory-as-code/). Keep the relevant Scorers active, then compare later production runs with the baseline you recorded before the change.
 
