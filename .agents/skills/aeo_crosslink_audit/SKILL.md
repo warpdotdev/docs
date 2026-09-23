@@ -158,6 +158,7 @@ When adding links, follow the link style guidance in `AGENTS.md` and validate wi
 - **Avoid related-link lists by default** - Do not add new "Related pages," "See also," or link-list sections unless the page already uses that pattern or the list clearly improves a reader's next step.
 - **Justify each link as a reader journey** - In the PR body, explain what the reader is likely trying to do next and why the destination helps. Do not justify links only with AEO or search coverage.
 - **Resolve redirects** - Link directly to the final destination page when known. Do not add redirecting URLs or old paths.
+- **Prefer the most specific matching target** - When the source sentence names a specific sub-workflow or feature area (for example, factory automation schedules), link to the page that covers that specific area, not a general page that only covers a similar but broader concept (for example, the standalone Scheduled Agents reference). If no page covers the specific sub-topic, do not force a link to the closest general page — flag the gap in the PR body's open questions instead of shipping a mismatched link.
 
 ## Self-review before opening a PR
 
@@ -177,6 +178,7 @@ Before opening a PR, verify every proposed change:
 - **Small scope** - The diff is limited to cross-linking and small copy changes needed to make links natural.
 - **No broad rewrites** - Remove any edit that becomes a rewrite, strategy recommendation, or new content proposal.
 - **No duplication** - Do not add links that create repetitive related-links lists or duplicate nearby links.
+- **Cross-link-only diff** - Every changed file must be a docs content page under `src/content/docs/` that received a link edit (or, on the log branch, `.agents/logs/aeo_crosslink_audit_runs.md`). If the diff touches CI workflows, other skills, scripts, config, or anything else unrelated to the specific links being added this run, remove those changes before opening the PR. A cross-link run is never the place to also fix or improve unrelated tooling — file that separately with its own scope.
 
 Run:
 
@@ -185,6 +187,7 @@ git fetch origin main:refs/remotes/origin/main
 python3 .agents/skills/style_lint/style_lint.py --changed
 python3 .agents/skills/check_for_broken_links/check_links.py --internal-only
 git diff --check
+git diff --name-only origin/main...HEAD  # every path must be under src/content/docs/ (or the log file on the log branch)
 ```
 
 ## PR requirements
@@ -206,6 +209,17 @@ The PR body must include an AEO brief. Use `.agents/skills/aeo_brief/SKILL.md` a
 - **Open questions for human review** - Anything that affects product accuracy, terminology, or placement.
 
 Reviewer requests follow the `create_pr` skill's policy ("Request a reviewer (at most one, only with conviction)"): request at most one human reviewer, and only when a single clear owner exists. For cross-link PRs there rarely is one, so the default is to open the PR with no requested reviewer and let `#growth-docs` pick it up from the Slack notification. Never tag a list of people, never stack reviewers onto the PR, and never re-add a reviewer someone removed.
+
+### PR body integrity (mandatory, not optional)
+
+Text generation can silently corrupt a PR body — repeated or truncated word fragments, unbalanced backticks — and that corruption has previously reached a live PR body uncaught. Before every `gh pr create` or `gh pr edit` that sets a body, and again immediately after:
+
+1. Write the body to a temp file (`/tmp/pr-body.md` or similar) rather than passing text inline.
+2. Run `python3 .agents/skills/create_pr/check_pr_body.py /tmp/pr-body.md` and do not submit if it fails. Fix the file and re-run until it passes.
+3. Submit with `--body-file`, never `--body`.
+4. Re-fetch the live body with `gh pr view <pr> --json body --jq .body` and diff it against the validated temp file. The temp file remains authoritative. If they differ beyond a trailing newline, repair the live body with `gh pr edit <pr> --body-file /tmp/pr-body.md`, then re-fetch and verify it matches the temp file. Repeat until they match.
+
+This applies to every body update in this skill: the cross-link PR, the log PR, and any AEO brief content pasted into either.
 
 ## No-change report
 
