@@ -21,15 +21,18 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 		{
 			id: 'terminal',
 			label: 'Terminal',
-			link: '/',
+			link: '/terminal/',
 			icon: 'laptop',
 			items: [
 				{
-					label: 'Getting started',
+					label: 'Overview',
 					items: [
-						// The root product overview remains in the Terminal topic until
-						// the GA navigation change adds a separate Terminal landing page.
-						{ label: 'Warp products', link: '/' },
+						{ slug: 'terminal', label: 'Overview' },
+					],
+				},
+				{
+					label: 'Get started',
+					items: [
 						{ slug: 'quickstart', label: 'Quickstart' },
 						'getting-started/quickstart/installation-and-setup',
 						'getting-started/quickstart/coding-in-warp',
@@ -387,7 +390,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			// Starlight has no built-in factory glyph, so use its settings icon.
 			id: 'factories',
 			label: 'Factories',
-			link: '/factories/',
+			link: '/',
 			icon: 'setting',
 			badge: { text: 'Early Access', variant: 'note' },
 			// Group labels are noun phrases naming a subject area, not imperative
@@ -400,6 +403,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Overview',
 					items: [
+						{ label: 'Warp products', link: '/' },
 						{ slug: 'factories', label: 'Overview' },
 						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
 						{ slug: 'factories/quickstart', label: 'Quickstart' },
@@ -919,3 +923,16 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			],
 		},
 ];
+
+const phaseTwoTopicOrder = new Map([
+	['Factories', 0],
+	['Automation Platform', 1],
+	['Terminal', 2],
+	['Agents', 3],
+]);
+
+sidebarTopics.sort(
+	(left, right) =>
+		(phaseTwoTopicOrder.get(left.label) ?? Number.MAX_SAFE_INTEGER) -
+		(phaseTwoTopicOrder.get(right.label) ?? Number.MAX_SAFE_INTEGER),
+);
