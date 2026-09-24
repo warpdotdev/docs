@@ -18,7 +18,7 @@ A skill tells an agent what to check, how to classify results, what to produce, 
 A factory run can use skills from three sources:
 
 * **Factory role and integration skills** - Baseline procedures that come from the default agent roles and integrations you configure, such as GitHub, Slack, Linear, or Jira.
-* **Warp-provided platform-bundled skills** - Product capabilities that Warp makes available when the run supports them, such as `oz-platform`, `factory-files`, and `factory-mcp`.
+* **Warp-provided platform-bundled skills** - Product capabilities that Warp provides, such as `oz-platform`, `factory-files`, and `factory-mcp`.
 * **Custom file-based factory skills** - Team-owned `SKILL.md` files in the factory definition, available to every agent or scoped to one agent.
 
 ## Custom file-based factory skills
@@ -55,14 +55,33 @@ These baseline skills aren't files in your definition; they come from the agent 
 
 Platform-bundled skills are separate from factory role and integration skills. They provide Warp capabilities such as operating cloud agents with `oz-platform`, editing factory definitions with `factory-files`, and sending work through Factory MCP with `factory-mcp`.
 
-The bundled set available to a run depends on the Warp release, release channel, enabled product features, required files, and connected integrations. See the [bundled skill ID catalog](/reference/api-and-sdk/#skill-actions-in-conversation-data) for the authoritative list of stable IDs and availability details.
+Warp provides these stable bundled-skill IDs:
+
+| Bundled skill ID | Purpose |
+| --- | --- |
+| `add-mcp-server` | Add an MCP server to Warp configuration. |
+| `change-keybinding` | Change or remove Warp keyboard shortcuts. |
+| `claude-api` | Build and maintain applications that use the Anthropic SDK. |
+| `create-skill` | Create, improve, and evaluate skills. |
+| `create-tab-config` | Create a Warp tab configuration. |
+| `factory-files` | Create and validate file-based Warp factory definitions. |
+| `factory-mcp` | Send work to a factory and collaborate through Factory MCP. |
+| `modify-settings` | View or change Warp settings using the bundled settings schema. |
+| `oz-platform` | Run, configure, and inspect cloud agents through the API and CLI. |
+| `pr-comments` | Fetch GitHub pull request review comments for the current branch. |
+| `tab-configs` | Look up the tab configuration schema and validation rules. |
+| `tui-migrate-setup` | Migrate supported settings into the Warp Agent CLI. |
+| `update-tab-config` | Update an existing Warp tab configuration. |
+| `warpctrl` | Control and inspect a running Warp app with Warp Control. |
+
+See [skill actions in conversation data](/reference/api-and-sdk/#skill-actions-in-conversation-data) for the API reference.
 
 ## Attribute team-owned skill usage
 
 The [Conversation API](/api) returns skill loads as `read_skill` actions. Use the action's `input` to classify the skill:
 
 * **`input.bundled_skill_id` is present** - The action loaded a Warp-provided bundled reference. Exclude it when measuring usage of skills your team owns.
-* **Only `input.skill_path` is present** - The value is the path used to resolve the skill. It can identify a file-based skill or a path-referenced bundled skill, including one from a remote host. Count it as team-owned only when the path is under a skill root your team manages, such as `skills/` or `agents/<name>/skills/` in the factory definition.
+* **Only `input.skill_path` is present** - A path alone doesn't identify the skill's owner. Count it as team-owned only when the path is under a skill root your team manages, such as `skills/` or `agents/<name>/skills/` in the factory definition.
 
 ## When to add a custom skill
 
