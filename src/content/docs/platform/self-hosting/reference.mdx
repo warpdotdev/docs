@@ -164,6 +164,7 @@ backend:
 **`backend.direct`:**
 
 * `workspace_root` — Directory where per-task workspaces are created. Defaults to `/var/lib/oz/workspaces`.
+* `target_dir` — Shared directory used as the working directory for every task. When set, the worker does not create or remove per-task workspace directories.
 * `oz_path` — Path to the oz CLI binary. If omitted, the worker looks up `oz` in `PATH`.
 * `setup_command` — Shell command to run before each task. Receives `OZ_WORKSPACE_ROOT`, `OZ_RUN_ID`, `OZ_ENVIRONMENT_FILE`, and `OZ_WORKER_BACKEND` as environment variables.
 * `teardown_command` — Shell command to run after each task completes.
@@ -200,6 +201,7 @@ Once a worker is running, route cloud agent runs to it with the `--host` flag or
 * [Managed: Docker](/platform/self-hosting/managed-docker/) — Docker backend setup, connectivity, and private registries.
 * [Managed: Kubernetes](/platform/self-hosting/managed-kubernetes/) — Kubernetes backend setup, Helm chart, pod template, and operational notes.
 * [Managed: Direct](/platform/self-hosting/managed-direct/) — Direct backend setup and workspace model.
+* [Direct backend monorepo worktrees](/platform/self-hosting/direct-monorepo-worktrees/) — Setup and teardown hooks for isolated monorepo worktrees.
 * [Self-hosting overview](/platform/self-hosting/) — Architecture, decision guide, and Enterprise requirements.
 * [Environments](/platform/environments/) — Define the Docker image, repos, and setup commands used by task containers.
 * [Monitoring](/platform/self-hosting/monitoring/) — OpenTelemetry metrics for worker health, task throughput, and capacity.
