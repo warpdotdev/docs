@@ -470,9 +470,11 @@ Optional. The compute size, as `vcpus` and `memoryGb`. Omit it to take the works
 
 ### `failureSessionRetentionMinutes`
 
-Optional. An integer from `1` through `60` that keeps a failed run's session open for inspection. Activity in the session restarts this idle window. There is no runner-level default: the runner value overrides the run environment's setting, while an omitted value uses the environment's setting or tears down the session immediately when neither is set.
+Optional. An integer from `1` through `60` that keeps a failed run's session open for inspection. Input from a shared-session viewer restarts this idle window. There is no runner-level default: the runner value overrides the run environment's setting, while an omitted value uses the environment's setting or tears down the session immediately when neither is set.
 
 The value must not exceed the maximum runtime available to the sandbox. Warp disables retention for a run when the value exceeds that limit, and the sandbox's runtime limit can end the session before the full idle window elapses. Secrets remain in the sandbox, and compute credits may apply while the session stays open.
+
+On a self-hosted worker, an agent client that does not support failure-session retention ignores the setting, so the session tears down after failure.
 
 ### `platform`
 
