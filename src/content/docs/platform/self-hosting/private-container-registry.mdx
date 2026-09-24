@@ -1,0 +1,205 @@
+---
+title: Pulling self-hosted images from a private registry
+description: >-
+  Mirror self-hosted worker images into a private registry and configure Docker
+  or Kubernetes workers to pull from it.
+---
+
+Mirror the images used by self-hosted workers when compute hosts cannot pull directly from a public registry. Your registry becomes the pull source for the worker process, task environment, Warp Agent sidecar, and Kubernetes preflight job.
+
+## Images to mirror
+
+Inventory the images used by each worker pool before blocking public-registry egress.
+
+| Image | Purpose | Configuration |
+| --- | --- | --- |
+| `warpdotdev/oz-agent-worker` | Long-lived worker daemon | Docker run image or Helm `image.repository` |
+| Environment or default image | Main task filesystem and toolchain | Warp environment image or Kubernetes `defaultImage` |
+| `warpdotdev/warp-agent` | Warp Agent runtime mounted at `/agent` | `sidecar_image` or Helm `kubernetesBackend.sidecarImage` |
+| `busybox:1.36` | Kubernetes startup preflight | `preflight_image` or Helm `kubernetesBackend.preflightImage` |
+
+Pin the worker image to the immutable timestamp tag or digest from the [worker release](https://github.com/warpdotdev/oz-agent-worker/releases). Keep the mirrored Warp Agent sidecar current with the source image. Warp normally sends a version-matched sidecar reference with each task; a static `sidecar_image` override replaces that reference, so an outdated mirror can become incompatible with a newer worker or task.
+
+The worker does not provide a stable pre-dispatch method to discover the exact version-matched Warp Agent tag. Ask your Warp account team which tag to mirror, and validate that tag when you update the worker.
+
+:::caution
+The Docker backend can override only the Warp Agent sidecar. It cannot rewrite other server-provided sidecars used by optional capabilities. The Kubernetes config file can override Claude Code and Codex sidecars with `coding_cli_sidecars`, but the current Helm chart does not expose that field. A deployment that blocks all public-registry access may not support optional harness or Computer Use runs until every required sidecar has a supported override.
+:::
+
+## Copying images into the registry
+
+Use a registry copy tool that preserves all image architectures. The following example uses [Skopeo](https://github.com/containers/skopeo).
+
+```bash
+export PRIVATE_REGISTRY="registry.internal.example.com/warp"
+export WORKER_TAG="YOUR_WORKER_RELEASE_TAG"
+export WARP_AGENT_TAG="YOUR_APPROVED_WARP_AGENT_TAG"
+skopeo login registry.internal.example.com
+
+skopeo copy --all \
+  "docker://docker.io/warpdotdev/oz-agent-worker:${WORKER_TAG}" \
+  "docker://${PRIVATE_REGISTRY}/oz-agent-worker:${WORKER_TAG}"
+
+skopeo copy --all \
+  "docker://docker.io/warpdotdev/warp-agent:${WARP_AGENT_TAG}" \
+  "docker://${PRIVATE_REGISTRY}/warp-agent:${WARP_AGENT_TAG}"
+
+skopeo copy --all \
+  "docker://docker.io/library/busybox:1.36" \
+  "docker://${PRIVATE_REGISTRY}/busybox:1.36"
+
+skopeo copy --all \
+  "docker://docker.io/library/ubuntu:22.04" \
+  "docker://${PRIVATE_REGISTRY}/agent-base:22.04"
+```
+
+Replace `YOUR_APPROVED_WARP_AGENT_TAG` with the source tag your organization has validated for the deployment. The example mirrors Ubuntu as the task image. Replace that source with your own task image, then set the private image reference on the [Warp environment](/platform/environments/) used by the worker pool.
+
+## Configuring the Docker backend
+
+Authenticate the host Docker client so it can pull the mirrored worker image:
+
+```bash
+docker login registry.internal.example.com
+```
+
+Configure the mirrored Warp Agent sidecar and a pull policy:
+
+```yaml title="worker.yaml"
+worker_id: "private-registry-docker"
+backend:
+  docker:
+    image_pull_policy: "IfNotPresent"
+    sidecar_image: "registry.internal.example.com/warp/warp-agent:WARP_AGENT_TAG"
+```
+
+The published worker image runs as the non-root `oz` user with UID `10001`. If the worker runs as a container, create a dedicated Docker config that this UID can read:
+
+```bash
+export WORKER_DOCKER_CONFIG="/var/lib/oz-agent-worker/docker-config"
+
+sudo install -d -m 0700 -o 10001 "$WORKER_DOCKER_CONFIG"
+sudo docker --config "$WORKER_DOCKER_CONFIG" \
+  login registry.internal.example.com
+sudo chown 10001 "$WORKER_DOCKER_CONFIG/config.json"
+sudo chmod 0400 "$WORKER_DOCKER_CONFIG/config.json"
+```
+
+The worker also needs read and write access to the Docker daemon socket. This example supports a rootful Docker daemon on Linux whose socket grants read and write access to its group. Capture that numeric group ID:
+
+```bash
+export DOCKER_SOCKET_GID="$(stat -c '%g' /var/run/docker.sock)"
+stat -c '%A %g %n' /var/run/docker.sock
+```
+
+The group permission bits in the `stat` output must include `rw`. Start the worker with that group as a supplemental group:
+
+```bash
+docker run \
+  --group-add "$DOCKER_SOCKET_GID" \
+  --volume /var/run/docker.sock:/var/run/docker.sock \
+  --volume "$WORKER_DOCKER_CONFIG:/home/oz/.docker:ro" \
+  --volume "$PWD/worker.yaml:/etc/oz-agent-worker/config.yaml:ro" \
+  --env DOCKER_CONFIG=/home/oz/.docker \
+  --env WARP_API_KEY="$WARP_API_KEY" \
+  "registry.internal.example.com/warp/oz-agent-worker:WORKER_TAG" \
+  --config-file /etc/oz-agent-worker/config.yaml
+```
+
+Replace `WORKER_TAG` and `WARP_AGENT_TAG` with the mirrored tags. The task image must also point to the private registry through its Warp environment; the worker does not rewrite task image registry names. Use a host process or a Docker endpoint with its own access controls when the daemon does not expose a group-readable and group-writable Linux socket.
+
+## Configuring the Kubernetes backend
+
+Create one pull secret for the worker Deployment and task Jobs:
+
+```bash
+kubectl create namespace warp-oz \
+  --dry-run=client \
+  --output yaml | kubectl apply --filename -
+read -r -p "Registry username: " REGISTRY_USERNAME
+read -r -s -p "Registry token: " REGISTRY_TOKEN
+printf '\n'
+kubectl create secret docker-registry warp-registry \
+  --namespace warp-oz \
+  --docker-server registry.internal.example.com \
+  --docker-username "$REGISTRY_USERNAME" \
+  --docker-password "$REGISTRY_TOKEN"
+unset REGISTRY_USERNAME REGISTRY_TOKEN
+```
+
+Set the worker, task, sidecar, and preflight image references in a Helm values file:
+
+```yaml title="private-registry-values.yaml"
+image:
+  repository: registry.internal.example.com/warp/oz-agent-worker
+  tag: WORKER_TAG
+  pullPolicy: IfNotPresent
+  pullSecrets:
+    - name: warp-registry
+
+kubernetesBackend:
+  defaultImage: registry.internal.example.com/warp/agent-base:22.04
+  preflightImage: registry.internal.example.com/warp/busybox:1.36
+  sidecarImage: registry.internal.example.com/warp/warp-agent:WARP_AGENT_TAG
+  podTemplate:
+    imagePullSecrets:
+      - name: warp-registry
+```
+
+Install the chart with those values:
+
+```bash
+git clone --branch YOUR_WORKER_RELEASE_TAG --depth 1 \
+  https://github.com/warpdotdev/oz-agent-worker.git
+
+helm upgrade --install oz-agent-worker ./oz-agent-worker/charts/oz-agent-worker \
+  --namespace warp-oz \
+  --create-namespace \
+  --set worker.workerId=private-registry-kubernetes \
+  --values private-registry-values.yaml
+```
+
+`image.pullSecrets` authenticates the long-lived worker Deployment. `kubernetesBackend.podTemplate.imagePullSecrets` authenticates task Jobs and the startup preflight Job.
+
+A Warp environment image takes precedence over `kubernetesBackend.defaultImage`. If the run uses an environment, update that environment to the mirrored task image instead of relying on `defaultImage`.
+
+## Verifying registry isolation
+
+Start with one test run that uses the core Warp Agent and no optional sidecars:
+
+```bash
+oz agent run-cloud \
+  --host "private-registry-kubernetes" \
+  --prompt "Print the operating system release and exit."
+```
+
+Confirm the worker logs show the private task and sidecar references. In Kubernetes, inspect the task Pod:
+
+```bash
+kubectl get pods --namespace warp-oz
+kubectl get pod TASK_POD --namespace warp-oz \
+  --output jsonpath='{range .spec.initContainers[*]}{.image}{"\n"}{end}{range .spec.containers[*]}{.image}{"\n"}{end}'
+```
+
+Block public-registry egress only after the worker, preflight Job, and task Pod all use private references. Then repeat the test for every harness and optional capability allowed in the worker pool.
+
+## Troubleshooting
+
+**Docker reports `pull access denied`**\
+Run `docker login` as the worker's OS account. If the worker runs in Docker, confirm `DOCKER_CONFIG` points to `/home/oz/.docker` and the mounted `config.json` is readable by UID `10001`.
+
+**Docker reports `permission denied` for `/var/run/docker.sock`**\
+Confirm the socket's group has read and write access, then pass its numeric group ID to the worker with `--group-add`.
+
+**Kubernetes reports `ImagePullBackOff`**\
+Confirm `warp-registry` exists in the task namespace. The worker Deployment needs `image.pullSecrets`, while task and preflight Pods need `podTemplate.imagePullSecrets`.
+
+**The task still pulls from Docker Hub**\
+Check the Warp environment image. Environment images take precedence over the Kubernetes default, and the worker does not rewrite their registry host.
+
+## Related pages
+
+* [Managed: Docker backend](/platform/self-hosting/managed-docker/) — Configure Docker daemon access and task containers.
+* [Managed: Kubernetes backend](/platform/self-hosting/managed-kubernetes/) — Configure the Helm chart, task Pod template, and preflight job.
+* [Environments](/platform/environments/) — Set the task image used by self-hosted runs.
+* [Security and networking](/platform/self-hosting/security-and-networking/) — Review image egress and other network requirements.

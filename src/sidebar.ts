@@ -668,6 +668,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/self-hosting/quickstart', label: 'Self-hosting quickstart' },
 						{ slug: 'platform/self-hosting/managed-docker', label: 'Managed: Docker' },
 						{ slug: 'platform/self-hosting/managed-kubernetes', label: 'Managed: Kubernetes' },
+						{ slug: 'platform/self-hosting/private-container-registry', label: 'Private container registry' },
 						{ slug: 'platform/self-hosting/managed-direct', label: 'Managed: Direct' },
 						{ slug: 'platform/self-hosting/unmanaged', label: 'Unmanaged' },
 						'platform/self-hosting/monitoring',
