@@ -73,30 +73,7 @@ The [Conversation API](/api) returns skill loads as `read_skill` actions. The ac
 
 To measure usage of skills your team owns, exclude `read_skill` actions whose `input` contains `bundled_skill_id`. From the remaining actions, count only `path` values under directories your team manages. A path identifies a file-based skill, but the path's location determines its owner.
 
-The conversation or run payload is the source of truth for which skills were available and invoked. The bundled set can vary by Warp release, release channel, feature availability, required files, and connected integrations.
-
-#### Bundled skill ID catalog
-
-The following IDs cover the stable, user-facing skills bundled directly with Warp. This catalog helps group usage across conversations; it isn't an availability manifest.
-
-| Bundled skill ID | Purpose |
-| --- | --- |
-| `add-mcp-server` | Add an MCP server to Warp configuration. |
-| `change-keybinding` | Change or remove Warp keyboard shortcuts. |
-| `claude-api` | Build and maintain applications that use the Anthropic SDK. |
-| `create-skill` | Create, improve, and evaluate skills. |
-| `create-tab-config` | Create a Warp tab configuration. |
-| `factory-files` | Create and validate file-based Warp factory definitions. |
-| `factory-mcp` | Send work to a factory and collaborate through Factory MCP. |
-| `modify-settings` | View or change Warp settings using the bundled settings schema. |
-| `oz-platform` | Run, configure, and inspect cloud agents through the API and CLI. |
-| `pr-comments` | Fetch GitHub pull request review comments for the current branch. |
-| `tab-configs` | Look up the tab configuration schema and validation rules. |
-| `tui-migrate-setup` | Migrate supported settings into the Warp Agent CLI. |
-| `update-tab-config` | Update an existing Warp tab configuration. |
-| `warpctrl` | Control and inspect a running Warp app with Warp Control. |
-
-For example, `oz-platform`, `factory-files`, and `factory-mcp` are Warp-provided skills. `factory-mcp` appears only where Factory MCP is available, `tui-migrate-setup` is specific to the Warp Agent CLI, and some other skills depend on a feature, bundled resource, or integration. Connected integrations can also add bundled IDs that aren't listed here.
+See the [bundled skill ID catalog](/reference/api-and-sdk/#skill-actions-in-conversation-data) for Warp-provided IDs and availability details.
 
 ## Skill file format
 
