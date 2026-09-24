@@ -2274,7 +2274,11 @@ components:
         input:
           type: object
           additionalProperties: true
-          description: Curated public input for this action. This object is owned by the API and is not a raw internal tool payload.
+          description: |
+            Curated public input for this action. This object is owned by the
+            API and is not a raw internal tool payload. For a `read_skill`
+            action, `input` contains either `bundled_skill_id` for a
+            Warp-provided bundled skill or `path` for a file-based skill.
     ActionResultContentBlock:
       type: object
       required:

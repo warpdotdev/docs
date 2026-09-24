@@ -33,15 +33,17 @@ agents/
 
 Both forms use the same `SKILL.md` format as skills anywhere else in Warp. See [Skills](/agents/capabilities/skills/) for the file format, front matter, and argument syntax.
 
-## Built-in skills
+## Factory role and integration skills
 
-Every default agent starts with a baseline of built-in skills so the factory works immediately after setup, before you write anything custom:
+Every default agent starts with a baseline of role and integration skills so the factory works immediately after setup, before you write anything custom:
 
 * **GitHub** - Every default agent gets a GitHub skill, covering how to read issues, open pull requests, and follow your repository's conventions.
 * **Slack** - The foreman also gets a Slack skill, since it's the agent that replies in threads and DMs.
 * **Issue tracker** - The tracker you choose during setup, Linear or Jira, adds that tracker's skill and instructions to the agents that use it. If you don't connect a tracker, agents keep only the GitHub and Slack skills.
 
 These baseline skills aren't files in your definition; they come from the agent roles and integrations you choose. Anything you add under `skills/` or `agents/<name>/skills/` extends this baseline rather than replacing it.
+
+Factory role and integration skills are separate from [skills bundled with Warp](/agents/capabilities/skills/#identify-skill-sources-in-conversation-data). Platform-bundled skills include `oz-platform`, `factory-files`, and `factory-mcp`; their availability follows the Warp release and enabled product features. In Conversation API data, a `read_skill` action with `bundled_skill_id` identifies a platform-bundled skill.
 
 ## When to add a custom skill
 
