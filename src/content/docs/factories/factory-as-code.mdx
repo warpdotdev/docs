@@ -325,6 +325,22 @@ The selected value must be available to your plan and workspace. See [model choi
 
 An agent or automation can declare `computerUseModel` to override the inherited value for its runs. For an agent, omitting the key or setting it to `null` inherits `agentDefaults.computerUseModel`. For an automation, omitting the key or setting it to `null` inherits the selected agent's effective value, including an agent-level override. The setting applies only to Computer Use on the Warp Agent harness (`type: oz`); Warp keeps but ignores it for a third-party harness or when Computer Use is disabled. It can appear alongside either `model` or `harness` because it doesn't select the agent's main model.
 
+### `agentDefaults.computerUseModel`
+
+Optional. The model computer use runs with, as a `model_id`. When unset, Warp chooses the computer use model automatically.
+
+```yaml
+agentDefaults:
+  model: auto
+  computerUseModel: claude-4-5-sonnet
+```
+
+Applies only to runs on the Warp Agent harness (`type: oz`); third-party harnesses ignore it. It's also ignored when computer use is disabled for the run. Unlike `model`, this key isn't mutually exclusive with `harness` — it selects the model for computer use, not the model the agent itself runs on.
+
+Computer use supports a restricted set of models. See [model choice for agents](/agents/inference/model-choice/) for the full catalog Warp supports; not every listed model supports computer use.
+
+A managed [self-hosted worker](/platform/self-hosting/) needs an up-to-date worker and agent CLI version that supports `computerUseModel`.
+
 ## `agents/<name>/agent.md`
 
 One file per agent. The YAML frontmatter configures how the agent runs, and the Markdown body is the agent's prompt: the durable instructions for its role. The agent's name comes from its directory.
