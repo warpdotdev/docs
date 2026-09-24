@@ -1,0 +1,116 @@
+---
+title: Running agents with an external orchestrator
+description: >-
+  Connect an external job scheduler to self-hosted agents with the Direct backend
+  in one-shot mode or the Command backend.
+---
+import { VARS } from '@data/vars';
+
+Use an existing CI system, Kubernetes controller, or internal scheduler to allocate compute while the {VARS.WARP_AUTOMATION_PLATFORM} routes and tracks each run. The worker supports two patterns for this setup: start a Direct worker with `--one-shot` for each job, or use the Command backend to delegate runs to your runtime.
+
+## Choosing an orchestration pattern
+
+Both patterns keep execution on your infrastructure and require outbound connectivity to Warp.
+
+| Pattern | External orchestrator responsibility | Worker behavior | Use when |
+| --- | --- | --- | --- |
+| **Direct backend** with `--one-shot` | Starts a worker process and creates a run for its unique worker ID | Runs one task on the allocated host, then exits | Your scheduler allocates a VM, pod, or CI runner for each job |
+| **Command backend** | Exposes an API or command that can accept a task payload and start the agent | Stays connected and invokes your dispatch command for each task | Your runtime already has its own job API, queue, or compute lifecycle |
+
+One-shot mode works only with the Direct backend. It forces `max_concurrent_tasks` to `1` and waits for one accepted task's `oz` CLI process to exit before the worker exits. If no task arrives, the worker stays connected until your orchestrator stops it.
+
+The Command backend is fire-and-forget. The dispatch command returns after the external runtime durably accepts the task. The remote agent, not the worker process, reports progress and completion to Warp.
+
+## Running a Direct worker in one-shot mode
+
+This example starts a worker and routes one cloud agent run to it from the same job. Use a unique worker ID so another worker cannot claim the run.
+
+By default, the CLI stays open for 45 minutes after a conversation completes so users can send follow-up prompts. The example sets `--idle-on-complete 0s` so the CLI and worker exit without that idle period. A task-level `config.idle_timeout_minutes` value takes precedence, so leave it unset or set it to `0` for these tasks.
+
+### Prerequisites
+
+* **Self-hosting enabled for your Enterprise team** — [Contact sales](https://www.warp.dev/contact-sales) if self-hosting is not enabled.
+* **The worker and CLI binaries** — Install `oz-agent-worker` from a [published release](https://github.com/warpdotdev/oz-agent-worker/releases) and install the {VARS.WARP_AGENT_CLI} by following the [CLI installation instructions](/reference/cli/#installing-the-cli).
+* **An agent API key** — Create one in the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP}</a>. Store it in your orchestrator's secret manager as `WARP_API_KEY`.
+
+### Start and route the run
+
+Add the following script to the job your orchestrator starts. Replace `CI_JOB_ID` with a unique job identifier from your system.
+
+```bash title="run-agent.sh"
+#!/usr/bin/env bash
+set -euo pipefail
+
+: "${WARP_API_KEY:?Set WARP_API_KEY in the job environment}"
+: "${CI_JOB_ID:?Set CI_JOB_ID to a unique job identifier}"
+
+worker_id="external-${CI_JOB_ID}"
+
+oz-agent-worker \
+  --worker-id "$worker_id" \
+  --backend direct \
+  --one-shot \
+  --idle-on-complete 0s &
+worker_pid=$!
+
+trap 'kill "$worker_pid" 2>/dev/null || true' EXIT
+
+oz agent run-cloud \
+  --host "$worker_id" \
+  --prompt "Run the test suite, fix failures, and open a pull request."
+
+wait "$worker_pid"
+trap - EXIT
+```
+
+The run may enter the queue before the worker finishes connecting. Warp assigns it after the matching worker ID is online. After the conversation completes, the `oz` CLI exits, then the one-shot worker and job exit.
+
+Use Direct backend [setup and teardown commands](/platform/self-hosting/managed-direct/#setup-and-teardown-commands) to prepare the workspace on the allocated host.
+
+## Delegating runs with the Command backend
+
+Use the Command backend when the external runtime owns job creation and cleanup. The worker invokes `dispatch_command` once for each assigned task and writes a versioned JSON payload to standard input.
+
+The payload includes:
+
+* `base_args` — The `oz agent run` argument vector for the external runtime.
+* `docker_image` and `sidecars` — The task image and required sidecar mounts.
+* `env` — Task environment variables and credentials. Keep this payload out of logs.
+* `run_id` and `server_root_url` — Values the agent uses to report status to Warp.
+
+The public [`command-backend` example](https://github.com/warpdotdev/oz-agent-worker/tree/main/examples/command-backend) includes dependency-free Python dispatch and cancellation scripts for an HTTP runtime. Copy those scripts to the worker host, then configure the worker:
+
+```yaml title="worker.yaml"
+worker_id: "external-runtime"
+backend:
+  command:
+    dispatch_command: "python3 /opt/warp/dispatch.py"
+    cancel_command: "python3 /opt/warp/cancel.py"
+    dispatch_timeout: "60s"
+    environment:
+      - name: OZ_DISPATCH_URL
+        value: "https://runtime.internal.example.com/agent-runs"
+      - name: OZ_CANCEL_URL
+        value: "https://runtime.internal.example.com/agent-runs/cancel"
+      - name: OZ_DISPATCH_AUTH_HEADER
+```
+
+Start the worker with the authentication header and Warp API key supplied by your secret manager:
+
+```bash
+export OZ_DISPATCH_AUTH_HEADER="Bearer YOUR_RUNTIME_TOKEN"
+export WARP_API_KEY="YOUR_AGENT_API_KEY"
+
+oz-agent-worker --config-file worker.yaml
+```
+
+Adapt the example script's `transform()` function to your runtime's request schema. Your runtime must launch `base_args` with the supplied task environment, image, and sidecars. After the CLI exits, it must run `oz harness-support --run-id RUN_ID report-shutdown` so Warp receives the terminal state.
+
+An exit code of `0` from `dispatch_command` means the external runtime accepted responsibility for the task. A nonzero exit or a dispatch timeout fails the task. `max_concurrent_tasks` limits simultaneous dispatch calls, not the number of agents running in the external runtime.
+
+## Related pages
+
+* [Managed: Direct backend](/platform/self-hosting/managed-direct/) — Run agent tasks directly on a worker host.
+* [Unmanaged architecture](/platform/self-hosting/unmanaged/) — Invoke `oz agent run` directly when Warp does not need to route the run.
+* [Self-hosted worker reference](/platform/self-hosting/reference/) — Look up worker flags and backend configuration fields.
+* [Routing runs to self-hosted workers](/platform/self-hosting/#routing-runs-to-self-hosted-workers) — Route runs from the CLI, API, schedules, integrations, or the web app.

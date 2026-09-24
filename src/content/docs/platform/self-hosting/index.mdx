@@ -20,7 +20,7 @@ Self-hosting lets your team run cloud agent workloads on your own infrastructure
 
 Self-hosting has two architectures. The core distinction is **who orchestrates agent runs** — not who owns the compute. Both models keep code and execution on your infrastructure.
 
-* **Managed** — The {VARS.WARP_AUTOMATION_PLATFORM} orchestrates agent runs. You run the `oz-agent-worker` daemon on your infrastructure; it connects to the {VARS.WARP_AUTOMATION_PLATFORM} and waits for work. [Slack](/platform/integrations/slack/) mentions, Linear comments, [schedules](/platform/triggers/scheduled-agents/), API calls, and `oz agent run-cloud` commands all route tasks to your worker, which executes them in isolated Docker containers, Kubernetes Jobs, or directly on the host. Similar to a [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners).
+* **Managed** — The {VARS.WARP_AUTOMATION_PLATFORM} orchestrates agent runs. You run `oz-agent-worker` on your infrastructure; it connects to the {VARS.WARP_AUTOMATION_PLATFORM} and waits for work. [Slack](/platform/integrations/slack/) mentions, Linear comments, [schedules](/platform/triggers/scheduled-agents/), API calls, and `oz agent run-cloud` commands route tasks to the worker. The Docker, Kubernetes, and Direct backends execute tasks on worker infrastructure. The Command backend dispatches tasks to an external runtime. Similar to a [GitHub self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners).
 * **Unmanaged** — You orchestrate agent runs. You invoke `oz agent run` directly from your existing CI pipeline, Kubernetes pod, VM, or dev box. The {VARS.WARP_AUTOMATION_PLATFORM} provides session tracking and observability for each run, but does not start or stop agents for you.
 
 ### At a glance
@@ -28,10 +28,10 @@ Self-hosting has two architectures. The core distinction is **who orchestrates a
 | Aspect | **Managed** | **Unmanaged** |
 | --- | --- | --- |
 | **Who triggers runs** | The {VARS.WARP_AUTOMATION_PLATFORM} (Slack, Linear, schedules, API, `run-cloud`) | Your system (CI, cron, scripts) |
-| **What runs on your infra** | Long-lived `oz-agent-worker` daemon | One-shot `oz agent run` invocations |
+| **What runs on your infra** | `oz-agent-worker`, either long-lived or started for one externally allocated job | One-shot `oz agent run` invocations |
 | **OS support** | Linux (macOS/Windows coming) | Linux, macOS, Windows |
-| **Execution isolation** | Docker container, Kubernetes Job, or direct host | Whatever your host provides |
-| **Automatic environment setup** | Yes (via Warp [environments](/platform/environments/)) | No (you manage it) |
+| **Execution isolation** | Docker container, Kubernetes Job, direct host, or your external runtime | Whatever your host provides |
+| **Automatic environment setup** | Docker, Kubernetes, and Direct: yes; Command: the external runtime applies the supplied task configuration | No (you manage it) |
 | **Session tracking and steering** | Yes | Yes |
 
 The two architectures are not mutually exclusive. Some teams run managed workers for integration-triggered work and unmanaged agents in CI pipelines. The deployment models diagram on [Deployment patterns](/platform/deployment-patterns/) compares what runs where in each model.
@@ -69,45 +69,40 @@ Use these questions to decide between managed and unmanaged:
 1. **Do you need agents to run on Windows or macOS?**
    * Yes → Use the [unmanaged](/platform/self-hosting/unmanaged/) architecture. Managed is Linux-only today.
    * No, Linux works → Continue to the next question.
-2. **Do you want the {VARS.WARP_AUTOMATION_PLATFORM} to handle starting and stopping agents** (from Slack, the web interface, the Warp app, schedules, or the API)?
-   * Yes → Use the [managed](#managed-architecture) architecture.
-   * No, you have your own triggering mechanism → Use the [unmanaged](/platform/self-hosting/unmanaged/) architecture.
-3. **Can your development environment run in a Docker container or Kubernetes pod?**
-   * Yes, Docker → [Managed: Docker](/platform/self-hosting/managed-docker/) backend.
-   * Yes, Kubernetes → [Managed: Kubernetes](/platform/self-hosting/managed-kubernetes/) backend.
-   * No (multi-service stacks that don't fit a single container, or environments where container runtimes aren't available) → [Unmanaged](/platform/self-hosting/unmanaged/) or [Managed: Direct](/platform/self-hosting/managed-direct/).
-4. **Do you have your own orchestrator** (CI/CD, Kubernetes, internal job scheduler) **that starts agents on demand?**
-   * Yes → [Unmanaged](/platform/self-hosting/unmanaged/), using `oz agent run` as a drop-in.
-   * No → [Managed](#managed-architecture).
+2. **How should runs start?**
+   * The {VARS.WARP_AUTOMATION_PLATFORM} should route each run to a worker that manages execution → Use the [managed](#managed-architecture) architecture, then choose a backend below.
+   * The {VARS.WARP_AUTOMATION_PLATFORM}, with your existing scheduler or runtime owning the compute lifecycle → Use a [managed external-orchestrator pattern](/platform/self-hosting/external-orchestrators/).
+   * Your system, by invoking `oz agent run` directly → Use the [unmanaged](/platform/self-hosting/unmanaged/) architecture.
 
 ### Choosing a managed backend
 
-The managed architecture supports three backends for task execution:
+The managed architecture supports four backends for task handling. Docker, Kubernetes, and Direct execute tasks on worker infrastructure. Command dispatches tasks to an external runtime.
 
-1. **Are you deploying the worker into a Kubernetes cluster?**
+1. **Should a long-lived worker hand each task to an existing job API, queue, or runtime?**
+   * Yes → Use the [Command backend](/platform/self-hosting/external-orchestrators/#delegating-runs-with-the-command-backend).
+   * No → Continue.
+2. **Does an external scheduler start a dedicated worker process for each job?**
+   * Yes → Use the [Direct backend in one-shot mode](/platform/self-hosting/external-orchestrators/#running-a-direct-worker-in-one-shot-mode).
+   * No → Continue.
+3. **Are you deploying the worker into a Kubernetes cluster?**
    * Yes → Use the [Kubernetes backend](/platform/self-hosting/managed-kubernetes/). Each task runs as a Kubernetes Job in your cluster; install with the included Helm chart.
    * No → Continue.
-2. **Is Docker available on your worker host?**
+4. **Is Docker available on your worker host?**
    * Yes → Use the [Docker backend](/platform/self-hosting/managed-docker/) (default). Tasks run in isolated containers.
    * No → Use the [Direct backend](/platform/self-hosting/managed-direct/). Tasks run directly on the host.
-3. **Do you need container-level isolation between tasks?**
-   * Yes → [Docker](/platform/self-hosting/managed-docker/) or [Kubernetes](/platform/self-hosting/managed-kubernetes/) backend.
-   * No → Any backend works.
-4. **Do you need Kubernetes-native scheduling, resource management, or policy enforcement?**
-   * Yes → [Kubernetes backend](/platform/self-hosting/managed-kubernetes/).
-   * No → [Docker](/platform/self-hosting/managed-docker/) or [Direct](/platform/self-hosting/managed-direct/) is simpler to set up.
 
 ---
 
 ## Managed architecture
 
-With the managed architecture, you run the `oz-agent-worker` daemon on your infrastructure. The daemon connects to the {VARS.WARP_AUTOMATION_PLATFORM}'s backend, waits for tasks to be assigned to it, and executes those tasks on its host using one of three backends:
+With the managed architecture, you run `oz-agent-worker` on your infrastructure. The worker connects to the {VARS.WARP_AUTOMATION_PLATFORM}'s backend, waits for tasks, and handles them with one of four backends:
 
 * **[Docker backend](/platform/self-hosting/managed-docker/)** (default) — Runs each task in an isolated Docker container.
 * **[Kubernetes backend](/platform/self-hosting/managed-kubernetes/)** — Runs each task as a Kubernetes Job in your cluster.
 * **[Direct backend](/platform/self-hosting/managed-direct/)** — Runs each task directly on the host without a container runtime.
+* **[Command backend](/platform/self-hosting/external-orchestrators/#delegating-runs-with-the-command-backend)** — Dispatches each task to an external runtime through a configured command. The worker does not run the agent on its host.
 
-The managed architecture enables full orchestration by the {VARS.WARP_AUTOMATION_PLATFORM} — it can remotely start agents via Slack, Linear, the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>, the API/SDK, and the `oz agent run-cloud` command. Agents can access host resources through volume mounts (Docker), Kubernetes-native configuration (Kubernetes), and injected environment variables.
+The managed architecture enables full orchestration by the {VARS.WARP_AUTOMATION_PLATFORM} — it can remotely start agents via Slack, Linear, the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>, the API/SDK, and the `oz agent run-cloud` command. Agents can access resources through volume mounts (Docker), Kubernetes-native configuration (Kubernetes), the worker host (Direct), or the configuration applied by an external runtime (Command).
 
 ## Unmanaged architecture
 
@@ -119,7 +114,7 @@ You're responsible for executing `oz agent run` on your infrastructure — simil
 
 ## Routing runs to self-hosted workers
 
-This section applies to **all managed backends** (Docker, Kubernetes, and Direct). Once a worker is connected, route cloud agent runs to it by specifying the `--host` flag (or equivalent) with your worker ID. The `--host` value must match the `--worker-id` of a connected worker exactly.
+This section applies to **all managed backends**. Once a worker is connected, route cloud agent runs to it by specifying the `--host` flag (or equivalent) with your worker ID. The `--host` value must match the `--worker-id` of a connected worker exactly. Docker, Kubernetes, and Direct workers execute the assigned task on worker infrastructure; Command workers dispatch it to the configured external runtime.
 
 :::note
 Unmanaged runs don't need routing — you invoke `oz agent run` directly on the host where you want the agent to execute. Routing is only relevant for managed workers.
@@ -214,6 +209,7 @@ For infrastructure-level observability, the `oz-agent-worker` daemon can export 
 * [Managed: Docker](/platform/self-hosting/managed-docker/) — Default managed setup with the Docker backend.
 * [Managed: Kubernetes](/platform/self-hosting/managed-kubernetes/) — Managed setup with the Kubernetes backend and Helm chart.
 * [Managed: Direct](/platform/self-hosting/managed-direct/) — Managed setup with no container runtime.
+* [External orchestrators](/platform/self-hosting/external-orchestrators/) — Run a Direct worker in one-shot mode or dispatch tasks with the Command backend.
 * [Self-hosted worker reference](/platform/self-hosting/reference/) — CLI flags and config file schema.
 * [Monitoring](/platform/self-hosting/monitoring/) — OpenTelemetry metrics for worker health, task throughput, and capacity.
 * [Security and networking](/platform/self-hosting/security-and-networking/) — Data boundaries, network egress, and security considerations.
