@@ -20,6 +20,14 @@ Add MCP servers to a cloud agent when it needs to:
 
 The agent calls MCP tools automatically based on what the task requires, without the need for explicit instruction.
 
+## Warp-managed integration tools in factories
+
+When Slack, Linear, or Jira is connected for a factory, Warp automatically makes tools from that integration available to the factory's agents. These Warp-managed capabilities use the connected integration's authorization and don't require a separate MCP server installation.
+
+Integration-provided tools are separate from the MCP servers you configure with `mcp_servers` or `mcpServers`. They may not appear alongside user-configured servers in the factory's MCP list, even though the agent can use them during a run. For example, a scheduled factory run can use the Slack tools to post a report to a channel without Slack triggering the run.
+
+See [posting a scheduled factory digest to Slack](/factories/integrations/slack/#post-a-scheduled-factory-digest-to-slack) for a complete automation and prompt. If you need a different external service, configure its MCP server using the options below.
+
 ## How MCP configuration works
 
 You can supply MCP configuration in two ways:
@@ -105,7 +113,7 @@ oz agent run-cloud --environment <ENV_ID> -f my-agent-config.json --prompt "Chec
 ## Requirements and defaults
 
 * MCP configuration must be valid JSON, or YAML when embedded in a broader agent config file.
-* If `mcp_servers` is omitted, the agent runs with no MCP servers enabled.
+* If `mcp_servers` is omitted, the agent runs with no user-configured MCP servers enabled. Factory runs can still receive [Warp-managed integration tools](#warp-managed-integration-tools-in-factories).
 * Each server name must be unique and non-empty.
 * The `warp_id` transport is validated against your Warp account. Referenced servers must be accessible to you.
 * A `warp_id` that names a Warp-managed integration server (`linear`, `slack`, or `jira`) resolves against your team's [integration](/platform/integrations/) connection, but only for a run executing inside a [factory](/factories/) (`jira` also resolves for a run triggered directly by a Jira event). Outside those cases, or when the integration isn't connected, the server is skipped and the run continues without it.
