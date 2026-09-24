@@ -13,9 +13,17 @@ Warp Factories is in **Early Access** and available to a limited set of teams. [
 
 A skill tells an agent what to check, how to classify results, what to produce, and when to escalate. In a factory, skills are how you extend or override [default agents](/factories/factory-agents/), without editing their prompts directly.
 
-## Factory-wide and per-agent skills
+## Skill sources in a factory
 
-A skill is a directory containing a `SKILL.md`. It's part of the factory's [definition](/factories/factory-as-code/), not an agent's settings. Where you place the directory decides who can use it:
+A factory run can use skills from three sources:
+
+* **Factory role and integration skills** - Baseline procedures that come from the default agent roles and integrations you configure, such as GitHub, Slack, Linear, or Jira.
+* **Warp-provided platform-bundled skills** - Product capabilities that Warp provides, such as `oz-platform`, `factory-files`, and `factory-mcp`.
+* **Custom file-based factory skills** - Team-owned `SKILL.md` files in the factory definition, available to every agent or scoped to one agent.
+
+## Custom file-based factory skills
+
+A custom skill is a directory containing a `SKILL.md`. It's part of the factory's [definition](/factories/factory-as-code/), not an agent's settings. Where you place the directory decides who can use it:
 
 ```text
 skills/
@@ -43,7 +51,37 @@ Every default agent starts with a baseline of role and integration skills so the
 
 These baseline skills aren't files in your definition; they come from the agent roles and integrations you choose. Anything you add under `skills/` or `agents/<name>/skills/` extends this baseline rather than replacing it.
 
-Factory role and integration skills are separate from [skills bundled with Warp](/reference/api-and-sdk/#skill-actions-in-conversation-data). Platform-bundled skills include `oz-platform`, `factory-files`, and `factory-mcp`; their availability follows the Warp release and enabled product features. In Conversation API data, a `read_skill` action with `bundled_skill_id` identifies a platform-bundled skill.
+## Warp-provided platform-bundled skills
+
+Platform-bundled skills are separate from factory role and integration skills. They provide Warp capabilities such as operating cloud agents with `oz-platform`, editing factory definitions with `factory-files`, and sending work through Factory MCP with `factory-mcp`.
+
+Warp provides these stable bundled-skill IDs:
+
+| Bundled skill ID | Purpose |
+| --- | --- |
+| `add-mcp-server` | Add an MCP server to Warp configuration. |
+| `change-keybinding` | Change or remove Warp keyboard shortcuts. |
+| `claude-api` | Build and maintain applications that use the Anthropic SDK. |
+| `create-skill` | Create, improve, and evaluate skills. |
+| `create-tab-config` | Create a Warp tab configuration. |
+| `factory-files` | Create and validate file-based Warp factory definitions. |
+| `factory-mcp` | Send work to a factory and collaborate through Factory MCP. |
+| `modify-settings` | View or change Warp settings using the bundled settings schema. |
+| `oz-platform` | Run, configure, and inspect cloud agents through the API and CLI. |
+| `pr-comments` | Fetch GitHub pull request review comments for the current branch. |
+| `tab-configs` | Look up the tab configuration schema and validation rules. |
+| `tui-migrate-setup` | Migrate supported settings into the Warp Agent CLI. |
+| `update-tab-config` | Update an existing Warp tab configuration. |
+| `warpctrl` | Control and inspect a running Warp app with Warp Control. |
+
+See [skill actions in conversation data](/reference/api-and-sdk/#skill-actions-in-conversation-data) for the API reference.
+
+## Attribute team-owned skill usage
+
+The [Conversation API](/api) returns skill loads as `read_skill` actions. Use the action's `input` to classify the skill:
+
+* **`input.bundled_skill_id` is present** - The action loaded a Warp-provided bundled reference. Exclude it when measuring usage of skills your team owns.
+* **Only `input.skill_path` is present** - A path alone doesn't identify the skill's owner. Count it as team-owned only when the path is under a skill root your team manages, such as `skills/` or `agents/<name>/skills/` in the factory definition.
 
 ## When to add a custom skill
 
