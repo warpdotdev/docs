@@ -143,6 +143,23 @@ For the summary of the most critical terms (core features, Automation Platform t
 
 - **Workflow** / **Workflows** — Saved, runnable workflows in Warp Drive (often multi-step command sequences).
 
+## Team and workspace terms
+
+- **workspace** — Warp's top-level organizational unit for enterprise accounts. It groups teams under one company account with shared roles, billing, SSO, and settings. See [Workspaces](/enterprise/team-management/workspaces/).
+  *Usage note:* Lowercase common noun, like "team." Distinguish it from a team's shared workspace in **Warp Drive** and a **Slack workspace**. If the context is unclear, write "Warp workspace" or "Slack workspace."
+
+- **Member** (workspace role) — The default workspace role: uses Warp within whatever teams they belong to and the settings admins configure. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+
+- **Admin** (workspace role) — Manages workspace membership, billing, and settings. Can view and manage every team in the workspace, including teams they don't belong to. A workspace can have any number of admins. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+
+- **Owner** (workspace role) — The workspace's single highest-privilege role. Has every admin capability, plus the ability to transfer ownership to another member. Exactly one per workspace. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+
+- **Open** (team visibility) — A team any workspace member can see and join immediately. See [Teams inside a workspace](/enterprise/team-management/workspaces/#teams-inside-a-workspace).
+
+- **Hidden** (team visibility) — A team that doesn't appear in team discovery; an admin has to add members directly. See [Teams inside a workspace](/enterprise/team-management/workspaces/#teams-inside-a-workspace).
+
+- **unassigned user** — A workspace member who doesn't belong to a team. Workspace admins manage unassigned users and can set a separate per-user spend limit for them. See [Unassigned users](/enterprise/team-management/workspaces/#unassigned-users).
+
 ## Automation Platform terminology
 
 Renamed from "Oz" on 2026-08-18. Two surfaces keep the Oz name until 2026-10-06
