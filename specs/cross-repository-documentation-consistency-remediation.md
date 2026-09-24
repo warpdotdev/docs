@@ -2,7 +2,7 @@
 
 ## Summary
 
-This work corrects factual drift across Warp documentation, the public pricing surface, and generated API reference content. It also extends the existing `missing_docs` skill so later audits account for stale and contradictory claims. The work changes documentation and detection only. It does not change product behavior, billing behavior, plan entitlements, privacy policy, or CLI compatibility.
+This work corrects factual drift across Warp documentation, user-facing CLI help, the public pricing surface, and generated API reference content. It also extends the existing `missing_docs` skill so later audits account for stale and contradictory claims. The work changes documentation, help copy, and detection only. It does not change product behavior, billing behavior, plan entitlements, privacy policy, or CLI compatibility.
 
 The September 16, 2026 Falconer audit reported 19 contradictions and 5 content issues. Some reported claims have changed on `main` since that audit. Implementation must verify the current occurrence set before editing and must not restore an older claim merely to match the audit.
 
@@ -18,7 +18,7 @@ The September 16, 2026 Falconer audit reported 19 contradictions and 5 content i
 8. Public documentation must use **auto-reload** only for the automatic purchase action.
 9. Public API examples must use `POST /agent/runs` to create a run.
 10. The deprecated `POST /agent/run` route must remain documented as deprecated compatibility only while the route remains released.
-11. Cloud image attachment documentation must distinguish CLI run creation from the interactive cloud conversation UI.
+11. Cloud image attachment documentation must cover both CLI run creation and interactive cloud conversations without inventing an unsupported UI limitation.
 12. Legacy `oz` documentation must remain available until a CLI owner confirms command parity and the final deprecation date.
 13. The implementation must not change runtime behavior to make an existing documentation claim true.
 
@@ -31,11 +31,12 @@ Use this order when resolving a factual conflict:
 1. **Released public contract**
    - Use `developers/agent-api-openapi.yaml` for the released Agent API.
    - Use an approved policy or legal statement for privacy, training, retention, and provider commitments.
+   - Use an owner-approved billing statement for customer-visible entitlement and charge behavior.
    - Use an owner-confirmed support matrix for support commitments.
 2. **Shipped implementation**
    - Use the public `warpdotdev/warp` client for client defaults, limits, updater behavior, shell discovery, MCP startup, and CLI behavior.
    - Use shipped `warp-server` tier configuration for active plan limits and entitlements.
-   - Use deployed server logic and tests for billing and deletion behavior.
+   - Use deployed server logic and tests as reviewer evidence for billing behavior. Do not convert resolver order, configuration switches, or principal-selection logic into a public commitment without Billing and Product approval.
 3. **Product specifications**
    - Use product specifications for intent and terminology only after verifying behavior against shipped code and configuration.
    - Do not treat a merged specification as evidence that a feature shipped.
@@ -69,54 +70,51 @@ The 24 Falconer findings below are the initial accounting set. New occurrences f
 #### 1. Free codebase indexing limit
 
 - **Status:** `fix`
-- **Shipped behavior:** Free permits 5,000 files per repository.
-- **Authority:** `../warp-server/billing/config/tiers/free.yaml:71-77`
-- **Current docs:** `src/content/docs/agents/capabilities/codebase-context.mdx:93-98` already says at least 5,000 files.
+- **Shipped behavior:** Free permits up to 5,000 files per repository.
+- **Authority:** `../warp-server/billing/config/tiers/free.yaml:82-89`
+- **Conflicting docs:** `src/content/docs/agents/capabilities/codebase-context.mdx:95` says all plans support at least 5,000 files.
 - **Conflicting surface:** The public pricing page reported 3,000 files during the audit.
 - **Required change:**
-  - Keep the 5,000-file statement in the docs.
-  - Update the public pricing surface to 5,000.
+  - Change the docs and public pricing surface to “up to 5,000 files per repository” for Free.
   - Do not reduce the docs value to match stale marketing copy.
 - **Owner:** Product and Marketing for the pricing surface; Billing for entitlement confirmation.
 
 #### 2. Scheduled and API-key run billing principal
 
-- **Status:** `fix`
-- **Shipped behavior:**
-  - Unattended Build-family service-account traffic bills the team owner when individualized reload-credit behavior is enabled.
-  - Free and Enterprise service-account traffic remains team-pooled.
-- **Authority:** `../warp-server/logic/ai/ai_usage/cost_resolution.go:254-312`
+- **Status:** `owner_confirmation`
+- **Private reviewer evidence:** `../warp-server/logic/ai/ai_usage/cost_resolution.go:254-312` conditionally selects a billing principal by plan and configuration.
 - **Affected seeds:**
   - `src/content/docs/platform/triggers/scheduled-agents.mdx`
   - `src/content/docs/reference/cli/api-keys.mdx`
   - `src/content/docs/platform/team-access-billing-and-identity.mdx`
   - `src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx`
-- **Required change:**
-  - State the plan-specific billing principal once in the canonical billing page.
-  - Make schedule and API-key pages link to that canonical explanation.
-  - Remove the blanket statement that all scheduled usage draws directly from a shared team balance.
+- **Required owner input:** Billing and Product must state which customer-visible balance is charged for scheduled and API-key runs on each plan, how a user can predict the charge, and where the user can inspect it.
+- **Required change after confirmation:**
+  - State the owner-approved, user-actionable charge behavior once in the canonical billing page.
+  - Make schedule and API-key pages link to the canonical explanation.
+  - Remove blanket shared-balance or owner-balance claims that the approved statement does not support.
+- **Public-copy constraint:** Do not publish service-account selection, individualization switches, resolver branches, or other mutable implementation details.
 
 #### 3. Add-on Credits pool for API-key runs
 
-- **Status:** `fix`
-- **Shipped behavior:** After applicable plan credits, bonus grants are selected in team, workspace, then user order.
-- **Authority:** `../warp-server/model/ai_request_bonus_grants.go:101-151`
-- **Required change:**
-  - Remove the statement that the owner's personal Add-on Credits balance is always the second bucket.
-  - Describe applicable team or workspace grants before legacy user-scoped grants.
-  - Do not describe every applicable grant as a single “team-wide” pool when workspace or legacy user grants can apply.
+- **Status:** `owner_confirmation`
+- **Private reviewer evidence:** `../warp-server/model/ai_request_bonus_grants.go:101-151` contains a mutable internal selection order for several grant scopes.
+- **Affected seeds:**
+  - `src/content/docs/reference/cli/api-keys.mdx`
+  - `src/content/docs/platform/team-access-billing-and-identity.mdx`
+  - `src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx`
+- **Required owner input:** Billing and Product must state which Add-on Credits balances can fund an API-key run and whether any depletion order is a supported customer contract.
+- **Required change after confirmation:** Remove the claim that the owner's personal Add-on Credits balance is always the second bucket. Publish only balance categories and precedence that Billing and Product guarantee.
+- **Public-copy constraint:** Do not publish database grant scopes, query order, or legacy fallback behavior.
 
 #### 4. First bucket for a user-triggered cloud run
 
-- **Status:** `fix`
-- **Shipped behavior:**
-  - An eligible grant restricted to cloud-agent usage is checked first for a cloud request with a user principal.
-  - Plan credits are checked next.
-  - Applicable bonus grants are checked after plan credits.
-- **Authority:** `../warp-server/logic/ai/ai_usage/cost_resolution.go:166-212`
-- **Terminology constraint:** Do not publish the internal name `ambient_only`.
-- **Required wording:** Use a descriptive phrase such as “credits restricted to cloud agent runs” unless Product approves a dedicated customer-facing name.
-- **Required change:** Consolidate the two incompatible waterfalls in `src/content/docs/platform/team-access-billing-and-identity.mdx`.
+- **Status:** `owner_confirmation`
+- **Private reviewer evidence:** `../warp-server/logic/ai/ai_usage/cost_resolution.go:166-212` contains configuration-dependent internal precedence for several credit sources.
+- **Affected seed:** `src/content/docs/platform/team-access-billing-and-identity.mdx`
+- **Required owner input:** Billing and Product must define the customer-visible charge semantics for a user-triggered cloud run, including plan differences and the balance labels users see.
+- **Required change after confirmation:** Replace the two incompatible waterfalls with one owner-approved explanation of what the user is charged and how the user can inspect the charge.
+- **Public-copy constraint:** Do not publish internal grant names, resolver order, database scope, or configuration switches.
 
 #### 5. Team deletion with remaining Add-on Credits
 
@@ -145,7 +143,7 @@ The 24 Falconer findings below are the initial accounting set. New occurrences f
 - **Status:** `fix`
 - **Shipped behavior:** Free cloud runs use the Warp Agent harness. Paid self-serve plans enable third-party harnesses.
 - **Authority:**
-  - `../warp-server/billing/config/tiers/free.yaml:149-152`
+  - `../warp-server/billing/config/tiers/free.yaml:154-157`
   - `../warp-server/billing/config/tiers/_base_self_serve_plan.yaml:46-48`
 - **Affected seeds:**
   - `src/content/docs/platform/harnesses/index.mdx`
@@ -223,7 +221,7 @@ The 24 Falconer findings below are the initial accounting set. New occurrences f
   - `src/content/docs/support-and-community/privacy-and-security/privacy.mdx:30-38`
   - `src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx`
   - `src/content/docs/enterprise/security-and-compliance/security-overview.mdx`
-- **Implementation evidence:** Free tier telemetry policy is not user-toggleable in `../warp-server/billing/config/tiers/free.yaml:54-57`, but code does not settle the complete customer-facing retention and AI-availability contract.
+- **Implementation evidence:** Free tier telemetry policy is not user-toggleable in `../warp-server/billing/config/tiers/free.yaml:66-69`, but code does not settle the complete customer-facing retention and AI-availability contract.
 - **Required owner input:** Product, Privacy, and Legal must state:
   - whether a Free user can disable **Help improve Warp**;
   - whether disabling it disables Warp-provided AI, purchased-credit AI, BYOK, or custom endpoints;
@@ -269,22 +267,33 @@ The 24 Falconer findings below are the initial accounting set. New occurrences f
 
 - **Status:** `fix`
 - **Shipped behavior:**
-  - Legacy CLI cloud-run creation accepts repeated `--attach` inputs when the released feature is enabled.
+  - Legacy CLI cloud-run creation accepts repeated `--attach` inputs under the default feature set.
+  - Interactive cloud conversations support file attachment from the footer.
+  - Interactive cloud conversations accept pasted and dropped image data.
   - A run accepts at most 25 attachments.
   - Each attachment accepts at most 10 MB.
-  - The interactive cloud conversation UI does not expose toolbar, paste, or drag-and-drop image attachment.
 - **Authority:**
+  - `../warp/app/Cargo.toml:597`
+  - `../warp/app/Cargo.toml:617`
+  - `../warp/app/src/ai/blocklist/agent_view/agent_input_footer/mod.rs:432-443`
+  - `../warp/app/src/ai/blocklist/agent_view/agent_input_footer/mod.rs:1096`
+  - `../warp/app/src/ai/blocklist/agent_view/agent_input_footer/mod.rs:2343`
+  - `../warp/app/src/terminal/input.rs:11805-12058`
   - `../warp/app/src/ai/agent_sdk/ambient.rs:380-421`
   - `../warp/app/src/ai/agent_sdk/driver/attachments.rs:18-25`
   - `../warp/app/src/ai/attachment_utils.rs:10-12`
+- **Conflicting CLI help:** `../warp/crates/warp_cli/src/agent.rs:779-791` says `--attach` accepts a maximum of 5 files.
 - **Affected seeds:**
   - `src/content/docs/reference/cli/index.mdx`
   - `src/content/docs/platform/faqs.mdx`
+  - `src/content/docs/agents/local-agents/agent-context/images-as-context.mdx`
+  - `../warp/crates/warp_cli/src/agent.rs`
 - **Required change:**
-  - Change the CLI maximum from 5 to 25.
+  - Change the CLI docs and Clap help maximum from 5 to 25.
   - Add the 10 MB per-attachment limit.
-  - Keep the platform FAQ limitation, but scope it to the interactive cloud conversation UI.
-  - Cross-link the CLI capability from the FAQ.
+  - Remove the false statement that interactive cloud conversations do not accept images.
+  - Document the footer, paste, and drop paths without adding an availability caveat unless a released gate or Product owner requires one.
+  - Cross-link interactive and CLI attachment guidance.
   - Keep this capability documented during the `oz` migration until a verified `warp` equivalent replaces it.
 
 #### 17. MCP behavior under the default legacy CLI profile
@@ -330,7 +339,8 @@ The 24 Falconer findings below are the initial accounting set. New occurrences f
   - `src/content/docs/reference/cli/**` documents the legacy `oz` command tree and automation workflows.
   - `src/content/docs/agents/cli/**` documents the interactive `warp` TUI.
   - Existing notices state that `oz` remains supported through September 30, 2026.
-  - Current repository terminology guidance reserves the `oz` CLI binary and Oz v1 web app names through October 6, 2026.
+  - Current repository terminology guidance reserves the `oz` CLI binary and Oz v1 web app naming or wrapper transition through October 6, 2026.
+  - The end-of-September command-support milestone and the October 6 naming or wrapper milestone are separate. Neither milestone changes the other.
 - **Decision:** Retain legacy documentation until a CLI owner confirms workflow parity and the final deprecation date.
 - **Required work:**
   - Inventory every `oz` workflow and command in `src/content/docs/reference/cli/**`.
@@ -338,8 +348,8 @@ The 24 Falconer findings below are the initial accounting set. New occurrences f
   - Replace or redirect only verified equivalents.
   - Preserve one explicit migration or legacy page for unsupported automation workflows.
   - Keep factual corrections to legacy pages, including attachments and MCP, while those pages remain public.
-  - Align transition notices to October 6, 2026 unless the CLI owner approves a later date before implementation.
-- **Merge gate:** Do not remove the legacy section or change the support deadline without CLI-owner approval.
+  - Label each transition notice as command support, naming, wrapper behavior, or documentation removal so the two milestones cannot be conflated.
+- **Merge gate:** Do not remove the legacy section or change either deadline without CLI-owner approval.
 - **Owner:** Warp Agent CLI and Automation Platform.
 
 ### Terminal and support documentation
@@ -423,6 +433,29 @@ The 24 Falconer findings below are the initial accounting set. New occurrences f
 
 Extend `.agents/skills/missing_docs` instead of creating a new skill.
 
+#### Baseline reconciliation
+
+Reconcile the existing audit baseline before adding the consistency category:
+
+1. Run the current audit with `--diff` and preserve the JSON report.
+2. Classify all ten existing surface deltas:
+   - Verify final behavior and remove or retain map entries for removed flags `OrchestrationUnifiedStack` and `WaitForEventsParentRegistration`.
+   - Keep `WindowsVideoRecording` deferred while it remains dogfood.
+   - Obtain an agent-tooling owner decision to publish or defer `report_self_improvement_metadata`.
+   - Obtain an API owner decision to publish or defer each of these six routes:
+     - `GET /api/v1/agent/runs/{runId}/harness-usage`
+     - `GET /api/v1/factory/{uid}/integrations/microsoft-teams/teams`
+     - `GET /api/v1/factory/{uid}/integrations/microsoft-teams/teams/{team_id}/channels`
+     - `POST /api/v1/factory/scorers/{scorer_id}/backfill`
+     - `POST /api/v1/factory/{uid}/benchmarks/runs/{run_uid}/rescore`
+     - `POST /api/v1/harness-support/usage`
+3. Update the surface map, released OpenAPI schema, and public docs only as each classification requires.
+4. Re-run `--diff` and review the report. No delta can remain unexplained.
+5. Run `--update-snapshot` only after steps 1–4 are complete.
+6. Review and commit the snapshot diff with the classification changes.
+
+Never refresh the snapshot to silence a failing test.
+
 #### Workflow changes
 
 The skill must:
@@ -502,43 +535,52 @@ After approval, reuse the spec branch and PR for the first implementation batch.
 
 Recommended batches:
 
-1. **API and CLI factual corrections**
+1. **Missing-docs baseline reconciliation**
+   - Classify all ten existing surface deltas.
+   - Resolve publication or deferral for all six API routes.
+   - Update maps, docs, or OpenAPI from those decisions.
+   - Regenerate the snapshot only after review.
+2. **API and CLI factual corrections**
    - Canonical create-run route.
    - `name` filter.
-   - Attachment limits and UI distinction.
+   - Attachment limits and interactive capability.
+   - Stale `--attach` Clap help.
    - MCP startup semantics.
    - Install-method updater behavior.
-2. **Billing and plan corrections**
-   - Billing principals and waterfalls.
+3. **Billing and plan corrections**
    - Team deletion.
    - Add-on Credits terminology.
    - Free index and harness entitlements.
    - Coordinated public pricing changes in the owning website repository.
-3. **Terminal and navigation corrections**
+4. **Terminal and navigation corrections**
    - Regex case behavior.
    - Ventura cleanup.
    - SSH shell behavior.
    - Session Sharing links and redirect.
    - Windows shell wording that does not require the unresolved fish decision.
-4. **Consistency detector**
+5. **Consistency detector**
    - Seed store.
    - Consistency audit category.
    - Accounting.
    - Tests and skill instructions.
-5. **Owner-gated privacy and security corrections**
+6. **Owner-gated billing semantics**
+   - Scheduled and API-key charge behavior.
+   - Add-on Credits balance applicability.
+   - User-triggered cloud-run charge behavior.
+7. **Owner-gated privacy and security corrections**
    - Training and Warp data use.
    - Free telemetry and AI behavior.
    - Fireworks ZDR coverage.
    - Any absolute security guarantees.
-6. **Owner-gated CLI migration**
+8. **Owner-gated CLI migration**
    - Command-parity inventory.
    - Confirmed redirects.
    - Legacy landing page.
    - Final deprecation wording.
-7. **Owner-gated Windows support follow-up**
+9. **Owner-gated Windows support follow-up**
    - MSYS2 fish support statement after Terminal and Support confirmation.
 
-The privacy, CLI migration, and Windows fish batches must not block deterministic corrections in the other batches.
+The billing-semantics, privacy, CLI-migration, and Windows-fish batches must not block deterministic corrections in the other batches.
 
 ### Reviewer routing
 
@@ -547,7 +589,7 @@ Route review from the source file behind each fact:
 - **Billing and credits:** `../warp-server/logic/ai/ai_usage/`, `../warp-server/model/ai_request_bonus_grants.go`, and `../warp-server/billing/`.
 - **API:** `../warp-server/router/handlers/public_api/` and the OpenAPI owners.
 - **MCP:** `../warp/app/src/ai/mcp/`, `../warp/app/src/ai/agent_sdk/driver/mcp_startup.rs`, and `../warp/crates/mcp/`.
-- **Attachments and cloud CLI:** `../warp/app/src/ai/agent_sdk/` and `../warp/app/src/ai/attachment_utils.rs`.
+- **Attachments and cloud CLI:** `../warp/app/src/ai/agent_sdk/`, `../warp/app/src/ai/attachment_utils.rs`, `../warp/app/src/terminal/input.rs`, and `../warp/crates/warp_cli/src/agent.rs`.
 - **Warp Agent CLI updater:** `../warp/crates/warp_tui/`.
 - **Shells and SSH:** `../warp/app/src/terminal/available_shells.rs`, `../warp/app/src/terminal/warpify/`, and `../warp/app/assets/bundled/bootstrap/`.
 - **Privacy and policy:** Privacy, Security, and Legal, regardless of code ownership.
@@ -576,6 +618,16 @@ Use `.github/STAKEHOLDERS` and `.github/CODEOWNERS` through the existing reviewe
   - **Advantage:** Users receive behavior that matches the docs.
   - **Disadvantage:** Requires public pricing corrections.
 - **Decision:** Choose Option B until a product change ships.
+
+### Billing implementation evidence versus public contract
+
+- **Option A:** Publish the current resolver and grant-selection order.
+  - **Advantage:** Produces a precise waterfall from current code.
+  - **Disadvantage:** Turns mutable private implementation into a customer commitment and exposes details users cannot act on.
+- **Option B:** Use code as reviewer evidence and publish only Billing- and Product-approved customer semantics.
+  - **Advantage:** Gives users stable guidance about balances, charges, and inspection without coupling docs to resolver internals.
+  - **Disadvantage:** Findings 2–4 remain blocked until the owners answer the stated questions.
+- **Decision:** Choose Option B.
 
 ### Credit terminology
 
@@ -615,16 +667,26 @@ Use `.github/STAKEHOLDERS` and `.github/CODEOWNERS` through the existing reviewe
 
 ### Cloud attachment wording
 
-- **Option A:** Say cloud agents do not support images.
-  - **Advantage:** Matches the interactive UI limitation.
-  - **Disadvantage:** Hides the working CLI capability.
-- **Option B:** Say cloud agents support images.
-  - **Advantage:** Advertises the CLI capability.
-  - **Disadvantage:** Misleads interactive UI users.
-- **Option C:** Document each input surface separately.
-  - **Advantage:** States both behaviors without contradiction.
-  - **Disadvantage:** Requires an extra qualification and cross-link.
+- **Option A:** Preserve the claim that interactive cloud conversations do not support images.
+  - **Advantage:** Requires no FAQ change.
+  - **Disadvantage:** Contradicts the shipped footer, paste, and drop paths.
+- **Option B:** State only that cloud agents support attachments.
+  - **Advantage:** Avoids the false limitation.
+  - **Disadvantage:** Omits input paths, limits, and the stale CLI help mismatch.
+- **Option C:** Document interactive and CLI inputs separately, with the shared verified limits.
+  - **Advantage:** Covers every shipped input path and exposes the same limits in docs and CLI help.
+  - **Disadvantage:** Requires coordinated docs and Clap help changes.
 - **Decision:** Choose Option C.
+
+### Snapshot reconciliation
+
+- **Option A:** Regenerate the surface snapshot immediately.
+  - **Advantage:** Makes the snapshot test pass quickly.
+  - **Disadvantage:** Can hide public API and capability decisions that have not been reviewed.
+- **Option B:** Classify every delta, update maps or docs from those decisions, then regenerate the snapshot.
+  - **Advantage:** Preserves the audit's publication and deferral gate.
+  - **Disadvantage:** Requires owner decisions for six API routes and one server tool.
+- **Decision:** Choose Option B.
 
 ### Windows fish
 
@@ -654,7 +716,7 @@ Use `.github/STAKEHOLDERS` and `.github/CODEOWNERS` through the existing reviewe
 - **Assumption:** `warpdotdev/docs@main`, `warpdotdev/warp@master`, and `warp-server@develop` represent the current implementation baseline researched on September 24, 2026.
 - **Assumption:** The public pricing claims observed during research are owned outside `warpdotdev/docs`.
 - **Assumption:** The singular Agent API route remains released compatibility because the OpenAPI schema marks it deprecated rather than removed.
-- **Assumption:** No approved customer-facing name exists for `ambient_only`; implementation will use descriptive wording.
+- **Assumption:** Current billing resolver and grant-selection order are reviewer evidence, not a stable customer contract.
 - **Assumption:** The missing-docs consistency detector can use curated rules for deterministic claims and agent research for semantic claims.
 - **Assumption:** A policy-blocked batch can remain open without blocking unrelated deterministic corrections.
 
@@ -690,14 +752,18 @@ python3 .agents/skills/missing_docs/scripts/audit_docs.py --category consistency
 
 - Verify Free limits from `../warp-server/billing/config/tiers/free.yaml`.
 - Verify paid harness override from `../warp-server/billing/config/tiers/_base_self_serve_plan.yaml`.
-- Verify billing order and principals from the cited cost-resolution and grant-query files.
+- Use the cited billing resolver and grant-query files as private reviewer evidence for findings 2–4.
+- Require Billing and Product approval for every public statement about which balance applies, when a charge occurs, and where a user can inspect that result.
+- Reject public copy that names grant order, resolver order, database scope, principal-selection branches, or mutable configuration switches.
 - Verify team deletion with the existing integration test.
 - Verify API routes and query names from the released OpenAPI schema and handler.
-- Verify attachment count and size constants from the client.
+- Verify the shared attachment count and size from the client constants.
+- Verify interactive footer, paste, and drop input paths and the default feature set.
+- Verify `../warp/crates/warp_cli/src/agent.rs` exposes the same maximum count as the runtime.
 - Verify updater behavior from install-method tests.
 - Verify MCP startup categories from profile and driver tests.
 
-No runtime source file changes are expected.
+No runtime behavior changes are expected. The only planned edit in a runtime repository is the user-facing `--attach` Clap help correction in `../warp/crates/warp_cli/src/agent.rs`.
 
 ### Repository tests
 
@@ -724,11 +790,22 @@ Expected result: every command exits 0.
   - documents `name`, not `config_name`.
 - Search API prose and examples for `POST /agent/run` after editing. Every remaining singular occurrence must explicitly discuss deprecated compatibility.
 
+### Attachment validation
+
+- Search the three affected documentation pages for limits and unsupported-capability claims.
+- Confirm the docs state at most 25 attachments and 10 MB per attachment.
+- Confirm the docs cover the footer, paste, and drop paths for interactive cloud conversations.
+- Confirm no current page states that interactive cloud conversations cannot accept images.
+- Run `cargo test -p warp_cli` from the `warp` repository after changing the Clap help.
+- Inspect `oz agent run-cloud --help` and confirm `--attach` says the maximum is 25.
+
 ### Billing validation
 
 - Search all docs for scheduled-run, API-key, cloud-credit, plan-credit, add-on-credit, reload-credit, and team-deletion claims.
-- Confirm the canonical billing page contains one complete waterfall.
-- Confirm secondary pages link to the canonical explanation instead of restating a partial waterfall.
+- For findings 2–4, attach written Billing and Product approval that answers every owner question in the finding.
+- Confirm the canonical billing page contains only the approved, user-actionable entitlement and charge contract.
+- Confirm secondary pages link to the canonical explanation instead of restating partial charge semantics.
+- Confirm public copy does not describe grant order, resolver order, database scope, principal-selection branches, or mutable configuration switches.
 - Confirm no current page says team deletion succeeds with a positive remaining Add-on Credits balance.
 
 ### Privacy validation
@@ -741,14 +818,32 @@ Expected result: every command exits 0.
 ### CLI migration validation
 
 - Produce a command-parity inventory for every page under `src/content/docs/reference/cli/`.
-- Require CLI-owner approval for the final deprecation date and every redirect that removes legacy detail.
+- Keep the September 30 `warp` command-support milestone separate from the October 6 naming and wrapper transition.
+- Require CLI-owner approval before changing either milestone and for every redirect that removes legacy detail.
 - Confirm unsupported workflows remain reachable from one explicit legacy or migration page.
+
+### Missing-docs baseline validation
+
+- Run the baseline reconciliation before implementing new consistency rules.
+- Classify the two removed flags, one added dogfood flag, one added server tool, and six added API routes listed in the technical design.
+- Attach owner-approved publish or defer decisions for the six API routes and the server tool.
+- Update curated maps, the OpenAPI schema, and public docs from those decisions.
+- Regenerate `.agents/skills/missing_docs/references/surface_snapshot.json` only after those updates.
+- Reject a snapshot-only change whose purpose is to silence `test_audit_docs.py`.
+- Run:
+
+```bash
+python3 .agents/skills/missing_docs/scripts/audit_docs.py --warp ../warp --warp-server ../warp-server --diff
+python3 .agents/skills/missing_docs/scripts/test_audit_docs.py
+```
+
+- Expected result: every pre-existing delta has a recorded disposition, the diff has no unclassified surface change, and the test exits 0.
 
 ### Cross-repository validation
 
 - Verify `https://www.warp.dev/pricing` after coordinated changes.
 - Confirm the live surface shows:
-  - 5,000 Free indexed files;
+  - up to 5,000 files per repository on Free;
   - the Warp Agent as the only cloud harness on Free;
   - Add-on Credits as the product name.
 - If a coordinated repository change cannot ship in the same release, attach an owner-approved blocker with a URL and expected completion condition.
@@ -757,9 +852,9 @@ Expected result: every command exits 0.
 
 Documentation pages are static UI. After a successful build, use the computer-use tool to capture screenshots of the rendered changed states:
 
-- canonical billing waterfall;
+- approved billing entitlement and charge guidance;
 - Agent API create-run and filter guidance;
-- CLI attachment or updater guidance;
+- interactive and CLI attachment or updater guidance;
 - corrected shell or SSH guidance;
 - privacy guidance only after policy approval.
 
