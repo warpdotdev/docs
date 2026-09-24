@@ -98,7 +98,7 @@ See the [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) or [**Type
 
 #### Skill actions in conversation data
 
-The Conversation API returns skill loads as `read_skill` actions. An action with `input.bundled_skill_id` loaded a Warp-provided skill. An action with `input.path` loaded a file-based skill.
+The Conversation API returns skill loads as `read_skill` actions. When `input.bundled_skill_id` is present, it identifies a Warp-provided bundled reference. `input.skill_path` is the path used to resolve a skill, but doesn't prove ownership: file-based skills and path-referenced bundled skills, including skills from a remote host, can both use this field.
 
 The following stable, user-facing IDs are bundled directly with Warp:
 

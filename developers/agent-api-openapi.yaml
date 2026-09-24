@@ -2277,8 +2277,10 @@ components:
           description: |
             Curated public input for this action. This object is owned by the
             API and is not a raw internal tool payload. For a `read_skill`
-            action, `input` contains either `bundled_skill_id` for a
-            Warp-provided bundled skill or `path` for a file-based skill.
+            action, `bundled_skill_id` identifies a Warp-provided bundled
+            reference when present. `skill_path` is the path used to resolve
+            the skill; it can refer to a file-based skill or a path-referenced
+            bundled skill, such as one from a remote host.
     ActionResultContentBlock:
       type: object
       required:
