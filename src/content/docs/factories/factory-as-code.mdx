@@ -289,7 +289,7 @@ Managed secrets for agents that don't declare their own. An agent that declares 
 
 ### `agentDefaults.mcpServers`
 
-MCP servers for agents that don't declare their own, in the same form as [`mcpServers`](#mcpservers). The nested paths are `agentDefaults.mcpServers.warpId`, `agentDefaults.mcpServers.command`, `agentDefaults.mcpServers.args`, `agentDefaults.mcpServers.env`, `agentDefaults.mcpServers.url`, and `agentDefaults.mcpServers.headers`. Like secrets, an agent that declares its own map replaces this one, and factory-wide servers always apply.
+MCP servers for agents that don't declare their own, in the same form as [`mcpServers`](#mcpservers). Beneath each named server entry, the nested paths are `agentDefaults.mcpServers.<server-name>.warpId`, `agentDefaults.mcpServers.<server-name>.command`, `agentDefaults.mcpServers.<server-name>.args`, `agentDefaults.mcpServers.<server-name>.env`, `agentDefaults.mcpServers.<server-name>.url`, and `agentDefaults.mcpServers.<server-name>.headers`. Like secrets, an agent that declares its own map replaces this one, and factory-wide servers always apply.
 
 ### `agentDefaults.workerHost`
 
@@ -350,7 +350,7 @@ The frontmatter accepts:
 * `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel` - Optional. The same keys as [`agentDefaults`](#agentdefaults); a key declared here overrides the default for this agent.
 * `idleTimeoutMinutes` - Optional. How long the run stays open after completion, from 1 through 60 minutes. Omit it or set it to `null` to inherit. Without an agent or run value, Warp uses 10 minutes, or 60 minutes for an orchestrated child run. A run-level value takes precedence.
 
-The `harness` map accepts `harness.type`, `harness.model`, `harness.reasoningLevel`, `harness.auth`, `harness.auth.source`, and `harness.auth.secretName`. An agent's MCP map accepts `mcpServers.warpId`, `mcpServers.command`, `mcpServers.args`, `mcpServers.env`, `mcpServers.url`, and `mcpServers.headers`.
+The `harness` map accepts `harness.type`, `harness.model`, `harness.reasoningLevel`, `harness.auth`, `harness.auth.source`, and `harness.auth.secretName`. Beneath each named server entry, an agent's MCP map accepts `mcpServers.<server-name>.warpId`, `mcpServers.<server-name>.command`, `mcpServers.<server-name>.args`, `mcpServers.<server-name>.env`, `mcpServers.<server-name>.url`, and `mcpServers.<server-name>.headers`.
 
 ### `agentType`
 
@@ -455,7 +455,7 @@ triggers:
 
 An automation may also declare `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel`, and `idleTimeoutMinutes` to override the target agent's settings for the runs it starts. The timeout has the same 1-to-60-minute range and inheritance behavior as the [agent field](#agentsnameagentmd).
 
-The automation's `harness` map accepts `harness.type`, `harness.model`, `harness.reasoningLevel`, `harness.auth`, `harness.auth.source`, and `harness.auth.secretName`. Its MCP map accepts `mcpServers.warpId`, `mcpServers.command`, `mcpServers.args`, `mcpServers.env`, `mcpServers.url`, and `mcpServers.headers`.
+The automation's `harness` map accepts `harness.type`, `harness.model`, `harness.reasoningLevel`, `harness.auth`, `harness.auth.source`, and `harness.auth.secretName`. Beneath each named server entry, its MCP map accepts `mcpServers.<server-name>.warpId`, `mcpServers.<server-name>.command`, `mcpServers.<server-name>.args`, `mcpServers.<server-name>.env`, `mcpServers.<server-name>.url`, and `mcpServers.<server-name>.headers`.
 
 ## `routers/<slug>.yaml`
 
