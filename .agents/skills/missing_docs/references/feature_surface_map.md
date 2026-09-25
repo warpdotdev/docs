@@ -434,6 +434,12 @@ GET /factory/access -> internal
 GET /factory-inbox -> internal
 POST /factory-inbox/notifications/dismiss -> internal
 POST /factory-inbox/notifications/restore -> internal
+# Bulk mark-read / mark-unread for personal factory inbox notifications
+# (markFactoryInboxNotificationsRead / markFactoryInboxNotificationsUnread).
+# Same unreleased `/factory-inbox` namespace; factory tag is `x-internal: true`
+# and released OpenAPI has zero `/factory-inbox` paths.
+POST /factory-inbox/notifications/read -> internal
+POST /factory-inbox/notifications/unread -> internal
 # Resolve one inbox notification to its owning factory for deep-link routing
 # (getFactoryInboxNotification). Same unreleased `/factory-inbox` namespace;
 # marked `x-internal: true` upstream.
