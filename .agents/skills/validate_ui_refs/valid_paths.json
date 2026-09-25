@@ -971,6 +971,10 @@
       "description": "External File Search"
     },
     {
+      "name": "workspace:trigger_external_alt_c_directory_search",
+      "description": "External Directory Search"
+    },
+    {
       "name": "input:toggle_workflows",
       "description": "Workflows"
     },
@@ -1660,8 +1664,8 @@
     }
   ],
   "source_repository": "warpdotdev/warp",
-  "source_sha": "c1a27a6a21bf001fbcb83adc30c80f05b1181dae",
-  "generated_at": "2026-09-20T02:07:50.098583+00:00",
+  "source_sha": "9fb32eddde1c64266c5d6f737aafee953fcc340b",
+  "generated_at": "2026-09-25T15:28:56.896326+00:00",
   "last_notified_signature": "39af57a0bff50c05feb850e0c107276c95949709bff8af11a92b9ab246905496",
   "last_notified_at": "2026-09-11T15:27:54.269943+00:00"
 }
