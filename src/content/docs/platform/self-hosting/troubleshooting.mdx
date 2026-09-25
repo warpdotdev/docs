@@ -60,8 +60,8 @@ A successful preflight validates the configured pod shape, not task-specific ima
 
 **Fix:**
 
-1. Confirm your API key is correct, not expired, and has team scope.
-2. Regenerate the API key in **Settings** > **Cloud platform** > **API keys** if you suspect it's invalid.
+1. Confirm you created a **Self-hosted worker** API key and that it has not expired.
+2. If you suspect the key is invalid, open the <a href={`${VARS.FACTORY_WEB_APP_URL}/settings`}>{VARS.FACTORY_WEB_APP} user settings page</a>, click **Generate new token**, and select **Self-hosted worker** to create a replacement.
 3. Ensure the host has outbound internet access to `oz.warp.dev:443`.
 4. Check that no firewall rules are blocking WebSocket connections to `wss://oz.warp.dev`.
 5. Increase log verbosity with `--log-level debug` to see connection details.
