@@ -407,6 +407,13 @@ POST /harness-support/finish-task -> internal
 POST /harness-support/report-shutdown -> internal
 POST /harness-support/upload-snapshot -> internal
 POST /harness-support/commit-snapshot -> internal
+# Cumulative Claude Code / Codex usage snapshot for the current cloud execution
+# (publishHarnessUsage). Marked `x-internal: true` upstream; harness-support tag
+# is excluded from the released docs OpenAPI copy.
+POST /harness-support/usage -> internal
+# Read harness usage for a run (getHarnessUsage / agent_webhooks.go). Marked
+# `x-internal: true` upstream; not in developers/agent-api-openapi.yaml.
+GET /agent/runs/{runId}/harness-usage -> internal
 
 # Oz Factory REST API (router/handlers/public_api/factory*.go). Warp Factories
 # is now documented publicly (src/content/docs/factories/) as an Early Access
@@ -427,6 +434,12 @@ GET /factory/access -> internal
 GET /factory-inbox -> internal
 POST /factory-inbox/notifications/dismiss -> internal
 POST /factory-inbox/notifications/restore -> internal
+# Bulk mark-read / mark-unread for personal factory inbox notifications
+# (markFactoryInboxNotificationsRead / markFactoryInboxNotificationsUnread).
+# Same unreleased `/factory-inbox` namespace; factory tag is `x-internal: true`
+# and released OpenAPI has zero `/factory-inbox` paths.
+POST /factory-inbox/notifications/read -> internal
+POST /factory-inbox/notifications/unread -> internal
 # Resolve one inbox notification to its owning factory for deep-link routing
 # (getFactoryInboxNotification). Same unreleased `/factory-inbox` namespace;
 # marked `x-internal: true` upstream.
@@ -548,6 +561,9 @@ DELETE /factory/scorers/{scorer_id} -> internal
 GET /factory/scorers/{scorer_id}/results -> internal
 GET /factory/scorers/{scorer_id}/results/reasons -> internal
 GET /factory/scorers/{scorer_id}/metrics/pass-rate -> internal
+# Date-bounded scoring backfill (createScoringBackfill). Factory tag; released
+# OpenAPI has zero /factory paths. Stays internal until the Factory API ships.
+POST /factory/scorers/{scorer_id}/backfill -> internal
 # The scorer pause/resume routes and the autofix-config trio were replaced by
 # the self-improvement-config routes below; their dead map entries were pruned.
 GET /factory/scorers/{scorer_id}/self-improvement-config -> internal
@@ -570,6 +586,12 @@ GET /factory/{uid}/integrations/linear/users -> internal
 GET /factory/{uid}/integrations/linear/workflow-states -> internal
 GET /factory/{uid}/integrations/slack/conversations -> internal
 GET /factory/{uid}/integrations/slack/users -> internal
+# Microsoft Teams team/channel pickers for factory automations UI
+# (listFactoryMicrosoftTeamsTeams / listFactoryMicrosoftTeamsChannels).
+# Both marked `x-internal: true` under the factory tag; released OpenAPI has
+# zero `/factory` paths. Same unreleased namespace as sibling integration routes.
+GET /factory/{uid}/integrations/microsoft-teams/teams -> internal
+GET /factory/{uid}/integrations/microsoft-teams/teams/{team_id}/channels -> internal
 # Issue-tracker issue picker and Slack connection-test greeting used by the
 # factory integrations UI. Same unreleased `/factory` namespace as siblings above.
 GET /factory/{uid}/integrations/issue-tracker/issues -> internal
@@ -596,6 +618,10 @@ GET /factory/{uid}/benchmarks/runs -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid} -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid}/results -> internal
 POST /factory/{uid}/benchmarks/runs/{run_uid}/cancel -> internal
+# Rescore missing results on a completed benchmark run (rescoreBenchmarkRun).
+# Marked `x-internal: true` under the factory tag; released OpenAPI has zero
+# `/factory` paths.
+POST /factory/{uid}/benchmarks/runs/{run_uid}/rescore -> internal
 
 # Conversation steering and history routes marked `x-internal: true` upstream
 # (agent_conversation_steering.go, conversation_replay_history.go, agent_webhooks.go,
@@ -901,16 +927,10 @@ TerminalLifecycleRecovery
 # the CLI agent session if the plugin never reports the interrupt. No setting,
 # menu, or CLI flag; Ctrl-C behavior is already documented.
 CtrlCCancelsThirdPartyHarness
-# Orchestration plumbing promoted dogfood -> GA. Neither changes what a user sees
-# or configures, so both are internal implementation details of the documented
-# multi-agent orchestration feature (platform/orchestration/multi-agent-runs.mdx):
-# - WaitForEventsParentRegistration: on `wait_for_events`, confirms parent status
-#   with the server and registers an orchestrator for the ancestor event stream so
-#   children created out-of-band (CLI/API) still deliver events.
-# - OrchestrationUnifiedStack: consolidates child-state tracking behind a single
-#   tracker, one ancestor SSE per parent family, and one remote-child placeholder.
-WaitForEventsParentRegistration
-OrchestrationUnifiedStack
+# WaitForEventsParentRegistration and OrchestrationUnifiedStack were GA
+# orchestration-plumbing flags with no user-facing surface; both were removed
+# from code (flag cleanup) and their ignore-list entries pruned 2026-09-23.
+# Orchestration behavior remains documented at platform/orchestration/multi-agent-runs.mdx.
 # Internal persistence-backend detail: gates storing execution profiles in a
 # file-backed settings collection (agents.execution_profiles) versus the legacy
 # per-profile Warp Drive cloud objects. It changes where profiles are stored, not
