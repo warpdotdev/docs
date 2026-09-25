@@ -52,9 +52,10 @@ oz federate issue-token \
 By default, `oz federate issue-token` builds `sub` from `principal`. The result is
 `user:USER_UID` for a user or `service_account:SERVICE_ACCOUNT_UID` for an agent.
 
-Pass each component as a separate, unquoted argument. The command joins components in the order
-you supply them and separates them with commas. It fails if a component isn't available for the
-current principal or run. Colons and commas within component values become underscores.
+Pass each component as a separate argument. Do not quote the whole list. The command joins
+components in the order you supply them and separates them with commas. It fails if a component
+isn't available for the current principal or run. Colons and commas within component values become
+underscores.
 
 Use `principal`, `scoped_principal`, or any available claim listed under
 [principal claims](/platform/integrations/cloud-providers/#principal-claims) and
