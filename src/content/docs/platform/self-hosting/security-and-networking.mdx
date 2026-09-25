@@ -5,11 +5,7 @@ description: >-
   cloud agents — including per-backend considerations and BYOLLM.
 ---
 
-Self-hosting uses a split-plane architecture. Understanding which data stays on your infrastructure and which data routes through Warp is critical for security evaluation. This page summarizes the data model, network egress requirements, and backend-specific security considerations for self-hosted workers.
-
-:::note
-This page applies to both the [managed](/platform/self-hosting/#managed-architecture) and [unmanaged](/platform/self-hosting/unmanaged/) architectures. Backend-specific notes call out Docker-, Kubernetes-, and Direct-only considerations.
-:::
+Repository clones and agent workloads stay on your infrastructure, while orchestration and inference route through Warp. These boundaries apply to [managed](/platform/self-hosting/#managed-architecture) and [unmanaged](/platform/self-hosting/unmanaged/) deployments.
 
 ## Data boundaries
 
@@ -47,7 +43,7 @@ Self-hosted agents **do not require any network ingress**. They require outbound
 * `sessions.app.warp.dev` — port 443
 * `oz.warp.dev` — port 443 (managed architecture only)
 
-**Docker Hub** — for pulling task images (managed architecture only).
+Docker Hub — for pulling task images (managed architecture only).
 
 Tasks use the following Docker images:
 * [`warpdotdev/warp-agent:latest`](https://hub.docker.com/r/warpdotdev/warp-agent)
@@ -62,11 +58,9 @@ Tasks use the following Docker images:
 
 **Linux distribution-specific package repositories** — only with the managed architecture, when using a Warp environment whose base image does not have Git pre-installed. The exact repositories depend on the package manager configuration in the environment's base image.
 
-:::note
 All traffic uses HTTPS (port 443). No inbound ports need to be opened.
-:::
 
-The exception runs the other way. [Team-managed inference endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) and URL-backed MCP servers that you host must be reachable from Warp's servers.
+[Team-managed inference endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) and URL-backed MCP servers that you host must be reachable from Warp's servers.
 
 ---
 
@@ -80,10 +74,10 @@ The exception runs the other way. [Team-managed inference endpoints](/enterprise
 
 ### Kubernetes backend
 
-* **Kubernetes RBAC** — The worker needs namespaced permissions to create, get, list, watch, and delete Jobs and Pods. The Helm chart creates a minimal Role/RoleBinding scoped to a single namespace. The task namespace must allow creating Jobs with a root init container, as sidecar materialization currently depends on that pattern. Review your Pod Security Standards and admission policies accordingly.
-* **Kubernetes service accounts** — The worker Deployment's ServiceAccount (used by the long-lived worker process) is separate from the optional task Job `serviceAccountName` you may configure in `pod_template`. Scope each appropriately.
-* **API key management** — Store `WARP_API_KEY` in a Kubernetes Secret. Avoid hardcoding it in scripts or config files. If your organization uses an external secrets manager (HashiCorp Vault, AWS Secrets Manager, GCP Secret Manager, etc.), you can inject secrets into task pods via the CSI Secrets Store Driver or a similar operator — configure the required `volumes`, `volumeMounts`, and annotations in `pod_template`.
-* **Task isolation** — Each task runs as a separate Kubernetes Job/Pod. Jobs are removed after execution by default (disable with `--no-cleanup` for debugging).
+* **Kubernetes RBAC** — The worker uses namespace-scoped permissions to manage Jobs and read Pods, logs, and events. The task namespace must allow a root init container unless native image volumes are enabled.
+* **Kubernetes service accounts** — The worker Deployment ServiceAccount is separate from the task Job `serviceAccountName` in `pod_template`. Scope each to its workload.
+* **API key management** — Store `WARP_API_KEY` in a Kubernetes Secret and inject it only into the worker. Add task credentials through `pod_template` or an external secrets operator.
+* **Task isolation** — Each task runs as a Kubernetes Job and Pod. Successful Jobs are removed. With cleanup enabled, failed or orphaned Jobs remain for 24 hours; `--no-cleanup` keeps them without a TTL.
 
 ### Direct backend
 
@@ -100,7 +94,7 @@ The exception runs the other way. [Team-managed inference endpoints](/enterprise
 
 ## VPN and on-premises access
 
-Since self-hosted agents run on your infrastructure, they inherit your network access. Self-hosted agents can reach services behind VPNs, self-hosted GitLab/Bitbucket instances, databases, and any other internal resources your host can reach. This is one of the primary reasons teams choose self-hosting.
+Self-hosted agents inherit the host's network access, including VPN services, private source control, and databases.
 
 See [GitLab](/platform/integrations/gitlab/) and [Bitbucket](/platform/integrations/bitbucket/) setup guides for SCM integration details.
 

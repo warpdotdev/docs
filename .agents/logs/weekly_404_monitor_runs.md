@@ -8,6 +8,17 @@ This log tracks every run of the `weekly-404-monitor` skill — both runs that o
 
 ---
 
+## 2026-09-21 — PR opened
+- **Total 404s this week**: 321
+- **Total 404s last week**: 327
+- **Trend**: ▼ 1.8%
+- **Significant gaps (≥5 hits)**: 1 (0 new)
+- **Redirect candidates processed**: 1  (hits ≥ 5)
+- **HIGH-confidence redirects**: 1
+- **PR**: https://github.com/warpdotdev/docs/pull/777
+- **Oz run**: https://app.warp.dev/conversation/dd5a93a8-dadd-4255-a9ea-90fa21aeb332
+- **Notes**: Significant gap `/agent-platform/inference/bring-your-own-api-key.md` (5 hits). HIGH redirect to `/agents/inference/bring-your-own-api-key/` via existing agent-platform→agents migration pattern (slash form already covered; `.md` suffix was not). 141 long-tail uncovered; 1 unroutable malformed path; 133 resolved since last week. No MEDIUM suggestions.
+
 ## 2026-09-14 — PR opened
 - **Total 404s this week**: 327
 - **Total 404s last week**: 258

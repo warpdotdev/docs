@@ -309,6 +309,7 @@ Use `computer-use-agent-auto` for automatic selection. Pin a specific model when
 | --- | --- |
 | Auto | `computer-use-agent-auto` |
 | Claude Sonnet 5 | `claude-5-sonnet-low`, `claude-5-sonnet-medium`, `claude-5-sonnet-high`, `claude-5-sonnet-xhigh`, `claude-5-sonnet-max` |
+| Claude Opus 5.5 | `claude-5-5-opus-low`, `claude-5-5-opus-medium`, `claude-5-5-opus-high`, `claude-5-5-opus-xhigh`, `claude-5-5-opus-xhigh-fast`, `claude-5-5-opus-max` |
 | Claude Opus 5 | `claude-5-opus-low`, `claude-5-opus-medium`, `claude-5-opus-high`, `claude-5-opus-xhigh`, `claude-5-opus-xhigh-fast`, `claude-5-opus-max` |
 | Claude Fable 5.1 | `claude-5-1-fable-low`, `claude-5-1-fable-medium`, `claude-5-1-fable-high`, `claude-5-1-fable-xhigh`, `claude-5-1-fable-max` |
 | Claude Fable 5 | `claude-5-fable-low`, `claude-5-fable-medium`, `claude-5-fable-high`, `claude-5-fable-xhigh`, `claude-5-fable-max` |
@@ -449,6 +450,7 @@ Optional. Each file defines a runner: the compute a run executes on. The runner'
 description: Linux runner for payments builds and tests
 setupCommands:
   - corepack enable
+failureSessionRetentionMinutes: 15
 instanceShape:
   vcpus: 4
   memoryGb: 8
@@ -466,6 +468,14 @@ Optional. Shell commands run in order while the sandbox is prepared.
 ### `instanceShape`
 
 Optional. The compute size, as `vcpus` and `memoryGb`. Omit it to take the workspace default.
+
+### `failureSessionRetentionMinutes`
+
+Optional. An integer from `1` through `60` that keeps a failed run's session open for inspection. Input from a shared-session viewer restarts this idle window. There is no runner-level default: the runner value overrides the run environment's setting, while an omitted value uses the environment's setting or tears down the session immediately when neither is set.
+
+The value must not exceed the maximum runtime available to the sandbox. Warp disables retention for a run when the value exceeds that limit, and the sandbox's runtime limit can end the session before the full idle window elapses. Secrets remain in the sandbox, and compute credits may apply while the session stays open.
+
+On a self-hosted worker, an agent client that does not support failure-session retention ignores the setting, so the session tears down after failure.
 
 ### `platform`
 

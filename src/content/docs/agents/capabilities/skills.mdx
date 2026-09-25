@@ -62,6 +62,19 @@ You can invoke skills in two ways:
 
 The Agent recognizes when your request matches a skill's purpose, loads the skill instructions, and follows them to complete the task.
 
+### Identify skill sources in conversation data
+
+The [Conversation API](/api) returns skill loads as `read_skill` actions. The action's `input` identifies the skill source:
+
+| Input field | Skill source |
+| --- | --- |
+| `bundled_skill_id` | A Warp-provided bundled reference when this field is present. |
+| `skill_path` | The path used to resolve the skill. It can refer to a file-based skill or a path-referenced bundled skill, including one from a remote host. |
+
+To measure usage of skills your team owns, exclude `read_skill` actions whose `input` contains `bundled_skill_id`. From the remaining actions, count only `skill_path` values under skill roots your team manages. Don't classify other path-based entries as customer-owned because Warp-bundled skills can also use `skill_path`.
+
+See the [bundled skill ID catalog](/reference/api-and-sdk/#skill-actions-in-conversation-data) for Warp-provided IDs and availability details.
+
 ## Skill file format
 
 Skills are markdown files with YAML frontmatter. Each skill must have:
