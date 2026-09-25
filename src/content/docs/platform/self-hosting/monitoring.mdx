@@ -8,18 +8,14 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-When enabled, the `oz-agent-worker` daemon exports infrastructure-level metrics over [OpenTelemetry](https://opentelemetry.io/), giving your team real-time visibility into worker health, task throughput, and capacity. Combine these metrics with the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a> for full observability across both the orchestration plane and your self-hosted compute.
-
-:::note
-Metrics export is opt-in. Set `OTEL_METRICS_EXPORTER` to `prometheus`, `otlp`, or `console` to enable it. When the variable is unset, empty, whitespace-only, or `none`, the worker does not initialize a metrics exporter. The Helm chart also enables export only when `metrics.enabled=true`.
-:::
+The `oz-agent-worker` daemon exports [OpenTelemetry](https://opentelemetry.io/) metrics for worker health, task throughput, and capacity. Use these metrics with the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a> to monitor self-hosted compute and cloud runs.
 
 ## Key features
 
 * **Prometheus scrape** — Expose a `/metrics` endpoint for Prometheus to scrape, with optional `PodMonitor` support for the Prometheus Operator.
 * **OTLP push** — Push metrics to any OpenTelemetry-compatible collector (Grafana Alloy, Datadog Agent, New Relic, etc.).
-* **Standard configuration** — Exporter selection uses the standard [OpenTelemetry environment variables](https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/), so the worker integrates with your existing observability stack without custom configuration.
-* **Pre-seeded series** — When metrics export is enabled, all metric series appear at startup (before any tasks run), so dashboards and alerts can reference them immediately.
+* **Standard configuration** — Select an exporter with [OpenTelemetry environment variables](https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/).
+* **Pre-seeded series** — Metric series appear at startup before any tasks run.
 
 ## How it works
 
@@ -30,7 +26,7 @@ The worker uses the [OpenTelemetry autoexport package](https://github.com/open-t
 * `console` — Writes metrics to stdout (useful for debugging).
 * `none` — Disables metrics export entirely.
 
-The worker initializes autoexport only when `OTEL_METRICS_EXPORTER` names an exporter. Unset, empty, whitespace-only, and `none` values disable metrics initialization.
+When `OTEL_METRICS_EXPORTER` is unset, autoexport uses OTLP. Set it to `none` to disable metrics.
 
 All metrics carry resource attributes (`service.name=oz-agent-worker`, `service.version`, `worker.id`, `worker.backend`) so each worker process shows up as a distinct series in your monitoring system.
 
@@ -141,16 +137,15 @@ All metrics use the `oz_worker_` prefix. Each worker process with metrics enable
 * **`oz_worker_tasks_max_concurrent`** (gauge) — Configured concurrency limit (`0` means unlimited).
 * **`oz_worker_tasks_claimed_total`** (counter) — Total tasks accepted since process start.
 * **`oz_worker_tasks_rejected_total{reason}`** (counter) — Tasks the worker declined (e.g., `reason="at_capacity"`).
-* **`oz_worker_tasks_completed_total{result}`** (counter) — Completed tasks labeled `result="succeeded"` or `result="failed"`.
+* **`oz_worker_tasks_completed_total{result}`** (counter) — Completed tasks labeled `result="succeeded"`, `result="failed"`, `result="cancelled"`, or `result="dispatched"`.
 * **`oz_worker_task_duration_seconds{result}`** (histogram) — Wall-clock task duration on the worker, labeled by result.
+* **`oz_worker_task_failures_total{phase,reason}`** (counter) — Task failures classified by execution phase and a bounded reason such as `image_pull`, `unschedulable`, `container_oom`, or `evicted`.
 * **`oz_worker_websocket_reconnects_total{reason}`** (counter) — WebSocket reconnect attempts (e.g., `reason="dial_failed"`, `reason="remote_close"`). Spikes indicate flapping workers.
 * **`oz_worker_info{version,backend,worker_id}`** (gauge, constant `1`) — Build and runtime metadata. Useful for joining other series by labels.
 
 ---
 
 ## Sample PromQL queries
-
-Direct mappings for common operational questions:
 
 * **Workers available:**
 
@@ -191,6 +186,12 @@ Direct mappings for common operational questions:
   sum(rate(oz_worker_tasks_completed_total{result="failed"}[5m]))
   ```
 
+* **Failure modes:**
+
+  ```promql
+  sum by (phase, reason) (rate(oz_worker_task_failures_total[5m]))
+  ```
+
 * **Reconnect storms (alert threshold):**
 
   ```promql
@@ -201,14 +202,14 @@ Direct mappings for common operational questions:
 
 ## Disabling metrics
 
-Metrics export is disabled when `OTEL_METRICS_EXPORTER` is unset, empty, whitespace-only, or `none`. To override an exporter inherited from the worker's environment, set it to `none` explicitly:
+Set `OTEL_METRICS_EXPORTER=none` to disable metrics export:
 
 ```bash
 export OTEL_METRICS_EXPORTER=none
 oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker"
 ```
 
-The Helm chart keeps this explicit override when metrics are disabled:
+The Helm chart sets the same override when metrics are disabled:
 
 ```yaml
 metrics:
