@@ -21,8 +21,8 @@ Deploy the `oz-agent-worker` daemon into a Kubernetes cluster with the included 
 ## How it works
 
 1. The worker connects to the Kubernetes API server (using in-cluster auth by default, or an explicit kubeconfig).
-2. On startup, the worker runs a preflight Job with the configured task pod shape.
-3. For each assigned task, the worker creates a Kubernetes Job in the configured namespace.
+2. On startup, the worker runs a preflight Job using the worker's `pod_template`.
+3. For each assigned task, the worker creates a Kubernetes Job from `pod_template` in the configured namespace. The task's runner supplies the image and, when configured, the instance shape.
 4. The worker monitors the Job and Pod status.
 5. After the task completes, the worker removes successful Jobs. Failed Jobs remain available for diagnosis for 24 hours by default.
 
