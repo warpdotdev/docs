@@ -289,7 +289,7 @@ The following components are supported:
 | Component | Value |
 | --- | --- |
 | `principal` | `user:USER_UID` or `service_account:SERVICE_ACCOUNT_UID`. Available for every token. |
-| `scoped_principal` | A principal prefixed with its team UID. Available for service accounts and users who belong to zero or one team. |
+| `scoped_principal` | `scoped_principal:TEAM_UID/user:USER_UID` for a user on one team, or `scoped_principal:user:USER_UID` for a user with no team. Service accounts always include the team UID. Unavailable for users on multiple teams. |
 | `email` | The user's email address. Available for user tokens that include an email address. |
 | `teams` | Team UIDs joined by `+`. Available when the principal belongs to at least one team. |
 | `factory_uid` | The factory UID. Available for service accounts linked to a factory. |
