@@ -30,7 +30,7 @@ For background on federation, see your cloud provider's workload identity federa
 
 Issue an OIDC identity token for the current run.
 
-```sh
+```bash
 oz federate issue-token \
   --run-id <RUN_ID> \
   --audience <AUDIENCE> \
@@ -40,50 +40,61 @@ oz federate issue-token \
 
 ### Flags
 
-* **`--run-id <RUN_ID>`** - The ID of the {VARS.PLATFORM_RUN} requesting the token. The token is bound to this run.
+* **`--run-id <RUN_ID>`** - The ID of the {VARS.PLATFORM_RUN} requesting the token. Cloud agent
+  runs set `OZ_RUN_ID` to the current run ID, but you must still pass this flag.
 * **`--audience <AUDIENCE>`** - The `aud` claim for the issued token. Set this to the value your cloud provider's identity pool expects (for example, an AWS IAM Identity Center audience or a GCP workload identity pool URL).
-* **`--duration <DURATION>`** - Requested token lifetime. Accepts human-readable durations like `15m`, `1h`, or `2h30m`. Defaults to `1h`.
+* **`--duration <DURATION>`** - Requested token lifetime from 5 minutes to 3 hours. Accepts
+  human-readable durations such as `30m` or `2h30m` and defaults to `1h`.
 * **`--subject-template <COMPONENT> ...`** - Controls how the OIDC token's `sub` claim is formatted. Pass one or more components, which are joined to form the subject. Defaults to `principal` (for example, `user:my-user-id`).
 
 ### Subject template components
 
-The subject claim is what your cloud provider's policy will match on, so pick the combination that gives you the IAM granularity you need. Supported components:
+By default, `oz federate issue-token` builds `sub` from `principal`. The result is
+`user:USER_UID` for a user or `service_account:SERVICE_ACCOUNT_UID` for an agent.
 
-* **`principal`** - The acting principal, like `user:my-user-id` or `service_account:my-sa-id`. A `service_account:` principal corresponds to a [cloud agent](/platform/agents/) on your team.
-* **`scoped_principal`** - The principal scoped to a team, like `principal:my-team-id/user:my-user-id`.
-* **`email`** - The principal's email, like `email:user@warp.dev`.
-* **`teams`** - The principal's team, like `teams:my-team-id`.
-* **`environment`** - The [cloud environment](/platform/environments/) the run is using, like `environment:my-environment-id`.
-* **`agent_name`** - The configured name of the run, like `agent_name:my-agent`.
-* **`skill_spec`** - The skill the run was launched from, like `skill_spec:warpdotdev/repo_path_to_skill`.
-* **`run_id`** - The run's unique ID, like `run_id:abc123`.
-* **`host`** - The self-hosted worker the run is on, like `host:my-worker-id`.
+Pass each component as a separate, unquoted argument. The command joins components in the order
+you supply them and separates them with commas. It fails if a component isn't available for the
+current principal or run. Colons and commas within component values become underscores.
 
-When you pass multiple components, the resulting subject joins them in the order you specified.
+Use `principal`, `scoped_principal`, or any available claim listed under
+[principal claims](/platform/integrations/cloud-providers/#principal-claims) and
+[run claims](/platform/integrations/cloud-providers/#run-claims), except `user` and
+`service_account`. Use `principal` in place of those emitted claim names. See
+[the subject claim](/platform/integrations/cloud-providers/#subject-sub) for the `principal` and
+`scoped_principal` formats.
 
 ### Examples
 
-Issue a one-hour token bound to the current user, for an AWS audience:
+Issue a one-hour token with the default `principal` subject:
 
-```sh
+```bash
 oz federate issue-token \
   --run-id "$OZ_RUN_ID" \
-  --audience "sts.amazonaws.com"
+  --audience AUDIENCE \
+  --output-format json
 ```
 
-Issue a 15-minute token whose subject identifies the team and environment, so a GCP IAM policy can grant access only to that pair:
+Replace `AUDIENCE` with the identifier expected by your provider.
 
-```sh
+Issue a 30-minute token whose subject includes the principal, run, and environment:
+
+```bash
 oz federate issue-token \
   --run-id "$OZ_RUN_ID" \
-  --audience "//iam.googleapis.com/projects/123/locations/global/workloadIdentityPools/oz/providers/oz-oidc" \
-  --duration 15m \
-  --subject-template teams environment
+  --audience AUDIENCE \
+  --duration 30m \
+  --subject-template principal run_id environment
 ```
+
+For a user, this template produces a subject such as
+`user:abc123,run_id:run-456,environment:env-789`.
 
 ## Using tokens with cloud providers
 
 Once you have a token, exchange it for cloud credentials using your provider's standard OIDC federation flow. The exchange happens between the cloud provider and your script — the {VARS.WARP_AUTOMATION_PLATFORM} only issues the OIDC token.
+
+For provider setup instructions and the complete token claim reference, see
+[Cloud providers](/platform/integrations/cloud-providers/).
 
 A typical AWS flow:
 
