@@ -989,6 +989,7 @@
     "POST /api/v1/factory-inbox/notifications/read",
     "POST /api/v1/factory-inbox/notifications/restore",
     "POST /api/v1/factory-inbox/notifications/unread",
+    "POST /api/v1/factory-inbox/notifications/{uid}/answers",
     "POST /api/v1/factory/automations",
     "POST /api/v1/factory/automations/{id}/run",
     "POST /api/v1/factory/avatar",

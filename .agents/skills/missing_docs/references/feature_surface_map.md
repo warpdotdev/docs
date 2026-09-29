@@ -444,6 +444,12 @@ POST /factory-inbox/notifications/unread -> internal
 # (getFactoryInboxNotification). Same unreleased `/factory-inbox` namespace;
 # marked `x-internal: true` upstream.
 GET /factory-inbox/notifications/{uid} -> internal
+# Answer all questions on a current inbox notification with one root-run
+# follow-up (answerFactoryQuestions / AnswerFactoryQuestionsHandler,
+# factory_inbox.go). Same unreleased `/factory-inbox` namespace; operation
+# carries `x-internal: true` upstream; released OpenAPI has zero
+# `/factory-inbox` paths.
+POST /factory-inbox/notifications/{uid}/answers -> internal
 GET /factory-alias/{alias} -> internal
 POST /factory -> internal
 POST /factory/avatar -> internal
