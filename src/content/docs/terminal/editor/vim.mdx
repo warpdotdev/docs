@@ -90,6 +90,9 @@ See [Vim docs: editing](https://vimdoc.sourceforge.net/htmldoc/editing.html) for
 | `w`, `W`         | whitespace-delimited string (word)         |
 | `"`, `'`, \`\`\` | quote-delimited string                     |
 | `(`, `{`, `[`    | parenthesized/bracketed string             |
+| `l`              | line                                       |
+
+The line text objects follow Neovim 0.13: `il` covers the current line without its leading or trailing whitespace, and `al` covers the whole buffer rather than just the current line. `il` does nothing on a blank line, and neither accepts a count.
 
 See [Vim docs: text objects](https://vimdoc.sourceforge.net/htmldoc/motion.html#text-objects) for more information.
 
