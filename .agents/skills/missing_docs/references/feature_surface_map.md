@@ -550,6 +550,12 @@ POST /factory/{uid}/gitlab-automation-capability/refresh -> internal
 # Integration pickers used during factory setup, before a factory exists.
 GET /factory-setup/integrations/jira/projects -> internal
 GET /factory-setup/integrations/linear/teams -> internal
+# Freezes an Azure DevOps factory create request and sends it to a Microsoft
+# administrator for permission approval (submitAzureDevOpsCreationRequest).
+# Marked `x-internal: true` under the factory tag, and `/factory-setup` is
+# covered by the `/factory` prefix that sync_openapi.py excludes wholesale;
+# released OpenAPI has zero `/factory` paths.
+POST /factory-setup/azure-devops-creation-requests -> internal
 GET /factory/automations -> internal
 POST /factory/automations -> internal
 GET /factory/automations/events/{provider} -> internal
