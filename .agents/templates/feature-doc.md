@@ -15,7 +15,11 @@ description: >-
 
 [Opening paragraph: what the feature does and its primary benefit. 1-3 sentences. Lead with what the reader can accomplish, not the implementation.]
 
-[BREVITY: Delete any section below you don't need — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
+[DEFINE → SHOW → LINK: Plain-language definition, then one concrete example, before jargon-heavy configuration. See AGENTS.md → Define, show, link.]
+
+[MEDIA: If you have an orientation video or wide product screenshot, place it here or just under Key features — not after long conceptual sections. Never stack two VideoEmbeds back to back.]
+
+[BREVITY: Delete any section below you don't need — a short page is a finished page. Feature pages stay at or under ~1500 words unless the PR body justifies an overage. Run check_compression_contract.py --content-type feature-doc before opening the PR. See AGENTS.md → Voice & tone → Cut again.]
 
 :::note
 [Optional. Key context the reader needs upfront — a prerequisite, a limitation, or when NOT to use this. Delete if nothing applies.]
@@ -30,7 +34,7 @@ description: >-
 
 ## How it works
 
-[CONCEPTUAL section. System behavior, architecture, or flow. Answer "what" and "why" before "how". Define new terms on first use. No step-by-step procedures here — keep the conceptual and procedural halves clearly separated.]
+[CONCEPTUAL section. System behavior the reader can act on. Answer "what" and "why" before "how". Define new terms on first use with a concrete example. No step-by-step procedures here — keep the conceptual and procedural halves clearly separated. No internal validation or control-plane walkthroughs.]
 
 ## [Usage or configuration — sentence case, renamed to match the feature, e.g. "Creating environments"]
 
