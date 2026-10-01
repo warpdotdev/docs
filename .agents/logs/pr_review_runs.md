@@ -44,6 +44,16 @@ This is a human-readable audit trail of `review-docs-pr` runs on agent-authored 
 ```
 
 ---
+
+## 2026-10-01 — collector scan (improve-drafting-skills monthly)
+
+- Source: GitHub API human reviews/comments/edits on agent-authored merged PRs (warpy-factory / warp-agent / warp-factories), past ~30 days through 2026-10-01; Oz `[SIGNAL:pr-review]` markers from 24 succeeded review-docs-pr runs
+- New human feedback records appended: 806 (bots filtered including warp-for-oss; injection discarded=0)
+- PRs sampled (agent-authored merged): 100 recent merged listed; agentish subset used for collection
+- Category counts (new batch): general=258, skill_guidance=173, terminology=117, template_structure=57, callout=41, header_case=35, tone=34, doc_quality_contract=23, ui_formatting=20, image=15, settings_path=12, frontmatter=9
+- Oz run SIGNAL markers: 24 `[SIGNAL:pr-review]` parsed (style-lint markers: 0); verdicts {'Approve': 9, 'Approve with nits': 8, 'Request changes': 7}; top_categories {'compression-contract': 6, 'clarity': 2, 'technical-accuracy': 2, 'technical-claim-verification': 1, 'link_quality': 1, 'content-duplication': 1, 'content-organization': 1, 'duplicate-content-risk': 1}
+- Actionable gaps selected for skill edits: plain_language_define_show_example, compression_contract_enforcement, orientation_media_placement
+
 ## 2026-08-05 — collector scan (no [SIGNAL:pr-review] markers)
 
 - **Branch**: n/a
