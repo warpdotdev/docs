@@ -2,13 +2,13 @@
 title: Factory definition syntax
 description: >-
   Look up every file and key in a factory definition: factory.yaml, agents,
-  automations, runners, benchmarks, scorers, skills, and webhooks.
+  automations, routers, runners, benchmarks, scorers, skills, and webhooks.
 sidebar:
   label: "Factory definition"
 ---
 import { VARS } from '@data/vars';
 
-Every factory is defined by files: a `factory.yaml` plus directories of agents, automations, runners, benchmarks, scorers, skills, and webhooks, versioned in a Git repository. The files are the source of truth — when they change, Warp updates the factory to match.
+Every factory is defined by files: a `factory.yaml` plus directories of agents, automations, routers, runners, benchmarks, scorers, skills, and webhooks, versioned in a Git repository. The files are the source of truth — when they change, Warp updates the factory to match.
 
 Definition files are YAML and Markdown. Keys are case-sensitive.
 
@@ -67,7 +67,7 @@ Warp publishes the definition format as JSON Schema documents for editor complet
 * `https://app.warp.dev/api/v1/factory-files/schemas/v1alpha1` - Every `v1alpha1` document in one bundle, keyed by document name.
 * `https://app.warp.dev/api/v1/factory-files/schemas/v1alpha1/<document>` - One document on its own, usable directly as a schema reference.
 
-There is one document per file kind: `factory.schema.json` for `factory.yaml`; `agent.schema.json`, `automation.schema.json`, and `scorer.schema.json` for the frontmatter of the corresponding Markdown files; `runner.schema.json`, `webhook.schema.json`, `benchmark_suite.schema.json`, and `benchmark_suite_task.schema.json` for the YAML files; and `common.schema.json` for the definitions the others share.
+There is one document per file kind: `factory.schema.json` for `factory.yaml`; `agent.schema.json`, `automation.schema.json`, and `scorer.schema.json` for the frontmatter of the corresponding Markdown files; `router.schema.json`, `runner.schema.json`, `webhook.schema.json`, `benchmark_suite.schema.json`, and `benchmark_suite_task.schema.json` for the YAML files; and `common.schema.json` for the definitions the others share.
 
 Editors with a YAML language server can read a document from its URL, for completion and inline validation as you type. In VS Code with the YAML extension, add the reference as a comment on the file's first line:
 
@@ -96,6 +96,8 @@ agents/
 automations/
   labeled-issue/
     automation.md
+routers/
+  cost-aware.yaml
 runners/
   linux-build.yaml
 benchmarks/
@@ -192,7 +194,7 @@ mcpServers:
 
 ### `cloudProviders`
 
-Optional. Cloud-provider identity federation for agent runs. `gcp` accepts `projectNumber` (quote it so YAML keeps it a string), `workloadIdentityFederationPoolId`, `workloadIdentityFederationProviderId`, and an optional `serviceAccountEmail`. `aws` accepts `roleArn`.
+Optional. Cloud-provider identity federation for agent runs. Under `cloudProviders.gcp`, use `projectNumber` (quote it so YAML keeps it a string), `workloadIdentityFederationPoolId`, `workloadIdentityFederationProviderId`, and the optional `serviceAccountEmail`. Under `cloudProviders.aws`, use `roleArn`.
 
 ```yaml
 cloudProviders:
@@ -224,7 +226,7 @@ integrations:
         - OPS
 ```
 
-The legacy `providers` key is accepted when reading older definitions. Use `cloudProviders`; when Warp rewrites the definition, it emits `cloudProviders`.
+The legacy `providers` key is accepted when reading older definitions. It uses the same `gcp` and `aws` maps and nested YAML keys as `cloudProviders`. Use `cloudProviders`; when Warp rewrites the definition, it emits `cloudProviders`.
 
 ### `agentDefaults`
 
@@ -269,7 +271,7 @@ harness:
     secretName: CODEX_API_KEY
 ```
 
-For a third-party harness, `auth` sets where credentials come from: `source: managedSecret` reads the [managed secret](/platform/secrets/) named by `secretName`, and `source: workerEnvironment` reads them from your self-hosted worker's environment (and requires a self-hosted `workerHost`). The `oz` harness supplies its own credentials and takes no `auth` or `reasoningLevel`.
+For a third-party harness, `auth` sets where credentials come from: `source: managedSecret` reads the [managed secret](/platform/secrets/) named by `secretName`, and `source: workerEnvironment` reads them from your self-hosted worker's environment (and requires a self-hosted `workerHost`). The `oz` harness supplies its own credentials and takes no `auth` or `reasoningLevel`. The full nested paths are `agentDefaults.harness.type`, `agentDefaults.harness.model`, `agentDefaults.harness.reasoningLevel`, `agentDefaults.harness.auth`, `agentDefaults.harness.auth.source`, and `agentDefaults.harness.auth.secretName`.
 
 For a definition that runs a different harness per agent, with managed-secret auth for Claude Code and Codex, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness). To configure the same third-party harness from the dashboard instead, see [configuring a third-party harness](/factories/factory-agents/#configuring-a-third-party-harness).
 
@@ -287,7 +289,7 @@ Managed secrets for agents that don't declare their own. An agent that declares 
 
 ### `agentDefaults.mcpServers`
 
-MCP servers for agents that don't declare their own, in the same form as [`mcpServers`](#mcpservers). Like secrets, an agent that declares its own map replaces this one, and factory-wide servers always apply.
+MCP servers for agents that don't declare their own, in the same form as [`mcpServers`](#mcpservers). Beneath each named server entry, the nested paths are `agentDefaults.mcpServers.<server-name>.warpId`, `agentDefaults.mcpServers.<server-name>.command`, `agentDefaults.mcpServers.<server-name>.args`, `agentDefaults.mcpServers.<server-name>.env`, `agentDefaults.mcpServers.<server-name>.url`, and `agentDefaults.mcpServers.<server-name>.headers`. Like secrets, an agent that declares its own map replaces this one, and factory-wide servers always apply.
 
 ### `agentDefaults.workerHost`
 
@@ -344,7 +346,11 @@ The frontmatter accepts:
 * `description` - Optional. What the agent does.
 * [`agentType`](#agenttype) - Optional. The agent's role.
 * `credentialStrategy` - Optional. Overrides the factory-level [`credentialStrategy`](#credentialstrategy) for this agent's runs.
+* `spawnableBy` - Optional. The factory agents allowed to spawn this agent, named by their agent directory names. Omit it to allow only the foreman, use an empty list to allow no factory agent, or use a non-empty list as the exact allowlist. Include the foreman explicitly to retain its access.
 * `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel` - Optional. The same keys as [`agentDefaults`](#agentdefaults); a key declared here overrides the default for this agent.
+* `idleTimeoutMinutes` - Optional. How long the run stays open after completion, from 1 through 60 minutes. Omit it or set it to `null` to inherit. Without an agent or run value, Warp uses 10 minutes, or 60 minutes for an orchestrated child run. A run-level value takes precedence.
+
+The `harness` map accepts `harness.type`, `harness.model`, `harness.reasoningLevel`, `harness.auth`, `harness.auth.source`, and `harness.auth.secretName`. Beneath each named server entry, an agent's MCP map accepts `mcpServers.<server-name>.warpId`, `mcpServers.<server-name>.command`, `mcpServers.<server-name>.args`, `mcpServers.<server-name>.env`, `mcpServers.<server-name>.url`, and `mcpServers.<server-name>.headers`.
 
 ### `agentType`
 
@@ -387,7 +393,7 @@ The providers and their events:
 * `gitlab` - `bot_mentioned`, `merge_request`, `push`
 * `linear` - `agent_session_created`, `comment_created`, `issue_assigned`, `issue_created`, `issue_labeled`, `issue_state_changed`
 * `jira` - `agent_session_created`, `issue_created`, `issue_labeled`, `status_changed`
-* `slack` - `app_mention`, `member_joined_channel`, `message_dm`, `message_posted`, `reaction_added`
+* `slack` - `app_mention`, `member_joined_channel`, `message_dm`, `message_im`, `message_mpim`, `message_posted`, `reaction_added`
 * `schedule` - `cron_fired`
 * `webhook` - `received`
 * `factory` - `work_item_stage_changed`
@@ -415,6 +421,13 @@ Payload patterns also accept `exists`.
 
 `baseBranches` and `prNumbers` are authoring aliases for `base_branches` and `pr_numbers`. `teams`, `projects`, `states`, `issues`, `channels`, `users`, and `itemUsers` are name-based aliases for their `_ids` counterparts. An alias and its canonical key are mutually exclusive.
 
+These dotted reference paths make the nested matcher shapes explicit. In a definition, write an allowed authoring path as nested YAML rather than as a dotted key:
+
+* **Include and exclude** - `triggers.filter.actions.in`, `triggers.filter.actions.not_in`, `triggers.filter.assignee_ids.in`, `triggers.filter.assignee_ids.not_in`, `triggers.filter.assignees.in`, `triggers.filter.assignees.not_in`, `triggers.filter.authors.in`, `triggers.filter.authors.not_in`, `triggers.filter.baseBranches.in`, `triggers.filter.baseBranches.not_in`, `triggers.filter.base_branches.in`, `triggers.filter.base_branches.not_in`, `triggers.filter.branches.in`, `triggers.filter.branches.not_in`, `triggers.filter.channel_ids.in`, `triggers.filter.channel_ids.not_in`, `triggers.filter.conclusions.in`, `triggers.filter.conclusions.not_in`, `triggers.filter.creator_ids.in`, `triggers.filter.creator_ids.not_in`, `triggers.filter.emojis.in`, `triggers.filter.emojis.not_in`, `triggers.filter.issue_ids.in`, `triggers.filter.issue_ids.not_in`, `triggers.filter.item_user_ids.in`, `triggers.filter.item_user_ids.not_in`, `triggers.filter.keywords.in`, `triggers.filter.keywords.not_in`, `triggers.filter.labels.in`, `triggers.filter.labels.not_in`, `triggers.filter.mentioned.in`, `triggers.filter.mentioned.not_in`, `triggers.filter.mentioned_user_ids.in`, `triggers.filter.mentioned_user_ids.not_in`, `triggers.filter.paths.in`, `triggers.filter.paths.not_in`, `triggers.filter.prNumbers.in`, `triggers.filter.prNumbers.not_in`, `triggers.filter.pr_numbers.in`, `triggers.filter.pr_numbers.not_in`, `triggers.filter.project_ids.in`, `triggers.filter.project_ids.not_in`, `triggers.filter.project_keys.in`, `triggers.filter.project_keys.not_in`, `triggers.filter.repos.in`, `triggers.filter.repos.not_in`, `triggers.filter.review_states.in`, `triggers.filter.review_states.not_in`, `triggers.filter.reviewer_teams.in`, `triggers.filter.reviewer_teams.not_in`, `triggers.filter.reviewers.in`, `triggers.filter.reviewers.not_in`, `triggers.filter.stages.in`, `triggers.filter.stages.not_in`, `triggers.filter.state_ids.in`, `triggers.filter.state_ids.not_in`, `triggers.filter.status_ids.in`, `triggers.filter.status_ids.not_in`, `triggers.filter.team_ids.in`, `triggers.filter.team_ids.not_in`, `triggers.filter.user_ids.in`, `triggers.filter.user_ids.not_in`, `triggers.filter.workflows.in`, and `triggers.filter.workflows.not_in`.
+* **Include only** - `triggers.filter.webhook_ids.in`.
+* **Server-managed include only** - `triggers.filter.schedule_ids.in`.
+* **Webhook payloads** - `triggers.filter.payload.exists`, `triggers.filter.payload.in`, and `triggers.filter.payload.not_in`.
+
 ```yaml
 triggers:
   - provider: webhook
@@ -440,7 +453,41 @@ triggers:
 
 ### Execution overrides
 
-An automation may also declare `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, and `computerUseModel` (the same keys as [`agentDefaults`](#agentdefaults)) to override the target agent's settings for the runs it starts.
+An automation may also declare `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel`, and `idleTimeoutMinutes` to override the target agent's settings for the runs it starts. The timeout has the same 1-to-60-minute range and inheritance behavior as the [agent field](#agentsnameagentmd).
+
+The automation's `harness` map accepts `harness.type`, `harness.model`, `harness.reasoningLevel`, `harness.auth`, `harness.auth.source`, and `harness.auth.secretName`. Beneath each named server entry, its MCP map accepts `mcpServers.<server-name>.warpId`, `mcpServers.<server-name>.command`, `mcpServers.<server-name>.args`, `mcpServers.<server-name>.env`, `mcpServers.<server-name>.url`, and `mcpServers.<server-name>.headers`.
+
+## `routers/<slug>.yaml`
+
+Optional. Each file defines a factory-owned custom model router. The file name without `.yaml` is the stable router slug. Use `model: router:<slug>` in `agentDefaults`, an agent, or an automation to select it on the Warp Agent harness.
+
+Both router types require `type` and `default`. Optional `name` is a display label. Every model target must be a concrete model ID, not an Auto model or another router.
+
+For `type: complexity`, `routing` is an optional map with `easy`, `medium`, and `hard`. Any omitted level uses `default`.
+
+```yaml title="routers/cost-aware.yaml"
+name: Cost-aware
+type: complexity
+default: claude-5-sonnet-high
+routing:
+  easy: claude-5-fable-high
+  medium: claude-5-sonnet-high
+  hard: claude-5-opus-high
+```
+
+For `type: prompt`, `routing` is an ordered list. Each item requires `description` and `model`; the first matching description wins, and `default` applies when no item matches.
+
+```yaml title="routers/by-task.yaml"
+type: prompt
+default: claude-5-sonnet-high
+routing:
+  - description: Debugging production incidents
+    model: claude-5-opus-high
+  - description: Drafting documentation
+    model: claude-5-fable-high
+```
+
+See [custom routers](/agents/inference/custom-routers/) for routing behavior and model availability.
 
 ## `runners/<name>.yaml`
 
@@ -479,7 +526,7 @@ On a self-hosted worker, an agent client that does not support failure-session r
 
 ### `platform`
 
-The operating system and architecture. `os` is `linux` (the default) or `macos`, and `arch` is `x86_64` (the default on Linux) or `aarch64` (the only option on macOS). Linux runners require `linux.dockerImage`, the container image the sandbox boots, so every Linux runner declares a `platform` section. macOS runners accept an optional `mac.version` (`"14"`, `"15"`, `"26"`, or `"27"`; quote it, and it defaults to `"26"`).
+The operating system and architecture. `os` is `linux` (the default), `macos`, or `windows`. The supported pairs are Linux with `aarch64` or `x86_64`, macOS with `aarch64`, and Windows with `x86_64`. Linux runners require `linux.dockerImage`, the container image the sandbox boots, so every Linux runner declares a `platform` section. macOS runners accept an optional `platform.mac` map with `platform.mac.version` (`"14"`, `"15"`, `"26"`, or `"27"`; quote it, and it defaults to `"26"`). Windows runners don't accept a `linux` or `mac` map.
 
 For a private Linux image, set `linux.registryCredentialSecretName` to the name of a managed `docker_registry` secret. The secret's registry host must match the host in `linux.dockerImage`.
 
@@ -522,7 +569,7 @@ Required. The name of an agent declared by the factory. Every task in the suite 
 
 Optional. One to six reusable configurations for benchmark runs. When a run doesn't supply its own configurations, Warp uses these presets. Each configuration requires a unique `name` and a `role` of `baseline` or `candidate`; a suite can have at most one baseline.
 
-The optional `agents` list pins named factory agents to the models and harnesses they use during that configuration's trials. Each entry requires `agent` and exactly one of `model` or `harness`. A `harness` override requires `type` and `model` and optionally accepts `auth`. List an agent at most once per configuration. Agents omitted from the list use their configuration at launch time.
+The optional `agents` list pins named factory agents to the models and harnesses they use during that configuration's trials. Each entry requires `configurations.agents.agent` and exactly one of `configurations.agents.model` or `configurations.agents.harness`. A harness override requires `configurations.agents.harness.type` and `configurations.agents.harness.model`. It optionally accepts `configurations.agents.harness.auth`, with `configurations.agents.harness.auth.source` and `configurations.agents.harness.auth.secretName`. List an agent at most once per configuration. Agents omitted from the list use their configuration at launch time.
 
 ### `tasks`
 
@@ -536,6 +583,8 @@ Optional. Each file defines one task in its parent suite. The task slug is the f
 title: Fix a broken documentation link
 prompt: Find the broken internal documentation link and update it.
 successCriteria: The destination resolves and the link text names the destination.
+tags:
+  - documentation
 startingRepoRefs:
   - github.com:acme/payments-docs@0123456789abcdef0123456789abcdef01234567
 ```
@@ -552,9 +601,17 @@ Required. The instructions the agent receives for the task.
 
 Required. The requirements the Correctness Scorer uses to evaluate each trial.
 
+### `tags`
+
+Optional. An ordered list of string tags. Omit it or use an empty list for no tags.
+
 ### `sourceRunId`
 
 Optional. The ID of the prior run the task came from. This records provenance only and can refer to a deleted run.
+
+### `linearSeed`
+
+Optional. The starting Linear workspace state for an isolated benchmark trial. It accepts any JSON-compatible value, which the Linear sandbox interprets.
 
 ### `startingRepoRefs`
 
