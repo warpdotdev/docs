@@ -669,6 +669,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/self-hosting/managed-docker', label: 'Managed: Docker' },
 						{ slug: 'platform/self-hosting/managed-kubernetes', label: 'Managed: Kubernetes' },
 						{ slug: 'platform/self-hosting/managed-direct', label: 'Managed: Direct' },
+						{ slug: 'platform/self-hosting/direct-monorepo-worktrees', label: 'Direct: Monorepo worktrees' },
 						{ slug: 'platform/self-hosting/unmanaged', label: 'Unmanaged' },
 						'platform/self-hosting/monitoring',
 						{ slug: 'platform/self-hosting/reference', label: 'Self-hosted worker reference' },
