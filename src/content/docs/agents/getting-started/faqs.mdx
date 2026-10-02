@@ -35,9 +35,9 @@ Larger organizations need a Warp Business or Enterprise plan. On the Enterprise 
 
 ### Can I use my ChatGPT or Claude subscription with Warp?
 
-No. Warp doesn't support signing in with a ChatGPT (OpenAI) or Claude (Anthropic) consumer subscription to power its agents. OpenAI and Anthropic don't currently allow their subscription plans to be used in third-party clients like Warp. Warp has raised this with both providers and is open to supporting these subscriptions if that changes.
+Yes for ChatGPT; no for Claude. You can [connect a ChatGPT subscription](/agents/inference/chatgpt-subscription/) to use eligible OpenAI models in Warp Agent conversations in the Warp app. Warp doesn't support connecting a Claude consumer subscription.
 
-Note that a ChatGPT or Claude subscription is different from API access. To use your own OpenAI or Anthropic account in Warp, you have two options:
+Consumer subscriptions are different from API access. To use your own OpenAI or Anthropic API account in Warp, you have two options:
 
 * **[Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/)** — Add your own OpenAI, Anthropic, or Google API key and pay your provider directly instead of using Warp credits.
 * **[Custom inference endpoint](/agents/inference/custom-inference-endpoint/)** — Route Warp through any OpenAI-compatible endpoint, such as OpenRouter or LiteLLM.
@@ -46,7 +46,7 @@ For xAI's Grok models, you can connect a [SuperGrok subscription](/agents/infere
 
 ## Billing
 
-Paid Warp plans include a set number of credits per user per month for Warp-provided AI usage. The Free plan doesn't include bundled AI usage for the Warp Agent; to use the Warp Agent, [upgrade to a paid plan](https://www.warp.dev/pricing) or bring your own inference (BYOK, a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or a [SuperGrok or X Premium subscription](/agents/inference/grok-subscription/)). See [pricing](https://www.warp.dev/pricing) to compare plans.
+Paid Warp plans include a set number of credits per user per month for Warp-provided AI usage. The Free plan doesn't include bundled AI usage for the Warp Agent; to use the Warp Agent, [upgrade to a paid plan](https://www.warp.dev/pricing) or bring your own inference (BYOK, a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), a [ChatGPT subscription](/agents/inference/chatgpt-subscription/), or a [SuperGrok or X Premium subscription](/agents/inference/grok-subscription/)). See [pricing](https://www.warp.dev/pricing) to compare plans.
 
 Credit limits apply to Agent Mode, Generate (Legacy), and [AI autofill in Workflows](/knowledge-and-collaboration/warp-drive/workflows/#ai-autofill).
 
