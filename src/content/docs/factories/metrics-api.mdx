@@ -263,7 +263,7 @@ curl "https://app.warp.dev/api/v1/factory/YOUR_FACTORY_UID/pull-requests?state=m
 * **Which PRs a number counts** - `pr_count` and the cost-per-PR figures count PRs when first seen. `merged_pr_count` on the productivity endpoint groups merged PRs by the period they were opened in, so a recent period's value rises as its PRs merge. The autonomy funnel, impact, and cycle time count PRs by the period they merged in.
 * **Kickoff** - When the earliest run linked to the PR was created.
 * **Cycle time stages** - Kickoff to PR opened; PR opened to first review by a person; first review to merge; kickoff to merge. Each stage is measured only for PRs that have both endpoints, so the stage medians do not add up to the kickoff-to-merge median.
-* **Cost (dollars)** - The value of the usage at your per-credit price in effect when the usage happened (your contract price, or the standard price if you have none). It is not the amount invoiced, which also depends on included plan credits and overage. Inference is recorded per conversation. When several runs share a conversation, the aggregates attribute it to the earliest run and each run record reports the conversation's figure, so summing run records across such runs can count that inference more than once.
+* **Cost (dollars)** - The value of the usage at your per-credit price in effect when the usage happened (your contract price, or the standard price if you have none). It is not the amount invoiced, which also depends on included plan credits and overage. For now, the conversion uses your current per-credit price, so usage from before a price change is shown at the new price. Once per-request price history is recorded, this moves to the price at the time of use; the API's shape does not change when it does. Inference is recorded per conversation. When several runs share a conversation, the aggregates attribute it to the earliest run and each run record reports the conversation's figure, so summing run records across such runs can count that inference more than once.
 * **Cost categories** - Inference is model usage. Compute is sandbox machine time. Platform is Warp platform time while a run is in progress.
 * **Source** - What started the run: a person, a schedule, an integration (Slack, Linear, GitHub, GitLab, Azure DevOps, Jira, Teams), or the API. Counted on root runs only.
 * **Root run vs. sub-run** - A run started by another run is a sub-run. When spend is grouped by source or by user, a whole run tree is attributed to its root run's source or creator. When grouped by agent or by model, each run counts on its own.
@@ -274,14 +274,14 @@ curl "https://app.warp.dev/api/v1/factory/YOUR_FACTORY_UID/pull-requests?state=m
 * **Availability** - Every plan that includes Warp Factories. Any API key that can see a factory can read that factory's metrics and records.
 * **Date ranges** - No limit on how far back a query can look. A bucketed request can have at most 365 buckets: a year of days, or about seven years of weeks.
 * **Page sizes** - Pages of up to 500 records. The run list defaults to 20 per page and the pull request list to 50. The most expensive PRs endpoint returns at most 50.
-* **Rate limits** - Request rate limits apply. They are not published; enterprise customers can ask for them.
+* **Rate limits** - Request rate limits apply. They are not published; enterprise customers can ask for them. A single request that takes too long is cut off and returns an error rather than running indefinitely.
 
 ## Syncing your own copy
 
 To keep a local copy of runs and pull requests, page through each list and then pull only what changed:
 
 1. Page with `limit` and `cursor`. Each response includes a cursor for the next page (`page_info.next_cursor` on the run list). Pass it back as `cursor` until no more pages remain.
-2. On later pulls, pass the `as_of` time from your previous pull as `updated_after` to get only the records that changed since then.
+2. On later pulls, pass the `as_of` time from your previous pull as `updated_after` to get only the records that changed since then. A pull request's `updated_at` reflects changes to the PR itself and does not move when only a follow-up message arrives, so a sync by `updated_after` can miss a change in `follow_up_message` counts. Re-pull recent PRs if those counts matter.
 3. Join the two lists on `run_id` and `root_run_id`. Each pull request record lists the runs that produced it under `runs`, and each run record lists its pull requests under `artifacts`.
 
 ## Related pages
