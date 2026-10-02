@@ -445,6 +445,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
 						{ slug: 'factories/integrations/slack', label: 'Slack' },
+						{ slug: 'factories/integrations/teams', label: 'Microsoft Teams' },
 						{ slug: 'factories/integrations/linear', label: 'Linear' },
 						{ slug: 'factories/integrations/jira', label: 'Jira' },
 						// Custom webhooks connect any JSON-posting system, so they sit
