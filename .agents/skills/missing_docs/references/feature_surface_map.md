@@ -214,6 +214,12 @@ SoloUserByok -> src/content/docs/agents/inference/bring-your-own-api-key.mdx
 # the feature remains documented at inference/custom-inference-endpoint.mdx.
 # Connect a SuperGrok subscription instead of pasting an xAI API key.
 SuperGrok -> src/content/docs/agents/inference/bring-your-own-api-key.mdx
+# Sign in with ChatGPT: connect an OpenAI ChatGPT plan so OpenAI models run on
+# that plan instead of Warp credits. GA (chatgpt_subscription is a default cargo
+# feature in app/Cargo.toml). Documented on its own page alongside the SuperGrok
+# equivalent. Deferred 2026-09-30 as unverifiable; the implementation landed in
+# the public repo and the deferral cleared 2026-10-02.
+ChatGPTSubscription -> src/content/docs/agents/inference/chatgpt-subscription.mdx
 # Custom model routers (Settings > AI > Custom Routers) surface in the model picker.
 CustomModelRouters -> src/content/docs/agents/inference/model-choice.mdx
 
@@ -247,9 +253,11 @@ OscHyperlinks -> src/content/docs/terminal/more-features/files-and-links.mdx
 # MCP reference (and the cloud agent MCP schema page).
 WellKnownMcpIds -> src/content/docs/reference/cli/mcp-servers.mdx
 
-# When the shell rebinds Ctrl+R / Ctrl+T to fzf, atuin, or fzf.fish, hand those
-# keypresses off to the shell widget instead of Warp's Command Search. Promoted
-# preview -> GA; behavior documented on the Command Search page.
+# When the shell rebinds Ctrl+R / Ctrl+T / Alt-C to fzf, atuin, or fzf.fish, hand
+# those keypresses off to the shell widget instead of Warp's Command Search.
+# Promoted preview -> GA; behavior documented on the Command Search page. The
+# Alt-C directory-search handoff (warp#16094) is fzf-only and runs through the
+# editable workspace:trigger_external_alt_c_directory_search binding.
 ShellWidgetHandoff -> src/content/docs/terminal/entry/command-search.mdx
 
 ## CLI commands -> doc pages
@@ -550,12 +558,9 @@ POST /factory/{uid}/gitlab-automation-capability/refresh -> internal
 # Integration pickers used during factory setup, before a factory exists.
 GET /factory-setup/integrations/jira/projects -> internal
 GET /factory-setup/integrations/linear/teams -> internal
-# Freezes an Azure DevOps factory create request and sends it to a Microsoft
-# administrator for permission approval (submitAzureDevOpsCreationRequest).
-# Marked `x-internal: true` under the factory tag, and `/factory-setup` is
-# covered by the `/factory` prefix that sync_openapi.py excludes wholesale;
-# released OpenAPI has zero `/factory` paths.
-POST /factory-setup/azure-devops-creation-requests -> internal
+# POST /factory-setup/azure-devops-creation-requests was removed from
+# warp-server (SubmitAzureDevOpsCreationRequestHandler is gone), so its map
+# entry was pruned 2026-10-02. It never reached the released OpenAPI spec.
 GET /factory/automations -> internal
 POST /factory/automations -> internal
 GET /factory/automations/events/{provider} -> internal
