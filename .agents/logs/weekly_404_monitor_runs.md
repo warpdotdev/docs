@@ -8,6 +8,17 @@ This log tracks every run of the `weekly-404-monitor` skill — both runs that o
 
 ---
 
+## 2026-09-28 — No PR
+- **Total 404s this week**: 231
+- **Total 404s last week**: 321
+- **Trend**: ▼ 90 (-28.0%)
+- **Significant gaps (≥5 hits)**: 3 (3 new)
+- **Redirect candidates processed**: 3  (hits ≥ 5)
+- **HIGH-confidence redirects**: 0
+- **PR**: none
+- **Oz run**: https://app.warp.dev/conversation/96dec96c-6bf7-4910-90d9-5555fdf9f5b7
+- **Notes**: Volume down 28% week-over-week. All 3 significant gaps are markdown-link capture artifacts ending in literal `).` — `/terminal/settings/file-locations/).` (8), `/terminal/settings/all-settings/).` (7), `/agent-platform/capabilities/skills/).` (5). Underlying pages exist (`terminal/settings/file-locations`, `terminal/settings/all-settings`, `agents/capabilities/skills` via existing agent-platform→agents redirect). No HIGH PR: a bare `)` in a Vercel `source` is path-to-regexp group syntax (same class of issue as prior `:` exclusions), so automated redirects would either mis-parse or over-match. Posted destinations as MEDIUM suggestions for human review. 149 long-tail uncovered; 0 unroutable; 126 resolved. vercel.json redirects count 1298 (sanity OK).
+
 ## 2026-09-21 — PR opened
 - **Total 404s this week**: 321
 - **Total 404s last week**: 327
