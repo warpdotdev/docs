@@ -1,12 +1,3 @@
-## 2026-09-25 — partial
-- **Spec**: v0.6.0 — unweighted compatibility estimate; warnings count as half-passes
-- **Score**: 86/100 (B)
-- **Checks**: 28 total — 21 pass, 3 fail, 1 warn, 3 skip
-- **Failing check ids**: llms-txt-links-markdown, content-negotiation, bot-protection-interference
-- **Allowlisted**: 3 (llms-txt-links-markdown, content-negotiation, markdown-content-parity)
-- **Oz run**: https://platform.warp.dev/runs/01a0d794-224a-7de1-ad20-3fdf3c3ae441
-- **Notes**: bot-protection-interference 8/16 sustained fetches hit challenge pages (scan_reliability=partial); legacy_cli_score=88/100; no remaining fixable docs-repo issues; interaction effect bot-protection-degrading-scan-reliability observed. Score omitted from regression comparison because scan was partial.
-
 # AFDocs audit run log
 
 Written by the `afdocs-audit` skill on every scheduled run — clean, regressed, or blocked.
@@ -33,6 +24,24 @@ Entry format:
 For a `blocked` run, omit the score line rather than recording the meaningless value.
 
 ---
+
+## 2026-10-02 — valid
+- **Spec**: v0.6.0 — native afdocs CLI score
+- **Score**: 83/100 (B)
+- **Checks**: 28 total — 21 pass, 4 fail, 1 warn, 2 skip
+- **Failing check ids**: llms-txt-links-markdown, content-negotiation, page-size-html, embedded-data-serialization
+- **Allowlisted**: 3 (llms-txt-links-markdown, content-negotiation, page-size-html)
+- **Oz run**: https://platform.warp.dev/runs/01a0fba0-a688-70c6-9eaf-4e5e172c1da1
+- **Notes**: First complete v0.6 scan with native CLI score method; establishes new regression baseline (prior 2026-09-18/09-25 were partial/unweighted). scan_reliability=complete; bot-protection-interference passed (534 requests). Remaining non-auto-fixable: embedded-data-serialization (1/50 sample; ~139K JSON blob dominating converted content — design/IA, not docs-repo fix). page-size-html matches known intentionally-long pages. Warning llms-txt-directive-html 49/50 sampling noise. Interaction effect: dynamic-content-rendered-statically (diagnostic). No fixable remaining issues; skipped afdocs-fix.
+
+## 2026-09-25 — partial
+- **Spec**: v0.6.0 — unweighted compatibility estimate; warnings count as half-passes
+- **Score**: 86/100 (B)
+- **Checks**: 28 total — 21 pass, 3 fail, 1 warn, 3 skip
+- **Failing check ids**: llms-txt-links-markdown, content-negotiation, bot-protection-interference
+- **Allowlisted**: 3 (llms-txt-links-markdown, content-negotiation, markdown-content-parity)
+- **Oz run**: https://platform.warp.dev/runs/01a0d794-224a-7de1-ad20-3fdf3c3ae441
+- **Notes**: bot-protection-interference 8/16 sustained fetches hit challenge pages (scan_reliability=partial); legacy_cli_score=88/100; no remaining fixable docs-repo issues; interaction effect bot-protection-degrading-scan-reliability observed. Score omitted from regression comparison because scan was partial.
 
 ## 2026-09-18 — partial
 - **Spec**: v0.6.0 — unweighted compatibility estimate; warnings count as half-passes
