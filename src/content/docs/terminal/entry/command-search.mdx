@@ -22,7 +22,16 @@ Tailor your Command Search experience by toggling off "Show Global Workflows" in
 2. Type your search query in the input box
 3. Press `Enter` to input the selected command into Warp's Input Editor
 
-If your shell has rebound `Ctrl+R` to its own history widget — for example **fzf**, **atuin**, or fish's **PatrickF1/fzf.fish** — Warp hands that keypress off to the shell widget instead of opening Command Search. The same handoff applies to `Ctrl+T` when the shell has rebound it to a file-search widget such as fzf. Open Warp's Command Search from the Command Palette when you need the unified panel (history, workflows, prompts, and agent conversations) while those shell widgets are installed.
+If your shell has rebound `Ctrl+R` to its own history widget — for example **fzf**, **atuin**, or fish's **PatrickF1/fzf.fish** — Warp hands that keypress off to the shell widget instead of opening Command Search. Open Warp's Command Search from the Command Palette when you need the unified panel (history, workflows, prompts, and agent conversations) while those shell widgets are installed.
+
+### Handing off to fzf
+
+When Warp detects fzf in bash, zsh, or fish, two more keys hand off at an idle prompt:
+
+* `Ctrl+T` - Opens fzf's file-search widget.
+* `⌥+C` (macOS) or `Alt+C` (Windows/Linux) - Opens fzf's directory-search widget and changes directory to your selection. Warp runs it through the **External Directory Search** action, which you can rebind like any other [keyboard shortcut](/getting-started/keyboard-shortcuts/).
+
+Atuin gets the `Ctrl+R` handoff only; `Ctrl+T` and `⌥+C` keep their usual behavior. Neither key hands off while a command is running or while a full-screen program such as Vim is on screen, so `⌥+C` still types `ç` on a macOS keyboard layout in those cases.
 
 ## Search filters
 
