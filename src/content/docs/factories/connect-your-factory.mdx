@@ -60,7 +60,7 @@ Every request lands with the foreman agent, which turns it into a work item and 
 
 When you create a factory through the setup wizard, Warp adds default automations for each tool you connect, so common requests work immediately:
 
-* **GitHub** - Starts work when the factory is mentioned or assigned, and follows up when pull requests close or merge, completing a linked tracker issue when it can. See the [GitHub integration guide](/factories/integrations/github/).
+* **GitHub** - Starts work from mentions and assignments, when the factory's label is applied to an issue or pull request, and when a review is submitted on a labeled pull request. It also follows up when labeled pull requests close or merge, completing a linked tracker issue when it can. See the [GitHub integration guide](/factories/integrations/github/).
 * **GitLab** - Starts work when someone mentions the factory's bot in a merge request comment. See the [GitLab integration guide](/factories/integrations/gitlab/).
 * **Jira** - Starts work when someone assigns or mentions Warp on a work item in one of the Jira projects you selected. See the [Jira integration guide](/factories/integrations/jira/).
 * **Linear** - Starts work when a new agent session arrives from one of the Linear teams you selected. See the [Linear integration guide](/factories/integrations/linear/).

@@ -14,6 +14,7 @@ The Warp app installs into each Microsoft Teams team you choose. The factory onl
 
 ## Prerequisites
 
+* **Microsoft Teams enabled for your workspace** - The Microsoft Teams option appears in factory setup and **Settings** only when Teams is enabled for your Warp workspace. If you don't see it, ask a workspace admin or <a href={VARS.CONTACT_SALES_URL}>contact sales</a>.
 * **Permission to upload and approve custom Teams apps** - A Microsoft Teams admin must upload the Warp app package and approve it in the [Teams admin center](https://admin.teams.microsoft.com).
 * **Permission to update the factory** - Connecting Microsoft Teams changes the factory's configuration.
 * **A linked Warp account for interactive requests** - Anyone who starts work with a mention must link their Microsoft account to an active member of the factory's Warp workspace. If it isn't linked, complete the bot's sign-in flow before retrying the request.
@@ -26,7 +27,7 @@ You can connect Microsoft Teams while creating a factory, on the communication s
 2. **Sign in with Microsoft** if Warp asks you to link your Microsoft identity to your Warp account. This is only needed once per person.
 3. **Upload the Warp app package** when the product shows the upload instructions:
    1. Download the production app package (`warp-microsoft-teams-app.zip`). The ZIP contains the Teams app manifest and icons only.
-   2. Open [https://admin.teams.microsoft.com](https://admin.teams.microsoft.com).
+   2. Open the [Teams admin center](https://admin.teams.microsoft.com).
    3. Go to **Teams apps** > **Manage apps**.
    4. Choose **Upload new app** and select the downloaded ZIP.
    5. Have a Microsoft Teams admin approve the app.
@@ -111,14 +112,20 @@ Triage the Teams request and continue in the same thread.
 
 - **The app doesn't acknowledge a request** - Confirm Microsoft Teams is connected for that factory, that you mentioned the Warp app in a selected standard channel, and that your Microsoft account is linked to Warp.
 - **A team or channel is missing from setup or an automation** - Confirm the Warp app is installed in the Microsoft Teams team, a workspace admin has bound the installation, and the channel is a standard channel. Then refresh the picker.
+- **Microsoft Teams is missing from setup or Settings** - Teams is available only when it is enabled for your Warp workspace. Ask a workspace admin or <a href={VARS.CONTACT_SALES_URL}>contact sales</a>.
 - **Installation or upload is pending** - Ask a Microsoft Teams admin to approve the custom app, then finish team and channel selection in Warp.
 - **Two runs start for one mention** - Remove or narrow overlapping app-mention and channel-message triggers for the same channels.
 - **An agent can't post back to Teams** - Confirm the factory still declares Microsoft Teams and that the installation for that team is ready.
 
 To disconnect Microsoft Teams from a factory, remove the Microsoft Teams integration in the factory's **Settings** or from the factory definition. Uninstalling the Warp app from a Microsoft Teams team stops new activity from that team.
 
-To route work into the factory from other tools, see [Connect your factory](/factories/connect-your-factory/).
-
 ## Privacy
 
 The factory's app reads messages only in the standard channels you configure for mentions and automations, and in threads it continues there. Message content and supported attachments are used to run the factory's work. Linking your Microsoft account maps you to your Warp account. Data is handled per the [Warp Privacy Policy](https://www.warp.dev/privacy).
+
+## Related pages
+
+* [**Connect your factory**](/factories/connect-your-factory/) - Choose the sources that route work into the factory.
+* [**Factory automations**](/factories/automations/) - Edit trigger filters and avoid overlapping Teams triggers.
+* [**Factory definition**](/factories/factory-as-code/) - Declare `microsoft-teams` and `teams` triggers as code.
+* [**Slack**](/factories/integrations/slack/) - The other chat intake path for factories.
