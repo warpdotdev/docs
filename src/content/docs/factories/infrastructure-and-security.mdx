@@ -43,7 +43,7 @@ Declare runners as `runners/*.yaml` files. Every agent inherits `agentDefaults.r
 | --- | --- | --- | --- | --- |
 | `platform.os`, `platform.arch`, `platform.mac.version` | Selects the sandbox OS, architecture, and macOS VM version | Does not configure the host; the worker host determines the platform | Use Linux; the cluster and `pod_template` schedule nodes | Use Linux; the Docker daemon determines the architecture |
 | `platform.linux.dockerImage` | Linux sandbox image | Ignored | Task and setup container image | Task container image |
-| `platform.linux.registryCredentialSecretName` | Warp-managed private-registry credential | Ignored | Ignored; use `imagePullSecrets` | Ignored; authenticate the Docker daemon |
+| `platform.linux.registryCredentialSecretName` | Warp-managed private-registry credential | Ignored | Ignored; use `imagePullSecrets` | Ignored; configure registry credentials on the worker, such as in its Docker config |
 | `instanceShape` | Sandbox size, subject to plan limits; omitted uses the workspace default | Ignored; the task uses host resources | Task-container requests and limits; overrides matching `pod_template` resources; omitted keeps template or cluster defaults | Task-container limits; omitted adds no limits |
 
 Self-hosted runner settings do not provision worker capacity. Worker configuration controls host resources, registry authentication, volumes, node placement, and other backend policy.
