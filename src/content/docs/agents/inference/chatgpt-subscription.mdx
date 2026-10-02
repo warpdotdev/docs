@@ -12,14 +12,14 @@ Warp lets you connect your **ChatGPT plan** to use eligible OpenAI models in War
 Connecting a plan works like [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), except you sign in to your OpenAI account instead of pasting an API key. The connection covers eligible OpenAI models only. Warp does not support connecting a Claude subscription, and Anthropic, Google, and xAI models are unaffected.
 
 :::note
-Like BYOK, connecting a ChatGPT plan is available on Free and all eligible paid plans for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service). Larger organizations need a Business or Enterprise plan. See [Warp pricing](https://www.warp.dev/pricing) for current availability.
+Like BYOK, connecting a ChatGPT plan is available on Free and all eligible paid plans for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service). Larger organizations need a Business or Enterprise plan. The row is hidden if your organization's admin disables member-provided API keys. See [Warp pricing](https://www.warp.dev/pricing) for current availability.
 :::
 
 ## How it works
 
 When you connect your plan, Warp opens your browser to OpenAI's Sign in with ChatGPT consent screen. Approving the connection links your ChatGPT account to your Warp account and authorizes OpenAI to share a delegated credential with Warp. Unlike a BYOK API key or a [SuperGrok subscription](/agents/inference/grok-subscription/), Warp stores that credential for your Warp account rather than in your device's keychain.
 
-With a plan connected, eligible OpenAI requests from the Warp Agent count against your ChatGPT plan. A pasted OpenAI API key takes precedence if you have both.
+A pasted OpenAI API key takes precedence over a connected plan.
 
 Connecting makes any additional OpenAI models supported by your ChatGPT plan selectable in the model picker. OpenAI determines which plan tiers, models, and capabilities are eligible.
 
@@ -35,7 +35,9 @@ Data retention on OpenAI's side is governed by your own OpenAI account and its t
 
 ## Connecting your ChatGPT plan
 
-1. In the Warp app, go to **Settings** > **Agents** > **Warp Agent** and find the "Use your OpenAI ChatGPT plan" row under "Custom Inference."
+In the Warp app, the full row label reads "Use your OpenAI ChatGPT plan," with an OpenAI logo between "your" and "OpenAI."
+
+1. In the Warp app, go to **Settings** > **Agents** > **Warp Agent** and find the "OpenAI ChatGPT plan" row under "Custom Inference."
 2. Click **Continue with ChatGPT**. Warp opens the OpenAI consent screen in your browser. Click **Cancel** in Warp to abandon the attempt.
 3. Approve the connection in your browser. Back in Warp, the row shows "Connected as YOUR_EMAIL on DATE," where YOUR_EMAIL is the address on your ChatGPT account.
 4. Choose an OpenAI model from the model picker in your prompt input. Connecting a plan doesn't change your selected model.
@@ -65,7 +67,7 @@ Warp's **Auto** models always use Warp's own inference and consume Warp credits,
 
 ## Disconnecting
 
-In the Warp app, go to **Settings** > **Agents** > **Warp Agent**, find the "Use your OpenAI ChatGPT plan" row, and click **Disconnect**. Warp unlinks the account on its servers. Eligible OpenAI requests then use your pasted OpenAI API key if one is configured, or Warp credits otherwise.
+In the Warp app, go to **Settings** > **Agents** > **Warp Agent**, find the "OpenAI ChatGPT plan" row, and click **Disconnect**. Warp unlinks the account on its servers. Eligible OpenAI requests then use your pasted OpenAI API key if one is configured, or Warp credits otherwise.
 
 ## Troubleshooting
 
