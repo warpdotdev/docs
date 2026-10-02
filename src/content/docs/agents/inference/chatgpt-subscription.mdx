@@ -2,12 +2,12 @@
 title: Connecting a ChatGPT subscription
 description: >-
   Connect a ChatGPT plan to use eligible OpenAI models in Warp Agent
-  conversations in the Warp app without spending Warp credits.
+  conversations in the Warp app without using Warp credits for inference.
 sidebar:
   label: "ChatGPT subscription"
 ---
 
-Warp lets you connect your **ChatGPT plan** to use eligible OpenAI models in Warp Agent conversations in the Warp app. Requests that use the connected plan count against its OpenAI usage limits instead of spending your Warp [credits](/support-and-community/plans-and-billing/credits/).
+Warp lets you connect your **ChatGPT plan** to use eligible OpenAI models in Warp Agent conversations in the Warp app. Requests that use the connected plan count against its OpenAI usage limits instead of using Warp [credits](/support-and-community/plans-and-billing/credits/) for inference.
 
 Connecting a plan works like [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), except you sign in to your OpenAI account instead of pasting an API key. The connection covers eligible OpenAI models only. Warp does not support connecting a Claude subscription, and Anthropic, Google, and xAI models are unaffected.
 
@@ -21,7 +21,7 @@ When you connect your plan, Warp opens your browser to OpenAI's Sign in with Cha
 
 With a plan connected, eligible OpenAI requests from the Warp Agent count against your ChatGPT plan. A pasted OpenAI API key takes precedence if you have both.
 
-Connecting can make additional eligible OpenAI models selectable in the model picker. OpenAI determines which plan tiers, models, and capabilities are eligible.
+Connecting makes any additional OpenAI models supported by your ChatGPT plan selectable in the model picker. OpenAI determines which plan tiers, models, and capabilities are eligible.
 
 ### What OpenAI sees
 
@@ -40,7 +40,7 @@ Data retention on OpenAI's side is governed by your own OpenAI account and its t
 3. Approve the connection in your browser. Back in Warp, the row shows "Connected as YOUR_EMAIL on DATE," where YOUR_EMAIL is the address on your ChatGPT account.
 4. Choose an OpenAI model from the model picker in your prompt input. Connecting a plan doesn't change your selected model.
 
-The first time an eligible request uses the connected plan, Warp shows "You're using your ChatGPT plan." Click **Manage usage** to open your [ChatGPT usage settings](https://chatgpt.com/settings/usage).
+After you connect your plan, Warp shows "You're using your ChatGPT plan." Click **Manage usage** to open your [ChatGPT usage settings](https://chatgpt.com/settings/usage).
 
 If the row shows "Reconnect to use your plan for requests" next to the connected timestamp, the link still exists but OpenAI is no longer sharing a credential. Disconnect and connect again.
 
@@ -49,7 +49,9 @@ If the row shows "Reconnect to use your plan for requests" next to the connected
 When an OpenAI model runs on your connected plan:
 
 * The request counts against your ChatGPT plan, within OpenAI's usage limits for that plan.
-* Review and manage that usage in your [ChatGPT usage settings](https://chatgpt.com/settings/usage), not in Warp. The **Billing and Usage** settings page links out to the same place.
+* Review and manage that usage in your [ChatGPT usage settings](https://chatgpt.com/settings/usage), not in Warp. The **Billing and usage** settings page links out to the same place.
+
+Local agent runs on Business and Enterprise plans still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for Warp's platform layer when they use your ChatGPT plan. Local runs on Free, Build, and Max plans do not consume platform credits.
 
 ### When OpenAI refuses a request
 
@@ -67,15 +69,15 @@ In the Warp app, go to **Settings** > **Agents** > **Warp Agent**, find the "Use
 
 ## Troubleshooting
 
-### "That ChatGPT account is already connected to another Warp account"
+### "That ChatGPT account is already connected to a different Warp account"
 
-Each ChatGPT account links to one Warp account, and each Warp account links to one ChatGPT account. Disconnect the existing link first, then connect again.
+This error can also mean this Warp account already has a different ChatGPT account connected. Each ChatGPT account links to one Warp account, and each Warp account links to one ChatGPT account. Disconnect the existing link first, then connect again.
 
-### "Verify the email on your ChatGPT account, then try again"
+### "Verify the email on your ChatGPT account with OpenAI, then try again"
 
 Verify the email with OpenAI, then click **Continue with ChatGPT** again.
 
-### "Your browser is signed in to a different Warp account"
+### "Your browser is signed in to a different Warp account than this one"
 
 The Warp account signed in to your browser does not match the Warp account that started the connection. Sign in to the same Warp account in your browser, then click **Continue with ChatGPT** again.
 
