@@ -8,7 +8,7 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 
 Warp supports **Bring Your Own API Key (BYOK)** for users who want to connect agents to their own Anthropic, OpenAI, or Google API accounts.
 
-This lets you use your own API keys for model access, giving you control over model selection, billing, and data routing. See [Model Choice](/agents/inference/model-choice/) for a list of supported models. For xAI's Grok models, you connect a [SuperGrok subscription](/agents/inference/grok-subscription/) instead of adding an API key. For OpenAI models, you can add an API key or connect a [ChatGPT subscription](/agents/inference/chatgpt-subscription/).
+This lets you use your own API keys for model access, giving you control over model selection, billing, and data routing. See [Model Choice](/agents/inference/model-choice/) for a list of supported models. For xAI's Grok models, you connect a [SuperGrok subscription](/agents/inference/grok-subscription/) instead of adding an API key. For eligible OpenAI models in Warp Agent conversations in the Warp app, you can add an API key or connect a [ChatGPT subscription](/agents/inference/chatgpt-subscription/).
 
 BYOK provides greater flexibility in model access and ensures Warp **never consumes your** [AI credits](/support-and-community/plans-and-billing/credits/) for requests routed through your own keys.
 
@@ -30,7 +30,7 @@ Warp offers several ways to bring your own AI infrastructure. Use this table to 
 | **[Custom inference endpoint](/agents/inference/custom-inference-endpoint/)** | Connect Warp to an OpenAI-compatible endpoint such as OpenRouter, LiteLLM, z.ai, or an internal gateway. | Free and all eligible paid plans |
 | **[Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/)** (BYOLLM) | Enterprise-managed inference through your cloud provider (AWS Bedrock and Gemini Enterprise Agent Platform (Vertex AI) today; Azure Foundry coming soon), with Warp handling routing, orchestration, governance, and observability. | Enterprise only |
 | **[SuperGrok subscription](/agents/inference/grok-subscription/)** | Connect your SuperGrok subscription to use Grok models through your xAI account. Tokens are stored locally on your device. | Free and all eligible paid plans |
-| **[ChatGPT subscription](/agents/inference/chatgpt-subscription/)** | Connect your ChatGPT plan to use OpenAI models through your OpenAI account. The connection is held for your Warp account on Warp's backend. | Plans that allow member-provided keys |
+| **[ChatGPT subscription](/agents/inference/chatgpt-subscription/)** | Connect your ChatGPT plan to use eligible OpenAI models in Warp Agent conversations in the Warp app. | Plans that allow member-provided keys |
 
 See [Warp pricing](https://www.warp.dev/pricing) for current plan availability.
 
@@ -161,6 +161,6 @@ Enterprise teams can also configure **team-managed API keys** centrally: an admi
 * [Custom inference endpoint](/agents/inference/custom-inference-endpoint/) — Route Warp through any OpenAI-compatible endpoint, such as OpenRouter, LiteLLM, z.ai, or an internal gateway.
 * [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) — Enterprise-managed inference through your cloud provider or approved infrastructure.
 * [SuperGrok subscription](/agents/inference/grok-subscription/) — Use Grok models through your xAI account instead of Warp credits.
-* [ChatGPT subscription](/agents/inference/chatgpt-subscription/) — Use OpenAI models through your ChatGPT plan instead of Warp credits.
+* [ChatGPT subscription](/agents/inference/chatgpt-subscription/) — Use eligible OpenAI models in Warp Agent conversations in the Warp app through your ChatGPT plan.
 * [Model Choice](/agents/inference/model-choice/) — Full list of supported models and `model_id` values.
 * [Credits](/support-and-community/plans-and-billing/credits/) — How Warp credits work and when they're consumed.
