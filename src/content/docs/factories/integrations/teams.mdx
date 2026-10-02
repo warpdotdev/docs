@@ -1,0 +1,124 @@
+---
+title: Connect Microsoft Teams to your factory
+description: >-
+  Connect Microsoft Teams to your factory so channel mentions start work and
+  results post back in the same thread.
+sidebar:
+  label: "Microsoft Teams"
+---
+import { VARS } from '@data/vars';
+
+Connect a factory to Microsoft Teams so your team can send work from standard channels. Mention the Warp app in a configured channel, and the factory picks up the request with the conversation as context, then posts progress and results back into the same thread.
+
+The Warp app installs into each Microsoft Teams team you choose. The factory only listens in the standard channels you select for those teams.
+
+## Prerequisites
+
+* **Permission to upload and approve custom Teams apps** - A Microsoft Teams admin must upload the Warp app package and approve it in the [Teams admin center](https://admin.teams.microsoft.com).
+* **Permission to update the factory** - Connecting Microsoft Teams changes the factory's configuration.
+* **A linked Warp account for interactive requests** - Anyone who starts work with a mention must link their Microsoft account to an active member of the factory's Warp workspace. If it isn't linked, complete the bot's sign-in flow before retrying the request.
+
+## Connect the factory
+
+You can connect Microsoft Teams while creating a factory, on the communication step, or later from the factory's **Settings**.
+
+1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, open factory setup or the factory's **Settings**, then choose **Microsoft Teams**.
+2. **Sign in with Microsoft** if Warp asks you to link your Microsoft identity to your Warp account. This is only needed once per person.
+3. **Upload the Warp app package** when the product shows the upload instructions:
+   1. Download the production app package (`warp-microsoft-teams-app.zip`). The ZIP contains the Teams app manifest and icons only.
+   2. Open [https://admin.teams.microsoft.com](https://admin.teams.microsoft.com).
+   3. Go to **Teams apps** > **Manage apps**.
+   4. Choose **Upload new app** and select the downloaded ZIP.
+   5. Have a Microsoft Teams admin approve the app.
+4. **Install the Warp app** in each Microsoft Teams team that should use the factory. Until an admin binds a newly installed team to your Warp workspace, it can appear as pending; a workspace admin must grant the workspace access before channel selection works for that team.
+5. **Select Microsoft Teams teams**, then **select at least one standard channel** in each selected team. The factory only responds in those channels.
+6. Click **Enable** (or finish factory setup) to attach Microsoft Teams to the factory.
+
+Warp seeds a default **teams-app-mentions** automation for the teams and channels you selected, so mentions start work right away.
+
+To confirm the connection works, mention the Warp app in one of the selected standard channels and check that a work item starts in the factory's [dashboard](/factories/factory-dashboard/).
+
+## Configure factory automations for Microsoft Teams
+
+Use a factory automation to start work from Teams activity automatically. Add a **Microsoft Teams** trigger to an automation and pick one of these events. To learn how to edit those filters, see [Automations](/factories/automations/#edit-filters-on-an-automation).
+
+- **App mentioned** (`app_mention`) - Filter by team, channels, authors, and keywords.
+- **Message posted in channel** (`message_posted`) - Filter by team, channels, authors, and keywords.
+
+A mention also emits a `message_posted` delivery. If one automation triggers on **App mentioned** and another triggers on **Message posted in channel** for the same team and channel, a single mention can start two runs. To avoid duplicate runs, don't point both triggers at the same channels.
+
+Every Teams trigger requires **exactly one Microsoft Teams team** and **at least one channel**. Team and channel filters are inclusion lists only. **Keywords** and **Users** are optional.
+
+The channel picker only lists standard channels in a ready installation. Private channels, shared channels, and direct messages are not supported.
+
+For the exact `event` and filter keys each trigger uses in a definition file, see [triggers](/factories/factory-as-code/#triggers).
+
+## Use integration-provided tools
+
+When Microsoft Teams is connected to a factory, Warp automatically gives its agents Teams tools during factory runs. The tools let an agent read a standard-channel thread, reply in a thread, post a new top-level channel message, and resolve a conversation member. The run doesn't need to start from Teams.
+
+These are Warp-managed, integration-provided capabilities, separate from the [MCP servers you configure for cloud agents](/platform/mcp/). They may not appear alongside user-configured MCP servers in the factory's MCP list.
+
+The connected app only acts in the Teams teams where it is installed and ready. Agents cannot list channels, read private or shared channels, send direct messages, add reactions, or upload files through these tools.
+
+## Start and continue work from Microsoft Teams
+
+Mention the Warp app in a configured standard channel or thread to start work. The factory picks up the message, including available thread history and supported attachments, and replies in the same thread with progress updates and links to results.
+
+A plain reply in a thread continues work only if that thread already has a factory work item. To start new work in a channel, mention the app instead. When auto-respond to thread replies is on for the factory (the default), eligible plain replies in an existing factory thread can continue the work without another mention. Teams activity that matches an automation starts work the same way, using the event details and the automation's assigned agent.
+
+You can attach files to a request or a follow-up. The factory includes the files it supports, and a file it can't include doesn't stop the text of your request from going through.
+
+## Follow work and review outputs
+
+The Teams thread where work started is also where you follow it: the factory posts progress and the final response there. Reply in the thread to add information or attachments while work is active, or to pick the same work item back up later.
+
+Work that starts in Microsoft Teams still ends at a pull request for a person to review — see [how Warp Factories work](/factories/how-factories-work/).
+
+## Who can start work
+
+To start work with a mention, your Microsoft account must be linked to an active member of the factory's Warp workspace. If it isn't, mention the bot followed by `sign in` and complete the private link Warp sends. Mention the bot followed by `help` for the account commands, or `sign out` to unlink across Factories in that Microsoft tenant.
+
+Work started by an automation runs as the factory agent you chose for it, not as whoever triggered it.
+
+## Definitions as code
+
+Declare Microsoft Teams on the factory and add Teams triggers in automation files:
+
+```yaml title="factory.yaml"
+integrations:
+  - type: microsoft-teams
+```
+
+```markdown title="automations/teams-app-mentions/automation.md"
+---
+enabled: true
+agent: foreman
+triggers:
+  - provider: teams
+    event: app_mention
+    filter:
+      team_ids: [MICROSOFT_GRAPH_TEAM_UUID]
+      channel_ids: [19:example@thread.tacv2]
+---
+
+Triage the Teams request and continue in the same thread.
+```
+
+`team_ids` must include exactly one Microsoft Graph team UUID. `channel_ids` must list the Bot Framework channel conversation IDs to listen in. Optional `keywords` and `user_ids` further narrow matching. See [factory definition syntax](/factories/factory-as-code/#integrations) for the other integration fields, including `autoRespondToThreadReplies`.
+
+## Troubleshooting and reconnection
+
+- **The app doesn't acknowledge a request** - Confirm Microsoft Teams is connected for that factory, that you mentioned the Warp app in a selected standard channel, and that your Microsoft account is linked to Warp.
+- **A team or channel is missing from setup or an automation** - Confirm the Warp app is installed in the Microsoft Teams team, a workspace admin has bound the installation, and the channel is a standard channel. Then refresh the picker.
+- **Installation or upload is pending** - Ask a Microsoft Teams admin to approve the custom app, then finish team and channel selection in Warp.
+- **Two runs start for one mention** - Remove or narrow overlapping app-mention and channel-message triggers for the same channels.
+- **An agent can't post back to Teams** - Confirm the factory still declares Microsoft Teams and that the installation for that team is ready.
+
+To disconnect Microsoft Teams from a factory, remove the Microsoft Teams integration in the factory's **Settings** or from the factory definition. Uninstalling the Warp app from a Microsoft Teams team stops new activity from that team.
+
+To route work into the factory from other tools, see [Connect your factory](/factories/connect-your-factory/).
+
+## Privacy
+
+The factory's app reads messages only in the standard channels you configure for mentions and automations, and in threads it continues there. Message content and supported attachments are used to run the factory's work. Linking your Microsoft account maps you to your Warp account. Data is handled per the [Warp Privacy Policy](https://www.warp.dev/privacy).
