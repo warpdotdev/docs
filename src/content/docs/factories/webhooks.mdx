@@ -45,7 +45,7 @@ A URL token webhook's URL is itself the credential: treat it like a secret, and 
 
 ### Create the webhook
 
-1. In the factory dashboard, open **Webhooks** and click **Add webhook**.
+1. In the factory dashboard, open **Automations** and switch to its **Webhooks** tab, then click **Add webhook**.
 2. Enter a "Name" the automation editor will show, such as `Internal CI`.
 3. In the "Authentication" dropdown, choose **Bearer token**, **URL token**, or **Provider signature**. For a provider signature, also choose the "Provider scheme" and paste the "Provider secret" from the provider. If the provider hasn't issued a secret yet, leave "Provider secret" blank; see [Setting up a Vercel webhook](/factories/webhooks/vercel/).
 4. Keep the suggested "Secret name".
@@ -75,7 +75,7 @@ curl -X POST "https://app.warp.dev/webhooks/w/WEBHOOK_UID" \
 
 Replace `WEBHOOK_UID` and `WEBHOOK_SECRET` with the values you copied. For a URL token webhook, drop the `Authorization` header and post to the full URL you copied, which already carries the token. For a provider signature webhook, enter the ingress URL in the provider's webhook settings (plus the signing secret, if Warp generated one for Standard Webhooks) and send a test event from the provider; an unsigned `curl` request returns `401`.
 
-Whichever mode you use, an accepted delivery returns `202` with a `delivery_id` and appears under **Recent deliveries** when you open the webhook on the **Webhooks** page.
+Whichever mode you use, an accepted delivery returns `202` with a `delivery_id` and appears under **Recent deliveries** when you open the webhook on the **Webhooks** tab inside **Automations**.
 
 ### Add a Webhook trigger to an automation
 
@@ -117,7 +117,7 @@ Write the automation's prompt for the payload the sender produces: name the fiel
 
 ## Manage webhooks
 
-Open a webhook on the **Webhooks** page to inspect and change it:
+Open a webhook on the **Webhooks** tab inside **Automations** to inspect and change it:
 
 * **Recent deliveries** - The latest deliveries, newest first, each labeled **Accepted**, **Duplicate**, **Rejected (auth)**, **Rejected (invalid JSON)**, or **Rejected (too large)**, with the delivery ID, size, and time. Expand an accepted delivery to read its stored payload. Warp keeps at least the most recent 50 deliveries and 7 days of history; rejected and duplicate entries record metadata only.
 * **Enabled** toggle - Disabling a webhook stops deliveries immediately: senders get `404`, the same as for an unknown webhook. Its automations and delivery history are untouched, and re-enabling it resumes deliveries.
@@ -166,12 +166,12 @@ A new fatal issue was created in Sentry. Read the attached event payload,
 find the failing code path, and open a pull request with a fix and a test.
 ```
 
-`webhook_ids` takes UIDs, not file names, and Warp assigns the UID when the webhook file first applies. Add the webhook, let the definition sync, then copy the UID from the webhook's detail pane on the **Webhooks** page. See [`webhooks/<name>.yaml`](/factories/factory-as-code/#webhooksnameyaml) for every key and its rules.
+`webhook_ids` takes UIDs, not file names, and Warp assigns the UID when the webhook file first applies. Add the webhook, let the definition sync, then copy the UID from the webhook's detail pane on the **Webhooks** tab. See [`webhooks/<name>.yaml`](/factories/factory-as-code/#webhooksnameyaml) for every key and its rules.
 
 ## Troubleshooting
 
 * **The sender gets `401`** - The credential doesn't match the webhook's mode: a bearer token webhook needs the `Authorization: Bearer` header, a URL token webhook needs the token segment in the URL, and a provider signature webhook needs the provider's current signing secret. After a rotation, update the sender with the new secret. A webhook whose managed secret you updated keeps the old value until its definition next applies; see [Manage webhooks](#manage-webhooks). Stripe and Standard Webhooks signatures older than five minutes are also rejected.
-* **The sender gets `404`** - The webhook is disabled or deleted, or the UID in the URL is wrong. Enable it on the **Webhooks** page or check the URL against the webhook's detail pane.
+* **The sender gets `404`** - The webhook is disabled or deleted, or the UID in the URL is wrong. Enable it on the **Webhooks** tab inside **Automations** or check the URL against the webhook's detail pane.
 * **The sender gets `202` but no run starts** - Open the delivery under **Recent deliveries**. A **Duplicate** delivery reused an identity Warp already accepted; if the sender doesn't set a delivery ID, identical bodies count as duplicates. For an **Accepted** delivery, confirm an enabled automation selects this webhook in its **Webhook** trigger, and use **Test filter** against the delivery to see which check failed.
 * **The sender gets `429`** - The webhook exceeded 60 deliveries per minute. Retry after the interval in the `Retry-After` header. Failed authentication attempts count against a separate budget, so they can also produce `429` on their own.
 * **Applying a definition fails on `webhooks/<name>.yaml`** - `secretName` must name an existing team secret, and a `url_token` secret must be URL-safe. See [`webhooks/<name>.yaml`](/factories/factory-as-code/#webhooksnameyaml).
@@ -183,4 +183,4 @@ find the failing code path, and open a pull request with a fix and a test.
 * [**Connect your factory**](/factories/connect-your-factory/) - Every way work reaches a factory, alongside custom webhooks.
 * [**Definitions as code**](/factories/factory-as-code/) - The full schema for `webhooks/<name>.yaml` and webhook triggers.
 * [**Cloud agent secrets**](/platform/secrets/) - Create and rotate the managed secrets that file-defined webhooks reference.
-* [**Factory dashboard**](/factories/factory-dashboard/) - Where the **Webhooks** and **Automations** pages live.
+* [**Factory dashboard**](/factories/factory-dashboard/) - Where the **Automations** page and its **Webhooks** tab live.
