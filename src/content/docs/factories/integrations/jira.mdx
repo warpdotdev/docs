@@ -78,6 +78,10 @@ When the run finishes, the result appears in the agent session. The agent doesn'
 * **A connected Jira user becomes the run's creator, not its agent** - [Connect your Jira account to Warp](/platform/integrations/jira/#connecting-your-jira-account-to-warp) so a session you start is attributed to you; an unconnected account gets a prompt to connect instead of a run starting. Either way, the run executes as the agent selected by the automation, not as that Jira user.
 * **Jira access doesn't include code access** - Connecting Jira lets agents read and update Jira work items, nothing more. Repository access comes from the factory itself.
 
+:::caution
+Warp's built-in Jira tools read Jira as the person who created the run; that person must link their Atlassian account to Warp in Jira under **profile** > **Personal settings** > **Warp**. For Jira-triggered runs, the tools act as the Jira user who triggered the run. Runs without a person behind them, such as scheduled runs or runs created by a service account or API key, cannot use these tools. For those runs, add the Atlassian MCP server as a [managed MCP install](https://docs.warp.dev/platform/mcp) instead; it uses the access of the account it was connected with.
+:::
+
 ## Troubleshooting
 
 * **Warp is unavailable in Jira** - Confirm the Warp app is installed on the Jira Cloud site. On the app's **Configure** page, click **Connect to Warp** if the installation isn't connected to a workspace.
