@@ -8,7 +8,7 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-Connect Azure DevOps Services to a factory so agents can work in selected repositories, open pull requests, and start runs from work item and pull request events. Warp creates a dedicated identity for each factory instead of using a team member's credentials at runtime.
+Connect Azure DevOps Services to a factory so agents can work in selected repositories, open pull requests, and start runs from work item and pull request events. Warp creates a dedicated identity for each factory's Git and pull request operations. Automation dispatch separately requires the automation creator's active Azure DevOps connection.
 
 {/* VERIFY: Confirm first-class Azure DevOps Services support is enabled in production before merging this documentation. */}
 
@@ -31,9 +31,9 @@ The integration separates setup access from runtime access. The Manager is a War
 
 | Identity | Purpose | Access |
 | --- | --- | --- |
-| Your connected Azure DevOps account | Lists the organizations, projects, and repositories you can choose during setup. | Limited to resources your Azure DevOps user can read. |
+| Your connected Azure DevOps account | Lists the organizations, projects, and repositories you can choose during setup. If you create an Azure DevOps automation, Warp also binds your connection when an event dispatches a run. | Limited to resources your Azure DevOps user can read. An automation requires its creator's active, correctly scoped connection; another user's connection can't replace it. |
 | Azure DevOps Manager | Creates and maintains factory identities in one Microsoft Entra tenant and Azure DevOps organization. | Owns only the Entra applications it creates. In Azure DevOps, it has Basic access and belongs to Project Collection Administrators. |
-| Factory identity | Authenticates a factory's Git, pull request, work item, and automation operations. | Has Basic access, project visibility, Service Hooks access, work item access, and permissions on the selected repositories. |
+| Factory identity | Authenticates the factory's Git and pull request operations after a run starts. | Has Basic access, project visibility, Service Hooks access, work item access, and permissions on the selected repositories. |
 
 Each factory identity consists of a separate Microsoft Entra application and service principal that Warp adds to Azure DevOps. Warp configures workload identity federation, so the factory doesn't need a stored client secret.
 
@@ -42,6 +42,7 @@ Each factory identity consists of a separate Microsoft Entra application and ser
 * **A Warp team with Warp Factories access** - A factory belongs to a [Warp team](/knowledge-and-collaboration/teams/).
 * **An Azure DevOps Services organization** - Use an organization hosted at `dev.azure.com`, with the project and repositories the factory needs.
 * **A connected Azure DevOps user** - Connect a user who can read the organization, project, and repositories you want to select.
+* **An active connection for each automation creator** - The Warp user who creates an Azure DevOps automation must keep their own Azure DevOps OAuth connection active and correctly scoped. Another user's connection can't be substituted when an event dispatches the automation.
 * **A Microsoft Entra administrator** - A Global Administrator or Privileged Role Administrator approves the Azure DevOps Manager.
 * **An Azure DevOps administrator** - A Project Collection Administrator adds the Manager to the organization.
 
@@ -73,13 +74,13 @@ Start from factory setup to connect your account, select repositories, and provi
    2. A Project Collection Administrator completes the Azure DevOps approval.
 6. Continue factory setup. Warp creates the factory identity, adds Azure DevOps Basic access, and grants access to the selected repositories. Microsoft and Azure DevOps can take several minutes to apply these changes.
 
-When setup confirms that the identity is ready, the factory uses that identity for Azure DevOps operations. You can retry identity provisioning from the factory's settings if setup is interrupted.
+When setup confirms that the identity is ready, the factory uses that identity for Git and pull request operations. You can retry identity provisioning from the factory's settings if setup is interrupted. Azure DevOps automations still require the automation creator's personal connection.
 
 Workspace admins can also manage organization-level Managers in the Azure DevOps Managers section of the Admin Panel. Any active workspace member can complete or delegate Manager setup while creating a factory.
 
 ## Configure Azure DevOps automations
 
-An Azure DevOps automation starts a factory run when a supported event matches its filters. New Azure DevOps factories include a default automation for pull request mentions, work item mentions, and work item assignments.
+An Azure DevOps automation starts a factory run when a supported event matches its filters. Before creating the run, Warp verifies and binds the automation creator's active Azure DevOps OAuth connection. A missing, revoked, under-scoped, or differently owned connection stops dispatch. New Azure DevOps factories include a default automation for pull request mentions, work item mentions, and work item assignments.
 
 To add or change a trigger:
 
@@ -111,7 +112,7 @@ Azure DevOps push events aren't currently available as automation triggers.
 * **An organization, project, or repository doesn't appear** - Confirm that your connected Azure DevOps user can read it, then refresh the connection.
 * **Manager approval can't continue** - Complete the Microsoft Entra step before the Azure DevOps step. If another administrator completed the first step, reopen the setup link.
 * **Identity provisioning remains in progress** - Microsoft Entra and Azure DevOps permission changes can take several minutes to propagate. Retry from the factory's settings if the setup reports an error.
-* **An event doesn't start a run** - Confirm the automation is enabled and that every configured filter matches the Azure DevOps event.
+* **An event doesn't start a run** - Confirm the automation is enabled and that every configured filter matches the Azure DevOps event. The user who created the automation must also have an active Azure DevOps OAuth connection with the required scopes; another user's connection can't replace it.
 
 ## Related pages
 
