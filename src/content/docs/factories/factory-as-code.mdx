@@ -216,7 +216,7 @@ integrations:
         - LINEAR_TEAM_ID
 ```
 
-For Linear, `linear.teamIds` limits issue discovery and routing to those team IDs. Omit it to include every team in the connected Linear workspace. For Jira, `jira.projectKeys` provides the equivalent scope; omit it to include every project on the connected Jira site. For `microsoft-teams`, optional `autoRespondToThreadReplies` controls whether plain replies in an existing factory thread continue the work without another mention; omit it to keep the default-on behavior.
+For Linear, `linear.teamIds` limits issue discovery and routing to those team IDs. Omit it to include every team in the connected Linear workspace. For Jira, `jira.projectKeys` provides the equivalent scope; omit it to include every project on the connected Jira site.
 
 ```yaml
 integrations:
@@ -225,6 +225,15 @@ integrations:
       projectKeys:
         - ENG
         - OPS
+```
+
+For `microsoft-teams`, optional `autoRespondToThreadReplies` nests under the `microsoft-teams` key. Set it to `false` to require another mention for plain replies in an existing factory thread. Omit the key (or set `true`) to keep the default-on behavior:
+
+```yaml
+integrations:
+  - type: microsoft-teams
+    microsoft-teams:
+      autoRespondToThreadReplies: false
 ```
 
 The legacy `providers` key is accepted when reading older definitions. It uses the same `gcp` and `aws` maps and nested YAML keys as `cloudProviders`. Use `cloudProviders`; when Warp rewrites the definition, it emits `cloudProviders`.
