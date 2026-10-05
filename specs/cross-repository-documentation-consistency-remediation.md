@@ -18,7 +18,7 @@ The September 16, 2026 Falconer audit reported 19 contradictions and 5 content i
 8. Public documentation must use **auto-reload** only for the automatic purchase action.
 9. Public API examples must use `POST /agent/runs` to create a run.
 10. The deprecated `POST /agent/run` route must remain documented as deprecated compatibility only while the route remains released.
-11. Cloud image attachment documentation must cover both CLI run creation and interactive cloud conversations without inventing an unsupported UI limitation.
+11. Cloud attachment documentation must distinguish legacy CLI cloud-run files from interactive conversation images. A limit from one surface must not be applied to the other.
 12. Legacy `oz` documentation must remain available until a CLI owner confirms command parity and the final deprecation date.
 13. The implementation must not change runtime behavior to make an existing documentation claim true.
 
@@ -267,32 +267,36 @@ The 24 Falconer findings below are the initial accounting set. New occurrences f
 
 - **Status:** `fix`
 - **Shipped behavior:**
-  - Legacy CLI cloud-run creation accepts repeated `--attach` inputs under the default feature set.
+  - Legacy CLI cloud-run creation accepts repeated `oz agent run-cloud --attach` inputs under the default feature set.
+  - A cloud-agent task accepts at most 25 file attachments.
+  - Each cloud-agent task file attachment accepts at most 10 MB.
   - Interactive cloud conversations support file attachment from the footer.
   - Interactive cloud conversations accept pasted and dropped image data.
-  - A run accepts at most 25 attachments.
-  - Each attachment accepts at most 10 MB.
+  - Interactive image processing has separate implementation caps of 20 images per query and 3.75 MB of input bytes per image.
 - **Authority:**
-  - `../warp/app/Cargo.toml:597`
-  - `../warp/app/Cargo.toml:617`
-  - `../warp/app/src/ai/blocklist/agent_view/agent_input_footer/mod.rs:432-443`
-  - `../warp/app/src/ai/blocklist/agent_view/agent_input_footer/mod.rs:1096`
-  - `../warp/app/src/ai/blocklist/agent_view/agent_input_footer/mod.rs:2343`
-  - `../warp/app/src/terminal/input.rs:11805-12058`
-  - `../warp/app/src/ai/agent_sdk/ambient.rs:380-421`
-  - `../warp/app/src/ai/agent_sdk/driver/attachments.rs:18-25`
-  - `../warp/app/src/ai/attachment_utils.rs:10-12`
-- **Conflicting CLI help:** `../warp/crates/warp_cli/src/agent.rs:779-791` says `--attach` accepts a maximum of 5 files.
+  - `../warp/app/Cargo.toml:598`
+  - `../warp/app/Cargo.toml:618`
+  - `../warp/app/src/ai/blocklist/agent_view/agent_input_footer/mod.rs:1596`
+  - `../warp/app/src/ai/blocklist/agent_view/agent_input_footer/mod.rs:2341`
+  - `../warp/app/src/terminal/input.rs:11824-12030`
+  - `../warp/app/src/ai/agent_sdk/ambient.rs:382-386`
+  - `../warp/app/src/ai/agent_sdk/driver/attachments.rs:25`
+  - `../warp/app/src/ai/attachment_utils.rs:12`
+  - `../warp/app/src/util/image.rs:14`
+  - `../warp/app/src/util/image.rs:46`
+- **Conflicting CLI help:** `../warp/crates/warp_cli/src/agent.rs:777` says `--attach` accepts a maximum of 5 files.
 - **Affected seeds:**
   - `src/content/docs/reference/cli/index.mdx`
   - `src/content/docs/platform/faqs.mdx`
   - `src/content/docs/agents/local-agents/agent-context/images-as-context.mdx`
   - `../warp/crates/warp_cli/src/agent.rs`
 - **Required change:**
-  - Change the CLI docs and Clap help maximum from 5 to 25.
-  - Add the 10 MB per-attachment limit.
+  - Change the `oz agent run-cloud --attach` docs and Clap help maximum from 5 to 25.
+  - Add the 10 MB per-file limit only to legacy CLI cloud-run guidance.
   - Remove the false statement that interactive cloud conversations do not accept images.
-  - Document the footer, paste, and drop paths without adding an availability caveat unless a released gate or Product owner requires one.
+  - Document the interactive footer, paste, and drop paths separately from legacy CLI attachments.
+  - Publish the interactive 20-image and 3.75 MB implementation caps only if Product confirms that they are stable user-facing limits. Otherwise omit interactive numeric limits.
+  - Do not reuse the 25-file or 10 MB legacy CLI limits for interactive images.
   - Cross-link interactive and CLI attachment guidance.
   - Keep this capability documented during the `oz` migration until a verified `warp` equivalent replaces it.
 
@@ -392,15 +396,15 @@ The 24 Falconer findings below are the initial accounting set. New occurrences f
   - `src/content/docs/terminal/warpify/ssh-legacy.mdx`
 - **Required change:** Remove “we start a bash shell.” State that Warp preserves the remote login shell and only enhances supported bash or zsh sessions.
 
-### Structural and already-resolved audit items
+### Structural audit items
 
 #### 23. Stale cloud concurrency placeholder
 
-- **Status:** `resolved_on_main`
-- **Audit claim:** Cloud FAQs said that concurrency and credit allocation were still being finalized.
-- **Current result:** The quoted placeholder is absent from current `src/content/docs/platform/faqs.mdx`.
-- **Required work:** Confirm the phrase and close paraphrases remain absent. Record the finding as resolved rather than editing unrelated current copy.
-- **Detector requirement:** Preserve this as a regression seed so the stale placeholder cannot return.
+- **Status:** `owner_confirmation`
+- **Current occurrence:** `src/content/docs/platform/faqs.mdx:111` says that concurrency limits and credit allocation details are still being finalized.
+- **Required owner input:** Product and Billing must provide current public concurrency and credit-allocation guidance or approve removal of the placeholder without replacement.
+- **Required change after confirmation:** Replace the placeholder with the approved current statement or remove it. Do not invent numeric limits or allocation behavior.
+- **Detector requirement:** Treat the placeholder and close paraphrases as an active finding. The consistency audit must fail until the approved replacement is present or the placeholder is removed.
 
 #### 24. Session Sharing redirect stub and stale inbound links
 
@@ -438,18 +442,24 @@ Extend `.agents/skills/missing_docs` instead of creating a new skill.
 Reconcile the existing audit baseline before adding the consistency category:
 
 1. Run the current audit with `--diff` and preserve the JSON report.
-2. Classify all ten existing surface deltas:
+2. Classify all 16 existing surface deltas:
+   - Obtain Product and client-owner publish or defer decisions for GA flag `ChatGPTSubscription`.
+   - Verify public coverage and obtain a client-owner publish or defer decision for GA flag `WindowsVideoRecording`. Do not classify it as dogfood.
    - Verify final behavior and remove or retain map entries for removed flags `OrchestrationUnifiedStack` and `WaitForEventsParentRegistration`.
-   - Keep `WindowsVideoRecording` deferred while it remains dogfood.
+   - Obtain a CLI-owner publish or defer decision for `environment: --default-runner`.
    - Obtain an agent-tooling owner decision to publish or defer `report_self_improvement_metadata`.
-   - Obtain an API owner decision to publish or defer each of these six routes:
+   - Obtain an API owner decision to publish or defer each of these ten routes:
      - `GET /api/v1/agent/runs/{runId}/harness-usage`
+     - `GET /api/v1/factory/{uid}/integrations/jira/assignees`
      - `GET /api/v1/factory/{uid}/integrations/microsoft-teams/teams`
      - `GET /api/v1/factory/{uid}/integrations/microsoft-teams/teams/{team_id}/channels`
+     - `POST /api/v1/factory-inbox/notifications/read`
+     - `POST /api/v1/factory-inbox/notifications/unread`
+     - `POST /api/v1/factory-inbox/notifications/{uid}/answers`
      - `POST /api/v1/factory/scorers/{scorer_id}/backfill`
      - `POST /api/v1/factory/{uid}/benchmarks/runs/{run_uid}/rescore`
      - `POST /api/v1/harness-support/usage`
-3. Update the surface map, released OpenAPI schema, and public docs only as each classification requires.
+3. Record a publish or defer disposition for every current delta. Update the surface map, released OpenAPI schema, CLI reference, and public docs only as each disposition requires.
 4. Re-run `--diff` and review the report. No delta can remain unexplained.
 5. Run `--update-snapshot` only after steps 1–4 are complete.
 6. Review and commit the snapshot diff with the classification changes.
@@ -521,6 +531,7 @@ Extend `test_audit_docs.py` with fixtures that prove:
 - every seed enters exactly one status bucket;
 - an unaccounted seed exits 2;
 - a forbidden stale statement produces a finding;
+- the current cloud-concurrency placeholder remains a finding until approved replacement copy is present;
 - a resolved statement produces no active finding but remains tracked;
 - a policy blocker remains visible and does not trigger drafting;
 - multiple affected occurrences are all reported;
@@ -536,14 +547,14 @@ After approval, reuse the spec branch and PR for the first implementation batch.
 Recommended batches:
 
 1. **Missing-docs baseline reconciliation**
-   - Classify all ten existing surface deltas.
-   - Resolve publication or deferral for all six API routes.
-   - Update maps, docs, or OpenAPI from those decisions.
+   - Classify all 16 existing surface deltas.
+   - Resolve publication or deferral for all ten API routes and the six non-route deltas.
+   - Update maps, CLI reference, docs, or OpenAPI from those decisions.
    - Regenerate the snapshot only after review.
 2. **API and CLI factual corrections**
    - Canonical create-run route.
    - `name` filter.
-   - Attachment limits and interactive capability.
+   - Separate legacy CLI attachment limits from interactive image capability.
    - Stale `--attach` Clap help.
    - MCP startup semantics.
    - Install-method updater behavior.
@@ -567,6 +578,7 @@ Recommended batches:
    - Scheduled and API-key charge behavior.
    - Add-on Credits balance applicability.
    - User-triggered cloud-run charge behavior.
+   - Cloud concurrency and credit-allocation placeholder.
 7. **Owner-gated privacy and security corrections**
    - Training and Warp data use.
    - Free telemetry and AI behavior.
@@ -589,7 +601,7 @@ Route review from the source file behind each fact:
 - **Billing and credits:** `../warp-server/logic/ai/ai_usage/`, `../warp-server/model/ai_request_bonus_grants.go`, and `../warp-server/billing/`.
 - **API:** `../warp-server/router/handlers/public_api/` and the OpenAPI owners.
 - **MCP:** `../warp/app/src/ai/mcp/`, `../warp/app/src/ai/agent_sdk/driver/mcp_startup.rs`, and `../warp/crates/mcp/`.
-- **Attachments and cloud CLI:** `../warp/app/src/ai/agent_sdk/`, `../warp/app/src/ai/attachment_utils.rs`, `../warp/app/src/terminal/input.rs`, and `../warp/crates/warp_cli/src/agent.rs`.
+- **Attachments and cloud CLI:** `../warp/app/src/ai/agent_sdk/`, `../warp/app/src/ai/attachment_utils.rs`, `../warp/app/src/util/image.rs`, `../warp/app/src/terminal/input.rs`, and `../warp/crates/warp_cli/src/agent.rs`.
 - **Warp Agent CLI updater:** `../warp/crates/warp_tui/`.
 - **Shells and SSH:** `../warp/app/src/terminal/available_shells.rs`, `../warp/app/src/terminal/warpify/`, and `../warp/app/assets/bundled/bootstrap/`.
 - **Privacy and policy:** Privacy, Security, and Legal, regardless of code ownership.
@@ -673,9 +685,9 @@ Use `.github/STAKEHOLDERS` and `.github/CODEOWNERS` through the existing reviewe
 - **Option B:** State only that cloud agents support attachments.
   - **Advantage:** Avoids the false limitation.
   - **Disadvantage:** Omits input paths, limits, and the stale CLI help mismatch.
-- **Option C:** Document interactive and CLI inputs separately, with the shared verified limits.
-  - **Advantage:** Covers every shipped input path and exposes the same limits in docs and CLI help.
-  - **Disadvantage:** Requires coordinated docs and Clap help changes.
+- **Option C:** Document interactive and CLI inputs separately, with surface-specific limits.
+  - **Advantage:** Covers every shipped input path without turning a legacy CLI limit into an interactive UI promise.
+  - **Disadvantage:** Requires coordinated docs and Clap help changes plus Product confirmation before publishing interactive numeric limits.
 - **Decision:** Choose Option C.
 
 ### Snapshot reconciliation
@@ -685,7 +697,7 @@ Use `.github/STAKEHOLDERS` and `.github/CODEOWNERS` through the existing reviewe
   - **Disadvantage:** Can hide public API and capability decisions that have not been reviewed.
 - **Option B:** Classify every delta, update maps or docs from those decisions, then regenerate the snapshot.
   - **Advantage:** Preserves the audit's publication and deferral gate.
-  - **Disadvantage:** Requires owner decisions for six API routes and one server tool.
+  - **Disadvantage:** Requires owner decisions for all 16 current deltas, including ten API routes.
 - **Decision:** Choose Option B.
 
 ### Windows fish
@@ -713,7 +725,7 @@ Use `.github/STAKEHOLDERS` and `.github/CODEOWNERS` through the existing reviewe
 
 ## Assumptions
 
-- **Assumption:** `warpdotdev/docs@main`, `warpdotdev/warp@master`, and `warp-server@develop` represent the current implementation baseline researched on September 24, 2026.
+- **Assumption:** `warpdotdev/docs@c8b9dcd437561ea27f223633905fd3afd6bd10c1`, `warpdotdev/warp@dc4442af2aefe2104c2f9ec4f39caee07b5fb363`, and `warp-server@6f5706af046f53fa3e2fb907f8856e5d9599a071` represent the current implementation baseline researched on October 5, 2026.
 - **Assumption:** The public pricing claims observed during research are owned outside `warpdotdev/docs`.
 - **Assumption:** The singular Agent API route remains released compatibility because the OpenAPI schema marks it deprecated rather than removed.
 - **Assumption:** Current billing resolver and grant-selection order are reviewer evidence, not a stable customer contract.
@@ -757,9 +769,10 @@ python3 .agents/skills/missing_docs/scripts/audit_docs.py --category consistency
 - Reject public copy that names grant order, resolver order, database scope, principal-selection branches, or mutable configuration switches.
 - Verify team deletion with the existing integration test.
 - Verify API routes and query names from the released OpenAPI schema and handler.
-- Verify the shared attachment count and size from the client constants.
+- Verify the legacy CLI cloud-task count and file-size limit from `driver/attachments.rs` and `attachment_utils.rs`.
+- Verify the separate interactive image count and input-size caps from `util/image.rs`.
 - Verify interactive footer, paste, and drop input paths and the default feature set.
-- Verify `../warp/crates/warp_cli/src/agent.rs` exposes the same maximum count as the runtime.
+- Verify `../warp/crates/warp_cli/src/agent.rs` exposes the cloud-task maximum for `oz agent run-cloud --attach`.
 - Verify updater behavior from install-method tests.
 - Verify MCP startup categories from profile and driver tests.
 
@@ -793,8 +806,10 @@ Expected result: every command exits 0.
 ### Attachment validation
 
 - Search the three affected documentation pages for limits and unsupported-capability claims.
-- Confirm the docs state at most 25 attachments and 10 MB per attachment.
+- Confirm legacy `oz agent run-cloud --attach` guidance states at most 25 files and 10 MB per file.
 - Confirm the docs cover the footer, paste, and drop paths for interactive cloud conversations.
+- Confirm interactive guidance does not reuse the 25-file or 10 MB legacy CLI limits.
+- If interactive guidance publishes 20 images or 3.75 MB, attach Product approval that these implementation caps are stable user-facing limits.
 - Confirm no current page states that interactive cloud conversations cannot accept images.
 - Run `cargo test -p warp_cli` from the `warp` repository after changing the Clap help.
 - Inspect `oz agent run-cloud --help` and confirm `--attach` says the maximum is 25.
@@ -807,6 +822,9 @@ Expected result: every command exits 0.
 - Confirm secondary pages link to the canonical explanation instead of restating partial charge semantics.
 - Confirm public copy does not describe grant order, resolver order, database scope, principal-selection branches, or mutable configuration switches.
 - Confirm no current page says team deletion succeeds with a positive remaining Add-on Credits balance.
+- For finding 23, attach written Product and Billing approval for replacement concurrency and credit-allocation guidance or for removing the placeholder.
+- Confirm `src/content/docs/platform/faqs.mdx` no longer says those details are still being finalized before marking finding 23 complete.
+- Confirm the consistency detector reports the current placeholder and close paraphrases until the approved change lands.
 
 ### Privacy validation
 
@@ -825,9 +843,10 @@ Expected result: every command exits 0.
 ### Missing-docs baseline validation
 
 - Run the baseline reconciliation before implementing new consistency rules.
-- Classify the two removed flags, one added dogfood flag, one added server tool, and six added API routes listed in the technical design.
-- Attach owner-approved publish or defer decisions for the six API routes and the server tool.
-- Update curated maps, the OpenAPI schema, and public docs from those decisions.
+- Classify the two added GA flags, two removed flags, one added CLI flag, one added server tool, and ten added API routes listed in the technical design.
+- Confirm `WindowsVideoRecording` is handled as GA, not dogfood.
+- Attach owner-approved publish or defer decisions for all 16 deltas.
+- Update curated maps, the CLI reference, the OpenAPI schema, and public docs from those decisions.
 - Regenerate `.agents/skills/missing_docs/references/surface_snapshot.json` only after those updates.
 - Reject a snapshot-only change whose purpose is to silence `test_audit_docs.py`.
 - Run:
