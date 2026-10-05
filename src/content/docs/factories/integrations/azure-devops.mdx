@@ -105,10 +105,29 @@ Azure DevOps push events aren't currently available as automation triggers.
 
 ## Troubleshooting
 
-* **An organization, project, or repository doesn't appear** - Confirm that your connected Azure DevOps user can read it, then refresh the connection.
-* **Manager approval can't continue** - Complete the Microsoft Entra step before the Azure DevOps step. If another administrator completed the first step, reopen the setup link.
-* **Identity provisioning remains in progress** - Microsoft Entra and Azure DevOps permission changes can take several minutes to propagate. Retry from the factory's settings if the setup reports an error.
-* **An event doesn't start a run** - Confirm the automation is enabled and that every configured filter matches the Azure DevOps event. The user who created the automation must have an active Azure DevOps OAuth connection with the required scopes. Reconnect that user's account if the connection is missing, revoked, under-scoped, or belongs to another user.
+### An organization, project, or repository doesn't appear
+
+**Cause:** Your Azure DevOps user lacks access to the resource.
+
+**Solution:** Grant the user access, then refresh the connection.
+
+### Manager approval can't continue
+
+**Cause:** The Microsoft Entra approval is incomplete.
+
+**Solution:** Complete the Microsoft Entra step before the Azure DevOps step. Reopen the setup link if another administrator completed the first step.
+
+### Identity provisioning remains in progress
+
+**Cause:** Microsoft Entra and Azure DevOps permission changes can take several minutes to propagate.
+
+**Solution:** Wait, then retry from the factory's settings if setup reports an error.
+
+### An event doesn't start a run
+
+**Cause:** The automation is disabled, a filter doesn't match, or its creator's Azure DevOps OAuth connection is missing, revoked, or under-scoped.
+
+**Solution:** Enable the automation, check every filter, and reconnect its creator's Azure DevOps account with the required scopes.
 
 ### Factory identity doesn't appear in comment mention autocomplete
 
@@ -117,7 +136,8 @@ Azure DevOps push events aren't currently available as automation triggers.
 **Workaround:** Add the factory identity to Azure DevOps's recently used identity cache:
 
 1. In the Azure DevOps organization and project connected to the factory, assign the factory identity to a work item and save the work item.
-2. Return to the comment and enter `@` followed by the factory identity's name. The identity may now appear in autocomplete. If you enter the name without autocomplete, confirm that Azure DevOps formats it as a mention instead of plain text.
+2. Return to the comment, enter `@` followed by the factory identity's name, then select the identity from autocomplete.
+3. Confirm that Azure DevOps formats the selection as a mention. Plain text with the same name doesn't trigger the automation.
 
 ### `The identity value 'X' for field 'Assigned To' is an unknown identity.`
 
