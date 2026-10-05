@@ -1,0 +1,75 @@
+{
+  "adjudicated_findings": [],
+  "claims": [
+    {
+      "category": "product-behavior",
+      "entity": "ssh",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "wrapper",
+      "qualifiers": {
+        "legacy": true
+      },
+      "quote": "The legacy wrapper starts bash.",
+      "source": {
+        "content_sha256": "dec9d083a1da23b374119a632a0bcc1dcfadfeafacc9ba4fc0a78982eaa443be",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/negative-legacy-difference-left",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "legacy"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "entity": "ssh",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "wrapper",
+      "qualifiers": {
+        "legacy": false
+      },
+      "quote": "The current SSH implementation uses the configured shell.",
+      "source": {
+        "content_sha256": "716d4d5a98f6ecbb2bf250822c1652a05e12fce6f03ea52f329009b4ea677b22",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/negative-legacy-difference-right",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "current"
+        ],
+        "type": "enum"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "dec9d083a1da23b374119a632a0bcc1dcfadfeafacc9ba4fc0a78982eaa443be",
+    "right.mdx": "716d4d5a98f6ecbb2bf250822c1652a05e12fce6f03ea52f329009b4ea677b22"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

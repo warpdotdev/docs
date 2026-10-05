@@ -349,8 +349,12 @@ python3 .agents/skills/docs_consistency_audit/scripts/audit_consistency.py bench
 ```
 
 The scorecard covers all 24 Falconer examples and negative controls for plan, operating
-system, version, install method, legacy status, and intentional exceptions. The schedule
-must remain disabled until:
+system, version, install method, legacy status, and intentional exceptions. Every
+non-delegated case uses a pinned extraction fixture and immutable checked-in evidence
+snippets. The benchmark verifies fixture, source, quote, line, and content fingerprints,
+then passes the fixture through the same extraction-validation and adjudication interfaces
+as an audit run. It must not derive evidence, claims, or verdicts from expected results.
+The schedule must remain disabled until:
 
 - all 24 examples pass the production inventory, extraction, exact-evidence validation,
   typed comparison, and context-adjudication path, or are delegated to their owning

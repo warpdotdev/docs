@@ -1565,28 +1565,60 @@ def effective_manifest_pages(
     return pages
 
 
+def validate_extraction_document(
+    document: Any,
+    repository_roots: dict[str, Path],
+    redirects: dict[str, str],
+) -> dict[str, Any]:
+    if isinstance(document, dict):
+        raw_claims = document.get("claims", [])
+        verifications = document.get("adjudicated_findings", [])
+        extraction_failures = document.get("extraction_failures", [])
+        processed_pages = document.get("processed_pages", [])
+    elif isinstance(document, list):
+        raw_claims = document
+        verifications = []
+        extraction_failures = []
+        processed_pages = []
+    else:
+        raise AuditError(
+            "Claims input must be a list or an object with a claims list"
+        )
+    if not isinstance(raw_claims, list):
+        raise AuditError("Extraction claims must be a list")
+    if not isinstance(verifications, list) or not all(
+        isinstance(verification, dict)
+        for verification in verifications
+    ):
+        raise AuditError("Extraction adjudicated_findings must be a list of objects")
+    if not isinstance(extraction_failures, list):
+        raise AuditError("Extraction failures must be a list")
+    if extraction_failures:
+        raise AuditError("Claim extraction contains unresolved failures")
+    if not isinstance(processed_pages, list) or not all(
+        isinstance(page, str)
+        for page in processed_pages
+    ):
+        raise AuditError("Extraction processed_pages must be a list of paths")
+    normalized_claims = []
+    for raw_claim in raw_claims:
+        if not isinstance(raw_claim, dict):
+            raise AuditError("Every extracted claim must be an object")
+        validate_public_claim(raw_claim)
+        validate_claim_quote(raw_claim, repository_roots)
+        normalized_claims.append(
+            normalize_claim(apply_redirect_identity(raw_claim, redirects))
+        )
+    return {
+        "claims": normalized_claims,
+        "adjudicated_findings": copy.deepcopy(verifications),
+        "processed_pages": list(processed_pages),
+    }
+
+
 def run_pipeline(args: argparse.Namespace) -> int:
     run_id = args.run_id or dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     claims_document = load_json(Path(args.claims))
-    raw_claims = (
-        claims_document.get("claims", [])
-        if isinstance(claims_document, dict)
-        else claims_document
-    )
-    verifications = (
-        claims_document.get("adjudicated_findings", [])
-        if isinstance(claims_document, dict)
-        else []
-    )
-    extraction_failures = (
-        claims_document.get("extraction_failures", [])
-        if isinstance(claims_document, dict)
-        else []
-    )
-    if extraction_failures:
-        raise AuditError("Claim extraction contains unresolved failures")
-    if not isinstance(raw_claims, list):
-        raise AuditError("Claims input must be a list or an object with a claims list")
     roots: dict[str, Path] = {}
     for value in args.repository_root:
         name, separator, path = value.partition("=")
@@ -1602,18 +1634,24 @@ def run_pipeline(args: argparse.Namespace) -> int:
         else None
     )
     redirects = load_verified_redirects(redirect_path)
+    extraction = validate_extraction_document(
+        claims_document,
+        roots,
+        redirects,
+    )
+    extracted_claims = extraction["claims"]
+    verifications = extraction["adjudicated_findings"]
     state_dir = Path(args.state_dir)
     inventory = load_json(Path(args.inventory), {}) if args.inventory else {}
     plan = inventory.get("extraction_plan", {})
     selected_pages = set(plan.get("selected_pages", []))
     backlog_pages = set(plan.get("backlog_pages", []))
-    processed_pages = set(
-        claims_document.get("processed_pages", [])
-        if isinstance(claims_document, dict)
-        else []
-    )
+    processed_pages = set(extraction["processed_pages"])
     if not processed_pages:
-        processed_pages = {claim["source"]["path"] for claim in raw_claims}
+        processed_pages = {
+            claim["source"]["path"]
+            for claim in extracted_claims
+        }
     missing_selected = selected_pages - processed_pages
     if missing_selected:
         raise AuditError(
@@ -1642,11 +1680,7 @@ def run_pipeline(args: argparse.Namespace) -> int:
         normalized_claims.append(
             normalize_claim(apply_redirect_identity(prior_claim, redirects))
         )
-    for raw_claim in raw_claims:
-        validate_public_claim(raw_claim)
-        validate_claim_quote(raw_claim, roots)
-        normalized = normalize_claim(apply_redirect_identity(raw_claim, redirects))
-        normalized_claims.append(normalized)
+    normalized_claims.extend(extracted_claims)
     rules = load_json(Path(args.authority_rules))
     authority_records = (
         validate_authority_contract(load_json(Path(args.authorities)))
@@ -1855,53 +1889,75 @@ def run_pipeline(args: argparse.Namespace) -> int:
     return 0
 
 
-def benchmark_claim(
+def benchmark_fixture_path(
     case: dict[str, Any],
-    side: str,
-    root: Path,
+    fixture_root: Path,
+) -> Path:
+    relative = case.get("fixture")
+    expected_hash = case.get("fixture_sha256")
+    if not isinstance(relative, str) or not expected_hash:
+        raise AuditError("Benchmark case requires a pinned fixture")
+    fixture_root = fixture_root.resolve()
+    fixture_path = (fixture_root / relative).resolve()
+    try:
+        fixture_path.relative_to(fixture_root)
+    except ValueError as exc:
+        raise AuditError("Benchmark fixture escapes the fixture root") from exc
+    if (
+        fixture_path.name != "extraction.json"
+        or fixture_path.parent.name != case["id"]
+    ):
+        raise AuditError("Benchmark fixture path must be named by its case")
+    if not fixture_path.exists():
+        raise AuditError(f"Benchmark fixture is missing: {relative}")
+    if sha256_text(fixture_path.read_text()) != expected_hash:
+        raise AuditError("Benchmark extraction fixture fingerprint mismatch")
+    return fixture_path
+
+
+def validate_benchmark_fixture(
+    fixture_path: Path,
+    rules: dict[str, Any],
 ) -> dict[str, Any]:
-    compact = case["compact"]
-    quote = compact[f"{side}_quote"]
-    source_text = (
-        "---\n"
-        f"title: {case['id']} {side}\n"
-        "---\n"
-        "## Claim\n"
-        f"{quote}\n"
+    document = load_json(fixture_path)
+    manifest = document.get("evidence_manifest")
+    if (
+        not isinstance(manifest, dict)
+        or not manifest
+        or not all(
+            isinstance(path, str) and isinstance(digest, str)
+            for path, digest in manifest.items()
+        )
+    ):
+        raise AuditError("Benchmark fixture requires an evidence manifest")
+    fixture_dir = fixture_path.parent
+    inventory = inventory_pages(fixture_dir, rules)
+    if set(inventory["pages"]) != set(manifest):
+        raise AuditError("Benchmark inventory does not match its evidence manifest")
+    for path, expected_hash in manifest.items():
+        if inventory["pages"][path]["source_sha256"] != expected_hash:
+            raise AuditError(f"Benchmark evidence fingerprint mismatch: {path}")
+    extraction = validate_extraction_document(
+        document,
+        {"warpdotdev/docs": fixture_dir},
+        {},
     )
-    relative_path = f"benchmark/{case['id']}-{side}.mdx"
-    source_path = root / relative_path
-    source_path.parent.mkdir(parents=True, exist_ok=True)
-    source_path.write_text(source_text)
-    return {
-        "source": {
-            "repository": "warpdotdev/docs",
-            "path": relative_path,
-            "route": f"/benchmark/{case['id']}-{side}",
-            "heading": "Claim",
-            "heading_anchor": "claim",
-            "line_start": 5,
-            "line_end": 5,
-            "content_sha256": sha256_text(source_text),
-            "visibility": "public",
-        },
-        "category": compact.get("category", compact["topic"]),
-        "topic": compact["topic"],
-        "entity": compact["entity"],
-        "predicate": compact["predicate"],
-        "value": {
-            "type": compact.get("value_type", "free-text"),
-            "normalized": compact[f"{side}_value"],
-        },
-        "qualifiers": compact.get(f"{side}_qualifiers", {}),
-        "polarity": compact.get(f"{side}_polarity", "affirmative"),
-        "quote": compact.get(f"{side}_evidence_quote", quote),
-        "extraction_confidence": 1.0,
-        "source_class": compact.get(f"{side}_source_class", "docs-prose"),
+    claim_paths = {
+        claim["source"]["path"]
+        for claim in extraction["claims"]
     }
+    if claim_paths != set(manifest):
+        raise AuditError("Benchmark claims do not cover the evidence manifest")
+    if set(extraction["processed_pages"]) != set(manifest):
+        raise AuditError("Benchmark processed pages do not match its evidence manifest")
+    return extraction
 
 
-def production_benchmark_case(case: dict[str, Any], rules: dict[str, Any]) -> str:
+def production_benchmark_case(
+    case: dict[str, Any],
+    rules: dict[str, Any],
+    fixture_root: Path,
+) -> str:
     if case.get("delegated_to"):
         if case["delegated_to"] not in {
             "style_lint",
@@ -1911,88 +1967,43 @@ def production_benchmark_case(case: dict[str, Any], rules: dict[str, Any]) -> st
         }:
             raise AuditError("Benchmark delegates to an unknown owning skill")
         return "delegated"
-    if case.get("extraction_failed"):
-        raise AuditError("Benchmark extraction failed")
-    with tempfile.TemporaryDirectory() as directory:
-        root = Path(directory)
-        if "compact" in case:
-            claims = [
-                benchmark_claim(case, "left", root),
-                benchmark_claim(case, "right", root),
-            ]
-        else:
-            raw_claims = case.get("claims", [])
-            if len(raw_claims) != 1:
-                raise AuditError("Non-compact benchmark cases require one grounded claim")
-            raw = copy.deepcopy(raw_claims[0])
-            quote = raw["quote"]
-            source_text = f"---\ntitle: {case['id']}\n---\n## Claim\n{quote}\n"
-            relative_path = f"benchmark/{case['id']}.mdx"
-            source_path = root / relative_path
-            source_path.parent.mkdir(parents=True, exist_ok=True)
-            source_path.write_text(source_text)
-            raw["source"].update({
-                "repository": "warpdotdev/docs",
-                "path": relative_path,
-                "route": f"/benchmark/{case['id']}",
-                "heading": "Claim",
-                "heading_anchor": "claim",
-                "line_start": 5,
-                "line_end": 5,
-                "content_sha256": sha256_text(source_text),
-                "visibility": "public",
-            })
-            claims = [raw]
-        inventory = inventory_pages(root, rules)
-        if len(inventory["pages"]) != len(claims):
-            raise AuditError("Benchmark inventory did not include every source")
-        normalized_claims = []
-        roots = {"warpdotdev/docs": root}
-        for claim in claims:
-            validate_public_claim(claim)
-            validate_claim_quote(claim, roots)
-            normalized_claims.append(normalize_claim(claim))
-        if len(normalized_claims) == 1:
-            return "gap"
-        candidates = generate_candidates(normalized_claims, rules)
-        if not candidates:
-            compatible, conflicts, _ = qualifier_compatibility(
-                normalized_claims[0]["qualifiers"],
-                normalized_claims[1]["qualifiers"],
+    fixture_path = benchmark_fixture_path(case, fixture_root)
+    extraction = validate_benchmark_fixture(fixture_path, rules)
+    normalized_claims = extraction["claims"]
+    verifications = extraction["adjudicated_findings"]
+    if len(normalized_claims) == 1:
+        if verifications:
+            raise AuditError("Single-claim benchmark cannot contain adjudication")
+        return "gap"
+    candidates = generate_candidates(normalized_claims, rules)
+    if not candidates:
+        if verifications:
+            raise AuditError("Non-candidate benchmark cannot contain adjudication")
+        compatible, conflicts, _ = qualifier_compatibility(
+            normalized_claims[0]["qualifiers"],
+            normalized_claims[1]["qualifiers"],
+        )
+        if "explicit-exception" in conflicts:
+            return "intentional-exception"
+        return "insufficient-evidence" if compatible else "not-related"
+    verification_by_id = {}
+    for verification in verifications:
+        candidate_id = verification.get("candidate_id")
+        if not candidate_id or candidate_id in verification_by_id:
+            raise AuditError(
+                "Benchmark adjudications require unique candidate IDs"
             )
-            if "explicit-exception" in conflicts:
-                return "intentional-exception"
-            return "insufficient-evidence" if compatible else "not-related"
-        candidate = candidates[0]
-        verdict = case.get("adjudication_override")
-        if not verdict:
-            verdict = (
-                "contradiction"
-                if candidate["exact_typed_mismatch"]
-                else "insufficient-evidence"
-            )
-        verification = {
-            "candidate_id": candidate["candidate_id"],
-            "title": case["id"],
-            "severity": case.get("severity", "low"),
-            "confidence": case.get("confidence", "high"),
-            "verdict": verdict,
-            "rationale": "Benchmark context verification.",
-            "rationale_class": "benchmark-context",
-            "canonical_source": candidate["authority"],
-            "authority_reason": "Benchmark authority precedence.",
-            "suggested_resolution": "Review the conflicting public claims.",
-            "suggested_resolution_class": "human-review",
-            "claim_ids": sorted(
-                claim["claim_id"] for claim in normalized_claims
-            ),
-            "scope_quotes": [
-                {"source": claim["source"], "quote": claim["quote"]}
-                for claim in normalized_claims
-            ],
-            "qualifier_status": case.get("qualifier_status", "complete"),
-            "context_complete": case.get("context_complete", True),
-        }
+        verification_by_id[candidate_id] = verification
+    candidate_by_id = {
+        candidate["candidate_id"]: candidate
+        for candidate in candidates
+    }
+    if set(verification_by_id) != set(candidate_by_id):
+        raise AuditError("Benchmark adjudication does not cover every candidate")
+    verdicts = []
+    roots = {"warpdotdev/docs": fixture_path.parent}
+    for candidate_id, candidate in candidate_by_id.items():
+        verification = verification_by_id[candidate_id]
         finding = verified_finding_from_candidate(
             candidate,
             verification,
@@ -2000,17 +2011,29 @@ def production_benchmark_case(case: dict[str, Any], rules: dict[str, Any]) -> st
             "benchmark",
             "benchmark",
         )
-        return finding["verdict"] if finding else verdict
+        verdicts.append(
+            finding["verdict"]
+            if finding
+            else verification["verdict"]
+        )
+    if len(set(verdicts)) != 1:
+        raise AuditError("Benchmark candidates produced inconsistent verdicts")
+    return verdicts[0]
 
 
 def benchmark_command(args: argparse.Namespace) -> int:
     benchmark = load_json(Path(args.cases))
     rules = load_json(Path(args.authority_rules))
+    fixture_root = Path(getattr(args, "fixture_root", REFERENCES_DIR))
     results = []
     for case in benchmark["cases"]:
         error = None
         try:
-            predicted = production_benchmark_case(case, rules)
+            predicted = production_benchmark_case(
+                case,
+                rules,
+                fixture_root,
+            )
         except AuditError as exc:
             predicted = "invalid-production-path"
             error = str(exc)
@@ -2328,6 +2351,7 @@ def build_parser() -> argparse.ArgumentParser:
     benchmark = subparsers.add_parser("benchmark", help="Score Falconer-derived and negative-control cases")
     benchmark.add_argument("--cases", default=str(DEFAULT_BENCHMARK))
     benchmark.add_argument("--authority-rules", default=str(DEFAULT_AUTHORITY_RULES))
+    benchmark.add_argument("--fixture-root", default=str(REFERENCES_DIR))
     benchmark.add_argument("--output", required=True)
     benchmark.set_defaults(func=benchmark_command)
     return parser

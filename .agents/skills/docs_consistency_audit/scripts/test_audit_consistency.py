@@ -8,6 +8,7 @@ import concurrent.futures
 import datetime as dt
 import importlib.util
 import json
+import shutil
 import tempfile
 import unittest
 from pathlib import Path
@@ -933,51 +934,110 @@ class AuthorityAdapterTests(unittest.TestCase):
 
 
 class BenchmarkProductionPathTests(unittest.TestCase):
-    def run_mutated_benchmark(self, mutate):
+    def run_mutated_benchmark(self, mutate, *, update_fixture_pin=True):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             benchmark = json.loads(audit.DEFAULT_BENCHMARK.read_text())
-            mutate(benchmark["cases"][0])
+            shutil.copytree(
+                audit.REFERENCES_DIR / "benchmark_fixtures",
+                root / "benchmark_fixtures",
+            )
+            case = benchmark["cases"][0]
+            fixture_path = root / case["fixture"]
+            extraction = json.loads(fixture_path.read_text())
+            mutate(case, extraction, fixture_path)
+            fixture_path.write_text(
+                json.dumps(extraction, indent=2, sort_keys=True) + "\n"
+            )
+            if update_fixture_pin:
+                case["fixture_sha256"] = audit.sha256_text(
+                    fixture_path.read_text()
+                )
             cases = root / "cases.json"
             output = root / "scorecard.json"
             cases.write_text(json.dumps(benchmark))
             args = type("Args", (), {
                 "cases": str(cases),
                 "authority_rules": str(audit.DEFAULT_AUTHORITY_RULES),
+                "fixture_root": str(root),
                 "output": str(output),
             })
             status = audit.benchmark_command(args)
             return status, json.loads(output.read_text())
 
-    def test_invalid_evidence_fails_production_path_gate(self):
-        def mutate(case):
-            case["compact"]["left_evidence_quote"] = "Unsupported paraphrase"
+    def test_path_quote_and_hash_mutations_fail_provenance(self):
+        mutations = {
+            "path": (
+                lambda extraction: extraction["claims"][0]["source"].update({
+                    "path": "missing.mdx",
+                }),
+                "Claim source does not exist",
+            ),
+            "quote": (
+                lambda extraction: extraction["claims"][0].update({
+                    "quote": "Unsupported paraphrase",
+                }),
+                "Claim quote is not an exact source substring",
+            ),
+            "hash": (
+                lambda extraction: extraction["claims"][0]["source"].update({
+                    "content_sha256": "0" * 64,
+                }),
+                "Claim source hash is stale",
+            ),
+        }
+        for name, (mutate_extraction, expected_error) in mutations.items():
+            with self.subTest(name=name):
+                status, scorecard = self.run_mutated_benchmark(
+                    lambda _case, extraction, _path: mutate_extraction(
+                        extraction
+                    )
+                )
+                first = scorecard["cases"][0]
+                self.assertEqual(status, 1)
+                self.assertEqual(first["predicted"], "invalid-production-path")
+                self.assertIn(
+                    expected_error,
+                    first["production_path_error"],
+                )
+                self.assertFalse(
+                    scorecard["thresholds"]["production_path_has_no_errors"]
+                )
 
-        status, scorecard = self.run_mutated_benchmark(mutate)
+    def test_unpinned_extraction_mutation_fails_fixture_fingerprint(self):
+        status, scorecard = self.run_mutated_benchmark(
+            lambda _case, extraction, _path: extraction.update({
+                "model_identifier": "mutated",
+            }),
+            update_fixture_pin=False,
+        )
         first = scorecard["cases"][0]
         self.assertEqual(status, 1)
         self.assertEqual(first["predicted"], "invalid-production-path")
         self.assertIn(
-            "Claim quote is not an exact source substring",
+            "extraction fixture fingerprint mismatch",
             first["production_path_error"],
         )
-        self.assertFalse(scorecard["thresholds"]["production_path_has_no_errors"])
 
     def test_extraction_failure_fails_production_path_gate(self):
         status, scorecard = self.run_mutated_benchmark(
-            lambda case: case.update({"extraction_failed": True})
+            lambda _case, extraction, _path: extraction.update({
+                "extraction_failures": ["injected extraction failure"],
+            })
         )
         first = scorecard["cases"][0]
         self.assertEqual(status, 1)
         self.assertEqual(first["predicted"], "invalid-production-path")
-        self.assertIn("extraction failed", first["production_path_error"])
+        self.assertIn("unresolved failures", first["production_path_error"])
         self.assertFalse(scorecard["thresholds"]["production_path_has_no_errors"])
 
     def test_incorrect_adjudication_fails_falconer_gate(self):
         status, scorecard = self.run_mutated_benchmark(
-            lambda case: case.update({
-                "adjudication_override": "insufficient-evidence",
-            })
+            lambda _case, extraction, _path: (
+                extraction["adjudicated_findings"][0].update({
+                    "verdict": "insufficient-evidence",
+                })
+            )
         )
         first = scorecard["cases"][0]
         self.assertEqual(status, 1)

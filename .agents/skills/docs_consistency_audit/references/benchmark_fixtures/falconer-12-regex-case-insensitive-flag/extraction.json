@@ -1,0 +1,117 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:b53b25bd083f75a318945221538c285355a8d1420aceeb0e14eea9e41ae52900",
+      "canonical_source": "docs-prose",
+      "claim_ids": [
+        "sha256:db65fb8007d6987dc3e0706f1882ca7f330d6f7c8f70dfdd4b9a1be9eb1c9eb8",
+        "sha256:dd1d3efcb982976a591faba9fcb9b6662d52c49e60cf4826954db4f71254b419"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "Secret redaction regexes are case-sensitive by default",
+          "source": {
+            "content_sha256": "14f0008dd658865d25cbfd70db3f9e51e0e7e071c966c2459f2a7549cde014a8",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-12-regex-case-insensitive-flag-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "(?i)password to ensure that PASSWORD, Password, and password would all match",
+          "source": {
+            "content_sha256": "2d1508a9b0718cd450fe563a7cbfd0a014a3a10bb13478fd6dbdbb72c388ce69",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-12-regex-case-insensitive-flag-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "high",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-12-regex-case-insensitive-flag",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "security",
+      "entity": "secret-redaction-regex-i-flag",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "case-sensitive",
+      "qualifiers": {},
+      "quote": "Secret redaction regexes are case-sensitive by default",
+      "source": {
+        "content_sha256": "14f0008dd658865d25cbfd70db3f9e51e0e7e071c966c2459f2a7549cde014a8",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-12-regex-case-insensitive-flag-left",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "entity": "secret-redaction-regex-i-flag",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "case-sensitive",
+      "qualifiers": {},
+      "quote": "(?i)password to ensure that PASSWORD, Password, and password would all match",
+      "source": {
+        "content_sha256": "2d1508a9b0718cd450fe563a7cbfd0a014a3a10bb13478fd6dbdbb72c388ce69",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-12-regex-case-insensitive-flag-right",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "14f0008dd658865d25cbfd70db3f9e51e0e7e071c966c2459f2a7549cde014a8",
+    "right.mdx": "2d1508a9b0718cd450fe563a7cbfd0a014a3a10bb13478fd6dbdbb72c388ce69"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}
