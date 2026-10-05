@@ -232,7 +232,7 @@ Yes. LLM inference routes through Warp's backend, which has [Zero Data Retention
 The [unmanaged architecture](/platform/self-hosting/unmanaged/) is well-suited for large monorepos because agents run directly in your pre-provisioned environment — there is no Docker image build or repo cloning step. For the [managed architecture](/platform/self-hosting/#managed-architecture), the Docker backend supports volume mounts (`-v` flag) to mount a pre-existing repo checkout from the host into task containers. With the Kubernetes backend, use `pod_template` to configure persistent volume claims or pre-populated storage for the same purpose.
 
 :::note
-The managed architecture supports three execution backends: **Docker** (default), **Kubernetes**, and **Direct** (no container runtime). The Kubernetes backend runs each task as a Kubernetes Job and includes a Helm chart for deployment. See [Self-hosting](/platform/self-hosting/#choosing-a-managed-backend) for details on choosing a backend.
+The managed architecture supports four backends: **Docker** (default), **Kubernetes**, **Direct**, and **Command**. Use one-shot Direct when an external scheduler starts a worker for each job, or Command when a connected worker dispatches tasks to an external runtime. See [choosing a managed backend](/platform/self-hosting/#choosing-a-managed-backend).
 :::
 
 ### Do Kubernetes pods provide enough sandboxing for self-hosted agents?

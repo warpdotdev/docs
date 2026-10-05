@@ -16,7 +16,7 @@ Self-hosted execution keeps repository clones, source files, build artifacts, ru
 * Repository clones and source files.
 * Build artifacts and compiled outputs.
 * Runtime secrets and environment variables.
-* Container filesystem state (managed architecture) or host workspace (Direct backend / unmanaged).
+* Container, host, or external-runtime workspace state.
 
 **Routes through Warp's backend** (under [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr)):
 
@@ -43,7 +43,7 @@ Self-hosted agents **do not require any network ingress**. They require outbound
 * `sessions.app.warp.dev` — port 443
 * `oz.warp.dev` — port 443 (managed architecture only)
 
-Docker Hub — for pulling task images (managed architecture only).
+Docker Hub — for pulling task images with the Docker and Kubernetes backends.
 
 Tasks use the following Docker images:
 * [`warpdotdev/warp-agent:latest`](https://hub.docker.com/r/warpdotdev/warp-agent)
