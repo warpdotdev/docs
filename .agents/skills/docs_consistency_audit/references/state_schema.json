@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://docs.warp.dev/schemas/docs-consistency-audit-state-v1.json",
+  "title": "Docs consistency audit generated state",
+  "type": "object",
+  "required": [
+    "manifest",
+    "findings",
+    "claims"
+  ],
+  "properties": {
+    "manifest": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "extractor_version",
+        "model_contract_version",
+        "authority_rules_version",
+        "model_identifier",
+        "source_repositories",
+        "coverage",
+        "page_shards"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "coverage": {
+          "enum": [
+            "complete",
+            "partial",
+            "blocked"
+          ]
+        },
+        "page_shards": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^claims/[a-f0-9]{64}\\.json$"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "findings": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "findings"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "findings": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/finding"
+          }
+        }
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/claim"
+      }
+    }
+  },
+  "$defs": {
+    "claim": {
+      "type": "object",
+      "required": [
+        "claim_id",
+        "claim_content_fingerprint",
+        "source",
+        "topic",
+        "entity",
+        "predicate",
+        "value",
+        "qualifiers",
+        "polarity",
+        "quote",
+        "source_class"
+      ],
+      "properties": {
+        "claim_id": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "claim_content_fingerprint": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "polarity": {
+          "enum": [
+            "affirmative",
+            "negative"
+          ]
+        }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "required": [
+        "finding_id",
+        "finding_content_fingerprint",
+        "title",
+        "category",
+        "severity",
+        "confidence",
+        "lifecycle",
+        "status",
+        "claims"
+      ],
+      "properties": {
+        "finding_id": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "finding_content_fingerprint": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "severity": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "lifecycle": {
+          "enum": [
+            "new",
+            "existing",
+            "changed",
+            "resolved"
+          ]
+        },
+        "status": {
+          "enum": [
+            "active",
+            "resolved"
+          ]
+        },
+        "claims": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/claim"
+          }
+        }
+      }
+    }
+  }
+}

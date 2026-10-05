@@ -1,0 +1,800 @@
+{
+  "version": 1,
+  "source": "https://falconer.com/audits/warp.html",
+  "cases": [
+    {
+      "id": "falconer-01-codebase-file-limit",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "high",
+      "confidence": "high",
+      "policy_domain": "billing-policy",
+      "compact": {
+        "category": "plan-gating",
+        "topic": "plan-gating",
+        "entity": "codebase-context",
+        "predicate": "free-files-per-codebase",
+        "value_type": "integer",
+        "left_value": 5000,
+        "right_value": 3000,
+        "left_quote": "All plans support indexing at least 5,000 files per codebase",
+        "right_quote": "Files per codebase | 3,000",
+        "left_path": "src/content/docs/agents/capabilities/codebase-context.mdx",
+        "right_path": "src/content/docs/pricing.mdx",
+        "right_source_class": "live-pricing",
+        "left_qualifiers": {
+          "plans": [
+            "all"
+          ]
+        },
+        "right_qualifiers": {
+          "plans": [
+            "free"
+          ]
+        }
+      }
+    },
+    {
+      "id": "falconer-02-scheduled-run-billing-owner",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "high",
+      "confidence": "high",
+      "policy_domain": "billing-policy",
+      "compact": {
+        "category": "billing",
+        "topic": "billing",
+        "entity": "scheduled-cloud-run",
+        "predicate": "billed-party",
+        "value_type": "enum",
+        "left_value": [
+          "team-shared-balance"
+        ],
+        "right_value": [
+          "team-owner"
+        ],
+        "left_quote": "All usage is billed to the team’s shared credit balance.",
+        "right_quote": "these runs are billed to the team owner",
+        "left_path": "src/content/docs/platform/triggers/scheduled-agents.mdx",
+        "right_path": "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx",
+        "right_source_class": "faq",
+        "left_qualifiers": {
+          "actors": [
+            "scheduled"
+          ]
+        },
+        "right_qualifiers": {
+          "actors": [
+            "scheduled"
+          ],
+          "plans": [
+            "build",
+            "max",
+            "business"
+          ]
+        }
+      }
+    },
+    {
+      "id": "falconer-03-api-key-credit-waterfall",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "high",
+      "confidence": "high",
+      "policy_domain": "billing-policy",
+      "compact": {
+        "category": "billing",
+        "topic": "billing",
+        "entity": "agent-api-key-run",
+        "predicate": "credit-waterfall",
+        "value_type": "ordered-list",
+        "left_value": [
+          "owner-plan",
+          "owner-add-on"
+        ],
+        "right_value": [
+          "owner-plan",
+          "team-shared-add-on"
+        ],
+        "left_quote": "the owner’s plan-included credits, then the owner’s add-on credits",
+        "right_quote": "the owner’s plan-included credits, then the team’s shared add-on credit pool",
+        "left_path": "src/content/docs/reference/cli/api-keys.mdx",
+        "right_path": "src/content/docs/platform/team-access-billing-and-identity.mdx",
+        "left_qualifiers": {
+          "actors": [
+            "api-key"
+          ]
+        },
+        "right_qualifiers": {
+          "actors": [
+            "api-key"
+          ]
+        }
+      }
+    },
+    {
+      "id": "falconer-04-user-credit-waterfall",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "high",
+      "confidence": "high",
+      "policy_domain": "billing-policy",
+      "compact": {
+        "category": "billing",
+        "topic": "billing",
+        "entity": "user-triggered-run",
+        "predicate": "credit-waterfall",
+        "value_type": "ordered-list",
+        "left_value": [
+          "cloud-agent-credits",
+          "plan-credits",
+          "team-add-on"
+        ],
+        "right_value": [
+          "plan-credits",
+          "team-add-on"
+        ],
+        "left_quote": "Warp draws from any cloud agent credits the user has, then the user’s plan-included credits",
+        "right_quote": "The triggering user’s monthly credits included with their plan.",
+        "left_path": "src/content/docs/platform/team-access-billing-and-identity.mdx",
+        "right_path": "src/content/docs/platform/team-access-billing-and-identity.mdx",
+        "left_qualifiers": {
+          "actors": [
+            "user-triggered"
+          ]
+        },
+        "right_qualifiers": {
+          "actors": [
+            "user-triggered"
+          ]
+        }
+      }
+    },
+    {
+      "id": "falconer-05-customer-data-training",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "high",
+      "confidence": "high",
+      "policy_domain": "privacy",
+      "compact": {
+        "category": "privacy",
+        "topic": "privacy",
+        "entity": "customer-ai-data",
+        "predicate": "used-for-training",
+        "value_type": "boolean",
+        "left_value": true,
+        "right_value": false,
+        "left_quote": "Warp reserves the right to use data collected to train models",
+        "right_quote": "No customer AI data is retained, stored, or used for training.",
+        "left_path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "right_path": "src/content/docs/index.mdx",
+        "left_source_class": "faq",
+        "right_source_class": "canonical-doc"
+      }
+    },
+    {
+      "id": "falconer-06-secret-redaction-default",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "high",
+      "confidence": "high",
+      "policy_domain": "security",
+      "compact": {
+        "category": "security",
+        "topic": "security",
+        "entity": "secret-redaction",
+        "predicate": "default-enabled",
+        "value_type": "boolean",
+        "left_value": true,
+        "right_value": false,
+        "left_quote": "Warp unconditionally applies Secret Redaction in all AI interactions",
+        "right_quote": "Disabled by default, to enable Secret Redaction",
+        "left_path": "src/content/docs/support-and-community/privacy-and-security/privacy.mdx",
+        "right_path": "src/content/docs/support-and-community/privacy-and-security/secret-redaction.mdx",
+        "left_source_class": "public-privacy-policy",
+        "right_source_class": "canonical-doc"
+      }
+    },
+    {
+      "id": "falconer-07-free-telemetry-zdr",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "high",
+      "confidence": "high",
+      "policy_domain": "privacy",
+      "compact": {
+        "category": "privacy",
+        "topic": "privacy",
+        "entity": "free-plan-ai",
+        "predicate": "works-with-telemetry-disabled",
+        "value_type": "boolean",
+        "left_value": true,
+        "right_value": false,
+        "left_quote": "Any user can enable full ZDR for their own account by disabling Help Improve Warp",
+        "right_quote": "Telemetry must be enabled to use AI features on the Free plan",
+        "left_path": "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx",
+        "right_path": "src/content/docs/support-and-community/privacy-and-security/privacy.mdx",
+        "left_source_class": "faq",
+        "right_source_class": "public-privacy-policy",
+        "left_qualifiers": {
+          "plans": [
+            "all"
+          ]
+        },
+        "right_qualifiers": {
+          "plans": [
+            "free"
+          ]
+        }
+      }
+    },
+    {
+      "id": "falconer-08-free-third-party-harness",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "high",
+      "confidence": "high",
+      "policy_domain": "billing-policy",
+      "compact": {
+        "category": "plan-gating",
+        "topic": "plan-gating",
+        "entity": "third-party-cloud-harness",
+        "predicate": "available-on-free",
+        "value_type": "boolean",
+        "left_value": true,
+        "right_value": false,
+        "left_quote": "Use any harness in the cloud (beta)",
+        "right_quote": "Third-party harnesses require a Build plan or higher.",
+        "left_path": "src/content/docs/pricing.mdx",
+        "right_path": "src/content/docs/platform/harnesses.mdx",
+        "left_source_class": "live-pricing",
+        "left_qualifiers": {
+          "plans": [
+            "free"
+          ]
+        },
+        "right_qualifiers": {
+          "plans": [
+            "free"
+          ]
+        }
+      }
+    },
+    {
+      "id": "falconer-09-cloud-image-attachments",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "medium",
+      "confidence": "high",
+      "compact": {
+        "category": "cli",
+        "topic": "cli",
+        "entity": "run-cloud-image-attachments",
+        "predicate": "supported",
+        "value_type": "boolean",
+        "left_value": true,
+        "right_value": false,
+        "left_quote": "--attach <PATH> — attach an image file to the agent query",
+        "right_quote": "Cloud agent conversations do not currently support image attachments.",
+        "left_path": "src/content/docs/reference/cli.mdx",
+        "right_path": "src/content/docs/platform/faqs.mdx",
+        "left_source_class": "generated-visible-help",
+        "right_source_class": "faq",
+        "left_qualifiers": {
+          "environments": [
+            "cloud"
+          ]
+        },
+        "right_qualifiers": {
+          "environments": [
+            "cloud"
+          ]
+        }
+      }
+    },
+    {
+      "id": "falconer-10-create-run-path",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "high",
+      "confidence": "high",
+      "compact": {
+        "category": "api",
+        "topic": "api",
+        "entity": "create-agent-run",
+        "predicate": "path",
+        "value_type": "path",
+        "left_value": "/agent/run",
+        "right_value": "/agent/runs",
+        "left_quote": "POST /agent/run",
+        "right_quote": "POST /agent/runs",
+        "left_path": "developers/agent-api-openapi.yaml",
+        "right_path": "developers/agent-api-openapi.yaml",
+        "left_source_class": "released-openapi",
+        "right_source_class": "released-openapi"
+      }
+    },
+    {
+      "id": "falconer-11-run-filter-parameter",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "high",
+      "confidence": "high",
+      "compact": {
+        "category": "api",
+        "topic": "api",
+        "entity": "list-runs-config-filter",
+        "predicate": "parameter-name",
+        "value_type": "parameter",
+        "left_value": "name",
+        "right_value": "config_name",
+        "left_quote": "Use the name query parameter on GET /agent/runs",
+        "right_quote": "filters for state, config_name, model_id",
+        "left_path": "src/content/docs/reference/api-and-sdk/index.mdx",
+        "right_path": "src/content/docs/reference/api-and-sdk/index.mdx",
+        "left_source_class": "released-openapi"
+      }
+    },
+    {
+      "id": "falconer-12-regex-case-insensitive-flag",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "high",
+      "confidence": "high",
+      "policy_domain": "security",
+      "compact": {
+        "category": "security",
+        "topic": "security",
+        "entity": "secret-redaction-regex-i-flag",
+        "predicate": "case-sensitive",
+        "value_type": "boolean",
+        "left_value": true,
+        "right_value": false,
+        "left_quote": "Secret redaction regexes are case-sensitive by default",
+        "right_quote": "(?i)password to ensure that PASSWORD, Password, and password would all match",
+        "left_path": "src/content/docs/support-and-community/privacy-and-security/secret-redaction.mdx",
+        "right_path": "src/content/docs/support-and-community/privacy-and-security/secret-redaction.mdx"
+      }
+    },
+    {
+      "id": "falconer-13-fish-windows-support",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "medium",
+      "confidence": "high",
+      "compact": {
+        "category": "product-behavior",
+        "topic": "product-behavior",
+        "entity": "fish-shell",
+        "predicate": "supported",
+        "value_type": "boolean",
+        "left_value": true,
+        "right_value": false,
+        "left_quote": "Warp supports bash, zsh, fish, and PowerShell (pwsh) across macOS, Windows, and Linux",
+        "right_quote": "cmd.exe or fish shells",
+        "left_path": "src/content/docs/getting-started/supported-shells.mdx",
+        "right_path": "src/content/docs/support-and-community/troubleshooting-and-support/known-issues.mdx",
+        "left_qualifiers": {
+          "operating_systems": [
+            "windows"
+          ]
+        },
+        "right_qualifiers": {
+          "operating_systems": [
+            "windows"
+          ]
+        }
+      }
+    },
+    {
+      "id": "falconer-14-ventura-update-status",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "medium",
+      "confidence": "high",
+      "compact": {
+        "category": "product-behavior",
+        "topic": "product-behavior",
+        "entity": "ventura-auto-update-issue",
+        "predicate": "lifecycle-status",
+        "value_type": "enum",
+        "left_value": [
+          "open"
+        ],
+        "right_value": [
+          "resolved"
+        ],
+        "left_quote": "There is a known issue with auto-update on macOS Ventura.",
+        "right_quote": "This issue has been resolved for current and future releases of Warp.",
+        "left_path": "src/content/docs/support-and-community/troubleshooting-and-support/updating-warp.mdx",
+        "right_path": "src/content/docs/support-and-community/troubleshooting-and-support/known-issues.mdx",
+        "left_qualifiers": {
+          "operating_systems": [
+            "macos"
+          ]
+        },
+        "right_qualifiers": {
+          "operating_systems": [
+            "macos"
+          ]
+        }
+      }
+    },
+    {
+      "id": "falconer-15-team-deletion-add-on-credits",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "high",
+      "confidence": "high",
+      "policy_domain": "billing-policy",
+      "compact": {
+        "category": "billing",
+        "topic": "billing",
+        "entity": "team-add-on-credits",
+        "predicate": "deletion-behavior",
+        "value_type": "enum",
+        "left_value": [
+          "deletion-blocked"
+        ],
+        "right_value": [
+          "credits-forfeited"
+        ],
+        "left_quote": "Any remaining add-on credits must be used or removed before a team can be deleted.",
+        "right_quote": "Any remaining add-on credits tied to the team are no longer usable by anyone.",
+        "left_path": "src/content/docs/support-and-community/plans-and-billing/add-on-credits.mdx",
+        "right_path": "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx",
+        "right_source_class": "faq"
+      }
+    },
+    {
+      "id": "falconer-16-cli-auto-update-homebrew",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "medium",
+      "confidence": "high",
+      "compact": {
+        "category": "cli",
+        "topic": "cli",
+        "entity": "warp-agent-cli",
+        "predicate": "self-updates",
+        "value_type": "boolean",
+        "left_value": true,
+        "right_value": false,
+        "left_quote": "The CLI updates automatically.",
+        "right_quote": "Homebrew installations don't update themselves.",
+        "left_path": "src/content/docs/agents/cli/reference.mdx",
+        "right_path": "src/content/docs/agents/cli/quickstart.mdx",
+        "right_qualifiers": {
+          "install_methods": [
+            "homebrew"
+          ]
+        }
+      }
+    },
+    {
+      "id": "falconer-17-redaction-unconditional-toggle",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "high",
+      "confidence": "high",
+      "policy_domain": "security",
+      "compact": {
+        "category": "security",
+        "topic": "security",
+        "entity": "secret-redaction",
+        "predicate": "always-applied",
+        "value_type": "boolean",
+        "left_value": true,
+        "right_value": false,
+        "left_quote": "Warp unconditionally applies Secret Redaction",
+        "right_quote": "Toggled on/off the setting for Secret Redaction",
+        "left_path": "src/content/docs/support-and-community/privacy-and-security/privacy.mdx",
+        "right_path": "src/content/docs/support-and-community/privacy-and-security/privacy.mdx",
+        "left_source_class": "public-privacy-policy"
+      }
+    },
+    {
+      "id": "falconer-18-default-profile-mcp",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "medium",
+      "confidence": "high",
+      "compact": {
+        "category": "cli",
+        "topic": "cli",
+        "entity": "default-agent-profile",
+        "predicate": "loads-mcp-servers",
+        "value_type": "boolean",
+        "left_value": true,
+        "right_value": false,
+        "left_quote": "loads any available MCP servers",
+        "right_quote": "The agent does not have the ability to use MCP servers by default.",
+        "left_path": "src/content/docs/reference/cli/quickstart.mdx",
+        "right_path": "src/content/docs/reference/cli/agent-profiles.mdx"
+      }
+    },
+    {
+      "id": "falconer-19-ssh-wrapper-shell",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "medium",
+      "confidence": "high",
+      "compact": {
+        "category": "product-behavior",
+        "topic": "product-behavior",
+        "entity": "legacy-ssh-wrapper",
+        "predicate": "supported-shells",
+        "value_type": "enum",
+        "left_value": [
+          "bash"
+        ],
+        "right_value": [
+          "bash",
+          "zsh"
+        ],
+        "left_quote": "When you SSH, we start a bash shell on the remote host.",
+        "right_quote": "only bash or zsh shells are supported",
+        "left_path": "src/content/docs/support-and-community/troubleshooting-and-support/known-issues.mdx",
+        "right_path": "src/content/docs/terminal/warpify/ssh-legacy.mdx",
+        "left_qualifiers": {
+          "legacy": true,
+          "environments": [
+            "ssh"
+          ]
+        },
+        "right_qualifiers": {
+          "legacy": true,
+          "environments": [
+            "ssh"
+          ]
+        }
+      }
+    },
+    {
+      "id": "falconer-20-stale-cli-migration",
+      "group": "falconer",
+      "expected": "delegated",
+      "severity": "low",
+      "confidence": "high",
+      "delegated_to": "style_lint"
+    },
+    {
+      "id": "falconer-21-finalized-concurrency-limits",
+      "group": "falconer",
+      "expected": "contradiction",
+      "severity": "medium",
+      "confidence": "high",
+      "compact": {
+        "category": "plan-gating",
+        "topic": "plan-gating",
+        "entity": "cloud-agent-concurrency",
+        "predicate": "published-status",
+        "value_type": "enum",
+        "left_value": [
+          "not-finalized"
+        ],
+        "right_value": [
+          "published"
+        ],
+        "left_quote": "Concurrency limits and credit allocation details are still being finalized",
+        "right_quote": "20 concurrent cloud agents",
+        "left_path": "src/content/docs/platform/faqs.mdx",
+        "right_path": "src/content/docs/pricing.mdx",
+        "left_source_class": "faq",
+        "right_source_class": "live-pricing"
+      }
+    },
+    {
+      "id": "falconer-22-reload-credit-terminology",
+      "group": "falconer",
+      "expected": "delegated",
+      "severity": "low",
+      "confidence": "high",
+      "delegated_to": "style_lint"
+    },
+    {
+      "id": "falconer-23-session-sharing-redirect-stub",
+      "group": "falconer",
+      "expected": "delegated",
+      "severity": "low",
+      "confidence": "high",
+      "delegated_to": "check_for_broken_links"
+    },
+    {
+      "id": "falconer-24-fireworks-zdr-provider-gap",
+      "group": "falconer",
+      "expected": "gap",
+      "severity": "high",
+      "confidence": "medium",
+      "policy_domain": "privacy",
+      "single_claim_classification": "gap",
+      "claims": [
+        {
+          "source": {
+            "repository": "warpdotdev/docs",
+            "path": "src/content/docs/support-and-community/privacy-and-security/security.mdx",
+            "heading": "Zero Data Retention",
+            "line_start": 1,
+            "line_end": 1
+          },
+          "category": "privacy",
+          "topic": "privacy",
+          "entity": "zdr-provider-list",
+          "predicate": "includes-fireworks-ai",
+          "value": {
+            "type": "boolean",
+            "normalized": false
+          },
+          "qualifiers": {},
+          "polarity": "affirmative",
+          "quote": "Anthropic, OpenAI, Google, xAI",
+          "source_class": "public-security-policy"
+        }
+      ]
+    },
+    {
+      "id": "negative-plan-specific-difference",
+      "group": "negative-control",
+      "expected": "not-related",
+      "compact": {
+        "topic": "plan-gating",
+        "entity": "codebase-context",
+        "predicate": "files-per-codebase",
+        "value_type": "integer",
+        "left_value": 3000,
+        "right_value": 100000,
+        "left_quote": "Free supports 3,000 files.",
+        "right_quote": "Build supports 100,000 files.",
+        "left_path": "fixtures/free.mdx",
+        "right_path": "fixtures/build.mdx",
+        "left_qualifiers": {
+          "plans": [
+            "free"
+          ]
+        },
+        "right_qualifiers": {
+          "plans": [
+            "build"
+          ]
+        }
+      }
+    },
+    {
+      "id": "negative-operating-system-difference",
+      "group": "negative-control",
+      "expected": "not-related",
+      "compact": {
+        "topic": "product-behavior",
+        "entity": "shell",
+        "predicate": "supported",
+        "value_type": "boolean",
+        "left_value": true,
+        "right_value": false,
+        "left_quote": "fish is supported on macOS.",
+        "right_quote": "fish is not supported on Windows.",
+        "left_path": "fixtures/macos.mdx",
+        "right_path": "fixtures/windows.mdx",
+        "left_qualifiers": {
+          "operating_systems": [
+            "macos"
+          ]
+        },
+        "right_qualifiers": {
+          "operating_systems": [
+            "windows"
+          ]
+        }
+      }
+    },
+    {
+      "id": "negative-version-difference",
+      "group": "negative-control",
+      "expected": "not-related",
+      "compact": {
+        "topic": "cli",
+        "entity": "flag",
+        "predicate": "available",
+        "value_type": "boolean",
+        "left_value": false,
+        "right_value": true,
+        "left_quote": "The flag is unavailable before 1.2.",
+        "right_quote": "The flag is available in 1.2.",
+        "left_path": "fixtures/v1.mdx",
+        "right_path": "fixtures/v2.mdx",
+        "left_qualifiers": {
+          "versions": [
+            "<1.2"
+          ]
+        },
+        "right_qualifiers": {
+          "versions": [
+            ">=1.2"
+          ]
+        }
+      }
+    },
+    {
+      "id": "negative-install-method-difference",
+      "group": "negative-control",
+      "expected": "not-related",
+      "compact": {
+        "topic": "cli",
+        "entity": "updater",
+        "predicate": "self-updates",
+        "value_type": "boolean",
+        "left_value": true,
+        "right_value": false,
+        "left_quote": "Direct installs update automatically.",
+        "right_quote": "Homebrew installs do not update automatically.",
+        "left_path": "fixtures/direct.mdx",
+        "right_path": "fixtures/homebrew.mdx",
+        "left_qualifiers": {
+          "install_methods": [
+            "direct"
+          ]
+        },
+        "right_qualifiers": {
+          "install_methods": [
+            "homebrew"
+          ]
+        }
+      }
+    },
+    {
+      "id": "negative-legacy-difference",
+      "group": "negative-control",
+      "expected": "not-related",
+      "compact": {
+        "topic": "product-behavior",
+        "entity": "ssh",
+        "predicate": "wrapper",
+        "value_type": "enum",
+        "left_value": [
+          "legacy"
+        ],
+        "right_value": [
+          "current"
+        ],
+        "left_quote": "The legacy wrapper starts bash.",
+        "right_quote": "The current SSH implementation uses the configured shell.",
+        "left_path": "fixtures/legacy.mdx",
+        "right_path": "fixtures/current.mdx",
+        "left_qualifiers": {
+          "legacy": true
+        },
+        "right_qualifiers": {
+          "legacy": false
+        }
+      }
+    },
+    {
+      "id": "negative-intentional-exception",
+      "group": "negative-control",
+      "expected": "intentional-exception",
+      "intentional_exception": true,
+      "compact": {
+        "topic": "product-behavior",
+        "entity": "attachments",
+        "predicate": "maximum",
+        "value_type": "integer",
+        "left_value": 5,
+        "right_value": 1,
+        "left_quote": "You can attach up to five images, except API-key runs.",
+        "right_quote": "API-key runs accept one image.",
+        "left_path": "fixtures/general.mdx",
+        "right_path": "fixtures/exception.mdx",
+        "left_qualifiers": {
+          "exceptions": [
+            "api-key-runs"
+          ]
+        },
+        "right_qualifiers": {
+          "actors": [
+            "api-key"
+          ]
+        }
+      }
+    }
+  ]
+}
