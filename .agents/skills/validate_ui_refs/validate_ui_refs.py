@@ -2151,6 +2151,9 @@ _RE_EDITABLE_BINDING = re.compile(
     r'EditableBinding::new\(\s*"([^"]+)",\s*'
     r'(?:BindingDescription::new\(\s*"([^"]+)"|"([^"]+)")'
 )
+_RE_TOGGLE_SETTING_ACTION_PAIR = re.compile(
+    r'ToggleSettingActionPair::new\(\s*"((?:[^"\\]|\\.)*)"'
+)
 
 
 def _iter_binding_source_files(warp_repo: Path):
@@ -2182,7 +2185,7 @@ def _iter_binding_source_files(warp_repo: Path):
 
 
 def _extract_command_palette_commands(warp_repo: Path) -> List[Dict[str, str]]:
-    """Parse EditableBinding registrations to extract command palette commands."""
+    """Parse binding registrations to extract command palette commands."""
     commands = []
     seen_descriptions = set()
 
@@ -2201,6 +2204,14 @@ def _extract_command_palette_commands(warp_repo: Path) -> List[Dict[str, str]]:
                 continue
             commands.append({"name": name, "description": desc})
             seen_descriptions.add(desc)
+        for m in _RE_TOGGLE_SETTING_ACTION_PAIR.finditer(text):
+            suffix = m.group(1)
+            for verb in ("Enable", "Disable"):
+                desc = f"{verb} {suffix}"
+                if desc in seen_descriptions:
+                    continue
+                commands.append({"name": desc, "description": desc})
+                seen_descriptions.add(desc)
 
     return commands
 

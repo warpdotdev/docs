@@ -241,6 +241,36 @@ class TestSnapshotProvenance(unittest.TestCase):
             _run(["git", "remote", "add", "origin", "https://github.com/warpdotdev/warp.git"], repo)
             self.assertEqual(vur._resolve_source_repository(repo), "warpdotdev/warp")
 
+class TestCommandPaletteExtraction(unittest.TestCase):
+    def test_extracts_enable_and_disable_actions_from_toggle_setting_pairs(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            warp_repo = Path(tmp)
+            source_dir = warp_repo / "app" / "src"
+            source_dir.mkdir(parents=True)
+            (source_dir / "settings.rs").write_text(
+                """
+                ToggleSettingActionPair::new(
+                    "editing commands with Vim keybindings",
+                    action,
+                    context,
+                    flag,
+                );
+                """,
+                encoding="utf-8",
+            )
+
+            descriptions = {
+                command["description"]
+                for command in vur._extract_command_palette_commands(warp_repo)
+            }
+
+            self.assertIn(
+                "Enable editing commands with Vim keybindings", descriptions
+            )
+            self.assertIn(
+                "Disable editing commands with Vim keybindings", descriptions
+            )
+
 
 class TestUnresolvedIssueSignature(unittest.TestCase):
     """Regression for QUALITY-2038: the `UI Reference Validation Report` Slack
