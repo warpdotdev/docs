@@ -36,6 +36,7 @@ Complete the shared [managed prerequisites](/platform/self-hosting/#managed-prer
   * Allow the task namespace to create Jobs with a **root init container**, unless you enable native image volumes with `kubernetesBackend.useImageVolumes=true`.
   * Grant the worker these namespace-scoped permissions: `create`, `get`, `list`, `watch`, `delete` on `jobs`; `get`, `list`, `watch` on `pods`; `get` on `pods/log`; `list` on `events`.
 * **[Helm](https://helm.sh/docs/intro/install/)** - Install Helm locally and authenticate `kubectl` against the target cluster.
+* **Task images** - Use a glibc-based image, such as Debian, Ubuntu, or a non-Alpine variant of an official image. Musl-based images such as Alpine Linux are not supported. Add required tools, binaries, scripts, and system packages to the [environment's custom image](/platform/environments/).
 
 ---
 
@@ -121,7 +122,7 @@ To scale horizontally, deploy multiple Helm releases with distinct worker IDs ra
 **Kubernetes backend:**
 
 * `kubernetesBackend.namespace` — Namespace for task Jobs. Defaults to the release namespace.
-* `kubernetesBackend.defaultImage` — Default Docker image for task pods when no [Warp environment](/platform/environments/) has been supplied. Leave empty (default) to fall back to `ubuntu:22.04`.
+* `kubernetesBackend.defaultImage` — Default Docker image for task pods when no [Warp environment](/platform/environments/) has been supplied. Set it when all tasks use the same base image and you don't need a Warp environment. Leave empty (default) to fall back to `ubuntu:22.04`.
 * `kubernetesBackend.imagePullPolicy` — Image pull policy for task pods. Defaults to `IfNotPresent`.
 * `kubernetesBackend.useImageVolumes` — Use native Kubernetes image volumes instead of root init containers to materialize sidecars. Defaults to `false`.
 * `kubernetesBackend.preflightImage` — Image for the startup preflight Job. Set this if your cluster restricts allowed registries.

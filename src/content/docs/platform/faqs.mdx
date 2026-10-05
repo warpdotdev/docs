@@ -49,9 +49,9 @@ If you're not happy with where it landed, you can take over to finish the task. 
 
 Yes. [Codebase Context](/agents/capabilities/codebase-context/) is enabled for all cloud agent runs, as long as Codebase Context is enabled for your account. This includes runs triggered from the CLI, API/SDK, integrations (Slack, Linear, GitHub Actions), and schedules. No additional configuration is needed — if Codebase Context is enabled, cloud agents use it automatically.
 
-### What shell and browser automation can I use in a cloud agent environment?
+### Can I access a shell inside a cloud agent environment? Are there limitations (Docker, Playwright, etc.)?
 
-Cloud agent runs execute in a full Linux environment and behave like a local development session. You can install dependencies, run Docker, and use headless tools like Playwright, subject to standard sandbox resource limits.
+Yes. Cloud agent runs execute in a full Linux environment and behave like a local development session. You can install dependencies, run Docker, and use headless tools like Playwright, subject to standard sandbox resource limits.
 
 ### Do cloud agents run as root inside the container?
 
@@ -84,7 +84,7 @@ Model choice is configurable per **agent** (and often per environment/workflow),
 
 Yes. Cloud agents support the same set of models available in Warp. Model selection is configurable per agent or environment.
 
-### Can cloud agents use my ChatGPT or Claude subscription?
+### Can I authenticate cloud agents with my own ChatGPT or Claude Pro / Max plan?
 
 We're strong proponents of this, but it ultimately depends on model provider policies. We're actively working with providers to explore whether direct third-party authentication is possible.
 
@@ -126,7 +126,7 @@ Interactive agents can plan work and spawn subagents to parallelize tasks. Cloud
 
 ### Why focus on orchestration primitives instead of immediately adopting new agent standards?
 
-We believe durable infrastructure matters more than transient standards. The cloud agents platform provides stable building blocks—agent runs, environments, auditability, steering, and coordination—that orchestration frameworks and emerging standards can plug into over time.
+We believe durable infrastructure matters more than transient standards. The cloud agents platform is designed to provide stable building blocks—agent runs, environments, auditability, steering, and coordination—that orchestration frameworks and emerging standards can plug into over time.
 
 ### Can cloud agents integrate with external tools, APIs, or services (like n8n connectors)?
 

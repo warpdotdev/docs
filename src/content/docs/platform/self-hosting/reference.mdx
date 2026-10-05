@@ -191,9 +191,7 @@ backend:
 * `dispatch_timeout` — Maximum runtime for the dispatch command. Defaults to `60s`.
 * `environment` — Environment variables for the dispatch and cancellation commands. Task credentials remain in the standard-input payload.
 
-:::note
 Only one backend can be configured at a time. Specifying more than one of `docker`, `kubernetes`, `direct`, and `command` in the same config file is an error.
-:::
 
 ---
 

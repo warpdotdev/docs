@@ -101,7 +101,7 @@ export WARP_API_KEY="YOUR_SELF_HOSTED_WORKER_API_KEY"
 oz-agent-worker --config-file worker.yaml
 ```
 
-Your dispatch implementation must start the supplied `base_args` with the task environment, image, and sidecars from the payload. Keep the payload out of logs because it contains task credentials. After the CLI exits, the external runtime must run `oz harness-support --run-id RUN_ID report-shutdown` so Warp receives the terminal state.
+Your dispatch implementation must start the supplied `base_args` with the task environment, image, and sidecars from the payload. Keep the payload out of logs because it contains task credentials. After the CLI exits, the external runtime must run `oz harness-support --run-id RUN_ID report-shutdown` so Warp receives the terminal state. Set `RUN_ID` to the `run_id` field from the dispatch payload; the public [`command-backend` example](https://github.com/warpdotdev/oz-agent-worker/tree/main/examples/command-backend) shows this shutdown flow.
 
 The worker does not wait for the remote agent to finish. `max_concurrent_tasks` limits concurrent dispatch calls, not agents running in the external runtime. Configure the external runtime's capacity separately.
 

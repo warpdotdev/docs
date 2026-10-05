@@ -23,9 +23,8 @@ Run the `oz-agent-worker` daemon with the **Docker backend** — the default man
 Complete the shared [managed prerequisites](/platform/self-hosting/#managed-prerequisites), then prepare:
 
 * **A machine to run the worker** - Use a Linux VM, server, or local machine for production. Docker Desktop on macOS or Windows works for testing.
-* **Docker** - Install a Docker daemon that runs Linux containers. Windows containers are not supported. Verify the daemon with `docker info`.
-
-Task containers require a **linux/amd64** or **linux/arm64** Docker daemon. The worker host itself can be any OS — Docker Desktop on macOS and Windows runs a Linux VM that satisfies this requirement.
+* **Docker** - Install a **linux/amd64** or **linux/arm64** Docker daemon that runs Linux containers. Windows containers are not supported. The worker host can use any OS because Docker Desktop on macOS and Windows runs a compatible Linux VM. Verify the daemon with `docker info`.
+* **Task images** - Use a glibc-based image, such as Debian, Ubuntu, or a non-Alpine variant of an official image. Musl-based images such as Alpine Linux are not supported. Add required tools, binaries, scripts, and system packages to the [environment's custom image](/platform/environments/).
 
 ### Install Docker
 
@@ -152,7 +151,7 @@ Pass it with `--config-file config.yaml`. See the [self-hosted worker reference]
 
 ## Docker connectivity
 
-The worker uses the standard Docker client discovery mechanism to find the Docker daemon:
+The worker uses the standard Docker client discovery mechanism to find the Docker daemon. If the worker runs in Docker, mount relevant config files such as `~/.docker/config.json` into the worker container for Docker context and credential discovery.
 
 1. **`DOCKER_HOST`** environment variable (e.g., `unix:///var/run/docker.sock`, `tcp://localhost:2375`).
 2. **Default socket** (`/var/run/docker.sock` on Linux, `~/.docker/run/docker.sock` for rootless Docker).
@@ -164,8 +163,6 @@ Additional Docker environment variables the worker respects:
 * `DOCKER_API_VERSION` — Specify Docker API version.
 * `DOCKER_CERT_PATH` — Path to TLS certificates.
 * `DOCKER_TLS_VERIFY` — Enable TLS verification.
-
-If the worker itself runs in Docker, you must mount any relevant config files (e.g., `~/.docker/config.json`) into the worker container for Docker context and credential discovery to work.
 
 **Example: Connecting to a remote Docker daemon**
 
@@ -180,7 +177,7 @@ oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker"
 
 ## Private Docker registries
 
-The worker automatically uses credentials from your Docker config (`~/.docker/config.json`) when pulling task images. If your [environments](/platform/environments/) use images from a private registry, authenticate the worker's host first:
+The worker automatically uses credentials from your Docker config (`~/.docker/config.json`) when pulling task images. If your [environments](/platform/environments/) use images from a private registry, authenticate the worker's host first. Sidecar images, including the `oz` binary and its dependencies, come from public registries and do not require authentication.
 
 ```bash
 docker login your-registry.example.com
@@ -195,8 +192,6 @@ docker run \
   -e WARP_API_KEY="$WARP_API_KEY" \
   warpdotdev/oz-agent-worker --worker-id "my-worker"
 ```
-
-Sidecar images (the `oz` binary and dependencies) are pulled from public registries and do not require authentication.
 
 ---
 
