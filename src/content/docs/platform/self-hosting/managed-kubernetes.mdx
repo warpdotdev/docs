@@ -35,7 +35,7 @@ Deploy the `oz-agent-worker` daemon into a Kubernetes cluster with the included 
   * Allow the task namespace to create Jobs with a **root init container**, unless you enable native image volumes with `kubernetesBackend.useImageVolumes=true`.
   * Grant the worker these namespace-scoped permissions: `create`, `get`, `list`, `watch`, `delete` on `jobs`; `get`, `list`, `watch` on `pods`; `get` on `pods/log`; `list` on `events`.
 * **[Helm](https://helm.sh/docs/intro/install/)** installed locally, plus `kubectl` authenticated against the target cluster.
-* **An agent API key** — Create one in the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP}</a> so the worker can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}. Binding the key to a cloud agent doesn't restrict which agents can run on the worker. See [API Keys](/reference/cli/api-keys/).
+* **A self-hosted worker API key** - Create one in the <a href={`${VARS.FACTORY_WEB_APP_URL}/settings`}>{VARS.FACTORY_WEB_APP} user settings</a> so the worker can authenticate as your team. See [creating a self-hosted worker API key](/reference/cli/api-keys/#creating-a-self-hosted-worker-api-key) for the full flow.
 
 ---
 
@@ -56,7 +56,7 @@ The chart does not create CRDs or cluster-scoped RBAC resources.
 ### 1. Set your API key and namespace
 
 ```bash
-export WARP_API_KEY="your_agent_api_key"
+export WARP_API_KEY="YOUR_API_KEY"
 ```
 
 Create the namespace if it doesn't exist:
