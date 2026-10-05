@@ -30,12 +30,12 @@ Deploy the `oz-agent-worker` daemon into a Kubernetes cluster with the included 
 
 ## Prerequisites
 
-* **Enterprise plan with self-hosting enabled** — [Contact sales](https://www.warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
-* **A Kubernetes cluster** with the worker process able to reach the API server. The cluster must:
+Complete the shared [managed prerequisites](/platform/self-hosting/#managed-prerequisites), then prepare:
+
+* **A Kubernetes cluster** - The worker process must reach the API server. The cluster must:
   * Allow the task namespace to create Jobs with a **root init container**, unless you enable native image volumes with `kubernetesBackend.useImageVolumes=true`.
   * Grant the worker these namespace-scoped permissions: `create`, `get`, `list`, `watch`, `delete` on `jobs`; `get`, `list`, `watch` on `pods`; `get` on `pods/log`; `list` on `events`.
-* **[Helm](https://helm.sh/docs/intro/install/)** installed locally, plus `kubectl` authenticated against the target cluster.
-* **A self-hosted worker API key** - Create one in the <a href={`${VARS.FACTORY_WEB_APP_URL}/settings`}>{VARS.FACTORY_WEB_APP} user settings</a> so the worker can authenticate as your team. See [creating a self-hosted worker API key](/reference/cli/api-keys/#creating-a-self-hosted-worker-api-key) for the full flow.
+* **[Helm](https://helm.sh/docs/intro/install/)** - Install Helm locally and authenticate `kubectl` against the target cluster.
 
 ---
 

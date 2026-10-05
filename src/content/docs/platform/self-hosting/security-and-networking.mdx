@@ -85,6 +85,11 @@ All traffic uses HTTPS (port 443). No inbound ports need to be opened.
 * **Minimal environment by default** — The Direct backend intentionally starts tasks with a minimal environment (`HOME`, `TMPDIR`, `PATH` only). Sensitive worker credentials like `WARP_API_KEY` are not passed to tasks unless explicitly configured.
 * **Workspace cleanup** — Workspaces under `workspace_root` are removed after execution by default (disable with `--no-cleanup` for debugging).
 
+### Command backend
+
+* **Task payloads** - The dispatch command receives task credentials and runtime configuration on standard input. Keep payloads out of logs.
+* **Runtime isolation** - The external runtime owns task isolation, credentials, network policy, and cleanup.
+
 ### Unmanaged
 
 * **Host inheritance** — Agents inherit the host's network access, tools, and credentials. If the host has access to a VPN or internal services, the agent will too. Evaluate accordingly.

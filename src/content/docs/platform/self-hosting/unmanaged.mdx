@@ -111,9 +111,7 @@ spec:
 For production deployments, pin to a specific Docker image digest (e.g., `warpdotdev/warp-agent@sha256:...`) instead of `latest` to ensure reproducible builds.
 :::
 
-:::note
 Whether Kubernetes pods provide sufficient sandboxing for agents depends on your cluster configuration and risk profile. Evaluate your pod security policies, network policies, and RBAC settings based on your organization's security requirements.
-:::
 
 ---
 
@@ -123,7 +121,7 @@ Unmanaged agents are tracked on Warp's backend. Each run creates a persistent se
 
 * **View** in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>.
 * **Attach to** via [Agent Session Sharing](/agents/local-agents/session-sharing/) to monitor or steer.
-* **Query** through the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) for custom dashboards or monitoring.
+* **API and SDK** — Query run data through the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) for custom dashboards or monitoring.
 
 Unmanaged sessions benefit from the same shared configuration as other cloud agent runs — [MCP servers](/platform/mcp/), [secrets](/platform/secrets/), Warp Drive context, and saved prompts all apply.
 

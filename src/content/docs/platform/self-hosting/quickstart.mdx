@@ -18,10 +18,9 @@ This quickstart sets up the [managed architecture](/platform/self-hosting/#manag
 
 ## Prerequisites
 
-* **Enterprise plan with self-hosting enabled** — [Contact sales](https://www.warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
-* **A Linux machine with Docker** — A VM, server, or local machine with the Docker daemon running Linux containers. Verify with `docker info`. Docker Desktop on macOS or Windows works for testing.
-* **A self-hosted worker API key** - In the <a href={`${VARS.FACTORY_WEB_APP_URL}/settings`}>{VARS.FACTORY_WEB_APP} user settings</a>, click **Generate new token** and select **Self-hosted worker**. The key is tied to your team and does not require an agent selection. See [creating a self-hosted worker API key](/reference/cli/api-keys/#creating-a-self-hosted-worker-api-key) for the full flow.
-* **The {VARS.WARP_AGENT_CLI}** (for routing a test run) — See [Installing the CLI](/reference/cli/#installing-the-cli).
+* **Managed self-hosting access and credentials** - Complete the shared [managed prerequisites](/platform/self-hosting/#managed-prerequisites), including a self-hosted worker API key.
+* **A Linux machine with Docker** - Use a VM, server, or local machine with a Docker daemon that runs Linux containers. Verify it with `docker info`. Docker Desktop on macOS or Windows works for testing.
+* **The {VARS.WARP_AGENT_CLI}** - Install it on the machine that will route the test run. See [Installing the CLI](/reference/cli/#installing-the-cli).
 
 ---
 
@@ -69,12 +68,6 @@ Open the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>, find the new task, and
 
 ---
 
-## Next steps
-
-* [Self-hosting overview](/platform/self-hosting/) — Compare managed and unmanaged architectures and choose a backend.
-* [Managed: Docker](/platform/self-hosting/managed-docker/) — Full Docker backend setup, including private registries, volume mounts, and runtime configuration.
-* [Routing runs to self-hosted workers](/platform/self-hosting/#routing-runs-to-self-hosted-workers) — How to route tasks from schedules, integrations (Slack, Linear), the API, and the {VARS.WEB_APP}.
-
 ## Troubleshooting
 
 **Worker won't start**\
@@ -87,3 +80,9 @@ Verify you created a **Self-hosted worker** key and that it has not expired. Ens
 Confirm the `--host` value you passed to `oz agent run-cloud` matches your `--worker-id` exactly (case-sensitive). Check that the worker's team matches the team creating the task.
 
 For more, see [Troubleshooting](/platform/self-hosting/troubleshooting/).
+
+## Next steps
+
+* [Self-hosting overview](/platform/self-hosting/) — Compare managed and unmanaged architectures and choose a backend.
+* [Managed: Docker](/platform/self-hosting/managed-docker/) — Full Docker backend setup, including private registries, volume mounts, and runtime configuration.
+* [Routing runs to self-hosted workers](/platform/self-hosting/#routing-runs-to-self-hosted-workers) — How to route tasks from schedules, integrations (Slack, Linear), the API, and the {VARS.WEB_APP}.

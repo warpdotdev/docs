@@ -24,10 +24,10 @@ This page covers the [managed architecture](/platform/self-hosting/#managed-arch
 
 ## Prerequisites
 
-* **Enterprise plan with self-hosting enabled** — [Contact sales](https://www.warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
-* **A machine to run the worker** — A VM, server, or local machine running Linux (recommended for production). For testing, macOS and Windows hosts running Docker Desktop work.
-* **Docker installed** — The worker uses Docker to spawn task containers. The Docker daemon must run Linux containers (Windows containers are not supported). Verify with `docker info`.
-* **A self-hosted worker API key** - Create one in the <a href={`${VARS.FACTORY_WEB_APP_URL}/settings`}>{VARS.FACTORY_WEB_APP} user settings</a> so the worker can authenticate as your team. See [creating a self-hosted worker API key](/reference/cli/api-keys/#creating-a-self-hosted-worker-api-key) for the full flow.
+Complete the shared [managed prerequisites](/platform/self-hosting/#managed-prerequisites), then prepare:
+
+* **A machine to run the worker** - Use a Linux VM, server, or local machine for production. Docker Desktop on macOS or Windows works for testing.
+* **Docker** - Install a Docker daemon that runs Linux containers. Windows containers are not supported. Verify the daemon with `docker info`.
 
 :::caution
 Task containers require a **linux/amd64** or **linux/arm64** Docker daemon. The worker host itself can be any OS — Docker Desktop on macOS and Windows runs a Linux VM that satisfies this requirement.
