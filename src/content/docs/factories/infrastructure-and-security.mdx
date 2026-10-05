@@ -29,30 +29,30 @@ flowchart LR
 
 Self-hosting moves only the execution plane: with a managed self-hosted worker, repository checkouts, command execution, and the sandbox filesystem stay on machines you control, but content that enters prompts, results, transcripts, attachments, artifacts, or telemetry still flows through Warp and the providers you configure. See [deployment patterns](/platform/deployment-patterns/) and [self-hosting security and networking](/platform/self-hosting/security-and-networking/) for the broader data model.
 
-The diagram below maps those boundaries for self-hosted execution; factory runs follow the same data model. See the [data security and boundaries](/platform/architecture/#data-security-and-boundaries) reference for a description of each data class.
+Factory runs follow the [self-hosted data security and boundaries](/platform/architecture/#data-security-and-boundaries) model shown below.
 
 ![Self-hosted data security and boundaries diagram showing what stays in customer infrastructure, what Warp retains, and what transits Warp to model providers](../../../assets/agent-platform/data-security-boundaries.png)
 
 ## Runners
 
-A runner defines the operating system, architecture, sandbox image, and instance shape (vCPUs and memory) for a factory agent. The factory's [definition](/factories/factory-as-code/) supplies its repositories, setup commands, and secrets; the execution host determines whether that runner uses Warp-hosted or self-hosted compute.
+A runner defines the operating system, architecture, sandbox image, and instance shape (vCPUs and memory) for a factory agent. The factory's [definition](/factories/factory-as-code/) supplies its repositories, setup commands, and secrets.
 
-Declare runners as `runners/*.yaml` files. Every agent inherits `agentDefaults.runner`, and an agent or automation can override it. A self-hosted runner must match the worker's operating system and architecture. Warp provisions hosted runners within your plan limits; your team provisions and operates self-hosted compute.
+Declare runners as `runners/*.yaml` files. Every agent inherits `agentDefaults.runner`, and an agent or automation can override it. The execution host determines how the runner's compute settings are used:
 
-See [cloud agent runner compute options](/platform/runners/) and [factory runner syntax](/factories/factory-as-code/#runnersnameyaml).
+| Setting | Warp-hosted | Direct | Kubernetes | Docker |
+| --- | --- | --- | --- | --- |
+| `platform.os`, `platform.arch`, `platform.mac.version` | Selects the sandbox OS, architecture, and macOS VM version | Does not configure the host; the worker host determines the platform | Use Linux; the cluster and `pod_template` schedule nodes | Use Linux; the Docker daemon determines the architecture |
+| `platform.linux.dockerImage` | Linux sandbox image | Ignored | Task and setup container image | Task container image |
+| `platform.linux.registryCredentialSecretName` | Warp-managed private-registry credential | Ignored | Ignored; use `imagePullSecrets` | Ignored; configure registry credentials on the worker, such as in its Docker config |
+| `instanceShape` | Sandbox size, subject to plan limits; omitted uses the workspace default | Ignored; the task uses host resources | Task-container requests and limits; overrides matching `pod_template` resources; omitted keeps template or cluster defaults | Task-container limits; omitted adds no limits |
+
+Self-hosted runner settings do not provision worker capacity. Worker configuration controls host resources, registry authentication, volumes, node placement, and other backend policy.
+
+See [cloud agent runner compute options](/platform/runners/), [factory runner syntax](/factories/factory-as-code/#runnersnameyaml), and the setup page for your [self-hosted worker backend](/platform/self-hosting/#managed-architecture).
 
 ## Choose an execution host
 
 A factory runs its work on one of two execution hosts: Warp-hosted compute or a worker in the [managed self-hosting architecture](/platform/self-hosting/#managed-architecture).
-
-| Decision area | Warp-hosted | Managed self-hosted |
-| --- | --- | --- |
-| **Compute** | Warp provisions the sandbox | Your team provisions the worker |
-| **Checkout and commands** | Run on Warp-managed compute | Run on your infrastructure |
-| **Control plane** | Runs through Warp | Runs through Warp |
-| **Network** | Warp manages sandbox connectivity | The worker connects outbound to Warp; no inbound firewall port |
-| **Private services** | Must be reachable from the hosted sandbox | Reachable through the worker's network access |
-| **Operations** | Warp manages capacity and lifecycle | Your team manages capacity, isolation, updates, and availability |
 
 To route factory work to a managed self-hosted worker (an Enterprise feature):
 
@@ -73,8 +73,6 @@ Factories use managed self-hosting, so Warp still orchestrates their runs. The w
 | **[Docker](/platform/self-hosting/managed-docker/)** (default) | In a separate Docker container on the worker host | The worker daemon, host, Docker daemon, images, capacity, and container policy | Docker is available and you want per-run container isolation without Kubernetes |
 | **[Kubernetes](/platform/self-hosting/managed-kubernetes/)** | As a Kubernetes Job in the worker's namespace | The worker deployment, cluster, namespace RBAC, scheduling, admission policy, and capacity | Your team already operates Kubernetes or needs cluster-native policy and scheduling |
 | **[Direct](/platform/self-hosting/managed-direct/)** | In a separate workspace directly on the worker host, sharing its OS and kernel | The worker daemon, host security, dependencies, capacity, and cleanup | A container runtime isn't available or runs need direct access to host resources |
-
-All three structures keep execution on your infrastructure while Warp operates the control plane.
 
 ## Choose inference independently
 

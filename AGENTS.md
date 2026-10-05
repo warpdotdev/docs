@@ -340,7 +340,7 @@ Captions orient the reader — they identify what the image shows so the reader 
 - ✅ `<figcaption>Codebase indexing settings.</figcaption>`
 - ❌ `<figcaption>Codebase indexing settings in Warp. Easily track sync status and manage which folders are indexed for AI-powered context and suggestions.</figcaption>` (marketing language, too long)
 - ❌ `<figcaption>Click the toast to jump to the agent's session.</figcaption>` (procedural — belongs in body text)
-- ❌ `<figcaption>Universal Input's contextual input chips, from left to right: conversation management, node version, active directory, Git and code diffs, and 2 attached images.</figcaption>` (exhaustive list)
+- ❌ `<figcaption>The input toolbelt, from left to right: model selector, voice input, image attachments, and conversation controls.</figcaption>` (exhaustive list)
 
 ### Links, embeds, and cross-references
 - Use descriptive link text that explains what users will find. The anchor text should describe the destination or task, not the action of clicking.
