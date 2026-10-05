@@ -33,11 +33,11 @@ Use a unique worker ID for every job so another worker cannot claim the run.
 
 The agent process normally remains available for follow-up prompts for 45 minutes after a conversation completes. Timeout settings use this precedence:
 
-1. A non-negative task-level `config.idle_timeout_minutes` value from the run's [API request configuration](/api).
-2. The worker's `idle_on_complete` setting or `--idle-on-complete` flag when the task-level value is unset.
+1. The task-level `config.idle_timeout_minutes` value, including defaults applied by the task creator. Runs created through the [Agent API](/api) use 10 minutes when this field is omitted.
+2. The worker's `idle_on_complete` setting or `--idle-on-complete` flag when the task reaches the worker without a task-level value.
 3. The 45-minute default when neither value is set.
 
-For a job that must exit immediately, set task-level `config.idle_timeout_minutes` to `0`. If your task creator leaves that field unset, start the worker with `--idle-on-complete 0s`. A nonzero task-level value overrides `--idle-on-complete 0s`.
+For an API-created job that must exit immediately, set `config.idle_timeout_minutes` to `0`. If the task reaches the worker without this field, start the worker with `--idle-on-complete 0s`. A task-level value overrides `--idle-on-complete 0s`.
 
 ### Start the worker and route the run
 

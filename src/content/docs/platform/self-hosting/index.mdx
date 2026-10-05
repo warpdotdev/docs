@@ -51,7 +51,6 @@ Use the Command backend when your external runtime already owns job creation and
 
 All managed deployments require:
 
-* **Self-hosting enabled for your Enterprise team** - [Contact sales](https://www.warp.dev/contact-sales) if the feature is not enabled.
 * **Outbound network access** - The worker and agent runtime must reach Warp. You do not need to open inbound ports. See [Security and networking](/platform/self-hosting/security-and-networking/) for endpoints and data boundaries.
 * **A worker ID** - Choose the value used to route runs with `--host`. Multiple long-lived workers can share an ID for load balancing. Use a unique ID for each one-shot Direct job.
 * **Worker credentials** - Docker, Kubernetes, Direct, and Command workers can use a [self-hosted worker API key](/reference/cli/api-keys/#creating-a-self-hosted-worker-api-key). Store it in your secret manager and provide it as `WARP_API_KEY` or `--api-key`.
