@@ -35,6 +35,8 @@ Use the [unmanaged architecture](/platform/self-hosting/unmanaged/) when any of 
 * Your system should own both the trigger and process lifecycle.
 * You want to add `oz agent run` to an existing CI job or script.
 
+### Choosing a managed backend
+
 Use the managed architecture when the {VARS.WARP_AUTOMATION_PLATFORM} should accept the trigger and route the run. Then choose a backend:
 
 * **[Docker backend](/platform/self-hosting/managed-docker/)** - Use the default backend when Docker is available. Each task runs in a container.

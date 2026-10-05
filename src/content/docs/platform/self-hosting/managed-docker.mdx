@@ -10,10 +10,6 @@ import { VARS } from '@data/vars';
 
 Run the `oz-agent-worker` daemon with the **Docker backend** — the default managed path. Each agent task runs in an isolated Docker container spawned from the worker, with full orchestration by the {VARS.WARP_AUTOMATION_PLATFORM} (Slack, Linear, schedules, API, `oz agent run-cloud`).
 
-:::note
-This page covers the [managed architecture](/platform/self-hosting/#managed-architecture) with the Docker backend. For the Kubernetes backend, see [Managed: Kubernetes](/platform/self-hosting/managed-kubernetes/). For host execution without a container runtime, see [Managed: Direct](/platform/self-hosting/managed-direct/). If you'd rather invoke agents yourself, see [Unmanaged](/platform/self-hosting/unmanaged/).
-:::
-
 ## When to use the Docker backend
 
 * You want the simplest managed setup and have Docker available on the worker host.
@@ -29,9 +25,7 @@ Complete the shared [managed prerequisites](/platform/self-hosting/#managed-prer
 * **A machine to run the worker** - Use a Linux VM, server, or local machine for production. Docker Desktop on macOS or Windows works for testing.
 * **Docker** - Install a Docker daemon that runs Linux containers. Windows containers are not supported. Verify the daemon with `docker info`.
 
-:::caution
 Task containers require a **linux/amd64** or **linux/arm64** Docker daemon. The worker host itself can be any OS — Docker Desktop on macOS and Windows runs a Linux VM that satisfies this requirement.
-:::
 
 ### Install Docker
 
@@ -121,7 +115,6 @@ docker run -v /var/run/docker.sock:/var/run/docker.sock \
   -e GITHUB_TOKEN
 ```
 
-:::caution
 When running the worker via Docker, there are two levels of `-e` flags. Docker's `-e` passes env vars to the **worker container** (e.g., `WARP_API_KEY`). The worker's `-e` / `--env` flags pass env vars into the **task containers** the worker spawns. Keep these distinct:
 
 ```bash
@@ -133,7 +126,6 @@ docker run \
   --worker-id "my-worker" \
   -e MY_SECRET=hunter2
 ```
-:::
 
 **Equivalent config file** (`config.yaml`):
 
@@ -171,9 +163,7 @@ Additional Docker environment variables the worker respects:
 * `DOCKER_CERT_PATH` — Path to TLS certificates.
 * `DOCKER_TLS_VERIFY` — Enable TLS verification.
 
-:::note
 If the worker itself runs in Docker, you must mount any relevant config files (e.g., `~/.docker/config.json`) into the worker container for Docker context and credential discovery to work.
-:::
 
 **Example: Connecting to a remote Docker daemon**
 
@@ -204,9 +194,7 @@ docker run \
   warpdotdev/oz-agent-worker --worker-id "my-worker"
 ```
 
-:::note
 Sidecar images (the `oz` binary and dependencies) are pulled from public registries and do not require authentication.
-:::
 
 ---
 
