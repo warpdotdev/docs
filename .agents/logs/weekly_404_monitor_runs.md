@@ -1,5 +1,16 @@
 # Weekly 404 monitor run log
 
+## 2026-10-05 — PR opened
+- **Total 404s this week**: 313
+- **Total 404s last week**: 231
+- **Trend**: ▲ 82 (35.5%)
+- **Significant gaps (≥5 hits)**: 2 (1 new)
+- **Redirect candidates processed**: 2  (hits ≥ 5)
+- **HIGH-confidence redirects**: 2
+- **PR**: https://github.com/warpdotdev/docs/pull/825
+- **Oz run**: https://app.warp.dev/conversation/27651680-657e-4a5c-a058-408b3c4f5d36
+- **Notes**: Significant gaps were `/agents/overview` (6 hits) and GitBook revision `/~/revisions/.../features/smart-select` (6 hits, new). 132 long-tail uncovered URLs rolled up. 142 resolved since last week. No unroutable paths. No MEDIUM suggestions.
+
 New entries are prepended by each scheduled agent run. Most recent entry first.
 
 This log tracks every run of the `weekly-404-monitor` skill — both runs that opened a redirect PR and runs that wrote a no-PR report — so the team and the `improve-404-monitor-skill` outer loop can evaluate threshold effectiveness, redirect accuracy, and coverage trends over time.
