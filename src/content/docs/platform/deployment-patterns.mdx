@@ -108,6 +108,8 @@ See the [cloud agent run lifecycle](/platform/architecture/#cloud-agent-run-life
 
 When a task is naturally divisible, use [multi-agent orchestration](/platform/orchestration/) to spawn one child agent per shard from a single parent run. The parent owns coordination and result aggregation; the children execute in parallel, each with their own repo subset, prompt, and (optionally) model. See [Running orchestrated agents](/platform/orchestration/multi-agent-runs/) for slash command, CLI, web app, and API examples.
 
+For standing multi-stage triage-to-merge workflows with named agents, automations, and measurement, use [Warp Factories](/factories/) instead of ad hoc fan-out.
+
 ### Example recipe: same task across multiple models
 
 * Launch N runs with the same prompt, but different profiles that map to different models.

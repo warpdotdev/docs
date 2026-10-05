@@ -257,7 +257,7 @@ harness:
 
 ### `agentDefaults.harness`
 
-The harness and model that runs execute with. Use the `harness` form to run a third-party harness or to set advanced options. `type` accepts `oz`, `claude`, `codex`, or `gemini` — the values the definition schema validates. `claude-code` is also accepted as an alias for `claude`; prefer `claude`, the canonical [harness identifier](/platform/harnesses/#harness-identifiers) that the CLI and the Agent API use for the same harness. For what each harness does and which ones your team can run, see [supported harnesses](/platform/harnesses/).
+The harness and model that runs execute with. Use the `harness` form to run a third-party harness or to set advanced options. Supported `type` values are `oz`, `claude`, and `codex`. `claude-code` is also accepted as an alias for `claude`; prefer `claude`, the canonical [harness identifier](/platform/harnesses/#harness-identifiers) that the CLI and the Agent API use for the same harness. For what each harness does and which ones your team can run, see [supported harnesses](/platform/harnesses/).
 
 ```yaml
 harness:
@@ -343,12 +343,27 @@ The frontmatter accepts:
 
 * `description` - Optional. What the agent does.
 * [`agentType`](#agenttype) - Optional. The agent's role.
+* [`spawnableBy`](#spawnableby) - Optional. The factory agents allowed to spawn this agent.
 * `credentialStrategy` - Optional. Overrides the factory-level [`credentialStrategy`](#credentialstrategy) for this agent's runs.
 * `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel` - Optional. The same keys as [`agentDefaults`](#agentdefaults); a key declared here overrides the default for this agent.
 
 ### `agentType`
 
 The agent's role: `CUSTOM` (the default), `FOREMAN` (alias `MAIN`), `TRIAGE`, `SPEC`, `IMPLEMENT`, `REVIEW`, or `VERIFY`. Every definition declares exactly one foreman — the factory's entry point and the default target for automations. See [factory agents](/factories/factory-agents/) for what each role does.
+
+### `spawnableBy`
+
+Optional. The exact list of factory agents allowed to spawn this agent. Each value is the directory name of an agent declared under `agents/`; values must be non-empty and unique.
+
+Omit `spawnableBy` to allow only the foreman to spawn this agent. Set it to an empty list (`spawnableBy: []`) to prevent any factory agent from spawning this agent. A non-empty list replaces the foreman-only default, so include the foreman's directory name explicitly to retain its access. An agent can include its own name to allow self-spawning.
+
+```yaml title="agents/reviewer/agent.md"
+spawnableBy:
+  - foreman
+  - implementer
+```
+
+This example allows the `foreman` and `implementer` agents to spawn the `reviewer` agent.
 
 ## `automations/<name>/automation.md`
 
