@@ -31,7 +31,7 @@ Use the factory API to find or start work on a factory. Use the Agent API for ev
 | Find a factory by name before dispatching to it | factory API - `GET /factory?search=` |
 | Start a new task on a factory | factory API - `POST /factory/{uid}/runs` |
 | Continue, monitor, or cancel a run (factory or standalone) | Agent API - `GET /agent/runs/{runId}`, `POST /agent/runs/{runId}/followups`, `POST /agent/runs/{runId}/cancel` |
-| Run a standalone cloud agent with no factory involved | Agent API - `POST /agent/run` |
+| Run a standalone cloud agent with no factory involved | Agent API - `POST /agent/runs` |
 | Build a multi-agent orchestration | Agent API - see [multi-agent orchestration](/platform/orchestration/) |
 
 The Agent API isn't deprecated: every factory run is still an ordinary run, so the same endpoints handle status, follow-ups, and cancellation no matter which API started it.
