@@ -19,6 +19,8 @@
         "model_identifier",
         "source_repositories",
         "coverage",
+        "pages",
+        "backlog_pages",
         "page_shards"
       ],
       "properties": {
@@ -31,6 +33,16 @@
             "partial",
             "blocked"
           ]
+        },
+        "pages": {
+          "type": "object"
+        },
+        "backlog_pages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
         },
         "page_shards": {
           "type": "object",
@@ -65,6 +77,12 @@
       "items": {
         "$ref": "#/$defs/claim"
       }
+    },
+    "schedule_claims": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/schedule_claim"
+      }
     }
   },
   "$defs": {
@@ -97,6 +115,26 @@
             "affirmative",
             "negative"
           ]
+        },
+        "source": {
+          "type": "object",
+          "required": [
+            "repository",
+            "path",
+            "route",
+            "visibility"
+          ],
+          "properties": {
+            "repository": {
+              "const": "warpdotdev/docs"
+            },
+            "visibility": {
+              "const": "public"
+            },
+            "canonical_identity": {
+              "type": "string"
+            }
+          }
         }
       }
     },
@@ -158,6 +196,33 @@
           }
         }
       }
+    },
+    "schedule_claim": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "business_date",
+        "event_id",
+        "claimed_at"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "business_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "event_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "claimed_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
     }
   }
 }

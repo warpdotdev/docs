@@ -1,0 +1,117 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:fa1239165a765ba08d3c2b6663033a1b68eb132eeee8e2d5319d63167c1a2c4f",
+      "canonical_source": "released-openapi",
+      "claim_ids": [
+        "sha256:71a8d674ae3a5bfdb505be2ad55ac962ec4b42ff82b844705c1924d0ebb0956a",
+        "sha256:a0c2848ac69292b29932c34525915164e28314c846290bab8f982c67527c9969"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "Use the name query parameter on GET /agent/runs",
+          "source": {
+            "content_sha256": "0dd3715952e8f6c354af316668f1ebe6eaddc37489e9866bb561012a387c6dd7",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-11-run-filter-parameter-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "filters for state, config_name, model_id",
+          "source": {
+            "content_sha256": "e2e6248a2534774e48f4c32ca2a8dd15c8500924a25f559e014d0c5deea341bb",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-11-run-filter-parameter-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "high",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-11-run-filter-parameter",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "api",
+      "entity": "list-runs-config-filter",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "parameter-name",
+      "qualifiers": {},
+      "quote": "Use the name query parameter on GET /agent/runs",
+      "source": {
+        "content_sha256": "0dd3715952e8f6c354af316668f1ebe6eaddc37489e9866bb561012a387c6dd7",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-11-run-filter-parameter-left",
+        "visibility": "public"
+      },
+      "source_class": "released-openapi",
+      "topic": "api",
+      "value": {
+        "normalized": "name",
+        "type": "parameter"
+      }
+    },
+    {
+      "category": "api",
+      "entity": "list-runs-config-filter",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "parameter-name",
+      "qualifiers": {},
+      "quote": "filters for state, config_name, model_id",
+      "source": {
+        "content_sha256": "e2e6248a2534774e48f4c32ca2a8dd15c8500924a25f559e014d0c5deea341bb",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-11-run-filter-parameter-right",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "api",
+      "value": {
+        "normalized": "config_name",
+        "type": "parameter"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "0dd3715952e8f6c354af316668f1ebe6eaddc37489e9866bb561012a387c6dd7",
+    "right.mdx": "e2e6248a2534774e48f4c32ca2a8dd15c8500924a25f559e014d0c5deea341bb"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}
