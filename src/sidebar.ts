@@ -58,8 +58,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Terminal',
 					items: [
-						'terminal/input/universal-input',
-						'terminal/input/classic-input',
 						{
 							label: 'Blocks',
 							collapsed: true,

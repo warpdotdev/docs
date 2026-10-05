@@ -170,7 +170,7 @@ The strongest loop is: a cloud agent generates tests, runs them in the environme
 
 It can help, but the best practice is to scope into smaller, reviewable chunks.
 
-Agents are strongest when they can continuously validate progress (tests, lint, typecheck). For large refactors, a staged approach with checkpoints (and possibly multiple subagents for parallel exploration) tends to work better than one giant prompt.
+Agents are strongest when they can continuously validate progress (tests, lint, typecheck). For large refactors, a staged approach with checkpoints (and possibly [multiple child agents](/platform/orchestration/) for parallel exploration) tends to work better than one giant prompt.
 
 ### Can cloud agents triage issues / tickets automatically?
 
@@ -190,7 +190,7 @@ Yes. Scheduled dependency bumps are a classic cloud agent use case:
 - Resolve simple conflicts.
 - Attach a risk summary (optional).
 
-This is usually implemented as a scheduled **cloud agent** producing recurring **runs**.
+This is usually implemented as a [scheduled agent](/platform/triggers/scheduled-agents/) producing recurring **runs**.
 
 ### Can cloud agents keep docs up to date?
 
