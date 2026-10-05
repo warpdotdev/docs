@@ -33,7 +33,7 @@ Use a unique worker ID for every job so another worker cannot claim the run.
 
 The agent process normally remains available for follow-up prompts for 45 minutes after a conversation completes. Timeout settings use this precedence:
 
-1. A non-negative task-level `config.idle_timeout_minutes` value.
+1. A non-negative task-level `config.idle_timeout_minutes` value from the run's [API request configuration](/api).
 2. The worker's `idle_on_complete` setting or `--idle-on-complete` flag when the task-level value is unset.
 3. The 45-minute default when neither value is set.
 
@@ -101,9 +101,9 @@ export WARP_API_KEY="YOUR_SELF_HOSTED_WORKER_API_KEY"
 oz-agent-worker --config-file worker.yaml
 ```
 
-Your dispatch implementation must start the supplied `base_args` with the task environment, image, and sidecars from the payload. Keep the payload out of logs because it contains task credentials. After the CLI exits, the external runtime must run `oz harness-support --run-id RUN_ID report-shutdown` so Warp receives the terminal state. Set `RUN_ID` to the `run_id` field from the dispatch payload; the public [`command-backend` example](https://github.com/warpdotdev/oz-agent-worker/tree/main/examples/command-backend) shows this shutdown flow.
+Your dispatch implementation must start the supplied `base_args` with the task environment, image, and sidecars from the payload. Keep the payload out of logs because it contains task credentials. After the CLI exits, the external runtime must run `oz harness-support --run-id RUN_ID report-shutdown` so Warp receives the terminal state. Set `RUN_ID` to the `run_id` field from the dispatch payload; the example linked above shows this shutdown flow.
 
-The worker does not wait for the remote agent to finish. `max_concurrent_tasks` limits concurrent dispatch calls, not agents running in the external runtime. Configure the external runtime's capacity separately.
+The worker does not wait for the remote agent to finish. Stopping or restarting the worker does not cancel tasks that the external runtime already accepted. `max_concurrent_tasks` limits concurrent dispatch calls, not agents running in the external runtime. Configure the external runtime's capacity separately.
 
 ## Related pages
 

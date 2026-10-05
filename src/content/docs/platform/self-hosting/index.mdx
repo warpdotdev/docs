@@ -76,6 +76,8 @@ oz agent run-cloud \
   --prompt "Refactor the authentication module"
 ```
 
+Combine `--host` with other `run-cloud` flags when the run also needs an environment, model, or other configuration.
+
 Use the same worker ID when you create or update schedules and integrations:
 
 ```bash
@@ -90,7 +92,16 @@ oz integration create slack --host "my-worker"
 oz integration update linear --host "my-worker"
 ```
 
-API requests use `config.worker_host`. In the {VARS.WEB_APP}, select the worker from the host options when you create a run, schedule, or integration. See the relevant [trigger](/platform/triggers/) or [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) documentation for other creation options.
+API requests set the same worker ID in `config.worker_host`:
+
+```json
+{
+  "prompt": "Refactor the authentication module",
+  "config": { "worker_host": "my-worker" }
+}
+```
+
+In the {VARS.WEB_APP}, select the worker from the host options when you create a run, schedule, or integration. See the relevant [trigger](/platform/triggers/) or [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) documentation for other creation options.
 
 Host selection is independent of the [environment](/platform/environments/). A managed run can use the same environment with Warp-hosted or self-hosted execution; the selected backend determines how the worker applies its image and setup configuration.
 
