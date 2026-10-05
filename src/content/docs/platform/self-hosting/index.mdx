@@ -56,7 +56,7 @@ All managed deployments require:
 * **A worker ID** - Choose the value used to route runs with `--host`. Multiple long-lived workers can share an ID for load balancing. Use a unique ID for each one-shot Direct job.
 * **Worker credentials** - Docker, Kubernetes, Direct, and Command workers can use a [self-hosted worker API key](/reference/cli/api-keys/#creating-a-self-hosted-worker-api-key). Store it in your secret manager and provide it as `WARP_API_KEY` or `--api-key`.
 
-An external orchestrator that creates runs through `oz agent run-cloud` or the API also needs an **agent API key associated with the Default Service Account**. In the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP} settings</a>, create an Agent key and select **Default Service Account**. The same agent key can authenticate the worker when one job both starts the worker and creates the run. Otherwise, give the worker a self-hosted worker key and the run creator an agent key. See [API keys for the {VARS.WARP_AGENT_CLI}](/reference/cli/api-keys/) for the key types and creation flow.
+An external orchestrator that creates runs through `oz agent run-cloud` or the API also needs an **agent API key associated with the Default Service Account**. In the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP} settings</a>, create an Agent key and choose **Default Service Account**. The same agent key can authenticate the worker when one job both starts the worker and creates the run. Otherwise, give the worker a self-hosted worker key and the run creator an agent key. See [API keys for the {VARS.WARP_AGENT_CLI}](/reference/cli/api-keys/) for the key types and creation flow.
 
 Backend pages list the remaining runtime-specific requirements, such as Docker, Kubernetes, or the {VARS.WARP_AGENT_CLI} binary.
 
@@ -86,8 +86,8 @@ oz schedule create \
   --host "my-worker"
 oz schedule update SCHEDULE_ID --host "my-worker"
 
-oz integration create slack --host "my-worker" ...
-oz integration update linear --host "my-worker" ...
+oz integration create slack --host "my-worker"
+oz integration update linear --host "my-worker"
 ```
 
 API requests use `config.worker_host`. In the {VARS.WEB_APP}, select the worker from the host options when you create a run, schedule, or integration. See the relevant [trigger](/platform/triggers/) or [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) documentation for other creation options.

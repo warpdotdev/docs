@@ -19,13 +19,13 @@ Both patterns use the managed architecture: Warp accepts triggers and routes run
 
 ## Prerequisites
 
-Complete the shared [managed prerequisites](/platform/self-hosting/#managed-prerequisites). A worker-only deployment, including a Command worker, can use a self-hosted worker API key. A job that creates a run with `oz agent run-cloud` needs an agent API key associated with the Default Service Account. The one-shot example below uses that agent key for both the worker and `run-cloud`; use separate worker and agent keys when those actions run in different processes.
+Complete the shared [managed prerequisites](/platform/self-hosting/#managed-prerequisites). The one-shot example below uses one Default Service Account agent key for both the worker and `run-cloud`. When those actions run in different processes, use a self-hosted worker key for the worker and an agent key for the run creator.
 
 Install `oz-agent-worker` from a [published release](https://github.com/warpdotdev/oz-agent-worker/releases). One-shot Direct also requires the {VARS.WARP_AGENT_CLI} on the allocated host. The Command backend worker requires the tools used by your dispatch and cancellation commands.
 
 ## Using one-shot Direct
 
-Start a Direct worker with `--one-shot` when your scheduler allocates one host per job. One-shot mode accepts one task, forces `max_concurrent_tasks` to `1`, and exits after that task succeeds, fails, or is canceled. If no task arrives, the worker stays connected until your orchestrator stops it.
+Start a Direct worker with `--one-shot` when your scheduler allocates one host per job. One-shot mode accepts one task, forces `max_concurrent_tasks` to `1`, and exits after that task succeeds, fails, or is cancelled. If no task arrives, the worker stays connected until your orchestrator stops it.
 
 Use a unique worker ID for every job so another worker cannot claim the run.
 
