@@ -62,7 +62,7 @@ Surfaces that take the harness as a string use `oz` for the Warp Agent, `claude`
 
 * **API and SDK** — the agent config's `harness.type` accepts `oz`, `claude`, or `codex`.
 * **CLI** — `oz agent run-cloud --harness` accepts the same identifiers, plus `claude-code` as an alias for `claude`.
-* **Factory definition files** — [`harness.type`](/factories/factory-as-code/#agentdefaultsharness) accepts `oz`, `claude`, `codex`, or `gemini`, plus `claude-code` as an alias for `claude`.
+* **Factory definition files** — [`harness.type`](/factories/factory-as-code/#agentdefaultsharness) accepts `oz`, `claude`, or `codex`, plus `claude-code` as an alias for `claude`.
 
 Where the alias is accepted, it selects the same Claude Code harness as `claude`. Everywhere else — including the API — only the canonical identifiers are valid, so prefer them in anything you script, sync, or store.
 
