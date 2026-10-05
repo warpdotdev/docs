@@ -23,7 +23,7 @@ When you connect a factory to GitHub, repository activity starts work in your fa
 That's all the setup GitHub needs. A new factory arrives with default automations already switched on, so it responds to GitHub activity right away:
 
 * **Mentions and assignments** - Start work by mentioning **@warp** or assigning the factory. See [Mention the factory](#mention-the-factory) below.
-* **Pull request closed or merged** - Close out work when a pull request with your factory's label closes or merges. Merging can move linked tracker issues to their completed state; closing without merging does nothing.
+* **Pull request closed or merged** - Completes linked work when a pull request with your factory's label merges (which can move linked tracker issues to their completed state). An unmerged close is a no-op.
 * **Issue labeled** and **Pull request labeled** - Start work when the factory's label is applied to an issue or pull request.
 * **Pull request review submitted** - Start work when a review is submitted on a pull request that carries the factory's label.
 
