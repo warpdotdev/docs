@@ -15,12 +15,15 @@ Run with: python3 .agents/skills/missing_docs/scripts/test_audit_docs.py
 
 import hashlib
 import importlib.util
+import io
 import json
 import subprocess
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
+from unittest import mock
 
 _HERE = Path(__file__).resolve().parent
 _AUDIT = _HERE / "audit_docs.py"
@@ -125,14 +128,13 @@ class TestAuditBehavior(unittest.TestCase):
         )
         self.assertEqual(proc.returncode, 2, f"missing repo must exit 2; stderr={proc.stderr}")
 
-    def test_diff_against_committed_snapshot_is_current(self):
-        # The committed snapshot should reflect current code (no pending surface drift).
+    def test_diff_preserves_owner_gated_baseline(self):
         rc, report, stderr = _run_audit(["--diff"])
         self.assertEqual(rc, 0, stderr)
         self.assertEqual(
             report["summary"]["by_category"].get("surface_changes", 0),
-            0,
-            "committed snapshot is stale; regenerate with --update-snapshot",
+            16,
+            "do not regenerate the snapshot until every baseline delta is dispositioned",
         )
 
     def test_update_snapshot_respects_snapshot_flag_and_roundtrips(self):
@@ -169,6 +171,171 @@ class TestAuditBehavior(unittest.TestCase):
         self.assertEqual(
             flagged, [], f"research-preview Agent Memory surfaces must stay deferred, found: {flagged}"
         )
+
+class TestConsistencyAudit(unittest.TestCase):
+    def test_approved_seed_store_partitions_all_24_findings(self):
+        result = audit_docs.audit_consistency(_DOCS_ROOT)
+        self.assertEqual(result["total_seeds"], 24)
+        self.assertEqual(sum(result["by_status"].values()), 24)
+        self.assertEqual(
+            set(result["by_status"]),
+            set(audit_docs.CONSISTENCY_STATUSES),
+        )
+        self.assertEqual(result["accounting"]["unaccounted"], [])
+
+    def test_current_placeholder_remains_a_deterministic_finding(self):
+        result = audit_docs.audit_consistency(_DOCS_ROOT)
+        findings = [
+            item
+            for item in result["findings"]
+            if item["seed_id"] == "cloud-concurrency-placeholder"
+        ]
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0]["rule_id"], "no-finalizing-concurrency-placeholder")
+        self.assertEqual(findings[0]["path"], "src/content/docs/platform/faqs.mdx")
+
+    def test_resolved_statements_pass_their_rules(self):
+        result = audit_docs.audit_consistency(_DOCS_ROOT)
+        passed = {item["rule_id"] for item in result["rules"]["passed"]}
+        self.assertIn("no-singular-create-run-example", passed)
+        self.assertIn("no-five-file-cli-limit", passed)
+        self.assertIn("no-old-session-sharing-links", passed)
+        self.assertNotIn("no-finalizing-concurrency-placeholder", passed)
+
+    def test_policy_blockers_remain_visible_with_owner_metadata(self):
+        result = audit_docs.audit_consistency(_DOCS_ROOT)
+        blockers = {
+            item["seed_id"]: item
+            for item in result["blockers"]
+            if item["status"] == "policy_blocker"
+        }
+        self.assertEqual(
+            set(blockers),
+            {
+                "customer-data-training-policy",
+                "free-telemetry-optout-ai-policy",
+                "fireworks-zdr-provider-list",
+            },
+        )
+        for blocker in blockers.values():
+            self.assertTrue(blocker["owner"])
+            self.assertTrue(blocker["unresolved_question"])
+            self.assertTrue(blocker["inconsistent_surfaces"])
+            self.assertTrue(blocker["recheck_condition"])
+
+    def test_exact_rule_reports_every_occurrence_and_then_passes(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            doc = root / "doc.mdx"
+            doc.write_text("stale statement\nok\nSTALE STATEMENT\n", encoding="utf-8")
+            store = (
+                root
+                / ".agents"
+                / "skills"
+                / "missing_docs"
+                / "references"
+                / "consistency_seeds.json"
+            )
+            store.parent.mkdir(parents=True)
+            store.write_text(json.dumps({
+                "schema_version": 1,
+                "seeds": [{
+                    "id": "multiple-occurrences",
+                    "claim": "The stale statement is absent.",
+                    "status": "fix",
+                    "occurrence_queries": ["stale statement"],
+                    "authoritative_sources": ["source.rs"],
+                    "affected_surfaces": ["doc.mdx"],
+                    "surface_dispositions": {"doc.mdx": "fixed"},
+                    "recheck_condition": "The source statement changes.",
+                    "deterministic_rules": [{
+                        "id": "no-stale-statement",
+                        "type": "forbidden_text",
+                        "patterns": ["stale statement"],
+                        "paths": ["doc.mdx"],
+                    }],
+                }],
+            }), encoding="utf-8")
+
+            result = audit_docs.audit_consistency(root)
+            self.assertEqual(len(result["findings"]), 2)
+            self.assertEqual(
+                [item["line"] for item in result["findings"]],
+                [1, 3],
+            )
+            self.assertEqual(result["rules"]["failed"][0]["match_count"], 2)
+
+            doc.write_text("current statement\n", encoding="utf-8")
+            resolved = audit_docs.audit_consistency(root)
+            self.assertEqual(resolved["findings"], [])
+            self.assertEqual(
+                resolved["rules"]["passed"][0]["rule_id"],
+                "no-stale-statement",
+            )
+
+    def test_malformed_seed_data_exits_two(self):
+        with tempfile.TemporaryDirectory() as d:
+            store = Path(d) / "seeds.json"
+            store.write_text(
+                '{"schema_version": 1, "seeds": [{"id": "unaccounted"}]}',
+                encoding="utf-8",
+            )
+            output = Path(d) / "report.json"
+            argv = [
+                str(_AUDIT),
+                "--category",
+                "consistency",
+                "--output",
+                str(output),
+            ]
+            with (
+                mock.patch.object(audit_docs, "_consistency_seed_path", return_value=store),
+                mock.patch.object(sys, "argv", argv),
+                redirect_stdout(io.StringIO()),
+                redirect_stderr(io.StringIO()),
+                self.assertRaises(SystemExit) as exited,
+            ):
+                audit_docs.main()
+            self.assertEqual(exited.exception.code, 2)
+            report = json.loads(output.read_text(encoding="utf-8"))
+            skipped = {
+                item["audit"]
+                for item in report["summary"]["audits_skipped"]
+            }
+            self.assertIn("integrity:consistency_accounting", skipped)
+            self.assertTrue(report["consistency"]["accounting"]["unaccounted"])
+
+    def test_category_and_severity_scope_remain_compatible(self):
+        with tempfile.TemporaryDirectory() as d:
+            output = Path(d) / "report.json"
+            proc = subprocess.run(
+                [
+                    sys.executable,
+                    str(_AUDIT),
+                    "--category",
+                    "consistency",
+                    "--severity",
+                    "high",
+                    "--output",
+                    str(output),
+                ],
+                capture_output=True,
+                text=True,
+                stdin=subprocess.DEVNULL,
+            )
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            report = json.loads(output.read_text(encoding="utf-8"))
+            self.assertEqual(report["summary"]["audits_run"], ["consistency"])
+            self.assertEqual(
+                report["summary"]["by_category"]["undocumented_cli_commands"],
+                0,
+            )
+            self.assertTrue(
+                all(
+                    item["severity"] == "high"
+                    for item in report["consistency_findings"]
+                )
+            )
 
 
 class TestGatedLogic(unittest.TestCase):

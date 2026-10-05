@@ -1,0 +1,624 @@
+{
+  "schema_version": 1,
+  "seeds": [
+    {
+      "id": "free-codebase-indexing-limit",
+      "claim": "The Free plan supports indexing up to 5,000 files per repository.",
+      "status": "fix",
+      "occurrence_queries": ["at least 5,000 files", "up to 5,000 files per repository"],
+      "authoritative_sources": ["../warp-server/billing/config/tiers/free.yaml"],
+      "affected_surfaces": ["src/content/docs/agents/capabilities/codebase-context.mdx"],
+      "surface_dispositions": {"src/content/docs/agents/capabilities/codebase-context.mdx": "fixed"},
+      "recheck_condition": "The Free plan indexing entitlement or pricing copy changes.",
+      "deterministic_rules": [
+        {
+          "id": "no-all-plans-5000-floor",
+          "type": "forbidden_text",
+          "patterns": ["All plans support indexing **at least 5,000 files per codebase**"],
+          "paths": ["src/content/docs/agents/capabilities/codebase-context.mdx"]
+        }
+      ]
+    },
+    {
+      "id": "scheduled-api-key-billing-principal",
+      "claim": "Scheduled and API-key run billing must use owner-approved customer-visible semantics.",
+      "status": "owner_confirmation",
+      "occurrence_queries": ["scheduled runs", "agent API key", "team owner"],
+      "authoritative_sources": [],
+      "affected_surfaces": [
+        "src/content/docs/platform/triggers/scheduled-agents.mdx",
+        "src/content/docs/reference/cli/api-keys.mdx",
+        "src/content/docs/platform/team-access-billing-and-identity.mdx",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx"
+      ],
+      "surface_dispositions": {
+        "src/content/docs/platform/triggers/scheduled-agents.mdx": "blocked",
+        "src/content/docs/reference/cli/api-keys.mdx": "blocked",
+        "src/content/docs/platform/team-access-billing-and-identity.mdx": "blocked",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx": "blocked"
+      },
+      "owner": "Billing and Product",
+      "unresolved_question": "Which customer-visible balance is charged for scheduled and API-key runs on each plan, how can a user predict it, and where can they inspect it?",
+      "recheck_condition": "Billing and Product approve a customer-facing charge statement for every plan.",
+      "inconsistent_surfaces": [
+        "src/content/docs/platform/triggers/scheduled-agents.mdx",
+        "src/content/docs/reference/cli/api-keys.mdx",
+        "src/content/docs/platform/team-access-billing-and-identity.mdx",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx"
+      ]
+    },
+    {
+      "id": "api-key-addon-credit-pool",
+      "claim": "API-key run Add-on Credits behavior must use owner-approved balance categories and precedence.",
+      "status": "owner_confirmation",
+      "occurrence_queries": ["owner's personal Add-on Credits", "shared add-on credit pool", "API-key run"],
+      "authoritative_sources": [],
+      "affected_surfaces": [
+        "src/content/docs/reference/cli/api-keys.mdx",
+        "src/content/docs/platform/team-access-billing-and-identity.mdx",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx"
+      ],
+      "surface_dispositions": {
+        "src/content/docs/reference/cli/api-keys.mdx": "blocked",
+        "src/content/docs/platform/team-access-billing-and-identity.mdx": "blocked",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx": "blocked"
+      },
+      "owner": "Billing and Product",
+      "unresolved_question": "Which Add-on Credits balances can fund an API-key run, and is any depletion order a supported customer contract?",
+      "recheck_condition": "Billing and Product approve the applicable balance categories and any guaranteed precedence.",
+      "inconsistent_surfaces": [
+        "src/content/docs/reference/cli/api-keys.mdx",
+        "src/content/docs/platform/team-access-billing-and-identity.mdx",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx"
+      ]
+    },
+    {
+      "id": "user-triggered-cloud-run-first-bucket",
+      "claim": "User-triggered cloud-run charges must use one owner-approved customer-visible explanation.",
+      "status": "owner_confirmation",
+      "occurrence_queries": ["user-triggered cloud run", "first bucket", "credit waterfall"],
+      "authoritative_sources": [],
+      "affected_surfaces": ["src/content/docs/platform/team-access-billing-and-identity.mdx"],
+      "surface_dispositions": {"src/content/docs/platform/team-access-billing-and-identity.mdx": "blocked"},
+      "owner": "Billing and Product",
+      "unresolved_question": "What are the customer-visible charge semantics for a user-triggered cloud run on each plan, using only balance labels users can inspect?",
+      "recheck_condition": "Billing and Product approve one customer-facing explanation of charges and inspection.",
+      "inconsistent_surfaces": ["src/content/docs/platform/team-access-billing-and-identity.mdx"]
+    },
+    {
+      "id": "team-deletion-addon-credits",
+      "claim": "A team with remaining Add-on Credits cannot be deleted until the credits are used or removed.",
+      "status": "fix",
+      "occurrence_queries": ["team deleted", "remaining add-on credits", "used or removed"],
+      "authoritative_sources": [
+        "../warp-server/logic/workspace_memberships.go",
+        "../warp-server/test/integration/delete_team_test.go"
+      ],
+      "affected_surfaces": [
+        "src/content/docs/support-and-community/plans-and-billing/add-on-credits.mdx",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx",
+        "src/content/docs/knowledge-and-collaboration/teams.mdx",
+        "src/content/docs/enterprise/team-management/teams.mdx"
+      ],
+      "surface_dispositions": {
+        "src/content/docs/support-and-community/plans-and-billing/add-on-credits.mdx": "fixed",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx": "fixed",
+        "src/content/docs/knowledge-and-collaboration/teams.mdx": "fixed",
+        "src/content/docs/enterprise/team-management/teams.mdx": "fixed"
+      },
+      "recheck_condition": "Team deletion validation or Add-on Credits lifecycle behavior changes.",
+      "deterministic_rules": [
+        {
+          "id": "no-delete-then-unusable",
+          "type": "forbidden_text",
+          "patterns": ["Any remaining add-on credits tied to the team are no longer usable"],
+          "paths": [
+            "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx",
+            "src/content/docs/knowledge-and-collaboration/teams.mdx",
+            "src/content/docs/enterprise/team-management/teams.mdx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "addon-credit-terminology",
+      "claim": "Add-on Credits is the product name; auto-reload names the automatic purchase action.",
+      "status": "fix",
+      "occurrence_queries": ["reload credits", "Add-on Credits", "auto-reload"],
+      "authoritative_sources": ["src/content/docs/support-and-community/plans-and-billing/add-on-credits.mdx"],
+      "affected_surfaces": [
+        "src/content/docs/support-and-community/plans-and-billing/add-on-credits.mdx",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx"
+      ],
+      "surface_dispositions": {
+        "src/content/docs/support-and-community/plans-and-billing/add-on-credits.mdx": "fixed",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx": "fixed"
+      },
+      "recheck_condition": "Billing product terminology changes.",
+      "deterministic_rules": [
+        {
+          "id": "no-reload-credits-product-name",
+          "type": "forbidden_regex",
+          "patterns": ["(?<!auto-)\\breload credits\\b"],
+          "paths": [
+            "src/content/docs/support-and-community/plans-and-billing/add-on-credits.mdx",
+            "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "free-third-party-harness-entitlement",
+      "claim": "Free cloud runs use the Warp Agent; third-party harnesses require Build or higher.",
+      "status": "fix",
+      "occurrence_queries": ["available to all users", "Build or higher", "third-party harness"],
+      "authoritative_sources": [
+        "../warp-server/billing/config/tiers/free.yaml",
+        "../warp-server/billing/config/tiers/_base_self_serve_plan.yaml"
+      ],
+      "affected_surfaces": [
+        "src/content/docs/platform/harnesses/index.mdx",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx"
+      ],
+      "surface_dispositions": {
+        "src/content/docs/platform/harnesses/index.mdx": "fixed",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx": "fixed"
+      },
+      "recheck_condition": "Harness entitlements change in shipped tier configuration.",
+      "deterministic_rules": [
+        {
+          "id": "no-all-users-multi-harness",
+          "type": "forbidden_text",
+          "patterns": ["Multi-harness orchestration is currently in beta and available to all users"],
+          "paths": ["src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx"]
+        }
+      ]
+    },
+    {
+      "id": "customer-data-training-policy",
+      "claim": "Training and data-use language must use a Privacy, Security, and Legal-approved scope matrix.",
+      "status": "policy_blocker",
+      "occurrence_queries": ["train", "training", "customer-generated data", "model providers"],
+      "authoritative_sources": [],
+      "affected_surfaces": [
+        "src/content/docs/agents/getting-started/faqs.mdx",
+        "src/content/docs/index.mdx"
+      ],
+      "surface_dispositions": {
+        "src/content/docs/agents/getting-started/faqs.mdx": "blocked",
+        "src/content/docs/index.mdx": "blocked"
+      },
+      "owner": "Privacy, Security, and Legal",
+      "unresolved_question": "What approved statements apply to customer AI inputs and outputs, console content, telemetry, user-generated content, provider training, Warp improvement, and plan or setting differences?",
+      "recheck_condition": "Privacy, Security, and Legal approve the complete scoped policy matrix and final copy.",
+      "inconsistent_surfaces": [
+        "src/content/docs/agents/getting-started/faqs.mdx",
+        "src/content/docs/index.mdx"
+      ]
+    },
+    {
+      "id": "secret-redaction-mechanism-boundary",
+      "claim": "Configurable terminal and AI Secret Redaction is distinct from telemetry payload redaction.",
+      "status": "fix",
+      "occurrence_queries": ["Secret Redaction", "telemetry payload redaction", "automatically apply"],
+      "authoritative_sources": [
+        "../warp/app/src/terminal/safe_mode_settings.rs",
+        "../warp/app/src/server/telemetry/secret_redaction.rs"
+      ],
+      "affected_surfaces": [
+        "src/content/docs/support-and-community/privacy-and-security/secret-redaction.mdx",
+        "src/content/docs/support-and-community/privacy-and-security/privacy.mdx",
+        "src/content/docs/enterprise/security-and-compliance/security-overview.mdx"
+      ],
+      "surface_dispositions": {
+        "src/content/docs/support-and-community/privacy-and-security/secret-redaction.mdx": "fixed",
+        "src/content/docs/support-and-community/privacy-and-security/privacy.mdx": "fixed",
+        "src/content/docs/enterprise/security-and-compliance/security-overview.mdx": "fixed"
+      },
+      "recheck_condition": "Secret Redaction defaults, Enterprise policy, or telemetry redaction behavior changes.",
+      "deterministic_rules": [
+        {
+          "id": "no-universal-ai-redaction",
+          "type": "forbidden_text",
+          "patterns": ["All AI interactions automatically apply [secret redaction]"],
+          "paths": ["src/content/docs/enterprise/security-and-compliance/security-overview.mdx"]
+        }
+      ]
+    },
+    {
+      "id": "secret-redaction-unconditional-copy",
+      "claim": "Secret Redaction copy identifies the configurable AI path separately from unconditional telemetry payload redaction.",
+      "status": "fix",
+      "occurrence_queries": ["unconditionally applies Secret Redaction", "Secret Redaction setting", "telemetry"],
+      "authoritative_sources": [
+        "../warp/app/src/terminal/safe_mode_settings.rs",
+        "../warp/app/src/server/telemetry/secret_redaction.rs"
+      ],
+      "affected_surfaces": ["src/content/docs/support-and-community/privacy-and-security/privacy.mdx"],
+      "surface_dispositions": {"src/content/docs/support-and-community/privacy-and-security/privacy.mdx": "fixed"},
+      "recheck_condition": "The privacy overview or generated telemetry description changes.",
+      "deterministic_rules": [
+        {
+          "id": "no-unconditional-configurable-redaction",
+          "type": "forbidden_text",
+          "patterns": ["Warp unconditionally applies [Secret Redaction]"],
+          "paths": ["src/content/docs/support-and-community/privacy-and-security/privacy.mdx"]
+        }
+      ]
+    },
+    {
+      "id": "secret-redaction-regex-case",
+      "claim": "Secret Redaction regexes are case-sensitive by default, and (?i) makes a pattern case-insensitive.",
+      "status": "fix",
+      "occurrence_queries": ["case-sensitive", "case-insensitive", "(?i)"],
+      "authoritative_sources": ["../warp/app/src/settings_view/privacy_page.rs"],
+      "affected_surfaces": ["src/content/docs/support-and-community/privacy-and-security/secret-redaction.mdx"],
+      "surface_dispositions": {"src/content/docs/support-and-community/privacy-and-security/secret-redaction.mdx": "fixed"},
+      "recheck_condition": "Secret Redaction regex compilation behavior changes.",
+      "deterministic_rules": [
+        {
+          "id": "no-inverted-case-flag",
+          "type": "forbidden_text",
+          "patterns": ["If you want a regex to be case-sensitive, you can prepend `(?i)`"],
+          "paths": ["src/content/docs/support-and-community/privacy-and-security/secret-redaction.mdx"]
+        }
+      ]
+    },
+    {
+      "id": "free-telemetry-optout-ai-policy",
+      "claim": "Free telemetry opt-out and AI availability language requires an approved Product, Privacy, and Legal contract.",
+      "status": "policy_blocker",
+      "occurrence_queries": ["Help improve Warp", "full ZDR", "Free plan", "telemetry must be enabled"],
+      "authoritative_sources": [],
+      "affected_surfaces": [
+        "src/content/docs/support-and-community/privacy-and-security/privacy.mdx",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx",
+        "src/content/docs/enterprise/security-and-compliance/security-overview.mdx"
+      ],
+      "surface_dispositions": {
+        "src/content/docs/support-and-community/privacy-and-security/privacy.mdx": "blocked",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx": "blocked",
+        "src/content/docs/enterprise/security-and-compliance/security-overview.mdx": "blocked"
+      },
+      "owner": "Product, Privacy, and Legal",
+      "unresolved_question": "Can Free users disable Help improve Warp, which AI paths remain available, is full ZDR the correct term, and what cloud conversation data persists?",
+      "recheck_condition": "Product, Privacy, and Legal approve the exact plan-, setting-, and data-class-specific statements.",
+      "inconsistent_surfaces": [
+        "src/content/docs/support-and-community/privacy-and-security/privacy.mdx",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx",
+        "src/content/docs/enterprise/security-and-compliance/security-overview.mdx"
+      ]
+    },
+    {
+      "id": "fireworks-zdr-provider-list",
+      "claim": "Fireworks AI appears in contractual ZDR copy only after Security and Legal approve its scope and exceptions.",
+      "status": "policy_blocker",
+      "occurrence_queries": ["Fireworks AI", "Zero Data Retention", "contracted LLM providers"],
+      "authoritative_sources": [],
+      "affected_surfaces": [
+        "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx",
+        "src/content/docs/agents/inference/model-choice.mdx"
+      ],
+      "surface_dispositions": {
+        "src/content/docs/enterprise/security-and-compliance/security-overview.mdx": "blocked",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx": "blocked",
+        "src/content/docs/agents/inference/model-choice.mdx": "blocked"
+      },
+      "owner": "Security and Legal",
+      "unresolved_question": "What is the current Fireworks AI retention contract, and which model-specific exceptions apply?",
+      "recheck_condition": "Security and Legal approve one provider list and qualification for every affected surface.",
+      "inconsistent_surfaces": [
+        "src/content/docs/enterprise/security-and-compliance/security-overview.mdx",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx",
+        "src/content/docs/agents/inference/model-choice.mdx"
+      ]
+    },
+    {
+      "id": "api-create-run-path",
+      "claim": "Create-run examples use the canonical plural route; the singular route appears only as deprecated compatibility.",
+      "status": "fix",
+      "occurrence_queries": ["POST /agent/run", "POST /agent/runs"],
+      "authoritative_sources": [
+        "developers/agent-api-openapi.yaml",
+        "../warp-server/router/handlers/public_api/agent_webhooks.go"
+      ],
+      "affected_surfaces": [
+        "src/content/docs/reference/api-and-sdk/index.mdx",
+        "src/content/docs/factories/factory-api.mdx",
+        "src/content/docs/platform/orchestration/multi-agent-runs.mdx"
+      ],
+      "surface_dispositions": {
+        "src/content/docs/reference/api-and-sdk/index.mdx": "fixed",
+        "src/content/docs/factories/factory-api.mdx": "fixed",
+        "src/content/docs/platform/orchestration/multi-agent-runs.mdx": "fixed"
+      },
+      "recheck_condition": "Any create-run example or released route changes.",
+      "deterministic_rules": [
+        {
+          "id": "no-singular-create-run-example",
+          "type": "forbidden_regex",
+          "patterns": ["POST /agent/run(?!s)"],
+          "paths": [
+            "src/content/docs/reference/api-and-sdk/index.mdx",
+            "src/content/docs/factories/factory-api.mdx",
+            "src/content/docs/platform/orchestration/multi-agent-runs.mdx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "api-run-list-name-filter",
+      "claim": "GET /agent/runs uses the name query parameter, not config_name.",
+      "status": "fix",
+      "occurrence_queries": ["config_name", "name query parameter"],
+      "authoritative_sources": [
+        "developers/agent-api-openapi.yaml",
+        "../warp-server/router/handlers/public_api/agent_webhooks.go"
+      ],
+      "affected_surfaces": ["src/content/docs/reference/api-and-sdk/index.mdx"],
+      "surface_dispositions": {"src/content/docs/reference/api-and-sdk/index.mdx": "fixed"},
+      "recheck_condition": "The released list-runs query schema changes.",
+      "deterministic_rules": [
+        {
+          "id": "no-config-name-filter",
+          "type": "forbidden_text",
+          "patterns": ["config_name"],
+          "paths": ["src/content/docs/reference/api-and-sdk/index.mdx"]
+        }
+      ]
+    },
+    {
+      "id": "cloud-image-attachments",
+      "claim": "Legacy CLI task files and interactive conversation images are documented as separate attachment surfaces.",
+      "status": "fix",
+      "occurrence_queries": ["--attach", "maximum 5", "cloud agent conversations", "paste", "drag and drop"],
+      "authoritative_sources": [
+        "../warp/app/src/ai/agent_sdk/driver/attachments.rs",
+        "../warp/app/src/ai/attachment_utils.rs",
+        "../warp/app/src/ai/blocklist/agent_view/agent_input_footer/mod.rs",
+        "../warp/app/src/terminal/input.rs"
+      ],
+      "affected_surfaces": [
+        "src/content/docs/reference/cli/index.mdx",
+        "src/content/docs/platform/faqs.mdx",
+        "src/content/docs/agents/local-agents/agent-context/images-as-context.mdx"
+      ],
+      "surface_dispositions": {
+        "src/content/docs/reference/cli/index.mdx": "fixed",
+        "src/content/docs/platform/faqs.mdx": "fixed",
+        "src/content/docs/agents/local-agents/agent-context/images-as-context.mdx": "fixed"
+      },
+      "recheck_condition": "Legacy CLI attachment validation or interactive image input paths change.",
+      "deterministic_rules": [
+        {
+          "id": "no-five-file-cli-limit",
+          "type": "forbidden_regex",
+          "patterns": ["maximum 5(?!\\d)"],
+          "paths": ["src/content/docs/reference/cli/index.mdx"]
+        },
+        {
+          "id": "cloud-images-not-denied",
+          "type": "forbidden_text",
+          "patterns": ["Cloud agent conversations do not currently support image attachments"],
+          "paths": [
+            "src/content/docs/platform/faqs.mdx",
+            "src/content/docs/agents/local-agents/agent-context/images-as-context.mdx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "legacy-cli-default-profile-mcp",
+      "claim": "The default profile permits MCP actions but has an empty profile allowlist; startup depends on the server selection path.",
+      "status": "fix",
+      "occurrence_queries": ["loads any available MCP servers", "does not have the ability to use MCP", "--mcp"],
+      "authoritative_sources": [
+        "../warp/crates/cloud_object_models/src/ai_execution_profile.rs",
+        "../warp/app/src/ai/agent_sdk/driver/mcp_startup.rs"
+      ],
+      "affected_surfaces": [
+        "src/content/docs/reference/cli/quickstart.mdx",
+        "src/content/docs/reference/cli/agent-profiles.mdx",
+        "src/content/docs/reference/cli/mcp-servers.mdx"
+      ],
+      "surface_dispositions": {
+        "src/content/docs/reference/cli/quickstart.mdx": "fixed",
+        "src/content/docs/reference/cli/agent-profiles.mdx": "fixed",
+        "src/content/docs/reference/cli/mcp-servers.mdx": "fixed"
+      },
+      "recheck_condition": "Default profile permissions or MCP startup selection changes.",
+      "deterministic_rules": [
+        {
+          "id": "no-load-all-mcp-copy",
+          "type": "forbidden_text",
+          "patterns": ["loads any available MCP servers"],
+          "paths": ["src/content/docs/reference/cli/quickstart.mdx"]
+        },
+        {
+          "id": "no-default-mcp-denial",
+          "type": "forbidden_text",
+          "patterns": ["does not have the ability to use MCP servers by default"],
+          "paths": ["src/content/docs/reference/cli/agent-profiles.mdx"]
+        }
+      ]
+    },
+    {
+      "id": "warp-agent-cli-updater",
+      "claim": "Warp Agent CLI update behavior is described by install method.",
+      "status": "fix",
+      "occurrence_queries": ["updates automatically", "Homebrew", "unmanaged installs"],
+      "authoritative_sources": ["../warp/crates/warp_tui/src/autoupdate.rs"],
+      "affected_surfaces": [
+        "src/content/docs/agents/cli/reference.mdx",
+        "src/content/docs/agents/cli/quickstart.mdx"
+      ],
+      "surface_dispositions": {
+        "src/content/docs/agents/cli/reference.mdx": "fixed",
+        "src/content/docs/agents/cli/quickstart.mdx": "fixed"
+      },
+      "recheck_condition": "Managed, Homebrew, or unmanaged updater behavior changes.",
+      "deterministic_rules": [
+        {
+          "id": "no-unconditional-cli-updater",
+          "type": "forbidden_text",
+          "patterns": ["The CLI updates automatically"],
+          "paths": ["src/content/docs/agents/cli/reference.mdx"]
+        }
+      ]
+    },
+    {
+      "id": "oz-warp-cli-migration",
+      "claim": "Legacy oz documentation remains until CLI owners confirm parity and the final deprecation date.",
+      "status": "owner_confirmation",
+      "occurrence_queries": ["end of September 2026", "October 6, 2026", "oz commands remain supported"],
+      "authoritative_sources": [],
+      "affected_surfaces": ["src/content/docs/reference/cli"],
+      "surface_dispositions": {"src/content/docs/reference/cli": "blocked"},
+      "owner": "Warp Agent CLI and Automation Platform",
+      "unresolved_question": "Which legacy oz workflows have verified warp equivalents, which have no equivalent, and what are the final command-support and documentation-removal dates?",
+      "recheck_condition": "CLI owners approve the complete parity inventory and separate transition milestones.",
+      "inconsistent_surfaces": ["src/content/docs/reference/cli"]
+    },
+    {
+      "id": "windows-fish-support",
+      "claim": "Shell support is stated per platform without declaring Windows fish support.",
+      "status": "owner_confirmation",
+      "occurrence_queries": ["across macOS, Windows, and Linux", "fish", "Windows"],
+      "authoritative_sources": [],
+      "affected_surfaces": [
+        "src/content/docs/getting-started/supported-shells.mdx",
+        "src/content/docs/support-and-community/troubleshooting-and-support/known-issues.mdx"
+      ],
+      "surface_dispositions": {
+        "src/content/docs/getting-started/supported-shells.mdx": "fixed",
+        "src/content/docs/support-and-community/troubleshooting-and-support/known-issues.mdx": "blocked"
+      },
+      "owner": "Terminal and Support",
+      "unresolved_question": "Is MSYS2 fish an officially supported Windows shell?",
+      "recheck_condition": "Terminal and Support approve the Windows fish support commitment.",
+      "inconsistent_surfaces": ["src/content/docs/support-and-community/troubleshooting-and-support/known-issues.mdx"],
+      "deterministic_rules": [
+        {
+          "id": "no-cross-platform-shell-blanket",
+          "type": "forbidden_text",
+          "patterns": ["Warp supports bash, zsh, fish, and PowerShell (pwsh) across macOS, Windows, and Linux"],
+          "paths": ["src/content/docs/getting-started/supported-shells.mdx"]
+        }
+      ]
+    },
+    {
+      "id": "macos-ventura-updater-warning",
+      "claim": "Resolved macOS Ventura update incidents are not presented as current prevention guidance.",
+      "status": "fix",
+      "occurrence_queries": ["macOS Ventura", "before you upgrade", "Oct 2022"],
+      "authoritative_sources": ["src/content/docs/changelog"],
+      "affected_surfaces": [
+        "src/content/docs/support-and-community/troubleshooting-and-support/updating-warp.mdx",
+        "src/content/docs/support-and-community/troubleshooting-and-support/known-issues.mdx"
+      ],
+      "surface_dispositions": {
+        "src/content/docs/support-and-community/troubleshooting-and-support/updating-warp.mdx": "fixed",
+        "src/content/docs/support-and-community/troubleshooting-and-support/known-issues.mdx": "fixed"
+      },
+      "recheck_condition": "A current macOS update incident requires new troubleshooting guidance.",
+      "deterministic_rules": [
+        {
+          "id": "no-active-ventura-warning",
+          "type": "forbidden_text",
+          "patterns": ["auto-update on macOS Ventura", "before you upgrade to macOS Ventura"],
+          "paths": [
+            "src/content/docs/support-and-community/troubleshooting-and-support/updating-warp.mdx",
+            "src/content/docs/support-and-community/troubleshooting-and-support/known-issues.mdx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "legacy-ssh-remote-shell",
+      "claim": "The legacy SSH wrapper preserves the remote login shell and enhances bash or zsh only.",
+      "status": "fix",
+      "occurrence_queries": ["start a bash shell", "remote login shell", "enhanced bootstrap"],
+      "authoritative_sources": [
+        "../warp/app/assets/bundled/bootstrap/bash_body.sh",
+        "../warp/app/assets/bundled/bootstrap/zsh_body.sh",
+        "../warp/crates/integration/src/test/ssh.rs"
+      ],
+      "affected_surfaces": [
+        "src/content/docs/support-and-community/troubleshooting-and-support/known-issues.mdx",
+        "src/content/docs/terminal/warpify/ssh-legacy.mdx"
+      ],
+      "surface_dispositions": {
+        "src/content/docs/support-and-community/troubleshooting-and-support/known-issues.mdx": "fixed",
+        "src/content/docs/terminal/warpify/ssh-legacy.mdx": "fixed"
+      },
+      "recheck_condition": "Legacy SSH shell selection or bootstrap support changes.",
+      "deterministic_rules": [
+        {
+          "id": "no-forced-remote-bash",
+          "type": "forbidden_text",
+          "patterns": ["we start a bash shell on the remote host"],
+          "paths": ["src/content/docs/support-and-community/troubleshooting-and-support/known-issues.mdx"]
+        }
+      ]
+    },
+    {
+      "id": "cloud-concurrency-placeholder",
+      "claim": "Cloud concurrency and credit-allocation guidance must not remain a stale placeholder.",
+      "status": "owner_confirmation",
+      "occurrence_queries": ["Concurrency limits", "credit allocation details", "still being finalized"],
+      "authoritative_sources": [],
+      "affected_surfaces": ["src/content/docs/platform/faqs.mdx"],
+      "surface_dispositions": {"src/content/docs/platform/faqs.mdx": "blocked"},
+      "owner": "Product and Billing",
+      "unresolved_question": "What current public concurrency and credit-allocation guidance should replace the placeholder, or should the placeholder be removed without replacement?",
+      "recheck_condition": "Product and Billing approve replacement guidance or approve removing the placeholder.",
+      "inconsistent_surfaces": ["src/content/docs/platform/faqs.mdx"],
+      "deterministic_rules": [
+        {
+          "id": "no-finalizing-concurrency-placeholder",
+          "type": "forbidden_regex",
+          "patterns": ["Concurrency limits\\s+and\\s+credit allocation details\\s+are\\s+still being finalized"],
+          "paths": ["src/content/docs/platform/faqs.mdx"]
+        }
+      ]
+    },
+    {
+      "id": "session-sharing-canonical-path",
+      "claim": "Session Sharing links use the canonical agent or cloud-run page, and the old root redirects.",
+      "status": "fix",
+      "occurrence_queries": ["/knowledge-and-collaboration/session-sharing/", "/agents/local-agents/session-sharing/"],
+      "authoritative_sources": [
+        "src/content/docs/agents/local-agents/session-sharing.mdx",
+        "src/content/docs/platform/viewing-cloud-agent-runs.mdx"
+      ],
+      "affected_surfaces": [
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx",
+        "src/content/docs/support-and-community/troubleshooting-and-support/using-warp-offline.mdx",
+        "src/content/docs/terminal/more-features/settings-sync.mdx",
+        "src/content/docs/support-and-community/troubleshooting-and-support/known-issues.mdx",
+        "src/content/docs/knowledge-and-collaboration/warp-drive/web.mdx",
+        "src/content/docs/agents/local-agents/session-sharing.mdx",
+        "vercel.json"
+      ],
+      "surface_dispositions": {
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx": "fixed",
+        "src/content/docs/support-and-community/troubleshooting-and-support/using-warp-offline.mdx": "fixed",
+        "src/content/docs/terminal/more-features/settings-sync.mdx": "fixed",
+        "src/content/docs/support-and-community/troubleshooting-and-support/known-issues.mdx": "fixed",
+        "src/content/docs/knowledge-and-collaboration/warp-drive/web.mdx": "fixed",
+        "src/content/docs/agents/local-agents/session-sharing.mdx": "fixed",
+        "vercel.json": "fixed"
+      },
+      "recheck_condition": "Session Sharing pages move or a new inbound link targets the old root.",
+      "deterministic_rules": [
+        {
+          "id": "no-old-session-sharing-links",
+          "type": "forbidden_regex",
+          "patterns": ["(?:\\(|href=[\"'])/knowledge-and-collaboration/session-sharing/"],
+          "paths": ["src/content/docs"]
+        }
+      ]
+    }
+  ]
+}
