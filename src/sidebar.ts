@@ -58,8 +58,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Terminal',
 					items: [
-						'terminal/input/universal-input',
-						'terminal/input/classic-input',
 						{
 							label: 'Blocks',
 							collapsed: true,
@@ -674,6 +672,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/self-hosting/reference', label: 'Self-hosted worker reference' },
 						'platform/self-hosting/security-and-networking',
 						{ slug: 'platform/self-hosting/troubleshooting', label: 'Troubleshooting' },
+						{ slug: 'platform/data-storage', label: 'Data storage' },
 					],
 				},
 			],
@@ -848,6 +847,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Team management',
 					items: [
+						{ slug: 'enterprise/team-management/workspaces', label: 'Workspaces' },
 						'enterprise/team-management/teams',
 						{ slug: 'enterprise/team-management/admin-panel', label: 'Admin panel' },
 						{ slug: 'enterprise/team-management/roles-and-permissions', label: 'Roles and permissions' },

@@ -8,6 +8,26 @@ This log tracks every run of the `aeo_crosslink_audit` skill — both runs that 
 
 ---
 
+## 2026-10-05 — PR opened
+
+- **Run**: https://app.warp.dev/conversation/319938e2-4420-4319-b40a-64f54fae74a2
+- **Source signals**: Peec available, GSC unavailable
+- **PR**: https://github.com/warpdotdev/docs/pull/801
+- **Links proposed / added**: 8 proposed, 8 added
+- **Pages touched**: src/content/docs/platform/team-access-billing-and-identity.mdx, src/content/docs/platform/integrations/github-actions.mdx, src/content/docs/enterprise/team-management/admin-panel.mdx, src/content/docs/reference/cli/api-keys.mdx, src/content/docs/guides/agent-workflows/how-to-run-multiple-ai-coding-agents.mdx, src/content/docs/platform/managing-cloud-agents.mdx, src/content/docs/platform/skills-as-agents.mdx
+- **Themes**: bare Warp Factories GitHub App mentions → /factories/; multi-agent fleet workflows → standing factory workflows; team auth automation → scheduled agents
+- **No-change reason**: N/A
+
+## 2026-09-28 — PR opened
+
+- **Run**: https://platform.warp.dev/runs/01a0e887-b181-7133-99c8-02f0b6db8041
+- **Source signals**: Peec available, GSC unavailable
+- **PR**: https://github.com/warpdotdev/docs/pull/801
+- **Links proposed / added**: 10 proposed, 10 added
+- **Pages touched**: src/content/docs/platform/agents.mdx, src/content/docs/platform/deployment-patterns.mdx, src/content/docs/platform/environments.mdx, src/content/docs/platform/faqs.mdx, src/content/docs/platform/integrations/github.mdx, src/content/docs/platform/integrations/index.mdx, src/content/docs/platform/orchestration/index.mdx, src/content/docs/platform/oz-web-app.mdx, src/content/docs/platform/triggers/scheduled-agents-quickstart.mdx
+- **Themes**: software factory product discovery from GitHub App / cloud agent identity; schedules from environments and FAQs; factories vs ad hoc multi-agent fan-out
+- **No-change reason**: N/A
+
 ## 2026-09-21 — PR opened
 
 - **Run**: https://app.warp.dev/conversation/34b87238-2b8c-48eb-8ab5-bca94dba7d48
