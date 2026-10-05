@@ -45,7 +45,7 @@ Warp creates an enabled **teams-app-mentions** automation for the teams and chan
 * **Use shared channels** - New root messages in shared channels still require an explicit **@Warp** mention. See the [shared-channel rules](#use-shared-channels).
 * **Review results** - Follow progress and the final response in Teams. For code-change work, the factory can also open a pull request. Other workflows can return results directly in the thread.
 
-Automation-started work runs as the factory agent selected in that automation. To manage your account link, mention the Warp app in a Teams channel where it is installed and include `sign in`, complete the private link it sends, then send your request again. Mention the bot with `help` for the account commands, or with `sign out` to unlink across Factories in that Microsoft organization.
+Automation-started work runs as the factory agent selected in that automation. To manage your account link, mention **@Warp** with `sign in`, `sign out`, or `help` in a channel where the app is installed. For `sign in`, follow the private link, then send your request again. `sign out` unlinks your account from every factory in that Microsoft organization.
 
 ## Choose what starts work
 
@@ -63,6 +63,7 @@ A shared channel belongs to an owning Teams team in one Microsoft 365 organizati
 * **Eligible users** - Only people in the installation's Microsoft 365 organization with a Microsoft account linked to an active Warp workspace member can start or continue work. Guests and people from other organizations receive a private notice.
 * **New work** - A new root message must mention **@Warp**.
 * **Thread replies** - Eligible replies can continue an existing factory work item when responses to thread replies are enabled.
+* **History** - An agent run can read only its originating shared-channel thread. Warp checks the originating sender's current Teams account binding before reading it.
 
 The UI channel picker lists standard channels only. To use a shared channel, add its channel ID in the factory definition as described in [Configure Microsoft Teams as code](#configure-microsoft-teams-as-code).
 
