@@ -354,7 +354,7 @@
     },
     {
       "source": "/terminal",
-      "destination": "/",
+      "destination": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
       "statusCode": 308
     },
     {
