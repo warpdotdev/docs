@@ -294,7 +294,7 @@
     "WelcomeBlock": "other",
     "WelcomeTips": "other",
     "WellKnownMcpIds": "ga",
-    "WindowsVideoRecording": "dogfood",
+    "WindowsVideoRecording": "ga",
     "WithSandboxTelemetry": "other",
     "WorkflowAliases": "ga"
   },
@@ -724,6 +724,7 @@
       "--run-id"
     ],
     "environment": [
+      "--default-runner",
       "--description",
       "--docker-image",
       "--environment",
@@ -915,6 +916,7 @@
     "GET /api/v1/factory/{uid}/integrations/github/users",
     "GET /api/v1/factory/{uid}/integrations/github/workflows",
     "GET /api/v1/factory/{uid}/integrations/issue-tracker/issues",
+    "GET /api/v1/factory/{uid}/integrations/jira/assignees",
     "GET /api/v1/factory/{uid}/integrations/jira/labels",
     "GET /api/v1/factory/{uid}/integrations/jira/projects",
     "GET /api/v1/factory/{uid}/integrations/jira/statuses",
@@ -1475,5 +1477,5 @@
     "verify-ui-change-in-cloud": "dogfood",
     "warpctrl": "bundled"
   },
-  "changelog_last_version": "2026.09.16"
+  "changelog_last_version": "2026.09.30"
 }

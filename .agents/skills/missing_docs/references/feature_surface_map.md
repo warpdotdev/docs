@@ -165,6 +165,14 @@ SshRemoteServer -> src/content/docs/terminal/warpify/ssh.mdx
 # a flat computer-use.mdx into a computer-use/ directory).
 VideoRecording -> src/content/docs/agents/capabilities/computer-use/testing-and-recordings.mdx
 BackgroundComputerUse -> src/content/docs/agents/capabilities/computer-use/index.mdx
+# Windows platform gate for the same recording surface: video_recording_enabled()
+# is `VideoRecording && (!cfg!(windows) || WindowsVideoRecording)`
+# (app/src/ai/blocklist/action_model/recording_controller.rs:21-24). Promoted
+# dogfood -> GA (RELEASE_FLAGS) after being deferred on Gate 0 on 2026-09-25. It
+# widens platform availability rather than adding a surface: no setting, CLI
+# flag, or API field, and no page ever claimed recording excluded Windows. Maps
+# to the recording page it gates, which needs no edit.
+WindowsVideoRecording -> src/content/docs/agents/capabilities/computer-use/testing-and-recordings.mdx
 
 # Feature flags whose only user-facing surface is a documented setting in the
 # all-settings reference (terminal/settings/all-settings.mdx).
@@ -551,6 +559,12 @@ PUT /factory/{uid}/integrations/linear/teams/{team_id}/labels -> internal
 GET /factory/{uid}/integrations/jira/projects -> internal
 GET /factory/{uid}/integrations/jira/labels -> internal
 GET /factory/{uid}/integrations/jira/statuses -> internal
+# Assignable-user search across the factory's in-scope Jira projects, via the
+# workspace Jira Forge installation (listFactoryJiraAssignees,
+# ListFactoryJiraAssigneesHandler in factories.go:112). Marked `x-internal: true`
+# under the factory tag; released OpenAPI has zero `/factory` paths. Same
+# unreleased namespace as the sibling Jira pickers above.
+GET /factory/{uid}/integrations/jira/assignees -> internal
 GET /factory/{uid}/integration-activations -> internal
 GET /factory/{uid}/integration-destinations -> internal
 GET /factory/{uid}/gitlab-automation-capability -> internal
