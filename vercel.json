@@ -354,7 +354,7 @@
     },
     {
       "source": "/terminal",
-      "destination": "/terminal/input/classic-input/",
+      "destination": "/",
       "statusCode": 308
     },
     {
@@ -3534,7 +3534,12 @@
     },
     {
       "source": "/terminal/input/universal-input",
-      "destination": "/terminal/input/classic-input/",
+      "destination": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
+      "statusCode": 308
+    },
+    {
+      "source": "/terminal/input/classic-input(/?)",
+      "destination": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
       "statusCode": 308
     },
     {
@@ -3559,12 +3564,12 @@
     },
     {
       "source": "/terminal/universal-input(/?)",
-      "destination": "/terminal/input/classic-input/",
+      "destination": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
       "statusCode": 308
     },
     {
       "source": "/terminal/universal-input/classic-input(/?)",
-      "destination": "/terminal/input/classic-input/",
+      "destination": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
       "statusCode": 308
     },
     {
@@ -3869,7 +3874,7 @@
     },
     {
       "source": "/warp/terminal/input/classic-input(/?)",
-      "destination": "/terminal/input/classic-input/",
+      "destination": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
       "statusCode": 308
     },
     {
@@ -4614,7 +4619,7 @@
     },
     {
       "source": "/terminal/classic-input(/?)",
-      "destination": "/terminal/input/classic-input/",
+      "destination": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
       "statusCode": 308
     },
     {
