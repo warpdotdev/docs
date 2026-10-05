@@ -1,139 +1,122 @@
 ---
-title: Connecting Azure DevOps to a factory
+title: Azure DevOps integration
 sidebar:
   label: "Azure DevOps"
 description: >-
-  Connect Azure DevOps Services to a factory with dedicated identities,
-  repository access, and event-driven automations.
+  Connect cloud agents to Azure DevOps repos using personal access tokens
+  and Warp-managed secrets.
 ---
 import { VARS } from '@data/vars';
 
-Connect Azure DevOps Services to a factory so agents can work in selected repositories, open pull requests, and start runs from work item and pull request events. Warp creates a dedicated identity for each factory's Git and pull request operations.
+Cloud agents work with any Git repository, including those hosted on Azure DevOps. For a standalone cloud agent environment, grant access with a personal access token and Warp-managed secrets. Once configured, the environment works with any {VARS.WARP_AUTOMATION_PLATFORM} trigger—Slack, Linear, schedules, or the CLI.
 
-{/* VERIFY: Confirm first-class Azure DevOps Services support is enabled in production before merging this documentation. */}
+This page explains how to generate an Azure DevOps personal access token, store it securely, and configure a cloud agent environment that clones your repository at runtime.
 
-:::note
-Warp Factories is in Early Access and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
-:::
+This approach works for both Azure DevOps Services (dev.azure.com) and Azure DevOps Server (self-hosted) instances.
 
-The first-class integration supports hosted Azure DevOps Services at `dev.azure.com`. It doesn't support Azure DevOps Server. To use a self-hosted Azure DevOps Server repository, [configure it as another code forge](/factories/code-forges/other-code-forges/) with your own credentials and setup commands.
+To connect hosted Azure DevOps Services to a factory with event-driven automations, use the [Azure DevOps factory integration](/factories/integrations/azure-devops/). For an Azure DevOps Server factory, use the [other code forges setup](/factories/code-forges/other-code-forges/).
 
-## What the Azure DevOps integration does
+---
 
-* **Repository access** - Give factories access to selected Azure DevOps repositories from the factory UI.
-* **Factory identity** - Give each factory its own native Microsoft Entra identity and service principal for Azure DevOps operations and Git attribution.
-* **Trigger** - Start factory runs from Azure DevOps events such as pull requests, work item updates, and mentions of the factory identity.
+## Prerequisites
 
-## How identities and access work
+* **Warp account** - <a href={VARS.WEB_APP_URL}>Create an account in the {VARS.WEB_APP}</a>.
+* **Azure DevOps repository** - Use a repository hosted on Azure DevOps Services or Azure DevOps Server.
+* **{VARS.WARP_AGENT_CLI}** - [Install and authenticate the CLI](/reference/cli/).
 
-Your personal Azure DevOps OAuth connection lets Warp list the organizations, projects, and repositories you can select during setup. When a run uses the creator's credentials, the connection also supplies the creator's Azure DevOps identity. The Azure DevOps Manager is a Warp-managed service account that creates and manages a dedicated service account identity for each factory.
+---
 
-| Identity | Purpose | Access |
-| --- | --- | --- |
-| Your connected Azure DevOps account | Lists the organizations, projects, and repositories you can choose during setup. It also supplies your identity when a run uses the creator's credentials. | Limited to resources your Azure DevOps user can read. |
-| Azure DevOps Manager | Creates and maintains factory identities in one Microsoft Entra tenant and Azure DevOps organization. | Owns only the Entra applications it creates. In Azure DevOps, it has Basic access and belongs to Project Collection Administrators. |
-| Factory identity | Authenticates the factory's Git and pull request operations after a run starts. | Has Basic access, project visibility, Service Hooks access, work item access, and permissions on the selected repositories. |
+## Step 1: Generate a personal access token
 
-Each factory identity consists of a separate Microsoft Entra application and service principal that Warp adds to Azure DevOps.
+1. Sign in to your Azure DevOps organization at `dev.azure.com/{your-org}`.
+2. Click the user settings icon (gear) in the top-right corner, then click **Personal access tokens**.
+3. Click **+ New Token**.
+4. Enter a descriptive name for the token (e.g. `warp-oz-agent`), choose the organization it applies to, and set an expiration date that matches your team's rotation policy.
+5. Under **Scopes**, select **Custom defined**, then select **Code** > **Read**.
+6. Click **Create**.
+7. Copy the token value immediately. Azure DevOps will not show it again.
 
-## Requirements
+**Code (Read)** is the minimum required scope to clone a repository. If a future workflow requires the agent to push commits or open pull requests, you will also need **Code (Read & Write)**.
 
-* **A Warp team with Warp Factories access** - A factory belongs to a [Warp team](/knowledge-and-collaboration/teams/).
-* **An Azure DevOps Services organization** - Use an organization hosted at `dev.azure.com`, with the project and repositories the factory needs.
-* **A connected Azure DevOps user** - Connect a user who can read the organization, project, and repositories you want to select.
-* **An active connection for each automation creator** - The user who creates an Azure DevOps automation must keep their own Azure DevOps OAuth connection active with the required scopes.
-* **A Microsoft Entra administrator** - A Global Administrator or Privileged Role Administrator approves the Azure DevOps Manager.
-* **An Azure DevOps administrator** - A Project Collection Administrator adds the Manager to the organization.
+For Azure DevOps Server (self-hosted), sign in at `https://{server}/{collection}` instead of `dev.azure.com`. The token creation steps are the same.
 
-The Microsoft Entra and Azure DevOps approvals can be completed by different people. A setup link lets each administrator complete their step without a Warp account.
+---
 
-### Required administrator permissions
+## Step 2: Store the token as a Warp-managed secret
 
-| System | Administrator | What the administrator approves |
-| --- | --- | --- |
-| Microsoft Entra | Global Administrator or Privileged Role Administrator | The Azure DevOps Manager and its Microsoft Graph `Application.ReadWrite.OwnedBy` permission. This permission lets the Manager create applications and manage only applications it owns. |
-| Azure DevOps | Project Collection Administrator | Basic access for the Manager and membership in the organization's Project Collection Administrators group. Warp uses the administrator's sign-in for this approval and doesn't retain it. |
+Warp injects managed secrets as environment variables at runtime and never exposes them in logs or configuration files. See the [Secrets](/platform/secrets/) documentation for full details on scoping and managing secrets.
 
-Tenant approval can be reused when you connect another Azure DevOps organization in the same Microsoft Entra tenant. Azure DevOps approval is required for each organization.
+1. Run the following command:
+
+```bash
+oz secret create --team AZURE_DEVOPS_TOKEN
+```
+
+2. When prompted, paste the token.
+
+The value is stored and encrypted, and cannot be retrieved after creation.
+
+Use `--team` to create a shared token available to all teammates and automated triggers (schedules, Slack, Linear). Use `--personal` if each team member should authenticate with their own Azure DevOps token. Personal secrets work with all triggers and take precedence over a team secret of the same name when both exist.
+
+If you need to update a secret value, run:
+
+```bash
+oz secret update --team --value AZURE_DEVOPS_TOKEN
+```
+
+---
+
+## Step 3: Create an environment with a clone setup command
+
+Create an environment that uses your token to clone the repository at the start of each agent run. Because the `--repo` flag in `oz environment create` is designed for GitHub repositories, you clone your Azure DevOps repo via a setup command instead.
+
+1. Run the following command:
+
+```bash
+oz environment create \
+  --name "my-azure-devops-env" \
+  --docker-image <image> \
+  --setup-command 'AUTH_HEADER=$(printf ":%s" "$AZURE_DEVOPS_TOKEN" | base64) && git -c "http.extraheader=Authorization: Basic $AUTH_HEADER" clone https://dev.azure.com/your-org/your-project/_git/your-repo' \
+  --setup-command 'cd your-repo && <install dependencies>'
+```
 
 :::caution
-The Manager and each factory identity can each consume one Azure DevOps Basic seat. Check available licenses before connecting an organization or adding factories.
+Use single quotes around setup commands that reference secrets. Double quotes cause your shell to expand `$AZURE_DEVOPS_TOKEN` immediately (to nothing), rather than letting Warp inject the secret at runtime inside the container.
 :::
 
-## Connect Azure DevOps
+2. Replace the following placeholders:
+   * `<image>` with your Docker image (for example, `node:22`, `python:3.12`, or a [Warp prebuilt dev image](https://github.com/warpdotdev/oz-dev-environments))
+   * `your-org` with your Azure DevOps organization name
+   * `your-project` with your Azure DevOps project name
+   * `your-repo` with your repository name
+   * For Azure DevOps Server (self-hosted), replace `dev.azure.com` with your server's hostname.
+   * The second `--setup-command` with any dependency install or build steps your project requires. For example, `npm ci` or `pip install -r requirements.txt`.
 
-Start from factory setup to connect your account, select repositories, and provision the runtime identity.
+:::caution
+Setup commands run on a fresh container for every agent run. Write them to be idempotent — commands that assume existing state (such as a partially cloned repo or a pre-built cache) can fail unpredictably. See [environment design and best practices](/platform/environments/configuring-environments/#environment-design-and-best-practices) for guidance.
+:::
 
-1. Sign in to the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. Next to the factory list, click **+** to create a factory.
-2. In the code host step, find the Azure DevOps row and click **Connect**. Complete the Microsoft sign-in to connect your Azure DevOps user.
-3. Choose an Azure DevOps organization and project, then select the repositories the factory will use. Only resources your connected user can read appear.
-4. If the organization already has an active Azure DevOps Manager, continue setup. Otherwise, connect the Manager yourself or send the setup link to the required administrators.
-5. Complete the Manager approval in this order:
-   1. A Global Administrator or Privileged Role Administrator completes the Microsoft Entra approval.
-   2. A Project Collection Administrator completes the Azure DevOps approval.
-6. Continue factory setup. Warp creates the factory identity, adds Azure DevOps Basic access, and grants access to the selected repositories. Microsoft and Azure DevOps can take several minutes to apply these changes.
+3. Note the environment ID returned. You will need it in the next step.
 
-When setup confirms that the identity is ready, the factory uses that identity for Git and pull request operations. You can retry identity provisioning from the factory's settings if setup is interrupted.
+---
 
-Workspace admins can also manage organization-level Managers in the Azure DevOps Managers section of the Admin Panel. Any active workspace member can complete or delegate Manager setup while creating a factory.
+## Step 4: Test your environment
 
-## Configure Azure DevOps automations
+Before connecting to integrations, verify the environment works by running a one-off agent.
 
-An Azure DevOps automation starts a factory run when a supported event matches its filters. Before starting a run, Warp checks the automation creator's Azure DevOps connection. New Azure DevOps factories include a default automation for pull request mentions, work item mentions, and work item assignments.
+1. Run the following command, replacing `<ENV_ID>` with the environment ID from Step 3:
 
-To add or change a trigger:
+```bash
+oz agent run-cloud --environment <ENV_ID> --prompt "Your task here"
+```
 
-1. In the factory dashboard, open **Automations**, then create an automation or edit an existing one.
-2. Add an Azure DevOps trigger, then choose an event and its filters.
-3. Click **Save**. Perform a matching action in Azure DevOps and confirm that a work item starts in the factory dashboard.
+---
 
-For general filter behavior, see [factory automations](/factories/automations/).
+## Next steps
 
-### Supported events and filters
+With your environment configured, you can connect it to any Warp trigger exactly as you would with a GitHub-backed environment:
 
-| Azure DevOps event | Available filters |
-| --- | --- |
-| Work item created | Work item types, labels, assignees, and authors |
-| Work item assigned | Work item types, labels, assignees, and authors |
-| Work item labeled | Work item types, labels, assignees, and authors |
-| Mentioned in a work item | Mentioned users |
-| Pull request created | Repository and target branches |
-| Pull request merged | Repository and target branches |
-| Pull request closed | Repository and target branches |
-| Pull request updated | Repository and target branches |
-| Pull request commented | Repository and target branches |
-| Mentioned in a pull request | Repository and mentioned users |
-
-Azure DevOps push events aren't currently available as automation triggers.
-
-## Troubleshooting
-
-* **An organization, project, or repository doesn't appear** - Confirm that your connected Azure DevOps user can read it, then refresh the connection.
-* **Manager approval can't continue** - Complete the Microsoft Entra step before the Azure DevOps step. If another administrator completed the first step, reopen the setup link.
-* **Identity provisioning remains in progress** - Microsoft Entra and Azure DevOps permission changes can take several minutes to propagate. Retry from the factory's settings if the setup reports an error.
-* **An event doesn't start a run** - Confirm the automation is enabled and that every configured filter matches the Azure DevOps event. The user who created the automation must have an active Azure DevOps OAuth connection with the required scopes. Reconnect that user's account if the connection is missing, revoked, under-scoped, or belongs to another user.
-
-### Factory identity doesn't appear in comment mention autocomplete
-
-**Cause:** The Azure DevOps identity picker for work item comments filters service-principal identities from its normal search results. This is an Azure DevOps platform limitation that Warp can't change. Warp can detect the factory identity after Azure DevOps saves the comment with the identity's mention metadata.
-
-**Workaround:** Add the factory identity to Azure DevOps's recently used identity cache:
-
-1. In the Azure DevOps organization and project connected to the factory, assign the factory identity to a work item and save the work item.
-2. Return to the comment and enter `@` followed by the factory identity's name. The identity may now appear in autocomplete. If you enter the name without autocomplete, confirm that Azure DevOps formats it as a mention instead of plain text.
-
-### `The identity value 'X' for field 'Assigned To' is an unknown identity.`
-
-**Cause:** Azure DevOps can't resolve the factory identity for the current work item. This can happen when the work item is outside the organization or project configured for the factory.
-
-**Solution:**
-
-1. In the factory's settings, confirm its Azure DevOps organization and project.
-2. In Azure DevOps, open the work item from that organization and project, then assign the factory identity again.
-
-## Related pages
-
-* [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send its first work item.
-* [Factory automations](/factories/automations/) - Configure triggers, filters, and routing.
-* [Other code forges](/factories/code-forges/other-code-forges/) - Connect repositories that don't have a first-class integration, including Azure DevOps Server.
-* [Infrastructure and security](/factories/infrastructure-and-security/) - Review how factories handle execution, credentials, and access.
+* **Slack** — Tag **@warp** in a message to start an agent run against your Azure DevOps repo. See [Slack](/platform/integrations/slack/).
+* **Linear** — Tag **@warp** on an issue to kick off a workflow. See [Linear](/platform/integrations/linear/).
+* **Scheduled agents** — Run agents on a recurring schedule. See [Scheduled Agents](/platform/triggers/scheduled-agents/).
+* **Warp Factories** — Connect hosted Azure DevOps Services with dedicated identities and event triggers. See the [Azure DevOps factory integration](/factories/integrations/azure-devops/).
