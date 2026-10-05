@@ -1,95 +1,76 @@
 ---
 title: Connecting a ChatGPT subscription
 description: >-
-  Connect a ChatGPT plan to use eligible OpenAI models in Warp Agent
-  conversations in the Warp app without using Warp credits for inference.
+  Connect a ChatGPT subscription to use eligible OpenAI models with the Warp
+  Agent in the Warp app.
 sidebar:
   label: "ChatGPT subscription"
 ---
 
-Warp lets you connect your **ChatGPT plan** to use eligible OpenAI models in Warp Agent conversations in the Warp app. Requests that use the connected plan count against its OpenAI usage limits instead of using Warp [credits](/support-and-community/plans-and-billing/credits/) for inference.
+Connect a ChatGPT subscription to use eligible OpenAI models with the Warp Agent in the Warp app. Requests made through the connection count toward your ChatGPT usage limits instead of consuming Warp credits for inference.
 
-Connecting a plan works like [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), except you sign in to your OpenAI account instead of pasting an API key. The connection covers eligible OpenAI models only. Warp does not support connecting a Claude subscription, and Anthropic, Google, and xAI models are unaffected.
+You can connect during Warp sign-up or sign-in, or link ChatGPT to an existing Warp account from Settings.
 
-:::note
-Like BYOK, connecting a ChatGPT plan is available on Free and all eligible paid plans for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service). Larger organizations need a Business or Enterprise plan. The row is hidden if your organization's admin disables member-provided API keys. See [Warp pricing](https://www.warp.dev/pricing) for current availability.
-:::
+## Connect during sign-up or sign-in
 
-## How it works
+Use **Continue with ChatGPT** to create a Warp account or sign in to an existing account with the same verified email address.
 
-When you connect your plan, Warp opens your browser to OpenAI's Sign in with ChatGPT consent screen. Approving the connection links your ChatGPT account to your Warp account and authorizes OpenAI to share a delegated credential with Warp. Unlike a BYOK API key or a [SuperGrok subscription](/agents/inference/grok-subscription/), Warp stores that credential for your Warp account rather than in your device's keychain.
+1. Open the [Warp sign-in page](https://app.warp.dev/login).
+2. Click **Continue with ChatGPT**.
+3. Sign in to ChatGPT and approve the connection.
+4. Return to Warp. Warp signs you in and links the ChatGPT subscription to your account.
 
-A pasted OpenAI API key takes precedence over a connected plan.
+<figure style={{ maxWidth: "375px" }}>
+![The Warp sign-in form with the Continue with ChatGPT button.](../../../../assets/agent-platform/chatgpt-sign-in.png)
+<figcaption>ChatGPT on the Warp sign-in form.</figcaption>
+</figure>
 
-Connecting makes any additional OpenAI models supported by your ChatGPT plan selectable in the model picker. OpenAI determines which plan tiers, models, and capabilities are eligible.
+## Link an existing Warp account
 
-### What OpenAI sees
+Connect from Settings when you already use a different sign-in method for Warp.
 
-Warp sends OpenAI fixed activity and purpose labels with each request that uses your connected plan. The labels describe the request type, are not derived from your prompt, and may appear in your [ChatGPT usage settings](https://chatgpt.com/settings/usage).
+1. In the Warp app, go to **Settings** > **Agents** > **Warp Agent**.
+2. In the "OpenAI ChatGPT plan" row, click **Continue with ChatGPT**.
+3. Sign in to ChatGPT and approve the connection in your browser.
+4. Return to Warp. Settings shows the email address for the connected ChatGPT account.
 
-Supporting requests in the same conversation, such as generating a title or compacting conversation history, can also count against your plan.
+If the setting isn't available, your workspace admin may have disabled member-provided inference. See [Warp pricing](https://www.warp.dev/pricing) for current plan availability.
 
-:::caution
-Data retention on OpenAI's side is governed by your own OpenAI account and its terms. Warp's Zero Data Retention agreements cover Warp-managed inference, so they do not apply to requests billed to your plan. See [Zero Data Retention and BYOK](/agents/inference/bring-your-own-api-key/#zero-data-retention-zdr-and-byok).
-:::
+## Use your ChatGPT subscription
 
-## Connecting your ChatGPT plan
+Choose a specific OpenAI model from the model picker. OpenAI determines which models and capabilities your ChatGPT plan can use.
 
-In the Warp app, the full row label reads "Use your OpenAI ChatGPT plan," with an OpenAI logo between "your" and "OpenAI."
+* Requests made through the connection count toward your ChatGPT usage limits. Review your usage in [ChatGPT settings](https://chatgpt.com/settings/usage).
+* A saved OpenAI API key takes precedence over the ChatGPT connection.
+* **Auto** models use Warp-managed inference and consume Warp credits.
+* A ChatGPT subscription doesn't fund cloud agent runs.
 
-1. In the Warp app, go to **Settings** > **Agents** > **Warp Agent** and find the "OpenAI ChatGPT plan" row under "Custom Inference."
-2. Click **Continue with ChatGPT**. Warp opens the OpenAI consent screen in your browser. Click **Cancel** in Warp to abandon the attempt.
-3. Approve the connection in your browser. Back in Warp, the row shows "Connected as YOUR_EMAIL on DATE," where YOUR_EMAIL is the address on your ChatGPT account.
-4. Choose an OpenAI model from the model picker in your prompt input. Connecting a plan doesn't change your selected model.
+On Business and Enterprise plans, local agent runs that use a ChatGPT subscription also consume [platform credits](/support-and-community/plans-and-billing/platform-credits/).
 
-After you connect your plan, Warp shows a one-time notice that the connection is active. Click **Manage usage** to open your [ChatGPT usage settings](https://chatgpt.com/settings/usage).
+If OpenAI rejects a request, Warp may offer **Try again**, **Manage ChatGPT usage**, or **Continue with Warp credits**. Choosing **Continue with Warp credits** uses Warp-managed inference for the rest of that conversation.
 
-If the row shows "Reconnect to use your plan for requests" next to the connected timestamp, the link still exists but OpenAI is no longer sharing a credential. Disconnect and connect again.
+## Disconnect your subscription
 
-## Usage and billing behavior
+In the Warp app, go to **Settings** > **Agents** > **Warp Agent**. In the "OpenAI ChatGPT plan" row, click **Disconnect**.
 
-When an OpenAI model runs on your connected plan:
+After you disconnect, eligible OpenAI requests use your saved OpenAI API key, if you have one. Otherwise, they use Warp-managed inference and consume Warp credits.
 
-* The request counts against your ChatGPT plan, within OpenAI's usage limits for that plan.
-* Review and manage that usage in your [ChatGPT usage settings](https://chatgpt.com/settings/usage), not in Warp. The **Billing and usage** settings page links out to the same place.
-
-See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for how Warp's platform layer is billed when a local run uses your ChatGPT plan.
-
-### When OpenAI refuses a request
-
-OpenAI can reject a subscription-billed request, for example when your plan reaches its usage limit. Depending on the error, Warp may offer **Try again**, **Manage ChatGPT usage**, or **Continue with Warp credits**.
-
-Choosing **Continue with Warp credits** switches the rest of that conversation to Warp-funded inference. New conversations return to using your plan.
-
-### Auto models
-
-Warp's **Auto** models always use Warp's own inference and consume Warp credits, even with a ChatGPT plan connected. To use your plan, select a specific OpenAI model from the model picker.
-
-## Disconnecting
-
-In the Warp app, go to **Settings** > **Agents** > **Warp Agent**, find the "OpenAI ChatGPT plan" row, and click **Disconnect**. Warp unlinks the account on its servers. Eligible OpenAI requests then use your pasted OpenAI API key if one is configured, or Warp credits otherwise.
-
-## Troubleshooting
+## Troubleshoot the connection
 
 ### "That ChatGPT account is already connected to a different Warp account"
 
-This error can also mean this Warp account already has a different ChatGPT account connected. Each ChatGPT account links to one Warp account, and each Warp account links to one ChatGPT account. Disconnect the existing link first, then connect again.
+Disconnect the existing link before connecting another ChatGPT or Warp account.
 
 ### "Verify the email on your ChatGPT account with OpenAI, then try again"
 
 Verify the email with OpenAI, then click **Continue with ChatGPT** again.
 
-### "Your browser is signed in to a different Warp account than this one"
+### "Reconnect to use your plan for requests"
 
-The Warp account signed in to your browser does not match the Warp account that started the connection. Sign in to the same Warp account in your browser, then click **Continue with ChatGPT** again.
-
-### "Warp needs your permission in the browser"
-
-The consent screen was dismissed or denied. Click **Continue with ChatGPT** and approve it.
+Disconnect the ChatGPT subscription, then connect it again.
 
 ## Related pages
 
-* [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) — Use your own Anthropic, OpenAI, or Google API keys.
-* [SuperGrok subscription](/agents/inference/grok-subscription/) — Use Grok models through your xAI account.
-* [Model choice](/agents/inference/model-choice/) — Full list of supported models and `model_id` values.
-* [Credits](/support-and-community/plans-and-billing/credits/) — How Warp credits work and when they're consumed.
+* [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) — Use your own Anthropic, OpenAI, or Google API key.
+* [Model choice](/agents/inference/model-choice/) — Review the models available in Warp.
+* [Warp credits and billing](/support-and-community/plans-and-billing/credits/) — See when Warp credits are consumed.
