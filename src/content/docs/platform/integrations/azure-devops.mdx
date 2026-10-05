@@ -41,6 +41,7 @@ Each factory identity consists of a separate Microsoft Entra application and ser
 * **A Warp team with Warp Factories access** - A factory belongs to a [Warp team](/knowledge-and-collaboration/teams/).
 * **An Azure DevOps Services organization** - Use an organization hosted at `dev.azure.com`, with the project and repositories the factory needs.
 * **A connected Azure DevOps user** - Connect a user who can read the organization, project, and repositories you want to select.
+* **An active connection for each automation creator** - The user who creates an Azure DevOps automation must keep their own Azure DevOps OAuth connection active with the required scopes.
 * **A Microsoft Entra administrator** - A Global Administrator or Privileged Role Administrator approves the Azure DevOps Manager.
 * **An Azure DevOps administrator** - A Project Collection Administrator adds the Manager to the organization.
 
@@ -78,7 +79,7 @@ Workspace admins can also manage organization-level Managers in the Azure DevOps
 
 ## Configure Azure DevOps automations
 
-An Azure DevOps automation starts a factory run when a supported event matches its filters. New Azure DevOps factories include a default automation for pull request mentions, work item mentions, and work item assignments.
+An Azure DevOps automation starts a factory run when a supported event matches its filters. Before starting a run, Warp checks the automation creator's Azure DevOps connection. New Azure DevOps factories include a default automation for pull request mentions, work item mentions, and work item assignments.
 
 To add or change a trigger:
 
@@ -110,7 +111,7 @@ Azure DevOps push events aren't currently available as automation triggers.
 * **An organization, project, or repository doesn't appear** - Confirm that your connected Azure DevOps user can read it, then refresh the connection.
 * **Manager approval can't continue** - Complete the Microsoft Entra step before the Azure DevOps step. If another administrator completed the first step, reopen the setup link.
 * **Identity provisioning remains in progress** - Microsoft Entra and Azure DevOps permission changes can take several minutes to propagate. Retry from the factory's settings if the setup reports an error.
-* **An event doesn't start a run** - Confirm the automation is enabled and that every configured filter matches the Azure DevOps event.
+* **An event doesn't start a run** - Confirm the automation is enabled and that every configured filter matches the Azure DevOps event. The user who created the automation must have an active Azure DevOps OAuth connection with the required scopes. Reconnect that user's account if the connection is missing, revoked, under-scoped, or belongs to another user.
 
 ### Factory identity doesn't appear in comment mention autocomplete
 
