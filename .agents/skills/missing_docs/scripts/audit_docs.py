@@ -69,8 +69,16 @@ SURFACE_MAP_PATH = SKILL_DIR / "references" / "feature_surface_map.md"
 STALE_TERMS_PATH = SKILL_DIR / "references" / "stale_terms.md"
 DEFAULT_SNAPSHOT_PATH = SKILL_DIR / "references" / "surface_snapshot.json"
 CONSISTENCY_SEEDS_PATH = SKILL_DIR / "references" / "consistency_seeds.json"
+SNAPSHOT_DISPOSITIONS_FILENAME = "surface_snapshot_dispositions.json"
 
 SNAPSHOT_SCHEMA_VERSION = 2
+SNAPSHOT_DISPOSITIONS = (
+    "documented",
+    "mapped",
+    "internal",
+    "no_docs_needed",
+    "removed",
+)
 CONSISTENCY_STATUSES = (
     "fix",
     "policy_blocker",
@@ -2357,6 +2365,68 @@ def diff_snapshots(old: dict, new: dict) -> list[dict]:
     return findings
 
 
+def snapshot_disposition_errors(changes: list[dict], path: Path) -> list[str]:
+    """Validate that the sidecar ledger accounts for exactly the pending changes."""
+    if not changes:
+        return []
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return [f"missing disposition ledger {path}"]
+    except json.JSONDecodeError as exc:
+        return [f"invalid disposition ledger at line {exc.lineno}: {exc.msg}"]
+
+    if not isinstance(payload, dict):
+        return ["disposition ledger top level must be an object"]
+    errors = []
+    if payload.get("schema_version") != 1:
+        errors.append("disposition ledger schema_version must be 1")
+    entries = payload.get("dispositions")
+    if not isinstance(entries, list):
+        return errors + ["disposition ledger dispositions must be an array"]
+
+    recorded = {}
+    for index, entry in enumerate(entries):
+        label = f"dispositions[{index}]"
+        if not isinstance(entry, dict):
+            errors.append(f"{label} must be an object")
+            continue
+        change = entry.get("change")
+        surface = entry.get("surface")
+        if not isinstance(change, str) or not change.strip():
+            errors.append(f"{label} needs a non-empty change")
+        if not isinstance(surface, str) or not surface.strip():
+            errors.append(f"{label} needs a non-empty surface")
+        if not isinstance(change, str) or not isinstance(surface, str):
+            continue
+        key = (change, surface)
+        if key in recorded:
+            errors.append(f"{label} duplicates {change}: {surface}")
+        recorded[key] = entry
+        if entry.get("disposition") not in SNAPSHOT_DISPOSITIONS:
+            errors.append(
+                f"{label} disposition must be one of "
+                f"{', '.join(SNAPSHOT_DISPOSITIONS)}"
+            )
+        if not isinstance(entry.get("evidence"), str) or not entry["evidence"].strip():
+            errors.append(f"{label} needs non-empty evidence")
+
+    required = {(item["change"], item["surface"]) for item in changes}
+    missing = sorted(required - set(recorded))
+    extra = sorted(set(recorded) - required)
+    if missing:
+        errors.append(
+            "snapshot changes without dispositions: "
+            + ", ".join(f"{change}: {surface}" for change, surface in missing)
+        )
+    if extra:
+        errors.append(
+            "stale dispositions without matching snapshot changes: "
+            + ", ".join(f"{change}: {surface}" for change, surface in extra)
+        )
+    return errors
+
+
 _RELEASE_VERSION_RE = re.compile(r"(\d{4}\.\d{2}\.\d{2})")
 
 
@@ -3431,12 +3501,37 @@ def main():
                         })
                     audits_run.append("diff")
             if args.update_snapshot:
-                snapshot_path.parent.mkdir(parents=True, exist_ok=True)
-                snapshot_path.write_text(
-                    json.dumps(current_snapshot, indent=2, sort_keys=False) + "\n",
-                    encoding="utf-8",
-                )
-                print(f"Snapshot updated: {snapshot_path}", file=sys.stderr)
+                previous = load_snapshot(snapshot_path)
+                if previous is None:
+                    audits_skipped.append({
+                        "audit": "integrity:snapshot_dispositions",
+                        "reason": (
+                            f"snapshot {snapshot_path} not found or unreadable — "
+                            "cannot prove that every delta was dispositioned"
+                        ),
+                    })
+                else:
+                    snapshot_changes = diff_snapshots(previous, current_snapshot)
+                    disposition_path = (
+                        snapshot_path.parent / SNAPSHOT_DISPOSITIONS_FILENAME
+                    )
+                    disposition_errors = snapshot_disposition_errors(
+                        snapshot_changes, disposition_path
+                    )
+                    if disposition_errors:
+                        audits_skipped.append({
+                            "audit": "integrity:snapshot_dispositions",
+                            "reason": "; ".join(disposition_errors),
+                        })
+                    else:
+                        snapshot_path.parent.mkdir(parents=True, exist_ok=True)
+                        snapshot_path.write_text(
+                            json.dumps(
+                                current_snapshot, indent=2, sort_keys=False
+                            ) + "\n",
+                            encoding="utf-8",
+                        )
+                        print(f"Snapshot updated: {snapshot_path}", file=sys.stderr)
         else:
             audits_skipped.append({
                 "audit": "diff" if args.diff else "update-snapshot",

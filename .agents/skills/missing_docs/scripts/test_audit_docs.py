@@ -4,7 +4,7 @@
 These run the audit as a subprocess against the sibling code repos (warp client +
 warp-server) and assert behavioral invariants: clean exit, completeness
 accounting totality, category/severity scoping, fail-loud on a missing repo, and
-that --update-snapshot honors --snapshot without mutating the committed snapshot.
+that --update-snapshot rejects any delta without an explicit disposition.
 
 Tests are skipped (not failed) when the sibling code repos aren't checked out, so
 the suite is safe to run anywhere.
@@ -137,21 +137,59 @@ class TestAuditBehavior(unittest.TestCase):
             "do not regenerate the snapshot until every baseline delta is dispositioned",
         )
 
-    def test_update_snapshot_respects_snapshot_flag_and_roundtrips(self):
+    def test_update_snapshot_rejects_unresolved_baseline_without_writing(self):
         before = _sha(_DEFAULT_SNAPSHOT)
         with tempfile.TemporaryDirectory() as d:
             tmp_snap = Path(d) / "snap.json"
-            # Regenerate into the temp path (must NOT touch the committed snapshot).
-            rc, _, stderr = _run_audit(
-                ["--update-snapshot", "--snapshot", str(tmp_snap)], capture_report=False
+            tmp_snap.write_bytes(_DEFAULT_SNAPSHOT.read_bytes())
+            tmp_before = _sha(tmp_snap)
+            rc, report, stderr = _run_audit(
+                ["--update-snapshot", "--snapshot", str(tmp_snap)]
             )
-            self.assertEqual(rc, 0, stderr)
-            self.assertTrue(tmp_snap.exists() and tmp_snap.stat().st_size > 0,
-                            "--update-snapshot should write to the --snapshot path")
+            self.assertEqual(rc, 2, stderr)
+            self.assertEqual(_sha(tmp_snap), tmp_before, "a rejected update must not write")
             self.assertEqual(
                 _sha(_DEFAULT_SNAPSHOT), before, "--update-snapshot must not mutate the committed snapshot"
             )
-            # Diffing current code against the just-generated snapshot shows no drift.
+            skipped = {
+                item["audit"]: item["reason"]
+                for item in report["summary"]["audits_skipped"]
+            }
+            self.assertIn("integrity:snapshot_dispositions", skipped)
+            self.assertIn(
+                "missing disposition ledger",
+                skipped["integrity:snapshot_dispositions"],
+            )
+
+    def test_update_snapshot_accepts_fully_dispositioned_deltas(self):
+        with tempfile.TemporaryDirectory() as d:
+            tmp_snap = Path(d) / "snap.json"
+            tmp_snap.write_bytes(_DEFAULT_SNAPSHOT.read_bytes())
+            rc, report, stderr = _run_audit(["--diff", "--snapshot", str(tmp_snap)])
+            self.assertEqual(rc, 0, stderr)
+            changes = report["surface_changes"]
+            self.assertTrue(changes, "the fixture needs pending surface changes")
+            disposition_path = (
+                tmp_snap.parent / audit_docs.SNAPSHOT_DISPOSITIONS_FILENAME
+            )
+            disposition_path.write_text(json.dumps({
+                "schema_version": 1,
+                "dispositions": [
+                    {
+                        "change": item["change"],
+                        "surface": item["surface"],
+                        "disposition": "no_docs_needed",
+                        "evidence": "Test fixture records a terminal triage decision.",
+                    }
+                    for item in changes
+                ],
+            }), encoding="utf-8")
+
+            rc2, _, stderr2 = _run_audit(
+                ["--update-snapshot", "--snapshot", str(tmp_snap)],
+                capture_report=False,
+            )
+            self.assertEqual(rc2, 0, stderr2)
             rc2, report2, _ = _run_audit(["--diff", "--snapshot", str(tmp_snap)])
             self.assertEqual(rc2, 0)
             self.assertEqual(report2["summary"]["by_category"].get("surface_changes", 0), 0)

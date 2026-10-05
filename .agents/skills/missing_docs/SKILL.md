@@ -121,7 +121,17 @@ Options:
 - `--output report.json` — save JSON report to file
 - `--warp PATH` / `--warp-server PATH` — explicit repo paths (`--warp-internal` is a deprecated alias)
 - `--diff` — change detection against the committed snapshot (see Phase 2)
-- `--update-snapshot` — regenerate `references/surface_snapshot.json` (full runs only)
+- `--update-snapshot` — regenerate `references/surface_snapshot.json` after
+  every current delta has a machine-readable disposition (full runs only)
+
+Snapshot regeneration reads `references/surface_snapshot_dispositions.json`.
+The file uses schema version 1 and records one entry per current `--diff`
+finding with its exact `change` and `surface`, a disposition (`documented`,
+`mapped`, `internal`, `no_docs_needed`, or `removed`), and non-empty evidence.
+The update fails before writing when the ledger is missing, malformed,
+incomplete, or contains stale entries. Deferred findings are not terminal and
+cannot enter this ledger. Delete the ledger after committing the new baseline;
+it describes the deltas being accepted, not future drift.
 
 The script resolves doc paths from the docs repo root and accepts `.md` and `.mdx`
 interchangeably (and `README.md` ↔ `index.mdx`), so surface-map entries can use the
