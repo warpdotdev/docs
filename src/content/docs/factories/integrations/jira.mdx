@@ -79,7 +79,7 @@ When the run finishes, the result appears in the agent session. The agent doesn'
 * **Jira access doesn't include code access** - Connecting Jira lets agents read and update Jira work items, nothing more. Repository access comes from the factory itself.
 
 :::caution
-Warp's built-in Jira tools read Jira as the person who created the run; that person must link their Atlassian account to Warp in Jira under **profile** > **Personal settings** > **Warp**. For Jira-triggered runs, the tools act as the Jira user who triggered the run. Runs without a person behind them, such as scheduled runs or runs created by a service account or API key, cannot use these tools. For those runs, add the Atlassian MCP server as a [managed MCP install](https://docs.warp.dev/platform/mcp) instead; it uses the access of the account it was connected with.
+Warp's built-in Jira tools read Jira as the person who created the run; that person must link their Atlassian account to Warp in Jira under **profile** > **Personal settings** > **Warp**. To interact with Jira in runs without a human creator, such as scheduled runs or runs created by a service account or API key, add the Atlassian MCP server as a [managed MCP install](/platform/mcp/) instead.
 :::
 
 ## Troubleshooting
