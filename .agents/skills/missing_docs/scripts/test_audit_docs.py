@@ -72,8 +72,15 @@ def _run_audit(extra_args, capture_report=True):
     return proc.returncode, report, proc.stderr
 
 
-def _sha(path):
+def _sha(path: Path) -> str:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+def _write_snapshot_with_removed_flag(path: Path) -> str:
+    snapshot = json.loads(_DEFAULT_SNAPSHOT.read_text(encoding="utf-8"))
+    removed_flag = next(iter(snapshot["flags"]))
+    del snapshot["flags"][removed_flag]
+    path.write_text(json.dumps(snapshot), encoding="utf-8")
+    return removed_flag
 
 
 @unittest.skipUnless(_REPOS_AVAILABLE, "warp/warp-server repos not checked out as siblings")
@@ -128,20 +135,27 @@ class TestAuditBehavior(unittest.TestCase):
         )
         self.assertEqual(proc.returncode, 2, f"missing repo must exit 2; stderr={proc.stderr}")
 
-    def test_diff_preserves_owner_gated_baseline(self):
-        rc, report, stderr = _run_audit(["--diff"])
+    def test_diff_reports_synthetic_snapshot_delta(self):
+        with tempfile.TemporaryDirectory() as d:
+            tmp_snap = Path(d) / "snap.json"
+            removed_flag = _write_snapshot_with_removed_flag(tmp_snap)
+            rc, report, stderr = _run_audit(
+                ["--diff", "--snapshot", str(tmp_snap)]
+            )
         self.assertEqual(rc, 0, stderr)
-        self.assertEqual(
-            report["summary"]["by_category"].get("surface_changes", 0),
-            16,
-            "do not regenerate the snapshot until every baseline delta is dispositioned",
+        self.assertIn(
+            ("flag_added", removed_flag),
+            {
+                (item["change"], item["surface"])
+                for item in report["surface_changes"]
+            },
         )
 
     def test_update_snapshot_rejects_unresolved_baseline_without_writing(self):
         before = _sha(_DEFAULT_SNAPSHOT)
         with tempfile.TemporaryDirectory() as d:
             tmp_snap = Path(d) / "snap.json"
-            tmp_snap.write_bytes(_DEFAULT_SNAPSHOT.read_bytes())
+            _write_snapshot_with_removed_flag(tmp_snap)
             tmp_before = _sha(tmp_snap)
             rc, report, stderr = _run_audit(
                 ["--update-snapshot", "--snapshot", str(tmp_snap)]
@@ -164,7 +178,7 @@ class TestAuditBehavior(unittest.TestCase):
     def test_update_snapshot_accepts_fully_dispositioned_deltas(self):
         with tempfile.TemporaryDirectory() as d:
             tmp_snap = Path(d) / "snap.json"
-            tmp_snap.write_bytes(_DEFAULT_SNAPSHOT.read_bytes())
+            _write_snapshot_with_removed_flag(tmp_snap)
             rc, report, stderr = _run_audit(["--diff", "--snapshot", str(tmp_snap)])
             self.assertEqual(rc, 0, stderr)
             changes = report["surface_changes"]
@@ -173,7 +187,10 @@ class TestAuditBehavior(unittest.TestCase):
                 tmp_snap.parent / audit_docs.SNAPSHOT_DISPOSITIONS_FILENAME
             )
             disposition_path.write_text(json.dumps({
-                "schema_version": 1,
+                "schema_version": audit_docs.SNAPSHOT_DISPOSITION_SCHEMA_VERSION,
+                "snapshot_fingerprint": audit_docs.snapshot_fingerprint(
+                    json.loads(tmp_snap.read_text(encoding="utf-8"))
+                ),
                 "dispositions": [
                     {
                         "change": item["change"],
@@ -209,6 +226,79 @@ class TestAuditBehavior(unittest.TestCase):
         self.assertEqual(
             flagged, [], f"research-preview Agent Memory surfaces must stay deferred, found: {flagged}"
         )
+
+
+class TestSnapshotDispositions(unittest.TestCase):
+    def _write_ledger(self, path, fingerprint, dispositions):
+        path.write_text(json.dumps({
+            "schema_version": audit_docs.SNAPSHOT_DISPOSITION_SCHEMA_VERSION,
+            "snapshot_fingerprint": fingerprint,
+            "dispositions": dispositions,
+        }), encoding="utf-8")
+
+    def test_zero_current_delta_rejects_stale_ledger_entries(self):
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / audit_docs.SNAPSHOT_DISPOSITIONS_FILENAME
+            fingerprint = audit_docs.snapshot_fingerprint({"schema_version": 2})
+            self._write_ledger(path, fingerprint, [{
+                "change": "cli_command_added",
+                "surface": "warp example",
+                "disposition": "documented",
+                "evidence": "The reference documents this command.",
+            }])
+
+            errors = audit_docs.snapshot_disposition_errors(
+                [], path, fingerprint
+            )
+
+        self.assertTrue(any(
+            "stale dispositions without matching snapshot changes" in error
+            for error in errors
+        ), errors)
+
+    def test_rejects_ledger_for_different_input_snapshot(self):
+        change = {"change": "cli_command_added", "surface": "warp example"}
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / audit_docs.SNAPSHOT_DISPOSITIONS_FILENAME
+            self._write_ledger(path, "not-the-input-fingerprint", [{
+                **change,
+                "disposition": "documented",
+                "evidence": "The reference documents this command.",
+            }])
+
+            errors = audit_docs.snapshot_disposition_errors(
+                [change],
+                path,
+                audit_docs.snapshot_fingerprint({"schema_version": 2}),
+            )
+
+        self.assertIn(
+            "disposition ledger snapshot_fingerprint does not match the input snapshot",
+            errors,
+        )
+
+    def test_accepts_matching_fully_dispositioned_and_no_delta_ledgers(self):
+        fingerprint = audit_docs.snapshot_fingerprint({"schema_version": 2})
+        change = {"change": "cli_command_added", "surface": "warp example"}
+        cases = (
+            ([change], [{
+                **change,
+                "disposition": "documented",
+                "evidence": "The reference documents this command.",
+            }]),
+            ([], []),
+        )
+        for changes, dispositions in cases:
+            with self.subTest(changes=changes), tempfile.TemporaryDirectory() as d:
+                path = Path(d) / audit_docs.SNAPSHOT_DISPOSITIONS_FILENAME
+                self._write_ledger(path, fingerprint, dispositions)
+                self.assertEqual(
+                    audit_docs.snapshot_disposition_errors(
+                        changes, path, fingerprint
+                    ),
+                    [],
+                )
+
 
 class TestConsistencyAudit(unittest.TestCase):
     def test_approved_seed_store_partitions_all_24_findings(self):

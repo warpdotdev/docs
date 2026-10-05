@@ -44,6 +44,7 @@ Exit codes:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -70,6 +71,7 @@ STALE_TERMS_PATH = SKILL_DIR / "references" / "stale_terms.md"
 DEFAULT_SNAPSHOT_PATH = SKILL_DIR / "references" / "surface_snapshot.json"
 CONSISTENCY_SEEDS_PATH = SKILL_DIR / "references" / "consistency_seeds.json"
 SNAPSHOT_DISPOSITIONS_FILENAME = "surface_snapshot_dispositions.json"
+SNAPSHOT_DISPOSITION_SCHEMA_VERSION = 2
 
 SNAPSHOT_SCHEMA_VERSION = 2
 SNAPSHOT_DISPOSITIONS = (
@@ -2365,22 +2367,45 @@ def diff_snapshots(old: dict, new: dict) -> list[dict]:
     return findings
 
 
-def snapshot_disposition_errors(changes: list[dict], path: Path) -> list[str]:
+def snapshot_fingerprint(snapshot: dict) -> str:
+    """Return a stable content fingerprint for a loaded input snapshot."""
+    canonical = json.dumps(
+        snapshot,
+        ensure_ascii=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    )
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def snapshot_disposition_errors(
+    changes: list[dict],
+    path: Path,
+    expected_snapshot_fingerprint: str,
+) -> list[str]:
     """Validate that the sidecar ledger accounts for exactly the pending changes."""
-    if not changes:
-        return []
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except FileNotFoundError:
-        return [f"missing disposition ledger {path}"]
+        return [] if not changes else [f"missing disposition ledger {path}"]
     except json.JSONDecodeError as exc:
         return [f"invalid disposition ledger at line {exc.lineno}: {exc.msg}"]
 
     if not isinstance(payload, dict):
         return ["disposition ledger top level must be an object"]
     errors = []
-    if payload.get("schema_version") != 1:
-        errors.append("disposition ledger schema_version must be 1")
+    if payload.get("schema_version") != SNAPSHOT_DISPOSITION_SCHEMA_VERSION:
+        errors.append(
+            "disposition ledger schema_version must be "
+            f"{SNAPSHOT_DISPOSITION_SCHEMA_VERSION}"
+        )
+    recorded_fingerprint = payload.get("snapshot_fingerprint")
+    if not isinstance(recorded_fingerprint, str) or not recorded_fingerprint.strip():
+        errors.append("disposition ledger needs a non-empty snapshot_fingerprint")
+    elif recorded_fingerprint != expected_snapshot_fingerprint:
+        errors.append(
+            "disposition ledger snapshot_fingerprint does not match the input snapshot"
+        )
     entries = payload.get("dispositions")
     if not isinstance(entries, list):
         return errors + ["disposition ledger dispositions must be an array"]
@@ -3516,7 +3541,9 @@ def main():
                         snapshot_path.parent / SNAPSHOT_DISPOSITIONS_FILENAME
                     )
                     disposition_errors = snapshot_disposition_errors(
-                        snapshot_changes, disposition_path
+                        snapshot_changes,
+                        disposition_path,
+                        snapshot_fingerprint(previous),
                     )
                     if disposition_errors:
                         audits_skipped.append({

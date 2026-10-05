@@ -125,13 +125,15 @@ Options:
   every current delta has a machine-readable disposition (full runs only)
 
 Snapshot regeneration reads `references/surface_snapshot_dispositions.json`.
-The file uses schema version 1 and records one entry per current `--diff`
-finding with its exact `change` and `surface`, a disposition (`documented`,
-`mapped`, `internal`, `no_docs_needed`, or `removed`), and non-empty evidence.
-The update fails before writing when the ledger is missing, malformed,
-incomplete, or contains stale entries. Deferred findings are not terminal and
-cannot enter this ledger. Delete the ledger after committing the new baseline;
-it describes the deltas being accepted, not future drift.
+The file uses schema version 2, records the `snapshot_fingerprint` for the input
+snapshot, and includes one entry per current `--diff` finding with its exact
+`change` and `surface`, a disposition (`documented`, `mapped`, `internal`,
+`no_docs_needed`, or `removed`), and non-empty evidence. The update fails
+before writing when the ledger is malformed, bound to a different input
+snapshot, incomplete, or contains stale entries. A ledger is optional only
+when no deltas exist and the file is absent. Deferred findings are not terminal
+and cannot enter this ledger. Delete the ledger after committing the new
+baseline; it describes the deltas being accepted, not future drift.
 
 The script resolves doc paths from the docs repo root and accepts `.md` and `.mdx`
 interchangeably (and `README.md` ↔ `index.mdx`), so surface-map entries can use the
