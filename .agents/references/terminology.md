@@ -14,9 +14,6 @@ For the summary of the most critical terms (core features, Automation Platform t
 - **Agent Mode** — The mode where Warp interprets your input as a request to an Agent (not a shell command).
   *Usage note:* Not "agent mode" or "Agent-mode."
 
-- **Auto-detection Mode** — The mode where Warp automatically detects whether input is a command or a prompt.
-  *Usage note:* Useful in onboarding and "how it works" content.
-
 - **Block** / **Blocks** — Warp's structured unit of terminal output and history.
   *Usage note:* Use for navigation, sharing, and "how Warp organizes your terminal."
 
@@ -26,11 +23,8 @@ For the summary of the most critical terms (core features, Automation Platform t
 - **Prompt** — A natural-language request you give to an Agent.
   *Usage note:* Keep distinct from "command."
 
-- **Terminal Mode** — The mode where Warp interprets your input as shell commands.
-  *Usage note:* Use when contrasting with Agent Mode.
-
-- **Universal Input** — Warp's main input surface that supports both commands and Agent prompts.
-  *Usage note:* Use as the name of the feature, not "input box."
+- **terminal mode** — The mode where Warp interprets your input as shell commands.
+  *Usage note:* Use lowercase when contrasting with Agent Mode.
 
 - **Warp** — The agentic development environment for professional developers, built around a modern terminal and AI agents.
   *Usage note:* Use "Warp" as the product name. Add "AI terminal" only when you need the positioning shorthand. Do not use "Warp Terminal" unless specifically distinguishing from the Automation Platform.
