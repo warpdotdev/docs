@@ -167,7 +167,7 @@ Warp meters credits across three buckets: **AI credits** (the model call), **com
 Platform credits apply in two situations:
 
 * **Every cloud agent run, on every plan.** Warp's platform layer coordinates every cloud run, whichever harness or inference source it uses.
-* **Local agent runs on Business and Enterprise that use customer-supplied inference** (BYOK, a custom inference endpoint, or BYOLLM). Warp isn't paying for the model call, but it still runs the platform layer around the agent.
+* **Local agent runs on Business and Enterprise that use customer-supplied inference** (BYOK, a ChatGPT subscription, a custom inference endpoint, or BYOLLM). Warp isn't paying for the model call, but it still runs the platform layer around the agent.
 
 Local agent runs on Free, Build, or Max — and local runs on Business or Enterprise that use Warp-managed inference — do not consume platform credits. See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the full breakdown.
 
@@ -179,6 +179,7 @@ If you regularly run through your plan's monthly credit allowance, you have a fe
 * **Purchase add-on credits** — Top up your account on demand. Larger denominations have a better effective rate. Add-on credits roll over month-to-month and remain valid for 12 months from purchase, and they stay usable if you later move to the Free plan. See [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) for current denominations.
 * **Enable auto-reload** — Pick a denomination and a monthly spend cap, and Warp will automatically purchase add-on credits when your balance drops below 100 credits, up to your cap.
 * **Bring Your Own API Key (BYOK)** — Point Warp at your own OpenAI, Anthropic, or Google API key. Requests routed through BYOK don't consume AI credits — you're billed directly by the model provider. See [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/). On Business and Enterprise, local agent runs that use BYOK consume [platform credits](/support-and-community/plans-and-billing/platform-credits/).
+* **Connect a ChatGPT subscription** — Use eligible OpenAI models with the Warp Agent in the Warp app through your ChatGPT plan. See [Connecting a ChatGPT subscription](/agents/inference/chatgpt-subscription/).
 * **Use a custom inference endpoint** — Route requests through any OpenAI-compatible endpoint (OpenRouter, LiteLLM, z.ai, an internal gateway, etc.) without spending AI credits. See [Custom inference endpoint](/agents/inference/custom-inference-endpoint/). On Business and Enterprise, local agent runs that use a custom inference endpoint consume [platform credits](/support-and-community/plans-and-billing/platform-credits/).
 
 *BYOK and custom inference endpoint availability is subject to organization size — see [Can I bring my own API key?](#can-i-bring-my-own-api-key) for details.*
@@ -268,7 +269,7 @@ The Free plan doesn't include bundled AI usage for the Warp Agent. To use the Wa
 
 * **Upgrade to a paid plan** — paid plans include a monthly allowance of Warp-provided AI usage with no extra setup. See [Warp pricing](https://www.warp.dev/pricing).
 * **Buy add-on credits** — purchase a credit pack without subscribing and spend it on any model. See [Can I buy credits on the Free plan without subscribing?](#can-i-buy-credits-on-the-free-plan-without-subscribing).
-* **Bring your own inference** — connect your own API key with [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), point Warp at a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or use a [SuperGrok or X Premium subscription](/agents/inference/grok-subscription/). Requests routed through your own inference don't consume Warp credits.
+* **Bring your own inference** — connect your own API key with [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), connect a [ChatGPT subscription](/agents/inference/chatgpt-subscription/), point Warp at a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or use a [SuperGrok or X Premium subscription](/agents/inference/grok-subscription/). Requests routed through your own inference don't consume Warp credits for inference.
 
 Without a paid plan, purchased add-on credits, or your own inference, conversations on the Free plan can't run on Warp-provided models. This includes conversations started from prompt suggestions in the input.
 
