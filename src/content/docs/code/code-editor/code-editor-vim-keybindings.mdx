@@ -112,8 +112,6 @@ See [Vim docs: shifting text](https://vimdoc.sourceforge.net/htmldoc/change.html
 | `(`, `{`, `[`    | parenthesized/bracketed string             |
 | `l`              | line                                       |
 
-The line text objects follow Neovim 0.13: `il` covers the current line without its leading or trailing whitespace, and `al` covers the whole buffer rather than just the current line. `il` does nothing on a blank line, and neither accepts a count. Both combine with operators, so `dil` clears a line's content in place and `>al` indents the entire buffer.
-
 See [Vim docs: text objects](https://vimdoc.sourceforge.net/htmldoc/motion.html#text-objects) for more information.
 
 ### Search
