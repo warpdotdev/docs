@@ -96,6 +96,8 @@ EXACT_VALUE_TYPES = {
     "range",
     "support-matrix",
 }
+PUBLIC_REPOSITORIES = {"warpdotdev/docs", "warpdotdev/warp"}
+REPORTABLE_VERDICTS = {"contradiction", "stale", "duplicate-canonical", "gap"}
 FINDING_STATES = {"new", "existing", "changed", "resolved"}
 VERDICTS = {
     "contradiction",
@@ -123,6 +125,76 @@ def sha256_json(value: Any) -> str:
 
 def sha256_text(value: str) -> str:
     return hashlib.sha256(value.encode()).hexdigest()
+
+
+def source_visibility(source: dict[str, Any]) -> str:
+    explicit = source.get("visibility")
+    if explicit in {"public", "private"}:
+        return explicit
+    return "public" if source.get("repository") in PUBLIC_REPOSITORIES else "private"
+
+
+def normalize_route(route: str) -> str:
+    route = "/" + route.strip().lstrip("/")
+    if route != "/":
+        route = route.rstrip("/")
+    return route
+
+
+def load_verified_redirects(path: Path | None) -> dict[str, str]:
+    if not path or not path.exists():
+        return {}
+    document = load_json(path)
+    redirects: dict[str, str] = {}
+    for item in document.get("redirects", []):
+        source = item.get("source")
+        destination = item.get("destination")
+        if not isinstance(source, str) or not isinstance(destination, str):
+            continue
+        if "://" in destination:
+            continue
+        if any(token in source for token in (":", "*", "(", "{")):
+            continue
+        redirects[normalize_route(source)] = normalize_route(destination)
+    return redirects
+
+
+def canonical_redirect_route(route: str, redirects: dict[str, str]) -> str | None:
+    current = normalize_route(route)
+    destinations = set(redirects.values())
+    if current not in redirects and current not in destinations:
+        return None
+    seen = set()
+    while current in redirects:
+        if current in seen:
+            raise AuditError(f"Redirect cycle detected at {current}")
+        seen.add(current)
+        current = redirects[current]
+    return current
+
+
+def apply_redirect_identity(
+    claim: dict[str, Any],
+    redirects: dict[str, str],
+) -> dict[str, Any]:
+    claim = copy.deepcopy(claim)
+    source = claim["source"]
+    canonical_route = canonical_redirect_route(source.get("route", ""), redirects)
+    if canonical_route:
+        source["canonical_route"] = canonical_route
+        source["canonical_identity"] = f"route:{canonical_route}"
+    else:
+        source["canonical_identity"] = f"path:{source['path']}"
+    return claim
+
+
+def validate_public_claim(claim: dict[str, Any]) -> None:
+    source = claim["source"]
+    if (
+        source.get("repository") not in PUBLIC_REPOSITORIES
+        or source_visibility(source) != "public"
+    ):
+        raise AuditError("Private evidence cannot be persisted as a claim")
 
 
 def load_json(path: Path, default: Any = None) -> Any:
@@ -536,7 +608,7 @@ def claim_identity_payload(claim: dict[str, Any]) -> dict[str, Any]:
     source = claim["source"]
     return {
         "repository": source["repository"],
-        "path": source["path"],
+        "source_identity": source.get("canonical_identity", f"path:{source['path']}"),
         "heading_anchor": source.get("heading_anchor") or stable_heading_anchor(source.get("heading", "")),
         "topic": claim["topic"],
         "entity": claim["entity"],
@@ -554,6 +626,7 @@ def normalize_claim(claim: dict[str, Any]) -> dict[str, Any]:
     if missing:
         raise AuditError(f"Claim is missing fields: {', '.join(sorted(missing))}")
     normalized = copy.deepcopy(claim)
+    normalized["source"]["visibility"] = source_visibility(normalized["source"])
     normalized["topic"] = re.sub(r"\s+", "-", str(claim["topic"]).strip().lower())
     normalized["entity"] = re.sub(r"\s+", "-", str(claim["entity"]).strip().lower())
     normalized["predicate"] = re.sub(r"\s+", "-", str(claim["predicate"]).strip().lower())
@@ -606,6 +679,13 @@ def block_key(claim: dict[str, Any]) -> str:
     return "|".join((claim["topic"], claim["entity"], claim["predicate"]))
 
 
+def candidate_identity(left: dict[str, Any], right: dict[str, Any]) -> str:
+    return sha256_json({
+        "block_key": block_key(left),
+        "claim_ids": sorted((left["claim_id"], right["claim_id"])),
+    })
+
+
 def authority_rank(
     claim: dict[str, Any],
     authority_rules: dict[str, Any],
@@ -656,6 +736,7 @@ def generate_candidates(
                 left["qualifiers"], right["qualifiers"]
             )
             candidate = {
+                "candidate_id": candidate_identity(left, right),
                 "block_key": key,
                 "left": left,
                 "right": right,
@@ -837,6 +918,134 @@ def load_missing_docs_module(docs_repo: Path):
     return module
 
 
+def authority_record(
+    *,
+    topic: str,
+    entity: str,
+    predicate: str,
+    value: dict[str, Any],
+    qualifiers: dict[str, Any],
+    source_class: str,
+    visibility: str,
+    release_scope: str,
+    repository: str,
+    path: str,
+    source_commit: str,
+    evidence_hash: str,
+) -> dict[str, Any]:
+    record = {
+        "topic": topic,
+        "entity": entity,
+        "predicate": predicate,
+        "value": normalize_typed_value(value),
+        "qualifiers": normalize_qualifiers(qualifiers),
+        "source_class": source_class,
+        "visibility": visibility,
+        "release_scope": release_scope,
+        "source_ref": {
+            "repository": repository,
+            "path": path,
+            "commit": source_commit,
+        },
+        "evidence_hash": evidence_hash,
+    }
+    record["authority_id"] = sha256_json(record)
+    return record
+
+
+def validate_authority_contract(document: dict[str, Any]) -> list[dict[str, Any]]:
+    records = document.get("authority_records")
+    if not isinstance(records, list):
+        raise AuditError("Authority contract must contain an authority_records list")
+    normalized = []
+    required = {
+        "authority_id",
+        "topic",
+        "entity",
+        "predicate",
+        "value",
+        "qualifiers",
+        "source_class",
+        "visibility",
+        "release_scope",
+        "source_ref",
+        "evidence_hash",
+    }
+    for record in records:
+        missing = required - set(record)
+        if missing:
+            raise AuditError(
+                "Authority record is missing fields: " + ", ".join(sorted(missing))
+            )
+        if record["visibility"] not in {"public", "private"}:
+            raise AuditError("Authority visibility must be public or private")
+        if not record["release_scope"]:
+            raise AuditError("Authority release_scope cannot be empty")
+        source_ref = record["source_ref"]
+        if (
+            not isinstance(source_ref, dict)
+            or not all(
+                source_ref.get(field)
+                for field in ("repository", "path", "commit")
+            )
+        ):
+            raise AuditError("Authority source_ref requires repository, path, and commit")
+        if (
+            record["visibility"] == "public"
+            and source_ref["repository"] not in PUBLIC_REPOSITORIES
+        ):
+            raise AuditError("Public authority records require a public repository")
+        if not record["evidence_hash"]:
+            raise AuditError("Authority evidence_hash cannot be empty")
+        normalized_record = copy.deepcopy(record)
+        normalized_record["value"] = normalize_typed_value(record["value"])
+        normalized_record["qualifiers"] = normalize_qualifiers(record["qualifiers"])
+        expected_id = sha256_json({
+            key: normalized_record[key]
+            for key in normalized_record
+            if key != "authority_id"
+        })
+        if expected_id != record["authority_id"]:
+            raise AuditError(f"Authority fingerprint mismatch: {record['authority_id']}")
+        normalized.append(normalized_record)
+    return normalized
+
+
+def public_authority_dto(record: dict[str, Any]) -> dict[str, Any]:
+    result = {
+        "source_class": record["source_class"],
+        "visibility": record["visibility"],
+        "release_scope": record["release_scope"],
+        "evidence_available": True,
+    }
+    if record["visibility"] == "public":
+        result["authority_id"] = record["authority_id"]
+        result["value"] = record["value"]
+        result["source_ref"] = record["source_ref"]
+    return result
+
+
+def matching_authorities(
+    candidate: dict[str, Any],
+    records: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    left = candidate["left"]
+    matches = []
+    for record in records:
+        if (
+            record["topic"],
+            record["entity"],
+            record["predicate"],
+        ) != (left["topic"], left["entity"], left["predicate"]):
+            continue
+        if any(
+            qualifier_compatibility(record["qualifiers"], claim["qualifiers"])[0]
+            for claim in (candidate["left"], candidate["right"])
+        ):
+            matches.append(record)
+    return matches
+
+
 def authority_adapters(
     docs_repo: Path,
     warp_repo: Path,
@@ -861,6 +1070,11 @@ def authority_adapters(
     tiers = {
         path.stem: effective_tier(path, tier_cache)
         for path in tier_files
+    }
+    refs = {
+        "docs": repo_ref(docs_repo),
+        "warp": repo_ref(warp_repo),
+        "warp_server": repo_ref(warp_server),
     }
     commands = missing_docs.parse_cli_commands(warp_repo)
     cli = {
@@ -888,7 +1102,7 @@ def authority_adapters(
             }
         except Exception as exc:
             pricing["error"] = type(exc).__name__
-    structured_claims = []
+    authority_records = []
     for tier_name, tier in sorted(tiers.items()):
         plan = tier.get("id", tier_name).upper()
         for feature, policy in sorted(tier["policies"].items()):
@@ -899,57 +1113,67 @@ def authority_adapters(
                     else "decimal" if isinstance(value, float)
                     else "free-text"
                 )
-                structured_claims.append({
-                    "topic": "plan-gating",
-                    "entity": feature.lower().replace("_", "-"),
-                    "predicate": field.replace("_", "-"),
-                    "value": {"type": value_type, "normalized": value},
-                    "qualifiers": {"plans": [plan]},
-                    "source_class": "effective-billing-policy",
-                    "source": {
-                        "repository": "warpdotdev/warp-server",
-                        "path": f"billing/config/tiers/{tier_name}.yaml",
-                    },
-                })
+                tier_path = f"billing/config/tiers/{tier_name}.yaml"
+                authority_records.append(authority_record(
+                    topic="plan-gating",
+                    entity=feature.lower().replace("_", "-"),
+                    predicate=field.replace("_", "-"),
+                    value={"type": value_type, "normalized": value},
+                    qualifiers={"plans": [plan]},
+                    source_class="effective-billing-policy",
+                    visibility="private",
+                    release_scope="effective-self-serve",
+                    repository="warpdotdev/warp-server",
+                    path=tier_path,
+                    source_commit=refs["warp_server"]["commit"],
+                    evidence_hash=sha256_text((warp_server / tier_path).read_text()),
+                ))
     for path in api["released_paths"]:
-        structured_claims.append({
-            "topic": "api",
-            "entity": path,
-            "predicate": "released",
-            "value": {"type": "boolean", "normalized": True},
-            "qualifiers": {},
-            "source_class": "released-openapi",
-            "source": {
-                "repository": "warpdotdev/docs",
-                "path": "developers/agent-api-openapi.yaml",
-            },
-        })
+        authority_records.append(authority_record(
+            topic="api",
+            entity=path,
+            predicate="released",
+            value={"type": "boolean", "normalized": True},
+            qualifiers={"release_statuses": ["ga"]},
+            source_class="released-openapi",
+            visibility="public",
+            release_scope="released-public-openapi",
+            repository="warpdotdev/docs",
+            path="developers/agent-api-openapi.yaml",
+            source_commit=refs["docs"]["commit"],
+            evidence_hash=api["released_sha256"],
+        ))
     for command in commands:
         if command["hidden"]:
             continue
         for visible_command in [command["command"], *(
             item["command"] for item in command["subcommands"] if not item["hidden"]
         )]:
-            structured_claims.append({
-                "topic": "cli",
-                "entity": visible_command,
-                "predicate": "visible",
-                "value": {"type": "boolean", "normalized": True},
-                "qualifiers": {"release_statuses": ["ga"]},
-                "source_class": "public-cli-source",
-                "source": {
-                    "repository": "warpdotdev/warp",
-                    "path": command.get("source_file") or "crates/warp_cli/src/lib.rs",
-                },
-            })
+            source_path = command.get("source_file") or "crates/warp_cli/src/lib.rs"
+            resolved_source = warp_repo / source_path
+            authority_records.append(authority_record(
+                topic="cli",
+                entity=visible_command,
+                predicate="visible",
+                value={"type": "boolean", "normalized": True},
+                qualifiers={"release_statuses": ["ga"]},
+                source_class="public-cli-source",
+                visibility="public",
+                release_scope="visible-ga",
+                repository="warpdotdev/warp",
+                path=source_path,
+                source_commit=refs["warp"]["commit"],
+                evidence_hash=(
+                    sha256_text(resolved_source.read_text())
+                    if resolved_source.exists()
+                    else refs["warp"]["commit"]
+                ),
+            ))
+    validate_authority_contract({"authority_records": authority_records})
     return {
         "schema_version": SCHEMA_VERSION,
         "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
-        "source_repositories": {
-            "docs": repo_ref(docs_repo),
-            "warp": repo_ref(warp_repo),
-            "warp_server": repo_ref(warp_server),
-        },
+        "source_repositories": refs,
         "billing_tiers": tiers,
         "public_api": api,
         "cli": cli,
@@ -958,7 +1182,7 @@ def authority_adapters(
             "variables_sha256": sha256_text(variables.read_text()),
         },
         "pricing": pricing,
-        "structured_claims": structured_claims,
+        "authority_records": authority_records,
     }
 
 
@@ -975,7 +1199,7 @@ def adapters_command(args: argparse.Namespace) -> int:
         "cli_commands": len(result["cli"]["commands"]),
         "api_paths": len(result["public_api"]["released_paths"]),
         "pricing_available": result["pricing"]["available"],
-        "structured_claims": len(result["structured_claims"]),
+        "authority_records": len(result["authority_records"]),
     }))
     return 0
 
@@ -1005,6 +1229,7 @@ def validate_state_tree(state_dir: Path) -> list[str]:
         shard_data = load_json(shard_path)
         for claim in shard_data.get("claims", []):
             try:
+                validate_public_claim(claim)
                 normalized = normalize_claim(claim)
             except AuditError as exc:
                 errors.append(f"invalid claim in {shard}: {exc}")
@@ -1014,6 +1239,11 @@ def validate_state_tree(state_dir: Path) -> list[str]:
             if claim.get("claim_content_fingerprint") != normalized["claim_content_fingerprint"]:
                 errors.append(f"claim content fingerprint mismatch in {shard}")
     for finding_id, finding in findings.get("findings", {}).items():
+        try:
+            ensure_no_private_reference(finding)
+        except AuditError as exc:
+            errors.append(f"private evidence in finding {finding_id}: {exc}")
+            continue
         if finding_id != finding.get("finding_id"):
             errors.append(f"finding key mismatch: {finding_id}")
             continue
@@ -1024,6 +1254,24 @@ def validate_state_tree(state_dir: Path) -> list[str]:
             errors.append(f"finding content fingerprint mismatch: {finding_id}")
         if finding.get("lifecycle") not in FINDING_STATES:
             errors.append(f"invalid lifecycle for {finding_id}")
+    schedule_claims = state_dir / "schedule_claims"
+    claim_paths = schedule_claims.glob("*.json") if schedule_claims.exists() else []
+    for claim_path in claim_paths:
+        schedule_claim = load_json(claim_path)
+        if schedule_claim.get("business_date") != claim_path.stem:
+            errors.append(f"schedule claim date mismatch: {claim_path.name}")
+        try:
+            dt.date.fromisoformat(schedule_claim.get("business_date", ""))
+        except (TypeError, ValueError):
+            errors.append(f"invalid schedule claim date: {claim_path.name}")
+        if schedule_claim.get("schema_version") != SCHEMA_VERSION:
+            errors.append(f"invalid schedule claim schema: {claim_path.name}")
+        if not schedule_claim.get("event_id"):
+            errors.append(f"schedule claim event_id is missing: {claim_path.name}")
+        try:
+            dt.datetime.fromisoformat(schedule_claim.get("claimed_at", ""))
+        except (TypeError, ValueError):
+            errors.append(f"invalid schedule claim timestamp: {claim_path.name}")
     return errors
 
 
@@ -1037,36 +1285,180 @@ def validate_state_command(args: argparse.Namespace) -> int:
     return 0
 
 
-def finding_from_candidate(
+PRIVATE_MARKERS = (
+    "warpdotdev/warp-server",
+    "/workspace/warp-server",
+    "billing/config/",
+    "public_api/openapi.yaml",
+)
+
+
+def ensure_no_private_reference(
+    value: Any,
+    authority_records: list[dict[str, Any]] | None = None,
+) -> None:
+    serialized = canonical_json(value)
+    markers = set(PRIVATE_MARKERS)
+    for record in authority_records or []:
+        if record.get("visibility") != "private":
+            continue
+        markers.update(
+            str(item)
+            for item in (
+                record.get("authority_id"),
+                record.get("evidence_hash"),
+                *record.get("source_ref", {}).values(),
+            )
+            if item
+        )
+    if any(marker in serialized for marker in markers):
+        raise AuditError("Public output contains a private authority reference")
+
+
+def validate_scope_quote(
+    evidence: dict[str, Any],
+    repository_roots: dict[str, Path],
+) -> None:
+    source = evidence.get("source", {})
+    validate_claim_quote(
+        {
+            "source": source,
+            "quote": evidence.get("quote", ""),
+        },
+        repository_roots,
+    )
+    try:
+        validate_public_claim({"source": source})
+    except AuditError as exc:
+        raise AuditError("Scope verification requires public evidence") from exc
+
+
+def verified_finding_from_candidate(
     candidate: dict[str, Any],
+    verification: dict[str, Any],
+    repository_roots: dict[str, Path],
     run_id: str,
     source_commit: str,
-) -> dict[str, Any]:
-    left, right = candidate["left"], candidate["right"]
-    category = left.get("category", left["topic"])
-    security_policy = category in {"security", "privacy", "billing-policy"}
-    severity = "high" if security_policy or category in {"billing", "api", "cli"} else "medium"
-    confidence = "high" if candidate["exact_typed_mismatch"] else "medium"
-    verdict = "contradiction" if candidate["exact_typed_mismatch"] else "insufficient-evidence"
-    return {
-        "title": f"Conflicting {left['predicate']} for {left['entity']}",
-        "category": category,
-        "severity": severity,
-        "confidence": confidence,
+) -> dict[str, Any] | None:
+    required = {
+        "candidate_id",
+        "title",
+        "severity",
+        "confidence",
+        "verdict",
+        "rationale",
+        "rationale_class",
+        "canonical_source",
+        "authority_reason",
+        "suggested_resolution",
+        "suggested_resolution_class",
+        "claim_ids",
+        "scope_quotes",
+        "qualifier_status",
+        "context_complete",
+    }
+    missing = required - set(verification)
+    if missing:
+        raise AuditError(
+            "Context verification is missing fields: " + ", ".join(sorted(missing))
+        )
+    if verification["candidate_id"] != candidate["candidate_id"]:
+        raise AuditError("Context verification candidate_id mismatch")
+    expected_claim_ids = sorted((
+        candidate["left"]["claim_id"],
+        candidate["right"]["claim_id"],
+    ))
+    if sorted(verification["claim_ids"]) != expected_claim_ids:
+        raise AuditError("Context verification claim_ids mismatch")
+    if verification["verdict"] not in VERDICTS:
+        raise AuditError(f"Invalid adjudication verdict: {verification['verdict']}")
+    if verification["severity"] not in {"high", "medium", "low"}:
+        raise AuditError("Invalid adjudication severity")
+    if verification["confidence"] not in {"high", "medium", "low"}:
+        raise AuditError("Invalid adjudication confidence")
+    if verification["qualifier_status"] not in {"complete", "unknown"}:
+        raise AuditError("qualifier_status must be complete or unknown")
+    if (
+        not isinstance(verification["scope_quotes"], list)
+        or not verification["scope_quotes"]
+    ):
+        raise AuditError("scope_quotes must be a non-empty list")
+    if not isinstance(verification["context_complete"], bool):
+        raise AuditError("context_complete must be boolean")
+    for evidence in verification["scope_quotes"]:
+        validate_scope_quote(evidence, repository_roots)
+    supported_paths = {
+        evidence["source"]["path"] for evidence in verification["scope_quotes"]
+    }
+    claim_paths = {
+        candidate["left"]["source"]["path"],
+        candidate["right"]["source"]["path"],
+    }
+    full_context = (
+        verification["context_complete"] is True
+        and verification["qualifier_status"] == "complete"
+        and claim_paths <= supported_paths
+    )
+    decision = copy.deepcopy(verification)
+    if decision["confidence"] == "high" and not full_context:
+        decision["confidence"] = "medium"
+        decision["confidence_downgrade"] = "incomplete qualifier or scope evidence"
+    ensure_no_private_reference(
+        decision,
+        candidate.get("authority_records", []),
+    )
+    if decision["context_complete"] is not True:
+        return None
+    if decision["verdict"] not in REPORTABLE_VERDICTS:
+        return None
+    claims = [candidate["left"], candidate["right"]]
+    for claim in claims:
+        validate_public_claim(claim)
+    left = candidate["left"]
+    finding = {
+        "title": decision["title"],
+        "category": left.get("category", left["topic"]),
+        "severity": decision["severity"],
+        "confidence": decision["confidence"],
         "topic": left["topic"],
         "entity": left["entity"],
         "predicate": left["predicate"],
-        "claims": [left, right],
-        "verdict": verdict,
-        "rationale": "Compatible claim scopes have different normalized values.",
-        "rationale_class": "typed-value-mismatch" if candidate["exact_typed_mismatch"] else "semantic-review",
-        "canonical_source": candidate["authority"],
-        "authority_reason": "Selected by the category-specific authority registry.",
-        "suggested_resolution": "Review the owning source and update the non-canonical explanation.",
-        "suggested_resolution_class": "human-review" if security_policy else "align-prose",
+        "claims": claims,
+        "verdict": decision["verdict"],
+        "rationale": decision["rationale"],
+        "rationale_class": decision["rationale_class"],
+        "canonical_source": decision["canonical_source"],
+        "authority_reason": decision["authority_reason"],
+        "suggested_resolution": decision["suggested_resolution"],
+        "suggested_resolution_class": decision["suggested_resolution_class"],
+        "scope_quotes": decision["scope_quotes"],
+        "qualifier_status": decision["qualifier_status"],
+        "context_complete": decision["context_complete"],
         "audit_run_id": run_id,
         "source_commit": source_commit,
     }
+    ensure_no_private_reference(
+        finding,
+        candidate.get("authority_records", []),
+    )
+    return finding
+
+
+def public_candidate_dto(candidate: dict[str, Any]) -> dict[str, Any]:
+    result = {
+        key: copy.deepcopy(value)
+        for key, value in candidate.items()
+        if key != "authority_records"
+    }
+    result["authority_records"] = [
+        public_authority_dto(record)
+        for record in candidate.get("authority_records", [])
+    ]
+    ensure_no_private_reference(
+        result,
+        candidate.get("authority_records", []),
+    )
+    return result
 
 
 def artifact_markdown(artifact: dict[str, Any]) -> str:
@@ -1100,45 +1492,178 @@ def artifact_markdown(artifact: dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def fsync_tree(root: Path) -> None:
+    for path in sorted(root.rglob("*")):
+        if path.is_file():
+            with path.open("rb") as handle:
+                os.fsync(handle.fileno())
+    directories = [path for path in root.rglob("*") if path.is_dir()]
+    for directory in [*sorted(directories, reverse=True), root]:
+        descriptor = os.open(directory, os.O_RDONLY)
+        try:
+            os.fsync(descriptor)
+        finally:
+            os.close(descriptor)
+
+
+def replace_state_tree(
+    state_dir: Path,
+    temp_dir: Path,
+    replace_operation=os.replace,
+) -> None:
+    backup = state_dir.with_name(state_dir.name + ".previous")
+    if backup.exists():
+        if state_dir.exists():
+            shutil.rmtree(backup)
+        else:
+            replace_operation(backup, state_dir)
+    fsync_tree(temp_dir)
+    had_state = state_dir.exists()
+    if had_state:
+        replace_operation(state_dir, backup)
+    try:
+        replace_operation(temp_dir, state_dir)
+        parent_descriptor = os.open(state_dir.parent, os.O_RDONLY)
+        try:
+            os.fsync(parent_descriptor)
+        finally:
+            os.close(parent_descriptor)
+    except Exception:
+        if backup.exists():
+            if state_dir.exists():
+                shutil.rmtree(state_dir)
+            replace_operation(backup, state_dir)
+        raise
+    if backup.exists():
+        shutil.rmtree(backup)
+
+
+def load_prior_page_claims(
+    state_dir: Path,
+    manifest: dict[str, Any],
+    pages: set[str],
+) -> list[dict[str, Any]]:
+    claims = []
+    for page, shard in manifest.get("page_shards", {}).items():
+        if page in pages:
+            claims.extend(load_json(state_dir / shard).get("claims", []))
+    return claims
+
+
+def effective_manifest_pages(
+    inventory: dict[str, Any],
+    prior_manifest: dict[str, Any],
+    backlog: set[str],
+) -> dict[str, Any]:
+    pages = copy.deepcopy(inventory.get("pages", {}))
+    for page in backlog:
+        prior_page = prior_manifest.get("pages", {}).get(page)
+        if prior_page:
+            pages[page] = copy.deepcopy(prior_page)
+        else:
+            pages.pop(page, None)
+    return pages
+
+
 def run_pipeline(args: argparse.Namespace) -> int:
     run_id = args.run_id or dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     claims_document = load_json(Path(args.claims))
-    raw_claims = claims_document.get("claims", []) if isinstance(claims_document, dict) else claims_document
-    adjudicated_findings = (
+    raw_claims = (
+        claims_document.get("claims", [])
+        if isinstance(claims_document, dict)
+        else claims_document
+    )
+    verifications = (
         claims_document.get("adjudicated_findings", [])
         if isinstance(claims_document, dict)
         else []
     )
+    extraction_failures = (
+        claims_document.get("extraction_failures", [])
+        if isinstance(claims_document, dict)
+        else []
+    )
+    if extraction_failures:
+        raise AuditError("Claim extraction contains unresolved failures")
     if not isinstance(raw_claims, list):
         raise AuditError("Claims input must be a list or an object with a claims list")
-    roots = {}
+    roots: dict[str, Path] = {}
     for value in args.repository_root:
         name, separator, path = value.partition("=")
         if not separator:
             raise AuditError("--repository-root values must use NAME=PATH")
         roots[name] = Path(path).resolve()
+    docs_root = roots.get("warpdotdev/docs")
+    redirect_path = (
+        Path(args.redirects)
+        if args.redirects
+        else docs_root / "vercel.json"
+        if docs_root
+        else None
+    )
+    redirects = load_verified_redirects(redirect_path)
     state_dir = Path(args.state_dir)
     inventory = load_json(Path(args.inventory), {}) if args.inventory else {}
-    prior_claims: list[dict[str, Any]] = []
-    if inventory and state_dir.exists():
-        previous_manifest = load_json(state_dir / "manifest.json", {})
-        unchanged_pages = {
-            path for path, page in inventory.get("pages", {}).items()
-            if page.get("extraction_status") == "unchanged"
-        }
-        for page, shard in previous_manifest.get("page_shards", {}).items():
-            if page in unchanged_pages:
-                prior_claims.extend(load_json(state_dir / shard).get("claims", []))
-    normalized_claims = [normalize_claim(item) for item in prior_claims]
+    plan = inventory.get("extraction_plan", {})
+    selected_pages = set(plan.get("selected_pages", []))
+    backlog_pages = set(plan.get("backlog_pages", []))
+    processed_pages = set(
+        claims_document.get("processed_pages", [])
+        if isinstance(claims_document, dict)
+        else []
+    )
+    if not processed_pages:
+        processed_pages = {claim["source"]["path"] for claim in raw_claims}
+    missing_selected = selected_pages - processed_pages
+    if missing_selected:
+        raise AuditError(
+            "Selected pages lack validated extraction results: "
+            + ", ".join(sorted(missing_selected))
+        )
+    previous_manifest = (
+        load_json(state_dir / "manifest.json", {})
+        if state_dir.exists()
+        else {}
+    )
+    unchanged_pages = {
+        path
+        for path, page in inventory.get("pages", {}).items()
+        if page.get("extraction_status") == "unchanged"
+    }
+    carried_pages = unchanged_pages | backlog_pages
+    prior_claims = (
+        load_prior_page_claims(state_dir, previous_manifest, carried_pages)
+        if state_dir.exists()
+        else []
+    )
+    normalized_claims = []
+    for prior_claim in prior_claims:
+        validate_public_claim(prior_claim)
+        normalized_claims.append(
+            normalize_claim(apply_redirect_identity(prior_claim, redirects))
+        )
     for raw_claim in raw_claims:
+        validate_public_claim(raw_claim)
         validate_claim_quote(raw_claim, roots)
-        normalized_claims.append(normalize_claim(raw_claim))
+        normalized = normalize_claim(apply_redirect_identity(raw_claim, redirects))
+        normalized_claims.append(normalized)
     rules = load_json(Path(args.authority_rules))
+    authority_records = (
+        validate_authority_contract(load_json(Path(args.authorities)))
+        if args.authorities
+        else []
+    )
     candidates = generate_candidates(normalized_claims, rules)
+    for candidate in candidates:
+        candidate["authority_records"] = matching_authorities(
+            candidate,
+            authority_records,
+        )
+    public_candidates = [public_candidate_dto(candidate) for candidate in candidates]
     if args.candidate_output:
         write_json(Path(args.candidate_output), {
             "schema_version": SCHEMA_VERSION,
-            "candidates": candidates,
+            "candidates": public_candidates,
             "summary": {
                 "candidate_pairs": len(candidates),
                 "exact_typed_mismatches": sum(
@@ -1149,43 +1674,42 @@ def run_pipeline(args: argparse.Namespace) -> int:
                 ),
             },
         })
-    findings = [
-        finding_from_candidate(candidate, run_id, args.source_commit)
-        for candidate in candidates
-        if candidate["exact_typed_mismatch"]
-    ]
+    verification_by_id = {}
+    for verification in verifications:
+        candidate_id = verification.get("candidate_id")
+        if not candidate_id or candidate_id in verification_by_id:
+            raise AuditError("Context verifications require unique candidate_id values")
+        verification_by_id[candidate_id] = verification
+    candidate_by_id = {
+        candidate["candidate_id"]: candidate for candidate in candidates
+    }
+    unknown_verifications = set(verification_by_id) - set(candidate_by_id)
+    if unknown_verifications:
+        raise AuditError("Context verification references an unknown candidate")
+    findings = []
     adjudication_decisions = []
-    for adjudicated in adjudicated_findings:
-        required = {
-            "title", "category", "severity", "confidence", "topic", "entity",
-            "predicate", "claims", "verdict", "rationale", "canonical_source",
-            "authority_reason", "suggested_resolution", "rationale_class",
-            "suggested_resolution_class",
+    for candidate_id, verification in verification_by_id.items():
+        ensure_no_private_reference(verification)
+        decision = copy.deepcopy(verification)
+        decision["audit_run_id"] = run_id
+        adjudication_decisions.append(decision)
+        finding = verified_finding_from_candidate(
+            candidate_by_id[candidate_id],
+            verification,
+            roots,
+            run_id,
+            args.source_commit,
+        )
+        if finding:
+            findings.append(finding)
+    unverified_candidate_ids = sorted(
+        (set(candidate_by_id) - set(verification_by_id))
+        | {
+            candidate_id
+            for candidate_id, verification in verification_by_id.items()
+            if verification.get("context_complete") is not True
         }
-        missing = required - set(adjudicated)
-        if missing:
-            raise AuditError(
-                "Adjudicated finding is missing fields: "
-                + ", ".join(sorted(missing))
-            )
-        if not adjudicated["claims"]:
-            raise AuditError("Adjudicated findings require at least one supported claim")
-        if adjudicated.get("verdict") not in VERDICTS:
-            raise AuditError(f"Invalid adjudication verdict: {adjudicated.get('verdict')}")
-        for adjudicated_claim in adjudicated.get("claims", []):
-            validate_claim_quote(adjudicated_claim, roots)
-        adjudicated = copy.deepcopy(adjudicated)
-        adjudicated["audit_run_id"] = run_id
-        adjudicated["source_commit"] = args.source_commit
-        adjudication_decisions.append(adjudicated)
-        if adjudicated["verdict"] in {
-            "delegated",
-            "intentional-exception",
-            "insufficient-evidence",
-            "not-related",
-        }:
-            continue
-        findings.append(adjudicated)
+    )
     normalized_findings = [normalize_finding(finding) for finding in findings]
     findings_by_id = {finding["finding_id"]: finding for finding in normalized_findings}
     findings = list(findings_by_id.values())
@@ -1195,7 +1719,10 @@ def run_pipeline(args: argparse.Namespace) -> int:
         state_dir / "findings.json",
         {"schema_version": SCHEMA_VERSION, "findings": {}},
     )
-    complete = args.coverage == "complete"
+    coverage = args.coverage
+    if coverage == "complete" and (backlog_pages or unverified_candidate_ids):
+        coverage = "partial"
+    complete = coverage == "complete"
     lifecycle = calculate_lifecycle(active, previous_findings, run_id, complete)
     active_count = sum(
         finding.get("status") == "active"
@@ -1206,7 +1733,10 @@ def run_pipeline(args: argparse.Namespace) -> int:
         "new": sum(item.get("lifecycle") == "new" for item in lifecycle["changes"]),
         "changed": sum(item.get("lifecycle") == "changed" for item in lifecycle["changes"]),
         "resolved": sum(item.get("lifecycle") == "resolved" for item in lifecycle["changes"]),
-        "existing": sum(item.get("lifecycle") == "existing" for item in lifecycle["findings"].values()),
+        "existing": sum(
+            item.get("lifecycle") == "existing"
+            for item in lifecycle["findings"].values()
+        ),
         "suppressed": len(suppressed),
         "expired_suppressions": len(expired),
         "claims": len(normalized_claims),
@@ -1217,8 +1747,24 @@ def run_pipeline(args: argparse.Namespace) -> int:
         "schema_version": SCHEMA_VERSION,
         "run_id": run_id,
         "source_commit": args.source_commit,
-        "coverage": args.coverage,
-        "source_availability": load_json(Path(args.source_availability), {}) if args.source_availability else {},
+        "coverage": coverage,
+        "source_availability": (
+            load_json(Path(args.source_availability), {})
+            if args.source_availability
+            else {}
+        ),
+        "authority_summary": {
+            "records": len(authority_records),
+            "public": sum(
+                record["visibility"] == "public"
+                for record in authority_records
+            ),
+            "private_transient": sum(
+                record["visibility"] == "private" for record in authority_records
+            ),
+        },
+        "backlog_pages": sorted(backlog_pages),
+        "unverified_candidate_ids": unverified_candidate_ids,
         "summary": summary,
         "active_findings": [
             finding for finding in lifecycle["findings"].values()
@@ -1235,6 +1781,7 @@ def run_pipeline(args: argparse.Namespace) -> int:
             "model_calls": int(args.model_calls),
         },
     }
+    ensure_no_private_reference(artifact, authority_records)
     write_json(Path(args.artifact_json), artifact)
     Path(args.artifact_markdown).write_text(artifact_markdown(artifact))
     if args.no_state_write:
@@ -1251,16 +1798,29 @@ def run_pipeline(args: argparse.Namespace) -> int:
         by_page: dict[str, list[dict[str, Any]]] = defaultdict(list)
         for claim in normalized_claims:
             by_page[claim["source"]["path"]].append(claim)
-        for page, page_claims in sorted(by_page.items()):
+        pages_to_write = set(by_page) | processed_pages | carried_pages
+        for page in sorted(pages_to_write):
+            page_claims = by_page.get(page, [])
             shard_name = hashlib.sha256(page.encode()).hexdigest() + ".json"
             shard_path = claims_dir / shard_name
+            page_sha = inventory.get("pages", {}).get(page, {}).get("source_sha256")
+            if page_claims:
+                page_sha = page_claims[0]["source"].get("content_sha256") or page_sha
             write_json(shard_path, {
                 "schema_version": SCHEMA_VERSION,
                 "path": page,
-                "page_sha256": page_claims[0]["source"].get("content_sha256"),
+                "page_sha256": page_sha,
                 "claims": page_claims,
             })
             page_shards[page] = f"claims/{shard_name}"
+        schedule_claims = state_dir / "schedule_claims"
+        if schedule_claims.exists():
+            shutil.copytree(schedule_claims, temp_dir / "schedule_claims")
+        manifest_pages = effective_manifest_pages(
+            inventory,
+            previous_manifest,
+            backlog_pages,
+        )
         write_json(temp_dir / "manifest.json", {
             "schema_version": SCHEMA_VERSION,
             "extractor_version": EXTRACTOR_VERSION,
@@ -1268,10 +1828,15 @@ def run_pipeline(args: argparse.Namespace) -> int:
             "authority_rules_version": rules["version"],
             "model_identifier": args.model_identifier,
             "source_repositories": {"docs": args.source_commit},
-            "last_completed_run": run_id if complete else None,
-            "coverage": args.coverage,
-            "pages": inventory.get("pages", {}),
+            "last_completed_run": (
+                run_id
+                if complete
+                else previous_manifest.get("last_completed_run")
+            ),
+            "coverage": coverage,
+            "pages": manifest_pages,
             "page_shards": page_shards,
+            "backlog_pages": sorted(backlog_pages),
             "deleted_page_shards": inventory.get("deleted_pages", []),
         })
         write_json(temp_dir / "findings.json", {
@@ -1281,14 +1846,7 @@ def run_pipeline(args: argparse.Namespace) -> int:
         errors = validate_state_tree(temp_dir)
         if errors:
             raise AuditError("Generated state failed validation: " + "; ".join(errors))
-        backup = state_dir.with_name(state_dir.name + ".previous")
-        if backup.exists():
-            shutil.rmtree(backup)
-        if state_dir.exists():
-            state_dir.rename(backup)
-        temp_dir.rename(state_dir)
-        if backup.exists():
-            shutil.rmtree(backup)
+        replace_state_tree(state_dir, temp_dir)
     except Exception:
         if temp_dir.exists():
             shutil.rmtree(temp_dir)
@@ -1297,18 +1855,35 @@ def run_pipeline(args: argparse.Namespace) -> int:
     return 0
 
 
-def benchmark_claim(case: dict[str, Any], side: str) -> dict[str, Any]:
+def benchmark_claim(
+    case: dict[str, Any],
+    side: str,
+    root: Path,
+) -> dict[str, Any]:
     compact = case["compact"]
     quote = compact[f"{side}_quote"]
+    source_text = (
+        "---\n"
+        f"title: {case['id']} {side}\n"
+        "---\n"
+        "## Claim\n"
+        f"{quote}\n"
+    )
+    relative_path = f"benchmark/{case['id']}-{side}.mdx"
+    source_path = root / relative_path
+    source_path.parent.mkdir(parents=True, exist_ok=True)
+    source_path.write_text(source_text)
     return {
         "source": {
             "repository": "warpdotdev/docs",
-            "path": compact[f"{side}_path"],
-            "route": compact[f"{side}_path"],
-            "heading": case["id"],
-            "heading_anchor": stable_heading_anchor(case["id"]),
-            "line_start": 1,
-            "line_end": 1,
+            "path": relative_path,
+            "route": f"/benchmark/{case['id']}-{side}",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_start": 5,
+            "line_end": 5,
+            "content_sha256": sha256_text(source_text),
+            "visibility": "public",
         },
         "category": compact.get("category", compact["topic"]),
         "topic": compact["topic"],
@@ -1320,33 +1895,112 @@ def benchmark_claim(case: dict[str, Any], side: str) -> dict[str, Any]:
         },
         "qualifiers": compact.get(f"{side}_qualifiers", {}),
         "polarity": compact.get(f"{side}_polarity", "affirmative"),
-        "quote": quote,
+        "quote": compact.get(f"{side}_evidence_quote", quote),
         "extraction_confidence": 1.0,
         "source_class": compact.get(f"{side}_source_class", "docs-prose"),
     }
 
 
-def classify_benchmark_case(case: dict[str, Any], rules: dict[str, Any]) -> str:
+def production_benchmark_case(case: dict[str, Any], rules: dict[str, Any]) -> str:
     if case.get("delegated_to"):
+        if case["delegated_to"] not in {
+            "style_lint",
+            "validate_ui_refs",
+            "check_for_broken_links",
+            "missing_docs",
+        }:
+            raise AuditError("Benchmark delegates to an unknown owning skill")
         return "delegated"
-    if case.get("intentional_exception"):
-        return "intentional-exception"
-    claims = case.get("claims", [])
-    if not claims and "compact" in case:
-        claims = [benchmark_claim(case, "left"), benchmark_claim(case, "right")]
-    if len(claims) == 1:
-        return case.get("single_claim_classification", "gap")
-    candidates = generate_candidates(claims, rules)
-    if not candidates:
-        compatible, _, _ = qualifier_compatibility(
-            claims[0].get("qualifiers", {}),
-            claims[1].get("qualifiers", {}),
+    if case.get("extraction_failed"):
+        raise AuditError("Benchmark extraction failed")
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        if "compact" in case:
+            claims = [
+                benchmark_claim(case, "left", root),
+                benchmark_claim(case, "right", root),
+            ]
+        else:
+            raw_claims = case.get("claims", [])
+            if len(raw_claims) != 1:
+                raise AuditError("Non-compact benchmark cases require one grounded claim")
+            raw = copy.deepcopy(raw_claims[0])
+            quote = raw["quote"]
+            source_text = f"---\ntitle: {case['id']}\n---\n## Claim\n{quote}\n"
+            relative_path = f"benchmark/{case['id']}.mdx"
+            source_path = root / relative_path
+            source_path.parent.mkdir(parents=True, exist_ok=True)
+            source_path.write_text(source_text)
+            raw["source"].update({
+                "repository": "warpdotdev/docs",
+                "path": relative_path,
+                "route": f"/benchmark/{case['id']}",
+                "heading": "Claim",
+                "heading_anchor": "claim",
+                "line_start": 5,
+                "line_end": 5,
+                "content_sha256": sha256_text(source_text),
+                "visibility": "public",
+            })
+            claims = [raw]
+        inventory = inventory_pages(root, rules)
+        if len(inventory["pages"]) != len(claims):
+            raise AuditError("Benchmark inventory did not include every source")
+        normalized_claims = []
+        roots = {"warpdotdev/docs": root}
+        for claim in claims:
+            validate_public_claim(claim)
+            validate_claim_quote(claim, roots)
+            normalized_claims.append(normalize_claim(claim))
+        if len(normalized_claims) == 1:
+            return "gap"
+        candidates = generate_candidates(normalized_claims, rules)
+        if not candidates:
+            compatible, conflicts, _ = qualifier_compatibility(
+                normalized_claims[0]["qualifiers"],
+                normalized_claims[1]["qualifiers"],
+            )
+            if "explicit-exception" in conflicts:
+                return "intentional-exception"
+            return "insufficient-evidence" if compatible else "not-related"
+        candidate = candidates[0]
+        verdict = case.get("adjudication_override")
+        if not verdict:
+            verdict = (
+                "contradiction"
+                if candidate["exact_typed_mismatch"]
+                else "insufficient-evidence"
+            )
+        verification = {
+            "candidate_id": candidate["candidate_id"],
+            "title": case["id"],
+            "severity": case.get("severity", "low"),
+            "confidence": case.get("confidence", "high"),
+            "verdict": verdict,
+            "rationale": "Benchmark context verification.",
+            "rationale_class": "benchmark-context",
+            "canonical_source": candidate["authority"],
+            "authority_reason": "Benchmark authority precedence.",
+            "suggested_resolution": "Review the conflicting public claims.",
+            "suggested_resolution_class": "human-review",
+            "claim_ids": sorted(
+                claim["claim_id"] for claim in normalized_claims
+            ),
+            "scope_quotes": [
+                {"source": claim["source"], "quote": claim["quote"]}
+                for claim in normalized_claims
+            ],
+            "qualifier_status": case.get("qualifier_status", "complete"),
+            "context_complete": case.get("context_complete", True),
+        }
+        finding = verified_finding_from_candidate(
+            candidate,
+            verification,
+            roots,
+            "benchmark",
+            "benchmark",
         )
-        return "insufficient-evidence" if compatible else "not-related"
-    candidate = candidates[0]
-    if candidate["exact_typed_mismatch"]:
-        return case.get("mismatch_classification", "contradiction")
-    return "not-related"
+        return finding["verdict"] if finding else verdict
 
 
 def benchmark_command(args: argparse.Namespace) -> int:
@@ -1354,7 +2008,12 @@ def benchmark_command(args: argparse.Namespace) -> int:
     rules = load_json(Path(args.authority_rules))
     results = []
     for case in benchmark["cases"]:
-        predicted = classify_benchmark_case(case, rules)
+        error = None
+        try:
+            predicted = production_benchmark_case(case, rules)
+        except AuditError as exc:
+            predicted = "invalid-production-path"
+            error = str(exc)
         expected = case["expected"]
         results.append({
             "id": case["id"],
@@ -1365,6 +2024,7 @@ def benchmark_command(args: argparse.Namespace) -> int:
             "confidence": case.get("confidence", "high"),
             "policy_domain": case.get("policy_domain"),
             "passed": predicted == expected,
+            "production_path_error": error,
         })
     falconer = [item for item in results if item["group"] == "falconer"]
     negative = [item for item in results if item["group"] == "negative-control"]
@@ -1395,13 +2055,22 @@ def benchmark_command(args: argparse.Namespace) -> int:
                 if surfaced else 0
             ),
             "incorrect_high_confidence_policy_conclusions": len(policy_errors),
+            "production_path_errors": sum(
+                bool(item["production_path_error"]) for item in results
+            ),
         },
         "thresholds": {
-            "all_24_accounted_for": len(falconer) == 24,
+            "all_24_accounted_for": (
+                len(falconer) == 24
+                and all(item["passed"] for item in falconer)
+            ),
             "high_confidence_precision_at_least_0_90": None,
             "surfaced_precision_at_least_0_80": None,
             "zero_incorrect_high_confidence_policy_conclusions": not policy_errors,
             "all_negative_controls_pass": all(item["passed"] for item in negative),
+            "production_path_has_no_errors": not any(
+                item["production_path_error"] for item in results
+            ),
         },
     }
     scorecard["thresholds"]["high_confidence_precision_at_least_0_90"] = (
@@ -1434,8 +2103,62 @@ def schedule_guard_command(args: argparse.Namespace) -> int:
     return 0 if active else 10
 
 
+def schedule_claim_command(args: argparse.Namespace) -> int:
+    instant = (
+        dt.datetime.fromisoformat(args.at.replace("Z", "+00:00"))
+        if args.at
+        else dt.datetime.now(dt.timezone.utc)
+    )
+    if instant.tzinfo is None:
+        instant = instant.replace(tzinfo=dt.timezone.utc)
+    local = instant.astimezone(ZoneInfo("America/Los_Angeles"))
+    active = local.weekday() in {0, 2, 4} and local.hour == 10
+    if not active:
+        print(canonical_json({
+            "claimed": False,
+            "reason": "inactive Pacific audit window",
+            "local_time": local.isoformat(),
+        }))
+        return 10
+    business_date = local.date().isoformat()
+    claims_dir = Path(args.state_dir) / "schedule_claims"
+    claims_dir.mkdir(parents=True, exist_ok=True)
+    claim_path = claims_dir / f"{business_date}.json"
+    payload = {
+        "schema_version": SCHEMA_VERSION,
+        "business_date": business_date,
+        "event_id": args.event_id,
+        "claimed_at": instant.astimezone(dt.timezone.utc).isoformat(),
+    }
+    try:
+        descriptor = os.open(
+            claim_path,
+            os.O_WRONLY | os.O_CREAT | os.O_EXCL,
+            0o644,
+        )
+    except FileExistsError:
+        print(canonical_json({
+            "claimed": False,
+            "reason": "Pacific business date already claimed",
+            "business_date": business_date,
+        }))
+        return 11
+    with os.fdopen(descriptor, "w") as handle:
+        handle.write(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+        handle.flush()
+        os.fsync(handle.fileno())
+    parent_descriptor = os.open(claims_dir, os.O_RDONLY)
+    try:
+        os.fsync(parent_descriptor)
+    finally:
+        os.close(parent_descriptor)
+    print(canonical_json({"claimed": True, **payload}))
+    return 0
+
+
 def notification_command(args: argparse.Namespace) -> int:
     artifact = load_json(Path(args.artifact))
+    ensure_no_private_reference(artifact)
     changes = artifact.get("lifecycle_changes", [])
     actionable = [
         finding for finding in changes
@@ -1538,6 +2261,14 @@ def build_parser() -> argparse.ArgumentParser:
     guard = subparsers.add_parser("schedule-guard", help="Apply the Pacific-time schedule guard")
     guard.add_argument("--at", help="ISO-8601 instant used by tests")
     guard.set_defaults(func=schedule_guard_command)
+    claim_schedule = subparsers.add_parser(
+        "claim-schedule",
+        help="Atomically claim one Pacific business date before scheduled work",
+    )
+    claim_schedule.add_argument("--state-dir", default=str(STATE_PATH))
+    claim_schedule.add_argument("--event-id", required=True)
+    claim_schedule.add_argument("--at", help="ISO-8601 instant used by tests")
+    claim_schedule.set_defaults(func=schedule_claim_command)
     notification = subparsers.add_parser(
         "notification",
         help="Render at most one actionable-only Slack payload",
@@ -1573,6 +2304,8 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--repository-root", action="append", default=[], metavar="NAME=PATH")
     run.add_argument("--state-dir", default=str(STATE_PATH))
     run.add_argument("--authority-rules", default=str(DEFAULT_AUTHORITY_RULES))
+    run.add_argument("--authorities")
+    run.add_argument("--redirects")
     run.add_argument("--suppressions", default=str(DEFAULT_SUPPRESSIONS))
     run.add_argument("--artifact-json", required=True)
     run.add_argument("--artifact-markdown", required=True)

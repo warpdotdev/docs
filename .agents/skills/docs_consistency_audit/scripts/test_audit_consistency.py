@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import copy
+import concurrent.futures
 import datetime as dt
 import importlib.util
 import json
@@ -86,6 +87,97 @@ def finding(*claims, severity="medium", confidence="high", rationale_class="type
         "canonical_source": "effective-billing-policy",
         "suggested_resolution_class": "align-prose",
     })
+
+
+def write_claim_page(
+    root: Path,
+    path: str,
+    quote: str,
+    *,
+    route: str | None = None,
+    line: int = 1,
+    **kwargs,
+):
+    target = root / path
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text("\n" * (line - 1) + quote + "\n")
+    value = claim(
+        path=path,
+        quote=quote,
+        line_start=line,
+        line_end=line,
+        **kwargs,
+    )
+    value["source"]["route"] = route or "/" + path.removesuffix(".mdx")
+    value["source"]["content_sha256"] = audit.sha256_text(target.read_text())
+    return value
+
+
+def run_args(
+    root: Path,
+    claims_path: Path,
+    *,
+    state_dir: Path | None = None,
+    inventory: Path | None = None,
+    authorities: Path | None = None,
+    no_state_write: bool = False,
+    output_root: Path | None = None,
+):
+    output_root = output_root or root
+    return type("Args", (), {
+        "run_id": "test-run",
+        "claims": str(claims_path),
+        "repository_root": [f"warpdotdev/docs={root}"],
+        "state_dir": str(state_dir or root / "state"),
+        "inventory": str(inventory) if inventory else None,
+        "authority_rules": str(audit.DEFAULT_AUTHORITY_RULES),
+        "authorities": str(authorities) if authorities else None,
+        "redirects": None,
+        "suppressions": str(audit.DEFAULT_SUPPRESSIONS),
+        "candidate_output": str(output_root / "candidates.json"),
+        "source_commit": "abc123",
+        "coverage": "complete",
+        "source_availability": None,
+        "model_calls": 0,
+        "pages": 1,
+        "characters": 100,
+        "artifact_json": str(output_root / "artifact.json"),
+        "artifact_markdown": str(output_root / "artifact.md"),
+        "no_state_write": no_state_write,
+        "model_identifier": "test-model",
+    })
+
+
+def verification_for(
+    candidate,
+    claims,
+    *,
+    verdict="contradiction",
+    confidence="high",
+    qualifier_status="complete",
+    context_complete=True,
+    extra_scope_quotes=None,
+):
+    return {
+        "candidate_id": candidate["candidate_id"],
+        "title": "Conflicting limit",
+        "severity": "high",
+        "confidence": confidence,
+        "verdict": verdict,
+        "rationale": "The verified public claims disagree.",
+        "rationale_class": "verified-context",
+        "canonical_source": "canonical-doc",
+        "authority_reason": "Public canonical documentation owns this claim.",
+        "suggested_resolution": "Align the non-canonical public explanation.",
+        "suggested_resolution_class": "align-prose",
+        "claim_ids": sorted(item["claim_id"] for item in claims),
+        "scope_quotes": [
+            {"source": item["source"], "quote": item["quote"]}
+            for item in claims
+        ] + list(extra_scope_quotes or []),
+        "qualifier_status": qualifier_status,
+        "context_complete": context_complete,
+    }
 
 
 class InventoryTests(unittest.TestCase):
@@ -266,6 +358,97 @@ class QualifierAndBlockingTests(unittest.TestCase):
         self.assertFalse(candidate["exact_typed_mismatch"])
 
 
+class ContextVerificationTests(unittest.TestCase):
+    def test_missing_qualifier_evidence_downgrades_exact_mismatch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            left = write_claim_page(root, "left.mdx", "Limit is 5,000.", value=5000)
+            right = write_claim_page(root, "right.mdx", "Limit is 3,000.", value=3000)
+            normalized = [audit.normalize_claim(item) for item in (left, right)]
+            candidate = audit.generate_candidates(normalized, RULES)[0]
+            result = audit.verified_finding_from_candidate(
+                candidate,
+                verification_for(
+                    candidate,
+                    normalized,
+                    qualifier_status="unknown",
+                ),
+                {"warpdotdev/docs": root},
+                "run-1",
+                "abc123",
+            )
+            self.assertIsNotNone(result)
+            self.assertEqual(result["confidence"], "medium")
+
+    def test_adjacent_exception_context_suppresses_exact_mismatch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            left = write_claim_page(
+                root,
+                "left.mdx",
+                "All runs accept five images.",
+                value=5,
+            )
+            right_path = root / "right.mdx"
+            right_path.write_text(
+                "API-key runs are the exception.\n"
+                "API-key runs accept one image.\n"
+            )
+            right = claim(
+                path="right.mdx",
+                quote="API-key runs accept one image.",
+                value=1,
+                line_start=2,
+                line_end=2,
+            )
+            right["source"]["content_sha256"] = audit.sha256_text(
+                right_path.read_text()
+            )
+            normalized = [audit.normalize_claim(item) for item in (left, right)]
+            candidate = audit.generate_candidates(normalized, RULES)[0]
+            adjacent = {
+                "source": {
+                    **right["source"],
+                    "line_start": 1,
+                    "line_end": 1,
+                },
+                "quote": "API-key runs are the exception.",
+            }
+            result = audit.verified_finding_from_candidate(
+                candidate,
+                verification_for(
+                    candidate,
+                    normalized,
+                    verdict="intentional-exception",
+                    extra_scope_quotes=[adjacent],
+                ),
+                {"warpdotdev/docs": root},
+                "run-1",
+                "abc123",
+            )
+            self.assertIsNone(result)
+
+    def test_incomplete_context_suppresses_exact_mismatch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            left = write_claim_page(root, "left.mdx", "Limit is 5,000.", value=5000)
+            right = write_claim_page(root, "right.mdx", "Limit is 3,000.", value=3000)
+            normalized = [audit.normalize_claim(item) for item in (left, right)]
+            candidate = audit.generate_candidates(normalized, RULES)[0]
+            result = audit.verified_finding_from_candidate(
+                candidate,
+                verification_for(
+                    candidate,
+                    normalized,
+                    context_complete=False,
+                ),
+                {"warpdotdev/docs": root},
+                "run-1",
+                "abc123",
+            )
+            self.assertIsNone(result)
+
+
 class FingerprintAndLifecycleTests(unittest.TestCase):
     def setUp(self):
         self.left = claim()
@@ -294,6 +477,31 @@ class FingerprintAndLifecycleTests(unittest.TestCase):
             self.finding["finding_content_fingerprint"],
             changed["finding_content_fingerprint"],
         )
+
+    def test_verified_redirect_preserves_claim_identity_and_provenance(self):
+        old = claim(path="old.mdx")
+        old["source"]["route"] = "/old"
+        new = claim(path="new.mdx")
+        new["source"]["route"] = "/new"
+        redirects = {"/old": "/new"}
+        old_normalized = audit.normalize_claim(
+            audit.apply_redirect_identity(old, redirects)
+        )
+        new_normalized = audit.normalize_claim(
+            audit.apply_redirect_identity(new, redirects)
+        )
+        self.assertEqual(old_normalized["claim_id"], new_normalized["claim_id"])
+        self.assertEqual(old_normalized["source"]["path"], "old.mdx")
+        self.assertEqual(new_normalized["source"]["path"], "new.mdx")
+
+    def test_move_without_verified_redirect_changes_claim_identity(self):
+        old = audit.normalize_claim(
+            audit.apply_redirect_identity(claim(path="old.mdx"), {})
+        )
+        new = audit.normalize_claim(
+            audit.apply_redirect_identity(claim(path="new.mdx"), {})
+        )
+        self.assertNotEqual(old["claim_id"], new["claim_id"])
 
     def test_all_lifecycle_transitions(self):
         new = audit.calculate_lifecycle([self.finding], {"findings": {}}, "run-1", True)
@@ -384,6 +592,8 @@ class PipelinePrepassTests(unittest.TestCase):
                 "state_dir": str(root / "state"),
                 "inventory": None,
                 "authority_rules": str(audit.DEFAULT_AUTHORITY_RULES),
+                "authorities": None,
+                "redirects": None,
                 "suppressions": str(audit.DEFAULT_SUPPRESSIONS),
                 "candidate_output": str(root / "candidates.json"),
                 "source_commit": "abc123",
@@ -403,7 +613,182 @@ class PipelinePrepassTests(unittest.TestCase):
             self.assertEqual(candidates["summary"]["semantic_review_required"], 1)
             self.assertEqual(candidates["summary"]["exact_typed_mismatches"], 0)
             self.assertEqual(artifact["summary"]["active"], 0)
+            self.assertEqual(artifact["coverage"], "partial")
+            self.assertEqual(len(artifact["unverified_candidate_ids"]), 1)
             self.assertFalse((root / "state").exists())
+
+
+class StateDurabilityTests(unittest.TestCase):
+    def inventory_document(self, root, previous=None, max_pages=0):
+        inventory = audit.inventory_pages(root, RULES, previous)
+        changed = inventory["changed_pages"]
+        selected = changed[:max_pages] if max_pages else changed
+        backlog = changed[len(selected):]
+        inventory["extraction_plan"] = {
+            "selected_pages": selected,
+            "backlog_pages": backlog,
+            "selected_characters": sum(
+                inventory["pages"][page]["character_count"]
+                for page in selected
+            ),
+            "coverage": "partial" if backlog else "complete",
+            "max_pages": max_pages,
+            "max_characters": 0,
+        }
+        return inventory
+
+    def run_inventory(self, docs_root, work_root, state, inventory, claims):
+        inventory_path = work_root / "inventory.json"
+        inventory_path.write_text(json.dumps(inventory))
+        claims_path = work_root / "claims.json"
+        claims_path.write_text(json.dumps({
+            "claims": claims,
+            "processed_pages": inventory["extraction_plan"]["selected_pages"],
+        }))
+        args = run_args(
+            docs_root,
+            claims_path,
+            state_dir=state,
+            inventory=inventory_path,
+            output_root=work_root,
+        )
+        audit.run_pipeline(args)
+
+    def test_deferred_shard_and_hash_survive_then_resume(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            docs_root = root / "docs"
+            state = root / "state"
+            original = [
+                write_claim_page(
+                    docs_root,
+                    "a.mdx",
+                    "A supports 10 files.",
+                    entity="a",
+                    value=10,
+                ),
+                write_claim_page(
+                    docs_root,
+                    "b.mdx",
+                    "B supports 20 files.",
+                    entity="b",
+                    value=20,
+                ),
+            ]
+            initial = self.inventory_document(docs_root)
+            self.run_inventory(docs_root, root, state, initial, original)
+            first_manifest = json.loads((state / "manifest.json").read_text())
+            old_b_hash = first_manifest["pages"]["b.mdx"]["source_sha256"]
+            old_b_shard = first_manifest["page_shards"]["b.mdx"]
+            claim_args = type("Args", (), {
+                "state_dir": str(state),
+                "event_id": "scheduled-run",
+                "at": "2026-07-06T17:00:00Z",
+            })
+            self.assertEqual(audit.schedule_claim_command(claim_args), 0)
+            receipt_path = state / "schedule_claims/2026-07-06.json"
+            receipt = receipt_path.read_text()
+
+            changed_a = write_claim_page(
+                docs_root,
+                "a.mdx",
+                "A supports 11 files.",
+                entity="a",
+                value=11,
+            )
+            write_claim_page(
+                docs_root,
+                "b.mdx",
+                "B supports 21 files.",
+                entity="b",
+                value=21,
+            )
+            deferred = self.inventory_document(
+                docs_root,
+                first_manifest,
+                max_pages=1,
+            )
+            self.run_inventory(
+                docs_root,
+                root,
+                state,
+                deferred,
+                [changed_a],
+            )
+            deferred_manifest = json.loads((state / "manifest.json").read_text())
+            self.assertEqual(
+                deferred_manifest["pages"]["b.mdx"]["source_sha256"],
+                old_b_hash,
+            )
+            self.assertEqual(
+                deferred_manifest["page_shards"]["b.mdx"],
+                old_b_shard,
+            )
+            self.assertEqual(deferred_manifest["backlog_pages"], ["b.mdx"])
+            self.assertIn(
+                "B supports 20 files.",
+                (state / old_b_shard).read_text(),
+            )
+            self.assertEqual(receipt_path.read_text(), receipt)
+
+            changed_b = write_claim_page(
+                docs_root,
+                "b.mdx",
+                "B supports 21 files.",
+                entity="b",
+                value=21,
+            )
+            resumed = self.inventory_document(docs_root, deferred_manifest)
+            self.assertEqual(
+                resumed["extraction_plan"]["selected_pages"],
+                ["b.mdx"],
+            )
+            self.run_inventory(
+                docs_root,
+                root,
+                state,
+                resumed,
+                [changed_b],
+            )
+            final_manifest = json.loads((state / "manifest.json").read_text())
+            self.assertEqual(final_manifest["backlog_pages"], [])
+            self.assertEqual(
+                final_manifest["pages"]["b.mdx"]["source_sha256"],
+                audit.sha256_text((docs_root / "b.mdx").read_text()),
+            )
+            self.assertIn(
+                "B supports 21 files.",
+                (state / final_manifest["page_shards"]["b.mdx"]).read_text(),
+            )
+            self.assertEqual(receipt_path.read_text(), receipt)
+
+    def test_state_replacement_failure_restores_prior_tree(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            state = root / "state"
+            replacement = root / "replacement"
+            state.mkdir()
+            replacement.mkdir()
+            (state / "marker").write_text("old")
+            (replacement / "marker").write_text("new")
+            calls = 0
+
+            def fail_install(source, destination):
+                nonlocal calls
+                calls += 1
+                if calls == 2:
+                    raise OSError("injected replacement failure")
+                source = Path(source)
+                source.rename(destination)
+
+            with self.assertRaises(OSError):
+                audit.replace_state_tree(
+                    state,
+                    replacement,
+                    replace_operation=fail_install,
+                )
+            self.assertEqual((state / "marker").read_text(), "old")
+            self.assertFalse(state.with_name("state.previous").exists())
 
 
 class SuppressionTests(unittest.TestCase):
@@ -472,6 +857,135 @@ class AuthorityAdapterTests(unittest.TestCase):
             self.assertEqual(policy["max_indices"], 3)
             self.assertEqual(policy["max_files_per_repo"], 100000)
 
+    def test_private_authority_contract_is_consumed_without_public_leak(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            left = write_claim_page(
+                root,
+                "left.mdx",
+                "All plans support 5,000 files.",
+                value=5000,
+            )
+            right = write_claim_page(
+                root,
+                "right.mdx",
+                "Free supports 3,000 files.",
+                value=3000,
+            )
+            normalized = [audit.normalize_claim(item) for item in (left, right)]
+            candidate = audit.generate_candidates(normalized, RULES)[0]
+            authority = audit.authority_record(
+                topic="plan-gating",
+                entity="codebase-context",
+                predicate="files-per-repo",
+                value={"type": "integer", "normalized": 3000},
+                qualifiers={"plans": ["free"]},
+                source_class="effective-billing-policy",
+                visibility="private",
+                release_scope="effective-self-serve",
+                repository="warpdotdev/warp-server",
+                path="billing/config/tiers/free.yaml",
+                source_commit="private-sha",
+                evidence_hash="private-hash",
+            )
+            authorities_path = root / "authorities.json"
+            authorities_path.write_text(json.dumps({
+                "authority_records": [authority]
+            }))
+            claims_path = root / "claims.json"
+            claims_path.write_text(json.dumps({
+                "claims": [left, right],
+                "adjudicated_findings": [
+                    verification_for(candidate, normalized)
+                ],
+            }))
+            args = run_args(
+                root,
+                claims_path,
+                authorities=authorities_path,
+            )
+            audit.run_pipeline(args)
+            artifact_text = (root / "artifact.json").read_text()
+            candidate_text = (root / "candidates.json").read_text()
+            state_text = "\n".join(
+                path.read_text()
+                for path in (root / "state").rglob("*.json")
+            )
+            for text in (artifact_text, candidate_text, state_text):
+                self.assertNotIn("warp-server", text)
+                self.assertNotIn("billing/config", text)
+                self.assertNotIn("private-hash", text)
+                self.assertNotIn("private-sha", text)
+                self.assertNotIn(authority["authority_id"], text)
+            artifact = json.loads(artifact_text)
+            self.assertEqual(artifact["summary"]["active"], 1)
+            self.assertEqual(
+                artifact["authority_summary"]["private_transient"],
+                1,
+            )
+
+    def test_private_claim_cannot_enter_generated_state(self):
+        private = claim()
+        private["source"]["repository"] = "warpdotdev/warp-server"
+        private["source"]["visibility"] = "public"
+        with self.assertRaises(audit.AuditError):
+            audit.validate_public_claim(private)
+
+
+class BenchmarkProductionPathTests(unittest.TestCase):
+    def run_mutated_benchmark(self, mutate):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            benchmark = json.loads(audit.DEFAULT_BENCHMARK.read_text())
+            mutate(benchmark["cases"][0])
+            cases = root / "cases.json"
+            output = root / "scorecard.json"
+            cases.write_text(json.dumps(benchmark))
+            args = type("Args", (), {
+                "cases": str(cases),
+                "authority_rules": str(audit.DEFAULT_AUTHORITY_RULES),
+                "output": str(output),
+            })
+            status = audit.benchmark_command(args)
+            return status, json.loads(output.read_text())
+
+    def test_invalid_evidence_fails_production_path_gate(self):
+        def mutate(case):
+            case["compact"]["left_evidence_quote"] = "Unsupported paraphrase"
+
+        status, scorecard = self.run_mutated_benchmark(mutate)
+        first = scorecard["cases"][0]
+        self.assertEqual(status, 1)
+        self.assertEqual(first["predicted"], "invalid-production-path")
+        self.assertIn(
+            "Claim quote is not an exact source substring",
+            first["production_path_error"],
+        )
+        self.assertFalse(scorecard["thresholds"]["production_path_has_no_errors"])
+
+    def test_extraction_failure_fails_production_path_gate(self):
+        status, scorecard = self.run_mutated_benchmark(
+            lambda case: case.update({"extraction_failed": True})
+        )
+        first = scorecard["cases"][0]
+        self.assertEqual(status, 1)
+        self.assertEqual(first["predicted"], "invalid-production-path")
+        self.assertIn("extraction failed", first["production_path_error"])
+        self.assertFalse(scorecard["thresholds"]["production_path_has_no_errors"])
+
+    def test_incorrect_adjudication_fails_falconer_gate(self):
+        status, scorecard = self.run_mutated_benchmark(
+            lambda case: case.update({
+                "adjudication_override": "insufficient-evidence",
+            })
+        )
+        first = scorecard["cases"][0]
+        self.assertEqual(status, 1)
+        self.assertEqual(first["expected"], "contradiction")
+        self.assertEqual(first["predicted"], "insufficient-evidence")
+        self.assertFalse(first["passed"])
+        self.assertFalse(scorecard["thresholds"]["all_24_accounted_for"])
+
 
 class GuardTests(unittest.TestCase):
     def test_schedule_guard_accepts_daylight_and_standard_windows(self):
@@ -483,6 +997,37 @@ class GuardTests(unittest.TestCase):
     def test_schedule_guard_rejects_inactive_paired_schedule(self):
         inactive = type("Args", (), {"at": "2026-07-06T18:00:00Z"})
         self.assertEqual(audit.schedule_guard_command(inactive), 10)
+
+    def test_concurrent_active_invocations_mutate_and_notify_once(self):
+        with tempfile.TemporaryDirectory() as directory:
+            state = Path(directory) / "state"
+            mutations = []
+            notifications = []
+
+            def invoke(index):
+                args = type("Args", (), {
+                    "state_dir": str(state),
+                    "event_id": f"run-{index}",
+                    "at": "2026-07-06T17:00:00Z",
+                })
+                status = audit.schedule_claim_command(args)
+                if status == 0:
+                    mutations.append(args.event_id)
+                    notifications.append(args.event_id)
+                return status
+
+            with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+                statuses = list(executor.map(invoke, range(8)))
+
+            self.assertEqual(statuses.count(0), 1)
+            self.assertEqual(statuses.count(11), 7)
+            self.assertEqual(len(mutations), 1)
+            self.assertEqual(len(notifications), 1)
+            receipts = list((state / "schedule_claims").glob("*.json"))
+            self.assertEqual([path.name for path in receipts], ["2026-07-06.json"])
+            receipt = json.loads(receipts[0].read_text())
+            self.assertEqual(receipt["business_date"], "2026-07-06")
+            self.assertEqual(receipt["event_id"], mutations[0])
 
 
 class NotificationTests(unittest.TestCase):
