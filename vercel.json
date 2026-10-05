@@ -6571,11 +6571,6 @@
       "source": "/agents/overview(/?)",
       "destination": "/agents/",
       "statusCode": 308
-    },
-    {
-      "source": "/~/revisions/zyzsbzfaklyrr1lkzozm/features/smart-select(/?)",
-      "destination": "/terminal/more-features/text-selection/",
-      "statusCode": 308
     }
   ]
 }
