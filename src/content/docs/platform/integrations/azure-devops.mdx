@@ -114,6 +114,24 @@ Azure DevOps push events aren't currently available as automation triggers.
 * **Identity provisioning remains in progress** - Microsoft Entra and Azure DevOps permission changes can take several minutes to propagate. Retry from the factory's settings if the setup reports an error.
 * **An event doesn't start a run** - Confirm the automation is enabled and that every configured filter matches the Azure DevOps event. The user who created the automation must also have an active Azure DevOps OAuth connection with the required scopes; another user's connection can't replace it.
 
+### Factory identity doesn't appear in comment mention autocomplete
+
+**Cause:** The Azure DevOps identity picker for work item comments filters service-principal identities from its normal search results. This is an Azure DevOps platform limitation that Warp can't change. Warp can detect the factory identity after Azure DevOps saves the comment with the identity's mention metadata.
+
+**Solution:** Add the factory identity to Azure DevOps's recently used identity cache:
+
+1. In the Azure DevOps organization and project connected to the factory, assign the factory identity to a work item and save the work item.
+2. Return to the comment and enter `@` followed by the factory identity's name. The identity may now appear in autocomplete. If you enter the name without autocomplete, confirm that Azure DevOps formats it as a mention instead of plain text.
+
+### `The identity value 'X' for field 'Assigned To' is an unknown identity.`
+
+**Cause:** Azure DevOps can't resolve the factory identity for the current work item. This can happen when the work item is outside the organization or project configured for the factory.
+
+**Solution:**
+
+1. In the factory's settings, confirm its Azure DevOps organization and project.
+2. In Azure DevOps, open the work item from that organization and project, then assign the factory identity again.
+
 ## Related pages
 
 * [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send its first work item.
