@@ -66,7 +66,7 @@ Use your code forge's documented clone format. For example, Bitbucket Cloud requ
 For Azure DevOps Server, add this setup command:
 
 ```bash
-git -c http.extraheader="Authorization: Basic $(printf ':%s' "$CODE_FORGE_TOKEN" | base64)" \
+git -c http.extraheader="Authorization: Basic $(printf ':%s' "$CODE_FORGE_TOKEN" | base64 | tr -d '\n')" \
   clone "https://SERVER/COLLECTION/PROJECT/_git/REPO"
 ```
 

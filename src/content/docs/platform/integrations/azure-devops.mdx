@@ -75,7 +75,7 @@ Create an environment that uses your token to clone the repository at the start 
 oz environment create \
   --name "my-azure-devops-env" \
   --docker-image <image> \
-  --setup-command 'AUTH_HEADER=$(printf ":%s" "$AZURE_DEVOPS_TOKEN" | base64) && git -c "http.extraheader=Authorization: Basic $AUTH_HEADER" clone https://dev.azure.com/your-org/your-project/_git/your-repo' \
+  --setup-command 'AUTH_HEADER=$(printf ":%s" "$AZURE_DEVOPS_TOKEN" | base64 | tr -d "\n") && git -c "http.extraheader=Authorization: Basic $AUTH_HEADER" clone https://dev.azure.com/your-org/your-project/_git/your-repo' \
   --setup-command 'cd your-repo && <install dependencies>'
 ```
 
