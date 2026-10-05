@@ -19,7 +19,7 @@ Vercel team webhooks require a Vercel Pro or Enterprise plan.
 
 ## Creating the webhook in the factory dashboard
 
-1. In the factory dashboard, open **Webhooks**, click **Add webhook**, and enter a "Name" such as `Vercel deploys`.
+1. In the factory dashboard, open **Automations** and switch to its **Webhooks** tab, click **Add webhook**, and enter a "Name" such as `Vercel deploys`.
 2. In the "Authentication" dropdown, choose **Provider signature**, then in the "Provider scheme" dropdown, choose **Vercel**.
 3. Leave "Provider secret" blank, keep the suggested "Secret name", and click **Create and get URL**.
 
@@ -38,7 +38,7 @@ Click **Finish later** to close the pane and leave the webhook disabled. Warp st
 oz secret update --team --value VERCEL_DEPLOYS_WEBHOOK_SECRET
 ```
 
-Then open the webhook on the **Webhooks** page and toggle **Enabled** on. Enabling it applies the webhook's definition again, which reads the new value.
+Then open the webhook on the **Webhooks** tab inside **Automations** and toggle **Enabled** on. Enabling it applies the webhook's definition again, which reads the new value.
 
 ## Creating the webhook in a definition that lives in GitHub
 
@@ -54,7 +54,7 @@ A GitHub-backed factory has no dashboard editing, and a change applies only when
    enabled: false
    ```
 
-   Once the change applies, the webhook appears on the **Webhooks** page with its ingress URL.
+   Once the change applies, the webhook appears on the **Webhooks** tab inside **Automations** with its ingress URL.
 3. Create the webhook in Vercel with that URL, as in steps 4 and 5 above, then replace the placeholder with the secret Vercel shows:
 
    ```bash
