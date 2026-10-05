@@ -1,5 +1,16 @@
 # Weekly 404 monitor run log
 
+## 2026-10-05 — PR opened
+- **Total 404s this week**: 313
+- **Total 404s last week**: 231
+- **Trend**: ▲ 82 (35.5%)
+- **Significant gaps (≥5 hits)**: 2 (1 new)
+- **Redirect candidates processed**: 2  (hits ≥ 5)
+- **HIGH-confidence redirects**: 2
+- **PR**: https://github.com/warpdotdev/docs/pull/825
+- **Oz run**: https://app.warp.dev/conversation/27651680-657e-4a5c-a058-408b3c4f5d36
+- **Notes**: Significant gaps were `/agents/overview` (6 hits) and GitBook revision `/~/revisions/.../features/smart-select` (6 hits, new). 132 long-tail uncovered URLs rolled up. 142 resolved since last week. No unroutable paths. No MEDIUM suggestions.
+
 New entries are prepended by each scheduled agent run. Most recent entry first.
 
 This log tracks every run of the `weekly-404-monitor` skill — both runs that opened a redirect PR and runs that wrote a no-PR report — so the team and the `improve-404-monitor-skill` outer loop can evaluate threshold effectiveness, redirect accuracy, and coverage trends over time.
@@ -7,6 +18,28 @@ This log tracks every run of the `weekly-404-monitor` skill — both runs that o
 **Format**: see the `## Run log format` section in `.agents/skills/weekly-404-monitor/SKILL.md`.
 
 ---
+
+## 2026-09-28 — No PR
+- **Total 404s this week**: 231
+- **Total 404s last week**: 321
+- **Trend**: ▼ 90 (-28.0%)
+- **Significant gaps (≥5 hits)**: 3 (3 new)
+- **Redirect candidates processed**: 3  (hits ≥ 5)
+- **HIGH-confidence redirects**: 0
+- **PR**: none
+- **Oz run**: https://app.warp.dev/conversation/96dec96c-6bf7-4910-90d9-5555fdf9f5b7
+- **Notes**: Volume down 28% week-over-week. All 3 significant gaps are markdown-link capture artifacts ending in literal `).` — `/terminal/settings/file-locations/).` (8), `/terminal/settings/all-settings/).` (7), `/agent-platform/capabilities/skills/).` (5). Underlying pages exist (`terminal/settings/file-locations`, `terminal/settings/all-settings`, `agents/capabilities/skills` via existing agent-platform→agents redirect). No HIGH PR: a bare `)` in a Vercel `source` is path-to-regexp group syntax (same class of issue as prior `:` exclusions), so automated redirects would either mis-parse or over-match. Posted destinations as MEDIUM suggestions for human review. 149 long-tail uncovered; 0 unroutable; 126 resolved. vercel.json redirects count 1298 (sanity OK).
+
+## 2026-09-21 — PR opened
+- **Total 404s this week**: 321
+- **Total 404s last week**: 327
+- **Trend**: ▼ 1.8%
+- **Significant gaps (≥5 hits)**: 1 (0 new)
+- **Redirect candidates processed**: 1  (hits ≥ 5)
+- **HIGH-confidence redirects**: 1
+- **PR**: https://github.com/warpdotdev/docs/pull/777
+- **Oz run**: https://app.warp.dev/conversation/dd5a93a8-dadd-4255-a9ea-90fa21aeb332
+- **Notes**: Significant gap `/agent-platform/inference/bring-your-own-api-key.md` (5 hits). HIGH redirect to `/agents/inference/bring-your-own-api-key/` via existing agent-platform→agents migration pattern (slash form already covered; `.md` suffix was not). 141 long-tail uncovered; 1 unroutable malformed path; 133 resolved since last week. No MEDIUM suggestions.
 
 ## 2026-09-14 — PR opened
 - **Total 404s this week**: 327

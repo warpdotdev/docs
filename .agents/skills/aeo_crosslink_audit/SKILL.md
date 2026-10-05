@@ -1,6 +1,6 @@
 ---
 name: aeo_crosslink_audit
-description: Run a narrow AEO cross-link audit for Warp docs using Peec, Google Search Console, and existing docs. Use for recurring or scheduled agents that should identify high-confidence internal cross-linking improvements for agents, cloud agents, and orchestration docs.
+description: Run a narrow AEO cross-link audit for Warp docs using Peec, Google Search Console, and existing docs. Use for recurring or scheduled agents that should identify high-confidence internal cross-linking improvements for agents, cloud agents, orchestration, and factories docs.
 ---
 
 # AEO cross-link audit
@@ -22,6 +22,7 @@ Use this skill only for the pilot topic area:
 - Agents
 - Cloud agents
 - Orchestration
+- Factories (`src/content/docs/factories/`) — audited as both source pages (scan for missing outbound links) and valid link targets, on the same footing as the other three topics
 
 The audit should focus on one improvement type:
 - Internal cross-links between existing docs pages
@@ -59,10 +60,10 @@ Do NOT print, log, commit, or include secret values in reports or Slack messages
 ## Source data
 
 Use the smallest reliable set of source data needed to justify link changes:
-- **Peec** - Use the Peec MCP (configured in the agent with a Personal Access Token via the `PEEC_PAT` secret) to collect prompts, search queries, actions/recommendations, and source URLs for agents, cloud agents, and orchestration (last 30 days). Filter prompts and queries for relevance to the topic area. If the Peec MCP returns an error or is unavailable (missing `PEEC_PAT`, expired token, or connection failure), log "Peec: unavailable" in the run output and proceed with GSC and docs-only signals only.
+- **Peec** - Use the Peec MCP (configured in the agent with a Personal Access Token via the `PEEC_PAT` secret) to collect prompts, search queries, actions/recommendations, and source URLs for agents, cloud agents, orchestration, and factories (last 30 days). Filter prompts and queries for relevance to the topic area. If the Peec MCP returns an error or is unavailable (missing `PEEC_PAT`, expired token, or connection failure), log "Peec: unavailable" in the run output and proceed with GSC and docs-only signals only.
   - A cloud run may not expose `peec-ai` as a native tool even when it is in the agent config. If no tool appears, call `https://api.peec.ai/mcp` directly over JSON-RPC with `Authorization: Bearer $PEEC_PAT` (initialize, capture the `Mcp-Session-Id` header, then `tools/call`) rather than declaring Peec unavailable.
   - Resolve the project with `list_projects` first; all other tools require `project_id`. `get_actions` needs `url_classification` for `scope=owned` and `scope=editorial` drill-downs, and `list_search_queries` returns `query_text` rather than `query`.
-- **Google Search Console** - When available, use the environment's `GSC_SERVICE_ACCOUNT_CREDENTIALS_JSON` secret to inspect recent queries and pages related to agents, cloud agents, and orchestration. Never print, log, commit, or include the secret value in reports. If a GSC client requires a credentials file path, write the secret to a restricted temporary file, use it for the run, and remove it before finishing.
+- **Google Search Console** - When available, use the environment's `GSC_SERVICE_ACCOUNT_CREDENTIALS_JSON` secret to inspect recent queries and pages related to agents, cloud agents, orchestration, and factories. Never print, log, commit, or include the secret value in reports. If a GSC client requires a credentials file path, write the secret to a restricted temporary file, use it for the run, and remove it before finishing.
 - **Docs repo** - Search existing pages under `src/content/docs/` for relevant source pages, link targets, and related terminology.
 
 If Google Search Console data is unavailable, say what could not be verified and proceed with Peec and docs-only analysis. If Peec MCP is unavailable, log the unavailability and proceed with GSC and docs-only analysis. Do not invent source signals.
@@ -71,8 +72,8 @@ If Google Search Console data is unavailable, say what could not be verified and
 
 ## Workflow
 
-1. **Collect Peec signals and gather source signals.** Use the Peec MCP to collect prompts, search queries, actions/recommendations, and source URLs for agents, cloud agents, and orchestration (last 30 days). If the Peec MCP is unavailable, log "Peec: unavailable" and continue. Also collect Google Search Console data, when available, to identify relevant user language, prompts, recommendations, or pages.
-2. **Search existing docs.** Look for pages under `src/content/docs/` that already mention or imply related concepts in agents, cloud agents, or orchestration.
+1. **Collect Peec signals and gather source signals.** Use the Peec MCP to collect prompts, search queries, actions/recommendations, and source URLs for agents, cloud agents, orchestration, and factories (last 30 days). If the Peec MCP is unavailable, log "Peec: unavailable" and continue. Also collect Google Search Console data, when available, to identify relevant user language, prompts, recommendations, or pages.
+2. **Search existing docs.** Look for pages under `src/content/docs/` that already mention or imply related concepts in agents, cloud agents, orchestration, or factories, including pages under `src/content/docs/factories/` itself.
 3. **Identify link opportunities.** Find up to 5 internal cross-link opportunities where:
    - The source page already mentions or implies the related concept.
    - The target page exists.
@@ -157,6 +158,7 @@ When adding links, follow the link style guidance in `AGENTS.md` and validate wi
 - **Avoid related-link lists by default** - Do not add new "Related pages," "See also," or link-list sections unless the page already uses that pattern or the list clearly improves a reader's next step.
 - **Justify each link as a reader journey** - In the PR body, explain what the reader is likely trying to do next and why the destination helps. Do not justify links only with AEO or search coverage.
 - **Resolve redirects** - Link directly to the final destination page when known. Do not add redirecting URLs or old paths.
+- **Prefer the most specific matching target** - When the source sentence names a specific sub-workflow or feature area (for example, factory automation schedules), link to the page that covers that specific area, not a general page that only covers a similar but broader concept (for example, the standalone Scheduled Agents reference). If no page covers the specific sub-topic, do not force a link to the closest general page — flag the gap in the PR body's open questions instead of shipping a mismatched link.
 
 ## Self-review before opening a PR
 
@@ -176,6 +178,7 @@ Before opening a PR, verify every proposed change:
 - **Small scope** - The diff is limited to cross-linking and small copy changes needed to make links natural.
 - **No broad rewrites** - Remove any edit that becomes a rewrite, strategy recommendation, or new content proposal.
 - **No duplication** - Do not add links that create repetitive related-links lists or duplicate nearby links.
+- **Cross-link-only diff** - Every changed file must be a docs content page under `src/content/docs/` that received a link edit (or, on the log branch, `.agents/logs/aeo_crosslink_audit_runs.md`). If the diff touches CI workflows, other skills, scripts, config, or anything else unrelated to the specific links being added this run, remove those changes before opening the PR. A cross-link run is never the place to also fix or improve unrelated tooling — file that separately with its own scope.
 
 Run:
 
@@ -184,6 +187,7 @@ git fetch origin main:refs/remotes/origin/main
 python3 .agents/skills/style_lint/style_lint.py --changed
 python3 .agents/skills/check_for_broken_links/check_links.py --internal-only
 git diff --check
+git diff --name-only origin/main...HEAD  # every path must be under src/content/docs/ (or the log file on the log branch)
 ```
 
 ## PR requirements
@@ -193,11 +197,11 @@ Open a PR only when there are at least 2 high-confidence link additions.
 Use this title format:
 
 ```text
-docs: add AEO cross-links for agents and orchestration
+docs: add AEO cross-links for agents, orchestration, and factories
 ```
 
 The PR body must include an AEO brief. Use `.agents/skills/aeo_brief/SKILL.md` as the format and include:
-- **Goal** - Identify small internal cross-link improvements for agents, cloud agents, and orchestration docs.
+- **Goal** - Identify small internal cross-link improvements for agents, cloud agents, orchestration, and factories docs.
 - **Source signals** - Peec prompts/recommendations, Google Search Console queries/pages, or existing-docs signals that justified the links.
 - **Pages touched** - Files edited and why.
 - **Links added** - Source page, target page, and rationale for each link.
@@ -205,6 +209,17 @@ The PR body must include an AEO brief. Use `.agents/skills/aeo_brief/SKILL.md` a
 - **Open questions for human review** - Anything that affects product accuracy, terminology, or placement.
 
 Reviewer requests follow the `create_pr` skill's policy ("Request a reviewer (at most one, only with conviction)"): request at most one human reviewer, and only when a single clear owner exists. For cross-link PRs there rarely is one, so the default is to open the PR with no requested reviewer and let `#growth-docs` pick it up from the Slack notification. Never tag a list of people, never stack reviewers onto the PR, and never re-add a reviewer someone removed.
+
+### PR body integrity (mandatory, not optional)
+
+Text generation can silently corrupt a PR body — repeated or truncated word fragments, unbalanced backticks — and that corruption has previously reached a live PR body uncaught. Before every `gh pr create` or `gh pr edit` that sets a body, and again immediately after:
+
+1. Write the body to a temp file (`/tmp/pr-body.md` or similar) rather than passing text inline.
+2. Run `python3 .agents/skills/create_pr/check_pr_body.py /tmp/pr-body.md` and do not submit if it fails. Fix the file and re-run until it passes.
+3. Submit with `--body-file`, never `--body`.
+4. Re-fetch the live body with `gh pr view <pr> --json body --jq .body` and diff it against the validated temp file. The temp file remains authoritative. If they differ beyond a trailing newline, repair the live body with `gh pr edit <pr> --body-file /tmp/pr-body.md`, then re-fetch and verify it matches the temp file. Repeat until they match.
+
+This applies to every body update in this skill: the cross-link PR, the log PR, and any AEO brief content pasted into either.
 
 ## No-change report
 
@@ -215,7 +230,7 @@ Use this format:
 ```text
 ## AEO cross-link audit no-change report
 
-**Topic area:** Agents, cloud agents, and orchestration.
+**Topic area:** Agents, cloud agents, orchestration, and factories.
 
 **Source signals reviewed:**
 - [Peec prompt, recommendation, source URL, or query vocabulary.]

@@ -108,9 +108,9 @@ This ensures runs are scoped to what the user is allowed to see and modify, and 
 
 ## Team GitHub authorization
 
-By default, cloud agents authenticate with GitHub using the personal token of the user who triggered the run. Team GitHub authorization gives you an alternative: authenticate with the **Warp Factories** GitHub App instead, so agents can clone repositories and open pull requests without relying on any individual's token.
+By default, cloud agents authenticate with GitHub using the personal token of the user who triggered the run. Team GitHub authorization gives you an alternative: authenticate with the [Warp Factories](/factories/) GitHub App instead, so agents can clone repositories and open pull requests without relying on any individual's token.
 
-This is useful for fully automated workflows that use an [agent API key](/reference/cli/api-keys/), like CI/CD pipelines, scheduled agents, and SDK-triggered runs, where you want code changes attributed to the GitHub App rather than a specific person.
+This is useful for fully automated workflows that use an [agent API key](/reference/cli/api-keys/), like CI/CD pipelines, [scheduled agents](/platform/triggers/scheduled-agents/), and SDK-triggered runs, where you want code changes attributed to the GitHub App rather than a specific person.
 
 ### How it works
 
