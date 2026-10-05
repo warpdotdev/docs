@@ -475,6 +475,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'factories/factory-inbox', label: 'Factory inbox' },
 						{ slug: 'factories/factory-dashboard', label: 'Factory dashboard' },
+						{ slug: 'factories/metrics-api', label: 'Metrics API' },
 						{
 							label: 'Measure and improve',
 							collapsed: false,

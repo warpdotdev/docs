@@ -1,0 +1,293 @@
+---
+title: Metrics API
+description: >-
+  Look up the Metrics API endpoints, filters, and response fields for pulling
+  factory productivity, spend, run, and pull request data into your own tools.
+sidebar:
+  label: "Metrics API"
+---
+import { VARS } from '@data/vars';
+
+The Metrics API returns the numbers the factory dashboard shows, with more flexibility than the dashboard offers, plus one record per run and one per pull request. Pull them into a spreadsheet, a BI tool, or a script and build the reports you want. Every endpoint is part of the Warp public API and uses the API key you already have.
+
+## What you can do with the API
+
+* **Rebuild any dashboard chart** - Query any date range, bucketed by day, week, or month.
+* **Answer questions the dashboard doesn't** - Compare factories, break down by user or by agent, and look at individual PRs and runs.
+* **Get run-level and PR-level records** - Each record carries the fields the dashboard tracks: human interactions, cycle time, cost, model, and who or what started the run.
+* **Keep your own copy** - Pull everything that changed since your last sync, on a schedule.
+
+The API does not include new dashboards, export to observability tools (OTEL), usage data for individual LLM requests, Scorer and benchmark results, cross-factory aggregates (query each factory and combine the results yourself), or free-form SQL.
+
+## What every endpoint shares
+
+All endpoints are served from `https://app.warp.dev/api/v1`. The examples read your key from the `WARP_API_KEY` environment variable and use ALL_CAPS placeholders for UIDs. Dates in the examples are illustrative.
+
+```bash
+export WARP_API_KEY="wk-..."
+```
+
+* **Authentication** - Send your existing Warp API key as a bearer token. A key sees exactly what its owner can see in the product. See [API Keys](/reference/cli/api-keys/) to create one.
+* **Dates** - All dates are UTC. On the aggregate endpoints, `start_date` is inclusive and defaults to 30 days before `end_date`. `end_date` is exclusive and defaults to now. There is no limit on how far back a range can reach.
+* **Time buckets** - Aggregate endpoints accept an optional `group_by_period` of `day`, `week`, or `month`. Weeks start on Sunday. When it is set, the response adds `period_list` (the bucket labels) and every metric adds a `series` array aligned to it. A request can have at most 365 buckets.
+* **Freshness** - Every response carries `as_of`, the time the data is current as of. Data can lag live activity by a few minutes.
+* **Team and factory identifiers** - Every response carries `team_uid`. Every factory-scoped response and every run record carries `factory_uid`, so you can combine or split data across factories however you want.
+* **Currency** - Spend is in US dollars. Fields that already reported credits keep them; new fields report dollars only.
+
+## Aggregate metrics
+
+Six endpoints, each scoped to one factory. Replace `YOUR_FACTORY_UID` with the factory's UID, which you can look up with the [factory API](/factories/factory-api/).
+
+### Productivity metrics
+
+```http
+GET /factory/{uid}/metrics
+```
+
+Filters: `start_date`, `end_date`, `group_by_period`.
+
+Response:
+
+* `run_count` - Runs created in the range.
+* `pr_count` - PRs produced by the factory's runs, counted when first seen.
+* `merged_pr_count` - Of the PRs from each period, how many have merged so far.
+* `average_human_interactions_per_pr` - The mean of each PR's human interaction total. See [Definitions](#definitions).
+* `autonomy_funnel` - Over PRs merged in the range: `total_merged` (every merged PR in the factory's repositories, by anyone), `factory_merged` (merged PRs produced by the factory's runs), `factory_merged_observed` (those whose full history Warp saw), `merged_without_human_code_change` (observed merges where no person changed the code), and `repos` (the repositories the total was counted over).
+* `impact` - Over PRs merged in the range: `additions` and `deletions` (lines added and removed), `merged_pr_count`, and `measured_pr_count` (the PRs whose line counts were available).
+* `pr_latency` - Over PRs merged in the range: `merged_pr_count` and four stages, `kickoff_to_pr`, `pr_to_first_review`, `first_review_to_merge`, and `kickoff_to_merge`, each with `median_seconds` and `measured_pr_count` (the PRs where both ends of the stage were observed).
+
+Example:
+
+```bash
+curl "https://app.warp.dev/api/v1/factory/YOUR_FACTORY_UID/metrics?start_date=2026-09-01T00:00:00Z&end_date=2026-10-01T00:00:00Z&group_by_period=week" \
+  -H "Authorization: Bearer $WARP_API_KEY"
+```
+
+### Run breakdown
+
+```http
+GET /factory/{uid}/metrics/run-breakdown
+```
+
+Filters:
+
+* `group_by` (required) - One of `agent_type`, `status`, `source`, `root_vs_subrun`, `model`, `harness`.
+* `start_date`, `end_date`, `group_by_period`.
+
+Response:
+
+* `total` - Runs counted.
+* `root_run_count` - Top-level runs, whatever the grouping.
+* `groups` - One entry per group, each with `key` (the stable identity: agent type, run state, source, `ROOT` or `SUBRUN`, model ID, or harness name), `label` (a display name, when the key is not already readable), and `total`.
+
+Grouping by `source` counts top-level runs only. Every other grouping counts sub-runs individually.
+
+Example:
+
+```bash
+curl "https://app.warp.dev/api/v1/factory/YOUR_FACTORY_UID/metrics/run-breakdown?group_by=status&start_date=2026-09-01T00:00:00Z" \
+  -H "Authorization: Bearer $WARP_API_KEY"
+```
+
+### Spend, in total and grouped
+
+```http
+GET /factory/{uid}/costs/breakdown
+```
+
+Filters:
+
+* `group_by` (required) - One of `source`, `user`, `agent`, `model`.
+* `start_date`, `end_date`, `group_by_period`.
+
+Response:
+
+* `total` - Spend across the whole factory in the range.
+* `groups` - One entry per group, each with `key` (source type, user, agent ID, or model ID), `label` (display name), `deleted` (true when the user or agent has since been removed), `photo_url` (for users), and `dollars`.
+
+Every dollar figure is a `dollars` object with `inference`, `compute`, `platform`, and `total`. Every group with any spend is listed; nothing is folded into "other".
+
+Example:
+
+```bash
+curl "https://app.warp.dev/api/v1/factory/YOUR_FACTORY_UID/costs/breakdown?group_by=user&group_by_period=month" \
+  -H "Authorization: Bearer $WARP_API_KEY"
+```
+
+### Cost per PR
+
+```http
+GET /factory/{uid}/costs/per-pr
+```
+
+Filters: `start_date`, `end_date`, `group_by_period`.
+
+Response:
+
+* `pr_count` - PRs first seen in the range.
+* `dollars` - The spend behind them, by category.
+* `mean` - The average cost per PR.
+
+When `group_by_period` is set, each period in the series also carries `compute_mean`, `platform_mean`, and `inference_mean`.
+
+Example:
+
+```bash
+curl "https://app.warp.dev/api/v1/factory/YOUR_FACTORY_UID/costs/per-pr?start_date=2026-07-01T00:00:00Z&end_date=2026-10-01T00:00:00Z&group_by_period=week" \
+  -H "Authorization: Bearer $WARP_API_KEY"
+```
+
+### Cost per PR by PR size
+
+```http
+GET /factory/{uid}/costs/per-pr/by-size
+```
+
+Filters: `start_date`, `end_date`, `group_by_period`.
+
+Response:
+
+* `pr_count` - PRs first seen in the range.
+* `sized_pr_count` - PRs whose line counts were available.
+* `buckets` - One per size, each with `size` (`S`, `M`, `L`, `XL`), `pr_count`, and `mean` cost.
+
+Size is lines added plus lines removed: S is under 100, M is under 500, L is under 1,000, and XL is 1,000 or more.
+
+Example:
+
+```bash
+curl "https://app.warp.dev/api/v1/factory/YOUR_FACTORY_UID/costs/per-pr/by-size?start_date=2026-09-01T00:00:00Z" \
+  -H "Authorization: Bearer $WARP_API_KEY"
+```
+
+### Most expensive PRs
+
+```http
+GET /factory/{uid}/costs/per-pr/top
+```
+
+Filters:
+
+* `start_date`, `end_date`.
+* `limit` - Default 20, at most 50.
+
+Response:
+
+* `data` - The costliest PRs first seen in the range, most expensive first. Each row carries the [pull request record](#pull-requests) fields plus `dollars` (by category), `models` (each model's share of the inference dollars), and the `creator`, `source`, and `requested_model_id` of the run that kicked the PR off.
+
+Example:
+
+```bash
+curl "https://app.warp.dev/api/v1/factory/YOUR_FACTORY_UID/costs/per-pr/top?start_date=2026-09-01T00:00:00Z&limit=10" \
+  -H "Authorization: Bearer $WARP_API_KEY"
+```
+
+## Records
+
+Two lists, both paginated with `limit` (at most 500) and `cursor`. Both accept `updated_after`, so you can sync incrementally. See [Syncing your own copy](#syncing-your-own-copy).
+
+### Runs
+
+```http
+GET /agent/runs
+```
+
+One record per run across every factory the key can see, within the team selected by the `X-Warp-Team-Uid` header. This is the run list from the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/), with the fields and filters below.
+
+Filters:
+
+* **Paging and order** - `limit` (default 20), `cursor`, `sort_by` (`updated_at`, `created_at`, `title`, `agent`), `sort_order`.
+* **Status** - `state` (repeatable), `task_status` (`running`, `failed`, `blocked`, `cancelled`, `complete`).
+* **Time** - `created_after`, `created_before`, `updated_after`.
+* **Origin** - `source`, `creator`, `executor`, `schedule_id`, `factory_uid` (repeatable), `ancestor_run_id`.
+* **Configuration** - `name` (agent name), `model_id`, `skill`, `environment_id`, `execution_location`.
+* **Other** - `metadata[key]=value` (up to 5 pairs), `artifact_type`, `q` (text search over title, prompt, and skill, or an exact run ID or URL).
+
+Response, per run:
+
+* **Identity** - `run_id`, `title`, `prompt`, `factory_uid`, `scope` (team or personal owner).
+* **Status** - `state`; `status_message` with `message`, `error_code`, and `retryable`.
+* **Times** - `created_at`, `started_at`, `finished_at`, `updated_at`, `run_time`.
+* **Origin** - `source`, `trigger_url`, `schedule` (`schedule_id`, `schedule_name`, `cron_schedule`), and `creator` and `executor` (each with `type`, `uid`, `display_name`, `email`).
+* **Configuration** - `agent_config` (the agent's `name`, `model_id`, `harness`, `environment_id`, skills, and the other run settings), `agent_skill`, `execution_location`.
+* **Run tree** - `parent_run_id`, `root_run_id`, `conversation_id`.
+* **Cost** - `request_usage` with `inference_cost_usd`, `compute_cost_usd`, and `platform_cost_usd`; the credit figures `inference_cost`, `compute_cost`, and `platform_cost`; `total_tokens`; `model_token_usage` (the models that actually served the run and the tokens each used); and `usage_by_category`.
+* **Output** - `artifacts`, including each pull request the run produced (`url`, `branch`, `status`) and any plans, files, screenshots, and external references.
+* **Other** - `metadata`, `session_link`, `is_sandbox_running`, `is_run_type_cancellable`, `debug_agent_available`.
+
+Example:
+
+```bash
+curl "https://app.warp.dev/api/v1/agent/runs?factory_uid=YOUR_FACTORY_UID&updated_after=2026-10-05T00:00:00Z&limit=100" \
+  -H "Authorization: Bearer $WARP_API_KEY" \
+  -H "X-Warp-Team-Uid: YOUR_TEAM_UID"
+```
+
+### Pull requests
+
+```http
+GET /factory/{uid}/pull-requests
+```
+
+One record per PR produced by the factory's runs. PRs in the factory's repositories that no run produced are not listed; they appear only in the autonomy funnel's `total_merged`.
+
+Filters:
+
+* **Paging** - `limit` (default 50), `cursor`.
+* **Repository and state** - `repo` (`owner/repo`), `state` (repeatable; `open`, `draft`, `merged`, `closed`).
+* **Time** - `opened_after`, `opened_before`, `merged_after`, `merged_before`, `updated_after`.
+
+Response, per PR:
+
+* **Identity** - `provider`, `repo_full_name`, `pr_number`, `url`, `title`, `author_login`, `factory_uid`, `team_uid`.
+* **State and times** - `state`, `opened_at`, `first_human_review_at`, `merged_at`, `closed_at`, `updated_at`.
+* **Size** - `additions`, `deletions`, `changed_files`, `num_commits`.
+* **People** - `human_interactions`, a count per type (`opened`, `code_push`, `review_approved`, `review_changes_requested`, `review_commented`, `comment`, `review_comment`, `pr_action`, `follow_up_message`) and a `total`; `human_code_change` (whether a person changed the code); `history_complete` (whether Warp saw the PR from the moment it was opened).
+* **Runs** - `runs`, the runs that produced the PR, each with `run_id`, `root_run_id`, and `created_at`; and `kickoff_at`, when the earliest of them was created.
+* **Cycle time** - `cycle_time` with `kickoff_to_pr`, `pr_to_first_review`, `first_review_to_merge`, and `kickoff_to_merge`, each in seconds and null when either end was not observed.
+
+There is no per-PR cost on this record. A run record carries its cost and the PRs it produced, so you can compute an average per PR from the run list, or use [Most expensive PRs](#most-expensive-prs) for the costliest PRs.
+
+Example:
+
+```bash
+curl "https://app.warp.dev/api/v1/factory/YOUR_FACTORY_UID/pull-requests?state=merged&merged_after=2026-09-01T00:00:00Z&limit=200" \
+  -H "Authorization: Bearer $WARP_API_KEY"
+```
+
+## Definitions
+
+* **Human interaction** - An action on a PR by a person (not a bot, and not an app acting on a person's behalf), or a follow-up message a person sent to the run that produced the PR. The types: opened the PR (`opened`); pushed code (`code_push`); approved (`review_approved`); requested changes (`review_changes_requested`); reviewed with comments only (`review_commented`); commented on the PR (`comment`); commented on a line of code (`review_comment`); other PR actions such as closed, reopened, or marked ready (`pr_action`); sent a follow-up message to the run (`follow_up_message`). A follow-up counts when a person sent it through Slack, Linear, Jira, Teams, the web app, or the API; messages relayed through Factory MCP or a local agent do not count. A follow-up sent as a GitHub comment counts once, as a PR comment or review. A review that was later dismissed is not counted. The aggregate `average_human_interactions_per_pr` is the average of each PR's `total`, so you can reproduce it exactly from the records.
+* **Human code change** - A PR has one when it has any human interaction of type `opened` or `code_push`. A PR with none merged without a person changing its code. A click on the code host's "update branch" button or a rebase counts as a code push, because pushes are attributed to whoever triggered them.
+* **History complete** - Whether Warp observed the PR from the moment it was opened. "No human code change" only means autonomous when this is true; otherwise it means Warp did not see the whole history. PR data exists from the time Warp began receiving a repository's events; earlier PRs are not in the records and read as zero in the PR-based aggregates.
+* **Which PRs a number counts** - `pr_count` and the cost-per-PR figures count PRs when first seen. `merged_pr_count` on the productivity endpoint groups merged PRs by the period they were opened in, so a recent period's value rises as its PRs merge. The autonomy funnel, impact, and cycle time count PRs by the period they merged in.
+* **Kickoff** - When the earliest run linked to the PR was created.
+* **Cycle time stages** - Kickoff to PR opened; PR opened to first review by a person; first review to merge; kickoff to merge. Each stage is measured only for PRs that have both endpoints, so the stage medians do not add up to the kickoff-to-merge median.
+* **Cost (dollars)** - The value of the usage at your per-credit price in effect when the usage happened (your contract price, or the standard price if you have none). It is not the amount invoiced, which also depends on included plan credits and overage. For now, the conversion uses your current per-credit price, so usage from before a price change is shown at the new price. Once per-request price history is recorded, this moves to the price at the time of use; the API's shape does not change when it does. Inference is recorded per conversation. When several runs share a conversation, the aggregates attribute it to the earliest run and each run record reports the conversation's figure, so summing run records across such runs can count that inference more than once.
+* **Cost categories** - Inference is model usage. Compute is sandbox machine time. Platform is Warp platform time while a run is in progress.
+* **Source** - What started the run: a person, a schedule, an integration (Slack, Linear, GitHub, GitLab, Azure DevOps, Jira, Teams), or the API. Counted on root runs only.
+* **Root run vs. sub-run** - A run started by another run is a sub-run. When spend is grouped by source or by user, a whole run tree is attributed to its root run's source or creator. When grouped by agent or by model, each run counts on its own.
+* **Model** - The model the run was configured to use. Where a run uses an auto-routing model, the run record also lists the models that actually served it.
+
+## Access and limits
+
+* **Availability** - Every plan that includes Warp Factories. Any API key that can see a factory can read that factory's metrics and records.
+* **Date ranges** - No limit on how far back a query can look. A bucketed request can have at most 365 buckets: a year of days, or about seven years of weeks.
+* **Page sizes** - Pages of up to 500 records. The run list defaults to 20 per page and the pull request list to 50. The most expensive PRs endpoint returns at most 50.
+* **Rate limits** - Request rate limits apply. They are not published; enterprise customers can ask for them. A single request that takes too long is cut off and returns an error rather than running indefinitely.
+
+## Syncing your own copy
+
+To keep a local copy of runs and pull requests, page through each list and then pull only what changed:
+
+1. Page with `limit` and `cursor`. Each response includes a cursor for the next page (`page_info.next_cursor` on the run list). Pass it back as `cursor` until no more pages remain.
+2. On later pulls, pass the `as_of` time from your previous pull as `updated_after` to get only the records that changed since then. A pull request's `updated_at` reflects changes to the PR itself and does not move when only a follow-up message arrives, so a sync by `updated_after` can miss a change in `follow_up_message` counts. Re-pull recent PRs if those counts matter.
+3. Join the two lists on `run_id` and `root_run_id`. Each pull request record lists the runs that produced it under `runs`, and each run record lists its pull requests under `artifacts`.
+
+## Related pages
+
+* [Factory dashboard](/factories/factory-dashboard/) - The same metrics in the web app.
+* [Measure and improve a factory](/factories/measure-and-improve/) - What each dashboard metric means and how to use it.
+* [Factory API](/factories/factory-api/) - Look up a factory's UID and dispatch work to it.
+* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) - The Agent API, SDKs, and error codes.
+* [API Keys](/reference/cli/api-keys/) - Create the key the examples use.
