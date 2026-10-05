@@ -13,13 +13,13 @@ Use an existing CI system, Kubernetes controller, or internal scheduler to alloc
 | Pattern | External orchestrator responsibility | Worker behavior | Use when |
 | --- | --- | --- | --- |
 | One-shot Direct | Allocates a host, starts a worker, and creates a run for its unique worker ID | Runs one accepted task on the allocated host, then exits | Your scheduler creates a VM, pod, or CI runner for each job |
-| **Command backend** | Provides a command or API that accepts a task and owns its compute lifecycle | Stays connected and invokes the dispatch command for each task | Your runtime already exposes a job API, queue, or scheduler |
+| Command backend | Provides a command or API that accepts a task and owns its compute lifecycle | Stays connected and invokes the dispatch command for each task | Your runtime already exposes a job API, queue, or scheduler |
 
 Both patterns use the managed architecture: Warp accepts triggers and routes runs, while your orchestrator owns compute allocation. If your system should also create and start each agent process without Warp routing, use [unmanaged execution](/platform/self-hosting/unmanaged/).
 
 ## Prerequisites
 
-Complete the shared [managed prerequisites](/platform/self-hosting/#managed-prerequisites), including the requirement to associate an agent API key with the Default Service Account.
+Complete the shared [managed prerequisites](/platform/self-hosting/#managed-prerequisites). A worker-only deployment, including a Command worker, can use a self-hosted worker API key. A job that creates a run with `oz agent run-cloud` needs an agent API key associated with the Default Service Account. The one-shot example below uses that agent key for both the worker and `run-cloud`; use separate worker and agent keys when those actions run in different processes.
 
 Install `oz-agent-worker` from a [published release](https://github.com/warpdotdev/oz-agent-worker/releases). One-shot Direct also requires the {VARS.WARP_AGENT_CLI} on the allocated host. The Command backend worker requires the tools used by your dispatch and cancellation commands.
 
@@ -69,7 +69,7 @@ wait "$worker_pid"
 trap - EXIT
 ```
 
-The run can enter the queue before the worker connects. Warp assigns the run after the matching worker ID is online. Use Direct backend [setup and teardown commands](/platform/self-hosting/managed-direct/#setup-and-teardown-commands) to prepare and clean up the allocated host.
+The run can enter the queue before the worker connects. Warp assigns the run after the matching worker ID is online, as long as the run has not reached its claim deadline. Use Direct backend [setup and teardown commands](/platform/self-hosting/managed-direct/#setup-and-teardown-commands) to prepare and clean up the allocated host.
 
 ## Using the Command backend
 
@@ -96,7 +96,7 @@ Supply the runtime credential and Warp API key through your secret manager, then
 
 ```bash
 export OZ_DISPATCH_AUTH_HEADER="Bearer YOUR_RUNTIME_TOKEN"
-export WARP_API_KEY="YOUR_AGENT_API_KEY"
+export WARP_API_KEY="YOUR_SELF_HOSTED_WORKER_API_KEY"
 
 oz-agent-worker --config-file worker.yaml
 ```

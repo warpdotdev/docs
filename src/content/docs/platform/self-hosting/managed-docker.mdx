@@ -115,6 +115,7 @@ docker run -v /var/run/docker.sock:/var/run/docker.sock \
   -e GITHUB_TOKEN
 ```
 
+:::caution
 When running the worker via Docker, there are two levels of `-e` flags. Docker's `-e` passes env vars to the **worker container** (e.g., `WARP_API_KEY`). The worker's `-e` / `--env` flags pass env vars into the **task containers** the worker spawns. Keep these distinct:
 
 ```bash
@@ -126,6 +127,7 @@ docker run \
   --worker-id "my-worker" \
   -e MY_SECRET=hunter2
 ```
+:::
 
 **Equivalent config file** (`config.yaml`):
 

@@ -54,9 +54,9 @@ All managed deployments require:
 * **Self-hosting enabled for your Enterprise team** - [Contact sales](https://www.warp.dev/contact-sales) if the feature is not enabled.
 * **Outbound network access** - The worker and agent runtime must reach Warp. You do not need to open inbound ports. See [Security and networking](/platform/self-hosting/security-and-networking/) for endpoints and data boundaries.
 * **A worker ID** - Choose the value used to route runs with `--host`. Multiple long-lived workers can share an ID for load balancing. Use a unique ID for each one-shot Direct job.
-* **Worker credentials** - Long-lived managed workers use a [self-hosted worker API key](/reference/cli/api-keys/#creating-a-self-hosted-worker-api-key). Store it in your secret manager and provide it as `WARP_API_KEY` or `--api-key`.
+* **Worker credentials** - Docker, Kubernetes, Direct, and Command workers can use a [self-hosted worker API key](/reference/cli/api-keys/#creating-a-self-hosted-worker-api-key). Store it in your secret manager and provide it as `WARP_API_KEY` or `--api-key`.
 
-External-orchestrator patterns that create and run tasks use an **agent API key associated with the Default Service Account**. In the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP} settings</a>, create an Agent key and select **Default Service Account**, then store the key in your orchestrator's secret manager. See [API keys for the {VARS.WARP_AGENT_CLI}](/reference/cli/api-keys/) for the key types and creation flow.
+An external orchestrator that creates runs through `oz agent run-cloud` or the API also needs an **agent API key associated with the Default Service Account**. In the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP} settings</a>, create an Agent key and select **Default Service Account**. The same agent key can authenticate the worker when one job both starts the worker and creates the run. Otherwise, give the worker a self-hosted worker key and the run creator an agent key. See [API keys for the {VARS.WARP_AGENT_CLI}](/reference/cli/api-keys/) for the key types and creation flow.
 
 Backend pages list the remaining runtime-specific requirements, such as Docker, Kubernetes, or the {VARS.WARP_AGENT_CLI} binary.
 
@@ -76,7 +76,23 @@ oz agent run-cloud \
   --prompt "Refactor the authentication module"
 ```
 
-The same host selection is available for schedules, integrations, API requests through `config.worker_host`, and runs created in the {VARS.WEB_APP}. See the relevant [trigger](/platform/triggers/) or [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) documentation for creation options.
+Use the same worker ID when you create or update schedules and integrations:
+
+```bash
+oz schedule create \
+  --name "daily-cleanup" \
+  --cron "0 9 * * *" \
+  --prompt "Remove unused code and open a pull request." \
+  --host "my-worker"
+oz schedule update SCHEDULE_ID --host "my-worker"
+
+oz integration create slack --host "my-worker" ...
+oz integration update linear --host "my-worker" ...
+```
+
+API requests use `config.worker_host`. In the {VARS.WEB_APP}, select the worker from the host options when you create a run, schedule, or integration. See the relevant [trigger](/platform/triggers/) or [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) documentation for other creation options.
+
+Host selection is independent of the [environment](/platform/environments/). A managed run can use the same environment with Warp-hosted or self-hosted execution; the selected backend determines how the worker applies its image and setup configuration.
 
 ## Unmanaged architecture
 
