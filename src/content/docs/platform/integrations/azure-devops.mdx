@@ -8,7 +8,7 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-Connect Azure DevOps Services to a factory so agents can work in selected repositories, open pull requests, and start runs from work item and pull request events. Warp creates a dedicated identity for each factory's Git and pull request operations. Automation dispatch separately requires the automation creator's active Azure DevOps connection.
+Connect Azure DevOps Services to a factory so agents can work in selected repositories, open pull requests, and start runs from work item and pull request events. Warp creates a dedicated identity for each factory's Git and pull request operations.
 
 {/* VERIFY: Confirm first-class Azure DevOps Services support is enabled in production before merging this documentation. */}
 
@@ -20,29 +20,27 @@ The first-class integration supports hosted Azure DevOps Services at `dev.azure.
 
 ## What the Azure DevOps integration does
 
-* **Repository access** - Select repositories from one Azure DevOps organization and project for the factory.
-* **Dedicated runtime identity** - Give each factory its own Microsoft Entra application and service principal for Git and pull request operations.
-* **Trigger** - Start factory runs from supported Azure DevOps work item and pull request events.
-* **Scoped administration** - Approve one Warp-managed Azure DevOps Manager for an organization, then use it to provision identities for multiple factories.
+* **Repository access** - Give factories access to selected Azure DevOps repositories from the factory UI.
+* **Factory identity** - Give each factory its own native Microsoft Entra identity and service principal for Azure DevOps operations and Git attribution.
+* **Trigger** - Start factory runs from Azure DevOps events such as pull requests, work item updates, and mentions of the factory identity.
 
 ## How identities and access work
 
-The integration separates setup access from runtime access. The Manager is a Warp-managed, multitenant Microsoft Entra application. Approval creates its service principal in your tenant and adds it to the Azure DevOps organization.
+Your personal Azure DevOps OAuth connection lets Warp list the organizations, projects, and repositories you can select during setup. When a run uses the creator's credentials, the connection also supplies the creator's Azure DevOps identity. The Azure DevOps Manager is a Warp-managed service account that creates and manages a dedicated service account identity for each factory.
 
 | Identity | Purpose | Access |
 | --- | --- | --- |
-| Your connected Azure DevOps account | Lists the organizations, projects, and repositories you can choose during setup. If you create an Azure DevOps automation, Warp also binds your connection when an event dispatches a run. | Limited to resources your Azure DevOps user can read. An automation requires its creator's active, correctly scoped connection; another user's connection can't replace it. |
+| Your connected Azure DevOps account | Lists the organizations, projects, and repositories you can choose during setup. It also supplies your identity when a run uses the creator's credentials. | Limited to resources your Azure DevOps user can read. |
 | Azure DevOps Manager | Creates and maintains factory identities in one Microsoft Entra tenant and Azure DevOps organization. | Owns only the Entra applications it creates. In Azure DevOps, it has Basic access and belongs to Project Collection Administrators. |
 | Factory identity | Authenticates the factory's Git and pull request operations after a run starts. | Has Basic access, project visibility, Service Hooks access, work item access, and permissions on the selected repositories. |
 
-Each factory identity consists of a separate Microsoft Entra application and service principal that Warp adds to Azure DevOps. Warp configures workload identity federation, so the factory doesn't need a stored client secret.
+Each factory identity consists of a separate Microsoft Entra application and service principal that Warp adds to Azure DevOps.
 
 ## Requirements
 
 * **A Warp team with Warp Factories access** - A factory belongs to a [Warp team](/knowledge-and-collaboration/teams/).
 * **An Azure DevOps Services organization** - Use an organization hosted at `dev.azure.com`, with the project and repositories the factory needs.
 * **A connected Azure DevOps user** - Connect a user who can read the organization, project, and repositories you want to select.
-* **An active connection for each automation creator** - The Warp user who creates an Azure DevOps automation must keep their own Azure DevOps OAuth connection active and correctly scoped. Another user's connection can't be substituted when an event dispatches the automation.
 * **A Microsoft Entra administrator** - A Global Administrator or Privileged Role Administrator approves the Azure DevOps Manager.
 * **An Azure DevOps administrator** - A Project Collection Administrator adds the Manager to the organization.
 
@@ -74,13 +72,13 @@ Start from factory setup to connect your account, select repositories, and provi
    2. A Project Collection Administrator completes the Azure DevOps approval.
 6. Continue factory setup. Warp creates the factory identity, adds Azure DevOps Basic access, and grants access to the selected repositories. Microsoft and Azure DevOps can take several minutes to apply these changes.
 
-When setup confirms that the identity is ready, the factory uses that identity for Git and pull request operations. You can retry identity provisioning from the factory's settings if setup is interrupted. Azure DevOps automations still require the automation creator's personal connection.
+When setup confirms that the identity is ready, the factory uses that identity for Git and pull request operations. You can retry identity provisioning from the factory's settings if setup is interrupted.
 
 Workspace admins can also manage organization-level Managers in the Azure DevOps Managers section of the Admin Panel. Any active workspace member can complete or delegate Manager setup while creating a factory.
 
 ## Configure Azure DevOps automations
 
-An Azure DevOps automation starts a factory run when a supported event matches its filters. Before creating the run, Warp verifies and binds the automation creator's active Azure DevOps OAuth connection. A missing, revoked, under-scoped, or differently owned connection stops dispatch. New Azure DevOps factories include a default automation for pull request mentions, work item mentions, and work item assignments.
+An Azure DevOps automation starts a factory run when a supported event matches its filters. New Azure DevOps factories include a default automation for pull request mentions, work item mentions, and work item assignments.
 
 To add or change a trigger:
 
@@ -112,13 +110,13 @@ Azure DevOps push events aren't currently available as automation triggers.
 * **An organization, project, or repository doesn't appear** - Confirm that your connected Azure DevOps user can read it, then refresh the connection.
 * **Manager approval can't continue** - Complete the Microsoft Entra step before the Azure DevOps step. If another administrator completed the first step, reopen the setup link.
 * **Identity provisioning remains in progress** - Microsoft Entra and Azure DevOps permission changes can take several minutes to propagate. Retry from the factory's settings if the setup reports an error.
-* **An event doesn't start a run** - Confirm the automation is enabled and that every configured filter matches the Azure DevOps event. The user who created the automation must also have an active Azure DevOps OAuth connection with the required scopes; another user's connection can't replace it.
+* **An event doesn't start a run** - Confirm the automation is enabled and that every configured filter matches the Azure DevOps event.
 
 ### Factory identity doesn't appear in comment mention autocomplete
 
 **Cause:** The Azure DevOps identity picker for work item comments filters service-principal identities from its normal search results. This is an Azure DevOps platform limitation that Warp can't change. Warp can detect the factory identity after Azure DevOps saves the comment with the identity's mention metadata.
 
-**Solution:** Add the factory identity to Azure DevOps's recently used identity cache:
+**Workaround:** Add the factory identity to Azure DevOps's recently used identity cache:
 
 1. In the Azure DevOps organization and project connected to the factory, assign the factory identity to a work item and save the work item.
 2. Return to the comment and enter `@` followed by the factory identity's name. The identity may now appear in autocomplete. If you enter the name without autocomplete, confirm that Azure DevOps formats it as a mention instead of plain text.
