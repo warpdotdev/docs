@@ -1,0 +1,71 @@
+---
+title: Workspaces
+description: >-
+  Workspaces group teams under one Enterprise account with shared membership,
+  billing, SSO, and company-wide settings.
+---
+
+A workspace groups one or more teams under a single Enterprise account. Workspace admins manage membership, billing, and company-wide policies across those teams. Single Sign-On (SSO) is configured at the workspace level.
+
+## Workspaces and teams
+
+A workspace provides company-wide administration, while teams organize shared resources and team-level settings.
+
+* **Workspace level** - Billing, SSO, domain capture, and organization-wide policies apply across teams.
+* **Team level** - Members share Warp Drive resources, cloud agent runs, environments, and secrets.
+* **Membership** - A user belongs to one workspace and can belong to multiple teams within it.
+
+## Workspace roles
+
+Every workspace member has one of three roles:
+
+* **Member** - Uses Warp within their teams and the policies admins configure.
+* **Admin** - Manages workspace membership, billing, and settings. Admins can view and manage every team, including teams they don't belong to.
+* **Owner** - Has every admin capability and can transfer ownership to another member. Each workspace has one owner.
+
+In team member lists, the **Workspace admin** and **Workspace owner** badges distinguish workspace roles from team roles.
+
+## Teams inside a workspace
+
+Workspace admins create teams from the Admin Panel and choose a visibility:
+
+* **Open** - Any workspace member can see the team and join it immediately.
+* **Hidden** - The team doesn't appear in team discovery; an admin adds members directly.
+
+Workspace admins can also manage every team's membership and settings.
+
+## Joining a workspace or team
+
+Workspace admins add users through invitations or domain capture:
+
+* **Workspace invite links** - Add a user to the workspace and let them choose an Open team.
+* **Team invite links** - Add a user to an Open team and its workspace.
+* **Email invites** - Add a user directly to a workspace or team. Admins add users to Hidden teams this way.
+* **Domain capture** - Automatically adds users who sign up with a verified company domain.
+* **Team discovery** - Shows Open teams to unassigned users in the Warp app under **Settings** > **Teams**.
+
+## Unassigned users
+
+An unassigned user belongs to the workspace but not to a team. Workspace admins can manage unassigned users and set a separate per-user spend limit for them in the Admin Panel.
+
+Unassigned users cannot start cloud agent or factory runs until they join a team. Workspace-level billing and policies still apply to them.
+
+## Workspace settings and team settings
+
+Workspace admins configure company-wide policies in the [Admin Panel](/enterprise/team-management/admin-panel/). For supported settings, they can enforce a value across the workspace or select **Respect Team Setting** to let each team decide.
+
+SSO and domain capture apply at the workspace level. When a workspace admin enforces a setting, team admins see it as locked.
+
+## Workspace spend limits
+
+Workspace admins can set monthly limits for total, local agent, and cloud agent spending. They can also set a separate per-user limit for unassigned users. Team and individual limits remain independent, and the first applicable limit reached blocks further usage within its scope.
+
+{/* VERIFY: confirm what team admins see when a workspace limit blocks usage before documenting that notice */}
+
+## Related pages
+
+* [Team management](/enterprise/team-management/teams/) - Create and manage teams
+* [Admin Panel](/enterprise/team-management/admin-panel/) - Configure settings enforced across a workspace or team
+* [Roles and permissions](/enterprise/team-management/roles-and-permissions/) - Team-level roles and what each can do
+* [Single Sign-On (SSO)](/enterprise/security-and-compliance/sso/) - Configure authentication for a workspace
+* [Enterprise billing](/enterprise/support-and-resources/billing/) - Credit pools, spend limits, and billing management

@@ -22,10 +22,10 @@ When you connect a factory to GitHub, repository activity starts work in your fa
 
 That's all the setup GitHub needs. A new factory arrives with two automations already switched on, so it responds to GitHub activity right away:
 
-* **Mentions and assignments** - Start work by mentioning **@warp-factory**. See [Mention the factory](#mention-the-factory) below.
+* **Mentions and assignments** - Start work by mentioning **@warp**. See [Mention the factory](#mention-the-factory) below.
 * **Pull request merges** - Close out work by merging a pull request with your factory's label. Any work items linked to the pull request move to their tracker's completed state. Closing without merging does nothing.
 
-To confirm the connection works, mention **@warp-factory** on a test issue and check that a work item starts in the factory's [dashboard](/factories/factory-dashboard/).
+To confirm the connection works, mention **@warp** on a test issue and check that a work item starts in the factory's [dashboard](/factories/factory-dashboard/).
 
 ## Add a custom automation
 
@@ -94,14 +94,14 @@ On check suite and workflow run triggers, **Labels** and **Authors** match the p
 
 ## Mention the factory
 
-Add the factory's `factory:<alias>` label to the issue or pull request, then mention **@warp-factory** in the opening body or a new comment. The alias is the **Foreman name** in the factory dashboard's **Identity** settings. Warp creates the label with the factory, and the factory replies in the same thread.
+Add the factory's `factory:<alias>` label to the issue or pull request, then mention **@warp** in the opening body or a new comment. The alias is the **Foreman name** in the factory dashboard's **Identity** settings. Warp creates the label with the factory, and the factory replies in the same thread.
 
-{/* VISUAL: An issue with the factory:<alias> label and an @warp-factory mention -- the two-part mention ritual is easy to miss from prose alone. */}
+{/* VISUAL: An issue with the factory:<alias> label and an @warp mention -- the two-part mention ritual is easy to miss from prose alone. */}
 
 Without the label, a linked Warp account can still route the mention:
 
 * **One accessible factory** - Warp adds its label and starts work.
-* **Multiple accessible factories** - Warp asks you to add the right label and mention **@warp-factory** again.
+* **Multiple accessible factories** - Warp asks you to add the right label and mention **@warp** again.
 * **No accessible factory** - Warp asks you to connect the repository or request access.
 
 Default automations can respond to authors whose GitHub accounts aren't linked to Warp.
@@ -137,7 +137,7 @@ These checks validate configuration files only and don't create work items. Unch
 
 ### A mention doesn't start work
 
-Confirm the mention is new human-authored content, not an edit, bot comment, or markdown code. Use **@warp-factory**, and add the factory's `factory:<alias>` label. Without a label, routing works only when your linked Warp account can access exactly one factory connected to the repository.
+Confirm the mention is new human-authored content, not an edit, bot comment, or markdown code. Use **@warp**, and add the factory's `factory:<alias>` label. Without a label, routing works only when your linked Warp account can access exactly one factory connected to the repository.
 
 If you renamed the alias or changed repositories after creating the factory, the default automation's filters still use the original snapshot. Edit that automation so the label and repository filters match.
 
