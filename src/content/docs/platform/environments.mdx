@@ -35,7 +35,7 @@ When the {VARS.WARP_AUTOMATION_PLATFORM} starts a cloud agent run, it combines t
 
 Use an environment when your run needs a predictable toolchain and repeatable setup. This is common in the following cases:
 
-* **Integrations and schedules** - Runs from Slack, Linear, GitHub Actions, or a schedule need the same workspace each time.
+* **[Integrations](/platform/integrations/) and [schedules](/platform/triggers/scheduled-agents/)** - Runs from Slack, Linear, GitHub Actions, or a schedule need the same workspace each time.
 * **CI and remote automation** - An environment prevents different runners or base images from changing the result.
 * **Team workflows** - A shared environment gives every teammate the same image, repos, and setup commands.
 * **Toolchain-specific work** - Use an environment when the workflow depends on particular language versions, linters, build tools, or system packages.
@@ -53,4 +53,5 @@ Cloud agents run as a non-root user inside the container. See [configuring conta
 * [Configuring cloud agent environments](environments/configuring-environments/) to create, configure, and manage environments.
 * [Troubleshooting cloud agent environments](environments/troubleshooting-environments/) to fix setup, authorization, permissions, and image failures.
 * [Runners](/platform/runners/) to configure the compute that hosts environments.
+* [Scheduled agents](/platform/triggers/scheduled-agents/) to run cloud agents on a recurring cadence in a shared environment.
 * [Deployment patterns](/platform/deployment-patterns/) to choose between Warp-hosted and self-hosted execution.
