@@ -62,16 +62,12 @@ Set the `harness` field on the agent config to one of the [harness identifiers](
 Use the canonical harness identifier that each surface accepts:
 
 * **API and SDK** — the agent config's `harness.type` accepts `oz`, `claude`, `codex`, or `gemini`.
-* **CLI** — `oz agent run-cloud --harness` accepts `oz`, `claude`, and `codex`, plus `claude-code` as an alias for `claude`.
+* **CLI** — `oz agent run-cloud --harness` accepts `oz`, `claude`, `codex`, and the limited-availability `gemini` value, plus `claude-code` as an alias for `claude`.
 * **Factory definition files** — [`harness.type`](/factories/factory-as-code/#agentdefaultsharness) accepts `oz`, `claude`, `codex`, or `gemini`, plus `claude-code` as an alias for `claude`.
 
 Where the alias is accepted, it selects the same Claude Code harness as `claude`. Prefer canonical identifiers in anything you script, sync, or store.
 
-`gemini` is a configuration identifier in the API and Factory definition format, not a
-generally available CLI setup path. Runtime availability depends on your workspace's harness
-settings. Factory definitions can authenticate Gemini only with
-`auth.source: workerEnvironment` on a self-hosted worker; `managedSecret` supports Claude Code
-and Codex.
+`gemini` is hidden from CLI help because it isn't generally available. The server accepts Gemini runs only when the harness is available to your workspace and plan and isn't disabled by a workspace admin. If Gemini isn't listed in your harness selector, choose one of the available harnesses. Factory definitions can authenticate Gemini only with `auth.source: workerEnvironment` on a self-hosted worker; `managedSecret` supports Claude Code and Codex.
 
 ## Related pages
 

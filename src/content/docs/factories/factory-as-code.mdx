@@ -159,7 +159,7 @@ Optional. The code hosts enabled for the factory: `GITHUB`, `GITLAB`, and `AZURE
 
 Required. The repositories the factory works in. Each entry requires `owner` and `name`; an optional `codeForge` selects `GITHUB`, `GITLAB`, or `AZURE_DEVOPS`. Omit `codeForge` to use the factory's primary code host. When [`codeForges`](#codeforges) lists more than one host, every repository must declare `codeForge`.
 
-Set `deferred: true` to attach a repository without preparing it for every run. Warp still prepares a deferred repository when an agent or automation lists it in `required_repos`, or when a run adds it explicitly.
+Set `repositories.deferred` to `true` to attach a repository without preparing it for every run. Warp still prepares a deferred repository when an agent or automation lists it in `required_repos`, or when a run adds it explicitly.
 
 ```yaml
 codeForges:
@@ -226,7 +226,7 @@ integrations:
   - type: linear
 ```
 
-For Slack and Microsoft Teams, `slack.autoRespondToThreadReplies` and `microsoft-teams.autoRespondToThreadReplies` control whether eligible plain replies in an existing factory thread can continue work without another mention. Both default to `true`.
+For Slack and Microsoft Teams, `slack.autoRespondToThreadReplies` and `microsoft-teams.autoRespondToThreadReplies` control whether eligible plain replies in an existing factory thread can continue work without another mention. Both default to `true`. These settings take effect only when per-factory thread controls are available; until then, eligible replies continue work by default.
 
 ```yaml
 integrations:
@@ -383,10 +383,7 @@ The frontmatter accepts:
 * `spawnableBy` - Optional. The factory agents allowed to start this agent. Omit it to allow only the foreman, use an empty list to allow none, or list the exact agent names that can start it.
 * `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel` - Optional. The same keys as [`agentDefaults`](#agentdefaults); a key declared here overrides the default for this agent.
 * `idleTimeoutMinutes` - Optional. How long a completed session remains available for follow-up, from 1 through 60 minutes. Omit it or set it to `null` to inherit. Without an inherited or run-level value, Warp uses 10 minutes, or 60 minutes for an orchestrated child run.
-* `required_repos` - Optional. Repositories that Warp prepares for every run by this agent. Each entry uses `owner`, `name`, and, when needed to disambiguate the same repository across hosts, `codeForge`.
-
-The current sync implementation accepts agent- and automation-level `required_repos`, but the
-published `v1alpha1` schema does not list it yet, so schema-based tooling might flag it.
+* `required_repos` - Optional. Repositories that Warp prepares for every run by this agent. Each entry requires `required_repos.owner` and `required_repos.name`. Set `required_repos.codeForge` when needed to distinguish the same repository across hosts.
 
 An agent's `harness` override is sparse. It accepts `harness.type`, `harness.model`, `harness.reasoningLevel`, and `harness.auth`; `harness.auth.source` selects `managedSecret` or `workerEnvironment`, and `harness.auth.secretName` is required only for `managedSecret`. Set `harness.auth` to `null` to clear inherited authentication. Agent-level `mcpServers` entries accept `mcpServers.warpId`, `mcpServers.command`, `mcpServers.args`, `mcpServers.env`, `mcpServers.url`, and `mcpServers.headers`.
 
@@ -461,53 +458,9 @@ The published trigger catalog currently uses these filter keys across its provid
 * Microsoft Teams: `channel_ids`, `keywords`, `team_ids`, and `user_ids`.
 * Webhook: `payload` and `webhook_ids`.
 
-For Microsoft Teams, include exactly one Microsoft Graph team UUID in `team_ids` and at
-least one channel ID in `channel_ids`. Both filters support `in` only.
+Matcher objects use `in` to include values and `not_in` to exclude them. Webhook `payload` matchers also accept `exists`. Microsoft Teams `team_ids` and `channel_ids`, and webhook `webhook_ids`, support `in` only.
 
-<details>
-<summary>Filter matcher path reference</summary>
-
-| Filter key | Matcher paths |
-| --- | --- |
-| `actions` | `actions.in`, `actions.not_in` |
-| `assignee_ids` | `assignee_ids.in`, `assignee_ids.not_in` |
-| `assignees` | `assignees.in`, `assignees.not_in` |
-| `authors` | `authors.in`, `authors.not_in` |
-| `baseBranches` | `baseBranches.in`, `baseBranches.not_in` |
-| `base_branches` | `base_branches.in`, `base_branches.not_in` |
-| `branches` | `branches.in`, `branches.not_in` |
-| `channel_ids` | Slack: `channel_ids.in`, `channel_ids.not_in`; Microsoft Teams: `channel_ids.in` |
-| `conclusions` | `conclusions.in`, `conclusions.not_in` |
-| `creator_ids` | `creator_ids.in`, `creator_ids.not_in` |
-| `emojis` | `emojis.in`, `emojis.not_in` |
-| `issue_ids` | `issue_ids.in`, `issue_ids.not_in` |
-| `item_user_ids` | `item_user_ids.in`, `item_user_ids.not_in` |
-| `keywords` | `keywords.in`, `keywords.not_in` |
-| `labels` | `labels.in`, `labels.not_in` |
-| `mentioned` | `mentioned.in`, `mentioned.not_in` |
-| `mentioned_user_ids` | `mentioned_user_ids.in`, `mentioned_user_ids.not_in` |
-| `paths` | `paths.in`, `paths.not_in` |
-| `payload` | `payload.in`, `payload.not_in`, `payload.exists` |
-| `prNumbers` | `prNumbers.in`, `prNumbers.not_in` |
-| `pr_numbers` | `pr_numbers.in`, `pr_numbers.not_in` |
-| `project_ids` | `project_ids.in`, `project_ids.not_in` |
-| `project_keys` | `project_keys.in`, `project_keys.not_in` |
-| `repos` | `repos.in`, `repos.not_in` |
-| `review_states` | `review_states.in`, `review_states.not_in` |
-| `reviewer_teams` | `reviewer_teams.in`, `reviewer_teams.not_in` |
-| `reviewers` | `reviewers.in`, `reviewers.not_in` |
-| `schedule_ids` | `schedule_ids.in` |
-| `source_repos` | `source_repos.in`, `source_repos.not_in` |
-| `stages` | `stages.in`, `stages.not_in` |
-| `state_ids` | `state_ids.in`, `state_ids.not_in` |
-| `status_ids` | `status_ids.in`, `status_ids.not_in` |
-| `team_ids` | Linear: `team_ids.in`, `team_ids.not_in`; Microsoft Teams: `team_ids.in` |
-| `user_ids` | `user_ids.in`, `user_ids.not_in` |
-| `webhook_ids` | `webhook_ids.in` |
-| `work_item_types` | `work_item_types.in`, `work_item_types.not_in` |
-| `workflows` | `workflows.in`, `workflows.not_in` |
-
-</details>
+For Microsoft Teams, include exactly one Microsoft Graph team UUID in `team_ids` and at least one channel ID in `channel_ids`.
 
 `baseBranches` and `prNumbers` are authoring aliases for `base_branches` and `pr_numbers`. `teams`, `projects`, `states`, `issues`, `channels`, `users`, and `itemUsers` are name-based aliases for their `_ids` counterparts. An alias and its canonical key are mutually exclusive.
 
@@ -536,7 +489,7 @@ triggers:
 
 ### Execution overrides
 
-An automation may also declare `displayName`, plus `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel`, `idleTimeoutMinutes`, and `required_repos`. Set `displayName` to `null` to clear it. Execution settings override the target agent for runs this automation starts. Automation `required_repos` entries are added to the target agent's required repositories.
+An automation may also declare `displayName`, plus `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel`, `idleTimeoutMinutes`, and `required_repos`. Set `displayName` to `null` to clear it. Execution settings override the target agent for runs this automation starts. Automation `required_repos` entries are added to the target agent's required repositories. Each entry requires `required_repos.owner` and `required_repos.name`; set `required_repos.codeForge` when needed to distinguish the same repository across hosts.
 
 The sparse `harness` override accepts `harness.type`, `harness.model`, `harness.reasoningLevel`, and `harness.auth`; its nested authentication fields are `harness.auth.source` and `harness.auth.secretName`. Automation-level `mcpServers` entries accept `mcpServers.warpId`, `mcpServers.command`, `mcpServers.args`, `mcpServers.env`, `mcpServers.url`, and `mcpServers.headers`. For `idleTimeoutMinutes`, omission or `null` inherits the target agent's value.
 
@@ -605,12 +558,10 @@ description: Compare configurations for the review agent.
 agent: reviewer
 configurations:
   - name: Baseline
-    role: baseline
     agents:
       - agent: reviewer
         model: auto
   - name: Candidate
-    role: candidate
     agents:
       - agent: reviewer
         model: auto-efficient
@@ -634,10 +585,7 @@ Required. The name of an agent declared by the factory. Every task in the suite 
 
 Optional. One to six reusable configurations for benchmark runs. When a run doesn't supply its own configurations, Warp uses these presets. Each configuration requires a unique `name`.
 
-The currently published `v1alpha1` schema also requires `role: baseline` or `role: candidate`,
-so include it while that validation constraint remains. The current implementation treats
-`role` as ignored legacy metadata: It does not affect benchmark behavior, and Warp omits it
-when rewriting the suite definition.
+`role` is optional, deprecated legacy metadata. Its accepted values are `baseline` and `candidate`, but it does not affect benchmark behavior, and Warp omits it when rewriting the suite definition.
 
 The optional `agents` list pins named factory agents to the models and harnesses they use during that configuration's trials. Each `agents.agent` entry requires exactly one of `agents.model` or `agents.harness`. An `agents.harness` override requires `agents.harness.type` and `agents.harness.model`; supported types are `oz`, `claude`, `claude-code`, `codex`, and `gemini`. Optional `agents.harness.auth` uses `agents.harness.auth.source` and `agents.harness.auth.secretName`. List an agent at most once per configuration. Agents omitted from the list use their configuration at launch time.
 
