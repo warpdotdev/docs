@@ -33,10 +33,14 @@ The following flags are available when starting the worker.
 
 Worker IDs starting with `warp` are reserved and cannot be used. The worker refuses to start if `--worker-id` begins with `warp`.
 
-### Example with all flags
+### Rootful Linux Docker example with all flags
 
 ```bash
-docker run -v /var/run/docker.sock:/var/run/docker.sock \
+export DOCKER_SOCKET_GID="$(stat -c '%g' /var/run/docker.sock)"
+
+docker run \
+  --group-add "$DOCKER_SOCKET_GID" \
+  -v /var/run/docker.sock:/var/run/docker.sock \
   -e WARP_API_KEY="$WARP_API_KEY" \
   warpdotdev/oz-agent-worker \
   --worker-id "prod-runner-1" \
@@ -157,6 +161,8 @@ backend:
 **`backend.docker`:**
 
 * `volumes` — List of volume mounts (same format as `-v` flag).
+* `image_pull_policy` — Pull policy for task and sidecar images. One of `Always`, `Never`, or `IfNotPresent`. Defaults to `Always`. Requires worker release `v2026-08-20-16-38-31` or newer.
+* `sidecar_image` — Image reference for the Warp Agent sidecar mounted at `/agent`. It does not affect additional sidecars. Requires worker release `v2026-08-28-21-43-14` or newer.
 * `environment` — List of environment variables with `name` and optional `value`. If `value` is omitted, the variable is inherited from the host.
 
 **`backend.kubernetes`:**
@@ -164,11 +170,12 @@ backend:
 * `namespace` — Kubernetes namespace for task Jobs. Defaults to `default`. Selects the namespace inside the chosen cluster; does not choose the cluster.
 * `kubeconfig` — Path to an explicit kubeconfig file. If omitted, the worker uses in-cluster config when running inside Kubernetes, or falls back to the default kubeconfig loading rules.
 * `default_image` — Default Docker image for task Jobs when the run has no Warp environment image. Precedence: Warp environment image > `default_image` > `ubuntu:22.04`. Set this to skip creating a Warp environment when all your tasks use the same base image.
-* `image_pull_policy` — One of `Always`, `Never`, or `IfNotPresent`. Defaults to `IfNotPresent`.
+* `image_pull_policy` — Pull policy for task, sidecar, and preflight images. One of `Always`, `Never`, or `IfNotPresent`. Defaults to `IfNotPresent`.
 * `use_image_volumes` — Use native image volumes instead of root init containers. Defaults to `false` and requires cluster and runtime support.
-* `preflight_image` — Startup preflight Job image. Defaults to `busybox:1.36`.
+* `preflight_image` — Startup preflight Job image. Defaults to `busybox:1.36`. Override this if your cluster only allows pulling from an internal or allowlisted registry.
 * `preflight_resources` — CPU and memory requests and limits for startup preflight containers.
-* `sidecar_image` — Registry override for the Warp agent sidecar image.
+* `sidecar_image` — Image reference that replaces the Warp Agent sidecar mounted at `/agent`.
+* `coding_cli_sidecars` — Map of harness names such as `claude` or `codex` to coding CLI sidecar images.
 * `setup_command` — Shell command to run before each task.
 * `teardown_command` — Shell command to run after each task completes.
 * `extra_labels` — Map of additional labels to add to task Jobs and Pods.
@@ -223,6 +230,7 @@ Once a worker is running, route cloud agent runs to it with the `--host` flag or
 
 * [Managed: Docker](/factories/self-hosting/managed-docker/) — Docker backend setup, connectivity, and private registries.
 * [Managed: Kubernetes](/factories/self-hosting/managed-kubernetes/) — Kubernetes backend setup, Helm chart, pod template, and operational notes.
+* [Private container registry](/factories/self-hosting/private-container-registry/) — Mirror and pull worker, task, sidecar, and preflight images from an internal registry.
 * [Managed: Direct](/factories/self-hosting/managed-direct/) — Direct backend setup and workspace model.
 * [External orchestrators](/factories/self-hosting/external-orchestrators/) — One-shot Direct and Command backend dispatch.
 * [Direct backend monorepo worktrees](/factories/self-hosting/direct-monorepo-worktrees/) — Setup and teardown hooks for isolated monorepo worktrees.
