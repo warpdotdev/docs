@@ -8,7 +8,7 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-Connect Azure DevOps Services to a factory so agents can work in selected repositories, open pull requests, and start runs from work item and pull request events. Warp creates a dedicated identity for each factory's Git and pull request operations.
+Connect Azure DevOps Services to a factory so agents can work in selected repositories, open pull requests, and start runs from work item and pull request events. Warp creates a dedicated Microsoft Entra identity for each factory's Git and pull request operations.
 
 {/* VERIFY: Confirm first-class Azure DevOps Services support is enabled in production before merging this documentation. */}
 
@@ -17,12 +17,6 @@ Warp Factories is in Early Access and available to a limited set of teams. [Requ
 :::
 
 The first-class integration supports hosted Azure DevOps Services at `dev.azure.com`. It doesn't support Azure DevOps Server. To use a self-hosted Azure DevOps Server repository, [configure it as another code forge](/factories/code-forges/other-code-forges/). For standalone cloud agent environments, use the [Azure DevOps access token setup](/platform/integrations/azure-devops/).
-
-## What the Azure DevOps integration does
-
-* **Repository access** - Give factories access to selected Azure DevOps repositories from the factory UI.
-* **Factory identity** - Give each factory its own native Microsoft Entra identity and service principal for Azure DevOps operations and Git attribution.
-* **Trigger** - Start factory runs from Azure DevOps events such as pull requests, work item updates, and mentions of the factory identity.
 
 ## How identities and access work
 
@@ -135,7 +129,7 @@ Azure DevOps push events aren't currently available as automation triggers.
 
 **Cause:** Azure DevOps hides the factory identity from @-mention autocomplete until the identity has been used in the organization.
 
-**Workaround:** Add the factory identity to Azure DevOps's recently used identity cache:
+**Workaround:** Make Azure DevOps recognize the factory identity by using it once in the organization:
 
 1. In the Azure DevOps organization and project connected to the factory, assign the factory identity to a work item and save the work item.
 2. Return to the comment, enter `@` followed by the factory identity's name, then select the identity from autocomplete.
