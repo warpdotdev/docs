@@ -50,6 +50,21 @@ transiting Warp's backend.
 
 Create the bucket that will hold your agent data. Warp writes objects using your bucket's own encryption settings — both SSE-S3 (the default) and SSE-KMS are supported.
 
+Configure the bucket's Cross-Origin Resource Sharing (CORS) settings to allow `GET` requests from `https://*.warp.dev`. The Warp web interfaces need this access to load artifacts and conversation transcripts.
+
+```json title="S3 CORS configuration"
+[
+  {
+    "AllowedHeaders": [],
+    "AllowedMethods": ["GET"],
+    "AllowedOrigins": ["https://*.warp.dev"],
+    "ExposeHeaders": []
+  }
+]
+```
+
+If you prefer to list origins explicitly, replace `AllowedOrigins` with `["https://app.warp.dev", "https://platform.warp.dev", "https://oz.warp.dev"]`. See AWS's guide to [Amazon S3 CORS configuration elements](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html).
+
 <Tabs>
   <TabItem label="AWS CLI">
     ```bash

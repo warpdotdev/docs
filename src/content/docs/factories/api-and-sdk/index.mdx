@@ -32,7 +32,7 @@ To send work to a [Warp factory](/factories/), use [factory endpoints](/factorie
 
 ## Choose the SDK or raw REST
 
-Warp provides official [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript) SDKs that wrap the {VARS.WARP_PLATFORM_API} with:
+Warp provides the official [`warp-platform-sdk` Python package](https://pypi.org/project/warp-platform-sdk/) and [`@warp-dot-dev/warp-platform-sdk` TypeScript package](https://www.npmjs.com/package/@warp-dot-dev/warp-platform-sdk). Both SDKs wrap the {VARS.WARP_PLATFORM_API} with:
 
 * **Typed requests and responses** (editor autocomplete, fewer schema mistakes)
 * **Built-in retries and timeouts** (with per-request overrides)
@@ -185,7 +185,13 @@ The Python SDK is the recommended way to call the API from Python services and s
 * Typed request/response models
 * Configurable retries/timeouts and structured errors
 
-See the [**Python SDK GitHub repo**](https://github.com/warpdotdev/oz-sdk-python) for installation, full API reference (api.md), and up-to-date examples.
+Install the package from PyPI:
+
+```bash
+pip install warp-platform-sdk
+```
+
+Import `WarpClient` from `warp_platform_sdk`. See the [**Python SDK GitHub repo**](https://github.com/warpdotdev/oz-sdk-python) for the full API reference and up-to-date examples.
 
 ### TypeScript SDK
 
@@ -195,4 +201,10 @@ The TypeScript SDK is the recommended way to call the API from Node.js services 
 * First-class error handling, retries/timeouts
 * Support across common runtimes where fetch is available or polyfilled
 
-See the [**TypeScript SDK GitHub repo**](https://github.com/warpdotdev/oz-sdk-typescript) for installation, full API reference (api.md), and up-to-date examples.
+Install the package from npm:
+
+```bash
+npm install @warp-dot-dev/warp-platform-sdk
+```
+
+Import `WarpClient` from `@warp-dot-dev/warp-platform-sdk`. See the [**TypeScript SDK GitHub repo**](https://github.com/warpdotdev/oz-sdk-typescript) for the full API reference and up-to-date examples.
