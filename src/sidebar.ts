@@ -319,6 +319,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								'agents/inference/bring-your-own-api-key',
 								{ slug: 'agents/inference/custom-inference-endpoint', label: 'Custom inference endpoint' },
 								{ slug: 'agents/inference/grok-subscription', label: 'SuperGrok subscription' },
+								{ slug: 'agents/inference/chatgpt-subscription', label: 'ChatGPT subscription' },
 							],
 						},
 						{ slug: 'agents/local-agents/interactive-code-review', label: 'Interactive code review' },
@@ -423,6 +424,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						// separately from the services that route work into a factory.
 						{ slug: 'factories/integrations/github', label: 'GitHub' },
 						{ slug: 'factories/integrations/gitlab', label: 'GitLab' },
+						{ slug: 'factories/integrations/azure-devops', label: 'Azure DevOps' },
 						{ slug: 'factories/code-forges/other-code-forges', label: 'Other code forges' },
 					],
 				},
@@ -443,6 +445,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
 						{ slug: 'factories/integrations/slack', label: 'Slack' },
+						{ slug: 'factories/integrations/teams', label: 'Microsoft Teams' },
 						{ slug: 'factories/integrations/linear', label: 'Linear' },
 						{ slug: 'factories/integrations/jira', label: 'Jira' },
 						// Custom webhooks connect any JSON-posting system, so they sit

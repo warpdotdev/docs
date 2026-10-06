@@ -204,11 +204,12 @@ cloudProviders:
 
 ### `integrations`
 
-Optional. The integration providers attached to the factory. `type` accepts `slack`, `linear`, or `jira`. Use `linear.teamIds` or `jira.projectKeys` to limit the teams or projects available to the factory. Declare at most one issue tracker: `linear` and `jira` are mutually exclusive, and omitting a tracker is also valid. GitHub is not declared here; repository access comes from `repositories` and the connected GitHub App.
+Optional. The integration providers attached to the factory. `type` accepts `slack`, `microsoft-teams`, `linear`, or `jira`. Use `linear.teamIds` or `jira.projectKeys` to limit the teams or projects available to the factory. Declare at most one issue tracker: `linear` and `jira` are mutually exclusive, and omitting a tracker is also valid. GitHub is not declared here; repository access comes from `repositories` and the connected GitHub App.
 
 ```yaml
 integrations:
   - type: slack
+  - type: microsoft-teams
   - type: linear
     linear:
       teamIds:
@@ -224,6 +225,15 @@ integrations:
       projectKeys:
         - ENG
         - OPS
+```
+
+For `microsoft-teams`, optional `autoRespondToThreadReplies` nests under the `microsoft-teams` key. Set it to `false` to require another mention for plain replies in an existing factory thread. Omit the key (or set `true`) to keep the default-on behavior:
+
+```yaml
+integrations:
+  - type: microsoft-teams
+    microsoft-teams:
+      autoRespondToThreadReplies: false
 ```
 
 The legacy `providers` key is accepted when reading older definitions. It uses the same `gcp` and `aws` maps and nested YAML keys as `cloudProviders`. Use `cloudProviders`; when Warp rewrites the definition, it emits `cloudProviders`.
@@ -310,6 +320,7 @@ Use `computer-use-agent-auto` for automatic selection. Pin a specific model when
 | Model | Supported values |
 | --- | --- |
 | Auto | `computer-use-agent-auto` |
+| Claude Sonnet 5.5 | `claude-5-5-sonnet-low`, `claude-5-5-sonnet-medium`, `claude-5-5-sonnet-high`, `claude-5-5-sonnet-xhigh`, `claude-5-5-sonnet-max` |
 | Claude Sonnet 5 | `claude-5-sonnet-low`, `claude-5-sonnet-medium`, `claude-5-sonnet-high`, `claude-5-sonnet-xhigh`, `claude-5-sonnet-max` |
 | Claude Opus 5.5 | `claude-5-5-opus-low`, `claude-5-5-opus-medium`, `claude-5-5-opus-high`, `claude-5-5-opus-xhigh`, `claude-5-5-opus-xhigh-fast`, `claude-5-5-opus-max` |
 | Claude Opus 5 | `claude-5-opus-low`, `claude-5-opus-medium`, `claude-5-opus-high`, `claude-5-opus-xhigh`, `claude-5-opus-xhigh-fast`, `claude-5-opus-max` |
@@ -409,15 +420,16 @@ The providers and their events:
 * `linear` - `agent_session_created`, `comment_created`, `issue_assigned`, `issue_created`, `issue_labeled`, `issue_state_changed`
 * `jira` - `agent_session_created`, `issue_created`, `issue_labeled`, `status_changed`
 * `slack` - `app_mention`, `member_joined_channel`, `message_dm`, `message_im`, `message_mpim`, `message_posted`, `reaction_added`
+* `teams` - `app_mention`, `message_posted`
 * `schedule` - `cron_fired`
 * `webhook` - `received`
 * `factory` - `work_item_stage_changed`
 
-Slack, Linear, and Jira triggers require the matching [integration](/platform/integrations/) to be connected. GitHub triggers work through the factory's `repositories`, and GitLab triggers through the group connected to your workspace — see the [GitLab integration](/factories/integrations/gitlab/). `webhook` triggers listen to [custom webhooks](/factories/webhooks/) declared under [`webhooks/`](#webhooksnameyaml).
+Slack, Microsoft Teams, Linear, and Jira triggers require the matching factory integration to be connected — see the [Slack](/factories/integrations/slack/), [Microsoft Teams](/factories/integrations/teams/), [Linear](/factories/integrations/linear/), and [Jira](/factories/integrations/jira/) guides. GitHub triggers work through the factory's `repositories`, and GitLab triggers through the group connected to your workspace — see the [GitLab integration](/factories/integrations/gitlab/). `webhook` triggers listen to [custom webhooks](/factories/webhooks/) declared under [`webhooks/`](#webhooksnameyaml).
 
 ### `triggers[].filter`
 
-Optional. Narrows which events start runs. The keys a filter accepts depend on the provider and event: for example `repos`, `labels`, and `authors` for GitHub events, or `channels`, `users`, and `keywords` for Slack messages. Filter keys combine with AND, an omitted key matches everything, and each key takes a list that matches any of its values (or an `in`/`not_in` object to include or exclude). Slack and Linear filters take names (channels, users, teams, projects, states), and Warp resolves them to IDs when it applies the change.
+Optional. Narrows which events start runs. The keys a filter accepts depend on the provider and event: for example `repos`, `labels`, and `authors` for GitHub events, or `channels`, `users`, and `keywords` for Slack messages. Filter keys combine with AND, an omitted key matches everything, and each key takes a list that matches any of its values (or an `in`/`not_in` object to include or exclude). Slack and Linear filters take names (channels, users, teams, projects, states), and Warp resolves them to IDs when it applies the change. Microsoft Teams filters take Graph team UUIDs and Bot Framework channel IDs, and each Teams trigger must include exactly one team and at least one channel.
 
 A `webhook` trigger with the `received` event requires `webhook_ids` in its filter, a list of webhook UIDs (`in` only; the file name isn't accepted), and takes an optional `payload` pattern that mirrors the delivery's JSON body. See [payload filters for webhook triggers](/factories/automations/#payload-filters-for-webhook-triggers) for the pattern grammar.
 
@@ -430,6 +442,7 @@ The published trigger catalog currently uses these filter keys across its provid
 * Linear: `assignee_ids`, `creator_ids`, `issue_ids`, `issues`, `keywords`, `labels`, `mentioned_user_ids`, `project_ids`, `projects`, `state_ids`, `states`, `team_ids`, and `teams`.
 * Schedule: `schedule_ids` is server-managed and cannot be set in a factory definition.
 * Slack: `channel_ids`, `channels`, `emojis`, `itemUsers`, `item_user_ids`, `keywords`, `user_ids`, and `users`.
+* Teams: `channel_ids`, `keywords`, `team_ids`, and `user_ids`.
 * Webhook: `payload` and `webhook_ids`.
 
 Payload patterns also accept `exists`.

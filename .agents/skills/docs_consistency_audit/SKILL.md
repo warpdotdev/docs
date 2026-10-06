@@ -39,7 +39,7 @@ Run every command from `/workspace/docs`. The workflow requires:
   released OpenAPI document.
 - `/workspace/warp` at its current default branch as the public client and CLI source.
 - `/workspace/warp-server` at its current default branch as a read-only authority input.
-  Private source is evidence only and must not appear in public reports.
+  Private source is transient evidence only.
 - The connected Slack MCP for the scheduled agent. Post only to `#growth-docs`
   (`C09BVK0PL3Y`) and only under the actionable-only rule below.
 
@@ -50,6 +50,12 @@ Generated state lives on `chore/docs-consistency-audit-state`, under
 
 Never fall back to `main` when the state branch exists but cannot be fetched. A quieter,
 stale state can change lifecycle answers and is worse than a blocked run.
+
+Files under `/tmp` that contain private authority records must never be committed,
+uploaded, or included in a run artifact. Public candidates, generated state, run
+artifacts, and Slack payloads may contain only public claims and public support quotes.
+They must not contain a private repository, path, symbol, identifier, source hash,
+configuration value, or paraphrase that identifies private evidence.
 
 ## Scheduled guard
 
@@ -63,6 +69,22 @@ Exit `0` means the local time in `America/Los_Angeles` is Monday, Wednesday, or 
 at 10:00 a.m. Continue. Exit `10` is the inactive half of the pair: write exactly one run
 output line stating that the Pacific-time guard was inactive, then stop without reading
 state, changing files, or posting to Slack. Any other exit is a blocked run.
+
+After fetching the standing state branch, atomically claim the Pacific business date
+before extraction, state mutation, or reporting:
+
+```bash
+python3 .agents/skills/docs_consistency_audit/scripts/audit_consistency.py claim-schedule \
+  --state-dir STATE_WORKTREE/.agents/state/docs_consistency_audit \
+  --event-id RUN_ID
+```
+
+Exit `0` creates `schedule_claims/YYYY-MM-DD.json`. Commit and push that receipt by
+itself before continuing. Use a lease against the fetched remote SHA. If the push loses
+a race, fetch the winning state branch. When it contains the same business-date receipt,
+stop as a successful duplicate without extracting claims, mutating state, or posting to
+Slack. Exit `11` is the same successful duplicate outcome. Any other result blocks the
+run. The later state-tree replacement must preserve all schedule receipts.
 
 ## Workflow
 
@@ -118,7 +140,10 @@ role, source hash, and candidate factual sections. Only new, changed, deleted, o
 invalidated pages enter extraction.
 
 If the configured page or character budget is exhausted, finish the current shard, mark
-coverage `partial`, retain the backlog, and do not resolve findings.
+coverage `partial`, retain the backlog, and do not resolve findings. For every deferred
+page, carry forward its prior page manifest entry, source hash, claim shard, and claims.
+Do not advance a deferred page to the newly observed hash until its extraction validates.
+The next run resumes those pages from `backlog_pages`.
 
 ### 4. Refresh structured authorities
 
@@ -136,6 +161,12 @@ billing policies with inheritance, records public and server OpenAPI hashes, and
 terminology and content-variable hashes. Generated CLI help, when available, replaces
 source parsing as the stronger CLI authority. Record visible feature flags with generated
 help.
+
+Adapters emit `authority_records`, not public claims. Each record has a validated typed
+value, qualifiers, source class, visibility, and release scope. Private records stay in
+the transient authority file and may guide comparison, but reportability always requires
+support from exact public quotes. Only the redacted authority count and release-scope
+summary may leave the transient comparison process.
 
 The released `developers/agent-api-openapi.yaml` is the public API authority.
 `warp-server/public_api/openapi.yaml` is only a freshness and provenance check. Never
@@ -163,6 +194,11 @@ Reject a model response when a quote is not an exact substring of the specified 
 lines, a line range is invalid, or required fields are missing. Retry schema-invalid
 model output at most twice. A third failure blocks the run and preserves prior state.
 
+Load verified redirects from `/workspace/docs/vercel.json` before normalization. Claim
+identity uses the final redirect destination while the claim retains its original path,
+route, lines, and quote as provenance. A move without a verified redirect creates a new
+claim identity.
+
 General explanatory prose is not a claim unless it asserts product behavior,
 availability, limits, defaults, requirements, identifiers, or lifecycle state.
 
@@ -174,11 +210,14 @@ authority. Run exact typed detectors before model adjudication.
 
 Run a comparison prepass with the same `run` arguments shown in step 7, plus
 `--no-state-write` and
-`--candidate-output /tmp/docs-consistency-candidates.json`. Review every candidate where
-`exact_typed_mismatch` is false with the model and the context below. Then add accepted
-model decisions to the claims input under `adjudicated_findings` before the state-writing
-run. Each adjudicated finding must contain the required finding fields, supported claims,
-one allowed verdict, quoted rationale, authority reason, and suggested resolution class.
+`--candidate-output /tmp/docs-consistency-candidates.json`. Review every candidate,
+including exact typed mismatches, with the model and the context below. Exact comparison
+creates a candidate; it never creates a reportable finding by itself. Add accepted model
+decisions to the claims input under `adjudicated_findings` before the state-writing run.
+Each adjudication must include `candidate_id`, every supported public `claim_id`, exact
+public `scope_quotes`, `qualifier_status`, `context_complete`, one allowed verdict,
+rationale, authority reason, and suggested resolution class. A candidate without a
+matching valid adjudication remains unverified and cannot enter findings or notifications.
 The script rejects unsupported quotes and schema-incomplete adjudications.
 
 Two narrower claims with disjoint qualifiers do not conflict. A universal claim can
@@ -196,7 +235,8 @@ Before reporting any surviving semantic suspect, read:
 The verifier returns exactly one of `contradiction`, `stale`,
 `duplicate-canonical`, `gap`, `intentional-exception`, `insufficient-evidence`, or
 `not-related`. It must quote the scope language supporting its decision. Unknown
-qualifiers reduce confidence.
+qualifiers or incomplete scope reduce confidence from high to medium. Incomplete context
+or a non-reportable verdict suppresses the candidate.
 
 Security, privacy, data handling, retention, training, telemetry, permission, redaction,
 and billing-policy conflicts always require human review. Authority identifies likely
@@ -211,6 +251,8 @@ python3 .agents/skills/docs_consistency_audit/scripts/audit_consistency.py run \
   --claims /tmp/docs-consistency-claims.json \
   --inventory /tmp/docs-consistency-inventory.json \
   --repository-root warpdotdev/docs=/workspace/docs \
+  --authorities /tmp/docs-consistency-authorities.json \
+  --redirects /workspace/docs/vercel.json \
   --state-dir /tmp/docs-consistency-state \
   --source-commit "$(git rev-parse HEAD)" \
   --coverage complete \
@@ -224,7 +266,8 @@ python3 .agents/skills/docs_consistency_audit/scripts/audit_consistency.py run \
 ```
 
 The full artifact includes all active findings, lifecycle changes, suppressed
-candidates, coverage, source availability, and cost counters. Every reportable finding
+candidates, unverified candidates, backlog pages, coverage, source availability, and cost
+counters. Every reportable finding
 includes exact quotes and locations, qualifiers, rationale, likely authority and reason,
 suggested resolution, run ID, and source commit.
 
@@ -246,7 +289,9 @@ python3 .agents/skills/docs_consistency_audit/scripts/audit_consistency.py valid
 ```
 
 The `run` command builds a temporary state tree, validates fingerprint integrity, and
-replaces its target only after validation. After that local transaction:
+replaces its target only after validation. It fsyncs the replacement, retains the prior
+tree as a backup during installation, and restores the prior tree if replacement fails.
+After that local transaction:
 
 1. Check out or create `chore/docs-consistency-audit-state` from `origin/main`.
 2. Replace only `.agents/state/docs_consistency_audit/`.
@@ -304,11 +349,17 @@ python3 .agents/skills/docs_consistency_audit/scripts/audit_consistency.py bench
 ```
 
 The scorecard covers all 24 Falconer examples and negative controls for plan, operating
-system, version, install method, legacy status, and intentional exceptions. The schedule
-must remain disabled until:
+system, version, install method, legacy status, and intentional exceptions. Every
+non-delegated case uses a pinned extraction fixture and immutable checked-in evidence
+snippets. The benchmark verifies fixture, source, quote, line, and content fingerprints,
+then passes the fixture through the same extraction-validation and adjudication interfaces
+as an audit run. It must not derive evidence, claims, or verdicts from expected results.
+The schedule must remain disabled until:
 
-- all 24 examples are detected, delegated to their owning deterministic skill, or
-  explicitly rejected with a scope reason;
+- all 24 examples pass the production inventory, extraction, exact-evidence validation,
+  typed comparison, and context-adjudication path, or are delegated to their owning
+  deterministic skill;
+- invalid evidence, extraction failures, and incorrect adjudication make the gate fail;
 - high-confidence precision is at least 90%;
 - precision among all surfaced findings is at least 80%;
 - there are no incorrect high-confidence security, privacy, or billing-policy

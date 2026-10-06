@@ -1,0 +1,117 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:9a6a5184f6b0262046b37002013e91d75f920e242b025820d399587ba680abdf",
+      "canonical_source": "canonical-doc",
+      "claim_ids": [
+        "sha256:122baeaf4fce294268246870d0490ef8530191309eaa29fc64133a98dfedb1dd",
+        "sha256:8767ec906f0727c64367b3003744294f5527e1cc2acdc98e75a7d52e65cef8cc"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "Warp reserves the right to use data collected to train models",
+          "source": {
+            "content_sha256": "b0fe44803655abbbc163ec8f6e019cd9675417d97ec550013818d8fd30688977",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-05-customer-data-training-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "No customer AI data is retained, stored, or used for training.",
+          "source": {
+            "content_sha256": "e965aeac5684bef7842b75299b9ff964cb99180ff416f1224d3b1da189e19eac",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-05-customer-data-training-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "high",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-05-customer-data-training",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "privacy",
+      "entity": "customer-ai-data",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "used-for-training",
+      "qualifiers": {},
+      "quote": "Warp reserves the right to use data collected to train models",
+      "source": {
+        "content_sha256": "b0fe44803655abbbc163ec8f6e019cd9675417d97ec550013818d8fd30688977",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-05-customer-data-training-left",
+        "visibility": "public"
+      },
+      "source_class": "faq",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "entity": "customer-ai-data",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "used-for-training",
+      "qualifiers": {},
+      "quote": "No customer AI data is retained, stored, or used for training.",
+      "source": {
+        "content_sha256": "e965aeac5684bef7842b75299b9ff964cb99180ff416f1224d3b1da189e19eac",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-05-customer-data-training-right",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "b0fe44803655abbbc163ec8f6e019cd9675417d97ec550013818d8fd30688977",
+    "right.mdx": "e965aeac5684bef7842b75299b9ff964cb99180ff416f1224d3b1da189e19eac"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

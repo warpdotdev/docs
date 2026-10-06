@@ -1,0 +1,125 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:09d95234ee920545627da5b8aaac9bda135b04b4cc7591e64b5c14a2f6e0b4f2",
+      "canonical_source": "live-pricing",
+      "claim_ids": [
+        "sha256:86f8f39a7691719d5396683693bb407bf2a87681b8f436ec729cea1c3b00dd12",
+        "sha256:d5cbdfd23df335881afaf1bfb1469c3c72cb58dbaff8283a6a9b6c44d19687eb"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "All plans support indexing at least 5,000 files per codebase",
+          "source": {
+            "content_sha256": "164b0970f31b44ed40133766e7b12100fe04ac6063a32d346d6c665bacb6eea1",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-01-codebase-file-limit-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "Files per codebase | 3,000",
+          "source": {
+            "content_sha256": "ec78b44d0c4f9fb2a21c1a9233da98cfdaaa8b205660fe71405daf972ee240fa",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-01-codebase-file-limit-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "high",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-01-codebase-file-limit",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "plan-gating",
+      "entity": "codebase-context",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "free-files-per-codebase",
+      "qualifiers": {
+        "plans": [
+          "all"
+        ]
+      },
+      "quote": "All plans support indexing at least 5,000 files per codebase",
+      "source": {
+        "content_sha256": "164b0970f31b44ed40133766e7b12100fe04ac6063a32d346d6c665bacb6eea1",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-01-codebase-file-limit-left",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": 5000,
+        "type": "integer"
+      }
+    },
+    {
+      "category": "plan-gating",
+      "entity": "codebase-context",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "free-files-per-codebase",
+      "qualifiers": {
+        "plans": [
+          "free"
+        ]
+      },
+      "quote": "Files per codebase | 3,000",
+      "source": {
+        "content_sha256": "ec78b44d0c4f9fb2a21c1a9233da98cfdaaa8b205660fe71405daf972ee240fa",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-01-codebase-file-limit-right",
+        "visibility": "public"
+      },
+      "source_class": "live-pricing",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": 3000,
+        "type": "integer"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "164b0970f31b44ed40133766e7b12100fe04ac6063a32d346d6c665bacb6eea1",
+    "right.mdx": "ec78b44d0c4f9fb2a21c1a9233da98cfdaaa8b205660fe71405daf972ee240fa"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}
