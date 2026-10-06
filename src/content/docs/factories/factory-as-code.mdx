@@ -1,14 +1,14 @@
 ---
 title: Factory definition syntax
 description: >-
-  Look up every file and key in a factory definition: factory.yaml, agents,
-  automations, runners, benchmarks, scorers, skills, and webhooks.
+  Look up the files and public keys in a factory definition: factory.yaml,
+  agents, automations, runners, routers, benchmarks, scorers, skills, and webhooks.
 sidebar:
   label: "Factory definition"
 ---
 import { VARS } from '@data/vars';
 
-Every factory is defined by files: a `factory.yaml` plus directories of agents, automations, runners, benchmarks, scorers, skills, and webhooks, versioned in a Git repository. The files are the source of truth — when they change, Warp updates the factory to match.
+Every factory is defined by files: a `factory.yaml` plus directories of agents, automations, runners, model routers, benchmarks, scorers, skills, and webhooks, versioned in a Git repository. The files are the source of truth — when they change, Warp updates the factory to match.
 
 Definition files are YAML and Markdown. Keys are case-sensitive.
 
@@ -67,7 +67,7 @@ Warp publishes the definition format as JSON Schema documents for editor complet
 * `https://app.warp.dev/api/v1/factory-files/schemas/v1alpha1` - Every `v1alpha1` document in one bundle, keyed by document name.
 * `https://app.warp.dev/api/v1/factory-files/schemas/v1alpha1/<document>` - One document on its own, usable directly as a schema reference.
 
-There is one document per file kind: `factory.schema.json` for `factory.yaml`; `agent.schema.json`, `automation.schema.json`, and `scorer.schema.json` for the frontmatter of the corresponding Markdown files; `runner.schema.json`, `webhook.schema.json`, `benchmark_suite.schema.json`, and `benchmark_suite_task.schema.json` for the YAML files; and `common.schema.json` for the definitions the others share.
+There is one document per file kind: `factory.schema.json` for `factory.yaml`; `agent.schema.json`, `automation.schema.json`, and `scorer.schema.json` for the frontmatter of the corresponding Markdown files; `runner.schema.json`, `router.schema.json`, `webhook.schema.json`, `benchmark_suite.schema.json`, and `benchmark_suite_task.schema.json` for the YAML files; and `common.schema.json` for the definitions the others share.
 
 Editors with a YAML language server can read a document from its URL, for completion and inline validation as you type. In VS Code with the YAML extension, add the reference as a comment on the file's first line:
 
@@ -98,6 +98,8 @@ automations/
     automation.md
 runners/
   linux-build.yaml
+routers/
+  by-task.yaml
 benchmarks/
   pull-request-review/
     suite.yaml
@@ -151,11 +153,13 @@ Optional. Whose credentials the factory's runs execute with: `EXECUTOR` (the pri
 
 ### `codeForges`
 
-Optional. The code hosts enabled for the factory: `GITHUB` and `GITLAB`. Omit this key to use the factory's existing code host. To use repositories from both hosts, list both values and set `codeForge` on every repository. An empty `codeForges` list requires an empty `repositories` list and creates a factory with no code host.
+Optional. The code hosts enabled for the factory: `GITHUB`, `GITLAB`, and `AZURE_DEVOPS`. Omit this key to keep the factory's existing code hosts. To use repositories from more than one host, list each value and set `codeForge` on every repository. An empty `codeForges` list requires an empty `repositories` list and creates a factory with no code host.
 
 ### `repositories`
 
-Required. The repositories the factory works in. Each entry requires `owner` and `name`; an optional `codeForge` selects `GITHUB` or `GITLAB`. Omit `codeForge` to use the factory's primary code host. When [`codeForges`](#codeforges) lists both hosts, every repository must declare `codeForge`.
+Required. The repositories the factory works in. Each entry requires `owner` and `name`; an optional `codeForge` selects `GITHUB`, `GITLAB`, or `AZURE_DEVOPS`. Omit `codeForge` to use the factory's primary code host. When [`codeForges`](#codeforges) lists more than one host, every repository must declare `codeForge`.
+
+Set `deferred: true` to attach a repository without preparing it for every run. Warp still prepares a deferred repository when an agent or automation lists it in `required_repos`, or when a run adds it explicitly.
 
 ```yaml
 codeForges:
@@ -169,6 +173,10 @@ repositories:
     owner: acme/platform
     name: deployment-config
 ```
+
+### `benchmarkRepoSubstitutions`
+
+Optional. Replaces a GitHub repository from the factory's scope with an external GitHub repository when a benchmark trial prepares its starting state. Each entry has `source` and `target` objects with `codeForge`, `owner`, and `name`. The source must belong to the factory, and the target must not.
 
 ### `secrets`
 
@@ -202,29 +210,38 @@ cloudProviders:
 
 ### `integrations`
 
-Optional. The integration providers attached to the factory. `type` accepts `slack`, `linear`, or `jira`. Use `linear.teamIds` or `jira.projectKeys` to limit the teams or projects available to the factory. Declare at most one issue tracker: `linear` and `jira` are mutually exclusive, and omitting a tracker is also valid. GitHub is not declared here; repository access comes from `repositories` and the connected GitHub App.
+Optional. The integration providers attached to the factory. Supported types include `slack`, `microsoft-teams`, `linear`, and `jira`. Declare at most one issue tracker: `linear` and `jira` are mutually exclusive, and omitting a tracker is also valid. Code-forge access comes from `repositories`, not this list.
 
 ```yaml
 integrations:
   - type: slack
   - type: linear
-    linear:
-      teamIds:
-        - LINEAR_TEAM_ID
 ```
 
-For Linear, `linear.teamIds` limits issue discovery and routing to those team IDs. Omit it to include every team in the connected Linear workspace. For Jira, `jira.projectKeys` provides the equivalent scope; omit it to include every project on the connected Jira site.
+For Slack and Microsoft Teams, `autoRespondToThreadReplies` controls whether eligible plain replies in an existing factory thread can continue work without another mention. It defaults to `true`.
 
 ```yaml
 integrations:
-  - type: jira
-    jira:
-      projectKeys:
-        - ENG
-        - OPS
+  - type: slack
+    slack:
+      autoRespondToThreadReplies: false
 ```
 
+The legacy `linear.teamIds` and `jira.projectKeys` settings are accepted when reading older definitions, but they no longer control issue discovery. Scope Linear and Jira events with automation filters instead.
+
 The legacy `providers` key is accepted when reading older definitions. Use `cloudProviders`; when Warp rewrites the definition, it emits `cloudProviders`.
+
+### `scorerDefaults`
+
+Optional. Sets `runner`, `secrets`, and `mcpServers` for every file-defined scorer. A scorer can override any of these values.
+
+### `selfImprovement`
+
+Optional. Configures scheduled self-improvement for a GitHub-backed factory:
+
+* `failedRunThreshold` - Distinct scored failures per agent required before a scheduled self-improvement run. Use a value from 1 through 50, or omit it for the server default.
+* `reviewerType` - The pool used to request one reviewer: `admins` (the default), `team`, `custom`, or `none`.
+* `reviewerEmails` - Active members of the factory's team to use when `reviewerType` is `custom`.
 
 ### `agentDefaults`
 
@@ -291,7 +308,7 @@ MCP servers for agents that don't declare their own, in the same form as [`mcpSe
 
 ### `agentDefaults.workerHost`
 
-Where runs execute: `warp` for Warp-hosted compute, or the ID of a connected [self-hosted worker](/factories/self-hosting/). Configure the worker's Docker, Kubernetes, or Direct backend on the worker itself; the factory definition selects the worker and a compatible runner.
+Where runs execute: `warp` for Warp-hosted compute, or the ID of a connected [self-hosted worker](/factories/self-hosting/). Omit the key to use the workspace default. At the agent or automation level, set it to `null` or an empty string to clear an inherited host and return to the workspace default. Configure the worker's Docker, Kubernetes, or Direct backend on the worker itself; the factory definition selects the worker and runner.
 
 ### `agentDefaults.computerUseModel`
 
@@ -343,7 +360,10 @@ The frontmatter accepts:
 * `description` - Optional. What the agent does.
 * [`agentType`](#agenttype) - Optional. The agent's role.
 * `credentialStrategy` - Optional. Overrides the factory-level [`credentialStrategy`](#credentialstrategy) for this agent's runs.
+* `spawnableBy` - Optional. The factory agents allowed to start this agent. Omit it to allow only the foreman, use an empty list to allow none, or list the exact agent names that can start it.
 * `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel` - Optional. The same keys as [`agentDefaults`](#agentdefaults); a key declared here overrides the default for this agent.
+* `idleTimeoutMinutes` - Optional. How long a completed session remains available for follow-up, from 1 through 60 minutes.
+* `required_repos` - Optional. Repositories that Warp prepares for every run by this agent. Each entry uses `owner`, `name`, and, when needed to disambiguate the same repository across hosts, `codeForge`.
 
 ### `agentType`
 
@@ -382,16 +402,17 @@ Required. One or more events that start runs. Each trigger declares a `provider`
 
 The providers and their events:
 
-* `github` - `check_run_rerequested`, `check_suite_completed`, `check_suite_rerequested`, `issue_assigned`, `issue_created`, `issue_labeled`, `issue_mentioned`, `pull_request_assigned`, `pull_request_closed`, `pull_request_labeled`, `pull_request_mentioned`, `pull_request_merged`, `pull_request_opened`, `pull_request_ready`, `pull_request_reopened`, `pull_request_review_requested`, `pull_request_review_submitted`, `pull_request_synchronized`, `push`, `workflow_run_completed`
+* `azure_devops` - `pull_request_closed`, `pull_request_commented`, `pull_request_created`, `pull_request_mentioned`, `pull_request_merged`, `pull_request_updated`, `push`, `work_item_assigned`, `work_item_created`, `work_item_labeled`, `work_item_mentioned`
+* `github` - `check_run_rerequested`, `check_suite_completed`, `check_suite_rerequested`, `issue_assigned`, `issue_commented`, `issue_created`, `issue_labeled`, `issue_mentioned`, `pull_request_assigned`, `pull_request_closed`, `pull_request_commented`, `pull_request_labeled`, `pull_request_mentioned`, `pull_request_merged`, `pull_request_opened`, `pull_request_ready`, `pull_request_reopened`, `pull_request_review_requested`, `pull_request_review_submitted`, `pull_request_synchronized`, `push`, `workflow_run_completed`
 * `gitlab` - `bot_mentioned`, `merge_request`, `push`
 * `linear` - `agent_session_created`, `comment_created`, `issue_assigned`, `issue_created`, `issue_labeled`, `issue_state_changed`
 * `jira` - `agent_session_created`, `issue_created`, `issue_labeled`, `status_changed`
-* `slack` - `app_mention`, `member_joined_channel`, `message_dm`, `message_posted`, `reaction_added`
+* `slack` - `app_mention`, `member_joined_channel`, `message_dm`, `message_im`, `message_mpim`, `message_posted`, `reaction_added`
 * `schedule` - `cron_fired`
 * `webhook` - `received`
 * `factory` - `work_item_stage_changed`
 
-Slack, Linear, and Jira triggers require the matching [integration](/platform/integrations/) to be connected. GitHub triggers work through the factory's `repositories`, and GitLab triggers through the group connected to your workspace — see the [GitLab integration](/factories/integrations/gitlab/). `webhook` triggers listen to [custom webhooks](/factories/webhooks/) declared under [`webhooks/`](#webhooksnameyaml).
+Slack, Linear, and Jira triggers require the matching [integration](/platform/integrations/) to be connected. Code-forge triggers use the factory's repositories and provider connection; see the [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), and [Azure DevOps](/factories/integrations/azure-devops/) integration guides. `webhook` triggers listen to [custom webhooks](/factories/webhooks/) declared under [`webhooks/`](#webhooksnameyaml).
 
 ### `triggers[].filter`
 
@@ -402,6 +423,7 @@ A `webhook` trigger with the `received` event requires `webhook_ids` in its filt
 The published trigger catalog currently uses these filter keys across its provider and event combinations:
 
 * Factory: `stages`.
+* Azure DevOps: `assignees`, `authors`, `base_branches`, `branches`, `labels`, `mentioned`, `repos`, `source_repos`, and `work_item_types`.
 * GitHub: `assignees`, `authors`, `baseBranches`, `base_branches`, `branches`, `conclusions`, `labels`, `mentioned`, `paths`, `prNumbers`, `pr_numbers`, `repos`, `review_states`, `reviewer_teams`, `reviewers`, and `workflows`.
 * GitLab: `actions`, `base_branches`, `branches`, `mentioned`, and `repos`.
 * Jira: `keywords`, `labels`, `project_keys`, and `status_ids`.
@@ -439,7 +461,7 @@ triggers:
 
 ### Execution overrides
 
-An automation may also declare `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, and `computerUseModel` (the same keys as [`agentDefaults`](#agentdefaults)) to override the target agent's settings for the runs it starts.
+An automation may also declare `displayName`, plus `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel`, `idleTimeoutMinutes`, and `required_repos`. Execution settings override the target agent for runs this automation starts. Automation `required_repos` entries are added to the target agent's required repositories.
 
 ## `runners/<name>.yaml`
 
@@ -469,9 +491,30 @@ Optional. The compute size, as `vcpus` and `memoryGb`. Omit it to take the works
 
 ### `platform`
 
-The operating system and architecture. `os` is `linux` (the default) or `macos`, and `arch` is `x86_64` (the default on Linux) or `aarch64` (the only option on macOS). Linux runners require `linux.dockerImage`, the container image the sandbox boots, so every Linux runner declares a `platform` section. macOS runners accept an optional `mac.version` (`"14"`, `"15"`, `"26"`, or `"27"`; quote it, and it defaults to `"26"`).
+The operating system and architecture. `os` is `linux` (the default), `macos`, or `windows`. `arch` is `x86_64` (the default on Linux and the only option on Windows) or `aarch64` (supported on Linux and required on macOS). Linux runners require `linux.dockerImage`, the container image the sandbox boots, so every Linux runner declares a `platform` section. macOS runners accept an optional `mac.version` (`"14"`, `"15"`, `"26"`, or `"27"`; quote it, and it defaults to `"26"`).
 
 For a private Linux image, set `linux.registryCredentialSecretName` to the name of a managed `docker_registry` secret. The secret's registry host must match the host in `linux.dockerImage`.
+
+### `failureSessionRetentionMinutes`
+
+Optional. Keeps a failed session open for inspection for 1 through 60 minutes. Omit it to use the environment's setting.
+
+## `routers/<name>.yaml`
+
+Optional. Each file defines a factory-owned custom model router. Use the file name as a value anywhere the definition accepts a model. `name` is an optional display label, `type` is `complexity` or `prompt`, and `default` is the concrete model to use when no route matches.
+
+```yaml title="routers/by-task.yaml"
+name: By task
+type: prompt
+default: claude-4-6-sonnet-high
+routing:
+  - description: Routine documentation changes
+    model: claude-4-5-haiku
+  - description: Complex implementation or debugging
+    model: claude-4-8-opus-high
+```
+
+For `type: complexity`, `routing` maps `easy`, `medium`, and `hard` to concrete models. For `type: prompt`, `routing` is an ordered list of `description` and `model` pairs. Router targets must be concrete supported models, not Auto models or other routers. See [custom model routers](/agents/inference/custom-routers/) for routing behavior.
 
 ## `benchmarks/<suite-slug>/suite.yaml`
 
@@ -546,6 +589,14 @@ Required. The requirements the Correctness Scorer uses to evaluate each trial.
 
 Optional. The ID of the prior run the task came from. This records provenance only and can refer to a deleted run.
 
+### `tags`
+
+Optional. An ordered list of labels for the task.
+
+### `linearSeed`
+
+Optional. JSON-compatible starting state for the isolated Linear workspace used by the benchmark trial.
+
 ### `startingRepoRefs`
 
 Optional. The GitHub or GitLab repositories and exact commits the task starts from. Each entry can use `github.com:OWNER/REPO@COMMIT_SHA` or `gitlab.com:OWNER/REPO@COMMIT_SHA`. It can instead use an object with `codeForge` (`GITHUB` or `GITLAB`), `owner`, `repo`, and `ref`. `COMMIT_SHA` and `ref` must be full 40-character commit SHAs, not branches or tags. Omit this key to use the agent's normal checkout defaults.
@@ -584,7 +635,17 @@ Optional. A short summary of what the scorer checks.
 
 ### `agents`
 
-Required. The agents whose runs this scorer evaluates, as a list of one or more agent names. Each name matches an agent defined under [`agents/`](#agentsnameagentmd).
+Required. The agents whose runs this scorer evaluates. A string names one agent and scores that run alone. To include an agent's child runs as evidence, use an object with `name` and `includeDescendants: true`.
+
+```yaml
+agents:
+  - name: foreman
+    includeDescendants: true
+```
+
+### Scorer execution settings
+
+Optional `runner`, `secrets`, and `mcpServers` keys override the factory's `scorerDefaults` for this scorer. Use `scorerDefaults` in `factory.yaml` to set those values for every file-defined scorer.
 
 ### `output`
 

@@ -234,6 +234,38 @@ Use `kubernetesBackend.setupCommand` (Helm value) or `backend.kubernetes.setup_c
 
 ---
 
+## Protect active task pods from disruption
+
+Terminating the worker pod normally leaves active task Jobs running. Evicting a task pod interrupts the run and deletes its pod-local `emptyDir` workspace. Configure node lifecycle tooling to avoid voluntary disruption of active task pods.
+
+For Karpenter, add its pod-level disruption annotation to every task Job through the Helm values:
+
+```yaml title="values.yaml"
+kubernetesBackend:
+  extraAnnotations:
+    karpenter.sh/do-not-disrupt: "true"
+```
+
+The annotation blocks Karpenter consolidation. It blocks drift only when the NodePool omits `terminationGracePeriod`. Expiration, interruption, node repair, and manual deletion can still terminate the node. With `terminationGracePeriod`, Karpenter can terminate blocking pods when the period ends. Review [Karpenter's pod-level disruption controls](https://karpenter.sh/docs/concepts/disruption/#pod-level-controls).
+
+A PodDisruptionBudget (PDB) constrains tools that use the Kubernetes Eviction API. It protects a group of pods, not an individual task's process or workspace. Direct deletion, kubelet pressure eviction, node failure, and controllers that bypass the Eviction API can still terminate a task.
+
+For other node lifecycle tools, use the equivalent protection and verify which disruption paths bypass it. A replacement pod cannot resume an interrupted run.
+
+---
+
+## Plan capacity and scheduling
+
+Task pods need capacity for their configured requests before the worker's unschedulable timeout expires.
+
+* Set `worker.maxConcurrentTasks` to a finite value that matches cluster capacity. The default, `0`, does not cap concurrency.
+* Set task CPU and memory through a runner instance shape or the `task` container in `kubernetesBackend.podTemplate`. Reserve capacity for init containers, DaemonSets, and workload spikes.
+* Set `kubernetesBackend.unschedulableTimeout` longer than the slowest expected node provisioning time. The default is `30s`; `0s` disables the check.
+* Use `worker.nodeSelector`, `worker.tolerations`, and `worker.affinity` for the worker Deployment. Use the equivalent fields in `kubernetesBackend.podTemplate` for task pods.
+* A toleration makes a pod eligible for a tainted node; it does not reserve capacity. Pair dedicated-node tolerations with matching selectors or affinity and autoscaler capacity.
+
+---
+
 ## Metrics
 
 The Helm chart includes built-in support for exporting OpenTelemetry metrics from the worker. Enable metrics by setting `metrics.enabled=true`:

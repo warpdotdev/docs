@@ -134,7 +134,7 @@ Replace `NAMESPACE` with the task namespace, `TASK_POD` with the task pod name, 
 * **`ErrImagePull`, `ImagePullBackOff`, or `InvalidImageName`:** Follow [Image pull failures](#image-pull-failures). Preflight does not pull every task image.
 * **`CreateContainerConfigError` or `FailedMount`:** Events name the missing Secret, ConfigMap, service account, key, or volume. Verify that it exists in the task namespace.
 * **Init container failure:** Check each init container's status and logs. The Warp sidecar-loading init container runs as root unless native image volumes are enabled. Custom init containers must finish before the task starts.
-* **`Evicted`, `DeadlineExceeded`, or exit code `143`:** Check node pressure, lifecycle-tool events, the Job deadline, and termination events. A replacement pod cannot recover the task's `emptyDir` workspace. See [protecting active task pods from voluntary disruption](/platform/self-hosting/managed-kubernetes/#protect-active-task-pods-from-disruption).
+* **`Evicted`, `DeadlineExceeded`, or exit code `143`:** Check node pressure, lifecycle-tool events, the Job deadline, and termination events. A replacement pod cannot recover the task's `emptyDir` workspace. See [protecting active task pods from voluntary disruption](/factories/self-hosting/managed-kubernetes/#protect-active-task-pods-from-disruption).
 * **The task cannot reach a dependency:** Test DNS, TLS, and the destination from the task pod. Worker connectivity to Warp does not test the task's network policies, service mesh, proxy, or dependency egress.
 
 The worker API key authenticates the worker to Warp; it is not a task credential. Provide task credentials through your Secret integration and pod template.

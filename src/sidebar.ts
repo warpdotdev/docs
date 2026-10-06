@@ -55,8 +55,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Terminal',
 					items: [
-						'terminal/input/universal-input',
-						'terminal/input/classic-input',
 						{
 							label: 'Blocks',
 							collapsed: true,
@@ -284,7 +282,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'agents/local-agents/interacting-with-agents', label: 'Overview' },
 								'agents/local-agents/interacting-with-agents/terminal-and-agent-modes',
 								{ slug: 'agents/local-agents/interacting-with-agents/prompt-queueing', label: 'Prompt queueing' },
-                { slug: 'agents/local-agents/interacting-with-agents/agent-questions', label: 'Agent questions' },
+								{ slug: 'agents/local-agents/interacting-with-agents/agent-questions', label: 'Agent questions' },
 								{ slug: 'agents/local-agents/interacting-with-agents/conversation-forking', label: 'Conversation forking' },
 								{ slug: 'agents/local-agents/code-diffs', label: 'Code diffs' },
 								'agents/local-agents/interacting-with-agents/voice',
@@ -312,6 +310,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								'agents/inference/bring-your-own-api-key',
 								{ slug: 'agents/inference/custom-inference-endpoint', label: 'Custom inference endpoint' },
 								{ slug: 'agents/inference/grok-subscription', label: 'SuperGrok subscription' },
+								{ slug: 'agents/inference/chatgpt-subscription', label: 'ChatGPT subscription' },
 							],
 						},
 						{ slug: 'agents/local-agents/interactive-code-review', label: 'Interactive code review' },
@@ -411,38 +410,38 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// and where it runs.
 				label: 'Factory configuration',
 				items: [
-					{ slug: 'factories/factory-agents', label: 'Factory agents' },
-					{ slug: 'factories/factory-skills', label: 'Factory skills' },
-					// Moved from 'Integrations' (was 'Automation filters'): this page is
-					// now the Automations primitive's conceptual home, parallel to Factory
-					// agents and Factory skills, not just a filters reference.
-					{ slug: 'factories/automations', label: 'Factory automations' },
-					{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
-					{
-						label: 'Infrastructure',
-						items: [
-							{ slug: 'factories/infrastructure-and-security', label: 'Overview' },
-							{ slug: 'factories/deployment-patterns', label: 'Deployment patterns' },
-							{ slug: 'factories/warp-hosting', label: 'Warp-hosted execution' },
-							{ slug: 'factories/runners', label: 'Runners' },
-							{
-								label: 'Managed self-hosting',
-								collapsed: true,
-								items: [
-									{ slug: 'factories/self-hosting', label: 'Overview' },
-									{ slug: 'factories/self-hosting/quickstart', label: 'Quickstart' },
-									{ slug: 'factories/self-hosting/managed-docker', label: 'Docker backend' },
-									{ slug: 'factories/self-hosting/managed-kubernetes', label: 'Kubernetes backend' },
-									{ slug: 'factories/self-hosting/managed-direct', label: 'Direct backend' },
-									'factories/self-hosting/monitoring',
-									{ slug: 'factories/self-hosting/reference', label: 'Worker reference' },
-									'factories/self-hosting/troubleshooting',
+						{ slug: 'factories/factory-agents', label: 'Factory agents' },
+						{ slug: 'factories/factory-skills', label: 'Factory skills' },
+						// Moved from 'Integrations' (was 'Automation filters'): this page is
+						// now the Automations primitive's conceptual home, parallel to Factory
+						// agents and Factory skills, not just a filters reference.
+						{ slug: 'factories/automations', label: 'Factory automations' },
+						{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
+						{
+							label: 'Infrastructure',
+							items: [
+								{ slug: 'factories/infrastructure-and-security', label: 'Overview' },
+								{ slug: 'factories/deployment-patterns', label: 'Deployment patterns' },
+								{ slug: 'factories/warp-hosting', label: 'Warp-hosted execution' },
+								{ slug: 'factories/runners', label: 'Runners' },
+								{
+									label: 'Managed self-hosting',
+									collapsed: true,
+									items: [
+										{ slug: 'factories/self-hosting', label: 'Overview' },
+										{ slug: 'factories/self-hosting/quickstart', label: 'Quickstart' },
+										{ slug: 'factories/self-hosting/managed-docker', label: 'Docker backend' },
+										{ slug: 'factories/self-hosting/managed-kubernetes', label: 'Kubernetes backend' },
+										{ slug: 'factories/self-hosting/managed-direct', label: 'Direct backend' },
+										'factories/self-hosting/monitoring',
+										{ slug: 'factories/self-hosting/reference', label: 'Worker reference' },
+										'factories/self-hosting/troubleshooting',
+									],
+								},
 								],
 							},
 						],
 					},
-				],
-				},
 				{
 					label: 'Code forges',
 					items: [
@@ -450,6 +449,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						// separately from the services that route work into a factory.
 						{ slug: 'factories/integrations/github', label: 'GitHub' },
 						{ slug: 'factories/integrations/gitlab', label: 'GitLab' },
+						{ slug: 'factories/integrations/azure-devops', label: 'Azure DevOps' },
 						{ slug: 'factories/code-forges/other-code-forges', label: 'Other code forges' },
 					],
 				},
@@ -479,6 +479,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
 						{ slug: 'factories/integrations/slack', label: 'Slack' },
+						{ slug: 'factories/integrations/teams', label: 'Microsoft Teams' },
 						{ slug: 'factories/integrations/linear', label: 'Linear' },
 						{ slug: 'factories/integrations/jira', label: 'Jira' },
 					],
@@ -612,6 +613,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/faqs', label: 'Cloud agent FAQs' },
 						{ slug: 'platform/unmanaged-execution', label: 'Unmanaged execution' },
 						{ slug: 'platform/execution-security', label: 'Execution security' },
+						{ slug: 'platform/data-storage', label: 'Self-hosted agent data storage' },
 					],
 				},
 				{
@@ -782,6 +784,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Team management',
 					items: [
+						{ slug: 'enterprise/team-management/workspaces', label: 'Workspaces' },
 						'enterprise/team-management/teams',
 						{ slug: 'enterprise/team-management/admin-panel', label: 'Admin panel' },
 						{ slug: 'enterprise/team-management/roles-and-permissions', label: 'Roles and permissions' },

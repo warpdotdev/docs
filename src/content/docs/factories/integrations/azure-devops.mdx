@@ -1,0 +1,107 @@
+---
+title: Connecting Azure DevOps to your factory
+description: >-
+  Connect Azure DevOps to a factory so work items, pull requests, comments,
+  and repository changes can start factory runs.
+sidebar:
+  label: "Azure DevOps"
+---
+import { VARS } from '@data/vars';
+
+Connect an Azure DevOps organization and project to give a factory access to selected repositories. Azure DevOps events can then start factory automations, and runs authenticate with a dedicated identity for that factory.
+
+This native integration supports Azure DevOps Services. To connect Azure DevOps Server or to configure a standalone cloud agent, see the [Azure DevOps integration for cloud agents](/platform/integrations/azure-devops/).
+
+## Prerequisites
+
+* **Azure DevOps access** - Your Microsoft account must have access to the organization and project you want to connect.
+* **Administrators for first-time setup** - A Microsoft Entra administrator and an Azure DevOps Project Collection Administrator must approve the Azure DevOps Manager once for the organization. One person can complete both approvals if they hold both roles.
+* **Azure DevOps Basic seats** - The Azure DevOps Manager can consume one Basic seat, and every factory identity can consume another.
+
+## Connect Azure DevOps to a factory
+
+1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, click **+** next to **Factories** to open the setup wizard.
+2. Under **Connect your code hosts**, click **Connect** next to **Azure DevOps**, then complete Microsoft authorization.
+3. Choose one Azure DevOps organization and one project for the factory.
+4. If the organization doesn't have an active Azure DevOps Manager, complete its one-time setup or send the setup request to the administrators listed in [Prerequisites](#prerequisites). A person completing the setup must acknowledge the possible Basic-seat usage. If you request setup from someone else, Warp waits to create the factory until the Manager is active.
+5. On **Set up your factory**, select the repositories the factory can access. All selected repositories must belong to the organization and project you chose.
+6. Complete the remaining setup steps. After Warp creates the factory, it begins provisioning the factory's Azure DevOps identity.
+
+Identity provisioning creates a Microsoft Entra application and service principal, configures a federated credential, assigns Azure DevOps Basic access, and grants access to the selected repositories. You can retry an incomplete setup from the factory's settings without creating a second identity.
+
+## Supported triggers
+
+Create or edit an automation from the factory dashboard to start runs from these Azure DevOps events:
+
+| Source | Supported activity |
+| --- | --- |
+| Work items | Created, assigned, labeled, or mentioned |
+| Pull requests | Created, merged, closed, updated, commented on, or mentioned |
+
+A factory definition also accepts the Azure DevOps `push` event. The automation editor doesn't currently offer this event.
+
+### Automation filters
+
+The available filters depend on the event:
+
+| Event | Filters |
+| --- | --- |
+| Work item created, assigned, or labeled | Work item types, labels, assignees, and authors |
+| Work item mentioned | Mentioned identities |
+| Pull request created, merged, closed, updated, or commented on | Repositories and target branches |
+| Pull request mentioned | Repository and mentioned identities |
+| Push in a definition file | Repositories and branches |
+
+Definition files also accept `source_repos` for pull-request events. Use it to match the repository that contains the pull request's source branch.
+
+For example, this definition starts a run when a pull request is created against `main` in one repository:
+
+```markdown title="automations/review-azure-devops-pr/automation.md"
+---
+enabled: true
+agent: reviewer
+triggers:
+  - provider: azure_devops
+    event: pull_request_created
+    filter:
+      repos: [contoso/Payments/api]
+      base_branches: [main]
+---
+
+Review the pull request. Post a concise summary and any blocking findings.
+```
+
+For the complete automation-file schema, see [triggers in a factory definition](/factories/factory-as-code/#triggers).
+
+## Permissions and identity
+
+The factory's selected repositories determine what its dedicated identity can access. Automation filters decide when work starts, not what a run can reach.
+
+The identity uses federated authentication instead of a stored personal access token. Pull requests and other repository changes created by the factory use this identity rather than the account of the person whose activity started the run.
+
+The Azure DevOps Manager belongs to the organization, not to one factory. After its one-time approval, Warp uses it to provision and maintain the dedicated identity for each factory connected to that organization.
+
+## Troubleshooting
+
+### Your organization or project isn't listed
+
+Confirm that the Microsoft account you authorized can access the organization and project. Return to **Connect your code hosts**, refresh the Azure DevOps connection, and try again.
+
+### The Azure DevOps Manager is pending
+
+Complete both the Microsoft Entra administrator approval and the Azure DevOps Project Collection Administrator approval. If you requested setup from someone else, wait for that request to be completed before provisioning the factory identity.
+
+### Identity provisioning fails
+
+Retry provisioning from the factory's settings. Warp keeps the resources that were created successfully and reuses them on the next attempt. The progress list identifies the failed step.
+
+### An event doesn't start work
+
+Confirm that the automation is enabled and uses the expected event. Check every filter, including the repository, target branch, work item type, label, assignee, author, or mentioned identity.
+
+## Related pages
+
+* [**Factory automations**](/factories/automations/) - Configure triggers, filters, agents, and run settings.
+* [**Definitions as code**](/factories/factory-as-code/) - Manage Azure DevOps repositories and automations in version-controlled files.
+* [**Connect your factory**](/factories/connect-your-factory/) - Choose the other sources that route work into the factory.
+* [**Azure DevOps for standalone cloud agents**](/platform/integrations/azure-devops/) - Clone Azure DevOps repositories with a personal access token outside Warp Factories.
