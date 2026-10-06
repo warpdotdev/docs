@@ -23,7 +23,8 @@ The following flags are available when starting the worker.
 * `--config-file` — Path to a YAML [config file](#config-file). CLI flags take precedence over config file values.
 * `--backend` — Backend type: `docker` (default), `kubernetes`, or `direct`. See [Managed: Kubernetes](/platform/self-hosting/managed-kubernetes/) and [Managed: Direct](/platform/self-hosting/managed-direct/) for backend-specific setup.
 * `--log-level` — Log verbosity. One of `debug`, `info`, `warn`, `error`. Defaults to `info`.
-* `--no-cleanup` — Keep task containers, Kubernetes Jobs, or workspace directories after execution instead of removing them. Useful for debugging failed tasks.
+* `--no-cleanup` — Keep task containers, Kubernetes Jobs, or workspace directories after execution instead of removing them. For Direct tasks that use per-task workspaces, this also skips `teardown_command`. Useful for debugging failed tasks.
+* `--target-dir` — Shared working directory for all Direct backend tasks. When set, the worker does not create or remove per-task workspace directories. This flag overrides `backend.direct.target_dir` in the config file.
 * `-v` / `--volumes` — Mount host directories into task containers (Docker backend only). Format: `HOST_PATH:CONTAINER_PATH` or `HOST_PATH:CONTAINER_PATH:MODE` (where MODE is `ro` or `rw`). Can be specified multiple times.
 * `-e` / `--env` — Set environment variables for tasks. Format: `KEY=VALUE` (explicit value) or `KEY` (pass through from host environment). Can be specified multiple times.
 * `--max-concurrent-tasks` — Maximum number of tasks to run concurrently. Defaults to `0` (unlimited). When set, additional tasks wait until a slot is available.

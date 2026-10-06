@@ -15,8 +15,8 @@ The worker creates a task workspace, then calls the configured hooks:
 1. `setup_command` adds a worktree at `OZ_WORKSPACE_ROOT/repo` from a shared base clone.
 2. The `oz` CLI starts with `OZ_WORKSPACE_ROOT` as its working directory. `REPO_ROOT` points to the checkout but does not change the working directory.
 3. You must modify each task prompt or loaded agent instruction to keep all repository commands and edits under `repo/`.
-4. `teardown_command` removes the worktree and its task branch.
-5. The worker removes the remaining task workspace.
+4. When cleanup is enabled, `teardown_command` removes the worktree and its task branch.
+5. When cleanup is enabled, the worker removes the remaining task workspace.
 
 The worktree belongs under the workspace rather than at `OZ_WORKSPACE_ROOT` itself. Before the setup hook runs, the worker has already created the workspace and a temporary environment file inside it, so Git cannot turn that directory directly into a worktree.
 
@@ -29,7 +29,7 @@ Direct backend tasks share the worker host's filesystem, network, processes, and
 ### Prerequisites
 
 * **A Direct backend worker host** - Install the worker and the {VARS.WARP_AGENT_CLI} as described in [Managed: Direct backend](/platform/self-hosting/managed-direct/).
-* **Git credentials for the monorepo** - Configure a non-interactive credential helper or SSH key for the worker service account.
+* **Git credentials for the monorepo** - Use an SSH key in the worker service account's home directory, a system-level Git credential helper, or a credential helper in the base clone's repository config. The Direct backend sets `GIT_CONFIG_GLOBAL` to a task-local file, so helpers configured only in the service account's normal global Git config are unavailable to tasks.
 * **A base clone path** - Choose a dedicated path outside `workspace_root`, such as `/srv/warp/repos/product-base`. The worker account needs write access because Git stores worktree metadata in the base clone.
 
 Create a clone without a checked-out working tree:
@@ -148,7 +148,21 @@ oz agent run-cloud \
   --prompt "Work only in the repo/ directory. Update the authentication package tests and open a pull request."
 ```
 
-The run starts in its task workspace with the monorepo available at `repo/`, and the prompt directs the agent into that checkout. During the run, `git -C "$REPO_ROOT" worktree list` shows the isolated checkout and its `warp-agent/RUN_ID` branch. After the run, the worktree no longer appears in the base clone.
+The run starts in its task workspace with the monorepo available at `repo/`, and the prompt directs the agent into that checkout. Export the run ID returned by the CLI, then inspect the shared base clone from the worker host:
+
+```bash
+export RUN_ID="YOUR_RUN_ID"
+git -C "$MONOREPO_BASE" worktree list
+```
+
+During the run, the output includes the isolated checkout and its `warp-agent/$RUN_ID` branch. After a run with cleanup enabled, confirm that the checkout and local task branch are gone:
+
+```bash
+git -C "$MONOREPO_BASE" worktree list
+git -C "$MONOREPO_BASE" branch --list "warp-agent/$RUN_ID"
+```
+
+The worktree list no longer includes the task checkout, and the branch command prints no output. If you start the worker with `--no-cleanup` or set `cleanup: false`, the worker skips the teardown hook and preserves the task workspace. Run `/opt/warp/bin/teardown-worktree.sh` with `MONOREPO_BASE`, `OZ_WORKSPACE_ROOT`, and `OZ_RUN_ID` set for the retained run, then delete the retained workspace directory manually.
 
 ## Troubleshooting
 
