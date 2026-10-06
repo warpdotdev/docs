@@ -1,17 +1,17 @@
 ---
 title: Supported Shells
 description: >-
-  Warp supports bash, zsh, fish, PowerShell, and WSL2 across macOS, Windows,
-  and Linux.
+  Check which bash, zsh, fish, PowerShell, and WSL2 shells Warp supports on
+  macOS, Windows, and Linux.
 sidebar:
   label: "Supported shells"
 ---
 
-Warp supports bash, zsh, fish, and PowerShell (pwsh) across macOS, Windows, and Linux, loading your login shell by default. You can change the default shell per-session, customize each shell's configuration files and environment variables, and install additional shells like fish or PowerShell on macOS.
+Supported shells differ by platform. Warp loads your login shell when it is supported. You can change the default shell per session and customize each shell's configuration files and environment variables.
 
 ## Warp default shell
 
-Warp tries to load your login shell by default. Currently, Warp supports bash, fish, zsh, and PowerShell (pwsh). If your login shell is set to something else (e.g. Nushell) Warp will show a banner indicating it's not supported and load the default shells listed below:
+Warp tries to load your login shell by default. On macOS and Linux, Warp supports bash, fish, zsh, and PowerShell (pwsh). On Windows, use the [platform-specific list](#using-warp-with-shells-on-windows). If your login shell is not supported, Warp shows a banner and loads the default shell listed below:
 
 * On macOS, zsh is the default shell.
 * On Windows, PowerShell (pwsh) is the default shell.

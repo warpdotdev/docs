@@ -11,11 +11,13 @@ description: >-
 
 [Opening paragraph: what this concept is and its primary benefit. 1-3 sentences. Lead with what the reader gains from understanding it. Assume they arrived here directly, not from a parent page.]
 
+[DEFINE → SHOW → LINK: Any new product term gets one to three plain sentences, then one concrete example, before configuration detail or internals. See AGENTS.md → Define, show, link.]
+
 [BREVITY: Delete any section below you don't need for this page — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
 
 ## [Key concepts — sentence case, renamed to match the subject]
 
-[The main ideas or components the reader needs. Bold term + hyphen + description.]
+[The main ideas or components the reader needs. Bold term + hyphen + plain-language description. Add one short example when the term is jargon-heavy.]
 
 * **Concept A** - What it is and why it matters.
 * **Concept B** - What it is and why it matters.

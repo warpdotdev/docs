@@ -31,7 +31,7 @@ This page is a high-level overview.\
 For full API endpoint details, refer to the [**Agents API Reference**](/api). For schema definitions, see the SDK repos: [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript).
 :::
 
-To send work to a [Warp factory](/factories/), use the [factory API](/factories/factory-api/) to discover it and dispatch by UID instead of calling `POST /agent/run` with a foreman's `agent_identity_uid`. Everything on this page - follow-ups, cancellation, status - still applies once a factory run is dispatched.
+To send work to a [Warp factory](/factories/), use the [factory API](/factories/factory-api/) to discover it and dispatch by UID instead of calling `POST /agent/runs` with a foreman's `agent_identity_uid`. Everything on this page - follow-ups, cancellation, status - still applies once a factory run is dispatched.
 
 ### SDK overview
 
@@ -96,18 +96,45 @@ You can influence how an agent runs using AmbientAgentConfig, including:
 
 See the [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) or [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript) for the full configuration schema.
 
+#### Skill actions in conversation data
+
+The Conversation API returns skill loads as `read_skill` actions. When `input.bundled_skill_id` is present, it identifies a Warp-provided bundled reference. `input.skill_path` is the path used to resolve a skill, but doesn't prove ownership: file-based skills and path-referenced bundled skills, including skills from a remote host, can both use this field.
+
+The following stable, user-facing IDs are bundled directly with Warp:
+
+| Bundled skill ID | Purpose |
+| --- | --- |
+| `add-mcp-server` | Add an MCP server to Warp configuration. |
+| `change-keybinding` | Change or remove Warp keyboard shortcuts. |
+| `claude-api` | Build and maintain applications that use the Anthropic SDK. |
+| `create-skill` | Create, improve, and evaluate skills. |
+| `create-tab-config` | Create a Warp tab configuration. |
+| `factory-files` | Create and validate file-based Warp factory definitions. |
+| `factory-mcp` | Send work to a factory and collaborate through Factory MCP. |
+| `modify-settings` | View or change Warp settings using the bundled settings schema. |
+| `oz-platform` | Run, configure, and inspect cloud agents through the API and CLI. |
+| `pr-comments` | Fetch GitHub pull request review comments for the current branch. |
+| `tab-configs` | Look up the tab configuration schema and validation rules. |
+| `tui-migrate-setup` | Migrate supported settings into the Warp Agent CLI. |
+| `update-tab-config` | Update an existing Warp tab configuration. |
+| `warpctrl` | Control and inspect a running Warp app with Warp Control. |
+
+The catalog helps group usage across conversations; it isn't an availability manifest. Use each run's advertised skills for availability and its conversation's `read_skill` actions for invocation. The bundled set can vary by Warp release, release channel, enabled features, required files, and connected integrations.
+
+For example, `oz-platform`, `factory-files`, and `factory-mcp` are Warp-provided. `factory-mcp` appears only where Factory MCP is available, `tui-migrate-setup` is specific to the Warp Agent CLI, and connected integrations can add bundled IDs that aren't listed here.
+
 ---
 
 ### Key endpoints
 
 **The Agents API exposes these primary endpoints:**
 
-*   `POST /agent/run`
+*   `POST /agent/runs`
 
     Create a new agent run with a prompt and optional config and title. Returns run\_id and initial state.
 *   `GET /agent/runs`
 
-    List runs with pagination and filters for state, config\_name, model\_id, creator, source, and creation time.
+    List runs with pagination and filters for state, name, model\_id, creator, source, and creation time.
 *   `GET /agent/runs/{runId}`
 
     Fetch full details for a single run, including session link and resolved configuration.

@@ -58,8 +58,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Terminal',
 					items: [
-						'terminal/input/universal-input',
-						'terminal/input/classic-input',
 						{
 							label: 'Blocks',
 							collapsed: true,
@@ -321,6 +319,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								'agents/inference/bring-your-own-api-key',
 								{ slug: 'agents/inference/custom-inference-endpoint', label: 'Custom inference endpoint' },
 								{ slug: 'agents/inference/grok-subscription', label: 'SuperGrok subscription' },
+								{ slug: 'agents/inference/chatgpt-subscription', label: 'ChatGPT subscription' },
 							],
 						},
 						{ slug: 'agents/local-agents/interactive-code-review', label: 'Interactive code review' },
@@ -419,7 +418,21 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				],
 				},
 				{
+					label: 'Code forges',
+					items: [
+						// Keep these established URLs while grouping repository connections
+						// separately from the services that route work into a factory.
+						{ slug: 'factories/integrations/github', label: 'GitHub' },
+						{ slug: 'factories/integrations/gitlab', label: 'GitLab' },
+						{ slug: 'factories/integrations/azure-devops', label: 'Azure DevOps' },
+						{ slug: 'factories/code-forges/other-code-forges', label: 'Other code forges' },
+					],
+				},
+				{
 					// 'Integrations' per HYC (8/17), replacing 'Work intake'.
+					//
+					// Code forges have their own group above because repository access is
+					// distinct from a service that starts or routes factory work.
 					//
 					// The per-service pages are listed directly rather than in a nested
 					// Integrations subgroup, which would have rendered as
@@ -432,8 +445,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'factories/connect-your-factory', label: 'Connect your factory' },
 						{ slug: 'factories/integrations/slack', label: 'Slack' },
-						{ slug: 'factories/integrations/github', label: 'GitHub' },
-						{ slug: 'factories/integrations/gitlab', label: 'GitLab' },
+						{ slug: 'factories/integrations/teams', label: 'Microsoft Teams' },
 						{ slug: 'factories/integrations/linear', label: 'Linear' },
 						{ slug: 'factories/integrations/jira', label: 'Jira' },
 						// Custom webhooks connect any JSON-posting system, so they sit
@@ -659,11 +671,14 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/self-hosting/managed-kubernetes', label: 'Managed: Kubernetes' },
 						{ slug: 'platform/self-hosting/private-container-registry', label: 'Private container registry' },
 						{ slug: 'platform/self-hosting/managed-direct', label: 'Managed: Direct' },
+						{ slug: 'platform/self-hosting/direct-monorepo-worktrees', label: 'Direct: Monorepo worktrees' },
 						{ slug: 'platform/self-hosting/unmanaged', label: 'Unmanaged' },
+						{ slug: 'platform/self-hosting/external-orchestrators', label: 'External orchestrators' },
 						'platform/self-hosting/monitoring',
 						{ slug: 'platform/self-hosting/reference', label: 'Self-hosted worker reference' },
 						'platform/self-hosting/security-and-networking',
 						{ slug: 'platform/self-hosting/troubleshooting', label: 'Troubleshooting' },
+						{ slug: 'platform/data-storage', label: 'Data storage' },
 					],
 				},
 			],
@@ -838,6 +853,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				{
 					label: 'Team management',
 					items: [
+						{ slug: 'enterprise/team-management/workspaces', label: 'Workspaces' },
 						'enterprise/team-management/teams',
 						{ slug: 'enterprise/team-management/admin-panel', label: 'Admin panel' },
 						{ slug: 'enterprise/team-management/roles-and-permissions', label: 'Roles and permissions' },

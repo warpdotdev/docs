@@ -1,0 +1,51 @@
+{
+  "skill_name": "docs_consistency_audit",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Run a manual docs consistency bootstrap across the current docs, warp, and warp-server checkouts. Produce the Falconer benchmark scorecard and full audit artifacts, but do not edit docs or notify Slack.",
+      "expected_output": "A complete preflight, inventory, authority refresh, benchmark scorecard, full run artifact, and generated state tree with no docs edits or Slack post.",
+      "files": [],
+      "assertions": [
+        "The run remains detection-only.",
+        "The benchmark accounts for all 24 Falconer cases and negative controls.",
+        "Generated state passes schema and fingerprint validation.",
+        "Private authority paths and hashes do not appear in candidates, artifacts, state, or report text.",
+        "Every reportable finding has a valid full-context adjudication with exact public scope quotes."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Execute the scheduled docs consistency audit at the inactive UTC half of the Pacific DST schedule.",
+      "expected_output": "One explicit inactive-guard run-output line with no state read, state write, model call, or Slack post.",
+      "files": [],
+      "assertions": [
+        "The schedule guard exits before research.",
+        "No Slack message is posted.",
+        "No state changes are made."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "A required billing authority is unavailable during an incremental audit and one prior conflict is absent from the current extracted claims. Finish the run safely.",
+      "expected_output": "A partial or blocked artifact that records the missing authority, carries prior active findings forward, emits no resolved lifecycle transition, and sends at most one blocked-run Slack message.",
+      "files": [],
+      "assertions": [
+        "The missing authority is recorded.",
+        "No prior active finding becomes resolved.",
+        "At most one actionable Slack message is produced."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Start the daylight and standard paired schedules concurrently for the same active Pacific business date.",
+      "expected_output": "Exactly one invocation durably claims the Pacific date on the standing state branch and continues; every duplicate exits without extraction, state mutation, or Slack reporting.",
+      "files": [],
+      "assertions": [
+        "The date receipt is claimed and pushed before audit mutation.",
+        "A duplicate receipt or losing push race is a successful no-op.",
+        "Exactly one invocation can mutate state or produce a notification."
+      ]
+    }
+  ]
+}

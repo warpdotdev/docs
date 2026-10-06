@@ -10,10 +10,6 @@ import { VARS } from '@data/vars';
 
 Run the `oz-agent-worker` daemon with the **Direct backend** — tasks execute directly on the worker host without Docker or Kubernetes. The {VARS.WARP_AUTOMATION_PLATFORM} still orchestrates runs end to end (Slack, Linear, schedules, API, `oz agent run-cloud`); the worker just runs the agent in a per-task workspace on its own filesystem.
 
-:::note
-This page covers the [managed architecture](/platform/self-hosting/#managed-architecture) with the Direct backend. For container-based task isolation, see [Managed: Docker](/platform/self-hosting/managed-docker/) or [Managed: Kubernetes](/platform/self-hosting/managed-kubernetes/). For invocation-driven use cases, see [Unmanaged](/platform/self-hosting/unmanaged/).
-:::
-
 ## When to use the Direct backend
 
 * Neither Docker nor Kubernetes is available on the worker host.
@@ -37,11 +33,11 @@ The Direct backend does not provide per-task container isolation. Each task runs
 
 ## Prerequisites
 
-* **Enterprise plan with self-hosting enabled** — [Contact sales](https://www.warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
-* **A worker host** with write access to `workspace_root` (defaults to `/var/lib/oz/workspaces`).
-* **The `oz-agent-worker` binary** installed on the worker host. The Direct backend runs the worker itself on the host rather than in a container, so install it via [Homebrew or a prebuilt binary](/platform/self-hosting/managed-docker/#install-and-run-the-worker).
-* **The {VARS.WARP_AGENT_CLI}** installed and available in `PATH` on the worker host (or specify `oz_path` in the config file). See [Installing the CLI](/reference/cli/#installing-the-cli).
-* **An agent API key** — Create one in the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP}</a> so the worker can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}. You can bind the key to any cloud agent — that choice doesn't restrict which agents can run on the worker. See [API Keys](/reference/cli/api-keys/) for the full creation flow.
+Complete the shared [managed prerequisites](/platform/self-hosting/#managed-prerequisites), then prepare:
+
+* **A worker host** - Grant write access to `workspace_root`, which defaults to `/var/lib/oz/workspaces`.
+* **The `oz-agent-worker` binary** - Install it on the worker host through [Homebrew or a prebuilt binary](/platform/self-hosting/managed-docker/#install-and-run-the-worker).
+* **The {VARS.WARP_AGENT_CLI}** - Install it in `PATH` on the worker host, or set `oz_path` in the config file. See [Installing the CLI](/reference/cli/#installing-the-cli).
 
 ---
 
@@ -49,10 +45,10 @@ The Direct backend does not provide per-task container isolation. Each task runs
 
 ### 1. Set your API key
 
-Export the API key so the worker can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}:
+Export the self-hosted worker API key so the worker can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}:
 
 ```bash
-export WARP_API_KEY="your_agent_api_key"
+export WARP_API_KEY="YOUR_API_KEY"
 ```
 
 ### 2. Start the worker with the Direct backend
@@ -81,6 +77,10 @@ backend:
 Each task gets its own directory under `workspace_root`. The default is `/var/lib/oz/workspaces`; override it with the `workspace_root` config option shown above.
 
 After the task completes, the workspace is deleted (unless `--no-cleanup` is set, which keeps the directory around for debugging).
+
+To reuse a large monorepo without sharing one checkout between concurrent tasks, see [Direct backend monorepo worktrees](/platform/self-hosting/direct-monorepo-worktrees/).
+
+Setting `target_dir` makes every task run in one shared directory and disables per-task workspace isolation. Use it only when the worker processes one task at a time.
 
 ---
 
@@ -126,6 +126,8 @@ backend:
 ## Related pages
 
 * [Self-hosted worker reference](/platform/self-hosting/reference/#direct-backend-config) — Full config schema for the Direct backend.
+* [External orchestrators](/platform/self-hosting/external-orchestrators/) — Start one Direct worker per external job or delegate runs through the Command backend.
+* [Direct backend monorepo worktrees](/platform/self-hosting/direct-monorepo-worktrees/) — Create and remove one Git worktree per task with setup and teardown hooks.
 * [Self-hosting overview](/platform/self-hosting/) — Managed vs unmanaged and the backend decision guide.
 * [Routing runs to self-hosted workers](/platform/self-hosting/#routing-runs-to-self-hosted-workers) — How to send tasks to your connected worker from the CLI, schedules, integrations, the API, and the web UI.
 * [Security and networking](/platform/self-hosting/security-and-networking/) — Data boundaries and security considerations for the Direct backend.
