@@ -67,5 +67,6 @@ export const VARS = {
   ADD_ON_CREDITS:           "Add-on Credits",
 
   // URLs
+  GET_STARTED_URL:          "https://www.warp.dev/get-started",
   CONTACT_SALES_URL:        "https://www.warp.dev/contact-sales",
 } as const;

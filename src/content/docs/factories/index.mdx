@@ -7,15 +7,25 @@ sidebar:
   label: "Overview"
 ---
 import { VARS } from '@data/vars';
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 import VideoEmbed from '@components/VideoEmbed.astro';
-
-:::note
-Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team. If your team already has access, sign in to the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>.
-:::
 
 A factory is a team of cloud agents attached to a set of repositories. Work arrives from the tools your team already uses: a Slack message, a GitHub issue, a Linear or Jira ticket, or a schedule. A coordinating agent called the foreman routes each request through triage, spec, implementation, and review, and the result comes back where the work started, usually as a pull request. For example, a factory can work through a backlog of issues, fix defects reported in a support channel, or review incoming pull requests across several repositories.
 
 People stay in the loop at the points that matter: approving a spec, answering the foreman's questions, and merging.
+
+<CardGrid>
+  <LinkCard
+    title="Get started with Warp Factories"
+    href={VARS.GET_STARTED_URL}
+    description="For prospective users and teams new to Warp Factories."
+  />
+  <LinkCard
+    title="Open Warp Factories"
+    href={VARS.FACTORY_WEB_APP_URL}
+    description="For existing users and teams already using Warp Factories."
+  />
+</CardGrid>
 
 <VideoEmbed url="https://www.youtube.com/watch?v=0WBk4ai8y1A" title="Introducing Warp Factories" />
 
@@ -54,7 +64,7 @@ Every agent run in a factory is an ordinary [cloud agent run](/platform/) on the
 
 ### Measurement
 
-The [factory dashboard](/factories/factory-dashboard/) shows work items by stage, runs, and cost per pull request. [Scorers](/factories/measure-and-improve/scorers/) classify completed runs against criteria you write, [benchmarks](/factories/benchmarks/) compare models and runners on the same tasks, and [Self-improvement](/factories/measure-and-improve/self-improvement/) turns repeated failures into pull requests for your review. See [measure and improve](/factories/measure-and-improve/).
+The [factory dashboard](/factories/factory-dashboard/) shows work items by stage, runs, and cost per pull request. [Scorers](/factories/measure-and-improve/scorers/) classify completed runs against criteria you write, [benchmarks](/factories/benchmarks/) compare models, harnesses, and runners on the same tasks, and [Self-improvement](/factories/measure-and-improve/self-improvement/) turns repeated failures into pull requests for your review. See [measure and improve](/factories/measure-and-improve/).
 
 ## Sizing a factory
 

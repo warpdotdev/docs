@@ -382,7 +382,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			],
 		},
 		{
-			// Warp Factories documentation for Early Access.
 			// Starlight has no built-in factory glyph, so use its settings icon.
 			id: 'factories',
 			label: 'Factories',
