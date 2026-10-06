@@ -18,14 +18,33 @@ This skill is the manual fallback for the same job, so its output has to match t
    top-level path operations.
 2. Drop every tag listed in `EXCLUDED_TAGS`.
 3. Drop every path whose tags are a subset of `EXCLUDED_TAGS`, plus every path listed explicitly in `EXCLUDED_PATHS` or matching a prefix in `EXCLUDED_PATH_PREFIXES`.
-4. Keep top-level `openapi`, `info`, `servers`, and `components.securitySchemes` verbatim.
+4. Keep top-level `openapi`, `servers`, and `components.securitySchemes` verbatim. Keep `info` from the source except for the docs-specific title and description override in `DOCS_INFO_OVERRIDES`.
 5. Keep only reusable component entries that are reachable from surviving paths via `$ref` walking (recursive over `allOf`/`oneOf`/`anyOf`/`items`/`additionalProperties`/etc.).
 6. Remove Factory-only values and matching description lines from `RunSourceType`.
 7. Recursively strip every key in `STRIP_FLAGS` from whatever survives
    steps 1-6, wherever it appears in the tree (operations, schemas,
    individual properties, parameters).
+8. Rewrite the legacy Agent API error-documentation URL prefix to its canonical
+   path under `/factories/api-and-sdk/`.
 
 Rule 1 mirrors warp-server's own filter, so a surface the server team marks private stays private here without anyone having to maintain a matching allowlist entry.
+
+## Public API metadata
+
+The docs copy keeps endpoint behavior, contact details, licensing, and server
+configuration from `warp-server/public_api/openapi.yaml`. It overrides only
+`info.title` and `info.description` through `DOCS_INFO_OVERRIDES` in
+`scripts/sync_openapi.py`, so the Scalar reference uses the public docs name,
+**Warp Platform API**, and describes both factory and cloud-agent runs.
+
+Keep this override when syncing the docs subset. Update the source spec when
+its endpoint behavior or non-product metadata changes.
+
+The source spec still emits the pre-move error-documentation prefix,
+`/reference/api-and-sdk/troubleshooting/errors/`. The docs transform rewrites
+that prefix to `/factories/api-and-sdk/troubleshooting/errors/` so generated
+problem-type URLs resolve directly to the canonical page rather than through a
+redirect.
 
 ## `x-internal` deletes the whole marked object, not just the flag (`_prune_internal`)
 
@@ -48,14 +67,14 @@ under `properties`, an item in a `parameters` array, a whole schema in
 already covered. `STRIP_FLAGS` (rule 6) then only has to clean up the
 `x-internal` key on anything that rule 1 doesn't fully own removing (there
 is normally nothing left, since every `x-internal: true` object is deleted
-outright) plus the other seven implementation-only extensions.
+outright) plus the other eight implementation-only extensions.
 
 ## Implementation-only extensions are stripped everywhere (`STRIP_FLAGS`)
 
 `STRIP_FLAGS` mirrors the `stripFlags` list in
 `warp-server/public_api/public-openapi-filter.yaml` verbatim: `x-internal`,
 `x-enum-varnames`, `x-go-type`, `x-go-type-import`,
-`x-go-type-skip-optional-pointer`, `x-oapi-codegen-extra-tags`,
+`x-go-type-skip-optional-pointer`, `x-omitempty`, `x-oapi-codegen-extra-tags`,
 `x-stainless-deprecation-message`, and `x-stainless-naming`. These
 extensions are useful for server/SDK code generation (oapi-codegen,
 Stainless) but carry no meaning for a docs reader, so none of them may

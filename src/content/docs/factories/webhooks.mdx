@@ -83,7 +83,7 @@ A webhook starts nothing on its own; an automation has to subscribe to it.
 
 1. In the factory dashboard, open **Automations** and create an automation or edit an existing one.
 2. Click **Add trigger**, then click **Webhook**.
-3. In the "Webhook received from" picker, select one or more webhooks.
+3. In the "Webhook received from" picker, select one webhook. To listen to multiple webhooks, add a separate **Webhook** trigger for each.
 4. Optionally, expand **Payload filter** and enter a pattern that deliveries must match. See [Filter deliveries by payload](#filter-deliveries-by-payload).
 5. Click **Test filter** to evaluate the filter against a stored delivery. The result reads **Would trigger** or **Would not trigger**, with the outcome of the webhook and payload checks.
 6. Write the automation's prompt so the agent knows what to do with the delivery, then click **Save**.
@@ -97,7 +97,7 @@ Send another test delivery and confirm a run starts on the factory's **Runs** pa
 
 ## Filter deliveries by payload
 
-Without a payload filter, an automation starts a run for every delivery from its selected webhooks. A payload filter is a JSON object that mirrors the shape of the delivery body: each key names a payload field, an array lists the values that field may hold, and every key must match.
+Without a payload filter, an automation starts a run for every delivery from its selected webhook. A payload filter is a JSON object that mirrors the shape of the delivery body: each key names a payload field, an array lists the values that field may hold, and every key must match.
 
 ```json
 {
@@ -122,7 +122,7 @@ Open a webhook on the **Webhooks** tab inside **Automations** to inspect and cha
 * **Recent deliveries** - The latest deliveries, newest first, each labeled **Accepted**, **Duplicate**, **Rejected (auth)**, **Rejected (invalid JSON)**, or **Rejected (too large)**, with the delivery ID, size, and time. Expand an accepted delivery to read its stored payload. Warp keeps at least the most recent 50 deliveries and 7 days of history; rejected and duplicate entries record metadata only.
 * **Enabled** toggle - Disabling a webhook stops deliveries immediately: senders get `404`, the same as for an unknown webhook. Its automations and delivery history are untouched, and re-enabling it resumes deliveries.
 * **Rotate secret** - Generates a new secret, or takes the provider's new signing secret for a provider signature webhook, and shows it once. The old secret stops working immediately, with no overlap window. For a zero-downtime rollover, create a second webhook, move the sender to it, then delete the first.
-* **Delete** - Senders get `404` immediately. Automations that select the deleted webhook stay visible but stop firing; point their triggers at another webhook or remove the trigger.
+* **Delete** - Senders get `404` immediately. Automations with a trigger that selects the deleted webhook stay visible but stop firing; point the trigger at another webhook or remove it.
 
 On a Warp-managed factory, the dashboard writes each webhook to a definition file, so two actions work differently: rename isn't supported, and instead of **Rotate secret** you give the managed secret the webhook references a new value, with `oz secret update --team --value SECRET_NAME` on the {VARS.WARP_AGENT_CLI}. The webhook picks up the new value the next time its definition applies, such as when you toggle **Enabled** off and on.
 
@@ -166,7 +166,7 @@ A new fatal issue was created in Sentry. Read the attached event payload,
 find the failing code path, and open a pull request with a fix and a test.
 ```
 
-`webhook_ids` takes UIDs, not file names, and Warp assigns the UID when the webhook file first applies. Add the webhook, let the definition sync, then copy the UID from the webhook's detail pane on the **Webhooks** tab. See [`webhooks/<name>.yaml`](/factories/factory-as-code/#webhooksnameyaml) for every key and its rules.
+`webhook_ids` takes a one-item list containing exactly one UID, not a file name. Warp assigns the UID when the webhook file first applies. Add the webhook, let the definition sync, then copy the UID from the webhook's detail pane on the **Webhooks** tab. To listen to multiple webhooks, add a separate trigger for each UID. See [`webhooks/<name>.yaml`](/factories/factory-as-code/#webhooksnameyaml) for every key and its rules.
 
 ## Troubleshooting
 

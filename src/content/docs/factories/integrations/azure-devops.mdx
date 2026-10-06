@@ -1,5 +1,5 @@
 ---
-title: Connect Azure DevOps to your factory
+title: Connecting Azure DevOps to your factory
 sidebar:
   label: "Azure DevOps"
 description: >-
@@ -9,8 +9,6 @@ description: >-
 import { VARS } from '@data/vars';
 
 Connect Azure DevOps Services to a factory so agents can work in selected repositories, open pull requests, and start runs from work item and pull request events. Warp creates a dedicated Microsoft Entra identity for each factory's Git and pull request operations.
-
-{/* VERIFY: Confirm first-class Azure DevOps Services support is enabled in production before merging this documentation. */}
 
 :::note
 Warp Factories is in Early Access and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
@@ -96,6 +94,10 @@ For general filter behavior, see [factory automations](/factories/automations/).
 | Pull request updated | Repository and target branches |
 | Pull request commented | Repository and target branches |
 | Mentioned in a pull request | Repository and mentioned users |
+
+Factory definition files also accept the Azure DevOps `push` event with repository and branch filters. The automation editor doesn't currently offer this event.
+
+Definition files accept `source_repos` for pull request events. Use it to match the repository that contains the pull request's source branch. See [triggers in a factory definition](/factories/factory-as-code/#triggers) for the complete schema.
 
 ## Troubleshooting
 

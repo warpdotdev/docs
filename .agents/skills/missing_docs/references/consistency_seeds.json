@@ -27,13 +27,13 @@
       "authoritative_sources": [],
       "affected_surfaces": [
         "src/content/docs/platform/triggers/scheduled-agents.mdx",
-        "src/content/docs/reference/cli/api-keys.mdx",
+        "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
         "src/content/docs/platform/team-access-billing-and-identity.mdx",
         "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx"
       ],
       "surface_dispositions": {
         "src/content/docs/platform/triggers/scheduled-agents.mdx": "blocked",
-        "src/content/docs/reference/cli/api-keys.mdx": "blocked",
+        "src/content/docs/agents/cli/oz-cli/api-keys.mdx": "blocked",
         "src/content/docs/platform/team-access-billing-and-identity.mdx": "blocked",
         "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx": "blocked"
       },
@@ -42,7 +42,7 @@
       "recheck_condition": "Billing and Product approve a customer-facing charge statement for every plan.",
       "inconsistent_surfaces": [
         "src/content/docs/platform/triggers/scheduled-agents.mdx",
-        "src/content/docs/reference/cli/api-keys.mdx",
+        "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
         "src/content/docs/platform/team-access-billing-and-identity.mdx",
         "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx"
       ]
@@ -54,12 +54,12 @@
       "occurrence_queries": ["owner's personal Add-on Credits", "shared add-on credit pool", "API-key run"],
       "authoritative_sources": [],
       "affected_surfaces": [
-        "src/content/docs/reference/cli/api-keys.mdx",
+        "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
         "src/content/docs/platform/team-access-billing-and-identity.mdx",
         "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx"
       ],
       "surface_dispositions": {
-        "src/content/docs/reference/cli/api-keys.mdx": "blocked",
+        "src/content/docs/agents/cli/oz-cli/api-keys.mdx": "blocked",
         "src/content/docs/platform/team-access-billing-and-identity.mdx": "blocked",
         "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx": "blocked"
       },
@@ -67,7 +67,7 @@
       "unresolved_question": "Which Add-on Credits balances can fund an API-key run, and is any depletion order a supported customer contract?",
       "recheck_condition": "Billing and Product approve the applicable balance categories and any guaranteed precedence.",
       "inconsistent_surfaces": [
-        "src/content/docs/reference/cli/api-keys.mdx",
+        "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
         "src/content/docs/platform/team-access-billing-and-identity.mdx",
         "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx"
       ]
@@ -324,12 +324,12 @@
         "../warp-server/router/handlers/public_api/agent_webhooks.go"
       ],
       "affected_surfaces": [
-        "src/content/docs/reference/api-and-sdk/index.mdx",
+        "src/content/docs/factories/api-and-sdk/index.mdx",
         "src/content/docs/factories/factory-api.mdx",
         "src/content/docs/platform/orchestration/multi-agent-runs.mdx"
       ],
       "surface_dispositions": {
-        "src/content/docs/reference/api-and-sdk/index.mdx": "fixed",
+        "src/content/docs/factories/api-and-sdk/index.mdx": "fixed",
         "src/content/docs/factories/factory-api.mdx": "fixed",
         "src/content/docs/platform/orchestration/multi-agent-runs.mdx": "fixed"
       },
@@ -340,7 +340,7 @@
           "type": "forbidden_regex",
           "patterns": ["POST /agent/run(?!s)"],
           "paths": [
-            "src/content/docs/reference/api-and-sdk/index.mdx",
+            "src/content/docs/factories/api-and-sdk/index.mdx",
             "src/content/docs/factories/factory-api.mdx",
             "src/content/docs/platform/orchestration/multi-agent-runs.mdx"
           ]
@@ -356,15 +356,15 @@
         "developers/agent-api-openapi.yaml",
         "../warp-server/router/handlers/public_api/agent_webhooks.go"
       ],
-      "affected_surfaces": ["src/content/docs/reference/api-and-sdk/index.mdx"],
-      "surface_dispositions": {"src/content/docs/reference/api-and-sdk/index.mdx": "fixed"},
+      "affected_surfaces": ["src/content/docs/factories/api-and-sdk/index.mdx"],
+      "surface_dispositions": {"src/content/docs/factories/api-and-sdk/index.mdx": "fixed"},
       "recheck_condition": "The released list-runs query schema changes.",
       "deterministic_rules": [
         {
           "id": "no-config-name-filter",
           "type": "forbidden_text",
           "patterns": ["config_name"],
-          "paths": ["src/content/docs/reference/api-and-sdk/index.mdx"]
+          "paths": ["src/content/docs/factories/api-and-sdk/index.mdx"]
         }
       ]
     },
@@ -380,12 +380,12 @@
         "../warp/app/src/terminal/input.rs"
       ],
       "affected_surfaces": [
-        "src/content/docs/reference/cli/index.mdx",
+        "src/content/docs/agents/cli/oz-cli/index.mdx",
         "src/content/docs/platform/faqs.mdx",
         "src/content/docs/agents/local-agents/agent-context/images-as-context.mdx"
       ],
       "surface_dispositions": {
-        "src/content/docs/reference/cli/index.mdx": "fixed",
+        "src/content/docs/agents/cli/oz-cli/index.mdx": "fixed",
         "src/content/docs/platform/faqs.mdx": "fixed",
         "src/content/docs/agents/local-agents/agent-context/images-as-context.mdx": "fixed"
       },
@@ -395,7 +395,7 @@
           "id": "no-five-file-cli-limit",
           "type": "forbidden_regex",
           "patterns": ["maximum 5(?!\\d)"],
-          "paths": ["src/content/docs/reference/cli/index.mdx"]
+          "paths": ["src/content/docs/agents/cli/oz-cli/index.mdx"]
         },
         {
           "id": "cloud-images-not-denied",
@@ -418,14 +418,14 @@
         "../warp/app/src/ai/agent_sdk/driver/mcp_startup.rs"
       ],
       "affected_surfaces": [
-        "src/content/docs/reference/cli/quickstart.mdx",
-        "src/content/docs/reference/cli/agent-profiles.mdx",
-        "src/content/docs/reference/cli/mcp-servers.mdx"
+        "src/content/docs/agents/cli/oz-cli/quickstart.mdx",
+        "src/content/docs/agents/cli/oz-cli/agent-profiles.mdx",
+        "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx"
       ],
       "surface_dispositions": {
-        "src/content/docs/reference/cli/quickstart.mdx": "fixed",
-        "src/content/docs/reference/cli/agent-profiles.mdx": "fixed",
-        "src/content/docs/reference/cli/mcp-servers.mdx": "fixed"
+        "src/content/docs/agents/cli/oz-cli/quickstart.mdx": "fixed",
+        "src/content/docs/agents/cli/oz-cli/agent-profiles.mdx": "fixed",
+        "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx": "fixed"
       },
       "recheck_condition": "Default profile permissions or MCP startup selection changes.",
       "deterministic_rules": [
@@ -433,13 +433,13 @@
           "id": "no-load-all-mcp-copy",
           "type": "forbidden_text",
           "patterns": ["loads any available MCP servers"],
-          "paths": ["src/content/docs/reference/cli/quickstart.mdx"]
+          "paths": ["src/content/docs/agents/cli/oz-cli/quickstart.mdx"]
         },
         {
           "id": "no-default-mcp-denial",
           "type": "forbidden_text",
           "patterns": ["does not have the ability to use MCP servers by default"],
-          "paths": ["src/content/docs/reference/cli/agent-profiles.mdx"]
+          "paths": ["src/content/docs/agents/cli/oz-cli/agent-profiles.mdx"]
         }
       ]
     },
@@ -473,12 +473,12 @@
       "status": "owner_confirmation",
       "occurrence_queries": ["end of September 2026", "October 6, 2026", "oz commands remain supported"],
       "authoritative_sources": [],
-      "affected_surfaces": ["src/content/docs/reference/cli"],
-      "surface_dispositions": {"src/content/docs/reference/cli": "blocked"},
+      "affected_surfaces": ["src/content/docs/agents/cli/oz-cli"],
+      "surface_dispositions": {"src/content/docs/agents/cli/oz-cli": "blocked"},
       "owner": "Warp Agent CLI and Automation Platform",
       "unresolved_question": "Which legacy oz workflows have verified warp equivalents, which have no equivalent, and what are the final command-support and documentation-removal dates?",
       "recheck_condition": "CLI owners approve the complete parity inventory and separate transition milestones.",
-      "inconsistent_surfaces": ["src/content/docs/reference/cli"]
+      "inconsistent_surfaces": ["src/content/docs/agents/cli/oz-cli"]
     },
     {
       "id": "windows-fish-support",

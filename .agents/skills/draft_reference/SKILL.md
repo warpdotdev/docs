@@ -45,5 +45,5 @@ All headings (H1–H4) must use **sentence case**: capitalize only the first wor
 ## Existing examples
 
 Read 2-3 of these strong examples to match the existing pattern:
-- `reference/cli/index.mdx`
-- `reference/api-and-sdk/index.mdx`
+- `agents/cli/oz-cli/index.mdx`
+- `factories/api-and-sdk/index.mdx`

@@ -257,7 +257,7 @@ The waterfall is:
 
 When auto-reload is **off**, the request is blocked once both buckets are depleted. When auto-reload is **on**, cloud agent usage can trigger auto-reload into the team's shared pool subject to the team-wide spend cap; further cloud agent runs then draw from that reloaded balance until the cap is reached.
 
-"Blocked" means the run fails immediately with an insufficient-credits error rather than queuing or retrying. For unattended runs (scheduled jobs, team-API-key triggers), this manifests as a failed run in the {VARS.DASHBOARD} with an [insufficient credits](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/) error code; the run won't be retried automatically. Owners should monitor the dashboard and configure spend caps with headroom for critical scheduled workloads.
+"Blocked" means the run fails immediately with an insufficient-credits error rather than queuing or retrying. For unattended runs (scheduled jobs, team-API-key triggers), this manifests as a failed run in the {VARS.DASHBOARD} with an [insufficient credits](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) error code; the run won't be retried automatically. Owners should monitor the dashboard and configure spend caps with headroom for critical scheduled workloads.
 
 :::note
 Enterprise plans support team-scoped credit pools, so this traffic draws from the team pool rather than an individual admin. See [enterprise billing](/enterprise/support-and-resources/billing/) for overage and contract terms.
@@ -347,7 +347,7 @@ For lighter-weight routing through any OpenAI-compatible endpoint (OpenRouter, L
 
 ### What features are available during multi-harness orchestration beta?
 
-Multi-harness orchestration is currently in beta. Free plan cloud runs use the Warp Agent. Selecting [Claude Code](/platform/harnesses/claude-code/) or [Codex](/platform/harnesses/codex/) as a third-party harness requires Build or higher. See [cloud agent harnesses](/platform/harnesses/) for setup and plan requirements.
+Multi-harness orchestration is currently in beta. Free plan cloud runs use the Warp Agent. Selecting [Claude Code](/platform/harnesses/claude-code/) or [Codex](/platform/harnesses/codex/) as a third-party harness requires a paid plan. See [cloud agent harnesses](/platform/harnesses/) for setup and plan requirements.
 
 [Agent Memory](/agents/agent-memory/) is currently in Research Preview. It lets preferences, project knowledge, and learnings from past sessions carry across harnesses and future agent runs. [Contact our sales team](https://www.warp.dev/contact-sales) to request access.
 

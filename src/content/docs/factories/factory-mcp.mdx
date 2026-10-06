@@ -33,7 +33,7 @@ Paste this prompt into a coding agent that can run commands and configure MCP se
 Set up a factory for me. Read https://docs.warp.dev/factories/factory-mcp.md, follow the setup instructions for your coding environment to connect to and authenticate with Factory MCP, then use Factory MCP to onboard me.
 ```
 
-The agent connects to Factory MCP, opens a browser sign-in where you log in or create a Warp account, then walks you through the same choices as the [setup wizard](/factories/quickstart/#set-up-your-factory): team, code host, repositories, agents, and integrations. It finishes by linking your new factory's dashboard. If the {VARS.FACTORY_WEB_APP} is still open to its setup screen in your browser, refresh the page to pick up the new factory.
+The agent connects to Factory MCP, opens a browser sign-in where you log in or create a Warp account, then walks you through the same choices as the [setup wizard](/factories/quickstart/#set-up-your-factory): team, code host, repositories, agents, and integrations. Factory MCP onboarding currently connects GitHub and GitLab repositories; use the web setup wizard to connect Azure DevOps. It finishes by linking your new factory's dashboard. If the {VARS.FACTORY_WEB_APP} is still open to its setup screen in your browser, refresh the page to pick up the new factory.
 
 <AgentOnly>
 
@@ -74,7 +74,7 @@ In clients that use the `mcpServers` JSON format, such as Cursor:
 
 For Codex and other clients, follow the [client's own remote-server instructions](https://developers.openai.com/codex/mcp/#connect-codex-to-an-mcp-server) with the same URL.
 
-Automation that runs without a person present, such as a CI pipeline or a headless server, can't complete the browser sign-in. For those cases, authenticate with an [agent API key](/reference/cli/api-keys/) instead, passed as a bearer token:
+Automation that runs without a person present, such as a CI pipeline or a headless server, can't complete the browser sign-in. For those cases, authenticate with an [agent API key](/agents/cli/oz-cli/api-keys/) instead, passed as a bearer token:
 
 ```json
 {
