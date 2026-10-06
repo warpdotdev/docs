@@ -19,7 +19,7 @@ This quickstart sets up the [managed architecture](/platform/self-hosting/#manag
 ## Prerequisites
 
 * **Managed self-hosting access and credentials** - Complete the shared [managed prerequisites](/platform/self-hosting/#managed-prerequisites), then create an [Agent API key associated with the Default Service Account](/reference/cli/api-keys/#from-the-web-app-recommended). This key authenticates both the worker and the `oz agent run-cloud` command in this quickstart. A self-hosted worker key authenticates the worker only.
-* **A Linux machine with a rootful Docker daemon** - Use a VM, server, or local machine with a Docker daemon that runs Linux containers. Verify it with `docker info`.
+* **A Linux machine with a rootful Docker daemon** - Rootful Docker runs the daemon as root and exposes `/var/run/docker.sock`; the command below also requires GNU `stat`. This quickstart does not cover macOS or Windows. On those hosts, follow the [Homebrew](/platform/self-hosting/managed-docker/#option-2-homebrew) or [release binary](/platform/self-hosting/managed-docker/#option-3-github-releases-binary) setup instead.
 * **The {VARS.WARP_AGENT_CLI}** - Install it on the machine that will route the test run. See [Installing the CLI](/reference/cli/#installing-the-cli).
 
 ---

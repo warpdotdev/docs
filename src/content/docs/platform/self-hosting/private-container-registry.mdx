@@ -83,7 +83,9 @@ For a sidecar repository that allows anonymous reads, use `image_pull_policy: "A
 
 The task image must point to the private registry through its Warp environment; the worker does not rewrite task image registry names.
 
-Run the worker with `registry.internal.example.com/warp/oz-agent-worker:WORKER_RELEASE_TAG` in place of the public worker image.
+Before starting the worker, run `docker login registry.internal.example.com` on the host so Docker can pull the mirrored worker image.
+
+In the [containerized worker command](/platform/self-hosting/managed-docker/#option-1-docker-recommended), use `registry.internal.example.com/warp/oz-agent-worker:WORKER_RELEASE_TAG` in place of the public worker image. Add `--volume "$PWD/worker.yaml:/etc/oz-agent-worker/worker.yaml:ro"` before the image and `--config-file /etc/oz-agent-worker/worker.yaml` after it. See the [config file reference](/platform/self-hosting/reference/#config-file).
 
 Start the worker with `--log-level debug`, then route a [test run to the worker](/platform/self-hosting/#routing-runs-to-self-hosted-workers). Before blocking public-registry egress, confirm that the worker logs for `Using Docker image` and `Preparing additional sidecar` show private-registry references and the run succeeds.
 
@@ -180,7 +182,7 @@ Follow the worker logs until they show `Successfully connected to server`:
 kubectl logs --follow deployment/oz-agent-worker --namespace warp-oz
 ```
 
-The connection message confirms that the worker passed Kubernetes API, RBAC, and Pod admission checks. The successful test run verifies the registry credentials by pulling and running the task and sidecar images.
+A successful test run verifies the registry credentials by pulling and running the task and sidecar images.
 
 With the <a href="/reference/cli/#installing-the-cli">{VARS.WARP_AGENT_CLI}</a>, start one run that uses the Warp Agent without Computer Use:
 

@@ -56,7 +56,7 @@ The worker can be configured entirely via CLI flags, or via a YAML [config file]
 
 ### Option 1: Docker (recommended)
 
-The worker needs access to the Docker daemon to spawn task containers. For a rootful Docker daemon on Linux, mount the host socket and add its group to the worker container:
+The worker needs access to the Docker daemon to spawn task containers. For a rootful Docker daemon on Linux, mount the host socket and add its group to the worker container. This command does not apply to macOS or Windows; use the [Homebrew](#option-2-homebrew) or [release binary](#option-3-github-releases-binary) option and configure the endpoint as described in [Docker connectivity](#docker-connectivity).
 
 ```bash
 export DOCKER_SOCKET_GID="$(stat -c '%g' /var/run/docker.sock)"
