@@ -10,7 +10,7 @@ import { VARS } from '@data/vars';
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-A factory is a team of cloud agents attached to a set of repositories. Work arrives from the tools your team already uses: a Slack message, a GitHub issue, a Linear or Jira ticket, or a schedule. A coordinating agent called the foreman routes each request through triage, spec, implementation, and review, and the result comes back where the work started, usually as a pull request. For example, a factory can work through a backlog of issues, fix defects reported in a support channel, or review incoming pull requests across several repositories.
+A factory is a team of cloud agents attached to a set of repositories. Work arrives as a Slack message, a GitHub issue, a Linear or Jira ticket, or a scheduled job. A coordinating agent called the foreman routes each request through triage, spec, implementation, and review, and the result comes back where the work started, usually as a pull request. For example, a factory can work through a backlog of issues, fix defects reported in a support channel, or review incoming pull requests across several repositories.
 
 People stay in the loop at the points that matter: approving a spec, answering the foreman's questions, and merging.
 
@@ -40,7 +40,7 @@ People stay in the loop at the points that matter: approving a spec, answering t
 
 A work item is one request the factory acts on: an issue, a support thread, a pull request, or a scheduled job. It keeps its source context from intake to handoff, however many agents contribute along the way.
 
-### The foreman and factory agents
+### Foreman and factory agents
 
 Every factory has one foreman, the agent you talk to. It decides which agent a work item goes to next, asks you when it needs a decision, and hands back the finished pull request. Behind it are the default triage, spec, implement, and review agents; add custom agents for work they don't cover. Each agent can run on its own model and harness, including the Warp Agent, Claude Code, and Codex. See [factory agents](/factories/factory-agents/).
 
@@ -50,7 +50,7 @@ Setup gives the foreman the same handle as the factory, so `payments` is the fac
 
 The foreman moves a work item through the Triage, Planning, Building, and Reviewing stages, skipping the ones a well-defined request doesn't need and sending work back when review finds problems. Spec approval and the foreman's questions are written into its instructions, which your team can edit. Merging is enforced by your repository's branch protection. See [how Warp Factories work](/factories/how-factories-work/).
 
-### The factory definition
+### Factory definition
 
 A factory's repositories, agents, automations, runners, skills, and MCP servers are declared in definition files, either managed by Warp or stored in a GitHub repository your team owns. Changes to a GitHub-backed factory go through pull request review like any other code. See [definitions as code](/factories/factory-as-code/).
 
