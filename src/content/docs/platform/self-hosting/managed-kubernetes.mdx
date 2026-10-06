@@ -196,7 +196,8 @@ pod_template:
 ```
 
 The worker Deployment ServiceAccount needs RBAC to manage Jobs and Pods. The task Job `serviceAccountName` in `pod_template` controls the agent process's runtime access.
-Self-hosted task pods use the registry credentials in `imagePullSecrets`. Warp-hosted agents instead use the private-registry credential assigned to their runner.
+
+Self-hosted task pods use the registry credentials in `imagePullSecrets`.
 
 A run's instance shape overrides the `task` container's CPU and memory values in `pod_template`.
 
@@ -204,7 +205,7 @@ A run's instance shape overrides the `task` container's CPU and memory values in
 
 ## Preflight check
 
-On startup, the worker runs a preflight Job with the configured task PodSpec. It catches insufficient RBAC, admission-policy failures, and sidecar-loading problems. If preflight fails, the worker exits before accepting tasks. A successful preflight does not validate task-specific images, Secrets, setup commands, or network access.
+On startup, the worker runs a preflight Job with the configured task PodSpec. It catches insufficient RBAC and admission-policy failures. When Kubernetes image volumes are enabled, it also verifies that the cluster can mount the preflight image as an image volume. If preflight fails, the worker exits before accepting tasks. A successful preflight does not validate task-specific images, Secrets, setup commands, or network access.
 
 The preflight image defaults to `busybox:1.36`. For an allowlisted or private image, set `kubernetesBackend.preflightImage`. The `imagePullSecrets` in `kubernetesBackend.podTemplate` also apply to preflight.
 
