@@ -623,6 +623,12 @@
             "src/content/docs/terminal/more-features/settings-sync.mdx",
             "src/content/docs/knowledge-and-collaboration/warp-drive/web.mdx"
           ]
+        },
+        {
+          "id": "no-old-session-sharing-links",
+          "type": "forbidden_regex",
+          "patterns": ["\"source\"\\s*:\\s*\"/knowledge-and-collaboration/session-sharing[^\"]*\"[\\s\\S]{0,160}?\"destination\"\\s*:\\s*\"/agents/local-agents/session-sharing/\""],
+          "paths": ["vercel.json"]
         }
       ]
     }
