@@ -70,9 +70,7 @@ When setup confirms that the identity is ready, the factory uses that identity f
 
 ## Configure Azure DevOps automations
 
-An Azure DevOps automation starts a factory run when a supported event matches its filters. Before starting a run, Warp checks the automation creator's Azure DevOps connection.
-
-Azure DevOps doesn't add a default automation. Create the automations your factory needs after setup.
+An Azure DevOps automation starts a factory run when a supported event matches its filters. Before starting a run, Warp checks the automation creator's Azure DevOps connection. New Azure DevOps factories include a default automation for pull request mentions, work item mentions, and work item assignments.
 
 To configure an automation as code, ask the Warp Agent to update the factory definition or edit its `automations/` files directly. See [definitions as code](/factories/factory-as-code/).
 

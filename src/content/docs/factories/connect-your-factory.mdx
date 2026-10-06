@@ -25,7 +25,7 @@ Once a source is connected, here's the concrete action that hands it work — ea
 | [Microsoft Teams](/factories/integrations/teams/) | Chat in standard and shared channels | [Mentioning the Warp app in a configured channel](/factories/integrations/teams/#start-and-continue-work) | The Teams thread |
 | [GitHub](/factories/integrations/github/) | Issues, pull requests, reviews, and CI | [Adding the factory's label and mentioning **@warp**](/factories/integrations/github/#mention-the-factory) | The issue, pull request, or review thread |
 | [GitLab](/factories/integrations/gitlab/) | Merge request activity and bot mentions | [Mentioning the factory's bot in a merge request comment](/factories/integrations/gitlab/#mention-the-factory) | The merge request thread |
-| [Azure DevOps](/factories/integrations/azure-devops/) | Work items and pull requests | [Creating an automation for an Azure DevOps event](/factories/integrations/azure-devops/#supported-events-and-filters) | The factory work item |
+| [Azure DevOps](/factories/integrations/azure-devops/) | Work items and pull requests | [Mentioning the factory identity in a work item or pull request, or assigning it a work item](/factories/integrations/azure-devops/#configure-azure-devops-automations) | The factory work item |
 | [Linear](/factories/integrations/linear/) | Planned issues | [Assigning the issue to the factory, or mentioning the Warp app in a comment](/factories/integrations/linear/#route-agent-sessions) | The Linear issue and its agent session |
 | [Jira](/factories/integrations/jira/) | Work items assigned to Warp | [Assigning or mentioning **Warp** on a work item](/factories/integrations/jira/#connect-jira-and-add-an-automation) | The Jira agent session |
 | [Custom webhooks](/factories/webhooks/) | Any system that can POST JSON: CI, monitoring, alerting, and internal tools | [Posting JSON to the webhook's URL from the external system](/factories/webhooks/#configure-the-sender) | The factory work item |
@@ -35,7 +35,7 @@ Once a source is connected, here's the concrete action that hands it work — ea
 
 ## Connect a source
 
-Each integration guide walks through authorizing access — grant only what the factory needs. Most connections add default automations; Azure DevOps requires you to create the automations you need. Review the [automations](/factories/automations/) and adjust their filters and run settings to fit your workflow.
+Each integration guide walks through authorizing access — grant only what the factory needs. Most connections add default [automations](/factories/automations/) that you can adjust or extend for your workflow.
 
 After connecting, send a test request, such as mentioning the factory in Slack or assigning it an issue, and confirm it picks up the work and replies at the source.
 
@@ -63,14 +63,13 @@ When you create a factory through the setup wizard, Warp adds default automation
 
 * **GitHub** - Starts work from mentions and assignments, when the factory's label is applied to an issue or pull request, and when a review is submitted on a labeled pull request. It also follows up when labeled pull requests close or merge, completing a linked tracker issue when it can. See the [GitHub integration guide](/factories/integrations/github/).
 * **GitLab** - Starts work when someone mentions the factory's bot in a merge request comment. See the [GitLab integration guide](/factories/integrations/gitlab/).
+* [Azure DevOps](/factories/integrations/azure-devops/) - Starts work when someone mentions the factory identity in a pull request or work item, or assigns it a work item.
 * **Jira** - Starts work when someone assigns or mentions Warp on a work item in one of the Jira projects you selected. See the [Jira integration guide](/factories/integrations/jira/).
 * **Linear** - Starts work when a new agent session arrives from one of the Linear teams you selected. See the [Linear integration guide](/factories/integrations/linear/).
 * **Slack** - Starts work from mentions and messages, as described in the [Slack integration guide](/factories/integrations/slack/).
 * **Microsoft Teams** - Starts work from app mentions in the channels you configured, including shared channels when the sender is in the same Microsoft 365 organization as the Warp app install and has linked that account to Warp. See the [Microsoft Teams integration guide](/factories/integrations/teams/).
 
 These defaults are starting points. Review each automation's filters, agent, and run settings, and adjust them to match your workflow. For automation files you can adapt, such as CI failure triage, a scheduled dependency audit, and Slack reaction intake, see [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
-
-Azure DevOps doesn't add a default automation. Create one for the work-item, pull-request, or repository events you want to route. See the [Azure DevOps integration guide](/factories/integrations/azure-devops/).
 
 ## Custom webhooks
 
