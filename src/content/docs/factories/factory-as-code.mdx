@@ -149,7 +149,7 @@ Optional. The handle used to @-mention the factory's foreman on connected platfo
 
 ### `credentialStrategy`
 
-Optional. Whose credentials the factory's runs execute with: `EXECUTOR` (the principal executing the run, the default) or `CREATOR` (the user who created the run). `CREATOR` requires a paid plan. Agents can override it per role.
+Optional. Whose credentials the factory's runs execute with: `EXECUTOR` (the principal executing the run) or `CREATOR` (the user who created the run). `CREATOR` requires a paid plan. Omit this key to preserve the factory's current setting; a factory with no stored setting uses `EXECUTOR`. Agents can override it per role.
 
 ### `codeForges`
 
@@ -178,6 +178,8 @@ repositories:
 
 Optional. Replaces a GitHub repository from the factory's scope with an external GitHub repository when a benchmark trial prepares its starting state. Each entry has `source` and `target` objects with `codeForge`, `owner`, and `name`. The source must belong to the factory, and the target must not.
 
+The complete nested paths are `source.codeForge`, `source.owner`, `source.name`, `target.codeForge`, `target.owner`, and `target.name`. Both `codeForge` values must be `GITHUB`.
+
 ### `secrets`
 
 Optional. Names of [managed secrets](/platform/secrets/) granted to every agent in the factory, in addition to anything individual agents declare.
@@ -200,7 +202,11 @@ mcpServers:
 
 ### `cloudProviders`
 
-Optional. Cloud-provider identity federation for agent runs. `gcp` accepts `projectNumber` (quote it so YAML keeps it a string), `workloadIdentityFederationPoolId`, `workloadIdentityFederationProviderId`, and an optional `serviceAccountEmail`. `aws` accepts `roleArn`.
+Optional. Cloud-provider identity federation for agent runs:
+
+* `cloudProviders.gcp` configures Google Cloud identity federation.
+* `cloudProviders.gcp.projectNumber`, `cloudProviders.gcp.workloadIdentityFederationPoolId`, and `cloudProviders.gcp.workloadIdentityFederationProviderId` are required for GCP. Quote `projectNumber` so YAML keeps it as a string. `cloudProviders.gcp.serviceAccountEmail` is optional.
+* `cloudProviders.aws.roleArn` is required for AWS.
 
 ```yaml
 cloudProviders:
@@ -210,7 +216,9 @@ cloudProviders:
 
 ### `integrations`
 
-Optional. The integration providers attached to the factory. Supported types include `slack`, `microsoft-teams`, `linear`, and `jira`. Declare at most one issue tracker: `linear` and `jira` are mutually exclusive, and omitting a tracker is also valid. Code-forge access comes from `repositories`, not this list.
+Optional. The integration providers attached to the factory. Supported types are `slack`, `microsoft-teams`, `linear`, and `jira`. Declare at most one issue tracker: `linear` and `jira` are mutually exclusive, and omitting a tracker is also valid. Code-forge access comes from `repositories`, not this list.
+
+Omit `integrations` to preserve the currently attached providers. Set it to an empty list to detach every provider.
 
 ```yaml
 integrations:
@@ -218,7 +226,7 @@ integrations:
   - type: linear
 ```
 
-For Slack and Microsoft Teams, `autoRespondToThreadReplies` controls whether eligible plain replies in an existing factory thread can continue work without another mention. It defaults to `true`.
+For Slack and Microsoft Teams, `slack.autoRespondToThreadReplies` and `microsoft-teams.autoRespondToThreadReplies` control whether eligible plain replies in an existing factory thread can continue work without another mention. Both default to `true`.
 
 ```yaml
 integrations:
@@ -227,13 +235,22 @@ integrations:
       autoRespondToThreadReplies: false
 ```
 
-The legacy `linear.teamIds` and `jira.projectKeys` settings are accepted when reading older definitions, but they no longer control issue discovery. Scope Linear and Jira events with automation filters instead.
+For compatibility with older definitions, the published schema also accepts
+`integrations.linear.teamIds` and `integrations.jira.projectKeys`. Scope new Linear and Jira
+automations with trigger filters.
 
-The legacy `providers` key is accepted when reading older definitions. Use `cloudProviders`; when Warp rewrites the definition, it emits `cloudProviders`.
+### `providers`
+
+Legacy alias for [`cloudProviders`](#cloudproviders). Its `providers.gcp` and `providers.aws`
+objects accept `providers.gcp.projectNumber`,
+`providers.gcp.workloadIdentityFederationPoolId`,
+`providers.gcp.workloadIdentityFederationProviderId`, `providers.gcp.serviceAccountEmail`, and
+`providers.aws.roleArn`. Author `cloudProviders` in new files; when Warp rewrites an older
+definition, it emits `cloudProviders`.
 
 ### `scorerDefaults`
 
-Optional. Sets `runner`, `secrets`, and `mcpServers` for every file-defined scorer. A scorer can override any of these values.
+Optional. Sets `runner`, `secrets`, and `mcpServers` for every file-defined scorer. A scorer can override any of these values. Entries under `mcpServers` accept `mcpServers.warpId`, `mcpServers.command`, `mcpServers.args`, `mcpServers.env`, `mcpServers.url`, and `mcpServers.headers`, with the same transport rules as the factory-level map.
 
 ### `selfImprovement`
 
@@ -274,7 +291,7 @@ harness:
 
 ### `agentDefaults.harness`
 
-The harness and model that runs execute with. Use the `harness` form to run a third-party harness or to set advanced options. Supported values are `oz`, `claude`, and `codex`. `claude-code` is also accepted as an alias for `claude`; prefer `claude`, the canonical [harness identifier](/platform/harnesses/#harness-identifiers) that the CLI and the {VARS.WARP_PLATFORM_API} use for the same harness. For what each harness does and which ones your team can run, see [supported harnesses](/platform/harnesses/).
+The harness and model that runs execute with. Use the `harness` form to run a third-party harness or to set advanced options. Supported `type` values are `oz`, `claude`, `codex`, and `gemini`. `claude-code` is also accepted as an alias for `claude`; prefer `claude`, the canonical [harness identifier](/platform/harnesses/#harness-identifiers) that the CLI and the {VARS.WARP_PLATFORM_API} use for the same harness. For what each harness does and which ones your team can run, see [supported harnesses](/platform/harnesses/).
 
 ```yaml
 harness:
@@ -286,7 +303,10 @@ harness:
     secretName: CODEX_API_KEY
 ```
 
-For a third-party harness, `auth` sets where credentials come from: `source: managedSecret` reads the [managed secret](/platform/secrets/) named by `secretName`, and `source: workerEnvironment` reads them from your self-hosted worker's environment (and requires a self-hosted `workerHost`). The `oz` harness supplies its own credentials and takes no `auth` or `reasoningLevel`.
+For a third-party harness, `auth` sets where credentials come from. `auth.source: managedSecret` reads the [managed secret](/platform/secrets/) named by `auth.secretName` and is supported for Claude Code and Codex. `auth.source: workerEnvironment` reads credentials from a self-hosted worker's environment and requires a self-hosted `workerHost`. The `oz` harness supplies its own credentials and takes no `auth` or `reasoningLevel`.
+At the factory level, set `agentDefaults.harness.auth.source` to `managedSecret` or `workerEnvironment`.
+
+`reasoningLevel` is optional for third-party harnesses. Its accepted values depend on the selected harness and model and are checked when the definition applies.
 
 For a definition that runs a different harness per agent, with managed-secret auth for Claude Code and Codex, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness). To configure the same third-party harness from the dashboard instead, see [configuring a third-party harness](/factories/factory-agents/#configuring-a-third-party-harness).
 
@@ -304,7 +324,7 @@ Managed secrets for agents that don't declare their own. An agent that declares 
 
 ### `agentDefaults.mcpServers`
 
-MCP servers for agents that don't declare their own, in the same form as [`mcpServers`](#mcpservers). Like secrets, an agent that declares its own map replaces this one, and factory-wide servers always apply.
+MCP servers for agents that don't declare their own, in the same form as [`mcpServers`](#mcpservers): `warpId`, `command`, `args`, `env`, `url`, and `headers`. Like secrets, an agent that declares its own map replaces this one, and factory-wide servers always apply.
 
 ### `agentDefaults.workerHost`
 
@@ -359,11 +379,13 @@ The frontmatter accepts:
 
 * `description` - Optional. What the agent does.
 * [`agentType`](#agenttype) - Optional. The agent's role.
-* `credentialStrategy` - Optional. Overrides the factory-level [`credentialStrategy`](#credentialstrategy) for this agent's runs.
+* `credentialStrategy` - Optional. Overrides the factory-level [`credentialStrategy`](#credentialstrategy) for this agent's runs. Omit it to preserve the agent's current setting.
 * `spawnableBy` - Optional. The factory agents allowed to start this agent. Omit it to allow only the foreman, use an empty list to allow none, or list the exact agent names that can start it.
 * `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel` - Optional. The same keys as [`agentDefaults`](#agentdefaults); a key declared here overrides the default for this agent.
-* `idleTimeoutMinutes` - Optional. How long a completed session remains available for follow-up, from 1 through 60 minutes.
+* `idleTimeoutMinutes` - Optional. How long a completed session remains available for follow-up, from 1 through 60 minutes. Omit it or set it to `null` to inherit. Without an inherited or run-level value, Warp uses 10 minutes, or 60 minutes for an orchestrated child run.
 * `required_repos` - Optional. Repositories that Warp prepares for every run by this agent. Each entry uses `owner`, `name`, and, when needed to disambiguate the same repository across hosts, `codeForge`.
+
+An agent's `harness` override is sparse. It accepts `harness.type`, `harness.model`, `harness.reasoningLevel`, and `harness.auth`; `harness.auth.source` selects `managedSecret` or `workerEnvironment`, and `harness.auth.secretName` is required only for `managedSecret`. Set `harness.auth` to `null` to clear inherited authentication. Agent-level `mcpServers` entries accept `mcpServers.warpId`, `mcpServers.command`, `mcpServers.args`, `mcpServers.env`, `mcpServers.url`, and `mcpServers.headers`.
 
 ### `agentType`
 
@@ -411,12 +433,15 @@ The providers and their events:
 * `schedule` - `cron_fired`
 * `webhook` - `received`
 * `factory` - `work_item_stage_changed`
+* `teams` - `app_mention`, `message_posted`
 
-Slack, Linear, and Jira triggers require the matching [integration](/platform/integrations/) to be connected. Code-forge triggers use the factory's repositories and provider connection; see the [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), and [Azure DevOps](/factories/integrations/azure-devops/) integration guides. `webhook` triggers listen to [custom webhooks](/factories/webhooks/) declared under [`webhooks/`](#webhooksnameyaml).
+Slack, Microsoft Teams, Linear, and Jira triggers require the matching [integration](/platform/integrations/) to be connected. Code-forge triggers use the factory's repositories and provider connection; see the [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), and [Azure DevOps](/factories/integrations/azure-devops/) integration guides. `webhook` triggers listen to [custom webhooks](/factories/webhooks/) declared under [`webhooks/`](#webhooksnameyaml).
 
 ### `triggers[].filter`
 
-Optional. Narrows which events start runs. The keys a filter accepts depend on the provider and event: for example `repos`, `labels`, and `authors` for GitHub events, or `channels`, `users`, and `keywords` for Slack messages. Filter keys combine with AND, an omitted key matches everything, and each key takes a list that matches any of its values (or an `in`/`not_in` object to include or exclude). Slack and Linear filters take names (channels, users, teams, projects, states), and Warp resolves them to IDs when it applies the change.
+Optional. Narrows which events start runs. The keys a filter accepts depend on the provider and event: for example `repos`, `labels`, and `authors` for GitHub events, or `channels`, `users`, and `keywords` for Slack messages. Filter keys combine with AND, an omitted key matches everything, and each key takes a list that matches any of its values.
+
+Most canonical filter keys also accept matcher objects with `in` and `not_in`. The name-based aliases `issues`, `projects`, `states`, `teams`, `channels`, `users`, and `itemUsers` take plain lists instead; Warp resolves the names to IDs when it applies the change.
 
 A `webhook` trigger with the `received` event requires `webhook_ids` in its filter. This field is a one-item list containing exactly one webhook UID (`in` only; the file name isn't accepted). To listen to multiple webhooks, add a separate trigger with provider `webhook` and event `received` for each UID. The trigger also takes an optional `payload` pattern that mirrors the delivery's JSON body. See [payload filters for webhook triggers](/factories/automations/#payload-filters-for-webhook-triggers) for the pattern grammar.
 
@@ -424,15 +449,59 @@ The published trigger catalog currently uses these filter keys across its provid
 
 * Factory: `stages`.
 * Azure DevOps: `assignees`, `authors`, `base_branches`, `branches`, `labels`, `mentioned`, `repos`, `source_repos`, and `work_item_types`.
-* GitHub: `assignees`, `authors`, `baseBranches`, `base_branches`, `branches`, `conclusions`, `labels`, `mentioned`, `paths`, `prNumbers`, `pr_numbers`, `repos`, `review_states`, `reviewer_teams`, `reviewers`, and `workflows`.
+* GitHub: `assignees`, `authors`, `baseBranches`, `base_branches`, `branches`, `conclusions`, `keywords`, `labels`, `mentioned`, `paths`, `prNumbers`, `pr_numbers`, `repos`, `review_states`, `reviewer_teams`, `reviewers`, and `workflows`.
 * GitLab: `actions`, `base_branches`, `branches`, `mentioned`, and `repos`.
 * Jira: `keywords`, `labels`, `project_keys`, and `status_ids`.
 * Linear: `assignee_ids`, `creator_ids`, `issue_ids`, `issues`, `keywords`, `labels`, `mentioned_user_ids`, `project_ids`, `projects`, `state_ids`, `states`, `team_ids`, and `teams`.
 * Schedule: `schedule_ids` is server-managed and cannot be set in a factory definition.
 * Slack: `channel_ids`, `channels`, `emojis`, `itemUsers`, `item_user_ids`, `keywords`, `user_ids`, and `users`.
+* Microsoft Teams: `channel_ids`, `keywords`, `team_ids`, and `user_ids`.
 * Webhook: `payload` and `webhook_ids`.
 
-Payload patterns also accept `exists`.
+<details>
+<summary>Filter matcher path reference</summary>
+
+| Filter key | Matcher paths |
+| --- | --- |
+| `actions` | `actions.in`, `actions.not_in` |
+| `assignee_ids` | `assignee_ids.in`, `assignee_ids.not_in` |
+| `assignees` | `assignees.in`, `assignees.not_in` |
+| `authors` | `authors.in`, `authors.not_in` |
+| `baseBranches` | `baseBranches.in`, `baseBranches.not_in` |
+| `base_branches` | `base_branches.in`, `base_branches.not_in` |
+| `branches` | `branches.in`, `branches.not_in` |
+| `channel_ids` | `channel_ids.in`, `channel_ids.not_in` |
+| `conclusions` | `conclusions.in`, `conclusions.not_in` |
+| `creator_ids` | `creator_ids.in`, `creator_ids.not_in` |
+| `emojis` | `emojis.in`, `emojis.not_in` |
+| `issue_ids` | `issue_ids.in`, `issue_ids.not_in` |
+| `item_user_ids` | `item_user_ids.in`, `item_user_ids.not_in` |
+| `keywords` | `keywords.in`, `keywords.not_in` |
+| `labels` | `labels.in`, `labels.not_in` |
+| `mentioned` | `mentioned.in`, `mentioned.not_in` |
+| `mentioned_user_ids` | `mentioned_user_ids.in`, `mentioned_user_ids.not_in` |
+| `paths` | `paths.in`, `paths.not_in` |
+| `payload` | `payload.in`, `payload.not_in`, `payload.exists` |
+| `prNumbers` | `prNumbers.in`, `prNumbers.not_in` |
+| `pr_numbers` | `pr_numbers.in`, `pr_numbers.not_in` |
+| `project_ids` | `project_ids.in`, `project_ids.not_in` |
+| `project_keys` | `project_keys.in`, `project_keys.not_in` |
+| `repos` | `repos.in`, `repos.not_in` |
+| `review_states` | `review_states.in`, `review_states.not_in` |
+| `reviewer_teams` | `reviewer_teams.in`, `reviewer_teams.not_in` |
+| `reviewers` | `reviewers.in`, `reviewers.not_in` |
+| `schedule_ids` | `schedule_ids.in` |
+| `source_repos` | `source_repos.in`, `source_repos.not_in` |
+| `stages` | `stages.in`, `stages.not_in` |
+| `state_ids` | `state_ids.in`, `state_ids.not_in` |
+| `status_ids` | `status_ids.in`, `status_ids.not_in` |
+| `team_ids` | `team_ids.in`, `team_ids.not_in` |
+| `user_ids` | `user_ids.in`, `user_ids.not_in` |
+| `webhook_ids` | `webhook_ids.in` |
+| `work_item_types` | `work_item_types.in`, `work_item_types.not_in` |
+| `workflows` | `workflows.in`, `workflows.not_in` |
+
+</details>
 
 `baseBranches` and `prNumbers` are authoring aliases for `base_branches` and `pr_numbers`. `teams`, `projects`, `states`, `issues`, `channels`, `users`, and `itemUsers` are name-based aliases for their `_ids` counterparts. An alias and its canonical key are mutually exclusive.
 
@@ -448,7 +517,7 @@ triggers:
 
 ### `triggers[].schedule`
 
-Declares a cron schedule inline on a `schedule` / `cron_fired` trigger: a five-field cron expression or a descriptor like `@daily` or `@every 1h`, always interpreted in UTC. An optional `name` distinguishes multiple schedules on one automation.
+Declares a cron schedule inline on a `schedule` / `cron_fired` trigger: a five-field cron expression or a descriptor like `@daily` or `@every 1h`, always interpreted in UTC. An optional `name` distinguishes multiple schedules on one automation. At most one schedule may omit it. Changing only `cron` updates the schedule in place; changing `name` replaces it.
 
 ```yaml
 triggers:
@@ -461,7 +530,9 @@ triggers:
 
 ### Execution overrides
 
-An automation may also declare `displayName`, plus `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel`, `idleTimeoutMinutes`, and `required_repos`. Execution settings override the target agent for runs this automation starts. Automation `required_repos` entries are added to the target agent's required repositories.
+An automation may also declare `displayName`, plus `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel`, `idleTimeoutMinutes`, and `required_repos`. Set `displayName` to `null` to clear it. Execution settings override the target agent for runs this automation starts. Automation `required_repos` entries are added to the target agent's required repositories.
+
+The sparse `harness` override accepts `harness.type`, `harness.model`, `harness.reasoningLevel`, and `harness.auth`; its nested authentication fields are `harness.auth.source` and `harness.auth.secretName`. Automation-level `mcpServers` entries accept `mcpServers.warpId`, `mcpServers.command`, `mcpServers.args`, `mcpServers.env`, `mcpServers.url`, and `mcpServers.headers`. For `idleTimeoutMinutes`, omission or `null` inherits the target agent's value.
 
 ## `runners/<name>.yaml`
 
@@ -487,11 +558,11 @@ Optional. Shell commands run in order while the sandbox is prepared.
 
 ### `instanceShape`
 
-Optional. The compute size, as `vcpus` and `memoryGb`. Omit it to take the workspace default.
+Optional. The compute size, as `vcpus` and `memoryGb`. Omit it to take the workspace default. Linux and Windows require both values to be powers of two. macOS accepts only these vCPU and memory pairs: 4 vCPUs with 7 GB, 6 vCPUs with 14 GB, 8 vCPUs with 14 GB, 12 vCPUs with 28 GB, or 12 vCPUs with 56 GB.
 
 ### `platform`
 
-The operating system and architecture. `os` is `linux` (the default), `macos`, or `windows`. `arch` is `x86_64` (the default on Linux and the only option on Windows) or `aarch64` (supported on Linux and required on macOS). Linux runners require `linux.dockerImage`, the container image the sandbox boots, so every Linux runner declares a `platform` section. macOS runners accept an optional `mac.version` (`"14"`, `"15"`, `"26"`, or `"27"`; quote it, and it defaults to `"26"`).
+The operating system and architecture. `os` is `linux` (the default), `macos`, or `windows`. `arch` is `x86_64` (the default on Linux and the only option on Windows) or `aarch64` (supported on Linux and required on macOS). Linux runners require `linux.dockerImage`, the container image the sandbox boots, so every Linux runner declares a `platform` section. The optional `platform.mac` object sets `platform.mac.version` to `"14"`, `"15"`, `"26"`, or `"27"` for a macOS runner; quote it, and omit `platform.mac` to use `"26"`.
 
 For a private Linux image, set `linux.registryCredentialSecretName` to the name of a managed `docker_registry` secret. The secret's registry host must match the host in `linux.dockerImage`.
 
@@ -514,7 +585,7 @@ routing:
     model: claude-4-8-opus-high
 ```
 
-For `type: complexity`, `routing` maps `easy`, `medium`, and `hard` to concrete models. For `type: prompt`, `routing` is an ordered list of `description` and `model` pairs. Router targets must be concrete supported models, not Auto models or other routers. See [custom model routers](/agents/inference/custom-routers/) for routing behavior.
+For `type: complexity`, `routing.easy`, `routing.medium`, and `routing.hard` map complexity levels to concrete models; each route is optional. For `type: prompt`, `routing` is an ordered list of required `routing.description` and `routing.model` pairs. `routing` itself is optional for either type. Router targets must be concrete supported models, not Auto models or other routers. See [custom model routers](/agents/inference/custom-routers/) for routing behavior.
 
 Factory members who can access the router can also select it from model catalogs in the factory dashboard, including agent settings and benchmark configurations.
 
@@ -555,7 +626,7 @@ Required. The name of an agent declared by the factory. Every task in the suite 
 
 Optional. One to six reusable configurations for benchmark runs. When a run doesn't supply its own configurations, Warp uses these presets. Each configuration requires a unique `name`.
 
-The optional `agents` list pins named factory agents to the models and harnesses they use during that configuration's trials. Each entry requires `agent` and exactly one of `model` or `harness`. A `harness` override requires `type` and `model` and optionally accepts `auth`. List an agent at most once per configuration. Agents omitted from the list use their configuration at launch time.
+The optional `agents` list pins named factory agents to the models and harnesses they use during that configuration's trials. Each `agents.agent` entry requires exactly one of `agents.model` or `agents.harness`. An `agents.harness` override requires `agents.harness.type` and `agents.harness.model`; supported types are `oz`, `claude`, `claude-code`, `codex`, and `gemini`. Optional `agents.harness.auth` uses `agents.harness.auth.source` and `agents.harness.auth.secretName`. List an agent at most once per configuration. Agents omitted from the list use their configuration at launch time.
 
 ### `tasks`
 
@@ -645,7 +716,7 @@ agents:
 
 ### Scorer execution settings
 
-Optional `runner`, `secrets`, and `mcpServers` keys override the factory's `scorerDefaults` for this scorer. Use `scorerDefaults` in `factory.yaml` to set those values for every file-defined scorer.
+Optional `runner`, `secrets`, and `mcpServers` keys override the factory's `scorerDefaults` for this scorer. Scorer-level entries accept `mcpServers.warpId`, `mcpServers.command`, `mcpServers.args`, `mcpServers.env`, `mcpServers.url`, and `mcpServers.headers`. Use `scorerDefaults` in `factory.yaml` to set those values for every file-defined scorer.
 
 ### `output`
 
@@ -653,7 +724,7 @@ Optional. The scorer output form. `classification` is the current supported valu
 
 ### `labels`
 
-Required. The classifications the judge may return, each with a `value`, a numeric `score` from 0 through 1, and an optional `description`. At least one label must score at or above `passingScore` and at least one below it.
+Required. One to 20 classifications the judge may return, each with a unique `value`, a numeric `score` from 0 through 1, and an optional `description`. At least one label must score at or above `passingScore` and at least one below it.
 
 ### `passingScore`
 
@@ -661,7 +732,7 @@ Required. The threshold, from 0 through 1, at or above which a run counts as pas
 
 ### `samplingRate`
 
-Optional. The percentage of eligible runs to score. Defaults to 25.
+Optional. The percentage of eligible runs to score, from 0 through 100. Defaults to 25, rounds to two decimal places, and disables automatic scoring when set to 0.
 
 ### `model`
 
@@ -696,13 +767,15 @@ Required. The name of the managed secret holding the webhook's bearer token, URL
 
 ### `deliveryIdHeader`
 
-Optional. The header the sender stamps its own delivery identity into, used to deduplicate retries. Must be a valid HTTP header name; credential-bearing headers such as `Authorization`, `Cookie`, and provider signature headers are rejected.
+Optional. The header the sender stamps its own delivery identity into, used to deduplicate retries. It is limited to 64 characters and must be a valid HTTP header name; credential-bearing headers such as `Authorization`, `Cookie`, and provider signature headers are rejected.
 
 ### `enabled`
 
 Optional. Defaults to `true`. Set it to `false` to stop deliveries immediately without deleting the webhook, or to create a webhook before its provider has issued a signing secret; see [Setting up a Vercel webhook](/factories/webhooks/vercel/).
 
 On a Warp-managed factory, creating a webhook in the dashboard writes this file for you and stores the secret under the name you enter in the "Secret name" field.
+
+You can't change `authMode` or `signatureScheme` on an existing webhook. To replace either value, delete the file and add a new webhook under a different name.
 
 ## Skills
 
