@@ -70,6 +70,8 @@ docker run \
 
 **Expected outcome:** The worker connects to the {VARS.WARP_AUTOMATION_PLATFORM} and logs that it's listening for tasks.
 
+For Docker Desktop testing, use the [Homebrew](#option-2-homebrew) or [GitHub Releases](#option-3-github-releases-binary) worker binary instead of the Linux socket command.
+
 ### Option 2: Homebrew
 
 Install the worker binary with [Homebrew](https://brew.sh/) on macOS or Linux from the [`warpdotdev/warp` tap](https://github.com/warpdotdev/homebrew-warp):
@@ -103,7 +105,7 @@ You can run multiple workers with the same `--worker-id` for redundancy — the 
 
 The worker can take configuration either via CLI flags or via a YAML [config file](/platform/self-hosting/reference/#config-file). CLI flags take precedence over config file values.
 
-**Common CLI flags:**
+**Common CLI flags for a rootful Linux worker container:**
 
 ```bash
 export DOCKER_SOCKET_GID="$(stat -c '%g' /var/run/docker.sock)"
@@ -192,7 +194,7 @@ The Docker backend reads registry credentials from the worker's Docker config. A
 docker login registry.internal.example.com
 ```
 
-When the worker runs in a container, create a dedicated Docker config that its non-root user can read:
+When the worker runs in a container on a rootful Linux host, create a dedicated Docker config that its non-root user can read:
 
 ```bash
 export WORKER_DOCKER_CONFIG="/var/lib/oz-agent-worker/docker-config"

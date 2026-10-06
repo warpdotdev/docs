@@ -8,8 +8,6 @@ import { VARS } from '@data/vars';
 
 Mirror the images used by self-hosted workers when compute hosts cannot pull directly from a public registry. Your registry becomes the pull source for the worker process, task environment, Warp Agent sidecar, and Kubernetes preflight Job.
 
-Self-hosted workers use registry credentials from your Docker or Kubernetes infrastructure.
-
 ## Images to mirror
 
 Inventory the images used by each worker pool before blocking public-registry egress.
@@ -21,7 +19,7 @@ Inventory the images used by each worker pool before blocking public-registry eg
 | `warpdotdev/warp-agent:latest` | Warp Agent runtime mounted at `/agent` | `sidecar_image` or Helm `kubernetesBackend.sidecarImage` |
 | `busybox:1.36` | Kubernetes startup preflight | `preflight_image` or Helm `kubernetesBackend.preflightImage` |
 
-Pin the worker image to the immutable timestamp tag or digest from the [worker release](https://github.com/warpdotdev/oz-agent-worker/releases). Mirror `warpdotdev/warp-agent:latest`, which is listed on the [Warp Agent tags page](https://hub.docker.com/r/warpdotdev/warp-agent/tags), and refresh the mirror regularly.
+Pin the worker image to the immutable timestamp tag or digest from the [worker release](https://github.com/warpdotdev/oz-agent-worker/releases). The supported self-hosted sidecar reference is `warpdotdev/warp-agent:latest`, listed on the [Warp Agent tags page](https://hub.docker.com/r/warpdotdev/warp-agent/tags). Refresh the mirror regularly. To pin the sidecar, set its private-registry override to a mirrored digest and update that digest when Warp publishes a new sidecar.
 
 :::caution
 These steps cover Warp Agent runs without Computer Use. Computer Use and third-party harnesses use additional images. Contact your Warp account team before enabling them in a worker pool that blocks public-registry access.
@@ -72,7 +70,7 @@ Keep `image_pull_policy: "Always"` because the mirrored sidecar uses the mutable
 
 Run the worker with `registry.internal.example.com/warp/oz-agent-worker:WORKER_RELEASE_TAG` in place of the public worker image.
 
-Before blocking public-registry egress, start a Warp Agent run and confirm it succeeds with the mirrored task and sidecar images.
+Start the worker with `--log-level debug`, then route a [test run to the worker](/platform/self-hosting/#routing-runs-to-self-hosted-workers). Before blocking public-registry egress, confirm that the worker logs for `Using Docker image` and `Preparing additional sidecar` show private-registry references.
 
 ## Configuring the Kubernetes backend
 
@@ -120,6 +118,8 @@ kubernetesBackend:
     imagePullSecrets:
       - name: warp-registry
 ```
+
+When a run uses a Warp environment image, that image takes precedence over `defaultImage`. Set the private image reference on the Warp environment before blocking public-registry egress.
 
 From a network with GitHub access, clone the worker release and package its chart:
 

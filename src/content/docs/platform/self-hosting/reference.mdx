@@ -33,7 +33,7 @@ The following flags are available when starting the worker.
 
 Worker IDs starting with `warp` are reserved and cannot be used. The worker refuses to start if `--worker-id` begins with `warp`.
 
-### Example with all flags
+### Rootful Linux Docker example with all flags
 
 ```bash
 export DOCKER_SOCKET_GID="$(stat -c '%g' /var/run/docker.sock)"
@@ -170,7 +170,7 @@ backend:
 * `namespace` — Kubernetes namespace for task Jobs. Defaults to `default`. Selects the namespace inside the chosen cluster; does not choose the cluster.
 * `kubeconfig` — Path to an explicit kubeconfig file. If omitted, the worker uses in-cluster config when running inside Kubernetes, or falls back to the default kubeconfig loading rules.
 * `default_image` — Default Docker image for task Jobs when the run has no Warp environment image. Precedence: Warp environment image > `default_image` > `ubuntu:22.04`. Set this to skip creating a Warp environment when all your tasks use the same base image.
-* `image_pull_policy` — Pull policy for task and sidecar images. One of `Always`, `Never`, or `IfNotPresent`. Defaults to `IfNotPresent`.
+* `image_pull_policy` — Pull policy for task, sidecar, and preflight images. One of `Always`, `Never`, or `IfNotPresent`. Defaults to `IfNotPresent`.
 * `use_image_volumes` — Use native image volumes instead of root init containers. Defaults to `false` and requires cluster and runtime support.
 * `preflight_image` — Startup preflight Job image. Defaults to `busybox:1.36`. Override this if your cluster only allows pulling from an internal or allowlisted registry.
 * `preflight_resources` — CPU and memory requests and limits for startup preflight containers.
