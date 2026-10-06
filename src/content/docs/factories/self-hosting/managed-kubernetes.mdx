@@ -8,11 +8,13 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Run the `oz-agent-worker` daemon in a Kubernetes cluster with the included Helm chart. The {VARS.WARP_AUTOMATION_PLATFORM} assigns tasks to the worker, and each task runs as a Kubernetes Job in your cluster, under your scheduling and admission policies.
+Deploy the `oz-agent-worker` daemon into a Kubernetes cluster with the included Helm chart. Each agent task runs as a Kubernetes Job. The {VARS.WARP_AUTOMATION_PLATFORM} orchestrates runs; your cluster handles compute, scheduling, and policy enforcement.
 
 ## When to use the Kubernetes backend
 
-Use this backend if you already run a Kubernetes cluster and want tasks to use its scheduling, Secrets, ServiceAccounts, and admission policies.
+* You already operate a Kubernetes cluster and want agents to run there.
+* You need Kubernetes-native scheduling, resource management, or policy enforcement.
+* You want to use Kubernetes Secrets, ServiceAccounts, and admission policies to control task behavior.
 
 ---
 
@@ -48,6 +50,8 @@ The `oz-agent-worker` repository includes a namespace-scoped Helm chart at `char
 * A namespaced `ServiceAccount`, `Role`, and `RoleBinding` with the permissions needed to manage task Jobs and Pods.
 * A `ConfigMap` with the worker config YAML.
 * An optional `Secret` for `WARP_API_KEY`, or a reference to an existing Secret.
+
+The Deployment defaults to a non-root security context (`runAsUser: 10001`) with `allowPrivilegeEscalation: false` and all capabilities dropped.
 
 The chart creates no CRDs or cluster-scoped RBAC resources.
 
@@ -295,5 +299,6 @@ For the full list of Helm values, the metric catalog, and sample PromQL queries,
 * [Runners](/factories/runners/) — Assign instance shapes and route tasks to workers.
 * [Environments](/platform/environments/) — Define the task image, repos, and setup commands.
 * [Private container registry](/factories/self-hosting/private-container-registry/) — Mirror worker images into an internal registry.
+* [Monitoring](/factories/self-hosting/monitoring/) — Configure OpenTelemetry metrics and query worker health.
 * [Security and networking](/platform/execution-security/) — RBAC, admission policies, and data boundaries.
 * [Troubleshooting](/factories/self-hosting/troubleshooting/#kubernetes-backend) — Common Kubernetes backend problems.

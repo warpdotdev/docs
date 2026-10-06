@@ -106,8 +106,9 @@ See [Monitoring](/factories/self-hosting/monitoring/) for the full setup guide.
 **Fix (all backends):**
 
 1. Review task logs in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a> or through [session sharing](/agents/local-agents/session-sharing/).
-2. To keep the container, Job, or workspace for inspection, run the worker with `--no-cleanup`. On Kubernetes with cleanup enabled, failed Jobs stay for 24 hours by default.
+2. Run the worker with `--no-cleanup` to retain the container, Job, or workspace. Kubernetes failed Jobs otherwise stay for 24 hours by default.
 3. Run the worker with `--log-level debug` for detailed execution logs.
+4. Check CPU, memory, and disk capacity on the worker host or cluster.
 
 ### Docker backend (task failures)
 
@@ -116,9 +117,9 @@ See [Monitoring](/factories/self-hosting/monitoring/) for the full setup guide.
 
 ### Kubernetes backend (task failures)
 
-The Helm chart's `worker.resources` sizes the worker Deployment, not task Jobs. To size task containers, see [Size task containers](/factories/self-hosting/managed-kubernetes/#size-task-containers).
+`worker.resources` sizes only the worker Deployment. See [Size task containers](/factories/self-hosting/managed-kubernetes/#size-task-containers).
 
-Start with the state of the Job and its Pod:
+Inspect the Job and Pod:
 
 ```bash
 kubectl get jobs,pods -n NAMESPACE
@@ -127,11 +128,11 @@ kubectl logs -n NAMESPACE TASK_POD -c CONTAINER_NAME
 kubectl logs -n NAMESPACE TASK_POD -c CONTAINER_NAME --previous
 ```
 
-Replace `NAMESPACE` with the task namespace, `TASK_POD` with the task pod name, and `CONTAINER_NAME` with the name of the container that failed. Then find the symptom below.
+Replace the placeholders, then match the symptom below.
 
 #### Pod stays Pending with FailedScheduling
 
-No node has room for the Pod. The worker fails the task if the Pod stays unschedulable longer than `kubernetesBackend.unschedulableTimeout`, which defaults to 10 minutes.
+No node can satisfy the Pod's requests or placement constraints. The task fails after `kubernetesBackend.unschedulableTimeout`, which defaults to 10 minutes.
 
 **Verify:** In `kubectl describe pod`, look for `PodScheduled=False`, `FailedScheduling`, and `Insufficient cpu` or `Insufficient memory`. Compare the Pod's requests with free node capacity, then check selectors, affinity, taints and tolerations, topology constraints, quotas, and volume binding.
 
