@@ -176,9 +176,7 @@ repositories:
 
 ### `benchmarkRepoSubstitutions`
 
-Optional. Replaces a GitHub repository from the factory's scope with an external GitHub repository when a benchmark trial prepares its starting state. Each entry has `source` and `target` objects with `codeForge`, `owner`, and `name`. The source must belong to the factory, and the target must not.
-
-Both `codeForge` values must be `GITHUB`.
+Optional. Replaces a GitHub repository from the factory's scope with an external GitHub repository when a benchmark trial prepares its starting state. Each entry has `source` and `target` objects with `codeForge`, `owner`, and `name`. Both `codeForge` values must be `GITHUB`; the source must belong to the factory, and the target must not.
 
 ### `secrets`
 
@@ -226,7 +224,7 @@ integrations:
   - type: linear
 ```
 
-For Slack and Microsoft Teams, `slack.autoRespondToThreadReplies` and `microsoft-teams.autoRespondToThreadReplies` control whether eligible plain replies in an existing factory thread can continue work without another mention. Both default to `true`.
+For Slack and Microsoft Teams, `slack.autoRespondToThreadReplies` and `microsoft-teams.autoRespondToThreadReplies` control whether eligible plain replies in an existing factory thread can continue work without another mention. The Slack setting defaults to `true`. The Microsoft Teams setting defaults to `true` when the shared per-factory reply setting is enabled.
 
 ```yaml
 integrations:
@@ -297,6 +295,7 @@ harness:
 ```
 
 For a third-party harness, `auth` sets where credentials come from. `auth.source: managedSecret` reads the [managed secret](/platform/secrets/) named by `auth.secretName` and is supported for Claude Code and Codex. `auth.source: workerEnvironment` reads credentials from a self-hosted worker's environment and requires a self-hosted `workerHost`. The `oz` harness supplies its own credentials and takes no `auth` or `reasoningLevel`.
+
 At the factory level, set `agentDefaults.harness.auth.source` to `managedSecret` or `workerEnvironment`.
 
 `reasoningLevel` is optional for third-party harnesses and isn't accepted for `oz`.
@@ -451,7 +450,7 @@ The published trigger catalog currently uses these filter keys across its provid
 * Microsoft Teams: `channel_ids`, `keywords`, `team_ids`, and `user_ids`.
 * Webhook: `payload` and `webhook_ids`.
 
-Matcher objects use `in` to include values and `not_in` to exclude them. Webhook `payload` matchers also accept `exists`. Microsoft Teams `team_ids` and `channel_ids`, and webhook `webhook_ids`, support `in` only.
+Matcher objects use `in` to include values and `not_in` to exclude them. Webhook `payload` matchers also accept `exists`. Microsoft Teams `team_ids` and `channel_ids` support `in` only.
 
 For Microsoft Teams, include exactly one Microsoft Graph team UUID in `team_ids` and at least one channel ID in `channel_ids`.
 
@@ -729,8 +728,7 @@ Optional. Defaults to `true`. Set it to `false` to stop deliveries immediately w
 
 On a Warp-managed factory, creating a webhook in the dashboard writes this file for you and stores the secret under the name you enter in the "Secret name" field.
 
-You can't change `authMode` or `signatureScheme` on an existing webhook. Apply the deletion
-first and then recreate the webhook, or create the replacement under a different name.
+You can't change `authMode` or `signatureScheme` on an existing webhook. Delete and recreate the webhook, or create the replacement under a different name.
 
 ## Skills
 
