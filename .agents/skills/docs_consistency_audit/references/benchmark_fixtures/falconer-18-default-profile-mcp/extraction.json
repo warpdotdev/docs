@@ -1,0 +1,117 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:b3a0aae0f962d0f237d9b2219cdfb8db388a2d56c81e86548e6a00cf5c25df6d",
+      "canonical_source": "docs-prose",
+      "claim_ids": [
+        "sha256:210693b8c6ac4ccb35023e7f0c5533f7268afcf191ee3978ee3af252d165df27",
+        "sha256:a5f3568ceb849c223a6b8a074c3e884ceeff1e12c72f2b62f8eeea8efcca80b2"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "loads any available MCP servers",
+          "source": {
+            "content_sha256": "32c93a1316ec35362de56510ffadb560f67a2a292194ba2ed4fc3126bbda3be7",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-18-default-profile-mcp-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "The agent does not have the ability to use MCP servers by default.",
+          "source": {
+            "content_sha256": "0bd7a5ffa21cb683fc7b0f7644da56016b3a37760022cb2f64445fbcdcb6754b",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-18-default-profile-mcp-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "medium",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-18-default-profile-mcp",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "cli",
+      "entity": "default-agent-profile",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "loads-mcp-servers",
+      "qualifiers": {},
+      "quote": "loads any available MCP servers",
+      "source": {
+        "content_sha256": "32c93a1316ec35362de56510ffadb560f67a2a292194ba2ed4fc3126bbda3be7",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-18-default-profile-mcp-left",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "cli",
+      "entity": "default-agent-profile",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "loads-mcp-servers",
+      "qualifiers": {},
+      "quote": "The agent does not have the ability to use MCP servers by default.",
+      "source": {
+        "content_sha256": "0bd7a5ffa21cb683fc7b0f7644da56016b3a37760022cb2f64445fbcdcb6754b",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-18-default-profile-mcp-right",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "cli",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "32c93a1316ec35362de56510ffadb560f67a2a292194ba2ed4fc3126bbda3be7",
+    "right.mdx": "0bd7a5ffa21cb683fc7b0f7644da56016b3a37760022cb2f64445fbcdcb6754b"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}
