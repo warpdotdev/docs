@@ -424,6 +424,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						// separately from the services that route work into a factory.
 						{ slug: 'factories/integrations/github', label: 'GitHub' },
 						{ slug: 'factories/integrations/gitlab', label: 'GitLab' },
+						{ slug: 'factories/integrations/azure-devops', label: 'Azure DevOps' },
 						{ slug: 'factories/code-forges/other-code-forges', label: 'Other code forges' },
 					],
 				},
