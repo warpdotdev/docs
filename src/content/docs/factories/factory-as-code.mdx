@@ -599,10 +599,12 @@ description: Compare configurations for the review agent.
 agent: reviewer
 configurations:
   - name: Baseline
+    role: baseline
     agents:
       - agent: reviewer
         model: auto
   - name: Candidate
+    role: candidate
     agents:
       - agent: reviewer
         model: auto-efficient
@@ -624,7 +626,7 @@ Required. The name of an agent declared by the factory. Every task in the suite 
 
 ### `configurations`
 
-Optional. One to six reusable configurations for benchmark runs. When a run doesn't supply its own configurations, Warp uses these presets. Each configuration requires a unique `name`.
+Optional. One to six reusable configurations for benchmark runs. When a run doesn't supply its own configurations, Warp uses these presets. Each configuration requires a unique `name` and a `role` of `baseline` or `candidate`.
 
 The optional `agents` list pins named factory agents to the models and harnesses they use during that configuration's trials. Each `agents.agent` entry requires exactly one of `agents.model` or `agents.harness`. An `agents.harness` override requires `agents.harness.type` and `agents.harness.model`; supported types are `oz`, `claude`, `claude-code`, `codex`, and `gemini`. Optional `agents.harness.auth` uses `agents.harness.auth.source` and `agents.harness.auth.secretName`. List an agent at most once per configuration. Agents omitted from the list use their configuration at launch time.
 
