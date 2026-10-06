@@ -112,14 +112,14 @@ Before adding any internal documentation link:
 
 - **Verify the target page exists.** Check `src/sidebar.ts` for sidebar entries and the corresponding file under `src/content/docs/` to confirm the page exists. Do NOT generate plausible-looking URLs to pages that don't exist.
 - **If a target page is planned but not yet published**, link to the closest existing page and add a TODO comment with the intended future path: `<!-- TODO: Update to [future-path] once [page name] is live -->`
-- **For third-party CLI agent pages**, the current paths are under `src/content/docs/agent-platform/cli-agents/` (e.g., `claude-code.mdx`, `codex.mdx`, `opencode.mdx`).
+- **For third-party CLI agent pages**, the current paths are under `src/content/docs/agents/cli-agents/` (e.g., `claude-code.mdx`, `codex.mdx`, `opencode.mdx`).
 
 ## Cross-linking
 
 Every guide should link to:
 - At least one other guide in the Guides section
-- Relevant feature documentation in the main docs (`src/content/docs/` or `src/content/docs/agent-platform/`)
-- If applicable, pages in the Third-Party CLI Agents section (`src/content/docs/agent-platform/cli-agents/`)
+- Relevant feature documentation in the main docs (`src/content/docs/` or `src/content/docs/agents/`)
+- If applicable, pages in the Third-Party CLI Agents section (`src/content/docs/agents/cli-agents/`)
 
 ## Pre-handoff self-review
 
