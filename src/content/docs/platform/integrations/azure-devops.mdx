@@ -87,7 +87,7 @@ Use single quotes around setup commands that reference secrets. Double quotes ca
    * `your-org` with your Azure DevOps organization name
    * `your-project` with your Azure DevOps project name
    * `your-repo` with your repository name
-   * For Azure DevOps Server (self-hosted), replace `dev.azure.com` with your server's hostname.
+   * For Azure DevOps Server (self-hosted), replace `dev.azure.com/your-org` with `SERVER/COLLECTION`, using your server's hostname and collection name.
    * The second `--setup-command` with any dependency install or build steps your project requires. For example, `npm ci` or `pip install -r requirements.txt`.
 
 :::caution
