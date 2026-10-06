@@ -1554,8 +1554,9 @@ def create_pr(
 
     Checks for an existing open PR whose branch matches fix/ui-refs-* before
     creating a new one.  When one is found:
-    - If all current fixes and the unresolved-issue signature are already in
-      the PR, returns without changes.
+    - If all current fixes, the unresolved-issue signature, AND the local
+      valid_paths.json snapshot are already reflected in the PR, returns
+      without changes.
     - Otherwise, updates the existing PR branch and description.
 
     `fixes` may be empty: a refreshed snapshot (e.g. a `source_sha` bump) with
@@ -1576,7 +1577,17 @@ def create_pr(
     if existing_pr:
         new_fixes = _fixes_already_in_pr(fixes, existing_pr.get("body", ""), repo_root)
         existing_signature = extract_unresolved_signature(existing_pr.get("body", ""))
-        if not new_fixes and existing_signature == unresolved_signature:
+        # A refreshed valid_paths.json (source_sha bump, new commands, etc.)
+        # must still land even when the unresolved-issue set is unchanged;
+        # otherwise provenance stays stale while open PRs sit waiting.
+        snapshot_changed = _snapshot_has_uncommitted_changes(
+            DEFAULT_VALID_PATHS_FILE, repo_root
+        )
+        if (
+            not new_fixes
+            and existing_signature == unresolved_signature
+            and not snapshot_changed
+        ):
             print(
                 f"All fixes and unresolved issues already covered by open PR "
                 f"#{existing_pr['number']}: {existing_pr['url']}"
@@ -2151,6 +2162,9 @@ _RE_EDITABLE_BINDING = re.compile(
     r'EditableBinding::new\(\s*"([^"]+)",\s*'
     r'(?:BindingDescription::new\(\s*"([^"]+)"|"([^"]+)")'
 )
+_RE_TOGGLE_SETTING_ACTION_PAIR = re.compile(
+    r'ToggleSettingActionPair::new\(\s*"((?:[^"\\]|\\.)*)"'
+)
 
 
 def _iter_binding_source_files(warp_repo: Path):
@@ -2182,7 +2196,7 @@ def _iter_binding_source_files(warp_repo: Path):
 
 
 def _extract_command_palette_commands(warp_repo: Path) -> List[Dict[str, str]]:
-    """Parse EditableBinding registrations to extract command palette commands."""
+    """Parse binding registrations to extract command palette commands."""
     commands = []
     seen_descriptions = set()
 
@@ -2201,6 +2215,14 @@ def _extract_command_palette_commands(warp_repo: Path) -> List[Dict[str, str]]:
                 continue
             commands.append({"name": name, "description": desc})
             seen_descriptions.add(desc)
+        for m in _RE_TOGGLE_SETTING_ACTION_PAIR.finditer(text):
+            suffix = m.group(1)
+            for verb in ("Enable", "Disable"):
+                desc = f"{verb} {suffix}"
+                if desc in seen_descriptions:
+                    continue
+                commands.append({"name": desc, "description": desc})
+                seen_descriptions.add(desc)
 
     return commands
 

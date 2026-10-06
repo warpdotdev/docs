@@ -1,0 +1,125 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:9e73ee014ea0c9823a4eb0009587ad1d9d045d6417859df1771591a062102374",
+      "canonical_source": "generated-visible-help",
+      "claim_ids": [
+        "sha256:1186a173389773e637a65c4fc177d07e27305d5c06938e976765961dee71556f",
+        "sha256:d950cdac5a480d9494667a2c231a3ef8e3e5b70b4fd0ef5689d4ec4903a336dc"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "--attach <PATH> \u2014 attach an image file to the agent query",
+          "source": {
+            "content_sha256": "cd9b18302ef6dc19df65cf156713869c9d565c438aba45801a1c5a7e6db4dd6f",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-09-cloud-image-attachments-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "Cloud agent conversations do not currently support image attachments.",
+          "source": {
+            "content_sha256": "03b339e20c28ae72089907befb8d322052e909c579a2f77292d0f6a59ee387f9",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-09-cloud-image-attachments-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "medium",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-09-cloud-image-attachments",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "cli",
+      "entity": "run-cloud-image-attachments",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "supported",
+      "qualifiers": {
+        "environments": [
+          "cloud"
+        ]
+      },
+      "quote": "--attach <PATH> \u2014 attach an image file to the agent query",
+      "source": {
+        "content_sha256": "cd9b18302ef6dc19df65cf156713869c9d565c438aba45801a1c5a7e6db4dd6f",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-09-cloud-image-attachments-left",
+        "visibility": "public"
+      },
+      "source_class": "generated-visible-help",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "cli",
+      "entity": "run-cloud-image-attachments",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "supported",
+      "qualifiers": {
+        "environments": [
+          "cloud"
+        ]
+      },
+      "quote": "Cloud agent conversations do not currently support image attachments.",
+      "source": {
+        "content_sha256": "03b339e20c28ae72089907befb8d322052e909c579a2f77292d0f6a59ee387f9",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-09-cloud-image-attachments-right",
+        "visibility": "public"
+      },
+      "source_class": "faq",
+      "topic": "cli",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "cd9b18302ef6dc19df65cf156713869c9d565c438aba45801a1c5a7e6db4dd6f",
+    "right.mdx": "03b339e20c28ae72089907befb8d322052e909c579a2f77292d0f6a59ee387f9"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

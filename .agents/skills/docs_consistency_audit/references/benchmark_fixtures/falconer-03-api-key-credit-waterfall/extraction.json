@@ -1,0 +1,131 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:116f4ebc93b7669a0b40f0ba71c27cb680ad0ff414542d68d9eabf6bde717b12",
+      "canonical_source": "docs-prose",
+      "claim_ids": [
+        "sha256:cc8c35ed77083389f8c7a760862ba170a0706044a16d055cff4658a6c71eb06a",
+        "sha256:fe3bbe721d8b6afd83227b299aaeeb3c2c6369d937a59291407d86f085564136"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "the owner\u2019s plan-included credits, then the owner\u2019s add-on credits",
+          "source": {
+            "content_sha256": "d9c14ecda8a975c687168a7e8a5cfb3c5fa802a4bc0a9358acfa93e35374edcb",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-03-api-key-credit-waterfall-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "the owner\u2019s plan-included credits, then the team\u2019s shared add-on credit pool",
+          "source": {
+            "content_sha256": "955ddfd44989bbafe6b67b3227613662765394ecbac485d7589f5d68d6ac731d",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-03-api-key-credit-waterfall-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "high",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-03-api-key-credit-waterfall",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "billing",
+      "entity": "agent-api-key-run",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "credit-waterfall",
+      "qualifiers": {
+        "actors": [
+          "api-key"
+        ]
+      },
+      "quote": "the owner\u2019s plan-included credits, then the owner\u2019s add-on credits",
+      "source": {
+        "content_sha256": "d9c14ecda8a975c687168a7e8a5cfb3c5fa802a4bc0a9358acfa93e35374edcb",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-03-api-key-credit-waterfall-left",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "billing",
+      "value": {
+        "normalized": [
+          "owner-plan",
+          "owner-add-on"
+        ],
+        "type": "ordered-list"
+      }
+    },
+    {
+      "category": "billing",
+      "entity": "agent-api-key-run",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "credit-waterfall",
+      "qualifiers": {
+        "actors": [
+          "api-key"
+        ]
+      },
+      "quote": "the owner\u2019s plan-included credits, then the team\u2019s shared add-on credit pool",
+      "source": {
+        "content_sha256": "955ddfd44989bbafe6b67b3227613662765394ecbac485d7589f5d68d6ac731d",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-03-api-key-credit-waterfall-right",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "billing",
+      "value": {
+        "normalized": [
+          "owner-plan",
+          "team-shared-add-on"
+        ],
+        "type": "ordered-list"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "d9c14ecda8a975c687168a7e8a5cfb3c5fa802a4bc0a9358acfa93e35374edcb",
+    "right.mdx": "955ddfd44989bbafe6b67b3227613662765394ecbac485d7589f5d68d6ac731d"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

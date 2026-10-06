@@ -82,7 +82,7 @@ Look for these patterns:
 **Consistently no-change runs (6+ of the last 12 entries are "No change")**
 Possible causes:
 - Confidence threshold is too conservative
-- Scope (agents, cloud agents, orchestration) is too narrow and has been saturated
+- Scope (agents, cloud agents, orchestration, Warp Factories) is too narrow and has been saturated
 - Peec or GSC data is consistently unavailable, reducing signal
 
 **Peec consistently unavailable (5+ entries where `Source signals` shows `Peec unavailable`)**

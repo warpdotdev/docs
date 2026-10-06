@@ -233,6 +233,11 @@
       "statusCode": 308
     },
     {
+      "source": "/agent-platform/inference/bring-your-own-api-key.md",
+      "destination": "/agents/inference/bring-your-own-api-key/",
+      "statusCode": 308
+    },
+    {
       "source": "/agent-platform/inference/custom-inference-endpoint/",
       "destination": "/agents/inference/custom-inference-endpoint/",
       "statusCode": 308
@@ -348,8 +353,13 @@
       "statusCode": 308
     },
     {
-      "source": "/terminal",
-      "destination": "/terminal/input/classic-input/",
+      "source": "/knowledge-and-collaboration/session-sharing(/?)",
+      "destination": "/agents/local-agents/session-sharing/",
+      "statusCode": 308
+    },
+    {
+      "source": "/terminal(/?)",
+      "destination": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
       "statusCode": 308
     },
     {
@@ -3528,8 +3538,13 @@
       "statusCode": 308
     },
     {
-      "source": "/terminal/input/universal-input",
-      "destination": "/terminal/input/classic-input/",
+      "source": "/terminal/input/universal-input(/?)",
+      "destination": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
+      "statusCode": 308
+    },
+    {
+      "source": "/terminal/input/classic-input(/?)",
+      "destination": "/terminal/appearance/prompt/",
       "statusCode": 308
     },
     {
@@ -3554,12 +3569,12 @@
     },
     {
       "source": "/terminal/universal-input(/?)",
-      "destination": "/terminal/input/classic-input/",
+      "destination": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
       "statusCode": 308
     },
     {
       "source": "/terminal/universal-input/classic-input(/?)",
-      "destination": "/terminal/input/classic-input/",
+      "destination": "/terminal/appearance/prompt/",
       "statusCode": 308
     },
     {
@@ -3864,7 +3879,7 @@
     },
     {
       "source": "/warp/terminal/input/classic-input(/?)",
-      "destination": "/terminal/input/classic-input/",
+      "destination": "/terminal/appearance/prompt/",
       "statusCode": 308
     },
     {
@@ -4609,7 +4624,7 @@
     },
     {
       "source": "/terminal/classic-input(/?)",
-      "destination": "/terminal/input/classic-input/",
+      "destination": "/terminal/appearance/prompt/",
       "statusCode": 308
     },
     {
@@ -6560,6 +6575,11 @@
     {
       "source": "/agents/cli-agents(/?)",
       "destination": "/agents/cli-agents/overview/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agents/overview(/?)",
+      "destination": "/agents/",
       "statusCode": 308
     }
   ]
