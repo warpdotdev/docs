@@ -28,7 +28,7 @@ Agent & run endpoints let you create and inspect [cloud agent](/platform/) runs 
 
 For endpoint details, use the [**{VARS.WARP_PLATFORM_API} reference**](/api). For SDK schemas, use the [Python SDK](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript) repositories.
 
-To send work to a [Warp factory](/factories/), use [factory endpoints](/factories/factory-api/) to discover it and dispatch by UID instead of calling `POST /agent/run` with a foreman's `agent_identity_uid`. The follow-up, cancellation, and status endpoints still apply after a factory run is dispatched.
+To send work to a [Warp factory](/factories/), use [factory endpoints](/factories/factory-api/) to discover it and dispatch by UID instead of calling `POST /agent/runs` with a foreman's `agent_identity_uid`. The follow-up, cancellation, and status endpoints still apply after a factory run is dispatched.
 
 ## Choose the SDK or raw REST
 
@@ -108,7 +108,7 @@ Replace `WORKER_HOST` with the ID of a connected worker. For factory work, set `
 
 Agent & run endpoints include:
 
-*   `POST /agent/run`
+*   `POST /agent/runs`
 
     Create a new agent run with a prompt and optional config and title. Returns run\_id and initial state.
 *   `GET /agent/runs`

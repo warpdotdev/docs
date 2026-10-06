@@ -37,7 +37,16 @@ The diagram below maps those boundaries for self-hosted execution; factory runs 
 
 A runner defines the compute a factory's agents work on: the operating system and architecture, the sandbox image, and the instance shape (vCPUs and memory). The workspace itself — repositories, setup commands, and secrets — comes from the factory's [definition](/factories/factory-as-code/). See the [runner reference](/factories/runners/) for the available compute options.
 
-Declare runners as `runners/*.yaml` files. Every agent inherits `agentDefaults.runner`, and an agent or automation can override it. A self-hosted runner must match the worker's operating system and architecture. Warp provisions hosted runners within your plan limits; your team provisions and operates self-hosted compute.
+Declare runners as `runners/*.yaml` files. Every agent inherits `agentDefaults.runner`, and an agent or automation can override it. The execution host determines how the runner's compute settings are used:
+
+| Setting | Warp-hosted | Direct | Kubernetes | Docker |
+| --- | --- | --- | --- | --- |
+| `platform.os`, `platform.arch`, `platform.mac.version` | Selects the sandbox OS, architecture, and macOS VM version | Does not configure the host; the worker host determines the platform | Use Linux; the cluster and `pod_template` schedule nodes | Use Linux; the Docker daemon determines the architecture |
+| `platform.linux.dockerImage` | Linux sandbox image | Ignored | Task and setup container image | Task container image |
+| `platform.linux.registryCredentialSecretName` | Warp-managed private-registry credential | Ignored | Ignored; use `imagePullSecrets` | Ignored; configure registry credentials on the worker, such as in its Docker config |
+| `instanceShape` | Sandbox size, subject to plan limits; omitted uses the workspace default | Ignored; the task uses host resources | Task-container requests and limits; overrides matching `pod_template` resources; omitted keeps template or cluster defaults | Task-container limits; omitted adds no limits |
+
+Self-hosted runner settings do not provision worker capacity. Worker configuration controls host resources, registry authentication, volumes, node placement, and other backend policy.
 
 See [cloud agent runner compute options](/factories/runners/) and [factory runner syntax](/factories/factory-as-code/#runnersnameyaml).
 
@@ -56,7 +65,7 @@ A factory runs its work on one of two execution hosts: Warp-hosted compute or a 
 
 To route factory work to a managed self-hosted worker (an Enterprise feature):
 
-1. **Deploy a worker** - Review the [self-hosting requirements](/factories/self-hosting/), then connect a worker that authenticates to Warp with an agent API key. Workers run on `linux/amd64` and `linux/arm64`, and the worker's platform determines which workloads it can run.
+1. **Deploy a worker** - Review the [self-hosting requirements](/factories/self-hosting/), then connect a worker that authenticates to Warp with a self-hosted worker API key. Workers run on `linux/amd64` and `linux/arm64`, and the worker's platform determines which workloads it can run.
 2. **Pair it with a compatible runner** - Choose a runner that matches the worker's platform.
 3. **Select the worker in the factory definition** - Set [`workerHost`](/factories/factory-as-code/) so the factory routes work to it.
 

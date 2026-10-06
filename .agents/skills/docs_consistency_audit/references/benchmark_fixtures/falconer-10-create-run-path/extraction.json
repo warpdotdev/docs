@@ -1,0 +1,117 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:1736367de75026ab39f0068228ac2564a5657d5b4b1a3d65e589d5413332bbea",
+      "canonical_source": "released-openapi",
+      "claim_ids": [
+        "sha256:353a22fa49fae4cbbdc4f604940ba0835a025d95a60a593891db11b17573103f",
+        "sha256:6cf314c1813c58e198bdd9a1c0f722557797f2d7895a7263c9db194c5a19f8a3"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "POST /agent/run",
+          "source": {
+            "content_sha256": "b111b93452c941a42fd3e0566dec2658b42e85d90f75aca447cf4ee1d6857737",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-10-create-run-path-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "POST /agent/runs",
+          "source": {
+            "content_sha256": "649e2f20c1d9447f23c0bbddbbb7c9159e58c51f1954c1dd4aa327130e1c122d",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-10-create-run-path-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "high",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-10-create-run-path",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "api",
+      "entity": "create-agent-run",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "path",
+      "qualifiers": {},
+      "quote": "POST /agent/run",
+      "source": {
+        "content_sha256": "b111b93452c941a42fd3e0566dec2658b42e85d90f75aca447cf4ee1d6857737",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-10-create-run-path-left",
+        "visibility": "public"
+      },
+      "source_class": "released-openapi",
+      "topic": "api",
+      "value": {
+        "normalized": "/agent/run",
+        "type": "path"
+      }
+    },
+    {
+      "category": "api",
+      "entity": "create-agent-run",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "path",
+      "qualifiers": {},
+      "quote": "POST /agent/runs",
+      "source": {
+        "content_sha256": "649e2f20c1d9447f23c0bbddbbb7c9159e58c51f1954c1dd4aa327130e1c122d",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-10-create-run-path-right",
+        "visibility": "public"
+      },
+      "source_class": "released-openapi",
+      "topic": "api",
+      "value": {
+        "normalized": "/agent/runs",
+        "type": "path"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "b111b93452c941a42fd3e0566dec2658b42e85d90f75aca447cf4ee1d6857737",
+    "right.mdx": "649e2f20c1d9447f23c0bbddbbb7c9159e58c51f1954c1dd4aa327130e1c122d"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}
