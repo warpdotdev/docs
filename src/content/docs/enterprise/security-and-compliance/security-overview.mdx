@@ -23,12 +23,14 @@ Warp's security philosophy centers on **transparency and developer control**:
 
 ### Zero Data Retention (ZDR)
 
-Warp has **Zero Data Retention (ZDR)** agreements with its contracted LLM providers (Anthropic, OpenAI, Google, xAI), meaning they do not store or train on your data. ZDR applies across all Warp plans.
+For supported Warp-managed traffic, Warp has contractually enforced **Zero Data Retention (ZDR)** agreements with Anthropic, OpenAI, Google, xAI, and Fireworks AI. Under these agreements, the model providers do not use customer-generated data to train their models and delete inputs and outputs after processing under their retention commitments. ZDR applies across all Warp plans for supported models.
+
+Warp's provider ZDR agreements do not govern requests routed through your own API key, a custom inference endpoint, or customer-managed inference. Those requests follow the data controls and terms of the provider or endpoint you choose. See [Privacy and data control](/support-and-community/privacy-and-security/privacy/#provider-zero-data-retention) for details.
 
 How data collection works by plan:
 
-* **Free tier** - Individual users can disable data collection in **Settings** > **Privacy**.
-* **Paid teams** - Team admins can enforce data collection settings for the entire team. Data collection is enabled by default.
+* **Individual users** - Users on any plan can turn off **Help improve Warp** in the Warp app under **Settings** > **Privacy**, unless an organization policy enforces the setting.
+* **Free, Build, and Max** - Data collection is enabled by default.
 * **Business and Enterprise** - Team admins can enforce data collection settings for the entire team. Data collection is **disabled by default**.
 
 :::note
@@ -40,7 +42,7 @@ Some models carry provider-specific data retention requirements and are therefor
 Enterprise subscriptions also include:
 
 * **Team-level enforcement** - Admins configure data collection and telemetry policies for the entire organization through the Admin Panel
-* **Secret redaction** - Admins can enable [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) for the organization and configure patterns for sensitive data
+* **Secret Redaction enforcement** - Admins can configure patterns and enforce [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) for the organization, overriding individual member preferences
 
 ### Telemetry categories
 
@@ -56,7 +58,7 @@ When data collection is disabled, Warp does not collect:
 
 ### Disabling telemetry
 
-Users can opt out of telemetry individually:
+Users can opt out of telemetry individually unless an organization policy enforces the setting:
 
 1. Navigate to **Settings** > **Privacy**.
 2. Toggle off **Help improve Warp** and/or **Send crash reports**.
@@ -71,10 +73,10 @@ Team admins can enforce telemetry settings organization-wide through the Admin P
 
 * **Code and files** - Stay on your machine unless you explicitly use features that transmit them (e.g., Codebase Context indexing, session sharing, Warp Drive team resources)
 * **Codebase Context** - During indexing, code is sent to Warp's servers to generate embeddings; the raw code is not stored, only the resulting embeddings are retained
-* **Agent requests** - Warp sends requests to contracted LLM providers (Anthropic, OpenAI, Google, xAI) with Zero Data Retention agreements for Enterprise teams
+* **Agent requests** - Supported Warp-managed traffic goes to contracted model providers under Zero Data Retention agreements across all plans
 * **BYOLLM** - Requests are proxied through Warp's servers to your cloud infrastructure, where inference runs. Warp does not store the content of these requests.
 * **Team-managed API keys and endpoints** - When an admin configures [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), the keys are encrypted and stored server-side, never synced to member devices, and never delivered to cloud agent environments. They're decrypted only in memory when serving a request.
-* **Self-hosted cloud agent execution** - Repository clones, build artifacts, runtime secrets, and execution workspaces stay on your infrastructure. Orchestration metadata, session transcripts, and LLM inference requests and responses route through Warp under ZDR, and can include code context from agent interactions.
+* **Self-hosted cloud agent execution** - Repository clones, build artifacts, runtime secrets, and execution workspaces stay on your infrastructure. Orchestration metadata and session transcripts route through Warp, and supported Warp-managed inference routes to contracted model providers under their ZDR agreements. These requests can include code context from agent interactions.
 
 ### Encryption
 
@@ -83,20 +85,13 @@ Team admins can enforce telemetry settings organization-wide through the Admin P
 
 ### Secret redaction
 
-When Secret Redaction is enabled, Warp masks matching sensitive information before sending terminal or AI content to LLM providers. Admins can configure patterns for:
+[Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) removes content matching configured patterns before it is sent to Warp servers or model providers. It is off by default for individual users. Enterprise admins can enforce Secret Redaction for their organization, and members cannot disable enforced patterns.
 
-* API keys and tokens
-* Passwords and secrets
-* SSH keys and certificates
-* Custom secret patterns (configurable via Admin Panel)
-
-Telemetry payload redaction is a separate mechanism. It applies built-in patterns to telemetry and includes user and Enterprise patterns when they are configured.
-
-See [Secret Redaction documentation](/support-and-community/privacy-and-security/secret-redaction/) for details.
+Telemetry payload redaction is separate. It applies built-in patterns to telemetry and includes user and Enterprise patterns when configured.
 
 ### Data retention
 
-* **ZDR** - Warp's contracted LLM providers do not retain or train on your data
+* **ZDR** - Contracted model providers do not use customer-generated data from supported Warp-managed traffic to train their models and delete inputs and outputs under their retention commitments
 * **Telemetry data** - When collected, Warp retains telemetry data indefinitely for analytics and debugging
 * **User accounts** - Data deletion requests are processed securely within 30 days at no cost, following verified authentication and compliance with legal and contractual obligations
 
@@ -130,7 +125,7 @@ Enterprise teams can self-host cloud agent execution to control where agents run
 
 Self-hosted deployments use a split architecture:
 * **Execution plane (customer-hosted)** - Repository clones, build artifacts, runtime secrets, and container filesystem state stay on your infrastructure
-* **Control plane (Warp-hosted)** - Session transcripts (which include code context from agent interactions), orchestration metadata, and LLM inference route through Warp's servers under Zero Data Retention (ZDR) agreements. Warp does not persistently store your source code or use it for model training
+* **Control plane (Warp-hosted)** - Session transcripts (which include code context from agent interactions), orchestration metadata, and supported Warp-managed inference route through Warp's servers to contracted model providers under Zero Data Retention (ZDR) agreements
 
 Two deployment modes are available:
 * **Unmanaged** - Use `oz agent run` to run agents in your existing orchestrator or CI environment. Supports Linux, macOS, and Windows with no Docker dependency.
