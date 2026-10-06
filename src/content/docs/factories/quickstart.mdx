@@ -8,17 +8,13 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-:::note
-Warp Factories is in **Early Access** and available to a limited set of teams. If your team is new to Warp Factories, <a href={VARS.GET_STARTED_URL}>get started with Warp Factories</a>.
-:::
-
-Create a factory and take one small work item from prompt to pull request in about 10 minutes. This quickstart is for teams that already have Warp Factories access and know which repositories they want the factory to use.
-
+Create a factory and take one small work item from prompt to pull request in about 10 minutes.
 
 ## Prerequisites
 
-* **Warp Factories access** - If your team doesn't already have access, <a href={VARS.GET_STARTED_URL}>get started with Warp Factories</a>.
-* **A Warp team with credits** - The team's [credits](/support-and-community/plans-and-billing/platform-credits/) are consumed by factory agents.
+* **A Warp account and team** - <a href={VARS.GET_STARTED_URL}>Get started with Warp</a>, then join or create the team that will own the factory.
+* **Permission to create factories** - You must be a team admin or have editor permission for Warp Factories. Other team members can run and view factories but cannot create or configure them.
+* **Available team usage** - The factory's agents consume the team's [credits](/support-and-community/plans-and-billing/platform-credits/).
 * **Repository access** - Authorize GitHub, GitLab, or Azure DevOps during setup. Restricted organizations need owner approval. Azure DevOps also requires [one-time administrator approval](/factories/integrations/azure-devops/#requirements).
 
 ## Set up your factory
@@ -28,7 +24,6 @@ _About 5 minutes_
 :::note
 For GitHub and GitLab repositories, an agent connected to [Factory MCP](/factories/factory-mcp/#set-up-with-your-coding-agent) can run this whole setup. Use the web setup wizard for Azure DevOps. If the wizard is still open when the agent finishes, refresh the page to see the new factory.
 :::
-
 
 1. Sign in to the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. Next to **Factories**, click **+**.
 
@@ -84,7 +79,6 @@ Send work from Slack or an issue tracker. If you skipped integrations, start a r
    steps from CONTRIBUTING.md. Keep the change to that one file, run the
    repo's lint check, and open a pull request.
    ```
-
 
 2. The foreman dispatches the agents needed for the request and posts progress where it started. Follow the foreman and child runs on the factory's [Runs page](/factories/factory-dashboard/#inspect-runs). Requests for input also appear in your [inbox](/factories/factory-inbox/).
 

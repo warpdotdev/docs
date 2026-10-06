@@ -115,7 +115,9 @@ Scope each credential to the resources and actions its agent needs. Warp redacts
 
 ## Governance and metering
 
-Factories use your existing [team roles](/enterprise/team-management/roles-and-permissions/): Team Owners and Admins control factory definitions, runners, secrets, and provider configuration. Warp Factories doesn't add a factory-specific approval role, so who reviews specifications and who approves merges stays a workflow and repository policy decision. Treat factory-definition changes as operational code: review them like any other change, and keep merge access with the people responsible for shipping.
+Factory access combines [team and workspace permissions](/enterprise/team-management/roles-and-permissions/) with three factory roles: User, Editor, and Admin. Users view and run a factory and propose definition changes. Editors configure its definition, agents, repositories, automations, and attached integrations, secrets, MCP servers, and runners. Admins also manage members, delete the factory, and force-merge a blocked definition change. Team and workspace admins and owners always have the Admin role.
+
+Creating or editing shared runners and connecting team-wide integrations and providers remain team or workspace permissions. Factory roles don't determine who reviews specifications or approves pull request merges; those stay in workflow and repository policy.
 
 Warp meters hosted compute, Warp-provided inference, and platform services. Managed self-hosted execution moves compute costs to your own infrastructure, and customer-supplied inference bills model usage through your provider account. Platform services consume credits regardless of these choices. See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for details.
 

@@ -382,13 +382,11 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			],
 		},
 		{
-			// Warp Factories documentation for Early Access.
 			// Starlight has no built-in factory glyph, so use its settings icon.
 			id: 'factories',
 			label: 'Factories',
 			link: '/factories/',
 			icon: 'setting',
-			badge: { text: 'Early Access', variant: 'note' },
 			// Group labels are noun phrases naming a subject area, not imperative
 			// verbs. Every other tab does this -- 'Agent configuration',
 			// 'Triggers & integrations', 'Plans and billing', 'Team management' --

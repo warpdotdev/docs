@@ -10,10 +10,6 @@ import { VARS } from '@data/vars';
 
 The factory endpoints are part of the {VARS.WARP_PLATFORM_API}. Use them to find a factory and start work from a custom integration without managing agent details. Build them into a chat bot, script, or service for any tool Warp doesn't connect to directly.
 
-:::note
-Warp Factories is in **Early Access** and available to a limited set of teams. If your team is new to Warp Factories, <a href={VARS.GET_STARTED_URL}>get started with Warp Factories</a>.
-:::
-
 ## How it works
 
 * `GET /factory` - list factories your account can access. Add `search` to filter by name or alias, case-insensitive.
@@ -42,9 +38,9 @@ Every factory run is still an ordinary run, so Agent & run endpoints handle stat
 
 ```python
 import os
-from oz_agent_sdk import OzAPI
+from warp_platform_sdk import WarpClient
 
-client = OzAPI(api_key=os.environ.get("WARP_API_KEY"))
+client = WarpClient(api_key=os.environ.get("WARP_API_KEY"))
 
 # Find a factory by name or alias — no UIDs needed up front
 page = client.factories.list(search="payments")

@@ -9,11 +9,7 @@ sidebar:
 import { VARS } from '@data/vars';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-:::note
-Warp Factories is in **Early Access** and available to a limited set of teams. If your team is new to Warp Factories, <a href={VARS.GET_STARTED_URL}>get started with Warp Factories</a>.
-:::
-
-Warp Factories benchmarks compare model and runner configurations for one factory agent on the same fixed tasks. Use a benchmark to test a change on representative work before you apply it to your factory.
+Warp Factories benchmarks compare model, harness, and runner configurations for one factory agent on the same fixed tasks. Use a benchmark to test a change on representative work before you apply it to your factory.
 This video shows how to compare benchmark results for quality and cost before changing a coding agent's configuration.
 <VideoEmbed url="https://www.youtube.com/watch?v=LKx5MeUsptQ" title="Comparing factory benchmark results to reduce coding agent costs" />
 
@@ -67,7 +63,7 @@ This video shows how to turn your team's coding tasks into a reusable benchmark 
    ![The task editor with fields for a title, prompt, correctness criteria, and pinned repositories.](../../../assets/factories/benchmark-task-editor.png)
    <figcaption>The task editor for a benchmark suite.</figcaption>
    </figure>
-6. Click **Run**. In the launch dialog, choose the model or an authorized custom factory router and the runner for each configuration. Third-party harness comparisons are not available yet.
+6. Click **Run**. In the launch dialog, choose the harness and model, or an authorized custom factory router, and the runner for each configuration.
 7. Add configurations, select Scorers, and set "Repetitions." The dialog shows the number of trials created. More trials and Scorers increase the run's cost.
 8. Click **Run benchmark**. The benchmark page shows its status and scored trials. You can cancel a running or scoring benchmark.
 
