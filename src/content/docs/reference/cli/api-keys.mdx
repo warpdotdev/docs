@@ -75,16 +75,16 @@ The key type determines who the run is attributed to, which credit pool is bille
 **Personal API keys**
 
 * Run as you.
-* On Build, Max, and Business plans, use your plan-included credits, then your add-on credits. On Enterprise plans, use the team-scoped credit pool.
+* Cloud runs on Build, Max, and Business plans use any applicable cloud agent credit grant, then your plan-included monthly Warp credits, then the team's shared add-on credit pool. Local runs don't use a cloud agent credit grant. On Enterprise plans, runs use the team-scoped credit pool.
 * Use your GitHub permissions. Code changes are attributed to your GitHub account.
 
 **Agent API keys**
 
 * Run as a cloud agent on your team.
-* On Build, Max, and Business plans, bill the team owner: the owner's plan-included credits, then the owner's add-on credits. With auto-reload on, usage can trigger a reload on the owner's pool, subject to the team-wide monthly spend cap. On Enterprise plans, use the team-scoped credit pool.
+* On Build, Max, and Business plans, bill the team owner: the owner's plan-included monthly Warp credits, then the team's shared add-on credit pool. With auto-reload on, usage can add credits to the shared pool, subject to the team-wide monthly spend cap. On Enterprise plans, use the team-scoped credit pool.
 * Use the [Warp Factories](/factories/) GitHub App when [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) is configured. Without team GitHub authorization, agent keys are still useful for tasks that don't need to write to GitHub, such as analysis, monitoring, or triage.
 
-For the full credit waterfall, see [Access, billing, and identity permissions](/platform/team-access-billing-and-identity/) and [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
+For the full credit waterfall, see [how cloud agent runs use credits](/platform/team-access-billing-and-identity/#how-credit-usage-works). See [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) for shared-pool and auto-reload behavior.
 
 ## Authenticating with API keys
 

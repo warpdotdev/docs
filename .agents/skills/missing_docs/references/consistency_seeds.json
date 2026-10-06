@@ -564,16 +564,16 @@
     },
     {
       "id": "cloud-concurrency-placeholder",
-      "claim": "Cloud concurrency and credit-allocation guidance must not remain a stale placeholder.",
-      "status": "owner_confirmation",
+      "claim": "Cloud concurrency guidance links to the current plan limits instead of presenting a stale placeholder.",
+      "status": "fix",
       "occurrence_queries": ["Concurrency limits", "credit allocation details", "still being finalized"],
-      "authoritative_sources": [],
+      "authoritative_sources": [
+        "src/content/docs/platform/warp-hosting.mdx",
+        "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx"
+      ],
       "affected_surfaces": ["src/content/docs/platform/faqs.mdx"],
-      "surface_dispositions": {"src/content/docs/platform/faqs.mdx": "blocked"},
-      "owner": "Product and Billing",
-      "unresolved_question": "What current public concurrency and credit-allocation guidance should replace the placeholder, or should the placeholder be removed without replacement?",
-      "recheck_condition": "Product and Billing approve replacement guidance or approve removing the placeholder.",
-      "inconsistent_surfaces": ["src/content/docs/platform/faqs.mdx"],
+      "surface_dispositions": {"src/content/docs/platform/faqs.mdx": "fixed"},
+      "recheck_condition": "Plan concurrency limits or the canonical Warp-hosting guidance changes.",
       "deterministic_rules": [
         {
           "id": "no-finalizing-concurrency-placeholder",

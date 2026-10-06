@@ -311,16 +311,16 @@ class TestConsistencyAudit(unittest.TestCase):
         )
         self.assertEqual(result["accounting"]["unaccounted"], [])
 
-    def test_current_placeholder_remains_a_deterministic_finding(self):
+    def test_removed_placeholder_passes_its_deterministic_rule(self):
         result = audit_docs.audit_consistency(_DOCS_ROOT)
         findings = [
             item
             for item in result["findings"]
             if item["seed_id"] == "cloud-concurrency-placeholder"
         ]
-        self.assertEqual(len(findings), 1)
-        self.assertEqual(findings[0]["rule_id"], "no-finalizing-concurrency-placeholder")
-        self.assertEqual(findings[0]["path"], "src/content/docs/platform/faqs.mdx")
+        self.assertEqual(findings, [])
+        passed = {item["rule_id"] for item in result["rules"]["passed"]}
+        self.assertIn("no-finalizing-concurrency-placeholder", passed)
 
     def test_resolved_statements_pass_their_rules(self):
         result = audit_docs.audit_consistency(_DOCS_ROOT)
@@ -328,7 +328,7 @@ class TestConsistencyAudit(unittest.TestCase):
         self.assertIn("no-singular-create-run-example", passed)
         self.assertIn("no-five-file-cli-limit", passed)
         self.assertIn("no-old-session-sharing-links", passed)
-        self.assertNotIn("no-finalizing-concurrency-placeholder", passed)
+        self.assertIn("no-finalizing-concurrency-placeholder", passed)
 
     def test_policy_blockers_remain_visible_with_owner_metadata(self):
         result = audit_docs.audit_consistency(_DOCS_ROOT)
