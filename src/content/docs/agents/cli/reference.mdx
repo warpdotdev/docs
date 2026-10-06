@@ -298,7 +298,7 @@ The sign-in attempt was rejected or timed out. The error message in the CLI name
 
 ### Updating
 
-Update behavior depends on the install method. Native managed installs check, download, and stage updates for the next launch. Homebrew installs check for updates but require `brew upgrade --cask warp-agent-cli`. Unmanaged installs do not use either update path. See the [installation and update guidance](/agents/cli/quickstart/#1-install-the-warp-agent-cli) for details.
+The CLI updates automatically. Installed builds check for updates in the background, download new versions, and apply them the next time you launch `warp`. A running session is never interrupted.
 
 To check which version you're running, use `/status` in a session, or run:
 

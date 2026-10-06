@@ -14,8 +14,6 @@ The {VARS.WARP_AGENT_CLI} (the `oz` binary) is being deprecated in favor of the 
 
 MCP servers connect agents to external systems like GitHub, Linear, or Sentry. To use a [Model Context Protocol (MCP)](/agents/capabilities/mcp/) server from the CLI, use the `--mcp` flag with `oz agent run` or `oz agent run-cloud`.
 
-The CLI does not start every configured MCP server for every run. Explicit `--mcp` values start run-scoped servers. A selected agent profile can start installed servers on its MCP allowlist, while eligible file-based and global servers follow their own discovery path.
-
 For help choosing between local, cloud, and shared MCP workflows, see [Connect developer tools to agents with MCP workflows](/guides/external-tools/using-mcp-servers-with-warp/). For a conceptual overview of MCP with cloud agents — including configuration schema, full agent config examples, and limitations — see [MCP Servers](/platform/mcp/) in the Cloud Agents docs.
 
 ---

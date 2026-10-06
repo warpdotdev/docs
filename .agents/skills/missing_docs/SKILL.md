@@ -115,50 +115,30 @@ python3 .agents/skills/missing_docs/scripts/audit_docs.py
 ```
 
 Options:
-- `--category consistency|features|cli|api|slash|settings|structure|staleness|map` — run a single audit category
+- `--category features|cli|api|slash|settings|structure|staleness|map` — run a single audit category
 - `--severity high|medium|low` — filter by minimum severity
 - `--weak-coverage` — also flag GA features whose mapped doc exists but doesn't mention feature keywords (low-severity, noisy)
 - `--output report.json` — save JSON report to file
 - `--warp PATH` / `--warp-server PATH` — explicit repo paths (`--warp-internal` is a deprecated alias)
 - `--diff` — change detection against the committed snapshot (see Phase 2)
-- `--update-snapshot` — regenerate `references/surface_snapshot.json` after
-  every current delta has a machine-readable disposition (full runs only)
-
-Snapshot regeneration reads `references/surface_snapshot_dispositions.json`.
-The file uses schema version 2, records the `snapshot_fingerprint` for the input
-snapshot, and includes one entry per current `--diff` finding with its exact
-`change` and `surface`, a disposition (`documented`, `mapped`, `internal`,
-`no_docs_needed`, or `removed`), and non-empty evidence. The update fails
-before writing when the ledger is malformed, bound to a different input
-snapshot, incomplete, or contains stale entries. A ledger is optional only
-when no deltas exist and the file is absent. Deferred findings are not terminal
-and cannot enter this ledger. Delete the ledger after committing the new
-baseline; it describes the deltas being accepted, not future drift.
+- `--update-snapshot` — regenerate `references/surface_snapshot.json` (full runs only)
 
 The script resolves doc paths from the docs repo root and accepts `.md` and `.mdx`
 interchangeably (and `README.md` ↔ `index.mdx`), so surface-map entries can use the
 canonical filename even when the on-disk extension differs.
 
 The script performs these coverage audits:
-1. **Cross-repository consistency** — evaluates the curated findings in
-   `references/consistency_seeds.json`. Each seed has a stable ID, claim,
-   disposition status, occurrence queries, authority or explicit owner
-   blocker, affected surfaces, per-surface disposition, and recheck condition.
-   Scoped exact-text and regex rules report every remaining occurrence.
-   `policy_blocker` and `owner_confirmation` seeds stay visible in
-   `consistency.blockers`; they are never treated as resolved because a
-   deterministic rule passes.
-2. **Feature flag coverage** — classifies every `FeatureFlag` by rollout status using
+1. **Feature flag coverage** — classifies every `FeatureFlag` by rollout status using
    the cargo-feature→flag bridge in the warp client repo's `app/src/features.rs` plus
    `RELEASE_FLAGS`/`PREVIEW_FLAGS`/`DOGFOOD_FLAGS` in `crates/warp_features/src/lib.rs`.
    GA flags must be mapped in the surface map or covered in docs; Preview flags produce
    low-severity "docs needed soon" findings; dogfood/other flags are tracked by the
    snapshot only.
-3. **CLI command coverage** — parses the full `oz` command tree from
+2. **CLI command coverage** — parses the full `oz` command tree from
    `crates/warp_cli/src/` (recursive subcommands like `oz run message send`, skipping
    `hide = true`) and checks the CLI reference docs. Per-module `--long` flags are
    additionally tracked in the snapshot for change detection.
-4. **API endpoint coverage** — extracts public routes from warp-server
+3. **API endpoint coverage** — extracts public routes from warp-server
    `router/handlers/public_api/*.go` (nested gin groups resolved, caller-passed group
    prefixes matched positionally) and checks them against
    `developers/agent-api-openapi.yaml` (param-name-insensitive: `{runId}` matches
@@ -169,7 +149,7 @@ The script performs these coverage audits:
    released public Oz Agent API. Never hand-draft API docs or reveal an unreleased
    endpoint — resolve released endpoints via `sync-openapi-spec`, and `-> internal`/
    defer the rest.
-5. **Slash command coverage** — parses the static registry in the warp client repo's
+4. **Slash command coverage** — parses the static registry in the warp client repo's
    `app/src/search/slash_command_menu/static_commands/` and checks each `/command`
    is mentioned in docs.
 
@@ -181,23 +161,23 @@ The script performs these coverage audits:
    settings audits scope their search to the pages that own those surfaces; this one does
    not. Until that is fixed, do not read a slash command's `doc_covered` bucket as
    "documented in the right place."
-6. **Settings coverage** — parses every `toml_path: "section.key"` setting
+5. **Settings coverage** — parses every `toml_path: "section.key"` setting
    registration in the warp client repo (the same registry the JSON-schema generator uses)
    and checks the all-settings reference page documents it. Private and
    dogfood/other-flagged settings are exempt; object-typed settings documented as
    their own `[section]` count as covered.
-7. **Docs staleness** — flags renamed/removed-feature terminology in prose (code
+6. **Docs staleness** — flags renamed/removed-feature terminology in prose (code
    spans stripped; historical changelog pages excluded). Broader terminology and
    style enforcement is owned by the `style_lint` skill — delegate pure wording
    issues there.
-8. **Stale doc references** — reverse checks: settings keys documented in
+7. **Stale doc references** — reverse checks: settings keys documented in
    all-settings.mdx that no longer exist in code (catches renames like
    `agents.oz.*` → `agents.warp_agent.*`), and keybinding actions (`scope:action`)
    on the keyboard-shortcuts page that no longer exist anywhere in the warp client repo.
-9. **Docs structure** — pages on disk that are missing from `src/sidebar.ts`
+8. **Docs structure** — pages on disk that are missing from `src/sidebar.ts`
    (built but unreachable through navigation). Intentionally unlisted pages go in
    the surface map's "Unlisted docs pages" section.
-10. **Surface map hygiene** — flags map entries whose flag/command/route/setting no
+9. **Surface map hygiene** — flags map entries whose flag/command/route/setting no
    longer exists in code, and mapped doc targets that no longer exist. Verify the
    doc page is still accurate, then prune or update the entry.
 
@@ -231,19 +211,12 @@ accountability bucket and proves totality:
   (deferred via `gated:<Flag>` while its gating flag is non-GA), or `finding`.
 - **Slash commands**: `mapped`, `doc_covered`, or `finding`.
 - **Settings**: `private`, `tracked_non_ga`, `mapped`, `doc_covered`, or `finding`.
-- **Consistency seeds**: every seed has one approved status, evidence from
-  `authoritative_sources` or an explicit owner and unresolved question, and a
-  disposition for every affected surface. The report includes total seeds,
-  counts by status, passed and failed rules, remaining occurrences, and active
-  blockers.
 
 If any item escapes every bucket, the run reports `integrity:accounting` in
 `audits_skipped` and exits 2 — an unaccounted item means the audit logic itself
 regressed, never that the item is fine. Map hygiene additionally rejects
 integrity bugs in the surface map: entries that are both mapped and ignored
 (the ignore silently wins) and duplicate keys within a section.
-Malformed or unaccounted consistency seeds report
-`integrity:consistency_accounting` and also exit 2.
 
 How every change path is caught, end to end:
 1. **New surface item appears** (flag, command, route, slash, setting, web
@@ -318,7 +291,7 @@ them through these three layers instead, in order of preference:
    by design and they are not part of the markdown changelog it parses. Read them from
    the gate's output, or `--json` for the full array. `oz_updates` is the API's field
    name and stays as-is regardless of product naming.
-2. **The public Agent API surface** — already covered by audit category 4 and
+2. **The public Agent API surface** — already covered by audit category 3 and
    `sync-openapi-spec`. No new machinery; just confirm the release run actually triages
    these findings rather than deferring them by habit. A released endpoint reaches docs
    through the spec, never through hand-drafting.
@@ -339,11 +312,6 @@ your PR so the next run diffs against the new baseline:
 ```bash
 python3 .agents/skills/missing_docs/scripts/audit_docs.py --update-snapshot
 ```
-
-Do not run that command until every current delta has a recorded disposition.
-An unresolved owner or policy decision is not a disposition that permits
-baselining the change. Leave `references/surface_snapshot.json` unchanged,
-retain the delta in `--diff`, and list the blocking owner and recheck condition.
 
 ### Phase 3: Draft
 
@@ -419,11 +387,8 @@ For each gap to address (prioritize high → medium → low):
    hygiene catches the corruption on the next audit, but only after it has shipped in a
    PR. Change the entries you mean to change, then re-run `--category map` to confirm
    nothing else moved.
-9. Classify every current `--diff` delta. Run `--update-snapshot` and commit the
-   refreshed `surface_snapshot.json` in that same bookkeeping PR only when every
-   delta has a completed disposition. If any delta remains owner- or
-   policy-blocked, keep the snapshot unchanged and report the blocker. Never
-   split the snapshot across multiple PRs.
+9. Run `--update-snapshot` and commit the refreshed `surface_snapshot.json` in that same
+   bookkeeping PR. Never split the snapshot across multiple PRs.
 
 ### Resolution patterns
 
@@ -579,9 +544,9 @@ with the product. Each run:
    PR too, not only the copies on `main` — a verdict recorded in an unmerged PR is still a
    verdict, and re-triaging it burns the run and produces duplicate map entries. Then work
    through `surface_changes` and `changelog_review` (what changed since last run), then
-   standing coverage findings (high → medium → low) across all categories:
-   consistency findings and blockers, features, CLI, API, slash commands,
-   settings, stale doc references, unlisted pages, map hygiene, and staleness.
+   standing coverage findings (high → medium → low) across all categories: features, CLI,
+   API, slash commands, settings, stale doc references, unlisted pages, map hygiene,
+   staleness.
 
    **Apply `.agents/references/docs-worthiness-criteria.md` to every remaining item
    before deciding anything else.** The default is no docs; the burden is on the change
