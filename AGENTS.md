@@ -817,7 +817,7 @@ This is the single most drifted term in the docs, so the rule is narrow on purpo
 - **Warp Agent** - Capitalized, singular, treated as a proper noun. Use it for Warp's built-in agent harness, especially when contrasting with third-party agents (Claude Code, Codex, and so on) or when referencing the Settings label (**Settings** > **Agents** > **Warp Agent**).
 - **In prose, it takes the definite article: "the Warp Agent".** The bare form is for headings, sidebar labels, page titles, and the Settings path. "Runs the Warp Agent" reads correctly; "runs Warp Agent" reads as a different product.
 - **agent** / **agents** - Lowercase everywhere else. This is the generic concept and covers any agent on any surface, including cloud agents and third-party CLI agents.
-- **Proper nouns keep their capital A.** `Agent Mode`, `Agent Profiles`, `Agent Memory`, `Agent Management Panel`, `Agent API`, and `Warp Agent CLI` are feature names, not instances of the generic term.
+- **Proper nouns keep their capital A.** `Agent Mode`, `Agent Profiles`, `Agent Memory`, `Agent Management Panel`, and `Warp Agent CLI` are feature names, not instances of the generic term.
 
 ❌ **Avoid "Warp's agent" and "Warp's agents".** This is the ambiguous middle ground and the main source of drift. It reads as neither the proper noun nor the generic term, so it blurs exactly the distinction that matters. Rewrite instead:
 

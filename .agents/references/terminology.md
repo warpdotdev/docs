@@ -275,7 +275,7 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 - **Warp Platform API** — The HTTP API for sending work to factories and triggering and inspecting cloud agent runs programmatically.
   *Usage note:* Use `{VARS.WARP_PLATFORM_API}` in body prose and `{{WARP_PLATFORM_API}}` in frontmatter.
 
-- **Artifacts** — Files an agent produces during a run and uploads to Warp: screenshots, generated reports, build outputs, logs, or any other file the agent saves alongside its conversation. Retrieved with `oz artifact` (see the [Artifacts CLI reference](/reference/cli/artifacts/)) and one of the three data categories in [self-hosted agent data storage](/platform/data-storage/).
+- **Artifacts** — Files an agent produces during a run and uploads to Warp: screenshots, generated reports, build outputs, logs, or any other file the agent saves alongside its conversation. Retrieved with `oz artifact` (see the [Artifacts CLI reference](/agents/cli/oz-cli/artifacts/)) and one of the three data categories in [self-hosted agent data storage](/platform/data-storage/).
   *Usage note:* Capitalize as **Artifacts** when referring to the named category (a CLI reference page, an Admin Panel storage category); lowercase "artifacts" as the generic noun for the files themselves.
 
 - **Auth** — The agent settings field for choosing or creating the credential (a team-owned secret) a harness uses to authenticate with its provider, matched to that harness's supported credential types (Anthropic keys for Claude Code, an OpenAI key for Codex).
@@ -297,7 +297,7 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 - **Run** — The tracked unit of work for a run, including status and outputs.
   *Usage note:* Use when describing observability, history, and auditability.
 
-- **SDK** — Official client libraries for the Agent API (for example, TypeScript SDK, Python SDK).
+- **SDK** — Official client libraries for the Warp Platform API (for example, TypeScript SDK, Python SDK).
   *Usage note:* Spell out the language on first mention.
 
 - **Trigger** — The event that starts a run (Slack mention, schedule, CI event, API call).
@@ -306,7 +306,7 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 
 - **Warp CLI** — Ambiguous since the Warp Agent CLI launched; avoid the bare term. Use "Oz CLI" for the `oz` binary that runs and manages cloud agents (formerly called `warp-cli`), or "Warp Agent CLI" for the `warp` binary that runs the Warp Agent in any terminal.
 
-- **Automation Platform** — Warp's cloud agent platform, covering environments, integrations, orchestration, self-hosting, and the Agent API/SDK. Renamed from "Oz" on 2026-08-18.
+- **Automation Platform** — Warp's cloud agent platform, covering environments, integrations, orchestration, self-hosting, and the Warp Platform API and SDKs. Renamed from "Oz" on 2026-08-18.
   *Usage note:* See "Automation Platform terminology" above for the full entry and the article rule. Always write it as `{VARS.WARP_AUTOMATION_PLATFORM}` / `{{WARP_AUTOMATION_PLATFORM}}`, never as a literal string, so a future rename stays a one-line change.
 
 - **Direct backend** — The self-hosted worker backend that runs cloud agent tasks directly on the worker host, without Docker or Kubernetes. One of three self-hosting backends alongside the Docker and Kubernetes backends.
