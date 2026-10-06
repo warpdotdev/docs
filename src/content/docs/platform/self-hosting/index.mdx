@@ -163,7 +163,7 @@ All tasks created through that integration route to your self-hosted worker.
 When creating a run via the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/), include `worker_host` in the config:
 
 ```bash
-curl -X POST https://app.warp.dev/api/v1/agent/run \
+curl -X POST https://app.warp.dev/api/v1/agent/runs \
   --header 'Authorization: Bearer YOUR_API_KEY' \
   --header 'Content-Type: application/json' \
   --data '{
