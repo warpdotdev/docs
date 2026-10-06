@@ -42,7 +42,7 @@ Some models carry provider-specific data retention requirements and are therefor
 Enterprise subscriptions also include:
 
 * **Team-level enforcement** - Admins configure data collection and telemetry policies for the entire organization through the Admin Panel
-* **Secret Redaction enforcement** - Admins can enforce [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) for the organization, overriding individual member preferences
+* **Secret Redaction enforcement** - Admins can configure patterns and enforce [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) for the organization, overriding individual member preferences
 
 ### Telemetry categories
 
@@ -86,6 +86,8 @@ Team admins can enforce telemetry settings organization-wide through the Admin P
 ### Secret redaction
 
 [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) removes content matching configured patterns before it is sent to Warp servers or model providers. It is off by default for individual users. Enterprise admins can enforce Secret Redaction for their organization, and members cannot disable enforced patterns.
+
+Telemetry payload redaction is separate. It applies built-in patterns to telemetry and includes user and Enterprise patterns when configured.
 
 ### Data retention
 

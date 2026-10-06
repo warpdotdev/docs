@@ -353,6 +353,11 @@
       "statusCode": 308
     },
     {
+      "source": "/knowledge-and-collaboration/session-sharing(/?)",
+      "destination": "/agents/local-agents/session-sharing/",
+      "statusCode": 308
+    },
+    {
       "source": "/terminal(/?)",
       "destination": "/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/",
       "statusCode": 308

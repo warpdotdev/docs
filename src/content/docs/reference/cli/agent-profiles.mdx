@@ -29,7 +29,7 @@ Agent profiles are automatically synced to each host where you have Warp install
 :::
 
 :::caution
-The default profile for CLI usage is broadly permissive and gives the agent the ability to read and write files, apply code diffs, and execute commands (with a default denylist). The agent does not have the ability to use MCP servers by default.
+The default profile for CLI usage is broadly permissive and gives the agent the ability to read and write files, apply code diffs, execute commands with a default denylist, and use MCP actions. Its profile MCP allowlist starts empty. Select run-scoped servers with `--mcp`, use a profile that allowlists installed servers, or configure an eligible file-based or global server. See [MCP servers](/reference/cli/mcp-servers/) for details.
 :::
 
 ## Using a profile with the CLI

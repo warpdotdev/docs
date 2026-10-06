@@ -23,9 +23,9 @@ One event can match more than one automation, and each match starts its own run.
 
 ## Filters don't control access
 
-Filters decide when work starts, not what a running agent can reach. Access comes from what you authorize on each provider: the GitHub App installation, the GitLab bot's project membership, the Slack app's authorization, the Linear OAuth scope, or the Jira app installation. Tightening a filter never shrinks that access, and removing one never widens it. To change what an integration can reach, change what you authorize for that provider.
+Filters decide when work starts, not what a running agent can reach. Access comes from what you authorize on each provider: the GitHub App installation, the GitLab bot's project membership, the Slack app's authorization, the Microsoft Teams installation, the Linear OAuth scope, or the Jira app installation. Tightening a filter never shrinks that access, and removing one never widens it. To change what an integration can reach, change what you authorize for that provider.
 
-Filters are still your main control over who starts runs. On GitHub and GitLab, the event author doesn't need to be a Warp team member, so use author, member, and branch filters to decide whose activity starts work. Slack mentions and direct messages additionally require a Slack account linked to a member of the factory's Warp team. A custom webhook authenticates each delivery with the webhook's own secret or the sender's signature, so anyone holding that credential can start work; its filters only decide which deliveries do.
+Filters are still your main control over who starts runs. On GitHub and GitLab, the event author doesn't need to be a Warp team member, so use author, member, and branch filters to decide whose activity starts work. Slack mentions and direct messages additionally require a Slack account linked to an active member of the factory's Warp team. Microsoft Teams mentions require a Microsoft account linked to an active member of the factory's Warp workspace. A custom webhook authenticates each delivery with the webhook's own secret or the sender's signature, so anyone holding that credential can start work; its filters only decide which deliveries do.
 
 ## What each source can filter on
 
@@ -34,6 +34,7 @@ Every source filters on where the event happened: a repository, project, convers
 | Source | Filters |
 | --- | --- |
 | [Slack](/factories/integrations/slack/) | Conversations, authors or members, keywords, emoji, and reacted-message authors |
+| [Microsoft Teams](/factories/integrations/teams/) | Team, channels (standard picker; shared by channel ID), authors, and keywords |
 | [GitHub](/factories/integrations/github/) | Repository, branches, base branches, paths, labels, authors, assignees, mentioned users or teams, reviewers, review states, workflows, and conclusions |
 | [GitLab](/factories/integrations/gitlab/) | Project, actions, and base branch |
 | [Linear](/factories/integrations/linear/) | Teams, labels, project, workflow state, assignee, mentioned user, and, for comment events, a specific issue |
@@ -142,7 +143,7 @@ For exact matching semantics, limits, and validation rules, see [payload filter 
 ## Related pages
 
 * [**Connect your factory**](/factories/connect-your-factory/) - Choose the sources that route work into the factory.
-* [Slack](/factories/integrations/slack/), [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), [Linear](/factories/integrations/linear/), and [Jira](/factories/integrations/jira/) integration guides - Per-source setup, events, and filter details.
+* [Slack](/factories/integrations/slack/), [Microsoft Teams](/factories/integrations/teams/), [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), [Linear](/factories/integrations/linear/), and [Jira](/factories/integrations/jira/) integration guides - Per-source setup, events, and filter details.
 * [**Custom webhooks**](/factories/webhooks/) - Start automations from any system that can POST JSON, with the setup flow and authentication modes.
 * [**Definitions as code**](/factories/factory-as-code/) - Manage automations, triggers, and filters as version-controlled files.
 * [**warp-factory-examples**](https://github.com/warpdotdev/warp-factory-examples) - Complete factory definitions with example automations and filters.

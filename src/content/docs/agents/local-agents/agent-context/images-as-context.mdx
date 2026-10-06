@@ -5,7 +5,7 @@ description: >-
   can use visual context when generating responses.
 ---
 
-Attach screenshots, diagrams, or other images directly to agent prompts so the agent can use visual context when generating responses. Warp supports drag-and-drop, copy-paste, and file upload for up to 5 images per request across all supported models.
+Attach screenshots, diagrams, or other images directly to agent prompts so the agent can use visual context when generating responses. Warp supports drag-and-drop, copy-paste, and file upload in local and cloud conversations.
 
 ## **Attaching images as context**
 
@@ -21,11 +21,11 @@ You can attach images in the following ways:
 Warp accepts the following image formats: `.jpg`, `.jpeg`, `.png`, `.gif`, and `.webp`.
 :::
 
-You can attach up to **5 images per request**, and up to **20 images across a single conversation**. Each image is sent to the model provider and immediately discarded — nothing is stored on Warp's servers.
+## Images in cloud conversations
 
-:::caution
-**Cloud agent conversations do not currently support image attachments.** Image attachment is only available in local agent conversations. If you need to provide visual context to a cloud agent, describe the image contents in your prompt or reference the image file path within the cloud agent's [environment](/platform/environments/).
-:::
+In an interactive cloud conversation, attach an image with the file button in the input footer, paste an image from your clipboard, or drag and drop an image into the input.
+
+Legacy `oz agent run-cloud --attach` task creation uses separate file-attachment limits. See [running agents remotely](/reference/cli/#running-agents-remotely-oz-agent-run-cloud) for those limits.
 
 ### Model behavior and image handling
 
