@@ -58,9 +58,10 @@ The Docker configuration below requires worker release `v2026-08-28-21-43-14` or
 
 The Docker backend uses the worker's Docker config to authenticate task-image pulls. Warp Agent sidecar pulls do not use those credentials.
 
-If the mirrored sidecar repository requires authentication, first follow [Private Docker registries](/factories/self-hosting/managed-docker/#private-docker-registries) to create the dedicated Docker config for a containerized worker. Reuse that config to pre-pull every task and sidecar image:
+If the registry requires authentication, follow [Private Docker registries](/factories/self-hosting/managed-docker/#private-docker-registries) to create and mount a dedicated Docker config for a containerized worker. Because sidecar pulls do not use credentials, pre-pull every task and sidecar image before setting the pull policy to `Never`:
 
 ```bash
+export WORKER_DOCKER_CONFIG="/var/lib/oz-agent-worker/docker-config"
 sudo docker --config "$WORKER_DOCKER_CONFIG" \
   pull registry.internal.example.com/warp/agent-base:22.04
 sudo docker --config "$WORKER_DOCKER_CONFIG" \
