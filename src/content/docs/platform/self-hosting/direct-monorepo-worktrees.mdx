@@ -14,7 +14,7 @@ The worker creates a task workspace, then calls the configured hooks:
 
 1. `setup_command` adds a worktree at `OZ_WORKSPACE_ROOT/repo` from a shared base clone.
 2. The `oz` CLI starts with `OZ_WORKSPACE_ROOT` as its working directory. `REPO_ROOT` points to the checkout but does not change the working directory.
-3. The task prompt or loaded agent instructions direct all repository commands and edits to `repo/`.
+3. You must modify each task prompt or loaded agent instruction to keep all repository commands and edits under `repo/`.
 4. `teardown_command` removes the worktree and its task branch.
 5. The worker removes the remaining task workspace.
 
