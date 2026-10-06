@@ -13,13 +13,15 @@ Connect Jira Cloud to your factory so your team can start factory work without l
 ## Prerequisites
 
 * **Jira Cloud** - The integration supports Jira Cloud only, not Jira Server or Data Center.
-* **A Jira site admin** - Installing the Warp app on a Jira site and connecting it to a Warp workspace requires site admin permissions.
+* **A Jira site admin** - Installing the Warp app on a Jira site and connecting it to a Warp workspace requires site admin permissions. If you are not a site admin, you can send the setup to one instead.
 * **A factory** - You need a factory in the connected workspace and permission to edit its [definition](/factories/factory-as-code/).
 * **The Warp agent in Jira** - The **Warp** agent must be available on your Jira site so people can assign or mention it on work items. Jira lists it among Atlassian's Rovo agents.
 
 ## Connect Jira and add an automation
 
-1. **Install the Warp app on your Jira site and connect it to your Warp workspace.** The [Jira integration setup](/platform/integrations/jira/#setup) walks through both. Once connected, every factory in the workspace can use it. (That page's `warp-agent` label flow starts standalone cloud agent runs; factories skip the label and use an automation instead.)
+1. **Install the Warp app on your Jira site and connect it to your Warp workspace.** Choose Jira during factory setup or from the workspace's **Integrations** page. If you are a Jira site admin, connect the site directly. Otherwise, choose **Someone else**, enter the Atlassian site, and email one or more site admins a setup request or copy an approval link to send yourself. Each link is valid for seven days and lets its holder install Warp for Jira and connect that site without signing in to your Warp session. Once connected, every factory in the workspace can use it.
+
+   You can add recipients, resend or revoke an emailed link, copy or reset your own approval link, or revoke the whole request while setup is pending. The [Jira integration setup](/platform/integrations/jira/#setup) explains the direct installation steps. That page's `warp-agent` label flow starts standalone cloud agent runs; factories skip the label and use an automation instead.
 
 2. **Connect Jira to this factory.** A workspace connection makes Jira available to your factories, but each one opts in separately: in the factory's **Settings**, connect **Jira** and select the projects that should trigger it.
 
@@ -84,7 +86,7 @@ Warp's built-in Jira tools read Jira as the person who created the run; that per
 
 ## Troubleshooting
 
-* **Warp is unavailable in Jira** - Confirm the Warp app is installed on the Jira Cloud site. On the app's **Configure** page, click **Connect to Warp** if the installation isn't connected to a workspace.
+* **Warp is unavailable in Jira** - Confirm the Warp app is installed on the Jira Cloud site. On the app's **Configure** page, click **Connect to Warp** if the installation isn't connected to a workspace. If someone else is completing setup, confirm that their setup link is still active.
 * **No run starts** - Confirm an enabled `agent_session_created` automation exists, its agent is available, and its project and keyword filters match the assignment.
 * **The session shows no result** - Open the matching automation's run to see whether the agent is still working, waiting for input, or failed.
 * **A Jira update fails** - Confirm the app can access the work item's project and that the requested action or workflow transition is valid.
