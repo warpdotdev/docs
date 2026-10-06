@@ -4,10 +4,11 @@ description: >-
   Mirror self-hosted worker images into a private registry and configure Docker
   or Kubernetes workers to pull from it.
 ---
+import { VARS } from '@data/vars';
 
 Mirror the images used by self-hosted workers when compute hosts cannot pull directly from a public registry. Your registry becomes the pull source for the worker process, task environment, Warp Agent sidecar, and Kubernetes preflight Job.
 
-Self-hosted workers use registry credentials from your Docker or Kubernetes infrastructure. Warp-hosted agents instead use the private-registry credential assigned to their runner.
+Self-hosted workers use registry credentials from your Docker or Kubernetes infrastructure.
 
 ## Images to mirror
 
@@ -67,9 +68,11 @@ backend:
     sidecar_image: "registry.internal.example.com/warp/warp-agent:latest"
 ```
 
-The pull policy applies to task and sidecar images. The task image must also point to the private registry through its Warp environment; the worker does not rewrite task image registry names.
+Keep `image_pull_policy: "Always"` because the mirrored sidecar uses the mutable `latest` tag. The pull policy applies to task and sidecar images. The task image must also point to the private registry through its Warp environment; the worker does not rewrite task image registry names.
 
 Run the worker with `registry.internal.example.com/warp/oz-agent-worker:WORKER_RELEASE_TAG` in place of the public worker image.
+
+Before blocking public-registry egress, start a Warp Agent run and confirm it succeeds with the mirrored task and sidecar images.
 
 ## Configuring the Kubernetes backend
 
@@ -118,7 +121,27 @@ kubernetesBackend:
       - name: warp-registry
 ```
 
-From a network with GitHub access, download the same worker release and publish `charts/oz-agent-worker` to an internal source repository or artifact store.
+From a network with GitHub access, clone the worker release and package its chart:
+
+```bash
+git clone \
+  --branch "WORKER_RELEASE_TAG" \
+  --depth 1 \
+  https://github.com/warpdotdev/oz-agent-worker.git
+tar --create --gzip \
+  --file "oz-agent-worker-chart-WORKER_RELEASE_TAG.tar.gz" \
+  --directory oz-agent-worker/charts \
+  oz-agent-worker
+```
+
+Copy the archive to your approved internal artifact store. On the deployment host, extract it to an internal path:
+
+```bash
+mkdir --parents /srv/warp/charts
+tar --extract --gzip \
+  --file "oz-agent-worker-chart-WORKER_RELEASE_TAG.tar.gz" \
+  --directory /srv/warp/charts
+```
 
 On the deployment host, set `WORKER_CHART` to the internal chart copy and install it with temporary verification settings:
 
@@ -126,7 +149,6 @@ On the deployment host, set `WORKER_CHART` to the internal chart copy and instal
 export WORKER_CHART="/srv/warp/charts/oz-agent-worker"
 helm upgrade --install oz-agent-worker "$WORKER_CHART" \
   --namespace warp-oz \
-  --create-namespace \
   --set worker.workerId=private-registry-kubernetes \
   --set worker.logLevel=debug \
   --set worker.cleanup=false \
@@ -145,7 +167,7 @@ kubectl logs --follow deployment/oz-agent-worker --namespace warp-oz
 
 The connection message confirms that the worker passed Kubernetes API, RBAC, and Pod admission checks. The successful test run verifies the registry credentials by pulling and running the task and sidecar images.
 
-Start one run that uses the Warp Agent without Computer Use:
+With the <a href="/reference/cli/#installing-the-cli">{VARS.WARP_AGENT_CLI}</a>, start one run that uses the Warp Agent without Computer Use:
 
 ```bash
 oz agent run-cloud \
@@ -177,7 +199,7 @@ kubectl get pod "$TASK_POD" --namespace warp-oz \
   --output jsonpath='{range .spec.initContainers[*]}{.image}{"\n"}{end}{range .spec.containers[*]}{.image}{"\n"}{end}'
 ```
 
-Block public-registry egress only after every reported image uses the private registry. Restore the default log level and cleanup behavior, then remove the retained test Job:
+For this Kubernetes worker, block public-registry egress only after every reported image uses the private registry. Restore the default log level and cleanup behavior, then remove the retained test Job:
 
 ```bash
 helm upgrade oz-agent-worker "$WORKER_CHART" \
@@ -191,10 +213,10 @@ kubectl delete "$TASK_JOB" --namespace warp-oz
 
 ## Troubleshooting
 
-**Docker reports `pull access denied`**\
+### Docker reports `pull access denied`
 Confirm the worker's Docker config contains credentials for the registry. See [Private Docker registries](/platform/self-hosting/managed-docker/#private-docker-registries).
 
-**Kubernetes reports `ImagePullBackOff`**\
+### Kubernetes reports `ImagePullBackOff`
 Confirm `warp-registry` exists in the task namespace. The worker Deployment needs `image.pullSecrets`, while task and preflight Pods need `podTemplate.imagePullSecrets`.
 
 ## Related pages

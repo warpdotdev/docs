@@ -68,7 +68,7 @@ All traffic uses HTTPS (port 443). No inbound ports need to be opened.
 
 ### Docker backend
 
-* **Docker socket access** — The worker requires access to the Docker daemon to create task containers. When running the worker via Docker, this means mounting `/var/run/docker.sock`. Ensure appropriate access controls on the host.
+* **Docker socket access** — The worker requires access to the Docker daemon to create task containers. For a rootful Linux daemon, mount `/var/run/docker.sock` and pass its numeric group ID to the worker container. See the [Docker installation example](/platform/self-hosting/managed-docker/#option-1-docker-recommended).
 * **Volume mounts** — If using `-v` / `--volumes`, be mindful of what host paths you expose to task containers.
 * **Task isolation** — Each task runs in its own container. Containers are removed after execution by default (disable with `--no-cleanup` for debugging).
 

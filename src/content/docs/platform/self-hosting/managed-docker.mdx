@@ -165,7 +165,7 @@ The worker uses the standard Docker client discovery mechanism to find the Docke
 3. **Docker context** via `DOCKER_CONTEXT` environment variable.
 4. **Config file** (`~/.docker/config.json`) for context settings.
 
-The published worker image runs as a non-root user. When you mount a rootful Linux Docker socket, pass the socket's numeric group ID with `--group-add` as shown in the [Docker installation example](#option-1-docker-recommended). Use a host process or a Docker endpoint with its own access controls if the socket group does not have read and write access.
+The published worker image runs as a non-root user. When you mount a rootful Linux Docker socket, pass the socket's numeric group ID with `--group-add` as shown in the [Docker installation example](#option-1-docker-recommended). Otherwise, [run the worker binary as a host user with Docker access](#option-2-homebrew), or use a TLS-protected Docker endpoint with `DOCKER_HOST`, `DOCKER_TLS_VERIFY`, and `DOCKER_CERT_PATH`.
 
 Additional Docker environment variables the worker respects:
 

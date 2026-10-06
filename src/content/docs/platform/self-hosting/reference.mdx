@@ -36,7 +36,11 @@ Worker IDs starting with `warp` are reserved and cannot be used. The worker refu
 ### Example with all flags
 
 ```bash
-docker run -v /var/run/docker.sock:/var/run/docker.sock \
+export DOCKER_SOCKET_GID="$(stat -c '%g' /var/run/docker.sock)"
+
+docker run \
+  --group-add "$DOCKER_SOCKET_GID" \
+  -v /var/run/docker.sock:/var/run/docker.sock \
   -e WARP_API_KEY="$WARP_API_KEY" \
   warpdotdev/oz-agent-worker \
   --worker-id "prod-runner-1" \

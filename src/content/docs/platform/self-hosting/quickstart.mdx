@@ -41,7 +41,11 @@ export WARP_API_KEY="YOUR_API_KEY"
 Run the `oz-agent-worker` container, mounting the host's Docker socket so the worker can spawn task containers. Choose any `--worker-id` meaningful for your team — you'll use this value to route tasks to this worker.
 
 ```bash
-docker run -v /var/run/docker.sock:/var/run/docker.sock \
+export DOCKER_SOCKET_GID="$(stat -c '%g' /var/run/docker.sock)"
+
+docker run \
+  --group-add "$DOCKER_SOCKET_GID" \
+  -v /var/run/docker.sock:/var/run/docker.sock \
   -e WARP_API_KEY="$WARP_API_KEY" \
   warpdotdev/oz-agent-worker --worker-id "my-worker"
 ```
