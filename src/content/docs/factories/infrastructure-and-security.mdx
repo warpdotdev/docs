@@ -7,11 +7,11 @@ sidebar:
   label: "Infrastructure & security"
 ---
 
-Warp Factories runs on the infrastructure your team chooses. You decide where a factory runs code, which model providers serve its inference requests, and which credentials each agent receives. Warp coordinates the work and stores run data such as transcripts and artifacts.
+Warp Factories separates execution, inference, and credential boundaries. You choose where code runs, which providers serve inference, and which credentials each agent receives. Warp coordinates the work and stores transcripts and artifacts.
 
 ## Control plane and execution plane
 
-Every factory splits responsibilities across two planes:
+Each factory uses two planes:
 
 * **Control plane** - Warp coordinates runs, identity and configuration, observability, integrations, storage, and inference routing.
 * **Execution plane** - A Warp-hosted sandbox or a managed self-hosted worker checks out code, runs setup, invokes tools, builds the project, and executes commands.
@@ -135,6 +135,10 @@ Warp meters hosted compute, Warp-provided inference, and platform services. Self
 
 ## Related pages
 
-* [**Deployment patterns**](/factories/deployment-patterns/) - Compare Warp-hosted, managed self-hosted, and CLI-only execution.
-* [**Managed self-hosting**](/factories/self-hosting/) - Choose a worker backend and follow its setup guide.
-* [**Execution security**](/platform/execution-security/) - Review data boundaries, network egress, and backend-specific controls.
+* [**Deployment patterns**](/factories/deployment-patterns/) - Compare execution and inference boundaries.
+* [**Runners**](/factories/runners/) - Configure compute and worker compatibility.
+* [**Managed self-hosting**](/factories/self-hosting/) - Deploy and operate a worker backend.
+* [**Execution security**](/platform/execution-security/) - Review data boundaries, egress, and backend controls.
+* [**Team-managed model keys and endpoints**](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Configure inference credentials.
+* [**Roles and permissions**](/enterprise/team-management/roles-and-permissions/) - Govern team and workspace resources.
+* [**Platform credits**](/support-and-community/plans-and-billing/platform-credits/) - Understand factory metering.
