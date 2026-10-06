@@ -48,14 +48,14 @@ under `properties`, an item in a `parameters` array, a whole schema in
 already covered. `STRIP_FLAGS` (rule 6) then only has to clean up the
 `x-internal` key on anything that rule 1 doesn't fully own removing (there
 is normally nothing left, since every `x-internal: true` object is deleted
-outright) plus the other seven implementation-only extensions.
+outright) plus the other eight implementation-only extensions.
 
 ## Implementation-only extensions are stripped everywhere (`STRIP_FLAGS`)
 
 `STRIP_FLAGS` mirrors the `stripFlags` list in
 `warp-server/public_api/public-openapi-filter.yaml` verbatim: `x-internal`,
 `x-enum-varnames`, `x-go-type`, `x-go-type-import`,
-`x-go-type-skip-optional-pointer`, `x-oapi-codegen-extra-tags`,
+`x-go-type-skip-optional-pointer`, `x-omitempty`, `x-oapi-codegen-extra-tags`,
 `x-stainless-deprecation-message`, and `x-stainless-naming`. These
 extensions are useful for server/SDK code generation (oapi-codegen,
 Stainless) but carry no meaning for a docs reader, so none of them may
