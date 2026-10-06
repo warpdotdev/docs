@@ -543,7 +543,7 @@ These rules apply regardless of content type:
 - Do NOT include step-by-step procedures — link to a procedural or quickstart page instead
 - Show real-world scenarios, not just abstract descriptions
 
-**Existing examples**: `platform/deployment-patterns.mdx`, `platform/index.mdx`
+**Existing examples**: `factories/deployment-patterns.mdx`, `platform/index.mdx`
 
 **Template**: `.agents/templates/conceptual.md`
 
@@ -578,7 +578,7 @@ These rules apply regardless of content type:
 - Provide troubleshooting for common failure points.
 - **Explain the default before the override.** When documenting configurable infrastructure or advanced settings, state the default behavior and the common case first, then cover manual overrides. Don't lead with the full matrix of options before establishing what "just works" out of the box.
 
-**Existing examples**: `reference/cli/api-keys.mdx`, `platform/integrations/slack.mdx`
+**Existing examples**: `agents/cli/oz-cli/api-keys.mdx`, `platform/integrations/slack.mdx`
 
 **Template**: `.agents/templates/procedural.md`
 
@@ -631,7 +631,7 @@ These rules apply regardless of content type:
 - Keep descriptions factual and concise — this is for lookup, not learning.
 - Include at least one practical example for each command or endpoint.
 
-**Existing examples**: `reference/cli/index.mdx`, `reference/api-and-sdk/index.mdx`
+**Existing examples**: `agents/cli/oz-cli/index.mdx`, `factories/api-and-sdk/index.mdx`
 
 **Template**: `.agents/templates/reference.md`
 
@@ -653,7 +653,7 @@ These rules apply regardless of content type:
 - Provide workarounds when a fix isn't available.
 - Link to related troubleshooting pages and support channels.
 
-**Existing examples**: `support-and-community/troubleshooting-and-support/known-issues.mdx`, `reference/cli/troubleshooting.mdx`
+**Existing examples**: `support-and-community/troubleshooting-and-support/known-issues.mdx`, `agents/cli/oz-cli/troubleshooting.mdx`
 
 **Template**: `.agents/templates/troubleshooting.md`
 
@@ -695,7 +695,7 @@ Direct answer with actionable information. Include links to relevant documentati
 
 **Template**: `.agents/templates/faq.md`
 
-**Existing examples**: `agent-platform/getting-started/faqs.mdx`, `support-and-community/plans-and-billing/pricing-faqs.mdx`
+**Existing examples**: `agents/getting-started/faqs.mdx`, `support-and-community/plans-and-billing/pricing-faqs.mdx`
 
 ### Tutorial (Guides section)
 
@@ -758,7 +758,7 @@ This is the most common page type in Warp's docs (~75+ pages). A feature documen
 
 This is the type most prone to sprawl, precisely because it accepts the most kinds of content. If the page is growing past roughly 1500 words, split the procedures onto their own pages rather than adding another section.
 
-**Existing examples**: `agent-platform/capabilities/skills.mdx`, `platform/environments.mdx`
+**Existing examples**: `agents/capabilities/skills.mdx`, `platform/environments.mdx`
 
 **Template**: `.agents/templates/feature-doc.md`
 
@@ -1086,8 +1086,9 @@ Content lives in `src/content/docs/`, organized by topic:
 - **code/** — Code editor, code review, git worktrees
 - **getting-started/** — Installation, quickstart, migration
 - **knowledge-and-collaboration/** — Warp Drive, teams, admin panel
-- **agent-platform/** — Agent Platform (capabilities, local agents, cli agents, cloud agents)
-- **reference/** — CLI and API/SDK reference
+- **agents/** — Agent capabilities, local agents, CLI agents, and inference
+- **platform/** — Standalone cloud-agent workflows, environments, triggers, integrations, and orchestration
+- **factories/** — Warp Factories, including its API and SDK reference
 - **support-and-community/** — Troubleshooting, billing, privacy
 - **enterprise/** — Enterprise features, SSO, team management
 - **changelog/** — Release changelog
@@ -1095,9 +1096,9 @@ Content lives in `src/content/docs/`, organized by topic:
 
 ### Content model
 The docs site has multiple levels of hierarchy:
-- **Top-level section** (e.g., `src/content/docs/agent-platform/`)
-  - **Subsections** (e.g., `src/content/docs/agent-platform/capabilities/`)
-    - **Articles** (e.g., `src/content/docs/agent-platform/capabilities/skills.mdx`)
+- **Top-level section** (e.g., `src/content/docs/agents/`)
+  - **Subsections** (e.g., `src/content/docs/agents/capabilities/`)
+    - **Articles** (e.g., `src/content/docs/agents/capabilities/skills.mdx`)
 
 We organize content in logical groupings that help people find what they are searching for. We aim to limit the layers of hierarchy, with few nested subcategories, which can make it difficult to find help.
 
@@ -1128,8 +1129,8 @@ Pages use MDX with Starlight components:
 ### Sample doc URLs
 Documentation pages are published at `docs.warp.dev/`. For example:
 - `docs.warp.dev/terminal/blocks/block-basics`
-- `docs.warp.dev/agent-platform/capabilities/skills`
-- `docs.warp.dev/reference/cli`
+- `docs.warp.dev/agents/capabilities/skills`
+- `docs.warp.dev/agents/cli/oz-cli`
 
 ### OpenAPI spec
-`developers/agent-api-openapi.yaml` is the OpenAPI spec for the Warp Agent API.
+`developers/agent-api-openapi.yaml` is the OpenAPI spec for the Warp Platform API.

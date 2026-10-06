@@ -58,7 +58,6 @@ A factory runs its work on one of two execution hosts: Warp-hosted compute or a 
 | --- | --- | --- |
 | **Compute** | Warp provisions the sandbox | Your team provisions the worker |
 | **Checkout and commands** | Run on Warp-managed compute | Run on your infrastructure |
-| **Control plane** | Runs through Warp | Runs through Warp |
 | **Network** | Warp manages sandbox connectivity | The worker connects outbound to Warp; no inbound firewall port |
 | **Private services** | Must be reachable from the hosted sandbox | Reachable through the worker's network access |
 | **Operations** | Warp manages capacity and lifecycle | Your team manages capacity, isolation, updates, and availability |
@@ -83,7 +82,6 @@ Factories use managed self-hosting, so Warp still orchestrates their runs. The w
 | **[Kubernetes](/factories/self-hosting/managed-kubernetes/)** | As a Kubernetes Job in the worker's namespace | The worker deployment, cluster, namespace RBAC, scheduling, admission policy, and capacity | Your team already operates Kubernetes or needs cluster-native policy and scheduling |
 | **[Direct](/factories/self-hosting/managed-direct/)** | In a separate workspace directly on the worker host, sharing its OS and kernel | The worker daemon, host security, dependencies, capacity, and cleanup | A container runtime isn't available or runs need direct access to host resources |
 
-All three structures keep execution on your infrastructure while Warp operates the control plane.
 
 ## Choose inference independently
 

@@ -76,7 +76,7 @@ When drafting a guide, check for relevant SEO and AEO data:
 
 When a guide includes Oz CLI commands or GitHub Actions workflows using `warpdotdev/oz-agent-action`:
 
-- **Verify Oz CLI commands against `/reference/cli/`.** Do not infer flag names or argument formats. Use only flags documented in the CLI reference. When in doubt, link to the reference page instead of showing a command.
+- **Verify Oz CLI commands against `/agents/cli/oz-cli/`.** Do not infer flag names or argument formats. Use only flags documented in the CLI reference. When in doubt, link to the reference page instead of showing a command.
 - **`oz-agent-action` input format**: `warp_api_key` is a `with:` input to the action, not an `env:` variable. `GITHUB_TOKEN` goes in `env:`. The correct pattern is:
   ```yaml
   - uses: warpdotdev/oz-agent-action@v1

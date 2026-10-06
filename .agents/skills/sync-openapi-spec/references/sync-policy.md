@@ -24,6 +24,8 @@ This skill is the manual fallback for the same job, so its output has to match t
 7. Recursively strip every key in `STRIP_FLAGS` from whatever survives
    steps 1-6, wherever it appears in the tree (operations, schemas,
    individual properties, parameters).
+8. Rewrite the legacy Agent API error-documentation URL prefix to its canonical
+   path under `/factories/api-and-sdk/`.
 
 Rule 1 mirrors warp-server's own filter, so a surface the server team marks private stays private here without anyone having to maintain a matching allowlist entry.
 
@@ -37,6 +39,12 @@ configuration from `warp-server/public_api/openapi.yaml`. It overrides only
 
 Keep this override when syncing the docs subset. Update the source spec when
 its endpoint behavior or non-product metadata changes.
+
+The source spec still emits the pre-move error-documentation prefix,
+`/reference/api-and-sdk/troubleshooting/errors/`. The docs transform rewrites
+that prefix to `/factories/api-and-sdk/troubleshooting/errors/` so generated
+problem-type URLs resolve directly to the canonical page rather than through a
+redirect.
 
 ## `x-internal` deletes the whole marked object, not just the flag (`_prune_internal`)
 

@@ -122,6 +122,13 @@ DOCS_INFO_OVERRIDES: dict[str, str] = {
     ),
 }
 
+LEGACY_ERROR_DOC_URL_PREFIX = (
+    "https://docs.warp.dev/reference/api-and-sdk/troubleshooting/errors/"
+)
+CANONICAL_ERROR_DOC_URL_PREFIX = (
+    "https://docs.warp.dev/factories/api-and-sdk/troubleshooting/errors/"
+)
+
 # Default checkout layout: docs/ and warp-server/ as siblings.
 DEFAULT_SOURCE = Path("../warp-server/public_api/openapi.yaml")
 DEFAULT_TARGET = Path("developers/agent-api-openapi.yaml")
@@ -277,6 +284,20 @@ def _strip_flags(node: Any) -> Any:
         }
     if isinstance(node, list):
         return [_strip_flags(item) for item in node]
+    return node
+
+
+def _rewrite_docs_urls(node: Any) -> Any:
+    """Rewrite moved docs URLs to their canonical public destinations."""
+    if isinstance(node, dict):
+        return {key: _rewrite_docs_urls(value) for key, value in node.items()}
+    if isinstance(node, list):
+        return [_rewrite_docs_urls(item) for item in node]
+    if isinstance(node, str):
+        return node.replace(
+            LEGACY_ERROR_DOC_URL_PREFIX,
+            CANONICAL_ERROR_DOC_URL_PREFIX,
+        )
     return node
 
 
@@ -476,7 +497,7 @@ def transform(source: dict[str, Any]) -> dict[str, Any]:
     if out_components:
         out["components"] = out_components
 
-    return _strip_flags(out)
+    return _rewrite_docs_urls(_strip_flags(out))
 
 
 # ---------------------------------------------------------------------------
@@ -694,7 +715,13 @@ def _self_test() -> int:
                     "x-stainless-naming": {"typescript": {"type": "Mode"}},
                 },
                 "RunResp": {"type": "object"},
-                "Error": {"type": "object"},
+                "Error": {
+                    "type": "object",
+                    "description": (
+                        f"Format: `{LEGACY_ERROR_DOC_URL_PREFIX}"
+                        "{error_code}`"
+                    ),
+                },
                 "MSItem": {"type": "object"},  # only referenced by dropped path
                 "Followup": {"type": "object"},
                 "RunSourceType": {
@@ -760,6 +787,9 @@ def _self_test() -> int:
     assert out["components"].get("securitySchemes"), "securitySchemes should be preserved"
     assert out["info"]["title"] == "Warp Platform API"
     assert out["info"]["description"] == DOCS_INFO_OVERRIDES["description"]
+    error_description = out["components"]["schemas"]["Error"]["description"]
+    assert LEGACY_ERROR_DOC_URL_PREFIX not in error_description
+    assert CANONICAL_ERROR_DOC_URL_PREFIX in error_description
 
     ref_errors = _validate_output(out)
     assert not ref_errors, f"unexpected unresolved refs: {ref_errors}"
