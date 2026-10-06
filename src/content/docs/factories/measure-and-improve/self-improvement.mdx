@@ -11,7 +11,7 @@ sidebar:
 
 Turn on **Self-improvement** for each Scorer whose failures you want investigated automatically. A failure is a score below the Scorer's pass threshold. By default, the scheduled check starts a Self-improvement run after an agent has 25 distinct unreviewed failures, or when its oldest unreviewed failure is seven days old. It groups the failures for each agent into a follow-up run that proposes a fix.
 
-For a GitHub-backed factory, set `selfImprovement.failedRunThreshold` in `factory.yaml` to change the scheduled threshold to any value from 1 through 50. You can also choose the reviewer pool with `reviewerType`. Warp randomly requests one eligible reviewer from team admins and owners (the default), any team member, or a custom list of team members. The `none` value requests no reviewer. A custom pool also requires `reviewerEmails`. See [`selfImprovement` in the factory definition reference](/factories/factory-as-code/#selfimprovement).
+For a GitHub-backed factory, set `selfImprovement.failedRunThreshold` in `factory.yaml` to change the scheduled threshold to any value from 1 through 50. The `reviewerType` values are `admins` (the default, team admins and owners), `team` (any team member), `none`, and `custom` (members listed in `reviewerEmails`). Warp randomly requests one eligible reviewer unless you use `none`. See [`selfImprovement` in the factory definition reference](/factories/factory-as-code/#selfimprovement).
 
 To run the check without waiting for the scheduled threshold, click **Run now** on the factory dashboard's **Self-improvement** page. An ad hoc run can include an agent with one unreviewed failure. You cannot choose which agents or failures it processes.
 
