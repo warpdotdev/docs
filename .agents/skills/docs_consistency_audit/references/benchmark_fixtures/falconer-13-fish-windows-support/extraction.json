@@ -1,0 +1,125 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:0f317662f07a20edb5ae9bde33711593a7c3495a117ada22bb3b60f099a3e474",
+      "canonical_source": "docs-prose",
+      "claim_ids": [
+        "sha256:37ce9fb28a0f1c913af0f08827b0d9ffcd0beca21806e7cd818cafcfbcf36c00",
+        "sha256:f25ed5af6547f3f51d8b9e1ae0f25d9d54d0ad9970ddc5d82fca7ec018ee7971"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "Warp supports bash, zsh, fish, and PowerShell (pwsh) across macOS, Windows, and Linux",
+          "source": {
+            "content_sha256": "197ae08ab5f1cd7135e03ebf718c3a9d275251c044ae4628aea9d30abf32d308",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-13-fish-windows-support-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "cmd.exe or fish shells",
+          "source": {
+            "content_sha256": "34f0fa35357f6fe1fce204deb1cc582ff00fe610531b0b0b76782dae34369536",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-13-fish-windows-support-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "medium",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-13-fish-windows-support",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "product-behavior",
+      "entity": "fish-shell",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "supported",
+      "qualifiers": {
+        "operating_systems": [
+          "windows"
+        ]
+      },
+      "quote": "Warp supports bash, zsh, fish, and PowerShell (pwsh) across macOS, Windows, and Linux",
+      "source": {
+        "content_sha256": "197ae08ab5f1cd7135e03ebf718c3a9d275251c044ae4628aea9d30abf32d308",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-13-fish-windows-support-left",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "entity": "fish-shell",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "supported",
+      "qualifiers": {
+        "operating_systems": [
+          "windows"
+        ]
+      },
+      "quote": "cmd.exe or fish shells",
+      "source": {
+        "content_sha256": "34f0fa35357f6fe1fce204deb1cc582ff00fe610531b0b0b76782dae34369536",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-13-fish-windows-support-right",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "197ae08ab5f1cd7135e03ebf718c3a9d275251c044ae4628aea9d30abf32d308",
+    "right.mdx": "34f0fa35357f6fe1fce204deb1cc582ff00fe610531b0b0b76782dae34369536"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

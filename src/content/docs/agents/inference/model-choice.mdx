@@ -16,7 +16,7 @@ Warp lets you choose from a curated set of large language models (LLMs) to power
 
 **Warp supports the following models.**
 
-The `model_id` values shown below can be used when configuring models via the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) or [CLI](/reference/cli/).
+The `model_id` values shown below can be used when configuring models via the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) or [CLI](/agents/cli/oz-cli/).
 
 ### Auto models
 
@@ -31,97 +31,41 @@ All Auto models perform well across all agent workflows and are ideal if you pre
 
 #### OpenAI
 
-| Model | `model_id` | Reasoning Level |
-| --- | --- | --- |
-| GPT-6 Astra | `gpt-6-astra-low` | Low |
-| GPT-6 Astra | `gpt-6-astra-medium` | Medium |
-| GPT-6 Astra | `gpt-6-astra-high` | High |
-| GPT-6 Astra | `gpt-6-astra-xhigh` | Extra High |
-| GPT-6 Astra | `gpt-6-astra-max` | Max |
-| GPT-6 Sol | `gpt-6-sol-low` | Low |
-| GPT-6 Sol | `gpt-6-sol-medium` | Medium |
-| GPT-6 Sol | `gpt-6-sol-high` | High |
-| GPT-6 Sol | `gpt-6-sol-xhigh` | Extra High |
-| GPT-6 Sol | `gpt-6-sol-max` | Max |
-| GPT-6 Luna | `gpt-6-luna-low` | Low |
-| GPT-6 Luna | `gpt-6-luna-medium` | Medium |
-| GPT-6 Luna | `gpt-6-luna-high` | High |
-| GPT-6 Luna | `gpt-6-luna-xhigh` | Extra High |
-| GPT-6 Luna | `gpt-6-luna-max` | Max |
-| GPT-5.6 Sol | `gpt-5-6-sol-low` | Low |
-| GPT-5.6 Sol | `gpt-5-6-sol-medium` | Medium |
-| GPT-5.6 Sol | `gpt-5-6-sol-high` | High |
-| GPT-5.6 Sol | `gpt-5-6-sol-xhigh` | Extra High |
-| GPT-5.6 Terra | `gpt-5-6-terra-low` | Low |
-| GPT-5.6 Terra | `gpt-5-6-terra-medium` | Medium |
-| GPT-5.6 Terra | `gpt-5-6-terra-high` | High |
-| GPT-5.6 Terra | `gpt-5-6-terra-xhigh` | Extra High |
-| GPT-5.6 Luna | `gpt-5-6-luna-low` | Low |
-| GPT-5.6 Luna | `gpt-5-6-luna-medium` | Medium |
-| GPT-5.6 Luna | `gpt-5-6-luna-high` | High |
-| GPT-5.6 Luna | `gpt-5-6-luna-xhigh` | Extra High |
-| GPT-5.5 | `gpt-5-5-low` | Low |
-| GPT-5.5 | `gpt-5-5-medium` | Medium |
-| GPT-5.5 | `gpt-5-5-high` | High |
-| GPT-5.5 | `gpt-5-5-xhigh` | Extra High |
-| GPT-5.4 | `gpt-5-4-low` | Low |
-| GPT-5.4 | `gpt-5-4-medium` | Medium |
-| GPT-5.4 | `gpt-5-4-high` | High |
-| GPT-5.4 | `gpt-5-4-xhigh` | Extra High |
-| GPT-5.3 Codex | `gpt-5-3-codex-low` | Low |
-| GPT-5.3 Codex | `gpt-5-3-codex-medium` | Medium |
-| GPT-5.3 Codex | `gpt-5-3-codex-high` | High |
-| GPT-5.3 Codex | `gpt-5-3-codex-xhigh` | Extra High |
+The `low`, `medium`, `high`, `xhigh`, and `max` suffixes select increasing reasoning levels.
+
+| Model | Supported `model_id` values |
+| --- | --- |
+| GPT-6 Astra | `gpt-6-astra-low`, `gpt-6-astra-medium`, `gpt-6-astra-high`, `gpt-6-astra-xhigh`, `gpt-6-astra-max` |
+| GPT-6.1 Sol | `gpt-6-1-sol-low`, `gpt-6-1-sol-medium`, `gpt-6-1-sol-high`, `gpt-6-1-sol-xhigh`, `gpt-6-1-sol-max` |
+| GPT-6 Sol | `gpt-6-sol-low`, `gpt-6-sol-medium`, `gpt-6-sol-high`, `gpt-6-sol-xhigh`, `gpt-6-sol-max` |
+| GPT-6 Luna | `gpt-6-luna-low`, `gpt-6-luna-medium`, `gpt-6-luna-high`, `gpt-6-luna-xhigh`, `gpt-6-luna-max` |
+| GPT-5.6 Sol | `gpt-5-6-sol-low`, `gpt-5-6-sol-medium`, `gpt-5-6-sol-high`, `gpt-5-6-sol-xhigh` |
+| GPT-5.6 Terra | `gpt-5-6-terra-low`, `gpt-5-6-terra-medium`, `gpt-5-6-terra-high`, `gpt-5-6-terra-xhigh` |
+| GPT-5.6 Luna | `gpt-5-6-luna-low`, `gpt-5-6-luna-medium`, `gpt-5-6-luna-high`, `gpt-5-6-luna-xhigh` |
+| GPT-5.5 | `gpt-5-5-low`, `gpt-5-5-medium`, `gpt-5-5-high`, `gpt-5-5-xhigh` |
+| GPT-5.4 | `gpt-5-4-low`, `gpt-5-4-medium`, `gpt-5-4-high`, `gpt-5-4-xhigh` |
+
+To use eligible OpenAI models through your ChatGPT plan, [connect a ChatGPT subscription](/agents/inference/chatgpt-subscription/) and select a specific OpenAI model.
 
 #### Anthropic
 
-| Model | `model_id` | Variant |
+Suffixes select effort level. `xhigh-fast` enables fast mode, and `thinking` enables thinking. The default ID for each family is listed separately.
+
+| Model | Supported `model_id` values | Default `model_id` |
 | --- | --- | --- |
-| Claude Opus 5.5 | `claude-5-5-opus-high` | Default effort |
-| Claude Opus 5.5 | `claude-5-5-opus-low` | Low effort |
-| Claude Opus 5.5 | `claude-5-5-opus-medium` | Medium effort |
-| Claude Opus 5.5 | `claude-5-5-opus-xhigh` | Extra high effort |
-| Claude Opus 5.5 | `claude-5-5-opus-xhigh-fast` | Fast mode |
-| Claude Opus 5.5 | `claude-5-5-opus-max` | Max effort |
-| Claude Opus 5 | `claude-5-opus-high` | Default effort |
-| Claude Opus 5 | `claude-5-opus-low` | Low effort |
-| Claude Opus 5 | `claude-5-opus-medium` | Medium effort |
-| Claude Opus 5 | `claude-5-opus-xhigh` | Extra high effort |
-| Claude Opus 5 | `claude-5-opus-xhigh-fast` | Fast mode |
-| Claude Opus 5 | `claude-5-opus-max` | Max effort |
-| Claude Fable 5.1 | `claude-5-1-fable-high` | Default effort |
-| Claude Fable 5.1 | `claude-5-1-fable-low` | Low effort |
-| Claude Fable 5.1 | `claude-5-1-fable-medium` | Medium effort |
-| Claude Fable 5.1 | `claude-5-1-fable-xhigh` | Extra high effort |
-| Claude Fable 5.1 | `claude-5-1-fable-max` | Max effort |
-| Claude Fable 5 | `claude-5-fable-high` | Default effort |
-| Claude Fable 5 | `claude-5-fable-low` | Low effort |
-| Claude Fable 5 | `claude-5-fable-medium` | Medium effort |
-| Claude Fable 5 | `claude-5-fable-xhigh` | Extra high effort |
-| Claude Fable 5 | `claude-5-fable-max` | Max effort |
-| Claude Sonnet 5 | `claude-5-sonnet-xhigh` | Default effort |
-| Claude Sonnet 5 | `claude-5-sonnet-low` | Low effort |
-| Claude Sonnet 5 | `claude-5-sonnet-medium` | Medium effort |
-| Claude Sonnet 5 | `claude-5-sonnet-high` | High effort |
-| Claude Sonnet 5 | `claude-5-sonnet-max` | Max effort |
-| Claude Opus 4.8 | `claude-4-8-opus-xhigh` | Default effort |
-| Claude Opus 4.8 | `claude-4-8-opus-low` | Low effort |
-| Claude Opus 4.8 | `claude-4-8-opus-medium` | Medium effort |
-| Claude Opus 4.8 | `claude-4-8-opus-high` | High effort |
-| Claude Opus 4.8 | `claude-4-8-opus-max` | Max effort |
-| Claude Opus 4.8 | `claude-4-8-opus-xhigh-fast` | Fast mode |
-| Claude Opus 4.7 | `claude-4-7-opus-xhigh` | Default effort |
-| Claude Opus 4.7 | `claude-4-7-opus-high` | High effort |
-| Claude Opus 4.7 | `claude-4-7-opus-max` | Max effort |
-| Claude Opus 4.6 | `claude-4-6-opus-high` | Default effort |
-| Claude Opus 4.6 | `claude-4-6-opus-max` | Max effort |
-| Claude Sonnet 4.6 | `claude-4-6-sonnet-high` | Default effort |
-| Claude Sonnet 4.6 | `claude-4-6-sonnet-max` | Max effort |
-| Claude Opus 4.5 | `claude-4-5-opus` | Thinking off |
-| Claude Opus 4.5 | `claude-4-5-opus-thinking` | Thinking on |
-| Claude Sonnet 4.5 | `claude-4-5-sonnet` | Thinking off |
-| Claude Sonnet 4.5 | `claude-4-5-sonnet-thinking` | Thinking on |
-| Claude Haiku 4.5 | `claude-4-5-haiku` | — |
+| Claude Opus 5.5 | `claude-5-5-opus-low`, `claude-5-5-opus-medium`, `claude-5-5-opus-high`, `claude-5-5-opus-xhigh`, `claude-5-5-opus-xhigh-fast`, `claude-5-5-opus-max` | `claude-5-5-opus-high` |
+| Claude Opus 5 | `claude-5-opus-low`, `claude-5-opus-medium`, `claude-5-opus-high`, `claude-5-opus-xhigh`, `claude-5-opus-xhigh-fast`, `claude-5-opus-max` | `claude-5-opus-high` |
+| Claude Fable 5.1 | `claude-5-1-fable-low`, `claude-5-1-fable-medium`, `claude-5-1-fable-high`, `claude-5-1-fable-xhigh`, `claude-5-1-fable-max` | `claude-5-1-fable-high` |
+| Claude Fable 5 | `claude-5-fable-low`, `claude-5-fable-medium`, `claude-5-fable-high`, `claude-5-fable-xhigh`, `claude-5-fable-max` | `claude-5-fable-high` |
+| Claude Sonnet 5.5 | `claude-5-5-sonnet-low`, `claude-5-5-sonnet-medium`, `claude-5-5-sonnet-high`, `claude-5-5-sonnet-xhigh`, `claude-5-5-sonnet-max` | `claude-5-5-sonnet-xhigh` |
+| Claude Sonnet 5 | `claude-5-sonnet-low`, `claude-5-sonnet-medium`, `claude-5-sonnet-high`, `claude-5-sonnet-xhigh`, `claude-5-sonnet-max` | `claude-5-sonnet-xhigh` |
+| Claude Opus 4.8 | `claude-4-8-opus-low`, `claude-4-8-opus-medium`, `claude-4-8-opus-high`, `claude-4-8-opus-xhigh`, `claude-4-8-opus-xhigh-fast`, `claude-4-8-opus-max` | `claude-4-8-opus-xhigh` |
+| Claude Opus 4.7 | `claude-4-7-opus-high`, `claude-4-7-opus-xhigh`, `claude-4-7-opus-max` | `claude-4-7-opus-xhigh` |
+| Claude Opus 4.6 | `claude-4-6-opus-high`, `claude-4-6-opus-max` | `claude-4-6-opus-high` |
+| Claude Sonnet 4.6 | `claude-4-6-sonnet-high`, `claude-4-6-sonnet-max` | `claude-4-6-sonnet-high` |
+| Claude Opus 4.5 | `claude-4-5-opus`, `claude-4-5-opus-thinking` | `claude-4-5-opus` |
+| Claude Sonnet 4.5 | `claude-4-5-sonnet`, `claude-4-5-sonnet-thinking` | `claude-4-5-sonnet` |
+| Claude Haiku 4.5 | `claude-4-5-haiku` | `claude-4-5-haiku` |
 
 :::caution
 Anthropic requires data retention for Claude Fable 5 and Claude Fable 5.1 for safety, abuse monitoring, and compliance reasons, so these models are **not available under Zero Data Retention (ZDR)**. This requirement is specific to the Claude Fable models and doesn't change the ZDR behavior of any other supported model. For Enterprise teams, these models are off by default and a workspace admin must enable them — see the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings) and the [Security overview](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr).
@@ -132,6 +76,7 @@ Anthropic requires data retention for Claude Fable 5 and Claude Fable 5.1 for sa
 | Model | `model_id` |
 | --- | --- |
 | Gemini 3.1 Pro | `gemini-3.1-pro` |
+| Gemini 3.8 Flash | `gemini-3.8-flash` |
 | Gemini 3.7 Flash | `gemini-3.7-flash` |
 | Gemini 3.6 Flash | `gemini-3.6-flash` |
 | Gemini 3.5 Flash | `gemini-3.5-flash` |
@@ -164,14 +109,12 @@ Warp also supports leading open source models hosted via Fireworks AI, so you ca
 
 | Model | `model_id` |
 | --- | --- |
+| GLM 5.3 | `glm-5.3-fireworks` |
 | GLM 5.3 Flash | `glm-5.3-flash-fireworks` |
-| GLM 5.2 | `glm-5.2-fireworks` |
 | Kimi K3 | `kimi-k3-fireworks` |
-| Kimi K2.7 Code | `kimi-k27-code-fireworks` |
-| Kimi K2.6 | `kimi-k26-fireworks` |
 | Minimax 3 | `minimax-3-fireworks` |
 | Qwen 3.8 Max | `qwen-3.8-max-fireworks` |
-| DeepSeek V4 Pro | `deepseek-v4-pro-fireworks` |
+| DeepSeek V4.1 Flash | `deepseek-v4.1-flash-fireworks` |
 
 ### How to change models
 

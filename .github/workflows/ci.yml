@@ -133,6 +133,8 @@ jobs:
 
       - name: Check internal links
         run: python3 .agents/skills/check_for_broken_links/check_links.py --internal-only
+      - name: Test redirect invariants
+        run: python3 scripts/test_check_redirects.py
 
       # Stdlib-only tests for the missing_docs skill scripts. The reviewer-resolver
       # unit tests run fully here; the audit integration tests skip gracefully

@@ -20,16 +20,18 @@ When you connect a factory to GitHub, repository activity starts work in your fa
 1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, click **+** next to **Factories** to open the setup wizard, then choose **I want to use repos from GitHub** under **Connect your code host**.
 2. Under **Select your repos**, choose the repositories to provide code and context for the factory.
 
-That's all the setup GitHub needs. A new factory arrives with two automations already switched on, so it responds to GitHub activity right away:
+That's all the setup GitHub needs. A new factory arrives with default automations already switched on, so it responds to GitHub activity right away:
 
-* **Mentions and assignments** - Start work by mentioning **@warp**. See [Mention the factory](#mention-the-factory) below.
-* **Pull request merges** - Close out work by merging a pull request with your factory's label. Any work items linked to the pull request move to their tracker's completed state. Closing without merging does nothing.
+* **Mentions and assignments** - Start work by mentioning **@warp** or assigning the factory. See [Mention the factory](#mention-the-factory) below.
+* **Pull request closed or merged** - Completes linked work when a pull request with your factory's label merges (which can move linked tracker issues to their completed state). An unmerged close is a no-op.
+* **Issue labeled** and **Pull request labeled** - Start work when the factory's label is applied to an issue or pull request.
+* **Pull request review submitted** - Start work when a review is submitted on a pull request that carries the factory's label.
 
 To confirm the connection works, mention **@warp** on a test issue and check that a work item starts in the factory's [dashboard](/factories/factory-dashboard/).
 
 ## Add a custom automation
 
-The defaults cover mentions, assignments, and pull request completion. To start work from any other GitHub activity, such as a failed CI run or a review request, add an automation with a GitHub trigger for that event, then narrow it with the filters below. To learn how to edit those filters, see [Automations](/factories/automations/#edit-filters-on-an-automation).
+The defaults cover mentions, assignments, label routing, review submissions, and pull request completion. To start work from any other GitHub activity, such as a failed CI run or a review request, add an automation with a GitHub trigger for that event, then narrow it with the filters below. To learn how to edit those filters, see [Automations](/factories/automations/#edit-filters-on-an-automation).
 
 The CI failure triage automation in [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository starts work when a workflow run fails on the default branch:
 

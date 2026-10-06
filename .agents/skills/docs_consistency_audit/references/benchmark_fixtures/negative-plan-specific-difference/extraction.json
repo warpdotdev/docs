@@ -1,0 +1,75 @@
+{
+  "adjudicated_findings": [],
+  "claims": [
+    {
+      "category": "plan-gating",
+      "entity": "codebase-context",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "files-per-codebase",
+      "qualifiers": {
+        "plans": [
+          "free"
+        ]
+      },
+      "quote": "Free supports 3,000 files.",
+      "source": {
+        "content_sha256": "8514e737b491e53b1e2ca5b3dbeb9515b75d16a3ad395ccd116c8b7888c9b321",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/negative-plan-specific-difference-left",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": 3000,
+        "type": "integer"
+      }
+    },
+    {
+      "category": "plan-gating",
+      "entity": "codebase-context",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "files-per-codebase",
+      "qualifiers": {
+        "plans": [
+          "build"
+        ]
+      },
+      "quote": "Build supports 100,000 files.",
+      "source": {
+        "content_sha256": "31eca36a60280eeb2e082abd05aa2f1a204a6338769742645b4317d861f4f92f",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/negative-plan-specific-difference-right",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": 100000,
+        "type": "integer"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "8514e737b491e53b1e2ca5b3dbeb9515b75d16a3ad395ccd116c8b7888c9b321",
+    "right.mdx": "31eca36a60280eeb2e082abd05aa2f1a204a6338769742645b4317d861f4f92f"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

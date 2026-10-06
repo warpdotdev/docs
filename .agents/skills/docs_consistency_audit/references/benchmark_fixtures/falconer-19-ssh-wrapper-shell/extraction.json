@@ -1,0 +1,132 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:0e6aedcc44831061950ee61f66325725d625b827fb84ad8b26fea04a597dbb91",
+      "canonical_source": "docs-prose",
+      "claim_ids": [
+        "sha256:a1d0d84d428f22a10ef9df060f35cf7bcdf959c20147bdce4497a56b86ee7571",
+        "sha256:cef3ac6346a21e2b64ad52b4ebc09c56b5810710af80c12af2bf54df68455e6d"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "When you SSH, we start a bash shell on the remote host.",
+          "source": {
+            "content_sha256": "8ff8a25a321ec56470f8f6cd1d6c8ccf38b7a61e329ee196bac95dadd6e9b5c5",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-19-ssh-wrapper-shell-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "only bash or zsh shells are supported",
+          "source": {
+            "content_sha256": "4980241ecc6344c1fdbb8592cd49a6cbeca12e1e27417827a397890feebf2308",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-19-ssh-wrapper-shell-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "medium",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-19-ssh-wrapper-shell",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "product-behavior",
+      "entity": "legacy-ssh-wrapper",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "supported-shells",
+      "qualifiers": {
+        "environments": [
+          "ssh"
+        ],
+        "legacy": true
+      },
+      "quote": "When you SSH, we start a bash shell on the remote host.",
+      "source": {
+        "content_sha256": "8ff8a25a321ec56470f8f6cd1d6c8ccf38b7a61e329ee196bac95dadd6e9b5c5",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-19-ssh-wrapper-shell-left",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "bash"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "entity": "legacy-ssh-wrapper",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "supported-shells",
+      "qualifiers": {
+        "environments": [
+          "ssh"
+        ],
+        "legacy": true
+      },
+      "quote": "only bash or zsh shells are supported",
+      "source": {
+        "content_sha256": "4980241ecc6344c1fdbb8592cd49a6cbeca12e1e27417827a397890feebf2308",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-19-ssh-wrapper-shell-right",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "bash",
+          "zsh"
+        ],
+        "type": "enum"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "8ff8a25a321ec56470f8f6cd1d6c8ccf38b7a61e329ee196bac95dadd6e9b5c5",
+    "right.mdx": "4980241ecc6344c1fdbb8592cd49a6cbeca12e1e27417827a397890feebf2308"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

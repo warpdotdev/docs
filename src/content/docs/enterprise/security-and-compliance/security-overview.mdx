@@ -40,7 +40,7 @@ Some models carry provider-specific data retention requirements and are therefor
 Enterprise subscriptions also include:
 
 * **Team-level enforcement** - Admins configure data collection and telemetry policies for the entire organization through the Admin Panel
-* **Secret redaction** - All AI interactions automatically apply [secret redaction](/support-and-community/privacy-and-security/secret-redaction/) to prevent sensitive data exposure
+* **Secret redaction** - Admins can enable [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) for the organization and configure patterns for sensitive data
 
 ### Telemetry categories
 
@@ -83,12 +83,14 @@ Team admins can enforce telemetry settings organization-wide through the Admin P
 
 ### Secret redaction
 
-Warp automatically detects and redacts sensitive information before sending any data to LLM providers, keeping developers in control of what gets shared:
+When Secret Redaction is enabled, Warp masks matching sensitive information before sending terminal or AI content to LLM providers. Admins can configure patterns for:
 
 * API keys and tokens
 * Passwords and secrets
 * SSH keys and certificates
 * Custom secret patterns (configurable via Admin Panel)
+
+Telemetry payload redaction is a separate mechanism. It applies built-in patterns to telemetry and includes user and Enterprise patterns when they are configured.
 
 See [Secret Redaction documentation](/support-and-community/privacy-and-security/secret-redaction/) for details.
 

@@ -62,5 +62,5 @@ All headings (H1–H4) must use **sentence case**: capitalize only the first wor
 ## Existing examples
 
 Read 2-3 of these strong examples to match the existing pattern:
-- `src/content/docs/reference/cli/api-keys.md`
-- `src/content/docs/platform/integrations/slack.md`
+- `src/content/docs/agents/cli/oz-cli/api-keys.mdx`
+- `src/content/docs/platform/integrations/slack.mdx`

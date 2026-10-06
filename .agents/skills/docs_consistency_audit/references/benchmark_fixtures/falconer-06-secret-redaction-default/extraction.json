@@ -1,0 +1,117 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:0a034277c35f16654f077666a2f58d5d6990826dd4731734946ae1c135bad7db",
+      "canonical_source": "canonical-doc",
+      "claim_ids": [
+        "sha256:648543c685045b3f532e755d7b96a63aac3991221a284c4bf40d30aa9abe6d03",
+        "sha256:c0509fed9b7d1f2c1d2c61cbcfd4cb9f05448dca2f4f5982506aae7359279ed0"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "Warp unconditionally applies Secret Redaction in all AI interactions",
+          "source": {
+            "content_sha256": "51183c3261c0688a6665517a6cbc2b0c1f159881ccf173f7a390141d1ba4bef5",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-06-secret-redaction-default-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "Disabled by default, to enable Secret Redaction",
+          "source": {
+            "content_sha256": "0a7934cb841dcc8d29823d3b47eadc445a203463be11a8a42d51a43d3a541aad",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-06-secret-redaction-default-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "high",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-06-secret-redaction-default",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "security",
+      "entity": "secret-redaction",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "default-enabled",
+      "qualifiers": {},
+      "quote": "Warp unconditionally applies Secret Redaction in all AI interactions",
+      "source": {
+        "content_sha256": "51183c3261c0688a6665517a6cbc2b0c1f159881ccf173f7a390141d1ba4bef5",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-06-secret-redaction-default-left",
+        "visibility": "public"
+      },
+      "source_class": "public-privacy-policy",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "entity": "secret-redaction",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "default-enabled",
+      "qualifiers": {},
+      "quote": "Disabled by default, to enable Secret Redaction",
+      "source": {
+        "content_sha256": "0a7934cb841dcc8d29823d3b47eadc445a203463be11a8a42d51a43d3a541aad",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-06-secret-redaction-default-right",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "51183c3261c0688a6665517a6cbc2b0c1f159881ccf173f7a390141d1ba4bef5",
+    "right.mdx": "0a7934cb841dcc8d29823d3b47eadc445a203463be11a8a42d51a43d3a541aad"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}
