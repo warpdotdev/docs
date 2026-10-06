@@ -79,7 +79,7 @@ backend:
     sidecar_image: "registry.internal.example.com/warp/warp-agent:latest"
 ```
 
-For a sidecar repository that allows anonymous reads, use `image_pull_policy: "Always"` instead. Refresh the mirror regularly because the sidecar uses the mutable `latest` tag. The pull policy applies to task and sidecar images.
+For a sidecar repository that allows anonymous reads, use `image_pull_policy: "Always"` instead. The sidecar uses the mutable `latest` tag. The pull policy applies to task and sidecar images.
 
 The task image must point to the private registry through its Warp environment; the worker does not rewrite task image registry names.
 
@@ -176,7 +176,7 @@ helm upgrade --install oz-agent-worker "$WORKER_CHART" \
 
 ## Verifying Kubernetes registry isolation
 
-Follow the worker logs until they show `Successfully connected to server`:
+Follow the worker logs until they show `Successfully connected to server`, then press `Ctrl+C`:
 
 ```bash
 kubectl logs --follow deployment/oz-agent-worker --namespace warp-oz
