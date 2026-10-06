@@ -97,7 +97,7 @@ For more automations that use these filters, including branches, paths, workflow
 
 ## Payload filters for webhook triggers
 
-A [custom webhook](/factories/webhooks/) trigger (`provider: webhook`, `event: received`) binds an automation to one or more webhooks with `webhook_ids`, which takes webhook UIDs and supports only `in`. Its optional `payload` filter is a pattern that mirrors the shape of the delivery's JSON body, so you can route on the payload without running an agent to decide:
+A [custom webhook](/factories/webhooks/) trigger (`provider: webhook`, `event: received`) binds an automation to exactly one webhook. `webhook_ids` is required, takes a one-item list containing that webhook's UID, and supports only `in`. To listen to multiple webhooks, add one trigger with provider `webhook` and event `received` per UID. The optional `payload` filter is a pattern that mirrors the shape of the delivery's JSON body, so you can route on the payload without running an agent to decide:
 
 * Payload filters match against the webhook's JSON body.
 * Fields are ANDed together: every key in the pattern must match.
