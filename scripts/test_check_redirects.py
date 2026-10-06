@@ -9,6 +9,50 @@ from check_redirects import (
 
 
 class RedirectSourceTests(unittest.TestCase):
+    def test_vercel_source_patterns_match_paths(self):
+        cases = (
+            ("/docs/", "/docs", True),
+            ("/docs(/?)", "/docs", True),
+            ("/docs(/?)", "/docs/", True),
+            ("/docs(/?)", "/docs/child", False),
+            ("/docs#section", "/docs", False),
+            ("/:path*", "/", True),
+            ("/:path*", "/docs/child", True),
+            ("/docs/:path*", "/docs", True),
+            ("/docs/:path*", "/documentation", False),
+            ("/:path+", "/", False),
+            ("/:path+", "/docs/child", True),
+            ("/docs/:path+", "/docs", False),
+            ("/docs/:path+", "/docs/child", True),
+            ("/:path(.*)", "/", True),
+            ("/:path(.*)", "/docs/child", True),
+            ("/docs/:path(.*)", "/documentation/child", False),
+            ("/errors/:code", "/errors/404", True),
+            ("/errors/:code", "/errors/404/details", False),
+            ("/university/(.*)", "/university/guides/terminal", True),
+            ("/university/(.*)", "/universities/guides", False),
+            (r"/guides/a-\+-b(/?)", "/guides/a-+-b", True),
+            (r"/guides/a-\+-b(/?)", "/guides/a--b", False),
+        )
+
+        for source, path, expected in cases:
+            with self.subTest(source=source, path=path):
+                self.assertEqual(
+                    redirect_source_matches_path(source, path),
+                    expected,
+                )
+
+    def test_repository_source_patterns_are_supported(self):
+        for redirect in load_redirects():
+            with self.subTest(source=redirect["source"]):
+                self.assertIsInstance(
+                    redirect_source_matches_path(
+                        redirect["source"],
+                        "/__pattern_probe__",
+                    ),
+                    bool,
+                )
+
     def test_live_session_sharing_page_has_no_redirect(self):
         route = "/knowledge-and-collaboration/session-sharing"
 
