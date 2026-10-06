@@ -73,12 +73,16 @@ Run the worker with `registry.internal.example.com/warp/oz-agent-worker:WORKER_R
 
 ## Configuring the Kubernetes backend
 
-Create one pull secret for the worker Deployment and task Jobs:
+Export a [self-hosted worker API key](/reference/cli/api-keys/#creating-a-self-hosted-worker-api-key) as `WARP_API_KEY`, then create the namespace, API key Secret, and registry pull secret:
 
 ```bash
+export WARP_API_KEY="YOUR_API_KEY"
 kubectl create namespace warp-oz \
   --dry-run=client \
   --output yaml | kubectl apply --filename -
+kubectl create secret generic oz-agent-worker \
+  --namespace warp-oz \
+  --from-literal=WARP_API_KEY="$WARP_API_KEY"
 read -r -p "Registry username: " REGISTRY_USERNAME
 read -r -s -p "Registry token: " REGISTRY_TOKEN
 printf '\n'
@@ -93,6 +97,10 @@ unset REGISTRY_USERNAME REGISTRY_TOKEN
 Set the worker, task, sidecar, and preflight image references in a Helm values file:
 
 ```yaml title="private-registry-values.yaml"
+warp:
+  apiKeySecret:
+    name: oz-agent-worker
+
 image:
   repository: registry.internal.example.com/warp/oz-agent-worker
   tag: WORKER_RELEASE_TAG
@@ -127,7 +135,7 @@ helm upgrade --install oz-agent-worker "$WORKER_CHART" \
 
 `image.pullSecrets` authenticates the long-lived worker Deployment. `kubernetesBackend.podTemplate.imagePullSecrets` authenticates task Jobs and the startup preflight Job.
 
-## Verifying registry isolation
+## Verifying Kubernetes registry isolation
 
 Follow the worker logs until they show `Successfully connected to server`:
 

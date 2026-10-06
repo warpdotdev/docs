@@ -106,6 +106,7 @@ The worker can take configuration either via CLI flags or via a YAML [config fil
 **Common CLI flags:**
 
 ```bash
+export DOCKER_SOCKET_GID="$(stat -c '%g' /var/run/docker.sock)"
 docker run \
   --group-add "$DOCKER_SOCKET_GID" \
   -v /var/run/docker.sock:/var/run/docker.sock \
@@ -206,8 +207,9 @@ sudo chmod 0400 "$WORKER_DOCKER_CONFIG/config.json"
 Mount the config at `/home/oz/.docker`:
 
 ```bash
+export DOCKER_SOCKET_GID="$(stat -c '%g' /var/run/docker.sock)"
 docker run \
-  --group-add "$(stat -c '%g' /var/run/docker.sock)" \
+  --group-add "$DOCKER_SOCKET_GID" \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v "$WORKER_DOCKER_CONFIG:/home/oz/.docker:ro" \
   -e DOCKER_CONFIG=/home/oz/.docker \
