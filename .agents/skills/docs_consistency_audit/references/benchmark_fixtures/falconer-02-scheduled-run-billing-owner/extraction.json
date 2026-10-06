@@ -1,0 +1,134 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:27b2b55fa796f62f2ae5596cbe07f4396ccb8222020619c75f449fcd7d29b318",
+      "canonical_source": "docs-prose",
+      "claim_ids": [
+        "sha256:11fc082fb5183bb2452092033f2c21e7b57ff9d0c45a929f889e23e448a45bc8",
+        "sha256:b057dc42fa4e9674bb607946e319972f721864cde6aaa130ec2868456d658119"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "All usage is billed to the team\u2019s shared credit balance.",
+          "source": {
+            "content_sha256": "9e3d646809c400a1bd2727061a6aa0efda9a686c5fd3522798eb6484b9fbb7df",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-02-scheduled-run-billing-owner-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "these runs are billed to the team owner",
+          "source": {
+            "content_sha256": "863e5b632488bb33b04a1e0bd9e54ac38812265147ced5f3a7148b176e6ee800",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-02-scheduled-run-billing-owner-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "high",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-02-scheduled-run-billing-owner",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "billing",
+      "entity": "scheduled-cloud-run",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "billed-party",
+      "qualifiers": {
+        "actors": [
+          "scheduled"
+        ]
+      },
+      "quote": "All usage is billed to the team\u2019s shared credit balance.",
+      "source": {
+        "content_sha256": "9e3d646809c400a1bd2727061a6aa0efda9a686c5fd3522798eb6484b9fbb7df",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-02-scheduled-run-billing-owner-left",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "billing",
+      "value": {
+        "normalized": [
+          "team-shared-balance"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "billing",
+      "entity": "scheduled-cloud-run",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "billed-party",
+      "qualifiers": {
+        "actors": [
+          "scheduled"
+        ],
+        "plans": [
+          "build",
+          "max",
+          "business"
+        ]
+      },
+      "quote": "these runs are billed to the team owner",
+      "source": {
+        "content_sha256": "863e5b632488bb33b04a1e0bd9e54ac38812265147ced5f3a7148b176e6ee800",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-02-scheduled-run-billing-owner-right",
+        "visibility": "public"
+      },
+      "source_class": "faq",
+      "topic": "billing",
+      "value": {
+        "normalized": [
+          "team-owner"
+        ],
+        "type": "enum"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "9e3d646809c400a1bd2727061a6aa0efda9a686c5fd3522798eb6484b9fbb7df",
+    "right.mdx": "863e5b632488bb33b04a1e0bd9e54ac38812265147ced5f3a7148b176e6ee800"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

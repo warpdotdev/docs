@@ -1,0 +1,75 @@
+{
+  "adjudicated_findings": [],
+  "claims": [
+    {
+      "category": "cli",
+      "entity": "updater",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "self-updates",
+      "qualifiers": {
+        "install_methods": [
+          "direct"
+        ]
+      },
+      "quote": "Direct installs update automatically.",
+      "source": {
+        "content_sha256": "3891540aa31b51f4b38d25d242d64be304dd93b0a95e291cc511cfb6c4d4379a",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/negative-install-method-difference-left",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "cli",
+      "entity": "updater",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "self-updates",
+      "qualifiers": {
+        "install_methods": [
+          "homebrew"
+        ]
+      },
+      "quote": "Homebrew installs do not update automatically.",
+      "source": {
+        "content_sha256": "5402a058ae178b217a2149dd19949e474e2daa222023412b8602f9ba0a6d9823",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/negative-install-method-difference-right",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "cli",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "3891540aa31b51f4b38d25d242d64be304dd93b0a95e291cc511cfb6c4d4379a",
+    "right.mdx": "5402a058ae178b217a2149dd19949e474e2daa222023412b8602f9ba0a6d9823"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

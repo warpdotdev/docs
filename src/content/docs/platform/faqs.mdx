@@ -86,7 +86,9 @@ Yes. Cloud agents support the same set of models available in Warp. Model select
 
 ### Can I authenticate cloud agents with my own ChatGPT or Claude Pro / Max plan?
 
-We're strong proponents of this, but it ultimately depends on model provider policies. We're actively working with providers to explore whether direct third-party authentication is possible.
+No. A [connected ChatGPT subscription](/agents/inference/chatgpt-subscription/) applies to Warp Agent conversations in the Warp app, not cloud agent runs. Warp also doesn't support connecting a Claude consumer subscription.
+
+Enterprise admins can configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for cloud agents.
 
 ### Do you support local or private LLMs for compliance or air-gapped environments?
 
@@ -243,7 +245,7 @@ This depends on your cluster configuration and risk profile. Evaluate your pod s
 
 ### Do cloud agents support image attachments?
 
-Cloud agent conversations do not currently support image attachments. Image attachment (via the toolbar button, clipboard paste, or drag-and-drop) is only available in [local agent conversations](/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/).
+Yes. In an interactive cloud conversation, attach an image with the file button in the input footer, paste an image from your clipboard, or drag and drop an image into the input.
 
-If you need to provide visual context to a cloud agent, you can describe the image contents in your prompt or reference image file paths within the agent's [environment](/platform/environments/).
+See [Images as Context](/agents/local-agents/agent-context/images-as-context/) for supported formats and the separate legacy CLI file-attachment guidance.
 

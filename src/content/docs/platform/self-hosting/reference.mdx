@@ -23,7 +23,8 @@ The following flags are available when starting the worker.
 * `--config-file` — Path to a YAML [config file](#config-file). CLI flags take precedence over config file values.
 * `--backend` — Backend type: `docker` (default), `kubernetes`, `direct`, or `command`. See [Managed: Kubernetes](/platform/self-hosting/managed-kubernetes/), [Managed: Direct](/platform/self-hosting/managed-direct/), and [External orchestrators](/platform/self-hosting/external-orchestrators/) for backend-specific setup.
 * `--log-level` — Log verbosity. One of `debug`, `info`, `warn`, `error`. Defaults to `info`.
-* `--no-cleanup` — Keep task containers, Kubernetes Jobs, or workspace directories after execution instead of removing them. Useful for debugging failed tasks.
+* `--no-cleanup` — Keep task containers, Kubernetes Jobs, or workspace directories after execution instead of removing them. For Direct tasks that use per-task workspaces, this also skips `teardown_command`. Useful for debugging failed tasks.
+* `--target-dir` — Shared working directory for all Direct backend tasks. When set, the worker does not create or remove per-task workspace directories. This flag overrides `backend.direct.target_dir` in the config file.
 * `-v` / `--volumes` — Mount host directories into task containers (Docker backend only). Format: `HOST_PATH:CONTAINER_PATH` or `HOST_PATH:CONTAINER_PATH:MODE` (where MODE is `ro` or `rw`). Can be specified multiple times.
 * `-e` / `--env` — Set environment variables for tasks. Format: `KEY=VALUE` (explicit value) or `KEY` (pass through from host environment). Can be specified multiple times.
 * `--max-concurrent-tasks` — Maximum number of tasks to run concurrently. Defaults to `0` (unlimited). When set, additional tasks wait until a slot is available.
@@ -179,6 +180,7 @@ backend:
 **`backend.direct`:**
 
 * `workspace_root` — Directory where per-task workspaces are created. Defaults to `/var/lib/oz/workspaces`.
+* `target_dir` — Shared directory used as the working directory for every task. When set, the worker does not create or remove per-task workspace directories.
 * `oz_path` — Path to the oz CLI binary. If omitted, the worker looks up `oz` in `PATH`.
 * `setup_command` — Shell command to run before each task. Receives `OZ_WORKSPACE_ROOT`, `OZ_RUN_ID`, `OZ_ENVIRONMENT_FILE`, and `OZ_WORKER_BACKEND` as environment variables.
 * `teardown_command` — Shell command to run after each task completes.
@@ -221,6 +223,7 @@ Once a worker is running, route cloud agent runs to it with the `--host` flag or
 * [Managed: Kubernetes](/platform/self-hosting/managed-kubernetes/) — Kubernetes backend setup, Helm chart, pod template, and operational notes.
 * [Managed: Direct](/platform/self-hosting/managed-direct/) — Direct backend setup and workspace model.
 * [External orchestrators](/platform/self-hosting/external-orchestrators/) — One-shot Direct and Command backend dispatch.
+* [Direct backend monorepo worktrees](/platform/self-hosting/direct-monorepo-worktrees/) — Setup and teardown hooks for isolated monorepo worktrees.
 * [Self-hosting overview](/platform/self-hosting/) — Architecture, decision guide, and Enterprise requirements.
 * [Environments](/platform/environments/) — Define the Docker image, repos, and setup commands used by task containers.
 * [Monitoring](/platform/self-hosting/monitoring/) — OpenTelemetry metrics for worker health, task throughput, and capacity.

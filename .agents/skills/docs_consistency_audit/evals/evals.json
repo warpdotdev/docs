@@ -9,7 +9,9 @@
       "assertions": [
         "The run remains detection-only.",
         "The benchmark accounts for all 24 Falconer cases and negative controls.",
-        "Generated state passes schema and fingerprint validation."
+        "Generated state passes schema and fingerprint validation.",
+        "Private authority paths and hashes do not appear in candidates, artifacts, state, or report text.",
+        "Every reportable finding has a valid full-context adjudication with exact public scope quotes."
       ]
     },
     {
@@ -32,6 +34,17 @@
         "The missing authority is recorded.",
         "No prior active finding becomes resolved.",
         "At most one actionable Slack message is produced."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Start the daylight and standard paired schedules concurrently for the same active Pacific business date.",
+      "expected_output": "Exactly one invocation durably claims the Pacific date on the standing state branch and continues; every duplicate exits without extraction, state mutation, or Slack reporting.",
+      "files": [],
+      "assertions": [
+        "The date receipt is claimed and pushed before audit mutation.",
+        "A duplicate receipt or losing push race is a successful no-op.",
+        "Exactly one invocation can mutate state or produce a notification."
       ]
     }
   ]
