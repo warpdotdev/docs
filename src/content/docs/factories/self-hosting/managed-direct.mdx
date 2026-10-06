@@ -8,7 +8,7 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Run the `oz-agent-worker` daemon with the **Direct backend** — tasks execute directly on the worker host without Docker or Kubernetes. The {VARS.WARP_AUTOMATION_PLATFORM} still orchestrates runs end to end (Slack, Linear, schedules, API, `oz agent run-cloud`); the worker just runs the agent in a per-task workspace on its own filesystem.
+Run the `oz-agent-worker` daemon with the **Direct backend** to execute tasks directly on the worker host without Docker or Kubernetes. The {VARS.WARP_AUTOMATION_PLATFORM} still orchestrates runs end to end from Slack, Linear, schedules, the API, or `oz agent run-cloud`; the worker runs the agent in a per-task workspace on its own filesystem.
 
 ## When to use the Direct backend
 
@@ -20,16 +20,12 @@ Run the `oz-agent-worker` daemon with the **Direct backend** — tasks execute d
 The Direct backend does not provide per-task container isolation. Each task runs in an isolated workspace directory, but shares the host OS and kernel. Evaluate whether this fits your security requirements before using it in production.
 :::
 
----
-
 ## How it works
 
 1. The worker creates a per-task workspace directory under `workspace_root`.
 2. If a `setup_command` is configured, it runs before the task with environment variables pointing to the workspace.
 3. The `oz` CLI runs the agent task inside the workspace directory.
 4. After the task completes, the optional `teardown_command` runs and the workspace is cleaned up.
-
----
 
 ## Prerequisites
 
@@ -38,8 +34,6 @@ Complete the shared [managed prerequisites](/factories/self-hosting/#managed-pre
 * **A worker host** - Grant write access to `workspace_root`, which defaults to `/var/lib/oz/workspaces`.
 * **The `oz-agent-worker` binary** - Install it on the worker host through [Homebrew or a prebuilt binary](/factories/self-hosting/managed-docker/#install-and-run-the-worker).
 * **The {VARS.WARP_AGENT_CLI}** - Install it in `PATH` on the worker host, or set `oz_path` in the config file. See [Installing the CLI](/agents/cli/oz-cli/#installing-the-cli).
-
----
 
 ## Setup
 
@@ -70,8 +64,6 @@ backend:
 
 **Expected outcome:** The worker connects to the {VARS.WARP_AUTOMATION_PLATFORM} and begins listening for tasks. Each assigned task runs in a freshly-created subdirectory of `workspace_root`.
 
----
-
 ## Workspace model
 
 Each task gets its own directory under `workspace_root`. The default is `/var/lib/oz/workspaces`; override it with the `workspace_root` config option shown above.
@@ -82,22 +74,18 @@ To reuse a large monorepo without sharing one checkout between concurrent tasks,
 
 Setting `target_dir` makes every task run in one shared directory and disables per-task workspace isolation. Use it only when the worker processes one task at a time.
 
----
-
 ## Setup and teardown commands
 
 The `setup_command` runs before each task and receives the following environment variables:
 
-* `OZ_WORKSPACE_ROOT` — The workspace directory for the task.
-* `OZ_RUN_ID` — The unique task ID.
-* `OZ_ENVIRONMENT_FILE` — Path to a file where the setup script can write additional `KEY=VALUE` environment variables to inject into the task.
-* `OZ_WORKER_BACKEND` — Always set to `direct`.
+* `OZ_WORKSPACE_ROOT` - The workspace directory for the task.
+* `OZ_RUN_ID` - The unique task ID.
+* `OZ_ENVIRONMENT_FILE` - Path to a file where the setup script can write additional `KEY=VALUE` environment variables to inject into the task.
+* `OZ_WORKER_BACKEND` - Always set to `direct`.
 
 The `teardown_command` runs after each task and receives `OZ_WORKSPACE_ROOT`, `OZ_RUN_ID`, and `OZ_WORKER_BACKEND`.
 
 Use the setup command to clone repos, install dependencies, or write task-specific env vars into `OZ_ENVIRONMENT_FILE`. Use the teardown command for cleanup or reporting.
-
----
 
 ## Environment variables for Direct tasks
 
@@ -121,14 +109,12 @@ backend:
         value: "hello"
 ```
 
----
-
 ## Related pages
 
-* [Self-hosted worker reference](/factories/self-hosting/reference/#direct-backend-config) — Full config schema for the Direct backend.
-* [External orchestrators](/factories/self-hosting/external-orchestrators/) — Start one Direct worker per external job or delegate runs through the Command backend.
-* [Direct backend monorepo worktrees](/factories/self-hosting/direct-monorepo-worktrees/) — Create and remove one Git worktree per task with setup and teardown hooks.
-* [Self-hosting overview](/factories/self-hosting/) — Managed vs unmanaged and the backend decision guide.
-* [Routing runs to self-hosted workers](/factories/self-hosting/#routing-runs-to-self-hosted-workers) — How to send tasks to your connected worker from the CLI, schedules, integrations, the API, and the web UI.
-* [Security and networking](/platform/execution-security/) — Data boundaries and security considerations for the Direct backend.
-* [Troubleshooting](/factories/self-hosting/troubleshooting/#direct-backend) — Common Direct-backend issues.
+* [Self-hosted worker reference](/factories/self-hosting/reference/#direct-backend-config) - Full config schema for the Direct backend.
+* [External orchestrators](/factories/self-hosting/external-orchestrators/) - Start one Direct worker per external job or delegate runs through the Command backend.
+* [Direct backend monorepo worktrees](/factories/self-hosting/direct-monorepo-worktrees/) - Create and remove one Git worktree per task with setup and teardown hooks.
+* [Self-hosting overview](/factories/self-hosting/) - Managed vs unmanaged and the backend decision guide.
+* [Routing runs to self-hosted workers](/factories/self-hosting/#routing-runs-to-self-hosted-workers) - How to send tasks to your connected worker from the CLI, schedules, integrations, the API, and the web UI.
+* [Security and networking](/platform/execution-security/) - Data boundaries and security considerations for the Direct backend.
+* [Troubleshooting](/factories/self-hosting/troubleshooting/#direct-backend) - Common Direct-backend issues.

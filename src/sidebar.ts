@@ -399,7 +399,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Overview',
 					items: [
 						{ slug: 'factories', label: 'Overview' },
-						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
+						{ slug: 'factories/how-factories-work', label: 'How factories work' },
 						{ slug: 'factories/quickstart', label: 'Quickstart' },
 					],
 				},

@@ -1,5 +1,5 @@
 ---
-title: Connect GitHub to your factory
+title: Connecting GitHub to your factory
 description: >-
   Connect GitHub to your factory so issues, pull requests, reviews, and CI
   events start factory work and results post back to GitHub.
@@ -70,7 +70,6 @@ For a review automation that fires when pull requests open, see [`04-code-review
 <tr><td>Code and CI</td><td>Push, a completed check suite or workflow run</td></tr>
 </tbody>
 </table>
-
 
 For the exact `event` value each trigger uses in a definition file, see [triggers](/factories/factory-as-code/#triggers).
 
@@ -158,3 +157,10 @@ Check that the installation still covers the target repository and grants the re
 ### A factory-definition check doesn't appear
 
 The check runs only for factories whose [definition is managed as code](/factories/factory-as-code/) in a GitHub repository. Confirm the pull request targets the branch the factory runs from and that the GitHub App covers the repository.
+
+## Related pages
+
+* [Connect your factory](/factories/connect-your-factory/) - Every other way to route work into the factory.
+* [Factory automations](/factories/automations/) - How triggers and filters decide which GitHub activity starts work.
+* [Factory definition syntax](/factories/factory-as-code/) - Declare GitHub triggers and filters as code, and keep the definition itself in GitHub.
+* [GitHub integration](/platform/integrations/github/) - Install the Warp GitHub App and review its permission model.

@@ -8,24 +8,26 @@ description: >-
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
 
-### Turn production errors into draft PRs with Cloud Agents + TypeScript SDK
+Turn production errors into draft pull requests with cloud agents and the TypeScript SDK. In this demo, Ben builds a small TypeScript "Sentry monitor" service that listens for specific Sentry alerts (like a Go nil pointer dereference) and starts a Warp cloud agent to investigate. The server validates the webhook, extracts the stack trace, and passes it to an agent run inside a Warp environment so the agent can inspect the repo and propose a fix.
 
 <VideoEmbed url="https://www.youtube.com/watch?feature=youtu.be&v=fHQXLg9ybi4" title="Monitoring Sentry with the TypeScript SDK demo video" />
 
-:::note
-Example repository: [**Sentry monitor example repository**](https://github.com/warpdotdev/warp-agents-sdk-demo-sentry-monitor)
-:::
+The code is in the [Sentry monitor example repository](https://github.com/warpdotdev/warp-agents-sdk-demo-sentry-monitor).
 
-In this demo, Ben builds a small TypeScript “Sentry monitor” service that listens for specific Sentry alerts (like a Go nil pointer dereference) and triggers a Warp cloud agent to investigate. The server validates the webhook, extracts the stack trace, and injects it into an agent run inside a Warp Environment so the agent can inspect the repo and propose a fix.
+To route the alert through a factory's named agents and workflow instead, dispatch the request with [factory endpoints](/factories/factory-api/). This example is still the pattern for custom standalone cloud-agent intake.
 
-To route the alert through a factory's named agents and workflow instead, use [factory endpoints](/factories/factory-api/) to dispatch the request. This example remains useful for custom standalone cloud-agent intake.
+The demo also covers the run lifecycle basics in the TypeScript SDK (running an agent, then polling run state to fetch a session link for debugging) and shows the end result: a draft GitHub pull request created from the Sentry event for a maintainer to review.
 
-He also covers the task lifecycle basics in the TypeScript SDK (running an agent, polling task state to fetch a session link for debugging), and shows the end result: a draft GitHub pull request created from the Sentry event for a maintainer to review.
+## What the demo covers
 
-**What Ben covers**
-
-* Using Warp's TypeScript SDK to trigger agent runs and retrieve run details.
-* Handling run lifecycle states (queued → running) to reliably fetch a session link.
-* Running agents inside a Warp Environment so they can investigate real code, run tests, and validate fixes.
+* Using Warp's TypeScript SDK to start agent runs and retrieve run details.
+* Handling run lifecycle states, from queued to running, to reliably fetch a session link.
+* Running agents inside a Warp environment so they can investigate real code, run tests, and validate fixes.
 * Building a lightweight Sentry webhook server that filters, validates, and routes only the right errors to an agent.
-* Creating a workflow that results in draft PRs for human review, instead of silent autonomous changes.
+* Creating a workflow that results in draft PRs for human review instead of silent autonomous changes.
+
+## Related pages
+
+* [Agent and run endpoints](/factories/api-and-sdk/) - The endpoints and SDKs the demo builds on.
+* [{VARS.WARP_PLATFORM_API} quickstart](/factories/api-and-sdk/quickstart/) - Create and inspect your first run.
+* [Triggering automations with custom webhooks](/factories/webhooks/) - Route Sentry and other webhook deliveries into a factory without writing a server.

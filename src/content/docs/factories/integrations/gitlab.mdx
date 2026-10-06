@@ -1,5 +1,5 @@
 ---
-title: Connect GitLab to your factory
+title: Connecting GitLab to your factory
 description: >-
   Connect GitLab to your factory so merge request events and bot mentions
   start factory work and results post back as comments and merge requests.
@@ -114,7 +114,7 @@ triggers:
 Triage newly opened merge requests and post an initial review.
 ```
 
-A `bot_mentioned` trigger takes only a `repos` filter. Leave `mentioned` out. Warp seeds it with the factory's bot username and rejects definitions that set it. GitLab isn't yet supported as a definition-hosting repository, so declare these triggers in a Warp-managed or GitHub-hosted definition even when the factory's automations and mentions run through GitLab; see [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
+A `bot_mentioned` trigger takes only a `repos` filter. Leave `mentioned` out: Warp fills it in with the factory's bot username and rejects definitions that set it. GitLab isn't yet supported as a definition-hosting repository, so declare these triggers in a Warp-managed or GitHub-backed definition even when the factory's automations and mentions run through GitLab; see [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
 
 ## Troubleshooting
 
@@ -138,4 +138,9 @@ Confirm the target project is one of the factory's selected projects and the ope
 
 Only top-level groups you own appear, and a group already connected to another Warp workspace can't be connected again. If you don't own the group, ask an owner to establish the connection in Warp.
 
-For the other ways to route work into a factory, see [Connect your factory](/factories/connect-your-factory/).
+## Related pages
+
+* [Connect your factory](/factories/connect-your-factory/) - Every other way to route work into the factory.
+* [Factory automations](/factories/automations/) - How triggers and filters decide which GitLab activity starts work.
+* [Factory definition syntax](/factories/factory-as-code/) - Declare GitLab triggers and filters as code.
+* [Connecting other code forges to your factory](/factories/code-forges/other-code-forges/) - Repository access for self-managed GitLab instances.
