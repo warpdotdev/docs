@@ -162,6 +162,6 @@ For a full breakdown of how platform credits work, see [platform credits](/suppo
 
 ## Cloud agent runs on team plans
 
-Cloud agent runs that aren't initiated by a specific team member — for example, scheduled runs or runs triggered through an agent API key — follow plan-specific billing rules. On self-serve plans (Build, Max, Business), these runs are billed to the team owner: the owner's plan-included credits first, then the team's shared add-on credit pool. With auto-reload off, the request is blocked when both are depleted (insufficient credits error). With auto-reload on, usage can trigger a reload into the team's shared pool subject to the team-wide spend cap. On Enterprise plans, these runs draw from the team-scoped credit pool per your contract.
+The billed identity depends on how the cloud run starts. User-triggered runs bill the triggering user. Scheduled runs and runs triggered with an agent API key bill the team owner on self-serve plans. Enterprise runs draw from the team-scoped credit pool under the team's contract.
 
-For the full waterfall, see [How are cloud agent runs on team plans billed when no individual user triggered them?](/support-and-community/plans-and-billing/pricing-faqs/#how-are-cloud-agent-runs-on-team-plans-billed-when-no-individual-user-triggered-them) in the Pricing FAQs.
+See [how cloud agent runs use credits](/platform/team-access-billing-and-identity/#how-credit-usage-works) for the canonical credit waterfalls.

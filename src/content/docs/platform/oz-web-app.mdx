@@ -81,6 +81,8 @@ To start a new run:
 
 **Quick run** runs as your own user. A saved agent uses its saved defaults, and your prompt adds context for this particular execution.
 
+Both **Quick run** and a manually started saved agent are user-triggered for billing. Scheduled runs and runs started with an agent API key use a different billing identity. See [how cloud agent runs use credits](/platform/team-access-billing-and-identity/#how-credit-usage-works).
+
 ### Inspecting orchestrated runs
 
 The {VARS.WEB_APP} renders [multi-agent orchestrations](/platform/orchestration/) as nested rows on the **Runs** page, so you can follow parent and child execution together.
