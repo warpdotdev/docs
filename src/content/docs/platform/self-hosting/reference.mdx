@@ -28,7 +28,7 @@ The following flags are available when starting the worker.
 * `-e` / `--env` — Set environment variables for tasks. Format: `KEY=VALUE` (explicit value) or `KEY` (pass through from host environment). Can be specified multiple times.
 * `--max-concurrent-tasks` — Maximum number of tasks to run concurrently. Defaults to `0` (unlimited). When set, additional tasks wait until a slot is available.
 * `--one-shot` — Exit after one accepted task succeeds, fails, or is cancelled. Supported only by the Direct backend and forces `max_concurrent_tasks` to `1`.
-* `--idle-on-complete` — How long to keep the `oz` process alive after a task's conversation finishes, allowing follow-up interactions via session sharing. Uses duration format (e.g. `45m`, `10m`, `0s`). Defaults to `45m` when not set. Set to `0s` to disable.
+* `--idle-on-complete` — How long to keep the `oz` process alive after a task's conversation finishes, allowing follow-up interactions via session sharing. Uses duration format (e.g. `45m`, `10m`, `0s`). Defaults to `45m` when the task has no `config.idle_timeout_minutes` value. A task-level value takes precedence; runs created directly through the Agent API default to 10 minutes. See [Configure the completion timeout](/platform/self-hosting/external-orchestrators/#configure-the-completion-timeout).
 
 Worker IDs starting with `warp` are reserved and cannot be used. The worker refuses to start if `--worker-id` begins with `warp`.
 
@@ -148,7 +148,7 @@ backend:
 * `cleanup` — Whether to clean up after tasks. Defaults to `true`. Set to `false` to keep containers/workspaces for debugging (equivalent to `--no-cleanup`).
 * `max_concurrent_tasks` — Maximum concurrent tasks. Defaults to unlimited.
 * `one_shot` — Exit after one accepted Direct backend task reaches a terminal state. Defaults to `false` and forces `max_concurrent_tasks` to `1` when enabled.
-* `idle_on_complete` — Duration to keep the `oz` process alive after task completion (e.g. `"45m"`, `"0s"`).
+* `idle_on_complete` — Duration to keep the `oz` process alive after task completion (e.g. `"45m"`, `"0s"`). Task-level timeout values take precedence; see [Configure the completion timeout](/platform/self-hosting/external-orchestrators/#configure-the-completion-timeout).
 * `backend` — Backend configuration block. Only one backend (`docker`, `kubernetes`, `direct`, or `command`) may be specified.
 
 **`backend.docker`:**
