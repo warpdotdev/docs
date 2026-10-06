@@ -97,8 +97,6 @@ For general filter behavior, see [factory automations](/factories/automations/).
 | Pull request commented | Repository and target branches |
 | Mentioned in a pull request | Repository and mentioned users |
 
-Azure DevOps push events aren't currently available as automation triggers.
-
 ## Troubleshooting
 
 ### An organization, project, or repository doesn't appear
@@ -127,7 +125,7 @@ Azure DevOps push events aren't currently available as automation triggers.
 
 ### Factory identity doesn't appear in comment mention autocomplete
 
-**Cause:** Azure DevOps hides the factory identity from @-mention autocomplete until the identity has been used in the organization.
+**Cause:** Azure DevOps doesn't yet recognize the factory identity for comment autocomplete.
 
 **Workaround:** Make Azure DevOps recognize the factory identity by using it once in the organization:
 
