@@ -6558,6 +6558,11 @@
       "statusCode": 308
     },
     {
+      "source": "/agent-platform/cloud-agents/self-hosting/direct-monorepo-worktrees(/?)",
+      "destination": "/factories/self-hosting/direct-monorepo-worktrees/",
+      "statusCode": 308
+    },
+    {
       "source": "/agent-platform/cloud-agents/self-hosting/monitoring(/?)",
       "destination": "/factories/self-hosting/monitoring/",
       "statusCode": 308
@@ -6665,6 +6670,11 @@
     {
       "source": "/platform/self-hosting/managed-direct(/?)",
       "destination": "/factories/self-hosting/managed-direct/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/self-hosting/direct-monorepo-worktrees(/?)",
+      "destination": "/factories/self-hosting/direct-monorepo-worktrees/",
       "statusCode": 308
     },
     {
