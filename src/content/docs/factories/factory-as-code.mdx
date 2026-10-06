@@ -408,11 +408,12 @@ The providers and their events:
 * `linear` - `agent_session_created`, `comment_created`, `issue_assigned`, `issue_created`, `issue_labeled`, `issue_state_changed`
 * `jira` - `agent_session_created`, `issue_created`, `issue_labeled`, `status_changed`
 * `slack` - `app_mention`, `member_joined_channel`, `message_dm`, `message_im`, `message_mpim`, `message_posted`, `reaction_added`
+* `teams` - `app_mention`, `message_posted`
 * `schedule` - `cron_fired`
 * `webhook` - `received`
 * `factory` - `work_item_stage_changed`
 
-Slack, Linear, and Jira triggers require the matching [integration](/platform/integrations/) to be connected. Code-forge triggers use the factory's repositories and provider connection; see the [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), and [Azure DevOps](/factories/integrations/azure-devops/) integration guides. `webhook` triggers listen to [custom webhooks](/factories/webhooks/) declared under [`webhooks/`](#webhooksnameyaml).
+Slack, Microsoft Teams, Linear, and Jira triggers require the matching [integration](/platform/integrations/) to be connected. Code-forge triggers use the factory's repositories and provider connection; see the [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), and [Azure DevOps](/factories/integrations/azure-devops/) integration guides. `webhook` triggers listen to [custom webhooks](/factories/webhooks/) declared under [`webhooks/`](#webhooksnameyaml).
 
 ### `triggers[].filter`
 
@@ -424,12 +425,13 @@ The published trigger catalog currently uses these filter keys across its provid
 
 * Factory: `stages`.
 * Azure DevOps: `assignees`, `authors`, `base_branches`, `branches`, `labels`, `mentioned`, `repos`, `source_repos`, and `work_item_types`.
-* GitHub: `assignees`, `authors`, `baseBranches`, `base_branches`, `branches`, `conclusions`, `labels`, `mentioned`, `paths`, `prNumbers`, `pr_numbers`, `repos`, `review_states`, `reviewer_teams`, `reviewers`, and `workflows`.
+* GitHub: `assignees`, `authors`, `baseBranches`, `base_branches`, `branches`, `conclusions`, `keywords`, `labels`, `mentioned`, `paths`, `prNumbers`, `pr_numbers`, `repos`, `review_states`, `reviewer_teams`, `reviewers`, and `workflows`.
 * GitLab: `actions`, `base_branches`, `branches`, `mentioned`, and `repos`.
 * Jira: `keywords`, `labels`, `project_keys`, and `status_ids`.
 * Linear: `assignee_ids`, `creator_ids`, `issue_ids`, `issues`, `keywords`, `labels`, `mentioned_user_ids`, `project_ids`, `projects`, `state_ids`, `states`, `team_ids`, and `teams`.
 * Schedule: `schedule_ids` is server-managed and cannot be set in a factory definition.
 * Slack: `channel_ids`, `channels`, `emojis`, `itemUsers`, `item_user_ids`, `keywords`, `user_ids`, and `users`.
+* Teams: `channel_ids`, `keywords`, `team_ids`, and `user_ids`.
 * Webhook: `payload` and `webhook_ids`.
 
 Payload patterns also accept `exists`.

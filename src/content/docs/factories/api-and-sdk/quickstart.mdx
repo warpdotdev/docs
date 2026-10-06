@@ -55,7 +55,7 @@ curl -X POST https://app.warp.dev/api/v1/agent/runs \
 Replace `<ENV_ID>` with your environment ID. Find it with `oz environment list` on the {VARS.WARP_AGENT_CLI} or in the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>.
 
 :::note
-Prefer typed requests? The official [Python SDK](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript) wrap the same API with typed models, retries, and error handling.
+Prefer typed requests? The official [`warp-platform-sdk` Python package](https://pypi.org/project/warp-platform-sdk/) and [`@warp-dot-dev/warp-platform-sdk` TypeScript package](https://www.npmjs.com/package/@warp-dot-dev/warp-platform-sdk) wrap the same API with typed models, retries, and error handling.
 :::
 
 The API returns a `run_id` immediately. The agent starts asynchronously — you can check its status at any time using the run ID.
@@ -96,6 +96,6 @@ You can also view and manage all runs in the <a href={`${VARS.WEB_APP_URL}/runs`
 ## Next steps
 
 * **Read the endpoint guide** - [Agent & run endpoints](/factories/api-and-sdk/) documents the configuration and run lifecycle, while the [{VARS.WARP_PLATFORM_API} reference](/api) lists all parameters, query filters, and response schemas.
-* **Explore the SDKs** - [Python SDK](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript SDK](https://github.com/warpdotdev/oz-sdk-typescript) include typed request/response models, retries, and error handling.
+* **Explore the SDKs** - [`warp-platform-sdk` for Python](https://pypi.org/project/warp-platform-sdk/) and [`@warp-dot-dev/warp-platform-sdk` for TypeScript](https://www.npmjs.com/package/@warp-dot-dev/warp-platform-sdk) include typed request/response models, retries, and error handling.
 * **See a real-world example** - [Demo: Sentry monitoring with SDK](/factories/api-and-sdk/demo-sentry-monitoring-with-sdk/) shows how to build a webhook handler that triggers agents from production errors.
 * **Schedule and automate** - See [Scheduled Agents Quickstart](/platform/triggers/scheduled-agents-quickstart/) to run agents on a cron, or [Integrations Quickstart](/platform/integrations/quickstart/) to trigger agents from Slack or Linear.

@@ -42,9 +42,9 @@ Every factory run is still an ordinary run, so Agent & run endpoints handle stat
 
 ```python
 import os
-from oz_agent_sdk import OzAPI
+from warp_platform_sdk import WarpClient
 
-client = OzAPI(api_key=os.environ.get("WARP_API_KEY"))
+client = WarpClient(api_key=os.environ.get("WARP_API_KEY"))
 
 # Find a factory by name or alias — no UIDs needed up front
 page = client.factories.list(search="payments")
