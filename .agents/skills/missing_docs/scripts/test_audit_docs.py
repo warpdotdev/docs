@@ -327,7 +327,7 @@ class TestConsistencyAudit(unittest.TestCase):
         passed = {item["rule_id"] for item in result["rules"]["passed"]}
         self.assertIn("no-singular-create-run-example", passed)
         self.assertIn("no-five-file-cli-limit", passed)
-        self.assertIn("no-old-session-sharing-links", passed)
+        self.assertIn("no-generic-links-to-agent-session-sharing", passed)
         self.assertNotIn("no-finalizing-concurrency-placeholder", passed)
 
     def test_policy_blockers_remain_visible_with_owner_metadata(self):
