@@ -54,23 +54,32 @@ The example mirrors Ubuntu as the task image. Replace that source with your own 
 
 ## Configuring the Docker backend
 
-The Docker backend uses credentials from the worker's Docker config. Follow [Private Docker registries](/platform/self-hosting/managed-docker/#private-docker-registries) to authenticate a host process or mount credentials into the worker container.
+The Docker backend uses the worker's Docker config to authenticate task-image pulls. Warp Agent sidecar pulls do not use those credentials.
 
-Configure the mirrored Warp Agent sidecar and a pull policy:
+If the mirrored sidecar repository requires authentication, first follow [Private Docker registries](/platform/self-hosting/managed-docker/#private-docker-registries) to authenticate a Docker client connected to the worker's daemon. Then pre-pull every task and sidecar image:
+
+```bash
+docker pull registry.internal.example.com/warp/agent-base:22.04
+docker pull registry.internal.example.com/warp/warp-agent:latest
+```
+
+Set the pull policy to `Never` so the worker uses the local images:
 
 ```yaml title="worker.yaml"
 worker_id: "private-registry-docker"
 backend:
   docker:
-    image_pull_policy: "Always"
+    image_pull_policy: "Never"
     sidecar_image: "registry.internal.example.com/warp/warp-agent:latest"
 ```
 
-Keep `image_pull_policy: "Always"` because the mirrored sidecar uses the mutable `latest` tag. The pull policy applies to task and sidecar images. The task image must also point to the private registry through its Warp environment; the worker does not rewrite task image registry names.
+For a sidecar repository that allows anonymous reads, use `image_pull_policy: "Always"` instead. Refresh the mirror regularly because the sidecar uses the mutable `latest` tag. The pull policy applies to task and sidecar images.
+
+The task image must point to the private registry through its Warp environment; the worker does not rewrite task image registry names.
 
 Run the worker with `registry.internal.example.com/warp/oz-agent-worker:WORKER_RELEASE_TAG` in place of the public worker image.
 
-Start the worker with `--log-level debug`, then route a [test run to the worker](/platform/self-hosting/#routing-runs-to-self-hosted-workers). Before blocking public-registry egress, confirm that the worker logs for `Using Docker image` and `Preparing additional sidecar` show private-registry references.
+Start the worker with `--log-level debug`, then route a [test run to the worker](/platform/self-hosting/#routing-runs-to-self-hosted-workers). Before blocking public-registry egress, confirm that the worker logs for `Using Docker image` and `Preparing additional sidecar` show private-registry references and the run succeeds.
 
 ## Configuring the Kubernetes backend
 
@@ -214,7 +223,8 @@ kubectl delete "$TASK_JOB" --namespace warp-oz
 ## Troubleshooting
 
 ### Docker reports `pull access denied`
-Confirm the worker's Docker config contains credentials for the registry. See [Private Docker registries](/platform/self-hosting/managed-docker/#private-docker-registries).
+
+For a task-image failure, confirm the worker's Docker config contains registry credentials. For a sidecar failure, allow anonymous reads from the mirrored sidecar repository, or pre-pull the image and use `image_pull_policy: "Never"`.
 
 ### Kubernetes reports `ImagePullBackOff`
 Confirm `warp-registry` exists in the task namespace. The worker Deployment needs `image.pullSecrets`, while task and preflight Pods need `podTemplate.imagePullSecrets`.

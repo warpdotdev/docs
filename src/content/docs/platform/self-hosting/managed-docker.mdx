@@ -188,7 +188,9 @@ oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker"
 
 ## Private Docker registries
 
-The Docker backend reads registry credentials from the worker's Docker config. Authenticate the account that runs the worker before pulling private task images:
+The Docker backend reads registry credentials from the worker's Docker config for task-image pulls. Sidecar pulls do not use these credentials. If the mirrored sidecar repository requires authentication, follow the [private-registry Docker setup](/platform/self-hosting/private-container-registry/#configuring-the-docker-backend) to pre-pull task and sidecar images.
+
+Authenticate the account that runs the worker before pulling private task images:
 
 ```bash
 docker login registry.internal.example.com
