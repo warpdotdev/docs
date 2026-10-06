@@ -1,8 +1,8 @@
 ---
 title: Warp Factories overview
 description: >-
-  Warp Factories runs teams of cloud agents that take work from Slack, GitHub,
-  Linear, or Jira through triage, spec, implementation, and review.
+  Warp Factories turns issues, tickets, and Slack requests into reviewed pull
+  requests with teams of cloud agents, while people approve specs and merges.
 sidebar:
   label: "Overview"
 ---
@@ -10,9 +10,7 @@ import { VARS } from '@data/vars';
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-A factory is a team of cloud agents attached to a set of repositories. Work arrives as a Slack message, a GitHub issue, a Linear or Jira ticket, or a scheduled job. A coordinating agent called the foreman routes each request through triage, spec, implementation, and review, and the result comes back where the work started, usually as a pull request. For example, a factory can work through a backlog of issues, fix defects reported in a support channel, or review incoming pull requests across several repositories.
-
-People stay in the loop at the points that matter: approving a spec, answering the foreman's questions, and merging.
+A factory is a team of cloud agents attached to a set of repositories. It takes work from Slack, GitHub, Linear, or Jira through triage, spec, implementation, and review, and returns a pull request where the work started.
 
 <CardGrid>
   <LinkCard
@@ -26,6 +24,12 @@ People stay in the loop at the points that matter: approving a spec, answering t
     description="For existing users and teams already using Warp Factories."
   />
 </CardGrid>
+
+## What a factory does
+
+A coordinating agent called the foreman takes each request, decides which stages it needs, and dispatches the triage, spec, implement, and review agents in turn. The result comes back where the work started, usually as a pull request. For example, a factory can work through a backlog of issues, fix defects reported in a support channel, or review incoming pull requests across several repositories.
+
+People stay in the loop at the points that matter: approving a spec, answering the foreman's questions, and merging.
 
 <VideoEmbed url="https://www.youtube.com/watch?v=0WBk4ai8y1A" title="Introducing Warp Factories" />
 
