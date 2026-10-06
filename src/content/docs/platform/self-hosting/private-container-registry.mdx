@@ -54,14 +54,20 @@ The example mirrors Ubuntu as the task image. Replace that source with your own 
 
 ## Configuring the Docker backend
 
+The Docker configuration below requires worker release `v2026-08-28-21-43-14` or newer.
+
 The Docker backend uses the worker's Docker config to authenticate task-image pulls. Warp Agent sidecar pulls do not use those credentials.
 
-If the mirrored sidecar repository requires authentication, first follow [Private Docker registries](/platform/self-hosting/managed-docker/#private-docker-registries) to authenticate a Docker client connected to the worker's daemon. Then pre-pull every task and sidecar image:
+If the mirrored sidecar repository requires authentication, first follow [Private Docker registries](/platform/self-hosting/managed-docker/#private-docker-registries) to create the dedicated Docker config for a containerized worker. Reuse that config to pre-pull every task and sidecar image:
 
 ```bash
-docker pull registry.internal.example.com/warp/agent-base:22.04
-docker pull registry.internal.example.com/warp/warp-agent:latest
+sudo docker --config "$WORKER_DOCKER_CONFIG" \
+  pull registry.internal.example.com/warp/agent-base:22.04
+sudo docker --config "$WORKER_DOCKER_CONFIG" \
+  pull registry.internal.example.com/warp/warp-agent:latest
 ```
+
+If the worker runs as a host process with credentials in your default Docker config, run the same commands without `sudo` or `--config "$WORKER_DOCKER_CONFIG"`.
 
 Set the pull policy to `Never` so the worker uses the local images:
 
@@ -227,6 +233,7 @@ kubectl delete "$TASK_JOB" --namespace warp-oz
 For a task-image failure, confirm the worker's Docker config contains registry credentials. For a sidecar failure, allow anonymous reads from the mirrored sidecar repository, or pre-pull the image and use `image_pull_policy: "Never"`.
 
 ### Kubernetes reports `ImagePullBackOff`
+
 Confirm `warp-registry` exists in the task namespace. The worker Deployment needs `image.pullSecrets`, while task and preflight Pods need `podTemplate.imagePullSecrets`.
 
 ## Related pages

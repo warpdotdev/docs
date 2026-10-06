@@ -22,8 +22,8 @@ Run the `oz-agent-worker` daemon with the **Docker backend** — the default man
 
 Complete the shared [managed prerequisites](/platform/self-hosting/#managed-prerequisites), then prepare:
 
-* **A machine to run the worker** - Use a Linux VM, server, or local machine for production. Docker Desktop on macOS or Windows works for testing.
-* **Docker** - Install a **linux/amd64** or **linux/arm64** Docker daemon that runs Linux containers. Windows containers are not supported. The worker host can use any OS because Docker Desktop on macOS and Windows runs a compatible Linux VM. Verify the daemon with `docker info`.
+* **A machine to run the worker** - Use a Linux VM, server, or local machine.
+* **Docker** - Install a **linux/amd64** or **linux/arm64** Docker daemon that runs Linux containers. Windows containers are not supported. Verify the daemon with `docker info`.
 * **Task images** - Use a glibc-based image, such as Debian, Ubuntu, or a non-Alpine variant of an official image. Musl-based images such as Alpine Linux are not supported. Add required tools, binaries, scripts, and system packages to the [environment's custom image](/platform/environments/).
 
 ### Install Docker
@@ -69,8 +69,6 @@ docker run \
 ```
 
 **Expected outcome:** The worker connects to the {VARS.WARP_AUTOMATION_PLATFORM} and logs that it's listening for tasks.
-
-For Docker Desktop testing, use the [Homebrew](#option-2-homebrew) or [GitHub Releases](#option-3-github-releases-binary) worker binary instead of the Linux socket command.
 
 ### Option 2: Homebrew
 
@@ -188,7 +186,7 @@ oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker"
 
 ## Private Docker registries
 
-The Docker backend reads registry credentials from the worker's Docker config for task-image pulls. Sidecar pulls do not use these credentials. If the mirrored sidecar repository requires authentication, follow the [private-registry Docker setup](/platform/self-hosting/private-container-registry/#configuring-the-docker-backend) to pre-pull task and sidecar images.
+The Docker backend reads task-image credentials from its Docker config. See the [private-registry Docker setup](/platform/self-hosting/private-container-registry/#configuring-the-docker-backend) for sidecar images and authenticated-registry limitations.
 
 Authenticate the account that runs the worker before pulling private task images:
 

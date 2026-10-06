@@ -203,7 +203,7 @@ A run's instance shape overrides the `task` container's CPU and memory values in
 
 ## Preflight check
 
-On startup, the worker runs a preflight Job to check RBAC and admission policy for the configured task PodSpec, including its sidecar-loading method. Failure stops the worker before tasks; success does not validate task-specific images, Secrets, setup commands, or network access. See the [`use_image_volumes` reference](/platform/self-hosting/reference/#kubernetes-backend-config) for the alternative to root init containers.
+On startup, the worker runs a preflight Job to check RBAC and admission policy for the configured task PodSpec, including its sidecar-loading method. Failure stops the worker before tasks; success does not validate task-specific images, Secrets, setup commands, or network access.
 
 The preflight image defaults to `busybox:1.36`. For an allowlisted or private image, set `kubernetesBackend.preflightImage`. The `kubernetesBackend.podTemplate.imagePullSecrets` value supplies registry credentials to task and preflight Pods. See [Pulling self-hosted images from a private registry](/platform/self-hosting/private-container-registry/) for mirror configuration.
 
