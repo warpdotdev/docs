@@ -135,7 +135,7 @@ Follow the worker logs until they show `Successfully connected to server`:
 kubectl logs --follow deployment/oz-agent-worker --namespace warp-oz
 ```
 
-The connection message confirms that Kubernetes admission accepted the preflight Pod spec and its private image reference. The successful test run verifies the registry credentials by pulling and running the task and sidecar images.
+The connection message confirms that the worker passed Kubernetes API, RBAC, and Pod admission checks. The successful test run verifies the registry credentials by pulling and running the task and sidecar images.
 
 Start one run that uses the Warp Agent without Computer Use:
 
