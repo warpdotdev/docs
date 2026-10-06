@@ -42,7 +42,7 @@ A runner selects the operating system, architecture, sandbox image, and vCPU and
 | `platform.linux.registryCredentialSecretName` | Warp-managed private-registry credential | Ignored | Ignored; use `imagePullSecrets` | Ignored; configure registry credentials on the worker, such as in its Docker config |
 | `instanceShape` | Sandbox size, subject to plan limits; omitted uses the workspace default | Ignored; the task uses host resources | Task-container requests and limits; overrides matching `pod_template` resources; omitted keeps template or cluster defaults | Task-container limits; omitted adds no limits |
 
-Self-hosted runner settings do not provision worker capacity. Worker configuration controls host resources, registry authentication, volumes, node placement, and other backend policy.
+Self-hosted runner settings don't provision capacity. Worker configuration controls resources, registry authentication, volumes, placement, and backend policy. See [runner compute options](/factories/runners/) for available configurations.
 
 ## Choose an execution host
 
@@ -68,7 +68,7 @@ Unmanaged self-hosted agents and other CLI agents can't serve as a factory's exe
 
 ### Managed self-hosting structures
 
-Factories use managed self-hosting, so Warp still orchestrates their runs. The worker backend sets isolation and scheduling on your infrastructure:
+The worker backend sets isolation and scheduling on your infrastructure:
 
 | Structure | How factory runs execute | What your team operates | Use it when |
 | --- | --- | --- | --- |
@@ -107,28 +107,34 @@ A factory handles four kinds of credentials, each with its own boundary:
 
 Scope each credential to the resources and actions its agent needs. Warp redacts known secret values at output boundaries, but redaction is a backstop, not a substitute for narrow external permissions and rotation. See [cloud agent secrets](/platform/secrets/), [harness authentication](/platform/harnesses/authentication/), [secret redaction](/support-and-community/privacy-and-security/secret-redaction/), and [team identity](/platform/team-access-billing-and-identity/) for the underlying controls.
 
-## Governance and metering
+## Factory roles and permissions
 
-Factory creation uses the team-level Warp Factories role. Team and workspace admins and members with the team-level Editor role can create factories.
+Factory creation uses the team-level Warp Factories role. Team and workspace admins and team-level Editors can create factories.
 
 Three roles govern an existing factory:
 
 * **User** - View and run the factory, and propose definition changes.
-* **Editor** - Configure the factory, its agents, repositories, automations, integrations, secrets, MCP servers, and runners.
+* **Editor** - Edit the factory definition, configure its agents, repositories, and automations, attach existing integrations, secrets, and MCP servers, and select existing runners.
 * **Admin** - Manage members, delete the factory, and force-merge a blocked definition change.
 
 Team and workspace admins and owners always have the Admin role. Admins for a factory manage its roles; team and workspace admins manage the team-level role.
 
-Creating or editing shared runners and connecting team-wide integrations and providers remain team or workspace permissions. Factory roles don't determine who reviews specifications or approves pull request merges; those stay in workflow and repository policy.
+Managing shared runners and connecting team-wide integrations and providers require team or workspace permission. Factory roles don't control specification or pull request review. Treat factory definition changes as operational code, and protect merges through repository settings.
 
-Warp meters hosted compute, Warp-provided inference, and platform services. Managed self-hosted execution moves compute costs to your own infrastructure, and customer-supplied inference bills model usage through your provider account. Platform services consume credits regardless of these choices. See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for details.
+## Metering
 
+Warp meters hosted compute, Warp-provided inference, and platform services. Self-hosting moves compute costs to your infrastructure; customer-supplied inference bills your provider account. Platform services still consume credits. See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for details.
+
+## Deployment checklist
+
+1. **Classify access** - Inventory repositories, data, and services.
+2. **Set boundaries** - Choose execution and inference hosts.
+3. **Scope credentials** - Configure allowlists, harness authentication, and repository identity.
+4. **Enforce review** - Protect factory-definition and pull request merges.
+5. **Validate operations** - Test egress, isolation, rotation, capacity, observability, and metering.
 
 ## Related pages
 
 * [**Deployment patterns**](/factories/deployment-patterns/) - Compare Warp-hosted, managed self-hosted, and CLI-only execution.
 * [**Managed self-hosting**](/factories/self-hosting/) - Choose a worker backend and follow its setup guide.
 * [**Execution security**](/platform/execution-security/) - Review data boundaries, network egress, and backend-specific controls.
-* [**Bring Your Own LLM**](/enterprise/enterprise-features/bring-your-own-llm/) - Compare customer-owned inference options and provider support.
-* [**Enterprise security overview**](/enterprise/security-and-compliance/security-overview/) - Review data handling, ZDR, compliance, and access controls across Warp.
-* [Team-managed model keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Configure customer-supplied inference credentials.

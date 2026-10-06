@@ -21,9 +21,9 @@ Connect Jira Cloud to your factory so your team can start factory work without l
 
 1. **Choose who connects Jira.** Open Jira during factory setup or from the workspace's **Integrations** page. If you are a Jira site admin, continue directly. Otherwise, choose **Someone else**.
 
-2. **Send the setup to a Jira site admin.** Enter the Atlassian site, then email one or more site admins or copy an approval link to send to a site admin yourself. Links expire seven days after the request is created. While setup is pending, you can add recipients, resend or revoke an emailed link, copy or reset your own link, or revoke the request.
+2. **Send the setup to a Jira site admin.** Enter the Atlassian site, then email one or more site admins or copy an approval link to send to a site admin yourself.
 
-3. **Install Warp for Jira and connect the site.** The site admin completes these steps in the direct setup flow or from the approval link, without using your Warp session. Once connected, every factory in the workspace can use Jira. The [Jira integration setup](/platform/integrations/jira/#setup) explains the direct installation steps. That page's `warp-agent` label flow starts standalone cloud agent runs; factories skip the label and use an automation instead.
+3. **Install Warp for Jira and connect the site.** The site admin completes these steps in the direct setup flow or from the approval link, without using your Warp session. Once connected, every factory in the workspace can use Jira. The [Jira integration setup](/platform/integrations/jira/#setup) explains the direct installation steps.
 
 4. **Connect Jira to this factory.** A workspace connection makes Jira available to your factories, but each one opts in separately: in the factory's **Settings**, connect **Jira** and select the projects that should trigger it.
 
@@ -53,6 +53,10 @@ Connect Jira Cloud to your factory so your team can start factory work without l
 6. **Test it.** Assign or mention **Warp** on a work item and include an instruction. Jira starts an agent session, and the run appears under the matching automation in your factory.
 
    {/* VISUAL: A Jira work item assigned to Warp, showing the resulting agent session. */}
+
+Setup links expire seven days after the request is created. While setup is pending, you can add recipients, resend or revoke an emailed link, copy or reset your own link, or revoke the request.
+
+The Jira platform integration guide's `warp-agent` label flow starts standalone cloud agent runs. Factories skip the label and use an automation instead.
 
 ## Filter which sessions start runs
 

@@ -10,6 +10,12 @@ import { VARS } from '@data/vars';
 
 Connect a factory to Microsoft Teams so your team can send work from channel conversations. Mention the Warp app in a configured standard or shared channel, and the factory replies in the same thread.
 
+## Who completes each part
+
+* **Warp workspace admin** - Starts the connection and connects the installed team to the workspace.
+* **Teams admin or team owner** - Downloads and adds the Warp app. A Teams admin uploads and approves it.
+* **Factory editor** - Selects the connected teams and channels for the factory.
+
 :::caution
 The integration supports standard and shared channels. Private channels and direct messages are not supported.
 :::
@@ -20,9 +26,9 @@ The integration supports standard and shared channels. Private channels and dire
 2. **Choose who completes setup.** A workspace admin starts the connection. If that person is also a Teams admin or team owner, they can continue directly. Otherwise, choose **Someone else** and email a Teams admin or team owner a setup request, or copy an approval link. Links expire after seven days.
 3. **Download the Warp app package.** The person completing setup signs in with Microsoft and clicks **Download Warp app package**. The `warp-microsoft-teams-app.zip` package contains the app manifest and icons, with no executable files. A delegated recipient does this from the setup link without using your Warp session.
 4. **Upload and approve the app.** A Teams admin opens the [Teams admin center](https://admin.teams.microsoft.com), goes to **Teams apps** > **Manage apps**, clicks **Upload new app**, and uploads and approves the package.
-5. **Add Warp to each team.** In Microsoft Teams, you or a Teams admin opens **Apps** > **Built for your org** > **Warp**, then clicks **Add** for every team the factory should use.
+5. **Add Warp to each team.** In Microsoft Teams, a Teams admin or team owner opens **Apps** > **Built for your org** > **Warp**, then clicks **Add** for every team the factory should use.
 6. **Connect the installed team to the Warp workspace.** Return to the setup flow, select the team, and connect it. A delegated recipient finishes from the approval link. For direct setup, the workspace admin selects the team on the top-level **Integrations** page and clicks **Enable**.
-7. **Select teams and channels for the factory.** While creating the factory, or from the factory's **Settings**, choose **Microsoft Teams**, select the connected teams, and select at least one standard channel in each team. Click **Enable** or finish factory setup.
+7. **Select teams and channels for the factory.** A factory editor chooses **Microsoft Teams** while creating the factory or from the factory's **Settings**, selects the connected teams and at least one standard channel in each team, then clicks **Enable** or finishes factory setup.
 
 Warp creates an enabled **teams-app-mentions** automation for the teams and channels selected in the last step.
 
@@ -36,6 +42,8 @@ Warp creates an enabled **teams-app-mentions** automation for the teams and chan
 
 * **Start work** - Mention **@Warp** in a configured channel or thread. The factory includes supported attachments and replies in the same thread. Unsupported attachments don't block the request text.
 * **Continue work** - Reply in a thread that already has a factory work item. When responses to thread replies are enabled, eligible replies continue that work without another mention.
+* **Use shared channels** - New root messages in shared channels still require an explicit **@Warp** mention. See the [shared-channel rules](#use-shared-channels).
+* **Review results** - Follow progress and the final response in Teams. For code changes, the factory can also open a pull request.
 
 Automation-started work runs as the factory agent selected in that automation. To manage your account link, mention **@Warp** with `sign in`, `sign out`, or `help` in a channel where the app is installed. For `sign in`, follow the private link, then send your request again. `sign out` unlinks your account from every factory in that Microsoft organization.
 
