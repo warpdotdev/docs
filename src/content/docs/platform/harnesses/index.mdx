@@ -1,7 +1,7 @@
 ---
 title: Harnesses in the {{WARP_AUTOMATION_PLATFORM}}
 description: >-
-  Run third-party harnesses such as Claude Code, Codex, or Gemini CLI as cloud
+  Run third-party harnesses such as Claude Code or Codex as cloud
   agents with the same triggers, environments, and observability as the Warp Agent.
 sidebar:
   label: "Overview"
@@ -9,7 +9,7 @@ sidebar:
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
 
-The {VARS.WARP_AUTOMATION_PLATFORM} can run third-party agent harnesses as cloud agents alongside the Warp Agent, including [Claude Code](/platform/harnesses/claude-code/), [Codex](/platform/harnesses/codex/), and Gemini CLI. You choose the harness (agent runtime) that fits the task; the platform around the run stays the same.
+The {VARS.WARP_AUTOMATION_PLATFORM} can run third-party agent harnesses as cloud agents alongside the Warp Agent, including [Claude Code](/platform/harnesses/claude-code/) and [Codex](/platform/harnesses/codex/). You choose the harness (agent runtime) that fits the task; the platform around the run stays the same.
 
 For a factory, set the default or per-agent harness in its [factory definition](/factories/factory-as-code/#agentdefaultsharness) or configure it for a [factory agent](/factories/factory-agents/).
 
@@ -66,6 +66,12 @@ Use the canonical harness identifier that each surface accepts:
 * **Factory definition files** — [`harness.type`](/factories/factory-as-code/#agentdefaultsharness) accepts `oz`, `claude`, `codex`, or `gemini`, plus `claude-code` as an alias for `claude`.
 
 Where the alias is accepted, it selects the same Claude Code harness as `claude`. Prefer canonical identifiers in anything you script, sync, or store.
+
+`gemini` is a configuration identifier in the API and Factory definition format, not a
+generally available CLI setup path. Runtime availability depends on your workspace's harness
+settings. Factory definitions can authenticate Gemini only with
+`auth.source: workerEnvironment` on a self-hosted worker; `managedSecret` supports Claude Code
+and Codex.
 
 ## Related pages
 

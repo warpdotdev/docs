@@ -235,9 +235,9 @@ integrations:
       autoRespondToThreadReplies: false
 ```
 
-For compatibility with older definitions, the published schema also accepts
-`integrations.linear.teamIds` and `integrations.jira.projectKeys`. Scope new Linear and Jira
-automations with trigger filters.
+`integrations.linear.teamIds` and `integrations.jira.projectKeys` are compatibility-only fields.
+They no longer control issue discovery or routing and are omitted when Warp rewrites the
+definition. Use automation trigger filters such as `team_ids` and `project_keys` instead.
 
 ### `providers`
 
@@ -385,6 +385,9 @@ The frontmatter accepts:
 * `idleTimeoutMinutes` - Optional. How long a completed session remains available for follow-up, from 1 through 60 minutes. Omit it or set it to `null` to inherit. Without an inherited or run-level value, Warp uses 10 minutes, or 60 minutes for an orchestrated child run.
 * `required_repos` - Optional. Repositories that Warp prepares for every run by this agent. Each entry uses `owner`, `name`, and, when needed to disambiguate the same repository across hosts, `codeForge`.
 
+The current sync implementation accepts agent- and automation-level `required_repos`, but the
+published `v1alpha1` schema does not list it yet, so schema-based tooling might flag it.
+
 An agent's `harness` override is sparse. It accepts `harness.type`, `harness.model`, `harness.reasoningLevel`, and `harness.auth`; `harness.auth.source` selects `managedSecret` or `workerEnvironment`, and `harness.auth.secretName` is required only for `managedSecret`. Set `harness.auth` to `null` to clear inherited authentication. Agent-level `mcpServers` entries accept `mcpServers.warpId`, `mcpServers.command`, `mcpServers.args`, `mcpServers.env`, `mcpServers.url`, and `mcpServers.headers`.
 
 ### `agentType`
@@ -457,6 +460,9 @@ The published trigger catalog currently uses these filter keys across its provid
 * Slack: `channel_ids`, `channels`, `emojis`, `itemUsers`, `item_user_ids`, `keywords`, `user_ids`, and `users`.
 * Microsoft Teams: `channel_ids`, `keywords`, `team_ids`, and `user_ids`.
 * Webhook: `payload` and `webhook_ids`.
+
+For Microsoft Teams, include exactly one Microsoft Graph team UUID in `team_ids` and at
+least one channel ID in `channel_ids`. Both filters support `in` only.
 
 <details>
 <summary>Filter matcher path reference</summary>
@@ -626,7 +632,12 @@ Required. The name of an agent declared by the factory. Every task in the suite 
 
 ### `configurations`
 
-Optional. One to six reusable configurations for benchmark runs. When a run doesn't supply its own configurations, Warp uses these presets. Each configuration requires a unique `name` and a `role` of `baseline` or `candidate`.
+Optional. One to six reusable configurations for benchmark runs. When a run doesn't supply its own configurations, Warp uses these presets. Each configuration requires a unique `name`.
+
+The currently published `v1alpha1` schema also requires `role: baseline` or `role: candidate`,
+so include it while that validation constraint remains. The current implementation treats
+`role` as ignored legacy metadata: It does not affect benchmark behavior, and Warp omits it
+when rewriting the suite definition.
 
 The optional `agents` list pins named factory agents to the models and harnesses they use during that configuration's trials. Each `agents.agent` entry requires exactly one of `agents.model` or `agents.harness`. An `agents.harness` override requires `agents.harness.type` and `agents.harness.model`; supported types are `oz`, `claude`, `claude-code`, `codex`, and `gemini`. Optional `agents.harness.auth` uses `agents.harness.auth.source` and `agents.harness.auth.secretName`. List an agent at most once per configuration. Agents omitted from the list use their configuration at launch time.
 
@@ -777,7 +788,8 @@ Optional. Defaults to `true`. Set it to `false` to stop deliveries immediately w
 
 On a Warp-managed factory, creating a webhook in the dashboard writes this file for you and stores the secret under the name you enter in the "Secret name" field.
 
-You can't change `authMode` or `signatureScheme` on an existing webhook. To replace either value, delete the file and add a new webhook under a different name.
+You can't change `authMode` or `signatureScheme` on an existing webhook. Apply the deletion
+first and then recreate the webhook, or create the replacement under a different name.
 
 ## Skills
 
