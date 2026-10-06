@@ -70,6 +70,12 @@ def load_redirects() -> list[dict]:
     return data.get("redirects", [])
 
 
+def redirect_source_matches_path(source: str, path: str) -> bool:
+    """Return whether a Vercel redirect source pattern matches a page path."""
+    path = path.rstrip("/")
+    return any(re.fullmatch(source, candidate) for candidate in (path, f"{path}/"))
+
+
 def url_to_content_path(url_path: str) -> Path | None:
     """Map a URL like '/foo/bar/' to a content file path.
 
