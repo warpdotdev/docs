@@ -68,11 +68,11 @@ A complexity router uses `type: complexity`. `default` is required and is used f
 ```yaml title="~/.warp/custom_model_routers/cost-saver.yaml"
 name: Cost saver
 type: complexity
-default: glm-5.2-fireworks
+default: glm-5.3-fireworks
 routing:
   easy: minimax-3-fireworks
-  medium: glm-5.2-fireworks
-  hard: deepseek-v4-pro-fireworks
+  medium: glm-5.3-fireworks
+  hard: deepseek-v4.1-flash-fireworks
 ```
 
 A rule-based router uses `type: prompt`. `default` is the required catch-all used when no rule matches, and `routing` is the ordered list of rules. Rules can describe your team's specific workflows, so you can send routine work to cheaper models and reserve a frontier model for the tasks that need it:
@@ -83,11 +83,11 @@ type: prompt
 default: claude-4-6-sonnet-high
 routing:
   - description: writing or reviewing database migrations for the acme-payments service
-    model: glm-5.2-fireworks
+    model: glm-5.3-fireworks
   - description: debugging production incidents or fixing failing CI tests
     model: claude-4-8-opus-high
   - description: scaffolding new services or boilerplate from our internal templates
-    model: kimi-k27-code-fireworks
+    model: kimi-k3-fireworks
   - description: drafting release notes, runbooks, or API documentation
     model: qwen-3.8-max-fireworks
 ```

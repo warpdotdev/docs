@@ -78,6 +78,7 @@ STRIP_FLAGS: frozenset[str] = frozenset(
         "x-go-type",
         "x-go-type-import",
         "x-go-type-skip-optional-pointer",
+        "x-omitempty",
         "x-oapi-codegen-extra-tags",
         "x-stainless-deprecation-message",
         "x-stainless-naming",
@@ -665,6 +666,7 @@ def _self_test() -> int:
                         "legacy_mode": {
                             "type": "string",
                             "x-go-type-skip-optional-pointer": True,
+                            "x-omitempty": True,
                             "x-oapi-codegen-extra-tags": {"json": "legacy_mode,omitempty"},
                         },
                         "factory_agent_type": {
