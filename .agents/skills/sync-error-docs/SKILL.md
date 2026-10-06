@@ -45,7 +45,7 @@ Each match yields a line like `InsufficientCredits ErrorCode = "insufficient_cre
 List the markdown files in the errors directory:
 
 ```bash
-ls src/content/docs/reference/api-and-sdk/troubleshooting/errors/*.mdx
+ls src/content/docs/factories/api-and-sdk/troubleshooting/errors/*.mdx
 ```
 
 Each file is named `{hyphen-code}.mdx` (e.g., `insufficient-credits.mdx`). Ignore `index.mdx`.
@@ -70,7 +70,7 @@ To fill in the template accurately:
 
 Place the new file at:
 ```
-src/content/docs/reference/api-and-sdk/troubleshooting/errors/{hyphen-code}.mdx
+src/content/docs/factories/api-and-sdk/troubleshooting/errors/{hyphen-code}.mdx
 ```
 
 ### Step 5: Add to the sidebar
@@ -80,15 +80,15 @@ The sidebar lives in `src/sidebar.ts`. (`astro.config.mjs` only imports it via `
 Find the `Errors` group inside the `API Troubleshooting` group, under the `Reference` topic. Its `items` array begins with the index entry:
 
 ```ts
-{ slug: 'reference/api-and-sdk/troubleshooting/errors', label: 'Errors' },
-'reference/api-and-sdk/troubleshooting/errors/insufficient-credits',
-'reference/api-and-sdk/troubleshooting/errors/feature-not-available',
+{ slug: 'factories/api-and-sdk/troubleshooting/errors', label: 'Errors' },
+'factories/api-and-sdk/troubleshooting/errors/insufficient-credits',
+'factories/api-and-sdk/troubleshooting/errors/feature-not-available',
 ```
 
 Add the new page as a bare slug string using the **hyphenated** code:
 
 ```ts
-'reference/api-and-sdk/troubleshooting/errors/{hyphen-code}',
+'factories/api-and-sdk/troubleshooting/errors/{hyphen-code}',
 ```
 
 Rules:
@@ -108,21 +108,21 @@ Error codes are underscored (`insufficient_credits`) but page slugs are hyphenat
 Check for existing entries first, to stay idempotent across re-runs:
 
 ```bash
-grep -F '"/reference/api-and-sdk/troubleshooting/errors/{underscore_code}"' vercel.json
-grep -F '"/reference/api-and-sdk/troubleshooting/errors/{underscore_code}/"' vercel.json
+grep -F '"/factories/api-and-sdk/troubleshooting/errors/{underscore_code}"' vercel.json
+grep -F '"/factories/api-and-sdk/troubleshooting/errors/{underscore_code}/"' vercel.json
 ```
 
 Add whichever variant is missing to the `redirects` array, alongside the other error-code redirects:
 
 ```json
 {
-  "source": "/reference/api-and-sdk/troubleshooting/errors/{underscore_code}",
-  "destination": "/reference/api-and-sdk/troubleshooting/errors/{hyphen-code}/",
+  "source": "/factories/api-and-sdk/troubleshooting/errors/{underscore_code}",
+  "destination": "/factories/api-and-sdk/troubleshooting/errors/{hyphen-code}/",
   "statusCode": 308
 },
 {
-  "source": "/reference/api-and-sdk/troubleshooting/errors/{underscore_code}/",
-  "destination": "/reference/api-and-sdk/troubleshooting/errors/{hyphen-code}/",
+  "source": "/factories/api-and-sdk/troubleshooting/errors/{underscore_code}/",
+  "destination": "/factories/api-and-sdk/troubleshooting/errors/{hyphen-code}/",
   "statusCode": 308
 }
 ```
@@ -136,12 +136,12 @@ The API's `type` URI uses `https://docs.warp.dev/errors/{underscore_code}`. **Ca
 ```json
 {
   "source": "/errors/:code",
-  "destination": "/reference/api-and-sdk/troubleshooting/errors/:code/",
+  "destination": "/factories/api-and-sdk/troubleshooting/errors/:code/",
   "statusCode": 308
 },
 {
   "source": "/errors/:code/",
-  "destination": "/reference/api-and-sdk/troubleshooting/errors/:code/",
+  "destination": "/factories/api-and-sdk/troubleshooting/errors/:code/",
   "statusCode": 308
 }
 ```

@@ -27,15 +27,15 @@ flowchart LR
   C --> D["Warp-managed storage"]
 ```
 
-Self-hosting moves only the execution plane: with a managed self-hosted worker, repository checkouts, command execution, and the sandbox filesystem stay on machines you control, but content that enters prompts, results, transcripts, attachments, artifacts, or telemetry still flows through Warp and the providers you configure. See [deployment patterns](/platform/deployment-patterns/) and [self-hosting security and networking](/platform/self-hosting/security-and-networking/) for the broader data model.
+Self-hosting moves only the execution plane: with a managed self-hosted worker, repository checkouts, command execution, and the sandbox filesystem stay on machines you control, but content that enters prompts, results, transcripts, attachments, artifacts, or telemetry still flows through Warp and the providers you configure. See [deployment patterns](/factories/deployment-patterns/) and [execution security](/platform/execution-security/) for the broader data model.
 
-Factory runs follow the [self-hosted data security and boundaries](/platform/architecture/#data-security-and-boundaries) model shown below.
+The diagram below maps those boundaries for self-hosted execution; factory runs follow the same data model. See the [data security and boundaries](/platform/architecture/#data-security-and-boundaries) reference for a description of each data class.
 
 ![Self-hosted data security and boundaries diagram showing what stays in customer infrastructure, what Warp retains, and what transits Warp to model providers](../../../assets/agent-platform/data-security-boundaries.png)
 
 ## Runners
 
-A runner defines the operating system, architecture, sandbox image, and instance shape (vCPUs and memory) for a factory agent. The factory's [definition](/factories/factory-as-code/) supplies its repositories, setup commands, and secrets.
+A runner defines the compute a factory's agents work on: the operating system and architecture, the sandbox image, and the instance shape (vCPUs and memory). The workspace itself — repositories, setup commands, and secrets — comes from the factory's [definition](/factories/factory-as-code/). See the [runner reference](/factories/runners/) for the available compute options.
 
 Declare runners as `runners/*.yaml` files. Every agent inherits `agentDefaults.runner`, and an agent or automation can override it. The execution host determines how the runner's compute settings are used:
 
@@ -48,15 +48,23 @@ Declare runners as `runners/*.yaml` files. Every agent inherits `agentDefaults.r
 
 Self-hosted runner settings do not provision worker capacity. Worker configuration controls host resources, registry authentication, volumes, node placement, and other backend policy.
 
-See [cloud agent runner compute options](/platform/runners/), [factory runner syntax](/factories/factory-as-code/#runnersnameyaml), and the setup page for your [self-hosted worker backend](/platform/self-hosting/#managed-architecture).
+See [cloud agent runner compute options](/factories/runners/) and [factory runner syntax](/factories/factory-as-code/#runnersnameyaml).
 
 ## Choose an execution host
 
-A factory runs its work on one of two execution hosts: Warp-hosted compute or a worker in the [managed self-hosting architecture](/platform/self-hosting/#managed-architecture).
+A factory runs its work on one of two execution hosts: Warp-hosted compute or a worker in the [managed self-hosting architecture](/factories/self-hosting/#managed-architecture).
+
+| Decision area | Warp-hosted | Managed self-hosted |
+| --- | --- | --- |
+| **Compute** | Warp provisions the sandbox | Your team provisions the worker |
+| **Checkout and commands** | Run on Warp-managed compute | Run on your infrastructure |
+| **Network** | Warp manages sandbox connectivity | The worker connects outbound to Warp; no inbound firewall port |
+| **Private services** | Must be reachable from the hosted sandbox | Reachable through the worker's network access |
+| **Operations** | Warp manages capacity and lifecycle | Your team manages capacity, isolation, updates, and availability |
 
 To route factory work to a managed self-hosted worker (an Enterprise feature):
 
-1. **Deploy a worker** - Use the [self-hosting overview](/platform/self-hosting/) to choose a managed backend and review its requirements, then connect a worker that authenticates to Warp with an agent API key. Workers run on `linux/amd64` and `linux/arm64`, and the worker's platform determines which workloads it can run.
+1. **Deploy a worker** - Review the [self-hosting requirements](/factories/self-hosting/), then connect a worker that authenticates to Warp with a self-hosted worker API key. Workers run on `linux/amd64` and `linux/arm64`, and the worker's platform determines which workloads it can run.
 2. **Pair it with a compatible runner** - Choose a runner that matches the worker's platform.
 3. **Select the worker in the factory definition** - Set [`workerHost`](/factories/factory-as-code/) so the factory routes work to it.
 
@@ -70,9 +78,10 @@ Factories use managed self-hosting, so Warp still orchestrates their runs. The w
 
 | Structure | How factory runs execute | What your team operates | Use it when |
 | --- | --- | --- | --- |
-| **[Docker](/platform/self-hosting/managed-docker/)** (default) | In a separate Docker container on the worker host | The worker daemon, host, Docker daemon, images, capacity, and container policy | Docker is available and you want per-run container isolation without Kubernetes |
-| **[Kubernetes](/platform/self-hosting/managed-kubernetes/)** | As a Kubernetes Job in the worker's namespace | The worker deployment, cluster, namespace RBAC, scheduling, admission policy, and capacity | Your team already operates Kubernetes or needs cluster-native policy and scheduling |
-| **[Direct](/platform/self-hosting/managed-direct/)** | In a separate workspace directly on the worker host, sharing its OS and kernel | The worker daemon, host security, dependencies, capacity, and cleanup | A container runtime isn't available or runs need direct access to host resources |
+| **[Docker](/factories/self-hosting/managed-docker/)** (default) | In a separate Docker container on the worker host | The worker daemon, host, Docker daemon, images, capacity, and container policy | Docker is available and you want per-run container isolation without Kubernetes |
+| **[Kubernetes](/factories/self-hosting/managed-kubernetes/)** | As a Kubernetes Job in the worker's namespace | The worker deployment, cluster, namespace RBAC, scheduling, admission policy, and capacity | Your team already operates Kubernetes or needs cluster-native policy and scheduling |
+| **[Direct](/factories/self-hosting/managed-direct/)** | In a separate workspace directly on the worker host, sharing its OS and kernel | The worker daemon, host security, dependencies, capacity, and cleanup | A container runtime isn't available or runs need direct access to host resources |
+
 
 ## Choose inference independently
 
@@ -85,7 +94,7 @@ Factory agents execute as cloud agents, so only inference options that support c
 | Option | Support for factory runs | Team controls | Key boundary |
 | --- | --- | --- | --- |
 | **Warp-managed inference** | Supported | The model selected for each agent | Warp provides the provider account and bills model usage with Warp credits |
-| **[Team-managed keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/)** | Supported on Enterprise | Shared OpenAI, Anthropic, or Google keys, or an OpenAI-compatible endpoint | Warp stores the encrypted credential and uses it only at the inference boundary; it never enters the worker or run environment |
+| **[Team-managed keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/)** | Supported on Business and Enterprise | Shared OpenAI, Anthropic, or Google keys, or an OpenAI-compatible endpoint | Warp stores the encrypted credential and uses it only at the inference boundary; it never enters the worker or run environment |
 | **[BYOLLM: AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/)** | Supported on Enterprise | The AWS account, IAM role, available Claude models, and provider billing | Warp assumes your IAM role through OIDC; inference runs in your AWS account |
 | **[BYOLLM: Gemini Enterprise](/enterprise/enterprise-features/byollm-gemini-enterprise/)** | Not supported for factory runs | Interactive inference in your Google Cloud project | Gemini Enterprise BYOLLM currently supports interactive agent requests only |
 
@@ -122,8 +131,9 @@ Warp meters hosted compute, Warp-provided inference, and platform services. Mana
 
 ## Related pages
 
-* [**Deployment patterns**](/platform/deployment-patterns/) - Compare Warp-hosted, managed self-hosted, and CLI-only execution.
-* [**Self-hosting overview**](/platform/self-hosting/) - Choose a managed worker backend and follow its setup guide.
-* [**Self-hosting security and networking**](/platform/self-hosting/security-and-networking/) - Review data boundaries, network egress, and backend-specific controls.
+* [**Deployment patterns**](/factories/deployment-patterns/) - Compare Warp-hosted, managed self-hosted, and CLI-only execution.
+* [**Managed self-hosting**](/factories/self-hosting/) - Choose a worker backend and follow its setup guide.
+* [**Execution security**](/platform/execution-security/) - Review data boundaries, network egress, and backend-specific controls.
 * [**Bring Your Own LLM**](/enterprise/enterprise-features/bring-your-own-llm/) - Compare customer-owned inference options and provider support.
 * [**Enterprise security overview**](/enterprise/security-and-compliance/security-overview/) - Review data handling, ZDR, compliance, and access controls across Warp.
+* [Team-managed model keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Configure customer-supplied inference credentials.

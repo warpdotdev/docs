@@ -259,7 +259,6 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 - **The `oz` binary** and every `oz <command>` invocation. Commands inside code
   fences are never rewritten. `{VARS.WARP_AGENT_CLI}` renders "Oz CLI".
 - **`oz.warp.dev`** and the Oz v1 web app. `{VARS.WEB_APP}`, `{VARS.WEB_APP_URL}`.
-- **`{VARS.API_SDK_NAME}`**, which renders "Oz API & SDK".
 - **`oz-agent-worker`, `oz-agent-action`, `oz-skills`** — repository and package
   names, not product names. These may never change.
 - **The `@oz-agent` GitHub handle.** Handles are strings the product owns;
@@ -273,9 +272,10 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 
 ## Platform terms
 
-- **Agent API** — The HTTP API for triggering and inspecting Platform runs programmatically.
+- **Warp Platform API** — The HTTP API for sending work to factories and triggering and inspecting cloud agent runs programmatically.
+  *Usage note:* Use `{VARS.WARP_PLATFORM_API}` in body prose and `{{WARP_PLATFORM_API}}` in frontmatter.
 
-- **Artifacts** — Files an agent produces during a run and uploads to Warp: screenshots, generated reports, build outputs, logs, or any other file the agent saves alongside its conversation. Retrieved with `oz artifact` (see the [Artifacts CLI reference](/reference/cli/artifacts/)) and one of the three data categories in [self-hosted agent data storage](/platform/data-storage/).
+- **Artifacts** — Files an agent produces during a run and uploads to Warp: screenshots, generated reports, build outputs, logs, or any other file the agent saves alongside its conversation. Retrieved with `oz artifact` (see the [Artifacts CLI reference](/agents/cli/oz-cli/artifacts/)) and one of the three data categories in [self-hosted agent data storage](/platform/data-storage/).
   *Usage note:* Capitalize as **Artifacts** when referring to the named category (a CLI reference page, an Admin Panel storage category); lowercase "artifacts" as the generic noun for the files themselves.
 
 - **Auth** — The agent settings field for choosing or creating the credential (a team-owned secret) a harness uses to authenticate with its provider, matched to that harness's supported credential types (Anthropic keys for Claude Code, an OpenAI key for Codex).
@@ -297,7 +297,7 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 - **Run** — The tracked unit of work for a run, including status and outputs.
   *Usage note:* Use when describing observability, history, and auditability.
 
-- **SDK** — Official client libraries for the Agent API (for example, TypeScript SDK, Python SDK).
+- **SDK** — Official client libraries for the Warp Platform API (for example, TypeScript SDK, Python SDK).
   *Usage note:* Spell out the language on first mention.
 
 - **Trigger** — The event that starts a run (Slack mention, schedule, CI event, API call).
@@ -306,7 +306,7 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 
 - **Warp CLI** — Ambiguous since the Warp Agent CLI launched; avoid the bare term. Use "Oz CLI" for the `oz` binary that runs and manages cloud agents (formerly called `warp-cli`), or "Warp Agent CLI" for the `warp` binary that runs the Warp Agent in any terminal.
 
-- **Automation Platform** — Warp's cloud agent platform, covering environments, integrations, orchestration, self-hosting, and the Agent API/SDK. Renamed from "Oz" on 2026-08-18.
+- **Automation Platform** — Warp's cloud agent platform, covering environments, integrations, orchestration, self-hosting, and the Warp Platform API and SDKs. Renamed from "Oz" on 2026-08-18.
   *Usage note:* See "Automation Platform terminology" above for the full entry and the article rule. Always write it as `{VARS.WARP_AUTOMATION_PLATFORM}` / `{{WARP_AUTOMATION_PLATFORM}}`, never as a literal string, so a future rename stays a one-line change.
 
 - **Direct backend** — The self-hosted worker backend that runs cloud agent tasks directly on the worker host, without Docker or Kubernetes. One of three self-hosting backends alongside the Docker and Kubernetes backends.
@@ -375,7 +375,7 @@ Docs match the screen; the fix belongs in the app.
   *Usage note:* Lowercase common noun. Distinct from the **Automation Platform**, the product; and from a **trigger**, the event that fires an automation.
 
 - **runner** — A factory resource, defined by a `runners/<name>.yaml` file, that defines the compute a run executes on: operating system, architecture, sandbox image, and instance shape. Agents and automations select a runner by name, or inherit the factory's default.
-  *Usage note:* Lowercase common noun. Scoped to a factory's definition; distinct from the general [cloud agent runner](/platform/runners/) reference, which covers the same concept for standalone cloud agents outside a factory.
+  *Usage note:* Lowercase common noun. Scoped to a factory's definition; distinct from the general [cloud agent runner](/factories/runners/) reference, which covers the same concept for standalone cloud agents outside a factory.
 
 - **Scorer** — A configured LLM judge, scoped per factory to chosen agents and sampled at a set rate, that classifies completed runs against criteria you write, such as "did the agent run the tests before opening a PR?" A Scorer assigns a label (a classification with a score), not a freeform numeric grade. Feeds the **Dashboard** page's Scorer cards, benchmarks, and Self-improvement.
   *Usage note:* Capitalize "Scorer"/"Scorers" when referring to the feature or a configured instance ("create a Scorer," "Scorer cards"); lowercase only for a generic instance count or file listing ("two scorers," alongside "skills" in an example tree). Say "classify," never "grade" — the docs draw this distinction deliberately. The unit a Scorer evaluates is a **run** (a single agent execution), not a "conversation" or "completed work." `measure-and-improve/scorers.mdx` is the canonical page for what a Scorer is and how to configure one; other pages link there rather than repeating the definition.

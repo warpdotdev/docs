@@ -38,7 +38,7 @@ This error is returned when:
 
 \```json
 {
-  "type": "https://docs.warp.dev/reference/api-and-sdk/troubleshooting/errors/{hyphen-code}",
+  "type": "https://docs.warp.dev/factories/api-and-sdk/troubleshooting/errors/{hyphen-code}",
   "title": "{USER_FACING_MESSAGE}",
   "status": {STATUS_CODE_INT},
   "instance": "/api/v1/agent/tasks",
@@ -60,7 +60,7 @@ This error is returned when:
 
 ## Related
 
-* [Agent API & SDK](https://docs.warp.dev/reference/api-and-sdk/agent) — API reference
+* [Agent API & SDK](https://docs.warp.dev/factories/api-and-sdk/agent) — API reference
 ```
 
 ## Placeholder reference
