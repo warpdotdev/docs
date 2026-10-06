@@ -89,7 +89,7 @@ Factory setup doesn't choose models for you. To change the model an agent uses, 
 
 Each agent can run on its own model and harness. Supported harnesses include the Warp Agent harness, Claude Code, and Codex, and any agent can use any of them. A foreman running on Claude Code or Codex can still dispatch the factory's other agents, and the runs it starts are still tracked as its children.
 
-Third-party harnesses require a Build plan or higher; on the Free plan every agent runs on the Warp Agent harness. See [Warp pricing](https://www.warp.dev/pricing) for what each plan includes.
+Third-party harnesses require a paid plan; on the Free plan every agent runs on the Warp Agent harness. See [Warp pricing](https://www.warp.dev/pricing) for what each plan includes.
 
 Default model IDs change over time, so choose based on what each agent has to do well:
 
@@ -101,7 +101,7 @@ Default model IDs change over time, so choose based on what each agent has to do
 | Implement | Coding strength, with a harness that fits your repositories and toolchain |
 | Review | A different model or harness from the implement agent, so the two don't share blind spots |
 
-See [model choice for agents](/agents/inference/model-choice/) and [harnesses for cloud agents](/platform/harnesses/) for available options.
+The model picker also includes custom routers from factories you can access. See [model choice for agents](/agents/inference/model-choice/), [custom model routers](/agents/inference/custom-routers/), and [harnesses for cloud agents](/platform/harnesses/) for available options.
 
 ### Configuring a third-party harness
 

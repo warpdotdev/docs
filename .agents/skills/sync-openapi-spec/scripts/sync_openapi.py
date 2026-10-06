@@ -110,6 +110,24 @@ EXCLUDED_PATH_PREFIXES: tuple[str, ...] = ("/factory",)
 EXCLUDED_RUN_SOURCE_VALUES: frozenset[str] = frozenset(
     {"BENCHMARK_TRIAL", "CREATE_BENCHMARK_TASK", "CUSTOM_WEBHOOK"}
 )
+# The upstream spec owns endpoint behavior and non-product metadata. The docs
+# copy uses the public product name and description that frame the Scalar
+# reference alongside the Factory and cloud-agent documentation.
+DOCS_INFO_OVERRIDES: dict[str, str] = {
+    "title": "Warp Platform API",
+    "description": (
+        "API for creating, managing, and querying factory and cloud agent runs.\n\n"
+        "These endpoints allow users to send work to factories, start standalone agents, "
+        "list runs, and retrieve detailed run information.\n"
+    ),
+}
+
+LEGACY_ERROR_DOC_URL_PREFIX = (
+    "https://docs.warp.dev/reference/api-and-sdk/troubleshooting/errors/"
+)
+CANONICAL_ERROR_DOC_URL_PREFIX = (
+    "https://docs.warp.dev/factories/api-and-sdk/troubleshooting/errors/"
+)
 
 # Default checkout layout: docs/ and warp-server/ as siblings.
 DEFAULT_SOURCE = Path("../warp-server/public_api/openapi.yaml")
@@ -269,6 +287,20 @@ def _strip_flags(node: Any) -> Any:
     return node
 
 
+def _rewrite_docs_urls(node: Any) -> Any:
+    """Rewrite moved docs URLs to their canonical public destinations."""
+    if isinstance(node, dict):
+        return {key: _rewrite_docs_urls(value) for key, value in node.items()}
+    if isinstance(node, list):
+        return [_rewrite_docs_urls(item) for item in node]
+    if isinstance(node, str):
+        return node.replace(
+            LEGACY_ERROR_DOC_URL_PREFIX,
+            CANONICAL_ERROR_DOC_URL_PREFIX,
+        )
+    return node
+
+
 def _collect_refs(node: Any, refs: set[str]) -> None:
     """Recursively collect every component schema name referenced from ``node``.
 
@@ -412,6 +444,8 @@ def transform(source: dict[str, Any]) -> dict[str, Any]:
     for top_key in ("openapi", "info", "servers"):
         if top_key in source:
             out[top_key] = source[top_key]
+    if isinstance(out.get("info"), dict):
+        out["info"] = {**out["info"], **DOCS_INFO_OVERRIDES}
 
     src_tags = source.get("tags") or []
     out_tags = [
@@ -463,7 +497,7 @@ def transform(source: dict[str, Any]) -> dict[str, Any]:
     if out_components:
         out["components"] = out_components
 
-    return _strip_flags(out)
+    return _rewrite_docs_urls(_strip_flags(out))
 
 
 # ---------------------------------------------------------------------------
@@ -681,7 +715,13 @@ def _self_test() -> int:
                     "x-stainless-naming": {"typescript": {"type": "Mode"}},
                 },
                 "RunResp": {"type": "object"},
-                "Error": {"type": "object"},
+                "Error": {
+                    "type": "object",
+                    "description": (
+                        f"Format: `{LEGACY_ERROR_DOC_URL_PREFIX}"
+                        "{error_code}`"
+                    ),
+                },
                 "MSItem": {"type": "object"},  # only referenced by dropped path
                 "Followup": {"type": "object"},
                 "RunSourceType": {
@@ -745,6 +785,11 @@ def _self_test() -> int:
     assert tag_names == ["agent"], f"unexpected tags: {tag_names}"
 
     assert out["components"].get("securitySchemes"), "securitySchemes should be preserved"
+    assert out["info"]["title"] == "Warp Platform API"
+    assert out["info"]["description"] == DOCS_INFO_OVERRIDES["description"]
+    error_description = out["components"]["schemas"]["Error"]["description"]
+    assert LEGACY_ERROR_DOC_URL_PREFIX not in error_description
+    assert CANONICAL_ERROR_DOC_URL_PREFIX in error_description
 
     ref_errors = _validate_output(out)
     assert not ref_errors, f"unexpected unresolved refs: {ref_errors}"

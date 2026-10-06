@@ -81,13 +81,13 @@ When an agent proposes a change to a Warp-managed definition, a spec review for 
 * **Repositories** - The repos the factory works in.
 * **Pull request authorship** - Whether pull requests are authored by the agent or the run creator (the definition's [`credentialStrategy`](/factories/factory-as-code/#credentialstrategy)).
 * **Analysis model** - The model [Self-improvement](/factories/measure-and-improve/self-improvement/) uses to analyze failed runs.
-* **Runners** - The compute the factory's runs execute on.
+* **Runners** - The compute the factory's runs execute on. See [factory runners](/factories/runners/) to choose runner configuration or [managed self-hosting](/factories/self-hosting/) to run factory work on your infrastructure.
 * **Integrations** - The integrations this factory can access.
 * **Deletion** - Deletes the factory. This cannot be undone.
 
 For a file-managed factory, `runners/*.yaml` in the repository is the source of truth. Anything managed in an external repository is read-only in Settings.
 
-## Next steps
+## Related pages
 
 * [Factory inbox](/factories/factory-inbox/) - See and resolve the questions, spec approvals, and PR reviews waiting on you.
 * [How Warp Factories work](/factories/how-factories-work/) - The stages work moves through and where humans stay in the loop.

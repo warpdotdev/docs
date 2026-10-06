@@ -60,16 +60,16 @@ CloudMode -> src/content/docs/platform/index.mdx
 AmbientAgentsCommandLine -> src/content/docs/platform/index.mdx
 ScheduledAmbientAgents -> src/content/docs/platform/triggers/scheduled-agents.md
 WarpManagedSecrets -> src/content/docs/platform/secrets.md
-IntegrationCommand -> src/content/docs/reference/cli/integration-setup.md
+IntegrationCommand -> src/content/docs/agents/cli/oz-cli/integration-setup.md
 CommandPaletteFileSearch -> src/content/docs/terminal/command-palette.md
 Ligatures -> src/content/docs/terminal/appearance/text-fonts-cursor.md
 UIZoom -> src/content/docs/terminal/appearance/size-opacity-blurring.md
 UsageBasedPricing -> src/content/docs/support-and-community/plans-and-billing/credits.md
 # The APIKeyAuthentication flag was removed after the public API key auth feature
 # stabilized (GA / flag cleanup). API key auth remains documented at
-# reference/cli/api-keys.mdx via APIKeyManagement / TeamApiKeys, so no separate
+# agents/cli/oz-cli/api-keys.mdx via APIKeyManagement / TeamApiKeys, so no separate
 # entry is needed.
-APIKeyManagement -> src/content/docs/reference/cli/api-keys.md
+APIKeyManagement -> src/content/docs/agents/cli/oz-cli/api-keys.md
 CreatingSharedSessions -> src/content/docs/knowledge-and-collaboration/session-sharing/index.mdx
 AgentSharedSessions -> src/content/docs/agents/local-agents/session-sharing.mdx
 ProfilesDesignRevamp -> src/content/docs/agents/capabilities/agent-profiles-permissions.mdx
@@ -113,7 +113,7 @@ AgentView -> src/content/docs/agents/local-agents/interacting-with-agents/termin
 AgentViewBlockContext -> src/content/docs/agents/local-agents/agent-context/blocks-as-context.mdx
 CloudConversations -> src/content/docs/agents/local-agents/cloud-conversations.mdx
 CloudModeFromLocalSession -> src/content/docs/platform/index.mdx
-TeamApiKeys -> src/content/docs/reference/cli/api-keys.md
+TeamApiKeys -> src/content/docs/agents/cli/oz-cli/api-keys.md
 # The PRCommentsSlashCommand flag was removed: the /pr-comments slash command was
 # replaced by the bundled PR Comments skill (invoked via /skills), so the slash
 # command was dropped from the docs.
@@ -187,8 +187,8 @@ SessionSharingAcls -> src/content/docs/knowledge-and-collaboration/session-shari
 SharedSessionWriteToLongRunningCommands -> src/content/docs/knowledge-and-collaboration/session-sharing/index.mdx
 
 # CLI-gated features documented in the CLI reference
-ArtifactCommand -> src/content/docs/reference/cli/artifacts.mdx
-OzIdentityFederation -> src/content/docs/reference/cli/federate.mdx
+ArtifactCommand -> src/content/docs/agents/cli/oz-cli/artifacts.mdx
+OzIdentityFederation -> src/content/docs/agents/cli/oz-cli/federate.mdx
 
 # Third-party harness support
 AgentHarness -> src/content/docs/platform/harnesses/index.mdx
@@ -238,8 +238,8 @@ BillingAndUsagePageV2 -> src/content/docs/support-and-community/plans-and-billin
 # `--runner` flag on `run-cloud`; CloudAgentRunners gates the `oz runner` CRUD
 # commands and the runner dropdown in the orchestration card. Both are GA
 # (default cargo features).
-CloudRunners -> src/content/docs/platform/runners.mdx
-CloudAgentRunners -> src/content/docs/platform/runners.mdx
+CloudRunners -> src/content/docs/factories/runners.mdx
+CloudAgentRunners -> src/content/docs/factories/runners.mdx
 
 # Per-segment context window usage breakdown (system prompt, tool definitions,
 # conversation history, latest input, images, other) in the conversation usage
@@ -259,7 +259,7 @@ OscHyperlinks -> src/content/docs/terminal/more-features/files-and-links.mdx
 # jira) wherever a Warp MCP server UUID is accepted — bare `--mcp` arguments and
 # `warp_id` values in MCP configs. Promoted dogfood -> GA; documented in the CLI
 # MCP reference (and the cloud agent MCP schema page).
-WellKnownMcpIds -> src/content/docs/reference/cli/mcp-servers.mdx
+WellKnownMcpIds -> src/content/docs/agents/cli/oz-cli/mcp-servers.mdx
 
 # When the shell rebinds Ctrl+R / Ctrl+T / Alt-C to fzf, atuin, or fzf.fish, hand
 # those keypresses off to the shell widget instead of Warp's Command Search.
@@ -271,20 +271,20 @@ ShellWidgetHandoff -> src/content/docs/terminal/entry/command-search.mdx
 ## CLI commands -> doc pages
 
 # Top-level Oz CLI commands
-oz agent -> src/content/docs/reference/cli/index.mdx
-oz environment -> src/content/docs/reference/cli/integration-setup.mdx
-oz mcp -> src/content/docs/reference/cli/mcp-servers.mdx
-oz run -> src/content/docs/reference/cli/index.mdx
-oz model -> src/content/docs/reference/cli/index.mdx
-oz login -> src/content/docs/reference/cli/index.mdx
-oz logout -> src/content/docs/reference/cli/index.mdx
-oz whoami -> src/content/docs/reference/cli/index.mdx
-oz integration -> src/content/docs/reference/cli/integration-setup.mdx
-oz schedule -> src/content/docs/reference/cli/index.mdx
-oz secret -> src/content/docs/reference/cli/index.mdx
-oz federate -> src/content/docs/reference/cli/federate.mdx
-oz artifact -> src/content/docs/reference/cli/artifacts.mdx
-oz api-key -> src/content/docs/reference/cli/api-keys.mdx
+oz agent -> src/content/docs/agents/cli/oz-cli/index.mdx
+oz environment -> src/content/docs/agents/cli/oz-cli/integration-setup.mdx
+oz mcp -> src/content/docs/agents/cli/oz-cli/mcp-servers.mdx
+oz run -> src/content/docs/agents/cli/oz-cli/index.mdx
+oz model -> src/content/docs/agents/cli/oz-cli/index.mdx
+oz login -> src/content/docs/agents/cli/oz-cli/index.mdx
+oz logout -> src/content/docs/agents/cli/oz-cli/index.mdx
+oz whoami -> src/content/docs/agents/cli/oz-cli/index.mdx
+oz integration -> src/content/docs/agents/cli/oz-cli/integration-setup.mdx
+oz schedule -> src/content/docs/agents/cli/oz-cli/index.mdx
+oz secret -> src/content/docs/agents/cli/oz-cli/index.mdx
+oz federate -> src/content/docs/agents/cli/oz-cli/federate.mdx
+oz artifact -> src/content/docs/agents/cli/oz-cli/artifacts.mdx
+oz api-key -> src/content/docs/agents/cli/oz-cli/api-keys.mdx
 
 # Scheduled-agent CLI subcommands are fully documented in the scheduled-agents feature page.
 oz schedule create -> src/content/docs/platform/triggers/scheduled-agents.mdx
@@ -327,11 +327,11 @@ oz provider list -> gated:ProviderCommand
 # `oz runner` (manage cloud agent runners) is GA (gated by CloudAgentRunners, a
 # default cargo feature) and documented on the runners page. The old gating flag
 # CloudAgentRunnerCLICommands was removed after the feature stabilized.
-oz runner -> src/content/docs/platform/runners.mdx
-oz runner list -> src/content/docs/platform/runners.mdx
-oz runner create -> src/content/docs/platform/runners.mdx
-oz runner update -> src/content/docs/platform/runners.mdx
-oz runner delete -> src/content/docs/platform/runners.mdx
+oz runner -> src/content/docs/factories/runners.mdx
+oz runner list -> src/content/docs/factories/runners.mdx
+oz runner create -> src/content/docs/factories/runners.mdx
+oz runner update -> src/content/docs/factories/runners.mdx
+oz runner delete -> src/content/docs/factories/runners.mdx
 
 # Internal/hidden command — not a user-facing surface, so no public docs.
 oz harness-support -> internal
@@ -347,9 +347,9 @@ oz harness-support -> internal
 # route released ones through the sync-openapi-spec skill, or mark `-> internal`
 # (unreleased/internal). Never document an unreleased endpoint. See SKILL.md
 # "Public vs. private surfaces".
-POST /agent/run -> src/content/docs/reference/api-and-sdk/index.mdx
-GET /agent/runs -> src/content/docs/reference/api-and-sdk/index.mdx
-GET /agent/runs/{runId} -> src/content/docs/reference/api-and-sdk/index.mdx
+POST /agent/run -> src/content/docs/factories/api-and-sdk/index.mdx
+GET /agent/runs -> src/content/docs/factories/api-and-sdk/index.mdx
+GET /agent/runs/{runId} -> src/content/docs/factories/api-and-sdk/index.mdx
 
 # OAuth device-flow / OIDC plumbing used by `oz login` — not a public REST surface.
 GET /oauth/authorize -> internal

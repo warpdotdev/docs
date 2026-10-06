@@ -1,0 +1,246 @@
+---
+title: Pulling self-hosted images from a private registry
+description: >-
+  Mirror self-hosted worker images into a private registry and configure Docker
+  or Kubernetes workers to pull from it.
+---
+import { VARS } from '@data/vars';
+
+Mirror the images used by self-hosted workers when compute hosts cannot pull directly from a public registry. Your registry becomes the pull source for the worker process, task environment, Warp Agent sidecar, and Kubernetes preflight Job.
+
+## Images to mirror
+
+Inventory the images used by each worker pool before blocking public-registry egress.
+
+| Image | Purpose | Configuration |
+| --- | --- | --- |
+| `warpdotdev/oz-agent-worker` | Long-lived worker daemon | Docker run image or Helm `image.repository` |
+| Environment or default image | Main task filesystem and toolchain | Warp environment image or Kubernetes `defaultImage` |
+| `warpdotdev/warp-agent:latest` | Warp Agent runtime mounted at `/agent` | `sidecar_image` or Helm `kubernetesBackend.sidecarImage` |
+| `busybox:1.36` | Kubernetes startup preflight | `preflight_image` or Helm `kubernetesBackend.preflightImage` |
+
+Pin the worker image to the immutable timestamp tag or digest from the [worker release](https://github.com/warpdotdev/oz-agent-worker/releases). The supported self-hosted sidecar reference is `warpdotdev/warp-agent:latest`, listed on the [Warp Agent tags page](https://hub.docker.com/r/warpdotdev/warp-agent/tags). Refresh the mirror regularly. To pin the sidecar, set its private-registry override to a mirrored digest and update that digest when Warp publishes a new sidecar.
+
+:::caution
+These steps cover Warp Agent runs without Computer Use. Computer Use and third-party harnesses use additional images. Contact your Warp account team before enabling them in a worker pool that blocks public-registry access.
+:::
+
+## Copying images into the registry
+
+Use a registry copy tool that preserves all image architectures. The following example uses [Skopeo](https://github.com/containers/skopeo). Replace `WORKER_RELEASE_TAG` with the immutable tag from the worker release.
+
+```bash
+export PRIVATE_REGISTRY="registry.internal.example.com/warp"
+skopeo login registry.internal.example.com
+
+skopeo copy --all \
+  "docker://docker.io/warpdotdev/oz-agent-worker:WORKER_RELEASE_TAG" \
+  "docker://${PRIVATE_REGISTRY}/oz-agent-worker:WORKER_RELEASE_TAG"
+
+skopeo copy --all \
+  "docker://docker.io/warpdotdev/warp-agent:latest" \
+  "docker://${PRIVATE_REGISTRY}/warp-agent:latest"
+
+skopeo copy --all \
+  "docker://docker.io/library/busybox:1.36" \
+  "docker://${PRIVATE_REGISTRY}/busybox:1.36"
+
+skopeo copy --all \
+  "docker://docker.io/library/ubuntu:22.04" \
+  "docker://${PRIVATE_REGISTRY}/agent-base:22.04"
+```
+
+The example mirrors Ubuntu as the task image. Replace that source with your own task image, then set the private image reference on the [Warp environment](/platform/environments/) used by the worker pool.
+
+## Configuring the Docker backend
+
+The Docker configuration below requires worker release `v2026-08-28-21-43-14` or newer.
+
+The Docker backend uses the worker's Docker config to authenticate task-image pulls. Warp Agent sidecar pulls do not use those credentials.
+
+If the mirrored sidecar repository requires authentication, first follow [Private Docker registries](/factories/self-hosting/managed-docker/#private-docker-registries) to create the dedicated Docker config for a containerized worker. Reuse that config to pre-pull every task and sidecar image:
+
+```bash
+sudo docker --config "$WORKER_DOCKER_CONFIG" \
+  pull registry.internal.example.com/warp/agent-base:22.04
+sudo docker --config "$WORKER_DOCKER_CONFIG" \
+  pull registry.internal.example.com/warp/warp-agent:latest
+```
+
+If the worker runs as a host process with credentials in your default Docker config, run the same commands without `sudo` or `--config "$WORKER_DOCKER_CONFIG"`.
+
+Set the pull policy to `Never` so the worker uses the local images:
+
+```yaml title="worker.yaml"
+worker_id: "private-registry-docker"
+backend:
+  docker:
+    image_pull_policy: "Never"
+    sidecar_image: "registry.internal.example.com/warp/warp-agent:latest"
+```
+
+For a sidecar repository that allows anonymous reads, use `image_pull_policy: "Always"` instead. The sidecar uses the mutable `latest` tag. The pull policy applies to task and sidecar images.
+
+The task image must point to the private registry through its Warp environment; the worker does not rewrite task image registry names.
+
+Before starting the worker, run `docker login registry.internal.example.com` on the host so Docker can pull the mirrored worker image.
+
+In the [containerized worker command](/factories/self-hosting/managed-docker/#option-1-docker-recommended), use `registry.internal.example.com/warp/oz-agent-worker:WORKER_RELEASE_TAG` in place of the public worker image. Add `--volume "$PWD/worker.yaml:/etc/oz-agent-worker/worker.yaml:ro"` before the image and `--config-file /etc/oz-agent-worker/worker.yaml` after it. See the [config file reference](/factories/self-hosting/reference/#config-file).
+
+Start the worker with `--log-level debug`, then route a [test run to the worker](/factories/self-hosting/#routing-runs-to-self-hosted-workers). Before blocking public-registry egress, confirm that the worker logs for `Using Docker image` and `Preparing additional sidecar` show private-registry references and the run succeeds.
+
+## Configuring the Kubernetes backend
+
+Export a [self-hosted worker API key](/agents/cli/oz-cli/api-keys/#creating-a-self-hosted-worker-api-key) as `WARP_API_KEY`, then create the namespace, API key Secret, and registry pull secret:
+
+```bash
+export WARP_API_KEY="YOUR_API_KEY"
+kubectl create namespace warp-oz \
+  --dry-run=client \
+  --output yaml | kubectl apply --filename -
+kubectl create secret generic oz-agent-worker \
+  --namespace warp-oz \
+  --from-literal=WARP_API_KEY="$WARP_API_KEY"
+read -r -p "Registry username: " REGISTRY_USERNAME
+read -r -s -p "Registry token: " REGISTRY_TOKEN
+printf '\n'
+kubectl create secret docker-registry warp-registry \
+  --namespace warp-oz \
+  --docker-server registry.internal.example.com \
+  --docker-username "$REGISTRY_USERNAME" \
+  --docker-password "$REGISTRY_TOKEN"
+unset REGISTRY_USERNAME REGISTRY_TOKEN
+```
+
+Set the worker, task, sidecar, and preflight image references in a Helm values file:
+
+```yaml title="private-registry-values.yaml"
+warp:
+  apiKeySecret:
+    name: oz-agent-worker
+
+image:
+  repository: registry.internal.example.com/warp/oz-agent-worker
+  tag: WORKER_RELEASE_TAG
+  pullPolicy: IfNotPresent
+  pullSecrets:
+    - name: warp-registry
+
+kubernetesBackend:
+  defaultImage: registry.internal.example.com/warp/agent-base:22.04
+  imagePullPolicy: Always
+  preflightImage: registry.internal.example.com/warp/busybox:1.36
+  sidecarImage: registry.internal.example.com/warp/warp-agent:latest
+  podTemplate:
+    imagePullSecrets:
+      - name: warp-registry
+```
+
+When a run uses a Warp environment image, that image takes precedence over `defaultImage`. Set the private image reference on the Warp environment before blocking public-registry egress.
+
+From a network with GitHub access, clone the worker release and package its chart:
+
+```bash
+git clone \
+  --branch "WORKER_RELEASE_TAG" \
+  --depth 1 \
+  https://github.com/warpdotdev/oz-agent-worker.git
+tar --create --gzip \
+  --file "oz-agent-worker-chart-WORKER_RELEASE_TAG.tar.gz" \
+  --directory oz-agent-worker/charts \
+  oz-agent-worker
+```
+
+Copy the archive to your approved internal artifact store. On the deployment host, extract it to an internal path:
+
+```bash
+mkdir --parents /srv/warp/charts
+tar --extract --gzip \
+  --file "oz-agent-worker-chart-WORKER_RELEASE_TAG.tar.gz" \
+  --directory /srv/warp/charts
+```
+
+On the deployment host, set `WORKER_CHART` to the internal chart copy and install it with temporary verification settings:
+
+```bash
+export WORKER_CHART="/srv/warp/charts/oz-agent-worker"
+helm upgrade --install oz-agent-worker "$WORKER_CHART" \
+  --namespace warp-oz \
+  --set worker.workerId=private-registry-kubernetes \
+  --set worker.logLevel=debug \
+  --set worker.cleanup=false \
+  --values private-registry-values.yaml
+```
+
+`image.pullSecrets` authenticates the long-lived worker Deployment. `kubernetesBackend.podTemplate.imagePullSecrets` authenticates task Jobs and the startup preflight Job.
+
+## Verifying Kubernetes registry isolation
+
+Follow the worker logs until they show `Successfully connected to server`, then press `Ctrl+C`:
+
+```bash
+kubectl logs --follow deployment/oz-agent-worker --namespace warp-oz
+```
+
+A successful test run verifies the registry credentials by pulling and running the task and sidecar images.
+
+With the <a href="/agents/cli/oz-cli/#installing-the-cli">{VARS.WARP_AGENT_CLI}</a>, start one run that uses the Warp Agent without Computer Use:
+
+```bash
+oz agent run-cloud \
+  --host "private-registry-kubernetes" \
+  --prompt "Print the operating system release and exit."
+```
+
+Cleanup is temporarily disabled, so the successful task Job and Pod remain after the command returns. Confirm the debug logs show the selected task and sidecar images:
+
+```bash
+kubectl logs deployment/oz-agent-worker --namespace warp-oz |
+  grep -E 'Using Kubernetes task image|Overriding server sidecar image'
+```
+
+Select the newest Job for this worker, derive its Pod name, and inspect every image reference:
+
+```bash
+TASK_JOB="$(kubectl get jobs \
+  --namespace warp-oz \
+  --selector oz-worker-id=private-registry-kubernetes \
+  --sort-by=.metadata.creationTimestamp \
+  --output name | tail -n 1)"
+TASK_POD="$(kubectl get pods \
+  --namespace warp-oz \
+  --selector "job-name=${TASK_JOB#*/}" \
+  --output jsonpath='{.items[0].metadata.name}')"
+
+kubectl get pod "$TASK_POD" --namespace warp-oz \
+  --output jsonpath='{range .spec.initContainers[*]}{.image}{"\n"}{end}{range .spec.containers[*]}{.image}{"\n"}{end}'
+```
+
+For this Kubernetes worker, block public-registry egress only after every reported image uses the private registry. Restore the default log level and cleanup behavior, then remove the retained test Job:
+
+```bash
+helm upgrade oz-agent-worker "$WORKER_CHART" \
+  --namespace warp-oz \
+  --set worker.workerId=private-registry-kubernetes \
+  --set worker.logLevel=info \
+  --set worker.cleanup=true \
+  --values private-registry-values.yaml
+kubectl delete "$TASK_JOB" --namespace warp-oz
+```
+
+## Troubleshooting
+
+### Docker reports `pull access denied`
+
+For a task-image failure, confirm the worker's Docker config contains registry credentials. For a sidecar failure, allow anonymous reads from the mirrored sidecar repository, or pre-pull the image and use `image_pull_policy: "Never"`.
+
+### Kubernetes reports `ImagePullBackOff`
+
+Confirm `warp-registry` exists in the task namespace. The worker Deployment needs `image.pullSecrets`, while task and preflight Pods need `podTemplate.imagePullSecrets`.
+
+## Related pages
+
+* [Managed: Docker backend](/factories/self-hosting/managed-docker/) — Configure Docker daemon and private-registry access.
+* [Managed: Kubernetes backend](/factories/self-hosting/managed-kubernetes/) — Configure the Helm chart, task Pod template, and preflight job.
+* [Environments](/platform/environments/) — Set the task image used by self-hosted runs.
+* [Security and networking](/platform/execution-security/) — Review image egress and other network requirements.

@@ -9,11 +9,13 @@ import { VARS } from '@data/vars';
 
 Environments describe _how_ an agent executes a task, not _what_ it does. They give cloud agents the same container, repositories, and setup every time they run. Use an environment for a cloud agent run that needs a repeatable toolchain. Interactive local runs use your current checkout and machine setup, so they don't need one.
 
+Factories manage their own repositories and workspace by default. Set `agentDefaults.environmentId` in a [factory definition](/factories/factory-as-code/#agentdefaultsenvironmentid) when a factory agent must use an existing environment.
+
 ## What an environment includes
 
 An environment groups the runtime configuration for a cloud agent run:
 
-* **Docker image** - The image that provides the toolchain and dependencies for your code. A self-hosted Kubernetes worker with a [`default_image`](/platform/self-hosting/managed-kubernetes/) can run without a separate environment.
+* **Docker image** - The image that provides the toolchain and dependencies for your code. A self-hosted Kubernetes worker with a [`default_image`](/factories/self-hosting/managed-kubernetes/) can run without a separate environment.
 * **Repositories** - One or more repos that the agent clones into its workspace.
 * **Setup commands** - Commands that prepare the workspace, such as dependency installation, builds, or code generation.
 * **Environment variables** - Runtime values that you set in the Docker image or container configuration.
@@ -25,7 +27,7 @@ Together, these settings create a fresh workspace for each run. Warp provides [p
 
 When the {VARS.WARP_AUTOMATION_PLATFORM} starts a cloud agent run, it combines the environment with a host, an agent profile, and task-specific context. Each part serves a distinct purpose:
 
-* **Host** - Determines where the run executes. Choose [Warp-hosted](warp-hosting/) infrastructure or [self-hosted](/platform/self-hosting/) runners.
+* **Host** - Determines where the run executes. Choose [Warp-hosted](/factories/warp-hosting/) infrastructure or [self-hosted](/factories/self-hosting/) runners.
 * **Agent Profiles** - Set the agent's permissions, model choice, and defaults. See [Agent Profiles](/agents/capabilities/agent-profiles-permissions/).
 * **Rules** - Provide instructions that guide agent responses and decisions. See [Rules](/agents/capabilities/rules/).
 * **MCP servers** - Connect agents to external tools and data. See [MCP servers](/platform/mcp/).
@@ -35,7 +37,7 @@ When the {VARS.WARP_AUTOMATION_PLATFORM} starts a cloud agent run, it combines t
 
 Use an environment when your run needs a predictable toolchain and repeatable setup. This is common in the following cases:
 
-* **[Integrations](/platform/integrations/) and [schedules](/platform/triggers/scheduled-agents/)** - Runs from Slack, Linear, GitHub Actions, or a schedule need the same workspace each time.
+* **Integrations and schedules** - Runs from Slack, Linear, GitHub Actions, or a schedule need the same workspace each time.
 * **CI and remote automation** - An environment prevents different runners or base images from changing the result.
 * **Team workflows** - A shared environment gives every teammate the same image, repos, and setup commands.
 * **Toolchain-specific work** - Use an environment when the workflow depends on particular language versions, linters, build tools, or system packages.
@@ -52,6 +54,6 @@ Cloud agents run as a non-root user inside the container. See [configuring conta
 
 * [Configuring cloud agent environments](environments/configuring-environments/) to create, configure, and manage environments.
 * [Troubleshooting cloud agent environments](environments/troubleshooting-environments/) to fix setup, authorization, permissions, and image failures.
-* [Runners](/platform/runners/) to configure the compute that hosts environments.
+* [Runners](/factories/runners/) to configure the compute that hosts environments.
 * [Scheduled agents](/platform/triggers/scheduled-agents/) to run cloud agents on a recurring cadence in a shared environment.
-* [Deployment patterns](/platform/deployment-patterns/) to choose between Warp-hosted and self-hosted execution.
+* [Deployment patterns](/factories/deployment-patterns/) to choose between Warp-hosted and self-hosted execution.

@@ -62,6 +62,7 @@ SKIP_DEST_EXTENSIONS = (
     ".svg",
     ".ico",
 )
+NAMED_PARAMETER_RE = re.compile(r":[A-Za-z][A-Za-z0-9_]*(?:\*|\([^)]*\))?")
 
 
 def load_redirects() -> list[dict]:
@@ -168,7 +169,12 @@ def static_check(redirects: list[dict]) -> tuple[int, int, list[str]]:
 
         # Skip wildcard sources/destinations — we can't fully verify these
         # statically since the captured group is dynamic.
-        if "(" in source or "$" in dest:
+        if (
+            "(" in source
+            or "$" in dest
+            or NAMED_PARAMETER_RE.search(source)
+            or NAMED_PARAMETER_RE.search(dest)
+        ):
             continue
 
         # Skip external URLs and special endpoints.

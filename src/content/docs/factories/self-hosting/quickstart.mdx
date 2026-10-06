@@ -1,0 +1,92 @@
+---
+title: Self-hosting quickstart
+description: >-
+  Get a managed self-hosted {{WARP_AUTOMATION_PLATFORM}} worker running on Docker and route your first
+  cloud agent run to it in under 10 minutes.
+sidebar:
+  label: "Quickstart"
+---
+import { VARS } from '@data/vars';
+
+Run your first cloud agent on your own infrastructure in ~10 minutes using the managed architecture with the Docker backend — the default and fastest path to self-hosting.
+
+:::note
+This quickstart sets up the [managed architecture](/factories/self-hosting/#managed-architecture), where the {VARS.WARP_AUTOMATION_PLATFORM} orchestrates the agent and your worker provides the compute. **Prefer a CLI-only path with no Docker requirement?** Jump to the [Unmanaged quickstart](/platform/unmanaged-execution/#unmanaged-quickstart) to run `oz agent run` directly on any host.
+:::
+
+---
+
+## Prerequisites
+
+* **Managed self-hosting access and credentials** - Complete the shared [managed prerequisites](/factories/self-hosting/#managed-prerequisites), then create an [Agent API key associated with the Default Service Account](/agents/cli/oz-cli/api-keys/#from-the-web-app-recommended). This key authenticates both the worker and the `oz agent run-cloud` command in this quickstart. A self-hosted worker key authenticates the worker only.
+* **A Linux machine with a rootful Docker daemon** - Rootful Docker runs the daemon as root and exposes `/var/run/docker.sock`; the command below also requires GNU `stat`. This quickstart does not cover macOS or Windows. On those hosts, follow the [Homebrew](/factories/self-hosting/managed-docker/#option-2-homebrew) or [release binary](/factories/self-hosting/managed-docker/#option-3-github-releases-binary) setup instead.
+* **The {VARS.WARP_AGENT_CLI}** - Install it on the machine that will route the test run. See [Installing the CLI](/agents/cli/oz-cli/#installing-the-cli).
+
+---
+
+## Run your first self-hosted agent
+
+_~10 minutes_
+
+### 1. Export your API key
+
+Export the Agent API key so the worker container and the {VARS.WARP_AGENT_CLI} can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}:
+
+```bash
+export WARP_API_KEY="YOUR_AGENT_API_KEY"
+```
+
+### 2. Start the worker
+
+On the Linux host, run the `oz-agent-worker` container and mount the Docker socket so the worker can spawn task containers. Choose any `--worker-id` meaningful for your team — you'll use this value to route tasks to this worker.
+
+```bash
+export DOCKER_SOCKET_GID="$(stat -c '%g' /var/run/docker.sock)"
+
+docker run \
+  --group-add "$DOCKER_SOCKET_GID" \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -e WARP_API_KEY="$WARP_API_KEY" \
+  warpdotdev/oz-agent-worker --worker-id "my-worker"
+```
+
+**Expected outcome:** The worker connects to the {VARS.WARP_AUTOMATION_PLATFORM} and begins listening for tasks. You should see log output confirming the connection (something like `Connected to Oz` / `Waiting for tasks`).
+
+:::caution
+For production deployments, pin to a specific image digest (e.g., `warpdotdev/oz-agent-worker@sha256:...`) instead of the `latest` tag.
+:::
+
+### 3. Route a run to your worker
+
+In a separate terminal on any machine with the {VARS.WARP_AGENT_CLI}, route a cloud agent run to your worker by passing `--host` with the worker ID you chose:
+
+```bash
+oz agent run-cloud --prompt "List the files in the current directory" --host "my-worker"
+```
+
+**Expected outcome:** The {VARS.WARP_AUTOMATION_PLATFORM} accepts the task, routes it to your worker, and the worker spawns a Docker container to execute the agent. You'll see the run appear in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a> with status moving from `QUEUED` → `INPROGRESS` → `SUCCEEDED`.
+
+### 4. Verify the run
+
+Open the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>, find the new task, and confirm the session transcript shows the agent running against your worker. You can attach to the session at any time via [Agent Session Sharing](/agents/local-agents/session-sharing/) to monitor or steer it.
+
+---
+
+## Troubleshooting
+
+**Worker won't start**\
+Verify Docker is running (`docker info`) and that the daemon platform is `linux/amd64` or `linux/arm64`. Musl-based (Alpine) worker hosts are not supported.
+
+**Worker won't connect**\
+Verify you created an **Agent** key associated with the Default Service Account and that it has not expired. Ensure the machine has outbound internet access to `oz.warp.dev:443`. Increase log verbosity with `--log-level debug` to see connection details.
+
+**Task stays queued and never runs**\
+Confirm the `--host` value you passed to `oz agent run-cloud` matches your `--worker-id` exactly (case-sensitive). Check that the worker's team matches the team creating the task.
+
+For more, see [Troubleshooting](/factories/self-hosting/troubleshooting/).
+
+## Next steps
+
+* [Self-hosting overview](/factories/self-hosting/) — Compare managed and unmanaged architectures and choose a backend.
+* [Managed: Docker](/factories/self-hosting/managed-docker/) — Full Docker backend setup, including private registries, volume mounts, and runtime configuration.
+* [Routing runs to self-hosted workers](/factories/self-hosting/#routing-runs-to-self-hosted-workers) — How to route tasks from schedules, integrations (Slack, Linear), the API, and the {VARS.WEB_APP}.
