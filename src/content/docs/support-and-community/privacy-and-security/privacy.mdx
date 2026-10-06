@@ -20,35 +20,38 @@ Our philosophy is complete transparency and control over any data leaving your m
 * Read and audit Warp's client source code at [`warpdotdev/warp`](https://github.com/warpdotdev/warp), open source under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL)
 * See how long [shared session data is kept and who can access it](/agents/local-agents/session-sharing/#data-retention-and-access)
 
+## Provider Zero Data Retention
+
+For supported Warp-managed traffic, Warp has contractually enforced Zero Data Retention (ZDR) agreements with Anthropic, OpenAI, Google, xAI, and Fireworks AI. Under these agreements, the model providers do not use customer-generated data to train their models and delete inputs and outputs after processing under their retention commitments.
+
+Some models have provider-specific data retention requirements and are not covered by ZDR. Warp's provider ZDR agreements also do not govern requests routed through your own API key, a custom inference endpoint, or customer-managed inference. Those requests follow the data controls and terms of the provider or endpoint you choose.
+
 ## What telemetry data does Warp collect and why?
 
 Warp collects high-level telemetry and usage data to discover product quality issues and guide feature prioritization.
 
-If you haven't opted out of "Help improve Warp", we may collect:
+If **Help improve Warp** is on, Warp may collect:
 
 1. High level product usage and analytics data to analyze feature uptake and usage patterns. See the full list of tracked events in the [exhaustive telemetry table](/support-and-community/privacy-and-security/privacy/#exhaustive-telemetry-table) below. These are all high level metrics and do not include any user generated content.
-2. AI interactions and console inputs that power our [AI features](/agents/). Warp unconditionally applies [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) in all AI interactions to ensure that any sensitive data is _never_ collected or sent to third parties.
+2. Eligible user-generated content from AI interactions and console inputs for analytics and product improvement.
 
-:::note
-Telemetry must be enabled to use AI features on the Free plan, while paid plans can opt out at any time and continue using Warp, including AI.
-:::
+Any user can turn off **Help improve Warp** unless an organization policy enforces the setting. Turning it off stops eligible user-generated content from being sent to Warp for analytics and product improvement. It does not disable AI.
 
-:::caution
-Business and Enterprise plans are covered by our Zero Data Retention (ZDR) agreement. No AI interaction or console data is ever collected.
-:::
+[Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) is a separate control that removes content matching configured patterns before it is sent to Warp servers or model providers. It is off by default for individual users, and Enterprise admins can enforce it for their organization.
 
 Selling usage data will never be part of Warp's business model. This data is used solely to improve the end-user experience. Warp uses Sentry for crash reporting and Rudderstack for app analytics.
 
 You can read our [full privacy policy](https://www.warp.dev/legal/privacy-policy) as well as [how Warp handles security](https://www.warp.dev/legal/security).
 
+
 ### How to disable telemetry and crash reporting
 
-1. Navigate to **Settings** > **Privacy**, or open the [Command Palette](/terminal/command-palette/) and search for "privacy"
-2. Toggle off "Help improve Warp", "Send crash reports", or both
+1. In the Warp app, go to **Settings** > **Privacy**, or open the [Command Palette](/terminal/command-palette/) and search for "privacy."
+2. Toggle **Help improve Warp**, **Send crash reports**, or both off.
 
 ![Privacy Settings](../../../../assets/support-and-community/privacy-settings-after-signup-1.png)
 
-With telemetry disabled, no console interactions are ever persisted on Warp's servers. Each request contains a `X-Warp-Telemetry-Enabled` header to specify whether telemetry is disabled, and even if this is missing from the request, our server assumes it's disabled.
+With **Help improve Warp** off, eligible user-generated content is not sent to Warp for analytics or product improvement. Each request contains an `X-Warp-Telemetry-Enabled` header to specify whether this collection is disabled. If the header is missing, the server treats it as disabled.
 
 ### Delete your account and data
 
