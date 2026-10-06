@@ -20,7 +20,7 @@ Self-hosted execution keeps repository clones, source files, build artifacts, ru
 * Repository clones and source files.
 * Build artifacts and compiled outputs.
 * Runtime secrets and environment variables.
-* Container filesystem state (managed architecture) or host workspace (Direct backend / unmanaged).
+* Container, host, or external-runtime workspace state.
 
 **Routes through Warp's backend** (under [Zero Data Retention (ZDR)](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr)):
 
@@ -47,7 +47,7 @@ Self-hosted agents **do not require any network ingress**. They require outbound
 * `sessions.app.warp.dev` — port 443
 * `oz.warp.dev` — port 443 (managed architecture only)
 
-**Docker Hub** — for pulling task images (managed architecture only).
+**Docker Hub** — for pulling task images with the Docker and Kubernetes backends.
 
 Tasks use the following Docker images:
 * [`warpdotdev/warp-agent:latest`](https://hub.docker.com/r/warpdotdev/warp-agent)
@@ -90,6 +90,11 @@ The exception runs the other way. [Team-managed inference endpoints](/enterprise
 * **Shared host kernel** — The Direct backend does not provide container-level isolation. Each task runs in an isolated workspace directory but shares the host OS and kernel.
 * **Minimal environment by default** — The Direct backend intentionally starts tasks with a minimal environment (`HOME`, `TMPDIR`, `PATH` only). Sensitive worker credentials like `WARP_API_KEY` are not passed to tasks unless explicitly configured.
 * **Workspace cleanup** — Workspaces under `workspace_root` are removed after execution by default (disable with `--no-cleanup` for debugging).
+
+### Command backend
+
+* **Task payloads** - The dispatch command receives task credentials and runtime configuration on standard input. Keep payloads out of logs.
+* **Runtime isolation** - The external runtime owns task isolation, credentials, network policy, and cleanup.
 
 ### Unmanaged
 

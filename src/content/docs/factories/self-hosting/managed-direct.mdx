@@ -13,7 +13,6 @@ Run the `oz-agent-worker` daemon with the **Direct backend** — tasks execute d
 :::note
 The Direct backend uses the [managed architecture](/factories/self-hosting/#managed-architecture). For container-based task isolation, see [Managed: Docker](/factories/self-hosting/managed-docker/) or [Managed: Kubernetes](/factories/self-hosting/managed-kubernetes/). For invocation-driven use cases, see [Unmanaged](/platform/unmanaged-execution/).
 :::
-
 ## When to use the Direct backend
 
 * Neither Docker nor Kubernetes is available on the worker host.
@@ -37,11 +36,11 @@ The Direct backend does not provide per-task container isolation. Each task runs
 
 ## Prerequisites
 
-* **Enterprise plan with self-hosting enabled** — [Contact sales](https://www.warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
-* **A worker host** with write access to `workspace_root` (defaults to `/var/lib/oz/workspaces`).
-* **The `oz-agent-worker` binary** installed on the worker host. The Direct backend runs the worker itself on the host rather than in a container, so install it via [Homebrew or a prebuilt binary](/factories/self-hosting/managed-docker/#install-and-run-the-worker).
-* **The {VARS.WARP_AGENT_CLI}** installed and available in `PATH` on the worker host (or specify `oz_path` in the config file). See [Installing the CLI](/agents/cli/oz-cli/#installing-the-cli).
-* **A self-hosted worker API key** - Create one in the <a href={`${VARS.FACTORY_WEB_APP_URL}/settings`}>{VARS.FACTORY_WEB_APP} user settings</a> so the worker can authenticate as your team. See [creating a self-hosted worker API key](/agents/cli/oz-cli/api-keys/#creating-a-self-hosted-worker-api-key) for the full flow.
+Complete the shared [managed prerequisites](/factories/self-hosting/#managed-prerequisites), then prepare:
+
+* **A worker host** - Grant write access to `workspace_root`, which defaults to `/var/lib/oz/workspaces`.
+* **The `oz-agent-worker` binary** - Install it on the worker host through [Homebrew or a prebuilt binary](/factories/self-hosting/managed-docker/#install-and-run-the-worker).
+* **The {VARS.WARP_AGENT_CLI}** - Install it in `PATH` on the worker host, or set `oz_path` in the config file. See [Installing the CLI](/agents/cli/oz-cli/#installing-the-cli).
 
 ---
 
@@ -130,6 +129,7 @@ backend:
 ## Related pages
 
 * [Self-hosted worker reference](/factories/self-hosting/reference/#direct-backend-config) — Full config schema for the Direct backend.
+* [External orchestrators](/factories/self-hosting/external-orchestrators/) — Start one Direct worker per external job or delegate runs through the Command backend.
 * [Direct backend monorepo worktrees](/factories/self-hosting/direct-monorepo-worktrees/) — Create and remove one Git worktree per task with setup and teardown hooks.
 * [Self-hosting overview](/factories/self-hosting/) — Managed vs unmanaged and the backend decision guide.
 * [Factory definition](/factories/factory-as-code/#agentdefaultsworkerhost) — Route factory work to a compatible worker and runner.

@@ -111,9 +111,7 @@ spec:
 For production deployments, pin to a specific Docker image digest (e.g., `warpdotdev/warp-agent@sha256:...`) instead of `latest` to ensure reproducible builds.
 :::
 
-:::note
 Whether Kubernetes pods provide sufficient sandboxing for agents depends on your cluster configuration and risk profile. Evaluate your pod security policies, network policies, and RBAC settings based on your organization's security requirements.
-:::
 
 ---
 
@@ -134,6 +132,7 @@ Unmanaged runs don't ship with the bundled declarations script, so end-of-run wo
 ## Related pages
 
 * [Self-hosting overview](/factories/self-hosting/) — Compare managed and unmanaged, plus the architecture decision guide.
+* [External orchestrators](/factories/self-hosting/external-orchestrators/) — Compare one-shot Direct with the Command backend for externally allocated compute.
 * [GitHub Actions integration](/platform/integrations/github-actions/) — Run agents in CI with the official action.
 * [Deployment patterns](/factories/deployment-patterns/) — Compare Warp-hosted and managed self-hosted factory execution; the model-choice table links here for unmanaged execution.
 * [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) — Full CLI reference for `oz agent run` and related commands.

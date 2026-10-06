@@ -18,12 +18,14 @@ API keys let the {VARS.WARP_AGENT_CLI}, cloud agents, and self-hosted workers au
 
 Choose a key type based on what needs to authenticate:
 
-* **Personal API keys** authenticate as you. Runs use your GitHub permissions, draw from your credit pool, and inherit your account's [skills](/agents/capabilities/skills/). Use a personal key when the run should act on your behalf — for example, developer-triggered API automation, or the [Enterprise Analytics API](/enterprise/enterprise-features/analytics-api/), which only accepts personal keys.
-* **Agent API keys** run as a [cloud agent](/platform/agents/) on your team. Use an agent key for scheduled jobs, integrations (Slack, Linear, GitHub Actions), SDK-triggered runs, and other automation that isn't tied to a specific user. Billing and GitHub permissions are scoped to the team rather than to you.
+* **Personal API keys** - Authenticate as you. Runs use your GitHub permissions, draw from your credit pool, and inherit your account's [skills](/agents/capabilities/skills/). Use a personal key when the run should act on your behalf — for example, developer-triggered API automation, or the [Enterprise Analytics API](/enterprise/enterprise-features/analytics-api/), which only accepts personal keys.
+* **Agent** API keys - Run as a [cloud agent](/platform/agents/) on your team. Use an agent key for scheduled jobs, integrations (Slack, Linear, GitHub Actions), SDK-triggered runs, and other automation that isn't tied to a specific user. Billing and GitHub permissions are scoped to the team rather than to you.
+
+For [self-hosting with an external orchestrator](/factories/self-hosting/external-orchestrators/), create an Agent key associated with the Default Service Account. This key lets the orchestrator create and run tasks without using a person's identity, and it can authenticate a worker when one job performs both actions.
 
 ## Self-hosted worker API keys
 
-Self-hosted worker API keys authenticate managed `oz-agent-worker` daemons as your team. Use this key type with the [Docker](/factories/self-hosting/managed-docker/), [Kubernetes](/factories/self-hosting/managed-kubernetes/), or [Direct](/factories/self-hosting/managed-direct/) backend. You don't need to select an agent when creating one.
+Self-hosted worker API keys authenticate managed `oz-agent-worker` daemons as your team. Use this key type with the [Docker](/factories/self-hosting/managed-docker/), [Kubernetes](/factories/self-hosting/managed-kubernetes/), [Direct](/factories/self-hosting/managed-direct/), or [Command](/factories/self-hosting/external-orchestrators/#using-the-command-backend) backend. You don't need to select an agent when creating one.
 
 ## Creating an API key
 
@@ -46,7 +48,7 @@ Create personal and agent keys in the <a href={`${VARS.WEB_APP_URL}/settings`}>{
 2. In the API keys section, click **Generate new token**.
 3. Choose the type:
    * **Personal** — Tied to your individual Warp account.
-   * **Agent** — Runs as a cloud agent on your team. Pick a cloud agent from the dropdown.
+   * **Agent** — Runs as a cloud agent on your team. For an external self-hosting orchestrator, choose **Default Service Account** from the dropdown.
 4. Enter a name for the key and choose an expiration (1 day, 30 days, 90 days, or never).
 5. Click **Create key**.
 6. Copy the raw API key and store it securely. **You won't be able to see it again after closing the dialog.**
@@ -63,7 +65,7 @@ Create personal and agent keys in the <a href={`${VARS.WEB_APP_URL}/settings`}>{
 
 To create a self-hosted worker key, use the [{VARS.FACTORY_WEB_APP} flow](#creating-a-self-hosted-worker-api-key).
 
-<figure>
+<figure style={{ maxWidth: "563px" }}>
 ![API key management interface in Warp settings](../../../../../assets/reference/api-key-management.png)
 <figcaption>API key management interface in Warp settings.</figcaption>
 </figure>
@@ -72,13 +74,13 @@ To create a self-hosted worker key, use the [{VARS.FACTORY_WEB_APP} flow](#creat
 
 The key type determines who the run is attributed to, which credit pool is billed, and which GitHub credentials the agent can use.
 
-**Personal API keys**
+### Personal API key behavior
 
 * Run as you.
 * On Build, Max, and Business plans, use your plan-included credits, then your add-on credits. On Enterprise plans, use the team-scoped credit pool.
 * Use your GitHub permissions. Code changes are attributed to your GitHub account.
 
-**Agent API keys**
+### Agent API key behavior
 
 * Run as a cloud agent on your team.
 * On Build, Max, and Business plans, bill the team owner: the owner's plan-included credits, then the owner's add-on credits. With auto-reload on, usage can trigger a reload on the owner's pool, subject to the team-wide monthly spend cap. On Enterprise plans, use the team-scoped credit pool.

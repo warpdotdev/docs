@@ -128,7 +128,7 @@ Interactive agents can plan work and spawn subagents to parallelize tasks. Cloud
 
 ### Why focus on orchestration primitives instead of immediately adopting new agent standards?
 
-We believe durable infrastructure matters more than transient standards. The cloud agents platform is designed to provide stable building blocks—agent runs, environments, auditability, steering, and coordination—that orchestration frameworks and emerging standards can plug into over time.
+We believe durable infrastructure matters more than transient standards. The cloud agents platform provides stable building blocks—agent runs, environments, auditability, steering, and coordination—that orchestration frameworks and emerging standards can use over time.
 
 ### Can cloud agents integrate with external tools, APIs, or services (like n8n connectors)?
 
@@ -234,7 +234,7 @@ Yes. LLM inference routes through Warp's backend, which has [Zero Data Retention
 The [unmanaged architecture](/platform/unmanaged-execution/) is well-suited for large monorepos because agents run directly in your pre-provisioned environment — there is no Docker image build or repo cloning step. For the [managed architecture](/factories/self-hosting/#managed-architecture), the Docker backend supports volume mounts (`-v` flag) to mount a pre-existing repo checkout from the host into task containers. With the Kubernetes backend, use `pod_template` to configure persistent volume claims or pre-populated storage for the same purpose.
 
 :::note
-The managed architecture supports three execution backends: **Docker** (default), **Kubernetes**, and **Direct** (no container runtime). The Kubernetes backend runs each task as a Kubernetes Job and includes a Helm chart for deployment. See [Self-hosting](/factories/self-hosting/#choose-a-backend) for details on choosing a backend.
+The managed architecture supports four backends: Docker (default), Kubernetes, Direct, and Command. Use one-shot Direct when an external scheduler starts a worker for each job, or Command when a connected worker dispatches tasks to an external runtime. See [choosing a managed backend](/factories/self-hosting/#choose-a-backend).
 :::
 
 ### Do Kubernetes pods provide enough sandboxing for self-hosted agents?

@@ -34,12 +34,13 @@ The Kubernetes backend uses the [managed architecture](/factories/self-hosting/#
 
 ## Prerequisites
 
-* **Enterprise plan with self-hosting enabled** — [Contact sales](https://www.warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
-* **A Kubernetes cluster** with the worker process able to reach the API server. The cluster must:
+Complete the shared [managed prerequisites](/factories/self-hosting/#managed-prerequisites), then prepare:
+
+* **A Kubernetes cluster** - The worker process must reach the API server. The cluster must:
   * Allow the task namespace to create Jobs with a **root init container**, unless you enable native image volumes with `kubernetesBackend.useImageVolumes=true`.
   * Grant the worker these namespace-scoped permissions: `create`, `get`, `list`, `watch`, `delete` on `jobs`; `get`, `list`, `watch` on `pods`; `get` on `pods/log`; `list` on `events`.
-* **[Helm](https://helm.sh/docs/intro/install/)** installed locally, plus `kubectl` authenticated against the target cluster.
-* **A self-hosted worker API key** - Create one in the <a href={`${VARS.FACTORY_WEB_APP_URL}/settings`}>{VARS.FACTORY_WEB_APP} user settings</a> so the worker can authenticate as your team. See [creating a self-hosted worker API key](/agents/cli/oz-cli/api-keys/#creating-a-self-hosted-worker-api-key) for the full flow.
+* **[Helm](https://helm.sh/docs/intro/install/)** - Install Helm locally and authenticate `kubectl` against the target cluster.
+* **Task images** - Use a glibc-based image, such as Debian, Ubuntu, or a non-Alpine variant of an official image. Musl-based images such as Alpine Linux are not supported. Add required tools, binaries, scripts, and system packages to the [environment's custom image](/platform/environments/).
 
 ---
 
@@ -124,7 +125,7 @@ To scale horizontally, deploy multiple Helm releases with distinct worker IDs ra
 **Kubernetes backend:**
 
 * `kubernetesBackend.namespace` — Namespace for task Jobs. Defaults to the release namespace.
-* `kubernetesBackend.defaultImage` — Default Docker image for task pods when no [Warp environment](/platform/environments/) has been supplied. Leave empty (default) to fall back to `ubuntu:22.04`.
+* `kubernetesBackend.defaultImage` — Default Docker image for task pods when no [Warp environment](/platform/environments/) has been supplied. Set it when all tasks use the same base image and you don't need a Warp environment. Leave empty (default) to fall back to `ubuntu:22.04`.
 * `kubernetesBackend.imagePullPolicy` — Image pull policy for task pods. Defaults to `IfNotPresent`.
 * `kubernetesBackend.preflightImage` — Image for the startup preflight Job. Set this if your cluster restricts allowed registries.
 * `kubernetesBackend.unschedulableTimeout` — How long a pod may remain unschedulable before failing. Defaults to `30s`.

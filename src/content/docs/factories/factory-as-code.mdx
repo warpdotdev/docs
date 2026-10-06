@@ -19,7 +19,7 @@ For complete working definitions you can copy, see the [warp-factory-examples](h
 You choose who hosts the definition repository when you create a factory:
 
 * **Warp-managed (default)** - Warp hosts the repository for you. You edit the factory in the [{VARS.FACTORY_WEB_APP}](/factories/factory-dashboard/), and every change is validated, committed to the files, and applied in one step. You never interact with the repository directly, and the definition can't end up in an invalid state.
-* **GitHub** - The definition lives in a repository you own. The repository is the only way to change the factory: the web app shows the configuration read-only and links back to the files. Open a pull request, and any change merged to the production branch (`main` by default) updates the factory. See [Pull request checks](#pull-request-checks).
+* **GitHub** - On a paid plan, the definition lives in a repository you own. The repository is the only way to change the factory: the web app shows the configuration read-only and links back to the files. Open a pull request, and any change merged to the production branch (`main` by default) updates the factory. See [Pull request checks](#pull-request-checks).
 
 Both modes use the same files, so everything on this page applies to either. You can also link a GitHub repository to a Warp-managed factory later.
 
@@ -149,7 +149,7 @@ Optional. The handle used to @-mention the factory's foreman on connected platfo
 
 ### `credentialStrategy`
 
-Optional. Whose credentials the factory's runs execute with: `EXECUTOR` (the principal executing the run, the default) or `CREATOR` (the user who created the run). Agents can override it per role.
+Optional. Whose credentials the factory's runs execute with: `EXECUTOR` (the principal executing the run, the default) or `CREATOR` (the user who created the run). `CREATOR` requires a paid plan. Agents can override it per role.
 
 ### `codeForges`
 
@@ -515,6 +515,8 @@ routing:
 ```
 
 For `type: complexity`, `routing` maps `easy`, `medium`, and `hard` to concrete models. For `type: prompt`, `routing` is an ordered list of `description` and `model` pairs. Router targets must be concrete supported models, not Auto models or other routers. See [custom model routers](/agents/inference/custom-routers/) for routing behavior.
+
+Factory members who can access the router can also select it from model catalogs in the factory dashboard, including agent settings and benchmark configurations.
 
 ## `benchmarks/<suite-slug>/suite.yaml`
 

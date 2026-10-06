@@ -6,14 +6,14 @@ description: >-
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 
-Warp lets an **Enterprise team admin** configure shared provider API keys and OpenAI-compatible custom endpoints once, so every member can use them without pasting anything locally. Unlike the self-serve [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) and [custom inference endpoint](/agents/inference/custom-inference-endpoint/) features — which each member configures on their own device and which work only for interactive requests — team-managed providers are stored server-side by Warp and work for **both interactive terminal requests and [cloud agents](/platform/)**.
+Warp lets a **Business or Enterprise team admin** configure shared provider API keys and OpenAI-compatible custom endpoints once, so every member can use them without pasting anything locally. Unlike the self-serve [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) and [custom inference endpoint](/agents/inference/custom-inference-endpoint/) features — which each member configures on their own device and which work only for interactive requests — team-managed providers are stored server-side by Warp and work for **both interactive terminal requests and [cloud agents](/platform/)**.
 
 This gives your organization one place to provision approved model providers, control spend, and keep inference on your own accounts across your whole team.
 
 <VideoEmbed url="https://www.youtube.com/watch?v=Ko1rFyL1jfo" title="Team-managed API keys and endpoints demo" />
 
 :::note
-Team-managed API keys and endpoints are available only on Warp's Enterprise plan. [Contact sales](https://www.warp.dev/contact-sales) to learn more.
+Team-managed API keys and endpoints are available on Warp's Business and Enterprise plans. See [Warp pricing](https://www.warp.dev/pricing) for plan details.
 :::
 
 ## Key features
@@ -31,13 +31,13 @@ Warp offers several ways to bring your own AI infrastructure. Use this table to 
 
 | Name | Configured by | Stored | Works with cloud agents | Plans |
 | --- | --- | --- | --- | --- |
-| **Team-managed API keys and endpoints** | Team admin (Admin Panel) | Server-side by Warp | Yes | Enterprise only |
+| **Team-managed API keys and endpoints** | Team admin (Admin Panel) | Server-side by Warp | Yes | Business and Enterprise |
 | **[Bring Your Own API Key](/agents/inference/bring-your-own-api-key/)** (BYOK) | Each member | Locally on the member's device | No | Free and all eligible paid plans |
 | **[Custom inference endpoint](/agents/inference/custom-inference-endpoint/)** | Each member | Locally on the member's device | No | Free and all eligible paid plans |
 | **[BYOLLM — AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/)** | Team admin (Admin Panel) | Cloud-native IAM (no stored keys) | Yes | Enterprise only |
 | **[BYOLLM — Gemini Enterprise](/enterprise/enterprise-features/byollm-gemini-enterprise/)** | Team admin (Admin Panel) | Cloud-native IAM (no stored keys) | No (interactive sessions only) | Enterprise only |
 
-Team-managed API keys and endpoints and BYOLLM are both Enterprise, admin-configured options. Choose team-managed keys and endpoints to route through provider APIs (OpenAI, Anthropic, Google) or any OpenAI-compatible endpoint using stored keys. Choose [AWS Bedrock BYOLLM](/enterprise/enterprise-features/byollm-aws-bedrock/) for cloud-native IAM routing through your AWS account, including cloud agent support. Choose [Gemini Enterprise BYOLLM](/enterprise/enterprise-features/byollm-gemini-enterprise/) for cloud-native IAM routing through your Google Cloud project; in this iteration, Gemini Enterprise BYOLLM supports interactive sessions only, with cloud agent support planned.
+Team-managed API keys and endpoints are an admin-configured option on Business and Enterprise. BYOLLM requires Enterprise. Choose team-managed keys and endpoints to route through provider APIs (OpenAI, Anthropic, Google) or any OpenAI-compatible endpoint using stored keys. Choose [AWS Bedrock BYOLLM](/enterprise/enterprise-features/byollm-aws-bedrock/) for cloud-native IAM routing through your AWS account, including cloud agent support. Choose [Gemini Enterprise BYOLLM](/enterprise/enterprise-features/byollm-gemini-enterprise/) for cloud-native IAM routing through your Google Cloud project; in this iteration, Gemini Enterprise BYOLLM supports interactive sessions only, with cloud agent support planned.
 
 ## How it works
 
@@ -74,7 +74,7 @@ Because team-managed keys and endpoints are stored by Warp rather than on a memb
 ### Prerequisites
 
 * You have admin access to your team's [Admin Panel](/enterprise/team-management/admin-panel/).
-* Your organization is on the Enterprise plan.
+* Your organization is on the Business or Enterprise plan.
 
 ### Configure keys and endpoints
 

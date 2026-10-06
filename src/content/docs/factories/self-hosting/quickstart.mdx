@@ -18,10 +18,9 @@ This quickstart sets up the [managed architecture](/factories/self-hosting/#mana
 
 ## Prerequisites
 
-* **Enterprise plan with self-hosting enabled** — [Contact sales](https://www.warp.dev/contact-sales) if self-hosting is not yet enabled for your team.
-* **A Linux machine with Docker** — A VM, server, or local machine with the Docker daemon running Linux containers. Verify with `docker info`. Docker Desktop on macOS or Windows works for testing.
-* **A self-hosted worker API key** - In the <a href={`${VARS.FACTORY_WEB_APP_URL}/settings`}>{VARS.FACTORY_WEB_APP} user settings</a>, click **Generate new token** and select **Self-hosted worker**. The key is tied to your team and does not require an agent selection. See [creating a self-hosted worker API key](/agents/cli/oz-cli/api-keys/#creating-a-self-hosted-worker-api-key) for the full flow.
-* **The {VARS.WARP_AGENT_CLI}** (for routing a test run) — See [Installing the CLI](/agents/cli/oz-cli/#installing-the-cli).
+* **Managed self-hosting access and credentials** - Complete the shared [managed prerequisites](/factories/self-hosting/#managed-prerequisites), then create an [Agent API key associated with the Default Service Account](/agents/cli/oz-cli/api-keys/#from-the-web-app-recommended). This key authenticates both the worker and the `oz agent run-cloud` command in this quickstart. A self-hosted worker key authenticates the worker only.
+* **A Linux machine with Docker** - Use a VM, server, or local machine with a Docker daemon that runs Linux containers. Verify it with `docker info`. Docker Desktop on macOS or Windows works for testing.
+* **The {VARS.WARP_AGENT_CLI}** - Install it on the machine that will route the test run. See [Installing the CLI](/agents/cli/oz-cli/#installing-the-cli).
 
 ---
 
@@ -31,7 +30,7 @@ _~10 minutes_
 
 ### 1. Export your API key
 
-Export the self-hosted worker API key so the worker container can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM} automatically:
+Export the Agent API key so the worker container and the {VARS.WARP_AGENT_CLI} can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}:
 
 ```bash
 export WARP_API_KEY="YOUR_SELF_HOSTED_WORKER_API_KEY"
@@ -71,13 +70,21 @@ Open the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>, find the new task, and
 
 ---
 
+## Troubleshooting
+
+**Worker won't start**\
+Verify Docker is running (`docker info`) and that the daemon platform is `linux/amd64` or `linux/arm64`. Musl-based (Alpine) worker hosts are not supported.
+
+**Worker won't connect**\
+Verify you created an **Agent** key associated with the Default Service Account and that it has not expired. Ensure the machine has outbound internet access to `oz.warp.dev:443`. Increase log verbosity with `--log-level debug` to see connection details.
+
+**Task stays queued and never runs**\
+Confirm the `--host` value you passed to `oz agent run-cloud` matches your `--worker-id` exactly (case-sensitive). Check that the worker's team matches the team creating the task.
+
+For more, see [self-hosting troubleshooting](/factories/self-hosting/troubleshooting/).
+
 ## Next steps
 
-* [Unmanaged quickstart](/platform/unmanaged-execution/#unmanaged-quickstart) — ~5-minute CLI-only path: run `oz agent run` in your CI, Kubernetes pod, or dev box with no worker daemon and no Docker requirement.
-* [Managed: Docker](/factories/self-hosting/managed-docker/) — Full Docker backend setup, including private registries, volume mounts, and runtime configuration.
-* [Environments](/platform/environments/) — Define a repository, Docker image, and setup commands so agents have a reproducible workspace for every run.
-* [Factory definition](/factories/factory-as-code/#agentdefaultsworkerhost) — Route factory work to a compatible worker and runner.
-* [CLI reference](/agents/cli/oz-cli/) — Route standalone cloud agents to the worker with `--host`.
-* [Managed: Kubernetes](/factories/self-hosting/managed-kubernetes/) — Deploy workers into a Kubernetes cluster with Helm.
-* [Self-hosted worker reference](/factories/self-hosting/reference/) — All CLI flags and config file options.
-* [Self-hosting troubleshooting](/factories/self-hosting/troubleshooting/) — Fix worker startup, connection, routing, and task failures.
+* [Managed self-hosting](/factories/self-hosting/) — Compare backends and route factory work to a worker.
+* [Managed: Docker](/factories/self-hosting/managed-docker/) — Configure private registries, volume mounts, and runtime settings.
+* [External orchestrators](/factories/self-hosting/external-orchestrators/) — Allocate compute with one-shot Direct or the Command backend.
