@@ -14,9 +14,6 @@ For the summary of the most critical terms (core features, Automation Platform t
 - **Agent Mode** — The mode where Warp interprets your input as a request to an Agent (not a shell command).
   *Usage note:* Not "agent mode" or "Agent-mode."
 
-- **Auto-detection Mode** — The mode where Warp automatically detects whether input is a command or a prompt.
-  *Usage note:* Useful in onboarding and "how it works" content.
-
 - **Block** / **Blocks** — Warp's structured unit of terminal output and history.
   *Usage note:* Use for navigation, sharing, and "how Warp organizes your terminal."
 
@@ -26,11 +23,8 @@ For the summary of the most critical terms (core features, Automation Platform t
 - **Prompt** — A natural-language request you give to an Agent.
   *Usage note:* Keep distinct from "command."
 
-- **Terminal Mode** — The mode where Warp interprets your input as shell commands.
-  *Usage note:* Use when contrasting with Agent Mode.
-
-- **Universal Input** — Warp's main input surface that supports both commands and Agent prompts.
-  *Usage note:* Use as the name of the feature, not "input box."
+- **terminal mode** — The mode where Warp interprets your input as shell commands.
+  *Usage note:* Use lowercase when contrasting with Agent Mode.
 
 - **Warp** — The agentic development environment for professional developers, built around a modern terminal and AI agents.
   *Usage note:* Use "Warp" as the product name. Add "AI terminal" only when you need the positioning shorthand. Do not use "Warp Terminal" unless specifically distinguishing from the Automation Platform.
@@ -143,6 +137,23 @@ For the summary of the most critical terms (core features, Automation Platform t
 
 - **Workflow** / **Workflows** — Saved, runnable workflows in Warp Drive (often multi-step command sequences).
 
+## Team and workspace terms
+
+- **workspace** — Warp's top-level organizational unit for enterprise accounts. It groups teams under one company account with shared roles, billing, SSO, and settings. See [Workspaces](/enterprise/team-management/workspaces/).
+  *Usage note:* Lowercase common noun, like "team." Distinguish it from a team's shared workspace in **Warp Drive** and a **Slack workspace**. If the context is unclear, write "Warp workspace" or "Slack workspace."
+
+- **Member** (workspace role) — The default workspace role: uses Warp within whatever teams they belong to and the settings admins configure. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+
+- **Admin** (workspace role) — Manages workspace membership, billing, and settings. Can view and manage every team in the workspace, including teams they don't belong to. A workspace can have any number of admins. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+
+- **Owner** (workspace role) — The workspace's single highest-privilege role. Has every admin capability, plus the ability to transfer ownership to another member. Exactly one per workspace. See [Workspace roles](/enterprise/team-management/workspaces/#workspace-roles).
+
+- **Open** (team visibility) — A team any workspace member can see and join immediately. See [Teams inside a workspace](/enterprise/team-management/workspaces/#teams-inside-a-workspace).
+
+- **Hidden** (team visibility) — A team that doesn't appear in team discovery; an admin has to add members directly. See [Teams inside a workspace](/enterprise/team-management/workspaces/#teams-inside-a-workspace).
+
+- **unassigned user** — A workspace member who doesn't belong to a team. Workspace admins manage unassigned users and can set a separate per-user spend limit for them. See [Unassigned users](/enterprise/team-management/workspaces/#unassigned-users).
+
 ## Automation Platform terminology
 
 Renamed from "Oz" on 2026-08-18. Two surfaces keep the Oz name until 2026-10-06
@@ -248,7 +259,6 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 - **The `oz` binary** and every `oz <command>` invocation. Commands inside code
   fences are never rewritten. `{VARS.WARP_AGENT_CLI}` renders "Oz CLI".
 - **`oz.warp.dev`** and the Oz v1 web app. `{VARS.WEB_APP}`, `{VARS.WEB_APP_URL}`.
-- **`{VARS.API_SDK_NAME}`**, which renders "Oz API & SDK".
 - **`oz-agent-worker`, `oz-agent-action`, `oz-skills`** — repository and package
   names, not product names. These may never change.
 - **The `@oz-agent` GitHub handle.** Handles are strings the product owns;
@@ -262,7 +272,11 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 
 ## Platform terms
 
-- **Agent API** — The HTTP API for triggering and inspecting Platform runs programmatically.
+- **Warp Platform API** — The HTTP API for sending work to factories and triggering and inspecting cloud agent runs programmatically.
+  *Usage note:* Use `{VARS.WARP_PLATFORM_API}` in body prose and `{{WARP_PLATFORM_API}}` in frontmatter.
+
+- **Artifacts** — Files an agent produces during a run and uploads to Warp: screenshots, generated reports, build outputs, logs, or any other file the agent saves alongside its conversation. Retrieved with `oz artifact` (see the [Artifacts CLI reference](/agents/cli/oz-cli/artifacts/)) and one of the three data categories in [self-hosted agent data storage](/platform/data-storage/).
+  *Usage note:* Capitalize as **Artifacts** when referring to the named category (a CLI reference page, an Admin Panel storage category); lowercase "artifacts" as the generic noun for the files themselves.
 
 - **Auth** — The agent settings field for choosing or creating the credential (a team-owned secret) a harness uses to authenticate with its provider, matched to that harness's supported credential types (Anthropic keys for Claude Code, an OpenAI key for Codex).
   *Usage note:* Capitalize as **Auth** when referring to the settings field name.
@@ -283,14 +297,16 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
 - **Run** — The tracked unit of work for a run, including status and outputs.
   *Usage note:* Use when describing observability, history, and auditability.
 
-- **SDK** — Official client libraries for the Agent API (for example, TypeScript SDK, Python SDK).
+- **SDK** — Official client libraries for the Warp Platform API (for example, TypeScript SDK, Python SDK).
   *Usage note:* Spell out the language on first mention.
 
 - **Trigger** — The event that starts a run (Slack mention, schedule, CI event, API call).
 
+- **Warp-hosted** — Executing or stored on Warp-managed infrastructure, as opposed to self-hosted (customer infrastructure). Hyphenate as a compound adjective ("Warp-hosted execution", "Warp-hosted storage", "Warp-hosted agents").
+
 - **Warp CLI** — Ambiguous since the Warp Agent CLI launched; avoid the bare term. Use "Oz CLI" for the `oz` binary that runs and manages cloud agents (formerly called `warp-cli`), or "Warp Agent CLI" for the `warp` binary that runs the Warp Agent in any terminal.
 
-- **Automation Platform** — Warp's cloud agent platform, covering environments, integrations, orchestration, self-hosting, and the Agent API/SDK. Renamed from "Oz" on 2026-08-18.
+- **Automation Platform** — Warp's cloud agent platform, covering environments, integrations, orchestration, self-hosting, and the Warp Platform API and SDKs. Renamed from "Oz" on 2026-08-18.
   *Usage note:* See "Automation Platform terminology" above for the full entry and the article rule. Always write it as `{VARS.WARP_AUTOMATION_PLATFORM}` / `{{WARP_AUTOMATION_PLATFORM}}`, never as a literal string, so a future rename stays a one-line change.
 
 - **Direct backend** — The self-hosted worker backend that runs cloud agent tasks directly on the worker host, without Docker or Kubernetes. One of three self-hosting backends alongside the Docker and Kubernetes backends.
@@ -359,7 +375,7 @@ Docs match the screen; the fix belongs in the app.
   *Usage note:* Lowercase common noun. Distinct from the **Automation Platform**, the product; and from a **trigger**, the event that fires an automation.
 
 - **runner** — A factory resource, defined by a `runners/<name>.yaml` file, that defines the compute a run executes on: operating system, architecture, sandbox image, and instance shape. Agents and automations select a runner by name, or inherit the factory's default.
-  *Usage note:* Lowercase common noun. Scoped to a factory's definition; distinct from the general [cloud agent runner](/platform/runners/) reference, which covers the same concept for standalone cloud agents outside a factory.
+  *Usage note:* Lowercase common noun. Scoped to a factory's definition; distinct from the general [cloud agent runner](/factories/runners/) reference, which covers the same concept for standalone cloud agents outside a factory.
 
 - **Scorer** — A configured LLM judge, scoped per factory to chosen agents and sampled at a set rate, that classifies completed runs against criteria you write, such as "did the agent run the tests before opening a PR?" A Scorer assigns a label (a classification with a score), not a freeform numeric grade. Feeds the **Dashboard** page's Scorer cards, benchmarks, and Self-improvement.
   *Usage note:* Capitalize "Scorer"/"Scorers" when referring to the feature or a configured instance ("create a Scorer," "Scorer cards"); lowercase only for a generic instance count or file listing ("two scorers," alongside "skills" in an example tree). Say "classify," never "grade" — the docs draw this distinction deliberately. The unit a Scorer evaluates is a **run** (a single agent execution), not a "conversation" or "completed work." `measure-and-improve/scorers.mdx` is the canonical page for what a Scorer is and how to configure one; other pages link there rather than repeating the definition.
@@ -425,3 +441,6 @@ Docs match the screen; the fix belongs in the app.
 - **Bitbucket Data Center** — Atlassian's official self-hosted Bitbucket edition name (alongside Bitbucket Server and Bitbucket Cloud). Capitalize all three words, including in headings ("Bitbucket Data Center / Server").
 - **Workload Identity Pool and Provider** — GCP's IAM resources for federating external identities. Capitalize as GCP's official term, including in headings.
 - **Workload Identity Federation** — GCP's mechanism for granting external identities access without a long-lived service account key. Capitalize as GCP's official term, including in headings.
+- **AWS S3** — Amazon's S3 object storage service, one of the providers for [self-hosted agent data storage](/platform/data-storage/). Warp's Admin Panel labels this option "AWS S3" to match its sibling entries (Google Cloud Storage, Azure Blob Storage); use "AWS S3" in Warp UI and docs contexts, and "Amazon S3" only when naming AWS's own documentation.
+- **Google Cloud Storage** — Google's object storage service, one of the providers for [self-hosted agent data storage](/platform/data-storage/).
+- **Azure Blob Storage** — Microsoft Azure's object storage service, one of the providers for [self-hosted agent data storage](/platform/data-storage/).

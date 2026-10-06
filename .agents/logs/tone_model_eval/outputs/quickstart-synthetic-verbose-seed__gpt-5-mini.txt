@@ -1,0 +1,19 @@
+description: Get Warp installed and running your first agent conversation in about five minutes.
+
+This quickstart shows how to install Warp and run your first agent conversation in about five minutes.
+
+## Install Warp
+
+Download and run the official installer for your platform. Follow the installer prompts to complete setup.
+
+## Sign in
+
+After installation, sign in to enable settings sync and agent features. Signing in also lets your Warp session mint short-lived credentials for integrations.
+
+## Run your first agent conversation
+
+Open a new tab, type a request, and press Enter. The agent will respond and continue the conversation as you follow up.
+
+## Next steps
+
+To learn more about multi-turn agent conversations, see Agent Mode.

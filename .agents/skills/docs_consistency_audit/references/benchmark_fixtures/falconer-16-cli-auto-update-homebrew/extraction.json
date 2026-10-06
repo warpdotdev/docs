@@ -1,0 +1,121 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:9fcc8f445bcdc189738318f17c88f1a88b53eb05fa3352579725a7f487a4375a",
+      "canonical_source": "docs-prose",
+      "claim_ids": [
+        "sha256:3861317ff5c90e7bc2ac5dd04d39ddcf6e35fbc1f59e019f04313a519e1cf034",
+        "sha256:c3a41b47aa22f9f1093708ec6c837596fade4db17bb22cf605d69383c8634bbc"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "The CLI updates automatically.",
+          "source": {
+            "content_sha256": "9392040e511941e14458344a0dd0448ae807b902c892cb2eabb1556cde916951",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-16-cli-auto-update-homebrew-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "Homebrew installations don't update themselves.",
+          "source": {
+            "content_sha256": "56e0801ec95827f7da8cfd207dfc3027e1ada646b389bdad02c3c956d44e668e",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-16-cli-auto-update-homebrew-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "medium",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-16-cli-auto-update-homebrew",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "cli",
+      "entity": "warp-agent-cli",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "self-updates",
+      "qualifiers": {},
+      "quote": "The CLI updates automatically.",
+      "source": {
+        "content_sha256": "9392040e511941e14458344a0dd0448ae807b902c892cb2eabb1556cde916951",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-16-cli-auto-update-homebrew-left",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "cli",
+      "entity": "warp-agent-cli",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "self-updates",
+      "qualifiers": {
+        "install_methods": [
+          "homebrew"
+        ]
+      },
+      "quote": "Homebrew installations don't update themselves.",
+      "source": {
+        "content_sha256": "56e0801ec95827f7da8cfd207dfc3027e1ada646b389bdad02c3c956d44e668e",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-16-cli-auto-update-homebrew-right",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "cli",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "9392040e511941e14458344a0dd0448ae807b902c892cb2eabb1556cde916951",
+    "right.mdx": "56e0801ec95827f7da8cfd207dfc3027e1ada646b389bdad02c3c956d44e668e"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

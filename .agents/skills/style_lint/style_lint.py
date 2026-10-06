@@ -35,10 +35,10 @@ EXCLUDED_DIRS = {"_book", "node_modules", ".docs"}
 # Feature names that are correctly Title Case (exceptions to sentence-case rule)
 PROPER_FEATURE_NAMES = {
     "Admin Panel", "Agent Management Panel", "Agent Mode", "Agent Profiles",
-    "Auto-detection Mode", "Cloud Agents",
+    "Cloud Agents",
     "Codebase Context", "Code Review", "Command Palette", "Global Rules",
     "Oz CLI", "Oz Platform", "Project Rules",
-    "Slash Commands", "Terminal Mode", "Universal Input", "Warp Drive",
+    "Slash Commands", "Warp Drive",
     "Warp Platform", "Automation Platform", "Warp Factories", "Factory MCP",
     "Computer Use", "Full Terminal Use", "Zero Data Retention", "Single Sign-On",
     "Blocks", "Block", "Tab Configs", "Tab Config",
@@ -108,7 +108,8 @@ RENAME_SENSITIVE_VAR_STRINGS: List[Tuple[str, str, str]] = [
     ("oz.warp.dev",  "WEB_APP_URL",              "{VARS.WEB_APP_URL} in prose or {{WEB_APP_URL}} in frontmatter"),
     ("Oz dashboard", "DASHBOARD",                "{VARS.DASHBOARD} in prose or {{DASHBOARD}} in frontmatter"),
     ("Oz run",       "PLATFORM_RUN",             "{VARS.PLATFORM_RUN} in prose or {{PLATFORM_RUN}} in frontmatter"),
-    ("Oz API & SDK", "API_SDK_NAME",             "{VARS.API_SDK_NAME} in prose or {{API_SDK_NAME}} in frontmatter"),
+    ("Oz API & SDK", "WARP_PLATFORM_API",        "{VARS.WARP_PLATFORM_API} in prose or {{WARP_PLATFORM_API}} in frontmatter"),
+    ("Warp Platform API", "WARP_PLATFORM_API",   "{VARS.WARP_PLATFORM_API} in prose or {{WARP_PLATFORM_API}} in frontmatter"),
     ("Oz Platform",  "WARP_AUTOMATION_PLATFORM", "{VARS.WARP_AUTOMATION_PLATFORM} in prose or {{WARP_AUTOMATION_PLATFORM}} in frontmatter"),
     ("Automation Platform", "WARP_AUTOMATION_PLATFORM", "{VARS.WARP_AUTOMATION_PLATFORM} in prose or {{WARP_AUTOMATION_PLATFORM}} in frontmatter"),
     ("Oz",           "WARP_AUTOMATION_PLATFORM", "{VARS.WARP_AUTOMATION_PLATFORM} in prose or {{WARP_AUTOMATION_PLATFORM}} in frontmatter"),

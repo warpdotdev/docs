@@ -6,6 +6,53 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.09.30 (v0.2026.09.30.08.29)
+
+**Improvements**
+
+* Added the option to switch teams from Settings > Teams
+* Vertical tabs search now matches and highlights tab group names
+* Added fzf Alt-C support across bash, zsh, and fish shell integrations
+
+**Bug fixes**
+
+* Fixed two windows opening when launching Warp on Windows
+* Fixed model preference being reset when the team model catalog refreshes
+* Fixed focus not being restored after closing a tab context menu
+* Fixed the typed query not being forwarded to fzf Ctrl-R history search in zsh
+* Fixed the layout of the external fzf Ctrl-R history picker
+* Fixed flag completions after a POSIX double dash (--)
+* Fixed agent management costs not honoring the Credits/Dollars setting
+* Fixed a panic when `/model` targets a closed window
+* Fixed scope-specific spend limit alerts
+
+### 2026.09.23 (v0.2026.09.23.14.34)
+
+**New features**
+
+* You can now sign in with ChatGPT to use your ChatGPT plan with Warp's agent. Go to Settings > Agents > Warp Agent > Custom Inference to enable.
+* Added support for AWS ECR credentials in managed secrets. ([#16044](https://github.com/warpdotdev/warp/pull/16044))
+* Added a usage popover to the agent input footer showing conversation usage and cost. ([#15946](https://github.com/warpdotdev/warp/pull/15946))
+
+**Improvements**
+
+* Added Neovim 0.13 `al` and `il` text objects to Vim mode. ([#16105](https://github.com/warpdotdev/warp/pull/16105))
+* Moved the team switcher next to the profile avatar for easier access. ([#16041](https://github.com/warpdotdev/warp/pull/16041))
+
+**Bug fixes**
+
+* Fixed missing file and path suggestions when native shell completion returns no candidates. ([#16093](https://github.com/warpdotdev/warp/pull/16093))
+* Team discovery now shows native workspace options and workspace-scoped teams. ([#16083](https://github.com/warpdotdev/warp/pull/16083))
+* Fixed usage displays showing $0.00 for very small charges instead of a minimum threshold value. ([#16070](https://github.com/warpdotdev/warp/pull/16070))
+* Restored image pasting into CLI agents when macOS provides TIFF clipboard data. ([#16055](https://github.com/warpdotdev/warp/pull/16055))
+* Fixed shared sessions getting stuck reconnecting when the connection closes or stalls before the server confirms reconnection. ([#16052](https://github.com/warpdotdev/warp/pull/16052))
+* Fixed a crash when opening a child agent from its pill after closing and reopening the parent conversation. ([#15996](https://github.com/warpdotdev/warp/pull/15996))
+
+**Oz updates**
+
+* Cloud agent runs now save a handoff snapshot when interrupted (SIGTERM/SIGINT) so in-progress work can be resumed instead of lost. ([#15654](https://github.com/warpdotdev/warp/pull/15654))
+* Agent runs with a zero post-completion idle timeout exit immediately. ([#16050](https://github.com/warpdotdev/warp/pull/16050))
+
 ### 2026.09.16 (v0.2026.09.16.08.27)
 
 **New features**
@@ -497,7 +544,7 @@ Submit bugs and feature requests on our [GitHub board!](https://github.com/warpd
 * Fixed forking an agent conversation resetting the working directory instead of keeping the current one. ([#13482](https://github.com/warpdotdev/warp/pull/13482))
 * Fixed unmodified-lines hover styles flickering while scrolling over the code review gutter. ([#13556](https://github.com/warpdotdev/warp/pull/13556))
 * Fixed launch configuration tab-level commands not running when opened via `warp://launch/<name>`. ([#13103](https://github.com/warpdotdev/warp/pull/13103)) — [@AndreKalberer](https://github.com/AndreKalberer) ✨
-* Fixed Markdown files opening in Warp's Markdown Viewer from macOS file URLs even when the Markdown Viewer preference is disabled. ([#12866](https://github.com/warpdotdev/warp/pull/12866)) — [@fadexadex](https://github.com/fadexadex) ✨
+* Fixed Markdown files opening in Warp's Markdown Viewer from macOS file URLs even when the Markdown Viewer preference is disabled. ([#12866](https://github.com/warpdotdev/warp/commit/6b01a8e2fa372498c78e2c777b8006db6a86ca8b)) — @fadexadex ✨
 * Fixed bold/italic Markdown links breaking before trailing punctuation. ([#13747](https://github.com/warpdotdev/warp/pull/13747))
 * Fixed extra border gap on agent tool-call banners. ([#13154](https://github.com/warpdotdev/warp/pull/13154))
 * Fixed text selection not starting correctly over Markdown tables. ([#12841](https://github.com/warpdotdev/warp/pull/12841))
@@ -1673,7 +1720,7 @@ Oz is Warp's orchestration platform for cloud agents: launch parallel agents, au
 * **Cloud environments for consistent execution** — configure Docker-based environments (unlimited repos + setup commands) and run agents in isolated cloud sandboxes. [Environments docs →](https://docs.warp.dev/platform/environments)
 * **Track agents from the web** — manage runs, create schedules, configure environments, and set up integrations from any browser in the <a href="https://oz.warp.dev">Oz web app</a>.
 * **Schedule agents based on Skills** — run agents automatically on a cron schedule for code cleanup, dependency updates, and issue triage. See [Scheduled Agents](/platform/triggers/scheduled-agents/).
-* **Programmable by default** — orchestrate agents via the CLI and integrate Oz into tools and services via the [API and CLI reference](/reference/).
+* **Programmable by default** — orchestrate agents via the CLI and integrate Oz into tools and services via the [API reference](/factories/developer-tools/).
 
 #### Warp Upgrades
 

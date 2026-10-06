@@ -10,17 +10,17 @@ import { VARS } from '@data/vars';
 
 ## What are Warp credits?
 
-Any interaction with the Warp Agent consumes credits. Credits are primarily based on AI usage — the number of credits a task consumes varies based on the size and complexity of your codebase, the size of the task, the model you're using, the amount of context the agent needs to gather, and more.
+Warp credits pay for Warp-provided inference, hosted compute, and platform services. An agent run consumes from the credit buckets that apply to where it runs and who provides its inference.
 
 Warp meters credits across three types of infrastructure — inference, compute, and platform — each with its own bucket. Credit types and where an agent runs (local or cloud) are independent: each agent run consumes from whichever credit types apply to it.
 
 * **AI credits** cover inference: the LLM call itself. Consumed when Warp pays for the model call through Warp-managed providers.
 * **Compute credits** cover compute: the sandbox an agent runs in. Consumed when an agent run uses Warp-hosted compute. In practice this is cloud agent runs; local agent runs use your own machine and don't consume compute credits. See [compute credits](/support-and-community/plans-and-billing/credits/#compute-credits).
-* **Platform credits** cover Warp's platform layer: run lifecycle, integrations, dashboard, APIs, and observability. Apply to every cloud agent run, plus local agent runs on Business and Enterprise plans that use customer-supplied inference (BYOK, a custom inference endpoint, or BYOLLM). See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
+* **Platform credits** cover Warp's platform layer: run lifecycle, integrations, dashboard, APIs, and observability. Apply to every cloud agent run, plus local agent runs on Business and Enterprise plans that use customer-supplied inference, including BYOK, a [ChatGPT subscription](/agents/inference/chatgpt-subscription/), a custom inference endpoint, or BYOLLM. See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
 
 All three buckets draw from the same Warp credit pool and [add-on credits](/support-and-community/plans-and-billing/add-on-credits/), so you can manage them as a single balance in the Warp app under **Settings** > **Billing and usage**.
 
-Each interaction consumes **at least one credit**, though more complex interactions may use **multiple credits**. Because of factors such as codebase size, model choice, number of tool calls, and the nature of LLMs, credit usage is **non-deterministic** — two similar prompts can still use a different number of credits.
+When Warp provides inference, each interaction consumes **at least one AI credit**, though more complex interactions may use multiple credits. Because of factors such as codebase size, model choice, number of tool calls, and the nature of LLMs, credit usage is **non-deterministic** — two similar prompts can still use a different number of credits.
 
 :::note
 For a general breakdown of what factors contribute to how many credits are consumed, see [How are Warp credits calculated?](/support-and-community/plans-and-billing/credits/#how-are-warp-credits-calculated)
@@ -45,7 +45,7 @@ You can view your total credit usage, along with other billing details, in **Set
 
 * **Seat-level allocation**: On team plans, credit limits apply per seat — each team member has their own allowance. Individual users (not on a team) also have their own credit allocation.
 * **Cloud agents and integrations**: Individual users can run cloud agents via the CLI and API, drawing from their Warp credits. Slack and Linear integrations require team membership.
-* **Credit limits by plan**: The Free plan doesn't include bundled AI usage for the Warp Agent. To use the Warp Agent, [upgrade to a paid plan](https://www.warp.dev/pricing), buy [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) without subscribing, or bring your own inference with [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or a [SuperGrok or X Premium subscription](/agents/inference/grok-subscription/). On paid plans, once you reach your monthly credit limit you can continue using AI with usage-based billing via [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
+* **Credit limits by plan**: The Free plan doesn't include bundled AI usage for the Warp Agent. To use the Warp Agent, [upgrade to a paid plan](https://www.warp.dev/pricing), buy [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) without subscribing, or bring your own inference with [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), a [ChatGPT subscription](/agents/inference/chatgpt-subscription/), a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or a [SuperGrok or X Premium subscription](/agents/inference/grok-subscription/). On paid plans, once you reach your monthly credit limit you can continue using AI with usage-based billing via [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
 
 ### Other features that use credits
 
@@ -129,7 +129,7 @@ The following scenarios use compute credits:
 
 * **First-party integrations** - Running agents through Warp's integrations (Slack, Linear, GitHub, and others)
 * **Cloud agent runs** - Using `oz agent run-cloud` via the CLI
-* **{VARS.API_SDK_NAME}** - Running agents through Warp's API
+* **{VARS.WARP_PLATFORM_API}** - Running agents through Warp's API
 * **Cloud Mode** - Running an agent from Cloud Mode in the Warp app
 
 ### Not eligible for compute credits
@@ -147,7 +147,7 @@ Platform credits are billed by the agent hour, the time an agent spends working 
 Platform credits are used in the following scenarios:
 
 * **Cloud agents on any plan** use platform credits for every cloud agent run, whichever harness, inference source, or compute source it uses.
-* **Local agents on Business or Enterprise with customer-supplied inference** use platform credits when the local agent run uses [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/).
+* **Local agents on Business or Enterprise with customer-supplied inference** use platform credits when the local agent run uses [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), a [ChatGPT subscription](/agents/inference/chatgpt-subscription/), a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/).
 
 ### Not eligible for platform credits
 

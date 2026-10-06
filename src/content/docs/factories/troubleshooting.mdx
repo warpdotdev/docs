@@ -12,11 +12,11 @@ Fix the problems teams hit most often when setting up a factory and running thei
 
 ## Setting up a factory
 
-### You don't have access to Warp Factories
+### You can't create or configure a factory
 
-**Cause:** Warp Factories is in Early Access and enabled per team.
+**Cause:** Creating a factory requires a team or workspace admin role, or the team-level Warp Factories Editor role. Configuring an existing factory requires its Editor or Admin role.
 
-**Fix:** [Request access](https://www.warp.dev/factories/request-access) for your team. If a teammate already has it, ask a team admin to confirm you're on that team.
+**Fix:** Ask a team or workspace admin to set your team-level Warp Factories role to Editor. To configure an existing factory, ask an Admin for that factory to set your role to Editor. See [factory roles and permissions](/factories/infrastructure-and-security/#factory-roles-and-permissions).
 
 ### A repository doesn't appear in the picker
 
@@ -59,6 +59,7 @@ Then check the causes specific to where the work came from:
 | Source | Common causes |
 | --- | --- |
 | [Slack](/factories/integrations/slack/#troubleshooting-and-reconnection) | The app isn't in the channel, installation is pending admin approval, or your Slack account isn't linked to a Warp team member |
+| [Microsoft Teams](/factories/integrations/teams/#troubleshooting) | The app isn't added to the Teams team, the channel isn't configured, the sender isn't in the install's Microsoft 365 organization, or your Microsoft account isn't linked to Warp |
 | [GitHub](/factories/integrations/github/#troubleshooting) | The app installation doesn't cover the repository, or the factory's routing label is missing |
 | [GitLab](/factories/integrations/gitlab/#troubleshooting) | The mention was an edit rather than a new comment, or your plan doesn't include the group webhooks that deliver events |
 | [Linear](/factories/integrations/linear/#troubleshooting) | The agent session needs a linked Warp account, or teams and filters don't match |

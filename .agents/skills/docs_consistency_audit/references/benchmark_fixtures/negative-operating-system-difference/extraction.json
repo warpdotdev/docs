@@ -1,0 +1,75 @@
+{
+  "adjudicated_findings": [],
+  "claims": [
+    {
+      "category": "product-behavior",
+      "entity": "shell",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "supported",
+      "qualifiers": {
+        "operating_systems": [
+          "macos"
+        ]
+      },
+      "quote": "fish is supported on macOS.",
+      "source": {
+        "content_sha256": "ccb09807c05f73852fd37d7093b6a341cbaeeebeffa0763c1e9696213797ba44",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/negative-operating-system-difference-left",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "entity": "shell",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "supported",
+      "qualifiers": {
+        "operating_systems": [
+          "windows"
+        ]
+      },
+      "quote": "fish is not supported on Windows.",
+      "source": {
+        "content_sha256": "e9a0c01499a6ba5ffc70c63dbe3877b795d4bbde8d88f6214f9e88a6ab63d90d",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/negative-operating-system-difference-right",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "ccb09807c05f73852fd37d7093b6a341cbaeeebeffa0763c1e9696213797ba44",
+    "right.mdx": "e9a0c01499a6ba5ffc70c63dbe3877b795d4bbde8d88f6214f9e88a6ab63d90d"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
-  title: Warp Agent API
+  title: Warp Platform API
   version: 1.0.0
-  description: "API for creating, managing, and querying Warp cloud agent runs.\n\nThese endpoints allow users to programmatically spawn agents, list runs, \nand retrieve detailed run information.\n"
+  description: "API for creating, managing, and querying factory and cloud agent runs.\n\nThese endpoints allow users to send work to factories, start standalone agents, list runs, and retrieve detailed run information.\n"
   contact:
     name: Warp Support
     url: https://docs.warp.dev
@@ -2274,7 +2274,13 @@ components:
         input:
           type: object
           additionalProperties: true
-          description: Curated public input for this action. This object is owned by the API and is not a raw internal tool payload.
+          description: |
+            Curated public input for this action. This object is owned by the
+            API and is not a raw internal tool payload. For a `read_skill`
+            action, `bundled_skill_id` identifies a Warp-provided bundled
+            reference when present. `skill_path` is the path used to resolve
+            the skill; it can refer to a file-based skill or a path-referenced
+            bundled skill, such as one from a remote host.
     ActionResultContentBlock:
       type: object
       required:
@@ -2897,10 +2903,11 @@ components:
         idle_timeout_minutes:
           type: integer
           format: int32
-          minimum: 1
+          minimum: 0
           maximum: 60
           description: |
             Number of minutes to keep the agent environment alive after task completion.
+            Set to 0 to shut down immediately after task completion.
             If not set, defaults to 10 minutes.
             Maximum allowed value is min(60, floor(max_instance_runtime_seconds / 60) for your billing tier).
         worker_host:
@@ -3073,7 +3080,7 @@ components:
           format: uri
           description: |
             A URI reference that identifies the problem type (RFC 7807).
-            Format: `https://docs.warp.dev/reference/api-and-sdk/troubleshooting/errors/{error_code}`
+            Format: `https://docs.warp.dev/factories/api-and-sdk/troubleshooting/errors/{error_code}`
             See PlatformErrorCode for the list of possible error codes.
         title:
           type: string

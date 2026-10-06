@@ -1,0 +1,125 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:d5f68ba6363be535a4a7b29ff06389d246ffa3535022c0db7affd614928ce80d",
+      "canonical_source": "live-pricing",
+      "claim_ids": [
+        "sha256:608a7b3afdaaaa1ba0a97addc765ffa21d02f0d2141819dbd22ec5b7b41abf02",
+        "sha256:912bcb9e7a8fa6a33848bfc17145b05210a72cad65ab97633b541d8c8e982758"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "Use any harness in the cloud (beta)",
+          "source": {
+            "content_sha256": "23ee13db3b3e892b9416f7860195ccf63a6482a53df020411ad5afe7e5f83bd3",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-08-free-third-party-harness-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "Third-party harnesses require a Build plan or higher.",
+          "source": {
+            "content_sha256": "b2e2f600a12769d76e222a4acd6efbbe8f572ae3228b5b6e7374096ee949d611",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-08-free-third-party-harness-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "high",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-08-free-third-party-harness",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "plan-gating",
+      "entity": "third-party-cloud-harness",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "available-on-free",
+      "qualifiers": {
+        "plans": [
+          "free"
+        ]
+      },
+      "quote": "Use any harness in the cloud (beta)",
+      "source": {
+        "content_sha256": "23ee13db3b3e892b9416f7860195ccf63a6482a53df020411ad5afe7e5f83bd3",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-08-free-third-party-harness-left",
+        "visibility": "public"
+      },
+      "source_class": "live-pricing",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "plan-gating",
+      "entity": "third-party-cloud-harness",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "available-on-free",
+      "qualifiers": {
+        "plans": [
+          "free"
+        ]
+      },
+      "quote": "Third-party harnesses require a Build plan or higher.",
+      "source": {
+        "content_sha256": "b2e2f600a12769d76e222a4acd6efbbe8f572ae3228b5b6e7374096ee949d611",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-08-free-third-party-harness-right",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "23ee13db3b3e892b9416f7860195ccf63a6482a53df020411ad5afe7e5f83bd3",
+    "right.mdx": "b2e2f600a12769d76e222a4acd6efbbe8f572ae3228b5b6e7374096ee949d611"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

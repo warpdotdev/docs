@@ -1,0 +1,129 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:598800cc0c02e907d1dc86c553af3496bf5bf24fc8012c7e516633002861e314",
+      "canonical_source": "docs-prose",
+      "claim_ids": [
+        "sha256:965352fcc7e57c0237ea3108a5c2ecbefabdd53c50e503a134436741d86ddfe0",
+        "sha256:ac28d7a56bc7e32c0d487398f75b38e537e60e5a128edcd74c284cca2fd7497d"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "There is a known issue with auto-update on macOS Ventura.",
+          "source": {
+            "content_sha256": "aaf00e49fe0f47f991c72db632493fe46258efa555b54581f738de5042616ee9",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-14-ventura-update-status-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "This issue has been resolved for current and future releases of Warp.",
+          "source": {
+            "content_sha256": "2cee682781171cce9e4aae24239891fdf71304995f8f299bd24774bf70b30330",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-14-ventura-update-status-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "medium",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-14-ventura-update-status",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "product-behavior",
+      "entity": "ventura-auto-update-issue",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "lifecycle-status",
+      "qualifiers": {
+        "operating_systems": [
+          "macos"
+        ]
+      },
+      "quote": "There is a known issue with auto-update on macOS Ventura.",
+      "source": {
+        "content_sha256": "aaf00e49fe0f47f991c72db632493fe46258efa555b54581f738de5042616ee9",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-14-ventura-update-status-left",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "open"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "entity": "ventura-auto-update-issue",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "lifecycle-status",
+      "qualifiers": {
+        "operating_systems": [
+          "macos"
+        ]
+      },
+      "quote": "This issue has been resolved for current and future releases of Warp.",
+      "source": {
+        "content_sha256": "2cee682781171cce9e4aae24239891fdf71304995f8f299bd24774bf70b30330",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-14-ventura-update-status-right",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "resolved"
+        ],
+        "type": "enum"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "aaf00e49fe0f47f991c72db632493fe46258efa555b54581f738de5042616ee9",
+    "right.mdx": "2cee682781171cce9e4aae24239891fdf71304995f8f299bd24774bf70b30330"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

@@ -60,16 +60,16 @@ CloudMode -> src/content/docs/platform/index.mdx
 AmbientAgentsCommandLine -> src/content/docs/platform/index.mdx
 ScheduledAmbientAgents -> src/content/docs/platform/triggers/scheduled-agents.md
 WarpManagedSecrets -> src/content/docs/platform/secrets.md
-IntegrationCommand -> src/content/docs/reference/cli/integration-setup.md
+IntegrationCommand -> src/content/docs/agents/cli/oz-cli/integration-setup.md
 CommandPaletteFileSearch -> src/content/docs/terminal/command-palette.md
 Ligatures -> src/content/docs/terminal/appearance/text-fonts-cursor.md
 UIZoom -> src/content/docs/terminal/appearance/size-opacity-blurring.md
 UsageBasedPricing -> src/content/docs/support-and-community/plans-and-billing/credits.md
 # The APIKeyAuthentication flag was removed after the public API key auth feature
 # stabilized (GA / flag cleanup). API key auth remains documented at
-# reference/cli/api-keys.mdx via APIKeyManagement / TeamApiKeys, so no separate
+# agents/cli/oz-cli/api-keys.mdx via APIKeyManagement / TeamApiKeys, so no separate
 # entry is needed.
-APIKeyManagement -> src/content/docs/reference/cli/api-keys.md
+APIKeyManagement -> src/content/docs/agents/cli/oz-cli/api-keys.md
 CreatingSharedSessions -> src/content/docs/knowledge-and-collaboration/session-sharing/index.mdx
 AgentSharedSessions -> src/content/docs/agents/local-agents/session-sharing.mdx
 ProfilesDesignRevamp -> src/content/docs/agents/capabilities/agent-profiles-permissions.mdx
@@ -113,7 +113,7 @@ AgentView -> src/content/docs/agents/local-agents/interacting-with-agents/termin
 AgentViewBlockContext -> src/content/docs/agents/local-agents/agent-context/blocks-as-context.mdx
 CloudConversations -> src/content/docs/agents/local-agents/cloud-conversations.mdx
 CloudModeFromLocalSession -> src/content/docs/platform/index.mdx
-TeamApiKeys -> src/content/docs/reference/cli/api-keys.md
+TeamApiKeys -> src/content/docs/agents/cli/oz-cli/api-keys.md
 # The PRCommentsSlashCommand flag was removed: the /pr-comments slash command was
 # replaced by the bundled PR Comments skill (invoked via /skills), so the slash
 # command was dropped from the docs.
@@ -165,6 +165,14 @@ SshRemoteServer -> src/content/docs/terminal/warpify/ssh.mdx
 # a flat computer-use.mdx into a computer-use/ directory).
 VideoRecording -> src/content/docs/agents/capabilities/computer-use/testing-and-recordings.mdx
 BackgroundComputerUse -> src/content/docs/agents/capabilities/computer-use/index.mdx
+# Windows platform gate for the same recording surface: video_recording_enabled()
+# is `VideoRecording && (!cfg!(windows) || WindowsVideoRecording)`
+# (app/src/ai/blocklist/action_model/recording_controller.rs:21-24). Promoted
+# dogfood -> GA (RELEASE_FLAGS) after being deferred on Gate 0 on 2026-09-25. It
+# widens platform availability rather than adding a surface: no setting, CLI
+# flag, or API field, and no page ever claimed recording excluded Windows. Maps
+# to the recording page it gates, which needs no edit.
+WindowsVideoRecording -> src/content/docs/agents/capabilities/computer-use/testing-and-recordings.mdx
 
 # Feature flags whose only user-facing surface is a documented setting in the
 # all-settings reference (terminal/settings/all-settings.mdx).
@@ -179,8 +187,8 @@ SessionSharingAcls -> src/content/docs/knowledge-and-collaboration/session-shari
 SharedSessionWriteToLongRunningCommands -> src/content/docs/knowledge-and-collaboration/session-sharing/index.mdx
 
 # CLI-gated features documented in the CLI reference
-ArtifactCommand -> src/content/docs/reference/cli/artifacts.mdx
-OzIdentityFederation -> src/content/docs/reference/cli/federate.mdx
+ArtifactCommand -> src/content/docs/agents/cli/oz-cli/artifacts.mdx
+OzIdentityFederation -> src/content/docs/agents/cli/oz-cli/federate.mdx
 
 # Third-party harness support
 AgentHarness -> src/content/docs/platform/harnesses/index.mdx
@@ -214,6 +222,12 @@ SoloUserByok -> src/content/docs/agents/inference/bring-your-own-api-key.mdx
 # the feature remains documented at inference/custom-inference-endpoint.mdx.
 # Connect a SuperGrok subscription instead of pasting an xAI API key.
 SuperGrok -> src/content/docs/agents/inference/bring-your-own-api-key.mdx
+# Sign in with ChatGPT: connect an OpenAI ChatGPT plan so OpenAI models run on
+# that plan instead of Warp credits. GA (chatgpt_subscription is a default cargo
+# feature in app/Cargo.toml). Documented on its own page alongside the SuperGrok
+# equivalent. Deferred 2026-09-30 as unverifiable; the implementation landed in
+# the public repo and the deferral cleared 2026-10-02.
+ChatGPTSubscription -> src/content/docs/agents/inference/chatgpt-subscription.mdx
 # Custom model routers (Settings > AI > Custom Routers) surface in the model picker.
 CustomModelRouters -> src/content/docs/agents/inference/model-choice.mdx
 
@@ -224,8 +238,8 @@ BillingAndUsagePageV2 -> src/content/docs/support-and-community/plans-and-billin
 # `--runner` flag on `run-cloud`; CloudAgentRunners gates the `oz runner` CRUD
 # commands and the runner dropdown in the orchestration card. Both are GA
 # (default cargo features).
-CloudRunners -> src/content/docs/platform/runners.mdx
-CloudAgentRunners -> src/content/docs/platform/runners.mdx
+CloudRunners -> src/content/docs/factories/runners.mdx
+CloudAgentRunners -> src/content/docs/factories/runners.mdx
 
 # Per-segment context window usage breakdown (system prompt, tool definitions,
 # conversation history, latest input, images, other) in the conversation usage
@@ -245,30 +259,32 @@ OscHyperlinks -> src/content/docs/terminal/more-features/files-and-links.mdx
 # jira) wherever a Warp MCP server UUID is accepted — bare `--mcp` arguments and
 # `warp_id` values in MCP configs. Promoted dogfood -> GA; documented in the CLI
 # MCP reference (and the cloud agent MCP schema page).
-WellKnownMcpIds -> src/content/docs/reference/cli/mcp-servers.mdx
+WellKnownMcpIds -> src/content/docs/agents/cli/oz-cli/mcp-servers.mdx
 
-# When the shell rebinds Ctrl+R / Ctrl+T to fzf, atuin, or fzf.fish, hand those
-# keypresses off to the shell widget instead of Warp's Command Search. Promoted
-# preview -> GA; behavior documented on the Command Search page.
+# When the shell rebinds Ctrl+R / Ctrl+T / Alt-C to fzf, atuin, or fzf.fish, hand
+# those keypresses off to the shell widget instead of Warp's Command Search.
+# Promoted preview -> GA; behavior documented on the Command Search page. The
+# Alt-C directory-search handoff (warp#16094) is fzf-only and runs through the
+# editable workspace:trigger_external_alt_c_directory_search binding.
 ShellWidgetHandoff -> src/content/docs/terminal/entry/command-search.mdx
 
 ## CLI commands -> doc pages
 
 # Top-level Oz CLI commands
-oz agent -> src/content/docs/reference/cli/index.mdx
-oz environment -> src/content/docs/reference/cli/integration-setup.mdx
-oz mcp -> src/content/docs/reference/cli/mcp-servers.mdx
-oz run -> src/content/docs/reference/cli/index.mdx
-oz model -> src/content/docs/reference/cli/index.mdx
-oz login -> src/content/docs/reference/cli/index.mdx
-oz logout -> src/content/docs/reference/cli/index.mdx
-oz whoami -> src/content/docs/reference/cli/index.mdx
-oz integration -> src/content/docs/reference/cli/integration-setup.mdx
-oz schedule -> src/content/docs/reference/cli/index.mdx
-oz secret -> src/content/docs/reference/cli/index.mdx
-oz federate -> src/content/docs/reference/cli/federate.mdx
-oz artifact -> src/content/docs/reference/cli/artifacts.mdx
-oz api-key -> src/content/docs/reference/cli/api-keys.mdx
+oz agent -> src/content/docs/agents/cli/oz-cli/index.mdx
+oz environment -> src/content/docs/agents/cli/oz-cli/integration-setup.mdx
+oz mcp -> src/content/docs/agents/cli/oz-cli/mcp-servers.mdx
+oz run -> src/content/docs/agents/cli/oz-cli/index.mdx
+oz model -> src/content/docs/agents/cli/oz-cli/index.mdx
+oz login -> src/content/docs/agents/cli/oz-cli/index.mdx
+oz logout -> src/content/docs/agents/cli/oz-cli/index.mdx
+oz whoami -> src/content/docs/agents/cli/oz-cli/index.mdx
+oz integration -> src/content/docs/agents/cli/oz-cli/integration-setup.mdx
+oz schedule -> src/content/docs/agents/cli/oz-cli/index.mdx
+oz secret -> src/content/docs/agents/cli/oz-cli/index.mdx
+oz federate -> src/content/docs/agents/cli/oz-cli/federate.mdx
+oz artifact -> src/content/docs/agents/cli/oz-cli/artifacts.mdx
+oz api-key -> src/content/docs/agents/cli/oz-cli/api-keys.mdx
 
 # Scheduled-agent CLI subcommands are fully documented in the scheduled-agents feature page.
 oz schedule create -> src/content/docs/platform/triggers/scheduled-agents.mdx
@@ -311,11 +327,11 @@ oz provider list -> gated:ProviderCommand
 # `oz runner` (manage cloud agent runners) is GA (gated by CloudAgentRunners, a
 # default cargo feature) and documented on the runners page. The old gating flag
 # CloudAgentRunnerCLICommands was removed after the feature stabilized.
-oz runner -> src/content/docs/platform/runners.mdx
-oz runner list -> src/content/docs/platform/runners.mdx
-oz runner create -> src/content/docs/platform/runners.mdx
-oz runner update -> src/content/docs/platform/runners.mdx
-oz runner delete -> src/content/docs/platform/runners.mdx
+oz runner -> src/content/docs/factories/runners.mdx
+oz runner list -> src/content/docs/factories/runners.mdx
+oz runner create -> src/content/docs/factories/runners.mdx
+oz runner update -> src/content/docs/factories/runners.mdx
+oz runner delete -> src/content/docs/factories/runners.mdx
 
 # Internal/hidden command — not a user-facing surface, so no public docs.
 oz harness-support -> internal
@@ -331,9 +347,9 @@ oz harness-support -> internal
 # route released ones through the sync-openapi-spec skill, or mark `-> internal`
 # (unreleased/internal). Never document an unreleased endpoint. See SKILL.md
 # "Public vs. private surfaces".
-POST /agent/run -> src/content/docs/reference/api-and-sdk/index.mdx
-GET /agent/runs -> src/content/docs/reference/api-and-sdk/index.mdx
-GET /agent/runs/{runId} -> src/content/docs/reference/api-and-sdk/index.mdx
+POST /agent/run -> src/content/docs/factories/api-and-sdk/index.mdx
+GET /agent/runs -> src/content/docs/factories/api-and-sdk/index.mdx
+GET /agent/runs/{runId} -> src/content/docs/factories/api-and-sdk/index.mdx
 
 # OAuth device-flow / OIDC plumbing used by `oz login` — not a public REST surface.
 GET /oauth/authorize -> internal
@@ -407,6 +423,13 @@ POST /harness-support/finish-task -> internal
 POST /harness-support/report-shutdown -> internal
 POST /harness-support/upload-snapshot -> internal
 POST /harness-support/commit-snapshot -> internal
+# Cumulative Claude Code / Codex usage snapshot for the current cloud execution
+# (publishHarnessUsage). Marked `x-internal: true` upstream; harness-support tag
+# is excluded from the released docs OpenAPI copy.
+POST /harness-support/usage -> internal
+# Read harness usage for a run (getHarnessUsage / agent_webhooks.go). Marked
+# `x-internal: true` upstream; not in developers/agent-api-openapi.yaml.
+GET /agent/runs/{runId}/harness-usage -> internal
 
 # Oz Factory REST API (router/handlers/public_api/factory*.go). Warp Factories
 # is now documented publicly (src/content/docs/factories/) as an Early Access
@@ -427,10 +450,22 @@ GET /factory/access -> internal
 GET /factory-inbox -> internal
 POST /factory-inbox/notifications/dismiss -> internal
 POST /factory-inbox/notifications/restore -> internal
+# Bulk mark-read / mark-unread for personal factory inbox notifications
+# (markFactoryInboxNotificationsRead / markFactoryInboxNotificationsUnread).
+# Same unreleased `/factory-inbox` namespace; factory tag is `x-internal: true`
+# and released OpenAPI has zero `/factory-inbox` paths.
+POST /factory-inbox/notifications/read -> internal
+POST /factory-inbox/notifications/unread -> internal
 # Resolve one inbox notification to its owning factory for deep-link routing
 # (getFactoryInboxNotification). Same unreleased `/factory-inbox` namespace;
 # marked `x-internal: true` upstream.
 GET /factory-inbox/notifications/{uid} -> internal
+# Answer all questions on a current inbox notification with one root-run
+# follow-up (answerFactoryQuestions / AnswerFactoryQuestionsHandler,
+# factory_inbox.go). Same unreleased `/factory-inbox` namespace; operation
+# carries `x-internal: true` upstream; released OpenAPI has zero
+# `/factory-inbox` paths.
+POST /factory-inbox/notifications/{uid}/answers -> internal
 GET /factory-alias/{alias} -> internal
 POST /factory -> internal
 POST /factory/avatar -> internal
@@ -524,6 +559,12 @@ PUT /factory/{uid}/integrations/linear/teams/{team_id}/labels -> internal
 GET /factory/{uid}/integrations/jira/projects -> internal
 GET /factory/{uid}/integrations/jira/labels -> internal
 GET /factory/{uid}/integrations/jira/statuses -> internal
+# Assignable-user search across the factory's in-scope Jira projects, via the
+# workspace Jira Forge installation (listFactoryJiraAssignees,
+# ListFactoryJiraAssigneesHandler in factories.go:112). Marked `x-internal: true`
+# under the factory tag; released OpenAPI has zero `/factory` paths. Same
+# unreleased namespace as the sibling Jira pickers above.
+GET /factory/{uid}/integrations/jira/assignees -> internal
 GET /factory/{uid}/integration-activations -> internal
 GET /factory/{uid}/integration-destinations -> internal
 GET /factory/{uid}/gitlab-automation-capability -> internal
@@ -531,6 +572,9 @@ POST /factory/{uid}/gitlab-automation-capability/refresh -> internal
 # Integration pickers used during factory setup, before a factory exists.
 GET /factory-setup/integrations/jira/projects -> internal
 GET /factory-setup/integrations/linear/teams -> internal
+# POST /factory-setup/azure-devops-creation-requests was removed from
+# warp-server (SubmitAzureDevOpsCreationRequestHandler is gone), so its map
+# entry was pruned 2026-10-02. It never reached the released OpenAPI spec.
 GET /factory/automations -> internal
 POST /factory/automations -> internal
 GET /factory/automations/events/{provider} -> internal
@@ -548,6 +592,9 @@ DELETE /factory/scorers/{scorer_id} -> internal
 GET /factory/scorers/{scorer_id}/results -> internal
 GET /factory/scorers/{scorer_id}/results/reasons -> internal
 GET /factory/scorers/{scorer_id}/metrics/pass-rate -> internal
+# Date-bounded scoring backfill (createScoringBackfill). Factory tag; released
+# OpenAPI has zero /factory paths. Stays internal until the Factory API ships.
+POST /factory/scorers/{scorer_id}/backfill -> internal
 # The scorer pause/resume routes and the autofix-config trio were replaced by
 # the self-improvement-config routes below; their dead map entries were pruned.
 GET /factory/scorers/{scorer_id}/self-improvement-config -> internal
@@ -570,6 +617,12 @@ GET /factory/{uid}/integrations/linear/users -> internal
 GET /factory/{uid}/integrations/linear/workflow-states -> internal
 GET /factory/{uid}/integrations/slack/conversations -> internal
 GET /factory/{uid}/integrations/slack/users -> internal
+# Microsoft Teams team/channel pickers for factory automations UI
+# (listFactoryMicrosoftTeamsTeams / listFactoryMicrosoftTeamsChannels).
+# Both marked `x-internal: true` under the factory tag; released OpenAPI has
+# zero `/factory` paths. Same unreleased namespace as sibling integration routes.
+GET /factory/{uid}/integrations/microsoft-teams/teams -> internal
+GET /factory/{uid}/integrations/microsoft-teams/teams/{team_id}/channels -> internal
 # Issue-tracker issue picker and Slack connection-test greeting used by the
 # factory integrations UI. Same unreleased `/factory` namespace as siblings above.
 GET /factory/{uid}/integrations/issue-tracker/issues -> internal
@@ -596,6 +649,10 @@ GET /factory/{uid}/benchmarks/runs -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid} -> internal
 GET /factory/{uid}/benchmarks/runs/{run_uid}/results -> internal
 POST /factory/{uid}/benchmarks/runs/{run_uid}/cancel -> internal
+# Rescore missing results on a completed benchmark run (rescoreBenchmarkRun).
+# Marked `x-internal: true` under the factory tag; released OpenAPI has zero
+# `/factory` paths.
+POST /factory/{uid}/benchmarks/runs/{run_uid}/rescore -> internal
 
 # Conversation steering and history routes marked `x-internal: true` upstream
 # (agent_conversation_steering.go, conversation_replay_history.go, agent_webhooks.go,
@@ -901,16 +958,10 @@ TerminalLifecycleRecovery
 # the CLI agent session if the plugin never reports the interrupt. No setting,
 # menu, or CLI flag; Ctrl-C behavior is already documented.
 CtrlCCancelsThirdPartyHarness
-# Orchestration plumbing promoted dogfood -> GA. Neither changes what a user sees
-# or configures, so both are internal implementation details of the documented
-# multi-agent orchestration feature (platform/orchestration/multi-agent-runs.mdx):
-# - WaitForEventsParentRegistration: on `wait_for_events`, confirms parent status
-#   with the server and registers an orchestrator for the ancestor event stream so
-#   children created out-of-band (CLI/API) still deliver events.
-# - OrchestrationUnifiedStack: consolidates child-state tracking behind a single
-#   tracker, one ancestor SSE per parent family, and one remote-child placeholder.
-WaitForEventsParentRegistration
-OrchestrationUnifiedStack
+# WaitForEventsParentRegistration and OrchestrationUnifiedStack were GA
+# orchestration-plumbing flags with no user-facing surface; both were removed
+# from code (flag cleanup) and their ignore-list entries pruned 2026-09-23.
+# Orchestration behavior remains documented at platform/orchestration/multi-agent-runs.mdx.
 # Internal persistence-backend detail: gates storing execution profiles in a
 # file-backed settings collection (agents.execution_profiles) versus the legacy
 # per-profile Warp Drive cloud objects. It changes where profiles are stored, not
