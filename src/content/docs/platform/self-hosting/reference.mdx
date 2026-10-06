@@ -138,6 +138,8 @@ backend:
     environment:
       - name: OZ_DISPATCH_URL
         value: "https://runtime.internal.example.com/agent-runs"
+      - name: OZ_CANCEL_URL
+        value: "https://runtime.internal.example.com/agent-runs/cancel"
       - name: OZ_DISPATCH_AUTH_HEADER
 ```
 

@@ -34,14 +34,14 @@ Use a unique worker ID for every job so another worker cannot claim the run.
 The agent process normally remains available for follow-up prompts for 45 minutes after a conversation completes. Timeout settings use this precedence:
 
 1. The task-level `config.idle_timeout_minutes` value, including defaults applied by the task creator. Runs created directly through the [Agent API](/api) use 10 minutes when this field is omitted.
-2. The worker's `idle_on_complete` setting or `--idle-on-complete` flag when the task reaches the worker without a task-level value. `oz agent run-cloud` leaves this value unset.
+2. The worker's `idle_on_complete` setting or `--idle-on-complete` flag when the task reaches the worker without a task-level value. Unlike a direct Agent API request, `oz agent run-cloud` uses the CLI task-creation path, which does not apply the API's 10-minute default and leaves this value unset.
 3. The 45-minute default when neither value is set.
 
 For a job created directly through the Agent API that must exit immediately, set `config.idle_timeout_minutes` to `0`. If the task reaches the worker without this field, start the worker with `--idle-on-complete 0s`. A task-level value overrides `--idle-on-complete 0s`.
 
 ### Start the worker and route the run
 
-Add this script to the job your orchestrator starts. `CI_JOB_ID` must be unique for each job. `oz agent run-cloud` leaves the task-level idle timeout unset, so the worker flag sets it to zero.
+Add this script to the job your orchestrator starts. `CI_JOB_ID` must be unique for each job.
 
 ```bash title="run-agent.sh"
 #!/usr/bin/env bash
@@ -69,7 +69,7 @@ wait "$worker_pid"
 trap - EXIT
 ```
 
-**Expected outcome:** The run appears in the dashboard, the worker accepts it, and the worker exits when the conversation completes. The run can enter the queue before the worker connects. If no matching worker claims it within 30 minutes, Warp fails the run. Use Direct backend [setup and teardown commands](/platform/self-hosting/managed-direct/#setup-and-teardown-commands) to prepare and clean up the allocated host.
+**Expected outcome:** The run appears in the dashboard, the worker accepts it, and the worker exits when the conversation completes. The run can enter the queue before the worker connects. If no matching worker claims it, Warp eventually fails the run. Use Direct backend [setup and teardown commands](/platform/self-hosting/managed-direct/#setup-and-teardown-commands) to prepare and clean up the allocated host.
 
 ## Using the Command backend
 
@@ -101,7 +101,12 @@ export WARP_API_KEY="YOUR_SELF_HOSTED_WORKER_API_KEY"
 oz-agent-worker --config-file worker.yaml
 ```
 
-Your dispatch implementation must start the supplied `base_args` with `env`, using `docker_image` and `sidecars` to prepare the runtime. See the example's [task payload reference](https://github.com/warpdotdev/oz-agent-worker/tree/main/examples/command-backend#what-the-worker-hands-the-script-stdin) for each field. Keep the payload out of logs because it contains task credentials. After the CLI exits, the external runtime must run `oz harness-support --run-id RUN_ID report-shutdown` so Warp receives the terminal state. Set `RUN_ID` to the `run_id` field from the dispatch payload; the example linked above shows this shutdown flow.
+Your dispatch implementation must handle the task payload as follows:
+
+* **Start command** - Run the supplied `base_args` with `env`.
+* **Runtime configuration** - Use `docker_image` and `sidecars` to prepare the runtime.
+* **Task payload** - Keep it out of logs because it contains task credentials. See the example's [task payload reference](https://github.com/warpdotdev/oz-agent-worker/tree/main/examples/command-backend#what-the-worker-hands-the-script-stdin) for each field.
+* **Shutdown report** - After the CLI exits, run `oz harness-support --run-id RUN_ID report-shutdown` so Warp receives the terminal state. Set `RUN_ID` to the `run_id` field from the dispatch payload.
 
 The worker does not wait for the remote agent to finish. Stopping or restarting the worker does not cancel tasks that the external runtime already accepted. `max_concurrent_tasks` limits concurrent dispatch calls, not agents running in the external runtime. Configure the external runtime's capacity separately.
 

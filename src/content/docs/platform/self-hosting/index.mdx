@@ -45,8 +45,6 @@ Use the managed architecture when the {VARS.WARP_AUTOMATION_PLATFORM} should acc
 * **[Command backend](/platform/self-hosting/external-orchestrators/#using-the-command-backend)** - Keep a worker connected and dispatch each task to an external job API, queue, or runtime.
 * **[One-shot Direct](/platform/self-hosting/external-orchestrators/#using-one-shot-direct)** - Let an external scheduler allocate a host and start one Direct worker for one task.
 
-Use the Command backend when your external runtime already owns job creation and cleanup. Use one-shot Direct when your scheduler can start a dedicated worker process for each allocated job. If Warp does not need to route the run, use unmanaged execution instead.
-
 ## Managed prerequisites
 
 All managed deployments require:
