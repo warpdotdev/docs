@@ -53,6 +53,8 @@ Team members see organization-enforced settings in their personal Settings panel
 
 The Admin Panel uses a three-tier enforcement model that keeps administrators in control while allowing appropriate flexibility.
 
+In multi-team workspaces, workspace admins can enforce supported settings across all teams or let each team decide. See [Workspace settings and team settings](/enterprise/team-management/workspaces/#workspace-settings-and-team-settings).
+
 ### Setting enforcement levels
 
 **Organization enforced**
@@ -240,7 +242,7 @@ For Enterprise plans with negotiated credit pools:
 * Monitor usage by team
 * Set per-team spending limits
 
-Contact your account manager to configure advanced credit allocation.
+Contact your account manager to configure advanced credit allocation. Multi-team workspaces can also use [workspace spend limits](/enterprise/team-management/workspaces/#workspace-spend-limits).
 
 ### Sharing settings
 
@@ -269,7 +271,7 @@ Controls how screenshots and video recordings captured with [Computer Use](/agen
 
 **Enabled GitHub Orgs**
 
-The **Enabled GitHub Orgs** setting associates your Warp team with one or more GitHub App installations. That association does two things: it lets cloud agents initiated with an [agent API key](/agents/cli/oz-cli/api-keys/) clone repositories and open pull requests using the Warp Factories GitHub App, and it tells Warp which team owns runs started from the [GitHub integration](/platform/integrations/github/) when someone mentions `@warp-agent` in those repositories.
+The **Enabled GitHub Orgs** setting associates your Warp team with one or more GitHub App installations. That association does two things: it lets cloud agents initiated with an [agent API key](/agents/cli/oz-cli/api-keys/) clone repositories and open pull requests using the [Warp Factories](/factories/) GitHub App, and it tells Warp which team owns runs started from the [GitHub integration](/platform/integrations/github/) when someone mentions `@warp-agent` in those repositories.
 
 To configure:
 
@@ -319,7 +321,7 @@ After purchasing a Warp enterprise plan:
 5. **Configure BYOLLM** (optional) - Route inference through your cloud accounts.
 6. **Create shared resources** - Populate team Warp Drive with Workflows, Rules, and Prompts.
 
-See [Roles and permissions](/enterprise/team-management/roles-and-permissions/) for details on user roles and access controls.
+See [Roles and permissions](/enterprise/team-management/roles-and-permissions/) for user roles and access controls. For accounts that manage multiple teams, see [Workspaces](/enterprise/team-management/workspaces/).
 
 ### Adjusting policies for different teams
 

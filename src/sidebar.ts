@@ -523,10 +523,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories/factory-dashboard', label: 'Factory dashboard' },
 					],
 				},
-				// Keep troubleshooting and legacy transition guidance as direct trailing
-				// items rather than creating singleton groups.
+				// Keep troubleshooting as a direct trailing item rather than creating a
+				// singleton group.
 				{ slug: 'factories/troubleshooting', label: 'Troubleshooting' },
-				{ label: 'Cloud agent documentation map', link: '/platform/transitioning-from-oz/' },
 			],
 		},
 		{
@@ -554,7 +553,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'platform', label: 'Overview' },
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
-						{ slug: 'platform/transitioning-from-oz', label: 'Documentation map' },
+						{ slug: 'platform/documentation-map', label: 'Documentation map' },
 						{
 							// Runtime (which agent executes the run) is kept separate from
 							// configuration (how any run is set up) -- HYC review, 8/14.

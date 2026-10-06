@@ -8,7 +8,7 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Run your first managed worker on your own infrastructure in ~10 minutes using the Docker backend. After you verify the worker, configure a factory to route its work to that worker.
+Run your first cloud agent on your own infrastructure in ~10 minutes using the managed architecture with the Docker backend — the default and fastest path to self-hosting.
 
 :::note
 This quickstart sets up the [managed architecture](/factories/self-hosting/#managed-architecture), where the {VARS.WARP_AUTOMATION_PLATFORM} orchestrates the agent and your worker provides the compute. **Prefer a CLI-only path with no Docker requirement?** Jump to the [Unmanaged quickstart](/platform/unmanaged-execution/#unmanaged-quickstart) to run `oz agent run` directly on any host.
@@ -33,7 +33,7 @@ _~10 minutes_
 Export the Agent API key so the worker container and the {VARS.WARP_AGENT_CLI} can authenticate to the {VARS.WARP_AUTOMATION_PLATFORM}:
 
 ```bash
-export WARP_API_KEY="YOUR_SELF_HOSTED_WORKER_API_KEY"
+export WARP_API_KEY="YOUR_AGENT_API_KEY"
 ```
 
 ### 2. Start the worker
@@ -62,8 +62,6 @@ oz agent run-cloud --prompt "List the files in the current directory" --host "my
 
 **Expected outcome:** The {VARS.WARP_AUTOMATION_PLATFORM} accepts the task, routes it to your worker, and the worker spawns a Docker container to execute the agent. You'll see the run appear in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a> with status moving from `QUEUED` → `INPROGRESS` → `SUCCEEDED`.
 
-This test verifies that the worker is connected. To route factory work to it, set `workerHost` and a platform-matched runner in the [factory definition](/factories/factory-as-code/#routing-to-a-self-hosted-worker).
-
 ### 4. Verify the run
 
 Open the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>, find the new task, and confirm the session transcript shows the agent running against your worker. You can attach to the session at any time via [Agent Session Sharing](/agents/local-agents/session-sharing/) to monitor or steer it.
@@ -81,10 +79,10 @@ Verify you created an **Agent** key associated with the Default Service Account 
 **Task stays queued and never runs**\
 Confirm the `--host` value you passed to `oz agent run-cloud` matches your `--worker-id` exactly (case-sensitive). Check that the worker's team matches the team creating the task.
 
-For more, see [self-hosting troubleshooting](/factories/self-hosting/troubleshooting/).
+For more, see [Troubleshooting](/factories/self-hosting/troubleshooting/).
 
 ## Next steps
 
-* [Managed self-hosting](/factories/self-hosting/) — Compare backends and route factory work to a worker.
-* [Managed: Docker](/factories/self-hosting/managed-docker/) — Configure private registries, volume mounts, and runtime settings.
-* [External orchestrators](/factories/self-hosting/external-orchestrators/) — Allocate compute with one-shot Direct or the Command backend.
+* [Self-hosting overview](/factories/self-hosting/) — Compare managed and unmanaged architectures and choose a backend.
+* [Managed: Docker](/factories/self-hosting/managed-docker/) — Full Docker backend setup, including private registries, volume mounts, and runtime configuration.
+* [Routing runs to self-hosted workers](/factories/self-hosting/#routing-runs-to-self-hosted-workers) — How to route tasks from schedules, integrations (Slack, Linear), the API, and the {VARS.WEB_APP}.

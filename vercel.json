@@ -6678,6 +6678,11 @@
       "statusCode": 308
     },
     {
+      "source": "/platform/self-hosting/external-orchestrators(/?)",
+      "destination": "/factories/self-hosting/external-orchestrators/",
+      "statusCode": 308
+    },
+    {
       "source": "/platform/self-hosting/monitoring(/?)",
       "destination": "/factories/self-hosting/monitoring/",
       "statusCode": 308
@@ -6735,6 +6740,11 @@
     {
       "source": "/reference/cli/:path*",
       "destination": "/agents/cli/oz-cli/:path*",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/transitioning-from-oz(/?)",
+      "destination": "/platform/documentation-map/",
       "statusCode": 308
     },
     {

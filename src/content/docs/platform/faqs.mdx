@@ -66,7 +66,7 @@ Self-hosted execution is available on **Enterprise** plans. See [Self-hosting](/
 :::note
 Self-serve [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/) does not apply to cloud agents. Keys you add yourself are stored locally on your device and can't be passed to cloud-hosted or self-hosted agent runs, so those runs consume [Warp credits](/support-and-community/plans-and-billing/credits/).
 
-Enterprise teams are the exception: an admin can configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) that are stored server-side by Warp and used by cloud agents. Those runs still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for orchestration.
+Business and Enterprise teams are the exception: an admin can configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) that are stored server-side by Warp and used by cloud agents. Those runs still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for orchestration.
 :::
 
 ## Models
@@ -88,7 +88,7 @@ Yes. Cloud agents support the same set of models available in Warp. Model select
 
 No. A [connected ChatGPT subscription](/agents/inference/chatgpt-subscription/) applies to Warp Agent conversations in the Warp app, not cloud agent runs. Warp also doesn't support connecting a Claude consumer subscription.
 
-Enterprise admins can configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for cloud agents.
+Business and Enterprise admins can configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for cloud agents.
 
 ### Do you support local or private LLMs for compliance or air-gapped environments?
 
@@ -234,7 +234,7 @@ Yes. LLM inference routes through Warp's backend, which has [Zero Data Retention
 The [unmanaged architecture](/platform/unmanaged-execution/) is well-suited for large monorepos because agents run directly in your pre-provisioned environment — there is no Docker image build or repo cloning step. For the [managed architecture](/factories/self-hosting/#managed-architecture), the Docker backend supports volume mounts (`-v` flag) to mount a pre-existing repo checkout from the host into task containers. With the Kubernetes backend, use `pod_template` to configure persistent volume claims or pre-populated storage for the same purpose.
 
 :::note
-The managed architecture supports four backends: Docker (default), Kubernetes, Direct, and Command. Use one-shot Direct when an external scheduler starts a worker for each job, or Command when a connected worker dispatches tasks to an external runtime. See [choosing a managed backend](/factories/self-hosting/#choose-a-backend).
+The managed architecture supports four backends: Docker (default), Kubernetes, Direct, and Command. Use one-shot Direct when an external scheduler starts a worker for each job, or Command when a connected worker dispatches tasks to an external runtime. See [choosing a managed backend](/factories/self-hosting/#choosing-a-managed-backend).
 :::
 
 ### Do Kubernetes pods provide enough sandboxing for self-hosted agents?
