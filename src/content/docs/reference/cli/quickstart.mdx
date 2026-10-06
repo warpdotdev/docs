@@ -55,7 +55,7 @@ From any directory, run:
 oz agent run --prompt "summarize this directory"
 ```
 
-This uses the default agent profile and executes the run locally. The default profile permits MCP actions but does not automatically start every configured server. Select run-scoped servers with `--mcp`, or use a profile that allowlists installed servers. See [MCP servers](/reference/cli/mcp-servers/) for the available startup paths.
+This uses the default agent profile, loads any available MCP servers, and executes the run locally. The output appears directly in your terminal.
 
 What happens:
 

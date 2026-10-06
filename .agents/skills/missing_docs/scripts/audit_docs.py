@@ -44,7 +44,6 @@ Exit codes:
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import os
 import re
@@ -69,26 +68,8 @@ SKILL_DIR = SCRIPT_DIR.parent
 SURFACE_MAP_PATH = SKILL_DIR / "references" / "feature_surface_map.md"
 STALE_TERMS_PATH = SKILL_DIR / "references" / "stale_terms.md"
 DEFAULT_SNAPSHOT_PATH = SKILL_DIR / "references" / "surface_snapshot.json"
-CONSISTENCY_SEEDS_PATH = SKILL_DIR / "references" / "consistency_seeds.json"
-SNAPSHOT_DISPOSITIONS_FILENAME = "surface_snapshot_dispositions.json"
-SNAPSHOT_DISPOSITION_SCHEMA_VERSION = 2
 
 SNAPSHOT_SCHEMA_VERSION = 2
-SNAPSHOT_DISPOSITIONS = (
-    "documented",
-    "mapped",
-    "internal",
-    "no_docs_needed",
-    "removed",
-)
-CONSISTENCY_STATUSES = (
-    "fix",
-    "policy_blocker",
-    "owner_confirmation",
-    "resolved_on_main",
-    "out_of_scope",
-)
-CONSISTENCY_DISPOSITIONS = ("fixed", "blocked", "resolved", "out_of_scope")
 
 # Heading that starts the machine-generated telemetry table in privacy.mdx.
 # Matches TELEMETRY_TABLE_HEADING in the release_updates skill's
@@ -2367,91 +2348,6 @@ def diff_snapshots(old: dict, new: dict) -> list[dict]:
     return findings
 
 
-def snapshot_fingerprint(snapshot: dict) -> str:
-    """Return a stable content fingerprint for a loaded input snapshot."""
-    canonical = json.dumps(
-        snapshot,
-        ensure_ascii=False,
-        separators=(",", ":"),
-        sort_keys=True,
-    )
-    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
-
-
-def snapshot_disposition_errors(
-    changes: list[dict],
-    path: Path,
-    expected_snapshot_fingerprint: str,
-) -> list[str]:
-    """Validate that the sidecar ledger accounts for exactly the pending changes."""
-    try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except FileNotFoundError:
-        return [] if not changes else [f"missing disposition ledger {path}"]
-    except json.JSONDecodeError as exc:
-        return [f"invalid disposition ledger at line {exc.lineno}: {exc.msg}"]
-
-    if not isinstance(payload, dict):
-        return ["disposition ledger top level must be an object"]
-    errors = []
-    if payload.get("schema_version") != SNAPSHOT_DISPOSITION_SCHEMA_VERSION:
-        errors.append(
-            "disposition ledger schema_version must be "
-            f"{SNAPSHOT_DISPOSITION_SCHEMA_VERSION}"
-        )
-    recorded_fingerprint = payload.get("snapshot_fingerprint")
-    if not isinstance(recorded_fingerprint, str) or not recorded_fingerprint.strip():
-        errors.append("disposition ledger needs a non-empty snapshot_fingerprint")
-    elif recorded_fingerprint != expected_snapshot_fingerprint:
-        errors.append(
-            "disposition ledger snapshot_fingerprint does not match the input snapshot"
-        )
-    entries = payload.get("dispositions")
-    if not isinstance(entries, list):
-        return errors + ["disposition ledger dispositions must be an array"]
-
-    recorded = {}
-    for index, entry in enumerate(entries):
-        label = f"dispositions[{index}]"
-        if not isinstance(entry, dict):
-            errors.append(f"{label} must be an object")
-            continue
-        change = entry.get("change")
-        surface = entry.get("surface")
-        if not isinstance(change, str) or not change.strip():
-            errors.append(f"{label} needs a non-empty change")
-        if not isinstance(surface, str) or not surface.strip():
-            errors.append(f"{label} needs a non-empty surface")
-        if not isinstance(change, str) or not isinstance(surface, str):
-            continue
-        key = (change, surface)
-        if key in recorded:
-            errors.append(f"{label} duplicates {change}: {surface}")
-        recorded[key] = entry
-        if entry.get("disposition") not in SNAPSHOT_DISPOSITIONS:
-            errors.append(
-                f"{label} disposition must be one of "
-                f"{', '.join(SNAPSHOT_DISPOSITIONS)}"
-            )
-        if not isinstance(entry.get("evidence"), str) or not entry["evidence"].strip():
-            errors.append(f"{label} needs non-empty evidence")
-
-    required = {(item["change"], item["surface"]) for item in changes}
-    missing = sorted(required - set(recorded))
-    extra = sorted(set(recorded) - required)
-    if missing:
-        errors.append(
-            "snapshot changes without dispositions: "
-            + ", ".join(f"{change}: {surface}" for change, surface in missing)
-        )
-    if extra:
-        errors.append(
-            "stale dispositions without matching snapshot changes: "
-            + ", ".join(f"{change}: {surface}" for change, surface in extra)
-        )
-    return errors
-
-
 _RELEASE_VERSION_RE = re.compile(r"(\d{4}\.\d{2}\.\d{2})")
 
 
@@ -2753,311 +2649,10 @@ def compute_accounting(docs_root: Path, surface_map: dict, findings: dict,
     return acc
 
 # ---------------------------------------------------------------------------
-# Cross-repository consistency audit
-# ---------------------------------------------------------------------------
-
-def _consistency_seed_path(repo_root: Path) -> Path:
-    """Prefer a seed store in the audited checkout."""
-    local_path = (
-        repo_root
-        / ".agents"
-        / "skills"
-        / "missing_docs"
-        / "references"
-        / "consistency_seeds.json"
-    )
-    return local_path if local_path.exists() else CONSISTENCY_SEEDS_PATH
-
-
-def load_consistency_seeds(repo_root: Path) -> tuple[list[dict], list[str]]:
-    """Load the seed store and return every accounting error."""
-    path = _consistency_seed_path(repo_root)
-    try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except FileNotFoundError:
-        return [], [f"seed-store: missing {path}"]
-    except json.JSONDecodeError as exc:
-        return [], [f"seed-store: invalid JSON at line {exc.lineno}: {exc.msg}"]
-
-    if not isinstance(payload, dict):
-        return [], ["seed-store: top level must be an object"]
-
-    errors = []
-    if payload.get("schema_version") != 1:
-        errors.append("seed-store: schema_version must be 1")
-    seeds = payload.get("seeds")
-    if not isinstance(seeds, list):
-        return [], errors + ["seed-store: seeds must be an array"]
-
-    seen_seed_ids = set()
-    seen_rule_ids = set()
-    for index, seed in enumerate(seeds):
-        label = f"seed[{index}]"
-        if not isinstance(seed, dict):
-            errors.append(f"{label}: entry must be an object")
-            continue
-
-        seed_id = seed.get("id")
-        if not isinstance(seed_id, str) or not seed_id.strip():
-            errors.append(f"{label}: missing non-empty id")
-            seed_id = label
-        elif seed_id in seen_seed_ids:
-            errors.append(f"{seed_id}: duplicate seed id")
-        else:
-            seen_seed_ids.add(seed_id)
-
-        for field in ("claim", "recheck_condition"):
-            if not isinstance(seed.get(field), str) or not seed[field].strip():
-                errors.append(f"{seed_id}: missing non-empty {field}")
-        if seed.get("status") not in CONSISTENCY_STATUSES:
-            errors.append(
-                f"{seed_id}: status must be one of {', '.join(CONSISTENCY_STATUSES)}"
-            )
-        for field in ("occurrence_queries", "affected_surfaces"):
-            value = seed.get(field)
-            if not isinstance(value, list) or not value or not all(
-                isinstance(item, str) and item.strip() for item in value
-            ):
-                errors.append(f"{seed_id}: {field} must be a non-empty string array")
-
-        surfaces = seed.get("affected_surfaces")
-        dispositions = seed.get("surface_dispositions")
-        if not isinstance(dispositions, dict):
-            errors.append(f"{seed_id}: surface_dispositions must be an object")
-        elif isinstance(surfaces, list):
-            missing = sorted(
-                surface for surface in surfaces if not dispositions.get(surface)
-            )
-            extra = sorted(set(dispositions) - set(surfaces))
-            if missing:
-                errors.append(
-                    f"{seed_id}: surfaces without dispositions: {', '.join(missing)}"
-                )
-            if extra:
-                errors.append(
-                    f"{seed_id}: dispositions for unknown surfaces: {', '.join(extra)}"
-                )
-            invalid = sorted(
-                f"{surface}={disposition}"
-                for surface, disposition in dispositions.items()
-                if disposition not in CONSISTENCY_DISPOSITIONS
-            )
-            if invalid:
-                errors.append(
-                    f"{seed_id}: unsupported surface dispositions: {', '.join(invalid)}"
-                )
-            missing_paths = sorted(
-                surface for surface in surfaces if not (repo_root / surface).exists()
-            )
-            if missing_paths:
-                errors.append(
-                    f"{seed_id}: affected surfaces do not exist: {', '.join(missing_paths)}"
-                )
-
-        has_authority = (
-            isinstance(seed.get("authoritative_sources"), list)
-            and bool(seed["authoritative_sources"])
-        )
-        has_owner_blocker = all(
-            isinstance(seed.get(field), str) and seed[field].strip()
-            for field in ("owner", "unresolved_question")
-        )
-        if not (has_authority or has_owner_blocker):
-            errors.append(
-                f"{seed_id}: needs authoritative_sources or owner and unresolved_question"
-            )
-        if seed.get("status") in ("policy_blocker", "owner_confirmation"):
-            if not has_owner_blocker:
-                errors.append(
-                    f"{seed_id}: blocked status needs owner and unresolved_question"
-                )
-            inconsistent = seed.get("inconsistent_surfaces")
-            if not isinstance(inconsistent, list) or not inconsistent:
-                errors.append(
-                    f"{seed_id}: blocked status needs inconsistent_surfaces"
-                )
-
-        rules = seed.get("deterministic_rules", [])
-        if not isinstance(rules, list):
-            errors.append(f"{seed_id}: deterministic_rules must be an array")
-            continue
-        for rule_index, rule in enumerate(rules):
-            rule_label = f"{seed_id}.rule[{rule_index}]"
-            if not isinstance(rule, dict):
-                errors.append(f"{rule_label}: rule must be an object")
-                continue
-            rule_id = rule.get("id")
-            if not isinstance(rule_id, str) or not rule_id.strip():
-                errors.append(f"{rule_label}: missing non-empty id")
-            elif rule_id in seen_rule_ids:
-                errors.append(f"{seed_id}: duplicate rule id {rule_id}")
-            else:
-                seen_rule_ids.add(rule_id)
-            if rule.get("type") not in ("forbidden_text", "forbidden_regex"):
-                errors.append(
-                    f"{seed_id}.{rule_id}: unsupported rule type {rule.get('type')!r}"
-                )
-            for field in ("patterns", "paths"):
-                value = rule.get(field)
-                if not isinstance(value, list) or not value or not all(
-                    isinstance(item, str) and item for item in value
-                ):
-                    errors.append(
-                        f"{seed_id}.{rule_id}: {field} must be a non-empty string array"
-                    )
-            missing_paths = sorted(
-                rule_path
-                for rule_path in rule.get("paths", [])
-                if not (repo_root / rule_path).exists()
-            )
-            if missing_paths:
-                errors.append(
-                    f"{seed_id}.{rule_id}: rule paths do not exist: "
-                    f"{', '.join(missing_paths)}"
-                )
-            if rule.get("type") == "forbidden_regex":
-                for pattern in rule.get("patterns", []):
-                    try:
-                        re.compile(pattern, re.IGNORECASE | re.MULTILINE)
-                    except re.error as exc:
-                        errors.append(
-                            f"{seed_id}.{rule_id}: invalid regex {pattern!r}: {exc}"
-                        )
-    return seeds, errors
-
-
-def _consistency_rule_files(repo_root: Path, relative_paths: list[str]) -> list[Path]:
-    """Expand file and directory scopes in a stable order."""
-    files = set()
-    for relative_path in relative_paths:
-        target = repo_root / relative_path
-        if target.is_file():
-            files.add(target)
-        elif target.is_dir():
-            for candidate in target.rglob("*"):
-                if (
-                    candidate.is_file()
-                    and not any(part in SKIP_DIRECTORIES for part in candidate.parts)
-                    and candidate.suffix.lower()
-                    in {".md", ".mdx", ".json", ".yaml", ".yml"}
-                ):
-                    files.add(candidate)
-    return sorted(files)
-
-
-def _line_number_at(text: str, offset: int) -> int:
-    return text.count("\n", 0, offset) + 1
-
-
-def audit_consistency(repo_root: Path) -> dict:
-    """Evaluate consistency rules while retaining owner-gated blockers."""
-    seeds, errors = load_consistency_seeds(repo_root)
-    by_status = {status: 0 for status in CONSISTENCY_STATUSES}
-    findings = []
-    blockers = []
-    passed_rules = []
-    failed_rules = []
-
-    for seed in seeds:
-        status = seed.get("status")
-        if status in by_status:
-            by_status[status] += 1
-        if status in ("policy_blocker", "owner_confirmation"):
-            blockers.append({
-                "seed_id": seed.get("id"),
-                "status": status,
-                "claim": seed.get("claim"),
-                "owner": seed.get("owner"),
-                "unresolved_question": seed.get("unresolved_question"),
-                "affected_surfaces": seed.get("affected_surfaces", []),
-                "inconsistent_surfaces": seed.get("inconsistent_surfaces", []),
-                "recheck_condition": seed.get("recheck_condition"),
-            })
-
-        for rule in seed.get("deterministic_rules", []):
-            rule_matches = []
-            for file_path in _consistency_rule_files(
-                repo_root, rule.get("paths", [])
-            ):
-                try:
-                    text = file_path.read_text(encoding="utf-8")
-                except (OSError, UnicodeDecodeError):
-                    continue
-                for pattern in rule.get("patterns", []):
-                    expression = (
-                        re.escape(pattern)
-                        if rule.get("type") == "forbidden_text"
-                        else pattern
-                    )
-                    for match in re.finditer(
-                        expression, text, re.IGNORECASE | re.MULTILINE
-                    ):
-                        occurrence = {
-                            "seed_id": seed.get("id"),
-                            "rule_id": rule.get("id"),
-                            "category": "consistency",
-                            "severity": "high",
-                            "status": status,
-                            "claim": seed.get("claim"),
-                            "path": str(file_path.relative_to(repo_root)),
-                            "line": _line_number_at(text, match.start()),
-                            "match": match.group(0),
-                            "authoritative_sources": seed.get(
-                                "authoritative_sources", []
-                            ),
-                            "affected_surfaces": seed.get(
-                                "affected_surfaces", []
-                            ),
-                            "owner": seed.get("owner"),
-                            "recheck_condition": seed.get("recheck_condition"),
-                        }
-                        rule_matches.append(occurrence)
-                        findings.append(occurrence)
-            rule_result = {
-                "seed_id": seed.get("id"),
-                "rule_id": rule.get("id"),
-                "status": "failed" if rule_matches else "passed",
-                "match_count": len(rule_matches),
-            }
-            if rule_matches:
-                failed_rules.append(rule_result)
-            else:
-                passed_rules.append(rule_result)
-
-    blockers.sort(key=lambda item: item["seed_id"] or "")
-    findings.sort(key=lambda item: (
-        item.get("seed_id") or "",
-        item.get("rule_id") or "",
-        item.get("path") or "",
-        item.get("line") or 0,
-    ))
-    passed_rules.sort(key=lambda item: (item["seed_id"], item["rule_id"]))
-    failed_rules.sort(key=lambda item: (item["seed_id"], item["rule_id"]))
-    return {
-        "total_seeds": len(seeds),
-        "by_status": by_status,
-        "findings": findings,
-        "remaining_occurrences": findings,
-        "blockers": blockers,
-        "rules": {
-            "passed": passed_rules,
-            "failed": failed_rules,
-        },
-        "accounting": {
-            "unaccounted": errors,
-        },
-        "passed": not findings and not blockers and not errors,
-    }
-
-
-# ---------------------------------------------------------------------------
 # Report generation
 # ---------------------------------------------------------------------------
 
 REPORT_CATEGORIES = [
-    ("consistency_findings", "DOCUMENTATION CONSISTENCY FINDINGS",
-     lambda i: f"{i.get('seed_id', '')}/{i.get('rule_id', '')} "
-               f"{i.get('path', '')}:{i.get('line', '')}"),
     ("undocumented_features", "UNDOCUMENTED FEATURES",
      lambda i: i.get("flag", "")),
     ("undocumented_cli_commands", "UNDOCUMENTED CLI COMMANDS",
@@ -3085,8 +2680,7 @@ REPORT_CATEGORIES = [
 
 def generate_report(findings_by_category: dict[str, list], audits_run: list[str],
                     audits_skipped: list[dict], mode: str,
-                    accounting: dict | None = None,
-                    consistency: dict | None = None) -> dict:
+                    accounting: dict | None = None) -> dict:
     """Assemble the full audit report."""
     total = sum(len(v) for v in findings_by_category.values())
     report = {
@@ -3103,8 +2697,6 @@ def generate_report(findings_by_category: dict[str, list], audits_run: list[str]
     }
     if accounting is not None:
         report["summary"]["accounting"] = accounting
-    if consistency is not None:
-        report["consistency"] = consistency
     for key, _, _ in REPORT_CATEGORIES:
         report[key] = findings_by_category.get(key, [])
     return report
@@ -3146,30 +2738,6 @@ def print_report(report: dict) -> None:
             print("  unaccounted: none — every extracted surface item is accounted for")
         print()
 
-    consistency = report.get("consistency")
-    if consistency:
-        print("-" * 60)
-        print("DOCUMENTATION CONSISTENCY")
-        print("-" * 60)
-        counts = ", ".join(
-            f"{status}={count}"
-            for status, count in consistency["by_status"].items()
-        )
-        print(f"  Seeds: {consistency['total_seeds']} ({counts})")
-        print(
-            "  Rules: "
-            f"{len(consistency['rules']['passed'])} passed, "
-            f"{len(consistency['rules']['failed'])} failed"
-        )
-        for blocker in consistency["blockers"]:
-            print(
-                f"  BLOCKED {blocker['seed_id']} ({blocker['owner']}): "
-                f"{blocker['unresolved_question']}"
-            )
-        for error in consistency["accounting"]["unaccounted"]:
-            print(f"  UNACCOUNTED {error}")
-        print()
-
     severity_order = {"high": 0, "medium": 1, "low": 2}
 
     for key, title, describe in REPORT_CATEGORIES:
@@ -3200,8 +2768,6 @@ def print_report(report: dict) -> None:
                 print(f"    File: {item['file']}")
             if item.get("detail"):
                 print(f"    Detail: {item['detail']}")
-            if item.get("match"):
-                print(f"    Match: {item['match']!r}")
             for t in item.get("stale_terms", []):
                 print(f"    - \"{t['term']}\": {t['reason']}")
         print()
@@ -3237,7 +2803,7 @@ def main():
     )
     parser.add_argument(
         "--category",
-        choices=["consistency", "features", "cli", "api", "slash", "settings", "structure",
+        choices=["features", "cli", "api", "slash", "settings", "structure",
                  "staleness", "map"],
         help="Run only a specific audit category",
     )
@@ -3307,7 +2873,6 @@ def main():
     audits_run: list[str] = []
     audits_skipped: list[dict] = []
     extraction_ok = True
-    consistency_result = None
 
     def guard(label: str, count: int) -> bool:
         nonlocal extraction_ok
@@ -3324,21 +2889,6 @@ def main():
             })
             return False
         return True
-
-    if args.category in (None, "consistency"):
-        print("Running documentation consistency audit...", file=sys.stderr)
-        consistency_result = audit_consistency(repo_root)
-        findings["consistency_findings"] = consistency_result["findings"]
-        audits_run.append("consistency")
-        if consistency_result["accounting"]["unaccounted"]:
-            audits_skipped.append({
-                "audit": "integrity:consistency_accounting",
-                "reason": (
-                    "consistency seeds without complete status, evidence, or "
-                    "surface dispositions: "
-                    f"{consistency_result['accounting']['unaccounted']}"
-                ),
-            })
 
     internal_categories = ("features", "cli", "slash", "settings", "staleness", "map")
     needs_internal = args.category in (None, *internal_categories) \
@@ -3526,39 +3076,12 @@ def main():
                         })
                     audits_run.append("diff")
             if args.update_snapshot:
-                previous = load_snapshot(snapshot_path)
-                if previous is None:
-                    audits_skipped.append({
-                        "audit": "integrity:snapshot_dispositions",
-                        "reason": (
-                            f"snapshot {snapshot_path} not found or unreadable — "
-                            "cannot prove that every delta was dispositioned"
-                        ),
-                    })
-                else:
-                    snapshot_changes = diff_snapshots(previous, current_snapshot)
-                    disposition_path = (
-                        snapshot_path.parent / SNAPSHOT_DISPOSITIONS_FILENAME
-                    )
-                    disposition_errors = snapshot_disposition_errors(
-                        snapshot_changes,
-                        disposition_path,
-                        snapshot_fingerprint(previous),
-                    )
-                    if disposition_errors:
-                        audits_skipped.append({
-                            "audit": "integrity:snapshot_dispositions",
-                            "reason": "; ".join(disposition_errors),
-                        })
-                    else:
-                        snapshot_path.parent.mkdir(parents=True, exist_ok=True)
-                        snapshot_path.write_text(
-                            json.dumps(
-                                current_snapshot, indent=2, sort_keys=False
-                            ) + "\n",
-                            encoding="utf-8",
-                        )
-                        print(f"Snapshot updated: {snapshot_path}", file=sys.stderr)
+                snapshot_path.parent.mkdir(parents=True, exist_ok=True)
+                snapshot_path.write_text(
+                    json.dumps(current_snapshot, indent=2, sort_keys=False) + "\n",
+                    encoding="utf-8",
+                )
+                print(f"Snapshot updated: {snapshot_path}", file=sys.stderr)
         else:
             audits_skipped.append({
                 "audit": "diff" if args.diff else "update-snapshot",
@@ -3599,18 +3122,8 @@ def main():
             ]
 
     mode = "diff" if args.diff else "audit"
-    if consistency_result is not None:
-        consistency_result["findings"] = findings.get(
-            "consistency_findings", []
-        )
-    report = generate_report(
-        findings,
-        audits_run,
-        audits_skipped,
-        mode,
-        accounting=accounting,
-        consistency=consistency_result,
-    )
+    report = generate_report(findings, audits_run, audits_skipped, mode,
+                             accounting=accounting)
 
     print_report(report)
 

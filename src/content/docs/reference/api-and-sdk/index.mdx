@@ -31,7 +31,7 @@ This page is a high-level overview.\
 For full API endpoint details, refer to the [**Agents API Reference**](/api). For schema definitions, see the SDK repos: [**Python SDK**](https://github.com/warpdotdev/oz-sdk-python) and [**TypeScript SDK**](https://github.com/warpdotdev/oz-sdk-typescript).
 :::
 
-To send work to a [Warp factory](/factories/), use the [factory API](/factories/factory-api/) to discover it and dispatch by UID instead of calling `POST /agent/runs` with a foreman's `agent_identity_uid`. Everything on this page - follow-ups, cancellation, status - still applies once a factory run is dispatched.
+To send work to a [Warp factory](/factories/), use the [factory API](/factories/factory-api/) to discover it and dispatch by UID instead of calling `POST /agent/run` with a foreman's `agent_identity_uid`. Everything on this page - follow-ups, cancellation, status - still applies once a factory run is dispatched.
 
 ### SDK overview
 
@@ -129,12 +129,12 @@ For example, `oz-platform`, `factory-files`, and `factory-mcp` are Warp-provided
 
 **The Agents API exposes these primary endpoints:**
 
-*   `POST /agent/runs`
+*   `POST /agent/run`
 
     Create a new agent run with a prompt and optional config and title. Returns run\_id and initial state.
 *   `GET /agent/runs`
 
-    List runs with pagination and filters for state, name, model\_id, creator, source, and creation time.
+    List runs with pagination and filters for state, config\_name, model\_id, creator, source, and creation time.
 *   `GET /agent/runs/{runId}`
 
     Fetch full details for a single run, including session link and resolved configuration.

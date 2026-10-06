@@ -6,6 +6,7 @@ description: >-
   Known Warp issues with workarounds, including SSH, shells, and incompatible
   tools.
 ---
+import DemoVideo from '@components/DemoVideo.astro';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 :::note
@@ -79,15 +80,15 @@ To try and resolve the issue of Warp not rendering a window, rename the SQLite d
 
 ### Misc.
 
-* The legacy [SSH wrapper](/terminal/warpify/ssh-legacy/) preserves the remote login shell. It enhances supported bash and zsh sessions; other shells continue without the enhanced Warp bootstrap.
-* If your remote login shell is zsh, your aliases typically do not transfer over.
+* When you [SSH](/support-and-community/troubleshooting-and-support/known-issues/#ssh), we start a bash shell on the remote host. We built a wrapper around SSH to make Warp features possible.
+* If your default shell is zsh, your aliases typically do not transfer over. Other shells are unsupported for now.
 * When you open a [non-shell-based subshell (REPL)](https://github.com/warpdotdev/Warp/issues/4082), Warp does not modify the environment — it behaves like a standard terminal session.
 * Warp may become unresponsive if it doesn't have permission to access the folders.
 * [No touch input support](https://github.com/warpdotdev/Warp/issues/5347)
 
 ## Agent Mode
 
-* Note that Agent Mode blocks are not shareable during [Session Sharing](/agents/local-agents/session-sharing/). Participants will be able to share regular shell commands that are run, but will not be able to share AI interactions (requested commands, AI blocks, etc.).
+* Note that Agent Mode blocks are not shareable during [session sharing](/knowledge-and-collaboration/session-sharing/). Participants will be able to share regular shell commands that are run, but will not be able to share AI interactions (requested commands, AI blocks, etc.).
 * Block actions such as [Block Sharing](/terminal/blocks/block-sharing/) are not available on Agent Mode AI blocks.
 * Agents do not have up-to-date information on several commands’ completion specs
 * Agent Mode works better with Warp's default prompt settings, where the prompt starts on a new line, than it does with a same-line prompt. If you are using the same-line prompt, the cursor will jump from the end of the single line to the start of the input box when you switch to Agent Mode.
@@ -228,6 +229,17 @@ The following non-exhaustive list of plugins, prompts, or tools can cause potent
     <figcaption>A file permission error dialog on macOS.</figcaption>
     </figure>
 
+    **Auto-Update error on macOS**
+
+    Warp may have an error opening after auto-update on macOS Ventura. This issue has been resolved for current and future releases of Warp. To avoid the issue, [update Warp](/support-and-community/troubleshooting-and-support/updating-warp/) _before_ you upgrade to macOS Ventura.\
+    \
+    If you experience an error opening Warp, try the following:
+
+    * Go to the macOS Applications folder, right-click on Warp, choose Open, then the '"Warp" is damaged' dialog will have the option to click the Open button.
+
+    <DemoVideo src="/assets/support-and-community/open-warp-mac.mp4" label="Right-clicking Warp in the macOS Applications folder and choosing Open to bypass the damaged app dialog" />
+
+    * If the above doesn't work, [uninstall Warp](/support-and-community/troubleshooting-and-support/logging-out-and-uninstalling/), then [re-install Warp](/getting-started/quickstart/installation-and-setup/).
 
     **Running x86 commands with macOS**
 
