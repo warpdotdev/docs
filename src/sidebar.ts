@@ -431,6 +431,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 										{ slug: 'factories/self-hosting/quickstart', label: 'Quickstart' },
 										{ slug: 'factories/self-hosting/managed-docker', label: 'Docker backend' },
 										{ slug: 'factories/self-hosting/managed-kubernetes', label: 'Kubernetes backend' },
+										{ slug: 'factories/self-hosting/private-container-registry', label: 'Private container registry' },
 										{ slug: 'factories/self-hosting/managed-direct', label: 'Direct backend' },
 										{ slug: 'factories/self-hosting/external-orchestrators', label: 'External orchestrators' },
 										{ slug: 'factories/self-hosting/direct-monorepo-worktrees', label: 'Direct: Monorepo worktrees' },
