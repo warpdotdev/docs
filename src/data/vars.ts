@@ -7,8 +7,8 @@
 // Use the future/conceptual name as the key; the value holds the current string.
 
 export const VARS = {
-  // The `oz` binary and Oz web app are supported legacy surfaces. Their names
-  // remain in place while Warp publishes transition guidance for each surface.
+  // The `oz` binary and Oz web app keep their legacy names during the
+  // documented transition. See .agents/references/terminology.md for timing.
   //
   // IMPORTANT: "Automation Platform" is a common-noun phrase, not a proper
   // noun like "Oz" was. Referential uses need a definite article in the prose

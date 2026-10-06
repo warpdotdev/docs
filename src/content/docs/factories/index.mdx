@@ -13,13 +13,13 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team. If your team already has access, sign in to the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>.
 :::
 
-A factory is a cloud automation loop around your software development lifecycle. It combines repositories, tools, agents, and execution infrastructure to move requests through triage, specification, implementation, review, and verification, while people stay in control of key decisions.
+A factory is a group of agents that shares repositories and delivery policy. Its foreman accepts work from connected tools, dispatches the right agents, and returns the result to the source.
 
 <VideoEmbed url="https://www.youtube.com/watch?v=0WBk4ai8y1A" title="Introducing Warp Factories" />
 
 ## What is a software factory?
 
-In practice, that means tracking each request as a work item, such as an issue, ticket, or triggered task, and moving it through specialized agents that triage it, write a specification when one is needed, implement the change, and review the result.
+Each request becomes a work item, such as an issue, ticket, or triggered task. Specialized agents can triage it, write a specification, implement the change, and review the result.
 
 Each factory applies a single policy across its work sources, so deploy separate factories for repository groups that need different policies.
 
@@ -40,7 +40,7 @@ Don't split those same repositories across multiple factories by team or task (f
 
 ## Who benefits from Warp Factories
 
-Warp Factories is designed for engineering teams with repeatable work that extends beyond one coding session. Here's where it helps most:
+Warp Factories is for engineering teams with repeatable work that extends beyond one coding session:
 
 * Process a backlog of issues with a consistent triage and delivery policy.
 * Fix defects reported through support channels.
@@ -69,7 +69,7 @@ Warp Factories builds on the same agent infrastructure used across Warp. Every f
 
 Setup gives a factory and its foreman the same name by default, so it's easy to mistake one for the other. Here's how the terms differ:
 
-* **factory** - A cloud automation loop around your software development lifecycle. It combines repositories, tools, agents, and execution infrastructure to move requests through the factory workflow. Distinct from Warp Factories, the product, and from the foreman, its coordinating agent.
+* **factory** - The repositories, delivery policy, agents, and connected tools that handle a related set of work. It is distinct from Warp Factories, the product, and from the foreman, its coordinating agent.
 * **foreman** - The coordinating agent inside a factory, and the only one you talk to. It dispatches the other [factory agents](/factories/factory-agents/) and reports back. Every factory has exactly one.
 * **Foreman name** - The handle your team @-mentions in Slack and Linear to reach the foreman. Setup copies it from the factory's name, so the two usually match even though they're different things. See [Foreman name](/factories/factory-agents/#foreman-name).
 

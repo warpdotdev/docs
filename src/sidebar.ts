@@ -494,6 +494,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'factories/developer-tools', label: 'Overview' },
 								{ slug: 'factories/factory-api', label: 'Factory endpoints' },
 								{ slug: 'factories/api-and-sdk', label: 'Agent & run endpoints' },
+								{ slug: 'factories/api-and-sdk/quickstart', label: 'Quickstart' },
+								{ slug: 'factories/api-and-sdk/demo-sentry-monitoring-with-sdk', label: 'Sentry monitoring demo' },
 								{ label: 'API reference', link: '/api' },
 								{ label: 'Python SDK', link: 'https://github.com/warpdotdev/oz-sdk-python' },
 								{ label: 'TypeScript SDK', link: 'https://github.com/warpdotdev/oz-sdk-typescript' },
@@ -523,7 +525,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				// Keep troubleshooting and legacy transition guidance as direct trailing
 				// items rather than creating singleton groups.
 				{ slug: 'factories/troubleshooting', label: 'Troubleshooting' },
-				{ label: `About the transition from the ${VARS.WEB_APP}`, link: '/platform/transitioning-from-oz/' },
+				{ label: 'Cloud agent documentation map', link: '/platform/transitioning-from-oz/' },
 			],
 		},
 		{
@@ -551,7 +553,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					items: [
 						{ slug: 'platform', label: 'Overview' },
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
-						{ slug: 'platform/transitioning-from-oz', label: `About the transition from the ${VARS.WEB_APP}` },
+						{ slug: 'platform/transitioning-from-oz', label: 'Documentation map' },
 						{
 							// Runtime (which agent executes the run) is kept separate from
 							// configuration (how any run is set up) -- HYC review, 8/14.
