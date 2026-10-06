@@ -7,10 +7,14 @@ sidebar:
   label: "Overview"
 ---
 import { VARS } from '@data/vars';
+import { LinkButton } from '@astrojs/starlight/components';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
 :::note
-Warp Factories is in **Early Access** and available to a limited set of teams. If your team is new to Warp Factories, <a href={VARS.GET_STARTED_URL}>get started with Warp Factories</a>. If your team already has access, sign in to the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>.
+Warp Factories is in **Early Access** and available to a limited set of teams. If your team is new to Warp Factories, tell us about your team to get started. If your team already has access, open the {VARS.FACTORY_WEB_APP}.
+
+<LinkButton href={VARS.GET_STARTED_URL}>Get started with Warp Factories</LinkButton>
+<LinkButton href={VARS.FACTORY_WEB_APP_URL} variant="secondary">Open the {VARS.FACTORY_WEB_APP}</LinkButton>
 :::
 
 A factory is a group of agents that shares repositories and delivery policy. Its foreman accepts work from connected tools, dispatches the right agents, and returns the result to the source.
