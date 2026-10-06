@@ -15,7 +15,7 @@ A **work item** is a single request the factory acts on, such as an issue, suppo
 
 The diagram, from intake to improvement:
 
-* **Work sources** - [Slack](/factories/integrations/slack/), [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), [Linear](/factories/integrations/linear/), [Jira](/factories/integrations/jira/), [custom webhooks](/factories/webhooks/), [factory endpoints](/factories/factory-api/), the [Factory MCP](/factories/factory-mcp/), direct runs, and schedules.
+* **Work sources** - [Slack](/factories/integrations/slack/), [Microsoft Teams](/factories/integrations/teams/), [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), [Azure DevOps](/factories/integrations/azure-devops/), [Linear](/factories/integrations/linear/), [Jira](/factories/integrations/jira/), [custom webhooks](/factories/webhooks/), [factory endpoints](/factories/factory-api/), the [Factory MCP](/factories/factory-mcp/), direct runs, and schedules.
 * **Automations** - [Automations](/factories/automations/) filter provider events and schedules and decide which agent handles them. Direct requests go straight to the foreman.
 * **Foreman and stage agents** - The foreman holds one conversation per work item and dispatches the triage, spec, implement, and review agents as the work needs them. See [factory agents](/factories/factory-agents/).
 * **Human handoff** - The factory opens a pull request with evidence and updates the original work item. You review and merge.
