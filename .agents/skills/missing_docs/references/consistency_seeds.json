@@ -585,10 +585,11 @@
     },
     {
       "id": "session-sharing-canonical-path",
-      "claim": "Session Sharing links use the canonical agent or cloud-run page, and the old root redirects.",
+      "claim": "Generic terminal Session Sharing links use the canonical collaboration page, while Agent Session Sharing remains the agent-specific extension.",
       "status": "fix",
       "occurrence_queries": ["/knowledge-and-collaboration/session-sharing/", "/agents/local-agents/session-sharing/"],
       "authoritative_sources": [
+        "src/content/docs/knowledge-and-collaboration/session-sharing/index.mdx",
         "src/content/docs/agents/local-agents/session-sharing.mdx",
         "src/content/docs/platform/viewing-cloud-agent-runs.mdx"
       ],
@@ -596,8 +597,8 @@
         "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx",
         "src/content/docs/support-and-community/troubleshooting-and-support/using-warp-offline.mdx",
         "src/content/docs/terminal/more-features/settings-sync.mdx",
-        "src/content/docs/support-and-community/troubleshooting-and-support/known-issues.mdx",
         "src/content/docs/knowledge-and-collaboration/warp-drive/web.mdx",
+        "src/content/docs/knowledge-and-collaboration/session-sharing/index.mdx",
         "src/content/docs/agents/local-agents/session-sharing.mdx",
         "vercel.json"
       ],
@@ -605,18 +606,29 @@
         "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx": "fixed",
         "src/content/docs/support-and-community/troubleshooting-and-support/using-warp-offline.mdx": "fixed",
         "src/content/docs/terminal/more-features/settings-sync.mdx": "fixed",
-        "src/content/docs/support-and-community/troubleshooting-and-support/known-issues.mdx": "fixed",
         "src/content/docs/knowledge-and-collaboration/warp-drive/web.mdx": "fixed",
+        "src/content/docs/knowledge-and-collaboration/session-sharing/index.mdx": "fixed",
         "src/content/docs/agents/local-agents/session-sharing.mdx": "fixed",
         "vercel.json": "fixed"
       },
-      "recheck_condition": "Session Sharing pages move or a new inbound link targets the old root.",
+      "recheck_condition": "Session Sharing pages move or a generic inbound link targets the agent-specific page.",
       "deterministic_rules": [
+        {
+          "id": "no-generic-links-to-agent-session-sharing",
+          "type": "forbidden_regex",
+          "patterns": ["(?:\\(|href=[\"'])/agents/local-agents/session-sharing/"],
+          "paths": [
+            "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx",
+            "src/content/docs/support-and-community/troubleshooting-and-support/using-warp-offline.mdx",
+            "src/content/docs/terminal/more-features/settings-sync.mdx",
+            "src/content/docs/knowledge-and-collaboration/warp-drive/web.mdx"
+          ]
+        },
         {
           "id": "no-old-session-sharing-links",
           "type": "forbidden_regex",
-          "patterns": ["(?:\\(|href=[\"'])/knowledge-and-collaboration/session-sharing/"],
-          "paths": ["src/content/docs"]
+          "patterns": ["\"source\"\\s*:\\s*\"/knowledge-and-collaboration/session-sharing[^\"]*\"[\\s\\S]{0,160}?\"destination\"\\s*:\\s*\"/agents/local-agents/session-sharing/\""],
+          "paths": ["vercel.json"]
         }
       ]
     }

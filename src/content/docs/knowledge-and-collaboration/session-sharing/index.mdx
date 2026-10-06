@@ -6,7 +6,41 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-Session sharing documentation has moved. See the articles below for details on sharing sessions:
+Session Sharing lets you share a live Warp terminal with other people. A shared session includes the scrollback you choose and streams new commands and output as they appear.
 
-* **[Agent session sharing](/agents/local-agents/session-sharing/)** - Share agent sessions with your team for review and collaboration, on the Agents tab.
-* **[Cloud agent session sharing](/platform/viewing-cloud-agent-runs/)** - Share session context from cloud agent runs, on the {VARS.WARP_AUTOMATION_PLATFORM} tab.
+## What a shared session contains
+
+People with access can see the commands, output, and other terminal content included in the shared scrollback. New terminal activity appears live until you stop sharing.
+
+Session size, concurrent viewer, and sharing limits vary by plan. See the [Warp pricing page](https://www.warp.dev/pricing) for current limits.
+
+## Sharing a terminal session
+
+1. In the Warp app, open the Command Palette and select **Share current session**. You can also open the pane header menu or right-click inside the session.
+2. Choose where the shared history starts. Warp shows the options that apply to the current session:
+   * **Share without scrollback** - Start with new terminal activity.
+   * **Share from current screen** - Include the current alternate-screen application.
+   * **Share from current block** - Include the active long-running block.
+   * **Share from selected block and onwards** - Include the selected block and everything after it. This option appears when you open sharing from a selected block.
+   * **Share from start of session** - Include the full session scrollback.
+3. Click **Start sharing**.
+4. In the sharing access dialog, invite specific people, grant your team access, or choose **Anyone with the link**. Choose **View** for read-only access or **Edit** to let participants interact with the terminal.
+5. Copy the session link and send it to the people you want to collaborate with.
+
+The shared terminal opens for everyone with the access you granted.
+
+:::caution
+[Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) does not apply to Session Sharing. Review the selected scrollback before sharing because everyone with access can see its contents.
+:::
+
+## Stopping sharing and expiration
+
+In the Warp app, open the Command Palette and select **Stop sharing current session**. This ends live access for participants.
+
+Shared session data expires seven days after the share starts. The link cannot be opened after the session expires.
+
+## Related pages
+
+* [Agent Session Sharing](/agents/local-agents/session-sharing/) - Share agent activity and let collaborators steer the agent.
+* [Sharing cloud agent runs](/platform/viewing-cloud-agent-runs/) - Share a cloud run from the {VARS.WARP_AUTOMATION_PLATFORM}.
+* [Block Sharing](/terminal/blocks/block-sharing/) - Share one terminal block instead of a live session.

@@ -8,10 +8,6 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-:::caution
-The {VARS.WARP_AGENT_CLI} (the `oz` binary) is being deprecated in favor of the {VARS.WARP_CLI} (the `warp` binary). `oz` commands remain supported through the end of September 2026. See the [Warp Agent CLI docs](/agents/cli/) for what is available today.
-:::
-
 `oz federate` issues short-lived OIDC identity tokens for the agent that's currently running. Use these tokens to authenticate to cloud providers (AWS, GCP, Azure, and other OIDC-aware systems) without baking long-lived credentials into your environment.
 
 This command can only be called from inside a running agent session — typically as part of a [skill](/agents/capabilities/skills/), a tool, or a script the agent executes while a run is in progress.

@@ -8,10 +8,6 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-:::caution
-The {VARS.WARP_AGENT_CLI} (the `oz` binary) is being deprecated in favor of the {VARS.WARP_CLI} (the `warp` binary). `oz` commands remain supported through the end of September 2026. See the [Warp Agent CLI docs](/agents/cli/) for what is available today.
-:::
-
 Agent profiles control what the agent can do, how it behaves, and where it can act when running from the {VARS.WARP_AGENT_CLI}. Create profiles in the Warp app to configure file access, command execution, MCP server usage, model selection, and directory permissions, then reference them by ID in CLI commands.
 
 Agent profiles control three things:
@@ -24,13 +20,7 @@ You can create and configure agent profiles in the Warp app. For detailed instru
 
 Agent profiles are automatically synced to each host where you have Warp installed, so you can use them remotely as well.
 
-:::note
-**Tip:** For CLI usage, create a dedicated profile. The CLI will fail if the agent tries to execute a prohibited action, so make sure your profile allows the directories, commands, and MCP servers you plan to use.
-:::
-
-:::caution
-The default profile for CLI usage is broadly permissive and gives the agent the ability to read and write files, apply code diffs, execute commands with a default denylist, and use MCP actions. Its profile MCP allowlist starts empty. Select run-scoped servers with `--mcp`, use a profile that allowlists installed servers, or configure an eligible file-based or global server. See [MCP servers](/reference/cli/mcp-servers/) for details.
-:::
+For CLI usage, create a dedicated profile that permits the directories, commands, and MCP servers required by the workflow. The default profile loads available MCP servers. Command execution uses **Agent decides**, and its denylist still blocks matching commands. Add run-scoped servers with `--mcp`, or select another profile to use its MCP permissions. See [MCP servers](/reference/cli/mcp-servers/) for details.
 
 ## Using a profile with the CLI
 

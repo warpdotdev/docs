@@ -351,6 +351,17 @@ class TestConsistencyAudit(unittest.TestCase):
             self.assertTrue(blocker["inconsistent_surfaces"])
             self.assertTrue(blocker["recheck_condition"])
 
+    def test_generic_session_sharing_links_use_the_canonical_page(self):
+        result = audit_docs.audit_consistency(_DOCS_ROOT)
+        findings = [
+            item
+            for item in result["findings"]
+            if item["seed_id"] == "session-sharing-canonical-path"
+        ]
+        self.assertEqual(findings, [])
+        passed = {item["rule_id"] for item in result["rules"]["passed"]}
+        self.assertIn("no-generic-links-to-agent-session-sharing", passed)
+
     def test_exact_rule_reports_every_occurrence_and_then_passes(self):
         with tempfile.TemporaryDirectory() as d:
             root = Path(d)
