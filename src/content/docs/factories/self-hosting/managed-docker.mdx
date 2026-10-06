@@ -22,7 +22,7 @@ Run the `oz-agent-worker` daemon with the **Docker backend** — the default man
 
 Complete the shared [managed prerequisites](/factories/self-hosting/#managed-prerequisites), then prepare:
 
-* **A machine to run the worker** - Use a Linux VM, server, or local machine.
+* **A machine to run the worker** - Use a Linux VM, server, or workstation. On macOS, use [Homebrew](#option-2-homebrew) or a [release binary](#option-3-github-releases-binary). On Windows, use a [release binary](#option-3-github-releases-binary).
 * **Docker** - Install a **linux/amd64** or **linux/arm64** Docker daemon that runs Linux containers. Windows containers are not supported. Verify the daemon with `docker info`.
 * **Task images** - Use a glibc-based image, such as Debian, Ubuntu, or a non-Alpine variant of an official image. Musl-based images such as Alpine Linux are not supported. Add required tools, binaries, scripts, and system packages to the [environment's custom image](/platform/environments/).
 
