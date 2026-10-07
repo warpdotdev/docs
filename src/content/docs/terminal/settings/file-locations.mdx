@@ -53,6 +53,7 @@ The tables below cover the **Stable** channel. For **Preview**, see [Preview cha
     * **MCP server config** - `~/.warp/.mcp.json`
     * **Bundled skills** - `~/.warp/skills/`
     * **Agent config** - `~/.agents/`
+    * **Warp Agent CLI install** (install-script default) - `~/.warp/tui/` with a `warp` symlink in `~/.local/bin/`
   </TabItem>
   <TabItem label="Windows">
     On Windows, Warp follows the platform conventions used by the [`directories`](https://docs.rs/directories) crate, which splits user data across `%APPDATA%` (Roaming) and `%LOCALAPPDATA%` (Local). Themes and tab configs are portable and live in Roaming, while settings, logs, and the local database are machine-specific and live in Local. Two separate `data\` directories exist as a result — one under each root — so check the full path when locating files.
@@ -82,6 +83,7 @@ The tables below cover the **Stable** channel. For **Preview**, see [Preview cha
     * **MCP server config** - `%USERPROFILE%\.warp\.mcp.json`
     * **Bundled skills** - `%USERPROFILE%\.warp\skills\`
     * **Agent config** - `%USERPROFILE%\.agents\`
+    * **Warp Agent CLI install** (install-script default) - `%LOCALAPPDATA%\Warp\tui\` with CLI entries under `%LOCALAPPDATA%\Warp\bin\`
   </TabItem>
   <TabItem label="Linux">
     On Linux, Warp follows the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html). Each path below uses the standard XDG environment variable with its default fallback.
@@ -110,8 +112,11 @@ The tables below cover the **Stable** channel. For **Preview**, see [Preview cha
     * **MCP server config** - `~/.warp/.mcp.json`
     * **Bundled skills** - `~/.warp/skills/`
     * **Agent config** - `~/.agents/`
+    * **Warp Agent CLI install** (install-script default) - `~/.warp/tui/` with a `warp` symlink in `~/.local/bin/`
   </TabItem>
 </Tabs>
+
+For removing the Warp Agent CLI without uninstalling the desktop app, see [Uninstalling the Warp Agent CLI](/support-and-community/troubleshooting-and-support/logging-out-and-uninstalling/#uninstalling-the-warp-agent-cli).
 
 ## Preview channel paths
 

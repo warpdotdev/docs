@@ -46,6 +46,14 @@ The notebook will not be saved until either title or body text is added.
 <figcaption>Editing a Notebook.</figcaption>
 </figure>
 
+### Open an existing notebook
+
+* Open the [Warp Drive](/knowledge-and-collaboration/warp-drive/) panel and select the notebook.
+* Search for the notebook title in the [Command Palette](/terminal/command-palette/).
+* Open a shared or local deep link. Warp Drive share links use a web URL such as `https://app.warp.dev/drive/notebook/NAME-OBJECT_ID`. You can also open the notebook directly in the app with `warp://drive/notebook?id=OBJECT_ID`. See [Warp URI scheme](/terminal/more-features/uri-scheme/#warp-drive-objects).
+
+Notebooks are not a pane type you can launch from a [Tab Config](/terminal/windows/tab-configs/) today. Use a Drive link, the Command Palette, or the Warp Drive panel after the window opens.
+
 ### Working with Notebooks
 
 #### Adding new elements
@@ -173,4 +181,12 @@ Only one editor is allowed at a given time. Opening the notebook while there is 
 
 ### Import and export notebooks in Warp Drive
 
-See our [Warp Drive Import and Export](/knowledge-and-collaboration/warp-drive/#import-and-export) instructions.
+Notebooks import from and export to Markdown (`.md`). Use the Warp Drive import and export flow described in [Import and export](/knowledge-and-collaboration/warp-drive/#import-and-export).
+
+When you import a Markdown file:
+
+* Headings, paragraphs, lists, tables, and fenced code blocks are preserved as notebook elements when the editor supports them.
+* Fenced blocks tagged as shell languages (for example `bash`, `sh`, or `shell`) become **command blocks** you can insert and run in the terminal.
+* Other fenced languages become **code blocks** with syntax highlighting when Warp recognizes the language.
+
+Export writes the notebook back to Markdown so you can edit it outside Warp or check it into a repository.
