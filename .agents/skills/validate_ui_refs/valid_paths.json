@@ -2,7 +2,6 @@
   "umbrellas": {
     "Agents": {
       "subpages": [
-        "Oz",
         "Warp Agent",
         "Profiles",
         "MCP servers",
@@ -21,21 +20,24 @@
     "Cloud platform": {
       "subpages": [
         "Environments",
-        "Oz Cloud API Keys"
+        "API keys"
       ],
+      "deprecated_subpages": {
+        "Oz Cloud API Keys": "API keys"
+      },
       "source_file": "app/src/settings_view/mod.rs"
     }
   },
   "deprecated_sections": {
     "AI": {
       "umbrella": "Agents",
-      "default_subpage": "Oz",
+      "default_subpage": "Warp Agent",
       "subsection_to_subpage": {
-        "Active AI": "Oz",
-        "Input": "Oz",
-        "Voice": "Oz",
-        "Other": "Oz",
-        "Experimental": "Oz",
+        "Active AI": "Warp Agent",
+        "Input": "Warp Agent",
+        "Voice": "Warp Agent",
+        "Other": "Warp Agent",
+        "Experimental": "Warp Agent",
         "Usage": "Profiles",
         "Agents": "Profiles",
         "Profiles": "Profiles",
@@ -69,28 +71,30 @@
     },
     "Platform": {
       "umbrella": "Cloud platform",
-      "default_subpage": "Oz Cloud API Keys"
+      "default_subpage": "API keys"
+    },
+    "Oz Cloud API Keys": {
+      "umbrella": "Cloud platform",
+      "default_subpage": "API keys"
     }
   },
   "settings_sections": {
     "About": {
       "display_name": "About",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
     "Account": {
       "display_name": "Account",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs"
-    },
-    "MCP Servers": {
-      "display_name": "MCP Servers",
-      "sub_sections": [],
-      "source_file": "app/src/settings_view/mcp_servers_page.rs"
     },
     "Billing and usage": {
       "display_name": "Billing and usage",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
     "Appearance": {
@@ -108,6 +112,42 @@
         "Tabs",
         "Full-screen Apps"
       ],
+      "controls": [
+        "Sync with OS",
+        "Show Warp in Dock",
+        "Open new windows with custom size",
+        "Columns",
+        "Rows",
+        "Tools panel visibility is consistent across tabs",
+        "Project explorer",
+        "Agent conversations",
+        "Global search",
+        "Warp Drive",
+        "Input type",
+        "Dim inactive panes",
+        "Focus follows mouse",
+        "Compact mode",
+        "Show Jump to Bottom of Block button",
+        "Show block dividers",
+        "Show ligatures in terminal",
+        "Cursor type",
+        "Blinking cursor",
+        "Show tab indicators",
+        "Preserve active tab color for new tabs",
+        "Use vertical tab layout",
+        "Show vertical tabs panel in restored windows",
+        "Hide search bar in vertical tab layout",
+        "Use latest user prompt as conversation title in tab names",
+        "Use custom padding in alt-screen",
+        "Customize your app icon",
+        "Window backdrop",
+        "Input position",
+        "Use thin strokes",
+        "Enforce minimum contrast",
+        "Tab close button position",
+        "Show the tab bar",
+        "Zoom"
+      ],
       "source_file": "app/src/settings_view/appearance_page.rs"
     },
     "Features": {
@@ -123,41 +163,102 @@
         "Workflows",
         "System"
       ],
+      "controls": [
+        "Open links in desktop app",
+        "Restore windows, tabs, and panes on startup",
+        "Show sticky command header",
+        "Show tooltip on click on links",
+        "Show warning before quitting/logging out",
+        "Quit when all windows are closed",
+        "Show changelog toast after updates",
+        "Lines scrolled by mouse wheel interval",
+        "Maximum rows in a block",
+        "Receive desktop notifications from Warp",
+        "Show in-app agent notifications",
+        "Confirm before closing shared session",
+        "Global hotkey:",
+        "Autocomplete quotes, parentheses, and brackets",
+        "Error underlining for commands",
+        "Syntax highlighting for commands",
+        "Open completions menu as you type",
+        "Warp completions",
+        "Native shell completions",
+        "Suggest corrected commands",
+        "Expand aliases as you type",
+        "Middle-click to paste",
+        "Edit code and commands with Vim keybindings",
+        "Enable '@' context menu in terminal mode",
+        "Enable slash commands in terminal mode",
+        "Outline codebase symbols for '@' context menu",
+        "Show terminal input message line",
+        "Preserve input focus on block selection",
+        "Show autosuggestion keybinding hint",
+        "Show autosuggestion ignore button",
+        "Enable Mouse Reporting",
+        "Enable Scroll Reporting",
+        "Enable Focus Reporting",
+        "Use Audible Bell",
+        "Double-click smart selection",
+        "Show help block in new sessions",
+        "Copy on select",
+        "Show Global Workflows in Command Search (ctrl-r)",
+        "Honor linux selection clipboard",
+        "Prefer rendering new windows with integrated GPU (low power)",
+        "Use Wayland for window management",
+        "Right-click:",
+        "Ctrl+Tab behavior:",
+        "Clipboard access (OSC 52)",
+        "New tab placement",
+        "Preferred graphics backend"
+      ],
       "source_file": "app/src/settings_view/features_page.rs"
     },
     "Keyboard shortcuts": {
       "display_name": "Keyboard shortcuts",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
     "Privacy": {
       "display_name": "Privacy",
       "sub_sections": [],
+      "controls": [
+        "Send crash reports",
+        "Store AI conversations in the cloud",
+        "Network log console",
+        "Manage your data",
+        "Privacy policy"
+      ],
       "source_file": "app/src/settings_view/privacy_page.rs"
     },
     "Referrals": {
       "display_name": "Referrals",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
     "Scripting": {
       "display_name": "Scripting",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
     "Shared blocks": {
       "display_name": "Shared blocks",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
     "Teams": {
       "display_name": "Teams",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
     "Warp Drive": {
       "display_name": "Warp Drive",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mod.rs"
     },
     "Warpify": {
@@ -166,31 +267,12 @@
         "Subshells",
         "SSH"
       ],
-      "source_file": "app/src/settings_view/warpify_page.rs"
-    },
-    "AI": {
-      "display_name": "AI",
-      "sub_sections": [
-        "Usage",
-        "Active AI",
-        "Agents",
-        "Profiles",
-        "Input",
-        "MCP Servers",
-        "Knowledge",
-        "Voice",
-        "Other",
-        "Third party CLI agents",
-        "Agent Attribution",
-        "Experimental",
-        "Cloud Handoff",
-        "Custom Inference",
-        "API Keys",
-        "AWS Bedrock",
-        "Gemini Enterprise",
-        "Custom Routers"
+      "controls": [
+        "Warpify SSH Sessions",
+        "Reuse existing SSH ControlMaster",
+        "Install SSH extension"
       ],
-      "source_file": "app/src/settings_view/ai_page.rs"
+      "source_file": "app/src/settings_view/warpify_page.rs"
     },
     "Warp Agent": {
       "display_name": "Warp Agent",
@@ -214,47 +296,48 @@
         "Gemini Enterprise",
         "Custom Routers"
       ],
+      "controls": [],
       "source_file": "app/src/settings_view/ai_page.rs",
       "umbrella": "Agents"
     },
     "Profiles": {
       "display_name": "Profiles",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/ai_page.rs",
       "umbrella": "Agents"
     },
     "MCP servers": {
       "display_name": "MCP servers",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/mcp_servers_page.rs",
       "umbrella": "Agents"
     },
     "Knowledge": {
       "display_name": "Knowledge",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/ai_page.rs",
       "umbrella": "Agents"
     },
     "Third party CLI agents": {
       "display_name": "Third party CLI agents",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/ai_page.rs",
       "umbrella": "Agents"
-    },
-    "Code": {
-      "display_name": "Code",
-      "sub_sections": [
-        "Codebase Indexing",
-        "Code Editor and Review"
-      ],
-      "source_file": "app/src/settings_view/code_page.rs"
     },
     "Indexing and projects": {
       "display_name": "Indexing and projects",
       "sub_sections": [
         "Codebase Indexing"
       ],
-      "source_file": "app/src/settings_view/code_page.rs",
+      "controls": [
+        "Codebase indexing",
+        "Index new folders by default"
+      ],
+      "source_file": "app/src/settings_view/code_indexing_page.rs",
       "umbrella": "Code"
     },
     "Editor and Code Review": {
@@ -262,19 +345,37 @@
       "sub_sections": [
         "Code Editor and Review"
       ],
-      "source_file": "app/src/settings_view/code_page.rs",
+      "controls": [
+        "Auto open code review panel",
+        "Show code review button",
+        "Show diff stats on code review button",
+        "Project explorer",
+        "Global file search",
+        "Show hidden files in project explorer",
+        "Format on save (requires an active language server)",
+        "Auto save",
+        "Code editor line numbers:",
+        "Group files into single editor pane",
+        "Open Markdown files in Warp's Markdown Viewer by default",
+        "Choose an editor to open file links",
+        "Choose an editor to open files from the code review panel, project explorer, and global search",
+        "Choose a layout to open files in Warp"
+      ],
+      "source_file": "app/src/settings_view/code_editor_review_page.rs",
       "umbrella": "Code"
     },
     "Environments": {
       "display_name": "Environments",
       "sub_sections": [],
+      "controls": [],
       "source_file": "app/src/settings_view/environments_page.rs",
       "umbrella": "Cloud platform"
     },
-    "Oz Cloud API Keys": {
-      "display_name": "Oz Cloud API Keys",
+    "API keys": {
+      "display_name": "API keys",
       "sub_sections": [],
-      "source_file": "app/src/settings_view/platform_page.rs",
+      "controls": [],
+      "source_file": "app/src/settings_view/mod.rs",
       "umbrella": "Cloud platform"
     }
   },
@@ -834,6 +935,822 @@
       "description": "Share pane"
     },
     {
+      "name": "Enable model picker in prompt",
+      "description": "Enable model picker in prompt"
+    },
+    {
+      "name": "Disable model picker in prompt",
+      "description": "Disable model picker in prompt"
+    },
+    {
+      "name": "Enable codebase index",
+      "description": "Enable codebase index"
+    },
+    {
+      "name": "Disable codebase index",
+      "description": "Disable codebase index"
+    },
+    {
+      "name": "Enable compact mode",
+      "description": "Enable compact mode"
+    },
+    {
+      "name": "Disable compact mode",
+      "description": "Disable compact mode"
+    },
+    {
+      "name": "Enable themes: sync with OS",
+      "description": "Enable themes: sync with OS"
+    },
+    {
+      "name": "Disable themes: sync with OS",
+      "description": "Disable themes: sync with OS"
+    },
+    {
+      "name": "Enable cursor blink",
+      "description": "Enable cursor blink"
+    },
+    {
+      "name": "Disable cursor blink",
+      "description": "Disable cursor blink"
+    },
+    {
+      "name": "Enable jump to bottom of block button",
+      "description": "Enable jump to bottom of block button"
+    },
+    {
+      "name": "Disable jump to bottom of block button",
+      "description": "Disable jump to bottom of block button"
+    },
+    {
+      "name": "Enable block dividers",
+      "description": "Enable block dividers"
+    },
+    {
+      "name": "Disable block dividers",
+      "description": "Disable block dividers"
+    },
+    {
+      "name": "Enable dim inactive panes",
+      "description": "Enable dim inactive panes"
+    },
+    {
+      "name": "Disable dim inactive panes",
+      "description": "Disable dim inactive panes"
+    },
+    {
+      "name": "Enable open new windows with custom size",
+      "description": "Enable open new windows with custom size"
+    },
+    {
+      "name": "Disable open new windows with custom size",
+      "description": "Disable open new windows with custom size"
+    },
+    {
+      "name": "Enable tools panel visibility across tabs",
+      "description": "Enable tools panel visibility across tabs"
+    },
+    {
+      "name": "Disable tools panel visibility across tabs",
+      "description": "Disable tools panel visibility across tabs"
+    },
+    {
+      "name": "Enable agent font matching terminal font",
+      "description": "Enable agent font matching terminal font"
+    },
+    {
+      "name": "Disable agent font matching terminal font",
+      "description": "Disable agent font matching terminal font"
+    },
+    {
+      "name": "Enable notebook font size matching terminal font size",
+      "description": "Enable notebook font size matching terminal font size"
+    },
+    {
+      "name": "Disable notebook font size matching terminal font size",
+      "description": "Disable notebook font size matching terminal font size"
+    },
+    {
+      "name": "Enable tab indicators",
+      "description": "Enable tab indicators"
+    },
+    {
+      "name": "Disable tab indicators",
+      "description": "Disable tab indicators"
+    },
+    {
+      "name": "Enable focus follows mouse",
+      "description": "Enable focus follows mouse"
+    },
+    {
+      "name": "Disable focus follows mouse",
+      "description": "Disable focus follows mouse"
+    },
+    {
+      "name": "Enable zen mode",
+      "description": "Enable zen mode"
+    },
+    {
+      "name": "Disable zen mode",
+      "description": "Disable zen mode"
+    },
+    {
+      "name": "Enable vertical tab layout",
+      "description": "Enable vertical tab layout"
+    },
+    {
+      "name": "Disable vertical tab layout",
+      "description": "Disable vertical tab layout"
+    },
+    {
+      "name": "Enable show vertical tabs panel in restored windows",
+      "description": "Enable show vertical tabs panel in restored windows"
+    },
+    {
+      "name": "Disable show vertical tabs panel in restored windows",
+      "description": "Disable show vertical tabs panel in restored windows"
+    },
+    {
+      "name": "Enable latest user prompt as conversation title in tab names",
+      "description": "Enable latest user prompt as conversation title in tab names"
+    },
+    {
+      "name": "Disable latest user prompt as conversation title in tab names",
+      "description": "Disable latest user prompt as conversation title in tab names"
+    },
+    {
+      "name": "Enable ligature rendering",
+      "description": "Enable ligature rendering"
+    },
+    {
+      "name": "Disable ligature rendering",
+      "description": "Disable ligature rendering"
+    },
+    {
+      "name": "Enable preserve active tab color for new tabs",
+      "description": "Enable preserve active tab color for new tabs"
+    },
+    {
+      "name": "Disable preserve active tab color for new tabs",
+      "description": "Disable preserve active tab color for new tabs"
+    },
+    {
+      "name": "Enable custom padding in alt-screen",
+      "description": "Enable custom padding in alt-screen"
+    },
+    {
+      "name": "Disable custom padding in alt-screen",
+      "description": "Disable custom padding in alt-screen"
+    },
+    {
+      "name": "Enable coding agent toolbar",
+      "description": "Enable coding agent toolbar"
+    },
+    {
+      "name": "Disable coding agent toolbar",
+      "description": "Disable coding agent toolbar"
+    },
+    {
+      "name": "Enable auto show or hide Rich Input based on agent status",
+      "description": "Enable auto show or hide Rich Input based on agent status"
+    },
+    {
+      "name": "Disable auto show or hide Rich Input based on agent status",
+      "description": "Disable auto show or hide Rich Input based on agent status"
+    },
+    {
+      "name": "Enable auto open Rich Input when a coding agent session starts",
+      "description": "Enable auto open Rich Input when a coding agent session starts"
+    },
+    {
+      "name": "Disable auto open Rich Input when a coding agent session starts",
+      "description": "Disable auto open Rich Input when a coding agent session starts"
+    },
+    {
+      "name": "Enable auto dismiss Rich Input after prompt submission",
+      "description": "Enable auto dismiss Rich Input after prompt submission"
+    },
+    {
+      "name": "Disable auto dismiss Rich Input after prompt submission",
+      "description": "Disable auto dismiss Rich Input after prompt submission"
+    },
+    {
+      "name": "Enable auto open code review panel",
+      "description": "Enable auto open code review panel"
+    },
+    {
+      "name": "Disable auto open code review panel",
+      "description": "Disable auto open code review panel"
+    },
+    {
+      "name": "Enable code review button",
+      "description": "Enable code review button"
+    },
+    {
+      "name": "Disable code review button",
+      "description": "Disable code review button"
+    },
+    {
+      "name": "Enable diff stats on code review button",
+      "description": "Enable diff stats on code review button"
+    },
+    {
+      "name": "Disable diff stats on code review button",
+      "description": "Disable diff stats on code review button"
+    },
+    {
+      "name": "Enable project explorer",
+      "description": "Enable project explorer"
+    },
+    {
+      "name": "Disable project explorer",
+      "description": "Disable project explorer"
+    },
+    {
+      "name": "Enable global file search",
+      "description": "Enable global file search"
+    },
+    {
+      "name": "Disable global file search",
+      "description": "Disable global file search"
+    },
+    {
+      "name": "Enable show hidden files in project explorer",
+      "description": "Enable show hidden files in project explorer"
+    },
+    {
+      "name": "Disable show hidden files in project explorer",
+      "description": "Disable show hidden files in project explorer"
+    },
+    {
+      "name": "Enable auto-indexing",
+      "description": "Enable auto-indexing"
+    },
+    {
+      "name": "Disable auto-indexing",
+      "description": "Disable auto-indexing"
+    },
+    {
+      "name": "Enable copy on select within the terminal",
+      "description": "Enable copy on select within the terminal"
+    },
+    {
+      "name": "Disable copy on select within the terminal",
+      "description": "Disable copy on select within the terminal"
+    },
+    {
+      "name": "Enable linux selection clipboard",
+      "description": "Enable linux selection clipboard"
+    },
+    {
+      "name": "Disable linux selection clipboard",
+      "description": "Disable linux selection clipboard"
+    },
+    {
+      "name": "Enable autocomplete quotes, parentheses, and brackets",
+      "description": "Enable autocomplete quotes, parentheses, and brackets"
+    },
+    {
+      "name": "Disable autocomplete quotes, parentheses, and brackets",
+      "description": "Disable autocomplete quotes, parentheses, and brackets"
+    },
+    {
+      "name": "Enable restore windows, tabs, and panes on startup",
+      "description": "Enable restore windows, tabs, and panes on startup"
+    },
+    {
+      "name": "Disable restore windows, tabs, and panes on startup",
+      "description": "Disable restore windows, tabs, and panes on startup"
+    },
+    {
+      "name": "Enable scroll reporting",
+      "description": "Enable scroll reporting"
+    },
+    {
+      "name": "Disable scroll reporting",
+      "description": "Disable scroll reporting"
+    },
+    {
+      "name": "Enable completions while typing",
+      "description": "Enable completions while typing"
+    },
+    {
+      "name": "Disable completions while typing",
+      "description": "Disable completions while typing"
+    },
+    {
+      "name": "Enable warp completions",
+      "description": "Enable warp completions"
+    },
+    {
+      "name": "Disable warp completions",
+      "description": "Disable warp completions"
+    },
+    {
+      "name": "Enable native shell completions",
+      "description": "Enable native shell completions"
+    },
+    {
+      "name": "Disable native shell completions",
+      "description": "Disable native shell completions"
+    },
+    {
+      "name": "Enable command corrections",
+      "description": "Enable command corrections"
+    },
+    {
+      "name": "Disable command corrections",
+      "description": "Disable command corrections"
+    },
+    {
+      "name": "Enable error underlining",
+      "description": "Enable error underlining"
+    },
+    {
+      "name": "Disable error underlining",
+      "description": "Disable error underlining"
+    },
+    {
+      "name": "Enable syntax highlighting",
+      "description": "Enable syntax highlighting"
+    },
+    {
+      "name": "Disable syntax highlighting",
+      "description": "Disable syntax highlighting"
+    },
+    {
+      "name": "Enable audible terminal bell",
+      "description": "Enable audible terminal bell"
+    },
+    {
+      "name": "Disable audible terminal bell",
+      "description": "Disable audible terminal bell"
+    },
+    {
+      "name": "Enable autosuggestions",
+      "description": "Enable autosuggestions"
+    },
+    {
+      "name": "Disable autosuggestions",
+      "description": "Disable autosuggestions"
+    },
+    {
+      "name": "Enable autosuggestion keybinding hint",
+      "description": "Enable autosuggestion keybinding hint"
+    },
+    {
+      "name": "Disable autosuggestion keybinding hint",
+      "description": "Disable autosuggestion keybinding hint"
+    },
+    {
+      "name": "Enable autosuggestion ignore button",
+      "description": "Enable autosuggestion ignore button"
+    },
+    {
+      "name": "Disable autosuggestion ignore button",
+      "description": "Disable autosuggestion ignore button"
+    },
+    {
+      "name": "Enable reuse existing SSH ControlMaster in the Warp SSH wrapper",
+      "description": "Enable reuse existing SSH ControlMaster in the Warp SSH wrapper"
+    },
+    {
+      "name": "Disable reuse existing SSH ControlMaster in the Warp SSH wrapper",
+      "description": "Disable reuse existing SSH ControlMaster in the Warp SSH wrapper"
+    },
+    {
+      "name": "Enable show tooltip on click on links",
+      "description": "Enable show tooltip on click on links"
+    },
+    {
+      "name": "Disable show tooltip on click on links",
+      "description": "Disable show tooltip on click on links"
+    },
+    {
+      "name": "Enable long-running command notifications",
+      "description": "Enable long-running command notifications"
+    },
+    {
+      "name": "Disable long-running command notifications",
+      "description": "Disable long-running command notifications"
+    },
+    {
+      "name": "Enable agent task completion notifications",
+      "description": "Enable agent task completion notifications"
+    },
+    {
+      "name": "Disable agent task completion notifications",
+      "description": "Disable agent task completion notifications"
+    },
+    {
+      "name": "Enable needs-attention notifications",
+      "description": "Enable needs-attention notifications"
+    },
+    {
+      "name": "Disable needs-attention notifications",
+      "description": "Disable needs-attention notifications"
+    },
+    {
+      "name": "Enable notification sounds",
+      "description": "Enable notification sounds"
+    },
+    {
+      "name": "Disable notification sounds",
+      "description": "Disable notification sounds"
+    },
+    {
+      "name": "Enable in-app agent notifications",
+      "description": "Enable in-app agent notifications"
+    },
+    {
+      "name": "Disable in-app agent notifications",
+      "description": "Disable in-app agent notifications"
+    },
+    {
+      "name": "Enable quit warning modal",
+      "description": "Enable quit warning modal"
+    },
+    {
+      "name": "Disable quit warning modal",
+      "description": "Disable quit warning modal"
+    },
+    {
+      "name": "Enable mouse reporting",
+      "description": "Enable mouse reporting"
+    },
+    {
+      "name": "Disable mouse reporting",
+      "description": "Disable mouse reporting"
+    },
+    {
+      "name": "Enable alias expansion",
+      "description": "Enable alias expansion"
+    },
+    {
+      "name": "Disable alias expansion",
+      "description": "Disable alias expansion"
+    },
+    {
+      "name": "Enable middle-click paste",
+      "description": "Enable middle-click paste"
+    },
+    {
+      "name": "Disable middle-click paste",
+      "description": "Disable middle-click paste"
+    },
+    {
+      "name": "Enable code as default editor",
+      "description": "Enable code as default editor"
+    },
+    {
+      "name": "Disable code as default editor",
+      "description": "Disable code as default editor"
+    },
+    {
+      "name": "Enable input hint text",
+      "description": "Enable input hint text"
+    },
+    {
+      "name": "Disable input hint text",
+      "description": "Disable input hint text"
+    },
+    {
+      "name": "Enable editing commands with Vim keybindings",
+      "description": "Enable editing commands with Vim keybindings"
+    },
+    {
+      "name": "Disable editing commands with Vim keybindings",
+      "description": "Disable editing commands with Vim keybindings"
+    },
+    {
+      "name": "Enable Vim unnamed register as system clipboard",
+      "description": "Enable Vim unnamed register as system clipboard"
+    },
+    {
+      "name": "Disable Vim unnamed register as system clipboard",
+      "description": "Disable Vim unnamed register as system clipboard"
+    },
+    {
+      "name": "Enable Vim status bar",
+      "description": "Enable Vim status bar"
+    },
+    {
+      "name": "Disable Vim status bar",
+      "description": "Disable Vim status bar"
+    },
+    {
+      "name": "Enable focus reporting",
+      "description": "Enable focus reporting"
+    },
+    {
+      "name": "Disable focus reporting",
+      "description": "Disable focus reporting"
+    },
+    {
+      "name": "Enable smart select",
+      "description": "Enable smart select"
+    },
+    {
+      "name": "Disable smart select",
+      "description": "Disable smart select"
+    },
+    {
+      "name": "Enable help block in new sessions",
+      "description": "Enable help block in new sessions"
+    },
+    {
+      "name": "Disable help block in new sessions",
+      "description": "Disable help block in new sessions"
+    },
+    {
+      "name": "Enable terminal input message line",
+      "description": "Enable terminal input message line"
+    },
+    {
+      "name": "Disable terminal input message line",
+      "description": "Disable terminal input message line"
+    },
+    {
+      "name": "Enable '@' context menu in terminal mode",
+      "description": "Enable '@' context menu in terminal mode"
+    },
+    {
+      "name": "Disable '@' context menu in terminal mode",
+      "description": "Disable '@' context menu in terminal mode"
+    },
+    {
+      "name": "Enable preserve input focus on block selection",
+      "description": "Enable preserve input focus on block selection"
+    },
+    {
+      "name": "Disable preserve input focus on block selection",
+      "description": "Disable preserve input focus on block selection"
+    },
+    {
+      "name": "Enable slash commands in terminal mode",
+      "description": "Enable slash commands in terminal mode"
+    },
+    {
+      "name": "Disable slash commands in terminal mode",
+      "description": "Disable slash commands in terminal mode"
+    },
+    {
+      "name": "Enable codebase symbols in the '@' context menu",
+      "description": "Enable codebase symbols in the '@' context menu"
+    },
+    {
+      "name": "Disable codebase symbols in the '@' context menu",
+      "description": "Disable codebase symbols in the '@' context menu"
+    },
+    {
+      "name": "Enable global workflows in Command Search",
+      "description": "Enable global workflows in Command Search"
+    },
+    {
+      "name": "Disable global workflows in Command Search",
+      "description": "Disable global workflows in Command Search"
+    },
+    {
+      "name": "Enable integrated GPU rendering (low power)",
+      "description": "Enable integrated GPU rendering (low power)"
+    },
+    {
+      "name": "Disable integrated GPU rendering (low power)",
+      "description": "Disable integrated GPU rendering (low power)"
+    },
+    {
+      "name": "Enable Wayland for window management",
+      "description": "Enable Wayland for window management"
+    },
+    {
+      "name": "Disable Wayland for window management",
+      "description": "Disable Wayland for window management"
+    },
+    {
+      "name": "Enable Rules",
+      "description": "Enable Rules"
+    },
+    {
+      "name": "Disable Rules",
+      "description": "Disable Rules"
+    },
+    {
+      "name": "Enable Suggested Rules",
+      "description": "Enable Suggested Rules"
+    },
+    {
+      "name": "Disable Suggested Rules",
+      "description": "Disable Suggested Rules"
+    },
+    {
+      "name": "Enable Warp Drive as agent context",
+      "description": "Enable Warp Drive as agent context"
+    },
+    {
+      "name": "Disable Warp Drive as agent context",
+      "description": "Disable Warp Drive as agent context"
+    },
+    {
+      "name": "Enable settings sync",
+      "description": "Enable settings sync"
+    },
+    {
+      "name": "Disable settings sync",
+      "description": "Disable settings sync"
+    },
+    {
+      "name": "Enable recording mode",
+      "description": "Enable recording mode"
+    },
+    {
+      "name": "Disable recording mode",
+      "description": "Disable recording mode"
+    },
+    {
+      "name": "Enable in-band generators for new sessions",
+      "description": "Enable in-band generators for new sessions"
+    },
+    {
+      "name": "Disable in-band generators for new sessions",
+      "description": "Disable in-band generators for new sessions"
+    },
+    {
+      "name": "Enable debug network status",
+      "description": "Enable debug network status"
+    },
+    {
+      "name": "Disable debug network status",
+      "description": "Disable debug network status"
+    },
+    {
+      "name": "Enable memory statistics",
+      "description": "Enable memory statistics"
+    },
+    {
+      "name": "Disable memory statistics",
+      "description": "Disable memory statistics"
+    },
+    {
+      "name": "Enable app analytics",
+      "description": "Enable app analytics"
+    },
+    {
+      "name": "Disable app analytics",
+      "description": "Disable app analytics"
+    },
+    {
+      "name": "Enable crash reporting",
+      "description": "Enable crash reporting"
+    },
+    {
+      "name": "Disable crash reporting",
+      "description": "Disable crash reporting"
+    },
+    {
+      "name": "Enable secret redaction",
+      "description": "Enable secret redaction"
+    },
+    {
+      "name": "Disable secret redaction",
+      "description": "Disable secret redaction"
+    },
+    {
+      "name": "Enable cloud AI conversation storage",
+      "description": "Enable cloud AI conversation storage"
+    },
+    {
+      "name": "Disable cloud AI conversation storage",
+      "description": "Disable cloud AI conversation storage"
+    },
+    {
+      "name": "Enable AI",
+      "description": "Enable AI"
+    },
+    {
+      "name": "Disable AI",
+      "description": "Disable AI"
+    },
+    {
+      "name": "Enable Active AI",
+      "description": "Enable Active AI"
+    },
+    {
+      "name": "Disable Active AI",
+      "description": "Disable Active AI"
+    },
+    {
+      "name": "Enable agent prompt autodetection in terminal input",
+      "description": "Enable agent prompt autodetection in terminal input"
+    },
+    {
+      "name": "Disable agent prompt autodetection in terminal input",
+      "description": "Disable agent prompt autodetection in terminal input"
+    },
+    {
+      "name": "Enable '#' trigger for AI command search",
+      "description": "Enable '#' trigger for AI command search"
+    },
+    {
+      "name": "Disable '#' trigger for AI command search",
+      "description": "Disable '#' trigger for AI command search"
+    },
+    {
+      "name": "Enable Next Command",
+      "description": "Enable Next Command"
+    },
+    {
+      "name": "Disable Next Command",
+      "description": "Disable Next Command"
+    },
+    {
+      "name": "Enable prompt suggestions",
+      "description": "Enable prompt suggestions"
+    },
+    {
+      "name": "Disable prompt suggestions",
+      "description": "Disable prompt suggestions"
+    },
+    {
+      "name": "Enable code suggestions",
+      "description": "Enable code suggestions"
+    },
+    {
+      "name": "Disable code suggestions",
+      "description": "Disable code suggestions"
+    },
+    {
+      "name": "Enable natural language autosuggestions",
+      "description": "Enable natural language autosuggestions"
+    },
+    {
+      "name": "Disable natural language autosuggestions",
+      "description": "Disable natural language autosuggestions"
+    },
+    {
+      "name": "Enable shared block title generation",
+      "description": "Enable shared block title generation"
+    },
+    {
+      "name": "Disable shared block title generation",
+      "description": "Disable shared block title generation"
+    },
+    {
+      "name": "Enable commit and pull request generation",
+      "description": "Enable commit and pull request generation"
+    },
+    {
+      "name": "Disable commit and pull request generation",
+      "description": "Disable commit and pull request generation"
+    },
+    {
+      "name": "Enable voice input",
+      "description": "Enable voice input"
+    },
+    {
+      "name": "Disable voice input",
+      "description": "Disable voice input"
+    },
+    {
+      "name": "Enable include agent-executed commands in history",
+      "description": "Enable include agent-executed commands in history"
+    },
+    {
+      "name": "Disable include agent-executed commands in history",
+      "description": "Disable include agent-executed commands in history"
+    },
+    {
+      "name": "Enable conversation history in tools panel",
+      "description": "Enable conversation history in tools panel"
+    },
+    {
+      "name": "Disable conversation history in tools panel",
+      "description": "Disable conversation history in tools panel"
+    },
+    {
+      "name": "Enable Auto-spawn servers from third-party agents",
+      "description": "Enable Auto-spawn servers from third-party agents"
+    },
+    {
+      "name": "Disable Auto-spawn servers from third-party agents",
+      "description": "Disable Auto-spawn servers from third-party agents"
+    },
+    {
+      "name": "Enable Warp credit fallback",
+      "description": "Enable Warp credit fallback"
+    },
+    {
+      "name": "Disable Warp credit fallback",
+      "description": "Disable Warp credit fallback"
+    },
+    {
+      "name": "Enable SSH Warpification",
+      "description": "Enable SSH Warpification"
+    },
+    {
+      "name": "Disable SSH Warpification",
+      "description": "Disable SSH Warpification"
+    },
+    {
       "name": "input:insert_network_logging_workflow",
       "description": "Show Warp network log"
     },
@@ -864,6 +1781,14 @@
     {
       "name": "input:search_command_history",
       "description": "History Search"
+    },
+    {
+      "name": "workspace:trigger_external_ctrl_t_file_search",
+      "description": "External File Search"
+    },
+    {
+      "name": "workspace:trigger_external_alt_c_directory_search",
+      "description": "External Directory Search"
     },
     {
       "name": "input:toggle_workflows",
@@ -1270,6 +2195,10 @@
       "description": "Rename the current pane"
     },
     {
+      "name": "workspace:cycle_active_tab_color",
+      "description": "Cycle current tab color"
+    },
+    {
       "name": "workspace:new_tab_group",
       "description": "Create new tab group"
     },
@@ -1550,5 +2479,9 @@
       "description": "Toggle Maximize Code Review Panel"
     }
   ],
-  "generated_at": "2026-08-05T16:59:35.936911+00:00"
+  "source_repository": "warpdotdev/warp",
+  "source_sha": "0e3101e1e6dfca292de9356e7b904beb7a2258c0",
+  "generated_at": "2026-10-05T22:30:50.695020+00:00",
+  "last_notified_signature": "39af57a0bff50c05feb850e0c107276c95949709bff8af11a92b9ab246905496",
+  "last_notified_at": "2026-09-11T15:27:54.269943+00:00"
 }

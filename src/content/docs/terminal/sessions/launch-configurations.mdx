@@ -24,10 +24,12 @@ You can create Launch Configurations in the app or by adding a YAML file.
 3. Name the configuration file. The name field cannot be empty.
 4. Click the Save configuration button.
 
+Warp saves each tab group's name, color, collapsed and pinned states, and tab membership.
+
 ### With a YAML File
 
 * Launch Configurations files are generated when you create them with the UI and can also be created or modified manually.
-* Please see the below for [Launch Configuration YAML file locations, format, and examples](/terminal/sessions/launch-configurations/#launch-configuration-yaml-format).
+* See [Launch Configuration YAML file locations, format, and examples](/terminal/sessions/launch-configurations/#launch-configuration-yaml-format).
 
 ## Using a Launch Configuration
 
@@ -36,12 +38,12 @@ You can create Launch Configurations in the app or by adding a YAML file.
     * From the [Command Palette](/terminal/command-palette/), enter `Launch Configuration` to open and select Launch Configuration.
     * Right-clicking the new Tab **+** button to open a menu and select saved Launch Configuration.
     * From the macOS menu bar, **File** > **Launch Configurations**, where you can search through and open your saved Launch Configuration.
-      * Single-window launch configs can be launched into the active window from the launch configuration palette using `CMD-ENTER` on macOS.
+      * Single-window launch configs can be launched into the active window from the launch configuration palette using `⌘+Enter` on macOS.
   </TabItem>
   <TabItem label="Windows">
     * From the [Command Palette](/terminal/command-palette/), enter `Launch Configuration` to open and select Launch Configuration.
     * Right-clicking the new Tab **+** button to open a menu and select saved Launch Configuration.
-      * Single-window launch configs can be launched into the active window from the launch configuration palette using `CTRL-ENTER` on Windows.
+      * Single-window launch configs can be launched into the active window from the launch configuration palette using `Ctrl+Enter` on Windows.
 
     To open a WSL tab with a Launch Configuration, you must first set WSL as your default shell in Warp:
 
@@ -53,7 +55,7 @@ You can create Launch Configurations in the app or by adding a YAML file.
   <TabItem label="Linux">
     * From the [Command Palette](/terminal/command-palette/), enter `Launch Configuration` to open and select Launch Configuration.
     * Right-clicking the new Tab **+** button to open a menu and select saved Launch Configuration.
-      * Single-window launch configs can be launched into the active window from the launch configuration palette using `CTRL-ENTER` on Linux.
+      * Single-window launch configs can be launched into the active window from the launch configuration palette using `Ctrl+Enter` on Linux.
   </TabItem>
 </Tabs>
 
@@ -147,6 +149,44 @@ windows:
           cwd: /Users/warp-user
         color: green
 ```
+
+### Tab groups
+
+Use `tab_groups` on a window to define groups. Set `group` on each tab to the zero-based position of its group in the `tab_groups` list. Tabs without `group` open outside a group.
+
+Each tab group supports:
+
+* **`name`** - The group name.
+* **`color`** - One of `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, or `white`.
+* **`collapsed`** - Whether the group opens collapsed. Defaults to `false`.
+* **`pinned`** - Whether the group opens pinned. Defaults to `false`.
+
+```yaml title="grouped-development.yaml"
+---
+name: Grouped development
+windows:
+  - tabs:
+      - title: API
+        layout:
+          cwd: /Users/warp-user/Projects/api
+        group: 0
+      - title: Tests
+        layout:
+          cwd: /Users/warp-user/Projects/api
+          commands:
+            - exec: npm test
+        group: 0
+      - title: Notes
+        layout:
+          cwd: /Users/warp-user/Documents
+    tab_groups:
+      - name: Backend
+        color: blue
+        collapsed: false
+        pinned: false
+```
+
+Tabs in the same group must be adjacent in the `tabs` list. Warp opens a tab outside a group when its `group` index does not exist or when the same group appears again after a different group or ungrouped tab. Warp does not create groups without member tabs.
 
 ### Panes
 

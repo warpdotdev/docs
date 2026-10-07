@@ -29,7 +29,7 @@ Warp doesn't have a VS Code importer because it's a standalone application, not 
 
 The fastest way to bring over your VS Code terminal setup is to ask Warp's Agent to translate `settings.json` directly. Warp ships a [`settings.toml` file](/terminal/settings/) and a bundled `modify-settings` skill that lets the Agent read your existing config and write equivalent values into Warp's settings.
 
-1. In the Warp app, open a new tab and switch to [Agent Mode](/agents/local-agents/overview/) with `⌘+I` (macOS) or `Ctrl+I` (Linux/Windows).
+1. In the Warp app, open a new tab and switch to [Agent Mode](/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/) with `⌘+I` (macOS) or `Ctrl+I` (Linux/Windows).
 2. Paste this prompt into Agent Mode, then press `Enter`.
 
    > Read my VS Code `settings.json` (`~/Library/Application Support/Code/User/settings.json` on macOS) and port the equivalent terminal settings (`terminal.integrated.*` keys) into my Warp `settings.toml` using the `modify-settings` skill. Show me a diff before applying.
@@ -62,7 +62,7 @@ Warp's [default keyboard shortcuts](/getting-started/keyboard-shortcuts/) are la
 
 Many developers keep VS Code as their editor and use Warp as the terminal they switch to for long-running commands, SSH sessions, or AI-assisted workflows. You don't need to change VS Code. Install Warp and open it when you want a richer terminal.
 
-VS Code's integrated terminal still works; use it for quick one-off commands, and jump to Warp when you need [blocks](/terminal/blocks/), [Agent Mode](/agents/local-agents/overview/), or [persistent sessions](/terminal/sessions/session-restoration/).
+VS Code's integrated terminal still works; use it for quick one-off commands, and jump to Warp when you need [blocks](/terminal/blocks/), [Agent Mode](/agents/), or [persistent sessions](/terminal/sessions/session-restoration/).
 
 ### Replace VS Code with Warp
 

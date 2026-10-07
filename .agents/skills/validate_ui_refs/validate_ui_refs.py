@@ -15,6 +15,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -53,6 +54,7 @@ EXTERNAL_CONTEXT_KEYWORDS = {
     "github", "gitlab", "bitbucket", "organization", "org settings",
     "slack", "linear", "notion", "jira", "figma",
     "raycast", "vs code", "vscode", "visual studio",
+    "vercel", "stripe", "pagerduty",
 }
 
 # Known external/OS Settings paths that look like Warp paths but aren't.
@@ -450,7 +452,7 @@ def _suggest_migration_for_deprecated_section(
     Handles patterns like:
         Settings > AI > Input        -> Settings > Agents > Oz > Input
         Settings > AI > Knowledge    -> Settings > Agents > Knowledge
-        Settings > Platform          -> Settings > Cloud platform > Oz Cloud API Keys
+        Settings > Platform          -> Settings > Cloud platform > API keys
         Settings > Environments      -> Settings > Cloud platform > Environments
         Settings > MCP Servers       -> Settings > Agents > MCP servers
     """
@@ -465,7 +467,7 @@ def _suggest_migration_for_deprecated_section(
     subsection_map = info.get("subsection_to_subpage", {})
 
     if len(segments) == 2:
-        # Settings > Platform -> Settings > Cloud platform > Oz Cloud API Keys
+        # Settings > Platform -> Settings > Cloud platform > API keys
         new_path = ["Settings", umbrella, default_subpage]
         return {
             "valid": False,
@@ -510,6 +512,68 @@ def _suggest_migration_for_deprecated_section(
         "suggestion": " > ".join(new_path),
         "confidence": 0.95,
         "fix_type": "deprecated_section",
+    }
+
+
+def _control_label_owners(valid_paths: Dict[str, Any]) -> Dict[str, List[str]]:
+    """Map each known Settings control/widget label to the page(s) that own it.
+
+    Built from the `controls` list `_extract_settings_sections()` populates on
+    each `settings_sections` entry, keyed case-insensitively so a documented
+    label that differs only in casing still resolves to its owning page.
+    """
+    owners: Dict[str, List[str]] = {}
+    for display_name, entry in valid_paths.get("settings_sections", {}).items():
+        for control in entry.get("controls", []) or []:
+            owners.setdefault(control.casefold(), []).append(display_name)
+    return owners
+
+
+def _owning_settings_path(display_name: str, valid_paths: Dict[str, Any]) -> List[str]:
+    """Build the canonical `Settings > ... > display_name` path segments for a page."""
+    section_entry = valid_paths.get("settings_sections", {}).get(display_name, {})
+    umbrella = section_entry.get("umbrella")
+    if umbrella:
+        return ["Settings", umbrella, display_name]
+    return ["Settings", display_name]
+
+
+def _check_relocated_control(
+    trailing_label: str,
+    documented_page: str,
+    valid_paths: Dict[str, Any],
+) -> Optional[Dict[str, Any]]:
+    """Flag a trailing path segment naming a control now owned by another page.
+
+    `validate_ui_path` otherwise treats any trailing segment beyond the known
+    Settings navigation hierarchy as a free-form toggle/setting name and
+    accepts it unconditionally. That is exactly how a stale path like
+    "Settings > Features > General > Choose an editor to open file links"
+    keeps validating after the control moves to a different page but the old
+    section ("Features > General") still exists: nothing ever inspects the
+    trailing segment against where the control actually lives now. This
+    checks it against the control-to-page map extracted from the warp client
+    (see `_extract_control_labels_from_text`); when the label matches a
+    control owned by a page other than the one actually documented, the path
+    is stale. Returns None when the label is unknown or already matches the
+    documented page, so an ordinary undocumented toggle name is still allowed.
+    """
+    owning_pages = _control_label_owners(valid_paths).get(trailing_label.casefold())
+    if not owning_pages or documented_page in owning_pages:
+        return None
+    owning_page = owning_pages[0]
+    suggestion = " > ".join(
+        _owning_settings_path(owning_page, valid_paths) + [trailing_label]
+    )
+    return {
+        "valid": False,
+        "issue": (
+            f"\"{trailing_label}\" is a control on the \"{owning_page}\" Settings "
+            f"page, not \"{documented_page}\""
+        ),
+        "suggestion": suggestion,
+        "confidence": 0.9,
+        "fix_type": "relocated_control",
     }
 
 
@@ -560,6 +624,26 @@ def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
                 }
             subpage = segments[2]
             if subpage not in subpages:
+                # A subpage may itself have been renamed within the same
+                # umbrella (e.g. "Oz Cloud API Keys" -> "API keys" under
+                # "Cloud platform"). Check this deterministic alias map before
+                # falling through to case-insensitive/fuzzy matching, so a
+                # historical full path resolves to an exact migration instead
+                # of an unfixed fuzzy suggestion.
+                deprecated_subpages = umbrella_data.get("deprecated_subpages", {})
+                if subpage in deprecated_subpages:
+                    mapped_subpage = deprecated_subpages[subpage]
+                    new_path = ["Settings", section, mapped_subpage] + segments[3:]
+                    return {
+                        "valid": False,
+                        "issue": (
+                            f"\"{subpage}\" was renamed to \"{mapped_subpage}\" "
+                            f"under the \"{section}\" umbrella"
+                        ),
+                        "suggestion": " > ".join(new_path),
+                        "confidence": 0.95,
+                        "fix_type": "deprecated_section",
+                    }
                 ci_match = next(
                     (s for s in subpages if s.lower() == subpage.lower()), None
                 )
@@ -634,7 +718,12 @@ def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
                             "confidence": 0.95,
                             "fix_type": "case_mismatch",
                         }
-                # Unknown sub-section — likely a toggle/setting name; allow.
+                # Unknown sub-section — likely a toggle/setting name; allow,
+                # unless it names a control that has since moved to a
+                # different Settings page (see _check_relocated_control).
+                relocation = _check_relocated_control(sub, subpage, valid_paths)
+                if relocation:
+                    return relocation
                 return {
                     "valid": True,
                     "issue": None,
@@ -708,8 +797,16 @@ def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
             sub_sections = section_data.get("sub_sections", [])
             sub = segments[2]
 
-            # Exact match — valid
+            # Exact match — valid, but a further trailing segment might name a
+            # control that has since moved to a different Settings page (this
+            # is how "Settings > Features > General > <moved control>" used to
+            # keep validating after the control relocated but "General" itself
+            # stayed a real Features sub-section).
             if sub in sub_sections:
+                if len(segments) >= 4:
+                    relocation = _check_relocated_control(segments[3], section, valid_paths)
+                    if relocation:
+                        return relocation
                 return {"valid": True, "issue": None, "suggestion": None, "confidence": 1.0, "fix_type": None}
 
             # Case mismatch against a known sub-section — still flag these
@@ -726,7 +823,12 @@ def validate_ui_path(path: str, valid_paths: Dict[str, Any]) -> Dict[str, Any]:
                         "fix_type": "case_mismatch",
                     }
 
-            # Unrecognized sub-section — skip (likely a toggle/setting name)
+            # Unrecognized sub-section — skip (likely a toggle/setting name),
+            # unless it names a control that has since moved to a different
+            # Settings page (see _check_relocated_control).
+            relocation = _check_relocated_control(sub, section, valid_paths)
+            if relocation:
+                return relocation
             return {"valid": True, "issue": None, "suggestion": None, "confidence": 0.8, "fix_type": None}
 
         return {"valid": True, "issue": None, "suggestion": None, "confidence": 1.0, "fix_type": None}
@@ -1035,6 +1137,56 @@ def scan_docs(
     return files
 
 
+class ChangedFilesUnresolvedError(RuntimeError):
+    """Raised when the changed-file diff against origin/main can't be resolved."""
+
+
+def find_changed_md_files(
+    docs_dir: Path,
+    include_changelog: bool = False,
+) -> List[Path]:
+    """Find .md/.mdx files under docs_dir changed vs origin/main...HEAD.
+
+    Matches `style_lint.py --changed`'s `origin/main...HEAD` semantics,
+    exclusions, and deleted-file handling (`--diff-filter=d` drops deletions
+    from the diff so a removed file is never "checked"). Unlike
+    `style_lint`'s `--changed`, this never falls back to an unbounded full
+    scan when the diff can't be resolved — required CI must fail loud instead
+    of silently widening scope.
+    """
+    try:
+        result = subprocess.run(
+            [
+                "git", "diff", "--name-only", "--diff-filter=d",
+                "origin/main...HEAD", "--", str(docs_dir),
+            ],
+            capture_output=True, text=True, check=True,
+        )
+    except (subprocess.CalledProcessError, OSError) as exc:
+        raise ChangedFilesUnresolvedError(
+            f"could not determine changed files vs origin/main...HEAD: {exc}"
+        ) from exc
+
+    files = []
+    for line in result.stdout.strip().splitlines():
+        line = line.strip()
+        if not line or not (line.endswith(".md") or line.endswith(".mdx")):
+            continue
+        p = Path(line)
+        if not p.exists():
+            continue
+        try:
+            rel_parts = set(p.resolve().relative_to(docs_dir.resolve()).parts)
+        except ValueError:
+            continue
+        if rel_parts & SKIP_DIRS:
+            continue
+        if not include_changelog and "changelog" in rel_parts:
+            continue
+        files.append(p)
+    return sorted(files)
+
+
 # ---------------------------------------------------------------------------
 # Auto-fix
 # ---------------------------------------------------------------------------
@@ -1109,6 +1261,92 @@ def apply_fixes(issues: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
 
 # ---------------------------------------------------------------------------
+# Unresolved-issue signature (Slack notification de-duplication)
+# ---------------------------------------------------------------------------
+
+_UNRESOLVED_SIGNATURE_MARKER_RE = re.compile(
+    r"<!-- validate-ui-refs:unresolved-issues-signature:([0-9a-f]{64}) -->"
+)
+
+
+def unresolved_issue_signature(
+    path_issues: List[Dict[str, Any]],
+    command_issues: List[Dict[str, Any]],
+    format_issues: List[Dict[str, Any]],
+    repo_root: Path,
+) -> str:
+    """Build a stable signature for the currently-unresolved (unfixed) issues.
+
+    Two runs that find exactly the same issues produce the same signature,
+    regardless of scan order, absolute-path differences between environments,
+    or confidence-score jitter. Used by `main()` to avoid re-posting an
+    identical Slack report when a scheduled run has nothing new to say.
+    """
+    def _rel(file_path: str) -> str:
+        try:
+            return str(Path(file_path).resolve().relative_to(repo_root.resolve()))
+        except ValueError:
+            return file_path
+
+    entries = [
+        f"{_rel(issue['file'])}:{issue['line']}:{issue.get('validation', {}).get('issue', '')}"
+        for issue in path_issues + command_issues
+    ]
+    entries += [
+        f"{_rel(issue['file'])}:{issue['line']}:format:{issue.get('raw', '')}"
+        for issue in format_issues
+    ]
+    entries.sort()
+    return hashlib.sha256("\n".join(entries).encode("utf-8")).hexdigest()
+
+
+def extract_unresolved_signature(pr_body: Optional[str]) -> Optional[str]:
+    """Extract a previously-embedded unresolved-issue signature from a PR body."""
+    if not pr_body:
+        return None
+    m = _UNRESOLVED_SIGNATURE_MARKER_RE.search(pr_body)
+    return m.group(1) if m else None
+
+
+def should_notify_slack(
+    total_issues: int,
+    current_signature: str,
+    previous_signature: Optional[str],
+) -> bool:
+    """Decide whether a run has new information worth posting to Slack.
+
+    Notifies when there are unresolved issues AND the set of issues differs
+    from what was last reported (or nothing has ever been reported). Returns
+    False when the exact same unresolved issues were already reported, so an
+    unchanged report is not re-posted run after run (e.g. on every daily
+    reconciliation while a fix PR sits open awaiting review).
+    """
+    if total_issues == 0:
+        return False
+    return current_signature != previous_signature
+
+
+def _snapshot_has_uncommitted_changes(valid_paths_file: Path, repo_root: Path) -> bool:
+    """Return True if valid_paths_file differs from the last commit in repo_root.
+
+    A `--refresh-valid-paths` run (e.g. bumping `source_sha` to the current
+    warp client HEAD) writes this file locally, but committing it was
+    previously gated on `fixes` being non-empty (see `create_pr` callers in
+    `main()`). On a day with no auto-fixable doc issues, that silently
+    discarded the refreshed `source_sha`, so the committed snapshot never
+    advanced and the daily reconciliation job kept re-triggering forever.
+    """
+    try:
+        result = subprocess.run(
+            ["git", "status", "--porcelain", "--", str(valid_paths_file)],
+            cwd=repo_root, capture_output=True, text=True, check=True,
+        )
+    except (subprocess.CalledProcessError, OSError):
+        return False
+    return bool(result.stdout.strip())
+
+
+# ---------------------------------------------------------------------------
 # PR creation
 # ---------------------------------------------------------------------------
 
@@ -1153,21 +1391,81 @@ def _fixes_already_in_pr(
     return new_fixes
 
 
-def _pr_body(fixes: List[Dict[str, Any]], repo_root: Path) -> str:
-    return (
-        "## Summary\n"
-        f"Auto-fixed {len(fixes)} UI reference issue(s) found by the `validate_ui_refs` skill.\n\n"
-        "## Changes\n"
-        + "\n".join(
-            f"- `{Path(f['file']).relative_to(repo_root)}` line {f['line']}: "
-            f"`{f['old']}` → `{f['new']}`"
-            for f in fixes
+def _pr_body(
+    fixes: List[Dict[str, Any]],
+    repo_root: Path,
+    unresolved_signature: Optional[str] = None,
+    remaining_count: int = 0,
+) -> str:
+    # This PR is a real, direct PR-creation code path (not delegated to
+    # create_pr), so it carries the same v1 doc-quality contract sections
+    # every other PR-producing skill does. It is mechanically `low` risk: an
+    # auto-fix only ever changes UI-reference casing/formatting to match an
+    # already-canonical name in valid_paths.json, never product meaning.
+    contract = (
+        "## Documentation risk\n"
+        "Risk: low\n"
+        "Rationale: Mechanical UI-reference casing/formatting fixes only, applied by "
+        "validate_ui_refs against the committed valid_paths.json snapshot; no product "
+        "meaning changes.\n"
+        "Docs override: none\n\n"
+        "## Unverified claims\n"
+        "None \u2014 every fix corrects formatting/casing to an already-canonical name."
+    )
+    if fixes:
+        summary = (
+            "## Summary\n"
+            f"Auto-fixed {len(fixes)} UI reference issue(s) found by the `validate_ui_refs` skill.\n\n"
         )
+        changes = (
+            "## Changes\n"
+            + "\n".join(
+                f"- `{Path(f['file']).relative_to(repo_root)}` line {f['line']}: "
+                f"`{f['old']}` → `{f['new']}`"
+                for f in fixes
+            )
+            + "\n\n"
+        )
+    else:
+        # No auto-fixable issue existed this run, but the snapshot (e.g.
+        # `source_sha`) still needs to be committed — see
+        # `_snapshot_has_uncommitted_changes`. Silently dropping this used to
+        # leave the committed snapshot permanently stale.
+        summary = (
+            "## Summary\n"
+            "Refreshed the `valid_paths.json` provenance snapshot (e.g. `source_sha`) "
+            "so it reflects the current `warpdotdev/warp` HEAD. No auto-fixable UI "
+            "reference issues were found in this run.\n\n"
+        )
+        changes = ""
+    remaining = (
+        f"## Remaining issues ({remaining_count})\n"
+        "Could not be auto-fixed and need manual review. Already reported to "
+        "Slack for this exact set of issues; a further Slack notification is "
+        "only sent if this set changes.\n\n"
+        if remaining_count
+        else ""
+    )
+    marker = (
+        f"\n<!-- validate-ui-refs:unresolved-issues-signature:{unresolved_signature} -->"
+        if unresolved_signature
+        else ""
+    )
+    return (
+        summary + changes + remaining + contract
         + "\n\nCo-Authored-By: Warp <agent@warp.dev>"
+        + marker
     )
 
 
 def _commit_message(fixes: List[Dict[str, Any]], repo_root: Path) -> str:
+    if not fixes:
+        return (
+            "chore: refresh UI reference snapshot provenance\n\n"
+            "Refreshed by validate_ui_refs skill (e.g. a source_sha bump); no "
+            "auto-fixable UI reference issues were found.\n\n"
+            "Co-Authored-By: Warp <agent@warp.dev>"
+        )
     files_changed = {f["file"] for f in fixes}
     return (
         f"docs: fix {len(fixes)} UI reference issue(s)\n\n"
@@ -1181,6 +1479,8 @@ def _update_existing_pr(
     existing_pr: Dict[str, Any],
     all_fixes: List[Dict[str, Any]],
     repo_root: Path,
+    unresolved_signature: Optional[str] = None,
+    remaining_count: int = 0,
 ) -> Optional[str]:
     """Stash, checkout the existing PR branch, re-apply fixes, commit, push, update body."""
     branch = existing_pr["headRefName"]
@@ -1207,6 +1507,14 @@ def _update_existing_pr(
             )
             return None
         subprocess.run(["git", "add", "-A"], cwd=repo_root, check=True)
+        diff_check = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=repo_root)
+        if diff_check.returncode == 0:
+            # Nothing changed relative to the existing PR branch (the caller
+            # already checked fixes/signature before calling us, so this is a
+            # defensive no-op rather than the expected path).
+            subprocess.run(["git", "checkout", "-"], cwd=repo_root)
+            print(f"No changes to push to existing PR #{pr_number}.")
+            return existing_pr["url"]
         subprocess.run(
             ["git", "commit", "-m", _commit_message(all_fixes, repo_root)],
             cwd=repo_root,
@@ -1214,13 +1522,15 @@ def _update_existing_pr(
         )
         subprocess.run(["git", "push", "origin", branch], cwd=repo_root, check=True)
 
-        # Rewrite the PR body to list every fix (old + new)
+        # Rewrite the PR body to list every fix (old + new) and the latest
+        # unresolved-issue signature, so the next run can tell whether
+        # anything has actually changed since this report.
         with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False) as tmp:
-            tmp.write(_pr_body(all_fixes, repo_root))
+            tmp.write(_pr_body(all_fixes, repo_root, unresolved_signature, remaining_count))
             body_file = tmp.name
         try:
             subprocess.run(
-                ["gh", "pr", "edit", str(pr_number), "--body-file", body_file],
+                ["gh", "pr", "edit", str(pr_number), "--body-file", body_file, "--add-label", "warpy-factory"],
                 cwd=repo_root,
                 check=True,
             )
@@ -1234,35 +1544,58 @@ def _update_existing_pr(
         return None
 
 
-def create_pr(fixes: List[Dict[str, Any]], repo_root: Path) -> Tuple[Optional[str], str]:
+def create_pr(
+    fixes: List[Dict[str, Any]],
+    repo_root: Path,
+    unresolved_signature: Optional[str] = None,
+    remaining_count: int = 0,
+) -> Tuple[Optional[str], str]:
     """Create a draft PR, or update an existing open fix/ui-refs-* PR.
 
     Checks for an existing open PR whose branch matches fix/ui-refs-* before
     creating a new one.  When one is found:
-    - If all current fixes are already in the PR, returns without changes.
-    - If there are new fixes, updates the existing PR branch and description.
+    - If all current fixes, the unresolved-issue signature, AND the local
+      valid_paths.json snapshot are already reflected in the PR, returns
+      without changes.
+    - Otherwise, updates the existing PR branch and description.
+
+    `fixes` may be empty: a refreshed snapshot (e.g. a `source_sha` bump) with
+    no auto-fixable doc issues still needs to be committed so the recorded
+    provenance advances — see `_snapshot_has_uncommitted_changes`. Callers
+    should only invoke this when there is something to commit (a fix, a
+    changed snapshot, or a changed unresolved-issue signature); it degrades
+    gracefully (returns "error") if there ends up being no git diff at all.
 
     Returns (pr_url, action) where action is one of:
       "created"         – new draft PR opened
-      "updated"         – existing open PR updated with new fixes
-      "already_covered" – all fixes already present in an existing open PR
+      "updated"         – existing open PR updated
+      "already_covered" – fixes and unresolved issues already present in an existing open PR
       "error"           – PR could not be created or updated
     """
-    if not fixes:
-        print("No fixes to commit.")
-        return None, "error"
-
     existing_pr = find_existing_fix_pr(repo_root)
 
     if existing_pr:
         new_fixes = _fixes_already_in_pr(fixes, existing_pr.get("body", ""), repo_root)
-        if not new_fixes:
+        existing_signature = extract_unresolved_signature(existing_pr.get("body", ""))
+        # A refreshed valid_paths.json (source_sha bump, new commands, etc.)
+        # must still land even when the unresolved-issue set is unchanged;
+        # otherwise provenance stays stale while open PRs sit waiting.
+        snapshot_changed = _snapshot_has_uncommitted_changes(
+            DEFAULT_VALID_PATHS_FILE, repo_root
+        )
+        if (
+            not new_fixes
+            and existing_signature == unresolved_signature
+            and not snapshot_changed
+        ):
             print(
-                f"All fixes already covered by open PR #{existing_pr['number']}: "
-                f"{existing_pr['url']}"
+                f"All fixes and unresolved issues already covered by open PR "
+                f"#{existing_pr['number']}: {existing_pr['url']}"
             )
             return existing_pr["url"], "already_covered"
-        pr_url = _update_existing_pr(existing_pr, fixes, repo_root)
+        pr_url = _update_existing_pr(
+            existing_pr, fixes, repo_root, unresolved_signature, remaining_count
+        )
         if pr_url:
             return pr_url, "updated"
         # _update_existing_pr already printed a warning; fall through to create a new PR
@@ -1272,6 +1605,12 @@ def create_pr(fixes: List[Dict[str, Any]], repo_root: Path) -> Tuple[Optional[st
     try:
         subprocess.run(["git", "checkout", "-b", branch], cwd=repo_root, check=True)
         subprocess.run(["git", "add", "-A"], cwd=repo_root, check=True)
+        diff_check = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=repo_root)
+        if diff_check.returncode == 0:
+            print("Nothing to commit.")
+            subprocess.run(["git", "checkout", "-"], cwd=repo_root)
+            subprocess.run(["git", "branch", "-D", branch], cwd=repo_root)
+            return None, "error"
         subprocess.run(
             ["git", "commit", "-m", _commit_message(fixes, repo_root)],
             cwd=repo_root,
@@ -1280,15 +1619,21 @@ def create_pr(fixes: List[Dict[str, Any]], repo_root: Path) -> Tuple[Optional[st
         subprocess.run(["git", "push", "-u", "origin", branch], cwd=repo_root, check=True)
 
         with tempfile.NamedTemporaryFile(mode="w", suffix=".md", delete=False) as tmp:
-            tmp.write(_pr_body(fixes, repo_root))
+            tmp.write(_pr_body(fixes, repo_root, unresolved_signature, remaining_count))
             body_file = tmp.name
         try:
+            title = (
+                f"docs: fix {len(fixes)} UI reference issue(s)"
+                if fixes
+                else "chore: refresh UI reference snapshot provenance"
+            )
             result = subprocess.run(
                 [
                     "gh", "pr", "create",
-                    "--title", f"docs: fix {len(fixes)} UI reference issue(s)",
+                    "--title", title,
                     "--body-file", body_file,
                     "--draft",
+                    "--label", "warpy-factory",
                 ],
                 cwd=repo_root,
                 capture_output=True,
@@ -1435,7 +1780,8 @@ def refresh_valid_paths(warp_repo_path: Path, output_path: Path) -> None:
     """Re-extract valid paths from the warp client repo's Rust sources and save to JSON.
 
     Preserves hand-maintained lists (macos_menu_bar, warp_drive, umbrellas,
-    deprecated_sections, top_level_sidebar) from the existing snapshot.
+    deprecated_sections, top_level_sidebar) and Slack notification
+    de-duplication state from the existing snapshot.
     Auto-detected umbrellas from `SettingsUmbrella::new(...)` calls in mod.rs
     are merged in; if a new umbrella is detected that's not in the existing
     snapshot, it's added. Existing umbrella entries take precedence on
@@ -1501,8 +1847,16 @@ def refresh_valid_paths(warp_repo_path: Path, output_path: Path) -> None:
         "macos_menu_bar": existing.get("macos_menu_bar", {}),
         "warp_drive": existing.get("warp_drive", {}),
         "command_palette_commands": command_palette,
+        "source_repository": _resolve_source_repository(warp_repo_path) or existing.get("source_repository"),
+        "source_sha": _resolve_source_sha(warp_repo_path) or existing.get("source_sha"),
         "generated_at": datetime.now(timezone.utc).isoformat(),
     }
+    # The scheduled workflow refreshes this file before it compares a report
+    # to the prior notification. Retain that state so unchanged reports do
+    # not produce duplicate Slack messages after a refresh.
+    for key in ("last_notified_signature", "last_notified_at"):
+        if key in existing:
+            data[key] = existing[key]
 
     with open(output_path, "w") as f:
         json.dump(data, f, indent=2)
@@ -1513,6 +1867,39 @@ def refresh_valid_paths(warp_repo_path: Path, output_path: Path) -> None:
         f"{len(data['deprecated_sections'])} deprecated, "
         f"{len(command_palette)} commands)"
     )
+
+
+def _resolve_source_sha(warp_repo_path: Path) -> Optional[str]:
+    """Return the warp client repo's current commit SHA, or None if unavailable.
+
+    Best-effort: a shallow checkout, a missing `.git`, or any git failure
+    leaves the field absent rather than raising, since a missing SHA is a
+    visible "unknown" in the report (see main()'s provenance line) and never
+    silently advances a fabricated value.
+    """
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(warp_repo_path), "rev-parse", "HEAD"],
+            capture_output=True, text=True, check=True,
+        )
+    except (subprocess.CalledProcessError, OSError):
+        return None
+    sha = result.stdout.strip()
+    return sha or None
+
+
+def _resolve_source_repository(warp_repo_path: Path) -> Optional[str]:
+    """Return the warp client repo's `owner/repo` from its `origin` remote."""
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(warp_repo_path), "remote", "get-url", "origin"],
+            capture_output=True, text=True, check=True,
+        )
+    except (subprocess.CalledProcessError, OSError):
+        return None
+    url = result.stdout.strip()
+    m = re.search(r"[:/]([^/:]+/[^/]+?)(?:\.git)?$", url)
+    return m.group(1) if m else None
 
 
 def _extract_umbrellas(warp_repo: Path) -> Dict[str, Any]:
@@ -1582,6 +1969,45 @@ def _extract_umbrellas(warp_repo: Path) -> Dict[str, Any]:
     return umbrellas
 
 
+# A label passed directly as a string literal, e.g.
+# `render_body_item::<FeaturesPageAction>("Show hidden files".into(), ...)`, or
+# indirected through a local `const NAME: &str = "...";` (resolved below).
+_RE_RENDER_BODY_ITEM_LABEL = re.compile(
+    r'render_body_item::<[\w:]+>\(\s*(?:"((?:[^"\\]|\\.)*)"|([A-Za-z_]\w*))'
+)
+# `render_dropdown_item(appearance, "Label", ...)` — the label is the second
+# positional argument, right after the `&Appearance` reference.
+_RE_RENDER_DROPDOWN_ITEM_LABEL = re.compile(
+    r'render_dropdown_item\(\s*\w+,\s*(?:"((?:[^"\\]|\\.)*)"|([A-Za-z_]\w*))'
+)
+# `const LABEL: &str = "...";` — resolves the identifier form of the two
+# patterns above (e.g. `TABBED_FILE_VIEWER_TOGGLE_HEADER`).
+_RE_CONST_STR = re.compile(
+    r'const\s+([A-Z][A-Z0-9_]*)\s*:\s*&\'?\w*\s*str\s*=\s*"((?:[^"\\]|\\.)*)"'
+)
+
+
+def _extract_control_labels_from_text(text: str) -> List[str]:
+    """Extract Settings widget/control label strings from a page's Rust source.
+
+    Looks for the label argument passed to `render_body_item::<...>(...)` and
+    `render_dropdown_item(appearance, ...)` call sites — the exact strings Warp
+    renders next to a toggle or dropdown — resolving simple
+    `const NAME: &str = "...";` indirection when the label isn't an inline
+    literal. This is the control-to-page map `validate_ui_path` uses to catch
+    a documented path whose trailing segment names a control that has since
+    moved to a different Settings page (see `_check_relocated_control`).
+    """
+    consts = dict(_RE_CONST_STR.findall(text))
+    labels: List[str] = []
+    for pattern in (_RE_RENDER_BODY_ITEM_LABEL, _RE_RENDER_DROPDOWN_ITEM_LABEL):
+        for literal, ident in pattern.findall(text):
+            label = literal or consts.get(ident)
+            if label and label not in labels:
+                labels.append(label)
+    return labels
+
+
 def _extract_settings_sections(warp_repo: Path) -> Dict[str, Any]:
     """Parse SettingsSection enum and sub-sections from Rust source files."""
     mod_rs = warp_repo / "app" / "src" / "settings_view" / "mod.rs"
@@ -1625,7 +2051,7 @@ def _extract_settings_sections(warp_repo: Path) -> Dict[str, Any]:
             display_map[m.group(1)] = m.group(2)
 
     # Map of source files for sub-sections. Includes both the legacy
-    # backing-page variants (`AI`, `Platform`, `Code`) and the new umbrella
+    # backing-page variants (`AI`, `Platform`) and the new umbrella
     # subpage variants (`Oz`, `AgentProfiles`, `AgentMCPServers`, `Knowledge`,
     # `ThirdPartyCLIAgents`, `CodeIndexing`, `EditorAndCodeReview`,
     # `CloudEnvironments`, `OzCloudAPIKeys`). Variants not listed here fall
@@ -1635,7 +2061,6 @@ def _extract_settings_sections(warp_repo: Path) -> Dict[str, Any]:
         # Legacy backing pages (still exist as internal enum variants).
         "AI": "ai_page.rs",
         "Platform": "platform_page.rs",
-        "Code": "code_page.rs",
         # Agents umbrella subpages (all render widgets defined in ai_page.rs).
         # WarpAgent is the current name; Oz is the legacy name kept for compat.
         "WarpAgent": "ai_page.rs",
@@ -1647,9 +2072,10 @@ def _extract_settings_sections(warp_repo: Path) -> Dict[str, Any]:
         # subpage and the legacy top-level MCPServers entry.
         "AgentMCPServers": "mcp_servers_page.rs",
         "MCPServers": "mcp_servers_page.rs",
-        # Code umbrella subpages.
-        "CodeIndexing": "code_page.rs",
-        "EditorAndCodeReview": "code_page.rs",
+        # Code umbrella subpages. The "Code" backing page was split into these
+        # two dedicated files; `code_page.rs` no longer exists (QUALITY-2052).
+        "CodeIndexing": "code_indexing_page.rs",
+        "EditorAndCodeReview": "code_editor_review_page.rs",
         # Cloud platform umbrella subpages.
         "CloudEnvironments": "environments_page.rs",
         "OzCloudAPIKeys": "platform_page.rs",
@@ -1660,11 +2086,26 @@ def _extract_settings_sections(warp_repo: Path) -> Dict[str, Any]:
         "Privacy": "privacy_page.rs",
     }
 
+    # A page's controls can only be attributed reliably when its source file
+    # is not shared with sibling pages — a shared file's controls would
+    # otherwise be misattributed to every page backed by it, the same failure
+    # mode noted for sub_sections in `refresh_valid_paths`'s docstring.
+    _shared_source_files = {"ai_page.rs", "mcp_servers_page.rs", "platform_page.rs"}
+
+    # Some pages embed a sub-view defined in a separate file (e.g. the
+    # external-editor controls rendered inside the "Editor and Code Review"
+    # page — see code_editor_review_page.rs's `ExternalEditorCodeWidget`).
+    # These are scanned in addition to the page's own primary file.
+    control_extra_files = {
+        "EditorAndCodeReview": ["features/external_editor.rs"],
+    }
+
     settings_dir = warp_repo / "app" / "src" / "settings_view"
 
     for variant, display_name in display_map.items():
         source_file = page_files.get(variant, "mod.rs")
         sub_sections = []
+        controls: List[str] = []
 
         page_path = settings_dir / source_file
         if page_path.exists() and source_file != "mod.rs":
@@ -1680,12 +2121,35 @@ def _extract_settings_sections(warp_repo: Path) -> Dict[str, Any]:
                     name = m.group(1)
                     if name not in sub_sections:
                         sub_sections.append(name)
+                if source_file not in _shared_source_files:
+                    controls.extend(_extract_control_labels_from_text(page_text))
             except OSError:
                 pass
+
+        for extra_file in control_extra_files.get(variant, []):
+            extra_path = settings_dir / extra_file
+            if extra_path.exists():
+                try:
+                    controls.extend(
+                        _extract_control_labels_from_text(
+                            extra_path.read_text(encoding="utf-8")
+                        )
+                    )
+                except OSError:
+                    pass
+
+        # De-dup while preserving discovery order.
+        seen_controls = set()
+        unique_controls = []
+        for control in controls:
+            if control not in seen_controls:
+                seen_controls.add(control)
+                unique_controls.append(control)
 
         sections[display_name] = {
             "display_name": display_name,
             "sub_sections": sub_sections,
+            "controls": unique_controls,
             "source_file": f"app/src/settings_view/{source_file}",
         }
 
@@ -1697,6 +2161,9 @@ def _extract_settings_sections(warp_repo: Path) -> Dict[str, Any]:
 _RE_EDITABLE_BINDING = re.compile(
     r'EditableBinding::new\(\s*"([^"]+)",\s*'
     r'(?:BindingDescription::new\(\s*"([^"]+)"|"([^"]+)")'
+)
+_RE_TOGGLE_SETTING_ACTION_PAIR = re.compile(
+    r'ToggleSettingActionPair::new\(\s*"((?:[^"\\]|\\.)*)"'
 )
 
 
@@ -1729,7 +2196,7 @@ def _iter_binding_source_files(warp_repo: Path):
 
 
 def _extract_command_palette_commands(warp_repo: Path) -> List[Dict[str, str]]:
-    """Parse EditableBinding registrations to extract command palette commands."""
+    """Parse binding registrations to extract command palette commands."""
     commands = []
     seen_descriptions = set()
 
@@ -1748,6 +2215,14 @@ def _extract_command_palette_commands(warp_repo: Path) -> List[Dict[str, str]]:
                 continue
             commands.append({"name": name, "description": desc})
             seen_descriptions.add(desc)
+        for m in _RE_TOGGLE_SETTING_ACTION_PAIR.finditer(text):
+            suffix = m.group(1)
+            for verb in ("Enable", "Disable"):
+                desc = f"{verb} {suffix}"
+                if desc in seen_descriptions:
+                    continue
+                commands.append({"name": desc, "description": desc})
+                seen_descriptions.add(desc)
 
     return commands
 
@@ -1876,7 +2351,7 @@ impl Display for SettingsSection {
             SettingsSection::CodeIndexing => write!(f, "Indexing and projects"),
             SettingsSection::EditorAndCodeReview => write!(f, "Editor and Code Review"),
             SettingsSection::CloudEnvironments => write!(f, "Environments"),
-            SettingsSection::OzCloudAPIKeys => write!(f, "Oz Cloud API Keys"),
+            SettingsSection::OzCloudAPIKeys => write!(f, "API keys"),
             _ => write!(f, "{self:?}"),
         }
     }
@@ -2001,7 +2476,7 @@ def _run_self_test(valid_paths_path: Path) -> int:
             "Indexing and projects",
             "Editor and Code Review",
             "Environments",
-            "Oz Cloud API Keys",
+            "API keys",
         ):
             if expected_subpage not in refreshed.get("settings_sections", {}):
                 failures.append(
@@ -2078,6 +2553,28 @@ def _run_self_test(valid_paths_path: Path) -> int:
                     f"extract_command_palette_refs() missed prose reference {expected!r}"
                 )
 
+    # --- 6. "Oz Cloud API Keys" -> "API keys" migration, both legacy forms.
+    # The label was renamed twice over: first the whole page moved under the
+    # "Cloud platform" umbrella (as the bare top-level "Oz Cloud API Keys"
+    # section), then the subpage itself was renamed to "API keys". Both
+    # historical spellings must resolve to the same current path.
+    expected_suggestion = "Settings > Cloud platform > API keys"
+    bare_legacy = validate_ui_path("Settings > Oz Cloud API Keys", data)
+    if bare_legacy["valid"] or bare_legacy.get("suggestion") != expected_suggestion:
+        failures.append(
+            "validate_ui_path() did not migrate the bare legacy "
+            f"\"Settings > Oz Cloud API Keys\" path: {bare_legacy}"
+        )
+    full_legacy = validate_ui_path(
+        "Settings > Cloud platform > Oz Cloud API Keys", data
+    )
+    if full_legacy["valid"] or full_legacy.get("suggestion") != expected_suggestion:
+        failures.append(
+            "validate_ui_path() did not migrate the full legacy "
+            "\"Settings > Cloud platform > Oz Cloud API Keys\" path "
+            f"(deprecated_subpages regression): {full_legacy}"
+        )
+
     if failures:
         print("SELF-TEST FAILED:")
         for f in failures:
@@ -2105,6 +2602,17 @@ def main() -> int:
     parser.add_argument("--slack-notify", action="store_true", help="Post results to Slack")
     parser.add_argument("--slack-channel", default=DEFAULT_SLACK_CHANNEL, help="Slack channel ID")
     parser.add_argument("--include-changelog", action="store_true", help="Include changelog/ in scan")
+    parser.add_argument(
+        "--changed", action="store_true",
+        help="Scan only files changed vs origin/main...HEAD (required CI scope; "
+             "fails rather than falling back to a full scan when the diff can't be resolved)",
+    )
+    parser.add_argument(
+        "--require-provenance", action="store_true",
+        help="Fail if the committed snapshot's source_repository/source_sha are missing. A "
+             "refresh failure must never silently advance provenance, so the required CI gate "
+             "passes this rather than trusting an unknown client revision.",
+    )
     parser.add_argument("--refresh-valid-paths", action="store_true", help="Re-extract from the warp client repo")
     parser.add_argument(
         "--warp",
@@ -2155,13 +2663,38 @@ def main() -> int:
         return 1
     valid_paths = load_valid_paths(valid_paths_file)
 
+    # Report the snapshot's trusted provenance so every technical-reference
+    # check states what client state it trusts (see doc-quality-policy.md).
+    snapshot_repo = valid_paths.get("source_repository") or "unknown"
+    snapshot_sha = valid_paths.get("source_sha") or "unknown"
+    snapshot_generated_at = valid_paths.get("generated_at") or "unknown"
+    print(
+        f"Trusted snapshot: source={snapshot_repo}@{snapshot_sha} "
+        f"generated_at={snapshot_generated_at}"
+    )
+    if args.require_provenance and (snapshot_repo == "unknown" or snapshot_sha == "unknown"):
+        print(
+            "Error: --require-provenance was set but the committed snapshot has incomplete "
+            "provenance (source_repository/source_sha). Refresh and commit a verified snapshot "
+            "before this gate can trust it -- an unknown client revision is not silently accepted.",
+            file=sys.stderr,
+        )
+        return 1
+
     # Scan docs
     docs_dir = Path(args.docs_dir)
     if not docs_dir.exists():
         print(f"Error: docs directory not found at {docs_dir}", file=sys.stderr)
         return 1
 
-    md_files = scan_docs(docs_dir, include_changelog=args.include_changelog)
+    if args.changed:
+        try:
+            md_files = find_changed_md_files(docs_dir, include_changelog=args.include_changelog)
+        except ChangedFilesUnresolvedError as exc:
+            print(f"Error: {exc}", file=sys.stderr)
+            return 1
+    else:
+        md_files = scan_docs(docs_dir, include_changelog=args.include_changelog)
     print(f"Scanning {len(md_files)} markdown files...")
 
     path_issues = []
@@ -2213,12 +2746,56 @@ def main() -> int:
     report_text = generate_report(path_issues, command_issues, format_issues, len(md_files), fixes)
     print(report_text)
 
-    # Create PR
+    # Count remaining (unfixed) issues — used for Slack notification and exit code
+    total_issues = len(path_issues) + len(command_issues) + len(format_issues)
+    repo_root = SCRIPT_DIR.parents[2]
+    current_signature = unresolved_issue_signature(
+        path_issues, command_issues, format_issues, repo_root
+    )
+
+    # Decide whether there's anything genuinely new to report. Compare against
+    # an already-open fix/ui-refs-* PR first (it reflects the latest reported
+    # state even if unmerged for days — the scenario that caused the same
+    # report to repeat on consecutive scheduled runs), falling back to
+    # `last_notified_signature` recorded in the committed snapshot once such a
+    # PR has merged. See `should_notify_slack()`.
     pr_url = None
     pr_action = "none"
-    if args.create_pr and fixes:
-        repo_root = SCRIPT_DIR.parents[2]
-        pr_url, pr_action = create_pr(fixes, repo_root)
+    should_notify = False
+    if args.create_pr:
+        existing_pr = find_existing_fix_pr(repo_root)
+        previous_signature = (
+            extract_unresolved_signature(existing_pr.get("body", ""))
+            if existing_pr
+            else valid_paths.get("last_notified_signature")
+        )
+        should_notify = should_notify_slack(total_issues, current_signature, previous_signature)
+        if should_notify:
+            # Persist the signature we're about to report so it's committed
+            # alongside any fix/snapshot changes below and survives even if
+            # this PR isn't merged for a while (re-read from the open PR's
+            # body on the next run; falls back to this field once merged).
+            valid_paths["last_notified_signature"] = current_signature
+            valid_paths["last_notified_at"] = datetime.now(timezone.utc).isoformat()
+            with open(valid_paths_file, "w") as f:
+                json.dump(valid_paths, f, indent=2)
+        # A fix, a refreshed snapshot (e.g. a `source_sha` bump), or the
+        # signature update just written above are each reason enough to
+        # commit. This used to be gated on `fixes` alone, which silently
+        # discarded a refreshed `source_sha` on every run with nothing
+        # auto-fixable, so the committed snapshot never advanced and the
+        # daily reconciliation job kept re-triggering (see
+        # `_snapshot_has_uncommitted_changes`).
+        snapshot_changed = _snapshot_has_uncommitted_changes(valid_paths_file, repo_root)
+        if fixes or snapshot_changed:
+            pr_url, pr_action = create_pr(
+                fixes, repo_root,
+                unresolved_signature=current_signature if should_notify else previous_signature,
+                remaining_count=total_issues,
+            )
+    else:
+        previous_signature = valid_paths.get("last_notified_signature")
+        should_notify = should_notify_slack(total_issues, current_signature, previous_signature)
 
     # Save JSON output
     report_data = {
@@ -2234,14 +2811,13 @@ def main() -> int:
             json.dump(report_data, f, indent=2, default=str)
         print(f"Results saved to {args.output}")
 
-    # Count remaining (unfixed) issues — used for Slack notification and exit code
-    total_issues = len(path_issues) + len(command_issues) + len(format_issues)
-
-    # Slack notification: send when issues remain OR when a PR was created/updated
-    if args.slack_notify and (total_issues > 0 or pr_action in ("created", "updated")):
+    # Slack notification: only when there's something genuinely new to report.
+    # An unchanged set of unresolved issues is not re-posted on a subsequent
+    # scheduled run — see `should_notify_slack()`.
+    if args.slack_notify and should_notify:
         notify_slack(report_data, args.slack_channel, pr_url, pr_action)
     elif args.slack_notify:
-        print("No issues found — skipping Slack notification.")
+        print("No new unresolved issues since the last report — skipping Slack notification.")
     return 1 if total_issues > 0 else 0
 
 

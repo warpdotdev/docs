@@ -5,6 +5,7 @@ description: >-
   and multi-thread support.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { VARS } from '@data/vars';
 import VideoEmbed from '@components/VideoEmbed.astro';
 
 Agent conversations in Warp are multi-turn interactions tied to terminal sessions. Continue previous threads with follow-ups, manage conversation history, attach context from blocks and files, and run multiple conversations simultaneously across windows, tabs, or panes.
@@ -25,43 +26,29 @@ To access conversations across devices, share them with teammates, or restore pa
 
 ### Staying in a conversation (follow-ups)
 
-By default, if you ask an AI query immediately after interacting in Agent Mode, your query is sent as a **follow-up** to the current conversation.
-
-* In **Classic Input**, you'll see both the pink highlight bar on the left side of the block and a bent follow-up arrow (↳) next to your input. The conversation input chip also shows which conversation you are in.
-* In **Terminal and Agent modes** (the default), the conversation view provides a dedicated space for multi-turn interactions. The conversation panel shows which conversation you are in.
+By default, if you ask an AI query immediately after interacting in Agent Mode, your query is sent as a **follow-up** to the current conversation. The conversation view provides a dedicated space for multi-turn interactions, and the conversation panel shows which conversation you are in.
 
 **To follow-up on a previous conversation:**
 
 * Simply continue prompting the agent if you are already in an active conversation.
-* Open the **Conversations menu** (`CMD + Y` on macOS, `CTRL + SHIFT + Y` on Windows/Linux), select a conversation, and then enter your query.
-* Alternatively, click the pink conversation chip in the input field to resume.
+* Open the **Conversations menu** (`⌘+Y` on macOS, `Ctrl+Shift+Y` on Windows/Linux), select a conversation, and then enter your query.
 
 You don't have to wait for the agent to finish before lining up your next prompt. With [prompt queueing](/agents/local-agents/interacting-with-agents/prompt-queueing/), you can queue follow-ups while the agent is still responding and have them send automatically in order.
 
-<figure>
-![Continuing an Agent conversation in Classic Input (with indicator)](../../../../../assets/agent-platform/classic-input-follow-up.png)
-<figcaption>Continuing an agent conversation in Classic Input.</figcaption>
-</figure>
-
-<figure>
-![Continuing an Agent conversation in agent conversation view](../../../../../assets/agent-platform/follow-up-universal-input.png)
-<figcaption>Continuing an agent conversation in the conversation view.</figcaption>
-</figure>
-
 #### Agent tips in the input
 
-While Warp’s agent is thinking and processing your request, Warp may surface short tips with helpful workflows and ways to use Warp. These tips appear under the Warping indicator.
+While the Warp Agent is thinking and processing your request, Warp may surface short tips with helpful workflows and ways to use Warp. These tips appear under the Warping indicator.
 
 ![Agent tips appearing under the Warping indicator while the agent processes a request.](../../../../../assets/agent-platform/agent-tips.png)
 
 You can enable or disable these tips in two places:
 
 * **Settings**: **Settings** > **Agents** > **Warp Agent** > **Input** > **Show agent tips**
-* **Command Palette**: Open the Command Palette (`CMD + P` on macOS, `CTRL + SHIFT + P` on Windows/Linux), then select "**Show Agent Tips**" or "**Hide Agent Tips**"
+* **Command Palette**: Open the Command Palette (`⌘+P` on macOS, `Ctrl+Shift+P` on Windows/Linux), then select "**Show Agent Tips**" or "**Hide Agent Tips**"
 
 ### Managing conversations
 
-You can view previous conversations or start a new conversation via the **Conversations Menu** (`CMD + Y` on macOS, `CTRL + SHIFT + Y` on Windows/Linux).
+You can view previous conversations or start a new conversation via the **Conversations Menu** (`⌘+Y` on macOS, `Ctrl+Shift+Y` on Windows/Linux).
 
 <VideoEmbed url="https://www.loom.com/share/9cc2451412be43e389a6b1414ea185e4?sid=4457ba14-4876-4988-ade6-1dca43dda96a" title="Agent interaction controls walkthrough" />
 
@@ -71,46 +58,28 @@ The "New Conversation" item disappears once you start searching for an actual co
 
 ### Starting a new conversation
 
-Warp automatically creates a new conversation in a few situations. For example, if you ask an AI query after running a shell command or if three hours pass without activity, Agent Mode will start a fresh conversation.
-
-Visual indicators differ slightly depending on input mode:
-
-* In **Classic Input,** a new conversation begins when there is no follow-up arrow (↳) next to your input.
-* In **Terminal and Agent modes**, starting a new conversation opens a fresh conversation view. Use the conversation panel to see all active and past conversations.
+Warp automatically creates a new conversation in a few situations. For example, if you ask an AI query after running a shell command or if three hours pass without activity, Agent Mode will start a fresh conversation. Starting a new conversation opens a fresh conversation view. Use the conversation panel to see all active and past conversations.
 
 <Tabs>
   <TabItem label="macOS">
     You can also start a new conversation manually at any time:
 
-    * In **Classic Input**, press `CMD + I` or press `BACKSPACE` while in follow-up mode.
-    * In **Terminal and Agent modes**, press `CMD + ↵` to start a new conversation, or use the `/new` slash command.
-    * Open the **Conversations Menu** using `CMD + Y` and select "New Conversation".
+    * Press `⌘+Enter` to start a new conversation, or use the `/new` slash command.
+    * Open the **Conversations Menu** using `⌘+Y` and select "New Conversation".
   </TabItem>
   <TabItem label="Windows">
     You can also start a new conversation manually at any time:
 
-    * In **Classic Input**, press `CTRL + I` or press `BACKSPACE` while in follow-up mode.
-    * In **Terminal and Agent modes**, press `CTRL + SHIFT + ↵` to start a new conversation, or use the `/new` slash command.
-    * Open the **Conversations Menu** using `CTRL + SHIFT + Y` and select "New Conversation".
+    * Press `Ctrl+Shift+Enter` to start a new conversation, or use the `/new` slash command.
+    * Open the **Conversations Menu** using `Ctrl+Shift+Y` and select "New Conversation".
   </TabItem>
   <TabItem label="Linux">
     You can also start a new conversation manually at any time:
 
-    * In **Classic Input**, press `CTRL + I` or press `BACKSPACE` while in follow-up mode.
-    * In **Terminal and Agent modes**, press `CTRL + SHIFT + ↵` to start a new conversation, or use the `/new` slash command.
-    * Open the **Conversations Menu** using `CTRL + SHIFT + Y` and select "New Conversation".
+    * Press `Ctrl+Shift+Enter` to start a new conversation, or use the `/new` slash command.
+    * Open the **Conversations Menu** using `Ctrl+Shift+Y` and select "New Conversation".
   </TabItem>
 </Tabs>
-
-<figure>
-![Starting a new Conversation in Classic Input](../../../../../assets/agent-platform/classic-input-new-convo.png)
-<figcaption>Starting a new Conversation in Classic Input.</figcaption>
-</figure>
-
-<figure>
-![Starting a new Agent Conversation in agent conversation view](../../../../../assets/agent-platform/universal-input-new-convo.png)
-<figcaption>Starting a new Agent Conversation in agent conversation view.</figcaption>
-</figure>
 
 ## Context window management
 
@@ -165,19 +134,19 @@ You can also create a new conversation manually at any time by using the keyboar
 
 <Tabs>
   <TabItem label="macOS">
-    * Start a new conversation: `CMD + SHIFT + N`
-    * Open a new tab: `CMD + T`
-    * Open a new pane: `CMD + D`
+    * Start a new conversation: `⌘+Shift+N`
+    * Open a new tab: `⌘+T`
+    * Open a new pane: `⌘+D`
   </TabItem>
   <TabItem label="Windows">
-    * Start a new conversation: `CTRL + SHIFT + N`
-    * Open a new tab: `CTRL + SHIFT + T`
-    * Open a new pane: `CTRL + SHIFT + D`
+    * Start a new conversation: `Ctrl+Shift+N`
+    * Open a new tab: `Ctrl+Shift+T`
+    * Open a new pane: `Ctrl+Shift+D`
   </TabItem>
   <TabItem label="Linux">
-    * Start a new conversation: `CTRL + SHIFT + N`
-    * Open a new tab: `CTRL + SHIFT + T`
-    * Open a new pane: `CTRL + SHIFT + D`
+    * Start a new conversation: `Ctrl+Shift+N`
+    * Open a new tab: `Ctrl+Shift+T`
+    * Open a new pane: `Ctrl+Shift+D`
   </TabItem>
 </Tabs>
 
@@ -197,7 +166,7 @@ The **Active** dropdown lists conversations where you have sent at least one que
 
 * Select a conversation to switch to it immediately.
 * The conversation you're currently viewing is highlighted.
-* Cloud agent conversations and Oz runs always appear in **Active** while they are open.
+* Cloud agent conversations and runs always appear in **Active** while they are open.
 
 #### Past
 

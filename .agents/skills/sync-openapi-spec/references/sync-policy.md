@@ -12,13 +12,88 @@ This skill is the manual fallback for the same job, so its output has to match t
 
 `scripts/sync_openapi.py` applies these rules, top-down:
 
-1. Drop every operation marked `x-internal: true`, and drop a path entirely when every one of its operations is internal.
+1. Recursively drop every object marked `x-internal: true`, wherever it
+   appears in the tree — a path operation, a query/path parameter, a
+   schema property, a whole schema, a tag entry, and so on — not only
+   top-level path operations.
 2. Drop every tag listed in `EXCLUDED_TAGS`.
 3. Drop every path whose tags are a subset of `EXCLUDED_TAGS`, plus every path listed explicitly in `EXCLUDED_PATHS` or matching a prefix in `EXCLUDED_PATH_PREFIXES`.
-4. Keep top-level `openapi`, `info`, `servers`, and `components.securitySchemes` verbatim.
-5. Keep only the `components.schemas` entries that are reachable from the surviving paths via `$ref` walking (recursive over `allOf`/`oneOf`/`anyOf`/`items`/`additionalProperties`/etc.).
+4. Keep top-level `openapi`, `servers`, and `components.securitySchemes` verbatim. Keep `info` from the source except for the docs-specific title and description override in `DOCS_INFO_OVERRIDES`.
+5. Keep only reusable component entries that are reachable from surviving paths via `$ref` walking (recursive over `allOf`/`oneOf`/`anyOf`/`items`/`additionalProperties`/etc.).
+6. Remove Factory-only values and matching description lines from `RunSourceType`.
+7. Recursively strip every key in `STRIP_FLAGS` from whatever survives
+   steps 1-6, wherever it appears in the tree (operations, schemas,
+   individual properties, parameters).
+8. Rewrite the legacy Agent API error-documentation URL prefix to its canonical
+   path under `/factories/api-and-sdk/`.
 
 Rule 1 mirrors warp-server's own filter, so a surface the server team marks private stays private here without anyone having to maintain a matching allowlist entry.
+
+## Public API metadata
+
+The docs copy keeps endpoint behavior, contact details, licensing, and server
+configuration from `warp-server/public_api/openapi.yaml`. It overrides only
+`info.title` and `info.description` through `DOCS_INFO_OVERRIDES` in
+`scripts/sync_openapi.py`, so the Scalar reference uses the public docs name,
+**Warp Platform API**, and describes both factory and cloud-agent runs.
+
+Keep this override when syncing the docs subset. Update the source spec when
+its endpoint behavior or non-product metadata changes.
+
+The source spec still emits the pre-move error-documentation prefix,
+`/reference/api-and-sdk/troubleshooting/errors/`. The docs transform rewrites
+that prefix to `/factories/api-and-sdk/troubleshooting/errors/` so generated
+problem-type URLs resolve directly to the canonical page rather than through a
+redirect.
+
+## `x-internal` deletes the whole marked object, not just the flag (`_prune_internal`)
+
+`x-internal: true` mirrors openapi-format's `flagValues` semantics in
+warp-server's filter: the entire object bearing the marker is deleted, not
+just the `x-internal` key on it. An earlier version of this script only
+applied that rule to top-level path operations (`strip_internal_operations`)
+and left every other marked object's `x-internal` key to be stripped later
+by the `STRIP_FLAGS` pass (rule 6 above). Stripping the key without deleting
+the object it was marking leaves the object itself — now unmarked — in the
+published spec. This let several server-internal fields leak through: the
+`factory_uid` and `automation_id` query parameters on `GET /agent/runs`, and
+the `factory_uid`/`agent_type` properties on `CreateAgentRequest`,
+`UpdateAgentRequest`, and `AgentResponse`.
+
+`_prune_internal` now runs first, before any other rule, and walks the
+entire source tree deleting every marked object outright: a schema property
+under `properties`, an item in a `parameters` array, a whole schema in
+`components.schemas`, and so on, in addition to the path operations rule 1
+already covered. `STRIP_FLAGS` (rule 6) then only has to clean up the
+`x-internal` key on anything that rule 1 doesn't fully own removing (there
+is normally nothing left, since every `x-internal: true` object is deleted
+outright) plus the other eight implementation-only extensions.
+
+## Implementation-only extensions are stripped everywhere (`STRIP_FLAGS`)
+
+`STRIP_FLAGS` mirrors the `stripFlags` list in
+`warp-server/public_api/public-openapi-filter.yaml` verbatim: `x-internal`,
+`x-enum-varnames`, `x-go-type`, `x-go-type-import`,
+`x-go-type-skip-optional-pointer`, `x-omitempty`, `x-oapi-codegen-extra-tags`,
+`x-stainless-deprecation-message`, and `x-stainless-naming`. These
+extensions are useful for server/SDK code generation (oapi-codegen,
+Stainless) but carry no meaning for a docs reader, so none of them may
+reach the published Scalar reference.
+
+An earlier version of this script only removed `x-internal` from
+top-level operation objects (the key that decides whether to drop the
+operation entirely). It never stripped the *other* six keys, and it never
+walked into schemas, so implementation-only markers on component schemas
+and their properties — `x-go-type-skip-optional-pointer` and
+`x-stainless-deprecation-message` in particular — leaked into the
+published copy verbatim. `_strip_flags` now walks the entire regenerated
+tree after filtering and removes every `STRIP_FLAGS` key it finds,
+regardless of nesting depth, matching `generate-public-openapi`'s own
+post-generation check that no `x-*` key remains in warp-server's
+published copy.
+
+When warp-server adds a new entry to its `stripFlags` list, add the same
+key to `STRIP_FLAGS` here so the two filters stay in lockstep.
 
 ## Excluded tags
 
@@ -45,6 +120,15 @@ If any of these become stable public surfaces, remove them from `EXCLUDED_PATHS`
 ## Excluded path prefixes
 
 `EXCLUDED_PATH_PREFIXES` drops a path by prefix regardless of how its operations are tagged. Today it holds a single entry, `/factory`, because some Factory operations are tagged `agent` upstream — `GET /factory/scorers/{scorer_id}/results` is one — so a tags-only rule leaks them into the public reference. Use a prefix only when a whole URL namespace is private; prefer a tag or an explicit path everywhere else.
+
+## Excluded enum values in public schemas
+
+`RunSourceType` is used by public run endpoints but includes three values that
+describe Factory-only behavior. `EXCLUDED_RUN_SOURCE_VALUES` removes
+`BENCHMARK_TRIAL`, `CREATE_BENCHMARK_TASK`, and `CUSTOM_WEBHOOK`, plus their
+matching description lines, from the docs subset. Keep `RUN_SCORER`: its
+description identifies a generic run-scoring judge rather than a Factory-only
+surface.
 
 ## `x-internal` operations are dropped
 

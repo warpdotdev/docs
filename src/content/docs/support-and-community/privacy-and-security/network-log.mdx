@@ -26,4 +26,4 @@ Each log item is a timestamped Debug format string for either a request or respo
 
 ## Known issues with network log
 
-At the moment, network traffic originating from crash reports and error messages is not captured in the network log. This is due to our use of the Sentry SDK, which encapsulates all network logic and doesn’t currently expose a hook for handling requests and responses directly. The team is actively investigating a solution to include such traffic in the log in a future release. You may also disable Crash Reporting entirely in Warp’s **Settings** > **Privacy** tab.
+At the moment, network traffic originating from crash reports and error messages is not captured in the network log. This is due to our use of the Sentry SDK, which encapsulates all network logic and doesn’t currently expose a hook for handling requests and responses directly. The team is actively investigating a solution to include such traffic in the log in a future release. You can also disable Crash Reporting entirely in Warp’s **Settings** > **Privacy** tab.

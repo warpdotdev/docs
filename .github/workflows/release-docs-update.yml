@@ -206,6 +206,10 @@ jobs:
             exit 1
           fi
 
+      # Reviewer policy: at most one human reviewer, assigned once, and only
+      # from a real signal (the most recent human docs reviewer). No hardcoded
+      # fallback people — when nothing resolves, the PR simply stays without a
+      # requested reviewer. Never re-add a reviewer a human removed.
       - name: Assign last docs PR reviewer
         if: steps.oz-wait.outputs.oz_run_status == 'succeeded'
         env:
@@ -220,6 +224,19 @@ jobs:
             exit 0
           fi
           echo "Found PR #$PR_NUMBER"
+
+          read_requested() {
+            gh pr view "$PR_NUMBER" --repo warpdotdev/docs \
+              --json reviewRequests --jq '[.reviewRequests[] | .login // .slug // .name] | join(",")'
+          }
+
+          # Add-once: a PR that already has any requested reviewer gets no
+          # additions from this workflow.
+          EXISTING=$(read_requested)
+          if [[ -n "$EXISTING" ]]; then
+            echo "PR #$PR_NUMBER already has requested reviewer(s): $EXISTING — not adding more."
+            exit 0
+          fi
 
           # Find last human reviewer by iterating recent merged docs PRs
           RECENT_PRS=$(gh api "/repos/warpdotdev/docs/pulls?state=closed&sort=updated&direction=desc&per_page=20" \
@@ -240,10 +257,31 @@ jobs:
           done
 
           if [[ -z "$LAST_REVIEWER" ]]; then
-            echo "::warning::No recent reviewer found — using default reviewer dannyneira"
-            LAST_REVIEWER="dannyneira"
+            echo "::warning::No recent human docs reviewer found — leaving PR #$PR_NUMBER with no requested reviewer."
+            exit 0
           fi
+
+          # Never re-add anyone a human removed from this PR.
+          _norm() { printf '%s' "${1##*/}" | tr 'A-Z' 'a-z'; }
+          REMOVED=$(gh api "repos/warpdotdev/docs/issues/$PR_NUMBER/timeline" --paginate \
+            --jq '[.[] | select(.event == "review_request_removed")
+                   | (.requested_reviewer.login // .requested_team.slug // empty)] | unique | join(",")' \
+            2>/dev/null || echo "")
+          IFS=',' read -ra GONE <<< "$REMOVED"
+          for G in "${GONE[@]}"; do
+            if [[ -n "$G" && "$(_norm "$G")" == "$(_norm "$LAST_REVIEWER")" ]]; then
+              echo "A human removed $LAST_REVIEWER from PR #$PR_NUMBER — not re-adding."
+              exit 0
+            fi
+          done
 
           echo "Assigning reviewer: $LAST_REVIEWER"
           gh pr edit "$PR_NUMBER" --add-reviewer "$LAST_REVIEWER" --repo warpdotdev/docs 2>&1 || \
-            echo "::warning::Could not assign $LAST_REVIEWER as reviewer"
+            echo "::warning::gh pr edit exited nonzero for $LAST_REVIEWER — verifying via read-back"
+
+          # `gh pr edit` can exit 0 while quietly dropping the reviewer, so
+          # read back what actually landed. A silent drop is a warning, not a
+          # reason to substitute someone else — there is no fallback reviewer.
+          if [[ -z "$(read_requested)" ]]; then
+            echo "::warning::$LAST_REVIEWER is not on the reviewRequests read-back — leaving PR #$PR_NUMBER with no requested reviewer."
+          fi

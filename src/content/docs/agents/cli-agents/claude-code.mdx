@@ -6,6 +6,7 @@ description: >-
   Set up Claude Code in Warp with full notification support, rich input, code
   review, and more.
 ---
+import { VARS } from '@data/vars';
 
 Claude Code is Anthropic's agentic coding tool that operates directly in your terminal. It understands your codebase, executes commands, edits files, and manages Git workflows — all through natural language. For full documentation, see the [official Claude Code docs](https://code.claude.com/docs).
 
@@ -14,7 +15,7 @@ Warp auto-detects Claude Code when you run it, giving you access to rich input c
 For installation, authentication, project configuration, and productivity tips, see the [How to set up Claude Code](/guides/external-tools/how-to-set-up-claude-code/) guide.
 
 :::note
-Claude Code is also available as a harness in Oz for cloud orchestration. See [Claude Code with Oz](/platform/harnesses/claude-code/).
+Claude Code is also available as a harness in the {VARS.WARP_AUTOMATION_PLATFORM} for cloud orchestration. See [Claude Code with the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/claude-code/).
 :::
 
 ## Setting up notifications
@@ -59,7 +60,7 @@ For plugin source and updates, see the [claude-code-warp GitHub repository](http
 
 ## Supported Warp features
 
-Claude Code supports the full set of Warp's agent integration features:
+Claude Code supports Warp's full set of agent integration features:
 
 * **Agent notifications** - Receive in-app and desktop alerts when Claude Code needs your attention. The notification UI displays your current git branch alongside agent status.
 * **Rich input editor** - Press `Ctrl-G` to open an expanded input editor for composing longer prompts.
@@ -67,13 +68,14 @@ Claude Code supports the full set of Warp's agent integration features:
 * **Attach code as context** - Select code and send it to the agent as context.
 * **Vertical tabs with agent metadata** - Monitor Claude Code sessions with status indicators in Warp's tab bar.
 * **Tab Configs** - Save and restore Claude Code session configurations.
-* **Remote Control** - Share your Claude Code session with teammates via session sharing.
+* **[Remote Control](/agents/cli-agents/remote-control/)** - Publish your Claude Code session so you can monitor and steer it from another device.
 
 ## Related pages
 
 * [How to set up Claude Code](/guides/external-tools/how-to-set-up-claude-code/) — step-by-step setup guide
 * [Claude Code in Warp](https://www.warp.dev/agents/claude-code) — product overview
 * [Third-party CLI agents overview](/agents/cli-agents/overview/) — supported CLI agent integrations
-* [Claude Code with Oz](/platform/harnesses/claude-code/) — Claude Code as a cloud harness
+* [Remote Control](/agents/cli-agents/remote-control/) — publish a Claude Code session to monitor and steer it remotely
+* [Claude Code with the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/claude-code/) — Claude Code as a cloud harness
 * [OpenCode](/agents/cli-agents/opencode/) — OpenCode in Warp
 * [Codex](/agents/cli-agents/codex/) — Codex in Warp

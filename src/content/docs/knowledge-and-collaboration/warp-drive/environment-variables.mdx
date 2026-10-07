@@ -41,7 +41,7 @@ After you save the environment variable, you can click it to load it into your t
 
 When you use static variables, Warp stores them securely in Warp Drive.\
 \
-Note: Static variables should not be used to replace a secret manager. Please use dynamic variables for any sensitive information.
+Note: Static variables should not be used to replace a secret manager. Use dynamic variables for any sensitive information.
 
 ### Dynamic variables
 
@@ -65,7 +65,7 @@ To create a new dynamic variable:
 
 #### Integrated password managers
 
-Before you get started, please ensure you have the CLI installed for your tool of choice and follow the instructions to enable the CLI:
+Before you get started, ensure you have the CLI installed for your tool of choice and follow the instructions to enable the CLI:
 
 * [1Password CLI](https://developer.1password.com/docs/cli/get-started/)
 * [LastPass CLI](https://github.com/lastpass/lastpass-cli)
@@ -85,7 +85,7 @@ Selecting a secret name never stores the actual secret. Warp uses your selection
 Reference the documentation for your external secret manager. Then, write a custom command to retrieve secrets.
 
 :::note
-Your custom command should return the exact string you want loaded into your environment. Please make sure that you are selecting the exact field you want loaded as many secret manager CLIs provide additional formatting by default.
+Your custom command should return the exact string you want loaded into your environment. Make sure you select the exact field you want loaded, as many secret manager CLIs provide additional formatting by default.
 :::
 
 For example, you can write a command using the [Hashicorp Vault CLI](https://developer.hashicorp.com/vault/docs/commands) to retrieve and load the password field for the staging server. When using secret commands, Warp stores the command but never the actual secrets. The secrets are referenced and loaded into a terminal session at runtime.
@@ -130,4 +130,4 @@ These environment variables will now be present for the remainder of your sessio
 
 ### Import and export environment variables in Warp Drive
 
-Please see our [Warp Drive Import and Export](/knowledge-and-collaboration/warp-drive/#import-and-export) instructions.
+See our [Warp Drive Import and Export](/knowledge-and-collaboration/warp-drive/#import-and-export) instructions.

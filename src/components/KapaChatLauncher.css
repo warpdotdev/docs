@@ -47,6 +47,188 @@
 	align-items: center;
 	gap: 0.5rem;
 }
+.sl-kapa-mcp-connect__trigger {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.375rem;
+	min-height: 2rem;
+	padding: 0.375rem 0.625rem;
+	border: 1px solid color-mix(in srgb, var(--sl-color-text-accent), var(--warp-control-border) 48%);
+	border-radius: var(--sl-radius-sm);
+	background: color-mix(in srgb, var(--sl-color-text-accent), var(--warp-control-bg) 88%);
+	color: var(--sl-color-text-accent);
+	font: inherit;
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	line-height: 1.2;
+	white-space: nowrap;
+	cursor: pointer;
+	transition:
+		border-color 0.15s ease,
+		background-color 0.15s ease,
+		color 0.15s ease;
+}
+
+.sl-kapa-mcp-connect__trigger svg {
+	width: 0.875rem;
+	height: 0.875rem;
+	flex: none;
+}
+
+.sl-kapa-mcp-connect__trigger:hover,
+.sl-kapa-mcp-connect__trigger[data-state='open'] {
+	border-color: var(--sl-color-text-accent);
+	background: color-mix(in srgb, var(--sl-color-text-accent), var(--warp-control-bg) 78%);
+	color: var(--sl-color-white);
+}
+
+.sl-kapa-mcp-connect__trigger:focus-visible,
+.sl-kapa-mcp-connect__action:focus-visible {
+	outline: 2px solid var(--sl-color-accent-high);
+	outline-offset: 2px;
+}
+
+.sl-kapa-mcp-connect {
+	width: min(24rem, calc(100vw - 1.5rem));
+	max-width: var(--radix-popover-content-available-width);
+	max-height: var(--radix-popover-content-available-height);
+	padding: 0.875rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: var(--sl-radius-lg);
+	background: color-mix(in srgb, var(--sl-color-black), var(--sl-color-gray-6) 18%);
+	box-shadow: var(--sl-shadow-lg);
+	color: var(--sl-color-gray-2);
+	overflow-y: auto;
+	z-index: 20;
+}
+
+.sl-kapa-mcp-connect__header {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.625rem;
+}
+
+.sl-kapa-mcp-connect__header > svg {
+	width: 1.125rem;
+	height: 1.125rem;
+	margin-top: 0.125rem;
+	color: var(--sl-color-text-accent);
+	flex: none;
+}
+
+.sl-kapa-mcp-connect__title,
+.sl-kapa-mcp-connect__description,
+.sl-kapa-mcp-connect__eyebrow,
+.sl-kapa-mcp-connect__instructions {
+	margin: 0;
+}
+
+.sl-kapa-mcp-connect__title {
+	color: var(--sl-color-white);
+	font-size: var(--sl-text-sm);
+	font-weight: 700;
+	line-height: 1.35;
+}
+
+.sl-kapa-mcp-connect__description,
+.sl-kapa-mcp-connect__instructions {
+	margin-top: 0.25rem;
+	font-size: var(--sl-text-xs);
+	line-height: 1.45;
+}
+
+.sl-kapa-mcp-connect__section {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 0.5rem;
+	margin-top: 0.875rem;
+	padding-top: 0.875rem;
+	border-top: 1px solid var(--sl-color-gray-5);
+}
+
+.sl-kapa-mcp-connect__eyebrow {
+	color: var(--sl-color-gray-3);
+	font-size: var(--sl-text-2xs);
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	line-height: 1.2;
+	text-transform: uppercase;
+}
+
+.sl-kapa-mcp-connect__instructions strong {
+	color: var(--sl-color-gray-1);
+}
+
+.sl-kapa-mcp-connect__config {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 0.5rem 0.625rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: var(--sl-radius-sm);
+	background: color-mix(in srgb, var(--sl-color-black), var(--sl-color-gray-6) 32%);
+	color: var(--sl-color-gray-1);
+	font-family: var(--__sl-font-mono, 'JetBrains Mono', 'SFMono-Regular', monospace);
+	font-size: var(--sl-text-2xs);
+	line-height: 1.5;
+	overflow-wrap: anywhere;
+}
+
+.sl-kapa-mcp-connect__config {
+	white-space: pre-wrap;
+}
+
+
+.sl-kapa-mcp-connect__action {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.375rem;
+	min-height: 2rem;
+	padding: 0.375rem 0.625rem;
+	border: 1px solid var(--warp-control-border);
+	border-radius: var(--sl-radius-sm);
+	background: var(--warp-control-bg);
+	color: var(--warp-control-text-hover);
+	font: inherit;
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	line-height: 1.2;
+	cursor: pointer;
+	transition:
+		border-color 0.15s ease,
+		background-color 0.15s ease,
+		color 0.15s ease;
+}
+
+.sl-kapa-mcp-connect__action:hover {
+	border-color: var(--warp-control-border-hover);
+	background: var(--warp-control-bg-hover);
+	color: var(--sl-color-white);
+}
+
+.sl-kapa-mcp-connect__action--primary {
+	border-color: var(--sl-color-text-accent);
+	background: var(--sl-color-text-accent);
+	color: var(--sl-color-black);
+}
+
+.sl-kapa-mcp-connect__action--primary:hover {
+	border-color: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-white) 18%);
+	background: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-white) 8%);
+	color: var(--sl-color-black);
+}
+
+.sl-kapa-mcp-connect__action svg {
+	width: 0.875rem;
+	height: 0.875rem;
+	flex: none;
+}
+
+.sl-kapa-mcp-connect__arrow {
+	fill: color-mix(in srgb, var(--sl-color-black), var(--sl-color-gray-6) 18%);
+}
 
 .sl-kapa-icon-button,
 .sl-kapa-feedback__button {
@@ -199,6 +381,208 @@
 	border-radius: var(--sl-radius-sm);
 	padding: 0.1rem 0.3rem;
 }
+.sl-kapa-answer-image-button {
+	position: relative;
+	display: block;
+	box-sizing: border-box;
+	max-width: 100%;
+	margin: 0.875rem 0;
+	padding: 0;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: var(--sl-radius-md);
+	background: var(--sl-color-black);
+	cursor: zoom-in;
+	overflow: hidden;
+}
+
+.sl-kapa-answer-image {
+	display: block;
+	box-sizing: border-box;
+	max-width: 100%;
+	height: auto;
+	background: var(--sl-color-black);
+	object-fit: contain;
+	box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 0.18);
+}
+.sl-kapa-answer-image-button__overlay {
+	position: absolute;
+	inset: auto 0 0;
+	padding: 1.25rem 0.75rem 0.5rem;
+	background: linear-gradient(transparent, rgb(0 0 0 / 0.7));
+	color: var(--sl-color-white);
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	line-height: 1.2;
+	opacity: 0;
+	transform: translateY(0.25rem);
+	transition:
+		opacity 0.15s ease,
+		transform 0.15s ease;
+	pointer-events: none;
+}
+
+.sl-kapa-answer-image-button:hover .sl-kapa-answer-image-button__overlay,
+.sl-kapa-answer-image-button:focus-visible .sl-kapa-answer-image-button__overlay {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.sl-kapa-answer-image-button:focus-visible {
+	outline: 2px solid var(--sl-color-accent-high);
+	outline-offset: 2px;
+}
+
+.sl-kapa-answer-image-fallback {
+	display: flex;
+	box-sizing: border-box;
+	align-items: center;
+	min-height: 3rem;
+	max-width: 100%;
+	margin: 0.875rem 0;
+	padding: 0.625rem 0.75rem;
+	border: 1px dashed var(--sl-color-gray-4);
+	border-radius: var(--sl-radius-md);
+	background: color-mix(in srgb, var(--sl-color-black), var(--sl-color-gray-6) 30%);
+	color: var(--sl-color-gray-3);
+	font-size: var(--sl-text-xs);
+	line-height: 1.4;
+	overflow-wrap: anywhere;
+}
+
+:root[data-theme='light'] .sl-kapa-answer-image {
+	background: var(--sl-color-white);
+	box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 0.1);
+}
+:root[data-theme='light'] .sl-kapa-answer-image-button {
+	border-color: color-mix(in srgb, var(--sl-color-gray-5), var(--sl-color-black) 15%);
+	background: var(--sl-color-white);
+}
+
+:root[data-theme='light'] .sl-kapa-answer-image-fallback {
+	border-color: color-mix(in srgb, var(--sl-color-gray-4), var(--sl-color-black) 25%);
+	background: color-mix(in srgb, var(--sl-color-white), var(--sl-color-gray-6) 10%);
+	color: var(--sl-color-gray-3);
+}
+
+.sl-kapa-codeblock {
+	position: relative;
+	margin: 0.85rem 0;
+	max-width: 100%;
+}
+
+/* Chat-only copy control. Deliberately avoids EC's `.copy` class so EC CSS
+   (`button::after` mask) and EC JS never attach a second icon/handler. Visual
+   tokens match docs frosted-glass copy buttons in warp-components.css §2. */
+.sl-kapa-codeblock__copy-wrap {
+	position: absolute;
+	inset-block-start: 0.5rem;
+	inset-inline-end: 0.5rem;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+	pointer-events: none;
+}
+
+.sl-kapa-codeblock__copy {
+	pointer-events: auto;
+	position: relative;
+	box-sizing: border-box;
+	width: 2rem;
+	height: 2rem;
+	margin: 0;
+	padding: 0;
+	border-radius: var(--sl-radius-sm);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	background: rgba(255, 255, 255, 0.08);
+	backdrop-filter: blur(8px);
+	cursor: pointer;
+	opacity: 0.4;
+	transition:
+		opacity 0.15s ease,
+		background-color 0.15s ease,
+		border-color 0.15s ease;
+}
+
+.sl-kapa-codeblock:hover .sl-kapa-codeblock__copy,
+.sl-kapa-codeblock:focus-within .sl-kapa-codeblock__copy {
+	opacity: 0.75;
+}
+
+.sl-kapa-codeblock__copy:hover,
+.sl-kapa-codeblock__copy:focus-visible {
+	opacity: 1;
+	background: rgba(255, 255, 255, 0.16);
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.sl-kapa-codeblock__copy:focus-visible {
+	outline: 2px solid var(--sl-color-accent-high);
+	outline-offset: 2px;
+}
+
+.sl-kapa-codeblock__copy-icon {
+	position: absolute;
+	inset: 0.475rem;
+	background-color: var(--sl-color-white, #f9f8f6);
+	-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75'%3E%3Cpath d='M3 19a2 2 0 0 1-1-2V2a2 2 0 0 1 1-1h13a2 2 0 0 1 2 1'/%3E%3Crect x='6' y='5' width='16' height='18' rx='1.5' ry='1.5'/%3E%3C/svg%3E");
+	mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75'%3E%3Cpath d='M3 19a2 2 0 0 1-1-2V2a2 2 0 0 1 1-1h13a2 2 0 0 1 2 1'/%3E%3Crect x='6' y='5' width='16' height='18' rx='1.5' ry='1.5'/%3E%3C/svg%3E");
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-position: center;
+	mask-position: center;
+	-webkit-mask-size: contain;
+	mask-size: contain;
+}
+
+.sl-kapa-codeblock__copy-feedback {
+	pointer-events: none;
+	user-select: none;
+	font-size: var(--sl-text-2xs);
+	line-height: 1.2;
+	padding: 0.2rem 0.4rem;
+	border-radius: var(--sl-radius-sm);
+	background: color-mix(in srgb, var(--sl-color-accent) 85%, black);
+	color: var(--sl-color-white);
+	white-space: nowrap;
+}
+
+:root[data-theme='light'] .sl-kapa-codeblock__copy {
+	background: rgba(0, 0, 0, 0.04);
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	opacity: 0.6;
+}
+
+:root[data-theme='light'] .sl-kapa-codeblock__copy:hover,
+:root[data-theme='light'] .sl-kapa-codeblock__copy:focus-visible {
+	background: rgba(0, 0, 0, 0.08);
+	border-color: rgba(0, 0, 0, 0.12);
+	opacity: 1;
+}
+
+:root[data-theme='light'] .sl-kapa-codeblock__copy-icon {
+	background-color: var(--sl-color-white, #0a0d12);
+}
+
+.sl-kapa-codeblock pre {
+	margin: 0;
+	padding: var(--ec-codePadBlk) var(--ec-codePadInl);
+	overflow-x: auto;
+	overflow-y: hidden;
+	white-space: pre;
+}
+
+.sl-kapa-codeblock code {
+	font-family: var(--__sl-font-mono, 'JetBrains Mono', 'SFMono-Regular', monospace);
+	display: block;
+	min-width: max-content;
+}
+
+/* Shiki separates `.line` spans with literal newline characters, which
+   `white-space: pre` (set on the pre above) already renders as line
+   breaks. The spans must stay inline — giving them `display: block`
+   would add a second break per line and double-space the code. */
+
 
 .sl-kapa-thinking {
 	display: flex;
@@ -249,16 +633,71 @@
 
 .sl-kapa-feedback {
 	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
 	gap: 0.5rem;
 	margin-top: 0.875rem;
 }
+.sl-kapa-feedback__handoff {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 2.25rem;
+	padding: 0 0.75rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: var(--sl-radius-sm);
+	background: var(--sl-color-black);
+	color: var(--sl-color-gray-1);
+	font: inherit;
+	font-size: var(--sl-text-xs);
+	font-weight: 500;
+	cursor: pointer;
+	transition:
+		border-color 0.15s ease,
+		background-color 0.15s ease,
+		color 0.15s ease;
+}
+
+.sl-kapa-feedback__handoff:hover {
+	border-color: var(--warp-control-border-hover);
+	background: var(--warp-control-bg-hover);
+	color: var(--sl-color-white);
+}
+
+.sl-kapa-feedback__handoff:focus-visible {
+	outline: 2px solid var(--sl-color-accent-high);
+	outline-offset: 2px;
+}
+.sl-kapa-feedback__handoff--submit {
+	background: var(--sl-color-text-accent);
+	border-color: var(--sl-color-text-accent);
+	color: var(--sl-color-black);
+}
+
+.sl-kapa-feedback__handoff--submit:hover:not(:disabled) {
+	border-color: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-white) 18%);
+	background: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-white) 8%);
+	color: var(--sl-color-black);
+}
+
+.sl-kapa-feedback__handoff--ghost {
+	background: transparent;
+}
 
 .sl-kapa-error {
-	border: 1px solid color-mix(in srgb, #ef4444, var(--sl-color-black) 35%);
-	background: rgb(127 29 29 / 0.2);
-	color: #fecaca;
+	border: 1px solid rgb(248 113 113 / 0.8);
+	background: rgb(254 226 226 / 0.9);
+	color: #991b1b;
 	border-radius: var(--sl-radius-lg);
 	padding: 0.875rem 1rem;
+}
+
+@media (prefers-color-scheme: dark) {
+	.sl-kapa-error {
+		border: 1px solid color-mix(in srgb, #ef4444, var(--sl-color-black) 35%);
+		background: rgb(127 29 29 / 0.2);
+		color: #fecaca;
+	}
 }
 
 .sl-kapa-panel__footer {
@@ -336,6 +775,228 @@
 .sl-kapa-submit:disabled {
 	opacity: 0.5;
 	cursor: not-allowed;
+}
+.sl-kapa-handoff-inline {
+	margin-top: 0.75rem;
+	padding-top: 0.75rem;
+	border-top: 1px solid var(--sl-color-gray-5);
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.sl-kapa-handoff-inline label {
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	color: var(--sl-color-gray-2);
+}
+
+.sl-kapa-handoff-inline__row {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto auto;
+	gap: 0.5rem;
+}
+
+.sl-kapa-handoff-inline input {
+	width: 100%;
+	min-width: 0;
+	height: 2.25rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: var(--sl-radius-sm);
+	background: var(--sl-color-black);
+	color: var(--sl-color-white);
+	padding: 0 0.625rem;
+	font: inherit;
+	font-size: var(--sl-text-sm);
+}
+
+.sl-kapa-handoff-inline input::placeholder {
+	color: var(--sl-color-gray-3);
+}
+
+.sl-kapa-handoff-inline input:focus-visible {
+	outline: 2px solid var(--sl-color-accent-high);
+	outline-offset: 2px;
+}
+
+.sl-kapa-handoff-inline__status {
+	margin: 0;
+	font-size: var(--sl-text-xs);
+	line-height: 1.4;
+}
+
+.sl-kapa-handoff-inline__status--success {
+	color: #14532d;
+	background: rgb(220 252 231 / 0.9);
+	border: 1px solid rgb(74 222 128 / 0.7);
+	padding: 0.375rem 0.5rem;
+	border-radius: var(--sl-radius-sm);
+}
+
+.sl-kapa-handoff-inline__status--error {
+	color: #b91c1c;
+	background: rgb(254 226 226 / 0.9);
+	border: 1px solid rgb(248 113 113 / 0.8);
+	padding: 0.375rem 0.5rem;
+	border-radius: var(--sl-radius-sm);
+}
+
+.sl-kapa-handoff-inline__status a {
+	color: inherit;
+	text-decoration: underline;
+}
+
+@media (prefers-color-scheme: dark) {
+	.sl-kapa-handoff-inline__status--success {
+		color: #86efac;
+		background: rgb(20 83 45 / 0.35);
+		border-color: rgb(74 222 128 / 0.45);
+	}
+	.sl-kapa-handoff-inline__status--error {
+		color: #fecaca;
+		background: rgb(127 29 29 / 0.3);
+		border-color: rgb(248 113 113 / 0.5);
+	}
+}
+
+.sl-kapa-handoff {
+	margin-top: 0.75rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.625rem;
+}
+
+.sl-kapa-handoff__toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	width: 100%;
+	height: 2.5rem;
+	padding: 0 0.875rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: var(--sl-radius-sm);
+	background: var(--sl-color-black);
+	color: var(--sl-color-gray-1);
+	font: inherit;
+	font-size: var(--sl-text-sm);
+	font-weight: 500;
+	cursor: pointer;
+	transition:
+		border-color 0.15s ease,
+		background-color 0.15s ease,
+		color 0.15s ease;
+}
+
+.sl-kapa-handoff__toggle svg {
+	width: 0.95rem;
+	height: 0.95rem;
+	flex: none;
+}
+
+.sl-kapa-handoff__toggle:hover {
+	border-color: var(--warp-control-border-hover);
+	background: var(--warp-control-bg-hover);
+	color: var(--sl-color-white);
+}
+
+.sl-kapa-handoff__toggle:focus-visible {
+	outline: 2px solid var(--sl-color-accent-high);
+	outline-offset: 2px;
+}
+
+.sl-kapa-handoff__form {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 0.75rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: var(--sl-radius-lg);
+	background: color-mix(in srgb, var(--sl-color-black), var(--sl-color-gray-6) 28%);
+}
+
+.sl-kapa-handoff__form label {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.sl-kapa-handoff__form label span {
+	font-size: var(--sl-text-2xs);
+	color: var(--sl-color-gray-3);
+}
+
+.sl-kapa-handoff__form input,
+.sl-kapa-handoff__form textarea {
+	width: 100%;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: var(--sl-radius-sm);
+	background: var(--sl-color-black);
+	color: var(--sl-color-white);
+	padding: 0.5rem 0.625rem;
+	font: inherit;
+	font-size: var(--sl-text-sm);
+}
+
+.sl-kapa-handoff__form textarea {
+	resize: vertical;
+	min-height: 4rem;
+}
+
+.sl-kapa-handoff__form input::placeholder,
+.sl-kapa-handoff__form textarea::placeholder {
+	color: var(--sl-color-gray-3);
+}
+
+.sl-kapa-handoff__form input:focus-visible,
+.sl-kapa-handoff__form textarea:focus-visible {
+	outline: 2px solid var(--sl-color-accent-high);
+	outline-offset: 2px;
+}
+
+.sl-kapa-handoff__submit {
+	margin-top: 0.25rem;
+	height: 2.5rem;
+	border: 1px solid var(--sl-color-text-accent);
+	border-radius: var(--sl-radius-sm);
+	background: var(--sl-color-text-accent);
+	color: var(--sl-color-black);
+	font: inherit;
+	font-size: var(--sl-text-sm);
+	font-weight: 600;
+	cursor: pointer;
+	transition:
+		border-color 0.15s ease,
+		background-color 0.15s ease;
+}
+
+.sl-kapa-handoff__submit:hover:not(:disabled) {
+	border-color: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-white) 18%);
+	background: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-white) 8%);
+}
+
+.sl-kapa-handoff__submit:focus-visible {
+	outline: 2px solid var(--sl-color-accent-high);
+	outline-offset: 2px;
+}
+
+.sl-kapa-handoff__submit:disabled {
+	opacity: 0.55;
+	cursor: not-allowed;
+}
+
+.sl-kapa-handoff__status {
+	margin: 0;
+	font-size: var(--sl-text-xs);
+	line-height: 1.4;
+}
+
+.sl-kapa-handoff__status--success {
+	color: #86efac;
+}
+
+.sl-kapa-handoff__status--error {
+	color: #fecaca;
 }
 
 /* Hide the reCAPTCHA badge */
@@ -430,6 +1091,37 @@
 	.sl-kapa-meta {
 		flex-direction: column;
 		align-items: flex-start;
+	}
+
+	.sl-kapa-panel__header {
+		padding-inline: 0.75rem;
+	}
+
+	.sl-kapa-panel__header-actions {
+		gap: 0.25rem;
+	}
+
+	.sl-kapa-mcp-connect__trigger {
+		padding-inline: 0.5rem;
+	}
+}
+
+@media (max-width: 22rem) {
+	.sl-kapa-mcp-connect__trigger span {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	.sl-kapa-mcp-connect__trigger {
+		width: 2rem;
+		padding: 0;
 	}
 }
 

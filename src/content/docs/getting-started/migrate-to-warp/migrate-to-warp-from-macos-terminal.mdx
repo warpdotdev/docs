@@ -15,7 +15,7 @@ Warp doesn't have a one-click Terminal.app importer. Because Terminal.app stores
 
 The fastest way to bring over a Terminal.app theme is to ask Warp's Agent to translate it directly. Warp ships a [`settings.toml` file](/terminal/settings/) and a bundled `modify-settings` skill that lets the Agent read your Terminal.app preferences and write equivalent values into Warp's settings, including creating a matching [custom theme](/terminal/appearance/custom-themes/).
 
-1. In the Warp app, open a new tab and switch to [Agent Mode](/agents/local-agents/overview/) with `⌘+I`.
+1. In the Warp app, open a new tab and switch to [Agent Mode](/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/) with `⌘+I`.
 2. Paste this prompt into Agent Mode, then press `Enter`.
 
    > Read my Terminal.app preferences with `defaults read com.apple.Terminal` and port the active profile (theme, font, window size) into my Warp `settings.toml` using the `modify-settings` skill. Create a matching custom theme. Show me a diff before applying.
@@ -53,7 +53,7 @@ Configure window appearance in the Warp app from **Settings** > **Appearance** >
 Terminal.app uses whatever prompt your shell's PS1 (or zsh's PROMPT) defines. In Warp, choose:
 
 1. [**Warp prompt**](/terminal/appearance/prompt/#warp-prompt) - Warp's native prompt with drag-and-drop chips for git branch, directory, and more.
-2. [**Shell prompt (PS1)**](/terminal/appearance/prompt/#custom-prompt) - keeps your existing shell prompt exactly as it appears in Terminal.app.
+2. [**Shell prompt (PS1)**](/terminal/appearance/prompt/#shell-prompt-ps1) - keeps your existing shell prompt exactly as it appears in Terminal.app.
 
 Configure either prompt in the Warp app from **Settings** > **Appearance** > **Prompt**.
 
@@ -70,4 +70,4 @@ Most Terminal.app features have a Warp equivalent with additional capabilities o
 | Copy-on-select | **Settings** > **Features** > **Session** |
 | Inspector | [Command inspector](/terminal/editor/command-inspector/) (exit code, duration, working directory) |
 
-Beyond matching Terminal.app, Warp adds [Agent Mode](/agents/local-agents/overview/) for natural-language commands, [blocks](/terminal/blocks/) for structured command output, and [Warp Drive](/knowledge-and-collaboration/warp-drive/) for shared workflows. New to Warp? Start with the [Warp quickstart](/quickstart/).
+Beyond matching Terminal.app, Warp adds [Agent Mode](/agents/) for natural-language commands, [blocks](/terminal/blocks/) for structured command output, and [Warp Drive](/knowledge-and-collaboration/warp-drive/) for shared workflows. New to Warp? Start with the [Warp quickstart](/quickstart/).

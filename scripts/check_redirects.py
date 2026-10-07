@@ -62,12 +62,68 @@ SKIP_DEST_EXTENSIONS = (
     ".svg",
     ".ico",
 )
+NAMED_PARAMETER_RE = re.compile(r":[A-Za-z][A-Za-z0-9_]*(?:\*|\([^)]*\))?")
 
 
 def load_redirects() -> list[dict]:
     with VERCEL_JSON.open() as f:
         data = json.load(f)
     return data.get("redirects", [])
+
+
+def vercel_source_to_regex(source: str) -> re.Pattern[str]:
+    """Translate supported Vercel source syntax into a compiled regex."""
+    pattern: list[str] = []
+    index = 0
+
+    while index < len(source):
+        if source.startswith("(/?)", index):
+            pattern.append("/?")
+            index += 4
+            continue
+
+        if source.startswith("(.*)", index):
+            pattern.append(".*")
+            index += 4
+            continue
+
+        character = source[index]
+        if character == "\\" and index + 1 < len(source):
+            pattern.append(re.escape(source[index + 1]))
+            index += 2
+            continue
+
+        if character == ":":
+            parameter = re.match(r":[A-Za-z_][A-Za-z0-9_]*", source[index:])
+            if parameter:
+                index += len(parameter.group(0))
+                if source.startswith("(.*)", index):
+                    pattern.append(".*")
+                    index += 4
+                elif index < len(source) and source[index] == "*":
+                    if pattern and pattern[-1] == "/":
+                        pattern[-1] = "(?:/.*)?"
+                    else:
+                        pattern.append(".*")
+                    index += 1
+                elif index < len(source) and source[index] == "+":
+                    pattern.append("[^/]+(?:/[^/]+)*")
+                    index += 1
+                else:
+                    pattern.append("[^/]+")
+                continue
+
+        pattern.append(re.escape(character))
+        index += 1
+
+    return re.compile(f"^{''.join(pattern)}$")
+
+
+def redirect_source_matches_path(source: str, path: str) -> bool:
+    """Return whether a Vercel redirect source pattern matches a page path."""
+    path = path.rstrip("/")
+    source_pattern = vercel_source_to_regex(source)
+    return any(source_pattern.fullmatch(candidate) for candidate in (path, f"{path}/"))
 
 
 def url_to_content_path(url_path: str) -> Path | None:
@@ -113,7 +169,12 @@ def static_check(redirects: list[dict]) -> tuple[int, int, list[str]]:
 
         # Skip wildcard sources/destinations — we can't fully verify these
         # statically since the captured group is dynamic.
-        if "(" in source or "$" in dest:
+        if (
+            "(" in source
+            or "$" in dest
+            or NAMED_PARAMETER_RE.search(source)
+            or NAMED_PARAMETER_RE.search(dest)
+        ):
             continue
 
         # Skip external URLs and special endpoints.
