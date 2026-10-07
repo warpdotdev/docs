@@ -33,7 +33,7 @@ Choose the mode that fits what the sender can do:
 | **URL token** | `url_token` | Posts to a URL that embeds the secret as a path segment | Senders that only take a URL and can't set headers |
 | **Provider signature** | `signature` | Signs each request with its own scheme; Warp verifies the signature with the provider's signing secret | Vercel, Stripe, GitHub, Sentry, PagerDuty, and any sender that implements [Standard Webhooks](https://www.standardwebhooks.com/) (Svix-compatible headers are accepted) |
 
-Warp generates the secret for bearer token and URL token webhooks and shows it once when you create the webhook. For a provider signature webhook, you supply the provider's own signing secret instead — or leave it blank for a Standard Webhooks-compatible sender, and Warp generates one for you to give the sender. Vercel, Stripe, and PagerDuty only issue their secret after you give them a URL; leave the secret blank for those too, and Warp takes it in a second step. See [Setting up a Vercel webhook](/factories/webhooks/vercel/), which covers all three. See [Manage webhooks](#manage-webhooks) to rotate a secret or roll a webhook over.
+Warp generates the secret for bearer token and URL token webhooks and shows it once when you create the webhook. For a provider signature webhook, you supply the provider's own signing secret instead, or leave it blank for a Standard Webhooks-compatible sender and Warp generates one for you to give the sender. Vercel, Stripe, and PagerDuty only issue their secret after you give them a URL; leave the secret blank for those too, and Warp takes it in a second step, as described in [setting up a Vercel webhook](/factories/webhooks/vercel/). To rotate a secret or roll a webhook over, see [manage webhooks](#manage-webhooks).
 
 A URL token webhook's URL is itself the credential: treat it like a secret, and rotate it if it leaks.
 
@@ -178,9 +178,9 @@ find the failing code path, and open a pull request with a fix and a test.
 
 ## Related pages
 
-* [**Setting up a Vercel webhook**](/factories/webhooks/vercel/) - The two-step setup for providers that issue their signing secret only after they have a URL.
-* [**Automations**](/factories/automations/) - How triggers and filters decide which events start work, including the payload filter grammar.
-* [**Connect your factory**](/factories/connect-your-factory/) - Every way work reaches a factory, alongside custom webhooks.
-* [**Definitions as code**](/factories/factory-as-code/) - The full schema for `webhooks/<name>.yaml` and webhook triggers.
-* [**Cloud agent secrets**](/platform/secrets/) - Create and rotate the managed secrets that file-defined webhooks reference.
-* [**Factory dashboard**](/factories/factory-dashboard/) - Where the **Automations** page and its **Webhooks** tab live.
+* [Setting up a Vercel webhook](/factories/webhooks/vercel/) - The two-step setup for providers that issue their signing secret only after they have a URL.
+* [Factory automations](/factories/automations/) - How triggers and filters decide which events start work, including the payload filter grammar.
+* [Connect your factory](/factories/connect-your-factory/) - Every way work reaches a factory, alongside custom webhooks.
+* [Factory definition syntax](/factories/factory-as-code/#webhooksnameyaml) - The full schema for `webhooks/<name>.yaml` and webhook triggers.
+* [Cloud agent secrets](/platform/secrets/) - Create and rotate the managed secrets that file-defined webhooks reference.
+* [Factory dashboard](/factories/factory-dashboard/) - Where the **Automations** page and its **Webhooks** tab live.
