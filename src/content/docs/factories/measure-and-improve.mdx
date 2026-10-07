@@ -25,9 +25,9 @@ The **Dashboard** page shows activity, cost, autonomy, and evaluation results:
 | **Total runs** | All agent runs, with breakdowns by agent type, status, source, model, and more. |
 | **PRs opened** | Pull requests created from factory work, counted once, in the period they were first observed. |
 | **PRs merged** | Of the PRs opened in a period, how many later merged. Opened and merged draw from different data sources, so a period's merged count can occasionally read higher than its opened count for that period. |
-| **Autonomy** | The share of the factory's merged PRs that needed no human code push before merging. Opening the PR counts as a push, so a human-authored PR that a factory run later revised doesn't count as autonomous. |
-| **PR cycle time** | The median time the factory's merged PRs took from run kickoff through PR, first review, and merge, with a median for each stage. |
-| **Cost per PR** | The median cost of PRs opened in the range, split evenly across a run's PRs when one run produces more than one. View it broken down by cost component or by PR size (S/M/L/XL, split at 100/500/1,000 changed lines). |
+| **Autonomy** | The share of the factory's merged PRs that needed no human code push before merging. Opening the PR counts as a push, so a human-authored PR that a factory run later revised doesn't count as autonomous. Comments, reviews, requested changes, and the merge itself don't count as a push. |
+| **PR cycle time** | The median time the factory's merged PRs took from run kickoff through PR, first review, and merge, with an independent median for each stage. The stage medians don't sum to the headline. |
+| **Cost per PR** | The median cost of PRs opened in the range, split evenly across a run's PRs when one run produces more than one. View it broken down by cost component or by PR size: S, M, L, or XL, split at 100, 500, and 1,000 changed lines. |
 | **Most expensive PRs** | The highest-cost pull requests. |
 | **Scorer cards** | Results from your Scorers. |
 | **Self-improvement PRs** | The three newest Self-improvement pull requests, regardless of the selected date range. |
@@ -35,22 +35,22 @@ The **Dashboard** page shows activity, cost, autonomy, and evaluation results:
 **Cost per PR** is an estimate, not a billing figure: it counts recorded credits and can undercount actual usage.
 
 :::caution
-**PRs merged**, **Autonomy**, **PR cycle time**, and the detail in **Most expensive PRs** require a connected code host - the GitHub App, or the GitLab webhook Warp installs when you [connect GitLab](/factories/integrations/gitlab/) - and only cover activity from after you connect it. A PR's cost, creator, source, and requested model come from the run itself, so those still show without that connection.
+**PRs merged**, **Autonomy**, **PR cycle time**, and the detail in **Most expensive PRs** require a connected code host (the GitHub App, or the GitLab webhook Warp installs when you [connect GitLab](/factories/integrations/gitlab/)) and only cover activity from after you connect it. A PR's cost, creator, source, and requested model come from the run itself, so those still show without that connection.
 :::
 
 Use the **Dashboard** page to pick which runs to investigate, not to conclude what caused a change. **Total runs** includes evaluation, benchmark, and Self-improvement runs, so a higher run count with a flat PR count could mean harder tasks, retries, or measurement activity.
 
 ## Configure Scorers
 
-A **Scorer** uses an LLM judge to classify completed runs against criteria you write — for example, "did the agent run the tests before opening a PR?" See [Configuring Scorers](/factories/measure-and-improve/scorers/) for its fields and how automatic and on-demand scoring work.
+A **Scorer** uses an LLM judge to classify completed runs against criteria you write, such as "did the agent run the tests before opening a PR?" Every factory starts with a set of default Scorers. See [configuring Scorers](/factories/measure-and-improve/scorers/) for the defaults, the fields, and how automatic and on-demand scoring work.
 
 ## Compare configurations with benchmarks
 
-A benchmark compares model and runner configurations for a single agent on the same fixed tasks. Use it to test a configuration change before you apply it to production. See [benchmarking factory agent configurations](/factories/benchmarks/) for the workflow.
+A benchmark compares model, harness, and runner configurations for a single agent on the same fixed tasks. Use it to test a configuration change before you apply it to production. See [factory benchmarks](/factories/benchmarks/) for the workflow.
 
 ## Configure and review Self-improvement
 
-**Self-improvement** turns a Scorer's repeated failures into follow-up pull requests, against application code or the factory's own definition. See [Configuring and reviewing Self-improvement](/factories/measure-and-improve/self-improvement/) for how to turn it on and review its pull requests.
+**Self-improvement** turns a Scorer's repeated failures into follow-up pull requests, against application code or the factory's own definition. See [configuring and reviewing Self-improvement](/factories/measure-and-improve/self-improvement/) for how to turn it on and review its pull requests.
 
 ## Run a practical improvement loop
 
@@ -79,5 +79,5 @@ flowchart LR
 
 * [Configuring Scorers](/factories/measure-and-improve/scorers/) - What a Scorer is, its fields, and how it runs.
 * [Configuring and reviewing Self-improvement](/factories/measure-and-improve/self-improvement/) - Turn on Self-improvement and review its pull requests.
-* [Benchmarking factory agent configurations](/factories/benchmarks/) - Compare model and runner configurations on the same tasks.
-* [Definitions as code](/factories/factory-as-code/) - Record an adopted change so your team can review the factory configuration.
+* [Factory benchmarks](/factories/benchmarks/) - Compare model, harness, and runner configurations on the same tasks.
+* [Factory definition syntax](/factories/factory-as-code/) - Record an adopted change so your team can review the factory configuration.

@@ -8,27 +8,17 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-The factory dashboard is the web app for operating a single factory. Open the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, then select a factory to track its work, inspect its runs and pull requests, and manage its agents, automations, and settings.
-
-:::note
-"Factory dashboard" names the whole surface. **Dashboard**, in bold, is one page inside it: the metrics page you land on when you open a factory.
-:::
+The factory dashboard is the web app for operating a single factory. Open the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, then select a factory to track its work, inspect its runs and pull requests, and manage its agents, automations, and settings. The factory opens on its **Dashboard** page, the metrics view described below.
 
 ## Getting oriented
 
-Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, **Secrets**, and **Integrations** sit above the factory list and cover your whole team, not a single factory. **Inbox** sits there too, but it's neither team-wide nor per-factory: there's a single global Inbox page, and it shows only the items waiting on you personally, across every factory you have access to. Everything else on this page is scoped to the factory you select.
+Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, **Secrets**, and **Integrations** sit above the factory list and cover your whole team, not a single factory. **Inbox** sits there too, but it's personal rather than team-wide: one page lists the items waiting on you across every factory you can access. Everything else on this page is scoped to the factory you select.
 
-A factory opens on its **Dashboard** page, covered next. **Factory definition** appears only on Warp-managed factories, since a factory whose definition lives in your own repository is edited there instead.
+**Factory definition** appears only on Warp-managed factories. A factory whose definition lives in your own repository is edited there instead.
 
 ## Read metrics on the Dashboard page
 
-**Dashboard** is the factory's landing page. It summarizes the factory over a date range you choose:
-
-* **Autonomy** - The share of the factory's merged PRs that needed no human code push before merging. Opening the PR counts as a push, so a human-authored PR that a factory run later revised doesn't count as autonomous; comments, reviews, requested changes, and the merge itself don't count as a push.
-* **PR cycle time** - The median time the factory's merged PRs took from run kickoff through PR, first review, and merge, with an independent median for each stage - the stage medians don't sum to the headline.
-* **Cost per PR** - The median cost of PRs opened in the range. When a single run produces more than one PR, its cost splits evenly across them. Treat it as a lower-bound estimate: it can miss some run usage and does not match billing. See [Measure and improve a factory](/factories/measure-and-improve/) for its limitations.
-
-The page also charts opened versus merged PRs and a breakdown of runs, and the **Cost per PR** card expands to list the most expensive PRs in the range. When Scorers are set up, Scorer cards summarize recent classification results.
+**Dashboard** summarizes the factory over a date range you choose: runs, pull requests opened and merged, **Autonomy** (the share of merged PRs that needed no human code push), **PR cycle time**, and **Cost per PR**, which expands to list the most expensive PRs in the range. When Scorers are set up, Scorer cards summarize recent classification results. For how each metric is calculated and what it leaves out, see [measure and improve a factory](/factories/measure-and-improve/#read-metrics-on-the-dashboard-page).
 
 <figure style={{ maxWidth: "563px" }}>
 ![The Dashboard page showing a Cost per PR chart broken down by compute, platform, and inference cost, plus two example Scorer cards.](../../../assets/factories/factory-dashboard-metrics.png)
@@ -53,25 +43,25 @@ Run pages don't include a chat input, but you can still steer a run: **View sess
 
 ## Manage agents and automations
 
-**Agents** lists the factory's agents. Create agents and edit their instructions, model or harness, runner, host, secrets, and MCP servers. **Automations** defines the triggers that start runs: a schedule (including custom cron expressions), a GitHub, Linear, Slack, or Jira event, or a delivery to a custom webhook. **Webhooks** is a tab within **Automations** that lists the factory's [custom webhooks](/factories/webhooks/), where you create them, copy their URLs, rotate secrets, and read the delivery log.
+**Agents** lists the factory's agents. Create agents and edit their instructions, model or harness, runner, host, secrets, and MCP servers. **Automations** defines the triggers that start runs: a schedule (including custom cron expressions), an event from a connected tool such as GitHub or Slack, or a delivery to a custom webhook. **Webhooks** is a tab within **Automations** that lists the factory's [custom webhooks](/factories/webhooks/), where you create them, copy their URLs, rotate secrets, and read the delivery log.
 
 {/* VISUAL: The Automations editor, to complement the Agents list already shown in Configure agent behavior on the factory agents page. */}
 
-The automation editor doesn't change execution settings; an automation only overrides them through [execution overrides in the definition files](/factories/factory-as-code/#execution-overrides). When the factory's definition lives in an external repository, Agents, Automations, and Scorers are read-only; make changes there through pull requests.
+The automation editor doesn't change execution settings; an automation only overrides them through [execution overrides in the definition files](/factories/factory-as-code/#execution-overrides). On a GitHub-backed factory, Agents, Automations, and Scorers are read-only; make changes through pull requests to the definition repository.
 
 ## Edit definitions in the Factory definition tab
 
-**Factory definition** is the factory dashboard's view of the definition files that [definitions as code](/factories/factory-as-code/) describes in full. Where the definition lives decides what you get:
+**Factory definition** is the factory dashboard's view of the definition files that the [factory definition syntax](/factories/factory-as-code/) describes in full. Where the definition lives decides what you get:
 
 * **Warp-managed** - Browse and edit the definition files. Saving validates the definition and commits all changes together.
-* **Managed in GitHub** - The tab doesn't appear. Edit the definition through pull requests in your repository, and **Settings** links back to it.
+* **GitHub-backed** - The tab doesn't appear. Edit the definition through pull requests in your repository, and **Settings** links back to it.
 * **Live-managed** - The factory is managed through the API, so there are no definition files to browse.
 
 When an agent proposes a change to a Warp-managed definition, a spec review for the branch appears in your [inbox](/factories/factory-inbox/). Open it to comment on the diff, use **Request changes** to send feedback back to the agent, or **Approve & merge**.
 
 ## Score and benchmark
 
-**Scorers** is where you create Scorers and read their results. **Self-improvement** lists the pull requests the self-improvement flow opens after analyzing runs your Scorers mark as failing, and **Benchmarks** compares model and runner configurations against a fixed set of tasks. See [Configuring Scorers](/factories/measure-and-improve/scorers/), [Configuring and reviewing Self-improvement](/factories/measure-and-improve/self-improvement/), and [benchmarking factory agent configurations](/factories/benchmarks/) for what each one is and how to use it.
+**Scorers** is where you create Scorers and read their results. **Self-improvement** lists the pull requests Self-improvement opens after analyzing runs your Scorers mark as failing, and **Benchmarks** compares model, harness, and runner configurations against a fixed set of tasks. See [configuring Scorers](/factories/measure-and-improve/scorers/), [configuring and reviewing Self-improvement](/factories/measure-and-improve/self-improvement/), and [factory benchmarks](/factories/benchmarks/).
 
 ## Change factory settings
 
@@ -85,14 +75,14 @@ When an agent proposes a change to a Warp-managed definition, a spec review for 
 * **Integrations** - The integrations this factory can access.
 * **Deletion** - Deletes the factory. This cannot be undone.
 
-For a file-managed factory, `runners/*.yaml` in the repository is the source of truth. Anything managed in an external repository is read-only in Settings.
+On a GitHub-backed factory, `runners/*.yaml` in the repository is the source of truth, and anything defined there is read-only in Settings.
 
 ## Related pages
 
 * [Factory inbox](/factories/factory-inbox/) - See and resolve the questions, spec approvals, and PR reviews waiting on you.
 * [How Warp Factories work](/factories/how-factories-work/) - The stages work moves through and where humans stay in the loop.
-* [Definitions as code](/factories/factory-as-code/) - Define agents, automations, runners, and source ownership in code.
+* [Factory definition syntax](/factories/factory-as-code/) - Define agents, automations, runners, and source ownership in code.
 * [Factory agents](/factories/factory-agents/) - What each default agent does and how to configure it.
-* [Measure and improve a factory](/factories/measure-and-improve/) - Configure Scorers and use them in an improvement loop.
-* [Benchmarking factory agent configurations](/factories/benchmarks/) - Create a benchmark suite and compare configurations on fixed tasks.
+* [Measure and improve a factory](/factories/measure-and-improve/) - What each dashboard metric means, and how to use Scorers in an improvement loop.
+* [Factory benchmarks](/factories/benchmarks/) - Create a benchmark suite and compare configurations on fixed tasks.
 * [Troubleshooting Warp Factories](/factories/troubleshooting/) - Fixes for setup problems, work that doesn't start, and stuck runs.
