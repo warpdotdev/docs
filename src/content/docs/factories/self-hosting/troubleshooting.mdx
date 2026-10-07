@@ -161,7 +161,7 @@ The node evicted the Pod, usually because of memory, disk, or other node pressur
 
 #### Task exits with code 143
 
-Exit code `143` means the process received `SIGTERM`. It doesn't indicate an out-of-memory failure. Kubernetes reports those as `OOMKilled`.
+Exit code `143` generally indicates `SIGTERM`; it does not by itself prove an out-of-memory failure. Confirm the termination reason and Pod events.
 
 **Verify:** Check the container's termination reason and the Pod's events for eviction, preemption, a node drain, manual deletion, or the Job deadline. `kubernetesBackend.activeDeadlineSeconds` defaults to eight hours, after which Kubernetes terminates the Job with `DeadlineExceeded`.
 
