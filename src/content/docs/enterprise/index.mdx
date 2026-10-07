@@ -4,13 +4,15 @@ description: >-
   Warp Enterprise provides the security, control, and collaboration features
   organizations need to deploy Warp across their engineering teams at scale.
 ---
+import { VARS } from '@data/vars';
 
 Warp Enterprise is built for organizations that want to accelerate software development with agents while maintaining security, compliance, and administrative control. It brings Warp's **Agentic Development Environment** to your entire engineering organization with the governance features IT and security teams require.
 
-Warp has two core products:
+Warp has three products:
 
 * **Warp Terminal** - A modern terminal designed for agentic development where developers run commands, collaborate with agents, and orchestrate autonomous work from the command line.
-* **Oz** - Warp's programmable platform for running and coordinating agents at scale. Oz powers all agents in Warp, whether they run locally or in the cloud, and provides the orchestration, tracking, and control plane for scalable agent workflows.
+* **{VARS.WARP_AUTOMATION_PLATFORM}** - Warp's programmable system for running and coordinating agents at scale. The {VARS.WARP_AUTOMATION_PLATFORM} powers all agents in Warp, whether they run locally or in the cloud, and provides the orchestration, tracking, and control plane for scalable agent workflows.
+* [**Warp Factories**](/factories/) - Warp's product for building and operating software factories, where cloud agents triage, spec, implement, review, and verify work, and humans approve key decisions.
 
 ## Who Warp Enterprise is for
 
@@ -33,7 +35,7 @@ Warp Enterprise serves three primary audiences:
 * **Zero Data Retention (ZDR)** - No customer data is retained, stored, or used for training by contracted LLM providers
 * **Open source client** - Warp's client code is published under [AGPL v3](https://github.com/warpdotdev/warp/blob/master/LICENSE-AGPL) at [`warpdotdev/warp`](https://github.com/warpdotdev/warp) for security review and audit
 * **Bring Your Own LLM (BYOLLM)** - Route inference through your own cloud infrastructure (AWS Bedrock or Google Cloud via Gemini Enterprise)
-* **Team-managed API keys and endpoints** - Share provider API keys and custom endpoints across your team for both interactive sessions and cloud agents
+* **Team-managed API keys and endpoints** - Share provider API keys and custom endpoints across your Business or Enterprise team for both interactive sessions and cloud agents
 * **Flexible deployment** - Choose Warp-hosted or hybrid deployment models
 * **Telemetry controls** - Configure what data is collected at the team level
 
@@ -46,10 +48,10 @@ Warp Enterprise serves three primary audiences:
 ### Agent capabilities
 * **State-of-the-art agents** - Multi-model agents with full terminal access, code editing, and autonomous task execution
 * **Cloud agents** - Run agents in the cloud for unlimited parallelization, background automation, and long-running workflows. Perfect for PR reviews, scheduled tasks, and distributed work across multiple repositories
-* **Integrated control plane** - Launch, orchestrate, and manage local, cloud, and autonomous agents from a unified interface. Track all agent activity across your team from the Oz dashboard
+* **Integrated control plane** - Launch, orchestrate, and manage local, cloud, and autonomous agents from a unified interface. Track all agent activity across your team from the {VARS.DASHBOARD}
 * **Agent Profiles** - Customize agent behavior, models, autonomy levels, and permissions
 * **Rules and guardrails** - Enforce coding standards, tech stack preferences, and security practices through team-wide or project-specific rules
-* **Multi-agent support** - Support for all major models and CLI coding agents (Oz, Claude Code, Codex, Copilot)
+* **Multi-agent support** - Support for all major models and CLI coding agents ({VARS.WARP_AUTOMATION_PLATFORM}, Claude Code, Codex, Copilot)
 
 ## What this section covers
 
@@ -57,7 +59,7 @@ This section organizes Enterprise documentation to help you deploy, secure, and 
 
 * **Getting started** - Installation, SSO setup, and onboarding for admins and developers
 * **Security and compliance** - Security overview and SSO configuration
-* **Enterprise features** - Bring Your Own LLM (BYOLLM), team-managed API keys and endpoints, and the Analytics API
+* **Enterprise features** - Bring Your Own LLM (BYOLLM), team-managed API keys and endpoints for Business and Enterprise plans, and the Analytics API
 * **Team management** - Admin panel, roles and permissions, and access controls
 
 ## Getting started

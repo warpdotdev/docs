@@ -62,7 +62,7 @@ When directly launching Warp from Okta or other SSO providers', you may see an e
 
 ### I logged in with another method before and now can't use SSO
 
-In cases where you logged in with another method, please do the following to fix SSO login:
+In cases where you logged in with another method, do the following to fix SSO login:
 
 1. Go to the [Warp login page](https://app.warp.dev/login)
 2. Login with the original method that you used to create your Warp account (email, Google, GitHub).
@@ -73,28 +73,28 @@ In cases where you logged in with another method, please do the following to fix
 
 If you received the message "This account has been flagged as fraudulent.", this means that you have failed one or more checks in our fraud detection system, and you will be unable to authenticate to Warp or leverage AI features.
 
-Please note that creating multiple accounts or using throwaway emails is against our [Terms of Service](https://www.warp.dev/legal/terms-of-service) and increases the chance of triggering this system significantly.
+Note that creating multiple accounts or using throwaway emails is against our [Terms of Service](https://www.warp.dev/legal/terms-of-service) and increases the chance of triggering this system significantly.
 
 ### False positives
 
-At times, ad-blockers or systems like Pi-hole may falsely trigger this system. You may be able to remediate this error by temporarily disabling these and attempting login again.
+At times, ad-blockers or systems like Pi-hole may falsely trigger this system. To remediate this error, try temporarily disabling them and attempting login again.
 
 ### Requesting an appeal
 
-If you are still unable to authenticate, you may email [appeals@warp.dev](mailto:appeals@warp.dev) to request an appeal. Please include the email of the account you are experiencing the issue on so a member of our support team can investigate. This may take 5-10 days.
+If you are still unable to authenticate, you can email [appeals@warp.dev](mailto:appeals@warp.dev) to request an appeal. Include the email of the account you are experiencing the issue on so a member of our support team can investigate. This may take 5-10 days.
 
 If you have an active subscription and continue to have login issues, see [how to get help with login issues](/support-and-community/troubleshooting-and-support/troubleshooting-login-issues/#get-help-with-login-issues).
 
 ## How to get an auth token to login
 
-If the browser does not open from Warp directly when you click "Sign up" or "Sign in". Please go to the [Signup](https://app.warp.dev/signup) page to create an account or [Login](https://app.warp.dev/login) page if you already have one, then copy the auth token from the "here" link on the logged\_in page and paste it into Warp.
+If the browser does not open from Warp directly when you click "Sign up" or "Sign in", go to the [Signup](https://app.warp.dev/signup) page to create an account or the [Login](https://app.warp.dev/login) page if you already have one, then copy the auth token from the "here" link on the logged\_in page and paste it into Warp.
 
-If nothing happens when you click "Take me to Warp" on the logged-in page. If this happens to you, copy the "here" link on the web logged-in page (https://app.warp.dev/logged\_in) to copy the authentication token, then paste it into the app as shown below.
+If nothing happens when you click "Take me to Warp" on the logged-in page, copy the "here" link on the web logged-in page (https://app.warp.dev/logged\_in) to copy the authentication token, then paste it into the app as shown below.
 
 :::caution
 On Linux and Windows, the default copy-and-paste [Keyboard shortcuts](/getting-started/keyboard-shortcuts/) are `Ctrl+Shift+C` and `Ctrl+Shift+V` respectively.\
 \
-On Linux and WSL you should install and set your default `$BROWSER` to `brave-browser` to workaround any copy-paste issues. Please see the workaround guide below.
+On Linux and WSL you should install and set your default `$BROWSER` to `brave-browser` to workaround any copy-paste issues. See the workaround guide below.
 :::
 
 <DemoVideo src="/assets/support-and-community/auth-token-demo.mp4" label="Authentication Token Linux" />

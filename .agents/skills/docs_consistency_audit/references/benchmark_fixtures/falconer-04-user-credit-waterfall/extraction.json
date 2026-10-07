@@ -1,0 +1,132 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:6d4291d959f8fc72c8210cd9f800a28aa475f61ef933d10c88f36bb13df38a90",
+      "canonical_source": "docs-prose",
+      "claim_ids": [
+        "sha256:c2c5219481d5f24e3294a4b1c9d8903ad68bb770afe7bc112484dfb241033a57",
+        "sha256:ce0f05fb6d04feeb4fa5db7204f24bbe8a421e52626f9ca06ffed88d1568dc6e"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "Warp draws from any cloud agent credits the user has, then the user\u2019s plan-included credits",
+          "source": {
+            "content_sha256": "741be0b9f4079c32231b5fbd3d96aa7d4eb04677921c8bc674d486531e5f55a8",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-04-user-credit-waterfall-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "The triggering user\u2019s monthly credits included with their plan.",
+          "source": {
+            "content_sha256": "8ab569a824f00a5532c6c5c2b4946a2a4049a397ceabb060015b77dac6d706be",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-04-user-credit-waterfall-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "high",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-04-user-credit-waterfall",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "billing",
+      "entity": "user-triggered-run",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "credit-waterfall",
+      "qualifiers": {
+        "actors": [
+          "user-triggered"
+        ]
+      },
+      "quote": "Warp draws from any cloud agent credits the user has, then the user\u2019s plan-included credits",
+      "source": {
+        "content_sha256": "741be0b9f4079c32231b5fbd3d96aa7d4eb04677921c8bc674d486531e5f55a8",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-04-user-credit-waterfall-left",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "billing",
+      "value": {
+        "normalized": [
+          "cloud-agent-credits",
+          "plan-credits",
+          "team-add-on"
+        ],
+        "type": "ordered-list"
+      }
+    },
+    {
+      "category": "billing",
+      "entity": "user-triggered-run",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "credit-waterfall",
+      "qualifiers": {
+        "actors": [
+          "user-triggered"
+        ]
+      },
+      "quote": "The triggering user\u2019s monthly credits included with their plan.",
+      "source": {
+        "content_sha256": "8ab569a824f00a5532c6c5c2b4946a2a4049a397ceabb060015b77dac6d706be",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-04-user-credit-waterfall-right",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "billing",
+      "value": {
+        "normalized": [
+          "plan-credits",
+          "team-add-on"
+        ],
+        "type": "ordered-list"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "741be0b9f4079c32231b5fbd3d96aa7d4eb04677921c8bc674d486531e5f55a8",
+    "right.mdx": "8ab569a824f00a5532c6c5c2b4946a2a4049a397ceabb060015b77dac6d706be"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

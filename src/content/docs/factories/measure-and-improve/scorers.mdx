@@ -1,0 +1,32 @@
+---
+title: Configuring Scorers
+description: >-
+  Configure an LLM-based evaluation that checks completed factory runs from
+  selected agents against criteria you define.
+sidebar:
+  label: "Scorers"
+---
+
+A **Scorer** is an LLM-based evaluation, or eval, that checks whether completed runs from selected agents meet criteria you define. For example, it can check, "Did the agent run the tests before opening a pull request?" A Scorer assigns a classification, not a numeric grade, so keep each one focused on a question its failures can point back to. Create Scorers on the factory dashboard's **Scorers** page, which also holds each Scorer's results. For Scorers defined as files in a factory definition, see the [`scorers/<name>/scorer.md` syntax](/factories/factory-as-code/#scorersnamescorermd) and the two scorers in [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
+
+Configure these fields:
+
+* **Agent(s) to evaluate** - The agents this Scorer applies to. Select at least one.
+* **Judge instructions** - The criteria the judge checks for.
+* **Judge model** - The model that acts as the judge.
+* **Classifications** - The labels the judge can assign, each with a score.
+* **Pass threshold** - The score a run needs to pass.
+* **Sample rate** - The percentage of completed runs from selected agents to evaluate. For example, a 10% sample rate evaluates about one in ten runs.
+
+{/* VISUAL: The Scorer create/edit form (judge instructions, judge model, classifications, pass threshold, sample rate). */}
+
+With a sample rate above 0%, the Scorer automatically evaluates sampled runs after they complete and records a classification, score, and reasoning.
+
+You can also score any single run on demand, which is useful for testing new judge instructions before raising the sample rate. Scoring a run again replaces its previous result from that Scorer.
+
+
+## Related pages
+
+* [Measure and improve a factory](/factories/measure-and-improve/) - Read dashboard metrics and run a practical improvement loop.
+* [Configuring and reviewing Self-improvement](/factories/measure-and-improve/self-improvement/) - Turn repeated Scorer failures into follow-up pull requests.
+* [Benchmarking factory agent configurations](/factories/benchmarks/) - Compare model and runner configurations on the same tasks.

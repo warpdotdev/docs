@@ -1,0 +1,121 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:e4c2bfa34d5b86b0fdad6ad995465f1ffb7fa861b931fc6984cf902975b7f875",
+      "canonical_source": "docs-prose",
+      "claim_ids": [
+        "sha256:8b9b998bc4cf67cd7027d441007101c635f80ae6d7bc450a7477730bf0d19c66",
+        "sha256:b64d64b5422ed3d5bd7845005a330c2531331f736f6e884401097c11425e6e4c"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "Any remaining add-on credits must be used or removed before a team can be deleted.",
+          "source": {
+            "content_sha256": "61ed417ae247eb78ddce20146a14c8b093811352e695d57f7945a9b0797a9aba",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-15-team-deletion-add-on-credits-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "Any remaining add-on credits tied to the team are no longer usable by anyone.",
+          "source": {
+            "content_sha256": "3a6aa7c4cf5529d77883b5a157325e845054e896750a09855ac84d62fe3a4c27",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-15-team-deletion-add-on-credits-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "high",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-15-team-deletion-add-on-credits",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "billing",
+      "entity": "team-add-on-credits",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "deletion-behavior",
+      "qualifiers": {},
+      "quote": "Any remaining add-on credits must be used or removed before a team can be deleted.",
+      "source": {
+        "content_sha256": "61ed417ae247eb78ddce20146a14c8b093811352e695d57f7945a9b0797a9aba",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-15-team-deletion-add-on-credits-left",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "billing",
+      "value": {
+        "normalized": [
+          "deletion-blocked"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "billing",
+      "entity": "team-add-on-credits",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "deletion-behavior",
+      "qualifiers": {},
+      "quote": "Any remaining add-on credits tied to the team are no longer usable by anyone.",
+      "source": {
+        "content_sha256": "3a6aa7c4cf5529d77883b5a157325e845054e896750a09855ac84d62fe3a4c27",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-15-team-deletion-add-on-credits-right",
+        "visibility": "public"
+      },
+      "source_class": "faq",
+      "topic": "billing",
+      "value": {
+        "normalized": [
+          "credits-forfeited"
+        ],
+        "type": "enum"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "61ed417ae247eb78ddce20146a14c8b093811352e695d57f7945a9b0797a9aba",
+    "right.mdx": "3a6aa7c4cf5529d77883b5a157325e845054e896750a09855ac84d62fe3a4c27"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

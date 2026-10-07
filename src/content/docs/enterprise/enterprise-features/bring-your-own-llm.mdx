@@ -1,9 +1,8 @@
 ---
 title: Bring Your Own LLM
 description: >-
-  BYOLLM routes Warp's agents through your own AWS Bedrock or Google Cloud
-  (Gemini Enterprise) environment for billing control, data locality, and
-  infrastructure flexibility.
+  BYOLLM routes Warp Agent inference through your AWS Bedrock or Google Cloud
+  environment for billing control and data locality.
 ---
 
 Warp supports **Bring Your Own LLM (BYOLLM)** for Enterprise teams that need to run inference on their own cloud infrastructure. With BYOLLM, your team keeps using Warp's agents as usual, while eligible requests route through models hosted in your own cloud account instead of Warp's direct provider integrations.
@@ -60,7 +59,7 @@ See each provider's page for provider-specific routing and fallback behavior: [A
 
 **BYOLLM (Bring Your Own LLM)** routes inference through your organization's cloud infrastructure (AWS Bedrock or Google Cloud via Gemini Enterprise) using cloud-native IAM. Admins configure it at the admin level and it applies to the entire team.
 
-Enterprise admins can also centrally manage BYOK itself: [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) let an admin configure shared provider keys and OpenAI-compatible endpoints that are stored server-side and work for both interactive requests and cloud agents. For a side-by-side comparison across all of Warp's bring-your-own-infrastructure options, see [How team-managed providers differ from self-serve BYOK and BYOLLM](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#how-team-managed-providers-differ-from-self-serve-byok-and-byollm).
+Business and Enterprise admins can also centrally manage BYOK itself: [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) let an admin configure shared provider keys and OpenAI-compatible endpoints that are stored server-side and work for both interactive requests and cloud agents. For a side-by-side comparison across all of Warp's bring-your-own-infrastructure options, see [How team-managed providers differ from self-serve BYOK and BYOLLM](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#how-team-managed-providers-differ-from-self-serve-byok-and-byollm).
 
 | Feature | BYOK | BYOLLM |
 | --- | --- | --- |
@@ -83,10 +82,10 @@ Yes. Admins can disable Direct API access for models on the **Models** page so e
 
 ## Related resources
 
-* [BYOLLM: AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/) - Route inference through your AWS account
-* [BYOLLM: Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/) - Route inference through your Google Cloud project
-* [Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Admin-configured shared provider keys and custom endpoints
-* [Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/) - Self-serve, user-level API keys
-* [Model Choice](/agent-platform/inference/model-choice/) - Full list of supported models
-* [Admin Panel](/enterprise/team-management/admin-panel/) - Configure team settings
-* [Contact sales](https://www.warp.dev/contact-sales) - Get help with Enterprise setup
+* [BYOLLM: AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/) — Route inference through your AWS account
+* [BYOLLM: Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/) — Route inference through your Google Cloud project
+* [Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) — Admin-configured shared provider keys and custom endpoints
+* [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) — Self-serve, user-level API keys
+* [Model Choice](/agents/inference/model-choice/) — Full list of supported models
+* [Admin Panel](/enterprise/team-management/admin-panel/) — Configure team settings
+* [Contact sales](https://www.warp.dev/contact-sales) — Get help with Enterprise setup

@@ -1,0 +1,75 @@
+{
+  "adjudicated_findings": [],
+  "claims": [
+    {
+      "category": "cli",
+      "entity": "flag",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "available",
+      "qualifiers": {
+        "versions": [
+          "<1.2"
+        ]
+      },
+      "quote": "The flag is unavailable before 1.2.",
+      "source": {
+        "content_sha256": "131e18e79565984fe448d564fad48c30c37a204dfabfc2db7ff78d140b7af171",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/negative-version-difference-left",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "cli",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "cli",
+      "entity": "flag",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "available",
+      "qualifiers": {
+        "versions": [
+          ">=1.2"
+        ]
+      },
+      "quote": "The flag is available in 1.2.",
+      "source": {
+        "content_sha256": "92558e79e07c6518b8659f6519c39d5ef7987df38d6611265d8f5d1bfa5350e5",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/negative-version-difference-right",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "131e18e79565984fe448d564fad48c30c37a204dfabfc2db7ff78d140b7af171",
+    "right.mdx": "92558e79e07c6518b8659f6519c39d5ef7987df38d6611265d8f5d1bfa5350e5"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

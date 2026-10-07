@@ -19,7 +19,7 @@ Warp doesn't have a one-click Windows Terminal importer. Because Windows Termina
 
 The fastest way to bring over your Windows Terminal setup is to ask Warp's Agent to translate `settings.json` directly. Warp ships a [`settings.toml` file](/terminal/settings/) and a bundled `modify-settings` skill that lets the Agent read your existing config and write equivalent values into Warp's settings, including translating your color schemes into a Warp [custom theme](/terminal/appearance/custom-themes/).
 
-1. In the Warp app, open a new tab and switch to [Agent Mode](/agent-platform/local-agents/overview/) with `Ctrl+I`.
+1. In the Warp app, open a new tab and switch to [Agent Mode](/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/) with `Ctrl+I`.
 2. Paste this prompt into Agent Mode, then press `Enter`.
 
    > Read my Windows Terminal `settings.json` at `%LOCALAPPDATA%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json` and port the active profile and color scheme into my Warp `settings.toml` using the `modify-settings` skill. Create a matching custom theme. Show me a diff before applying.
@@ -70,7 +70,7 @@ Use this table to find Warp equivalents for Windows Terminal features you might 
 | Profiles | [Tab configs](/terminal/windows/tab-configs/) + [themes](/terminal/appearance/themes/) + per-session shell settings |
 | Tabs and panes | [Tabs](/terminal/windows/tabs/), [vertical tabs](/terminal/windows/vertical-tabs/), [split panes](/terminal/windows/split-panes/) |
 | Command palette | [Command Palette](/terminal/command-palette/) (`Ctrl+Shift+P`) |
-| Oh My Posh prompts | Keep using them; pick [Shell prompt (PS1)](/terminal/appearance/prompt/#custom-prompt) in Warp |
+| Oh My Posh prompts | Keep using them; pick [Shell prompt (PS1)](/terminal/appearance/prompt/#shell-prompt-ps1) in Warp |
 | Quake mode | [Global hotkey](/terminal/windows/global-hotkey/) |
 
-Beyond Windows Terminal's feature set, Warp adds [Agent Mode](/agent-platform/local-agents/overview/), [blocks](/terminal/blocks/), and [Warp Drive](/knowledge-and-collaboration/warp-drive/). See [Warp for Windows installation](/getting-started/quickstart/installation-and-setup/) if you haven't installed yet.
+Beyond Windows Terminal's feature set, Warp adds [Agent Mode](/agents/), [blocks](/terminal/blocks/), and [Warp Drive](/knowledge-and-collaboration/warp-drive/). See [Warp for Windows installation](/getting-started/quickstart/installation-and-setup/) if you haven't installed yet.

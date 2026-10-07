@@ -1,11 +1,20 @@
 ---
 name: aeo_crosslink_audit
-description: Run a narrow AEO cross-link audit for Warp docs using Peec, Google Search Console, and existing docs. Use for recurring or scheduled agents that should identify high-confidence internal cross-linking improvements for agents, cloud agents, and orchestration docs.
+description: Run a narrow AEO cross-link audit for Warp docs using Peec, Google Search Console, and existing docs. Use for recurring or scheduled agents that should identify high-confidence internal cross-linking improvements for agents, cloud agents, orchestration, and factories docs.
 ---
 
 # AEO cross-link audit
 
 Identify small, high-confidence internal cross-linking improvements for the Warp docs. This skill is designed for a recurring Oz scheduled agent that audits one narrow topic area, opens a small PR when there are safe changes, or writes a no-change report when there are not enough high-confidence opportunities.
+
+## Agent-doc quality contract
+
+Any PR this skill opens follows the shared v1 agent-doc quality contract in
+`.agents/references/doc-quality-policy.md`: apply the `warpy-factory` label
+and add the `## Documentation risk` block
+(`.agents/skills/doc_quality_policy/finalize_pr_contract.py build`). A
+cross-link-only change that adds no new claims is typically `low` risk under
+the allowlist.
 
 ## Scope
 
@@ -13,6 +22,7 @@ Use this skill only for the pilot topic area:
 - Agents
 - Cloud agents
 - Orchestration
+- Factories (`src/content/docs/factories/`) — audited as both source pages (scan for missing outbound links) and valid link targets, on the same footing as the other three topics
 
 The audit should focus on one improvement type:
 - Internal cross-links between existing docs pages
@@ -29,7 +39,7 @@ Do not:
 The following environment secrets should be set in the Oz cloud agent environment:
 
 - `PEEC_PAT` — Peec Personal Access Token for MCP authentication. Create one at **app.peec.ai → Company → API Keys → Personal Access Tokens**. If unavailable or expired, the audit proceeds with GSC and docs-only signals and logs "Peec: unavailable" in the run output.
-- `SLACK_BOT_TOKEN` — Slack bot token for posting to `#growth-docs`. If unavailable, write the notification body to the run output instead and skip Slack posting.
+- `BUZZ_SLACK_TOKEN` — Slack bot token for posting to `#growth-docs`, authenticating as the `buzz` bot. This is the account that posts to that channel; do not substitute another Slack token without confirming the bot is a member of the channel. If unavailable, write the notification body to the run output instead and skip Slack posting.
 - `GROWTH_DOCS_SLACK_CHANNEL_ID` — Slack channel ID for `#growth-docs`. Find it in Slack by right-clicking the channel → Copy link (the ID begins with `C`). If unavailable, skip Slack posting.
 
 The scheduled cloud agent must also include the Peec MCP server in its agent config (pass via `--mcp` flag or the agent config file `mcp_servers` key):
@@ -50,8 +60,10 @@ Do NOT print, log, commit, or include secret values in reports or Slack messages
 ## Source data
 
 Use the smallest reliable set of source data needed to justify link changes:
-- **Peec** - Use the Peec MCP (configured in the agent with a Personal Access Token via the `PEEC_PAT` secret) to collect prompts, search queries, actions/recommendations, and source URLs for agents, cloud agents, and orchestration (last 30 days). Filter prompts and queries for relevance to the topic area. If the Peec MCP returns an error or is unavailable (missing `PEEC_PAT`, expired token, or connection failure), log "Peec: unavailable" in the run output and proceed with GSC and docs-only signals only.
-- **Google Search Console** - When available, use the environment's `GSC_SERVICE_ACCOUNT_CREDENTIALS_JSON` secret to inspect recent queries and pages related to agents, cloud agents, and orchestration. Never print, log, commit, or include the secret value in reports. If a GSC client requires a credentials file path, write the secret to a restricted temporary file, use it for the run, and remove it before finishing.
+- **Peec** - Use the Peec MCP (configured in the agent with a Personal Access Token via the `PEEC_PAT` secret) to collect prompts, search queries, actions/recommendations, and source URLs for agents, cloud agents, orchestration, and factories (last 30 days). Filter prompts and queries for relevance to the topic area. If the Peec MCP returns an error or is unavailable (missing `PEEC_PAT`, expired token, or connection failure), log "Peec: unavailable" in the run output and proceed with GSC and docs-only signals only.
+  - A cloud run may not expose `peec-ai` as a native tool even when it is in the agent config. If no tool appears, call `https://api.peec.ai/mcp` directly over JSON-RPC with `Authorization: Bearer $PEEC_PAT` (initialize, capture the `Mcp-Session-Id` header, then `tools/call`) rather than declaring Peec unavailable.
+  - Resolve the project with `list_projects` first; all other tools require `project_id`. `get_actions` needs `url_classification` for `scope=owned` and `scope=editorial` drill-downs, and `list_search_queries` returns `query_text` rather than `query`.
+- **Google Search Console** - When available, use the environment's `GSC_SERVICE_ACCOUNT_CREDENTIALS_JSON` secret to inspect recent queries and pages related to agents, cloud agents, orchestration, and factories. Never print, log, commit, or include the secret value in reports. If a GSC client requires a credentials file path, write the secret to a restricted temporary file, use it for the run, and remove it before finishing.
 - **Docs repo** - Search existing pages under `src/content/docs/` for relevant source pages, link targets, and related terminology.
 
 If Google Search Console data is unavailable, say what could not be verified and proceed with Peec and docs-only analysis. If Peec MCP is unavailable, log the unavailability and proceed with GSC and docs-only analysis. Do not invent source signals.
@@ -60,8 +72,8 @@ If Google Search Console data is unavailable, say what could not be verified and
 
 ## Workflow
 
-1. **Collect Peec signals and gather source signals.** Use the Peec MCP to collect prompts, search queries, actions/recommendations, and source URLs for agents, cloud agents, and orchestration (last 30 days). If the Peec MCP is unavailable, log "Peec: unavailable" and continue. Also collect Google Search Console data, when available, to identify relevant user language, prompts, recommendations, or pages.
-2. **Search existing docs.** Look for pages under `src/content/docs/` that already mention or imply related concepts in agents, cloud agents, or orchestration.
+1. **Collect Peec signals and gather source signals.** Use the Peec MCP to collect prompts, search queries, actions/recommendations, and source URLs for agents, cloud agents, orchestration, and factories (last 30 days). If the Peec MCP is unavailable, log "Peec: unavailable" and continue. Also collect Google Search Console data, when available, to identify relevant user language, prompts, recommendations, or pages.
+2. **Search existing docs.** Look for pages under `src/content/docs/` that already mention or imply related concepts in agents, cloud agents, orchestration, or factories, including pages under `src/content/docs/factories/` itself.
 3. **Identify link opportunities.** Find up to 5 internal cross-link opportunities where:
    - The source page already mentions or implies the related concept.
    - The target page exists.
@@ -70,7 +82,7 @@ If Google Search Console data is unavailable, say what could not be verified and
 4. **Make only safe edits.** Add links with minimal surrounding copy changes. Preserve the existing page structure and voice. Follow the link quality rules below when choosing anchor text and surrounding context.
 5. **Run self-review.** Apply the quality gates in this skill before opening a PR or writing a no-change report.
 6. **Deduplicate, re-validate, then open a PR or report no changes.**
-   - **Deduplicate first.** Check for an existing open AEO cross-link PR before opening one: `gh pr list --repo warpdotdev/docs --search 'docs: add AEO cross-links in:title' --state open`. Never leave two open AEO cross-link PRs. If one already exists, either skip this run (note it in the run output) or, if the existing PR is stale or superseded, close it with an explanatory comment before opening the new one.
+   - **Deduplicate first.** This skill follows the "One standing PR per automation" contract in `.agents/references/skill-authoring-guidelines.md`. Check for an existing open AEO cross-link PR before opening one: `gh pr list --repo warpdotdev/docs --search 'docs: add AEO cross-links in:title' --state open`. Never leave two open AEO cross-link PRs. If one already exists, prefer adding this run's links to it — check out its branch, rebase on the latest `origin/main`, apply the new links, push, and append them to the existing PR body under its existing headings. Skip the run only when the new links duplicate what the open PR already proposes.
    - **Re-validate against the latest `main`.** Fetch `origin/main` and confirm every edited file still exists at its path and every link target resolves to a current page (see "Self-review before opening a PR"). If a restructure moved your targets, rebase onto the latest `main` and fix paths before opening.
    - **Open a PR** only when there are at least 2 high-confidence link additions (at least 3 for low-signal runs; see "Source data"). Otherwise, write a no-change report in the Oz run output.
 
@@ -89,16 +101,18 @@ If Google Search Console data is unavailable, say what could not be verified and
 
    This produces one perpetual, low-noise PR that accumulates every run's entry regardless of outcome. Reviewers merge it periodically (at minimum before each monthly `improve-aeo-crosslink-skill` run) so the log reaches `main`. If any git step fails, write the log entry to the run output instead and continue to step 8.
 
-8. **Post Slack notification.** After writing the log entry, post the formatted message to `#growth-docs` using the Python snippet below. Python is preferred over curl because it reads `SLACK_BOT_TOKEN` from the environment (keeping the token out of process argv) and JSON-encodes the payload correctly regardless of newlines or special characters. If either secret is unavailable, write the notification body to the run output instead.
+8. **Post Slack notification — only if there is something to act on.** Follow the actionable-only rule in `.agents/references/skill-authoring-guidelines.md`: post **only** when a cross-link PR was opened or updated this run, or when the run failed or exited early in a way that stopped it from completing (including an unavailable Peec credential). A no-change run is silent — the run log entry from step 7 is its record.
+
+   When the run is actionable, post the formatted message to `#growth-docs` using the Python snippet below. Python is preferred over curl because it reads `BUZZ_SLACK_TOKEN` from the environment (keeping the token out of process argv) and JSON-encodes the payload correctly regardless of newlines or special characters. If either secret is unavailable, write the notification body to the run output instead.
 
    ```bash
    python3 - <<'SLACK_EOF'
    import os, json, urllib.request, sys
 
-   token = os.environ.get("SLACK_BOT_TOKEN", "")
+   token = os.environ.get("BUZZ_SLACK_TOKEN", "")
    channel = os.environ.get("GROWTH_DOCS_SLACK_CHANNEL_ID", "")
    if not token or not channel:
-       print("SLACK_BOT_TOKEN or GROWTH_DOCS_SLACK_CHANNEL_ID not set — skipping Slack notification", file=sys.stderr)
+       print("BUZZ_SLACK_TOKEN or GROWTH_DOCS_SLACK_CHANNEL_ID not set — skipping Slack notification", file=sys.stderr)
        sys.exit(0)
 
    # Replace the triple-quoted string with the message from the Slack notification format section.
@@ -124,7 +138,11 @@ If Google Search Console data is unavailable, say what could not be verified and
    SLACK_EOF
    ```
 
-   Replace `<message text here>` with the message from the appropriate format in the "Slack notification format" section. Do not print `SLACK_BOT_TOKEN` or `GROWTH_DOCS_SLACK_CHANNEL_ID` values in the run output or in any file.
+   Replace `<message text here>` with the message from the appropriate format in the "Slack notification format" section. Do not print `BUZZ_SLACK_TOKEN` or `GROWTH_DOCS_SLACK_CHANNEL_ID` values in the run output or in any file.
+
+   **If `chat.postMessage` returns `channel_not_found`**, the secrets being set is not sufficient — either the channel ID is stale or the bot is not a member of the channel. Do not treat this as a successful post. Instead:
+   1. Try resolving the channel by name: call `conversations.list` (types `public_channel,private_channel`) and look for `growth-docs`. If found, retry the post with that ID and report that the stored `GROWTH_DOCS_SLACK_CHANNEL_ID` is wrong so a human can correct the secret.
+   2. If the lookup also fails or returns `missing_scope`, the bot is not in the channel or lacks scope. Write the notification body to the run output, and state explicitly in the run output that the Slack post failed with `channel_not_found` — never imply it was delivered.
 
 ## Link quality rules
 
@@ -140,6 +158,7 @@ When adding links, follow the link style guidance in `AGENTS.md` and validate wi
 - **Avoid related-link lists by default** - Do not add new "Related pages," "See also," or link-list sections unless the page already uses that pattern or the list clearly improves a reader's next step.
 - **Justify each link as a reader journey** - In the PR body, explain what the reader is likely trying to do next and why the destination helps. Do not justify links only with AEO or search coverage.
 - **Resolve redirects** - Link directly to the final destination page when known. Do not add redirecting URLs or old paths.
+- **Prefer the most specific matching target** - When the source sentence names a specific sub-workflow or feature area (for example, factory automation schedules), link to the page that covers that specific area, not a general page that only covers a similar but broader concept (for example, the standalone Scheduled Agents reference). If no page covers the specific sub-topic, do not force a link to the closest general page — flag the gap in the PR body's open questions instead of shipping a mismatched link.
 
 ## Self-review before opening a PR
 
@@ -159,6 +178,7 @@ Before opening a PR, verify every proposed change:
 - **Small scope** - The diff is limited to cross-linking and small copy changes needed to make links natural.
 - **No broad rewrites** - Remove any edit that becomes a rewrite, strategy recommendation, or new content proposal.
 - **No duplication** - Do not add links that create repetitive related-links lists or duplicate nearby links.
+- **Cross-link-only diff** - Every changed file must be a docs content page under `src/content/docs/` that received a link edit (or, on the log branch, `.agents/logs/aeo_crosslink_audit_runs.md`). If the diff touches CI workflows, other skills, scripts, config, or anything else unrelated to the specific links being added this run, remove those changes before opening the PR. A cross-link run is never the place to also fix or improve unrelated tooling — file that separately with its own scope.
 
 Run:
 
@@ -167,6 +187,7 @@ git fetch origin main:refs/remotes/origin/main
 python3 .agents/skills/style_lint/style_lint.py --changed
 python3 .agents/skills/check_for_broken_links/check_links.py --internal-only
 git diff --check
+git diff --name-only origin/main...HEAD  # every path must be under src/content/docs/ (or the log file on the log branch)
 ```
 
 ## PR requirements
@@ -176,23 +197,29 @@ Open a PR only when there are at least 2 high-confidence link additions.
 Use this title format:
 
 ```text
-docs: add AEO cross-links for agents and orchestration
+docs: add AEO cross-links for agents, orchestration, and factories
 ```
 
 The PR body must include an AEO brief. Use `.agents/skills/aeo_brief/SKILL.md` as the format and include:
-- **Goal** - Identify small internal cross-link improvements for agents, cloud agents, and orchestration docs.
+- **Goal** - Identify small internal cross-link improvements for agents, cloud agents, orchestration, and factories docs.
 - **Source signals** - Peec prompts/recommendations, Google Search Console queries/pages, or existing-docs signals that justified the links.
 - **Pages touched** - Files edited and why.
 - **Links added** - Source page, target page, and rationale for each link.
 - **Reader next step** - What the reader is likely trying to do next and why each destination helps.
 - **Open questions for human review** - Anything that affects product accuracy, terminology, or placement.
 
-Request review from docs and growth-docs reviewers where possible, including:
-- Rachael
-- Petra
-- Hong Yi
-- Danny
-- Other active reviewers in `#growth-docs`
+Reviewer requests follow the `create_pr` skill's policy ("Request a reviewer (at most one, only with conviction)"): request at most one human reviewer, and only when a single clear owner exists. For cross-link PRs there rarely is one, so the default is to open the PR with no requested reviewer and let `#growth-docs` pick it up from the Slack notification. Never tag a list of people, never stack reviewers onto the PR, and never re-add a reviewer someone removed.
+
+### PR body integrity (mandatory, not optional)
+
+Text generation can silently corrupt a PR body — repeated or truncated word fragments, unbalanced backticks — and that corruption has previously reached a live PR body uncaught. Before every `gh pr create` or `gh pr edit` that sets a body, and again immediately after:
+
+1. Write the body to a temp file (`/tmp/pr-body.md` or similar) rather than passing text inline.
+2. Run `python3 .agents/skills/create_pr/check_pr_body.py /tmp/pr-body.md` and do not submit if it fails. Fix the file and re-run until it passes.
+3. Submit with `--body-file`, never `--body`.
+4. Re-fetch the live body with `gh pr view <pr> --json body --jq .body` and diff it against the validated temp file. The temp file remains authoritative. If they differ beyond a trailing newline, repair the live body with `gh pr edit <pr> --body-file /tmp/pr-body.md`, then re-fetch and verify it matches the temp file. Repeat until they match.
+
+This applies to every body update in this skill: the cross-link PR, the log PR, and any AEO brief content pasted into either.
 
 ## No-change report
 
@@ -203,7 +230,7 @@ Use this format:
 ```text
 ## AEO cross-link audit no-change report
 
-**Topic area:** Agents, cloud agents, and orchestration.
+**Topic area:** Agents, cloud agents, orchestration, and factories.
 
 **Source signals reviewed:**
 - [Peec prompt, recommendation, source URL, or query vocabulary.]
@@ -223,7 +250,7 @@ Use this format:
 - [One specific improvement for the next run.]
 ```
 
-No-change reports stay in the Oz run output. The Oz run link is posted automatically to `#growth-docs` as part of step 8.
+No-change reports stay in the Oz run output and are recorded in the run log from step 7. They are **not** posted to Slack — see the notification rules in step 8 and the actionable-only rule in `.agents/references/skill-authoring-guidelines.md`.
 
 ## Human review expectations
 
@@ -255,29 +282,28 @@ Keep each entry to 7 fields and under 10 lines. Do not add narrative prose.
 
 Use a simple text message (not Block Kit). The message should be scannable in under 30 seconds.
 
-**PR opened:**
+**PR opened or updated:**
 
 ```
 ✅ AEO crosslink audit · YYYY-MM-DD
-PR opened: [PR URL]
+PR [opened | updated]: [PR URL]
 Links added: [N links] across [N pages]: [page names]
 Signals: [Peec | GSC | Peec + GSC]
 Oz run: [run URL]
 ```
 
-**No change:**
+**Run blocked by a failure:**
 
 ```
-ℹ️ AEO crosslink audit · YYYY-MM-DD — No changes
-Checked: agents, cloud agents, and orchestration docs
-No PR: [brief reason — e.g., "fewer than 2 high-confidence opportunities"]
+⚠️ AEO crosslink audit · YYYY-MM-DD — run blocked
+What failed: [brief reason — e.g., "docs repo checkout unavailable"]
 Oz run: [run URL]
 ```
 
 Rules:
-- Post on every run, including no-change runs.
+- Post only when a PR was opened or updated, or when the run was blocked by a failure. A no-change run posts nothing — its record is the run log entry.
 - Never include raw secret values, personal access tokens, or credential file paths in the Slack message.
-- Build the `Oz run` link at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run with `oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'`, substituting the run ID this agent is executing as.
+- Build the `Oz run` link at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run with `oz run get "<your run ID>" --output-format json | jq -r '.session_link'`, substituting the run ID this agent is executing as. Cloud sandboxes ship the `oz` CLI; `oz-dev` is a local development build and is not present, so do not call it.
 - If the Oz run URL is unavailable, omit that line rather than posting a broken link.
 
 ## Future expansion boundaries

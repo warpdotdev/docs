@@ -10,6 +10,18 @@ Adds a new entry to the current year's changelog page (e.g. `src/content/docs/ch
 ## Related Skills
 
 - `create_pr` - PR creation guidelines for this repo
+- `doc_quality_policy` - the shared agent-doc quality contract this skill's PR follows
+
+## Agent-doc quality contract
+
+The PR this skill opens or updates follows the shared v1 agent-doc quality
+contract in `.agents/references/doc-quality-policy.md`: apply the
+`warpy-factory` label and add the `## Documentation risk` block
+(`.agents/skills/doc_quality_policy/finalize_pr_contract.py build`). A
+changelog entry copied 1:1 from `channel_versions.json` is `low` risk
+(generated data whose source-verification step — the 1:1 match — passed);
+any manually written or fallback-sourced entry (Step 4) is
+`engineering-review-required`.
 
 ## Workflow
 
@@ -214,10 +226,32 @@ Edit `src/content/docs/changelog/{year}.mdx` (the year file determined in Step 2
 
 ### Step 7: Create branch, commit, and open PR
 
-```bash
-# Create a new branch
-git checkout -b changelog/{base_version}
+Unlike the other recurring docs automations, this skill correctly opens **one PR per release** rather than one standing PR — each changelog entry describes a distinct release and should merge on its own. The "One standing PR per automation" contract in `.agents/references/skill-authoring-guidelines.md` does not apply here.
 
+It does still have a stacking hazard: every changelog PR inserts at the top of the same `src/content/docs/changelog/{year}.mdx` file, so two unmerged release PRs will conflict, and merging them out of order puts the entries in the wrong sequence.
+
+**Check for an unmerged prior changelog PR before branching:**
+
+```bash
+gh pr list --repo warpdotdev/docs --state open \
+  --search 'docs: changelog in:title' --json number,title,headRefName
+```
+
+If one exists, branch from it rather than `main` so the entries chain in release order instead of colliding:
+
+```bash
+git fetch origin
+# No prior open changelog PR:
+git checkout -b changelog/{base_version} origin/main
+# Prior open changelog PR on branch changelog/{earlier_version}:
+git checkout -b changelog/{base_version} origin/changelog/{earlier_version}
+```
+
+When you branch from a prior changelog PR, say so in the new PR body and note that the earlier PR must merge first. If more than two changelog PRs are open at once, that is a review backlog worth flagging in the PR body rather than chaining further.
+
+Then commit and open the PR:
+
+```bash
 # Stage and commit
 git add src/content/docs/changelog/
 git commit -m "docs: add changelog entry for {base_version}

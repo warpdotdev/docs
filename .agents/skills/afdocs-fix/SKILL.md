@@ -12,6 +12,16 @@ description: >-
 
 Apply automated fixes for issues found by the `afdocs-audit` skill. This skill reads an AFDocs audit report and remediates fixable issues.
 
+## Agent-doc quality contract
+
+The standing PR this skill maintains follows the shared v1 agent-doc quality
+contract in `.agents/references/doc-quality-policy.md`: apply the
+`warpy-factory` label and add the `## Documentation risk` block
+(`.agents/skills/doc_quality_policy/finalize_pr_contract.py build`). These
+fixes touch site infrastructure (middleware, integrations, config), not
+content claims, and are typically `engineering-review-required` unless the
+change is provably a mechanical config update.
+
 ## Prerequisites
 
 1. Run the audit skill first to produce a report:
@@ -115,6 +125,38 @@ grep -A1 "label:" astro.config.mjs | grep "paths:"
 
 **Files**: `src/integrations/docs-markdown-integration.js`, `src/pages/[...slug].md.ts`
 
+### markdown-link-portability (Content Structure)
+
+**What's wrong**: Generated markdown contains root-relative or path-relative links, or `.md` links resolve to HTML/error content.
+
+**Fix**: Update `src/integrations/docs-markdown-integration.js` to rewrite internal links to absolute `https://docs.warp.dev/...` URLs after Turndown conversion. Preserve same-document fragment links (`#section`) unchanged. Add a test to `src/integrations/docs-markdown-integration.test.js` that verifies an internal link is absolute, then build and fetch a representative `.md` page to verify `Content-Type: text/markdown`.
+
+**Files**: `src/integrations/docs-markdown-integration.js`, `src/integrations/docs-markdown-integration.test.js`
+
+### single-fetch-completeness (Page Size and Truncation Risk)
+
+**What's wrong**: A served markdown response is paginated without a working, absolute continuation declared near the top of the content.
+
+**Fix**: Do not copy HTML-UI pagination into markdown when the complete resource fits within the page-size limits. Otherwise add an absolute continuation link before the main content and test that it returns substantive markdown rather than an error page. Audit the markdown generator and any data-driven route that produces paginated output.
+
+**Files**: `src/integrations/docs-markdown-integration.js`, `src/pages/[...slug].md.ts`, affected data-driven page or endpoint
+
+### page-size-transfer / embedded-data-serialization (Page Size and Content Structure)
+
+**What's wrong**: HTML responses are large before conversion, or static bulk data (tables, JSON, base64) dominates content that agents receive.
+
+**Fix**: Treat this as a design or rendering-pipeline change, not an automatic content split. Attribute the bytes to inline framework payloads, generated tables, or data blocks first. Move large payloads behind on-demand requests, split generated tables into self-contained topic pages, and keep prose before bulk content. Do not replace a complete markdown page with pagination windows.
+
+**Files**: Varies by the reported page and its rendering/data source.
+
+### bot-protection-interference (Authentication and Access)
+
+**What's wrong**: Sustained automated requests receive challenge pages, time out, or are blocked after volume thresholds are reached.
+
+**Fix**: This requires CDN/WAF configuration, not a docs-repository code change. Exempt public docs paths from behavioral enforcement or scope enforcement to interactive product surfaces. Prefer explicit `429` responses with `Retry-After` over challenge interstitials or stalled responses. A partial scan must not be compared with prior audit scores.
+
+**Files**: Vercel Firewall or the active CDN/WAF configuration; see `afdocs-audit/references/vercel-firewall-challenge.md`.
+
 ### http-status-codes (URL Stability)
 
 **What's wrong**: The site returns 200 for non-existent pages (soft 404).
@@ -147,18 +189,35 @@ These checks require infrastructure or design changes that can't be automated:
 
 - **content-start-position** — Inherent to Starlight's layout. Mitigated by content negotiation and llms.txt directives. See `known-exceptions.md`.
 - **page-size-markdown / page-size-html** — Requires editorial decision to split long pages. Flag in the report but do not auto-fix.
+- **page-size-transfer / embedded-data-serialization** — Requires rendering-pipeline or information-architecture decisions after attributing the bulk bytes.
+- **bot-protection-interference** — Requires CDN/WAF configuration and turns the scan into a partial observation rather than a deployable docs change.
 - **section-header-quality** — Content-level change requiring human judgment.
 
 ## Applying fixes
 
-1. Create a branch: `git checkout -b afdocs-fixes origin/main`
-2. Apply the fixes for each failing check (skip allowlisted checks).
-3. Validate: `npm run build` (the build must succeed).
-4. Commit with the prefix: `AFDocs fixes: <summary of what was fixed>`
-5. Open a PR: `gh pr create`
+This skill maintains **one** long-lived fixes PR rather than one per run — see "One standing PR per automation" in `.agents/references/skill-authoring-guidelines.md`.
+
+1. Look for an existing open PR before creating a branch:
+   ```bash
+   gh pr list --repo warpdotdev/docs --state open \
+     --search 'AFDocs fixes in:title' --json number,headRefName
+   ```
+2. Check out the standing branch. If the PR exists, continue on its branch and rebase; otherwise create it from `main`:
+   ```bash
+   git fetch origin
+   git checkout afdocs-fixes 2>/dev/null || git checkout -b afdocs-fixes origin/main
+   git rebase origin/main
+   ```
+3. Apply the fixes for each failing check (skip allowlisted checks). If a fix on the existing branch already addresses a check that is still failing, do not duplicate it — the audit may have run before the PR merged.
+4. Validate: `npm run build` (the build must succeed).
+5. Commit with the prefix: `AFDocs fixes: <summary of what was fixed>`
+6. Push. If the PR already exists the push updates it; otherwise open one with `gh pr create`.
+
+Never leave two open AFDocs PRs. If you find more than one, consolidate onto `afdocs-fixes` and close the extras with a comment pointing at the survivor.
 
 ## PR conventions
 
-- Title must be prefixed with `AFDocs fixes:` (e.g., `AFDocs fixes: add llms.txt directive and content negotiation middleware`)
+- Title must be prefixed with `AFDocs fixes:` and must not contain a date — a dated title defeats the title search in step 1 and produces a new PR every run
 - Include the audit score (before/after if known) in the PR description
+- When updating an existing PR, append the new run's score and fixes under the existing headings rather than adding duplicate headings, which `check_pr_body.py` rejects
 - Include the co-author line: `Co-Authored-By: Oz <oz-agent@warp.dev>`

@@ -3,9 +3,8 @@ title: "BYOLLM: Gemini Enterprise (Vertex AI)"
 sidebar:
   label: "BYOLLM: Gemini Enterprise"
 description: >-
-  Route Warp Agent inference through your own Google Cloud project with Gemini
-  Enterprise BYOLLM. Short-lived Workload Identity Federation credentials,
-  admin-controlled models, and inference billed to your GCP account.
+  Route Warp Agent inference through your Google Cloud project with Gemini
+  Enterprise BYOLLM and short-lived WIF credentials.
 ---
 
 Warp's **Gemini Enterprise** BYOLLM integration routes agent inference through your own Google Cloud project using **Vertex AI** (the Gemini Enterprise Agent Platform). Your team keeps using Warp's agents as usual, while eligible requests execute against models hosted in your GCP project, billed to your Google Cloud account and governed by your IAM controls.
@@ -53,10 +52,10 @@ Gemini Enterprise uses **federated, short-lived credentials** instead of API key
 
 Gemini Enterprise supports the intersection of models that Warp supports and models available through Vertex AI in your project:
 
-* **Native Gemini models** - Current Gemini Flash, Flash Lite, and Pro families (for example, Gemini 3.1 Pro and Gemini 3.6 Flash).
+* **Native Gemini models** - Current Gemini Flash, Flash Lite, and Pro families (for example, Gemini 3.1 Pro and Gemini 3.7 Flash).
 * **Claude partner models on Vertex AI** - Current Claude Sonnet, Opus, Haiku, and Fable families offered as Vertex AI partner models.
 
-To determine which models you can use, see [Model Choice](/agent-platform/inference/model-choice/) for Warp's supported models and the **Models** page of the Admin Panel for your team's Gemini Enterprise enablement.
+To determine which models you can use, see [Model Choice](/agents/inference/model-choice/) for Warp's supported models and the **Models** page of the Admin Panel for your team's Gemini Enterprise enablement.
 
 ## Enabling Gemini Enterprise
 
@@ -396,7 +395,7 @@ However, when using Gemini Enterprise:
 
 ### How is this different from BYOK with a Google API key?
 
-**BYOK** routes requests to the Gemini Developer API using a personal API key stored on each member's device. **Gemini Enterprise BYOLLM** routes requests to Vertex AI in your organization's GCP project using short-lived federated credentials, configured centrally by an admin, with your project's IAM, quota, and billing. See [Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/) for the self-serve option.
+**BYOK** routes requests to the Gemini Developer API using a personal API key stored on each member's device. **Gemini Enterprise BYOLLM** routes requests to Vertex AI in your organization's GCP project using short-lived federated credentials, configured centrally by an admin, with your project's IAM, quota, and billing. See [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) for the self-serve option.
 
 ### Do members need the gcloud CLI installed?
 
@@ -419,7 +418,7 @@ Yes. Admins can disable Direct API access for models on the **Models** page so e
 * [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) - BYOLLM overview and provider comparison
 * [BYOLLM: AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/) - Route inference through your AWS account
 * [Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Admin-configured shared provider keys and custom endpoints
-* [Bring Your Own API Key](/agent-platform/inference/bring-your-own-api-key/) - Self-serve, user-level API keys
-* [Model Choice](/agent-platform/inference/model-choice/) - Full list of supported models
+* [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) - Self-serve, user-level API keys
+* [Model Choice](/agents/inference/model-choice/) - Full list of supported models
 * [Admin Panel](/enterprise/team-management/admin-panel/) - Configure team settings
 * [Contact sales](https://www.warp.dev/contact-sales) - Get help with Enterprise setup

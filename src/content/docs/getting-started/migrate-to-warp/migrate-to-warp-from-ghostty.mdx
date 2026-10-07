@@ -16,7 +16,7 @@ Warp doesn't have a one-click Ghostty importer. Because Ghostty stores its confi
 
 The fastest way to bring over your Ghostty setup is to ask Warp's Agent to translate your config directly. Warp ships a [`settings.toml` file](/terminal/settings/) and a bundled `modify-settings` skill that lets the Agent read your existing config and write equivalent values into Warp's settings, including translating your Ghostty theme into a Warp [custom theme](/terminal/appearance/custom-themes/).
 
-1. In the Warp app, open a new tab and switch to [Agent Mode](/agent-platform/local-agents/overview/) with `⌘+I` (macOS) or `Ctrl+I` (Linux/Windows).
+1. In the Warp app, open a new tab and switch to [Agent Mode](/agents/local-agents/interacting-with-agents/terminal-and-agent-modes/) with `⌘+I` (macOS) or `Ctrl+I` (Linux/Windows).
 2. Paste this prompt into Agent Mode, then press `Enter`.
 
    > Read my Ghostty config at `~/.config/ghostty/config` and any referenced theme files in `~/.config/ghostty/themes/`. Port the equivalent settings (theme, font, keybindings, shell) into my Warp `settings.toml` using the `modify-settings` skill, and create a matching custom theme. Show me a diff before applying.
@@ -46,7 +46,7 @@ Warp's [default keyboard shortcuts](/getting-started/keyboard-shortcuts/) cover 
 
 Warp detects your login shell automatically. To override it, open **Settings** > **Features** > **Session** in the Warp app and choose a shell from **Startup shell for new sessions**.
 
-For prompts, choose between Warp's [native prompt](/terminal/appearance/prompt/#warp-prompt) (drag-and-drop context chips) or the [shell prompt (PS1)](/terminal/appearance/prompt/#custom-prompt) if you want to keep your existing prompt configuration.
+For prompts, choose between Warp's [native prompt](/terminal/appearance/prompt/#warp-prompt) (drag-and-drop context chips) or the [shell prompt (PS1)](/terminal/appearance/prompt/#shell-prompt-ps1) if you want to keep your existing prompt configuration.
 
 ### Quick terminal (Quake mode)
 
@@ -65,6 +65,6 @@ Use this table to find the closest Warp equivalent for Ghostty features you migh
 | Kitty graphics protocol | Image rendering for most common workflows (see [more features](/terminal/more-features/)) |
 | Shaders and custom visual effects | Not supported; closest: [size, opacity, and blurring](/terminal/appearance/size-opacity-blurring/) + [pane dimming](/terminal/appearance/pane-dimming/) |
 
-Beyond parity, Warp adds [Agent Mode](/agent-platform/local-agents/overview/), [Code Review](/code/code-review/), and [Warp Drive](/knowledge-and-collaboration/warp-drive/) for AI-assisted development and team collaboration.
+Beyond parity, Warp adds [Agent Mode](/agents/), [Code Review](/code/code-review/), and [Warp Drive](/knowledge-and-collaboration/warp-drive/) for AI-assisted development and team collaboration.
 
 For more on what you can configure, see [Customizing Warp](/getting-started/quickstart/customizing-warp/).

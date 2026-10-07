@@ -1,0 +1,148 @@
+{
+  "version": 1,
+  "inventory": {
+    "excluded_globs": [
+      "changelog/**",
+      "**/changelog/**",
+      "**/release-notes/**",
+      "**/releases/**"
+    ],
+    "excluded_paths": [
+      "404.md",
+      "404.mdx",
+      "support-and-community/troubleshooting-and-support/session-sharing.mdx"
+    ],
+    "historical_migration_allowlist": [
+      "agents/cli/migration.mdx"
+    ]
+  },
+  "default_precedence": [
+    "structured-authority",
+    "generated-reference",
+    "canonical-doc",
+    "docs-prose",
+    "faq",
+    "migration"
+  ],
+  "categories": {
+    "plan-gating": {
+      "precedence": [
+        "effective-billing-policy",
+        "live-pricing",
+        "canonical-doc",
+        "docs-prose",
+        "faq"
+      ],
+      "authority_tie": "human-review",
+      "release_scope": "effective-self-serve"
+    },
+    "billing": {
+      "precedence": [
+        "effective-billing-policy",
+        "live-pricing",
+        "canonical-doc",
+        "docs-prose",
+        "faq"
+      ],
+      "authority_tie": "human-review",
+      "automated_resolution": false
+    },
+    "billing-policy": {
+      "precedence": [
+        "effective-billing-policy",
+        "live-pricing",
+        "canonical-doc",
+        "docs-prose",
+        "faq"
+      ],
+      "authority_tie": "human-review",
+      "automated_resolution": false
+    },
+    "api": {
+      "precedence": [
+        "released-openapi",
+        "generated-reference",
+        "canonical-doc",
+        "docs-prose"
+      ],
+      "excluded_source_classes": [
+        "internal-openapi",
+        "unreleased-server-route"
+      ],
+      "release_scope": "released-public-openapi"
+    },
+    "cli": {
+      "precedence": [
+        "generated-visible-help",
+        "public-cli-source",
+        "canonical-doc",
+        "docs-prose"
+      ],
+      "excluded_source_classes": [
+        "hidden-cli-source",
+        "non-ga-cli-source"
+      ],
+      "release_scope": "visible-ga"
+    },
+    "terminology": {
+      "precedence": [
+        "terminology-glossary",
+        "content-variables",
+        "canonical-doc",
+        "docs-prose",
+        "migration"
+      ],
+      "delegates_exact_matches_to": "style_lint"
+    },
+    "product-behavior": {
+      "precedence": [
+        "public-source-derived",
+        "canonical-doc",
+        "docs-prose",
+        "faq",
+        "migration"
+      ],
+      "release_scope": "public-ga"
+    },
+    "security": {
+      "precedence": [
+        "public-security-policy",
+        "public-source-derived",
+        "canonical-doc",
+        "docs-prose",
+        "faq"
+      ],
+      "authority_tie": "human-review",
+      "automated_resolution": false
+    },
+    "privacy": {
+      "precedence": [
+        "public-privacy-policy",
+        "public-source-derived",
+        "canonical-doc",
+        "docs-prose",
+        "faq"
+      ],
+      "authority_tie": "human-review",
+      "automated_resolution": false
+    }
+  },
+  "aliases": {
+    "plans": {
+      "pro": "BUILD",
+      "build max": "MAX",
+      "build_max": "MAX",
+      "self serve business": "BUSINESS",
+      "self_serve_business_plan": "BUSINESS"
+    },
+    "operating_systems": {
+      "osx": "macos",
+      "mac os": "macos",
+      "win": "windows"
+    },
+    "environments": {
+      "hosted": "managed",
+      "on premise": "self-hosted"
+    }
+  }
+}

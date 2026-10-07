@@ -37,6 +37,31 @@ Reviewers should merge the log PR periodically so entries reach `main` and becom
 
 **Keep the log branch separate from content PRs.** Never write log updates and skill/content edits in the same commit or branch.
 
+### One standing PR per automation
+
+**The second biggest failure mode: PR stacking.** A skill that mints a new date-suffixed branch on every run accumulates one open PR per run. Because recurring skills tend to edit the same small set of files, those PRs conflict with each other and none of them can be merged cleanly. The `improve-drafting-skills` agent produced four mutually-conflicting open PRs in six days this way, every one of them editing `draft_docs/SKILL.md`.
+
+The log-branch pattern above already solves this for logs. Generalize it to content PRs: **an automation has at most one open PR at any time.**
+
+**Required pattern for all PR-opening skills:**
+
+1. **Use a stable branch name with no date suffix** — `docs/<skill-name>`, not `docs/<skill-name>-2026-08-06`.
+2. **Use a stable PR title with no date.** The run date belongs in a dated section of the PR body, not the title. A date in the title defeats title-based lookup and guarantees a new PR on every run.
+3. **Look before creating:**
+   ```bash
+   gh pr list --repo warpdotdev/docs --state open \
+     --search '<stable title> in:title' --json number,headRefName
+   ```
+4. **If an open PR exists**, add to it rather than opening another:
+   - Check out its branch and rebase on the latest `origin/main`.
+   - Apply this run's edits, commit, and push.
+   - Append a new dated section to the PR body. Fetch the current body and make a minimal additive edit — never regenerate it wholesale (see "Outer loop PR body integrity").
+   - Re-run `check_pr_body.py` after the edit.
+5. **If no open PR exists**, create the stable branch from the latest `origin/main` and open a draft PR.
+6. **Never leave two open PRs for the same automation.** If a stale or superseded one is found, close it with an explanatory comment before opening a replacement.
+
+This keeps a run's work reviewable without letting unreviewed work pile up, and it means a missed review cycle costs one stale PR rather than one per run.
+
 ### Verifying log writes explicitly
 
 Agents often proceed past a failed file write without noticing. For any log update step, verify explicitly:
@@ -45,33 +70,37 @@ Agents often proceed past a failed file write without noticing. For any log upda
 - After appending: `tail -5 <file>` and confirm the new entry appears.
 - After push: `git log --oneline -1 origin/<branch>` and confirm the commit SHA matches the expected commit.
 
-### Source data and freshness
+### Source data from authenticated APIs
 
-**Cloud agents cannot call Peec MCP directly.** Peec requires OAuth authentication, which is not available in cloud agent environments. Any skill that needs Peec data must read from a pre-exported snapshot committed to the `buzz` repo.
+**Prefer live API calls with a token over pre-exported snapshots.** Cloud agents can authenticate with services that issue long-lived tokens. Peec, for example, is reached through its MCP server using a Personal Access Token stored as the `PEEC_PAT` Oz secret — cloud agents do not need OAuth, and they do not need a committed snapshot.
 
-If your skill uses external data (Peec, GSC, or any authenticated API) that is unavailable in cloud agents:
+When your skill needs data from an authenticated API:
 
-1. Build the data export into a separate **local-only skill** (e.g., `refresh-peec-aeo-snapshot`).
-2. The cloud skill reads the committed snapshot, not the live API.
-3. Add an explicit **freshness gate**: define a maximum age (e.g., 14 days), check `generated_at`, and exit with a stale-snapshot report if the threshold is exceeded. Never proceed with stale data.
-4. Document the freshness constraint clearly at the top of the `## Source data` section: explain why a snapshot is used instead of a live call, so future editors don't remove the constraint thinking it is overly cautious.
+1. Store the credential as an Oz secret and reference it by name in the skill's `## Environment requirements` section. Never inline it.
+2. For MCP-based sources, document the `mcp_servers` config the scheduled agent needs, so whoever creates the schedule knows the skill will not work without it:
+   ```json
+   {
+     "peec-ai": {
+       "url": "https://api.peec.ai/mcp",
+       "headers": {
+         "Authorization": "Bearer ${PEEC_PAT}"
+       }
+     }
+   }
+   ```
+3. Define an explicit **unavailable path**: what the skill does when the token is missing or expired, the MCP server is not configured, or the call fails. Log the specific failure (never the token value), degrade to the remaining signals, and raise the confidence bar for any output produced without the primary signal.
+4. Record availability in the run log (for example, `Source signals: Peec [available | unavailable]`) so the outer loop can distinguish a low-signal period from a broken credential.
 
-Freshness gate pattern:
-- Read `generated_at` from the snapshot metadata file.
-- If the file is missing, `generated_at` is absent, or the age exceeds the threshold:
-  - Write a stale-snapshot report with the exact age (or error reason).
-  - Write a run log entry with a `No-run reason` of `snapshot stale — N days old`.
-  - Post a Slack alert.
-  - Exit. Do not proceed or open a PR.
+**Use a committed snapshot only as a last resort** — when a source genuinely cannot be authenticated from a cloud agent. Snapshots introduce a freshness gate, a manual local refresh step, and a failure mode where the agent exits without doing work because nobody refreshed the data. If you do use one, define a maximum age, check it before use, and pair the skill with a scheduled refresh so the gate cannot silently starve the pipeline.
 
 ### Scope consistency
 
 When you add a new topic area to a skill's scope, audit every section — especially `## Source data` — to confirm the source data actually covers the new topic. A common mistake: a skill lists four topic areas but the source data description names only three. The agent then produces lower-quality briefs for the fourth topic with no signal, or invents signals.
 
 Checklist when expanding scope:
-- Does the snapshot include data for the new topic? If not, update the snapshot refresh skill, or document the lower confidence explicitly.
+- Does the source data include the new topic? If not, extend the tracked queries or prompts at the source, or document the lower confidence explicitly.
 - Are all quality gates still valid for the new topic? (e.g., minimum brief count thresholds)
-- Does the stale-snapshot report reflect the full scope?
+- Do the no-action and unavailable-signal reports reflect the full scope?
 
 ### Scope contradictions in "Do not" lists
 
@@ -96,18 +125,45 @@ Never hard-code the Oz host in Slack messages or run output. The agent may run o
 
 Always resolve the Oz run link at runtime:
 ```bash
-oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'
+oz run get "<your run ID>" --output-format json | jq -r '.session_link'
 ```
+
+Use `oz`, not `oz-dev`. `oz-dev` is a local development build that ships with the Warp dev app; cloud sandboxes only have `oz`, so any skill instructing an agent to call `oz-dev` silently loses its run link.
 
 If the command fails or returns an empty value, omit the `Oz run` line rather than posting a broken link.
 
 ### Secrets and environment variables
 
-Always use `SLACK_BOT_TOKEN` and other secrets from environment variables — never inline them or print them to run output, logs, or Slack messages. If a required secret is unavailable, write the payload to the run output instead of posting to Slack. Do not crash the run on missing notification credentials. Include this in the skill as an explicit fallback, not just as an assumed environment guarantee.
+Always read Slack tokens and other secrets from environment variables — never inline them or print them to run output, logs, or Slack messages. If a required secret is unavailable, write the payload to the run output instead of posting to Slack. Do not crash the run on missing notification credentials. Include this in the skill as an explicit fallback, not just as an assumed environment guarantee.
+
+**Pick the token that matches the destination channel.** Several Slack bot tokens exist in the Oz secret store, and they authenticate as different bots with different channel memberships. A token that authenticates successfully still cannot post to a channel its bot has not joined. Name the expected bot in the skill's environment requirements (for example, `BUZZ_SLACK_TOKEN` posts as `buzz`, which is the account in `#growth-docs`) so a future editor does not swap in a token that authenticates but cannot deliver.
+
+**A secret being present does not mean it works.** A token can authenticate while the paired channel ID is stale, or the bot may not be a member of the target channel — Slack returns `channel_not_found` in both cases. Skills that post to Slack should define what to do on a failed post (attempt a lookup by channel name, then fall back to run output) and must report the failure explicitly rather than logging the run as fully successful.
 
 ### Slack notifications
 
-Post a Slack notification on every run, including no-action runs and stale-snapshot exits. A missing notification on a no-action run is indistinguishable from a run that silently failed. Use a simple text message (not Block Kit) that can be scanned in under 30 seconds.
+**Post only when the run produced something a human needs to act on.** Recurring agents that post unconditionally train the channel to ignore them, which costs more than a missed notification does.
+
+Actionable means one of:
+
+- A PR was created or received new commits.
+- A threshold was crossed (broken links found, significant 404 gaps, a score regression).
+- The agent hit a failure or an early exit that stopped it from completing its job — including a missing or expired credential, an unavailable source signal, a stale-snapshot exit, or a blocked audit. These are not no-ops, and they always post.
+
+Everything else is silent. A no-change or no-op run records its outcome and posts nothing.
+
+**Silence means "ran, nothing to do."** An earlier version of this guidance required posting on every run, reasoning that a silent no-action run is indistinguishable from a run that silently failed. That concern is real, but Slack is the wrong place to solve it: Oz lifecycle events surface failed and errored runs directly, and every scheduled run leaves an inspectable run record on the Runs page.
+
+The corollary is a requirement, not a nicety: **a skill may only be silent when the run leaves a durable record of its outcome.** One of these must be true:
+
+- The skill writes a run log entry on every run, including no-ops. Prefer this for any skill whose history is read by an outer loop — without it, the outer loop cannot tell a quiet period from a broken one.
+- Or the run writes an explicit outcome line to run output stating what it checked and why it took no action. This is sufficient for a short-circuit exit that happens before the skill does any work, such as a schedule guard.
+
+A skill that can exit without producing either must post instead.
+
+**Never post twice for one run.** If a skill has multiple phases, fold the later phase's results into the single message rather than posting a follow-up.
+
+Use a simple text message (not Block Kit) that can be scanned in under 30 seconds.
 
 ---
 
@@ -117,20 +173,40 @@ Outer loop skills run less frequently (typically monthly) and read the inner loo
 
 ### Data minimum before the outer loop can run
 
-The outer loop needs enough run log entries to identify real patterns, not noise. Require a minimum entry count before acting (the `improve-aeo-crosslink-skill` uses 8 entries ≈ 2 months; `improve-aeo-new-guide-rec-skill` should start after ~4 entries ≈ 6–8 weeks). If the minimum is not met, write a "too early to analyze" notice to run output and skip the PR.
+The outer loop needs enough run log entries to identify real patterns, not noise. Require a minimum entry count before acting (the `improve-aeo-crosslink-skill` uses 8 entries ≈ 2 months at a weekly cadence; `improve-aeo-new-guide-rec-skill` should start after ~4 entries ≈ 4 months at a monthly cadence). If the minimum is not met, write a "too early to analyze" notice to run output and skip the PR.
 
 This minimum must be stated explicitly in the skill's `## Schedule` section so the deployer knows when to start the agent.
 
 ### Log availability
 
-The outer loop reads the inner loop's log from `main`. For entries to be available, the inner loop's standing log PR must be merged into `main` before the outer loop runs. Document this as a prerequisite:
+**Read the log from the log branch, not from `main`.** The inner loop writes every entry to `chore/<inner-loop>-log` and only reaches `main` when a human merges the standing PR. An outer loop that reads `main` therefore sees a truncated history whose staleness depends on review cadence — and silently analyzes fewer entries than it thinks it has.
 
-```markdown
-## Prerequisites
+Read from the branch, which always holds the complete history:
 
-- The standing log PR (`chore: <inner-loop> run log`) merged into `main` so the entries are present there.
-  If it is unmerged, merge it first (or read the log from the `chore/<inner-loop>-log` branch) before analyzing.
+```bash
+git fetch origin chore/<inner-loop>-log
+git checkout origin/chore/<inner-loop>-log -- .agents/logs/<log-file>.md
 ```
+
+Treat `main` as the convenience case only — if the PR happens to have been merged, the branch and `main` agree, and the branch read is still correct.
+
+**Do not make merging the standing log PR a step in the outer loop.** Merging is a human housekeeping task, not a precondition for analysis. An outer loop that tries to merge its own input couples the run to a repo write it may not have permission to perform, and turns an unmerged PR into a hard failure instead of a non-event.
+
+**If the log branch cannot be fetched, stop — do not fall back to another copy.** Falling back to the checkout's copy reintroduces exactly the truncated history the branch read exists to avoid. Treat the fetch failure as a blocked run: post it and end before analysis.
+
+### Never fall back to lower-quality data
+
+The log-branch rule above is one instance of a general hazard. When a skill's primary data source is unavailable, the tempting fix is a fallback that keeps the run alive. Resist it whenever the fallback is **quieter but less correct** than failing.
+
+A degraded-data fallback is dangerous precisely because it does not look like a failure:
+
+- A shorter log still parses. Counts just come out lower.
+- Lower counts silently cross thresholds in both directions. The run either reports "too early to analyze" and goes quiet, or clears the minimum on stale entries and proposes changes from an incomplete picture.
+- Either way the output is shaped like a normal run, so no one investigates.
+
+The test to apply: **if the fallback can change the answer rather than just the completeness of the answer, do not take it.** Stop, mark the run blocked, and post — a loud failure costs one notification, while a quiet wrong answer costs trust in every quiet run that follows.
+
+Fallbacks are still fine when they degrade *coverage* transparently and the skill says so in its output — for example, proceeding with one source signal when a second is unavailable, while raising the confidence bar and recording the unavailability in the run log. The difference is that the reader can see what was missing.
 
 ### Security boundary for signal logs
 

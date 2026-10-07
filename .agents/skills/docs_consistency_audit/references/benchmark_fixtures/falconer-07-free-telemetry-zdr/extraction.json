@@ -1,0 +1,125 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:1eef611d75331731a8aff477aa8b310cbf30ffb3eb19647e432735f2c51146d6",
+      "canonical_source": "public-privacy-policy",
+      "claim_ids": [
+        "sha256:28fea893ae4f0329c96695408a5871985d0ef25fac31fb0b971cff080b8873df",
+        "sha256:bf0d1347b897d171efbaf95cf4f6a30354ab8ed26eeb2b5ceb33de3d957da069"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "Any user can enable full ZDR for their own account by disabling Help Improve Warp",
+          "source": {
+            "content_sha256": "b8356abb722ac154a0c8185f43dde9d6ac4c31fca39fc8bc8378dd8e16189221",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-07-free-telemetry-zdr-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "Telemetry must be enabled to use AI features on the Free plan",
+          "source": {
+            "content_sha256": "c099542ea501a4e5792cab822d97c4a03491f8872d051e51c4866d8a1db2b8a3",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-07-free-telemetry-zdr-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "high",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-07-free-telemetry-zdr",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "privacy",
+      "entity": "free-plan-ai",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "works-with-telemetry-disabled",
+      "qualifiers": {
+        "plans": [
+          "all"
+        ]
+      },
+      "quote": "Any user can enable full ZDR for their own account by disabling Help Improve Warp",
+      "source": {
+        "content_sha256": "b8356abb722ac154a0c8185f43dde9d6ac4c31fca39fc8bc8378dd8e16189221",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-07-free-telemetry-zdr-left",
+        "visibility": "public"
+      },
+      "source_class": "faq",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "entity": "free-plan-ai",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "works-with-telemetry-disabled",
+      "qualifiers": {
+        "plans": [
+          "free"
+        ]
+      },
+      "quote": "Telemetry must be enabled to use AI features on the Free plan",
+      "source": {
+        "content_sha256": "c099542ea501a4e5792cab822d97c4a03491f8872d051e51c4866d8a1db2b8a3",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-07-free-telemetry-zdr-right",
+        "visibility": "public"
+      },
+      "source_class": "public-privacy-policy",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "b8356abb722ac154a0c8185f43dde9d6ac4c31fca39fc8bc8378dd8e16189221",
+    "right.mdx": "c099542ea501a4e5792cab822d97c4a03491f8872d051e51c4866d8a1db2b8a3"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

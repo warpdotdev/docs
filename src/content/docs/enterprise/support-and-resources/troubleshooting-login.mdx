@@ -4,7 +4,7 @@ description: >-
   Resolve common login and SSO issues for Warp Enterprise users and IT admins.
 ---
 
-This page covers common login issues for Warp Enterprise users, with a focus on SSO-related problems. For SSO setup and configuration, see [Single Sign-On (SSO)](/enterprise/security-and-compliance/sso/).
+Resolve common login and SSO issues for Warp Enterprise users and IT admins. For SSO setup and configuration, see [Single Sign-On (SSO)](/enterprise/security-and-compliance/sso/).
 
 ## SSO login issues
 
@@ -38,7 +38,7 @@ IT admins: if multiple team members need to link their accounts to SSO, share th
 If clicking the sign-up or login button opens a blank popup or nothing happens:
 
 * Your ISP or firewall may be blocking calls to `*.googleapis.com`. Try using a proxy or allowlisting this domain.
-* In some older Ruby development environments, `.dev` domains don't resolve properly. If applicable, delete `/etc/resolver/dev` ([more info](https://superuser.com/questions/1374892/dev-domains-dont-resolve)).
+* In some older Ruby development environments, `.dev` domains don't resolve properly. If applicable, delete `/etc/resolver/dev` (see [fixing `.dev` domain resolution](https://superuser.com/questions/1374892/dev-domains-dont-resolve)).
 
 ### Browser-specific issues
 
@@ -89,11 +89,11 @@ If the browser doesn't open automatically from Warp when you click "Sign up" or 
 
 1. Go to the [Signup](https://app.warp.dev/signup) or [Login](https://app.warp.dev/login) page in your browser.
 2. Complete authentication in the browser.
-3. On the logged-in page, if "Take me to Warp" doesn't work, click the **here** link to copy the authentication token.
+3. On the logged-in page, if **Take me to Warp** doesn't work, click the token-copy link to copy the authentication token.
 4. Paste the token into Warp.
 
 :::note
-On Linux and Windows, the default paste shortcut is `CTRL+SHIFT+V`.
+On Linux and Windows, the default paste shortcut is `Ctrl+Shift+V`.
 :::
 
 ## Getting help

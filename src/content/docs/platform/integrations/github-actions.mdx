@@ -5,6 +5,7 @@ description: >-
   CI fixes.
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
 Run agents directly in your GitHub Actions workflows using `oz-agent-action`. The agent integrates seamlessly into your CI pipeline, automating tasks like code review, issue triage, bug fixing, and maintenance using your repository context and GitHub permissions. This page covers how the integration works, how to set it up, and common automation patterns for development teams.
 
@@ -13,10 +14,10 @@ Run agents directly in your GitHub Actions workflows using `oz-agent-action`. Th
 :::
 
 :::note
-GitHub Actions is different from the [GitHub integration](/platform/integrations/github/). GitHub Actions runs agents inside workflows you define in your repository, and you control the trigger, permissions, and prompt in YAML. The GitHub integration starts agents when someone mentions `@oz-agent` on an issue, pull request, or review comment, using the Oz by Warp GitHub App with no workflow file.
+GitHub Actions is different from the [GitHub integration](/platform/integrations/github/). GitHub Actions runs agents inside workflows you define in your repository, and you control the trigger, permissions, and prompt in YAML. The GitHub integration starts agents when someone mentions `@warp-agent` on an issue, pull request, or review comment, using the [Warp Factories](/factories/) GitHub App with no workflow file.
 :::
 
-If you're comparing GitHub Actions with schedules, Slack, Linear, the GitHub integration, the Oz CLI, or API-triggered runs, see [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
+If you're comparing GitHub Actions with schedules, Slack, Linear, the GitHub integration, the {VARS.WARP_AGENT_CLI}, or API-triggered runs, see [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
 
 Watch this demo to see the integration in action:
 
@@ -33,7 +34,7 @@ In this demo
 
 ### What the GitHub Actions integration does
 
-The `oz-agent-action` is a GitHub Action that wraps the Oz CLI and:
+The `oz-agent-action` is a GitHub Action that wraps the {VARS.WARP_AGENT_CLI} and:
 
 * Runs an agent inside an Actions job
 * Caches package installation for faster builds
@@ -47,7 +48,7 @@ The `oz-agent-action` is a GitHub Action that wraps the Oz CLI and:
 
 To use agents in GitHub Actions, you need:
 
-* A [**Warp API Key**](/reference/cli/api-keys/) stored as a [GitHub secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) — this authenticates the agent with Warp. Pick a personal key if you want commits attributed to you, or an agent key to run as a [cloud agent](/platform/agents/) on your team. See [API keys](/reference/cli/api-keys/) for when to pick each.
+* A [**Warp API key**](/agents/cli/oz-cli/api-keys/) stored as a [GitHub secret](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions) — this authenticates the agent with Warp. Pick a personal key if you want commits attributed to you, or an agent key to run as a [cloud agent](/platform/agents/) on your team. See [API keys](/agents/cli/oz-cli/api-keys/) for when to pick each.
 * Workflow permissions that match your intended actions (for example, `pull-requests: write` if the agent should commit or comment on PRs) — the agent performs actions on your behalf using the GitHub token available to the workflow
 * The `oz-agent-action` step added to your workflow
 * **For private repositories using `@oz-agent` mention workflows**: The [`oz-agent`](https://github.com/oz-agent) GitHub user must be [invited as a member](https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization) of your GitHub organization (see [Responding to comments with @ mentions](#1-responding-to-comments-with--mentions) for details)
@@ -55,7 +56,7 @@ To use agents in GitHub Actions, you need:
 
 ### Using Skills
 
-Skills provide reusable instructions for agents. You can use pre-built skills from the [oz-skills repository](https://github.com/warpdotdev/oz-skills) or create custom [skills](/agent-platform/capabilities/skills/) for your specific workflows. Skills can also be deployed as [standalone agents](/agent-platform/capabilities/skills/#skills-as-agents) to run on a schedule or in response to events.
+Skills provide reusable instructions for agents. You can use pre-built skills from the [oz-skills repository](https://github.com/warpdotdev/oz-skills) or create custom [skills](/agents/capabilities/skills/) for your specific workflows. Skills can also be deployed as [standalone agents](/platform/skills-as-agents/) to run on a schedule or in response to events.
 
 #### How to use skills
 
@@ -72,7 +73,7 @@ You can specify a skill using the `skill` input parameter, either instead of or 
 :::tip
 If the action fails, use the returned error code to narrow the fix. Common errors include:
 
-* [`authentication_required`](/reference/api-and-sdk/troubleshooting/errors/authentication-required/) (missing, invalid, or expired `warp_api_key` secret)
+* [`authentication_required`](/factories/api-and-sdk/troubleshooting/errors/authentication-required/) (missing, invalid, or expired `warp_api_key` secret)
 :::
 
 #### Skill format options
@@ -112,7 +113,7 @@ The `oz-agent-action` supports several automation patterns commonly used in CI.
 * **Use case**: Add "@oz-agent fix this typo" or similar comments to a PR or Issue.
 
 :::note
-The [GitHub integration](/platform/integrations/github/) responds to the same `@oz-agent` mentions without a workflow file. Use this Actions pattern when you want the run to happen inside your CI pipeline with workflow-scoped permissions; use the GitHub integration when you want mention-triggered runs on every repository the Oz by Warp GitHub App can access.
+The [GitHub integration](/platform/integrations/github/) responds to `@warp-agent` mentions without a workflow file. Use this Actions pattern when you want the run to happen inside your CI pipeline with workflow-scoped permissions; use the GitHub integration when you want mention-triggered runs on every repository the [Warp Factories](/factories/) GitHub App can access.
 :::
 
 What it does:

@@ -145,10 +145,112 @@ class TestMainCLI(unittest.TestCase):
         # Users deduped (lucie once) and ordered; teams separated.
         self.assertIn("Reviewers (users): lucie, zach, ian", out)
         self.assertIn("Reviewers (teams): warpdotdev/oss-maintainers", out)
-        # gh snippet present.
-        self.assertIn("--add-reviewer lucie,zach,ian,warpdotdev/oss-maintainers", out)
+        # Multiple owners is not a single clear owner: no ready-to-run command,
+        # just the candidate list for the PR body.
+        self.assertIn("Multiple owners resolved", out)
+        self.assertIn("candidates: lucie, zach, ian", out)
+        self.assertNotIn("gh pr edit <PR> --add-reviewer", out)
         # The unmatched server path is reported, not fatal.
         self.assertIn("no owner match", out)
+
+    def test_single_owner_prints_single_reviewer_command(self):
+        """Exactly one resolved user yields a one-human suggested command."""
+        with tempfile.TemporaryDirectory() as d:
+            warp = Path(d) / "warp"
+            self._make_repo(
+                warp,
+                "/ @warpdotdev/oss-maintainers\n/app/src/settings/ @lucie\n",
+            )
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(_MODULE_PATH),
+                    "--warp",
+                    str(warp),
+                    "warp:app/src/settings/ssh.rs",
+                ],
+                capture_output=True,
+                text=True,
+                stdin=subprocess.DEVNULL,
+            )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("gh pr edit <PR> --add-reviewer lucie", result.stdout)
+        # Never a comma-joined multi-reviewer suggestion.
+        self.assertNotIn("--add-reviewer lucie,", result.stdout)
+
+    def test_reviewers_only_prints_bare_add_reviewer_argument(self):
+        """--reviewers-only must be directly consumable by `gh pr edit --add-reviewer`."""
+        with tempfile.TemporaryDirectory() as d:
+            warp = Path(d) / "warp"
+            self._make_repo(
+                warp,
+                "/ @warpdotdev/oss-maintainers\n/app/src/settings/ @lucie\n",
+            )
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(_MODULE_PATH),
+                    "--reviewers-only",
+                    "--warp",
+                    str(warp),
+                    "warp:app/src/settings/ssh.rs",
+                    "warp:crates/warp_features/src/lib.rs",  # default team fallback
+                ],
+                capture_output=True,
+                text=True,
+                stdin=subprocess.DEVNULL,
+            )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        # Exactly one line, no resolution table, no "Suggested command" prose.
+        self.assertEqual(result.stdout, "lucie,warpdotdev/oss-maintainers\n")
+
+    def test_reviewers_only_is_empty_when_nothing_resolves(self):
+        """An empty result means the PR opens with no requested reviewer."""
+        with tempfile.TemporaryDirectory() as d:
+            warp = Path(d) / "warp"
+            self._make_repo(warp, "/app/src/settings/ @lucie\n")
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(_MODULE_PATH),
+                    "--reviewers-only",
+                    "--warp",
+                    str(warp),
+                    "warp:crates/nothing/owns/this.rs",
+                ],
+                capture_output=True,
+                text=True,
+                stdin=subprocess.DEVNULL,
+            )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout, "")
+        # A silent fallback is indistinguishable from a correct resolution when you
+        # read the log afterwards, so the reason must still surface on stderr.
+        self.assertIn("no owner match", result.stderr)
+        self.assertIn("no owners resolved", result.stderr)
+
+    def test_reviewers_only_keeps_stdout_clean_when_diagnosing(self):
+        """Diagnostics must not leak into the captured reviewer list."""
+        with tempfile.TemporaryDirectory() as d:
+            warp = Path(d) / "warp"
+            self._make_repo(warp, "/app/src/settings/ @lucie\n")
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(_MODULE_PATH),
+                    "--reviewers-only",
+                    "--warp",
+                    str(warp),
+                    "warp:app/src/settings/ssh.rs",  # resolves
+                    "warp:crates/nothing/owns/this.rs",  # does not
+                ],
+                capture_output=True,
+                text=True,
+                stdin=subprocess.DEVNULL,
+            )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout, "lucie\n")
+        self.assertIn("no owner match", result.stderr)
 
     def test_warp_internal_alias(self):
         with tempfile.TemporaryDirectory() as d:

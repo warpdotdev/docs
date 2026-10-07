@@ -1,0 +1,62 @@
+---
+/**
+ * Invites readers to fix or report a problem with a page directly on
+ * GitHub, in place of the "Was this helpful?" PushFeedback widget removed
+ * in #100 (see `FeedbackFooter.astro`). Warp Docs is open source (MIT,
+ * warpdotdev/docs), so every page can point straight at:
+ *   - an "Edit this page" GitHub edit-in-place flow (opens a PR), and
+ *   - a pre-filled "Docs content issue" template
+ *     (.github/ISSUE_TEMPLATE/CONTENT.yml) with the page URL already in
+ *     the "Page or pages affected" field.
+ *
+ * `editUrl` is optional: pages that don't map to a single editable source
+ * file can omit it and render only the issue link. Pages backed by a
+ * non-MDX source, such as the generated /api reference, can instead pass
+ * that source's own GitHub edit URL explicitly (see `pages/api.astro`).
+ */
+interface Props {
+  /** Absolute GitHub URL to edit the page's source file (opens a PR). */
+  editUrl?: string;
+  /** Absolute URL of the current page, pre-filled into the issue template. */
+  pageUrl: string;
+  /** Extra class(es) so callers can control placement (e.g. fixed position on /api). */
+  class?: string;
+}
+
+const { editUrl, pageUrl, class: className } = Astro.props;
+
+const issueUrl = new URL('https://github.com/warpdotdev/docs/issues/new');
+issueUrl.searchParams.set('template', 'CONTENT.yml');
+issueUrl.searchParams.set('pages', pageUrl);
+---
+
+<p class:list={['docs-feedback-links', className]}>
+  {
+    editUrl ? (
+      <>
+        See something wrong? <a href={editUrl}>Edit this page</a> or{' '}
+        <a href={issueUrl.toString()}>open an issue</a>.
+      </>
+    ) : (
+      <>
+        See something wrong? <a href={issueUrl.toString()}>Open an issue</a>.
+      </>
+    )
+  }
+</p>
+
+<style>
+  @layer starlight.core {
+    .docs-feedback-links {
+      margin: 0;
+      color: var(--sl-color-gray-3);
+      font-size: var(--sl-text-sm);
+    }
+    .docs-feedback-links a {
+      color: var(--sl-color-gray-2);
+    }
+    .docs-feedback-links a:hover {
+      color: var(--sl-color-white);
+    }
+  }
+</style>

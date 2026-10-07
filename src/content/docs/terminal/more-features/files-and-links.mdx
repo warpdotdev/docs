@@ -27,17 +27,17 @@ Warp parses relative and absolute file paths. Warp also tries to capture line an
 
 <Tabs>
   <TabItem label="macOS">
-    1. After hovering over a link, open it directly by holding down `CMD` while clicking it.
+    1. After hovering over a link, open it directly by holding down `⌘` while clicking it.
     2. Clicking a link normally will open a clickable tooltip that says “Open File/Folder/Link”.
     3. Right-clicking a link will open a context menu that supports copying the absolute file path or URL to the clipboard.
   </TabItem>
   <TabItem label="Windows">
-    1. After hovering over a link, open it directly by holding down `CTRL` while clicking it.
+    1. After hovering over a link, open it directly by holding down `Ctrl` while clicking it.
     2. Clicking a link normally will open a clickable tooltip that says “Open File/Folder/Link”.
     3. Right-clicking a link will open a context menu that supports copying the absolute file path or URL to the clipboard.
   </TabItem>
   <TabItem label="Linux">
-    1. After hovering over a link, open it directly by holding down `CTRL` while clicking it.
+    1. After hovering over a link, open it directly by holding down `Ctrl` while clicking it.
     2. Clicking a link normally will open a clickable tooltip that says “Open File/Folder/Link”.
     3. Right-clicking a link will open a context menu that supports copying the absolute file path or URL to the clipboard.
   </TabItem>
@@ -45,7 +45,7 @@ Warp parses relative and absolute file paths. Warp also tries to capture line an
 
 * You can also Drag and drop a folder or file onto the Warp dock icon to open a new tab in this directory.
 * You can also right-click on a folder or file in Finder, then select Services, and "Open new Warp Tab | Window here".
-* Configure the default editor to open files by navigating to **Settings** > **Features** > **General** > **Choose an editor to open file links**.
+* Configure the default editor to open files by navigating to **Settings** > **Code** > **Editor and Code Review** > **Choose an editor to open file links**.
   * Selecting "Default App" uses your system's default application for the file type.
 
 #### List of supported editors
@@ -70,6 +70,21 @@ Non-exhaustive list of editors, please submit new ones on our GitHub, see [Sendi
 8. Android Studio
 
 <DemoVideo src="/assets/terminal/files-links-demo.mp4" label="Files & Links Demo" />
+
+### OSC 8 hyperlinks
+
+Warp recognizes the OSC 8 escape sequence, so command-line tools can print a short label that links to a longer URL instead of printing the raw URL. When a program emits an OSC 8 hyperlink, Warp renders only the visible text and makes it clickable, the same way it treats auto-detected URLs:
+
+* Hold `⌘` (macOS) or `Ctrl` (Windows/Linux) and click the linked text to open it.
+* Copying the block copies the visible text, not the escape sequence or the underlying URL.
+
+Any URL scheme works, including `file://` URLs without a hostname. To try it, print a hyperlink from your shell:
+
+```bash
+printf '\033]8;;https://docs.warp.dev\033\\Warp docs\033]8;;\033\\\n'
+```
+
+The output shows `Warp docs` as a clickable link. Plain-text URL detection still works, so tools that print full URLs behave as before.
 
 ## Scripts
 

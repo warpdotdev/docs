@@ -1,0 +1,38 @@
+{
+  "adjudicated_findings": [],
+  "claims": [
+    {
+      "category": "privacy",
+      "entity": "zdr-provider-list",
+      "polarity": "affirmative",
+      "predicate": "includes-fireworks-ai",
+      "qualifiers": {},
+      "quote": "Anthropic, OpenAI, Google, xAI",
+      "source": {
+        "content_sha256": "4ae547685586ebe08ad68913795d61451c82f9aa17289b0db4b466190dadc821",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "source.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-24-fireworks-zdr-provider-gap",
+        "visibility": "public"
+      },
+      "source_class": "public-security-policy",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "source.mdx": "4ae547685586ebe08ad68913795d61451c82f9aa17289b0db4b466190dadc821"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "source.mdx"
+  ],
+  "schema_version": 1
+}

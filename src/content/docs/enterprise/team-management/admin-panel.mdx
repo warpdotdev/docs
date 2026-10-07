@@ -7,6 +7,7 @@ description: >-
 sidebar:
   label: "Admin panel"
 ---
+import { VARS } from '@data/vars';
 
 The Admin Panel provides administrators with centralized control over team settings in Warp. Configure agent behavior, security policies, codebase indexing, and collaboration features for your entire organization from a single interface.
 
@@ -51,6 +52,8 @@ Team members see organization-enforced settings in their personal Settings panel
 ## How settings enforcement works
 
 The Admin Panel uses a three-tier enforcement model that keeps administrators in control while allowing appropriate flexibility.
+
+In multi-team workspaces, workspace admins can enforce supported settings across all teams or let each team decide. See [Workspace settings and team settings](/enterprise/team-management/workspaces/#workspace-settings-and-team-settings).
 
 ### Setting enforcement levels
 
@@ -217,7 +220,7 @@ Control which LLM models are available to your team and how inference is routed.
 
 From the **Models** page, admins can also configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) in the **Bring Your Own Keys & Endpoints** card, sharing provider keys and custom endpoints across the team for both interactive sessions and cloud agents.
 
-From the **Models** page, admins can also create team-synced [custom routers](/agent-platform/inference/custom-routers/) that route each task to a model based on complexity or rules. Team-synced routers appear in the model picker for every team member.
+From the **Models** page, admins can also create team-synced [custom routers](/agents/inference/custom-routers/) that route each task to a model based on complexity or rules. Team-synced routers appear in the model picker for every team member.
 
 **Models with provider-specific data retention requirements**
 
@@ -239,7 +242,7 @@ For Enterprise plans with negotiated credit pools:
 * Monitor usage by team
 * Set per-team spending limits
 
-Contact your account manager to configure advanced credit allocation.
+Contact your account manager to configure advanced credit allocation. Multi-team workspaces can also use [workspace spend limits](/enterprise/team-management/workspaces/#workspace-spend-limits).
 
 ### Sharing settings
 
@@ -264,16 +267,16 @@ Configure cloud agent settings for your team, including GitHub authorization for
 
 **Pull request artifact attachments**
 
-Controls how screenshots and video recordings captured with [Computer Use](/agent-platform/capabilities/computer-use/) are attached to pull request descriptions. Choose **Disabled**, **Link only**, or **Embed**. For what each mode does and its security implications, see [Screenshots and videos in pull requests](/agent-platform/capabilities/computer-use/artifacts-in-prs/).
+Controls how screenshots and video recordings captured with [Computer Use](/agents/capabilities/computer-use/) are attached to pull request descriptions. Choose **Disabled**, **Link only**, or **Embed**. For what each mode does and its security implications, see [Screenshots and videos in pull requests](/agents/capabilities/computer-use/artifacts-in-prs/).
 
 **Enabled GitHub Orgs**
 
-The **Enabled GitHub Orgs** setting associates your Warp team with one or more GitHub App installations. That association does two things: it lets cloud agents initiated with an [agent API key](/reference/cli/api-keys/) clone repositories and open pull requests using the Oz by Warp GitHub App, and it tells Warp which team owns runs started from the [GitHub integration](/platform/integrations/github/) when someone mentions `@oz-agent` in those repositories.
+The **Enabled GitHub Orgs** setting associates your Warp team with one or more GitHub App installations. That association does two things: it lets cloud agents initiated with an [agent API key](/agents/cli/oz-cli/api-keys/) clone repositories and open pull requests using the [Warp Factories](/factories/) GitHub App, and it tells Warp which team owns runs started from the [GitHub integration](/platform/integrations/github/) when someone mentions `@warp-agent` in those repositories.
 
 To configure:
 
 1. Navigate to the **Platform** section of the Admin Panel.
-2. Under **Enabled GitHub Orgs**, review the list of GitHub organizations where the Oz by Warp GitHub App is installed.
+2. Under **Enabled GitHub Orgs**, review the list of GitHub organizations where the Warp Factories GitHub App is installed.
 3. Select which organizations your team should have access to.
 
 <figure>
@@ -281,10 +284,10 @@ To configure:
 <figcaption>Enabled GitHub Orgs setting in the Admin Panel.</figcaption>
 </figure>
 
-The organizations and repository access shown here reflect the Oz by Warp GitHub App installation scope, which is configured in [GitHub settings](https://github.com/settings/installations). To change which repositories the app can access, edit the installation directly in GitHub.
+The organizations and repository access shown here reflect the Warp Factories GitHub App installation scope, which is configured in [GitHub settings](https://github.com/settings/installations). To change which repositories the app can access, edit the installation directly in GitHub.
 
 :::note
-This setting controls which GitHub App installation agent API key runs authenticate with, and which GitHub organizations can start [GitHub integration](/platform/integrations/github/) runs for this team. Runs from an `@oz-agent` mention also authenticate with the installation's GitHub App token, so their repository access comes from the app installation rather than the person who wrote the mention. Runs triggered from a personal API key, Slack, Linear, or the Warp app continue to use that user's own GitHub authorization. For more details, see [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization).
+This setting controls which GitHub App installation agent API key runs authenticate with, and which GitHub organizations can start [GitHub integration](/platform/integrations/github/) runs for this team. Runs from an `@warp-agent` mention also authenticate with the installation's GitHub App token, so their repository access comes from the app installation rather than the person who wrote the mention. Runs triggered from a personal API key, Slack, Linear, or the Warp app continue to use that user's own GitHub authorization. For more details, see [Team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization).
 :::
 
 ## Multi-admin functionality
@@ -318,7 +321,7 @@ After purchasing a Warp enterprise plan:
 5. **Configure BYOLLM** (optional) - Route inference through your cloud accounts.
 6. **Create shared resources** - Populate team Warp Drive with Workflows, Rules, and Prompts.
 
-See [Roles and permissions](/enterprise/team-management/roles-and-permissions/) for details on user roles and access controls.
+See [Roles and permissions](/enterprise/team-management/roles-and-permissions/) for user roles and access controls. For accounts that manage multiple teams, see [Workspaces](/enterprise/team-management/workspaces/).
 
 ### Adjusting policies for different teams
 

@@ -25,10 +25,24 @@ Source paths may also be piped on stdin (one `repo:relpath` per line). `repo`
 is `warp` (the client repo passed via --warp; `warp-internal` is accepted as an
 alias) or `warp-server`.
 
-Output: a per-path resolution table, the deduped reviewer set (users and teams),
-and a ready-to-run `gh pr edit --add-reviewer` snippet. Exit code is always 0;
-unresolved paths are reported but never fatal (so a scheduled run is not blocked
-by an ownership gap — it just falls back to the default owners or none).
+Output: a per-path resolution table and the deduped reviewer set (users and
+teams). Exit code is always 0; unresolved paths are reported but never fatal (so
+a scheduled run is not blocked by an ownership gap — the PR simply opens with no
+requested reviewer).
+
+This script reports raw resolution data. The request policy lives in the
+`create_pr` skill ("Request a reviewer (at most one, only with conviction)"):
+at most ONE human reviewer per PR, requested only when exactly one owner
+resolves; teams are never requested; there is no fallback reviewer; and a
+reviewer a human removed from a PR is never re-added.
+
+Pass `--reviewers-only` to print just the comma-joined resolution (empty output
+when nothing resolved). That is the form the `create_pr` request snippet
+consumes — it distills the list to a single human or to nobody:
+
+  REVIEWERS=$(python3 suggest_reviewers.py --reviewers-only --warp ../warp warp:app/src/x.rs)
+  # Empty output means no owner resolved: open the PR with no requested
+  # reviewer and say so - never substitute a fallback person.
 """
 
 import argparse
@@ -81,8 +95,17 @@ def main():
     ap = argparse.ArgumentParser(description="Suggest PR reviewers from code ownership.")
     ap.add_argument("--warp", help="Path to the warp client repo root (warp-internal accepted).")
     ap.add_argument("--warp-server", dest="warp_server", help="Path to the warp-server repo root.")
+    ap.add_argument(
+        "--reviewers-only",
+        action="store_true",
+        help=(
+            "Print only the comma-joined `gh pr edit --add-reviewer` argument "
+            "(empty when nothing resolved), for scripted use."
+        ),
+    )
     ap.add_argument("paths", nargs="*", help="Source paths as repo:relpath.")
     args = ap.parse_args()
+    quiet = args.reviewers_only
 
     # Build per-repo rule lists (STAKEHOLDERS first, then CODEOWNERS so enforced
     # rules take precedence as later matches).
@@ -107,45 +130,89 @@ def main():
         print("No source paths given. Pass repo:relpath args or pipe them on stdin.", file=sys.stderr)
         return 0
 
+    def report(message=""):
+        """Print human-readable progress on stdout, suppressed under --reviewers-only."""
+        if not quiet:
+            print(message)
+
+    def diagnose(message):
+        """Report a resolution problem.
+
+        Under --reviewers-only this goes to stderr, so `$(...)` still captures only
+        the reviewer list while the run log keeps a record of why no reviewer was
+        requested. A silent skip is indistinguishable from a correct resolution
+        when you are reading the log afterwards.
+        """
+        print(message, file=sys.stderr if quiet else sys.stdout)
+
     users, teams = [], []
     unresolved = []
-    print("Reviewer resolution:")
+    report("Reviewer resolution:")
     for item in inputs:
         if ":" not in item:
             unresolved.append(item)
-            print(f"  ? {item} — missing repo prefix (use warp: or warp-server:)")
+            diagnose(f"  ? {item} — missing repo prefix (use warp: or warp-server:)")
             continue
         repo, rel = item.split(":", 1)
         rules = repos.get(repo)
         if rules is None:
             unresolved.append(item)
-            print(f"  ? {item} — no ownership file loaded for repo '{repo}'")
+            diagnose(f"  ? {item} — no ownership file loaded for repo '{repo}'")
             continue
         owners, pattern = owners_for(rel, rules)
         if not owners:
             unresolved.append(item)
-            print(f"  ? {repo}:{rel} — no owner match")
+            diagnose(f"  ? {repo}:{rel} — no owner match")
             continue
-        print(f"  - {repo}:{rel} -> {' '.join(owners)}  (matched: {pattern})")
+        report(f"  - {repo}:{rel} -> {' '.join(owners)}  (matched: {pattern})")
         for o in owners:
             handle = o.lstrip("@")
             bucket = teams if "/" in handle else users
             if handle not in bucket:
                 bucket.append(handle)
 
-    print()
-    print(f"Reviewers (users): {', '.join(users) if users else '(none)'}")
-    print(f"Reviewers (teams): {', '.join(teams) if teams else '(none)'}")
-    if unresolved:
-        print(f"Unresolved paths: {len(unresolved)} (left for manual assignment)")
-
     # gh accepts users by login and teams as org/team; both via --add-reviewer.
     review_args = users + teams
-    if review_args:
-        joined = ",".join(review_args)
-        print()
-        print("Suggested command (replace <PR> with the PR number):")
-        print(f"  gh pr edit <PR> --add-reviewer {joined}")
+    joined = ",".join(review_args)
+
+    if quiet:
+        # Sole *stdout* output: the raw resolution, or nothing at all. An empty
+        # result is the caller's cue to open the PR with no requested reviewer,
+        # never to guess a substitute. Diagnostics already went to stderr.
+        if not joined:
+            print(
+                "suggest_reviewers: no owners resolved from "
+                f"{len(inputs)} path(s); open the PR with no requested reviewer.",
+                file=sys.stderr,
+            )
+        else:
+            print(joined)
+        return 0
+
+    report()
+    report(f"Reviewers (users): {', '.join(users) if users else '(none)'}")
+    report(f"Reviewers (teams): {', '.join(teams) if teams else '(none)'}")
+    if unresolved:
+        report(f"Unresolved paths: {len(unresolved)} (left for manual assignment)")
+
+    if len(users) == 1:
+        report()
+        report("Suggested command (replace <PR> with the PR number; at most one")
+        report("human reviewer per PR, and teams are never requested):")
+        report(f"  gh pr edit <PR> --add-reviewer {users[0]}")
+    elif len(users) > 1:
+        report()
+        report("Multiple owners resolved. That is not a single clear owner - request")
+        report("nobody and name the candidates in the PR body instead:")
+        report(f"  candidates: {', '.join(users)}")
+    elif teams:
+        report()
+        report("Only teams resolved. Teams are never requested - open the PR with no")
+        report("requested reviewer and name the owning team in the PR body.")
+    else:
+        report()
+        report("No owners resolved. Open the PR with no requested reviewer and say")
+        report("so in the run output - never substitute a fallback person.")
     return 0
 
 

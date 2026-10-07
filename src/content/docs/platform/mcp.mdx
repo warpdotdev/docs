@@ -6,8 +6,9 @@ description: >-
 sidebar:
   label: "MCP servers"
 ---
+import { VARS } from '@data/vars';
 
-Cloud agents can call external tools through [Model Context Protocol (MCP) servers](/agent-platform/capabilities/mcp/). This lets agents reach beyond the terminal to automatically interact with systems like GitHub, dbt, Sentry, or any custom internal service, whenever the workflow requires it.
+Cloud agents can call external tools through [Model Context Protocol (MCP) servers](/agents/capabilities/mcp/). This lets agents reach beyond the terminal to automatically interact with systems like GitHub, dbt, Sentry, or any custom internal service, whenever the workflow requires it.
 
 ## When to use MCP servers
 
@@ -19,12 +20,22 @@ Add MCP servers to a cloud agent when it needs to:
 
 The agent calls MCP tools automatically based on what the task requires, without the need for explicit instruction.
 
+## Warp-managed integration tools in factories
+
+When Slack, Linear, or Jira is connected for a factory, Warp automatically makes tools from that integration available to the factory's agents. These Warp-managed capabilities use the connected integration's authorization and don't require a separate MCP server installation.
+
+Integration-provided tools are separate from the MCP servers you configure with `mcp_servers` or `mcpServers`. They may not appear alongside user-configured servers in the factory's MCP list, even though the agent can use them during a run. For example, a scheduled factory run can use the Slack tools to post a report to a channel without Slack triggering the run.
+
+See [posting a scheduled factory digest to Slack](/factories/integrations/slack/#post-a-scheduled-factory-digest-to-slack) for a complete automation and prompt. If you need a different external service, configure its MCP server using the options below.
+
 ## How MCP configuration works
 
 You can supply MCP configuration in two ways:
 
-* **At run time** — pass `--mcp` when calling `oz agent run` or `oz agent run-cloud`. See [MCP Servers](/reference/cli/mcp-servers/) in the CLI reference for the full syntax.
+* **At run time** — pass `--mcp` when calling `oz agent run` or `oz agent run-cloud`. See [MCP Servers](/agents/cli/oz-cli/mcp-servers/) in the CLI reference for the full syntax.
 * **In an agent config file** — define `mcp_servers` directly in a YAML or JSON agent config file (passed with `-f / --file`). This is the recommended approach for repeatable workflows.
+
+For factory work, declare factory-wide or per-agent MCP servers in the [factory definition](/factories/factory-as-code/#mcpservers). Use [Factory MCP](/factories/factory-mcp/) to connect an external coding agent to a factory.
 
 ## Configuration schema
 
@@ -32,20 +43,20 @@ Each MCP server entry is keyed by a name you choose. A server config must have *
 
 | Transport | Field(s) | When to use |
 |-----------|----------|-------------|
-| Warp-shared server | `warp_id` | Reference an MCP server already configured in Warp by its UUID |
+| Warp-shared server, managed MCP install, or integration server | `warp_id` | Reference an MCP server already configured in Warp — including an OAuth-authorized [managed MCP installation](#oauth-authentication) — by its UUID, or a Warp-managed integration server by its id |
 | Stdio (local process) | `command`, `args` | Launch a local executable as an MCP server |
 | Streamable HTTP / SSE | `url` | Connect to a remote or locally hosted MCP endpoint |
 
 ### Supported fields
 
-* **`warp_id`** — UUID of a Warp-shared MCP server (find UUIDs with `oz mcp list` or from **Settings** > **Agents** > **MCP servers**)
+* **`warp_id`** — UUID of a Warp-shared MCP server or a [managed MCP installation](#oauth-authentication) (find UUIDs with `oz mcp list`, from **Settings** > **Agents** > **MCP servers**, or from the [{VARS.WEB_APP}](/platform/oz-web-app/#integrations) **Integrations** page), or the id of a Warp-managed integration server: `linear`, `slack`, or `jira`
 * **`command`** — Executable to launch (stdio transport)
 * **`args`** — Arguments passed to `command` (only valid with `command`)
 * **`env`** — Environment variables passed to the process (only valid with `command`)
 * **`url`** — HTTP or HTTPS endpoint URL (streamable HTTP or SSE transport)
 * **`headers`** — HTTP headers sent with requests (only valid with `url`)
 
-You may define any number of MCP servers in a single config.
+You can define any number of MCP servers in a single config.
 
 ### Example configuration
 
@@ -66,7 +77,7 @@ You may define any number of MCP servers in a single config.
 ```
 
 :::note
-If the config passes through a system that pre-processes `{{...}}` before it reaches Oz (for example, Jira/Atlassian Automation), use JSON unicode escapes for the braces: `\u007b\u007bMY_SECRET\u007d\u007d` decodes to `{{MY_SECRET}}`, which Oz resolves normally.
+If the config passes through a system that pre-processes `{{...}}` before it reaches the {VARS.WARP_AUTOMATION_PLATFORM} (for example, Jira/Atlassian Automation), use JSON unicode escapes for the braces: `\u007b\u007bMY_SECRET\u007d\u007d` decodes to `{{MY_SECRET}}`, which the {VARS.WARP_AUTOMATION_PLATFORM} resolves normally.
 :::
 
 ## Using MCP servers in an agent config file
@@ -104,22 +115,35 @@ oz agent run-cloud --environment <ENV_ID> -f my-agent-config.json --prompt "Chec
 ## Requirements and defaults
 
 * MCP configuration must be valid JSON, or YAML when embedded in a broader agent config file.
-* If `mcp_servers` is omitted, the agent runs with no MCP servers enabled.
+* If `mcp_servers` is omitted, the agent runs with no user-configured MCP servers enabled. Factory runs can still receive [Warp-managed integration tools](#warp-managed-integration-tools-in-factories).
 * Each server name must be unique and non-empty.
 * The `warp_id` transport is validated against your Warp account. Referenced servers must be accessible to you.
+* A `warp_id` that names a Warp-managed integration server (`linear`, `slack`, or `jira`) resolves against your team's [integration](/platform/integrations/) connection, but only for a run executing inside a [factory](/factories/) (`jira` also resolves for a run triggered directly by a Jira event). Outside those cases, or when the integration isn't connected, the server is skipped and the run continues without it.
+
+## OAuth authentication
+
+Cloud agents support OAuth-protected MCP servers through a **managed MCP installation** — a cloud run can't complete an interactive browser login, so authorization happens ahead of time instead.
+
+To use an OAuth-gated server with a cloud agent:
+
+1. In the [{VARS.WEB_APP}](/platform/oz-web-app/#integrations), open **Integrations** and add the server as a managed MCP server.
+2. Authorize it once. Warp completes the OAuth flow in a browser and stores the credentials.
+3. Reference the installation's UUID as `warp_id` in your `--mcp` flag or agent config, the same way you'd reference any Warp-shared server.
+
+Cloud agent runs then use the stored credentials automatically, with no browser interaction. This is the supported path for hosted OAuth servers such as Figma's remote MCP server.
 
 ## Limitations
 
 :::caution
-Warp does not currently support OAuth-based MCP servers for cloud agents. This means MCP servers that require browser-based authentication, like some hosted Figma configurations, cannot be used directly.
-
-As a workaround, you can pass Figma mockups as **image context** to the agent, which can then build and test UI against those images.
+A direct `url` MCP server that requires OAuth and has no `Authorization` header can't be used by cloud agents. Set it up as a [managed MCP installation](#oauth-authentication) instead, then reference it by `warp_id`.
 :::
+
+Token- or header-based authentication on a `url` server, `env`-based secrets on a `command` server, and `warp_id` references to a Warp-shared or managed server all work without additional setup.
 
 ## Learn more
 
 * [Connect developer tools to agents with MCP workflows](/guides/external-tools/using-mcp-servers-with-warp/) — choose between local, cloud, and shared MCP setup paths
-* [MCP Servers (CLI reference)](/reference/cli/mcp-servers/) — how to pass MCP configuration using the `--mcp` flag
-* [Model Context Protocol (MCP)](/agent-platform/capabilities/mcp/) — configuring MCP servers in Warp for local agents
+* [MCP Servers (CLI reference)](/agents/cli/oz-cli/mcp-servers/) — how to pass MCP configuration using the `--mcp` flag
+* [Model Context Protocol (MCP)](/agents/capabilities/mcp/) — configuring MCP servers in Warp for local agents
 * [Environments](/platform/environments/) — set up the runtime context (repo, image, startup commands) for cloud agent tasks
 * [Secrets](/platform/secrets/) — store and inject credentials into agent runs safely

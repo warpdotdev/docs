@@ -12,6 +12,15 @@ description: >-
 
 Crawl the live docs.warp.dev sitemap to find SEO issues and fix them in the source files.
 
+## Agent-doc quality contract
+
+Any PR this skill opens follows the shared v1 agent-doc quality contract in
+`.agents/references/doc-quality-policy.md`: apply the `warpy-factory` label
+and add the `## Documentation risk` block
+(`.agents/skills/doc_quality_policy/finalize_pr_contract.py build`). Title,
+description, and metadata fixes that preserve product meaning are typically
+`low` risk under the allowlist.
+
 ## Running the audit
 
 From the docs repo root:
@@ -118,7 +127,7 @@ Before making any changes, read these references:
 2. **Meta descriptions come from frontmatter**. To fix a description, edit the `description:` field in the page's YAML frontmatter.
 3. **OG and Twitter tags mirror title and description** automatically. No separate fix needed.
 4. **Changing a sidebar config label has side effects**: it also changes the sidebar label, breadcrumbs, and prev/next pagination. URLs are NOT affected (URLs are based on the file path/slug).
-5. **When changing a title, also update the H1** in the markdown file for consistency.
+5. **Never add or edit a manual H1 heading in a markdown file.** Astro Starlight auto-generates the page's H1 from the frontmatter `title` (falling back to the sidebar label or slug, per the precedence in `references/starlight-seo.md`), so this repo's pages never write an explicit `# Heading` at the top of the body — that pattern is leftover behavior from the old GitBook-based docs platform. Changing a `title` or sidebar `label` never requires a matching H1 edit, because there is no H1 in the markdown to edit. If the audit's `multiple_h1` or `missing_h1` check flags a page and you find a manual H1 in its body, treat that as an incidental defect: remove the manual H1 (do not keep it in sync with the title) as its own cleanup, separate from any title/description fix.
 6. **All titles, labels, and H1 headings must use sentence case.** Capitalize only the first word and proper nouns. Only recognized proper feature names retain their capitalization — check `AGENTS.md` and `.agents/references/terminology.md` for the canonical list. Common mistakes to avoid:
    - ✅ `Computer use for agents` — generic term, sentence case
    - ❌ `Computer Use for Agents` — not a proper feature name, don't capitalize
@@ -145,19 +154,19 @@ Some page titles are intentionally short or specific and must **not** be changed
 - **`src/content/docs/terminal/windows/split-panes.mdx`** (`Split panes`) — Same rationale: the section header disambiguates the terminal context. The `title_too_short` warning is intentionally suppressed. Do not rename to "Terminal split panes".
 - **`src/content/docs/terminal/windows/tab-configs.mdx`** (`Tab Configs`) — Same rationale: the section header disambiguates the terminal context. Additionally, "Tab Configs" is a proper feature name and should not be prefixed. The `title_too_short` warning is intentionally suppressed. Do not rename to "Terminal Tab Configs".
 - **`src/content/docs/terminal/sessions/index.mdx`** (`Sessions`) — The sidebar section header ("Sessions") already provides terminal context. The `title_too_short` warning is intentionally suppressed. Do not rename to "Terminal sessions".
-- **`src/content/docs/reference/cli/artifacts.mdx`** (`Artifacts`) — The Reference > CLI section provides context, and "Artifacts" matches the `oz artifact` resource that the page documents. The `title_too_short` warning is intentionally suppressed.
+- **`src/content/docs/agents/cli/oz-cli/artifacts.mdx`** (`Artifacts`) — The Agents > CLI section provides context, and "Artifacts" matches the `oz artifact` resource that the page documents. The `title_too_short` warning is intentionally suppressed.
 
 When the audit flags these pages for `title_too_short`, exclude them from your fix list and include a note in your report explaining they are intentional exceptions.
 
 If you believe a new title should be added to this exceptions list, flag it for human review before proceeding.
 
-### Sidebar config labels vs. H1 headings
+### Sidebar config labels vs. page titles
 
-Sidebar config labels (the `label` property in `src/sidebar.ts`) and H1 page headings are **intentionally different** in some cases. Do not change either to match the other unless you are fixing a genuine duplicate title collision. Specifically:
+Sidebar config labels (the `label` property in `src/sidebar.ts`) and frontmatter `title` values are **intentionally different** in some cases. Do not change either to match the other unless you are fixing a genuine duplicate title collision. Specifically:
 
 - Do **not** add section-context prefixes (like "Terminal", "Warp", or "Agent") to short but accurate titles just because the title appears generic in isolation. Sidebar context already provides that disambiguation.
 - Do **not** rename sidebar config labels for pages in the exceptions list above.
-- Do **not** sync sidebar config label text to match H1 headings (or vice versa) as a standalone change — the two are allowed to differ.
+- Do **not** sync sidebar config label text to match the frontmatter `title` (or vice versa) as a standalone change — the two are allowed to differ. Neither one requires touching an H1 in the markdown body, since there isn't one (see Key principle #5).
 
 ### Fixing duplicate titles
 
@@ -185,7 +194,7 @@ Example:
 - `agent-platform/capabilities/index.mdx`: `title: 'Capabilities overview'` + `sidebar.label: 'Overview'`
 - `platform/integrations/index.mdx`: `title: 'Integrations overview'` + `sidebar.label: 'Overview'`
 
-When using this approach, also update the H1 in the markdown file to match the new `title`.
+Do not add or update an H1 in the markdown file — Starlight renders the page's H1 from this frontmatter `title` automatically (see Key principle #5 above).
 
 #### Alternative: rename the sidebar config label
 
@@ -193,7 +202,7 @@ If the short label is not intentional, rename the `label` in `src/sidebar.ts` to
 - Before: `{ slug: 'agent-platform/local-agents', label: 'Overview' }` + `{ slug: 'platform', label: 'Overview' }`
 - After: `{ slug: 'agent-platform/local-agents', label: 'Local agents overview' }` + `{ slug: 'platform', label: 'Cloud agents overview' }`
 
-When changing a sidebar config label, also update the H1 in the markdown file for consistency.
+Do not add or update an H1 in the markdown file for this — Starlight renders the page's H1 from the frontmatter `title` (or the slug when no `title` is set), never from the sidebar label (see Key principle #5 above).
 
 ### Fixing missing descriptions
 
@@ -219,7 +228,7 @@ After making fixes, review every change before presenting to the user. Run throu
 
 - **Does this still mean the same thing?** Titles and descriptions must accurately represent the page content. Read the actual page before writing or rewriting anything. Never invent features, capabilities, or details that aren't on the page. If unsure what the page covers, read it first.
 - **Did I introduce a new duplicate?** Scan the full sidebar config in `src/sidebar.ts`. Verify every label is unique within the site. This is the most common mistake — fixing one duplicate by picking a name that collides with an existing entry.
-- **Does the H1 match?** Every sidebar config label change needs a corresponding H1 update in the markdown file. Mismatches between sidebar label and page heading confuse readers.
+- **Did I leave any manual H1 behind?** Scan every file you touched for a body-level `# Heading` and remove it — Starlight already renders the page's H1 from frontmatter `title`, so a manual H1 is always a duplicate, never something to add or sync with a title/label change.
 - **Is the terminology right?** Cross-check against `AGENTS.md` and how the feature is actually referred to in the existing docs. Don't rename things to terms that aren't used elsewhere in the docs.
 - **Is the casing right?** All labels and H1 headings must use sentence case. Proper product feature names (e.g., "Agent Mode", "Codebase Context", "Admin Panel", "Remote Control", "Warp Drive") retain their capitalization, but generic terms ("overview", "quickstart", "agents", "notifications") are lowercase. Never use title case.
 - **Does this read naturally in context?** Consider how the title appears (a) as a sidebar label under its section header, and (b) as a search result: `{Title} | {Topic} | Warp`. If it sounds awkward or uses internal jargon that users wouldn't recognize, rephrase.
@@ -240,8 +249,12 @@ After making fixes, review every change before presenting to the user. Run throu
 
 If instructed to send a report to Slack, post a summary after the audit completes. This works regardless of whether fixes were made.
 
+**Post at most once per run.** This mirrors the "Never post twice for one run" rule in `.agents/references/skill-authoring-guidelines.md` and the same-run guard in `weekly-404-monitor`. Revise the summary wording as many times as you like before sending — never after. Once a post attempt succeeds (`ok: true`), treat the notification as terminal for this run: do not re-post to fix a typo, tighten wording, or add a detail you forgot. A second, "cleaned up" post is a worse outcome than an imperfect first one.
+
+**Check for an existing same-day post before sending.** Before posting, check whether a top-level message matching `*SEO Audit — <today's date>*` already exists in the target channel — this catches both a rerun of this agent for the same day and a mid-run retry after an apparent failure that actually succeeded. Skip the post if one is found.
+
 1. Check if `BUZZ_SLACK_TOKEN` environment variable exists.
-2. If the token exists, send a summary to the channel the user specified (or the channel configured in the agent's instructions).
+2. If the token exists, compose the summary (see the categorization and format rules below) and send it with the one-shot poster script in the "Sending the notification" section, which performs the dedupe check and the post in a single invocation.
 
 **Categorizing issues in the summary:** Before composing the message, cross-reference every issue against the title exceptions list above and check whether the issue has a local source file. Classify each issue into exactly one bucket:
 - **Fixed** — issues you resolved in this run
@@ -299,21 +312,22 @@ PR: <pr_url>
 • <N> titles too short/long
 ```
 
-Send using:
+### Sending the notification
+
+Use the one-shot poster script rather than a raw `curl chat.postMessage` call. `curl` has no dedupe check and no `ok` verification, which is exactly the gap that let this skill post the same run's summary twice: an agent revised the wording mid-run and re-sent instead of treating the first successful post as final. The script (following the `aeo_crosslink_audit` one-shot-poster pattern) reads the token from the environment, checks channel history for an existing same-day post, and posts only when none is found:
 
 ```bash
-curl -X POST https://slack.com/api/chat.postMessage \
-  -H "Authorization: Bearer $BUZZ_SLACK_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "channel": "<CHANNEL_ID>",
-    "text": "<formatted_summary>",
-    "unfurl_links": false,
-    "unfurl_media": false
-  }'
+cat > /tmp/seo-audit-summary.txt << 'EOF'
+<formatted_summary>
+EOF
+
+python3 .agents/skills/docs-seo-audit/scripts/notify_seo_slack.py \
+  --channel "<CHANNEL_ID>" \
+  --date "$(date +%Y-%m-%d)" \
+  --message-file /tmp/seo-audit-summary.txt
 ```
 
-If `BUZZ_SLACK_TOKEN` is not set, skip the notification and note that the token is required.
+The script exits `0` whether it skipped (dedupe hit), posted successfully, or found no token. It exits non-zero both for an actual Slack API post failure and for a same-day history check that could not be verified (a paginated `conversations.history` call failing or erroring) — an unverified history check is never treated as an empty one, since that would risk posting a duplicate on exactly the ambiguous retry path this script exists to prevent. A non-zero exit means the post did not go through, so a retry there is a fresh attempt, not a duplicate of a completed post; do not retry after a `0` exit. If `BUZZ_SLACK_TOKEN` is not set, the script skips the notification and says so on stderr — no separate check is needed.
 
 ## Dependencies
 
