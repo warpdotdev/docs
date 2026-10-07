@@ -1,0 +1,139 @@
+{
+  "claims": [
+    {
+      "category": "cli",
+      "claim_content_fingerprint": "sha256:2bea5f26a815d012bcbcaf81fca2914c457e0225a36c1303f2cb7b6228063e8d",
+      "claim_id": "sha256:85e04e71ee759eee0c468562ca757d7f9e18d486ce33b303b72f02bd3846a58c",
+      "entity": "warp-agent-cli",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "self-updates",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [
+          "install-script"
+        ],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "the only one that keeps the CLI up to date on its own.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/quickstart.mdx",
+        "content_sha256": "445c308b57b719cff9d8c39c9457af78b75a5ac6f8352181b7a84d73ebe6209b",
+        "heading": "1. Install the Warp Agent CLI",
+        "heading_anchor": "1-install-the-warp-agent-cli",
+        "line_end": 19,
+        "line_start": 19,
+        "path": "src/content/docs/agents/cli/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "cli",
+      "claim_content_fingerprint": "sha256:3b2e9f4f373d57ed9ec671814a0c17564ef6ce0c18947b60644e7aca28803aac",
+      "claim_id": "sha256:0f37b76e9c4e22440a53cc2f2fb73f88eb9717af4170ec15b1c70add375636c8",
+      "entity": "warp-agent-cli",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "self-updates",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [
+          "homebrew"
+        ],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Homebrew installations don't update themselves.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/quickstart.mdx",
+        "content_sha256": "445c308b57b719cff9d8c39c9457af78b75a5ac6f8352181b7a84d73ebe6209b",
+        "heading": "1. Install the Warp Agent CLI",
+        "heading_anchor": "1-install-the-warp-agent-cli",
+        "line_end": 42,
+        "line_start": 42,
+        "path": "src/content/docs/agents/cli/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "cli",
+      "claim_content_fingerprint": "sha256:9e0a97cdff7278208ffb718fccc4088992cd5ab66742edfba7df8ed0acf6fb13",
+      "claim_id": "sha256:0f37b76e9c4e22440a53cc2f2fb73f88eb9717af4170ec15b1c70add375636c8",
+      "entity": "warp-agent-cli",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "self-updates",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [
+          "homebrew"
+        ],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Homebrew owns the installation, so the CLI never replaces it.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/quickstart.mdx",
+        "content_sha256": "445c308b57b719cff9d8c39c9457af78b75a5ac6f8352181b7a84d73ebe6209b",
+        "heading": "1. Install the Warp Agent CLI",
+        "heading_anchor": "1-install-the-warp-agent-cli",
+        "line_end": 59,
+        "line_start": 59,
+        "path": "src/content/docs/agents/cli/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "445c308b57b719cff9d8c39c9457af78b75a5ac6f8352181b7a84d73ebe6209b",
+  "path": "src/content/docs/agents/cli/quickstart.mdx",
+  "schema_version": 1
+}

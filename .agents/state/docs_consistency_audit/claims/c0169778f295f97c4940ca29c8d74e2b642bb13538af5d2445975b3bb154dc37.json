@@ -1,0 +1,51 @@
+{
+  "claims": [
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:11b089d3cbe7bfccc4cd881c90d6e8766184c9e92afb7cfdca854ddabe6b5b44",
+      "claim_id": "sha256:4c1399f917ccf4490785c657221cf699f056248b04da6af79032acead7fa4d19",
+      "entity": "language-server-protocol",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "available-over-ssh",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "ssh"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "LSP is not available over SSH or WSL sessions.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/code/code-editor/language-server-protocol.mdx",
+        "content_sha256": "90944776988fa9e7a08c6e0333da7a0e7e837f72d3696ac30935575a61896bd8",
+        "heading": "Limitations",
+        "heading_anchor": "limitations",
+        "line_end": 85,
+        "line_start": 85,
+        "path": "src/content/docs/code/code-editor/language-server-protocol.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/code/code-editor/language-server-protocol/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "90944776988fa9e7a08c6e0333da7a0e7e837f72d3696ac30935575a61896bd8",
+  "path": "src/content/docs/code/code-editor/language-server-protocol.mdx",
+  "schema_version": 1
+}

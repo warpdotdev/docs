@@ -1,0 +1,259 @@
+{
+  "claims": [
+    {
+      "category": "api",
+      "claim_content_fingerprint": "sha256:6d48a0388166a9cd1bb1f5eb248e69efbafd051ee2ab20091306faf92dce25d0",
+      "claim_id": "sha256:985ea960d6052f9e24ccd5a3628f36a5605a59b8518ff0949ab7d8ac83d414f4",
+      "entity": "enterprise-analytics-api",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "default-date-window",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "the API defaults to a 1-day window ending at the current time.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/analytics-api.mdx",
+        "content_sha256": "9fd7dfc0a1184ee35bd53d6bb1a4fe7dbac01adbdf0845fc7981fec8f9deb015",
+        "heading": "Endpoints",
+        "heading_anchor": "endpoints",
+        "line_end": 62,
+        "line_start": 62,
+        "path": "src/content/docs/enterprise/enterprise-features/analytics-api.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/analytics-api/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": 86400,
+        "type": "duration"
+      }
+    },
+    {
+      "category": "api",
+      "claim_content_fingerprint": "sha256:870a6f7437eb5a1e0573a1fd3a2e0159d8c63bf17e05d4f4e2af7d6995204cae",
+      "claim_id": "sha256:9ac52d2fba1121c6797d377fb7ba05d6e2d8258f06eaff212ab2ea080ed49880",
+      "entity": "enterprise-analytics-summary",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "default-start-date-offset",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Defaults to one day before `end_date`.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/analytics-api.mdx",
+        "content_sha256": "9fd7dfc0a1184ee35bd53d6bb1a4fe7dbac01adbdf0845fc7981fec8f9deb015",
+        "heading": "`GET /api/v1/enterprises/analytics/summary`",
+        "heading_anchor": "get-apiv1enterprisesanalyticssummary",
+        "line_end": 71,
+        "line_start": 71,
+        "path": "src/content/docs/enterprise/enterprise-features/analytics-api.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/analytics-api/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": 86400,
+        "type": "duration"
+      }
+    },
+    {
+      "category": "api",
+      "claim_content_fingerprint": "sha256:870a6f7437eb5a1e0573a1fd3a2e0159d8c63bf17e05d4f4e2af7d6995204cae",
+      "claim_id": "sha256:970ffdd8efcfdb821ef7431a02df36d0f0395ef4155ea68991c90ba97fe5a776",
+      "entity": "enterprise-analytics-users",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "default-start-date-offset",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Defaults to one day before `end_date`.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/analytics-api.mdx",
+        "content_sha256": "9fd7dfc0a1184ee35bd53d6bb1a4fe7dbac01adbdf0845fc7981fec8f9deb015",
+        "heading": "`GET /api/v1/enterprises/analytics/users`",
+        "heading_anchor": "get-apiv1enterprisesanalyticsusers",
+        "line_end": 144,
+        "line_start": 144,
+        "path": "src/content/docs/enterprise/enterprise-features/analytics-api.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/analytics-api/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": 86400,
+        "type": "duration"
+      }
+    },
+    {
+      "category": "api",
+      "claim_content_fingerprint": "sha256:870a6f7437eb5a1e0573a1fd3a2e0159d8c63bf17e05d4f4e2af7d6995204cae",
+      "claim_id": "sha256:946b5c5207268cfcc243570dd326729f44c6b2f4fcf658498ed3b2028c20be40",
+      "entity": "enterprise-analytics-events",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "default-start-date-offset",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Defaults to one day before `end_date`.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/analytics-api.mdx",
+        "content_sha256": "9fd7dfc0a1184ee35bd53d6bb1a4fe7dbac01adbdf0845fc7981fec8f9deb015",
+        "heading": "`GET /api/v1/enterprises/analytics/events`",
+        "heading_anchor": "get-apiv1enterprisesanalyticsevents",
+        "line_end": 199,
+        "line_start": 199,
+        "path": "src/content/docs/enterprise/enterprise-features/analytics-api.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/analytics-api/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": 86400,
+        "type": "duration"
+      }
+    },
+    {
+      "category": "api",
+      "claim_content_fingerprint": "sha256:ca24a4221a67462ca08127a89482da23e504bca4bc0056ff29427f0ef98a7da4",
+      "claim_id": "sha256:fe50c00d05a75de8e10812654a59e840ece82c7d08239d2f6140021bbd16f56e",
+      "entity": "enterprise-analytics-grouped-response",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "maximum-periods",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "`period_list` is capped at 365 periods",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/analytics-api.mdx",
+        "content_sha256": "9fd7dfc0a1184ee35bd53d6bb1a4fe7dbac01adbdf0845fc7981fec8f9deb015",
+        "heading": "`GET /api/v1/enterprises/analytics/summary`",
+        "heading_anchor": "get-apiv1enterprisesanalyticssummary",
+        "line_end": 73,
+        "line_start": 73,
+        "path": "src/content/docs/enterprise/enterprise-features/analytics-api.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/analytics-api/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": 365,
+        "type": "integer"
+      }
+    },
+    {
+      "category": "api",
+      "claim_content_fingerprint": "sha256:d1d1625f0e8aaec5c678f4d50868515830b7d5b7c35e3213b6ccefa902fe6adf",
+      "claim_id": "sha256:7dc90e23386224d05598e0c6814c6060546c908da08eea9065f7bb79be0d044d",
+      "entity": "enterprise-analytics-events",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "maximum-page-size",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Maximum `100`.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/enterprise/enterprise-features/analytics-api.mdx",
+        "content_sha256": "9fd7dfc0a1184ee35bd53d6bb1a4fe7dbac01adbdf0845fc7981fec8f9deb015",
+        "heading": "`GET /api/v1/enterprises/analytics/events`",
+        "heading_anchor": "get-apiv1enterprisesanalyticsevents",
+        "line_end": 202,
+        "line_start": 202,
+        "path": "src/content/docs/enterprise/enterprise-features/analytics-api.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/analytics-api/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": 100,
+        "type": "integer"
+      }
+    }
+  ],
+  "page_sha256": "9fd7dfc0a1184ee35bd53d6bb1a4fe7dbac01adbdf0845fc7981fec8f9deb015",
+  "path": "src/content/docs/enterprise/enterprise-features/analytics-api.mdx",
+  "schema_version": 1
+}

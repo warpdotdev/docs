@@ -1,0 +1,148 @@
+{
+  "claims": [
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:c789ac694d1d74d12f7e241a4ce3a02f3021f02f71b9447ec32aeceb5eecc8e7",
+      "claim_id": "sha256:f3b3a3e0768fd1bb7b9571141c40bedf7b522b24862c821845c2e8d787bc1f8c",
+      "entity": "computer-use-recording",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "captures-local-desktop",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "never include your local desktop or credentials.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use",
+        "canonical_route": "/agents/capabilities/computer-use",
+        "content_sha256": "1dd51d1f3820997c49ba80255b85b5730bbb124b8e0ecd2a29c992b574c900ac",
+        "heading": "Recording sessions",
+        "heading_anchor": "recording-sessions",
+        "line_end": 96,
+        "line_start": 96,
+        "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:31583da4f52f6e61a0f42f6dd84108f34961db1c70056a62700e57d46dce99b9",
+      "claim_id": "sha256:485ce9d4dd26eab3ed3a9ad45409d586bcb661d2293d54b1d05886af9f19f335",
+      "entity": "computer-use",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "enabled-by-default",
+      "qualifiers": {
+        "actors": [
+          "server-default"
+        ],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "ga"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Computer Use is **enabled by default** for cloud agent runs on Warp's built-in harness",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use",
+        "canonical_route": "/agents/capabilities/computer-use",
+        "content_sha256": "1dd51d1f3820997c49ba80255b85b5730bbb124b8e0ecd2a29c992b574c900ac",
+        "heading": "Enabling Computer Use",
+        "heading_anchor": "enabling-computer-use",
+        "line_end": 39,
+        "line_start": 39,
+        "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:18354fe4b5dbbe650902c9867a5b3c9e823e8cf32cfb3d8ee7c6de6a9d297e22",
+      "claim_id": "sha256:d2f6b1e0b072969104bd4b89667353a0e9b1d9c45afcbf7b043022622a51a465",
+      "entity": "computer-use",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "enabled-by-default",
+      "qualifiers": {
+        "actors": [
+          "warp-app"
+        ],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "ga"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "the app's **Computer use in Cloud Agents** setting ([`cloud_agent_computer_use_enabled`](/terminal/settings/all-settings/)), which is off by default.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use",
+        "canonical_route": "/agents/capabilities/computer-use",
+        "content_sha256": "1dd51d1f3820997c49ba80255b85b5730bbb124b8e0ecd2a29c992b574c900ac",
+        "heading": "Warp app settings",
+        "heading_anchor": "warp-app-settings",
+        "line_end": 43,
+        "line_start": 43,
+        "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "1dd51d1f3820997c49ba80255b85b5730bbb124b8e0ecd2a29c992b574c900ac",
+  "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
+  "schema_version": 1
+}

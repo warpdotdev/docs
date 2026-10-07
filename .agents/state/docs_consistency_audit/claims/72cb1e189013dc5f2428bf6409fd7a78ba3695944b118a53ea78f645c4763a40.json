@@ -1,0 +1,185 @@
+{
+  "claims": [
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:249a03cfda30c1f6c888af5b3f648c4e87d87ca5be1caf1f75c2f13fad892756",
+      "claim_id": "sha256:882f4a4134e8723bc27b9e242bd35619766cbb5706ffa9292ee9cbb788b38ed4",
+      "entity": "customer-ai-data",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "used-for-training",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp reserves the right to use data collected to train models and improve Warp.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "01c77518d23261247744d22ec4131eaf989c0a64a60707393f72fc2ab535fc83",
+        "heading": "Is my data used for model training?",
+        "heading_anchor": "is-my-data-used-for-model-training",
+        "line_end": 24,
+        "line_start": 24,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "faq",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:a5504baa122504b080172bcb17056ba35f6beefb7926ee52146eb2523bbe103a",
+      "claim_id": "sha256:810fdee2c80ecd55639ecf91e5e22fab2596dba8df365d363bf9d54c79a758a4",
+      "entity": "customer-ai-data",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "retained-by-model-provider",
+      "qualifiers": {
+        "actors": [
+          "all-model-providers"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp has Zero Data Retention with all its model providers",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "01c77518d23261247744d22ec4131eaf989c0a64a60707393f72fc2ab535fc83",
+        "heading": "Is my data used for model training?",
+        "heading_anchor": "is-my-data-used-for-model-training",
+        "line_end": 24,
+        "line_start": 24,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "faq",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:c3822182786d6fdcbdf4fb819c56615820a728fee8bb0dc2e24bada1385bb6e1",
+      "claim_id": "sha256:980c4e550c83668dabec79297e97310e7eafd897d9eed1e447f07aa00fb99f03",
+      "entity": "warp-managed-inference",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "zero-data-retention-available",
+      "qualifiers": {
+        "actors": [
+          "all-model-providers"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp has Zero Data Retention with all its model providers",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "01c77518d23261247744d22ec4131eaf989c0a64a60707393f72fc2ab535fc83",
+        "heading": "Is my data used for model training?",
+        "heading_anchor": "is-my-data-used-for-model-training",
+        "line_end": 24,
+        "line_start": 24,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "faq",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "plan-gating",
+      "claim_content_fingerprint": "sha256:4773c3bfa4dcfe93c764926fa38fd3d868ca47df752b5f9a82056145325febb2",
+      "claim_id": "sha256:bb50e2ab42dec3819a61ddf9485f0423f01c42881d0f278caf864f62eee0dfda",
+      "entity": "byok",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "available",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "free"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "BYOK is one way to keep using the Warp Agent on the Free plan.",
+      "source": {
+        "canonical_identity": "route:/agents/getting-started/faqs",
+        "canonical_route": "/agents/getting-started/faqs",
+        "content_sha256": "01c77518d23261247744d22ec4131eaf989c0a64a60707393f72fc2ab535fc83",
+        "heading": "Can I use my own LLM API key?",
+        "heading_anchor": "can-i-use-my-own-llm-api-key",
+        "line_end": 32,
+        "line_start": 32,
+        "path": "src/content/docs/agents/getting-started/faqs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/getting-started/faqs/",
+        "visibility": "public"
+      },
+      "source_class": "faq",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "01c77518d23261247744d22ec4131eaf989c0a64a60707393f72fc2ab535fc83",
+  "path": "src/content/docs/agents/getting-started/faqs.mdx",
+  "schema_version": 1
+}
