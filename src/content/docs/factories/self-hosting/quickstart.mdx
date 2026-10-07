@@ -8,21 +8,17 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Run your first cloud agent on your own infrastructure in ~10 minutes using the managed architecture with the Docker backend — the default and fastest path to self-hosting.
+Run your first cloud agent on your own infrastructure in about 10 minutes with the managed architecture and the Docker backend, the default path to self-hosting.
 
 :::note
-This quickstart sets up the [managed architecture](/factories/self-hosting/#managed-architecture), where the {VARS.WARP_AUTOMATION_PLATFORM} orchestrates the agent and your worker provides the compute. **Prefer a CLI-only path with no Docker requirement?** Jump to the [Unmanaged quickstart](/platform/unmanaged-execution/#unmanaged-quickstart) to run `oz agent run` directly on any host.
+This quickstart sets up the [managed architecture](/factories/self-hosting/#managed-architecture), where the {VARS.WARP_AUTOMATION_PLATFORM} orchestrates the agent and your worker provides the compute. For a CLI-only path with no Docker requirement, follow the [unmanaged quickstart](/platform/unmanaged-execution/#unmanaged-quickstart) to run `oz agent run` directly on any host.
 :::
-
----
 
 ## Prerequisites
 
 * **Managed self-hosting access and credentials** - Complete the shared [managed prerequisites](/factories/self-hosting/#managed-prerequisites), then create an [Agent API key associated with the Default Service Account](/agents/cli/oz-cli/api-keys/#from-the-web-app-recommended). This key authenticates both the worker and the `oz agent run-cloud` command in this quickstart. A self-hosted worker key authenticates the worker only.
 * **A Linux machine with a rootful Docker daemon and GNU `stat`** - This quickstart does not cover macOS or Windows. On those hosts, follow the [Homebrew](/factories/self-hosting/managed-docker/#option-2-homebrew) or [release binary](/factories/self-hosting/managed-docker/#option-3-github-releases-binary) setup instead.
 * **The {VARS.WARP_AGENT_CLI}** - Install it on the machine that will route the test run. See [Installing the CLI](/agents/cli/oz-cli/#installing-the-cli).
-
----
 
 ## Run your first self-hosted agent
 
@@ -50,7 +46,7 @@ docker run \
   warpdotdev/oz-agent-worker --worker-id "my-worker"
 ```
 
-**Expected outcome:** The worker connects to the {VARS.WARP_AUTOMATION_PLATFORM} and begins listening for tasks. You should see log output confirming the connection (something like `Connected to Oz` / `Waiting for tasks`).
+**Expected outcome:** The worker connects to the {VARS.WARP_AUTOMATION_PLATFORM} and begins listening for tasks. The log confirms the connection with lines such as `Connected to Oz` and `Waiting for tasks`.
 
 :::caution
 For production deployments, pin to a specific image digest (e.g., `warpdotdev/oz-agent-worker@sha256:...`) instead of the `latest` tag.
@@ -70,8 +66,6 @@ oz agent run-cloud --prompt "List the files in the current directory" --host "my
 
 Open the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>, find the new task, and confirm the session transcript shows the agent running against your worker. You can attach to the session at any time via [Agent Session Sharing](/agents/local-agents/session-sharing/) to monitor or steer it.
 
----
-
 ## Troubleshooting
 
 **Worker won't start**\
@@ -87,6 +81,6 @@ For more, see [Troubleshooting](/factories/self-hosting/troubleshooting/).
 
 ## Next steps
 
-* [Self-hosting overview](/factories/self-hosting/) — Compare managed and unmanaged architectures and choose a backend.
-* [Managed: Docker](/factories/self-hosting/managed-docker/) — Full Docker backend setup, including private registries, volume mounts, and runtime configuration.
-* [Routing runs to self-hosted workers](/factories/self-hosting/#routing-runs-to-self-hosted-workers) — How to route tasks from schedules, integrations (Slack, Linear), the API, and the {VARS.WEB_APP}.
+* [Self-hosting overview](/factories/self-hosting/) - Compare managed and unmanaged architectures and choose a backend.
+* [Managed: Docker](/factories/self-hosting/managed-docker/) - Full Docker backend setup, including private registries, volume mounts, and runtime configuration.
+* [Routing runs to self-hosted workers](/factories/self-hosting/#routing-runs-to-self-hosted-workers) - How to route tasks from schedules, integrations (Slack, Linear), the API, and the {VARS.WEB_APP}.

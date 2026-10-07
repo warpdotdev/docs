@@ -15,7 +15,7 @@ A runner is a reusable compute configuration. Where an [environment](/platform/e
 
 ## Configure runners for a factory
 
-Set a factory's default runner in `agentDefaults.runner`, then override it per agent or automation when the work needs different compute. For file-managed factories, edit `runners/*.yaml` in the factory definition. For Warp-managed factories, edit runner files in the factory dashboard.
+Set a factory's default runner in `agentDefaults.runner`, then override it per agent or automation when the work needs different compute. For a GitHub-backed factory, edit `runners/*.yaml` in the definition repository. For a Warp-managed factory, edit the runner files in the factory dashboard.
 
 :::note
 Most runs don't need a custom runner. Every environment has a default runner, and Warp picks a sensible default shape when you don't specify one. Create a runner when you need a specific OS, architecture, instance size, or sandbox image.
@@ -25,18 +25,18 @@ Most runs don't need a custom runner. Every environment has a default runner, an
 
 What runners give you:
 
-* **Reusable compute configs** – Define an OS, architecture, instance size, and sandbox image once, then reuse the runner across cloud agent runs and orchestration without repeating the configuration.
-* **Right-sized hardware** – Choose the number of vCPUs and amount of memory a run needs, so lightweight tasks stay cheap and heavy builds get enough resources.
-* **Flexible OS targets** – Run agents on Linux or macOS.
-* **Independent of environments** – Override an environment's default runner per run without changing the environment itself.
+* **Reusable compute configs** - Define an OS, architecture, instance size, and sandbox image once, then reuse the runner across cloud agent runs and orchestration without repeating the configuration.
+* **Right-sized hardware** - Choose the number of vCPUs and amount of memory a run needs, so lightweight tasks stay cheap and heavy builds get enough resources.
+* **Flexible OS targets** - Run agents on Linux or macOS.
+* **Independent of environments** - Override an environment's default runner per run without changing the environment itself.
 
 ## How runners fit into cloud agent runs
 
 A runner is the compute layer for a cloud agent run. When a run starts, Warp provisions a sandbox on the runner's shape, then prepares the workspace defined by the environment (cloning repos and executing setup commands) before the agent begins.
 
-* **Environment** – Defines the workspace: Docker image, repositories, and setup commands. See [Environments](/platform/environments/).
-* **Runner** – Defines the compute: OS, architecture, instance shape (vCPUs and memory), and sandbox image.
-* **Host** – Determines where execution happens (Warp-hosted or [self-hosted](/factories/self-hosting/) infrastructure).
+* **Environment** - Defines the workspace: Docker image, repositories, and setup commands. See [Environments](/platform/environments/).
+* **Runner** - Defines the compute: OS, architecture, instance shape (vCPUs and memory), and sandbox image.
+* **Host** - Determines where execution happens (Warp-hosted or [self-hosted](/factories/self-hosting/) infrastructure).
 
 Each environment has a default runner. Specifying a runner for a run overrides that default for that run only.
 
@@ -90,16 +90,16 @@ oz runner create \
 
 Key flags:
 
-* `--name` (`-n`) — human-readable label for the runner (required).
-* `--description` (`-d`) — optional description (max 240 characters).
-* `--os` — target operating system, `linux` (default) or `macos`.
-* `--arch` — CPU architecture: `auto` (default), `x86-64`, or `aarch64`. `auto` uses the OS default (x86-64 on Linux, aarch64 on macOS).
-* `--docker-image` — Docker image reference for the sandbox. Linux only.
-* `--macos-version` — macOS version for the sandbox: `14`, `15`, `26`, or `27`. macOS only.
-* `--vcpus` — number of vCPUs for the instance shape. Must be set together with `--memory-gb`.
-* `--memory-gb` — memory in GB for the instance shape. Must be set together with `--vcpus`.
-* `--setup-command` (`-c`) — command to run when initializing the sandbox. Repeatable.
-* `--team` / `--personal` — create the runner at the team level or private to your account.
+* `--name` (`-n`) - Human-readable label for the runner (required).
+* `--description` (`-d`) - Optional description (max 240 characters).
+* `--os` - Target operating system, `linux` (default) or `macos`.
+* `--arch` - CPU architecture: `auto` (default), `x86-64`, or `aarch64`. `auto` uses the OS default (x86-64 on Linux, aarch64 on macOS).
+* `--docker-image` - Docker image reference for the sandbox. Linux only.
+* `--macos-version` - macOS version for the sandbox: `14`, `15`, `26`, or `27`. macOS only.
+* `--vcpus` - Number of vCPUs for the instance shape. Must be set together with `--memory-gb`.
+* `--memory-gb` - Memory in GB for the instance shape. Must be set together with `--vcpus`.
+* `--setup-command` (`-c`) - Command to run when initializing the sandbox. Repeatable.
+* `--team` or `--personal` - Create the runner at the team level or private to your account.
 
 :::caution
 OS-specific options must match `--os`. Use `--docker-image` only with `--os linux`, and `--macos-version` only with `--os macos`.
@@ -128,7 +128,7 @@ oz runner update <UID> --name "new name"
 oz runner update --name <name> --docker-image node:22
 ```
 
-When updating by UID, `--vcpus` and `--memory-gb` can be set independently—the value you don't pass is preserved.
+When updating by UID, `--vcpus` and `--memory-gb` can be set independently; the value you don't pass is preserved.
 
 ### Delete a runner
 
@@ -150,6 +150,6 @@ You can also select a runner when [running orchestrated agents](/platform/orches
 
 ## Related pages
 
-* [Environments](/platform/environments/) – Define the repos, image, and setup commands an agent works with.
-* [Managing cloud agents](/platform/managing-cloud-agents/) – Start, monitor, and manage cloud agent runs.
-* [{VARS.WARP_AGENT_CLI} reference](/agents/cli/oz-cli/) – Full command-line reference for runners and every other cloud agent command.
+* [Environments](/platform/environments/) - Define the repos, image, and setup commands an agent works with.
+* [Managing cloud agents](/platform/managing-cloud-agents/) - Start, monitor, and manage cloud agent runs.
+* [{VARS.WARP_AGENT_CLI} reference](/agents/cli/oz-cli/) - Full command-line reference for runners and every other cloud agent command.

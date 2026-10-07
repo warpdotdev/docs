@@ -14,22 +14,21 @@ Use it when your factory's repositories and services are reachable from the publ
 
 ## Sandbox environment
 
-All Warp-hosted agents run in fully-isolated sandboxes. Warp uses a mix of infrastructure providers to ensure reliable sandbox startup.
+All Warp-hosted agents run in isolated sandboxes. Warp uses a mix of infrastructure providers for sandbox capacity.
 
 ### OS and architecture
 
-Warp-hosted factory agents use the runner and workspace configuration in your [factory definition](/factories/factory-as-code/). A factory can also use an existing [environment](/platform/environments/) when its definition specifies one.
-They are compatible with any Linux x86-64 image that includes a `bash` shell and core utilities like `ls` and `mkdir`.
+Warp-hosted factory agents use the runner and workspace configuration in your [factory definition](/factories/factory-as-code/). A factory can also use an existing [environment](/platform/environments/) when its definition specifies one. Linux runners accept any x86-64 or aarch64 image that includes a `bash` shell and core utilities like `ls` and `mkdir`; macOS runners run in a Warp-provided VM. See [runners](/factories/runners/) for the options.
 
 ### Resources
 
-The resources available to Warp-hosted agents depend on your [plan](https://www.warp.dev/pricing) - see the latest details there.
+The resources available to Warp-hosted agents depend on your [plan](https://www.warp.dev/pricing).
 
-On [Enterprise](/enterprise/) plans, resources are configurable up to 32 vCPUs and 64 GiB of memory. If additional resources are required, reach out to Warp support about custom provisioning.
+On [Enterprise](/enterprise/) plans, resources are configurable up to 32 vCPUs and 64 GiB of memory. If you need more, contact Warp support about custom provisioning.
 
 ### Concurrency
 
-To fairly allocate resources across all Warp users, concurrency of Warp-hosted agents is limited on a per-team basis. If an agent is started while at your concurrency limit, it is automatically queued and will start as soon as another agent completes.
+To allocate resources fairly across all Warp users, Warp limits how many hosted agents a team can run at once. An agent started at the limit is queued and starts as soon as another agent completes.
 
 ### Networking
 
@@ -47,8 +46,6 @@ Warp's hosted agents have network egress enabled by default. Outgoing requests m
 * `44.253.165.189/32`
 * `16.145.188.113/32`
 * `16.145.133.251/32`
-
----
 
 ## Related pages
 
