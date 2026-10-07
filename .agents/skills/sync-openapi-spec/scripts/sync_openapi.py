@@ -10,8 +10,10 @@ This script generates the docs subset deterministically:
     every operation is internal is dropped entirely
   * tags listed in EXCLUDED_TAGS are removed (and their paths/schemas)
   * paths listed in EXCLUDED_PATHS are removed
-  * components/schemas is pruned to only schemas reachable from the
-    surviving paths via $ref walking
+  * components/schemas and components/responses are pruned to entries
+    reachable from the surviving paths via $ref walking
+  * Factory-only values are removed from the mixed public/private
+    ``RunSourceType`` schema
   * every key in STRIP_FLAGS (implementation-only extensions such as
     ``x-go-type`` and ``x-stainless-naming``) is removed recursively from
     whatever survives the filtering above, wherever it appears in the tree
@@ -76,6 +78,7 @@ STRIP_FLAGS: frozenset[str] = frozenset(
         "x-go-type",
         "x-go-type-import",
         "x-go-type-skip-optional-pointer",
+        "x-omitempty",
         "x-oapi-codegen-extra-tags",
         "x-stainless-deprecation-message",
         "x-stainless-naming",
@@ -103,6 +106,28 @@ EXCLUDED_PATHS: frozenset[str] = frozenset(
 # upstream (for example `GET /factory/scorers/{scorer_id}/results`), so a
 # tags-only rule would leak them into the public reference.
 EXCLUDED_PATH_PREFIXES: tuple[str, ...] = ("/factory",)
+
+EXCLUDED_RUN_SOURCE_VALUES: frozenset[str] = frozenset(
+    {"BENCHMARK_TRIAL", "CREATE_BENCHMARK_TASK", "CUSTOM_WEBHOOK"}
+)
+# The upstream spec owns endpoint behavior and non-product metadata. The docs
+# copy uses the public product name and description that frame the Scalar
+# reference alongside the Factory and cloud-agent documentation.
+DOCS_INFO_OVERRIDES: dict[str, str] = {
+    "title": "Warp Platform API",
+    "description": (
+        "API for creating, managing, and querying factory and cloud agent runs.\n\n"
+        "These endpoints allow users to send work to factories, start standalone agents, "
+        "list runs, and retrieve detailed run information.\n"
+    ),
+}
+
+LEGACY_ERROR_DOC_URL_PREFIX = (
+    "https://docs.warp.dev/reference/api-and-sdk/troubleshooting/errors/"
+)
+CANONICAL_ERROR_DOC_URL_PREFIX = (
+    "https://docs.warp.dev/factories/api-and-sdk/troubleshooting/errors/"
+)
 
 # Default checkout layout: docs/ and warp-server/ as siblings.
 DEFAULT_SOURCE = Path("../warp-server/public_api/openapi.yaml")
@@ -262,6 +287,20 @@ def _strip_flags(node: Any) -> Any:
     return node
 
 
+def _rewrite_docs_urls(node: Any) -> Any:
+    """Rewrite moved docs URLs to their canonical public destinations."""
+    if isinstance(node, dict):
+        return {key: _rewrite_docs_urls(value) for key, value in node.items()}
+    if isinstance(node, list):
+        return [_rewrite_docs_urls(item) for item in node]
+    if isinstance(node, str):
+        return node.replace(
+            LEGACY_ERROR_DOC_URL_PREFIX,
+            CANONICAL_ERROR_DOC_URL_PREFIX,
+        )
+    return node
+
+
 def _collect_refs(node: Any, refs: set[str]) -> None:
     """Recursively collect every component schema name referenced from ``node``.
 
@@ -282,6 +321,49 @@ def _collect_refs(node: Any, refs: set[str]) -> None:
     elif isinstance(node, list):
         for item in node:
             _collect_refs(item, refs)
+
+def _collect_response_refs(node: Any, refs: set[str]) -> None:
+    """Collect component response names referenced from ``node``."""
+    if isinstance(node, dict):
+        for key, value in node.items():
+            if (
+                key == "$ref"
+                and isinstance(value, str)
+                and value.startswith("#/components/responses/")
+            ):
+                refs.add(value[len("#/components/responses/") :])
+            else:
+                _collect_response_refs(value, refs)
+    elif isinstance(node, list):
+        for item in node:
+            _collect_response_refs(item, refs)
+
+
+def _prune_run_source_values(schemas: dict[str, Any]) -> dict[str, Any]:
+    """Remove Factory-only RunSourceType values and their descriptions."""
+    run_source_type = schemas.get("RunSourceType")
+    if not isinstance(run_source_type, dict):
+        return schemas
+    enum = run_source_type.get("enum")
+    if not isinstance(enum, list):
+        return schemas
+    pruned = dict(schemas)
+    filtered_run_source_type = dict(run_source_type)
+    filtered_run_source_type["enum"] = [
+        value for value in enum if value not in EXCLUDED_RUN_SOURCE_VALUES
+    ]
+    description = run_source_type.get("description")
+    if isinstance(description, str):
+        filtered_run_source_type["description"] = "\n".join(
+            line
+            for line in description.splitlines()
+            if not any(
+                line.strip().startswith(f"- {value}:")
+                for value in EXCLUDED_RUN_SOURCE_VALUES
+            )
+        )
+    pruned["RunSourceType"] = filtered_run_source_type
+    return pruned
 
 
 def _transitive_schemas(
@@ -362,6 +444,8 @@ def transform(source: dict[str, Any]) -> dict[str, Any]:
     for top_key in ("openapi", "info", "servers"):
         if top_key in source:
             out[top_key] = source[top_key]
+    if isinstance(out.get("info"), dict):
+        out["info"] = {**out["info"], **DOCS_INFO_OVERRIDES}
 
     src_tags = source.get("tags") or []
     out_tags = [
@@ -384,7 +468,14 @@ def transform(source: dict[str, Any]) -> dict[str, Any]:
     _collect_refs(kept_paths, seed_refs)
 
     src_components = source.get("components") or {}
-    src_schemas = src_components.get("schemas") or {}
+    src_schemas = _prune_run_source_values(src_components.get("schemas") or {})
+    src_responses = src_components.get("responses") or {}
+    response_refs: set[str] = set()
+    _collect_response_refs(kept_paths, response_refs)
+    for response_name in response_refs:
+        response = src_responses.get(response_name)
+        if isinstance(response, dict):
+            _collect_refs(response, seed_refs)
     reachable = _transitive_schemas(seed_refs, src_schemas)
 
     out_components: dict[str, Any] = {}
@@ -395,12 +486,18 @@ def transform(source: dict[str, Any]) -> dict[str, Any]:
                 for name in src_schemas
                 if name in reachable
             }
+        elif ck == "responses":
+            out_components["responses"] = {
+                name: src_responses[name]
+                for name in response_refs
+                if name in src_responses
+            }
         else:
             out_components[ck] = cv
     if out_components:
         out["components"] = out_components
 
-    return _strip_flags(out)
+    return _rewrite_docs_urls(_strip_flags(out))
 
 
 # ---------------------------------------------------------------------------
@@ -545,7 +642,10 @@ def _self_test() -> int:
                                     "schema": {"$ref": "#/components/schemas/RunResp"}
                                 }
                             },
-                        }
+                        },
+                        "403": {
+                            "$ref": "#/components/responses/PublicAccessDenied"
+                        },
                     },
                 }
             },
@@ -580,7 +680,8 @@ def _self_test() -> int:
                     "x-go-type": "models.RunReq",
                     "x-go-type-import": {"path": "warp.dev/warp-server/models"},
                     "properties": {
-                        "config": {"$ref": "#/components/schemas/Config"}
+                        "config": {"$ref": "#/components/schemas/Config"},
+                        "source": {"$ref": "#/components/schemas/RunSourceType"},
                     },
                 },
                 "Config": {
@@ -599,6 +700,7 @@ def _self_test() -> int:
                         "legacy_mode": {
                             "type": "string",
                             "x-go-type-skip-optional-pointer": True,
+                            "x-omitempty": True,
                             "x-oapi-codegen-extra-tags": {"json": "legacy_mode,omitempty"},
                         },
                         "factory_agent_type": {
@@ -613,8 +715,43 @@ def _self_test() -> int:
                     "x-stainless-naming": {"typescript": {"type": "Mode"}},
                 },
                 "RunResp": {"type": "object"},
+                "Error": {
+                    "type": "object",
+                    "description": (
+                        f"Format: `{LEGACY_ERROR_DOC_URL_PREFIX}"
+                        "{error_code}`"
+                    ),
+                },
                 "MSItem": {"type": "object"},  # only referenced by dropped path
                 "Followup": {"type": "object"},
+                "RunSourceType": {
+                    "type": "string",
+                    "enum": ["API", "BENCHMARK_TRIAL", "CUSTOM_WEBHOOK"],
+                    "description": (
+                        "Source that created the run:\n"
+                        "- API: Created through the API\n"
+                        "- BENCHMARK_TRIAL: Created as a factory benchmark trial\n"
+                        "- CUSTOM_WEBHOOK: Created by a factory automation"
+                    ),
+                },
+            },
+            "responses": {
+                "PublicAccessDenied": {
+                    "description": "access denied",
+                    "content": {
+                        "application/json": {
+                            "schema": {"$ref": "#/components/schemas/Error"}
+                        }
+                    },
+                },
+                "FactoryAccessDenied": {
+                    "description": "Factory access denied",
+                    "content": {
+                        "application/json": {
+                            "schema": {"$ref": "#/components/schemas/MSItem"}
+                        }
+                    },
+                },
             },
         },
     }
@@ -628,12 +765,31 @@ def _self_test() -> int:
 
     schemas = set(out["components"]["schemas"].keys())
     # Config and Mode are reachable transitively (allOf, items)
-    assert schemas == {"RunReq", "Config", "Mode", "RunResp"}, f"unexpected schemas: {schemas}"
+    assert schemas == {
+        "RunReq",
+        "Config",
+        "Mode",
+        "RunResp",
+        "RunSourceType",
+        "Error",
+    }, f"unexpected schemas: {schemas}"
+
+    responses = set(out["components"]["responses"].keys())
+    assert responses == {"PublicAccessDenied"}, f"unexpected responses: {responses}"
+    run_sources = out["components"]["schemas"]["RunSourceType"]
+    assert run_sources["enum"] == ["API"], f"unexpected run sources: {run_sources['enum']}"
+    assert "BENCHMARK_TRIAL" not in run_sources["description"]
+    assert "CUSTOM_WEBHOOK" not in run_sources["description"]
 
     tag_names = [t["name"] for t in out.get("tags") or []]
     assert tag_names == ["agent"], f"unexpected tags: {tag_names}"
 
     assert out["components"].get("securitySchemes"), "securitySchemes should be preserved"
+    assert out["info"]["title"] == "Warp Platform API"
+    assert out["info"]["description"] == DOCS_INFO_OVERRIDES["description"]
+    error_description = out["components"]["schemas"]["Error"]["description"]
+    assert LEGACY_ERROR_DOC_URL_PREFIX not in error_description
+    assert CANONICAL_ERROR_DOC_URL_PREFIX in error_description
 
     ref_errors = _validate_output(out)
     assert not ref_errors, f"unexpected unresolved refs: {ref_errors}"

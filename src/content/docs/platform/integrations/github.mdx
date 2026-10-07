@@ -10,7 +10,7 @@ import { VARS } from '@data/vars';
 
 The GitHub integration lets your team start cloud agents from GitHub itself. Mention **@warp-agent** in an issue comment, a pull request review comment, or the body of a new pull request, and Warp starts a cloud agent that reads the surrounding context, works the task in your codebase, and posts its progress and results back into the same thread.
 
-The integration is powered by the **Warp Factories** GitHub App. Once a team admin installs the app and enables the GitHub organization, every teammate who has connected their GitHub account can trigger agents from GitHub without leaving a review or an issue.
+The integration is powered by the [Warp Factories](/factories/) GitHub App. Once a team admin installs the app and enables the GitHub organization, every teammate who has connected their GitHub account can trigger agents from GitHub without leaving a review or an issue.
 
 :::note
 This page covers the native GitHub App integration. It is distinct from two other GitHub surfaces:
@@ -192,9 +192,9 @@ Your GitHub account is connected, but your Warp account isn't in a team with acc
 
 Use the error code in the thread's status comment to narrow the fix. Common errors include:
 
-* [`feature_not_available`](/reference/api-and-sdk/troubleshooting/errors/feature-not-available/) - The team's plan doesn't support integrations.
-* [`external_authentication_required`](/reference/api-and-sdk/troubleshooting/errors/external-authentication-required/) - GitHub authorization is missing or expired.
-* [`insufficient_credits`](/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/) - The billed account has no credits available.
+* [`feature_not_available`](/factories/api-and-sdk/troubleshooting/errors/feature-not-available/) - The team's plan doesn't support integrations.
+* [`external_authentication_required`](/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/) - GitHub authorization is missing or expired.
+* [`insufficient_credits`](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) - The billed account has no credits available.
 
 ### The agent finished but opened no pull request
 

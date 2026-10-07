@@ -12,7 +12,7 @@ When you connect a factory to GitLab, project activity starts work in your facto
 
 ## Prerequisites
 
-* **GitLab.com** - The integration supports GitLab.com only, not self-managed GitLab instances. To use a self-managed instance with standalone cloud agents instead, see the [GitLab access token setup](/platform/integrations/gitlab/).
+* **GitLab.com** - The integration supports GitLab.com only, not self-managed GitLab instances. To use a self-managed instance with a factory, see [connecting other code forges](/factories/code-forges/other-code-forges/). For standalone cloud agents, see the [GitLab access token setup](/platform/integrations/gitlab/).
 * **A top-level GitLab group you own** - Connecting GitLab links one top-level group to your Warp workspace, one-to-one. Creating the link requires the Owner role on the group and workspace admin permissions in Warp.
 * **A GitLab plan with service accounts and group webhooks** - Warp provisions service accounts in your group and installs a group webhook; both are GitLab Premium and Ultimate features. On a plan without group webhooks, factory credentials still work, but GitLab cannot trigger runs.
 

@@ -13,12 +13,12 @@ https://docs.warp.dev/errors/insufficient_credits
 The documentation page lives at:
 
 ```
-https://docs.warp.dev/reference/api-and-sdk/troubleshooting/errors/insufficient-credits
+https://docs.warp.dev/factories/api-and-sdk/troubleshooting/errors/insufficient-credits
 ```
 
 Two gaps separate them:
 
-1. **Path prefix** — `/errors/{code}` versus the full `/reference/api-and-sdk/troubleshooting/errors/{code}` path.
+1. **Path prefix** — `/errors/{code}` versus the full `/factories/api-and-sdk/troubleshooting/errors/{code}` path.
 2. **Separator** — error codes are underscored (`insufficient_credits`); page slugs are hyphenated (`insufficient-credits`). A single-word code such as `conflict` has no separator to convert, so this gap does not exist for it.
 
 Both are handled by entries in `vercel.json` at the repo root. All redirects for the site live in that one file.
@@ -30,12 +30,12 @@ Catch-alls already cover every error code, current and future, in both slash for
 ```json
 {
   "source": "/errors/:code",
-  "destination": "/reference/api-and-sdk/troubleshooting/errors/:code/",
+  "destination": "/factories/api-and-sdk/troubleshooting/errors/:code/",
   "statusCode": 308
 },
 {
   "source": "/errors/:code/",
-  "destination": "/reference/api-and-sdk/troubleshooting/errors/:code/",
+  "destination": "/factories/api-and-sdk/troubleshooting/errors/:code/",
   "statusCode": 308
 }
 ```
@@ -63,13 +63,13 @@ For a code that does differ, map the underscored form to the hyphenated page slu
 
 ```json
 {
-  "source": "/reference/api-and-sdk/troubleshooting/errors/{underscore_code}",
-  "destination": "/reference/api-and-sdk/troubleshooting/errors/{hyphen-code}/",
+  "source": "/factories/api-and-sdk/troubleshooting/errors/{underscore_code}",
+  "destination": "/factories/api-and-sdk/troubleshooting/errors/{hyphen-code}/",
   "statusCode": 308
 },
 {
-  "source": "/reference/api-and-sdk/troubleshooting/errors/{underscore_code}/",
-  "destination": "/reference/api-and-sdk/troubleshooting/errors/{hyphen-code}/",
+  "source": "/factories/api-and-sdk/troubleshooting/errors/{underscore_code}/",
+  "destination": "/factories/api-and-sdk/troubleshooting/errors/{hyphen-code}/",
   "statusCode": 308
 }
 ```
@@ -78,13 +78,13 @@ Example for `insufficient_credits`, whose forms differ:
 
 ```json
 {
-  "source": "/reference/api-and-sdk/troubleshooting/errors/insufficient_credits",
-  "destination": "/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/",
+  "source": "/factories/api-and-sdk/troubleshooting/errors/insufficient_credits",
+  "destination": "/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/",
   "statusCode": 308
 },
 {
-  "source": "/reference/api-and-sdk/troubleshooting/errors/insufficient_credits/",
-  "destination": "/reference/api-and-sdk/troubleshooting/errors/insufficient-credits/",
+  "source": "/factories/api-and-sdk/troubleshooting/errors/insufficient_credits/",
+  "destination": "/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/",
   "statusCode": 308
 }
 ```
@@ -96,12 +96,12 @@ Rules:
 - `source` has a **leading slash** and no file extension.
 - `destination` has a **trailing slash** in both entries. Every existing error redirect does.
 - Always set `"statusCode": 308`.
-- Add the entries near the other `/reference/api-and-sdk/troubleshooting/errors/` redirects so they stay grouped.
+- Add the entries near the other `/factories/api-and-sdk/troubleshooting/errors/` redirects so they stay grouped.
 - Check for existing entries before adding, so re-runs stay idempotent:
 
   ```bash
-  grep -F '"/reference/api-and-sdk/troubleshooting/errors/{underscore_code}"' vercel.json
-  grep -F '"/reference/api-and-sdk/troubleshooting/errors/{underscore_code}/"' vercel.json
+  grep -F '"/factories/api-and-sdk/troubleshooting/errors/{underscore_code}"' vercel.json
+  grep -F '"/factories/api-and-sdk/troubleshooting/errors/{underscore_code}/"' vercel.json
   ```
 
 ## Note on the former GitBook flow

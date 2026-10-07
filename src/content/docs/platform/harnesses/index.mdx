@@ -12,6 +12,8 @@ import { VARS } from '@data/vars';
 
 The {VARS.WARP_AUTOMATION_PLATFORM} can run third-party agent harnesses as cloud agents alongside Warp Agent, including [Claude Code](/platform/harnesses/claude-code/) and [Codex](/platform/harnesses/codex/). You choose the harness (agent runtime) that fits the task; the platform around the run stays the same.
 
+For a factory, set the default or per-agent harness in its [factory definition](/factories/factory-as-code/#agentdefaultsharness) or configure it for a [factory agent](/factories/factory-agents/).
+
 Watch this walkthrough to see how to run Warp Agent, Claude Code, or Codex as a cloud agent.
 
 <VideoEmbed url="https://www.youtube.com/watch?v=ZUYyuA5i1VU" title={`Run any agent in the cloud with the ${VARS.WARP_AUTOMATION_PLATFORM} - Claude Code, Codex, or Warp Agent`} />
@@ -27,7 +29,7 @@ Third-party harnesses inherit the same {VARS.WARP_AUTOMATION_PLATFORM} features 
 
 ## Plan requirements
 
-Third-party harnesses require a Build plan or higher. On the Free plan, cloud agent runs use Warp Agent, and choosing another harness returns an upgrade prompt. See [Warp pricing](https://www.warp.dev/pricing) for what each plan includes.
+Third-party harnesses require a paid plan. On the Free plan, cloud agent runs use Warp Agent, and choosing another harness returns an upgrade prompt. See [Warp pricing](https://www.warp.dev/pricing) for what each plan includes.
 
 ## Billing
 
@@ -54,7 +56,17 @@ On the new run or new schedule pane, choose the harness in the **Harness** field
 
 ### API and SDK
 
-Set the `harness` field on the agent config. See the [API reference](/reference/api-and-sdk/) for the exact field names.
+Set the `harness` field on the agent config to one of the [harness identifiers](#harness-identifiers) below. See the [API reference](/factories/api-and-sdk/) for the exact field names.
+
+## Harness identifiers
+
+Surfaces that take the harness as a string use `oz` for the Warp Agent, `claude` for Claude Code, and `codex` for Codex. Write `claude` for Claude Code — not `claude-code` — unless the surface explicitly accepts that alias:
+
+* **API and SDK** — the agent config's `harness.type` accepts `oz`, `claude`, or `codex`.
+* **CLI** — `oz agent run-cloud --harness` accepts the same identifiers, plus `claude-code` as an alias for `claude`.
+* **Factory definition files** — [`harness.type`](/factories/factory-as-code/#agentdefaultsharness) accepts `oz`, `claude`, or `codex`, plus `claude-code` as an alias for `claude`.
+
+Where the alias is accepted, it selects the same Claude Code harness as `claude`. Everywhere else — including the API — only the canonical identifiers are valid, so prefer them in anything you script, sync, or store.
 
 ## Related pages
 

@@ -1,7 +1,7 @@
 ---
 title: [Sentence case. Use "About [subject]" or a plain noun phrase naming the subject. Not "Understanding how X works". This renders as the page H1 — do not add an H1 in the body.]
 description: >-
-  [One sentence, 50-160 characters: what the thing is and why it matters. Start with the
+  [One to two sentences, 50-160 characters: what the thing is and why it matters. Start with the
   subject, not "Learn about". Example: "Environments give cloud agents the same toolchain
   and setup on every run, no matter what triggers them."
   Use {{TOKEN}} syntax for product names in src/data/vars.ts.]
@@ -11,11 +11,13 @@ description: >-
 
 [Opening paragraph: what this concept is and its primary benefit. 1-3 sentences. Lead with what the reader gains from understanding it. Assume they arrived here directly, not from a parent page.]
 
+[DEFINE → SHOW → LINK: Any new product term gets one to three plain sentences, then one concrete example, before configuration detail or internals. See AGENTS.md → Define, show, link.]
+
 [BREVITY: Delete any section below you don't need for this page — a short page is a finished page. See AGENTS.md → Voice & tone → Cut again.]
 
 ## [Key concepts — sentence case, renamed to match the subject]
 
-[The main ideas or components the reader needs. Bold term + hyphen + description.]
+[The main ideas or components the reader needs. Bold term + hyphen + plain-language description. Add one short example when the term is jargon-heavy.]
 
 * **Concept A** - What it is and why it matters.
 * **Concept B** - What it is and why it matters.

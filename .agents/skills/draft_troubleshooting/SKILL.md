@@ -13,7 +13,7 @@ Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **trouble
 
 ## Frontmatter description
 
-One sentence, 50-160 characters, naming the symptoms covered rather than the act of troubleshooting.
+One to two sentences, 50-160 characters, naming the symptoms covered rather than the act of troubleshooting.
 - ✅ `Fix sign-in failures, failed conversation resumes, and update problems in the Warp Agent CLI.`
 - ❌ `Troubleshooting information for common problems.`
 
@@ -44,5 +44,5 @@ All headings (H1–H4) must use **sentence case**: capitalize only the first wor
 ## Existing examples
 
 Read 2-3 of these strong examples to match the existing pattern:
-- `src/content/docs/support-and-community/troubleshooting-and-support/known-issues.md`
-- `src/content/docs/reference/cli/troubleshooting.md`
+- `src/content/docs/support-and-community/troubleshooting-and-support/known-issues.mdx`
+- `src/content/docs/agents/cli/oz-cli/troubleshooting.mdx`

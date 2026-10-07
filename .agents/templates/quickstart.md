@@ -1,7 +1,7 @@
 ---
 title: [Sentence case, naming the feature. Use "Quickstart for [product]" or "[Feature] quickstart". Never a bare "Quickstart". This renders as the page H1 — do not add an H1 in the body.]
 description: >-
-  [One sentence, 50-160 characters: what the reader ends up with, plus the time budget.
+  [One to two sentences, 50-160 characters: what the reader ends up with, plus the time budget.
   Start with an imperative verb, not "Learn how to" or "Get started with". Example:
   "Install the {{WARP_AGENT_CLI}}, log in, and run your first agent conversation in about
   five minutes." Use {{TOKEN}} syntax for product names in src/data/vars.ts.]

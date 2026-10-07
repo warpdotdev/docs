@@ -13,7 +13,7 @@ Follow the workflow in `.agents/skills/draft_docs/SKILL.md`, using the **concept
 
 ## Frontmatter description
 
-One sentence, 50-160 characters, saying what the concept is and why it matters. Start with the subject.
+One to two sentences, 50-160 characters, saying what the concept is and why it matters. Start with the subject.
 - ✅ `Environments give cloud agents the same toolchain and setup on every run, no matter what triggers them.`
 - ❌ `Learn about environments and why they are useful.`
 

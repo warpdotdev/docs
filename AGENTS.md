@@ -27,6 +27,16 @@ Describe what the reader sees and does. Internal components get at most one sent
 - ✅ "Warp tracks every run. Check its status from the CLI, the API, or the dashboard."
 - ❌ "The orchestration layer runs on Warp's servers (cloud control plane), creates tasks when triggers fire, and tracks lifecycle state (created → running → completed/failed)."
 
+#### Order from intent to technical detail
+
+When readers need exact fields, IDs, or runtime labels, order the explanation from intent to implementation:
+
+* **Intent** - Start with what the developer wants to accomplish.
+* **Action** - Explain what to do with plain-language concepts.
+* **Technical detail** - Add the exact field, identifier, or label after the action is clear.
+
+Explain an identifier by what it lets the reader select or load, not by its storage or schema name. Include a literal product or runtime label only when the reader needs it to find a value, and introduce it after the plain-language concept.
+
 This is the voice-level version of "Don't over-specify counts or internals that will drift" (see General guidance): internals aren't just a staleness risk, they're noise between the reader and the task.
 
 When a page carries real information in the wrong register (provenance, pinned versions, maintainer process), relocate it to the surface whose audience needs it: a reference page, a script docstring, a code comment. Leave a pointer if the reader might follow the thread. Cutting for tone must not lose facts; it changes where they live.
@@ -41,6 +51,8 @@ Cut sentences that narrate the page, restate what the reader just read, or expla
   - ❌ "The container is destroyed after each run. This process ensures every run starts from the same baseline, making results reproducible and debugging straightforward."
 - **No recap lines** - Don't end a section by summarizing it ("In practice: triggers create tasks; tasks produce outputs.").
 - **Say it once** - Don't repeat a caveat or definition across multiple sections of the same page. Put it where it matters most. The same goes for sibling pages: boilerplate like validation steps or shared prerequisites lives once on the parent or reference page, linked from the rest.
+  - ✅ State a plan-tier requirement once in a `:::note` near the top of the section, then let a later procedure that depends on it link back rather than restating it.
+  - ❌ Repeating the same "requires a Build plan or higher" caveat both in a section-level note and again inside a numbered step further down the page.
 
 #### Words to avoid
 These words are the strongest tell of an AI-generated draft and rarely add meaning. Replace them with the specific fact they're hiding, or delete them.
@@ -85,6 +97,7 @@ Expect the second pass to find real deletions even after a careful first one; re
 
 ### Language guidelines
 - Use consistent terminology throughout (see [Terminology standards](#terminology-standards) and the full glossary in `.agents/references/terminology.md`)
+- Prefer simple, direct product language. Write "agents" instead of "agent roster" unless the specialized term communicates a necessary distinction.
 - Em dashes are acceptable for occasional variation in narrative/conceptual text, but use sparingly
 - Never use em dashes in procedural or instructional text
 
@@ -163,7 +176,7 @@ Every page must include YAML frontmatter with a `description` field.
 ```yaml
 ---
 description: >-
-  One sentence, 50-160 characters, stating what the reader gets from this page.
+  One to two sentences, 50-160 characters, stating what the reader gets from this page.
 ---
 ```
 
@@ -173,7 +186,7 @@ The `description` field is the meta description in search results and the snippe
 
 #### Description rules
 These apply to every page, regardless of content type.
-- **One sentence, 50-160 characters.** Search engines truncate past roughly 160. Two sentences almost always overshoot the budget, so prefer one that earns its length.
+- **One to two sentences, 50-160 characters.** Search engines truncate past roughly 160. Prefer one sentence when it earns its length; use a second only when both stay within budget and add real clarity, not padding.
 - **Cut filler openers.** "Learn about," "This page covers," "A guide to," and "Documentation for" spend characters without adding meaning. Start with the verb or the subject instead.
 - **Describe what the reader gets, not what the page is.** "This page explains X" is always weaker than explaining X.
 - **Lead with the primary keyword** when it reads naturally, ideally within the first few words.
@@ -327,7 +340,7 @@ Captions orient the reader — they identify what the image shows so the reader 
 - ✅ `<figcaption>Codebase indexing settings.</figcaption>`
 - ❌ `<figcaption>Codebase indexing settings in Warp. Easily track sync status and manage which folders are indexed for AI-powered context and suggestions.</figcaption>` (marketing language, too long)
 - ❌ `<figcaption>Click the toast to jump to the agent's session.</figcaption>` (procedural — belongs in body text)
-- ❌ `<figcaption>Universal Input's contextual input chips, from left to right: conversation management, node version, active directory, Git and code diffs, and 2 attached images.</figcaption>` (exhaustive list)
+- ❌ `<figcaption>The input toolbelt, from left to right: model selector, voice input, image attachments, and conversation controls.</figcaption>` (exhaustive list)
 
 ### Links, embeds, and cross-references
 - Use descriptive link text that explains what users will find. The anchor text should describe the destination or task, not the action of clicking.
@@ -436,18 +449,21 @@ Keyboard keys and shortcuts use backticks. Use `+` as the separator between keys
 - ❌ **System Settings** > **Privacy & Security** > **Local Network** (macOS path missing the Apple icon — `U+F8FF` must appear before the first `>`)
 
 ### UI elements
-- Use bold for interactive UI elements (e.g., buttons, toggles, dropdowns)
+- Use bold for interactive UI elements (e.g., buttons, toggles, dropdowns, and the option you select from one)
 - Describe UI elements by name, not just appearance or location. Prefer "In the sidebar, click **Platform**" over "Click the button on the left."
 - Format checkbox names in bold. Omit the word "checkbox." Use "select" or "deselect," not "check" or "uncheck."
+- Use quotation marks, not bold, for a field or label name that is not itself clickable. The interactive control next to it (the dropdown, the input, the option you choose from it) still gets bold.
 
 **Use:**
 - ✅ Click your profile photo in the top-right corner, then click **Settings**.
 - ✅ In the sidebar, click **Platform**.
+- ✅ In the "Harness" dropdown, select **Claude Code** or **Codex**. ("Harness" labels the field but isn't itself clickable; the dropdown and its options are)
 
 **Don't use:**
 - ❌ In the API Keys section, click `+ Create API Key`.
 - ❌ In the API Keys section, click `+ Create API Key`. (use bold, not backticks)
 - ❌ Click `Create key`. (use bold, not backticks)
+- ❌ Choose **Claude Code** or **Codex** in the **Harness** field. (the field label isn't interactive, so it shouldn't be bold)
 
 #### Verbs for UI interactions
 Use consistent verbs that match the type of UI element:
@@ -527,7 +543,7 @@ These rules apply regardless of content type:
 - Do NOT include step-by-step procedures — link to a procedural or quickstart page instead
 - Show real-world scenarios, not just abstract descriptions
 
-**Existing examples**: `platform/deployment-patterns.mdx`, `platform/index.mdx`
+**Existing examples**: `factories/deployment-patterns.mdx`, `platform/index.mdx`
 
 **Template**: `.agents/templates/conceptual.md`
 
@@ -548,15 +564,21 @@ These rules apply regardless of content type:
 - **Keep steps focused, not artificially atomic.** Aim for one primary action per step, but group tightly related actions together when they share the same UI context and doing so keeps the procedure at a readable length. Up to ~3 related actions per step is acceptable. Use judgment: a simple task shouldn't require 10+ steps, but a single step shouldn't be a mini-procedure either.
   - Acceptable groupings: actions on the same form (entering a name and choosing an expiration date), a click that reveals the next target (clicking to expand a section, then clicking the revealed item), or a short natural sequence within the same UI area.
   - Avoid grouping actions that span different areas of the UI or that would make a step hard to scan at a glance.
+  - **Move reference detail out of the step into a `:::note`.** When a step's supporting detail is a list of facts a reader might check rather than an instruction (accepted credential types, valid formats), keep the step to its one action and put the list in a `:::note` immediately after it.
+    - ✅ A step reading "In the **Auth** field, choose a compatible, team-owned secret from the list or click **New auth secret** to create one," followed by a `:::note` listing which credential type each option accepts.
+    - ❌ Folding the full list of accepted credential types into the same sentence as the instruction, so the action is buried in reference detail.
 - **Motivate steps before giving instructions.** Briefly explain WHY before HOW, especially for setup steps. A single sentence of motivation prevents the reader from wondering "why am I doing this?"
   - ✅ "Export your API key so the CLI can authenticate your requests automatically."
   - ❌ "Export your API key as an environment variable." (why?)
+- **Orient within the step, not just on first mention.** The page-level rule above ("Orient the reader before UI, CLI, or URL instructions") also applies inside a single step: name the field, dropdown, or location the action happens in before naming the action itself. Don't rely on referring the reader back to an earlier section instead — a step should stand on its own for a reader who lands on it directly.
+  - ✅ "In the 'Harness' dropdown, select **Claude Code** or **Codex**."
+  - ❌ "Choose **Claude Code** or **Codex** in the **Harness** field." (names the action before the location)
 - Include expected outcomes after key steps so the reader can confirm they're on track.
 - Test all instructions for accuracy.
 - Provide troubleshooting for common failure points.
 - **Explain the default before the override.** When documenting configurable infrastructure or advanced settings, state the default behavior and the common case first, then cover manual overrides. Don't lead with the full matrix of options before establishing what "just works" out of the box.
 
-**Existing examples**: `reference/cli/api-keys.mdx`, `platform/integrations/slack.mdx`
+**Existing examples**: `agents/cli/oz-cli/api-keys.mdx`, `platform/integrations/slack.mdx`
 
 **Template**: `.agents/templates/procedural.md`
 
@@ -609,7 +631,7 @@ These rules apply regardless of content type:
 - Keep descriptions factual and concise — this is for lookup, not learning.
 - Include at least one practical example for each command or endpoint.
 
-**Existing examples**: `reference/cli/index.mdx`, `reference/api-and-sdk/index.mdx`
+**Existing examples**: `agents/cli/oz-cli/index.mdx`, `factories/api-and-sdk/index.mdx`
 
 **Template**: `.agents/templates/reference.md`
 
@@ -631,7 +653,7 @@ These rules apply regardless of content type:
 - Provide workarounds when a fix isn't available.
 - Link to related troubleshooting pages and support channels.
 
-**Existing examples**: `support-and-community/troubleshooting-and-support/known-issues.mdx`, `reference/cli/troubleshooting.mdx`
+**Existing examples**: `support-and-community/troubleshooting-and-support/known-issues.mdx`, `agents/cli/oz-cli/troubleshooting.mdx`
 
 **Template**: `.agents/templates/troubleshooting.md`
 
@@ -673,7 +695,7 @@ Direct answer with actionable information. Include links to relevant documentati
 
 **Template**: `.agents/templates/faq.md`
 
-**Existing examples**: `agent-platform/getting-started/faqs.mdx`, `support-and-community/plans-and-billing/pricing-faqs.mdx`
+**Existing examples**: `agents/getting-started/faqs.mdx`, `support-and-community/plans-and-billing/pricing-faqs.mdx`
 
 ### Tutorial (Guides section)
 
@@ -736,7 +758,7 @@ This is the most common page type in Warp's docs (~75+ pages). A feature documen
 
 This is the type most prone to sprawl, precisely because it accepts the most kinds of content. If the page is growing past roughly 1500 words, split the procedures onto their own pages rather than adding another section.
 
-**Existing examples**: `agent-platform/capabilities/skills.mdx`, `platform/environments.mdx`
+**Existing examples**: `agents/capabilities/skills.mdx`, `platform/environments.mdx`
 
 **Template**: `.agents/templates/feature-doc.md`
 
@@ -795,7 +817,7 @@ This is the single most drifted term in the docs, so the rule is narrow on purpo
 - **Warp Agent** - Capitalized, singular, treated as a proper noun. Use it for Warp's built-in agent harness, especially when contrasting with third-party agents (Claude Code, Codex, and so on) or when referencing the Settings label (**Settings** > **Agents** > **Warp Agent**).
 - **In prose, it takes the definite article: "the Warp Agent".** The bare form is for headings, sidebar labels, page titles, and the Settings path. "Runs the Warp Agent" reads correctly; "runs Warp Agent" reads as a different product.
 - **agent** / **agents** - Lowercase everywhere else. This is the generic concept and covers any agent on any surface, including cloud agents and third-party CLI agents.
-- **Proper nouns keep their capital A.** `Agent Mode`, `Agent Profiles`, `Agent Memory`, `Agent Management Panel`, `Agent API`, and `Warp Agent CLI` are feature names, not instances of the generic term.
+- **Proper nouns keep their capital A.** `Agent Mode`, `Agent Profiles`, `Agent Memory`, `Agent Management Panel`, and `Warp Agent CLI` are feature names, not instances of the generic term.
 
 ❌ **Avoid "Warp's agent" and "Warp's agents".** This is the ambiguous middle ground and the main source of drift. It reads as neither the proper noun nor the generic term, so it blurs exactly the distinction that matters. Rewrite instead:
 
@@ -810,7 +832,7 @@ This is the single most drifted term in the docs, so the rule is narrow on purpo
 
 ### Automation Platform terminology
 
-Renamed from "Oz" on 2026-08-18. The `oz` CLI binary and the Oz v1 web app at `oz.warp.dev` keep the Oz name until 2026-09-15 and are not stale in the meantime. See `.agents/references/terminology.md` → "What still says Oz" for the full holdout list.
+Renamed from "Oz" on 2026-08-18. The `oz` CLI binary and the Oz v1 web app at `oz.warp.dev` keep the Oz name until 2026-10-06 and are not stale in the meantime. See `.agents/references/terminology.md` → "What still says Oz" for the full holdout list.
 
 #### The article rule
 "Oz" was a proper noun and read correctly bare. "Automation Platform" is a common-noun phrase, so it needs a definite article in referential positions. This is the most common mistake when writing about the platform.
@@ -835,7 +857,7 @@ Write the name as `{VARS.WARP_AUTOMATION_PLATFORM}` in body prose or `{{WARP_AUT
 - **cloud agent run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based. Use `{VARS.PLATFORM_RUN}`. On factory-specific pages, write "factory run" directly.
 - **Environment** - The execution context for an agent, including repo access, dependencies, secrets, compute, and runtime configuration
 - **cloud agent dashboard** - The app surface to manage all runs, unified across the Warp app and web. Use `{VARS.DASHBOARD}`. On factory-specific pages, write "factory dashboard" directly.
-- **Oz web app** - The web app for configuring agents and managing runs. Holds the Oz name until 2026-09-15; use `{VARS.WEB_APP}`.
+- **Oz web app** - The web app for configuring agents and managing runs. Holds the Oz name until 2026-10-06; use `{VARS.WEB_APP}`.
 
 #### Oz CLI commands
 - `oz agent run` - Run a local agent
@@ -946,7 +968,7 @@ Add the key-value pair to `src/data/vars.ts` only. Both Option A (TypeScript imp
 All documentation should be written with search discoverability in mind — both for traditional search engines (Google) and AI engines (ChatGPT, Gemini, Perplexity, Copilot).
 
 ### Frontmatter descriptions
-- Every page must have a `description` in frontmatter. Write it as a standalone summary (one sentence, 50-160 characters) that includes the primary keyword naturally.
+- Every page must have a `description` in frontmatter. Write it as a standalone summary (one to two sentences, 50-160 characters) that includes the primary keyword naturally.
 - Descriptions appear in search results and AI citations. Write for humans, but include the key terms a developer would search for.
 - For the full rules and per-content-type patterns with examples, see [Frontmatter](#frontmatter) under Content structure. That section is the source of truth.
 
@@ -966,7 +988,7 @@ Before publishing any documentation, verify:
 - [ ] The change passed `.agents/references/docs-worthiness-criteria.md` — the full gate with recorded evidence for automated runs, Gate 0 (shipped and public) for human-requested pages
 - [ ] A content design plan exists per `.agents/references/content-design-plan.md` and appears in the PR body
 - [ ] An existing page was updated rather than a new page created, unless a new page is genuinely justified
-- [ ] Frontmatter includes a one-sentence description (50-160 chars) written as a standalone summary, with no filler opener
+- [ ] Frontmatter includes a one-to-two-sentence description (50-160 chars) written as a standalone summary, with no filler opener
 - [ ] Content type is identified and the page follows the structure for that type (see `.agents/templates/`)
 - [ ] The title follows the convention for its content type (see "Titles by content type")
 - [ ] No quickstart or tutorial content is folded into a combined feature page
@@ -1064,8 +1086,9 @@ Content lives in `src/content/docs/`, organized by topic:
 - **code/** — Code editor, code review, git worktrees
 - **getting-started/** — Installation, quickstart, migration
 - **knowledge-and-collaboration/** — Warp Drive, teams, admin panel
-- **agent-platform/** — Agent Platform (capabilities, local agents, cli agents, cloud agents)
-- **reference/** — CLI and API/SDK reference
+- **agents/** — Agent capabilities, local agents, CLI agents, and inference
+- **platform/** — Standalone cloud-agent workflows, environments, triggers, integrations, and orchestration
+- **factories/** — Warp Factories, including its API and SDK reference
 - **support-and-community/** — Troubleshooting, billing, privacy
 - **enterprise/** — Enterprise features, SSO, team management
 - **changelog/** — Release changelog
@@ -1073,9 +1096,9 @@ Content lives in `src/content/docs/`, organized by topic:
 
 ### Content model
 The docs site has multiple levels of hierarchy:
-- **Top-level section** (e.g., `src/content/docs/agent-platform/`)
-  - **Subsections** (e.g., `src/content/docs/agent-platform/capabilities/`)
-    - **Articles** (e.g., `src/content/docs/agent-platform/capabilities/skills.mdx`)
+- **Top-level section** (e.g., `src/content/docs/agents/`)
+  - **Subsections** (e.g., `src/content/docs/agents/capabilities/`)
+    - **Articles** (e.g., `src/content/docs/agents/capabilities/skills.mdx`)
 
 We organize content in logical groupings that help people find what they are searching for. We aim to limit the layers of hierarchy, with few nested subcategories, which can make it difficult to find help.
 
@@ -1106,8 +1129,8 @@ Pages use MDX with Starlight components:
 ### Sample doc URLs
 Documentation pages are published at `docs.warp.dev/`. For example:
 - `docs.warp.dev/terminal/blocks/block-basics`
-- `docs.warp.dev/agent-platform/capabilities/skills`
-- `docs.warp.dev/reference/cli`
+- `docs.warp.dev/agents/capabilities/skills`
+- `docs.warp.dev/agents/cli/oz-cli`
 
 ### OpenAPI spec
-`developers/agent-api-openapi.yaml` is the OpenAPI spec for the Warp Agent API.
+`developers/agent-api-openapi.yaml` is the OpenAPI spec for the Warp Platform API.

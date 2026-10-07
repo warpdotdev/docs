@@ -37,6 +37,29 @@ CASES = [
 ]
 
 
+# (description, heading text as it appears after '## ', expected slug)
+# A code span's content renders as literal text -- markdown never parses
+# `<name>` inside backticks as an HTML/JSX tag, so these placeholders must
+# stay in the anchor id instead of being stripped like real markup.
+SLUG_CASES = [
+    (
+        "backtick heading with an angle-bracket placeholder keeps the placeholder text",
+        "`scorers/<name>/scorer.md`",
+        "scorersnamescorermd",
+    ),
+    (
+        "a different backtick+placeholder heading keeps its own placeholder text too",
+        "`agents/<name>/agent.md`",
+        "agentsnameagentmd",
+    ),
+    (
+        "plain-text heading is unaffected by the code-span handling",
+        "Configure Scorers",
+        "configure-scorers",
+    ),
+]
+
+
 def main() -> int:
     failures = 0
 
@@ -59,7 +82,13 @@ def main() -> int:
             failures += 0 if ok else 1
             print(f"  [{'PASS' if ok else 'FAIL'}] {description:<58} broken={broken_urls}")
 
-    total = len(CASES) + 1
+        for description, heading, expected_slug in SLUG_CASES:
+            slug = check_links.slugify_heading(heading)
+            ok = slug == expected_slug
+            failures += 0 if ok else 1
+            print(f"  [{'PASS' if ok else 'FAIL'}] {description:<58} slug={slug!r}")
+
+    total = len(CASES) + len(SLUG_CASES) + 1
     print()
     if failures:
         print(f"{failures} of {total} cases regressed.")

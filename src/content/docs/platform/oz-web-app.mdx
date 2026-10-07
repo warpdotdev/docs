@@ -38,7 +38,7 @@ The {VARS.WEB_APP} is ideal when you want to:
 * **Configure environments** — Set up repos, Docker images, and setup commands through a form-based flow
 * **Set up integrations** — Connect Slack and Linear with a guided setup flow, and configure how [GitHub](/platform/integrations/github/) mention-triggered runs execute
 
-For scripting, automation, and CI/CD workflows, use the [{VARS.WARP_AGENT_CLI}](/reference/cli/) or [API](/reference/api-and-sdk/).
+For scripting, automation, and CI/CD workflows, use the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) or [API](/factories/api-and-sdk/).
 
 ## Getting started
 
@@ -62,7 +62,7 @@ Each run displays the following information:
 
 <table><thead><tr><th width="140">Field</th><th>Description</th></tr></thead><tbody><tr><td><strong>Status</strong></td><td>Working, succeeded, failed, canceled, errored, or blocked</td></tr><tr><td><strong>Title</strong></td><td>The run's title or prompt summary</td></tr><tr><td><strong>Environment</strong></td><td>Which environment the agent ran in</td></tr><tr><td><strong>Creator</strong></td><td>Who started the run</td></tr><tr><td><strong>Source</strong></td><td>Where the run was triggered from (CLI, API, Slack, Linear, scheduled)</td></tr><tr><td><strong>Artifacts</strong></td><td>Any outputs like PRs or files created</td></tr><tr><td><strong>Credits</strong></td><td>How many credits the run consumed</td></tr></tbody></table>
 
-Click any run to open the detail pane, where you can view the full transcript, artifacts, and metadata.
+Click any run to open the detail pane, where you can view the full transcript, artifacts, and metadata. For the full walkthrough of opening, steering, and forking a session, see [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/).
 
 ### Filtering and search
 
@@ -217,7 +217,7 @@ To create a new environment:
 6. Click **Create environment**. The environment appears on the Environments page.
 
 :::note
-For advanced environment configuration, see [Environments](/platform/environments/) and the [CLI reference](/reference/cli/integration-setup/).
+For advanced environment configuration, see [Environments](/platform/environments/) and the [CLI reference](/agents/cli/oz-cli/integration-setup/).
 :::
 
 ## Integrations
@@ -237,7 +237,7 @@ The **Integrations** page (`/integrations`) lets you configure first-party integ
 
 Click an integration to start the guided setup flow. You'll authorize Warp to connect with the external service, select an environment, and configure any integration-specific settings.
 
-The GitHub row works differently. Instead of an authorization flow started here, it reflects the Warp Factories GitHub App installation that a team admin enables in the Admin Panel. Once the installation is associated with your team, use the row to choose the environment, model, agent, prompt, and secrets that GitHub-triggered runs use.
+The GitHub row works differently. Instead of an authorization flow started here, it reflects the [Warp Factories](/factories/) GitHub App installation that a team admin enables in the Admin Panel. Once the installation is associated with your team, use the row to choose the environment, model, agent, prompt, and secrets that GitHub-triggered runs use.
 
 :::note
 For detailed integration setup instructions, see [Slack](/platform/integrations/slack/), [Linear](/platform/integrations/linear/), and [GitHub](/platform/integrations/github/).
@@ -246,10 +246,11 @@ For detailed integration setup instructions, see [Slack](/platform/integrations/
 ## Related resources
 
 * [Cloud Agents overview](/platform/) — Learn about cloud agents and when to use them
+* [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) — Open, inspect, and continue a cloud agent session from Warp or the browser
 * [Multi-agent orchestration](/platform/orchestration/) — Parent/child model and common orchestration patterns
 * [Skills as Agents](/platform/skills-as-agents/) — Run agents based on reusable skill definitions
 * [Scheduled Agents](/platform/triggers/scheduled-agents/) — Run agents automatically on a cron schedule
 * [Environments](/platform/environments/) — Configure runtime context for cloud agents
 * [Managing Cloud Agents](/platform/managing-cloud-agents/) — Monitor agent activity and inspect runs
-* [{VARS.WARP_AGENT_CLI}](/reference/cli/) — Command-line interface for running agents
-* [{VARS.API_SDK_NAME}](/reference/api-and-sdk/) — Programmatic access to cloud agents
+* [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) — Command-line interface for running agents
+* [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) — Programmatic access to cloud agents

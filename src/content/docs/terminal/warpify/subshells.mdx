@@ -24,6 +24,7 @@ By default, Warp automatically recognizes the following commands as **subshell-c
 * `pipenv shell`
 * `aws-vault exec`
 * `flox activate`
+* `wsl` (Windows only, to enter a WSL distribution)
 * `gcloud compute ssh`, `eb ssh`, and `doctl compute ssh`, recognized through the same SSH-like command detection used for [SSH Warpification](/terminal/warpify/ssh/)
 
 When you run a command that's subshell-compatible, Warp will prompt you and invite you to "Warpify" the subshell which makes all of the modern IDE features of Warp available in that subshell. The list of subshell-compatible commands is configurable in Subshell settings as described [below](/terminal/warpify/subshells/#configuring-subshell-compatible-commands).
@@ -46,7 +47,7 @@ Furthermore, you can add regular expressions to the Added commands list. Any com
 
 #### Denylisting commands
 
-Some types of subshells are not compatible, and you may also want to control Warp so it never invites you to "Warpify" the subshells for specific commands. When you add commands to the denylist, Warp will never invite you to "Warpify" subshells spawned by those commands.
+Some types of subshells are not compatible, and you may also want to control Warp so it never invites you to "Warpify" the subshells for specific commands. When you add commands to **Denylisted commands**, Warp will never invite you to "Warpify" subshells spawned by those commands.
 
 ### Automatically "Warpify" subshells
 

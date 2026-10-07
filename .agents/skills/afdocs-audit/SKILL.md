@@ -10,7 +10,7 @@ description: >-
 
 # AFDocs Audit
 
-Run the [AFDocs scorecard](https://agentdocsspec.com/spec/) against docs.warp.dev and report results.
+Run the [Web Documentation Delivery Spec v0.6](https://agentdocsspec.com/spec/web/) against docs.warp.dev and report results.
 
 ## Running the audit
 
@@ -21,7 +21,10 @@ node .agents/skills/afdocs-audit/scripts/afdocs_audit.mjs \
   --output /tmp/afdocs-report.json
 ```
 
-The script runs `npx afdocs check https://docs.warp.dev --format json`, parses the output, and writes a structured report.
+The script runs `npx afdocs check https://docs.warp.dev --format json`, then supplements
+the current 23-check CLI with bounded first-party probes for the five checks added in
+spec v0.6. Once `afdocs` natively implements any of those checks, the wrapper defers to
+the CLI result instead of duplicating it.
 
 ### Options
 
@@ -31,12 +34,17 @@ The script runs `npx afdocs check https://docs.warp.dev --format json`, parses t
 ## Reading the report
 
 The JSON report contains:
+- `spec_version` — The Web Documentation Delivery Spec version represented by the report
 - `score` — Overall score out of 100
 - `grade` — Letter grade (A+ through F)
-- `total_checks` — Number of checks run
+- `score_method` — Whether the score came from the native CLI or the compatibility estimate
+- `legacy_cli_score` — The 23-check CLI score when compatibility probes were needed; never compare it to the v0.6 score
+- `total_checks` — Number of checks run (28 for a full v0.6 compatibility audit)
 - `summary` — Counts by status (`pass`, `fail`, `warn`, `skip`)
 - `categories` — Per-category scores and grades
 - `issues` — Array of failing and warning checks with details and fix guidance
+- `scan_reliability` — `complete` or `partial`; partial scans must not establish a regression baseline
+- `interaction_effects` — Non-scored combinations of findings that can degrade agent access more than an individual check suggests
 
 Each issue includes:
 - `id` — Check identifier (e.g., `llms-txt-directive-html`)
@@ -44,6 +52,29 @@ Each issue includes:
 - `status` — `fail` or `warn`
 - `message` — Human-readable description
 - `fix` — Suggested fix from the AFDocs spec
+
+### v0.6 compatibility checks and reliability
+
+Until the CLI is updated, the wrapper runs the following checks against up to eight
+sitemap-discovered documentation pages. It fetches sequentially with a 10-second timeout
+per request so the scan is bounded and does not create unnecessary load:
+
+- `bot-protection-interference` — detects challenge pages, tarpits, and volume-correlated blocking during sustained automated requests
+- `page-size-transfer` — measures decoded HTML response bytes (`<1 MB` pass, `1–10 MB` warn, `>10 MB` fail)
+- `single-fetch-completeness` — verifies that detected markdown pagination has a working, absolute continuation near the top of the response
+- `markdown-link-portability` — requires absolute served-markdown links and verifies sampled `.md` links return a markdown representation
+- `embedded-data-serialization` — attributes size-risk pages to large tables, data blocks, or base64 payloads that dominate converted content
+
+The native probes are intentionally a compatibility bridge, not a replacement for the
+future CLI implementation. Its compatibility score uses equal weighting and counts
+warnings as half-passes. Establish a new regression baseline when a report changes
+`score_method` or `spec_version`.
+
+When `bot-protection-interference` warns or fails, treat every multi-page result as a
+partial-sample observation. The `bot-protection-degrading-scan-reliability` interaction
+effect records this condition. The `dynamic-content-rendered-statically` interaction
+effect is recorded when multiple size, serialization, parity, or pagination signals
+co-occur; it is diagnostic and does not add another score penalty.
 
 ### Known exceptions
 
@@ -84,15 +115,17 @@ remediation steps.
 
 After running the audit, ALWAYS report the results to the user before taking any action. Include:
 
-1. **Score**: Overall score and grade
+1. **Score provenance**: Report `spec_version`, score, grade, and `score_method`. If present, show `legacy_cli_score` separately and never compare it to the v0.6 compatibility score.
 2. **Failures first**: List every fail-severity check with its message and fix guidance. These are the most impactful.
 3. **Warnings**: List warning-severity checks with context.
 4. **Allowlisted**: Briefly note any known exceptions that were flagged.
-5. **If all checks pass**: Explicitly tell the user everything looks clean.
+5. **Interaction effects**: Report each observed interaction effect after individual findings; explain that it is diagnostic, not an additional scored failure.
+6. **If all checks pass**: Explicitly tell the user everything looks clean.
 
 Example report format:
 ```
-AFDocs audit complete: 23 checks run, score 82/100 (B).
+AFDocs v0.6 compatibility audit complete: 28 checks run, score 82/100 (B).
+Score method: unweighted compatibility estimate; legacy 23-check CLI score: 84/100.
 
 **Failures (5):**
 - llms-txt-directive-html: No llms.txt directive in HTML pages
@@ -106,6 +139,9 @@ AFDocs audit complete: 23 checks run, score 82/100 (B).
 **Allowlisted (2):**
 - page-size-markdown: 1 page over 50K (changelog — intentionally long)
 - markdown-content-parity: 7 pages with minor diffs (Turndown escaping, not real content gaps)
+
+**Interaction effects (1):**
+- dynamic-content-rendered-statically: transfer-size, serialized-data, and parity findings co-occur; review both rendering paths together.
 ```
 
 After reporting, ask the user which issues they want to address.
@@ -131,7 +167,8 @@ If any git step fails, write the entry to the run output and continue.
 ### Run log format
 
 ```markdown
-## YYYY-MM-DD — [valid | blocked]
+## YYYY-MM-DD — [valid | partial | blocked]
+- **Spec**: v<spec_version> — <score_method>
 - **Score**: N/100 (grade)
 - **Checks**: N total — N pass, N fail, N warn
 - **Failing check ids**: comma-separated list, or "none"
@@ -140,11 +177,11 @@ If any git step fails, write the entry to the run output and continue.
 - **Notes**: [anything unusual]
 ```
 
-For a firewall-blocked run, record `blocked`, omit the score entirely rather than logging the meaningless one, and note the mitigation status.
+For a bot-protection-interfered run, record `partial`, omit the score from regression comparisons, and note the observed enforcement mode. For a firewall-blocked run, record `blocked`, omit the score entirely rather than logging the meaningless one, and note the mitigation status.
 
 ## Regression detection
 
-Compare this run against the most recent **valid** entry in the run log — never against a `blocked` entry, whose score is an artifact of the firewall challenge rather than a real measurement. If there is no prior valid entry, this run establishes the baseline: log it and post nothing.
+Compare this run against the most recent **valid** entry with the same `spec_version` and `score_method` — never against a `blocked` entry, whose score is an artifact of a firewall challenge rather than a real measurement. A v0.6 compatibility report establishes a new baseline; do not compare it to legacy 23-check scores. If there is no comparable prior entry, log it and post nothing.
 
 A run is a regression when either:
 - The score dropped versus the last valid entry.
@@ -167,6 +204,7 @@ A first-ever run with no baseline posts nothing.
 
 ```
 *AFDocs Audit — <date>* — regression
+Spec: v<spec_version> | Score method: <score_method>
 Score: <score>/100 (<grade>), down from <previous_score>/100 on <previous_date>
 <total_checks> checks | <pass> pass, <fail> fail, <warn> warn
 
@@ -217,10 +255,10 @@ The AFDocs scorecard evaluates these categories:
 
 **Content Discoverability** — llms.txt existence, validity, size, link resolution, markdown links, and in-page directives
 **Markdown Availability** — .md URL support and Accept: text/markdown content negotiation
-**Page Size and Truncation Risk** — rendering strategy, page sizes (markdown and HTML), and content start position
-**Content Structure** — tabbed content serialization, section header quality, code fence validity
+**Page Size and Truncation Risk** — rendering strategy, markdown/HTML/transfer size, content start position, and single-fetch completeness
+**Content Structure** — tabbed content serialization, section header quality, code fence validity, markdown link portability, and embedded-data serialization
 **URL Stability and Redirects** — HTTP status codes and redirect behavior
 **Observability and Content Health** — llms.txt coverage, markdown/HTML parity, cache headers
-**Authentication and Access** — auth gate detection and alternative access paths
+**Authentication and Access** — auth gate detection, alternative access paths, and bot-protection interference
 
-Full spec: https://agentdocsspec.com/spec/
+Full spec: https://agentdocsspec.com/spec/web/

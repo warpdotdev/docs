@@ -17,6 +17,15 @@ description: >-
 
 Find documentation gaps, detect doc-impacting code changes, and draft missing pages.
 
+## Agent-doc quality contract
+
+Any PR this skill opens or updates follows the shared v1 agent-doc quality
+contract in `.agents/references/doc-quality-policy.md`: apply the
+`warpy-factory` label, add the `## Documentation risk` block
+(`.agents/skills/doc_quality_policy/finalize_pr_contract.py build`), and keep
+`## Unverified claims` (step 9.5 of `draft_docs`) current. A newly-drafted
+feature page is `engineering-review-required` by default per the allowlist.
+
 ## Requirements
 
 The audit compares docs against code, so both source repos must be available:
@@ -106,30 +115,50 @@ python3 .agents/skills/missing_docs/scripts/audit_docs.py
 ```
 
 Options:
-- `--category features|cli|api|slash|settings|structure|staleness|map` — run a single audit category
+- `--category consistency|features|cli|api|slash|settings|structure|staleness|map` — run a single audit category
 - `--severity high|medium|low` — filter by minimum severity
 - `--weak-coverage` — also flag GA features whose mapped doc exists but doesn't mention feature keywords (low-severity, noisy)
 - `--output report.json` — save JSON report to file
 - `--warp PATH` / `--warp-server PATH` — explicit repo paths (`--warp-internal` is a deprecated alias)
 - `--diff` — change detection against the committed snapshot (see Phase 2)
-- `--update-snapshot` — regenerate `references/surface_snapshot.json` (full runs only)
+- `--update-snapshot` — regenerate `references/surface_snapshot.json` after
+  every current delta has a machine-readable disposition (full runs only)
+
+Snapshot regeneration reads `references/surface_snapshot_dispositions.json`.
+The file uses schema version 2, records the `snapshot_fingerprint` for the input
+snapshot, and includes one entry per current `--diff` finding with its exact
+`change` and `surface`, a disposition (`documented`, `mapped`, `internal`,
+`no_docs_needed`, or `removed`), and non-empty evidence. The update fails
+before writing when the ledger is malformed, bound to a different input
+snapshot, incomplete, or contains stale entries. A ledger is optional only
+when no deltas exist and the file is absent. Deferred findings are not terminal
+and cannot enter this ledger. Delete the ledger after committing the new
+baseline; it describes the deltas being accepted, not future drift.
 
 The script resolves doc paths from the docs repo root and accepts `.md` and `.mdx`
 interchangeably (and `README.md` ↔ `index.mdx`), so surface-map entries can use the
 canonical filename even when the on-disk extension differs.
 
 The script performs these coverage audits:
-1. **Feature flag coverage** — classifies every `FeatureFlag` by rollout status using
+1. **Cross-repository consistency** — evaluates the curated findings in
+   `references/consistency_seeds.json`. Each seed has a stable ID, claim,
+   disposition status, occurrence queries, authority or explicit owner
+   blocker, affected surfaces, per-surface disposition, and recheck condition.
+   Scoped exact-text and regex rules report every remaining occurrence.
+   `policy_blocker` and `owner_confirmation` seeds stay visible in
+   `consistency.blockers`; they are never treated as resolved because a
+   deterministic rule passes.
+2. **Feature flag coverage** — classifies every `FeatureFlag` by rollout status using
    the cargo-feature→flag bridge in the warp client repo's `app/src/features.rs` plus
    `RELEASE_FLAGS`/`PREVIEW_FLAGS`/`DOGFOOD_FLAGS` in `crates/warp_features/src/lib.rs`.
    GA flags must be mapped in the surface map or covered in docs; Preview flags produce
    low-severity "docs needed soon" findings; dogfood/other flags are tracked by the
    snapshot only.
-2. **CLI command coverage** — parses the full `oz` command tree from
+3. **CLI command coverage** — parses the full `oz` command tree from
    `crates/warp_cli/src/` (recursive subcommands like `oz run message send`, skipping
    `hide = true`) and checks the CLI reference docs. Per-module `--long` flags are
    additionally tracked in the snapshot for change detection.
-3. **API endpoint coverage** — extracts public routes from warp-server
+4. **API endpoint coverage** — extracts public routes from warp-server
    `router/handlers/public_api/*.go` (nested gin groups resolved, caller-passed group
    prefixes matched positionally) and checks them against
    `developers/agent-api-openapi.yaml` (param-name-insensitive: `{runId}` matches
@@ -140,7 +169,7 @@ The script performs these coverage audits:
    released public Oz Agent API. Never hand-draft API docs or reveal an unreleased
    endpoint — resolve released endpoints via `sync-openapi-spec`, and `-> internal`/
    defer the rest.
-4. **Slash command coverage** — parses the static registry in the warp client repo's
+5. **Slash command coverage** — parses the static registry in the warp client repo's
    `app/src/search/slash_command_menu/static_commands/` and checks each `/command`
    is mentioned in docs.
 
@@ -152,23 +181,23 @@ The script performs these coverage audits:
    settings audits scope their search to the pages that own those surfaces; this one does
    not. Until that is fixed, do not read a slash command's `doc_covered` bucket as
    "documented in the right place."
-5. **Settings coverage** — parses every `toml_path: "section.key"` setting
+6. **Settings coverage** — parses every `toml_path: "section.key"` setting
    registration in the warp client repo (the same registry the JSON-schema generator uses)
    and checks the all-settings reference page documents it. Private and
    dogfood/other-flagged settings are exempt; object-typed settings documented as
    their own `[section]` count as covered.
-6. **Docs staleness** — flags renamed/removed-feature terminology in prose (code
+7. **Docs staleness** — flags renamed/removed-feature terminology in prose (code
    spans stripped; historical changelog pages excluded). Broader terminology and
    style enforcement is owned by the `style_lint` skill — delegate pure wording
    issues there.
-7. **Stale doc references** — reverse checks: settings keys documented in
+8. **Stale doc references** — reverse checks: settings keys documented in
    all-settings.mdx that no longer exist in code (catches renames like
    `agents.oz.*` → `agents.warp_agent.*`), and keybinding actions (`scope:action`)
    on the keyboard-shortcuts page that no longer exist anywhere in the warp client repo.
-8. **Docs structure** — pages on disk that are missing from `src/sidebar.ts`
+9. **Docs structure** — pages on disk that are missing from `src/sidebar.ts`
    (built but unreachable through navigation). Intentionally unlisted pages go in
    the surface map's "Unlisted docs pages" section.
-9. **Surface map hygiene** — flags map entries whose flag/command/route/setting no
+10. **Surface map hygiene** — flags map entries whose flag/command/route/setting no
    longer exists in code, and mapped doc targets that no longer exist. Verify the
    doc page is still accurate, then prune or update the entry.
 
@@ -181,7 +210,7 @@ flags.
 Present the report to the user, grouped by category and sorted by severity.
 
 Adjacent checks owned by other skills (do not duplicate them here):
-- UI menu paths and Command Palette names → `validate_ui_refs`
+- UI menu paths and Command Palette names, including detecting when a documented control has relocated to a different Settings page → `validate_ui_refs`
 - Platform error-code pages → `sync-error-docs`
 - Broken links and 404s/redirects → `check_for_broken_links` / `weekly-404-monitor`
 - Terminology/style sweeps → `style_lint`
@@ -202,12 +231,19 @@ accountability bucket and proves totality:
   (deferred via `gated:<Flag>` while its gating flag is non-GA), or `finding`.
 - **Slash commands**: `mapped`, `doc_covered`, or `finding`.
 - **Settings**: `private`, `tracked_non_ga`, `mapped`, `doc_covered`, or `finding`.
+- **Consistency seeds**: every seed has one approved status, evidence from
+  `authoritative_sources` or an explicit owner and unresolved question, and a
+  disposition for every affected surface. The report includes total seeds,
+  counts by status, passed and failed rules, remaining occurrences, and active
+  blockers.
 
 If any item escapes every bucket, the run reports `integrity:accounting` in
 `audits_skipped` and exits 2 — an unaccounted item means the audit logic itself
 regressed, never that the item is fine. Map hygiene additionally rejects
 integrity bugs in the surface map: entries that are both mapped and ignored
 (the ignore silently wins) and duplicate keys within a section.
+Malformed or unaccounted consistency seeds report
+`integrity:consistency_accounting` and also exit 2.
 
 How every change path is caught, end to end:
 1. **New surface item appears** (flag, command, route, slash, setting, web
@@ -282,7 +318,7 @@ them through these three layers instead, in order of preference:
    by design and they are not part of the markdown changelog it parses. Read them from
    the gate's output, or `--json` for the full array. `oz_updates` is the API's field
    name and stays as-is regardless of product naming.
-2. **The public Agent API surface** — already covered by audit category 3 and
+2. **The public Agent API surface** — already covered by audit category 4 and
    `sync-openapi-spec`. No new machinery; just confirm the release run actually triages
    these findings rather than deferring them by habit. A released endpoint reaches docs
    through the spec, never through hand-drafting.
@@ -303,6 +339,11 @@ your PR so the next run diffs against the new baseline:
 ```bash
 python3 .agents/skills/missing_docs/scripts/audit_docs.py --update-snapshot
 ```
+
+Do not run that command until every current delta has a recorded disposition.
+An unresolved owner or policy decision is not a disposition that permits
+baselining the change. Leave `references/surface_snapshot.json` unchanged,
+retain the delta in `--diff`, and list the blocking owner and recheck condition.
 
 ### Phase 3: Draft
 
@@ -378,8 +419,11 @@ For each gap to address (prioritize high → medium → low):
    hygiene catches the corruption on the next audit, but only after it has shipped in a
    PR. Change the entries you mean to change, then re-run `--category map` to confirm
    nothing else moved.
-9. Run `--update-snapshot` and commit the refreshed `surface_snapshot.json` in that same
-   bookkeeping PR. Never split the snapshot across multiple PRs.
+9. Classify every current `--diff` delta. Run `--update-snapshot` and commit the
+   refreshed `surface_snapshot.json` in that same bookkeeping PR only when every
+   delta has a completed disposition. If any delta remains owner- or
+   policy-blocked, keep the snapshot unchanged and report the blocker. Never
+   split the snapshot across multiple PRs.
 
 ### Resolution patterns
 
@@ -419,7 +463,7 @@ For each addressed finding, note the defining source file you already consulted 
 - **CLI command** → `crates/warp_cli/src/`.
 - **API route** → warp-server `router/handlers/public_api/` (API gaps usually go to `sync-openapi-spec`).
 
-Resolve owners and get a ready-to-run assignment command:
+Resolve owners (the script prints a ready-to-run command only when a single owner resolves):
 
 ```bash
 python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
@@ -428,13 +472,13 @@ python3 .agents/skills/missing_docs/scripts/suggest_reviewers.py \
   warp:app/src/search/slash_command_menu/static_commands/commands.rs
 ```
 
-Add `--reviewers-only` to get just the comma-joined `--add-reviewer` argument (empty output when nothing resolved), which is the form the mandatory request step below consumes.
+Add `--reviewers-only` to get just the comma-joined `--add-reviewer` argument (empty output when nothing resolved), which is the form the `create_pr` request snippet consumes.
 
-Then **actually request the review on GitHub** with `gh pr edit <PR> --add-reviewer <logins/teams>`. A `/cc @engineer` line in the PR body is not a review request: it puts nothing in the engineer's review queue. All four ambient-drafted docs PRs (#414, #415, #416, #417) named reviewers in prose and got zero reviews, three of them with an empty requested-reviewers list.
+Then apply the `create_pr` skill's reviewer policy ("Request a reviewer (at most one, only with conviction)"): request **at most one human** per PR — never a team — and only when the resolution names exactly one owning engineer. When you do request, make it a real GitHub request with `gh pr edit <PR> --add-reviewer <login>`; a `/cc @engineer` line in the PR body puts nothing in the engineer's review queue (PRs #414–#417 named reviewers in prose and got zero reviews).
 
-An individual unresolved *path* is non-fatal — other paths usually resolve the same owner. An empty *result* is not: fall back to `dannyneira` rather than opening the PR with no reviewer. See step 7 of drift-watch mode for the required command.
+An individual unresolved *path* is non-fatal — other paths usually resolve the same owner. An empty or multi-owner *result* means no request at all: open the PR with no requested reviewer and record why in the run output. There is no fallback reviewer, and never re-add a reviewer a human removed from the PR.
 
-**Expect warp-server-only findings to fall back.** The warp client repo's ownership file has a root rule, so nearly any path in it resolves. warp-server's does not, and whole areas — the `/factory` handlers among them — carry no entry, so a finding whose only source file is a warp-server handler resolves to nothing and lands on `dannyneira`. That is the fallback doing its job; report it that way rather than as a resolution failure. Do not hardcode an owner here to paper over it — the fix belongs in warp-server's ownership file, and once an entry exists resolution starts working with no change to this skill.
+**Expect warp-server-only findings to resolve to nothing.** The warp client repo's ownership file has a root rule, so nearly any path in it resolves. warp-server's does not, and whole areas — the `/factory` handlers among them — carry no entry, so a finding whose only source file is a warp-server handler resolves to no owner and its PR opens with no requested reviewer. Report it that way rather than as a resolution failure. Do not hardcode an owner here to paper over it — the fix belongs in warp-server's ownership file, and once an entry exists resolution starts working with no change to this skill.
 
 ### PR strategy: one PR per feature
 
@@ -535,9 +579,9 @@ with the product. Each run:
    PR too, not only the copies on `main` — a verdict recorded in an unmerged PR is still a
    verdict, and re-triaging it burns the run and produces duplicate map entries. Then work
    through `surface_changes` and `changelog_review` (what changed since last run), then
-   standing coverage findings (high → medium → low) across all categories: features, CLI,
-   API, slash commands, settings, stale doc references, unlisted pages, map hygiene,
-   staleness.
+   standing coverage findings (high → medium → low) across all categories:
+   consistency findings and blockers, features, CLI, API, slash commands,
+   settings, stale doc references, unlisted pages, map hygiene, and staleness.
 
    **Apply `.agents/references/docs-worthiness-criteria.md` to every remaining item
    before deciding anything else.** The default is no docs; the burden is on the change
@@ -564,29 +608,24 @@ with the product. Each run:
 6. **Validate**: if doc pages changed, run `npm ci && npm run build` — a fresh sandbox
    has no `node_modules`, and the build is the only validation this repo has. Then
    re-run the audit and confirm the addressed findings are gone.
-7. **Route reviewers and request the review** (required, not advisory): resolve the
-   owning engineers with `scripts/suggest_reviewers.py` (see Reviewer routing), passing
-   the source files behind the addressed findings, then make a real GitHub review request
-   on each PR you open in step 8. Naming the engineer in the body is not a request — that
-   is exactly how #414–#417 ended up with zero reviews.
+7. **Route the reviewer** (at most one, only with conviction): resolve the owning
+   engineer with `scripts/suggest_reviewers.py` (see Reviewer routing), passing the
+   source files behind the addressed findings. Request a review only when exactly one
+   owner resolves — one human per PR, never a team, never a substitute. When nothing
+   resolves (or several distinct owners do), open the PR with no requested reviewer
+   and record why in the run output; that is a valid outcome, not a run failure.
 
-   **A PR is not complete until `gh pr edit --add-reviewer` has succeeded and the
-   requested reviewers read back as the owners you resolved.** A resolution failure
-   falls back to `dannyneira`; it never no-ops. This matches the fallback in
-   `.github/workflows/release-docs-update.yml` (the "Assign last docs PR reviewer" step).
+   **Use the snippet in the `create_pr` skill under "Request a reviewer (at most one,
+   only with conviction)" — it is the canonical copy; do not paste a second version
+   here.** It distills the resolution to a single human, skips the request when the
+   PR already has a reviewer, and never re-adds a reviewer a human removed. Feed it
+   the reviewers from `suggest_reviewers.py --reviewers-only`, using the source files
+   behind the addressed findings.
 
-   **Use the snippet in the `create_pr` skill under "Request reviewers (required)" —
-   it is the canonical copy; do not paste a second version here.** It requests each
-   reviewer in a separate `gh` call (a comma-joined call is atomic, so one
-   unassignable entry drops every valid owner with it) and verifies the read-back
-   against the resolved set rather than merely against empty. Feed it the reviewers
-   from `suggest_reviewers.py --reviewers-only`, using the source files behind the
-   addressed findings.
-
-   Keep the prose `/cc @engineer` mention in the body as well — this adds the real
-   request, it does not replace the mention. Report any PR whose requested-reviewers
-   list is empty as a run failure, and any PR that got only some of its resolved
-   owners as a partial result worth naming in the run output.
+   When you do request an owner, a real request (`gh pr edit --add-reviewer`) is what
+   counts — naming the engineer in the body is not a request; that is exactly how
+   #414–#417 ended up with zero reviews. Mention and request the same single engineer
+   together, or do neither.
 8. **Open one PR per feature** following the PR strategy above (not a single mega PR):
    one focused PR per documented feature (grouping only features that share a doc file or
    owner), each carrying its content design plan as a section in the PR body, plus the
@@ -594,9 +633,10 @@ with the product. Each run:
    `last_release_processed.json`, and `surface_snapshot.json`. Extend the open bookkeeping
    PR if there is one; open a new one titled `chore(missing_docs): bookkeeping for
    <version>` only if there is not. Use the `create_pr` skill: every drafting PR body
-   opens with the required `## What this feature does` summary, and every PR gets its
-   owning reviewer requested per step 7 before the run is done. Summarize remaining
-   (deferred) findings in the relevant PR body so nothing is silently dropped.
+   opens with the required `## What this feature does` summary, and every PR goes
+   through the reviewer routing in step 7 before the run is done (which may
+   legitimately end with no requested reviewer). Summarize remaining (deferred)
+   findings in the relevant PR body so nothing is silently dropped.
 
 A run that gates out every candidate is a successful run. It opens no feature PRs and
 only the bookkeeping PR recording the verdicts. Do not manufacture work to justify the
@@ -652,10 +692,12 @@ Recommended scheduled-agent prompt (copy when setting up the agent):
 > already APPROVED, in which case wait for the merge and branch from the result; two open
 > bookkeeping PRs conflict on a snapshot that is regenerated wholesale. Title a new one
 > "chore(missing_docs): bookkeeping for <version>".
-> Request the resolved owner as reviewer on every PR with gh pr edit --add-reviewer,
-> falling back to dannyneira when nothing resolves, and verify the requested-reviewers
-> list is non-empty before you finish — a PR with no requested reviewer is an incomplete
-> run, not a delivered one. List any findings you deferred in the relevant PR body.
+> Request at most one reviewer per PR with gh pr edit --add-reviewer, and only when
+> suggest_reviewers.py resolves exactly one owning engineer — never request a team,
+> never substitute a fallback person when nothing resolves, and never re-add a
+> reviewer a human removed from a PR. A PR with no requested reviewer plus a note
+> explaining why is a valid outcome. List any findings you deferred in the relevant
+> PR body.
 
 ### Invocation modes
 

@@ -7,3 +7,156 @@ This log tracks every run of the `aeo_crosslink_audit` skill — both runs that 
 **Format**: see the `## Run log format` section in `.agents/skills/aeo_crosslink_audit/SKILL.md`.
 
 ---
+
+## 2026-10-05 — PR opened
+
+- **Run**: https://app.warp.dev/conversation/319938e2-4420-4319-b40a-64f54fae74a2
+- **Source signals**: Peec available, GSC unavailable
+- **PR**: https://github.com/warpdotdev/docs/pull/801
+- **Links proposed / added**: 8 proposed, 8 added
+- **Pages touched**: src/content/docs/platform/team-access-billing-and-identity.mdx, src/content/docs/platform/integrations/github-actions.mdx, src/content/docs/enterprise/team-management/admin-panel.mdx, src/content/docs/reference/cli/api-keys.mdx, src/content/docs/guides/agent-workflows/how-to-run-multiple-ai-coding-agents.mdx, src/content/docs/platform/managing-cloud-agents.mdx, src/content/docs/platform/skills-as-agents.mdx
+- **Themes**: bare Warp Factories GitHub App mentions → /factories/; multi-agent fleet workflows → standing factory workflows; team auth automation → scheduled agents
+- **No-change reason**: N/A
+
+## 2026-09-28 — PR opened
+
+- **Run**: https://platform.warp.dev/runs/01a0e887-b181-7133-99c8-02f0b6db8041
+- **Source signals**: Peec available, GSC unavailable
+- **PR**: https://github.com/warpdotdev/docs/pull/801
+- **Links proposed / added**: 10 proposed, 10 added
+- **Pages touched**: src/content/docs/platform/agents.mdx, src/content/docs/platform/deployment-patterns.mdx, src/content/docs/platform/environments.mdx, src/content/docs/platform/faqs.mdx, src/content/docs/platform/integrations/github.mdx, src/content/docs/platform/integrations/index.mdx, src/content/docs/platform/orchestration/index.mdx, src/content/docs/platform/oz-web-app.mdx, src/content/docs/platform/triggers/scheduled-agents-quickstart.mdx
+- **Themes**: software factory product discovery from GitHub App / cloud agent identity; schedules from environments and FAQs; factories vs ad hoc multi-agent fan-out
+- **No-change reason**: N/A
+
+## 2026-09-21 — PR opened
+
+- **Run**: https://app.warp.dev/conversation/34b87238-2b8c-48eb-8ab5-bca94dba7d48
+- **Source signals**: Peec available, GSC available
+- **PR**: https://github.com/warpdotdev/docs/pull/775
+- **Links proposed / added**: 8 proposed, 8 added
+- **Pages touched**: src/content/docs/platform/viewing-cloud-agent-runs.mdx, src/content/docs/agents/capabilities/computer-use/index.mdx, src/content/docs/platform/oz-web-app.mdx, src/content/docs/guides/agent-workflows/run-a-software-factory-in-the-cloud.mdx, src/content/docs/guides/agent-workflows/how-to-run-multiple-ai-coding-agents.mdx, src/content/docs/agents/capabilities/slash-commands.mdx
+- **Themes**: cloud-run inspection ↔ Computer Use/browser artifacts; multi-agent fan-out observability; software factory handoff/management surfaces; /plan → orchestration
+- **No-change reason**: N/A
+
+## 2026-09-14 — PR opened
+
+- **Run**: https://platform.warp.dev/runs/01a0a06e-ac51-7b7c-b9b0-492023bff60f
+- **Source signals**: Peec available, GSC available
+- **PR**: https://github.com/warpdotdev/docs/pull/741
+- **Links proposed / added**: 7 proposed, 7 added
+- **Pages touched**: src/content/docs/agents/capabilities/computer-use/index.mdx, src/content/docs/platform/index.mdx, src/content/docs/agents/agent-memory/index.mdx, src/content/docs/guides/agent-workflows/how-to-run-unattended-agents.mdx
+- **Themes**: Computer Use → schedules/integrations/harnesses; cloud agents hub → orchestration and Factories; Agent Memory cloud triggers; unattended agents → multi-agent fan-out
+- **No-change reason**: N/A
+
+## 2026-09-07 — PR opened
+
+- **Run**: https://app.warp.dev/conversation/2e55a2ca-745a-44ba-b579-00703a526637
+- **Source signals**: Peec available, GSC available
+- **PR**: https://github.com/warpdotdev/docs/pull/691
+- **Links proposed / added**: 5 proposed, 5 added
+- **Pages touched**: src/content/docs/platform/harnesses/warp-agent.mdx, src/content/docs/factories/factory-dashboard.mdx, src/content/docs/agents/cli/reference.mdx, src/content/docs/agents/agent-memory/index.mdx, src/content/docs/agents/capabilities/codebase-context.mdx
+- **Themes**: cross-harness multi-agent orchestration from Warp Agent and factory Sub-agents UI; CLI /handoff parity; harness hub from Agent Memory; cloud run viewing from Codebase Context
+- **No-change reason**: N/A
+
+## 2026-08-31 — PR opened
+
+- **Run**: https://oz.warp.dev/runs/01a05855-a305-72b3-a85f-ce45a8ad7840
+- **Source signals**: Peec available, GSC available
+- **PR**: https://github.com/warpdotdev/docs/pull/662
+- **Links proposed / added**: 11 proposed, 11 added
+- **Pages touched**: src/content/docs/platform/harnesses/claude-code.mdx, src/content/docs/platform/harnesses/codex.mdx, src/content/docs/platform/self-hosting/index.mdx, src/content/docs/platform/handoff/index.mdx, src/content/docs/platform/orchestration/multi-agent-runs.mdx
+- **Themes**: Claude Code/Codex cloud harnesses → schedules/Slack/orchestration; self-host observability and trigger routing; handoff/multi-agent launch paths to schedules, integrations, self-hosting
+- **No-change reason**: N/A
+
+## 2026-08-24 — PR opened
+
+- **Run**: https://oz.warp.dev/runs/01a03449-1e89-737d-8dd1-825950d10c8c
+- **Source signals**: Peec available, GSC available
+- **PR**: https://github.com/warpdotdev/docs/pull/612
+- **Links proposed / added**: 5 proposed, 5 added
+- **Pages touched**: src/content/docs/agents/cli-agents/codex.mdx, src/content/docs/agents/cli-agents/opencode.mdx, src/content/docs/factories/index.mdx, src/content/docs/factories/factory-agents.mdx, src/content/docs/platform/harnesses/index.mdx
+- **Themes**: Remote Control parity for CLI agents; factories/harnesses → multi-agent orchestration; factory automations → schedules
+- **No-change reason**: N/A
+
+
+## 2026-08-17 — PR opened
+
+- **Run**: https://app.warp.dev/conversation/79e45390-6945-43b4-aa11-70e9ecd3061c
+- **Source signals**: Peec available, GSC available
+- **PR**: https://github.com/warpdotdev/docs/pull/546
+- **Links proposed / added**: 11 proposed, 11 added
+- **Pages touched**: src/content/docs/platform/environments.mdx, src/content/docs/agents/cli-agents/remote-control.mdx, src/content/docs/agents/getting-started/agents-in-warp.mdx, src/content/docs/platform/viewing-cloud-agent-runs.mdx, src/content/docs/platform/handoff/local-to-cloud.mdx
+- **Themes**: overnight cloud runs, session steering/Remote Control, multi-agent orchestration, environments as trigger runtime
+- **No-change reason**: N/A
+
+## 2026-08-10 — PR opened
+
+- **Run**: https://oz.warp.dev/runs/019fec30-13d2-7203-99ec-82a84f84c908
+- **Source signals**: Peec available, GSC available
+- **PR**: https://github.com/warpdotdev/docs/pull/497
+- **Links proposed / added**: 13 proposed, 13 added
+- **Pages touched**: agents/cli-agents/overview.mdx, agents/cli-agents/claude-code.mdx, agents/getting-started/agents-in-warp.mdx, platform/triggers/scheduled-agents.mdx, platform/deployment-patterns.mdx, platform/software-factory.mdx
+- **Themes**: schedules/background agents, remote control/observability, multi-agent orchestration journeys
+- **No-change reason**: N/A
+
+
+## 2026-08-03 — PR opened
+
+- **Run**: https://oz.warp.dev/runs/019fc823-8da1-7c1f-8fea-5be83c7ea3d5
+- **Source signals**: Peec available, GSC available
+- **PR**: https://github.com/warpdotdev/docs/pull/453
+- **Links proposed / added**: 7 proposed, 7 added
+- **Pages touched**: src/content/docs/platform/faqs.mdx, src/content/docs/agent-platform/capabilities/slash-commands.mdx, src/content/docs/platform/software-factory.mdx, src/content/docs/platform/agents.mdx, src/content/docs/platform/quickstart.mdx
+- **Themes**: multi-agent orchestration discovery from FAQs, slash commands, software factory, agents, and cloud quickstart
+- **No-change reason**: N/A
+
+## 2026-07-28 — No change
+
+- **Run**: https://app.warp.dev/conversation/356a1693-1140-4ac8-9de2-ef0995c04c60
+- **Source signals**: Peec available, GSC available
+- **PR**: N/A
+- **Links proposed / added**: 2 proposed, 0 added
+- **Pages touched**: N/A
+- **Themes**: heavy demand to run and manage multiple agents in parallel and to run Claude Code + Codex together; the CLI-agents overview and Harnesses in Oz pages omit links to the multi-agent guide and orchestration model
+- **No-change reason**: existing open AEO cross-link PR #396 — skipped per dedupe rule
+
+## 2026-07-28 — No change
+
+- **Run**: https://oz.warp.dev/runs/019fa9e8-cff8-710d-b615-18d88edad918
+- **Source signals**: Peec unavailable, GSC unavailable
+- **PR**: N/A
+- **Links proposed / added**: N/A
+- **Pages touched**: N/A
+- **Themes**: none observed
+- **No-change reason**: existing open PR #396 — skipped to avoid duplicate
+
+## 2026-07-28 — PR opened
+
+- **Run**: https://oz.warp.dev/runs/019fa9e8-cff8-710d-b615-18d88edad918
+- **Source signals**: Peec unavailable, GSC unavailable
+- **PR**: https://github.com/warpdotdev/docs/pull/396
+- **Links proposed / added**: 3 proposed, 3 added
+- **Pages touched**: src/content/docs/agent-platform/capabilities/slash-commands.mdx, src/content/docs/platform/faqs.mdx, src/content/docs/platform/software-factory.mdx
+- **Themes**: agent/cloud-agent pages describe multi-agent coordination but omit links to the orchestration docs
+- **No-change reason**: N/A
+
+## 2026-07-28 — Snapshot stale
+
+- **Run**: https://app.warp.dev/conversation/d77679e0-e39a-4e60-9e71-f08a6e3acfed
+- **Source signals**: Peec unavailable, GSC unavailable
+- **PR**: N/A
+- **Links proposed / added**: N/A
+- **Pages touched**: N/A
+- **Themes**: none observed
+- **No-change reason**: snapshot stale — 34 days old
+
+## 2026-07-27 — Snapshot stale
+
+- **Run**: https://app.warp.dev/conversation/b61aca9e-3f9b-40f4-ae5d-e1448b99160e
+- **Source signals**: Peec unavailable, GSC unavailable
+- **PR**: N/A
+- **Links proposed / added**: N/A
+- **Pages touched**: N/A
+- **Themes**: none observed
+- **No-change reason**: snapshot stale — 33 days old
+

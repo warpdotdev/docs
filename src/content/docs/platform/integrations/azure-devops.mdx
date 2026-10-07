@@ -8,45 +8,37 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-Cloud agents work with any Git repository, including those hosted on Azure DevOps. A native Azure DevOps integration is not yet available, but you can grant agents access to your repositories using a personal access token and Warp-managed secrets. Once configured, your environment works with any {VARS.WARP_AUTOMATION_PLATFORM} trigger—Slack, Linear, schedules, or the CLI.
+Cloud agents work with any Git repository, including those hosted on Azure DevOps. For a standalone cloud agent environment, grant access with a personal access token and Warp-managed secrets. Once configured, the environment works with any {VARS.WARP_AUTOMATION_PLATFORM} trigger—Slack, Linear, schedules, or the CLI.
 
-This page explains how to generate an Azure DevOps personal access token, store it securely, and configure a cloud agent environment that clones your repository at runtime.
-
-:::note
 This approach works for both Azure DevOps Services (dev.azure.com) and Azure DevOps Server (self-hosted) instances.
-:::
+
+To connect hosted Azure DevOps Services to a factory with event-driven automations, use the [Azure DevOps factory integration](/factories/integrations/azure-devops/). For an Azure DevOps Server factory, use the [other code forges setup](/factories/code-forges/other-code-forges/).
 
 ---
 
 ## Prerequisites
 
-* A Warp account (<a href={VARS.WEB_APP_URL}>create an account at {VARS.WEB_APP_URL}</a>)
-* A repository hosted on Azure DevOps (cloud or self-hosted)
-* The [{VARS.WARP_AGENT_CLI}](/reference/cli/) installed and authenticated
+* **Warp account** - <a href={VARS.WEB_APP_URL}>Create an account in the {VARS.WEB_APP}</a>.
+* **Azure DevOps repository** - Use a repository hosted on Azure DevOps Services or Azure DevOps Server.
+* **{VARS.WARP_AGENT_CLI}** - [Install and authenticate the CLI](/agents/cli/oz-cli/).
 
----
-
-## Step 1: Generate a personal access token
+## Generate a personal access token
 
 1. Sign in to your Azure DevOps organization at `dev.azure.com/{your-org}`.
 2. Click the user settings icon (gear) in the top-right corner, then click **Personal access tokens**.
 3. Click **+ New Token**.
 4. Enter a descriptive name for the token (e.g. `warp-oz-agent`), choose the organization it applies to, and set an expiration date that matches your team's rotation policy.
-5. Under **Scopes**, select **Custom defined**, then select **Code** > **Read**.
+5. Under "Scopes," choose **Custom defined**, then select **Code** > **Read**.
 6. Click **Create**.
 7. Copy the token value immediately. Azure DevOps will not show it again.
 
-:::note
 **Code (Read)** is the minimum required scope to clone a repository. If a future workflow requires the agent to push commits or open pull requests, you will also need **Code (Read & Write)**.
-:::
 
-:::note
 For Azure DevOps Server (self-hosted), sign in at `https://{server}/{collection}` instead of `dev.azure.com`. The token creation steps are the same.
-:::
 
 ---
 
-## Step 2: Store the token as a Warp-managed secret
+## Store the token as a Warp-managed secret
 
 Warp injects managed secrets as environment variables at runtime and never exposes them in logs or configuration files. See the [Secrets](/platform/secrets/) documentation for full details on scoping and managing secrets.
 
@@ -60,9 +52,7 @@ oz secret create --team AZURE_DEVOPS_TOKEN
 
 The value is stored and encrypted, and cannot be retrieved after creation.
 
-:::note
 Use `--team` to create a shared token available to all teammates and automated triggers (schedules, Slack, Linear). Use `--personal` if each team member should authenticate with their own Azure DevOps token. Personal secrets work with all triggers and take precedence over a team secret of the same name when both exist.
-:::
 
 If you need to update a secret value, run:
 
@@ -72,7 +62,7 @@ oz secret update --team --value AZURE_DEVOPS_TOKEN
 
 ---
 
-## Step 3: Create an environment with a clone setup command
+## Create an environment with a clone setup command
 
 Create an environment that uses your token to clone the repository at the start of each agent run. Because the `--repo` flag in `oz environment create` is designed for GitHub repositories, you clone your Azure DevOps repo via a setup command instead.
 
@@ -82,7 +72,7 @@ Create an environment that uses your token to clone the repository at the start 
 oz environment create \
   --name "my-azure-devops-env" \
   --docker-image <image> \
-  --setup-command 'git clone https://$AZURE_DEVOPS_TOKEN@dev.azure.com/your-org/your-project/_git/your-repo' \
+  --setup-command 'AUTH_HEADER=$(printf ":%s" "$AZURE_DEVOPS_TOKEN" | base64 | tr -d "\n") && git -c "http.extraheader=Authorization: Basic $AUTH_HEADER" clone https://dev.azure.com/your-org/your-project/_git/your-repo' \
   --setup-command 'cd your-repo && <install dependencies>'
 ```
 
@@ -99,18 +89,18 @@ Use single quotes around setup commands that reference secrets. Double quotes ca
    * The second `--setup-command` with any dependency install or build steps your project requires. For example, `npm ci` or `pip install -r requirements.txt`.
 
 :::caution
-Setup commands run on a fresh container for every agent run. Write them to be idempotent — commands that assume existing state (such as a partially cloned repo or a pre-built cache) can fail unpredictably. See [Environment design and best practices](/platform/environments/#environment-design-and-best-practices) for guidance.
+Setup commands run on a fresh container for every agent run. Write them to be idempotent — commands that assume existing state (such as a partially cloned repo or a pre-built cache) can fail unpredictably. See [environment design and best practices](/platform/environments/configuring-environments/#environment-design-and-best-practices) for guidance.
 :::
 
-3. Note the environment ID returned. You will need it in the next step.
+3. Note the environment ID returned. You will need it to test the environment.
 
 ---
 
-## Step 4: Test your environment
+## Test the environment
 
 Before connecting to integrations, verify the environment works by running a one-off agent.
 
-1. Run the following command, replacing `<ENV_ID>` with the environment ID from Step 3:
+1. Run the following command, replacing `<ENV_ID>` with the environment ID from the previous section:
 
 ```bash
 oz agent run-cloud --environment <ENV_ID> --prompt "Your task here"
@@ -125,7 +115,4 @@ With your environment configured, you can connect it to any Warp trigger exactly
 * **Slack** — Tag **@warp** in a message to start an agent run against your Azure DevOps repo. See [Slack](/platform/integrations/slack/).
 * **Linear** — Tag **@warp** on an issue to kick off a workflow. See [Linear](/platform/integrations/linear/).
 * **Scheduled agents** — Run agents on a recurring schedule. See [Scheduled Agents](/platform/triggers/scheduled-agents/).
-
-:::note
-Native support for opening Azure DevOps pull requests from agent-generated changes is planned as a future enhancement.
-:::
+* **Warp Factories** — Connect hosted Azure DevOps Services with dedicated identities and event triggers. See the [Azure DevOps factory integration](/factories/integrations/azure-devops/).

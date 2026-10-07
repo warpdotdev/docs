@@ -80,11 +80,25 @@ FENCE = re.compile(r'^\s*(`{3,}|~{3,})')
 
 def slugify_heading(text):
     """Approximate github-slugger, which is what Starlight uses for anchor ids."""
+    # Code span contents are literal text, never Markdown/MDX/JSX. Protect them
+    # from the substitutions below by stashing them first and restoring the raw
+    # text afterward. Without this, a heading like `automations/<name>/automation.md`
+    # has its `<name>` placeholder stripped as if it were a real JSX tag, even
+    # though Starlight's actual heading-id generator keeps it (verified against
+    # the rendered `id` attribute: `automationsnameautomationmd`, not
+    # `automationsautomationmd`).
+    code_spans = []
+
+    def _stash(m):
+        code_spans.append(m.group(1))
+        return f'\x00{len(code_spans) - 1}\x00'
+
+    text = re.sub(r'`([^`]*)`', _stash, text)             # code spans (stashed)
     text = re.sub(r'\{[^}]*\}', '', text)                 # MDX expressions, e.g. {VARS.X}
     text = re.sub(r'<[^>]+>', '', text)                   # inline HTML/JSX
-    text = re.sub(r'`([^`]*)`', r'\1', text)              # code spans
     text = re.sub(r'\[([^\]]*)\]\([^)]*\)', r'\1', text)  # links keep their text
     text = re.sub(r'[*_]{1,3}', '', text)                 # emphasis
+    text = re.sub(r'\x00(\d+)\x00', lambda m: code_spans[int(m.group(1))], text)
     text = text.strip().lower()
     text = re.sub(r'[^\w\- ]+', '', text, flags=re.UNICODE)
     return text.replace(' ', '-')

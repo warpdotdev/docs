@@ -611,7 +611,12 @@ header.header,
   transition: color 0.15s ease;
 }
 
-.sl-markdown-content a:not(.starlight-aside a):hover {
+/* Link cards are excluded: the whole card is the hover target (its anchor's
+   `::before` covers the card), and the border/background change already
+   signals interactivity, so underlining the title is redundant. Starlight's
+   own `text-decoration: none` lives in `@layer starlight.components`, so
+   this unlayered rule would otherwise win. */
+.sl-markdown-content a:not(.starlight-aside a, .sl-link-card a):hover {
   text-decoration: underline;
   text-underline-offset: 0.15em;
 }

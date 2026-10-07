@@ -1,7 +1,7 @@
 ---
 title: [Sentence case. Use "[Feature] FAQs" or "Frequently asked questions". This renders as the page H1 — do not add an H1 in the body.]
 description: >-
-  [One sentence, 50-160 characters: name the topic area these questions cover. Not just
+  [One to two sentences, 50-160 characters: name the topic area these questions cover. Not just
   "Frequently asked questions". Example: "Answers to common questions about cloud agent
   billing, credits, and plan limits."
   Use {{TOKEN}} syntax for product names in src/data/vars.ts.]
