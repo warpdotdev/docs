@@ -11,7 +11,7 @@ Every factory has a **foreman**, the agent you talk to from the tool that sends 
 
 ## The default agents
 
-Every factory gets a foreman, and you choose one to four other agents to go with it. These defaults are a starting point — you can [add custom agents and automations](#add-custom-agents-and-automations) for work they don't cover. The default agents' prompts, descriptions, and models are reproduced as files in [`00-warp-default-agents`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/00-warp-default-agents) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
+Every factory gets a foreman, and you choose one to four other agents to go with it. These defaults are a starting point; [add custom agents](#add-custom-agents) for work they don't cover. The default agents' prompts, descriptions, and models are reproduced as files in [`00-warp-default-agents`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/00-warp-default-agents) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
 
 | Agent | What it does | What it produces |
 | --- | --- | --- |
@@ -27,7 +27,7 @@ For the complete lifecycle, see [how Warp Factories work](/factories/how-factori
 
 ### Foreman
 
-The **foreman agent** runs the factory floor. It decides which agent a work item goes to next, hands the work over, and keeps the requester informed. It's the only default agent that talks to the requester directly. When another agent needs a human answer, the foreman asks the question and routes the answer back. For revisions and follow-ups, the foreman goes back to the same agent and continues its existing conversation instead of starting a new one, so no context is lost.
+The **foreman agent** runs the factory floor. It decides which agent a work item goes to next, hands the work over, and keeps the requester informed. It's the only default agent that talks to the requester directly. When another agent needs a human answer, the foreman asks the question and routes the answer back. For revisions and follow-ups, the foreman goes back to the same agent and continues its existing conversation instead of starting a new one.
 
 When the work is done, the foreman presents the final pull request and its supporting evidence, then marks the work item complete. Complete means the work was handed to a human, not that the change was merged or deployed. Merging stays with your team.
 
@@ -55,7 +55,7 @@ Review independently examines the change for unmet requirements, broken conventi
 
 ## Built-in skills
 
-Every default agent comes with GitHub skills, and the foreman also comes with a Slack skill. The issue tracker you choose during setup adds to that baseline: choosing Linear or Jira gives the agents that tracker's skill and instructions. If you don't choose a tracker, the agents get only the baseline skills. Define custom procedures with [factory skills](/factories/factory-skills/) to extend what an agent can do beyond the built-in set.
+A new factory's definition includes skills for code quality, code review, and UI verification, plus one for each tool you connect: your code host, Slack or Microsoft Teams, and Linear or Jira. They live in the definition's `skills/` directory, so every agent can use them. See [factory skills](/factories/factory-skills/) for what each one covers and how to add your own.
 
 ## Configure agent behavior
 
@@ -73,13 +73,12 @@ Every default agent comes with GitHub skills, and the foreman also comes with a 
    <figcaption>An agent's settings page, where you configure its model, harness, runner, and host.</figcaption>
    </figure>
 
-You can also manage the factory as version-controlled code with [factory definition files](/factories/factory-as-code/) in a Git repository. A factory's settings live in one of two places:
-* A **Warp-managed factory** lets you edit everything, including harness, auth, and credential strategy, from the dashboard.
-* A **GitHub-backed factory** keeps those settings in its definition files. The dashboard shows them read-only, and you edit the files to make changes.
+Where you make these changes depends on [where the factory's definition lives](/factories/factory-as-code/#where-the-definition-lives):
 
-For more information about the two locations, see [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
+* **Warp-managed factory** - Edit everything, including harness, auth, and credential strategy, from the dashboard.
+* **GitHub-backed factory** - The settings live in the definition files. The dashboard shows them read-only, and you change them by editing the files.
 
-Factory setup doesn't choose models for you. To change the model an agent uses, edit that agent.
+Setup assigns each default agent a model suited to its role. To change it, edit the agent.
 
 ## Choose models and harnesses per agent
 
@@ -124,26 +123,21 @@ Change an agent's harness to Claude Code or Codex to run it with that provider's
 
 With a Warp-managed factory, you can edit harness, auth, and model from the dashboard. A GitHub-backed factory sets them through [`agentDefaults.harness` or a per-agent `harness` override](/factories/factory-as-code/#agentdefaultsharness) in the definition files. For an example, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness).
 
-## Add custom agents and automations
+## Add custom agents
 
 Add a custom agent for a role that needs separate instructions, configuration, and runs.
 
 For a Warp-managed factory, open **Agents** in the [factory dashboard](/factories/factory-dashboard/), click **New**, then click **Custom agent**. For a GitHub-backed factory, add `agents/<name>/agent.md`. See the [`agent.md` configuration keys](/factories/factory-as-code/#agentsnameagentmd).
 
-Custom agents have no built-in skills. Add [factory skills](/factories/factory-skills/) based on who needs them:
+A custom agent gets the factory-wide skills under `skills/` but no role instructions of its own, so write its job into `agent.md`. For procedures only that agent needs, add a skill under `agents/<name>/skills/`. See [factory skills](/factories/factory-skills/).
 
-* **One agent** - Put the skill under `agents/<name>/skills/`.
-* **Every agent** - Put the skill under `skills/`.
+### How the foreman dispatches agents
 
-### Choose a configured factory agent
+The foreman starts the factory's other agents as child runs with the `run_agents` tool, selecting each one by its UID in `agent_run_configs[].agent_identity_uid`. A child run started this way inherits that agent's environment, runner, host, harness, and model unless the call overrides them; a child started without a factory agent's UID runs with no factory configuration, as in [multi-agent orchestration](/platform/orchestration/) from any Warp conversation. Keep that dispatch step if you rewrite the foreman's instructions or add a custom coordinating agent.
 
-Use `run_agents` when the foreman should give work to one of the agents configured in your factory. The foreman receives a list of those agents, with a unique ID (UID) for each one.
+### Automations
 
-Run the child remotely by setting the call's `remote` field, then copy the chosen agent's UID into `agent_run_configs[].agent_identity_uid`. Only use UIDs from the list, and select an agent for every child in the call. The `name` field only labels the child run; it doesn't choose the factory agent.
-
-Warp uses the UID to load that agent's configured environment, runner, host, harness, and model unless the call overrides them. To start a child without factory configuration, use [multi-agent orchestration](/platform/orchestration/) from any Warp conversation.
-
-Automations start a chosen agent on a [schedule](/factories/factory-as-code/#triggersschedule) or when an event fires. They're one more way for work to enter your factory; the foreman still coordinates whatever they start. For all the ways to route work into a factory, see [connect your factory](/factories/connect-your-factory/).
+[Automations](/factories/automations/) start a chosen agent on a [schedule](/factories/factory-as-code/#triggersschedule) or when an event arrives from a connected tool. They're one more way for work to enter the factory; the foreman still coordinates whatever they start. For every way to route work into a factory, see [connect your factory](/factories/connect-your-factory/).
 
 ## Human decision points and permissions
 
@@ -153,8 +147,12 @@ Automations start a chosen agent on a [schedule](/factories/factory-as-code/#tri
 | Merging | Agents never merge; the foreman hands the finished pull request to a human | Your repository's permissions decide who can approve and merge |
 | Runtime access | Each agent reaches only the repositories, secrets, and MCP servers in its configuration | Platform configuration and the permissions of the connected providers |
 
-The first two rows are conventions: they live in the foreman's instructions and your repository settings, and your team can change them. Access is different. What an agent can reach comes from its configuration and the permissions of the connected providers, never from its instructions — changing what an agent is told to do doesn't change what it's able to do.
+Instructions decide what an agent is told to do; configuration and provider permissions decide what it can reach. Enforce merge policy with branch protection and repository permissions, and enforce access with each agent's configuration.
 
-So enforce with the real controls: branch protection and repository permissions decide who merges, and each agent's configuration decides what it can reach.
+## Related pages
 
-Next, capture these choices in [factory definitions as code](/factories/factory-as-code/).
+* [How Warp Factories work](/factories/how-factories-work/) - The stages a work item moves through and where people decide.
+* [Factory skills](/factories/factory-skills/) - The built-in skills every agent starts with, and how to add your own.
+* [Factory definition syntax](/factories/factory-as-code/) - Every `agent.md` key, including per-agent model, harness, and runner overrides.
+* [Harnesses for cloud agents](/platform/harnesses/) - What each harness supports and how to authenticate it.
+* [Connect your factory](/factories/connect-your-factory/) - The sources that send work to the foreman.
