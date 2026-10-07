@@ -8,15 +8,13 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Run the `oz-agent-worker` daemon with the **Docker backend** — the default managed path. Each agent task runs in an isolated Docker container spawned from the worker, with full orchestration by the {VARS.WARP_AUTOMATION_PLATFORM} (Slack, Linear, schedules, API, `oz agent run-cloud`).
+Run the `oz-agent-worker` daemon with the **Docker backend**, the default managed path. Each agent task runs in an isolated Docker container spawned from the worker, and the {VARS.WARP_AUTOMATION_PLATFORM} orchestrates the runs from Slack, Linear, schedules, the API, or `oz agent run-cloud`.
 
 ## When to use the Docker backend
 
 * You want the simplest managed setup and have Docker available on the worker host.
 * You want per-task isolation without running a Kubernetes cluster.
 * You're not already deploying workloads into Kubernetes.
-
----
 
 ## Prerequisites
 
@@ -35,8 +33,6 @@ docker info
 ```
 
 **Expected outcome:** `docker info` prints daemon details without errors.
-
----
 
 ## Set your API key
 
@@ -97,8 +93,6 @@ Once started, the worker connects to the {VARS.WARP_AUTOMATION_PLATFORM}, waits 
 
 You can run multiple workers with the same `--worker-id` for redundancy — the {VARS.WARP_AUTOMATION_PLATFORM} distributes tasks across connected workers.
 
----
-
 ## Docker backend configuration
 
 The worker can take configuration either via CLI flags or via a YAML [config file](/factories/self-hosting/reference/#config-file). CLI flags take precedence over config file values.
@@ -154,8 +148,6 @@ backend:
 
 Pass it with `--config-file config.yaml`. See the [self-hosted worker reference](/factories/self-hosting/reference/) for the full flag and config schema.
 
----
-
 ## Docker connectivity
 
 The worker uses the standard Docker client discovery mechanism to find the Docker daemon.
@@ -169,9 +161,9 @@ The published worker image runs as a non-root user. When you mount a rootful Lin
 
 Additional Docker environment variables the worker respects:
 
-* `DOCKER_API_VERSION` — Specify Docker API version.
-* `DOCKER_CERT_PATH` — Path to TLS certificates.
-* `DOCKER_TLS_VERIFY` — Enable TLS verification.
+* `DOCKER_API_VERSION` - Specify Docker API version.
+* `DOCKER_CERT_PATH` - Path to TLS certificates.
+* `DOCKER_TLS_VERIFY` - Enable TLS verification.
 
 **Example: Connecting to a remote Docker daemon**
 
@@ -181,8 +173,6 @@ export DOCKER_TLS_VERIFY=1
 export DOCKER_CERT_PATH="/path/to/certs"
 oz-agent-worker --api-key "$WARP_API_KEY" --worker-id "my-worker"
 ```
-
----
 
 ## Private Docker registries
 
@@ -221,19 +211,15 @@ docker run \
 
 To mirror the worker and sidecar images as well as task images, see [Pulling self-hosted images from a private registry](/factories/self-hosting/private-container-registry/).
 
----
-
 ## Routing runs to this worker
 
 Once your Docker worker is connected, route tasks to it with `--host "<your-worker-id>"`. Routing is the same across all managed backends — see [Routing runs to self-hosted workers](/factories/self-hosting/#routing-runs-to-self-hosted-workers) for CLI, scheduled, integration, API, and web UI examples.
 
----
-
 ## Related pages
 
-* [Self-hosting quickstart](/factories/self-hosting/quickstart/) — ~10-minute path to a running Docker worker.
-* [Self-hosted worker reference](/factories/self-hosting/reference/) — Full CLI flag and config file schema.
-* [Environments](/platform/environments/) — Define the Docker image, repos, and setup commands for tasks.
-* [Private container registry](/factories/self-hosting/private-container-registry/) — Mirror worker and task images and configure private-registry pulls.
-* [Security and networking](/platform/execution-security/) — Data boundaries, egress, and Docker socket considerations.
-* [Troubleshooting](/factories/self-hosting/troubleshooting/) — Common issues with the Docker backend.
+* [Self-hosting quickstart](/factories/self-hosting/quickstart/) - ~10-minute path to a running Docker worker.
+* [Self-hosted worker reference](/factories/self-hosting/reference/) - Full CLI flag and config file schema.
+* [Environments](/platform/environments/) - Define the Docker image, repos, and setup commands for tasks.
+* [Private container registry](/factories/self-hosting/private-container-registry/) - Mirror worker and task images and configure private-registry pulls.
+* [Security and networking](/platform/execution-security/) - Data boundaries, egress, and Docker socket considerations.
+* [Troubleshooting](/factories/self-hosting/troubleshooting/) - Common issues with the Docker backend.

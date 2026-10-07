@@ -14,8 +14,6 @@ Use these checks when the `oz-agent-worker` daemon won't start or connect, tasks
 The steps below apply to the [managed architecture](/factories/self-hosting/#managed-architecture) (`oz-agent-worker` daemon). For [unmanaged](/platform/unmanaged-execution/) deployments, refer to the documentation for the environment running `oz agent run` (e.g., GitHub Actions, Kubernetes).
 :::
 
----
-
 ## Worker won't start
 
 ### Docker backend
@@ -52,8 +50,6 @@ A successful preflight validates the configured pod shape, not task-specific ima
 1. Install the {VARS.WARP_AGENT_CLI} on the worker host. See [Installing the CLI](/agents/cli/oz-cli/#installing-the-cli).
 2. If the CLI isn't on `PATH`, set `oz_path` in the config file to the absolute path of the `oz` binary.
 
----
-
 ## Worker won't connect
 
 **Cause:** The API key is invalid, expired, or the host cannot reach the {VARS.WARP_AUTOMATION_PLATFORM}'s backend.
@@ -68,8 +64,6 @@ A successful preflight validates the configured pod shape, not task-specific ima
 
 See [Security and networking](/platform/execution-security/#network-requirements) for the full list of outbound endpoints the worker needs.
 
----
-
 ## Tasks not being picked up
 
 **Cause:** The worker isn't running, the `--host` value doesn't match the worker's `--worker-id`, or the worker and task belong to different teams.
@@ -79,8 +73,6 @@ See [Security and networking](/platform/execution-security/#network-requirements
 1. Confirm the worker is running and connected. Check the worker logs for `Successfully connected to server`.
 2. Verify the `--host` (or `worker_host`) value you passed matches your `--worker-id` exactly. Case-sensitive.
 3. Ensure the worker's team matches the team creating the task.
-
----
 
 ## Metrics not appearing
 
@@ -97,8 +89,6 @@ See [Security and networking](/platform/execution-security/#network-requirements
 7. Restart the worker with `--log-level debug` and look for metrics-related error messages at startup.
 
 See [Monitoring](/factories/self-hosting/monitoring/) for the full setup guide.
-
----
 
 ## Task failures
 
@@ -144,8 +134,6 @@ The worker API key authenticates the worker to Warp; it is not a task credential
 1. Verify the {VARS.WARP_AGENT_CLI} is accessible.
 2. Verify the workspace root directory has write permissions for the user running the worker.
 
----
-
 ## Image pull failures
 
 ### Docker backend (image pull)
@@ -163,11 +151,9 @@ The worker API key authenticates the worker to Warp; it is not a task credential
 * Verify the image exists and the tag is correct.
 * Check network connectivity from the worker/cluster to the registry.
 
----
-
 ## Related pages
 
-* [Self-hosting overview](/factories/self-hosting/) — Architecture and decision guide.
-* [Self-hosted worker reference](/factories/self-hosting/reference/) — CLI flags and config schema, including every flag mentioned here.
-* [Security and networking](/platform/execution-security/) — Outbound endpoints the worker needs.
-* [Agent Session Sharing](/agents/local-agents/session-sharing/) — Attach to running tasks to debug interactively.
+* [Self-hosting overview](/factories/self-hosting/) - Architecture and decision guide.
+* [Self-hosted worker reference](/factories/self-hosting/reference/) - CLI flags and config schema, including every flag mentioned here.
+* [Security and networking](/platform/execution-security/) - Outbound endpoints the worker needs.
+* [Agent Session Sharing](/agents/local-agents/session-sharing/) - Attach to running tasks to debug interactively.
