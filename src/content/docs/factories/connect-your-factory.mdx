@@ -17,7 +17,7 @@ GitHub, GitLab.com, and Azure DevOps Services connect both repositories and prov
 
 Pick the sources that match where work starts for your team. You can connect multiple sources, but not both Linear and Jira at the same time. Choose either issue tracker during setup, or connect one later from the factory's settings or [definition](/factories/factory-as-code/).
 
-Once a source is connected, here's the concrete action that hands it work — each links to that integration's full instructions rather than repeating them.
+Once a source is connected, this is the action that hands it work:
 
 | Source | Best for | Start work by | Continues in |
 | --- | --- | --- | --- |
@@ -63,7 +63,7 @@ When you create a factory through the setup wizard, Warp adds default automation
 
 * **GitHub** - Starts work from mentions and assignments, when the factory's label is applied to an issue or pull request, and when a review is submitted on a labeled pull request. It also follows up when labeled pull requests close or merge, completing a linked tracker issue when it can. See the [GitHub integration guide](/factories/integrations/github/).
 * **GitLab** - Starts work when someone mentions the factory's bot in a merge request comment. See the [GitLab integration guide](/factories/integrations/gitlab/).
-* [Azure DevOps](/factories/integrations/azure-devops/) - Starts work when someone mentions the factory identity in a pull request or work item, or assigns it a work item.
+* **Azure DevOps** - Starts work when someone mentions the factory identity in a pull request or work item, or assigns it a work item. See the [Azure DevOps integration guide](/factories/integrations/azure-devops/).
 * **Jira** - Starts work when someone assigns or mentions Warp on a work item in one of the Jira projects you selected. See the [Jira integration guide](/factories/integrations/jira/).
 * **Linear** - Starts work when a new agent session arrives from one of the Linear teams you selected. See the [Linear integration guide](/factories/integrations/linear/).
 * **Slack** - Starts work from mentions and messages, as described in the [Slack integration guide](/factories/integrations/slack/).
@@ -77,7 +77,7 @@ A [custom webhook](/factories/webhooks/) gives the factory an authenticated URL 
 
 ## Factory endpoints
 
-[Factory endpoints](/factories/factory-api/) let your own code discover a factory and dispatch a task to it by UID, without knowing which agent handles the work. Use them to build a custom integration for a tool Warp doesn't connect to directly - see [Build a Mattermost bot for Warp Factories](/guides/external-tools/build-a-mattermost-bot-for-warp-factories/) for a worked example.
+[Factory endpoints](/factories/factory-api/) let your own code discover a factory and send it work by UID, without knowing which agent handles the work. Use them to build a custom integration for a tool Warp doesn't connect to directly. For a worked example, see [build a Mattermost bot for Warp Factories](/guides/external-tools/build-a-mattermost-bot-for-warp-factories/).
 
 ## Factory MCP
 
@@ -105,3 +105,10 @@ Run the weekly dependency audit. List outdated and vulnerable dependencies,
 apply safe minor and patch upgrades on a branch, run the tests, and open a
 PR with the changes and a summary of anything that needs a human decision.
 ```
+
+## Related pages
+
+* [Factory automations](/factories/automations/) - How triggers and filters decide which events start work.
+* [How Warp Factories work](/factories/how-factories-work/) - What happens to a work item after it reaches the foreman.
+* [Factory agents](/factories/factory-agents/) - The foreman and the agents it dispatches.
+* [Troubleshooting Warp Factories](/factories/troubleshooting/) - What to check when an event doesn't start work.

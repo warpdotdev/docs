@@ -1,5 +1,5 @@
 ---
-title: Connect Slack to your factory
+title: Connecting Slack to your factory
 description: >-
   Connect Slack to your factory so your team can start work with mentions,
   direct messages, and automations, and get results back in the same thread.
@@ -27,11 +27,11 @@ Each factory appears in Slack as its own app with the factory's name and avatar.
 
 Use a factory automation to start work from Slack activity automatically, without anyone mentioning the app, such as on every message in a triage channel or on a specific emoji reaction. Add a **Slack** trigger to an automation and pick one of these events. To learn how to edit those filters, see [Automations](/factories/automations/#edit-filters-on-an-automation).
 
-- **App mentioned** - Filter by joined conversations, authors, and keywords.
-- **Direct message received** (`message_dm`) - Filter by direct-message conversations, authors, and keywords.
-- **Message posted in channel** - Filter by joined conversations, authors, and keywords.
-- **Reaction added** - Filter by conversations, reactors, keywords, emoji, and reacted-message authors.
-- **Member joined channel** - Filter by conversations and members.
+* **App mentioned** - Filter by joined conversations, authors, and keywords.
+* **Direct message received** - Filter by direct-message conversations, authors, and keywords.
+* **Message posted in channel** - Filter by joined conversations, authors, and keywords.
+* **Reaction added** - Filter by conversations, reactors, keywords, emoji, and reacted-message authors.
+* **Member joined channel** - Filter by conversations and members.
 
 For the exact `event` value each of these triggers uses in a definition file, see [triggers](/factories/factory-as-code/#triggers).
 
@@ -117,15 +117,20 @@ Work started by an automation runs as the factory agent you chose for it, not as
 
 ## Troubleshooting and reconnection
 
-- **The app doesn't acknowledge a request** - Confirm Slack is connected for that factory, that you mentioned the right factory's app, and that the app is in the channel.
-- **A channel is missing from an automation** - Invite the app to that channel, then reload the **Conversations** picker.
-- **Installation is pending** - Ask a Slack workspace administrator to approve the app, then finish the installation.
-- **Two runs start for one mention** - Remove or narrow overlapping app-mention and channel-message triggers.
+* **The app doesn't acknowledge a request** - Confirm Slack is connected for that factory, that you mentioned the right factory's app, and that the app is in the channel.
+* **A channel is missing from an automation** - Invite the app to that channel, then reload the **Conversations** picker.
+* **Installation is pending** - Ask a Slack workspace administrator to approve the app, then finish the installation.
+* **Two runs start for one mention** - Remove or narrow overlapping app-mention and channel-message triggers.
 
-To disconnect Slack, either delete the factory — which removes its Slack app along with it — or [remove the app from your Slack workspace](https://slack.com/help/articles/360003125231-Remove-apps-and-custom-integrations-from-your-workspace), which stops new Slack requests reaching that factory. To reconnect afterward, click **Add to Slack** in factory setup again.
-
-To route work into the factory from other tools, see [Connect your factory](/factories/connect-your-factory/).
+To disconnect Slack, delete the factory, which removes its Slack app, or [remove the app from your Slack workspace](https://slack.com/help/articles/360003125231-Remove-apps-and-custom-integrations-from-your-workspace), which stops new Slack requests reaching that factory. To reconnect afterward, click **Add to Slack** in factory setup again.
 
 ## Privacy
 
 The factory's app reads messages only where it's mentioned, directly messaged, or subscribed by an automation you configured. Message content and supported attachments are used to run the factory's work, and your Slack profile email is used to map you to your Warp account. Data is handled per the [Warp Privacy Policy](https://www.warp.dev/privacy).
+
+## Related pages
+
+* [Connect your factory](/factories/connect-your-factory/) - Every other way to route work into the factory.
+* [Factory automations](/factories/automations/) - How triggers and filters decide which Slack activity starts work.
+* [Connecting Microsoft Teams to your factory](/factories/integrations/teams/) - The other chat intake path for factories.
+* [How Warp Factories work](/factories/how-factories-work/) - What happens to a request after the factory picks it up.
