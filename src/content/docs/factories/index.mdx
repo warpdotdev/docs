@@ -52,7 +52,7 @@ Setup gives the foreman the same handle as the factory, so `payments` is the fac
 
 ### Stages and checkpoints
 
-The foreman moves a work item through the Triage, Planning, Building, and Reviewing stages, skipping the ones a well-defined request doesn't need and sending work back when review finds problems. Spec approval and the foreman's questions are written into its instructions, which your team can edit. Merging is enforced by your repository's branch protection. See [how Warp Factories work](/factories/how-factories-work/).
+The foreman moves a work item through the Triage, Planning, Building, and Reviewing stages, skipping the ones a well-defined request doesn't need and sending work back when review finds problems. Spec approval and the foreman's questions are written into its instructions, which your team can edit. The factory never merges. Your repository's permissions and branch protection determine who can approve and merge. See [how Warp Factories work](/factories/how-factories-work/).
 
 ### Factory definition
 
@@ -68,7 +68,7 @@ Every agent run in a factory is an ordinary [cloud agent run](/platform/) on the
 
 ### Measurement
 
-The [factory dashboard](/factories/factory-dashboard/) shows work items by stage, runs, and cost per pull request. [Scorers](/factories/measure-and-improve/scorers/) classify completed runs against criteria you write, [benchmarks](/factories/benchmarks/) compare models, harnesses, and runners on the same tasks, and [Self-improvement](/factories/measure-and-improve/self-improvement/) turns repeated failures into pull requests for your review. See [measure and improve](/factories/measure-and-improve/).
+The [factory dashboard](/factories/factory-dashboard/) shows autonomy, pull request cycle time, cost per pull request, opened versus merged pull requests, and run breakdowns. [Scorers](/factories/measure-and-improve/scorers/) classify completed runs against criteria you write, [benchmarks](/factories/benchmarks/) compare models, harnesses, and runners on the same tasks, and [Self-improvement](/factories/measure-and-improve/self-improvement/) turns repeated failures into pull requests for your review. See [measure and improve](/factories/measure-and-improve/).
 
 ## Sizing a factory
 
