@@ -8,7 +8,12 @@ const source = await readFile(new URL('../src/content/docs/index.mdx', import.me
 const { document } = parseHTML(html);
 const tocLinks = [...document.querySelectorAll('starlight-toc a')];
 const headings = [...document.querySelectorAll('main h2')];
-assert.match(source, /^## \{VARS\.[A-Z0-9_]+\}$/m, 'Homepage has no variable-backed H2 fixture');
+// The homepage is a deliberate build canary for variable-backed heading metadata.
+assert.match(
+	source,
+	/^## .*\{VARS\.[A-Z0-9_]+\}.*$/m,
+	'Keep a variable-backed H2 on the homepage or move this canary to another stable page',
+);
 assert(headings.length > 0, 'Homepage has no rendered H2 headings');
 
 for (const heading of headings) {

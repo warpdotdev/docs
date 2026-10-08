@@ -31,7 +31,7 @@ def _parse_signal(
 
     unique_signals = {}
     for match in matches:
-        candidate = text[match.end() :].lstrip()
+        candidate = text[match.end() :]
         try:
             signal, _ = json.JSONDecoder().raw_decode(candidate)
         except json.JSONDecodeError:
