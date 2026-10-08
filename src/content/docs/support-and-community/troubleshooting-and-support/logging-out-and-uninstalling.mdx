@@ -177,7 +177,7 @@ The install script places a versioned install under a data directory and puts a 
 Default locations:
 
 * **macOS and Linux** - Install root `~/.warp/tui/` (versioned binaries under `versions/`, active build at `current`), symlink at `~/.local/bin/warp`
-* **Windows** - Install root `%LOCALAPPDATA%\Warp\tui\`, CLI entry under `%LOCALAPPDATA%\Warp\bin\`
+* **Windows** - Install root `%LOCALAPPDATA%\Warp\tui\`, Stable launcher `%LOCALAPPDATA%\Warp\bin\warp.cmd`
 
 If you overrode the defaults with `WARP_TUI_INSTALL_DIR` or `WARP_TUI_BIN_DIR` when you installed, remove those paths instead.
 
@@ -198,8 +198,9 @@ If you overrode the defaults with `WARP_TUI_INSTALL_DIR` or `WARP_TUI_BIN_DIR` w
     $installDir = if ($env:WARP_TUI_INSTALL_DIR) { $env:WARP_TUI_INSTALL_DIR } else { Join-Path $env:LOCALAPPDATA 'Warp\tui' }
     $binDir = if ($env:WARP_TUI_BIN_DIR) { $env:WARP_TUI_BIN_DIR } else { Join-Path $env:LOCALAPPDATA 'Warp\bin' }
 
-    # Remove CLI entries on PATH (name depends on installer version)
-    Get-ChildItem -Path $binDir -Filter 'warp*' -ErrorAction SilentlyContinue | Remove-Item -Force
+    # Remove the Stable CLI launcher on PATH (warp.cmd).
+    # Preview installs use warp-preview.cmd instead — remove that file if you installed Preview.
+    Remove-Item -LiteralPath (Join-Path $binDir 'warp.cmd') -Force -ErrorAction SilentlyContinue
 
     # Remove the versioned install
     Remove-Item -Path $installDir -Recurse -Force -ErrorAction SilentlyContinue
