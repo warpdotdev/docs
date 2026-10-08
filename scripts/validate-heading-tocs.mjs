@@ -29,7 +29,12 @@ assert(
 );
 
 const htmlDirectory = fileURLToPath(new URL('../.vercel/output/static/', import.meta.url));
-const htmlFiles = await collectFiles(htmlDirectory, ['.html']);
+const htmlFiles = await collectFiles(htmlDirectory, ['.html']).catch((error) => {
+	if (error?.code !== 'ENOENT') throw error;
+	throw new Error(
+		`No build output at ${htmlDirectory}. Run npm run build before npm run test:heading-tocs.`,
+	);
+});
 let tocEntryCount = 0;
 for (const file of htmlFiles) {
 	const html = await readFile(file, 'utf8');
@@ -41,12 +46,20 @@ for (const file of htmlFiles) {
 		assert.doesNotMatch(
 			heading.textContent,
 			/\bVARS\./,
-			`${file} heading #${heading.id} contains an unresolved content variable`,
+			`${file} heading #${heading.id || heading.textContent.trim()} contains an unresolved content variable`,
 		);
 	}
+	const agentOnlyHeadings = [...document.querySelectorAll('template[data-agent-only]')].flatMap(
+		(template) => [...template.content.querySelectorAll('h1, h2, h3, h4, h5, h6')],
+	);
 
 	const headingsById = new Map(
-		allHeadings.filter((heading) => heading.id).map((heading) => [heading.id, heading]),
+		[...allHeadings, ...agentOnlyHeadings]
+			.filter((heading) => heading.id)
+			.map((heading) => [heading.id, heading]),
+	);
+	const visibleHeadingIds = new Set(
+		allHeadings.filter((heading) => heading.id).map((heading) => heading.id),
 	);
 	const tocHrefs = new Set();
 	const tocHeadingTags = new Set();
@@ -61,8 +74,8 @@ for (const file of htmlFiles) {
 			`${file} TOC entry for ${href} contains an unresolved content variable`,
 		);
 		const heading = headingsById.get(href.slice(1));
-		if (!heading) continue;
-		tocHeadingTags.add(heading.tagName);
+		assert(heading, `${file} TOC entry ${href} has no matching heading`);
+		if (visibleHeadingIds.has(heading.id)) tocHeadingTags.add(heading.tagName);
 		assert.equal(
 			link.textContent.trim(),
 			heading.textContent.trim(),
