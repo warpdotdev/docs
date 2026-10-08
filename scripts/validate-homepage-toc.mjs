@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { parseHTML } from 'linkedom';
@@ -7,22 +8,22 @@ const source = await readFile(new URL('../src/content/docs/index.mdx', import.me
 const { document } = parseHTML(html);
 const tocLinks = [...document.querySelectorAll('starlight-toc a')];
 const headings = [...document.querySelectorAll('main h2')];
-
-assert.match(source, /^## .*\{VARS\.[A-Z_]+\}/m, 'Homepage has no variable-backed H2 fixture');
+assert.match(source, /^## \{VARS\.[A-Z0-9_]+\}$/m, 'Homepage has no variable-backed H2 fixture');
 assert(headings.length > 0, 'Homepage has no rendered H2 headings');
-const automationPlatformHeading = headings.find(
-	(heading) => heading.textContent.trim() === 'Automation Platform',
-);
-assert(automationPlatformHeading, 'Homepage has no rendered Automation Platform H2');
-assert.equal(
-	automationPlatformHeading.id,
-	'automation-platform',
-	'Automation Platform H2 has an unexpected anchor',
-);
 
 for (const heading of headings) {
+	assert.doesNotMatch(
+		heading.textContent,
+		/\bVARS\./,
+		`Homepage H2 #${heading.id} contains an unresolved content variable`,
+	);
 	const link = tocLinks.find((candidate) => candidate.getAttribute('href') === `#${heading.id}`);
 	assert(link, `Missing homepage TOC entry for #${heading.id}`);
+	assert.doesNotMatch(
+		link.textContent,
+		/\bVARS\./,
+		`Homepage TOC entry for #${heading.id} contains an unresolved content variable`,
+	);
 	assert.equal(
 		link.textContent.trim(),
 		heading.textContent.trim(),
