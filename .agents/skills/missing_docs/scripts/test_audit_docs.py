@@ -466,6 +466,50 @@ class TestConsistencyAudit(unittest.TestCase):
             )
 
 
+class TestAccounting(unittest.TestCase):
+    def test_cli_all_finding_accounts_for_commands(self):
+        with tempfile.TemporaryDirectory() as d:
+            accounting = audit_docs.compute_accounting(
+                Path(d),
+                {},
+                {"undocumented_cli_commands": [{"command": "(all)"}]},
+                {},
+                [{
+                    "command": "oz thing",
+                    "hidden": False,
+                    "subcommands": [],
+                }],
+                [],
+                [],
+                {},
+                {},
+            )
+
+        self.assertNotIn("cli_commands", accounting["unaccounted"])
+        self.assertEqual(accounting["cli_commands"]["finding"], 1)
+
+    def test_api_all_finding_accounts_for_routes(self):
+        with tempfile.TemporaryDirectory() as d:
+            accounting = audit_docs.compute_accounting(
+                Path(d),
+                {},
+                {"undocumented_api_endpoints": [{"route": "(all)"}]},
+                {},
+                [],
+                [{
+                    "route": "GET /api/v1/thing",
+                    "method": "GET",
+                    "path": "/api/v1/thing",
+                }],
+                [],
+                {},
+                {},
+            )
+
+        self.assertNotIn("api_routes", accounting["unaccounted"])
+        self.assertEqual(accounting["api_routes"]["finding"], 1)
+
+
 class TestGatedLogic(unittest.TestCase):
     """Repo-free unit tests for the `gated:<Flag>` rollout-aware deferral."""
 

@@ -2679,7 +2679,7 @@ def compute_accounting(docs_root: Path, surface_map: dict, findings: dict,
                 cb["mapped"] += 1
             elif any(name.split(" ", 1)[1] in t for t in cli_text.values()):
                 cb["doc_covered"] += 1
-            elif name in cli_findings:
+            elif name in cli_findings or "(all)" in cli_findings:
                 cb["finding"] += 1
             elif parent in cli_findings:
                 cb["parent_flagged"] += 1
@@ -2735,7 +2735,7 @@ def compute_accounting(docs_root: Path, surface_map: dict, findings: dict,
         elif any(c in openapi_text or any(c in t for t in api_docs_text.values())
                  for c in {route["path"].lower(), rel.lower()}):
             ab["docs_covered"] += 1
-        elif rel_str in api_findings:
+        elif rel_str in api_findings or "(all)" in api_findings:
             ab["finding"] += 1
         else:
             missing.append(rel_str)
