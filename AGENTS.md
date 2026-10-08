@@ -965,7 +965,7 @@ Add the key-value pair to `src/data/vars.ts` only. Both Option A (TypeScript imp
 ### Important constraints
 - **Do NOT** use `{{TOKEN}}` syntax in MDX body prose — it's only for frontmatter YAML. The Vite plugin runs before MDX parsing; curly-brace expressions in body prose are MDX syntax, not plugin tokens.
 - **Do NOT** use `{VARS.x}` expressions in frontmatter — MDX expressions don't evaluate in YAML frontmatter.
-- **Heading expressions**: Only bare `{VARS.KEY}` expressions are supported in headings. Other MDX expressions in headings fail the build.
+- **Heading expressions**: Only bare `{VARS.KEY}` expressions are supported in headings. Other MDX expressions, including MDX comments, fail the build. Put comments on their own line outside the heading.
 - **Key naming rule**: Keys are stable identifiers. Use the future or conceptual name as the key (e.g., `WARP_AGENT_CLI`), not the current brand name that may be retired. The value holds the current string.
 ## SEO and AEO (AI Engine Optimization)
 

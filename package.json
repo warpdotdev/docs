@@ -18,7 +18,7 @@
     "seo:audit": "node scripts/seo-audit.mjs",
     "test:heading-vars": "node --test src/plugins/heading-vars-core.test.mjs",
     "test:homepage-json-ld": "node scripts/validate-homepage-json-ld.mjs",
-    "test:homepage-toc": "node scripts/validate-homepage-toc.mjs",
+    "test:heading-tocs": "node scripts/validate-heading-tocs.mjs",
     "postinstall": "patch-package"
   },
   "engines": {
