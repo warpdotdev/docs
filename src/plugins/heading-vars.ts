@@ -1,3 +1,4 @@
+// Keep the transform core in plain JavaScript so node:test can run it without transpilation.
 import { VARS } from '../data/vars.js';
 import { resolveHeadingVars } from './heading-vars-core.mjs';
 import type { MdastNode } from './heading-vars-core.mjs';

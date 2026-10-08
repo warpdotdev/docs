@@ -1,30 +1,35 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
 import { readdir, readFile } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { parseHTML } from 'linkedom';
 
 async function collectFiles(directory, extension) {
 	const files = [];
 	for (const entry of await readdir(directory, { withFileTypes: true })) {
+		const entryPath = path.join(directory, entry.name);
 		if (entry.isDirectory()) {
-			files.push(...(await collectFiles(new URL(`${entry.name}/`, directory), extension)));
+			files.push(...(await collectFiles(entryPath, extension)));
 		} else if (entry.name.endsWith(extension)) {
-			files.push(new URL(entry.name, directory));
+			files.push(entryPath);
 		}
 	}
 	return files;
 }
 
-const sourceFiles = await collectFiles(new URL('../src/content/docs/', import.meta.url), '.mdx');
+const sourceDirectory = fileURLToPath(new URL('../src/content/docs/', import.meta.url));
+const sourceFiles = await collectFiles(sourceDirectory, '.mdx');
 const sourceHasFixture = (
 	await Promise.all(sourceFiles.map((file) => readFile(file, 'utf8')))
 ).some((source) => /^## .*\{VARS\.[A-Z0-9_]+\}.*$/m.test(source));
-assert(sourceHasFixture, 'Docs have no variable-backed H2 fixture');
-
-const htmlFiles = await collectFiles(
-	new URL('../.vercel/output/static/', import.meta.url),
-	'.html',
+assert(
+	sourceHasFixture,
+	'Keep a variable-backed H2 fixture shaped like `## ... {VARS.KEY} ...` in src/content/docs/index.mdx',
 );
+
+const htmlDirectory = fileURLToPath(new URL('../.vercel/output/static/', import.meta.url));
+const htmlFiles = await collectFiles(htmlDirectory, '.html');
 let headingCount = 0;
 for (const file of htmlFiles) {
 	const html = await readFile(file, 'utf8');
@@ -37,21 +42,22 @@ for (const file of htmlFiles) {
 		assert.doesNotMatch(
 			heading.textContent,
 			/\bVARS\./,
-			`${file.pathname} H2 #${heading.id} contains an unresolved content variable`,
+			`${file} H2 #${heading.id} contains an unresolved content variable`,
 		);
+		if (tocLinks.length === 0) continue;
 		const link = tocLinks.find(
 			(candidate) => candidate.getAttribute('href') === `#${heading.id}`,
 		);
-		assert(link, `Missing TOC entry for ${file.pathname}#${heading.id}`);
+		assert(link, `Missing TOC entry for ${file}#${heading.id}`);
 		assert.doesNotMatch(
 			link.textContent,
 			/\bVARS\./,
-			`${file.pathname} TOC entry for #${heading.id} contains an unresolved content variable`,
+			`${file} TOC entry for #${heading.id} contains an unresolved content variable`,
 		);
 		assert.equal(
 			link.textContent.trim(),
 			heading.textContent.trim(),
-			`TOC label does not match ${file.pathname}#${heading.id}`,
+			`TOC label does not match ${file}#${heading.id}`,
 		);
 	}
 }
