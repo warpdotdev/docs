@@ -153,6 +153,16 @@ The handle used to @-mention the foreman on platforms such as Slack and Linear. 
 **Optional.**
 Whose credentials runs use: `EXECUTOR` for the executing principal, or `CREATOR` for the user who created the run. `CREATOR` requires a paid plan. Omit the key to preserve the setting; otherwise, it defaults to `EXECUTOR`. Agents can override it by role.
 
+### `automations`
+
+**Optional.**
+Factory-wide automation settings. `automations.githubOnboardingNotices` defaults to `true`. Set it to `false` to suppress future GitHub account-connection and team-membership notices without changing access requirements.
+
+```yaml title="factory.yaml"
+automations:
+  githubOnboardingNotices: false
+```
+
 ### `codeForges`
 
 **Optional.**
