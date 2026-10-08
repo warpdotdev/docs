@@ -1,0 +1,183 @@
+{
+  "claims": [
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:522b6de36db0d99a9649fb77d9c97b6487f8f62f372babe40a8e680f59edd28f",
+      "claim_id": "sha256:715061b07ee5bcc88985426b37010b1a58cc34a6c2ba65dd3fc2b81f736e6946",
+      "entity": "computer-use-recording",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "captures-local-desktop",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "It never captures your local desktop, terminal, credentials, or anything outside the sandbox.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/testing-and-recordings",
+        "canonical_route": "/agents/capabilities/computer-use/testing-and-recordings",
+        "content_sha256": "e6f087ddcc2c6af2d120e6f86be1ee76949594f96055402466c7e6bd6fb10e65",
+        "heading": "What's in a recording",
+        "heading_anchor": "whats-in-a-recording",
+        "line_end": 61,
+        "line_start": 61,
+        "path": "src/content/docs/agents/capabilities/computer-use/testing-and-recordings.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/testing-and-recordings/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:ec07b5e87efe0f9821b34f08698a207d648fce793a7645fcc2c31705e9d4e5e3",
+      "claim_id": "sha256:74eec52fc70532ec0e79443b04ea2c6411f2ba270e18a9a857d7b8f39fad974d",
+      "entity": "computer-use",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "enabled-by-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [
+          "ga"
+        ],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Computer Use is enabled by default for cloud agent runs on Warp's built-in harness",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/testing-and-recordings",
+        "canonical_route": "/agents/capabilities/computer-use/testing-and-recordings",
+        "content_sha256": "e6f087ddcc2c6af2d120e6f86be1ee76949594f96055402466c7e6bd6fb10e65",
+        "heading": "How it works",
+        "heading_anchor": "how-it-works",
+        "line_end": 34,
+        "line_start": 34,
+        "path": "src/content/docs/agents/capabilities/computer-use/testing-and-recordings.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/testing-and-recordings/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:94c311b02fb81b830c5736b77cbcbc272642316ee569d5d3ebfd55e60b0d5528",
+      "claim_id": "sha256:afb0a734d6d86e2fa8ec1c37f91a80f166cccaba5c283d421ff4eefec5471df3",
+      "entity": "computer-use-recording",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "maximum-duration",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "maximum duration of **10 minutes**",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/testing-and-recordings",
+        "canonical_route": "/agents/capabilities/computer-use/testing-and-recordings",
+        "content_sha256": "e6f087ddcc2c6af2d120e6f86be1ee76949594f96055402466c7e6bd6fb10e65",
+        "heading": "Recording was cut short",
+        "heading_anchor": "recording-was-cut-short",
+        "line_end": 112,
+        "line_start": 112,
+        "path": "src/content/docs/agents/capabilities/computer-use/testing-and-recordings.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/testing-and-recordings/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": 600,
+        "type": "duration"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:8959f877d69d7ea7ef7f6c876fffb70f8b7dc16f0df22c6b2e8141f53eb305d7",
+      "claim_id": "sha256:57d7995386acc7863e65461eef358beff462fa7de48ff665040b57f496ffc150",
+      "entity": "computer-use-recording",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "maximum-file-size",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "maximum file size of **1 GiB**",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/testing-and-recordings",
+        "canonical_route": "/agents/capabilities/computer-use/testing-and-recordings",
+        "content_sha256": "e6f087ddcc2c6af2d120e6f86be1ee76949594f96055402466c7e6bd6fb10e65",
+        "heading": "Recording was cut short",
+        "heading_anchor": "recording-was-cut-short",
+        "line_end": 112,
+        "line_start": 112,
+        "path": "src/content/docs/agents/capabilities/computer-use/testing-and-recordings.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/testing-and-recordings/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "1 GiB",
+        "type": "bytes"
+      }
+    }
+  ],
+  "page_sha256": "e6f087ddcc2c6af2d120e6f86be1ee76949594f96055402466c7e6bd6fb10e65",
+  "path": "src/content/docs/agents/capabilities/computer-use/testing-and-recordings.mdx",
+  "schema_version": 1
+}

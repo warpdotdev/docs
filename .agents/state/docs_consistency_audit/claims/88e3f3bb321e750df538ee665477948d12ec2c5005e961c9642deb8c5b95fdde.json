@@ -1,0 +1,100 @@
+{
+  "claims": [
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:00d77b88195dc847fbbd45f748c481f5f3d0268aea28ea7a0275d9631d718242",
+      "claim_id": "sha256:13c2dd949154a669ebabc2327bb7b7cb261c64120aa33923b712ac93d44d208b",
+      "entity": "file-tree",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "available-over-ssh",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "ssh"
+        ],
+        "exceptions": [],
+        "install_methods": [
+          "ssh-extension"
+        ],
+        "legacy": false,
+        "operating_systems": [
+          "linux",
+          "macos"
+        ],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The [file tree sidebar](/code/code-editor/file-tree/) reflects the remote project structure",
+      "source": {
+        "canonical_identity": "path:src/content/docs/code/ssh-feature-support.mdx",
+        "content_sha256": "6f53390fd33368d52ad8cc178d30f7f5c3a17140da06a1f04c787cf8be77f8f3",
+        "heading": "Features that work over SSH",
+        "heading_anchor": "features-that-work-over-ssh",
+        "line_end": 26,
+        "line_start": 26,
+        "path": "src/content/docs/code/ssh-feature-support.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/code/ssh-feature-support/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:3805beb6768cf9e7f7fa7befdb5777b762b7932527a289c31b5d876ea52f4eb9",
+      "claim_id": "sha256:504ab001a2397b7f05f130b550cd06d1e071b37111115bbde8de947ba485e0bc",
+      "entity": "language-server-protocol",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "available-over-ssh",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "ssh"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "LSP features](/code/code-editor/language-server-protocol/) such as hover info, go-to-definition, and inline diagnostics are not available for remote files.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/code/ssh-feature-support.mdx",
+        "content_sha256": "6f53390fd33368d52ad8cc178d30f7f5c3a17140da06a1f04c787cf8be77f8f3",
+        "heading": "Features not yet available over SSH",
+        "heading_anchor": "features-not-yet-available-over-ssh",
+        "line_end": 40,
+        "line_start": 40,
+        "path": "src/content/docs/code/ssh-feature-support.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/code/ssh-feature-support/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "6f53390fd33368d52ad8cc178d30f7f5c3a17140da06a1f04c787cf8be77f8f3",
+  "path": "src/content/docs/code/ssh-feature-support.mdx",
+  "schema_version": 1
+}

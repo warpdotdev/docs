@@ -7,7 +7,7 @@ import { VARS } from '@data/vars';
 
 ## Setup commands fail on a fresh container
 
-Setup commands run in a new container on every cloud agent run. Commands that depend on existing directories, caches, or cloned repositories can fail with [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/).
+Setup commands run in a new container on every cloud agent run. Commands that depend on existing directories, caches, or cloned repositories can fail with [`environment_setup_failed`](/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/).
 
 1. Update the setup commands so they work in a fresh container. For example, use `mkdir -p .cache` instead of `mkdir .cache`.
 2. Use lockfile-based dependency commands such as `npm ci` when your project supports them.
@@ -27,7 +27,7 @@ Cloud agents need GitHub authorization to clone private repositories. This error
 
 1. Authorize GitHub for the user who starts the run.
 2. For an automated workflow with an agent API key, configure [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization).
-3. Follow [GitHub authorization setup](/reference/cli/integration-setup/#how-github-authorization-works) for the full flow.
+3. Follow [GitHub authorization setup](/agents/cli/oz-cli/integration-setup/#how-github-authorization-works) for the full flow.
 
 ## "VM failed before the agent could run"
 
@@ -41,4 +41,4 @@ This error often means the Docker image is incompatible with the agent runtime. 
 
 * [Cloud agent environments](/platform/environments/) for the environment model and when to use one.
 * [Configuring cloud agent environments](configuring-environments/) to create, update, and manage environments.
-* [`environment_setup_failed`](/reference/api-and-sdk/troubleshooting/errors/environment-setup-failed/) for the API error reference.
+* [`environment_setup_failed`](/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/) for the API error reference.

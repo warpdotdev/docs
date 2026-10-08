@@ -1,7 +1,7 @@
 ---
 title: "Logging out & uninstalling"
 description: >-
-  How to log out from Warp, and how to uninstall Warp.
+  Log out of Warp, uninstall the Warp app, or remove the Warp Agent CLI and its local files.
 sidebar:
   label: "Logging Out & Uninstalling"
 ---
@@ -165,3 +165,66 @@ If you're using Warp Preview, replace "Warp-Stable" with "Warp-Preview" in the c
     ```
   </TabItem>
 </Tabs>
+
+## Uninstalling the Warp Agent CLI
+
+The [Warp Agent CLI](/agents/cli/) is a separate install from the Warp desktop app. Removing the app does not remove the CLI, and removing the CLI does not uninstall the app.
+
+### Install-script installs (macOS, Linux, and Windows)
+
+The install script places a versioned install under a data directory and puts a `warp` entry on your `PATH`.
+
+Default locations:
+
+* **macOS and Linux** - Install root `~/.warp/tui/` (versioned binaries under `versions/`, active build at `current`), symlink at `~/.local/bin/warp`
+* **Windows** - Install root `%LOCALAPPDATA%\Warp\tui\`, Stable launcher `%LOCALAPPDATA%\Warp\bin\warp.cmd`
+
+If you overrode the defaults with `WARP_TUI_INSTALL_DIR` or `WARP_TUI_BIN_DIR` when you installed, remove those paths instead.
+
+<Tabs>
+  <TabItem label="macOS and Linux">
+    ```bash
+    # Remove the PATH entry for the CLI
+    rm -f "${WARP_TUI_BIN_DIR:-$HOME/.local/bin}/warp"
+
+    # Remove the versioned install (binaries, auto-updater state)
+    rm -rf "${WARP_TUI_INSTALL_DIR:-$HOME/.warp/tui}"
+    ```
+  </TabItem>
+  <TabItem label="Windows">
+    Run these commands in PowerShell:
+
+    ```powershell
+    $installDir = if ($env:WARP_TUI_INSTALL_DIR) { $env:WARP_TUI_INSTALL_DIR } else { Join-Path $env:LOCALAPPDATA 'Warp\tui' }
+    $binDir = if ($env:WARP_TUI_BIN_DIR) { $env:WARP_TUI_BIN_DIR } else { Join-Path $env:LOCALAPPDATA 'Warp\bin' }
+
+    # Remove the Stable CLI launcher on PATH (warp.cmd).
+    # Preview installs use warp-preview.cmd instead — remove that file if you installed Preview.
+    Remove-Item -LiteralPath (Join-Path $binDir 'warp.cmd') -Force -ErrorAction SilentlyContinue
+
+    # Remove the versioned install
+    Remove-Item -Path $installDir -Recurse -Force -ErrorAction SilentlyContinue
+    ```
+  </TabItem>
+</Tabs>
+
+### Homebrew installs
+
+```bash
+brew uninstall --cask warp-agent-cli
+```
+
+### Optional local data
+
+These directories are shared with other Warp agent surfaces. Remove them only if you no longer need the data:
+
+* **Agent config** - `~/.agents/` (on Windows, `%USERPROFILE%\.agents\`)
+* **MCP config and bundled skills** - `~/.warp/.mcp.json` and `~/.warp/skills/` (on Windows, under `%USERPROFILE%\.warp\`)
+
+:::caution
+Deleting `~/.warp/` also removes MCP config and skills used by the Warp desktop app. Prefer deleting only the CLI install paths above unless you intend a full cleanup.
+:::
+
+To confirm the CLI is gone, open a new terminal and run `warp --version`. The shell should report that the command was not found.
+
+For install steps, see the [Warp Agent CLI quickstart](/agents/cli/quickstart/).

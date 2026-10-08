@@ -1,0 +1,97 @@
+{
+  "claims": [
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:c9db5b34261898b0d5d67b509971751542383a72c884a3e1eb9870d304001dad",
+      "claim_id": "sha256:4f8f3dae2a34ba881ee8434d690ba92afbeb8683e6003dcce1dbe082de2148c3",
+      "entity": "local-agent-conversations",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "stored-in-cloud-by-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-app"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "By default, your agent conversations are stored locally on your machine.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/interacting-with-agents",
+        "canonical_route": "/agents/local-agents/interacting-with-agents",
+        "content_sha256": "e299ad1932629771325b19b3b4de178c0f0c01b83852cdeac92917bcec26f5e6",
+        "heading": "Conversation storage",
+        "heading_anchor": "conversation-storage",
+        "line_end": 185,
+        "line_start": 185,
+        "path": "src/content/docs/agents/local-agents/interacting-with-agents/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/interacting-with-agents/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:353f62b241309a63e9440bf50389176d53b2d50e5b9076e3707cbfe457b60e2f",
+      "claim_id": "sha256:beb96ed71777769558d81e1c94e3854bdabc0d4c335c80b78120471dc492ed0c",
+      "entity": "cloud-agent-conversations",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "stored-in-cloud",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "cloud agent conversations are always stored in the cloud regardless of this setting.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/interacting-with-agents",
+        "canonical_route": "/agents/local-agents/interacting-with-agents",
+        "content_sha256": "e299ad1932629771325b19b3b4de178c0f0c01b83852cdeac92917bcec26f5e6",
+        "heading": "Conversation storage",
+        "heading_anchor": "conversation-storage",
+        "line_end": 194,
+        "line_start": 194,
+        "path": "src/content/docs/agents/local-agents/interacting-with-agents/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/interacting-with-agents/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "e299ad1932629771325b19b3b4de178c0f0c01b83852cdeac92917bcec26f5e6",
+  "path": "src/content/docs/agents/local-agents/interacting-with-agents/index.mdx",
+  "schema_version": 1
+}

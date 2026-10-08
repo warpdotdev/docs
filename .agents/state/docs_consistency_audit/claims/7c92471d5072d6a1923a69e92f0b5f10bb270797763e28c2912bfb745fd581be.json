@@ -1,0 +1,49 @@
+{
+  "claims": [
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:04109778d5a17b96ebeca8415d6415e4cbe2d8084f3c7643c9d43fe91b86b527",
+      "claim_id": "sha256:85605fc38e670814d655faf23518c63058651c283051160ae6097dfbedaf236b",
+      "entity": "oz-default-agent-profile",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "mcp-allowlist-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Its profile MCP allowlist starts empty.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/oz-cli/agent-profiles.mdx",
+        "content_sha256": "2b5038b0fed952ca2a435cda638d6fca4d1054f6560bfdbdee6cda4667f71c07",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 32,
+        "line_start": 32,
+        "path": "src/content/docs/agents/cli/oz-cli/agent-profiles.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/agent-profiles/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [],
+        "type": "ordered-list"
+      }
+    }
+  ],
+  "page_sha256": "2b5038b0fed952ca2a435cda638d6fca4d1054f6560bfdbdee6cda4667f71c07",
+  "path": "src/content/docs/agents/cli/oz-cli/agent-profiles.mdx",
+  "schema_version": 1
+}

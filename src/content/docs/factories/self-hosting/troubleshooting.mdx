@@ -1,0 +1,209 @@
+---
+title: Self-hosting troubleshooting
+description: >-
+  Diagnose and fix common problems with self-hosted {{WARP_AUTOMATION_PLATFORM}} worker daemons across
+  Docker, Kubernetes, and Direct backends.
+sidebar:
+  label: "Troubleshooting"
+---
+import { VARS } from '@data/vars';
+
+Use these checks when the `oz-agent-worker` daemon won't start or connect, tasks stay queued, or tasks fail.
+
+:::note
+The steps below apply to the [managed architecture](/factories/self-hosting/#managed-architecture) (`oz-agent-worker` daemon). For [unmanaged](/platform/unmanaged-execution/) deployments, refer to the documentation for the environment running `oz agent run` (e.g., GitHub Actions, Kubernetes).
+:::
+
+---
+
+## Worker won't start
+
+### Docker backend
+
+**Cause:** Docker isn't running, or the daemon platform isn't supported.
+
+**Fix:**
+
+1. Verify Docker is running: `docker info`.
+2. Confirm the daemon platform is `linux/amd64` or `linux/arm64`. Windows containers are not supported.
+3. If the worker runs inside Docker with a rootful Linux daemon, mount `/var/run/docker.sock` and pass its numeric group ID with `--group-add`. See the [Docker installation example](/factories/self-hosting/managed-docker/#option-1-docker-recommended).
+
+### Kubernetes backend
+
+**Cause:** The worker Deployment couldn't start, reach the Kubernetes API, or create its preflight Job.
+
+**Fix:**
+
+1. Run `kubectl describe pod -n NAMESPACE WORKER_POD`. Replace `NAMESPACE` with the chart namespace and `WORKER_POD` with the worker pod name. For `CreateContainerConfigError`, verify the Secret and key configured by `warp.apiKeySecret`.
+2. Check the worker logs for Kubernetes API or preflight diagnostics: `kubectl logs -n NAMESPACE WORKER_POD`.
+3. Confirm the worker's namespace has these permissions: `create`, `get`, `list`, `watch`, `delete` on `jobs`; `get`, `list`, `watch` on `pods`; `get` on `pods/log`; `list` on `events`.
+4. Confirm the task namespace allows pods with a root init container, unless you enabled native image volumes with `kubernetesBackend.useImageVolumes=true`.
+5. If your cluster restricts image sources, set `kubernetesBackend.preflightImage` to an allowlisted image. The default is `busybox:1.36`.
+6. To pull the preflight image from a private registry, configure `imagePullSecrets` in `kubernetesBackend.podTemplate`.
+
+A successful preflight validates the configured pod shape, not task-specific images, Secrets, setup commands, or network access.
+
+### Direct backend
+
+**Cause:** The `oz` CLI isn't installed or isn't on the worker's `PATH`.
+
+**Fix:**
+
+1. Install the {VARS.WARP_AGENT_CLI} on the worker host. See [Installing the CLI](/agents/cli/oz-cli/#installing-the-cli).
+2. If the CLI isn't on `PATH`, set `oz_path` in the config file to the absolute path of the `oz` binary.
+
+---
+
+## Worker won't connect
+
+**Cause:** The API key is invalid, expired, or the host cannot reach the {VARS.WARP_AUTOMATION_PLATFORM}'s backend.
+
+**Fix:**
+
+1. Confirm you created a **Self-hosted worker** API key and that it has not expired.
+2. If you suspect the key is invalid, open the <a href={`${VARS.FACTORY_WEB_APP_URL}/settings`}>{VARS.FACTORY_WEB_APP} user settings page</a>, click **Generate new token**, and select **Self-hosted worker** to create a replacement.
+3. Ensure the host has outbound internet access to `oz.warp.dev:443`.
+4. Check that no firewall rules are blocking WebSocket connections to `wss://oz.warp.dev`.
+5. Increase log verbosity with `--log-level debug` to see connection details.
+
+See [Security and networking](/platform/execution-security/#network-requirements) for the full list of outbound endpoints the worker needs.
+
+---
+
+## Tasks not being picked up
+
+**Cause:** The worker isn't running, the `--host` value doesn't match the worker's `--worker-id`, or the worker and task belong to different teams.
+
+**Fix:**
+
+1. Confirm the worker is running and connected. Check the worker logs for `Successfully connected to server`.
+2. Verify the `--host` (or `worker_host`) value you passed matches your `--worker-id` exactly. Case-sensitive.
+3. Ensure the worker's team matches the team creating the task.
+
+---
+
+## Metrics not appearing
+
+**Cause:** The worker is running, but its metrics don't reach Prometheus or your collector.
+
+**Fix:**
+
+1. Confirm `OTEL_METRICS_EXPORTER` is set on the worker process. In `prometheus` mode, run `curl -s localhost:9464/metrics` from the worker host to check that the endpoint responds.
+2. For Prometheus scrape mode, confirm the bind address is `0.0.0.0` (not `localhost`) when running in Docker or Kubernetes. `localhost` is only reachable from inside the container.
+3. Confirm no firewall or network policy blocks the metrics port (`9464` by default).
+4. In OTLP push mode, confirm `OTEL_EXPORTER_OTLP_ENDPOINT` points to a reachable collector and the protocol matches (`http/protobuf` or `grpc`).
+5. With the Helm chart, confirm `metrics.enabled=true`, then check that the `Service` and any `PodMonitor` exist: `kubectl get svc,podmonitor -n NAMESPACE`. Replace `NAMESPACE` with the chart namespace. A `PodMonitor` needs the Prometheus Operator CRDs (`monitoring.coreos.com`) installed in the cluster.
+6. Restart the worker with `--log-level debug` and look for metrics errors at startup.
+
+See [Monitoring](/factories/self-hosting/monitoring/) for the full setup guide.
+
+---
+
+## Task failures
+
+**Cause:** The task's environment, resources, or dependencies failed. The logs show which.
+
+**Fix (all backends):**
+
+1. Review task logs in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a> or through [session sharing](/agents/local-agents/session-sharing/).
+2. Run the worker with `--no-cleanup` to retain the container, Job, or workspace. Kubernetes failed Jobs otherwise stay for 24 hours by default.
+3. Run the worker with `--log-level debug` for detailed execution logs.
+4. Check CPU, memory, and disk capacity on the worker host or cluster.
+
+### Docker backend (task failures)
+
+1. Verify Docker is running (`docker info`).
+2. If using a custom image, confirm it is **glibc-based** (not Alpine/musl) and that its architecture matches the worker's Docker daemon platform.
+
+### Kubernetes backend (task failures)
+
+`worker.resources` sizes only the worker Deployment. See [Size task containers](/factories/self-hosting/managed-kubernetes/#size-task-containers).
+
+Inspect the Job and Pod:
+
+```bash
+kubectl get jobs,pods -n NAMESPACE
+kubectl describe pod -n NAMESPACE TASK_POD
+kubectl logs -n NAMESPACE TASK_POD -c CONTAINER_NAME
+kubectl logs -n NAMESPACE TASK_POD -c CONTAINER_NAME --previous
+```
+
+Replace the placeholders, then match the symptom below.
+
+#### Pod stays Pending with FailedScheduling
+
+No node can satisfy the Pod's requests or placement constraints. The task fails after `kubernetesBackend.unschedulableTimeout`, which defaults to 10 minutes.
+
+**Verify:** In `kubectl describe pod`, look for `PodScheduled=False`, `FailedScheduling`, and `Insufficient cpu` or `Insufficient memory`. Compare the Pod's requests with free node capacity, then check selectors, affinity, taints and tolerations, topology constraints, quotas, and volume binding.
+
+**Fix:**
+
+1. Lower the task's CPU and memory requests, lower `worker.maxConcurrentTasks`, or add node capacity.
+2. If you use a node autoscaler, make sure it can add nodes that match the Pod's selectors, affinity, and tolerations. If provisioning takes longer than 10 minutes, raise `unschedulableTimeout`.
+
+Raising only a limit doesn't help, because the scheduler places Pods by their requests. An instance shape sets the request equal to the limit, so a larger shape needs a larger free node.
+
+#### Task container terminated with OOMKilled
+
+The `task` container used more memory than its limit.
+
+**Verify:** In `kubectl describe pod`, confirm the `task` container's last state shows reason `OOMKilled`. Compare the workload's peak memory with the container's memory limit.
+
+**Fix:** Reduce the workload's peak memory, or raise the task's memory in the runner's instance shape or in the `task` container of `pod_template`. Init containers have their own resources and are sized separately.
+
+#### Pod is Evicted
+
+The node evicted the Pod, usually because of memory, disk, or other node pressure.
+
+**Verify:** Read the Pod's reason and events for the pressure type.
+
+**Fix:** Free up node resources, lower concurrency, or add capacity, then rerun the task. A replacement Pod can't recover the task's `emptyDir` workspace. If voluntary disruption caused the eviction, see [Protect active task pods from disruption](/factories/self-hosting/managed-kubernetes/#protect-active-task-pods-from-disruption).
+
+#### Task exits with code 143
+
+Exit code `143` generally indicates `SIGTERM`; it does not by itself prove an out-of-memory failure. Confirm the termination reason and Pod events.
+
+**Verify:** Check the container's termination reason and the Pod's events for eviction, preemption, a node drain, manual deletion, or the Job deadline. `kubernetesBackend.activeDeadlineSeconds` defaults to eight hours, after which Kubernetes terminates the Job with `DeadlineExceeded`.
+
+**Fix:** Address the cause the events show. If the Job hit its deadline, raise `activeDeadlineSeconds` or split the task.
+
+#### Other Kubernetes failures
+
+* **`ErrImagePull`, `ImagePullBackOff`, or `InvalidImageName`** - See [Image pull failures](#image-pull-failures). Preflight doesn't pull task images.
+* **`CreateContainerConfigError` or `FailedMount`** - The Pod's events name the missing Secret, ConfigMap, service account, key, or volume. Check that it exists in the task namespace.
+* **Init container failure** - Check each init container's status and logs. The init container that loads the Warp sidecar runs as root unless you enable native image volumes. Custom init containers must finish before the task starts.
+* **Network failure** - Test DNS, TLS, and the destination from the task Pod, not the worker Pod. A working worker connection to Warp says nothing about the task's network policies, service mesh, proxy, or egress.
+* **Missing task credentials** - Provide repository, registry, and application credentials through your Secret integration and `pod_template`. The worker API key authenticates the worker to Warp and isn't available to tasks.
+
+### Direct backend (task failures)
+
+1. Verify the {VARS.WARP_AGENT_CLI} is accessible.
+2. Verify the workspace root directory has write permissions for the user running the worker.
+
+---
+
+## Image pull failures
+
+### Docker backend (image pull)
+
+1. If using a private registry, ensure Docker credentials are available to the worker. See [Private Docker registries](/factories/self-hosting/managed-docker/#private-docker-registries).
+2. Try pulling the image manually on the worker host: `docker pull <image>`.
+
+### Kubernetes backend (image pull)
+
+1. Configure `imagePullSecrets` in the `pod_template` section of your worker config.
+2. Verify the Secret exists in the task namespace and contains valid credentials.
+
+### Both backends (image pull)
+
+* Verify the image exists and the tag is correct.
+* Check network connectivity from the worker/cluster to the registry.
+
+---
+
+## Related pages
+
+* [Self-hosting overview](/factories/self-hosting/) — Architecture and decision guide.
+* [Self-hosted worker reference](/factories/self-hosting/reference/) — CLI flags and config schema, including every flag mentioned here.
+* [Security and networking](/platform/execution-security/) — Outbound endpoints the worker needs.
+* [Agent Session Sharing](/agents/local-agents/session-sharing/) — Attach to running tasks to debug interactively.

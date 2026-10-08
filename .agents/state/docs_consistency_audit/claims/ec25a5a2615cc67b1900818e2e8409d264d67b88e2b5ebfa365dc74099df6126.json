@@ -1,0 +1,49 @@
+{
+  "claims": [
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:8daeaf93f3d17a26f4921c590f607f17d2c6ed01d5e8ed1e9d1988ce4fd03eda",
+      "claim_id": "sha256:2189069596c975d64ed5cc83c8a1b9fab903e516af4f3f7bc9cc8b0a1f9a2335",
+      "entity": "indexed-source-code",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "stored-on-warp-servers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "No code is stored on Warp servers.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/code/overview.mdx",
+        "content_sha256": "425249be66f242822e06abe955e67f2e87096ba0ca6a5156c6dcb77da6a0f5e5",
+        "heading": "Learn more about code features",
+        "heading_anchor": "learn-more-about-code-features",
+        "line_end": 97,
+        "line_start": 97,
+        "path": "src/content/docs/code/overview.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/code/overview/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "425249be66f242822e06abe955e67f2e87096ba0ca6a5156c6dcb77da6a0f5e5",
+  "path": "src/content/docs/code/overview.mdx",
+  "schema_version": 1
+}

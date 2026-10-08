@@ -50,6 +50,21 @@ transiting Warp's backend.
 
 Create the bucket that will hold your agent data. Warp writes objects using your bucket's own encryption settings — both SSE-S3 (the default) and SSE-KMS are supported.
 
+Configure the bucket's Cross-Origin Resource Sharing (CORS) settings to allow `GET` requests from `https://*.warp.dev`. The Warp web interfaces need this access to load artifacts and conversation transcripts.
+
+```json title="S3 CORS configuration"
+[
+  {
+    "AllowedHeaders": [],
+    "AllowedMethods": ["GET"],
+    "AllowedOrigins": ["https://*.warp.dev"],
+    "ExposeHeaders": []
+  }
+]
+```
+
+If you prefer to list origins explicitly, replace `AllowedOrigins` with `["https://app.warp.dev", "https://platform.warp.dev", "https://oz.warp.dev"]`. See AWS's guide to [Amazon S3 CORS configuration elements](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ManageCorsUsing.html).
+
 <Tabs>
   <TabItem label="AWS CLI">
     ```bash
@@ -265,6 +280,6 @@ The bucket name or region is wrong, or the bucket doesn't exist. Confirm both ma
 ## Related pages
 
 * [Architecture](/platform/architecture/#data-security-and-boundaries) - How run data, control-plane data, and inference credentials flow through Warp's platform.
-* [Self-hosting overview](/platform/self-hosting/) - Run agent compute on your own infrastructure instead of Warp-managed servers.
+* [Self-hosting overview](/factories/self-hosting/) - Run agent compute on your own infrastructure instead of Warp-managed servers.
 * [Cloud agent secrets](/platform/secrets/) - Store credentials agents use during a run.
 * [Admin Panel for teams](/enterprise/team-management/admin-panel/) - The full reference for team settings, including the Platform section.

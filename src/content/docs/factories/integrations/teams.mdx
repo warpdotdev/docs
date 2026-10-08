@@ -8,14 +8,13 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
-Connect a factory to Microsoft Teams so your team can send work from channel conversations. Mention the Warp app in a configured standard or shared channel, and the factory replies in the same thread.
+Connect a factory to Microsoft Teams so mentions in standard and shared channels start work and receive replies in the same thread.
 
-## Who does each step
+## Who completes each part
 
-* **Warp workspace admin** - Makes Microsoft Teams available and connects installed teams to the Warp workspace.
-* **Microsoft Teams admin** - Uploads and approves the Warp custom app in the Teams admin center.
-* **Factory editor** - Selects the connected teams and channels for a factory and manages its automations.
-* **End user** - Mentions **@Warp** to start work.
+* **Warp workspace admin** - Starts the connection and connects the installed team to the workspace.
+* **Teams admin or team owner** - Downloads and adds the Warp app. A Teams admin uploads and approves it.
+* **Factory editor** - Selects the connected teams and channels for the factory.
 
 :::caution
 The integration supports standard and shared channels. Private channels and direct messages are not supported.
@@ -23,12 +22,13 @@ The integration supports standard and shared channels. Private channels and dire
 
 ## Set up Microsoft Teams
 
-1. **Enable Microsoft Teams for the Warp workspace.** A workspace admin opens the top-level **Integrations** page in the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. If **Microsoft Teams** doesn't appear, <a href={VARS.CONTACT_SALES_URL}>contact sales</a>.
-2. **Download the Warp Teams app.** On the **Microsoft Teams** integration, click **Connect**, sign in with Microsoft when prompted, then click **Download Warp app package**. The `warp-microsoft-teams-app.zip` file contains the app manifest and icons, with no executable files.
-3. **Upload and approve the app.** A Microsoft Teams admin opens the [Teams admin center](https://admin.teams.microsoft.com), goes to **Teams apps** > **Manage apps**, and clicks **Upload new app**, uploads the ZIP, and approves it. Warp then appears under **Apps** > **Built for your org** in Teams.
-4. **Add Warp to each team.** In Microsoft Teams, open **Apps** > **Built for your org** > **Warp**, then click **Add** for every team the factory should use.
-5. **Connect the installed teams to the Warp workspace.** Back on the top-level **Integrations** page in the {VARS.FACTORY_WEB_APP}, the workspace admin selects the new teams and clicks **Enable**. If a workspace admin selects a pending team while configuring a factory, Warp performs this connection automatically.
-6. **Select teams and channels for the factory.** While creating the factory, or from the factory's **Settings**, choose **Microsoft Teams**, select the connected teams, and select at least one standard channel in each team. Click **Enable** or finish factory setup.
+1. **Enable Microsoft Teams for the Warp workspace.** A workspace admin opens **Integrations** in the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. If **Microsoft Teams** is unavailable, <a href={VARS.CONTACT_SALES_URL}>contact sales</a>.
+2. **Choose who completes setup.** A workspace admin opens **Microsoft Teams** and clicks **Connect**. If they also administer Teams, continue. Otherwise, choose **Someone else** and email the setup request or copy its approval link for a Teams admin or team owner. Links expire after seven days.
+3. **Download the Warp app package.** Sign in with Microsoft and download `warp-microsoft-teams-app.zip`. It contains the app manifest and icons, with no executable files. A delegated recipient uses the approval link without your Warp session.
+4. **Upload and approve the app.** In the [Teams admin center](https://admin.teams.microsoft.com), go to **Teams apps** > **Manage apps**, click **Upload new app**, then upload and approve the package.
+5. **Add Warp to each team.** In Microsoft Teams, open **Apps** > **Built for your org** > **Warp**, then add Warp to each team the factory should use.
+6. **Connect the installed team to the Warp workspace.** Back in setup, select and connect the team. A delegated recipient uses the approval link; direct setup requires a workspace admin to select the team under **Integrations** and click **Enable**.
+7. **Select teams and channels for the factory.** During factory creation or in the factory's **Settings**, an editor chooses **Microsoft Teams**, selects the connected teams and at least one standard channel in each, then clicks **Enable**.
 
 Warp creates an enabled **teams-app-mentions** automation for the teams and channels selected in the last step.
 
@@ -42,8 +42,8 @@ Warp creates an enabled **teams-app-mentions** automation for the teams and chan
 
 * **Start work** - Mention **@Warp** in a configured channel or thread. The factory includes supported attachments and replies in the same thread. Unsupported attachments don't block the request text.
 * **Continue work** - Reply in a thread that already has a factory work item. When responses to thread replies are enabled, eligible replies continue that work without another mention.
-* **Use shared channels** - New root messages in shared channels still require an explicit **@Warp** mention. See the [shared-channel rules](#use-shared-channels).
-* **Review results** - Follow progress and the final response in Teams. For code-change work, the factory can also open a pull request. Other workflows can return results directly in the thread.
+* **Use shared channels** - Root messages require **@Warp**. See the [shared-channel rules](#use-shared-channels).
+* **Review results** - Follow progress and results in Teams. Code changes can also open a pull request.
 
 Automation-started work runs as the factory agent selected in that automation. To manage your account link, mention **@Warp** with `sign in`, `sign out`, or `help` in a channel where the app is installed. For `sign in`, follow the private link, then send your request again. `sign out` unlinks your account from every factory in that Microsoft organization.
 
@@ -122,7 +122,8 @@ See the [factory definition syntax](/factories/factory-as-code/#integrations) fo
 ## Troubleshooting
 
 * **Microsoft Teams is missing in Warp** - Ask a workspace admin to confirm the integration is enabled. If it isn't available, <a href={VARS.CONTACT_SALES_URL}>contact sales</a>.
-* **An installed team is missing in Warp** - Confirm the app is approved, then click **Add** for that team from **Apps** > **Built for your org** in Teams. A Warp workspace admin must then select the team on the top-level **Integrations** page to connect it to the workspace.
+* **An installed team is missing in Warp** - Confirm the app is approved, then click **Add** for that team from **Apps** > **Built for your org** in Teams. A Warp workspace admin must then select the team on the top-level **Integrations** page to connect it to the workspace. For delegated setup, confirm that the admin or team owner's setup link is still active.
+* **Warp says, "This Microsoft Teams channel isn't connected to a Warp Factory. Connect this team to a Factory, then mention this bot again."** - Ask a Warp workspace admin to connect the team on the top-level **Integrations** page, then mention **@Warp** again.
 * **Warp doesn't acknowledge a mention** - Confirm the team and channel are selected, mention **@Warp**, and follow any private account-linking prompt. For a shared channel, check the [shared-channel rules](#use-shared-channels).
 * **A channel is missing from the picker** - The picker lists standard channels only. Add a shared channel through the [factory definition](#configure-microsoft-teams-as-code).
 * **One mention starts two runs** - Narrow or remove overlapping **App mentioned** and **Message posted in channel** triggers.
