@@ -27,7 +27,7 @@ What runners give you:
 
 * **Reusable compute configs** – Define an OS, architecture, instance size, and sandbox image once, then reuse the runner across cloud agent runs and orchestration without repeating the configuration.
 * **Right-sized hardware** – Choose the number of vCPUs and amount of memory a run needs, so lightweight tasks stay cheap and heavy builds get enough resources.
-* **Flexible OS targets** – Run agents on Linux or macOS.
+* **Flexible OS targets** – Run agents on Linux, macOS, or Windows.
 * **Independent of environments** – Override an environment's default runner per run without changing the environment itself.
 
 ## How runners fit into cloud agent runs
@@ -67,6 +67,29 @@ Each environment has a default runner. Specifying a runner for a run overrides t
     * 12 vCPUs, 28 GB memory
     * 12 vCPUs, 56 GB memory
   </TabItem>
+  <TabItem label="Windows">
+    Windows runners are available for Warp-hosted execution and run each agent in a fresh Windows VM. They support x86-64 architecture only and don't use Docker images or expose a custom Windows image setting.
+
+    Use PowerShell-compatible setup commands to install dependencies and prepare the workspace:
+
+    ```yaml title="runners/windows-ci.yaml"
+    description: Windows runner for builds and tests
+    setupCommands:
+      - pwsh -File setup.ps1
+    instanceShape:
+      vcpus: 4
+      memoryGb: 8
+    platform:
+      os: windows
+      arch: x86_64
+    ```
+
+    Both `vcpus` and `memoryGb` must be positive powers of two within your plan's resource limit. Omit `instanceShape` to use the workspace default shape.
+
+    Only Linux runners can be an environment's default runner. In a factory definition, select a named Windows runner with `agentDefaults.runner`, or override `runner` on an individual agent or automation.
+
+    Managed self-hosted workers currently run on Linux. Use [Warp-hosted execution](/factories/warp-hosting/) for Windows runners.
+  </TabItem>
 </Tabs>
 
 ## Managing runners with the legacy CLI
@@ -92,8 +115,8 @@ Key flags:
 
 * `--name` (`-n`) — human-readable label for the runner (required).
 * `--description` (`-d`) — optional description (max 240 characters).
-* `--os` — target operating system, `linux` (default) or `macos`.
-* `--arch` — CPU architecture: `auto` (default), `x86-64`, or `aarch64`. `auto` uses the OS default (x86-64 on Linux, aarch64 on macOS).
+* `--os` — target operating system: `linux` (default), `macos`, or `windows`.
+* `--arch` — CPU architecture: `auto` (default), `x86-64`, or `aarch64`. `auto` uses the OS default (x86-64 on Linux and Windows, aarch64 on macOS).
 * `--docker-image` — Docker image reference for the sandbox. Linux only.
 * `--macos-version` — macOS version for the sandbox: `14`, `15`, `26`, or `27`. macOS only.
 * `--vcpus` — number of vCPUs for the instance shape. Must be set together with `--memory-gb`.
@@ -102,7 +125,7 @@ Key flags:
 * `--team` / `--personal` — create the runner at the team level or private to your account.
 
 :::caution
-OS-specific options must match `--os`. Use `--docker-image` only with `--os linux`, and `--macos-version` only with `--os macos`.
+OS-specific options must match `--os`. Use `--docker-image` only with `--os linux`, and `--macos-version` only with `--os macos`. Windows doesn't have an OS-specific option.
 :::
 
 ### List runners
@@ -151,5 +174,7 @@ You can also select a runner when [running orchestrated agents](/platform/orches
 ## Related pages
 
 * [Environments](/platform/environments/) – Define the repos, image, and setup commands an agent works with.
+* [Warp-hosted execution](/factories/warp-hosting/) – Run factory work on Warp-managed infrastructure.
+* [Managed self-hosting](/factories/self-hosting/) – Run factory work on Linux infrastructure you manage.
 * [Managing cloud agents](/platform/managing-cloud-agents/) – Start, monitor, and manage cloud agent runs.
 * [{VARS.WARP_AGENT_CLI} reference](/agents/cli/oz-cli/) – Full command-line reference for runners and every other cloud agent command.
