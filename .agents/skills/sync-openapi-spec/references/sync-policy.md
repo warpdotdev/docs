@@ -104,12 +104,14 @@ These tags back Agent Memory, which is a research preview. The tag was renamed `
 The `/harness-support/*` endpoints form the worker-to-server contract used by Oz workers (transcripts, snapshots, finish-task signaling, etc.). They are not part of the public API contract — customers should not call them directly. Excluded permanently.
 
 ### `factory` (no longer excluded)
-The `factory` tag was excluded while Warp Factories was pre-launch. It came out of `EXCLUDED_TAGS` (and `/factory` out of `EXCLUDED_PATH_PREFIXES`) when Warp Factories shipped in Early Access and `/factories/factory-api/` began documenting `GET /factory`, `GET /factory/{uid}`, and `POST /factory/{uid}/runs`. Factory operations now follow the `x-internal` markers like every other kept tag: the server spec marks each private factory operation individually, so only the operations the server leaves unmarked reach the reference. At the latest release candidate that is factory discovery and dispatch, tasks, run scoring, and factory-file schemas, plus the inbox, which is excluded by path below. The dashboard metrics, costs, and pull request operations are still marked `x-internal` there and appear automatically once the server unflags them. Do not re-add a blanket exclusion; ask the server team to mark specific operations `x-internal` instead.
+The `factory` tag was excluded while Warp Factories was pre-launch. It came out of `EXCLUDED_TAGS` (and `/factory` out of `EXCLUDED_PATH_PREFIXES`) when Warp Factories shipped in Early Access and `/factories/factory-api/` began documenting `GET /factory`, `GET /factory/{uid}`, and `POST /factory/{uid}/runs`. Factory operations now follow the `x-internal` markers like every other kept tag: the server spec marks each private factory operation individually, so only the operations the server leaves unmarked reach the reference. At the latest release candidate that is factory discovery and dispatch, tasks, and factory-file schemas. The inbox and run-scoring dispatch are also unflagged there, but they are excluded by path below. The dashboard metrics, costs, and pull request operations are still marked `x-internal` there and appear automatically once the server unflags them. Do not re-add a blanket exclusion; ask the server team to mark specific operations `x-internal` instead.
 
 ## Kept tags with a stale internal marker
 
 ### `networking`
 The `networking` tag backs `GET /networking/egress-ranges`, which lists the IP ranges Warp-hosted agents use for outbound requests so customers can allowlist them. warp-server #19008 deliberately unflagged the operation and exposes it as an SDK method (`networking.get_egress_ranges`), but the tag entry itself is still marked `x-internal: true`. The generic filter drops that tag entry and keeps the path, so the operation publishes under an undeclared tag, the same as the official release pipeline. Ask the server team to remove the stale tag-level marker.
+
+The `factory` tag behaves the same way. Its entry is marked `x-internal: true`, so the published `tags` list declares only `agent` and `schedules`, and the factory operations publish under an undeclared tag.
 
 ## Excluded paths (within otherwise-public tags)
 
@@ -121,7 +123,7 @@ These five `agent`-tag paths are excluded individually because the `agent` tag i
 - `/agent/conversations/{conversationId}/redirect` — internal redirect endpoint.
 - `/agent/sessions/{sessionUuid}/redirect` — the same kind of redirect helper for shared sessions. The server spec stopped marking it `x-internal` in warp-server #19008 and the SDK exposes it, but its handler describes it as a web-app helper for anonymous viewers, so it is excluded to match the conversation redirect until the server team confirms it is customer-facing.
 
-These three `factory`-tag paths are excluded individually because the `factory` tag is public: `/factory-inbox`, `/factory-inbox/notifications/read`, and `/factory-inbox/notifications/unread`. The server spec does not mark them `x-internal`, but the SDK config lists them under `unspecified_endpoints` and no documentation describes them as public. Remove them from `EXCLUDED_PATHS` once the server team confirms.
+These four `factory`-tag paths are excluded individually because the `factory` tag is public: `/factory-inbox`, `/factory-inbox/notifications/read`, `/factory-inbox/notifications/unread`, and `/factory/run-scoring/dispatches`. The server spec does not mark them `x-internal`, and no documentation describes them as public. The inbox operations are listed under the SDK config's `unspecified_endpoints`. Run-scoring dispatch triggers scorer judge runs, and the server keeps the scorer APIs internal (warp-server #19141), so it looks like an operation that was missed. Remove each from `EXCLUDED_PATHS` once the server team confirms.
 
 If any of these become stable public surfaces, remove them from `EXCLUDED_PATHS` and update this list.
 

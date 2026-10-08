@@ -110,6 +110,9 @@ EXCLUDED_PATHS: frozenset[str] = frozenset(
         "/factory-inbox",
         "/factory-inbox/notifications/read",
         "/factory-inbox/notifications/unread",
+        # Manually triggers scorer judge runs. The scorer APIs are internal
+        # (warp-server #19141) and this operation was left unflagged.
+        "/factory/run-scoring/dispatches",
     }
 )
 
@@ -581,7 +584,7 @@ def _summarize_drift(
 def _unknown_classifications(source: dict[str, Any]) -> list[str]:
     """Flag tags or paths the policy doesn't already cover.
 
-    The skill's policy currently knows about the `agent`, `schedules`, and
+    The skill's policy currently knows about the `agent`, `schedules`,
     `factory`, and `networking` tags (kept) and `memory_stores`/`memory`/
     `harness-support` (dropped). Anything else needs human triage.
     """
