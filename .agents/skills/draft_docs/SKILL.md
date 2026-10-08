@@ -156,19 +156,30 @@ These rules are frequently violated by agents. Apply them carefully during draft
 - **Keep error messages out of the main flow** — Do not weave full error strings through conceptual or procedural sections. Put them in a dedicated `## Troubleshooting` section near the end, formatted symptom → cause → fix. ✅ one Troubleshooting section with the exact error as a bold lead-in ❌ repeating the same error callout after every step
 - **Use callouts sparingly** — Prefer body prose. At most one or two callouts per page unless the content type template requires more, never two callouts back to back, and at most one per section. ✅ a single `:::note` for a non-obvious prerequisite ❌ a `:::note` / `:::tip` after every subsection
 - **No AI-ism buzzwords or meta-openers** — Never open with "This page covers/explains/walks through..."; state the thing itself. Avoid marketing adjectives (seamless, powerful, robust, comprehensive), inflated verbs (leverage, streamline, empower, unlock), restated cause-and-effect ("This process ensures..."), and recap lines. See AGENTS.md → Voice & tone for the full lists. ✅ "Run agents directly in your GitHub Actions workflows using `oz-agent-action`." ❌ "This page covers how the integration works, how to set it up, and common automation patterns."
+- **Keep source comments rare** — Do not add comments that restate a sidebar item's hierarchy, label, or obvious grouping. Add a short comment only for a non-obvious invariant, compatibility constraint, or behavior that the code cannot make clear. Never compare unrelated sidebar sections merely to justify a local choice. ✅ no comment next to a straightforward `label: "Benchmarks"` entry in `src/sidebar.ts` ❌ `// Benchmarks sits outside Measure and improve because…` restating navigation the sidebar already shows
+- **Define in plain language, then show one concrete example** — Before product jargon (Scorers, self-improvement, subject templates, federation claims), give one to three plain sentences a new reader can grok, then one concrete example, then deeper detail. Do not open a section with schema, thresholds, or internal validation flow. ✅ "A scorer is an eval that grades a sample of agent runs. For example, if the sample rate is 10%, about 1 in 10 runs of that agent is judged by this scorer." ❌ jumping straight into sample-rate configuration, failure thresholds, or how the platform validates a config file
 - **Cut length before shipping** — Brevity is a drafting rule, not only a review checklist item. After the first complete draft, run a deletion-only "Cut again" pass (AGENTS.md → Voice & tone → Cut again): remove framing lines, restated cause-and-effect, internal implementation detail the reader cannot act on, and boilerplate a parent page already owns. Prefer one concrete sentence over a paragraph that re-explains the same step. A page past ~1500 words usually still has padding — cut first; split only if the remaining content still does not fit. ✅ a setup section that states only the required clicks and links out for credential types ❌ a multi-paragraph walkthrough of harness internals on a how-to page
-- **Document the user-visible model, not internal architecture** — Internal components (orchestrators, control planes, lifecycle state machines) get at most one sentence, and only when the reader can act on them. ✅ "Warp tracks every run. Check its status from the CLI, the API, or the dashboard." ❌ "The orchestration layer runs on Warp's servers (cloud control plane) and tracks lifecycle state (created → running → completed/failed)."
+- **Document the user-visible model, not internal architecture** — Internal components (orchestrators, control planes, lifecycle state machines) get at most one sentence, and only when the reader can act on them. ✅ "Warp tracks every run. Check its status from the CLI, the API, or the dashboard." ❌ "The orchestration layer runs on Warp's servers (cloud control plane) and tracks lifecycle state (created → running → completed/failed)." / ❌ a public how-to that narrates how validation walks the AST
 - **Descriptive link text, and no dead-end pages** — Never use "here", "this page", or a bare URL as link text. End every new page with `## Next steps` (quickstarts and tutorials) or `## Related pages` (every other type), containing at least one internal link whose anchor names the destination topic. Do not use "Further reading" or "See also". ✅ `Learn more about [Codebase Context](/code/codebase-context/)` ❌ `Click [here](/code/codebase-context/)` ❌ ending a new feature page with no cross-links
 - **Disambiguate conditional and multi-clause wording** — If a sentence has two plausible readings (especially with "when", "if", "can", or stacked clauses), rewrite it so only one meaning remains. Prefer one idea per sentence. ✅ `Cloud handoff keeps your conversation's model only when that model is available in the cloud.` ❌ `Cloud handoff keeps your conversation's model when it can run in the cloud.` (keeps the model when it can? or only when cloud supports the model?)
 - **Lead instructional sentences with the action or goal** — In steps, keyboard shortcuts, and "how to" sentences, put the action or goal first, then the control or condition. Readers should not need prior context to know what values or targets you mean. ✅ `To open the searchable environment and model selectors, press Ctrl+E.` ❌ `To change either value, press Ctrl+E.` (which values?)
-- **Screenshots for hard-to-describe UI** — When a page documents a visual surface (statusline chips, tab bars, settings panes, multi-control layouts), include a screenshot after the prose that introduces that surface. Prefer prose for straightforward clicks, and prefer one well-placed figure over repeating the same surface. Always use descriptive alt text, never "screenshot". Do not invent or request screenshots of internal-only, flagged, or unfinished UI. ✅ a statusline screenshot after the paragraph that names the chips ❌ describing chip layout in a long paragraph with no image when humans keep asking "should we include a screenshot?"
+- **Screenshots for hard-to-describe UI** — When a page documents a visual surface (statusline chips, tab bars, settings panes, multi-control layouts, benchmark editors), include a screenshot after the prose that introduces that surface. Prefer prose for straightforward clicks, and prefer one well-placed figure over repeating the same surface. Always use descriptive alt text, never "screenshot". Do not invent or request screenshots of internal-only, flagged, or unfinished UI. ✅ a statusline screenshot after the paragraph that names the chips ❌ describing chip layout in a long paragraph with no image when humans keep asking "should we include a screenshot?"
+- **Orientation media goes early; never stack videos** — When a page has a product demo video or a wide orientation screenshot, place the highest-level one near the top of the page (after the opening paragraph or key-features list), not buried after long conceptual sections. Never place two `<VideoEmbed>` blocks back to back — pick the better orientation video for above-the-fold, and link or place the second one later next to the section it illustrates. ✅ one overview video after the intro, with a second demo only under the matching how-to section ❌ two consecutive `VideoEmbed`s mid-page with no prose between them
 - **`VideoEmbed` requires a specific `title`** — Every `<VideoEmbed>` must include a `title` prop that names the integration, workflow, feature, or task shown. ✅ `<VideoEmbed url="..." title="Warp Agent CLI conversation transcript walkthrough" />` ❌ `<VideoEmbed url="..." />` or a generic title like `"video"` / `"demo"`
 
 ### 7. Draft the doc
 Create the documentation using the appropriate template from `.agents/templates/`. Follow the structure for the identified content type and all rules in `AGENTS.md`. Each template includes visible bracketed instructions explaining what to put in each section.
 
-### 8. Run style lint
+### 8. Run style lint and the compression contract check
 Run `python3 .agents/skills/style_lint/style_lint.py --changed` on the drafted file to catch formatting and terminology issues before presenting to the user.
+
+Then run the mechanical compression check on each new or materially expanded page:
+
+```bash
+python3 .agents/skills/doc_quality_policy/check_compression_contract.py PATH_TO_PAGE --content-type CONTENT_TYPE
+```
+
+Use `quickstart` or `feature-doc` when those types apply (budgets ~600 and <=1500 words). For other types, still run a deletion-only "Cut again" pass even though the script has no fixed budget. If the check fails, cut padding or move detail to a linked page before opening the PR — do not ship an over-budget page and hope review catches it. A justified overage belongs in the PR body's documentation-risk rationale, not as a silent skip of the check.
 
 If this skill is running as a cloud agent producing an agent-authored PR, capture a violation summary for the self-improvement loop **after the PR is created**:
 
@@ -196,6 +207,8 @@ Before presenting the draft, verify against the quality checklist in `AGENTS.md`
 - [ ] Prose passes the tone rules: no marketing buzzwords, no meta-openers ("This page covers..."), no restated cause-and-effect or recap lines, and it reads naturally aloud (AGENTS.md → Voice & tone)
 - [ ] Internal architecture (orchestrators, control planes, lifecycle states) appears only where the reader can act on it, and relocated detail landed on a maintainer-facing surface instead of being deleted
 - [ ] A deletion-only second pass removed framing lines, self-commentary, rule justifications, and boilerplate a parent page already covers (AGENTS.md → Voice & tone → Cut again)
+- [ ] New product terms were defined in plain language with one concrete example before configuration or internals
+- [ ] `check_compression_contract.py` was run for quickstart/feature-doc pages (or Cut again covered other types); over-budget pages were cut or justified in the PR body
 - [ ] Terminology matches the glossary (`.agents/references/terminology.md`)
 - [ ] Headers use sentence case (with proper feature name capitalization)
 - [ ] Headers name a specific topic (not bare Overview / More details / Other)
@@ -219,6 +232,7 @@ Before presenting the draft, verify against the quality checklist in `AGENTS.md`
 - [ ] If AEO-driven, the draft follows the AEO brief, uses source vocabulary naturally, and avoids duplicative or junk-drawer coverage
 - [ ] Images have descriptive alt text and are used only where the UI is hard to describe in prose
 - [ ] Visual UI surfaces that are hard to reconstruct from prose include a screenshot (or an explicit note that no screenshot is available yet)
+- [ ] Orientation video or wide screenshot sits near the top when the page has one; no two `VideoEmbed`s are back to back
 - [ ] Every `VideoEmbed` includes a specific `title` prop describing the workflow or feature shown
 
 ### 9.5. Report unverified claims
@@ -229,6 +243,16 @@ Inline `{/* VERIFY: ... */}` markers alone are skippable: a reviewer who skims t
 - **Local or interactive sessions** - List the same claims in your response to the user, before they review the draft.
 
 A reviewer must be able to see every unconfirmed claim without opening the diff.
+
+### 9.6. Classify documentation risk and apply the marker
+
+Follow the shared v1 agent-doc quality contract in
+`.agents/references/doc-quality-policy.md`. Walk the low-risk allowlist there
+— a newly-drafted or materially-changed feature page is
+`engineering-review-required` by default, and so is any unresolved `VERIFY`
+marker from step 6/9.5. Build the `## Documentation risk` PR-body section and
+apply the `warpy-factory` label via `create_pr`'s "Documentation risk"
+subsection before requesting review.
 
 ### 10. Update navigation and redirects
 If this is a new page, remind the user to:

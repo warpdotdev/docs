@@ -1,0 +1,95 @@
+{
+  "claims": [
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:35a76ad8350b6c6486634fca4ffb4e82e945f3fde14479f503d6e07a065a06ad",
+      "claim_id": "sha256:be1f705c800be470186c6376eba0283925df921e86c2334c66c419d5ce25a7ed",
+      "entity": "indexed-source-code",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "stored-on-warp-servers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Code indexed with Codebase Context is never stored on our servers.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/codebase-context",
+        "canonical_route": "/agents/capabilities/codebase-context",
+        "content_sha256": "78c09da22234dc23de100cc2c354312caf3a6f0cf47102be7da48887ce262055",
+        "heading": "Indexing your codebase",
+        "heading_anchor": "indexing-your-codebase",
+        "line_end": 38,
+        "line_start": 38,
+        "path": "src/content/docs/agents/capabilities/codebase-context.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/codebase-context/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "plan-gating",
+      "claim_content_fingerprint": "sha256:184e8edf5c0aaaad2018259a26d7ffb862a9dbf8a4d29d1a02100bb07558e75c",
+      "claim_id": "sha256:056fc12d93b80f6e17557867765b277d1a3cacf88481c828653a5fa71c16b6c8",
+      "entity": "codebase-context",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "free-files-per-codebase",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "free"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The Free plan supports indexing **up to 5,000 files per repository**.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/codebase-context",
+        "canonical_route": "/agents/capabilities/codebase-context",
+        "content_sha256": "78c09da22234dc23de100cc2c354312caf3a6f0cf47102be7da48887ce262055",
+        "heading": "File and codebase limits",
+        "heading_anchor": "file-and-codebase-limits",
+        "line_end": 95,
+        "line_start": 95,
+        "path": "src/content/docs/agents/capabilities/codebase-context.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/codebase-context/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": 5000,
+        "type": "integer"
+      }
+    }
+  ],
+  "page_sha256": "78c09da22234dc23de100cc2c354312caf3a6f0cf47102be7da48887ce262055",
+  "path": "src/content/docs/agents/capabilities/codebase-context.mdx",
+  "schema_version": 1
+}

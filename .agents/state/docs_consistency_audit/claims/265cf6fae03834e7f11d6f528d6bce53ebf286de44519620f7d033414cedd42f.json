@@ -1,0 +1,56 @@
+{
+  "claims": [
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:833f81ad06db265d81431536b35acb86e877420f6841e1d2c5e28a50f431dcc8",
+      "claim_id": "sha256:2abfe0391b85d3b335f74bbe880bf2b4ad26d6a2250f2910415c16b4e7f7c737",
+      "entity": "file-tree",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "available-over-ssh",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "ssh"
+        ],
+        "exceptions": [],
+        "install_methods": [
+          "ssh-extension"
+        ],
+        "legacy": false,
+        "operating_systems": [
+          "linux",
+          "macos"
+        ],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The file tree also works over SSH on macOS and Linux when Warp's [SSH extension](/terminal/warpify/ssh/#installing-the-ssh-extension) is installed on the remote host.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/code/code-editor/file-tree.mdx",
+        "content_sha256": "cbdc1df210485770816f6415b116fd830d1c2fa0b00905f6e08d016cfc594335",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 15,
+        "line_start": 15,
+        "path": "src/content/docs/code/code-editor/file-tree.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/code/code-editor/file-tree/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "cbdc1df210485770816f6415b116fd830d1c2fa0b00905f6e08d016cfc594335",
+  "path": "src/content/docs/code/code-editor/file-tree.mdx",
+  "schema_version": 1
+}

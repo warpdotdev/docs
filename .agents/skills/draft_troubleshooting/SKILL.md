@@ -44,5 +44,5 @@ All headings (H1–H4) must use **sentence case**: capitalize only the first wor
 ## Existing examples
 
 Read 2-3 of these strong examples to match the existing pattern:
-- `src/content/docs/support-and-community/troubleshooting-and-support/known-issues.md`
-- `src/content/docs/reference/cli/troubleshooting.md`
+- `src/content/docs/support-and-community/troubleshooting-and-support/known-issues.mdx`
+- `src/content/docs/agents/cli/oz-cli/troubleshooting.mdx`

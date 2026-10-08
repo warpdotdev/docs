@@ -27,7 +27,7 @@ Warp collects high-level telemetry and usage data to discover product quality is
 If you haven't opted out of "Help improve Warp", we may collect:
 
 1. High level product usage and analytics data to analyze feature uptake and usage patterns. See the full list of tracked events in the [exhaustive telemetry table](/support-and-community/privacy-and-security/privacy/#exhaustive-telemetry-table) below. These are all high level metrics and do not include any user generated content.
-2. AI interactions and console inputs that power our [AI features](/agents/). Warp unconditionally applies [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) in all AI interactions to ensure that any sensitive data is _never_ collected or sent to third parties.
+2. AI interactions and console inputs that power our [AI features](/agents/). Configurable [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) is disabled by default and masks content that matches your patterns before AI requests are sent. Telemetry payload redaction is separate and applies built-in patterns to telemetry regardless of the Secret Redaction setting.
 
 :::note
 Telemetry must be enabled to use AI features on the Free plan, while paid plans can opt out at any time and continue using Warp, including AI.
@@ -203,6 +203,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `AmbientAgent.Handoff.SleepPrompt.Enabled` | User enabled auto-handoff on sleep from the discoverability prompt |
 | `AmbientAgent.Handoff.SleepPrompt.Shown` | The auto-handoff sleep discoverability prompt was shown on wake |
 | `AmbientAgent.Handoff.SnapshotPrepared` | Handoff snapshot upload settled; reports whether it carried content |
+| `AmbientAgents.ThirdPartyHarness.Exit.Escalation` | One attempt (initial exit, follow-up retry, or force-kill) in the harness exit escalation ladder. |
 | `AmbientAgents.ThirdPartyHarness.RuntimeError.Detected` | Runtime output scanner detected a known failure substring in a third-party harness block. |
 | `Anonymous User Attempted Login-Gated Feature` | Anonymous user attempted to access a login-gated feature |
 | `Anonymous User Expiration Lockout` | An anonymous user opened Warp after their conversion deadline and was locked out |
@@ -312,6 +313,9 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `CLIAgentRichInput.Opened` | User opened CLI agent Rich Input |
 | `CLIAgentRichInput.Submitted` | User submitted a prompt via CLI agent Rich Input |
 | `Changed invite view option` | Toggled between link and invite for invite |
+| `ChatGPTPlanModal.Dismissed` | The user dismissed the "You're using your ChatGPT plan" modal |
+| `ChatGPTPlanModal.ManageUsageClicked` | The user opened ChatGPT usage settings from the "You're using your ChatGPT plan" modal |
+| `ChatGPTPlanModal.Shown` | The "You're using your ChatGPT plan" modal was shown to the user |
 | `Clicked Continue Conversation Button` | User clicked the Continue Conversation button in a block footer |
 | `Clicked Reset to Defaults Button in Settings Import` | Reset the imported settings in the settings import onboarding block |
 | `Clone Repo Prompt Submitted` | User submitted a repository URL from the clone repo view |
@@ -499,7 +503,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `Opened Sharing Dialog` | Opened the sharing settings dialog for a session or Warp Drive object |
 | `Opened Warp AI` | Activated Warp AI |
 | `Opened alt screen find bar` | Opened the Find bar in the Alt Screen |
-| `Page Up/Down In Editor Pressed` | Pressed `Page Up` or `Page Down` within the Input Editor |
+| `Page Up/Down In Editor Pressed` | Pressed `PAGE-UP` or `PAGE-DOWN` within the Input Editor |
 | `Pane Drag Ended` | Ended dragging a pane via the pane header |
 | `Pane Drag Inititiated` | Initiated dragging a pane via the header |
 | `Parameterized Workflow With Environment Variables` | Selected from environment variables dropdown to parameterize workflow |
@@ -549,7 +553,7 @@ If you're a [Team](/knowledge-and-collaboration/teams/) admin, the deletion flow
 | `SSH Remote Server Choice Do Not Ask Again Toggled` | Toggled the 'Don't ask me this again' checkbox on the SSH remote-server choice block |
 | `Save Launch Config` | Saved current launch configuration of windows, tabs, and panes |
 | `Select App Icon` | Selected app icon |
-| `Select Command Palette Option` | Selected option from the Command Palette (i.e. `⌘+P`) |
+| `Select Command Palette Option` | Selected option from command palette (i.e. CMD-P) |
 | `Select Cursor Type` | Selected cursor type |
 | `Select Navigation Palette Item` | Selected session from the Session Navigation Palette (search across panes, tabs, and windows) |
 | `Select Theme` | Selected theme |

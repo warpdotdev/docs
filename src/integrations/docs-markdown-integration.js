@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { parseHTML } from 'linkedom';
 import TurndownService from 'turndown';
 import { gfm } from 'turndown-plugin-gfm';
+import { DOCS_ORIGIN } from '../lib/site.js';
 
 export default function docsMarkdownIntegration() {
 	return {
@@ -90,9 +91,10 @@ function convertHtmlToMarkdown(html) {
 	const clone = /** @type {HTMLElement} */ (contentRoot.cloneNode(true));
 	expandAgentOnlyTemplates(clone);
 	sanitizeRoot(clone);
+	absolutizeInternalLinks(clone);
 	const markdownBody = turndown.turndown(clone.innerHTML).trim();
 	const llmsDirective =
-		'> For the complete documentation index, see [llms.txt](/llms.txt).\n' +
+		`> For the complete documentation index, see [llms.txt](${DOCS_ORIGIN}/llms.txt).\n` +
 		'> Markdown versions of each page are available by appending .md to any URL.';
 	const sections = [llmsDirective, `# ${normalizeWhitespace(title)}`];
 
@@ -105,6 +107,33 @@ function convertHtmlToMarkdown(html) {
 	}
 
 	return `${sections.join('\n\n').trim()}\n`;
+}
+
+/**
+ * Rewrite root-relative links/resources to absolute docs.warp.dev URLs so
+ * served markdown remains portable when copied outside the site.
+ *
+ * @param {HTMLElement} root
+ */
+function absolutizeInternalLinks(root) {
+	for (const anchor of root.querySelectorAll('a[href]')) {
+		const absolute = toAbsoluteDocsUrl(anchor.getAttribute('href'));
+		if (absolute) anchor.setAttribute('href', absolute);
+	}
+
+	for (const image of root.querySelectorAll('img[src]')) {
+		const absolute = toAbsoluteDocsUrl(image.getAttribute('src'));
+		if (absolute) image.setAttribute('src', absolute);
+	}
+}
+
+/**
+ * @param {string | null} value
+ * @returns {string | null} absolute docs URL when the value should be rewritten
+ */
+function toAbsoluteDocsUrl(value) {
+	if (!value?.startsWith('/') || value.startsWith('//')) return null;
+	return `${DOCS_ORIGIN}${value}`;
 }
 
 function expandAgentOnlyTemplates(root) {
@@ -143,14 +172,16 @@ function createMarkdownConverter() {
 		replacement(_content, node) {
 			if (!isElement(node)) return '\n\n';
 
+			const pre = node.querySelector('pre');
 			const code = node.querySelector('pre code');
-			if (!code) return '\n\n';
+			if (!pre || !code) return '\n\n';
 
-			const language =
-				code.getAttribute('data-language') ?? code.className.match(/language-([\w-]+)/)?.[1] ?? '';
-			const rawCode = normalizeNewlines(code.textContent ?? '').replace(/\n$/, '');
+			const rawCode = getCodeBlockText(code);
 			const fence = getFence(rawCode);
-			const openingFence = language ? `${fence}${language}` : fence;
+			const info = [getCodeBlockLanguage(pre, code), getCodeBlockTitleAttribute(node)]
+				.filter(Boolean)
+				.join(' ');
+			const openingFence = info ? `${fence}${info}` : fence;
 
 			return `\n\n${openingFence}\n${rawCode}\n${fence}\n\n`;
 		},
@@ -161,6 +192,43 @@ function createMarkdownConverter() {
 
 function isElement(node) {
 	return node.nodeType === 1;
+}
+
+// Expressive Code renders each source line as its own `div.ec-line` and never
+// emits newline characters between them, so `textContent` on the `<code>`
+// element runs every line together. Rebuild the text line by line, taking
+// only each line's `.code` cell so gutter content (line numbers) stays out.
+// An empty source line is rendered as a cell holding a lone newline
+// character, so newlines inside a cell are dropped rather than kept.
+function getCodeBlockText(code) {
+	const lines = Array.from(code.querySelectorAll('.ec-line'));
+	const text =
+		lines.length > 0
+			? lines
+					.map((line) => ((line.querySelector('.code') ?? line).textContent ?? '').replace(/\r?\n/g, ''))
+					.join('\n')
+			: (code.textContent ?? '');
+	return normalizeNewlines(text).replace(/\n$/, '');
+}
+
+// Expressive Code puts `data-language` on the `<pre>`; the `<code>` fallbacks
+// cover blocks rendered by anything else.
+function getCodeBlockLanguage(pre, code) {
+	return (
+		pre.getAttribute('data-language') ??
+		code.getAttribute('data-language') ??
+		code.className.match(/language-([\w-]+)/)?.[1] ??
+		''
+	);
+}
+
+// A block's title (the file name on a ```yaml title="factory.yaml" fence) is
+// often the only thing that says which file a snippet belongs to, so it is
+// carried on the fence's info string in the same form the source uses.
+function getCodeBlockTitleAttribute(block) {
+	const title = block.querySelector('figcaption .title')?.textContent?.trim() ?? '';
+	// JSON.stringify yields a double-quoted string with backslashes and quotes escaped.
+	return title ? `title=${JSON.stringify(title)}` : '';
 }
 
 function getFence(code) {

@@ -1,5 +1,16 @@
 # Weekly 404 monitor run log
 
+## 2026-10-05 — PR opened
+- **Total 404s this week**: 313
+- **Total 404s last week**: 231
+- **Trend**: ▲ 82 (35.5%)
+- **Significant gaps (≥5 hits)**: 2 (1 new)
+- **Redirect candidates processed**: 2  (hits ≥ 5)
+- **HIGH-confidence redirects**: 2
+- **PR**: https://github.com/warpdotdev/docs/pull/825
+- **Oz run**: https://app.warp.dev/conversation/27651680-657e-4a5c-a058-408b3c4f5d36
+- **Notes**: Significant gaps were `/agents/overview` (6 hits) and GitBook revision `/~/revisions/.../features/smart-select` (6 hits, new). 132 long-tail uncovered URLs rolled up. 142 resolved since last week. No unroutable paths. No MEDIUM suggestions.
+
 New entries are prepended by each scheduled agent run. Most recent entry first.
 
 This log tracks every run of the `weekly-404-monitor` skill — both runs that opened a redirect PR and runs that wrote a no-PR report — so the team and the `improve-404-monitor-skill` outer loop can evaluate threshold effectiveness, redirect accuracy, and coverage trends over time.
@@ -7,6 +18,83 @@ This log tracks every run of the `weekly-404-monitor` skill — both runs that o
 **Format**: see the `## Run log format` section in `.agents/skills/weekly-404-monitor/SKILL.md`.
 
 ---
+
+## 2026-09-28 — No PR
+- **Total 404s this week**: 231
+- **Total 404s last week**: 321
+- **Trend**: ▼ 90 (-28.0%)
+- **Significant gaps (≥5 hits)**: 3 (3 new)
+- **Redirect candidates processed**: 3  (hits ≥ 5)
+- **HIGH-confidence redirects**: 0
+- **PR**: none
+- **Oz run**: https://app.warp.dev/conversation/96dec96c-6bf7-4910-90d9-5555fdf9f5b7
+- **Notes**: Volume down 28% week-over-week. All 3 significant gaps are markdown-link capture artifacts ending in literal `).` — `/terminal/settings/file-locations/).` (8), `/terminal/settings/all-settings/).` (7), `/agent-platform/capabilities/skills/).` (5). Underlying pages exist (`terminal/settings/file-locations`, `terminal/settings/all-settings`, `agents/capabilities/skills` via existing agent-platform→agents redirect). No HIGH PR: a bare `)` in a Vercel `source` is path-to-regexp group syntax (same class of issue as prior `:` exclusions), so automated redirects would either mis-parse or over-match. Posted destinations as MEDIUM suggestions for human review. 149 long-tail uncovered; 0 unroutable; 126 resolved. vercel.json redirects count 1298 (sanity OK).
+
+## 2026-09-21 — PR opened
+- **Total 404s this week**: 321
+- **Total 404s last week**: 327
+- **Trend**: ▼ 1.8%
+- **Significant gaps (≥5 hits)**: 1 (0 new)
+- **Redirect candidates processed**: 1  (hits ≥ 5)
+- **HIGH-confidence redirects**: 1
+- **PR**: https://github.com/warpdotdev/docs/pull/777
+- **Oz run**: https://app.warp.dev/conversation/dd5a93a8-dadd-4255-a9ea-90fa21aeb332
+- **Notes**: Significant gap `/agent-platform/inference/bring-your-own-api-key.md` (5 hits). HIGH redirect to `/agents/inference/bring-your-own-api-key/` via existing agent-platform→agents migration pattern (slash form already covered; `.md` suffix was not). 141 long-tail uncovered; 1 unroutable malformed path; 133 resolved since last week. No MEDIUM suggestions.
+
+## 2026-09-14 — PR opened
+- **Total 404s this week**: 327
+- **Total 404s last week**: 258
+- **Trend**: ▲ 69 (26.7%)
+- **Significant gaps (≥5 hits)**: 4 (3 new)
+- **Redirect candidates processed**: 1  (hits ≥ 5; excluded 2 malformed captures + 1 already-covered false positive)
+- **HIGH-confidence redirects**: 1
+- **PR**: https://github.com/warpdotdev/docs/pull/743
+- **Oz run**: https://app.warp.dev/conversation/28de86d1-5d63-4a6f-b819-bca298a6601b
+- **Notes**: 184 pages had SQL-normalised hits; 152 uncovered (148 below threshold). HIGH: `/agents/cli-agents` (5 hits) → `/agents/cli-agents/overview/` (section path has no index; overview is the landing page). `/features/session_management/launch-configuration` (5 hits) is a **false positive** — already covered by existing `vercel.json` source `/features/session_management/launch-configuration(/?)` from PR #715; `load_redirect_sources` does not strip the `(/?)` optional-slash pattern, so coverage detection misses it (follow-up: normalize `(/?)` when loading sources). Two recurring malformed gaps — `/support-and-community/troubleshooting-and-support/logging-out-and-uninstalling/:*logging` (10) and `/agents/local-agents/interacting-with-agents/voice/:)%3cb%3evoice` (9) — excluded again: underlying pages exist, and `:`-containing suffixes are path-to-regexp-unsafe + look like `docs_404` capture artifacts. 128 resolved since last week. Volume up 26.7% vs last week — worth watching. Posted summary to #growth-docs.
+
+## 2026-09-09 — PR opened
+- **Total 404s this week**: 270
+- **Total 404s last week**: 299
+- **Trend**: ▼ 29 (-9.7%)
+- **Significant gaps (≥5 hits)**: 5 (3 new)
+- **Redirect candidates processed**: 3  (hits ≥ 5, excluding 2 malformed captures)
+- **HIGH-confidence redirects**: 2
+- **PR**: https://github.com/warpdotdev/docs/pull/715
+- **Oz run**: https://app.warp.dev/conversation/0d43fcb7-95f8-4b8e-9b9a-8fccf962631b
+- **Notes**: `METABASE_API_KEY` now a valid `mb_...` key, but every query failed with `ValueError: Invalid header value` because the env-injected secret carries a trailing newline that urllib rejects in an HTTP header. Patched `run_404_report.py` to strip the key before use (PR #716) and re-ran successfully. 161 pages had SQL-normalised hits; 134 uncovered (129 below threshold). `/agents/agent-mode` (6 hits) → `/agents/` and `/features/session_management/launch-configuration` (5 hits) → `/terminal/sessions/launch-configurations/` added as HIGH-confidence redirects, mirroring existing analogous patterns already in `vercel.json`. `/agents/inference` (6 hits) posted to Slack as a MEDIUM-confidence suggestion (no exact index page under that directory). Two top gaps — `/support-and-community/troubleshooting-and-support/logging-out-and-uninstalling/:*logging` (10 hits) and `/agents/local-agents/interacting-with-agents/voice/:)%3cb%3evoice` (9 hits) — excluded from the redirect PR: their underlying pages already exist, and the malformed `:`-containing suffixes look like a `docs_404` capture/encoding artifact (a literal `:` is also unsafe as a vercel.json route source, since path-to-regexp treats it as a named parameter). Recommend the docs team check the `broken_url` capture for links with raw punctuation. 135 resolved since last week. Posted summary to #growth-docs.
+
+## 2026-09-09 — No data
+- **Total 404s this week**: n/a
+- **Total 404s last week**: n/a
+- **Trend**: n/a
+- **Significant gaps (≥5 hits)**: n/a
+- **Redirect candidates processed**: 0  (hits ≥ 5)
+- **HIGH-confidence redirects**: 0
+- **PR**: none
+- **Oz run**: https://app.warp.dev/conversation/2f9e8558-518f-4943-b7b7-5854ac1309dd
+- **Notes**: Metabase query failed with HTTP 401 Unauthenticated. `METABASE_API_KEY` is present in environment K5KStCm5aYvhfBJb8cHol6 but is a short placeholder/invalid value (len=16, not an `mb_` key), not a real Metabase API key for https://warp.metabaseapp.com. Posted failure notice to #growth-docs. Action needed: replace the secret with a valid Metabase API key and re-run. Same failure mode as 2026-08-10, 2026-08-17, 2026-08-24, 2026-08-31, and 2026-09-07.
+
+## 2026-09-07 — No data
+- **Total 404s this week**: n/a
+- **Total 404s last week**: n/a
+- **Trend**: n/a
+- **Significant gaps (≥5 hits)**: n/a
+- **Redirect candidates processed**: 0  (hits ≥ 5)
+- **HIGH-confidence redirects**: 0
+- **PR**: none
+- **Oz run**: https://app.warp.dev/conversation/614247d9-e8a0-4628-9e1b-76b0db43b02b
+- **Notes**: Metabase query failed with HTTP 401 Unauthenticated. `METABASE_API_KEY` is present in environment K5KStCm5aYvhfBJb8cHol6 but is a short placeholder/invalid value (len=16, not an `mb_` key), not a real Metabase API key for https://warp.metabaseapp.com. Posted failure notice to #growth-docs. Action needed: replace the secret with a valid Metabase API key and re-run. Same failure mode as 2026-08-10, 2026-08-17, 2026-08-24, and 2026-08-31.
+
+## 2026-08-31 — No data
+- **Total 404s this week**: n/a
+- **Total 404s last week**: n/a
+- **Trend**: n/a
+- **Significant gaps (≥5 hits)**: n/a
+- **Redirect candidates processed**: 0  (hits ≥ 5)
+- **HIGH-confidence redirects**: 0
+- **PR**: none
+- **Oz run**: https://app.warp.dev/conversation/b421fdd1-e5eb-479c-a5f4-37e2c1c9b2fb
+- **Notes**: Metabase query failed with HTTP 401 Unauthenticated. `METABASE_API_KEY` is present in environment K5KStCm5aYvhfBJb8cHol6 but is a short placeholder/invalid value (len=16, not an `mb_` key), not a real Metabase API key for https://warp.metabaseapp.com. Posted failure notice to #growth-docs. Action needed: replace the secret with a valid Metabase API key and re-run. Same failure mode as 2026-08-10, 2026-08-17, and 2026-08-24.
 
 ## 2026-08-24 — No data
 - **Total 404s this week**: n/a

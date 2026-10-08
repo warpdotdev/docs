@@ -1,0 +1,148 @@
+{
+  "claims": [
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:032e4bc65a25f585678ddcf5a3d0f8e96ec662b77fea94e961f6c47d6e2fe153",
+      "claim_id": "sha256:a57ee70be66d981fe317dcbcc9b3384d469e74ff18b28c5ccdb99d9a5481e105",
+      "entity": "customer-ai-data",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "retained-by-model-provider",
+      "qualifiers": {
+        "actors": [
+          "anthropic"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": [
+          "claude-fable-5",
+          "claude-fable-5.1"
+        ]
+      },
+      "quote": "Anthropic requires data retention for Claude Fable 5 and Claude Fable 5.1",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "6745d88e9577fa4a92188ceb7643e7e52b3b27503e336bcf0f07e92c13c86e31",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 71,
+        "line_start": 71,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:328ccc87c1472bb743afdbba6f9557ba3b4efb6dba759e92fe7173820c5f6660",
+      "claim_id": "sha256:ef95c96ed2b53d4a26f1cd2c1f792188b32098d947bd3d1a1cb735ec47217a00",
+      "entity": "customer-ai-data",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "retained-by-model-provider",
+      "qualifiers": {
+        "actors": [
+          "llm-providers"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "LLM providers commit to delete inputs and outputs after generating the relevant output, within a fixed time period.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "6745d88e9577fa4a92188ceb7643e7e52b3b27503e336bcf0f07e92c13c86e31",
+        "heading": "Zero data retention policies",
+        "heading_anchor": "zero-data-retention-policies",
+        "line_end": 167,
+        "line_start": 167,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:3be1e793c1c825bb568172be7a3b9788230afb390d29b01c67bd7434b72f1ec2",
+      "claim_id": "sha256:971d8c6f8a25e559acefd472bd18ee00e7f1dae531963c4363b83398889cd64a",
+      "entity": "warp-managed-inference",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "zero-data-retention-available",
+      "qualifiers": {
+        "actors": [
+          "anthropic"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": [
+          "claude-fable-5",
+          "claude-fable-5.1"
+        ]
+      },
+      "quote": "these models are **not available under Zero Data Retention (ZDR)**",
+      "source": {
+        "canonical_identity": "route:/agents/inference/model-choice",
+        "canonical_route": "/agents/inference/model-choice",
+        "content_sha256": "6745d88e9577fa4a92188ceb7643e7e52b3b27503e336bcf0f07e92c13c86e31",
+        "heading": "Anthropic",
+        "heading_anchor": "anthropic",
+        "line_end": 71,
+        "line_start": 71,
+        "path": "src/content/docs/agents/inference/model-choice.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/model-choice/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "6745d88e9577fa4a92188ceb7643e7e52b3b27503e336bcf0f07e92c13c86e31",
+  "path": "src/content/docs/agents/inference/model-choice.mdx",
+  "schema_version": 1
+}

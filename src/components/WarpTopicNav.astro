@@ -25,11 +25,10 @@
 //     underline share `--sl-color-text-accent`, which auto-adapts to dark
 //     and light themes.
 //   - No surrounding chip / box / bg — just type + icon
-//   - Topic badge (e.g. Factories "Early Access"): rendered as a plain span
-//     styled as a compact brand pill (Inter, 11px/600, accent tint, fully
-//     rounded) instead of Starlight's `<Badge>`, whose monospace bordered
-//     box clashed with the nav type and was wide enough to wrap the nav
-//     onto a second row at common laptop widths.
+//   - Topic badges render as compact brand pills (Inter, 11px/600, accent
+//     tint, fully rounded) instead of Starlight's `<Badge>`, whose bordered
+//     monospace box clashed with the nav type and was wide enough to wrap the
+//     nav onto a second row at common laptop widths.
 import { Icon } from '@astrojs/starlight/components';
 
 const { topics } = Astro.locals.starlightSidebarTopics;

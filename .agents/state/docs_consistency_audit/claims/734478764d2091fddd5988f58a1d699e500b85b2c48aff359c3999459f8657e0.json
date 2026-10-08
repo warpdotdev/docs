@@ -1,0 +1,144 @@
+{
+  "claims": [
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:9d2ec02c465ec3c5f00f918f8f4462213f7c66651249c53ef3aa56f9779edc7b",
+      "claim_id": "sha256:42d02dca83bebc50e060b8ede679741f69efdbee37b05c61b5adbedf1e640533",
+      "entity": "customer-ai-data",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "used-for-training",
+      "qualifiers": {
+        "actors": [
+          "llm-providers"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "They do not store or train on your data.",
+      "source": {
+        "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
+        "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
+        "content_sha256": "284e7f594be852195d4061be4510aa399f342113bcdf9e5ca12df7085f335101",
+        "heading": "High-level data flow",
+        "heading_anchor": "high-level-data-flow",
+        "line_end": 30,
+        "line_start": 30,
+        "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/architecture-and-deployment/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:9d2ec02c465ec3c5f00f918f8f4462213f7c66651249c53ef3aa56f9779edc7b",
+      "claim_id": "sha256:e2bd91263fb7b04c43b7e59b5c9a54c871dbcb20d15b7525c5712d893ad2fb6d",
+      "entity": "customer-ai-data",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "retained-by-model-provider",
+      "qualifiers": {
+        "actors": [
+          "llm-providers"
+        ],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "They do not store or train on your data.",
+      "source": {
+        "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
+        "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
+        "content_sha256": "284e7f594be852195d4061be4510aa399f342113bcdf9e5ca12df7085f335101",
+        "heading": "High-level data flow",
+        "heading_anchor": "high-level-data-flow",
+        "line_end": 30,
+        "line_start": 30,
+        "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/architecture-and-deployment/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "plan-gating",
+      "claim_content_fingerprint": "sha256:992dfc5f4b0c7423a10f02d84c957508675b597d1e1c7b0ebe4a1b5cc20da7d0",
+      "claim_id": "sha256:ca5bfb6e1f3fa7ee8036e6892692a4b9bb3783327e742bf415dcb968266ea2a4",
+      "entity": "self-hosted-execution",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "minimum-plan",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "self-hosted"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "enterprise"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Self-hosted execution is available exclusively on Warp's **Enterprise** plan.",
+      "source": {
+        "canonical_identity": "route:/enterprise/enterprise-features/architecture-and-deployment",
+        "canonical_route": "/enterprise/enterprise-features/architecture-and-deployment",
+        "content_sha256": "284e7f594be852195d4061be4510aa399f342113bcdf9e5ca12df7085f335101",
+        "heading": "Self-hosted execution",
+        "heading_anchor": "self-hosted-execution",
+        "line_end": 63,
+        "line_start": 63,
+        "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/enterprise/enterprise-features/architecture-and-deployment/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": "ENTERPRISE",
+        "type": "plan"
+      }
+    }
+  ],
+  "page_sha256": "284e7f594be852195d4061be4510aa399f342113bcdf9e5ca12df7085f335101",
+  "path": "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
+  "schema_version": 1
+}

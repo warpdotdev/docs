@@ -10,6 +10,18 @@ Adds a new entry to the current year's changelog page (e.g. `src/content/docs/ch
 ## Related Skills
 
 - `create_pr` - PR creation guidelines for this repo
+- `doc_quality_policy` - the shared agent-doc quality contract this skill's PR follows
+
+## Agent-doc quality contract
+
+The PR this skill opens or updates follows the shared v1 agent-doc quality
+contract in `.agents/references/doc-quality-policy.md`: apply the
+`warpy-factory` label and add the `## Documentation risk` block
+(`.agents/skills/doc_quality_policy/finalize_pr_contract.py build`). A
+changelog entry copied 1:1 from `channel_versions.json` is `low` risk
+(generated data whose source-verification step — the 1:1 match — passed);
+any manually written or fallback-sourced entry (Step 4) is
+`engineering-review-required`.
 
 ## Workflow
 

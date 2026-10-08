@@ -1,0 +1,117 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:19639feea911ad54a02d7ac4d5665271ff602523c29107624d28817f8d93e5e0",
+      "canonical_source": "docs-prose",
+      "claim_ids": [
+        "sha256:a1995c197529adc5b7a4cba2b340772fd0c5d236f376cf3f81b6c6cbeb568e5f",
+        "sha256:d01ac9423729a1eed356ac22e0732e18729e852fd277b61d3adbfb50b176c5e7"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "Warp unconditionally applies Secret Redaction",
+          "source": {
+            "content_sha256": "1ee7b94d40483c1d14dd5006686fa933c4e1da45fb2ce71cc82775b88ab38105",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-17-redaction-unconditional-toggle-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "Toggled on/off the setting for Secret Redaction",
+          "source": {
+            "content_sha256": "1a1b6bd76ea9a99d0c92f185843adc8303f7b5cbb3cd55604d25c2cf7af8475f",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-17-redaction-unconditional-toggle-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "high",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-17-redaction-unconditional-toggle",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "security",
+      "entity": "secret-redaction",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "always-applied",
+      "qualifiers": {},
+      "quote": "Warp unconditionally applies Secret Redaction",
+      "source": {
+        "content_sha256": "1ee7b94d40483c1d14dd5006686fa933c4e1da45fb2ce71cc82775b88ab38105",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-17-redaction-unconditional-toggle-left",
+        "visibility": "public"
+      },
+      "source_class": "public-privacy-policy",
+      "topic": "security",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "entity": "secret-redaction",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "always-applied",
+      "qualifiers": {},
+      "quote": "Toggled on/off the setting for Secret Redaction",
+      "source": {
+        "content_sha256": "1a1b6bd76ea9a99d0c92f185843adc8303f7b5cbb3cd55604d25c2cf7af8475f",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-17-redaction-unconditional-toggle-right",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "1ee7b94d40483c1d14dd5006686fa933c4e1da45fb2ce71cc82775b88ab38105",
+    "right.mdx": "1a1b6bd76ea9a99d0c92f185843adc8303f7b5cbb3cd55604d25c2cf7af8475f"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

@@ -13,7 +13,7 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 Agent Memory is in **research preview** and is enabled per team for design partners. [Join the waitlist](https://www.warp.dev/oz/agent-memory#waitlist) to request access for your team.
 :::
 
-Agent Memory is a persistent memory system that lives on Warp and is shared across every supported agent harness, including the built-in Warp Agent, Claude Code, Codex, and others as they're added. Agents read from and write to this memory system as they run, so durable facts, decisions, and outcomes from one conversation are available to the next — regardless of which harness, machine, or teammate triggers the work.
+Agent Memory is a persistent memory system that lives on Warp and is shared across every supported [agent harness](/platform/harnesses/), including the built-in Warp Agent, Claude Code, Codex, and others as they're added. Agents read from and write to this memory system as they run, so durable facts, decisions, and outcomes from one conversation are available to the next — regardless of which harness, machine, or teammate triggers the work.
 
 Memory creation and retrieval are asynchronous and run in the background, so they don't consume tokens or add latency to the active task.
 
@@ -40,7 +40,7 @@ Watch this short preview to see Agent Memory in context.
 Agent Memory is part of Warp. Storage, memory creation, and retrieval all run on Warp alongside your agents. The same memory is accessible from any agent you run in Warp:
 
 * The local Warp Agent.
-* Cloud agents triggered from the CLI, web app, schedules, or integrations.
+* [Cloud agents](/platform/) triggered from the CLI, web app, [schedules](/platform/triggers/scheduled-agents/), or [integrations](/platform/integrations/).
 * Third-party harnesses running as cloud agents: Claude Code, Codex, and others as they're added. (Running third-party harnesses locally isn't supported during the research preview.)
 
 Memory stays bound to its owner (a user, an agent, or a team), independent of which harness reads or writes.
@@ -85,8 +85,8 @@ Attach stores to agents with read-only or read-write access. Each attachment inc
 
 These capabilities aren't part of the research preview yet, but they're on the way:
 
-* **Programmatic API access** - Read and manage memories and stores through the [{VARS.API_SDK_NAME}](/reference/api-and-sdk/), in addition to managing them in the {VARS.WEB_APP}.
-* **Self-hosting support** - Run Agent Memory on a [self-hosted {VARS.WARP_AUTOMATION_PLATFORM}](/platform/self-hosting/) instance to meet security, privacy, and compliance requirements.
+* **Programmatic API access** - Read and manage memories and stores through the [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/), in addition to managing them in the {VARS.WEB_APP}.
+* **Self-hosting support** - Run Agent Memory on a [self-hosted {VARS.WARP_AUTOMATION_PLATFORM}](/factories/self-hosting/) instance to meet security, privacy, and compliance requirements.
 
 ## Join the waitlist
 
@@ -94,6 +94,7 @@ Agent Memory is rolling out to design partner teams during research preview. [Jo
 
 ## Related pages
 
+* [Harnesses in the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/) - Run Warp Agent, Claude Code, or Codex as cloud agents with shared platform features.
 * [Codebase Context](/agents/capabilities/codebase-context/) - Let agents understand your codebase through semantic indexing.
 * [Rules](/agents/capabilities/rules/) - Define global and project-level guidelines that shape agent behavior.
 * [Skills](/agents/capabilities/skills/) - Reusable, scoped instructions that teach agents how to perform specific tasks.

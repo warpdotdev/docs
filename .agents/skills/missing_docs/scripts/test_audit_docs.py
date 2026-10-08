@@ -4,7 +4,7 @@
 These run the audit as a subprocess against the sibling code repos (warp client +
 warp-server) and assert behavioral invariants: clean exit, completeness
 accounting totality, category/severity scoping, fail-loud on a missing repo, and
-that --update-snapshot honors --snapshot without mutating the committed snapshot.
+that --update-snapshot rejects any delta without an explicit disposition.
 
 Tests are skipped (not failed) when the sibling code repos aren't checked out, so
 the suite is safe to run anywhere.
@@ -15,12 +15,15 @@ Run with: python3 .agents/skills/missing_docs/scripts/test_audit_docs.py
 
 import hashlib
 import importlib.util
+import io
 import json
 import subprocess
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
+from unittest import mock
 
 _HERE = Path(__file__).resolve().parent
 _AUDIT = _HERE / "audit_docs.py"
@@ -69,8 +72,15 @@ def _run_audit(extra_args, capture_report=True):
     return proc.returncode, report, proc.stderr
 
 
-def _sha(path):
+def _sha(path: Path) -> str:
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+def _write_snapshot_with_removed_flag(path: Path) -> str:
+    snapshot = json.loads(_DEFAULT_SNAPSHOT.read_text(encoding="utf-8"))
+    removed_flag = next(iter(snapshot["flags"]))
+    del snapshot["flags"][removed_flag]
+    path.write_text(json.dumps(snapshot), encoding="utf-8")
+    return removed_flag
 
 
 @unittest.skipUnless(_REPOS_AVAILABLE, "warp/warp-server repos not checked out as siblings")
@@ -125,31 +135,78 @@ class TestAuditBehavior(unittest.TestCase):
         )
         self.assertEqual(proc.returncode, 2, f"missing repo must exit 2; stderr={proc.stderr}")
 
-    def test_diff_against_committed_snapshot_is_current(self):
-        # The committed snapshot should reflect current code (no pending surface drift).
-        rc, report, stderr = _run_audit(["--diff"])
+    def test_diff_reports_synthetic_snapshot_delta(self):
+        with tempfile.TemporaryDirectory() as d:
+            tmp_snap = Path(d) / "snap.json"
+            removed_flag = _write_snapshot_with_removed_flag(tmp_snap)
+            rc, report, stderr = _run_audit(
+                ["--diff", "--snapshot", str(tmp_snap)]
+            )
         self.assertEqual(rc, 0, stderr)
-        self.assertEqual(
-            report["summary"]["by_category"].get("surface_changes", 0),
-            0,
-            "committed snapshot is stale; regenerate with --update-snapshot",
+        self.assertIn(
+            ("flag_added", removed_flag),
+            {
+                (item["change"], item["surface"])
+                for item in report["surface_changes"]
+            },
         )
 
-    def test_update_snapshot_respects_snapshot_flag_and_roundtrips(self):
+    def test_update_snapshot_rejects_unresolved_baseline_without_writing(self):
         before = _sha(_DEFAULT_SNAPSHOT)
         with tempfile.TemporaryDirectory() as d:
             tmp_snap = Path(d) / "snap.json"
-            # Regenerate into the temp path (must NOT touch the committed snapshot).
-            rc, _, stderr = _run_audit(
-                ["--update-snapshot", "--snapshot", str(tmp_snap)], capture_report=False
+            _write_snapshot_with_removed_flag(tmp_snap)
+            tmp_before = _sha(tmp_snap)
+            rc, report, stderr = _run_audit(
+                ["--update-snapshot", "--snapshot", str(tmp_snap)]
             )
-            self.assertEqual(rc, 0, stderr)
-            self.assertTrue(tmp_snap.exists() and tmp_snap.stat().st_size > 0,
-                            "--update-snapshot should write to the --snapshot path")
+            self.assertEqual(rc, 2, stderr)
+            self.assertEqual(_sha(tmp_snap), tmp_before, "a rejected update must not write")
             self.assertEqual(
                 _sha(_DEFAULT_SNAPSHOT), before, "--update-snapshot must not mutate the committed snapshot"
             )
-            # Diffing current code against the just-generated snapshot shows no drift.
+            skipped = {
+                item["audit"]: item["reason"]
+                for item in report["summary"]["audits_skipped"]
+            }
+            self.assertIn("integrity:snapshot_dispositions", skipped)
+            self.assertIn(
+                "missing disposition ledger",
+                skipped["integrity:snapshot_dispositions"],
+            )
+
+    def test_update_snapshot_accepts_fully_dispositioned_deltas(self):
+        with tempfile.TemporaryDirectory() as d:
+            tmp_snap = Path(d) / "snap.json"
+            _write_snapshot_with_removed_flag(tmp_snap)
+            rc, report, stderr = _run_audit(["--diff", "--snapshot", str(tmp_snap)])
+            self.assertEqual(rc, 0, stderr)
+            changes = report["surface_changes"]
+            self.assertTrue(changes, "the fixture needs pending surface changes")
+            disposition_path = (
+                tmp_snap.parent / audit_docs.SNAPSHOT_DISPOSITIONS_FILENAME
+            )
+            disposition_path.write_text(json.dumps({
+                "schema_version": audit_docs.SNAPSHOT_DISPOSITION_SCHEMA_VERSION,
+                "snapshot_fingerprint": audit_docs.snapshot_fingerprint(
+                    json.loads(tmp_snap.read_text(encoding="utf-8"))
+                ),
+                "dispositions": [
+                    {
+                        "change": item["change"],
+                        "surface": item["surface"],
+                        "disposition": "no_docs_needed",
+                        "evidence": "Test fixture records a terminal triage decision.",
+                    }
+                    for item in changes
+                ],
+            }), encoding="utf-8")
+
+            rc2, _, stderr2 = _run_audit(
+                ["--update-snapshot", "--snapshot", str(tmp_snap)],
+                capture_report=False,
+            )
+            self.assertEqual(rc2, 0, stderr2)
             rc2, report2, _ = _run_audit(["--diff", "--snapshot", str(tmp_snap)])
             self.assertEqual(rc2, 0)
             self.assertEqual(report2["summary"]["by_category"].get("surface_changes", 0), 0)
@@ -171,6 +228,288 @@ class TestAuditBehavior(unittest.TestCase):
         )
 
 
+class TestSnapshotDispositions(unittest.TestCase):
+    def _write_ledger(self, path, fingerprint, dispositions):
+        path.write_text(json.dumps({
+            "schema_version": audit_docs.SNAPSHOT_DISPOSITION_SCHEMA_VERSION,
+            "snapshot_fingerprint": fingerprint,
+            "dispositions": dispositions,
+        }), encoding="utf-8")
+
+    def test_zero_current_delta_rejects_stale_ledger_entries(self):
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / audit_docs.SNAPSHOT_DISPOSITIONS_FILENAME
+            fingerprint = audit_docs.snapshot_fingerprint({"schema_version": 2})
+            self._write_ledger(path, fingerprint, [{
+                "change": "cli_command_added",
+                "surface": "warp example",
+                "disposition": "documented",
+                "evidence": "The reference documents this command.",
+            }])
+
+            errors = audit_docs.snapshot_disposition_errors(
+                [], path, fingerprint
+            )
+
+        self.assertTrue(any(
+            "stale dispositions without matching snapshot changes" in error
+            for error in errors
+        ), errors)
+
+    def test_rejects_ledger_for_different_input_snapshot(self):
+        change = {"change": "cli_command_added", "surface": "warp example"}
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / audit_docs.SNAPSHOT_DISPOSITIONS_FILENAME
+            self._write_ledger(path, "not-the-input-fingerprint", [{
+                **change,
+                "disposition": "documented",
+                "evidence": "The reference documents this command.",
+            }])
+
+            errors = audit_docs.snapshot_disposition_errors(
+                [change],
+                path,
+                audit_docs.snapshot_fingerprint({"schema_version": 2}),
+            )
+
+        self.assertIn(
+            "disposition ledger snapshot_fingerprint does not match the input snapshot",
+            errors,
+        )
+
+    def test_accepts_matching_fully_dispositioned_and_no_delta_ledgers(self):
+        fingerprint = audit_docs.snapshot_fingerprint({"schema_version": 2})
+        change = {"change": "cli_command_added", "surface": "warp example"}
+        cases = (
+            ([change], [{
+                **change,
+                "disposition": "documented",
+                "evidence": "The reference documents this command.",
+            }]),
+            ([], []),
+        )
+        for changes, dispositions in cases:
+            with self.subTest(changes=changes), tempfile.TemporaryDirectory() as d:
+                path = Path(d) / audit_docs.SNAPSHOT_DISPOSITIONS_FILENAME
+                self._write_ledger(path, fingerprint, dispositions)
+                self.assertEqual(
+                    audit_docs.snapshot_disposition_errors(
+                        changes, path, fingerprint
+                    ),
+                    [],
+                )
+
+
+class TestConsistencyAudit(unittest.TestCase):
+    def test_approved_seed_store_partitions_all_24_findings(self):
+        result = audit_docs.audit_consistency(_DOCS_ROOT)
+        self.assertEqual(result["total_seeds"], 24)
+        self.assertEqual(sum(result["by_status"].values()), 24)
+        self.assertEqual(
+            set(result["by_status"]),
+            set(audit_docs.CONSISTENCY_STATUSES),
+        )
+        self.assertEqual(result["accounting"]["unaccounted"], [])
+
+    def test_current_placeholder_remains_a_deterministic_finding(self):
+        result = audit_docs.audit_consistency(_DOCS_ROOT)
+        findings = [
+            item
+            for item in result["findings"]
+            if item["seed_id"] == "cloud-concurrency-placeholder"
+        ]
+        self.assertEqual(len(findings), 1)
+        self.assertEqual(findings[0]["rule_id"], "no-finalizing-concurrency-placeholder")
+        self.assertEqual(findings[0]["path"], "src/content/docs/platform/faqs.mdx")
+
+    def test_resolved_statements_pass_their_rules(self):
+        result = audit_docs.audit_consistency(_DOCS_ROOT)
+        passed = {item["rule_id"] for item in result["rules"]["passed"]}
+        self.assertIn("no-singular-create-run-example", passed)
+        self.assertIn("no-five-file-cli-limit", passed)
+        self.assertIn("no-old-session-sharing-links", passed)
+        self.assertNotIn("no-finalizing-concurrency-placeholder", passed)
+
+    def test_policy_blockers_remain_visible_with_owner_metadata(self):
+        result = audit_docs.audit_consistency(_DOCS_ROOT)
+        blockers = {
+            item["seed_id"]: item
+            for item in result["blockers"]
+            if item["status"] == "policy_blocker"
+        }
+        self.assertEqual(
+            set(blockers),
+            {
+                "customer-data-training-policy",
+                "free-telemetry-optout-ai-policy",
+                "fireworks-zdr-provider-list",
+            },
+        )
+        for blocker in blockers.values():
+            self.assertTrue(blocker["owner"])
+            self.assertTrue(blocker["unresolved_question"])
+            self.assertTrue(blocker["inconsistent_surfaces"])
+            self.assertTrue(blocker["recheck_condition"])
+
+    def test_exact_rule_reports_every_occurrence_and_then_passes(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            doc = root / "doc.mdx"
+            doc.write_text("stale statement\nok\nSTALE STATEMENT\n", encoding="utf-8")
+            store = (
+                root
+                / ".agents"
+                / "skills"
+                / "missing_docs"
+                / "references"
+                / "consistency_seeds.json"
+            )
+            store.parent.mkdir(parents=True)
+            store.write_text(json.dumps({
+                "schema_version": 1,
+                "seeds": [{
+                    "id": "multiple-occurrences",
+                    "claim": "The stale statement is absent.",
+                    "status": "fix",
+                    "occurrence_queries": ["stale statement"],
+                    "authoritative_sources": ["source.rs"],
+                    "affected_surfaces": ["doc.mdx"],
+                    "surface_dispositions": {"doc.mdx": "fixed"},
+                    "recheck_condition": "The source statement changes.",
+                    "deterministic_rules": [{
+                        "id": "no-stale-statement",
+                        "type": "forbidden_text",
+                        "patterns": ["stale statement"],
+                        "paths": ["doc.mdx"],
+                    }],
+                }],
+            }), encoding="utf-8")
+
+            result = audit_docs.audit_consistency(root)
+            self.assertEqual(len(result["findings"]), 2)
+            self.assertEqual(
+                [item["line"] for item in result["findings"]],
+                [1, 3],
+            )
+            self.assertEqual(result["rules"]["failed"][0]["match_count"], 2)
+
+            doc.write_text("current statement\n", encoding="utf-8")
+            resolved = audit_docs.audit_consistency(root)
+            self.assertEqual(resolved["findings"], [])
+            self.assertEqual(
+                resolved["rules"]["passed"][0]["rule_id"],
+                "no-stale-statement",
+            )
+
+    def test_malformed_seed_data_exits_two(self):
+        with tempfile.TemporaryDirectory() as d:
+            store = Path(d) / "seeds.json"
+            store.write_text(
+                '{"schema_version": 1, "seeds": [{"id": "unaccounted"}]}',
+                encoding="utf-8",
+            )
+            output = Path(d) / "report.json"
+            argv = [
+                str(_AUDIT),
+                "--category",
+                "consistency",
+                "--output",
+                str(output),
+            ]
+            with (
+                mock.patch.object(audit_docs, "_consistency_seed_path", return_value=store),
+                mock.patch.object(sys, "argv", argv),
+                redirect_stdout(io.StringIO()),
+                redirect_stderr(io.StringIO()),
+                self.assertRaises(SystemExit) as exited,
+            ):
+                audit_docs.main()
+            self.assertEqual(exited.exception.code, 2)
+            report = json.loads(output.read_text(encoding="utf-8"))
+            skipped = {
+                item["audit"]
+                for item in report["summary"]["audits_skipped"]
+            }
+            self.assertIn("integrity:consistency_accounting", skipped)
+            self.assertTrue(report["consistency"]["accounting"]["unaccounted"])
+
+    def test_category_and_severity_scope_remain_compatible(self):
+        with tempfile.TemporaryDirectory() as d:
+            output = Path(d) / "report.json"
+            proc = subprocess.run(
+                [
+                    sys.executable,
+                    str(_AUDIT),
+                    "--category",
+                    "consistency",
+                    "--severity",
+                    "high",
+                    "--output",
+                    str(output),
+                ],
+                capture_output=True,
+                text=True,
+                stdin=subprocess.DEVNULL,
+            )
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            report = json.loads(output.read_text(encoding="utf-8"))
+            self.assertEqual(report["summary"]["audits_run"], ["consistency"])
+            self.assertEqual(
+                report["summary"]["by_category"]["undocumented_cli_commands"],
+                0,
+            )
+            self.assertTrue(
+                all(
+                    item["severity"] == "high"
+                    for item in report["consistency_findings"]
+                )
+            )
+
+
+class TestAccounting(unittest.TestCase):
+    def test_cli_all_finding_accounts_for_commands(self):
+        with tempfile.TemporaryDirectory() as d:
+            accounting = audit_docs.compute_accounting(
+                Path(d),
+                {},
+                {"undocumented_cli_commands": [{"command": "(all)"}]},
+                {},
+                [{
+                    "command": "oz thing",
+                    "hidden": False,
+                    "subcommands": [],
+                }],
+                [],
+                [],
+                {},
+                {},
+            )
+
+        self.assertNotIn("cli_commands", accounting["unaccounted"])
+        self.assertEqual(accounting["cli_commands"]["finding"], 1)
+
+    def test_api_all_finding_accounts_for_routes(self):
+        with tempfile.TemporaryDirectory() as d:
+            accounting = audit_docs.compute_accounting(
+                Path(d),
+                {},
+                {"undocumented_api_endpoints": [{"route": "(all)"}]},
+                {},
+                [],
+                [{
+                    "route": "GET /api/v1/thing",
+                    "method": "GET",
+                    "path": "/api/v1/thing",
+                }],
+                [],
+                {},
+                {},
+            )
+
+        self.assertNotIn("api_routes", accounting["unaccounted"])
+        self.assertEqual(accounting["api_routes"]["finding"], 1)
+
+
 class TestGatedLogic(unittest.TestCase):
     """Repo-free unit tests for the `gated:<Flag>` rollout-aware deferral."""
 
@@ -184,11 +523,16 @@ class TestGatedLogic(unittest.TestCase):
     def _run_cli(self, status_map):
         """Run audit_cli on one gated command with the given flag statuses."""
         with tempfile.TemporaryDirectory() as d:
+            # audit_cli refuses to run without a CLI reference docs directory,
+            # so give it an empty one: these cases exercise gating, not
+            # coverage, and an empty directory covers nothing.
+            docs_root = Path(d)
+            docs_root.joinpath(*audit_docs.CLI_DOCS_DIRS[0].split("/")).mkdir(parents=True)
             surface_map = {"cli_to_doc": {"oz memx": "gated:MemFlag"}}
             commands = [{"command": "oz memx", "hidden": False,
                          "subcommands": [], "source_file": None}]
             return audit_docs.audit_cli(
-                None, Path(d), surface_map, {},
+                None, docs_root, surface_map, {},
                 cli_commands=commands, flag_statuses=status_map)
 
     def test_gated_non_ga_cli_is_deferred(self):
@@ -204,6 +548,36 @@ class TestGatedLogic(unittest.TestCase):
         # Unknown gating flag is treated conservatively (not silently deferred).
         findings = self._run_cli({})
         self.assertIn("oz memx", [f["command"] for f in findings])
+
+    def test_missing_cli_docs_dir_fails_loud(self):
+        """A moved docs IA must not read as "every command is undocumented".
+
+        audit_cli scopes its prose search to a fixed subdirectory. When the
+        docs move and that path does not, the scoped search finds nothing and
+        every command becomes a false positive — which is exactly what
+        `reference/cli` produced after the CLI docs moved under `agents/cli`.
+        """
+        with tempfile.TemporaryDirectory() as d:
+            commands = [{"command": "oz thing", "hidden": False,
+                         "subcommands": [], "source_file": None}]
+            findings = audit_docs.audit_cli(
+                None, Path(d), {"cli_to_doc": {}}, {},
+                cli_commands=commands, flag_statuses={})
+        self.assertEqual([f["command"] for f in findings], ["(all)"])
+        self.assertEqual(findings[0]["severity"], "high")
+        self.assertIn("CLI_DOCS_DIRS", findings[0]["reason"])
+
+    def test_missing_api_docs_dir_fails_loud(self):
+        """Same failure mode as the CLI audit, same loud resolution."""
+        with tempfile.TemporaryDirectory() as d:
+            routes = [{"route": "GET /api/v1/thing", "method": "GET",
+                       "path": "/api/v1/thing", "file": None}]
+            findings = audit_docs.audit_api(
+                None, Path(d), {"api_to_doc": {}}, {},
+                api_routes=routes, flag_statuses={})
+        self.assertEqual([f["route"] for f in findings], ["(all)"])
+        self.assertEqual(findings[0]["severity"], "high")
+        self.assertIn("API_DOCS_DIRS", findings[0]["reason"])
 
     def test_map_hygiene_flags_unknown_gated_flag(self):
         surface_map = {

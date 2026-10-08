@@ -32,7 +32,7 @@ warp --api-key YOUR_API_KEY
 Command-line arguments can be captured in shell history and process listings. Prefer the `WARP_API_KEY` environment variable, ideally populated from a secret manager.
 :::
 
-Create a key in the Warp app under **Settings** > **Cloud platform** > **API keys**. See the [API keys reference](/reference/cli/api-keys/) for details.
+Create a key in the Warp app under **Settings** > **Cloud platform** > **API keys**. See the [API keys reference](/agents/cli/oz-cli/api-keys/) for details.
 
 ### `--auto-approve`
 
@@ -133,7 +133,7 @@ Type `/` at the start of the input to open the slash command menu. Commands that
 | `/export-to-clipboard` | | Export the current conversation to the clipboard as Markdown |
 | `/export-to-file` | `[filename]` | Export the current conversation to a Markdown file |
 | `/fork` | `[prompt]` | Fork the current conversation into a copy, optionally sending a prompt in the copy |
-| `/handoff` | `[prompt]` | Hand off this conversation to a cloud agent |
+| `/handoff` | `[prompt]` | Hand off this conversation to a cloud agent. See [cloud handoff and orchestration](/agents/cli/cloud-and-orchestration/#hand-off-to-a-cloud-agent) |
 | `/logout` | | Log out of Warp |
 | `/manage-billing` | | Open your team's billing page in the browser |
 | `/mcp` | | View and manage MCP servers |
@@ -146,6 +146,7 @@ Type `/` at the start of the input to open the slash command menu. Commands that
 | `/skills` | | Browse skills in scope and insert one into the input |
 | `/status` | | Show session and account status |
 | `/statusline` | | Configure the statusline |
+| `/team` | | Switch the active team |
 | `/theme` | `<auto\|light\|dark>` | Set the color theme |
 | `/upgrade` | | Open the Warp upgrade page in the browser |
 | `/usage` | | View plan, credit usage, and billing links |
@@ -158,6 +159,8 @@ Some commands appear only when they apply to your account. `/manage-billing` is 
 `/status` opens a read-only panel with the installed version, the current conversation's name and ID, the working directory, and the organization and email you're signed in as. Press `Esc` to close it, and include those details when you report a problem.
 
 `/usage` opens a read-only panel with your plan, credit balances and consumption, and links to manage billing or upgrade. See [models and usage](/agents/cli/models-and-usage/#usage-and-cost).
+
+`/team` opens a searchable list of the teams you belong to, with the active one marked. Type to filter, then press `Enter` to switch. The CLI re-scopes the current session in place, unlike the Warp app, which opens a new window for the team you pick. The active team also appears in the statusline, and clicking it opens the same list.
 
 Skills also appear in the same menu under their own names, so you can invoke a skill directly as `/skill-name`. [Customizing the CLI](/agents/cli/configuration/) covers how skills are discovered.
 
@@ -295,7 +298,7 @@ The sign-in attempt was rejected or timed out. The error message in the CLI name
 
 ### Updating
 
-The CLI updates automatically. Installed builds check for updates in the background, download new versions, and apply them the next time you launch `warp`. A running session is never interrupted.
+Update behavior depends on the install method. Native managed installs check, download, and stage updates for the next launch. Homebrew installs check for updates but require `brew upgrade --cask warp-agent-cli`. Unmanaged installs do not use either update path. See the [installation and update guidance](/agents/cli/quickstart/#1-install-the-warp-agent-cli) for details.
 
 To check which version you're running, use `/status` in a session, or run:
 

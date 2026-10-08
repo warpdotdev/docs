@@ -1,0 +1,8 @@
+{
+  "_comment": "GitHub handles authorized to record a docs-verified or docs-waiver override on an engineering-review-required PR (see .agents/references/doc-quality-policy.md). Seeded from the existing docs-reviewer fallback chain in create_pr/SKILL.md 'Request reviewers'. Pod-Docs owns this list; update it directly, not via an agent-authored PR.",
+  "authorized_docs_reviewers": [
+    "hongyi-chen",
+    "rachaelrenk",
+    "dannyneira"
+  ]
+}

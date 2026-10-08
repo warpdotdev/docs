@@ -7,15 +7,22 @@ sidebar:
   label: "How factories work"
 ---
 
-:::note
-Warp Factories is in **Early Access** and available to a limited set of teams. [Request access](https://www.warp.dev/factories/request-access) to use it with your team.
-:::
-
-A factory is a team of cloud agents that ships software the way your team does: a request comes in, moves through the stages it needs, and comes back as a pull request ready for review. You talk to one agent, the **foreman**, from the tool that sends the request, such as Slack or Linear. The foreman dispatches the factory's other agents, and each one owns a part of the software development lifecycle.
-
-Deciding which repositories belong in this factory is a separate question. See [sizing a factory](/factories/#sizing-a-factory) for that guidance.
+A factory is a team of cloud agents attached to a set of repositories. You talk to one of them, the **foreman**, from the tool that sends the request, such as Slack or Linear. The foreman dispatches the factory's other agents, each of which owns one part of the software development lifecycle, and people make the key decisions along the way.
 
 A **work item** is a single request the factory acts on, such as an issue, support request, pull request, or Factory MCP task. It keeps its identity from intake to handoff, however many agents contribute to it along the way.
+
+![Warp Factories system diagram showing work sources, automations, the foreman and stage agents, human handoff, the factory definition, platform execution, the factory dashboard, and the measure-and-improve loop](../../../assets/agent-platform/factories-work-item-flow.png)
+
+The diagram, from intake to improvement:
+
+* **Work sources** - [Slack](/factories/integrations/slack/), [Microsoft Teams](/factories/integrations/teams/), [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), [Azure DevOps](/factories/integrations/azure-devops/), [Linear](/factories/integrations/linear/), [Jira](/factories/integrations/jira/), [custom webhooks](/factories/webhooks/), [factory endpoints](/factories/factory-api/), the [Factory MCP](/factories/factory-mcp/), direct runs, and schedules.
+* **Automations** - [Automations](/factories/automations/) filter provider events and schedules and decide which agent handles them. Direct requests go straight to the foreman.
+* **Foreman and stage agents** - The foreman holds one conversation per work item and dispatches the triage, spec, implement, and review agents as the work needs them. See [factory agents](/factories/factory-agents/).
+* **Human handoff** - The factory opens a pull request with evidence and updates the original work item. You review and merge.
+* **Factory definition** - Version-controlled agents, automations, runners, scorers, skills, and webhooks, either Warp-managed or in a GitHub repository your team owns. See [definitions as code](/factories/factory-as-code/).
+* **Execution** - Every stage is a cloud agent run on Warp-hosted or [managed self-hosted](/factories/self-hosting/) compute, using the factory's repositories and each stage's configured model and [harness](/platform/harnesses/).
+* **Factory dashboard** - Metrics, work items by stage, runs, and costs. See the [factory dashboard](/factories/factory-dashboard/).
+* **Measure and improve** - [Scorers](/factories/measure-and-improve/) classify completed runs, benchmarks compare configurations, and Self-improvement turns repeated failures into pull requests for your review.
 
 ## How a work item moves through the factory
 
@@ -51,11 +58,11 @@ flowchart LR
 * **Human handoff** - The factory presents the result, its evidence, and any findings. A person decides what happens next.
 * **Complete or Cancelled** - The work item ends when the factory finishes its work, or stops early if someone cancels it.
 
-These are the stage names the [factory dashboard](/factories/factory-dashboard/)'s **Activity** view uses, where you find, filter, and stop work items. Stages and agents are named separately, so the spec agent works the Planning stage, the implement agent works the Building stage, and the review agent works the Reviewing stage. Each agent's run within a work item is an ordinary [cloud agent run](/platform/) you can watch and steer.
+Stages and agents are named separately, so the spec agent works the Planning stage, the implement agent works the Building stage, and the review agent works the Reviewing stage. Each agent's run within a work item is an ordinary [cloud agent run](/platform/) you can watch and steer from the factory's [Runs page](/factories/factory-dashboard/#inspect-runs), and any stage that needs your input surfaces in your [inbox](/factories/factory-inbox/).
 
 ## Where your team stays in charge
 
-A factory is built to pause when there is a decision that needs to be made by a person. By default, that's three places:
+A factory pauses when a person needs to decide. By default, that's three places:
 
 * **Approving the spec** - When work goes through the Planning stage, the Building stage waits until a person signs off on the plan.
 * **Answering questions** - When requirements are unclear or a review finding is ambiguous, the foreman asks instead of guessing.
@@ -65,8 +72,14 @@ The first two are workflow policy, written into the foreman's instructions; edit
 
 ## How the factory improves itself
 
-Your factory is self-improving, and you define what "better" means. [Scorers](/factories/measure-and-improve/) classify completed runs against criteria you write, and [Self-improvement](/factories/measure-and-improve/#configure-and-review-self-improvement) groups the failures they flag into follow-up runs that propose fixes — to the application code or to the factory's own definition. Every proposal arrives as a change for your review; nothing is adopted on its own.
+[Scorers](/factories/measure-and-improve/scorers/) classify completed runs against criteria you write, and [Self-improvement](/factories/measure-and-improve/self-improvement/) groups the failures they flag into follow-up runs that propose fixes to the application code or to the factory's own definition. Every proposal arrives as a pull request for your review; nothing is adopted on its own.
 
-The factory's definition is open to the same loop. Anyone on the team, or an agent, can propose changes to its instructions, skills, models, or other [definition files](/factories/factory-as-code/), and definitions stored in GitHub go through pull request review and [configuration checks](/factories/factory-as-code/#pull-request-checks-for-github-backed-factories) before a change reaches the production branch.
+The factory's definition is open to the same loop. Anyone on the team, or an agent, can propose changes to its instructions, skills, models, or other [definition files](/factories/factory-as-code/), and definitions stored in GitHub go through pull request review and [configuration checks](/factories/factory-as-code/#pull-request-checks) before a change reaches the production branch.
 
-See [measure and improve](/factories/measure-and-improve/) for the evaluation workflow, or [build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent/) to apply the same pattern to a standalone agent.
+## Related pages
+
+* [Sizing a factory](/factories/#sizing-a-factory) - Which repositories belong in one factory.
+* [Factory agents](/factories/factory-agents/) - What each default agent does and how to configure it.
+* [Connect your factory](/factories/connect-your-factory/) - Every way work can enter a factory.
+* [Measure and improve](/factories/measure-and-improve/) - Scorers, benchmarks, and Self-improvement.
+* [Build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent/) - Apply the same loop to a standalone agent.

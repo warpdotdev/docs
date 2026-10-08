@@ -1,0 +1,273 @@
+{
+  "cases": [
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-01-codebase-file-limit/extraction.json",
+      "fixture_sha256": "b7f3a187219e8d46420f3e87cc299bf6b34ef0f72daf9ba09f73c62c99cb562e",
+      "group": "falconer",
+      "id": "falconer-01-codebase-file-limit",
+      "policy_domain": "billing-policy",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-02-scheduled-run-billing-owner/extraction.json",
+      "fixture_sha256": "762a4056332f9d4fef2ff262b38598079b9de9be9143f150c250cec73192a5e5",
+      "group": "falconer",
+      "id": "falconer-02-scheduled-run-billing-owner",
+      "policy_domain": "billing-policy",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-03-api-key-credit-waterfall/extraction.json",
+      "fixture_sha256": "2ce1b5fa340390cd7c5585d05f4a8dc7f56864c9c5c68b6bff2482a374a780aa",
+      "group": "falconer",
+      "id": "falconer-03-api-key-credit-waterfall",
+      "policy_domain": "billing-policy",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-04-user-credit-waterfall/extraction.json",
+      "fixture_sha256": "5bdd042b0890f7daba34ae4507369553eaefe1f3603b20490fc3393e15514e2d",
+      "group": "falconer",
+      "id": "falconer-04-user-credit-waterfall",
+      "policy_domain": "billing-policy",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-05-customer-data-training/extraction.json",
+      "fixture_sha256": "496e694cd9bead04fa1650e85aa2fb27201806003f521144eff2f08e1b14d299",
+      "group": "falconer",
+      "id": "falconer-05-customer-data-training",
+      "policy_domain": "privacy",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-06-secret-redaction-default/extraction.json",
+      "fixture_sha256": "03701368c6dd78ad820ca1d9709c667d3a96032aec5aed05a0fd730097e8faab",
+      "group": "falconer",
+      "id": "falconer-06-secret-redaction-default",
+      "policy_domain": "security",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-07-free-telemetry-zdr/extraction.json",
+      "fixture_sha256": "77f5c379cc7457b65dfe91648cf5df4a780eef741ecb806297db0f37246d4295",
+      "group": "falconer",
+      "id": "falconer-07-free-telemetry-zdr",
+      "policy_domain": "privacy",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-08-free-third-party-harness/extraction.json",
+      "fixture_sha256": "4369ccb7041f733f5c201c87f60cbf7d4eb528f5c25a2c2b0792a8b99dbbb161",
+      "group": "falconer",
+      "id": "falconer-08-free-third-party-harness",
+      "policy_domain": "billing-policy",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-09-cloud-image-attachments/extraction.json",
+      "fixture_sha256": "106e2a14ddf5ad735e12245833bc823d029ff989eeac164e9e890cf7689e2109",
+      "group": "falconer",
+      "id": "falconer-09-cloud-image-attachments",
+      "severity": "medium"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-10-create-run-path/extraction.json",
+      "fixture_sha256": "fdbc0a608f35bb6229584b38738f81e44d226f63fdcc2277ddeda83621da76c1",
+      "group": "falconer",
+      "id": "falconer-10-create-run-path",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-11-run-filter-parameter/extraction.json",
+      "fixture_sha256": "89b2dad0bcf9dbf4b8fa1fcec0527c2e197365c4af5ac30441783434ad816e69",
+      "group": "falconer",
+      "id": "falconer-11-run-filter-parameter",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-12-regex-case-insensitive-flag/extraction.json",
+      "fixture_sha256": "b9bd0bfc3a9812970c5c0ff03a08ea332c435f302cc57433dbd7668ce2b93b1e",
+      "group": "falconer",
+      "id": "falconer-12-regex-case-insensitive-flag",
+      "policy_domain": "security",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-13-fish-windows-support/extraction.json",
+      "fixture_sha256": "32d2227d3a885b41fe95d7e33722191eec88abb03027201bff6bfb520edd6675",
+      "group": "falconer",
+      "id": "falconer-13-fish-windows-support",
+      "severity": "medium"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-14-ventura-update-status/extraction.json",
+      "fixture_sha256": "717016585ff17c606bb24768f7b171819494a1839ab8d907a2d3d1a7930b5e1f",
+      "group": "falconer",
+      "id": "falconer-14-ventura-update-status",
+      "severity": "medium"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-15-team-deletion-add-on-credits/extraction.json",
+      "fixture_sha256": "ac99fb1c69a6462d40d3fcf66a722631ca0d57ac191b9d051dc1d077058344fc",
+      "group": "falconer",
+      "id": "falconer-15-team-deletion-add-on-credits",
+      "policy_domain": "billing-policy",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-16-cli-auto-update-homebrew/extraction.json",
+      "fixture_sha256": "9a9a8d1b93663c883dcd2cd650ec24d9791663ef4d1e9857e579331d9cdc759f",
+      "group": "falconer",
+      "id": "falconer-16-cli-auto-update-homebrew",
+      "severity": "medium"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-17-redaction-unconditional-toggle/extraction.json",
+      "fixture_sha256": "94c4b960b1aec92665d239a8d5c214aab79484c506f51b4041ed405acd328e00",
+      "group": "falconer",
+      "id": "falconer-17-redaction-unconditional-toggle",
+      "policy_domain": "security",
+      "severity": "high"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-18-default-profile-mcp/extraction.json",
+      "fixture_sha256": "b6a19f1da2ed2618ab3eaf17c8acd672922fcdfe69b5a748486e0de9449fec55",
+      "group": "falconer",
+      "id": "falconer-18-default-profile-mcp",
+      "severity": "medium"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-19-ssh-wrapper-shell/extraction.json",
+      "fixture_sha256": "792fefcb9a5800d8bff093ebd8f5a3068846e83927d036e09503eeec0f1a3605",
+      "group": "falconer",
+      "id": "falconer-19-ssh-wrapper-shell",
+      "severity": "medium"
+    },
+    {
+      "confidence": "high",
+      "delegated_to": "style_lint",
+      "expected": "delegated",
+      "group": "falconer",
+      "id": "falconer-20-stale-cli-migration",
+      "severity": "low"
+    },
+    {
+      "confidence": "high",
+      "expected": "contradiction",
+      "fixture": "benchmark_fixtures/falconer-21-finalized-concurrency-limits/extraction.json",
+      "fixture_sha256": "515e4a469f32879608e6127872cb8bb09ac6ef9e6e63181f3ed60036beb77a29",
+      "group": "falconer",
+      "id": "falconer-21-finalized-concurrency-limits",
+      "severity": "medium"
+    },
+    {
+      "confidence": "high",
+      "delegated_to": "style_lint",
+      "expected": "delegated",
+      "group": "falconer",
+      "id": "falconer-22-reload-credit-terminology",
+      "severity": "low"
+    },
+    {
+      "confidence": "high",
+      "delegated_to": "check_for_broken_links",
+      "expected": "delegated",
+      "group": "falconer",
+      "id": "falconer-23-session-sharing-redirect-stub",
+      "severity": "low"
+    },
+    {
+      "confidence": "medium",
+      "expected": "gap",
+      "fixture": "benchmark_fixtures/falconer-24-fireworks-zdr-provider-gap/extraction.json",
+      "fixture_sha256": "4e86021b1dcd7acd27ffa025c3a3836ece60c8f198df37c28877c9613c380ac4",
+      "group": "falconer",
+      "id": "falconer-24-fireworks-zdr-provider-gap",
+      "policy_domain": "privacy",
+      "severity": "high"
+    },
+    {
+      "expected": "not-related",
+      "fixture": "benchmark_fixtures/negative-plan-specific-difference/extraction.json",
+      "fixture_sha256": "be0f555400f3b4f616c5f1bfa79b79ba6519950fe185ab8f85e60ae1932ac644",
+      "group": "negative-control",
+      "id": "negative-plan-specific-difference"
+    },
+    {
+      "expected": "not-related",
+      "fixture": "benchmark_fixtures/negative-operating-system-difference/extraction.json",
+      "fixture_sha256": "73dbfce20fada3fc861658bbdb1bf6e57ac56421b793b223f90cc539a4647643",
+      "group": "negative-control",
+      "id": "negative-operating-system-difference"
+    },
+    {
+      "expected": "not-related",
+      "fixture": "benchmark_fixtures/negative-version-difference/extraction.json",
+      "fixture_sha256": "9b6735ac29c1239aa850268a966a9084aec0f48c77867d7418ebf51ee6df3503",
+      "group": "negative-control",
+      "id": "negative-version-difference"
+    },
+    {
+      "expected": "not-related",
+      "fixture": "benchmark_fixtures/negative-install-method-difference/extraction.json",
+      "fixture_sha256": "9461ed644965fc179b2642178cc2131a822f7b45ac99b6ad9498a840c34f09c8",
+      "group": "negative-control",
+      "id": "negative-install-method-difference"
+    },
+    {
+      "expected": "not-related",
+      "fixture": "benchmark_fixtures/negative-legacy-difference/extraction.json",
+      "fixture_sha256": "2ee5e05cbd165e9ebc7799f836481e19a9d84d578d92b02e68fd5741b66e621e",
+      "group": "negative-control",
+      "id": "negative-legacy-difference"
+    },
+    {
+      "expected": "intentional-exception",
+      "fixture": "benchmark_fixtures/negative-intentional-exception/extraction.json",
+      "fixture_sha256": "8a397762366865aa2aa71d2658386d45af9e1fbd4a683fdeb802a48fc7d24814",
+      "group": "negative-control",
+      "id": "negative-intentional-exception"
+    }
+  ],
+  "source": "https://falconer.com/audits/warp.html",
+  "version": 1
+}

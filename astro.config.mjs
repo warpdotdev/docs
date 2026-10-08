@@ -12,10 +12,11 @@ import { varsTransformPlugin } from './src/plugins/vars-transform.ts';
 import vercel from '@astrojs/vercel';
 import { sidebarTopics } from './src/sidebar.ts';
 import docsMarkdownIntegration from './src/integrations/docs-markdown-integration.js';
+import { DOCS_ORIGIN } from './src/lib/site.js';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://docs.warp.dev',
+	site: DOCS_ORIGIN,
 	// Explicitly register remark-gfm so GitHub-Flavored Markdown (notably
 	// pipe tables) is reliably applied to .mdx content. Astro enables gfm by
 	// default, but the @astrojs/mdx 5.x + @astrojs/markdown-remark 7.2.0
@@ -227,7 +228,6 @@ export default defineConfig({
 						{ label: 'Enterprise', description: 'Enterprise features, SSO, team management, and security.', paths: ['enterprise/**'] },
 						{ label: 'Getting Started', description: 'Installation, quickstart, and migration guides.', paths: ['index', 'quickstart', 'getting-started/**'] },
 						{ label: 'Knowledge and Collaboration', description: 'Warp Drive, teams, and the Admin Panel.', paths: ['knowledge-and-collaboration/**'] },
-						{ label: 'API & Reference', description: 'CLI and API reference.', paths: ['reference/**'] },
 						// All support-and-community/ pages. open-source-licenses.mdx is excluded
 						// globally above (stack overflow in hast-util-to-text); the patch ensures
 						// it's excluded from this custom set as well.

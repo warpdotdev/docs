@@ -335,8 +335,9 @@ body {
 }
 /* Article images are enhanced by ArticleImageLightbox.astro with keyboard
    dialog controls while this class adds a layout-neutral zoom affordance.
-   The script scopes enhancement to main docs content and honors
-   `data-no-lightbox` on the image or any ancestor. */
+   The script scopes enhancement to main docs content and skips VideoEmbed
+   posters plus anything marked with `data-no-lightbox` on the image or an
+   ancestor. */
 .sl-markdown-content img[data-docs-image-lightbox-image] {
   cursor: zoom-in;
   transition: box-shadow 0.15s ease;

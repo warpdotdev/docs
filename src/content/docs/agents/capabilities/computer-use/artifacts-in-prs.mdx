@@ -3,9 +3,8 @@ title: Screenshots and videos in pull requests
 sidebar:
   label: "Screenshots and videos in PRs"
 description: >-
-  Cloud agents automatically attach Computer Use screenshots and video
-  recordings to pull request descriptions, giving reviewers visual proof
-  without extra steps.
+  Share Computer Use screenshots and recordings in pull requests, Slack,
+  Linear, issue comments, and chat while controlling access.
 ---
 
 import { VARS } from '@data/vars';
@@ -21,10 +20,10 @@ Attachment is automatic: once a screenshot or recording artifact is associated w
 
 ## Attachment modes
 
-A team-level setting controls how artifacts are attached:
+A team-level **Agent artifact attachments** setting controls how agents share captures in pull requests and other destinations:
 
-* **Link only (default)** - Screenshots and recordings are attached as links to the run's page in the {VARS.WEB_APP}. Artifacts stay private: opening a link requires access to the run.
-* **Embed** - Screenshots render inline as images in the PR description, and recordings are attached as direct download links. To make this work, the attached artifacts are published at stable, publicly accessible URLs.
+* **Link only (default)** - Screenshots and recordings are attached as private links to a media page that shows one capture. Warp checks each viewer's access when they open the link.
+* **Embed** - Screenshots render inline, and recordings appear as links with preview thumbnails when available. The linked media is published at stable, publicly accessible URLs.
 * **Disabled** - No screenshots or recordings are attached to pull requests.
 
 :::caution
@@ -37,12 +36,21 @@ Team admins control the attachment mode from the [Admin Panel](https://app.warp.
 
 1. In the Admin Panel sidebar, select your team under **Team admin**.
 2. Click the **Platform** tab.
-3. Under **Pull request artifact attachments**, choose **Disabled**, **Link only**, or **Embed**.
+3. Under **Agent artifact attachments**, choose **Disabled**, **Link only**, or **Embed**.
 
-<figure>
-![Pull request artifact attachments setting in the Admin Panel Platform tab, with the Disabled, Link only, and Embed options open](../../../../../assets/agent-platform/admin-panel-pr-artifact-attachments.png)
-<figcaption>The Pull request artifact attachments setting in the Admin Panel.</figcaption>
-</figure>
+## Sharing captures outside pull requests
+
+Ask an agent to share Computer Use screenshots or video recordings in a Slack message, Linear comment, issue or pull request comment, or chat reply. The agent receives links for captures from its current run and chooses the relevant ones. Captures from child agents stay with those child runs, so each child agent must share its own links.
+
+Each private link opens a Warp media page that shows one capture. Viewers who aren't signed in are directed to sign in, and Warp checks whether they can view the artifact. Public artifacts created for embeds open without signing in.
+
+The **Agent artifact attachments** setting also controls these links:
+
+* **Link only (default)** - The agent gets private media-page links.
+* **Embed** - When the destination supports inline media, the agent can request direct image, video, and video thumbnail URLs. Requesting those URLs makes the media public to anyone with the link.
+* **Disabled** - The agent can't get links for sharing captures.
+
+Tell the agent where to share the captures. For example: "Post the screenshots to #eng-releases" or "Reply with a link to the recording."
 
 ## Where else artifacts appear
 
