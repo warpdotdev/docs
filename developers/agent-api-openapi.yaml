@@ -2,7 +2,10 @@ openapi: 3.0.0
 info:
   title: Warp Platform API
   version: 1.0.0
-  description: "API for creating, managing, and querying factory and cloud agent runs.\n\nThese endpoints allow users to send work to factories, start standalone agents, list runs, and retrieve detailed run information.\n"
+  description: |
+    API for creating, managing, and querying factory and cloud agent runs.
+
+    These endpoints allow users to send work to factories, start standalone agents, list runs, and retrieve detailed run information.
   contact:
     name: Warp Support
     url: https://docs.warp.dev
@@ -18,13 +21,803 @@ tags:
 - name: schedules
   description: Operations for creating and managing scheduled agents
 paths:
+  /networking/egress-ranges:
+    get:
+      summary: List Warp-hosted agent egress ranges
+      description: |
+        Return the canonical IP network ranges used by outbound requests from
+        Warp-hosted agents.
+      operationId: getEgressRanges
+      tags:
+      - networking
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/TeamUidHeaderParam'
+      responses:
+        '200':
+          description: Current Warp-hosted agent egress ranges
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EgressRangesResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /factory:
+    get:
+      summary: List factories
+      description: |
+        List factories accessible to the authenticated principal, restricted
+        to the request's active team when one is set. An optional team_uid
+        query parameter overrides the active team and restricts results to a
+        single team, and an optional search query parameter filters by a
+        case-insensitive substring match on the factory name or alias.
+      operationId: listFactories
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/TeamUidHeaderParam'
+      - name: team_uid
+        in: query
+        description: |
+          Optional team UID to filter factories by ownership. Takes
+          precedence over the X-Warp-Team-Uid header.
+        required: false
+        schema:
+          type: string
+      - name: search
+        in: query
+        description: |
+          Case-insensitive substring search over the factory name and
+          alias.
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of factories to return (default 50, max 100).
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+      - name: cursor
+        in: query
+        description: Opaque cursor returned by a previous list response.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of factories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListFactoriesResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /factory/{uid}:
+    get:
+      summary: Get a factory
+      description: Get a factory by its UID.
+      operationId: getFactory
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: uid
+        in: path
+        description: The public UID of the factory.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Factory details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Factory'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Factory not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /factory/{uid}/tasks:
+    post:
+      summary: Create a factory task
+      description: |
+        Create a task in a factory, bound to an existing agent conversation.
+        title and conversation_id are required. The stage defaults to TRIAGE. The
+        conversation's most recent run must be owned by the factory's team,
+        and a conversation may be bound to at most one live task across all
+        factories.
+      operationId: createFactoryTask
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: uid
+        in: path
+        description: The public UID of the factory.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactoryTaskCreateRequest'
+      responses:
+        '201':
+          description: Factory task created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryTask'
+        '400':
+          description: Invalid request body or conversation
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Factory not found or not accessible
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: The conversation is already bound to a live task
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: List factory tasks
+      description: |
+        List the factory's tasks with optional filtering and search. List
+        responses are lean by default; set full_list=true to include
+        canonical ticket metadata and derived outputs for the returned page.
+      operationId: listFactoryTasks
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: uid
+        in: path
+        description: The public UID of the factory.
+        required: true
+        schema:
+          type: string
+      - name: stage
+        in: query
+        description: |
+          Filter by task stage. Can be specified multiple times to match any
+          of the given stages.
+        required: false
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/FactoryTaskStage'
+        style: form
+        explode: true
+      - name: created_by
+        in: query
+        description: |
+          Filter to tasks whose seed run was started by any of these
+          teammates, each given as their email address. Can be specified
+          multiple times to match any of the given teammates.
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        style: form
+        explode: true
+      - name: q
+        in: query
+        description: Case-insensitive substring search over the task title.
+        required: false
+        schema:
+          type: string
+      - name: created_after
+        in: query
+        description: Filter to tasks created after this timestamp (RFC3339 format).
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: created_before
+        in: query
+        description: Filter to tasks created before this timestamp (RFC3339 format).
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: updated_after
+        in: query
+        description: Filter to tasks updated after this timestamp (RFC3339 format).
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: sort_by
+        in: query
+        description: Sort field for results.
+        required: false
+        schema:
+          type: string
+          enum:
+          - created_at
+          - updated_at
+          default: created_at
+      - name: sort_order
+        in: query
+        description: Sort direction.
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+      - name: limit
+        in: query
+        description: Maximum number of tasks to return (default 50, max 100).
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+      - name: cursor
+        in: query
+        description: |
+          Opaque cursor returned by a previous list response.
+          Valid only for the sort_by/sort_order it was issued under; omit
+          to restart the listing.
+        required: false
+        schema:
+          type: string
+      - name: full_list
+        in: query
+        description: |
+          Include canonical ticket_source and ticket_id metadata from each
+          task's bound run, plus its derived outputs. Defaults to false.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: include_current_run
+        in: query
+        description: |
+          Include each task's current top-level run, resolved in one batch
+          for the returned page. Defaults to false.
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: List of factory tasks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListFactoryTasksResponse'
+        '400':
+          description: Invalid filter, sort, limit, cursor, full_list, or include_current_run value
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Factory not found or not accessible
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /factory/{uid}/runs:
+    post:
+      summary: Dispatch a run to a factory
+      description: |
+        Dispatch a run to a factory, using prompt as the run's
+        prompt and an optional title, ticket_ref, and ticket_url. Returns
+        the created run; its factory task is created asynchronously and can
+        be resolved afterwards with GET /factory/{uid}/task-by-run.
+      operationId: createFactoryRun
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: uid
+        in: path
+        description: The public UID of the factory.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactoryRunRequest'
+      responses:
+        '201':
+          description: Run dispatched successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryRunResponse'
+        '400':
+          description: Invalid request body or ticket_ref
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Factory not found or not accessible
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: The factory has no foreman agent to receive work
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /factory/{uid}/tasks/{task_uid}:
+    get:
+      summary: Get a factory task
+      description: |
+        Get a task with its derived outputs, newest-first.
+      operationId: getFactoryTask
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: uid
+        in: path
+        description: The public UID of the factory.
+        required: true
+        schema:
+          type: string
+      - name: task_uid
+        in: path
+        description: The public UID of the task.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Factory task details with derived outputs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryTask'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Factory or task not found under this factory
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      summary: Update a factory task
+      description: |
+        Partially update a task's title, description, and/or stage. Last
+        write wins. Stage writes are unrestricted: any stage-to-stage
+        transition is allowed, including moving backwards or to completion.
+      operationId: updateFactoryTask
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: uid
+        in: path
+        description: The public UID of the factory.
+        required: true
+        schema:
+          type: string
+      - name: task_uid
+        in: path
+        description: The public UID of the task.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactoryTaskPatchRequest'
+      responses:
+        '200':
+          description: Factory task updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryTask'
+        '400':
+          description: Invalid request body
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Factory or task not found under this factory
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete a factory task
+      description: |
+        Soft-delete a task. The task disappears from list and get responses
+        immediately, and its conversation may be bound to a new task.
+        Deleting a task never deletes artifacts or the conversation.
+      operationId: deleteFactoryTask
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: uid
+        in: path
+        description: The public UID of the factory.
+        required: true
+        schema:
+          type: string
+      - name: task_uid
+        in: path
+        description: The public UID of the task.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Factory task deleted successfully
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Factory or task not found under this factory
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /factory/{uid}/tasks/{task_uid}/cancel:
+    post:
+      summary: Stop a factory task
+      description: |
+        Cancel the task's current top-level run and move the task to
+        CANCELLED. Every non-terminal descendant of the root run is
+        cancelled as well.
+      operationId: cancelFactoryTask
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: uid
+        in: path
+        description: The public UID of the factory.
+        required: true
+        schema:
+          type: string
+      - name: task_uid
+        in: path
+        description: The public UID of the task.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: |
+            Task stopped. The response reflects the refreshed task, including
+            its current run and stage.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryTask'
+        '400':
+          description: The resolved current run is already in a terminal state.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: |
+            The caller can see the task but lacks access to its resolved
+            current run.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: |
+            Factory or task not found under this factory, or the task has no
+            resolvable current run.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: |
+            The resolved current run is PENDING and cannot be cancelled yet.
+            Retry after a moment.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: The resolved current run's type does not support server-side cancellation.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /factory/{uid}/task-by-conversation:
+    get:
+      summary: Get a factory task by conversation
+      description: |
+        Get the factory task bound to an agent conversation. Conversation bindings are
+        unique across factories, but the lookup is factory-scoped: a task
+        owned by a different factory is 404.
+      operationId: getFactoryTaskByConversation
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: uid
+        in: path
+        description: The public UID of the factory.
+        required: true
+        schema:
+          type: string
+      - name: conversation_id
+        in: query
+        description: The agent conversation ID the task is bound to.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Factory task details with derived outputs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryTask'
+        '400':
+          description: Missing conversation_id
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Factory not accessible, or no live task bound to the conversation under this factory
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /factory/{uid}/task-by-run:
+    get:
+      summary: Get a factory task by run
+      description: |
+        Get the factory task that owns a run: the task bound to the conversation
+        of the run's root ancestor. The lookup is factory-scoped: a task owned by
+        a different factory is 404.
+      operationId: getFactoryTaskByRun
+      tags:
+      - factory
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: uid
+        in: path
+        description: The public UID of the factory.
+        required: true
+        schema:
+          type: string
+      - name: run_id
+        in: query
+        description: Any run ID in the task's run tree.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Factory task details with derived outputs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryTask'
+        '400':
+          description: Missing run_id
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          description: Factory not accessible, the run does not resolve to a live task, or the task belongs to a different factory
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /agent:
     get:
-      summary: List available agents
+      summary: List available agent skills
       description: |
         Retrieve a list of available agents (skills) that can be used to run tasks.
         Agents are discovered from environments or a specific repository.
       operationId: listAgents
+      deprecated: true
       tags:
       - agent
       security:
@@ -162,6 +955,56 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Run not found or has no transcript
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /agent/runs/{runId}/harness-usage:
+    get:
+      summary: Get raw third-party harness usage
+      description: |
+        Return the latest cumulative raw usage snapshot retained for a
+        Claude Code or Codex run. Missing metrics are represented as an
+        unavailable result rather than zero. Access uses the same run view
+        authorization as transcript reads.
+      operationId: getRunHarnessUsage
+      tags:
+      - agent
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: runId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Raw harness usage or an unavailable result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRunHarnessUsageResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to view the run
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Run not found or has no linked conversation
           content:
             application/json:
               schema:
@@ -340,6 +1183,25 @@ paths:
             $ref: '#/components/schemas/RunState'
         style: form
         explode: true
+      - name: task_status
+        in: query
+        description: |
+          Filter by high-level task status. Can be specified multiple times to match any value.
+          `running` matches when the root or any descendant is queued, pending, claimed, or in progress.
+          `failed`, `blocked`, `cancelled`, and `complete` match the root state only.
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - running
+            - failed
+            - blocked
+            - cancelled
+            - complete
+        style: form
+        explode: true
       - name: name
         in: query
         description: Filter by agent config name
@@ -368,10 +1230,15 @@ paths:
           type: string
       - name: source
         in: query
-        description: Filter by run source type
+        description: |
+          Filter by run source type. Can be specified multiple times to match any of the given sources.
         required: false
         schema:
-          $ref: '#/components/schemas/RunSourceType'
+          type: array
+          items:
+            $ref: '#/components/schemas/RunSourceType'
+        style: form
+        explode: true
       - name: execution_location
         in: query
         description: Filter by where the run executed
@@ -432,6 +1299,21 @@ paths:
         required: false
         schema:
           type: string
+      - name: factory_uid
+        in: query
+        description: |
+          Filter runs by one or more factories. Repeating this parameter
+          matches runs executed by an agent from any selected factory. A UID
+          outside the caller's accessible factories matches nothing.
+        required: false
+        schema:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        style: form
+        explode: true
       - name: ancestor_run_id
         in: query
         description: Filter runs by ancestor run ID. The referenced run must exist and be accessible to the caller.
@@ -442,7 +1324,7 @@ paths:
         in: query
         description: |
           Filter by exact metadata key/value pairs using object notation
-          (e.g. `metadata[ticket_id]=VIS-238`), combining multiple pairs
+          (e.g. `metadata[ticket_id]=ACME-238`), combining multiple pairs
           with AND semantics, up to 5 per request. Returns
           `feature_not_available` when metadata filtering is not enabled.
         required: false
@@ -467,7 +1349,7 @@ paths:
           - EXTERNAL_REFERENCE
       - name: q
         in: query
-        description: Fuzzy search query across run title, prompt, and skill_spec
+        description: Search by full run ID or run URL, or fuzzy match across run title, prompt, and skill_spec
         required: false
         schema:
           type: string
@@ -500,11 +1382,10 @@ paths:
     get:
       summary: Find the run that produced a given external reference URL
       description: |
-        Reverse-looks up the agent run that created an EXTERNAL_REFERENCE artifact
+        Reverse-looks up the agent run that created an external reference
         with the given URL. The URL is matched against the canonical locator stored
-        when the artifact was reported via POST /harness-support/report-artifact
-        with artifact_type EXTERNAL_REFERENCE. Returns 404 when no matching run
-        exists or when the caller lacks access, to avoid leaking run existence.
+        when the artifact was reported. Returns 404 when no matching run
+        exists or when the caller lacks access.
       operationId: getRunByExternalReferenceURL
       tags:
       - agent
@@ -649,9 +1530,8 @@ paths:
       summary: Get normalized run conversation
       description: |
         Retrieve a run's conversation as a normalized sequence of messages and
-        nested steps.
-        The response groups text, tool activity, and event content into
-        structured blocks.
+        nested steps. The response groups text, tool activity, and event content
+        into structured blocks.
       operationId: getRunConversation
       tags:
       - agent
@@ -710,7 +1590,7 @@ paths:
         Cancel an agent run that is currently queued or in progress; once
         cancelled, the run transitions to a cancelled state. Not all runs can
         be cancelled: a run already in a terminal state, in PENDING, or of an
-        unsupported type (self-hosted, local, GitHub Action) is rejected
+        unsupported type (e.g. local, GitHub Action) is rejected
         instead — see the error responses below for each case.
       operationId: cancelRun
       tags:
@@ -734,8 +1614,7 @@ paths:
                 description: The ID of the cancelled run
         '400':
           description: |
-            Missing run ID, or the run is already in a terminal state
-            (error_code: invalid_request)
+            Missing run ID, or the run is already in a terminal state.
           content:
             application/json:
               schema:
@@ -761,7 +1640,7 @@ paths:
         '409':
           description: |
             Run is in PENDING state and cannot be cancelled yet.
-            Retry after a moment (error_code: conflict, retryable: true).
+            Retry after a moment.
           content:
             application/json:
               schema:
@@ -769,8 +1648,7 @@ paths:
         '422':
           description: |
             Run cannot be cancelled because the operation is not supported
-            for this run type (e.g., self-hosted, local, or GitHub Action runs)
-            (error_code: operation_not_supported)
+            for this run type (e.g. local, or GitHub Action runs)
           content:
             application/json:
               schema:
@@ -781,7 +1659,8 @@ paths:
       description: |
         Send a follow-up message to an existing run. The server transparently
         routes the message based on the current state of the run (still
-        queued, actively running, or ended). A 200 response means the follow-up
+        queued, actively running, or ended) and will resume the agent in a new
+        sandbox if necessary. A 200 response means the follow-up
         was accepted; updated run state can be observed via
         `GET /agent/runs/{runId}`.
 
@@ -790,11 +1669,7 @@ paths:
         run in that window is delivered into the retained session to start or
         continue a debug agent, without reopening the run: it stays in its
         failed state, with its original failure message and error code
-        unchanged. This applies uniformly to every follow-up origin (this
-        endpoint, the Warp client, and integrations) and requires the same
-        authorization as any other follow-up. Once the debug window closes, or
-        when the run is not eligible, a follow-up falls back to the run's
-        ordinary continuation behavior (which may start a new execution).
+        unchanged.
       operationId: submitRunFollowup
       tags:
       - agent
@@ -819,12 +1694,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/RunFollowupResponse'
         '400':
           description: |
             Invalid request (e.g. no active sandbox without conversation ID,
             malformed payload). Empty messages are accepted when continuing a
-            run from saved conversation context; otherwise they are rejected.
+            run from saved conversation context or when attachments are
+            present; otherwise they are rejected.
           content:
             application/json:
               schema:
@@ -843,6 +1719,241 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Run not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: |
+            An `attachment_id` is not recorded on this run (`reason:
+            unknown_attachment`), or more than 25 attachments were named
+            (`reason: too_many_attachments`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /agent/runs/{runId}/interrupt:
+    post:
+      summary: Interrupt the turn currently running on a run
+      description: |
+        Cancel the request the agent is currently working on without ending
+        the run or tearing down its sandbox. The run stays in progress and
+        accepts follow-ups afterwards. Only live runs on the Warp harness
+        can be interrupted; use `POST /agent/runs/{runId}/cancel` to end a
+        run outright. A 202 means the platform accepted the cancel; the agent
+        applies it asynchronously.
+      operationId: interruptRun
+      tags:
+      - agent
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: runId
+        in: path
+        description: The unique identifier of the run
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Interrupt accepted
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Missing run ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to steer this run
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Run not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: |
+            The run cannot be interrupted right now. `reason` is one of
+            `no_live_session` (no reachable session, or the session has not
+            registered a conversation yet), `session_ended`, or
+            `unsupported_harness` (a non-Oz harness has no turn-level cancel).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /agent/conversations/{conversation_id}/followups:
+    post:
+      summary: Submit a follow-up message to the run behind a conversation
+      description: |
+        The same operation as `POST /agent/runs/{runId}/followups`, targeted
+        by the conversation the run is serving rather than the run itself.
+
+        `attachments` must name ids prepared through
+        `POST /agent/conversations/{conversation_id}/attachments/prepare` (or
+        the run-keyed prepare) for the run that is newest at that time. If a
+        new run appears for the conversation between prepare and follow-up,
+        the follow-up resolves to the new run and answers 422
+        `unknown_attachment`; prepare again. A handoff is a new execution of
+        the same run and does not have this problem.
+
+        `mode` only takes effect when the follow-up is queued ahead of the run
+        starting or starts a new execution; a follow-up injected into a live
+        session runs in the session's current mode.
+      operationId: submitConversationFollowup
+      tags:
+      - agent
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: conversation_id
+        in: path
+        description: The UUID of the Warp-native conversation
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RunFollowupRequest'
+      responses:
+        '200':
+          description: Follow-up accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationFollowupResponse'
+        '400':
+          description: Invalid conversation ID or malformed payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to view the conversation or to follow up on its run
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Conversation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: |
+            The conversation has no run to steer (`reason: no_run`), for
+            example a purely local, cloud-synced conversation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: |
+            An `attachment_id` is not recorded on the resolved run (`reason:
+            unknown_attachment`), or more than 25 attachments were named
+            (`reason: too_many_attachments`).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /agent/conversations/{conversation_id}/interrupt:
+    post:
+      summary: Interrupt the turn running on the run behind a conversation
+      description: |
+        The same operation as `POST /agent/runs/{runId}/interrupt`, addressed
+        by the conversation the run is serving. The run is picked with the
+        same policy as the conversation follow-up route, and the caller must
+        be able to view the conversation and the resolved run.
+      operationId: interruptConversation
+      tags:
+      - agent
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: conversation_id
+        in: path
+        description: The UUID of the Warp-native conversation
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '202':
+          description: Interrupt accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversationInterruptResponse'
+        '400':
+          description: Invalid conversation ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to view the conversation or to steer its run
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Conversation not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: |
+            The run cannot be interrupted. `reason` is one of `no_run`,
+            `no_live_session`, `session_ended` or `unsupported_harness`.
           content:
             application/json:
               schema:
@@ -958,6 +2069,81 @@ paths:
                 $ref: '#/components/schemas/Error'
         '404':
           description: Conversation not found or has no transcript
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /agent/conversations/{conversation_id}/screenshots/{screenshot_uid}/download:
+    get:
+      summary: Download a stored computer-use screenshot
+      description: |
+        Download a computer-use screenshot that was offloaded
+        from the conversation's task history into object storage. The
+        response is a redirect to a short-lived signed URL, so clients must
+        follow redirects to receive the image. Requires view access to the
+        conversation named in the path; a fork's history may reference
+        screenshots stored under its source conversation's ID.
+      operationId: downloadConversationScreenshot
+      tags:
+      - agent
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: conversation_id
+        in: path
+        description: The unique identifier of the conversation that owns the screenshot
+        required: true
+        schema:
+          type: string
+      - name: screenshot_uid
+        in: path
+        description: The unique identifier of the stored screenshot
+        required: true
+        schema:
+          type: string
+      responses:
+        '302':
+          description: Redirect to a temporary signed screenshot download URL
+          headers:
+            Location:
+              description: Temporary signed download URL
+              schema:
+                type: string
+                format: uri
+            Cache-Control:
+              description: Cache directive for the redirect response
+              schema:
+                type: string
+            X-Content-Type-Options:
+              description: Browser content sniffing protection
+              schema:
+                type: string
+        '400':
+          description: Missing conversation ID or screenshot UID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to view the conversation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Conversation or screenshot not found
           content:
             application/json:
               schema:
@@ -1503,8 +2689,8 @@ paths:
     post:
       summary: Create an agent
       description: |
-        Create a new agent for the caller's team.
-        Agents can be used as the execution principal for team-owned runs.
+        Create a new agent in the caller's active team. Agents act autonomously with their
+        own permissions, configuration, and identity.
       operationId: createAgent
       tags:
       - agent
@@ -1552,9 +2738,7 @@ paths:
     get:
       summary: List agents
       description: |
-        List all agents for the caller's team. Each agent includes
-        an `available` flag indicating whether it is within the team's plan limit
-        and may be used for runs.
+        List all agents on the caller's team.
       operationId: listAgents
       tags:
       - agent
@@ -1562,6 +2746,14 @@ paths:
       - bearerAuth: []
       parameters:
       - $ref: '#/components/parameters/TeamUidHeaderParam'
+      - name: factory_uid
+        in: query
+        required: false
+        description: |
+          Optional UID of a Factory to filter by. When provided, only agents
+          linked to that factory are returned.
+        schema:
+          type: string
       responses:
         '200':
           description: List of agents
@@ -1593,71 +2785,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /agent/runs/{runId}/scores:
-    post:
-      summary: Report evaluation scores for a run
-      description: |
-        Report one or more evaluation verdicts for a run, called by the judge
-        run dispatched to score it and authenticated with that judge run's
-        API key. Each verdict is processed independently — the response
-        reports per-verdict acceptance, and a rejected verdict does not block
-        the others — so reporting a subset of the run's evaluations is valid.
-      operationId: reportRunScores
-      tags:
-      - agent
-      security:
-      - bearerAuth: []
-      parameters:
-      - name: runId
-        in: path
-        description: The run being scored
-        required: true
-        schema:
-          type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ReportRunScoresRequest'
-      responses:
-        '200':
-          description: Every reported verdict was accepted
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ReportRunScoresResponse'
-        '206':
-          description: The request was well-formed but at least one verdict was rejected; inspect each result's status and error before deciding whether to resubmit
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ReportRunScoresResponse'
-        '400':
-          description: Malformed request body
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '401':
-          description: Authentication required
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /agent/identities/{uid}:
     get:
       summary: Retrieve an agent
       description: |
         Retrieve a single agent by its unique identifier.
-        The response includes an `available` flag indicating whether the agent
-        is within the team's plan limit and may be used for runs.
       operationId: getAgent
       tags:
       - agent
@@ -1804,13 +2936,142 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /factory-files/schemas:
+    get:
+      summary: List the supported Factory file schema versions
+      description: |
+        Returns every Factory file schema version this server can describe,
+        with a link to each version's schema bundle.
+      operationId: listFactoryFileSchemaVersions
+      tags:
+      - factory
+      security: []
+      parameters:
+      - name: If-None-Match
+        in: header
+        required: false
+        description: A previously returned ETag. A match returns 304 with no body.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The supported schema versions
+          headers:
+            ETag:
+              description: Strong validator derived from the response bytes
+              schema:
+                type: string
+            Cache-Control:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryFileSchemaRegistry'
+        '304':
+          description: The cached response is still current
+  /factory-files/schemas/{schema_version}:
+    get:
+      summary: Get the JSON Schema bundle for one Factory file schema version
+      description: |
+        Returns every JSON Schema 2020-12 document describing one Factory file
+        schema version, as a single bundle so the relative `$id` and `$ref`
+        identities between the documents keep resolving.
+      operationId: getFactoryFileSchemaBundle
+      tags:
+      - factory
+      security: []
+      parameters:
+      - name: schema_version
+        in: path
+        required: true
+        description: A Factory file schema version, for example `v1alpha1`.
+        schema:
+          type: string
+      - name: If-None-Match
+        in: header
+        required: false
+        description: A previously returned ETag. A match returns 304 with no body.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The schema documents for this version
+          headers:
+            ETag:
+              description: Strong validator derived from the response bytes
+              schema:
+                type: string
+            Cache-Control:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactoryFileSchemaBundle'
+        '304':
+          description: The cached response is still current
+        '404':
+          description: The schema version is not supported by this server
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /factory-files/schemas/{schema_version}/{document}:
+    get:
+      summary: Get one Factory file schema document
+      description: |
+        Returns a single generated JSON Schema document on its own, rather
+        than inside the bundle envelope, so it can be used directly as a
+        schema reference. A document served here resolves its relative
+        `$ref`s against its siblings at this same path, which is what each
+        document's `$id` assumes, making the URL usable directly from an
+        editor or YAML language server, for example:
+
+        ```yaml
+        # yaml-language-server: $schema=/api/v1/factory-files/schemas/v1alpha1/factory.schema.json
+        ```
+      operationId: getFactoryFileSchemaDocument
+      tags:
+      - factory
+      security: []
+      parameters:
+      - name: schema_version
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Factory file schema version, such as v1alpha1
+      - name: document
+        in: path
+        required: true
+        schema:
+          type: string
+        description: |
+          Document file name: common.schema.json, factory.schema.json,
+          agent.schema.json, automation.schema.json, runner.schema.json, or
+          scorer.schema.json
+      responses:
+        '200':
+          description: The requested JSON Schema document
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '404':
+          description: The version or the document is unknown
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       description: |
-        Authentication via a Warp API key.
+        Authentication via a Warp API key or a supported Warp-issued user token.
   parameters:
     TeamUidHeaderParam:
       name: X-Warp-Team-Uid
@@ -1821,8 +3082,1049 @@ components:
         service-account callers, which always act as their bound team.
       schema:
         type: string
-  responses: {}
+    ConversationHistoryConversationId:
+      name: conversation_id
+      in: path
+      description: The UUID of the Warp-native conversation
+      required: true
+      schema:
+        type: string
+        format: uuid
+  headers:
+    ConversationHistoryCacheControl:
+      description: Prevents storage of canonical conversation history.
+      schema:
+        type: string
+        example: no-store
+    ConversationHistoryRetryAfter:
+      description: |
+        Seconds to wait before re-requesting. Present only when
+        `X-Warp-Stream-State` is `pending`.
+      schema:
+        type: integer
+        example: 2
+    ConversationHistoryStreamState:
+      description: |
+        Whether a shared session can produce events for this conversation.
+        `active`: the newest session-linked execution is live; stream from
+        `X-Warp-Stream-Session` with `X-Warp-Stream-Cursor`. `pending`: no
+        session is live yet, but a hosted execution of the run is starting
+        and has not registered its shared session, or a queued follow-up is
+        waiting to start one; poll again after `Retry-After`. `ended`: no
+        execution is linked to a shared session or the newest one has ended,
+        and nothing is starting.
+      schema:
+        type: string
+        enum:
+        - active
+        - pending
+        - ended
+    ConversationHistoryStreamSession:
+      description: |
+        UUID of the shared session to stream from. Present only when
+        `X-Warp-Stream-State` is `active`.
+      schema:
+        type: string
+        format: uuid
+    ConversationHistoryStreamCursor:
+      description: |
+        Opaque logical cursor describing where the returned history
+        ends; pass it verbatim as `?cursor=` on the first connect to
+        the session-sharing event stream. Present only when
+        `X-Warp-Stream-State` is `active`. At most 512 bytes.
+      schema:
+        type: string
+        maxLength: 512
+    ConversationHistoryRunId:
+      description: |
+        The run this conversation is served through: the run whose
+        execution owns the stream when `X-Warp-Stream-State` is
+        `active`, else the newest run for the conversation. Absent
+        when no run references the conversation. The
+        conversation-keyed steering routes act on this same run.
+      schema:
+        type: string
+  responses:
+    FactoryAccessDenied:
+      description: Factory access is not enabled for the authenticated principal
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    EgressRangesResponse:
+      type: object
+      required:
+      - cidrs
+      properties:
+        cidrs:
+          type: array
+          items:
+            type: string
+          description: Canonical, deduplicated IPv4 and IPv6 network ranges.
+    FactoryFileSchemaRegistry:
+      type: object
+      description: The Factory file schema versions a server can describe.
+      required:
+      - current_version
+      - versions
+      properties:
+        current_version:
+          type: string
+          description: The version a new Factory tree should declare.
+          example: v1alpha1
+        versions:
+          type: array
+          description: Every supported version, sorted by schema version.
+          items:
+            $ref: '#/components/schemas/FactoryFileSchemaVersionRef'
+    FactoryFileSchemaVersionRef:
+      type: object
+      required:
+      - schema_version
+      - schema_url
+      properties:
+        schema_version:
+          type: string
+          example: v1alpha1
+        schema_url:
+          type: string
+          description: Root-relative path of this version's schema bundle.
+          example: /api/v1/factory-files/schemas/v1alpha1
+    FactoryFileSchemaBundle:
+      type: object
+      description: |
+        Every JSON Schema document describing one Factory file schema version.
+        The envelope is plain JSON; each value in `documents` is a JSON Schema
+        2020-12 document keyed by its `$id`.
+      required:
+      - schema_version
+      - documents
+      properties:
+        schema_version:
+          type: string
+          example: v1alpha1
+        documents:
+          type: object
+          description: Schema documents keyed by file name, which is also each document's $id.
+          additionalProperties:
+            description: A JSON Schema 2020-12 document.
+    Factory:
+      type: object
+      description: Public representation of a factory.
+      required:
+      - uid
+      - team_uid
+      - name
+      - description
+      - alias
+      - avatar_url
+      - code_forge
+      - code_forges
+      - repositories
+      - default_environment
+      - default_model
+      - scoring
+      - credential_strategy
+      - integrations
+      - agent_defaults
+      - scorer_defaults
+      - created_at
+      - updated_at
+      properties:
+        uid:
+          type: string
+          description: Public UID of the factory.
+        team_uid:
+          type: string
+          description: Public UID of the team that owns the factory.
+        name:
+          type: string
+          description: Display name of the factory.
+        description:
+          type: string
+          nullable: true
+          description: Optional description of the factory.
+        alias:
+          type: string
+          nullable: true
+          description: |
+            Optional display handle for the factory, unique across the team's
+            Warp workspace when set.
+        avatar_url:
+          type: string
+          nullable: true
+          description: |
+            Short-lived signed URL for displaying the factory's avatar. The URL
+            may change between reads.
+        code_forge:
+          $ref: '#/components/schemas/FactoryCodeForge'
+        code_forges:
+          type: array
+          items:
+            $ref: '#/components/schemas/FactoryCodeForge'
+          description: |
+            Effective source-control providers for the factory. When the
+            effective set is empty, this contains the primary code_forge.
+        repositories:
+          type: array
+          items:
+            $ref: '#/components/schemas/FactoryRepository'
+          description: Repositories scoped to the factory, independent of its default environment.
+        default_environment:
+          type: string
+          nullable: true
+          description: |
+            Public UID of the factory's default environment. File-managed
+            factories may omit this default.
+        default_model:
+          type: string
+          nullable: true
+          description: |
+            The default model ID for the factory's runs. File-managed factories
+            may omit this default. Live-managed create and PATCH requests still
+            capture a concrete validated model ID.
+        scoring:
+          $ref: '#/components/schemas/FactoryScoringConfig'
+        self_improvement:
+          allOf:
+          - $ref: '#/components/schemas/FactorySelfImprovementConfig'
+          readOnly: true
+          description: Self-improvement settings from GitHub-managed Factory YAML. Omitted when none are declared, in which case team admins are the reviewer pool.
+        credential_strategy:
+          allOf:
+          - $ref: '#/components/schemas/FactoryCredentialStrategy'
+          description: |
+            Default credential strategy for runs executed by the factory's
+            named agents. Always a concrete value; factories default to
+            EXECUTOR unless explicitly set to CREATOR.
+        integrations:
+          type: array
+          items:
+            $ref: '#/components/schemas/FactoryIntegration'
+          nullable: true
+          description: |
+            Integration providers attached to the factory, independent of the
+            automation triggers configured for it. null means the factory has
+            not declared anything yet; an empty array means no providers are
+            attached.
+        agent_defaults:
+          $ref: '#/components/schemas/FactoryAgentDefaults'
+        scorer_defaults:
+          $ref: '#/components/schemas/FactoryScorerDefaults'
+        creator:
+          allOf:
+          - $ref: '#/components/schemas/FactoryCreator'
+          description: |
+            The user who created the factory. Absent when there is no
+            resolvable creator: the factory predates creator tracking, it was
+            created by a service account, or the creating user's account no
+            longer exists.
+        created_at:
+          type: string
+          format: date-time
+          description: Time the factory was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Time the factory was last updated.
+    FactoryCreator:
+      type: object
+      description: The user who created a factory, when resolvable.
+      required:
+      - uid
+      properties:
+        uid:
+          type: string
+          description: Firebase UID of the user who created the factory.
+        email:
+          type: string
+          nullable: true
+          description: Creator's email, when available.
+    FactoryAgentDefaults:
+      type: object
+      description: |
+        Default execution settings inherited by the factory's named agents
+        when they declare no override of their own.
+      required:
+      - default_runner_uid
+      - secrets
+      - mcp_servers
+      - worker_host
+      properties:
+        harness:
+          allOf:
+          - $ref: '#/components/schemas/Harness'
+          description: |
+            Default harness for the factory's named agents. Absent when the
+            factory defaults to Warp's built-in harness. model_id and
+            reasoning_level carry the harness-scoped default model, which is
+            also reported in the factory's default_model.
+        harness_auth_secrets:
+          allOf:
+          - $ref: '#/components/schemas/HarnessAuthSecrets'
+          description: |
+            Per-harness authentication secrets inherited by the factory's
+            named agents. Only the secret for the default harness is ever
+            populated. A third-party default harness with no secret here
+            takes its credentials from the worker environment.
+        default_runner_uid:
+          type: string
+          description: |
+            Default runner UID for the factory's named agents. Empty when
+            unset, in which case the environment's default runner applies.
+        secrets:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretRef'
+          description: Secrets attached to the factory's named agents by default.
+        mcp_servers:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/MCPServerConfig'
+          description: |
+            MCP server configurations attached to the factory's named agents
+            by default. Only warp_id (managed MCP) entries are representable
+            for a Warp-managed factory.
+        worker_host:
+          type: string
+          description: |
+            Default worker host for the factory's named agents. Empty when
+            unset, in which case the workspace default applies.
+    FactoryScorerDefaults:
+      type: object
+      description: |
+        Sparse execution defaults for scorers. An omitted field inherits the
+        corresponding agent default; an explicit empty collection overrides
+        the agent default with no values.
+      properties:
+        default_runner_uid:
+          type: string
+          description: Default runner UID for scorers. Omitted to inherit the agent default.
+        secrets:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretRef'
+          description: |
+            Scorer-default secrets. Omitted to inherit the agent defaults; an
+            empty array explicitly clears them.
+        mcp_servers:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/MCPServerConfig'
+          description: |
+            Scorer-default MCP servers. Omitted to inherit the agent defaults;
+            an empty object explicitly clears them.
+    FactorySelfImprovementConfig:
+      type: object
+      required:
+      - reviewer_type
+      properties:
+        reviewer_type:
+          type: string
+          enum:
+          - none
+          - admins
+          - team
+          - custom
+          description: Owning-team pool one eligible reviewer is randomly requested from for self-improvement pull requests. `admins` requests a team admin or owner and is the default when the Factory declares no self-improvement settings. `team` requests any team member. `custom` requests a member listed in `reviewer_emails`. `none` explicitly disables reviewer assignment.
+        failed_run_threshold:
+          type: integer
+          minimum: 1
+          maximum: 50
+          description: 'Per-agent count of distinct scored-failing source runs required for scheduled self-improvement. Must be between 1 and 50: one self-improvement run can triage at most 50 failure findings. Omitted to use the server default. The age-based flush and manual dispatch are unchanged.'
+        reviewer_emails:
+          type: array
+          items:
+            type: string
+            format: email
+          description: 'Owning-team member emails reviewers are chosen from. Only allowed when `reviewer_type` is `custom`: a Factory YAML change that sets emails with any other reviewer type fails validation, including the pull request check.'
+    FactoryScoringConfig:
+      type: object
+      required:
+      - default_model
+      properties:
+        default_model:
+          type: string
+          nullable: true
+          description: |
+            Optional factory override for the model used by managed scorers and
+            scorer-creation prefills. null or absent resolves to the platform
+            judge default. User-created scorers still require an explicit
+            model_id on create.
+    FactoryIntegration:
+      type: object
+      description: |
+        An integration provider attached to a factory.
+      required:
+      - type
+      properties:
+        type:
+          $ref: '#/components/schemas/FactoryIntegrationProvider'
+        linear:
+          allOf:
+          - $ref: '#/components/schemas/FactoryLinearIntegrationSettings'
+          nullable: true
+          description: |
+            Linear team IDs from earlier integration selections, when present.
+            Issue discovery follows enabled agent-session automations instead.
+        jira:
+          allOf:
+          - $ref: '#/components/schemas/FactoryJiraIntegrationSettings'
+          nullable: true
+          description: |
+            Jira project keys from earlier integration selections, when present.
+            Issue discovery follows enabled agent-session automations instead.
+        slack:
+          allOf:
+          - $ref: '#/components/schemas/FactorySlackIntegrationSettings'
+          nullable: true
+          description: |
+            Persisted Slack settings. Present only when type is slack and the
+            factory has declared at least one Slack setting. Omitted fields
+            keep their default-on behavior.
+        microsoft-teams:
+          allOf:
+          - $ref: '#/components/schemas/FactoryTeamsIntegrationSettings'
+          nullable: true
+          description: |
+            Persisted Teams reply settings. Valid only when type is
+            microsoft-teams. Omitted settings remain undeclared.
+    FactoryLinearIntegrationSettings:
+      type: object
+      required:
+      - team_ids
+      properties:
+        team_ids:
+          type: array
+          description: |
+            Linear team IDs for the one-time agent-session automation seed.
+            Discovery follows enabled seated automation filters afterward.
+          minItems: 1
+          uniqueItems: true
+          items:
+            type: string
+            minLength: 1
+            pattern: .*\S.*
+    FactorySlackIntegrationSettings:
+      description: |
+        Persisted Slack settings on a factory integration. Omitted fields keep
+        their default-on behavior.
+      allOf:
+      - $ref: '#/components/schemas/FactoryThreadReplySettings'
+    FactoryTeamsIntegrationSettings:
+      description: Persisted Teams reply settings on a factory integration.
+      allOf:
+      - $ref: '#/components/schemas/FactoryThreadReplySettings'
+    FactoryThreadReplySettings:
+      type: object
+      description: |
+        Plain channel-thread reply settings. These apply when the shared
+        per-Factory reply-setting rollout is enabled.
+      properties:
+        auto_respond_to_thread_replies:
+          type: boolean
+          nullable: true
+          description: |
+            When true, eligible plain channel thread replies still reach the
+            reply-intent classifier. When false, those replies are ignored
+            unless they @-mention the Factory. Each provider defines the
+            omitted default. Direct messages are unchanged.
+    FactoryJiraIntegrationSettings:
+      type: object
+      required:
+      - project_keys
+      properties:
+        project_keys:
+          type: array
+          description: |
+            Jira project keys (for example APP, not the numeric project ID)
+            for the one-time agent-session automation seed. Discovery follows
+            enabled seated automation filters afterward.
+          minItems: 1
+          uniqueItems: true
+          items:
+            type: string
+            minLength: 1
+            pattern: .*\S.*
+    FactoryIntegrationProvider:
+      type: string
+      description: |
+        Integration provider that can be attached to a factory. github is not
+        accepted here; repository access comes from the factory's code forge.
+      enum:
+      - jira
+      - linear
+      - microsoft-teams
+      - slack
+    FactoryCodeForge:
+      type: string
+      description: |
+        Primary source-control provider for the factory. GITHUB and GITLAB
+        identify the compatibility primary when repositories span one or more
+        forges. AZURE_DEVOPS identifies Azure Repos. NONE declares a repo-less factory with no native repositories;
+        its environment relies on setup_commands to clone from any host.
+      enum:
+      - GITHUB
+      - GITLAB
+      - AZURE_DEVOPS
+      - NONE
+    FactoryRepositoryCodeForge:
+      type: string
+      description: The concrete source-control provider hosting a repository.
+      enum:
+      - GITHUB
+      - GITLAB
+      - AZURE_DEVOPS
+    FactoryCredentialStrategy:
+      type: string
+      description: |
+        Default credential strategy for runs executed by the factory's named
+        agents.
+        - EXECUTOR (default): runs authenticate with the named agent's own
+          credentials (e.g. a GitHub App installation token for the
+          factory's team).
+        - CREATOR: runs authenticate with the credentials of the principal
+          that created the run.
+      enum:
+      - CREATOR
+      - EXECUTOR
+    FactoryRepository:
+      type: object
+      description: A repository scoped to a factory.
+      required:
+      - owner
+      - repo
+      properties:
+        owner:
+          type: string
+          description: Repository owner (or full namespace for GitLab).
+        repo:
+          type: string
+          description: Repository name.
+        code_forge:
+          allOf:
+          - $ref: '#/components/schemas/FactoryRepositoryCodeForge'
+          description: |
+            The concrete forge hosting this repository. Omitted means the
+            factory's primary code_forge.
+        provider_metadata:
+          type: object
+          additionalProperties:
+            type: string
+          description: Provider-specific repository identity and settings, such as the Azure DevOps organization, project ID, and repository ID.
+    FactoryTaskStage:
+      type: string
+      description: |
+        Lifecycle stage of a factory task, mirroring the seeded factory agent
+        roles plus the terminal COMPLETE and CANCELLED states. COMPLETE and
+        CANCELLED are terminal in intent but not enforced: any stage may be
+        written explicitly at any time. CANCELLED is set automatically when
+        the task's current top-level run is cancelled, regardless of that
+        run's agent type.
+      enum:
+      - TRIAGE
+      - SPEC
+      - IMPLEMENT
+      - REVIEW
+      - COMPLETE
+      - CANCELLED
+    FactoryTaskCurrentRun:
+      type: object
+      description: |
+        A factory task's current top-level run, resolved from the bound
+        conversation at read time. This differs from FactoryTask.run_id,
+        which is a creation-time provenance snapshot and is never updated.
+      required:
+      - run_id
+      - state
+      - is_run_type_cancellable
+      properties:
+        run_id:
+          type: string
+          description: ID of the task's current top-level (root) run.
+        state:
+          $ref: '#/components/schemas/RunState'
+        is_run_type_cancellable:
+          type: boolean
+          description: |
+            Whether the current run's type is eligible for cancellation via
+            the API. State-independent; clients should also gate on state.
+    FactoryTask:
+      type: object
+      description: |
+        A factory task: the unit of work in a factory, bound to the agent
+        conversation that owns it.
+      required:
+      - uid
+      - factory_uid
+      - conversation_id
+      - run_id
+      - title
+      - stage
+      - created_at
+      - updated_at
+      properties:
+        uid:
+          type: string
+          description: Public UID of the task.
+        factory_uid:
+          type: string
+          description: Public UID of the factory the task belongs to. Fixed at creation.
+        conversation_id:
+          type: string
+          description: UUID of the agent conversation the task is bound to.
+        run_id:
+          type: string
+          description: |
+            ID of the bound conversation's most recent run at task creation.
+            This is a provenance snapshot and is not updated afterward;
+            consumers needing the conversation's live latest run should
+            resolve it via the conversation.
+        author:
+          allOf:
+          - $ref: '#/components/schemas/RunCreatorInfo'
+          description: |
+            Creator of the run captured by run_id. Omitted when the creation
+            run or its creator principal can no longer be resolved.
+        title:
+          type: string
+          description: Human-readable title of the task.
+        ticket_source:
+          type: string
+          description: |
+            Canonical ticket source from the bound run. Present on list
+            responses only when full_list=true and ticket metadata exists.
+        ticket_id:
+          type: string
+          description: |
+            Canonical ticket ID from the bound run. Present on list responses
+            only when full_list=true and ticket metadata exists.
+        description:
+          type: string
+          nullable: true
+          description: Optional description of the task.
+        stage:
+          $ref: '#/components/schemas/FactoryTaskStage'
+        created_at:
+          type: string
+          format: date-time
+          description: Time the task was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: |
+            Time the task was last created, updated, or deleted. Artifact
+            reporting does not bump this; new outputs appear on the next
+            detail read.
+        outputs:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArtifactItem'
+          description: |
+            Derived outputs, newest-first: PULL_REQUEST, EXTERNAL_REFERENCE,
+            SCREENSHOT, and FILE artifacts (video recordings are FILE
+            artifacts). Present on single-task reads (by uid, by
+            conversation, and by run), where outputs are derived from the
+            task's whole run tree (every run bound to the conversation plus
+            the runs dispatched under them). On list responses with
+            full_list=true, outputs are derived from the bound conversation
+            only, not the wider run tree.
+        current_run:
+          allOf:
+          - $ref: '#/components/schemas/FactoryTaskCurrentRun'
+          description: |
+            The task's current top-level run, resolved at read time. Present
+            on single-task reads (by uid, by conversation, and after a stop
+            request), and on list responses when include_current_run=true;
+            omitted when no current root run can be resolved.
+    FactoryTaskCreateRequest:
+      type: object
+      description: Request body for creating a factory task.
+      required:
+      - title
+      - conversation_id
+      properties:
+        title:
+          type: string
+          description: Human-readable title of the task. Required and non-empty.
+        conversation_id:
+          type: string
+          description: |
+            UUID of the agent conversation to bind the task to. The
+            conversation's most recent run must be owned by the factory's
+            team, and the conversation must not already be bound to a live
+            task.
+        description:
+          type: string
+          nullable: true
+          description: Optional description of the task.
+        stage:
+          $ref: '#/components/schemas/FactoryTaskStage'
+    FactoryTaskPatchRequest:
+      type: object
+      description: |
+        Request body for partially updating a factory task. Omitted fields
+        preserve their current values; last write wins.
+      properties:
+        title:
+          type: string
+          description: Updated title. Must be non-empty when provided.
+        description:
+          type: string
+          nullable: true
+          description: Updated description. null or an empty string clears the description.
+        stage:
+          $ref: '#/components/schemas/FactoryTaskStage'
+    ListFactoryTasksResponse:
+      type: object
+      required:
+      - tasks
+      - page_info
+      properties:
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/FactoryTask'
+          description: One page of the factory's tasks, in the requested sort order.
+        page_info:
+          $ref: '#/components/schemas/PageInfo'
+    ListFactoriesResponse:
+      type: object
+      description: Response body for listing factories.
+      required:
+      - factories
+      - page_info
+      properties:
+        factories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Factory'
+        page_info:
+          $ref: '#/components/schemas/PageInfo'
+    FactoryRunRequest:
+      type: object
+      description: Request body for dispatching a run to a factory.
+      required:
+      - prompt
+      properties:
+        prompt:
+          type: string
+          description: |
+            The prompt sent to the factory's foreman, not wrapped in any
+            factory intake envelope. Required and non-empty.
+        title:
+          type: string
+          description: |
+            Human-readable title for the dispatched run and its factory task.
+            Omit to derive one automatically from the prompt.
+        ticket_ref:
+          type: string
+          description: |
+            Originating ticket reference in <source>:<id> form (for
+            example, linear:REMOTE-123); omit to mint an adhoc reference.
+            Stamped onto the run as ticket_id/ticket_source metadata.
+        ticket_url:
+          type: string
+          description: |
+            Optional URL of the ticket named by ticket_ref. Stamped onto
+            the run as ticket_url metadata when given.
+    FactoryRunResponse:
+      type: object
+      description: Response body for a dispatched factory run.
+      required:
+      - run_id
+      - state
+      - factory_uid
+      - foreman_agent
+      - ticket_ref
+      properties:
+        run_id:
+          type: string
+          description: Unique identifier for the dispatched run.
+        run_url:
+          type: string
+          description: |
+            URL to view the dispatched run in the Factory app. Empty when
+            the Factory app origin is not configured.
+        state:
+          $ref: '#/components/schemas/RunState'
+        factory_uid:
+          type: string
+          description: Public UID of the factory the run was dispatched to.
+        foreman_agent:
+          type: string
+          description: Name of the factory's foreman agent that received the run.
+        ticket_ref:
+          type: string
+          description: |
+            The canonical <source>:<id> ticket reference the run was
+            stamped with, either the caller-supplied ticket_ref or a
+            minted adhoc reference.
+    ClaudeHarnessUsagePayload:
+      type: object
+      additionalProperties: false
+      properties:
+        usage:
+          $ref: '#/components/schemas/ClaudeTokenUsage'
+        attribution:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/ClaudeAttributedUsage'
+        toolCalls:
+          $ref: '#/components/schemas/HarnessToolCalls'
+    CodexHarnessUsagePayload:
+      type: object
+      additionalProperties: false
+      properties:
+        usage:
+          $ref: '#/components/schemas/CodexTokenUsage'
+        attribution:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/CodexAttributedUsage'
+        toolCalls:
+          $ref: '#/components/schemas/HarnessToolCalls'
+    HarnessUsageCounter:
+      type: integer
+      format: int64
+      minimum: 0
+      maximum: 9223372036854775807
+      nullable: true
+      description: A native count. Absent or null means unmeasured, not zero.
+    ClaudeTokenUsage:
+      type: object
+      additionalProperties: false
+      nullable: true
+      description: Native cumulative token categories; cache counters are not added to input_tokens.
+      properties:
+        input_tokens:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        output_tokens:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        cache_read_input_tokens:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        cache_creation_input_tokens:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        cache_creation:
+          $ref: '#/components/schemas/ClaudeCacheCreationUsage'
+    ClaudeCacheCreationUsage:
+      type: object
+      additionalProperties: false
+      nullable: true
+      properties:
+        ephemeral_5m_input_tokens:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        ephemeral_1h_input_tokens:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+    CodexTokenUsage:
+      type: object
+      additionalProperties: false
+      nullable: true
+      description: Native checkpoint counters. Cached input and reasoning output may overlap other categories; no derived total is inferred.
+      properties:
+        input_tokens:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        cached_input_tokens:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        cache_write_input_tokens:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        output_tokens:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        reasoning_output_tokens:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+        total_tokens:
+          $ref: '#/components/schemas/HarnessUsageCounter'
+    ClaudeAttributedUsage:
+      type: object
+      additionalProperties: false
+      required:
+      - usage
+      properties:
+        model:
+          type: string
+          nullable: true
+        service_tier:
+          type: string
+          nullable: true
+        inference_geo:
+          type: string
+          nullable: true
+        speed:
+          type: string
+          nullable: true
+        usage:
+          $ref: '#/components/schemas/ClaudeTokenUsage'
+    CodexAttributedUsage:
+      type: object
+      additionalProperties: false
+      required:
+      - usage
+      properties:
+        model:
+          type: string
+          nullable: true
+        service_tier:
+          type: string
+          nullable: true
+        inference_geo:
+          type: string
+          nullable: true
+        speed:
+          type: string
+          nullable: true
+        usage:
+          $ref: '#/components/schemas/CodexTokenUsage'
+    HarnessToolCalls:
+      type: object
+      additionalProperties: false
+      nullable: true
+      required:
+      - total
+      - byName
+      description: Native tool invocation counts. Total must equal the sum of byName; tool names are arbitrary map keys.
+      properties:
+        total:
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9223372036854775807
+        byName:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+            minimum: 0
+            maximum: 9223372036854775807
+    GetRunHarnessUsageResponse:
+      type: object
+      required:
+      - run_id
+      - conversation_id
+      - available
+      properties:
+        run_id:
+          type: string
+        conversation_id:
+          type: string
+        available:
+          type: boolean
+        age_seconds:
+          type: integer
+          format: int64
+          nullable: true
+        usage:
+          $ref: '#/components/schemas/HarnessUsageEnvelope'
+    HarnessUsageEnvelope:
+      oneOf:
+      - $ref: '#/components/schemas/ClaudeHarnessUsageEnvelope'
+      - $ref: '#/components/schemas/CodexHarnessUsageEnvelope'
+      discriminator:
+        propertyName: harness
+        mapping:
+          CLAUDE_CODE: '#/components/schemas/ClaudeHarnessUsageEnvelope'
+          CODEX: '#/components/schemas/CodexHarnessUsageEnvelope'
+    ClaudeHarnessUsageEnvelope:
+      type: object
+      additionalProperties: false
+      required:
+      - metricsVersion
+      - harness
+      - executionId
+      - captureSequence
+      - capturedAt
+      - snapshot
+      properties:
+        metricsVersion:
+          type: integer
+          enum:
+          - 1
+          description: Server-owned storage format metadata, not the producer's parser version.
+        harness:
+          type: string
+          enum:
+          - CLAUDE_CODE
+        executionId:
+          type: integer
+          format: int64
+        captureSequence:
+          type: integer
+          format: int64
+        capturedAt:
+          type: string
+          format: date-time
+        snapshot:
+          type: object
+          additionalProperties: false
+          required:
+          - coverage
+          - payload
+          properties:
+            coverage:
+              $ref: '#/components/schemas/RetainedHarnessUsageCoverage'
+            payload:
+              $ref: '#/components/schemas/ClaudeHarnessUsagePayload'
+    CodexHarnessUsageEnvelope:
+      type: object
+      additionalProperties: false
+      required:
+      - metricsVersion
+      - harness
+      - executionId
+      - captureSequence
+      - capturedAt
+      - snapshot
+      properties:
+        metricsVersion:
+          type: integer
+          enum:
+          - 1
+          description: Server-owned storage format metadata, not the producer's parser version.
+        harness:
+          type: string
+          enum:
+          - CODEX
+        executionId:
+          type: integer
+          format: int64
+        captureSequence:
+          type: integer
+          format: int64
+        capturedAt:
+          type: string
+          format: date-time
+        snapshot:
+          type: object
+          additionalProperties: false
+          required:
+          - coverage
+          - payload
+          properties:
+            coverage:
+              $ref: '#/components/schemas/RetainedHarnessUsageCoverage'
+            payload:
+              $ref: '#/components/schemas/CodexHarnessUsagePayload'
+    RetainedHarnessUsageCoverage:
+      type: object
+      additionalProperties: false
+      required:
+      - tokenStatus
+      - toolStatus
+      properties:
+        tokenStatus:
+          type: string
+          enum:
+          - known
+          - partial
+          - unavailable
+        toolStatus:
+          type: string
+          enum:
+          - known
+          - partial
+          - unavailable
     RunAgentRequest:
       type: object
       description: |
@@ -1954,6 +4256,8 @@ components:
       required:
       - runs
       - page_info
+      - as_of
+      - team_uid
       properties:
         runs:
           type: array
@@ -1961,6 +4265,18 @@ components:
             $ref: '#/components/schemas/RunItem'
         page_info:
           $ref: '#/components/schemas/PageInfo'
+        as_of:
+          type: string
+          format: date-time
+          description: Time the runs were read (RFC3339). Data can lag live activity by a few minutes.
+        team_uid:
+          type: string
+          nullable: true
+          description: |
+            UID of the team the request was scoped to: the team selected by the
+            `X-Warp-Team-Uid` header, or the API key's team. Null when a user
+            request has no team selected and the list spans every team the
+            user belongs to.
     RunItem:
       type: object
       required:
@@ -1970,7 +4286,9 @@ components:
       - state
       - prompt
       - created_at
+      - finished_at
       - updated_at
+      - root_run_id
       properties:
         run_id:
           type: string
@@ -1989,6 +4307,9 @@ components:
         prompt:
           type: string
           description: The prompt/instruction for the agent
+        submitted_prompt:
+          type: string
+          description: The prompt exactly as it was submitted, without any extra context added by Warp. Includes any follow-up messages sent before the run started, separated by blank lines.
         created_at:
           type: string
           format: date-time
@@ -2006,6 +4327,15 @@ components:
           format: date-time
           nullable: true
           description: Timestamp when the agent started working on the run (RFC3339)
+        finished_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: |
+            Timestamp when the run last reached a terminal state (RFC3339). Null
+            while the run is still active, and for terminal runs with no
+            recorded finish time (runs executed locally, and runs that finished
+            before finish times were recorded).
         status_message:
           $ref: '#/components/schemas/RunStatusMessage'
         source:
@@ -2027,6 +4357,11 @@ components:
           $ref: '#/components/schemas/RunCreatorInfo'
         executor:
           $ref: '#/components/schemas/RunCreatorInfo'
+        factory_uid:
+          type: string
+          description: |
+            UID of the factory whose agent executed the run. Absent for runs
+            not executed by a factory agent.
         request_usage:
           $ref: '#/components/schemas/RequestUsage'
         agent_config:
@@ -2037,6 +4372,11 @@ components:
         parent_run_id:
           type: string
           description: UUID of the parent run that spawned this run
+        root_run_id:
+          type: string
+          description: |
+            UUID of the top-level run of this run's orchestration tree. Equals
+            `run_id` for a top-level run.
         metadata:
           $ref: '#/components/schemas/RunMetadata'
         is_sandbox_running:
@@ -2274,13 +4614,7 @@ components:
         input:
           type: object
           additionalProperties: true
-          description: |
-            Curated public input for this action. This object is owned by the
-            API and is not a raw internal tool payload. For a `read_skill`
-            action, `bundled_skill_id` identifies a Warp-provided bundled
-            reference when present. `skill_path` is the path used to resolve
-            the skill; it can refer to a file-based skill or a path-referenced
-            bundled skill, such as one from a remote host.
+          description: Curated public input for this action. This object is owned by the API and is not a raw internal tool payload.
     ActionResultContentBlock:
       type: object
       required:
@@ -2401,7 +4735,7 @@ components:
           format: date-time
           description: Timestamp when the artifact was created (RFC3339)
         data:
-          $ref: '#/components/schemas/PullRequestArtifactData'
+          $ref: '#/components/schemas/PullRequestArtifactResponseData'
     ScreenshotArtifact:
       type: object
       required:
@@ -2472,6 +4806,26 @@ components:
         branch:
           type: string
           description: Branch name for the pull request
+    PullRequestArtifactResponseData:
+      allOf:
+      - $ref: '#/components/schemas/PullRequestArtifactData'
+      - type: object
+        required:
+        - status
+        properties:
+          status:
+            type: string
+            description: |
+              Current state of the pull request as last reported by the code
+              host's webhooks. `unknown` means Warp has no live provider
+              record for this pull request (for example, the repository's
+              code host integration is not connected to the run's team).
+            enum:
+            - open
+            - draft
+            - merged
+            - closed
+            - unknown
     ScreenshotArtifactData:
       type: object
       required:
@@ -2522,6 +4876,22 @@ components:
           type: integer
           format: int64
           description: Size of the uploaded file in bytes
+        thumbnail:
+          $ref: '#/components/schemas/FileArtifactThumbnail'
+    FileArtifactThumbnail:
+      type: object
+      required:
+      - download_url
+      - expires_at
+      properties:
+        download_url:
+          type: string
+          format: uri
+          description: Time-limited signed URL to download the video's thumbnail image
+        expires_at:
+          type: string
+          format: date-time
+          description: Timestamp when the thumbnail download URL expires (RFC3339)
     ScheduleInfo:
       type: object
       description: Information about the schedule that triggered this run (only present for scheduled runs)
@@ -2606,66 +4976,113 @@ components:
           type: number
           format: double
           description: |
-            inference_cost in US dollars, converted at the owning team's
-            current credit price. An approximate cost, not a billed amount.
+            What the run's LLM inference was billed at, in US dollars. Runs that
+            predate billed-amount tracking fall back to an estimated cost.
         compute_cost_usd:
           type: number
           format: double
           description: |
-            compute_cost in US dollars, converted at the owning team's
-            current credit price. An approximate cost, not a billed amount.
+            What the run's hosted compute was billed at, in US dollars. Runs that
+            predate billed-amount tracking fall back to an estimated cost.
         platform_cost_usd:
           type: number
           format: double
           description: |
-            platform_cost in US dollars, converted at the owning team's
-            current credit price. An approximate cost, not a billed amount.
+            What the run's platform usage was billed at, in US dollars. Runs that
+            predate billed-amount tracking fall back to an estimated cost.
         total_tokens:
           type: integer
           format: int64
           description: |
             Total LLM token count (summed across every usage category and model) for the run's
             conversation. Omitted when the data is not available.
-        inference_cost_breakdown_usd:
-          $ref: '#/components/schemas/InferenceCostBreakdownUsd'
         usage_by_category:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/ChargedUsageDetail'
           description: |
-            Full-granularity token and dollar-cost breakdown for the run's
+            Full-granularity token and charged-cost breakdown for the run's
             conversation, keyed by usage category (for example,
-            primary_agent or conversation_compaction) and model id; differs
-            from total_tokens/inference_cost_breakdown_usd, which combine
-            usage across all categories and models. Omitted when the data
-            is not available.
-    InferenceCostBreakdownUsd:
+            primary_agent or conversation_compaction) and model id. Omitted
+            when the data is not available.
+        model_token_usage:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModelTokenUsage'
+          description: |
+            The models that actually served inference for the run, with the
+            tokens each consumed. Used to discover what an auto-routing model
+            resolves to. If a run is terminated before inference is complete,
+            output a zero-token entry for that model. Omits runs that use
+            a third-party harness, whose per-model usage is not tracked by Warp.
+    ModelTokenUsage:
       type: object
       description: |
-        Charged dollar cost of LLM inference, split by token type.
+        Tokens consumed by a single model over a run.
+      required:
+      - model_id
+      - total_tokens
+      - usage_type
+      properties:
+        model_id:
+          type: string
+          description: |
+            Identifier of the model that served the inference. For `warp` and
+            `byok` usage this is a model id drawn from the same set as
+            `agent_config.model_id`. For `custom_endpoint` usage this is the
+            caller's own configuration key for the endpoint.
+        total_tokens:
+          type: integer
+          format: int64
+          description: Total tokens this model consumed, across every usage category.
+        usage_type:
+          $ref: '#/components/schemas/ModelUsageType'
+        tokens_by_category:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+          description: |
+            total_tokens split by the kind of work the tokens were spent on,
+            keyed by usage category (e.g., primary_agent, tool_summarization, etc).
+    ModelUsageType:
+      type: string
+      description: |
+        How a model's inference was accessed:
+        - warp: through Warp-provided model access
+        - byok: through the caller's own provider API key
+        - custom_endpoint: through a caller-configured model endpoint
+      enum:
+      - warp
+      - byok
+      - custom_endpoint
+    InferenceCostBreakdownInCents:
+      type: object
+      description: |
+        Charged cost of LLM inference in US cents, split by token type.
         Omitted when the data is not available.
       required:
-      - input_cost_usd
-      - input_cache_read_cost_usd
-      - input_cache_write_cost_usd
-      - output_cost_usd
+      - input_cost_in_cents
+      - input_cache_read_cost_in_cents
+      - input_cache_write_cost_in_cents
+      - output_cost_in_cents
       properties:
-        input_cost_usd:
+        input_cost_in_cents:
           type: number
           format: double
-          description: Cost of non-cached input tokens, in US dollars.
-        input_cache_read_cost_usd:
+          description: Cost of non-cached input tokens, in US cents.
+        input_cache_read_cost_in_cents:
           type: number
           format: double
-          description: Cost of cache-read input tokens, in US dollars.
-        input_cache_write_cost_usd:
+          description: Cost of cache-read input tokens, in US cents.
+        input_cache_write_cost_in_cents:
           type: number
           format: double
-          description: Cost of cache-write input tokens, in US dollars.
-        output_cost_usd:
+          description: Cost of cache-write input tokens, in US cents.
+        output_cost_in_cents:
           type: number
           format: double
-          description: Cost of output tokens, in US dollars.
+          description: Cost of output tokens, in US cents.
     TokenCountBreakdown:
       type: object
       description: A per-token-type token count.
@@ -2694,34 +5111,34 @@ components:
     InferenceUsageDetail:
       type: object
       description: |
-        Full token count and dollar-cost detail inference usage.
+        Full token count and charged-cost detail for inference usage.
         The counts and cost describe the same usage (e.g. token_count.input
-        tokens cost cost_usd.input_cost_usd in total).
+        tokens cost cost_in_cents.input_cost_in_cents in total).
       required:
       - token_count
-      - cost_usd
+      - cost_in_cents
       - web_search_count
-      - web_search_cost_usd
+      - web_search_cost_in_cents
       properties:
         token_count:
           $ref: '#/components/schemas/TokenCountBreakdown'
-        cost_usd:
-          $ref: '#/components/schemas/InferenceCostBreakdownUsd'
+        cost_in_cents:
+          $ref: '#/components/schemas/InferenceCostBreakdownInCents'
         web_search_count:
           type: integer
           format: int64
           description: Number of web searches performed by this model.
-        web_search_cost_usd:
+        web_search_cost_in_cents:
           type: number
           format: double
-          description: Total cost of those web searches, in US dollars.
+          description: Total cost of those web searches, in US cents.
     ChargedUsageDetail:
       type: object
       description: |
         Usage charged for a single usage category, broken down by usage type
         (direct API/BYOK/custom endpoint) and, within each, by model ID.
       required:
-      - platform_usage_usd
+      - platform_usage_in_cents
       properties:
         direct_api_inference_usage:
           type: object
@@ -2740,10 +5157,10 @@ components:
           description: |
             Inference usage charged using a custom endpoint, keyed by the
             custom model's config key.
-        platform_usage_usd:
+        platform_usage_in_cents:
           type: number
           format: double
-          description: Platform usage charged for this category, in US dollars.
+          description: Platform usage charged for this category, in US cents.
     RunCreatorInfo:
       type: object
       properties:
@@ -2794,7 +5211,9 @@ components:
       enum:
       - LINEAR
       - API
+      - MCP
       - SLACK
+      - TEAMS
       - LOCAL
       - SCHEDULED_AGENT
       - WEB_APP
@@ -2805,14 +5224,20 @@ components:
       - SELF_IMPROVEMENT
       - GITHUB_WEBHOOK
       - GITLAB_WEBHOOK
+      - AZURE_DEVOPS_WEBHOOK
       - AUTOFIX
       - RUN_SCORER
       - ORCHESTRATION
+      - BENCHMARK_TRIAL
+      - CREATE_BENCHMARK_TASK
+      - CUSTOM_WEBHOOK
       description: |-
         Source that created the run:
         - LINEAR: Created from Linear integration
         - API: Created via the Warp API
+        - MCP: Created through the Factory MCP server's send_task tool
         - SLACK: Created from Slack integration
+        - TEAMS: Created from Microsoft Teams integration
         - LOCAL: Created from local CLI/app
         - SCHEDULED_AGENT: Created by a scheduled agent
         - WEB_APP: Created from the Warp web app
@@ -2823,9 +5248,13 @@ components:
         - SELF_IMPROVEMENT: Created by Warp's self-improvement pipeline
         - GITHUB_WEBHOOK: Created from a GitHub webhook event
         - GITLAB_WEBHOOK: Created from a GitLab webhook event
+        - AZURE_DEVOPS_WEBHOOK: Created from an Azure DevOps webhook event
         - AUTOFIX: Created by Warp's autofix pipeline
         - RUN_SCORER: Created by Warp's run-scoring judge
         - ORCHESTRATION: Created as a child run by the orchestration layer (parent_run_id set)
+        - BENCHMARK_TRIAL: Created as a factory benchmark trial
+        - CREATE_BENCHMARK_TASK: Created by a Factory foreman authoring a benchmark task from a completed run
+        - CUSTOM_WEBHOOK: Created by a factory automation subscribed to a custom webhook source
     RunExecutionLocation:
       type: string
       enum:
@@ -2855,6 +5284,15 @@ components:
         environment_id:
           type: string
           description: UID of the environment to run the agent in
+        secrets:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretRef'
+          description: |
+            Optional run-specific managed secret allowlist. Omission and an
+            empty array both add no generic secrets. Secret references from
+            the resolved environment and execution principal are still
+            unioned into the run's secret scope.
         runner_id:
           type: string
           description: |
@@ -3005,6 +5443,9 @@ components:
             top-level config model_id targets the built-in Warp harness
             instead. When omitted or empty, the harness uses its own default
             model.
+            For an individual Warp-managed Factory Claude Code agent, send
+            an explicit empty string to use the environment's model. Omitting
+            model_id when replacing that agent's harness is invalid.
         reasoning_level:
           type: string
           description: |
@@ -3198,8 +5639,24 @@ components:
           type: string
           format: date-time
           description: Timestamp when the artifact was created (RFC3339)
+        source_links:
+          $ref: '#/components/schemas/ArtifactSourceLinksResponse'
         data:
           $ref: '#/components/schemas/ScreenshotArtifactResponseData'
+    ArtifactSourceLinksResponse:
+      type: object
+      description: Links to the originating run and pull requests reported in its tree. Destinations enforce their own access rules.
+      properties:
+        run_url:
+          type: string
+          format: uri
+          description: Factory run page for the originating root run, when bound to a live Factory task.
+        pull_request_urls:
+          type: array
+          items:
+            type: string
+            format: uri
+          description: Distinct pull requests reported by runs in the same tree.
     ScreenshotArtifactResponseData:
       type: object
       description: Response data for a screenshot artifact, including a signed download URL.
@@ -3243,6 +5700,8 @@ components:
           type: string
           format: date-time
           description: Timestamp when the artifact was created (RFC3339)
+        source_links:
+          $ref: '#/components/schemas/ArtifactSourceLinksResponse'
         data:
           $ref: '#/components/schemas/FileArtifactResponseData'
     FileArtifactResponseData:
@@ -3518,6 +5977,15 @@ components:
           description: Shell commands to run during environment setup
         providers:
           $ref: '#/components/schemas/ProvidersConfig'
+        secrets:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecretRef'
+          description: |
+            Managed secret references contributed by this environment.
+            Omission and an empty array both contribute no secrets. These
+            references are unioned with references from the run config and
+            execution principal.
         failure_session_retention_minutes:
           type: integer
           nullable: true
@@ -3782,6 +6250,8 @@ components:
         Warp errors (run transitions to ERROR):
         - `authentication_required` — Request lacks valid authentication credentials
         - `resource_unavailable` — Transient infrastructure issue (retryable)
+        - `agent_stream_network_error` — MAA response stream terminally failed because of a transport or EOF error
+        - `agent_stream_failure` — MAA server explicitly reported a terminal response stream failure
         - `internal_error` — Unexpected server-side error (retryable)
       enum:
       - insufficient_credits
@@ -3799,6 +6269,8 @@ components:
       - conflict
       - authentication_required
       - resource_unavailable
+      - agent_stream_network_error
+      - agent_stream_failure
       - internal_error
     RunFollowupRequest:
       type: object
@@ -3806,13 +6278,110 @@ components:
       properties:
         message:
           type: string
-          description: The follow-up message to send to the run.
+          description: |
+            The follow-up message to send to the run. May be empty when
+            `attachments` is non-empty.
         mode:
           $ref: '#/components/schemas/AgentRunMode'
           description: |
             Optional query mode for the follow-up. Defaults to `normal` when
             omitted. The server does not infer mode from prompt prefixes such
-            as `/plan`.
+            as `/plan`. The mode only takes effect when the follow-up is
+            queued ahead of the run starting or starts a new execution; a
+            follow-up injected into a live session runs in the session's
+            current mode.
+        attachments:
+          type: array
+          maxItems: 25
+          items:
+            $ref: '#/components/schemas/RunFollowupAttachment'
+          description: |
+            Files to deliver with the message, at most 25. Each entry must
+            name an attachment previously prepared for this run through
+            `POST /agent/runs/{runId}/attachments/prepare` and uploaded to
+            its upload target; an unknown `attachment_id` is rejected with
+            422. Files are only materialized for the agent on the Oz
+            harness; other harnesses receive a notice naming the files.
+    RunFollowupAttachment:
+      type: object
+      description: A prepared attachment to deliver with a follow-up message.
+      required:
+      - attachment_id
+      properties:
+        attachment_id:
+          type: string
+          description: |
+            The `attachment_id` (a UUID) returned by the attachment prepare
+            endpoint for this run.
+        file_name:
+          type: string
+          description: |
+            Optional display name shown to the agent in place of the name
+            recorded when the attachment was prepared. The stored object is
+            unaffected.
+    RunFollowupOutcome:
+      type: string
+      description: |
+        How an accepted follow-up was routed.
+          - live_session: the message was handed to the running session. This means
+            the session-sharing service accepted it, not that the agent has started
+            on it; observe the session's event stream for the new request.
+          - queued_prompt: the run had not started yet, so the message was appended
+            to its initial prompt.
+          - handoff_execution: the previous execution had ended, so a new execution
+            of the same run was created to continue the conversation.
+          - queue_pending: the message is durably queued and will be delivered once
+            the run can accept it.
+      enum:
+      - live_session
+      - queued_prompt
+      - handoff_execution
+      - queue_pending
+    RunFollowupResponse:
+      type: object
+      description: Acknowledgement of an accepted follow-up.
+      required:
+      - followup_id
+      - outcome
+      properties:
+        followup_id:
+          type: string
+          nullable: true
+          description: |
+            Identifier of the durable follow-up record, or null when the
+            outcome did not create one (`queued_prompt`).
+        outcome:
+          $ref: '#/components/schemas/RunFollowupOutcome'
+    ConversationFollowupResponse:
+      type: object
+      description: |
+        Acknowledgement of a follow-up accepted through a conversation-keyed
+        route: the run-keyed acknowledgement plus the run it was delivered to.
+      required:
+      - followup_id
+      - outcome
+      - run_id
+      properties:
+        followup_id:
+          type: string
+          nullable: true
+          description: |
+            Identifier of the durable follow-up record, or null when the
+            outcome did not create one (`queued_prompt`).
+        outcome:
+          $ref: '#/components/schemas/RunFollowupOutcome'
+        run_id:
+          type: string
+          description: The run the conversation resolved to.
+    ConversationInterruptResponse:
+      type: object
+      description: Acknowledgement of an interrupt accepted through a conversation-keyed route.
+      required:
+      - run_id
+      properties:
+        run_id:
+          type: string
+          description: The run whose turn is being interrupted.
     ListModelsResponse:
       type: object
       required:
@@ -4102,64 +6671,6 @@ components:
       enum:
       - CREATOR
       - EXECUTOR
-    ReportedRunScore:
-      type: object
-      required:
-      - scorer_id
-      properties:
-        scorer_id:
-          type: integer
-          description: The evaluation this verdict belongs to
-        classification:
-          type: string
-          description: |
-            The chosen classification. Must exactly match one of the allowed
-            label values captured when the evaluation was dispatched. Ignored
-            when `failed` is true.
-        reason:
-          type: string
-          description: |
-            Optional judge reasoning. Stored outside the database and truncated
-            beyond 8KB; a storage failure does not reject the verdict.
-        failed:
-          type: boolean
-          description: |
-            True when the judge could not evaluate this evaluation. Failed
-            verdicts are accepted but record no score.
-    ReportRunScoresRequest:
-      type: object
-      required:
-      - results
-      properties:
-        results:
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/ReportedRunScore'
-    ReportedRunScoreOutcome:
-      type: object
-      required:
-      - scorer_id
-      - status
-      properties:
-        scorer_id:
-          type: integer
-          description: The evaluation this outcome belongs to
-        status:
-          type: string
-          description: 'Whether the verdict was recorded: "accepted" or "rejected"'
-        error:
-          type: string
-          description: Why the verdict was rejected; absent when accepted
-    ReportRunScoresResponse:
-      type: object
-      required:
-      - results
-      properties:
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReportedRunScoreOutcome'
     CreateAgentRequest:
       type: object
       required:
@@ -4288,6 +6799,8 @@ components:
           * Omitted or `null`: leave the field unchanged.
           * Empty value: clear the field.
           * Non-empty: replace the field wholesale with the provided value.
+        `secrets_append` is an exception: it appends secrets idempotently and
+        must be the only supplied field, including fields supplied as `null`.
       properties:
         name:
           type: string
@@ -4324,6 +6837,20 @@ components:
             Replacement list of secrets. Omit to leave unchanged, pass an
             empty array to clear, or pass a non-empty array to replace.
             Duplicate names are rejected.
+        secrets_append:
+          type: array
+          nullable: false
+          items:
+            $ref: '#/components/schemas/SecretRef'
+          description: |
+            Adds team-owned raw-value secrets to this agent without removing or
+            replacing its existing ones. Secrets it already has and any duplicates
+            are skipped, and an empty array is a no-op. If any name is invalid, the
+            whole request is rejected. Send this field by itself. Including any other
+            field returns 400, even if that field is null, and null is not a valid
+            value here. Appending requires edit and privileged-config-edit access on
+            the agent plus secret-attach access on its Factory. Agents managed in
+            external source files return 409.
         skills:
           type: array
           nullable: true

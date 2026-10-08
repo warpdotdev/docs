@@ -20,7 +20,7 @@ This skill is the manual fallback for the same job, so its output has to match t
 3. Drop every path whose tags are a subset of `EXCLUDED_TAGS`, plus every path listed explicitly in `EXCLUDED_PATHS` or matching a prefix in `EXCLUDED_PATH_PREFIXES`.
 4. Keep top-level `openapi`, `servers`, and `components.securitySchemes` verbatim. Keep `info` from the source except for the docs-specific title and description override in `DOCS_INFO_OVERRIDES`.
 5. Keep only reusable component entries that are reachable from surviving paths via `$ref` walking (recursive over `allOf`/`oneOf`/`anyOf`/`items`/`additionalProperties`/etc.).
-6. Remove Factory-only values and matching description lines from `RunSourceType`.
+6. Remove any value listed in `EXCLUDED_RUN_SOURCE_VALUES` (empty today) and its description line from `RunSourceType`.
 7. Recursively strip every key in `STRIP_FLAGS` from whatever survives
    steps 1-6, wherever it appears in the tree (operations, schemas,
    individual properties, parameters).
@@ -103,36 +103,41 @@ These tags back Agent Memory, which is a research preview. The tag was renamed `
 ### `harness-support`
 The `/harness-support/*` endpoints form the worker-to-server contract used by Oz workers (transcripts, snapshots, finish-task signaling, etc.). They are not part of the public API contract — customers should not call them directly. Excluded permanently.
 
-### `factory`
-Oz Factory has not shipped publicly. Its `FactoryMcp` flag is dogfood and the `@warp/factory` front end is internal, so none of its endpoints belong in the public reference. Remove this tag when Factory goes GA.
+### `factory` (no longer excluded)
+The `factory` tag was excluded while Warp Factories was pre-launch. It came out of `EXCLUDED_TAGS` (and `/factory` out of `EXCLUDED_PATH_PREFIXES`) when Warp Factories shipped in Early Access and `/factories/factory-api/` began documenting `GET /factory`, `GET /factory/{uid}`, and `POST /factory/{uid}/runs`. Factory operations now follow the `x-internal` markers like every other kept tag: the server spec marks each private factory operation individually, so only the operations the server leaves unmarked reach the reference. At the latest release candidate that is factory discovery and dispatch, tasks, and factory-file schemas. The inbox and run-scoring dispatch are also unflagged there, but they are excluded by path below. The dashboard metrics, costs, and pull request operations are still marked `x-internal` there and appear automatically once the server unflags them. Do not re-add a blanket exclusion; ask the server team to mark specific operations `x-internal` instead.
+
+## Kept tags with a stale internal marker
+
+### `networking`
+The `networking` tag backs `GET /networking/egress-ranges`, which lists the IP ranges Warp-hosted agents use for outbound requests so customers can allowlist them. warp-server #19008 deliberately unflagged the operation and exposes it as an SDK method (`networking.get_egress_ranges`), but the tag entry itself is still marked `x-internal: true`. The generic filter drops that tag entry and keeps the path, so the operation publishes under an undeclared tag, the same as the official release pipeline. Ask the server team to remove the stale tag-level marker.
+
+The `factory` tag behaves the same way. Its entry is marked `x-internal: true`, so the published `tags` list declares only `agent` and `schedules`, and the factory operations publish under an undeclared tag.
 
 ## Excluded paths (within otherwise-public tags)
 
-These four `agent`-tag paths are excluded individually because the `agent` tag itself remains public:
+These five `agent`-tag paths are excluded individually because the `agent` tag itself remains public:
 
 - `/agent/runs/{runId}/handoff/attachments` — handoff plumbing tied to local-to-cloud session handoff.
 - `/agent/handoff/upload-snapshot` — handoff plumbing (snapshot upload from a local worker).
 - `/agent/conversations/{conversation_id}/fork` — conversation-forking primitive used by the harness, not stable public API.
 - `/agent/conversations/{conversationId}/redirect` — internal redirect endpoint.
+- `/agent/sessions/{sessionUuid}/redirect` — the same kind of redirect helper for shared sessions. The server spec stopped marking it `x-internal` in warp-server #19008 and the SDK exposes it, but its handler describes it as a web-app helper for anonymous viewers, so it is excluded to match the conversation redirect until the server team confirms it is customer-facing.
+
+These four `factory`-tag paths are excluded individually because the `factory` tag is public: `/factory-inbox`, `/factory-inbox/notifications/read`, `/factory-inbox/notifications/unread`, and `/factory/run-scoring/dispatches`. The server spec does not mark them `x-internal`, and no documentation describes them as public. The inbox operations are listed under the SDK config's `unspecified_endpoints`. Run-scoring dispatch triggers scorer judge runs, and the server keeps the scorer APIs internal (warp-server #19141), so it looks like an operation that was missed. Remove each from `EXCLUDED_PATHS` once the server team confirms.
 
 If any of these become stable public surfaces, remove them from `EXCLUDED_PATHS` and update this list.
 
 ## Excluded path prefixes
 
-`EXCLUDED_PATH_PREFIXES` drops a path by prefix regardless of how its operations are tagged. Today it holds a single entry, `/factory`, because some Factory operations are tagged `agent` upstream — `GET /factory/scorers/{scorer_id}/results` is one — so a tags-only rule leaks them into the public reference. Use a prefix only when a whole URL namespace is private; prefer a tag or an explicit path everywhere else.
+`EXCLUDED_PATH_PREFIXES` drops a path by prefix regardless of how its operations are tagged or marked. It is empty today; `/factory` was its only entry while Warp Factories was pre-launch (see "`factory` (no longer excluded)" above). Use a prefix only when a whole URL namespace is private; prefer a tag or an explicit path everywhere else.
 
 ## Excluded enum values in public schemas
 
-`RunSourceType` is used by public run endpoints but includes three values that
-describe Factory-only behavior. `EXCLUDED_RUN_SOURCE_VALUES` removes
-`BENCHMARK_TRIAL`, `CREATE_BENCHMARK_TASK`, and `CUSTOM_WEBHOOK`, plus their
-matching description lines, from the docs subset. Keep `RUN_SCORER`: its
-description identifies a generic run-scoring judge rather than a Factory-only
-surface.
+`EXCLUDED_RUN_SOURCE_VALUES` is empty. `RunSourceType` is used by `RunItem.source`, so any value the server can return belongs in the reference. It previously hid `BENCHMARK_TRIAL`, `CREATE_BENCHMARK_TASK`, and `CUSTOM_WEBHOOK` as Factory-only. Warp Factories and custom webhooks are public now, and the server publishes all three values. The benchmark values still describe a surface whose endpoints are internal, so they are listed in the enum without a public endpoint behind them. Add a value to the set only if the server stops returning it in public responses.
 
 ## `x-internal` operations are dropped
 
-Operations marked `x-internal: true` are removed, and a path loses its entry when all of its operations are internal. This covers the `/agent/messages/*` and `/agent/events/*` orchestration-messaging operations, `/agent/runs/{runId}/client-events`, `/agent/conversations/{conversation_id}/rename`, and `/agent/sessions/{sessionUuid}/redirect`.
+Operations marked `x-internal: true` are removed, and a path loses its entry when all of its operations are internal. This covers the `/agent/messages/*` and `/agent/events/*` orchestration-messaging operations, `/agent/runs/{runId}/client-events`, and `/agent/conversations/{conversation_id}/rename`.
 
 An earlier version of this policy kept those operations verbatim so the regenerated file matched the docs copy already on disk. That made this script disagree with warp-server's release filter, which strips them, and meant every newly marked-internal operation would be republished here. Matching the upstream marker is the safer default: it can only ever remove surfaces, never add one.
 
