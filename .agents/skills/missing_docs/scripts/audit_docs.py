@@ -107,6 +107,29 @@ EXTRACTION_FLOORS = {
     "settings": 100,
 }
 
+# Docs directories the CLI and API audits scope their prose search to, relative
+# to src/content/docs. Ordered; the first existing directory wins, so a legacy
+# path can stay listed after the current one.
+#
+# These are the docs-side mirror of EXTRACTION_FLOORS: when the docs IA moves
+# and the path here does not, every command or route reads as uncovered and the
+# run reports a wall of false positives. `reference/cli` and
+# `reference/api-and-sdk` did exactly that after the content moved under
+# `agents/cli` and `factories/api-and-sdk`. Resolution now fails loud instead
+# (see _resolve_docs_dir), matching how parse_settings_doc() reports a moved
+# all-settings.mdx.
+CLI_DOCS_DIRS = ("agents/cli", "reference/cli")
+API_DOCS_DIRS = ("factories/api-and-sdk", "reference/api-and-sdk")
+
+
+def _resolve_docs_dir(docs_root: Path, candidates: tuple[str, ...]) -> Path | None:
+    """Return the first candidate subdirectory of docs_root that exists."""
+    for rel in candidates:
+        path = docs_root.joinpath(*rel.split("/"))
+        if path.is_dir():
+            return path
+    return None
+
 # ---------------------------------------------------------------------------
 # Surface map parser
 # ---------------------------------------------------------------------------
@@ -1444,14 +1467,23 @@ def audit_cli(warp_repo: Path, docs_root: Path, surface_map: dict,
     repo_root = DOCS_REPO_ROOT[0] or docs_root.parent.parent.parent
 
     # Read all CLI docs content
-    cli_docs_dir = docs_root / "reference" / "cli"
+    cli_docs_dir = _resolve_docs_dir(docs_root, CLI_DOCS_DIRS)
+    if cli_docs_dir is None:
+        return [{
+            "command": "(all)",
+            "severity": "high",
+            "reason": (
+                "CLI reference docs directory not found — the docs IA moved; "
+                "update CLI_DOCS_DIRS in audit_docs.py. Tried: "
+                f"{', '.join(CLI_DOCS_DIRS)}"
+            ),
+        }]
     cli_docs_text = {}
-    if cli_docs_dir.exists():
-        for f in find_markdown_files(cli_docs_dir):
-            try:
-                cli_docs_text[str(f)] = f.read_text(encoding="utf-8").lower()
-            except Exception:
-                pass
+    for f in find_markdown_files(cli_docs_dir):
+        try:
+            cli_docs_text[str(f)] = f.read_text(encoding="utf-8").lower()
+        except Exception:
+            pass
 
     def is_covered(cmd_str: str, search_phrase: str) -> bool:
         if cmd_str in cli_to_doc:
@@ -1523,14 +1555,23 @@ def audit_api(warp_server: Path, docs_root: Path, surface_map: dict,
     api_to_doc = surface_map.get("api_to_doc", {})
 
     # Read API docs
-    api_docs_dir = docs_root / "reference" / "api-and-sdk"
+    api_docs_dir = _resolve_docs_dir(docs_root, API_DOCS_DIRS)
+    if api_docs_dir is None:
+        return [{
+            "route": "(all)",
+            "severity": "high",
+            "reason": (
+                "API reference docs directory not found — the docs IA moved; "
+                "update API_DOCS_DIRS in audit_docs.py. Tried: "
+                f"{', '.join(API_DOCS_DIRS)}"
+            ),
+        }]
     api_docs_text = {}
-    if api_docs_dir.exists():
-        for f in find_markdown_files(api_docs_dir):
-            try:
-                api_docs_text[str(f)] = f.read_text(encoding="utf-8").lower()
-            except Exception:
-                pass
+    for f in find_markdown_files(api_docs_dir):
+        try:
+            api_docs_text[str(f)] = f.read_text(encoding="utf-8").lower()
+        except Exception:
+            pass
 
     # Also check OpenAPI spec (lives at repo root, not under content/docs)
     repo_root = DOCS_REPO_ROOT[0] or docs_root.parent
@@ -2612,8 +2653,8 @@ def compute_accounting(docs_root: Path, surface_map: dict, findings: dict,
     cli_map = surface_map.get("cli_to_doc", {})
     cli_findings = {f.get("command") for f in findings.get("undocumented_cli_commands", [])}
     cli_text = {}
-    cli_docs_dir = docs_root / "reference" / "cli"
-    if cli_docs_dir.exists():
+    cli_docs_dir = _resolve_docs_dir(docs_root, CLI_DOCS_DIRS)
+    if cli_docs_dir is not None:
         for f in find_markdown_files(cli_docs_dir):
             try:
                 cli_text[str(f)] = f.read_text(encoding="utf-8").lower()
@@ -2638,7 +2679,7 @@ def compute_accounting(docs_root: Path, surface_map: dict, findings: dict,
                 cb["mapped"] += 1
             elif any(name.split(" ", 1)[1] in t for t in cli_text.values()):
                 cb["doc_covered"] += 1
-            elif name in cli_findings:
+            elif name in cli_findings or "(all)" in cli_findings:
                 cb["finding"] += 1
             elif parent in cli_findings:
                 cb["parent_flagged"] += 1
@@ -2664,8 +2705,8 @@ def compute_accounting(docs_root: Path, surface_map: dict, findings: dict,
             pass
     spec_paths = parse_openapi_paths(openapi_text)
     api_docs_text = {}
-    api_docs_dir = docs_root / "reference" / "api-and-sdk"
-    if api_docs_dir.exists():
+    api_docs_dir = _resolve_docs_dir(docs_root, API_DOCS_DIRS)
+    if api_docs_dir is not None:
         for f in find_markdown_files(api_docs_dir):
             try:
                 api_docs_text[str(f)] = f.read_text(encoding="utf-8").lower()
@@ -2694,7 +2735,7 @@ def compute_accounting(docs_root: Path, surface_map: dict, findings: dict,
         elif any(c in openapi_text or any(c in t for t in api_docs_text.values())
                  for c in {route["path"].lower(), rel.lower()}):
             ab["docs_covered"] += 1
-        elif rel_str in api_findings:
+        elif rel_str in api_findings or "(all)" in api_findings:
             ab["finding"] += 1
         else:
             missing.append(rel_str)

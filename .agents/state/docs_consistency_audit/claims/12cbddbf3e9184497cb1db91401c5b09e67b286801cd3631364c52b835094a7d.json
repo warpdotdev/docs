@@ -1,0 +1,136 @@
+{
+  "claims": [
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:7e7c564437d48643be90e5518f103d9a04dfd2d36e90c21674d3771916d337ff",
+      "claim_id": "sha256:aae218536afe78810cedb5ed5030c68af03d7f429ce915bee48548aa09f8adf6",
+      "entity": "shared-session-data",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "retention-period",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Shared session data expires automatically about one week after you create the share.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/session-sharing",
+        "canonical_route": "/agents/local-agents/session-sharing",
+        "content_sha256": "2ce22341c880096a1c004579e40ff7c03cfbd323037b018cea7e6f3b376085bc",
+        "heading": "How long shared data is kept",
+        "heading_anchor": "how-long-shared-data-is-kept",
+        "line_end": 45,
+        "line_start": 45,
+        "path": "src/content/docs/agents/local-agents/session-sharing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/session-sharing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": 604800,
+        "type": "duration"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:3ee815796e7dcc14d4888454ff6c12e616b617e06a31a45ed3ce289dcc9a4785",
+      "claim_id": "sha256:f1a4838c50575f07248f9c7bb6b1d194a748bfa24a182d65e3f68e35e6329ba0",
+      "entity": "shared-session-data",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "retention-period",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The share link can no longer be opened after the one-week expiry.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/session-sharing",
+        "canonical_route": "/agents/local-agents/session-sharing",
+        "content_sha256": "2ce22341c880096a1c004579e40ff7c03cfbd323037b018cea7e6f3b376085bc",
+        "heading": "Stopping a share",
+        "heading_anchor": "stopping-a-share",
+        "line_end": 49,
+        "line_start": 49,
+        "path": "src/content/docs/agents/local-agents/session-sharing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/session-sharing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": 604800,
+        "type": "duration"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:e52c88d67b3f81cdf48fbcbb268d43f32d86d89f746e5c81e2cc9a03155942ef",
+      "claim_id": "sha256:a1a17fce45a9521dacedc8c1f53720bf95c48eb23c8abd52c0e882fb521450f1",
+      "entity": "account-deletion-data",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "deletion-job-interval",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Deletion jobs run every 24 hours",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/session-sharing",
+        "canonical_route": "/agents/local-agents/session-sharing",
+        "content_sha256": "2ce22341c880096a1c004579e40ff7c03cfbd323037b018cea7e6f3b376085bc",
+        "heading": "Stopping a share",
+        "heading_anchor": "stopping-a-share",
+        "line_end": 55,
+        "line_start": 55,
+        "path": "src/content/docs/agents/local-agents/session-sharing.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/session-sharing/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": 86400,
+        "type": "duration"
+      }
+    }
+  ],
+  "page_sha256": "2ce22341c880096a1c004579e40ff7c03cfbd323037b018cea7e6f3b376085bc",
+  "path": "src/content/docs/agents/local-agents/session-sharing.mdx",
+  "schema_version": 1
+}

@@ -1,0 +1,504 @@
+{
+  "claims": [
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:20457dcfcb091515e8176c7168042ecdc62689c8a8466e8b42594a4fd24b4b12",
+      "claim_id": "sha256:9ff22bd05fc46165f2725e946b7f42031ba97e5233805f23f863d23f73c2320c",
+      "entity": "customer-ai-data",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "used-for-training",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "byok"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp does not use this content for training",
+      "source": {
+        "canonical_identity": "route:/agents/inference/bring-your-own-api-key",
+        "canonical_route": "/agents/inference/bring-your-own-api-key",
+        "content_sha256": "ed679fdae6047a1be66a0100920223f9ed69b7a052d2710d1c85056b226e9300",
+        "heading": "Zero Data Retention (ZDR) and BYOK",
+        "heading_anchor": "zero-data-retention-zdr-and-byok",
+        "line_end": 142,
+        "line_start": 142,
+        "path": "src/content/docs/agents/inference/bring-your-own-api-key.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/bring-your-own-api-key/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:7324885ae93ab72d5e7059424a0778818a5af5159e7ffe726b2ab21687750ab8",
+      "claim_id": "sha256:3917d27247baff051c7af6b73857d89e028d0d79f1f63d90e98ca9ad7768f8f3",
+      "entity": "warp-managed-inference",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "zero-data-retention-available",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "byok"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp cannot enforce ZDR for requests sent through your API keys.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/bring-your-own-api-key",
+        "canonical_route": "/agents/inference/bring-your-own-api-key",
+        "content_sha256": "ed679fdae6047a1be66a0100920223f9ed69b7a052d2710d1c85056b226e9300",
+        "heading": "Zero Data Retention (ZDR) and BYOK",
+        "heading_anchor": "zero-data-retention-zdr-and-byok",
+        "line_end": 147,
+        "line_start": 147,
+        "path": "src/content/docs/agents/inference/bring-your-own-api-key.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/bring-your-own-api-key/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "plan-gating",
+      "claim_content_fingerprint": "sha256:adcf3de0235e43a684b67d123c9945a376fdfa15df3a0087fdd531b583b24f38",
+      "claim_id": "sha256:9c1ffec14010d27aa863e417a0881efb7f1bc4e6c58361fcd6cfafff7010d473",
+      "entity": "byok",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "available",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "all"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "BYOK is available on Free and all eligible paid plans",
+      "source": {
+        "canonical_identity": "route:/agents/inference/bring-your-own-api-key",
+        "canonical_route": "/agents/inference/bring-your-own-api-key",
+        "content_sha256": "ed679fdae6047a1be66a0100920223f9ed69b7a052d2710d1c85056b226e9300",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 19,
+        "line_start": 19,
+        "path": "src/content/docs/agents/inference/bring-your-own-api-key.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/bring-your-own-api-key/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:983ac17b1c8f2aab4c232b242259eeeba679a78afd61d6784efd010cb3026d16",
+      "claim_id": "sha256:56da2da12bcc75c3ccb6a9d89f60947d4922ae7f5d585b8e6156bed4b015b199",
+      "entity": "cloud-agent-runs",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "consumes-platform-credits",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [
+          "all"
+        ],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Platform credits apply to every cloud agent run on any plan",
+      "source": {
+        "canonical_identity": "route:/agents/inference/bring-your-own-api-key",
+        "canonical_route": "/agents/inference/bring-your-own-api-key",
+        "content_sha256": "ed679fdae6047a1be66a0100920223f9ed69b7a052d2710d1c85056b226e9300",
+        "heading": "How BYOK differs from custom inference endpoints and BYOLLM",
+        "heading_anchor": "how-byok-differs-from-custom-inference-endpoints-and-byollm",
+        "line_end": 36,
+        "line_start": 36,
+        "path": "src/content/docs/agents/inference/bring-your-own-api-key.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/bring-your-own-api-key/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:2172f43a7af2a8735b05e2bd3460bd10b761153625d98f50b0a8367b45472aa8",
+      "claim_id": "sha256:95d6baaf2e2f5e2ba30841235d40bbf5a1e91ebd1e04ab40add5e718ffe91e65",
+      "entity": "byok-requests",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-credits",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "byok"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp **never consumes your** [AI credits]",
+      "source": {
+        "canonical_identity": "route:/agents/inference/bring-your-own-api-key",
+        "canonical_route": "/agents/inference/bring-your-own-api-key",
+        "content_sha256": "ed679fdae6047a1be66a0100920223f9ed69b7a052d2710d1c85056b226e9300",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 13,
+        "line_start": 13,
+        "path": "src/content/docs/agents/inference/bring-your-own-api-key.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/bring-your-own-api-key/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:4f551773e7fe59b3e632a69ce2aedb6d006d5c75a733e1bcb98410812c2c041a",
+      "claim_id": "sha256:59a9c6b2bd26f24272036777a74c1216a2f845726cee91a9ffbfaf2481c9211c",
+      "entity": "byok-requests",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-credits",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "byok"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp **does not consume** any of your [credits]",
+      "source": {
+        "canonical_identity": "route:/agents/inference/bring-your-own-api-key",
+        "canonical_route": "/agents/inference/bring-your-own-api-key",
+        "content_sha256": "ed679fdae6047a1be66a0100920223f9ed69b7a052d2710d1c85056b226e9300",
+        "heading": "How BYOK works",
+        "heading_anchor": "how-byok-works",
+        "line_end": 64,
+        "line_start": 64,
+        "path": "src/content/docs/agents/inference/bring-your-own-api-key.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/bring-your-own-api-key/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:8dccc305851c32555a35a73787bda73e5b4632c0a49d01e699e103ba10127ad7",
+      "claim_id": "sha256:6fd44d9039120a2626d012add3a740bb5e1252f2ac82513dd9c5e1dcfc37ae14",
+      "entity": "auto-models",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-credits",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "byok"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**Auto always consumes Warp's credits**, even if you've configured your own API keys.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/bring-your-own-api-key",
+        "canonical_route": "/agents/inference/bring-your-own-api-key",
+        "content_sha256": "ed679fdae6047a1be66a0100920223f9ed69b7a052d2710d1c85056b226e9300",
+        "heading": "Auto Model",
+        "heading_anchor": "auto-model",
+        "line_end": 90,
+        "line_start": 90,
+        "path": "src/content/docs/agents/inference/bring-your-own-api-key.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/bring-your-own-api-key/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:5ba78151f3184b5af6a2d90e7c80675700f3bd24dccc0b307c16044a2f984239",
+      "claim_id": "sha256:84bcaf21f2ab7ebe96457ebb3f604e734c68fa92e24082ccad0335f4d1d537f5",
+      "entity": "provider-api-keys",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "stored-on-warp-servers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "byok"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "never on Warp's servers.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/bring-your-own-api-key",
+        "canonical_route": "/agents/inference/bring-your-own-api-key",
+        "content_sha256": "ed679fdae6047a1be66a0100920223f9ed69b7a052d2710d1c85056b226e9300",
+        "heading": "How BYOK works",
+        "heading_anchor": "how-byok-works",
+        "line_end": 44,
+        "line_start": 44,
+        "path": "src/content/docs/agents/inference/bring-your-own-api-key.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/bring-your-own-api-key/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:3c167b78cf6dd9e30e72b4088dd83d7ecaf0bfab42110ec0ce5682e9d2194720",
+      "claim_id": "sha256:84bcaf21f2ab7ebe96457ebb3f604e734c68fa92e24082ccad0335f4d1d537f5",
+      "entity": "provider-api-keys",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "stored-on-warp-servers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "byok"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp never stores it there",
+      "source": {
+        "canonical_identity": "route:/agents/inference/bring-your-own-api-key",
+        "canonical_route": "/agents/inference/bring-your-own-api-key",
+        "content_sha256": "ed679fdae6047a1be66a0100920223f9ed69b7a052d2710d1c85056b226e9300",
+        "heading": "How BYOK works",
+        "heading_anchor": "how-byok-works",
+        "line_end": 52,
+        "line_start": 52,
+        "path": "src/content/docs/agents/inference/bring-your-own-api-key.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/bring-your-own-api-key/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:c06503edb71bdb70a9a11b86e10b47e64b28e82ce8da5beb364ac298bf5c2e7a",
+      "claim_id": "sha256:fb473c0661f7fc262e3b5c686b326c4ecd539feb9784b7669ebc58d2d65a1576",
+      "entity": "user-level-byok",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "available-to-cloud-agents",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "BYOK does not apply to [Cloud Agents]",
+      "source": {
+        "canonical_identity": "route:/agents/inference/bring-your-own-api-key",
+        "canonical_route": "/agents/inference/bring-your-own-api-key",
+        "content_sha256": "ed679fdae6047a1be66a0100920223f9ed69b7a052d2710d1c85056b226e9300",
+        "heading": "How BYOK works",
+        "heading_anchor": "how-byok-works",
+        "line_end": 59,
+        "line_start": 59,
+        "path": "src/content/docs/agents/inference/bring-your-own-api-key.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/bring-your-own-api-key/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:2b3eb37f7901b6691cd36d1dbfc8e9cfb2dc95b1c0ac31307b4ba21318c149d4",
+      "claim_id": "sha256:def90f1f26c7946125cab6a59bf706f7e8113c434f3070d45604fffa77f196b0",
+      "entity": "user-level-byok",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "available-to-cloud-agents",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "BYOK keys are stored locally and not available to cloud-hosted runs.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/bring-your-own-api-key",
+        "canonical_route": "/agents/inference/bring-your-own-api-key",
+        "content_sha256": "ed679fdae6047a1be66a0100920223f9ed69b7a052d2710d1c85056b226e9300",
+        "heading": "Credit usage",
+        "heading_anchor": "credit-usage",
+        "line_end": 115,
+        "line_start": 115,
+        "path": "src/content/docs/agents/inference/bring-your-own-api-key.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/bring-your-own-api-key/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "ed679fdae6047a1be66a0100920223f9ed69b7a052d2710d1c85056b226e9300",
+  "path": "src/content/docs/agents/inference/bring-your-own-api-key.mdx",
+  "schema_version": 1
+}

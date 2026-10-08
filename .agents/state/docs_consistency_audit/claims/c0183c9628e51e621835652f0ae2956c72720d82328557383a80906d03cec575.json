@@ -1,0 +1,97 @@
+{
+  "claims": [
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:cfae39ef72d0d9ee4f71da81c24182c53b672dc6756a24751d38cee53287204c",
+      "claim_id": "sha256:31df1a55cb7408f0558589a1de11c21b8ee73f37f3a581e6c37cb17adc58d2bb",
+      "entity": "warp-managed-inference",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "zero-data-retention-available",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "customer-xai-subscription"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp cannot enforce ZDR for requests sent through your subscription.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/grok-subscription",
+        "canonical_route": "/agents/inference/grok-subscription",
+        "content_sha256": "4527d88f395791a933202c96adf5875dac01badc9e81e72afeaf094368ebc863",
+        "heading": "Zero data retention (ZDR)",
+        "heading_anchor": "zero-data-retention-zdr",
+        "line_end": 66,
+        "line_start": 66,
+        "path": "src/content/docs/agents/inference/grok-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/grok-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:4ec9880b30649f02b6a989a20d2f83e4380feb0a106e544a5c252e34448c2991",
+      "claim_id": "sha256:ab7293cf884f1ebf2f07dfbcb0c9777d918fe57ac02b1e3182d090b506c29ffe",
+      "entity": "auto-models",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-credits",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "customer-xai-subscription"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**always consume Warp credits**, even with a SuperGrok subscription connected.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/grok-subscription",
+        "canonical_route": "/agents/inference/grok-subscription",
+        "content_sha256": "4527d88f395791a933202c96adf5875dac01badc9e81e72afeaf094368ebc863",
+        "heading": "Auto models",
+        "heading_anchor": "auto-models",
+        "line_end": 58,
+        "line_start": 58,
+        "path": "src/content/docs/agents/inference/grok-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/grok-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "4527d88f395791a933202c96adf5875dac01badc9e81e72afeaf094368ebc863",
+  "path": "src/content/docs/agents/inference/grok-subscription.mdx",
+  "schema_version": 1
+}
