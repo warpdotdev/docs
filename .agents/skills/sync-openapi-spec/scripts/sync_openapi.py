@@ -55,9 +55,6 @@ import yaml
 # Tags whose paths and tag entry should be removed entirely.
 # `memory_stores` / `memory` back Agent Memory, which is a research preview.
 # `harness-support` is the worker-to-server contract — not a public API.
-# `networking` is marked `x-internal: true` on its tag entry upstream, but its
-# `GET /networking/egress-ranges` operation is not, so the tag-entry marker
-# alone would leave the path published under a missing tag.
 # These are belt-and-braces on top of the `x-internal` filter below: a tag can
 # be private even when individual operations aren't marked internal yet.
 #
@@ -67,7 +64,7 @@ import yaml
 # individually — so the `x-internal` filter is the source of truth for
 # which factory operations are public, same as the `agent` tag.
 EXCLUDED_TAGS: frozenset[str] = frozenset(
-    {"memory_stores", "memory", "harness-support", "networking"}
+    {"memory_stores", "memory", "harness-support"}
 )
 
 # OpenAPI extension warp-server uses to mark an operation private. Mirrors
@@ -106,6 +103,13 @@ EXCLUDED_PATHS: frozenset[str] = frozenset(
         "/agent/handoff/upload-snapshot",
         "/agent/conversations/{conversation_id}/fork",
         "/agent/conversations/{conversationId}/redirect",
+        # Web-app helper, excluded to match the conversation redirect above.
+        "/agent/sessions/{sessionUuid}/redirect",
+        # Public in the server spec but not exposed as SDK methods; held back
+        # until the server team confirms they are meant to be public.
+        "/factory-inbox",
+        "/factory-inbox/notifications/read",
+        "/factory-inbox/notifications/unread",
     }
 )
 
@@ -116,9 +120,10 @@ EXCLUDED_PATHS: frozenset[str] = frozenset(
 # namespace is private.
 EXCLUDED_PATH_PREFIXES: tuple[str, ...] = ()
 
-EXCLUDED_RUN_SOURCE_VALUES: frozenset[str] = frozenset(
-    {"BENCHMARK_TRIAL", "CREATE_BENCHMARK_TASK", "CUSTOM_WEBHOOK"}
-)
+# Empty today. The server publishes every RunSourceType value, and `RunItem.source`
+# can return any of them, so the docs enum matches. Add a value here only if
+# the server stops returning it in public responses.
+EXCLUDED_RUN_SOURCE_VALUES: frozenset[str] = frozenset()
 # The upstream spec owns endpoint behavior and non-product metadata. The docs
 # copy uses the public product name and description that frame the Scalar
 # reference alongside the Factory and cloud-agent documentation.
@@ -577,10 +582,10 @@ def _unknown_classifications(source: dict[str, Any]) -> list[str]:
     """Flag tags or paths the policy doesn't already cover.
 
     The skill's policy currently knows about the `agent`, `schedules`, and
-    `factory` tags (kept) and `memory_stores`/`memory`/`harness-support`/
-    `networking` (dropped). Anything else needs human triage.
+    `factory`, and `networking` tags (kept) and `memory_stores`/`memory`/
+    `harness-support` (dropped). Anything else needs human triage.
     """
-    KNOWN_TAGS = {"agent", "schedules", "factory"} | set(EXCLUDED_TAGS)
+    KNOWN_TAGS = {"agent", "schedules", "factory", "networking"} | set(EXCLUDED_TAGS)
 
     notes: list[str] = []
     for tag in source.get("tags") or []:
@@ -786,9 +791,21 @@ def _self_test() -> int:
     responses = set(out["components"]["responses"].keys())
     assert responses == {"PublicAccessDenied"}, f"unexpected responses: {responses}"
     run_sources = out["components"]["schemas"]["RunSourceType"]
-    assert run_sources["enum"] == ["API"], f"unexpected run sources: {run_sources['enum']}"
-    assert "BENCHMARK_TRIAL" not in run_sources["description"]
-    assert "CUSTOM_WEBHOOK" not in run_sources["description"]
+    assert run_sources["enum"] == ["API", "BENCHMARK_TRIAL", "CUSTOM_WEBHOOK"], (
+        f"run sources should publish as the server does: {run_sources['enum']}"
+    )
+    assert "BENCHMARK_TRIAL" in run_sources["description"]
+    # The exclusion mechanism still prunes values and their description lines.
+    global EXCLUDED_RUN_SOURCE_VALUES
+    saved_run_source_values = EXCLUDED_RUN_SOURCE_VALUES
+    EXCLUDED_RUN_SOURCE_VALUES = frozenset({"BENCHMARK_TRIAL", "CUSTOM_WEBHOOK"})
+    try:
+        pruned = transform(sample)["components"]["schemas"]["RunSourceType"]
+    finally:
+        EXCLUDED_RUN_SOURCE_VALUES = saved_run_source_values
+    assert pruned["enum"] == ["API"], f"unexpected pruned run sources: {pruned['enum']}"
+    assert "BENCHMARK_TRIAL" not in pruned["description"]
+    assert "CUSTOM_WEBHOOK" not in pruned["description"]
 
     tag_names = [t["name"] for t in out.get("tags") or []]
     assert tag_names == ["agent"], f"unexpected tags: {tag_names}"
