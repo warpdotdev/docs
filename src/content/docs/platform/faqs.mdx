@@ -64,9 +64,9 @@ The cloud agents platform supports self-hosting the **agent sandbox** (the execu
 Self-hosted execution is available on **Enterprise** plans. See [Self-hosting](/factories/self-hosting/) and [Deployment patterns](/factories/deployment-patterns/) for details.
 
 :::note
-Self-serve [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/) does not apply to cloud agents. Keys you add yourself are stored locally on your device and can't be passed to cloud-hosted or self-hosted agent runs, so those runs consume [Warp credits](/support-and-community/plans-and-billing/credits/).
+Personal [BYOK keys](/agents/inference/bring-your-own-api-key/) are stored on your device and are not available to cloud runs. Cloud runs use Warp-provided inference unless your team configures its own inference.
 
-Business and Enterprise teams are the exception: an admin can configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) that are stored server-side by Warp and used by cloud agents. Those runs still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for orchestration.
+Business and Enterprise admins can configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for cloud agents. Bringing your own inference does not remove [platform charges](/support-and-community/plans-and-billing/platform-credits/) or charges for Warp-hosted compute.
 :::
 
 ## Models
@@ -110,7 +110,7 @@ Cloud agent environments are sandboxed by default, with scoped access to repos, 
 
 ### Are cloud agents included in the Build plan, or is it a separate add-on?
 
-Cloud agents are included in the Build plan. Usage is metered via credits, with pricing based on agent runs and resource consumption. Concurrency limits and credit allocation details are still being finalized.
+Build supports cloud agents. Runs incur inference, Warp-hosted compute, and [platform charges](/support-and-community/plans-and-billing/platform-credits/), funded from available usage. See [usage and billing](/support-and-community/plans-and-billing/credits/) for charge components and billing units.
 
 ### How do cloud agents handle API keys and secrets for agents?
 

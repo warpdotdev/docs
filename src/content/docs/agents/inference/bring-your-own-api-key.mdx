@@ -10,7 +10,7 @@ Warp supports **Bring Your Own API Key (BYOK)** for users who want to connect ag
 
 This lets you use your own API keys for model access, giving you control over model selection, billing, and data routing. See [Model Choice](/agents/inference/model-choice/) for a list of supported models. You can also connect a [ChatGPT subscription](/agents/inference/chatgpt-subscription/) for eligible OpenAI models or a [SuperGrok subscription](/agents/inference/grok-subscription/) for Grok models.
 
-BYOK provides greater flexibility in model access and ensures Warp **never consumes your** [AI credits](/support-and-community/plans-and-billing/credits/) for requests routed through your own keys.
+Your provider bills inference routed through your keys. Applicable [platform charges](/support-and-community/plans-and-billing/platform-credits/) remain.
 
 <VideoEmbed url="https://youtu.be/jbSBnbPzQwY" title="How to BYOK to the Warp Agent" />
 
@@ -33,7 +33,7 @@ Warp offers several ways to bring your own AI infrastructure. Use this table to 
 
 See [Warp pricing](https://www.warp.dev/pricing) for current plan availability.
 
-Platform credits apply to every cloud agent run on any plan, and to local agent runs on Business and Enterprise when using BYOK, a custom inference endpoint, BYOLLM, or a connected ChatGPT plan. See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the full breakdown.
+Cloud runs incur platform charges for billable agent time. Local runs on Business and Enterprise that use customer-supplied inference also incur platform charges. See [platform usage](/support-and-community/plans-and-billing/platform-credits/) for rates and contract-specific terms.
 
 :::note
 **Can I sign in with a Claude subscription?** No. A Claude (Anthropic) consumer subscription can't be connected to Warp the way a [ChatGPT](/agents/inference/chatgpt-subscription/) or [SuperGrok](/agents/inference/grok-subscription/) subscription can. To use your own Anthropic account, add an API key with BYOK and pay Anthropic directly. A subscription and API access are billed separately.
@@ -56,16 +56,14 @@ Your API key passes through Warp's servers each time you send a request, but War
 :::
 
 :::caution
-BYOK does not apply to [Cloud Agents](/platform/). Because your API keys are stored locally on your device, they are not available to cloud-hosted agent runs, which consume [Warp credits](/support-and-community/plans-and-billing/credits/). Business and Enterprise teams that need their own keys to work with cloud agents can use [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), which Warp stores server-side.
+Personal BYOK keys are not available to [cloud runs](/platform/). Business and Enterprise teams can configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for cloud inference. Compute and platform charges still apply where eligible.
 :::
 
 When a model is selected using your own key:
 
-* Warp **does not consume** any of your [credits](/support-and-community/plans-and-billing/credits/).
+* The request does not consume Warp-provided inference usage.
 * Costs are billed directly through your model provider account.
 * Warp does not retain or store your API key on any of its servers.
-
-![Diagram showing how Warp authenticates BYOK agent requests with your provider API key, bypassing Warp credits.](../../../../assets/support-and-community/Pricing-Blog-BYOK.png)
 
 ## Enabling BYOK
 
@@ -81,37 +79,33 @@ The BYOK configuration widget doesn't currently live on a dedicated sidebar subp
 
 ![Key icon shown next to supported models in the model picker after BYOK API keys are configured.](../../../../assets/support-and-community/byok-keys.png)
 
-When you explicitly select a model with a key icon, Warp routes requests through your own API key instead of consuming Warp's credits.
+When you select a model with a key icon, Warp routes inference through your own API key instead of consuming Warp-provided inference usage.
 
 ## BYOK usage and billing behavior
 
 ### Auto Model
 
-Warp's **Auto** models dynamically route requests across different models based on context and performance. Because this routing logic depends on Warp's infrastructure, **Auto always consumes Warp's credits**, even if you've configured your own API keys.
+Warp's **Auto** models use Warp-provided inference and consume your available usage, even if you've configured your own API keys.
 
 To use your own key, select a specific provider model (for example, Claude Opus 4.7, Claude Sonnet 4.6, GPT-5.5, or Gemini 3.1 Pro) directly from the model picker with a key icon.
 
-[Custom routers](/agents/inference/custom-routers/) behave differently: a router resolves each task to a concrete model you chose, and Warp then applies your API keys to that model. Requests that resolve to a model covered by one of your keys are billed through your provider account instead of consuming Warp credits. See [Credits and model availability](/agents/inference/custom-routers/#credits-and-model-availability) for details.
+[Custom routers](/agents/inference/custom-routers/) resolve each task to a model you chose, then apply your API keys to that model. Requests covered by one of your keys bill inference through your provider account. See [usage and model availability](/agents/inference/custom-routers/#credits-and-model-availability) for details.
 
 ### Credit usage
 
 When you select a model with the key icon in your model picker, Warp routes the request through your API key. In that case:
 
-* Inference is billed directly through your provider account rather than drawing from your AI credits.
-* Agent Mode prioritizes BYOK over any available Warp credits.
-
-:::note
-On Business and Enterprise plans, local agent runs that use BYOK still consume platform credits for Warp's platform infrastructure (run lifecycle, integrations, observability). See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for what's covered.
-:::
+* Inference is billed through your provider account rather than your Warp usage balance.
+* Agent Mode prioritizes BYOK over Warp-provided inference.
 
 **Other AI features in Warp**
 
 Some AI-powered features are not affected by BYOK and are included as part of Warp’s paid plans.
 
-| Feature                                                                       | Uses Warp's credits | Description                                                          |
+| Feature                                                                       | Uses Warp-provided usage | Description                                                          |
 | ----------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------- |
 | [Active AI Recommendations](/agents/local-agents/active-ai/) | No                  | Always included with Build and higher plans.                         |
-| [Codebase Context](/agents/capabilities/codebase-context/)               | Yes                 | Uses Warp's AI infrastructure and consumes credits.                  |
+| [Codebase Context](/agents/capabilities/codebase-context/)               | Yes                 | Uses Warp-provided inference.                  |
 | [Cloud Agents](/platform/) | Yes                 | BYOK keys are stored locally and not available to cloud-hosted runs. |
 
 These features will continue to function normally regardless of whether you’ve configured BYOK.
@@ -123,15 +117,15 @@ If Warp detects an issue with your API key, you’ll see a clear error message c
 If your key:
 
 * Is invalid: Warp notifies you and halts the request.
-* Hits usage or rate limits: Warp will not retry using credits.
+* Hits usage or rate limits: Warp will not retry using Warp-provided inference unless fallback is enabled.
 
 You can update or replace your keys anytime by opening **Settings** and searching for `API keys`.
 
 **Failover and fallback:**
 
-By default, Warp does not fall back to your credits when a BYOK request fails.
+By default, Warp does not fall back to Warp-provided inference when a BYOK request fails.
 
-You can choose to enable **Warp credit fallback**. When enabled, if an agent request fails with your BYOK model (for example, due to an API error or quota limit), Warp will automatically route the request to one of Warp’s provided models. Warp always prioritizes your API keys first and only uses Warp credits when necessary.
+Enable **Warp credit fallback** to retry a failed BYOK request with Warp-provided inference. Fallback requests consume your available Warp usage.
 
 ![Setting to enable Warp credit fallback when a BYOK request fails.](../../../../assets/support-and-community/fallback.png)
 
@@ -159,7 +153,7 @@ Business and Enterprise teams can also configure **team-managed API keys** centr
 
 * [Custom inference endpoint](/agents/inference/custom-inference-endpoint/) — Route Warp through any OpenAI-compatible endpoint, such as OpenRouter, LiteLLM, z.ai, or an internal gateway.
 * [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) — Enterprise-managed inference through your cloud provider or approved infrastructure.
-* [SuperGrok subscription](/agents/inference/grok-subscription/) — Use Grok models through your xAI account instead of Warp credits.
+* [SuperGrok subscription](/agents/inference/grok-subscription/) — Use Grok models through your xAI account.
 * [ChatGPT subscription](/agents/inference/chatgpt-subscription/) — Use eligible OpenAI models in Warp Agent conversations in the Warp app through your ChatGPT plan.
 * [Model Choice](/agents/inference/model-choice/) — Full list of supported models and `model_id` values.
-* [Credits](/support-and-community/plans-and-billing/credits/) — How Warp credits work and when they're consumed.
+* [Usage and billing](/support-and-community/plans-and-billing/credits/) - Inference, compute, and platform charges.

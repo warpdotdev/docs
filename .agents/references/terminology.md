@@ -421,14 +421,15 @@ Docs match the screen; the fix belongs in the app.
 
 ## Billing and credits
 
-- **Add-on Credits** — capitalized as a product feature name
-- **Auto-reload** — the setting that automatically purchases another add-on credit pack when a user's balance drops below 100 credits. Hyphenated; capitalize the first letter only at the start of a sentence, bullet, or bolded list term.
-- **team-wide spend cap** — the admin-configured monthly ceiling on add-on credit spending across a whole team. Use instead of "budget" or "credit limit" when describing the cap. The per-account wording "monthly spend limit" refers to the same setting in single-user contexts.
-- **compute credits** — lowercase common noun; capitalize the first letter only at the start of a sentence or bullet. The compute bucket, consumed when an agent run uses Warp-hosted compute. Use alongside AI credits and platform credits when describing credit types.
-- **cloud agent credits** — lowercase common noun; capitalize the first letter only at the start of a sentence or bullet. Credits consumed by cloud agents, in contrast with local agent credits. Refers to the same compute bucket as compute credits; choose the term that fits the framing.
-- **platform credits** — lowercase common noun; capitalize the first letter only at the start of a sentence or bullet. The platform-infrastructure bucket, consumed for every cloud agent run plus local runs with customer-supplied inference.
-- **credits** — the unit of usage for AI features in Warp (lowercase, not "AI credits")
-- **Warp credits** — credits included with a subscription plan. Use in user-facing copy rather than "plan credits."
+- **usage** — the general term for metered inference, Warp-hosted compute, and platform activity. State whether the account bills in dollars or uses a credit-based agreement.
+- **included usage** — the allowance included with a plan; distinguish it from purchased usage and contract-specific pools.
+- **purchased usage** — additional usage bought on an eligible plan. Distinguish the usage added to the balance from the payment amount.
+- **Add-on Credits** — preserve this exact capitalization when quoting a shipped UI label or referring to credit-based purchases. Use "purchasing additional usage" for general guidance.
+- **auto-reload** — purchases the selected usage amount when the available balance runs low, subject to purchase controls. Do not make a credit threshold universal across billing units.
+- **monthly purchase limit** — the team's control on additional usage purchases, also labeled "monthly spend limit." Not a guaranteed ceiling on payments or the whole invoice.
+- **compute usage** / **platform usage** — charge components, not necessarily separate balances. Platform usage measures billable agent time.
+- **credits**, **compute credits**, **cloud agent credits**, **platform credits**, **Warp credits** — use for credit-based agreements, credit display units, and exact UI labels. Keep common nouns lowercase; do not use the "AI credits" prefix.
+- **public identifiers** — retain credit-named API fields, error codes, CLI labels, and published URLs. A billing-unit change is not an identifier rename.
 
 ## External product names
 

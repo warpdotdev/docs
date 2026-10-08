@@ -916,13 +916,13 @@ See `.agents/references/terminology.md` → "Warp Factories terminology" for the
 - **macOS** (not "Mac OS" or "Mac")
 
 ### Billing and credits
-- **credits** (lowercase, not "AI credits") - the unit of usage for AI features in Warp
-- **Add-on Credits** (capitalized as a product feature name)
-- **compute credits** (lowercase common noun; capitalize the first letter only at the start of a sentence or bullet) - the compute bucket; consumed when an agent run uses Warp-hosted compute. Used alongside AI credits and platform credits when describing credit types.
-- **cloud agent credits** (lowercase common noun; capitalize the first letter only at the start of a sentence or bullet) - credits consumed by cloud agents (in contrast with local agent credits). Refers to the same compute bucket as compute credits; pick the term that fits the framing.
-- **platform credits** (lowercase common noun; capitalize the first letter only at the start of a sentence or bullet) - the platform-infrastructure bucket
-- **Warp credits** - credits included with a subscription plan. Use in user-facing copy rather than "plan credits."
-- Use "credit" or "credits" without the "AI" prefix throughout documentation
+- **usage** - the general term for metered inference, Warp-hosted compute, and platform activity. State the account's billing unit.
+- **included usage** / **purchased usage** - distinguish the monthly allowance from additional usage purchases and contract-specific pools.
+- **dollar usage** - a usage balance, not the subscription price or necessarily the amount paid for a purchase.
+- **credits** (lowercase, not "AI credits") - use for credit-based agreements, credit display units, and exact product labels.
+- **Add-on Credits** - preserve the exact capitalization when quoting a shipped UI label or credit-based purchase.
+- **compute usage** / **platform usage** - charge components, not necessarily separate allowances. Use credit-named terms when describing a credit-based agreement.
+- Keep credit-named public identifiers, error codes, CLI labels, and URLs unchanged. See `.agents/references/terminology.md` for purchase-limit and display-unit guidance.
 
 ### UI elements
 - **Settings** (capitalized when referring to the Settings panel)

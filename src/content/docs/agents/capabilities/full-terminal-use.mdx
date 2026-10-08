@@ -188,29 +188,15 @@ These settings apply to every session that uses Full Terminal Use. You can still
 **Note**: All [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/) features still apply during Full Terminal Use, so sensitive values in your environment or output remain protected.
 :::
 
-### Credits usage
+<span id="credits-usage" />
 
-All AI interactions from Full Terminal Use consume [credits](/support-and-community/plans-and-billing/credits/), including understanding your natural language requests.
+### Usage
 
-Credits are consumed in a similar way as other Warp actions that use the same model and a similar context size.
+Agent interactions during Full Terminal Use follow [standard usage billing](/support-and-community/plans-and-billing/credits/). Long interactive tasks can require more inference when the agent runs many commands or reads large amounts of terminal output.
 
-**Interactive sessions can consume more credits if:**
-
-* The agent runs many commands in an interactive shell on your behalf.
-* There is a significant amount of terminal output to read and summarize.
-
-**To manage credit usage:**
-
-* Use tighter scopes:
-  * “Describe just the orders table.” instead of “Explain the entire database.”
-* Pause autonomy for high-volume tasks with copious terminal output:
-  * Take over manual control when running large batches or long logs.
-* Use stricter permissions:
-  * Set global permissions to "Ask on first write" or "Always ask", then approve only what you need.
-
-:::note
-To learn more about what goes into a credit and how to get more value from AI usage in Warp, see: [_Getting the most out of credits in Warp_](https://www.warp.dev/blog/warp-ai-requests).
-:::
+* **Narrow the scope** - Ask “Describe the orders table” rather than “Explain the entire database.”
+* **Take manual control** - Pause the agent while running large batches or reading long logs.
+* **Limit actions** - Use **Ask on first write** or **Always ask**, then approve only what you need.
 
 ## Example workflows
 

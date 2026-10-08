@@ -1,11 +1,11 @@
 ---
-title: Platform credits
+title: Platform usage
 description: >-
-  Platform credits are billed by the agent hour and cover Warp's platform
-  layer on cloud agent runs and local runs with customer-supplied inference.
+  Understand agent-hour charges for cloud runs and eligible local runs,
+  including how platform usage differs from inference and compute.
 ---
 
-Platform credits cover Warp's platform layer: run lifecycle, integrations, dashboard, APIs, and observability. They're billed by the agent hour, the time an agent spends working on a task. Platform credits apply to every cloud agent run, including [Warp Factories](/factories/) runs, plus local agent runs on Business and Enterprise plans that use customer-supplied inference.
+Platform usage covers running and managing agents through Warp. Cloud runs, including [Warp Factories](/factories/) runs, and local runs on Business and Enterprise that use customer-supplied inference incur charges for billable agent time. Dollar-billed plans deduct platform charges from their usage balance; Enterprise billing follows your contract.
 
 Customer-supplied inference is any setup where Warp isn't paying for the model call: [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), a [ChatGPT subscription](/agents/inference/chatgpt-subscription/) for local Warp Agent conversations, [custom inference endpoints](/agents/inference/custom-inference-endpoint/), [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), or [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) on Business and Enterprise plans.
 
@@ -13,55 +13,67 @@ Customer-supplied inference is any setup where Warp isn't paying for the model c
 BYOK and custom inference endpoint support are available for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service). Companies or organizations with more than 10 employees need a Warp Business or Enterprise plan to use these features.
 :::
 
-## How platform credits are measured
+<span id="how-platform-credits-are-measured" />
 
-An *agent hour* is one hour an agent spends working on a task. Warp meters platform usage in agent hours and bills that usage as platform credits. Partial hours are billed proportionally, not rounded up: a 15-minute run is a quarter of an agent hour. See [Warp pricing](https://www.warp.dev/pricing) for current rates. Enterprise rates are set by contract.
+## How platform usage is measured
 
-A run accrues agent hours from the time the agent starts in its environment, including environment setup, until the run finishes, fails, or is cancelled. Time spent queued before the agent starts isn't billed, and neither is idle time between turns while the run waits for your next message.
+An *agent hour* is one hour of billable agent activity. Partial hours are billed proportionally. The standard platform rate on dollar-billed self-serve plans is $5 per agent hour; Enterprise rates follow your contract.
 
-Within that period, what's billable depends on the [harness](/platform/harnesses/):
+Agent hours are not the same as the elapsed run time shown in a dashboard. Time queued before the agent starts and idle time between turns while it waits for your next message are not billable.
 
-* **Warp Agent** - Time the agent spends generating a response. Execution time for commands and tools the agent runs in its environment, such as a five-minute test suite, isn't billable.
-* **Claude Code and Codex** - The entire run, including command execution and time spent waiting on the model provider.
+Billable activity depends on the [harness](/platform/harnesses/):
 
-## The three credit buckets
+* **Warp Agent** - Time the agent spends generating a response. Command and tool execution time, such as a five-minute test suite, isn't billable as platform usage.
+* **Claude Code and Codex** - Active runtime, including command execution and time spent waiting on the model provider.
 
-Warp meters three types of infrastructure, each with its own credit bucket. Credit types and where an agent runs (local or cloud) are independent: each run consumes from whichever buckets apply to it.
+<span id="the-three-credit-buckets" />
 
-* **AI credits** - Cover inference, the model call itself. Consumed when Warp pays for the model call through Warp-managed providers. See [credits](/support-and-community/plans-and-billing/credits/) for how AI credits are calculated.
-* **Compute credits** - Cover the sandbox an agent runs in. Consumed when a run uses Warp-hosted compute, which in practice means cloud agent runs; local agent runs use your own machine. See [compute credits](/support-and-community/plans-and-billing/credits/#compute-credits).
-* **Platform credits** - Cover the platform layer that runs around the agent, billed by the agent hour.
+## Inference, compute, and platform usage
 
-A single run can consume from more than one bucket. A Warp-managed cloud agent run consumes AI credits for the model call, compute credits for the hosted sandbox, and platform credits for the platform layer.
+These are cost components, not independent allowances. A run can incur more than one:
 
-## When platform credits apply
+* **Inference** - Model calls billed through Warp. Your own provider bills customer-supplied inference separately.
+* **Compute** - The sandbox on Warp-hosted compute. Local or self-hosted compute does not incur this charge.
+* **Platform** - Billable agent time for the runs listed below.
 
-Whether a run uses platform credits depends on where it runs and who pays for inference.
+For example, a cloud run with Warp-provided inference on Warp-hosted compute incurs all three components. See [usage and billing](/support-and-community/plans-and-billing/credits/) for how they draw from your balance.
 
-### Uses platform credits
+<span id="when-platform-credits-apply" />
 
-* **Cloud agent runs on any plan** - Every cloud agent run uses platform credits, whichever harness (Warp Agent, Claude Code, or Codex), inference source (Warp-managed, BYOK, or BYOLLM), or compute source (Warp-hosted or self-hosted workers) it uses. [Warp Factories](/factories/) runs are cloud agent runs, so a factory's agents draw platform credits the same way.
-* **Local agent runs on Business or Enterprise with customer-supplied inference** - When a local run uses [BYOK](/agents/inference/bring-your-own-api-key/), a [ChatGPT subscription](/agents/inference/chatgpt-subscription/), a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), or BYOLLM, Warp isn't paying for the model call but still runs the platform layer around the agent.
+## When platform charges apply
 
-### Doesn't use platform credits
+Whether a run incurs platform charges depends on where it runs and who pays for inference.
 
-* **Local agent runs on Free, Build, or Max plans** - Don't use platform credits, whether the run uses Warp-managed or customer-supplied inference.
-* **Local agent runs on Business or Enterprise with Warp-managed inference** - Don't use platform credits because Warp already charges AI credits for the model call.
-* **Regular terminal usage** - Shell commands and non-AI Warp features don't consume credits.
-* **Third-party agent CLIs run directly** - Running `claude`, `codex`, or another agent CLI yourself, whether in a Warp terminal pane or elsewhere, doesn't consume platform credits.
+<span id="uses-platform-credits" />
 
-## Where platform credits appear
+### Uses platform services
 
-Platform credits appear in the same billing views as the rest of your credit usage. Usage is shown in credits, not agent hours.
+* **Cloud runs** - Billable agent time incurs platform charges regardless of the harness, inference provider, or compute host. Self-hosted workers avoid Warp-hosted compute charges, not platform charges. Enterprise exceptions follow your contract.
+* **Local runs on Business or Enterprise with customer-supplied inference** - Platform charges apply when the run uses BYOK, a connected subscription, a custom inference endpoint, or BYOLLM instead of Warp-provided inference.
 
-* **Per-user credit totals** - In the Warp app, **Settings** > **Billing and usage** shows platform credits alongside AI credits and compute credits.
-* **Admin usage breakdown** - For team admins, the Admin Panel billing view shows a per-bucket breakdown for each member and for the team as a whole. Platform credits appear as their own segment in the stacked usage bar.
-* **Add-on credits and limits** - Platform credits draw from the same pool as the rest of your usage: monthly Warp credits first, then [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) once those run out.
+<span id="doesnt-use-platform-credits" />
+
+### Doesn't incur platform charges
+
+* **Local runs on Free, Build, or Max** - No platform charge, whether inference is provided by Warp or by you.
+* **Local runs on Business or Enterprise with Warp-provided inference** - Inference is charged without a separate platform charge.
+* **Regular terminal usage** - Shell commands and non-AI terminal features don't consume agent usage.
+* **Third-party agent CLIs run directly** - Running `claude`, `codex`, or another CLI yourself, outside a Warp-managed run, doesn't incur Warp platform charges.
+
+<span id="where-platform-credits-appear" />
+
+## Tracking platform usage
+
+In the Warp app, open **Settings** > **Billing and usage** to check account usage. Team admins can review the usage breakdown in the [Admin Panel](/knowledge-and-collaboration/admin-panel/) under **Billing**.
+
+Detailed turn, conversation, and factory summaries show platform cost when available. These cost summaries are not agent-hour counters, and a run's displayed duration is not a substitute for billable agent hours.
+
+Platform charges draw from the billed user or agent's eligible usage balances. See [included and purchased usage](/support-and-community/plans-and-billing/credits/#included-and-purchased-usage) for allocation and spending order.
 
 ## Related pages
 
-* [Credits](/support-and-community/plans-and-billing/credits/) - How AI credits are measured and calculated.
-* [Add-on credits](/support-and-community/plans-and-billing/add-on-credits/) - Purchase additional credits or enable auto-reload.
+* [Usage and billing](/support-and-community/plans-and-billing/credits/) - How inference, compute, and platform costs are calculated.
+* [Purchasing additional usage](/support-and-community/plans-and-billing/add-on-credits/) - Buy usage or enable auto-reload.
 * [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) - Connect your own model provider keys.
 * [ChatGPT subscription](/agents/inference/chatgpt-subscription/) - Use eligible OpenAI models through your ChatGPT plan.
 * [Custom inference endpoint](/agents/inference/custom-inference-endpoint/) - Route Warp through any OpenAI-compatible endpoint.

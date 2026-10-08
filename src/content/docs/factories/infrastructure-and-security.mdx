@@ -87,7 +87,7 @@ Factory agents execute as cloud agents, so only inference options that support c
 
 | Option | Support for factory runs | Team controls | Key boundary |
 | --- | --- | --- | --- |
-| **Warp-managed inference** | Supported | The model selected for each agent | Warp provides the provider account and bills model usage with Warp credits |
+| **Warp-managed inference** | Supported | The model selected for each agent | Warp provides the provider account and charges your available usage |
 | **[Team-managed keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/)** | Supported on Business and Enterprise | Shared OpenAI, Anthropic, or Google keys, or an OpenAI-compatible endpoint | Warp stores the encrypted credential and uses it only at the inference boundary; it never enters the worker or run environment |
 | **[BYOLLM: AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/)** | Supported on Enterprise | The AWS account, IAM role, available Claude models, and provider billing | Warp assumes your IAM role through OIDC; inference runs in your AWS account |
 | **[BYOLLM: Gemini Enterprise](/enterprise/enterprise-features/byollm-gemini-enterprise/)** | Not supported for factory runs | Interactive inference in your Google Cloud project | Gemini Enterprise BYOLLM currently supports interactive agent requests only |
@@ -123,7 +123,7 @@ Managing shared runners and connecting team-wide integrations and providers requ
 
 ## Metering
 
-Warp meters hosted compute, Warp-provided inference, and platform services. Self-hosting moves compute costs to your infrastructure; customer-supplied inference bills your provider account. Platform services still consume credits. See [platform credits](/support-and-community/plans-and-billing/platform-credits/) for details.
+Warp meters hosted compute, Warp-provided inference, and [platform usage](/support-and-community/plans-and-billing/platform-credits/). Billing uses your plan's or contract's unit. Self-hosting removes Warp-hosted compute charges. Your provider bills customer-supplied inference. Neither removes applicable platform charges. External inference bills are not fully represented in Warp's totals.
 
 ## Deployment checklist
 
@@ -141,4 +141,4 @@ Warp meters hosted compute, Warp-provided inference, and platform services. Self
 * [**Execution security**](/platform/execution-security/) - Review data boundaries, egress, and backend controls.
 * [**Team-managed model keys and endpoints**](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Configure inference credentials.
 * [**Roles and permissions**](/enterprise/team-management/roles-and-permissions/) - Govern team and workspace resources.
-* [**Platform credits**](/support-and-community/plans-and-billing/platform-credits/) - Understand factory metering.
+* [Platform usage](/support-and-community/plans-and-billing/platform-credits/) - Understand agent-hour charges.

@@ -47,7 +47,7 @@ Each provider has its own request flow, credential lifecycle, and setup process.
 
 ## Billing behavior
 
-BYOLLM-routed inference **consumes no credits** — Warp doesn't charge credits for requests that execute in your cloud. Inference costs are billed directly to your cloud account. Local agent runs that use BYOLLM still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for Warp's platform infrastructure.
+Your cloud provider bills BYOLLM inference directly rather than consuming Warp-provided inference usage. Applicable [platform charges](/support-and-community/plans-and-billing/platform-credits/) and Warp-hosted compute charges remain. External inference costs are not fully represented in Warp's usage totals. See [Enterprise billing](/enterprise/support-and-resources/billing/#byollm-billing) for contract terms.
 
 See each provider's page for provider-specific routing and fallback behavior: [AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/#routing-and-fallback-behavior) or [Gemini Enterprise](/enterprise/enterprise-features/byollm-gemini-enterprise/#routing-and-fallback-behavior).
 

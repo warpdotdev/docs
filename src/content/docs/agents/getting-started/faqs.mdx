@@ -4,10 +4,10 @@ sidebar:
   label: "Agent FAQs"
 description: >-
   Frequently asked questions about Warp's AI features, including supported
-  models, privacy practices, credit limits, billing, and usage guidelines.
+  models, privacy practices, usage limits, billing, and common errors.
 ---
 
-Answers to frequently asked questions about agents in Warp, including supported models, data privacy, credit limits, billing, and common error messages. For billing-specific questions, see the pricing FAQs.
+For questions about plans, allowances, and purchases, see the [pricing FAQs](/support-and-community/plans-and-billing/pricing-faqs/).
 
 ## General
 
@@ -29,7 +29,7 @@ Warp supports a curated list of LLMs from providers like OpenAI, Anthropic, and 
 
 ### Can I use my own LLM API key?
 
-Yes. Warp supports [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/) on the Free plan and all eligible paid plans, so you can connect your own Anthropic, OpenAI, or Google API keys to route requests directly through your account. Because the Free plan doesn't include bundled AI usage for the Warp Agent, BYOK is one way to keep using the Warp Agent on the Free plan. BYOK and [custom inference endpoints](/agents/inference/custom-inference-endpoint/) are available for individual users and organizations with 10 or fewer employees, subject to Warp's Terms of Service.
+Yes. Warp supports [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/) on the Free plan and all eligible paid plans. Connect your Anthropic, OpenAI, or Google key to bill inference to your provider account. BYOK and [custom inference endpoints](/agents/inference/custom-inference-endpoint/) are available for individual users and organizations with 10 or fewer employees, subject to Warp's Terms of Service.
 
 Larger organizations need a Warp Business or Enterprise plan. Business and Enterprise admins can centrally manage BYOK and custom endpoints for the whole team with [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/), which also work for cloud agents. Enterprise admins can additionally enable managed [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/) configurations for cloud-provider routing.
 
@@ -43,11 +43,11 @@ For xAI's Grok models, connect a [SuperGrok subscription](/agents/inference/grok
 
 ## Billing
 
-Paid Warp plans include a set number of credits per user per month for Warp-provided AI usage. The Free plan doesn't include bundled AI usage for the Warp Agent; to use the Warp Agent, [upgrade to a paid plan](https://www.warp.dev/pricing) or bring your own inference (BYOK, a [custom inference endpoint](/agents/inference/custom-inference-endpoint/), a [ChatGPT subscription](/agents/inference/chatgpt-subscription/), or a [SuperGrok or X Premium subscription](/agents/inference/grok-subscription/)). See [pricing](https://www.warp.dev/pricing) to compare plans.
+Self-serve paid plans include monthly usage per seat. Dollar-billed plans state the allowance in dollars; credit-based agreements use credits. Check [Warp pricing](https://www.warp.dev/pricing) and your account's Billing and usage settings for your allowance.
 
-Credit limits apply to Agent Mode, Generate (Legacy), and [AI autofill in Workflows](/knowledge-and-collaboration/warp-drive/workflows/#ai-autofill).
+Dollar-billed Free plans do not include bundled inference for the Warp Agent. You can [purchase usage](/support-and-community/plans-and-billing/add-on-credits/) without subscribing, or [bring your own inference](/agents/inference/bring-your-own-api-key/).
 
-For questions about what counts as a credit, what counts as a token, and how often credits refresh, see [Credits](/support-and-community/plans-and-billing/credits/) and the [Plans & Pricing](/support-and-community/plans-and-billing/plans-pricing-refunds/) page.
+See [usage and billing](/support-and-community/plans-and-billing/credits/) for metered features and token details, and [plans, pricing, and refunds](/support-and-community/plans-and-billing/plans-pricing-refunds/) for resets and existing balances.
 
 ## Common AI error messages
 
@@ -62,11 +62,11 @@ To fix this, try:
 
 #### "Monthly request limit exceeded" or "Monthly credit limit exceeded" errors
 
-Once you exceed your monthly credit limit (see [pricing](https://www.warp.dev/pricing) for current limits), premium models will be disabled until your quota resets at the start of your next billing cycle. On paid plans with add-on credits, you can continue using AI with usage-based billing.
+On self-serve plans, Warp-provided inference is blocked when no usable balance remains. Wait for your included allowance to reset, [purchase usage or configure auto-reload](/support-and-community/plans-and-billing/add-on-credits/), or bring your own inference. Enterprise availability follows your contract. Model token limits are separate from your available billing balance.
 
 **Request failed with error: QuotaLimit**
 
-Once you exceed your AI token limits, all models will be disabled. Note that credits and tokens are calculated separately, and even though the plans may have a set number of credits, they also have a limited number of tokens.
+A usage quota has been reached. In the Warp app, check **Settings** > **Billing and usage** for your available balance and reset date. A model's context-window limit is a separate error.
 
 **Request failed with error: ErrorStatus (403, "Your account has been blocked from using AI features")**
 

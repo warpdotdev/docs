@@ -106,11 +106,11 @@ If the admin allows members to add their own keys and endpoints, members can sti
 
 ## Billing behavior
 
-* **No AI credits for team-routed inference** - When a request routes through a team key or team endpoint, Warp doesn't consume your [AI credits](/support-and-community/plans-and-billing/credits/). Inference is billed directly by your provider or endpoint.
-* **Auto still uses Warp credits** - Warp's **Auto** models route across providers using Warp's infrastructure, so Auto always consumes Warp credits. To use a team provider, select a specific model or endpoint from the picker. [Custom routers](/agents/inference/custom-routers/) are the exception: after a router resolves a task to a concrete model, the request routes through the first-party key for that model's provider (the member's own key first, then the team key). Routers can't target team endpoint models.
-* **Platform and compute credits still apply** - On Business and Enterprise, local agent runs still consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for Warp's platform infrastructure (run lifecycle, orchestration, and observability). Cloud agent runs consume platform credits too, plus [compute credits](/support-and-community/plans-and-billing/credits/#compute-credits) when they use Warp-hosted compute.
+* **Provider-billed inference** - Your provider or endpoint bills team-routed inference directly rather than consuming Warp-provided inference usage.
+* **Auto uses Warp-provided inference** - **Auto** consumes Warp usage. Select a specific model or endpoint to use your team's provider. [Custom routers](/agents/inference/custom-routers/) apply provider keys after choosing a model, preferring a member's own key over the team key. Routers cannot target endpoint models.
+* **Other Warp charges remain** - Customer-supplied inference incurs [platform charges](/support-and-community/plans-and-billing/platform-credits/) for local Business and Enterprise runs and all cloud runs. Cloud runs on Warp-hosted compute also incur [compute charges](/support-and-community/plans-and-billing/credits/#compute-usage).
 
-See [The three credit buckets](/support-and-community/plans-and-billing/platform-credits/#the-three-credit-buckets) for more on credit types.
+External inference bills are not fully represented in Warp's totals. See [usage and billing](/support-and-community/plans-and-billing/credits/#charges-and-estimates) for cost-reporting limitations.
 
 ## Security and data handling
 

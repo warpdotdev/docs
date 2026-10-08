@@ -266,7 +266,7 @@ Settings for Warp's agents, including model behavior, permissions, knowledge, MC
 **Section**: `[agents]`
 
 * `cloud_conversation_storage_enabled` — Whether conversations are stored in the cloud. Type: boolean. Default: `true`.
-* `usage_display_mode` — Which unit the terminal agent's usage entry displays. Applies only to the terminal agent's settings file; click the usage entry to flip between units. Type: string. Default: `"credits"`. Options: `"credits"` (the same number the desktop app's usage footer shows), `"cost"` (provider dollar cost).
+* `usage_display_mode` — Which unit the terminal agent's usage entry displays. Applies only to the terminal agent's settings file; click the usage entry to flip between units. Type: string. Default: `"credits"`. Options: `"credits"` (credits used), `"cost"` (recorded Warp dollar charges). This preference is independent of the desktop app's display unit. See [CLI usage and cost](/agents/cli/models-and-usage/#usage-and-cost).
 * `execution_profiles` — The collection of [agent profiles](/agents/capabilities/agent-profiles-permissions/) and their permissions, shared by Agent Mode and the terminal agent. This is a structured object that Warp manages when you create and edit profiles in **Settings** > **Agents** > **Profiles**; edit it through the UI rather than by hand. Type: object. Default: `{}` (Warp's built-in profiles).
 * `custom_endpoints` — Non-secret [custom inference endpoint](/agents/inference/custom-inference-endpoint/) definitions (URL, models, schema). Credentials stay in local secure storage, not in this object. Warp manages the collection from **Settings**; edit it through the UI rather than by hand. Type: object. Default: `{}`.
 
@@ -548,7 +548,7 @@ Settings for third-party API key integration and cloud model configuration.
 * `aws_bedrock_auto_login` — Whether to automatically run the AWS login command when Bedrock credentials expire. Type: boolean. Default: `false`.
 * `aws_bedrock_auth_refresh_command` — The command to run to refresh AWS credentials for Bedrock. Type: string. Default: `"aws login"`.
 * `gemini_enterprise_credentials_enabled` — Whether Warp routes eligible requests through your workspace's Gemini Enterprise Google Cloud project. Requires a workspace admin to configure Gemini Enterprise. Type: boolean. Default: `false`.
-* `can_use_warp_credits_with_byok` — Whether Warp credits can be used even when providing your own API key. Type: boolean. Default: `false`.
+* `can_use_warp_credits_with_byok` — Whether Warp-provided inference can be used even when providing your own API key. Type: boolean. Default: `false`. See [BYOK billing](/agents/inference/bring-your-own-api-key/#byok-usage-and-billing-behavior).
 
 ## Global hotkey
 
