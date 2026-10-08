@@ -144,9 +144,12 @@ oz environment update <ENV_ID> --remove-setup-command "SETUP_COMMAND"
 oz environment update <ENV_ID> --name "ENVIRONMENT_NAME"
 oz environment update <ENV_ID> --description "DESCRIPTION"
 oz environment update <ENV_ID> --docker-image IMAGE_REFERENCE
+
+# Set or replace the default runner
+oz environment update <ENV_ID> --default-runner <RUNNER_UID>
 ```
 
-Use `--remove-description` to clear the description. Use `--force` to skip confirmation checks for environments used by integrations.
+Run `oz runner list` to find the runner UID. The runner and environment must have the same owner. Use `--remove-description` to clear the description. Use `--force` to skip confirmation checks for environments used by integrations.
 
 ### Delete an environment
 
