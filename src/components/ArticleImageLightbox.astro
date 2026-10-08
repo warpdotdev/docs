@@ -49,9 +49,11 @@
 
 		let activeTrigger: HTMLElement | null = null;
 
+		// VideoEmbed posters live in article content and must stay click-to-play.
+		// Enhancing them opens the lightbox over the iframe and hides the video.
 		const isEligibleArticleImage = (image: HTMLImageElement) =>
 			image.matches('main .sl-markdown-content img') &&
-			!image.closest('.not-content, #sl-kapa-panel, [data-no-lightbox]');
+			!image.closest('.not-content, #sl-kapa-panel, .video-embed, [data-no-lightbox]');
 		const isEligibleKapaImage = (image: HTMLImageElement, trigger: HTMLElement) =>
 			trigger.matches('.sl-kapa-answer-image-button') &&
 			image.matches('.sl-kapa-answer-image') &&

@@ -1,0 +1,308 @@
+{
+  "findings": {
+    "sha256:50890f2239bc6a5045d38e66cb7f4f160232143c6abc357e749789e9a86f8e47": {
+      "audit_run_id": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
+      "authority_reason": "The model-choice page provides the model-specific retention requirement; the overview supplies no matching exception.",
+      "canonical_source": "canonical-doc",
+      "category": "privacy",
+      "claims": [
+        {
+          "category": "privacy",
+          "claim_content_fingerprint": "sha256:4a3c2fcfdcc8af7ee4ef1cc3a1445ea4a2aa1da3b22b7ab432f4731fc52925de",
+          "claim_id": "sha256:bacdacbb806b29b5dfe487d4c039002820dbaa55b361fc232594549d994bdb0c",
+          "entity": "customer-ai-data",
+          "extraction_confidence": 0.95,
+          "polarity": "affirmative",
+          "predicate": "retained-by-model-provider",
+          "qualifiers": {
+            "actors": [],
+            "architectures": [],
+            "environments": [],
+            "exceptions": [],
+            "install_methods": [],
+            "legacy": false,
+            "operating_systems": [],
+            "plans": [],
+            "release_statuses": [],
+            "shells": [],
+            "time_scope": null,
+            "versions": []
+          },
+          "quote": "No customer AI data is retained, stored, or used for training.",
+          "source": {
+            "canonical_identity": "route:/agents",
+            "canonical_route": "/agents",
+            "content_sha256": "72e93182507589534620db15a80de4b744125bc90876594460ad2ce937507e86",
+            "heading": "Privacy and security",
+            "heading_anchor": "privacy-and-security",
+            "line_end": 65,
+            "line_start": 65,
+            "path": "src/content/docs/agents/index.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/agents/",
+            "visibility": "public"
+          },
+          "source_class": "canonical-doc",
+          "topic": "privacy",
+          "value": {
+            "normalized": false,
+            "type": "boolean"
+          }
+        },
+        {
+          "category": "privacy",
+          "claim_content_fingerprint": "sha256:032e4bc65a25f585678ddcf5a3d0f8e96ec662b77fea94e961f6c47d6e2fe153",
+          "claim_id": "sha256:a57ee70be66d981fe317dcbcc9b3384d469e74ff18b28c5ccdb99d9a5481e105",
+          "entity": "customer-ai-data",
+          "extraction_confidence": 0.95,
+          "polarity": "affirmative",
+          "predicate": "retained-by-model-provider",
+          "qualifiers": {
+            "actors": [
+              "anthropic"
+            ],
+            "architectures": [],
+            "environments": [],
+            "exceptions": [],
+            "install_methods": [],
+            "legacy": false,
+            "operating_systems": [],
+            "plans": [],
+            "release_statuses": [],
+            "shells": [],
+            "time_scope": null,
+            "versions": [
+              "claude-fable-5",
+              "claude-fable-5.1"
+            ]
+          },
+          "quote": "Anthropic requires data retention for Claude Fable 5 and Claude Fable 5.1",
+          "source": {
+            "canonical_identity": "route:/agents/inference/model-choice",
+            "canonical_route": "/agents/inference/model-choice",
+            "content_sha256": "6745d88e9577fa4a92188ceb7643e7e52b3b27503e336bcf0f07e92c13c86e31",
+            "heading": "Anthropic",
+            "heading_anchor": "anthropic",
+            "line_end": 71,
+            "line_start": 71,
+            "path": "src/content/docs/agents/inference/model-choice.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/agents/inference/model-choice/",
+            "visibility": "public"
+          },
+          "source_class": "canonical-doc",
+          "topic": "privacy",
+          "value": {
+            "normalized": true,
+            "type": "boolean"
+          }
+        }
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "entity": "customer-ai-data",
+      "finding_content_fingerprint": "sha256:7cbaf48739dd3e4af743f3dd94ca39a7d509bafadda6f5e15ca3c0fc8a5a8bb9",
+      "finding_id": "sha256:50890f2239bc6a5045d38e66cb7f4f160232143c6abc357e749789e9a86f8e47",
+      "first_seen_run": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
+      "last_seen_run": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
+      "lifecycle": "new",
+      "predicate": "retained-by-model-provider",
+      "qualifier_status": "complete",
+      "rationale": "The agents overview states without qualification that no customer AI data is retained, while the model-choice page says Anthropic requires retention for Claude Fable 5 and 5.1. The narrower current-model exception is incompatible with the overview\u2019s universal wording.",
+      "rationale_class": "universal-claim-counterexample",
+      "reopened": false,
+      "scope_quotes": [
+        {
+          "quote": "No customer AI data is retained, stored, or used for training.",
+          "source": {
+            "canonical_identity": "route:/agents",
+            "canonical_route": "/agents",
+            "content_sha256": "72e93182507589534620db15a80de4b744125bc90876594460ad2ce937507e86",
+            "heading": "Privacy and security",
+            "heading_anchor": "privacy-and-security",
+            "line_end": 65,
+            "line_start": 65,
+            "path": "src/content/docs/agents/index.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/agents/",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "Anthropic requires data retention for Claude Fable 5 and Claude Fable 5.1",
+          "source": {
+            "canonical_identity": "route:/agents/inference/model-choice",
+            "canonical_route": "/agents/inference/model-choice",
+            "content_sha256": "6745d88e9577fa4a92188ceb7643e7e52b3b27503e336bcf0f07e92c13c86e31",
+            "heading": "Anthropic",
+            "heading_anchor": "anthropic",
+            "line_end": 71,
+            "line_start": 71,
+            "path": "src/content/docs/agents/inference/model-choice.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/agents/inference/model-choice/",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "high",
+      "source_commit": "3aa4a90e8914a3039d38d86c3cfa265720f59736",
+      "status": "active",
+      "suggested_resolution": "Have the privacy and model-inference owners review and reconcile the public retention language.",
+      "suggested_resolution_class": "human-review",
+      "title": "Universal AI retention claim omits Claude Fable exception",
+      "topic": "privacy",
+      "verdict": "contradiction"
+    },
+    "sha256:8fff47f3da6b8ecf3313f2af0d7506827edc42998120dff2d1d11121a0882865": {
+      "audit_run_id": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
+      "authority_reason": "The canonical overview and FAQ make opposing public statements about training use, and the privacy page confirms collection depends on telemetry and plan context rather than establishing a universal no-training rule.",
+      "canonical_source": "canonical-doc",
+      "category": "privacy",
+      "claims": [
+        {
+          "category": "privacy",
+          "claim_content_fingerprint": "sha256:4a3c2fcfdcc8af7ee4ef1cc3a1445ea4a2aa1da3b22b7ab432f4731fc52925de",
+          "claim_id": "sha256:9a61ebe3ba11995f51b6271d13c3f3c0d41c4cd62ff3e81be2fffee05f840f14",
+          "entity": "customer-ai-data",
+          "extraction_confidence": 0.95,
+          "polarity": "affirmative",
+          "predicate": "used-for-training",
+          "qualifiers": {
+            "actors": [],
+            "architectures": [],
+            "environments": [],
+            "exceptions": [],
+            "install_methods": [],
+            "legacy": false,
+            "operating_systems": [],
+            "plans": [],
+            "release_statuses": [],
+            "shells": [],
+            "time_scope": null,
+            "versions": []
+          },
+          "quote": "No customer AI data is retained, stored, or used for training.",
+          "source": {
+            "canonical_identity": "route:/agents",
+            "canonical_route": "/agents",
+            "content_sha256": "72e93182507589534620db15a80de4b744125bc90876594460ad2ce937507e86",
+            "heading": "Privacy and security",
+            "heading_anchor": "privacy-and-security",
+            "line_end": 65,
+            "line_start": 65,
+            "path": "src/content/docs/agents/index.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/agents/",
+            "visibility": "public"
+          },
+          "source_class": "canonical-doc",
+          "topic": "privacy",
+          "value": {
+            "normalized": false,
+            "type": "boolean"
+          }
+        },
+        {
+          "category": "privacy",
+          "claim_content_fingerprint": "sha256:249a03cfda30c1f6c888af5b3f648c4e87d87ca5be1caf1f75c2f13fad892756",
+          "claim_id": "sha256:882f4a4134e8723bc27b9e242bd35619766cbb5706ffa9292ee9cbb788b38ed4",
+          "entity": "customer-ai-data",
+          "extraction_confidence": 0.95,
+          "polarity": "affirmative",
+          "predicate": "used-for-training",
+          "qualifiers": {
+            "actors": [],
+            "architectures": [],
+            "environments": [],
+            "exceptions": [],
+            "install_methods": [],
+            "legacy": false,
+            "operating_systems": [],
+            "plans": [],
+            "release_statuses": [],
+            "shells": [],
+            "time_scope": null,
+            "versions": []
+          },
+          "quote": "Warp reserves the right to use data collected to train models and improve Warp.",
+          "source": {
+            "canonical_identity": "route:/agents/getting-started/faqs",
+            "canonical_route": "/agents/getting-started/faqs",
+            "content_sha256": "01c77518d23261247744d22ec4131eaf989c0a64a60707393f72fc2ab535fc83",
+            "heading": "Is my data used for model training?",
+            "heading_anchor": "is-my-data-used-for-model-training",
+            "line_end": 24,
+            "line_start": 24,
+            "path": "src/content/docs/agents/getting-started/faqs.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/agents/getting-started/faqs/",
+            "visibility": "public"
+          },
+          "source_class": "faq",
+          "topic": "privacy",
+          "value": {
+            "normalized": true,
+            "type": "boolean"
+          }
+        }
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "entity": "customer-ai-data",
+      "finding_content_fingerprint": "sha256:aa9f7e15424abe436e1a4aae3acdbc121e437b43e765331b828f95ebe77f6539",
+      "finding_id": "sha256:8fff47f3da6b8ecf3313f2af0d7506827edc42998120dff2d1d11121a0882865",
+      "first_seen_run": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
+      "last_seen_run": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
+      "lifecycle": "new",
+      "predicate": "used-for-training",
+      "qualifier_status": "complete",
+      "rationale": "The agents overview says no customer AI data is used for training, while the agent FAQ says Warp reserves the right to use collected data to train models. Neither claim narrows the data category in a way that removes the overlap.",
+      "rationale_class": "direct-typed-mismatch",
+      "reopened": false,
+      "scope_quotes": [
+        {
+          "quote": "No customer AI data is retained, stored, or used for training.",
+          "source": {
+            "canonical_identity": "route:/agents",
+            "canonical_route": "/agents",
+            "content_sha256": "72e93182507589534620db15a80de4b744125bc90876594460ad2ce937507e86",
+            "heading": "Privacy and security",
+            "heading_anchor": "privacy-and-security",
+            "line_end": 65,
+            "line_start": 65,
+            "path": "src/content/docs/agents/index.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/agents/",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "Warp reserves the right to use data collected to train models and improve Warp.",
+          "source": {
+            "canonical_identity": "route:/agents/getting-started/faqs",
+            "canonical_route": "/agents/getting-started/faqs",
+            "content_sha256": "01c77518d23261247744d22ec4131eaf989c0a64a60707393f72fc2ab535fc83",
+            "heading": "Is my data used for model training?",
+            "heading_anchor": "is-my-data-used-for-model-training",
+            "line_end": 24,
+            "line_start": 24,
+            "path": "src/content/docs/agents/getting-started/faqs.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/agents/getting-started/faqs/",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "high",
+      "source_commit": "3aa4a90e8914a3039d38d86c3cfa265720f59736",
+      "status": "active",
+      "suggested_resolution": "Have the privacy policy owner clarify the applicable data, consent, telemetry, and plan scopes across both pages.",
+      "suggested_resolution_class": "human-review",
+      "title": "Public AI training claims conflict",
+      "topic": "privacy",
+      "verdict": "contradiction"
+    }
+  },
+  "schema_version": 1
+}

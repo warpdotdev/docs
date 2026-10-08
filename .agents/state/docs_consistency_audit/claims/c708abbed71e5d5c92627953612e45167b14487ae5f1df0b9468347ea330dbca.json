@@ -1,0 +1,51 @@
+{
+  "claims": [
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:f592e7ae97bb213988b29a4cbfa32605b775431e8b514c4a8aa79feea9b2d94a",
+      "claim_id": "sha256:dfedf9a53882b0250cdd10ade427edbfe4a651cbee61ba03f21a93582e1fccfa",
+      "entity": "provider-api-keys",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "stored-on-warp-servers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp never stores provider keys on its servers.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/reference.mdx",
+        "content_sha256": "e7fce7b75f9dddcc0c289122a4a4ea255e000e9194d43a1ff43fd5d9f90d3fa7",
+        "heading": "`--set-provider-api-key`",
+        "heading_anchor": "set-provider-api-key",
+        "line_end": 81,
+        "line_start": 81,
+        "path": "src/content/docs/agents/cli/reference.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/reference/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "e7fce7b75f9dddcc0c289122a4a4ea255e000e9194d43a1ff43fd5d9f90d3fa7",
+  "path": "src/content/docs/agents/cli/reference.mdx",
+  "schema_version": 1
+}

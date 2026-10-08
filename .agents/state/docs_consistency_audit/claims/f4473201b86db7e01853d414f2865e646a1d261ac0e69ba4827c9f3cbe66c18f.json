@@ -1,0 +1,50 @@
+{
+  "claims": [
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:aed7fb98e75c82ac73daacebb3e848498bae62631ef64637fa9d763316d2f706",
+      "claim_id": "sha256:26ce53eb5977ef6def7cc94d8999f4fc7528b19ee1c431c6a69b3ae24292e781",
+      "entity": "computer-use-pr-artifacts",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "maximum-screenshots",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Up to 10 screenshots are attached per pull request.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use/artifacts-in-prs",
+        "canonical_route": "/agents/capabilities/computer-use/artifacts-in-prs",
+        "content_sha256": "b8606682976e14ef36664d16cbe9faced3c3fbf660331eb8a63d154c056a53c1",
+        "heading": "What gets attached",
+        "heading_anchor": "what-gets-attached",
+        "line_end": 17,
+        "line_start": 17,
+        "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": 10,
+        "type": "integer"
+      }
+    }
+  ],
+  "page_sha256": "b8606682976e14ef36664d16cbe9faced3c3fbf660331eb8a63d154c056a53c1",
+  "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
+  "schema_version": 1
+}

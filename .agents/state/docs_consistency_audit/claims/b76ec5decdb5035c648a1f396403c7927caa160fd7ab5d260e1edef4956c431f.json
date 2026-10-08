@@ -1,0 +1,52 @@
+{
+  "claims": [
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:693a63b395472e51a779ebd678f19df24be463212f5955db83a1076d36205701",
+      "claim_id": "sha256:ae541a428e95d8b754e1566b4c1d0e5c86a0423ab38dfd0dd05db28b3e27cea2",
+      "entity": "cloud-agent-conversations",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "stored-in-cloud",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Cloud agent conversations are always stored in the cloud regardless of this setting.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/cloud-conversations",
+        "canonical_route": "/agents/local-agents/cloud-conversations",
+        "content_sha256": "2f7d8ba8a718c490e9b8df3d61d3d5be1464668279381316fc8d636fde4ba8c9",
+        "heading": "Enabling cloud conversations",
+        "heading_anchor": "enabling-cloud-conversations",
+        "line_end": 31,
+        "line_start": 31,
+        "path": "src/content/docs/agents/local-agents/cloud-conversations.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/cloud-conversations/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "2f7d8ba8a718c490e9b8df3d61d3d5be1464668279381316fc8d636fde4ba8c9",
+  "path": "src/content/docs/agents/local-agents/cloud-conversations.mdx",
+  "schema_version": 1
+}

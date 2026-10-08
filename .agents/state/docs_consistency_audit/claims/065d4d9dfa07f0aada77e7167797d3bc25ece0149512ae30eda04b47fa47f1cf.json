@@ -1,0 +1,97 @@
+{
+  "claims": [
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:41eafe8e694f5e74cd5baf76e431879e7c19868ecb71c95c77385607d6d59014",
+      "claim_id": "sha256:990eddf9fb8065ad267d4c54d5452cc8f1649a30ebf94197b92974abbae2b3d9",
+      "entity": "warp-managed-inference",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "zero-data-retention-available",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "custom-inference-endpoint"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp **cannot enforce ZDR** for requests sent through a custom inference endpoint.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
+        "canonical_route": "/agents/inference/custom-inference-endpoint",
+        "content_sha256": "532c4755a7348f058ba2e023f954a251ae073201a40ecb1ce5d9df50214e10c5",
+        "heading": "Zero Data Retention (ZDR)",
+        "heading_anchor": "zero-data-retention-zdr",
+        "line_end": 113,
+        "line_start": 113,
+        "path": "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-inference-endpoint/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:b57b1c1084444c17524e9213d5b122bde1bdedd2ee7ca82a3db245d77f7935f9",
+      "claim_id": "sha256:5b4a677c897514bce5856e1add63ffdcb84f0ad24e21ac86ba04f82819f350b2",
+      "entity": "auto-models",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-credits",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "custom-inference-endpoint"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**Auto always consumes Warp's credits**, even if you've configured a custom inference endpoint.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/custom-inference-endpoint",
+        "canonical_route": "/agents/inference/custom-inference-endpoint",
+        "content_sha256": "532c4755a7348f058ba2e023f954a251ae073201a40ecb1ce5d9df50214e10c5",
+        "heading": "Auto routing still uses Warp credits",
+        "heading_anchor": "auto-routing-still-uses-warp-credits",
+        "line_end": 94,
+        "line_start": 94,
+        "path": "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/custom-inference-endpoint/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "532c4755a7348f058ba2e023f954a251ae073201a40ecb1ce5d9df50214e10c5",
+  "path": "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
+  "schema_version": 1
+}
