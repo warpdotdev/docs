@@ -16,7 +16,7 @@ The factory endpoints are part of the {VARS.WARP_PLATFORM_API}. Use them to find
 * `GET /factory/{uid}` - get one factory by UID.
 * `POST /factory/{uid}/runs` - dispatch a run to the factory's foreman agent. Pass a `prompt`; the server resolves the foreman for you.
 
-The interactive [{VARS.WARP_PLATFORM_API} reference](/api) documents each endpoint's parameters and schemas. A dispatched run is an ordinary [cloud agent run](/platform/): retrieve it, send it follow-ups, or cancel it through the same [agent and run endpoints](/factories/api-and-sdk/) used for any run.
+These endpoints cover discovery and dispatch. The interactive [{VARS.WARP_PLATFORM_API} reference](/api) documents their parameters and schemas, along with the factory's other operations, such as tasks and metrics. A dispatched run is an ordinary [cloud agent run](/platform/): retrieve it, send it follow-ups, or cancel it through the same [agent and run endpoints](/factories/api-and-sdk/) used for any run.
 
 ## Choosing how work reaches a factory
 
@@ -29,7 +29,7 @@ Factory endpoints are one of several ways to get work into a factory, and each f
 
 See [connect your factory](/factories/connect-your-factory/) for the full comparison across every intake path.
 
-### Choosing an endpoint family
+## Choosing an endpoint family
 
 Use factory endpoints to find or start work on a factory. Use Agent & run endpoints for everything else: a standalone cloud agent, run management, or orchestration.
 
