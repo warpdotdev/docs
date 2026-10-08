@@ -2,6 +2,12 @@ export interface MdastNode {
 	type: string;
 	value?: string;
 	children?: MdastNode[];
+	position?: {
+		start?: {
+			line?: number;
+			column?: number;
+		};
+	};
 }
 
 export function resolveHeadingVars(

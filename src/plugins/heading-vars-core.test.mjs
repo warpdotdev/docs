@@ -25,14 +25,18 @@ test('resolves a variable nested in formatted heading content', () => {
 	]);
 });
 
-test('rejects an unsupported nested expression with its file path', () => {
+test('rejects an unsupported nested expression with its source location', () => {
 	const tree = {
 		type: 'heading',
 		children: [
 			{
 				type: 'emphasis',
 				children: [
-					{ type: 'mdxTextExpression', value: 'VARS.AGENT_MODE.toUpperCase()' },
+					{
+						type: 'mdxTextExpression',
+						value: 'VARS.AGENT_MODE.toUpperCase()',
+						position: { start: { line: 7, column: 6 } },
+					},
 				],
 			},
 		],
@@ -40,30 +44,42 @@ test('rejects an unsupported nested expression with its file path', () => {
 
 	assert.throws(
 		() => resolveHeadingVars(tree, { AGENT_MODE: 'Agent Mode' }, 'unsupported.mdx'),
-		/Unsupported MDX expression in heading in unsupported\.mdx/,
+		/Unsupported MDX expression in heading at unsupported\.mdx:7:6/,
 	);
 });
 
 test('rejects an MDX comment inside a heading', () => {
 	const tree = {
 		type: 'heading',
-		children: [{ type: 'mdxTextExpression', value: '/* a comment */' }],
+		children: [
+			{
+				type: 'mdxTextExpression',
+				value: '/* a comment */',
+				position: { start: { line: 12, column: 3 } },
+			},
+		],
 	};
 
 	assert.throws(
 		() => resolveHeadingVars(tree, {}, 'comment.mdx'),
-		/Unsupported MDX expression in heading in comment\.mdx/,
+		/Unsupported MDX expression in heading at comment\.mdx:12:3/,
 	);
 });
 
-test('rejects an unknown variable with its file path', () => {
+test('rejects an unknown variable with its source location', () => {
 	const tree = {
 		type: 'heading',
-		children: [{ type: 'mdxTextExpression', value: 'VARS.MISSING' }],
+		children: [
+			{
+				type: 'mdxTextExpression',
+				value: 'VARS.MISSING',
+				position: { start: { line: 4, column: 5 } },
+			},
+		],
 	};
 
 	assert.throws(
 		() => resolveHeadingVars(tree, {}, 'unknown.mdx'),
-		/Unknown content variable in heading in unknown\.mdx: VARS\.MISSING/,
+		/Unknown content variable in heading at unknown\.mdx:4:5: VARS\.MISSING/,
 	);
 });
