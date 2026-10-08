@@ -149,7 +149,7 @@ oz environment update <ENV_ID> --docker-image IMAGE_REFERENCE
 oz environment update <ENV_ID> --default-runner <RUNNER_UID>
 ```
 
-Run `oz runner list` to find the runner UID. The runner and environment must have the same owner. Use `--remove-description` to clear the description. Use `--force` to skip confirmation checks for environments used by integrations.
+Run `oz runner list` to find the runner UID. You must be able to view the runner. For a team environment, the runner must be owned by that same team. Use `--remove-description` to clear the description. Use `--force` to skip confirmation checks for environments used by integrations.
 
 ### Delete an environment
 
