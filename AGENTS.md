@@ -958,7 +958,7 @@ The build fails with a clear error if a token is unrecognized — for example, `
 - **Imports** - A page that uses variables only in headings doesn't need the `@data/vars` import.
 - **Plain Markdown** - Plain `.md` pages aren't MDX. A `{VARS.KEY}` heading stays literal and fails `npm run test:heading-tocs` after `npm run build`. Rename the page to `.mdx` to use a variable in its heading.
 - **Literal examples** - A heading can't show a literal `{VARS.KEY}`, even inside inline code. Put that example in body prose.
-- **End-to-end fixture** - The variable-backed heading in `src/content/docs/index.mdx` is the production canary for heading, anchor, and table-of-contents rendering. If you remove it, update `scripts/validate-heading-tocs.mjs` to point to another variable-backed heading.
+- **End-to-end fixture** - The variable-backed heading in `src/content/docs/index.mdx` gives `npm run test:heading-tocs` end-to-end coverage of heading, anchor, and table-of-contents rendering. If you remove it, update `scripts/validate-heading-tocs.mjs` to point to another variable-backed heading.
 
 ### When to use vars
 Use a variable for:
@@ -967,7 +967,7 @@ Use a variable for:
 - URLs that may change with a rebrand (e.g., `WEB_APP_URL`, `CONTACT_SALES_URL`)
 Do **not** create variables for generic stable terms like "terminal," "command," or "repository."
 ### Adding a new variable
-Add the key-value pair to `src/data/vars.ts` only. Both Option A (TypeScript import) and Option B (Vite transform) pick it up automatically.
+Add the key-value pair to `src/data/vars.ts` only. Options A, B, and C all pick it up automatically.
 ### Important constraints
 - **Do NOT** use `{{TOKEN}}` syntax in MDX body prose — it's only for frontmatter YAML. The Vite plugin runs before MDX parsing; curly-brace expressions in body prose are MDX syntax, not plugin tokens.
 - **Do NOT** use `{VARS.x}` expressions in frontmatter — MDX expressions don't evaluate in YAML frontmatter.
@@ -1078,7 +1078,17 @@ Notes:
 - Trunk is not vendored in this repo; install it separately if you want to run these locally.
 
 ### Tests
-No test suite. Run `npm run build` to validate all content compiles correctly.
+Run the repository checks in this order:
+
+```bash
+npm run typecheck
+npm run test:heading-vars
+npm run build
+npm run test:heading-tocs
+npm run test:homepage-json-ld
+```
+
+`npm run test:heading-tocs` validates generated HTML and requires the output from `npm run build`.
 
 ## Codebase structure and “big picture”
 

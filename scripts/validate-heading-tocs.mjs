@@ -39,7 +39,8 @@ let tocEntryCount = 0;
 for (const file of htmlFiles) {
 	const html = await readFile(file, 'utf8');
 	const { document } = parseHTML(html);
-	const tocLinks = [...document.querySelectorAll('starlight-toc a')];
+	const toc = document.querySelector('starlight-toc');
+	const tocLinks = toc ? [...toc.querySelectorAll('a')] : [];
 	const allHeadings = [...document.querySelectorAll('main :is(h1, h2, h3, h4, h5, h6)')];
 	const agentOnlyHeadings = [...document.querySelectorAll('template[data-agent-only]')].flatMap(
 		(template) => [...template.content.querySelectorAll('h1, h2, h3, h4, h5, h6')],
@@ -58,11 +59,23 @@ for (const file of htmlFiles) {
 			.filter((heading) => heading.id)
 			.map((heading) => [heading.id, heading]),
 	);
-	const visibleHeadingIds = new Set(
-		allHeadings.filter((heading) => heading.id).map((heading) => heading.id),
-	);
 	const tocHrefs = new Set();
-	const tocHeadingTags = new Set();
+	const expectedTocHeadingTags = new Set();
+	if (toc) {
+		const minHeadingLevel = Number(toc.getAttribute('data-min-h'));
+		const maxHeadingLevel = Number(toc.getAttribute('data-max-h'));
+		assert(
+			Number.isInteger(minHeadingLevel) &&
+				Number.isInteger(maxHeadingLevel) &&
+				minHeadingLevel >= 1 &&
+				maxHeadingLevel <= 6 &&
+				minHeadingLevel <= maxHeadingLevel,
+			`${file} table of contents has an invalid heading range`,
+		);
+		for (let level = minHeadingLevel; level <= maxHeadingLevel; level += 1) {
+			expectedTocHeadingTags.add(`H${level}`);
+		}
+	}
 	for (const link of tocLinks) {
 		const href = link.getAttribute('href');
 		if (!href?.startsWith('#') || href === '#_top') continue;
@@ -75,7 +88,6 @@ for (const file of htmlFiles) {
 		);
 		const heading = headingsById.get(href.slice(1));
 		assert(heading, `${file} TOC entry ${href} has no matching heading`);
-		if (visibleHeadingIds.has(heading.id)) tocHeadingTags.add(heading.tagName);
 		assert.equal(
 			link.textContent.trim(),
 			heading.textContent.trim(),
@@ -84,7 +96,7 @@ for (const file of htmlFiles) {
 	}
 
 	for (const heading of allHeadings) {
-		if (!heading.id || !tocHeadingTags.has(heading.tagName)) continue;
+		if (!heading.id || !expectedTocHeadingTags.has(heading.tagName)) continue;
 		assert(tocHrefs.has(`#${heading.id}`), `Missing TOC entry for ${file}#${heading.id}`);
 	}
 }
