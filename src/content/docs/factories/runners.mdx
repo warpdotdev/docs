@@ -86,7 +86,7 @@ Each environment has a default runner. Specifying a runner for a run overrides t
 
     Both `vcpus` and `memoryGb` must be positive powers of two within your plan's resource limit. Omit `instanceShape` to use the workspace default shape.
 
-    Only Linux runners can be an environment's default runner. In a factory definition, select a named Windows runner with `agentDefaults.runner`, or override `runner` on an individual agent or automation.
+    A factory's default runner (`agentDefaults.runner`) must be Linux because it supplies the factory-managed environment. Select a Windows runner on an individual agent or automation with `runner`.
 
     Managed self-hosted workers currently run on Linux. Use [Warp-hosted execution](/factories/warp-hosting/) for Windows runners.
   </TabItem>
