@@ -16,6 +16,7 @@
     "og:api": "node scripts/generate-og-api.mjs",
     "favicon:generate": "node scripts/generate-favicons.mjs",
     "seo:audit": "node scripts/seo-audit.mjs",
+    "test:heading-vars": "node --test src/plugins/heading-vars-core.test.mjs",
     "test:homepage-json-ld": "node scripts/validate-homepage-json-ld.mjs",
     "test:homepage-toc": "node scripts/validate-homepage-toc.mjs",
     "postinstall": "patch-package"

@@ -942,7 +942,9 @@ import { VARS } from '@data/vars';
 Use the {VARS.WARP_AGENT_CLI} to run agents from the command line.
 ```
 Note: this example also shows Option B in the frontmatter (`{{WARP_AGENT_CLI}}`). Both can appear in the same file — Option B covers the frontmatter YAML, Option A covers the body prose.
-In a heading, use the variable as a bare expression such as `{VARS.WARP_AGENT_CLI}`. Expressions nested in Markdown formatting are resolved, and other MDX expressions in headings fail the build.
+
+In a heading, use the variable as a bare expression such as `{VARS.WARP_AGENT_CLI}`. Bold or italic formatting around the expression is preserved. Braces inside inline code are literal text and aren't resolved.
+
 ### Option B — frontmatter (Vite transform)
 Use `{{TOKEN}}` placeholders directly in frontmatter YAML values (`title`, `description`, `sidebar.label`, etc.). The `warp-vars-transform` Vite plugin substitutes them before any parser runs.
 ```yaml
@@ -963,6 +965,7 @@ Add the key-value pair to `src/data/vars.ts` only. Both Option A (TypeScript imp
 ### Important constraints
 - **Do NOT** use `{{TOKEN}}` syntax in MDX body prose — it's only for frontmatter YAML. The Vite plugin runs before MDX parsing; curly-brace expressions in body prose are MDX syntax, not plugin tokens.
 - **Do NOT** use `{VARS.x}` expressions in frontmatter — MDX expressions don't evaluate in YAML frontmatter.
+- **Heading expressions**: Only bare `{VARS.KEY}` expressions are supported in headings. Other MDX expressions in headings fail the build.
 - **Key naming rule**: Keys are stable identifiers. Use the future or conceptual name as the key (e.g., `WARP_AGENT_CLI`), not the current brand name that may be retired. The value holds the current string.
 ## SEO and AEO (AI Engine Optimization)
 
