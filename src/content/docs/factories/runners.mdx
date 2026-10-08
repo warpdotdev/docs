@@ -27,7 +27,7 @@ What runners give you:
 
 * **Reusable compute configs** – Define an OS, architecture, instance size, and sandbox image once, then reuse the runner across cloud agent runs and orchestration without repeating the configuration.
 * **Right-sized hardware** – Choose the number of vCPUs and amount of memory a run needs, so lightweight tasks stay cheap and heavy builds get enough resources.
-* **Flexible OS targets** – Run agents on Linux, macOS, or Windows.
+* **Operating systems** – Run agents on Linux, macOS, or Windows.
 * **Independent of environments** – Override an environment's default runner per run without changing the environment itself.
 
 ## How runners fit into cloud agent runs
@@ -35,7 +35,7 @@ What runners give you:
 A runner is the compute layer for a cloud agent run. When a run starts, Warp provisions a sandbox on the runner's shape, then prepares the workspace defined by the environment (cloning repos and executing setup commands) before the agent begins.
 
 * **Environment** – Defines the workspace: Docker image, repositories, and setup commands. See [Environments](/platform/environments/).
-* **Runner** – Defines the compute: OS, architecture, instance shape (vCPUs and memory), and sandbox image.
+* **Compute configuration** – Defines the OS, architecture, instance shape (vCPUs and memory), and sandbox image.
 * **Host** – Determines where execution happens (Warp-hosted or [self-hosted](/factories/self-hosting/) infrastructure).
 
 Each environment has a default runner. Specifying a runner for a run overrides that default for that run only.
