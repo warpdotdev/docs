@@ -8,7 +8,9 @@ description: >-
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
 
-Turn production errors into draft pull requests: this demo builds a small TypeScript "Sentry monitor" service that listens for specific Sentry alerts, such as a Go nil pointer dereference, and triggers a Warp cloud agent to investigate. The service validates the webhook, extracts the stack trace, and injects it into an agent run inside a [cloud environment](/platform/environments/) so the agent can inspect the repo and propose a fix. The full source is in the [Sentry monitor example repository](https://github.com/warpdotdev/warp-agents-sdk-demo-sentry-monitor).
+This demo turns production errors into draft pull requests. It builds a small TypeScript "Sentry monitor" service that listens for specific Sentry alerts, such as a Go nil pointer dereference, and triggers a Warp cloud agent to investigate.
+
+The service validates the webhook, extracts the stack trace, and injects it into an agent run inside a [cloud environment](/platform/environments/) so the agent can inspect the repo and propose a fix. The full source is in the [Sentry monitor example repository](https://github.com/warpdotdev/warp-agents-sdk-demo-sentry-monitor).
 
 To route the alert through a factory's agents and workflow instead, dispatch it with [factory endpoints](/factories/factory-api/) or a [custom webhook](/factories/webhooks/). This demo covers standalone cloud agent intake.
 
