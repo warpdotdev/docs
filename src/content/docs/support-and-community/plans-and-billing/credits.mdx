@@ -57,6 +57,11 @@ Dollar-billed Free plans don't include bundled usage for the Warp Agent. Buy add
 [Generate](/agents/local-agents/generate/) and [AI Autofill in Workflows](/knowledge-and-collaboration/warp-drive/workflows/#ai-autofill) also use inference. Regular shell commands and non-AI terminal features do not consume agent usage.
 
 <span id="how-are-warp-credits-calculated" />
+<span id="1-the-llm-model-used" />
+<span id="2-tool-calls-triggered-by-the-agent" />
+<span id="3-task-complexity-and-number-of-steps" />
+<span id="4-amount-of-context-passed-to-the-model" />
+<span id="5-prompt-caching-hits-and-misses" />
 
 ## How usage is calculated
 
@@ -71,6 +76,8 @@ Inference cost depends on the model's rates and the work required to complete yo
 Two similar prompts can use different amounts. Use the reported breakdown to compare tasks rather than treating a prompt as a fixed-price unit. See [using tokens efficiently](/guides/configuration/how-to-use-tokens-efficiently-with-ai-coding-agents/) for ways to reduce usage.
 
 <span id="compute-credits" />
+<span id="eligible-for-compute-credits" />
+<span id="not-eligible-for-compute-credits" />
 
 ## Compute usage
 
@@ -79,6 +86,8 @@ Cloud runs on Warp-hosted compute incur compute charges, whether started from th
 Local runs, CI jobs on your own runners, and [self-hosted workers](/factories/self-hosting/) do not incur Warp-hosted compute charges. Platform charges can still apply.
 
 <span id="platform-credits" />
+<span id="eligible-for-platform-credits" />
+<span id="not-eligible-for-platform-credits" />
 
 ## Platform usage
 
