@@ -939,6 +939,10 @@ const phaseTwoTopicOrder = new Map([
 
 sidebarTopics.sort(
 	(left, right) =>
-		(phaseTwoTopicOrder.get(left.label) ?? Number.MAX_SAFE_INTEGER) -
-		(phaseTwoTopicOrder.get(right.label) ?? Number.MAX_SAFE_INTEGER),
+		(typeof left.label === 'string'
+			? phaseTwoTopicOrder.get(left.label) ?? Number.MAX_SAFE_INTEGER
+			: Number.MAX_SAFE_INTEGER) -
+		(typeof right.label === 'string'
+			? phaseTwoTopicOrder.get(right.label) ?? Number.MAX_SAFE_INTEGER
+			: Number.MAX_SAFE_INTEGER),
 );
