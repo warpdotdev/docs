@@ -25,7 +25,7 @@ const sourceHasFixture = (
 ).some((source) => /^## .*\{VARS\.[A-Z0-9_]+\}.*$/m.test(source));
 assert(
 	sourceHasFixture,
-	'Keep a variable-backed H2 fixture shaped like `## ... {VARS.KEY} ...` under src/content/docs/ (usually index.mdx)',
+	'Keep a variable-backed H2 fixture shaped like `## ... {VARS.KEY} ...` under src/content/docs/ (usually index.mdx); it provides end-to-end coverage for src/plugins/heading-vars.ts',
 );
 
 const htmlDirectory = fileURLToPath(new URL('../.vercel/output/static/', import.meta.url));
@@ -44,8 +44,8 @@ for (const file of htmlFiles) {
 			`${file} heading #${heading.id} contains an unresolved content variable`,
 		);
 		if (!heading.id) continue;
-		headingCount += 1;
 		if (tocLinks.length === 0) continue;
+		headingCount += 1;
 		const link = tocLinks.find(
 			(candidate) => candidate.getAttribute('href') === `#${heading.id}`,
 		);
@@ -63,7 +63,7 @@ for (const file of htmlFiles) {
 	}
 }
 
-assert(headingCount > 0, 'Generated docs have no anchored H2 or H3 headings');
+assert(headingCount > 0, 'Generated docs have no anchored H2 or H3 headings with TOC entries');
 console.log(
-	`Validated ${headingCount} anchored headings across ${htmlFiles.length} generated pages.`,
+	`Validated ${headingCount} anchored headings across ${htmlFiles.length} generated HTML files.`,
 );
