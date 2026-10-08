@@ -6,6 +6,44 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.10.07 (v0.2026.10.07.08.29)
+
+**Improvements**
+
+* Added Kiro CLI support to Warp's third-party coding-agent toolbar and rich input. ([#16243](https://github.com/warpdotdev/warp/pull/16243))
+* Codex run usage now reports cache-write token counts when available. ([#16230](https://github.com/warpdotdev/warp/pull/16230))
+
+**Bug fixes**
+
+* Fixed a crash when navigating terminal history with the Up or Down Arrow. ([#14396](https://github.com/warpdotdev/warp/pull/14396)) — [@rhinoc](https://github.com/rhinoc) ✨
+* Fixed "Rename tab" and "Rename pane" from the tab context menu not focusing the rename editor. ([#16303](https://github.com/warpdotdev/warp/pull/16303), [#16294](https://github.com/warpdotdev/warp/pull/16294))
+* Fixed MCP OAuth authentication with providers that require authorization response issuer validation, including Linear. ([#16314](https://github.com/warpdotdev/warp/pull/16314))
+* MCP tool calls fail when a response stream ends without a result and time out instead of waiting indefinitely for unresponsive servers. ([#16219](https://github.com/warpdotdev/warp/pull/16219))
+* Follow-up messages sent through a shared session can interrupt an agent's running shell command and continue without falsely cancelling the conversation. ([#16266](https://github.com/warpdotdev/warp/pull/16266))
+* Prevented repeated authentication refresh requests after token and proxy failures. ([#16099](https://github.com/warpdotdev/warp/pull/16099))
+* Fixed rejected Firebase refresh tokens falling through to the authentication proxy instead of reporting the credential error. ([#16336](https://github.com/warpdotdev/warp/pull/16336))
+* Fixed native zsh completion requests not returning when shell completions are uninitialized or fail. ([#16268](https://github.com/warpdotdev/warp/pull/16268))
+* Fixed missing file-path completions when bundled and native completions both return no suggestions. ([#16213](https://github.com/warpdotdev/warp/pull/16213))
+* Align fish and PowerShell right prompts with the terminal edge while preserving zsh's default spacing. ([#16264](https://github.com/warpdotdev/warp/pull/16264))
+* Avoid a WSL subprocess when listing the working directory from the prompt chip. ([#16165](https://github.com/warpdotdev/warp/pull/16165))
+* Fixed a crash when settings-file errors update an unavailable Settings pane. ([#16249](https://github.com/warpdotdev/warp/pull/16249))
+* Fixed a crash during undo-close cleanup when a tab's pane group is unavailable. ([#16251](https://github.com/warpdotdev/warp/pull/16251))
+* Fixed `runner list` failing for a whole team when one runner uses an OS or architecture the installed client doesn't recognize yet. ([#16237](https://github.com/warpdotdev/warp/pull/16237))
+* Fixed Claude Code and Codex cloud agents on Windows runners failing during Warp plugin setup. ([#16307](https://github.com/warpdotdev/warp/pull/16307))
+* Fixed the GitHub CLI not being authenticated for cloud agents on Windows runners. ([#16238](https://github.com/warpdotdev/warp/pull/16238))
+* Fixed cloud agents on Windows runners failing to clone private repositories. ([#16236](https://github.com/warpdotdev/warp/pull/16236))
+* Fixed Warp-managed Factory agents failing during environment setup on Windows runners. ([#16234](https://github.com/warpdotdev/warp/pull/16234))
+* Fixed cloud agents using the runner's AWS credentials instead of the configured Bedrock role. ([#16185](https://github.com/warpdotdev/warp/pull/16185))
+
+**Oz updates**
+
+* Set an environment's default runner with `oz environment update --default-runner <RUNNER_UID>`. ([#16259](https://github.com/warpdotdev/warp/pull/16259))
+* Cloud runs report which environment setup command timed out instead of waiting until the sandbox expires. ([#16219](https://github.com/warpdotdev/warp/pull/16219))
+* Claude Code and Codex follow-ups now report resumed activity even when the client retains a stale in-progress state. ([#16217](https://github.com/warpdotdev/warp/pull/16217))
+* Improved cloud agent startup reliability by preventing overlapping workload-token refreshes within the shared API client. ([#16167](https://github.com/warpdotdev/warp/pull/16167))
+* Unattended CLI agent runs now end as blocked instead of hanging when the agent stops to ask for user input. ([#16232](https://github.com/warpdotdev/warp/pull/16232))
+* Computer-use agents on Windows cloud runners can now record video. ([#16260](https://github.com/warpdotdev/warp/pull/16260))
+
 ### 2026.09.30 (v0.2026.09.30.08.29)
 
 **Improvements**
