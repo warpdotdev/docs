@@ -36,7 +36,15 @@ Exit codes:
         clean audit.
 """
 
+# Postponed annotation evaluation keeps `X | None` annotations working on
+# Python 3.9, which is still the system interpreter on some contributor
+# machines. Without it this module cannot even be imported there, so
+# test_audit_docs.py fails before a single test runs. check_new_release.py
+# already does this.
+from __future__ import annotations
+
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -61,8 +69,32 @@ SKILL_DIR = SCRIPT_DIR.parent
 SURFACE_MAP_PATH = SKILL_DIR / "references" / "feature_surface_map.md"
 STALE_TERMS_PATH = SKILL_DIR / "references" / "stale_terms.md"
 DEFAULT_SNAPSHOT_PATH = SKILL_DIR / "references" / "surface_snapshot.json"
+CONSISTENCY_SEEDS_PATH = SKILL_DIR / "references" / "consistency_seeds.json"
+SNAPSHOT_DISPOSITIONS_FILENAME = "surface_snapshot_dispositions.json"
+SNAPSHOT_DISPOSITION_SCHEMA_VERSION = 2
 
 SNAPSHOT_SCHEMA_VERSION = 2
+SNAPSHOT_DISPOSITIONS = (
+    "documented",
+    "mapped",
+    "internal",
+    "no_docs_needed",
+    "removed",
+)
+CONSISTENCY_STATUSES = (
+    "fix",
+    "policy_blocker",
+    "owner_confirmation",
+    "resolved_on_main",
+    "out_of_scope",
+)
+CONSISTENCY_DISPOSITIONS = ("fixed", "blocked", "resolved", "out_of_scope")
+
+# Heading that starts the machine-generated telemetry table in privacy.mdx.
+# Matches TELEMETRY_TABLE_HEADING in the release_updates skill's
+# update_telemetry.py, which rewrites everything below it. Lowercased because
+# the staleness audit reads lowercased doc text.
+GENERATED_SECTION_MARKER = "### exhaustive telemetry table"
 
 # Extraction sanity floors: if a parser returns fewer surfaces than this, the
 # code layout probably changed and the parser is broken. The audit fails loud
@@ -74,6 +106,29 @@ EXTRACTION_FLOORS = {
     "API routes": 10,
     "settings": 100,
 }
+
+# Docs directories the CLI and API audits scope their prose search to, relative
+# to src/content/docs. Ordered; the first existing directory wins, so a legacy
+# path can stay listed after the current one.
+#
+# These are the docs-side mirror of EXTRACTION_FLOORS: when the docs IA moves
+# and the path here does not, every command or route reads as uncovered and the
+# run reports a wall of false positives. `reference/cli` and
+# `reference/api-and-sdk` did exactly that after the content moved under
+# `agents/cli` and `factories/api-and-sdk`. Resolution now fails loud instead
+# (see _resolve_docs_dir), matching how parse_settings_doc() reports a moved
+# all-settings.mdx.
+CLI_DOCS_DIRS = ("agents/cli", "reference/cli")
+API_DOCS_DIRS = ("factories/api-and-sdk", "reference/api-and-sdk")
+
+
+def _resolve_docs_dir(docs_root: Path, candidates: tuple[str, ...]) -> Path | None:
+    """Return the first candidate subdirectory of docs_root that exists."""
+    for rel in candidates:
+        path = docs_root.joinpath(*rel.split("/"))
+        if path.is_dir():
+            return path
+    return None
 
 # ---------------------------------------------------------------------------
 # Surface map parser
@@ -246,17 +301,28 @@ def read_all_docs_text(docs_root: Path) -> dict[str, str]:
 _FENCED_CODE_RE = re.compile(r"```.*?```", re.DOTALL)
 _INLINE_CODE_RE = re.compile(r"`[^`\n]*`")
 _HTML_CODE_RE = re.compile(r"<code>.*?</code>", re.DOTALL | re.IGNORECASE)
+# The `(...)` destination of a markdown link or image. The `[...]` label is
+# left alone — that half is prose.
+_LINK_TARGET_RE = re.compile(r"\]\([^)\s]*\)")
 
 
 def strip_code_spans(text: str) -> str:
-    """Remove fenced code blocks, inline code spans, and <code> elements.
+    """Remove code spans and link destinations, leaving prose behind.
 
     Used by the staleness audit so CLI examples (e.g. `oz agent run`) don't
-    trigger terminology findings meant for prose.
+    trigger terminology findings meant for prose. Link and image destinations
+    are stripped for the same reason: a URL slug or an asset filename is an
+    identifier, not wording a writer can fix. Renaming a published page to
+    chase a terminology change would break every inbound link, and image
+    filenames are not reader-visible at all, so
+    `](/knowledge-and-collaboration/warp-drive/agent-mode-context/)` and
+    `](../../assets/terminal/agent-mode-suggestion-1.png)` are noise here.
+    Genuinely stale slugs are the `check_for_broken_links` skill's job.
     """
     text = _FENCED_CODE_RE.sub(" ", text)
     text = _HTML_CODE_RE.sub(" ", text)
     text = _INLINE_CODE_RE.sub(" ", text)
+    text = _LINK_TARGET_RE.sub("] ", text)
     return text
 
 
@@ -745,9 +811,20 @@ def _split_top_level_args(s: str) -> list[str]:
     return args
 
 
+def _is_route_registrar(name: str) -> bool:
+    """Whether a Go function name looks like a route-registration helper.
+
+    Matches both the exported `RegisterFooRoutes` entry points and unexported
+    helpers like `registerMCPDiscoveryRoutes`, which real handlers use to split
+    a large registration function up. Missing the unexported ones silently
+    dropped their routes from the audit universe.
+    """
+    return name.startswith(("Register", "register"))
+
+
 def _iter_register_calls(body: str):
-    """Yield (callee, start_pos, args) for Register*(...) calls, paren-matched."""
-    for match in re.finditer(r"\b(Register\w+)\(", body):
+    """Yield (callee, start_pos, args) for [Rr]egister*(...) calls, paren-matched."""
+    for match in re.finditer(r"\b([Rr]egister\w+)\(", body):
         start = match.end()
         depth = 1
         i = start
@@ -911,7 +988,7 @@ def parse_public_api_routes(warp_server: Path) -> list[dict]:
     # to hang off the /api/v1 group (conservative default so routes are never
     # silently dropped).
     for fn_name in sorted(analyzed):
-        if fn_name.startswith("Register") and fn_name not in emitted_fns:
+        if _is_route_registrar(fn_name) and fn_name not in emitted_fns:
             emit(fn_name, "/api/v1")
 
     routes = []
@@ -939,10 +1016,17 @@ def _normalize_path_params(path: str) -> str:
 
 
 def parse_openapi_paths(openapi_text: str) -> set[str]:
-    """Extract normalized path keys from the OpenAPI YAML text."""
+    """Extract normalized path keys from the OpenAPI YAML text.
+
+    Path keys containing `{param}` are usually emitted quoted (YAML treats a
+    leading `{` as a flow mapping), so both `  /agent/runs:` and
+    `  '/agent/runs/{runId}':` must be recognized. Missing the quoted form made
+    every parameterized endpoint look absent from the spec.
+    """
     paths = set()
-    for match in re.finditer(r"(?m)^\s{2}(/[^\s:]+):", openapi_text):
-        paths.add(_normalize_path_params(match.group(1)))
+    for match in re.finditer(r"""(?m)^\s{2}(?:'(/[^']+)'|"(/[^"]+)"|(/[^\s:'"]+)):""", openapi_text):
+        path = match.group(1) or match.group(2) or match.group(3)
+        paths.add(_normalize_path_params(path))
     return paths
 
 # ---------------------------------------------------------------------------
@@ -1171,18 +1255,40 @@ def page_slug(md_file: Path, docs_root: Path) -> str:
 
 
 _CHANGELOG_HEADER_RE = re.compile(r"^### (\d{4}\.\d{2}\.\d{2})", re.MULTILINE)
-# "Bug fixes" is deliberately untracked: fix bullets rarely create doc surface
-# and would double the weekly triage volume.
-_CHANGELOG_TRACKED_SECTIONS = ("new features", "improvements", "oz updates")
+
+# Bold section labels in the docs changelog whose bullets are triaged.
+#
+# These match a *user-facing heading*, not an API field, so they are exposed to
+# product renames. The Automation Platform variants are accepted ahead of the
+# rename: if the changelog heading changes and this tuple has not, the section
+# silently yields zero bullets and the run under-reports. The guard in
+# parse_changelog_entries() is the backstop for a name nobody anticipated.
+_CHANGELOG_TRACKED_SECTIONS = (
+    "new features",
+    "improvements",
+    "oz updates",
+    "automation platform updates",
+    "platform updates",
+)
+
+# Sections deliberately not triaged, listed so the unknown-section guard can
+# tell "intentionally skipped" from "renamed out from under us". Bug fixes are
+# excluded on purpose to keep weekly triage volume manageable.
+_CHANGELOG_UNTRACKED_SECTIONS = ("bug fixes", "fixes")
 
 
 def parse_changelog_entries(repo_root: Path) -> list[dict]:
     """Parse release entries from src/content/docs/changelog/<year>.mdx.
 
     Returns [{"version": "2026.06.03", "file": str, "items":
-              [{"category": "new features", "text": str}]}] sorted newest first.
-    "New features", "Improvements", and "Oz updates" bullets are tracked —
-    the sections that may represent undocumented feature launches.
+              [{"category": "new features", "text": str}],
+              "unknown_sections": [str]}] sorted newest first.
+
+    Only _CHANGELOG_TRACKED_SECTIONS bullets are collected — the sections that
+    may represent undocumented feature launches. Any other bold section that
+    contains bullets and is not in _CHANGELOG_UNTRACKED_SECTIONS is reported in
+    `unknown_sections` so a renamed heading surfaces as a loud failure instead
+    of an empty result.
     """
     changelog_dir = repo_root / "src" / "content" / "docs" / "changelog"
     if not changelog_dir.exists():
@@ -1198,6 +1304,7 @@ def parse_changelog_entries(repo_root: Path) -> list[dict]:
             end = headers[i + 1].start() if i + 1 < len(headers) else len(content)
             body = content[header.end():end]
             items = []
+            unknown_sections = set()
             current_section = None
             for line in body.splitlines():
                 stripped = line.strip()
@@ -1205,15 +1312,20 @@ def parse_changelog_entries(repo_root: Path) -> list[dict]:
                 if section_match:
                     current_section = section_match.group(1).strip().lower()
                     continue
-                if current_section in _CHANGELOG_TRACKED_SECTIONS and stripped.startswith("* "):
+                if not stripped.startswith("* ") or not current_section:
+                    continue
+                if current_section in _CHANGELOG_TRACKED_SECTIONS:
                     items.append({
                         "category": current_section,
                         "text": stripped[2:].strip(),
                     })
+                elif current_section not in _CHANGELOG_UNTRACKED_SECTIONS:
+                    unknown_sections.add(current_section)
             entries.append({
                 "version": header.group(1),
                 "file": str(mdx.relative_to(repo_root)),
                 "items": items,
+                "unknown_sections": sorted(unknown_sections),
             })
     entries.sort(key=lambda e: e["version"], reverse=True)
     return entries
@@ -1355,14 +1467,23 @@ def audit_cli(warp_repo: Path, docs_root: Path, surface_map: dict,
     repo_root = DOCS_REPO_ROOT[0] or docs_root.parent.parent.parent
 
     # Read all CLI docs content
-    cli_docs_dir = docs_root / "reference" / "cli"
+    cli_docs_dir = _resolve_docs_dir(docs_root, CLI_DOCS_DIRS)
+    if cli_docs_dir is None:
+        return [{
+            "command": "(all)",
+            "severity": "high",
+            "reason": (
+                "CLI reference docs directory not found — the docs IA moved; "
+                "update CLI_DOCS_DIRS in audit_docs.py. Tried: "
+                f"{', '.join(CLI_DOCS_DIRS)}"
+            ),
+        }]
     cli_docs_text = {}
-    if cli_docs_dir.exists():
-        for f in find_markdown_files(cli_docs_dir):
-            try:
-                cli_docs_text[str(f)] = f.read_text(encoding="utf-8").lower()
-            except Exception:
-                pass
+    for f in find_markdown_files(cli_docs_dir):
+        try:
+            cli_docs_text[str(f)] = f.read_text(encoding="utf-8").lower()
+        except Exception:
+            pass
 
     def is_covered(cmd_str: str, search_phrase: str) -> bool:
         if cmd_str in cli_to_doc:
@@ -1434,14 +1555,23 @@ def audit_api(warp_server: Path, docs_root: Path, surface_map: dict,
     api_to_doc = surface_map.get("api_to_doc", {})
 
     # Read API docs
-    api_docs_dir = docs_root / "reference" / "api-and-sdk"
+    api_docs_dir = _resolve_docs_dir(docs_root, API_DOCS_DIRS)
+    if api_docs_dir is None:
+        return [{
+            "route": "(all)",
+            "severity": "high",
+            "reason": (
+                "API reference docs directory not found — the docs IA moved; "
+                "update API_DOCS_DIRS in audit_docs.py. Tried: "
+                f"{', '.join(API_DOCS_DIRS)}"
+            ),
+        }]
     api_docs_text = {}
-    if api_docs_dir.exists():
-        for f in find_markdown_files(api_docs_dir):
-            try:
-                api_docs_text[str(f)] = f.read_text(encoding="utf-8").lower()
-            except Exception:
-                pass
+    for f in find_markdown_files(api_docs_dir):
+        try:
+            api_docs_text[str(f)] = f.read_text(encoding="utf-8").lower()
+        except Exception:
+            pass
 
     # Also check OpenAPI spec (lives at repo root, not under content/docs)
     repo_root = DOCS_REPO_ROOT[0] or docs_root.parent
@@ -1701,11 +1831,11 @@ def audit_staleness(warp_repo: Path, docs_root: Path,
                     stale_terms_path: Path = STALE_TERMS_PATH) -> list[dict]:
     """Check existing docs for stale terminology.
 
-    Code spans are stripped first (CLI examples like `oz agent run` are
-    legitimate command syntax, not terminology) and terms match on word
-    boundaries only. Broader terminology enforcement is owned by the
-    style_lint skill; this audit only flags terms tied to renamed/removed
-    features.
+    Code spans and link destinations are stripped first (CLI examples like
+    `oz agent run` are legitimate command syntax, not terminology; a URL slug
+    is an identifier) and terms match on word boundaries only. Broader
+    terminology enforcement is owned by the style_lint skill; this audit only
+    flags terms tied to renamed/removed features.
     """
     stale_terms = parse_stale_terms(stale_terms_path)
     term_patterns = [
@@ -1719,6 +1849,15 @@ def audit_staleness(warp_repo: Path, docs_root: Path,
         # time — old feature names there are correct, not stale.
         if "/changelog/" in doc_path or doc_path.startswith("changelog/"):
             continue
+        # The telemetry table is regenerated wholesale from the client's event
+        # definitions by the release_updates skill's update_telemetry.py, so
+        # its event names and descriptions are code-derived strings. Editing
+        # the wording here is reverted on the next release; the fix belongs
+        # upstream in the event definition.
+        if doc_path.endswith("privacy.mdx"):
+            marker = content.find(GENERATED_SECTION_MARKER)
+            if marker != -1:
+                content = content[:marker]
         prose = strip_code_spans(content)
         stale_found = []
         for term, reason, pattern in term_patterns:
@@ -2269,18 +2408,188 @@ def diff_snapshots(old: dict, new: dict) -> list[dict]:
     return findings
 
 
+def snapshot_fingerprint(snapshot: dict) -> str:
+    """Return a stable content fingerprint for a loaded input snapshot."""
+    canonical = json.dumps(
+        snapshot,
+        ensure_ascii=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    )
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def snapshot_disposition_errors(
+    changes: list[dict],
+    path: Path,
+    expected_snapshot_fingerprint: str,
+) -> list[str]:
+    """Validate that the sidecar ledger accounts for exactly the pending changes."""
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return [] if not changes else [f"missing disposition ledger {path}"]
+    except json.JSONDecodeError as exc:
+        return [f"invalid disposition ledger at line {exc.lineno}: {exc.msg}"]
+
+    if not isinstance(payload, dict):
+        return ["disposition ledger top level must be an object"]
+    errors = []
+    if payload.get("schema_version") != SNAPSHOT_DISPOSITION_SCHEMA_VERSION:
+        errors.append(
+            "disposition ledger schema_version must be "
+            f"{SNAPSHOT_DISPOSITION_SCHEMA_VERSION}"
+        )
+    recorded_fingerprint = payload.get("snapshot_fingerprint")
+    if not isinstance(recorded_fingerprint, str) or not recorded_fingerprint.strip():
+        errors.append("disposition ledger needs a non-empty snapshot_fingerprint")
+    elif recorded_fingerprint != expected_snapshot_fingerprint:
+        errors.append(
+            "disposition ledger snapshot_fingerprint does not match the input snapshot"
+        )
+    entries = payload.get("dispositions")
+    if not isinstance(entries, list):
+        return errors + ["disposition ledger dispositions must be an array"]
+
+    recorded = {}
+    for index, entry in enumerate(entries):
+        label = f"dispositions[{index}]"
+        if not isinstance(entry, dict):
+            errors.append(f"{label} must be an object")
+            continue
+        change = entry.get("change")
+        surface = entry.get("surface")
+        if not isinstance(change, str) or not change.strip():
+            errors.append(f"{label} needs a non-empty change")
+        if not isinstance(surface, str) or not surface.strip():
+            errors.append(f"{label} needs a non-empty surface")
+        if not isinstance(change, str) or not isinstance(surface, str):
+            continue
+        key = (change, surface)
+        if key in recorded:
+            errors.append(f"{label} duplicates {change}: {surface}")
+        recorded[key] = entry
+        if entry.get("disposition") not in SNAPSHOT_DISPOSITIONS:
+            errors.append(
+                f"{label} disposition must be one of "
+                f"{', '.join(SNAPSHOT_DISPOSITIONS)}"
+            )
+        if not isinstance(entry.get("evidence"), str) or not entry["evidence"].strip():
+            errors.append(f"{label} needs non-empty evidence")
+
+    required = {(item["change"], item["surface"]) for item in changes}
+    missing = sorted(required - set(recorded))
+    extra = sorted(set(recorded) - required)
+    if missing:
+        errors.append(
+            "snapshot changes without dispositions: "
+            + ", ".join(f"{change}: {surface}" for change, surface in missing)
+        )
+    if extra:
+        errors.append(
+            "stale dispositions without matching snapshot changes: "
+            + ", ".join(f"{change}: {surface}" for change, surface in extra)
+        )
+    return errors
+
+
+_RELEASE_VERSION_RE = re.compile(r"(\d{4}\.\d{2}\.\d{2})")
+
+
+def normalize_release_version(value: str | None) -> str | None:
+    """Reduce any release identifier to the YYYY.MM.DD form changelog headers use.
+
+    The snapshot stores `2026.08.19`; the release marker stores
+    `v0.2026.08.19.08.15.stable_01`. Both must compare against changelog entry
+    versions, so both are normalized through here.
+    """
+    if not value:
+        return None
+    match = _RELEASE_VERSION_RE.search(str(value))
+    return match.group(1) if match else None
+
+
+def read_last_processed_release(snapshot_path: Path) -> str | None:
+    """Read the triage marker that sits alongside the snapshot.
+
+    Returns the normalized version last *triaged*, or None if the marker is
+    missing, unreadable, or not a JSON object. A missing marker means "never
+    triaged", which is the safe direction: nothing gets skipped.
+    """
+    marker = snapshot_path.parent / "last_release_processed.json"
+    if not marker.exists():
+        return None
+    try:
+        data = json.loads(marker.read_text(encoding="utf-8"))
+    except Exception as exc:
+        print(f"Warning: failed to parse {marker}: {exc}", file=sys.stderr)
+        return None
+    # Valid JSON of the wrong shape (a list, a bare string) would raise on
+    # .get and abort diff-mode triage. Treat it like a parse failure so the
+    # baseline falls back to the snapshot instead. check_new_release.py's
+    # read_state() guards the same file the same way.
+    if not isinstance(data, dict):
+        print(
+            f"Warning: {marker} is not a JSON object (got {type(data).__name__}); "
+            "treating the release as never triaged",
+            file=sys.stderr,
+        )
+        return None
+    return normalize_release_version(data.get("last_processed_version"))
+
+
+def changelog_review_baseline(last_seen_version: str | None,
+                              last_triaged_version: str | None) -> str | None:
+    """Earliest of the observed and triaged markers, normalized.
+
+    Using the earlier of the two is what stops a bookkeeping-only run — which
+    advances the snapshot without triaging — from hiding a release.
+    """
+    return min(
+        (v for v in (normalize_release_version(last_seen_version),
+                     normalize_release_version(last_triaged_version)) if v),
+        default=None,
+    )
+
+
+def unreviewed_unknown_sections(changelog_entries: list[dict],
+                                baseline: str | None) -> list[str]:
+    """Unrecognized bold sections among the entries actually being triaged.
+
+    Scoped to unreviewed entries on purpose. Older launch posts use prose
+    headings ("Multithread yourself with agents") that are neither tracked
+    sections nor renames; policing the whole file would fail every run on
+    history nobody is going to re-triage.
+    """
+    return sorted({
+        section
+        for entry in changelog_entries
+        if not (baseline and entry["version"] <= baseline)
+        for section in entry.get("unknown_sections", [])
+    })
+
+
 def changelog_review_findings(changelog_entries: list[dict],
-                              last_seen_version: str | None) -> list[dict]:
-    """Emit verification findings for changelog entries newer than the snapshot.
+                              last_seen_version: str | None,
+                              last_triaged_version: str | None = None) -> list[dict]:
+    """Emit verification findings for changelog entries not yet triaged.
 
     The weekly human-curated changelog is the best signal for launches that no
     static code parse can see (server-side features, Oz web app, experiment
     rollouts). Each bullet should be verified for real docs coverage — a
     changelog mention alone is not documentation.
+
+    Two independent markers exist and they can disagree. The snapshot's
+    `changelog_last_version` records what was last *observed*; bookkeeping that
+    regenerates the snapshot advances it without triaging anything.
+    `last_release_processed.json` records what was last *triaged*. Using the
+    snapshot alone silently drops every entry a bookkeeping-only run skipped
+    past, so the baseline is the earlier of the two.
     """
+    baseline = changelog_review_baseline(last_seen_version, last_triaged_version)
     findings = []
     for entry in changelog_entries:
-        if last_seen_version and entry["version"] <= last_seen_version:
+        if baseline and entry["version"] <= baseline:
             continue
         for item in entry["items"]:
             findings.append({
@@ -2344,8 +2653,8 @@ def compute_accounting(docs_root: Path, surface_map: dict, findings: dict,
     cli_map = surface_map.get("cli_to_doc", {})
     cli_findings = {f.get("command") for f in findings.get("undocumented_cli_commands", [])}
     cli_text = {}
-    cli_docs_dir = docs_root / "reference" / "cli"
-    if cli_docs_dir.exists():
+    cli_docs_dir = _resolve_docs_dir(docs_root, CLI_DOCS_DIRS)
+    if cli_docs_dir is not None:
         for f in find_markdown_files(cli_docs_dir):
             try:
                 cli_text[str(f)] = f.read_text(encoding="utf-8").lower()
@@ -2370,7 +2679,7 @@ def compute_accounting(docs_root: Path, surface_map: dict, findings: dict,
                 cb["mapped"] += 1
             elif any(name.split(" ", 1)[1] in t for t in cli_text.values()):
                 cb["doc_covered"] += 1
-            elif name in cli_findings:
+            elif name in cli_findings or "(all)" in cli_findings:
                 cb["finding"] += 1
             elif parent in cli_findings:
                 cb["parent_flagged"] += 1
@@ -2396,8 +2705,8 @@ def compute_accounting(docs_root: Path, surface_map: dict, findings: dict,
             pass
     spec_paths = parse_openapi_paths(openapi_text)
     api_docs_text = {}
-    api_docs_dir = docs_root / "reference" / "api-and-sdk"
-    if api_docs_dir.exists():
+    api_docs_dir = _resolve_docs_dir(docs_root, API_DOCS_DIRS)
+    if api_docs_dir is not None:
         for f in find_markdown_files(api_docs_dir):
             try:
                 api_docs_text[str(f)] = f.read_text(encoding="utf-8").lower()
@@ -2426,7 +2735,7 @@ def compute_accounting(docs_root: Path, surface_map: dict, findings: dict,
         elif any(c in openapi_text or any(c in t for t in api_docs_text.values())
                  for c in {route["path"].lower(), rel.lower()}):
             ab["docs_covered"] += 1
-        elif rel_str in api_findings:
+        elif rel_str in api_findings or "(all)" in api_findings:
             ab["finding"] += 1
         else:
             missing.append(rel_str)
@@ -2485,10 +2794,311 @@ def compute_accounting(docs_root: Path, surface_map: dict, findings: dict,
     return acc
 
 # ---------------------------------------------------------------------------
+# Cross-repository consistency audit
+# ---------------------------------------------------------------------------
+
+def _consistency_seed_path(repo_root: Path) -> Path:
+    """Prefer a seed store in the audited checkout."""
+    local_path = (
+        repo_root
+        / ".agents"
+        / "skills"
+        / "missing_docs"
+        / "references"
+        / "consistency_seeds.json"
+    )
+    return local_path if local_path.exists() else CONSISTENCY_SEEDS_PATH
+
+
+def load_consistency_seeds(repo_root: Path) -> tuple[list[dict], list[str]]:
+    """Load the seed store and return every accounting error."""
+    path = _consistency_seed_path(repo_root)
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return [], [f"seed-store: missing {path}"]
+    except json.JSONDecodeError as exc:
+        return [], [f"seed-store: invalid JSON at line {exc.lineno}: {exc.msg}"]
+
+    if not isinstance(payload, dict):
+        return [], ["seed-store: top level must be an object"]
+
+    errors = []
+    if payload.get("schema_version") != 1:
+        errors.append("seed-store: schema_version must be 1")
+    seeds = payload.get("seeds")
+    if not isinstance(seeds, list):
+        return [], errors + ["seed-store: seeds must be an array"]
+
+    seen_seed_ids = set()
+    seen_rule_ids = set()
+    for index, seed in enumerate(seeds):
+        label = f"seed[{index}]"
+        if not isinstance(seed, dict):
+            errors.append(f"{label}: entry must be an object")
+            continue
+
+        seed_id = seed.get("id")
+        if not isinstance(seed_id, str) or not seed_id.strip():
+            errors.append(f"{label}: missing non-empty id")
+            seed_id = label
+        elif seed_id in seen_seed_ids:
+            errors.append(f"{seed_id}: duplicate seed id")
+        else:
+            seen_seed_ids.add(seed_id)
+
+        for field in ("claim", "recheck_condition"):
+            if not isinstance(seed.get(field), str) or not seed[field].strip():
+                errors.append(f"{seed_id}: missing non-empty {field}")
+        if seed.get("status") not in CONSISTENCY_STATUSES:
+            errors.append(
+                f"{seed_id}: status must be one of {', '.join(CONSISTENCY_STATUSES)}"
+            )
+        for field in ("occurrence_queries", "affected_surfaces"):
+            value = seed.get(field)
+            if not isinstance(value, list) or not value or not all(
+                isinstance(item, str) and item.strip() for item in value
+            ):
+                errors.append(f"{seed_id}: {field} must be a non-empty string array")
+
+        surfaces = seed.get("affected_surfaces")
+        dispositions = seed.get("surface_dispositions")
+        if not isinstance(dispositions, dict):
+            errors.append(f"{seed_id}: surface_dispositions must be an object")
+        elif isinstance(surfaces, list):
+            missing = sorted(
+                surface for surface in surfaces if not dispositions.get(surface)
+            )
+            extra = sorted(set(dispositions) - set(surfaces))
+            if missing:
+                errors.append(
+                    f"{seed_id}: surfaces without dispositions: {', '.join(missing)}"
+                )
+            if extra:
+                errors.append(
+                    f"{seed_id}: dispositions for unknown surfaces: {', '.join(extra)}"
+                )
+            invalid = sorted(
+                f"{surface}={disposition}"
+                for surface, disposition in dispositions.items()
+                if disposition not in CONSISTENCY_DISPOSITIONS
+            )
+            if invalid:
+                errors.append(
+                    f"{seed_id}: unsupported surface dispositions: {', '.join(invalid)}"
+                )
+            missing_paths = sorted(
+                surface for surface in surfaces if not (repo_root / surface).exists()
+            )
+            if missing_paths:
+                errors.append(
+                    f"{seed_id}: affected surfaces do not exist: {', '.join(missing_paths)}"
+                )
+
+        has_authority = (
+            isinstance(seed.get("authoritative_sources"), list)
+            and bool(seed["authoritative_sources"])
+        )
+        has_owner_blocker = all(
+            isinstance(seed.get(field), str) and seed[field].strip()
+            for field in ("owner", "unresolved_question")
+        )
+        if not (has_authority or has_owner_blocker):
+            errors.append(
+                f"{seed_id}: needs authoritative_sources or owner and unresolved_question"
+            )
+        if seed.get("status") in ("policy_blocker", "owner_confirmation"):
+            if not has_owner_blocker:
+                errors.append(
+                    f"{seed_id}: blocked status needs owner and unresolved_question"
+                )
+            inconsistent = seed.get("inconsistent_surfaces")
+            if not isinstance(inconsistent, list) or not inconsistent:
+                errors.append(
+                    f"{seed_id}: blocked status needs inconsistent_surfaces"
+                )
+
+        rules = seed.get("deterministic_rules", [])
+        if not isinstance(rules, list):
+            errors.append(f"{seed_id}: deterministic_rules must be an array")
+            continue
+        for rule_index, rule in enumerate(rules):
+            rule_label = f"{seed_id}.rule[{rule_index}]"
+            if not isinstance(rule, dict):
+                errors.append(f"{rule_label}: rule must be an object")
+                continue
+            rule_id = rule.get("id")
+            if not isinstance(rule_id, str) or not rule_id.strip():
+                errors.append(f"{rule_label}: missing non-empty id")
+            elif rule_id in seen_rule_ids:
+                errors.append(f"{seed_id}: duplicate rule id {rule_id}")
+            else:
+                seen_rule_ids.add(rule_id)
+            if rule.get("type") not in ("forbidden_text", "forbidden_regex"):
+                errors.append(
+                    f"{seed_id}.{rule_id}: unsupported rule type {rule.get('type')!r}"
+                )
+            for field in ("patterns", "paths"):
+                value = rule.get(field)
+                if not isinstance(value, list) or not value or not all(
+                    isinstance(item, str) and item for item in value
+                ):
+                    errors.append(
+                        f"{seed_id}.{rule_id}: {field} must be a non-empty string array"
+                    )
+            missing_paths = sorted(
+                rule_path
+                for rule_path in rule.get("paths", [])
+                if not (repo_root / rule_path).exists()
+            )
+            if missing_paths:
+                errors.append(
+                    f"{seed_id}.{rule_id}: rule paths do not exist: "
+                    f"{', '.join(missing_paths)}"
+                )
+            if rule.get("type") == "forbidden_regex":
+                for pattern in rule.get("patterns", []):
+                    try:
+                        re.compile(pattern, re.IGNORECASE | re.MULTILINE)
+                    except re.error as exc:
+                        errors.append(
+                            f"{seed_id}.{rule_id}: invalid regex {pattern!r}: {exc}"
+                        )
+    return seeds, errors
+
+
+def _consistency_rule_files(repo_root: Path, relative_paths: list[str]) -> list[Path]:
+    """Expand file and directory scopes in a stable order."""
+    files = set()
+    for relative_path in relative_paths:
+        target = repo_root / relative_path
+        if target.is_file():
+            files.add(target)
+        elif target.is_dir():
+            for candidate in target.rglob("*"):
+                if (
+                    candidate.is_file()
+                    and not any(part in SKIP_DIRECTORIES for part in candidate.parts)
+                    and candidate.suffix.lower()
+                    in {".md", ".mdx", ".json", ".yaml", ".yml"}
+                ):
+                    files.add(candidate)
+    return sorted(files)
+
+
+def _line_number_at(text: str, offset: int) -> int:
+    return text.count("\n", 0, offset) + 1
+
+
+def audit_consistency(repo_root: Path) -> dict:
+    """Evaluate consistency rules while retaining owner-gated blockers."""
+    seeds, errors = load_consistency_seeds(repo_root)
+    by_status = {status: 0 for status in CONSISTENCY_STATUSES}
+    findings = []
+    blockers = []
+    passed_rules = []
+    failed_rules = []
+
+    for seed in seeds:
+        status = seed.get("status")
+        if status in by_status:
+            by_status[status] += 1
+        if status in ("policy_blocker", "owner_confirmation"):
+            blockers.append({
+                "seed_id": seed.get("id"),
+                "status": status,
+                "claim": seed.get("claim"),
+                "owner": seed.get("owner"),
+                "unresolved_question": seed.get("unresolved_question"),
+                "affected_surfaces": seed.get("affected_surfaces", []),
+                "inconsistent_surfaces": seed.get("inconsistent_surfaces", []),
+                "recheck_condition": seed.get("recheck_condition"),
+            })
+
+        for rule in seed.get("deterministic_rules", []):
+            rule_matches = []
+            for file_path in _consistency_rule_files(
+                repo_root, rule.get("paths", [])
+            ):
+                try:
+                    text = file_path.read_text(encoding="utf-8")
+                except (OSError, UnicodeDecodeError):
+                    continue
+                for pattern in rule.get("patterns", []):
+                    expression = (
+                        re.escape(pattern)
+                        if rule.get("type") == "forbidden_text"
+                        else pattern
+                    )
+                    for match in re.finditer(
+                        expression, text, re.IGNORECASE | re.MULTILINE
+                    ):
+                        occurrence = {
+                            "seed_id": seed.get("id"),
+                            "rule_id": rule.get("id"),
+                            "category": "consistency",
+                            "severity": "high",
+                            "status": status,
+                            "claim": seed.get("claim"),
+                            "path": str(file_path.relative_to(repo_root)),
+                            "line": _line_number_at(text, match.start()),
+                            "match": match.group(0),
+                            "authoritative_sources": seed.get(
+                                "authoritative_sources", []
+                            ),
+                            "affected_surfaces": seed.get(
+                                "affected_surfaces", []
+                            ),
+                            "owner": seed.get("owner"),
+                            "recheck_condition": seed.get("recheck_condition"),
+                        }
+                        rule_matches.append(occurrence)
+                        findings.append(occurrence)
+            rule_result = {
+                "seed_id": seed.get("id"),
+                "rule_id": rule.get("id"),
+                "status": "failed" if rule_matches else "passed",
+                "match_count": len(rule_matches),
+            }
+            if rule_matches:
+                failed_rules.append(rule_result)
+            else:
+                passed_rules.append(rule_result)
+
+    blockers.sort(key=lambda item: item["seed_id"] or "")
+    findings.sort(key=lambda item: (
+        item.get("seed_id") or "",
+        item.get("rule_id") or "",
+        item.get("path") or "",
+        item.get("line") or 0,
+    ))
+    passed_rules.sort(key=lambda item: (item["seed_id"], item["rule_id"]))
+    failed_rules.sort(key=lambda item: (item["seed_id"], item["rule_id"]))
+    return {
+        "total_seeds": len(seeds),
+        "by_status": by_status,
+        "findings": findings,
+        "remaining_occurrences": findings,
+        "blockers": blockers,
+        "rules": {
+            "passed": passed_rules,
+            "failed": failed_rules,
+        },
+        "accounting": {
+            "unaccounted": errors,
+        },
+        "passed": not findings and not blockers and not errors,
+    }
+
+
+# ---------------------------------------------------------------------------
 # Report generation
 # ---------------------------------------------------------------------------
 
 REPORT_CATEGORIES = [
+    ("consistency_findings", "DOCUMENTATION CONSISTENCY FINDINGS",
+     lambda i: f"{i.get('seed_id', '')}/{i.get('rule_id', '')} "
+               f"{i.get('path', '')}:{i.get('line', '')}"),
     ("undocumented_features", "UNDOCUMENTED FEATURES",
      lambda i: i.get("flag", "")),
     ("undocumented_cli_commands", "UNDOCUMENTED CLI COMMANDS",
@@ -2516,7 +3126,8 @@ REPORT_CATEGORIES = [
 
 def generate_report(findings_by_category: dict[str, list], audits_run: list[str],
                     audits_skipped: list[dict], mode: str,
-                    accounting: dict | None = None) -> dict:
+                    accounting: dict | None = None,
+                    consistency: dict | None = None) -> dict:
     """Assemble the full audit report."""
     total = sum(len(v) for v in findings_by_category.values())
     report = {
@@ -2533,6 +3144,8 @@ def generate_report(findings_by_category: dict[str, list], audits_run: list[str]
     }
     if accounting is not None:
         report["summary"]["accounting"] = accounting
+    if consistency is not None:
+        report["consistency"] = consistency
     for key, _, _ in REPORT_CATEGORIES:
         report[key] = findings_by_category.get(key, [])
     return report
@@ -2574,6 +3187,30 @@ def print_report(report: dict) -> None:
             print("  unaccounted: none — every extracted surface item is accounted for")
         print()
 
+    consistency = report.get("consistency")
+    if consistency:
+        print("-" * 60)
+        print("DOCUMENTATION CONSISTENCY")
+        print("-" * 60)
+        counts = ", ".join(
+            f"{status}={count}"
+            for status, count in consistency["by_status"].items()
+        )
+        print(f"  Seeds: {consistency['total_seeds']} ({counts})")
+        print(
+            "  Rules: "
+            f"{len(consistency['rules']['passed'])} passed, "
+            f"{len(consistency['rules']['failed'])} failed"
+        )
+        for blocker in consistency["blockers"]:
+            print(
+                f"  BLOCKED {blocker['seed_id']} ({blocker['owner']}): "
+                f"{blocker['unresolved_question']}"
+            )
+        for error in consistency["accounting"]["unaccounted"]:
+            print(f"  UNACCOUNTED {error}")
+        print()
+
     severity_order = {"high": 0, "medium": 1, "low": 2}
 
     for key, title, describe in REPORT_CATEGORIES:
@@ -2604,6 +3241,8 @@ def print_report(report: dict) -> None:
                 print(f"    File: {item['file']}")
             if item.get("detail"):
                 print(f"    Detail: {item['detail']}")
+            if item.get("match"):
+                print(f"    Match: {item['match']!r}")
             for t in item.get("stale_terms", []):
                 print(f"    - \"{t['term']}\": {t['reason']}")
         print()
@@ -2639,7 +3278,7 @@ def main():
     )
     parser.add_argument(
         "--category",
-        choices=["features", "cli", "api", "slash", "settings", "structure",
+        choices=["consistency", "features", "cli", "api", "slash", "settings", "structure",
                  "staleness", "map"],
         help="Run only a specific audit category",
     )
@@ -2709,6 +3348,7 @@ def main():
     audits_run: list[str] = []
     audits_skipped: list[dict] = []
     extraction_ok = True
+    consistency_result = None
 
     def guard(label: str, count: int) -> bool:
         nonlocal extraction_ok
@@ -2725,6 +3365,21 @@ def main():
             })
             return False
         return True
+
+    if args.category in (None, "consistency"):
+        print("Running documentation consistency audit...", file=sys.stderr)
+        consistency_result = audit_consistency(repo_root)
+        findings["consistency_findings"] = consistency_result["findings"]
+        audits_run.append("consistency")
+        if consistency_result["accounting"]["unaccounted"]:
+            audits_skipped.append({
+                "audit": "integrity:consistency_accounting",
+                "reason": (
+                    "consistency seeds without complete status, evidence, or "
+                    "surface dispositions: "
+                    f"{consistency_result['accounting']['unaccounted']}"
+                ),
+            })
 
     internal_categories = ("features", "cli", "slash", "settings", "staleness", "map")
     needs_internal = args.category in (None, *internal_categories) \
@@ -2854,6 +3509,7 @@ def main():
     # Change detection (diff + snapshot update)
     changelog_entries = parse_changelog_entries(repo_root)
     snapshot_path = Path(args.snapshot)
+
     if args.diff or args.update_snapshot:
         if warp_repo and warp_server and extraction_ok:
             current_snapshot = build_snapshot(
@@ -2873,16 +3529,77 @@ def main():
                 else:
                     print("Running surface change detection (diff)...", file=sys.stderr)
                     findings["surface_changes"] = diff_snapshots(previous, current_snapshot)
+                    snapshot_version = normalize_release_version(
+                        previous.get("changelog_last_version"))
+                    triaged_version = read_last_processed_release(snapshot_path)
                     findings["changelog_review"] = changelog_review_findings(
-                        changelog_entries, previous.get("changelog_last_version"))
+                        changelog_entries,
+                        previous.get("changelog_last_version"),
+                        triaged_version)
+                    if (snapshot_version and triaged_version
+                            and snapshot_version != triaged_version):
+                        print(
+                            "Note: snapshot last saw "
+                            f"{snapshot_version} but {triaged_version} was the last "
+                            "release triaged. Reviewing from the earlier of the two "
+                            "so bookkeeping-only runs cannot skip a release.",
+                            file=sys.stderr,
+                        )
+
+                    # Bullets under a heading the parser does not recognize are
+                    # invisible to triage. Silence there looks identical to "nothing
+                    # shipped", so treat it as an extraction failure instead.
+                    unknown_sections = unreviewed_unknown_sections(
+                        changelog_entries,
+                        changelog_review_baseline(
+                            previous.get("changelog_last_version"), triaged_version))
+                    if unknown_sections:
+                        audits_skipped.append({
+                            "audit": "extraction:changelog_sections",
+                            "reason": (
+                                "bullets found under unrecognized changelog headings "
+                                f"{unknown_sections} in entries awaiting triage \u2014 a "
+                                "section was renamed or added. Add each heading to "
+                                "_CHANGELOG_TRACKED_SECTIONS or "
+                                "_CHANGELOG_UNTRACKED_SECTIONS in audit_docs.py; until "
+                                "then those bullets are invisible to triage"
+                            ),
+                        })
                     audits_run.append("diff")
             if args.update_snapshot:
-                snapshot_path.parent.mkdir(parents=True, exist_ok=True)
-                snapshot_path.write_text(
-                    json.dumps(current_snapshot, indent=2, sort_keys=False) + "\n",
-                    encoding="utf-8",
-                )
-                print(f"Snapshot updated: {snapshot_path}", file=sys.stderr)
+                previous = load_snapshot(snapshot_path)
+                if previous is None:
+                    audits_skipped.append({
+                        "audit": "integrity:snapshot_dispositions",
+                        "reason": (
+                            f"snapshot {snapshot_path} not found or unreadable — "
+                            "cannot prove that every delta was dispositioned"
+                        ),
+                    })
+                else:
+                    snapshot_changes = diff_snapshots(previous, current_snapshot)
+                    disposition_path = (
+                        snapshot_path.parent / SNAPSHOT_DISPOSITIONS_FILENAME
+                    )
+                    disposition_errors = snapshot_disposition_errors(
+                        snapshot_changes,
+                        disposition_path,
+                        snapshot_fingerprint(previous),
+                    )
+                    if disposition_errors:
+                        audits_skipped.append({
+                            "audit": "integrity:snapshot_dispositions",
+                            "reason": "; ".join(disposition_errors),
+                        })
+                    else:
+                        snapshot_path.parent.mkdir(parents=True, exist_ok=True)
+                        snapshot_path.write_text(
+                            json.dumps(
+                                current_snapshot, indent=2, sort_keys=False
+                            ) + "\n",
+                            encoding="utf-8",
+                        )
+                        print(f"Snapshot updated: {snapshot_path}", file=sys.stderr)
         else:
             audits_skipped.append({
                 "audit": "diff" if args.diff else "update-snapshot",
@@ -2923,8 +3640,18 @@ def main():
             ]
 
     mode = "diff" if args.diff else "audit"
-    report = generate_report(findings, audits_run, audits_skipped, mode,
-                             accounting=accounting)
+    if consistency_result is not None:
+        consistency_result["findings"] = findings.get(
+            "consistency_findings", []
+        )
+    report = generate_report(
+        findings,
+        audits_run,
+        audits_skipped,
+        mode,
+        accounting=accounting,
+        consistency=consistency_result,
+    )
 
     print_report(report)
 

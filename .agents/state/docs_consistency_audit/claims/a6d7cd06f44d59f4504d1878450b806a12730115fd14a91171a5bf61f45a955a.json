@@ -1,0 +1,93 @@
+{
+  "claims": [
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:4a3c2fcfdcc8af7ee4ef1cc3a1445ea4a2aa1da3b22b7ab432f4731fc52925de",
+      "claim_id": "sha256:9a61ebe3ba11995f51b6271d13c3f3c0d41c4cd62ff3e81be2fffee05f840f14",
+      "entity": "customer-ai-data",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "used-for-training",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "No customer AI data is retained, stored, or used for training.",
+      "source": {
+        "canonical_identity": "route:/agents",
+        "canonical_route": "/agents",
+        "content_sha256": "72e93182507589534620db15a80de4b744125bc90876594460ad2ce937507e86",
+        "heading": "Privacy and security",
+        "heading_anchor": "privacy-and-security",
+        "line_end": 65,
+        "line_start": 65,
+        "path": "src/content/docs/agents/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:4a3c2fcfdcc8af7ee4ef1cc3a1445ea4a2aa1da3b22b7ab432f4731fc52925de",
+      "claim_id": "sha256:bacdacbb806b29b5dfe487d4c039002820dbaa55b361fc232594549d994bdb0c",
+      "entity": "customer-ai-data",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "retained-by-model-provider",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "No customer AI data is retained, stored, or used for training.",
+      "source": {
+        "canonical_identity": "route:/agents",
+        "canonical_route": "/agents",
+        "content_sha256": "72e93182507589534620db15a80de4b744125bc90876594460ad2ce937507e86",
+        "heading": "Privacy and security",
+        "heading_anchor": "privacy-and-security",
+        "line_end": 65,
+        "line_start": 65,
+        "path": "src/content/docs/agents/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "72e93182507589534620db15a80de4b744125bc90876594460ad2ce937507e86",
+  "path": "src/content/docs/agents/index.mdx",
+  "schema_version": 1
+}

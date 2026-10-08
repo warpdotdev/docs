@@ -1,0 +1,64 @@
+---
+title: Codex CLI in Warp
+sidebar:
+  label: "Codex"
+description: >-
+  Set up Codex in Warp with notification support, rich input, code review, and
+  more.
+---
+import { VARS } from '@data/vars';
+
+Codex is OpenAI's open-source coding agent that runs in your terminal. It can write and edit code, execute commands, and navigate your codebase through natural language. For full documentation, see the [Codex GitHub repository](https://github.com/openai/codex).
+
+Warp auto-detects Codex when you run it, giving you access to rich input controls, code review, and other integrated features. For a product overview, see [Codex in Warp](https://www.warp.dev/agents/codex).
+
+For installation, authentication, project configuration, and productivity tips, see the [How to set up Codex CLI](/guides/external-tools/how-to-set-up-codex-cli/) guide.
+
+:::note
+Codex is also available as a harness in the {VARS.WARP_AUTOMATION_PLATFORM} for cloud orchestration. See [Codex with the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/codex/).
+:::
+
+## Setting up notifications
+
+Warp surfaces Codex activity as in-app and desktop alerts — such as when Codex completes a task, encounters an error, or needs your input. This is powered by the Warp plugin for Codex, published from the [warpdotdev/codex-warp](https://github.com/warpdotdev/codex-warp) plugin marketplace.
+
+When Warp detects a Codex session without the plugin, it shows an install chip in the terminal. Click the chip to install the plugin, then restart Codex. Warp shows an update chip the same way when a newer plugin version is required.
+
+To install the plugin yourself, add the marketplace and the plugin:
+
+```bash
+codex plugin marketplace add warpdotdev/codex-warp
+codex plugin add warp@codex-warp
+```
+
+Restart Codex to activate the plugin. To update it later, upgrade the marketplace and reinstall the plugin:
+
+```bash
+codex plugin marketplace upgrade codex-warp
+codex plugin add warp@codex-warp
+```
+
+:::note
+If you point `codex-warp` at a local (non-Git) marketplace source, Warp leaves that override alone and doesn't offer plugin updates for it.
+:::
+
+## Supported Warp features
+
+Codex supports Warp's full set of agent integration features:
+
+* **Agent notifications** - Receive in-app and desktop alerts when Codex needs your attention. Requires the Warp plugin for Codex (see [Setting up notifications](#setting-up-notifications)).
+* **Rich input editor** - Press `Ctrl-G` to open an expanded input editor for composing longer prompts.
+* **Code review** - Send inline review comments directly to the agent from Warp's code review panel.
+* **Attach code as context** - Select code and send it to the agent as context.
+* **Vertical tabs with agent metadata** - Monitor Codex sessions with status indicators in Warp's tab bar.
+* **Tab Configs** - Save and restore Codex session configurations.
+* **[Remote Control](/agents/cli-agents/remote-control/)** - Publish your Codex session so you can monitor and steer it from another device.
+
+## Related pages
+
+* [How to set up Codex CLI](/guides/external-tools/how-to-set-up-codex-cli/) — step-by-step setup guide
+* [Codex in Warp](https://www.warp.dev/agents/codex) — product overview
+* [Third-party CLI agents overview](/agents/cli-agents/overview/) — supported CLI agent integrations
+* [Codex with the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/codex/) — Codex as a cloud harness
+* [Claude Code](/agents/cli-agents/claude-code/) — Claude Code in Warp
+* [OpenCode](/agents/cli-agents/opencode/) — OpenCode in Warp

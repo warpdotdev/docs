@@ -1,0 +1,75 @@
+{
+  "adjudicated_findings": [],
+  "claims": [
+    {
+      "category": "product-behavior",
+      "entity": "attachments",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "maximum",
+      "qualifiers": {
+        "exceptions": [
+          "api-key-runs"
+        ]
+      },
+      "quote": "You can attach up to five images, except API-key runs.",
+      "source": {
+        "content_sha256": "e25c54f57e13b50a8813e3e7cd3e548238d15dcdc3436d7e96bc4f37876a549d",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/negative-intentional-exception-left",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": 5,
+        "type": "integer"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "entity": "attachments",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "maximum",
+      "qualifiers": {
+        "actors": [
+          "api-key"
+        ]
+      },
+      "quote": "API-key runs accept one image.",
+      "source": {
+        "content_sha256": "e89bdff5340e9817864c153df1ff641c256fedbb917d1e676544c9cc311f92cf",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/negative-intentional-exception-right",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": 1,
+        "type": "integer"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "e25c54f57e13b50a8813e3e7cd3e548238d15dcdc3436d7e96bc4f37876a549d",
+    "right.mdx": "e89bdff5340e9817864c153df1ff641c256fedbb917d1e676544c9cc311f92cf"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

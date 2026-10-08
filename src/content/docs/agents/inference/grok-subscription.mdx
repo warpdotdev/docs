@@ -1,0 +1,91 @@
+---
+title: SuperGrok subscription
+description: >-
+  Connect your SuperGrok or X Premium subscription to use Grok models in
+  Warp through your xAI account. Usage draws from the same weekly pool as
+  Grok Build.
+---
+
+Warp lets you connect your **SuperGrok subscription** to use Grok models with agents in Warp through your xAI account. If you already subscribe to Grok, you can run Grok models in Warp without consuming your Warp [credits](/support-and-community/plans-and-billing/credits/). X Premium subscriptions that include Grok access work the same way: you sign in to your xAI account, and xAI determines which subscription tiers are eligible and how much usage they include.
+
+Connecting a subscription works like [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), except you sign in to your xAI account instead of pasting an API key. There is no xAI API key field in Warp today — the subscription is the way to bring your own Grok access.
+
+:::note
+Like BYOK, connecting a SuperGrok subscription is available on Free and all eligible paid plans for individual users and organizations with 10 or fewer employees, subject to Warp's [Terms of Service](https://www.warp.dev/legal/terms-of-service). See [Warp pricing](https://www.warp.dev/pricing) for current availability.
+:::
+
+## How it works
+
+When you connect your subscription, Warp opens your browser to xAI's consent screen and completes a standard OAuth login. Warp receives OAuth tokens for your xAI account and stores them **only on your device** (in your OS keychain or equivalent secure storage), never on Warp's servers. Warp refreshes the tokens automatically in the background, so you typically only need to connect once.
+
+When you send a prompt with a Grok model selected and a subscription connected:
+
+1. Your local Warp client sends the access token to Warp's backend along with your prompt.
+2. The Warp Agent harness assembles the full request and uses your token in-flight to call xAI, authenticating as your xAI account instead of Warp's.
+3. xAI's response streams back through Warp's backend to your client.
+
+Your token passes through Warp's servers on each request but is used only in-flight to call xAI, then discarded — the same model as [BYOK](/agents/inference/bring-your-own-api-key/#how-byok-works).
+
+Once connected, supported Grok models show a **key icon** in the model picker, indicating requests will route through your xAI account. Usage and rate limits for these requests are governed by your xAI subscription — see [How usage counts against your xAI subscription](#how-usage-counts-against-your-xai-subscription).
+
+## Connecting your SuperGrok subscription
+
+1. In the Warp app, open **Settings** and search for `SuperGrok` to jump to the **Connect SuperGrok subscription** row in your AI settings.
+2. Click **Connect**. Warp opens your browser to xAI's consent screen and shows a toast with a **Copy URL** fallback in case the browser doesn't open.
+3. Approve the connection in your browser. The page confirms with "Grok connected," and back in Warp the row shows a "Connected on..." timestamp.
+4. Select a Grok model with the key icon from the model picker in your prompt input. Connecting a subscription doesn't change your selected model, so this last step is what actually routes your requests through your subscription. See [Model choice](/agents/inference/model-choice/) for the list of available models.
+
+In the [Warp Agent CLI](/agents/cli/), run `/connect-grok` instead. It starts the same xAI sign-in from your session, and `/api-keys` shows the connection state afterward. See [models and usage in the Warp Agent CLI](/agents/cli/models-and-usage/#bring-your-own-api-key).
+
+## Usage and billing behavior
+
+When a Grok model with the key icon is selected:
+
+* Warp **does not consume** any of your [credits](/support-and-community/plans-and-billing/credits/) for the request.
+* Inference runs through your xAI account, within your xAI subscription's usage limits.
+* If a request fails because your subscription hits a limit, Warp does not retry with Warp credits unless you enable **Warp credit fallback** in the same settings section. See [failover and fallback behavior](/agents/inference/bring-your-own-api-key/#failover-and-fallback-behavior).
+
+### How usage counts against your xAI subscription
+
+xAI gives every paid Grok subscription one weekly usage pool that is shared across all Grok products — Grok chat, [Grok Build](https://docs.x.ai/build/overview) (xAI's own coding agent), and API access all draw down the same pool. Requests you send from Warp count against that same pool.
+
+In xAI's usage dashboard on grok.com (the Usage section in Settings), requests from Warp appear under the **API** product label because Warp calls xAI's API on your behalf. The label reflects where the usage came from, not a separate quota: API and Grok Build usage share the same pool, so you get the same amount of usage running Grok models in Warp as you would using Grok Build directly.
+
+When you use up your weekly pool, xAI pauses paid usage until the reset time shown in its Usage tab. Extra Usage Credits and plan upgrades for the pool are managed through your xAI account, not Warp.
+
+### Auto models
+
+Warp's **Auto** models always use Warp's own inference and **always consume Warp credits**, even with a SuperGrok subscription connected. Auto never routes requests through your subscription. To use your subscription, select a specific Grok model from the model picker.
+
+:::caution
+A connected SuperGrok subscription does not apply to [Cloud Agents](/platform/). Because tokens are stored locally on your device, they are not available to cloud-hosted agent runs, which always consume [Warp credits](/support-and-community/plans-and-billing/credits/).
+:::
+
+### Zero data retention (ZDR)
+
+Warp has Zero Data Retention agreements with its contracted LLM providers, including xAI, for Warp-managed inference. When you connect your own subscription, data retention on xAI's side is governed by your own xAI account and its terms — Warp cannot enforce ZDR for requests sent through your subscription. Warp itself never stores your tokens on its servers.
+
+## Disconnecting
+
+To disconnect, open **Settings**, search for `SuperGrok`, and click **Disconnect**. Warp removes the tokens from your device's secure storage, and Grok models go back to running on Warp credits.
+
+## Troubleshooting
+
+### "Couldn't start Grok login"
+
+Warp listens on a fixed local port for the browser to complete the connection. This error means the port is busy: usually another connection attempt is still in progress, or another app that uses the same xAI login flow (like Grok CLI) is running. Close the other app or wait for the other attempt to finish, then click **Connect** again.
+
+### The browser never opened
+
+Click **Copy URL** on the toast that appears after clicking **Connect**, then paste the URL into your browser manually.
+
+### "Couldn't connect SuperGrok: timed out waiting for the Grok authorization callback"
+
+Warp waits 5 minutes for you to approve the connection in your browser. Click **Connect** and approve the consent screen within that window.
+
+## Related resources
+
+* [Model choice](/agents/inference/model-choice/) — Full list of supported models and `model_id` values.
+* [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) — Use your own Anthropic, OpenAI, or Google API keys.
+* [Custom inference endpoint](/agents/inference/custom-inference-endpoint/) — Route Warp through any OpenAI-compatible endpoint.
+* [Credits](/support-and-community/plans-and-billing/credits/) — How Warp credits work and when they're consumed.

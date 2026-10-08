@@ -28,7 +28,7 @@ This file lists checks from the afdocs-audit skill that may flag as warnings or 
 - `/platform/triggers/scheduled-agents-quickstart/` — step headings
 - `/platform/integrations/github-actions/` — numbered use case headings
 - `/support-and-community/troubleshooting-and-support/troubleshooting-login-issues/` — URLs with special chars
-- `/reference/cli/quickstart/` — optional step headings
+- `/agents/cli/oz-cli/quickstart/` — optional step headings
 - `/guides/getting-started/welcome-to-warp/` — numbered section headings
 - `/terminal/editor/vim/` — "See Vim docs:" link text
 - `/guides/getting-started/10-coding-features-you-should-know/` — numbered feature headings

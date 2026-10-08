@@ -1,0 +1,68 @@
+---
+title: Screenshots and videos in pull requests
+sidebar:
+  label: "Screenshots and videos in PRs"
+description: >-
+  Share Computer Use screenshots and recordings in pull requests, Slack,
+  Linear, issue comments, and chat while controlling access.
+---
+
+import { VARS } from '@data/vars';
+
+When a cloud agent run opens or updates a pull request, the screenshots and video recordings it captured with [Computer Use](/agents/capabilities/computer-use/) are attached to the PR description automatically. Reviewers get visual proof of the change — a rendered UI state, a recorded flow, a bug reproduction — without leaving the pull request.
+
+## What gets attached
+
+* **Screenshots** - UI states the agent captures during its Computer Use session. Up to 10 screenshots are attached per pull request.
+* **Video recordings** - Session recordings the agent produces. See [Testing and recordings](/agents/capabilities/computer-use/testing-and-recordings/) for how recordings are captured and processed.
+
+Attachment is automatic: once a screenshot or recording artifact is associated with the run, the agent includes it the next time it creates or updates a pull request. You can encourage captures in your prompt — for example, "take screenshots of the before and after states" or "record the flow and attach it to the PR."
+
+## Attachment modes
+
+A team-level **Agent artifact attachments** setting controls how agents share captures in pull requests and other destinations:
+
+* **Link only (default)** - Screenshots and recordings are attached as private links to a media page that shows one capture. Warp checks each viewer's access when they open the link.
+* **Embed** - Screenshots render inline, and recordings appear as links with preview thumbnails when available. The linked media is published at stable, publicly accessible URLs.
+* **Disabled** - No screenshots or recordings are attached to pull requests.
+
+:::caution
+In **Embed** mode, attached screenshots and recordings become publicly downloadable by anyone with the URL — including anyone who can read the PR description. Use **Link only** if your Computer Use sessions may capture content that shouldn't leave your team.
+:::
+
+### Changing the attachment mode
+
+Team admins control the attachment mode from the [Admin Panel](https://app.warp.dev/admin/):
+
+1. In the Admin Panel sidebar, select your team under **Team admin**.
+2. Click the **Platform** tab.
+3. Under **Agent artifact attachments**, choose **Disabled**, **Link only**, or **Embed**.
+
+## Sharing captures outside pull requests
+
+Ask an agent to share Computer Use screenshots or video recordings in a Slack message, Linear comment, issue or pull request comment, or chat reply. The agent receives links for captures from its current run and chooses the relevant ones. Captures from child agents stay with those child runs, so each child agent must share its own links.
+
+Each private link opens a Warp media page that shows one capture. Viewers who aren't signed in are directed to sign in, and Warp checks whether they can view the artifact. Public artifacts created for embeds open without signing in.
+
+The **Agent artifact attachments** setting also controls these links:
+
+* **Link only (default)** - The agent gets private media-page links.
+* **Embed** - When the destination supports inline media, the agent can request direct image, video, and video thumbnail URLs. Requesting those URLs makes the media public to anyone with the link.
+* **Disabled** - The agent can't get links for sharing captures.
+
+Tell the agent where to share the captures. For example: "Post the screenshots to #eng-releases" or "Reply with a link to the recording."
+
+## Where else artifacts appear
+
+Pull requests aren't the only place captures end up:
+
+* **In the conversation** - Screenshots and recordings appear as blocks in the agent's conversation as they're captured.
+* **On the run page** - Open the run in the [{VARS.WEB_APP}](/platform/oz-web-app/#runs) to view, play, or download all artifacts the run produced.
+
+## Related pages
+
+* [Computer Use](/agents/capabilities/computer-use/) - Control Computer Use and understand security considerations.
+* [Testing and recordings](/agents/capabilities/computer-use/testing-and-recordings/) - How the recording pipeline works and what finished videos contain.
+* [Admin Panel for teams](/enterprise/team-management/admin-panel/) - The full reference for team settings, including the Platform section.
+* [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) - Open and inspect cloud agent run transcripts.
+* [Privacy](/support-and-community/privacy-and-security/privacy/) - Warp's data handling policies, including how run artifacts are stored.

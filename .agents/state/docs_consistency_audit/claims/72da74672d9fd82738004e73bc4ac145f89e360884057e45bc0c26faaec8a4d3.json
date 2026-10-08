@@ -1,0 +1,50 @@
+{
+  "claims": [
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:809d8993ec7c71555948d9626d6a9a019f2bae6d4227e101877e936e5642c536",
+      "claim_id": "sha256:b22371cade5580be09ebad05b4bde0b74b44f8b8311ddd75db0a13eec20e0ea2",
+      "entity": "oz-default-agent-profile",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "starts-all-configured-mcp-servers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The default profile permits MCP actions but does not automatically start every configured server.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli/quickstart",
+        "canonical_route": "/agents/cli/oz-cli/quickstart",
+        "content_sha256": "d0739d4bc62457714bc2ef0664e5e9d5430aa8725f535baea799b8c519b08481",
+        "heading": "3. Run an agent",
+        "heading_anchor": "3-run-an-agent",
+        "line_end": 58,
+        "line_start": 58,
+        "path": "src/content/docs/agents/cli/oz-cli/quickstart.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/quickstart/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "d0739d4bc62457714bc2ef0664e5e9d5430aa8725f535baea799b8c519b08481",
+  "path": "src/content/docs/agents/cli/oz-cli/quickstart.mdx",
+  "schema_version": 1
+}

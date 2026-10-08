@@ -6,14 +6,28 @@ The Scalar API reference at `docs.warp.dev/api` renders from
 `docs/developers/agent-api-openapi.yaml`, which is a curated subset.
 
 This script generates the docs subset deterministically:
+  * operations marked ``x-internal: true`` are removed, and a path whose
+    every operation is internal is dropped entirely
   * tags listed in EXCLUDED_TAGS are removed (and their paths/schemas)
   * paths listed in EXCLUDED_PATHS are removed
-  * surviving paths and operations are kept verbatim, including any
-    ``x-internal: true`` markers
-  * components/schemas is pruned to only schemas reachable from the
-    surviving paths via $ref walking
+  * components/schemas and components/responses are pruned to entries
+    reachable from the surviving paths via $ref walking
+  * Factory-only values are removed from the mixed public/private
+    ``RunSourceType`` schema
+  * every key in STRIP_FLAGS (implementation-only extensions such as
+    ``x-go-type`` and ``x-stainless-naming``) is removed recursively from
+    whatever survives the filtering above, wherever it appears in the tree
   * the regenerated spec is validated for unresolved $refs before
     being written; apply will refuse to write a broken spec
+
+``x-internal`` is warp-server's own public/private marker: its
+``public_api/public-openapi-filter.yaml`` strips those operations when the
+release pipeline publishes the spec. Honoring the same marker here keeps this
+script from publishing a surface the server team has explicitly marked private,
+instead of relying only on a hand-maintained tag allowlist that goes stale
+whenever a new private tag appears. STRIP_FLAGS mirrors that same filter's
+``stripFlags`` list, so implementation-only extensions never reach the
+published docs copy either.
 
 Modes:
   diff       Print structural drift between source and target. Exits 1
@@ -39,9 +53,42 @@ from typing import Any
 import yaml
 
 # Tags whose paths and tag entry should be removed entirely.
-# `memory_stores` is gated as `x-internal` server-side.
+# `memory_stores` / `memory` back Agent Memory, which is a research preview.
 # `harness-support` is the worker-to-server contract — not a public API.
-EXCLUDED_TAGS: frozenset[str] = frozenset({"memory_stores", "harness-support"})
+# `factory` is Oz Factory, which has not shipped publicly.
+# These are belt-and-braces on top of the `x-internal` filter below: a tag can
+# be private even when individual operations aren't marked internal yet.
+EXCLUDED_TAGS: frozenset[str] = frozenset(
+    {"memory_stores", "memory", "harness-support", "factory"}
+)
+
+# OpenAPI extension warp-server uses to mark an operation private. Mirrors
+# `flagValues: [x-internal: true]` in warp-server/public_api/public-openapi-filter.yaml.
+INTERNAL_MARKER = "x-internal"
+
+# Implementation-only OpenAPI extensions that must never reach the published
+# docs copy. Mirrors `stripFlags` in
+# warp-server/public_api/public-openapi-filter.yaml: these keys are useful for
+# server/SDK code generation (oapi-codegen, Stainless) but are stripped
+# unconditionally from every remaining object, not just top-level operations.
+STRIP_FLAGS: frozenset[str] = frozenset(
+    {
+        "x-internal",
+        "x-enum-varnames",
+        "x-go-type",
+        "x-go-type-import",
+        "x-go-type-skip-optional-pointer",
+        "x-omitempty",
+        "x-oapi-codegen-extra-tags",
+        "x-stainless-deprecation-message",
+        "x-stainless-naming",
+    }
+)
+
+# Path-item keys that are HTTP operations rather than shared path metadata.
+HTTP_METHODS: frozenset[str] = frozenset(
+    {"get", "put", "post", "delete", "options", "head", "patch", "trace"}
+)
 
 # Specific paths under otherwise-public tags that should be hidden from
 # the public API reference. Keep in sync with references/sync-policy.md.
@@ -52,6 +99,34 @@ EXCLUDED_PATHS: frozenset[str] = frozenset(
         "/agent/conversations/{conversation_id}/fork",
         "/agent/conversations/{conversationId}/redirect",
     }
+)
+
+# Path prefixes that are private no matter how the operation is tagged. Tag
+# checks alone are not enough here: some Factory operations are tagged `agent`
+# upstream (for example `GET /factory/scorers/{scorer_id}/results`), so a
+# tags-only rule would leak them into the public reference.
+EXCLUDED_PATH_PREFIXES: tuple[str, ...] = ("/factory",)
+
+EXCLUDED_RUN_SOURCE_VALUES: frozenset[str] = frozenset(
+    {"BENCHMARK_TRIAL", "CREATE_BENCHMARK_TASK", "CUSTOM_WEBHOOK"}
+)
+# The upstream spec owns endpoint behavior and non-product metadata. The docs
+# copy uses the public product name and description that frame the Scalar
+# reference alongside the Factory and cloud-agent documentation.
+DOCS_INFO_OVERRIDES: dict[str, str] = {
+    "title": "Warp Platform API",
+    "description": (
+        "API for creating, managing, and querying factory and cloud agent runs.\n\n"
+        "These endpoints allow users to send work to factories, start standalone agents, "
+        "list runs, and retrieve detailed run information.\n"
+    ),
+}
+
+LEGACY_ERROR_DOC_URL_PREFIX = (
+    "https://docs.warp.dev/reference/api-and-sdk/troubleshooting/errors/"
+)
+CANONICAL_ERROR_DOC_URL_PREFIX = (
+    "https://docs.warp.dev/factories/api-and-sdk/troubleshooting/errors/"
 )
 
 # Default checkout layout: docs/ and warp-server/ as siblings.
@@ -124,13 +199,106 @@ def _path_tags(path_item: dict[str, Any]) -> set[str]:
     return tags
 
 
+def _is_internal_operation(operation: Any) -> bool:
+    """Whether an operation carries warp-server's ``x-internal: true`` marker."""
+    return isinstance(operation, dict) and operation.get(INTERNAL_MARKER) is True
+
+
+def _prune_internal(node: Any) -> Any:
+    """Recursively drop any object marked ``x-internal: true``, then recurse
+    into whatever remains.
+
+    Mirrors openapi-format's ``flagValues: [x-internal: true]`` semantics
+    (warp-server's ``public_api/public-openapi-filter.yaml``): the entire
+    marked node is deleted, not just the marker key. This catches internal
+    schema properties (e.g. ``factory_uid``, ``agent_type``) and internal
+    parameters (e.g. the ``automation_id`` query parameter) wherever they
+    appear in the tree — not only the top-level path operations that
+    ``strip_internal_operations`` inspects. Stripping only the marker key
+    (see ``_strip_flags``) would otherwise leave the internal object itself,
+    just unmarked, in the published spec.
+    """
+    if isinstance(node, dict):
+        return {
+            key: _prune_internal(value)
+            for key, value in node.items()
+            if not _is_internal_operation(value)
+        }
+    if isinstance(node, list):
+        return [
+            _prune_internal(item)
+            for item in node
+            if not _is_internal_operation(item)
+        ]
+    return node
+
+
+def strip_internal_operations(path_item: dict[str, Any]) -> dict[str, Any]:
+    """Return ``path_item`` without any operation marked ``x-internal: true``.
+
+    Non-operation keys (``parameters``, ``summary``, ``servers``, ...) are
+    preserved so a partially-internal path keeps its shared metadata.
+    """
+    return {
+        key: value
+        for key, value in path_item.items()
+        if not (key.lower() in HTTP_METHODS and _is_internal_operation(value))
+    }
+
+
+def _has_public_operation(path_item: dict[str, Any]) -> bool:
+    """Whether a path item still declares at least one non-internal operation."""
+    return any(
+        key.lower() in HTTP_METHODS and not _is_internal_operation(value)
+        for key, value in path_item.items()
+    )
+
+
 def _should_keep_path(path: str, path_item: dict[str, Any]) -> bool:
     if path in EXCLUDED_PATHS:
+        return False
+    if path.startswith(EXCLUDED_PATH_PREFIXES):
         return False
     tags = _path_tags(path_item)
     if tags and tags.issubset(EXCLUDED_TAGS):
         return False
+    # A path whose every operation is marked internal has no public surface.
+    if not _has_public_operation(path_item):
+        return False
     return True
+
+
+def _strip_flags(node: Any) -> Any:
+    """Recursively remove every key in ``STRIP_FLAGS`` from ``node``.
+
+    These extensions can appear anywhere in the spec (operations, schemas,
+    individual properties, parameters), not only on the operation objects
+    that ``strip_internal_operations`` already inspects, so this walks the
+    entire tree rather than a fixed set of levels.
+    """
+    if isinstance(node, dict):
+        return {
+            key: _strip_flags(value)
+            for key, value in node.items()
+            if key not in STRIP_FLAGS
+        }
+    if isinstance(node, list):
+        return [_strip_flags(item) for item in node]
+    return node
+
+
+def _rewrite_docs_urls(node: Any) -> Any:
+    """Rewrite moved docs URLs to their canonical public destinations."""
+    if isinstance(node, dict):
+        return {key: _rewrite_docs_urls(value) for key, value in node.items()}
+    if isinstance(node, list):
+        return [_rewrite_docs_urls(item) for item in node]
+    if isinstance(node, str):
+        return node.replace(
+            LEGACY_ERROR_DOC_URL_PREFIX,
+            CANONICAL_ERROR_DOC_URL_PREFIX,
+        )
+    return node
 
 
 def _collect_refs(node: Any, refs: set[str]) -> None:
@@ -153,6 +321,49 @@ def _collect_refs(node: Any, refs: set[str]) -> None:
     elif isinstance(node, list):
         for item in node:
             _collect_refs(item, refs)
+
+def _collect_response_refs(node: Any, refs: set[str]) -> None:
+    """Collect component response names referenced from ``node``."""
+    if isinstance(node, dict):
+        for key, value in node.items():
+            if (
+                key == "$ref"
+                and isinstance(value, str)
+                and value.startswith("#/components/responses/")
+            ):
+                refs.add(value[len("#/components/responses/") :])
+            else:
+                _collect_response_refs(value, refs)
+    elif isinstance(node, list):
+        for item in node:
+            _collect_response_refs(item, refs)
+
+
+def _prune_run_source_values(schemas: dict[str, Any]) -> dict[str, Any]:
+    """Remove Factory-only RunSourceType values and their descriptions."""
+    run_source_type = schemas.get("RunSourceType")
+    if not isinstance(run_source_type, dict):
+        return schemas
+    enum = run_source_type.get("enum")
+    if not isinstance(enum, list):
+        return schemas
+    pruned = dict(schemas)
+    filtered_run_source_type = dict(run_source_type)
+    filtered_run_source_type["enum"] = [
+        value for value in enum if value not in EXCLUDED_RUN_SOURCE_VALUES
+    ]
+    description = run_source_type.get("description")
+    if isinstance(description, str):
+        filtered_run_source_type["description"] = "\n".join(
+            line
+            for line in description.splitlines()
+            if not any(
+                line.strip().startswith(f"- {value}:")
+                for value in EXCLUDED_RUN_SOURCE_VALUES
+            )
+        )
+    pruned["RunSourceType"] = filtered_run_source_type
+    return pruned
 
 
 def _transitive_schemas(
@@ -223,11 +434,18 @@ def _validate_output(out: dict[str, Any]) -> list[str]:
 
 def transform(source: dict[str, Any]) -> dict[str, Any]:
     """Produce the docs subset of the given source spec."""
+    # Drop every x-internal-marked object (schema properties, parameters,
+    # operations, tags, ...) before anything else, so a downstream pass never
+    # sees an internal node it would otherwise have to know how to filter.
+    source = _prune_internal(source)
+
     out: dict[str, Any] = {}
 
     for top_key in ("openapi", "info", "servers"):
         if top_key in source:
             out[top_key] = source[top_key]
+    if isinstance(out.get("info"), dict):
+        out["info"] = {**out["info"], **DOCS_INFO_OVERRIDES}
 
     src_tags = source.get("tags") or []
     out_tags = [
@@ -240,7 +458,7 @@ def transform(source: dict[str, Any]) -> dict[str, Any]:
 
     src_paths = source.get("paths") or {}
     kept_paths = {
-        path: item
+        path: strip_internal_operations(item)
         for path, item in src_paths.items()
         if isinstance(item, dict) and _should_keep_path(path, item)
     }
@@ -250,7 +468,14 @@ def transform(source: dict[str, Any]) -> dict[str, Any]:
     _collect_refs(kept_paths, seed_refs)
 
     src_components = source.get("components") or {}
-    src_schemas = src_components.get("schemas") or {}
+    src_schemas = _prune_run_source_values(src_components.get("schemas") or {})
+    src_responses = src_components.get("responses") or {}
+    response_refs: set[str] = set()
+    _collect_response_refs(kept_paths, response_refs)
+    for response_name in response_refs:
+        response = src_responses.get(response_name)
+        if isinstance(response, dict):
+            _collect_refs(response, seed_refs)
     reachable = _transitive_schemas(seed_refs, src_schemas)
 
     out_components: dict[str, Any] = {}
@@ -261,12 +486,18 @@ def transform(source: dict[str, Any]) -> dict[str, Any]:
                 for name in src_schemas
                 if name in reachable
             }
+        elif ck == "responses":
+            out_components["responses"] = {
+                name: src_responses[name]
+                for name in response_refs
+                if name in src_responses
+            }
         else:
             out_components[ck] = cv
     if out_components:
         out["components"] = out_components
 
-    return out
+    return _rewrite_docs_urls(_strip_flags(out))
 
 
 # ---------------------------------------------------------------------------
@@ -382,6 +613,20 @@ def _self_test() -> int:
                 "post": {
                     "tags": ["agent"],
                     "operationId": "runAgent",
+                    "x-stainless-deprecation-message": "use /agent/runs instead",
+                    "parameters": [
+                        {
+                            "name": "conversation_id",
+                            "in": "query",
+                            "schema": {"type": "string"},
+                        },
+                        {
+                            "name": "factory_uid",
+                            "in": "query",
+                            "x-internal": True,
+                            "schema": {"type": "string"},
+                        },
+                    ],
                     "requestBody": {
                         "content": {
                             "application/json": {
@@ -397,7 +642,10 @@ def _self_test() -> int:
                                     "schema": {"$ref": "#/components/schemas/RunResp"}
                                 }
                             },
-                        }
+                        },
+                        "403": {
+                            "$ref": "#/components/responses/PublicAccessDenied"
+                        },
                     },
                 }
             },
@@ -429,8 +677,11 @@ def _self_test() -> int:
             "schemas": {
                 "RunReq": {
                     "type": "object",
+                    "x-go-type": "models.RunReq",
+                    "x-go-type-import": {"path": "warp.dev/warp-server/models"},
                     "properties": {
-                        "config": {"$ref": "#/components/schemas/Config"}
+                        "config": {"$ref": "#/components/schemas/Config"},
+                        "source": {"$ref": "#/components/schemas/RunSourceType"},
                     },
                 },
                 "Config": {
@@ -446,12 +697,61 @@ def _self_test() -> int:
                                 {"type": "object"},
                             ]
                         },
+                        "legacy_mode": {
+                            "type": "string",
+                            "x-go-type-skip-optional-pointer": True,
+                            "x-omitempty": True,
+                            "x-oapi-codegen-extra-tags": {"json": "legacy_mode,omitempty"},
+                        },
+                        "factory_agent_type": {
+                            "allOf": [{"$ref": "#/components/schemas/Mode"}],
+                            "x-internal": True,
+                        },
                     },
                 },
-                "Mode": {"type": "string"},
+                "Mode": {
+                    "type": "string",
+                    "x-enum-varnames": ["ModeFast", "ModeSlow"],
+                    "x-stainless-naming": {"typescript": {"type": "Mode"}},
+                },
                 "RunResp": {"type": "object"},
+                "Error": {
+                    "type": "object",
+                    "description": (
+                        f"Format: `{LEGACY_ERROR_DOC_URL_PREFIX}"
+                        "{error_code}`"
+                    ),
+                },
                 "MSItem": {"type": "object"},  # only referenced by dropped path
                 "Followup": {"type": "object"},
+                "RunSourceType": {
+                    "type": "string",
+                    "enum": ["API", "BENCHMARK_TRIAL", "CUSTOM_WEBHOOK"],
+                    "description": (
+                        "Source that created the run:\n"
+                        "- API: Created through the API\n"
+                        "- BENCHMARK_TRIAL: Created as a factory benchmark trial\n"
+                        "- CUSTOM_WEBHOOK: Created by a factory automation"
+                    ),
+                },
+            },
+            "responses": {
+                "PublicAccessDenied": {
+                    "description": "access denied",
+                    "content": {
+                        "application/json": {
+                            "schema": {"$ref": "#/components/schemas/Error"}
+                        }
+                    },
+                },
+                "FactoryAccessDenied": {
+                    "description": "Factory access denied",
+                    "content": {
+                        "application/json": {
+                            "schema": {"$ref": "#/components/schemas/MSItem"}
+                        }
+                    },
+                },
             },
         },
     }
@@ -465,15 +765,61 @@ def _self_test() -> int:
 
     schemas = set(out["components"]["schemas"].keys())
     # Config and Mode are reachable transitively (allOf, items)
-    assert schemas == {"RunReq", "Config", "Mode", "RunResp"}, f"unexpected schemas: {schemas}"
+    assert schemas == {
+        "RunReq",
+        "Config",
+        "Mode",
+        "RunResp",
+        "RunSourceType",
+        "Error",
+    }, f"unexpected schemas: {schemas}"
+
+    responses = set(out["components"]["responses"].keys())
+    assert responses == {"PublicAccessDenied"}, f"unexpected responses: {responses}"
+    run_sources = out["components"]["schemas"]["RunSourceType"]
+    assert run_sources["enum"] == ["API"], f"unexpected run sources: {run_sources['enum']}"
+    assert "BENCHMARK_TRIAL" not in run_sources["description"]
+    assert "CUSTOM_WEBHOOK" not in run_sources["description"]
 
     tag_names = [t["name"] for t in out.get("tags") or []]
     assert tag_names == ["agent"], f"unexpected tags: {tag_names}"
 
     assert out["components"].get("securitySchemes"), "securitySchemes should be preserved"
+    assert out["info"]["title"] == "Warp Platform API"
+    assert out["info"]["description"] == DOCS_INFO_OVERRIDES["description"]
+    error_description = out["components"]["schemas"]["Error"]["description"]
+    assert LEGACY_ERROR_DOC_URL_PREFIX not in error_description
+    assert CANONICAL_ERROR_DOC_URL_PREFIX in error_description
 
     ref_errors = _validate_output(out)
     assert not ref_errors, f"unexpected unresolved refs: {ref_errors}"
+
+    # Implementation-only extensions must never survive into the output,
+    # regardless of whether they sit on an operation, a schema, or a nested
+    # property — mirrors warp-server's `stripFlags` filter.
+    dumped = yaml.safe_dump(out)
+    for flag in STRIP_FLAGS:
+        assert flag not in dumped, f"{flag} leaked into the regenerated spec"
+    # The objects that carried those flags must otherwise survive intact.
+    assert out["paths"]["/agent/run"]["post"]["operationId"] == "runAgent"
+    assert out["components"]["schemas"]["RunReq"]["type"] == "object"
+    assert out["components"]["schemas"]["Config"]["properties"]["legacy_mode"][
+        "type"
+    ] == "string"
+
+    # An x-internal-marked object must be dropped entirely, not just have its
+    # marker key stripped — covers an internal query parameter and an
+    # internal schema property, alongside the surviving public sibling in
+    # each case.
+    run_params = {
+        p["name"] for p in out["paths"]["/agent/run"]["post"]["parameters"]
+    }
+    assert run_params == {"conversation_id"}, f"unexpected parameters: {run_params}"
+    config_props = set(out["components"]["schemas"]["Config"]["properties"].keys())
+    assert "factory_agent_type" not in config_props, (
+        f"internal property survived: {config_props}"
+    )
+    assert "legacy_mode" in config_props, f"public property dropped: {config_props}"
 
     print("self-test: OK")
     return 0

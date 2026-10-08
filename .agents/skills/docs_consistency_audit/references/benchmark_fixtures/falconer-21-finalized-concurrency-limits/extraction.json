@@ -1,0 +1,121 @@
+{
+  "adjudicated_findings": [
+    {
+      "authority_reason": "Reviewed benchmark authority precedence.",
+      "candidate_id": "sha256:ddcfaa1749f9509363c74dcc0b1bc22a1d5def38e2d7c3d2a39818bfa8014de5",
+      "canonical_source": "live-pricing",
+      "claim_ids": [
+        "sha256:acf5a2cbf7183104f1d21671c83b3272bf5032eba15cf337071c52c841b083be",
+        "sha256:d633a25ca0c84a876db1a54d699937244d8e47ac559dd4f1be07f2e434d44039"
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "qualifier_status": "complete",
+      "rationale": "Reviewed benchmark context adjudication.",
+      "rationale_class": "benchmark-context",
+      "scope_quotes": [
+        {
+          "quote": "Concurrency limits and credit allocation details are still being finalized",
+          "source": {
+            "content_sha256": "d093c6c55f9469193dcaab99f942fe11f9a88799335fbd79de75fed14e6e17ce",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "left.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-21-finalized-concurrency-limits-left",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "20 concurrent cloud agents",
+          "source": {
+            "content_sha256": "9c4a8f52e86bf7c01b54ec474442b40051fbfa5d6d5ce9d86e7bb92339795ed4",
+            "heading": "Claim",
+            "heading_anchor": "claim",
+            "line_end": 5,
+            "line_start": 5,
+            "path": "right.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/benchmark/falconer-21-finalized-concurrency-limits-right",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "medium",
+      "suggested_resolution": "Review the conflicting public claims.",
+      "suggested_resolution_class": "human-review",
+      "title": "falconer-21-finalized-concurrency-limits",
+      "verdict": "contradiction"
+    }
+  ],
+  "claims": [
+    {
+      "category": "plan-gating",
+      "entity": "cloud-agent-concurrency",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "published-status",
+      "qualifiers": {},
+      "quote": "Concurrency limits and credit allocation details are still being finalized",
+      "source": {
+        "content_sha256": "d093c6c55f9469193dcaab99f942fe11f9a88799335fbd79de75fed14e6e17ce",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "left.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-21-finalized-concurrency-limits-left",
+        "visibility": "public"
+      },
+      "source_class": "faq",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": [
+          "not-finalized"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "plan-gating",
+      "entity": "cloud-agent-concurrency",
+      "extraction_confidence": 1.0,
+      "polarity": "affirmative",
+      "predicate": "published-status",
+      "qualifiers": {},
+      "quote": "20 concurrent cloud agents",
+      "source": {
+        "content_sha256": "9c4a8f52e86bf7c01b54ec474442b40051fbfa5d6d5ce9d86e7bb92339795ed4",
+        "heading": "Claim",
+        "heading_anchor": "claim",
+        "line_end": 5,
+        "line_start": 5,
+        "path": "right.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/benchmark/falconer-21-finalized-concurrency-limits-right",
+        "visibility": "public"
+      },
+      "source_class": "live-pricing",
+      "topic": "plan-gating",
+      "value": {
+        "normalized": [
+          "published"
+        ],
+        "type": "enum"
+      }
+    }
+  ],
+  "evidence_manifest": {
+    "left.mdx": "d093c6c55f9469193dcaab99f942fe11f9a88799335fbd79de75fed14e6e17ce",
+    "right.mdx": "9c4a8f52e86bf7c01b54ec474442b40051fbfa5d6d5ce9d86e7bb92339795ed4"
+  },
+  "extraction_failures": [],
+  "processed_pages": [
+    "left.mdx",
+    "right.mdx"
+  ],
+  "schema_version": 1
+}

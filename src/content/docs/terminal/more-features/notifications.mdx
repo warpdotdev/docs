@@ -14,7 +14,7 @@ import VideoEmbed from '@components/VideoEmbed.astro';
 Notifications can be sent when a command completes after a configurable number of seconds or when a running command needs you to enter a password to proceed. For either of these triggers, Warp will only send you a desktop notification if you are using a different app at the time the trigger is fired.
 
 :::note
-For notifications from coding agents (Warp's built-in Agent and third-party CLI agents like Claude Code and OpenCode), see [Agent Notifications](/agent-platform/capabilities/agent-notifications/).
+For notifications from coding agents (Warp's built-in Agent and third-party CLI agents like Claude Code and OpenCode), see [Agent Notifications](/agents/capabilities/agent-notifications/).
 :::
 
 ## Custom notification hooks (OSC 9 / OSC 777)
@@ -61,7 +61,7 @@ On macOS, you will want to **Allow** or **Accept** the request so that Warp can 
     * Make sure the **Do Not Disturb** mode is turned off in  > **System Settings** > **Notifications** > **Notifications & Focus** > **Focus**.
     * Go to  > **System Settings** > **Notifications & Focus** > **Notifications** and select Warp in the list. Make sure either banner style or alert style notifications are selected, then quit and restart Warp.
     * To get the macOS notification prompt to show again for Warp, run `defaults delete dev.warp.Warp-Stable Notifications`, then restart Warp and toggle on the **Settings** > **Features** > **Receive desktop notifications from Warp**.
-    * Once all of the above is done, please restart macOS to apply the changes and that should help with restoring notifications in Warp.
+    * Once all of the above is done, restart macOS to apply the changes, which should restore notifications in Warp.
   </TabItem>
   <TabItem label="Windows">
     Warp requires two distinct notification settings to work. Windows system settings found in **Settings** > **System** > **Notifications** > **Warp** and Warp app settings found in **Settings** > **Features** > **Session** must both be enabled for Notifications to show.

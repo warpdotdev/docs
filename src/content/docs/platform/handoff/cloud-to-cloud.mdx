@@ -7,6 +7,7 @@ sidebar:
   label: "Cloud to cloud"
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
+import { VARS } from '@data/vars';
 
 Cloud-to-cloud handoff in Warp lets you send follow-up instructions to a finished cloud agent run and continue it in a fresh cloud session. The run keeps the same conversation and restores the prior workspace state, so the agent can pick up where it left off instead of starting over.
 
@@ -17,7 +18,7 @@ Watch this walkthrough to see how cloud-to-cloud handoff continues a cloud agent
 Use this handoff direction when:
 
 * You want to send a follow-up to a cloud agent after its session has ended.
-* You want to continue a background cloud agent run, such as a scheduled or integration-triggered run, while preserving it as a single unit of work in the [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app and the [Runs page in the Oz web app](/platform/oz-web-app/#runs).
+* You want to continue a background cloud agent run, such as a scheduled or integration-triggered run, while preserving it as a single unit of work in the [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app and the [Runs page in the {VARS.WEB_APP}](/platform/oz-web-app/#runs).
 
 ## What carries over
 
@@ -43,7 +44,7 @@ Cloud-to-cloud handoff relies on a snapshot from the prior session. Older cloud 
 
 To continue an ended cloud run, open the run in Warp and send the next message in the conversation. When the original session has ended, Warp automatically starts a fresh cloud session and restores the prior workspace state.
 
-1. **Open the ended cloud run.** Find it on the [Runs page](https://oz.warp.dev/runs) in the Oz web app or in the conversation panel in the Warp app.
+1. **Open the ended cloud run.** Find it on the <a href={`${VARS.WEB_APP_URL}/runs`}>Runs page</a> in the {VARS.WEB_APP} or in the conversation panel in the Warp app.
 2. **Send your follow-up.** Enter the next message in the conversation's input and submit it.
 
 The run picks up where it left off, with workspace state restored.
@@ -58,9 +59,9 @@ Cloud-to-cloud handoff also works for supported third-party agent runtimes, but 
 
 ## Inspecting a run that's been handed off
 
-The [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app and the [Runs page in the Oz web app](/platform/oz-web-app/#runs) show one row per run, even when the run spans multiple sessions.
+The [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app and the [Runs page in the {VARS.WEB_APP}](/platform/oz-web-app/#runs) show one row per run, even when the run spans multiple sessions.
 
-1. Open the [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app or the [Runs page in the Oz web app](/platform/oz-web-app/#runs).
+1. Open the [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app or the [Runs page in the {VARS.WEB_APP}](/platform/oz-web-app/#runs).
 2. Select the handed-off run.
 3. Review the transcript. Each session appears in order, so you can see where one session ended and the next began.
 

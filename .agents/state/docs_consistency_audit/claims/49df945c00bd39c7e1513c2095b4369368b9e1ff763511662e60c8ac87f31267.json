@@ -1,0 +1,97 @@
+{
+  "claims": [
+    {
+      "category": "cli",
+      "claim_content_fingerprint": "sha256:adbaea2e244438ca0433afc7d3f29888d4f19b7a0182c18742c55d1ba2b71e53",
+      "claim_id": "sha256:03f5ca735b638a6da859ccb9fb80c8fbd46a99e54da6c40a330ed7998ce79d4f",
+      "entity": "oz-run-cloud-attachments",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "maximum-file-count",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You can attach up to 25 files",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "b82726611d91b9e3d612b77cba3513879fcd8c0a5a56a63173917a025e143f76",
+        "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
+        "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
+        "line_end": 274,
+        "line_start": 274,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": 25,
+        "type": "integer"
+      }
+    },
+    {
+      "category": "cli",
+      "claim_content_fingerprint": "sha256:a5c7a2629a25d62633258c948c4947b3d010bbcf732bfc17dcb1872b779fdd18",
+      "claim_id": "sha256:c5530923646af8429249d35d2c751786627c9d03cd609e211ad7530d19974903",
+      "entity": "oz-run-cloud-attachments",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "maximum-file-size",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": true,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "maximum size of 10 MB per file.",
+      "source": {
+        "canonical_identity": "route:/agents/cli/oz-cli",
+        "canonical_route": "/agents/cli/oz-cli",
+        "content_sha256": "b82726611d91b9e3d612b77cba3513879fcd8c0a5a56a63173917a025e143f76",
+        "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
+        "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
+        "line_end": 274,
+        "line_start": 274,
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/oz-cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": 10000000,
+        "type": "bytes"
+      }
+    }
+  ],
+  "page_sha256": "b82726611d91b9e3d612b77cba3513879fcd8c0a5a56a63173917a025e143f76",
+  "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+  "schema_version": 1
+}

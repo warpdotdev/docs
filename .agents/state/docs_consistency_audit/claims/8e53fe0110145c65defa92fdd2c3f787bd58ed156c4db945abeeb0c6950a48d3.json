@@ -1,0 +1,137 @@
+{
+  "claims": [
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:93f741c3f81aab54ace733db56aa5989ad8f1260501c57cc6b3891374e836587",
+      "claim_id": "sha256:14177698d39708fa8c2d265758c3ed7ef9d96e156c71d3af1ab27d9983c5832b",
+      "entity": "byok-requests",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-credits",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "byok"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "requests are billed through your provider account and don't consume your Warp [credits]",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/models-and-usage.mdx",
+        "content_sha256": "dec7461c12e0395da878fe4818425ba22b387f7f9e6dcd5f80b690b34fffbb0a",
+        "heading": "Bring your own API key",
+        "heading_anchor": "bring-your-own-api-key",
+        "line_end": 21,
+        "line_start": 21,
+        "path": "src/content/docs/agents/cli/models-and-usage.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/models-and-usage/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:1c3de09256bbb8337387d62a8a72333c740e202cf452cef80736ad416299c4cd",
+      "claim_id": "sha256:2e70f7c4185e742ce464bf36472ee14fa35b9d639296748559a6654d341621d9",
+      "entity": "auto-models",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-credits",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "byok"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp's built-in Auto models always consume Warp credits, even with BYOK configured.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/models-and-usage.mdx",
+        "content_sha256": "dec7461c12e0395da878fe4818425ba22b387f7f9e6dcd5f80b690b34fffbb0a",
+        "heading": "Bring your own API key",
+        "heading_anchor": "bring-your-own-api-key",
+        "line_end": 33,
+        "line_start": 33,
+        "path": "src/content/docs/agents/cli/models-and-usage.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/models-and-usage/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:953f444f237dba7878f71c9ddde58143e19878547dc75f301d11033a068848c2",
+      "claim_id": "sha256:6d7a386756e2d198cbfcc425329c4b2b6891d06a51552f8b7be30033aeed60a5",
+      "entity": "provider-api-keys",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "stored-on-warp-servers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp does not store provider keys on its servers.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/models-and-usage.mdx",
+        "content_sha256": "dec7461c12e0395da878fe4818425ba22b387f7f9e6dcd5f80b690b34fffbb0a",
+        "heading": "Bring your own API key",
+        "heading_anchor": "bring-your-own-api-key",
+        "line_end": 25,
+        "line_start": 25,
+        "path": "src/content/docs/agents/cli/models-and-usage.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/models-and-usage/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "dec7461c12e0395da878fe4818425ba22b387f7f9e6dcd5f80b690b34fffbb0a",
+  "path": "src/content/docs/agents/cli/models-and-usage.mdx",
+  "schema_version": 1
+}

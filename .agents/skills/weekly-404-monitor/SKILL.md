@@ -12,8 +12,9 @@ Runs every Monday at 9am PT. Leads with the overall 404 volume trend, surfaces t
 The following environment secrets must be set in the Oz cloud agent environment:
 
 - `METABASE_API_KEY` — Metabase API key for BigQuery queries. If unavailable, the run must fail fast with a clear error.
-- `SLACK_BOT_TOKEN` — Slack bot token for posting to the docs channel. If unavailable, write a no-post report to the run output instead.
-- `GROWTH_DOCS_SLACK_CHANNEL_ID` — Slack channel ID for **`#growth-docs`**. Find it in Slack by right-clicking the channel → Copy link (the ID begins with `C`). There is no fallback — the run will skip Slack posting if this is unset.
+- `BUZZ_SLACK_TOKEN` — Slack bot token for posting to the docs channel. If unavailable, write a no-post report to the run output instead.
+
+The `#growth-docs` Slack channel ID is `C09BVK0PL3Y`. Use this value directly when posting — it does not need to be an environment variable.
 
 Do NOT print, log, or include secret values in reports, commits, or Slack messages.
 
@@ -36,7 +37,7 @@ The script:
 
 Fetch `vercel.json` from the docs repo (already checked out locally in the cloud environment, or via GitHub raw URL `https://raw.githubusercontent.com/warpdotdev/docs/main/vercel.json`).
 
-Extract all `source` values from the `redirects` array. Normalise: lowercase, strip trailing slashes and anchor fragments.
+Extract all `source` values from the `redirects` array. Normalise: lowercase, remove a trailing Vercel optional-slash suffix (`(/?)`) before parsing query strings, then strip trailing slashes, query strings, and anchor fragments.
 
 ### 3. Find uncovered URLs
 
@@ -56,11 +57,24 @@ Compare this week's uncovered gaps against last week's uncovered gaps (from step
 - **Significant gaps** = uncovered URLs with `hits_this_week >= REPORT_MIN_HITS`. These are worth a redirect and belong in the headline.
 - **Long-tail noise** = uncovered URLs below the threshold. Because the monitor is only weeks old (low sample), most broken URLs are hit once by bots, crawlers, or stale bookmarks, so the raw uncovered and "new gap" counts churn heavily week-over-week and overstate the problem. Roll these up into a single count — never list them individually or put them in the headline.
 
-### 5. Post Slack summary
+Before applying the threshold, exclude any normalised requested path whose non-empty path segment starts with `:`. These malformed route-parameter captures cannot produce a useful redirect. Keep them in the CSV and raw uncovered counts for diagnosis, but exclude them from `significant_uncovered_count`, `significant_new_gaps_count`, `top_significant_uncovered`, long-tail counts, and Phase 2 redirect candidates. Report only `unroutable_count`; never list the malformed paths in Slack.
 
-Post a Slack message using the Block Kit format defined in the "Slack message format" section below.
+### 5. Determine whether the run is actionable
 
-If `SLACK_BOT_TOKEN` is unavailable, write the full Slack message body to the run output instead and note that Slack posting was skipped.
+This agent posts **at most one message per run**, and only when the run is actionable. Follow the actionable-only rule in `.agents/references/skill-authoring-guidelines.md`.
+
+Decide here; send later. The order for the rest of the run is: write the CSV (step 6), run Phase 2, then send one combined message if this step marked the run actionable **or** Phase 2 produced redirect results.
+
+The run is actionable when any of these is true:
+- `significant_uncovered_count` is 1 or more (at least one gap at or above `REPORT_MIN_HITS`).
+- Phase 2 found at least one HIGH-confidence redirect, or produced MEDIUM-confidence suggestions needing human review.
+- The run was blocked by a failure (Metabase error, missing `docs_404` data, truncated `vercel.json`).
+
+Stay silent when the only findings are long-tail URLs below the threshold. That is the normal steady state once redirect coverage is healthy, and posting it weekly is what trains the channel to ignore this report. The run log entry and the CSV artifact remain the record of every run.
+
+**Do not send the message from this step.** Because Phase 2 can add HIGH-confidence redirects and MEDIUM-confidence suggestions to the same report, defer the send until Phase 2 completes, then send one combined message. Two messages per run for a single report is exactly the noise this removes.
+
+If `BUZZ_SLACK_TOKEN` is unavailable, write the full message body to the run output instead and note that Slack posting was skipped.
 
 ### 6. Write CSV artifact
 
@@ -89,33 +103,43 @@ Use Slack Block Kit. The message should be scannable in under 30 seconds.
 ...
 
 _+{long_tail_count} other uncovered URLs under {report_min_hits} hits each (mostly bots/old links) — see CSV._
+_{unroutable_count} malformed paths excluded from redirect candidates — see CSV._
 *{resolved_count} resolved since last week* (redirect added or traffic stopped)
+
+🔀 *Redirect drafter:* {N} HIGH-confidence redirects → {PR URL, or "none found this week"}
+{MEDIUM-confidence suggestions needing review, if any:}
+{path} → {suggested destination} [{reason}]
 
 → Add redirects for the gaps above: `vercel.json` › `redirects` array (PR against `main`)
 → Full breakdown: {oz_run_url}
 ```
 
+The redirect-drafter line is part of this single message, not a separate post. Omit the line entirely when Phase 2 found nothing and the message is being sent because of significant gaps alone. Omit the malformed-path line when `unroutable_count` is 0.
+
 Build `{oz_run_url}` at runtime — never hard-code the Oz host (for example `app.warp.dev` or `oz.warp.dev`). This agent may run on staging or production, and a hard-coded host resolves to the wrong environment (or a generic Runs page). Resolve the environment-correct link from your current run, substituting the run ID this agent is executing as:
 ```bash
-oz-dev run get "<your run ID>" --output-format json | jq -r '.session_link'
+oz run get "<your run ID>" --output-format json | jq -r '.session_link'
 ```
 If the command fails or returns an empty value, omit the `→ Full breakdown` line rather than posting a hard-coded or broken URL.
 
 Rules:
 - **Lead with volume trend, not distinct-URL counts.** The first line is always `trend_summary` — the pre-formatted total-404 trend, which reflects real user impact. It already includes the direction arrow (▼ fewer 404s, ▲ more, → no change) and falls back to a "no prior-week baseline yet" message when last week had no data, so the percentage is never rendered as null.
-- **Only list significant gaps.** List `top_significant_uncovered` (URLs with `hits_this_week >= report_min_hits`), capped at 10. If there are more, note "and N more — see full CSV in the run." If `significant_uncovered_count` is 0, write "None this week — remaining 404s are all low-hit long-tail traffic." and omit the list.
+- **Only list significant gaps.** List `top_significant_uncovered` (URLs with `hits_this_week >= report_min_hits`), capped at 10. If there are more, note "and N more — see full CSV in the run." If `significant_uncovered_count` is 0, write "None this week — no redirectable gaps met the hit threshold." and omit the list. Report long-tail and malformed counts on their separate summary lines.
 - **Roll up the long tail.** Never list sub-threshold URLs individually; collapse them into the single `long_tail_count` line so noise doesn't dominate the report.
+- **Summarise malformed paths.** If `unroutable_count` is greater than 0, report only the count. The CSV retains the paths for diagnosis.
 - Mark new gaps with 🆕.
 - If `total_404s_this_week` is less than 50, add a brief positive note: "404 volume is low — good signal that redirect coverage is working."
 - Never include raw user data (e.g. query strings with user IDs, tokens) in the Slack message. Strip query params from broken_url before displaying.
 
 ## Phase 2: Redirect drafter
 
-After the Slack summary is posted and the CSV artifact is written, continue with Phase 2. Phase 2 proposes redirect entries for high-confidence uncovered 404 gaps, reducing the manual work required from the docs team.
+After the CSV artifact is written, continue with Phase 2. Phase 2 proposes redirect entries for high-confidence uncovered 404 gaps, reducing the manual work required from the docs team.
+
+Phase 2 runs **before** the Slack message is sent, so its results can be folded into that single message (see step 5).
 
 ### Threshold and confidence scoring
 
-Only process gaps where `hits_this_week >= 5`. This is the **automation** threshold for opening redirect PRs — aligned with the **reporting** threshold (`REPORT_MIN_HITS`, default 5) used for the Phase 1 Slack summary. Review and adjust based on run log data (see `## Run log`).
+Only process redirectable gaps where `hits_this_week >= 5`. Exclude malformed paths identified in Phase 1 before matching redirect targets. This is the **automation** threshold for opening redirect PRs — aligned with the **reporting** threshold (`REPORT_MIN_HITS`, default 5) used for the Phase 1 Slack summary. Review and adjust based on run log data (see `## Run log`).
 
 For each qualifying uncovered URL, attempt to find a redirect target using these heuristics in order:
 
@@ -132,12 +156,22 @@ For each qualifying uncovered URL, attempt to find a redirect target using these
 
 ### PR requirements
 
-Open a draft PR only when at least 1 HIGH-confidence redirect is found.
+Open a **draft** PR only when at least 1 HIGH-confidence redirect is found. Always pass `--draft` to `gh pr create`.
 
-PR title:
+This skill follows the "One standing PR per automation" contract in `.agents/references/skill-authoring-guidelines.md`. Every redirect PR edits the same `redirects` array in `vercel.json`, so a dated PR per week would guarantee conflicts.
+
+Use the stable branch `docs/404-redirects` and a title with no date:
 ```text
-docs: add redirects for top uncovered 404 paths — YYYY-MM-DD
+docs: add redirects for top uncovered 404 paths
 ```
+
+Look for an existing open PR before creating one:
+```bash
+gh pr list --repo warpdotdev/docs --state open \
+  --search 'add redirects for top uncovered 404 paths in:title' \
+  --json number,headRefName
+```
+If one exists, check out `docs/404-redirects`, rebase on the latest `origin/main`, add this week's redirects, push, and append them to the existing PR body under its existing headings. Do not add a duplicate heading per week — `check_pr_body.py` rejects those. If none exists, create the branch from the latest `origin/main`.
 
 For each proposed redirect, add an entry to the `redirects` array in `vercel.json`:
 ```json
@@ -148,24 +182,17 @@ PR body must include:
 - The broken URL, hit count, proposed destination, and confidence reason for each redirect
 - The hit threshold used (`hits_this_week >= N`)
 - A note that MEDIUM-confidence suggestions are in the Slack message and require human review before adding
+- The shared v1 agent-doc quality contract's `warpy-factory` label and `## Documentation risk` section (see `.agents/references/doc-quality-policy.md`; build the block with `.agents/skills/doc_quality_policy/finalize_pr_contract.py build`). A redirect-only change to `vercel.json` adds no product-meaning claim, so it is `low` risk under the allowlist.
 
 Run `python3 .agents/skills/check_for_broken_links/check_links.py --internal-only` after editing `vercel.json` to catch any malformed destinations.
 
-### Slack update
+### Handing results to the Slack message
 
-Append to the existing Slack message (or post a follow-up in the same thread):
-```
-🔀 *Redirect drafter results*
-HIGH-confidence PRs: N redirects → [PR URL]
-MEDIUM-confidence suggestions: N paths (listed below for human review)
-{path} → {suggested destination} [{reason}]
-...
-```
+Do not post a separate redirect-drafter message. Pass these values into the single Phase 1 message described in "Slack message format":
+- The count of HIGH-confidence redirects and the PR URL, if a PR was opened or updated.
+- Any MEDIUM-confidence suggestions, each with its proposed target and confidence reason, for human review.
 
-If no gaps meet the threshold or no HIGH-confidence matches are found, post:
-```
-🔀 *Redirect drafter*: No high-confidence redirects found this week.
-```
+If no gaps meet the threshold and no HIGH-confidence matches are found, contribute nothing to the message and omit the redirect-drafter line. If that leaves the run with no significant gaps either, the run is a no-op: post nothing at all and let the run log record it.
 
 ### Threshold calibration note
 
@@ -212,6 +239,7 @@ Before posting to Slack, verify:
 - The vercel.json redirect list was loaded successfully and contains more than 500 entries (sanity check that the file is not truncated).
 - The CSV artifact was written before posting to Slack.
 - The Slack summary leads with the volume trend and lists only significant gaps (`hits_this_week >= report_min_hits`); long-tail URLs are rolled up into the `long_tail_count` line, never listed individually.
+- Malformed paths appear only in the CSV and raw uncovered counts; Slack reports their `unroutable_count` without listing them.
 
 ## No-data report
 
@@ -235,14 +263,17 @@ Check: Vercel project env vars include `PUBLIC_RUDDERSTACK_WRITE_KEY` and `PUBLI
 
 This skill is designed for an Oz scheduled agent with a weekly cron trigger: every Monday at 9am PT (`0 17 * * 1` in UTC).
 
-To deploy:
+To deploy (one-time setup):
 1. Push this skill to `main` in the docs repo.
-2. Verify the **`buzz`** Oz environment (in the Oz web app → Environments) has these secrets set:
+2. Verify the **Docs Agent** Oz environment (`K5KStCm5aYvhfBJb8cHol6`) has these secrets set:
    - `METABASE_API_KEY` — Metabase API key for BigQuery
-   - `SLACK_BOT_TOKEN` — Slack bot token
-   - `GROWTH_DOCS_SLACK_CHANNEL_ID` — ID for `#growth-docs` (right-click channel in Slack → Copy link; the ID starts with `C`)
-3. In the Oz web app, create a new scheduled agent:
-   - **Skill**: `weekly-404-monitor` from `warpdotdev/docs`
-   - **Schedule**: `0 17 * * 1` (UTC) = 9am PT (Mondays)
-   - **Environment**: `buzz` (already has `warpdotdev/docs` checked out)
-   - **Branch**: `main`
+   - `BUZZ_SLACK_TOKEN` — Slack bot token (already provisioned; used by other doc agents in this environment)
+3. Register the schedule via the Oz CLI:
+   ```sh
+   oz schedule create \
+     --name "weekly-404-monitor" \
+     --cron "0 17 * * 1" \
+     --environment K5KStCm5aYvhfBJb8cHol6 \
+     --prompt "You are running in the warpdotdev/docs repo. Read and follow the instructions in .agents/skills/weekly-404-monitor/SKILL.md."
+   ```
+   This will make the schedule visible in oz.warp.dev under Schedules and ensure runs open PRs under the @oz-by-warp bot account.

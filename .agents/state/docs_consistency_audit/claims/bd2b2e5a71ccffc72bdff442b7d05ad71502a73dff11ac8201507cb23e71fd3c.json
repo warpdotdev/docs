@@ -1,0 +1,50 @@
+{
+  "claims": [
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:40352e0ce902634f387cfdd58e6769594f71db151d443c94ac52f1712069ae9f",
+      "claim_id": "sha256:f47710f5bc6c587e2af8ce527763ab0625d38f54aaee2ca8b5d259ea995fd961",
+      "entity": "url-context",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "supports-private-pages",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Only publicly accessible pages are supported.",
+      "source": {
+        "canonical_identity": "route:/agents/local-agents/agent-context/urls-as-context",
+        "canonical_route": "/agents/local-agents/agent-context/urls-as-context",
+        "content_sha256": "ba7c384db56beeb72a61334d1ca2b2897b982c1c931a72679cab7496afbc1c0f",
+        "heading": "Referencing websites via URLs",
+        "heading_anchor": "referencing-websites-via-urls",
+        "line_end": 14,
+        "line_start": 14,
+        "path": "src/content/docs/agents/local-agents/agent-context/urls-as-context.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/local-agents/agent-context/urls-as-context/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "ba7c384db56beeb72a61334d1ca2b2897b982c1c931a72679cab7496afbc1c0f",
+  "path": "src/content/docs/agents/local-agents/agent-context/urls-as-context.mdx",
+  "schema_version": 1
+}
