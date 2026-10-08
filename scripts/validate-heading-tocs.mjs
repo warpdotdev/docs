@@ -19,13 +19,13 @@ async function collectFiles(directory, extensions) {
 }
 
 const sourceDirectory = fileURLToPath(new URL('../src/content/docs/', import.meta.url));
-const sourceFiles = await collectFiles(sourceDirectory, ['.md', '.mdx']);
-const sourceHasFixture = (
-	await Promise.all(sourceFiles.map((file) => readFile(file, 'utf8')))
-).some((source) => /^#{1,6} .*\{\s*VARS\.[A-Z0-9_]+\s*\}.*$/m.test(source));
+const sourceFixtureFile = path.join(sourceDirectory, 'index.mdx');
+const sourceHasFixture = /^#{1,6} .*\{\s*VARS\.[A-Z0-9_]+\s*\}.*$/m.test(
+	await readFile(sourceFixtureFile, 'utf8'),
+);
 assert(
 	sourceHasFixture,
-	'Keep the variable-backed heading in src/content/docs/index.mdx to provide end-to-end coverage for src/plugins/heading-vars.ts',
+	`${sourceFixtureFile} must contain a variable-backed heading to provide end-to-end coverage for src/plugins/heading-vars.ts`,
 );
 
 const htmlDirectory = fileURLToPath(new URL('../.vercel/output/static/', import.meta.url));

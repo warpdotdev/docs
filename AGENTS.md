@@ -943,8 +943,6 @@ Use the {VARS.WARP_AGENT_CLI} to run agents from the command line.
 ```
 Note: this example also shows Option B in the frontmatter (`{{WARP_AGENT_CLI}}`). Both can appear in the same file — Option B covers the frontmatter YAML, Option A covers the body prose.
 
-In an `.mdx` heading, use the variable as a bare expression such as `{VARS.WARP_AGENT_CLI}`. A page that uses variables only in headings doesn't need the `@data/vars` import. Plain `.md` pages aren't MDX, so `{VARS.KEY}` in a heading stays literal and fails the generated-site check. Bold or italic formatting around the expression is preserved. A heading can't show a literal `{VARS.KEY}`, even inside inline code; put that example in body prose.
-
 ### Option B — frontmatter (Vite transform)
 Use `{{TOKEN}}` placeholders directly in frontmatter YAML values (`title`, `description`, `sidebar.label`, etc.). The `warp-vars-transform` Vite plugin substitutes them before any parser runs.
 ```yaml
@@ -954,6 +952,13 @@ description: Learn how to use the {{WARP_AGENT_CLI}} to run and manage agents.
 ---
 ```
 The build fails with a clear error if a token is unrecognized — for example, `{{WARP_AGNT_CLI}}` in frontmatter would surface as an unresolved token error. Validation applies to frontmatter only; body prose may legitimately contain `{{...}}` patterns as code examples.
+
+### Option C — headings
+- **MDX syntax** - In an `.mdx` heading, use a bare expression such as `{VARS.WARP_AGENT_CLI}`. Bold or italic formatting around the expression is preserved.
+- **Imports** - A page that uses variables only in headings doesn't need the `@data/vars` import.
+- **Plain Markdown** - Plain `.md` pages aren't MDX. A `{VARS.KEY}` heading stays literal and fails `npm run test:heading-tocs` after `npm run build`.
+- **Literal examples** - A heading can't show a literal `{VARS.KEY}`, even inside inline code. Put that example in body prose.
+
 ### When to use vars
 Use a variable for:
 - Product and platform names that have changed before or are likely to change (e.g., `WARP_AGENT_CLI`, `WEB_APP`, `DASHBOARD`)
@@ -965,7 +970,7 @@ Add the key-value pair to `src/data/vars.ts` only. Both Option A (TypeScript imp
 ### Important constraints
 - **Do NOT** use `{{TOKEN}}` syntax in MDX body prose — it's only for frontmatter YAML. The Vite plugin runs before MDX parsing; curly-brace expressions in body prose are MDX syntax, not plugin tokens.
 - **Do NOT** use `{VARS.x}` expressions in frontmatter — MDX expressions don't evaluate in YAML frontmatter.
-- **Heading expressions**: Only bare `{VARS.KEY}` expressions are supported in headings. Other MDX expressions, including MDX comments, fail the build. Put comments on their own line outside the heading.
+- **Heading expressions**: See Option C above. An MDX expression in a heading that isn't a bare `{VARS.KEY}`, including a comment, fails the build with `Unsupported MDX expression in heading`. Put comments on their own line outside the heading.
 - **Key naming rule**: Keys are stable identifiers. Use the future or conceptual name as the key (e.g., `WARP_AGENT_CLI`), not the current brand name that may be retired. The value holds the current string.
 ## SEO and AEO (AI Engine Optimization)
 

@@ -128,7 +128,7 @@ When the draft names UI labels, Settings paths, CLI flags, default permissions, 
 If you cannot verify a claim (for example, the source repos are not available in this environment), do not guess and do not silently drop it. Choose one of these, and record the claim either way:
 
 1. **Omit the claim** - Write around it when the page still works without it. Describe the action without naming the exact flag, or link to the reference page that will carry the detail.
-2. **Include it with an inline marker** - Keep the spec's wording and flag it in an MDX comment next to the claim: `{/* VERIFY: flag name from PRD, unconfirmed against warp-internal */}`. When the unverified claim is in a heading, put the marker on its own line immediately after the heading. MDX comments inside headings are unsupported.
+2. **Include it with an inline marker** - Keep the spec's wording and flag it in an MDX comment next to the claim: `{/* VERIFY: flag name from PRD, unconfirmed against warp-internal */}`. When the unverified claim is in a heading, put the marker on its own line immediately after the heading. MDX comments inside headings fail the build with `Unsupported MDX expression in heading`.
 
 Keep a running list of every unverified claim as you draft. Reporting that list is required — see step 9.5.
 
