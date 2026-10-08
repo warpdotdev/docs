@@ -6,6 +6,7 @@ description: >-
   Workspaces group teams under one Enterprise account with shared membership,
   billing, SSO, and company-wide settings.
 ---
+import { VARS } from '@data/vars';
 
 A workspace groups one or more teams under a single Enterprise account. Workspace admins manage membership, billing, and company-wide policies across those teams. Single Sign-On (SSO) is configured at the workspace level.
 
@@ -26,6 +27,27 @@ Every workspace member has one of three roles:
 * **Owner** - Has every admin capability and can transfer ownership to another member. Each workspace has one owner.
 
 In team member lists, the **Workspace admin** and **Workspace owner** badges distinguish workspace roles from team roles.
+
+## Workspace admin permissions
+
+A workspace admin has admin-level permissions on every team in the workspace, even on teams where their team role is Member. Team admins who aren't workspace admins keep admin permissions only on their own team.
+
+Workspace admins can:
+
+* **Manage members** - View everyone in the workspace, promote members to Admin, demote admins, and remove members or other admins. Removing a member also removes them from every team in the workspace.
+* **Manage invitations** - Send email invites, and enable, disable, or reset the workspace invite link and its approved email domains. See [Joining a workspace or team](#joining-a-workspace-or-team).
+* **Manage teams** - Create teams and manage the membership and settings of any team.
+* **Manage settings, billing, and spend limits** - See [Workspace settings and team settings](#workspace-settings-and-team-settings) and [Workspace spend limits](#workspace-spend-limits).
+* **View and manage cloud agent runs** - See [Cloud agent run visibility](#cloud-agent-run-visibility).
+
+## Changing workspace roles
+
+In the [Admin Panel](/enterprise/team-management/admin-panel/), open **Members** and use the three-dots menu on a member's row to promote, demote, remove, or transfer ownership.
+
+* **Roles are additive** - Changing a workspace role never changes a member's team roles. An admin who is demoted loses workspace admin access immediately but keeps any team admin role they already had.
+* **Only the owner transfers ownership** - The previous owner becomes an Admin on plans that support multiple admins, and a Member on other plans.
+* **The owner stays in place** - Admins can't remove the owner or change the owner's role. To step down, the owner transfers ownership first.
+* **Leaving a workspace** - Members of Enterprise workspaces can't remove themselves. An admin removes them.
 
 ## Teams inside a workspace
 
@@ -51,6 +73,14 @@ Workspace admins add users through invitations or domain capture:
 An unassigned user belongs to the workspace but not to a team. Workspace admins can manage unassigned users and set a separate per-user spend limit for them in the Admin Panel.
 
 Unassigned users cannot start cloud agent or factory runs until they join a team. Workspace-level billing and policies still apply to them.
+
+## Cloud agent run visibility
+
+Workspace admins can view and manage every team-owned {VARS.PLATFORM_RUN} in the workspace, including runs that members of other teams started. They can see what a member of the owning team sees, such as the prompt, logs, and artifacts.
+
+Runs owned by an individual user rather than a team stay private to that user. Neither team admins nor workspace admins can see them. Members who aren't admins see their own runs and their teams' runs.
+
+For how to open and steer a run, see [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/).
 
 ## Workspace settings and team settings
 
