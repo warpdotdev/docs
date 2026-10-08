@@ -47,7 +47,7 @@ test('rejects an unsupported nested expression with its file path', () => {
 test('rejects an MDX comment inside a heading', () => {
 	const tree = {
 		type: 'heading',
-		children: [{ type: 'mdxTextExpression', value: '' }],
+		children: [{ type: 'mdxTextExpression', value: '/* a comment */' }],
 	};
 
 	assert.throws(

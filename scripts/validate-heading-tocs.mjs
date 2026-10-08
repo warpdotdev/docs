@@ -25,7 +25,7 @@ const sourceHasFixture = (
 ).some((source) => /^## .*\{VARS\.[A-Z0-9_]+\}.*$/m.test(source));
 assert(
 	sourceHasFixture,
-	'Keep a variable-backed H2 fixture shaped like `## ... {VARS.KEY} ...` in src/content/docs/index.mdx',
+	'Keep a variable-backed H2 fixture shaped like `## ... {VARS.KEY} ...` under src/content/docs/ (usually index.mdx)',
 );
 
 const htmlDirectory = fileURLToPath(new URL('../.vercel/output/static/', import.meta.url));
@@ -35,15 +35,16 @@ for (const file of htmlFiles) {
 	const html = await readFile(file, 'utf8');
 	const { document } = parseHTML(html);
 	const tocLinks = [...document.querySelectorAll('starlight-toc a')];
-	const headings = [...document.querySelectorAll('main h2')];
-	headingCount += headings.length;
+	const headings = [...document.querySelectorAll('main h2, main h3')];
 
 	for (const heading of headings) {
 		assert.doesNotMatch(
 			heading.textContent,
 			/\bVARS\./,
-			`${file} H2 #${heading.id} contains an unresolved content variable`,
+			`${file} heading #${heading.id} contains an unresolved content variable`,
 		);
+		if (!heading.id) continue;
+		headingCount += 1;
 		if (tocLinks.length === 0) continue;
 		const link = tocLinks.find(
 			(candidate) => candidate.getAttribute('href') === `#${heading.id}`,
@@ -62,7 +63,7 @@ for (const file of htmlFiles) {
 	}
 }
 
-assert(headingCount > 0, 'Generated docs have no H2 headings');
+assert(headingCount > 0, 'Generated docs have no anchored H2 or H3 headings');
 console.log(
-	`Tables of contents match ${headingCount} rendered H2 headings across ${htmlFiles.length} generated pages.`,
+	`Validated ${headingCount} anchored headings across ${htmlFiles.length} generated pages.`,
 );
