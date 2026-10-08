@@ -32,10 +32,10 @@ What runners give you:
 
 ## How runners fit into cloud agent runs
 
-A runner is the compute layer for a cloud agent run. When a run starts, Warp provisions a sandbox on the runner's shape, then prepares the workspace defined by the environment (cloning repos and executing setup commands) before the agent begins.
+A runner is the compute layer for a cloud agent run. When a run starts, Warp provisions a sandbox, clones the repositories, runs the runner's `setupCommands` in order, and then runs the environment's setup commands before the agent begins. A setup command that exits with a nonzero status or runs longer than 30 minutes fails the run during environment setup.
 
 * **Environment** – Defines the workspace: Docker image, repositories, and setup commands. See [Environments](/platform/environments/).
-* **Compute configuration** – Defines the OS, architecture, instance shape (vCPUs and memory), and sandbox image.
+* **Runner** – Defines the OS, architecture, instance shape (vCPUs and memory), and sandbox image.
 * **Host** – Determines where execution happens (Warp-hosted or [self-hosted](/factories/self-hosting/) infrastructure).
 
 Each environment has a default runner. Specifying a runner for a run overrides that default for that run only.
