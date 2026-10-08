@@ -41,17 +41,17 @@ for (const file of htmlFiles) {
 	const { document } = parseHTML(html);
 	const tocLinks = [...document.querySelectorAll('starlight-toc a')];
 	const allHeadings = [...document.querySelectorAll('main :is(h1, h2, h3, h4, h5, h6)')];
-
-	for (const heading of allHeadings) {
-		assert.doesNotMatch(
-			heading.textContent,
-			/\bVARS\./,
-			`${file} heading #${heading.id || heading.textContent.trim()} contains an unresolved content variable`,
-		);
-	}
 	const agentOnlyHeadings = [...document.querySelectorAll('template[data-agent-only]')].flatMap(
 		(template) => [...template.content.querySelectorAll('h1, h2, h3, h4, h5, h6')],
 	);
+
+	for (const heading of [...allHeadings, ...agentOnlyHeadings]) {
+		assert.doesNotMatch(
+			heading.textContent,
+			/\{\s*VARS\.[A-Z0-9_]+\s*\}/,
+			`${file} heading #${heading.id || heading.textContent.trim()} contains an unresolved content variable`,
+		);
+	}
 
 	const headingsById = new Map(
 		[...allHeadings, ...agentOnlyHeadings]
@@ -70,7 +70,7 @@ for (const file of htmlFiles) {
 		tocHrefs.add(href);
 		assert.doesNotMatch(
 			link.textContent,
-			/\bVARS\./,
+			/^\s*(?:\{\s*)?VARS\.[A-Z0-9_]+(?:\s*\})?\s*$/,
 			`${file} TOC entry for ${href} contains an unresolved content variable`,
 		);
 		const heading = headingsById.get(href.slice(1));

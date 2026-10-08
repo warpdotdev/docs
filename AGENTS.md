@@ -943,7 +943,7 @@ Use the {VARS.WARP_AGENT_CLI} to run agents from the command line.
 ```
 Note: this example also shows Option B in the frontmatter (`{{WARP_AGENT_CLI}}`). Both can appear in the same file — Option B covers the frontmatter YAML, Option A covers the body prose.
 
-In an `.mdx` heading, use the variable as a bare expression such as `{VARS.WARP_AGENT_CLI}`. A page that uses variables only in headings doesn't need the `@data/vars` import. Plain `.md` pages aren't MDX, so `{VARS.KEY}` stays literal there and fails the generated-site check. Bold or italic formatting around the expression is preserved. Braces inside inline code are literal text and aren't resolved.
+In an `.mdx` heading, use the variable as a bare expression such as `{VARS.WARP_AGENT_CLI}`. A page that uses variables only in headings doesn't need the `@data/vars` import. Plain `.md` pages aren't MDX, so `{VARS.KEY}` in a heading stays literal and fails the generated-site check. Bold or italic formatting around the expression is preserved. Braces inside inline code are literal text and aren't resolved.
 
 ### Option B — frontmatter (Vite transform)
 Use `{{TOKEN}}` placeholders directly in frontmatter YAML values (`title`, `description`, `sidebar.label`, etc.). The `warp-vars-transform` Vite plugin substitutes them before any parser runs.
