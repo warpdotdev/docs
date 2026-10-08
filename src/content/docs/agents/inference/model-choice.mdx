@@ -49,7 +49,7 @@ To use eligible OpenAI models through your ChatGPT plan, [connect a ChatGPT subs
 
 #### Anthropic
 
-Suffixes select effort level. `xhigh-fast` enables fast mode, and `thinking` enables thinking. The default ID for each family is listed separately.
+Suffixes select effort level. `xhigh-fast` enables fast mode, and `thinking` enables thinking. The default ID for each family is listed separately where one exists.
 
 | Model | Supported `model_id` values | Default `model_id` |
 | --- | --- | --- |
@@ -65,8 +65,10 @@ Suffixes select effort level. `xhigh-fast` enables fast mode, and `thinking` ena
 | Claude Sonnet 4.6 | `claude-4-6-sonnet-high`, `claude-4-6-sonnet-max` | `claude-4-6-sonnet-high` |
 | Claude Opus 4.5 | `claude-4-5-opus`, `claude-4-5-opus-thinking` | `claude-4-5-opus` |
 | Claude Sonnet 4.5 | `claude-4-5-sonnet`, `claude-4-5-sonnet-thinking` | `claude-4-5-sonnet` |
-| Claude Haiku 5.5 | `claude-5-5-haiku-low`, `claude-5-5-haiku-medium`, `claude-5-5-haiku-high`, `claude-5-5-haiku-xhigh`, `claude-5-5-haiku-max` | `claude-5-5-haiku-high` |
+| Claude Haiku 5.5 | `claude-5-5-haiku-low`, `claude-5-5-haiku-medium`, `claude-5-5-haiku-high`, `claude-5-5-haiku-xhigh`, `claude-5-5-haiku-max` | — |
 | Claude Haiku 4.5 | `claude-4-5-haiku` | `claude-4-5-haiku` |
+
+Claude Haiku 5.5 has no fixed default `model_id`; choose one of its effort-specific IDs.
 
 :::caution
 Anthropic requires data retention for Claude Fable 5 and Claude Fable 5.1 for safety, abuse monitoring, and compliance reasons, so these models are **not available under Zero Data Retention (ZDR)**. This requirement is specific to the Claude Fable models and doesn't change the ZDR behavior of any other supported model. For Enterprise teams, these models are off by default and a workspace admin must enable them — see the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings) and the [Security overview](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr).
