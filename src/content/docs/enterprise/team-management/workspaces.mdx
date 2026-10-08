@@ -36,7 +36,7 @@ Workspace admins can:
 
 * **Manage members** - View everyone in the workspace, promote members to Admin, demote admins, and remove members or other admins. Removing a member also removes them from every team in the workspace.
 * **Manage invitations** - Send email invites, and enable, disable, or reset the workspace invite link and its approved email domains. See [Joining a workspace or team](#joining-a-workspace-or-team).
-* **Manage teams** - Create teams and manage the membership and settings of any team.
+* **Manage teams** - Create teams and manage any team. See [Teams inside a workspace](#teams-inside-a-workspace).
 * **Manage settings, billing, and spend limits** - See [Workspace settings and team settings](#workspace-settings-and-team-settings) and [Workspace spend limits](#workspace-spend-limits).
 * **View and manage cloud agent runs** - See [Cloud agent run visibility](#cloud-agent-run-visibility).
 
@@ -45,7 +45,7 @@ Workspace admins can:
 In the [Admin Panel](/enterprise/team-management/admin-panel/), open **Members** and use the three-dots menu on a member's row to promote, demote, remove, or transfer ownership.
 
 * **Roles are additive** - Changing a workspace role never changes a member's team roles. An admin who is demoted loses workspace admin access immediately but keeps any team admin role they already had.
-* **Only the owner transfers ownership** - The previous owner becomes an Admin on plans that support multiple admins, and a Member on other plans.
+* **Only the owner transfers ownership** - The previous owner becomes an Admin.
 * **The owner stays in place** - Admins can't remove the owner or change the owner's role. To step down, the owner transfers ownership first.
 * **Leaving a workspace** - Members of Enterprise workspaces can't remove themselves. An admin removes them.
 
@@ -76,7 +76,7 @@ Unassigned users cannot start cloud agent or factory runs until they join a team
 
 ## Cloud agent run visibility
 
-Workspace admins can view and manage every team-owned {VARS.PLATFORM_RUN} in the workspace, including runs that members of other teams started. They can see what a member of the owning team sees, such as the prompt, logs, and artifacts.
+Workspace admins can view and manage every team-owned {VARS.PLATFORM_RUN} in the workspace, including runs that members of other teams started. They have the same access to a team's runs as a member of that team.
 
 Runs owned by an individual user rather than a team stay private to that user. Neither team admins nor workspace admins can see them. Members who aren't admins see their own runs and their teams' runs.
 
