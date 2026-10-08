@@ -1,8 +1,7 @@
 ---
 title: Warp URI Scheme
 description: >-
-  Warp's URI scheme enables you to programmatically open new windows, tabs,
-  launch configurations, or tab configs with ease.
+  Open windows, tabs, Tab Configs, Settings, and Warp Drive objects with warp:// deep links.
 sidebar:
   label: "Warp URI scheme"
 ---
@@ -16,11 +15,46 @@ There are several ways to use the URI scheme:
 * Open new tab `warp://action/new_tab?path=<path_to_folder>`
 * Open Launch Configuration `warp://launch/<launch_configuration_path>`
 * Open Tab Config `warp://tab_config/<name>` — opens the saved [Tab Config](/terminal/windows/tab-configs/) as a new tab in the active window. Append `?new_window=true` to open it in a new window instead. `<name>` is matched case-insensitively against the file stem of the `.toml`, so both `warp://tab_config/my_tab` and `warp://tab_config/my_tab.toml` resolve to `my_tab.toml`.
+* Open a Warp Drive object `warp://drive/<object_type>?id=<object_id>` — opens a notebook, workflow, folder, or environment variables object. See [Warp Drive objects](#warp-drive-objects).
 * Open Settings `warp://settings` — opens the Settings window. See [Settings deep links](#settings-deep-links) for search, widget, and sub-page options.
 
 :::note
 [Warp Preview](/support-and-community/community/warp-preview-and-alpha-program/) URI scheme begins with `warppreview://`
 :::
+
+## Warp Drive objects
+
+Open a saved Drive object by type and ID:
+
+```text
+warp://drive/notebook?id=OBJECT_ID
+warp://drive/workflow?id=OBJECT_ID
+warp://drive/folder?id=OBJECT_ID
+warp://drive/env-vars?id=OBJECT_ID
+```
+
+* **`OBJECT_ID`** - The object's ID from a shared Drive link. When you copy a link from Warp Drive, Warp produces a web URL such as `https://app.warp.dev/drive/notebook/NAME-OBJECT_ID`. The final hyphen-separated segment is the ID to pass as `id`.
+* **Optional query params** - `focused_folder_id` focuses a folder in the Drive panel, and `invitee_email` can prefill an invite when the link is used for sharing flows.
+
+Example:
+
+```bash
+open "warp://drive/notebook?id=LkDlnAe34vfYD2JXsAkssc"
+```
+
+On Linux, pass the same URI to `xdg-open`. On Windows, use `Start-Process` with the URI string.
+
+For creating and sharing notebooks, see [Warp Drive Notebooks](/knowledge-and-collaboration/warp-drive/notebooks/).
+
+## What the URI scheme does not do
+
+The `warp://` scheme opens Warp surfaces. It does **not**:
+
+* Run a shell command, script, or agent prompt in the new tab or window
+* Wait for interactive input and return a result to the caller
+* Target or control an already-open tab or pane
+
+To open a layout that runs startup commands, save a [Tab Config](/terminal/windows/tab-configs/) and open it with `warp://tab_config/<name>`. For a longer-running agent session you can monitor later, use [Remote Control](/agents/cli-agents/remote-control/) after the agent is already running.
 
 ## Settings deep links
 
