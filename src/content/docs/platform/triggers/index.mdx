@@ -1,12 +1,12 @@
 ---
 title: Triggers overview
 description: >-
-  Start cloud agents in Warp from Slack, Linear, GitHub, schedules, CI, or
+  Start cloud agents in Warp from Slack, Linear, Jira, GitHub, schedules, CI, or
   API calls, and find where each trigger reports its results.
 ---
 import { VARS } from '@data/vars';
 
-Warp uses triggers to start cloud agent runs from events or recurring schedules. Choose Slack, Linear, GitHub, GitHub Actions, schedules, the CLI, or the API based on where your work starts.
+Warp uses triggers to start cloud agent runs from events or recurring schedules. Pick a trigger based on where your work starts and where you want to read the results.
 
 For triggers that route work through one factory's named agents and workflow, use [factory automations](/factories/automations/) and [factory integrations](/factories/connect-your-factory/).
 
@@ -18,6 +18,7 @@ To set up your first recurring agent, follow the [Scheduled agents quickstart](/
 | --- | --- | --- | --- |
 | Slack | Mention `@Warp` in a message or thread, or DM the bot. | Progress, summary, and PR links in the Slack thread. | [Slack integration](/platform/integrations/slack/) |
 | Linear | Mention `@warp` in a comment or assign an issue to the agent. | Updates, summary, and PR links in the Linear issue. | [Linear integration](/platform/integrations/linear/) |
+| Jira Cloud | Add the `warp-agent` label to an issue after connecting your Jira account. | Status and summary comments on the issue, including links to any PRs or branches created and the conversation. | [Jira integration](/platform/integrations/jira/) |
 | GitHub | Mention `@warp-agent` in a new issue comment, pull request comment, review comment, or new pull request description. | Status, progress, and summary in the same thread, including any PRs opened. | [GitHub integration](/platform/integrations/github/) |
 | GitHub Actions | Define repository events and an `oz-agent-action` step in workflow YAML. | Agent output in workflow steps; comments or branches depend on your prompt and permissions. | [GitHub Actions](/platform/integrations/github-actions/) |
 | Schedules | Configure a recurring cron expression and prompt. | Each run's task and session history, including logs and outputs. | [Scheduled agents](/platform/triggers/scheduled-agents/) |
