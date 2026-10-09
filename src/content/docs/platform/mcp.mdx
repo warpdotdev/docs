@@ -132,10 +132,6 @@ To use an OAuth-gated server with a cloud agent:
 
 Cloud agent runs then use the stored credentials automatically, with no browser interaction. This is the supported path for hosted OAuth servers such as Figma's remote MCP server.
 
-Private networking applies to [managed MCP servers used by Warp-hosted cloud agents](/enterprise/enterprise-features/private-networking/).
-
-A direct `url` configuration doesn't use private networking.
-
 ## Limitations
 
 :::caution
@@ -143,6 +139,10 @@ A direct `url` MCP server that requires OAuth and has no `Authorization` header 
 :::
 
 Token- or header-based authentication on a `url` server, `env`-based secrets on a `command` server, and `warp_id` references to a Warp-shared or managed server all work without additional setup.
+
+## Private networking
+
+Private networking applies to [managed MCP servers used by Warp-hosted cloud agents](/enterprise/enterprise-features/private-networking/). A direct `url` configuration doesn't use private networking.
 
 ## Learn more
 
