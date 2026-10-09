@@ -372,19 +372,15 @@ Add-on credit attribution has changed twice in 2026:
 * **May 21 – August 2026** — Add-on credits were user-scoped; each user had their own balance.
 * **As of August 2026** — Add-on credits are **team-pooled again**. Purchases from any member go into the team's shared pool, and any member's usage draws the pool down once their plan-included credits are used up. Remaining user-scoped balances from the May–August window stay attributed to the purchasing member and are consumed after the shared pool. There is no way to prefer personal credits first while on a team.
 
-Anyone on the team can purchase add-on credits, subject to the team-wide spend cap admins set under **Settings** > **Billing and usage**.
+On eligible plans, any active team member can purchase usage within the team's monthly purchase limit. In the Warp app, admins manage the limit in **Settings** > **Billing and usage**.
 
-For details, see [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
+For details, see [purchasing additional usage](/support-and-community/plans-and-billing/add-on-credits/).
 
-#### What happens to my add-on credits if I leave the team?
+<span id="what-happens-to-my-add-on-credits-if-i-leave-the-team" />
 
-Add-on credits are tied to the team that paid for them, so team-membership changes affect access:
+#### What happens to my purchased usage if I leave the team?
 
-* **You leave a team**: You lose access to any add-on credits tied to that team. If you rejoin the same team later, you regain access to any unused, non-expired credits. The admin pays a prorated rate for your seat on rejoin.
-* **An admin removes you from a team**: You lose access to any add-on credits tied to that team. If you rejoin later, you regain access to any unused, non-expired credits.
-* **An admin deletes the team**: Any remaining add-on credits must be used or removed before the team can be deleted.
-
-Unused add-on credits remain valid for 12 months from purchase and stay tied to the team they were purchased under. See [When team membership changes](/support-and-community/plans-and-billing/add-on-credits/#when-team-membership-changes) on the add-on credits page for full details.
+Purchased usage stays tied to the team that bought it. Leaving or being removed stops your access; rejoining restores access to any unused, unexpired balance. See [when team membership changes](/support-and-community/plans-and-billing/add-on-credits/#when-team-membership-changes) for details.
 
 #### Can I bring my own API key on the Free plan now?
 
@@ -406,10 +402,10 @@ For setup and details, see [Custom inference endpoint](/agents/inference/custom-
 
 #### I'm a team admin. What do I need to do?
 
-A short checklist to triage the May 2026 changes for your team:
+Review these settings in the Warp app:
 
 * **Check your seat count.** Go to **Settings** > **Teams** to see whether your team is at or above your plan's new seat limit. If you are, see [What if my team is already above the new seat limit?](#what-if-my-team-is-already-above-the-new-seat-limit).
-* **Set your team's add-on credit spend cap.** Under **Settings** > **Billing and usage**, configure the monthly cap that applies to add-on credit purchases across your team. Team members can buy add-on credits for the team, but every purchase counts against this cap.
-* **Let your team know add-on credits are shared team-wide.** Purchases from any member land in the team's shared pool, and the whole team's usage draws it down.
-* **Confirm which card your team has on file.** Every add-on credit purchase charges the team's saved payment method, including purchases made by members who aren't admins. Review it in the billing portal. See [Which card is charged when a team member buys add-on credits?](#which-card-is-charged-when-a-team-member-buys-add-on-credits).
-* **Account for platform credits.** If your team is on Business and uses BYOK or a custom inference endpoint locally, those local runs consume platform credits. See [platform credits](/support-and-community/plans-and-billing/platform-credits/).
+* **Set your team's monthly purchase limit** - In **Settings** > **Billing and usage**, configure the limit for one-time purchases and auto-reloads across your team.
+* **Explain the shared balance** - New purchases enter the team's shared balance, and members draw on it after exhausting their included usage.
+* **Confirm the team's payment method** - Usage purchases charge the team's saved payment method, including purchases by members who aren't admins. Review it in the billing portal. See [which card is charged](#which-card-is-charged-when-a-team-member-buys-add-on-credits).
+* **Account for platform usage** - On Business and Enterprise, local runs using BYOK or a custom inference endpoint incur [platform charges](/support-and-community/plans-and-billing/platform-credits/).
