@@ -13,15 +13,16 @@ tags:
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
 
-Use multiple coding agents, including Warp Agent, Claude Code, Codex, and other CLI agents, when work can be split into independent tasks, reviewed from separate branches, or delegated to cloud agents while you keep working locally. In Warp, you can coordinate agents in three ways:
+In Warp, you run multiple coding agents in parallel from the terminal by launching the Warp Agent, Claude Code, Codex, or other CLI agents in separate tabs or panes. Give each agent a Git worktree for isolated edits, or delegate work to cloud agents while you keep working locally.
 
-* **Local parallel sessions** - run Warp Agent, Claude Code, Codex, OpenCode, or another CLI agent in separate tabs or panes.
-* **Isolated worktrees** - give each agent its own Git worktree and branch so parallel edits do not collide.
-* **{VARS.WARP_AUTOMATION_PLATFORM} cloud orchestration** - use `/orchestrate`, `/plan`, the {VARS.WARP_AGENT_CLI}, the {VARS.WEB_APP}, or the {VARS.WARP_PLATFORM_API} to fan work out to child agents in cloud environments.
+| Approach | When to use it | Workspace isolation | Where results land |
+| --- | --- | --- | --- |
+| [Tabs or panes](#2-launch-agents-in-separate-tabs) | Run independent sessions locally or compare agents. | Separate sessions; use worktrees to isolate file edits. | Local diffs reviewed in the [Code Review panel](/code/code-review/). |
+| [Git worktrees](#6-use-git-worktrees-for-isolated-agent-workspaces) | Agents need to edit the same repo in parallel. | Each agent has its own working copy and branch. | Separate branches you compare and merge. |
+| [Cloud fan-out](#7-fan-out-work-to-cloud-agents) | Delegate long-running work or split it across packages, PRs, or services. | Child agents run in cloud environments. | Child run summaries, session links, artifacts, or PRs inspected from the [{VARS.WEB_APP}](/platform/oz-web-app/). |
 
 The best multi-agent workflows have one thing in common: each agent owns a clear slice of work, reports back with validation results, and hands off a branch, diff, PR, or concise finding you can review.
 
-Plan on about 15 minutes for the local setup. Cloud orchestration takes longer only if you need to create or select an [environment](/platform/environments/) first.
 
 ## Prerequisites
 
