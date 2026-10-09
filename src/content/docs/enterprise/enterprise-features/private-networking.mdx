@@ -19,15 +19,15 @@ Private networking applies to services that Warp calls from its hosted services:
 * **Private LLM endpoints** - Connect a team-managed, OpenAI-compatible endpoint such as an internal LiteLLM gateway. See [team-managed LLM API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for endpoint and model configuration.
 * **Private MCP servers** - Connect a URL-based managed MCP installation. Include private OAuth or identity provider endpoints in the onboarding scope when the MCP server depends on them. See [MCP servers for cloud agents](/platform/mcp/#oauth-authentication).
 
-Self-serve custom inference endpoints remain device-level settings and require a public URL. A direct `url` MCP configuration also doesn't use this private connection. If the service needs access from a cloud agent's execution environment rather than from Warp's hosted inference or managed MCP service, use [managed self-hosting](/factories/self-hosting/) or another execution environment with the required network access.
+Self-serve custom inference endpoints remain device-level settings and require a public URL.
 
-## Customer-facing connection flow
+Private networking for MCP servers applies only to managed MCP installations used by Warp-hosted cloud agents. Self-hosted cloud agents use their execution environment's network access; see [managed self-hosting](/factories/self-hosting/). A direct `url` configuration doesn't use private networking.
 
-Warp's hosted network is an opaque endpoint of the connection.
+## Connection flow
 
 ```mermaid
 flowchart LR
-  W["Warp-hosted service<br/>(opaque network boundary)"]
+  W["Warp-hosted service"]
   C["Private connection<br/>PrivateLink · Private Service Connect<br/>Partner Interconnect · HA VPN"]
   E["Your private endpoint<br/>LLM gateway or MCP server"]
   N["Your cloud or<br/>on-premises network"]
