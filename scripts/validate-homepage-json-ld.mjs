@@ -32,7 +32,12 @@ assert.equal(
 	organizations[0].description,
 	'Warp builds the agentic development environment and Warp Factories, a platform for running software factories with AI agents.',
 );
-assert.ok(!organizations[0].sameAs.includes('https://go.warp.dev/join-preview'));
+assert.deepEqual(organizations[0].sameAs, [
+	'https://x.com/warpdotdev',
+	'https://github.com/warpdotdev',
+	'https://www.youtube.com/@warpdotdev',
+	'https://www.linkedin.com/company/warpdotdev',
+]);
 assert.equal(websites[0]['@id'], WEBSITE_ID);
 assert.equal(websites[0].url, DOCS_ORIGIN);
 assert.equal(
