@@ -45,7 +45,7 @@ Each MCP server entry is keyed by a name you choose. A server config must have *
 |-----------|----------|-------------|
 | Warp-shared server, managed MCP install, or integration server | `warp_id` | Reference an MCP server already configured in Warp — including an OAuth-authorized [managed MCP installation](#oauth-authentication) — by its UUID, or a Warp-managed integration server by its id |
 | Stdio (local process) | `command`, `args` | Launch a local executable as an MCP server |
-| Streamable HTTP / SSE | `url` | Connect to a remote or locally hosted MCP endpoint |
+| Streamable HTTP / SSE | `url` | Connect to a remote MCP endpoint reachable from the agent worker |
 
 ### Supported fields
 
@@ -80,9 +80,9 @@ You can define any number of MCP servers in a single config.
 If the config passes through a system that pre-processes `{{...}}` before it reaches the {VARS.WARP_AUTOMATION_PLATFORM} (for example, Jira/Atlassian Automation), use JSON unicode escapes for the braces: `\u007b\u007bMY_SECRET\u007d\u007d` decodes to `{{MY_SECRET}}`, which the {VARS.WARP_AUTOMATION_PLATFORM} resolves normally.
 :::
 
-## Connect directly by URL
+### Connect directly by URL
 
-Use `url` when the agent worker can reach an existing streamable HTTP or SSE MCP endpoint. The URL must use HTTP or HTTPS. Use HTTPS when the server requires a bearer token, API key, or other header-based authentication; add `headers` for those credentials.
+Use `url` when the agent worker can reach an existing streamable HTTP or SSE MCP endpoint. The URL must use HTTP or HTTPS. For authenticated endpoints, use HTTPS to protect credentials in transit; add bearer tokens, API keys, or other header-based credentials with `headers`.
 
 ```json
 {
@@ -99,7 +99,7 @@ Store `INTERNAL_MCP_TOKEN` as a [managed secret](/platform/secrets/). Warp resol
 
 A direct URL server connects from the agent worker. A Warp-hosted worker requires a publicly reachable URL. A self-hosted worker can connect to a private endpoint available from its network. See [managed self-hosting](/factories/self-hosting/).
 
-For centralized OAuth authorization or a connection managed by Warp, create a [managed MCP installation](#oauth-authentication) and reference its `warp_id`. Managed MCP servers that Warp calls from its hosted services use [private networking onboarding](/enterprise/enterprise-features/private-networking/) when the server has a private endpoint.
+For a managed MCP server with a private endpoint, use [private networking onboarding](/enterprise/enterprise-features/private-networking/).
 
 ## Using MCP servers in an agent config file
 
