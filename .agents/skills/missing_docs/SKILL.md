@@ -58,8 +58,8 @@ broken environment. Read the message before concluding a sanity guard tripped.
 
 ### Install Node dependencies before the first build
 
-`npm run build` is the only validation this repo has, and it needs `node_modules`, which
-a fresh sandbox does not have. Install once per sandbox:
+The repository's ordered validation commands are listed in `AGENTS.md`. They need
+`node_modules`, which a fresh sandbox does not have. Install once per sandbox:
 
 ```bash
 npm ci

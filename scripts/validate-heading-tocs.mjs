@@ -30,7 +30,7 @@ assert(
 
 const htmlDirectory = fileURLToPath(new URL('../.vercel/output/static/', import.meta.url));
 const htmlFiles = await collectFiles(htmlDirectory, ['.html']).catch((error) => {
-	if (error?.code !== 'ENOENT') throw error;
+	if (error?.code !== 'ENOENT' || error.path !== htmlDirectory) throw error;
 	throw new Error(
 		`No build output at ${htmlDirectory}. Run npm run build before npm run test:heading-tocs.`,
 	);
@@ -42,6 +42,9 @@ for (const file of htmlFiles) {
 	const toc = document.querySelector('starlight-toc');
 	const tocLinks = toc ? [...toc.querySelectorAll('a')] : [];
 	const allHeadings = [...document.querySelectorAll('main :is(h1, h2, h3, h4, h5, h6)')];
+	const markdownHeadings = allHeadings.filter((heading) =>
+		heading.closest('.sl-markdown-content'),
+	);
 	const agentOnlyHeadings = [...document.querySelectorAll('template[data-agent-only]')].flatMap(
 		(template) => [...template.content.querySelectorAll('h1, h2, h3, h4, h5, h6')],
 	);
@@ -95,7 +98,7 @@ for (const file of htmlFiles) {
 		);
 	}
 
-	for (const heading of allHeadings) {
+	for (const heading of markdownHeadings) {
 		if (!heading.id || !expectedTocHeadingTags.has(heading.tagName)) continue;
 		assert(tocHrefs.has(`#${heading.id}`), `Missing TOC entry for ${file}#${heading.id}`);
 	}

@@ -953,7 +953,7 @@ description: Learn how to use the {{WARP_AGENT_CLI}} to run and manage agents.
 ```
 The build fails with a clear error if a token is unrecognized — for example, `{{WARP_AGNT_CLI}}` in frontmatter would surface as an unresolved token error. Validation applies to frontmatter only; body prose may legitimately contain `{{...}}` patterns as code examples.
 
-### Option C — headings
+### Option C — headings (remark transform)
 - **MDX syntax** - In an `.mdx` heading, use a bare expression such as `{VARS.WARP_AGENT_CLI}`. Bold or italic formatting around the expression is preserved.
 - **Imports** - A page that uses variables only in headings doesn't need the `@data/vars` import.
 - **Plain Markdown** - Plain `.md` pages aren't MDX. A `{VARS.KEY}` heading stays literal and fails `npm run test:heading-tocs` after `npm run build`. Rename the page to `.mdx` to use a variable in its heading.

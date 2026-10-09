@@ -62,7 +62,7 @@ test('rejects an MDX comment inside a heading', () => {
 
 	assert.throws(
 		() => resolveHeadingVars(tree, {}, 'comment.mdx'),
-		/Unsupported MDX expression in heading at comment\.mdx:12:3/,
+		/Use a bare \{VARS\.KEY\} expression, and move any MDX comment to its own line after the heading\./,
 	);
 });
 

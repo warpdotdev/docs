@@ -10,7 +10,7 @@ export function resolveHeadingVars(node, vars, filePath, inHeading = false) {
 		if (!match) {
 			throw new Error(
 				`Unsupported MDX expression in heading at ${location}: {${node.value ?? ''}}. ` +
-					'Use a bare {VARS.KEY} expression.',
+					'Use a bare {VARS.KEY} expression, and move any MDX comment to its own line after the heading.',
 			);
 		}
 
