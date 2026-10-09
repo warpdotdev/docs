@@ -30,7 +30,7 @@ assert.equal(organizations[0]['@id'], ORGANIZATION_ID);
 assert.equal(organizations[0].url, WARP_ORIGIN);
 assert.equal(
 	organizations[0].description,
-	'Warp builds the agentic development environment and Warp Factories, a platform for running software factories with AI agents.',
+	'Warp builds an agentic development environment and Warp Factories, open infrastructure for software factories powered by agents.',
 );
 assert.deepEqual(organizations[0].sameAs, [
 	'https://x.com/warpdotdev',
