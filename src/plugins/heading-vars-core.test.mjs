@@ -83,3 +83,15 @@ test('rejects an unknown variable with its source location', () => {
 		/Unknown content variable in heading at unknown\.mdx:4:5: VARS\.MISSING/,
 	);
 });
+
+test('leaves expressions outside headings untouched', () => {
+	const expression = { type: 'mdxTextExpression', value: 'VARS.AGENT_MODE' };
+	const tree = {
+		type: 'root',
+		children: [{ type: 'paragraph', children: [expression] }],
+	};
+
+	resolveHeadingVars(tree, { AGENT_MODE: 'Agent Mode' }, 'body.mdx');
+
+	assert.strictEqual(tree.children[0].children[0], expression);
+});

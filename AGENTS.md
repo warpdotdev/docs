@@ -957,7 +957,7 @@ The build fails with a clear error if a token is unrecognized — for example, `
 - **MDX syntax** - In an `.mdx` heading, use a bare expression such as `{VARS.WARP_AGENT_CLI}`. Bold or italic formatting around the expression is preserved.
 - **Imports** - A page that uses variables only in headings doesn't need the `@data/vars` import.
 - **Plain Markdown** - Plain `.md` pages aren't MDX. A `{VARS.KEY}` heading stays literal and fails `npm run test:heading-tocs` after `npm run build`. Rename the page to `.mdx` to use a variable in its heading.
-- **Literal examples** - A heading can't show a literal `{VARS.KEY}`, even inside inline code. Put that example in body prose.
+- **Literal examples** - `npm run test:heading-tocs` rejects a literal `{VARS.KEY}` in a heading, even inside inline code. Put that example in body prose.
 - **End-to-end fixture** - The variable-backed heading in `src/content/docs/index.mdx` gives `npm run test:heading-tocs` end-to-end coverage of heading, anchor, and table-of-contents rendering. If you remove it, update `scripts/validate-heading-tocs.mjs` to point to another variable-backed heading.
 
 ### When to use vars
@@ -1063,7 +1063,7 @@ Open [http://localhost:4321](http://localhost:4321) to preview locally.
 npm run build
 ```
 
-Build output goes to `./dist/`. Deployed via Vercel.
+The Vercel adapter writes build output to `.vercel/output/static/`, and Vercel deploys the site.
 
 ### Lint / format
 This repo is configured for the Trunk CLI via `.trunk/trunk.yaml`.
@@ -1088,7 +1088,7 @@ npm run test:heading-tocs
 npm run test:homepage-json-ld
 ```
 
-`npm run test:heading-tocs` validates generated HTML and requires the output from `npm run build`.
+`npm run test:heading-tocs` validates generated HTML in `.vercel/output/static/` and requires the output from `npm run build`.
 
 ## Codebase structure and “big picture”
 
