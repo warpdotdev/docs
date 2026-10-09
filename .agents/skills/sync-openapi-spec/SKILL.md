@@ -88,19 +88,16 @@ This rewrites `developers/agent-api-openapi.yaml` with the regenerated subset. A
 
 ### Step 5: Validate the regenerated spec
 
-Apply mode already catches unresolved `$ref`s (see Step 4). Run these as belt-and-braces integration checks:
-
-```bash
-# Astro picks up the new YAML and parses it through Scalar's runtime.
-npm run build
-```
+Apply mode already catches unresolved `$ref`s (see Step 4). Run the ordered
+repository checks in `AGENTS.md` so Astro parses the new YAML through Scalar's
+runtime and the generated-site checks inspect the result.
 
 Optional, recommended when many schemas changed (full OpenAPI lint):
 ```bash
 npx @redocly/cli lint developers/agent-api-openapi.yaml
 ```
 
-If `npm run build` fails, the most common cause is a malformed path or missing `description` field. Schema-ref breakage is already prevented by Step 4's validator.
+If the build fails, the most common cause is a malformed path or missing `description` field. Schema-ref breakage is already prevented by Step 4's validator.
 
 ### Step 6: Commit and open a PR
 
