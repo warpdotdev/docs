@@ -82,11 +82,11 @@ Follow these baseline expectations:
 Run the [repository checks in `AGENTS.md`](AGENTS.md#tests) in the documented order.
 They cover type-checking, the site build, and generated-site validations that read the build output.
 
-Run linting and formatting if [Trunk](https://trunk.io/) is installed:
+Run linting and formatting:
 
 ```bash
-trunk check
-trunk fmt
+npm run lint
+npm run fmt
 ```
 
 If a command fails, fix the issue or explain the failure in your pull request description.
