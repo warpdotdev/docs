@@ -1,13 +1,13 @@
 ---
 title: Measure and improve a factory
 description: >-
-  Read factory activity and cost metrics, then find where to configure
-  Scorers, Self-improvement, and Benchmarks.
+  Measure coding agent ROI in Warp Factories with merged PRs, autonomy,
+  PR cycle time, cost per PR, and Scorers to evaluate completed runs.
 sidebar:
   label: "Overview"
 ---
 
-Warp Factories tracks what your factory produces and how well it performs, so you can spot a problem, test a fix, and decide whether to keep it.
+Warp Factories gives you metrics to evaluate the return on investment (ROI) of coding agents in a software factory: PRs opened and merged, autonomy, PR cycle time, and cost per PR. Use these alongside Scorers to assess completed runs, test a configuration change, and decide whether to keep it.
 
 | Feature | What it tells you |
 | --- | --- |
@@ -16,7 +16,11 @@ Warp Factories tracks what your factory produces and how well it performs, so yo
 | Benchmarks | How different configurations perform on the same tasks. |
 | Self-improvement | Which repeated failures get investigated and turned into follow-up work. |
 
-## Read metrics on the Dashboard page
+## Measuring agent ROI
+
+Compare results against a baseline over the same date range. Use **PRs opened** and **PRs merged** to distinguish proposed work from merged work, **Autonomy** to find the share of merged PRs with no human code push, and **PR cycle time** to track time from run kickoff to merge. Pair those outcomes with **Cost per PR** and Scorer results rather than treating run count as shipped work.
+
+### Read metrics on the Dashboard page
 
 The **Dashboard** page shows activity, cost, autonomy, and evaluation results:
 
