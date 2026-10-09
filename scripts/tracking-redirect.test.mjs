@@ -1,12 +1,9 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { GET } from '../src/pages/api/tracking-redirect/[...path].js';
+import trackingRedirect from '../src/lib/tracking-redirect.js';
 
 function redirect(query, path = 'factories/how-factories-work') {
-	return GET({
-		url: new URL(`https://docs.warp.dev/api/tracking-redirect/${path}?${query}`),
-		params: { path },
-	});
+	return trackingRedirect(new Request(`https://docs.warp.dev/${path}?${query}`));
 }
 
 test('permanently redirects LinkedIn variants to the clean path', () => {
@@ -25,11 +22,11 @@ test('preserves other parameters and does not loop', () => {
 	const response = redirect('utm_source=linkedin&trk=post&q=a%26b&q=c', 'factories');
 	const url = new URL(response.headers.get('location'));
 	assert.deepEqual([...url.searchParams], [['utm_source', 'linkedin'], ['q', 'a&b'], ['q', 'c']]);
-	assert.equal(redirect(url.search.slice(1), 'factories').status, 404);
+	assert.equal(redirect(url.search.slice(1), 'factories').headers.get('x-middleware-next'), '1');
 });
 
 test('does not change URLs without trk', () => {
 	const response = redirect('utm_source=linkedin');
 	assert.equal(response.headers.has('location'), false);
-	assert.equal(response.status, 404);
+	assert.equal(response.headers.get('x-middleware-next'), '1');
 });

@@ -54,16 +54,6 @@
   ],
   "rewrites": [
     {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "query",
-          "key": "trk"
-        }
-      ],
-      "destination": "/api/tracking-redirect/:path*"
-    },
-    {
       "source": "/",
       "has": [
         {
