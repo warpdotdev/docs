@@ -5,6 +5,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseHTML } from 'linkedom';
 
+const unresolvedHeadingVarPattern = /\{\s*VARS\.[A-Z0-9_]+\s*\}/;
+
 async function collectFiles(directory, extensions) {
 	const files = [];
 	for (const entry of await readdir(directory, { withFileTypes: true })) {
@@ -52,7 +54,7 @@ for (const file of htmlFiles) {
 	for (const heading of [...allHeadings, ...agentOnlyHeadings]) {
 		assert.doesNotMatch(
 			heading.textContent,
-			/\{\s*VARS\.[A-Z0-9_]+\s*\}/,
+			unresolvedHeadingVarPattern,
 			`${file} heading #${heading.id || heading.textContent.trim()} contains an unresolved content variable`,
 		);
 	}
@@ -86,7 +88,7 @@ for (const file of htmlFiles) {
 		tocHrefs.add(href);
 		assert.doesNotMatch(
 			link.textContent,
-			/^\s*(?:\{\s*)?VARS\.[A-Z0-9_]+(?:\s*\})?\s*$/,
+			unresolvedHeadingVarPattern,
 			`${file} TOC entry for ${href} contains an unresolved content variable`,
 		);
 		const heading = headingsById.get(href.slice(1));
