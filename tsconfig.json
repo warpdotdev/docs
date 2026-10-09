@@ -8,5 +8,5 @@
     }
   },
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
+  "exclude": [".vercel", "dist"]
 }

@@ -58,6 +58,7 @@ class TestCheckReviewSignal(unittest.TestCase):
         with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
             problems = vrs.check_review_signal("o/r", "1", "sha1", output)
         self.assertEqual(problems, [])
+
     def test_ignores_malformed_marker_example_when_current_signal_is_valid(self):
         example = '[SIGNAL:pr-review] {"pr":"NNN","head_sha":"SHA","critical":N}'
         output = f"{example}\n\n{GOOD_OUTPUT}"
@@ -75,6 +76,16 @@ class TestCheckReviewSignal(unittest.TestCase):
     def test_escaped_action_output_signal_passes(self):
         output = GOOD_OUTPUT.replace('"', '\\"')
         with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[GOOD_REVIEW]):
+            problems = vrs.check_review_signal("o/r", "1", "sha1", output)
+        self.assertEqual(problems, [])
+
+    def test_finding_with_braces_passes(self):
+        output = SUGGESTION_OUTPUT.replace(
+            "Preserve frontmatter and imports",
+            "Preserve {VARS.KEY} placeholders",
+        )
+        review = {**SUGGESTION_REVIEW, "body": output}
+        with mock.patch.object(vrs.cpc, "_fetch_reviews", return_value=[review]):
             problems = vrs.check_review_signal("o/r", "1", "sha1", output)
         self.assertEqual(problems, [])
 
