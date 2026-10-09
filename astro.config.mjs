@@ -13,6 +13,7 @@ import { varsTransformPlugin } from './src/plugins/vars-transform.ts';
 import vercel from '@astrojs/vercel';
 import { sidebarTopics } from './src/sidebar.ts';
 import docsMarkdownIntegration from './src/integrations/docs-markdown-integration.js';
+import llmsIndexOrder from './src/integrations/llms-index-order.js';
 import { DOCS_ORIGIN } from './src/lib/site.js';
 
 // https://astro.build/config
@@ -240,6 +241,7 @@ export default defineConfig({
 			],
 		}),
 		docsMarkdownIntegration(),
+		llmsIndexOrder(),
 	],
 	adapter: vercel(),
 	vite: {

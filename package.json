@@ -19,6 +19,7 @@
     "test:heading-tocs": "node scripts/validate-heading-tocs.mjs",
     "test:heading-vars": "node --test src/plugins/heading-vars-core.test.mjs",
     "test:homepage-json-ld": "node scripts/validate-homepage-json-ld.mjs",
+    "test:llms-index-order": "node --test src/integrations/llms-index-order.test.mjs",
     "postinstall": "patch-package"
   },
   "engines": {
