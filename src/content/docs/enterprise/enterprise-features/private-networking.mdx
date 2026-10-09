@@ -20,7 +20,7 @@ Private networking applies to services that Warp calls from its hosted services:
 
 Self-serve custom inference endpoints remain device-level settings and require a public URL.
 
-Managed MCP servers normally need connectivity from Warp's control plane. A URL-based managed MCP server set to **Direct** instead connects from the agent worker. When that agent runs on a self-hosted worker, the server uses the worker's network connectivity rather than this private networking setup. Direct `url` configurations work the same way. See [managed self-hosting](/factories/self-hosting/) and [direct URL MCP servers](/platform/mcp/#connect-directly-by-url).
+Managed MCP servers that Warp calls from its hosted services use this private networking path. Direct `url` configurations use a different network path; see [direct URL MCP servers](/platform/mcp/#connect-directly-by-url) for their connectivity requirements.
 
 ## Connection flow
 
@@ -45,7 +45,7 @@ Prepare these items before onboarding:
 
 ## Choose a connection method
 
-Use a provider-native private endpoint when the service is in AWS, Azure, or Google Cloud. Use an on-premises interconnect for an on-premises or colocation network. Use a route-based IPsec VPN for a network with a compatible public VPN gateway.
+Match the service location to a connection method:
 
 | Service location | Connection method |
 | --- | --- |
@@ -86,20 +86,19 @@ Warp confirms when the consumer endpoint is connected and ready for an applicati
 Use an interconnect for an on-premises or colocation network connected through a network provider:
 
 1. Choose a network provider and agree on the locations, capacity, and redundancy with Warp.
-2. Give Warp the endpoint addresses or CIDR ranges, service hostname, HTTPS port, and any non-conflicting private ranges requested during onboarding.
+2. Give Warp the service hostname, HTTPS port, and network information requested during onboarding.
 3. Provision the interconnect with your provider using the connection details exchanged during onboarding.
-4. Configure dynamic routing to advertise the service ranges and accept the routes supplied by Warp.
-5. Confirm that the routes and agreed redundant paths are available before testing the service.
+4. Coordinate routing with your Warp account team.
+5. Confirm that the agreed connections and routes are available before testing the service.
 
 ### Set up a route-based IPsec VPN
 
 Use a route-based IPsec VPN for a network with a compatible public VPN gateway:
 
-1. Give Warp the public gateway addresses, BGP autonomous system number, endpoint addresses or CIDR ranges, service hostname, HTTPS port, and any required BGP `/30` ranges.
-2. Agree on the redundancy and tunnel count with Warp, then configure a unique pre-shared key for each tunnel.
-3. Allow ESP and UDP ports `500` and `4500` through your firewall and NAT devices.
-4. Configure BGP route exchange and advertise the service ranges.
-5. Confirm that the tunnels and BGP sessions are available before testing the service.
+1. Give your Warp account team the public VPN endpoint, service hostname, HTTPS port, and network ranges requested during onboarding.
+2. Configure a route-based IPsec VPN using the connection parameters exchanged during onboarding.
+3. Coordinate routing and redundancy with your Warp account team.
+4. Confirm that the private route is available before testing the service.
 
 ## Validate the connection
 

@@ -97,9 +97,9 @@ Use `url` when the agent worker can reach an existing streamable HTTP or SSE MCP
 
 Store `INTERNAL_MCP_TOKEN` as a [managed secret](/platform/secrets/). Warp resolves the placeholder in the agent runtime before it connects.
 
-A direct URL server connects from the agent worker, not from Warp's control plane. Warp-hosted workers therefore need network access to the URL. A self-hosted worker uses its own network connectivity, so it can reach an endpoint available inside your network.
+A direct URL server connects from the agent worker. A Warp-hosted worker requires a publicly reachable URL. A self-hosted worker can connect to a private endpoint available from its network. See [managed self-hosting](/factories/self-hosting/).
 
-For centralized OAuth authorization or a connection managed by Warp, create a [managed MCP installation](#oauth-authentication) and reference its `warp_id`. A managed URL server set to **Direct** also connects from its agent worker. See [private networking](/enterprise/enterprise-features/private-networking/) for the connection options available to managed MCP servers.
+For centralized OAuth authorization or a connection managed by Warp, create a [managed MCP installation](#oauth-authentication) and reference its `warp_id`. Managed MCP servers that Warp calls from its hosted services use [private networking onboarding](/enterprise/enterprise-features/private-networking/) when the server has a private endpoint.
 
 ## Using MCP servers in an agent config file
 
@@ -161,15 +161,10 @@ A direct `url` MCP server that requires OAuth and has no `Authorization` header 
 
 Token- or header-based authentication on a `url` server, `env`-based secrets on a `command` server, and `warp_id` references to a Warp-shared or managed server all work without additional setup.
 
-## Private networking
-
-[Private networking](/enterprise/enterprise-features/private-networking/) gives Warp's control plane access to private managed MCP servers. Direct `url` configurations and managed URL servers set to **Direct** use the agent worker's network connectivity instead. For a private endpoint inside your network, run the agent on a [self-hosted worker](/factories/self-hosting/) that can reach it.
-
 ## Learn more
 
 * [Connect developer tools to agents with MCP workflows](/guides/external-tools/using-mcp-servers-with-warp/) — choose between local, cloud, and shared MCP setup paths
 * [MCP Servers (CLI reference)](/agents/cli/oz-cli/mcp-servers/) — how to pass MCP configuration using the `--mcp` flag
 * [Model Context Protocol (MCP)](/agents/capabilities/mcp/) — configuring MCP servers in Warp for local agents
-* [Private networking](/enterprise/enterprise-features/private-networking/) — connect private managed MCP servers to Warp-hosted services
 * [Environments](/platform/environments/) — set up the runtime context (repo, image, startup commands) for cloud agent tasks
 * [Secrets](/platform/secrets/) — store and inject credentials into agent runs safely
