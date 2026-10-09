@@ -13,6 +13,14 @@ Setup commands run in a new container on every cloud agent run. Commands that de
 2. Use lockfile-based dependency commands such as `npm ci` when your project supports them.
 3. Run the complete setup from a clean container before updating the environment.
 
+## "Setup command #N timed out"
+
+A setup command that runs longer than 30 minutes fails environment setup. The error identifies the command number, command text, elapsed limit, and phase. If the phase is "resetting the working directory after the command", the timeout is 30 seconds instead.
+
+1. Inspect the named command and its output in the run's transcript. Check for an interactive prompt, a long-running server, or a stalled download.
+2. Make the command finish without user input. For example, use `sudo apt-get install -y` for package installation, and don't start a foreground development server during setup.
+3. Move lengthy dependency installation into your Docker image when possible, then test the revised setup from a fresh container and start a new run.
+
 ## `Permission denied` or `EACCES`
 
 Cloud agents run as a non-root user by default. A command fails when it needs root access or writes to a directory that the agent user cannot modify.
