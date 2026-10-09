@@ -28,8 +28,17 @@ assert.equal(websites.length, 1, 'Expected exactly one WebSite JSON-LD node');
 
 assert.equal(organizations[0]['@id'], ORGANIZATION_ID);
 assert.equal(organizations[0].url, WARP_ORIGIN);
+assert.equal(
+	organizations[0].description,
+	'Warp builds the agentic development environment and Warp Factories, a platform for running software factories with AI agents.',
+);
+assert.ok(!organizations[0].sameAs.includes('https://go.warp.dev/join-preview'));
 assert.equal(websites[0]['@id'], WEBSITE_ID);
 assert.equal(websites[0].url, DOCS_ORIGIN);
+assert.equal(
+	websites[0].description,
+	'Documentation for Warp, the agentic development environment. Covers the Warp terminal, Warp agents, the Automation Platform for cloud agents and orchestration at scale, and Warp Factories for running software factories.',
+);
 assert.deepEqual(websites[0].publisher, { '@id': ORGANIZATION_ID });
 
 console.log('Homepage JSON-LD validation passed.');
