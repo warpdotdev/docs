@@ -82,7 +82,7 @@ If the config passes through a system that pre-processes `{{...}}` before it rea
 
 ## Connect directly by URL
 
-Use `url` when the agent worker can reach an existing streamable HTTP or SSE MCP endpoint. The URL must use HTTP or HTTPS. Add `headers` when the server uses a bearer token, API key, or other header-based authentication.
+Use `url` when the agent worker can reach an existing streamable HTTP or SSE MCP endpoint. The URL must use HTTP or HTTPS. Use HTTPS when the server requires a bearer token, API key, or other header-based authentication; add `headers` for those credentials.
 
 ```json
 {
