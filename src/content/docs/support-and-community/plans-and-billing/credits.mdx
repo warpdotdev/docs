@@ -14,7 +14,12 @@ Warp usage pays for model calls, hosted compute, and platform services. In the W
 
 ## Dollar usage and credits
 
-On dollar-billed plans, your allowance and purchased usage are dollar amounts. Usage charges draw from that balance. Credit-based Enterprise agreements continue to use the rates and terms in your contract.
+Your plan determines the unit Warp uses to charge usage:
+
+* **Dollar billing** - Your included allowance and purchased usage are amounts in US dollars. Usage charges draw from that balance.
+* **Credit billing** - Usage is measured and charged in credits. Existing credit-based Enterprise agreements retain their contract rates and terms.
+
+In Billing and usage, look for the "Usage display unit" dropdown. If it's available, your current plan bills in dollars, even when you select **Credits**. If it isn't available, check your billing terms or contact [billing@warp.dev](mailto:billing@warp.dev) rather than inferring the billing unit from a displayed amount.
 
 Usage has three charge components:
 
@@ -24,7 +29,7 @@ Usage has three charge components:
 
 For dollar-billed paid self-serve plans, Warp-provided inference and hosted compute use provider rates. Platform charges are separate. Free-plan [usage purchases](/support-and-community/plans-and-billing/add-on-credits/) include a purchase premium.
 
-A credit is a usage unit, not a token or a fixed number of prompts. Dollar-billed plans can also display usage in credits; changing the display does not change what you're charged.
+A credit is a usage unit, not a token or a fixed number of prompts.
 
 <span id="tracking-your-credit-usage" />
 
@@ -34,7 +39,7 @@ A credit is a usage unit, not a token or a fixed number of prompts. Dollar-bille
 * **Turn usage** - Expand the usage amount below an agent response. Where detailed usage is available, expand a model to see input, output, cache-read, and cache-write tokens, plus web searches and their costs.
 * **Conversation usage** - Open the conversation's usage summary to see its total. **View account usage** opens Billing and usage.
 
-On dollar-billed plans, choose **Credits** or **Dollars** in the "Usage display unit" dropdown in Billing and usage. Credit-billed plans remain credit-based. The CLI has its own [usage display](/agents/cli/models-and-usage/#usage-and-cost).
+On plans billed in dollars, use the "Usage display unit" dropdown to choose **Credits** or **Dollars**. This changes the display, not your billing unit or charges. The CLI has its own [usage display](/agents/cli/models-and-usage/#usage-and-cost).
 
 ### Charges and estimates
 
@@ -48,7 +53,7 @@ On self-serve paid plans, included usage is allocated per seat and resets monthl
 
 After included usage runs out, Warp draws from available [purchased usage](/support-and-community/plans-and-billing/add-on-credits/) on eligible plans. Purchased usage rolls over until its expiration and is shared across the team. Dedicated cloud allowances can be used before your general balance. Enterprise pool sizes and allocation rules follow your contract.
 
-Dollar-billed Free plans don't include bundled usage for the Warp Agent. Buy additional usage, [upgrade](https://www.warp.dev/pricing), or [bring your own inference](/agents/inference/bring-your-own-api-key/). Separate [platform charges](/support-and-community/plans-and-billing/platform-credits/) still apply to eligible runs.
+Under dollar billing, the Free plan doesn't include bundled usage for the Warp Agent. [Buy additional usage](/support-and-community/plans-and-billing/add-on-credits/), [upgrade](https://www.warp.dev/pricing), or [bring your own inference](/agents/inference/bring-your-own-api-key/). Separate [platform charges](/support-and-community/plans-and-billing/platform-credits/) still apply to eligible runs.
 
 <span id="other-features-that-use-credits" />
 

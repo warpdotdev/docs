@@ -10,7 +10,7 @@ import { VARS } from '@data/vars';
 
 ### How can I upgrade and subscribe to a Warp plan?
 
-Self-serve paid Warp plans include a monthly allowance of usage per seat. Dollar-billed plans state that allowance in dollars; credit-based agreements use credits. Dollar-billed Free plans don't include bundled usage for the Warp Agent. See [included allowances](/support-and-community/plans-and-billing/plans-pricing-refunds/#your-included-allowance).
+Self-serve paid Warp plans include a monthly usage allowance per seat. See [included allowances](/support-and-community/plans-and-billing/plans-pricing-refunds/#your-included-allowance) for your plan and [billing units](/support-and-community/plans-and-billing/credits/#dollar-usage-and-credits) for the difference between dollars and credits.
 
 When you upgrade, your allowance becomes available right away. Usage already consumed in the current cycle counts when you switch between paid plans.
 
@@ -162,25 +162,31 @@ After included usage runs out, you can:
 
 For organization-scale needs (cloud-provider managed inference, granular admin controls, or higher seat counts), Enterprise plans include [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/).
 
-### Can I buy credits on the Free plan without subscribing?
+<span id="can-i-buy-credits-on-the-free-plan-without-subscribing" />
+
+### Can I buy usage on the Free plan without subscribing?
 
 Yes. Free-plan users can purchase usage without a subscription. Dollar-billed Free purchases include a 20% premium: $20 of usage costs $24 before tax. See [usage purchase prices](/support-and-community/plans-and-billing/add-on-credits/#1-buy-on-demand).
 
-Buy from **Settings** > **Billing and usage** in the Warp app, or the purchase card on the [Warp upgrade page](https://app.warp.dev/upgrade).
+Use the purchase card on the [Warp upgrade page](https://app.warp.dev/upgrade).
 
 Purchased usage rolls over, stays valid for 12 months, and remains available when the team changes plans.
 
-### Who on my team can purchase add-on credits?
+<span id="who-on-my-team-can-purchase-add-on-credits" />
+
+### Who on my team can purchase usage?
 
 On eligible plans, any active team member can make a one-time purchase for the shared team balance, subject to the purchase limit. A paid subscription is not required. Admins manage auto-reload, purchase limits, and subscription upgrades.
 
-In Billing and usage, one-time purchasing is available while auto-reload is off. If the control is unavailable, ask an admin. See [purchasing additional usage](/support-and-community/plans-and-billing/add-on-credits/).
+See [purchasing additional usage](/support-and-community/plans-and-billing/add-on-credits/) for the Free-plan web checkout and eligible paid-plan controls.
 
-### Which card is charged when a team member buys add-on credits?
+<span id="which-card-is-charged-when-a-team-member-buys-add-on-credits" />
+
+### Which card is charged when a team member buys usage?
 
 Usage purchases charge the payment method saved for the team, not a separate card for each member. A card saved during the first purchase can become the team's default for later purchases and auto-reloads. See [purchase permissions and payment methods](/support-and-community/plans-and-billing/add-on-credits/#who-can-purchase-usage).
 
-If you see an add-on credit charge you don't recognize:
+If you see a usage purchase you don't recognize:
 
 * Check **Settings** > **Billing and usage** in the Warp app for the team's purchases in the current period.
 * Ask a team admin to review the invoices in the billing portal, which lists each purchase and the member who made it. See [How do I manage my billing?](#how-do-i-manage-my-billing).
@@ -190,7 +196,7 @@ If you see an add-on credit charge you don't recognize:
 
 Team admins change or remove the saved card in the billing portal, reachable from **Settings** > **Billing and usage** in the Warp app or from the [Warp Admin Panel](https://app.warp.dev/admin/) on the web. See [How do I manage my billing?](#how-do-i-manage-my-billing) for both paths.
 
-Non-admin members can't open the billing portal. If you added a card to your team through a credit purchase and want it removed, ask a team admin to do it, or email [billing@warp.dev](mailto:billing@warp.dev).
+Non-admin members can't open the billing portal. If you added a card to your team through a usage purchase and want it removed, ask a team admin to do it, or email [billing@warp.dev](mailto:billing@warp.dev).
 
 Admins can also adjust the team's monthly purchase limit in **Settings** > **Billing and usage**. See [purchase limits and reset periods](/support-and-community/plans-and-billing/add-on-credits/#configuring-a-monthly-spend-limit).
 
@@ -208,10 +214,10 @@ Review [cloud run billing](/platform/team-access-billing-and-identity/#billing-f
 
 ### Does the Free plan include AI usage?
 
-Dollar-billed Free plans don't include bundled AI usage for the Warp Agent. You have three options:
+Under dollar billing, the Free plan doesn't include bundled usage for the Warp Agent. See [billing units](/support-and-community/plans-and-billing/credits/#dollar-usage-and-credits) to check which applies to your account. You have three options:
 
-* **Upgrade to a paid plan** — paid plans include a monthly allowance of Warp-provided AI usage with no extra setup. See [Warp pricing](https://www.warp.dev/pricing).
-* **Buy additional usage** - Purchase usage without subscribing. See [Free-plan purchases](#can-i-buy-credits-on-the-free-plan-without-subscribing).
+* **Upgrade to a paid plan** - Paid plans include a monthly allowance of Warp-provided AI usage with no extra setup. See [Warp pricing](https://www.warp.dev/pricing).
+* **Buy additional usage** - Purchase usage without subscribing. See [Free-plan purchases](#can-i-buy-usage-on-the-free-plan-without-subscribing).
 * **Bring your own inference** - Connect an [API key](/agents/inference/bring-your-own-api-key/), [ChatGPT subscription](/agents/inference/chatgpt-subscription/), [custom endpoint](/agents/inference/custom-inference-endpoint/), or [SuperGrok subscription](/agents/inference/grok-subscription/). Those requests do not consume Warp-provided inference usage; other eligible run charges still apply.
 
 Without included or purchased usage, or your own inference, conversations on Free cannot run on Warp-provided models. This includes conversations started from prompt suggestions.

@@ -5,7 +5,7 @@ description: >-
   your team's shared balance and monthly purchase limit.
 ---
 
-Purchase usage when you need more than your included allowance, or on the Free plan without a subscription. In the Warp app, open **Settings** > **Billing and usage** to buy usage or manage auto-reload.
+Purchase usage when you need more than your included allowance, or on the Free plan without a subscription. On Free, use the purchase card on the [Warp upgrade page](https://app.warp.dev/upgrade). On eligible paid plans, open **Settings** > **Billing and usage** in the Warp app.
 
 <span id="how-do-add-on-credits-work" />
 
@@ -40,23 +40,27 @@ Eligible dollar-billed self-serve plans offer four usage amounts. The usage adde
 
 Free-plan purchases include a 20% premium. For example, paying $24 before tax adds $20 of usage, not $24. Check the checkout total before paying.
 
-In **Billing and usage**, choose a one-time usage amount and complete the purchase. That view makes one-time purchasing available while auto-reload is off. If your account bills in credits, check the credit quantity and price displayed for your plan instead.
+On Free, choose a usage amount from the purchase card on the Warp upgrade page and complete checkout. On eligible paid plans, choose a one-time amount in **Billing and usage** while auto-reload is off. If your account bills in credits, check the credit quantity and price displayed for your plan instead.
 
 ### 2. Enable auto-reload
 
 Auto-reload buys your selected usage amount when included usage is exhausted and the available purchased balance runs low. Reloaded usage enters the shared team balance and uses the same purchase prices as one-time purchases.
 
-Auto-reload is off by default. A team admin can configure it:
+Auto-reload is off by default. The Free-plan purchase card only supports one-time purchases. A team admin can configure auto-reload when Billing and usage offers the controls:
 
 1. In the Warp app, open **Settings** > **Billing and usage**.
 2. Turn on **Auto-reload** and choose the usage amount to purchase each time.
-3. Set the monthly spend limit for the team. The default is $200; an existing custom limit can be retained.
+3. Review the team's [monthly purchase limit](#configuring-a-monthly-purchase-limit). The default is $200; an existing custom limit can be retained.
 
 Heavy usage by any member can trigger repeated reloads. Review the selected amount and limit before starting unattended runs.
 
-#### Configuring a monthly spend limit
+<span id="configuring-a-monthly-spend-limit" />
 
-One-time purchases and auto-reloads count toward a single team-wide monthly purchase limit. If a purchase is blocked, choose a smaller amount or ask an admin to raise the limit.
+## Configuring a monthly purchase limit
+
+One-time purchases and auto-reloads count toward a single team-wide monthly purchase limit, labeled "Monthly spend limit" in Billing and usage. If a purchase is blocked, choose a smaller amount or ask an admin to raise the limit.
+
+In the Warp app, a team admin can adjust this limit in **Settings** > **Billing and usage**, even when auto-reload is off.
 
 * **Paid plans** - The purchase limit uses a monthly cycle, including on annual subscriptions. Its reset can differ from the included-usage reset.
 * **Free plan** - The purchase limit resets at the start of each calendar month in UTC.

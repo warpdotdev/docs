@@ -17,14 +17,16 @@ BYOK and custom inference endpoint support are available for individual users an
 
 ## How platform usage is measured
 
-An *agent hour* is one hour of billable agent activity. Partial hours are billed proportionally. The standard platform rate on dollar-billed self-serve plans is $5 per agent hour; Enterprise rates follow your contract.
+An *agent hour* is one hour of billable agent activity. Partial hours are billed proportionally. See [Warp pricing](https://www.warp.dev/pricing) for current rates; Enterprise rates follow your contract.
 
-Agent hours are not the same as the elapsed run time shown in a dashboard. Time queued before the agent starts and idle time between turns while it waits for your next message are not billable.
+Agent hours are not the same as a run's elapsed time. For cloud runs, billable time starts when the agent begins work inside its environment, including initial setup before the first response. Queued time, provisioning before the agent starts, and idle time between turns are excluded.
 
 Billable activity depends on the [harness](/platform/harnesses/):
 
-* **Warp Agent** - Time the agent spends generating a response. Command and tool execution time, such as a five-minute test suite, isn't billable as platform usage.
+* **Warp Agent** - After initial setup, time spent generating responses. Command and tool execution time, such as a five-minute test suite, isn't billable as platform usage.
 * **Claude Code and Codex** - Active runtime, including command execution and time spent waiting on the model provider.
+
+Billable time stops when the agent finishes, fails, or is cancelled. Failed or cancelled runs can still incur charges for billable activity before they stop.
 
 <span id="the-three-credit-buckets" />
 

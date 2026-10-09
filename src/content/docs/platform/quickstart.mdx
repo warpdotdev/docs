@@ -31,7 +31,7 @@ Before you begin, make sure you have:
 * **Warp account** - Create an account from the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>
 
 :::note
-Cloud agent runs need sufficient eligible usage. See [cloud agent access and billing](/platform/team-access-billing-and-identity/).
+Before launching, check [eligible balances and billing restrictions](/platform/team-access-billing-and-identity/#usage-requirements).
 :::
 
 ---
@@ -141,7 +141,7 @@ Use official Docker Hub images like `node`, `python`, or `rust` for best compati
 Warp prompts you to authorize GitHub when you create an environment or trigger your first agent. If authorization fails or needs updating, see [How GitHub Authorization works](/agents/cli/oz-cli/integration-setup/#how-github-authorization-works) and [`external_authentication_required`](/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/). For automated workflows using an agent API key, make sure [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) is configured in the Admin Panel. Also verify that repos are correctly configured in your environment with `oz environment get <ENV_ID>`; permission mismatches can surface as [`not_authorized`](/factories/api-and-sdk/troubleshooting/errors/not-authorized/).
 
 **Not enough usage to run cloud agents**\
-In the Warp app, check your balance in **Settings** > **Billing and usage**. See [cloud agent access and billing](/platform/team-access-billing-and-identity/) for eligible balances and plans. If a run is blocked because the billed account has no usable balance, see [`insufficient_credits`](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/).
+In the Warp app, check your balance in **Settings** > **Billing and usage**. Review [usage requirements](/platform/team-access-billing-and-identity/#usage-requirements) for included usage, purchases, trial balances, and Enterprise billing. If the billed account has no eligible usage, see [`insufficient_credits`](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/).
 
 **More resources**
 

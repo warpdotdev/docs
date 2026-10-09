@@ -120,7 +120,7 @@ If your team also uses Warp's terminal, you get an additional workflow: tasks la
 
 ### Billing and plan requirements
 
-Cloud runs incur [platform usage](/support-and-community/plans-and-billing/platform-credits/) for billable agent time. Warp-hosted compute and Warp-provided inference add their respective charges. Dollar-billed plans fund those charges from dollar usage; credit-based Enterprise agreements retain their contract terms.
+Cloud runs incur [platform charges](/support-and-community/plans-and-billing/platform-credits/) for billable agent time, plus applicable inference and hosted compute charges. See [usage and billing](/support-and-community/plans-and-billing/credits/) for billing units.
 
 :::note
 Personal [BYOK keys](/agents/inference/bring-your-own-api-key/) are not available to cloud runs. Business and Enterprise teams can configure [team-managed inference](/enterprise/enterprise-features/team-managed-keys-and-endpoints/); applicable compute and platform charges remain.
@@ -130,21 +130,13 @@ Personal [BYOK keys](/agents/inference/bring-your-own-api-key/) are not availabl
 
 Individual users can run cloud agents without being on a team. Requirements:
 
-* You need enough available usage to start the run
+* Review [eligible balances and billing restrictions](/platform/team-access-billing-and-identity/#usage-requirements) before starting a run
 * Cloud agents run on Warp-hosted infrastructure
 * Self-hosted agents require a team subscription
 
 #### For integrations (Slack/Linear)
 
-Integrations require you to be part of a [Warp team](/knowledge-and-collaboration/teams/) and additional requirements:
-
-* **Plan requirements**
-  * **Supported plans**: Build, Max, Business
-  * Your plan must support usage purchases.
-* **Usage requirements**
-  * The billed user or team must have enough available usage to start the run.
-
-For more details, see [Access, Billing, and Identity Permissions](/platform/team-access-billing-and-identity/).
+Integrations require a [Warp team](/knowledge-and-collaboration/teams/) on an eligible plan. Check [integration access](/platform/team-access-billing-and-identity/#requirements-for-integrations) and [usage requirements](/platform/team-access-billing-and-identity/#usage-requirements) before starting a run.
 
 :::caution
 On self-serve plans, runs are blocked when no usable balance remains unless an auto-reload succeeds. Enterprise availability follows your contract. Review [purchase limits](/support-and-community/plans-and-billing/add-on-credits/) before relying on unattended runs.

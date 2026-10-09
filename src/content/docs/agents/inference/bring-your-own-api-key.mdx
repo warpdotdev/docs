@@ -91,7 +91,9 @@ To use your own key, select a specific provider model (for example, Claude Opus 
 
 [Custom routers](/agents/inference/custom-routers/) resolve each task to a model you chose, then apply your API keys to that model. Requests covered by one of your keys bill inference through your provider account. See [usage and model availability](/agents/inference/custom-routers/#credits-and-model-availability) for details.
 
-### Credit usage
+<span id="credit-usage" />
+
+### Inference usage
 
 When you select a model with the key icon in your model picker, Warp routes the request through your API key. In that case:
 
@@ -147,11 +149,13 @@ The BYOK described on this page is configured at the **user level** on every pla
 
 Business and Enterprise teams can also configure **team-managed API keys** centrally: an admin sets shared keys in the [Admin Panel](/enterprise/team-management/admin-panel/), and they work for both interactive requests and cloud agents. See [Team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for details, or [contact sales](https://www.warp.dev/contact-sales).
 
-## Related resources
+<span id="related-resources" />
 
-* [Custom inference endpoint](/agents/inference/custom-inference-endpoint/) — Route Warp through any OpenAI-compatible endpoint, such as OpenRouter, LiteLLM, z.ai, or an internal gateway.
-* [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) — Enterprise-managed inference through your cloud provider or approved infrastructure.
-* [SuperGrok subscription](/agents/inference/grok-subscription/) — Use Grok models through your xAI account.
-* [ChatGPT subscription](/agents/inference/chatgpt-subscription/) — Use eligible OpenAI models in Warp Agent conversations in the Warp app through your ChatGPT plan.
-* [Model Choice](/agents/inference/model-choice/) — Full list of supported models and `model_id` values.
-* [Usage and billing](/support-and-community/plans-and-billing/credits/) - Inference, compute, and platform charges.
+## Related pages
+
+* **[Custom inference endpoint](/agents/inference/custom-inference-endpoint/)** - Route Warp through any OpenAI-compatible endpoint, such as OpenRouter, LiteLLM, z.ai, or an internal gateway.
+* **[Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/)** - Enterprise-managed inference through your cloud provider or approved infrastructure.
+* **[SuperGrok subscription](/agents/inference/grok-subscription/)** - Use Grok models through your xAI account.
+* **[ChatGPT subscription](/agents/inference/chatgpt-subscription/)** - Use eligible OpenAI models in Warp Agent conversations in the Warp app through your ChatGPT plan.
+* **[Model choice](/agents/inference/model-choice/)** - Full list of supported models and `model_id` values.
+* **[Usage and billing](/support-and-community/plans-and-billing/credits/)** - Inference, compute, and platform charges.
