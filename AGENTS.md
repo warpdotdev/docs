@@ -942,6 +942,7 @@ import { VARS } from '@data/vars';
 Use the {VARS.WARP_AGENT_CLI} to run agents from the command line.
 ```
 Note: this example also shows Option B in the frontmatter (`{{WARP_AGENT_CLI}}`). Both can appear in the same file — Option B covers the frontmatter YAML, Option A covers the body prose.
+
 ### Option B — frontmatter (Vite transform)
 Use `{{TOKEN}}` placeholders directly in frontmatter YAML values (`title`, `description`, `sidebar.label`, etc.). The `warp-vars-transform` Vite plugin substitutes them before any parser runs.
 ```yaml
@@ -951,6 +952,14 @@ description: Learn how to use the {{WARP_AGENT_CLI}} to run and manage agents.
 ---
 ```
 The build fails with a clear error if a token is unrecognized — for example, `{{WARP_AGNT_CLI}}` in frontmatter would surface as an unresolved token error. Validation applies to frontmatter only; body prose may legitimately contain `{{...}}` patterns as code examples.
+
+### Option C — headings (remark transform)
+- **MDX syntax** - In an `.mdx` heading, use a bare expression such as `{VARS.WARP_AGENT_CLI}`. Bold or italic formatting around the expression is preserved.
+- **Imports** - A page that uses variables only in headings doesn't need the `@data/vars` import.
+- **Plain Markdown** - Plain `.md` pages aren't MDX. A `{VARS.KEY}` heading stays literal and fails `npm run test:heading-tocs` after `npm run build`. Rename the page to `.mdx` to use a variable in its heading.
+- **Literal examples** - `npm run test:heading-tocs` rejects a literal `{VARS.KEY}` in a heading, even inside inline code. Put that example in body prose.
+- **End-to-end fixture** - The variable-backed heading in `src/content/docs/index.mdx` gives `npm run test:heading-tocs` end-to-end coverage of heading, anchor, and table-of-contents rendering. If you remove it, update `scripts/validate-heading-tocs.mjs` to point to another variable-backed heading.
+
 ### When to use vars
 Use a variable for:
 - Product and platform names that have changed before or are likely to change (e.g., `WARP_AGENT_CLI`, `WEB_APP`, `DASHBOARD`)
@@ -958,10 +967,11 @@ Use a variable for:
 - URLs that may change with a rebrand (e.g., `WEB_APP_URL`, `CONTACT_SALES_URL`)
 Do **not** create variables for generic stable terms like "terminal," "command," or "repository."
 ### Adding a new variable
-Add the key-value pair to `src/data/vars.ts` only. Both Option A (TypeScript import) and Option B (Vite transform) pick it up automatically.
+Add the key-value pair to `src/data/vars.ts` only. Options A, B, and C all pick it up automatically.
 ### Important constraints
 - **Do NOT** use `{{TOKEN}}` syntax in MDX body prose — it's only for frontmatter YAML. The Vite plugin runs before MDX parsing; curly-brace expressions in body prose are MDX syntax, not plugin tokens.
 - **Do NOT** use `{VARS.x}` expressions in frontmatter — MDX expressions don't evaluate in YAML frontmatter.
+- **Heading expressions**: See Option C above. An MDX expression in a heading that isn't a bare `{VARS.KEY}`, including a comment, fails the build with `Unsupported MDX expression in heading`. Put comments on their own line outside the heading.
 - **Key naming rule**: Keys are stable identifiers. Use the future or conceptual name as the key (e.g., `WARP_AGENT_CLI`), not the current brand name that may be retired. The value holds the current string.
 ## SEO and AEO (AI Engine Optimization)
 
@@ -1053,7 +1063,7 @@ Open [http://localhost:4321](http://localhost:4321) to preview locally.
 npm run build
 ```
 
-Build output goes to `./dist/`. Deployed via Vercel.
+The Vercel adapter writes build output to `.vercel/output/static/`, and Vercel deploys the site.
 
 ### Lint / format
 This repo is configured for the Trunk CLI via `.trunk/trunk.yaml`.
@@ -1068,7 +1078,17 @@ Notes:
 - Trunk is not vendored in this repo; install it separately if you want to run these locally.
 
 ### Tests
-No test suite. Run `npm run build` to validate all content compiles correctly.
+Run the repository checks in this order:
+
+```bash
+npm run typecheck
+npm run test:heading-vars
+npm run build
+npm run test:heading-tocs
+npm run test:homepage-json-ld
+```
+
+`npm run test:heading-tocs` validates generated HTML in `.vercel/output/static/` and requires the output from `npm run build`.
 
 ## Codebase structure and “big picture”
 

@@ -58,8 +58,8 @@ broken environment. Read the message before concluding a sanity guard tripped.
 
 ### Install Node dependencies before the first build
 
-`npm run build` is the only validation this repo has, and it needs `node_modules`, which
-a fresh sandbox does not have. Install once per sandbox:
+The repository's ordered validation commands are listed in `AGENTS.md`. They need
+`node_modules`, which a fresh sandbox does not have. Install once per sandbox:
 
 ```bash
 npm ci
@@ -536,8 +536,8 @@ their area. Do NOT bundle unrelated features into a single mega PR.
   same two `/factory` map entries.
 - **API spec gaps stay separate** — released endpoints go through the `sync-openapi-spec`
   skill as their own change, never bundled into a feature PR.
-- **Validate once, then split.** Run `npm run build` on the combined working tree (all
-  features together) to confirm everything compiles — `npm ci` first if the sandbox has
+- **Validate once, then split.** Run the ordered validation commands in `AGENTS.md` on
+  the combined working tree (all features together) — `npm ci` first if the sandbox has
   no `node_modules` — then peel each feature onto its own branch off `main` (e.g.
   `git checkout <base> -b <branch>` then `git checkout <combined-ref> -- <files>`). Each
   feature branch is then a strict subset of the already-validated tree.
@@ -605,9 +605,9 @@ with the product. Each run:
    python3 .agents/skills/missing_docs/scripts/check_new_release.py --commit
    python3 .agents/skills/missing_docs/scripts/audit_docs.py --update-snapshot
    ```
-6. **Validate**: if doc pages changed, run `npm ci && npm run build` — a fresh sandbox
-   has no `node_modules`, and the build is the only validation this repo has. Then
-   re-run the audit and confirm the addressed findings are gone.
+6. **Validate**: if doc pages changed, run `npm ci` in a fresh sandbox, then run the
+   ordered validation commands in `AGENTS.md`. Re-run the audit and confirm the
+   addressed findings are gone.
 7. **Route the reviewer** (at most one, only with conviction): resolve the owning
    engineer with `scripts/suggest_reviewers.py` (see Reviewer routing), passing the
    source files behind the addressed findings. Request a review only when exactly one
