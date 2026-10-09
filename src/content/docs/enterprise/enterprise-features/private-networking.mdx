@@ -16,18 +16,18 @@ Private networking setup is manual and coordinated with Warp. Contact your Warp 
 Private networking applies to services that Warp calls from its hosted services:
 
 * **Private LLM endpoints** - Connect a team-managed, OpenAI-compatible endpoint such as an internal LiteLLM gateway. See [team-managed LLM API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for endpoint and model configuration.
-* **Private MCP servers** - Connect a URL-based managed MCP installation. Include private OAuth or identity provider endpoints in the onboarding scope when the MCP server depends on them. See [MCP servers for cloud agents](/platform/mcp/#oauth-authentication).
+* **Private MCP servers** - Connect a URL-based managed MCP installation that uses a Warp-managed connection. Include private OAuth or identity provider endpoints in the onboarding scope when the MCP server depends on them. See [MCP servers for cloud agents](/platform/mcp/#oauth-authentication).
 
 Self-serve custom inference endpoints remain device-level settings and require a public URL.
 
-Private networking for MCP servers applies only to managed MCP installations used by Warp-hosted cloud agents. Self-hosted cloud agents use their execution environment's network access; see [managed self-hosting](/factories/self-hosting/). A direct `url` MCP configuration doesn't use private networking.
+Managed MCP servers normally need connectivity from Warp's control plane. A URL-based managed MCP server set to **Direct** instead connects from the agent worker. When that agent runs on a self-hosted worker, the server uses the worker's network connectivity rather than this private networking setup. Direct `url` configurations work the same way. See [managed self-hosting](/factories/self-hosting/) and [direct URL MCP servers](/platform/mcp/#connect-directly-by-url).
 
 ## Connection flow
 
 ```mermaid
 flowchart LR
   W["Warp-hosted service"]
-  C["Private connection<br/>PrivateLink · Private Service Connect<br/>Partner Interconnect · HA VPN"]
+  C["Private connection<br/>PrivateLink · Private Service Connect<br/>On-premises interconnect · Route-based IPsec VPN"]
   E["Your private endpoint<br/>LLM gateway or MCP server"]
   N["Your cloud or<br/>on-premises network"]
 
@@ -45,15 +45,15 @@ Prepare these items before onboarding:
 
 ## Choose a connection method
 
-Use a provider-native private endpoint when the service is in AWS, Azure, or Google Cloud. Use Google Cloud Partner Interconnect for an on-premises or colocation network with a supported provider. Use HA VPN for a network that can establish a route-based IPsec tunnel.
+Use a provider-native private endpoint when the service is in AWS, Azure, or Google Cloud. Use an on-premises interconnect for an on-premises or colocation network. Use a route-based IPsec VPN for a network with a compatible public VPN gateway.
 
 | Service location | Connection method |
 | --- | --- |
 | Google Cloud | Private Service Connect |
 | AWS | AWS PrivateLink |
 | Azure | Azure Private Link |
-| On-premises or colocation network | Google Cloud Partner Interconnect |
-| Network with a public VPN gateway | HA VPN |
+| On-premises or colocation network | On-premises interconnect |
+| Network with a public VPN gateway | Route-based IPsec VPN |
 
 ### Set up Google Cloud Private Service Connect
 
@@ -75,24 +75,28 @@ Warp confirms when the consumer endpoint is connected and ready for an applicati
 
 ### Set up Azure Private Link
 
-Give your Warp account team the endpoint type, service hostname, HTTPS port, and Azure region. Warp coordinates the remaining Private Link setup with your team.
+1. Put the service behind an Azure Standard Load Balancer. Configure its frontend IP, backend pool, health probe, and load-balancing rule.
+2. Disable private link service network policies on the subnet you will use for source NAT.
+3. Create an Azure Private Link Service that references the load balancer's frontend IP configuration, then select the source NAT subnet and IP configuration. Follow Microsoft's guide to [creating an Azure Private Link Service](https://learn.microsoft.com/azure/private-link/create-private-link-service-portal).
+4. Give your Warp account team the Private Link Service alias or resource URI, Azure region, service hostname, and HTTPS port.
+5. After the private endpoint request appears in Azure, approve the connection and test the service.
 
-### Set up Google Cloud Partner Interconnect
+### Set up an on-premises interconnect
 
-Use Partner Interconnect for an on-premises or colocation network connected through a supported Layer 3 provider:
+Use an interconnect for an on-premises or colocation network connected through a network provider:
 
-1. Choose a supported provider and agree on the redundancy option with Warp. See the Google Cloud [Partner Interconnect overview](https://cloud.google.com/network-connectivity/docs/interconnect/concepts/partner-overview).
+1. Choose a network provider and agree on the locations, capacity, and redundancy with Warp.
 2. Give Warp the endpoint addresses or CIDR ranges, service hostname, HTTPS port, and any non-conflicting private ranges requested during onboarding.
-3. Use the pairing keys Warp supplies to provision the connection with your provider.
-4. Configure BGP to accept the proxy range supplied by Warp and advertise the service ranges.
-5. Confirm that the BGP sessions and agreed redundant paths are available before testing the service.
+3. Provision the interconnect with your provider using the connection details exchanged during onboarding.
+4. Configure dynamic routing to advertise the service ranges and accept the routes supplied by Warp.
+5. Confirm that the routes and agreed redundant paths are available before testing the service.
 
-### Set up HA VPN
+### Set up a route-based IPsec VPN
 
-Use HA VPN for a network that can establish a route-based IPsec tunnel:
+Use a route-based IPsec VPN for a network with a compatible public VPN gateway:
 
 1. Give Warp the public gateway addresses, BGP autonomous system number, endpoint addresses or CIDR ranges, service hostname, HTTPS port, and any required BGP `/30` ranges.
-2. Agree on one or two tunnels with Warp and configure a unique pre-shared key for each tunnel.
+2. Agree on the redundancy and tunnel count with Warp, then configure a unique pre-shared key for each tunnel.
 3. Allow ESP and UDP ports `500` and `4500` through your firewall and NAT devices.
 4. Configure BGP route exchange and advertise the service ranges.
 5. Confirm that the tunnels and BGP sessions are available before testing the service.

@@ -80,6 +80,27 @@ You can define any number of MCP servers in a single config.
 If the config passes through a system that pre-processes `{{...}}` before it reaches the {VARS.WARP_AUTOMATION_PLATFORM} (for example, Jira/Atlassian Automation), use JSON unicode escapes for the braces: `\u007b\u007bMY_SECRET\u007d\u007d` decodes to `{{MY_SECRET}}`, which the {VARS.WARP_AUTOMATION_PLATFORM} resolves normally.
 :::
 
+## Connect directly by URL
+
+Use `url` when the agent worker can reach an existing streamable HTTP or SSE MCP endpoint. The URL must use HTTP or HTTPS. Add `headers` when the server uses a bearer token, API key, or other header-based authentication.
+
+```json
+{
+  "internal-tools": {
+    "url": "https://mcp.internal.example/mcp",
+    "headers": {
+      "Authorization": "Bearer {{INTERNAL_MCP_TOKEN}}"
+    }
+  }
+}
+```
+
+Store `INTERNAL_MCP_TOKEN` as a [managed secret](/platform/secrets/). Warp resolves the placeholder in the agent runtime before it connects.
+
+A direct URL server connects from the agent worker, not from Warp's control plane. Warp-hosted workers therefore need network access to the URL. A self-hosted worker uses its own network connectivity, so it can reach an endpoint available inside your network.
+
+For centralized OAuth authorization or a connection managed by Warp, create a [managed MCP installation](#oauth-authentication) and reference its `warp_id`. A managed URL server set to **Direct** also connects from its agent worker. See [private networking](/enterprise/enterprise-features/private-networking/) for the connection options available to managed MCP servers.
+
 ## Using MCP servers in an agent config file
 
 For repeatable cloud agent workflows, declare your MCP servers inside the agent config file passed to `-f / --file`:
@@ -142,7 +163,7 @@ Token- or header-based authentication on a `url` server, `env`-based secrets on 
 
 ## Private networking
 
-Private networking applies to [managed MCP servers used by Warp-hosted cloud agents](/enterprise/enterprise-features/private-networking/). A direct `url` configuration doesn't use private networking.
+[Private networking](/enterprise/enterprise-features/private-networking/) gives Warp's control plane access to private managed MCP servers. Direct `url` configurations and managed URL servers set to **Direct** use the agent worker's network connectivity instead. For a private endpoint inside your network, run the agent on a [self-hosted worker](/factories/self-hosting/) that can reach it.
 
 ## Learn more
 
