@@ -80,6 +80,7 @@ Follow these baseline expectations:
 ## Validate your work
 
 Run the [repository checks in `AGENTS.md`](AGENTS.md#tests) in the documented order.
+They cover type-checking, the site build, and generated-site validations that read the build output.
 
 Run linting and formatting if [Trunk](https://trunk.io/) is installed:
 

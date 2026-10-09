@@ -5,7 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseHTML } from 'linkedom';
 
-const unresolvedHeadingVarPattern = /\{\s*VARS\.[A-Z0-9_]+\s*\}/;
+const unresolvedHeadingVarPattern = /\bVARS\.[A-Z0-9_]+/;
 
 async function collectFiles(directory, extensions) {
 	const files = [];
