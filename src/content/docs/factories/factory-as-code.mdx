@@ -156,7 +156,7 @@ Whose credentials runs use: `EXECUTOR` for the executing principal, or `CREATOR`
 ### `automations`
 
 **Optional.**
-Factory-wide automation settings. `automations.githubOnboardingNotices` defaults to `true`. Set it to `false` to suppress future GitHub account-connection and team-membership notices without changing access requirements.
+Factory-wide automation settings. `automations.githubOnboardingNotices` defaults to `true`. Set it to `false` to suppress future GitHub account-connection and team-membership notices without changing access requirements. Users without a connected GitHub account or membership in the required GitHub team still cannot trigger affected automations. Disabling notices can leave them without an explanation.
 
 ```yaml title="factory.yaml"
 automations:
