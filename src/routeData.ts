@@ -16,6 +16,15 @@ import { getMarkdownPathFromHtmlPath } from './lib/docs-markdown.js';
 export const onRequest = defineRouteMiddleware((context) => {
 	const route = context.locals.starlightRoute;
 	const head = route.head;
+	// Reuse Starlight's git-derived date, including its frontmatter overrides.
+	// The sitemap serializer reads this from the generated page, so it never
+	// substitutes build time or guesses a source file from a URL.
+	if (route.lastUpdated) {
+		head.push({
+			tag: 'meta',
+			attrs: { property: 'article:modified_time', content: route.lastUpdated.toISOString() },
+		});
+	}
 
 	head.push({
 		tag: 'link',

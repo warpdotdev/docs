@@ -3,7 +3,7 @@ import { defineConfig, envField } from 'astro/config';
 import remarkGfm from 'remark-gfm';
 import mermaid from 'astro-mermaid';
 import react from '@astrojs/react';
-import sitemap from '@astrojs/sitemap';
+import sitemap from './src/integrations/sitemap-lastmod.js';
 import starlight from '@astrojs/starlight';
 import starlightLlmsTxt from 'starlight-llms-txt';
 import starlightSidebarTopics from 'starlight-sidebar-topics';
