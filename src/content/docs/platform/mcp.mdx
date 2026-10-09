@@ -82,7 +82,7 @@ If the config passes through a system that pre-processes `{{...}}` before it rea
 
 ### Connect directly by URL
 
-Use `url` when the agent worker can reach an existing streamable HTTP or SSE MCP endpoint. The URL must use HTTP or HTTPS. For authenticated endpoints, use HTTPS to protect credentials in transit; add bearer tokens, API keys, or other header-based credentials with `headers`.
+Use `url` to connect the agent worker to an existing streamable HTTP or SSE MCP endpoint. A Warp-hosted worker requires a publicly reachable URL, while a self-hosted worker can reach a private endpoint available from its network. For credentials sent with `headers`, use HTTPS to protect them in transit.
 
 ```json
 {
@@ -97,9 +97,7 @@ Use `url` when the agent worker can reach an existing streamable HTTP or SSE MCP
 
 Store `INTERNAL_MCP_TOKEN` as a [managed secret](/platform/secrets/). Warp resolves the placeholder in the agent runtime before it connects.
 
-A direct URL server connects from the agent worker. A Warp-hosted worker requires a publicly reachable URL. A self-hosted worker can connect to a private endpoint available from its network. See [managed self-hosting](/factories/self-hosting/).
-
-For a managed MCP server with a private endpoint, use [private networking onboarding](/enterprise/enterprise-features/private-networking/).
+For a self-hosted worker, see [managed self-hosting](/factories/self-hosting/). For a managed MCP server with a private endpoint, use [private networking onboarding](/enterprise/enterprise-features/private-networking/).
 
 ## Using MCP servers in an agent config file
 

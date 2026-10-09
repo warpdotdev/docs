@@ -22,21 +22,6 @@ Self-serve [custom inference endpoints](/agents/inference/custom-inference-endpo
 
 Direct `url` configurations use a different network path; see [direct URL MCP servers](/platform/mcp/#connect-directly-by-url) for their connectivity requirements.
 
-## Connection flow
-
-During a request, a Warp-hosted service reaches your private endpoint over the connection established during onboarding.
-
-```mermaid
-flowchart LR
-  W["Warp-hosted service"]
-  C["Private connection"]
-  E["Your private endpoint<br/>LLM gateway or MCP server"]
-  N["Your cloud or<br/>on-premises network"]
-
-  W --> C --> E
-  E --- N
-```
-
 ## Requirements
 
 Prepare these items before onboarding:
@@ -98,13 +83,18 @@ Use an interconnect for an on-premises or colocation network connected through a
 Use a route-based IPsec VPN for a network with a compatible public VPN gateway:
 
 1. Give your Warp account team the public VPN endpoint, service hostname, HTTPS port, and network ranges requested during onboarding.
-2. Configure a route-based IPsec VPN using the connection parameters exchanged during onboarding.
-3. Coordinate routing and redundancy with your Warp account team.
+2. Configure a route-based IPsec VPN whose gateway and routing use BGP.
+3. Coordinate the gateway and routing values with your Warp account team.
 4. Confirm that the private route is available before testing the service.
 
-## Validate the connection
+## Configure and validate the service
 
-After both sides report that the connection is ready:
+After Warp confirms that the private connection is ready, configure the service with its private hostname:
+
+* **LLM endpoint** - Set the endpoint base URL in [team-managed LLM API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/).
+* **Managed MCP installation** - Set the server URL in [MCP servers for cloud agents](/platform/mcp/#oauth-authentication).
+
+Then validate the connection:
 
 1. Confirm the LLM gateway or MCP server is healthy on its private hostname and port.
 2. For an LLM gateway, select a model configured on the team endpoint and send a test prompt.
