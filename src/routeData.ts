@@ -1,6 +1,9 @@
 import { defineRouteMiddleware } from '@astrojs/starlight/route-data';
 import config from 'virtual:starlight/user-config';
 import { getMarkdownPathFromHtmlPath } from './lib/docs-markdown.js';
+import { getShallowBoundaryDates } from './lib/git-history.js';
+
+const shallowBoundaryDates = getShallowBoundaryDates();
 
 /**
  * Per-page head augmentation.
@@ -15,6 +18,10 @@ import { getMarkdownPathFromHtmlPath } from './lib/docs-markdown.js';
  */
 export const onRequest = defineRouteMiddleware((context) => {
 	const route = context.locals.starlightRoute;
+	if (!(route.entry.data.lastUpdated instanceof Date) &&
+		route.lastUpdated && shallowBoundaryDates.has(route.lastUpdated.getTime())) {
+		route.lastUpdated = undefined;
+	}
 	const head = route.head;
 	// Reuse Starlight's git-derived date, including its frontmatter overrides.
 	// The sitemap serializer reads this from the generated page, so it never
