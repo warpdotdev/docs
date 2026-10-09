@@ -30,7 +30,7 @@ assert.equal(organizations[0]['@id'], ORGANIZATION_ID);
 assert.equal(organizations[0].url, WARP_ORIGIN);
 assert.equal(
 	organizations[0].description,
-	'Warp builds an agentic development environment and Warp Factories, open infrastructure for software factories powered by agents.',
+	'Warp builds Warp Factories: open infrastructure for cloud software factories, defined in code.',
 );
 assert.deepEqual(organizations[0].sameAs, [
 	'https://x.com/warpdotdev',
@@ -42,8 +42,11 @@ assert.equal(websites[0]['@id'], WEBSITE_ID);
 assert.equal(websites[0].url, DOCS_ORIGIN);
 assert.equal(
 	websites[0].description,
-	'Documentation for Warp, the agentic development environment. Covers the Warp terminal, Warp agents, the Automation Platform for cloud agents and orchestration at scale, and Warp Factories for running software factories.',
+	'Set up and run Warp Factories, open infrastructure for cloud software factories, plus the cloud agents, Warp agents, and Warp terminal behind them.',
 );
+for (const payload of [organizations[0], websites[0]]) {
+	assert.doesNotMatch(payload.description, /agentic development environment/i);
+}
 assert.deepEqual(websites[0].publisher, { '@id': ORGANIZATION_ID });
 
 console.log('Homepage JSON-LD validation passed.');
