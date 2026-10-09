@@ -14,14 +14,14 @@ A factory is a team of cloud agents attached to a set of repositories. It takes 
 
 <CardGrid>
   <LinkCard
-    title="Get started with Warp Factories"
-    href={VARS.GET_STARTED_URL}
-    description="For prospective users and teams new to Warp Factories."
-  />
-  <LinkCard
     title="Open Warp Factories"
     href={VARS.FACTORY_WEB_APP_URL}
-    description="For existing users and teams already using Warp Factories."
+    description="Sign in to create a factory or open one your team already uses."
+  />
+  <LinkCard
+    title="Create your first factory"
+    href="/factories/quickstart/"
+    description="Connect repositories and send a small, verifiable work item."
   />
 </CardGrid>
 
@@ -44,13 +44,13 @@ A work item is one request the factory acts on: an issue, a support thread, a pu
 
 ### Foreman and factory agents
 
-Every factory has one foreman, the agent you talk to. It decides which agent a work item goes to next, asks you when it needs a decision, and hands back the finished pull request. Behind it are the default triage, spec, implement, and review agents; add custom agents for work they don't cover. Each agent can run on its own model and harness, including the Warp Agent, Claude Code, and Codex. See [factory agents](/factories/factory-agents/).
+The foreman routes work, asks for decisions, and hands back results. The default triage, spec, implement, and review agents cover the development workflow; add custom agents for other tasks. Configure each agent's model and harness, including the Warp Agent, Claude Code, or Codex. See [factory agents](/factories/factory-agents/) for support and configuration.
 
 Setup gives the foreman the same handle as the factory, so `payments` is the factory and `@payments` reaches its foreman from Slack or Linear. See [Foreman name](/factories/factory-agents/#foreman-name).
 
 ### Stages and checkpoints
 
-The foreman moves a work item through the Triage, Planning, Building, and Reviewing stages, skipping the ones a well-defined request doesn't need and sending work back when review finds problems. Spec approval and the foreman's questions are written into its instructions, which your team can edit. The factory never merges. Your repository's permissions and branch protection determine who can approve and merge. See [how Warp Factories work](/factories/how-factories-work/).
+Work moves through Triage, Planning, Building, and Reviewing. The foreman can skip unnecessary stages or send work back for revisions. Spec approval is part of its editable instructions, not a repository permission. The factory never merges; your repository's permissions and branch protection control approval and merge access. See [how Warp Factories work](/factories/how-factories-work/).
 
 ### Factory definition
 
@@ -58,7 +58,9 @@ A factory's repositories, agents, automations, runners, skills, and MCP servers 
 
 ### Work sources
 
-Connect [Slack](/factories/integrations/slack/), [Microsoft Teams](/factories/integrations/teams/), [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), [Azure DevOps](/factories/integrations/azure-devops/), [Linear](/factories/integrations/linear/), or [Jira](/factories/integrations/jira/), and the factory posts results back in the same thread, issue, or pull request. [Custom webhooks](/factories/webhooks/) and [factory endpoints](/factories/factory-api/) cover other systems, schedules start recurring work, and the [Factory MCP](/factories/factory-mcp/) lets a local coding agent hand work to a factory and take it back. See [connect your factory](/factories/connect-your-factory/).
+Connect chat, issue trackers, and code forges through [factory integrations](/factories/connect-your-factory/). Results return to the thread, issue, or pull request where work began. Use [custom webhooks](/factories/webhooks/) or [factory endpoints](/factories/factory-api/) for other systems, and [automations](/factories/automations/) for scheduled work.
+
+The [Factory MCP](/factories/factory-mcp/) lets a local coding agent send work to a factory, take it over locally, and hand it back.
 
 ### Execution
 
@@ -66,7 +68,7 @@ Every agent run in a factory is an ordinary [cloud agent run](/platform/) on the
 
 ### Measurement
 
-The [factory dashboard](/factories/factory-dashboard/) shows autonomy, pull request cycle time, cost per pull request, opened versus merged pull requests, and run breakdowns. [Scorers](/factories/measure-and-improve/scorers/) classify completed runs against criteria you write, [benchmarks](/factories/benchmarks/) compare models, harnesses, and runners on the same tasks, and [Self-improvement](/factories/measure-and-improve/self-improvement/) turns repeated failures into pull requests for your review. See [measure and improve](/factories/measure-and-improve/).
+Use the [factory dashboard](/factories/factory-dashboard/) to inspect PR activity, autonomy, cycle time, and cost. [Scorers](/factories/measure-and-improve/scorers/) classify runs against your criteria; [benchmarks](/factories/benchmarks/) compare configurations on the same tasks; [Self-improvement](/factories/measure-and-improve/self-improvement/) proposes changes for review. See [measure and improve](/factories/measure-and-improve/) for definitions and limitations.
 
 ## Sizing a factory
 
@@ -84,3 +86,5 @@ Don't split the same repositories across factories by team or task, such as fron
 * [How Warp Factories work](/factories/how-factories-work/) - The work-item lifecycle, stage by stage.
 * [Factory agents](/factories/factory-agents/) - What each default agent does and how to configure its model and harness.
 * [Definitions as code](/factories/factory-as-code/) - The definition file format, with working examples in [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples).
+* [Transitioning from Oz](/platform/transitioning-from-oz/) - Assess an existing web app, CLI, SDK, or API workflow.
+* <a href={VARS.GET_STARTED_URL}>Get started with the Warp team</a> - Get help choosing and setting up a workflow.

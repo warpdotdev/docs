@@ -401,6 +401,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories', label: 'Overview' },
 						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
 						{ slug: 'factories/quickstart', label: 'Quickstart' },
+						{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
 					],
 				},
 				{
@@ -547,13 +548,13 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			icon: 'cloud-download',
 			items: [
 				{ slug: 'platform/overview', label: 'Overview' },
+				{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
 				{ slug: 'platform/architecture', label: 'Architecture' },
 				{
 					label: 'Cloud Agents',
 					items: [
 						{ slug: 'platform', label: 'Overview' },
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
-						{ slug: 'platform/documentation-map', label: 'Documentation map' },
 						{
 							// Runtime (which agent executes the run) is kept separate from
 							// configuration (how any run is set up) -- HYC review, 8/14.
