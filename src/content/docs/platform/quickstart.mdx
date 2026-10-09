@@ -13,11 +13,9 @@ Run one cloud-agent task from Warp in about 10 minutes. You'll set up an environ
 ## Prerequisites
 
 * **Warp app** - Download from the [Warp download page](https://www.warp.dev/download).
-* **Warp account** - Create an account from the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>
+* **Warp account** - Create an account from the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>.
 
-:::note
-You need at least 20 credits available for this standalone workflow. See [cloud-agent access and billing](/platform/team-access-billing-and-identity/) for requirements.
-:::
+Cloud agents use your account's or team's credits or paid usage. Access and spending limits apply. See [access and billing requirements](/platform/team-access-billing-and-identity/).
 
 ---
 
@@ -37,33 +35,35 @@ In Warp's terminal input, type:
 /cloud-agent
 ```
 
-Warp checks for an environment and guides you through creating one if needed.
+Warp opens a cloud-agent conversation.
 
-### 3. Create your environment
+### 3. Choose an environment and send a request
 
-An environment defines the agent's workspace: a Docker image with your toolchain, repositories to check out, and commands to prepare them. It gives the agent the tools it needs even though it isn't running on your laptop.
-
-If you already have an environment, use it. To create another for a different project, run `/create-environment` in Warp.
-
-For a new environment, provide:
-
-* **Name** - A label for this workspace.
-* **Repositories** - Enter `owner/repo` or select a repository. Click **Auth with GitHub** if you need to authorize access.
-* **Docker image** - Choose an image with your project's tools, such as `python:3.11` or `node:20`, or click **Suggest image**.
-* **Setup commands** - Prepare dependencies with commands such as `pip install -r requirements.txt` or `npm ci`. Press `Enter` after each command.
-* **Description** - Optional notes for teammates using the environment.
-
-See [configuring environments](/platform/environments/configuring-environments/) for detailed setup.
-
-### 4. Describe what you want the agent to do
+An environment supplies the agent's toolchain, repositories, and setup commands. In the input footer, check the selected environment or choose one for your project.
 
 Send a small, verifiable request, such as "Analyze test coverage and suggest one improvement. Do not change files."
 
-The agent works in the cloud environment: it checks out the configured repositories and runs the setup commands before working on your prompt. Watch its progress in Warp and send follow-up instructions when needed. Agents can run commands and change files in that workspace; review their work before using it.
+If no environment is selected, submitting your request opens the creation form. Complete the next step; otherwise, skip to viewing the run.
+
+### 4. Create an environment if needed
+
+In the creation form, provide:
+
+* **Workspace name** - Enter a label in "Name".
+* **Repositories** - In "Repo(s)", enter `owner/repo` or select a repository. Click **Auth with GitHub** if you need to authorize access.
+* **Runtime** - In "Docker image reference", enter an image with your project's tools, such as `python:3.11` or `node:20`, or click **Suggest image**.
+* **Dependencies** - In "Setup command(s)", add commands such as `cd REPO_DIR && npm ci`. Replace `REPO_DIR` with your repository's checkout path relative to `/workspace`. Each command starts independently from `/workspace`; press `Enter` to add it.
+* **Notes** - Optionally enter notes for teammates in "Description".
+
+Click **Create environment**. Warp selects the new environment and starts your pending request.
+
+To set up another environment separately, run `/create-environment` in Warp. Outside an active cloud conversation, choose **Quick setup** for the form or **Use the agent** for agent-assisted setup. See [configuring environments](/platform/environments/configuring-environments/) for details.
 
 ### 5. View run details
 
-Inspect the commands, output, and any file changes to confirm the agent addressed your request:
+The agent checks out the configured repositories and runs the setup commands before working on your request. Watch its progress in Warp and send follow-up instructions when needed.
+
+Inspect commands, output, and any file changes to confirm the agent addressed your request:
 
 * In the Warp app, open the [conversations panel](/agents/local-agents/interacting-with-agents/#conversation-panel) to see all your agent runs.
 * Click the session link in your terminal output.
