@@ -60,7 +60,7 @@ for (const file of htmlFiles) {
 	}
 
 	const headingsById = new Map(
-		[...allHeadings, ...agentOnlyHeadings]
+		[...agentOnlyHeadings, ...allHeadings]
 			.filter((heading) => heading.id)
 			.map((heading) => [heading.id, heading]),
 	);
