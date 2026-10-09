@@ -122,13 +122,12 @@ Use a cloud or partner interconnect when your on-premises network already has de
 After both sides report that the connection is ready:
 
 1. Confirm the LLM gateway or MCP server is healthy on its private hostname and port.
-2. Ask Warp to run a connectivity check over the private path.
-3. For an LLM gateway, select a model configured on the team endpoint and send a test prompt.
-4. For an MCP server, invoke a read-only tool through the managed MCP installation.
-5. Check your service and network logs for the request, TLS handshake, authentication result, and response.
-6. If your policy requires private-only access, verify that the service isn't reachable from the public internet.
+2. For an LLM gateway, select a model configured on the team endpoint and send a test prompt.
+3. For an MCP server, invoke a read-only tool through the managed MCP installation.
+4. Check your service and network logs for the request, TLS handshake, authentication result, and response.
+5. If your policy requires private-only access, verify that the service isn't reachable from the public internet.
 
-If the network check succeeds but the application request fails, check the certificate hostname, authentication configuration, and MCP OAuth hosts before changing routes.
+If a test request reaches your service but fails, check the certificate hostname, authentication configuration, and MCP OAuth hosts before changing routes.
 
 ## Related pages
 
