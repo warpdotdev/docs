@@ -10,7 +10,15 @@ import { VARS } from '@data/vars';
 
 The {VARS.WARP_PLATFORM_API} serves both factories and standalone cloud agent runs. The factory endpoints send work to a factory; agent and run endpoints start and manage standalone runs. Both endpoint families use the same API key, API reference, SDKs, and error model.
 
+## Get started
+
+To send work through a factory, start with [dispatching a run to a factory](/factories/factory-api/#dispatch-a-run-to-a-factory).
+
+To start a standalone cloud agent, use the [API & SDK quickstart](/factories/api-and-sdk/quickstart/). The [Sentry monitoring example](/factories/api-and-sdk/demo-sentry-monitoring-with-sdk/) shows standalone dispatch from a webhook handler.
+
 ## Choose an API surface
+
+Choose the endpoints for the work you want to run, then use the SDK and integration references to connect your tools.
 
 * **[Factory endpoints](/factories/factory-api/)** - Find a factory and send work to it by UID from your application or service.
 * **[Agent & run endpoints](/factories/api-and-sdk/)** - Start, monitor, continue, and cancel cloud agent runs from scripts, CI, and backend services.
@@ -20,12 +28,6 @@ The {VARS.WARP_PLATFORM_API} serves both factories and standalone cloud agent ru
 * **[API errors](/factories/api-and-sdk/troubleshooting/errors/)** - Resolve error responses by HTTP status and machine-readable code.
 * **[Factory MCP](/factories/factory-mcp/)** - Exchange work between a factory and a connected coding agent or MCP client.
 * **[Webhooks](/factories/webhooks/)** - Receive events from systems that can send JSON and route matching deliveries into factory automations.
-
-## Get started
-
-To send work through a factory, start with [dispatching a run to a factory](/factories/factory-api/#dispatch-a-run-to-a-factory).
-
-To start a standalone cloud agent, use the [API & SDK quickstart](/factories/api-and-sdk/quickstart/). The [Sentry monitoring example](/factories/api-and-sdk/demo-sentry-monitoring-with-sdk/) shows standalone dispatch from a webhook handler.
 
 ## Related pages
 

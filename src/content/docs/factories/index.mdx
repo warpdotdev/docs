@@ -14,14 +14,14 @@ A factory is a team of cloud agents attached to a set of repositories. It takes 
 
 <CardGrid>
   <LinkCard
-    title="Open Warp Factories"
+    title="Open Warp Factories web app"
     href={VARS.FACTORY_WEB_APP_URL}
-    description="Sign in to create a factory or open one your team already uses."
+    description="Sign in to your account and create or manage your team's factories."
   />
   <LinkCard
-    title="Create your first factory"
+    title="Read the Warp Factories quickstart"
     href="/factories/quickstart/"
-    description="Connect repositories and send a small, verifiable work item."
+    description="Follow the setup instructions to connect repositories and send your first request."
   />
 </CardGrid>
 
@@ -44,13 +44,13 @@ A work item is one request the factory acts on: an issue, a support thread, a pu
 
 ### Foreman and factory agents
 
-The foreman routes work, asks for decisions, and hands back results. The default triage, spec, implement, and review agents cover the development workflow; add custom agents for other tasks. Configure each agent's model and harness, including the Warp Agent, Claude Code, or Codex. See [factory agents](/factories/factory-agents/) for support and configuration.
+The foreman routes work, asks for your decisions, and returns the results. Default triage, spec, implement, and review agents cover the development workflow. For other tasks, add custom agents. You can configure each agent's model and harness, including the Warp Agent, Claude Code, or Codex. See [factory agents](/factories/factory-agents/) for support and configuration.
 
 Setup gives the foreman the same handle as the factory, so `payments` is the factory and `@payments` reaches its foreman from Slack or Linear. See [Foreman name](/factories/factory-agents/#foreman-name).
 
 ### Stages and checkpoints
 
-Work moves through Triage, Planning, Building, and Reviewing. The foreman can skip unnecessary stages or send work back for revisions. Spec approval is part of its editable instructions, not a repository permission. The factory never merges; your repository's permissions and branch protection control approval and merge access. See [how Warp Factories work](/factories/how-factories-work/).
+Work moves through Triage, Planning, Building, and Reviewing. The foreman can skip unnecessary stages or send work back for revisions. Spec approval is part of the foreman's editable instructions, not a repository permission. The factory never merges on your behalf. Repository permissions and branch protection control approval and merge access. See [how Warp Factories work](/factories/how-factories-work/).
 
 ### Factory definition
 
@@ -58,7 +58,7 @@ A factory's repositories, agents, automations, runners, skills, and MCP servers 
 
 ### Work sources
 
-Connect chat, issue trackers, and code forges through [factory integrations](/factories/connect-your-factory/). Results return to the thread, issue, or pull request where work began. Use [custom webhooks](/factories/webhooks/) or [factory endpoints](/factories/factory-api/) for other systems, and [automations](/factories/automations/) for scheduled work.
+Connect chat services, issue trackers, and code forges through [factory integrations](/factories/connect-your-factory/). Results return to the thread, issue, or pull request where work began. Use [custom webhooks](/factories/webhooks/) or [factory endpoints](/factories/factory-api/) for other systems, and [automations](/factories/automations/) for scheduled work.
 
 The [Factory MCP](/factories/factory-mcp/) lets a local coding agent send work to a factory, take it over locally, and hand it back.
 
@@ -66,9 +66,15 @@ The [Factory MCP](/factories/factory-mcp/) lets a local coding agent send work t
 
 Every agent run in a factory is an ordinary [cloud agent run](/platform/) on the {VARS.WARP_AUTOMATION_PLATFORM}. Runs execute on Warp-hosted compute by default; Enterprise teams can keep checkout and execution on their own infrastructure with [managed self-hosting](/factories/self-hosting/). See [infrastructure and security](/factories/infrastructure-and-security/) for runners, inference, and credential boundaries.
 
-### Measurement
+### Evaluate and improve factory work
 
-Use the [factory dashboard](/factories/factory-dashboard/) to inspect PR activity, autonomy, cycle time, and cost. [Scorers](/factories/measure-and-improve/scorers/) classify runs against your criteria; [benchmarks](/factories/benchmarks/) compare configurations on the same tasks; [Self-improvement](/factories/measure-and-improve/self-improvement/) proposes changes for review. See [measure and improve](/factories/measure-and-improve/) for definitions and limitations.
+Use the [factory dashboard](/factories/factory-dashboard/) to inspect PR activity, autonomy, cycle time, and cost. To evaluate and improve the work:
+
+* **[Scorers](/factories/measure-and-improve/scorers/)** - Classify runs against your criteria.
+* **[Benchmarks](/factories/benchmarks/)** - Compare configurations on the same tasks.
+* **[Self-improvement](/factories/measure-and-improve/self-improvement/)** - Propose changes for review.
+
+See [measure and improve](/factories/measure-and-improve/) for definitions and limitations.
 
 ## Sizing a factory
 

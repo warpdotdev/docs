@@ -1,27 +1,25 @@
 ---
 title: Cloud agents quickstart
 description: >-
-  Create an environment and run a cloud agent from Warp in about 10 minutes,
-  then inspect its commands and results.
+  Run a cloud agent from Warp, configure its environment, and inspect its
+  commands and results.
 sidebar:
   label: "Quickstart"
 ---
 import { VARS } from '@data/vars';
 
-Run one cloud-agent task from Warp in about 10 minutes. You'll set up an environment if needed, send a request, and inspect the result. For a standing workflow with factory agents and automations, use the [Warp Factories quickstart](/factories/quickstart/) instead.
+To run a cloud-agent task from Warp, you'll set up an environment if needed, send a request, and inspect the result. For a standing workflow with factory agents and automations, use the [Warp Factories quickstart](/factories/quickstart/) instead.
 
 ## Prerequisites
 
 * **Warp app** - Download from the [Warp download page](https://www.warp.dev/download).
-* **Warp account** - Create an account from the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>.
+* **Warp account** - Create an account through the [Warp sign-up page](https://app.warp.dev/signup).
 
 Cloud agents use your account's or team's credits or paid usage. Access and spending limits apply. See [access and billing requirements](/platform/team-access-billing-and-identity/).
 
 ---
 
 ## Running your first cloud agent
-
-_About 10 minutes_
 
 ### 1. Open Warp
 
@@ -53,7 +51,7 @@ In the creation form, provide:
 * **Repositories** - In "Repo(s)", enter `owner/repo` or select a repository. Click **Auth with GitHub** if you need to authorize access.
 * **Runtime** - In "Docker image reference", enter an image with your project's tools, such as `python:3.11` or `node:20`, or click **Suggest image**.
 * **Dependencies** - In "Setup command(s)", add commands such as `cd REPO_DIR && npm ci`. Replace `REPO_DIR` with your repository's checkout path relative to `/workspace`. Each command starts independently from `/workspace`; press `Enter` to add it.
-* **Notes** - Optionally enter notes for teammates in "Description".
+* **Notes** - Optionally, enter notes for teammates in "Description".
 
 Click **Create environment**. Warp selects the new environment and starts your pending request.
 

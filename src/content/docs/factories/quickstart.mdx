@@ -2,30 +2,27 @@
 title: Warp Factories quickstart
 description: >-
   Set up a factory, connect your repositories, and take your first work item
-  from prompt to pull request in about 10 minutes.
+  from prompt to pull request.
 sidebar:
   label: "Quickstart"
 ---
 import { VARS } from '@data/vars';
 
-Create a factory and take one small work item from prompt to pull request in about 10 minutes.
+Create your first factory and take one small work item from prompt to pull request. If you're new to Warp, create an account and team during setup.
 
 ## Prerequisites
 
-* **A Warp account and team** - Sign in or create an account in the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, then join or create the team that will own the factory.
-* **Permission to create factories** - You need a team or workspace admin role, or the team-level Warp Factories Editor role. See [factory roles and permissions](/factories/infrastructure-and-security/#factory-roles-and-permissions).
-* **Available team usage** - The factory's agents consume the team's [credits](/support-and-community/plans-and-billing/platform-credits/).
-* **Repository access** - Authorize GitHub, GitLab, or Azure DevOps during setup. Restricted organizations need owner approval. Azure DevOps also requires [one-time administrator approval](/factories/integrations/azure-devops/#requirements).
+* **Factory creation access** - On an existing Warp team, you need team or workspace admin access, or the team-level Warp Factories Editor role. See [factory roles and permissions](/factories/infrastructure-and-security/#factory-roles-and-permissions).
+* **Credits or paid usage** - The factory's agents use your team's [credits or paid usage](/support-and-community/plans-and-billing/platform-credits/). Access and spending limits apply.
+* **Repository access** - Access to the repositories you want the factory to work on. If your organization restricts connections to Warp, involve a code-host administrator.
 
 ## Set up your factory
-
-_About 5 minutes_
 
 :::note
 For GitHub and GitLab repositories, an agent connected to [Factory MCP](/factories/factory-mcp/#set-up-with-your-coding-agent) can run this whole setup. Use the web setup wizard for Azure DevOps. If the wizard is still open when the agent finishes, refresh the page to see the new factory.
 :::
 
-1. Sign in to the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. Next to **Factories**, click **+**.
+1. Open the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a> and sign in or create an account. Join or create the Warp team that will own the factory. If the team has no factories, onboarding opens automatically. Otherwise, click **+** next to **Factories**.
 
    <figure style={{ maxWidth: "300px" }}>
    ![The Factories section of the sidebar, with the + button used to start a new factory highlighted.](../../../assets/factories/quickstart-open-setup-wizard.png)
@@ -33,6 +30,8 @@ For GitHub and GitLab repositories, an agent connected to [Factory MCP](/factori
    </figure>
 
 2. Under **Connect your code hosts**, connect GitHub, GitLab, or Azure DevOps. Choose the GitHub organization, GitLab group, or Azure DevOps organization and project to connect.
+
+   Azure DevOps organizations require [one-time administrator approval](/factories/integrations/azure-devops/#requirements). The setup flow lets you send the approval link to the required administrators.
 
    To use another code forge, select **No repo**, finish creating the factory, then [configure repository access from the default runner](/factories/code-forges/other-code-forges/).
 
@@ -68,8 +67,6 @@ Warp creates the factory and opens its [dashboard](/factories/factory-dashboard/
 
 ## Send your first work item
 
-_About 5 minutes_
-
 Send work from Slack or an issue tracker. If you skipped integrations, start a run from the **Runs** page of the factory's [dashboard](/factories/factory-dashboard/).
 
 1. Describe one small, verifiable change and send it:
@@ -89,7 +86,7 @@ Send work from Slack or an issue tracker. If you skipped integrations, start a r
    <figcaption>A factory Slack thread with live progress.</figcaption>
    </figure>
 
-3. When the foreman hands back the finished pull request, review its changes and validation results, then merge it through your normal process.
+3. When the foreman hands back the pull request, review the changes and validation results, then merge it according to your normal process.
 
 ## Next steps
 
