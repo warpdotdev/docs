@@ -7,7 +7,7 @@ sidebar:
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
 
-Multi-agent orchestration lets one agent spawn and coordinate other agents to parallelize work, delegate specialized tasks, or verify another agent's output. The parent/child model works from the Warp app, the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/), and the [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/), and supports local, cloud, and mixed execution.
+Warp coordinates multiple agents through a parent agent that spawns child agents to work in parallel, handle specialized tasks, or verify output. The parent/child model works from the Warp app, the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/), and the [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/), and supports local, cloud, and mixed execution.
 
 Watch this walkthrough to see how a cloud agent can coordinate a team of agents in the cloud.
 
@@ -83,7 +83,14 @@ Use messages for coordination signals - handoffs, decisions, blocked-on-input re
 
 ## Common patterns
 
-The following patterns show common ways to structure parent and child agents, depending on whether you need parallel execution, review, dependency ordering, or loose coordination.
+| Pattern | When to use it | Warp feature behind the pattern |
+| --- | --- | --- |
+| [Supervisor and worker](#supervisor--worker) | Divide a task into work items with one agent owning coordination. | A [parent agent](#the-parentchild-model) assigns work to children and collects results. |
+| [Fan-out and fan-in](#fan-out--fan-in) | Run a refactor or migration across independent modules or targets. | Parallel child runs and [lifecycle events](#run-state-transitions) let the parent wait and combine results. |
+| [Critic and verifier](#critic--verifier) | Check a proposed solution before accepting it. | [Messaging](#messaging-between-agents) carries review notes and follow-up instructions between writer and critic. |
+| [Review swarm](#review-swarm-cloud--cloud) | Review multiple open PRs from a scheduled or webhook-triggered run. | [Cloud children](#where-parent-and-child-agents-can-run) run reviews in parallel; the parent collects their findings. |
+| [DAG](#dag) | Subtasks must wait for upstream results, such as build, test, then deploy. | The parent observes child [state transitions](#run-state-transitions) before starting dependent work. |
+| [Swarm](#swarm) | Peer agents need loose coordination rather than a strict hierarchy. | Agent [inboxes and messaging](#messaging-between-agents) carry coordination signals; the parent remains the coordinator. |
 
 ### Supervisor / worker
 
