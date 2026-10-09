@@ -30,22 +30,13 @@ Open a run's transcript to inspect its prompt, commands, logs, and outputs, or s
 
 ---
 
-### What is a cloud agent run?
-
-A cloud agent run is represented as an agent task. A task is created when a trigger fires (for example a webhook event or schedule) or when a user starts a run explicitly.
-
-Each task includes:
-
-* **Inputs**: a prompt, and often additional context from the triggering system (for example a Slack message, PR metadata, or CI logs).
-* **Execution context (optional)**: an [Environment](/platform/environments/) that defines the repo, image, and startup commands the agent should run with.
-* **Lifecycle state**: created → running → completed / failed.
-* **Persistent record**: status, metadata, and the session transcript for later review.
+### Preparing a cloud-agent task
 
 Before automating a task, identify its trigger, the context the agent needs, and how someone will validate its result.
 
 ### How cloud agents work
 
-Cloud agents run on the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/). A trigger starts the run, and the agent executes with the configured [environment](/platform/environments/) and [credentials](/platform/secrets/). The platform overview explains the shared execution model.
+The [{VARS.WARP_AUTOMATION_PLATFORM} overview](/platform/overview/) explains the execution model shared by factories and standalone agents, including environments and credentials.
 
 The exact way tasks are triggered and executed depends on your deployment model. [Deployment patterns](/factories/deployment-patterns/) covers Warp-hosted and managed self-hosted execution for factories. For standalone agents, see [unmanaged execution](/platform/unmanaged-execution/).
 
@@ -59,17 +50,10 @@ The following features apply to standalone cloud-agent workflows. For factory co
 
 Cloud agent runs automatically benefit from [Codebase Context](/agents/capabilities/codebase-context/) for semantic code understanding and search, as long as Codebase Context is enabled for your account. See [Codebase Context in cloud agent runs](/agents/capabilities/codebase-context/#codebase-context-in-cloud-agent-runs) for details.
 
-#### Observability and steerability
-
-Use [cloud-agent session sharing](/platform/viewing-cloud-agent-runs/) to inspect or steer a live run. [Agent Session Sharing](/agents/local-agents/session-sharing/) also covers local and third-party agent sessions.
 
 #### Centralized configuration
 
-Cloud agent workflows often rely on shared configuration such as [MCP servers](/platform/mcp/), rules, saved prompts, environment variables, and [secrets](/platform/secrets/).
-
-Warp supports centralized configuration so the same workflow behaves consistently across triggers (for example Slack + CI + schedules), without duplicating setup in every system.
-
-For details on configuring MCP servers for cloud agents, see [MCP Servers](/platform/mcp/).
+Configure [MCP servers](/platform/mcp/) and [secrets](/platform/secrets/) for the tools your task needs. The [shared configuration reference](/platform/overview/#shared-configuration) links to each configuration type and its scope.
 
 #### API access to tasks
 
@@ -127,7 +111,7 @@ If your credit balance reaches zero, cloud agent runs will not be able to execut
 
 * [Cloud agents quickstart](/platform/quickstart/) — run your first cloud agent with an environment in ~10 minutes.
 * [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) — CLI, {VARS.WARP_PLATFORM_API}, orchestration, tasks, environments, hosts, integrations, and more.
-* [Warp Factories](/factories/) — assemble cloud agents into a standing triage-to-merge workflow with named agents, automations, and measurement.
+* [Warp Factories](/factories/) — configure a standing development workflow with agents, automations, and measurement.
 * [Harnesses](/platform/harnesses/) — pick between Warp Agent, Claude Code, and Codex for any cloud agent run.
 * [Agents](/platform/agents/) — cloud agents that own and execute runs on your team.
 * [Multi-agent orchestration](/platform/orchestration/) — coordinate a parent agent and its child agents across local and cloud runs to build supervisor/worker, fan-out, critic, DAG, and swarm workflows.
