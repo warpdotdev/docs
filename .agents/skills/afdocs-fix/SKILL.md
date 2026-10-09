@@ -209,7 +209,7 @@ This skill maintains **one** long-lived fixes PR rather than one per run — see
    git rebase origin/main
    ```
 3. Apply the fixes for each failing check (skip allowlisted checks). If a fix on the existing branch already addresses a check that is still failing, do not duplicate it — the audit may have run before the PR merged.
-4. Validate: `npm run build` (the build must succeed).
+4. Validate with the ordered repository checks in `AGENTS.md`.
 5. Commit with the prefix: `AFDocs fixes: <summary of what was fixed>`
 6. Push. If the PR already exists the push updates it; otherwise open one with `gh pr create`.
 

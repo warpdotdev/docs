@@ -16,7 +16,7 @@ cpc = importlib.util.module_from_spec(_spec)
 sys.modules[_spec.name] = cpc
 _spec.loader.exec_module(cpc)
 
-_SIGNAL_RE = re.compile(r"\[SIGNAL:pr-review\]\s*(\{.*?\})", re.DOTALL)
+_SIGNAL_RE = re.compile(r"\[SIGNAL:pr-review\]\s*")
 _PASSING_VERDICTS = {"approve", "approve with nits", "approve_with_nits"}
 
 
@@ -25,21 +25,22 @@ def _parse_signal(
     pr_number: Optional[str] = None,
     head_sha: Optional[str] = None,
 ) -> Tuple[Optional[Dict[str, object]], List[str]]:
-    matches = _SIGNAL_RE.findall(text)
+    matches = list(_SIGNAL_RE.finditer(text))
     if not matches:
         return None, ["expected exactly one [SIGNAL:pr-review] record, found 0"]
 
     unique_signals = {}
     for match in matches:
+        candidate = text[match.end() :]
         try:
-            signal = json.loads(match)
-        except json.JSONDecodeError as original_error:
+            signal, _ = json.JSONDecoder().raw_decode(candidate)
+        except json.JSONDecodeError:
             try:
                 # The GitHub Action can serialize its text output once more,
                 # leaving an otherwise valid object in the form
                 # {\"key\":\"value\"}. Decode that wrapper only after direct
                 # JSON parsing has failed.
-                signal = json.loads(match.replace('\\"', '"'))
+                signal, _ = json.JSONDecoder().raw_decode(candidate.replace('\\"', '"'))
             except json.JSONDecodeError:
                 # Agent output includes the skill's marker examples and prior
                 # review transcripts. Ignore malformed candidates and require

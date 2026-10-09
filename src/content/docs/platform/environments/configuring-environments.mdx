@@ -144,7 +144,12 @@ oz environment update <ENV_ID> --remove-setup-command "SETUP_COMMAND"
 oz environment update <ENV_ID> --name "ENVIRONMENT_NAME"
 oz environment update <ENV_ID> --description "DESCRIPTION"
 oz environment update <ENV_ID> --docker-image IMAGE_REFERENCE
+
+# Set or replace the default runner
+oz environment update <ENV_ID> --default-runner RUNNER_UID
 ```
+
+A [runner](/factories/runners/) is a reusable compute configuration for cloud agent runs. Run `oz runner list` to see the runners available to you and their UIDs. For a team environment, the runner must be owned by that same team.
 
 Use `--remove-description` to clear the description. Use `--force` to skip confirmation checks for environments used by integrations.
 

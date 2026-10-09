@@ -8,6 +8,7 @@ import starlight from '@astrojs/starlight';
 import starlightLlmsTxt from 'starlight-llms-txt';
 import starlightSidebarTopics from 'starlight-sidebar-topics';
 import pageTitleOverride from './src/plugins/page-title-override.ts';
+import remarkHeadingVars from './src/plugins/heading-vars.ts';
 import { varsTransformPlugin } from './src/plugins/vars-transform.ts';
 import vercel from '@astrojs/vercel';
 import { sidebarTopics } from './src/sidebar.ts';
@@ -22,7 +23,7 @@ export default defineConfig({
 	// default, but the @astrojs/mdx 5.x + @astrojs/markdown-remark 7.2.0
 	// version pairing stopped auto-applying it, which made markdown tables
 	// render as raw `| ... |` text. Registering the plugin here restores it.
-	markdown: { remarkPlugins: [remarkGfm] },
+	markdown: { remarkPlugins: [remarkHeadingVars, remarkGfm] },
 	env: {
 		schema: {
 			PUBLIC_KAPA_INTEGRATION_ID: envField.string({
