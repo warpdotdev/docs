@@ -1,0 +1,51 @@
+{
+  "claims": [
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:2e53409d599a0b840b4da85a500dd2b8fe8867d6aee09c2be044a487348faaf2",
+      "claim_id": "sha256:a9341b8ffb719f47e39722f406e906ec551231903b5fdb5e1fe3721c8a0f9e1c",
+      "entity": "local-agent-conversations",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "stored-in-cloud-by-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "warp-cli"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Conversations sync to your Warp account",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/agent-conversations.mdx",
+        "content_sha256": "704db3c711c8bf520b641395a7f2eca3cb574d0867c4d712388b5a499fecdaf3",
+        "heading": "Conversation persistence",
+        "heading_anchor": "conversation-persistence",
+        "line_end": 91,
+        "line_start": 91,
+        "path": "src/content/docs/agents/cli/agent-conversations.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/agent-conversations/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "704db3c711c8bf520b641395a7f2eca3cb574d0867c4d712388b5a499fecdaf3",
+  "path": "src/content/docs/agents/cli/agent-conversations.mdx",
+  "schema_version": 1
+}

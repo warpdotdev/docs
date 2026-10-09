@@ -7,7 +7,7 @@ Thanks for helping improve Warp's documentation. This guide explains how to prop
 * Fork the repository, create a branch, make your changes locally, and open a pull request.
 * Open or comment on an issue before starting substantial changes. Small fixes can go straight to a pull request.
 * Use an agent if it helps you draft, edit, test, or review the change.
-* Run `npm run build` and `npm run typecheck` before opening a pull request. Run `npm run lint` if [Trunk](https://trunk.io/) is installed locally.
+* Run the [repository checks in `AGENTS.md`](AGENTS.md#tests), then lint and format if Trunk is installed.
 * Keep pull requests focused, accurate, and easy to review.
 
 ## How contributing works
@@ -79,27 +79,13 @@ Follow these baseline expectations:
 
 ## Validate your work
 
-Build the site before opening a pull request:
+Run the [repository checks in `AGENTS.md`](AGENTS.md#tests) in the documented order.
+They cover type-checking, the site build, and generated-site validations that read the build output.
 
-```bash
-npm run build
-```
-
-Run typechecking:
-
-```bash
-npm run typecheck
-```
-
-Run linting if [Trunk](https://trunk.io/) is installed:
+If [Trunk](https://trunk.io/) is installed, run linting and formatting:
 
 ```bash
 npm run lint
-```
-
-Format files if Trunk is installed:
-
-```bash
 npm run fmt
 ```
 

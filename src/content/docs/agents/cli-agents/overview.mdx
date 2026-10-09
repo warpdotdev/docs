@@ -37,6 +37,7 @@ Warp currently supports the following CLI coding agents:
 * **Hermes** — Nous Research's CLI coding agent
 * **Mistral Vibe** — Mistral's CLI coding agent
 * **Grok Build** — xAI's CLI coding agent (invoked with `grok`)
+* **Kiro CLI** — Amazon's CLI coding agent (invoked with `kiro-cli` or `kiro`)
 
 When you launch a supported agent inside Warp, the **agent toolbelt** appears automatically, giving you quick access to Warp's enhanced features.
 
@@ -44,6 +45,17 @@ When you launch a supported agent inside Warp, the **agent toolbelt** appears au
 ![The agent toolbelt appearing at the bottom of the pane when a supported CLI agent is running in Warp](../../../../assets/agent-platform/cli-agent-toolbelt.png)
 <figcaption>The agent toolbelt for CLI agents.</figcaption>
 </figure>
+
+## Where third-party CLI agents appear
+
+Third-party CLI agents run inside a terminal pane. Warp detects the session and shows status on that pane and in [vertical tabs](/terminal/windows/vertical-tabs/), not as Warp Agent conversation threads.
+
+* **Conversation Panel** - Lists Warp Agent conversations and cloud agent runs. Claude Code, Codex, OpenCode, and other third-party CLI agents do **not** appear there.
+* **Agent Management Panel** - Manages Warp-managed agents and cloud runs. Third-party CLI agents do **not** appear there.
+* **Vertical tabs and the agent toolbelt** - Show live third-party CLI agent status while the process is running in a pane.
+* **Remote Control** - Publishes a running third-party session so you can monitor or steer it from another device. See [Remote Control](/agents/cli-agents/remote-control/).
+
+If you expected a Claude Code session in the Conversation Panel, that is expected behavior today. Keep the session in its tab, use vertical-tab status, or publish it with Remote Control.
 
 ## Feature support
 
@@ -59,11 +71,9 @@ Not every feature is available for every agent. The table below shows current su
 | Tab Configs | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Remote Control | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 
-**Goose**, **Antigravity** (`agy`), **Hermes**, **Mistral Vibe**, and **Grok Build** (`grok`) are also recognized. They get the same enhanced features as the agents above — rich input editor, code review comments, attach code as context, vertical tabs and metadata, Tab Configs, and Remote Control — but don't support agent notifications yet.
+**Goose**, **Antigravity** (`agy`), **Hermes**, **Mistral Vibe**, **Grok Build** (`grok`), and **Kiro CLI** (`kiro-cli` or `kiro`) are also recognized. They get the same enhanced features as the agents above — rich input editor, code review comments, attach code as context, vertical tabs and metadata, Tab Configs, and Remote Control — but don't support agent notifications yet.
 
-:::note
-Agent notifications require a one-time setup. Claude Code and OpenCode use a Warp notification plugin. Codex uses a native config change. See the individual agent pages for setup instructions. Amp, Auggie, Copilot CLI, Cursor, Gemini CLI, Droid, Pi, Goose, Antigravity, Hermes, Mistral Vibe, and Grok Build don't support notifications yet.
-:::
+Agent notifications require a one-time setup. Claude Code and OpenCode use a Warp notification plugin. Codex uses a native config change. See the individual agent pages for setup instructions.
 
 ## Customizing the toolbelt
 

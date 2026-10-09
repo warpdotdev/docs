@@ -470,6 +470,10 @@ GET /factory-alias/{alias} -> internal
 POST /factory -> internal
 POST /factory/avatar -> internal
 GET /factory/{uid} -> internal
+# The owning team's model catalog plus the factory and team-cloud router
+# definitions applied to it (listFactoryModels). Marked `x-internal: true`
+# upstream; same unreleased `/factory` namespace.
+GET /factory/{uid}/models -> internal
 PATCH /factory/{uid} -> internal
 DELETE /factory/{uid} -> internal
 POST /factory/{uid}/apply -> internal
@@ -546,6 +550,12 @@ GET /factory/{uid}/costs/breakdown -> internal
 GET /factory/{uid}/costs/per-pr -> internal
 GET /factory/{uid}/costs/per-pr/by-size -> internal
 GET /factory/{uid}/costs/per-pr/top -> internal
+# Keyset-paginated list of the pull requests a factory's runs produced
+# (listFactoryPullRequests). Like POST /factory/{uid}/runs it is NOT marked
+# `x-internal: true` upstream, so it stays out of the docs copy only because
+# the sync-openapi-spec policy excludes the whole `/factory` namespace while
+# the Factory REST API is unreleased. Revisit with that exclusion.
+GET /factory/{uid}/pull-requests -> internal
 # Self-improvement PR spend over a root-run creation range
 # (getFactorySelfImprovementSpend). Marked `x-internal: true`; same unreleased
 # `/factory` namespace.
@@ -840,6 +850,30 @@ terminal/warpify/ssh-legacy
 404
 # The Jira integration page left draft status and is now listed in src/sidebar.ts,
 # so its allowlist entry was pruned.
+# Per-error pages in the factory API error-code catalog, generated and kept
+# current by the sync-error-docs skill. Their index
+# (factories/api-and-sdk/troubleshooting/errors) IS in src/sidebar.ts and links
+# to every one of them, so the catalog is reachable; listing each code in the
+# sidebar would bury the surrounding troubleshooting nav. New codes land here
+# as the skill adds them.
+factories/api-and-sdk/troubleshooting/errors/agent-process-failed
+factories/api-and-sdk/troubleshooting/errors/authentication-required
+factories/api-and-sdk/troubleshooting/errors/budget-exceeded
+factories/api-and-sdk/troubleshooting/errors/conflict
+factories/api-and-sdk/troubleshooting/errors/content-policy-violation
+factories/api-and-sdk/troubleshooting/errors/environment-setup-failed
+factories/api-and-sdk/troubleshooting/errors/external-authentication-required
+factories/api-and-sdk/troubleshooting/errors/feature-not-available
+factories/api-and-sdk/troubleshooting/errors/infrastructure-timeout
+factories/api-and-sdk/troubleshooting/errors/insufficient-credits
+factories/api-and-sdk/troubleshooting/errors/integration-disabled
+factories/api-and-sdk/troubleshooting/errors/integration-not-configured
+factories/api-and-sdk/troubleshooting/errors/internal-error
+factories/api-and-sdk/troubleshooting/errors/invalid-request
+factories/api-and-sdk/troubleshooting/errors/not-authorized
+factories/api-and-sdk/troubleshooting/errors/operation-not-supported
+factories/api-and-sdk/troubleshooting/errors/resource-not-found
+factories/api-and-sdk/troubleshooting/errors/resource-unavailable
 
 ## Flags to ignore (internal-only, not user-facing)
 

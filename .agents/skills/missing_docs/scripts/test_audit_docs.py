@@ -466,6 +466,75 @@ class TestConsistencyAudit(unittest.TestCase):
             )
 
 
+class TestSlashCommandExtraction(unittest.TestCase):
+    def test_literal_and_constant_backed_names_are_extracted(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            registry = root / "app/src/search/slash_command_menu/static_commands"
+            registry.mkdir(parents=True)
+            registry.joinpath("commands.rs").write_text(
+                'pub const PLAN_NAME: &str = "/plan";\n'
+                'pub const ORCHESTRATE_NAME: &\'static str = "/orchestrate";\n'
+                'pub const UNUSED_NAME: &str = "/unused";\n'
+                'StaticCommand { name: PLAN_NAME }\n'
+                'StaticCommand { name: ORCHESTRATE_NAME }\n'
+                'StaticCommand { name: "/agent" }\n'
+                'StaticCommand { name: UNKNOWN_NAME }\n',
+                encoding="utf-8",
+            )
+            registry.joinpath("commands_tests.rs").write_text(
+                'StaticCommand { name: "/test-only" }\n', encoding="utf-8",
+            )
+            self.assertEqual(
+                audit_docs.parse_slash_commands(root),
+                ["/agent", "/orchestrate", "/plan"],
+            )
+
+
+class TestAccounting(unittest.TestCase):
+    def test_cli_all_finding_accounts_for_commands(self):
+        with tempfile.TemporaryDirectory() as d:
+            accounting = audit_docs.compute_accounting(
+                Path(d),
+                {},
+                {"undocumented_cli_commands": [{"command": "(all)"}]},
+                {},
+                [{
+                    "command": "oz thing",
+                    "hidden": False,
+                    "subcommands": [],
+                }],
+                [],
+                [],
+                {},
+                {},
+            )
+
+        self.assertNotIn("cli_commands", accounting["unaccounted"])
+        self.assertEqual(accounting["cli_commands"]["finding"], 1)
+
+    def test_api_all_finding_accounts_for_routes(self):
+        with tempfile.TemporaryDirectory() as d:
+            accounting = audit_docs.compute_accounting(
+                Path(d),
+                {},
+                {"undocumented_api_endpoints": [{"route": "(all)"}]},
+                {},
+                [],
+                [{
+                    "route": "GET /api/v1/thing",
+                    "method": "GET",
+                    "path": "/api/v1/thing",
+                }],
+                [],
+                {},
+                {},
+            )
+
+        self.assertNotIn("api_routes", accounting["unaccounted"])
+        self.assertEqual(accounting["api_routes"]["finding"], 1)
+
+
 class TestGatedLogic(unittest.TestCase):
     """Repo-free unit tests for the `gated:<Flag>` rollout-aware deferral."""
 
@@ -479,11 +548,16 @@ class TestGatedLogic(unittest.TestCase):
     def _run_cli(self, status_map):
         """Run audit_cli on one gated command with the given flag statuses."""
         with tempfile.TemporaryDirectory() as d:
+            # audit_cli refuses to run without a CLI reference docs directory,
+            # so give it an empty one: these cases exercise gating, not
+            # coverage, and an empty directory covers nothing.
+            docs_root = Path(d)
+            docs_root.joinpath(*audit_docs.CLI_DOCS_DIRS[0].split("/")).mkdir(parents=True)
             surface_map = {"cli_to_doc": {"oz memx": "gated:MemFlag"}}
             commands = [{"command": "oz memx", "hidden": False,
                          "subcommands": [], "source_file": None}]
             return audit_docs.audit_cli(
-                None, Path(d), surface_map, {},
+                None, docs_root, surface_map, {},
                 cli_commands=commands, flag_statuses=status_map)
 
     def test_gated_non_ga_cli_is_deferred(self):
@@ -499,6 +573,36 @@ class TestGatedLogic(unittest.TestCase):
         # Unknown gating flag is treated conservatively (not silently deferred).
         findings = self._run_cli({})
         self.assertIn("oz memx", [f["command"] for f in findings])
+
+    def test_missing_cli_docs_dir_fails_loud(self):
+        """A moved docs IA must not read as "every command is undocumented".
+
+        audit_cli scopes its prose search to a fixed subdirectory. When the
+        docs move and that path does not, the scoped search finds nothing and
+        every command becomes a false positive — which is exactly what
+        `reference/cli` produced after the CLI docs moved under `agents/cli`.
+        """
+        with tempfile.TemporaryDirectory() as d:
+            commands = [{"command": "oz thing", "hidden": False,
+                         "subcommands": [], "source_file": None}]
+            findings = audit_docs.audit_cli(
+                None, Path(d), {"cli_to_doc": {}}, {},
+                cli_commands=commands, flag_statuses={})
+        self.assertEqual([f["command"] for f in findings], ["(all)"])
+        self.assertEqual(findings[0]["severity"], "high")
+        self.assertIn("CLI_DOCS_DIRS", findings[0]["reason"])
+
+    def test_missing_api_docs_dir_fails_loud(self):
+        """Same failure mode as the CLI audit, same loud resolution."""
+        with tempfile.TemporaryDirectory() as d:
+            routes = [{"route": "GET /api/v1/thing", "method": "GET",
+                       "path": "/api/v1/thing", "file": None}]
+            findings = audit_docs.audit_api(
+                None, Path(d), {"api_to_doc": {}}, {},
+                api_routes=routes, flag_statuses={})
+        self.assertEqual([f["route"] for f in findings], ["(all)"])
+        self.assertEqual(findings[0]["severity"], "high")
+        self.assertIn("API_DOCS_DIRS", findings[0]["reason"])
 
     def test_map_hygiene_flags_unknown_gated_flag(self):
         surface_map = {

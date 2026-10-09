@@ -42,9 +42,7 @@ The {VARS.WARP_AGENT_CLI} is automatically distributed with the Warp desktop app
     1. Open the [Command Palette](/terminal/command-palette/) (`Cmd+P`)
     2. In the search field, find and select the **Install {VARS.WARP_AGENT_CLI} Command** action.
 
-    :::note
-    **Note:** Administrator permissions are required to install the CLI into `/usr/local/bin` .
-    :::
+    Administrator permissions are required to install the CLI into `/usr/local/bin`.
   </TabItem>
   <TabItem label="Windows">
     In the Warp installer, select **Add Warp to PATH**. If you are installing for all users, this will put the CLI on the system path. Otherwise, the CLI is only added to the path for your account.
@@ -83,9 +81,7 @@ Warp provides standalone packages for the CLI on macOS and Linux, without the Wa
     * [Apple Silicon, Warp Preview](https://app.warp.dev/download/cli?os=macos\&channel=preview\&package=tar\&arch=aarch64)
     * [Intel, Warp Preview](https://app.warp.dev/download/cli?os=macos\&channel=preview\&package=tar\&arch=x86_64)
 
-    :::note
-    **Note:** These builds do not auto-update.
-    :::
+    These builds do not auto-update.
   </TabItem>
   <TabItem label="Linux">
     On Linux, we recommend that you install and update the standalone CLI through your distribution's package manager. We support `apt`, `yum`, and `pacman`.
@@ -102,9 +98,7 @@ Warp provides standalone packages for the CLI on macOS and Linux, without the Wa
 
     ```
 
-    :::note
-    **Note:** The package name (`oz-stable`) differs from the CLI command executable (`oz`). After installation, use the CLI via `oz` commands.
-    :::
+    The package name (`oz-stable`) differs from the CLI command executable (`oz`). After installation, use the CLI via `oz` commands.
 
     ***
 
@@ -232,7 +226,7 @@ oz agent run --prompt "set up a new Rust crate named warp-cli"
 * `--name <NAME>` (`-n`) — label the run for grouping and traceability.
 * `--share` — share the session with teammates (see [Collaboration](/agents/cli/oz-cli/#collaboration)).
 * `--profile <ID>` — use a specific agent profile (see [Using Agent Profiles](/agents/cli/oz-cli/#using-agent-profiles)).
-* `--model <MODEL_ID>` — override the default model (see [Model Choice](/agents/inference/model-choice/)).
+* `--model <MODEL_ID>` — override the default Warp Agent model. Run `oz model list` to see the available IDs, or see [Model choice](/agents/inference/model-choice/).
 * `--skill <SPEC>` — use a skill as the base prompt (see [Using Skills](/agents/cli/oz-cli/#using-skills)).
 * `--mcp <SPEC>` — start one or more MCP servers before execution (UUID, JSON file path, or inline JSON). Can be repeated.
 * `--environment <ID>` (`-e`) — run in a specific cloud environment.
@@ -268,7 +262,7 @@ oz agent run-cloud \
 * `--parent-run-id <RUN_ID>` — start the run as an orchestration child of an existing run (see [Starting a run as an orchestration child](/agents/cli/oz-cli/#starting-a-run-as-an-orchestration-child) below).
 * `--agent <UID>` — run as a saved [named agent](/platform/agents/), applying its configuration (skills, secrets, base model, and default environment) and attributing credit usage to it (see [Managing named agents](/agents/cli/oz-cli/#managing-named-agents) below).
 * `--mcp <SPEC>` — start one or more MCP servers before execution (UUID, JSON file path, or inline JSON). Can be repeated.
-* `--model <MODEL_ID>` — override the default model.
+* `--model <MODEL_ID>` — choose the model for the selected harness. For the Warp Agent harness, use an ID from `oz model list`. For Claude Code or Codex, see [Choosing an execution harness](#choosing-an-execution-harness).
 * `--skill <SPEC>` — use a skill from the environment's repository as the base prompt (see [Using Skills](/agents/cli/oz-cli/#using-skills)).
 * `--host <WORKER_ID>` — run on a specific self-hosted worker instead of Warp-hosted infrastructure.
 * `--attach <PATH>` — attach a file to the agent query. You can attach up to 25 files, with a maximum size of 10 MB per file. For images in interactive local or cloud conversations, see [Images as Context](/agents/local-agents/agent-context/images-as-context/).
@@ -363,17 +357,20 @@ You can reuse saved prompts with `--saved-prompt`, and reference notebooks, work
 
 #### Choosing an execution harness
 
-By default, cloud runs use Warp's built-in `oz` harness. To delegate the run to a third-party coding agent, pass `--harness` with `claude` (Claude Code) or `codex`, along with the matching auth secret:
+By default, cloud runs use the Warp Agent harness (`oz`). To run Claude Code or Codex, pass `--harness` with the matching auth secret.
 
-```sh
+```bash
 oz agent run-cloud \
-  --environment <ENVIRONMENT_ID> \
+  --environment ENVIRONMENT_ID \
   --harness claude \
-  --claude-auth-secret <SECRET_NAME> \
+  --claude-auth-secret SECRET_NAME \
+  --model opus \
   --prompt "review the latest PR"
 ```
 
-Create the auth secret first with `oz secret create claude api-key <SECRET_NAME>` (or `oz secret create codex api-key <SECRET_NAME>` for Codex). See [Third-party cloud agent authentication](/platform/harnesses/authentication/) for the full setup.
+Run `oz model list` to list model IDs for the Warp Agent harness. For Claude Code, choose an ID from [available Claude Code models](/platform/harnesses/claude-code/#available-models). For Codex, choose an ID from [available Codex models](/platform/harnesses/codex/#available-models). If the model is not available for the selected harness, the command fails before the run starts.
+
+Create the auth secret first with `oz secret create claude api-key SECRET_NAME` (or `oz secret create codex api-key SECRET_NAME` for Codex). See [Third-party cloud agent authentication](/platform/harnesses/authentication/) for the full setup.
 
 ## Using agent profiles
 
@@ -541,7 +538,7 @@ Repeat `--to` to fan a message out to multiple recipient runs.
 
 ### `oz model list`
 
-List all available models:
+List available models for the Warp Agent harness:
 
 ```sh
 oz model list
