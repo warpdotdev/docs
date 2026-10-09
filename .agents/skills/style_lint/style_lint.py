@@ -132,7 +132,7 @@ RENAME_TRANSITION_MARKERS: Tuple[str, ...] = (
     "Oz is now",
     "was called Oz",
     "renamed from Oz",
-    # Explains why "Oz" still appears in commands and URLs before 10/6.
+    # Explains why legacy names remain in commands and URLs.
     "the Oz name",
 )
 
@@ -1211,6 +1211,13 @@ def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
         is_transition_line = any(
             marker in prose_line for marker in RENAME_TRANSITION_MARKERS
         )
+        historical_spans = [
+            m.span()
+            for m in re.finditer(
+                r"\b(?:[Tt]ransitioning from Oz|existing Oz workflows)\b",
+                prose_line,
+            )
+        ]
         matched_spans: List[Tuple[int, int]] = []
         for literal, var_key, suggestion, pattern in compiled:
             for m in pattern.finditer(prose_line):
@@ -1223,6 +1230,11 @@ def check_hardcoded_vars(lines: List[str], filepath: str) -> List[Issue]:
                 # Only the old name is excused by transition phrasing; a
                 # hardcoded new name is still a bug on the same line.
                 if is_transition_line and literal.startswith(("Oz", "oz")):
+                    continue
+                if literal == "Oz" and any(
+                    start <= span[0] and span[1] <= end
+                    for start, end in historical_spans
+                ):
                     continue
                 # Distinct product names that happen to contain "Oz", or the
                 # literal "Oz Cloud API Keys" Settings label. Looked up by the

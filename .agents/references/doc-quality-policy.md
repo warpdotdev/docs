@@ -148,6 +148,8 @@ All content-generating skills share one compression contract:
   (`~600` words for a quickstart; `<=1500` words for a combined feature page).
 - Run the deletion-only "Cut again" pass (see `draft_docs/SKILL.md` step 6.5 /
   `AGENTS.md` → Voice & tone) before opening the PR.
+- Apply `AGENTS.md` → Procedural → Reader-understanding test before cutting
+  instructional context; budgets do not authorize losing facts or changing page purpose.
 - Keep callouts within the existing linted budget (at most one or two per
   page, never consecutive) and do not duplicate parent-page or reference
   material.

@@ -8,7 +8,7 @@
 
 export const VARS = {
   // The `oz` binary and Oz web app keep their legacy names during the
-  // documented transition. See .agents/references/terminology.md for timing.
+  // documented transition. Do not infer a retirement date from a rename.
   //
   // IMPORTANT: "Automation Platform" is a common-noun phrase, not a proper
   // noun like "Oz" was. Referential uses need a definite article in the prose
@@ -45,16 +45,14 @@ export const VARS = {
   WARP_PLATFORM_API:        "Warp Platform API",
 
   // Warp Factories web app — a net-new product surface at platform.warp.dev
-  // (soft launch ~2026-08-18), separate from the legacy Oz v1 webapp above.
+  // separate from the legacy Oz v1 webapp above.
   // Not rename-sensitive: this is a new reference, not a flip of existing
   // Oz-branded text, so it isn't in style_lint.py's RENAME_SENSITIVE_VAR_STRINGS.
   FACTORY_WEB_APP:          "Warp Factories web app",
   FACTORY_WEB_APP_URL:      "https://platform.warp.dev",
 
-  // Warp Agent CLI — the preferred direction for CLI functionality (the
-  // `warp` binary). This is distinct from WARP_AGENT_CLI, which references
-  // the legacy Oz CLI (`oz` binary). Relevant Oz CLI functionality will move
-  // here over time.
+  // Warp Agent CLI (`warp` binary), distinct from the legacy Oz CLI (`oz`).
+  // Document command equivalence only when verified; values do not imply it.
   WARP_CLI:                 "Warp Agent CLI",
 
   // Feature names (stable — keys and values expected to remain unchanged)

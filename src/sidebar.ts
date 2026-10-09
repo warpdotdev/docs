@@ -595,10 +595,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								// Labeled to match the page title, 'Cloud agent session sharing'.
 								{ slug: 'platform/viewing-cloud-agent-runs', label: 'Session sharing' },
 								{ slug: 'platform/managing-cloud-agents', label: 'Managing cloud agents' },
-								// Tokenized, not renamed: WEB_APP holds its "Oz web app" value
-								// until 10/6, so this renders identically today. Tokenizing now
-								// means the 10/6 flip reaches the sidebar, which the Vite
-								// transform does not process.
+								// Sidebar labels use VARS directly; the frontmatter transform
+								// does not process this file. Legacy names have no assumed deadline.
 								{ slug: 'platform/oz-web-app', label: VARS.WEB_APP },
 							],
 						},
