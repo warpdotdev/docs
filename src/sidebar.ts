@@ -797,6 +797,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Enterprise features',
 					items: [
 					{ slug: 'enterprise/enterprise-features/architecture-and-deployment', label: 'Architecture and deployment' },
+						{ slug: 'enterprise/enterprise-features/private-networking', label: 'Private networking' },
 						{ slug: 'enterprise/enterprise-features/bring-your-own-llm', label: 'Bring your own LLM' },
 						{ slug: 'enterprise/enterprise-features/byollm-aws-bedrock', label: 'BYOLLM: AWS Bedrock' },
 						{ slug: 'enterprise/enterprise-features/byollm-gemini-enterprise', label: 'BYOLLM: Gemini Enterprise' },
