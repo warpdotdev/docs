@@ -7,6 +7,7 @@
     "dev": "astro dev",
     "predev": "node scripts/generate-openapi-json.mjs",
     "build": "astro build",
+    "postbuild": "node scripts/build-tracking-middleware.mjs",
     "prebuild": "node scripts/generate-openapi-json.mjs",
     "preview": "astro preview",
     "astro": "astro",
