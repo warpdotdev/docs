@@ -26,13 +26,14 @@ Open a run's transcript to inspect its prompt, commands, logs, and outputs, or t
 * **Parallel tasks** - Use [multi-agent orchestration](/platform/orchestration/) to divide independent work among agents running in the cloud.
 * **Recurring maintenance** - Run [scheduled agents](/platform/triggers/scheduled-agents/) for dependency checks, cleanup, or reports.
 
-Cloud agents can assist throughout the development lifecycle, from planning a change to validating it and investigating problems after deployment.
-Before automating a task, identify its trigger, the context the agent needs, and how someone will validate its result.
+Cloud agents can assist throughout the development lifecycle.
 
 <figure style={{ maxWidth: "563px" }}>
 ![Cloud agent use cases across the development lifecycle: Plan, Prototype, Build, Validate, Review + Merge, Deploy + Monitor](../../../assets/agent-platform/oz-use-cases.png)
 <figcaption>Cloud-agent work spans the software development lifecycle.</figcaption>
 </figure>
+
+Before automating a task, identify its trigger, the context the agent needs, and how someone will validate its result.
 
 ## How cloud agents work
 
@@ -54,7 +55,7 @@ Cloud agent runs automatically benefit from [Codebase Context](/agents/capabilit
 
 Configure [MCP servers](/platform/mcp/) and [secrets](/platform/secrets/) for the tools your task needs. The [shared configuration reference](/platform/overview/#shared-configuration) links to each configuration type and its scope.
 
-### API access to tasks
+### API access to runs
 
 The [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) lets you query run status, metadata, and results from your own services.
 
@@ -74,35 +75,7 @@ Use [Handoff](/platform/handoff/) to continue work between local and cloud sessi
 
 ## Billing and plan requirements
 
-Cloud agents and [integrations](/platform/integrations/) run on the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) control plane, and usage is billed using credits.
-
-:::note
-[Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/) is not supported for cloud agent runs. BYOK keys are stored locally on your device and are not accessible to cloud-hosted agents. All cloud agent runs consume Warp credits.
-:::
-
-### For cloud agents via CLI/API
-
-Individual users can run cloud agents without being on a team. Requirements:
-
-* You need at least 20 credits available
-* Cloud agents run on Warp-hosted infrastructure
-* Self-hosted agents require a team subscription
-
-### For integrations (Slack/Linear)
-
-Integrations require you to be part of a [Warp team](/knowledge-and-collaboration/teams/) and additional requirements:
-
-* **Plan requirements**
-  * **Supported plans**: Build, Max, Business
-  * Your plan must support add-on credits.
-* **Credit requirements**
-  * Your team must have at least 20 credits available to run cloud agents and integrations.
-
-For more details, see [Access, Billing, and Identity Permissions](/platform/team-access-billing-and-identity/).
-
-:::caution
-If your credit balance reaches zero, cloud agent runs will not be able to execute until credits are replenished.
-:::
+Check [access and billing requirements](/platform/team-access-billing-and-identity/) before running cloud agents or setting up integrations.
 
 ---
 

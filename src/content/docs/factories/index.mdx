@@ -44,7 +44,7 @@ A work item is one request the factory acts on: an issue, a support thread, a pu
 
 ### Foreman and factory agents
 
-The foreman is the agent that coordinates a factory's work and communicates with you. It delegates work to other agents, asks for your decisions when needed, and returns results. Default triage, spec, implement, and review agents cover the development workflow. For other tasks, add custom agents. You can configure each agent's model and harness, including the Warp Agent, Claude Code, or Codex. See [factory agents](/factories/factory-agents/) for agent roles and configuration.
+The foreman is the agent that coordinates a factory's work and communicates with you. See [factory agents](/factories/factory-agents/) for agent roles, models, harnesses, and configuration.
 
 Setup gives the foreman the same handle as the factory, so `payments` is the factory and `@payments` reaches its foreman from Slack or Linear. See [Foreman name](/factories/factory-agents/#foreman-name).
 
@@ -58,7 +58,7 @@ A factory's repositories, agents, automations, runners, skills, and MCP servers 
 
 ### Work sources
 
-Connect Slack, Microsoft Teams, GitHub, GitLab, Azure DevOps, Linear, and Jira through [factory integrations](/factories/connect-your-factory/). Results return to the thread, issue, or pull request where work began. Use [custom webhooks](/factories/webhooks/) or [factory endpoints](/factories/factory-api/) for other systems, and [automations](/factories/automations/) for scheduled work.
+Connect [Slack](/factories/integrations/slack/), [Microsoft Teams](/factories/integrations/teams/), [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), [Azure DevOps](/factories/integrations/azure-devops/), [Linear](/factories/integrations/linear/), and [Jira](/factories/integrations/jira/) through [factory integrations](/factories/connect-your-factory/). Results return to the thread, issue, or pull request where work began. Use [custom webhooks](/factories/webhooks/) or [factory endpoints](/factories/factory-api/) for other systems, and [automations](/factories/automations/) for scheduled work.
 
 The [Factory MCP](/factories/factory-mcp/) lets a local coding agent send work to a factory, take it over locally, and hand it back.
 
