@@ -156,9 +156,10 @@ For the summary of the most critical terms (core features, Automation Platform t
 
 ## Automation Platform terminology
 
-Renamed from "Oz" on 2026-08-18. Two surfaces keep the Oz name until 2026-10-06
-and are **not** stale in the meantime: the `oz` CLI binary and the Oz v1 web app
-at `oz.warp.dev`. See "What still says Oz" at the end of this section.
+Renamed from "Oz" on 2026-08-18. The `oz` binary and legacy web app retain
+their names. No retirement date or replacement command mapping is established
+here. See "What still says Oz"; product framing lives in
+`.agents/rules/oz-style-guidelines.md`.
 
 ### The article rule
 
@@ -184,7 +185,7 @@ catches the literal, `platform-determiner` catches a missing article.
   *Usage note:* In prose the term takes the definite article — "the Warp Agent". Reserve the bare form for headings, sidebar labels, page titles, and the Settings path. "Runs the Warp Agent" reads correctly; "runs Warp Agent" reads as a different product.
 - **The Automation Platform is the platform, not the agent.** Never introduce it as "Warp's agent" or equate the two. The Automation Platform runs and coordinates agents; the Warp Agent is the agent.
 - **Warp Agent CLI** — The standalone terminal program (the `warp` binary) that runs the Warp Agent in any terminal, including over SSH and on machines without the Warp app. Documented at `/agents/cli/`.
-  *Usage note:* Distinct from the Oz CLI (the `oz` binary), which runs and manages cloud agents. The Oz CLI is retired and wrapped into the Warp Agent CLI on 2026-10-06, matching the `oz` binary holdout in "What still says Oz" below — not the 8/18 platform rename. Until that ships, keep the two clearly separate in prose; afterwards, "Warp Agent CLI" covers both. `oz` commands themselves remain supported through the end of September 2026; the successor `warp` CLI commands for CLI-scripted workflows (environments, secrets, integrations, schedules) haven't been defined yet.
+  *Usage note:* Distinct from the Oz CLI (`oz`), which runs and manages cloud agents. Keep the binaries separate. Verify command equivalence against the current references before changing scripts; a branding change does not establish compatibility, retirement, or a replacement command.
 - **Automation Platform** — Warp's programmable platform for running and coordinating agents at scale
 - There is typically one Warp environment per user session. The Automation Platform can run many agents concurrently, across machines, repos, and teams.
 
@@ -209,7 +210,7 @@ catches the literal, `platform-determiner` catches a missing article.
   *Usage note:* This is the platform-level default (HYC, 2026-08-17). Use `{VARS.PLATFORM_RUN}`, or "Warp cloud agent run" when you need to disambiguate from another vendor's runs. On pages that are specifically about a factory, write "factory run" directly instead — the variable holds the general term, so it cannot carry that distinction.
 
 - **Oz web app** — The web app for configuring agents and managing runs.
-  *Usage note:* Holds the Oz name until 2026-10-06. Use `{VARS.WEB_APP}`.
+  *Usage note:* Use `{VARS.WEB_APP}` for the legacy standalone surface. Verify a workflow's factory equivalent before retargeting a link; do not globally flip `{VARS.WEB_APP_URL}`.
 
 - **subagent** — A child agent created by a parent agent to parallelize or delegate work.
 
@@ -253,8 +254,8 @@ ended — "Ask the Automation Platform to..." is plainly wrong. Address the agen
 
 ### What still says Oz
 
-Not every "Oz" in the docs is stale. These are deliberate and correct until
-2026-10-06, when they get their own value flip:
+Not every "Oz" in the docs is stale. These names change only when their
+specific interface changes, not on an inferred retirement date:
 
 - **The `oz` binary** and every `oz <command>` invocation. Commands inside code
   fences are never rewritten. `{VARS.WARP_AGENT_CLI}` renders "Oz CLI".
@@ -269,6 +270,7 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
   when the answer came back, rather than something a variable flip had already
   broken.*
 - **Changelog entries.** Historical records of what shipped under the old name.
+- **Transition explanations.** Historical product names identify what the reader is moving from; preserve "Transitioning from Oz" and existing Oz workflows.
 
 ## Platform terms
 

@@ -93,7 +93,7 @@ A plain-language rewrite still under-cuts on the first pass. Follow it with a de
 - Recaps and comparison sections that restate what the reader just read.
 - Justifications for rules and defaults that don't change what the reader does.
 
-Expect the second pass to find real deletions even after a careful first one; review feedback on past copy passes has consistently asked for more cutting, not less.
+Apply the [reader-understanding test](#reader-understanding-test) before cutting instructional context. Brevity removes unnecessary material, not necessary teaching.
 
 ### Language guidelines
 - Use consistent terminology throughout (see [Terminology standards](#terminology-standards) and the full glossary in `.agents/references/terminology.md`)
@@ -200,7 +200,7 @@ Every description answers "what will I get from this page?" The shape of that an
 - **Procedural** - Say what task the reader will complete. Start with an imperative verb.
   - ✅ `Connect Slack to the Automation Platform so mentions and channel messages can trigger cloud agent runs.`
   - ❌ `This page explains the Slack integration setup process.`
-- **Quickstart** - Say what the reader ends up with, plus the time budget. Start with an imperative verb.
+- **Quickstart** - Say what the reader ends up with. Include a supported time estimate when available; omit it when unverified. Start with an imperative verb.
   - ✅ `Install the Warp Agent CLI, log in, and run your first agent conversation in about five minutes.`
   - ❌ `Get started with the Warp Agent CLI.`
 - **Reference** - Say what the reader can look up. Name the artifacts rather than the genre.
@@ -388,7 +388,7 @@ For important caveats, limitations, or things to watch out for
 ```
 
 Use callouts sparingly:
-- Never place two callouts back to back, and keep to at most one per section.
+- Normally use zero to two per page, never consecutive, and at most one per section. Justify a necessary exception in the PR body.
 - Keep callouts to a sentence or two. Information that needs a list or several sentences belongs in the body under a header.
 - A caveat that applies to one step belongs in that step's prose, not in a callout.
 
@@ -522,6 +522,8 @@ These rules apply regardless of content type:
 - **Don't over-specify counts or internals that will drift**: Describe a capability rather than naming an exact count of tools, steps, or subcomponents behind it (e.g., "a small set of tools" instead of "ten tools"). Precise counts go stale the moment the implementation changes, and a stale number is worse than no number.
 - **Feature real differentiators structurally**: If a capability is a genuine advantage over the default path (an agent- or API-driven alternative to a UI flow, for example), give it real visual weight — a clear callout near the top of the relevant section, not a footnote after the primary steps are already done. Where something sits on the page communicates how important it is.
 - **Verify claims against the live product, not just prior drafts**: Terminology, UI labels, and calculated values drift between rounds of review. Confirm names, labels, and metric definitions against the actual app, API, or codebase before publishing — especially for pages describing metrics or anything computed.
+- **Preserve page purpose**: Removing a page or changing its purpose requires human approval. An unsupported claim calls for a narrow correction, not permission to turn a transition guide into a chooser. Record the reader task, ownership across sibling pages, repetition removed, and useful understanding preserved in the editorial verdict.
+- **Use one positioning source**: Follow `.agents/rules/oz-style-guidelines.md` for product framing and `.agents/references/terminology.md` for names. Positioning is demonstrated through relevant workflows, not mandatory slogans.
 
 ### Conceptual
 
@@ -564,7 +566,7 @@ These rules apply regardless of content type:
 - **Keep steps focused, not artificially atomic.** Aim for one primary action per step, but group tightly related actions together when they share the same UI context and doing so keeps the procedure at a readable length. Up to ~3 related actions per step is acceptable. Use judgment: a simple task shouldn't require 10+ steps, but a single step shouldn't be a mini-procedure either.
   - Acceptable groupings: actions on the same form (entering a name and choosing an expiration date), a click that reveals the next target (clicking to expand a section, then clicking the revealed item), or a short natural sequence within the same UI area.
   - Avoid grouping actions that span different areas of the UI or that would make a step hard to scan at a glance.
-  - **Move reference detail out of the step into a `:::note`.** When a step's supporting detail is a list of facts a reader might check rather than an instruction (accepted credential types, valid formats), keep the step to its one action and put the list in a `:::note` immediately after it.
+  - **Separate reference detail from the action.** Link a long lookup list to its owning reference. Keep facts needed for the immediate choice beside the step; use a short callout only within the callout budget.
     - ✅ A step reading "In the **Auth** field, choose a compatible, team-owned secret from the list or click **New auth secret** to create one," followed by a `:::note` listing which credential type each option accepts.
     - ❌ Folding the full list of accepted credential types into the same sentence as the instruction, so the action is buried in reference detail.
 - **Motivate steps before giving instructions.** Briefly explain WHY before HOW, especially for setup steps. A single sentence of motivation prevents the reader from wondering "why am I doing this?"
@@ -581,31 +583,36 @@ These rules apply regardless of content type:
 **Existing examples**: `agents/cli/oz-cli/api-keys.mdx`, `platform/integrations/slack.mdx`
 
 **Template**: `.agents/templates/procedural.md`
+#### Reader-understanding test
+
+Keep the context the reader needs for the choice, consequence, or success signal near the step. Use the shortest clear wording; don't explain what the instruction or status already makes clear. Being explained elsewhere does not automatically make that context redundant for someone arriving directly at the quickstart.
+
+Cut repetition that adds no understanding. Link background not needed for the immediate task. For example, retain why a Docker image needs the project's toolchain; cut a second paragraph repeating that execution happens in the cloud.
 
 ### Quickstart
 
 **What it is**: A specialized procedural doc that gets the reader to a working result fast, with only the essential steps. Style "quickstart" as one word, lowercase (unless starting a sentence or in a title).
 
-**When to use**: When the reader already understands the feature or product and is ready to try it. A quickstart deliberately omits explanation of how something works or why they would want it — if the reader needs that, they need conceptual content, and if the task is complex enough to need context along the way, they need a tutorial.
+**When to use**: When the reader is ready to try one bounded task. Keep just-in-time teaching needed for choices, consequences, and success. Apply the [reader-understanding test](#reader-understanding-test); link broader conceptual background.
 
-**Scope**: About five minutes and roughly 600 words. That budget is the defining constraint, not a suggestion. A quickstart that no longer fits it has become a tutorial and should be reworked as one.
+**Scope**: Aim for about five minutes and roughly 600 words. Use the budget as a review signal: cut padding first, justify necessary exceptions, and consider a tutorial if the remaining task is a longer workflow. Do not fabricate a completion time or change the page's purpose solely to meet a budget.
 
 **Structure**:
-1. Opening paragraph: who it is for, the prerequisites and prior knowledge assumed, what the reader will end up with, and the time budget ("in about five minutes")
+1. Opening paragraph: who it is for, the prerequisites and prior knowledge assumed, what the reader will end up with, and a supported time estimate when available
 2. Prerequisites (minimal — link to full setup docs rather than inlining lengthy setup)
 3. Numbered steps (as few as possible to reach a working result)
 4. Troubleshooting (optional — link to existing troubleshooting content rather than writing new)
 5. Next steps: a one-line recap, then 2-3 actionable next steps, always including a link to the conceptual page for the feature
 
 **Rules**:
-- **Give every quickstart a descriptive H1 title.** Don't use a bare "Quickstart" — include the feature or topic name.
-  - ✅ `# Quickstart for cloud agents`
-  - ❌ `# Quickstart` (quickstart for what?)
+- **Set a descriptive frontmatter title.** Starlight renders it as the H1; do not add a body H1. Don't use a bare "Quickstart".
+  - ✅ `title: Quickstart for cloud agents`
+  - ❌ `title: Quickstart` (quickstart for what?)
 - Minimize prerequisites — the reader should be able to start quickly.
 - Keep steps focused on the critical path — defer edge cases and advanced options to other pages.
 - Link out rather than replicating content, so the flow is not interrupted.
 - Use code blocks and screenshots generously; visual confirmation reassures the reader they are on track.
-- Steps can be less explicit than in full procedural content, because the audience already knows the product.
+- Keep the first-use context needed to follow each step; do not assume familiarity with every concept.
 - All procedural rules apply (focused steps, motivate steps, expected outcomes).
 
 **Existing examples**: `platform/quickstart.mdx`, `getting-started/quickstart/installation-and-setup.mdx`
@@ -703,7 +710,7 @@ Direct answer with actionable information. Include links to relevant documentati
 
 "Guides" is the name of the section, not a content type. It holds both **tutorials** and **quickstarts**; pick between them by scope before drafting:
 
-- **Quickstart** — about five minutes, ~600 words, essential steps only, for someone who already understands the product.
+- **Quickstart** — one bounded task with necessary first-use teaching; apply the scope and reader-understanding guidance above.
 - **Tutorial** — a full workflow with context at the decision points, for someone extending a basic understanding to solve a real problem.
 
 **A tutorial requires that a quickstart already exists** for the product area. If there is no quickstart, write that first — otherwise the tutorial absorbs setup content that belongs in a shorter page, and readers who only wanted to get started have to wade through the whole workflow.
@@ -728,7 +735,7 @@ Direct answer with actionable information. Include links to relevant documentati
 - **Give real examples, not placeholders.** Do not write "enter a commit message" — supply an appropriate one that matches the preceding steps.
 - **Include troubleshooting.** Acknowledge what commonly goes wrong in this workflow and how to recover. This is what most distinguishes a tutorial from a quickstart, which only links to existing troubleshooting.
 - **End with a conclusion, then next steps.** Review what the reader built, referring back to the example from the introduction, then give 2-3 actionable next steps.
-- Do not state an expected completion time — it varies too much by experience level. (Quickstarts do state one.)
+- Do not state an expected completion time — it varies too much by experience level. Quickstarts include one only when supported.
 - Link to relevant feature documentation in the main docs where concepts need deeper explanation.
 - When a tutorial has a companion video, the written content should stand alone — a reader should be able to follow it without watching the video.
 
@@ -756,7 +763,7 @@ This is the most common page type in Warp's docs (~75+ pages). A feature documen
 - **Order sections from broad to specific**: conceptual, then reference, then procedures in lifecycle order (enable, use, manage, disable, destructive actions), then troubleshooting.
 - Use a task-based gerund title that stays agnostic about which option the reader chooses — `Setting repository visibility`, not `Making a private repository public`.
 
-This is the type most prone to sprawl, precisely because it accepts the most kinds of content. If the page is growing past roughly 1500 words, split the procedures onto their own pages rather than adding another section.
+Past roughly 1500 words, cut padding and repeated sibling-page content first. Split only if the remaining useful content still needs separate pages; preserve necessary facts by linking or relocating them.
 
 **Existing examples**: `agents/capabilities/skills.mdx`, `platform/environments.mdx`
 
@@ -832,7 +839,7 @@ This is the single most drifted term in the docs, so the rule is narrow on purpo
 
 ### Automation Platform terminology
 
-Renamed from "Oz" on 2026-08-18. The `oz` CLI binary and the Oz v1 web app at `oz.warp.dev` keep the Oz name until 2026-10-06 and are not stale in the meantime. See `.agents/references/terminology.md` → "What still says Oz" for the full holdout list.
+Renamed from "Oz" on 2026-08-18. The `oz` binary, legacy web app, and historical transition references retain their names. No retirement deadline or replacement command mapping is established here. See `.agents/references/terminology.md` → "What still says Oz".
 
 #### The article rule
 "Oz" was a proper noun and read correctly bare. "Automation Platform" is a common-noun phrase, so it needs a definite article in referential positions. This is the most common mistake when writing about the platform.
@@ -857,7 +864,7 @@ Write the name as `{VARS.WARP_AUTOMATION_PLATFORM}` in body prose or `{{WARP_AUT
 - **cloud agent run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based. Use `{VARS.PLATFORM_RUN}`. On factory-specific pages, write "factory run" directly.
 - **Environment** - The execution context for an agent, including repo access, dependencies, secrets, compute, and runtime configuration
 - **cloud agent dashboard** - The app surface to manage all runs, unified across the Warp app and web. Use `{VARS.DASHBOARD}`. On factory-specific pages, write "factory dashboard" directly.
-- **Oz web app** - The web app for configuring agents and managing runs. Holds the Oz name until 2026-10-06; use `{VARS.WEB_APP}`.
+- **Oz web app** - The legacy web app for standalone workflows; use `{VARS.WEB_APP}`. Verify a workflow's factory equivalent before retargeting its instructions.
 
 #### Oz CLI commands
 - `oz agent run` - Run a local agent

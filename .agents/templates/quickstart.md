@@ -1,7 +1,8 @@
 ---
 title: [Sentence case, naming the feature. Use "Quickstart for [product]" or "[Feature] quickstart". Never a bare "Quickstart". This renders as the page H1 — do not add an H1 in the body.]
 description: >-
-  [One to two sentences, 50-160 characters: what the reader ends up with, plus the time budget.
+  [One to two sentences, 50-160 characters: what the reader ends up with. Include a supported
+  time estimate when available; omit it when unverified.
   Start with an imperative verb, not "Learn how to" or "Get started with". Example:
   "Install the {{WARP_AGENT_CLI}}, log in, and run your first agent conversation in about
   five minutes." Use {{TOKEN}} syntax for product names in src/data/vars.ts.]
@@ -9,9 +10,9 @@ description: >-
 [BEFORE PUBLISHING: Delete every bracketed instruction in this file, including this one. They are guidance for the author, not page content.]
 [VARS: If this page names a product from src/data/vars.ts, add `import { VARS } from '@data/vars';` on the line directly below the frontmatter, then use {VARS.KEY} in prose. See AGENTS.md → Content variables.]
 
-[SCOPE — the defining constraint: about five minutes and roughly 600 words. This is a budget, not a target. A quickstart that outgrows it has become a tutorial and should be reworked as one. Written for someone who already understands the product and is ready to try it, so leave out how it works and why they would want it. If the task needs context at its decision points, it is a tutorial.]
+[SCOPE: One bounded task, aiming for about five minutes and roughly 600 words. Cut padding first and justify necessary exceptions. Use a supported time estimate, not an invented promise. Apply AGENTS.md → Procedural → Reader-understanding test; keep first-use choices, consequences, and success signals beside the step.]
 
-[Opening paragraph: who this is for, what prior knowledge it assumes, what the reader will end up with, and the time budget. 2-3 sentences.]
+[Opening paragraph: who this is for, what prior knowledge it assumes, and what the reader will end up with. Include a supported time estimate when available. 2-3 sentences.]
 
 ## Prerequisites
 
@@ -23,7 +24,7 @@ description: >-
 
 ### 1. [Step title]
 
-[Steps can be less explicit than full procedural content, because the audience already knows the product. Use code blocks and screenshots generously — visual confirmation reassures the reader they are on track. Stay on the critical path and defer edge cases to other pages.]
+[Keep steps explicit enough for first use. Use code blocks and screenshots where they clarify an action or expected result. Stay on the critical path and link edge cases and broader background.]
 
 ### 2. [Step title]
 
