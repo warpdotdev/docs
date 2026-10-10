@@ -1,8 +1,89 @@
 ---
-title: Triage incoming issues with a factory
+title: Triaging incoming issues with a factory
 description: >-
   Configure a factory to investigate, categorize, and prioritize incoming
   issues before implementation starts.
 ---
+A triage factory turns a new issue into evidence a maintainer can act on: a category, priority, scope, reproduction or root-cause notes, and a clear next step. Use this pattern when issue volume is high enough that maintainers spend time collecting the same context repeatedly.
 
-{/* This scaffold is completed by its dependent guide PR. */}
+Keep triage separate from implementation. A triage run should improve the issue and stop when the next action needs product judgment.
+
+## Prerequisites
+
+* **A connected issue source** - Connect [GitHub](/factories/integrations/github/), [Azure DevOps](/factories/integrations/azure-devops/), [Linear](/factories/integrations/linear/), or [Jira](/factories/integrations/jira/) and grant access to the repositories the agent must inspect. GitLab doesn't provide a native issue-created trigger; use an explicit bot mention or a [custom webhook](/factories/webhooks/) instead.
+* **A triage policy** - Define the categories, priority levels, evidence requirements, and escalation conditions your team uses.
+* **Write access to issues** - The code-host integration needs permission to comment, label, assign, or update work items.
+* **A test repository** - Validate the recipe away from a production backlog before widening the automation filter.
+
+## Recommended recipe
+
+Use a dedicated triage agent and one automation that watches a narrow intake event.
+
+| Part | Recommendation |
+| --- | --- |
+| Trigger | GitHub: `issue_created` or `issue_labeled`; Azure DevOps: `work_item_created` or `work_item_labeled` |
+| Agent | A `TRIAGE` agent that investigates and updates the issue but doesn't implement |
+| Skills | A repo-specific triage skill with category, priority, reproduction, duplicate-search, and escalation rules |
+| Settings | Start with one repository and one event; use the Warp Agent harness so built-in code-host tools are available |
+| Output | One issue update with evidence, classification, priority, and the recommended next stage |
+
+The example below is specific to GitHub and starts on every new issue in one repository. For a controlled rollout, use `issue_labeled` with a label filter. On Azure DevOps, use `work_item_created` or `work_item_labeled` instead.
+
+```markdown title="automations/triage-new-issues/automation.md"
+---
+agent: triage
+triggers:
+  - provider: github
+    event: issue_created
+    filter:
+      repos: [acme/payments-service]
+---
+
+Triage the new issue. Search for duplicates, inspect the relevant code, and
+reproduce a bug only when the cause is not already supported by evidence.
+Update the issue with category, priority, scope, and the next action. Do not
+implement the change.
+```
+
+Configure the role separately:
+
+```markdown title="agents/triage/agent.md"
+---
+description: Investigates and classifies incoming engineering issues
+agentType: TRIAGE
+---
+
+Establish the cause and scope before recommending work. Use the repository's
+triage skill for categories and priority. Ask for missing user evidence rather
+than guessing, and stop after updating the issue.
+```
+
+## Configure issue triage
+
+1. Create a factory for the repositories that share one backlog. Follow the [Warp Factories quickstart](/factories/quickstart/) if you don't have one.
+2. Add or edit the triage agent. Give it read access to the relevant repositories and issue-write access through the code-host integration.
+3. Add `agents/triage/skills/issue-triage/SKILL.md`. Record the allowed categories and priority levels, the evidence required for a bug, and when to ask a human. See [factory skills](/factories/factory-skills/) for the file format.
+4. Add the GitHub automation above. For a controlled GitHub rollout, change the event to `issue_labeled` and filter on `needs-triage`. On Azure DevOps, use `work_item_created` or `work_item_labeled`. For Linear or Jira, select the provider event documented by the connected integration.
+5. Open a test issue with a concrete symptom. Confirm the run updates that issue once, uses only the allowed labels, and stops without creating a branch.
+6. Review several results before expanding the repository or event filters.
+
+## Example workflow
+
+A customer opens `Checkout fails after applying two coupons` in `acme/payments-service`. The automation starts the triage agent, which searches for duplicates, identifies the discount calculation path, and reproduces the failure with the supplied cart data.
+
+The agent labels the issue `bug` and `payments`, assigns the team's `P1` priority according to the skill, and posts the failing test output and affected code path. It recommends implementation because the cause is bounded. If the report lacks cart data, the agent asks for that evidence and leaves the issue waiting for a human instead.
+
+## Best practices
+
+* **Use a closed classification set** - Put valid categories and priorities in a skill so the agent doesn't invent labels.
+* **Separate evidence from confidence** - Require a code location, duplicate, log, or reproduction before assigning a root cause.
+* **Control intake volume** - Begin with a label trigger when issue volume or run cost is uncertain.
+* **Prevent duplicate routes** - Don't combine a broad `issue_created` automation with an overlapping label automation.
+* **Keep implementation gated** - Route accepted issues to a separate [issue implementation recipe](/factories/use-cases/issue-implementation/).
+
+## Related pages
+
+* [Factory use cases](/factories/use-cases/) - Compare this recipe with other factory workflows.
+* [Factory automations](/factories/automations/) - Configure triggers and filters.
+* [Factory agents](/factories/factory-agents/) - Understand the default triage role.
+* [GitHub integration](/factories/integrations/github/) - Review issue triggers, permissions, and outputs.
