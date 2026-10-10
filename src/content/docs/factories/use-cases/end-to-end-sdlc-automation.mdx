@@ -1,8 +1,90 @@
 ---
-title: Automate the software development lifecycle with factories
+title: Automating the software development lifecycle with factories
 description: >-
   Connect factories across triage, implementation, review, verification, and
   human-controlled merging.
 ---
+An end-to-end software development lifecycle (SDLC) factory carries a work item from intake through triage, planning, implementation, review, and verification. Use it after the individual stages work reliably on their own and your team has explicit human gates.
 
+For repositories that ship together, use one factory with several agents. Splitting one product by stage creates extra routing and ownership problems.
+
+## Prerequisites
+
+* **Reliable stage recipes** - Validate [issue triage](/factories/use-cases/issue-triage/), [issue implementation](/factories/use-cases/issue-implementation/), [code review](/factories/use-cases/code-review/), and any required [Computer Use verification](/factories/use-cases/computer-use-verification/) before connecting them.
+* **One source of truth** - Choose the issue tracker and code host that hold status, acceptance criteria, pull requests, and review history.
+* **Protected human gates** - Decide who approves specifications, accepts incident risk, and merges pull requests.
+* **Repository-specific skills** - Record test commands, review policy, release checks, and escalation rules.
+* **Scoped credentials** - Give each role only the repositories, secrets, and MCP servers it needs.
+
+## Recommended recipe
+
+Use the default role agents with the foreman as the entry point. Let the foreman choose the shortest safe path rather than forcing every request through every stage.
+
+| Stage | Agent | Expected output |
+| --- | --- | --- |
+| Intake and routing | Foreman | Work-item ownership, questions, and the next stage |
+| Triage | Triage | Evidence, scope, priority, and open questions |
+| Planning | Spec | Product and technical plan with validation criteria |
+| Implementation | Implement | Code, tests, validation, and a draft pull request |
+| Review | Review | Independent findings and a recommendation |
+| UI verification | Verify, when needed | Observed behavior and visual evidence |
+| Merge | Human | Approval and merge under repository policy |
+
+Route approved issues to the foreman:
+
+```markdown title="automations/approved-work/automation.md"
+---
+agent: foreman
+triggers:
+  - provider: github
+    event: issue_labeled
+    filter:
+      repos: [acme/payments-service]
+      labels: [factory-ready]
+---
+
+Own the approved issue through human handoff. Triage only when cause or scope
+is unknown. Require a human to approve specifications for material behavior
+changes. Implement and validate the change, request independent review, add UI
+verification when the acceptance criteria are visual, and never merge.
+```
+
+Add follow-up automations for review feedback and pull request completion only after the main path is stable. The default GitHub connection creates automations for labeled work, submitted reviews, and closed or merged pull requests.
+
+## Configure the SDLC workflow
+
+1. Create one factory for the repositories that ship together. Enable the foreman, triage, spec, implement, and review agents.
+2. Configure each role with the narrowest required access. Use a separate verify agent on the Warp Agent harness when the product has a rendered interface.
+3. Add shared repository conventions under `skills/`, then add role-specific procedures under `agents/<name>/skills/`.
+4. Connect the issue tracker and code host. Choose one ready-work signal, such as `factory-ready` or a `Ready for Engineering` state.
+5. Add the intake automation above. Test clear small work, ambiguous product work, review revisions, and a failed validation path.
+6. Confirm the foreman pauses for specification approval and questions, while repository protection prevents agent merges.
+7. Add metrics and [Scorers](/factories/measure-and-improve/scorers/) only after the workflow produces consistent outputs.
+
+## Example workflow
+
+A GitHub issue labeled `factory-ready` reports that invoices omit a purchase-order number. The foreman sends the issue to triage because the affected service is unclear. Triage identifies the rendering path and confirms the scope.
+
+The change affects an external API contract, so the spec agent writes validation criteria and waits for a maintainer to approve them. The implement agent updates the API and tests, then opens a draft pull request. Review finds a missing migration check and sends the work back. After revision, the verify agent exercises the invoice preview and attaches evidence. The foreman hands the reviewed pull request to a maintainer, who approves and merges it.
+
+## Multiple-factory boundary
+
+The factory definition format doesn't provide a cross-factory dependency graph or an automatic merge stage. Use one factory for one product's SDLC. Use several factories when products and repositories have separate ownership and release cycles, with each factory running its own lifecycle.
+
+If an external process must hand work between factories, use explicit code-host or tracker events, [custom webhooks](/factories/webhooks/), or [Factory MCP](/factories/factory-mcp/). Those handoffs aren't atomic: define idempotency, failure ownership, and the system that records overall state. Keep automated merging outside the recipe unless your repository policy and an external orchestrator explicitly own it.
+
+## Best practices
+
+* **Earn each stage** - Add orchestration only after the individual stage has a measurable output and a clear owner.
+* **Skip unnecessary work** - A small, well-defined fix doesn't need a specification.
+* **Keep status in durable systems** - Use the issue and pull request as the record, not an agent transcript alone.
+* **Design failure paths** - Decide what happens when validation fails, a person doesn't answer, or an integration is unavailable.
+* **Measure outcomes** - Track accepted pull requests, revision causes, cycle time, and repeated failures before optimizing models or prompts.
+
+## Related pages
+
+* [Factory use cases](/factories/use-cases/) - Start with one stage before adopting the full workflow.
+* [How Warp Factories work](/factories/how-factories-work/) - Review the work-item lifecycle and human checkpoints.
+* [Factory agents](/factories/factory-agents/) - Configure roles, models, harnesses, and access.
+* [Measure and improve](/factories/measure-and-improve/) - Add Scorers, benchmarks, and controlled self-improvement.
 {/* This scaffold is completed by its dependent guide PR. */}
