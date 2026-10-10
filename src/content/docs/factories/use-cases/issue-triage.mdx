@@ -10,7 +10,7 @@ Keep triage separate from implementation. A triage run should improve the issue 
 
 ## Prerequisites
 
-* **A connected code host** - Connect [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), or [Azure DevOps](/factories/integrations/azure-devops/) and grant access to the repositories the agent must inspect.
+* **A connected issue source** - Connect [GitHub](/factories/integrations/github/), [Azure DevOps](/factories/integrations/azure-devops/), [Linear](/factories/integrations/linear/), or [Jira](/factories/integrations/jira/) and grant access to the repositories the agent must inspect. GitLab doesn't provide a native issue-created trigger; use an explicit bot mention or a [custom webhook](/factories/webhooks/) instead.
 * **A triage policy** - Define the categories, priority levels, evidence requirements, and escalation conditions your team uses.
 * **Write access to issues** - The code-host integration needs permission to comment, label, assign, or update work items.
 * **A test repository** - Validate the recipe away from a production backlog before widening the automation filter.
