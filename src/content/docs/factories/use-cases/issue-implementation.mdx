@@ -1,8 +1,77 @@
 ---
-title: Implement issues with a factory
+title: Implementing issues with a factory
 description: >-
   Configure a factory to turn approved GitHub, Linear, or Jira issues into
   tested pull requests.
 ---
+An implementation factory picks up an approved issue, determines the shortest safe path through planning and code changes, validates the result, and opens a pull request. Use this pattern when your backlog already distinguishes ready work from requests that still need triage or product decisions.
 
-{/* This scaffold is completed by its dependent guide PR. */}
+The factory hands the pull request to a person. It doesn't merge by default.
+
+## Prerequisites
+
+* **A code-host connection** - Connect the factory to the repositories it may change and grant branch and pull request write access.
+* **One issue source** - Connect [GitHub](/factories/integrations/github/), [Linear](/factories/integrations/linear/), or [Jira](/factories/integrations/jira/).
+* **A ready-work signal** - Use a label, workflow state, or explicit assignment that means requirements are approved.
+* **Repository validation** - Document the build, test, lint, and formatting commands the implement agent must run.
+* **Protected merges** - Keep required review and merge authority in the code host.
+
+## Recommended recipe
+
+Route ready work to the foreman, not directly to the implement agent. The foreman can skip unnecessary stages, request a specification for ambiguous work, and send the finished change through independent review.
+
+| Source | Recommended trigger | Ready-work filter |
+| --- | --- | --- |
+| GitHub | `issue_labeled` | A label such as `factory-ready` |
+| Linear | `issue_state_changed` | A workflow state such as `Ready for Engineering` |
+| Jira | `agent_session_created` | Assignment text with a keyword such as `implement` |
+
+Use the default foreman, triage, spec, implement, and review roles. Add a shared repository-conventions skill and an implementation skill that names required validation and visual-proof rules.
+
+```markdown title="automations/implement-approved-issues/automation.md"
+---
+agent: foreman
+triggers:
+  - provider: github
+    event: issue_labeled
+    filter:
+      repos: [acme/payments-service]
+      labels: [factory-ready]
+---
+
+Implement the approved issue. Preserve its acceptance criteria. Use the
+shortest safe factory path, ask a human before resolving product ambiguity,
+run the repository's required validation, and open a draft pull request.
+Never merge.
+```
+
+## Configure issue implementation
+
+1. Create a factory for repositories that ship together, then enable the default foreman, implement, and review agents. Keep triage and spec enabled if incoming work can still contain uncertainty.
+2. Connect one issue source. For Linear and Jira, connect repository access separately because tracker authorization doesn't permit code changes.
+3. Define the ready-work signal with your maintainers. The signal must mean the issue has a clear outcome and enough context to start.
+4. Add the matching automation. For GitHub, use the example above. For Linear, select **Issue state changed** and the approved state. For Jira, route an **Agent session created** event with a narrow project and keyword filter.
+5. Add repository-specific skills. Require the implement agent to add meaningful tests, run the documented checks, and capture visual evidence for user-facing changes.
+6. Test with a small documentation or configuration issue. Confirm the factory links the pull request back to the source issue and leaves merging to a person.
+
+## Example workflow
+
+A Linear issue asks for validation on a new `currency` API field and moves to `Ready for Engineering`. The automation routes the issue to the foreman. Because the acceptance criteria are explicit, the foreman skips triage and planning and dispatches implementation.
+
+The implement agent adds validation and regression tests, runs the service test suite, and opens a draft pull request linked to the Linear issue. The review agent checks the API behavior and tests. The foreman posts the pull request and validation result back to Linear, where a maintainer decides whether to merge.
+
+## Best practices
+
+* **Make readiness explicit** - Don't start implementation from every new issue.
+* **Keep one intake owner** - Avoid overlapping label, assignment, and comment automations for the same issue.
+* **Preserve source criteria** - Tell the foreman to carry acceptance criteria into the pull request and validation.
+* **Use the spec gate selectively** - Require human approval for new behavior or unresolved tradeoffs, but let small, clear fixes proceed.
+* **Limit credentials** - Grant only the repositories, secrets, and MCP servers needed for the change.
+* **Keep review independent** - Follow the [code review recipe](/factories/use-cases/code-review/) before human handoff.
+
+## Related pages
+
+* [Factory use cases](/factories/use-cases/) - Compare implementation with narrower factory recipes.
+* [How Warp Factories work](/factories/how-factories-work/) - Understand stage skipping, revision, and human handoff.
+* [Factory agents](/factories/factory-agents/) - Configure foreman, implement, and review roles.
+* [Factory skills](/factories/factory-skills/) - Add repository-specific implementation procedures.
