@@ -356,7 +356,7 @@ Docs match the screen; the fix belongs in the app.
 - **stages** — The phases a work item moves through, named as the factory dashboard's **Activity** view names them: **Triage**, **Planning**, **Building**, and **Reviewing**, plus the terminal stages **Complete** and **Cancelled**.
   *Usage note:* Stage names are not agent names. The spec agent works the Planning stage, the implement agent works the Building stage, and the review agent works the Reviewing stage. Write stages with the dashboard's names so docs and screen agree; write agents with their own names (triage, spec, implement, review).
 
-- **foreman agent** — The orchestrator agent that receives a work item's triggering context and dispatches subagents to move it through the factory, choosing model, harness, and context for each step.
+- **foreman agent** — The foreman is the agent that coordinates a factory's work and communicates with you. It delegates work to other agents, asks for your decisions when needed, and returns results.
   *Usage note:* Lowercase "foreman" in prose. The foreman is an agent inside a factory, not the factory itself — never use the two interchangeably, and never call the foreman "the factory" even though setup gives them the same name by default.
 
 - **Foreman name** / **`alias`** — The handle a team @-mentions to reach a factory's foreman from Slack and Linear. The factory dashboard labels the field **Foreman name** under **Settings** > **Identity**; the definition file key is [`alias`](/factories/factory-as-code/#alias).

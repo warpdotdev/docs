@@ -23,11 +23,11 @@ Warp Factories is the web experience for team development workflows organized ar
 
 ## Moving an existing workflow
 
-Adopting a factory can involve changes to your workflow's configuration or integrations. Assess the web app, commands, and API calls you currently use before making those changes.
+Before adopting a factory, check your workflow's web app, CLI commands, SDK packages, and API endpoints against the references in the status table.
 
 ### Existing web app workflows
 
-The <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> and the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a> have different setup paths. Review the agents, skills, environments, schedules, integrations, and credentials your workflow uses before moving it into a factory. Creating a factory is not evidence that those resources or run history have transferred.
+Review the agents, skills, environments, schedules, integrations, and credentials your existing workflow uses before setting up a factory. Check where you can access your existing run history.
 
 For factory setup, see [how Warp Factories work](/factories/how-factories-work/) and the [Warp Factories quickstart](/factories/quickstart/). Contact your account team or [Warp support](/support-and-community/#contact-support) if you need help assessing an existing workflow.
 
@@ -39,7 +39,7 @@ Use the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) for the current `oz` comman
 
 The official SDK repositories keep their existing names: [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript). Current packages are `warp-platform-sdk` for Python and `@warp-dot-dev/warp-platform-sdk` for TypeScript; see [SDK installation and imports](/factories/api-and-sdk/#sdks).
 
-Use the [{VARS.WARP_PLATFORM_API} reference](/api) to check the endpoints and configuration your integration needs. To send work through a factory, use [factory endpoints](/factories/factory-api/) rather than treating a standalone agent run as the same workflow.
+Use [factory endpoints](/factories/factory-api/) to send new work to a factory. Use [agent and run endpoints](/factories/api-and-sdk/) to inspect, continue, or cancel the resulting run.
 
 ## Related pages
 
