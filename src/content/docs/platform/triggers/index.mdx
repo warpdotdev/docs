@@ -1,27 +1,34 @@
 ---
 title: Triggers overview
 description: >-
-  Configure triggers to run cloud agents automatically based on schedules or
-  events.
+  Start cloud agents in Warp from Slack, Linear, Jira, GitHub, schedules, CI, or
+  API calls, and find where each trigger reports its results.
 ---
 import { VARS } from '@data/vars';
 
-A trigger is anything that starts a cloud agent run without you typing a prompt: a recurring schedule, an integration like Slack or Linear, a CI event, or a call to the API. This page covers the full set, including the [integrations](/platform/integrations/) that connect agents to the tools your team already uses.
+Warp uses triggers to start cloud agent runs from events or recurring schedules. Pick a trigger based on where your work starts and where you want to read the results.
 
 For triggers that route work through one factory's named agents and workflow, use [factory automations](/factories/automations/) and [factory integrations](/factories/connect-your-factory/).
 
-To set up your first recurring agent, follow the [Scheduled Agents Quickstart](/platform/triggers/scheduled-agents-quickstart/).
-
-If you're choosing between schedules, Slack, Linear, GitHub, GitHub Actions, the {VARS.WARP_AGENT_CLI}, or the API, start with [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/).
+To set up your first recurring agent, follow the [Scheduled agents quickstart](/platform/triggers/scheduled-agents-quickstart/).
 
 ## Available trigger types
 
-* **[Scheduled Agents](/platform/triggers/scheduled-agents/)** - Run agents on a recurring schedule using cron expressions.
-* **[CLI](/agents/cli/oz-cli/)** - Trigger cloud agents directly from your terminal using the {VARS.WARP_AGENT_CLI}.
-* **[API & SDK](/factories/api-and-sdk/)** - Programmatically trigger agents via the Warp API or SDK.
-* **[Integrations](/platform/integrations/)** - Trigger agents from external services like Slack, Linear, or Jira.
-* **[GitHub](/platform/integrations/github/)** - Mention `@warp-agent` on an issue, pull request, or review comment to start an agent that replies in the thread.
-* **[GitHub Actions](/platform/integrations/github-actions/)** - Run agents from your own CI workflows and repository events.
-* **[Custom webhooks](/factories/webhooks/)** - Give a [factory](/factories/) an authenticated URL that any system can POST JSON to, and start its automations from the deliveries.
+| Trigger | How you invoke it | Where to inspect results | Setup |
+| --- | --- | --- | --- |
+| Slack | Mention `@Warp` in a message or thread, or DM the bot. | Progress, summary, and PR links in the Slack thread. | [Slack integration](/platform/integrations/slack/) |
+| Linear | Mention `@warp` in a comment or assign an issue to the agent. | Updates, summary, and PR links in the Linear issue. | [Linear integration](/platform/integrations/linear/) |
+| Jira Cloud | Add the `warp-agent` label to an issue after connecting your Jira account. | Status and summary comments on the issue, including links to any PRs or branches created and the conversation. | [Jira integration](/platform/integrations/jira/) |
+| GitHub | Mention `@warp-agent` in a new issue comment, pull request comment, review comment, or new pull request description. | Status, progress, and summary in the same thread, including any PRs opened. | [GitHub integration](/platform/integrations/github/) |
+| GitHub Actions | Define repository events and an `oz-agent-action` step in workflow YAML. | Agent output in workflow steps; comments or branches depend on your prompt and permissions. | [GitHub Actions](/platform/integrations/github-actions/) |
+| Schedules | Configure a recurring cron expression and prompt. | Each run's task and session history, including logs and outputs. | [Scheduled agents](/platform/triggers/scheduled-agents/) |
+| CLI | Start a cloud run from your terminal with the {VARS.WARP_AGENT_CLI}. | Run status and session links from the CLI or [{VARS.WEB_APP}](/platform/oz-web-app/). | [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) |
+| API and SDK | Submit a prompt and configuration to the Agent and run endpoints. | Run details and session links fetched through the API. | [Agent and run endpoints](/factories/api-and-sdk/) |
+| Custom webhooks | POST JSON to a factory webhook URL; a matching automation starts work. | Delivery log and factory runs; webhooks do not provide thread replies. | [Custom webhooks](/factories/webhooks/) |
 
 After a trigger fires, track and review the resulting runs across your team from the [Agent Management Panel and {VARS.WEB_APP} Runs page](/platform/managing-cloud-agents/), where you can filter by source, status, day, or creator.
+
+## Related pages
+
+* [Integrations overview](/platform/integrations/) - Connect Slack, Linear, GitHub, [Jira](/platform/integrations/jira/), and other supported services.
+* [Run agents unattended with schedules and triggers](/guides/agent-workflows/how-to-run-unattended-agents/) - Choose a trigger for an unattended workflow.
