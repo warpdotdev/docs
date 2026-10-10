@@ -731,10 +731,10 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Plans and billing',
 					items: [
 						{ slug: 'support-and-community/plans-and-billing', label: 'Overview' },
-						{ slug: 'support-and-community/plans-and-billing/plans-pricing-refunds', label: 'Plans, Pricing, & Refunds' },
+						{ slug: 'support-and-community/plans-and-billing/plans-pricing-refunds', label: 'Plans, pricing, and refunds' },
 						'support-and-community/plans-and-billing/credits',
 						'support-and-community/plans-and-billing/add-on-credits',
-						{ slug: 'support-and-community/plans-and-billing/platform-credits', label: 'Platform credits' },
+						{ slug: 'support-and-community/plans-and-billing/platform-credits', label: 'Platform usage' },
 						'support-and-community/plans-and-billing/pricing-faqs',
 					],
 				},

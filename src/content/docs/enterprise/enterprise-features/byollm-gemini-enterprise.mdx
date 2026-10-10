@@ -343,11 +343,11 @@ Auto model selection is disabled if an admin disables **any** Direct API model, 
 
 When a request routes through Gemini Enterprise:
 
-* **Warp doesn't consume AI credits** for that request. Inference is billed by Google Cloud to your project.
-* **Platform credits still apply** - On Business and Enterprise plans, local agent runs that use customer-supplied inference consume [platform credits](/support-and-community/plans-and-billing/platform-credits/) for Warp's platform infrastructure.
-* **Fallbacks are billed normally** - A request that falls back to a Direct API model consumes Warp credits at the standard rate.
+* **Inference** - Google Cloud bills your project; the request does not consume Warp-provided inference usage.
+* **Platform** - Local agent runs using Gemini Enterprise incur [platform usage](/support-and-community/plans-and-billing/platform-credits/).
+* **Fallbacks** - A request that falls back to a Direct API model consumes Warp-provided inference usage at the normal rate.
 
-See [The three credit buckets](/support-and-community/plans-and-billing/platform-credits/#the-three-credit-buckets) for more on credit types.
+Rates and credit pools follow your [Enterprise contract](/enterprise/support-and-resources/billing/).
 
 ## Security and data handling
 

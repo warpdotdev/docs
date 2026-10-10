@@ -27,6 +27,8 @@ Describe what the reader sees and does. Internal components get at most one sent
 - ✅ "Warp tracks every run. Check its status from the CLI, the API, or the dashboard."
 - ❌ "The orchestration layer runs on Warp's servers (cloud control plane), creates tasks when triggers fire, and tracks lifecycle state (created → running → completed/failed)."
 
+Apply a reader-value test to technical detail: does it help someone choose, configure, verify, diagnose, or understand a charge or security boundary? Credential storage and request transit can inform a security decision; backend assembly steps, billing constants, internal feature flags, and implementation provenance usually don't. Keep verification evidence in the PR rather than narrating it in public prose.
+
 #### Order from intent to technical detail
 
 When readers need exact fields, IDs, or runtime labels, order the explanation from intent to implementation:
@@ -73,7 +75,7 @@ AI-drafted pages share a rhythm. Break it.
 - **Rhetorical question openers** - Don't open a section with a question you immediately answer. Use a descriptive header and a declarative first sentence.
 - **Hedging stacks** - Chains of "typically", "often", "generally", "where supported", and "as applicable" read as evasive. State what happens, then note the exception if there is one.
 - **Bold-everything** - Bolding several phrases per paragraph kills emphasis. Reserve bold for UI elements and lead terms of list items (see Emphasis).
-- **Bullets as a substitute for prose** - Bullets are for short, parallel, scannable items. If every bullet is a full paragraph, or the bullets tell a story in order, write prose.
+- **Bullets as a substitute for prose** - Bullets are for short, parallel, scannable items. If every bullet is a full paragraph, or the bullets tell a story in order, write prose. Connect a cause to its remedies, then explain the exception separately. A balance-exhaustion answer needs recovery options, not an unrelated token-limit caveat.
 - **Slashed shorthand** - Write "mentions and assignments", not "mention/assignment", and "4 vCPU / 8 GB", not "4/8". Slashed pairs and bare number pairs read as notes, not prose.
 - **Callout spam** - Callouts follow the same restraint: never consecutive, at most one per section (see Callouts and hints).
 
@@ -522,6 +524,7 @@ These rules apply regardless of content type:
 - **Don't over-specify counts or internals that will drift**: Describe a capability rather than naming an exact count of tools, steps, or subcomponents behind it (e.g., "a small set of tools" instead of "ten tools"). Precise counts go stale the moment the implementation changes, and a stale number is worse than no number.
 - **Feature real differentiators structurally**: If a capability is a genuine advantage over the default path (an agent- or API-driven alternative to a UI flow, for example), give it real visual weight — a clear callout near the top of the relevant section, not a footnote after the primary steps are already done. Where something sits on the page communicates how important it is.
 - **Verify claims against the live product, not just prior drafts**: Terminology, UI labels, and calculated values drift between rounds of review. Confirm names, labels, and metric definitions against the actual app, API, or codebase before publishing — especially for pages describing metrics or anything computed.
+  - Record the source revision separately from deployment, stable-release, and live-checkout evidence. Merged code or checked-in production configuration does not prove that a customer can use a feature. Keep uncertain availability or policy claims conditional, omitted, or explicitly recorded for review.
 
 ### Conceptual
 
@@ -916,13 +919,19 @@ See `.agents/references/terminology.md` → "Warp Factories terminology" for the
 - **macOS** (not "Mac OS" or "Mac")
 
 ### Billing and credits
-- **credits** (lowercase, not "AI credits") - the unit of usage for AI features in Warp
-- **Add-on Credits** (capitalized as a product feature name)
-- **compute credits** (lowercase common noun; capitalize the first letter only at the start of a sentence or bullet) - the compute bucket; consumed when an agent run uses Warp-hosted compute. Used alongside AI credits and platform credits when describing credit types.
-- **cloud agent credits** (lowercase common noun; capitalize the first letter only at the start of a sentence or bullet) - credits consumed by cloud agents (in contrast with local agent credits). Refers to the same compute bucket as compute credits; pick the term that fits the framing.
-- **platform credits** (lowercase common noun; capitalize the first letter only at the start of a sentence or bullet) - the platform-infrastructure bucket
-- **Warp credits** - credits included with a subscription plan. Use in user-facing copy rather than "plan credits."
-- Use "credit" or "credits" without the "AI" prefix throughout documentation
+- **usage** - the general term for metered inference, Warp-hosted compute, and platform activity. Explain the billing unit where it affects the reader's task, not in every paragraph. Name plans naturally: "Free," "Build," "Max," "Business," and "Enterprise," not "dollar-billed Free" or "self-serve dollar Max."
+- **included usage** / **purchased usage** - distinguish the monthly allowance from additional usage purchases and contract-specific pools.
+- **dollar usage** - a usage balance, not the subscription price or necessarily the amount paid for a purchase.
+- **credits** (lowercase, not "AI credits") - use when an account bills in credits, for credit display units, and for exact product labels.
+- **Add-on Credits** - preserve the exact capitalization when quoting a shipped UI label or a purchase shown in credits.
+- **compute usage** / **platform usage** - charge components, not necessarily separate allowances. Use credit-named terms when an account bills in credits.
+- Keep credit-named public identifiers, error codes, CLI labels, and URLs unchanged. See `.agents/references/terminology.md` for purchase-limit and display-unit guidance.
+
+Current prices belong on [Warp pricing](https://www.warp.dev/pricing), not in duplicate purchase tables. The billing pages own charge components, purchase controls, and contract exceptions; FAQs summarize and link to those owners. Distinguish the inference rate, a purchase premium, the usage balance, and the amount paid. A purchase premium is not a second inference-rate multiplier.
+
+Match a control's shipped label without letting that label define all surrounding prose. For example, explain "conversation usage," then identify **Credit usage** as the item in `/statusline`. A documentation edit does not rename a product control or public identifier.
+
+Scope credential claims by configuration: personal device keys, team-managed keys and endpoints, connected subscriptions, and third-party harness credentials are different paths. Don't apply "not stored by Warp" or "not available to cloud agents" to all customer credentials. See the glossary's [inference configuration terms](.agents/references/terminology.md#inference-configuration).
 
 ### UI elements
 - **Settings** (capitalized when referring to the Settings panel)
@@ -1028,6 +1037,7 @@ Before publishing any documentation, verify:
 3. **Consistency**: Check terminology and formatting against this guide
 4. **User focus**: Ensure content answers "what can I accomplish?" before "how does it work?"
 5. **Completeness**: Include necessary context, examples, and next steps
+6. **Review patterns**: Treat each comment as a possible pattern, not only a line edit. Check the canonical page, related tables, FAQs, procedures, and local-to-cloud guidance for the same problem; update warranted matches without a blanket terminology replacement. Record reusable lessons in this guide or the glossary, rather than in public product prose.
 
 # Agent-specific guidance
 

@@ -84,7 +84,7 @@ Cloud agent runs automatically benefit from [Codebase Context](/agents/capabilit
 
 Cloud agent tasks are designed to be inspectable by the team:
 
-* The [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app and the [Runs page in the {VARS.WEB_APP}](/platform/oz-web-app/#runs) surface task status, source, trigger, creator, history, and credit usage.
+* The [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app and the [Runs page in the {VARS.WEB_APP}](/platform/oz-web-app/#runs) surface task status, source, trigger, creator, history, and usage.
 * [Cloud agent session sharing](/platform/viewing-cloud-agent-runs/) opens the run transcript so teammates can inspect the prompt, plan, commands, logs, files changed, outputs, and follow-up messages where available.
 * [Agent Session Sharing](/agents/local-agents/session-sharing/) lets authorized teammates share, monitor, and steer live local or third-party agent sessions.
 
@@ -120,34 +120,26 @@ If your team also uses Warp's terminal, you get an additional workflow: tasks la
 
 ### Billing and plan requirements
 
-Cloud agents and [integrations](/platform/integrations/) run on the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) control plane, and usage is billed using credits.
+Cloud runs incur [platform charges](/support-and-community/plans-and-billing/platform-credits/) for billable agent time, plus applicable inference and hosted compute charges. See [usage and billing](/support-and-community/plans-and-billing/credits/) for billing units.
 
 :::note
-[Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/) is not supported for cloud agent runs. BYOK keys are stored locally on your device and are not accessible to cloud-hosted agents. All cloud agent runs consume Warp credits.
+Personal [BYOK keys](/agents/inference/bring-your-own-api-key/) are not available to cloud runs. Business and Enterprise teams can configure [team-managed inference](/enterprise/enterprise-features/team-managed-keys-and-endpoints/); applicable compute and platform charges remain.
 :::
 
 #### For cloud agents via CLI/API
 
 Individual users can run cloud agents without being on a team. Requirements:
 
-* You need at least 20 credits available
+* Review [eligible balances and billing restrictions](/platform/team-access-billing-and-identity/#usage-requirements) before starting a run
 * Cloud agents run on Warp-hosted infrastructure
 * Self-hosted agents require a team subscription
 
 #### For integrations (Slack/Linear)
 
-Integrations require you to be part of a [Warp team](/knowledge-and-collaboration/teams/) and additional requirements:
-
-* **Plan requirements**
-  * **Supported plans**: Build, Max, Business
-  * Your plan must support add-on credits.
-* **Credit requirements**
-  * Your team must have at least 20 credits available to run cloud agents and integrations.
-
-For more details, see [Access, Billing, and Identity Permissions](/platform/team-access-billing-and-identity/).
+Integrations require a [Warp team](/knowledge-and-collaboration/teams/) on an eligible plan. Check [integration access](/platform/team-access-billing-and-identity/#requirements-for-integrations) and [usage requirements](/platform/team-access-billing-and-identity/#usage-requirements) before starting a run.
 
 :::caution
-If your credit balance reaches zero, cloud agent runs will not be able to execute until credits are replenished.
+On self-serve plans, runs are blocked when no usable balance remains unless an auto-reload succeeds. Enterprise availability follows your contract. Review [purchase limits](/support-and-community/plans-and-billing/add-on-credits/) before relying on unattended runs.
 :::
 
 ---
@@ -167,4 +159,4 @@ If your credit balance reaches zero, cloud agent runs will not be able to execut
 * [Agent Secrets](/platform/secrets/) — covers how to store, scope, and inject credentials into agent runs safely.
 * [MCP Servers](/platform/mcp/) — how to configure MCP servers for agent tool access and how MCP configuration is applied across runs.
 * [Deployment Patterns](/factories/deployment-patterns/) (beta) — compares common ways to deploy cloud agents and when to use each.
-* [Access, Billing, and Identity Permissions](/platform/team-access-billing-and-identity/) — explains individual and team-level requirements, credit billing behavior, and the permission model for who can run, view, and steer cloud agent tasks.
+* [Access, billing, and identity permissions](/platform/team-access-billing-and-identity/) — Individual and team requirements, usage billing, and run permissions.

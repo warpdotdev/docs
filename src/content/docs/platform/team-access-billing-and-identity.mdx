@@ -1,15 +1,14 @@
 ---
 title: Access, billing, and identity permissions
 description: >-
-  Understand how access to cloud agents works for individuals and teams, how
-  billing and credits apply, and how Warp maps user identities across
-  integrations.
+  Manage cloud agent access, usage billing, and identity permissions for
+  individuals and teams across integrations.
 sidebar:
   label: "Access, billing, and identity"
 ---
 import { VARS } from '@data/vars';
 
-This page explains how access to cloud agents works for both individual users and teams, how billing and credits apply, and how Warp maps user identities across integrations.
+Cloud agent access depends on your plan and team membership. Billing follows the user or team responsible for the run.
 
 ---
 
@@ -19,7 +18,7 @@ Cloud agents can be used in two ways:
 
 **Individual users** (without a team):
 * Can run cloud agents via CLI or API
-* Can use Warp credits, including [cloud agent credits](/support-and-community/plans-and-billing/credits/#compute-credits)
+* Use available [usage balances](/support-and-community/plans-and-billing/credits/) for inference, hosted compute, and platform charges
 * Agents run on Warp-hosted infrastructure
 * Cannot use integrations (Slack, Linear, Jira, GitHub) or self-hosted agents
 
@@ -28,9 +27,18 @@ Cloud agents can be used in two ways:
 * Can use integrations (Slack, Linear, Jira, and the [GitHub integration](/platform/integrations/github/)) to trigger agents
 * Can self-host agents on their own infrastructure (Enterprise only)
 * Share team-level configuration (environments, secrets, integrations)
-* Team must be on Build, Max, or Business plan with at least 20 credits for cloud agents and integrations
+* Teams on Build, Max, or Business need available usage for cloud agents and integrations
 
 ---
+
+## Usage requirements
+
+Cloud runs on Warp-hosted compute need eligible usage for compute and, when using Warp-provided models, inference.
+
+* **Self-serve plans** - Use remaining included usage or an eligible purchased balance.
+* **Enterprise** - Usage requirements follow your service agreement.
+
+Check the balance for the [user or agent billed for the run](#billing-for-cloud-agent-runs). Spending limits and billing restrictions can block a run even when a balance remains.
 
 ## Individual access
 
@@ -39,7 +47,7 @@ Individual users can run cloud agents via the CLI or API without being part of a
 **How it works:**
 
 * Run agents using `oz agent run-cloud` or the {VARS.WARP_PLATFORM_API}
-* Credits are drawn from your Warp credits (including cloud agent credits, when applicable)
+* Applicable charges draw from your available usage
 * Agents execute on Warp-hosted infrastructure
 
 **What you can do:**
@@ -73,20 +81,14 @@ When someone triggers a cloud agent for the first time, Warp may prompt them to 
 
 #### Requirements for integrations
 
-Integrations and [cloud agents](/platform/) run inside Warp's cloud, which means usage is billed based on [credits](/support-and-community/plans-and-billing/credits/).
+Integrations start [cloud runs](/platform/). [Platform usage](/support-and-community/plans-and-billing/platform-credits/) applies to billable agent time; Warp-hosted compute and Warp-provided inference add their respective charges. Enterprise terms follow your contract.
 
 Your team must meet the following requirements to run integrations:
 
-* You must be on a **Build, Max, or Business** plan with [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) enabled, or on an **Enterprise** plan with a team credit pool per your contract.
-* Your team needs at least **20 credits** available to run cloud agents and integrations
+* You must be on a **Build, Max, or Business** plan with [usage purchases](/support-and-community/plans-and-billing/add-on-credits/) enabled, or an eligible **Enterprise** plan.
+* The billed user or team must meet the [usage requirements](#usage-requirements).
 
-When a user triggers an agent through an integration (like Slack or Linear), the run draws from credits based on who the run is billed to:
-
-* **User-triggered runs on Build, Max, or Business** - Warp draws from any [cloud agent credits](/support-and-community/plans-and-billing/credits/#compute-credits) the user has, then the user's plan-included credits, then the team's shared add-on credit pool.
-* **Agent API key or scheduled cloud agent runs on Build, Max, or Business** - Warp bills the team owner. The waterfall is: the owner's plan-included credits, then the team's shared add-on credit pool. With auto-reload off, the request is blocked when both are depleted. With auto-reload on, usage can trigger a reload into the team's shared pool subject to the team-wide monthly spend cap; once the cap is reached, runs are blocked until the cap resets or increases.
-* **Enterprise plans** - Runs draw from the team-scoped credit pool, per your Enterprise contract terms.
-
-If all applicable credit sources are exhausted and no auto-reload is configured, integrations and cloud agents will not run until credits are added. See [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) for the full self-serve waterfall and [platform credits](/support-and-community/plans-and-billing/platform-credits/) for the third bucket that applies to every cloud agent run.
+See [billing for cloud agent runs](#billing-for-cloud-agent-runs) for run attribution and what happens when usage runs out.
 
 :::note
 If you're on an Enterprise plan, please reach out to [contact sales](https://www.warp.dev/contact-sales) with any billing questions related to integrations.
@@ -206,40 +208,22 @@ Runs triggered by an `@warp-agent` mention through the [GitHub integration](/pla
 
 ---
 
-## Additional notes: how cloud agents use credits
+<span id="additional-notes-how-cloud-agents-use-credits" />
+<span id="how-credit-usage-works" />
 
-Cloud agents can run automatically in the background when activated by a trigger such as a Slack mention, a Linear update, or a scheduled task. These runs require compute and model usage, which translates to credit consumption.
+## Billing for cloud agent runs
 
-**Typical credit usage:**
+Cloud agent runs consume usage dollars or credits, depending on your plan. They also incur [platform usage](/support-and-community/plans-and-billing/platform-credits/) for billable agent time, plus charges for Warp-hosted compute and Warp-provided inference.
 
-Cloud agent runs consume credits based on the complexity of the task and whether an environment is used. The exact amount varies by run.
+On self-serve team plans, billing follows the trigger:
 
-#### How credit usage works
+* **Runs acting as you** - Use your eligible included and purchased usage on the team. See [team purchase balances](/support-and-community/plans-and-billing/add-on-credits/#tracking-purchases-and-team-usage) for shared and member-specific balances.
+* **Agent API key runs** - Use eligible shared team usage, not the team owner's personal included allowance. Cloud agents don't receive a separate per-seat allowance.
+* **User-created schedules** - Use the creator's eligible usage by default. If configured to run as a cloud agent, the schedule uses shared team usage instead.
 
-How credits are consumed depends on how the agent run is triggered and authenticated:
+Enterprise availability and billing follow your contract. Dedicated cloud allowances can be used before general-purpose balances. If no usable balance remains, a run can fail with an [insufficient credits](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) error. Repeated unattended runs can trigger purchases subject to the team's [spend controls](/support-and-community/plans-and-billing/add-on-credits/#configuring-a-monthly-spend-limit). Contact your account manager with questions about your team's cloud run billing.
 
-**User-triggered runs** (CLI with personal API key, Slack, Linear, or the Warp app):
-
-* Runs are tied to the triggering user's identity.
-* On Build, Max, and Business plans, Warp consumes credits in a fixed order. You cannot prioritize user-scoped grants ahead of shared team grants:
-  1. The triggering user's monthly credits included with their plan.
-  2. Shared bonus or add-on grants available to the active team (team-wide pool first).
-  3. The triggering user's remaining user-scoped bonus or add-on grants that apply to the active team. This includes any remaining add-on credit balance purchased between May and August 2026. Warp uses these grants only after shared team grants are exhausted.
-* On Enterprise plans, runs draw from the team-scoped credit pool, per your Enterprise contract terms.
-
-**Agent API key and scheduled cloud agent runs** (fully automated workflows):
-
-* Runs are not tied to any individual user.
-* On Build, Max, and Business plans, Warp bills the team owner: the owner's plan-included credits, then the team's shared add-on credit pool. With auto-reload off, the request is blocked when both are depleted. With auto-reload on, usage can trigger a reload into the team's shared pool subject to the team-wide monthly spend cap.
-* On Enterprise plans, these runs draw from the team-scoped credit pool, per your Enterprise contract terms.
-* Ideal for CI/CD pipelines, scheduled tasks, and other automated workflows.
-* For workflows that require code changes (opening pull requests, pushing branches, or writing to a repository), configure [team GitHub authorization](#team-github-authorization) so the agent can authenticate with the Warp Factories GitHub App. Alternatively, use a [personal API key](/agents/cli/oz-cli/api-keys/) to authenticate as an individual user.
-
-For more details on creating and using API keys, see [API Keys](/agents/cli/oz-cli/api-keys/).
-
-:::note
-When a user triggers an agent via Slack or Linear, the run still follows that same order — plan-included credits first, then shared team grants, then any applicable user-scoped grants — as long as the triggering user's identity can be mapped to their Warp account.
-:::
+For automated workflows that write to repositories, configure [team GitHub authorization](#team-github-authorization), or use a [personal API key](/agents/cli/oz-cli/api-keys/) to act as an individual user.
 
 #### Who configures triggers and workflows
 
@@ -250,12 +234,7 @@ All triggers and instructions used by cloud agents are defined and controlled by
 
 #### Staying aware of usage
 
-Because triggers and instructions are configured by your team, the credits consumed when an agent runs are billed according to the model above:
-
-* **Build, Max, Business** - User-triggered runs draw from the triggering user's plan-included credits, then shared team grants, then any remaining user-scoped grants. Agent API key runs and scheduled cloud agent runs are billed to the team owner (the owner's plan-included credits, then the team's shared add-on credit pool, subject to the team-wide spend cap when auto-reload is on).
-* **Enterprise** - All runs draw from the team-scoped credit pool, per your Enterprise contract terms.
-
-It's the team's responsibility to manage triggers, confirm they behave as intended, and monitor usage. Reviewing triggers, prompts, and agent behavior periodically helps ensure that credit usage aligns with expectations.
+Review your triggers and available balance before relying on unattended runs. In the Warp app, open **Settings** > **Billing and usage** for usage and purchase controls.
 
 ---
 
@@ -265,12 +244,14 @@ If a cloud agent or integration run fails with an error code, use the error refe
 
 * **Missing GitHub or external authorization** - See [`external_authentication_required`](/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/) when a user needs to authorize GitHub, Slack, or Linear before a run can continue.
 * **Insufficient repo permissions** - See [`not_authorized`](/factories/api-and-sdk/troubleshooting/errors/not-authorized/) when the triggering user or GitHub App lacks access to the repo the agent needs.
-* **Credits or spend caps block a run** - See [`insufficient_credits`](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) or [`budget_exceeded`](/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/) when the billed account has depleted credits or reached a configured spend cap.
+* **Usage or spend caps block a run** - See [`insufficient_credits`](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) or [`budget_exceeded`](/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/) when the billed account has no usable balance or reached a configured limit.
 
 ---
 
-## Related resources
+<span id="related-resources" />
 
-* [Add-on credits](/support-and-community/plans-and-billing/add-on-credits/) - How team-shared add-on credits, auto-reload, and the team-wide spend cap work on self-serve plans.
-* [Platform credits](/support-and-community/plans-and-billing/platform-credits/) - The third credit bucket that applies to every cloud agent run, alongside AI credits and compute credits.
-* [Credits overview](/support-and-community/plans-and-billing/credits/) - The full credit model across plans.
+## Related pages
+
+* [Purchasing additional usage](/support-and-community/plans-and-billing/add-on-credits/) - Shared balances, auto-reload, and purchase limits.
+* [Platform usage](/support-and-community/plans-and-billing/platform-credits/) - Agent-hour billing for cloud runs.
+* [Usage and billing](/support-and-community/plans-and-billing/credits/) - Charge components and billing units.

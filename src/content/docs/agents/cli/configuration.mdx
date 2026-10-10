@@ -68,8 +68,8 @@ In auto mode, detection runs at startup, so if you switch your terminal's colors
 The statusline is the row below the CLI's input box that shows session information at a glance. By default it shows the auto-approve indicator, the active model, the working directory, the Git branch, and the Git diff status inside a repository, plus the Vim mode indicator when Vim mode is on. You can enable any of these items:
 
 <figure style={{ maxWidth: "736px" }}>
-![The Warp Agent CLI statusline showing the auto-approve, model, working directory, Git branch status, Git diff status, credit usage, context window usage, and agent to-do list chips](../../../../assets/agents/cli/tui-statusline.png)
-<figcaption>The statusline with credit usage, context window usage, and task list chips enabled.</figcaption>
+![The Warp Agent CLI statusline showing the auto-approve, model, working directory, Git branch status, Git diff status, conversation usage, context window usage, and agent to-do list chips](../../../../assets/agents/cli/tui-statusline.png)
+<figcaption>The statusline with conversation usage, context window usage, and task list chips enabled.</figcaption>
 </figure>
 
 * **Auto-approve indicator** - A clickable `▶▶` toggle for auto-approve, highlighted when it's on.
@@ -80,7 +80,7 @@ The statusline is the row below the CLI's input box that shows session informati
 * **Git branch status** - The branch, plus how far it is ahead of or behind its upstream (for example, `master • ↑1`). Enabling this replaces the plain Git branch chip, rather than adding a second one.
 * **Git diff status** - Files changed, with line additions and deletions.
 * **GitHub pull request** - The pull request for the current branch. Click it to open the PR on GitHub.
-* **Credit usage** - Credits used by the current conversation. Click it to switch between credits and provider cost.
+* **Conversation usage** - Usage recorded for the current conversation, listed as **Credit usage** in `/statusline`. See [CLI usage and cost](/agents/cli/models-and-usage/#usage-and-cost).
 * **Context window usage** - How much of the model's context window the conversation has used.
 * **Agent to-do list** - The agent's progress through its current task list.
 
