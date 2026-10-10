@@ -585,7 +585,7 @@ These rules apply regardless of content type:
 **Template**: `.agents/templates/procedural.md`
 #### Reader-understanding test
 
-Does this explanation help the reader make a choice, understand a consequence, or know whether the step worked? If so, it belongs near the step. Being explained elsewhere does not automatically make that context redundant for someone arriving directly at the quickstart.
+Keep the context the reader needs for the choice, consequence, or success signal near the step. Use the shortest clear wording; don't explain what the instruction or status already makes clear. Being explained elsewhere does not automatically make that context redundant for someone arriving directly at the quickstart.
 
 Cut repetition that adds no understanding. Link background not needed for the immediate task. For example, retain why a Docker image needs the project's toolchain; cut a second paragraph repeating that execution happens in the cloud.
 
