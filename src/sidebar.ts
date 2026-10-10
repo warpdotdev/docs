@@ -548,6 +548,9 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			icon: 'cloud-download',
 			items: [
 				{ slug: 'platform/overview', label: 'Overview' },
+				// Also listed under Factories for cross-topic discovery. The shared
+				// URL activates Factories; navigation does not preserve the source tab.
+				{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
 				{ slug: 'platform/architecture', label: 'Architecture' },
 				{
 					label: 'Cloud Agents',
