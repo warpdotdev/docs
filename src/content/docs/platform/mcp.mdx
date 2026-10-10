@@ -84,6 +84,8 @@ If the config passes through a system that pre-processes `{{...}}` before it rea
 
 Use `url` to connect the agent worker to an existing streamable HTTP or SSE MCP endpoint. A Warp-hosted worker requires a publicly reachable URL, while a self-hosted worker can reach a private endpoint available from its network. For credentials sent with `headers`, use HTTPS to protect them in transit.
 
+Team-managed URL servers use **Warp-managed** by default. To use a direct connection, open **MCPs and apps** in the [factory dashboard](/factories/factory-dashboard/), click **New**, then click **Custom MCP**. Enter the configuration, then select **Direct** under "Connection mode."
+
 ```json
 {
   "internal-tools": {
