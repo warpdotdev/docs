@@ -111,6 +111,16 @@ For the summary of the most critical terms (core features, Automation Platform t
 - **Full Terminal Use** — The capability that lets an agent attach to and drive interactive terminal programs (for example `psql`, `vim`, a dev server) by reading live PTY output.
   *Usage note:* Capitalize as a feature name, including in headings.
 
+## Inference configuration
+
+- **personal BYOK** — Provider API keys configured on a user's device for local Warp Agent runs. App and CLI keys are configured separately. Use "personal" when distinguishing these keys from team-managed BYOK.
+- **personal custom inference endpoint** — An OpenAI-compatible endpoint configured on a user's device for local Warp Agent runs. Distinguish it from an endpoint configured by a team admin.
+- **team-managed API keys and endpoints** — Shared provider configuration that Business and Enterprise admins manage centrally for local and cloud Warp Agent runs. Warp stores the credentials securely; personal-device storage guarantees do not apply.
+- **connected subscription** — A provider subscription connected through its own authentication flow, not a provider API key. Verify its model, surface, cloud, billing, and retention support separately from BYOK.
+- **third-party harness credentials** — Credentials used by a harness such as Claude Code or Codex. Don't infer their storage or cloud support from personal Warp Agent BYOK behavior.
+
+Use local versus cloud to describe where a run executes, and interactive versus unattended to describe how the user participates. A local CLI run can be unattended; "interactive requests only" is not a substitute for "local runs only."
+
 ## Coding terms (Warp features)
 
 - **Code** — Warp's coding experience for agent-assisted changes (editing, diffs, code review).
@@ -392,7 +402,7 @@ Docs match the screen; the fix belongs in the app.
 - **macOS** — not "Mac OS" or "Mac"
 - **Zero Data Retention (ZDR)** — Warp's agreements with contracted LLM providers not to train on or retain customer data. Capitalize as a proper term, including in headings ("Zero Data Retention (ZDR)"); keep the "(ZDR)" acronym on first mention in a section.
 - **SSO (Single Sign-On)** — Authentication through an organization's identity provider (Okta, Microsoft Entra ID, Google Workspace, or any SAML 2.0/OIDC provider). Always capitalize the acronym "SSO"; capitalize "Single Sign-On" when spelled out as the feature name.
-- **Bring Your Own LLM (BYOLLM)** — Warp Enterprise's routing of agent inference through a customer's own cloud infrastructure (AWS Bedrock or Google Cloud via Gemini Enterprise). Capitalize as a proper feature name, including in headings; keep the "(BYOLLM)" acronym on first mention in a section. Distinct from BYOK (Bring Your Own API Key), a self-serve, user-level feature.
+- **Bring Your Own LLM (BYOLLM)** — Warp Enterprise's routing of agent inference through a customer's own cloud infrastructure (AWS Bedrock or Google Cloud via Gemini Enterprise). Capitalize as a proper feature name, including in headings; keep the "(BYOLLM)" acronym on first mention in a section. Distinct from provider API-key BYOK, which can be personal or team-managed. Verify cloud support for each BYOLLM provider rather than treating them as interchangeable.
 
 ## Branded and informal terms
 
@@ -421,15 +431,24 @@ Docs match the screen; the fix belongs in the app.
 
 ## Billing and credits
 
-- **usage** — the general term for metered inference, Warp-hosted compute, and platform activity. State whether the account bills in dollars or credits.
+- **usage** — the general term for metered inference, Warp-hosted compute, and platform activity. Explain dollars versus credits when that distinction affects the task; use ordinary plan names elsewhere.
 - **included usage** — the allowance included with a plan; distinguish it from purchased usage and contract-specific pools.
 - **purchased usage** — additional usage bought on an eligible plan. Distinguish the usage added to the balance from the payment amount.
+- **dollar usage** — a usage balance expressed in US dollars, not the subscription price or necessarily the amount paid for a purchase.
+- **purchase premium** — an additional payment cost when buying usage. Distinguish it from inference rates; don't describe it as an extra multiplier on each model call.
 - **Add-on Credits** — preserve this exact capitalization when quoting a shipped UI label or referring to a purchase shown in credits. Use "purchasing additional usage" for general guidance.
 - **auto-reload** — purchases the selected usage amount when the available balance runs low, subject to purchase controls. Do not make a credit threshold universal across billing units.
-- **monthly spend limit** — the team's control on additional usage purchases. Preserve legacy anchors that use "monthly purchase limit." Not a guaranteed ceiling on payments or the whole invoice.
+- **monthly spend limit** — the team's control on additional usage purchases and auto-reloads. Match **Monthly spend limit** in UI instructions and preserve legacy anchors that use "monthly purchase limit." It is not an Enterprise consumption cap, a limit on spending an existing balance, or a guaranteed ceiling on payments or the whole invoice.
+- **Enterprise spending limits** — contract-specific controls on cloud, local, total, and per-user usage. Don't describe self-serve purchase controls as these separate consumption limits.
 - **compute usage** / **platform usage** — charge components, not necessarily separate balances. Platform usage measures billable agent time.
 - **credits**, **compute credits**, **cloud agent credits**, **platform credits**, **Warp credits** — use when an account bills in credits, for credit display units, and for exact UI labels. Keep common nouns lowercase; do not use the "AI credits" prefix.
 - **public identifiers** — retain credit-named API fields, error codes, CLI labels, and published URLs. A billing-unit change is not an identifier rename.
+
+### Billing usage notes
+
+- Keep current prices and purchase amounts on [Warp pricing](https://www.warp.dev/pricing). Link from the canonical billing pages; summaries and FAQs link to those pages rather than copying tables or contract rules.
+- Use "conversation usage" for the concept, and quote **Credit usage** when identifying the `/statusline` item. A credits/dollars display preference changes presentation, not charges, and isn't available on every account or surface.
+- Keep inference rates, purchase prices, included allowances, and recorded usage charges separate. "Public API rates" describes Warp-provided inference on eligible plans, not every cost on the invoice.
 
 ## External product names
 

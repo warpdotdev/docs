@@ -45,7 +45,7 @@ For xAI's Grok models, connect a [SuperGrok subscription](/agents/inference/grok
 
 Self-serve paid plans include monthly usage per seat. On plans billed in dollars, Warp-provided inference is priced at public API rates. Check [Warp pricing](https://www.warp.dev/pricing) and your account's Billing and usage settings for your allowance.
 
-The Free plan does not include bundled inference for the Warp Agent. You can [purchase usage](/support-and-community/plans-and-billing/add-on-credits/) without subscribing at pay-as-you-go rates with a 20% premium, or [bring your own inference](/agents/inference/bring-your-own-api-key/).
+On Free, you can [purchase usage](/support-and-community/plans-and-billing/add-on-credits/) without subscribing. Purchases include a 20% premium. You can also [bring your own inference](/agents/inference/bring-your-own-api-key/).
 
 See [usage and billing](/support-and-community/plans-and-billing/credits/) for metered features and token details, and [plans, pricing, and refunds](/support-and-community/plans-and-billing/plans-pricing-refunds/) for resets and existing balances.
 
@@ -62,11 +62,13 @@ To fix this, try:
 
 #### "Monthly request limit exceeded" or "Monthly credit limit exceeded" errors
 
-If your available balance runs out, Warp-provided inference pauses until your included allowance resets or you [purchase more usage or configure auto-reload](/support-and-community/plans-and-billing/add-on-credits/). You can also bring your own inference. Enterprise availability follows your contract, and a model's token limit is separate from your usage balance.
+These errors mean you've exhausted your available usage balance, so Warp-provided inference pauses. In the Warp app, check **Settings** > **Billing and usage** for your balance and reset date.
+
+To continue, [purchase more usage or enable auto-reload](/support-and-community/plans-and-billing/add-on-credits/), [bring your own inference](/agents/inference/bring-your-own-api-key/), or wait for your next included-usage reset if your plan has an allowance. Enterprise [billing and spending controls](/enterprise/support-and-resources/billing/) follow your contract.
 
 **Request failed with error: QuotaLimit**
 
-Once you exceed your AI token limits, all models will be disabled. Note that credits and tokens are calculated separately, and even though the plans may have a set number of credits, they also have a limited number of tokens.
+A usage quota has been reached. In the Warp app, check **Settings** > **Billing and usage** for your available balance. For help identifying the limit, [contact support](/support-and-community/troubleshooting-and-support/sending-us-feedback/).
 
 **Request failed with error: ErrorStatus (403, "Your account has been blocked from using AI features")**
 

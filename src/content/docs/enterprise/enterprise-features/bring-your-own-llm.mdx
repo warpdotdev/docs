@@ -5,7 +5,7 @@ description: >-
   environment for billing control and data locality.
 ---
 
-Warp supports **Bring Your Own LLM (BYOLLM)** for Enterprise teams that need to run inference on their own cloud infrastructure. With BYOLLM, your team keeps using Warp's agents as usual, while eligible requests route through models hosted in your own cloud account instead of Warp's direct provider integrations.
+Warp supports **Bring Your Own LLM (BYOLLM)** for Enterprise teams that need to run inference on their own cloud infrastructure. With BYOLLM, your team keeps using agents in Warp while eligible requests route through models hosted in your own cloud account.
 
 This gives you control over cloud spend, model hosting, and data locality, without changing how your team works in Warp. Admins configure BYOLLM centrally in the [Admin Panel](/enterprise/team-management/admin-panel/) — team members don't need to change anything about how they use Warp (unless your admin asks them to opt in; see each provider's page for details).
 
@@ -55,13 +55,13 @@ See each provider's page for provider-specific routing and fallback behavior: [A
 
 ### How is BYOLLM different from BYOK?
 
-**BYOK (Bring Your Own API Key)** lets individual users add their own API keys for direct model provider access (e.g., Anthropic, OpenAI, Google). Warp stores keys locally on the user's device.
+**Personal BYOK (Bring Your Own API Key)** lets you configure provider API keys on your device for local Warp Agent runs. Your provider bills those requests directly.
 
 **BYOLLM (Bring Your Own LLM)** routes inference through your organization's cloud infrastructure (AWS Bedrock or Google Cloud via Gemini Enterprise) using cloud-native IAM. Admins configure it at the admin level and it applies to the entire team.
 
-Business and Enterprise admins can also centrally manage BYOK itself: [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) let an admin configure shared provider keys and OpenAI-compatible endpoints that are stored server-side and work for both interactive requests and cloud agents. For a side-by-side comparison across all of Warp's bring-your-own-infrastructure options, see [How team-managed providers differ from self-serve BYOK and BYOLLM](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#how-team-managed-providers-differ-from-self-serve-byok-and-byollm).
+Business and Enterprise admins can instead configure [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for local and cloud Warp Agent runs. See the [configuration comparison](/enterprise/enterprise-features/team-managed-keys-and-endpoints/#how-team-managed-providers-differ-from-self-serve-byok-and-byollm) for the differences in credentials, storage, and cloud support.
 
-| Feature | BYOK | BYOLLM |
+| Feature | Personal BYOK | BYOLLM |
 | --- | --- | --- |
 | Configuration level | User | Admin/Team |
 | Authentication | API keys (local) | Cloud-native IAM (AWS) or Workload Identity Federation (Google Cloud) |
@@ -80,7 +80,9 @@ Warp **does not store or log** your cloud credentials for either provider. Crede
 
 Yes. Admins can disable Direct API access for models on the **Models** page so eligible requests only route through your cloud account. Note that disabling any Direct API model also disables Auto model selection.
 
-## Related resources
+<span id="related-resources" />
+
+## Related pages
 
 * [BYOLLM: AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/) — Route inference through your AWS account
 * [BYOLLM: Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/) — Route inference through your Google Cloud project

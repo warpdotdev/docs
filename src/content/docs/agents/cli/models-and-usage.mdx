@@ -20,9 +20,11 @@ Your choice is saved as the base model of your active profile, so it persists ac
 
 The CLI supports [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/) for OpenAI, Anthropic, and Google models, and can connect an [X Premium or SuperGrok subscription](/agents/inference/grok-subscription/) for Grok models. Requests routed through your account do not consume Warp-provided inference usage. Applicable [platform charges](/support-and-community/plans-and-billing/platform-credits/) still apply.
 
+The CLI and Warp app store provider keys separately. Configure a key in each surface you use.
+
 Run `/api-keys` to open the key management menu. It lists each provider with its connection state, plus a Warp credit fallback toggle:
 
-* **Set a key** - Press `Enter` on OpenAI, Anthropic, or Google and enter the key. Input is masked, so the key never appears in your transcript or shell history, and it's saved to your device's secure storage. Warp does not store provider keys on its servers.
+* **Set a key** - Press `Enter` on OpenAI, Anthropic, or Google and enter the key. Input is masked, so the key never appears in your transcript or shell history, and it's saved to your device's secure storage. Warp does not retain these personal provider keys on its servers.
 * **Replace or clear a key** - On a connected provider, `Enter` loads the stored key (still masked) for editing, and saving an empty field clears it. `Ctrl+X` clears the highlighted provider's key from the list.
 * **Connect X Premium or SuperGrok** - Press `Enter` on the subscription row and the CLI opens your browser to sign in to your xAI account. `Ctrl+X` disconnects it. Running `/connect-grok` jumps straight to this row and starts the sign-in.
 * **Warp credit fallback** - Press `Enter` to toggle whether a request that fails through your key is retried with Warp-provided inference, consuming your available usage. See [failover and fallback behavior](/agents/inference/bring-your-own-api-key/#failover-and-fallback-behavior).

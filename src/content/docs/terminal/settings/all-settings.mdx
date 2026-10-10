@@ -266,7 +266,7 @@ Settings for Warp's agents, including model behavior, permissions, knowledge, MC
 **Section**: `[agents]`
 
 * `cloud_conversation_storage_enabled` — Whether conversations are stored in the cloud. Type: boolean. Default: `true`.
-* `usage_display_mode` — Which unit the terminal agent's usage entry displays. Applies only to the terminal agent's settings file; click the usage entry to flip between units. Type: string. Default: `"credits"`. Options: `"credits"` (the same number the desktop app's usage footer shows), `"cost"` (provider dollar cost).
+* `usage_display_mode` — Which unit the terminal agent's usage entry displays. Applies only to the terminal agent's settings file. Type: string. Default: `"credits"`. Options: `"credits"` (credit usage), `"cost"` (Warp's reported dollar charges, when available). See [CLI usage and cost](/agents/cli/models-and-usage/#usage-and-cost).
 * `execution_profiles` — The collection of [agent profiles](/agents/capabilities/agent-profiles-permissions/) and their permissions, shared by Agent Mode and the terminal agent. This is a structured object that Warp manages when you create and edit profiles in **Settings** > **Agents** > **Profiles**; edit it through the UI rather than by hand. Type: object. Default: `{}` (Warp's built-in profiles).
 * `custom_endpoints` — Non-secret [custom inference endpoint](/agents/inference/custom-inference-endpoint/) definitions (URL, models, schema). Credentials stay in local secure storage, not in this object. Warp manages the collection from **Settings**; edit it through the UI rather than by hand. Type: object. Default: `{}`.
 
