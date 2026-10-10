@@ -1,8 +1,92 @@
 ---
-title: Verify changes with Computer Use
+title: Verifying changes with Computer Use
 description: >-
   Configure a factory to exercise rendered interfaces and attach screenshots
   or recordings as verification evidence.
 ---
+Computer Use lets a factory agent build an application, operate its rendered interface in a sandbox, and capture screenshots or recordings. Use it when code-level tests don't prove that a user-facing flow renders and behaves correctly.
 
+Computer Use works with the Warp Agent harness in sandboxed cloud environments. Third-party harnesses don't integrate with Warp's Computer Use tooling.
+
+## Prerequisites
+
+* **A runnable UI in the cloud sandbox** - The repository needs documented build and launch commands that don't depend on a developer's local machine.
+* **The Warp Agent harness** - Configure the verification agent with `model`, or a harness whose `type` is `oz`.
+* **Test data without secrets** - Use non-production accounts and fixtures that are safe to capture.
+* **Artifact sharing policy** - A team admin chooses whether captures are private links, public embeds, or disabled. See [screenshots and videos in pull requests](/agents/capabilities/computer-use/artifacts-in-prs/).
+* **Acceptance criteria** - Name the exact states and interactions the evidence must show.
+
+## Recommended recipe
+
+Add a dedicated `VERIFY` agent. Give it a team-owned skill that defines how to start the app, what to observe, and which captures count as evidence.
+
+| Part | Recommendation |
+| --- | --- |
+| Trigger | A `ui-verification` pull request label or explicit foreman dispatch after implementation |
+| Agent | `VERIFY` on the Warp Agent harness |
+| Skills | UI verification procedure, app startup steps, test accounts, and capture requirements |
+| Settings | Warp-hosted runner with the required dependencies; automatic Computer Use model selection |
+| Output | Observations, at least one relevant capture, and a clear pass or failure against each criterion |
+
+```markdown title="agents/verify/agent.md"
+---
+description: Verifies user-facing changes in a rendered interface
+agentType: VERIFY
+model: auto
+computerUseModel: computer-use-agent-auto
+---
+
+Build the application before using Computer Use. Exercise the real changed
+path and report only what you observe. Capture the states needed to prove the
+acceptance criteria, attach the evidence to the pull request, and never enter
+production credentials.
+```
+
+```markdown title="automations/verify-ui-pull-requests/automation.md"
+---
+agent: verify
+triggers:
+  - provider: github
+    event: pull_request_labeled
+    filter:
+      repos: [acme/web-app]
+      labels: [ui-verification]
+---
+
+Read the pull request and its acceptance criteria. Build the head branch,
+exercise the affected flow with Computer Use, and attach relevant screenshots
+or a recording. Report observed behavior and any criterion that could not be
+verified.
+```
+
+## Configure Computer Use verification
+
+1. Confirm the application builds and opens in a Warp-hosted cloud sandbox. Put the exact commands in repository guidance or the verification skill.
+2. Add the `VERIFY` agent above. Keep the Warp Agent harness; `computerUseModel` selects only the Computer Use model and is ignored by third-party harnesses.
+3. Add `agents/verify/skills/ui-verification/SKILL.md`. Require the agent to build first, exercise the real path, report observations, and avoid unrelated captures.
+4. Add the label-triggered automation, or instruct the foreman to dispatch verification after implementation for every user-facing change.
+5. Configure the team's artifact attachment mode. Use **Link only** when captures may contain private data.
+6. Test with a pull request that changes one visible state. Confirm the capture shows the changed path and lands in the pull request description.
+
+## Example workflow
+
+A pull request changes validation on a checkout form. Applying `ui-verification` starts the verify agent. It builds the web app, opens the form in the bundled browser, submits an invalid postal code, and records the error state. It then enters a valid code and captures the successful transition.
+
+The agent attaches the recording to the pull request and reports both observed states. If the app fails to start, it reports the build error instead of producing evidence from another environment.
+
+## Best practices
+
+* **Specify observable criteria** - Ask for visible states and interactions, not a general instruction to check the UI.
+* **Build before browsing** - Verification against a stale server doesn't prove the pull request.
+* **Capture the minimum evidence** - One focused recording is more useful than many unrelated screenshots.
+* **Keep credentials out of captures** - Use fixtures and non-production accounts, and review the team's attachment mode.
+* **Treat missing proof as a failure** - If the app can't run or the path can't be reached, report the gap instead of inferring success.
+* **Keep code review separate** - Computer Use evidence complements the [code review recipe](/factories/use-cases/code-review/); it doesn't replace diff and test review.
+
+## Related pages
+
+* [Factory use cases](/factories/use-cases/) - Compare verification with implementation and review recipes.
+* [Computer Use for agents](/agents/capabilities/computer-use/) - Review availability, setup, and security considerations.
+* [Testing and recordings](/agents/capabilities/computer-use/testing-and-recordings/) - Capture end-to-end UI evidence.
+* [Factory definition syntax](/factories/factory-as-code/#agentdefaultscomputerusemodel) - Configure the Computer Use model.
 {/* This scaffold is completed by its dependent guide PR. */}
