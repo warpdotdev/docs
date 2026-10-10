@@ -25,6 +25,15 @@ For a `blocked` run, omit the score line rather than recording the meaningless v
 
 ---
 
+## 2026-10-09 — valid
+- **Spec**: v0.6.0 — native afdocs CLI score
+- **Score**: 83/100 (B)
+- **Checks**: 28 total — 20 pass, 3 fail, 3 warn, 2 skip
+- **Failing check ids**: llms-txt-links-markdown, content-negotiation, page-size-html
+- **Allowlisted**: 3 (llms-txt-links-markdown, content-negotiation, page-size-html)
+- **Oz run**: https://platform.warp.dev/runs/01a11fad-29bf-7edf-9f65-8dd3b4aa4c6e
+- **Notes**: Complete scan (scan_reliability=complete; bot-protection-interference passed across 530 requests). Score unchanged vs 2026-10-02 baseline (83/100). Failing set is a subset of the prior baseline (embedded-data-serialization no longer failing this sample). All three failures match known-exceptions.md. Warnings: llms-txt-directive-html/md 48/49 sampling noise; markdown-link-portability 1/49 root-relative. No fixable remaining issues; skipped afdocs-fix.
+
 ## 2026-10-02 — valid
 - **Spec**: v0.6.0 — native afdocs CLI score
 - **Score**: 83/100 (B)

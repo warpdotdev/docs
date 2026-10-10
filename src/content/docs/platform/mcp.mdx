@@ -45,7 +45,7 @@ Each MCP server entry is keyed by a name you choose. A server config must have *
 |-----------|----------|-------------|
 | Warp-shared server, managed MCP install, or integration server | `warp_id` | Reference an MCP server already configured in Warp — including an OAuth-authorized [managed MCP installation](#oauth-authentication) — by its UUID, or a Warp-managed integration server by its id |
 | Stdio (local process) | `command`, `args` | Launch a local executable as an MCP server |
-| Streamable HTTP / SSE | `url` | Connect to a remote or locally hosted MCP endpoint |
+| Streamable HTTP / SSE | `url` | Connect to a remote MCP endpoint reachable from the agent worker |
 
 ### Supported fields
 
@@ -79,6 +79,27 @@ You can define any number of MCP servers in a single config.
 :::note
 If the config passes through a system that pre-processes `{{...}}` before it reaches the {VARS.WARP_AUTOMATION_PLATFORM} (for example, Jira/Atlassian Automation), use JSON unicode escapes for the braces: `\u007b\u007bMY_SECRET\u007d\u007d` decodes to `{{MY_SECRET}}`, which the {VARS.WARP_AUTOMATION_PLATFORM} resolves normally.
 :::
+
+### Connect directly by URL
+
+Use `url` to connect the agent worker to an existing streamable HTTP or SSE MCP endpoint. A Warp-hosted worker requires a publicly reachable URL, while a self-hosted worker can reach a private endpoint available from its network. For credentials sent with `headers`, use HTTPS to protect them in transit.
+
+Team-managed URL servers use **Warp-managed** by default. To use a direct connection, open **MCPs and apps** in the [factory dashboard](/factories/factory-dashboard/), click **New**, then click **Custom MCP**. Enter the configuration, then select **Direct** under "Connection mode."
+
+```json
+{
+  "internal-tools": {
+    "url": "https://mcp.internal.example/mcp",
+    "headers": {
+      "Authorization": "Bearer {{INTERNAL_MCP_TOKEN}}"
+    }
+  }
+}
+```
+
+Store `INTERNAL_MCP_TOKEN` as a [managed secret](/platform/secrets/). Warp resolves the placeholder in the agent runtime before it connects.
+
+For a self-hosted worker, see [managed self-hosting](/factories/self-hosting/). For a managed MCP server with a private endpoint, use [private networking onboarding](/enterprise/enterprise-features/private-networking/).
 
 ## Using MCP servers in an agent config file
 
