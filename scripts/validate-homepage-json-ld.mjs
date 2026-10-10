@@ -28,8 +28,25 @@ assert.equal(websites.length, 1, 'Expected exactly one WebSite JSON-LD node');
 
 assert.equal(organizations[0]['@id'], ORGANIZATION_ID);
 assert.equal(organizations[0].url, WARP_ORIGIN);
+assert.equal(
+	organizations[0].description,
+	'Warp builds Warp Factories: open infrastructure for cloud software factories, defined in code.',
+);
+assert.deepEqual(organizations[0].sameAs, [
+	'https://x.com/warpdotdev',
+	'https://github.com/warpdotdev',
+	'https://www.youtube.com/@warpdotdev',
+	'https://www.linkedin.com/company/warpdotdev',
+]);
 assert.equal(websites[0]['@id'], WEBSITE_ID);
 assert.equal(websites[0].url, DOCS_ORIGIN);
+assert.equal(
+	websites[0].description,
+	'Set up and run Warp Factories, open infrastructure for cloud software factories, plus the cloud agents, Warp agents, and Warp terminal behind them.',
+);
+for (const payload of [organizations[0], websites[0]]) {
+	assert.doesNotMatch(payload.description, /agentic development environment/i);
+}
 assert.deepEqual(websites[0].publisher, { '@id': ORGANIZATION_ID });
 
 console.log('Homepage JSON-LD validation passed.');

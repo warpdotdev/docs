@@ -28,6 +28,7 @@ const organizationJsonLd = JSON.stringify({
   '@type': 'Organization',
   '@id': organizationId,
   name: 'Warp',
+  description: 'Warp builds Warp Factories: open infrastructure for cloud software factories, defined in code.',
   url: WARP_ORIGIN,
   logo: {
     '@type': 'ImageObject',
@@ -39,7 +40,6 @@ const organizationJsonLd = JSON.stringify({
     'https://x.com/warpdotdev',
     'https://github.com/warpdotdev',
     'https://www.youtube.com/@warpdotdev',
-    'https://go.warp.dev/join-preview',
     'https://www.linkedin.com/company/warpdotdev',
   ],
 }).replace(/</g, '\\u003c');
@@ -48,6 +48,7 @@ const websiteJsonLd = JSON.stringify({
   '@type': 'WebSite',
   '@id': `${DOCS_ORIGIN}/#website`,
   name: 'Warp Docs',
+  description: 'Set up and run Warp Factories, open infrastructure for cloud software factories, plus the cloud agents, Warp agents, and Warp terminal behind them.',
   url: DOCS_ORIGIN,
   publisher: { '@id': organizationId },
 }).replace(/</g, '\\u003c');
