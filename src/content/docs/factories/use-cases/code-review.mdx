@@ -1,8 +1,91 @@
 ---
-title: Review pull requests with a factory
+title: Reviewing pull requests with a factory
 description: >-
   Configure a factory to inspect pull requests, identify potential bugs, and
   return actionable review findings.
 ---
+A review factory examines a pull request against its requirements, repository conventions, tests, and security boundaries. It returns findings on the pull request without changing or merging the code.
 
+Use this pattern for independent review after human or agent implementation. Keep the review model or harness different from the one that wrote the change when possible.
+
+## Prerequisites
+
+* **A connected code forge** - Connect [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), or [Azure DevOps](/factories/integrations/azure-devops/) with access to the repositories under review.
+* **Pull request read and comment permissions** - The agent needs the diff, checks, and review conversation, plus permission to post findings.
+* **Repository guidance** - Keep build, test, security, and style requirements in the repository or a factory skill.
+* **A review policy** - Decide which findings block handoff and which need human judgment.
+
+## Recommended recipe
+
+Route ready pull requests to a `REVIEW` agent. Start with one event so a single pull request action doesn't create overlapping runs.
+
+| Part | Recommendation |
+| --- | --- |
+| Trigger | `pull_request_ready`; add `pull_request_synchronized` later if every new commit needs automatic re-review |
+| Agent | A `REVIEW` agent that doesn't edit, approve, or merge |
+| Skills | Code quality, code review, and repository-specific test or security procedures |
+| Settings | Filter by repository and default base branch; use a model or harness different from implementation |
+| Output | Inline findings where supported, a concise verdict, and the validation commands checked |
+
+```markdown title="automations/review-ready-prs/automation.md"
+---
+agent: review
+triggers:
+  - provider: github
+    event: pull_request_ready
+    filter:
+      repos: [acme/api-service]
+      base_branches: [main]
+      labels:
+        not_in: [skip-factory-review]
+---
+
+Review the pull request against its stated requirements and the repository's
+guidance. Inspect the full diff and existing checks. Post only actionable
+findings, cite the affected lines, and state whether the change needs revision
+or human judgment. Do not edit, approve, or merge the pull request.
+```
+
+```markdown title="agents/review/agent.md"
+---
+description: Independently reviews pull requests and reports actionable findings
+agentType: REVIEW
+---
+
+Treat the pull request description as a claim, not proof. Verify behavior
+against code, tests, and repository guidance. Keep each finding specific,
+explain its impact, and name the correction.
+```
+
+The public [`04-code-review-only`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only) definition provides a complete review-only factory to adapt.
+
+## Configure pull request review
+
+1. Create a factory that includes the repositories to review.
+2. Configure the review agent with read access to code and checks, plus pull request comment access. Don't grant push credentials when the agent only reviews.
+3. Add repository-specific review skills under `agents/review/skills/`. Include exact validation commands and any security or migration checklists.
+4. Add the `pull_request_ready` automation above. Keep a skip label so maintainers can exclude generated, experimental, or sensitive changes.
+5. Open a draft test pull request containing one known defect, then mark it ready. Confirm the review points to the defect, avoids duplicate summary comments, and doesn't change the branch.
+6. Add `pull_request_synchronized` only after deciding how re-reviews should replace or reply to earlier findings.
+
+## Example workflow
+
+A pull request changes a cache key from `account_id:region` to `account_id`. When the author marks it ready, the factory reads the requirements, diff, and checks. The review agent finds that two regions now share one entry and posts a line-level finding with the collision scenario and the expected key shape.
+
+After the author pushes a fix, a follow-up automation can re-run the same review. The agent verifies the new key and reports no remaining findings. A person still decides whether to approve and merge.
+
+## Best practices
+
+* **Review only ready changes** - Ignore drafts unless your team explicitly wants early feedback.
+* **Give findings a threshold** - Ask for bugs, security risks, unmet requirements, and missing meaningful tests, not stylistic preference.
+* **Use independent configuration** - A different model or harness reduces shared blind spots between implementation and review.
+* **Avoid duplicate reviews** - One event should own initial review; add re-review events deliberately.
+* **Keep merge authority human** - Warp Factories doesn't merge by default. Enforce approval and merge rules in branch protection.
+
+## Related pages
+
+* [Factory use cases](/factories/use-cases/) - Compare review with triage, implementation, and verification recipes.
+* [Factory automations](/factories/automations/) - Configure pull request events and filters.
+* [Factory agents](/factories/factory-agents/) - Configure the review role and choose a separate model or harness.
+* [GitHub integration](/factories/integrations/github/) - Review supported pull request events and permissions.
 {/* This scaffold is completed by its dependent guide PR. */}
