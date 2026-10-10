@@ -44,10 +44,8 @@ The CLI loads the same router definitions as the Warp app. These are YAML files 
 The CLI shows usage at three levels:
 
 * **Account usage** - Run `/usage` to open a read-only panel with your current account or workspace's plan, balances, consumption, and billing links. Press `Esc` to close it. This is not conversation-level usage.
-* **Conversation total** - Once usage is reported, the [statusline](/agents/cli/configuration/#statusline) shows its accumulated amount. On dollar-billed plans, click the entry to switch between dollars and credits. The CLI saves this preference separately from the Warp app.
+* **Conversation total** - Once usage is reported, the [statusline](/agents/cli/configuration/#statusline) shows the conversation's accumulated usage. Click the entry to switch between dollars and credits when both display options are available.
 * **Per-response details** - Run `/cost` to hide or show the latest completed response's elapsed time and credits. This summary does not follow the statusline's dollar-display preference.
-
-Statusline dollar totals report Warp charges, not an equivalent provider-cost estimate. In dollar mode, the statusline shows "Cost unavailable" when cost data is missing, not zero usage. External provider bills are not fully represented in Warp's totals. See [usage and billing](/support-and-community/plans-and-billing/credits/) for components, token breakdowns, and estimate limitations.
 
 ## Related pages
 

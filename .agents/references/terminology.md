@@ -421,14 +421,14 @@ Docs match the screen; the fix belongs in the app.
 
 ## Billing and credits
 
-- **usage** — the general term for metered inference, Warp-hosted compute, and platform activity. State whether the account bills in dollars or uses a credit-based agreement.
+- **usage** — the general term for metered inference, Warp-hosted compute, and platform activity. State whether the account bills in dollars or credits.
 - **included usage** — the allowance included with a plan; distinguish it from purchased usage and contract-specific pools.
 - **purchased usage** — additional usage bought on an eligible plan. Distinguish the usage added to the balance from the payment amount.
-- **Add-on Credits** — preserve this exact capitalization when quoting a shipped UI label or referring to credit-based purchases. Use "purchasing additional usage" for general guidance.
+- **Add-on Credits** — preserve this exact capitalization when quoting a shipped UI label or referring to a purchase shown in credits. Use "purchasing additional usage" for general guidance.
 - **auto-reload** — purchases the selected usage amount when the available balance runs low, subject to purchase controls. Do not make a credit threshold universal across billing units.
-- **monthly purchase limit** — the team's control on additional usage purchases, also labeled "monthly spend limit." Not a guaranteed ceiling on payments or the whole invoice.
+- **monthly spend limit** — the team's control on additional usage purchases. Preserve legacy anchors that use "monthly purchase limit." Not a guaranteed ceiling on payments or the whole invoice.
 - **compute usage** / **platform usage** — charge components, not necessarily separate balances. Platform usage measures billable agent time.
-- **credits**, **compute credits**, **cloud agent credits**, **platform credits**, **Warp credits** — use for credit-based agreements, credit display units, and exact UI labels. Keep common nouns lowercase; do not use the "AI credits" prefix.
+- **credits**, **compute credits**, **cloud agent credits**, **platform credits**, **Warp credits** — use when an account bills in credits, for credit display units, and for exact UI labels. Keep common nouns lowercase; do not use the "AI credits" prefix.
 - **public identifiers** — retain credit-named API fields, error codes, CLI labels, and published URLs. A billing-unit change is not an identifier rename.
 
 ## External product names

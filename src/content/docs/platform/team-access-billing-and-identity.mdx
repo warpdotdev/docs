@@ -213,7 +213,7 @@ Runs triggered by an `@warp-agent` mention through the [GitHub integration](/pla
 
 ## Billing for cloud agent runs
 
-Runs on dollar-billed plans consume dollar usage; credit-based Enterprise agreements retain their contract terms. Cloud runs incur [platform usage](/support-and-community/plans-and-billing/platform-credits/) for billable agent time. Warp-hosted compute and Warp-provided inference add their respective charges.
+Cloud agent runs consume usage dollars or credits, depending on your plan. They also incur [platform usage](/support-and-community/plans-and-billing/platform-credits/) for billable agent time, plus charges for Warp-hosted compute and Warp-provided inference.
 
 On self-serve team plans, billing follows the trigger:
 
@@ -221,7 +221,7 @@ On self-serve team plans, billing follows the trigger:
 * **Agent API key runs** - Use eligible shared team usage, not the team owner's personal included allowance. Cloud agents don't receive a separate per-seat allowance.
 * **User-created schedules** - Use the creator's eligible usage by default. If configured to run as a cloud agent, the schedule uses shared team usage instead.
 
-Enterprise availability and billing follow your contract. Dedicated cloud allowances can be used before general-purpose balances. If no usable balance remains, a run can fail with an [insufficient credits](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) error. Repeated unattended runs can trigger purchases subject to the team's [purchase controls](/support-and-community/plans-and-billing/add-on-credits/#configuring-a-monthly-spend-limit).
+Enterprise availability and billing follow your contract. Dedicated cloud allowances can be used before general-purpose balances. If no usable balance remains, a run can fail with an [insufficient credits](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) error. Repeated unattended runs can trigger purchases subject to the team's [spend controls](/support-and-community/plans-and-billing/add-on-credits/#configuring-a-monthly-spend-limit). Contact your account manager with questions about your team's cloud run billing.
 
 For automated workflows that write to repositories, configure [team GitHub authorization](#team-github-authorization), or use a [personal API key](/agents/cli/oz-cli/api-keys/) to act as an individual user.
 

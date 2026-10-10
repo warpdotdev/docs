@@ -37,7 +37,7 @@ See [Warp pricing](https://www.warp.dev/pricing) for current features, seat limi
 Warp offers two options for larger teams and organizations:
 
 * **Business plan**: Self-serve multi-seat plan available for immediate upgrade. Includes admin-configurable data controls and admin-controlled SAML-based SSO. See [Warp pricing](https://www.warp.dev/pricing) for the current seat limit.
-* **Enterprise plan** - Custom pricing, shared usage pools, and terms for larger engineering organizations. Existing credit-based agreements retain their contract terms. See [Enterprise billing](/enterprise/support-and-resources/billing/).
+* **Enterprise plan** - Custom pricing, shared usage pools, and terms for larger engineering organizations. Existing Enterprise contracts retain their terms. See [Enterprise billing](/enterprise/support-and-resources/billing/).
 
 :::tip
 If you’d like to explore Enterprise, [contact our sales team](https://www.warp.dev/contact-sales) and someone from Warp will follow up.
@@ -128,7 +128,7 @@ If there are multiple unpaid invoices and you need help resolving them, contact 
 
 ### What counts as a credit?
 
-A credit is a usage unit, not a token or a fixed number of prompts. Dollar-billed plans can display usage in credits without changing their billing; credit-based agreements bill according to their contract. See [usage and billing](/support-and-community/plans-and-billing/credits/).
+A credit is a usage unit, not a token or a fixed number of prompts. Accounts billed in dollars can display usage in credits without changing their billing. Enterprise accounts that bill in credits follow their contracts. See [usage and billing](/support-and-community/plans-and-billing/credits/).
 
 ### What counts as an AI token?
 
@@ -144,7 +144,7 @@ Included usage resets monthly, including on annual subscriptions. In the Warp ap
 
 On self-serve team plans, included usage is per seat and new purchases enter a shared team balance. Eligible shared purchases are used before member-specific purchases usable on that team. Dedicated cloud allowances can have a different spending order.
 
-Admins manage the team's purchase limit and auto-reload. See [team usage and purchases](/support-and-community/plans-and-billing/add-on-credits/#tracking-purchases-and-team-usage). Enterprise pools and spending controls follow the [Enterprise agreement](/enterprise/support-and-resources/billing/).
+Admins manage the team's monthly spend limit and auto-reload. See [team usage and purchases](/support-and-community/plans-and-billing/add-on-credits/#tracking-purchases-and-team-usage). Enterprise pools and spending controls follow the [Enterprise agreement](/enterprise/support-and-resources/billing/).
 
 ### How do platform credits factor in?
 
@@ -166,7 +166,7 @@ For organization-scale needs (cloud-provider managed inference, granular admin c
 
 ### Can I buy usage on the Free plan without subscribing?
 
-Yes. Free-plan users can purchase usage without a subscription. Dollar-billed Free purchases include a 20% premium: $20 of usage costs $24 before tax. See [usage purchase prices](/support-and-community/plans-and-billing/add-on-credits/#1-buy-on-demand).
+Yes. Free-plan users can purchase usage without a subscription. Free-plan purchases include a 20% premium. See [current usage purchase prices](https://www.warp.dev/pricing).
 
 Use the purchase card on the [Warp upgrade page](https://app.warp.dev/upgrade).
 
@@ -176,7 +176,7 @@ Purchased usage rolls over, stays valid for 12 months, and remains available whe
 
 ### Who on my team can purchase usage?
 
-On eligible plans, any active team member can make a one-time purchase for the shared team balance, subject to the purchase limit. A paid subscription is not required. Admins manage auto-reload, purchase limits, and subscription upgrades.
+On eligible plans, any active team member can make a one-time purchase for the shared team balance, subject to the monthly spend limit. A paid subscription is not required. Admins manage auto-reload, the spend limit, and subscription upgrades.
 
 See [purchasing additional usage](/support-and-community/plans-and-billing/add-on-credits/) for the Free-plan web checkout and eligible paid-plan controls.
 
@@ -198,11 +198,11 @@ Team admins change or remove the saved card in the billing portal, reachable fro
 
 Non-admin members can't open the billing portal. If you added a card to your team through a usage purchase and want it removed, ask a team admin to do it, or email [billing@warp.dev](mailto:billing@warp.dev).
 
-Admins can also adjust the team's monthly purchase limit in **Settings** > **Billing and usage**. See [purchase limits and reset periods](/support-and-community/plans-and-billing/add-on-credits/#configuring-a-monthly-spend-limit).
+Admins can also adjust the team's monthly spend limit in **Settings** > **Billing and usage**. See [spend limits and reset periods](/support-and-community/plans-and-billing/add-on-credits/#configuring-a-monthly-spend-limit).
 
 ### How does auto-reload work for teams?
 
-An admin chooses a usage amount and monthly purchase limit. Once a member's included allowance is exhausted and the available purchased balance runs low, Warp can buy that amount into the shared team balance. Any member's usage can trigger repeated reloads.
+An admin chooses a usage amount and monthly spend limit. Once a member's included allowance is exhausted and the available purchased balance runs low, Warp can buy that amount into the shared team balance. Any member's usage can trigger repeated reloads.
 
 One-time and automatic purchases count toward the same team limit. Reloading stops when the next purchase is blocked by that limit. See [configuring auto-reload](/support-and-community/plans-and-billing/add-on-credits/#2-enable-auto-reload) for prices, controls, and reset periods.
 
@@ -372,7 +372,7 @@ Add-on credit attribution has changed twice in 2026:
 * **May 21 – August 2026** — Add-on credits were user-scoped; each user had their own balance.
 * **As of August 2026** — Add-on credits are **team-pooled again**. Purchases from any member go into the team's shared pool, and any member's usage draws the pool down once their plan-included credits are used up. Remaining user-scoped balances from the May–August window stay attributed to the purchasing member and are consumed after the shared pool. There is no way to prefer personal credits first while on a team.
 
-On eligible plans, any active team member can purchase usage within the team's monthly purchase limit. In the Warp app, admins manage the limit in **Settings** > **Billing and usage**.
+On eligible plans, any active team member can purchase usage within the team's monthly spend limit. In the Warp app, admins manage the limit in **Settings** > **Billing and usage**.
 
 For details, see [purchasing additional usage](/support-and-community/plans-and-billing/add-on-credits/).
 
@@ -405,7 +405,7 @@ For setup and details, see [Custom inference endpoint](/agents/inference/custom-
 Review these settings in the Warp app:
 
 * **Check your seat count.** Go to **Settings** > **Teams** to see whether your team is at or above your plan's new seat limit. If you are, see [What if my team is already above the new seat limit?](#what-if-my-team-is-already-above-the-new-seat-limit).
-* **Set your team's monthly purchase limit** - In **Settings** > **Billing and usage**, configure the limit for one-time purchases and auto-reloads across your team.
+* **Set your team's monthly spend limit** - In **Settings** > **Billing and usage**, configure the limit for one-time purchases and auto-reloads across your team.
 * **Explain the shared balance** - New purchases enter the team's shared balance, and members draw on it after exhausting their included usage.
 * **Confirm the team's payment method** - Usage purchases charge the team's saved payment method, including purchases by members who aren't admins. Review it in the billing portal. See [which card is charged](#which-card-is-charged-when-a-team-member-buys-add-on-credits).
 * **Account for platform usage** - On Business and Enterprise, local runs using BYOK or a custom inference endpoint incur [platform charges](/support-and-community/plans-and-billing/platform-credits/).

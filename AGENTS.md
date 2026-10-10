@@ -919,9 +919,9 @@ See `.agents/references/terminology.md` → "Warp Factories terminology" for the
 - **usage** - the general term for metered inference, Warp-hosted compute, and platform activity. State the account's billing unit.
 - **included usage** / **purchased usage** - distinguish the monthly allowance from additional usage purchases and contract-specific pools.
 - **dollar usage** - a usage balance, not the subscription price or necessarily the amount paid for a purchase.
-- **credits** (lowercase, not "AI credits") - use for credit-based agreements, credit display units, and exact product labels.
-- **Add-on Credits** - preserve the exact capitalization when quoting a shipped UI label or credit-based purchase.
-- **compute usage** / **platform usage** - charge components, not necessarily separate allowances. Use credit-named terms when describing a credit-based agreement.
+- **credits** (lowercase, not "AI credits") - use when an account bills in credits, for credit display units, and for exact product labels.
+- **Add-on Credits** - preserve the exact capitalization when quoting a shipped UI label or a purchase shown in credits.
+- **compute usage** / **platform usage** - charge components, not necessarily separate allowances. Use credit-named terms when an account bills in credits.
 - Keep credit-named public identifiers, error codes, CLI labels, and URLs unchanged. See `.agents/references/terminology.md` for purchase-limit and display-unit guidance.
 
 ### UI elements
