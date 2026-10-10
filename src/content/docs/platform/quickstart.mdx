@@ -1,48 +1,29 @@
 ---
 title: Cloud agents quickstart
 description: >-
-  Learn how to run your first cloud agent in ~10 minutes. Cloud agents run
-  in remote environments, enabling automation, scheduling, and team
-  collaboration.
+  Run a cloud agent from Warp, configure its environment, and inspect its
+  commands and results.
 sidebar:
   label: "Quickstart"
 ---
 import { VARS } from '@data/vars';
 
-**Cloud agents** run in a remote environment and can be triggered from events, schedules, integrations, or manually. This enables scaling agents off your laptop, automating development tasks, and building apps on top of agents. The {VARS.WARP_AUTOMATION_PLATFORM} handles the orchestration, execution, and observability.
-
-Cloud agents can run interactively (where you steer them in real-time) or autonomously (as background tasks). Each run creates a persistent session that your team can inspect, share, and query through the Warp app, the CLI, web app, or API.
-
-This guide walks you through running your first cloud agent with an environment in about 10 minutes. You'll create an environment, if needed, and launch a cloud agent to help with a development task.
-
-**Common use cases for cloud agents:**
-
-* Launch [parallel cloud coding agents](/platform/orchestration/) to multithread complex development tasks
-* Automate repetitive development tasks (e.g., feature-flag cleanup, documentation updates, fixing server crashes)
-* Build apps on top of agents, like bug triage and incident response systems
-
----
+To run a cloud-agent task from Warp, you'll set up an environment if needed, send a request, and inspect the result. For a standing workflow with factory agents and automations, use the [Warp Factories quickstart](/factories/quickstart/) instead.
 
 ## Prerequisites
 
-Before you begin, make sure you have:
+* **Warp app** - Download from the [Warp download page](https://www.warp.dev/download).
+* **Warp account** - Create an account through the [Warp sign-up page](https://app.warp.dev/signup).
 
-* **Warp desktop app** - Download from the [Warp website](https://www.warp.dev)
-* **Warp account** - Create an account from the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>
-
-:::note
-New to Warp? You'll get credits to try cloud agents. You need at least 20 credits available to run cloud agents and integrations.
-:::
+Before starting, check your account's or team's [access and billing requirements](/platform/team-access-billing-and-identity/).
 
 ---
 
 ## Running your first cloud agent
 
-_~10 minutes • Recommended for all users_
-
 ### 1. Open Warp
 
-If you don't have Warp yet, download it from the [Warp website](https://www.warp.dev) and sign in to your account. When you open the Warp desktop app, you're automatically authenticated to Warp's services.
+Open the Warp app and sign in. This authenticates the cloud-agent setup flow with your Warp account.
 
 ### 2. Run the `/cloud-agent` command
 
@@ -52,99 +33,56 @@ In Warp's terminal input, type:
 /cloud-agent
 ```
 
-This launches a new cloud agent for you.
+Warp opens a cloud-agent conversation.
 
-**How this works:** The `/cloud-agent` command is your entry point to cloud agents. It checks if you have an environment set up, and if not, it guides you through creating one.
+### 3. Choose an environment and send a request
 
-### 3. Create your environment
+An environment supplies the agent's toolchain, repositories, and setup commands. In the input footer, check the selected environment or choose one for your project.
 
-:::note
-**Already have an environment?** The `/cloud-agent` command will use your existing one. To create additional environments for different projects, use `/create-environment`.
-:::
+Send a small, verifiable request, such as "Analyze test coverage and suggest one improvement. Do not change files."
 
-If you don't have an environment yet, the `/cloud-agent` setup flow will guide you through creating one. You will need:
+If no environment is selected, submitting your request opens the creation form; complete step 4. If an environment is selected, go to step 5.
 
-* **Name**: A label to identify this environment (required)
-* **Repo(s)**: Type repo in `owner/repo` format or select from the dropdown. Click **Auth with GitHub** if you need to connect your repos.
-* **Docker image**: Your runtime environment (e.g., `python:3.11`, `node:20`). Not sure? Click **Suggest image** and Warp will recommend one based on your repos.
-* **Setup command(s)**: Commands to prepare your workspace, like `pip install -r requirements.txt` or `npm ci`. Add each command separately by pressing Enter.
-* **Description**: Optional notes about what this environment is for.
+### 4. Create an environment if needed
 
-**How this works:** Environments are composed of Docker containers + Git repos + startup commands. They give your cloud agent a consistent workspace with your code and tools. Warp detects your project automatically and suggests the right setup. Environments can be shared with your team so everyone uses the same configuration.
+In the creation form, provide:
 
-### 4. Describe what you want the agent to do
+* **Workspace name** - Enter a label in "Name".
+* **Repositories** - In "Repo(s)", enter `owner/repo` or select a repository. Click **Auth with GitHub** if you need to authorize access.
+* **Runtime** - In "Docker image reference", enter an image with your project's tools, such as `python:3.11` or `node:20`, or click **Suggest image**.
+* **Dependencies** - In "Setup command(s)", add commands such as `cd REPO_DIR && npm ci`. Replace `REPO_DIR` with your repository's checkout path relative to `/workspace`. Each command starts independently from `/workspace`; press `Enter` to add it.
+* **Notes** - Optionally, enter notes for teammates in "Description".
 
-Enter your prompt (e.g., "analyze test coverage and suggest improvements"). The agent executes in the cloud with full access to your environment.
+Click **Create environment**. Warp selects the new environment and starts your pending request.
 
-You can continue conversing with the agent in real-time, watch its progress, and provide additional guidance as it works autonomously on your task.
-
-**How this works:** Your cloud agent is now running in Warp's infrastructure (not on your machine). It clones your repos, runs your setup commands, and starts working on your prompt. The agent has full access to your code and can run tests, make changes, and create artifacts like PRs.
+To set up another environment separately, run `/create-environment` in Warp. Outside an active cloud conversation, choose **Quick setup** for the form or **Use the agent** for agent-assisted setup. See [configuring environments](/platform/environments/configuring-environments/) for details.
 
 ### 5. View run details
 
-You can view details of your agent's run, including commands executed, files changed, and environment used, several different ways:
+The agent checks out the configured repositories and runs the setup commands before working on your request. Watch its progress in Warp and send follow-up instructions when needed.
+
+Inspect commands, output, and any file changes to confirm the agent addressed your request:
+
 * In the Warp app, open the [conversations panel](/agents/local-agents/interacting-with-agents/#conversation-panel) to see all your agent runs.
 * Click the session link in your terminal output.
 * Go to the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> and navigate to the **Runs** tab.
-* Access from mobile via the [{VARS.WEB_APP}](/platform/oz-web-app/).
 
-**Breaking it down:** Every cloud agent run is auto-tracked. You get a shareable link, a run record, and full visibility into what the agent did. You or your teammates can watch the agent's progress in real-time and even steer it if needed. The run record persists after completion so you can review it later.
-
-### 6. Make it reusable with a skill (optional)
-
-Turn your successful run into a skill that you can reuse:
-
-```bash
-/create-skill
-```
-
-Follow the prompts to save your task definition. Once created, you can run it again, schedule it, trigger it from Slack/Linear, or share it with your team.
-
-**How this works:** Skills capture successful agent workflows as reusable building blocks. Instead of typing the same prompt repeatedly, you define it once. You can use it yourself, share it with teammates, schedule it to run automatically, or trigger it from integrations. Learn more about [Skills as Agents](/platform/skills-as-agents/).
+The run record remains available after execution finishes. See [viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) for sharing, steering, and continuing sessions, including from a browser or mobile device.
 
 **Prefer using the CLI?** See the [{VARS.WARP_AGENT_CLI} quickstart](/agents/cli/oz-cli/quickstart/) for CLI-based workflows.
 
 ---
 
-## Next steps
-
-Now that you've run your first cloud agent, try these next steps:
-
-* [**Schedule recurring work**](/platform/triggers/scheduled-agents-quickstart/) - Create a scheduled agent for maintenance tasks like dependency checks, cleanup, or triage.
-* [**Trigger agents from Slack or Linear**](/platform/integrations/quickstart/) - Connect Warp to team tools so mentions and issue updates can launch cloud agent runs.
-* [**Orchestrate multiple agents**](/platform/orchestration/multi-agent-runs/) - Fan work out across parent and child agents for large refactors, PR review swarms, and parallel package migrations.
-* [**Turn successful prompts into reusable skills**](/platform/skills-as-agents/) - Save repeatable agent workflows and run them again from the CLI, web app, API, or a schedule.
-* [**Build programmatic automations**](/factories/api-and-sdk/quickstart/) - Start cloud agent runs from your own systems with the {VARS.WARP_PLATFORM_API}.
-
-For example, schedule a recurring agent from the CLI:
-
-```bash
-oz schedule create \
-  --name "weekly-dependency-check" \
-  --cron "0 10 * * 1" \
-  --environment <ENV_ID> \
-  --prompt "check for dependency updates and open PR"
-```
-
-:::note
-Integrations require a team on Build, Max, or Business plan.
-:::
-
----
-
 ## Troubleshooting
 
-**Environment creation fails**\
-Use official Docker Hub images like `node`, `python`, or `rust` for best compatibility. Ensure your GitHub repos are accessible. If using a custom image, avoid Alpine/musl-based images—the agent runtime requires glibc. See [Environments](/platform/environments/) for more guidance on choosing Docker images and [`environment_setup_failed`](/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/) for the related API error.
+* **Environment setup fails** - See [environment troubleshooting](/platform/environments/troubleshooting-environments/) and [environment setup errors](/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/).
+* **Repository access fails** - See [GitHub authorization](/agents/cli/oz-cli/integration-setup/#how-github-authorization-works) and [authentication errors](/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/).
+* **Usage is blocked** - See [access and billing requirements](/platform/team-access-billing-and-identity/) and [insufficient credits](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/).
 
-**Agent can't access repos**\
-Warp prompts you to authorize GitHub when you create an environment or trigger your first agent. If authorization fails or needs updating, see [How GitHub Authorization works](/agents/cli/oz-cli/integration-setup/#how-github-authorization-works) and [`external_authentication_required`](/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/). For automated workflows using an agent API key, make sure [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) is configured in the Admin Panel. Also verify that repos are correctly configured in your environment with `oz environment get <ENV_ID>`; permission mismatches can surface as [`not_authorized`](/factories/api-and-sdk/troubleshooting/errors/not-authorized/).
+## Next steps
 
-**Not enough credits to run cloud agents**\
-Your team needs at least 20 credits available. Check your credit balance in Settings or see [Access, Billing, and Identity](/platform/team-access-billing-and-identity/) for details on credit requirements and which plans support cloud agents. If a run is blocked because the billed principal has no remaining credits, see [`insufficient_credits`](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/).
+You've now run a cloud agent and inspected its results.
 
-**More resources**
-
-* [Environments deep dive](/platform/environments/)
-* [Cloud Agents FAQs](/platform/faqs/)
-* [Managing Cloud Agents](/platform/managing-cloud-agents/)
+* [Cloud agents overview](/platform/) - Understand standalone runs and their configuration.
+* [Warp Factories quickstart](/factories/quickstart/) - Build a standing team workflow with agents and automations.
+* [Skills as agents](/platform/skills-as-agents/) - Make a request reusable, then use [scheduled agents](/platform/triggers/scheduled-agents-quickstart/) or [integrations](/platform/integrations/quickstart/) to trigger it.

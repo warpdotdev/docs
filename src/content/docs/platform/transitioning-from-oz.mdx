@@ -1,0 +1,48 @@
+---
+title: Transitioning from Oz to Warp Factories
+description: >-
+  Find current web app, CLI, SDK, and API references for existing Oz workflows.
+  Review your setup before adopting Warp Factories.
+sidebar:
+  label: "Transitioning from Oz"
+---
+import { VARS } from '@data/vars';
+
+Warp Factories is the web experience for team development workflows organized around repositories, agents, and automations. Existing standalone cloud-agent workflows still use the {VARS.WEB_APP}, CLI, SDKs, and API references listed below.
+
+## Current status
+
+| Surface | Current use |
+| --- | --- |
+| **{VARS.WEB_APP}** | Existing standalone cloud-agent workflows have their own [web app setup and management paths](/platform/oz-web-app/). |
+| **{VARS.WARP_AGENT_CLI} (`oz`)** | Use the [{VARS.WARP_AGENT_CLI} reference](/agents/cli/oz-cli/) for current `oz` commands. The `oz` and `warp` binaries have separate command interfaces. |
+| **{VARS.WARP_CLI} (`warp`)** | Use the [{VARS.WARP_CLI} reference](/agents/cli/) for its supported commands. |
+| **SDKs** | Use the current [Python and TypeScript packages](/factories/api-and-sdk/#sdks). Repository names and package names can differ. |
+| **{VARS.WARP_PLATFORM_API}** | Consult the [API reference](/api) for endpoint behavior and configuration. Use [factory endpoints](/factories/factory-api/) to send work to a factory. |
+| **New software factories** | Open the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a> and follow the [Warp Factories quickstart](/factories/quickstart/). |
+
+## Preparing an existing workflow for Warp Factories
+
+Before adopting a factory, check your workflow's web app, CLI commands, SDK packages, and API endpoints against the references in the status table.
+
+### Existing web app workflows
+
+Review the agents, skills, environments, schedules, integrations, and credentials your existing workflow uses before setting up a factory. See [viewing runs in the {VARS.WEB_APP}](/platform/oz-web-app/#runs) to inspect your existing run history.
+
+For factory setup, see [how Warp Factories work](/factories/how-factories-work/) and the [Warp Factories quickstart](/factories/quickstart/). Contact your account team or [Warp support](/support-and-community/#contact-support) if you need help assessing an existing workflow.
+
+### CLI functionality
+
+Use the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) for the current `oz` command reference and the [{VARS.WARP_CLI}](/agents/cli/) for current `warp` functionality. Check the relevant reference before changing a command in a script.
+
+### SDK packages and API
+
+The official SDK repositories keep their existing names: [Python](https://github.com/warpdotdev/oz-sdk-python) and [TypeScript](https://github.com/warpdotdev/oz-sdk-typescript). Current packages are `warp-platform-sdk` for Python and `@warp-dot-dev/warp-platform-sdk` for TypeScript; see [SDK installation and imports](/factories/api-and-sdk/#sdks).
+
+Use [factory endpoints](/factories/factory-api/) to send new work to a factory. Use [agent and run endpoints](/factories/api-and-sdk/) to inspect, continue, or cancel the resulting run.
+
+## Related pages
+
+* [{VARS.WARP_AUTOMATION_PLATFORM} overview](/platform/overview/) - Understand the shared execution and configuration model.
+* [Warp Factories overview](/factories/) - Build and operate a standing software factory.
+* [{VARS.WARP_PLATFORM_API} and SDKs](/factories/developer-tools/) - Use factory endpoints, agent and run endpoints, SDKs, and API errors.

@@ -6743,8 +6743,8 @@
       "statusCode": 308
     },
     {
-      "source": "/platform/transitioning-from-oz(/?)",
-      "destination": "/platform/documentation-map/",
+      "source": "/platform/documentation-map(/?)",
+      "destination": "/platform/transitioning-from-oz/",
       "statusCode": 308
     },
     {

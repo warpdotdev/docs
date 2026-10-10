@@ -7,104 +7,59 @@ sidebar:
   label: "Cloud agents overview"
 ---
 import { VARS } from '@data/vars';
-import VideoEmbed from '@components/VideoEmbed.astro';
 
-:::note
-The `oz` CLI and the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> keep their current names. Use the [cloud agent documentation map](/platform/documentation-map/) to find standalone workflows, CLI tools, APIs, SDKs, and Warp Factories.
-:::
+Cloud agents execute a request away from your laptop, on Warp-hosted compute or your own infrastructure. For example, an agent can investigate a failed build, review a pull request, or respond to an issue filed in your tracker.
 
-Cloud agents are autonomous, background agents that run on Warp's cloud infrastructure or your own, triggered by system events, schedules, or integrations like Slack and GitHub. They execute tasks with full observability — every run is tracked, inspectable, and shareable across your team.
+For a standing team workflow with agents, automations, and tools to evaluate results, start with [Warp Factories](/factories/). To run cloud agents directly from Warp, use the [cloud agents quickstart](/platform/quickstart/).
 
-**New to cloud agents?** Start with the [Cloud agents quickstart](/platform/quickstart/) to run your first cloud agent in ~10 minutes.
+Already using the {VARS.WEB_APP} or {VARS.WARP_AGENT_CLI}? See [transitioning from Oz to Warp Factories](/platform/transitioning-from-oz/). The standalone workflows below remain distinct from factory setup.
 
-For a standing, multi-stage workflow with named agents, automations, and measurement, use [Warp Factories](/factories/). The factory-specific setup and operations guidance complements this shared cloud-agent reference.
+## Monitor, inspect, and share cloud agent runs
 
-### Monitor, inspect, and share cloud agent runs
+For factory work, open the factory's [Runs page](/factories/factory-dashboard/#inspect-runs). For standalone workflows, use the [Agent Management Panel](/platform/managing-cloud-agents/) in Warp or the [{VARS.WEB_APP} Runs page](/platform/oz-web-app/#runs).
 
-To understand what a cloud agent did, start from the [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app or the [Runs page in the {VARS.WEB_APP}](/platform/oz-web-app/#runs). From there, you can find a run by source, status, trigger, or owner; open the run transcript; inspect the prompt, plan, commands, logs, and output; and share the session link with teammates for review.
+Open a run's transcript to inspect its prompt, commands, logs, and outputs, or to share its session link with teammates. See [viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) for steering and continuing a session.
 
-For a full walkthrough, see [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/). If the run came from Slack, Linear, GitHub Actions, a schedule, the CLI, or the API, it still produces a reviewable cloud agent run record.
+## What cloud agents are designed for
 
-<VideoEmbed url="https://youtu.be/poLkJhO7fdo" title="Cloud agents overview" />
+* **Event-driven work** - Respond to bug reports, [Slack messages](/platform/integrations/slack/), or CI failures.
+* **Parallel tasks** - Use [multi-agent orchestration](/platform/orchestration/) to divide independent work among agents running in the cloud.
+* **Recurring maintenance** - Run [scheduled agents](/platform/triggers/scheduled-agents/) for dependency checks, cleanup, or reports.
 
-### What cloud agents are designed for
+Cloud agents can assist throughout the development lifecycle.
 
-Cloud agents are designed for situations where:
-
-* **You need agents to react to system events.**
-  * Examples include crashes, bug reports, [Slack interactions](/platform/integrations/slack/), cron timers, or CI steps.
-* **You want observability into agent activity across a team or system.**
-  * This includes being able to see what ran, when it ran, what triggered it, what the agent did, and how teammates can review or share the result.
-* **You need more parallelism than local execution typically allows.**
-  * For example, [multi-agent orchestration](/platform/orchestration/) can run many agent tasks concurrently in the cloud, shard a repo-wide task into multiple runs, or fan out the same task across multiple targets.
-* **You want agents to operate continuously as part of engineering infrastructure.**
-  * This includes [scheduled maintenance tasks](/platform/triggers/scheduled-agents/) and integration-driven automation.
-
+<figure style={{ maxWidth: "563px" }}>
 ![Cloud agent use cases across the development lifecycle: Plan, Prototype, Build, Validate, Review + Merge, Deploy + Monitor](../../../assets/agent-platform/oz-use-cases.png)
+<figcaption>Cloud-agent work spans the software development lifecycle.</figcaption>
+</figure>
 
----
+Before automating a task, identify its trigger, the context the agent needs, and how someone will validate its result.
 
-### What is a cloud agent run?
+## How cloud agents work
 
-A cloud agent run is represented as an agent task. A task is created when a trigger fires (for example a webhook event or schedule) or when a user starts a run explicitly.
+The [{VARS.WARP_AUTOMATION_PLATFORM} overview](/platform/overview/) explains the execution model shared by factories and standalone agents, including environments and credentials.
 
-Each task includes:
-
-* **Inputs**: a prompt, and often additional context from the triggering system (for example a Slack message, PR metadata, or CI logs).
-* **Execution context (optional)**: an [Environment](/platform/environments/) that defines the repo, image, and startup commands the agent should run with.
-* **Lifecycle state**: created → running → completed / failed.
-* **Persistent record**: status, metadata, and a session transcript that can be reviewed after the task completes, including the prompt, plan, commands, logs, outputs, and follow-up messages where available.
-
-:::note
-If you are evaluating whether something should be a cloud agent, a good test is whether you can define:\
-(1) what triggers it, (2) what context it needs, and (3) how the team will inspect or validate the output.
-:::
-
-### How cloud agents work
-
-Cloud agents run on the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/), which provides the primitives for triggering work, orchestrating tasks, executing agents (optionally in environments), injecting secrets, and inspecting results.
-
-* Something **triggers** an agent task.
-* The **orchestrator creates** and tracks the task.
-* The agent **executes** on a host, optionally inside an [environment](/platform/environments/), with whatever [secrets](/platform/secrets/) and credentials it needs.
-
-The exact way tasks are triggered and executed depends on your deployment model. [Deployment patterns](/factories/deployment-patterns/) covers Warp-hosted and managed self-hosted execution for factories. For standalone agents, see [unmanaged execution](/platform/unmanaged-execution/).
+The exact way tasks are triggered and executed depends on your deployment model. [Deployment patterns](/factories/deployment-patterns/) covers Warp-hosted and managed self-hosted execution for factories. For standalone agents, see [Unmanaged execution](/platform/unmanaged-execution/).
 
 For teams that need execution to stay within their network boundary, self-hosting supports two architectures: a **managed** worker daemon that lets the {VARS.WARP_AUTOMATION_PLATFORM} orchestrate agents in Docker containers on your machines, and an **unmanaged** mode where you run `oz agent run` directly in your CI, Kubernetes, or dev environment. See [Self-hosting](/factories/self-hosting/) for details.
 
-### What you get by default
+## What you get by default
 
-Because cloud agents run on the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/), each run is tracked and produces a persistent record that can be observed, shared, and reviewed (even if execution happens outside the Warp app).
+The following features apply to standalone cloud-agent workflows. For factory configuration, see [definitions as code](/factories/factory-as-code/).
 
-#### Codebase Context
+### Codebase Context
 
 Cloud agent runs automatically benefit from [Codebase Context](/agents/capabilities/codebase-context/) for semantic code understanding and search, as long as Codebase Context is enabled for your account. See [Codebase Context in cloud agent runs](/agents/capabilities/codebase-context/#codebase-context-in-cloud-agent-runs) for details.
 
-#### Observability and steerability
+### Centralized configuration
 
-Cloud agent tasks are designed to be inspectable by the team:
+Configure [MCP servers](/platform/mcp/) and [secrets](/platform/secrets/) for the tools your task needs. The [shared configuration reference](/platform/overview/#shared-configuration) links to each configuration type and its scope.
 
-* The [Agent Management Panel](/platform/managing-cloud-agents/) in the Warp app and the [Runs page in the {VARS.WEB_APP}](/platform/oz-web-app/#runs) surface task status, source, trigger, creator, history, and credit usage.
-* [Cloud agent session sharing](/platform/viewing-cloud-agent-runs/) opens the run transcript so teammates can inspect the prompt, plan, commands, logs, files changed, outputs, and follow-up messages where available.
-* [Agent Session Sharing](/agents/local-agents/session-sharing/) lets authorized teammates share, monitor, and steer live local or third-party agent sessions.
+### API access to runs
 
-#### Centralized configuration
+The [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) lets you query run status, metadata, and results from your own services.
 
-Cloud agent workflows often rely on shared configuration such as [MCP servers](/platform/mcp/), rules, saved prompts, environment variables, and [secrets](/platform/secrets/).
-
-Warp supports centralized configuration so the same workflow behaves consistently across triggers (for example Slack + CI + schedules), without duplicating setup in every system.
-
-For details on configuring MCP servers for cloud agents, see [MCP Servers](/platform/mcp/).
-
-#### API access to tasks
-
-The {VARS.WARP_AUTOMATION_PLATFORM} exposes task visibility via the [**{VARS.WARP_PLATFORM_API}**](/factories/api-and-sdk/), so teams can:
-
-* Query which tasks are running or have run.
-* Fetch task metadata and outcomes.
-* Build internal dashboards or monitoring (for example success rates, runtime, failure reasons).
-
-### Using cloud agents with or without the Warp app
+## Using cloud agents with or without the Warp app
 
 Cloud agents do not require the Warp app. Teams can deploy and operate them through the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) using:
 
@@ -114,49 +69,21 @@ Cloud agents do not require the Warp app. Teams can deploy and operate them thro
 * [Agent Management Panel](/platform/managing-cloud-agents/) — view agent activity and run history in the Warp app
 * [APIs and SDKs](/factories/api-and-sdk/) — programmatic access for custom integrations
 
-If your team also uses Warp's terminal, you get an additional workflow: tasks launched via the CLI can be handed off into an interactive session for review, edits, or continuation.
+Use [Handoff](/platform/handoff/) to continue work between local and cloud sessions.
 
 ---
 
-### Billing and plan requirements
+## Billing and plan requirements
 
-Cloud agents and [integrations](/platform/integrations/) run on the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) control plane, and usage is billed using credits.
-
-:::note
-[Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/) is not supported for cloud agent runs. BYOK keys are stored locally on your device and are not accessible to cloud-hosted agents. All cloud agent runs consume Warp credits.
-:::
-
-#### For cloud agents via CLI/API
-
-Individual users can run cloud agents without being on a team. Requirements:
-
-* You need at least 20 credits available
-* Cloud agents run on Warp-hosted infrastructure
-* Self-hosted agents require a team subscription
-
-#### For integrations (Slack/Linear)
-
-Integrations require you to be part of a [Warp team](/knowledge-and-collaboration/teams/) and additional requirements:
-
-* **Plan requirements**
-  * **Supported plans**: Build, Max, Business
-  * Your plan must support add-on credits.
-* **Credit requirements**
-  * Your team must have at least 20 credits available to run cloud agents and integrations.
-
-For more details, see [Access, Billing, and Identity Permissions](/platform/team-access-billing-and-identity/).
-
-:::caution
-If your credit balance reaches zero, cloud agent runs will not be able to execute until credits are replenished.
-:::
+Check [access and billing requirements](/platform/team-access-billing-and-identity/) before running cloud agents or setting up integrations.
 
 ---
 
-### Learn more
+## Related pages
 
-* [Cloud agents quickstart](/platform/quickstart/) — run your first cloud agent with an environment in ~10 minutes.
+* [Cloud agents quickstart](/platform/quickstart/) — run a cloud agent with an environment.
 * [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) — CLI, {VARS.WARP_PLATFORM_API}, orchestration, tasks, environments, hosts, integrations, and more.
-* [Warp Factories](/factories/) — assemble cloud agents into a standing triage-to-merge workflow with named agents, automations, and measurement.
+* [Warp Factories](/factories/) — configure a standing development workflow and evaluate its results.
 * [Harnesses](/platform/harnesses/) — pick between Warp Agent, Claude Code, and Codex for any cloud agent run.
 * [Agents](/platform/agents/) — cloud agents that own and execute runs on your team.
 * [Multi-agent orchestration](/platform/orchestration/) — coordinate a parent agent and its child agents across local and cloud runs to build supervisor/worker, fan-out, critic, DAG, and swarm workflows.
