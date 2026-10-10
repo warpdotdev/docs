@@ -19,7 +19,7 @@ Your plan determines the unit Warp uses to charge usage:
 * **Dollar billing** - When **Billing and usage** shows dollar amounts, usage charges draw from that balance.
 * **Credit billing** - Usage is measured and charged in credits. Enterprise contracts that use credits retain their rates and terms.
 
-In Billing and usage, look for the "Usage display unit" dropdown. If it's available, your current plan bills in dollars, even when you select **Credits**. If it isn't available, check your billing terms or contact [billing@warp.dev](mailto:billing@warp.dev).
+Use the unit shown in **Billing and usage** to identify how your account is billed. If the unit does not match your billing terms, contact [billing@warp.dev](mailto:billing@warp.dev).
 
 Usage has three charge components:
 
@@ -27,7 +27,7 @@ Usage has three charge components:
 * **Compute** - The sandbox used by an agent on Warp-hosted compute. Local runs and self-hosted compute don't incur this charge.
 * **Platform** - Agent time billed for cloud runs, plus local runs on Business and Enterprise that use customer-supplied inference. See [platform usage](/support-and-community/plans-and-billing/platform-credits/) for eligibility and rates.
 
-For paid self-serve plans, Warp-provided inference is priced at public API rates. Compute and platform charges are separate. Free-plan [usage purchases](/support-and-community/plans-and-billing/add-on-credits/) include a purchase premium.
+For paid self-serve plans billed in dollars, Warp-provided inference is priced at public API rates. Compute and platform charges are separate. Free-plan [usage purchases](/support-and-community/plans-and-billing/add-on-credits/) include a purchase premium.
 
 A credit is a usage unit, not a token or a fixed number of prompts.
 
@@ -39,7 +39,7 @@ A credit is a usage unit, not a token or a fixed number of prompts.
 * **Turn usage** - Expand the usage amount below an agent response. Where detailed usage is available, expand a model to see input, output, cache-read, and cache-write tokens, plus web searches and their costs.
 * **Conversation usage** - Open the conversation's usage summary to see its total. **View account usage** opens Billing and usage.
 
-On plans billed in dollars, use the "Usage display unit" dropdown to choose **Credits** or **Dollars**. This changes the display, not your billing unit or charges. The CLI has its own [usage display](/agents/cli/models-and-usage/#usage-and-cost).
+The CLI has its own [usage display](/agents/cli/models-and-usage/#usage-and-cost).
 
 ### Charges and estimates
 
@@ -106,7 +106,7 @@ Agent API key runs follow the [team billing rules for cloud runs](/platform/team
 
 By default, user-created schedules use the creator's eligible included and purchased usage. A schedule configured to run as a cloud agent uses shared team usage instead. Enterprise pools and charges follow your contract.
 
-Review [auto-reload and purchase limits](/support-and-community/plans-and-billing/add-on-credits/#2-enable-auto-reload) before relying on unattended runs. If no usable balance remains, a run can fail with an [insufficient credits](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) error.
+If no usable balance remains, a run can fail with an [insufficient credits](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) error.
 
 ## Related pages
 
