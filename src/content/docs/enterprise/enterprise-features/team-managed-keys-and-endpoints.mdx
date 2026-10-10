@@ -88,7 +88,7 @@ Configure team providers from the [Admin Panel](/enterprise/team-management/admi
 Saved configuration propagates to members the next time their client loads team settings — the team's providers appear in their model picker, and disabled endpoints or models are removed automatically.
 
 :::note
-A team endpoint's base URL must be reachable from Warp's servers over the public internet, because requests route through Warp's backend. Expose an internal gateway at a public HTTPS URL before adding it. See [Network requirements](/agents/inference/custom-inference-endpoint/#network-requirements) for details.
+A team endpoint's base URL must be reachable from Warp's hosted services. Use a public HTTPS URL by default, or [connect a private LLM gateway through private networking](/enterprise/enterprise-features/private-networking/).
 :::
 
 ### Keep inference on your team's providers
@@ -131,6 +131,7 @@ Warp is **SOC 2 compliant** and has **Zero Data Retention (ZDR)** agreements wit
 * [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) — Self-serve, user-level API keys for OpenAI, Anthropic, and Google.
 * [Custom inference endpoint](/agents/inference/custom-inference-endpoint/) — Self-serve, user-level OpenAI-compatible endpoints.
 * [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/) — BYOLLM overview: route inference through [AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/) or [Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/).
+* [Private networking](/enterprise/enterprise-features/private-networking/) — Connect a private team-managed LLM gateway without a public endpoint.
 * [Admin Panel](/enterprise/team-management/admin-panel/) — Configure team settings and model routing.
 * [Model Choice](/agents/inference/model-choice/) — Full list of supported models.
 * [Contact sales](https://www.warp.dev/contact-sales) — Get help with Enterprise setup.
