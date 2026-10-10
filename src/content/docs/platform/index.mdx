@@ -12,11 +12,11 @@ Cloud agents execute a request away from your laptop, on Warp-hosted compute or 
 
 For a standing team workflow with agents, automations, and tools to evaluate results, start with [Warp Factories](/factories/). To run cloud agents directly from Warp, use the [cloud agents quickstart](/platform/quickstart/).
 
-Already using the legacy web app or CLI? See [transitioning from Oz to Warp Factories](/platform/transitioning-from-oz/). The standalone workflows below remain distinct from factory setup.
+Already using the {VARS.WEB_APP} or {VARS.WARP_AGENT_CLI}? See [transitioning from Oz to Warp Factories](/platform/transitioning-from-oz/). The standalone workflows below remain distinct from factory setup.
 
 ## Monitor, inspect, and share cloud agent runs
 
-For factory work, open the factory's [Runs page](/factories/factory-dashboard/#inspect-runs). For standalone workflows, use the [Agent Management Panel](/platform/managing-cloud-agents/) in Warp or the [legacy Runs page](/platform/oz-web-app/#runs).
+For factory work, open the factory's [Runs page](/factories/factory-dashboard/#inspect-runs). For standalone workflows, use the [Agent Management Panel](/platform/managing-cloud-agents/) in Warp or the [{VARS.WEB_APP} Runs page](/platform/oz-web-app/#runs).
 
 Open a run's transcript to inspect its prompt, commands, logs, and outputs, or to share its session link with teammates. See [viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) for steering and continuing a session.
 
@@ -27,17 +27,12 @@ Open a run's transcript to inspect its prompt, commands, logs, and outputs, or t
 * **Recurring maintenance** - Run [scheduled agents](/platform/triggers/scheduled-agents/) for dependency checks, cleanup, or reports.
 
 Cloud agents can assist throughout the development lifecycle, from planning a change to validating it and investigating problems after deployment.
+Before automating a task, identify its trigger, the context the agent needs, and how someone will validate its result.
 
-<figure style={{ maxWidth: "736px" }}>
+<figure style={{ maxWidth: "563px" }}>
 ![Cloud agent use cases across the development lifecycle: Plan, Prototype, Build, Validate, Review + Merge, Deploy + Monitor](../../../assets/agent-platform/oz-use-cases.png)
 <figcaption>Cloud-agent work spans the software development lifecycle.</figcaption>
 </figure>
-
----
-
-## Preparing a cloud-agent task
-
-Before automating a task, identify its trigger, the context the agent needs, and how someone will validate its result.
 
 ## How cloud agents work
 

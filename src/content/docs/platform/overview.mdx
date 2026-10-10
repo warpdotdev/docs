@@ -10,7 +10,7 @@ import { VARS } from '@data/vars';
 
 [Warp Factories](/factories/) and [standalone cloud agents](/platform/) run on the {VARS.WARP_AUTOMATION_PLATFORM}. It provides the execution, configuration, and APIs they share.
 
-For a team workflow with planning, implementation, and review, start with the [Warp Factories quickstart](/factories/quickstart/). To run cloud agents directly from Warp, use the [cloud agents quickstart](/platform/quickstart/). See [transitioning from Oz](/platform/transitioning-from-oz/) if you already use the legacy web app, CLI, or SDKs.
+For a team workflow with planning, implementation, and review, start with the [Warp Factories quickstart](/factories/quickstart/). To run cloud agents directly from Warp, use the [cloud agents quickstart](/platform/quickstart/). See [transitioning from Oz](/platform/transitioning-from-oz/) if you already use the {VARS.WEB_APP}, {VARS.WARP_AGENT_CLI}, or SDKs.
 
 ## How a run works
 
@@ -20,8 +20,6 @@ A run starts with a request or event and ends with a result you can inspect:
 2. The agent receives the request and its context, such as a Slack thread, PR metadata, or CI logs.
 3. The agent executes on a **host**. If an [environment](/platform/environments/) is configured, it defines the image, repositories, and setup commands.
 4. The run produces **outputs**, like a pull request, Slack reply, report, or transcript and summary.
-
-The diagram shows this flow with a configured environment, from the trigger to the artifacts the agent produces.
 
 <figure style={{ maxWidth: "736px" }}>
 ![A trigger starts an agent, which runs in a configured environment and produces artifacts such as plans, pull requests, and conversation records.](../../../assets/agent-platform/cloud-agent-run-flow.png)
@@ -48,7 +46,7 @@ A host is where the agent executes. By default, runs execute on [Warp-hosted inf
 
 ## The CLI
 
-Use the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) for `oz` workflows in CI, scripts, and remote servers. The separate [{VARS.WARP_CLI}](/agents/cli/) runs the Warp Agent with `warp`. Consult each command reference rather than treating the binaries as interchangeable.
+Use the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/) for `oz` workflows in CI, scripts, and remote servers. The [{VARS.WARP_CLI}](/agents/cli/) runs the Warp Agent with `warp`.
 
 ## API and SDKs
 

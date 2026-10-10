@@ -345,7 +345,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: `${VARS.WARP_AGENT_CLI} (legacy)`,
+					label: VARS.WARP_AGENT_CLI,
 					collapsed: true,
 					items: [
 						{ slug: 'agents/cli/oz-cli', label: 'Overview' },
@@ -548,7 +548,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			icon: 'cloud-download',
 			items: [
 				{ slug: 'platform/overview', label: 'Overview' },
-				{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
 				{ slug: 'platform/architecture', label: 'Architecture' },
 				{
 					label: 'Cloud Agents',
