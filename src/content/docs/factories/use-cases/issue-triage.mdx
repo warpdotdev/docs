@@ -21,13 +21,13 @@ Use a dedicated triage agent and one automation that watches a narrow intake eve
 
 | Part | Recommendation |
 | --- | --- |
-| Trigger | `issue_created` for full automation, or `issue_labeled` with a `needs-triage` label for controlled rollout |
+| Trigger | GitHub: `issue_created` or `issue_labeled`; Azure DevOps: `work_item_created` or `work_item_labeled` |
 | Agent | A `TRIAGE` agent that investigates and updates the issue but doesn't implement |
 | Skills | A repo-specific triage skill with category, priority, reproduction, duplicate-search, and escalation rules |
 | Settings | Start with one repository and one event; use the Warp Agent harness so built-in code-host tools are available |
 | Output | One issue update with evidence, classification, priority, and the recommended next stage |
 
-This automation starts on every new issue in one repository:
+The example below is specific to GitHub and starts on every new issue in one repository. For a controlled rollout, use `issue_labeled` with a label filter. On Azure DevOps, use `work_item_created` or `work_item_labeled` instead.
 
 ```markdown title="automations/triage-new-issues/automation.md"
 ---
@@ -63,7 +63,7 @@ than guessing, and stop after updating the issue.
 1. Create a factory for the repositories that share one backlog. Follow the [Warp Factories quickstart](/factories/quickstart/) if you don't have one.
 2. Add or edit the triage agent. Give it read access to the relevant repositories and issue-write access through the code-host integration.
 3. Add `agents/triage/skills/issue-triage/SKILL.md`. Record the allowed categories and priority levels, the evidence required for a bug, and when to ask a human. See [factory skills](/factories/factory-skills/) for the file format.
-4. Add the automation above. For a controlled rollout, change the event to `issue_labeled` and filter on `needs-triage`.
+4. Add the GitHub automation above. For a controlled GitHub rollout, change the event to `issue_labeled` and filter on `needs-triage`. On Azure DevOps, use `work_item_created` or `work_item_labeled`. For Linear or Jira, select the provider event documented by the connected integration.
 5. Open a test issue with a concrete symptom. Confirm the run updates that issue once, uses only the allowed labels, and stops without creating a branch.
 6. Review several results before expanding the repository or event filters.
 
