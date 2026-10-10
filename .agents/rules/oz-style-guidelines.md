@@ -26,19 +26,3 @@ For example, replace “Configure once and every trigger uses it” with the ver
 Published copy establishes messaging, not behavior, deployment, migration guarantees, or typical customer outcomes. Keep dated customer results tied to their source and scope. Do not turn forecasts, sample dashboard values, or launch targets into current facts.
 
 Correct an unsupported promise narrowly. Retain a transition page's explanation and valid legacy commands; removing a page or changing its purpose requires human approval. No replacement deadline, automatic-transfer policy, or blanket compatibility guarantee is established by this guidance.
-
-## Provenance
-
-Rachael approved the research synthesis on October 9, 2026. These sources inform framing, not technical verification:
-
-* [North star](https://app.notion.com/p/31343263616d80959c91c06cd7736e00), April 15, 2026, archived internal guidance: provenance for the original five pillars. Retain their useful substance, not the Warp/Oz two-product model.
-* [Product architecture](https://app.notion.com/p/31343263616d8070885fd54ab1dcb735), April 7, 2026, archived internal guidance: historical product hierarchy, not current availability.
-* [Warp Positioning](https://app.notion.com/p/3c743263616d81139c2fdd1cd4d1b331), September 4, 2026, internal working direction: open infrastructure, customization, engineering leaders and factory builders. Not marked verified in Notion.
-* [The Factory Stack](https://www.warp.dev/blog/the-factory-stack), September 5, 2026, published: open, composable, versioned infrastructure.
-* [Adopting the software factory model](https://www.warp.dev/blog/adopting-the-software-factory-model-crawl-walk-run), September 15, 2026, published: incremental adoption and human intervention.
-* [Factory onboarding](https://app.notion.com/p/3dc43263616d80f4bb74d56393a5b664), September 23, 2026, internal implementation guidance: bounded first request, verification, and human-review ownership. Not deployment evidence.
-* [Automation Menu](https://app.notion.com/p/3ed43263616d80fdaac9f54c847ea838), October 2, 2026, internal GTM guidance: defined triggers and observable outcomes.
-
-The [messaging index](https://app.notion.com/p/30143263616d80c68ff2d337f88814e7) links the original Positioning Bible; its Google document was not readable in this research. Archived Notion pages provide the traceable pillar text, not a claim to have read that document.
-
-The homepage, factory landing page, and pricing page were retrieved October 9. Their mixed self-serve and closed-Early-Access wording is unresolved. The requester confirmed Phase 1 shipped October 6 and no waitlist is required. Late-October migration behavior and support deadlines still require owner confirmation; no launch forecast belongs in durable guidance.
