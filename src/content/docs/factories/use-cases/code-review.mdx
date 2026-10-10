@@ -19,13 +19,21 @@ Use this pattern for independent review after human or agent implementation. Kee
 
 Route ready pull requests to a `REVIEW` agent. Start with one event so a single pull request action doesn't create overlapping runs.
 
+| Provider | Initial review | Review after updates |
+| --- | --- | --- |
+| GitHub | `pull_request_ready` | `pull_request_synchronized` |
+| GitLab | `merge_request` | `merge_request` |
+| Azure DevOps | `pull_request_created` | `pull_request_updated` |
+
 | Part | Recommendation |
 | --- | --- |
-| Trigger | `pull_request_ready`; add `pull_request_synchronized` later if every new commit needs automatic re-review |
+| Trigger | Start with the provider's initial-review event; add its update event only when every new commit needs automatic re-review |
 | Agent | A `REVIEW` agent that doesn't edit, approve, or merge |
 | Skills | Code quality, code review, and repository-specific test or security procedures |
 | Settings | Filter by repository and default base branch; use a model or harness different from implementation |
 | Output | Inline findings where supported, a concise verdict, and the validation commands checked |
+
+The configuration example below is specific to GitHub.
 
 ```markdown title="automations/review-ready-prs/automation.md"
 ---
@@ -64,9 +72,9 @@ The public [`04-code-review-only`](https://github.com/warpdotdev/warp-factory-ex
 1. Create a factory that includes the repositories to review.
 2. Configure the review agent with read access to code and checks, plus pull request comment access. Don't grant push credentials when the agent only reviews.
 3. Add repository-specific review skills under `agents/review/skills/`. Include exact validation commands and any security or migration checklists.
-4. Add the `pull_request_ready` automation above. Keep a skip label so maintainers can exclude generated, experimental, or sensitive changes.
+4. Add the GitHub `pull_request_ready` automation above. For GitLab, use `merge_request`. For Azure DevOps, use `pull_request_created`. Keep a skip label so maintainers can exclude generated, experimental, or sensitive changes.
 5. Open a draft test pull request containing one known defect, then mark it ready. Confirm the review points to the defect, avoids duplicate summary comments, and doesn't change the branch.
-6. Add `pull_request_synchronized` only after deciding how re-reviews should replace or reply to earlier findings.
+6. Add the provider's update event only after deciding how re-reviews should replace or reply to earlier findings: `pull_request_synchronized` for GitHub, `merge_request` for GitLab, or `pull_request_updated` for Azure DevOps.
 
 ## Example workflow
 
