@@ -50,9 +50,10 @@ If the request mentions AEO, SEO, Peec, answer-engine visibility, search-query v
 
 ### 2. Clarify placement
 Ask the user where the doc should live. The docs are organized into sections, with navigation configured in `src/sidebar.ts`:
-- `src/content/docs/` - Warp Terminal and IDE → `docs.warp.dev/`
-- `src/content/docs/agent-platform/` - Agent Platform → `docs.warp.dev/agent-platform/`
-- `src/content/docs/reference/` - Technical reference (CLI, API & SDK) → `docs.warp.dev/reference/`
+- `src/content/docs/terminal/` and `code/` - Terminal and coding workflows
+- `src/content/docs/agents/` - Agent capabilities and CLI references
+- `src/content/docs/platform/` - Standalone cloud agents and shared infrastructure
+- `src/content/docs/factories/` - Factory workflows, APIs, SDKs, and operations
 - `src/content/docs/support-and-community/` - Support → `docs.warp.dev/support-and-community/`
 - `src/content/docs/enterprise/` - Enterprise → `docs.warp.dev/enterprise/`
 - `src/content/docs/changelog/` - Changelog → `docs.warp.dev/changelog/`
@@ -61,6 +62,8 @@ Also clarify: Is this a new page or an update to an existing page?
 
 ### 3. Read the style guide
 Read `AGENTS.md` in the docs repo root. This is required — it contains all voice/tone rules, formatting standards, content type structures, terminology, and the quality checklist. Do not draft without reading it first.
+
+Use `.agents/rules/oz-style-guidelines.md` as the canonical positioning source and `.agents/references/terminology.md` for names. Do not infer a product promise or migration deadline from older marketing guidance.
 
 ### 3.5. Confirm the doc should exist, then design it
 
@@ -104,7 +107,7 @@ Record the content type chosen in the design plan, and pick its template and typ
 Two of these carry admission rules rather than just structure, and both are checked in review:
 
 - **FAQ** defaults to "not an FAQ." All three admission rules in `AGENTS.md` must hold before you create or extend one. Most FAQ-shaped content belongs on the page that owns the topic.
-- **Quickstart vs. tutorial** is a scope decision, not a location one. A quickstart is ~5 minutes and ~600 words for someone who already knows the product; a tutorial walks a full workflow and requires that a quickstart already exists. "Guides" is the section name and holds both.
+- **Quickstart vs. tutorial** is a scope decision, not a location one. A quickstart serves one bounded task with necessary first-use teaching; its time and word budgets are review signals (AGENTS.md → Quickstart). A tutorial walks a full workflow and requires that a quickstart already exists. "Guides" is the section name and holds both.
 
 Once the content type is identified:
 - Use the corresponding **template** as the starting scaffold for the page.
@@ -169,6 +172,10 @@ These rules are frequently violated by agents. Apply them carefully during draft
 
 ### 7. Draft the doc
 Create the documentation using the appropriate template from `.agents/templates/`. Follow the structure for the identified content type and all rules in `AGENTS.md`. Each template includes visible bracketed instructions explaining what to put in each section.
+
+During the deletion pass, apply AGENTS.md → Procedural → Reader-understanding test. A concept explained elsewhere may still be necessary beside a step for a direct-arrival reader. Omit optional scaffold sections rather than filling them with repetition.
+
+Record an editorial verdict in the PR rationale: reader task, concept ownership across siblings, repetition and unnecessary scaffolds removed, unsupported assurances corrected, and useful understanding preserved. Link or relocate necessary facts rather than deleting them for length. Removing a page or changing its purpose requires human approval; identify each unsupported claim and its narrow correction instead.
 
 ### 8. Run style lint and the compression contract check
 Run `python3 .agents/skills/style_lint/style_lint.py --changed` on the drafted file to catch formatting and terminology issues before presenting to the user.
@@ -274,4 +281,4 @@ Always check the current list of redirects before adding a new one to avoid dupl
 
 ## Output
 
-Present the drafted documentation as a complete markdown file that can be saved directly to the appropriate location in `docs/`.
+Write the draft to its chosen path under `src/content/docs/`. Present the editorial verdict and unverified claims for review.

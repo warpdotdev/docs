@@ -11,7 +11,7 @@ description: >-
 [This is the most common page type in Warp's docs (~75+ pages) and the one most prone to sprawl, because it accepts the most kinds of content. Two limits:
 
 1. Never fold quickstart or tutorial content in here. Both are defined by a scope budget and a single continuous path, and both lose their purpose once embedded in a longer page. Link to them instead. Conceptual, procedural, reference, and troubleshooting sections can coexist here; those two cannot.
-2. Past roughly 1500 words, split the procedures onto their own pages rather than adding another section.]
+2. Past roughly 1500 words, cut padding and duplication first. Split only if the remaining useful content still needs separate pages; link or relocate necessary facts.]
 
 [Opening paragraph: what the feature does and its primary benefit. 1-3 sentences. Lead with what the reader can accomplish, not the implementation.]
 

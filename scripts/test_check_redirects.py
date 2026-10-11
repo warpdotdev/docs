@@ -65,6 +65,32 @@ class RedirectSourceTests(unittest.TestCase):
 
         self.assertEqual(matching_sources, [])
 
+    def test_restored_transition_page_has_no_redirect(self):
+        route = "/platform/transitioning-from-oz"
+        self.assertIsNotNone(url_to_content_path(route))
+        self.assertEqual(
+            [r["source"] for r in load_redirects()
+             if redirect_source_matches_path(r["source"], route)],
+            [],
+        )
+
+    def test_former_map_redirect_ends_at_restored_page(self):
+        route = "/platform/documentation-map"
+        self.assertIsNone(url_to_content_path(route))
+        redirects = load_redirects()
+        for source in (route, route + "/"):
+            matches = [r for r in redirects
+                       if redirect_source_matches_path(r["source"], source)]
+            self.assertEqual(len(matches), 1, source)
+            self.assertEqual(
+                matches[0]["destination"], "/platform/transitioning-from-oz/"
+            )
+            self.assertEqual(matches[0]["statusCode"], 308)
+            self.assertFalse(any(
+                redirect_source_matches_path(r["source"], matches[0]["destination"])
+                for r in redirects
+            ))
+
 
 if __name__ == "__main__":
     unittest.main()

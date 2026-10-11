@@ -24,7 +24,7 @@ description: >-
 
 ## How it works
 
-[System behavior, architecture, or data flow. Answer "what" and "why" before "how". Define new terms on first use. Diagrams help where relationships are hard to describe in prose.]
+[Explain behavior and relationships the reader can act on. Answer "what" and "why" before "how". Do not narrate internal architecture. Omit this section if it repeats the opening or an owning sibling page.]
 
 [Do NOT put step-by-step procedures here. Link to a procedural or quickstart page instead.]
 
@@ -39,4 +39,4 @@ description: >-
 * [Related feature](path/to/page.md)
 * [How to configure X](path/to/procedural-page.md)
 
-[STRUCTURE: Every block of content should sit under a header. Content before the first header is not linkable in the table of contents.]
+[STRUCTURE: Keep the opening paragraph before the first H2. Add sections only when the reader's task needs them; preserve page purpose and necessary facts when cutting.]

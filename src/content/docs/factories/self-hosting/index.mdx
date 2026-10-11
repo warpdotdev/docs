@@ -16,7 +16,7 @@ Self-hosting requires an Enterprise plan. To enable it for your team, [contact s
 
 Choose an architecture based on which system starts each run. With the [managed architecture](#managed-architecture), the {VARS.WARP_AUTOMATION_PLATFORM} routes work to `oz-agent-worker`. Use it for runs started from Slack, Linear, schedules, the API, the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>, or `oz agent run-cloud`.
 
-With the [unmanaged architecture](/platform/unmanaged-execution/), your CI system, scheduler, or script invokes `oz agent run` directly. Warp tracks the session but does not start or stop the process.
+With [unmanaged execution](/platform/unmanaged-execution/), your CI system, scheduler, or script invokes `oz agent run` directly. Warp tracks the session but does not start or stop the process.
 
 | Aspect | Managed | Unmanaged |
 | --- | --- | --- |
@@ -29,7 +29,7 @@ Use managed and unmanaged runs together when different workflows need different 
 
 ## Choosing an architecture
 
-Use the [unmanaged architecture](/platform/unmanaged-execution/) when any of these conditions apply:
+Use [unmanaged execution](/platform/unmanaged-execution/) when any of these conditions apply:
 
 * Agents must run on macOS or Windows.
 * Your system should own both the trigger and process lifecycle.
@@ -118,7 +118,7 @@ View managed and unmanaged runs in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOAR
 
 * [Self-hosting quickstart](/factories/self-hosting/quickstart/) - Start a managed Docker worker and route a test run.
 * [External orchestrators](/factories/self-hosting/external-orchestrators/) - Choose and deploy the Command backend or one-shot Direct.
-* [Unmanaged architecture](/platform/unmanaged-execution/) - Invoke `oz agent run` from your own scheduler or CI system.
+* [Unmanaged execution](/platform/unmanaged-execution/) - Invoke `oz agent run` from your own scheduler or CI system.
 * [Self-hosted worker reference](/factories/self-hosting/reference/) - Look up worker flags and backend configuration fields.
 * [Deployment patterns](/factories/deployment-patterns/) - Compare Warp-hosted, self-hosted, and CLI-only execution.
 * [Troubleshooting](/factories/self-hosting/troubleshooting/) - Diagnose worker startup, routing, and task failures.
