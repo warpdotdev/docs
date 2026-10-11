@@ -2873,6 +2873,176 @@
       "statusCode": 308
     },
     {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/authentication_required",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/authentication-required/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/authentication_required/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/authentication-required/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/budget_exceeded",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/budget_exceeded/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/budget-exceeded/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/content_policy_violation",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/content-policy-violation/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/content_policy_violation/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/content-policy-violation/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/environment_setup_failed",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/environment_setup_failed/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/external_authentication_required",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/external_authentication_required/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/agent_process_failed",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/agent-process-failed/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/agent_process_failed/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/agent-process-failed/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/feature_not_available",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/feature-not-available/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/feature_not_available/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/feature-not-available/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/infrastructure_timeout",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/infrastructure-timeout/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/infrastructure_timeout/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/infrastructure-timeout/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/insufficient_credits",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/insufficient_credits/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/integration_disabled",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/integration-disabled/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/integration_disabled/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/integration-disabled/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/integration_not_configured",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/integration-not-configured/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/integration_not_configured/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/integration-not-configured/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/internal_error",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/internal-error/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/internal_error/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/internal-error/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/invalid_request",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/invalid-request/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/invalid_request/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/invalid-request/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/not_authorized",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/not-authorized/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/not_authorized/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/not-authorized/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/operation_not_supported",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/operation-not-supported/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/operation_not_supported/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/operation-not-supported/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/resource_not_found",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/resource-not-found/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/resource_not_found/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/resource-not-found/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/resource_unavailable",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/resource-unavailable/",
+      "statusCode": 308
+    },
+    {
+      "source": "/factories/api-and-sdk/troubleshooting/errors/resource_unavailable/",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/resource-unavailable/",
+      "statusCode": 308
+    },
+    {
       "source": "/reference/cli#api-key-authentication",
       "destination": "/agents/cli/oz-cli/api-keys/",
       "statusCode": 308
