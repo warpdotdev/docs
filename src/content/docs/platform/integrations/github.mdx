@@ -65,7 +65,7 @@ When a run for that thread is already in flight, a new mention is delivered to t
 ## Requirements
 
 * **Team membership** - The GitHub integration requires a [Warp team](/knowledge-and-collaboration/teams/). Configuration is team-scoped, and runs are owned by the team associated with the GitHub App installation.
-* **Plan and credits** - Your team must have cloud agents enabled and credits available. On Enterprise plans, runs draw from a team credit pool per your contract. See [Access, billing, and identity](/platform/team-access-billing-and-identity/).
+* **Plan and usage** - Your team must have cloud agents enabled and sufficient eligible usage. Enterprise billing follows your contract. See [cloud agent access and billing](/platform/team-access-billing-and-identity/).
 * **Warp Factories GitHub App** - A GitHub organization owner installs the [Warp Factories](https://github.com/apps/warp-factories) GitHub App on the organization or account that owns the repositories, granting it access to all repositories or a selected set. The installation's repository access is what agents act with, so scope it deliberately.
 * **An enabled GitHub organization** - A Warp team admin adds the organization under **Enabled GitHub Orgs** in the Admin Panel so the installation maps to your Warp team.
 * **A connected GitHub account** - Each teammate connects their GitHub account to Warp once, so Warp can identify who triggered the run and which team to bill. The connection identifies the requester; it doesn't determine what the agent can reach on GitHub.
@@ -146,7 +146,7 @@ GitHub-triggered runs separate **what the agent can do on GitHub** from **who th
 
 **Access comes from the GitHub App installation.** A run started by an `@warp-agent` mention authenticates with a token minted for the Warp Factories GitHub App installation that delivered the event, not with the mentioning user's GitHub authorization. Cloning, branches, commits, pull requests, and the status comments all use that installation token, so on GitHub the work is attributed to the Warp Factories GitHub App rather than to the person who wrote the mention. The boundary on what the agent can reach is the installation's repository selection, optionally narrowed further by the repository access a Warp admin grants the team in the Admin Panel. Adjust the installation in your [GitHub settings](https://github.com/settings/installations).
 
-**Identity comes from the account connection.** Warp matches the GitHub account that posted the mention to the Warp account that connected it, not by email address. That binding decides who the run is attributed to in Warp, which team owns it, and whose credits pay for it. The person must be a member of the Warp team that enabled the organization.
+**Identity comes from the account connection.** Warp matches the GitHub account that posted the mention to the Warp account that connected it, not by email address. That binding decides who the run is attributed to in Warp, which team owns it, and how the run is billed. The person must be a member of the Warp team that enabled the organization.
 
 :::caution
 Because the run uses the installation's access rather than the mentioner's, anyone who can comment in a repository covered by the installation — and who has a connected GitHub account on that Warp team — can start an agent that acts with all the repository access granted to that team. Grant the app, and the team, only the repositories your team wants agents to work in.
@@ -194,7 +194,7 @@ Use the error code in the thread's status comment to narrow the fix. Common erro
 
 * [`feature_not_available`](/factories/api-and-sdk/troubleshooting/errors/feature-not-available/) - The team's plan doesn't support integrations.
 * [`external_authentication_required`](/factories/api-and-sdk/troubleshooting/errors/external-authentication-required/) - GitHub authorization is missing or expired.
-* [`insufficient_credits`](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) - The billed account has no credits available.
+* [`insufficient_credits`](/factories/api-and-sdk/troubleshooting/errors/insufficient-credits/) - The billed account has no usable balance.
 
 ### The agent finished but opened no pull request
 
@@ -210,6 +210,6 @@ Confirm the Warp Factories GitHub App installation covers the repository and sti
 
 * [GitHub Actions](/platform/integrations/github-actions/) - Run agents from your own CI workflows with `oz-agent-action`.
 * [Integrations overview](/platform/integrations/) - The full set of first-party integrations.
-* [Access, billing, and identity](/platform/team-access-billing-and-identity/) - Team GitHub authorization, identity mapping, and credit usage.
+* [Access, billing, and identity](/platform/team-access-billing-and-identity/) - Team GitHub authorization, identity mapping, and usage billing.
 * [Environments](/platform/environments/) - Configure the runtime context for cloud agents.
 * [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) - Inspect and share the runs a mention starts.

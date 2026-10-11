@@ -8,11 +8,15 @@ sidebar:
 ---
 import { VARS } from '@data/vars';
 
+<span id="what-is-a-cloud-agent-run" />
+
 Cloud agents execute a request away from your laptop, on Warp-hosted compute or your own infrastructure. For example, an agent can investigate a failed build, review a pull request, or respond to an issue filed in your tracker.
 
 For a standing team workflow with agents, automations, and tools to evaluate results, start with [Warp Factories](/factories/). To run cloud agents directly from Warp, use the [cloud agents quickstart](/platform/quickstart/).
 
 Already using the {VARS.WEB_APP} or {VARS.WARP_AGENT_CLI}? See [transitioning from Oz to Warp Factories](/platform/transitioning-from-oz/). The standalone workflows below remain distinct from factory setup.
+
+<span id="observability-and-steerability" />
 
 ## Monitor, inspect, and share cloud agent runs
 
@@ -55,6 +59,8 @@ Cloud agent runs automatically benefit from [Codebase Context](/agents/capabilit
 
 Configure [MCP servers](/platform/mcp/) and [secrets](/platform/secrets/) for the tools your task needs. The [shared configuration reference](/platform/overview/#shared-configuration) links to each configuration type and its scope.
 
+<span id="api-access-to-tasks" />
+
 ### API access to runs
 
 The [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) lets you query run status, metadata, and results from your own services.
@@ -75,9 +81,18 @@ Use [Handoff](/platform/handoff/) to continue work between local and cloud sessi
 
 ## Billing and plan requirements
 
-Check [access and billing requirements](/platform/team-access-billing-and-identity/) before running cloud agents or setting up integrations.
+<span id="for-cloud-agents-via-cliapi" />
+<span id="for-integrations-slacklinear" />
+
+Cloud runs incur [platform charges](/support-and-community/plans-and-billing/platform-credits/) for billable agent time, plus applicable inference and Warp-hosted compute charges. Check [access and billing requirements](/platform/team-access-billing-and-identity/) before running cloud agents or setting up integrations.
+
+:::note
+Personal [BYOK keys](/agents/inference/bring-your-own-api-key/) are not available to cloud runs. Business and Enterprise teams can configure [team-managed inference](/enterprise/enterprise-features/team-managed-keys-and-endpoints/); applicable compute and platform charges remain.
+:::
 
 ---
+
+<span id="learn-more" />
 
 ## Related pages
 
@@ -94,4 +109,4 @@ Check [access and billing requirements](/platform/team-access-billing-and-identi
 * [Agent Secrets](/platform/secrets/) — covers how to store, scope, and inject credentials into agent runs safely.
 * [MCP Servers](/platform/mcp/) — how to configure MCP servers for agent tool access and how MCP configuration is applied across runs.
 * [Deployment Patterns](/factories/deployment-patterns/) (beta) — compares common ways to deploy cloud agents and when to use each.
-* [Access, Billing, and Identity Permissions](/platform/team-access-billing-and-identity/) — explains individual and team-level requirements, credit billing behavior, and the permission model for who can run, view, and steer cloud agent tasks.
+* [Access, billing, and identity permissions](/platform/team-access-billing-and-identity/) — Individual and team requirements, usage billing, and run permissions.
