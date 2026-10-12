@@ -56,6 +56,7 @@ description: >-
 ## Related pages
 
 [Cross-links. Use descriptive link text that names the destination. If a quickstart or tutorial exists for this feature, link it here rather than inlining it above.]
+[LINK FORMAT: Follow AGENTS.md → Closing section. Start with an unbolded link. Add a description only when it clarifies why to open the page: spaced hyphen, capitalized first word, proper-name casing, no terminal punctuation. Keep this section last.]
 
 * [Related feature](path/to/page.md)
-* [Quickstart for this feature](path/to/page.md)
+* [Quickstart for this feature](path/to/page.md) - Try the feature in a working example

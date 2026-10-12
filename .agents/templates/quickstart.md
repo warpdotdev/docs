@@ -37,6 +37,7 @@ description: >-
 ## Next steps
 
 [One-line recap of what the reader just accomplished, then 2-3 actionable next steps. Always include a link to the conceptual page for the feature. This section goes last.]
+[LINK FORMAT: Follow AGENTS.md → Closing section. Start with an unbolded link. Add a description only when it clarifies why to open the page: spaced hyphen, capitalized first word, proper-name casing, no terminal punctuation.]
 
 * [Conceptual page for this feature](path/to/page.md)
-* [Deeper guide](path/to/page.md)
+* [Deeper guide](path/to/page.md) - Build on this setup with a complete workflow

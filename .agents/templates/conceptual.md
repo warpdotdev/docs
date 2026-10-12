@@ -35,8 +35,9 @@ description: >-
 ## Related pages
 
 [Cross-links to related features, the procedural page for doing this, and deeper references. Use descriptive link text that names the destination.]
+[LINK FORMAT: Follow AGENTS.md → Closing section. Start with an unbolded link. Add a description only when it clarifies why to open the page: spaced hyphen, capitalized first word, proper-name casing, no terminal punctuation. Keep this section last.]
 
 * [Related feature](path/to/page.md)
-* [How to configure X](path/to/procedural-page.md)
+* [How to configure X](path/to/procedural-page.md) - Configure X for your workflow
 
 [STRUCTURE: Keep the opening paragraph before the first H2. Add sections only when the reader's task needs them; preserve page purpose and necessary facts when cutting.]
