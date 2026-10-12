@@ -6898,8 +6898,8 @@
       "statusCode": 308
     },
     {
-      "source": "/reference/api-and-sdk/:path*",
-      "destination": "/factories/api-and-sdk/:path*",
+      "source": "/reference/api-and-sdk/:path(.*)",
+      "destination": "/factories/api-and-sdk/:path",
       "statusCode": 308
     },
     {
@@ -6908,8 +6908,8 @@
       "statusCode": 308
     },
     {
-      "source": "/reference/cli/:path*",
-      "destination": "/agents/cli/oz-cli/:path*",
+      "source": "/reference/cli/:path(.*)",
+      "destination": "/agents/cli/oz-cli/:path",
       "statusCode": 308
     },
     {
@@ -6925,21 +6925,6 @@
     {
       "source": "/agents/overview(/?)",
       "destination": "/agents/",
-      "statusCode": 308
-    },
-    {
-      "source": "/reference/cli/api-keys(/?)",
-      "destination": "/agents/cli/oz-cli/api-keys/",
-      "statusCode": 308
-    },
-    {
-      "source": "/reference/api-and-sdk/troubleshooting/errors/invalid-request(/?)",
-      "destination": "/factories/api-and-sdk/troubleshooting/errors/invalid-request/",
-      "statusCode": 308
-    },
-    {
-      "source": "/reference/cli/skills(/?)",
-      "destination": "/agents/cli/oz-cli/skills/",
       "statusCode": 308
     },
     {
