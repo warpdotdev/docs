@@ -6926,6 +6926,26 @@
       "source": "/agents/overview(/?)",
       "destination": "/agents/",
       "statusCode": 308
+    },
+    {
+      "source": "/reference/cli/api-keys(/?)",
+      "destination": "/agents/cli/oz-cli/api-keys/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/api-and-sdk/troubleshooting/errors/invalid-request(/?)",
+      "destination": "/factories/api-and-sdk/troubleshooting/errors/invalid-request/",
+      "statusCode": 308
+    },
+    {
+      "source": "/reference/cli/skills(/?)",
+      "destination": "/agents/cli/oz-cli/skills/",
+      "statusCode": 308
+    },
+    {
+      "source": "/performance/terminal-features(/?)",
+      "destination": "/terminal/comparisons/terminal-features/",
+      "statusCode": 308
     }
   ]
 }
