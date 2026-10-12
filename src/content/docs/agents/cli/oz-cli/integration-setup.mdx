@@ -191,7 +191,7 @@ You typically only need to handle this once per team, unless your repo access ch
 
 #### Team-level GitHub authorization
 
-For automated workflows that use an [agent API key](/agents/cli/oz-cli/api-keys/) (CI/CD pipelines, scheduled agents, SDK-triggered runs), you can configure team GitHub authorization so the agent authenticates with the Warp Factories GitHub App instead of an individual's personal token.
+For automated workflows that use an [agent API key](/agents/cli/oz-cli/api-keys/) (CI/CD pipelines, [scheduled agents](/platform/triggers/scheduled-agents/), SDK-triggered runs), you can configure team GitHub authorization so the agent authenticates with the Warp Factories GitHub App instead of an individual's personal token.
 
 This requires a Warp team admin to enable the GitHub organization in the Admin Panel (**Settings** > **Admin Panel** > **Platform**). Once configured, tasks initiated with an agent API key can clone repos and open pull requests using the GitHub App installation token.
 
