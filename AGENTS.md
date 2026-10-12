@@ -260,6 +260,7 @@ Search engines and AI agents give extra weight to the first paragraph. Lead with
 - End each numbered step in a procedure with a period
 - Bold the key term or feature name at the start of each list item
 - Follow the bold term with a dash and explanation
+- Closing link lists start with the link, not a bold term. See [Closing section](#closing-section) for their format.
 
 Example:
 ```markdown
@@ -798,7 +799,21 @@ Every page ends with one of two sections, chosen by content type:
 - **`## Next steps`** — quickstarts and tutorials. The reader just finished something and needs forward momentum: a one-line recap, then 2-3 actionable next steps, always including the conceptual page for the feature.
 - **`## Related pages`** — every other type. The reader wants lateral material, not a sequel.
 
-Do not use "Further reading" or "See also"; neither appears anywhere in the corpus. Whichever section applies, it goes last and contains at least one internal link whose anchor text names the destination.
+Do not use alternative names such as "Related capabilities", "Related resources", "Further reading", or "See also". Whichever section applies, it goes last and contains at least one internal link whose anchor text names the destination.
+
+Use the same link-list format in both sections:
+
+- Start each bullet with `* [Destination title](URL)`. Do not add bold formatting or a redundant label before the link.
+- Add a description only when it helps the reader understand why to open the destination. Omit it when the link text provides sufficient context.
+- Separate a description from the link with a spaced hyphen (` - `), not an em dash, en dash, or colon.
+- Capitalize the description's first word and preserve proper-name capitalization. Use sentence case, not title case.
+- Keep descriptions short and omit terminal punctuation. Explain the reader's next action or the destination's value rather than repeating its title.
+
+```markdown
+* [Third-party CLI agents overview](/agents/cli-agents/overview/) - Compare supported CLI agent integrations
+* [How to run unattended agents](/guides/agent-workflows/how-to-run-unattended-agents/) - Start recurring or event-driven cloud agents
+* [Claude Code](/agents/cli-agents/claude-code/)
+```
 
 ## Terminology standards
 
@@ -1019,7 +1034,7 @@ Before publishing any documentation, verify:
 - [ ] The title follows the convention for its content type (see "Titles by content type")
 - [ ] No quickstart or tutorial content is folded into a combined feature page
 - [ ] Headers use sentence case (with proper feature name capitalization)
-- [ ] Lists use bold term + dash + explanation format
+- [ ] Feature lists use bold term + dash + explanation format; closing link lists use the link-first format
 - [ ] All links work and point to correct destinations
 - [ ] Link text is descriptive, not generic text like "here," "this page," or "learn more"
 - [ ] Link sentences provide enough context for readers, search engines, and agents to understand the destination
@@ -1027,6 +1042,7 @@ Before publishing any documentation, verify:
 - [ ] Code examples are tested and accurate
 - [ ] Terminology and product names match the glossary (`.agents/references/terminology.md`)
 - [ ] Cross-references to related features are included
+- [ ] The closing section uses the content-type heading and link-list format defined in [Closing section](#closing-section)
 - [ ] Instructions include expected outcomes after key steps
 - [ ] First references to prerequisites, tools, or surfaces include inline context
 - [ ] Content is scannable with clear headers and lists
