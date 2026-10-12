@@ -6898,8 +6898,8 @@
       "statusCode": 308
     },
     {
-      "source": "/reference/api-and-sdk/:path*",
-      "destination": "/factories/api-and-sdk/:path*",
+      "source": "/reference/api-and-sdk/:path(.*)",
+      "destination": "/factories/api-and-sdk/:path",
       "statusCode": 308
     },
     {
@@ -6908,8 +6908,8 @@
       "statusCode": 308
     },
     {
-      "source": "/reference/cli/:path*",
-      "destination": "/agents/cli/oz-cli/:path*",
+      "source": "/reference/cli/:path(.*)",
+      "destination": "/agents/cli/oz-cli/:path",
       "statusCode": 308
     },
     {
@@ -6925,6 +6925,11 @@
     {
       "source": "/agents/overview(/?)",
       "destination": "/agents/",
+      "statusCode": 308
+    },
+    {
+      "source": "/performance/terminal-features(/?)",
+      "destination": "/terminal/comparisons/terminal-features/",
       "statusCode": 308
     }
   ]
