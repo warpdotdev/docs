@@ -469,7 +469,7 @@ Slack, Microsoft Teams, Linear, and Jira triggers require the matching [integrat
 ### `triggers[].filter`
 
 **Conditionally required.** Required for `webhook` / `received`; optional for other triggers.
-Narrows which events start runs. Available keys depend on the provider and event, such as `repos`, `labels`, and `authors` for GitHub or `channels`, `users`, and `keywords` for Slack. Keys combine with AND. Within a key's list, any value can match. An omitted key matches everything.
+Narrows which events start runs. Available keys depend on the provider and event, such as `repos`, `labels`, and `authors` for GitHub or `channels`, `users`, and `keywords` for Slack. Keys combine with AND. Within a key's list, any value can match. An omitted matcher doesn't restrict its field. GitHub triggers skip bot-authored events by default.
 
 Most canonical keys accept matcher objects with `in` and `not_in`. The name-based aliases `issues`, `projects`, `states`, `teams`, `channels`, `users`, and `itemUsers` take plain lists; Warp resolves their values to IDs.
 
@@ -479,7 +479,7 @@ Filter keys by provider:
 
 * Factory: `stages`.
 * Azure DevOps: `assignees`, `authors`, `base_branches`, `branches`, `labels`, `mentioned`, `repos`, `source_repos`, and `work_item_types`.
-* GitHub: `assignees`, `authors`, `baseBranches`, `base_branches`, `branches`, `conclusions`, `keywords`, `labels`, `mentioned`, `paths`, `prNumbers`, `pr_numbers`, `repos`, `review_states`, `reviewer_teams`, `reviewers`, and `workflows`.
+* GitHub: `assignees`, `authors`, `baseBranches`, `base_branches`, `branches`, `conclusions`, `keywords`, `labels`, `mentioned`, `paths`, `prNumbers`, `pr_numbers`, `repos`, `review_states`, `reviewer_teams`, `reviewers`, `skip_bots`, and `workflows`.
 * GitLab: `actions`, `base_branches`, `branches`, `mentioned`, and `repos`.
 * Jira: `keywords`, `labels`, `project_keys`, and `status_ids`.
 * Linear: `assignee_ids`, `creator_ids`, `issue_ids`, `issues`, `keywords`, `labels`, `mentioned_user_ids`, `project_ids`, `projects`, `state_ids`, `states`, `team_ids`, and `teams`.
@@ -503,6 +503,24 @@ triggers:
       payload:
         status: [failed]
 ```
+
+#### `triggers[].filter.skip_bots`
+
+**Optional.** GitHub triggers only.
+Controls which bot-authored events the trigger skips: `all` (default) skips every bot, `self` skips only Warp-operated bots, and `none` skips no bots. Other filters still apply.
+
+To accept events from third-party bots without responding to Warp-operated bots, set `skip_bots: self`:
+
+```yaml
+triggers:
+  - provider: github
+    event: pull_request_opened
+    filter:
+      repos: [acme/payments-service]
+      skip_bots: self
+```
+
+Using `none` can let a factory's own activity trigger more runs.
 
 ### `triggers[].schedule`
 
