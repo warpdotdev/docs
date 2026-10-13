@@ -27,6 +27,7 @@ export interface ModelPrice {
 	rates: TokenRates;
 	threshold?: { tokens: number; inclusive: boolean; rates: TokenRates };
 	regional?: { multiplier: number; note: string; source: PricingSource };
+	regionalVariants?: { multiplier: number; note: string; source: PricingSource }[];
 	lifecycle: 'active' | 'deprecated';
 	deprecatedAt?: string;
 	promotion?: { ends: string; afterwards: TokenRates };
@@ -66,7 +67,13 @@ function model(key: string, name: string, provider: string, modelIds: string[], 
 		key, name, provider, modelIds, rates: price, lifecycle: 'active',
 		source: modelPricingSources[provider],
 		runtimeSource: `warp-server/logic/ai/llm/llm.go@${runtimeRevision}`,
-		status: 'verified', ...options,
+		status: provider === 'Anthropic' ? 'internal-verification' : 'verified',
+		...(provider === 'Anthropic' ? { blocker: 'Confirm direct versus partner-cloud serving hosts and regional pricing applicability with AI Platform and Billing.' } : {}),
+		...(provider === 'Anthropic' ? { regionalVariants: [{ multiplier: 1.1, note: 'Partner-cloud regional and multi-region pricing is 1.1× global pricing for Claude 4.5 and later; Warp route applicability is unconfirmed.', source: modelPricingSources.Anthropic }] } : {}),
+		...(provider === 'Google' ? { regional: { multiplier: 1.1, note: 'Google Cloud non-global inference is 1.1× global pricing; Warp endpoint and region applicability is unconfirmed.', source: googleCloudSource } } : {}),
+		...(provider === 'xAI' && ['grok-4-6', 'grok-4-7'].includes(key) ? { regional: { multiplier: 1.1, note: 'US-region inference is 1.1× global pricing for Grok 4.6 and 4.7; Warp route applicability is unconfirmed.', source: modelPricingSources.xAI } } : {}),
+		...(provider === 'Fireworks' ? { regional: { multiplier: 1.5, note: 'Fireworks publishes 1.5× pricing for US-region variants; Warp variant applicability is unconfirmed.', source: modelPricingSources.Fireworks } } : {}),
+		...options,
 	};
 }
 
@@ -127,7 +134,7 @@ export const modelPricing: ModelPrice[] = [
 	model('grok-build-0.1', 'Grok Build 0.1', 'xAI', ['grok-build-0.1'], rates(1, null, 0.2, 2), { status: 'code-mismatch', blocker: 'Runtime has no long-context tier.', threshold: { tokens: 200000, inclusive: true, rates: rates(2, null, 0.4, 4) } }),
 	model('glm-5.3-fireworks', 'GLM 5.3', 'Fireworks', ['glm-5.3-fireworks'], rates(1.4, null, 0.26, 4.4), { status: 'code-mismatch', blocker: fireworksBlocker }),
 	model('glm-5.3-flash-fireworks', 'GLM 5.3 Flash', 'Fireworks', ['glm-5.3-flash-fireworks'], rates(0.15, null, 0.03, 0.5), { status: 'code-mismatch', blocker: fireworksBlocker }),
-	model('kimi-k3-fireworks', 'Kimi K3', 'Fireworks', ['kimi-k3-fireworks'], rates(3, null, 0.3, 15)),
+	model('kimi-k3-fireworks', 'Kimi K3', 'Fireworks', ['kimi-k3-fireworks'], rates(3, null, 0.3, 15), { status: 'internal-verification', blocker: 'Confirm whether US-region Fireworks variants and their public multiplier apply to the Warp serving route.' }),
 	model('minimax-3-fireworks', 'MiniMax M3', 'Fireworks', ['minimax-3-fireworks'], rates(0.3, null, 0.06, 1.2), { status: 'code-mismatch', blocker: fireworksBlocker }),
 	model('qwen-3.8-max-fireworks', 'Qwen 3.8 Max', 'Fireworks', ['qwen-3.8-max-fireworks'], rates(2, null, 0.25, 6), { status: 'code-mismatch', blocker: fireworksBlocker }),
 	model('deepseek-v4.1-flash-fireworks', 'DeepSeek V4.1 Flash', 'Fireworks', ['deepseek-v4.1-flash-fireworks'], rates(0.3, null, 0.006, 1.2), { status: 'code-mismatch', blocker: fireworksBlocker }),

@@ -79,9 +79,9 @@ export function validatePricing({ models, compute, inventory, pages }, today = n
 				check(price === null || Number.isFinite(row.threshold.rates?.[category]), `${row.key}: threshold omits billable ${category}`);
 			}
 		}
-		if (row.regional) {
-			check(Number.isFinite(row.regional.multiplier) && row.regional.multiplier > 0 && !!row.regional.note, `${row.key}: regional rate needs a multiplier and customer note`);
-			source(row.regional.source, `${row.key} regional`);
+		for (const regional of [...(row.regional ? [row.regional] : []), ...(row.regionalVariants ?? [])]) {
+			check(Number.isFinite(regional.multiplier) && regional.multiplier > 0 && !!regional.note, `${row.key}: regional rate needs a multiplier and customer note`);
+			source(regional.source, `${row.key} regional`);
 		}
 		if (row.promotion) {
 			check(isoDate(row.promotion.ends) && row.promotion.ends >= today, `${row.key}: missing or expired promotion end date`);
