@@ -18,11 +18,12 @@ Warp lets you choose from a curated set of large language models to power your a
 
 The `model_id` values shown below can be used when configuring models via the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) or [CLI](/agents/cli/oz-cli/).
 
-Listed rates cover generally available models offered on every plan and are in USD per million tokens for standard global Warp-provided inference. Enterprise contracts can differ. A dash means no separate published charge for that category, not that inference is free. For rates not listed here, contact [billing@warp.dev](mailto:billing@warp.dev).
+Listed rates cover generally available models offered on every plan for standard global Warp-provided inference. Enterprise contracts can differ. For rates not listed here, contact [billing@warp.dev](mailto:billing@warp.dev).
 
 Check the [usage breakdown](/support-and-community/plans-and-billing/credits/#tracking-usage) for the concrete models and token categories consumed; provider tools can add charges beyond tokens.
 
 {verifiedModelPricing.length > 0 && <p>Rate sources checked {modelPricingCheckedAt}.</p>}
+<ModelPricingTable />
 
 ### Auto models
 
@@ -53,8 +54,6 @@ The `low`, `medium`, `high`, `xhigh`, and `max` suffixes select increasing reaso
 
 To use eligible OpenAI models through your ChatGPT plan, [connect a ChatGPT subscription](/agents/inference/chatgpt-subscription/) and select a specific OpenAI model.
 
-<ModelPricingTable provider="OpenAI" />
-
 ### Anthropic
 
 Suffixes select effort level. `xhigh-fast` enables fast mode, and `thinking` enables thinking. The default ID for each family is listed separately where one exists.
@@ -82,10 +81,6 @@ Claude Haiku 5.5 has no fixed default `model_id`; choose one of its effort-speci
 Anthropic requires data retention for Claude Fable 5 and Claude Fable 5.1 for safety, abuse monitoring, and compliance reasons, so these models are **not available under Zero Data Retention (ZDR)**. This requirement is specific to the Claude Fable models and doesn't change the ZDR behavior of any other supported model. For Enterprise teams, these models are off by default and a workspace admin must enable them — see the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings) and the [Security overview](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr).
 :::
 
-{verifiedModelPricing.some((row) => row.provider === 'Anthropic') && <p>Anthropic cache-write prices show five-minute / one-hour durations, in that order.</p>}
-
-<ModelPricingTable provider="Anthropic" />
-
 ### Google
 
 | Model | `model_id` |
@@ -95,8 +90,6 @@ Anthropic requires data retention for Claude Fable 5 and Claude Fable 5.1 for sa
 | Gemini 3.7 Flash | `gemini-3.7-flash` |
 | Gemini 3.6 Flash | `gemini-3.6-flash` |
 | Gemini 3.5 Flash | `gemini-3.5-flash` |
-
-<ModelPricingTable provider="Google" />
 
 Source: [Gemini Developer API pricing](https://ai.google.dev/gemini-api/docs/pricing).
 
@@ -122,8 +115,6 @@ Source: [Gemini Developer API pricing](https://ai.google.dev/gemini-api/docs/pri
 
 To use eligible Grok models without Warp-provided inference charges, connect your xAI account. See [SuperGrok subscription](/agents/inference/grok-subscription/) for setup and other applicable charges.
 
-<ModelPricingTable provider="xAI" />
-
 Source: [xAI API pricing](https://docs.x.ai/developers/pricing).
 
 ### Hosted models (via [Fireworks AI](https://fireworks.ai))
@@ -138,8 +129,6 @@ Warp also supports leading open source models hosted via Fireworks AI, so you ca
 | Minimax 3 | `minimax-3-fireworks` |
 | Qwen 3.8 Max | `qwen-3.8-max-fireworks` |
 | DeepSeek V4.1 Flash | `deepseek-v4.1-flash-fireworks` |
-
-<ModelPricingTable provider="Fireworks" />
 
 Source: [Fireworks Serverless pricing](https://docs.fireworks.ai/serverless/pricing).
 

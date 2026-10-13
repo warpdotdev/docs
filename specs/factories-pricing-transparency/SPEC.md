@@ -20,8 +20,9 @@ A numeric row is eligible only when all of the following hold:
 ## Public behavior
 * Rename `Available models` to `Models and rates`, preserving the old anchor.
 * Show one row per qualified named model, grouping identically priced effort IDs. A price-changing mode gets its own row only if it independently meets the publication contract.
-* Use USD per million tokens with Model, Input, Cache write, Cache read, Output, and Notes columns. Anthropic cache writes show five-minute / one-hour rates when eligible.
-* State the complete higher-context tuple, boundary, and whole-request application. Preserve promotional expiry and reverification deadlines without presenting internal commitments as public promotions.
+* Put all nine qualified model families in one table, one row per family, sorted by model name in natural version order. Keep existing provider configuration tables separate.
+* Use Model as the first column and grouped headers for Standard (≤272k input tokens) and Long context (>272k input tokens), each with Input, Cache write, Cache read, and Output. State USD per 1M tokens once in the caption; numeric cells contain only rates or an em dash for a category with no separate published charge.
+* State the strict greater-than-272000 whole-request rule and applicable direct-US multiplier in short prose immediately below the table. Define the em dash once. Preserve reverification deadlines without presenting internal commitments as public promotions.
 * State that listed rates cover GA models available on every plan, global Warp-provided inference, and contract exceptions. Do not imply that an unlisted model is universally available or free.
 * Keep Auto, custom routers, and moving aliases non-numeric; the concrete routed model determines cost.
 * Link to the existing global usage breakdown and descriptive first-party sources. Show the source check date only when a rate is rendered.
@@ -42,6 +43,7 @@ Access research inspected `logic/ai/model_choices/model_choices.go`, `logic/ai/l
 * Every published named model and effort appears in the approved inventory with per-record dated evidence. Every excluded research record stays non-numeric publicly.
 * Model choice is the sole numeric inference owner; no compute deliverable, new compute navigation, cross-link, data module, validator, or dormant component remains.
 * All applicable regional notes, model scopes, multipliers, and source links remain present and accessible. Missing evidence fails validation and cannot promote a row.
+* Built regressions enforce exactly one pricing table, natural row order, accessible grouped and row headers, unchanged standard/long-context tuples, and no repeated long-context prose cells. A labelled keyboard-scrollable region contains mobile overflow.
 * Add regression tests for missing GA/access/deployment/billed-path/source/regional evidence, preview and restricted status, undeployed IDs, lifecycle exclusion, and built-HTML leakage. Billed-path evidence must retain the exact requester attestation, originating-request reference, and complete family scope. Preserve the regional mutation tests.
 * Run `npm run test:usage-pricing`, `npm run typecheck`, `npm run test:heading-vars`, `npm run build`, post-build pricing tests, `npm run test:heading-tocs`, and `npm run test:homepage-json-ld`.
 * Run changed-file style lint, internal links, UI-reference validation, compression and PR-body/risk checks, and `git diff --check`. Record unavailable tooling, never call it passing.

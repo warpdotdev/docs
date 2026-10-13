@@ -1,8 +1,16 @@
 ---
-import { verifiedModelPricing, type ModelPrice, type RegionalPrice, type TokenRates } from '@data/model-pricing';
-interface Props { provider: string }
-const { provider } = Astro.props;
-const rows = verifiedModelPricing.filter((row) => row.provider === provider);
+import { verifiedModelPricing, type ModelPrice, type RegionalPrice } from '@data/model-pricing';
+const rows = verifiedModelPricing.toSorted((a, b) => a.name.localeCompare(b.name, 'en', { numeric: true }));
+const categories = [
+	{ key: 'input', label: 'Input' },
+	{ key: 'cacheWrite', label: 'Cache write' },
+	{ key: 'cacheRead', label: 'Cache read' },
+	{ key: 'output', label: 'Output' },
+] as const;
+const groups = [
+	{ id: 'standard-rates', label: 'Standard (≤272k input tokens)' },
+	{ id: 'long-context-rates', label: 'Long context (>272k input tokens)' },
+];
 const regionalGroups = new Map<string, { regional: RegionalPrice; models: ModelPrice[] }>();
 for (const row of rows) {
 	for (const regional of [...(row.regional ? [row.regional] : []), ...(row.regionalVariants ?? [])]) {
@@ -11,43 +19,50 @@ for (const row of rows) {
 		regionalGroups.set(regional.key, group);
 	}
 }
-const dollars = (value: number | null) => value === null ? '—' : `$${Number(value.toPrecision(12))}`;
-const writes = (price: TokenRates) => price.cacheWrite1h === undefined
-	? dollars(price.cacheWrite) : `${dollars(price.cacheWrite)} / ${dollars(price.cacheWrite1h)}`;
-const tuple = (price: TokenRates) => `${dollars(price.input)} / ${writes(price)} / ${dollars(price.cacheRead)} / ${dollars(price.output)}`;
+const price = (value: number | null) => value === null ? '—' : String(Number(value.toPrecision(12)));
 ---
-{rows.length > 0 && <div class="pricing-table" role="region" aria-label={`${provider} model token rates`} tabindex="0">
+{rows.length > 0 && <>
+<div class="pricing-table" role="region" aria-label="Model token rates" tabindex="0">
 	<table>
-		<caption>{provider} rates in USD per million tokens</caption>
-		<thead><tr>
-			<th scope="col">Model</th><th scope="col">Input</th><th scope="col">Cache write</th>
-			<th scope="col">Cache read</th><th scope="col">Output</th><th scope="col">Notes</th>
-		</tr></thead>
+		<caption>Model rates (USD per 1M tokens)</caption>
+		<colgroup><col /></colgroup>
+		{groups.map(() => <colgroup span="4" />)}
+		<thead>
+			<tr>
+				<th id="model-name" scope="col" rowspan="2">Model</th>
+				{groups.map((group) => <th id={group.id} scope="colgroup" colspan="4">{group.label}</th>)}
+			</tr>
+			<tr>{groups.map((group) => categories.map((category) =>
+				<th id={`${group.id}-${category.key}`} headers={group.id} scope="col">{category.label}</th>
+			))}</tr>
+		</thead>
 		<tbody>{rows.map((row) => <tr data-pricing-key={row.key}>
-			<th scope="row">{row.name}</th>
-			<td>{dollars(row.rates.input)}</td><td>{writes(row.rates)}</td>
-			<td>{dollars(row.rates.cacheRead)}</td><td>{dollars(row.rates.output)}</td>
-			<td>
-				{row.note}
-				{row.threshold && <span>
-					{row.threshold.inclusive ? 'At or above' : 'Over'} {row.threshold.tokens.toLocaleString('en-US')} input tokens:
-					{' '}{tuple(row.threshold.rates)} (input / cache write / cache read / output), for the whole request.
-				</span>}
-				{row.promotion && <span> Promotional through {row.promotion.ends}; then {tuple(row.promotion.afterwards)}.</span>}
-			</td>
+			<th id={`model-${row.key}`} headers="model-name" scope="row">{row.name}</th>
+			{[row.rates, row.threshold!.rates].map((tuple, index) => categories.map((category) =>
+				<td headers={`model-${row.key} ${groups[index].id} ${groups[index].id}-${category.key}`}>{price(tuple[category.key])}</td>
+			))}
 		</tr>)}</tbody>
 	</table>
-</div>}
-{[...regionalGroups.values()].map(({ regional, models }) => <p data-regional-pricing-key={regional.key}>
+</div>
+<p data-long-context-rule>For all listed models, requests with more than 272,000 input tokens use long-context rates for the whole request. An em dash (—) means no separate published charge for that category.</p>
+{[...regionalGroups.values()].map(({ regional, models }) => <p data-regional-pricing-key={regional.key} data-regional-models={models.map((row) => row.key).join(' ')}>
 	<span data-regional-note>{regional.note}</span>{' '}
-	<span data-regional-scope>Applies to: {models.map((row) => row.name).join(', ')}.</span>{' '}
+	<span data-regional-scope>{models.length === rows.length ? 'Applies to all models in the table.' : `Applies to: ${models.map((row) => row.name).join(', ')}.`}</span>{' '}
 	Source: <a href={regional.source.url}>{regional.source.label}</a>.
 </p>)}
+</>}
 <style>
 	.pricing-table { overflow-x: auto; }
-	.pricing-table table { display: table; overflow: visible; }
-	caption { text-align: left; font-weight: 600; }
-	th, td { min-width: 5rem; }
-	th:first-child { min-width: 10rem; }
-	td:last-child { min-width: 15rem; }
+	.pricing-table:focus-visible { outline: 2px solid var(--sl-color-accent-high); outline-offset: 2px; }
+	.pricing-table table { display: table; overflow: visible; min-width: 44rem; }
+	.pricing-table caption { text-align: left; font-weight: 600; margin-bottom: 0.5rem; }
+	.pricing-table th, .pricing-table td { padding: 0.5rem; }
+	.pricing-table table thead th, .pricing-table table tbody th { text-transform: none; letter-spacing: normal; }
+	.pricing-table table thead th { text-align: center; }
+	.pricing-table th:first-child[rowspan], .pricing-table tbody th { text-align: left; white-space: nowrap; }
+	.pricing-table table tbody th { color: var(--sl-color-text); font-size: inherit; }
+	.pricing-table td { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+	.pricing-table thead tr:first-child th:last-child,
+	.pricing-table thead tr:last-child th:nth-child(5),
+	.pricing-table tbody td:nth-of-type(5) { border-inline-start: 1px solid var(--sl-color-hairline-light); }
 </style>

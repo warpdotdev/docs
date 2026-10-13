@@ -79,6 +79,9 @@ export function validatePricing({ models, inventory, pages }, today = new Date()
 			ids.add(id);
 		}
 		check(row.status !== 'verified' || isPublishableModelPrice(row, today), `${row.key}: verified row lacks GA, all-customer, deployment, billed-path, source, or regional evidence`);
+		check(row.status !== 'verified' || row.threshold?.tokens === 272000 && row.threshold.inclusive === false
+			&& !row.promotion && row.rates.cacheWrite1h === undefined,
+			`${row.key}: incompatible grouped pricing table boundary or rate category`);
 		check(row.lifecycle === 'active' || row.lifecycle === 'deprecated', `${row.key}: missing lifecycle status`);
 		check(row.lifecycle !== 'deprecated' || row.status !== 'verified', `${row.key}: deprecated model cannot be verified`);
 		tuple(row.rates, row.key, row.provider === 'Anthropic');
@@ -145,13 +148,47 @@ export async function validateBuiltPricing({ models, inventory, pages }) {
 	const html = await readFile(path.join(root, '.vercel/output/static', slug, 'index.html'), 'utf8');
 	const { document } = parseHTML(html);
 	const rendered = [...document.querySelectorAll(`[${attribute}]`)].map((node) => node.getAttribute(attribute));
-	const expected = models.filter((row) => isPublishableModelPrice(row)).map((row) => row.key);
-	if (JSON.stringify(rendered.toSorted()) !== JSON.stringify(expected.toSorted())) errors.push(`${slug}: rendered records do not match eligible data`);
-	for (const table of document.querySelectorAll(`table:has([${attribute}])`)) {
-		if (!table.querySelector('caption') || !table.querySelector('thead th[scope="col"]') || !table.querySelector('tbody th[scope="row"]')) errors.push(`${slug}: table lacks accessible headers or caption`);
+	const verified = models.filter((row) => isPublishableModelPrice(row)).toSorted((a, b) => a.name.localeCompare(b.name, 'en', { numeric: true }));
+	const expected = verified.map((row) => row.key);
+	if (JSON.stringify(rendered) !== JSON.stringify(expected)) errors.push(`${slug}: rendered records do not match eligible data in natural model order`);
+	const tables = [...document.querySelectorAll(`table:has([${attribute}])`)];
+	if (tables.length !== (verified.length ? 1 : 0)) errors.push(`${slug}: expected exactly one pricing table for eligible data`);
+	for (const table of tables) {
+		const region = table.parentElement;
+		if (region?.getAttribute('role') !== 'region' || region?.getAttribute('tabindex') !== '0' || !region?.getAttribute('aria-label')) errors.push(`${slug}: pricing table lacks a labelled keyboard-scrollable region`);
+		const headerRows = [...table.querySelectorAll('thead tr')];
+		const groups = [...(headerRows[0]?.querySelectorAll('th') ?? [])];
+		const columns = [...(headerRows[1]?.querySelectorAll('th') ?? [])];
+		const labels = ['Input', 'Cache write', 'Cache read', 'Output'];
+		if (!table.querySelector('caption')?.textContent.includes('USD per 1M tokens') || headerRows.length !== 2
+			|| groups.length !== 3 || groups[0]?.textContent !== 'Model' || groups[0]?.getAttribute('rowspan') !== '2'
+			|| groups[0]?.getAttribute('scope') !== 'col' || !groups[0]?.id
+			|| groups[1]?.textContent !== 'Standard (≤272k input tokens)' || groups[2]?.textContent !== 'Long context (>272k input tokens)'
+			|| groups.slice(1).some((group) => !group.id || group.getAttribute('scope') !== 'colgroup' || group.getAttribute('colspan') !== '4')
+			|| columns.length !== 8 || columns.some((column, index) => column.textContent !== labels[index % 4]
+				|| !column.id || column.getAttribute('scope') !== 'col' || column.getAttribute('headers') !== groups[index < 4 ? 1 : 2]?.id)) {
+			errors.push(`${slug}: table lacks accessible grouped headers or caption`);
+		}
+		const categories = ['input', 'cacheWrite', 'cacheRead', 'output'];
+		for (const node of table.querySelectorAll(`tbody tr[${attribute}]`)) {
+			const row = verified.find((model) => model.key === node.getAttribute(attribute));
+			const model = node.querySelector('th');
+			const cells = [...node.querySelectorAll('td')];
+			if (!row || model?.textContent !== row.name || !model?.id || model?.getAttribute('scope') !== 'row'
+				|| model?.getAttribute('headers') !== groups[0]?.id || cells.some((cell, index) =>
+					cell.getAttribute('headers') !== `${model?.id} ${groups[index < 4 ? 1 : 2]?.id} ${columns[index]?.id}`)) {
+				errors.push(`${node.getAttribute(attribute)}: missing accessible model or numeric cell headers`);
+			}
+			if (!row?.threshold || cells.length !== 8 || cells.some((cell, index) => {
+				const value = (index < 4 ? row.rates : row.threshold.rates)[categories[index % 4]];
+				return cell.textContent.trim() !== (value === null ? '—' : typeof value === 'number' ? String(Number(value.toPrecision(12))) : null);
+			})) errors.push(`${node.getAttribute(attribute)}: rendered numeric tuples differ from qualified rates`);
+		}
 	}
+	const rules = [...document.querySelectorAll('[data-long-context-rule]')];
+	if (verified.length && (rules.length !== 1 || !/For all listed models, requests with more than 272,000 input tokens use long-context rates for the whole request\./.test(rules[0]?.textContent ?? '')
+		|| !rules[0]?.textContent.includes('An em dash (—) means no separate published charge for that category.'))) errors.push(`${slug}: missing whole-request threshold rule or dash definition`);
 	const qualifications = [...document.querySelectorAll('[data-regional-pricing-key]')];
-	const verified = models.filter((row) => isPublishableModelPrice(row));
 	for (const required of inventory.regionalRequirements) {
 		const scoped = verified.filter((row) => required.modelKeys.includes(row.key));
 		const notes = qualifications.filter((node) => node.getAttribute('data-regional-pricing-key') === required.key);
@@ -160,8 +197,10 @@ export async function validateBuiltPricing({ models, inventory, pages }) {
 			continue;
 		}
 		const node = notes[0];
-		const expectedScope = `Applies to: ${scoped.map((row) => row.name).join(', ')}.`;
-		if (notes.length !== 1 || node?.querySelector('[data-regional-scope]')?.textContent !== expectedScope || !node?.querySelector(`a[href="${required.sourceUrl}"]`)?.textContent) {
+		const expectedScope = scoped.length === verified.length ? 'Applies to all models in the table.' : `Applies to: ${scoped.map((row) => row.name).join(', ')}.`;
+		if (notes.length !== 1 || node?.querySelector('[data-regional-scope]')?.textContent !== expectedScope
+			|| node?.getAttribute('data-regional-models') !== scoped.map((row) => row.key).join(' ')
+			|| !node?.querySelector(`a[href="${required.sourceUrl}"]`)?.textContent) {
 			errors.push(`${required.key}: missing regional qualification scope or source`);
 		}
 		for (const row of scoped) {

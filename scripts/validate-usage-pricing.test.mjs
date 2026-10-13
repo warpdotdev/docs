@@ -58,6 +58,30 @@ for (const [name, mutate] of [
 	});
 }
 
+for (const [name, mutate, message] of [
+	['duplicate table', (table) => table.after(table.cloneNode(true)), /exactly one pricing table/],
+	['row-order drift', (table) => {
+		const rows = table.querySelectorAll('tbody tr');
+		rows[0].before(rows[1]);
+	}, /natural model order/],
+	['missing context group', (table) => table.querySelector('th[scope="colgroup"]').remove(), /grouped headers/],
+	['changed long-context price', (table) => table.querySelector('tbody td:nth-of-type(5)').textContent = '999', /numeric tuples/],
+]) {
+	test(`built validation rejects ${name}`, { skip: !process.argv.includes('--built') }, async () => {
+		const filename = new URL('../.vercel/output/static/agents/inference/model-choice/index.html', import.meta.url);
+		const html = await readFile(filename, 'utf8');
+		const { document } = parseHTML(html);
+		const table = document.querySelector('table:has([data-pricing-key])');
+		try {
+			mutate(table);
+			await writeFile(filename, document.toString());
+			assert.match((await validateBuiltPricing(baseline)).join('\n'), message);
+		} finally {
+			await writeFile(filename, html);
+		}
+	});
+}
+
 for (const [name, mutate] of [
 	['GA evidence', (row) => delete row.publication.ga],
 	['preview status', (row) => row.publication.ga.status = 'preview'],
@@ -93,6 +117,75 @@ test('built validation rejects an unqualified numeric row', { skip: !process.arg
 	assert.match((await validateBuiltPricing(inputs)).join('\n'), /verified row lacks|rendered records do not match/);
 });
 
+test('published rates use one naturally ordered table', { skip: !process.argv.includes('--built') }, async () => {
+	const html = await readFile(new URL('../.vercel/output/static/agents/inference/model-choice/index.html', import.meta.url), 'utf8');
+	const { document } = parseHTML(html);
+	const tables = [...document.querySelectorAll('table:has([data-pricing-key])')];
+	assert.equal(tables.length, 1);
+	assert.deepEqual([...tables[0].querySelectorAll('tbody th')].map((node) => node.textContent), [
+		'GPT-5.4', 'GPT-5.5', 'GPT-5.6 Luna', 'GPT-5.6 Sol', 'GPT-5.6 Terra',
+		'GPT-6 Astra', 'GPT-6 Luna', 'GPT-6 Sol', 'GPT-6.1 Sol',
+	]);
+	const region = tables[0].parentElement;
+	assert.equal(region.getAttribute('role'), 'region');
+	assert.equal(region.getAttribute('tabindex'), '0');
+	assert.ok(region.getAttribute('aria-label'));
+});
+
+test('pricing groups have accessible multilevel headers', { skip: !process.argv.includes('--built') }, async () => {
+	const html = await readFile(new URL('../.vercel/output/static/agents/inference/model-choice/index.html', import.meta.url), 'utf8');
+	const { document } = parseHTML(html);
+	const table = document.querySelector('table:has([data-pricing-key])');
+	assert.match(table.querySelector('caption').textContent, /USD per 1M tokens/);
+	const headings = [...table.querySelectorAll('thead tr')];
+	assert.equal(headings.length, 2);
+	const groups = [...headings[0].querySelectorAll('th')];
+	assert.equal(groups[0].textContent, 'Model');
+	assert.equal(groups[0].getAttribute('rowspan'), '2');
+	assert.deepEqual(groups.slice(1).map((node) => node.textContent), [
+		'Standard (≤272k input tokens)', 'Long context (>272k input tokens)',
+	]);
+	for (const group of groups.slice(1)) {
+		assert.equal(group.getAttribute('scope'), 'colgroup');
+		assert.equal(group.getAttribute('colspan'), '4');
+	}
+	const columns = [...headings[1].querySelectorAll('th')];
+	assert.deepEqual(columns.map((node) => node.textContent), [
+		'Input', 'Cache write', 'Cache read', 'Output', 'Input', 'Cache write', 'Cache read', 'Output',
+	]);
+	for (const [index, column] of columns.entries()) {
+		assert.equal(column.getAttribute('scope'), 'col');
+		assert.equal(column.getAttribute('headers'), groups[index < 4 ? 1 : 2].id);
+	}
+	for (const row of table.querySelectorAll('tbody tr')) {
+		const model = row.querySelector('th');
+		assert.equal(model.getAttribute('scope'), 'row');
+		for (const [index, cell] of [...row.querySelectorAll('td')].entries()) {
+			assert.deepEqual(cell.getAttribute('headers').split(' '), [
+				model.id, groups[index < 4 ? 1 : 2].id, columns[index].id,
+			]);
+		}
+	}
+});
+
+test('numeric cells preserve both complete rate tuples without prose', { skip: !process.argv.includes('--built') }, async () => {
+	const html = await readFile(new URL('../.vercel/output/static/agents/inference/model-choice/index.html', import.meta.url), 'utf8');
+	const { document } = parseHTML(html);
+	const categories = ['input', 'cacheWrite', 'cacheRead', 'output'];
+	for (const model of modelModule.verifiedModelPricing) {
+		const row = document.querySelector(`[data-pricing-key="${model.key}"]`);
+		const expected = [model.rates, model.threshold.rates].flatMap((tuple) =>
+			categories.map((key) => tuple[key] === null ? '—' : String(Number(tuple[key].toFixed(12)))));
+		assert.deepEqual([...row.querySelectorAll('td')].map((cell) => cell.textContent.trim()), expected);
+		assert.doesNotMatch(row.textContent, /Over 272,000|for the whole request|input \/ cache write/);
+	}
+	const rule = document.querySelector('[data-long-context-rule]');
+	assert.ok(rule);
+	assert.match(rule.textContent, /more than 272,000 input tokens.*whole request/);
+	assert.equal(document.querySelectorAll('[data-long-context-rule]').length, 1);
+	assert.ok(document.querySelector('[data-regional-pricing-key="openai-direct-us"]'));
+});
+
 test('approved inventory and sourced, gated data pass', () => {
 	assert.deepEqual(validatePricing(baseline, today), []);
 });
@@ -104,6 +197,8 @@ for (const [name, mutate, message] of [
 	['missing provenance', (data) => delete data.models[0].source, /first-party source/],
 	['invalid access date', (data) => data.models[0].source.accessed = '2026-02-30', /invalid source access date/],
 	['incomplete threshold', (data) => delete data.models[0].threshold.rates.output, /invalid output rate/],
+	['missing published long-context tier', (data) => delete data.models[0].threshold, /incompatible grouped pricing table/],
+	['incompatible grouped boundary', (data) => data.models[0].threshold.inclusive = true, /incompatible grouped pricing table/],
 	['null billable threshold category', (data) => data.models[0].threshold.rates.cacheRead = null, /threshold omits billable cacheRead/],
 	['missing regional evidence', (data) => delete data.models[0].regional.source, /first-party source/],
 	['missing regional qualification', (data) => delete data.models[0].regional, /missing required regional/],
@@ -141,6 +236,7 @@ test('models without explicit approval stay blocked', async () => {
 for (const [name, mutate] of [
 	['note', (node) => node.querySelector('[data-regional-note]').remove()],
 	['model scope', (node) => node.querySelector('[data-regional-scope]').remove()],
+	['scoped model keys', (node) => node.removeAttribute('data-regional-models')],
 	['source', (node) => node.querySelector('a').remove()],
 	['entire qualification', (node) => node.remove()],
 ]) {
