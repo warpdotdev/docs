@@ -16,8 +16,8 @@ Automation filters decide which events from your connected tools start factory w
 An event starts an automation only when it matches the trigger's provider, event type, and filters:
 
 * **Every filter must match.** A trigger that sets both a team and a label matches only events carrying both.
-* **Within one filter, any value matches.** A **Labels** filter listing `bug` and `regression` matches an issue with either label.
-* **An empty list filter doesn't restrict matching.** Provider defaults still apply: [GitHub triggers skip bot events by default](/factories/integrations/github/#events-from-bots-dont-start-work).
+* **Within an inclusion filter, any value matches.** A **Labels** filter listing `bug` and `regression` matches an issue with either label.
+* **An empty optional list filter doesn't restrict matching.** Provider defaults still apply: [GitHub triggers skip bot events by default](/factories/integrations/github/#events-from-bots-dont-start-work).
 
 One event can match more than one automation, and each match starts its own run. If a single action starts duplicate runs, narrow or remove one of the overlapping triggers.
 
@@ -73,7 +73,7 @@ triggers:
 Review the labeled issue and decide the next required stage.
 ```
 
-The same matching rules apply: every field must match, and any listed value within a list filter matches. Omitted list filters don't restrict matching; GitHub's `skip_bots` policy defaults to `all` when omitted. Each integration guide shows the keys its provider accepts.
+The same matching rules apply: every field must match, and an `in` list matches any listed value. Omitted optional list filters don't restrict matching; GitHub's `skip_bots` policy defaults to `all` when omitted. Each integration guide shows the keys its provider accepts.
 
 For example, this automation from [`04-code-review-only`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository scopes reviews to one base branch and excludes work-in-progress PRs with a `not_in` list:
 
