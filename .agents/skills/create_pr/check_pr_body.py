@@ -78,7 +78,15 @@ def _strip_urls(text: str) -> str:
 
 def find_repeated_span(text: str) -> Optional[Tuple[str, int]]:
     """Return (snippet, count) for the worst repeated span, or None if clean."""
-    norm = re.sub(r"\s+", " ", _strip_urls(text)).strip()
+    # Media attachments intentionally repeat alternative text as visible captions.
+    prose = re.sub(
+        r"<!-- oz:computer-use-(screenshots|videos) start -->.*?"
+        r"<!-- oz:computer-use-\1 end -->",
+        " ",
+        text,
+        flags=re.DOTALL,
+    )
+    norm = re.sub(r"\s+", " ", _strip_urls(prose)).strip()
     if len(norm) < SHORT_WINDOW * 2:
         return None
 
