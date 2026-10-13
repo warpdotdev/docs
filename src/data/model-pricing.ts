@@ -1,3 +1,5 @@
+import pricingInventory from './pricing-inventory.json';
+
 export type VerificationStatus =
 	| 'verified'
 	| 'catalog-mismatch'
@@ -26,6 +28,20 @@ export interface RegionalPrice {
 	source: PricingSource;
 }
 
+export interface PublicationEvidence {
+	reference: string;
+	checkedAt: string;
+	summary: string;
+}
+
+export interface ModelPublication {
+	ga: PublicationEvidence & { status: 'ga' | 'preview' | 'unconfirmed' };
+	access: PublicationEvidence & { status: 'all-customers' | 'restricted' | 'unconfirmed' };
+	deployment: PublicationEvidence & { environment: 'production'; modelIds: string[] };
+	billedPath: PublicationEvidence & { status: 'confirmed' | 'unconfirmed'; host: string };
+	regional: PublicationEvidence & { status: 'qualified' | 'unconfirmed'; keys: string[] };
+}
+
 export interface ModelPrice {
 	key: string;
 	name: string;
@@ -43,9 +59,37 @@ export interface ModelPrice {
 	additionalSources?: PricingSource[];
 	runtimeSource: string;
 	status: VerificationStatus;
+	publication?: ModelPublication;
 	blocker?: string;
 	note?: string;
 }
+
+export function isPublishableModelPrice(row: ModelPrice, today = new Date().toISOString().slice(0, 10)): boolean {
+	const date = (value: string | undefined) => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)
+		&& !Number.isNaN(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value && value <= today;
+	const evidence = (value: PublicationEvidence | undefined) => !!value?.summary?.trim() && date(value?.checkedAt)
+		&& /^https:\/\/(?:github\.com|warpdev\.slack\.com|docs\.warp\.dev|app\.warp\.dev)\//.test(value?.reference ?? '');
+	const source = (value: PricingSource | undefined) => !!value?.label && date(value?.accessed)
+		&& /^https:\/\/(?:developers\.openai\.com|platform\.claude\.com|ai\.google\.dev|cloud\.google\.com|docs\.x\.ai|docs\.fireworks\.ai)\//.test(value?.url ?? '');
+	const publication = row.publication;
+	if (!pricingInventory.publishedModelKeys.includes(row.key) || row.status !== 'verified' || row.lifecycle !== 'active' || !source(row.source) || !publication
+		|| publication.ga?.status !== 'ga' || publication.access?.status !== 'all-customers'
+		|| publication.deployment?.environment !== 'production' || publication.billedPath?.status !== 'confirmed'
+		|| !publication.billedPath.host?.trim() || publication.regional?.status !== 'qualified') return false;
+	if (row.reverifyBy && row.reverifyBy < today || row.promotion && row.promotion.ends < today) return false;
+	if (![publication.ga, publication.access, publication.deployment, publication.billedPath, publication.regional].every(evidence)
+		|| !Array.isArray(publication.deployment.modelIds)
+		|| row.modelIds.some((id) => !publication.deployment.modelIds.includes(id))
+		|| !Array.isArray(publication.regional.keys)) return false;
+	const regionals = [...(row.regional ? [row.regional] : []), ...(row.regionalVariants ?? [])];
+	const required = pricingInventory.regionalRequirements.filter((item) => item.modelKeys.includes(row.key));
+	if (required.length !== regionals.length || !required.every((item) => regionals.some((regional) =>
+		regional.key === item.key && regional.multiplier === item.multiplier && regional.source?.url === item.sourceUrl))) return false;
+	return regionals.every((regional) => source(regional.source) && Number.isFinite(regional.multiplier)
+		&& regional.multiplier > 0 && regional.note?.includes(`${regional.multiplier}×`))
+		&& JSON.stringify(regionals.map((regional) => regional.key).toSorted()) === JSON.stringify(publication.regional.keys.toSorted());
+}
+
 
 export const modelPricingCheckedAt = '2026-10-13';
 export const runtimeRevision = '904a56f6c11d15bae2fe44d3497ff4144e8c1153';
@@ -75,6 +119,7 @@ function model(key: string, name: string, provider: string, modelIds: string[], 
 		source: modelPricingSources[provider],
 		runtimeSource: `warp-server/logic/ai/llm/llm.go@${runtimeRevision}`,
 		status: 'internal-verification',
+		publication: pricingInventory.publicationEvidence.find((entry) => entry.modelKeys.includes(key)) as ModelPublication | undefined,
 		blocker: options.status === 'verified' ? undefined : provider === 'Anthropic'
 			? 'Confirm direct versus partner-cloud serving hosts and regional pricing applicability with AI Platform and Billing.'
 			: 'Confirm rate and serving-route applicability before publication.',
@@ -151,4 +196,4 @@ export const modelPricing: ModelPrice[] = [
 	model('deepseek-v4.1-flash-fireworks', 'DeepSeek V4.1 Flash', 'Fireworks', ['deepseek-v4.1-flash-fireworks'], rates(0.3, null, 0.006, 1.2), { status: 'code-mismatch', blocker: fireworksBlocker }),
 ];
 
-export const verifiedModelPricing = modelPricing.filter((row) => row.status === 'verified');
+export const verifiedModelPricing = modelPricing.filter((row) => isPublishableModelPrice(row));

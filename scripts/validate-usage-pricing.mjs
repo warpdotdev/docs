@@ -6,19 +6,21 @@ import { parseHTML } from 'linkedom';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const modelPage = 'agents/inference/model-choice.mdx';
-const computePage = 'factories/usage-and-billing.mdx';
 const statuses = new Set(['verified', 'catalog-mismatch', 'code-mismatch', 'public-source-missing', 'internal-verification']);
-const firstPartyHosts = new Set(['developers.openai.com', 'platform.claude.com', 'ai.google.dev', 'cloud.google.com', 'docs.x.ai', 'docs.fireworks.ai', 'namespace.so', 'docs.docker.com']);
+const firstPartyHosts = new Set(['developers.openai.com', 'platform.claude.com', 'ai.google.dev', 'cloud.google.com', 'docs.x.ai', 'docs.fireworks.ai']);
 
 async function loadData(name) {
-	const source = await readFile(path.join(root, 'src/data', name), 'utf8');
+	let source = await readFile(path.join(root, 'src/data', name), 'utf8');
+	const inventory = await readFile(path.join(root, 'src/data/pricing-inventory.json'), 'utf8');
+	source = source.replace("import pricingInventory from './pricing-inventory.json';", `const pricingInventory = ${inventory};`);
 	const { outputText } = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } });
 	return import(`data:text/javascript;base64,${Buffer.from(outputText).toString('base64')}`);
 }
 
+const { isPublishableModelPrice } = await loadData('model-pricing.ts');
+
 export async function pricingInputs() {
 	const models = await loadData('model-pricing.ts');
-	const compute = await loadData('factories-compute-pricing.ts');
 	const inventory = JSON.parse(await readFile(path.join(root, 'src/data/pricing-inventory.json'), 'utf8'));
 	const pages = {};
 	async function walk(directory) {
@@ -29,10 +31,10 @@ export async function pricingInputs() {
 		}
 	}
 	await walk(path.join(root, 'src/content/docs'));
-	return { models: models.modelPricing, compute: compute.factoriesComputePricing, inventory, pages };
+	return { models: models.modelPricing, inventory, pages };
 }
 
-export function validatePricing({ models, compute, inventory, pages }, today = new Date().toISOString().slice(0, 10)) {
+export function validatePricing({ models, inventory, pages }, today = new Date().toISOString().slice(0, 10)) {
 	const errors = [];
 	const check = (condition, message) => { if (!condition) errors.push(message); };
 	const isoDate = (value) => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value;
@@ -63,6 +65,10 @@ export function validatePricing({ models, compute, inventory, pages }, today = n
 	const regionalNotes = new Map();
 	for (const row of models) {
 		common(row);
+		if (row.status === 'verified') {
+			const approvals = inventory.publicationEvidence?.filter((entry) => entry.modelKeys.includes(row.key)) ?? [];
+			check(approvals.length === 1 && JSON.stringify(row.publication) === JSON.stringify(approvals[0]), `${row.key}: missing, ambiguous, or changed publication evidence in approved inventory`);
+		}
 		check(!keys.has(row.key), `${row.key}: duplicate row key`);
 		check(!names.has(row.name), `${row.key}: duplicate named model`);
 		keys.add(row.key); names.add(row.name);
@@ -72,6 +78,7 @@ export function validatePricing({ models, compute, inventory, pages }, today = n
 			check(!/^(auto(?:-|$)|best$|opus$|sonnet$|haiku$|fable$|custom)/.test(id), `${id}: moving alias has a fixed rate`);
 			ids.add(id);
 		}
+		check(row.status !== 'verified' || isPublishableModelPrice(row, today), `${row.key}: verified row lacks GA, all-customer, deployment, billed-path, source, or regional evidence`);
 		check(row.lifecycle === 'active' || row.lifecycle === 'deprecated', `${row.key}: missing lifecycle status`);
 		check(row.lifecycle !== 'deprecated' || row.status !== 'verified', `${row.key}: deprecated model cannot be verified`);
 		tuple(row.rates, row.key, row.provider === 'Anthropic');
@@ -115,83 +122,57 @@ export function validatePricing({ models, compute, inventory, pages }, today = n
 	const pageIds = new Set([...pages[modelPage].matchAll(/`((?:gpt-|claude-|gemini-|grok-|glm-|kimi-|minimax-|qwen-|deepseek-)[^`]+)`/g)].map((match) => match[1]));
 	for (const id of expectedIds) check(pageIds.has(id), `${id}: configuration table missing inventory ID`);
 	for (const id of pageIds) check(expectedIds.has(id), `${id}: undocumented inventory change`);
-	const computeKeys = new Set();
-	check(Array.isArray(inventory.shapePricedComputeKeys) && inventory.shapePricedComputeKeys.length > 0, 'missing approved shaped-compute requirements');
-	for (const row of compute) {
-		common(row);
-		check(!computeKeys.has(row.key), `${row.key}: duplicate compute row`);
-		computeKeys.add(row.key);
-		check(!Object.hasOwn(row, 'modelIds') && !Object.hasOwn(row, 'rates') && !Object.hasOwn(row, 'provider'), `${row.key}: model rates cannot live in compute data`);
-		const hourly = Number.isFinite(row.hourly) && row.hourly >= 0;
-		const formula = row.formula && Number.isFinite(row.formula.unitHourly) && row.formula.unitHourly >= 0 && Number.isInteger(row.formula.minimumUnits) && row.formula.minimumUnits > 0 && Number.isFinite(row.formula.memoryPerUnit) && row.formula.memoryPerUnit > 0;
-		check(row.formula === undefined || formula, `${row.key}: incomplete compute formula`);
-		check(row.hourly === undefined || hourly, `${row.key}: invalid compute hourly price`);
-		if (row.shape || row.hourly !== undefined || inventory.shapePricedComputeKeys?.includes(row.key)) {
-			check(Number.isInteger(row.shape?.vcpus) && row.shape.vcpus > 0 && Number.isFinite(row.shape?.memory) && row.shape.memory > 0 && ['GB', 'GiB'].includes(row.shape?.memoryUnit), `${row.key}: missing or invalid compute shape`);
-		}
-		check(hourly || formula || row.status === 'public-source-missing', `${row.key}: incomplete compute price or formula`);
-		check(!(hourly && formula), `${row.key}: ambiguous compute price`);
-		check(row.status !== 'verified' || hourly || formula, `${row.key}: verified compute price missing`);
-		check(!!row.platform && !!row.architecture, `${row.key}: missing runner configuration`);
-	}
-	for (const key of inventory.computeKeys) check(computeKeys.has(key), `${key}: missing compute configuration`);
-	for (const key of computeKeys) check(inventory.computeKeys.includes(key), `${key}: unapproved compute configuration`);
+	const publishedKeys = models.filter((row) => isPublishableModelPrice(row, today)).map((row) => row.key).toSorted();
+	check(Array.isArray(inventory.publishedModelKeys) && JSON.stringify(inventory.publishedModelKeys.toSorted()) === JSON.stringify(publishedKeys), 'published model set differs from approved inventory');
 	for (const [filename, content] of Object.entries(pages)) {
 		check(!content.includes('ModelPricingTable') || filename === modelPage, `${filename}: duplicate model rate owner`);
-		check(!content.includes('ComputePricingTable') || filename === computePage, `${filename}: duplicate compute rate owner`);
 		check(!content.includes('@data/model-pricing') || filename === modelPage, `${filename}: duplicate model data owner`);
-		check(!content.includes('@data/factories-compute-pricing') || filename === computePage, `${filename}: duplicate compute data owner`);
+		check(!content.includes('ComputePricingTable') && !content.includes('/factories/usage-and-billing'), `${filename}: excluded compute deliverable remains`);
+		if (filename === modelPage) check(!/\$\s*\d|USD\s+\d/i.test(content), `${filename}: handwritten numeric rate bypasses canonical data`);
 		if (filename !== modelPage) {
 			for (const line of content.split('\n')) {
 				check(!(/\$\s*\d/.test(line) && models.some((row) => line.includes(row.name))), `${filename}: copied named-model numeric rate`);
 			}
 		}
-		if (filename === modelPage || filename === computePage) check(!/\$\s*\d|USD\s+\d/i.test(content), `${filename}: handwritten numeric rate bypasses canonical data`);
-		if (filename === computePage) check(!content.includes('model-pricing'), `${filename}: model data must not be imported`);
 	}
 	return errors;
 }
 
-export async function validateBuiltPricing({ models, compute, inventory }) {
-	const errors = [];
-	for (const [slug, records, attribute] of [
-		['agents/inference/model-choice', models, 'data-pricing-key'],
-		['factories/usage-and-billing', compute, 'data-compute-pricing-key'],
-	]) {
-		const html = await readFile(path.join(root, '.vercel/output/static', slug, 'index.html'), 'utf8');
-		const { document } = parseHTML(html);
-		const rendered = [...document.querySelectorAll(`[${attribute}]`)].map((node) => node.getAttribute(attribute));
-		const expected = records.filter((row) => row.status === 'verified').map((row) => row.key);
-		if (JSON.stringify(rendered.toSorted()) !== JSON.stringify(expected.toSorted())) errors.push(`${slug}: rendered records do not match verified data`);
-		for (const table of document.querySelectorAll(`table:has([${attribute}])`)) {
-			if (!table.querySelector('caption') || !table.querySelector('thead th[scope="col"]') || !table.querySelector('tbody th[scope="row"]')) errors.push(`${slug}: table lacks accessible headers or caption`);
+export async function validateBuiltPricing({ models, inventory, pages }) {
+	const errors = validatePricing({ models, inventory, pages });
+	const slug = 'agents/inference/model-choice';
+	const attribute = 'data-pricing-key';
+	const html = await readFile(path.join(root, '.vercel/output/static', slug, 'index.html'), 'utf8');
+	const { document } = parseHTML(html);
+	const rendered = [...document.querySelectorAll(`[${attribute}]`)].map((node) => node.getAttribute(attribute));
+	const expected = models.filter((row) => isPublishableModelPrice(row)).map((row) => row.key);
+	if (JSON.stringify(rendered.toSorted()) !== JSON.stringify(expected.toSorted())) errors.push(`${slug}: rendered records do not match eligible data`);
+	for (const table of document.querySelectorAll(`table:has([${attribute}])`)) {
+		if (!table.querySelector('caption') || !table.querySelector('thead th[scope="col"]') || !table.querySelector('tbody th[scope="row"]')) errors.push(`${slug}: table lacks accessible headers or caption`);
+	}
+	const qualifications = [...document.querySelectorAll('[data-regional-pricing-key]')];
+	const verified = models.filter((row) => isPublishableModelPrice(row));
+	for (const required of inventory.regionalRequirements) {
+		const scoped = verified.filter((row) => required.modelKeys.includes(row.key));
+		const notes = qualifications.filter((node) => node.getAttribute('data-regional-pricing-key') === required.key);
+		if (scoped.length === 0) {
+			if (notes.length) errors.push(`${required.key}: unverified regional qualification rendered`);
+			continue;
 		}
-		if (slug === 'agents/inference/model-choice') {
-			const qualifications = [...document.querySelectorAll('[data-regional-pricing-key]')];
-			const verified = records.filter((row) => row.status === 'verified');
-			for (const required of inventory.regionalRequirements) {
-				const scoped = verified.filter((row) => required.modelKeys.includes(row.key));
-				const notes = qualifications.filter((node) => node.getAttribute('data-regional-pricing-key') === required.key);
-				if (scoped.length === 0) {
-					if (notes.length) errors.push(`${required.key}: unverified regional qualification rendered`);
-					continue;
-				}
-				const node = notes[0];
-				const expectedScope = `Applies to: ${scoped.map((row) => row.name).join(', ')}.`;
-				if (notes.length !== 1 || node?.querySelector('[data-regional-scope]')?.textContent !== expectedScope || !node?.querySelector(`a[href="${required.sourceUrl}"]`)?.textContent) {
-					errors.push(`${required.key}: missing regional qualification scope or source`);
-				}
-				for (const row of scoped) {
-					const regional = [row.regional, ...(row.regionalVariants ?? [])].find((value) => value?.key === required.key);
-					if (!regional || node?.querySelector('[data-regional-note]')?.textContent !== regional.note || !regional.note.includes(`${required.multiplier}×`)) {
-						errors.push(`${row.key}: missing built regional qualification`);
-					}
-				}
-			}
-			for (const node of qualifications) {
-				if (!inventory.regionalRequirements.some((required) => required.key === node.getAttribute('data-regional-pricing-key'))) errors.push('unapproved regional qualification rendered');
+		const node = notes[0];
+		const expectedScope = `Applies to: ${scoped.map((row) => row.name).join(', ')}.`;
+		if (notes.length !== 1 || node?.querySelector('[data-regional-scope]')?.textContent !== expectedScope || !node?.querySelector(`a[href="${required.sourceUrl}"]`)?.textContent) {
+			errors.push(`${required.key}: missing regional qualification scope or source`);
+		}
+		for (const row of scoped) {
+			const regional = [row.regional, ...(row.regionalVariants ?? [])].find((value) => value?.key === required.key);
+			if (!regional || node?.querySelector('[data-regional-note]')?.textContent !== regional.note || !regional.note.includes(`${required.multiplier}×`)) {
+				errors.push(`${row.key}: missing built regional qualification`);
 			}
 		}
+	}
+	for (const node of qualifications) {
+		if (!inventory.regionalRequirements.some((required) => required.key === node.getAttribute('data-regional-pricing-key'))) errors.push('unapproved regional qualification rendered');
 	}
 	return errors;
 }
@@ -200,14 +181,11 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
 	const inputs = await pricingInputs();
 	const errors = validatePricing(inputs);
 	if (process.argv.includes('--built')) errors.push(...await validateBuiltPricing(inputs));
-	if (process.argv.includes('--require-complete')) {
-		for (const row of [...inputs.models, ...inputs.compute]) if (row.status !== 'verified') errors.push(`${row.key}: ${row.status}: ${row.blocker}`);
-	}
 	if (errors.length) {
 		console.error(errors.join('\n'));
 		process.exitCode = 1;
 	} else {
-		console.log(`Pricing validation passed: ${inputs.models.length} model rows, ${inputs.inventory.modelIds.length} IDs, ${inputs.compute.length} compute configurations.`);
-		console.log(`${inputs.models.filter((row) => row.status !== 'verified').length} model rows and ${inputs.compute.filter((row) => row.status !== 'verified').length} compute configurations remain blocked.`);
+		console.log(`Pricing validation passed: ${inputs.models.length} model rows, ${inputs.inventory.modelIds.length} IDs, ${inputs.inventory.publishedModelKeys.length} published models.`);
+		console.log(`${inputs.models.filter((row) => !isPublishableModelPrice(row)).length} model rows remain excluded from publication.`);
 	}
 }

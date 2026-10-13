@@ -18,11 +18,11 @@ Warp lets you choose from a curated set of large language models to power your a
 
 The `model_id` values shown below can be used when configuring models via the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) or [CLI](/agents/cli/oz-cli/).
 
-Rates are in USD per million tokens for standard global Warp-provided inference. Enterprise contracts can differ. A dash means no separate published charge for that category, not that inference is free. Rates not listed here are available from [billing@warp.dev](mailto:billing@warp.dev).
+Listed rates cover generally available models offered on every plan and are in USD per million tokens for standard global Warp-provided inference. Enterprise contracts can differ. A dash means no separate published charge for that category, not that inference is free. For rates not listed here, contact [billing@warp.dev](mailto:billing@warp.dev).
 
-See [model inference billing for Warp Factories](/factories/usage-and-billing/#model-inference) for how these charges combine with runner time. Check the [usage breakdown](/support-and-community/plans-and-billing/credits/#tracking-usage) for the concrete models and token categories consumed; provider tools can add charges beyond tokens.
+Check the [usage breakdown](/support-and-community/plans-and-billing/credits/#tracking-usage) for the concrete models and token categories consumed; provider tools can add charges beyond tokens.
 
-Rate sources checked {modelPricingCheckedAt}.
+{verifiedModelPricing.length > 0 && <p>Rate sources checked {modelPricingCheckedAt}.</p>}
 
 ### Auto models
 
@@ -199,6 +199,5 @@ Zero data retention is available for supported models. Model availability may va
 
 ## Related pages
 
-* [Usage and billing for Warp Factories](/factories/usage-and-billing/) - Understand inference and hosted runner charges
 * [Custom routers](/agents/inference/custom-routers/)
 * [Usage and billing](/support-and-community/plans-and-billing/credits/#tracking-usage) - Inspect the recorded usage breakdown

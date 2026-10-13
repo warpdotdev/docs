@@ -8,6 +8,60 @@ import { pricingInputs, validatePricing, validateBuiltPricing } from './validate
 const baseline = await pricingInputs();
 const today = '2026-10-13';
 
+const modelModule = await import(`data:text/javascript;base64,${Buffer.from(ts.transpileModule(
+	(await readFile(new URL('../src/data/model-pricing.ts', import.meta.url), 'utf8')).replace("import pricingInventory from './pricing-inventory.json';", `const pricingInventory = ${JSON.stringify(baseline.inventory)};`),
+	{ compilerOptions: { module: ts.ModuleKind.ESNext } },
+).outputText).toString('base64')}`);
+const approved = structuredClone(baseline.models[0]);
+
+test('explicitly qualified model is publishable', () => {
+	assert.equal(modelModule.isPublishableModelPrice(approved, today), true);
+});
+
+test('the public export contains only explicitly qualified models', () => {
+	assert.ok(modelModule.verifiedModelPricing.length > 0);
+	assert.ok(modelModule.verifiedModelPricing.every((row) => row.publication?.ga.status === 'ga'
+		&& row.publication?.access.status === 'all-customers'
+		&& row.publication?.deployment.environment === 'production'
+		&& row.publication?.billedPath.status === 'confirmed'
+		&& row.publication?.regional.status === 'qualified'));
+});
+
+for (const [name, mutate] of [
+	['GA evidence', (row) => delete row.publication.ga],
+	['preview status', (row) => row.publication.ga.status = 'preview'],
+	['access evidence', (row) => delete row.publication.access],
+	['tier restriction', (row) => row.publication.access.status = 'restricted'],
+	['deployment evidence', (row) => delete row.publication.deployment],
+	['undeployed effort', (row) => row.publication.deployment.modelIds = row.publication.deployment.modelIds.filter((id) => id !== row.modelIds[0])],
+	['billed-path evidence', (row) => delete row.publication.billedPath],
+	['unconfirmed host', (row) => row.publication.billedPath.host = ''],
+	['regional evidence', (row) => delete row.publication.regional],
+	['unqualified region', (row) => row.publication.regional.keys = []],
+	['regional source', (row) => delete row.regional.source],
+	['source evidence', (row) => delete row.source],
+	['evidence reference', (row) => delete row.publication.ga.reference],
+	['future confirmation', (row) => row.publication.ga.checkedAt = '2026-10-14'],
+	['deprecated lifecycle', (row) => row.lifecycle = 'deprecated'],
+	['overdue reverification', (row) => row.reverifyBy = '2026-10-12'],
+	['expired promotional rate', (row) => row.promotion = { ends: '2026-10-12', afterwards: row.rates }],
+]) {
+	test(`publication rejects missing or ineligible ${name}`, () => {
+		const row = structuredClone(approved);
+		mutate(row);
+		assert.equal(modelModule.isPublishableModelPrice(row, today), false);
+		const inputs = structuredClone(baseline);
+		inputs.models[0] = row;
+		assert.match(validatePricing(inputs, today).join('\n'), /verified row lacks/);
+	});
+}
+
+test('built validation rejects an unqualified numeric row', { skip: !process.argv.includes('--built') }, async () => {
+	const inputs = structuredClone(baseline);
+	delete inputs.models[0].publication;
+	assert.match((await validateBuiltPricing(inputs)).join('\n'), /verified row lacks|rendered records do not match/);
+});
+
 test('approved inventory and sourced, gated data pass', () => {
 	assert.deepEqual(validatePricing(baseline, today), []);
 });
@@ -28,17 +82,12 @@ for (const [name, mutate, message] of [
 	['missing cache duration', (data) => delete data.models.find((row) => row.provider === 'Anthropic').rates.cacheWrite1h, /cache duration/],
 	['expired promotion', (data) => data.models.find((row) => row.promotion).promotion.ends = '2026-10-12', /expired promotion/],
 	['verified deprecation', (data) => data.models.find((row) => row.lifecycle === 'deprecated').status = 'verified', /deprecated model/],
-	['incomplete compute formula', (data) => delete data.compute[0].formula.memoryPerUnit, /incomplete compute/],
-	['infinite minimum compute units', (data) => data.compute[0].formula.minimumUnits = Infinity, /incomplete compute/],
-	['infinite memory per compute unit', (data) => data.compute[0].formula.memoryPerUnit = Infinity, /incomplete compute/],
-	['infinite shape resources', (data) => data.compute.find((row) => row.shape).shape.memory = Infinity, /invalid compute shape/],
-	['fractional shape CPUs', (data) => data.compute.find((row) => row.shape).shape.vcpus = 1.5, /invalid compute shape/],
-	['missing hourly shape', (data) => delete data.compute.find((row) => row.hourly).shape, /invalid compute shape/],
-	['verified macOS without shape', (data) => { const row = data.compute.find((row) => row.platform === 'macOS'); row.status = 'verified'; delete row.shape; }, /invalid compute shape/],
-	['missing public compute rate', (data) => data.compute.find((row) => row.status === 'public-source-missing').status = 'verified', /verified compute price missing/],
-	['cross-owned model data', (data) => data.compute[0].rates = data.models[0].rates, /model rates cannot live/],
-	['duplicate rate surface', (data) => data.pages['factories/runners.mdx'] += '\n<ComputePricingTable />', /duplicate compute rate owner/],
-	['handwritten rate', (data) => data.pages['factories/usage-and-billing.mdx'] += '\n$1 per hour', /handwritten numeric rate/],
+	['duplicate rate surface', (data) => data.pages['factories/runners.mdx'] += '\n<ModelPricingTable />', /duplicate model rate owner/],
+	['handwritten rate', (data) => data.pages['agents/inference/model-choice.mdx'] += '\n$1 per million tokens', /handwritten numeric rate/],
+	['excluded compute surface', (data) => data.pages['factories/runners.mdx'] += '\n<ComputePricingTable />', /excluded compute deliverable/],
+	['unqualified verified row', (data) => delete data.models[0].publication, /verified row lacks/],
+	['unapproved published set', (data) => data.inventory.publishedModelKeys.pop(), /published model set/],
+	['ambiguous approval', (data) => data.inventory.publicationEvidence.push(structuredClone(data.inventory.publicationEvidence[0])), /ambiguous/],
 	['copied named-model rate', (data) => data.pages['factories/runners.mdx'] += '\n| GPT-6 Astra | $10 |', /copied named-model numeric rate/],
 	['ID table drift', (data) => data.pages['agents/inference/model-choice.mdx'] += '\n`gpt-new-low`', /undocumented inventory change/],
 ]) {
@@ -50,7 +99,7 @@ for (const [name, mutate, message] of [
 }
 
 test('models without explicit approval stay blocked', async () => {
-	const source = await readFile(new URL('../src/data/model-pricing.ts', import.meta.url), 'utf8');
+	const source = (await readFile(new URL('../src/data/model-pricing.ts', import.meta.url), 'utf8')).replace("import pricingInventory from './pricing-inventory.json';", `const pricingInventory = ${JSON.stringify(baseline.inventory)};`);
 	const unapproved = source + "\nexport const unapproved = model('future-model', 'Future model', 'OpenAI', ['future-model'], rates(1, null, null, 1));";
 	const { outputText } = ts.transpileModule(unapproved, { compilerOptions: { module: ts.ModuleKind.ESNext } });
 	const { unapproved: row } = await import(`data:text/javascript;base64,${Buffer.from(outputText).toString('base64')}`);
