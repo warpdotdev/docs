@@ -1,0 +1,24 @@
+---
+import { verifiedComputePricing } from '@data/factories-compute-pricing';
+---
+{verifiedComputePricing.length > 0 && <div class="pricing-table" role="region" aria-label="Warp-hosted runner rates" tabindex="0">
+	<table>
+		<caption>Warp-hosted runner rates in USD per hour</caption>
+		<thead><tr>
+			<th scope="col">Platform</th><th scope="col">Architecture</th>
+			<th scope="col">Resources</th><th scope="col">Hourly rate</th>
+		</tr></thead>
+		<tbody>{verifiedComputePricing.map((row) => <tr data-compute-pricing-key={row.key}>
+			<th scope="row">{row.platform}</th><td>{row.architecture}</td>
+			<td>{row.shape ? `${row.shape.vcpus} vCPUs, ${row.shape.memory} ${row.shape.memoryUnit}` : 'Configurable'}</td>
+			<td>{row.formula
+				? `$${row.formula.unitHourly} × max(${row.formula.minimumUnits}, vCPUs, memoryGB / ${row.formula.memoryPerUnit})`
+				: `$${row.hourly}`}</td>
+		</tr>)}</tbody>
+	</table>
+</div>}
+<style>
+	.pricing-table { overflow-x: auto; }
+	caption { text-align: left; font-weight: 600; }
+	th, td { min-width: 8rem; }
+</style>

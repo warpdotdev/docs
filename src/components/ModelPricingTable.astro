@@ -1,0 +1,39 @@
+---
+import { verifiedModelPricing, type TokenRates } from '@data/model-pricing';
+interface Props { provider: string }
+const { provider } = Astro.props;
+const rows = verifiedModelPricing.filter((row) => row.provider === provider);
+const dollars = (value: number | null) => value === null ? '—' : `$${Number(value.toPrecision(12))}`;
+const writes = (price: TokenRates) => price.cacheWrite1h === undefined
+	? dollars(price.cacheWrite) : `${dollars(price.cacheWrite)} / ${dollars(price.cacheWrite1h)}`;
+const tuple = (price: TokenRates) => `${dollars(price.input)} / ${writes(price)} / ${dollars(price.cacheRead)} / ${dollars(price.output)}`;
+---
+{rows.length > 0 && <div class="pricing-table" role="region" aria-label={`${provider} model token rates`} tabindex="0">
+	<table>
+		<caption>{provider} rates in USD per million tokens</caption>
+		<thead><tr>
+			<th scope="col">Model</th><th scope="col">Input</th><th scope="col">Cache write</th>
+			<th scope="col">Cache read</th><th scope="col">Output</th><th scope="col">Notes</th>
+		</tr></thead>
+		<tbody>{rows.map((row) => <tr data-pricing-key={row.key}>
+			<th scope="row">{row.name}</th>
+			<td>{dollars(row.rates.input)}</td><td>{writes(row.rates)}</td>
+			<td>{dollars(row.rates.cacheRead)}</td><td>{dollars(row.rates.output)}</td>
+			<td>
+				{row.note}
+				{row.threshold && <span>
+					{row.threshold.inclusive ? 'At or above' : 'Over'} {row.threshold.tokens.toLocaleString('en-US')} input tokens:
+					{' '}{tuple(row.threshold.rates)} (input / cache write / cache read / output), for the whole request.
+				</span>}
+				{row.promotion && <span> Promotional through {row.promotion.ends}; then {tuple(row.promotion.afterwards)}.</span>}
+			</td>
+		</tr>)}</tbody>
+	</table>
+</div>}
+<style>
+	.pricing-table { overflow-x: auto; }
+	caption { text-align: left; font-weight: 600; }
+	th, td { min-width: 5rem; }
+	th:first-child { min-width: 10rem; }
+	td:last-child { min-width: 17rem; }
+</style>

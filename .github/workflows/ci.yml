@@ -127,9 +127,13 @@ jobs:
 
       - name: Test heading variables
         run: npm run test:heading-vars
+      - name: Validate usage pricing and inventory
+        run: npm run test:usage-pricing
 
       - name: Build site
         run: npm run build
+      - name: Validate rendered pricing tables
+        run: node scripts/validate-usage-pricing.mjs --built
 
       - name: Validate heading tables of contents
         run: npm run test:heading-tocs

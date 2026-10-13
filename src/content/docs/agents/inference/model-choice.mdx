@@ -3,20 +3,26 @@ title: Agent model choice
 sidebar:
   label: "Model choice"
 description: >-
-  Choose from a curated set of top LLMs for Warp's Agents (or let Warp
-  auto-select the best model).
+  Compare models, IDs, reasoning options, and token rates for agents in Warp,
+  including automatic model selection.
 ---
 import { VARS } from '@data/vars';
+import ModelPricingTable from '@components/ModelPricingTable.astro';
+import { modelPricingCheckedAt, verifiedModelPricing } from '@data/model-pricing';
 
 Warp lets you choose from a curated set of large language models to power your agents, or let Warp auto-select the best model for each task. Models from OpenAI, Anthropic, Google, and open source providers are available, with configurable reasoning levels and per-profile defaults. You can also define [custom routers](/agents/inference/custom-routers/) that pick a model for each task using your own logic.
 
-## Available models
+<span id="available-models" />
 
-Warp lets you choose from a curated set of large language models (LLMs) to power your Agentic Development Environment.
-
-**Warp supports the following models.**
+## Models and rates
 
 The `model_id` values shown below can be used when configuring models via the [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) or [CLI](/agents/cli/oz-cli/).
+
+Rates are in USD per million tokens for standard global Warp-provided inference. Enterprise contracts can differ. A dash means no separate published charge for that category, not that inference is free. Rates not listed here are available from [billing@warp.dev](mailto:billing@warp.dev).
+
+See [model inference billing for Warp Factories](/factories/usage-and-billing/#model-inference) for how these charges combine with runner time. Check the [usage breakdown](/support-and-community/plans-and-billing/credits/#tracking-usage) for the concrete models and token categories consumed; provider tools can add charges beyond tokens.
+
+Rate sources checked {modelPricingCheckedAt}.
 
 ### Auto models
 
@@ -27,7 +33,7 @@ The `model_id` values shown below can be used when configuring models via the [{
 | Auto (Genius) | `auto-genius` | Adapts to task complexity and selects Warp's most capable model when it's worth it. Best for deep debugging, architecture decisions, and `/plan` sessions. |
 | Auto (Open-weights) | `auto-open` | Routes between the best open-source models available in Warp. Optimizes for low cost and fast speed using open-weights models. |
 
-All Auto models perform well across all agent workflows and are ideal if you prefer Warp to manage model selection dynamically.
+Auto models, custom routers, and moving harness aliases have no fixed rate. Each request costs the rate of the concrete model selected.
 
 #### OpenAI
 
@@ -46,6 +52,10 @@ The `low`, `medium`, `high`, `xhigh`, and `max` suffixes select increasing reaso
 | GPT-5.4 | `gpt-5-4-low`, `gpt-5-4-medium`, `gpt-5-4-high`, `gpt-5-4-xhigh` |
 
 To use eligible OpenAI models through your ChatGPT plan, [connect a ChatGPT subscription](/agents/inference/chatgpt-subscription/) and select a specific OpenAI model.
+
+<ModelPricingTable provider="OpenAI" />
+
+{verifiedModelPricing.find((row) => row.provider === 'OpenAI')?.regional?.note} Source: [OpenAI API pricing](https://developers.openai.com/api/docs/pricing).
 
 #### Anthropic
 
@@ -74,6 +84,12 @@ Claude Haiku 5.5 has no fixed default `model_id`; choose one of its effort-speci
 Anthropic requires data retention for Claude Fable 5 and Claude Fable 5.1 for safety, abuse monitoring, and compliance reasons, so these models are **not available under Zero Data Retention (ZDR)**. This requirement is specific to the Claude Fable models and doesn't change the ZDR behavior of any other supported model. For Enterprise teams, these models are off by default and a workspace admin must enable them — see the [Admin Panel](/enterprise/team-management/admin-panel/#models-settings) and the [Security overview](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr).
 :::
 
+Anthropic cache-write prices show five-minute / one-hour durations, in that order.
+
+<ModelPricingTable provider="Anthropic" />
+
+{verifiedModelPricing.find((row) => row.provider === 'Anthropic')?.regional?.note} Partner cloud endpoints have separate regional pricing; confirm the serving route when configuring data residency. Sources: [Anthropic API pricing](https://platform.claude.com/docs/en/about-claude/pricing), [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode), and [data residency](https://platform.claude.com/docs/en/build-with-claude/data-residency).
+
 #### Google
 
 | Model | `model_id` |
@@ -83,6 +99,10 @@ Anthropic requires data retention for Claude Fable 5 and Claude Fable 5.1 for sa
 | Gemini 3.7 Flash | `gemini-3.7-flash` |
 | Gemini 3.6 Flash | `gemini-3.6-flash` |
 | Gemini 3.5 Flash | `gemini-3.5-flash` |
+
+<ModelPricingTable provider="Google" />
+
+Source: [Gemini Developer API pricing](https://ai.google.dev/gemini-api/docs/pricing).
 
 #### xAI
 
@@ -106,6 +126,10 @@ Anthropic requires data retention for Claude Fable 5 and Claude Fable 5.1 for sa
 
 To use eligible Grok models without Warp-provided inference charges, connect your xAI account. See [SuperGrok subscription](/agents/inference/grok-subscription/) for setup and other applicable charges.
 
+<ModelPricingTable provider="xAI" />
+
+Source: [xAI API pricing](https://docs.x.ai/developers/pricing).
+
 #### Hosted models (via [Fireworks AI](https://fireworks.ai))
 
 Warp also supports leading open source models hosted via Fireworks AI, so you can run them from inside Warp without setting up your own inference infrastructure.
@@ -118,6 +142,10 @@ Warp also supports leading open source models hosted via Fireworks AI, so you ca
 | Minimax 3 | `minimax-3-fireworks` |
 | Qwen 3.8 Max | `qwen-3.8-max-fireworks` |
 | DeepSeek V4.1 Flash | `deepseek-v4.1-flash-fireworks` |
+
+<ModelPricingTable provider="Fireworks" />
+
+Source: [Fireworks Serverless pricing](https://docs.fireworks.ai/serverless/pricing).
 
 ### How to change models
 
@@ -172,3 +200,9 @@ Warp has executed **Zero Data Retention (ZDR)** agreements with these providers.
 Warp enforces these commitments through both technical measures and contractual safeguards with the LLM providers.
 
 Zero data retention is available for supported models. Model availability may vary where providers require data retention for safety, abuse monitoring, or compliance reasons.
+
+## Related pages
+
+* [Usage and billing for Warp Factories](/factories/usage-and-billing/) - Understand inference and hosted runner charges
+* [Custom routers](/agents/inference/custom-routers/)
+* [Usage and billing](/support-and-community/plans-and-billing/credits/#tracking-usage) - Inspect the recorded usage breakdown

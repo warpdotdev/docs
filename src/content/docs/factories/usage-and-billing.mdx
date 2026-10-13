@@ -1,0 +1,43 @@
+---
+title: Usage and billing for Warp Factories
+sidebar:
+  label: Usage and billing
+description: >-
+  Compare model inference and Warp-hosted runner charges for Warp Factories,
+  and check the usage breakdown for each run.
+---
+import ComputePricingTable from '@components/ComputePricingTable.astro';
+import { computePricingCheckedAt, verifiedComputePricing } from '@data/factories-compute-pricing';
+
+A factory's model and runner choices control two usage charges: model inference and Warp-hosted runner time. Platform usage is separate; see [platform usage](/support-and-community/plans-and-billing/platform-credits/) for eligibility and rates.
+
+Enterprise contracts can define different rates or credits. Follow your contract when its terms differ from the public rates.
+
+## Model inference
+
+Warp-provided inference is charged for input, cache-write, cache-read, and output tokens. Compare [models and token rates](/agents/inference/model-choice/#models-and-rates) when choosing a model for each factory agent.
+
+Auto models and custom routers use the rate of the concrete model selected for each request. Reasoning can increase output-token usage, and provider tools such as web search can add charges beyond tokens.
+
+Customer-supplied API keys, connected provider subscriptions, custom inference endpoints, and supported third-party harness credentials bill under the provider account's own terms. Claude Code and Codex use the provider credentials connected to the harness; moving harness aliases don't have a fixed token rate.
+
+Check the [usage breakdown](/support-and-community/plans-and-billing/credits/#tracking-usage) for the categories consumed by a completed run. Provider-billed inference is not fully represented in Warp's totals.
+
+## Warp-hosted runner time
+
+Warp-hosted runs incur compute charges based on runner resources and time used. Choose an [operating system and runner shape](/factories/runners/#operating-systems) for your workload.
+
+<ComputePricingTable />
+
+{verifiedComputePricing.length === 0 && <p>For the charge recorded for a completed run, check its <a href="/support-and-community/plans-and-billing/credits/#tracking-usage">usage breakdown</a>. Contact <a href="mailto:billing@warp.dev">billing@warp.dev</a> for the rate and billable duration for your runner.</p>}
+
+Local and self-hosted runs don't incur Warp-hosted compute charges. Your infrastructure costs and applicable platform charges remain separate.
+
+Rate sources checked {computePricingCheckedAt}: [hosted infrastructure pricing](https://namespace.so/pricing). Infrastructure provider rate cards don't replace the charge recorded by Warp.
+
+## Related pages
+
+* [Model choice](/agents/inference/model-choice/#models-and-rates) - Compare model IDs, options, and token rates
+* [Runners for Warp Factories](/factories/runners/) - Configure the compute used by factory agents
+* [Usage and billing](/support-and-community/plans-and-billing/credits/) - Check balances and account-wide charges
+* [Platform usage](/support-and-community/plans-and-billing/platform-credits/)
