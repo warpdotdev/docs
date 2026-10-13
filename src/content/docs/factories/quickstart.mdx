@@ -14,7 +14,7 @@ Create your first factory and take one small work item from prompt to pull reque
 
 * A [Warp account](https://app.warp.dev/signup) and membership in a [Warp team](/knowledge-and-collaboration/teams/).
 * Team or workspace admin access, or the team-level [Warp Factories Editor role](/factories/infrastructure-and-security/#factory-roles-and-permissions).
-* Eligible [team usage](/platform/team-access-billing-and-identity/#usage-requirements) for factory runs.
+* Available usage in your team's balance for factory runs. Add usage if needed. See [access and billing requirements](/platform/team-access-billing-and-identity/).
 * Access to the repositories you want the factory to work on.
 
 ## Set up your factory
@@ -23,7 +23,9 @@ Create your first factory and take one small work item from prompt to pull reque
 For GitHub and GitLab repositories, an agent connected to [Factory MCP](/factories/factory-mcp/#set-up-with-your-coding-agent) can run this whole setup. Use the web setup wizard for Azure DevOps. If the wizard is still open when the agent finishes, refresh the page to see the new factory.
 :::
 
-1. Open the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a> and sign in. Choose the Warp team that will own the factory, then click **+** next to **Factories**.
+1. Open the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a> and sign in if prompted, then click **+** next to **Factories**.
+
+   To switch teams first, click your avatar at the bottom of the sidebar, hover over the team name, and select another team.
 
    <figure style={{ maxWidth: "300px" }}>
    ![The Factories section of the sidebar, with the + button used to start a new factory highlighted.](../../../assets/factories/quickstart-open-setup-wizard.png)

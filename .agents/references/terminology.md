@@ -434,6 +434,8 @@ Docs match the screen; the fix belongs in the app.
 ## Billing and credits
 
 - **usage** — the general term for metered inference, Warp-hosted compute, and platform activity. Explain dollars versus credits when that distinction affects the task; use ordinary plan names elsewhere.
+- **usage balance** — usage available to the user or team billed for the work, subject to the applicable billing rules.
+  *Usage note:* Use "add usage" for the action of funding the balance, with "if needed" when an existing allowance may cover the work. Do not imply that every workflow uses a shared team balance or requires a new purchase.
 - **included usage** — the allowance included with a plan; distinguish it from purchased usage and contract-specific pools.
 - **purchased usage** — additional usage bought on an eligible plan. Distinguish the usage added to the balance from the payment amount.
 - **dollar usage** — a usage balance expressed in US dollars, not the subscription price or necessarily the amount paid for a purchase.

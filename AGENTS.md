@@ -955,6 +955,24 @@ Match a control's shipped label without letting that label define all surroundin
 
 Scope credential claims by configuration: personal device keys, team-managed keys and endpoints, connected subscriptions, and third-party harness credentials are different paths. Don't apply "not stored by Warp" or "not available to cloud agents" to all customer credentials. See the glossary's [inference configuration terms](.agents/references/terminology.md#inference-configuration).
 
+#### Usage prerequisites and setup instructions
+
+State the funding requirement, give a short action if needed, and link to the canonical billing page. Prefer "usage balance" and "add usage" to vague conditions such as "sufficient eligible usage." Do not imply that every reader must make a purchase when included usage or a contract allowance may already cover the work.
+
+* **Separate access from funding** - Team membership, plan access, and available usage are different requirements. Keep required access visible; link to its reference rather than copying plan tables.
+* **Match the balance to the workflow** - Use team-balance wording for factory setup. Standalone cloud runs can be individual or team runs; don't add a team requirement to individual workflows. For schedules and API-triggered runs, preserve or link to which user or team is billed.
+* **Keep exceptions with their owner** - Billing pages own balance eligibility, spending controls, charge components, and Enterprise terms. Preserve a condition needed for the current task, but don't duplicate those rules in every prerequisite list. Don't apply standalone integration restrictions to factory integrations without verification.
+* **Preserve technical precision** - "Eligible" can be necessary when distinguishing usable balances in billing references. Keep credit-named UI labels, identifiers, error codes, URLs, and credit-billed contexts; this is not a blanket terminology replacement.
+
+Examples to adapt, not mandatory boilerplate:
+
+* **Factory setup** - "Available usage in your team's balance for factory runs. Add usage if needed. See access and billing requirements."
+* **Individual or team cloud runs** - "Available usage for cloud runs. Add usage if needed. See access and billing requirements."
+* **Scheduled runs** - "Available usage for the user or team billed for the schedule. Add usage if needed. See run identity before choosing which agent runs it."
+
+In published copy, link the billing-reference phrase to the owning page or section. If the funding source or access rule is unverified, ask the product or billing owner; do not invent a uniform policy for consistent wording.
+
+
 ### UI elements
 - **Settings** (capitalized when referring to the Settings panel)
 - **Command Palette** (capitalized)
