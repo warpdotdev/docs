@@ -46,13 +46,15 @@ Fix the problems teams hit most often when setting up a factory and running thei
 
 ### An event that should start work doesn't
 
-**Cause:** Nearly always an automation that doesn't match the event, rather than a broken connection.
+**Cause:** A disabled or missing automation, a connection that doesn't cover the source, an account-linking requirement, or a filter mismatch can prevent work from starting.
 
 **Fix:**
 
-1. Confirm the automation is enabled and its trigger's event type matches what happened.
-2. Check every filter on the trigger. Filters combine with AND, so a single mismatched repository, label, author, or state stops the routing. See [automation filters](/factories/automations/#troubleshooting).
-3. Confirm the source is connected to *this* factory. Connecting a provider to your workspace doesn't attach it to every factory in that workspace.
+1. In the factory dashboard's **Automations** view, confirm an enabled automation exists for the event you sent. After saving changes, send a new matching event.
+2. Confirm the source is connected to *this* factory. A workspace-level connection alone doesn't attach the provider to every factory.
+3. Check that the installation or connected account can access the event's repository, project, or channel. Complete any administrator approval or account-linking prompt from the provider.
+4. Check every filter, including the options under **More filters**. Filters combine with AND, so one mismatched repository, label, author, or state stops routing. GitHub also skips bot events by default. See [how automation matching works](/factories/automations/#how-matching-works).
+5. Open the factory's [Runs page](/factories/factory-dashboard/#inspect-runs) and any work item already linked to the source thread, issue, or pull request. A follow-up can continue existing work rather than create a new work item. If a run exists but is waiting or failing, use [run troubleshooting](#runs-and-work-items) instead.
 
 Then check the causes specific to where the work came from:
 
@@ -60,11 +62,14 @@ Then check the causes specific to where the work came from:
 | --- | --- |
 | [Slack](/factories/integrations/slack/#troubleshooting-and-reconnection) | The app isn't in the channel, installation is pending admin approval, or your Slack account isn't linked to a Warp team member |
 | [Microsoft Teams](/factories/integrations/teams/#troubleshooting) | The app isn't added to the Teams team, the channel isn't configured, the sender isn't in the install's Microsoft 365 organization, or your Microsoft account isn't linked to Warp |
-| [GitHub](/factories/integrations/github/#troubleshooting) | The app installation doesn't cover the repository, or the factory's routing label is missing |
+| [GitHub](/factories/integrations/github/#troubleshooting) | The app installation doesn't cover the repository, label routing doesn't match, or the event came from a bot |
 | [GitLab](/factories/integrations/gitlab/#troubleshooting) | The mention was an edit rather than a new comment, or your plan doesn't include the group webhooks that deliver events |
+| [Azure DevOps](/factories/integrations/azure-devops/#troubleshooting) | The factory identity isn't ready, or the event's repository is outside the factory's configured scope |
 | [Linear](/factories/integrations/linear/#troubleshooting) | The agent session needs a linked Warp account, or teams and filters don't match |
-| [Jira](/factories/integrations/jira/#troubleshooting) | The Warp app isn't connected to your workspace, or project and keyword filters don't match |
+| [Jira](/factories/integrations/jira/#troubleshooting) | The Warp app isn't connected to your workspace, the person starting the session needs a linked account, or project and keyword filters don't match |
 | [Custom webhooks](/factories/webhooks/#troubleshooting) | The delivery was rejected or deduplicated (check the webhook's **Recent deliveries**), no enabled automation selects the webhook, or the payload filter doesn't match |
+
+If a new matching event still doesn't reach the factory, [contact support](https://docs.warp.dev/support-and-community/troubleshooting-and-support/sending-us-feedback/). Include the factory and automation links, the source event link, its timestamp and time zone, and any run link or error message.
 
 ### One action starts two runs
 
