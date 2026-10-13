@@ -132,6 +132,64 @@
     "minimax-3-fireworks",
     "qwen-3.8-max-fireworks"
   ],
+  "regionalRequirements": [
+    {
+      "key": "openai-direct-us",
+      "multiplier": 1.1,
+      "sourceUrl": "https://developers.openai.com/api/docs/pricing",
+      "modelKeys": [
+        "gpt-6-astra", "gpt-6-1-sol", "gpt-6-sol", "gpt-6-luna",
+        "gpt-5-6-sol", "gpt-5-6-terra", "gpt-5-6-luna", "gpt-5-5", "gpt-5-4"
+      ]
+    },
+    {
+      "key": "anthropic-direct-us",
+      "multiplier": 1.1,
+      "sourceUrl": "https://platform.claude.com/docs/en/build-with-claude/data-residency",
+      "modelKeys": [
+        "claude-5-5-opus", "claude-5-5-opus-fast", "claude-5-opus", "claude-5-opus-fast",
+        "claude-5-1-fable", "claude-5-fable", "claude-5-5-sonnet", "claude-5-sonnet",
+        "claude-4-8-opus", "claude-4-8-opus-fast", "claude-4-7-opus", "claude-4-6-opus",
+        "claude-4-6-sonnet", "claude-5-5-haiku"
+      ]
+    },
+    {
+      "key": "anthropic-partner-cloud",
+      "multiplier": 1.1,
+      "sourceUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "modelKeys": [
+        "claude-5-5-opus", "claude-5-5-opus-fast", "claude-5-opus", "claude-5-opus-fast",
+        "claude-5-1-fable", "claude-5-fable", "claude-5-5-sonnet", "claude-5-sonnet",
+        "claude-4-8-opus", "claude-4-8-opus-fast", "claude-4-7-opus", "claude-4-6-opus",
+        "claude-4-6-sonnet", "claude-4-5-opus", "claude-4-5-sonnet", "claude-5-5-haiku", "claude-4-5-haiku"
+      ]
+    },
+    {
+      "key": "google-non-global",
+      "multiplier": 1.1,
+      "sourceUrl": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
+      "modelKeys": ["gemini-3.1-pro", "gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.6-flash", "gemini-3.5-flash"]
+    },
+    {
+      "key": "xai-us",
+      "multiplier": 1.1,
+      "sourceUrl": "https://docs.x.ai/developers/pricing",
+      "modelKeys": ["grok-4-7", "grok-4-6"]
+    },
+    {
+      "key": "fireworks-us",
+      "multiplier": 1.5,
+      "sourceUrl": "https://docs.fireworks.ai/serverless/pricing",
+      "modelKeys": [
+        "glm-5.3-fireworks", "glm-5.3-flash-fireworks", "kimi-k3-fireworks",
+        "minimax-3-fireworks", "qwen-3.8-max-fireworks", "deepseek-v4.1-flash-fireworks"
+      ]
+    }
+  ],
+  "shapePricedComputeKeys": [
+    "macos-4-7", "macos-6-14", "macos-8-14", "macos-12-28", "macos-12-56",
+    "docker-micro", "docker-small", "docker-medium", "docker-large", "docker-xl"
+  ],
   "computeKeys": [
     "linux-configurable",
     "windows-configurable",

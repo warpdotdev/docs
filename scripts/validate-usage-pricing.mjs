@@ -58,6 +58,9 @@ export function validatePricing({ models, compute, inventory, pages }, today = n
 	const keys = new Set();
 	const names = new Set();
 	const ids = new Set();
+	check(Array.isArray(inventory.regionalRequirements) && inventory.regionalRequirements.length > 0, 'missing approved regional requirements');
+	const regionalRequirements = inventory.regionalRequirements ?? [];
+	const regionalNotes = new Map();
 	for (const row of models) {
 		common(row);
 		check(!keys.has(row.key), `${row.key}: duplicate row key`);
@@ -79,8 +82,20 @@ export function validatePricing({ models, compute, inventory, pages }, today = n
 				check(price === null || Number.isFinite(row.threshold.rates?.[category]), `${row.key}: threshold omits billable ${category}`);
 			}
 		}
-		for (const regional of [...(row.regional ? [row.regional] : []), ...(row.regionalVariants ?? [])]) {
+		const regionals = [...(row.regional ? [row.regional] : []), ...(row.regionalVariants ?? [])];
+		for (const required of regionalRequirements.filter((item) => item.modelKeys.includes(row.key))) {
+			check(regionals.some((regional) => regional.key === required.key), `${row.key}: missing required regional qualification ${required.key}`);
+		}
+		const regionalKeys = new Set();
+		for (const regional of regionals) {
+			check(!regionalKeys.has(regional.key), `${row.key}: duplicate regional qualification`);
+			regionalKeys.add(regional.key);
+			const required = regionalRequirements.find((item) => item.key === regional.key && item.modelKeys.includes(row.key));
+			check(!!required && regional.multiplier === required.multiplier && regional.source?.url === required.sourceUrl, `${row.key}: regional qualification differs from approved inventory`);
 			check(Number.isFinite(regional.multiplier) && regional.multiplier > 0 && !!regional.note, `${row.key}: regional rate needs a multiplier and customer note`);
+			check(typeof regional.note === 'string' && regional.note.includes(`${regional.multiplier}×`), `${row.key}: regional note omits multiplier`);
+			check(!regionalNotes.has(regional.key) || regionalNotes.get(regional.key) === regional.note, `${row.key}: inconsistent regional customer note`);
+			regionalNotes.set(regional.key, regional.note);
 			source(regional.source, `${row.key} regional`);
 		}
 		if (row.promotion) {
@@ -94,17 +109,26 @@ export function validatePricing({ models, compute, inventory, pages }, today = n
 	for (const id of ids) check(expectedIds.has(id), `${id}: rate model not in approved inventory`);
 	check(models.length === inventory.modelRows, 'named-model row count differs from approved inventory');
 	for (const [provider, count] of Object.entries(inventory.providerRows)) check(models.filter((row) => row.provider === provider).length === count, `${provider}: inventory row count differs`);
+	for (const required of regionalRequirements) {
+		for (const key of required.modelKeys) check(keys.has(key), `${key}: required regional model missing`);
+	}
 	const pageIds = new Set([...pages[modelPage].matchAll(/`((?:gpt-|claude-|gemini-|grok-|glm-|kimi-|minimax-|qwen-|deepseek-)[^`]+)`/g)].map((match) => match[1]));
 	for (const id of expectedIds) check(pageIds.has(id), `${id}: configuration table missing inventory ID`);
 	for (const id of pageIds) check(expectedIds.has(id), `${id}: undocumented inventory change`);
 	const computeKeys = new Set();
+	check(Array.isArray(inventory.shapePricedComputeKeys) && inventory.shapePricedComputeKeys.length > 0, 'missing approved shaped-compute requirements');
 	for (const row of compute) {
 		common(row);
 		check(!computeKeys.has(row.key), `${row.key}: duplicate compute row`);
 		computeKeys.add(row.key);
 		check(!Object.hasOwn(row, 'modelIds') && !Object.hasOwn(row, 'rates') && !Object.hasOwn(row, 'provider'), `${row.key}: model rates cannot live in compute data`);
 		const hourly = Number.isFinite(row.hourly) && row.hourly >= 0;
-		const formula = row.formula && Number.isFinite(row.formula.unitHourly) && row.formula.unitHourly >= 0 && row.formula.minimumUnits > 0 && row.formula.memoryPerUnit > 0;
+		const formula = row.formula && Number.isFinite(row.formula.unitHourly) && row.formula.unitHourly >= 0 && Number.isInteger(row.formula.minimumUnits) && row.formula.minimumUnits > 0 && Number.isFinite(row.formula.memoryPerUnit) && row.formula.memoryPerUnit > 0;
+		check(row.formula === undefined || formula, `${row.key}: incomplete compute formula`);
+		check(row.hourly === undefined || hourly, `${row.key}: invalid compute hourly price`);
+		if (row.shape || row.hourly !== undefined || inventory.shapePricedComputeKeys?.includes(row.key)) {
+			check(Number.isInteger(row.shape?.vcpus) && row.shape.vcpus > 0 && Number.isFinite(row.shape?.memory) && row.shape.memory > 0 && ['GB', 'GiB'].includes(row.shape?.memoryUnit), `${row.key}: missing or invalid compute shape`);
+		}
 		check(hourly || formula || row.status === 'public-source-missing', `${row.key}: incomplete compute price or formula`);
 		check(!(hourly && formula), `${row.key}: ambiguous compute price`);
 		check(row.status !== 'verified' || hourly || formula, `${row.key}: verified compute price missing`);
@@ -128,7 +152,7 @@ export function validatePricing({ models, compute, inventory, pages }, today = n
 	return errors;
 }
 
-export async function validateBuiltPricing({ models, compute }) {
+export async function validateBuiltPricing({ models, compute, inventory }) {
 	const errors = [];
 	for (const [slug, records, attribute] of [
 		['agents/inference/model-choice', models, 'data-pricing-key'],
@@ -141,6 +165,32 @@ export async function validateBuiltPricing({ models, compute }) {
 		if (JSON.stringify(rendered.toSorted()) !== JSON.stringify(expected.toSorted())) errors.push(`${slug}: rendered records do not match verified data`);
 		for (const table of document.querySelectorAll(`table:has([${attribute}])`)) {
 			if (!table.querySelector('caption') || !table.querySelector('thead th[scope="col"]') || !table.querySelector('tbody th[scope="row"]')) errors.push(`${slug}: table lacks accessible headers or caption`);
+		}
+		if (slug === 'agents/inference/model-choice') {
+			const qualifications = [...document.querySelectorAll('[data-regional-pricing-key]')];
+			const verified = records.filter((row) => row.status === 'verified');
+			for (const required of inventory.regionalRequirements) {
+				const scoped = verified.filter((row) => required.modelKeys.includes(row.key));
+				const notes = qualifications.filter((node) => node.getAttribute('data-regional-pricing-key') === required.key);
+				if (scoped.length === 0) {
+					if (notes.length) errors.push(`${required.key}: unverified regional qualification rendered`);
+					continue;
+				}
+				const node = notes[0];
+				const expectedScope = `Applies to: ${scoped.map((row) => row.name).join(', ')}.`;
+				if (notes.length !== 1 || node?.querySelector('[data-regional-scope]')?.textContent !== expectedScope || !node?.querySelector(`a[href="${required.sourceUrl}"]`)?.textContent) {
+					errors.push(`${required.key}: missing regional qualification scope or source`);
+				}
+				for (const row of scoped) {
+					const regional = [row.regional, ...(row.regionalVariants ?? [])].find((value) => value?.key === required.key);
+					if (!regional || node?.querySelector('[data-regional-note]')?.textContent !== regional.note || !regional.note.includes(`${required.multiplier}×`)) {
+						errors.push(`${row.key}: missing built regional qualification`);
+					}
+				}
+			}
+			for (const node of qualifications) {
+				if (!inventory.regionalRequirements.some((required) => required.key === node.getAttribute('data-regional-pricing-key'))) errors.push('unapproved regional qualification rendered');
+			}
 		}
 	}
 	return errors;

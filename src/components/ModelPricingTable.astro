@@ -1,8 +1,16 @@
 ---
-import { verifiedModelPricing, type TokenRates } from '@data/model-pricing';
+import { verifiedModelPricing, type ModelPrice, type RegionalPrice, type TokenRates } from '@data/model-pricing';
 interface Props { provider: string }
 const { provider } = Astro.props;
 const rows = verifiedModelPricing.filter((row) => row.provider === provider);
+const regionalGroups = new Map<string, { regional: RegionalPrice; models: ModelPrice[] }>();
+for (const row of rows) {
+	for (const regional of [...(row.regional ? [row.regional] : []), ...(row.regionalVariants ?? [])]) {
+		const group = regionalGroups.get(regional.key) ?? { regional, models: [] };
+		group.models.push(row);
+		regionalGroups.set(regional.key, group);
+	}
+}
 const dollars = (value: number | null) => value === null ? '—' : `$${Number(value.toPrecision(12))}`;
 const writes = (price: TokenRates) => price.cacheWrite1h === undefined
 	? dollars(price.cacheWrite) : `${dollars(price.cacheWrite)} / ${dollars(price.cacheWrite1h)}`;
@@ -30,6 +38,11 @@ const tuple = (price: TokenRates) => `${dollars(price.input)} / ${writes(price)}
 		</tr>)}</tbody>
 	</table>
 </div>}
+{[...regionalGroups.values()].map(({ regional, models }) => <p data-regional-pricing-key={regional.key}>
+	<span data-regional-note>{regional.note}</span>{' '}
+	<span data-regional-scope>Applies to: {models.map((row) => row.name).join(', ')}.</span>{' '}
+	Source: <a href={regional.source.url}>{regional.source.label}</a>.
+</p>)}
 <style>
 	.pricing-table { overflow-x: auto; }
 	.pricing-table table { display: table; overflow: visible; }

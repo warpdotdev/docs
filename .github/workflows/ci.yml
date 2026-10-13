@@ -133,7 +133,9 @@ jobs:
       - name: Build site
         run: npm run build
       - name: Validate rendered pricing tables
-        run: node scripts/validate-usage-pricing.mjs --built
+        run: |
+          node scripts/validate-usage-pricing.mjs --built
+          node scripts/validate-usage-pricing.test.mjs --built
 
       - name: Validate heading tables of contents
         run: npm run test:heading-tocs

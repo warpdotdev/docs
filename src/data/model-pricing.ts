@@ -19,6 +19,13 @@ export interface TokenRates {
 	output: number;
 }
 
+export interface RegionalPrice {
+	key: string;
+	multiplier: number;
+	note: string;
+	source: PricingSource;
+}
+
 export interface ModelPrice {
 	key: string;
 	name: string;
@@ -26,8 +33,8 @@ export interface ModelPrice {
 	modelIds: string[];
 	rates: TokenRates;
 	threshold?: { tokens: number; inclusive: boolean; rates: TokenRates };
-	regional?: { multiplier: number; note: string; source: PricingSource };
-	regionalVariants?: { multiplier: number; note: string; source: PricingSource }[];
+	regional?: RegionalPrice;
+	regionalVariants?: RegionalPrice[];
 	lifecycle: 'active' | 'deprecated';
 	deprecatedAt?: string;
 	promotion?: { ends: string; afterwards: TokenRates };
@@ -67,22 +74,26 @@ function model(key: string, name: string, provider: string, modelIds: string[], 
 		key, name, provider, modelIds, rates: price, lifecycle: 'active',
 		source: modelPricingSources[provider],
 		runtimeSource: `warp-server/logic/ai/llm/llm.go@${runtimeRevision}`,
-		status: provider === 'Anthropic' ? 'internal-verification' : 'verified',
-		...(provider === 'Anthropic' ? { blocker: 'Confirm direct versus partner-cloud serving hosts and regional pricing applicability with AI Platform and Billing.' } : {}),
-		...(provider === 'Anthropic' ? { regionalVariants: [{ multiplier: 1.1, note: 'Partner-cloud regional and multi-region pricing is 1.1× global pricing for Claude 4.5 and later; Warp route applicability is unconfirmed.', source: modelPricingSources.Anthropic }] } : {}),
-		...(provider === 'Google' ? { regional: { multiplier: 1.1, note: 'Google Cloud non-global inference is 1.1× global pricing; Warp endpoint and region applicability is unconfirmed.', source: googleCloudSource } } : {}),
-		...(provider === 'xAI' && ['grok-4-6', 'grok-4-7'].includes(key) ? { regional: { multiplier: 1.1, note: 'US-region inference is 1.1× global pricing for Grok 4.6 and 4.7; Warp route applicability is unconfirmed.', source: modelPricingSources.xAI } } : {}),
-		...(provider === 'Fireworks' ? { regional: { multiplier: 1.5, note: 'Fireworks publishes 1.5× pricing for US-region variants; Warp variant applicability is unconfirmed.', source: modelPricingSources.Fireworks } } : {}),
+		status: 'internal-verification',
+		blocker: options.status === 'verified' ? undefined : provider === 'Anthropic'
+			? 'Confirm direct versus partner-cloud serving hosts and regional pricing applicability with AI Platform and Billing.'
+			: 'Confirm rate and serving-route applicability before publication.',
+		...(provider === 'Anthropic' ? { regionalVariants: [{ key: 'anthropic-partner-cloud', multiplier: 1.1, note: 'Partner-cloud regional and multi-region pricing is 1.1× global pricing for Claude 4.5 and later; Warp route applicability is unconfirmed.', source: modelPricingSources.Anthropic }] } : {}),
+		...(provider === 'Google' ? { regional: { key: 'google-non-global', multiplier: 1.1, note: 'Google Cloud non-global inference is 1.1× global pricing; Warp endpoint and region applicability is unconfirmed.', source: googleCloudSource } } : {}),
+		...(provider === 'xAI' && ['grok-4-6', 'grok-4-7'].includes(key) ? { regional: { key: 'xai-us', multiplier: 1.1, note: 'US-region inference is 1.1× global pricing for Grok 4.6 and 4.7; Warp route applicability is unconfirmed.', source: modelPricingSources.xAI } } : {}),
+		...(provider === 'Fireworks' ? { regional: { key: 'fireworks-us', multiplier: 1.5, note: 'Fireworks publishes 1.5× pricing for US-region variants; Warp variant applicability is unconfirmed.', source: modelPricingSources.Fireworks } } : {}),
 		...options,
 	};
 }
 
 const openAIRegional = {
+	key: 'openai-direct-us',
 	multiplier: 1.1,
 	note: 'Direct US-only inference costs 1.1× these global rates for all listed OpenAI models.',
 	source: modelPricingSources.OpenAI,
 };
 const anthropicRegional = {
+	key: 'anthropic-direct-us',
 	multiplier: 1.1,
 	note: 'Direct US-only inference costs 1.1× these global rates for Claude 4.6 and later, including fast mode.',
 	source: { label: 'Anthropic data residency pricing', url: 'https://platform.claude.com/docs/en/build-with-claude/data-residency', accessed: modelPricingCheckedAt },
@@ -96,15 +107,15 @@ const openAIThreshold = (price: TokenRates) => ({
 });
 
 export const modelPricing: ModelPrice[] = [
-	model('gpt-6-astra', 'GPT-6 Astra', 'OpenAI', efforts('gpt-6-astra'), rates(10, 12.5, 1, 50), { threshold: openAIThreshold(rates(10, 12.5, 1, 50)), regional: openAIRegional }),
-	model('gpt-6-1-sol', 'GPT-6.1 Sol', 'OpenAI', efforts('gpt-6-1-sol'), rates(2, 2.5, 0.1, 10), { threshold: openAIThreshold(rates(2, 2.5, 0.1, 10)), regional: openAIRegional }),
-	model('gpt-6-sol', 'GPT-6 Sol', 'OpenAI', efforts('gpt-6-sol'), rates(2, 2.5, 0.2, 10), { threshold: openAIThreshold(rates(2, 2.5, 0.2, 10)), regional: openAIRegional }),
-	model('gpt-6-luna', 'GPT-6 Luna', 'OpenAI', efforts('gpt-6-luna'), rates(0.1, 0.125, 0.01, 0.5), { threshold: openAIThreshold(rates(0.1, 0.125, 0.01, 0.5)), regional: openAIRegional }),
-	model('gpt-5-6-sol', 'GPT-5.6 Sol', 'OpenAI', efforts('gpt-5-6-sol', ['low', 'medium', 'high', 'xhigh']), rates(4, 5, 0.4, 20), { threshold: openAIThreshold(rates(4, 5, 0.4, 20)), regional: openAIRegional, reverifyBy: '2026-11-21' }),
-	model('gpt-5-6-terra', 'GPT-5.6 Terra', 'OpenAI', efforts('gpt-5-6-terra', ['low', 'medium', 'high', 'xhigh']), rates(2, 2.5, 0.2, 12), { threshold: openAIThreshold(rates(2, 2.5, 0.2, 12)), regional: openAIRegional }),
-	model('gpt-5-6-luna', 'GPT-5.6 Luna', 'OpenAI', efforts('gpt-5-6-luna', ['low', 'medium', 'high', 'xhigh']), rates(0.2, 0.25, 0.02, 1.2), { threshold: openAIThreshold(rates(0.2, 0.25, 0.02, 1.2)), regional: openAIRegional }),
-	model('gpt-5-5', 'GPT-5.5', 'OpenAI', efforts('gpt-5-5', ['low', 'medium', 'high', 'xhigh']), rates(5, null, 0.5, 30), { threshold: openAIThreshold(rates(5, null, 0.5, 30)), regional: openAIRegional }),
-	model('gpt-5-4', 'GPT-5.4', 'OpenAI', efforts('gpt-5-4', ['low', 'medium', 'high', 'xhigh']), rates(2.5, null, 0.25, 15), { threshold: openAIThreshold(rates(2.5, null, 0.25, 15)), regional: openAIRegional }),
+	model('gpt-6-astra', 'GPT-6 Astra', 'OpenAI', efforts('gpt-6-astra'), rates(10, 12.5, 1, 50), { status: 'verified', threshold: openAIThreshold(rates(10, 12.5, 1, 50)), regional: openAIRegional }),
+	model('gpt-6-1-sol', 'GPT-6.1 Sol', 'OpenAI', efforts('gpt-6-1-sol'), rates(2, 2.5, 0.1, 10), { status: 'verified', threshold: openAIThreshold(rates(2, 2.5, 0.1, 10)), regional: openAIRegional }),
+	model('gpt-6-sol', 'GPT-6 Sol', 'OpenAI', efforts('gpt-6-sol'), rates(2, 2.5, 0.2, 10), { status: 'verified', threshold: openAIThreshold(rates(2, 2.5, 0.2, 10)), regional: openAIRegional }),
+	model('gpt-6-luna', 'GPT-6 Luna', 'OpenAI', efforts('gpt-6-luna'), rates(0.1, 0.125, 0.01, 0.5), { status: 'verified', threshold: openAIThreshold(rates(0.1, 0.125, 0.01, 0.5)), regional: openAIRegional }),
+	model('gpt-5-6-sol', 'GPT-5.6 Sol', 'OpenAI', efforts('gpt-5-6-sol', ['low', 'medium', 'high', 'xhigh']), rates(4, 5, 0.4, 20), { status: 'verified', threshold: openAIThreshold(rates(4, 5, 0.4, 20)), regional: openAIRegional, reverifyBy: '2026-11-21' }),
+	model('gpt-5-6-terra', 'GPT-5.6 Terra', 'OpenAI', efforts('gpt-5-6-terra', ['low', 'medium', 'high', 'xhigh']), rates(2, 2.5, 0.2, 12), { status: 'verified', threshold: openAIThreshold(rates(2, 2.5, 0.2, 12)), regional: openAIRegional }),
+	model('gpt-5-6-luna', 'GPT-5.6 Luna', 'OpenAI', efforts('gpt-5-6-luna', ['low', 'medium', 'high', 'xhigh']), rates(0.2, 0.25, 0.02, 1.2), { status: 'verified', threshold: openAIThreshold(rates(0.2, 0.25, 0.02, 1.2)), regional: openAIRegional }),
+	model('gpt-5-5', 'GPT-5.5', 'OpenAI', efforts('gpt-5-5', ['low', 'medium', 'high', 'xhigh']), rates(5, null, 0.5, 30), { status: 'verified', threshold: openAIThreshold(rates(5, null, 0.5, 30)), regional: openAIRegional }),
+	model('gpt-5-4', 'GPT-5.4', 'OpenAI', efforts('gpt-5-4', ['low', 'medium', 'high', 'xhigh']), rates(2.5, null, 0.25, 15), { status: 'verified', threshold: openAIThreshold(rates(2.5, null, 0.25, 15)), regional: openAIRegional }),
 	model('claude-5-5-opus', 'Claude Opus 5.5', 'Anthropic', efforts('claude-5-5-opus'), rates(4, 5, 0.2, 20, 8), { regional: anthropicRegional }),
 	model('claude-5-5-opus-fast', 'Claude Opus 5.5 Fast', 'Anthropic', ['claude-5-5-opus-xhigh-fast'], rates(8, 10, 0.4, 40, 16), { regional: anthropicRegional, additionalSources: [fastSource], note: 'Fast mode is a research preview.' }),
 	model('claude-5-opus', 'Claude Opus 5', 'Anthropic', efforts('claude-5-opus'), rates(5, 6.25, 0.5, 25, 10), { regional: anthropicRegional }),
