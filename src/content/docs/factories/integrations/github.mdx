@@ -146,7 +146,7 @@ Confirm the app installation covers the event's repository, the repository belon
 
 ### Events from bots don't start work
 
-GitHub triggers skip all bot events by default, even when other filters match. This includes completed GitHub Actions workflows with a bot sender.
+GitHub triggers skip bot events by default. This includes completed GitHub Actions workflows with a bot sender.
 
 1. In the factory dashboard, open **Automations** and edit the automation's GitHub trigger.
 2. Click **More filters**. In the "Skip bot events" dropdown, choose **Self (Warp-owned bots)** to admit third-party bots while excluding Warp-owned bots, or **None** to admit all bots.
