@@ -307,7 +307,22 @@
         "checkedAt": "2026-10-13",
         "summary": "Live DIRECT_API path; base and complete long-context tuples at lines 2326-2495 match OpenAI Standard pricing checked 2026-10-13. SelectPricingForUsageKey applies the alternate tuple only above 272000 combined input tokens to the whole request; no OpenAI model multiplier. Source revision is recorded separately from live availability, not asserted as deployed binary SHA.",
         "status": "confirmed",
-        "host": "DIRECT_API"
+        "host": "DIRECT_API",
+        "attestation": {
+          "statement": "These are the rates we charge customers, without markup",
+          "reference": "https://warpdev.slack.com/archives/C09BVK0PL3Y/p1791847986824229",
+          "modelKeys": [
+            "gpt-6-astra",
+            "gpt-6-1-sol",
+            "gpt-6-sol",
+            "gpt-6-luna",
+            "gpt-5-6-sol",
+            "gpt-5-6-terra",
+            "gpt-5-6-luna",
+            "gpt-5-5",
+            "gpt-5-4"
+          ]
+        }
       },
       "regional": {
         "reference": "https://github.com/warpdotdev/warp-server/blob/904a56f6c11d15bae2fe44d3497ff4144e8c1153/model/types/ai/internal_llm_types.go#L648",

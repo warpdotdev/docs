@@ -35,10 +35,15 @@ export interface PublicationEvidence {
 }
 
 export interface ModelPublication {
+	modelKeys: string[];
 	ga: PublicationEvidence & { status: 'ga' | 'preview' | 'unconfirmed' };
 	access: PublicationEvidence & { status: 'all-customers' | 'restricted' | 'unconfirmed' };
 	deployment: PublicationEvidence & { environment: 'production'; modelIds: string[] };
-	billedPath: PublicationEvidence & { status: 'confirmed' | 'unconfirmed'; host: string };
+	billedPath: PublicationEvidence & {
+		status: 'confirmed' | 'unconfirmed';
+		host: string;
+		attestation: { statement: string; reference: string; modelKeys: string[] };
+	};
 	regional: PublicationEvidence & { status: 'qualified' | 'unconfirmed'; keys: string[] };
 }
 
@@ -76,6 +81,12 @@ export function isPublishableModelPrice(row: ModelPrice, today = new Date().toIS
 		|| publication.ga?.status !== 'ga' || publication.access?.status !== 'all-customers'
 		|| publication.deployment?.environment !== 'production' || publication.billedPath?.status !== 'confirmed'
 		|| !publication.billedPath.host?.trim() || publication.regional?.status !== 'qualified') return false;
+	const attestation = publication.billedPath.attestation;
+	if (attestation?.statement !== 'These are the rates we charge customers, without markup'
+		|| !/^https:\/\/warpdev\.slack\.com\/archives\/[A-Z0-9]+\/p\d+$/.test(attestation?.reference ?? '')
+		|| !Array.isArray(attestation?.modelKeys) || !attestation.modelKeys.includes(row.key)
+		|| !Array.isArray(publication.modelKeys)
+		|| JSON.stringify(attestation.modelKeys.toSorted()) !== JSON.stringify(publication.modelKeys.toSorted())) return false;
 	if (row.reverifyBy && row.reverifyBy < today || row.promotion && row.promotion.ends < today) return false;
 	if (![publication.ga, publication.access, publication.deployment, publication.billedPath, publication.regional].every(evidence)
 		|| !Array.isArray(publication.deployment.modelIds)

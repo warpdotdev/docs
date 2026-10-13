@@ -13,6 +13,11 @@ const modelModule = await import(`data:text/javascript;base64,${Buffer.from(ts.t
 	{ compilerOptions: { module: ts.ModuleKind.ESNext } },
 ).outputText).toString('base64')}`);
 const approved = structuredClone(baseline.models[0]);
+const billingAttestation = {
+	statement: 'These are the rates we charge customers, without markup',
+	reference: 'https://warpdev.slack.com/archives/C09BVK0PL3Y/p1791847986824229',
+	modelKeys: baseline.inventory.publishedModelKeys,
+};
 
 test('explicitly qualified model is publishable', () => {
 	assert.equal(modelModule.isPublishableModelPrice(approved, today), true);
@@ -26,6 +31,32 @@ test('the public export contains only explicitly qualified models', () => {
 		&& row.publication?.billedPath.status === 'confirmed'
 		&& row.publication?.regional.status === 'qualified'));
 });
+
+test('published billed-path evidence records the scoped requester attestation', () => {
+	for (const row of modelModule.verifiedModelPricing) {
+		assert.deepEqual(row.publication.billedPath.attestation, billingAttestation);
+	}
+});
+
+for (const [name, mutate] of [
+	['attestation', (evidence) => delete evidence.attestation],
+	['statement', (evidence) => delete evidence.attestation.statement],
+	['no-markup confirmation', (evidence) => evidence.attestation.statement = 'These are provider list rates'],
+	['originating request', (evidence) => delete evidence.attestation.reference],
+	['request provenance', (evidence) => evidence.attestation.reference = 'https://developers.openai.com/api/docs/pricing'],
+	['model scope', (evidence) => delete evidence.attestation.modelKeys],
+	['complete family scope', (evidence) => evidence.attestation.modelKeys = evidence.attestation.modelKeys.slice(0, -1)],
+]) {
+	test(`publication rejects billed-path evidence without ${name}`, () => {
+		const row = structuredClone(approved);
+		row.publication.billedPath.attestation = structuredClone(billingAttestation);
+		mutate(row.publication.billedPath);
+		assert.equal(modelModule.isPublishableModelPrice(row, today), false);
+		const inputs = structuredClone(baseline);
+		inputs.models[0] = row;
+		assert.match(validatePricing(inputs, today).join('\n'), /verified row lacks/);
+	});
+}
 
 for (const [name, mutate] of [
 	['GA evidence', (row) => delete row.publication.ga],
