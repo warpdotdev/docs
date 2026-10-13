@@ -17,7 +17,9 @@ An event starts an automation only when it matches the trigger's provider, event
 
 * **Every filter must match.** A trigger that sets both a team and a label matches only events carrying both.
 * **Within one filter, any value matches.** A **Labels** filter listing `bug` and `regression` matches an issue with either label.
-* **A filter you leave empty matches everything.** A trigger with no filters at all starts work for every event of its type.
+* **An empty matcher doesn't restrict its field.** A matcher with no values doesn't narrow matching events.
+
+GitHub triggers skip bot-authored events by default, even with no filters. Set [`skip_bots`](/factories/factory-as-code/#triggersfilterskip_bots) in the definition to change that policy.
 
 One event can match more than one automation, and each match starts its own run. If a single action starts duplicate runs, narrow or remove one of the overlapping triggers.
 
@@ -73,7 +75,7 @@ triggers:
 Review the labeled issue and decide the next required stage.
 ```
 
-The same matching rules apply: every key must match, any listed value within a key matches, and an omitted key matches everything. Each integration guide shows the keys its provider accepts.
+The same matching rules apply: every key must match, any listed value within a key matches, and an omitted matcher doesn't restrict its field. Defaults still apply. Each integration guide shows the keys its provider accepts.
 
 For example, this automation from [`04-code-review-only`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository scopes reviews to one base branch and excludes work-in-progress PRs with a `not_in` list:
 

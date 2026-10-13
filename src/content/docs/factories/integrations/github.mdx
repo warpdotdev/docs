@@ -94,6 +94,8 @@ Every trigger names the repository it watches. The remaining filters appear only
 
 On check suite and workflow run triggers, **Labels** and **Authors** match the pull request linked to the run rather than the run itself.
 
+GitHub triggers skip bot-authored events by default. To accept events from third-party bots, set [`skip_bots: self`](/factories/factory-as-code/#triggersfilterskip_bots) in the automation's definition.
+
 ## Mention the factory
 
 Add the factory's `factory:<alias>` label to the issue or pull request, then mention **@warp** in the opening body or a new comment. The alias is the **Foreman name** in the factory dashboard's **Identity** settings. Warp creates the label with the factory, and the factory replies in the same thread.
@@ -108,7 +110,7 @@ Without the label, a linked Warp account can still route the mention:
 
 Default automations can respond to authors whose GitHub accounts aren't linked to Warp.
 
-Only new content counts as a mention. Edits to existing comments, mentions inside code blocks, and mentions from bots are ignored.
+Only new content counts as a mention. Edits to existing comments and mentions inside code blocks are ignored. Bot-authored mentions follow the automation's bot policy.
 
 You can change what the factory answers to. The handle and the label are the starting filters on its mentions automation: edit them to respond to a different handle, such as your own `@org/team` slug, or remove the label filter so that any mention in the factory's repositories starts work.
 
@@ -139,7 +141,7 @@ These checks validate configuration files only and don't create work items. Unch
 
 ### A mention doesn't start work
 
-Confirm the mention is new human-authored content, not an edit, bot comment, or markdown code. Use **@warp**, and add the factory's `factory:<alias>` label. Without a label, routing works only when your linked Warp account can access exactly one factory connected to the repository.
+Confirm the mention is new content, not an edit or markdown code. For a bot comment, check the automation's bot policy. Use **@warp**, and add the factory's `factory:<alias>` label. Without a label, routing works only when your linked Warp account can access exactly one factory connected to the repository.
 
 If you renamed the alias or changed repositories after creating the factory, the default automation's filters still use the original snapshot. Edit that automation so the label and repository filters match.
 
