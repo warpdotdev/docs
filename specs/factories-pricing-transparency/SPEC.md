@@ -1,14 +1,15 @@
 # Warp Factories pricing transparency
 ## Summary
-Add one concise `/factories/pricing` reference page after this specification is approved. The page will show the exact model inference and Warp-hosted compute rates that Warp charges through Warp Factories. It will use concrete named-model rows, exclude moving aliases from fixed pricing, and link from the existing Warp Factories and billing documentation. The implementation must resolve every public-rate and runtime discrepancy in this specification before publishing a value.
+Update the existing [Agent model choice](/agents/inference/model-choice/) page with the canonical named-model rate tables after this specification is approved. Add a central `/factories/usage-and-billing` page that explains Warp Factories charge categories, links to model choice for inference rates, and owns the Warp-hosted compute table. This keeps model capability, configuration, and token cost together without duplicating rates. The implementation must resolve every public-rate and runtime discrepancy in this specification before publishing a value.
 ## Research scope and current state
 The current public documentation explains the three usage components but does not publish the model or hosted-compute rates:
 
-* `src/content/docs/support-and-community/plans-and-billing/credits.mdx:23` defines inference, compute, and platform charges.
-* `src/content/docs/support-and-community/plans-and-billing/credits.mdx:29` states that paid self-serve inference uses public API rates.
-* `src/content/docs/agents/inference/model-choice.mdx:26` lists Warp Agent models and model IDs.
-* `src/content/docs/factories/factory-agents.mdx:115` explains that each factory agent can use the Warp Agent, Claude Code, or Codex harness.
-* `src/content/docs/factories/runners.mdx:12` defines runner resources and `src/content/docs/factories/runners.mdx:64` lists the supported macOS shapes.
+* `src/content/docs/support-and-community/plans-and-billing/credits.mdx:2` is the existing global `Usage and billing` page. It defines inference, compute, and platform charges.
+* `src/content/docs/support-and-community/plans-and-billing/credits.mdx:30` states that paid self-serve inference uses public API rates.
+* `src/content/docs/agents/inference/model-choice.mdx:17` lists Warp Agent models and model IDs.
+* `src/content/docs/factories/factory-agents.mdx:86` explains that each factory agent can use the Warp Agent, Claude Code, or Codex harness.
+* `src/content/docs/factories/runners.mdx:12` defines runner resources and `src/content/docs/factories/runners.mdx:63` lists the supported macOS shapes.
+* `src/sidebar.ts:386` starts the Warp Factories navigation. Its `Overview` group is the evidence-based home for a central product-scoped usage page.
 
 The runtime inventory and prices are split across private server sources:
 
@@ -33,54 +34,78 @@ Cursor's [Models & Pricing](https://cursor.com/docs/models-and-pricing) page, ac
 
 Warp should use those structural choices without copying Cursor's wording, usage-pool model, or product-specific caveats.
 ## Product behavior
-1. The canonical page route is `/factories/pricing`.
-2. The page opens with a short explanation of the three independent charge components:
-   * model inference;
-   * Warp-hosted compute;
-   * platform usage.
-3. The page states that model rates apply to Warp-provided inference. Customer-supplied API keys, provider subscriptions, and custom inference endpoints are billed under their own terms.
-4. The model table uses USD per one million tokens.
-5. The model table has these columns:
+1. The existing `/agents/inference/model-choice/` page is the only public owner of concrete named-model rates.
+2. Rename its `Available models` section to `Models and rates`.
+3. Keep model IDs, defaults, reasoning or effort options, availability qualifications, and adjacent token-rate tables in the same provider subsection. A reader can compare configuration and cost without leaving the provider section.
+4. The model rate tables use USD per one million tokens.
+5. Each model rate table has these columns:
    * Model
-   * Provider
    * Input
    * Cache write
    * Cache read
    * Output
    * Notes
-6. The model table has one row per named model. Effort or reasoning IDs that share a price use one row.
+6. The tables have one row per named model. Effort or reasoning IDs that share a price use one row.
 7. A selectable mode with a different price uses its own row. This applies to Anthropic fast mode.
 8. A model with threshold pricing keeps one primary row and states the threshold and complete alternate rate tuple in Notes. The note states that the higher rate applies to the whole request, not only excess tokens.
-9. The table shows global standard inference rates. A note identifies each regional or data-residency multiplier that Warp can pass through and the models it affects.
+9. The tables show global standard inference rates. A note identifies each regional or data-residency multiplier that Warp can pass through and the models it affects.
 10. Anthropic cache-write cells show both five-minute and one-hour prices in that order.
 11. A dash means the provider does not publish or charge that category for the selected mode. A dash never means that the missing category is free unless the accompanying note says so.
-12. Auto models, custom routers, and moving harness aliases do not receive a fixed-price row. The page states that their cost is the rate of the concrete model selected for each request.
+12. Auto models, custom routers, and moving harness aliases do not receive a fixed-price row. The model-choice page states that their cost is the rate of the concrete model selected for each request.
 13. A named model that the provider has deprecated remains blocked until the product catalog owner confirms whether the choice is removed, remapped, or retained with an explicit note.
-14. The page does not duplicate every effort-specific `model_id`. It links to [Agent model choice](/agents/inference/model-choice/) for IDs and availability.
-15. The compute section shows Warp runner configurations and the exact hourly USD rate Warp charges.
-16. The compute section describes the customer-visible runner platform and shape. It does not present an infrastructure provider as a contractual availability guarantee.
-17. Linux and Windows use a formula because supported shapes are configurable. macOS uses one row per supported shape.
-18. The compute section states the billing granularity after Remote Platform and Billing confirm it against production metering.
-19. The compute section states that local and self-hosted runs do not incur Warp-hosted compute charges.
-20. The page links to [Platform usage](/support-and-community/plans-and-billing/platform-credits/) instead of reproducing platform rates.
-21. The page states the last verification date and links to the first-party rate card for each provider.
-22. The page links to the usage breakdown as the authority for the model and token categories consumed by a completed run.
-23. Enterprise contracts can define different rates or credits. The page directs Enterprise customers to their contract when it differs from the public table.
-24. The first release contains no cost calculator. The rate card and usage breakdown provide the required transparency without adding estimated task-cost assumptions.
+14. The rate tables do not duplicate every effort-specific `model_id`. The existing configuration tables remain authoritative for IDs and availability.
+15. Add `/factories/usage-and-billing/` as the central Warp Factories usage page.
+16. Title the page `Usage and billing for Warp Factories`. Use `Usage and billing` as its sidebar label.
+17. The page opens with the two pricing choices controlled directly by factory configuration:
+   * model inference;
+   * Warp-hosted runner time.
+18. The `Model inference` section explains that Warp-provided inference is charged by token category. It deep-links to `/agents/inference/model-choice/#models-and-rates` for the concrete model tables instead of reproducing them.
+19. The `Model inference` section states that customer-supplied API keys, provider subscriptions, custom inference endpoints, and supported third-party harness credentials are billed under their own terms.
+20. The `Warp-hosted runner time` section shows Warp runner configurations and the exact hourly USD rate Warp charges.
+21. The compute table describes the customer-visible runner platform and shape. It does not present an infrastructure provider as a contractual availability guarantee.
+22. Linux and Windows use a formula because supported shapes are configurable. macOS uses one row per supported shape.
+23. The compute section states the billing granularity after Remote Platform and Billing confirm it against production metering.
+24. The compute section states that local and self-hosted runs do not incur Warp-hosted compute charges.
+25. The page links to the existing global [Usage and billing](/support-and-community/plans-and-billing/credits/) page and [Platform usage](/support-and-community/plans-and-billing/platform-credits/) page for account balances and other applicable charges. It does not duplicate platform rates.
+26. Both canonical pricing surfaces state the last verification date and link to applicable first-party rate cards.
+27. Both surfaces link to the usage breakdown as the authority for categories consumed by a completed run.
+28. Enterprise contracts can define different rates or credits. The central page directs Enterprise customers to their contract when it differs from the public tables.
+29. The first release contains no cost calculator. The rate tables and usage breakdown provide the required transparency without adding estimated task-cost assumptions.
 ## Technical design
-### Canonical page and navigation
-Create `src/content/docs/factories/pricing.mdx` with the title `Factories pricing`.
+### Canonical pages and navigation
+Update `src/content/docs/agents/inference/model-choice.mdx` in place:
 
-Add links from:
+* Rename `## Available models` to `## Models and rates`.
+* Keep the existing Auto explanation and model ID or default tables.
+* Add each provider's named-model token-rate table immediately after its configuration table and provider-specific qualifications.
+* Add a short link from the rate introduction to `/factories/usage-and-billing/#model-inference` for how inference contributes to a factory run's bill.
+* Keep `/agents/inference/model-choice/#models-and-rates` as the canonical destination for model capability, availability, IDs, and token rates.
 
-* `src/content/docs/factories/factory-agents.mdx` after the model and harness overview;
-* `src/content/docs/factories/runners.mdx` after the runner-cost explanation;
-* `src/content/docs/support-and-community/plans-and-billing/credits.mdx` after the three charge components;
-* the Warp Factories sidebar section after `Runners`.
+Create `src/content/docs/factories/usage-and-billing.mdx`:
 
-Do not add the complete table to the broad pricing FAQ. The FAQ answers plan questions. The new page is the canonical operational rate reference.
+* Use the title `Usage and billing for Warp Factories`.
+* Add `## Model inference` and `## Warp-hosted runner time` as the primary sections.
+* Link `Model inference` to `/agents/inference/model-choice/#models-and-rates`; do not render a model-rate table on the Warp Factories page.
+* Render the compute pricing table under `Warp-hosted runner time`.
+* Link to `/factories/runners/#operating-systems` for runner configuration and supported shapes.
+* Link to the global `/support-and-community/plans-and-billing/credits/` page for balances, purchase behavior, and account-wide charge definitions.
+* Link to `/support-and-community/plans-and-billing/platform-credits/` for platform usage instead of copying its table.
+
+Update cross-links:
+
+* In `src/content/docs/factories/runners.mdx`, add a link near the first explanation of right-sized hardware to `/factories/usage-and-billing/#warp-hosted-runner-time`.
+* In `src/content/docs/factories/factory-agents.mdx`, change the current model-choice link to `/agents/inference/model-choice/#models-and-rates` and add a nearby link to `/factories/usage-and-billing/#model-inference`.
+* In `src/content/docs/support-and-community/plans-and-billing/credits.mdx`, add a link from `## Compute usage` to `/factories/usage-and-billing/#warp-hosted-runner-time`.
+* In `src/sidebar.ts`, add `factories/usage-and-billing` with label `Usage and billing` to the Warp Factories `Overview` group after `Quickstart`.
+
+Do not add either rate table to the broad pricing FAQ. The FAQ answers plan questions. Model choice and Warp Factories usage and billing are the two operational pricing owners.
 ### Checked-in pricing data
-Create `src/data/factories-pricing.ts` as the only public-doc source for rows rendered on the page. Keep prose, caveats, and links in the MDX page.
+Create two data modules so each canonical page owns the records it renders:
+
+* `src/data/model-pricing.ts` contains named-model token rates for `model-choice.mdx`.
+* `src/data/factories-compute-pricing.ts` contains Warp-hosted runner rates for `usage-and-billing.mdx`.
+
+Keep prose, caveats, IDs, capability guidance, and links in the owning MDX page. Do not copy model rate values into the Warp Factories data module or page.
 
 Each model record contains:
 
@@ -111,9 +136,9 @@ Each compute record contains:
 * source access date;
 * verification status.
 
-The public page renders only records with `verified` status. The implementation must not render `catalog-mismatch`, `code-mismatch`, `public-source-missing`, or `internal-verification` records.
+The public pages render only records with `verified` status. The implementation must not render `catalog-mismatch`, `code-mismatch`, `public-source-missing`, or `internal-verification` records.
 ### Validation script
-Create `scripts/validate-factories-pricing.mjs` and add `test:factories-pricing` to `package.json`.
+Create `scripts/validate-usage-pricing.mjs` and add `test:usage-pricing` to `package.json`. The validator reads both data modules.
 
 The script fails when:
 
@@ -129,7 +154,9 @@ The script fails when:
 * a provider-deprecated model is marked `verified`;
 * a rendered record does not have `verified` status;
 * an Anthropic row omits a supported cache-write duration;
-* a compute row has neither an exact hourly rate nor a complete formula.
+* a compute row has neither an exact hourly rate nor a complete formula;
+* a named-model rate appears in the Warp Factories compute module;
+* either canonical page contains a handwritten numeric rate that bypasses its data module.
 
 Private server repositories are not available in public docs CI. Before each pricing change merges, the owning engineer must attach a fresh runtime inventory comparison to the PR. Do not copy private symbols or feature flags into public prose.
 ### Source-of-truth and update ownership
@@ -138,7 +165,7 @@ Use this precedence:
 1. The production billing configuration determines what Warp charges.
 2. The production selectable catalog determines which Warp-provided models need rows.
 3. The provider's first-party public rate card supplies the no-markup public rate evidence.
-4. The checked-in docs data supplies the rendered public table after the first three sources agree.
+4. The checked-in model and compute data modules supply their owning public tables after the first three sources agree.
 
 If the sources disagree, do not choose one silently. Mark the record blocked, ask the owning team to resolve the runtime or policy, and publish only after the production charge and public statement agree.
 
@@ -146,40 +173,40 @@ Ownership:
 
 * AI Platform and Billing approve model inventory, token categories, routing surcharges, promotions, and billed rates.
 * Remote Platform and Billing approve hosted-compute shapes, metering, and billed rates.
-* Docs owns the checked-in data shape, page wording, navigation, source links, and verification dates.
+* Docs owns both checked-in data shapes, both pages' wording, navigation, cross-links, source links, and verification dates.
 
 Cadence:
 
-* Update the page in the same release that adds, removes, or reprices a customer-selectable model or runner shape.
+* Update the owning page in the same release that adds, removes, or reprices a customer-selectable model or runner shape.
 * Review temporary prices before their end dates.
 * Review provider deprecations and automatic remaps in the same release that changes the upstream lifecycle state.
 * Run a monthly source audit even when no product change is planned.
-* Remove retired rows in the same release that removes customer selection. Historical rates belong in billing records, not the current table.
+* Remove retired rows in the same release that removes customer selection. Historical rates belong in billing records, not the current tables.
 ### Implementation sequence
 1. Resolve every blocker in the research appendix with AI Platform, Remote Platform, and Billing.
 2. Export the current production model and compute inventories.
-3. Add the typed pricing data and validator.
-4. Add the canonical page with verified rows only.
-5. Add sidebar and cross-page links.
-6. Run content, build, data, and link validation.
-7. Capture visual proof.
+3. Add `model-pricing.ts`, extend `model-choice.mdx`, and validate the named-model inventory.
+4. Add `factories-compute-pricing.ts` and create `factories/usage-and-billing.mdx` with verified compute rows only.
+5. Add the shared validator, Warp Factories sidebar entry, and deep cross-links.
+6. Run content, build, data, anchor, and link validation.
+7. Capture visual proof for both canonical pages.
 8. Request Billing and owning-engineering approval before making the implementation PR ready for review.
 ## Decisions
-### Use one canonical page
+### Separate rate ownership by user decision
 Options:
 
-* Add rates to the general pricing FAQ. This keeps billing content together but makes a broad page longer and harder to maintain.
-* Split model and compute pricing into separate pages. This reduces individual table size but forces a Warp Factories customer to navigate between two references.
-* Use one concise Factories pricing page. This gives one canonical link while preserving provider-grouped sections.
+* Add every rate to one Warp Factories pricing page. This gives one link but separates model cost from the model capability and configuration reference.
+* Put model rates on model choice and compute rates on runners. This keeps each rate near its control but gives no central explanation of how the two charges combine for a factory run.
+* Keep named-model rates on model choice and add one central Warp Factories usage page that owns compute rates and links to model choice. This adds one deliberate deep link while avoiding duplicate model tables.
 
-Decision: use one Factories pricing page.
-### Keep operational rates in the Warp Factories docs
+Decision: use model choice as the only named-model rate owner. Use Warp Factories usage and billing as the charge overview and compute-rate owner.
+### Keep operational rates with their product references
 Options:
 
 * Put every current price only on [Warp pricing](https://www.warp.dev/pricing), following the general billing guidance in `AGENTS.md`. This preserves one commercial pricing page but does not give technical teams enough space for model thresholds, cache categories, runner formulas, and source qualifications.
-* Put the operational rate card at `/factories/pricing` and link to it from the main pricing and billing surfaces. This keeps subscription and plan positioning on Warp pricing while giving Factories usage one detailed canonical reference.
+* Put operational token rates on model choice and hosted-compute rates on Warp Factories usage and billing. Link the two pages and the existing global billing surfaces. This keeps subscription positioning on Warp pricing while placing each technical rate next to the decision it informs.
 
-Decision: use `/factories/pricing` as the canonical operational rate card. The main Warp pricing page remains canonical for subscription and plan prices. This is an intentional, requester-approved exception to the repository's default rule against duplicate current-price tables.
+Decision: use `/agents/inference/model-choice/#models-and-rates` for named-model rates and `/factories/usage-and-billing/#warp-hosted-runner-time` for compute rates. The main Warp pricing page remains canonical for subscription and plan prices. No rate table is duplicated.
 ### Use concrete named models
 Options:
 
@@ -203,14 +230,15 @@ Options:
 * Show customer-visible runner shapes and Warp's exact charge. Keep provider evidence in source links and internal verification.
 
 Decision: show customer-visible runner shapes and Warp's exact charge.
-### Use checked-in structured data
+### Use separate checked-in structured data
 Options:
 
 * Write tables directly in MDX. This has the smallest initial diff but cannot enforce completeness, access dates, or expired promotions.
 * Fetch provider pages during every docs build. This creates a network dependency and cannot prove that a provider rate matches Warp production billing.
-* Check in typed rate data and validate its schema and dates. Human and owning-engineering review still resolve source disagreements.
+* Put model and compute rows in one shared module. This reduces file count but couples separate owners and update cadences.
+* Check in separate typed model and compute modules and validate both together. Human and owning-engineering review still resolve source disagreements.
 
-Decision: use checked-in typed data with deterministic validation.
+Decision: use separate checked-in model and compute data with one deterministic validator.
 ### Block publication on disagreement
 Options:
 
@@ -227,7 +255,8 @@ Decision: block an affected row until Billing and the owning engineering team re
 * **Assumption:** No separate egress or persistent-storage charge is currently passed through for Warp-hosted runner compute. Remote Platform and Billing must confirm this before implementation.
 * **Assumption:** Provider names can appear in model tables and source citations. Compute-provider names remain in verification evidence, not the primary customer table.
 ## Out of scope
-* Implementing the customer-facing page before this specification is approved.
+* Implementing customer-facing changes before this specification revision is approved.
+* Duplicating named-model rates on the Warp Factories usage and billing page.
 * Changing model, provider, routing, compute, or billing behavior.
 * Publishing negotiated provider terms or confidential discounts.
 * Predicting the price of an Auto route before the concrete model runs.
@@ -385,7 +414,7 @@ The implementation must verify:
 ## Validation criteria
 The documentation implementation is complete only when all checks pass:
 
-* Run `npm run test:factories-pricing`. It must validate all data invariants in this specification.
+* Run `npm run test:usage-pricing`. It must validate all data invariants in this specification.
 * Compare the checked-in named-model inventory with the production catalog. The 2026-10-12 baseline contains 42 public rows: 9 OpenAI, 17 Anthropic including 3 fast-mode rows, 5 Google, 5 xAI, and 6 Fireworks. If Gemini 3.7 Flash is removed before implementation, the expected count is 41 and the comparison records the approved removal.
 * Verify every reasoning or effort ID maps to exactly one named rate row unless its mode changes price.
 * Verify Auto models, custom routers, and moving harness aliases have no fixed-price record.
@@ -399,11 +428,13 @@ The documentation implementation is complete only when all checks pass:
 * Run `npm run build`.
 * Run `python3 .agents/skills/style_lint/style_lint.py --all --output /tmp/style-lint.json`.
 * Run `git diff --check`.
-* Run the repository's broken-link check against the new route and cross-links.
-* Confirm the sidebar exposes `Factories pricing` after `Runners`.
-* Confirm the page contains no `VERIFY` markers before merge.
-* Use computer use to capture a scrolling video of the rendered page at desktop and narrow mobile widths. The video must show the opening explanation, every provider section, horizontal table behavior, the compute section, source links, and the last-verified date.
-* Confirm with a screen reader or accessibility tree that each table has column headers and that source links have descriptive text.
+* Run the repository's broken-link check against `/factories/usage-and-billing/` and every new deep link.
+* Confirm `model-choice.mdx` is the only public page that renders named-model rates.
+* Confirm the Warp Factories page renders no named-model numeric rate.
+* Confirm the sidebar exposes `Usage and billing` in the Warp Factories `Overview` group after `Quickstart`.
+* Confirm both pages contain no `VERIFY` markers before merge.
+* Use computer use to capture scrolling videos of both rendered pages at desktop and narrow mobile widths. The model-choice video must show configuration and token rates for every provider plus horizontal table behavior. The Warp Factories video must show the inference explanation, deep link, compute table, source links, and last-verified date.
+* Confirm with a screen reader or accessibility tree that each table has column headers, section deep links reach the intended heading, and source links have descriptive text.
 * Request final approval from Billing, AI Platform, Remote Platform, and Docs.
 
 This specification PR needs no rendered-page video because it does not change public documentation.
