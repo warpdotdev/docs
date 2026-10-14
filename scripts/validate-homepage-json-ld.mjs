@@ -42,7 +42,7 @@ assert.equal(websites[0]['@id'], WEBSITE_ID);
 assert.equal(websites[0].url, DOCS_ORIGIN);
 assert.equal(
 	websites[0].description,
-	'Set up and run Warp Factories, open infrastructure for cloud software factories, plus the cloud agents, Warp agents, and Warp terminal behind them.',
+	'Set up and run Warp Factories, open infrastructure for cloud software factories, along with cloud agents, the Warp Agent, and the Warp terminal.',
 );
 for (const payload of [organizations[0], websites[0]]) {
 	assert.doesNotMatch(payload.description, /agentic development environment/i);
