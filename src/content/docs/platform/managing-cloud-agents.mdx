@@ -22,7 +22,7 @@ The Agent Management Panel and {VARS.WEB_APP} Runs page are designed to answer, 
 * Where an agent run was triggered from, such as a local agent conversation, the {VARS.WARP_AGENT_CLI}, Slack, Linear, a schedule, or the API.
 * How parent and child runs relate in orchestrated workflows.
 * Which session to open when you need prompt, plan, command, log, output, or follow-up context.
-* How many credits those runs consumed.
+* What usage those runs consumed.
 
 Warp's agent observability is run- and session-oriented. It is not a replacement for full APM, OpenTelemetry, or Datadog-style tracing across arbitrary agent frameworks. Use Warp to track agent run status, trigger/source, owner, parent-child relationships, transcripts, commands, logs, outputs, and replayable session links.
 
@@ -43,17 +43,15 @@ The Agent Management Panel and {VARS.WEB_APP} Runs page include two categories o
 
 * Initiated from the Warp app.
 * The conversation is owned by you. It opens locally in Warp, and can be shared via a link when needed.
-* Credit usage reflects inference.
+* Usage includes Warp-provided inference or applicable platform charges for customer-supplied inference.
 
 #### Cloud agent runs
 
 * Background executions initiated by triggers such as integrations and automations (for example: Slack, Linear, schedules, GitHub Actions, or API/CLI invocations).
 * Each run produces a shared session that can be inspected after completion (including logs, messages, and outputs).
-* Credit usage reflects inference + compute, shown as a single combined value in this view.
+* Usage can include inference, Warp-hosted compute, and platform charges.
 
-:::caution
-All usage rolls up into Warp's standard [**credit**](/support-and-community/plans-and-billing/credits/) system.
-:::
+See [usage and billing](/support-and-community/plans-and-billing/credits/) for dollar and credit units, and [factory run usage](/factories/factory-dashboard/#inspect-runs) for detailed cost and token reporting where available.
 
 In the **Personal** tab, you can view all of the interactive and cloud agent conversations that you own. In the **All** tab, you can see everything from the personal tab, as well as any cloud agent sessions that are shared with you by your teammates; right now, this only includes things triggered from integrations.
 
@@ -93,7 +91,9 @@ Where the agent was launched from. Common sources include:
 
 Warp uses a small set of statuses to help you quickly identify what needs attention:
 
-<table><thead><tr><th width="173.375">Status</th><th width="78.41973876953125">Icon</th><th>Description</th></tr></thead><tbody><tr><td><code>Working</code></td><td>N/A</td><td>in progress (may include queued / running states)</td></tr><tr><td><code>Blocked</code></td><td>🟨</td><td><p><em>(interactive only)</em></p><p><br />the conversation is waiting on user input or a required step</p></td></tr><tr><td><code>Canceled</code></td><td>⬜️</td><td>(interactive only)<br /><br />the interactive conversation was canceled before completion</td></tr><tr><td><a href="/factories/api-and-sdk/troubleshooting/errors/"><code>Failed / Errored</code></a></td><td>🔺</td><td>something went wrong (applies to both interactive and cloud agent runs)</td></tr><tr><td><code>Success</code></td><td>✅</td><td>completed successfully (applies to both interactive and cloud agent runs)</td></tr></tbody></table>
+<table><thead><tr><th width="173.375">Status</th><th width="78.41973876953125">Icon</th><th>Description</th></tr></thead><tbody><tr><td><code>Working</code></td><td>N/A</td><td>in progress (may include queued / running states)</td></tr><tr><td><code>Blocked</code></td><td>🟨</td><td>waiting on user input or a required step; an unattended third-party harness run can end in this state</td></tr><tr><td><code>Canceled</code></td><td>⬜️</td><td>(interactive only)<br /><br />the interactive conversation was canceled before completion</td></tr><tr><td><a href="/factories/api-and-sdk/troubleshooting/errors/"><code>Failed / Errored</code></a></td><td>🔺</td><td>something went wrong (applies to both interactive and cloud agent runs)</td></tr><tr><td><code>Success</code></td><td>✅</td><td>completed successfully (applies to both interactive and cloud agent runs)</td></tr></tbody></table>
+
+When an unattended [third-party harness](/platform/harnesses/) reports that it needs user input, the run ends as **Blocked** instead of waiting indefinitely. Inspect the status message and transcript to identify the missing input, then include that information in the prompt before starting another run.
 
 **Duration (for cloud agent tasks)**
 

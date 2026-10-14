@@ -2,18 +2,13 @@
 topic: factories
 title: insufficient_credits
 description: >-
-  The principal billed for the run has no remaining credits. Top up the
-  team's shared add-on credit pool or wait for plan credits to refresh.
+  The account billed for a run has insufficient usage. Add purchased usage,
+  check auto-reload, or wait for included usage to reset.
 ---
 
-The `insufficient_credits` error occurs when the principal billed for a cloud agent run has no remaining credits to charge against.
+The `insufficient_credits` error means the billed account does not have enough eligible usage to start a cloud run. The error code is the same whether the account uses dollars or credits.
 
-On self-serve plans (Build, Max, Business), the billed principal depends on how the run was triggered:
-
-* **User-triggered runs** draw from the triggering user's plan-included credits first, then shared team grants, then any remaining user-scoped grants that apply on the active team. There is no option to spend personal credits first while on a team.
-* **Agent API key and scheduled runs** draw from the team owner's plan-included credits first, then the team's shared add-on credit pool.
-
-When those sources are depleted and [auto-reload](/support-and-community/plans-and-billing/add-on-credits/) is off, new runs return this error. On Enterprise plans, runs draw from the team-scoped credit pool per your contract — contact your account manager when the pool is exhausted.
+Check the balance for the user or agent the run acts as. Agent API key runs use shared team usage, not the team owner's personal included allowance. See [cloud run billing](/platform/team-access-billing-and-identity/#billing-for-cloud-agent-runs) for schedule billing, dedicated allowances, and Enterprise terms.
 
 ---
 
@@ -29,11 +24,10 @@ When those sources are depleted and [auto-reload](/support-and-community/plans-a
 
 This error is returned when:
 
-* A user-triggered run runs out of the user's plan-included credits and the team's shared add-on credit pool.
-* An agent API key or scheduled run runs out of the team owner's plan-included credits and the team's shared add-on credit pool.
-* Auto-reload is off, or auto-reload is on but the team-wide monthly spend cap has been reached.
+* The billed user's or team's eligible balance is too low to start the run.
+* Auto-reload is off or cannot replenish the balance, such as when a purchase is blocked by the team's limit.
 
-For the full waterfall, see [How are cloud agent runs on team plans billed when no individual user triggered them?](/support-and-community/plans-and-billing/pricing-faqs/#how-are-cloud-agent-runs-on-team-plans-billed-when-no-individual-user-triggered-them) in the Pricing FAQs.
+See [purchasing additional usage](/support-and-community/plans-and-billing/add-on-credits/) for prices and purchase limits.
 
 ---
 
@@ -53,27 +47,17 @@ For the full waterfall, see [How are cloud agent runs on team plans billed when 
 
 ## How to resolve
 
-The fix depends on which principal was billed.
-
-**For user-triggered runs (your plan credits and the team's add-on pool were exhausted):**
-
-1. Purchase [add-on credits](/support-and-community/plans-and-billing/add-on-credits/) in **Settings** > **Billing and usage**, or wait for your monthly credits to refresh. Any active member's purchase tops up the team's shared pool.
-2. Alternatively, enable auto-reload, subject to your team's monthly spend cap.
-3. Retry the failed operation.
-
-**For agent API key or scheduled runs (the owner's plan credits and the team's add-on pool were exhausted):**
-
-1. Top up the team's shared pool by purchasing add-on credits, or wait for the owner's monthly credits to refresh.
-2. If auto-reload is on but the team-wide spend cap was reached, an admin can raise the cap in **Settings** > **Billing and usage**.
-3. Retry the failed operation.
-
-Any active team member can top up the shared pool; raising the spend cap or changing auto-reload requires a team admin.
+1. In the Warp app, open **Settings** > **Billing and usage** for the billed account or team.
+2. On an eligible plan, [purchase usage](/support-and-community/plans-and-billing/add-on-credits/) or ask an admin to review auto-reload and the purchase limit. Alternatively, wait for the billed user's included allowance to reset.
+3. Retry the failed operation after enough usage is available. The failed run is not retried automatically.
 
 ---
 
-## Related
+<span id="related" />
 
-* [Access, billing, and identity permissions](/platform/team-access-billing-and-identity/) — Credit billing for individual user runs and agent API key runs.
-* [Add-on credits](/support-and-community/plans-and-billing/add-on-credits/) — Purchase additional credits and configure auto-reload.
-* [Platform credits](/support-and-community/plans-and-billing/platform-credits/) — The third credit bucket alongside AI credits and compute credits.
-* [Cloud Agents Overview](/platform/) — Billing and plan requirements for cloud agents.
+## Related pages
+
+* **[Access, billing, and identity permissions](/platform/team-access-billing-and-identity/)** - Billing attribution for user-triggered and automated runs.
+* **[Purchasing additional usage](/support-and-community/plans-and-billing/add-on-credits/)** - Purchase usage and configure auto-reload.
+* **[Platform usage](/support-and-community/plans-and-billing/platform-credits/)** - Agent-hour charges for cloud runs.
+* **[Cloud agents overview](/platform/)** - Billing and plan requirements for cloud agents.
