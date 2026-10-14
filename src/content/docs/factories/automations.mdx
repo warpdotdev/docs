@@ -16,8 +16,8 @@ Automation filters decide which events from your connected tools start factory w
 An event starts an automation only when it matches the trigger's provider, event type, and filters:
 
 * **Every filter must match.** A trigger that sets both a team and a label matches only events carrying both.
-* **Within one filter, any value matches.** A **Labels** filter listing `bug` and `regression` matches an issue with either label.
-* **A filter you leave empty matches everything.** A trigger with no filters at all starts work for every event of its type.
+* **Within an inclusion filter, any value matches.** A **Labels** filter listing `bug` and `regression` matches an issue with either label.
+* **An empty optional list filter doesn't restrict matching.** Provider defaults still apply: [GitHub triggers skip bot events by default](/factories/integrations/github/#events-from-bots-dont-start-work).
 
 One event can match more than one automation, and each match starts its own run. If a single action starts duplicate runs, narrow or remove one of the overlapping triggers.
 
@@ -25,7 +25,7 @@ One event can match more than one automation, and each match starts its own run.
 
 Filters decide when work starts, not what a running agent can reach. Access comes from what you authorize on each provider: the GitHub App installation, the GitLab bot's project membership, the Slack app's authorization, the Microsoft Teams installation, the Linear OAuth scope, or the Jira app installation. Tightening a filter never shrinks that access, and removing one never widens it. To change what an integration can reach, change what you authorize for that provider.
 
-Filters are still your main control over who starts runs. On GitHub and GitLab, the event author doesn't need to be a Warp team member, so use author, member, and branch filters to decide whose activity starts work. Slack mentions and direct messages additionally require a Slack account linked to an active member of the factory's Warp team. Microsoft Teams mentions require a Microsoft account linked to an active member of the factory's Warp workspace. A custom webhook authenticates each delivery with the webhook's own secret or the sender's signature, so anyone holding that credential can start work; its filters only decide which deliveries do.
+Filters narrow which activity starts runs; provider account and access requirements still apply. Slack mentions and direct messages additionally require a Slack account linked to an active member of the factory's Warp team. Microsoft Teams mentions require a Microsoft account linked to an active member of the factory's Warp workspace. A custom webhook authenticates each delivery with the webhook's own secret or the sender's signature, so anyone holding that credential can start work; its filters only decide which deliveries do.
 
 ## What each source can filter on
 
@@ -73,7 +73,7 @@ triggers:
 Review the labeled issue and decide the next required stage.
 ```
 
-The same matching rules apply: every key must match, any listed value within a key matches, and an omitted key matches everything. Each integration guide shows the keys its provider accepts.
+The same matching rules apply: every field must match, and an `in` list matches any listed value. Omitted optional list filters don't restrict matching; GitHub's `skip_bots` policy defaults to `all` when omitted. Each integration guide shows the keys its provider accepts.
 
 For example, this automation from [`04-code-review-only`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository scopes reviews to one base branch and excludes work-in-progress PRs with a `not_in` list:
 
@@ -138,7 +138,7 @@ For exact matching semantics, limits, and validation rules, see [payload filter 
 
 ## Troubleshooting
 
-* **A matching event doesn't start work** - Confirm the automation is enabled and the trigger's event type matches, then check every filter; a single mismatch prevents routing. Each integration guide's troubleshooting section covers provider-specific causes, such as app installation coverage.
+* **An event doesn't start work** - Follow the [factory troubleshooting checklist](/factories/troubleshooting/#an-event-that-should-start-work-doesnt) to check the automation, connection, access, and filters, then inspect any existing work item.
 * **A webhook delivery doesn't start work** - Open the delivery in the webhook's **Recent deliveries** to confirm it was accepted rather than rejected or deduplicated, then use **Test filter** on the automation's **Webhook** trigger against that delivery. See [troubleshooting custom webhooks](/factories/webhooks/#troubleshooting).
 
 ## Related pages

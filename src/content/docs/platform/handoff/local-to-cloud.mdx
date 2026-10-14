@@ -37,7 +37,7 @@ If any changes fail to apply in the cloud run, the cloud agent reports which cha
 * **An active local conversation** - Have a [Warp Agent](/agents/) conversation open in Warp with the work you want to hand off.
 * **A configured environment** - The cloud agent needs an [environment](/platform/environments/) that includes the same repositories you're working in locally. The environment's repos must match your local checkout so the workspace snapshot applies cleanly.
 * **Cloud conversation storage enabled** - In the Warp app, go to **Settings** > **Privacy** and turn on **Store AI conversations in the cloud** so the conversation can be forked. See [Cloud-synced conversations](/agents/local-agents/cloud-conversations/).
-* **Sufficient credits** - Cloud agent runs consume credits. See [Credits](/support-and-community/plans-and-billing/credits/) for how credit usage works, and [Access, billing, and identity](/platform/team-access-billing-and-identity/) for team-specific credit requirements.
+* **Sufficient usage** - Cloud runs need an eligible balance for inference, hosted compute, and platform charges. See [cloud agent access and billing](/platform/team-access-billing-and-identity/).
 
 ## Handing off a conversation to the cloud
 
@@ -69,9 +69,7 @@ After the flow opens, choose the cloud environment and add the follow-up prompt 
 <figcaption>A follow-up prompt before handoff.</figcaption>
 </figure>
 
-:::note
-The cloud agent runs with the same model your local conversation was using. Changing the model during handoff isn't supported.
-:::
+Personal [BYOK keys](/agents/inference/bring-your-own-api-key/) and [endpoint configurations](/agents/inference/custom-inference-endpoint/) aren't copied to cloud runs. Business and Enterprise teams can configure [team-managed inference](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) for cloud agents.
 
 After you submit, the cloud agent applies your workspace snapshot and responds to your follow-up. The local conversation is not modified, so you can keep working in it locally or close it.
 

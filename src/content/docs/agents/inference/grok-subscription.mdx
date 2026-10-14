@@ -6,7 +6,7 @@ description: >-
   Grok Build.
 ---
 
-Warp lets you connect your **SuperGrok subscription** to use Grok models with agents in Warp through your xAI account. If you already subscribe to Grok, you can run Grok models in Warp without consuming your Warp [credits](/support-and-community/plans-and-billing/credits/). X Premium subscriptions that include Grok access work the same way: you sign in to your xAI account, and xAI determines which subscription tiers are eligible and how much usage they include.
+Connect your **SuperGrok subscription** to use Grok models through your xAI account instead of Warp-provided inference. X Premium subscriptions that include Grok access work the same way. xAI determines eligible tiers and usage limits; applicable [platform charges](/support-and-community/plans-and-billing/platform-credits/) remain.
 
 Connecting a subscription works like [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), except you sign in to your xAI account instead of pasting an API key. There is no xAI API key field in Warp today — the subscription is the way to bring your own Grok access.
 
@@ -41,9 +41,9 @@ In the [Warp Agent CLI](/agents/cli/), run `/connect-grok` instead. It starts th
 
 When a Grok model with the key icon is selected:
 
-* Warp **does not consume** any of your [credits](/support-and-community/plans-and-billing/credits/) for the request.
+* The request does not consume Warp-provided inference usage.
 * Inference runs through your xAI account, within your xAI subscription's usage limits.
-* If a request fails because your subscription hits a limit, Warp does not retry with Warp credits unless you enable **Warp credit fallback** in the same settings section. See [failover and fallback behavior](/agents/inference/bring-your-own-api-key/#failover-and-fallback-behavior).
+* If a request hits your subscription limit, Warp does not retry with Warp-provided inference unless you enable **Warp credit fallback**. Fallback requests consume Warp usage. See [failover and fallback behavior](/agents/inference/bring-your-own-api-key/#failover-and-fallback-behavior).
 
 ### How usage counts against your xAI subscription
 
@@ -55,10 +55,10 @@ When you use up your weekly pool, xAI pauses paid usage until the reset time sho
 
 ### Auto models
 
-Warp's **Auto** models always use Warp's own inference and **always consume Warp credits**, even with a SuperGrok subscription connected. Auto never routes requests through your subscription. To use your subscription, select a specific Grok model from the model picker.
+Warp's **Auto** models use Warp-provided inference and consume Warp usage, even with a SuperGrok subscription connected. To use your subscription, select a specific Grok model.
 
 :::caution
-A connected SuperGrok subscription does not apply to [Cloud Agents](/platform/). Because tokens are stored locally on your device, they are not available to cloud-hosted agent runs, which always consume [Warp credits](/support-and-community/plans-and-billing/credits/).
+A connected SuperGrok subscription does not apply to [cloud runs](/platform/). Cloud runs use their configured inference and incur eligible compute and platform charges.
 :::
 
 ### Zero data retention (ZDR)
@@ -67,7 +67,7 @@ Warp has Zero Data Retention agreements with its contracted LLM providers, inclu
 
 ## Disconnecting
 
-To disconnect, open **Settings**, search for `SuperGrok`, and click **Disconnect**. Warp removes the tokens from your device's secure storage, and Grok models go back to running on Warp credits.
+To disconnect, open **Settings**, search for `SuperGrok`, and click **Disconnect**. Warp removes the saved connection, and Grok models use Warp-provided inference again.
 
 ## Troubleshooting
 
@@ -83,9 +83,11 @@ Click **Copy URL** on the toast that appears after clicking **Connect**, then pa
 
 Warp waits 5 minutes for you to approve the connection in your browser. Click **Connect** and approve the consent screen within that window.
 
-## Related resources
+<span id="related-resources" />
 
-* [Model choice](/agents/inference/model-choice/) — Full list of supported models and `model_id` values.
-* [Bring Your Own API Key](/agents/inference/bring-your-own-api-key/) — Use your own Anthropic, OpenAI, or Google API keys.
-* [Custom inference endpoint](/agents/inference/custom-inference-endpoint/) — Route Warp through any OpenAI-compatible endpoint.
-* [Credits](/support-and-community/plans-and-billing/credits/) — How Warp credits work and when they're consumed.
+## Related pages
+
+* **[Model choice](/agents/inference/model-choice/)** - Full list of supported models and `model_id` values.
+* **[Bring Your Own API Key](/agents/inference/bring-your-own-api-key/)** - Use your own Anthropic, OpenAI, or Google API keys.
+* **[Custom inference endpoint](/agents/inference/custom-inference-endpoint/)** - Route Warp through any OpenAI-compatible endpoint.
+* **[Usage and billing](/support-and-community/plans-and-billing/credits/)** - Inference, compute, and platform charges.
