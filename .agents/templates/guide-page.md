@@ -62,6 +62,7 @@ Why it happens, and how to recover.
 [Recap what the reader built, referring back to the example from the introduction. Then 2-3 actionable next steps.]
 
 [CROSS-LINKING: Link at least one other page in the Guides section and one feature page in the main docs. Verify every internal link resolves to a real file under `src/content/docs/` before publishing — do not invent plausible-looking paths.]
+[LINK FORMAT: Follow AGENTS.md → Closing section. Start with an unbolded link. Add a description only when it clarifies why to open the page: spaced hyphen, capitalized first word, proper-name casing, no terminal punctuation. Keep this section last.]
 
 * [Related tutorial in the Guides section](path/to/page.md)
-* [Feature documentation in the main docs](path/to/page.md)
+* [Feature documentation in the main docs](path/to/page.md) - Explore configuration options used in this workflow

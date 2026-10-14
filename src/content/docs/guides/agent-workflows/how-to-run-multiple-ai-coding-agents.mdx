@@ -36,7 +36,7 @@ Plan on about 15 minutes for the local setup. Cloud orchestration takes longer o
 | Split by file or subsystem | A feature spans independent modules that can be changed in parallel. | Assign each agent a worktree, branch, file boundary, and validation command. |
 | Builder plus reviewer | One agent implements while another reviews, writes tests, or checks edge cases. | Put the reviewer in a read-only or review-focused tab, or use a separate branch for test-only changes. |
 | Cloud fan-out | The work is large, slow, or can run away from your laptop. | Use [Multi-agent orchestration](/platform/orchestration/) or [Running orchestrated agents](/platform/orchestration/multi-agent-runs/) to spawn cloud children. |
-| Repeatable fleet workflow | You want the same agent pattern on every PR, issue, schedule, or release. | Use a cloud agent with a trigger, skill, or API workflow, or assemble a standing triage-to-merge team with [Warp Factories](/factories/), then inspect parent and child runs in the [{VARS.WEB_APP}](/platform/oz-web-app/). |
+| Repeatable team workflow | You want the same agent pattern on every PR, issue, schedule, or release. | Assemble a team with [Warp Factories](/factories/) and inspect its work in the [factory dashboard](/factories/factory-dashboard/). For standalone automation, use a trigger, skill, or API workflow and the [{VARS.WEB_APP}](/platform/oz-web-app/). |
 
 ## Plan the split before launching agents
 
@@ -225,7 +225,7 @@ Cloud orchestration is the best fit when you need:
 * **Parallel fan-out** across many files, packages, PRs, issues, or services.
 * **Clear observability** across parent and child runs.
 * **Durable handoff** through child run summaries, session links, artifacts, PRs, or messages.
-* **Team-scale execution** from Slack, Linear, schedules, GitHub Actions, the CLI, or the API.
+* **Team-scale execution** from [Slack](/platform/integrations/slack/), [Linear](/platform/integrations/linear/), [schedules](/platform/triggers/scheduled-agents/), [GitHub Actions](/platform/integrations/github-actions/), the CLI, or the API.
 
 ## 8. Validate, merge, and hand off
 
@@ -250,16 +250,6 @@ For GitHub handoff, see [Attach agent session context to GitHub PRs](/guides/age
 
 You set up a multi-agent workspace with vertical tabs, launched different agents in parallel, monitored them with notifications, compared their outputs, and learned how to use tab configs and Git worktrees for isolated, reproducible multi-agent workflows.
 
-Explore related guides and features:
-
-* [How to review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code/) — review and refine the code your agents produced
-* [Attach agent session context to GitHub PRs](/guides/agent-workflows/how-to-attach-agent-session-context-to-github-prs/) — give reviewers the agent context behind a PR
-* [Multi-agent orchestration](/platform/orchestration/) — coordinate parent and child agents across local and cloud runs
-* [Running orchestrated agents](/platform/orchestration/multi-agent-runs/) — start orchestrated runs from Warp, the {VARS.WARP_AGENT_CLI}, the {VARS.WEB_APP}, or the {VARS.WARP_PLATFORM_API}
-* [Set up Claude Code](/guides/external-tools/how-to-set-up-claude-code/) or [Set up Codex CLI](/guides/external-tools/how-to-set-up-codex-cli/) — install both agents if you haven't already
-* [Claude Code in Warp](https://www.warp.dev/agents/claude-code) — overview of Claude Code support in Warp
-* [Codex in Warp](https://www.warp.dev/agents/codex) — overview of Codex support in Warp
-* [Gemini CLI in Warp](https://www.warp.dev/agents/gemini-cli) — overview of Gemini CLI support in Warp
-* [OpenCode in Warp](https://www.warp.dev/agents/opencode) — overview of OpenCode support in Warp
-* [Third-party CLI agents](/agents/cli-agents/overview/) — all supported agents and universal agent features
-* [Vertical tabs](/terminal/windows/vertical-tabs/) — full reference for tab features
+* [How to review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code/) - Review and refine the code your agents produced
+* [Multi-agent orchestration](/platform/orchestration/) - Coordinate parent and child agents across local and cloud runs
+* [How to run unattended agents](/guides/agent-workflows/how-to-run-unattended-agents/) - Start recurring or event-driven cloud agents without staying in the terminal

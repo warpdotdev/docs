@@ -117,10 +117,11 @@ Work started by an automation runs as the factory agent you chose for it, not as
 
 ## Troubleshooting and reconnection
 
-- **The app doesn't acknowledge a request** - Confirm Slack is connected for that factory, that you mentioned the right factory's app, and that the app is in the channel.
-- **A channel is missing from an automation** - Invite the app to that channel, then reload the **Conversations** picker.
-- **Installation is pending** - Ask a Slack workspace administrator to approve the app, then finish the installation.
-- **Two runs start for one mention** - Remove or narrow overlapping app-mention and channel-message triggers.
+* **The app doesn't acknowledge a request** - Confirm Slack is connected for that factory, that you mentioned the right factory's app, and that the app is in the channel.
+* **A channel is missing from an automation** - Invite the app to that channel, then reload the **Conversations** picker.
+* **Installation is pending** - Ask a Slack workspace administrator to approve the app, then finish the installation.
+* **The app asks you to link an account** - Follow the prompt while signed in to the Warp account that belongs to the factory's team, then send the request again. Connecting the factory's Slack app doesn't link every teammate's account.
+* **Two runs start for one mention** - Remove or narrow overlapping app-mention and channel-message triggers.
 
 To disconnect Slack, either delete the factory — which removes its Slack app along with it — or [remove the app from your Slack workspace](https://slack.com/help/articles/360003125231-Remove-apps-and-custom-integrations-from-your-workspace), which stops new Slack requests reaching that factory. To reconnect afterward, click **Add to Slack** in factory setup again.
 
@@ -129,3 +130,8 @@ To route work into the factory from other tools, see [Connect your factory](/fac
 ## Privacy
 
 The factory's app reads messages only where it's mentioned, directly messaged, or subscribed by an automation you configured. Message content and supported attachments are used to run the factory's work, and your Slack profile email is used to map you to your Warp account. Data is handled per the [Warp Privacy Policy](https://www.warp.dev/privacy).
+
+## Related pages
+
+* [Factory automations](/factories/automations/)
+* [Factory troubleshooting](/factories/troubleshooting/#work-isnt-starting)
