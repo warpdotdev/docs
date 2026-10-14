@@ -430,6 +430,9 @@ POST /harness-support/usage -> internal
 # Read harness usage for a run (getHarnessUsage / agent_webhooks.go). Marked
 # `x-internal: true` upstream; not in developers/agent-api-openapi.yaml.
 GET /agent/runs/{runId}/harness-usage -> internal
+# Run-preview creation is x-internal upstream and absent from the released
+# Agent API spec. Recheck only when the operation is publicly released and GA.
+POST /agent/runs/{runId}/previews -> internal
 
 # Oz Factory REST API (router/handlers/public_api/factory*.go). Warp Factories
 # is now documented publicly (src/content/docs/factories/) as an Early Access
@@ -511,6 +514,8 @@ POST /factory-files/validate -> internal
 # Factory review (AI review of a factory definition) and its refine loop.
 GET /factory/{uid}/review -> internal
 POST /factory/{uid}/review/refine -> internal
+# Conflict/lint recovery uses the same Early Access gate and x-internal marker.
+POST /factory/{uid}/review/autofix -> internal
 # Factory outbound webhooks: CRUD, delivery history, and secret rotation.
 GET /factory/webhooks -> internal
 POST /factory/webhooks -> internal
@@ -582,6 +587,8 @@ POST /factory/{uid}/gitlab-automation-capability/refresh -> internal
 # Integration pickers used during factory setup, before a factory exists.
 GET /factory-setup/integrations/jira/projects -> internal
 GET /factory-setup/integrations/linear/teams -> internal
+# Setup contact flow: x-internal upstream; same unreleased /factory namespace.
+POST /factory-setup/connect-on-slack -> internal
 # POST /factory-setup/azure-devops-creation-requests was removed from
 # warp-server (SubmitAzureDevOpsCreationRequestHandler is gone), so its map
 # entry was pruned 2026-10-02. It never reached the released OpenAPI spec.
@@ -645,24 +652,26 @@ POST /factory/{uid}/integrations/slack/connection-test-greeting -> internal
 # internal.
 POST /factory/{uid}/integrations/linear/handoff -> internal
 POST /factory/{uid}/integrations/jira/handoff -> internal
-# Factory benchmark suites and benchmark runs
-# (router/handlers/public_api/benchmarks.go). Same unreleased Factory product as
-# the routes above, and absent from warp-server's canonical public spec.
-GET /factory/{uid}/benchmarks/suites -> internal
-POST /factory/{uid}/benchmarks/suites -> internal
-GET /factory/{uid}/benchmarks/suites/{suite_uid} -> internal
-PATCH /factory/{uid}/benchmarks/suites/{suite_uid} -> internal
-DELETE /factory/{uid}/benchmarks/suites/{suite_uid} -> internal
-POST /factory/{uid}/benchmarks/suites/{suite_uid}/runs -> internal
-POST /factory/{uid}/benchmarks/suites/{suite_uid}/tasks -> internal
-GET /factory/{uid}/benchmarks/runs -> internal
-GET /factory/{uid}/benchmarks/runs/{run_uid} -> internal
-GET /factory/{uid}/benchmarks/runs/{run_uid}/results -> internal
-POST /factory/{uid}/benchmarks/runs/{run_uid}/cancel -> internal
-# Rescore missing results on a completed benchmark run (rescoreBenchmarkRun).
-# Marked `x-internal: true` under the factory tag; released OpenAPI has zero
-# `/factory` paths.
-POST /factory/{uid}/benchmarks/runs/{run_uid}/rescore -> internal
+# Factory benchmark routes moved to suite-scoped paths
+# (router/handlers/public_api/benchmarks.go:279-317). Every operation carries
+# x-internal upstream and none appears in the released Agent API spec. Recheck
+# through sync-openapi-spec when the Factory REST API is publicly released.
+GET /factory/{uid}/benchmarks -> internal
+POST /factory/{uid}/benchmarks -> internal
+GET /factory/{uid}/benchmarks/{suite_uid} -> internal
+PATCH /factory/{uid}/benchmarks/{suite_uid} -> internal
+DELETE /factory/{uid}/benchmarks/{suite_uid} -> internal
+POST /factory/{uid}/benchmarks/{suite_uid}/tasks -> internal
+GET /factory/{uid}/benchmarks/{suite_uid}/tasks/{task_uid} -> internal
+PATCH /factory/{uid}/benchmarks/{suite_uid}/tasks/{task_uid} -> internal
+DELETE /factory/{uid}/benchmarks/{suite_uid}/tasks/{task_uid} -> internal
+POST /factory/{uid}/benchmarks/{suite_uid}/tasks/from-run -> internal
+POST /factory/{uid}/benchmarks/{suite_uid}/runs -> internal
+GET /factory/{uid}/benchmarks/{suite_uid}/runs -> internal
+GET /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid} -> internal
+GET /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/results -> internal
+POST /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/cancel -> internal
+POST /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/rescore -> internal
 
 # Conversation steering and history routes marked `x-internal: true` upstream
 # (agent_conversation_steering.go, conversation_replay_history.go, agent_webhooks.go,

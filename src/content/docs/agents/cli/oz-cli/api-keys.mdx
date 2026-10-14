@@ -18,7 +18,7 @@ API keys let the {VARS.WARP_AGENT_CLI}, cloud agents, and self-hosted workers au
 
 Choose a key type based on what needs to authenticate:
 
-* **Personal API keys** - Authenticate as you. Runs use your GitHub permissions, draw from your credit pool, and inherit your account's [skills](/agents/capabilities/skills/). Use a personal key when the run should act on your behalf — for example, developer-triggered API automation, or the [Enterprise Analytics API](/enterprise/enterprise-features/analytics-api/), which only accepts personal keys.
+* **Personal API keys** - Authenticate as you. By default, runs use your GitHub permissions, draw from your eligible usage, and inherit your account's [skills](/agents/capabilities/skills/). Use a personal key when the run should act on your behalf — for example, developer-triggered API automation, or the [Enterprise Analytics API](/enterprise/enterprise-features/analytics-api/), which only accepts personal keys.
 * **Agent** API keys - Run as a [cloud agent](/platform/agents/) on your team. Use an agent key for scheduled jobs, integrations (Slack, Linear, GitHub Actions), SDK-triggered runs, and other automation that isn't tied to a specific user. Billing and GitHub permissions are scoped to the team rather than to you.
 
 For [self-hosting with an external orchestrator](/factories/self-hosting/external-orchestrators/), create an Agent key associated with the Default Service Account. This key lets the orchestrator create and run tasks without using a person's identity, and it can authenticate a worker when one job performs both actions.
@@ -72,21 +72,21 @@ To create a self-hosted worker key, use the [{VARS.FACTORY_WEB_APP} flow](#creat
 
 ## How key type affects billing and GitHub access
 
-The key type determines who the run is attributed to, which credit pool is billed, and which GitHub credentials the agent can use.
+The key type determines who the run acts as, which usage balances it can draw from, and which GitHub credentials it can use.
 
 ### Personal API key behavior
 
 * Run as you.
-* On Build, Max, and Business plans, use your plan-included credits, then your add-on credits. On Enterprise plans, use the team-scoped credit pool.
+* Use your eligible included and purchased usage on the team. Enterprise billing follows your contract.
 * Use your GitHub permissions. Code changes are attributed to your GitHub account.
 
 ### Agent API key behavior
 
 * Run as a cloud agent on your team.
-* On Build, Max, and Business plans, bill the team owner: the owner's plan-included credits, then the owner's add-on credits. With auto-reload on, usage can trigger a reload on the owner's pool, subject to the team-wide monthly spend cap. On Enterprise plans, use the team-scoped credit pool.
+* Follow the [team billing rules for cloud runs](/platform/team-access-billing-and-identity/#billing-for-cloud-agent-runs).
 * Use the [Warp Factories](/factories/) GitHub App when [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization) is configured. Without team GitHub authorization, agent keys are still useful for tasks that don't need to write to GitHub, such as analysis, monitoring, or triage.
 
-For the full credit waterfall, see [Access, billing, and identity permissions](/platform/team-access-billing-and-identity/) and [add-on credits](/support-and-community/plans-and-billing/add-on-credits/).
+Review [purchase controls](/support-and-community/plans-and-billing/add-on-credits/) before relying on unattended runs.
 
 ## Authenticating with API keys
 
