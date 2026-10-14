@@ -19,10 +19,12 @@ Watch this short demo of how the REST API can power agent-backed apps like [Powe
 
 ## Prerequisites
 
-* **A Warp API key** - Create one in the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP}</a> and copy the raw value. Use a personal key if you want runs attributed to you, or an agent key to attribute runs to a [cloud agent](/platform/agents/). See [API Keys](/agents/cli/oz-cli/api-keys/) for the full flow.
-* **A cloud environment** - Agents run inside a configured environment that includes repos and other dependencies. If you don't have an environment yet, follow the [Cloud agents quickstart](/platform/quickstart/) first.
+* A Warp API key from the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP} settings</a>. See [API keys](/agents/cli/oz-cli/api-keys/).
+* A configured [cloud environment](/platform/environments/) with the required repositories and dependencies. See the [Cloud agents quickstart](/platform/quickstart/).
 
 ## 1. Set your API key
+
+Use a personal key to attribute runs to you, or an agent key to attribute them to a [cloud agent](/platform/agents/).
 
 Export your API key so the API can authenticate your requests automatically — all commands in this guide reference the `WARP_API_KEY` environment variable.
 

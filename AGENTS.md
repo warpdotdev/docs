@@ -568,6 +568,7 @@ These rules apply regardless of content type:
 5. Troubleshooting for common issues (optional but recommended)
 
 **Rules**:
+- **Keep prerequisites concise.** State requirements in unbolded bullets rather than bold labels followed by explanations. Link setup details, and put conditional instructions beside the step that needs them. Keep required access, credential types, and technical constraints explicit. This also applies to quickstarts.
 - **Keep steps focused, not artificially atomic.** Aim for one primary action per step, but group tightly related actions together when they share the same UI context and doing so keeps the procedure at a readable length. Up to ~3 related actions per step is acceptable. Use judgment: a simple task shouldn't require 10+ steps, but a single step shouldn't be a mini-procedure either.
   - Acceptable groupings: actions on the same form (entering a name and choosing an expiration date), a click that reveals the next target (clicking to expand a section, then clicking the revealed item), or a short natural sequence within the same UI area.
   - Avoid grouping actions that span different areas of the UI or that would make a step hard to scan at a glance.
