@@ -2,29 +2,25 @@
 topic: factories
 title: "{{WARP_PLATFORM_API}} quickstart"
 description: >-
-  Create and monitor your first cloud agent run via the {{WARP_PLATFORM_API}} in ~5
-  minutes.
+  Create and monitor your first cloud agent run with the {{WARP_PLATFORM_API}} in
+  about five minutes.
 sidebar:
   label: "Quickstart"
 ---
 import VideoEmbed from '@components/VideoEmbed.astro';
 import { VARS } from '@data/vars';
 
-The {VARS.WARP_PLATFORM_API} lets you run and manage cloud agents from CI/CD pipelines, backend services, scripts, or custom tooling without the Warp desktop app. This quickstart walks you through creating your first run and checking its status.
+The {VARS.WARP_PLATFORM_API} lets you run and manage cloud agents from CI/CD pipelines, backend services, scripts, or custom tooling without the Warp desktop app. Create your first run and check its status in about five minutes.
 
 To dispatch work through a factory's named agents and workflow, use [factory endpoints](/factories/factory-api/) after this quickstart. The run-management steps below also apply to the factory run those endpoints create.
 
 Watch this short demo of how the REST API can power agent-backed apps like [PowerFixer](https://github.com/warpdotdev/power-fixer-setup), an issue triage bot built by the Warp team:
 <VideoEmbed url="https://youtu.be/N6qMe641K34" title={`${VARS.WARP_PLATFORM_API} quickstart video`} />
 
----
-
 ## Prerequisites
 
 * **A Warp API key** - Create one in the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP}</a> and copy the raw value. Use a personal key if you want runs attributed to you, or an agent key to attribute runs to a [cloud agent](/platform/agents/). See [API Keys](/agents/cli/oz-cli/api-keys/) for the full flow.
-* **A cloud environment** - Agents run inside a configured environment that includes repos and other dependencies. If you don't have an environment yet, follow the [Cloud Agents Quickstart](/platform/quickstart/) first.
-
----
+* **A cloud environment** - Agents run inside a configured environment that includes repos and other dependencies. If you don't have an environment yet, follow the [Cloud agents quickstart](/platform/quickstart/) first.
 
 ## 1. Set your API key
 
@@ -91,11 +87,11 @@ Once the run reaches `SUCCEEDED`, the response includes a `session_link` — a d
 
 You can also view and manage all runs in the <a href={`${VARS.WEB_APP_URL}/runs`}>{VARS.DASHBOARD}</a>.
 
----
-
 ## Next steps
+
+You created a cloud agent run over HTTP and tracked it from `QUEUED` to `SUCCEEDED`. From here:
 
 * **Read the endpoint guide** - [Agent & run endpoints](/factories/api-and-sdk/) documents the configuration and run lifecycle, while the [{VARS.WARP_PLATFORM_API} reference](/api) lists all parameters, query filters, and response schemas.
 * **Explore the SDKs** - [`warp-platform-sdk` for Python](https://pypi.org/project/warp-platform-sdk/) and [`@warp-dot-dev/warp-platform-sdk` for TypeScript](https://www.npmjs.com/package/@warp-dot-dev/warp-platform-sdk) include typed request/response models, retries, and error handling.
 * **See a real-world example** - [Demo: Sentry monitoring with SDK](/factories/api-and-sdk/demo-sentry-monitoring-with-sdk/) shows how to build a webhook handler that triggers agents from production errors.
-* **Schedule and automate** - See [Scheduled Agents Quickstart](/platform/triggers/scheduled-agents-quickstart/) to run agents on a cron, or [Integrations Quickstart](/platform/integrations/quickstart/) to trigger agents from Slack or Linear.
+* **Schedule and automate** - See the [Scheduled agents quickstart](/platform/triggers/scheduled-agents-quickstart/) to run agents on a cron, or the [Integrations quickstart](/platform/integrations/quickstart/) to trigger agents from Slack or Linear.

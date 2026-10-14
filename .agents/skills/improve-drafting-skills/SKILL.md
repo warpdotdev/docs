@@ -171,7 +171,7 @@ Weight human feedback above automated checks. A pattern meeting its threshold fr
 
 Identify up to 5 patterns that:
 - Meet the threshold for their signal type
-- Are not already explicitly addressed in the relevant skill or template (check before proposing any edit)
+- Have an evidence-backed recurring failure, including failures of a clear existing rule
 - Have a clear, targeted fix (not a vague recommendation)
 
 For each pattern, identify the best improvement target:
@@ -181,25 +181,28 @@ For each pattern, identify the best improvement target:
 
 ### 4. Check existing coverage
 
-For each top pattern, read the relevant skill and template files to verify the issue is not already documented. If the rule exists but is vague or lacks a concrete example, that still qualifies for improvement.
+For each top pattern, read the relevant instructions. Distinguish a missing rule from conflicting guidance, a stale exemplar, or failed enforcement. A clear existing rule does not disqualify a recurring failure. Record the evidence, reader impact, likely cause, targeted change, and regression or identical-input evaluation that would demonstrate improvement.
 
 ### 5. Draft targeted edits
 
 For each pattern selected for improvement:
 - Make the smallest edit that would prevent the pattern from recurring
-- Prefer adding a concrete ✅/❌ example over restating a rule in prose
+- Prefer resolving a conflict, removing obsolete guidance, or repairing an exemplar over adding another instruction; use a concrete example when it earns its place
 - Do not restructure sections or rewrite prose not related to the pattern
 - Cap the diff at 3 files total across all patterns
+
+The automated skill remains limited to `.agents/skills/` and `.agents/templates/`. Changes to AGENTS.md, rules, the glossary, CI, or standalone enforcement tools require explicit human review; report them as candidates rather than silently expanding scope. Dedicated, human-approved guidance passes may cover those files.
 
 ### 6. Self-review before opening a PR
 
 Before opening a PR, verify:
 - Each edit targets a real, recurring pattern backed by signal data
-- Each edit is additive — nothing is removed from the existing skill or template
+- Each addition, deletion, or conflict resolution preserves required facts, page purpose, signal thresholds, security safeguards, and human review
 - The diff is limited to `.agents/skills/` and `.agents/templates/` files
 - Run `git diff --check` to catch whitespace or encoding issues in all changed files
 - For each changed `.md` file under `.agents/skills/` or `.agents/templates/`, verify the YAML frontmatter is parseable: `python3 -c "import sys; content = open(sys.argv[1]).read(); parts = content.split('---', 2); assert len(parts) >= 3" PATH_TO_FILE`
 - Note: `style_lint.py --changed` only scans `src/content/docs/` and does not cover `.agents/skills/` or `.agents/templates/`; do not rely on it to validate skill or template file edits
+- Compare baseline and revised output on identical inputs. Report objective checks separately from editorial quality; instruction changes and shorter output alone do not prove improvement.
 
 ### 7. Create or update the standing improvement PR
 
