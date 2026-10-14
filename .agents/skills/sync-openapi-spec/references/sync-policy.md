@@ -1,162 +1,66 @@
-# Sync Policy
+# Sync policy
 
-This document records what `developers/agent-api-openapi.yaml` keeps from `warp-server/public_api/openapi.yaml`, and why. The exclusion lists live in `scripts/sync_openapi.py` as `EXCLUDED_TAGS`, `EXCLUDED_PATHS`, and `EXCLUDED_PATH_PREFIXES`. Update both this document and the script when the policy changes.
+`warp-server/public_api/openapi.yaml` owns the public API contract and its
+descriptions. `developers/agent-api-openapi.yaml` is its generated public
+export, rendered by Scalar at `docs.warp.dev/api`.
 
-## Relationship to warp-server's release automation
+## One publisher
 
-warp-server publishes the same file through `script/generate-public-openapi` and the `sync_public_openapi_to_docs` workflow, which runs at release-candidate time and opens a PR on the `automation/sync-agent-api-spec` branch. That pipeline is the authoritative publisher, and it filters with `public_api/public-openapi-filter.yaml` (`flagValues: [x-internal: true]`).
+The release-candidate `sync_public_openapi_to_docs` workflow publishes through
+`warp-server/script/generate-public-openapi`. The manual fallback invokes that
+same script and copies its output verbatim after validating local `$ref`s.
+It requires the server checkout and its pinned `openapi-format` dependency.
+Use `--server-root` when the repositories are not siblings.
 
-This skill is the manual fallback for the same job, so its output has to match that pipeline's public/private decisions. Prefer letting the release automation land routine spec updates. Reach for `--mode apply` only when the docs copy needs a correction the automation won't deliver in time, and re-read this policy before doing so.
+The generator accepts an output path followed by an optional input spec path.
+Without the second argument it reads the canonical server spec. The fallback's
+`--source` flag passes that second argument, so a historical source file can be
+inspected without replacing the checkout's canonical spec.
 
-## How filtering works
+## Public and internal surfaces
 
-`scripts/sync_openapi.py` applies these rules, top-down:
+`public_api/public-openapi-filter.yaml` is the filtering policy:
 
-1. Recursively drop every object marked `x-internal: true`, wherever it
-   appears in the tree — a path operation, a query/path parameter, a
-   schema property, a whole schema, a tag entry, and so on — not only
-   top-level path operations.
-2. Drop every tag listed in `EXCLUDED_TAGS`.
-3. Drop every path whose tags are a subset of `EXCLUDED_TAGS`, plus every path listed explicitly in `EXCLUDED_PATHS` or matching a prefix in `EXCLUDED_PATH_PREFIXES`.
-4. Keep top-level `openapi`, `servers`, and `components.securitySchemes` verbatim. Keep `info` from the source except for the docs-specific title and description override in `DOCS_INFO_OVERRIDES`.
-5. Keep only reusable component entries that are reachable from surviving paths via `$ref` walking (recursive over `allOf`/`oneOf`/`anyOf`/`items`/`additionalProperties`/etc.).
-6. Remove any value listed in `EXCLUDED_RUN_SOURCE_VALUES` (empty today) and its description line from `RunSourceType`.
-7. Recursively strip every key in `STRIP_FLAGS` from whatever survives
-   steps 1-6, wherever it appears in the tree (operations, schemas,
-   individual properties, parameters).
-8. Rewrite the legacy Agent API error-documentation URL prefix to its canonical
-   path under `/factories/api-and-sdk/`.
+- Drop objects explicitly marked `x-internal: true`, including operations,
+  parameters, schema properties, schemas, and tag declarations.
+- Strip the implementation-only extensions listed in `stripFlags`, including
+  Go validation tags and Stainless naming annotations.
+- Prune reusable components no longer reachable from public operations.
 
-Rule 1 mirrors warp-server's own filter, so a surface the server team marks private stays private here without anyone having to maintain a matching allowlist entry.
+The manual fallback has no additional tag, path, or enum exclusions. A new
+unmarked API is included, even under a formerly excluded namespace. Review its
+handler and source annotations if publication intent is unclear; mark private
+objects upstream rather than maintaining a second docs-only allowlist.
 
-## Public API metadata
+The workload-token-only `/harness-support/transcript` GET is internal, as are
+the other harness-support operations. Agent Memory operations retain their
+upstream internal markers. Public handoff attachment retrieval, anonymous
+session/conversation redirects, factory inbox, metrics, scorers, and benchmarks
+follow their current operation-level markers, not historical docs exclusions.
+The networking tag and its public egress-ranges operation are both published.
 
-The docs copy keeps endpoint behavior, contact details, licensing, and server
-configuration from `warp-server/public_api/openapi.yaml`. It overrides only
-`info.title` and `info.description` through `DOCS_INFO_OVERRIDES` in
-`scripts/sync_openapi.py`, so the Scalar reference uses the public docs name,
-**Warp Platform API**, and describes both factory and cloud-agent runs.
+## Preserving content
 
-Keep this override when syncing the docs subset. Update the source spec when
-its endpoint behavior or non-product metadata changes.
+Keep useful API descriptions, examples, product framing, and documentation
+links in the server spec, then regenerate the docs file. The fallback neither
+overrides `info` nor rewrites URLs. This keeps prose intact on the next release
+sync and preserves server-only codegen annotations in the full source.
 
-The source spec still emits the pre-move error-documentation prefix,
-`/reference/api-and-sdk/troubleshooting/errors/`. The docs transform rewrites
-that prefix to `/factories/api-and-sdk/troubleshooting/errors/` so generated
-problem-type URLs resolve directly to the canonical page rather than through a
-redirect.
+When reconciling independent docs edits, compare them against the recorded
+server source of an earlier docs sync. Preserve accurate improvements upstream;
+resolve behavior conflicts against the current handlers. Never copy a stale
+constraint or change a runtime implementation merely to match old prose.
 
-## `x-internal` deletes the whole marked object, not just the flag (`_prune_internal`)
+## Validation
 
-`x-internal: true` mirrors openapi-format's `flagValues` semantics in
-warp-server's filter: the entire object bearing the marker is deleted, not
-just the `x-internal` key on it. An earlier version of this script only
-applied that rule to top-level path operations (`strip_internal_operations`)
-and left every other marked object's `x-internal` key to be stripped later
-by the `STRIP_FLAGS` pass (rule 6 above). Stripping the key without deleting
-the object it was marking leaves the object itself — now unmarked — in the
-published spec. This let several server-internal fields leak through: the
-`factory_uid` and `automation_id` query parameters on `GET /agent/runs`, and
-the `factory_uid`/`agent_type` properties on `CreateAgentRequest`,
-`UpdateAgentRequest`, and `AgentResponse`.
+Run `--mode self-test` before syncing. It exercises the actual exporter on a
+fixture with mixed public/internal operations, nested internal properties and
+parameters, codegen annotations, and transitive component references. It also
+checks that unresolved references leave the target unchanged and that diff
+diagnostics include reusable components and metadata.
 
-`_prune_internal` now runs first, before any other rule, and walks the
-entire source tree deleting every marked object outright: a schema property
-under `properties`, an item in a `parameters` array, a whole schema in
-`components.schemas`, and so on, in addition to the path operations rule 1
-already covered. `STRIP_FLAGS` (rule 6) then only has to clean up the
-`x-internal` key on anything that rule 1 doesn't fully own removing (there
-is normally nothing left, since every `x-internal: true` object is deleted
-outright) plus the other eight implementation-only extensions.
-
-## Implementation-only extensions are stripped everywhere (`STRIP_FLAGS`)
-
-`STRIP_FLAGS` mirrors the `stripFlags` list in
-`warp-server/public_api/public-openapi-filter.yaml` verbatim: `x-internal`,
-`x-enum-varnames`, `x-go-type`, `x-go-type-import`,
-`x-go-type-skip-optional-pointer`, `x-omitempty`, `x-oapi-codegen-extra-tags`,
-`x-stainless-deprecation-message`, and `x-stainless-naming`. These
-extensions are useful for server/SDK code generation (oapi-codegen,
-Stainless) but carry no meaning for a docs reader, so none of them may
-reach the published Scalar reference.
-
-An earlier version of this script only removed `x-internal` from
-top-level operation objects (the key that decides whether to drop the
-operation entirely). It never stripped the *other* six keys, and it never
-walked into schemas, so implementation-only markers on component schemas
-and their properties — `x-go-type-skip-optional-pointer` and
-`x-stainless-deprecation-message` in particular — leaked into the
-published copy verbatim. `_strip_flags` now walks the entire regenerated
-tree after filtering and removes every `STRIP_FLAGS` key it finds,
-regardless of nesting depth, matching `generate-public-openapi`'s own
-post-generation check that no `x-*` key remains in warp-server's
-published copy.
-
-When warp-server adds a new entry to its `stripFlags` list, add the same
-key to `STRIP_FLAGS` here so the two filters stay in lockstep.
-
-## Excluded tags
-
-### `memory_stores` and `memory`
-These tags back Agent Memory, which is a research preview. The tag was renamed `memory_stores` → `memory` upstream, so both names are excluded: keeping only the old name silently reopened the surface after the rename. Remove them from `EXCLUDED_TAGS` when Agent Memory ships publicly.
-
-### `harness-support`
-The `/harness-support/*` endpoints form the worker-to-server contract used by Oz workers (transcripts, snapshots, finish-task signaling, etc.). They are not part of the public API contract — customers should not call them directly. Excluded permanently.
-
-### `factory` (no longer excluded)
-The `factory` tag was excluded while Warp Factories was pre-launch. It came out of `EXCLUDED_TAGS` (and `/factory` out of `EXCLUDED_PATH_PREFIXES`) when Warp Factories shipped in Early Access and `/factories/factory-api/` began documenting `GET /factory`, `GET /factory/{uid}`, and `POST /factory/{uid}/runs`. Factory operations now follow the `x-internal` markers like every other kept tag: the server spec marks each private factory operation individually, so only the operations the server leaves unmarked reach the reference. At the latest release candidate that is factory discovery and dispatch, tasks, and factory-file schemas. The inbox and run-scoring dispatch are also unflagged there, but they are excluded by path below. The dashboard metrics, costs, and pull request operations are still marked `x-internal` there and appear automatically once the server unflags them. Do not re-add a blanket exclusion; ask the server team to mark specific operations `x-internal` instead.
-
-## Kept tags with a stale internal marker
-
-### `networking`
-The `networking` tag backs `GET /networking/egress-ranges`, which lists the IP ranges Warp-hosted agents use for outbound requests so customers can allowlist them. warp-server #19008 deliberately unflagged the operation and exposes it as an SDK method (`networking.get_egress_ranges`), but the tag entry itself is still marked `x-internal: true`. The generic filter drops that tag entry and keeps the path, so the operation publishes under an undeclared tag, the same as the official release pipeline. Ask the server team to remove the stale tag-level marker.
-
-The `factory` tag behaves the same way. Its entry is marked `x-internal: true`, so the published `tags` list declares only `agent` and `schedules`, and the factory operations publish under an undeclared tag.
-
-## Excluded paths (within otherwise-public tags)
-
-These five `agent`-tag paths are excluded individually because the `agent` tag itself remains public:
-
-- `/agent/runs/{runId}/handoff/attachments` — handoff plumbing tied to local-to-cloud session handoff.
-- `/agent/handoff/upload-snapshot` — handoff plumbing (snapshot upload from a local worker).
-- `/agent/conversations/{conversation_id}/fork` — conversation-forking primitive used by the harness, not stable public API.
-- `/agent/conversations/{conversationId}/redirect` — internal redirect endpoint.
-- `/agent/sessions/{sessionUuid}/redirect` — the same kind of redirect helper for shared sessions. The server spec stopped marking it `x-internal` in warp-server #19008 and the SDK exposes it, but its handler describes it as a web-app helper for anonymous viewers, so it is excluded to match the conversation redirect until the server team confirms it is customer-facing.
-
-These four `factory`-tag paths are excluded individually because the `factory` tag is public: `/factory-inbox`, `/factory-inbox/notifications/read`, `/factory-inbox/notifications/unread`, and `/factory/run-scoring/dispatches`. The server spec does not mark them `x-internal`, and no documentation describes them as public. The inbox operations are listed under the SDK config's `unspecified_endpoints`. Run-scoring dispatch triggers scorer judge runs, and the server keeps the scorer APIs internal (warp-server #19141), so it looks like an operation that was missed. Remove each from `EXCLUDED_PATHS` once the server team confirms.
-
-If any of these become stable public surfaces, remove them from `EXCLUDED_PATHS` and update this list.
-
-## Excluded path prefixes
-
-`EXCLUDED_PATH_PREFIXES` drops a path by prefix regardless of how its operations are tagged or marked. It is empty today; `/factory` was its only entry while Warp Factories was pre-launch (see "`factory` (no longer excluded)" above). Use a prefix only when a whole URL namespace is private; prefer a tag or an explicit path everywhere else.
-
-## Excluded enum values in public schemas
-
-`EXCLUDED_RUN_SOURCE_VALUES` is empty. `RunSourceType` is used by `RunItem.source`, so any value the server can return belongs in the reference. It previously hid `BENCHMARK_TRIAL`, `CREATE_BENCHMARK_TASK`, and `CUSTOM_WEBHOOK` as Factory-only. Warp Factories and custom webhooks are public now, and the server publishes all three values. The benchmark values still describe a surface whose endpoints are internal, so they are listed in the enum without a public endpoint behind them. Add a value to the set only if the server stops returning it in public responses.
-
-## `x-internal` operations are dropped
-
-Operations marked `x-internal: true` are removed, and a path loses its entry when all of its operations are internal. This covers the `/agent/messages/*` and `/agent/events/*` orchestration-messaging operations, `/agent/runs/{runId}/client-events`, and `/agent/conversations/{conversation_id}/rename`.
-
-An earlier version of this policy kept those operations verbatim so the regenerated file matched the docs copy already on disk. That made this script disagree with warp-server's release filter, which strips them, and meant every newly marked-internal operation would be republished here. Matching the upstream marker is the safer default: it can only ever remove surfaces, never add one.
-
-## Adding a new exclusion
-
-Use the script's `_unknown_classifications` warnings as the trigger. When the diff flags a new tag or path with `!`:
-1. Read the corresponding handler in `warp-server/router/handlers/public_api/` to determine intent.
-2. If the endpoint should be hidden:
-   - Prefer asking the server team to mark the operation `x-internal: true` upstream, which hides it from both publishers at once.
-   - For an entire new tag, add the tag name to `EXCLUDED_TAGS` in `scripts/sync_openapi.py`.
-   - For a single path, add it to `EXCLUDED_PATHS`; for a whole private URL namespace, add a prefix to `EXCLUDED_PATH_PREFIXES`.
-3. Add a short rationale to this document under "Excluded tags" or "Excluded paths."
-4. Re-run `--mode diff` to confirm there are no remaining `!` warnings.
-5. Then run `--mode apply` and proceed with the normal PR flow.
-
-## Removing an exclusion
-
-When an internal endpoint becomes a stable public surface:
-1. Remove it from `EXCLUDED_TAGS` or `EXCLUDED_PATHS`.
-2. Remove its bullet from this document.
-3. Run `--mode apply`. The path and its referenced schemas will be added to the docs file automatically.
-4. Open the PR with the standard sync flow.
+`--mode diff` returns 1 for structural drift, including tags and every reusable
+component section. `--mode apply` returns 3 for unresolved local references and
+does not overwrite the target. Missing tooling or exporter failures return 2.
+No unknown-classification warnings are needed: publication decisions live in
+the canonical source.
