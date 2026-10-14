@@ -14,11 +14,11 @@ local docs publisher, or create an agent-owned spec-sync PR.
 
 Release-candidate deployment calls the workflow with its source commit. Manual
 `source_ref` defaults to the latest RC tag. The selected ref supplies the spec,
-policy, exporter, and tests; current `develop` does not replace that checkout.
-Use a released ref containing the intended API content, corrected exporter, and
-`test/public_openapi_export.test.cjs`. With the publication test gate, refs
-missing that file or failing its filtering checks stop before generation.
-An older workflow revision without the gate does not provide that protection.
+policy, and exporter; current `develop` does not replace that checkout.
+Use a released ref containing the intended API content and corrected exporter.
+Exporter regressions run in the server's OpenAPI PR CI job, not during
+publication. An older source ref still uses its older exporter, even when the
+workflow definition is current.
 
 The workflow installs the server's pinned Node dependencies and needs configured
 server-read and docs-write credentials. It proposes a docs PR on
