@@ -41,7 +41,7 @@ A work item is one request the factory acts on. This can be an issue, a support 
 
 ### Foreman and factory agents
 
-The foreman is the agent that coordinates a factory's work and communicates with you. See [factory agents](/factories/factory-agents/) for their roles, and [Configuring factory agents](/factories/factory-agents/configuration/) to change their models, harnesses, and instructions.
+The foreman is the agent that coordinates a factory's work and communicates with you. See [About factory agents](/factories/factory-agents/) for their roles, and [Configuring factory agents](/factories/factory-agents/configuration/) to change their models, harnesses, and instructions.
 
 Setup gives the foreman the same handle as the factory, so `payments` is the factory and `@payments` reaches its foreman from Slack or Linear. See [Foreman name](/factories/factory-agents/#foreman-name).
 
@@ -54,7 +54,7 @@ Factory agents handle different stages of the software development lifecycle. Th
 <figcaption>The software factory loop.</figcaption>
 </figure>
 
-The foreman can skip unnecessary stages or send work back for revisions. Spec approval is part of the foreman's editable instructions, not a repository permission. The factory never merges on your behalf. Repository permissions and branch protection control approval and merge access. See [how Warp Factories work](/factories/how-factories-work/).
+The foreman can skip unnecessary stages or send work back for revisions. Spec approval is part of the foreman's editable instructions, not a repository permission. The factory never merges on your behalf. Repository permissions and branch protection control approval and merge access. See [How Warp Factories work](/factories/how-factories-work/).
 
 ### Factory definition
 
@@ -94,7 +94,7 @@ Don't split the same repositories across factories by team or task, such as fron
 
 * [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send its first work item.
 * [How Warp Factories work](/factories/how-factories-work/) - The work-item lifecycle, stage by stage.
-* [Factory agents](/factories/factory-agents/) - Understand default agent roles
+* [About factory agents](/factories/factory-agents/) - Understand default agent roles
 * [Configuring factory agents](/factories/factory-agents/configuration/) - Choose models, harnesses, and instructions
 * [Definitions as code](/factories/factory-as-code/) - The definition file format, with working examples in [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples).
 * [Transitioning from Oz](/platform/transitioning-from-oz/) - Assess an existing web app, CLI, SDK, or API workflow.

@@ -414,7 +414,7 @@ An agent's `harness` object is a sparse override of [`agentDefaults.harness`](#a
 ### `agentType`
 
 **Optional.**
-The agent's role: `CUSTOM` (default), `FOREMAN` (alias `MAIN`), `TRIAGE`, `SPEC`, `IMPLEMENT`, `REVIEW`, or `VERIFY`. Every factory has one foreman, which serves as its entry point and the default automation target. See [factory agents](/factories/factory-agents/) for role behavior.
+The agent's role: `CUSTOM` (default), `FOREMAN` (alias `MAIN`), `TRIAGE`, `SPEC`, `IMPLEMENT`, `REVIEW`, or `VERIFY`. Every factory has one foreman, which serves as its entry point and the default automation target. See [About factory agents](/factories/factory-agents/) for role behavior.
 
 ## `automations/<name>/automation.md`
 
@@ -704,7 +704,7 @@ The GitHub or GitLab repositories and commits used as the task's starting state.
 ## `scorers/<name>/scorer.md`
 
 **Optional resource.**
-Scorer files define LLM judges that classify sampled runs against a rubric. The directory is a stable slug; `name` identifies the scorer. Frontmatter defines the classification contract, and the Markdown body holds the rubric. See [configuring scorers](/factories/measure-and-improve/scorers/) for how scores are used.
+Scorer files define LLM judges that classify sampled runs against a rubric. The directory is a stable slug; `name` identifies the scorer. Frontmatter defines the classification contract, and the Markdown body holds the rubric. See [Configuring Scorers](/factories/measure-and-improve/scorers/) for how scores are used.
 
 ```markdown title="scorers/tests-run/scorer.md"
 ---
@@ -817,7 +817,7 @@ The sender's delivery ID header, used to deduplicate retries. It accepts up to 6
 ### `enabled`
 
 **Optional.**
-Whether the webhook accepts deliveries. Defaults to `true`. Use `false` to stop deliveries immediately without deleting the webhook, or to create it before the provider issues a signing secret. See [setting up a Vercel webhook](/factories/webhooks/vercel/).
+Whether the webhook accepts deliveries. Defaults to `true`. Use `false` to stop deliveries immediately without deleting the webhook, or to create it before the provider issues a signing secret. See [Setting up a Vercel webhook](/factories/webhooks/vercel/).
 
 On a Warp-managed factory, creating a webhook in the dashboard writes this file for you and stores the secret under the name you enter in the "Secret name" field.
 
@@ -826,7 +826,7 @@ You can't change `authMode` or `signatureScheme` on an existing webhook. Delete 
 ## Skills
 
 **Optional resource.**
-A skill is a directory containing `SKILL.md`, not a YAML key. Put shared skills under `skills/` and agent-specific skills under `agents/<name>/skills/`. See [factory skills](/factories/factory-skills/) for placement and [Skills](/agents/capabilities/skills/) for the file format.
+A skill is a directory containing `SKILL.md`, not a YAML key. Put shared skills under `skills/` and agent-specific skills under `agents/<name>/skills/`. See [Factory skills](/factories/factory-skills/) for placement and [Skills](/agents/capabilities/skills/) for the file format.
 
 ## Example factory definition
 
@@ -906,7 +906,7 @@ agentDefaults:
   workerHost: SELF_HOSTED_WORKER_ID
 ```
 
-Pair `workerHost` with a runner whose `platform` matches the worker. Follow the [self-hosting quickstart](/factories/self-hosting/quickstart/) to connect a worker, or copy [`07-self-hosted-worker`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/07-self-hosted-worker).
+Pair `workerHost` with a runner whose `platform` matches the worker. Follow the [Self-hosting quickstart](/factories/self-hosting/quickstart/) to connect a worker, or copy [`07-self-hosted-worker`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/07-self-hosted-worker).
 
 ## Related pages
 

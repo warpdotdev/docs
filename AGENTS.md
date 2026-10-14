@@ -346,6 +346,7 @@ Captions orient the reader — they identify what the image shows so the reader 
 - ❌ `<figcaption>The input toolbelt, from left to right: model selector, voice input, image attachments, and conversation controls.</figcaption>` (exhaustive list)
 
 ### Links, embeds, and cross-references
+- When link text uses a destination's full page title, match that title's wording and capitalization, even within a sentence. Descriptive link phrases follow normal sentence capitalization and don't need to reproduce the title.
 - Use descriptive link text that explains what users will find. The anchor text should describe the destination or task, not the action of clicking.
   - ✅ "Learn more about [Codebase Context](...)" / "See [configuring environments](...)"
   - ❌ "Click [here](...)" / "See [this page](...)" / "Read [more](...)"

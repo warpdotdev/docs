@@ -1,10 +1,10 @@
 ---
-title: Factory agents
+title: About factory agents
 description: >-
   Every factory has a team of default agents: a foreman that coordinates the
   work, plus triage, spec, implement, and review agents.
 sidebar:
-  label: "Factory agents"
+  label: "About factory agents"
 ---
 
 The **foreman** is the agent that coordinates a factory's work and communicates with you. It delegates work to other agents, asks for your decisions when needed, and returns results. Default agents each cover one part of the software development lifecycle: triage scopes the request, spec writes the plan, implement writes the code, and review checks it. Together, they turn a work item into a pull request ready for your team to review.
@@ -23,9 +23,9 @@ The default agents' prompts, descriptions, and models are available in [`00-warp
 | Implement | Makes and validates the code change | Code, tests, validation results, and visual evidence |
 | Review | Independently checks the finished change | Findings and a recommendation |
 
-These are responsibilities, not a fixed pipeline. A small, well-understood change can skip the Planning stage entirely. If the review agent finds problems, the foreman sends work back for another pass. By default, work that goes through Planning needs a human to approve the spec before the Building stage starts.
+These are responsibilities, not a fixed pipeline. A small, well-understood change can skip planning entirely. If the review agent finds problems, the foreman sends work back for another pass. By default, work that needs a spec waits for human approval before implementation starts.
 
-For the complete lifecycle, see [how Warp Factories work](/factories/how-factories-work/).
+For the complete lifecycle, see [How Warp Factories work](/factories/how-factories-work/).
 
 ### Foreman
 
@@ -37,7 +37,7 @@ When finished, it returns the pull request and supporting evidence, then marks t
 
 Use the foreman's handle to @-mention it in Slack and Linear. Factory setup defaults the handle to the factory's name. For example, a factory named `payments` gets the handle `@payments`.
 
-In the web app sidebar, expand your factory and click **Settings**, then **Identity** to change the foreman's handle. You can also edit [`alias`](/factories/factory-as-code/#alias) in the definition. The factory name and foreman handle can differ.
+The factory name and foreman handle can differ. To change the foreman's handle, open your factory's **Settings** in the web app and click **Identity**. You can also edit [`alias`](/factories/factory-as-code/#alias) in the definition.
 
 ### Triage
 
@@ -57,7 +57,7 @@ Review independently checks requirements, code conventions, tests, security, and
 
 ## Built-in skills
 
-Every default agent includes GitHub skills; the foreman also includes a Slack skill. Choosing Linear or Jira during setup adds that tracker's skill and instructions. Add custom procedures with [factory skills](/factories/factory-skills/).
+Every default agent includes GitHub skills; the foreman also includes a Slack skill. Choosing Linear or Jira during setup adds that tracker's skill and instructions. You can add custom procedures with [factory skills](/factories/factory-skills/).
 
 ## Configuring and extending agents
 
@@ -70,7 +70,7 @@ For settings, prompts, models, and third-party authentication, see [Configuring 
 <div id="add-custom-agents-and-automations" />
 <div id="choose-a-configured-factory-agent" />
 
-For new roles, skills, and foreman dispatch, see [Creating custom agents](/factories/factory-agents/creating-custom-agents/). Start agents from schedules and events with [factory automations](/factories/automations/).
+For new roles, skills, and foreman dispatch, see [Creating custom agents](/factories/factory-agents/creating-custom-agents/). To start agents from schedules and events, use [factory automations](/factories/automations/).
 
 ## Human decision points and permissions
 

@@ -48,7 +48,7 @@ flowchart LR
 * **Human handoff** - The factory presents the result, its evidence, and any findings, and updates the original work item. A person decides what happens next.
 * **Complete or Cancelled** - The work item ends when the factory finishes its work, or stops early if someone cancels it.
 
-Stages and agents are named separately, so the spec agent works the Planning stage, the implement agent works the Building stage, and the review agent works the Reviewing stage. See [factory agents](/factories/factory-agents/) for each agent's responsibilities.
+Stages and agents are named separately, so the spec agent works the planning stage, the implement agent works the building stage, and the review agent works the reviewing stage. See [About factory agents](/factories/factory-agents/) for each agent's responsibilities.
 
 Each agent's run is a [cloud agent run](/platform/) on Warp-hosted or [managed self-hosted](/factories/self-hosting/) compute, using the factory's repositories and the agent's configured model and [harness](/platform/harnesses/). Watch and steer runs from the factory's [Runs page](/factories/factory-dashboard/#inspect-runs). Work that needs your input appears in your [inbox](/factories/factory-inbox/).
 
@@ -56,7 +56,7 @@ Each agent's run is a [cloud agent run](/platform/) on Warp-hosted or [managed s
 
 A factory pauses when a person needs to decide. By default, that's three places:
 
-* **Approving the spec** - When work goes through the Planning stage, the Building stage waits until a person signs off on the plan.
+* **Approving the spec** - When work needs a spec, implementation waits until a person signs off on the plan.
 * **Answering questions** - When requirements are unclear or a review finding is ambiguous, the foreman asks instead of guessing.
 * **Merging** - The factory opens the pull request and hands it off. Whether and when it merges is your team's call.
 
@@ -73,7 +73,7 @@ A factory's agents, automations, runners, scorers, skills, and webhooks are conf
 ## Related pages
 
 * [Sizing a factory](/factories/#sizing-a-factory) - Which repositories belong in one factory.
-* [Factory agents](/factories/factory-agents/) - What each default agent does and how to configure it.
+* [About factory agents](/factories/factory-agents/) - What each default agent does and how to configure it.
 * [Connect your factory](/factories/connect-your-factory/) - Every way work can enter a factory.
 * [Measure and improve](/factories/measure-and-improve/) - Scorers, benchmarks, and Self-improvement.
 * [Build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent/) - Apply the same loop to a standalone agent.

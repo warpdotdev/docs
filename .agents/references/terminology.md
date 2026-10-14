@@ -366,7 +366,7 @@ Docs match the screen; the fix belongs in the app.
   *Usage note:* Not a second concept. Use "task" only where the MCP surface forces it, and say once on the page that a task is the factory's work item. Never introduce "task" as a distinct unit of work.
 
 - **stages** — The phases a work item moves through, named as the factory dashboard's **Activity** view names them: **Triage**, **Planning**, **Building**, and **Reviewing**, plus the terminal stages **Complete** and **Cancelled**.
-  *Usage note:* Stage names are not agent names. The spec agent works the Planning stage, the implement agent works the Building stage, and the review agent works the Reviewing stage. Write stages with the dashboard's names so docs and screen agree; write agents with their own names (triage, spec, implement, review).
+  *Usage note:* Stage names are not agent names. The spec agent works the planning stage, the implement agent works the building stage, and the review agent works the reviewing stage. Use lowercase for stages in explanatory prose. Preserve the displayed spelling and capitalization when referencing exact UI labels, filters, or status values; sentence-initial and diagram labels may also begin with capitals. Write agents with their own names (triage, spec, implement, review).
 
 - **foreman agent** — The foreman is the agent that coordinates a factory's work and communicates with you. It delegates work to other agents, asks for your decisions when needed, and returns results.
   *Usage note:* Lowercase "foreman" in prose. The foreman is an agent inside a factory, not the factory itself — never use the two interchangeably, and never call the foreman "the factory" even though setup gives them the same name by default.

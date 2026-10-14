@@ -413,7 +413,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{
 							label: 'Factory agents',
 							items: [
-								{ slug: 'factories/factory-agents', label: 'Overview' },
+								{ slug: 'factories/factory-agents', label: 'About factory agents' },
 								{ slug: 'factories/factory-agents/configuration', label: 'Configuring factory agents' },
 								{ slug: 'factories/factory-agents/creating-custom-agents', label: 'Creating custom agents' },
 							],
