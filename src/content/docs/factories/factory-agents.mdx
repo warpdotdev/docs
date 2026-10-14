@@ -77,10 +77,10 @@ For new roles, skills, and foreman dispatch, see [Creating custom agents](/facto
 | Decision | Default behavior | What enforces it |
 | --- | --- | --- |
 | Spec approval | The foreman asks a human to clarify ambiguity and approve every spec | Workflow policy in the foreman's instructions, which your team can change |
-| Merging | Agents never merge; the foreman hands the finished pull request to a human | Your repository's permissions decide who can approve and merge |
+| Merging | The foreman hands you the finished pull request. Agents never merge on your behalf. | Your repository's permissions decide who can approve and merge |
 | Runtime access | Each agent reaches only the repositories, secrets, and MCP servers in its configuration | Platform configuration and the permissions of the connected providers |
 
-The first two rows are conventions: they live in the foreman's instructions and your repository settings, and your team can change them. Access is different. What an agent can reach comes from its configuration and the permissions of the connected providers, never from its instructions — changing what an agent is told to do doesn't change what it's able to do.
+Your team can change the spec-approval policy in the foreman's instructions. Repository permissions and branch protection control who can approve and merge pull requests. Access is different. What an agent can reach comes from its configuration and the permissions of the connected providers, never from its instructions — changing what an agent is told to do doesn't change what it's able to do.
 
 So enforce with the real controls: branch protection and repository permissions decide who merges, and each agent's configuration decides what it can reach.
 
