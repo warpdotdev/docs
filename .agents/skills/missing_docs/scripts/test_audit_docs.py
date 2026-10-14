@@ -466,6 +466,31 @@ class TestConsistencyAudit(unittest.TestCase):
             )
 
 
+class TestSlashCommandExtraction(unittest.TestCase):
+    def test_literal_and_constant_backed_names_are_extracted(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            registry = root / "app/src/search/slash_command_menu/static_commands"
+            registry.mkdir(parents=True)
+            registry.joinpath("commands.rs").write_text(
+                'pub const PLAN_NAME: &str = "/plan";\n'
+                'pub const ORCHESTRATE_NAME: &\'static str = "/orchestrate";\n'
+                'pub const UNUSED_NAME: &str = "/unused";\n'
+                'StaticCommand { name: PLAN_NAME }\n'
+                'StaticCommand { name: ORCHESTRATE_NAME }\n'
+                'StaticCommand { name: "/agent" }\n'
+                'StaticCommand { name: UNKNOWN_NAME }\n',
+                encoding="utf-8",
+            )
+            registry.joinpath("commands_tests.rs").write_text(
+                'StaticCommand { name: "/test-only" }\n', encoding="utf-8",
+            )
+            self.assertEqual(
+                audit_docs.parse_slash_commands(root),
+                ["/agent", "/orchestrate", "/plan"],
+            )
+
+
 class TestAccounting(unittest.TestCase):
     def test_cli_all_finding_accounts_for_commands(self):
         with tempfile.TemporaryDirectory() as d:
