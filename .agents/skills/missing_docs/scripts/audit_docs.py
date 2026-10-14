@@ -1046,8 +1046,17 @@ def parse_slash_commands(warp_repo: Path) -> list[str]:
     for rs_file in sorted(registry_dir.glob("*.rs")):
         if rs_file.name.endswith("_tests.rs"):
             continue
-        for match in re.finditer(r'name:\s*"(/[a-z0-9][a-z0-9-]*)"', rs_file.read_text()):
+        content = rs_file.read_text()
+        constants = dict(re.findall(
+            r'\bconst\s+([A-Z][A-Z0-9_]*)\s*:\s*&(?:\'static\s+)?str\s*'
+            r'=\s*"(/[a-z0-9][a-z0-9-]*)"\s*;',
+            content,
+        ))
+        for match in re.finditer(r'name:\s*"(/[a-z0-9][a-z0-9-]*)"', content):
             names.add(match.group(1))
+        for match in re.finditer(r'\bname:\s*([A-Z][A-Z0-9_]*)\b', content):
+            if match.group(1) in constants:
+                names.add(constants[match.group(1)])
     return sorted(names)
 
 # ---------------------------------------------------------------------------
