@@ -410,7 +410,14 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// and where it runs.
 				label: 'Factory configuration',
 				items: [
-						{ slug: 'factories/factory-agents', label: 'Factory agents' },
+						{
+							label: 'Factory agents',
+							items: [
+								{ slug: 'factories/factory-agents', label: 'Overview' },
+								{ slug: 'factories/factory-agents/configuration', label: 'Configuring factory agents' },
+								{ slug: 'factories/factory-agents/creating-custom-agents', label: 'Creating custom agents' },
+							],
+						},
 						{ slug: 'factories/factory-skills', label: 'Factory skills' },
 						// Moved from 'Integrations' (was 'Automation filters'): this page is
 						// now the Automations primitive's conceptual home, parallel to Factory

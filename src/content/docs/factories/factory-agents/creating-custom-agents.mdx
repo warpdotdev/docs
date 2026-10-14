@@ -1,0 +1,58 @@
+---
+title: Creating custom agents
+description: >-
+  Create a custom factory agent, add skills, and configure how the foreman
+  dispatches it.
+---
+import { VARS } from '@data/vars';
+
+Add a custom agent for work that needs its own instructions, configuration, and runs. For example, create a documentation agent to update reference pages after code changes.
+
+## Prerequisites
+
+* Team or workspace admin access, or the team-level [Warp Factories Editor role](/factories/infrastructure-and-security/#factory-roles-and-permissions).
+* An existing factory. Follow the [Warp Factories quickstart](/factories/quickstart/) to create one.
+
+## Create an agent in the web app
+
+For a Warp-managed factory, create the agent in the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. For a GitHub-backed factory, use [definition files](#create-an-agent-in-definition-files) instead.
+
+1. In the web app sidebar, click your factory to expand it, then click **Agents**.
+2. Click **New**, then **Custom agent**.
+3. Enter an agent name and a description of its responsibilities.
+4. Under "Agent resources", choose its harness, model, host, and runner as needed. Add [MCP servers](/platform/mcp/) and [secrets](/platform/secrets/) for the tools it needs. See [Configuring factory agents](/factories/factory-agents/configuration/) for configuration and authentication details.
+5. Under "Agent prompt", enter the agent's instructions.
+6. In the top-right corner, click **Save**.
+
+The new agent appears on the factory's **Agents** page. Agent names can't be changed after creation.
+
+## Create an agent in definition files
+
+For a GitHub-backed factory, add `agents/<name>/agent.md` to the factory's definition repository, replacing `<name>` with the agent's directory name. Define its instructions and configuration using the [`agent.md` configuration keys](/factories/factory-as-code/#agentsnameagentmd). Follow your repository's pull request process to apply the change.
+
+## Add skills
+
+Custom agents have no built-in skills. Add [factory skills](/factories/factory-skills/) where needed:
+
+* **One agent** - `agents/<name>/skills/`
+* **All agents** - `skills/`
+
+## Choose a configured factory agent
+
+The foreman uses `run_agents` to dispatch configured factory agents. It receives a list of available agents and their unique IDs (UIDs). The call selects the agent as follows:
+
+1. Choose an agent from the provided list.
+2. Set `remote` to run the child in the cloud.
+3. Set `agent_run_configs[].agent_identity_uid` to the chosen UID for every child in the call.
+
+The `name` field labels the child run; it does not select the agent. Warp loads the selected agent's environment, runner, host, harness, and model unless the call overrides them.
+
+To start a child without factory configuration, use [multi-agent orchestration](/platform/orchestration/) from any Warp conversation. To start an agent on a schedule or when an event fires, configure a [factory automation](/factories/automations/). The foreman coordinates work started by automations.
+
+## Related pages
+
+* [Factory agents](/factories/factory-agents/) - Understand default roles and human decision points
+* [Configuring factory agents](/factories/factory-agents/configuration/) - Edit instructions, models, harnesses, and tools
+* [Factory skills](/factories/factory-skills/)
+* [Factory automations](/factories/automations/)
+* [Definitions as code](/factories/factory-as-code/)

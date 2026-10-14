@@ -11,7 +11,7 @@ The **foreman** is the agent that coordinates a factory's work and communicates 
 
 ## The default agents
 
-Every factory gets a foreman. You choose which of the four default agents to include. These defaults are a starting point, and you can [add custom agents and automations](#add-custom-agents-and-automations) for work they don't cover.
+Every factory gets a foreman. You choose which of the four default agents to include. These defaults are a starting point, and you can [add custom agents](/factories/factory-agents/creating-custom-agents/) and [automations](/factories/automations/) for work they don't cover.
 
 The default agents' prompts, descriptions, and models are available in [`00-warp-default-agents`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/00-warp-default-agents) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
 
@@ -59,94 +59,18 @@ Review independently checks requirements, code conventions, tests, security, and
 
 Every default agent includes GitHub skills; the foreman also includes a Slack skill. Choosing Linear or Jira during setup adds that tracker's skill and instructions. Add custom procedures with [factory skills](/factories/factory-skills/).
 
-## Configure agent behavior
+## Configuring and extending agents
 
-For a Warp-managed factory, edit agent settings in the web app. For a GitHub-backed factory, settings are read-only in the web app; edit the [factory definition files](/factories/factory-as-code/) instead. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
+<div id="configure-agent-behavior" />
+<div id="choose-models-and-harnesses-per-agent" />
+<div id="configuring-a-third-party-harness" />
 
-1. In the web app sidebar, click your factory to expand it, then click **Agents**.
+For settings, prompts, models, and third-party authentication, see [Configuring factory agents](/factories/factory-agents/configuration/).
 
-   <figure style={{ maxWidth: "563px" }}>
-   ![The Agents page in the factory dashboard, listing a foreman agent and its four default agents: triage, spec, implement, and review.](../../../assets/factories/factory-agents-list.png)
-   <figcaption>The Agents page lists a factory's foreman and default agents.</figcaption>
-   </figure>
+<div id="add-custom-agents-and-automations" />
+<div id="choose-a-configured-factory-agent" />
 
-2. Click an agent to open its **Settings** tab.
-
-   <figure style={{ maxWidth: "563px" }}>
-   ![An Implement agent's Settings tab showing its description, MCPs, secrets, and Harness, Model, Host, and Runner dropdowns.](../../../assets/factories/factory-agent-edit.png)
-   <figcaption>The Settings tab contains the agent's description and resources.</figcaption>
-   </figure>
-
-3. Edit the agent description, harness, model, runner, host, [MCP servers](/platform/mcp/), or [secrets](/platform/secrets/).
-
-4. To change the agent's instructions, click **Prompt** and edit the prompt.
-
-5. In the top-right corner, click **Save**.
-
-## Choose models and harnesses per agent
-
-Choose each agent's model and harness in its settings. Supported harnesses include the Warp Agent harness, Claude Code, and Codex. A foreman using Claude Code or Codex can still dispatch other factory agents, whose runs are tracked as its children.
-
-Third-party harnesses require a paid plan. On the Free plan, agents use the Warp Agent harness. See [Warp pricing](https://www.warp.dev/pricing) for plan details.
-
-Default model IDs change over time, so choose based on what each agent has to do well:
-
-| Agent | What to optimize for |
-| --- | --- |
-| Foreman | Orchestration, instruction following, and long-running conversations |
-| Triage | Research, evidence gathering, and working with connected tools |
-| Spec | Synthesizing requirements, technical reasoning, and precise writing |
-| Implement | Coding strength, with a harness that fits your repositories and toolchain |
-| Review | A different model or harness from the implement agent, so the two don't share blind spots |
-
-The model picker also includes custom routers from factories you can access. See [model choice for agents](/agents/inference/model-choice/), [custom model routers](/agents/inference/custom-routers/), and [harnesses for cloud agents](/platform/harnesses/) for available options.
-
-### Configuring a third-party harness
-
-Change an agent's harness to Claude Code or Codex to run it with that provider's own coding tool instead of the Warp Agent.
-
-1. In the web app sidebar, click your factory to expand it, then click **Agents**.
-2. Click an agent to open its **Settings** tab.
-3. In the "Harness" dropdown, choose **Claude Code** or **Codex**. The "Auth" field appears for these harnesses.
-4. In the "Auth" field, choose a compatible, team-owned secret from the list or click **New auth secret** to create one.
-
-   <figure style={{ maxWidth: "563px" }}>
-   ![An Implement agent's Settings tab with Claude Code selected in the Harness dropdown and the Auth dropdown open, showing a saved credential and New auth secret.](../../../assets/factories/factory-agent-auth-secret.png)
-   <figcaption>The Auth dropdown appears when a third-party harness is selected.</figcaption>
-   </figure>
-
-   :::note
-   * Claude Code accepts an Anthropic API key, Anthropic Bedrock API key, or Anthropic Bedrock access key.
-   * Codex accepts an OpenAI API key.
-
-   See [connecting Claude Code credentials](/platform/harnesses/authentication/#connecting-claude-code-credentials) and [connecting Codex credentials](/platform/harnesses/authentication/#connecting-codex-credentials) for how to obtain each key.
-   :::
-
-5. In the "Model" dropdown, choose a model from that harness's catalog.
-6. In the top-right corner, click **Save**.
-
-With a Warp-managed factory, you can edit harness, auth, and model from the dashboard. A GitHub-backed factory sets them through [`agentDefaults.harness` or a per-agent `harness` override](/factories/factory-as-code/#agentdefaultsharness) in the definition files. For an example, see [`03-multi-harness`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/03-multi-harness).
-
-## Add custom agents and automations
-
-Add a custom agent for a role that needs separate instructions, configuration, and runs.
-
-For a Warp-managed factory, open **Agents** in the [factory dashboard](/factories/factory-dashboard/), click **New**, then click **Custom agent**. For a GitHub-backed factory, add `agents/<name>/agent.md`. See the [`agent.md` configuration keys](/factories/factory-as-code/#agentsnameagentmd).
-
-Custom agents have no built-in skills. Add [factory skills](/factories/factory-skills/) based on who needs them:
-
-* **One agent** - Put the skill under `agents/<name>/skills/`.
-* **Every agent** - Put the skill under `skills/`.
-
-### Choose a configured factory agent
-
-Use `run_agents` when the foreman should give work to one of the agents configured in your factory. The foreman receives a list of those agents, with a unique ID (UID) for each one.
-
-Run the child remotely by setting the call's `remote` field, then copy the chosen agent's UID into `agent_run_configs[].agent_identity_uid`. Only use UIDs from the list, and select an agent for every child in the call. The `name` field only labels the child run; it doesn't choose the factory agent.
-
-Warp uses the UID to load that agent's configured environment, runner, host, harness, and model unless the call overrides them. To start a child without factory configuration, use [multi-agent orchestration](/platform/orchestration/) from any Warp conversation.
-
-Automations start a chosen agent on a [schedule](/factories/factory-as-code/#triggersschedule) or when an event fires. They're one more way for work to enter your factory; the foreman still coordinates whatever they start. For all the ways to route work into a factory, see [connect your factory](/factories/connect-your-factory/).
+For new roles, skills, and foreman dispatch, see [Creating custom agents](/factories/factory-agents/creating-custom-agents/). Start agents from schedules and events with [factory automations](/factories/automations/).
 
 ## Human decision points and permissions
 
@@ -160,4 +84,10 @@ The first two rows are conventions: they live in the foreman's instructions and 
 
 So enforce with the real controls: branch protection and repository permissions decide who merges, and each agent's configuration decides what it can reach.
 
-Next, capture these choices in [factory definitions as code](/factories/factory-as-code/).
+## Related pages
+
+* [Configuring factory agents](/factories/factory-agents/configuration/)
+* [Creating custom agents](/factories/factory-agents/creating-custom-agents/)
+* [How Warp Factories work](/factories/how-factories-work/)
+* [Factory skills](/factories/factory-skills/)
+* [Definitions as code](/factories/factory-as-code/)

@@ -41,7 +41,7 @@ A work item is one request the factory acts on. This can be an issue, a support 
 
 ### Foreman and factory agents
 
-The foreman is the agent that coordinates a factory's work and communicates with you. See [factory agents](/factories/factory-agents/) for agent roles, models, harnesses, and configuration.
+The foreman is the agent that coordinates a factory's work and communicates with you. See [factory agents](/factories/factory-agents/) for their roles, and [Configuring factory agents](/factories/factory-agents/configuration/) to change their models, harnesses, and instructions.
 
 Setup gives the foreman the same handle as the factory, so `payments` is the factory and `@payments` reaches its foreman from Slack or Linear. See [Foreman name](/factories/factory-agents/#foreman-name).
 
@@ -88,13 +88,14 @@ Group the repositories that ship together into one factory, and keep separate pr
 * One factory for your marketing site
 * One factory for your data pipelines
 
-Don't split the same repositories across factories by team or task, such as frontend and platform. Add [agents](/factories/factory-agents/) and [skills](/factories/factory-skills/) to specialize instead.
+Don't split the same repositories across factories by team or task, such as frontend and platform. Add [custom agents](/factories/factory-agents/creating-custom-agents/) and [skills](/factories/factory-skills/) to specialize instead.
 
 ## Related pages
 
 * [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send its first work item.
 * [How Warp Factories work](/factories/how-factories-work/) - The work-item lifecycle, stage by stage.
-* [Factory agents](/factories/factory-agents/) - What each default agent does and how to configure its model and harness.
+* [Factory agents](/factories/factory-agents/) - Understand default agent roles
+* [Configuring factory agents](/factories/factory-agents/configuration/) - Choose models, harnesses, and instructions
 * [Definitions as code](/factories/factory-as-code/) - The definition file format, with working examples in [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples).
 * [Transitioning from Oz](/platform/transitioning-from-oz/) - Assess an existing web app, CLI, SDK, or API workflow.
 * <a href={VARS.GET_STARTED_URL}>Get started with the Warp team</a> - Get help choosing and setting up a workflow.

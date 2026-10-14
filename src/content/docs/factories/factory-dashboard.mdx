@@ -53,7 +53,7 @@ Run pages don't include a chat input, but you can still steer a run: **View sess
 
 ## Manage agents and automations
 
-**Agents** lists the factory's agents. Create agents and edit their instructions, model or harness, runner, host, secrets, and MCP servers. **Automations** defines the triggers that start runs: a schedule (including custom cron expressions), a GitHub, Linear, Slack, or Jira event, or a delivery to a custom webhook. **Webhooks** is a tab within **Automations** that lists the factory's [custom webhooks](/factories/webhooks/), where you create them, copy their URLs, rotate secrets, and read the delivery log.
+**Agents** lists the factory's agents. [Create custom agents](/factories/factory-agents/creating-custom-agents/) or [configure existing agents](/factories/factory-agents/configuration/) to change their instructions, models, harnesses, and tools. **Automations** defines the triggers that start runs: a schedule (including custom cron expressions), a GitHub, Linear, Slack, or Jira event, or a delivery to a custom webhook. **Webhooks** is a tab within **Automations** that lists the factory's [custom webhooks](/factories/webhooks/), where you create them, copy their URLs, rotate secrets, and read the delivery log.
 
 {/* VISUAL: The Automations editor, to complement the Agents list already shown in Configure agent behavior on the factory agents page. */}
 
@@ -92,7 +92,8 @@ For a file-managed factory, `runners/*.yaml` in the repository is the source of 
 * [Factory inbox](/factories/factory-inbox/) - See and resolve the questions, spec approvals, and PR reviews waiting on you.
 * [How Warp Factories work](/factories/how-factories-work/) - The stages work moves through and where humans stay in the loop.
 * [Definitions as code](/factories/factory-as-code/) - Define agents, automations, runners, and source ownership in code.
-* [Factory agents](/factories/factory-agents/) - What each default agent does and how to configure it.
+* [Factory agents](/factories/factory-agents/) - Understand default agent roles
+* [Configuring factory agents](/factories/factory-agents/configuration/) - Edit agent instructions and runtime settings
 * [Measure and improve a factory](/factories/measure-and-improve/) - Configure Scorers and use them in an improvement loop.
 * [Benchmarking factory agent configurations](/factories/benchmarks/) - Create a benchmark suite and compare configurations on fixed tasks.
 * [Troubleshooting Warp Factories](/factories/troubleshooting/) - Fixes for setup problems, work that doesn't start, and stuck runs.
