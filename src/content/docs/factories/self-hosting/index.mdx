@@ -89,7 +89,7 @@ oz integration create slack --host "my-worker"
 oz integration update linear --host "my-worker"
 ```
 
-API requests set the same worker ID in `config.worker_host`. Use the [validation request below](#validating-your-setup-without-a-factory) to test API routing.
+API requests set the same worker ID in `config.worker_host`.
 
 In the {VARS.WEB_APP}, select the worker from the host options when you create a run, schedule, or integration. See the relevant [trigger](/platform/triggers/) or [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) documentation for other creation options.
 
@@ -97,57 +97,43 @@ Host selection is independent of the [environment](/platform/environments/). A m
 
 ### Validating your setup without a factory
 
-After your managed worker connects, submit a smoke test through the {VARS.WARP_PLATFORM_API}. You don't need a factory, a named agent, or a configured environment. This test uses the Warp Agent harness and the default model; it doesn't test repository access or environment setup.
+After your managed worker connects, submit a smoke test through the {VARS.WARP_AGENT_CLI} with your own login, without an API key. You don't need a factory, a named agent, or a configured environment. This test uses the Warp Agent harness and the default model; it doesn't test repository access or environment setup.
 
-1. Create a [personal API key](/agents/cli/oz-cli/api-keys/#from-the-web-app-recommended) to authenticate as yourself. Your account must belong to the worker's team and have permission to create runs. Keep the worker running with its existing credential.
-
-2. In a separate Bash terminal, read the personal key into an environment variable without saving it in shell history.
+1. [Install the {VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/#installing-the-cli) on your machine. In a separate terminal, clear API-key and configuration overrides, then sign in. Open the URL printed by `oz login` in your browser and complete authentication. Your account must belong to the worker's team and have permission to create runs. Keep the worker running with its existing credential.
 
    ```bash
-   read -rsp "Personal Warp API key: " WARP_API_KEY
-   printf '\n'
-   export WARP_API_KEY
+   unset WARP_API_KEY WARP_AGENT_CONFIG_FILE
+   oz login
    ```
 
-3. Submit the test. Replace `WORKER_ID` with the connected worker's `--worker-id`. If you belong to multiple teams, also add `-H "X-Warp-Team-Uid: TEAM_UID"`, replacing `TEAM_UID` with the UID of the worker's team. The `"team": true` field creates a team-owned run; it does not change the personal key's identity.
+2. Submit the test. Replace `WORKER_ID` with the connected worker's `--worker-id`. The `--team` flag creates a team-owned run. If you belong to multiple teams, the CLI lists team choices; replace `--team` with `--team=TEAM_UID`, using the UID of the worker's team.
 
    ```bash
-   curl --fail-with-body --silent --show-error \
-     -X POST "https://app.warp.dev/api/v1/agent/runs" \
-     -H "Authorization: Bearer $WARP_API_KEY" \
-     -H "Content-Type: application/json" \
-     --data '{
-       "prompt": "Run the terminal command printf self-hosted-smoke-test-passed, report the output, and finish. Do not modify files or access repositories.",
-       "team": true,
-       "config": {
-         "worker_host": "WORKER_ID",
-         "computer_use_enabled": false
-       }
-     }'
+   oz agent run-cloud \
+     --host "WORKER_ID" \
+     --team \
+     --no-environment \
+     --no-computer-use \
+     --prompt "Run the terminal command printf self-hosted-smoke-test-passed, report the output, and finish. Do not modify files or access repositories."
    ```
 
-   A successful submission returns HTTP `200` with a response like this. `QUEUED` confirms acceptance, not successful execution.
+   The CLI prints a run ID and a session link when the session is ready. The command can return before the run finishes; a run ID or session link alone does not confirm success.
 
-   ```json
-   {
-     "task_id": "RUN_ID",
-     "run_id": "RUN_ID",
-     "state": "QUEUED",
-     "at_capacity": false
-   }
-   ```
-
-4. Replace `RUN_ID` with the returned `run_id` and check the run.
+3. Replace `RUN_ID` with the printed run ID and check the run.
 
    ```bash
-   curl --fail-with-body --silent --show-error \
-     "https://app.warp.dev/api/v1/agent/runs/RUN_ID" \
-     -H "Authorization: Bearer $WARP_API_KEY"
+   oz run get RUN_ID --output-format json
    ```
 
-   Repeat the check until `state` is `SUCCEEDED`. Confirm that `agent_config.worker_host` matches your worker ID, then open the returned `session_link` and verify that the command ran and printed `self-hosted-smoke-test-passed`.
+   Repeat the check until `state` is `SUCCEEDED`. Confirm that `agent_config.worker_host` matches your worker ID, then retrieve the conversation.
 
-If the run stays `QUEUED`, confirm the worker is connected, the host matches exactly, and the run and worker belong to the same team. For `FAILED` or `ERROR`, inspect `status_message` and the worker logs. For authentication or permission errors, check the personal key's expiration, team access, and self-hosting eligibility. See [Self-hosting troubleshooting](/factories/self-hosting/troubleshooting/) for further diagnostics.
+   ```bash
+   oz run get RUN_ID --conversation
+   ```
+
+   Verify that the command ran and printed `self-hosted-smoke-test-passed`, not just that the prompt contains the marker.
+
+If the run stays `QUEUED`, confirm the worker is connected, the host matches exactly, and the run and worker belong to the same team. For `FAILED` or `ERROR`, inspect `status_message` and the worker logs. For authentication errors, sign in again with `oz login`. For permission errors, check team access and self-hosting eligibility. See [Self-hosting troubleshooting](/factories/self-hosting/troubleshooting/) for further diagnostics.
 
 ## Unmanaged architecture
 
