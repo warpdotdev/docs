@@ -11,7 +11,9 @@ The **foreman** is the agent that coordinates a factory's work and communicates 
 
 ## The default agents
 
-Every factory gets a foreman. You choose which of the four default agents to include. These defaults are a starting point, and you can [add custom agents and automations](#add-custom-agents-and-automations) for work they don't cover. The default agents' prompts, descriptions, and models are reproduced as files in [`00-warp-default-agents`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/00-warp-default-agents) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
+Every factory gets a foreman. You choose which of the four default agents to include. These defaults are a starting point, and you can [add custom agents and automations](#add-custom-agents-and-automations) for work they don't cover.
+
+The default agents' prompts, descriptions, and models are available in [`00-warp-default-agents`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/00-warp-default-agents) in the [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples) repository.
 
 | Agent | What it does | What it produces |
 | --- | --- | --- |
@@ -35,7 +37,7 @@ When finished, it returns the pull request and supporting evidence, then marks t
 
 Use the foreman's handle to @-mention it in Slack and Linear. Factory setup defaults the handle to the factory's name. For example, a factory named `payments` gets the handle `@payments`.
 
-Change the handle under **Settings** > **Identity** in the [factory dashboard](/factories/factory-dashboard/), or through [`alias`](/factories/factory-as-code/#alias) in the definition. The factory name and foreman handle can differ.
+In the web app sidebar, expand your factory and click **Settings**, then **Identity** to change the foreman's handle. You can also edit [`alias`](/factories/factory-as-code/#alias) in the definition. The factory name and foreman handle can differ.
 
 ### Triage
 
@@ -68,7 +70,7 @@ For a Warp-managed factory, edit agent settings in the web app. For a GitHub-bac
    <figcaption>The Agents page lists a factory's foreman and default agents.</figcaption>
    </figure>
 
-2. Click an agent, then click **Settings**.
+2. Click an agent to open its **Settings** tab.
 
    <figure style={{ maxWidth: "563px" }}>
    ![An Implement agent's Settings tab showing its description, MCPs, secrets, and Harness, Model, Host, and Runner dropdowns.](../../../assets/factories/factory-agent-edit.png)
@@ -83,9 +85,9 @@ For a Warp-managed factory, edit agent settings in the web app. For a GitHub-bac
 
 ## Choose models and harnesses per agent
 
-Each agent can run on its own model and harness. To change the model an agent uses, edit that agent's settings. Supported harnesses include the Warp Agent harness, Claude Code, and Codex, and any agent can use any of them. A foreman running on Claude Code or Codex can still dispatch the factory's other agents, and the runs it starts are still tracked as its children.
+Choose each agent's model and harness in its settings. Supported harnesses include the Warp Agent harness, Claude Code, and Codex. A foreman using Claude Code or Codex can still dispatch other factory agents, whose runs are tracked as its children.
 
-Third-party harnesses require a paid plan; on the Free plan every agent runs on the Warp Agent harness. See [Warp pricing](https://www.warp.dev/pricing) for what each plan includes.
+Third-party harnesses require a paid plan. On the Free plan, agents use the Warp Agent harness. See [Warp pricing](https://www.warp.dev/pricing) for plan details.
 
 Default model IDs change over time, so choose based on what each agent has to do well:
 
@@ -104,7 +106,7 @@ The model picker also includes custom routers from factories you can access. See
 Change an agent's harness to Claude Code or Codex to run it with that provider's own coding tool instead of the Warp Agent.
 
 1. In the web app sidebar, click your factory to expand it, then click **Agents**.
-2. Click an agent, then click **Settings**.
+2. Click an agent to open its **Settings** tab.
 3. In the "Harness" dropdown, choose **Claude Code** or **Codex**. The "Auth" field appears for these harnesses.
 4. In the "Auth" field, choose a compatible, team-owned secret from the list or click **New auth secret** to create one.
 
