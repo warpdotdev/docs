@@ -27,6 +27,10 @@ inspected without replacing the checkout's canonical spec.
   Go validation tags and Stainless naming annotations.
 - Prune reusable components no longer reachable from public operations.
 
+The exporter completes object exclusion before stripping extensions. It
+retains publication markers across filter passes until no marked object
+survives, including adjacent parameters in arrays.
+
 The manual fallback has no additional tag, path, or enum exclusions. A new
 unmarked API is included, even under a formerly excluded namespace. Review its
 handler and source annotations if publication intent is unclear; mark private
@@ -58,6 +62,9 @@ fixture with mixed public/internal operations, nested internal properties and
 parameters, codegen annotations, and transitive component references. It also
 checks that unresolved references leave the target unchanged and that diff
 diagnostics include reusable components and metadata.
+
+Real-source coverage checks the annotated internal parameters and compares
+every exported node with its public source counterpart.
 
 `--mode diff` returns 1 for structural drift, including tags and every reusable
 component section. `--mode apply` returns 3 for unresolved local references and

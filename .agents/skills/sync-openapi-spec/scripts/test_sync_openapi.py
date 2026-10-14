@@ -39,6 +39,18 @@ class SyncOpenAPITest(unittest.TestCase):
                                 "x-internal": True,
                                 "schema": {"type": "string"},
                             },
+                            {
+                                "name": "adjacent_private",
+                                "in": "query",
+                                "x-internal": True,
+                                "schema": {"type": "string"},
+                            },
+                            {
+                                "name": "public",
+                                "in": "query",
+                                "x-internal": False,
+                                "schema": {"type": "string"},
+                            },
                         ],
                         "responses": {
                             "200": {"$ref": "#/components/responses/Result"},
@@ -118,6 +130,13 @@ class SyncOpenAPITest(unittest.TestCase):
         exported = yaml.safe_load(self.target.read_text())
         self.assertEqual(exported["info"], self.spec["info"])
         self.assertEqual(set(exported["paths"]["/factory-inbox"]), {"get"})
+        self.assertEqual(
+            exported["paths"]["/factory-inbox"]["get"]["parameters"],
+            [
+                {"$ref": "#/components/parameters/Team"},
+                {"name": "public", "in": "query", "schema": {"type": "string"}},
+            ],
+        )
         self.assertEqual(exported["tags"], [{"name": "factory"}])
         self.assertEqual(set(exported["components"]["parameters"]), {"Team"})
         self.assertEqual(set(exported["components"]["schemas"]), {"Item", "Child"})
@@ -148,6 +167,45 @@ class SyncOpenAPITest(unittest.TestCase):
         self.assertIn("parameters", result.stdout)
         self.assertIn("Team", result.stdout)
         self.assertIn("tags", result.stdout)
+
+    def test_canonical_source_excludes_internal_objects(self):
+        self.spec = yaml.safe_load(
+            (SERVER_ROOT / "public_api/openapi.yaml").read_text(encoding="utf-8")
+        )
+        result = self.run_sync("apply")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        exported = yaml.safe_load(self.target.read_text(encoding="utf-8"))
+        for path, name in [
+            ("/agent/runs", "automation_id"),
+            ("/factory/{uid}/scorers", "recent_outcomes_limit"),
+        ]:
+            with self.subTest(path=path, parameter=name):
+                source_parameters = self.spec["paths"][path]["get"]["parameters"]
+                parameter = next(p for p in source_parameters if p.get("name") == name)
+                self.assertIs(parameter["x-internal"], True)
+                self.assertNotIn(
+                    name,
+                    [p.get("name") for p in exported["paths"][path]["get"]["parameters"]],
+                )
+
+        def compare(source, actual, path):
+            if isinstance(source, dict):
+                self.assertIsNot(source.get("x-internal"), True, path)
+                for key, value in actual.items():
+                    self.assertIn(key, source, path)
+                    compare(source[key], value, f"{path}.{key}")
+            elif isinstance(source, list):
+                public_items = [
+                    item for item in source
+                    if not isinstance(item, dict) or item.get("x-internal") is not True
+                ]
+                self.assertEqual(len(public_items), len(actual), path)
+                for index, (expected, value) in enumerate(zip(public_items, actual)):
+                    compare(expected, value, f"{path}[{index}]")
+            else:
+                self.assertEqual(source, actual, path)
+
+        compare(self.spec, exported, "root")
 
 
 if __name__ == "__main__":
