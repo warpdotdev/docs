@@ -34,20 +34,7 @@ Warp limits concurrent hosted runs per team. Runs started at the limit are queue
 
 ## Networking
 
-Warp-hosted agents have outbound network access enabled by default. If your services use IP allowlists, outgoing requests may come from the following IP ranges:
-
-* `64.6.38.192/26`
-* `64.6.39.192/26`
-* `104.128.70.192/26`
-* `104.128.71.192/26`
-* `216.176.224.192/26`
-* `185.212.186.0/24`
-* `50.31.178.128/26`
-* `50.31.146.192/26`
-* `75.102.37.208/28`
-* `44.253.165.189/32`
-* `16.145.188.113/32`
-* `16.145.133.251/32`
+Warp-hosted agents have network egress enabled by default. If you need to allowlist traffic from Warp agents, such as in a firewall policy, get Warp's IP address ranges from the "Warp-hosted agent networking" settings for your team. Find it on your team's **Platform** page in the [Admin Panel](https://app.warp.dev/admin/) or on <a href={`${VARS.FACTORY_WEB_APP_URL}/settings`}>User settings in the {VARS.FACTORY_WEB_APP}</a>.
 
 ---
 
