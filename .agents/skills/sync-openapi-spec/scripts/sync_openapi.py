@@ -465,13 +465,11 @@ def transform(source: dict[str, Any]) -> dict[str, Any]:
         out["info"] = {**out["info"], **DOCS_INFO_OVERRIDES}
 
     src_tags = source.get("tags") or []
-    out_tags = [
+    candidate_tags = [
         t
         for t in src_tags
         if isinstance(t, dict) and t.get("name") not in EXCLUDED_TAGS
     ]
-    if out_tags:
-        out["tags"] = out_tags
 
     src_paths = source.get("paths") or {}
     kept_paths = {
@@ -479,6 +477,34 @@ def transform(source: dict[str, Any]) -> dict[str, Any]:
         for path, item in src_paths.items()
         if isinstance(item, dict) and _should_keep_path(path, item)
     }
+
+    tag_by_name = {
+        tag["name"]: tag
+        for tag in candidate_tags
+        if isinstance(tag.get("name"), str)
+    }
+    kept_tag_names = {
+        tag
+        for path_item in kept_paths.values()
+        for tag in _path_tags(path_item)
+    }
+    pending_parents = list(kept_tag_names)
+    while pending_parents:
+        tag_name = pending_parents.pop()
+        tag = tag_by_name.get(tag_name)
+        parent = tag.get("parent") if tag else None
+        if (
+            isinstance(parent, str)
+            and parent in tag_by_name
+            and parent not in kept_tag_names
+        ):
+            kept_tag_names.add(parent)
+            pending_parents.append(parent)
+    out_tags = [
+        tag for tag in candidate_tags if tag.get("name") in kept_tag_names
+    ]
+    if out_tags:
+        out["tags"] = out_tags
     out["paths"] = kept_paths
 
     seed_refs: set[str] = set()
@@ -584,11 +610,20 @@ def _summarize_drift(
 def _unknown_classifications(source: dict[str, Any]) -> list[str]:
     """Flag tags or paths the policy doesn't already cover.
 
-    The skill's policy currently knows about the `agent`, `schedules`,
-    `factory`, and `networking` tags (kept) and `memory_stores`/`memory`/
-    `harness-support` (dropped). Anything else needs human triage.
+    The skill's policy knows about the public agent and factory tag
+    hierarchies, plus `memory_stores`/`memory`/`harness-support` (dropped).
+    Anything else needs human triage.
     """
-    KNOWN_TAGS = {"agent", "schedules", "factory", "networking"} | set(EXCLUDED_TAGS)
+    KNOWN_TAGS = {
+        "agent",
+        "schedules",
+        "factory",
+        "factory-notifications",
+        "factory-metrics",
+        "factory-scorers",
+        "factory-benchmarks",
+        "networking",
+    } | set(EXCLUDED_TAGS)
 
     notes: list[str] = []
     for tag in source.get("tags") or []:
@@ -618,10 +653,16 @@ def _unknown_classifications(source: dict[str, Any]) -> list[str]:
 def _self_test() -> int:
     """Sanity-check the transform on a small synthetic spec."""
     sample = {
-        "openapi": "3.0.0",
+        "openapi": "3.2.0",
         "info": {"title": "t", "version": "1"},
         "tags": [
-            {"name": "agent"},
+            {"name": "agent", "summary": "Agents"},
+            {
+                "name": "schedules",
+                "summary": "Scheduled Agents",
+                "parent": "agent",
+            },
+            {"name": "unused", "summary": "Unused"},
             {"name": "memory_stores", "x-internal": True},
             {"name": "harness-support"},
         ],
@@ -685,6 +726,13 @@ def _self_test() -> int:
                 "post": {
                     "tags": ["agent"],
                     "operationId": "followups",
+                    "responses": {"200": {"description": "ok"}},
+                }
+            },
+            "/schedules": {
+                "get": {
+                    "tags": ["schedules"],
+                    "operationId": "listSchedules",
                     "responses": {"200": {"description": "ok"}},
                 }
             },
@@ -778,6 +826,7 @@ def _self_test() -> int:
     assert paths == {
         "/agent/run",
         "/agent/runs/{runId}/followups",
+        "/schedules",
     }, f"unexpected paths: {paths}"
 
     schemas = set(out["components"]["schemas"].keys())
@@ -810,8 +859,11 @@ def _self_test() -> int:
     assert "BENCHMARK_TRIAL" not in pruned["description"]
     assert "CUSTOM_WEBHOOK" not in pruned["description"]
 
-    tag_names = [t["name"] for t in out.get("tags") or []]
-    assert tag_names == ["agent"], f"unexpected tags: {tag_names}"
+    tags = {t["name"]: t for t in out.get("tags") or []}
+    assert set(tags) == {"agent", "schedules"}, f"unexpected tags: {set(tags)}"
+    assert tags["agent"]["summary"] == "Agents"
+    assert tags["schedules"]["summary"] == "Scheduled Agents"
+    assert tags["schedules"]["parent"] == "agent"
 
     assert out["components"].get("securitySchemes"), "securitySchemes should be preserved"
     assert out["info"]["title"] == "Warp Platform API"
