@@ -37,20 +37,22 @@ The table summarizes filter categories. Each linked integration guide lists the 
 | [GitLab](/factories/integrations/gitlab/) | Project, actions, and base branch |
 | [Azure DevOps](/factories/integrations/azure-devops/) | Repository, branches, work item types, labels, and people |
 | [Linear](/factories/integrations/linear/) | Team, project, issue, labels, workflow state, and people |
-| [Jira](/factories/integrations/jira/) | Jira projects and assignment keywords |
+| [Jira](/factories/integrations/jira/) | Projects |
 | [Custom webhooks](/factories/webhooks/) | Webhook and JSON payload |
 
 For webhook pattern syntax, see [Payload filters for webhook triggers](#payload-filters-for-webhook-triggers).
 
 ## Edit filters on an automation
 
-You can edit custom automations and the defaults Warp creates when you connect a provider. If your definition lives in an external repository, **Automations** is read-only; edit the [definition files](#filters-in-definitions-as-code) instead.
+You can edit custom automations and the defaults Warp creates when you connect a provider. If your definition lives in an external repository, the Automations page is read-only; edit the [definition files](#filters-in-definitions-as-code) instead.
 
-To change which events start an automation's runs:
+To edit an existing automation's filters:
 
-1. In the factory's dashboard, open **Automations**, then create an automation or edit an existing one.
-2. Under **Triggers**, open a trigger and set the filters shown for its event. Click **More filters** for the event-specific options.
-3. Click **Save**. To confirm the routing works, send a matching test event, such as opening a test issue, and check that a work item starts in the factory dashboard.
+1. In the web app sidebar, expand your factory and click **Automations**.
+2. Click the name of the automation you want to edit to open its settings.
+3. In the "Triggers" section, adjust the filters for the relevant trigger. Click **More filters** for additional options.
+4. Click **Save** in the top-right corner.
+5. Send a matching test event, such as opening a test issue, and confirm that a work item appears in the factory dashboard.
 
 {/* VISUAL: An automation's trigger editor with More filters expanded. */}
 
