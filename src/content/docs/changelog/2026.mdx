@@ -6,6 +6,29 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.10.15 (v0.2026.10.14.08.27)
+
+**Improvements**
+
+* Added a keyboard shortcut (`⌘+E` on macOS or `Ctrl+E` on Windows/Linux, rebindable) to toggle Markdown files between rendered and raw view. ([#16413](https://github.com/warpdotdev/warp/pull/16413)) — [@arihanv](https://github.com/arihanv) ✨
+* Warp now recognizes Muse Code as a first-class CLI agent, with branded session icons and rich-input support. ([#15999](https://github.com/warpdotdev/warp/pull/15999)) — [@nwp](https://github.com/nwp) ✨
+
+**Bug fixes**
+
+* Fixed conversation transcript downloads with self-hosted storage. ([#16445](https://github.com/warpdotdev/warp/pull/16445))
+* Fixed Claude transcript capture and resume paths on Windows and for project directories containing special characters or long names. ([#16428](https://github.com/warpdotdev/warp/pull/16428))
+* Recover cloud Oz sessions when an agent command exits the persistent shell. ([#16148](https://github.com/warpdotdev/warp/pull/16148))
+* Prevent session sharing from reconnecting indefinitely when a message cannot be delivered. ([#16071](https://github.com/warpdotdev/warp/pull/16071))
+* Claude Code harness runs no longer report completion and re-open on every assistant turn while background tasks, subagents, or scheduled wakeups are still running; completion is reported once the session is actually idle, or immediately on finish-task. ([#16367](https://github.com/warpdotdev/warp/pull/16367))
+* Fixed agents hanging when an unfinished shell command waits at a continuation prompt. ([#12934](https://github.com/warpdotdev/warp/pull/12934))
+
+**Oz updates**
+
+* Cloud agents retry startup metadata requests for up to 30 seconds to allow execution claims to finish. ([#16438](https://github.com/warpdotdev/warp/pull/16438))
+* Orchestrators can attach batch and per-child run metadata for grouping and setup workflows. ([#16396](https://github.com/warpdotdev/warp/pull/16396))
+* Fixed cloud agents waiting for path approval when editing MCP configuration files. ([#16402](https://github.com/warpdotdev/warp/pull/16402))
+* Cloud agents periodically save workspace handoff checkpoints during a run. ([#16391](https://github.com/warpdotdev/warp/pull/16391))
+
 ### 2026.10.07 (v0.2026.10.07.08.29)
 
 **Improvements**
