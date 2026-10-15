@@ -16,9 +16,9 @@ A skill gives an agent a repeatable procedure, such as a security review or inci
 
 A factory run can use skills from three sources:
 
-* **Role and integration skills** - Default agents include GitHub skills for repository work. The foreman also includes a Slack skill. Choosing Linear or Jira during setup adds that tracker's skill and instructions to the agents that use it. These skills come from roles and integrations, not files in your definition.
-* **Warp-provided skills** - Bundled capabilities include `oz-platform` for cloud agents, `factory-files` for factory definitions, and `factory-mcp` for sending work through Factory MCP.
-* **Custom skills** - Team-owned `SKILL.md` files in the factory definition, shared across the factory or scoped to one agent. They extend the built-in skills rather than replacing them.
+* **Role and integration skills** - Default agents have GitHub skills for repository work. The foreman also has a Slack skill. Choosing Linear or Jira during setup gives relevant agents the tracker's skill and instructions. These skills come from roles and integrations, not files in your definition.
+* **Warp-provided skills** - Bundled capabilities include `oz-platform` for cloud agents, `factory-files` for factory definitions, and `factory-mcp` for sending work to factories.
+* **Custom skills** - Team-owned `SKILL.md` files live in the factory definition and are shared across the factory or scoped to one agent. They extend the built-in skills rather than replacing them.
 
 <span id="attribute-team-owned-skill-usage" />
 
@@ -33,7 +33,7 @@ Add a custom skill for procedures the built-in skills don't cover. For example:
 * Apply a security or compliance review checklist.
 * Teach a custom agent its job. Custom agents have no built-in skills.
 
-Skills don't grant access to tools or repositories. Configure the agent's [secrets](/platform/secrets/) and [MCP servers](/platform/mcp/) through its [settings](/factories/factory-agents/configuration/#edit-agent-settings-and-instructions). See [credential boundaries](/factories/infrastructure-and-security/#credential-boundaries) for access controls.
+Skills provide instructions, not access to tools or repositories. If a procedure requires credentials or an MCP connection, configure the agent's [secrets](/platform/secrets/) and [MCP servers](/platform/mcp/) through its [settings](/factories/factory-agents/configuration/#edit-agent-settings-and-instructions). For how that access is limited, see [credential boundaries](/factories/infrastructure-and-security/#credential-boundaries).
 
 <span id="custom-file-based-factory-skills" />
 
@@ -41,10 +41,12 @@ Skills don't grant access to tools or repositories. Configure the agent's [secre
 
 Custom skills live in the factory's [definition](/factories/factory-as-code/), not its agent settings. You need permission to edit that definition.
 
+To add or update a custom skill:
+
 1. Open the definition where it's managed:
    * **Warp-managed** - In the web app sidebar, expand your factory and click **Factory definition**.
    * **GitHub-backed** - Open the connected definition repository. See [Where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
-2. Create or open the skill file at the scope you need:
+2. Create or open the skill file for the scope you need:
    * **Every agent** - `skills/<skill-name>/SKILL.md`, for shared procedures such as repository conventions.
    * **One agent** - `agents/<agent-name>/skills/<skill-name>/SKILL.md`, for a role-specific procedure such as a security review.
 
@@ -54,7 +56,7 @@ Custom skills live in the factory's [definition](/factories/factory-as-code/), n
    * **Warp-managed** - Save the definition. Warp validates and commits it.
    * **GitHub-backed** - Open a pull request. The factory's [pull request checks](/factories/factory-as-code/#pull-request-checks) validate the change, and merging to the production branch applies it.
 
-For a shared skill and an agent-specific skill in one definition, see [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) in [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples).
+For an example of a shared skill and an agent-specific skill in one definition, see [`02-sdlc-issue-to-pr`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/02-sdlc-issue-to-pr) in [warp-factory-examples](https://github.com/warpdotdev/warp-factory-examples).
 
 ## Skills and self-improvement
 
