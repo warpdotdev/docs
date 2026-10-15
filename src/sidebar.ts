@@ -427,7 +427,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{
 							label: 'Infrastructure',
 							items: [
-								{ slug: 'factories/infrastructure-and-security', label: 'Overview' },
+								{ slug: 'factories/infrastructure-and-security', label: 'About infrastructure and security' },
 								{ slug: 'factories/deployment-patterns', label: 'Deployment patterns' },
 								{ slug: 'factories/warp-hosting', label: 'Warp-hosted execution' },
 								{ slug: 'factories/runners', label: 'Runners' },
