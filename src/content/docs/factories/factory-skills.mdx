@@ -39,7 +39,7 @@ Skills provide instructions, not access to tools or repositories. If a procedure
 
 ## Add or edit a skill
 
-Custom skills live in the factory's [definition](/factories/factory-as-code/), not its agent settings. You need permission to edit that definition.
+Custom skills live in the factory's [definition](/factories/factory-as-code/#directory-structure), not its agent settings. You need permission to edit that definition.
 
 To add or update a custom skill:
 
@@ -51,6 +51,19 @@ To add or update a custom skill:
    * **One agent** - `agents/<agent-name>/skills/<skill-name>/SKILL.md`, for a role-specific procedure such as a security review.
 
    Replace `<skill-name>` with the skill's directory name and `<agent-name>` with the agent's directory name.
+
+   For example, this layout shares repository conventions with every agent and gives only the foreman an incident-triage skill:
+
+   ```text
+   skills/
+     repository-conventions/
+       SKILL.md
+   agents/
+     foreman/
+       skills/
+         incident-triage/
+           SKILL.md
+   ```
 3. Write or update the skill's instructions, name, and description. See [Skill file format](/agents/capabilities/skills/#skill-file-format) for frontmatter and [Skill arguments](/agents/capabilities/skills/#skill-arguments) for parameters.
 4. Apply the change:
    * **Warp-managed** - Save the definition. Warp validates and commits it.

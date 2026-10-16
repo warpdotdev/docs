@@ -37,7 +37,7 @@ flowchart LR
   Reviewing --> Revision{Revision needed?}
   Revision -->|Yes| Building
   Revision -->|No| Handoff["Human handoff<br/>(default policy)"]
-  Handoff --> Complete[Complete]
+  Handoff -->|"Merge notification<br/>or human confirmation"| Complete[Complete]
 ```
 
 * **Intake** - A work item enters from a [connected integration](/factories/connect-your-factory/), an automation, a direct run, or the [Factory MCP](/factories/factory-mcp/). [Automations](/factories/automations/) filter events and schedules and select an agent to handle the work. Direct requests go straight to the foreman. The work item keeps its source context as it moves through later stages.
@@ -46,7 +46,7 @@ flowchart LR
 * **Building** - The implement agent makes the code change on a branch and opens a pull request with test and visual evidence.
 * **Reviewing** - The review agent checks the change against the requirements, tests, and security expectations, then sends findings back for another pass. Its verdict is advisory.
 * **Human handoff** - The factory presents the result, its evidence, and any findings, and updates the original work item. A person decides what happens next.
-* **Complete or Cancelled** - The work item ends when the factory finishes its work, or stops early if someone cancels it.
+* **Complete or Cancelled** - By default, the foreman completes the work item after a merge notification or confirmation that the pull request landed. Handoff alone doesn't complete it. A cancellation stops the work early.
 
 Stages and agents are named separately, so the spec agent works the planning stage, the implement agent works the building stage, and the review agent works the reviewing stage. See [About factory agents](/factories/factory-agents/) for each agent's responsibilities.
 

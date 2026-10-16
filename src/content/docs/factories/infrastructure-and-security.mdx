@@ -49,7 +49,7 @@ A factory runs its work on one of two execution hosts: Warp-hosted compute, or a
 | **Private services** | Must be reachable from the hosted sandbox | Reachable through the worker's network access |
 | **Operations** | Warp manages capacity and lifecycle | Your team manages capacity, isolation, updates, and availability |
 
-Managed self-hosting requires an Enterprise plan. Workers run on `linux/amd64` and `linux/arm64`, and the runner must match the worker's platform.
+Managed self-hosting requires an Enterprise plan. Task platforms depend on the backend: Docker uses a `linux/amd64` or `linux/arm64` daemon, Kubernetes uses Linux task nodes, and Direct uses the worker host's OS and architecture. A native worker on macOS or Windows can connect to a Linux Docker daemon; the task still runs on Linux. See [Runner settings by execution host](/factories/runners/#runner-settings-by-execution-host).
 
 See the [managed prerequisites](/factories/self-hosting/#managed-prerequisites) for credentials and network access, and the [Self-hosting quickstart](/factories/self-hosting/quickstart/) to connect a worker. The factory definition selects the connected worker with [`workerHost`](/factories/factory-as-code/#agentdefaultsworkerhost). For a complete configuration with a compatible runner, see [`07-self-hosted-worker`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/07-self-hosted-worker).
 

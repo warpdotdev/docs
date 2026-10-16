@@ -77,7 +77,9 @@ The [`warp-factory-examples`](https://github.com/warpdotdev/warp-factory-example
 python3 scripts/validate_factory_files.py FACTORY_ROOT
 ```
 
-Replace `FACTORY_ROOT` with the directory containing `factory.yaml`. The script checks syntax and cross-file references and reports errors by file and line. Team- and factory-dependent checks, such as whether a secret or environment exists, run in the GitHub check and when the definition is applied.
+Replace `FACTORY_ROOT` with the directory containing `factory.yaml`. The script submits factory, agent, automation, runner, and scorer files to Warp's validation service and reports errors by file and line. It doesn't submit routers, benchmarks, webhooks, or skills.
+
+A pass doesn't confirm runner references or team-dependent resources such as secrets and environments. Use the [factory pull request checks](#pull-request-checks) and validation when the definition is applied for the remaining checks.
 
 For a CI job built on the script, see the example repository's [validation workflow](https://github.com/warpdotdev/warp-factory-examples/blob/main/.github/workflows/validate.yml).
 

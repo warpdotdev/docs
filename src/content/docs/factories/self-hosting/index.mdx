@@ -21,7 +21,7 @@ With [unmanaged execution](/platform/unmanaged-execution/), your CI system, sche
 | Aspect | Managed | Unmanaged |
 | --- | --- | --- |
 | Run lifecycle | The {VARS.WARP_AUTOMATION_PLATFORM} routes each run to a worker | Your system starts and stops each CLI process |
-| Host support | Linux | Linux, macOS, and Windows |
+| Task platform | Depends on the backend; Docker and Kubernetes tasks use Linux | Linux, macOS, and Windows |
 | Execution | Docker container, Kubernetes Job, direct host process, or external runtime | The host environment you provide |
 | Triggers | Integrations, schedules, API, web app, and CLI | CI, cron, scripts, and internal schedulers |
 
@@ -31,7 +31,7 @@ Use managed and unmanaged runs together when different workflows need different 
 
 Use [unmanaged execution](/platform/unmanaged-execution/) when any of these conditions apply:
 
-* Agents must run on macOS or Windows.
+* Your existing macOS or Windows workflow invokes the agent CLI directly.
 * Your system should own both the trigger and process lifecycle.
 * You want to add `oz agent run` to an existing CI job or script.
 
