@@ -89,7 +89,12 @@ than guessing, and stop after updating the issue.
    * **Jira** - Use `provider: jira` with `agent_session_created` and a `project_keys` filter. Start triage by assigning or mentioning **Warp** on a work item, following the [Jira automation setup](/factories/integrations/jira/#configure-the-automation-as-code).
 
    See the [trigger schema](/factories/factory-as-code/#triggers) and [filter reference](/factories/factory-as-code/#triggersfilter) for provider-specific values.
-5. Open a test issue with a concrete symptom. Confirm the run updates that issue once, uses only the allowed labels, and stops without creating a branch.
+5. Test the selected trigger with an issue or work item that describes a concrete symptom and matches every configured filter:
+   * **Creation intake** - Create an issue for GitHub or Linear, or a work item for Azure DevOps. Include any labels required by the filter when creating it.
+   * **Label intake** - Apply `needs-triage` to a test issue or work item after creating it.
+   * **Jira agent sessions** - Assign or mention **Warp** on a test work item in a matching project and ask it to triage the report.
+
+   Confirm one run starts, updates the issue or work item with evidence, uses only the allowed labels, and stops without creating a branch.
 6. Review several results before expanding the repository or event filters.
 
 ## Example workflow
