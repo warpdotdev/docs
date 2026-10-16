@@ -12,7 +12,7 @@ Keep triage separate from implementation. A triage run should improve the issue 
 
 * **A connected issue source** - Connect [GitHub](/factories/integrations/github/), [Azure DevOps](/factories/integrations/azure-devops/), [Linear](/factories/integrations/linear/), or [Jira](/factories/integrations/jira/) and grant access to the repositories the agent must inspect. GitLab doesn't provide a native issue-created trigger; use an explicit bot mention or a [custom webhook](/factories/webhooks/) instead.
 * **A triage policy** - Define the categories, priority levels, evidence requirements, and escalation conditions your team uses.
-* **Write access to issues** - The code-host integration needs permission to comment, label, assign, or update work items.
+* **Write access to issues** - Grant the connected issue source permission to make the updates your triage policy requires. For Linear and Jira, issue access comes from the issue-tracker integration; repository access is configured separately through the code host.
 * **A test repository** - Validate the recipe away from a production backlog before widening the automation filter.
 
 ## Recommended recipe
@@ -27,7 +27,7 @@ Use a dedicated triage agent and one automation that watches a narrow intake eve
 | Settings | Start with one repository and one event; use the Warp Agent harness so built-in code-host tools are available |
 | Output | One issue update with evidence, classification, priority, and the recommended next stage |
 
-The example below is specific to GitHub and starts on every new issue in one repository. For a controlled rollout, use `issue_labeled` with a label filter. On Azure DevOps, use `work_item_created` or `work_item_labeled` instead.
+The example below is specific to GitHub and starts on every new issue in one repository. For a controlled rollout, use `issue_labeled` with a label filter.
 
 ```markdown title="automations/triage-new-issues/automation.md"
 ---
@@ -45,7 +45,26 @@ Update the issue with category, priority, scope, and the next action. Do not
 implement the change.
 ```
 
-Configure the role separately:
+For Azure DevOps, use a separate trigger with `provider: azure_devops`. This example starts triage when a work item matches the `needs-triage` label filter:
+
+```markdown title="automations/triage-new-work-items/automation.md"
+---
+agent: triage
+triggers:
+  - provider: azure_devops
+    event: work_item_labeled
+    filter:
+      labels: [needs-triage]
+---
+
+Triage the labeled work item using the repository's triage skill. Update it
+with evidence, classification, priority, and the next action. Do not implement
+the change.
+```
+
+This trigger filters work items, not repositories. Work item events accept `assignees`, `authors`, `labels`, and `work_item_types`, but not `repos`. Use `work_item_created` to triage newly created work items that match those filters. See [Azure DevOps events and filters](/factories/integrations/azure-devops/#supported-events-and-filters) for setup and scope.
+
+For either automation, configure the triage agent separately:
 
 ```markdown title="agents/triage/agent.md"
 ---
@@ -61,9 +80,15 @@ than guessing, and stop after updating the issue.
 ## Configure issue triage
 
 1. Create a factory for the repositories that share one backlog. Follow the [Warp Factories quickstart](/factories/quickstart/) if you don't have one.
-2. Add or edit the triage agent. Give it read access to the relevant repositories and issue-write access through the code-host integration.
+2. Add or edit the triage agent. Give it read access to the relevant repositories through the code host and write access to issues through the connected issue source.
 3. Add `agents/triage/skills/issue-triage/SKILL.md`. Record the allowed categories and priority levels, the evidence required for a bug, and when to ask a human. See [factory skills](/factories/factory-skills/) for the file format.
-4. Add the GitHub automation above. For a controlled GitHub rollout, change the event to `issue_labeled` and filter on `needs-triage`. On Azure DevOps, use `work_item_created` or `work_item_labeled`. For Linear or Jira, select the provider event documented by the connected integration.
+4. Add one automation for your issue source:
+   * **GitHub** - Use the GitHub example above. For a controlled rollout, change the event to `issue_labeled` and add `labels: [needs-triage]` alongside the `repos` filter.
+   * **Azure DevOps** - Use the separate work item example above, not the GitHub trigger.
+   * **Linear** - Use `provider: linear` with `issue_created` or `issue_labeled`. Replace the GitHub `repos` filter with Linear team or project filters, and add a label filter for a controlled rollout.
+   * **Jira** - Use `provider: jira` with `agent_session_created` and a `project_keys` filter. Start triage by assigning or mentioning **Warp** on a work item, following the [Jira automation setup](/factories/integrations/jira/#configure-the-automation-as-code).
+
+   See the [trigger schema](/factories/factory-as-code/#triggers) and [filter reference](/factories/factory-as-code/#triggersfilter) for provider-specific values.
 5. Open a test issue with a concrete symptom. Confirm the run updates that issue once, uses only the allowed labels, and stops without creating a branch.
 6. Review several results before expanding the repository or event filters.
 
