@@ -1,6 +1,15 @@
 # Docs consistency audit run log
 
 Scheduled and manual runs prepend one compact entry through the standing state branch.
+## 2026-10-16 — blocked
+- Run: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a145a8-058e-7318-8016-1047a48522e3
+- Source commits: docs 756982e49a28058e6657616d262660b333aed779; warp a38e4416db8ab94953f6e780b1996cfd9bca7e8e; private authority revision retained transiently
+- Coverage: blocked; 0/388 pages extracted; 30 redirect-normalization cycles, first at /agents
+- Findings: 0 new; 0 changed; 0 resolved; 2 active (unchanged)
+- Suppressed: 0; expired: 0
+- Cost: 0 characters; 0 candidates; 0 model calls
+- Sources unavailable: authorities not refreshed after normalization blocker; prior manifest, shards, backlog, findings, and receipts preserved
+- State PR: https://github.com/warpdotdev/docs/pull/876
 
 ## 2026-10-14 — blocked
 - Run: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a13b5b-4e26-7614-a96d-c65e1b73194a
