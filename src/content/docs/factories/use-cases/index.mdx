@@ -1,0 +1,61 @@
+---
+title: Factory use cases
+description: >-
+  Choose a practical Warp Factories recipe for issue triage, implementation,
+  code review, incident response, UI verification, or SDLC automation.
+sidebar:
+  label: Overview
+---
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Factory use cases are working patterns for combining agents, automations, integrations, skills, and repository controls. Start with the smallest recipe that solves your current bottleneck, then add stages only when the simpler factory is reliable.
+
+Each guide links to the canonical configuration and integration references. The examples use definitions as code so you can review changes, validate them in CI, and adapt the same pattern to a Warp-managed factory.
+
+## Choose a use case
+
+<CardGrid>
+  <LinkCard
+    title="Issue triage"
+    href="/factories/use-cases/issue-triage/"
+    description="Investigate, categorize, and prioritize incoming issues."
+  />
+  <LinkCard
+    title="Code review"
+    href="/factories/use-cases/code-review/"
+    description="Review pull requests and return actionable findings."
+  />
+  <LinkCard
+    title="Issue implementation"
+    href="/factories/use-cases/issue-implementation/"
+    description="Turn approved GitHub, Linear, or Jira issues into tested pull requests."
+  />
+  <LinkCard
+    title="Production incident resolution"
+    href="/factories/use-cases/production-incident-resolution/"
+    description="Investigate production signals and propose or implement a fix."
+  />
+  <LinkCard
+    title="Computer Use verification"
+    href="/factories/use-cases/computer-use-verification/"
+    description="Exercise a rendered interface and attach visual evidence."
+  />
+  <LinkCard
+    title="End-to-end SDLC automation"
+    href="/factories/use-cases/end-to-end-sdlc-automation/"
+    description="Connect triage, implementation, review, and verification with human gates."
+  />
+</CardGrid>
+
+## Start with the smallest recipe
+
+Use one factory with the repositories that ship together. Add an automation for one clear intake event, route it to the agent responsible for that task, and make the expected output explicit. Keep a human responsible for approving specifications, accepting risk, and merging changes.
+
+When a workflow spans several roles, prefer the default foreman, triage, spec, implement, and review agents before creating custom agents. Add a custom skill for repository-specific procedures, such as required test commands or an incident runbook.
+
+## Related pages
+
+* [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send its first work item.
+* [Factory agents](/factories/factory-agents/) - Configure the default roles and add custom agents.
+* [Factory automations](/factories/automations/) - Route provider events to agents with filters.
+* [Factory definition syntax](/factories/factory-as-code/) - Look up configuration keys and validate definitions.
