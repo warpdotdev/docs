@@ -8,7 +8,7 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-Warp's **AWS Bedrock** BYOLLM integration routes agent inference through your own AWS account using **Amazon Bedrock**. Your team keeps using Warp's agents as usual, while eligible requests execute against Claude models hosted in your AWS account, billed to your AWS account and governed by your IAM controls.
+Warp's **AWS Bedrock** BYOLLM integration routes agent inference through your own AWS account using **Amazon Bedrock**. Your team keeps using agents in Warp as usual, while eligible requests execute against supported Anthropic (Claude) and OpenAI models hosted in your AWS account, billed to your AWS account and governed by your IAM controls.
 
 AWS Bedrock is one of the providers supported by [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/). For Google Cloud-based routing, see [BYOLLM: Gemini Enterprise](/enterprise/enterprise-features/byollm-gemini-enterprise/).
 
@@ -56,7 +56,7 @@ This approach ensures access management stays with your cloud provider, giving a
 
 ### Model availability
 
-BYOLLM supports the intersection of models that Warp supports and models available on your provider. On AWS Bedrock, only **Claude models** (Anthropic) are available; OpenAI and Google models are not available on Bedrock. To route Gemini models (or Claude partner models on Vertex AI) through your Google Cloud project, use [Gemini Enterprise BYOLLM](/enterprise/enterprise-features/byollm-gemini-enterprise/) instead.
+BYOLLM supports the intersection of models that Warp supports and models available on your provider. On AWS Bedrock, Warp supports Anthropic (Claude) and OpenAI models. To route Gemini models (or Claude partner models on Vertex AI) through your Google Cloud project, use [Gemini Enterprise BYOLLM](/enterprise/enterprise-features/byollm-gemini-enterprise/) instead.
 
 To determine which models you can use with BYOLLM:
 
@@ -103,12 +103,15 @@ Grant your team members the necessary permissions in AWS. Use least-privilege IA
       "Resource": [
         "arn:aws:bedrock:*::foundation-model/*",
         "arn:aws:bedrock:*:*:inference-profile/*",
-        "arn:aws:bedrock:*:*:application-inference-profile/*"
+        "arn:aws:bedrock:*:*:application-inference-profile/*",
+        "arn:aws:bedrock:AWS_REGION:AWS_ACCOUNT_ID:project/default"
       ]
     }
   ]
 }
 ```
+
+Replace `AWS_REGION` and `AWS_ACCOUNT_ID` with your Bedrock region and AWS account ID. OpenAI Responses API requests through `bedrock-runtime` require invoke permissions on the account's default project as well as the model resources.
 
 :::note
 This policy covers Warp's current usage. By default, Warp uses [global inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) for models when available. Admins can override the inference profile per model on the **Models** page of the [Admin Panel](/enterprise/team-management/admin-panel/).
@@ -216,12 +219,15 @@ Attach the minimum Bedrock invoke permissions policy to the role:
       "Resource": [
         "arn:aws:bedrock:*::foundation-model/*",
         "arn:aws:bedrock:*:*:inference-profile/*",
-        "arn:aws:bedrock:*:*:application-inference-profile/*"
+        "arn:aws:bedrock:*:*:application-inference-profile/*",
+        "arn:aws:bedrock:AWS_REGION:AWS_ACCOUNT_ID:project/default"
       ]
     }
   ]
 }
 ```
+
+Replace `AWS_REGION` and `AWS_ACCOUNT_ID` with your Bedrock region and AWS account ID. Cloud agents need the same default-project invoke permissions for OpenAI Responses API requests through `bedrock-runtime` as local agents.
 
 :::note
 This policy covers Warp's current usage. By default, Warp uses [global inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) for models when available. Admins can override the inference profile per model on the **Models** page of the [Admin Panel](/enterprise/team-management/admin-panel/).
