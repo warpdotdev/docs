@@ -104,14 +104,12 @@ Grant your team members the necessary permissions in AWS. Use least-privilege IA
         "arn:aws:bedrock:*::foundation-model/*",
         "arn:aws:bedrock:*:*:inference-profile/*",
         "arn:aws:bedrock:*:*:application-inference-profile/*",
-        "arn:aws:bedrock:AWS_REGION:AWS_ACCOUNT_ID:project/default"
+        "arn:aws:bedrock:*:*:project/default"
       ]
     }
   ]
 }
 ```
-
-Replace `AWS_REGION` and `AWS_ACCOUNT_ID` with your Bedrock region and AWS account ID. OpenAI Responses API requests through `bedrock-runtime` require invoke permissions on the account's default project as well as the model resources.
 
 :::note
 This policy covers Warp's current usage. By default, Warp uses [global inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) for models when available. Admins can override the inference profile per model on the **Models** page of the [Admin Panel](/enterprise/team-management/admin-panel/).
@@ -220,14 +218,12 @@ Attach the minimum Bedrock invoke permissions policy to the role:
         "arn:aws:bedrock:*::foundation-model/*",
         "arn:aws:bedrock:*:*:inference-profile/*",
         "arn:aws:bedrock:*:*:application-inference-profile/*",
-        "arn:aws:bedrock:AWS_REGION:AWS_ACCOUNT_ID:project/default"
+        "arn:aws:bedrock:*:*:project/default"
       ]
     }
   ]
 }
 ```
-
-Replace `AWS_REGION` and `AWS_ACCOUNT_ID` with your Bedrock region and AWS account ID. Cloud agents need the same default-project invoke permissions for OpenAI Responses API requests through `bedrock-runtime` as local agents.
 
 :::note
 This policy covers Warp's current usage. By default, Warp uses [global inference profiles](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) for models when available. Admins can override the inference profile per model on the **Models** page of the [Admin Panel](/enterprise/team-management/admin-panel/).
