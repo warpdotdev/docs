@@ -8,6 +8,16 @@ This log tracks every run of the `aeo_crosslink_audit` skill — both runs that 
 
 ---
 
+## 2026-10-12 — PR opened
+
+- **Run**: https://app.warp.dev/conversation/71b5b0c9-bfc8-4415-b938-9c44d5125ffe
+- **Source signals**: Peec available, GSC available
+- **PR**: https://github.com/warpdotdev/docs/pull/904
+- **Links proposed / added**: 17 proposed, 17 added
+- **Pages touched**: src/content/docs/platform/harnesses/claude-code.mdx, src/content/docs/platform/harnesses/codex.mdx, src/content/docs/guides/agent-workflows/how-to-run-multiple-ai-coding-agents.mdx, src/content/docs/agents/cli/cloud-and-orchestration.mdx, src/content/docs/platform/data-storage.mdx, src/content/docs/factories/factory-as-code.mdx, src/content/docs/agents/capabilities/computer-use/index.mdx, src/content/docs/platform/integrations/github.mdx, src/content/docs/platform/integrations/github-actions.mdx, src/content/docs/agents/cli/oz-cli/integration-setup.mdx, src/content/docs/agents/cli-agents/opencode.mdx
+- **Themes**: cloud harness trigger destinations; multi-agent → schedules/factories; Computer Use artifacts ↔ storage/factories; scheduled agents from GitHub automation paths
+- **No-change reason**: N/A
+
 ## 2026-10-05 — PR opened
 
 - **Run**: https://app.warp.dev/conversation/319938e2-4420-4319-b40a-64f54fae74a2
