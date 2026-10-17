@@ -1,5 +1,16 @@
 # Weekly 404 monitor run log
 
+## 2026-10-12 — PR opened
+- **Total 404s this week**: 284
+- **Total 404s last week**: 313
+- **Trend**: ▼ 29 (-9.3%)
+- **Significant gaps (≥5 hits)**: 4 (4 new)
+- **Redirect candidates processed**: 4  (hits ≥ 5)
+- **HIGH-confidence redirects**: 4
+- **PR**: https://github.com/warpdotdev/docs/pull/906
+- **Oz run**: https://app.warp.dev/conversation/b7967894-caa5-4d3e-a8a2-e312027509da
+- **Notes**: Volume down 9.3% week-over-week. Significant gaps: `/reference/cli/api-keys` (11), `/reference/api-and-sdk/troubleshooting/errors/invalid-request` (9), `/reference/cli/skills` (7), `/performance/terminal-features` (5) — all new. Live checks: `/reference/cli/:path*` and `/reference/api-and-sdk/:path*` splats 308 the no-slash form, but trailing-slash variants still 404; `/performance/terminal-features` had no redirect. Added explicit `(/?)` HIGH redirects for all four. 128 long-tail uncovered; 0 unroutable; 113 resolved since last week. No MEDIUM suggestions. vercel.json redirects count 1370 pre-edit / 1374 post-edit (sanity OK).
+
 ## 2026-10-05 — PR opened
 - **Total 404s this week**: 313
 - **Total 404s last week**: 231
