@@ -250,6 +250,31 @@ class TestMainExitCodes(unittest.TestCase):
 
 
 class TestExistingChecksStillWork(unittest.TestCase):
+    def test_generated_media_captions_are_not_repetition_loops(self):
+        caption = "Desktop model pricing table with all token categories and complete threshold notes."
+        for kind in ("screenshots", "videos"):
+            with self.subTest(kind=kind):
+                media = (
+                    f"<!-- oz:computer-use-{kind} start -->\n"
+                    f"![{caption}](https://example.com/image)\n{caption}\n"
+                    f"<!-- oz:computer-use-{kind} end -->\n"
+                )
+                self.assertIsNone(cpb.find_repeated_span(GOOD_BODY + media))
+
+    def test_repetition_outside_managed_media_is_still_rejected(self):
+        phrase = "A detailed explanation of model inference and the runner time charge."
+        media = (
+            "<!-- oz:computer-use-screenshots start -->\n"
+            "A screenshot caption.\n"
+            "<!-- oz:computer-use-screenshots end -->\n"
+        )
+        self.assertIsNotNone(cpb.find_repeated_span((phrase + "\n") * 3 + media))
+
+    def test_unclosed_media_block_does_not_hide_repetition(self):
+        phrase = "A detailed explanation of model inference and the runner time charge."
+        body = "<!-- oz:computer-use-videos start -->\n" + (phrase + "\n") * 3
+        self.assertIsNotNone(cpb.find_repeated_span(body))
+
     def test_unbalanced_backtick_detected(self):
         issues = cpb.find_unbalanced_backticks(lines("A sentence that stops because `m\n"))
         self.assertEqual(len(issues), 1)
