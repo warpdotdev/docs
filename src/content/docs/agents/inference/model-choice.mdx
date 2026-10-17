@@ -22,8 +22,8 @@ The `model_id` values shown below can be used when configuring models via the [{
 
 | Model | `model_id` | Description |
 | --- | --- | --- |
-| Auto (Responsive) | `auto` | Selects the highest-quality, fastest available model. May consume credits more quickly. |
-| Auto (Cost-efficient) | `auto-efficient` | Optimizes for lower credit consumption while maintaining strong output quality. |
+| Auto (Responsive) | `auto` | Selects the highest-quality, fastest available model. Can cost more than cost-efficient options. |
+| Auto (Cost-efficient) | `auto-efficient` | Optimizes for lower inference cost while maintaining output quality. |
 | Auto (Genius) | `auto-genius` | Adapts to task complexity and selects Warp's most capable model when it's worth it. Best for deep debugging, architecture decisions, and `/plan` sessions. |
 | Auto (Open-weights) | `auto-open` | Routes between the best open-source models available in Warp. Optimizes for low cost and fast speed using open-weights models. |
 
@@ -104,7 +104,7 @@ Anthropic requires data retention for Claude Fable 5 and Claude Fable 5.1 for sa
 | Grok 4.3 | `grok-4-3-high` | High |
 | Grok Build 0.1 | `grok-build-0.1` | — |
 
-You can run Grok models through your own SuperGrok subscription instead of Warp credits by connecting your xAI account. See [SuperGrok subscription](/agents/inference/grok-subscription/).
+To use eligible Grok models without Warp-provided inference charges, connect your xAI account. See [SuperGrok subscription](/agents/inference/grok-subscription/) for setup and other applicable charges.
 
 #### Hosted models (via [Fireworks AI](https://fireworks.ai))
 

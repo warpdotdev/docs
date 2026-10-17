@@ -345,7 +345,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
-					label: `${VARS.WARP_AGENT_CLI} (legacy)`,
+					label: VARS.WARP_AGENT_CLI,
 					collapsed: true,
 					items: [
 						{ slug: 'agents/cli/oz-cli', label: 'Overview' },
@@ -401,6 +401,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'factories', label: 'Overview' },
 						{ slug: 'factories/how-factories-work', label: 'How Factories work' },
 						{ slug: 'factories/quickstart', label: 'Quickstart' },
+						{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
 					],
 				},
 				{
@@ -546,14 +547,21 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 			link: '/platform/overview/',
 			icon: 'cloud-download',
 			items: [
-				{ slug: 'platform/overview', label: 'Overview' },
-				{ slug: 'platform/architecture', label: 'Architecture' },
+				{
+					label: 'Overview',
+					items: [
+						{ slug: 'platform/overview', label: 'Overview' },
+						// Also listed under Factories for cross-topic discovery. The shared
+						// URL activates Factories; navigation does not preserve the source tab.
+						{ slug: 'platform/transitioning-from-oz', label: 'Transitioning from Oz' },
+						{ slug: 'platform/architecture', label: 'Architecture' },
+					],
+				},
 				{
 					label: 'Cloud Agents',
 					items: [
 						{ slug: 'platform', label: 'Overview' },
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
-						{ slug: 'platform/documentation-map', label: 'Documentation map' },
 						{
 							// Runtime (which agent executes the run) is kept separate from
 							// configuration (how any run is set up) -- HYC review, 8/14.
@@ -595,10 +603,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								// Labeled to match the page title, 'Cloud agent session sharing'.
 								{ slug: 'platform/viewing-cloud-agent-runs', label: 'Session sharing' },
 								{ slug: 'platform/managing-cloud-agents', label: 'Managing cloud agents' },
-								// Tokenized, not renamed: WEB_APP holds its "Oz web app" value
-								// until 10/6, so this renders identically today. Tokenizing now
-								// means the 10/6 flip reaches the sidebar, which the Vite
-								// transform does not process.
+								// Sidebar labels use VARS directly; the frontmatter transform
+								// does not process this file. Legacy names have no assumed deadline.
 								{ slug: 'platform/oz-web-app', label: VARS.WEB_APP },
 							],
 						},
@@ -731,10 +737,10 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					label: 'Plans and billing',
 					items: [
 						{ slug: 'support-and-community/plans-and-billing', label: 'Overview' },
-						{ slug: 'support-and-community/plans-and-billing/plans-pricing-refunds', label: 'Plans, Pricing, & Refunds' },
+						{ slug: 'support-and-community/plans-and-billing/plans-pricing-refunds', label: 'Plans, pricing, and refunds' },
 						'support-and-community/plans-and-billing/credits',
 						'support-and-community/plans-and-billing/add-on-credits',
-						{ slug: 'support-and-community/plans-and-billing/platform-credits', label: 'Platform credits' },
+						{ slug: 'support-and-community/plans-and-billing/platform-credits', label: 'Platform usage' },
 						'support-and-community/plans-and-billing/pricing-faqs',
 					],
 				},

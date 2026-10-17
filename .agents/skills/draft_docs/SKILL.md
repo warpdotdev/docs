@@ -50,9 +50,10 @@ If the request mentions AEO, SEO, Peec, answer-engine visibility, search-query v
 
 ### 2. Clarify placement
 Ask the user where the doc should live. The docs are organized into sections, with navigation configured in `src/sidebar.ts`:
-- `src/content/docs/` - Warp Terminal and IDE → `docs.warp.dev/`
-- `src/content/docs/agent-platform/` - Agent Platform → `docs.warp.dev/agent-platform/`
-- `src/content/docs/reference/` - Technical reference (CLI, API & SDK) → `docs.warp.dev/reference/`
+- `src/content/docs/terminal/` and `code/` - Terminal and coding workflows
+- `src/content/docs/agents/` - Agent capabilities and CLI references
+- `src/content/docs/platform/` - Standalone cloud agents and shared infrastructure
+- `src/content/docs/factories/` - Factory workflows, APIs, SDKs, and operations
 - `src/content/docs/support-and-community/` - Support → `docs.warp.dev/support-and-community/`
 - `src/content/docs/enterprise/` - Enterprise → `docs.warp.dev/enterprise/`
 - `src/content/docs/changelog/` - Changelog → `docs.warp.dev/changelog/`
@@ -61,6 +62,8 @@ Also clarify: Is this a new page or an update to an existing page?
 
 ### 3. Read the style guide
 Read `AGENTS.md` in the docs repo root. This is required — it contains all voice/tone rules, formatting standards, content type structures, terminology, and the quality checklist. Do not draft without reading it first.
+
+Use `.agents/rules/oz-style-guidelines.md` as the canonical positioning source and `.agents/references/terminology.md` for names. Do not infer a product promise or migration deadline from older marketing guidance.
 
 ### 3.5. Confirm the doc should exist, then design it
 
@@ -104,7 +107,7 @@ Record the content type chosen in the design plan, and pick its template and typ
 Two of these carry admission rules rather than just structure, and both are checked in review:
 
 - **FAQ** defaults to "not an FAQ." All three admission rules in `AGENTS.md` must hold before you create or extend one. Most FAQ-shaped content belongs on the page that owns the topic.
-- **Quickstart vs. tutorial** is a scope decision, not a location one. A quickstart is ~5 minutes and ~600 words for someone who already knows the product; a tutorial walks a full workflow and requires that a quickstart already exists. "Guides" is the section name and holds both.
+- **Quickstart vs. tutorial** is a scope decision, not a location one. A quickstart serves one bounded task with necessary first-use teaching; its time and word budgets are review signals (AGENTS.md → Quickstart). A tutorial walks a full workflow and requires that a quickstart already exists. "Guides" is the section name and holds both.
 
 Once the content type is identified:
 - Use the corresponding **template** as the starting scaffold for the page.
@@ -141,7 +144,8 @@ These rules are frequently violated by agents. Apply them carefully during draft
 - **Sentence case for all headings (H1–H4)** — Capitalize only the first word and proper feature names. ✅ `## How it works` ❌ `## How It Works`
 - **Descriptive, specific headings** — Beyond correct case, a heading should name the specific topic so readers and agents can scan the page and extract a self-contained answer. Prefer the concrete object or outcome over a vague section label. ✅ `## How key type affects billing and GitHub access` / `## Configuring Workload Identity Federation` ❌ `## More details` / `## Overview` / `## Additional information` / `## Other`
 - **Frontmatter `description` is a standalone search summary** — One to two sentences, roughly 50–160 characters, stating the user benefit and primary keywords. It must make sense out of context, in a search result or an AI citation. ✅ `description: Environments keep cloud agents on a consistent toolchain across every trigger.` ❌ `description: This page describes environments.` ❌ a description that only restates the title
-- **Bold + dash format for list items** — `* **Term** - Description`, not `* Term: Description` and not `* **Term** — Description`. Use a hyphen with spaces around it as the separator after the bold term.
+- **Bold + dash format for feature lists** — `* **Term** - Description`, not `* Term: Description` and not `* **Term** — Description`. Use a hyphen with spaces around it as the separator after the bold term. Closing link lists use the link-first format below instead.
+- **Closing link-list format** — Follow `AGENTS.md` → Closing section: `* [Destination title](URL) - Short description`, with no bold wrapper or redundant label. Descriptions are optional; when useful, capitalize the first word, preserve proper-name casing, and omit terminal punctuation. Explain why to open the page rather than repeating its title. Use a spaced hyphen, never an em dash, en dash, or colon. Apply this to both `## Related pages` and `## Next steps`, even when an existing example uses a different style.
 - **Unordered list marker is `*`** — Match the templates and existing docs. Reserve `-` for nested lists whose parent already uses `*`; use `1.` for numbered procedures. ✅ `* **Codebase Context** - Warp indexes your Git-tracked codebase` ❌ `- **Codebase Context** - ...` as the top-level marker on a new page
 - **Tables or parallel bullets for comparison and reference data** — When you present two or more parallel items (key types, plan tiers, environments) or structured reference data (API endpoints, parameters), use a Markdown table or tightly parallel bullets instead of one dense paragraph. ✅ a table with one row per API endpoint, or parallel `**Personal API keys**` / `**Agent API keys**` bullet groups ❌ a single paragraph mixing both key types and their billing rules
 - **Bold for UI elements** — Use `**Save**` not `` `Save` `` after action verbs like "click"
@@ -169,6 +173,10 @@ These rules are frequently violated by agents. Apply them carefully during draft
 
 ### 7. Draft the doc
 Create the documentation using the appropriate template from `.agents/templates/`. Follow the structure for the identified content type and all rules in `AGENTS.md`. Each template includes visible bracketed instructions explaining what to put in each section.
+
+During the deletion pass, apply AGENTS.md → Procedural → Reader-understanding test. A concept explained elsewhere may still be necessary beside a step for a direct-arrival reader. Omit optional scaffold sections rather than filling them with repetition.
+
+Record an editorial verdict in the PR rationale: reader task, concept ownership across siblings, repetition and unnecessary scaffolds removed, unsupported assurances corrected, and useful understanding preserved. Link or relocate necessary facts rather than deleting them for length. Removing a page or changing its purpose requires human approval; identify each unsupported claim and its narrow correction instead.
 
 ### 8. Run style lint and the compression contract check
 Run `python3 .agents/skills/style_lint/style_lint.py --changed` on the drafted file to catch formatting and terminology issues before presenting to the user.
@@ -212,7 +220,7 @@ Before presenting the draft, verify against the quality checklist in `AGENTS.md`
 - [ ] Terminology matches the glossary (`.agents/references/terminology.md`)
 - [ ] Headers use sentence case (with proper feature name capitalization)
 - [ ] Headers name a specific topic (not bare Overview / More details / Other)
-- [ ] Lists use `*` markers with bold term + hyphen + explanation format
+- [ ] Feature lists use `*` markers with bold term + hyphen + explanation format; closing link lists follow the link-first format in AGENTS.md → Closing section
 - [ ] Cross-references are included, and the page ends with `## Next steps` (quickstart or tutorial) or `## Related pages` (every other type)
 - [ ] Every bracketed template instruction has been deleted, including the `[BEFORE PUBLISHING: ...]` note
 - [ ] The title is in frontmatter and there is no H1 in the body
@@ -274,4 +282,4 @@ Always check the current list of redirects before adding a new one to avoid dupl
 
 ## Output
 
-Present the drafted documentation as a complete markdown file that can be saved directly to the appropriate location in `docs/`.
+Write the draft to its chosen path under `src/content/docs/`. Present the editorial verdict and unverified claims for review.

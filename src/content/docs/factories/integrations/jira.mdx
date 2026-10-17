@@ -91,7 +91,11 @@ Warp's built-in Jira tools read Jira as the person who created the run; that per
 
 * **Warp is unavailable in Jira** - Confirm the Warp app is installed on the Jira Cloud site. On the app's **Configure** page, click **Connect to Warp** if the installation isn't connected to a workspace. If someone else is completing setup, confirm that their setup link is still active.
 * **No run starts** - Confirm an enabled `agent_session_created` automation exists, its agent is available, and its project and keyword filters match the assignment.
+* **Jira asks you to connect an account** - [Link your own Jira account to Warp](/platform/integrations/jira/#connecting-your-jira-account-to-warp), then retry the assignment or mention. Installing the app and connecting the site doesn't link every teammate's account.
 * **The session shows no result** - Open the matching automation's run to see whether the agent is still working, waiting for input, or failed.
 * **A Jira update fails** - Confirm the app can access the work item's project and that the requested action or workflow transition is valid.
 
-For the other ways to route work into a factory, see [Connect your factory](/factories/connect-your-factory/).
+## Related pages
+
+* [Connect your factory](/factories/connect-your-factory/)
+* [Factory troubleshooting](/factories/troubleshooting/#work-isnt-starting)

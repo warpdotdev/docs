@@ -55,11 +55,16 @@ import yaml
 # Tags whose paths and tag entry should be removed entirely.
 # `memory_stores` / `memory` back Agent Memory, which is a research preview.
 # `harness-support` is the worker-to-server contract — not a public API.
-# `factory` is Oz Factory, which has not shipped publicly.
 # These are belt-and-braces on top of the `x-internal` filter below: a tag can
 # be private even when individual operations aren't marked internal yet.
+#
+# `factory` is deliberately NOT excluded. Warp Factories shipped in Early
+# Access, /factories/factory-api/ documents the public endpoints, and the
+# server spec marks every private factory operation `x-internal`
+# individually — so the `x-internal` filter is the source of truth for
+# which factory operations are public, same as the `agent` tag.
 EXCLUDED_TAGS: frozenset[str] = frozenset(
-    {"memory_stores", "memory", "harness-support", "factory"}
+    {"memory_stores", "memory", "harness-support"}
 )
 
 # OpenAPI extension warp-server uses to mark an operation private. Mirrors
@@ -98,18 +103,30 @@ EXCLUDED_PATHS: frozenset[str] = frozenset(
         "/agent/handoff/upload-snapshot",
         "/agent/conversations/{conversation_id}/fork",
         "/agent/conversations/{conversationId}/redirect",
+        # Web-app helper, excluded to match the conversation redirect above.
+        "/agent/sessions/{sessionUuid}/redirect",
+        # Public in the server spec but not exposed as SDK methods; held back
+        # until the server team confirms they are meant to be public.
+        "/factory-inbox",
+        "/factory-inbox/notifications/read",
+        "/factory-inbox/notifications/unread",
+        # Manually triggers scorer judge runs. The scorer APIs are internal
+        # (warp-server #19141) and this operation was left unflagged.
+        "/factory/run-scoring/dispatches",
     }
 )
 
-# Path prefixes that are private no matter how the operation is tagged. Tag
-# checks alone are not enough here: some Factory operations are tagged `agent`
-# upstream (for example `GET /factory/scorers/{scorer_id}/results`), so a
-# tags-only rule would leak them into the public reference.
-EXCLUDED_PATH_PREFIXES: tuple[str, ...] = ("/factory",)
+# Path prefixes that are private no matter how the operation is tagged,
+# regardless of `x-internal` markers. Empty today: `/factory` was listed here
+# while Warp Factories was pre-launch, and came out when the factory API went
+# public (see references/sync-policy.md). Use a prefix only when a whole URL
+# namespace is private.
+EXCLUDED_PATH_PREFIXES: tuple[str, ...] = ()
 
-EXCLUDED_RUN_SOURCE_VALUES: frozenset[str] = frozenset(
-    {"BENCHMARK_TRIAL", "CREATE_BENCHMARK_TASK", "CUSTOM_WEBHOOK"}
-)
+# Empty today. The server publishes every RunSourceType value, and `RunItem.source`
+# can return any of them, so the docs enum matches. Add a value here only if
+# the server stops returning it in public responses.
+EXCLUDED_RUN_SOURCE_VALUES: frozenset[str] = frozenset()
 # The upstream spec owns endpoint behavior and non-product metadata. The docs
 # copy uses the public product name and description that frame the Scalar
 # reference alongside the Factory and cloud-agent documentation.
@@ -448,13 +465,11 @@ def transform(source: dict[str, Any]) -> dict[str, Any]:
         out["info"] = {**out["info"], **DOCS_INFO_OVERRIDES}
 
     src_tags = source.get("tags") or []
-    out_tags = [
+    candidate_tags = [
         t
         for t in src_tags
         if isinstance(t, dict) and t.get("name") not in EXCLUDED_TAGS
     ]
-    if out_tags:
-        out["tags"] = out_tags
 
     src_paths = source.get("paths") or {}
     kept_paths = {
@@ -462,6 +477,34 @@ def transform(source: dict[str, Any]) -> dict[str, Any]:
         for path, item in src_paths.items()
         if isinstance(item, dict) and _should_keep_path(path, item)
     }
+
+    tag_by_name = {
+        tag["name"]: tag
+        for tag in candidate_tags
+        if isinstance(tag.get("name"), str)
+    }
+    kept_tag_names = {
+        tag
+        for path_item in kept_paths.values()
+        for tag in _path_tags(path_item)
+    }
+    pending_parents = list(kept_tag_names)
+    while pending_parents:
+        tag_name = pending_parents.pop()
+        tag = tag_by_name.get(tag_name)
+        parent = tag.get("parent") if tag else None
+        if (
+            isinstance(parent, str)
+            and parent in tag_by_name
+            and parent not in kept_tag_names
+        ):
+            kept_tag_names.add(parent)
+            pending_parents.append(parent)
+    out_tags = [
+        tag for tag in candidate_tags if tag.get("name") in kept_tag_names
+    ]
+    if out_tags:
+        out["tags"] = out_tags
     out["paths"] = kept_paths
 
     seed_refs: set[str] = set()
@@ -567,11 +610,20 @@ def _summarize_drift(
 def _unknown_classifications(source: dict[str, Any]) -> list[str]:
     """Flag tags or paths the policy doesn't already cover.
 
-    The skill's policy currently knows about the `agent` and `schedules`
-    tags (kept) and `memory_stores`/`harness-support` (dropped). Anything
-    else needs human triage.
+    The skill's policy knows about the public agent and factory tag
+    hierarchies, plus `memory_stores`/`memory`/`harness-support` (dropped).
+    Anything else needs human triage.
     """
-    KNOWN_TAGS = {"agent", "schedules"} | set(EXCLUDED_TAGS)
+    KNOWN_TAGS = {
+        "agent",
+        "schedules",
+        "factory",
+        "factory-notifications",
+        "factory-metrics",
+        "factory-scorers",
+        "factory-benchmarks",
+        "networking",
+    } | set(EXCLUDED_TAGS)
 
     notes: list[str] = []
     for tag in source.get("tags") or []:
@@ -601,10 +653,16 @@ def _unknown_classifications(source: dict[str, Any]) -> list[str]:
 def _self_test() -> int:
     """Sanity-check the transform on a small synthetic spec."""
     sample = {
-        "openapi": "3.0.0",
+        "openapi": "3.2.0",
         "info": {"title": "t", "version": "1"},
         "tags": [
-            {"name": "agent"},
+            {"name": "agent", "summary": "Agents"},
+            {
+                "name": "schedules",
+                "summary": "Scheduled Agents",
+                "parent": "agent",
+            },
+            {"name": "unused", "summary": "Unused"},
             {"name": "memory_stores", "x-internal": True},
             {"name": "harness-support"},
         ],
@@ -668,6 +726,13 @@ def _self_test() -> int:
                 "post": {
                     "tags": ["agent"],
                     "operationId": "followups",
+                    "responses": {"200": {"description": "ok"}},
+                }
+            },
+            "/schedules": {
+                "get": {
+                    "tags": ["schedules"],
+                    "operationId": "listSchedules",
                     "responses": {"200": {"description": "ok"}},
                 }
             },
@@ -761,6 +826,7 @@ def _self_test() -> int:
     assert paths == {
         "/agent/run",
         "/agent/runs/{runId}/followups",
+        "/schedules",
     }, f"unexpected paths: {paths}"
 
     schemas = set(out["components"]["schemas"].keys())
@@ -777,12 +843,27 @@ def _self_test() -> int:
     responses = set(out["components"]["responses"].keys())
     assert responses == {"PublicAccessDenied"}, f"unexpected responses: {responses}"
     run_sources = out["components"]["schemas"]["RunSourceType"]
-    assert run_sources["enum"] == ["API"], f"unexpected run sources: {run_sources['enum']}"
-    assert "BENCHMARK_TRIAL" not in run_sources["description"]
-    assert "CUSTOM_WEBHOOK" not in run_sources["description"]
+    assert run_sources["enum"] == ["API", "BENCHMARK_TRIAL", "CUSTOM_WEBHOOK"], (
+        f"run sources should publish as the server does: {run_sources['enum']}"
+    )
+    assert "BENCHMARK_TRIAL" in run_sources["description"]
+    # The exclusion mechanism still prunes values and their description lines.
+    global EXCLUDED_RUN_SOURCE_VALUES
+    saved_run_source_values = EXCLUDED_RUN_SOURCE_VALUES
+    EXCLUDED_RUN_SOURCE_VALUES = frozenset({"BENCHMARK_TRIAL", "CUSTOM_WEBHOOK"})
+    try:
+        pruned = transform(sample)["components"]["schemas"]["RunSourceType"]
+    finally:
+        EXCLUDED_RUN_SOURCE_VALUES = saved_run_source_values
+    assert pruned["enum"] == ["API"], f"unexpected pruned run sources: {pruned['enum']}"
+    assert "BENCHMARK_TRIAL" not in pruned["description"]
+    assert "CUSTOM_WEBHOOK" not in pruned["description"]
 
-    tag_names = [t["name"] for t in out.get("tags") or []]
-    assert tag_names == ["agent"], f"unexpected tags: {tag_names}"
+    tags = {t["name"]: t for t in out.get("tags") or []}
+    assert set(tags) == {"agent", "schedules"}, f"unexpected tags: {set(tags)}"
+    assert tags["agent"]["summary"] == "Agents"
+    assert tags["schedules"]["summary"] == "Scheduled Agents"
+    assert tags["schedules"]["parent"] == "agent"
 
     assert out["components"].get("securitySchemes"), "securitySchemes should be preserved"
     assert out["info"]["title"] == "Warp Platform API"
