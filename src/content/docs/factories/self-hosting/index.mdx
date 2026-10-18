@@ -21,7 +21,7 @@ With [unmanaged execution](/platform/unmanaged-execution/), your CI system, sche
 | Aspect | Managed | Unmanaged |
 | --- | --- | --- |
 | Run lifecycle | The {VARS.WARP_AUTOMATION_PLATFORM} routes each run to a worker | Your system starts and stops each CLI process |
-| Host support | Linux | Linux, macOS, and Windows |
+| Task platform | Depends on the backend; Docker and Kubernetes tasks use Linux | Linux, macOS, and Windows |
 | Execution | Docker container, Kubernetes Job, direct host process, or external runtime | The host environment you provide |
 | Triggers | Integrations, schedules, API, web app, and CLI | CI, cron, scripts, and internal schedulers |
 
@@ -31,7 +31,7 @@ Use managed and unmanaged runs together when different workflows need different 
 
 Use [unmanaged execution](/platform/unmanaged-execution/) when any of these conditions apply:
 
-* Agents must run on macOS or Windows.
+* Your existing macOS or Windows workflow invokes the agent CLI directly.
 * Your system should own both the trigger and process lifecycle.
 * You want to add `oz agent run` to an existing CI job or script.
 
@@ -47,13 +47,11 @@ Use the managed architecture when the {VARS.WARP_AUTOMATION_PLATFORM} should acc
 
 ## Managed prerequisites
 
-All managed deployments require:
+* Outbound network access from the worker and agent runtime to Warp. No inbound ports are required. See [Security and networking](/platform/execution-security/).
+* A worker ID for routing runs with `--host`.
+* Worker credentials. Docker, Kubernetes, Direct, and Command workers accept a [self-hosted worker API key](/agents/cli/oz-cli/api-keys/#creating-a-self-hosted-worker-api-key).
 
-* **Outbound network access** - The worker and agent runtime must reach Warp. You do not need to open inbound ports. See [Security and networking](/platform/execution-security/) for endpoints and data boundaries.
-* **A worker ID** - Choose the value used to route runs with `--host`. Multiple long-lived workers can share an ID for load balancing. Use a unique ID for each one-shot Direct job.
-* **Worker credentials** - Docker, Kubernetes, Direct, and Command workers can use a [self-hosted worker API key](/agents/cli/oz-cli/api-keys/#creating-a-self-hosted-worker-api-key). Store it in your secret manager and provide it as `WARP_API_KEY` or `--api-key`.
-
-For unattended run creation through `oz agent run-cloud` or the API, use an **agent API key associated with the Default Service Account**. In the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP} settings</a>, create an Agent key and choose **Default Service Account**. The same agent key can authenticate the worker when one job both starts the worker and creates the run. Otherwise, give the worker a self-hosted worker key and the run creator an agent key. See [API keys for the {VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/api-keys/) for the key types and creation flow.
+Store the worker key in your secret manager and provide it as `WARP_API_KEY` or `--api-key`.
 
 Backend pages list the remaining runtime-specific requirements, such as Docker, Kubernetes, or the {VARS.WARP_AGENT_CLI} binary.
 
@@ -61,11 +59,17 @@ Backend pages list the remaining runtime-specific requirements, such as Docker, 
 
 `oz-agent-worker` connects to the {VARS.WARP_AUTOMATION_PLATFORM}, waits for tasks addressed to its worker ID, and handles each task with the configured backend. Docker, Kubernetes, and Direct run the agent on worker infrastructure. Command hands the task to an external runtime.
 
-Start with the [self-hosting quickstart](/factories/self-hosting/quickstart/) for a Docker worker. For exact flags and YAML fields, use the [self-hosted worker reference](/factories/self-hosting/reference/).
+Multiple long-lived workers can share an ID for load balancing. Use a unique ID for each one-shot Direct job.
+
+Start with the [Self-hosting quickstart](/factories/self-hosting/quickstart/) for a Docker worker. For exact flags and YAML fields, use the [Self-hosted worker reference](/factories/self-hosting/reference/).
 
 ### Routing runs to self-hosted workers
 
-Set the run's host to the connected worker's ID. From the {VARS.WARP_AGENT_CLI}:
+Set the run's host to the connected worker's ID.
+
+For unattended run creation through `oz agent run-cloud` or the API, use an **agent API key associated with the Default Service Account**. In the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP} settings</a>, create an Agent key and choose **Default Service Account**. The same agent key can authenticate the worker when one job both starts the worker and creates the run. Otherwise, give the worker a self-hosted worker key and the run creator an agent key. See [API keys for the {VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/api-keys/) for the key types and creation flow.
+
+From the {VARS.WARP_AGENT_CLI}:
 
 ```bash
 oz agent run-cloud \

@@ -12,10 +12,9 @@ Connect Jira Cloud to your factory so your team can start factory work without l
 
 ## Prerequisites
 
-* **Jira Cloud** - The integration supports Jira Cloud only, not Jira Server or Data Center.
-* **A Jira site admin** - A site admin must install the Warp app and connect the Jira site to your Warp workspace.
-* **A factory** - You need a factory in the connected workspace and permission to edit its [definition](/factories/factory-as-code/).
-* **The Warp agent in Jira** - The **Warp** agent must be available on your Jira site so people can assign or mention it on work items. Jira lists it among Atlassian's Rovo agents.
+* A Jira Cloud site. Jira Server and Data Center are not supported.
+* A Jira site admin to install the Warp app and connect the site to your Warp workspace.
+* A factory in the connected workspace and permission to edit its [definition](/factories/factory-as-code/).
 
 ## Connect Jira and add an automation
 
@@ -29,6 +28,8 @@ If you aren't a Jira site admin, choose **Someone else** during setup and email 
 4. **Configure the Jira automation.** In the factory dashboard, open **Automations**. If you selected Jira projects during factory creation, edit the existing Jira automation. Otherwise, add a trigger for **Jira** > **Agent session created**. Choose the agent that handles the work, select the projects, and optionally add keywords to narrow which sessions start runs.
 
 5. **Test the connection.** Assign or mention **Warp** on a work item and include an instruction. Jira starts an agent session, and the run appears under the matching automation in your factory.
+
+   The **Warp** agent must be available on your Jira site to assign or mention it. Jira lists it among Atlassian's Rovo agents.
 
    {/* VISUAL: A Jira work item assigned to Warp, showing the resulting agent session. */}
 
