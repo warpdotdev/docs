@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   title: Warp Platform API
   version: 1.0.0
@@ -651,6 +651,121 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/Error'
+  '/factory/{uid}/branches/{branch_uid}':
+    get:
+      summary: Observe a tracked Factory Branch
+      description: |
+        Requires Factory view and matching parent Factory/team ownership.
+        Does not create tracking, request repair, or mutate projections.
+        Retired tracking remains DELETED until normal permadeletion.
+        Unverifiable source freshness is UNKNOWN. Requires factory_branches.
+      operationId: getFactoryBranch
+      tags:
+        - factory
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: branch_uid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/FactoryBranchStatusResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/FactoryBranchNotFound'
+        '500':
+          $ref: '#/components/responses/FactoryBranchUnavailable'
+    delete:
+      summary: Stop tracking a Factory Branch
+      description: |
+        Requires Factory view plus source.apply. Retirement blocks future
+        execution boundaries without deleting the Git head, cancelling
+        already-loaded work, or deleting production resources.
+        Repeated authorized deletion, including after purge, returns 204.
+        Requires factory_branches.
+      operationId: deleteFactoryBranch
+      tags:
+        - factory
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: branch_uid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Tracking retired or already absent
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          $ref: '#/components/responses/FactoryBranchNotFound'
+        '409':
+          $ref: '#/components/responses/FactoryBranchConflict'
+        '500':
+          $ref: '#/components/responses/FactoryBranchUnavailable'
+  '/factory/{uid}/branches/{branch_uid}/apply':
+    post:
+      summary: Apply a Factory Branch sync
+      description: |
+        Requires Factory view, source.apply, and complete projection
+        authorization. Synchronizes to the current registered head with
+        bounded freshness admission. Duplicate requests converge.
+        Does not accept a target SHA or repository, create tracking, revive
+        retired identity, or replace settings on existing runs.
+        Requires factory_branches.
+      operationId: applyFactoryBranch
+      tags:
+        - factory
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: branch_uid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/FactoryBranchStatusResponse'
+        '400':
+          description: Invalid source content
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/FactoryAccessDenied'
+        '404':
+          $ref: '#/components/responses/FactoryBranchNotFound'
+        '409':
+          $ref: '#/components/responses/FactoryBranchConflict'
+        '500':
+          $ref: '#/components/responses/FactoryBranchUnavailable'
   '/factory/{uid}/tasks/{task_uid}':
     get:
       summary: Get a factory task
@@ -3668,6 +3783,64 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  '/agent/conversations/{conversationId}/block-snapshot':
+    get:
+      summary: Download a conversation's block snapshot
+      description: |
+        Redirect to a signed storage URL for the serialized block snapshot.
+        Set redirect=false to return the URL as JSON instead. Both modes require
+        permission to view the conversation.
+      operationId: getConversationBlockSnapshot
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: conversationId
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/PresignedDownloadRedirect'
+      responses:
+        '200':
+          description: Signed download URL when redirect=false
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PresignedDownloadResponse'
+        '307':
+          description: Redirect to the signed storage URL (default)
+        '400':
+          description: Conversation format does not support block snapshots
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to view the conversation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Conversation or snapshot not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /agent/identities:
     post:
       summary: Create an agent
@@ -5147,46 +5320,6 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/Error'
-  '/factory/{factory_uid}/benchmarks/{suite_uid}/runs/{run_uid}/rescore':
-    post:
-      summary: Rescore missing results for a completed benchmark run
-      operationId: rescoreBenchmarkRun
-      tags:
-        - factory
-        - benchmark
-      security:
-        - bearerAuth: []
-      parameters:
-        - $ref: '#/components/parameters/BenchmarkFactoryPath'
-        - $ref: '#/components/parameters/BenchmarkSuitePath'
-        - $ref: '#/components/parameters/BenchmarkRunPath'
-      responses:
-        '202':
-          description: Missing scores accepted for rescoring
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BenchmarkRunLaunchResponse'
-        '400':
-          description: Run is not eligible for rescoring
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '401':
-          description: Authentication required
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '403':
-          $ref: '#/components/responses/FactoryAccessDenied'
-        '404':
-          description: Run not found in this suite or action unavailable
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Error'
   '/factory/{factory_uid}/benchmarks/{suite_uid}/runs/{run_uid}/results':
     get:
       summary: Get benchmark run results
@@ -5506,6 +5639,14 @@ components:
       description: |
         Authentication via a Warp API key or a supported Warp-issued user token.
   parameters:
+    PresignedDownloadRedirect:
+      name: redirect
+      in: query
+      required: false
+      description: Set to false to return a signed storage URL as JSON rather than redirecting.
+      schema:
+        type: boolean
+        default: true
     BenchmarkFactoryPath:
       name: factory_uid
       in: path
@@ -5656,6 +5797,46 @@ components:
       schema:
         type: string
   responses:
+    Unauthorized:
+      description: Authentication required
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    FactoryBranchStatusResponse:
+      description: Current observation of the tracked Branch
+      headers:
+        Cache-Control:
+          schema:
+            type: string
+            enum:
+              - no-store
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FactoryBranchStatus'
+    FactoryBranchNotFound:
+      description: 'Hidden Factory, unknown or cross-Factory tracking, or disabled Branch surface'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    FactoryBranchConflict:
+      description: |
+        Classified conflict with reason branch_sync_pending, branch_head_moved,
+        factory_source_changed, branch_deleted, or factory_scope_unavailable.
+        Pending synchronization, moving heads, and source changes are retryable;
+        deleted or unavailable identity is not.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    FactoryBranchUnavailable:
+      description: 'Retryable resource_unavailable for source, synchronization, or database failure'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Error'
     FactoryAccessDenied:
       description: Factory access is not enabled for the authenticated principal
       content:
@@ -5697,7 +5878,8 @@ components:
         current_version:
           type: string
           description: The version a new Factory tree should declare.
-          example: v1alpha1
+          examples:
+            - v1alpha1
         versions:
           type: array
           description: 'Every supported version, sorted by schema version.'
@@ -5711,11 +5893,13 @@ components:
       properties:
         schema_version:
           type: string
-          example: v1alpha1
+          examples:
+            - v1alpha1
         schema_url:
           type: string
           description: Root-relative path of this version's schema bundle.
-          example: /api/v1/factory-files/schemas/v1alpha1
+          examples:
+            - /api/v1/factory-files/schemas/v1alpha1
     FactoryFileSchemaBundle:
       type: object
       description: |
@@ -5728,7 +5912,8 @@ components:
       properties:
         schema_version:
           type: string
-          example: v1alpha1
+          examples:
+            - v1alpha1
         documents:
           type: object
           description: 'Schema documents keyed by file name, which is also each document''s $id.'
@@ -5767,18 +5952,21 @@ components:
           type: string
           description: Display name of the factory.
         description:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: Optional description of the factory.
         alias:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Optional display handle for the factory, unique across the team's
             Warp workspace when set.
         avatar_url:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Short-lived signed URL for displaying the factory's avatar. The URL
             may change between reads.
@@ -5797,14 +5985,16 @@ components:
             $ref: '#/components/schemas/FactoryRepository'
           description: 'Repositories scoped to the factory, independent of its default environment.'
         default_environment:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Public UID of the factory's default environment. File-managed
             factories may omit this default.
         default_model:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             The default model ID for the factory's runs. File-managed factories
             may omit this default. Live-managed create and PATCH requests still
@@ -5829,10 +6019,11 @@ components:
             named agents. Always a concrete value; factories default to
             EXECUTOR unless explicitly set to CREATOR.
         integrations:
-          type: array
+          type:
+            - array
+            - 'null'
           items:
             $ref: '#/components/schemas/FactoryIntegration'
-          nullable: true
           description: |
             Integration providers attached to the factory, independent of the
             automation triggers configured for it. null means the factory has
@@ -5868,8 +6059,9 @@ components:
           type: string
           description: Firebase UID of the user who created the factory.
         email:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: 'Creator''s email, when available.'
     FactoryAgentDefaults:
       type: object
@@ -5998,8 +6190,9 @@ components:
         - default_model
       properties:
         default_model:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Optional factory override for the model used by managed scorers and
             scorer-creation prefills. null or absent resolves to the platform
@@ -6015,31 +6208,31 @@ components:
         type:
           $ref: '#/components/schemas/FactoryIntegrationProvider'
         linear:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/FactoryLinearIntegrationSettings'
-          nullable: true
+            - type: 'null'
           description: |
             Linear team IDs from earlier integration selections, when present.
             Issue discovery follows enabled agent-session automations instead.
         jira:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/FactoryJiraIntegrationSettings'
-          nullable: true
+            - type: 'null'
           description: |
             Jira project keys from earlier integration selections, when present.
             Issue discovery follows enabled agent-session automations instead.
         slack:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/FactorySlackIntegrationSettings'
-          nullable: true
+            - type: 'null'
           description: |
             Persisted Slack settings. Present only when type is slack and the
             factory has declared at least one Slack setting. Omitted fields
             keep their default-on behavior.
         microsoft-teams:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/FactoryTeamsIntegrationSettings'
-          nullable: true
+            - type: 'null'
           description: |
             Persisted Teams reply settings. Valid only when type is
             microsoft-teams. Omitted settings remain undeclared.
@@ -6076,8 +6269,9 @@ components:
         per-Factory reply-setting rollout is enabled.
       properties:
         auto_respond_to_thread_replies:
-          type: boolean
-          nullable: true
+          type:
+            - boolean
+            - 'null'
           description: |
             When true, eligible plain channel thread replies still reach the
             reply-intent classifier. When false, those replies are ignored
@@ -6218,6 +6412,13 @@ components:
         - created_at
         - updated_at
       properties:
+        config_source:
+          allOf:
+            - $ref: '#/components/schemas/FactoryConfigSource'
+          description: |
+            Derived from the immutable stored creation run_id, never the
+            conversation's latest run. Omitted when any required association
+            has been purged or provenance is otherwise unavailable.
         uid:
           type: string
           description: Public UID of the task.
@@ -6254,8 +6455,9 @@ components:
             Canonical ticket ID from the bound run. Present on list responses
             only when full_list=true and ticket metadata exists.
         description:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: Optional description of the task.
         stage:
           $ref: '#/components/schemas/FactoryTaskStage'
@@ -6492,10 +6694,12 @@ components:
             UUID of the agent conversation to bind the task to. The
             conversation's most recent run must be owned by the factory's
             team, and the conversation must not already be bound to a live
-            task.
+            task. Confirmed Branch scope must belong to the requested
+            Factory. Binding cannot grant execution scope.
         description:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: Optional description of the task.
         stage:
           $ref: '#/components/schemas/FactoryTaskStage'
@@ -6509,8 +6713,9 @@ components:
           type: string
           description: Updated title. Must be non-empty when provided.
         description:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: Updated description. null or an empty string clears the description.
         stage:
           $ref: '#/components/schemas/FactoryTaskStage'
@@ -6660,36 +6865,40 @@ components:
             Mean per-PR attributed cost per period, in US dollars; null
             for periods with zero PRs.
           items:
-            type: number
+            type:
+              - number
+              - 'null'
             format: double
-            nullable: true
         compute_mean:
           type: array
           description: |
             Mean per-PR compute cost per period, in US dollars; null for
             periods with zero PRs.
           items:
-            type: number
+            type:
+              - number
+              - 'null'
             format: double
-            nullable: true
         platform_mean:
           type: array
           description: |
             Mean per-PR platform cost per period, in US dollars; null for
             periods with zero PRs.
           items:
-            type: number
+            type:
+              - number
+              - 'null'
             format: double
-            nullable: true
         inference_mean:
           type: array
           description: |
             Mean per-PR inference cost per period, in US dollars; null for
             periods with zero PRs.
           items:
-            type: number
+            type:
+              - number
+              - 'null'
             format: double
-            nullable: true
     FactoryCostPerPRMetric:
       type: object
       description: |
@@ -6712,9 +6921,10 @@ components:
         dollars:
           $ref: '#/components/schemas/FactoryDollarsBreakdown'
         mean:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          nullable: true
           description: |
             Mean per-PR attributed cost, in US dollars; null when
             pr_count is 0.
@@ -6958,9 +7168,10 @@ components:
         - measured_pr_count
       properties:
         median_seconds:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          nullable: true
           description: |
             p50 stage duration in seconds; null when measured_pr_count is
             zero. Durations are clamped at zero, so out-of-order provider
@@ -7114,21 +7325,25 @@ components:
         - kickoff_to_merge
       properties:
         kickoff_to_pr:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          nullable: true
         pr_to_first_review:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          nullable: true
         first_review_to_merge:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          nullable: true
         kickoff_to_merge:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          nullable: true
     FactoryPullRequest:
       type: object
       description: |
@@ -7172,12 +7387,14 @@ components:
           type: string
           description: Canonical PR URL.
         title:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: The PR title; null until the code host reports it.
         author_login:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: The code-host login that opened the PR.
         factory_uid:
           type: string
@@ -7188,44 +7405,52 @@ components:
         state:
           $ref: '#/components/schemas/FactoryPullRequestState'
         opened_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: When the PR was opened; null when Warp did not see it being opened.
         first_human_review_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: The first review by a person; null when none was observed.
         merged_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: When the PR was merged; null while it is not merged.
         closed_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: 'When the PR was closed, by merging or otherwise; null while it is open or when the code host did not report it.'
         updated_at:
           type: string
           format: date-time
           description: When the PR itself last changed; the updated_after filter compares against it.
         additions:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           description: Lines added; null until the code host reports it.
         deletions:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           description: Lines deleted; null until the code host reports it.
         changed_files:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           description: Files changed; null until the code host reports it.
         num_commits:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           description: Commits on the PR; null until the code host reports it.
         human_interactions:
           $ref: '#/components/schemas/FactoryPullRequestHumanInteractions'
@@ -7247,9 +7472,10 @@ components:
           items:
             $ref: '#/components/schemas/FactoryPullRequestRun'
         kickoff_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: When the earliest run that produced the PR was created.
         cycle_time:
           $ref: '#/components/schemas/FactoryPullRequestCycleTime'
@@ -7287,19 +7513,21 @@ components:
         dollars:
           $ref: '#/components/schemas/FactoryDollarsBreakdown'
         creator:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/RunCreatorInfo'
-          nullable: true
+            - type: 'null'
           description: Who started the run that kicked off the PR.
         source:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Public source name of the run that kicked off the PR (e.g.
             GITHUB_WEBHOOK, SLACK, API). New values may appear over time.
         requested_model_id:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Model the kicking-off run was configured with; null means the
             server default was used.
@@ -7315,114 +7543,133 @@ components:
           items:
             $ref: '#/components/schemas/FactoryTopPRModel'
         provider:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/FactoryRepositoryCodeForge'
-          nullable: true
+            - type: 'null'
           description: The code host the PR lives on.
         repo_full_name:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: The repository as owner/repo.
         pr_number:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           description: The provider's PR number.
         title:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: The PR title; null until the code host reports it.
         author_login:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: The code-host login that opened the PR.
         factory_uid:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: Public UID of the factory whose runs produced the PR.
         team_uid:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: Public UID of the team that owns the factory.
         state:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/FactoryPullRequestState'
-          nullable: true
+            - type: 'null'
           description: The PR's current state.
         opened_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: When the PR was opened; null when Warp did not see it being opened.
         first_human_review_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: The first review by a person; null when none was observed.
         merged_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: When the PR was merged; null while it is not merged.
         closed_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: 'When the PR was closed, by merging or otherwise; null while it is open or when the code host did not report it.'
         updated_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: When the PR itself last changed.
         additions:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           description: Lines added; null until the code host reports it.
         deletions:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           description: Lines deleted; null until the code host reports it.
         changed_files:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           description: Files changed; null until the code host reports it.
         num_commits:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           description: Commits on the PR; null until the code host reports it.
         human_interactions:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/FactoryPullRequestHumanInteractions'
-          nullable: true
+            - type: 'null'
           description: 'Actions people took on the PR, counted by type.'
         human_code_change:
-          type: boolean
-          nullable: true
+          type:
+            - boolean
+            - 'null'
           description: |
             Whether a person changed the PR's code: any opened or code_push
             interaction. False only means autonomous when history_complete
             is true.
         history_complete:
-          type: boolean
-          nullable: true
+          type:
+            - boolean
+            - 'null'
           description: |
             Whether Warp observed the PR from the moment it was opened. When
             false, interactions before Warp started watching the PR are
             missing from the counts.
         runs:
-          type: array
-          nullable: true
+          type:
+            - array
+            - 'null'
           description: 'The factory''s runs that produced the PR, earliest first.'
           items:
             $ref: '#/components/schemas/FactoryPullRequestRun'
         kickoff_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: When the earliest run that produced the PR was created.
         cycle_time:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/FactoryPullRequestCycleTime'
-          nullable: true
+            - type: 'null'
           description: The PR's pipeline-stage durations in seconds.
     FactoryTopPRModel:
       type: object
@@ -7620,9 +7867,10 @@ components:
           format: int64
           description: Sized PRs in this bucket first seen in the range.
         mean:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          nullable: true
           description: |
             Mean per-PR attributed cost in US dollars; null when the
             bucket has no PRs in the range.
@@ -7633,9 +7881,10 @@ components:
             for periods where the bucket has no PRs. Present only when
             group_by_period was requested.
           items:
-            type: number
+            type:
+              - number
+              - 'null'
             format: double
-            nullable: true
     FactoryCostByPRSizeData:
       type: object
       description: |
@@ -7680,6 +7929,66 @@ components:
                 type: string
             data:
               $ref: '#/components/schemas/FactoryCostByPRSizeData'
+    FactorySyncItem:
+      type: object
+      description: A single factory sync history/status row.
+      required:
+        - id
+        - factory_uid
+        - target_sha
+        - trigger
+        - status
+        - created_at
+        - updated_at
+      properties:
+        id:
+          type: integer
+          description: Internal sync row ID.
+        factory_uid:
+          type: string
+          description: Public UID of the factory.
+        target_sha:
+          type: string
+          description: Target commit SHA for the sync attempt.
+        trigger:
+          type: string
+          description: What initiated the sync attempt.
+          enum:
+            - webhook
+            - explicit_apply
+            - anti_entropy
+            - source_link
+        status:
+          $ref: '#/components/schemas/FactorySyncItemStatus'
+        plan_summary:
+          type:
+            - string
+            - 'null'
+          description: Optional human-readable plan summary for the sync.
+        diagnostics:
+          type: string
+          description: |
+            Raw persisted structured diagnostics JSON for the sync attempt
+            (parse errors, dependency failures, etc.). Empty when the sync
+            had no diagnostics. This POC field carries the persisted JSON
+            string verbatim; a future revision may replace it with a
+            structured schema.
+        created_at:
+          type: string
+          format: date-time
+          description: Time the sync row was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Time the sync row was last updated.
+    FactorySyncItemStatus:
+      type: string
+      description: Outcome of a sync attempt.
+      enum:
+        - running
+        - success
+        - failed
+        - noop
     ListFactoriesResponse:
       type: object
       description: Response body for listing factories.
@@ -7699,6 +8008,16 @@ components:
       required:
         - prompt
       properties:
+        branch:
+          type: string
+          nullable: true
+          description: |
+            Exact named head in the registered source repository, optionally
+            prefixed with refs/heads/. Case and slashes are preserved.
+            Omission, null, or the registered production branch uses
+            production. Empty strings, revision expressions, tags, forks,
+            and alternate repository coordinates are not accepted.
+            Non-production selection is rejected when factory_branches is off.
         prompt:
           type: string
           description: |
@@ -7730,6 +8049,9 @@ components:
         - foreman_agent
         - ticket_ref
       properties:
+        config_source:
+          allOf:
+            - $ref: '#/components/schemas/FactoryConfigSource'
         run_id:
           type: string
           description: Unique identifier for the dispatched run.
@@ -7752,6 +8074,97 @@ components:
             The canonical <source>:<id> ticket reference the run was
             stamped with, either the caller-supplied ticket_ref or a
             minted adhoc reference.
+    FactoryConfigSource:
+      type: object
+      description: |
+        Branch namespace and registered source-generation identity derived
+        from the run's execution Agent and required root/Branch associations.
+        Omitted for production or unavailable provenance; omission does not
+        establish production scope. No historical configuration revision or
+        retention guarantee is provided.
+      required:
+        - branch
+        - branch_uid
+        - source_generation
+      properties:
+        branch:
+          type: string
+          minLength: 1
+          description: 'Case-sensitive named head, without refs/heads/.'
+        branch_uid:
+          type: string
+          minLength: 1
+          description: Immutable tracking namespace UID.
+        source_generation:
+          type: string
+          minLength: 1
+          description: Fingerprint of the registered source generation.
+    FactoryBranchState:
+      type: string
+      enum:
+        - UNSYNCED
+        - SYNCING
+        - FRESH
+        - STALE
+        - FAILED
+        - UNKNOWN
+        - DELETED
+    FactoryBranchStatus:
+      type: object
+      description: |
+        Read-only observation of an existing Branch. UNKNOWN means the
+        current source could not be verified, never permission to execute.
+        Lifecycle SHA fields describe current synchronization, not a run's
+        historical creation revision.
+      required:
+        - uid
+        - factory_uid
+        - branch
+        - source_generation
+        - state
+        - last_success_sha
+        - current_head_sha
+        - last_synced_at
+        - latest_attempt
+        - freshness_checked_at
+        - last_error
+      properties:
+        uid:
+          type: string
+        factory_uid:
+          type: string
+        branch:
+          type: string
+        source_generation:
+          type: string
+        state:
+          $ref: '#/components/schemas/FactoryBranchState'
+        last_success_sha:
+          type:
+            - string
+            - 'null'
+        current_head_sha:
+          type:
+            - string
+            - 'null'
+        last_synced_at:
+          type:
+            - string
+            - 'null'
+          format: date-time
+        latest_attempt:
+          oneOf:
+            - $ref: '#/components/schemas/FactorySyncItem'
+            - type: 'null'
+          description: Latest persisted attempt with externally safe diagnostics.
+        freshness_checked_at:
+          type: string
+          format: date-time
+        last_error:
+          oneOf:
+            - $ref: '#/components/schemas/Error'
+            - type: 'null'
+          description: 'Classified, externally safe source-verification failure.'
     ClaudeHarnessUsagePayload:
       type: object
       additionalProperties: false
@@ -7759,8 +8172,9 @@ components:
         usage:
           $ref: '#/components/schemas/ClaudeTokenUsage'
         attribution:
-          type: array
-          nullable: true
+          type:
+            - array
+            - 'null'
           items:
             $ref: '#/components/schemas/ClaudeAttributedUsage'
         toolCalls:
@@ -7772,23 +8186,26 @@ components:
         usage:
           $ref: '#/components/schemas/CodexTokenUsage'
         attribution:
-          type: array
-          nullable: true
+          type:
+            - array
+            - 'null'
           items:
             $ref: '#/components/schemas/CodexAttributedUsage'
         toolCalls:
           $ref: '#/components/schemas/HarnessToolCalls'
     HarnessUsageCounter:
-      type: integer
+      type:
+        - integer
+        - 'null'
       format: int64
       minimum: 0
       maximum: 9223372036854775807
-      nullable: true
       description: 'A native count. Absent or null means unmeasured, not zero.'
     ClaudeTokenUsage:
-      type: object
+      type:
+        - object
+        - 'null'
       additionalProperties: false
-      nullable: true
       description: Native cumulative token categories; cache counters are not added to input_tokens.
       properties:
         input_tokens:
@@ -7802,18 +8219,20 @@ components:
         cache_creation:
           $ref: '#/components/schemas/ClaudeCacheCreationUsage'
     ClaudeCacheCreationUsage:
-      type: object
+      type:
+        - object
+        - 'null'
       additionalProperties: false
-      nullable: true
       properties:
         ephemeral_5m_input_tokens:
           $ref: '#/components/schemas/HarnessUsageCounter'
         ephemeral_1h_input_tokens:
           $ref: '#/components/schemas/HarnessUsageCounter'
     CodexTokenUsage:
-      type: object
+      type:
+        - object
+        - 'null'
       additionalProperties: false
-      nullable: true
       description: Native checkpoint counters. Cached input and reasoning output may overlap other categories; no derived total is inferred.
       properties:
         input_tokens:
@@ -7835,17 +8254,21 @@ components:
         - usage
       properties:
         model:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
         service_tier:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
         inference_geo:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
         speed:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
         usage:
           $ref: '#/components/schemas/ClaudeTokenUsage'
     CodexAttributedUsage:
@@ -7855,23 +8278,28 @@ components:
         - usage
       properties:
         model:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
         service_tier:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
         inference_geo:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
         speed:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
         usage:
           $ref: '#/components/schemas/CodexTokenUsage'
     HarnessToolCalls:
-      type: object
+      type:
+        - object
+        - 'null'
       additionalProperties: false
-      nullable: true
       required:
         - total
         - byName
@@ -7903,9 +8331,10 @@ components:
         available:
           type: boolean
         age_seconds:
-          type: integer
+          type:
+            - integer
+            - 'null'
           format: int64
-          nullable: true
         usage:
           $ref: '#/components/schemas/HarnessUsageEnvelope'
     HarnessUsageEnvelope:
@@ -8161,8 +8590,9 @@ components:
           format: date-time
           description: Time the runs were read (RFC3339). Data can lag live activity by a few minutes.
         team_uid:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             UID of the team the request was scoped to: the team selected by the
             `X-Warp-Team-Uid` header, or the API key's team. Null when a user
@@ -8214,14 +8644,16 @@ components:
           format: duration
           description: 'Total runtime as an ISO 8601 duration (e.g. "PT2M30S"), computed server-side from run executions.'
         started_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: Timestamp when the agent started working on the run (RFC3339)
         finished_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: |
             Timestamp when the run last reached a terminal state (RFC3339). Null
             while the run is still active, and for terminal runs with no
@@ -8772,18 +9204,14 @@ components:
           $ref: '#/components/schemas/FileArtifactThumbnail'
     FileArtifactThumbnail:
       type: object
+      description: The companion thumbnail image of a video recording.
       required:
         - download_url
-        - expires_at
       properties:
         download_url:
           type: string
           format: uri
-          description: Time-limited signed URL to download the video's thumbnail image
-        expires_at:
-          type: string
-          format: date-time
-          description: Timestamp when the thumbnail download URL expires (RFC3339)
+          description: Stable URL of the thumbnail image. Requires authentication.
     ScheduleInfo:
       type: object
       description: Information about the schedule that triggered this run (only present for scheduled runs)
@@ -9024,6 +9452,22 @@ components:
           type: number
           format: double
           description: 'Total cost of those web searches, in US cents.'
+        web_fetch_page_count:
+          type: integer
+          format: int64
+          description: |
+            Recorded web pages requested by native web-fetch calls
+        web_fetch_cost_in_cents:
+          type: number
+          format: double
+          description: |
+            Total cost of recorded requested web-fetch pages, in US cents.
+        web_fetch_cost_in_credits:
+          type: number
+          format: double
+          description: |
+            Cost of recorded requested web-fetch pages, in the run owner's credits.
+            Omitted for customer-paid inference, unrecorded costs, or an unavailable credit rate.
     ChargedUsageDetail:
       type: object
       description: |
@@ -9031,6 +9475,7 @@ components:
         (direct API/BYOK/custom endpoint) and, within each, by model ID.
       required:
         - platform_usage_in_cents
+        - platform_usage_duration_seconds
       properties:
         direct_api_inference_usage:
           type: object
@@ -9053,6 +9498,13 @@ components:
           type: number
           format: double
           description: 'Platform usage charged for this category, in US cents.'
+        platform_usage_duration_seconds:
+          type: number
+          format: double
+          minimum: 0
+          description: |
+            Cumulative billable agent runtime for this category, in seconds,
+            across the conversation's turns. Zero when no runtime was recorded.
     RunCreatorInfo:
       type: object
       properties:
@@ -9264,11 +9716,12 @@ components:
             config takes precedence over the agent's stored config and
             the workspace's admin-configured defaults.
         credential_strategy:
-          type: string
-          nullable: true
-          enum:
-            - CREATOR
-            - EXECUTOR
+          oneOf:
+            - type: string
+              enum:
+                - CREATOR
+                - EXECUTOR
+            - type: 'null'
           description: |
             Controls which principal's credentials are used when the
             platform mints tokens (e.g. GitHub or GitLab OAuth tokens) on
@@ -9315,18 +9768,15 @@ components:
         empty, since the two describe mutually exclusive default models.
       properties:
         type:
-          type: string
-          enum:
-            - oz
-            - claude
-            - gemini
-            - codex
+          oneOf:
+            - type: string
+              enum:
+                - oz
+              description: Warp's built-in harness (default).
+            - $ref: '#/components/schemas/ExternalHarness'
           description: |
-            The harness type identifier.
-            - oz: Warp's built-in harness (default)
-            - claude: Claude Code harness
-            - gemini: Gemini CLI harness
-            - codex: Codex CLI harness
+            The harness type identifier: `oz` for Warp's built-in harness
+            (default), or any third-party harness.
         model_id:
           type: string
           description: |
@@ -9344,6 +9794,19 @@ components:
             Reasoning effort for harnesses that support it (e.g. Codex).
             Only applies when type is a harness other than `oz`. Ignored by
             harnesses that do not support reasoning levels.
+    ExternalHarness:
+      type: string
+      enum:
+        - claude
+        - codex
+        - gemini
+        - pi
+      description: |
+        A third-party harness; every harness other than Warp's built-in `oz`.
+        - claude: Claude Code
+        - codex: Codex CLI
+        - gemini: Gemini CLI
+        - pi: Pi
     HarnessAuthSecrets:
       type: object
       description: |
@@ -9362,6 +9825,14 @@ components:
             Name of a managed secret for Codex harness authentication.
             The secret must exist within the caller's personal or team scope.
             Only applicable when harness type is "codex".
+        pi_auth_secret_name:
+          type: string
+          description: |
+            Name of a managed secret for Pi harness authentication.
+            The secret must exist within the caller's personal or team scope and
+            must be a credential for the model provider named by the provider
+            prefix of harness.model_id.
+            Only applicable when harness type is "pi".
     MCPServerConfig:
       type: object
       description: |
@@ -9684,8 +10155,9 @@ components:
           type: string
           description: The prompt/instruction for the agent to execute
         last_spawn_error:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: 'Error message from the last failed spawn attempt, if any'
         agent_config:
           $ref: '#/components/schemas/AmbientAgentConfig'
@@ -9722,14 +10194,16 @@ components:
       description: Scheduler-derived history metadata for a scheduled agent
       properties:
         last_ran:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: Timestamp of the last successful run (RFC3339)
         next_run:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: Timestamp of the next scheduled run (RFC3339)
     CreateScheduledAgentRequest:
       type: object
@@ -9851,8 +10325,9 @@ components:
           type: string
           description: Human-readable name for the environment
         description:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: Optional description of the environment
         docker_image:
           type: string
@@ -9879,8 +10354,9 @@ components:
             references are unioned with references from the run config and
             execution principal.
         failure_session_retention_minutes:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           minimum: 1
           maximum: 60
           description: |
@@ -9961,6 +10437,15 @@ components:
         region:
           type: string
           description: AWS region used for STS when assuming the Bedrock inference role.
+        role_arn_source:
+          allOf:
+            - $ref: '#/components/schemas/BedrockSource'
+          readOnly: true
+          description: |
+            Which level supplied `role_arn`. Returned only on a run's
+            `agent_config`, set when the run is created; absent on agents, on
+            schedules, and on runs created before this field existed. Ignored
+            if sent.
     GitHubRepo:
       type: object
       required:
@@ -10058,9 +10543,10 @@ components:
             $ref: '#/components/schemas/AgentListEnvironment'
           description: Environments where this agent variant is available
         last_run_timestamp:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: Timestamp of the last time this skill was run (RFC3339)
         error:
           type: string
@@ -10164,6 +10650,14 @@ components:
         - agent_stream_network_error
         - agent_stream_failure
         - internal_error
+    PresignedDownloadResponse:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          type: string
+          description: Temporary signed storage URL. Fetch without Warp API headers or credentials.
     RunFollowupRequest:
       type: object
       description: Request body for submitting a follow-up message to an existing run.
@@ -10237,8 +10731,9 @@ components:
         - outcome
       properties:
         followup_id:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Identifier of the durable follow-up record, or null when the
             outcome did not create one (`queued_prompt`).
@@ -10255,8 +10750,9 @@ components:
         - run_id
       properties:
         followup_id:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Identifier of the durable follow-up record, or null when the
             outcome did not create one (`queued_prompt`).
@@ -10337,12 +10833,8 @@ components:
           type: string
           description: Human-readable name of the model
         provider:
-          type: string
-          enum:
-            - OPENAI
-            - ANTHROPIC
-            - GOOGLE
-            - UNKNOWN
+          allOf:
+            - $ref: '#/components/schemas/LlmProvider'
           description: The LLM provider
         vision_supported:
           type: boolean
@@ -10361,6 +10853,26 @@ components:
             - ADMIN_DISABLED
             - REQUIRES_UPGRADE
           description: 'If set, the model is currently unavailable for the given reason'
+    LlmProvider:
+      type: string
+      enum:
+        - OPENAI
+        - ANTHROPIC
+        - GOOGLE
+        - XAI
+        - UNKNOWN
+      description: The LLM provider behind a model.
+    BedrockSource:
+      type: string
+      enum:
+        - run
+        - agent
+        - workspace
+      description: |
+        The configuration level that supplied a Bedrock inference role: `run`,
+        the run's own `config.inference_providers`; `agent`, the agent's
+        `inference_providers`; `workspace`, the workspace's admin-configured
+        Bedrock settings.
     ExternalReferenceArtifactData:
       type: object
       description: Data for a generic external reference artifact.
@@ -10443,9 +10955,10 @@ components:
           format: date-time
           description: Timestamp when the environment was last updated (RFC3339)
         last_task_run_timestamp:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: Timestamp of the most recent task run in this environment (RFC3339)
         last_task_created:
           $ref: '#/components/schemas/EnvironmentLastTask'
@@ -10552,8 +11065,9 @@ components:
       description: Memory settings for updating an agent.
       properties:
         attached_stores:
-          type: array
-          nullable: true
+          type:
+            - array
+            - 'null'
           items:
             $ref: '#/components/schemas/MemoryStoreRef'
           description: |
@@ -10609,8 +11123,9 @@ components:
           maxLength: 1048576
           description: Classification value returned by the scorer
         description:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           maxLength: 1048576
           description: |
             Optional free-text meaning of this classification, surfaced to the
@@ -10636,22 +11151,25 @@ components:
         collections explicitly clear the optional Factory defaults.
       properties:
         default_runner_uid:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Runner used by scorer judge runs. Omit or set null to inherit the
             Factory agent default.
         secrets:
-          type: array
-          nullable: true
+          type:
+            - array
+            - 'null'
           description: |
             Managed secrets attached to scorer judge runs. Omit or set null to
             inherit the Factory agent defaults; an empty array attaches none.
           items:
             $ref: '#/components/schemas/SecretRef'
         mcp_servers:
-          type: object
-          nullable: true
+          type:
+            - object
+            - 'null'
           description: |
             MCP servers attached to scorer judge runs. Omit or set null to
             inherit the Factory agent defaults; an empty object attaches none.
@@ -10682,8 +11200,9 @@ components:
           maxLength: 1048576
           description: Display name for the scorer
         description:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           maxLength: 1048576
           description: Optional description of the scorer
         scoring_prompt:
@@ -10729,9 +11248,10 @@ components:
           items:
             $ref: '#/components/schemas/ScorerAgentInput'
         sampling_rate:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          nullable: true
           minimum: 0
           maximum: 100
           description: |
@@ -10847,14 +11367,9 @@ components:
             New LLM model dispatched judge runs use to evaluate this scorer's
             rubric. Must not be blank when provided.
         agent_config:
-          type: object
-          nullable: true
           anyOf:
             - $ref: '#/components/schemas/ScorerAgentConfig'
-            - type: object
-              nullable: true
-              enum:
-                - null
+            - type: 'null'
           description: |
             Partial execution override update. A null object resets every
             override to inherit the Factory agent defaults. Otherwise, omitted
@@ -11070,9 +11585,10 @@ components:
           type: integer
           description: Number of live scores recorded for the scorer
         last_scored_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: When the scorer last recorded a score
         model_id:
           type: string
@@ -11137,12 +11653,14 @@ components:
           type: string
           description: The selected agent run that anchors the scoring attempt
         conversation_id:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: Conversation whose transcript was judged
         conversation_title:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: Title of the judged conversation
         status:
           $ref: '#/components/schemas/ScorerResultStatus'
@@ -11154,21 +11672,24 @@ components:
           type: string
           description: Judge reasoning; present only when reason_status is available.
         classification:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: The chosen classification; absent when the attempt failed
         attempted_at:
           type: string
           format: date-time
           description: When the scorer last attempted this run
         scored_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: When the live score was recorded; absent for failed attempts
         scoring_run_id:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: The Warp run that performed the judging; absent when scoring was never dispatched for this attempt
         scoring_run_usage:
           allOf:
@@ -11178,28 +11699,25 @@ components:
             scored run's own cost. Absent when there is no scoring run yet, or
             its usage is not yet available (e.g. the judge is still in flight).
         scoring_run_time:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Total runtime of the scoring run as an ISO 8601 duration. Absent
             when there is no scoring run or its execution duration is not yet
             available.
         score:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          nullable: true
           description: |
             Numeric score of the classified label, resolved from the attempt's
             config snapshot at scoring time. Absent when the attempt failed.
         outcome:
-          type: string
           anyOf:
             - $ref: '#/components/schemas/ScorerOutcome'
-            - type: string
-              nullable: true
-              enum:
-                - null
-          nullable: true
+            - type: 'null'
           description: |
             Pass/fail verdict for this score, derived at read time against the
             evaluation's current threshold. Absent when the attempt failed.
@@ -11255,9 +11773,10 @@ components:
           format: int64
           description: 'Live scores whose derived outcome is fail, over the whole range.'
         pass_rate:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          nullable: true
           description: |
             pass_count / (pass_count + fail_count) over the whole range; null
             when the range has no pass/fail scores. The dashboard headline
@@ -11283,9 +11802,10 @@ components:
             with no pass/fail scores, so the chart renders a gap there
             instead of a false 0%.
           items:
-            type: number
+            type:
+              - number
+              - 'null'
             format: double
-            nullable: true
         cost_usd_series:
           type: array
           description: |
@@ -11365,16 +11885,18 @@ components:
         status:
           $ref: '#/components/schemas/ManualScoringDispatchStatus'
         scoring_run_id:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           format: uuid
           description: |
             The judge run covering this pair; present for dispatched and
             already_in_flight, absent otherwise. Multiple pairs for the same
             run can share one scoring_run_id.
         error:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: Safe error detail; present only for failed_to_dispatch
     ManualScoringDispatchResponse:
       type: object
@@ -11430,21 +11952,24 @@ components:
         trigger_source:
           $ref: '#/components/schemas/RunScoreTriggerSource'
         classification:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: The live classification; absent when there is no live score
         attempted_at:
           type: string
           format: date-time
           description: When the evaluation last attempted this run
         scored_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: When the live score was recorded; absent when there is no live score
         scoring_run_id:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: The Warp run that performed the judging; absent when scoring was never dispatched for this attempt
     GetRunScoresResponse:
       type: object
@@ -11469,23 +11994,27 @@ components:
           type: string
           description: A name for the agent
         description:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: Optional description of the agent
         prompt:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Optional base prompt for this agent
         environment_id:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Optional default cloud environment ID for runs executed by this agent.
             The environment must be owned by the same team as the agent.
         default_runner_uid:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Optional default runner UID for runs executed by this agent. When set,
             it overrides the selected environment's default runner for runs that
@@ -11509,8 +12038,9 @@ components:
             Each spec is validated and normalized at attach time using the team's GitHub
             credentials; inaccessible or malformed specs are rejected.
         base_model:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Optional base model for runs executed by this agent.
         inference_providers:
@@ -11532,8 +12062,9 @@ components:
             Optional map of MCP server configurations by name to attach to runs executed by this agent.
             Run-level MCP config takes precedence over this agent-level default.
         base_harness:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           deprecated: true
           description: |
             Optional default harness for runs executed by this agent.
@@ -11547,9 +12078,9 @@ components:
             Optional default harness for runs executed by this agent.
             Omission or an empty object stores no harness default.
         credential_strategy:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/AgentCredentialStrategy'
-          nullable: true
+            - type: 'null'
           description: |
             Optional default credential strategy for runs executed by this
             agent. When omitted or null, the agent has no opinion and runs fall
@@ -11569,8 +12100,9 @@ components:
             field to attribute runs to another team member. Defaults to false.
             Only team admins may set this field.
         worker_host:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Optional default worker host for runs executed by this agent;
             omission, null, or an empty value stores no Agent default, in
@@ -11590,36 +12122,44 @@ components:
           * Non-empty: replace the field wholesale with the provided value.
         `secrets_append` is an exception: it appends secrets idempotently and
         must be the only supplied field, including fields supplied as `null`.
+        `network_policy` is also an exception: omission preserves the policy,
+        null clears it, and an object replaces it wholesale. An object with
+        no allowed hosts carries deny-all intent.
       properties:
         name:
           type: string
           description: The new name for the agent
         description:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Replacement description. Omit or pass `null` to leave unchanged, or use an empty value to clear.
         prompt:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Replacement prompt. Omit or pass `null` to leave unchanged, or use an empty value to clear.
         environment_id:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Replacement default cloud environment ID. Omit or pass `null` to leave unchanged,
             or pass an empty string to clear.
         default_runner_uid:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Replacement default runner UID. Omit or pass `null` to leave unchanged,
             or pass an empty string to clear. A non-empty value must reference a
             runner the editor can View.
         secrets:
-          type: array
-          nullable: true
+          type:
+            - array
+            - 'null'
           items:
             $ref: '#/components/schemas/SecretRef'
           description: |
@@ -11628,7 +12168,6 @@ components:
             Duplicate names are rejected.
         secrets_append:
           type: array
-          nullable: false
           items:
             $ref: '#/components/schemas/SecretRef'
           description: |
@@ -11641,23 +12180,25 @@ components:
             the agent plus secret-attach access on its Factory. Agents managed in
             external source files return 409.
         skills:
-          type: array
-          nullable: true
+          type:
+            - array
+            - 'null'
           items:
             type: string
           description: |
             Replacement list of skill specs. Omit to leave unchanged, pass an empty array
             to clear, or pass a non-empty array to replace.
         base_model:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Replacement base model. Omit or pass `null` to leave unchanged,
             or pass an empty string to clear.
         memory:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/AgentMemoryUpdateConfig'
-          nullable: true
+            - type: 'null'
           description: Replacement memory settings for this agent.
         mcp_servers:
           type: object
@@ -11669,18 +12210,18 @@ components:
             to replace. Run-level MCP config takes precedence over this agent-level
             default.
         inference_providers:
-          type: object
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/InferenceProvidersConfig'
-          nullable: true
+            - type: 'null'
           description: |
             Replacement inference provider settings for this agent, which
             take precedence over the workspace's admin-configured defaults;
             omit or pass `null` to leave unchanged, or pass an empty object
             `{}` to clear.
         base_harness:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           deprecated: true
           description: |
             Replacement default harness; omit or pass `null` to leave
@@ -11689,17 +12230,17 @@ components:
             are sent, harness is authoritative and a conflicting type is
             rejected with invalid_request.
         harness:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/Harness'
-          nullable: true
+            - type: 'null'
           description: |
             Replacement default harness for runs executed by this agent. Omit
             or pass `null` to leave unchanged, pass `{}` to clear the stored
             default, or pass a populated object to replace it wholesale.
         credential_strategy:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/AgentCredentialStrategy'
-          nullable: true
+            - type: 'null'
           description: |
             Replacement default credential strategy. Omit or pass `null` to
             leave unchanged, or pass an empty string to clear the agent's
@@ -11708,22 +12249,24 @@ components:
             file that declares none keeps the strategy already projected, so a
             clear is rejected with a 400.
         harness_auth_secrets:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/HarnessAuthSecrets'
-          nullable: true
+            - type: 'null'
           description: |
             Replacement per-harness authentication secrets. Omit or pass `null`
             to leave unchanged, or pass an empty object to clear all secrets.
         on_behalf_of_enabled:
-          type: boolean
-          nullable: true
+          type:
+            - boolean
+            - 'null'
           description: |
             Whether runs created with this agent's API key may use the on_behalf_of
             field to attribute runs to another team member. Omit or pass `null` to
             leave unchanged. Only team admins may set this field.
         worker_host:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Replacement default worker host. Omit or pass `null` to leave
             unchanged, or pass an empty string to clear (the workspace default
@@ -11750,12 +12293,14 @@ components:
           type: string
           description: Name of the agent
         description:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: Optional description of the agent
         prompt:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Optional base prompt for this agent
         environment_id:
@@ -11918,9 +12463,10 @@ components:
           format: date-time
           description: When the task was last updated (RFC3339)
         started_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: 'When the task started running (RFC3339), null if not yet started'
     BenchmarkRunState:
       type: string
@@ -11980,8 +12526,9 @@ components:
             against, as the authoritative requirements. The task prompt provides
             context only.
         source_run_id:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
         labels:
           type: object
           additionalProperties:
@@ -12011,8 +12558,9 @@ components:
         model:
           type: string
         harness_auth_secret_name:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
     BenchmarkSuite:
       type: object
       required:
@@ -12142,8 +12690,9 @@ components:
             against, as the authoritative requirements. The task prompt provides
             context only.
         source_run_id:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
         labels:
           type: object
           additionalProperties:
@@ -12174,8 +12723,9 @@ components:
             against, as the authoritative requirements. The task prompt provides
             context only.
         source_run_id:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Optional provenance. The caller must be able to read the run.
         tags:
@@ -12196,8 +12746,9 @@ components:
         success_criteria:
           type: string
         source_run_id:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
         tags:
           type: array
           items:
@@ -12217,14 +12768,16 @@ components:
         model:
           type: string
         runner_id:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Optional runner UID, constrained to the Factory's existing runner
             roster. Omitted or empty uses the agent's or environment's default.
         harness_auth_secret_name:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: |
             Optional managed-secret name this configuration's third-party harness
             authenticates with. Empty or omitted is valid for Oz. For a third-party
@@ -12250,8 +12803,9 @@ components:
         factory_agent_type:
           type: string
         tasks:
-          type: array
-          nullable: true
+          type:
+            - array
+            - 'null'
           description: |
             The array order is not significant: a task's identity comes from its
             uid (when editing an existing task) or title (when creating one),
@@ -12295,9 +12849,9 @@ components:
           uniqueItems: true
           items:
             type: string
-          example:
-            - 7d69fb52-71c5-4e27-914e-8764ee9c5246
-            - ad8ff7dc-a7d1-4ed6-9f50-650010bb39aa
+          examples:
+            - - 7d69fb52-71c5-4e27-914e-8764ee9c5246
+              - ad8ff7dc-a7d1-4ed6-9f50-650010bb39aa
           description: |
             Optional allowlist of immutable UIDs for current tasks in the addressed
             suite. Omitted runs all current suite tasks. Explicit empty, invalid,
@@ -12385,16 +12939,19 @@ components:
           type: string
           description: suite UID verified against the frozen Run context.
         suite_name:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: retained frozen suite name; unknown legacy name is null.
         agent_uid:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: tested root agent's frozen UID when retained.
         agent_name:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: 'tested root agent''s frozen name, not today''s catalog name.'
         state:
           $ref: '#/components/schemas/BenchmarkRunState'
@@ -12408,19 +12965,21 @@ components:
           format: date-time
           description: 'stored Run update time, not a complete source-validity watermark.'
         started_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: stored Run start time; null before start or if not retained.
         completed_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: stored Run terminal time; null while active or if not retained.
         creator:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/BenchmarkRunCreator'
-          nullable: true
+            - type: 'null'
           description: 'safe retained creator identity, or null when it cannot be resolved.'
         execution:
           $ref: '#/components/schemas/BenchmarkExecutionProgress'
@@ -12450,8 +13009,9 @@ components:
           type: string
           description: 'creator''s public UID, never its database ID.'
         display_name:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: 'present only for an authorized creator-display-name include; null if the name is unknown, with no email fallback.'
     BenchmarkExecutionProgress:
       type: object
@@ -12506,8 +13066,9 @@ components:
         - trials_scoring_finished
       properties:
         total:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           description: 'all applicable ledger pairs; null before materialization, zero only for known zero work.'
         awaiting_trial:
           type: integer
@@ -12531,8 +13092,9 @@ components:
           type: integer
           description: 'exactly raw `scored`, not effective retained-score coverage.'
         expected:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           description: '`pending + judging + scored + finished_unscored` once materialized; otherwise null.'
         settled:
           type: integer
@@ -12597,20 +13159,24 @@ components:
           type: string
           description: frozen user-supplied name; the existing empty string means no supplied name.
         harness:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: recorded effective root harness; unknown legacy values remain null.
         model:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: recorded effective root model; never filled from live defaults.
         runner_id:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: recorded root runner identity; no per-agent runner is introduced.
         harness_auth_secret_name:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: 'retained root credential-name reference, including unavailable names.'
         agent_configs:
           type: array
@@ -12630,20 +13196,24 @@ components:
           type: string
           description: frozen named Factory agent UID.
         agent_name:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: retained frozen named-agent label.
         harness:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: named agent's recorded effective harness.
         model:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: named agent's recorded effective model.
         harness_auth_secret_name:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: retained named-agent credential-name reference.
     BenchmarkScorerSelection:
       type: object
@@ -12730,8 +13300,9 @@ components:
           type: string
           description: 'frozen task UID, or stable Run-local public identity for a legacy task.'
         task_title:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: frozen task title; unknown legacy title remains null.
         task_tags:
           type: array
@@ -12748,15 +13319,17 @@ components:
           $ref: '#/components/schemas/BenchmarkTrialState'
           description: captured logical Trial state after queued/claimed normalization.
         terminal_reason:
-          type: string
-          enum:
-            - timeout
-            - failure
-          nullable: true
+          oneOf:
+            - type: string
+              enum:
+                - timeout
+                - failure
+            - type: 'null'
           description: existing failed-Trial distinction; cancellation is already in `state`.
         current_agent_run_id:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: current execution attempt ID; null before dispatch.
         attempt_count:
           type: integer
@@ -12785,9 +13358,9 @@ components:
           type: string
           description: resolved canonical scorer UUID.
         state:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/BenchmarkTrialScoringState'
-          nullable: true
+            - type: 'null'
           description: existing effective ledger status after binding/cutoff checks; null when no ledger row exists.
     BenchmarkTrialResults:
       type: object
@@ -12803,7 +13376,7 @@ components:
           description: 'complete resolved scorer rows with existing evidence/status, including pending/unscored or absent-work rows.'
         metrics:
           $ref: '#/components/schemas/BenchmarkTrialMetrics'
-          description: current retained retry-inclusive execution measurements under existing loader semantics.
+          description: final retained live-tree run counts and retry-inclusive execution costs and durations.
         spend:
           $ref: '#/components/schemas/BenchmarkSpend'
           description: retained execution/judging/combined totals under existing arithmetic.
@@ -12811,7 +13384,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BenchmarkTrialAgentMetric'
-          description: complete existing named-agent breakdown when available; omitted when the existing loader suppresses an empty/incomplete breakdown.
+          description: available named-agent counts and retry-inclusive costs; count-only rows have null cost_usd. Omitted when no named-agent evidence is available.
     BenchmarkTrialScoringResult:
       type: object
       required:
@@ -12828,9 +13401,9 @@ components:
           type: string
           description: resolved canonical scorer UUID.
         state:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/BenchmarkTrialScoringState'
-          nullable: true
+            - type: 'null'
           description: existing effective ledger status after binding/cutoff checks; null when no ledger row exists.
         name:
           type: string
@@ -12839,28 +13412,35 @@ components:
           $ref: '#/components/schemas/ScorerKind'
           description: existing authorized resolver kind.
         score:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          nullable: true
           description: exact retained bound classification value at/before cutoff; zero is a real score.
         label:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: label from that same bound score; null when no score evidence survives.
         outcome:
-          type: string
-          enum:
-            - pass
-            - fail
-          nullable: true
+          oneOf:
+            - type: string
+              enum:
+                - pass
+                - fail
+            - type: 'null'
           description: existing SQL-derived current-threshold verdict; null when no verdict is supplied.
         latest_judge_run_id:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: latest retained judge execution ID by dispatch order; no full judge history is implied.
     BenchmarkTrialMetrics:
       type: object
+      description: Metrics for a benchmark trial. A run is a persisted platform agent task instance; an execution is one session of that run with a recorded agent start. Resuming a run can add an execution without adding a run. Run/execution counts cover the final trial attempt's root and recursively spawned agents. Scorer runs and all their descendants are excluded.
       required:
+        - agent_runs
+        - agent_executions
         - compute_credits
         - platform_credits
         - inference_credits
@@ -12871,6 +13451,16 @@ components:
         - inference_cost_usd
         - cost_usd
       properties:
+        agent_runs:
+          type:
+            - integer
+            - 'null'
+          description: 'Distinct persisted platform agent task instances in the final retained live trial tree, excluding scorer runs and their descendants. Attempted runs count even if they never start or later fail. Superseded trial attempts are excluded. Null when the live tree is unavailable; deleted history is not reconstructed.'
+        agent_executions:
+          type:
+            - integer
+            - 'null'
+          description: 'Distinct execution IDs with recorded agent starts in the same final retained live tree as agent_runs, including resumed sessions and starts that later fail. Dispatch or boot retries without an agent start do not count. Null when execution evidence is ambiguous or missing, independently of agent_runs; measured zero is present.'
         compute_credits:
           type: string
           description: summed retained execution-attempt compute credits.
@@ -12943,11 +13533,24 @@ components:
           description: existing Warp credit total for this spend group.
     BenchmarkTrialAgentMetric:
       type: object
+      description: 'Named-agent breakdown of trial metrics, with the platform run/execution definitions and scorer-branch exclusions of BenchmarkTrialMetrics.'
       required:
+        - agent_runs
+        - agent_executions
         - agent_uid
         - agent_name
         - cost_usd
       properties:
+        agent_runs:
+          type:
+            - integer
+            - 'null'
+          description: 'Distinct persisted platform agent task instances attributed to this agent in the final retained live trial tree, excluding scorer runs and their descendants. Attempts count even if they never start or later fail. Superseded attempts are excluded. Confirmed absence is zero; null means the live tree is unavailable.'
+        agent_executions:
+          type:
+            - integer
+            - 'null'
+          description: 'Distinct execution IDs with recorded agent starts attributed to this agent in the same final retained live tree as agent_runs, including resumed sessions and starts that later fail. Dispatch or boot retries without an agent start do not count. Null means this agent''s execution evidence is ambiguous or missing, independently of agent_runs; confirmed absence is zero.'
         agent_uid:
           type: string
           description: existing named-agent identity; the empty string retains the Unknown-agent fallback.
@@ -12955,9 +13558,11 @@ components:
           type: string
           description: 'existing resolved label, including `"Unknown agent"` when identity is unavailable.'
         cost_usd:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          description: existing exclusive named-agent cost summed across retained retries and non-system descendants.
+          description: 'Exclusive named-agent cost summed across retained retries and spawned agents, excluding scorer runs and their descendants; null when only count evidence is available.'
         sandbox_time_s:
           type: number
           format: double
@@ -13082,14 +13687,16 @@ components:
         - judge_runs
       properties:
         started_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: earliest retained execution claim across the Trial's attempts.
         completed_at:
-          type: string
+          type:
+            - string
+            - 'null'
           format: date-time
-          nullable: true
           description: current attempt's retained terminal time only when the logical Trial is terminal.
         attempts:
           type: array
@@ -13176,8 +13783,9 @@ components:
           type: boolean
           description: true for pending/running/scoring Runs whose values can still change.
         incomplete_reason:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: existing safe failed/cancelled partial-results explanation; null in other states.
         coverage:
           $ref: '#/components/schemas/BenchmarkResultsCoverage'
@@ -13189,21 +13797,23 @@ components:
           type: string
           description: existing selected execution platform-credit total from RunMetrics.
         spend:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/BenchmarkSpend'
-          nullable: true
+            - type: 'null'
           description: selected-dataset retry/judge totals; null before any selected Trial dispatch.
         elapsed_s:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          nullable: true
           description: 'Run span from start through completion/calculation time, including scoring; null before start or if start is unknown.'
         task_count:
           type: integer
           description: 'distinct selected frozen tasks, independent of display projections and Trial pages.'
         scorer_count:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           description: 'count of resolved scorer descriptors, as in current history statistics; null before any selected Trial dispatch.'
         narrative:
           $ref: '#/components/schemas/BenchmarkNarrative'
@@ -13242,8 +13852,9 @@ components:
           type: integer
           description: pairs whose exact bound score resolves under retention/access and at/before cutoff.
         expected_pair_count:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           description: materialized `pending + judging + scored + finished_unscored`; excludes awaiting-trial/not-scoreable and is null before membership is known.
     BenchmarkNarrative:
       type: object
@@ -13259,8 +13870,9 @@ components:
             - unavailable
           description: 'current stored generation/lifecycle gate, not metric completeness.'
         text:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: nonempty retained narrative only when available; null otherwise.
     BenchmarkResults:
       type: object
@@ -13303,8 +13915,9 @@ components:
           type: boolean
           description: true for pending/running/scoring Runs whose values can still change.
         incomplete_reason:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: existing safe failed/cancelled partial-results explanation; null in other states.
         coverage:
           $ref: '#/components/schemas/BenchmarkResultsCoverage'
@@ -13316,21 +13929,23 @@ components:
           type: string
           description: existing selected execution platform-credit total from RunMetrics.
         spend:
-          allOf:
+          oneOf:
             - $ref: '#/components/schemas/BenchmarkSpend'
-          nullable: true
+            - type: 'null'
           description: selected-dataset retry/judge totals; null before any selected Trial dispatch.
         elapsed_s:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          nullable: true
           description: 'Run span from start through completion/calculation time, including scoring; null before start or if start is unknown.'
         task_count:
           type: integer
           description: 'distinct selected frozen tasks, independent of display projections and Trial pages.'
         scorer_count:
-          type: integer
-          nullable: true
+          type:
+            - integer
+            - 'null'
           description: 'count of resolved scorer descriptors, as in current history statistics; null before any selected Trial dispatch.'
         narrative:
           $ref: '#/components/schemas/BenchmarkNarrative'
@@ -13391,13 +14006,17 @@ components:
           type: integer
           description: 'sum of each logical Trial''s `max(attempt_count-1,0)`.'
         overall_mean:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          nullable: true
           description: 'unweighted mean of available comparable scorer means, null when none exists.'
     BenchmarkConfigurationMetrics:
       type: object
+      description: Configuration totals and averages. Run/execution averages use the platform definitions and scorer-branch exclusions of BenchmarkTrialMetrics.
       required:
+        - avg_agent_runs
+        - avg_agent_executions
         - compute_credits
         - platform_credits
         - inference_credits
@@ -13408,6 +14027,18 @@ components:
         - avg_wall_time_s
         - avg_cost_usd_per_trial
       properties:
+        avg_agent_runs:
+          type:
+            - number
+            - 'null'
+          format: double
+          description: 'Mean observed final retained live-tree run counts over succeeded trials with available run evidence, including active descendants. Superseded attempts and failed or cancelled trials are excluded.'
+        avg_agent_executions:
+          type:
+            - number
+            - 'null'
+          format: double
+          description: 'Mean recorded final-tree starts and resumes over succeeded trials with available execution evidence, including trials with active descendants or queued resumes. Null when no measurements qualify; unknown starts are not zero.'
         compute_credits:
           type: string
           description: retry-inclusive execution compute-credit total.
@@ -13482,8 +14113,9 @@ components:
           type: integer
           description: existing finished-unscored or unresolved/post-cutoff scored pair count.
         no_result:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: existing safe no-scored-trials explanation.
         outcomes:
           $ref: '#/components/schemas/BenchmarkOutcomeCounts'
@@ -13494,9 +14126,10 @@ components:
             $ref: '#/components/schemas/BenchmarkLabelCount'
           description: 'complete retained classification-label distribution, including known unseen labels at zero.'
         mean:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          nullable: true
           description: unweighted counted task-cell mean for this scorer/configuration; null when no cell contributes.
         expected_task_count:
           type: integer
@@ -13521,9 +14154,10 @@ components:
           type: integer
           description: retained bound scores whose current-threshold outcome is fail.
         pass_rate:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          nullable: true
           description: '`pass/(pass+fail)`, null when that denominator is zero; not a scoring-coverage rate.'
     BenchmarkLabelCount:
       type: object
@@ -13553,8 +14187,9 @@ components:
           type: string
           description: frozen/derived legacy task coordinate.
         task_title:
-          type: string
-          nullable: true
+          type:
+            - string
+            - 'null'
           description: retained frozen title for row display.
         configuration_uid:
           type: string
@@ -13569,23 +14204,40 @@ components:
           type: integer
           description: succeeded repetitions with permitted retained bound numeric scores.
         mean:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          nullable: true
           description: 'average of those scored repetitions; null when none contributes, never fabricated zero.'
         task_overall_mean:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          nullable: true
           description: 'mean of available comparable scorer means for this task/configuration, before scorer display projection.'
     BenchmarkAgentMetricAggregate:
       type: object
+      description: Per-configuration named-agent totals and averages. Run/execution averages use the platform definitions and scorer-branch exclusions of BenchmarkTrialMetrics.
       required:
+        - avg_agent_runs
+        - avg_agent_executions
         - agent_uid
         - agent_name
         - cost_usd
         - configuration_uid
       properties:
+        avg_agent_runs:
+          type:
+            - number
+            - 'null'
+          format: double
+          description: 'Mean observed final retained live-tree run counts attributed to this agent over succeeded trials with available run evidence, including active descendants. Confirmed absence contributes zero; superseded attempts and failed or cancelled trials are excluded.'
+        avg_agent_executions:
+          type:
+            - number
+            - 'null'
+          format: double
+          description: 'Mean recorded final-tree starts and resumes attributed to this agent over succeeded trials with available execution evidence for this agent, including trials with active descendants or queued resumes. Confirmed absence contributes zero; unknown starts are not zero. Null when no measurements qualify.'
         agent_uid:
           type: string
           description: existing named-agent identity; the empty string retains the Unknown-agent fallback.
@@ -13593,9 +14245,11 @@ components:
           type: string
           description: 'existing resolved label, including `"Unknown agent"` when identity is unavailable.'
         cost_usd:
-          type: number
+          type:
+            - number
+            - 'null'
           format: double
-          description: existing exclusive named-agent cost summed across retained retries and non-system descendants.
+          description: 'Exclusive named-agent cost summed across retained retries and spawned agents, excluding scorer runs and their descendants; null when only count evidence is available.'
         sandbox_time_s:
           type: number
           format: double
