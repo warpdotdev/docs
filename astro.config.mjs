@@ -1,4 +1,5 @@
 // @ts-check
+import { readFileSync } from 'node:fs';
 import { defineConfig, envField } from 'astro/config';
 import remarkGfm from 'remark-gfm';
 import mermaid from 'astro-mermaid';
@@ -7,6 +8,7 @@ import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
 import starlightLlmsTxt from 'starlight-llms-txt';
 import starlightSidebarTopics from 'starlight-sidebar-topics';
+import { parse } from 'yaml';
 import pageTitleOverride from './src/plugins/page-title-override.ts';
 import remarkHeadingVars from './src/plugins/heading-vars.ts';
 import { varsTransformPlugin } from './src/plugins/vars-transform.ts';
@@ -14,6 +16,10 @@ import vercel from '@astrojs/vercel';
 import { sidebarTopics } from './src/sidebar.ts';
 import docsMarkdownIntegration from './src/integrations/docs-markdown-integration.js';
 import { DOCS_ORIGIN } from './src/lib/site.js';
+
+const openApiVersion = parse(
+	readFileSync(new URL('./developers/agent-api-openapi.yaml', import.meta.url), 'utf8'),
+).openapi;
 
 // https://astro.build/config
 export default defineConfig({
@@ -200,12 +206,12 @@ export default defineConfig({
 						{
 							label: 'Oz Agent API (OpenAPI spec, YAML)',
 							url: 'https://docs.warp.dev/openapi.yaml',
-							description: 'Machine-readable OpenAPI 3.0 specification for the Oz Agent API.',
+							description: `Machine-readable OpenAPI ${openApiVersion} specification for the Oz Agent API.`,
 						},
 						{
 							label: 'Oz Agent API (OpenAPI spec, JSON)',
 							url: 'https://docs.warp.dev/openapi.json',
-							description: 'Machine-readable OpenAPI 3.0 specification (JSON format) for the Oz Agent API.',
+							description: `Machine-readable OpenAPI ${openApiVersion} specification (JSON format) for the Oz Agent API.`,
 						},
 					],
 				// Excludes pages that cause a stack overflow in hast-util-to-text
