@@ -80,13 +80,14 @@ Both examples use `agent: triage`. If your triage agent has a different name, us
    * **Jira** - Check existing `agent_session_created` automations first; [Jira setup](/factories/integrations/jira/#connect-jira-and-add-an-automation) may already have created one for your projects. If all its requests need triage, retarget it to your triage agent and use the triage-only prompt above. If it also handles other workflows, keep that handler and narrow both routes' project or keyword filters so each request matches only one automation before adding a separate triage automation. Adding a keyword filter to the new route alone doesn't exclude it from an existing project-wide route.
 
    See the [trigger schema](/factories/factory-as-code/#triggers) and [filter reference](/factories/factory-as-code/#triggersfilter) for provider-specific values.
-5. Test the selected trigger with an issue or work item that describes a concrete symptom and matches every configured filter:
+5. Apply the definition changes before testing. For a Warp-managed factory, save the edits in the factory dashboard. For a GitHub-backed factory, merge the changes into its configured production branch. Confirm validation succeeds and the changes are applied. See [where the factory definition lives](/factories/factory-as-code/#where-the-definition-lives).
+6. Test the selected trigger with an issue or work item that describes a concrete symptom and matches every configured filter:
    * **Creation intake** - Create an issue for GitHub or Linear, or a work item for Azure DevOps. Include any labels required by the filter when creating it.
    * **Label intake** - Apply `needs-triage` to a test issue or work item after creating it.
    * **Jira agent sessions** - Assign or mention **Warp** on a test work item in a matching project and ask it to triage the issue.
 
    Confirm one run starts, updates the issue or work item with evidence, uses only the allowed labels, and stops without creating a branch. For Jira, also test that a non-triage request still reaches its intended handler.
-6. Review several results before expanding the repository or event filters.
+7. Review several results before expanding the repository or event filters.
 
 ## Example workflow
 
