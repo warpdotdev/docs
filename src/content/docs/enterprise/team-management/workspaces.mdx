@@ -23,7 +23,7 @@ A workspace provides company-wide administration, while teams organize shared re
 Every workspace member has one of three roles:
 
 * **Member** - Uses Warp within their teams and the policies admins configure.
-* **Admin** - Manages workspace membership, billing, settings, and every team, including teams they don't belong to. Workspace admins have admin-level permissions on every team; team admins who aren't workspace admins have admin permissions only on their teams.
+* **Admin** - Manages workspace membership, billing, and settings, with admin-level permissions on every team, including teams they don't belong to. Team admins who aren't workspace admins have admin permissions only on their teams.
 * **Owner** - Has every admin capability and can transfer ownership to another member. Each workspace has one owner.
 
 In team member lists, the **Workspace admin** and **Workspace owner** badges distinguish workspace roles from team roles.
@@ -68,7 +68,12 @@ Workspace and team roles don't grant access to runs owned by an individual user.
 
 ## Changing workspace roles
 
-In the Warp app, open the [Admin Panel](/enterprise/team-management/admin-panel/), click **Members**, then use the three-dots menu on a member's row to promote, demote, remove, or transfer ownership.
+To promote or demote a workspace admin:
+
+1. In the Warp app, open the [Admin Panel](/enterprise/team-management/admin-panel/) and click **Members**.
+2. On the member's row, click the three-dots menu, then click **Promote to admin** to make them an Admin or **Demote admin** to make them a Member. If you're demoting yourself, click **Demote to member** in the confirmation dialog.
+
+The member's workspace role updates in the list. Use the same menu to remove a member or transfer ownership.
 
 * **Roles are additive** - Changing a workspace role never changes a member's team roles. An admin who is demoted loses workspace admin access immediately but keeps any team admin role they already had.
 * **Only the owner transfers ownership** - The previous owner becomes an Admin.
