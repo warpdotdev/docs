@@ -1,0 +1,25 @@
+---
+import { Image } from 'astro:assets';
+import architecture from '../assets/agent-platform/factories-self-hosted-architecture.png';
+---
+
+<figure class="self-hosted-architecture" style={{ maxWidth: '736px' }}>
+  <Image
+    src={architecture}
+    alt="Managed self-hosting architecture showing the Warp control plane, outbound worker connection, agent backends, inference routes, and customer-configured run-data storage."
+    format="webp"
+    quality={100}
+  />
+  <figcaption>Warp coordinates work executed on your infrastructure.</figcaption>
+</figure>
+
+<p><a href={architecture.src}>Open the full-resolution architecture diagram</a>.</p>
+
+<style>
+  .self-hosted-architecture img {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+  }
+</style>
