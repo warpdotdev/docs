@@ -6,7 +6,7 @@ description: >-
 ---
 Automate issue triage in your factory so incoming issues include a category, priority, supporting evidence, and a recommended next step. Use this pattern when maintainers repeatedly collect the same context before deciding what work to take on.
 
-This recipe adds an intake automation for your factory's existing triage agent. Its prompt asks the agent to stop after triage; other workflows in the same factory can continue through specification, implementation, and review.
+This recipe configures an intake automation for your factory's existing triage agent. Its prompt asks the agent to stop after triage; other workflows in the same factory can continue through specification, implementation, and review.
 
 ## Prerequisites
 
@@ -17,7 +17,7 @@ This recipe adds an intake automation for your factory's existing triage agent. 
 
 ## Recommended recipe
 
-Add one automation that watches a narrow intake event and targets your factory's triage agent.
+Configure one automation that watches a narrow intake event and targets your factory's triage agent. Reuse an existing route when it already handles those requests.
 
 | Part | Recommendation |
 | --- | --- |
@@ -73,11 +73,11 @@ Both examples use `agent: triage`. If your triage agent has a different name, us
 1. Choose an existing factory with access to the relevant repositories and issue source. Follow the [Warp Factories quickstart](/factories/quickstart/) if you don't have one.
 2. Confirm the factory has a [triage agent](/factories/factory-agents/#triage) with read access to the relevant repositories through the code host and write access to issues through the connected issue source.
 3. Add `agents/triage/skills/issue-triage/SKILL.md`. Record the allowed categories and priority levels, the evidence required for a bug, and when to ask a human. See [factory skills](/factories/factory-skills/) for the file format.
-4. Add one automation for your issue source:
+4. Configure one automation for your issue source:
    * **GitHub** - Use the GitHub example above. For a controlled rollout, change the event to `issue_labeled` and add `labels: [needs-triage]` alongside the `repos` filter.
    * **Azure DevOps** - Use the separate work item example above, not the GitHub trigger.
    * **Linear** - Use `provider: linear` with `issue_created` or `issue_labeled`. Replace the GitHub `repos` filter with Linear team or project filters, and add a label filter for a controlled rollout.
-   * **Jira** - Use `provider: jira` with `agent_session_created` and a `project_keys` filter. Start triage by assigning or mentioning **Warp** on a work item, following the [Jira automation setup](/factories/integrations/jira/#configure-the-automation-as-code).
+   * **Jira** - Check existing `agent_session_created` automations first; [Jira setup](/factories/integrations/jira/#connect-jira-and-add-an-automation) may already have created one for your projects. If all its requests need triage, retarget it to your triage agent and use the triage-only prompt above. If it also handles other workflows, keep that handler and narrow both routes' project or keyword filters so each request matches only one automation before adding a separate triage automation. Adding a keyword filter to the new route alone doesn't exclude it from an existing project-wide route.
 
    See the [trigger schema](/factories/factory-as-code/#triggers) and [filter reference](/factories/factory-as-code/#triggersfilter) for provider-specific values.
 5. Test the selected trigger with an issue or work item that describes a concrete symptom and matches every configured filter:
@@ -85,7 +85,7 @@ Both examples use `agent: triage`. If your triage agent has a different name, us
    * **Label intake** - Apply `needs-triage` to a test issue or work item after creating it.
    * **Jira agent sessions** - Assign or mention **Warp** on a test work item in a matching project and ask it to triage the issue.
 
-   Confirm one run starts, updates the issue or work item with evidence, uses only the allowed labels, and stops without creating a branch.
+   Confirm one run starts, updates the issue or work item with evidence, uses only the allowed labels, and stops without creating a branch. For Jira, also test that a non-triage request still reaches its intended handler.
 6. Review several results before expanding the repository or event filters.
 
 ## Example workflow
@@ -99,7 +99,7 @@ The agent labels the issue `bug` and `payments`, assigns the team's `P1` priorit
 * **Use a closed classification set** - Put valid categories and priorities in a skill so the agent doesn't invent labels.
 * **Separate evidence from confidence** - Require a code location, duplicate, log, or reproduction before assigning a root cause.
 * **Control intake volume** - Begin with a label trigger when issue volume or run cost is uncertain.
-* **Prevent duplicate routes** - Don't combine a broad `issue_created` automation with an overlapping label automation.
+* **Prevent duplicate routes** - Don't combine a broad `issue_created` automation with an overlapping label automation. For Jira, check every matching session automation; a triage-only prompt doesn't stop another automation from starting its own run.
 * **Control the next step** - This automation requests triage only. To take accepted issues through implementation in the same factory, follow the [issue implementation recipe](/factories/use-cases/issue-implementation/).
 
 ## Related pages
