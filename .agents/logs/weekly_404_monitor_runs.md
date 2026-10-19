@@ -1,5 +1,16 @@
 # Weekly 404 monitor run log
 
+## 2026-10-19 — No PR
+- **Total 404s this week**: 241
+- **Total 404s last week**: 284
+- **Trend**: ▼ 43 (-15.1%)
+- **Significant gaps (≥5 hits)**: 1 (1 new)
+- **Redirect candidates processed**: 1  (hits ≥ 5)
+- **HIGH-confidence redirects**: 0
+- **PR**: none
+- **Oz run**: https://app.warp.dev/conversation/ecb8cf70-6ee1-493d-a508-d8cd031e17b4
+- **Notes**: Volume down 15.1% week-over-week. Sole significant gap is a URL-smash capture artifact: `/agents/cli/https:/docs.warp.dev/agents/cli/quickstarthttps:/formulae.brew.sh` (7 hits, new). Contains embedded `https:` hosts (docs.warp.dev + formulae.brew.sh) glued into a docs path — not a real page and not safe/useful as a vercel.json source. No HIGH/MEDIUM redirects. 147 long-tail uncovered; 0 unroutable by `:`-segment rule; 110 resolved since last week. vercel.json redirects count 1371 (sanity OK). Posted summary to #growth-docs.
+
 ## 2026-10-12 — PR opened
 - **Total 404s this week**: 284
 - **Total 404s last week**: 313
