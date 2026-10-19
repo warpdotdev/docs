@@ -12,66 +12,71 @@ Create your first factory and take one small work item from prompt to pull reque
 
 ## Prerequisites
 
-If you don't have a Warp account, [sign up for Warp](https://app.warp.dev/signup). If you're not on a team, [join or create a team](/knowledge-and-collaboration/teams/) before starting.
-
-* **Factory creation access** - On an existing Warp team, you need team or workspace admin access, or the team-level Warp Factories Editor role. See [factory roles and permissions](/factories/infrastructure-and-security/#factory-roles-and-permissions).
-* **Usage requirements** - Your factory's agents consume eligible team usage. Check your team's [access and billing requirements](/platform/team-access-billing-and-identity/) before starting.
-* **Repository access** - Access to the repositories you want the factory to work on. If your organization restricts connections to Warp, involve a code-host administrator.
+* A [Warp account](https://app.warp.dev/signup) and membership in a [Warp team](/knowledge-and-collaboration/teams/).
+* Team or workspace admin access, or the team-level [Warp Factories Editor role](/factories/infrastructure-and-security/#factory-roles-and-permissions).
+* Available usage in your team's balance for factory runs. See [access and billing requirements](/platform/team-access-billing-and-identity/).
+* Access to the repositories you want the factory to work on.
 
 ## Set up your factory
 
 :::note
-For GitHub and GitLab repositories, an agent connected to [Factory MCP](/factories/factory-mcp/#set-up-with-your-coding-agent) can run this whole setup. Use the web setup wizard for Azure DevOps. If the wizard is still open when the agent finishes, refresh the page to see the new factory.
+For GitHub and GitLab repositories, an agent connected to [Factory MCP](/factories/factory-mcp/#set-up-with-your-coding-agent) can run this setup. For Azure DevOps, follow the steps below in the {VARS.FACTORY_WEB_APP}. If the setup page is still open when the agent finishes, refresh it to see the new factory.
 :::
 
-1. Open the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a> and sign in. Choose the Warp team that will own the factory, then click **+** next to **Factories**.
+1. Open the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a> and sign in if prompted. To switch teams, click your avatar, hover over the team name, and select another team.
+
+2. Click **+** next to **Factories**.
 
    <figure style={{ maxWidth: "300px" }}>
    ![The Factories section of the sidebar, with the + button used to start a new factory highlighted.](../../../assets/factories/quickstart-open-setup-wizard.png)
    <figcaption>The factory setup control in the sidebar.</figcaption>
    </figure>
 
-2. Under **Connect your code hosts**, connect GitHub, GitLab, or Azure DevOps. Choose the GitHub organization, GitLab group, or Azure DevOps organization and project to connect.
-
-   Azure DevOps organizations require [one-time administrator approval](/factories/integrations/azure-devops/#requirements). The setup flow lets you send the approval link to the required administrators.
-
-   To use another code forge, select **No repo**, finish creating the factory, then [configure repository access from the default runner](/factories/code-forges/other-code-forges/).
+3. On the "Connect your code hosts" screen, select GitHub, GitLab, or Azure DevOps, then choose the organization or group to connect. For Azure DevOps, also choose a project. Click **Next**.
 
    <figure style={{ maxWidth: "563px" }}>
-   ![The Connect a GitHub organization screen, with an already-connected organization shown as an option.](../../../assets/factories/quickstart-connect-organization.png)
-   <figcaption>Connected GitHub organizations available during setup.</figcaption>
+   ![The Connect your code hosts screen with GitHub connected, a GitHub organization dropdown, and connection options for GitLab and Azure DevOps.](../../../assets/factories/quickstart-connect-code-forges.png)
+   <figcaption>The GitHub organization dropdown in factory setup.</figcaption>
    </figure>
 
-3. On **Select your repos**, select one or two repositories that ship together, then click **Add repos**. See [sizing a factory](/factories/#sizing-a-factory) before adding a repository already covered by another factory.
+   If your organization restricts connections to Warp, involve a code-host administrator. Azure DevOps requires [one-time administrator approval](/factories/integrations/azure-devops/#requirements); you can send the approval link during setup.
+
+   For other code forges, see [Connecting other code forges to your factory](/factories/code-forges/other-code-forges/).
+
+4. On the "Set up your factory" screen, select the repositories your factory will work on. See [sizing a factory](/factories/#sizing-a-factory).
 
    <figure style={{ maxWidth: "563px" }}>
-   ![The Select your repos screen, searching for repositories by name.](../../../assets/factories/quickstart-select-repos.png)
-   <figcaption>The repository selector for factory setup.</figcaption>
+   ![The Set up your factory screen with a progress bar, docs entered in the repository search field, and matching repositories shown.](../../../assets/factories/quickstart-connect-repo.png)
+   <figcaption>A repository search during factory setup.</figcaption>
    </figure>
 
-4. Name the factory. This also sets its [**Foreman name**](/factories/factory-agents/#foreman-name), the handle your team @-mentions in Slack and Linear.
+5. Enter a "Factory name". This also sets the default [foreman name](/factories/factory-agents/#foreman-name), the handle your team @-mentions in Slack and Linear. Click **Next**.
 
    <figure style={{ maxWidth: "563px" }}>
-   ![The Give your factory some personality screen, with Factory name and Foreman name fields filled in.](../../../assets/factories/quickstart-name-factory.png)
-   <figcaption>Identity settings for the factory and foreman.</figcaption>
+   ![Factory setup with Docs Factory entered as the factory name, an optional description field, an avatar, and the Next button.](../../../assets/factories/quickstart-factory-details.png)
+   <figcaption>The factory name and optional details during setup.</figcaption>
    </figure>
 
-5. Choose which agents the foreman can dispatch. Leave **Implement** enabled so this quickstart ends in a pull request. See [factory agents](/factories/factory-agents/) for details.
+6. Choose which agents the foreman can dispatch. Leave **Code** enabled so this quickstart ends in a pull request. See [About factory agents](/factories/factory-agents/) for details.
 
    <figure style={{ maxWidth: "563px" }}>
-   ![The Pick your factory agents screen, with the Foreman and all four default agents shown as enabled.](../../../assets/factories/quickstart-pick-agents.png)
+   ![The Configure your Factory agents screen showing the foreman handle and enabled Triage, Spec, Code, and Review agents.](../../../assets/factories/quickstart-pick-agents.png)
    <figcaption>Default factory agents enabled during setup.</figcaption>
    </figure>
 
-6. Optionally, connect Slack and an issue tracker. You can add either later from [connect your factory](/factories/connect-your-factory/).
+7. Optionally, connect Slack and an issue tracker. You can add either later from [Connect your factory](/factories/connect-your-factory/).
 
 Warp creates the factory and opens its [dashboard](/factories/factory-dashboard/).
 
 ## Send your first work item
 
-Send work from Slack or an issue tracker. If you skipped integrations, start a run from the **Runs** page of the factory's [dashboard](/factories/factory-dashboard/).
+Send a request to your factory's foreman from the {VARS.FACTORY_WEB_APP}. You can also send work from [Slack or an issue tracker](/factories/connect-your-factory/).
 
-1. Describe one small, verifiable change and send it:
+1. In the web app sidebar, click **New Chat**.
+
+2. In the dropdown below the prompt input, choose your factory.
+
+3. Enter one small, verifiable change, then click the send arrow:
 
    ```text title="Example first request"
    Add a "Local development" section to README.md that summarizes the setup
@@ -79,16 +84,16 @@ Send work from Slack or an issue tracker. If you skipped integrations, start a r
    repo's lint check, and open a pull request.
    ```
 
-2. The foreman dispatches the agents needed for the request and posts progress where it started. Follow the foreman and child runs on the factory's [Runs page](/factories/factory-dashboard/#inspect-runs). Requests for input also appear in your [inbox](/factories/factory-inbox/).
+4. The foreman dispatches the agents needed for the request and posts progress where it started. In the sidebar, click **Runs** to follow the [foreman and child runs](/factories/factory-dashboard/#inspect-runs). Requests for input also appear in your [inbox](/factories/factory-inbox/).
 
-   If you connected Slack, you can follow along there instead:
+   If you sent the request from Slack, you can follow along in its thread:
 
    <figure style={{ maxWidth: "563px" }}>
    ![A Slack thread where the Warp Factories app replies with tracking and triage progress updates, including links to open the session and view it in the factory.](../../../assets/factories/slack-factory-thread-reply.png)
    <figcaption>A factory Slack thread with live progress.</figcaption>
    </figure>
 
-3. When the foreman hands back the pull request, review the changes and validation results, then merge it according to your normal process.
+5. When the foreman hands back the pull request, review the changes and validation results, then merge it according to your normal process.
 
 ## Next steps
 

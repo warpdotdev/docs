@@ -10,48 +10,36 @@ import { VARS } from '@data/vars';
 
 Warp-hosted execution runs factory work in managed sandboxes. Warp provisions the compute while your factory definition selects each agent's runner, repositories, setup, and credentials.
 
-Use it when your factory's repositories and services are reachable from the public internet and your team does not need to manage worker capacity or host maintenance. For private services or a network boundary that must contain checkout and execution, use [managed self-hosting](/factories/self-hosting/).
+Use it when your factory's repositories and services are reachable from the public internet. Warp manages capacity and host maintenance. For private services or a network boundary that must contain checkout and execution, use [managed self-hosting](/factories/self-hosting/).
 
 ## Sandbox environment
 
-All Warp-hosted agents run in fully-isolated sandboxes. Warp uses a mix of infrastructure providers to ensure reliable sandbox startup.
+Warp-hosted agents run in isolated sandboxes. See [About factory infrastructure and security](/factories/infrastructure-and-security/) for execution, data, and credential boundaries.
 
-### OS and architecture
+## OS and architecture
 
 Warp-hosted factory agents use the runner and workspace configuration in your [factory definition](/factories/factory-as-code/). A factory can also use an existing [environment](/platform/environments/) when its definition specifies one.
-Linux runners are compatible with any x86-64 image that includes a `bash` shell and core utilities like `ls` and `mkdir`. For Linux, macOS, and Windows platform options, see [factory runners](/factories/runners/#operating-systems).
 
-### Resources
+For supported operating systems, architectures, and Linux image requirements, see [runner platform options](/factories/runners/#operating-systems).
 
-The resources available to Warp-hosted agents depend on your [plan](https://www.warp.dev/pricing) - see the latest details there.
+## Resources
 
-On [Enterprise](/enterprise/) plans, resources are configurable up to 32 vCPUs and 64 GiB of memory. If additional resources are required, reach out to Warp support about custom provisioning.
+Available CPU and memory depend on your plan. See [Warp pricing](https://www.warp.dev/pricing) for plan information.
 
-### Concurrency
+On [Enterprise](/enterprise/) plans, resources are configurable up to 32 vCPUs and 64 GiB of memory. Contact Warp support about custom provisioning if you need more.
 
-To fairly allocate resources across all Warp users, concurrency of Warp-hosted agents is limited on a per-team basis. If an agent is started while at your concurrency limit, it is automatically queued and will start as soon as another agent completes.
+## Concurrency
 
-### Networking
+Warp limits concurrent hosted runs per team. Runs started at the limit are queued until another run completes.
 
-Warp's hosted agents have network egress enabled by default. Outgoing requests may come from the following IP addresses:
+## Networking
 
-* `64.6.38.192/26`
-* `64.6.39.192/26`
-* `104.128.70.192/26`
-* `104.128.71.192/26`
-* `216.176.224.192/26`
-* `185.212.186.0/24`
-* `50.31.178.128/26`
-* `50.31.146.192/26`
-* `75.102.37.208/28`
-* `44.253.165.189/32`
-* `16.145.188.113/32`
-* `16.145.133.251/32`
+Warp-hosted agents have network egress enabled by default. If you need to allowlist traffic from Warp agents, such as in a firewall policy, get Warp's IP address ranges from the "Warp-hosted agent networking" settings for your team. Find it on your team's **Platform** page in the [Admin Panel](https://app.warp.dev/admin/) or on <a href={`${VARS.FACTORY_WEB_APP_URL}/settings`}>User settings in the {VARS.FACTORY_WEB_APP}</a>.
 
 ---
 
 ## Related pages
 
-* [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) - Configure the shared cloud-agent primitives behind a factory.
-* [Factory runners](/factories/runners/) - Choose the operating system, architecture, and instance shape for factory work.
-* [Managed self-hosting](/factories/self-hosting/) - Run factory work on infrastructure you manage when execution must stay inside your network.
+* [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/) - Review shared cloud-agent capabilities
+* [Runners for Warp Factories](/factories/runners/) - Choose the operating system, architecture, and instance size
+* [Self-hosting overview](/factories/self-hosting/) - Run work on infrastructure you manage

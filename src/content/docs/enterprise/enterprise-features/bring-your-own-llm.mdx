@@ -17,7 +17,7 @@ BYOLLM is only available on Warp's Enterprise plan. [Contact sales](https://www.
 
 BYOLLM supports two cloud providers today, each with its own dedicated setup guide:
 
-* **[BYOLLM: AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/)** - Route inference through Claude models hosted in your AWS account. Interactive requests use each member's AWS CLI session credentials, and cloud agent runs assume an IAM role via OIDC.
+* **[BYOLLM: AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/)** - Route inference through supported Anthropic (Claude) and OpenAI models hosted in your AWS account. Interactive requests use each member's AWS CLI session credentials, and cloud agent runs assume an IAM role via OIDC.
 * **[BYOLLM: Gemini Enterprise (Vertex AI)](/enterprise/enterprise-features/byollm-gemini-enterprise/)** - Route inference through Gemini and Claude partner models hosted in your Google Cloud project, using short-lived Workload Identity Federation (WIF) credentials rooted in the member's Warp session.
 
 :::caution
@@ -28,7 +28,7 @@ Use the comparison below to pick a provider, then follow its setup guide for con
 
 | Aspect | AWS Bedrock | Gemini Enterprise (Vertex AI) |
 | --- | --- | --- |
-| Models | Claude (Anthropic) | Gemini (native) and Claude (Vertex AI partner models) |
+| Models | Anthropic (Claude) and OpenAI | Gemini (native) and Claude (Vertex AI partner models) |
 | Credential mechanism | AWS CLI session (interactive); IAM role via OIDC (cloud agents) | Workload Identity Federation (WIF), rooted in the Warp session |
 | Works with cloud agents | Yes | Not yet (planned) |
 | Setup guide | [BYOLLM: AWS Bedrock](/enterprise/enterprise-features/byollm-aws-bedrock/) | [BYOLLM: Gemini Enterprise](/enterprise/enterprise-features/byollm-gemini-enterprise/) |
