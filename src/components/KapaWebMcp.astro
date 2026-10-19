@@ -3,6 +3,10 @@
  * Loads the Kapa Website Widget script solely so WebMCP can register the
  * read-only `search_warp_knowledge_sources` page tool for in-browser agents.
  *
+ * Uses the Website Widget integration (`PUBLIC_KAPA_WEBSITE_WIDGET_INTEGRATION_ID`),
+ * not the custom React frontend ID (`PUBLIC_KAPA_INTEGRATION_ID`). WebMCP only
+ * works with Website Widget integrations.
+ *
  * Human chat stays on the custom React SDK surface (`KapaChatLauncher`).
  * This script hides Kapa's default floating button and does not replace or
  * duplicate the custom Ask launcher.
@@ -10,10 +14,10 @@
  * @see https://docs.kapa.ai/integrations/website-widget/features/webmcp
  * @see https://www.kapa.ai/blog/kapa-webmcp
  */
-import { PUBLIC_KAPA_INTEGRATION_ID } from 'astro:env/client';
+import { PUBLIC_KAPA_WEBSITE_WIDGET_INTEGRATION_ID } from 'astro:env/client';
 import { getKapaWebMcpScriptAttributes } from '../lib/kapa-webmcp.js';
 
-const attrs = getKapaWebMcpScriptAttributes(PUBLIC_KAPA_INTEGRATION_ID);
+const attrs = getKapaWebMcpScriptAttributes(PUBLIC_KAPA_WEBSITE_WIDGET_INTEGRATION_ID);
 ---
 
 {

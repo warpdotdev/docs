@@ -6,7 +6,7 @@ import {
 	getKapaWebMcpScriptAttributes,
 } from './kapa-webmcp.js';
 
-test('returns null when the integration id is missing', () => {
+test('returns null when the Website Widget integration id is missing', () => {
 	assert.equal(getKapaWebMcpScriptAttributes(undefined), null);
 	assert.equal(getKapaWebMcpScriptAttributes(null), null);
 	assert.equal(getKapaWebMcpScriptAttributes(''), null);
@@ -14,13 +14,14 @@ test('returns null when the integration id is missing', () => {
 });
 
 test('enables WebMCP on the official widget script without duplicating chat UI', () => {
-	const integrationId = 'f31c5644-dd65-4f49-9762-bf580062afa8';
-	const attrs = getKapaWebMcpScriptAttributes(`  ${integrationId}  `);
+	// Fixture only — production uses PUBLIC_KAPA_WEBSITE_WIDGET_INTEGRATION_ID.
+	const websiteWidgetIntegrationId = '00000000-0000-4000-8000-000000000001';
+	const attrs = getKapaWebMcpScriptAttributes(`  ${websiteWidgetIntegrationId}  `);
 
 	assert.deepEqual(attrs, {
 		src: KAPA_WIDGET_SCRIPT_SRC,
 		async: true,
-		'data-website-id': integrationId,
+		'data-website-id': websiteWidgetIntegrationId,
 		'data-project-name': KAPA_WEBMCP_PROJECT_NAME,
 		'data-webmcp-enabled': 'true',
 		// Default floating Ask button stays hidden; custom sidebar Ask remains.
@@ -29,4 +30,6 @@ test('enables WebMCP on the official widget script without duplicating chat UI',
 	assert.equal(attrs.src, 'https://widget.kapa.ai/kapa-widget.bundle.js');
 	assert.equal(attrs['data-project-name'], 'Warp');
 	assert.equal(attrs['data-consent-required'], undefined);
+	// Must not accidentally lean on the custom-frontend env var name/value.
+	assert.notEqual(websiteWidgetIntegrationId, process.env.PUBLIC_KAPA_INTEGRATION_ID);
 });
