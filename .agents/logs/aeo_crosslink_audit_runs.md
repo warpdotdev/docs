@@ -8,6 +8,16 @@ This log tracks every run of the `aeo_crosslink_audit` skill — both runs that 
 
 ---
 
+## 2026-10-19 — PR opened
+
+- **Run**: https://platform.warp.dev/runs/01a154ad-3d56-7289-87f0-fc185ecf4e4c
+- **Source signals**: Peec available, GSC available
+- **PR**: https://github.com/warpdotdev/docs/pull/930
+- **Links proposed / added**: 7 proposed, 7 added
+- **Pages touched**: guides/agent-workflows/how-to-run-unattended-agents.mdx, agents/capabilities/skills.mdx, platform/agents.mdx, factories/index.mdx, factories/automations.mdx, guides/agent-workflows/how-to-run-multiple-ai-coding-agents.mdx
+- **Themes**: factories ↔ unattended triggers/skills/orchestration; standalone schedules vs factory automations
+- **No-change reason**: N/A
+
 ## 2026-10-12 — PR opened
 
 - **Run**: https://app.warp.dev/conversation/71b5b0c9-bfc8-4415-b938-9c44d5125ffe
