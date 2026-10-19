@@ -436,6 +436,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 									collapsed: true,
 									items: [
 										{ slug: 'factories/self-hosting', label: 'Overview' },
+										{ slug: 'factories/self-hosting/data-storage', label: 'Self-hosted agent data storage' },
 										{ slug: 'factories/self-hosting/quickstart', label: 'Quickstart' },
 										{ slug: 'factories/self-hosting/managed-docker', label: 'Docker backend' },
 										{ slug: 'factories/self-hosting/managed-kubernetes', label: 'Kubernetes backend' },
@@ -629,7 +630,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/faqs', label: 'Cloud agent FAQs' },
 						{ slug: 'platform/unmanaged-execution', label: 'Unmanaged execution' },
 						{ slug: 'platform/execution-security', label: 'Execution security' },
-						{ slug: 'platform/data-storage', label: 'Self-hosted agent data storage' },
 					],
 				},
 				{
