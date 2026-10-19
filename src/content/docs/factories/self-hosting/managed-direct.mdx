@@ -33,11 +33,10 @@ The Direct backend does not provide per-task container isolation. Each task runs
 
 ## Prerequisites
 
-Complete the shared [managed prerequisites](/factories/self-hosting/#managed-prerequisites), then prepare:
-
-* **A worker host** - Grant write access to `workspace_root`, which defaults to `/var/lib/oz/workspaces`.
-* **The `oz-agent-worker` binary** - Install it on the worker host through [Homebrew or a prebuilt binary](/factories/self-hosting/managed-docker/#install-and-run-the-worker).
-* **The {VARS.WARP_AGENT_CLI}** - Install it in `PATH` on the worker host, or set `oz_path` in the config file. See [Installing the CLI](/agents/cli/oz-cli/#installing-the-cli).
+* Managed self-hosting access, network connectivity, and credentials. See the [shared managed prerequisites](/factories/self-hosting/#managed-prerequisites).
+* A worker host with write access to `workspace_root`, which defaults to `/var/lib/oz/workspaces`.
+* The `oz-agent-worker` binary on the worker host. See [Homebrew or prebuilt binary installation](/factories/self-hosting/managed-docker/#install-and-run-the-worker).
+* The {VARS.WARP_AGENT_CLI} in `PATH` on the worker host, or selected with `oz_path` in the config file. See [Installing the CLI](/agents/cli/oz-cli/#installing-the-cli).
 
 ---
 
