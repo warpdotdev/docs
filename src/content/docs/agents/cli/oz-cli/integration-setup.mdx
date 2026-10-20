@@ -191,7 +191,7 @@ You typically only need to handle this once per team, unless your repo access ch
 
 #### Team-level GitHub authorization
 
-For automated workflows that use an [agent API key](/agents/cli/oz-cli/api-keys/) (CI/CD pipelines, scheduled agents, SDK-triggered runs), you can configure team GitHub authorization so the agent authenticates with the Warp Factories GitHub App instead of an individual's personal token.
+For automated workflows that use an [agent API key](/agents/cli/oz-cli/api-keys/) (CI/CD pipelines, [scheduled agents](/platform/triggers/scheduled-agents/), SDK-triggered runs), you can configure team GitHub authorization so the agent authenticates with the Warp Factories GitHub App instead of an individual's personal token.
 
 This requires a Warp team admin to enable the GitHub organization in the Admin Panel (**Settings** > **Admin Panel** > **Platform**). Once configured, tasks initiated with an agent API key can clone repos and open pull requests using the GitHub App installation token.
 
@@ -294,19 +294,11 @@ At a high level, each run works like this:
 7. **The container is destroyed**\
    After the run completes, the container is torn down. Each run starts from a clean, isolated environment.
 
-## Next steps
+To extend your setup, you can adjust setup commands, switch to a custom Docker image, include additional repositories, add custom prompts for consistent agent behavior, or create separate environments for different workflows or teams.
 
-You now have everything needed to trigger agents from your team's tools. From here, you can:
-
-* Add or adjust setup commands
-* Switch to a custom Docker image
-* Include additional repositories
-* Add custom prompts for consistent agent behavior
-* Create separate environments for different workflows or teams
-
-**Additional reading**
+## Related pages
 
 * [Cloud Agents Overview](/platform/)
 * [{VARS.WARP_AUTOMATION_PLATFORM}](/platform/overview/)
-* [Slack](/platform/integrations/slack/), [Linear](/platform/integrations/linear/), [GitHub](/platform/integrations/github/), and [GitHub Actions](/platform/integrations/github-actions/) integrations
+* [Integrations](/platform/integrations/) - Connect agents to your team's tools
 * [Troubleshooting](/agents/cli/oz-cli/troubleshooting/)

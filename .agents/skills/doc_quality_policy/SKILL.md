@@ -9,7 +9,7 @@ Shared library for the v1 agent-doc quality program. This is a reference and
 helper-script skill, not something dispatched on its own — every content skill
 that opens or updates a PR (`create_pr`, `draft_docs` and its type-specific
 skills, `release_updates`, `missing_docs`, the AEO skills, `sync_terminology`,
-`sync-error-docs`, `sync-openapi-spec`, `docs-seo-audit`, `afdocs-fix`,
+`sync-error-docs`, `docs-seo-audit`, `afdocs-fix`,
 `update-changelog`, `improve-drafting-skills`) and CI use it inline.
 
 The full rules live in `.agents/references/doc-quality-policy.md`. This

@@ -16,7 +16,9 @@ The factory dashboard is the web app for operating a single factory. Open the <a
 
 ## Getting oriented
 
-Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, **Secrets**, and **Integrations** sit above the factory list and cover your whole team, not a single factory. **Inbox** sits there too, but it's neither team-wide nor per-factory: there's a single global Inbox page, and it shows only the items waiting on you personally, across every factory you have access to. Everything else on this page is scoped to the factory you select.
+Select a factory in the sidebar to open its pages. **Runs**, **MCPs and apps**, **Secrets**, and **Integrations** sit above the factory list and cover your whole team, not a single factory. **Inbox** sits there too, but it's neither team-wide nor per-factory: there's a single global Inbox page, and it shows only the items waiting on you personally, across every factory you have access to.
+
+To send work to a factory's foreman, click **New Chat** in the sidebar. In the dropdown below the prompt input, choose your factory, enter a request, then click the send arrow.
 
 A factory opens on its **Dashboard** page, covered next. **Factory definition** appears only on Warp-managed factories, since a factory whose definition lives in your own repository is edited there instead.
 
@@ -26,7 +28,7 @@ A factory opens on its **Dashboard** page, covered next. **Factory definition** 
 
 * **Autonomy** - The share of the factory's merged PRs that needed no human code push before merging. Opening the PR counts as a push, so a human-authored PR that a factory run later revised doesn't count as autonomous; comments, reviews, requested changes, and the merge itself don't count as a push.
 * **PR cycle time** - The median time the factory's merged PRs took from run kickoff through PR, first review, and merge, with an independent median for each stage - the stage medians don't sum to the headline.
-* **Cost per PR** - The median cost of PRs opened in the range. When a single run produces more than one PR, its cost splits evenly across them. Treat it as a lower-bound estimate: it can miss some run usage and does not match billing. See [Measure and improve a factory](/factories/measure-and-improve/) for its limitations.
+* **Cost per PR** - The median cost of PRs opened in the range. A run's cost includes its child runs and splits evenly across the PRs it produces. This is an estimate, not an invoice total. See [factory cost metrics](/factories/measure-and-improve/#read-metrics-on-the-dashboard-page) for limitations.
 
 The page also charts opened versus merged PRs and a breakdown of runs, and the **Cost per PR** card expands to list the most expensive PRs in the range. When Scorers are set up, Scorer cards summarize recent classification results.
 
@@ -37,15 +39,13 @@ The page also charts opened versus merged PRs and a breakdown of runs, and the *
 
 ## Find what needs you in Inbox
 
-**Inbox** collects the questions, spec approvals, and pull request reviews waiting on you across every factory, so you don't have to check each factory's Runs page for stalled work. See the [factory inbox](/factories/factory-inbox/) page for the kinds of items it shows and how to resolve them.
+**Inbox** collects the questions, spec approvals, and pull request reviews waiting on you across every factory, so you don't have to search **Runs** for stalled work. See the [Factory inbox](/factories/factory-inbox/) page for the kinds of items it shows and how to resolve them.
 
 ## Inspect runs
 
-A run is a single agent execution. A single request can span several runs as different agents pick it up, and related runs group under their parent in the list. The team-level **Runs** page lists every run you have access to; a factory's **Runs** page lists only runs from that factory's agents.
+A run is a single agent execution. A single request can span several runs as different agents pick it up, and related runs group under their parent in the list. In the sidebar, click **Runs** to see the runs you have access to across your team.
 
-Click **New** on a factory's **Runs** page to send a prompt to the factory's foreman agent. Open a run to see its timeline and cost, plus a **Sub-agents** tab for child runs when the agent used [multi-agent orchestration](/platform/orchestration/). From there you can view the agent's full session, stop or score the run, or turn it into a benchmark task.
-
-{/* VISUAL: The Runs page with the New button, showing an empty or sample run list. */}
+Open a run to see its timeline and cost, plus a **Sub-agents** tab for child runs when the agent used [multi-agent orchestration](/platform/orchestration/). From there you can view the agent's full session, stop or score the run, or turn it into a benchmark task.
 
 :::note
 Run pages don't include a chat input, but you can still steer a run: **View session** opens its [shared agent session](/platform/viewing-cloud-agent-runs/), where you follow the agent in real time and send follow-up instructions while the run's sandbox is active. After it shuts down, the same button opens the conversation transcript.
@@ -53,7 +53,7 @@ Run pages don't include a chat input, but you can still steer a run: **View sess
 
 ## Manage agents and automations
 
-**Agents** lists the factory's agents. Create agents and edit their instructions, model or harness, runner, host, secrets, and MCP servers. **Automations** defines the triggers that start runs: a schedule (including custom cron expressions), a GitHub, Linear, Slack, or Jira event, or a delivery to a custom webhook. **Webhooks** is a tab within **Automations** that lists the factory's [custom webhooks](/factories/webhooks/), where you create them, copy their URLs, rotate secrets, and read the delivery log.
+**Agents** lists the factory's agents. [Create custom agents](/factories/factory-agents/creating-custom-agents/) or [configure existing agents](/factories/factory-agents/configuration/) to change their instructions, models, harnesses, and tools. **Automations** defines the triggers that start runs: a schedule (including custom cron expressions), a GitHub, Linear, Slack, or Jira event, or a delivery to a custom webhook. **Webhooks** is a tab within **Automations** that lists the factory's [custom webhooks](/factories/webhooks/), where you create them, copy their URLs, rotate secrets, and read the delivery log.
 
 {/* VISUAL: The Automations editor, to complement the Agents list already shown in Configure agent behavior on the factory agents page. */}
 
@@ -92,7 +92,8 @@ For a file-managed factory, `runners/*.yaml` in the repository is the source of 
 * [Factory inbox](/factories/factory-inbox/) - See and resolve the questions, spec approvals, and PR reviews waiting on you.
 * [How Warp Factories work](/factories/how-factories-work/) - The stages work moves through and where humans stay in the loop.
 * [Definitions as code](/factories/factory-as-code/) - Define agents, automations, runners, and source ownership in code.
-* [Factory agents](/factories/factory-agents/) - What each default agent does and how to configure it.
+* [About factory agents](/factories/factory-agents/) - Understand default agent roles
+* [Configuring factory agents](/factories/factory-agents/configuration/) - Edit agent instructions and runtime settings
 * [Measure and improve a factory](/factories/measure-and-improve/) - Configure Scorers and use them in an improvement loop.
 * [Benchmarking factory agent configurations](/factories/benchmarks/) - Create a benchmark suite and compare configurations on fixed tasks.
 * [Troubleshooting Warp Factories](/factories/troubleshooting/) - Fixes for setup problems, work that doesn't start, and stuck runs.

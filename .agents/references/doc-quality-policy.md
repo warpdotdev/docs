@@ -3,7 +3,7 @@
 Canonical reference for the agent-authored-content quality program (GROW-6092).
 Every content-generating skill that opens or updates a PR in this repo —
 `draft_docs` and its type-specific skills, `release_updates`, the AEO skills,
-`missing_docs`, `sync_terminology`, `sync-error-docs`, `sync-openapi-spec`,
+`missing_docs`, `sync_terminology`, `sync-error-docs`,
 `docs-seo-audit`, `afdocs-fix`, `update-changelog`, and `improve-drafting-skills`
 — follows this contract before requesting human review. `create_pr` is the
 shared finalization path for skills that hand off to it; skills that open PRs
@@ -148,6 +148,8 @@ All content-generating skills share one compression contract:
   (`~600` words for a quickstart; `<=1500` words for a combined feature page).
 - Run the deletion-only "Cut again" pass (see `draft_docs/SKILL.md` step 6.5 /
   `AGENTS.md` → Voice & tone) before opening the PR.
+- Apply `AGENTS.md` → Procedural → Reader-understanding test before cutting
+  instructional context; budgets do not authorize losing facts or changing page purpose.
 - Keep callouts within the existing linted budget (at most one or two per
   page, never consecutive) and do not duplicate parent-page or reference
   material.
@@ -185,7 +187,6 @@ for the enforcement test.
 - `aeo_new_guide_recommendations`
 - `sync_terminology`
 - `sync-error-docs`
-- `sync-openapi-spec`
 - `docs-seo-audit`
 - `afdocs-fix`
 - `update-changelog`

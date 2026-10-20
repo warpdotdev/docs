@@ -26,13 +26,10 @@ Each factory identity consists of a separate Microsoft Entra application and ser
 
 ## Requirements
 
-* **A Warp team** - A factory belongs to a [Warp team](/knowledge-and-collaboration/teams/).
-* **An Azure DevOps Services organization** - Use an organization hosted at `dev.azure.com`, with the project and repositories the factory needs.
-* **A connected Azure DevOps user** - Connect a user who can read the organization, project, and repositories you want to select.
-* **An active connection for each automation creator** - The user who creates an Azure DevOps automation must keep their own Azure DevOps OAuth connection active with the required scopes.
-* **Microsoft Entra and Azure DevOps administrators** - Administrators with the roles listed below approve and add the Manager.
-
-The Microsoft Entra and Azure DevOps approvals can be completed by different people. A setup link lets each administrator complete their step without a Warp account.
+* Membership in a [Warp team](/knowledge-and-collaboration/teams/).
+* An Azure DevOps Services organization at `dev.azure.com` with the project and repositories the factory needs.
+* An Azure DevOps account with read access to the organization, project, and selected repositories.
+* Access to Microsoft Entra and Azure DevOps administrators with the [required permissions](#required-administrator-permissions).
 
 ### Required administrator permissions
 
@@ -55,6 +52,8 @@ Start from factory setup to connect your account, select repositories, and provi
 2. In the code host step, find the Azure DevOps row and click **Connect**. Complete the Microsoft sign-in to connect your Azure DevOps user.
 3. Choose an Azure DevOps organization and project, then select the repositories the factory will use. Only resources your connected user can read appear.
 4. If the organization already has an active Azure DevOps Manager, continue setup. Otherwise, connect the Manager yourself or send the setup link to the required administrators.
+
+   Different people can complete the Microsoft Entra and Azure DevOps approvals. Each administrator can use the setup link without a Warp account.
 5. Complete the Manager approval in this order:
    1. A Global Administrator or Privileged Role Administrator completes the Microsoft Entra approval.
    2. A Project Collection Administrator completes the Azure DevOps approval.
@@ -64,7 +63,7 @@ When setup confirms that the identity is ready, the factory uses that identity f
 
 ## Configure Azure DevOps automations
 
-An Azure DevOps automation starts a factory run when a supported event matches its filters. Before starting a run, Warp checks the automation creator's Azure DevOps connection. New Azure DevOps factories include a default automation for pull request mentions, work item mentions, and work item assignments.
+An Azure DevOps automation starts a factory run when a supported event matches its filters. Before starting a run, Warp checks the automation creator's Azure DevOps connection. Each creator must keep their own OAuth connection active with the required scopes. New Azure DevOps factories include a default automation for pull request mentions, work item mentions, and work item assignments.
 
 To configure an automation as code, ask the Warp Agent to update the factory definition or edit its `automations/` files directly. See [definitions as code](/factories/factory-as-code/).
 
@@ -74,7 +73,7 @@ To add or change a trigger in the factory dashboard:
 2. Add an Azure DevOps trigger, then choose an event and its filters.
 3. Click **Save**. Perform a matching action in Azure DevOps and confirm that a run starts in the factory dashboard.
 
-For general filter behavior, see [factory automations](/factories/automations/).
+For general filter behavior, see [Factory automations](/factories/automations/).
 
 ### Supported events and filters
 
