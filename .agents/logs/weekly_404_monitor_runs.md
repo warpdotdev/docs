@@ -1,4 +1,15 @@
 # Weekly 404 monitor run log
+## 2026-10-20 — No PR (controlled manual test)
+- **Total 404s this week**: 263
+- **Total 404s last week**: 268
+- **Trend**: ▼ 5 (-1.9%)
+- **Significant gaps (≥5 hits)**: 2 (2 new)
+- **Redirect candidates processed**: 2  (hits ≥ 5)
+- **HIGH-confidence redirects**: 0
+- **PR**: none
+- **Oz run**: https://staging.warp.dev/conversation/ee739e34-eeed-4626-8600-6e783779a9e9
+- **Validation**: Log structure and byte-preserved historical entries passed; `git diff --check` passed; `python3 .agents/skills/check_for_broken_links/check_links.py --internal-only` exited 0 (398 files, 4482 internal links, 0 broken). Ordered public-site typecheck/build/render checks not exercised because no public docs or redirects changed. Trunk not exercised (not installed); no tooling repairs attempted.
+- **Notes**: Controlled manual test; not a scheduled weekly baseline. Required config commit `55cf09f3aeded3e8311a96492f763aac6bd946f0` verified; API-verified manual guard exit 0 (CLI source, user creator, service-account executor, matching run identity). Unchanged report script exit 0. Current/prior UTC windows are October 13–19 and October 6–12; all 263/268 events have usable captures, with 190/151 normalized paths below the top-500 cap. Current main `569b20c6f6582cba7d87000b8a80509e3956a4c2` has 1373 redirects (sanity passed). Phase 2: 0 HIGH, 1 MEDIUM suggestion reserved for human review in the final report, 1 LOW embedded-URL capture artifact rejected. No redirect edits or redirect PR warranted. 163 long-tail uncovered, 0 colon-segment malformed paths, 104 resolved. CSV attached only as run artifact `01a15b39-817c-7562-9945-613cbabfa023` (190 rows; query/fragment stripping and two additional identifier-like path redactions; SHA-256 `99f2751fd0b03b637494af9ba6d69c19a5d946dbd44c786dfc78aba9a689dc1c`). Historical entries preserved; absent standing log branch recreated from current main in an isolated worktree. Final Slack test delivery follows durable logging; its receipt is retained in run output. Native cron dispatch was not exercised. No merges, deployments, secret changes, or schedule changes.
 
 ## 2026-10-19 — No PR
 - **Total 404s this week**: 241
