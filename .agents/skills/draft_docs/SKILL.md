@@ -128,6 +128,14 @@ Use source code to verify technical behavior, understand feature implementation,
 
 When the draft names UI labels, Settings paths, CLI flags, default permissions, plan eligibility, or platform support, treat source (or a live build) as required verification, not optional color. A PRD or spec is not verification: labels and flag names routinely change between spec and ship.
 
+**Server-backed claims also need a production rollout check.** Source proves a field or behavior exists, not that customers have it: warp-server ships code with flags off in production, and the Factory file schemas publish fields regardless of flag state. Before naming a field, endpoint, default, or behavior that warp-server implements, run:
+
+```bash
+python3 .agents/skills/doc_quality_policy/server_rollout.py check NAME [NAME ...]
+```
+
+Replace `NAME` with the user-facing names you are about to write, such as a schema field or an endpoint path segment. If a related flag is off in production, the claim fails Gate 0: leave it out of the page, and record the deferral in the PR as "a server flag is off in production." Do not paste the script output or flag names into the PR; this repo is public. If no warp-server checkout is available, treat the claim as unverified (option 1 or 2 below).
+
 If you cannot verify a claim (for example, the source repos are not available in this environment), do not guess and do not silently drop it. Choose one of these, and record the claim either way:
 
 1. **Omit the claim** - Write around it when the page still works without it. Describe the action without naming the exact flag, or link to the reference page that will carry the detail.
