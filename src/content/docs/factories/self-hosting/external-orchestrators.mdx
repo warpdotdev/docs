@@ -19,9 +19,10 @@ Both patterns use the managed architecture: Warp accepts triggers and routes run
 
 ## Prerequisites
 
-Complete the shared [managed prerequisites](/factories/self-hosting/#managed-prerequisites). The one-shot example below uses one Default Service Account agent key for both the worker and `run-cloud`. When those actions run in different processes, use a self-hosted worker key for the worker and an agent key for the run creator.
-
-Install `oz-agent-worker` from a [published release](https://github.com/warpdotdev/oz-agent-worker/releases). One-shot Direct also requires the {VARS.WARP_AGENT_CLI} on the allocated host. The Command backend worker requires the tools used by your dispatch and cancellation commands.
+* Managed self-hosting access, network connectivity, and credentials. See the [shared managed prerequisites](/factories/self-hosting/#managed-prerequisites).
+* `oz-agent-worker` installed from a [published release](https://github.com/warpdotdev/oz-agent-worker/releases).
+* For one-shot Direct, the {VARS.WARP_AGENT_CLI} on the allocated host.
+* For the Command backend, the tools used by the dispatch and cancellation commands.
 
 ## Using one-shot Direct
 
@@ -42,6 +43,8 @@ For a job created directly through the Agent API that must exit immediately, set
 ### Start the worker and route the run
 
 Add this script to the job your orchestrator starts. `CI_JOB_ID` must be unique for each job.
+
+This example uses one Default Service Account agent key for both the worker and `run-cloud`. When those actions run in different processes, use a self-hosted worker key for the worker and an agent key for the run creator.
 
 ```bash title="run-agent.sh"
 #!/usr/bin/env bash
