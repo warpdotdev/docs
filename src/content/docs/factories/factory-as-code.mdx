@@ -171,8 +171,6 @@ The enabled code hosts: `GITHUB`, `GITLAB`, and `AZURE_DEVOPS`. Omit the key to 
 **Required.**
 The factory's repositories. The list can be empty. Each entry requires `owner` and `name`; optional `codeForge` selects `GITHUB`, `GITLAB`, or `AZURE_DEVOPS`. With multiple [`codeForges`](#codeforges), every repository requires `codeForge`.
 
-Optional `deferred` defaults to `false`. Set it to `true` to attach a repository without preparing it for every run. Warp prepares it when an agent or automation lists it in `required_repos`, or a run adds it.
-
 ```yaml
 codeForges:
   - GITHUB
@@ -407,7 +405,6 @@ All frontmatter keys are optional.
 | `model`, `harness` | Override the corresponding [`agentDefaults`](#agentdefaults). Set at most one. |
 | `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel` | Override the corresponding [`agentDefaults`](#agentdefaults), subject to each field's inheritance rules. |
 | `idleTimeoutMinutes` | Keeps a completed session available for follow-up for 1 through 60 minutes. Omit it or use `null` to inherit. Without an inherited or run-level value, Warp uses 10 minutes, or 60 minutes for an orchestrated child run. |
-| `required_repos` | Repositories prepared for every run by this agent. Each entry requires `owner` and `name`; use `codeForge` to distinguish the same repository across hosts. |
 
 An agent's `harness` object is a sparse override of [`agentDefaults.harness`](#agentdefaultsharness). Set `auth` to `null` to clear inherited authentication. Agent-level `mcpServers` entries use the same transport keys as the factory-level [`mcpServers`](#mcpservers) map.
 
@@ -520,9 +517,7 @@ triggers:
 ### Execution overrides
 
 **Optional.**
-An automation can declare `displayName`, plus `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel`, `idleTimeoutMinutes`, and `required_repos`. Use `null` to clear `displayName`. Execution settings override the target agent for runs from this automation.
-
-Automation `required_repos` entries extend the target agent's list. Each item requires `required_repos[].owner` and `required_repos[].name`; use `required_repos[].codeForge` to distinguish the same repository across hosts.
+An automation can declare `displayName`, plus `model` or `harness`, `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel`, and `idleTimeoutMinutes`. Use `null` to clear `displayName`. Execution settings override the target agent for runs from this automation.
 
 The `harness` object uses the same sparse override as an agent. Automation-level `mcpServers` use the [factory-level transport syntax](#mcpservers). Omit `idleTimeoutMinutes`, or set it to `null`, to inherit the target agent's value.
 
