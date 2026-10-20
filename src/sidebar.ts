@@ -436,7 +436,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 									collapsed: true,
 									items: [
 										{ slug: 'factories/self-hosting', label: 'Overview' },
-										{ slug: 'factories/self-hosting/data-storage', label: 'Self-hosted agent data storage' },
 										{ slug: 'factories/self-hosting/quickstart', label: 'Quickstart' },
 										{ slug: 'factories/self-hosting/managed-docker', label: 'Docker backend' },
 										{ slug: 'factories/self-hosting/managed-kubernetes', label: 'Kubernetes backend' },
@@ -445,6 +444,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 										{ slug: 'factories/self-hosting/external-orchestrators', label: 'External orchestrators' },
 										{ slug: 'factories/self-hosting/direct-monorepo-worktrees', label: 'Direct: Monorepo worktrees' },
 										'factories/self-hosting/monitoring',
+										{ slug: 'factories/self-hosting/data-storage', label: 'Self-hosted agent data storage' },
 										{ slug: 'factories/self-hosting/reference', label: 'Worker reference' },
 										'factories/self-hosting/troubleshooting',
 									],
