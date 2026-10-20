@@ -444,6 +444,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 										{ slug: 'factories/self-hosting/external-orchestrators', label: 'External orchestrators' },
 										{ slug: 'factories/self-hosting/direct-monorepo-worktrees', label: 'Direct: Monorepo worktrees' },
 										'factories/self-hosting/monitoring',
+										{ slug: 'factories/self-hosting/data-storage', label: 'Self-hosted agent data storage' },
 										{ slug: 'factories/self-hosting/reference', label: 'Worker reference' },
 										'factories/self-hosting/troubleshooting',
 									],
@@ -629,7 +630,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/faqs', label: 'Cloud agent FAQs' },
 						{ slug: 'platform/unmanaged-execution', label: 'Unmanaged execution' },
 						{ slug: 'platform/execution-security', label: 'Execution security' },
-						{ slug: 'platform/data-storage', label: 'Self-hosted agent data storage' },
 					],
 				},
 				{
