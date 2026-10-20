@@ -412,6 +412,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 				items: [
 						{ slug: 'factories/factory-agents', label: 'Factory agents' },
 						{ slug: 'factories/factory-skills', label: 'Factory skills' },
+						{ slug: 'factories/secrets', label: 'Secrets' },
 						// Moved from 'Integrations' (was 'Automation filters'): this page is
 						// now the Automations primitive's conceptual home, parallel to Factory
 						// agents and Factory skills, not just a filters reference.
