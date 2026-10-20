@@ -26,7 +26,8 @@ it looks mechanical. Existing skills retain their ownership:
 - Surface coverage and code-surface extraction go to `missing_docs`.
 - Broken links and redirect gaps go to `check_for_broken_links` or
   `weekly-404-monitor`.
-- Public OpenAPI drift goes to `sync-openapi-spec`.
+- Public OpenAPI drift is reported to the server workflow owner through
+  `.agents/references/openapi-publication.md`; this audit never publishes a spec.
 
 Record delegated findings in the run artifact. Do not duplicate them as consistency
 findings.

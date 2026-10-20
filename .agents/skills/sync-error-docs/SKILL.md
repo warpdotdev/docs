@@ -26,7 +26,7 @@ This skill requires two repos in the agent's environment:
 - `warpdotdev/warp-server` — source of truth for error codes
 - `warpdotdev/docs` — documentation pages
 
-All paths below are relative to the **docs repo root**, with `warp-server` checked out as a sibling directory (`../warp-server`), matching the convention used by `sync-openapi-spec`.
+All paths below are relative to the **docs repo root**, with `warp-server` checked out as a sibling directory (`../warp-server`).
 
 ## Workflow
 
