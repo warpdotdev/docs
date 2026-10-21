@@ -1,94 +1,121 @@
 ---
-title: Reviewing pull requests with a factory
+title: Configuring pull request review in your factory
 description: >-
-  Configure a factory to inspect pull requests, identify potential bugs, and
-  return actionable review findings.
+  Automate pull request reviews with your factory to identify bugs, security
+  risks, and missing tests and post actionable findings.
 ---
-A review factory examines a pull request against its requirements, repository conventions, tests, and security boundaries. It returns findings on the pull request without changing or merging the code.
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Use this pattern for independent review after human or agent implementation. Keep the review model or harness different from the one that wrote the change when possible.
+Automate pull request review in your factory to check code changes against the acceptance criteria recorded in the issue or pull request, repository conventions, and security requirements. Use this pattern for independent review of code written by people or agents.
+
+This [recipe](/factories/use-cases/) routes pull requests to your factory's existing review agent. The automation prompt asks it to post findings without editing, approving, or merging the change. Keep required approvals and merge permissions in the code host.
 
 ## Prerequisites
 
-* **A connected code forge** - Connect [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), or [Azure DevOps](/factories/integrations/azure-devops/) with access to the repositories under review.
-* **Pull request read and comment permissions** - The agent needs the diff, checks, and review conversation, plus permission to post findings.
-* **Repository guidance** - Keep build, test, security, and style requirements in the repository or a factory skill.
-* **A review policy** - Decide which findings block handoff and which need human judgment.
+* A [factory](/factories/quickstart/) connected to [GitHub](/factories/integrations/github/), [GitLab](/factories/integrations/gitlab/), or [Azure DevOps](/factories/integrations/azure-devops/).
+* Repository credentials that can read code, checks, and review discussions, and post findings.
+* A review policy with required validation commands, security checks, and finding thresholds.
+* A test pull request or merge request with a known defect.
 
-## Recommended recipe
+## Recommended configuration
 
-Route ready pull requests to a `REVIEW` agent. Start with one event so a single pull request action doesn't create overlapping runs.
-
-| Provider | Initial review | Review after updates |
-| --- | --- | --- |
-| GitHub | `pull_request_ready` | `pull_request_synchronized` |
-| GitLab | `merge_request` | `merge_request` |
-| Azure DevOps | `pull_request_created` | `pull_request_updated` |
+Use the following table to choose the trigger, agent, skills, settings, and expected output for your review automation.
 
 | Part | Recommendation |
 | --- | --- |
-| Trigger | Start with the provider's initial-review event; add its update event only when every new commit needs automatic re-review |
-| Agent | A `REVIEW` agent that doesn't edit, approve, or merge |
-| Skills | Code quality, code review, and repository-specific test or security procedures |
-| Settings | Filter by repository and default base branch; use a model or harness different from implementation |
-| Output | Inline findings where supported, a concise verdict, and the validation commands checked |
+| Trigger | A pull request becomes ready or is created, depending on the provider |
+| Agent | Your factory's existing review agent |
+| Skills | Repository-specific review policy and validation commands |
+| Settings | Filter by repository and target branch. Choose a different model or harness from implementation when possible |
+| Output | Actionable findings with affected lines, a recommendation, and validation results |
 
-The configuration example below is specific to GitHub.
+## Set up pull request review
 
-```markdown title="automations/review-ready-prs/automation.md"
----
-agent: review
-triggers:
-  - provider: github
-    event: pull_request_ready
-    filter:
-      repos: [acme/api-service]
-      base_branches: [main]
-      labels:
-        not_in: [skip-factory-review]
----
+1. Use your factory's existing [review agent](/factories/factory-agents/#review) and keep its shared instructions intact.
+2. Add a review-policy skill under `agents/review/skills/`, using your agent's directory name if different. Include validation commands, relevant security or migration checks, and which findings require changes. See [factory skills](/factories/factory-skills/) for the file format.
+3. Add or edit an automation for your code host. The examples use `agent: review`. Replace `review` if your agent has a different name, and put this workflow's review-only instructions in the automation prompt.
 
-Review the pull request against its stated requirements and the repository's
-guidance. Inspect the full diff and existing checks. Post only actionable
-findings, cite the affected lines, and state whether the change needs revision
-or human judgment. Do not edit, approve, or merge the pull request.
-```
+   Reuse an existing automation if it already handles those requests. Check for overlapping triggers before adding another route.
 
-```markdown title="agents/review/agent.md"
----
-description: Independently reviews pull requests and reports actionable findings
-agentType: REVIEW
----
+   Choose your code host to configure the automation, then continue with step 4.
 
-Treat the pull request description as a claim, not proof. Verify behavior
-against code, tests, and repository guidance. Keep each finding specific,
-explain its impact, and name the correction.
-```
+   <Tabs>
+   <TabItem label="GitHub">
 
-The public [`04-code-review-only`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/04-code-review-only) definition provides a complete review-only factory to adapt.
+   This automation starts when a pull request is opened ready for review or changes from draft to ready. Replace `acme/api-service` and `main` with your repository and target branch.
 
-## Configure pull request review
+   ```markdown title="automations/review-ready-prs/automation.md"
+   ---
+   agent: review
+   triggers:
+     - provider: github
+       event: pull_request_ready
+       filter:
+         repos: [acme/api-service]
+         base_branches: [main]
+         labels:
+           not_in: [skip-factory-review]
+   ---
 
-1. Create a factory that includes the repositories to review.
-2. Configure the review agent with read access to code and checks, plus pull request comment access. Don't grant push credentials when the agent only reviews.
-3. Add repository-specific review skills under `agents/review/skills/`. Include exact validation commands and any security or migration checklists.
-4. Add the GitHub `pull_request_ready` automation above. For GitLab, use `merge_request`. For Azure DevOps, use `pull_request_created`. Keep a skip label so maintainers can exclude generated, experimental, or sensitive changes.
-5. Open a draft test pull request containing one known defect, then mark it ready. Confirm the review points to the defect, avoids duplicate summary comments, and doesn't change the branch.
-6. Add the provider's update event only after deciding how re-reviews should replace or reply to earlier findings: `pull_request_synchronized` for GitHub, `merge_request` for GitLab, or `pull_request_updated` for Azure DevOps.
+   Review the pull request against its requirements and repository guidance.
+   If it is a draft or is no longer open, stop without posting a review.
+   Treat the description as a claim, not proof. Inspect the full diff and
+   existing checks, and run relevant validation. Post actionable findings with
+   affected lines, impact, and the recommended correction. State what was
+   checked and what remains unverified. Do not edit, approve, or merge.
+   ```
+
+   The optional `skip-factory-review` label excludes a pull request when the event fires. For bot-authored events, see the `skip_bots` policy in the [trigger filter reference](/factories/factory-as-code/#triggersfilter).
+
+   </TabItem>
+   <TabItem label="GitLab">
+
+   Copy `agent: review` and the Markdown review prompt from the GitHub tab's `automations/review-ready-prs/automation.md` example. Replace its entire `triggers` list with the configuration below, using your GitLab project path and target branch in place of `acme/api-service` and `main`.
+
+   ```yaml title="GitLab review trigger"
+   triggers:
+     - provider: gitlab
+       event: merge_request
+       filter:
+         repos: [acme/api-service]
+         base_branches: [main]
+         actions: [open]
+   ```
+
+   `merge_request` also covers updates, approvals, and other actions. The `actions: [open]` filter limits initial review to newly opened merge requests. This trigger has no label or draft filter, so keep the prompt's instruction to skip drafts.
+
+   </TabItem>
+   <TabItem label="Azure DevOps">
+
+   Copy `agent: review` and the Markdown review prompt from the GitHub tab's `automations/review-ready-prs/automation.md` example. Replace its entire `triggers` list with the configuration below. Replace `AZURE_DEVOPS_REPOSITORY_ID` with the repository's UUID, not a GitHub-style `owner/repo` path, and replace `main` with the target branch.
+
+   ```yaml title="Azure DevOps review trigger"
+   triggers:
+     - provider: azure_devops
+       event: pull_request_created
+       filter:
+         repos: [AZURE_DEVOPS_REPOSITORY_ID]
+         base_branches: [main]
+   ```
+
+   This trigger has no label or draft filter. Keep the prompt's instruction to skip drafts. See [Azure DevOps events and filters](/factories/integrations/azure-devops/#supported-events-and-filters) for setup and scope.
+   </TabItem>
+   </Tabs>
+
+4. Apply the definition changes before testing. Save edits in the factory dashboard for a Warp-managed factory, or merge them into the configured production branch for a GitHub-backed factory. Confirm validation succeeds and the changes are applied. See [where the factory definition lives](/factories/factory-as-code/#where-the-definition-lives).
+5. Test the selected event with a pull request or merge request that contains a known defect and matches every filter.
+   * **GitHub** - Open a draft pull request, then mark it ready, or open it ready for review. To test the optional exclusion, repeat with `skip-factory-review` applied before opening the pull request or marking it ready.
+   * **GitLab** - Open a non-draft merge request.
+   * **Azure DevOps** - Create a non-draft pull request.
+
+   Confirm a review starts, points to the defect, and leaves the branch unchanged. Test exclusions too: GitHub's skip label should prevent a run, while draft requests on GitLab and Azure DevOps may start a run but should produce no review.
+6. Add re-review events only if the workflow needs them. Use `pull_request_synchronized` for GitHub, `merge_request` with `actions: [update]` for GitLab, or `pull_request_updated` for Azure DevOps. GitLab and Azure DevOps update events are not limited to new commits. Keep the same repository and target-branch filters, retain the draft and closed-request checks, and decide how the agent should reply to or update earlier findings instead of duplicating them. Push a fix and confirm the next review checks the revised code.
 
 ## Example workflow
 
-A pull request changes a cache key from `account_id:region` to `account_id`. When the author marks it ready, the factory reads the requirements, diff, and checks. The review agent finds that two regions now share one entry and posts a line-level finding with the collision scenario and the expected key shape.
+A pull request changes a cache key from `account_id:region` to `account_id`. When the author marks it ready, the review agent finds that two regions now share one entry and posts a finding with the collision scenario and the expected key shape.
 
-After the author pushes a fix, a follow-up automation can re-run the same review. The agent verifies the new key and reports no remaining findings. A person still decides whether to approve and merge.
-
-## Best practices
-
-* **Review only ready changes** - Ignore drafts unless your team explicitly wants early feedback.
-* **Give findings a threshold** - Ask for bugs, security risks, unmet requirements, and missing meaningful tests, not stylistic preference.
-* **Use independent configuration** - A different model or harness reduces shared blind spots between implementation and review.
-* **Avoid duplicate reviews** - One event should own initial review; add re-review events deliberately.
-* **Keep merge authority human** - Warp Factories doesn't merge by default. Enforce approval and merge rules in branch protection.
+After the author pushes a fix, a configured re-review event starts another check. The agent verifies the new key and reports no remaining findings. A person still decides whether to approve and merge.
 
 ## Related pages
 
