@@ -37,7 +37,7 @@ Use the following table to choose the trigger, agent, skills, settings, and expe
 
    Reuse an existing automation if it already handles those requests. Check for overlapping triggers before adding another route.
 
-   Choose your code host to configure the automation, then continue with step 4.
+   Select your code host from the tabs below, then follow the instructions to configure the automation.
 
    <Tabs>
    <TabItem label="GitHub">
@@ -108,7 +108,7 @@ Use the following table to choose the trigger, agent, skills, settings, and expe
 
 4. Apply the definition changes before testing. Save edits in the factory dashboard for a Warp-managed factory, or merge them into the configured production branch for a GitHub-backed factory. Confirm validation succeeds and the changes are applied. See [where the factory definition lives](/factories/factory-as-code/#where-the-definition-lives).
 5. Test the selected event with a pull request or merge request that contains a known defect and matches every filter.
-   * **GitHub** - Open a draft pull request, then mark it ready, or open it ready for review. To test the optional exclusion, repeat with `skip-factory-review` applied before opening the pull request or marking it ready.
+   * **GitHub** - Mark a draft pull request as ready for review, or open a non-draft pull request. To test the optional exclusion, repeat with `skip-factory-review` applied before opening the pull request or marking it ready.
    * **GitLab** - Open a non-draft merge request.
    * **Azure DevOps** - Create a non-draft pull request.
 
