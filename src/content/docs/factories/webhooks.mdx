@@ -52,7 +52,7 @@ A URL token webhook's URL is itself the credential: treat it like a secret, and 
 5. Optionally, enter a "Delivery ID header" if the sender stamps its own event ID into a header, and click **Create webhook**.
 
 :::note
-On a Warp-managed factory, "Secret name" points at a [managed secret](/platform/secrets/) that stores the webhook's credential. To reuse an existing team secret instead of creating a new one, enter its name in step 4.
+On a Warp-managed factory, "Secret name" points at a [managed secret](/factories/secrets/) that stores the webhook's credential. To reuse an existing team secret instead of creating a new one, enter its name in step 4.
 :::
 
 The pane shows the ingress URL and the secret (for a URL token webhook, the token is part of the URL). Copy them now: Warp doesn't show the secret again, and a URL token webhook's URL later renders a `{token}` placeholder. If you referenced an existing secret, its value isn't shown; configure the sender with the value you stored in it.
@@ -140,7 +140,7 @@ What a sender can expect from the webhook URL:
 
 ## Webhooks in definitions as code
 
-In a [factory definition](/factories/factory-as-code/), each webhook is a `webhooks/<name>.yaml` file whose `secretName` points at a [managed secret](/platform/secrets/) you create first, and an automation subscribes with a `webhook` trigger:
+In a [factory definition](/factories/factory-as-code/), each webhook is a `webhooks/<name>.yaml` file whose `secretName` points at a [managed secret](/factories/secrets/) you create first, and an automation subscribes with a `webhook` trigger:
 
 ```yaml title="webhooks/sentry-alerts.yaml"
 authMode: signature
@@ -178,9 +178,9 @@ find the failing code path, and open a pull request with a fix and a test.
 
 ## Related pages
 
-* [**Setting up a Vercel webhook**](/factories/webhooks/vercel/) - The two-step setup for providers that issue their signing secret only after they have a URL.
-* [**Automations**](/factories/automations/) - How triggers and filters decide which events start work, including the payload filter grammar.
-* [**Connect your factory**](/factories/connect-your-factory/) - Every way work reaches a factory, alongside custom webhooks.
-* [**Definitions as code**](/factories/factory-as-code/) - The full schema for `webhooks/<name>.yaml` and webhook triggers.
-* [**Cloud agent secrets**](/platform/secrets/) - Create and rotate the managed secrets that file-defined webhooks reference.
-* [**Factory dashboard**](/factories/factory-dashboard/) - Where the **Automations** page and its **Webhooks** tab live.
+* [Setting up a Vercel webhook](/factories/webhooks/vercel/) - The two-step setup for providers that issue their signing secret only after they have a URL
+* [Automations](/factories/automations/) - How triggers and filters decide which events start work, including the payload filter grammar
+* [Connect your factory](/factories/connect-your-factory/) - Every way work reaches a factory, alongside custom webhooks
+* [Definitions as code](/factories/factory-as-code/) - The full schema for `webhooks/<name>.yaml` and webhook triggers
+* [Factory secrets](/factories/secrets/) - Create and rotate the managed secrets that file-defined webhooks reference
+* [Factory dashboard](/factories/factory-dashboard/) - Where the **Automations** page and its **Webhooks** tab live

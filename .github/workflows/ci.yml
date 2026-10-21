@@ -66,6 +66,7 @@ jobs:
           python3 .agents/skills/doc_quality_policy/test_stale_review_requests.py
           python3 .agents/skills/doc_quality_policy/test_agent_docs_review_workflow.py
           python3 .agents/skills/doc_quality_policy/test_manifest.py
+          python3 .agents/skills/doc_quality_policy/test_server_rollout.py
 
       # Extracts the documented manual review-publishing snippet from
       # review-docs-pr/SKILL.md and runs it against a stub, so CI catches

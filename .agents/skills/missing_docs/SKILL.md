@@ -97,6 +97,8 @@ Rules of thumb:
 - A `warp-server` API endpoint that is **not already in the OpenAPI spec** is treated as not-yet-public: do NOT hand-write docs for it. Either confirm public release and report the publication gap to the server workflow owner (see `.agents/references/openapi-publication.md`), or map it `-> internal` / defer it. When unsure, defer — never expose an unreleased endpoint or feature in public docs.
 - A CLI command or API route gated by a **non-GA feature flag** should be mapped `-> gated:<Flag>` (for example, `gated:AIMemories`) rather than `-> internal`: the audit auto-defers it while the flag is non-GA and auto-surfaces it for docs once the flag goes GA. (Feature flags and settings already auto-defer by rollout status; `gated:` extends that to CLI/API.)
 - **A published docs page is not evidence that an API is released.** Early Access features routinely have public pages describing what the product does while their REST routes stay out of the released spec, so "we already document this feature" does not clear Gate 0 for an endpoint. For API surfaces the released OpenAPI spec is the only test. The Factory pages describe dispatching a run, yet no `/factory` path appears in `developers/agent-api-openapi.yaml` — those routes are Gate 0 deferrals despite the prose.
+- **Server-side behavior follows `config/prod.yaml`, not the code.** warp-server ships code to production with the feature flag off, and staging runs with different values. Before treating any server-backed field, behavior, or error as released, run `python3 .agents/skills/doc_quality_policy/server_rollout.py check <user-facing names>`. A related flag that is off in production is a Gate 0 deferral. Record the blocking condition as "a server flag is off in production" and the `warp-server` revision; this repo is public, so keep the flag name and the script output out of the ledger, map, and PR body.
+- **A schema field is not a released field.** The Factory file JSON schemas (`warp-server/logic/factoryfile/schema/`, served at `app.warp.dev/api/v1/factory-files/schemas`) are generated from source and published regardless of flag state, so they advertise fields the runtime ignores in production. Treat a schema field as a candidate and clear it with the server-flag check above.
 - The audit still *detects* these as gaps (useful signal), but detection is not permission to document. Every resolution must respect this boundary.
 
 This section is the source of truth for **Gate 0** in
@@ -324,9 +326,11 @@ them through these three layers instead, in order of preference:
    through the spec, never through hand-drafting.
 3. **`warp-server` product specs** — the last resort, and the most conservative layer.
    Apply a hard rollout check *before* the worthiness gates: only consider a spec whose
-   feature is verifiably enabled for users. A merged spec is not a shipped feature. If
-   you cannot confirm the rollout from code or the changelog, defer it and record the
-   blocking condition — do not draft against the spec text.
+   feature is verifiably enabled for users. A merged spec is not a shipped feature, and
+   neither is a merged implementation PR. Run `server_rollout.py check` with the
+   feature's user-facing names; any related flag off in production is a deferral. If
+   you cannot confirm the rollout from production config or the changelog, defer it and
+   record the blocking condition — do not draft against the spec text.
 
 Layer 3 is where the old pipeline went wrong: it treated spec merge as the trigger, so it
 drafted for features that had not shipped and sometimes never would. Reach for it only

@@ -54,6 +54,21 @@ review focus areas, this pass is the human-review-blocking gate defined in
    approval is not itself a contract violation. Any reported contract
    violation (missing section, unlisted marker, listed marker at `low` risk)
    is `🚨 [CRITICAL]`.
+5. **Check Gate 0 for server-backed claims.** Apply the server-flag check in
+   `.agents/references/docs-worthiness-criteria.md` → Gate 0 to every new or
+   changed claim about a warp-server field, endpoint, default, error, or
+   behavior, including Factory file fields. The PR must record evidence that
+   the feature is live in production: a stable changelog entry, the released
+   OpenAPI spec, a `server_rollout.py` check at a named `warp-server`
+   revision, or an engineer's confirmation. A published schema, a parser that
+   accepts the field, a merged PR, or staging behavior does not count. When a
+   `warp-server` checkout is available, run
+   `.agents/skills/doc_quality_policy/server_rollout.py check` with the
+   claim's user-facing names yourself. A claim whose related flag is off in
+   production is `🚨 [CRITICAL]`; a server-backed claim with no rollout
+   evidence is `⚠️ [IMPORTANT]`. Reviews are public: describe the problem as
+   "a server flag is off in production" without naming the flag or quoting
+   the script output.
 
 ## Review Instructions
 
@@ -68,7 +83,8 @@ Focus on:
 6. **Product name variables**: Check whether any product names with a corresponding entry in `src/data/vars.ts` are hardcoded as literal strings instead of using `{VARS.KEY}` (prose) or `{{TOKEN}}` (frontmatter). Key strings to watch for: "Oz CLI", "Oz web app", "oz.warp.dev", "Oz dashboard", "Oz run". Flag as `⚠️ [IMPORTANT]` if a new file adds these without using the variable system. For existing files, flag as `💡 [SUGGESTION]`.
 7. **Tone and AI-isms**: Flag marketing buzzwords (seamless, powerful, robust, comprehensive, leverage, streamline), meta-openers ("This page covers/explains/walks through..."), restated cause-and-effect ("This process ensures..."), recap lines, consecutive callouts or more than one callout per section, and internal-architecture detail the reader can't act on (orchestrators, control planes, lifecycle states). Reference the "Voice & tone" section of `AGENTS.md`. Use `💡 [SUGGESTION]` for isolated instances; use `⚠️ [IMPORTANT]` when the pattern is pervasive in new content.
 8. **Length and reader understanding**: Apply AGENTS.md → Procedural → Reader-understanding test before proposing a cut. Name repetition removed and any choice, consequence, or success signal lost. Cut padding before splitting; word count alone is not an editorial verdict. Preserve necessary facts by linking or relocating them.
-9. **AEO/source-data fit**:
+9. **Unreleased features**: For any PR, agent-marked or not, apply item 5 of the v1 contract above to server-backed claims. A launch PR is not exempt; Gate 0 applies to launches too.
+10. **AEO/source-data fit**:
 
 Provide actionable, constructive feedback. Focus on documentation quality issues, not code bugs.
 
@@ -79,7 +95,7 @@ Use `.agents/rules/oz-style-guidelines.md` for framing and the canonical glossar
 ### Severity Labels (Required)
 
 Every comment body MUST begin with one of:
-- `🚨 [CRITICAL]` — Broken links, incorrect commands/code, factually wrong information that could confuse users, or a v1 contract violation (missing/invalid `## Documentation risk`, an unlisted `VERIFY` marker)
+- `🚨 [CRITICAL]` — Broken links, incorrect commands/code, factually wrong information that could confuse users, a feature whose server flag is off in production, or a v1 contract violation (missing/invalid `## Documentation risk`, an unlisted `VERIFY` marker)
 - `⚠️ [IMPORTANT]` — Style guide violations, missing redirects, structural issues, a documentation-risk misclassification, or an unjustified compression-contract violation
 - `💡 [SUGGESTION]` — Improvements to clarity, wording, or structure
 - `🧹 [NIT]` — Typos, minor formatting (ONLY if providing a suggestion block)
