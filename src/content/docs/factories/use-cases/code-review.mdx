@@ -8,7 +8,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 Automate pull request review in your factory to check code changes against the acceptance criteria recorded in the issue or pull request, repository conventions, and security requirements. Use this pattern for independent review of code written by people or agents.
 
-This [recipe](/factories/use-cases/) routes pull requests to your factory's existing review agent. The automation prompt asks it to post findings without editing, approving, or merging the change. Keep required approvals and merge permissions in the code host.
+This [recipe](/factories/use-cases/) routes pull requests to your factory's foreman, which asks the review agent to inspect the change and publishes its report. The review agent reports to the foreman rather than posting on the pull request. The automation prompt limits this workflow to review without implementation, approval, or merging. Keep required approvals and merge permissions in the code host.
 
 ## Prerequisites
 
@@ -24,16 +24,16 @@ Use the following table to choose the trigger, agent, skills, settings, and expe
 | Part | Recommendation |
 | --- | --- |
 | Trigger | A pull request becomes ready or is created, depending on the provider |
-| Agent | Your factory's existing review agent |
+| Agents | Your factory's foreman coordinates the review agent and publishes its findings |
 | Skills | Repository-specific review policy and validation commands |
 | Settings | Filter by repository and target branch. Choose a different model or harness from implementation when possible |
 | Output | Actionable findings with affected lines, a recommendation, and validation results |
 
 ## Set up pull request review
 
-1. Use your factory's existing [review agent](/factories/factory-agents/#review) and keep its shared instructions intact.
+1. Use your factory's existing [foreman and review agents](/factories/factory-agents/#the-default-agents). Keep both agents' shared instructions intact.
 2. Add a review-policy skill under `agents/review/skills/`, using your agent's directory name if different. Include validation commands, relevant security or migration checks, and which findings require changes. See [factory skills](/factories/factory-skills/) for the file format.
-3. Add or edit an automation for your code host. The examples use `agent: review`. Replace `review` if your agent has a different name, and put this workflow's review-only instructions in the automation prompt.
+3. Add or edit an automation for your code host. Target the foreman with `agent: foreman`, replacing `foreman` if yours has a different name. Put this workflow's review-only instructions in the automation prompt.
 
    Reuse an existing automation if it already handles those requests. Check for overlapping triggers before adding another route.
 
@@ -46,7 +46,7 @@ Use the following table to choose the trigger, agent, skills, settings, and expe
 
    ```markdown title="automations/review-ready-prs/automation.md"
    ---
-   agent: review
+   agent: foreman
    triggers:
      - provider: github
        event: pull_request_ready
@@ -57,20 +57,24 @@ Use the following table to choose the trigger, agent, skills, settings, and expe
            not_in: [skip-factory-review]
    ---
 
-   Review the pull request against its requirements and repository guidance.
-   If it is a draft or is no longer open, stop without posting a review.
-   Treat the description as a claim, not proof. Inspect the full diff and
-   existing checks, and run relevant validation. Post actionable findings with
-   affected lines, impact, and the recommended correction. State what was
-   checked and what remains unverified. Do not edit, approve, or merge.
+   Coordinate a review-only task. If the pull request is a draft or is no
+   longer open, stop without posting a review. Treat this event as a fresh
+   review request, even if an earlier revision was reviewed. Ask the factory's
+   review agent to inspect the current head commit against acceptance criteria
+   in the source issue or pull request and repository guidance, run relevant
+   validation, and return its report to you. Publish the report on the pull
+   request as comments, not an approval or rejection. Include affected lines,
+   impact, recommended corrections,
+   validation results, and anything unverified. Stop after publishing.
+   Do not edit code, dispatch implementation, approve, or merge.
    ```
 
-   The optional `skip-factory-review` label excludes a pull request when the event fires. For bot-authored events, see the `skip_bots` policy in the [trigger filter reference](/factories/factory-as-code/#triggersfilter).
+   The optional `skip-factory-review` label excludes a pull request when the event fires. For bot-authored events, see the published [GitHub bot-event policy](https://docs.warp.dev/factories/integrations/github/#events-from-bots-dont-start-work).
 
    </TabItem>
    <TabItem label="GitLab">
 
-   Copy `agent: review` and the Markdown review prompt from the GitHub tab's `automations/review-ready-prs/automation.md` example. Replace its entire `triggers` list with the configuration below, using your GitLab project path and target branch in place of `acme/api-service` and `main`.
+   Copy `agent: foreman` and the Markdown review prompt from the GitHub tab's `automations/review-ready-prs/automation.md` example. Replace its entire `triggers` list with the configuration below, using your GitLab project path and target branch in place of `acme/api-service` and `main`.
 
    ```yaml title="GitLab review trigger"
    triggers:
@@ -87,7 +91,7 @@ Use the following table to choose the trigger, agent, skills, settings, and expe
    </TabItem>
    <TabItem label="Azure DevOps">
 
-   Copy `agent: review` and the Markdown review prompt from the GitHub tab's `automations/review-ready-prs/automation.md` example. Replace its entire `triggers` list with the configuration below. Replace `AZURE_DEVOPS_REPOSITORY_ID` with the repository's UUID, not a GitHub-style `owner/repo` path, and replace `main` with the target branch.
+   Copy `agent: foreman` and the Markdown review prompt from the GitHub tab's `automations/review-ready-prs/automation.md` example. Replace its entire `triggers` list with the configuration below. Replace `AZURE_DEVOPS_REPOSITORY_ID` with the repository's UUID, not a GitHub-style `owner/repo` path, and replace `main` with the target branch.
 
    ```yaml title="Azure DevOps review trigger"
    triggers:
@@ -108,14 +112,14 @@ Use the following table to choose the trigger, agent, skills, settings, and expe
    * **GitLab** - Open a non-draft merge request.
    * **Azure DevOps** - Create a non-draft pull request.
 
-   Confirm a review starts, points to the defect, and leaves the branch unchanged. Test exclusions too: GitHub's skip label should prevent a run, while draft requests on GitLab and Azure DevOps may start a run but should produce no review.
+   Confirm the review agent returns its findings to the foreman, the foreman posts the defect on the pull request, and neither agent changes the branch or starts implementation. Test exclusions too: GitHub's skip label should prevent a run, while draft requests on GitLab and Azure DevOps may start a run but should produce no review.
 6. Add re-review events only if the workflow needs them. Use `pull_request_synchronized` for GitHub, `merge_request` with `actions: [update]` for GitLab, or `pull_request_updated` for Azure DevOps. GitLab and Azure DevOps update events are not limited to new commits. Keep the same repository and target-branch filters, retain the draft and closed-request checks, and decide how the agent should reply to or update earlier findings instead of duplicating them. Push a fix and confirm the next review checks the revised code.
 
 ## Example workflow
 
-A pull request changes a cache key from `account_id:region` to `account_id`. When the author marks it ready, the review agent finds that two regions now share one entry and posts a finding with the collision scenario and the expected key shape.
+A pull request changes a cache key from `account_id:region` to `account_id`. When the author marks it ready, the foreman requests a review. The review agent finds that two regions now share one entry and reports the collision scenario and expected key shape to the foreman, which posts the finding on the pull request.
 
-After the author pushes a fix, a configured re-review event starts another check. The agent verifies the new key and reports no remaining findings. A person still decides whether to approve and merge.
+After the author pushes a fix, a configured re-review event requests another check of the current head commit. The review agent verifies the new key and the foreman publishes the result. A person still decides whether to approve and merge.
 
 ## Related pages
 
