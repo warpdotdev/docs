@@ -410,7 +410,14 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					// and where it runs.
 				label: 'Factory configuration',
 				items: [
-						{ slug: 'factories/factory-agents', label: 'Factory agents' },
+						{
+							label: 'Factory agents',
+							items: [
+								{ slug: 'factories/factory-agents', label: 'About factory agents' },
+								{ slug: 'factories/factory-agents/configuration', label: 'Configuring factory agents' },
+								{ slug: 'factories/factory-agents/creating-custom-agents', label: 'Creating custom agents' },
+							],
+						},
 						{ slug: 'factories/factory-skills', label: 'Factory skills' },
 						// Moved from 'Integrations' (was 'Automation filters'): this page is
 						// now the Automations primitive's conceptual home, parallel to Factory
@@ -420,7 +427,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{
 							label: 'Infrastructure',
 							items: [
-								{ slug: 'factories/infrastructure-and-security', label: 'Overview' },
+								{ slug: 'factories/infrastructure-and-security', label: 'About infrastructure and security' },
 								{ slug: 'factories/deployment-patterns', label: 'Deployment patterns' },
 								{ slug: 'factories/warp-hosting', label: 'Warp-hosted execution' },
 								{ slug: 'factories/runners', label: 'Runners' },
@@ -437,6 +444,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 										{ slug: 'factories/self-hosting/external-orchestrators', label: 'External orchestrators' },
 										{ slug: 'factories/self-hosting/direct-monorepo-worktrees', label: 'Direct: Monorepo worktrees' },
 										'factories/self-hosting/monitoring',
+										{ slug: 'factories/self-hosting/data-storage', label: 'Self-hosted agent data storage' },
 										{ slug: 'factories/self-hosting/reference', label: 'Worker reference' },
 										'factories/self-hosting/troubleshooting',
 									],
@@ -622,7 +630,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/faqs', label: 'Cloud agent FAQs' },
 						{ slug: 'platform/unmanaged-execution', label: 'Unmanaged execution' },
 						{ slug: 'platform/execution-security', label: 'Execution security' },
-						{ slug: 'platform/data-storage', label: 'Self-hosted agent data storage' },
 					],
 				},
 				{

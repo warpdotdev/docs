@@ -10,12 +10,12 @@ import { VARS } from '@data/vars';
 
 Vercel shows a webhook's signing secret only after you save its URL, and Warp has a URL only once the webhook exists. To break the loop, create the webhook without a secret: Warp creates it disabled, gives you the URL, and takes the secret in a second step. Stripe and PagerDuty issue their secrets the same way, so the same steps work for them with **Stripe** or **PagerDuty** as the provider scheme.
 
-Vercel team webhooks require a Vercel Pro or Enterprise plan.
-
 ## Prerequisites
 
-* **Permission to manage the factory** - Creating and editing webhooks changes the factory's configuration.
-* **The basics of custom webhooks** - Authentication modes, delivery rules, and how an automation subscribes to a webhook are covered in [Triggering automations with custom webhooks](/factories/webhooks/).
+* A Vercel Pro or Enterprise plan for team webhooks.
+* Permission to manage the factory's configuration.
+
+For authentication modes, delivery rules, and automation subscriptions, see [Triggering automations with custom webhooks](/factories/webhooks/).
 
 ## Creating the webhook in the factory dashboard
 

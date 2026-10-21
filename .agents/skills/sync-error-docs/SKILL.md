@@ -26,7 +26,7 @@ This skill requires two repos in the agent's environment:
 - `warpdotdev/warp-server` — source of truth for error codes
 - `warpdotdev/docs` — documentation pages
 
-All paths below are relative to the **docs repo root**, with `warp-server` checked out as a sibling directory (`../warp-server`), matching the convention used by `sync-openapi-spec`.
+All paths below are relative to the **docs repo root**, with `warp-server` checked out as a sibling directory (`../warp-server`).
 
 ## Workflow
 
@@ -53,6 +53,17 @@ Each file is named `{hyphen-code}.mdx` (e.g., `insufficient-credits.mdx`). Ignor
 ### Step 3: Compare and find missing pages
 
 For each error code from Step 1, convert underscores to hyphens (e.g., `insufficient_credits` → `insufficient-credits`) and check whether a corresponding `.mdx` file exists.
+
+### Step 3.5: Skip codes that only unreleased features return
+
+A new error code often ships with a feature that is still off in production. A public page for that code announces the feature early. For each missing code, run the Gate 0 server-flag check with the code and the feature words from its doc comment:
+
+```bash
+python3 .agents/skills/doc_quality_policy/server_rollout.py \
+  --warp-server ../warp-server check ERROR_CODE FEATURE_WORD
+```
+
+Replace `ERROR_CODE` with the underscore code and `FEATURE_WORD` with the feature it belongs to. If a related flag is off in production, skip the code: create no page, sidebar entry, or redirect. List skipped codes only in the Step 9 run report, not in the PR body, since the docs repo is public. The next run picks the code up again once the flag is on in production.
 
 ### Step 4: Create missing doc pages
 
@@ -196,6 +207,7 @@ Summarize what was found:
 - Total error codes in `platformerrors.go`
 - Number of existing doc pages
 - New codes that were missing pages (list them)
+- Codes skipped by Step 3.5 because a related server flag is off in production (run report only, never the PR body)
 - Pages created, `src/sidebar.ts` entries added, redirects configured
 - Any codes skipped for redirects because they contain no underscore
 - Or confirm everything is already in sync

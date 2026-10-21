@@ -65,6 +65,23 @@ class RedirectSourceTests(unittest.TestCase):
 
         self.assertEqual(matching_sources, [])
 
+    def test_factory_agent_pages_have_no_redirect(self):
+        routes = (
+            "/factories/factory-agents",
+            "/factories/factory-agents/configuration",
+            "/factories/factory-agents/creating-custom-agents",
+        )
+        redirects = load_redirects()
+        for route in routes:
+            with self.subTest(route=route):
+                self.assertIsNotNone(url_to_content_path(route))
+                for source in (route, route + "/"):
+                    self.assertEqual(
+                        [r["source"] for r in redirects
+                         if redirect_source_matches_path(r["source"], source)],
+                        [],
+                    )
+
     def test_restored_transition_page_has_no_redirect(self):
         route = "/platform/transitioning-from-oz"
         self.assertIsNotNone(url_to_content_path(route))

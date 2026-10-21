@@ -346,6 +346,7 @@ Captions orient the reader — they identify what the image shows so the reader 
 - ❌ `<figcaption>The input toolbelt, from left to right: model selector, voice input, image attachments, and conversation controls.</figcaption>` (exhaustive list)
 
 ### Links, embeds, and cross-references
+- When link text uses a destination's full page title, match that title's wording and capitalization, even within a sentence. Descriptive link phrases follow normal sentence capitalization and don't need to reproduce the title.
 - Use descriptive link text that explains what users will find. The anchor text should describe the destination or task, not the action of clicking.
   - ✅ "Learn more about [Codebase Context](...)" / "See [configuring environments](...)"
   - ❌ "Click [here](...)" / "See [this page](...)" / "Read [more](...)"
@@ -526,6 +527,7 @@ These rules apply regardless of content type:
 - **Feature real differentiators structurally**: If a capability is a genuine advantage over the default path (an agent- or API-driven alternative to a UI flow, for example), give it real visual weight — a clear callout near the top of the relevant section, not a footnote after the primary steps are already done. Where something sits on the page communicates how important it is.
 - **Verify claims against the live product, not just prior drafts**: Terminology, UI labels, and calculated values drift between rounds of review. Confirm names, labels, and metric definitions against the actual app, API, or codebase before publishing — especially for pages describing metrics or anything computed.
   - Record the source revision separately from deployment, stable-release, and live-checkout evidence. Merged code or checked-in production configuration does not prove that a customer can use a feature. Keep uncertain availability or policy claims conditional, omitted, or explicitly recorded for review.
+  - A field in a published schema, a parser that accepts it, or behavior on staging is not availability evidence either. Before documenting a server-backed field, endpoint, or behavior, confirm its server flags are on in production with `.agents/skills/doc_quality_policy/server_rollout.py`. See Gate 0 in `.agents/references/docs-worthiness-criteria.md`.
 - **Preserve page purpose**: Removing a page or changing its purpose requires human approval. An unsupported claim calls for a narrow correction, not permission to turn a transition guide into a chooser. Record the reader task, ownership across sibling pages, repetition removed, and useful understanding preserved in the editorial verdict.
 - **Use one positioning source**: Follow `.agents/rules/oz-style-guidelines.md` for product framing and `.agents/references/terminology.md` for names. Positioning is demonstrated through relevant workflows, not mandatory slogans.
 
@@ -567,6 +569,7 @@ These rules apply regardless of content type:
 5. Troubleshooting for common issues (optional but recommended)
 
 **Rules**:
+- **Keep prerequisites concise.** State requirements in unbolded bullets rather than bold labels followed by explanations. Link setup details, and put conditional instructions beside the step that needs them. Keep required access, credential types, and technical constraints explicit. This also applies to quickstarts.
 - **Keep steps focused, not artificially atomic.** Aim for one primary action per step, but group tightly related actions together when they share the same UI context and doing so keeps the procedure at a readable length. Up to ~3 related actions per step is acceptable. Use judgment: a simple task shouldn't require 10+ steps, but a single step shouldn't be a mini-procedure either.
   - Acceptable groupings: actions on the same form (entering a name and choosing an expiration date), a click that reveals the next target (clicking to expand a section, then clicking the revealed item), or a short natural sequence within the same UI area.
   - Avoid grouping actions that span different areas of the UI or that would make a step hard to scan at a glance.
@@ -954,6 +957,24 @@ Current prices belong on [Warp pricing](https://www.warp.dev/pricing), not in du
 Match a control's shipped label without letting that label define all surrounding prose. For example, explain "conversation usage," then identify **Credit usage** as the item in `/statusline`. A documentation edit does not rename a product control or public identifier.
 
 Scope credential claims by configuration: personal device keys, team-managed keys and endpoints, connected subscriptions, and third-party harness credentials are different paths. Don't apply "not stored by Warp" or "not available to cloud agents" to all customer credentials. See the glossary's [inference configuration terms](.agents/references/terminology.md#inference-configuration).
+
+#### Usage prerequisites and setup instructions
+
+State the funding requirement, give a short action if needed, and link to the canonical billing page. Prefer "usage balance" and "add usage" to vague conditions such as "sufficient eligible usage." Do not imply that every reader must make a purchase when included usage or a contract allowance may already cover the work.
+
+* **Separate access from funding** - Team membership, plan access, and available usage are different requirements. Keep required access visible; link to its reference rather than copying plan tables.
+* **Match the balance to the workflow** - Use team-balance wording for factory setup. Standalone cloud runs can be individual or team runs; don't add a team requirement to individual workflows. For schedules and API-triggered runs, preserve or link to which user or team is billed.
+* **Keep exceptions with their owner** - Billing pages own balance eligibility, spending controls, charge components, and Enterprise terms. Preserve a condition needed for the current task, but don't duplicate those rules in every prerequisite list. Don't apply standalone integration restrictions to factory integrations without verification.
+* **Preserve technical precision** - "Eligible" can be necessary when distinguishing usable balances in billing references. Keep credit-named UI labels, identifiers, error codes, URLs, and credit-billed contexts; this is not a blanket terminology replacement.
+
+Examples to adapt, not mandatory boilerplate:
+
+* **Factory setup** - "Available usage in your team's balance for factory runs. Add usage if needed. See access and billing requirements."
+* **Individual or team cloud runs** - "Available usage for cloud runs. Add usage if needed. See access and billing requirements."
+* **Scheduled runs** - "Available usage for the user or team billed for the schedule. Add usage if needed. See run identity before choosing which agent runs it."
+
+In published copy, link the billing-reference phrase to the owning page or section. If the funding source or access rule is unverified, ask the product or billing owner; do not invent a uniform policy for consistent wording.
+
 
 ### UI elements
 - **Settings** (capitalized when referring to the Settings panel)
