@@ -26,6 +26,7 @@ from collections import defaultdict
 from decimal import Decimal
 from pathlib import Path
 from typing import Any, Iterable
+from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo
 
 
@@ -154,6 +155,10 @@ def load_verified_redirects(path: Path | None) -> dict[str, str]:
         if "://" in destination:
             continue
         if any(token in source for token in (":", "*", "(", "{")):
+            continue
+        # Slash canonicalization is not an edge between distinct claim identities.
+        # Keep literal self-redirects so the cycle detector still rejects them.
+        if source != destination and normalize_route(source) == normalize_route(destination):
             continue
         redirects[normalize_route(source)] = normalize_route(destination)
     return redirects
@@ -1768,7 +1773,7 @@ def run_pipeline(args: argparse.Namespace) -> int:
         "changed": sum(item.get("lifecycle") == "changed" for item in lifecycle["changes"]),
         "resolved": sum(item.get("lifecycle") == "resolved" for item in lifecycle["changes"]),
         "existing": sum(
-            item.get("lifecycle") == "existing"
+            item.get("lifecycle") == "existing" and item.get("status") == "active"
             for item in lifecycle["findings"].values()
         ),
         "suppressed": len(suppressed),
@@ -1782,6 +1787,18 @@ def run_pipeline(args: argparse.Namespace) -> int:
         "run_id": run_id,
         "source_commit": args.source_commit,
         "coverage": coverage,
+        "report_context": {
+            "pages_extracted": len(processed_pages),
+            "pages_reused": len(unchanged_pages),
+            "total_pages": len(inventory["pages"]) if "pages" in inventory else None,
+            "prior_state_available": bool(previous_manifest),
+            "last_completed_run": previous_manifest.get("last_completed_run"),
+            "carried_forward": sum(
+                item.get("status") == "active"
+                and item.get("carried_forward_due_to_incomplete_run", False)
+                for item in lifecycle["findings"].values()
+            ),
+        },
         "source_availability": (
             load_json(Path(args.source_availability), {})
             if args.source_availability
@@ -2179,21 +2196,183 @@ def schedule_claim_command(args: argparse.Namespace) -> int:
     return 0
 
 
-def notification_command(args: argparse.Namespace) -> int:
-    artifact = load_json(Path(args.artifact))
+FAILURE_MESSAGES = {
+    "redirect-cycle": (
+        "The audit's redirect checker detected a loop and stopped comparison.",
+        "Inspect redirect normalization in the audit helper and the public redirect "
+        "chain, correct the cause, then rerun the audit.",
+    ),
+    "source-unavailable": (
+        "A required source could not be read, so the audit could not finish.",
+        "Restore access to the required source, then rerun the audit.",
+    ),
+    "state-unavailable": (
+        "Saved audit history could not be loaded safely.",
+        "Restore access to the standing audit state branch before rerunning.",
+    ),
+    "extraction-invalid": (
+        "Claim extraction did not pass evidence or format validation.",
+        "Inspect the extraction failure in the run details, correct it, then rerun.",
+    ),
+    "comparison-failed": (
+        "The audit could not finish comparing documentation claims.",
+        "Inspect the comparison failure in the run details, correct it, then rerun.",
+    ),
+    "state-persistence-failed": (
+        "The audit could not verify that its results were safely saved.",
+        "Check state validation, push, and remote verification in the run details "
+        "before rerunning. Do not merge the standing state PR.",
+    ),
+    "unknown": (
+        "The audit stopped, but no failure reason was recorded.",
+        "Inspect the run details to identify the blocker before rerunning.",
+    ),
+}
+AUDIT_STAGES = (
+    "preflight", "inventory", "redirect-normalization", "authorities",
+    "extraction", "comparison", "state-persistence", "unknown",
+)
+
+
+def blocked_report_command(args: argparse.Namespace) -> int:
+    """Create a report without extracting claims or mutating saved audit state."""
+    context = {
+        "pages_extracted": args.pages,
+        "total_pages": args.total_pages,
+        "prior_state_available": False,
+    }
+    for count in (args.pages, args.total_pages):
+        if count is not None and count < 0:
+            raise AuditError("Page counts cannot be negative")
+    if args.pages is not None and args.total_pages is not None and args.pages > args.total_pages:
+        raise AuditError("Extracted pages cannot exceed total pages")
+    summary = {}
+    if args.state_dir:
+        state_dir = Path(args.state_dir).resolve()
+        if Path(args.output).resolve().is_relative_to(state_dir):
+            raise AuditError("Blocked reports must be written outside the saved state directory")
+        manifest = load_json(state_dir / "manifest.json")
+        saved = load_json(state_dir / "findings.json")
+        ensure_no_private_reference(saved)
+        active = sum(
+            item.get("status") == "active"
+            for item in saved.get("findings", {}).values()
+        )
+        context.update({
+            "prior_state_available": True,
+            "last_completed_run": manifest.get("last_completed_run"),
+            "carried_forward": active,
+        })
+        summary = {"active": active, "existing": active}
+    artifact = {
+        "schema_version": SCHEMA_VERSION,
+        "run_id": args.run_id,
+        "coverage": "blocked",
+        "failure": {"stage": args.stage, "code": args.code},
+        "report_context": context,
+        "summary": summary,
+        "lifecycle_changes": [],
+    }
     ensure_no_private_reference(artifact)
+    write_json(Path(args.output), artifact)
+    print(canonical_json(artifact))
+    return 0
+
+
+def slack_text(value: str, limit: int = 300) -> str:
+    """Keep evidence on one line and prevent Slack mentions/link injection."""
+    value = " ".join(value.split())
+    if len(value) > limit:
+        value = value[:limit - 1] + "…"
+    return value.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def slack_link(url: str, label: str) -> str:
+    parsed = urlsplit(url)
+    if (
+        parsed.scheme != "https" or not parsed.hostname or parsed.username
+        or parsed.password or any(char.isspace() or char in "<>|" for char in url)
+    ):
+        raise AuditError("Report links must be HTTPS URLs without credentials or Slack markup")
+    ensure_no_private_reference(url)
+    return f"<{url}|{slack_text(label)}>"
+
+
+def finding_message(finding: dict[str, Any]) -> str:
+    lifecycle = finding.get("lifecycle", "changed")
+    if finding.get("reopened") and lifecycle == "changed":
+        lifecycle = "reopened"
+    line = (
+        f"• {slack_text(lifecycle.capitalize())} · "
+        f"{slack_text(finding.get('severity', 'unknown'))} severity · "
+        f"{slack_text(finding.get('confidence', 'unknown'))} confidence: "
+        f"{slack_text(finding.get('title', 'Untitled finding'), 160)}"
+    )
+    claims = finding.get("claims", [])
+    public_pages = []
+    for claim in claims:
+        validate_public_claim(claim)
+        source = claim["source"]
+        route = source.get("route", "")
+        if (
+            source.get("repository") == "warpdotdev/docs"
+            and re.fullmatch(r"/[a-zA-Z0-9_./-]*", route)
+            and not route.startswith("//")
+        ):
+            link = slack_link("https://docs.warp.dev" + route, route)
+            if link not in public_pages:
+                public_pages.append(link)
+    # The title/rationale describes the conflict; full quotes belong in the artifact.
+    if finding.get("rationale"):
+        line += "\n  " + slack_text(finding["rationale"])
+    if public_pages:
+        line += "\n  Pages: " + " · ".join(public_pages[:3])
+    if lifecycle == "resolved":
+        action = "Resolved in this comparison; no documentation edit requested."
+    elif finding.get("requires_human_review") or any(
+        term in re.split(r"[\s_-]+", finding.get(key, "").lower())
+        for key in ("category", "topic")
+        for term in (
+            "security", "privacy", "billing", "retention", "training",
+            "telemetry", "permission", "permissions", "redaction", "data",
+        )
+    ):
+        action = "Human policy review required before editing these claims."
+    else:
+        action = finding.get("suggested_resolution") or "Review the conflicting claims before editing."
+    return line + "\n  Action: " + slack_text(action)
+
+
+def render_notification(
+    artifact: dict[str, Any],
+    run_url: str | None = None,
+    state_pr_url: str | None = None,
+) -> dict[str, Any]:
+    ensure_no_private_reference(artifact)
+    coverage = artifact.get("coverage")
+    if coverage not in {"complete", "partial", "blocked"}:
+        raise AuditError("Notification requires complete, partial, or blocked coverage")
     changes = artifact.get("lifecycle_changes", [])
     actionable = [
         finding for finding in changes
-        if finding.get("confidence") == "high"
-        or (
-            finding.get("severity") == "high"
-            and finding.get("confidence") == "medium"
+        if finding.get("lifecycle") != "existing"
+        and (
+            finding.get("confidence") == "high"
+            or (
+                finding.get("severity") == "high"
+                and finding.get("confidence") == "medium"
+            )
         )
     ]
-    blocked = artifact.get("coverage") == "blocked"
+    blocked = coverage == "blocked"
+    if blocked:
+        # Unpersisted or incomplete changes are not new audit results.
+        actionable = []
+    elif coverage == "partial":
+        actionable = [item for item in actionable if item.get("lifecycle") != "resolved"]
     should_post = blocked or bool(actionable)
     summary = artifact.get("summary", {})
+    context = artifact.get("report_context", {})
     titles = sorted(
         actionable,
         key=lambda finding: (
@@ -2201,24 +2380,92 @@ def notification_command(args: argparse.Namespace) -> int:
             finding.get("title", ""),
         ),
     )[:3]
+    outcome = {
+        "complete": "audit completed",
+        "partial": "partial audit",
+        "blocked": "could not check docs",
+    }[coverage]
     lines = [
-        f"{'⚠️' if blocked else '📚'} Docs consistency audit · {artifact.get('run_id', 'unknown run')}",
-        (
-            "Run blocked; prior findings were preserved."
-            if blocked
-            else (
-                f"New {summary.get('new', 0)} · changed {summary.get('changed', 0)} · "
-                f"resolved {summary.get('resolved', 0)} · active {summary.get('active', 0)}"
-            )
-        ),
+        f"*Docs consistency audit — {outcome}*",
+        "Checks public documentation for conflicting or stale claims. It does not edit docs.",
+        "",
     ]
-    if titles:
-        lines.append("Highest-severity changes: " + "; ".join(item["title"] for item in titles))
-    if args.state_pr_url:
-        lines.append(f"State PR: {args.state_pr_url}")
-    if args.run_url:
-        lines.append(f"Run: {args.run_url}")
-    result = {
+    pages, total = context.get("pages_extracted"), context.get("total_pages")
+    coverage_text = (
+        f"{pages}/{total} pages extracted."
+        if pages is not None and total is not None
+        else f"{pages} pages extracted; total unavailable."
+        if pages is not None
+        else "Page coverage was not recorded."
+    )
+    if not blocked and "pages_reused" in context:
+        coverage_text += f" {context['pages_reused']} unchanged pages reused from saved claims."
+    if blocked:
+        failure = artifact.get("failure", {})
+        stage = failure.get("stage", "unknown")
+        if stage not in AUDIT_STAGES:
+            stage = "unknown"
+        explanation, action = FAILURE_MESSAGES.get(
+            failure.get("code"), FAILURE_MESSAGES["unknown"],
+        )
+        lines.extend([
+            f"*What happened:* {explanation}",
+            f"*Stopped at:* {stage.replace('-', ' ')}. {coverage_text}",
+            "*What changed:* No new results are available from this blocked audit.",
+        ])
+        if context.get("prior_state_available") and "active" in summary:
+            count = summary["active"]
+            saved_findings = "finding remains" if count == 1 else "findings remain"
+            lines.append(
+                f"{count} previously active {saved_findings} in saved history; "
+                "this run did not verify their current status."
+            )
+        else:
+            lines.append("Saved findings were not loaded; their current count is unknown.")
+        lines.append("*Next action:* " + action)
+    else:
+        lines.extend([
+            f"*Coverage:* {coverage_text}",
+            (
+                f"*What changed:* {summary.get('new', 0)} new · "
+                f"{summary.get('changed', 0)} changed · "
+                f"{summary.get('resolved', 0) if coverage == 'complete' else 0} resolved · "
+                f"{summary.get('existing', 0)} unchanged active · {summary.get('active', 0)} active total."
+            ),
+        ])
+        if coverage == "partial":
+            lines.append(
+                "Coverage is incomplete. Prior findings are not resolved by this run; "
+                f"{context.get('carried_forward', 'an unknown number of')} active findings "
+                "were carried forward without rechecking."
+            )
+        lines.extend(finding_message(item) for item in titles)
+        if len(actionable) > len(titles):
+            count = len(actionable) - len(titles)
+            remainder = "change is" if count == 1 else "changes are"
+            lines.append(f"{count} more {remainder} in the audit history.")
+        lines.append(
+            "*Next action:* Review the changes above."
+            if any(item.get("lifecycle") != "resolved" for item in actionable)
+            else "*Next action:* No edits requested for these resolved findings."
+        )
+    if (
+        coverage != "complete"
+        and context.get("prior_state_available")
+        and "last_completed_run" in context
+        and context["last_completed_run"] is None
+    ):
+        lines.append("Saved history records no completed full audit.")
+    links = []
+    if run_url:
+        links.append(slack_link(run_url, "Run details"))
+    if state_pr_url:
+        links.append(slack_link(state_pr_url, "Saved findings and audit history"))
+    if links:
+        lines.extend(["", " · ".join(links)])
+    if state_pr_url:
+        lines.append("The linked PR stores audit state; it contains no documentation fixes.")
+    return {
         "should_post": should_post,
         "reason": (
             "blocked"
@@ -2230,6 +2477,12 @@ def notification_command(args: argparse.Namespace) -> int:
         "message": "\n".join(lines) if should_post else None,
         "actionable_finding_ids": [item["finding_id"] for item in actionable],
     }
+
+
+def notification_command(args: argparse.Namespace) -> int:
+    result = render_notification(
+        load_json(Path(args.artifact)), args.run_url, args.state_pr_url,
+    )
     write_json(Path(args.output), result)
     print(canonical_json(result))
     return 0
@@ -2301,6 +2554,18 @@ def build_parser() -> argparse.ArgumentParser:
     notification.add_argument("--state-pr-url")
     notification.add_argument("--output", required=True)
     notification.set_defaults(func=notification_command)
+    blocked_report = subparsers.add_parser(
+        "blocked-report",
+        help="Create a public-safe failure artifact without modifying prior audit state",
+    )
+    blocked_report.add_argument("--run-id", required=True)
+    blocked_report.add_argument("--stage", choices=AUDIT_STAGES, required=True)
+    blocked_report.add_argument("--code", choices=sorted(FAILURE_MESSAGES), required=True)
+    blocked_report.add_argument("--state-dir", help="Previously fetched authoritative state only")
+    blocked_report.add_argument("--pages", type=int)
+    blocked_report.add_argument("--total-pages", type=int)
+    blocked_report.add_argument("--output", required=True)
+    blocked_report.set_defaults(func=blocked_report_command)
 
     inventory = subparsers.add_parser("inventory", help="Inventory public docs and plan changed shards")
     inventory.add_argument("--docs-repo", default="/workspace/docs")
