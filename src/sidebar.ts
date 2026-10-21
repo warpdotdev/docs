@@ -449,6 +449,13 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 										'factories/self-hosting/troubleshooting',
 									],
 								},
+								{
+									label: 'Secrets',
+									items: [
+										{ slug: 'factories/secrets', label: 'Managing factory secrets' },
+										{ slug: 'factories/secrets/aws-ecr', label: 'AWS ECR credentials' },
+									],
+								},
 								],
 							},
 						],

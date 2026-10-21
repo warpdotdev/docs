@@ -58,7 +58,7 @@ Grant each agent role only the GitHub permissions it needs:
 * **Implementation agent** — Push branches and open PRs
 * **Reviewer agent** — Post review comments on PRs
 
-Use fine-grained personal access tokens or separate GitHub App installations to enforce least privilege per role. See [Secrets](/platform/secrets) for management details and [GitHub Actions integration](/platform/integrations/github-actions) for token setup patterns.
+Use fine-grained personal access tokens or separate GitHub App installations to enforce least privilege per role. See [factory secrets](https://docs.warp.dev/factories/secrets/) for management details and [GitHub Actions integration](/platform/integrations/github-actions) for token setup patterns.
 
 ## 3. Configure triggers
 
@@ -96,9 +96,9 @@ See [Multi-agent orchestration](/platform/orchestration) for fan-out, sharding, 
 
 ## Next steps
 
-* [Warp Factories overview](/factories/) — Warp's product for running this same loop end to end.
-* [Infrastructure and security](/factories/infrastructure-and-security/) — The environment, runner, and credential model behind the concerns you configured by hand here.
-* [Build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) — Add the outer improvement loop on a schedule.
-* [Environments](/platform/environments) — Full reference for cloud agent environments.
-* [Deployment patterns](/factories/deployment-patterns) — Choose the right architecture for your team.
-* [Self-hosting](/factories/self-hosting) — Run cloud agent workers on your own infrastructure when code must stay on-premises.
+* [Warp Factories overview](/factories/) - Warp's product for running this same loop end to end
+* [Infrastructure and security](/factories/infrastructure-and-security/) - The environment, runner, and credential model behind the concerns you configured by hand here
+* [Build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) - Add the outer improvement loop on a schedule
+* [Environments](/platform/environments) - Full reference for cloud agent environments
+* [Deployment patterns](/factories/deployment-patterns) - Choose the right architecture for your team
+* [Self-hosting](/factories/self-hosting) - Run cloud agent workers on your own infrastructure when code must stay on-premises
