@@ -197,7 +197,7 @@ Names of [managed secrets](/factories/secrets/) granted to every agent, in addit
 ### `networkPolicy`
 
 **Optional.**
-Restricts outbound network access for factory runs. Declare `networkPolicy` at the root of `factory.yaml` for every factory agent, or in an agent's frontmatter for that agent. It isn't an `agentDefaults` field or an automation override.
+Restricts outbound network access for factory runs. Declare `networkPolicy` at the root of `factory.yaml` for every factory agent, or in an agent's frontmatter for that agent.
 
 If neither scope declares a policy, outbound access is unrestricted. Once either scope declares a policy, hosts not allowed by the combined policy are blocked, except for services required for the platform to function.
 
@@ -225,7 +225,7 @@ networkPolicy:
 
 Host entries don't accept URLs, ports, CIDRs, or wildcards. Hostnames are normalized to lowercase.
 
-An omitted or `null` policy contributes no restrictions at that scope. An empty policy (`networkPolicy: {}`) enables restrictions but contributes no allowed hosts; allowances from the other scope still apply. If neither scope contributes allowed hosts, only required platform services remain reachable. A policy containing only `deniedHosts` is not an unrestricted-access denylist.
+An omitted or `null` policy contributes no restrictions at that scope. A policy containing only `deniedHosts` is not an unrestricted-access denylist.
 
 #### Factory and agent scope
 
@@ -246,6 +246,16 @@ Review pull requests against the service documentation.
 ```
 
 Policies cannot block services required for the platform to function, even through `deniedHosts`. Warp adds the required access for the run, including its repository forges, configured MCP servers, image registry, and agent data storage.
+
+#### Denying all outbound access
+
+To deny all outbound network access except required platform services, set an empty policy in `factory.yaml` and remove any `allowedHosts` or `extends` from agent policies:
+
+```yaml title="factory.yaml"
+networkPolicy: {}
+```
+
+An empty policy contributes no allowed hosts. Allowances from the other scope still apply, so an empty agent policy does not cancel factory allowances.
 
 #### Built-in policies and versions
 
@@ -268,12 +278,10 @@ networkPolicy:
     - warp/claude-code@^1
 ```
 
-Query `GET /api/v1/networking/policies` on the {VARS.WARP_PLATFORM_API} for available policy names and versions. Authenticate with a [Warp API key](https://docs.warp.dev/agents/cli/oz-cli/api-keys/) stored in `WARP_API_KEY`:
+Query `GET /api/v1/networking/policies` on the {VARS.WARP_PLATFORM_API} for available policy names and versions. For authentication, see the [API reference](https://docs.warp.dev/api).
 
-```bash
-curl --fail --silent --show-error \
-  https://app.warp.dev/api/v1/networking/policies \
-  --header "Authorization: Bearer $WARP_API_KEY"
+```http
+GET https://app.warp.dev/api/v1/networking/policies
 ```
 
 The response groups policies by `name`, with `latest_version` and a `versions` list. Each version includes `version`, `is_latest`, and `allowed_hosts`. The catalog excludes the platform's required-service allowances.
