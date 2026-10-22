@@ -944,8 +944,11 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 									) : null}
 								{shouldShowSupportForAnswer(qa) ? (
 									<p className="sl-kapa-support">
-										Need more help? Email{' '}
-										<a href="mailto:support@warp.dev">support@warp.dev</a>.
+										Need more help?{' '}
+										<a href="/support-and-community/troubleshooting-and-support/sending-us-feedback/">
+											View support options
+										</a>
+										.
 									</p>
 								) : null}
 								</div>
