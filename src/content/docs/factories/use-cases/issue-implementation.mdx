@@ -13,6 +13,7 @@ This [recipe](/factories/use-cases/) routes approved issues to the foreman, whic
 ## Prerequisites
 
 * A [factory](/factories/quickstart/) with access to the target repositories and permission to push branches and open pull requests.
+* [Foreman, implement, and review agents](/factories/factory-agents/#the-default-agents) in your factory.
 * A connected issue source ([GitHub](/factories/integrations/github/), [Linear](/factories/integrations/linear/), or [Jira](/factories/integrations/jira/)) with permission to read and update issues.
 * Approved issues with acceptance criteria and a readiness label, workflow state, or explicit request.
 * Documented build, test, lint, and formatting commands.
@@ -32,11 +33,10 @@ Use the following table to choose the intake signal, agents, skills, and expecte
 
 ## Set up issue implementation
 
-1. Use your factory's existing [foreman, implement, and review agents](/factories/factory-agents/#the-default-agents). Keep triage and spec available for issues that need investigation or planning. Preserve the agents' shared instructions.
-2. Add shared repository guidance under `skills/` and implementation procedures under `agents/implement/skills/`, using your agent's directory name if different. Record required checks, tests for behavior changes, and when to ask a human. Include visual-evidence requirements for user-facing changes. See [factory skills](/factories/factory-skills/) for the file format.
-3. Add or edit an automation that targets `agent: foreman`, replacing `foreman` if yours has a different name. Decide how maintainers will mark an issue as approved for implementation, such as adding `factory-ready` or moving it to `Ready for Engineering`. The automation starts when that action matches its trigger and filters. It doesn't check whether a maintainer reviewed the requirements, so reserve that action for approved work.
-
-   Before creating a new automation, check whether another automation already handles the same issues and events. If it does, update that automation instead, or adjust their filters so the same event doesn't start both automations.
+1. Add shared repository guidance under `skills/` and implementation procedures under `agents/implement/skills/`, using your agent's directory name if different. Record required checks, tests for behavior changes, and when to ask a human. Include visual-evidence requirements for user-facing changes. See [factory skills](/factories/factory-skills/) for the file format.
+2. Choose how maintainers will mark an issue as approved for implementation, such as adding `factory-ready` or moving it to `Ready for Engineering`. Reserve that action for approved work. The automation checks the event and filters, not whether a maintainer reviewed the requirements.
+3. Check whether an existing automation already handles the same issues and events. If it does, plan to update that automation instead of creating another, or adjust their filters so the same event doesn't start both automations.
+4. Configure the automation to send approved issues to the foreman. Set `agent: foreman`, replacing `foreman` if yours has a different name.
 
    Select your issue source from the tabs below, then follow the instructions to configure the automation.
 
@@ -108,16 +108,22 @@ Use the following table to choose the intake signal, agents, skills, and expecte
    </TabItem>
    </Tabs>
 
-4. Apply the definition changes before testing. Save edits in the factory dashboard for a Warp-managed factory, or merge them into the configured production branch for a GitHub-backed factory. Confirm validation succeeds and the changes are applied. See [where the factory definition lives](/factories/factory-as-code/#where-the-definition-lives).
-5. Test with a fresh, approved documentation or configuration issue that matches every filter.
+5. Apply the definition changes. For a Warp-managed factory, save your edits in the factory dashboard. For a GitHub-backed factory, merge them into the configured production branch. Confirm validation succeeds and the changes are applied before testing. See [where the factory definition lives](/factories/factory-as-code/#where-the-definition-lives).
+
+## Test issue implementation
+
+Use fresh issues to test this initial-intake automation. If the factory already tracks an issue as a work item, send an explicit implementation request in its existing conversation rather than relying on a new intake prompt to replace the current instructions.
+
+1. Trigger the automation with an approved documentation or configuration issue that matches every filter.
    * **GitHub** - Apply the readiness label.
    * **Linear** - Move the issue into the approved state, or create it in that state.
    * **Jira** - Apply the readiness label, then assign or mention **Warp** with the implementation request.
 
-   Confirm the foreman coordinates implementation and review, posts the pull request link and validation results to the issue, and leaves merging to a person. Check that this automation doesn't start when the required label or state is missing, or the issue belongs to a different team or project.
+2. Review the resulting work item and source issue. Confirm the foreman coordinates implementation and independent review, posts the pull request link and validation results to the issue, and leaves merging to a person.
+3. Test the filters with issues that don't match. Confirm this automation doesn't start when the required label or state is missing, or the issue belongs to a different team or project.
+4. Test issues with missing requirements and changes that fail validation. Confirm the foreman asks for clarification or specification approval when needed and reports failed checks rather than claiming success.
 
-   These examples configure initial intake. If the factory already tracks an issue as a work item, send an explicit implementation request in its existing conversation rather than assuming a new intake prompt will replace the current instructions.
-6. Test missing requirements and failed validation. Confirm the foreman asks for clarification or specification approval when needed and reports failed checks rather than claiming success. Review the results before widening the automation's filters.
+Review the test results before widening the automation's filters.
 
 ## Example workflow
 
