@@ -8,14 +8,25 @@ import {
 	useRef,
 	useState,
 } from 'react';
-import { CaptchaAction, KapaProvider, useCaptcha, useChat } from '@kapaai/react-sdk';
+import {
+	CaptchaAction,
+	KapaProvider,
+	useCaptcha,
+	useChat,
+	useConversationHistory,
+} from '@kapaai/react-sdk';
 import { PUBLIC_KAPA_INTEGRATION_ID, PUBLIC_KAPA_PROJECT_ID } from 'astro:env/client';
 import { isMac, keymatch } from 'keymatch';
 import ReactMarkdown from 'react-markdown';
 import {
+	KAPA_CONVERSATION_HISTORY_OPTIONS,
+	getConversationHistoryView,
+} from '../lib/kapa-conversation-history.mjs';
+import {
 	LuExternalLink,
 	LuCheck,
 	LuCopy,
+	LuHistory,
 	LuLoaderCircle,
 	LuMessageSquare,
 	LuPlug,
@@ -50,6 +61,19 @@ type McpCopyTarget = 'config' | 'url';
 type GenericRecord = Record<string, unknown>;
 type HandoffApiSuccess = {
 	message?: string;
+};
+type ConversationHistoryView = {
+	title: string;
+	empty: string;
+	privacy: string;
+	clear: string;
+	canClear: boolean;
+	isEmpty: boolean;
+	items: Array<{
+		threadId: string;
+		title: string;
+		isActive: boolean;
+	}>;
 };
 
 function isObject(value: unknown): value is GenericRecord {
@@ -529,6 +553,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	const [query, setQuery] = useState('');
 	const [hasStartedConversation, setHasStartedConversation] = useState(false);
 	const [isAppleDevice, setIsAppleDevice] = useState(false);
+	const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 	const [storedThreadId, setStoredThreadId] = useState<string | null>(null);
 	const [downvotedAnswerIds, setDownvotedAnswerIds] = useState<Record<string, true>>({});
 	const [handoffEmailInput, setHandoffEmailInput] = useState('');
@@ -552,6 +577,12 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		submitQuery,
 		threadId,
 	} = useChat();
+	const {
+		clear: clearConversationHistory,
+		enabled: isConversationHistoryEnabled,
+		restoreThread,
+		threads: conversationHistoryThreads,
+	} = useConversationHistory();
 	const { executeCaptcha } = useCaptcha();
 
 	useEffect(() => {
@@ -654,6 +685,10 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 
 	const hasConversation = conversation.length > 0;
 	const isBusy = isGeneratingAnswer || isPreparingAnswer;
+	const conversationHistory = getConversationHistoryView(
+		conversationHistoryThreads,
+		threadId
+	) as ConversationHistoryView;
 
 	const submit = () => {
 		const value = query.trim();
@@ -721,6 +756,19 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		setHandoffQaId(null);
 		setHandoffErrorMessage(null);
 		setHandoffSuccessMessage(null);
+	};
+
+	const restoreSavedConversation = (savedThreadId: string) => {
+		closeHandoffForm();
+		restoreThread(savedThreadId);
+		setHasStartedConversation(true);
+		setIsHistoryOpen(false);
+	};
+
+	const clearSavedConversations = () => {
+		clearConversationHistory();
+		localStorage.removeItem('warp_docs_kapa_thread_id');
+		setStoredThreadId(null);
 	};
 
 	const submitSupportHandoff = async (qa: { id?: string | null; question?: string }) => {
@@ -894,6 +942,20 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 							<LuSquarePen aria-hidden="true" />
 						</button>
 						<div className="sl-kapa-panel__header-actions">
+								<button
+									type="button"
+									className="sl-kapa-icon-button sl-kapa-icon-button--ghost"
+									onClick={() => setIsHistoryOpen((isOpen) => !isOpen)}
+									disabled={!isConversationHistoryEnabled || isBusy}
+									aria-label={
+										isHistoryOpen ? 'Return to current conversation' : 'Open conversation history'
+									}
+									aria-controls="sl-kapa-conversation-history"
+									aria-pressed={isHistoryOpen}
+									data-tooltip={isHistoryOpen ? 'Current conversation' : 'Conversation history'}
+								>
+									<LuHistory aria-hidden="true" />
+								</button>
 							<Popover.Root>
 								<Popover.Trigger asChild>
 									<button
@@ -997,6 +1059,51 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 						</header>
 
 						<div className="sl-kapa-panel__body" ref={messagesRef}>
+						{isHistoryOpen ? (
+							<section
+								className="sl-kapa-history"
+								id="sl-kapa-conversation-history"
+								aria-labelledby="sl-kapa-conversation-history-title"
+							>
+								<div className="sl-kapa-history__header">
+									<div>
+										<h2 id="sl-kapa-conversation-history-title">{conversationHistory.title}</h2>
+										<p>{conversationHistory.privacy}</p>
+									</div>
+									{conversationHistory.canClear ? (
+										<button
+											type="button"
+											className="sl-kapa-history__clear"
+											onClick={clearSavedConversations}
+										>
+											{conversationHistory.clear}
+										</button>
+									) : null}
+								</div>
+								{conversationHistory.isEmpty ? (
+									<p className="sl-kapa-history__empty">{conversationHistory.empty}</p>
+								) : (
+									<ul className="sl-kapa-history__list">
+										{conversationHistory.items.map((savedConversation) => (
+											<li key={savedConversation.threadId}>
+												<button
+													type="button"
+													className="sl-kapa-history__thread"
+													onClick={() => restoreSavedConversation(savedConversation.threadId)}
+													aria-current={savedConversation.isActive ? 'page' : undefined}
+												>
+													<span>{savedConversation.title}</span>
+													{savedConversation.isActive ? (
+														<span className="sl-kapa-history__active">Current conversation</span>
+													) : null}
+												</button>
+											</li>
+										))}
+									</ul>
+								)}
+							</section>
+						) : (
+							<>
 						{!hasConversation && (
 							<div className="sl-kapa-empty-state">
 								<p className="sl-kapa-empty-state__title">Ask a question</p>
@@ -1151,8 +1258,10 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 						))}
 
 						{error ? <div className="sl-kapa-error">{getChatErrorMessage(error)}</div> : null}
+							</>
+						)}
 						</div>
-						<footer className="sl-kapa-panel__footer">
+						{!isHistoryOpen ? <footer className="sl-kapa-panel__footer">
 						<form className="sl-kapa-form" onSubmit={onSubmit}>
 							<input
 								ref={inputRef}
@@ -1207,7 +1316,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 								</Popover.Content>
 							</Popover.Root>
 						</div>
-						</footer>
+						</footer> : null}
 					</div>
 			</dialog>
 		</div>
@@ -1244,6 +1353,7 @@ export default function KapaChatLauncher({ autoOpen = false }: { autoOpen?: bool
 			key={chatSessionKey}
 			integrationId={integrationId}
 			callbacks={callbacks}
+			conversationHistory={KAPA_CONVERSATION_HISTORY_OPTIONS}
 			// Anonymous first-party cookie (`kapa_web_id`). Default in the Kapa
 			// React SDK; set explicitly so we do not accidentally ship `none` again.
 			// https://docs.kapa.ai/dev/sdk/components/KapaProvider#user-tracking-mode

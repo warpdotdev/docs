@@ -19,6 +19,7 @@
     "seo:audit": "node scripts/seo-audit.mjs",
     "test:heading-tocs": "node scripts/validate-heading-tocs.mjs",
     "test:heading-vars": "node --test src/plugins/heading-vars-core.test.mjs",
+    "test:kapa-history": "node --test src/lib/kapa-conversation-history.test.mjs",
     "test:kapa-webmcp": "node --test src/lib/kapa-webmcp.test.mjs",
     "test:homepage-json-ld": "node scripts/validate-homepage-json-ld.mjs",
     "postinstall": "patch-package"
@@ -32,7 +33,7 @@
     "@astrojs/sitemap": "^3.7.2",
     "@astrojs/starlight": "^0.41.4",
     "@astrojs/vercel": "^11.0.3",
-    "@kapaai/react-sdk": "^0.9.2",
+    "@kapaai/react-sdk": "^0.17.0",
     "@radix-ui/react-popover": "^1.1.15",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
