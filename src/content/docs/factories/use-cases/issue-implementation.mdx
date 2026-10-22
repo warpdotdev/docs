@@ -6,7 +6,7 @@ description: >-
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Turn approved issues into code changes and pull requests with your existing factory. Use this pattern when your team distinguishes work that's ready to implement from issues that still need investigation or product decisions.
+Turn approved issues into code changes and pull requests with your existing factory. Use this pattern when your team needs to distinguish work that's ready to implement from issues that still need investigation or product decisions.
 
 This [recipe](/factories/use-cases/) routes approved issues to the foreman, which coordinates implementation and independent review. It can request research or a specification when needed. The automation prompt leaves specification approval and merging to people. Enforce merge permissions through your code host's branch protection and required reviews.
 
@@ -34,9 +34,9 @@ Use the following table to choose the intake signal, agents, skills, and expecte
 
 1. Use your factory's existing [foreman, implement, and review agents](/factories/factory-agents/#the-default-agents). Keep triage and spec available for issues that need investigation or planning. Preserve the agents' shared instructions.
 2. Add shared repository guidance under `skills/` and implementation procedures under `agents/implement/skills/`, using your agent's directory name if different. Record required checks, tests for behavior changes, and when to ask a human. Include visual-evidence requirements for user-facing changes. See [factory skills](/factories/factory-skills/) for the file format.
-3. Add or edit an automation that targets `agent: foreman`, replacing `foreman` if yours has a different name. Choose a signal that maintainers apply after approving the issue's requirements. A label, state, or request routes work but doesn't independently verify approval.
+3. Add or edit an automation that targets `agent: foreman`, replacing `foreman` if yours has a different name. Decide how maintainers will mark an issue as approved for implementation, such as adding `factory-ready` or moving it to `Ready for Engineering`. The automation starts when that action matches its trigger and filters. It doesn't check whether a maintainer reviewed the requirements, so reserve that action for approved work.
 
-   Check existing label, assignment, comment, and agent-session automations before adding a route. Reuse an existing automation where appropriate, or narrow overlapping filters so one request doesn't start duplicate work.
+   Before creating a new automation, check whether another automation already handles the same issues and events. If it does, update that automation instead, or adjust their filters so the same event doesn't start both automations.
 
    Select your issue source from the tabs below, then follow the instructions to configure the automation.
 
