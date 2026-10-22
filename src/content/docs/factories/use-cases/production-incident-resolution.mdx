@@ -32,6 +32,8 @@ Your incident automation combines a scoped production event with read-only diagn
 
 ## Set up incident investigation
 
+The example uses Sentry [issue webhooks](https://docs.sentry.io/integrations/integration-platform/webhooks/issues/), with `action: created` and `data.issue`. Sentry [issue alerts](https://docs.sentry.io/integrations/integration-platform/webhooks/issue-alerts/) instead use `action: triggered` and `data.event`, so they need a different payload filter.
+
 1. Choose the event and service scope. The Sentry example below investigates newly created fatal issues in `payments-production`, a project used only for production. Replace that slug with your production-only project.
 
    If your Sentry project mixes environments, use an event type that includes environment information and filter that field explicitly. The example's project filter alone can't distinguish environments within one project. Other senders, such as PagerDuty or Grafana, need their own authentication mode and payload filter.
@@ -40,9 +42,11 @@ Your incident automation combines a scoped production event with read-only diagn
 4. Review your incident runbook, then add or update it where needed under `skills/incident-response/SKILL.md` so foreman and triage can both use it. Record the service and investigation limits, required evidence, incident owner, escalation conditions, and when to stop. See [factory skills](/factories/factory-skills/) for the file format.
 
    By default, use the factory work item and conversation for the report. If you want the foreman to post to an incident channel or tracker, give it the appropriate integration and name the destination in the runbook. Webhook intake doesn't provide a reply channel or replace paging.
-5. Create an authenticated webhook using the [webhook setup instructions](/factories/webhooks/#create-the-webhook). For Sentry, use provider-signature authentication with the integration's Client Secret, not its API token. See [Sentry webhook authentication](https://docs.sentry.io/integrations/integration-platform/webhooks/).
+5. Create a Sentry webhook if you aren't reusing one. Both setup paths below use provider-signature authentication with the integration's Client Secret, not its API token. See [Sentry webhook authentication](https://docs.sentry.io/integrations/integration-platform/webhooks/).
 
-   For file-based setup, first store that Client Secret as a team-managed secret named `SENTRY_WEBHOOK_SECRET`, then add the following file. The file references the secret's name, never its value.
+   For a Warp-managed factory, follow the [dashboard webhook setup instructions](/factories/webhooks/#create-the-webhook). Choose **Provider signature** authentication and the Sentry scheme, and supply the Client Secret.
+
+   For a GitHub-backed factory, store the Client Secret as a team-managed secret named `SENTRY_WEBHOOK_SECRET`, then add the following file. The file references the secret's name, never its value.
 
    ```yaml title="webhooks/sentry-alerts.yaml"
    authMode: signature
@@ -50,9 +54,8 @@ Your incident automation combines a scoped production event with read-only diagn
    secretName: SENTRY_WEBHOOK_SECRET
    ```
 
-6. Apply the webhook definition before adding its automation. Save edits in the factory dashboard for a Warp-managed factory, or merge them into the configured production branch for a GitHub-backed factory. Confirm validation succeeds and the webhook appears, then copy its generated UID and ingress URL from the webhook details. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
-7. In Sentry, configure the integration to send [issue webhooks](https://docs.sentry.io/integrations/integration-platform/webhooks/issues/) to that ingress URL. This example uses `action: created` and `data.issue`. Sentry [issue alerts](https://docs.sentry.io/integrations/integration-platform/webhooks/issue-alerts/) instead use `action: triggered` and `data.event`, so their payloads need a different filter.
-8. Configure a disabled automation targeting `agent: foreman`, replacing `foreman` if yours has a different name. Replace `WEBHOOK_UID` with the UID from step 6 and `payments-production` with the project slug from step 1.
+6. Apply any webhook changes before adding the automation. For a Warp-managed factory, confirm the dashboard saved and applied the webhook. For a GitHub-backed factory, merge the definition into its configured production branch and confirm validation succeeds. Once the webhook appears, copy its UID and ingress URL from the webhook details. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
+7. Configure a disabled automation targeting `agent: foreman`, replacing `foreman` if yours has a different name. Replace `WEBHOOK_UID` with the UID from step 6 and `payments-production` with the project slug from step 1.
 
    ```markdown title="automations/production-errors/automation.md"
    ---
@@ -88,22 +91,26 @@ Your incident automation combines a scoped production event with read-only diagn
 
    Apply the automation definition using the save or merge process in step 6. Keep `enabled: false` while checking authentication and filters. See [payload filter syntax](/factories/automations/#payload-filters-for-webhook-triggers).
 
-## Test incident investigation
+## Test and enable incident investigation
 
-1. Send signed synthetic deliveries in the chosen Sentry issue-webhook format: a matching fatal issue, a different project, a lower severity, and a missing project field. In the factory dashboard, open the webhook's **Recent deliveries** and confirm the deliveries are accepted. A `202` response means Warp accepted the delivery, not that an automation ran.
-2. In the automation's **Webhook** trigger, use **Test filter** against stored deliveries. Confirm the production-project fatal issue matches, while a different project, lower severity, or missing project field doesn't. These are filter checks, not agent runs.
+Use signed synthetic requests while testing. Wait to subscribe Sentry to live issue events until the checks below pass.
+
+1. With the automation still disabled, send a signed synthetic delivery that matches the example. In the factory dashboard, open the webhook's **Recent deliveries** and confirm it was accepted. A `202` response means Warp accepted the delivery, not that an automation ran. Repeat without a signature and confirm a `401` response.
+2. Send signed test deliveries with a different project, lower severity, or missing project field. In the automation's **Webhook** trigger, use **Test filter** against these and the matching delivery. Only the production-project fatal issue should match. These checks don't start agent runs.
 3. Set `enabled: true` and apply the definition. Send a new matching synthetic event with a distinct body so it isn't treated as a duplicate. Confirm one run starts, returns an investigation report, and stops without implementation or production changes.
-4. Check rejection and retry behavior. An unsigned request must return `401`. Resend the same signed delivery with the same delivery identity and confirm no additional run starts. See [webhook delivery rules](/factories/webhooks/#delivery-rules). Separate events about one incident aren't automatically combined.
+4. Resend the matching signed delivery with the same delivery identity and confirm no additional run starts. See [webhook delivery rules](/factories/webhooks/#delivery-rules). Separate events about one incident aren't automatically combined.
 5. Test missing evidence or unavailable diagnostic access. Confirm the report identifies the gap and asks for human help instead of claiming a root cause.
-
-Review the results with the incident owner before connecting the full production event stream.
+6. Review the results with the incident owner. After approval, configure the Sentry integration's issue-webhook subscription to send live events to the ingress URL you copied during setup.
 
 ## Request a code fix
 
 After investigation, a person decides whether the evidence justifies implementation. Keep production mitigation separate from code changes.
 
+Code fixes require implement and review agents, plus repository permissions for the implement agent to push branches and open pull requests. See the [issue implementation prerequisites](/factories/use-cases/issue-implementation/#prerequisites).
+
 1. Review the report and define the fix's scope and acceptance criteria. If requirements are unclear, request and approve a specification first.
-2. Ask the foreman in the investigation's existing conversation to delegate the approved fix to the implement agent and obtain independent review from the review agent. Require a regression test, repository checks, and a report of failed or unverified checks. Keep merging and deployment with people. See the [issue implementation recipe](/factories/use-cases/issue-implementation/) for agent and validation prerequisites.
+2. In the investigation's existing conversation, ask the foreman to delegate the approved fix to implement and obtain independent review. Include the acceptance criteria and require a regression test, repository checks, and a report of failed or unverified checks.
+3. Review the pull request, validation results, and review findings. Address failures and decide whether unverified checks need more evidence before merging or deploying through your normal approval process.
 
 ## Example workflow
 
