@@ -38,7 +38,7 @@ The example uses Sentry [issue webhooks](https://docs.sentry.io/integrations/int
 
    If your Sentry project mixes environments, use an event type that includes environment information and filter that field explicitly. The example's project filter alone can't distinguish environments within one project. Other senders, such as PagerDuty or Grafana, need their own authentication mode and payload filter.
 2. Check whether an existing webhook and automation already handle those events. Reuse them where appropriate, or narrow overlapping triggers before adding another automation. One delivery can match multiple automations. See [automation matching rules](/factories/automations/#how-matching-works).
-3. Configure the triage agent's [MCP servers](/platform/mcp/) or [managed secrets](/platform/secrets/) for read-only diagnostic access. Scope permissions at the observability provider, and remove production write credentials from any shared factory configuration the agents inherit.
+3. Configure the triage agent's [MCP servers](/platform/mcp/) or [factory secrets](/factories/secrets/) for read-only diagnostic access. Scope permissions at the observability provider, and remove production write credentials from any shared factory configuration the agents inherit.
 4. Review your incident runbook, then add or update it where needed under `skills/incident-response/SKILL.md` so foreman and triage can both use it. Record the service and investigation limits, required evidence, incident owner, escalation conditions, and when to stop. See [factory skills](/factories/factory-skills/) for the file format.
 
    By default, use the factory work item and conversation for the report. If you want the foreman to post to an incident channel or tracker, give it the appropriate integration and name the destination in the runbook. Webhook intake doesn't provide a reply channel or replace paging.
@@ -46,7 +46,7 @@ The example uses Sentry [issue webhooks](https://docs.sentry.io/integrations/int
 
    For a Warp-managed factory, follow the [dashboard webhook setup instructions](/factories/webhooks/#create-the-webhook). Choose **Provider signature** authentication and the Sentry scheme, and supply the Client Secret.
 
-   For a GitHub-backed factory, store the Client Secret as a team-managed secret named `SENTRY_WEBHOOK_SECRET`, then add the following file. The file references the secret's name, never its value.
+   For a GitHub-backed factory, [create a team secret](/factories/secrets/#creating-a-raw-value-secret) named `SENTRY_WEBHOOK_SECRET` with the Client Secret as its value, then add the following file. The file references the secret's name, never its value.
 
    ```yaml title="webhooks/sentry-alerts.yaml"
    authMode: signature
