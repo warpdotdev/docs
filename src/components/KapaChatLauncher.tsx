@@ -20,12 +20,19 @@ import { isMac, keymatch } from 'keymatch';
 import ReactMarkdown from 'react-markdown';
 import {
 	KAPA_CONVERSATION_HISTORY_OPTIONS,
+	clearStoredConversationHistory,
+	deleteStoredConversation,
 	getConversationHistoryView,
+	readStoredHistoryThreads,
+	readTitleOverrides,
+	renameStoredConversation,
+	validateRenameTitle,
 } from '../lib/kapa-conversation-history.mjs';
 import {
 	LuExternalLink,
 	LuCheck,
 	LuCopy,
+	LuEllipsis,
 	LuHistory,
 	LuLoaderCircle,
 	LuMessageSquare,
@@ -67,11 +74,20 @@ type ConversationHistoryView = {
 	empty: string;
 	privacy: string;
 	clear: string;
+	rename: string;
+	delete: string;
+	confirmDelete: string;
+	confirmDeleteAction: string;
+	cancelDeleteAction: string;
+	renameSave: string;
+	renameCancel: string;
+	current: string;
 	canClear: boolean;
 	isEmpty: boolean;
 	items: Array<{
 		threadId: string;
 		title: string;
+		generatedTitle: string;
 		isActive: boolean;
 	}>;
 };
@@ -554,7 +570,14 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	const [hasStartedConversation, setHasStartedConversation] = useState(false);
 	const [isAppleDevice, setIsAppleDevice] = useState(false);
 	const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+	const [historyThreads, setHistoryThreads] = useState<Array<{ threadId: string; title: string }>>([]);
+	const [titleOverrides, setTitleOverrides] = useState<Record<string, string>>({});
+	const [renamingThreadId, setRenamingThreadId] = useState<string | null>(null);
+	const [renameDraft, setRenameDraft] = useState('');
+	const [renameError, setRenameError] = useState<string | null>(null);
+	const [pendingDeleteThreadId, setPendingDeleteThreadId] = useState<string | null>(null);
 	const [storedThreadId, setStoredThreadId] = useState<string | null>(null);
+	const renameInputRef = useRef<HTMLInputElement | null>(null);
 	const [downvotedAnswerIds, setDownvotedAnswerIds] = useState<Record<string, true>>({});
 	const [handoffEmailInput, setHandoffEmailInput] = useState('');
 	const [handoffQaId, setHandoffQaId] = useState<string | null>(null);
@@ -601,13 +624,33 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		if (savedThreadId) {
 			setStoredThreadId(savedThreadId);
 		}
+		setTitleOverrides(readTitleOverrides());
 	}, []);
+
+	useEffect(() => {
+		// Prefer disk when our storage key exists so owned deletes cannot be undone by
+		// stale in-memory SDK history until the next provider remount or completed answer.
+		let hasOwnedStore = false;
+		try {
+			hasOwnedStore = localStorage.getItem(KAPA_CONVERSATION_HISTORY_OPTIONS.storageKey) !== null;
+		} catch {
+			hasOwnedStore = false;
+		}
+		setHistoryThreads(hasOwnedStore ? readStoredHistoryThreads() : conversationHistoryThreads);
+		setTitleOverrides(readTitleOverrides());
+	}, [conversationHistoryThreads]);
 
 	useEffect(() => {
 		if (!threadId) return;
 		setStoredThreadId(threadId);
 		localStorage.setItem('warp_docs_kapa_thread_id', threadId);
 	}, [threadId]);
+
+	useEffect(() => {
+		if (!renamingThreadId || !renameInputRef.current) return;
+		renameInputRef.current.focus();
+		renameInputRef.current.select();
+	}, [renamingThreadId]);
 
 	useEffect(() => {
 		if (!isOpen || !messagesRef.current) return;
@@ -686,9 +729,15 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	const hasConversation = conversation.length > 0;
 	const isBusy = isGeneratingAnswer || isPreparingAnswer;
 	const conversationHistory = getConversationHistoryView(
-		conversationHistoryThreads,
-		threadId
+		historyThreads,
+		threadId,
+		titleOverrides
 	) as ConversationHistoryView;
+
+	const refreshHistoryFromDisk = () => {
+		setHistoryThreads(readStoredHistoryThreads());
+		setTitleOverrides(readTitleOverrides());
+	};
 
 	const submit = () => {
 		const value = query.trim();
@@ -759,16 +808,72 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	};
 
 	const restoreSavedConversation = (savedThreadId: string) => {
+		if (renamingThreadId || pendingDeleteThreadId) return;
 		closeHandoffForm();
 		restoreThread(savedThreadId);
 		setHasStartedConversation(true);
 		setIsHistoryOpen(false);
 	};
 
+	const beginRename = (savedConversation: ConversationHistoryView['items'][number]) => {
+		setPendingDeleteThreadId(null);
+		setRenamingThreadId(savedConversation.threadId);
+		setRenameDraft(savedConversation.title);
+		setRenameError(null);
+	};
+
+	const cancelRename = () => {
+		setRenamingThreadId(null);
+		setRenameDraft('');
+		setRenameError(null);
+	};
+
+	const commitRename = (threadIdToRename: string) => {
+		const validation = validateRenameTitle(renameDraft);
+		if (!validation.ok) {
+			setRenameError(validation.error);
+			return;
+		}
+		const result = renameStoredConversation(threadIdToRename, validation.title);
+		if (!result.ok) {
+			setRenameError(result.error || 'Could not rename conversation.');
+			return;
+		}
+		refreshHistoryFromDisk();
+		cancelRename();
+	};
+
+	const requestDelete = (threadIdToDelete: string) => {
+		cancelRename();
+		setPendingDeleteThreadId(threadIdToDelete);
+	};
+
+	const cancelDelete = () => {
+		setPendingDeleteThreadId(null);
+	};
+
+	const confirmDelete = (threadIdToDelete: string) => {
+		const wasActive = threadIdToDelete === threadId;
+		deleteStoredConversation(threadIdToDelete);
+		refreshHistoryFromDisk();
+		setPendingDeleteThreadId(null);
+		if (wasActive) {
+			localStorage.removeItem('warp_docs_kapa_thread_id');
+			setStoredThreadId(null);
+			onNewConversation();
+			return;
+		}
+	};
+
 	const clearSavedConversations = () => {
 		clearConversationHistory();
+		clearStoredConversationHistory();
 		localStorage.removeItem('warp_docs_kapa_thread_id');
 		setStoredThreadId(null);
+		setHistoryThreads([]);
+		setTitleOverrides({});
+		cancelRename();
+		cancelDelete();
 	};
 
 	const submitSupportHandoff = async (qa: { id?: string | null; question?: string }) => {
@@ -1086,21 +1191,142 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 									<p className="sl-kapa-history__empty">{conversationHistory.empty}</p>
 								) : (
 									<ul className="sl-kapa-history__list">
-										{conversationHistory.items.map((savedConversation) => (
-											<li key={savedConversation.threadId}>
-												<button
-													type="button"
-													className="sl-kapa-history__thread"
-													onClick={() => restoreSavedConversation(savedConversation.threadId)}
-													aria-current={savedConversation.isActive ? 'page' : undefined}
-												>
-													<span>{savedConversation.title}</span>
-													{savedConversation.isActive ? (
-														<span className="sl-kapa-history__active">Current conversation</span>
-													) : null}
-												</button>
-											</li>
-										))}
+										{conversationHistory.items.map((savedConversation) => {
+											const isRenaming = renamingThreadId === savedConversation.threadId;
+											const isPendingDelete = pendingDeleteThreadId === savedConversation.threadId;
+											return (
+												<li key={savedConversation.threadId}>
+													<div
+														className="sl-kapa-history__row"
+														data-active={savedConversation.isActive ? 'true' : undefined}
+														data-pending-delete={isPendingDelete ? 'true' : undefined}
+													>
+														{isRenaming ? (
+															<form
+																className="sl-kapa-history__rename"
+																onSubmit={(event) => {
+																	event.preventDefault();
+																	commitRename(savedConversation.threadId);
+																}}
+															>
+																<label className="sr-only" htmlFor={`sl-kapa-history-rename-${savedConversation.threadId}`}>
+																	{conversationHistory.rename}
+																</label>
+																<input
+																	ref={renameInputRef}
+																	id={`sl-kapa-history-rename-${savedConversation.threadId}`}
+																	type="text"
+																	value={renameDraft}
+																	onChange={(event) => {
+																		setRenameDraft(event.target.value);
+																		setRenameError(null);
+																	}}
+																	onKeyDown={(event) => {
+																		if (event.key === 'Escape') {
+																			event.preventDefault();
+																			cancelRename();
+																		}
+																	}}
+																	aria-invalid={renameError ? true : undefined}
+																	aria-describedby={
+																		renameError
+																			? `sl-kapa-history-rename-error-${savedConversation.threadId}`
+																			: undefined
+																	}
+																/>
+																<div className="sl-kapa-history__row-actions">
+																	<button
+																		type="submit"
+																		className="sl-kapa-history__icon-button"
+																		aria-label={conversationHistory.renameSave}
+																		data-tooltip={conversationHistory.renameSave}
+																	>
+																		<LuCheck aria-hidden="true" />
+																	</button>
+																	<button
+																		type="button"
+																		className="sl-kapa-history__icon-button"
+																		onClick={cancelRename}
+																		aria-label={conversationHistory.renameCancel}
+																		data-tooltip={conversationHistory.renameCancel}
+																	>
+																		<LuX aria-hidden="true" />
+																	</button>
+																</div>
+																{renameError ? (
+																	<p
+																		className="sl-kapa-history__rename-error"
+																		id={`sl-kapa-history-rename-error-${savedConversation.threadId}`}
+																	>
+																		{renameError}
+																	</p>
+																) : null}
+															</form>
+														) : isPendingDelete ? (
+															<div
+																className="sl-kapa-history__confirm"
+																role="group"
+																aria-label={conversationHistory.confirmDelete}
+															>
+																<p className="sl-kapa-history__confirm-copy">
+																	{conversationHistory.confirmDelete}
+																</p>
+																<div className="sl-kapa-history__row-actions">
+																	<button
+																		type="button"
+																		className="sl-kapa-history__text-button sl-kapa-history__text-button--danger"
+																		onClick={() => confirmDelete(savedConversation.threadId)}
+																	>
+																		{conversationHistory.confirmDeleteAction}
+																	</button>
+																	<button
+																		type="button"
+																		className="sl-kapa-history__text-button"
+																		onClick={cancelDelete}
+																	>
+																		{conversationHistory.cancelDeleteAction}
+																	</button>
+																</div>
+															</div>
+														) : (
+															<>
+																<button
+																	type="button"
+																	className="sl-kapa-history__open"
+																	onClick={() => restoreSavedConversation(savedConversation.threadId)}
+																	aria-current={savedConversation.isActive ? 'page' : undefined}
+																>
+																	<span className="sl-kapa-history__open-title">{savedConversation.title}</span>
+																	{savedConversation.isActive ? (
+																		<span className="sl-kapa-history__active">{conversationHistory.current}</span>
+																	) : null}
+																</button>
+																<div className="sl-kapa-history__row-actions">
+																	<button
+																		type="button"
+																		className="sl-kapa-history__icon-button"
+																		onClick={() => beginRename(savedConversation)}
+																		aria-label={conversationHistory.rename}
+																		data-tooltip={conversationHistory.rename}
+																	>
+																		<LuEllipsis aria-hidden="true" />
+																	</button>
+																	<button
+																		type="button"
+																		className="sl-kapa-history__icon-button"
+																		onClick={() => requestDelete(savedConversation.threadId)}
+																		aria-label={conversationHistory.delete}
+																		data-tooltip={conversationHistory.delete}
+																	>
+																		<LuX aria-hidden="true" />
+																	</button>
+																</div>
+															</>
+														)}
+													</div>
+												</li>
+											);
+										})}
 									</ul>
 								)}
 							</section>
