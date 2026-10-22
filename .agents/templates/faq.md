@@ -41,6 +41,7 @@ If the rules do not all hold: "What is X?" → conceptual page. "What are the li
 ## Related pages
 
 [Cross-links to the pages that own these topics. Use descriptive link text that names the destination.]
+[LINK FORMAT: Follow AGENTS.md → Closing section. Start with an unbolded link. Add a description only when it clarifies why to open the page: spaced hyphen, capitalized first word, proper-name casing, no terminal punctuation. Keep this section last.]
 
 * [Feature documentation](path/to/page.md)
-* [Reference](path/to/page.md)
+* [Reference](path/to/page.md) - Look up configuration options and limits

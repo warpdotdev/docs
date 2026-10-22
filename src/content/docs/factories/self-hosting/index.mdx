@@ -16,12 +16,12 @@ Self-hosting requires an Enterprise plan. To enable it for your team, [contact s
 
 Choose an architecture based on which system starts each run. With the [managed architecture](#managed-architecture), the {VARS.WARP_AUTOMATION_PLATFORM} routes work to `oz-agent-worker`. Use it for runs started from Slack, Linear, schedules, the API, the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>, or `oz agent run-cloud`.
 
-With the [unmanaged architecture](/platform/unmanaged-execution/), your CI system, scheduler, or script invokes `oz agent run` directly. Warp tracks the session but does not start or stop the process.
+With [unmanaged execution](/platform/unmanaged-execution/), your CI system, scheduler, or script invokes `oz agent run` directly. Warp tracks the session but does not start or stop the process.
 
 | Aspect | Managed | Unmanaged |
 | --- | --- | --- |
 | Run lifecycle | The {VARS.WARP_AUTOMATION_PLATFORM} routes each run to a worker | Your system starts and stops each CLI process |
-| Host support | Linux | Linux, macOS, and Windows |
+| Task platform | Depends on the backend; Docker and Kubernetes tasks use Linux | Linux, macOS, and Windows |
 | Execution | Docker container, Kubernetes Job, direct host process, or external runtime | The host environment you provide |
 | Triggers | Integrations, schedules, API, web app, and CLI | CI, cron, scripts, and internal schedulers |
 
@@ -29,9 +29,9 @@ Use managed and unmanaged runs together when different workflows need different 
 
 ## Choosing an architecture
 
-Use the [unmanaged architecture](/platform/unmanaged-execution/) when any of these conditions apply:
+Use [unmanaged execution](/platform/unmanaged-execution/) when any of these conditions apply:
 
-* Agents must run on macOS or Windows.
+* Your existing macOS or Windows workflow invokes the agent CLI directly.
 * Your system should own both the trigger and process lifecycle.
 * You want to add `oz agent run` to an existing CI job or script.
 
@@ -47,13 +47,11 @@ Use the managed architecture when the {VARS.WARP_AUTOMATION_PLATFORM} should acc
 
 ## Managed prerequisites
 
-All managed deployments require:
+* Outbound network access from the worker and agent runtime to Warp. No inbound ports are required. See [Security and networking](/platform/execution-security/).
+* A worker ID for routing runs with `--host`.
+* Worker credentials. Docker, Kubernetes, Direct, and Command workers accept a [self-hosted worker API key](/agents/cli/oz-cli/api-keys/#creating-a-self-hosted-worker-api-key).
 
-* **Outbound network access** - The worker and agent runtime must reach Warp. You do not need to open inbound ports. See [Security and networking](/platform/execution-security/) for endpoints and data boundaries.
-* **A worker ID** - Choose the value used to route runs with `--host`. Multiple long-lived workers can share an ID for load balancing. Use a unique ID for each one-shot Direct job.
-* **Worker credentials** - Docker, Kubernetes, Direct, and Command workers can use a [self-hosted worker API key](/agents/cli/oz-cli/api-keys/#creating-a-self-hosted-worker-api-key). Store it in your secret manager and provide it as `WARP_API_KEY` or `--api-key`.
-
-An external orchestrator that creates runs through `oz agent run-cloud` or the API also needs an **agent API key associated with the Default Service Account**. In the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP} settings</a>, create an Agent key and choose **Default Service Account**. The same agent key can authenticate the worker when one job both starts the worker and creates the run. Otherwise, give the worker a self-hosted worker key and the run creator an agent key. See [API keys for the {VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/api-keys/) for the key types and creation flow.
+Store the worker key in your secret manager and provide it as `WARP_API_KEY` or `--api-key`.
 
 Backend pages list the remaining runtime-specific requirements, such as Docker, Kubernetes, or the {VARS.WARP_AGENT_CLI} binary.
 
@@ -61,11 +59,17 @@ Backend pages list the remaining runtime-specific requirements, such as Docker, 
 
 `oz-agent-worker` connects to the {VARS.WARP_AUTOMATION_PLATFORM}, waits for tasks addressed to its worker ID, and handles each task with the configured backend. Docker, Kubernetes, and Direct run the agent on worker infrastructure. Command hands the task to an external runtime.
 
-Start with the [self-hosting quickstart](/factories/self-hosting/quickstart/) for a Docker worker. For exact flags and YAML fields, use the [self-hosted worker reference](/factories/self-hosting/reference/).
+Multiple long-lived workers can share an ID for load balancing. Use a unique ID for each one-shot Direct job.
+
+Start with the [Self-hosting quickstart](/factories/self-hosting/quickstart/) for a Docker worker. For exact flags and YAML fields, use the [Self-hosted worker reference](/factories/self-hosting/reference/).
 
 ### Routing runs to self-hosted workers
 
-Set the run's host to the connected worker's ID. From the {VARS.WARP_AGENT_CLI}:
+Set the run's host to the connected worker's ID.
+
+For unattended run creation through `oz agent run-cloud` or the API, use an **agent API key associated with the Default Service Account**. In the <a href={`${VARS.WEB_APP_URL}/settings`}>{VARS.WEB_APP} settings</a>, create an Agent key and choose **Default Service Account**. The same agent key can authenticate the worker when one job both starts the worker and creates the run. Otherwise, give the worker a self-hosted worker key and the run creator an agent key. See [API keys for the {VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/api-keys/) for the key types and creation flow.
+
+From the {VARS.WARP_AGENT_CLI}:
 
 ```bash
 oz agent run-cloud \
@@ -89,18 +93,51 @@ oz integration create slack --host "my-worker"
 oz integration update linear --host "my-worker"
 ```
 
-API requests set the same worker ID in `config.worker_host`:
-
-```json
-{
-  "prompt": "Refactor the authentication module",
-  "config": { "worker_host": "my-worker" }
-}
-```
+API requests set the same worker ID in `config.worker_host`.
 
 In the {VARS.WEB_APP}, select the worker from the host options when you create a run, schedule, or integration. See the relevant [trigger](/platform/triggers/) or [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) documentation for other creation options.
 
 Host selection is independent of the [environment](/platform/environments/). A managed run can use the same environment with Warp-hosted or self-hosted execution; the selected backend determines how the worker applies its image and setup configuration.
+
+### Validating your setup without a factory
+
+After your managed worker connects, submit a smoke test through the {VARS.WARP_AGENT_CLI} with your own login, without an API key. You don't need a factory, a named agent, or a configured environment. This test uses the Warp Agent harness and the default model; it doesn't test repository access or environment setup.
+
+1. [Install the {VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/#installing-the-cli) on your machine. In a separate terminal, clear API-key and configuration overrides, then sign in. Open the URL printed by `oz login` in your browser and complete authentication. Your account must belong to the worker's team and have permission to create runs. Keep the worker running with its existing credential.
+
+   ```bash
+   unset WARP_API_KEY WARP_AGENT_CONFIG_FILE
+   oz login
+   ```
+
+2. Submit the test. Replace `WORKER_ID` with the connected worker's `--worker-id`. The `--team` flag creates a team-owned run. If you belong to multiple teams, the CLI lists team choices; replace `--team` with `--team=TEAM_UID`, using the UID of the worker's team.
+
+   ```bash
+   oz agent run-cloud \
+     --host "WORKER_ID" \
+     --team \
+     --no-environment \
+     --no-computer-use \
+     --prompt "Run the terminal command printf self-hosted-smoke-test-passed, report the output, and finish. Do not modify files or access repositories."
+   ```
+
+   The CLI prints a run ID and a session link when the session is ready. The command can return before the run finishes; a run ID or session link alone does not confirm success.
+
+3. Replace `RUN_ID` with the printed run ID and check the run.
+
+   ```bash
+   oz run get RUN_ID --output-format json
+   ```
+
+   Repeat the check until `state` is `SUCCEEDED`. Confirm that `agent_config.worker_host` matches your worker ID, then retrieve the conversation.
+
+   ```bash
+   oz run get RUN_ID --conversation
+   ```
+
+   Verify that the command ran and printed `self-hosted-smoke-test-passed`, not just that the prompt contains the marker.
+
+If the run stays `QUEUED`, confirm the worker is connected, the host matches exactly, and the run and worker belong to the same team. For `FAILED` or `ERROR`, inspect `status_message` and the worker logs. For authentication errors, sign in again with `oz login`. For permission errors, check team access and self-hosting eligibility. See [Self-hosting troubleshooting](/factories/self-hosting/troubleshooting/) for further diagnostics.
 
 ## Unmanaged architecture
 
@@ -116,9 +153,10 @@ View managed and unmanaged runs in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOAR
 
 ## Related pages
 
+* [Self-hosted agent data storage](/factories/self-hosting/data-storage/) - Store cloud agent run data in your own bucket
 * [Self-hosting quickstart](/factories/self-hosting/quickstart/) - Start a managed Docker worker and route a test run.
 * [External orchestrators](/factories/self-hosting/external-orchestrators/) - Choose and deploy the Command backend or one-shot Direct.
-* [Unmanaged architecture](/platform/unmanaged-execution/) - Invoke `oz agent run` from your own scheduler or CI system.
+* [Unmanaged execution](/platform/unmanaged-execution/) - Invoke `oz agent run` from your own scheduler or CI system.
 * [Self-hosted worker reference](/factories/self-hosting/reference/) - Look up worker flags and backend configuration fields.
 * [Deployment patterns](/factories/deployment-patterns/) - Compare Warp-hosted, self-hosted, and CLI-only execution.
 * [Troubleshooting](/factories/self-hosting/troubleshooting/) - Diagnose worker startup, routing, and task failures.

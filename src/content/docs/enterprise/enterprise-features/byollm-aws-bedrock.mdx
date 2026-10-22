@@ -8,7 +8,7 @@ description: >-
 ---
 import { VARS } from '@data/vars';
 
-Warp's **AWS Bedrock** BYOLLM integration routes agent inference through your own AWS account using **Amazon Bedrock**. Your team keeps using Warp's agents as usual, while eligible requests execute against Claude models hosted in your AWS account, billed to your AWS account and governed by your IAM controls.
+Warp's **AWS Bedrock** BYOLLM integration routes agent inference through your own AWS account using **Amazon Bedrock**. Your team keeps using agents in Warp as usual, while eligible requests execute against supported Anthropic (Claude) and OpenAI models hosted in your AWS account, billed to your AWS account and governed by your IAM controls.
 
 AWS Bedrock is one of the providers supported by [Bring Your Own LLM (BYOLLM)](/enterprise/enterprise-features/bring-your-own-llm/). For Google Cloud-based routing, see [BYOLLM: Gemini Enterprise](/enterprise/enterprise-features/byollm-gemini-enterprise/).
 
@@ -56,7 +56,7 @@ This approach ensures access management stays with your cloud provider, giving a
 
 ### Model availability
 
-BYOLLM supports the intersection of models that Warp supports and models available on your provider. On AWS Bedrock, only **Claude models** (Anthropic) are available; OpenAI and Google models are not available on Bedrock. To route Gemini models (or Claude partner models on Vertex AI) through your Google Cloud project, use [Gemini Enterprise BYOLLM](/enterprise/enterprise-features/byollm-gemini-enterprise/) instead.
+BYOLLM supports the intersection of models that Warp supports and models available on your provider. On AWS Bedrock, Warp supports Anthropic (Claude) and OpenAI models. To route Gemini models (or Claude partner models on Vertex AI) through your Google Cloud project, use [Gemini Enterprise BYOLLM](/enterprise/enterprise-features/byollm-gemini-enterprise/) instead.
 
 To determine which models you can use with BYOLLM:
 
@@ -103,7 +103,8 @@ Grant your team members the necessary permissions in AWS. Use least-privilege IA
       "Resource": [
         "arn:aws:bedrock:*::foundation-model/*",
         "arn:aws:bedrock:*:*:inference-profile/*",
-        "arn:aws:bedrock:*:*:application-inference-profile/*"
+        "arn:aws:bedrock:*:*:application-inference-profile/*",
+        "arn:aws:bedrock:*:*:project/default"
       ]
     }
   ]
@@ -216,7 +217,8 @@ Attach the minimum Bedrock invoke permissions policy to the role:
       "Resource": [
         "arn:aws:bedrock:*::foundation-model/*",
         "arn:aws:bedrock:*:*:inference-profile/*",
-        "arn:aws:bedrock:*:*:application-inference-profile/*"
+        "arn:aws:bedrock:*:*:application-inference-profile/*",
+        "arn:aws:bedrock:*:*:project/default"
       ]
     }
   ]
@@ -289,10 +291,10 @@ When Direct API models remain enabled and BYOLLM is configured, Auto picks the b
 
 When a request routes through BYOLLM:
 
-* **Warp doesn't consume credits** for that request.
-* Cloud agent runs still consume platform and compute credits for orchestration and the cloud agent's compute.
+* **Inference** - AWS bills your account.
+* **Platform and compute** - [Platform charges](/support-and-community/plans-and-billing/platform-credits/) apply to local BYOLLM and cloud runs. Only Warp-hosted compute incurs compute charges.
 
-See [The three credit buckets](/support-and-community/plans-and-billing/platform-credits/#the-three-credit-buckets) for more on credit types.
+Rates follow your [Enterprise contract](/enterprise/support-and-resources/billing/).
 
 ## Security and data handling
 

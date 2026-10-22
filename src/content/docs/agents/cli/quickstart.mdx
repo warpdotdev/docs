@@ -11,8 +11,8 @@ This guide takes you from installing the {VARS.WARP_CLI} to your first agent con
 
 ## Prerequisites
 
-* **A Warp account** - The login step opens your browser, where you can sign in or [create an account](https://app.warp.dev/signup). The CLI uses the same account as the Warp app, but doesn't require the app to be installed.
-* **A supported platform** - macOS (Apple Silicon or Intel), Linux (x64 or Arm64), or Windows (x64 or Arm64).
+* A [Warp account](https://app.warp.dev/signup).
+* A computer running macOS (Apple Silicon or Intel), Linux (x64 or Arm64), or Windows (x64 or Arm64).
 
 ## 1. Install the Warp Agent CLI
 
@@ -63,13 +63,13 @@ To turn off update checks, set `general.autoupdate_enabled` to `false` in the [s
 
 ## 2. Log in
 
-Log in once so the CLI can access your Warp account, models, and saved context. Start the CLI:
+The CLI uses the same account as the Warp app, but doesn't require the app to be installed. Log in once so the CLI can access your account, models, and saved context. Start the CLI:
 
 ```bash
 warp
 ```
 
-The CLI shows a verification link and a device code, and opens the link in your browser. Approve the login there and the CLI unlocks automatically, so you don't need to restart it. If the browser doesn't open, visit the link shown in the CLI and enter the code.
+The CLI shows a verification link and a device code, and opens the link in your browser. Sign in or [create an account](https://app.warp.dev/signup), then approve the login. The CLI unlocks automatically, so you don't need to restart it. If the browser doesn't open, visit the link shown in the CLI and enter the code.
 
 When login completes, the CLI shows its start screen with the version, a short "What's new" list, and the rules, skills, and MCP servers it discovered for your current directory. You stay signed in across sessions. To sign out later, run `/logout`, which returns the CLI to its login screen and signs out your browser session too.
 
