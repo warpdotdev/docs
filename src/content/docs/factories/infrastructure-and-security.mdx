@@ -96,7 +96,7 @@ A factory handles four kinds of credentials, each with its own boundary:
 | **Harness authentication** | Third-party harnesses such as Claude Code or Codex | Credentials are used inside the execution environment for direct provider calls. This authentication is configured separately from the agent's secret allowlist. |
 | **Repository identity** | Checking out code and pushing changes | Runs act with the creating user's authorization (changes are attributed to them) or as the agent itself for unattended work. The definition's [`credentialStrategy`](/factories/factory-as-code/#credentialstrategy) sets this behavior. |
 
-Scope each credential to the resources and actions its agent needs. Warp redacts known secret values at output boundaries, but redaction is a backstop, not a substitute for narrow external permissions and rotation. See [Cloud agent secrets](/platform/secrets/), [harness authentication](/platform/harnesses/authentication/), [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/), and [team identity](/platform/team-access-billing-and-identity/) for the underlying controls.
+Scope each credential to the resources and actions its agent needs. Warp redacts known secret values at output boundaries, but redaction is a backstop, not a substitute for narrow external permissions and rotation. See [factory secrets](/factories/secrets/), [harness authentication](/platform/harnesses/authentication/), [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/), and [team identity](/platform/team-access-billing-and-identity/) for the underlying controls.
 
 ## Factory roles and permissions
 
