@@ -1,16 +1,14 @@
 ---
-title: Configuring issue triage in your factory
+title: Triaging issues with your factory
 description: >-
   Have your factory's triage agent investigate, categorize, and prioritize
   incoming issues, then recommend what to do next.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Automate issue triage in your factory so incoming issues include a category, priority, supporting evidence, and a recommended next step. Use this pattern when your team spends time gathering information about each issue before deciding what to work on.
+When an issue arrives without enough context, your team needs to investigate before deciding what to work on. Your factory's triage agent can gather that context and recommend a category, priority, and next step, with evidence to support its findings.
 
-This [recipe](/factories/use-cases/) configures an intake automation for your factory's existing triage agent.
-
-The automation prompt asks the agent to stop after triage, but other workflows in the same factory can continue through specification, implementation, and review.
+The [recipe](/factories/use-cases/) adds an intake automation for your existing triage agent. Its prompt asks the agent to stop after triage. Other workflows in the same factory can still continue through specification, implementation, and review.
 
 ## Prerequisites
 
@@ -22,7 +20,7 @@ The automation prompt asks the agent to stop after triage, but other workflows i
 
 ## Recommended configuration
 
-Use the following table to choose the trigger, agent, skills, settings, and expected output for your issue-triage automation.
+Your intake event determines which issues receive triage. These recommendations help you choose that event, the triage policy, and the expected issue update.
 
 | Part | Recommendation |
 | --- | --- |

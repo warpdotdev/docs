@@ -1,14 +1,14 @@
 ---
-title: Configuring pull request review in your factory
+title: Reviewing pull requests with your factory
 description: >-
   Automate pull request reviews with your factory to identify bugs, security
   risks, and missing tests and post actionable findings.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Automate pull request review in your factory to check code changes against the acceptance criteria recorded in the issue or pull request, repository conventions, and security requirements. Use this pattern for independent review of code written by people or agents.
+Your factory can independently review pull requests written by people or agents. The review checks code changes against the acceptance criteria in the issue or pull request, repository conventions, and security requirements.
 
-This [recipe](/factories/use-cases/) routes pull requests to your factory's foreman, which asks the review agent to inspect the change and publishes its report. The review agent reports to the foreman rather than posting on the pull request. The automation prompt limits this workflow to review without implementation, approval, or merging. Keep required approvals and merge permissions in the code host.
+In this [recipe](/factories/use-cases/), the foreman asks the review agent to inspect the change, then publishes the agent's report on the pull request. The automation prompt limits the workflow to review, without implementation, approval, or merging. Your code host's required reviews and merge permissions remain the controls for accepting the change.
 
 ## Prerequisites
 
@@ -20,7 +20,7 @@ This [recipe](/factories/use-cases/) routes pull requests to your factory's fore
 
 ## Recommended configuration
 
-Use the following table to choose the trigger, agent, skills, settings, and expected output for your review automation.
+These recommendations define which pull requests receive a review and what the foreman posts back to your team.
 
 | Part | Recommendation |
 | --- | --- |

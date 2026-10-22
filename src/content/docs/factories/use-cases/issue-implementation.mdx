@@ -1,14 +1,14 @@
 ---
-title: Configuring issue implementation in your factory
+title: Implementing approved issues with your factory
 description: >-
   Automate implementation of approved issues with your factory, from
   readiness signals to validated pull requests for human review.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Turn approved issues into code changes and pull requests with your existing factory. Use this pattern when your team needs to distinguish work that's ready to implement from issues that still need investigation or product decisions.
+Once your team has agreed on an issue's requirements and acceptance criteria, you can hand implementation to your existing factory. Work that still needs investigation or product decisions belongs in triage or planning first.
 
-This [recipe](/factories/use-cases/) routes approved issues to the foreman, which coordinates implementation and independent review. It can request research or a specification when needed. The automation prompt leaves specification approval and merging to people. Enforce merge permissions through your code host's branch protection and required reviews.
+The foreman coordinates implementation and independent review in this [recipe](/factories/use-cases/), requesting research or a specification when needed. People still approve specifications and decide whether to merge. Your code host's branch protection and required reviews enforce the merge permissions.
 
 ## Prerequisites
 
@@ -21,7 +21,7 @@ This [recipe](/factories/use-cases/) routes approved issues to the foreman, whic
 
 ## Recommended configuration
 
-Use the following table to choose the intake signal, agents, skills, and expected output for your implementation automation.
+The following recommendations cover when implementation starts, which agents take part, and what your team receives for review.
 
 | Part | Recommendation |
 | --- | --- |

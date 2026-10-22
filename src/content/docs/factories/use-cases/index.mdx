@@ -8,7 +8,7 @@ sidebar:
 ---
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-A recipe is a recommended configuration and set of instructions for completing a specific task with your factory. Recipes combine agents, automations, integrations, skills, and repository controls. Test the recipe's results before expanding the workflow. For example, check that issue triage categorizes issues correctly before adding implementation.
+A recipe is a recommended configuration and set of instructions for completing a specific task with your factory. It combines agents, automations, integrations, skills, and repository controls. You can start with one task and test its results before connecting it to another. For example, your team might try issue triage on its own before asking the factory to implement approved issues.
 
 The examples use [definitions as code](/factories/factory-as-code/) so you can review changes, validate them in CI, and adapt the same pattern to a Warp-managed factory.
 
@@ -49,9 +49,9 @@ The examples use [definitions as code](/factories/factory-as-code/) so you can r
 
 ## Start with the smallest recipe
 
-Use one factory with the repositories that ship together. Choose one event that starts the task, then check whether an existing automation already handles it. Update that automation or add one with nonoverlapping filters. See [automation matching rules](/factories/automations/#how-matching-works).
+One factory can coordinate work across repositories that ship together. Before you add an automation, choose the event that should start work and check whether an existing automation already handles it. You can update that automation instead of adding another, or use nonoverlapping filters when you need separate automations. See [automation matching rules](/factories/automations/#how-matching-works).
 
-Route work to the agent responsible for the task and make the expected output explicit. When a workflow spans several roles, use the foreman to coordinate the other agents. Add or update skills for repository-specific procedures, such as required test commands or an incident runbook. Keep a human responsible for approving specifications, accepting risk, and merging changes.
+Each automation needs a clear task, a responsible agent, and an expected output. For work that spans several roles, the foreman coordinates the other agents. Your skills supply repository-specific procedures, such as required test commands or an incident runbook. People remain responsible for approving specifications, accepting risk, and merging changes.
 
 ## Related pages
 
