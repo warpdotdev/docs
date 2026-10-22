@@ -23,9 +23,10 @@ import {
 	clearStoredConversationHistory,
 	deleteStoredConversation,
 	getConversationHistoryView,
-	readStoredHistoryThreads,
-	readTitleOverrides,
+	isOwnedHistoryStorageEvent,
+	readHistoryUiSnapshot,
 	renameStoredConversation,
+	resolveRestoreAttempt,
 	validateRenameTitle,
 } from '../lib/kapa-conversation-history.mjs';
 import {
@@ -82,6 +83,7 @@ type ConversationHistoryView = {
 	renameSave: string;
 	renameCancel: string;
 	current: string;
+	missingThread: string;
 	canClear: boolean;
 	isEmpty: boolean;
 	items: Array<{
@@ -570,14 +572,20 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	const [hasStartedConversation, setHasStartedConversation] = useState(false);
 	const [isAppleDevice, setIsAppleDevice] = useState(false);
 	const [isHistoryOpen, setIsHistoryOpen] = useState(false);
-	const [historyThreads, setHistoryThreads] = useState<Array<{ threadId: string; title: string }>>([]);
+	const [historyThreads, setHistoryThreads] = useState<
+		Array<{ threadId: string; title: string; createdAt?: number; updatedAt?: number; qas?: unknown[] }>
+	>([]);
 	const [titleOverrides, setTitleOverrides] = useState<Record<string, string>>({});
 	const [renamingThreadId, setRenamingThreadId] = useState<string | null>(null);
 	const [renameDraft, setRenameDraft] = useState('');
 	const [renameError, setRenameError] = useState<string | null>(null);
 	const [pendingDeleteThreadId, setPendingDeleteThreadId] = useState<string | null>(null);
+	const [historyStatusMessage, setHistoryStatusMessage] = useState<string | null>(null);
 	const [storedThreadId, setStoredThreadId] = useState<string | null>(null);
 	const renameInputRef = useRef<HTMLInputElement | null>(null);
+	const deleteConfirmRef = useRef<HTMLButtonElement | null>(null);
+	const deleteTriggerRef = useRef<HTMLButtonElement | null>(null);
+	const threadIdRef = useRef<string | null>(null);
 	const [downvotedAnswerIds, setDownvotedAnswerIds] = useState<Record<string, true>>({});
 	const [handoffEmailInput, setHandoffEmailInput] = useState('');
 	const [handoffQaId, setHandoffQaId] = useState<string | null>(null);
@@ -619,38 +627,89 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		};
 	}, []);
 
+	const applyHistorySnapshot = (options?: { allowActiveRemount?: boolean }) => {
+		const snapshot = (
+			readHistoryUiSnapshot as unknown as (input: {
+				sdkThreads?: unknown;
+				activeThreadId?: string | null;
+			}) => {
+				threads: Array<{ threadId: string; title: string; createdAt?: number; updatedAt?: number; qas?: unknown[] }>;
+				titleOverrides: Record<string, string>;
+				activeThreadMissing: boolean;
+				view: ConversationHistoryView;
+			}
+		)({
+			sdkThreads: conversationHistoryThreads,
+			activeThreadId: threadIdRef.current,
+		});
+		setHistoryThreads(snapshot.threads);
+		setTitleOverrides({ ...snapshot.titleOverrides });
+
+		if (
+			renamingThreadId &&
+			!snapshot.threads.some((thread: { threadId: string }) => thread.threadId === renamingThreadId)
+		) {
+			setRenamingThreadId(null);
+			setRenameDraft('');
+			setRenameError(null);
+		}
+		if (
+			pendingDeleteThreadId &&
+			!snapshot.threads.some((thread: { threadId: string }) => thread.threadId === pendingDeleteThreadId)
+		) {
+			setPendingDeleteThreadId(null);
+		}
+
+		if (options?.allowActiveRemount !== false && snapshot.activeThreadMissing) {
+			localStorage.removeItem('warp_docs_kapa_thread_id');
+			setStoredThreadId(null);
+			setHistoryStatusMessage(snapshot.view.missingThread);
+			onNewConversation();
+			return snapshot;
+		}
+		return snapshot;
+	};
+
 	useEffect(() => {
 		const savedThreadId = localStorage.getItem('warp_docs_kapa_thread_id');
 		if (savedThreadId) {
 			setStoredThreadId(savedThreadId);
 		}
-		setTitleOverrides(readTitleOverrides());
+		applyHistorySnapshot({ allowActiveRemount: false });
 	}, []);
 
 	useEffect(() => {
-		// Prefer disk when our storage key exists so owned deletes cannot be undone by
-		// stale in-memory SDK history until the next provider remount or completed answer.
-		let hasOwnedStore = false;
-		try {
-			hasOwnedStore = localStorage.getItem(KAPA_CONVERSATION_HISTORY_OPTIONS.storageKey) !== null;
-		} catch {
-			hasOwnedStore = false;
-		}
-		setHistoryThreads(hasOwnedStore ? readStoredHistoryThreads() : conversationHistoryThreads);
-		setTitleOverrides(readTitleOverrides());
+		applyHistorySnapshot({ allowActiveRemount: false });
 	}, [conversationHistoryThreads]);
 
 	useEffect(() => {
+		threadIdRef.current = threadId;
 		if (!threadId) return;
 		setStoredThreadId(threadId);
 		localStorage.setItem('warp_docs_kapa_thread_id', threadId);
 	}, [threadId]);
 
 	useEffect(() => {
+		const onStorage = (event: StorageEvent) => {
+			if (!isOwnedHistoryStorageEvent(event)) return;
+			applyHistorySnapshot({ allowActiveRemount: true });
+		};
+		window.addEventListener('storage', onStorage);
+		return () => {
+			window.removeEventListener('storage', onStorage);
+		};
+	}, [conversationHistoryThreads, renamingThreadId, pendingDeleteThreadId, onNewConversation]);
+
+	useEffect(() => {
 		if (!renamingThreadId || !renameInputRef.current) return;
 		renameInputRef.current.focus();
 		renameInputRef.current.select();
 	}, [renamingThreadId]);
+
+	useEffect(() => {
+		if (!pendingDeleteThreadId || !deleteConfirmRef.current) return;
+		deleteConfirmRef.current.focus();
+	}, [pendingDeleteThreadId]);
 
 	useEffect(() => {
 		if (!isOpen || !messagesRef.current) return;
@@ -734,10 +793,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		titleOverrides
 	) as ConversationHistoryView;
 
-	const refreshHistoryFromDisk = () => {
-		setHistoryThreads(readStoredHistoryThreads());
-		setTitleOverrides(readTitleOverrides());
-	};
+	const refreshHistoryFromDisk = () => applyHistorySnapshot({ allowActiveRemount: false });
 
 	const submit = () => {
 		const value = query.trim();
@@ -809,7 +865,15 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 
 	const restoreSavedConversation = (savedThreadId: string) => {
 		if (renamingThreadId || pendingDeleteThreadId) return;
+		const attempt = resolveRestoreAttempt(savedThreadId);
+		if (!attempt.ok) {
+			setHistoryStatusMessage(attempt.message || conversationHistory.missingThread);
+			refreshHistoryFromDisk();
+			return;
+		}
 		closeHandoffForm();
+		setHistoryStatusMessage(null);
+		// Disk already proved the thread is restorable; native restore keeps backend continuity.
 		restoreThread(savedThreadId);
 		setHasStartedConversation(true);
 		setIsHistoryOpen(false);
@@ -817,6 +881,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 
 	const beginRename = (savedConversation: ConversationHistoryView['items'][number]) => {
 		setPendingDeleteThreadId(null);
+		setHistoryStatusMessage(null);
 		setRenamingThreadId(savedConversation.threadId);
 		setRenameDraft(savedConversation.title);
 		setRenameError(null);
@@ -845,11 +910,16 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 
 	const requestDelete = (threadIdToDelete: string) => {
 		cancelRename();
+		setHistoryStatusMessage(null);
+		deleteTriggerRef.current = document.activeElement as HTMLButtonElement | null;
 		setPendingDeleteThreadId(threadIdToDelete);
 	};
 
 	const cancelDelete = () => {
 		setPendingDeleteThreadId(null);
+		window.requestAnimationFrame(() => {
+			deleteTriggerRef.current?.focus();
+		});
 	};
 
 	const confirmDelete = (threadIdToDelete: string) => {
@@ -858,11 +928,16 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		refreshHistoryFromDisk();
 		setPendingDeleteThreadId(null);
 		if (wasActive) {
+			// Remount drops stale SDK memory for the deleted active thread without
+			// clearing history for an unrelated active conversation.
 			localStorage.removeItem('warp_docs_kapa_thread_id');
 			setStoredThreadId(null);
 			onNewConversation();
 			return;
 		}
+		window.requestAnimationFrame(() => {
+			deleteTriggerRef.current?.focus();
+		});
 	};
 
 	const clearSavedConversations = () => {
@@ -872,8 +947,9 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		setStoredThreadId(null);
 		setHistoryThreads([]);
 		setTitleOverrides({});
+		setHistoryStatusMessage(null);
 		cancelRename();
-		cancelDelete();
+		setPendingDeleteThreadId(null);
 	};
 
 	const submitSupportHandoff = async (qa: { id?: string | null; question?: string }) => {
@@ -1187,6 +1263,11 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 										</button>
 									) : null}
 								</div>
+								{historyStatusMessage ? (
+									<p className="sl-kapa-history__status" role="status" aria-live="polite">
+										{historyStatusMessage}
+									</p>
+								) : null}
 								{conversationHistory.isEmpty ? (
 									<p className="sl-kapa-history__empty">{conversationHistory.empty}</p>
 								) : (
@@ -1262,32 +1343,39 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 																	</p>
 																) : null}
 															</form>
-														) : isPendingDelete ? (
-															<div
-																className="sl-kapa-history__confirm"
-																role="group"
-																aria-label={conversationHistory.confirmDelete}
-															>
-																<p className="sl-kapa-history__confirm-copy">
-																	{conversationHistory.confirmDelete}
-																</p>
-																<div className="sl-kapa-history__row-actions">
-																	<button
-																		type="button"
-																		className="sl-kapa-history__text-button sl-kapa-history__text-button--danger"
-																		onClick={() => confirmDelete(savedConversation.threadId)}
-																	>
-																		{conversationHistory.confirmDeleteAction}
-																	</button>
-																	<button
-																		type="button"
-																		className="sl-kapa-history__text-button"
-																		onClick={cancelDelete}
-																	>
-																		{conversationHistory.cancelDeleteAction}
-																	</button>
-																</div>
+											) : isPendingDelete ? (
+														<div
+															className="sl-kapa-history__confirm"
+															role="group"
+															aria-label={conversationHistory.confirmDelete}
+															onKeyDown={(event) => {
+																if (event.key === 'Escape') {
+																	event.preventDefault();
+																	cancelDelete();
+																}
+															}}
+														>
+															<p className="sl-kapa-history__confirm-copy" role="status">
+																{conversationHistory.confirmDelete}
+															</p>
+															<div className="sl-kapa-history__row-actions">
+																<button
+																	ref={deleteConfirmRef}
+																	type="button"
+																	className="sl-kapa-history__text-button sl-kapa-history__text-button--danger"
+																	onClick={() => confirmDelete(savedConversation.threadId)}
+																>
+																	{conversationHistory.confirmDeleteAction}
+																</button>
+																<button
+																	type="button"
+																	className="sl-kapa-history__text-button"
+																	onClick={cancelDelete}
+																>
+																	{conversationHistory.cancelDeleteAction}
+																</button>
 															</div>
+														</div>
 														) : (
 															<>
 																<button

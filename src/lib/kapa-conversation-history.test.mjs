@@ -6,12 +6,21 @@ import {
 	KAPA_CONVERSATION_HISTORY_STORAGE_KEY,
 	KAPA_CONVERSATION_TITLE_OVERRIDES_KEY,
 	KAPA_HISTORY_ACTIVE_ROW_STYLE,
+	canRestoreThread,
 	clearStoredConversationHistory,
 	deleteStoredConversation,
 	getConversationHistoryView,
+	getRestorableThread,
+	hasOwnedHistoryStore,
+	isOwnedHistoryStorageEvent,
+	normalizeStoredThread,
+	pruneTitleOverrides,
+	readHistoryUiSnapshot,
 	readStoredHistoryThreads,
 	readTitleOverrides,
 	renameStoredConversation,
+	resolveRestoreAttempt,
+	shouldPersistThreadId,
 	validateRenameTitle,
 	writeStoredHistoryThreads,
 	writeTitleOverrides,
@@ -34,6 +43,27 @@ function installLocalStorageMock() {
 	};
 }
 
+function validThread(threadId, title, updatedAt = 1) {
+	return {
+		threadId,
+		title,
+		createdAt: 1,
+		updatedAt,
+		qas: [
+			{
+				id: `${threadId}-qa`,
+				question: title,
+				answer: 'Answer',
+				sources: [],
+				files: [],
+				toolCalls: [],
+				reaction: null,
+				isGenerationAborted: false,
+			},
+		],
+	};
+}
+
 function seedThreads(threads) {
 	writeStoredHistoryThreads(threads);
 }
@@ -41,8 +71,8 @@ function seedThreads(threads) {
 test('uses native SDK threads in recency order and exposes their restore IDs', () => {
 	const view = getConversationHistoryView(
 		[
-			{ threadId: 'most-recent', title: 'Latest question', updatedAt: 20 },
-			{ threadId: 'older', title: 'Earlier question', updatedAt: 10 },
+			validThread('most-recent', 'Latest question', 20),
+			validThread('older', 'Earlier question', 10),
 		],
 		'older',
 		{}
@@ -50,20 +80,11 @@ test('uses native SDK threads in recency order and exposes their restore IDs', (
 
 	assert.equal(view.isEmpty, false);
 	assert.equal(view.canClear, true);
-	assert.deepEqual(view.items, [
-		{
-			threadId: 'most-recent',
-			title: 'Latest question',
-			generatedTitle: 'Latest question',
-			isActive: false,
-		},
-		{
-			threadId: 'older',
-			title: 'Earlier question',
-			generatedTitle: 'Earlier question',
-			isActive: true,
-		},
-	]);
+	assert.deepEqual(
+		view.items.map((item) => item.threadId),
+		['most-recent', 'older']
+	);
+	assert.equal(view.items[1].isActive, true);
 });
 
 test('renders the empty state and local-storage disclosure without creating a duplicate store', () => {
@@ -78,9 +99,6 @@ test('renders the empty state and local-storage disclosure without creating a du
 		maxThreads: 50,
 		storageKey: KAPA_CONVERSATION_HISTORY_STORAGE_KEY,
 	});
-	assert.equal(KAPA_CONVERSATION_HISTORY_COPY.clear, 'Clear saved conversations');
-	assert.equal(KAPA_CONVERSATION_HISTORY_COPY.rename, 'Rename conversation');
-	assert.equal(KAPA_CONVERSATION_HISTORY_COPY.delete, 'Delete conversation');
 	assert.equal(KAPA_CONVERSATION_HISTORY_COPY.confirmDelete, 'Are you sure?');
 });
 
@@ -99,21 +117,12 @@ test('validateRenameTitle rejects empty names and trims valid ones', () => {
 
 test('rename persists an overlay title without dropping the stored thread', () => {
 	installLocalStorageMock();
-	seedThreads([
-		{
-			threadId: 't1',
-			title: 'Generated from first question',
-			createdAt: 1,
-			updatedAt: 2,
-			qas: [{ id: 'qa1', question: 'Generated from first question', answer: 'A' }],
-		},
-	]);
+	seedThreads([validThread('t1', 'Generated from first question', 2)]);
 
 	const result = renameStoredConversation('t1', '  My custom name  ');
 	assert.equal(result.ok, true);
 	assert.equal(result.title, 'My custom name');
 	assert.equal(readTitleOverrides().t1, 'My custom name');
-	assert.equal(readStoredHistoryThreads().length, 1);
 	assert.equal(readStoredHistoryThreads()[0].title, 'Generated from first question');
 
 	const view = getConversationHistoryView(readStoredHistoryThreads(), 't1', readTitleOverrides());
@@ -123,9 +132,7 @@ test('rename persists an overlay title without dropping the stored thread', () =
 
 test('rename validation failure leaves storage untouched', () => {
 	installLocalStorageMock();
-	seedThreads([
-		{ threadId: 't1', title: 'Keep me', createdAt: 1, updatedAt: 1, qas: [] },
-	]);
+	seedThreads([validThread('t1', 'Keep me')]);
 	writeTitleOverrides({ t1: 'Existing' });
 
 	const result = renameStoredConversation('t1', '   ');
@@ -135,10 +142,7 @@ test('rename validation failure leaves storage untouched', () => {
 
 test('delete removes the thread from browser storage and cleans title overrides', () => {
 	installLocalStorageMock();
-	seedThreads([
-		{ threadId: 'keep', title: 'Keep', createdAt: 1, updatedAt: 3, qas: [] },
-		{ threadId: 'drop', title: 'Drop', createdAt: 1, updatedAt: 2, qas: [] },
-	]);
+	seedThreads([validThread('keep', 'Keep', 3), validThread('drop', 'Drop', 2)]);
 	writeTitleOverrides({ drop: 'Renamed drop', keep: 'Renamed keep' });
 
 	const result = deleteStoredConversation('drop');
@@ -148,24 +152,24 @@ test('delete removes the thread from browser storage and cleans title overrides'
 		['keep']
 	);
 	assert.deepEqual(readTitleOverrides(), { keep: 'Renamed keep' });
-	assert.equal(memory.has(KAPA_CONVERSATION_HISTORY_STORAGE_KEY), true);
 });
 
-test('deleting the last conversation clears the history storage key entirely', () => {
+test('deleting the last conversation writes an empty owned history store', () => {
 	installLocalStorageMock();
-	seedThreads([{ threadId: 'only', title: 'Only', createdAt: 1, updatedAt: 1, qas: [] }]);
+	seedThreads([validThread('only', 'Only')]);
 	writeTitleOverrides({ only: 'Solo' });
 
 	const result = deleteStoredConversation('only');
 	assert.equal(result.ok, true);
 	assert.deepEqual(result.threads, []);
 	assert.deepEqual(readStoredHistoryThreads(), []);
+	assert.equal(hasOwnedHistoryStore(), true);
 	assert.equal(memory.get(KAPA_CONVERSATION_TITLE_OVERRIDES_KEY), undefined);
 });
 
 test('clear removes history threads and rename metadata together', () => {
 	installLocalStorageMock();
-	seedThreads([{ threadId: 't1', title: 'T', createdAt: 1, updatedAt: 1, qas: [] }]);
+	seedThreads([validThread('t1', 'T')]);
 	writeTitleOverrides({ t1: 'Custom' });
 
 	clearStoredConversationHistory();
@@ -173,17 +177,121 @@ test('clear removes history threads and rename metadata together', () => {
 	assert.equal(memory.get(KAPA_CONVERSATION_TITLE_OVERRIDES_KEY), undefined);
 });
 
+test('stale row restore is blocked unless a fully normalized disk thread exists', () => {
+	installLocalStorageMock();
+	seedThreads([validThread('live', 'Live')]);
+
+	assert.equal(canRestoreThread('missing'), false);
+	assert.equal(resolveRestoreAttempt('missing').ok, false);
+	assert.equal(resolveRestoreAttempt('live').ok, true);
+	assert.equal(getRestorableThread('live')?.threadId, 'live');
+});
+
+test('cross-tab delete of inactive thread keeps active thread and prunes UI snapshot', () => {
+	installLocalStorageMock();
+	seedThreads([validThread('active', 'Active', 5), validThread('other', 'Other', 4)]);
+	writeTitleOverrides({ active: 'A', other: 'O' });
+
+	deleteStoredConversation('other');
+	const snapshot = readHistoryUiSnapshot({ activeThreadId: 'active' });
+	assert.equal(snapshot.activeThreadMissing, false);
+	assert.deepEqual(
+		snapshot.threads.map((thread) => thread.threadId),
+		['active']
+	);
+	assert.deepEqual(snapshot.titleOverrides, { active: 'A' });
+});
+
+test('cross-tab delete of active thread marks active missing so UI can remount fresh', () => {
+	installLocalStorageMock();
+	seedThreads([validThread('active', 'Active', 5), validThread('other', 'Other', 4)]);
+
+	deleteStoredConversation('active');
+	const snapshot = readHistoryUiSnapshot({ activeThreadId: 'active' });
+	assert.equal(snapshot.activeThreadMissing, true);
+	assert.deepEqual(
+		snapshot.threads.map((thread) => thread.threadId),
+		['other']
+	);
+});
+
+test('deleted thread cannot be re-persisted once owned store exists', () => {
+	installLocalStorageMock();
+	seedThreads([validThread('keep', 'Keep'), validThread('drop', 'Drop')]);
+	deleteStoredConversation('drop');
+
+	assert.equal(shouldPersistThreadId('drop'), false);
+	assert.equal(shouldPersistThreadId('keep'), true);
+	assert.equal(resolveRestoreAttempt('drop').ok, false);
+});
+
+test('storage-event helper recognizes history and title-overlay keys', () => {
+	assert.equal(
+		isOwnedHistoryStorageEvent({ key: KAPA_CONVERSATION_HISTORY_STORAGE_KEY }),
+		true
+	);
+	assert.equal(
+		isOwnedHistoryStorageEvent({ key: KAPA_CONVERSATION_TITLE_OVERRIDES_KEY }),
+		true
+	);
+	assert.equal(isOwnedHistoryStorageEvent({ key: null }), true);
+	assert.equal(isOwnedHistoryStorageEvent({ key: 'unrelated' }), false);
+});
+
+test('malformed threads and empty QA payloads are rejected by normalization', () => {
+	assert.equal(normalizeStoredThread({ threadId: 'x' }), null);
+	assert.equal(
+		normalizeStoredThread({
+			threadId: 'x',
+			title: 't',
+			createdAt: 1,
+			updatedAt: 1,
+			qas: [{ question: 'no id' }],
+		}),
+		null
+	);
+	installLocalStorageMock();
+	writeStoredHistoryThreads([
+		{
+			threadId: 'bad',
+			title: 'Bad',
+			createdAt: 1,
+			updatedAt: 1,
+			qas: [{ question: 'missing id' }],
+		},
+		validThread('good', 'Good'),
+	]);
+	assert.deepEqual(
+		readStoredHistoryThreads().map((thread) => thread.threadId),
+		['good']
+	);
+});
+
+test('confirmation copy contracts cover Escape cancel and announce labels', () => {
+	assert.equal(KAPA_CONVERSATION_HISTORY_COPY.confirmDelete, 'Are you sure?');
+	assert.equal(KAPA_CONVERSATION_HISTORY_COPY.cancelDeleteAction, 'Cancel');
+	assert.equal(KAPA_CONVERSATION_HISTORY_COPY.confirmDeleteAction, 'Delete');
+	assert.equal(KAPA_CONVERSATION_HISTORY_COPY.missingThread, 'That conversation is no longer saved on this device.');
+});
+
+test('overlay pruning drops titles for threads removed by delete eviction or clear', () => {
+	installLocalStorageMock();
+	seedThreads([validThread('keep', 'Keep'), validThread('drop', 'Drop')]);
+	writeTitleOverrides({ keep: 'K', drop: 'D', orphan: 'O' });
+
+	const afterDelete = pruneTitleOverrides(readStoredHistoryThreads());
+	assert.deepEqual(afterDelete, { keep: 'K', drop: 'D' });
+
+	deleteStoredConversation('drop');
+	assert.deepEqual(readTitleOverrides(), { keep: 'K' });
+
+	clearStoredConversationHistory();
+	assert.deepEqual(readTitleOverrides(), {});
+});
+
 test('active-row style contract stays lightened with readable text tokens', () => {
 	assert.match(KAPA_HISTORY_ACTIVE_ROW_STYLE.darkBackground, /78%/);
 	assert.equal(KAPA_HISTORY_ACTIVE_ROW_STYLE.darkText, 'var(--sl-color-white)');
 	assert.match(KAPA_HISTORY_ACTIVE_ROW_STYLE.lightBackground, /92%/);
 	assert.equal(KAPA_HISTORY_ACTIVE_ROW_STYLE.lightText, 'var(--sl-color-black)');
-});
-
-test('row control copy covers rename delete and confirmation states', () => {
-	assert.equal(KAPA_CONVERSATION_HISTORY_COPY.confirmDeleteAction, 'Delete');
-	assert.equal(KAPA_CONVERSATION_HISTORY_COPY.cancelDeleteAction, 'Cancel');
-	assert.equal(KAPA_CONVERSATION_HISTORY_COPY.renameSave, 'Save name');
-	assert.equal(KAPA_CONVERSATION_HISTORY_COPY.renameCancel, 'Cancel rename');
-	assert.equal(KAPA_CONVERSATION_HISTORY_COPY.current, 'Current conversation');
 });

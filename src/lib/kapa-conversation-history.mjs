@@ -22,6 +22,7 @@ export const KAPA_CONVERSATION_HISTORY_COPY = Object.freeze({
 	renameSave: 'Save name',
 	renameCancel: 'Cancel rename',
 	current: 'Current conversation',
+	missingThread: 'That conversation is no longer saved on this device.',
 });
 
 /** Lightened active-row tokens for static/contrast contracts. */
@@ -66,23 +67,109 @@ function removeStorage(key) {
 	}
 }
 
+function objectItems(value) {
+	return Array.isArray(value)
+		? value.filter((item) => item !== null && typeof item === 'object')
+		: [];
+}
+
+/** Mirrors Chat SDK QA normalization so unrestorable rows are never listed. */
+export function normalizeStoredQA(value) {
+	if (!value || typeof value !== 'object') return null;
+	const raw = value;
+	if (typeof raw.id !== 'string' || raw.id.length === 0) return null;
+	const rawThinking = raw.thinking;
+	const thinking =
+		rawThinking && typeof rawThinking.startedAt === 'number'
+			? {
+					startedAt: rawThinking.startedAt,
+					completedAt:
+						typeof rawThinking.completedAt === 'number'
+							? rawThinking.completedAt
+							: rawThinking.startedAt,
+				}
+			: undefined;
+	return {
+		id: raw.id,
+		question: typeof raw.question === 'string' ? raw.question : '',
+		answer: typeof raw.answer === 'string' ? raw.answer : '',
+		sources: objectItems(raw.sources),
+		files: objectItems(raw.files),
+		toolCalls: objectItems(raw.toolCalls),
+		reaction: raw.reaction === 'upvote' || raw.reaction === 'downvote' ? raw.reaction : null,
+		isGenerationAborted: raw.isGenerationAborted === true,
+		isFeedbackSubmissionEnabled: true,
+		status: 'completed',
+		metadata: {
+			is_uncertain:
+				typeof raw.metadata === 'object' &&
+				raw.metadata !== null &&
+				raw.metadata.is_uncertain === true,
+		},
+		thinking,
+	};
+}
+
+/** Mirrors Chat SDK thread normalization requirements. */
+export function normalizeStoredThread(value) {
+	if (!value || typeof value !== 'object') return null;
+	const thread = value;
+	if (
+		typeof thread.threadId !== 'string' ||
+		thread.threadId.length === 0 ||
+		typeof thread.title !== 'string' ||
+		typeof thread.createdAt !== 'number' ||
+		typeof thread.updatedAt !== 'number' ||
+		!Array.isArray(thread.qas)
+	) {
+		return null;
+	}
+	const qas = thread.qas.map(normalizeStoredQA).filter((qa) => qa !== null);
+	if (qas.length === 0) return null;
+	return {
+		threadId: thread.threadId,
+		title: thread.title,
+		createdAt: thread.createdAt,
+		updatedAt: thread.updatedAt,
+		qas,
+	};
+}
+
+export function hasOwnedHistoryStore(storageKey = KAPA_CONVERSATION_HISTORY_STORAGE_KEY) {
+	return readStorage(storageKey) !== null;
+}
+
 export function readStoredHistoryThreads(storageKey = KAPA_CONVERSATION_HISTORY_STORAGE_KEY) {
 	const parsed = safeParseJson(readStorage(storageKey));
 	if (!parsed || !Array.isArray(parsed.threads)) return [];
 	return parsed.threads
-		.filter((thread) => thread && typeof thread.threadId === 'string')
-		.sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0));
+		.map(normalizeStoredThread)
+		.filter((thread) => thread !== null)
+		.sort((a, b) => b.updatedAt - a.updatedAt);
 }
 
 export function writeStoredHistoryThreads(
 	threads,
 	storageKey = KAPA_CONVERSATION_HISTORY_STORAGE_KEY
 ) {
+	const normalized = threads.map(normalizeStoredThread).filter((thread) => thread !== null);
 	const payload = JSON.stringify({
 		version: 1,
-		threads,
+		threads: normalized,
 	});
 	return writeStorage(storageKey, payload);
+}
+
+export function getRestorableThread(
+	threadId,
+	storageKey = KAPA_CONVERSATION_HISTORY_STORAGE_KEY
+) {
+	if (typeof threadId !== 'string' || threadId.length === 0) return null;
+	return readStoredHistoryThreads(storageKey).find((thread) => thread.threadId === threadId) || null;
+}
+
+export function canRestoreThread(threadId, storageKey = KAPA_CONVERSATION_HISTORY_STORAGE_KEY) {
+	return getRestorableThread(threadId, storageKey) !== null;
 }
 
 export function readTitleOverrides(key = KAPA_CONVERSATION_TITLE_OVERRIDES_KEY) {
@@ -109,6 +196,22 @@ export function writeTitleOverrides(overrides, key = KAPA_CONVERSATION_TITLE_OVE
 		return true;
 	}
 	return writeStorage(key, JSON.stringify(cleaned));
+}
+
+export function pruneTitleOverrides(
+	threads,
+	overridesKey = KAPA_CONVERSATION_TITLE_OVERRIDES_KEY
+) {
+	const liveIds = new Set(
+		(Array.isArray(threads) ? threads : []).map((thread) => thread.threadId).filter(Boolean)
+	);
+	const current = readTitleOverrides(overridesKey);
+	const next = {};
+	for (const [threadId, title] of Object.entries(current)) {
+		if (liveIds.has(threadId)) next[threadId] = title;
+	}
+	writeTitleOverrides(next, overridesKey);
+	return next;
 }
 
 export function validateRenameTitle(value) {
@@ -158,14 +261,10 @@ export function deleteStoredConversation(
 	const removed = threads.length !== existing.length;
 	if (removed) {
 		// Always write (including empty) so stale SDK in-memory threads cannot
-		// reappear before the next provider remount/completed answer.
+		// reappear before the next provider remount or completed answer.
 		writeStoredHistoryThreads(threads, storageKey);
 	}
-	const overrides = readTitleOverrides(overridesKey);
-	if (overrides[threadId]) {
-		delete overrides[threadId];
-		writeTitleOverrides(overrides, overridesKey);
-	}
+	pruneTitleOverrides(threads, overridesKey);
 	return { ok: removed, threads, deletedActiveCandidate: threadId };
 }
 
@@ -177,11 +276,69 @@ export function clearStoredConversationHistory({
 	removeStorage(overridesKey);
 }
 
-export function getConversationHistoryView(
-	threads,
-	activeThreadId,
-	titleOverrides = {}
-) {
+/**
+ * Snapshot used by the UI and by storage-event handlers.
+ * Disk is authoritative whenever the owned history key exists.
+ */
+export function readHistoryUiSnapshot({
+	storageKey = KAPA_CONVERSATION_HISTORY_STORAGE_KEY,
+	overridesKey = KAPA_CONVERSATION_TITLE_OVERRIDES_KEY,
+	sdkThreads = [],
+	activeThreadId = null,
+} = {}) {
+	const owned = hasOwnedHistoryStore(storageKey);
+	const threads = owned ? readStoredHistoryThreads(storageKey) : sdkThreads.map(normalizeStoredThread).filter(Boolean);
+	const titleOverrides = pruneTitleOverrides(threads, overridesKey);
+	const activeStillPresent =
+		typeof activeThreadId === 'string' &&
+		activeThreadId.length > 0 &&
+		threads.some((thread) => thread.threadId === activeThreadId);
+	return {
+		owned,
+		threads,
+		titleOverrides,
+		activeThreadMissing: Boolean(activeThreadId) && owned && !activeStillPresent,
+		view: getConversationHistoryView(threads, activeThreadId, titleOverrides),
+	};
+}
+
+export function isOwnedHistoryStorageEvent(event, {
+	storageKey = KAPA_CONVERSATION_HISTORY_STORAGE_KEY,
+	overridesKey = KAPA_CONVERSATION_TITLE_OVERRIDES_KEY,
+} = {}) {
+	if (!event) return false;
+	// A null key means clear() wiped the whole origin storage.
+	if (event.key === null) return true;
+	return event.key === storageKey || event.key === overridesKey;
+}
+
+/**
+ * Pure decision helper for restore attempts.
+ * Never allow native restore unless a fully normalized disk thread exists.
+ */
+export function resolveRestoreAttempt(threadId, storageKey = KAPA_CONVERSATION_HISTORY_STORAGE_KEY) {
+	const thread = getRestorableThread(threadId, storageKey);
+	if (!thread) {
+		return {
+			ok: false,
+			reason: 'missing-or-invalid',
+			thread: null,
+			message: KAPA_CONVERSATION_HISTORY_COPY.missingThread,
+		};
+	}
+	return { ok: true, reason: null, thread, message: null };
+}
+
+/**
+ * After local deletion, SDK memory may still hold the thread. Callers must not
+ * re-persist deleted IDs; this helper models the guard used before any upsert path.
+ */
+export function shouldPersistThreadId(threadId, storageKey = KAPA_CONVERSATION_HISTORY_STORAGE_KEY) {
+	if (!hasOwnedHistoryStore(storageKey)) return true;
+	return canRestoreThread(threadId, storageKey);
+}
+
+export function getConversationHistoryView(threads, activeThreadId, titleOverrides = {}) {
 	const items = threads.map((thread) => {
 		const override = titleOverrides[thread.threadId];
 		const generatedTitle = typeof thread.title === 'string' ? thread.title.trim() : '';
