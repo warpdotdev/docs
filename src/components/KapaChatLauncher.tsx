@@ -25,12 +25,11 @@ import {
 	LuX,
 } from 'react-icons/lu';
 import './KapaChatLauncher.css';
+import { shouldShowSupportEscalation } from '../lib/kapa-support-escalation.js';
 
 const integrationId = PUBLIC_KAPA_INTEGRATION_ID;
 const title = 'Ask Warp';
 const welcomeMessage = 'What do you want to know about Warp?';
-const uncertaintyThreshold = 0.15;
-const conversationLengthThreshold = 3;
 const warpDocsMcpUrl = 'https://warp.mcp.kapa.ai';
 const warpDocsMcpConfig = JSON.stringify(
 	{
@@ -44,51 +43,6 @@ const warpDocsMcpConfig = JSON.stringify(
 
 type FeedbackReaction = 'upvote' | 'downvote';
 type McpCopyTarget = 'config' | 'url';
-type GenericRecord = Record<string, unknown>;
-
-function isObject(value: unknown): value is GenericRecord {
-	return typeof value === 'object' && value !== null;
-}
-
-function readNumberField(record: GenericRecord, key: string) {
-	const value = record[key];
-	if (typeof value === 'number' && Number.isFinite(value)) return value;
-	if (typeof value === 'string') {
-		const parsed = Number(value);
-		if (Number.isFinite(parsed)) return parsed;
-	}
-	return null;
-}
-
-function readBooleanField(record: GenericRecord, key: string) {
-	const value = record[key];
-	if (typeof value === 'boolean') return value;
-	if (typeof value === 'string') {
-		const normalized = value.trim().toLowerCase();
-		if (normalized === 'true') return true;
-		if (normalized === 'false') return false;
-	}
-	return null;
-}
-
-function getUncertaintyScore(metadata: unknown) {
-	if (!isObject(metadata)) return null;
-	return (
-		readNumberField(metadata, 'uncertainty') ??
-		readNumberField(metadata, 'uncertainty_score') ??
-		readNumberField(metadata, 'uncertaintyScore')
-	);
-}
-
-function isAnswerUncertain(metadata: unknown) {
-	if (!isObject(metadata)) return false;
-	const flag =
-		readBooleanField(metadata, 'is_uncertain') ??
-		readBooleanField(metadata, 'isUncertain');
-	if (flag === true) return true;
-	const score = getUncertaintyScore(metadata);
-	return score !== null ? score >= uncertaintyThreshold : false;
-}
 
 function getChatErrorMessage(error: unknown) {
 	const message = typeof error === 'string' ? error : String(error ?? '');
@@ -636,15 +590,13 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	const shouldShowSupportForAnswer = (qa: {
 		id?: string | null;
 		answer?: string | null;
-		metadata?: unknown;
 		reaction?: string | null;
-	}) => {
-		if (!qa.answer?.trim()) return false;
-		const conversationLengthTriggered = conversation.length >= conversationLengthThreshold;
-		const downvoteTriggered = isDownvoted(qa.id ?? null, qa.reaction ?? null);
-		const uncertaintyTriggered = isAnswerUncertain(qa.metadata);
-		return conversationLengthTriggered || downvoteTriggered || uncertaintyTriggered;
-	};
+	}) =>
+		shouldShowSupportEscalation({
+			answer: qa.answer,
+			conversationLength: conversation.length,
+			isDownvoted: isDownvoted(qa.id ?? null, qa.reaction ?? null),
+		});
 
 	const openPanel = () => {
 		// If the Pagefind search dialog is open with a query typed in, hand
