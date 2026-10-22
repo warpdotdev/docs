@@ -4,12 +4,11 @@ import {
 	Children,
 	isValidElement,
 	useEffect,
-	useMemo,
 	useRef,
 	useState,
 } from 'react';
-import { CaptchaAction, KapaProvider, useCaptcha, useChat } from '@kapaai/react-sdk';
-import { PUBLIC_KAPA_INTEGRATION_ID, PUBLIC_KAPA_PROJECT_ID } from 'astro:env/client';
+import { KapaProvider, useChat } from '@kapaai/react-sdk';
+import { PUBLIC_KAPA_INTEGRATION_ID } from 'astro:env/client';
 import { isMac, keymatch } from 'keymatch';
 import ReactMarkdown from 'react-markdown';
 import {
@@ -28,12 +27,10 @@ import {
 import './KapaChatLauncher.css';
 
 const integrationId = PUBLIC_KAPA_INTEGRATION_ID;
-const projectId = PUBLIC_KAPA_PROJECT_ID?.trim() || '';
 const title = 'Ask Warp';
 const welcomeMessage = 'What do you want to know about Warp?';
 const uncertaintyThreshold = 0.15;
 const conversationLengthThreshold = 3;
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const warpDocsMcpUrl = 'https://warp.mcp.kapa.ai';
 const warpDocsMcpConfig = JSON.stringify(
 	{
@@ -48,9 +45,6 @@ const warpDocsMcpConfig = JSON.stringify(
 type FeedbackReaction = 'upvote' | 'downvote';
 type McpCopyTarget = 'config' | 'url';
 type GenericRecord = Record<string, unknown>;
-type HandoffApiSuccess = {
-	message?: string;
-};
 
 function isObject(value: unknown): value is GenericRecord {
 	return typeof value === 'object' && value !== null;
@@ -96,9 +90,6 @@ function isAnswerUncertain(metadata: unknown) {
 	return score !== null ? score >= uncertaintyThreshold : false;
 }
 
-function isValidEmailAddress(value: string) {
-	return emailPattern.test(value.trim());
-}
 function getChatErrorMessage(error: unknown) {
 	const message = typeof error === 'string' ? error : String(error ?? '');
 	const normalized = message.toLowerCase();
@@ -529,13 +520,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	const [query, setQuery] = useState('');
 	const [hasStartedConversation, setHasStartedConversation] = useState(false);
 	const [isAppleDevice, setIsAppleDevice] = useState(false);
-	const [storedThreadId, setStoredThreadId] = useState<string | null>(null);
 	const [downvotedAnswerIds, setDownvotedAnswerIds] = useState<Record<string, true>>({});
-	const [handoffEmailInput, setHandoffEmailInput] = useState('');
-	const [handoffQaId, setHandoffQaId] = useState<string | null>(null);
-	const [handoffErrorMessage, setHandoffErrorMessage] = useState<string | null>(null);
-	const [handoffSuccessMessage, setHandoffSuccessMessage] = useState<string | null>(null);
-	const [isSubmittingHandoff, setIsSubmittingHandoff] = useState(false);
 	const [copiedMcpValue, setCopiedMcpValue] = useState<McpCopyTarget | null>(null);
 	const messagesRef = useRef<HTMLDivElement | null>(null);
 	const dialogRef = useRef<HTMLDialogElement | null>(null);
@@ -550,9 +535,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		isGeneratingAnswer,
 		isPreparingAnswer,
 		submitQuery,
-		threadId,
 	} = useChat();
-	const { executeCaptcha } = useCaptcha();
 
 	useEffect(() => {
 		setIsAppleDevice(isMac());
@@ -566,19 +549,6 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	}, []);
 
 	useEffect(() => {
-		const savedThreadId = localStorage.getItem('warp_docs_kapa_thread_id');
-		if (savedThreadId) {
-			setStoredThreadId(savedThreadId);
-		}
-	}, []);
-
-	useEffect(() => {
-		if (!threadId) return;
-		setStoredThreadId(threadId);
-		localStorage.setItem('warp_docs_kapa_thread_id', threadId);
-	}, [threadId]);
-
-	useEffect(() => {
 		if (!isOpen || !messagesRef.current) return;
 		messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
 	}, [conversation.length, isOpen]);
@@ -588,23 +558,6 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		if (!isGeneratingAnswer && !isPreparingAnswer) return;
 		messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
 	}, [conversation, isGeneratingAnswer, isOpen, isPreparingAnswer]);
-
-	useEffect(() => {
-		if (!handoffQaId || !isOpen) return;
-		const frame = window.requestAnimationFrame(() => {
-			const inlineForm = document.getElementById(`sl-kapa-handoff-inline-${handoffQaId}`);
-			if (!inlineForm) return;
-			inlineForm.scrollIntoView({
-				behavior: 'smooth',
-				block: 'nearest',
-			});
-			const emailInput = inlineForm.querySelector<HTMLInputElement>('input[type="email"]');
-			emailInput?.focus();
-		});
-		return () => {
-			window.cancelAnimationFrame(frame);
-		};
-	}, [handoffQaId, isOpen, conversation.length]);
 
 	useEffect(() => {
 		const dialog = dialogRef.current;
@@ -658,7 +611,6 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	const submit = () => {
 		const value = query.trim();
 		if (!value || isBusy) return;
-		closeHandoffForm();
 		submitQuery(value);
 		setHasStartedConversation(true);
 		setQuery('');
@@ -681,7 +633,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		return reaction === 'downvote' || downvotedAnswerIds[qaId] === true;
 	};
 
-	const shouldShowHandoffForAnswer = (qa: {
+	const shouldShowSupportForAnswer = (qa: {
 		id?: string | null;
 		answer?: string | null;
 		metadata?: unknown;
@@ -692,102 +644,6 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		const downvoteTriggered = isDownvoted(qa.id ?? null, qa.reaction ?? null);
 		const uncertaintyTriggered = isAnswerUncertain(qa.metadata);
 		return conversationLengthTriggered || downvoteTriggered || uncertaintyTriggered;
-	};
-
-	const buildConversationTranscript = () => {
-		if (!conversation.length) return 'No conversation history yet.';
-		return conversation
-			.map((qa, index) => {
-				const sources = qa.sources?.length
-					? `\nSources:\n${qa.sources.map((source) => `- ${source.title}: ${source.source_url}`).join('\n')}`
-					: '';
-				return `Q${index + 1}: ${qa.question}\nA${index + 1}: ${qa.answer || '(no answer generated yet)'}${sources}`;
-			})
-			.join('\n\n');
-	};
-
-	const buildConversationLink = (currentThreadId: string | null) => {
-		if (!projectId || !currentThreadId) return null;
-		return `https://app.kapa.ai/${projectId}/conversations/${currentThreadId}`;
-	};
-
-	const openHandoffForm = (qaId: string) => {
-		setHandoffQaId(qaId);
-		setHandoffErrorMessage(null);
-		setHandoffSuccessMessage(null);
-	};
-
-	const closeHandoffForm = () => {
-		setHandoffQaId(null);
-		setHandoffErrorMessage(null);
-		setHandoffSuccessMessage(null);
-	};
-
-	const submitSupportHandoff = async (qa: { id?: string | null; question?: string }) => {
-		if (isSubmittingHandoff) return;
-		const userEmail = handoffEmailInput.trim().toLowerCase();
-		if (!isValidEmailAddress(userEmail)) {
-			setHandoffErrorMessage('Enter a valid email address to continue.');
-			return;
-		}
-		const localStorageThreadId = localStorage.getItem('warp_docs_kapa_thread_id');
-		const activeThreadId = threadId || storedThreadId || localStorageThreadId;
-		if (!activeThreadId) {
-			setHandoffErrorMessage('Missing Kapa thread context; please send another message and try again.');
-			return;
-		}
-
-		const question = qa.question?.trim();
-		if (!question) {
-			setHandoffErrorMessage('Missing question context for handoff.');
-			return;
-		}
-
-		const conversationLink = buildConversationLink(activeThreadId);
-
-		setIsSubmittingHandoff(true);
-		setHandoffErrorMessage(null);
-		setHandoffSuccessMessage(null);
-		try {
-			let captcha;
-			try {
-				captcha = await executeCaptcha(CaptchaAction.FeedbackSubmit);
-			} catch {
-				setHandoffErrorMessage('Captcha verification could not be completed. Please try again.');
-				return;
-			}
-			if (!captcha?.token || !captcha?.key) {
-				setHandoffErrorMessage('Captcha verification did not return a token. Please try again.');
-				return;
-			}
-			const response = await fetch('/api/support-handoff', {
-				method: 'POST',
-				headers: {
-					'content-type': 'application/json',
-				},
-				body: JSON.stringify({
-					user_email: userEmail,
-					question,
-					page_url: window.location.href,
-					conversation_transcript: buildConversationTranscript(),
-					kapa_project_id: projectId || null,
-					kapa_thread_id: activeThreadId,
-					kapa_conversation_url: conversationLink || null,
-					captcha_token: captcha.token,
-					captcha_header: captcha.key,
-				}),
-			});
-			const payload: HandoffApiSuccess & { message?: string } = await response.json().catch(() => ({}));
-			if (!response.ok) {
-				setHandoffErrorMessage(payload.message || 'Could not create support ticket. Please try again.');
-				return;
-			}
-			setHandoffSuccessMessage(payload.message || 'Support ticket created successfully.');
-		} catch {
-			setHandoffErrorMessage('Could not reach support handoff service. Please try again.');
-		} finally {
-			setIsSubmittingHandoff(false);
-		}
 	};
 
 	const openPanel = () => {
@@ -1084,68 +940,14 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 											>
 												<LuThumbsDown aria-hidden="true" />
 											</button>
-											{shouldShowHandoffForAnswer(qa) ? (
-												<button
-													type="button"
-													className="sl-kapa-feedback__handoff"
-													onClick={() => openHandoffForm(qa.id as string)}
-												>
-													Create ticket
-												</button>
-											) : null}
 										</div>
 									) : null}
-									{handoffQaId === qa.id && !isBusy && shouldShowHandoffForAnswer(qa) ? (
-										<div
-											className="sl-kapa-handoff-inline"
-											id={`sl-kapa-handoff-inline-${qa.id}`}
-										>
-											<label htmlFor={`sl-kapa-handoff-email-${qa.id}`}>
-												Your Warp account email
-											</label>
-											<form
-												className="sl-kapa-handoff-inline__row"
-												onSubmit={(event) => {
-													event.preventDefault();
-													void submitSupportHandoff(qa);
-												}}
-											>
-												<input
-													id={`sl-kapa-handoff-email-${qa.id}`}
-													type="email"
-													placeholder="you@company.com"
-													value={handoffEmailInput}
-													onChange={(event) => setHandoffEmailInput(event.target.value)}
-													required
-												/>
-												<button
-													type="submit"
-													className="sl-kapa-feedback__handoff sl-kapa-feedback__handoff--submit"
-													disabled={isSubmittingHandoff}
-												>
-													{isSubmittingHandoff ? 'Submitting…' : 'Submit'}
-												</button>
-												<button
-													type="button"
-													className="sl-kapa-feedback__handoff sl-kapa-feedback__handoff--ghost"
-													onClick={closeHandoffForm}
-													disabled={isSubmittingHandoff}
-												>
-													Cancel
-												</button>
-											</form>
-											{handoffErrorMessage ? (
-												<p className="sl-kapa-handoff-inline__status sl-kapa-handoff-inline__status--error">
-													{handoffErrorMessage}
-												</p>
-											) : null}
-											{handoffSuccessMessage ? (
-												<p className="sl-kapa-handoff-inline__status sl-kapa-handoff-inline__status--success">
-													{handoffSuccessMessage}
-												</p>
-											) : null}
-										</div>
-									) : null}
+								{shouldShowSupportForAnswer(qa) ? (
+									<p className="sl-kapa-support">
+										Need more help? Email{' '}
+										<a href="mailto:support@warp.dev">support@warp.dev</a>.
+									</p>
+								) : null}
 								</div>
 							</div>
 						))}
@@ -1217,18 +1019,6 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 export default function KapaChatLauncher({ autoOpen = false }: { autoOpen?: boolean } = {}) {
 	const [chatSessionKey, setChatSessionKey] = useState(0);
 	const [sessionAutoOpen, setSessionAutoOpen] = useState(autoOpen);
-	const callbacks = useMemo(
-		() => ({
-			askAI: {
-				onAnswerGenerationCompleted: (data: { threadId?: string | null }) => {
-					if (data.threadId) {
-						localStorage.setItem('warp_docs_kapa_thread_id', data.threadId);
-					}
-				},
-			},
-		}),
-		[]
-	);
 	if (!integrationId) {
 		return null;
 	}
@@ -1243,7 +1033,6 @@ export default function KapaChatLauncher({ autoOpen = false }: { autoOpen?: bool
 		<KapaProvider
 			key={chatSessionKey}
 			integrationId={integrationId}
-			callbacks={callbacks}
 			// Anonymous first-party cookie (`kapa_web_id`). Default in the Kapa
 			// React SDK; set explicitly so we do not accidentally ship `none` again.
 			// https://docs.kapa.ai/dev/sdk/components/KapaProvider#user-tracking-mode
