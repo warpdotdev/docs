@@ -194,6 +194,102 @@ Repository substitutions for benchmark starting states. Each entry requires `sou
 **Optional.**
 Names of [managed secrets](/factories/secrets/) granted to every agent, in addition to secrets declared by an agent.
 
+### `networkPolicy`
+
+**Optional.**
+Restricts outbound network access for factory runs. Declare `networkPolicy` at the root of `factory.yaml` for every factory agent, or in an agent's frontmatter for that agent.
+
+If neither scope declares a policy, outbound access is unrestricted. Once either scope declares a policy, hosts not allowed by the combined policy are blocked, except for services required for the platform to function.
+
+```yaml title="factory.yaml"
+schemaVersion: v1alpha1
+name: payments-factory
+repositories:
+  - owner: acme
+    name: payments-service
+agentDefaults:
+  model: auto
+networkPolicy:
+  extends: warp/package-registries@1.0.0
+  allowedHosts:
+    - api.example.com
+  deniedHosts:
+    - blocked.example.com
+```
+
+| Field under `networkPolicy` | Description |
+| --- | --- |
+| `allowedHosts` | Optional list of hostnames or literal IP addresses to allow. |
+| `deniedHosts` | Optional list of hostnames or literal IP addresses to remove from user-configured allowances at either scope, including built-in policies. |
+| `extends` | Optional built-in policy reference, or list of references, in the form `<policy-name>@<version-selector>`. |
+
+Host entries don't accept URLs, ports, CIDRs, or wildcards. Hostnames are normalized to lowercase.
+
+An omitted or `null` policy contributes no restrictions at that scope. A policy containing only `deniedHosts` is not an unrestricted-access denylist.
+
+#### Factory and agent scope
+
+Factory and agent allowances combine; the agent policy doesn't replace the factory policy. A denial at either scope takes precedence over an allowance at either scope, including hosts supplied by `extends`.
+
+For example, this agent adds access to a documentation service but cannot re-allow the host denied in `factory.yaml` above:
+
+```markdown title="agents/reviewer/agent.md"
+---
+agentType: REVIEW
+networkPolicy:
+  allowedHosts:
+    - docs.example.com
+    - blocked.example.com
+---
+
+Review pull requests against the service documentation.
+```
+
+Policies cannot block services required for the platform to function, even through `deniedHosts`. Warp adds the required access for the run, including its repository forges, configured MCP servers, image registry, and agent data storage.
+
+#### Denying all outbound access
+
+To deny all outbound network access except required platform services, set an empty policy in `factory.yaml` and remove any `allowedHosts` or `extends` from agent policies:
+
+```yaml title="factory.yaml"
+networkPolicy: {}
+```
+
+An empty policy contributes no allowed hosts. Allowances from the other scope still apply, so an empty agent policy does not cancel factory allowances.
+
+#### Built-in policies and versions
+
+Built-in policies supply reusable allowed-host lists:
+
+| Policy name | Purpose |
+| --- | --- |
+| `warp/claude-code` | Inference and authentication services for Claude Code. |
+| `warp/codex` | Inference and authentication services for Codex. |
+| `warp/package-registries` | Package registries and source or release downloads used by development toolchains. |
+
+Use an exact version such as `warp/package-registries@1.0.0` to pin the policy. A semantic-version range such as `warp/claude-code@^1` selects the highest matching version; `warp/codex@latest` selects the highest stable version.
+
+To combine policies, use a list:
+
+```yaml
+networkPolicy:
+  extends:
+    - warp/package-registries@1.0.0
+    - warp/claude-code@^1
+```
+
+Query `GET /api/v1/networking/policies` on the {VARS.WARP_PLATFORM_API} for available policy names and versions. For authentication, see the [API reference](https://docs.warp.dev/api).
+
+```http
+GET https://app.warp.dev/api/v1/networking/policies
+```
+
+The response groups policies by `name`, with `latest_version` and a `versions` list. Each version includes `version`, `is_latest`, and `allowed_hosts`. The catalog excludes the platform's required-service allowances.
+
+#### Kubernetes support
+
+Network controls for the self-hosted Kubernetes backend are pending. Don't rely on `networkPolicy` to restrict Kubernetes task pods.
+
 ### `mcpServers`
 
 **Optional.**
@@ -402,6 +498,7 @@ All frontmatter keys are optional.
 | [`agentType`](#agenttype) | The agent's role. |
 | `credentialStrategy` | Overrides the factory-level [`credentialStrategy`](#credentialstrategy). Omit it to keep the agent's current setting. |
 | `spawnableBy` | Agents allowed to start this agent. Omit it to allow only the foreman, use an empty list to allow none, or list exact agent names. |
+| `networkPolicy` | Combines with the factory's [`networkPolicy`](#networkpolicy); denials at either scope take precedence over user-configured allowances. |
 | `model`, `harness` | Override the corresponding [`agentDefaults`](#agentdefaults). Set at most one. |
 | `runner`, `environmentId`, `secrets`, `mcpServers`, `workerHost`, `computerUseModel` | Override the corresponding [`agentDefaults`](#agentdefaults), subject to each field's inheritance rules. |
 | `idleTimeoutMinutes` | Keeps a completed session available for follow-up for 1 through 60 minutes. Omit it or use `null` to inherit. Without an inherited or run-level value, Warp uses 10 minutes, or 60 minutes for an orchestrated child run. |

@@ -31,6 +31,10 @@ With managed self-hosting, repository checkouts, commands, and sandbox files sta
 
 ![Self-hosted data security and boundaries diagram showing what stays in customer infrastructure, what Warp retains, and what transits Warp to model providers](../../../assets/agent-platform/data-security-boundaries.png)
 
+## Network controls
+
+Restrict outbound access with [`networkPolicy` in the factory definition](/factories/factory-as-code/#networkpolicy). The reference covers factory and agent scope, deny precedence, built-in policies, and pending Kubernetes support.
+
 ## Runners
 
 A runner selects the operating system, architecture, sandbox image, and vCPU and memory shape. The factory's [definition](/factories/factory-as-code/) supplies repositories, setup commands, and secrets. The factory definition sets the default runner with `agentDefaults.runner`. Individual agents and automations can override that default.
