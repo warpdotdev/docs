@@ -30,8 +30,8 @@ import {
 	LuLoaderCircle,
 	LuMessageSquare,
 	LuPlug,
+	LuPlus,
 	LuSend,
-	LuSquarePen,
 	LuThumbsDown,
 	LuThumbsUp,
 	LuX,
@@ -931,40 +931,42 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 			>
 					<div className="sl-kapa-panel">
 						<header className="sl-kapa-panel__header">
-						<button
-							type="button"
-							className="sl-kapa-icon-button sl-kapa-icon-button--ghost"
-							onClick={onNewConversation}
-							disabled={!hasStartedConversation}
-							aria-label="New conversation"
-							data-tooltip="New conversation"
-						>
-							<LuSquarePen aria-hidden="true" />
-						</button>
+						<div className="sl-kapa-panel__header-start">
+							<button
+								type="button"
+								className="sl-kapa-icon-button sl-kapa-icon-button--ghost"
+								onClick={() => setIsHistoryOpen((isOpen) => !isOpen)}
+								disabled={!isConversationHistoryEnabled || isBusy}
+								aria-label={
+									isHistoryOpen ? 'Return to current conversation' : 'Open conversation history'
+								}
+								aria-controls="sl-kapa-conversation-history"
+								aria-pressed={isHistoryOpen}
+								data-tooltip={isHistoryOpen ? 'Current conversation' : 'Conversation history'}
+							>
+								<LuHistory aria-hidden="true" />
+							</button>
+							<button
+								type="button"
+								className="sl-kapa-icon-button sl-kapa-icon-button--ghost"
+								onClick={onNewConversation}
+								disabled={!hasStartedConversation}
+								aria-label="New conversation"
+								data-tooltip="New conversation"
+							>
+								<LuPlus aria-hidden="true" />
+							</button>
+						</div>
 						<div className="sl-kapa-panel__header-actions">
-								<button
-									type="button"
-									className="sl-kapa-icon-button sl-kapa-icon-button--ghost"
-									onClick={() => setIsHistoryOpen((isOpen) => !isOpen)}
-									disabled={!isConversationHistoryEnabled || isBusy}
-									aria-label={
-										isHistoryOpen ? 'Return to current conversation' : 'Open conversation history'
-									}
-									aria-controls="sl-kapa-conversation-history"
-									aria-pressed={isHistoryOpen}
-									data-tooltip={isHistoryOpen ? 'Current conversation' : 'Conversation history'}
-								>
-									<LuHistory aria-hidden="true" />
-								</button>
 							<Popover.Root>
 								<Popover.Trigger asChild>
 									<button
 										type="button"
-										className="sl-kapa-mcp-connect__trigger"
-										aria-label="Connect to Warp Docs with MCP"
+										className="sl-kapa-icon-button sl-kapa-icon-button--ghost sl-kapa-icon-button--tooltip-end sl-kapa-mcp-connect__trigger"
+										aria-label="Connect with MCP"
+										data-tooltip="Connect with MCP"
 									>
 										<LuPlug aria-hidden="true" />
-										<span>Connect with MCP</span>
 									</button>
 								</Popover.Trigger>
 								<Popover.Content

@@ -42,48 +42,19 @@
 	border: 0;
 }
 
+.sl-kapa-panel__header-start,
 .sl-kapa-panel__header-actions {
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
 }
-.sl-kapa-mcp-connect__trigger {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: 0.375rem;
-	min-height: 2rem;
-	padding: 0.375rem 0.625rem;
-	border: 1px solid color-mix(in srgb, var(--sl-color-text-accent), var(--warp-control-border) 48%);
-	border-radius: var(--sl-radius-sm);
-	background: color-mix(in srgb, var(--sl-color-text-accent), var(--warp-control-bg) 88%);
-	color: var(--sl-color-text-accent);
-	font: inherit;
-	font-size: var(--sl-text-xs);
-	font-weight: 600;
-	line-height: 1.2;
-	white-space: nowrap;
-	cursor: pointer;
-	transition:
-		border-color 0.15s ease,
-		background-color 0.15s ease,
-		color 0.15s ease;
-}
 
-.sl-kapa-mcp-connect__trigger svg {
-	width: 0.875rem;
-	height: 0.875rem;
-	flex: none;
-}
-
-.sl-kapa-mcp-connect__trigger:hover,
 .sl-kapa-mcp-connect__trigger[data-state='open'] {
-	border-color: var(--sl-color-text-accent);
-	background: color-mix(in srgb, var(--sl-color-text-accent), var(--warp-control-bg) 78%);
-	color: var(--sl-color-white);
+	border-color: var(--warp-control-border-hover);
+	background: var(--warp-control-bg-hover);
+	color: var(--warp-control-text-hover);
 }
 
-.sl-kapa-mcp-connect__trigger:focus-visible,
 .sl-kapa-mcp-connect__action:focus-visible {
 	outline: 2px solid var(--sl-color-accent-high);
 	outline-offset: 2px;
@@ -303,6 +274,11 @@
 	transform: translateY(0);
 }
 
+.sl-kapa-icon-button--tooltip-end[data-tooltip]::after {
+	left: auto;
+	right: 0;
+}
+
 .sl-kapa-icon-button:hover:not(:disabled),
 .sl-kapa-feedback__button:hover:not(:disabled) {
 	border-color: var(--warp-control-border-hover);
@@ -421,10 +397,15 @@
 	cursor: pointer;
 }
 
-.sl-kapa-history__thread:hover,
-.sl-kapa-history__thread[aria-current='page'] {
+.sl-kapa-history__thread:hover {
 	border-color: var(--warp-control-border-hover);
 	background: var(--warp-control-bg-hover);
+}
+
+.sl-kapa-history__thread[aria-current='page'] {
+	border-color: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-gray-5) 55%);
+	background: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-black) 88%);
+	color: var(--sl-color-white);
 }
 
 .sl-kapa-history__thread > span:first-child {
@@ -439,6 +420,20 @@
 	color: var(--sl-color-text-accent);
 	font-size: var(--sl-text-2xs);
 	font-weight: 600;
+}
+
+.sl-kapa-history__thread[aria-current='page'] .sl-kapa-history__active {
+	color: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-white) 35%);
+}
+
+:root[data-theme='light'] .sl-kapa-history__thread[aria-current='page'] {
+	border-color: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-gray-5) 40%);
+	background: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-white) 88%);
+	color: var(--sl-color-black);
+}
+
+:root[data-theme='light'] .sl-kapa-history__thread[aria-current='page'] .sl-kapa-history__active {
+	color: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-black) 28%);
 }
 
 .sl-kapa-empty-state {
@@ -1217,31 +1212,9 @@
 		padding-inline: 0.75rem;
 	}
 
+	.sl-kapa-panel__header-start,
 	.sl-kapa-panel__header-actions {
 		gap: 0.25rem;
-	}
-
-	.sl-kapa-mcp-connect__trigger {
-		padding-inline: 0.5rem;
-	}
-}
-
-@media (max-width: 22rem) {
-	.sl-kapa-mcp-connect__trigger span {
-		position: absolute;
-		width: 1px;
-		height: 1px;
-		padding: 0;
-		margin: -1px;
-		overflow: hidden;
-		clip: rect(0, 0, 0, 0);
-		white-space: nowrap;
-		border: 0;
-	}
-
-	.sl-kapa-mcp-connect__trigger {
-		width: 2rem;
-		padding: 0;
 	}
 }
 
