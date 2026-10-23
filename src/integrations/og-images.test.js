@@ -1,12 +1,23 @@
 import assert from 'node:assert/strict';
-import { mkdtemp, mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
+import { spawnSync } from 'node:child_process';
+import { copyFile, mkdtemp, mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
+import { fileURLToPath } from 'node:url';
 import { parseHTML } from 'linkedom';
 import sharp from 'sharp';
 import { generateOgImages } from './og-images.js';
 import { renderOgImage } from '../lib/og-image.js';
+
+async function validateOutput(root) {
+	await copyFile(new URL('../../public/og-image.png', import.meta.url), path.join(root, 'og-image.png'));
+	const result = spawnSync(process.execPath, [
+		fileURLToPath(new URL('../../scripts/validate-og-images.mjs', import.meta.url)),
+		root,
+	], { encoding: 'utf8' });
+	assert.equal(result.status, 0, result.stderr);
+}
 
 const examples = [
 	'Quickstart',
@@ -80,6 +91,7 @@ test('generates shared hashed assets and replaces duplicate metadata without alt
 	assert.equal(meta('description')[0].getAttribute('content'), 'Keep description');
 	assert.equal((await readdir(path.join(root, 'assets/og'))).length, 1);
 	assert.equal((await sharp(path.join(root, new URL(image).pathname)).metadata()).width, 1200);
+	await validateOutput(root);
 });
 
 test('uses document titles for custom pages and the existing default for untitled or unrenderable pages', async () => {
@@ -105,6 +117,7 @@ test('uses document titles for custom pages and the existing default for untitle
 	assert.equal(fallback.format, 'png');
 	assert.equal(fallback.width, 1200);
 	assert.equal(fallback.height, 630);
+	await validateOutput(root);
 });
 
 test('keeps metadata on a valid fallback when writing the rendered asset fails', async () => {
@@ -117,4 +130,5 @@ test('keeps metadata on a valid fallback when writing the rendered asset fails',
 	assert.equal(warnings.length, 1);
 	const { document } = parseHTML(await readFile(path.join(root, 'index.html'), 'utf8'));
 	assert.equal(document.querySelector('meta[property="og:image"]').getAttribute('content'), 'https://docs.warp.dev/og-image.png');
+	await validateOutput(root);
 });

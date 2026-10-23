@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseHTML } from 'linkedom';
 import { renderOgImage } from '../lib/og-image.js';
-import { socialImageMeta } from '../lib/social-image.js';
+import { socialImageMeta, socialImageTitle } from '../lib/social-image.js';
 
 export default function ogImages() {
 	return {
@@ -49,11 +49,7 @@ export async function generateOgImages(outputRoot, logger) {
 				const html = await readFile(filename, 'utf8');
 				const { document } = parseHTML(html);
 				if (!document.head) continue;
-				// Read the rendered heading so MDX variables and custom pages use
-				// the same title a reader sees, not raw frontmatter tokens.
-				const title = (document.querySelector('h1')?.textContent ??
-					document.querySelector('title')?.textContent?.replace(/\s+\|\s+Warp$/, '') ??
-					'').replace(/\s+/g, ' ').trim();
+				const title = socialImageTitle(document);
 				const imagePath = await imageForTitle(title);
 				await writeFile(filename, replaceSocialImageMeta(html, document, imagePath, title));
 				count++;

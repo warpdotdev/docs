@@ -4,11 +4,14 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseHTML } from 'linkedom';
 import sharp from 'sharp';
-import { socialImageMeta } from '../src/lib/social-image.js';
+import { socialImageMeta, socialImageTitle } from '../src/lib/social-image.js';
 
-const root = fileURLToPath(new URL('../.vercel/output/static/', import.meta.url));
+const root = process.argv[2]
+	? path.resolve(process.argv[2])
+	: fileURLToPath(new URL('../.vercel/output/static/', import.meta.url));
 const images = new Set();
 let pages = 0;
+let fallbackPages = 0;
 
 async function walk(directory) {
 	for (const entry of await readdir(directory, { withFileTypes: true })) {
@@ -19,12 +22,15 @@ async function walk(directory) {
 		}
 		if (!entry.name.endsWith('.html')) continue;
 		const { document } = parseHTML(await readFile(filename, 'utf8'));
-		const title = document.querySelector('h1')?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+		const title = socialImageTitle(document);
 		const imageTags = document.querySelectorAll('meta[property="og:image"]');
 		assert.equal(imageTags.length, 1, `${filename}: duplicate or missing image`);
 		const url = new URL(imageTags[0].getAttribute('content'));
 		assert.equal(url.origin, 'https://docs.warp.dev');
-		assert.match(url.pathname, title ? /^\/assets\/og\/[a-f0-9]{24}\.png$/ : /^\/og-image\.png$/);
+		assert.match(url.pathname, title
+			? /^\/(?:assets\/og\/[a-f0-9]{24}|og-image)\.png$/
+			: /^\/og-image\.png$/);
+		if (url.pathname === '/og-image.png') fallbackPages++;
 		for (const { attrs } of socialImageMeta(url.pathname, title)) {
 			const key = attrs.property ?? attrs.name;
 			const attribute = attrs.property ? 'property' : 'name';
@@ -45,4 +51,4 @@ for (const imagePath of [...images, '/og-image.png']) {
 	assert.equal(metadata.width, 1200, imagePath);
 	assert.equal(metadata.height, 630, imagePath);
 }
-console.log(`Verified OG/Twitter metadata on ${pages} pages and ${images.size} PNG previews (1200×630).`);
+console.log(`Verified OG/Twitter metadata on ${pages} pages and ${images.size} PNG previews (1200×630); ${fallbackPages} pages use the default image.`);

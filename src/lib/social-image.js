@@ -1,5 +1,13 @@
 import { DOCS_ORIGIN } from './site.js';
 
+export function socialImageTitle(document) {
+	// Read the rendered heading so MDX variables and custom pages use
+	// the same title a reader sees, not raw frontmatter tokens.
+	return (document.querySelector('h1')?.textContent ??
+		document.querySelector('title')?.textContent?.replace(/\s+\|\s+Warp$/, '') ??
+		'').replace(/\s+/g, ' ').trim();
+}
+
 /** @returns {Array<{ tag: 'meta', attrs: Record<string, string> }>} */
 export function socialImageMeta(imagePath = '/og-image.png', title = '') {
 	const url = new URL(imagePath, DOCS_ORIGIN).href;
