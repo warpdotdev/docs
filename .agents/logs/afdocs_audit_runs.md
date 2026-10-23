@@ -1,5 +1,14 @@
 # AFDocs audit run log
 
+## 2026-10-23 — valid
+- **Spec**: v0.6.0 — native afdocs CLI score
+- **Score**: 92/100 (A-)
+- **Checks**: 28 total — 24 pass, 2 fail, 0 warn
+- **Failing check ids**: llms-txt-links-markdown, content-negotiation
+- **Allowlisted**: 2
+- **Oz run**: https://platform.warp.dev/runs/01a167c6-317a-74b9-a39f-efdd414f1efa
+- **Notes**: Complete scan. Both failures allowlisted (OpenAPI YAML/JSON links in llms.txt; Vercel static hosting cannot honor Accept: text/markdown). No remaining fixable issues; afdocs-fix skipped. Score up from 83/100 on 2026-10-09 (page-size-html no longer failing). No regression.
+
 Written by the `afdocs-audit` skill on every scheduled run — clean, regressed, or blocked.
 
 This log serves two purposes:
