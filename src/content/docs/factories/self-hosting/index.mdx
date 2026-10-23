@@ -5,6 +5,7 @@ description: >-
   CLI from an orchestrator you control.
 ---
 import { VARS } from '@data/vars';
+import SelfHostedArchitecture from '@components/SelfHostedArchitecture.astro';
 
 Self-hosting runs cloud agent workloads on your infrastructure. You control the compute, network access, runtime secrets, and execution workspaces while Warp tracks each run.
 
@@ -58,6 +59,15 @@ Backend pages list the remaining runtime-specific requirements, such as Docker, 
 ## Managed architecture
 
 `oz-agent-worker` connects to the {VARS.WARP_AUTOMATION_PLATFORM}, waits for tasks addressed to its worker ID, and handles each task with the configured backend. Docker, Kubernetes, and Direct run the agent on worker infrastructure. Command hands the task to an external runtime.
+
+Warp hosts the control plane. The worker opens an outbound connection, so task assignment requires no inbound firewall port. The diagram shows customer-configured inference and run-data storage alongside self-hosted execution.
+
+{/* VERIFY: Supplied PNG needs corrected customer-infrastructure and isolated-runs labels; confirm or remove the Vertex example before publication. */}
+<SelfHostedArchitecture />
+
+Execution, inference, and storage are separate choices. The [Direct backend](/factories/self-hosting/managed-direct/) shares the host OS and kernel; the Command backend relies on your external runtime for isolation. For provider compatibility and data boundaries, see [factory infrastructure and security](/factories/infrastructure-and-security/).
+
+Transcripts, artifacts, and prompt attachments use Warp-managed storage by default. Configure [self-hosted agent data storage](/platform/data-storage/) separately to keep selected categories in your own bucket. Warp still retains control-plane data such as configuration, run metadata, operational logs, and billing records.
 
 Multiple long-lived workers can share an ID for load balancing. Use a unique ID for each one-shot Direct job.
 
@@ -147,7 +157,7 @@ Use unmanaged execution for an existing CI pipeline, Kubernetes Job, VM, or deve
 
 ## Security and observability
 
-Repository clones and execution workspaces stay on your infrastructure. Agent context and model requests still travel through Warp's services. See the [self-hosted execution flow](/platform/architecture/#self-hosted-execution-flow) for the architecture and [Security and networking](/platform/execution-security/) for data boundaries, ZDR, and BYOLLM.
+Repository clones and execution workspaces stay on your infrastructure, but prompts, transcripts, and artifacts can contain code context. The Warp Agent sends model requests through Warp; Claude Code and Codex call their providers directly from the execution environment. See [Security and networking](/platform/execution-security/) for data boundaries and [inference options for factory runs](/factories/infrastructure-and-security/#inference-options-for-factory-runs) for provider support.
 
 View managed and unmanaged runs in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>. Managed workers can also export OpenTelemetry metrics; see [Monitoring](/factories/self-hosting/monitoring/).
 
