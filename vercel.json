@@ -78,6 +78,16 @@
   ],
   "redirects": [
     {
+      "source": "/guides/agent-workflows/run-a-software-factory-in-the-cloud(/?)",
+      "destination": "/factories/quickstart/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/agent-workflows/run-a-software-factory-in-the-cloud.md",
+      "destination": "/factories/quickstart.md",
+      "statusCode": 308
+    },
+    {
       "source": "/platform/data-storage(/?)",
       "destination": "/factories/self-hosting/data-storage/",
       "statusCode": 308
