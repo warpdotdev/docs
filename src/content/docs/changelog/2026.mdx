@@ -6,6 +6,35 @@ description: >-
 
 Submit bugs and feature requests on our [GitHub board!](https://github.com/warpdotdev/Warp/issues/new/choose)
 
+### 2026.10.22 (v0.2026.10.21.08.25)
+
+**Improvements**
+
+* Preserve the explicit order of agent request inputs across tasks. ([#16328](https://github.com/warpdotdev/warp/pull/16328))
+* Support structured notifications and delayed-enter input for Antigravity CLI (agy) ([#16373](https://github.com/warpdotdev/warp/pull/16373)) — [@jgfurlan](https://github.com/jgfurlan) ✨
+* ChatGPT Business users can copy the admin-request message shown after a usage limit. ([#16522](https://github.com/warpdotdev/warp/pull/16522))
+
+**Bug fixes**
+
+* Agent patch deletions now remove files, and file moves save to their requested destination, including remote sessions. ([#16444](https://github.com/warpdotdev/warp/pull/16444))
+* Billing usage totals now include fractional credits and cents before rounding the displayed amounts. ([#16474](https://github.com/warpdotdev/warp/pull/16474))
+* Fixed Pi and other ACP-driven parent agent runs failing at exit with "Tried to add messages to non-existent task" when a child agent sent them a message. ([#16507](https://github.com/warpdotdev/warp/pull/16507))
+* ACP follow-up prompts no longer briefly show a cancelled status. ([#16513](https://github.com/warpdotdev/warp/pull/16513))
+* Use the selected Bash executable when starting shell sessions. ([#16520](https://github.com/warpdotdev/warp/pull/16520)) — [@maxmilian](https://github.com/maxmilian) ✨
+* Match cloud-agent command exits to the block where each command started. ([#16548](https://github.com/warpdotdev/warp/pull/16548))
+* Fixed a race that could leave completed agent command details expanded. ([#16564](https://github.com/warpdotdev/warp/pull/16564))
+* Fixed agent-run lists failing to load when the server returns an empty list as null. ([#16568](https://github.com/warpdotdev/warp/pull/16568))
+* Fix MCP startup compatibility by negotiating supported protocol revisions instead of initializing every server at the latest revision. ([#16574](https://github.com/warpdotdev/warp/pull/16574))
+* Pre-warmed cloud agents replace standby Git credentials and use the assigned run's author identity while preserving setup overrides. ([#16601](https://github.com/warpdotdev/warp/pull/16601))
+* Fixed connections to legacy MCP servers that reject newer protocol revisions with a transport-level version error. ([#16620](https://github.com/warpdotdev/warp/pull/16620))
+* Reject connections authenticated by compromised eMudhra intermediate certificates when using bundled certificate verification. ([#16622](https://github.com/warpdotdev/warp/pull/16622))
+
+**Oz updates**
+
+* Initial file attachments are sent as resource links to ACP agents, matching follow-ups. ([#16486](https://github.com/warpdotdev/warp/pull/16486))
+* A failed Git authentication no longer clears managed credentials needed by other cloud-agent checkouts. ([#16559](https://github.com/warpdotdev/warp/pull/16559))
+* Resumed runs can reuse pre-warmed sandboxes while preserving conversation history and queued follow-ups. ([#16598](https://github.com/warpdotdev/warp/pull/16598))
+
 ### 2026.10.15 (v0.2026.10.14.08.27)
 
 **Improvements**
