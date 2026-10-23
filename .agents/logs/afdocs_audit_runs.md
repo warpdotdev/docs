@@ -2,6 +2,16 @@
 
 ## 2026-10-23 — valid
 - **Spec**: v0.6.0 — native afdocs CLI score
+- **Score**: 90/100 (A-)
+- **Reliability**: complete; no bot-protection interference across 531 requests.
+- **Checks**: 28 total — 23 pass, 2 fail, 1 warn, 2 skip
+- **Failing check ids**: llms-txt-links-markdown, content-negotiation
+- **Allowlisted**: 3 (llms-txt-links-markdown, content-negotiation, markdown-content-parity)
+- **Oz run**: https://staging.warp.dev/conversation/2e199e33-8236-4eeb-8f4e-1f9db5b02cbc
+- **Notes**: Audit command exited 0; report retained as a run artifact (afdocs-report.json). Comparable baseline is the earlier complete 2026-10-23 entry on this standing branch, 92/100 with the same spec and native score method. Score decreased by 2 points, meeting the score-drop regression rule; no newly failing check IDs. The additional warning is minor markdown/HTML parity differences on 1/50 sampled pages, matching the documented escaping/sampling exception; the wrapper does not retain the affected page details. Both failures match known exceptions: intentional OpenAPI YAML/JSON links and Vercel static content negotiation. No remaining repo-fixable findings; afdocs-fix not invoked. No diagnostic interaction effects. Partial, blocked, legacy, and compatibility entries excluded from this native-score comparison. Node.js 24, npm, GitHub access, and connected Slack MCP channel access verified. Earlier unmerged entry preserved; no CDN/WAF changes, public-doc edits, or standalone schedule changes.
+
+## 2026-10-23 — valid
+- **Spec**: v0.6.0 — native afdocs CLI score
 - **Score**: 92/100 (A-)
 - **Checks**: 28 total — 24 pass, 2 fail, 0 warn
 - **Failing check ids**: llms-txt-links-markdown, content-negotiation
