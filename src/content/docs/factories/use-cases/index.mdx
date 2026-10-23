@@ -1,0 +1,61 @@
+---
+title: Factory use cases
+description: >-
+  Choose a practical Warp Factories recipe for issue triage, implementation,
+  code review, incident response, UI verification, or SDLC automation.
+sidebar:
+  label: Overview
+---
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+A recipe is a recommended configuration and set of instructions for completing a specific task with your factory. It combines agents, automations, integrations, skills, and repository controls. You can start with one task and test its results before connecting it to another. For example, your team might try issue triage on its own before asking the factory to implement approved issues.
+
+The examples use [definitions as code](/factories/factory-as-code/) so you can review changes, validate them in CI, and adapt the same pattern to a Warp-managed factory.
+
+## Choose a use case
+
+<CardGrid>
+  <LinkCard
+    title="Issue triage"
+    href="/factories/use-cases/issue-triage/"
+    description="Investigate, categorize, and prioritize incoming issues."
+  />
+  <LinkCard
+    title="Code review"
+    href="/factories/use-cases/code-review/"
+    description="Review pull requests and return actionable findings."
+  />
+  <LinkCard
+    title="Issue implementation"
+    href="/factories/use-cases/issue-implementation/"
+    description="Turn approved GitHub, Linear, or Jira issues into tested pull requests."
+  />
+  <LinkCard
+    title="Production incident resolution"
+    href="/factories/use-cases/production-incident-resolution/"
+    description="Investigate production signals and propose or implement a fix."
+  />
+  <LinkCard
+    title="Computer Use verification"
+    href="/factories/use-cases/computer-use-verification/"
+    description="Exercise a rendered interface and attach visual evidence."
+  />
+  <LinkCard
+    title="End-to-end SDLC automation"
+    href="/factories/use-cases/end-to-end-sdlc-automation/"
+    description="Connect triage, implementation, review, and verification with human gates."
+  />
+</CardGrid>
+
+## Start with the smallest recipe
+
+One factory can coordinate work across repositories that ship together. Before you add an automation, choose the event that should start work and check whether an existing automation already handles it. You can update that automation instead of adding another, or use nonoverlapping filters when you need separate automations. See [automation matching rules](/factories/automations/#how-matching-works).
+
+Each automation needs a clear task, a responsible agent, and an expected output. For work that spans several roles, the foreman coordinates the other agents. Your skills supply repository-specific procedures, such as required test commands or an incident runbook. People remain responsible for approving specifications, accepting risk, and merging changes.
+
+## Related pages
+
+* [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send its first work item
+* [Factory agents](/factories/factory-agents/) - Configure the default roles and add custom agents
+* [Factory automations](/factories/automations/) - Route provider events to agents with filters
+* [Factory definition syntax](/factories/factory-as-code/) - Look up configuration keys and validate definitions
