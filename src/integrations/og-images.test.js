@@ -56,10 +56,21 @@ test('fits short, multiline, extreme, unbroken and Unicode titles within the saf
 	assert.deepEqual(await renderOgImage('Quickstart'), await renderOgImage('Quickstart'));
 });
 
+test('leaves the auxiliary header and footer regions free of text', async () => {
+	const png = await renderOgImage('Skills for agents');
+	for (const region of [
+		{ left: 370, top: 70, width: 750, height: 80 },
+		{ left: 80, top: 540, width: 1040, height: 70 },
+	]) {
+		const pixels = await sharp(png).extract(region).removeAlpha().raw().toBuffer();
+		assert.ok(pixels.every((channel) => channel < 50), 'Only the logo and page title belong on the card');
+	}
+});
+
 test('generates shared hashed assets and replaces duplicate metadata without altering scripts or article HTML', async () => {
 	const root = await mkdtemp(path.join(os.tmpdir(), 'docs-og-'));
 	const script = '<script>const example = \'<meta property="og:image" content="example">\';</script>';
-	const body = '<body><h1>Cr&eacute;er &amp; &lt;configure&gt; 🚀</h1><p data-test=\'preserve\'>Article.</p></body>';
+	const body = '<body><h1>Cr&eacute;er &amp; &lt;configure&gt; 🚀</h1><p class="page-subtitle">Do not put this subtitle in the image.</p><p data-test=\'preserve\'>Article.</p></body>';
 	const html = `<!doctype html><html><head><title>Other title | Warp</title>
 		<meta property="og:image" content="/old.png">
 		<meta property="og:image" content="/duplicate.png">
@@ -91,6 +102,7 @@ test('generates shared hashed assets and replaces duplicate metadata without alt
 	assert.equal(meta('description')[0].getAttribute('content'), 'Keep description');
 	assert.equal((await readdir(path.join(root, 'assets/og'))).length, 1);
 	assert.equal((await sharp(path.join(root, new URL(image).pathname)).metadata()).width, 1200);
+	assert.deepEqual(await readFile(path.join(root, new URL(image).pathname)), await renderOgImage('Créer & <configure> 🚀'));
 	await validateOutput(root);
 });
 
@@ -113,6 +125,8 @@ test('uses document titles for custom pages and the existing default for untitle
 	const { document } = parseHTML(await readFile(path.join(root, 'custom.html'), 'utf8'));
 	assert.match(document.querySelector('meta[property="og:image"]').getAttribute('content'), /\/assets\/og\//);
 	assert.equal(document.querySelector('meta[property="og:image:alt"]').getAttribute('content'), 'Warp Docs — API reference');
+	const customImage = new URL(document.querySelector('meta[property="og:image"]').getAttribute('content'));
+	assert.deepEqual(await readFile(path.join(root, customImage.pathname)), await renderOgImage('API reference'));
 	const fallback = await sharp(new URL('../../public/og-image.png', import.meta.url).pathname).metadata();
 	assert.equal(fallback.format, 'png');
 	assert.equal(fallback.width, 1200);
