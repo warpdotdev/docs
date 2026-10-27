@@ -15,6 +15,7 @@ import { parse } from 'yaml';
 import { VARS } from '@data/vars';
 import WarpTopbar from '../components/WarpTopbar.astro';
 import DocsFeedbackLinks from '../components/DocsFeedbackLinks.astro';
+import { socialImageMeta } from '../lib/social-image.js';
 const yamlContent = fs.readFileSync('developers/agent-api-openapi.yaml', 'utf-8');
 const specObject = parse(yamlContent);
 const specJson = JSON.stringify(specObject);
@@ -47,15 +48,10 @@ const specBaseUrl = (specObject.servers as Array<{ url?: string }> | undefined)?
     <meta property="og:url" content="https://docs.warp.dev/api/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Warp Docs" />
-    <meta property="og:image" content="https://docs.warp.dev/assets/og/api.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${VARS.WARP_PLATFORM_API} reference — Warp`} />
+    {socialImageMeta('/og-image.png', `${VARS.WARP_PLATFORM_API} reference`).map(({ attrs }) => <meta {...attrs} />)}
     <!-- Twitter / X card -->
-    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`${VARS.WARP_PLATFORM_API} reference | Warp`} />
     <meta name="twitter:description" content={`Interactive reference for the ${VARS.WARP_PLATFORM_API}. Send work to factories and create and manage cloud agent runs.`} />
-    <meta name="twitter:image" content="https://docs.warp.dev/assets/og/api.png" />
     <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />

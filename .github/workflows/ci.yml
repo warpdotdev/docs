@@ -129,6 +129,9 @@ jobs:
       - name: Test heading variables
         run: npm run test:heading-vars
 
+      - name: Test social preview generation
+        run: npm run test:og-images
+
       - name: Test tracking redirect middleware
         run: npm run test:tracking-redirect
 
@@ -143,6 +146,9 @@ jobs:
 
       - name: Validate homepage JSON-LD
         run: npm run test:homepage-json-ld
+
+      - name: Validate social previews
+        run: npm run test:og-output
 
       - name: Check internal links
         run: python3 .agents/skills/check_for_broken_links/check_links.py --internal-only

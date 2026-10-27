@@ -1,0 +1,18 @@
+These fonts are used only by the build-time PNG renderer. They are not
+downloaded by docs readers. All are distributed under the SIL Open Font
+License; the accompanying *-OFL.txt files contain the license notices.
+
+Inter is the docs site's primary typeface. Noto provides fallback glyphs
+for CJK, Arabic, and emoji without depending on Vercel's system fonts.
+
+Inter.ttf
+https://github.com/google/fonts/blob/45e3d5269e4a17d823f6d84470bc084dc5ae46f6/ofl/inter/Inter%5Bopsz,wght%5D.ttf
+
+NotoSansArabic.ttf
+https://github.com/google/fonts/blob/45e3d5269e4a17d823f6d84470bc084dc5ae46f6/ofl/notosansarabic/NotoSansArabic%5Bwdth,wght%5D.ttf
+
+NotoEmoji.ttf
+https://github.com/google/fonts/blob/45e3d5269e4a17d823f6d84470bc084dc5ae46f6/ofl/notoemoji/NotoEmoji%5Bwght%5D.ttf
+
+NotoSansCJKsc-Regular.otf
+https://github.com/notofonts/noto-cjk/blob/f8d157532fbfaeda587e826d4cd5b21a49186f7c/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf
