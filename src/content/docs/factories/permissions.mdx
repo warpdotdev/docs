@@ -14,12 +14,15 @@ Role management requires an Enterprise plan. On other plans, team members have E
 
 | Action | User | Editor | Admin |
 | --- | --- | --- | --- |
+| Create factories (team-level role) | No | Yes | Yes |
 | View the factory and run work | Yes | Yes | Yes |
 | Edit the factory's name, handle, and definition | No | Yes | Yes |
 | Configure agents, repositories, and automations | No | Yes | Yes |
 | Attach existing secrets, MCP servers, and integrations | No | Yes | Yes |
 | Manage factory roles | No | No | Yes |
 | Delete the factory | No | No | Yes |
+
+Factory creation uses your team-level role. An Editor override for one factory doesn't grant permission to create factories.
 
 Team and workspace admins and owners inherit Admin access from their [team or workspace role](https://docs.warp.dev/enterprise/team-management/roles-and-permissions/). You can't assign Admin in a factory's role settings or reduce an admin's access with a User override.
 
@@ -42,7 +45,6 @@ For Enterprise team members who aren't admins, Warp uses the first role set in t
 
 Defaults apply to new and existing members without an assigned role. A workspace default takes priority over the team default. Explicit team roles and per-factory overrides stay unchanged.
 
-Team-level Editors and team or workspace admins can create factories. An Editor override for one factory doesn't let a teammate create others.
 
 ## Changing a team-level role
 
