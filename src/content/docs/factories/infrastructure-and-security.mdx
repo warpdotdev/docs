@@ -100,19 +100,7 @@ Scope each credential to the resources and actions its agent needs. Warp redacts
 
 ## Factory roles and permissions
 
-Factory creation uses the team-level Warp Factories role. Team and workspace admins and team-level Editors can create factories.
-
-Three roles govern an existing factory:
-
-| Role | Permissions |
-| --- | --- |
-| User | View and run the factory. Propose definition changes. |
-| Editor | Edit the definition and configure agents, repositories, and automations. Attach existing integrations, secrets, and MCP servers. Select existing runners. |
-| Admin | Manage members. Delete the factory. Force-merge blocked definition changes. |
-
-Team and workspace admins and owners always have the Admin role. Factory admins manage roles within their factory. Team and workspace admins manage the team-level Warp Factories role.
-
-Managing shared runners and connecting team-wide integrations and providers require separate team or workspace permissions.
+Factory roles control who can run and configure a factory. User and Editor roles are assignable; Admin access comes from team or workspace administration. See [Managing factory permissions](/factories/permissions/) for capabilities, defaults, and per-factory overrides.
 
 Factory roles don't control specification or pull request review. For factory definition changes, treat the files as operational code and protect merges through repository settings.
 
