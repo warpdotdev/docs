@@ -12,7 +12,7 @@ Custom routers automatically pick the right model for each task, using routing l
 * **Complexity-based routing** - Warp classifies each task's difficulty and routes to the model you mapped to that level.
 * **Rule-based routing** - Write natural-language rules that describe when to use each model.
 * **Any supported model** - Route to any concrete model you have access to, across providers.
-* **BYOK support** - With [your own API keys](/agents/inference/bring-your-own-api-key/) configured, requests that resolve to a model covered by one of your keys bill through your provider account instead of Warp credits.
+* **BYOK support** - With [your own API keys](/agents/inference/bring-your-own-api-key/) configured, inference for models covered by your keys is billed through your provider account instead of Warp.
 * **Settings or file** - Create a router in settings, or author it as a YAML file that Warp loads automatically.
 * **Team-synced routers** - Admins can share a router with an entire team (Enterprise).
 
@@ -113,17 +113,19 @@ To create one, an admin:
 
 Team-synced routers appear in the model picker for every team member, who can select them like any other router.
 
-## Credits and model availability
+<span id="credits-and-model-availability" />
 
-A custom router resolves to a concrete model, so credit usage matches whichever model the router selects for each task. See [Credits](/support-and-community/plans-and-billing/credits/) for how credits are consumed.
+## Usage and model availability
+
+A custom router's inference usage follows the model it selects. See [usage and billing](/support-and-community/plans-and-billing/credits/) for charge components and billing units.
 
 ### Using your own API keys (BYOK)
 
-Custom routers work with [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/). After the router resolves a task to a concrete model, Warp applies your API keys to that model — the same as selecting that model directly from the picker. Requests that resolve to a model covered by one of your keys are billed through your provider account and don't consume Warp credits; requests that resolve to a model without a matching key consume Warp credits as usual.
+Custom routers work with [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/). After the router selects a model, Warp applies your API keys as it would when selecting that model directly. Your provider bills inference covered by a matching key; requests without a matching key use Warp-provided inference. [Platform charges](/support-and-community/plans-and-billing/platform-credits/) still apply to eligible runs.
 
-This is different from Warp's built-in Auto models, which always consume Warp credits even when BYOK is configured.
+Warp's built-in Auto models use Warp-provided inference even when BYOK is configured.
 
-* **Running a router entirely on your own keys** - To use a router with no Warp credits available, your keys must cover every model the router references. If only some models are covered, you still need Warp credits for the requests that resolve to the uncovered models.
+* **Covering all routed models** - Configure a provider key for every model the router references. Requests without a matching key use Warp-provided inference.
 * **Team-managed keys (Business and Enterprise)** - [Team-managed API keys](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) apply to custom routers the same way; a member's own key for a provider takes precedence over the team's.
 * **No custom inference endpoints** - Routing targets must be Warp-supported models, so a router can't resolve to a model from a [custom inference endpoint](/agents/inference/custom-inference-endpoint/) and never draws on your endpoint.
 

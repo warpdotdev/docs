@@ -27,6 +27,8 @@ Describe what the reader sees and does. Internal components get at most one sent
 - ✅ "Warp tracks every run. Check its status from the CLI, the API, or the dashboard."
 - ❌ "The orchestration layer runs on Warp's servers (cloud control plane), creates tasks when triggers fire, and tracks lifecycle state (created → running → completed/failed)."
 
+Apply a reader-value test to technical detail: does it help someone choose, configure, verify, diagnose, or understand a charge or security boundary? Credential storage and request transit can inform a security decision; backend assembly steps, billing constants, internal feature flags, and implementation provenance usually don't. Keep verification evidence in the PR rather than narrating it in public prose.
+
 #### Order from intent to technical detail
 
 When readers need exact fields, IDs, or runtime labels, order the explanation from intent to implementation:
@@ -73,7 +75,7 @@ AI-drafted pages share a rhythm. Break it.
 - **Rhetorical question openers** - Don't open a section with a question you immediately answer. Use a descriptive header and a declarative first sentence.
 - **Hedging stacks** - Chains of "typically", "often", "generally", "where supported", and "as applicable" read as evasive. State what happens, then note the exception if there is one.
 - **Bold-everything** - Bolding several phrases per paragraph kills emphasis. Reserve bold for UI elements and lead terms of list items (see Emphasis).
-- **Bullets as a substitute for prose** - Bullets are for short, parallel, scannable items. If every bullet is a full paragraph, or the bullets tell a story in order, write prose.
+- **Bullets as a substitute for prose** - Bullets are for short, parallel, scannable items. If every bullet is a full paragraph, or the bullets tell a story in order, write prose. Connect a cause to its remedies, then explain the exception separately. A balance-exhaustion answer needs recovery options, not an unrelated token-limit caveat.
 - **Slashed shorthand** - Write "mentions and assignments", not "mention/assignment", and "4 vCPU / 8 GB", not "4/8". Slashed pairs and bare number pairs read as notes, not prose.
 - **Callout spam** - Callouts follow the same restraint: never consecutive, at most one per section (see Callouts and hints).
 
@@ -93,7 +95,7 @@ A plain-language rewrite still under-cuts on the first pass. Follow it with a de
 - Recaps and comparison sections that restate what the reader just read.
 - Justifications for rules and defaults that don't change what the reader does.
 
-Expect the second pass to find real deletions even after a careful first one; review feedback on past copy passes has consistently asked for more cutting, not less.
+Apply the [reader-understanding test](#reader-understanding-test) before cutting instructional context. Brevity removes unnecessary material, not necessary teaching.
 
 ### Language guidelines
 - Use consistent terminology throughout (see [Terminology standards](#terminology-standards) and the full glossary in `.agents/references/terminology.md`)
@@ -200,7 +202,7 @@ Every description answers "what will I get from this page?" The shape of that an
 - **Procedural** - Say what task the reader will complete. Start with an imperative verb.
   - ✅ `Connect Slack to the Automation Platform so mentions and channel messages can trigger cloud agent runs.`
   - ❌ `This page explains the Slack integration setup process.`
-- **Quickstart** - Say what the reader ends up with, plus the time budget. Start with an imperative verb.
+- **Quickstart** - Say what the reader ends up with. Include a supported time estimate when available; omit it when unverified. Start with an imperative verb.
   - ✅ `Install the Warp Agent CLI, log in, and run your first agent conversation in about five minutes.`
   - ❌ `Get started with the Warp Agent CLI.`
 - **Reference** - Say what the reader can look up. Name the artifacts rather than the genre.
@@ -258,6 +260,7 @@ Search engines and AI agents give extra weight to the first paragraph. Lead with
 - End each numbered step in a procedure with a period
 - Bold the key term or feature name at the start of each list item
 - Follow the bold term with a dash and explanation
+- Closing link lists start with the link, not a bold term. See [Closing section](#closing-section) for their format.
 
 Example:
 ```markdown
@@ -343,6 +346,7 @@ Captions orient the reader — they identify what the image shows so the reader 
 - ❌ `<figcaption>The input toolbelt, from left to right: model selector, voice input, image attachments, and conversation controls.</figcaption>` (exhaustive list)
 
 ### Links, embeds, and cross-references
+- When link text uses a destination's full page title, match that title's wording and capitalization, even within a sentence. Descriptive link phrases follow normal sentence capitalization and don't need to reproduce the title.
 - Use descriptive link text that explains what users will find. The anchor text should describe the destination or task, not the action of clicking.
   - ✅ "Learn more about [Codebase Context](...)" / "See [configuring environments](...)"
   - ❌ "Click [here](...)" / "See [this page](...)" / "Read [more](...)"
@@ -388,7 +392,7 @@ For important caveats, limitations, or things to watch out for
 ```
 
 Use callouts sparingly:
-- Never place two callouts back to back, and keep to at most one per section.
+- Normally use zero to two per page, never consecutive, and at most one per section. Justify a necessary exception in the PR body.
 - Keep callouts to a sentence or two. Information that needs a list or several sentences belongs in the body under a header.
 - A caveat that applies to one step belongs in that step's prose, not in a callout.
 
@@ -522,6 +526,10 @@ These rules apply regardless of content type:
 - **Don't over-specify counts or internals that will drift**: Describe a capability rather than naming an exact count of tools, steps, or subcomponents behind it (e.g., "a small set of tools" instead of "ten tools"). Precise counts go stale the moment the implementation changes, and a stale number is worse than no number.
 - **Feature real differentiators structurally**: If a capability is a genuine advantage over the default path (an agent- or API-driven alternative to a UI flow, for example), give it real visual weight — a clear callout near the top of the relevant section, not a footnote after the primary steps are already done. Where something sits on the page communicates how important it is.
 - **Verify claims against the live product, not just prior drafts**: Terminology, UI labels, and calculated values drift between rounds of review. Confirm names, labels, and metric definitions against the actual app, API, or codebase before publishing — especially for pages describing metrics or anything computed.
+  - Record the source revision separately from deployment, stable-release, and live-checkout evidence. Merged code or checked-in production configuration does not prove that a customer can use a feature. Keep uncertain availability or policy claims conditional, omitted, or explicitly recorded for review.
+  - A field in a published schema, a parser that accepts it, or behavior on staging is not availability evidence either. Before documenting a server-backed field, endpoint, or behavior, confirm its server flags are on in production with `.agents/skills/doc_quality_policy/server_rollout.py`. See Gate 0 in `.agents/references/docs-worthiness-criteria.md`.
+- **Preserve page purpose**: Removing a page or changing its purpose requires human approval. An unsupported claim calls for a narrow correction, not permission to turn a transition guide into a chooser. Record the reader task, ownership across sibling pages, repetition removed, and useful understanding preserved in the editorial verdict.
+- **Use one positioning source**: Follow `.agents/rules/oz-style-guidelines.md` for product framing and `.agents/references/terminology.md` for names. Positioning is demonstrated through relevant workflows, not mandatory slogans.
 
 ### Conceptual
 
@@ -561,10 +569,11 @@ These rules apply regardless of content type:
 5. Troubleshooting for common issues (optional but recommended)
 
 **Rules**:
+- **Keep prerequisites concise.** State requirements in unbolded bullets rather than bold labels followed by explanations. Link setup details, and put conditional instructions beside the step that needs them. Keep required access, credential types, and technical constraints explicit. This also applies to quickstarts.
 - **Keep steps focused, not artificially atomic.** Aim for one primary action per step, but group tightly related actions together when they share the same UI context and doing so keeps the procedure at a readable length. Up to ~3 related actions per step is acceptable. Use judgment: a simple task shouldn't require 10+ steps, but a single step shouldn't be a mini-procedure either.
   - Acceptable groupings: actions on the same form (entering a name and choosing an expiration date), a click that reveals the next target (clicking to expand a section, then clicking the revealed item), or a short natural sequence within the same UI area.
   - Avoid grouping actions that span different areas of the UI or that would make a step hard to scan at a glance.
-  - **Move reference detail out of the step into a `:::note`.** When a step's supporting detail is a list of facts a reader might check rather than an instruction (accepted credential types, valid formats), keep the step to its one action and put the list in a `:::note` immediately after it.
+  - **Separate reference detail from the action.** Link a long lookup list to its owning reference. Keep facts needed for the immediate choice beside the step; use a short callout only within the callout budget.
     - ✅ A step reading "In the **Auth** field, choose a compatible, team-owned secret from the list or click **New auth secret** to create one," followed by a `:::note` listing which credential type each option accepts.
     - ❌ Folding the full list of accepted credential types into the same sentence as the instruction, so the action is buried in reference detail.
 - **Motivate steps before giving instructions.** Briefly explain WHY before HOW, especially for setup steps. A single sentence of motivation prevents the reader from wondering "why am I doing this?"
@@ -581,31 +590,36 @@ These rules apply regardless of content type:
 **Existing examples**: `agents/cli/oz-cli/api-keys.mdx`, `platform/integrations/slack.mdx`
 
 **Template**: `.agents/templates/procedural.md`
+#### Reader-understanding test
+
+Keep the context the reader needs for the choice, consequence, or success signal near the step. Use the shortest clear wording; don't explain what the instruction or status already makes clear. Being explained elsewhere does not automatically make that context redundant for someone arriving directly at the quickstart.
+
+Cut repetition that adds no understanding. Link background not needed for the immediate task. For example, retain why a Docker image needs the project's toolchain; cut a second paragraph repeating that execution happens in the cloud.
 
 ### Quickstart
 
 **What it is**: A specialized procedural doc that gets the reader to a working result fast, with only the essential steps. Style "quickstart" as one word, lowercase (unless starting a sentence or in a title).
 
-**When to use**: When the reader already understands the feature or product and is ready to try it. A quickstart deliberately omits explanation of how something works or why they would want it — if the reader needs that, they need conceptual content, and if the task is complex enough to need context along the way, they need a tutorial.
+**When to use**: When the reader is ready to try one bounded task. Keep just-in-time teaching needed for choices, consequences, and success. Apply the [reader-understanding test](#reader-understanding-test); link broader conceptual background.
 
-**Scope**: About five minutes and roughly 600 words. That budget is the defining constraint, not a suggestion. A quickstart that no longer fits it has become a tutorial and should be reworked as one.
+**Scope**: Aim for about five minutes and roughly 600 words. Use the budget as a review signal: cut padding first, justify necessary exceptions, and consider a tutorial if the remaining task is a longer workflow. Do not fabricate a completion time or change the page's purpose solely to meet a budget.
 
 **Structure**:
-1. Opening paragraph: who it is for, the prerequisites and prior knowledge assumed, what the reader will end up with, and the time budget ("in about five minutes")
+1. Opening paragraph: who it is for, the prerequisites and prior knowledge assumed, what the reader will end up with, and a supported time estimate when available
 2. Prerequisites (minimal — link to full setup docs rather than inlining lengthy setup)
 3. Numbered steps (as few as possible to reach a working result)
 4. Troubleshooting (optional — link to existing troubleshooting content rather than writing new)
 5. Next steps: a one-line recap, then 2-3 actionable next steps, always including a link to the conceptual page for the feature
 
 **Rules**:
-- **Give every quickstart a descriptive H1 title.** Don't use a bare "Quickstart" — include the feature or topic name.
-  - ✅ `# Quickstart for cloud agents`
-  - ❌ `# Quickstart` (quickstart for what?)
+- **Set a descriptive frontmatter title.** Starlight renders it as the H1; do not add a body H1. Don't use a bare "Quickstart".
+  - ✅ `title: Quickstart for cloud agents`
+  - ❌ `title: Quickstart` (quickstart for what?)
 - Minimize prerequisites — the reader should be able to start quickly.
 - Keep steps focused on the critical path — defer edge cases and advanced options to other pages.
 - Link out rather than replicating content, so the flow is not interrupted.
 - Use code blocks and screenshots generously; visual confirmation reassures the reader they are on track.
-- Steps can be less explicit than in full procedural content, because the audience already knows the product.
+- Keep the first-use context needed to follow each step; do not assume familiarity with every concept.
 - All procedural rules apply (focused steps, motivate steps, expected outcomes).
 
 **Existing examples**: `platform/quickstart.mdx`, `getting-started/quickstart/installation-and-setup.mdx`
@@ -703,7 +717,7 @@ Direct answer with actionable information. Include links to relevant documentati
 
 "Guides" is the name of the section, not a content type. It holds both **tutorials** and **quickstarts**; pick between them by scope before drafting:
 
-- **Quickstart** — about five minutes, ~600 words, essential steps only, for someone who already understands the product.
+- **Quickstart** — one bounded task with necessary first-use teaching; apply the scope and reader-understanding guidance above.
 - **Tutorial** — a full workflow with context at the decision points, for someone extending a basic understanding to solve a real problem.
 
 **A tutorial requires that a quickstart already exists** for the product area. If there is no quickstart, write that first — otherwise the tutorial absorbs setup content that belongs in a shorter page, and readers who only wanted to get started have to wade through the whole workflow.
@@ -728,7 +742,7 @@ Direct answer with actionable information. Include links to relevant documentati
 - **Give real examples, not placeholders.** Do not write "enter a commit message" — supply an appropriate one that matches the preceding steps.
 - **Include troubleshooting.** Acknowledge what commonly goes wrong in this workflow and how to recover. This is what most distinguishes a tutorial from a quickstart, which only links to existing troubleshooting.
 - **End with a conclusion, then next steps.** Review what the reader built, referring back to the example from the introduction, then give 2-3 actionable next steps.
-- Do not state an expected completion time — it varies too much by experience level. (Quickstarts do state one.)
+- Do not state an expected completion time — it varies too much by experience level. Quickstarts include one only when supported.
 - Link to relevant feature documentation in the main docs where concepts need deeper explanation.
 - When a tutorial has a companion video, the written content should stand alone — a reader should be able to follow it without watching the video.
 
@@ -756,7 +770,7 @@ This is the most common page type in Warp's docs (~75+ pages). A feature documen
 - **Order sections from broad to specific**: conceptual, then reference, then procedures in lifecycle order (enable, use, manage, disable, destructive actions), then troubleshooting.
 - Use a task-based gerund title that stays agnostic about which option the reader chooses — `Setting repository visibility`, not `Making a private repository public`.
 
-This is the type most prone to sprawl, precisely because it accepts the most kinds of content. If the page is growing past roughly 1500 words, split the procedures onto their own pages rather than adding another section.
+Past roughly 1500 words, cut padding and repeated sibling-page content first. Split only if the remaining useful content still needs separate pages; preserve necessary facts by linking or relocating them.
 
 **Existing examples**: `agents/capabilities/skills.mdx`, `platform/environments.mdx`
 
@@ -788,7 +802,21 @@ Every page ends with one of two sections, chosen by content type:
 - **`## Next steps`** — quickstarts and tutorials. The reader just finished something and needs forward momentum: a one-line recap, then 2-3 actionable next steps, always including the conceptual page for the feature.
 - **`## Related pages`** — every other type. The reader wants lateral material, not a sequel.
 
-Do not use "Further reading" or "See also"; neither appears anywhere in the corpus. Whichever section applies, it goes last and contains at least one internal link whose anchor text names the destination.
+Do not use alternative names such as "Related capabilities", "Related resources", "Further reading", or "See also". Whichever section applies, it goes last and contains at least one internal link whose anchor text names the destination.
+
+Use the same link-list format in both sections:
+
+- Start each bullet with `* [Destination title](URL)`. Do not add bold formatting or a redundant label before the link.
+- Add a description only when it helps the reader understand why to open the destination. Omit it when the link text provides sufficient context.
+- Separate a description from the link with a spaced hyphen (` - `), not an em dash, en dash, or colon.
+- Capitalize the description's first word and preserve proper-name capitalization. Use sentence case, not title case.
+- Keep descriptions short and omit terminal punctuation. Explain the reader's next action or the destination's value rather than repeating its title.
+
+```markdown
+* [Third-party CLI agents overview](/agents/cli-agents/overview/) - Compare supported CLI agent integrations
+* [How to run unattended agents](/guides/agent-workflows/how-to-run-unattended-agents/) - Start recurring or event-driven cloud agents
+* [Claude Code](/agents/cli-agents/claude-code/)
+```
 
 ## Terminology standards
 
@@ -832,7 +860,7 @@ This is the single most drifted term in the docs, so the rule is narrow on purpo
 
 ### Automation Platform terminology
 
-Renamed from "Oz" on 2026-08-18. The `oz` CLI binary and the Oz v1 web app at `oz.warp.dev` keep the Oz name until 2026-10-06 and are not stale in the meantime. See `.agents/references/terminology.md` → "What still says Oz" for the full holdout list.
+Renamed from "Oz" on 2026-08-18. The `oz` binary, legacy web app, and historical transition references retain their names. No retirement deadline or replacement command mapping is established here. See `.agents/references/terminology.md` → "What still says Oz".
 
 #### The article rule
 "Oz" was a proper noun and read correctly bare. "Automation Platform" is a common-noun phrase, so it needs a definite article in referential positions. This is the most common mistake when writing about the platform.
@@ -857,7 +885,7 @@ Write the name as `{VARS.WARP_AUTOMATION_PLATFORM}` in body prose or `{{WARP_AUT
 - **cloud agent run** - A single execution lifecycle of an agent, including actions, outputs, and logs. Always cloud-based. Use `{VARS.PLATFORM_RUN}`. On factory-specific pages, write "factory run" directly.
 - **Environment** - The execution context for an agent, including repo access, dependencies, secrets, compute, and runtime configuration
 - **cloud agent dashboard** - The app surface to manage all runs, unified across the Warp app and web. Use `{VARS.DASHBOARD}`. On factory-specific pages, write "factory dashboard" directly.
-- **Oz web app** - The web app for configuring agents and managing runs. Holds the Oz name until 2026-10-06; use `{VARS.WEB_APP}`.
+- **Oz web app** - The legacy web app for standalone workflows; use `{VARS.WEB_APP}`. Verify a workflow's factory equivalent before retargeting its instructions.
 
 #### Oz CLI commands
 - `oz agent run` - Run a local agent
@@ -916,13 +944,37 @@ See `.agents/references/terminology.md` → "Warp Factories terminology" for the
 - **macOS** (not "Mac OS" or "Mac")
 
 ### Billing and credits
-- **credits** (lowercase, not "AI credits") - the unit of usage for AI features in Warp
-- **Add-on Credits** (capitalized as a product feature name)
-- **compute credits** (lowercase common noun; capitalize the first letter only at the start of a sentence or bullet) - the compute bucket; consumed when an agent run uses Warp-hosted compute. Used alongside AI credits and platform credits when describing credit types.
-- **cloud agent credits** (lowercase common noun; capitalize the first letter only at the start of a sentence or bullet) - credits consumed by cloud agents (in contrast with local agent credits). Refers to the same compute bucket as compute credits; pick the term that fits the framing.
-- **platform credits** (lowercase common noun; capitalize the first letter only at the start of a sentence or bullet) - the platform-infrastructure bucket
-- **Warp credits** - credits included with a subscription plan. Use in user-facing copy rather than "plan credits."
-- Use "credit" or "credits" without the "AI" prefix throughout documentation
+- **usage** - the general term for metered inference, Warp-hosted compute, and platform activity. Explain the billing unit where it affects the reader's task, not in every paragraph. Name plans naturally: "Free," "Build," "Max," "Business," and "Enterprise," not "dollar-billed Free" or "self-serve dollar Max."
+- **included usage** / **purchased usage** - distinguish the monthly allowance from additional usage purchases and contract-specific pools.
+- **dollar usage** - a usage balance, not the subscription price or necessarily the amount paid for a purchase.
+- **credits** (lowercase, not "AI credits") - use when an account bills in credits, for credit display units, and for exact product labels.
+- **Add-on Credits** - preserve the exact capitalization when quoting a shipped UI label or a purchase shown in credits.
+- **compute usage** / **platform usage** - charge components, not necessarily separate allowances. Use credit-named terms when an account bills in credits.
+- Keep credit-named public identifiers, error codes, CLI labels, and URLs unchanged. See `.agents/references/terminology.md` for purchase-limit and display-unit guidance.
+
+Current prices belong on [Warp pricing](https://www.warp.dev/pricing), not in duplicate purchase tables. The billing pages own charge components, purchase controls, and contract exceptions; FAQs summarize and link to those owners. Distinguish the inference rate, a purchase premium, the usage balance, and the amount paid. A purchase premium is not a second inference-rate multiplier.
+
+Match a control's shipped label without letting that label define all surrounding prose. For example, explain "conversation usage," then identify **Credit usage** as the item in `/statusline`. A documentation edit does not rename a product control or public identifier.
+
+Scope credential claims by configuration: personal device keys, team-managed keys and endpoints, connected subscriptions, and third-party harness credentials are different paths. Don't apply "not stored by Warp" or "not available to cloud agents" to all customer credentials. See the glossary's [inference configuration terms](.agents/references/terminology.md#inference-configuration).
+
+#### Usage prerequisites and setup instructions
+
+State the funding requirement, give a short action if needed, and link to the canonical billing page. Prefer "usage balance" and "add usage" to vague conditions such as "sufficient eligible usage." Do not imply that every reader must make a purchase when included usage or a contract allowance may already cover the work.
+
+* **Separate access from funding** - Team membership, plan access, and available usage are different requirements. Keep required access visible; link to its reference rather than copying plan tables.
+* **Match the balance to the workflow** - Use team-balance wording for factory setup. Standalone cloud runs can be individual or team runs; don't add a team requirement to individual workflows. For schedules and API-triggered runs, preserve or link to which user or team is billed.
+* **Keep exceptions with their owner** - Billing pages own balance eligibility, spending controls, charge components, and Enterprise terms. Preserve a condition needed for the current task, but don't duplicate those rules in every prerequisite list. Don't apply standalone integration restrictions to factory integrations without verification.
+* **Preserve technical precision** - "Eligible" can be necessary when distinguishing usable balances in billing references. Keep credit-named UI labels, identifiers, error codes, URLs, and credit-billed contexts; this is not a blanket terminology replacement.
+
+Examples to adapt, not mandatory boilerplate:
+
+* **Factory setup** - "Available usage in your team's balance for factory runs. Add usage if needed. See access and billing requirements."
+* **Individual or team cloud runs** - "Available usage for cloud runs. Add usage if needed. See access and billing requirements."
+* **Scheduled runs** - "Available usage for the user or team billed for the schedule. Add usage if needed. See run identity before choosing which agent runs it."
+
+In published copy, link the billing-reference phrase to the owning page or section. If the funding source or access rule is unverified, ask the product or billing owner; do not invent a uniform policy for consistent wording.
+
 
 ### UI elements
 - **Settings** (capitalized when referring to the Settings panel)
@@ -1003,7 +1055,7 @@ Before publishing any documentation, verify:
 - [ ] The title follows the convention for its content type (see "Titles by content type")
 - [ ] No quickstart or tutorial content is folded into a combined feature page
 - [ ] Headers use sentence case (with proper feature name capitalization)
-- [ ] Lists use bold term + dash + explanation format
+- [ ] Feature lists use bold term + dash + explanation format; closing link lists use the link-first format
 - [ ] All links work and point to correct destinations
 - [ ] Link text is descriptive, not generic text like "here," "this page," or "learn more"
 - [ ] Link sentences provide enough context for readers, search engines, and agents to understand the destination
@@ -1011,6 +1063,7 @@ Before publishing any documentation, verify:
 - [ ] Code examples are tested and accurate
 - [ ] Terminology and product names match the glossary (`.agents/references/terminology.md`)
 - [ ] Cross-references to related features are included
+- [ ] The closing section uses the content-type heading and link-list format defined in [Closing section](#closing-section)
 - [ ] Instructions include expected outcomes after key steps
 - [ ] First references to prerequisites, tools, or surfaces include inline context
 - [ ] Content is scannable with clear headers and lists
@@ -1028,6 +1081,7 @@ Before publishing any documentation, verify:
 3. **Consistency**: Check terminology and formatting against this guide
 4. **User focus**: Ensure content answers "what can I accomplish?" before "how does it work?"
 5. **Completeness**: Include necessary context, examples, and next steps
+6. **Review patterns**: Treat each comment as a possible pattern, not only a line edit. Check the canonical page, related tables, FAQs, procedures, and local-to-cloud guidance for the same problem; update warranted matches without a blanket terminology replacement. Record reusable lessons in this guide or the glossary, rather than in public product prose.
 
 # Agent-specific guidance
 
