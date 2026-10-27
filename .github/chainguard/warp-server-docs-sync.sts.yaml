@@ -1,5 +1,7 @@
 issuer: https://token.actions.githubusercontent.com
 subject_pattern: repo:warpdotdev/warp-server:ref:refs/heads/(develop|release/[^:]+)
+claim_pattern:
+  job_workflow_ref: warpdotdev/warp-server/\.github/workflows/sync_public_openapi_to_docs\.yml@refs/heads/(develop|release/.+)
 permissions:
   contents: write
   pull_requests: write
