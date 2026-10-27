@@ -61,6 +61,8 @@ Start from factory setup to connect your account, select repositories, and provi
 
 When setup confirms that the identity is ready, the factory uses that identity for Git and pull request operations. You can retry identity provisioning from the factory's settings if setup is interrupted.
 
+An active Manager doesn't mean the factory identity is ready. Keep your personal Azure DevOps connection active and finish the factory's identity provisioning before testing repository operations. For resending, revoking, or replacing approval links, see [managing pending requests](/factories/connect-your-factory/#manage-pending-requests).
+
 ## Configure Azure DevOps automations
 
 An Azure DevOps automation starts a factory run when a supported event matches its filters. Before starting a run, Warp checks the automation creator's Azure DevOps connection. Each creator must keep their own OAuth connection active with the required scopes. New Azure DevOps factories include a default automation for pull request mentions, work item mentions, and work item assignments.

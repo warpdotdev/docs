@@ -13,7 +13,7 @@ When you connect a factory to GitLab, project activity starts work in your facto
 ## Prerequisites
 
 * A GitLab.com account. Self-managed GitLab instances require [another code-forge setup](/factories/code-forges/other-code-forges/).
-* Owner access to a top-level GitLab group and workspace admin permissions in Warp.
+* Permission to connect workspace integrations in Warp and a top-level GitLab group Owner to authorize the connection. If you aren't the Owner, [send them a setup request](/factories/connect-your-factory/#request-setup-from-an-administrator).
 * A GitLab Premium or Ultimate plan with service accounts and group webhooks.
 
 ## Service accounts and access
@@ -39,6 +39,8 @@ Connecting GitLab links one top-level group to your Warp workspace, one-to-one.
 6. To route merge request events too, create an automation and click **Add trigger**.
 7. Choose **GitLab**, then choose **Merge request**.
 8. To confirm the connection works, comment on a merge request in a selected project and mention the factory's bot. A work item starts in the factory dashboard, and the factory replies in the same thread.
+
+For delegated setup, the group Owner authorizes GitLab.com and selects the top-level group from the approval link. After Warp creates the manager account, the requester resumes factory setup to select projects and create the factory's bot. Confirm that your GitLab plan includes group webhooks before testing events; a connected manager account alone doesn't prove event delivery works.
 
 ## Supported triggers
 
@@ -140,6 +142,9 @@ Confirm the target project is one of the factory's selected projects and the ope
 
 ### Your group isn't listed when connecting
 
-Only top-level groups you own appear, and a group already connected to another Warp workspace can't be connected again. If you don't own the group, ask an owner to establish the connection in Warp.
+Only top-level groups you own appear, and a group already connected to another Warp workspace can't be connected again. If you don't own the group, [send a setup request to an Owner](/factories/connect-your-factory/#request-setup-from-an-administrator).
 
-For the other ways to route work into a factory, see [Connect your factory](/factories/connect-your-factory/).
+## Related pages
+
+* [Connect your factory](/factories/connect-your-factory/)
+* [Factory automations](/factories/automations/)

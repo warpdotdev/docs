@@ -13,15 +13,19 @@ Each factory appears in Slack as its own app with the factory's name and avatar.
 
 ## Prerequisites
 
-* Permission to install Slack apps in the target workspace.
+* Access to someone who can authorize apps in the target Slack workspace under its app-management policy.
 * Permission to update the factory's configuration.
 
 ## Connect the factory
 
-1. **Select Slack while creating a factory**, or connect it later from the factory's **Settings**. Warp installs its Slack app for you.
-2. **Complete the install if it can't finish on its own.** This usually happens when your workspace requires administrator approval. Click **Add to Slack** in factory setup to finish.
+1. **Connect the Slack workspace.** Select Slack while creating a factory, or connect it later from the factory's **Settings**. If you can't authorize the workspace connection, [send a setup request](/factories/connect-your-factory/#request-setup-from-an-administrator) to someone who can.
+2. **Finish the factory's app setup.** Return to factory setup after workspace authorization. Complete any additional Slack consent and click **Add to Slack** if prompted. Your workspace's policy can require approval or installation of the factory's own app.
 3. **Invite the app to each channel it should listen in.** Private channels always need an invitation.
 4. **Confirm the connection.** Mention the app in one of those channels. It reacts with 👀 to show it picked up the request.
+
+Delegated approval connects the Slack workspace; it doesn't transfer the approver's personal permission to create and install factory apps.
+
+{/* VERIFY: Confirm the handback with a restricted Slack requester: which additional personal consent and per-factory app approval or installation steps remain after delegated workspace authorization. */}
 
 ## Configure factory automations for Slack
 
