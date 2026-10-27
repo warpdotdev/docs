@@ -48,6 +48,18 @@ A local parent - a Warp Agent conversation in the Warp app - can spawn cloud chi
 
 Cloud children inherit the parent's authentication; the same credit and credentials rules from the [Cloud agents overview](/platform/) apply.
 
+## Adding metadata to cloud children
+
+Ask the parent to attach string key-value metadata when it starts cloud children. Shared metadata applies to every child in that batch; a child's own values override shared values with the same key.
+
+For example, tag a migration batch and identify each child's package:
+
+```text
+Spawn one cloud child per package to migrate Jest tests to Vitest. Give every child metadata migration=jest-to-vitest, and give each child a package tag matching its package name.
+```
+
+The parent supplies shared tags through `run_agents.metadata` and child-specific tags through `agent_run_configs[].metadata`.
+
 ## Starting an orchestrated run from the CLI
 
 Use `oz agent run-cloud` to start a parent and let the agent itself spawn children as it works.
