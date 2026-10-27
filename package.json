@@ -19,6 +19,10 @@
     "seo:audit": "node scripts/seo-audit.mjs",
     "test:heading-tocs": "node scripts/validate-heading-tocs.mjs",
     "test:heading-vars": "node --test src/plugins/heading-vars-core.test.mjs",
+    "test:tracking-redirect": "node --test scripts/tracking-redirect.test.mjs",
+    "test:tracking-routes": "node scripts/validate-tracking-routes.mjs",
+    "test:kapa-webmcp": "node --test src/lib/kapa-webmcp.test.mjs",
+    "test:kapa-support-escalation": "node --test src/lib/kapa-support-escalation.test.mjs",
     "test:homepage-json-ld": "node scripts/validate-homepage-json-ld.mjs",
     "postinstall": "patch-package"
   },
@@ -54,6 +58,9 @@
     "yaml": "^2.8.3"
   },
   "overrides": {
+    "mermaid": {
+      "katex": "0.18.2"
+    },
     "brace-expansion": ">=5.0.12",
     "js-yaml": "^4.3.2",
     "path-to-regexp": "^6.3.0",

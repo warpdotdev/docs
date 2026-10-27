@@ -50,6 +50,7 @@ command-name --flag-name value
 ## Related pages
 
 [Cross-links. Use descriptive link text that names the destination.]
+[LINK FORMAT: Follow AGENTS.md → Closing section. Start with an unbolded link. Add a description only when it clarifies why to open the page: spaced hyphen, capitalized first word, proper-name casing, no terminal punctuation. Keep this section last.]
 
 * [Conceptual page for this feature](path/to/page.md)
-* [How to use it](path/to/procedural-page.md)
+* [How to use it](path/to/procedural-page.md) - Apply these options to a working example

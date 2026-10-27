@@ -26,7 +26,8 @@ it looks mechanical. Existing skills retain their ownership:
 - Surface coverage and code-surface extraction go to `missing_docs`.
 - Broken links and redirect gaps go to `check_for_broken_links` or
   `weekly-404-monitor`.
-- Public OpenAPI drift goes to `sync-openapi-spec`.
+- Public OpenAPI drift is reported to the server workflow owner through
+  `.agents/references/openapi-publication.md`; this audit never publishes a spec.
 
 Record delegated findings in the run artifact. Do not duplicate them as consistency
 findings.
@@ -306,7 +307,43 @@ After that local transaction:
 
 If extraction, verification, validation, commit, push, or remote-SHA verification fails,
 leave the prior branch authoritative, write the failure to run output, and report a
-blocked run.
+blocked run using the failure path below.
+
+#### Failure reporting, including early exits
+
+If any required step fails, stop extraction and comparison. Create a blocked artifact
+even when the normal `run` command never produced one:
+
+```bash
+python3 .agents/skills/docs_consistency_audit/scripts/audit_consistency.py blocked-report \
+  --run-id RUN_ID \
+  --stage redirect-normalization \
+  --code redirect-cycle \
+  --state-dir STATE_WORKTREE/.agents/state/docs_consistency_audit \
+  --pages 0 \
+  --total-pages TOTAL_PAGES \
+  --output /tmp/docs-consistency-run.json
+```
+
+Use the actual failed stage and matching code, not the example's values. Stages are
+`preflight`, `inventory`, `redirect-normalization`, `authorities`, `extraction`,
+`comparison`, and `state-persistence`. Codes are `redirect-cycle`, `source-unavailable`,
+`state-unavailable`, `extraction-invalid`, `comparison-failed`,
+`state-persistence-failed`, and `unknown`. Use `unknown` when the cause is unverified.
+The helper maps codes to public-safe explanations and next actions; never put raw
+exceptions, private evidence, or credentials in a report.
+
+Pass `--state-dir` only for the authoritative state fetched in preflight, not a partial
+local replacement. Omit it when state cannot be read; do not fall back to default-branch
+state. Omit unknown page counts rather than supplying zero. The helper reads state but
+does not modify it. Write its output outside the state directory. If reading state for
+this report fails, regenerate without `--state-dir`; the message then says the saved
+count is unknown.
+
+Use this blocked artifact for step 9, including after a persistence failure. Do not post
+the earlier comparison artifact as a successful result. Preserve prior findings and
+receipts; no blocked run resolves a finding. Keep the blocker code, stage, known page
+counts, and recommended action consistent in Slack, the run log, and final run output.
 
 ### 9. Report only actionable changes
 
@@ -319,11 +356,23 @@ Post at most one top-level Slack message for:
 Unchanged findings, low-confidence candidates, successful no-change runs, and the
 inactive schedule guard do not post. The durable state and run log are their record.
 
-The message includes counts for new, changed, resolved, and unchanged active findings;
-up to three highest-severity titles; the standing state PR when it changed; and the
-environment-correct run URL. Resolve the run URL from the current run at runtime. Never
-hard-code a Warp host. Do not include all quotes or any private source path, symbol,
-identifier, configuration value, or secret.
+The message starts with the outcome: audit completed, partial audit, or could not check
+docs. It explains that this audit detects conflicting or stale claims without editing
+docs. For completed and partial audits, include counts for new, changed, resolved, and
+unchanged active findings, plus up to three highest-severity changes with a brief
+conflict explanation, public page links, and the action or human review needed.
+Distinguish resolved findings from work still needed.
+
+For blocked runs, explain the failed stage, blocker, known page coverage, and next
+action. State that no new results are available; label prior findings as saved history,
+not reverified results. Missing failure or coverage details are unknown, not evidence
+of zero findings or a successful check. Partial runs also name carried-forward findings
+that were not rechecked. Do not describe extracted pages as fully audited pages.
+
+Link to run details and saved findings and audit history. Explain that the standing
+draft PR contains audit state, not documentation fixes; do not ask readers to merge it.
+Resolve the environment-correct run URL at runtime. Never hard-code a Warp host or put
+the run UUID in the headline. Do not include full quotes or private source details.
 
 Generate the one decision and payload:
 
@@ -336,7 +385,8 @@ python3 .agents/skills/docs_consistency_audit/scripts/audit_consistency.py notif
 ```
 
 Call the connected Slack MCP once only when `should_post` is true, using `message`
-verbatim. If posting fails, write the message to run output and report the delivery
+verbatim with Slack mrkdwn formatting. Use the same outcome and next action in the final
+run output. If posting fails, write the message to run output and report the delivery
 failure. Do not retry in a way that can duplicate the top-level message.
 
 ## Benchmark and rollout gate
@@ -409,12 +459,14 @@ Prepend one entry after the file header:
 ## YYYY-MM-DD — complete | partial | blocked
 - Run: environment-correct URL or run ID
 - Source commits: docs SHA; warp SHA; warp-server SHA
-- Coverage: complete | partial | blocked; PAGES/TOTAL pages
-- Findings: NEW new; CHANGED changed; RESOLVED resolved; ACTIVE active
+- Coverage: complete | partial | blocked; PAGES/TOTAL pages extracted | unknown
+- Findings: NEW new; CHANGED changed; RESOLVED resolved; ACTIVE active | prior count unknown
 - Suppressed: COUNT; expired: COUNT
 - Cost: CHARACTERS characters; CANDIDATES candidates; MODEL_CALLS model calls
-- Sources unavailable: none | comma-separated source classes
+- Sources unavailable / blocker: none | public-safe source class, failed stage, code, and next action
 - State PR: URL | unchanged | unavailable
 ```
 
-Keep the entry under 10 lines. Never include secrets or private source details.
+Keep the entry under 10 lines. For blocked runs, replace lifecycle counts with
+`no new results; ACTIVE previously active, not rechecked` (or `prior count unknown`).
+Never include secrets or private source details.

@@ -8,9 +8,9 @@ sidebar:
 ---
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-Factory use cases are working patterns for combining agents, automations, integrations, skills, and repository controls. Start with the smallest recipe that solves your current bottleneck, then add stages only when the simpler factory is reliable.
+A recipe is a recommended configuration and set of instructions for completing a specific task with your factory. It combines agents, automations, integrations, skills, and repository controls. You can start with one task and test its results before connecting it to another. For example, your team might try issue triage on its own before asking the factory to implement approved issues.
 
-Each guide links to the canonical configuration and integration references. The examples use definitions as code so you can review changes, validate them in CI, and adapt the same pattern to a Warp-managed factory.
+The examples use [definitions as code](/factories/factory-as-code/) so you can review changes, validate them in CI, and adapt the same pattern to a Warp-managed factory.
 
 ## Choose a use case
 
@@ -49,13 +49,13 @@ Each guide links to the canonical configuration and integration references. The 
 
 ## Start with the smallest recipe
 
-Use one factory with the repositories that ship together. Add an automation for one clear intake event, route it to the agent responsible for that task, and make the expected output explicit. Keep a human responsible for approving specifications, accepting risk, and merging changes.
+One factory can coordinate work across repositories that ship together. Before you add an automation, choose the event that should start work and check whether an existing automation already handles it. You can update that automation instead of adding another, or use nonoverlapping filters when you need separate automations. See [automation matching rules](/factories/automations/#how-matching-works).
 
-When a workflow spans several roles, prefer the default foreman, triage, spec, implement, and review agents before creating custom agents. Add a custom skill for repository-specific procedures, such as required test commands or an incident runbook.
+Each automation needs a clear task, a responsible agent, and an expected output. For work that spans several roles, the foreman coordinates the other agents. Your skills supply repository-specific procedures, such as required test commands or an incident runbook. People remain responsible for approving specifications, accepting risk, and merging changes.
 
 ## Related pages
 
-* [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send its first work item.
-* [Factory agents](/factories/factory-agents/) - Configure the default roles and add custom agents.
-* [Factory automations](/factories/automations/) - Route provider events to agents with filters.
-* [Factory definition syntax](/factories/factory-as-code/) - Look up configuration keys and validate definitions.
+* [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send its first work item
+* [Factory agents](/factories/factory-agents/) - Configure the default roles and add custom agents
+* [Factory automations](/factories/automations/) - Route provider events to agents with filters
+* [Factory definition syntax](/factories/factory-as-code/) - Look up configuration keys and validate definitions

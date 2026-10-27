@@ -66,6 +66,7 @@ jobs:
           python3 .agents/skills/doc_quality_policy/test_stale_review_requests.py
           python3 .agents/skills/doc_quality_policy/test_agent_docs_review_workflow.py
           python3 .agents/skills/doc_quality_policy/test_manifest.py
+          python3 .agents/skills/doc_quality_policy/test_server_rollout.py
 
       # Extracts the documented manual review-publishing snippet from
       # review-docs-pr/SKILL.md and runs it against a stub, so CI catches
@@ -128,11 +129,17 @@ jobs:
       - name: Test heading variables
         run: npm run test:heading-vars
 
+      - name: Test tracking redirect middleware
+        run: npm run test:tracking-redirect
+
       - name: Build site
         run: npm run build
 
       - name: Validate heading tables of contents
         run: npm run test:heading-tocs
+
+      - name: Validate tracking redirect routes
+        run: npm run test:tracking-routes
 
       - name: Validate homepage JSON-LD
         run: npm run test:homepage-json-ld

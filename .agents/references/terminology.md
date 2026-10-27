@@ -111,6 +111,16 @@ For the summary of the most critical terms (core features, Automation Platform t
 - **Full Terminal Use** — The capability that lets an agent attach to and drive interactive terminal programs (for example `psql`, `vim`, a dev server) by reading live PTY output.
   *Usage note:* Capitalize as a feature name, including in headings.
 
+## Inference configuration
+
+- **personal BYOK** — Provider API keys configured on a user's device for local Warp Agent runs. App and CLI keys are configured separately. Use "personal" when distinguishing these keys from team-managed BYOK.
+- **personal custom inference endpoint** — An OpenAI-compatible endpoint configured on a user's device for local Warp Agent runs. Distinguish it from an endpoint configured by a team admin.
+- **team-managed API keys and endpoints** — Shared provider configuration that Business and Enterprise admins manage centrally for local and cloud Warp Agent runs. Warp stores the credentials securely; personal-device storage guarantees do not apply.
+- **connected subscription** — A provider subscription connected through its own authentication flow, not a provider API key. Verify its model, surface, cloud, billing, and retention support separately from BYOK.
+- **third-party harness credentials** — Credentials used by a harness such as Claude Code or Codex. Don't infer their storage or cloud support from personal Warp Agent BYOK behavior.
+
+Use local versus cloud to describe where a run executes, and interactive versus unattended to describe how the user participates. A local CLI run can be unattended; "interactive requests only" is not a substitute for "local runs only."
+
 ## Coding terms (Warp features)
 
 - **Code** — Warp's coding experience for agent-assisted changes (editing, diffs, code review).
@@ -156,9 +166,10 @@ For the summary of the most critical terms (core features, Automation Platform t
 
 ## Automation Platform terminology
 
-Renamed from "Oz" on 2026-08-18. Two surfaces keep the Oz name until 2026-10-06
-and are **not** stale in the meantime: the `oz` CLI binary and the Oz v1 web app
-at `oz.warp.dev`. See "What still says Oz" at the end of this section.
+Renamed from "Oz" on 2026-08-18. The `oz` binary and legacy web app retain
+their names. No retirement date or replacement command mapping is established
+here. See "What still says Oz"; product framing lives in
+`.agents/rules/oz-style-guidelines.md`.
 
 ### The article rule
 
@@ -184,7 +195,7 @@ catches the literal, `platform-determiner` catches a missing article.
   *Usage note:* In prose the term takes the definite article — "the Warp Agent". Reserve the bare form for headings, sidebar labels, page titles, and the Settings path. "Runs the Warp Agent" reads correctly; "runs Warp Agent" reads as a different product.
 - **The Automation Platform is the platform, not the agent.** Never introduce it as "Warp's agent" or equate the two. The Automation Platform runs and coordinates agents; the Warp Agent is the agent.
 - **Warp Agent CLI** — The standalone terminal program (the `warp` binary) that runs the Warp Agent in any terminal, including over SSH and on machines without the Warp app. Documented at `/agents/cli/`.
-  *Usage note:* Distinct from the Oz CLI (the `oz` binary), which runs and manages cloud agents. The Oz CLI is retired and wrapped into the Warp Agent CLI on 2026-10-06, matching the `oz` binary holdout in "What still says Oz" below — not the 8/18 platform rename. Until that ships, keep the two clearly separate in prose; afterwards, "Warp Agent CLI" covers both. `oz` commands themselves remain supported through the end of September 2026; the successor `warp` CLI commands for CLI-scripted workflows (environments, secrets, integrations, schedules) haven't been defined yet.
+  *Usage note:* Distinct from the Oz CLI (`oz`), which runs and manages cloud agents. Keep the binaries separate. Verify command equivalence against the current references before changing scripts; a branding change does not establish compatibility, retirement, or a replacement command.
 - **Automation Platform** — Warp's programmable platform for running and coordinating agents at scale
 - There is typically one Warp environment per user session. The Automation Platform can run many agents concurrently, across machines, repos, and teams.
 
@@ -209,7 +220,7 @@ catches the literal, `platform-determiner` catches a missing article.
   *Usage note:* This is the platform-level default (HYC, 2026-08-17). Use `{VARS.PLATFORM_RUN}`, or "Warp cloud agent run" when you need to disambiguate from another vendor's runs. On pages that are specifically about a factory, write "factory run" directly instead — the variable holds the general term, so it cannot carry that distinction.
 
 - **Oz web app** — The web app for configuring agents and managing runs.
-  *Usage note:* Holds the Oz name until 2026-10-06. Use `{VARS.WEB_APP}`.
+  *Usage note:* Use `{VARS.WEB_APP}` for the legacy standalone surface. Verify a workflow's factory equivalent before retargeting a link; do not globally flip `{VARS.WEB_APP_URL}`.
 
 - **subagent** — A child agent created by a parent agent to parallelize or delegate work.
 
@@ -253,8 +264,8 @@ ended — "Ask the Automation Platform to..." is plainly wrong. Address the agen
 
 ### What still says Oz
 
-Not every "Oz" in the docs is stale. These are deliberate and correct until
-2026-10-06, when they get their own value flip:
+Not every "Oz" in the docs is stale. These names change only when their
+specific interface changes, not on an inferred retirement date:
 
 - **The `oz` binary** and every `oz <command>` invocation. Commands inside code
   fences are never rewritten. `{VARS.WARP_AGENT_CLI}` renders "Oz CLI".
@@ -269,13 +280,14 @@ Not every "Oz" in the docs is stale. These are deliberate and correct until
   when the answer came back, rather than something a variable flip had already
   broken.*
 - **Changelog entries.** Historical records of what shipped under the old name.
+- **Transition explanations.** Historical product names identify what the reader is moving from; preserve "Transitioning from Oz" and existing Oz workflows.
 
 ## Platform terms
 
 - **Warp Platform API** — The HTTP API for sending work to factories and triggering and inspecting cloud agent runs programmatically.
   *Usage note:* Use `{VARS.WARP_PLATFORM_API}` in body prose and `{{WARP_PLATFORM_API}}` in frontmatter.
 
-- **Artifacts** — Files an agent produces during a run and uploads to Warp: screenshots, generated reports, build outputs, logs, or any other file the agent saves alongside its conversation. Retrieved with `oz artifact` (see the [Artifacts CLI reference](/agents/cli/oz-cli/artifacts/)) and one of the three data categories in [self-hosted agent data storage](/platform/data-storage/).
+- **Artifacts** — Files an agent produces during a run and uploads to Warp: screenshots, generated reports, build outputs, logs, or any other file the agent saves alongside its conversation. Retrieved with `oz artifact` (see the [Artifacts CLI reference](/agents/cli/oz-cli/artifacts/)) and one of the three data categories in [self-hosted agent data storage](/factories/self-hosting/data-storage/).
   *Usage note:* Capitalize as **Artifacts** when referring to the named category (a CLI reference page, an Admin Panel storage category); lowercase "artifacts" as the generic noun for the files themselves.
 
 - **Auth** — The agent settings field for choosing or creating the credential (a team-owned secret) a harness uses to authenticate with its provider, matched to that harness's supported credential types (Anthropic keys for Claude Code, an OpenAI key for Codex).
@@ -354,9 +366,9 @@ Docs match the screen; the fix belongs in the app.
   *Usage note:* Not a second concept. Use "task" only where the MCP surface forces it, and say once on the page that a task is the factory's work item. Never introduce "task" as a distinct unit of work.
 
 - **stages** — The phases a work item moves through, named as the factory dashboard's **Activity** view names them: **Triage**, **Planning**, **Building**, and **Reviewing**, plus the terminal stages **Complete** and **Cancelled**.
-  *Usage note:* Stage names are not agent names. The spec agent works the Planning stage, the implement agent works the Building stage, and the review agent works the Reviewing stage. Write stages with the dashboard's names so docs and screen agree; write agents with their own names (triage, spec, implement, review).
+  *Usage note:* Stage names are not agent names. The spec agent works the planning stage, the implement agent works the building stage, and the review agent works the reviewing stage. Use lowercase for stages in explanatory prose. Preserve the displayed spelling and capitalization when referencing exact UI labels, filters, or status values; sentence-initial and diagram labels may also begin with capitals. Write agents with their own names (triage, spec, implement, review).
 
-- **foreman agent** — The orchestrator agent that receives a work item's triggering context and dispatches subagents to move it through the factory, choosing model, harness, and context for each step.
+- **foreman agent** — The foreman is the agent that coordinates a factory's work and communicates with you. It delegates work to other agents, asks for your decisions when needed, and returns results.
   *Usage note:* Lowercase "foreman" in prose. The foreman is an agent inside a factory, not the factory itself — never use the two interchangeably, and never call the foreman "the factory" even though setup gives them the same name by default.
 
 - **Foreman name** / **`alias`** — The handle a team @-mentions to reach a factory's foreman from Slack and Linear. The factory dashboard labels the field **Foreman name** under **Settings** > **Identity**; the definition file key is [`alias`](/factories/factory-as-code/#alias).
@@ -392,7 +404,7 @@ Docs match the screen; the fix belongs in the app.
 - **macOS** — not "Mac OS" or "Mac"
 - **Zero Data Retention (ZDR)** — Warp's agreements with contracted LLM providers not to train on or retain customer data. Capitalize as a proper term, including in headings ("Zero Data Retention (ZDR)"); keep the "(ZDR)" acronym on first mention in a section.
 - **SSO (Single Sign-On)** — Authentication through an organization's identity provider (Okta, Microsoft Entra ID, Google Workspace, or any SAML 2.0/OIDC provider). Always capitalize the acronym "SSO"; capitalize "Single Sign-On" when spelled out as the feature name.
-- **Bring Your Own LLM (BYOLLM)** — Warp Enterprise's routing of agent inference through a customer's own cloud infrastructure (AWS Bedrock or Google Cloud via Gemini Enterprise). Capitalize as a proper feature name, including in headings; keep the "(BYOLLM)" acronym on first mention in a section. Distinct from BYOK (Bring Your Own API Key), a self-serve, user-level feature.
+- **Bring Your Own LLM (BYOLLM)** — Warp Enterprise's routing of agent inference through a customer's own cloud infrastructure (AWS Bedrock or Google Cloud via Gemini Enterprise). Capitalize as a proper feature name, including in headings; keep the "(BYOLLM)" acronym on first mention in a section. Distinct from provider API-key BYOK, which can be personal or team-managed. Verify cloud support for each BYOLLM provider rather than treating them as interchangeable.
 
 ## Branded and informal terms
 
@@ -421,14 +433,26 @@ Docs match the screen; the fix belongs in the app.
 
 ## Billing and credits
 
-- **Add-on Credits** — capitalized as a product feature name
-- **Auto-reload** — the setting that automatically purchases another add-on credit pack when a user's balance drops below 100 credits. Hyphenated; capitalize the first letter only at the start of a sentence, bullet, or bolded list term.
-- **team-wide spend cap** — the admin-configured monthly ceiling on add-on credit spending across a whole team. Use instead of "budget" or "credit limit" when describing the cap. The per-account wording "monthly spend limit" refers to the same setting in single-user contexts.
-- **compute credits** — lowercase common noun; capitalize the first letter only at the start of a sentence or bullet. The compute bucket, consumed when an agent run uses Warp-hosted compute. Use alongside AI credits and platform credits when describing credit types.
-- **cloud agent credits** — lowercase common noun; capitalize the first letter only at the start of a sentence or bullet. Credits consumed by cloud agents, in contrast with local agent credits. Refers to the same compute bucket as compute credits; choose the term that fits the framing.
-- **platform credits** — lowercase common noun; capitalize the first letter only at the start of a sentence or bullet. The platform-infrastructure bucket, consumed for every cloud agent run plus local runs with customer-supplied inference.
-- **credits** — the unit of usage for AI features in Warp (lowercase, not "AI credits")
-- **Warp credits** — credits included with a subscription plan. Use in user-facing copy rather than "plan credits."
+- **usage** — the general term for metered inference, Warp-hosted compute, and platform activity. Explain dollars versus credits when that distinction affects the task; use ordinary plan names elsewhere.
+- **usage balance** — usage available to the user or team billed for the work, subject to the applicable billing rules.
+  *Usage note:* Use "add usage" for the action of funding the balance, with "if needed" when an existing allowance may cover the work. Do not imply that every workflow uses a shared team balance or requires a new purchase.
+- **included usage** — the allowance included with a plan; distinguish it from purchased usage and contract-specific pools.
+- **purchased usage** — additional usage bought on an eligible plan. Distinguish the usage added to the balance from the payment amount.
+- **dollar usage** — a usage balance expressed in US dollars, not the subscription price or necessarily the amount paid for a purchase.
+- **purchase premium** — an additional payment cost when buying usage. Distinguish it from inference rates; don't describe it as an extra multiplier on each model call.
+- **Add-on Credits** — preserve this exact capitalization when quoting a shipped UI label or referring to a purchase shown in credits. Use "purchasing additional usage" for general guidance.
+- **auto-reload** — purchases the selected usage amount when the available balance runs low, subject to purchase controls. Do not make a credit threshold universal across billing units.
+- **monthly spend limit** — the team's control on additional usage purchases and auto-reloads. Match **Monthly spend limit** in UI instructions and preserve legacy anchors that use "monthly purchase limit." It is not an Enterprise consumption cap, a limit on spending an existing balance, or a guaranteed ceiling on payments or the whole invoice.
+- **Enterprise spending limits** — contract-specific controls on cloud, local, total, and per-user usage. Don't describe self-serve purchase controls as these separate consumption limits.
+- **compute usage** / **platform usage** — charge components, not necessarily separate balances. Platform usage measures billable agent time.
+- **credits**, **compute credits**, **cloud agent credits**, **platform credits**, **Warp credits** — use when an account bills in credits, for credit display units, and for exact UI labels. Keep common nouns lowercase; do not use the "AI credits" prefix.
+- **public identifiers** — retain credit-named API fields, error codes, CLI labels, and published URLs. A billing-unit change is not an identifier rename.
+
+### Billing usage notes
+
+- Keep current prices and purchase amounts on [Warp pricing](https://www.warp.dev/pricing). Link from the canonical billing pages; summaries and FAQs link to those pages rather than copying tables or contract rules.
+- Use "conversation usage" for the concept, and quote **Credit usage** when identifying the `/statusline` item. A credits/dollars display preference changes presentation, not charges, and isn't available on every account or surface.
+- Keep inference rates, purchase prices, included allowances, and recorded usage charges separate. "Public API rates" describes Warp-provided inference on eligible plans, not every cost on the invoice.
 
 ## External product names
 
@@ -441,6 +465,6 @@ Docs match the screen; the fix belongs in the app.
 - **Bitbucket Data Center** — Atlassian's official self-hosted Bitbucket edition name (alongside Bitbucket Server and Bitbucket Cloud). Capitalize all three words, including in headings ("Bitbucket Data Center / Server").
 - **Workload Identity Pool and Provider** — GCP's IAM resources for federating external identities. Capitalize as GCP's official term, including in headings.
 - **Workload Identity Federation** — GCP's mechanism for granting external identities access without a long-lived service account key. Capitalize as GCP's official term, including in headings.
-- **AWS S3** — Amazon's S3 object storage service, one of the providers for [self-hosted agent data storage](/platform/data-storage/). Warp's Admin Panel labels this option "AWS S3" to match its sibling entries (Google Cloud Storage, Azure Blob Storage); use "AWS S3" in Warp UI and docs contexts, and "Amazon S3" only when naming AWS's own documentation.
-- **Google Cloud Storage** — Google's object storage service, one of the providers for [self-hosted agent data storage](/platform/data-storage/).
-- **Azure Blob Storage** — Microsoft Azure's object storage service, one of the providers for [self-hosted agent data storage](/platform/data-storage/).
+- **AWS S3** — Amazon's S3 object storage service, one of the providers for [self-hosted agent data storage](/factories/self-hosting/data-storage/). Warp's Admin Panel labels this option "AWS S3" to match its sibling entries (Google Cloud Storage, Azure Blob Storage); use "AWS S3" in Warp UI and docs contexts, and "Amazon S3" only when naming AWS's own documentation.
+- **Google Cloud Storage** — Google's object storage service, one of the providers for [self-hosted agent data storage](/factories/self-hosting/data-storage/).
+- **Azure Blob Storage** — Microsoft Azure's object storage service, one of the providers for [self-hosted agent data storage](/factories/self-hosting/data-storage/).

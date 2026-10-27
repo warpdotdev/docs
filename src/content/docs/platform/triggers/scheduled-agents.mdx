@@ -31,7 +31,7 @@ A Scheduled Agent is a [cloud agent](/platform/) that runs on a cron-based sched
 * Uses a fixed prompt defined at schedule creation time.
 * Starts a fresh agent session for every run.
 * Executes in a specific Warp [Environment](/platform/environments/), if provided.
-* Consumes credits when it runs.
+* Consumes usage when it runs.
 * Can be paused, updated, or deleted at any time.
 
 Scheduled Agents are ideal for work that should happen regularly and predictably, without needing a human to trigger the agent manually.
@@ -288,7 +288,7 @@ Each scheduled run behaves like a standard cloud agent run, with a few important
 * Every run starts a fresh session.
 * No state is carried over between runs unless your environment explicitly persists data.
 * Runs execute automatically without human intervention.
-* All usage is billed to the team’s shared credit balance.
+* Usage follows [cloud agent billing](/platform/team-access-billing-and-identity/#billing-for-cloud-agent-runs).
 
 If a scheduled run fails, it does not block future runs. Each execution is independent. Use the [API error reference](/factories/api-and-sdk/troubleshooting/errors/) to interpret any returned error code.
 
@@ -301,7 +301,7 @@ By creating a Scheduled Agent, you are responsible for:
 * The cron schedule and how often the agent runs.
 * The instructions provided in the prompt.
 * The environment and integrations the agent has access to.
-* The credits consumed by scheduled executions.
+* The usage charges from scheduled executions.
 
 Carefully review prompts and schedules before deploying them broadly, especially for agents that can modify production code or infrastructure.
 

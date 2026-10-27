@@ -30,13 +30,21 @@ Deploy the `oz-agent-worker` daemon into a Kubernetes cluster with the included 
 
 ## Prerequisites
 
-Complete the shared [managed prerequisites](/factories/self-hosting/#managed-prerequisites), then prepare:
+* Managed self-hosting access, network connectivity, and credentials. See the [shared managed prerequisites](/factories/self-hosting/#managed-prerequisites).
+* A Kubernetes cluster whose API server is reachable from the worker, with the [required permissions](#cluster-permissions).
+* [Helm](https://helm.sh/docs/intro/install/) installed locally and `kubectl` authenticated to the target cluster.
+* A glibc-based task image with the required tools and dependencies. See [custom environment images](/platform/environments/). Musl-based images such as Alpine Linux are not supported.
 
-* **A Kubernetes cluster** - The worker process must reach the API server. The cluster must:
-  * Allow the task namespace to create Jobs with a **root init container**, unless you enable native image volumes with `kubernetesBackend.useImageVolumes=true`.
-  * Grant the worker these namespace-scoped permissions: `create`, `get`, `list`, `watch`, `delete` on `jobs`; `get`, `list`, `watch` on `pods`; `get` on `pods/log`; `list` on `events`.
-* **[Helm](https://helm.sh/docs/intro/install/)** - Install Helm locally and authenticate `kubectl` against the target cluster.
-* **Task images** - Use a glibc-based image, such as Debian, Ubuntu, or a non-Alpine variant of an official image. Musl-based images such as Alpine Linux are not supported. Add required tools, binaries, scripts, and system packages to the [environment's custom image](/platform/environments/).
+### Cluster permissions
+
+The task namespace must allow Jobs with a root init container unless native image volumes are enabled with `kubernetesBackend.useImageVolumes=true`.
+
+The worker needs these namespace-scoped permissions:
+
+* `create`, `get`, `list`, `watch`, and `delete` on `jobs`.
+* `get`, `list`, and `watch` on `pods`.
+* `get` on `pods/log`.
+* `list` on `events`.
 
 ---
 
@@ -146,7 +154,7 @@ Each release runs a single worker replica. To scale out, install more releases w
 * `warp.apiKeySecret.name` — Name of the Secret containing `WARP_API_KEY`. Defaults to `oz-agent-worker`.
 * `warp.apiKeySecret.key` — Key within the Secret. Defaults to `WARP_API_KEY`.
 
-See the [self-hosted worker reference](/factories/self-hosting/reference/#kubernetes-backend-config) for the full config file schema.
+See the [Self-hosted worker reference](/factories/self-hosting/reference/#kubernetes-backend-config) for the full config file schema.
 
 ---
 
