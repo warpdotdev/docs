@@ -84,15 +84,23 @@ When the run finishes, the result appears in the agent session. The agent doesn'
 * **A connected Jira user becomes the run's creator, not its agent** - [Connect your Jira account to Warp](/platform/integrations/jira/#connecting-your-jira-account-to-warp) so a session you start is attributed to you; an unconnected account gets a prompt to connect instead of a run starting. Either way, the run executes as the agent selected by the automation, not as that Jira user.
 * **Jira access doesn't include code access** - Connecting Jira lets agents read and update Jira work items, nothing more. Repository access comes from the factory itself.
 
-:::caution
-Warp's built-in Jira tools read Jira as the person who created the run; that person must link their Atlassian account to Warp in Jira under **profile** > **Personal settings** > **Warp**. To interact with Jira in runs without a human creator, such as scheduled runs or runs created by a service account or API key, add the Atlassian MCP server as a [managed MCP install](/platform/mcp/) instead.
-:::
+Warp's built-in Jira tools use a person's linked Jira account:
+
+* **Human-created runs** - The tools use the run creator's account.
+* **Automation runs without a human creator** - For factory automations, including scheduled runs, **Run now**, and other automation-triggered runs, the tools use the automation creator's account. Helper agents use the same account, not the last editor's, trigger creator's, or agent's account.
+
+That person must link their Atlassian account in Jira under **profile** > **Personal settings** > **Warp**. Reads use their Jira permissions. The Warp app makes writes, such as comments, edits, and transitions, after checking that person's permission for the exact action and target.
+
+The automation creator must still have access to the team and factory and a linked Jira account for the site. Unlinking, losing access, or deleting the automation stops access on the next request. Pausing or disabling the automation doesn't revoke access for runs already started.
+
+Automations created by a service account don't get this fallback. Neither do runs outside factory automations, including standalone schedules and API, CLI, or CI runs created with a service account or API key. For those runs, add the Atlassian MCP server as a [managed MCP install](/platform/mcp/).
 
 ## Troubleshooting
 
 * **Warp is unavailable in Jira** - Confirm the Warp app is installed on the Jira Cloud site. On the app's **Configure** page, click **Connect to Warp** if the installation isn't connected to a workspace. If someone else is completing setup, confirm that their setup link is still active.
 * **No run starts** - Confirm an enabled `agent_session_created` automation exists, its agent is available, and its project and keyword filters match the assignment.
 * **Jira asks you to connect an account** - [Link your own Jira account to Warp](/platform/integrations/jira/#connecting-your-jira-account-to-warp), then retry the assignment or mention. Installing the app and connecting the site doesn't link every teammate's account.
+* **Jira tools say the automation's creator needs to connect** - The automation creator must link their Jira account to Warp using the tool response's **Connect Warp** link.
 * **The session shows no result** - Open the matching automation's run to see whether the agent is still working, waiting for input, or failed.
 * **A Jira update fails** - Confirm the app can access the work item's project and that the requested action or workflow transition is valid.
 
