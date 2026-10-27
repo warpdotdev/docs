@@ -45,7 +45,7 @@ You can also specify a skill from any accessible repository using the fully qual
 
 ### Cloud agents
 
-For cloud agent runs (`oz agent run-cloud`), skills are discovered from repositories configured in your [environments](/platform/environments/).
+For cloud agent runs (`oz agent run-cloud`), skills are discovered from repositories configured in your [environments](/factories/environments/).
 
 **Discovery workflow:**
 
@@ -73,7 +73,7 @@ How the value is interpreted:
 * **Path resolution** - A leading `~` expands to the home directory. Relative entries resolve against the run's working directory rather than the agent process's current directory, so they stay stable even when setup steps change directories.
 * **Precedence** - Skills loaded this way are treated as personal (home) skills, so they stay in scope for the whole run regardless of which directory the agent is working in. Repository skills of the same name still appear separately, as described in [skill name conflicts](/agents/capabilities/skills/#skill-name-conflicts).
 
-The Warp Agent harness reads `WARP_SKILL_DIRS` directly. For [third-party harnesses](/platform/harnesses/) such as Claude Code and Codex, a cloud run publishes each of these skills into that harness's own skill root before launch, so the harness discovers them through its native skill system.
+The Warp Agent harness reads `WARP_SKILL_DIRS` directly. For [third-party harnesses](/factories/harnesses/) such as Claude Code and Codex, a cloud run publishes each of these skills into that harness's own skill root before launch, so the harness discovers them through its native skill system.
 
 ---
 
@@ -163,7 +163,7 @@ Suggested skills appear on the Agents page under the **Suggested** filter.
 ## Related resources
 
 * [Skills](/agents/capabilities/skills/) — How to create skills and skill file format
-* [Environments](/platform/environments/) — Configure repositories and runtime context for cloud agents
+* [Environments](/factories/environments/) — Configure repositories and runtime context for cloud agents
 * [Scheduled Agents](/platform/triggers/scheduled-agents/) — Run agents automatically on a cron schedule
 * [Warp Factories](/factories/) — Assemble named agents, automations, and measurement into a standing triage-to-merge workflow
 * [{VARS.WEB_APP}](/platform/oz-web-app/) — Visual interface for managing cloud agents

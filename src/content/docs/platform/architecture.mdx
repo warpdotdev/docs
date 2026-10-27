@@ -32,7 +32,7 @@ Every cloud agent run follows the same lifecycle, no matter what started it or w
 
 1. **A trigger fires** - A [schedule](/platform/triggers/scheduled-agents/), an [integration](/platform/integrations/) event, an [API or SDK](/factories/api-and-sdk/) call, a CLI command, or a [Handoff](/platform/handoff/) from the Warp app starts the run.
 2. **The task is created** - The control plane opens a run record that tracks the task's state, inputs, and provenance.
-3. **Configuration is resolved** - The platform picks the run's [environment](/platform/environments/), [runner](/factories/runners/), execution host, and [model and harness](/platform/harnesses/).
+3. **Configuration is resolved** - The platform picks the run's [environment](/factories/environments/), [runner](/factories/runners/), execution host, and [model and harness](/factories/harnesses/).
 4. **The sandbox is provisioned** - The execution host clones the environment's repositories, runs setup commands, and injects only the [secrets](/platform/secrets/) the run is allowed to use.
 5. **The agent loop runs** - The harness gathers context, calls the model, and runs tools until the task is done. Tools run in the sandbox. With the Warp Agent, model calls route through Warp to providers under [Zero Data Retention](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr); Claude Code and Codex call their provider directly.
 6. **Outputs land at their targets** - The agent pushes branches, opens pull requests, and replies to the Slack thread, Linear issue, or Jira work item that started the task.

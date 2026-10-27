@@ -1,0 +1,52 @@
+---
+title: Running Codex in the cloud
+description: >-
+  Run Codex as a factory agent or standalone cloud harness using an OpenAI API
+  key, with separate guidance for local CLI sessions.
+sidebar:
+  label: "Codex"
+---
+import { VARS } from '@data/vars';
+
+Codex is OpenAI's coding agent. Use it as a factory agent's harness for tasks such as codebase migrations or batch test generation. Select its harness, model, and team-owned auth secret in [Configuring factory agents](/factories/factory-agents/configuration/#configuring-a-third-party-harness).
+
+Codex also runs as a standalone cloud agent without a factory. To run the CLI locally in Warp, follow [Codex CLI in Warp](/agents/cli-agents/codex/); local authentication is separate from the cloud setup below.
+
+## Key features
+
+* **Cloud orchestration** - Launch Codex from any {VARS.WARP_AUTOMATION_PLATFORM} trigger: the Warp app, the {VARS.WEB_APP}, the {VARS.WARP_AGENT_CLI}, the REST API, [schedules](/platform/triggers/scheduled-agents/), [Slack](/platform/integrations/slack/) mentions, [Linear](/platform/integrations/linear/) issues, or [GitHub Actions](/platform/integrations/github-actions/).
+* **Codex model picker** - Choose an available model and reasoning level for the task.
+* **Parent and child roles** - A Warp Agent parent can dispatch Codex children in [ad hoc orchestration](/platform/orchestration/). A factory foreman using Codex can dispatch named factory agents; those agents keep their configured harnesses and resources.
+
+## Available models
+
+Choose a model and reasoning level from the factory agent's model picker. For standalone runs, use the model picker in the Warp app's Cloud Mode or the "Model" field on the {VARS.WEB_APP}'s new-run pane. Use the current picker rather than a copied list of model versions. See [Agent model choice](/agents/inference/model-choice/) and [OpenAI's Codex model docs](https://developers.openai.com/codex/models) for selection guidance.
+
+## Credentials and billing
+
+For cloud authentication with a managed secret, Codex accepts an OpenAI API key:
+
+* **OpenAI API key** - Authenticates the cloud harness for OpenAI API usage. A local Codex subscription sign-in is not this managed-secret credential.
+
+OpenAI bills the API account for inference with this credential. Warp charges for [hosted compute](/support-and-community/plans-and-billing/credits/#compute-usage) and [platform usage](/support-and-community/plans-and-billing/platform-credits/) according to your plan or contract. See [harness billing](/factories/harnesses/#billing) for cost-reporting limitations.
+
+Factory agents select team-scoped secrets. Standalone ad hoc runs can use personal or team-scoped secrets. See [Connecting Codex credentials](/factories/harnesses/authentication/#connecting-codex-credentials).
+
+## Starting a Codex run
+
+For a factory agent, follow [Configuring factory agents](/factories/factory-agents/configuration/). For a standalone cloud run:
+
+* **Warp app** - In the Warp app's Cloud Mode, open the "Agent harness" dropdown above the input and choose **Codex**.
+* **{VARS.WEB_APP}** - On the new run or new schedule pane, in the "Harness" dropdown, choose **Codex**. In the "Codex auth secret" field, select a stored OpenAI secret.
+* **{VARS.WARP_AGENT_CLI}** - Use `oz agent run-cloud --harness codex --codex-auth-secret KEY_NAME` with your prompt and environment options. Replace `KEY_NAME` with the stored secret's name.
+* **API and SDK** - Set the agent config's `harness.type` to `codex` and select the OpenAI secret in the matching auth-secret field. See the [API reference](/factories/api-and-sdk/) for the object schema.
+
+## Related pages
+
+* [Choosing agent harnesses](/factories/harnesses/)
+* [Configuring harness authentication](/factories/harnesses/authentication/) - Store OpenAI credentials as Warp-managed secrets
+* [Warp Agent](/factories/harnesses/warp-agent/)
+* [Multi-agent orchestration](/platform/orchestration/) - Coordinate a Warp Agent parent with Codex children across local and cloud runs
+* [Managing cloud agents](/platform/managing-cloud-agents/) - Inspect Codex cloud runs in the Agent Management Panel and the Runs page
+* [Running Claude Code in the cloud](/factories/harnesses/claude-code/)
+* [Codex CLI in Warp](/agents/cli-agents/codex/) - Codex in your local Warp terminal

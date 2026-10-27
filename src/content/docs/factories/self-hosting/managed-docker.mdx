@@ -23,7 +23,7 @@ Run the `oz-agent-worker` daemon with the **Docker backend** — the default man
 * Managed self-hosting access, network connectivity, and credentials. See the [shared managed prerequisites](/factories/self-hosting/#managed-prerequisites).
 * A Linux VM, server, or workstation, or a macOS or Windows host using a native worker binary.
 * A `linux/amd64` or `linux/arm64` Docker daemon running Linux containers. Windows containers are not supported.
-* A glibc-based task image with the required tools and dependencies. See [custom environment images](/platform/environments/). Musl-based images such as Alpine Linux are not supported.
+* A glibc-based task image with the required tools and dependencies. See [custom environment images](/factories/environments/). Musl-based images such as Alpine Linux are not supported.
 
 ### Install Docker
 
@@ -234,7 +234,7 @@ Once your Docker worker is connected, route tasks to it with `--host "<your-work
 
 * [Self-hosting quickstart](/factories/self-hosting/quickstart/) — ~10-minute path to a running Docker worker.
 * [Self-hosted worker reference](/factories/self-hosting/reference/) — Full CLI flag and config file schema.
-* [Environments](/platform/environments/) — Define the Docker image, repos, and setup commands for tasks.
+* [Environments](/factories/environments/) — Define the Docker image, repos, and setup commands for tasks.
 * [Private container registry](/factories/self-hosting/private-container-registry/) — Mirror worker and task images and configure private-registry pulls.
 * [Security and networking](/platform/execution-security/) — Data boundaries, egress, and Docker socket considerations.
 * [Troubleshooting](/factories/self-hosting/troubleshooting/) — Common issues with the Docker backend.

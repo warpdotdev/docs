@@ -220,9 +220,9 @@ export default defineConfig({
 					customSets: [
 						{ label: 'Terminal', description: 'Warp Terminal features and configuration.', paths: ['terminal/**'] },
 						{ label: 'Agents', description: 'Agents in Warp: capabilities, local agents, and CLI agents.', paths: ['agents/**'] },
-						{ label: 'Factories', description: 'Warp Factories documentation for setup, agent roles, definitions as code, integrations, measurement, and infrastructure.', paths: ['factories/**'] },
+						{ label: 'Factories', description: 'Warp Factories setup, agents, integrations, measurement, and shared cloud harness, environment, and MCP-server references.', paths: ['factories/**'] },
 						{ label: 'Warp Agent CLI', description: 'The Warp Agent CLI: agent conversations, shell commands, permissions, and configuration in any terminal.', paths: ['agents/cli/**'] },
-						{ label: 'Automation Platform', description: 'The Automation Platform: cloud agents, orchestration, triggers, integrations, environments, harnesses, and self-hosting.', paths: ['platform/**'] },
+						{ label: 'Automation Platform', description: 'Factory-first entry points and supported standalone cloud-agent workflows, orchestration, triggers, integrations, and legacy configuration.', paths: ['platform/**'] },
 						{ label: 'Code', description: 'Code editor, code review, and Git worktrees.', paths: ['code/**'] },
 						{ label: 'Enterprise', description: 'Enterprise features, SSO, team management, and security.', paths: ['enterprise/**'] },
 						{ label: 'Getting Started', description: 'Installation, quickstart, and migration guides.', paths: ['index', 'quickstart', 'getting-started/**'] },

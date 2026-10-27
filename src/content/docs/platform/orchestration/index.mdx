@@ -15,7 +15,7 @@ Watch this walkthrough to see how a cloud agent can coordinate a team of agents 
 
 To start an orchestrated run, see [Running orchestrated agents](/platform/orchestration/multi-agent-runs/).
 
-To orchestrate work inside a [Warp factory](/factories/), dispatch through [factory endpoints](/factories/factory-api/) instead of calling `POST /agent/runs` with the foreman's `agent_identity_uid` directly. The server resolves the foreman for you, and everything on this page still applies to the run it starts.
+To send work to a [Warp factory](/factories/), use [factory endpoints](/factories/factory-api/) instead of starting its foreman through `POST /agent/runs`. The foreman dispatches [configured factory agents](/factories/factory-agents/creating-custom-agents/#dispatch-a-configured-agent). Named factory-agent dispatch has its own resource configuration; don't assume every ad hoc execution mode or parent setting described below applies unchanged.
 
 ## The parent/child model
 
@@ -31,7 +31,7 @@ Orchestrations today are exactly one level deep: a parent and its direct childre
 The parent and child don't have to run in the same place. Orchestration supports four combinations:
 
 * **Local → local** - a [Warp Agent](/agents/) conversation in the Warp app spawns child Warp Agent conversations on the same machine. Useful for trying orchestration patterns without spinning up cloud infrastructure.
-* **Local → cloud** - a local parent spawns one or more cloud children that run in [environments](/platform/environments/) on Warp-hosted or self-hosted infrastructure. The parent keeps working while children execute in parallel.
+* **Local → cloud** - a local parent spawns one or more cloud children that run in [environments](/factories/environments/) on Warp-hosted or self-hosted infrastructure. The parent keeps working while children execute in parallel.
 * **Cloud → cloud** - a cloud parent spawns cloud children that each run in their own environment. This is the canonical pattern for review swarms, large fan-outs, and any orchestration triggered from Slack, Linear, a schedule, or the API.
 * **Cloud → cloud-local** - a cloud parent spawns children that run inside the parent's own cloud environment, rather than each child getting its own environment. Useful when children need to share state with the parent (a filesystem, a long-running process, a shell session) or when spinning up an environment per child would be wasteful.
 
@@ -41,7 +41,7 @@ Children can also run with a different agent runtime than the parent. A parent r
 
 An ad hoc child's prompt comes from the parent at spawn time. The model, harness, and execution settings apply to every child in the batch.
 
-Use a [skill](/agents/capabilities/skills/) for reusable instructions. A local child discovers the project and home-directory skills in scope from its working directory. For cloud children, the parent attaches skills from a repository in the [environment](/platform/environments/).
+Use a [skill](/agents/capabilities/skills/) for reusable instructions. A local child discovers the project and home-directory skills in scope from its working directory. For cloud children, the parent attaches skills from a repository in the [environment](/factories/environments/).
 
 For named agents with standing configuration, use [Warp Factories](/factories/). A factory's foreman can dispatch its [factory agents](/factories/factory-agents/creating-custom-agents/#dispatch-a-configured-agent).
 

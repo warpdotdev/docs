@@ -78,6 +78,186 @@
   ],
   "redirects": [
     {
+      "source": "/platform/mcp(/?)",
+      "destination": "/factories/mcp/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/mcp.md",
+      "destination": "/factories/mcp.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/mcp(/?)",
+      "destination": "/factories/mcp/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/mcp.md",
+      "destination": "/factories/mcp.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/environments(/?)",
+      "destination": "/factories/environments/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/environments.md",
+      "destination": "/factories/environments.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/environments(/?)",
+      "destination": "/factories/environments/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/environments.md",
+      "destination": "/factories/environments.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/environments/configuring-environments(/?)",
+      "destination": "/factories/environments/configuring-environments/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/environments/configuring-environments.md",
+      "destination": "/factories/environments/configuring-environments.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/environments/configuring-environments(/?)",
+      "destination": "/factories/environments/configuring-environments/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/environments/configuring-environments.md",
+      "destination": "/factories/environments/configuring-environments.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/environments/troubleshooting-environments(/?)",
+      "destination": "/factories/environments/troubleshooting-environments/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/environments/troubleshooting-environments.md",
+      "destination": "/factories/environments/troubleshooting-environments.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/environments/troubleshooting-environments(/?)",
+      "destination": "/factories/environments/troubleshooting-environments/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/environments/troubleshooting-environments.md",
+      "destination": "/factories/environments/troubleshooting-environments.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/harnesses(/?)",
+      "destination": "/factories/harnesses/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/harnesses.md",
+      "destination": "/factories/harnesses.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/harnesses(/?)",
+      "destination": "/factories/harnesses/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/harnesses.md",
+      "destination": "/factories/harnesses.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/harnesses/authentication(/?)",
+      "destination": "/factories/harnesses/authentication/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/harnesses/authentication.md",
+      "destination": "/factories/harnesses/authentication.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/harnesses/authentication(/?)",
+      "destination": "/factories/harnesses/authentication/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/harnesses/authentication.md",
+      "destination": "/factories/harnesses/authentication.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/harnesses/warp-agent(/?)",
+      "destination": "/factories/harnesses/warp-agent/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/harnesses/warp-agent.md",
+      "destination": "/factories/harnesses/warp-agent.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/harnesses/warp-agent(/?)",
+      "destination": "/factories/harnesses/warp-agent/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/harnesses/warp-agent.md",
+      "destination": "/factories/harnesses/warp-agent.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/harnesses/claude-code(/?)",
+      "destination": "/factories/harnesses/claude-code/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/harnesses/claude-code.md",
+      "destination": "/factories/harnesses/claude-code.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/harnesses/claude-code(/?)",
+      "destination": "/factories/harnesses/claude-code/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/harnesses/claude-code.md",
+      "destination": "/factories/harnesses/claude-code.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/harnesses/codex(/?)",
+      "destination": "/factories/harnesses/codex/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/harnesses/codex.md",
+      "destination": "/factories/harnesses/codex.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/harnesses/codex(/?)",
+      "destination": "/factories/harnesses/codex/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/harnesses/codex.md",
+      "destination": "/factories/harnesses/codex.md",
+      "statusCode": 308
+    },
+    {
       "source": "/guides/agent-workflows/run-a-software-factory-in-the-cloud(/?)",
       "destination": "/factories/quickstart/",
       "statusCode": 308
@@ -1579,7 +1759,7 @@
     },
     {
       "source": "/agent-platform/platform/environments(/?)",
-      "destination": "/platform/environments/",
+      "destination": "/factories/environments/",
       "statusCode": 308
     },
     {
@@ -5053,11 +5233,6 @@
       "statusCode": 308
     },
     {
-      "source": "/platform/environments",
-      "destination": "/platform/environments/",
-      "statusCode": 308
-    },
-    {
       "source": "/agents/using-agents/model-choice",
       "destination": "/agents/inference/model-choice/",
       "statusCode": 308
@@ -5444,7 +5619,7 @@
     },
     {
       "source": "/platform",
-      "destination": "/agents/",
+      "destination": "/platform/",
       "statusCode": 308
     },
     {
@@ -6344,42 +6519,42 @@
     },
     {
       "source": "/platform/environments#about-environments",
-      "destination": "/platform/environments/",
+      "destination": "/factories/environments/",
       "statusCode": 308
     },
     {
       "source": "/platform/environments#create-an-environment-with-guided-setup-recommended",
-      "destination": "/platform/environments/",
+      "destination": "/factories/environments/",
       "statusCode": 308
     },
     {
       "source": "/platform/environments#hosts-and-environments",
-      "destination": "/platform/environments/",
+      "destination": "/factories/environments/",
       "statusCode": 308
     },
     {
       "source": "/platform/environments#how-environments-fit-into-the-warp-platform",
-      "destination": "/platform/environments/",
+      "destination": "/factories/environments/",
       "statusCode": 308
     },
     {
       "source": "/platform/environments#key-features",
-      "destination": "/platform/environments/",
+      "destination": "/factories/environments/",
       "statusCode": 308
     },
     {
       "source": "/platform/environments#what-happens-at-runtime",
-      "destination": "/platform/environments/",
+      "destination": "/factories/environments/",
       "statusCode": 308
     },
     {
       "source": "/platform/environments#when-to-use-environments",
-      "destination": "/platform/environments/",
+      "destination": "/factories/environments/",
       "statusCode": 308
     },
     {
       "source": "/platform/environments#where-to-configure-environments",
-      "destination": "/platform/environments/",
+      "destination": "/factories/environments/",
       "statusCode": 308
     },
     {

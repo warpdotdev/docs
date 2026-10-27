@@ -33,7 +33,7 @@ For a Warp-managed factory, edit agent settings in the web app. For a GitHub-bac
    <figcaption>The Settings tab contains the agent's description and resources.</figcaption>
    </figure>
 
-3. Edit the agent description, harness, model, runner, host, [MCP servers](/platform/mcp/), or [secrets](/factories/secrets/).
+3. Edit the agent description, harness, model, runner, host, [MCP servers](/factories/mcp/), or [secrets](/factories/secrets/).
 
 4. To change the agent's instructions, click **Prompt** and edit the prompt.
 
@@ -43,7 +43,7 @@ For a Warp-managed factory, edit agent settings in the web app. For a GitHub-bac
 
 Choose each agent's model and harness in its settings. Supported harnesses include the Warp Agent, Claude Code, and Codex. A foreman using Claude Code or Codex can still dispatch other factory agents, whose runs are tracked as its children.
 
-Third-party harnesses require a paid plan. On the Free plan, agents use the Warp Agent. See [Warp pricing](https://www.warp.dev/pricing) for plan details.
+Third-party harness access depends on your team's plan and workspace settings. If a harness requires an upgrade, use the Warp Agent or review [Warp pricing](https://www.warp.dev/pricing).
 
 Default model IDs change over time, so choose based on what each agent has to do well:
 
@@ -55,7 +55,7 @@ Default model IDs change over time, so choose based on what each agent has to do
 | Implement | Coding strength, with a harness that fits your repositories and toolchain |
 | Review | A different model or harness from the implement agent, so the two don't share blind spots |
 
-The model picker also includes custom routers from factories you can access. See [Agent model choice](/agents/inference/model-choice/), [Custom routers](/agents/inference/custom-routers/), and [Harnesses in the {VARS.WARP_AUTOMATION_PLATFORM}](/platform/harnesses/) for available options.
+The model picker also includes custom routers from factories you can access. See [Agent model choice](/agents/inference/model-choice/), [Custom routers](/agents/inference/custom-routers/), and [Choosing agent harnesses](/factories/harnesses/) for available options.
 
 ### Configuring a third-party harness
 
@@ -64,7 +64,7 @@ Change an agent's harness to Claude Code or Codex to run it with that provider's
 1. In the web app sidebar, click your factory to expand it, then click **Agents**.
 2. Click an agent to open its **Settings** tab.
 3. In the "Harness" dropdown, choose **Claude Code** or **Codex**. The "Auth" field appears for these harnesses.
-4. In the "Auth" field, choose a compatible, team-owned secret from the list or click **New auth secret** to create one.
+4. In the "Auth" field, choose a compatible, team-owned secret. To create one, click **New auth secret** for Claude Code or **New OpenAI API Key** for Codex.
 
    <figure style={{ maxWidth: "563px" }}>
    ![An Implement agent's Settings tab with Claude Code selected in the Harness dropdown and the Auth dropdown open, showing a saved credential and New auth secret.](../../../../assets/factories/factory-agent-auth-secret.png)
@@ -75,7 +75,7 @@ Change an agent's harness to Claude Code or Codex to run it with that provider's
    * Claude Code accepts an Anthropic API key, Anthropic Bedrock API key, or Anthropic Bedrock access key.
    * Codex accepts an OpenAI API key.
 
-   See [connecting Claude Code credentials](/platform/harnesses/authentication/#connecting-claude-code-credentials) and [connecting Codex credentials](/platform/harnesses/authentication/#connecting-codex-credentials) for how to obtain each key.
+   See [connecting Claude Code credentials](/factories/harnesses/authentication/#connecting-claude-code-credentials) and [connecting Codex credentials](/factories/harnesses/authentication/#connecting-codex-credentials) for how to obtain each key.
    :::
 
 5. In the "Model" dropdown, choose a model from that harness's catalog.

@@ -30,7 +30,7 @@ A Scheduled Agent is a [cloud agent](/platform/) that runs on a cron-based sched
 * Runs automatically based on a cron expression.
 * Uses a fixed prompt defined at schedule creation time.
 * Starts a fresh agent session for every run.
-* Executes in a specific Warp [Environment](/platform/environments/), if provided.
+* Executes in a specific Warp [Environment](/factories/environments/), if provided.
 * Consumes usage when it runs.
 * Can be paused, updated, or deleted at any time.
 
@@ -70,7 +70,7 @@ Use `oz schedule create` (with required flags) to define a new Scheduled Agent.
 * A prompt or skill that the agent will execute.
 * An optional environment in which the agent will run.
 * An optional [model selection](/agents/cli/oz-cli/#using-agent-profiles).
-* [Optional MCP server configuration](/platform/mcp/).
+* [Optional MCP server configuration](/factories/mcp/).
 
 ```bash
 oz schedule create \
@@ -94,7 +94,7 @@ oz schedule create \
 * `--file <PATH>` — load schedule configuration from a YAML or JSON file.
 
 :::note
-[Environments](/platform/environments/) are optional — if you don't specify one, the scheduled agent runs in a barebones sandbox. Without an environment, the agent won't have access to your code repositories, pre-installed tools, or setup commands, so this is only suited for tasks that don't need your codebase.
+[Environments](/factories/environments/) are optional — if you don't specify one, the scheduled agent runs in a barebones sandbox. Without an environment, the agent won't have access to your code repositories, pre-installed tools, or setup commands, so this is only suited for tasks that don't need your codebase.
 :::
 
 :::caution
@@ -115,7 +115,7 @@ oz schedule create \
 
 Once created, the agent will automatically run at the specified times without further action.
 
-Scheduled Agents support the same [model selection](/agents/cli/oz-cli/) and [MCP server configuration](/platform/mcp/) as other cloud agent triggers.
+Scheduled Agents support the same [model selection](/agents/cli/oz-cli/) and [MCP server configuration](/factories/mcp/) as other cloud agent triggers.
 
 #### Cron schedule format
 
@@ -315,7 +315,7 @@ Many teams use both together: [triggers](/platform/triggers/) for reactive workf
 
 ## Related pages
 
-* [Environments](/platform/environments/) — configure the repo, image, and setup commands scheduled runs execute with
+* [Environments](/factories/environments/) — configure the repo, image, and setup commands scheduled runs execute with
 * [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) — inspect transcripts, logs, and outputs from each scheduled run
 * [Skills as Agents](/platform/skills-as-agents/) — run a reusable skill definition on a schedule
 * [Run unattended agents](/guides/agent-workflows/how-to-run-unattended-agents/) — compare schedules with Slack, Linear, GitHub Actions, CLI, and API triggers

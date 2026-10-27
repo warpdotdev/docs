@@ -1,0 +1,54 @@
+---
+title: Troubleshooting cloud agent environments
+description: >-
+  Fix environment setup failures, authorization errors, permission problems, and incompatible Docker images for cloud agents.
+---
+import { VARS } from '@data/vars';
+
+For factory-managed workspaces, update setup commands and images in the factory's [runner configuration](/factories/runners/). For existing environments, use the environment configuration and CLI procedures below.
+
+## Setup commands fail on a fresh container
+
+In a fresh container, setup commands must create any directories or caches they need. Commands that assume those already exist can fail with [`environment_setup_failed`](/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/).
+
+1. Update the setup commands so they work in a fresh container. For example, use `mkdir -p .cache` instead of `mkdir .cache`.
+2. Use lockfile-based dependency commands such as `npm ci` when your project supports them.
+3. Run the complete setup from a clean container before updating the environment.
+
+## "Setup command #N timed out"
+
+A setup command that runs longer than 30 minutes fails environment setup. The error identifies the command number, command text, elapsed limit, and phase. If the phase is "resetting the working directory after the command", the timeout is 30 seconds instead.
+
+1. Inspect the named command and its output in the run's transcript. Check for an interactive prompt, a long-running server, or a stalled download.
+2. Make the command finish without user input. For example, use `sudo apt-get install -y` for package installation, and don't start a foreground development server during setup.
+3. Move lengthy dependency installation into your Docker image when possible, then test the revised setup from a fresh container and start a new run.
+
+## `Permission denied` or `EACCES`
+
+Linux container runs use a non-root user by default. A command fails when it needs root access or writes to a directory that the selected user cannot modify.
+
+1. Prefix commands that require root access with `sudo`.
+2. Make workspace directories writable by the selected user's UID and GID. The dedicated `agent` user uses UID and GID 1000 when available; an image's non-root user can use different IDs.
+3. Review [configuring container users](/factories/environments/configuring-environments/#configure-container-users) for the image and setup-command requirements.
+
+## `external_authentication_required`
+
+This error can indicate that the run's repository identity lacks GitHub access.
+
+1. For a factory run, check its [GitHub connection](/factories/integrations/github/) and the [credential strategy](/factories/factory-as-code/#credentialstrategy) that selects the run's repository identity.
+2. For a standalone run acting as a user, follow [GitHub authorization setup](/agents/cli/oz-cli/integration-setup/#how-github-authorization-works) for that user.
+3. For standalone automation using an agent API key, configure [team GitHub authorization](/platform/team-access-billing-and-identity/#team-github-authorization).
+
+## "VM failed before the agent could run"
+
+This error can mean the Docker image is incompatible with the agent runtime. If startup fails with a musl-based image such as Alpine, try a glibc-based image.
+
+1. Switch to a glibc-based image such as Debian, Ubuntu, or a default non-Alpine official image such as `node`, `python`, or `rust`.
+2. Update the factory's runner image, or recreate or update the existing environment with the new image.
+3. If an existing environment still fails, review its configuration in the legacy {VARS.WEB_APP} or use the {VARS.WARP_AGENT_CLI} to run `oz environment get ENVIRONMENT_ID`. Replace `ENVIRONMENT_ID` with the environment's ID.
+
+## Related pages
+
+* [Cloud agent environments](/factories/environments/) - Understand factory defaults and shared environment overrides
+* [Configuring cloud agent environments](/factories/environments/configuring-environments/) - Create, update, and manage environments
+* [`environment_setup_failed`](/factories/api-and-sdk/troubleshooting/errors/environment-setup-failed/) - The API error reference
