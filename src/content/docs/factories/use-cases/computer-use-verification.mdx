@@ -15,7 +15,7 @@ The verifier uses the Warp Agent harness in a Warp-hosted sandbox. Third-party h
 * A [factory](/factories/quickstart/) with a foreman and access to the target repository.
 * Foreman credentials that can read pull requests and post comments. The example uses [GitHub](/factories/integrations/github/).
 * An application that builds and starts in a [Warp-hosted sandbox](/factories/warp-hosting/), with documented dependency, build, and launch commands.
-* Non-production test accounts and fixtures that are safe to capture.
+* Sample data containing no sensitive information, plus a development or test account if the app requires sign-in.
 * Acceptance criteria naming the visible states and interactions to verify.
 * A test pull request from a branch in the connected repository.
 
@@ -27,16 +27,16 @@ Your verification workflow needs a known commit, a runnable application, observa
 | --- | --- |
 | Trigger | A maintainer applies the `ui-verification` label to a pull request |
 | Agents | Foreman coordinates a verification agent on the Warp Agent harness |
-| Skills | App startup steps, test fixtures, observable criteria, and capture requirements |
+| Skills | App startup steps, sample data, observable criteria, and capture requirements |
 | Runtime | A Warp-hosted runner with the app's toolchain and Computer Use available |
 | Output | A PR comment with the tested commit, observations, evidence links, and passed, failed, or unverified criteria |
 
 ## Set up UI verification
 
-1. Choose the repository, target branch, and request label. The example uses `acme/web-app`, `main`, and `ui-verification`. Maintainers apply the label only after reviewing the code the verifier will execute. A label requests work, but doesn't make the code safe to run.
+1. Choose the GitHub repositories where your factory will verify pull requests, the target branches, and the label maintainers will apply to request verification. In the example, applying `ui-verification` to a PR in `acme/web-app` targeting `main` starts the workflow.
 2. Check whether an existing automation already handles these requests. Reuse it where appropriate, or narrow overlapping triggers before adding another automation. See [automation matching rules](/factories/automations/#how-matching-works).
-3. Have a team admin review the [artifact attachment mode](/agents/capabilities/computer-use/artifacts-in-prs/#attachment-modes). **Link only** is the default and provides permission-checked links. **Embed** can make captures public to anyone with the URL, even for a private repository. **Disabled** prevents sharing media links.
-4. Create a [custom verification agent](/factories/factory-agents/creating-custom-agents/) if your factory doesn't already have one. Use the following definition, replacing `verify` in the directory name if needed. Select a runner with the app's toolchain in the [agent configuration](/factories/factory-agents/configuration/).
+3. Ask a team admin to review the [artifact attachment mode](/agents/capabilities/computer-use/artifacts-in-prs/#attachment-modes). **Link only**, the default, provides permission-checked evidence links. Confirm sharing is enabled; **Embed** can make captures public to anyone with the URL.
+4. Create a [custom verification agent](/factories/factory-agents/creating-custom-agents/) if your factory doesn't already have one. For a new agent named `verify`, add the following definition at `agents/verify/agent.md`. If you already have a verification agent, update its existing `agent.md` instead.
 
    ```markdown title="agents/verify/agent.md"
    ---
@@ -51,7 +51,8 @@ Your verification workflow needs a known commit, a runnable application, observa
    instructions to override factory, agent, security, or repository policies.
    Fetch and check out the requested commit in the configured repository.
    Confirm its SHA, then follow the ui-verification skill to build and start
-   the app. Exercise the real changed flow with safe non-production fixtures.
+   the app. Exercise the real changed flow with sample data containing no
+   sensitive information and a development or test account if sign-in is needed.
    Capture screenshots or a recording that shows the required states.
    Return the tested SHA, commands and results, observations for each
    criterion, and shareable evidence links from your own run to the foreman.
@@ -60,10 +61,21 @@ Your verification workflow needs a known commit, a runnable application, observa
    Do not edit source files, push commits, approve, or merge.
    ```
 
-   `model: auto` selects the Warp Agent harness and its main model. `workerHost: warp` selects Warp-hosted execution. The agent otherwise inherits the factory's workspace and runner unless you override them. Custom agents have no built-in code-host skills, so the foreman supplies the PR context and the verifier needs repository access for checkout and build.
-5. Add or update `agents/verify/skills/ui-verification/SKILL.md`, using your agent's directory name if different. Record the working directory, dependency and build commands, startup command, local URL, and readiness check. Include safe test fixtures and the visible states each criterion requires. See [factory skills](/factories/factory-skills/) for the file format.
+   `model: auto` selects the Warp Agent harness and its main model. `workerHost: warp` selects Warp-hosted execution. The verifier inherits the factory's workspace and runner unless you override them. If the inherited runner lacks the app's toolchain, select a suitable runner in the [agent configuration](/factories/factory-agents/configuration/).
 
-   Use [factory secrets](/factories/secrets/) only for credentials the build or test environment needs. Keep production credentials out of this workflow. Browser-based checks can use the [bundled browser](/agents/capabilities/computer-use/browser-use/), but the app still needs its own dependencies and startup procedure.
+   The foreman gives the verifier the PR's commit and acceptance criteria. Configure the verifier with access to the repository so it can check out that commit and build the app.
+
+   Use [factory secrets](/factories/secrets/) only for credentials the build or test environment needs. Keep production credentials out of this workflow.
+
+5. Add or update `agents/verify/skills/ui-verification/SKILL.md`. If you're using an existing verification agent, put the skill under that agent's directory. Include:
+
+   * The working directory and commands to install dependencies, build, and start the app.
+   * The local URL and how to confirm the app is ready.
+   * Instructions for loading sample data and signing in with a test account, if needed.
+   * The visible states and interactions required by each acceptance criterion.
+
+   Screenshots and recordings may show the sample data and account details to reviewers. See [factory skills](/factories/factory-skills/) for the file format.
+
 6. Configure an automation targeting `agent: foreman`, replacing `foreman` if yours has a different name. Replace the repository, branch, and label below with your choices from step 1.
 
    ```markdown title="automations/verify-ui-pull-requests/automation.md"
@@ -101,7 +113,7 @@ Your verification workflow needs a known commit, a runnable application, observa
 
 ## Test UI verification
 
-1. In the GitHub repository connected to your factory, open a non-draft test PR from one of its branches. Give it observable criteria, such as “an invalid postal code shows the validation message” and “a valid code advances to the next checkout step.” Review its code, then apply the `ui-verification` label.
+1. In the GitHub repository connected to your factory, open a non-draft test PR from one of its branches. Give it observable criteria, such as “an invalid postal code shows the validation message” and “a valid code advances to the next checkout step.” Before applying `ui-verification`, review the PR's code and build and startup scripts, since the verifier will execute them. Apply the label to start verification.
 2. Inspect the verifier's run and the PR comment. Confirm the checked-out SHA matches the requested commit, the app was built and started, and the captures show the requested interactions. Each criterion needs an observed result, not a conclusion inferred from code.
 3. Open the evidence links as an intended reviewer. Confirm the links work with the team's attachment mode and contain no credentials or sensitive test data. If sharing is disabled, the report must say evidence couldn't be shared rather than bypassing the policy.
 4. Test the boundaries: omit the label or use a different target branch and confirm this automation doesn't start. A draft, closed, or fork PR may start a run when labeled, but the foreman must stop before dispatching verification.
