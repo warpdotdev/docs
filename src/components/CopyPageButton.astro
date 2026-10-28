@@ -1,76 +1,25 @@
 ---
 /**
  * CopyPageButton — Scalar-style dropdown with:
- * - Copy page (copies the MDX body as markdown, with imports stripped and
- *   product-name variables resolved -- see resolveMdxSource below)
+ * - Copy page (fetches the page's `.md` twin on click and copies it)
  * - Copy agent prompt (copies a context-appropriate prompt for the page type)
  * - View as Markdown (opens .md URL in new tab)
  * - Export as PDF (window.print)
+ *
+ * The `.md` twin (`/factories/` -> `/factories.md`, `/` -> `/index.md`) is
+ * written by `docs-markdown-integration.js` from the rendered HTML, so it has
+ * imports stripped, product-name variables resolved, and components rendered.
+ * Fetching it on click replaces the hidden `<template>` that used to carry a
+ * second copy of the raw MDX source in every page's HTML, directly after the
+ * H1, where it sat between the title and the page description.
  */
-import { VARS } from '@data/vars';
-
-// Not global, and applied line by line from the top of the file rather than
-// across the whole body: an MDX component import only ever appears in the
-// leading block, while a code sample can legitimately contain the same shape.
-// A global replace ate `import OpenAI from "openai";` out of the Node example
-// in guides/external-tools/how-to-set-up-ollama.mdx, so the copied snippet no
-// longer ran.
-const IMPORT_LINE = /^import\s+[^\n]*?from\s+['"][^'"]+['"];?\s*$/;
-// The optional leading `$` matters: MDX authors write `{VARS.KEY}` in prose but
-// `${VARS.KEY}` inside JSX template literals, e.g. href={`${VARS.WEB_APP_URL}/runs`}.
-// Matching only the braces leaves the dollar behind and yields `$https://...`.
-const PROSE_TOKEN = /\$?\{VARS\.([A-Z0-9_]+)\}/g;
-const FRONTMATTER_TOKEN = /\{\{([A-Z0-9_]+)\}\}/g;
 
 interface Props {
-  body: string;
-  title: string;
   /** Optional custom agent prompt. Overrides all automatic prompt selection when set. */
   agentPrompt?: string;
 }
-const { body, title, agentPrompt } = Astro.props;
+const { agentPrompt } = Astro.props;
 
-/**
- * `body` arrives as raw MDX source, so it still carries authoring scaffolding:
- * `import` statements at the top and unsubstituted `{VARS.KEY}` / `{{KEY}}`
- * product-name tokens throughout.
- *
- * That matters more than it looks. This payload is what "Copy page as Markdown
- * for LLMs" puts on the clipboard, so without this an assistant reading the
- * copied text sees the literal string `{VARS.WARP_AUTOMATION_PLATFORM}` instead
- * of the product name -- worse than the stale name it replaced.
- *
- * The sibling `.md` route does not have this problem because
- * `docs-markdown-integration.js` derives those files from the *rendered* HTML
- * after the build, by which point Astro has resolved everything. This component
- * runs during render and only has the source, so it repeats the two cleanups.
- *
- * Known gap: raw JSX (`<VideoEmbed />`) and directive syntax (`:::note`) still
- * pass through here, where the `.md` route renders them properly. The durable
- * fix is for this button to fetch the page's own `.md` URL on click rather than
- * carry a second copy of the content.
- */
-/** Drops the leading `import` block, stopping at the first line of content. */
-function stripLeadingImports(source: string): string {
-  const lines = source.split('\n');
-  let start = 0;
-  while (
-    start < lines.length &&
-    (lines[start].trim() === '' || IMPORT_LINE.test(lines[start]))
-  ) {
-    start++;
-  }
-  return lines.slice(start).join('\n');
-}
-
-function resolveMdxSource(source: string): string {
-  const vars = VARS as unknown as Record<string, string>;
-  return stripLeadingImports(source)
-    .replace(PROSE_TOKEN, (match, key) => vars[key] ?? match)
-    .replace(FRONTMATTER_TOKEN, (match, key) => vars[key] ?? match);
-}
-
-const markdownContent = `# ${title}\n\n${resolveMdxSource(body)}`;
 const pageUrl = Astro.url.href;
 const pathname = Astro.url.pathname;
 
@@ -187,8 +136,6 @@ const claudeUrl = `https://claude.ai/new?q=${prompt}`;
   <span class="copy-toast" id="copy-toast">Copied!</span>
 </div>
 
-<!-- Store the markdown content in a hidden element so client JS can read it -->
-<template id="page-markdown-content">{markdownContent}</template>
 <!-- Store the agent prompt in a hidden element so client JS can read it -->
 <template id="agent-prompt-content">{agentPromptText}</template>
 
@@ -205,7 +152,6 @@ const claudeUrl = `https://claude.ai/new?q=${prompt}`;
     const copyPromptBtn = document.getElementById('copy-agent-prompt');
     const viewMdBtn = document.getElementById('view-as-markdown');
     const exportBtn = document.getElementById('export-as-pdf');
-    const mdTemplate = document.getElementById('page-markdown-content') as HTMLTemplateElement | null;
     const promptTemplate = document.getElementById('agent-prompt-content') as HTMLTemplateElement | null;
 
     if (!wrapper || !trigger || !panel) return;
@@ -228,29 +174,57 @@ const claudeUrl = `https://claude.ai/new?q=${prompt}`;
       }
     }
 
-    // Copy page as Markdown — reads from the template element (raw MDX body).
-    // Use `template.content.textContent` because `<template>` children live in
-    // the DocumentFragment, not as direct children of the element itself,
-    // so `template.textContent` returns an empty string.
+    // `.md` twin of the current page: `/factories/` -> `/factories.md`,
+    // `/` -> `/index.md`. The `[...slug].md.ts` endpoint serves it in dev; in
+    // prod the build-time docs-markdown integration writes it as a static file.
+    function markdownUrl(): string {
+      const path = window.location.pathname.replace(/\/$/, '') || '/index';
+      return path + '.md';
+    }
+
+    async function fetchMarkdown(): Promise<string> {
+      const res = await fetch(markdownUrl(), { headers: { Accept: 'text/markdown' } });
+      if (!res.ok) throw new Error(`Markdown fetch failed: ${res.status}`);
+      const text = await res.text();
+      if (!text.trim()) throw new Error('Markdown fetch returned an empty body');
+      return text;
+    }
+
+    // Copy page as Markdown — fetches the `.md` twin on click.
     //
-    // The site is served over HTTPS and the click is a user-gesture handler,
-    // so `navigator.clipboard.writeText` is the only path we need — we
-    // previously had a `document.execCommand('copy')` textarea fallback for
-    // legacy browsers, but that path is deprecated, broken on iOS Safari,
-    // and never actually runs in production.
+    // Safari only lets a clipboard write through while the click's user
+    // activation is live, so awaiting the fetch before `writeText` can fail
+    // there. Passing a still-pending Blob promise to `ClipboardItem` starts
+    // the write synchronously inside the gesture and lets the browser wait
+    // for the data (supported in Safari, Chrome, and current Firefox). If
+    // `ClipboardItem` is missing or rejects the promise form, fall back to
+    // fetch-then-`writeText`, which Chrome and Firefox allow after an await.
     copyBtn?.addEventListener('click', async () => {
-      const markdown = mdTemplate?.content.textContent || '';
-      if (markdown) {
-        try {
-          await navigator.clipboard.writeText(markdown);
-          showToast();
-        } catch {
-          // Permission denied / insecure context — fail silently rather than
-          // copy nothing and pretend it worked.
-        }
-      }
       panel?.classList.remove('open');
       trigger?.classList.remove('active');
+
+      try {
+        if (typeof ClipboardItem !== 'undefined' && navigator.clipboard?.write) {
+          const blob = fetchMarkdown().then(
+            (text) => new Blob([text], { type: 'text/plain' }),
+          );
+          // Avoid an unhandled-rejection report; failures surface via `await` below.
+          blob.catch(() => {});
+          try {
+            await navigator.clipboard.write([new ClipboardItem({ 'text/plain': blob })]);
+          } catch {
+            // Rethrows if the fetch itself failed, so no false success.
+            await navigator.clipboard.writeText(await (await blob).text());
+          }
+        } else {
+          await navigator.clipboard.writeText(await fetchMarkdown());
+        }
+        showToast('Copied!');
+      } catch {
+        // Fetch failed, permission denied, or insecure context — say so
+        // rather than pretend the copy worked.
+        showToast('Copy failed');
+      }
     });
 
     // Copy agent prompt
@@ -259,7 +233,7 @@ const claudeUrl = `https://claude.ai/new?q=${prompt}`;
       if (agentPrompt) {
         try {
           await navigator.clipboard.writeText(agentPrompt);
-          showToast();
+          showToast('Copied!');
         } catch {
           // Permission denied / insecure context — fail silently.
         }
@@ -268,37 +242,12 @@ const claudeUrl = `https://claude.ai/new?q=${prompt}`;
       trigger?.classList.remove('active');
     });
 
-    // View as Markdown — prefer the `.md` URL (shareable, stable path).
-    // The `[...slug].md.ts` endpoint serves it in dev; in prod the build-time
-    // docs-markdown integration writes it as a static file. If for any reason
-    // the `.md` URL isn't available, fall back to a Blob URL built from the
-    // raw body passed as a prop.
-    viewMdBtn?.addEventListener('click', async () => {
+    // View as Markdown — opens the `.md` twin (shareable, stable path).
+    // Opened synchronously so popup blockers see the click's user gesture.
+    viewMdBtn?.addEventListener('click', () => {
       panel?.classList.remove('open');
       trigger?.classList.remove('active');
-
-      const path = window.location.pathname.replace(/\/$/, '') || '/index';
-      const mdUrl = path + '.md';
-
-      // Probe the .md URL with a HEAD request. If it responds OK, navigate there.
-      try {
-        const res = await fetch(mdUrl, { method: 'HEAD' });
-        if (res.ok) {
-          window.open(mdUrl, '_blank', 'noopener');
-          return;
-        }
-      } catch {
-        // Fall through to the Blob URL fallback below.
-      }
-
-      // Fallback: open the body directly as a Blob URL.
-      const markdown = mdTemplate?.content.textContent || '';
-      if (markdown) {
-        const blob = new Blob([markdown], { type: 'text/markdown;charset=utf-8' });
-        const blobUrl = URL.createObjectURL(blob);
-        window.open(blobUrl, '_blank', 'noopener');
-        setTimeout(() => URL.revokeObjectURL(blobUrl), 60_000);
-      }
+      window.open(markdownUrl(), '_blank', 'noopener');
     });
 
     // Export as PDF
@@ -308,9 +257,13 @@ const claudeUrl = `https://claude.ai/new?q=${prompt}`;
       window.print();
     });
 
-    function showToast() {
-      toast?.classList.add('visible');
-      setTimeout(() => toast?.classList.remove('visible'), 2000);
+    let toastTimer: ReturnType<typeof setTimeout> | undefined;
+    function showToast(message: string) {
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.add('visible');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('visible'), 2000);
     }
   }
 

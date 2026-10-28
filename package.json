@@ -24,6 +24,7 @@
     "test:kapa-webmcp": "node --test src/lib/kapa-webmcp.test.mjs",
     "test:kapa-support-escalation": "node --test src/lib/kapa-support-escalation.test.mjs",
     "test:homepage-json-ld": "node scripts/validate-homepage-json-ld.mjs",
+    "test:page-title-order": "node scripts/validate-page-title-order.mjs",
     "postinstall": "patch-package"
   },
   "engines": {
