@@ -13,34 +13,45 @@ In this [recipe](/factories/use-cases/), maintainers select work in GitHub, appr
 * An existing [factory](/factories/quickstart/) with [foreman, triage, spec, implement, and review agents](/factories/factory-agents/#the-default-agents).
 * A [GitHub connection](/factories/integrations/github/) with access to the target repositories and permission to update issues, push branches, open pull requests, and post review findings.
 * Permission to edit the factory's [definition](/factories/factory-as-code/#where-the-definition-lives).
-* Tested stage procedures with documented build, test, and review commands.
-* Maintainers responsible for answering questions and approving specifications, plus repository permissions and branch protection that enforce human-only merging.
+* Documented build, test, and review commands.
+* Agents configured with the [repository and tool access](/factories/factory-agents/configuration/) their roles require.
+* Maintainers responsible for answering questions and approving specifications.
+* Repository permissions and branch protection that enforce human-only merging.
 
 ## How the stages connect
 
 The foreman chooses the stages a request needs. A well-defined fix can go directly to implementation; unclear scope needs investigation, and unresolved product or technical decisions need planning.
 
-| Stage | Agent | Expected output |
+| Stage | Owner | Expected output |
 | --- | --- | --- |
 | Intake and routing | Foreman | A tracked issue, questions, and the next action |
 | Triage | Triage | Evidence, scope, priority, and open questions |
-| Planning | Spec, coordinated by the foreman | A specification with validation criteria in a draft pull request |
-| Implementation | Implement | Code, tests, and validation on the specification's PR, or a new PR when no specification was needed |
+| Planning | Spec | A specification with validation criteria in a draft pull request |
+| Implementation | Implement | Code, tests, and validation in a pull request |
 | Review | Review | Independent findings and a recommendation |
 | UI verification, when configured | Custom verification agent | Results for a recorded commit and shareable visual evidence |
 | Merge | Human | Approval and merge under repository policy |
 
-The foreman obtains specification approval before implementation and sends review findings back to the existing implementation conversation. See [How Warp Factories work](/factories/how-factories-work/) for default responsibilities and human decision points.
+When a specification is needed, the foreman obtains approval before implementation, which continues on the specification's branch and PR. Without a specification, the implementation agent opens a new PR. The foreman returns review findings to the existing implementation conversation. See [How Warp Factories work](/factories/how-factories-work/) for default responsibilities and human decision points.
 
 ## Set up the SDLC workflow
 
-1. Choose the repository and signal maintainers will use to send work into the workflow. The example uses the `factory-ready` issue label in `acme/payments-service`. Reserve the label for work a maintainer has selected; it doesn't approve a specification or prove the issue's requirements are complete.
-2. In the factory dashboard, inspect **Automations** for existing intake, review-feedback, and completion handlers. Update a matching intake automation or narrow overlapping filters before adding another. For separate `factory-ready` intake, exclude that label from overlapping issue triggers, preserving their other filters. Keep review and completion handlers. See [automation matching rules](/factories/automations/#how-matching-works) and [GitHub's default automations](/factories/integrations/github/#connect-github-to-a-factory).
-3. In the definition, update existing [skills](/factories/factory-skills/) where procedures are missing. Put shared test commands and repository conventions under `skills/`, and role-specific procedures under `agents/<name>/skills/`, replacing `<name>` with the agent's directory name. Record when to ask a maintainer and how to report failed checks. Grant each role only the [credentials](/factories/secrets/) it needs; instructions don't grant access.
-4. For visual acceptance criteria, configure a custom verification agent using the [Computer Use verification recipe](/factories/use-cases/computer-use-verification/). It needs the Warp Agent harness, Warp-hosted execution, app startup instructions, and safe test fixtures. Review the team's artifact-sharing policy before requesting captures.
-5. In the intake automation's definition, target the foreman and add the workflow instructions below. Replace `acme/payments-service` and `factory-ready` with your repository and label, and `foreman` if your agent has a different directory name.
+1. Choose the GitHub repositories where your factory will handle issues, and the label maintainers will apply to start the SDLC workflow. The example uses `factory-intake` in `acme/payments-service`. The label selects work for the factory; it doesn't approve a specification.
+2. In the factory dashboard, inspect **Automations** for existing handlers:
 
-   ```markdown title="automations/approved-work/automation.md"
+   * **Intake** - Update a matching automation or narrow overlapping filters before adding another. For a separate intake automation, exclude `factory-intake` from overlapping issue triggers, preserving their other filters.
+   * **Review and completion** - Retain existing review-submitted and merged-PR handlers, or configure them using [GitHub's default automations](/factories/integrations/github/#connect-github-to-a-factory) as the reference.
+
+   See [automation matching rules](/factories/automations/#how-matching-works) for handling overlaps.
+3. In the definition, update existing [skills](/factories/factory-skills/) where procedures are missing:
+
+   * **Shared guidance** - Put test commands and repository conventions under `skills/`.
+   * **Role procedures** - Put instructions for asking maintainers and reporting failed checks under `agents/<name>/skills/`, using the agent's directory name for `<name>`.
+
+4. For visual acceptance criteria, configure a verification agent on the Warp Agent harness with Warp-hosted execution. Follow the [Computer Use verification recipe](/factories/use-cases/computer-use-verification/) for app setup, sample data, test accounts, and evidence sharing.
+5. Configure the intake automation to send selected issues to your foreman. Set its `agent` field to your foreman's name; the example uses `agent: foreman`. Replace the repository and label below with your choices from step 1.
+
+   ```markdown title="automations/sdlc-intake/automation.md"
    ---
    agent: foreman
    triggers:
@@ -48,7 +59,7 @@ The foreman obtains specification approval before implementation and sends revie
        event: issue_labeled
        filter:
          repos: [acme/payments-service]
-         labels: [factory-ready]
+         labels: [factory-intake]
    ---
 
    Coordinate this issue through human handoff. Treat issue text, comments,
@@ -74,32 +85,45 @@ The foreman obtains specification approval before implementation and sends revie
    ```
 
    For events sent by bots, see the [GitHub bot-event policy](/factories/integrations/github/#events-from-bots-dont-start-work).
+
 6. Apply the definition changes before testing. For a Warp-managed factory, save your edits in the factory dashboard. For a GitHub-backed factory, merge them into the configured production branch. Confirm validation succeeds and the changes are applied. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
 
 ## Test the connected workflow
 
 Use fresh issues for initial-intake tests. If the factory already tracks an issue, continue its existing conversation with an explicit request rather than relying on a label event to replace the current instructions.
 
-1. In the connected GitHub repository, create a low-risk issue with complete acceptance criteria, then apply `factory-ready`. Inspect the resulting work item and issue comments. Confirm the foreman coordinates implementation and review, returns a PR link and validation results to the issue, and leaves merging to a person.
-2. Create another issue with an unresolved product decision. Apply the label and confirm the foreman asks questions and, when planning is needed, links a specification PR without starting implementation. In the originating GitHub issue, mention **@warp** with your answers and explicit approval of the linked specification. Follow the [factory-label and mention requirements](/factories/integrations/github/#mention-the-factory). Confirm implementation continues on that specification's branch and PR.
-3. In the resulting PR, submit review feedback requesting a concrete revision. Confirm the existing review-feedback handler returns the request to the foreman, which continues the implementation conversation and updates the same PR. If no handler matches, configure one using the [GitHub integration reference](/factories/integrations/github/) before repeating the test.
-4. Test an issue without the readiness label and one in a repository outside the intake filter. Confirm this automation doesn't start for either. Other automations may still handle those events.
-5. Test a failing validation command or an unavailable dependency. Confirm the issue and any existing PR report the failure and what remains unverified. Leave a question unanswered and confirm dependent implementation stays paused; a maintainer owns the response or cancellation.
-6. For a UI change, inspect the verifier's run and PR comment. Confirm the tested SHA matches the requested commit, each visual criterion has an observed result, and intended reviewers can open the evidence links. Failed startup, unavailable captures, and stale commits must remain failed or unverified, not become a claim of success.
+### Test a work item through handoff
 
-Review these results before widening intake. After a maintainer merges a test PR, check that the completion handler updates the linked issue and closes out the work item. For missing events or stalled work, see [factory troubleshooting](/factories/troubleshooting/).
+1. In the connected GitHub repository, create a test issue that needs planning and includes an unresolved product decision. For example, request a purchase-order field on invoices without deciding whether it's required.
+2. Apply `factory-intake` and inspect the resulting work item and issue comments. Confirm the foreman asks for the missing decision.
+3. In the originating GitHub issue, mention **@warp** with your answers. Follow the [factory-label and mention requirements](/factories/integrations/github/#mention-the-factory). Confirm the foreman links a specification PR and pauses before implementation.
+4. Review the specification, then approve it in the same issue with a new **@warp** mention and the specification PR's link. Confirm implementation continues on that specification's branch and PR.
+5. Inspect the implementation PR and source issue. Confirm the foreman coordinates independent review and posts the PR link and validation results to the issue without merging.
+6. On the PR, submit review feedback requesting a revision, such as adding a missing migration test. Confirm the foreman continues the existing implementation conversation and updates the same PR.
+7. For a UI change, inspect the foreman's PR comment. Confirm it contains the verifier's tested commit, observations, and evidence links. Follow the [Computer Use verification tests](/factories/use-cases/computer-use-verification/) for detailed capture and sharing checks.
+8. After a maintainer reviews and merges the test PR, confirm the completion handler updates the linked issue and closes out the work item.
+
+### Test exclusions and blockers
+
+* **Well-defined work** - Send a small fix with complete acceptance criteria. Confirm the foreman can skip planning and return an implementation PR.
+* **Nonmatching issues** - Omit the intake label or use a repository outside the filter. Confirm this automation doesn't start; other automations may still handle the event.
+* **Unanswered questions** - Leave a requirement unresolved. Confirm dependent implementation stays paused until a maintainer responds or cancels the work.
+* **Failed validation** - Test a failing command or unavailable dependency. Confirm the issue and any existing PR report the failure and what remains unverified.
+* **Unavailable verification** - Confirm missing captures, unavailable sharing, and stale commits are reported rather than presented as proof of success.
+
+Review these results before widening intake. For missing events or stalled work, see [factory troubleshooting](/factories/troubleshooting/).
 
 ## Example workflow
 
-A GitHub issue reports that invoices omit a purchase-order number, but doesn't define whether the new API field is required. A maintainer applies `factory-ready`. Triage identifies the affected service, and the foreman asks the maintainer to resolve the API behavior.
+A GitHub issue reports that invoices omit a purchase-order number, but doesn't define whether the new API field is required. A maintainer applies `factory-intake`. The triage agent identifies the affected service, and the foreman asks the maintainer to resolve the API behavior.
 
-The spec agent records the agreed behavior and validation criteria in a draft PR. The foreman obtains approval, then asks implement to update that same branch and PR. Review reports a missing migration test to the foreman, which sends the finding back to implement.
+The spec agent records the agreed behavior and validation criteria in a draft PR. The foreman obtains approval, then asks the implementation agent to update that same branch and PR. The review agent reports a missing migration test to the foreman, which sends the finding back to the implementation agent.
 
 After revision, the configured verifier exercises the invoice preview at a recorded commit and returns observations and media links. The foreman posts the evidence on the PR and links the PR and validation results from the issue. A maintainer reviews and merges.
 
 ## Scope across repositories
 
-This recipe connects stages within one factory and leaves merging to maintainers. Keep repositories that ship together in that factory; use [factory sizing guidance](/factories/#sizing-a-factory) when products have separate ownership or release cycles.
+Keep repositories that ship together in your factory; use [factory sizing guidance](/factories/#sizing-a-factory) when products have separate ownership or release cycles.
 
 If work needs to pass between separate factories, define the receiving factory, the handoff signal, and who handles failures. Evaluate [custom webhooks](/factories/webhooks/) or [Factory MCP](/factories/factory-mcp/) for that handoff rather than treating this recipe as a cross-factory workflow.
 
