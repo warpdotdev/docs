@@ -55,7 +55,7 @@ flowchart LR
 
 An event from a connected tool starts the automation based on filter matching, such as a specific repository, channel, or label. Schedules start their automation on a timer, and direct requests go straight to the factory.
 
-Every request lands with the foreman agent, which turns it into a work item and dispatches the agents each stage needs. A reply in the same thread, issue, or pull request continues that work item instead of starting a new one, and repeated event deliveries don't create duplicates. See [how Warp Factories work](/factories/how-factories-work/) for the full lifecycle, including where people stay in the loop.
+Every request lands with the foreman agent, which turns it into a work item and dispatches the agents each stage needs. A reply in the same thread, issue, or pull request continues that work item instead of starting a new one, and repeated event deliveries don't create duplicates. See [How Warp Factories work](/factories/how-factories-work/) for the full lifecycle, including where people stay in the loop.
 
 ## Review the default automations
 
@@ -88,7 +88,7 @@ The [Factory MCP](/factories/factory-mcp/) connects local coding agents and othe
 Not every task starts in an external tool:
 
 * Start a direct run for one-off work. Click **New** on the factory's Runs page and describe the task to the foreman, the same way you would from Slack or an issue tracker.
-* Create a scheduled automation for recurring work, such as maintenance or reports. See the [triggers overview](/platform/triggers/) for how schedules and other triggers work across the platform.
+* Create a scheduled automation for recurring work, such as maintenance or reports. See the [Triggers overview](/platform/triggers/) for how schedules and other triggers work across the platform.
 
 This automation from [`06-common-automations`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/06-common-automations) runs a dependency audit every Monday:
 
