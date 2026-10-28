@@ -8,7 +8,7 @@
     "predev": "node scripts/generate-openapi-json.mjs",
     "build": "astro build",
     "postbuild": "node scripts/build-tracking-middleware.mjs",
-    "prebuild": "node scripts/generate-openapi-json.mjs",
+    "prebuild": "node scripts/ensure-git-history.mjs && node scripts/generate-openapi-json.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "typecheck": "astro check",
@@ -24,6 +24,7 @@
     "test:kapa-webmcp": "node --test src/lib/kapa-webmcp.test.mjs",
     "test:kapa-support-escalation": "node --test src/lib/kapa-support-escalation.test.mjs",
     "test:homepage-json-ld": "node scripts/validate-homepage-json-ld.mjs",
+    "test:sitemap-lastmod": "node --test src/integrations/sitemap-lastmod.test.mjs src/lib/git-history.test.mjs",
     "postinstall": "patch-package"
   },
   "engines": {
