@@ -49,8 +49,8 @@ test('LLM index entry points to the generated docs llms.txt', async () => {
 	assert.match(astroConfig, /from 'starlight-llms-txt'/, 'starlight-llms-txt generates /llms.txt');
 });
 
-test('catalog does not use retired Oz wording or URLs', () => {
-	const serialized = JSON.stringify(catalog);
+test('discovery manifests do not use retired Oz wording or URLs', async () => {
+	const serialized = JSON.stringify([catalog, await readJson('public/.well-known/mcp.json')]);
 	assert.doesNotMatch(serialized, /\boz\b/i);
 	assert.doesNotMatch(serialized, /\/oz(?:[/#?"]|$)/i);
 });
