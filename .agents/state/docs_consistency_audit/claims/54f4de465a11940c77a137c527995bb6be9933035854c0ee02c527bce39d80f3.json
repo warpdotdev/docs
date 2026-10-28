@@ -1,13 +1,13 @@
 {
   "claims": [
     {
-      "category": "privacy",
-      "claim_content_fingerprint": "sha256:c789ac694d1d74d12f7e241a4ce3a02f3021f02f71b9447ec32aeceb5eecc8e7",
-      "claim_id": "sha256:f3b3a3e0768fd1bb7b9571141c40bedf7b522b24862c821845c2e8d787bc1f8c",
-      "entity": "computer-use-recording",
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:0b6701cc8a07858461b3e197f5019ce0e1aa6d6729f6ac4327a530392775441b",
+      "claim_id": "sha256:c7e36b56afea70251d668e862fda8b319cd3b0857d354d2da52b04a7df8873e7",
+      "entity": "computer-use",
       "extraction_confidence": 0.95,
       "polarity": "affirmative",
-      "predicate": "captures-local-desktop",
+      "predicate": "available-environments",
       "qualifiers": {
         "actors": [],
         "architectures": [],
@@ -22,31 +22,36 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "never include your local desktop or credentials.",
+      "quote": "Computer Use is only available in Warp's sandboxed cloud environments, not in local interactive terminal sessions.",
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "1dd51d1f3820997c49ba80255b85b5730bbb124b8e0ecd2a29c992b574c900ac",
-        "heading": "Recording sessions",
-        "heading_anchor": "recording-sessions",
-        "line_end": 96,
-        "line_start": 96,
+        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "heading": "Capabilities",
+        "heading_anchor": "capabilities",
+        "line_end": 27,
+        "line_start": 27,
         "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/capabilities/computer-use/",
         "visibility": "public"
       },
       "source_class": "canonical-doc",
-      "topic": "privacy",
+      "topic": "product-behavior",
       "value": {
-        "normalized": false,
-        "type": "boolean"
+        "normalized": [
+          "sandboxed-cloud"
+        ],
+        "raw": [
+          "sandboxed-cloud"
+        ],
+        "type": "enum"
       }
     },
     {
       "category": "product-behavior",
-      "claim_content_fingerprint": "sha256:31583da4f52f6e61a0f42f6dd84108f34961db1c70056a62700e57d46dce99b9",
-      "claim_id": "sha256:485ce9d4dd26eab3ed3a9ad45409d586bcb661d2293d54b1d05886af9f19f335",
+      "claim_content_fingerprint": "sha256:9625b5fb8e8ff51482c5cb1abb625482abf8c8273bf2aae7ad2ede9fb48a4b7a",
+      "claim_id": "sha256:a1a4a62fe471b38fdbbd746d5b8ce65841fedc16fcb2aa22468251a67ecd86ae",
       "entity": "computer-use",
       "extraction_confidence": 0.95,
       "polarity": "affirmative",
@@ -59,7 +64,9 @@
         "environments": [
           "cloud"
         ],
-        "exceptions": [],
+        "exceptions": [
+          "third-party-harnesses"
+        ],
         "install_methods": [],
         "legacy": false,
         "operating_systems": [],
@@ -75,7 +82,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "1dd51d1f3820997c49ba80255b85b5730bbb124b8e0ecd2a29c992b574c900ac",
+        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
         "heading": "Enabling Computer Use",
         "heading_anchor": "enabling-computer-use",
         "line_end": 39,
@@ -89,12 +96,61 @@
       "topic": "product-behavior",
       "value": {
         "normalized": true,
+        "raw": true,
         "type": "boolean"
       }
     },
     {
       "category": "product-behavior",
-      "claim_content_fingerprint": "sha256:18354fe4b5dbbe650902c9867a5b3c9e823e8cf32cfb3d8ee7c6de6a9d297e22",
+      "claim_content_fingerprint": "sha256:5eddbbab3981a75b9b1c8adafb7df28947d36d021060ec87cee50bb0efdd4627",
+      "claim_id": "sha256:5c3851155734bd3a623afac42a3f932ffcba39e27b5d4ba0c13ce607d0e9f7ee",
+      "entity": "computer-use",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "enabled-by-default",
+      "qualifiers": {
+        "actors": [
+          "third-party-harnesses"
+        ],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Runs on [third-party harnesses](/platform/harnesses/) (Claude Code and Codex) default to Computer Use disabled because third-party harnesses don't integrate with Warp's Computer Use tooling.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use",
+        "canonical_route": "/agents/capabilities/computer-use",
+        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "heading": "Enabling Computer Use",
+        "heading_anchor": "enabling-computer-use",
+        "line_end": 39,
+        "line_start": 39,
+        "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:9f6a1de83972e775e6bda4066683ce487fa23943c2a814954d7e670af0453646",
       "claim_id": "sha256:d2f6b1e0b072969104bd4b89667353a0e9b1d9c45afcbf7b043022622a51a465",
       "entity": "computer-use",
       "extraction_confidence": 0.95,
@@ -124,7 +180,7 @@
       "source": {
         "canonical_identity": "route:/agents/capabilities/computer-use",
         "canonical_route": "/agents/capabilities/computer-use",
-        "content_sha256": "1dd51d1f3820997c49ba80255b85b5730bbb124b8e0ecd2a29c992b574c900ac",
+        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
         "heading": "Warp app settings",
         "heading_anchor": "warp-app-settings",
         "line_end": 43,
@@ -138,11 +194,514 @@
       "topic": "product-behavior",
       "value": {
         "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "cli",
+      "claim_content_fingerprint": "sha256:0ce8f9d22cee013d1d8878437db9edb3d4789c9ff7d128c4d163bb49a8bfec80",
+      "claim_id": "sha256:ff5a2a0a9ebe6f765be845c21a96ecb8a58da5d8a3ceb44b9a696bd0a2c7322c",
+      "entity": "oz-agent-run-cloud-computer-use",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "enable-flag",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "oz agent run-cloud --computer-use --prompt \"<task>\"",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use",
+        "canonical_route": "/agents/capabilities/computer-use",
+        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "heading": "CLI",
+        "heading_anchor": "cli",
+        "line_end": 50,
+        "line_start": 50,
+        "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": "--computer-use",
+        "raw": "--computer-use",
+        "type": "flag"
+      }
+    },
+    {
+      "category": "cli",
+      "claim_content_fingerprint": "sha256:f61db62ab76f005a98787530bc2e84483a377a857325aa3c782b7ea3465f1bf3",
+      "claim_id": "sha256:5209c0a384d7c194d9312e378d179b40ff2dbd80c0764a5e1f705ace9c38fb45",
+      "entity": "oz-agent-run-cloud-computer-use",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "disable-flag",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "oz agent run-cloud --no-computer-use --prompt \"<task>\"",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use",
+        "canonical_route": "/agents/capabilities/computer-use",
+        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "heading": "CLI",
+        "heading_anchor": "cli",
+        "line_end": 51,
+        "line_start": 51,
+        "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "cli",
+      "value": {
+        "normalized": "--no-computer-use",
+        "raw": "--no-computer-use",
+        "type": "flag"
+      }
+    },
+    {
+      "category": "api",
+      "claim_content_fingerprint": "sha256:5f2562b2abecc42aa5d4cc95cc047e0c77a860947d1b81f19e4842842d403fbd",
+      "claim_id": "sha256:be7facd30357d2a1a823f87c939071e9aa1b9e5497b48946a8af44f24384bb60",
+      "entity": "cloud-run-computer-use",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "configuration-field",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "the optional `config.computer_use_enabled` field controls Computer Use.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use",
+        "canonical_route": "/agents/capabilities/computer-use",
+        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "heading": "API",
+        "heading_anchor": "api",
+        "line_end": 56,
+        "line_start": 56,
+        "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "api",
+      "value": {
+        "normalized": "config.computer_use_enabled",
+        "raw": "config.computer_use_enabled",
+        "type": "parameter"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:6110a9d8d31bbd0ae34de10a3dcb6a58e41cc42663f5a1c650c8fd1ffe003e2e",
+      "claim_id": "sha256:9831948827feb0afe79e78b91e922d3037e7a0854cb7d8a7c7437c9d41625979",
+      "entity": "computer-use",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "enabled-by-default",
+      "qualifiers": {
+        "actors": [
+          "api-warp-harness"
+        ],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When omitted, it defaults to `true` for runs on Warp's built-in harness and `false` for runs on third-party harnesses.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use",
+        "canonical_route": "/agents/capabilities/computer-use",
+        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "heading": "API",
+        "heading_anchor": "api",
+        "line_end": 56,
+        "line_start": 56,
+        "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:8fe438abbdc613c36d60eb0ed5f70c5aa244ed1ffbfea8aab34807db0a9ed8d5",
+      "claim_id": "sha256:190a1202db56f72a0ce481cec55d260a26a30c48745a7b855cbb7baef25e5eea",
+      "entity": "computer-use",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "enabled-by-default",
+      "qualifiers": {
+        "actors": [
+          "api-third-party-harnesses"
+        ],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When omitted, it defaults to `true` for runs on Warp's built-in harness and `false` for runs on third-party harnesses.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use",
+        "canonical_route": "/agents/capabilities/computer-use",
+        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "heading": "API",
+        "heading_anchor": "api",
+        "line_end": 56,
+        "line_start": 56,
+        "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "security",
+      "claim_content_fingerprint": "sha256:47fb33b88125262a3786d7699f055d672067bf8d96095beeba15d5d32b6d69be",
+      "claim_id": "sha256:5be1355f3bf91ed77a58ca3075134bbf5b1a8423018d2de3b7767b7bf55384c9",
+      "entity": "computer-use",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "access-to-local-machine",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "sandboxed-cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "it does not have access to your local machine, credentials, or sensitive data outside the sandbox environment.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use",
+        "canonical_route": "/agents/capabilities/computer-use",
+        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "heading": "Setup and requirements",
+        "heading_anchor": "setup-and-requirements",
+        "line_end": 84,
+        "line_start": 84,
+        "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "security",
+      "value": {
+        "normalized": false,
+        "raw": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:0635dd7583a2926629ba9d69045884675518b78aa9e4700c760a96ee2dd6857e",
+      "claim_id": "sha256:8c8a848d43d9dcf39d1c080bc73607daa815f24c0c2fb3249683a92c58c4f4a1",
+      "entity": "computer-use",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "applications-must-be-installed-in-environment",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Your cloud environment must include any desktop applications you want the agent to control in your [environment configuration](/platform/environments/).",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use",
+        "canonical_route": "/agents/capabilities/computer-use",
+        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "heading": "Setup and requirements",
+        "heading_anchor": "setup-and-requirements",
+        "line_end": 86,
+        "line_start": 86,
+        "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:23ec26956559ad595a1cf2ba05ffc76520d4d1f3476b4833b75a571e7be14bfc",
+      "claim_id": "sha256:e66920c0fd6c4ade9dd3795a524c0bfe4c4ff9c3ecc5ec91a7d398c7439fb930",
+      "entity": "computer-use-browser",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "bundled-browser",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "every Computer Use environment includes a bundled Chromium browser.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use",
+        "canonical_route": "/agents/capabilities/computer-use",
+        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "heading": "Setup and requirements",
+        "heading_anchor": "setup-and-requirements",
+        "line_end": 86,
+        "line_start": 86,
+        "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "chromium"
+        ],
+        "raw": [
+          "chromium"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:b3957f92088020963acc1c98b54b3750fb3aae0a3e4ad5b3e4cac294afb1a995",
+      "claim_id": "sha256:a70dc2c8b66c8f98711d0fe1364df9722d9d542d13963ba36449a4a973e02915",
+      "entity": "computer-use",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "supported-model-family",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Computer Use currently supports Anthropic Claude models.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use",
+        "canonical_route": "/agents/capabilities/computer-use",
+        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "heading": "Model selection",
+        "heading_anchor": "model-selection",
+        "line_end": 90,
+        "line_start": 90,
+        "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "anthropic-claude"
+        ],
+        "raw": [
+          "anthropic-claude"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:78ccbc784b393955e53f271fbe21f3d9e30864e8ce279e35600b80039ec70d7e",
+      "claim_id": "sha256:2e38ba75c5691e25678957ddac927d58a023810e3c6bba1b107cc4ecbb4f123a",
+      "entity": "computer-use",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "automatic-model-selection",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp uses an auto model selector to choose the best-suited model for each Computer Use task.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use",
+        "canonical_route": "/agents/capabilities/computer-use",
+        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "heading": "Model selection",
+        "heading_anchor": "model-selection",
+        "line_end": 90,
+        "line_start": 90,
+        "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:8502ed776303a8d0e73515a0f763526e7fd5e9582e2398014b1c8e3005bc2866",
+      "claim_id": "sha256:f3b3a3e0768fd1bb7b9571141c40bedf7b522b24862c821845c2e8d787bc1f8c",
+      "entity": "computer-use-recording",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "captures-local-desktop",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "never include your local desktop or credentials.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/computer-use",
+        "canonical_route": "/agents/capabilities/computer-use",
+        "content_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
+        "heading": "Recording sessions",
+        "heading_anchor": "recording-sessions",
+        "line_end": 96,
+        "line_start": 96,
+        "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/computer-use/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "raw": false,
         "type": "boolean"
       }
     }
   ],
-  "page_sha256": "1dd51d1f3820997c49ba80255b85b5730bbb124b8e0ecd2a29c992b574c900ac",
+  "page_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
   "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
   "schema_version": 1
 }

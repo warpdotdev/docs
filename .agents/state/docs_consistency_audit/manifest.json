@@ -1,9 +1,29 @@
 {
   "authority_rules_version": 1,
   "backlog_pages": [
+    "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+    "src/content/docs/agents/cli/configuration.mdx",
+    "src/content/docs/agents/cli/index.mdx",
+    "src/content/docs/agents/cli/models-and-usage.mdx",
+    "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
+    "src/content/docs/agents/cli/oz-cli/index.mdx",
+    "src/content/docs/agents/cli/oz-cli/integration-setup.mdx",
+    "src/content/docs/agents/cli/oz-cli/quickstart.mdx",
+    "src/content/docs/agents/cli/quickstart.mdx",
+    "src/content/docs/agents/getting-started/faqs.mdx",
+    "src/content/docs/agents/index.mdx",
+    "src/content/docs/agents/inference/bring-your-own-api-key.mdx",
+    "src/content/docs/agents/inference/chatgpt-subscription.mdx",
+    "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
+    "src/content/docs/agents/inference/custom-routers.mdx",
+    "src/content/docs/agents/inference/grok-subscription.mdx",
+    "src/content/docs/agents/inference/model-choice.mdx",
+    "src/content/docs/agents/local-agents/session-sharing.mdx",
+    "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
     "src/content/docs/enterprise/enterprise-features/bring-your-own-llm.mdx",
     "src/content/docs/enterprise/enterprise-features/byollm-aws-bedrock.mdx",
     "src/content/docs/enterprise/enterprise-features/byollm-gemini-enterprise.mdx",
+    "src/content/docs/enterprise/enterprise-features/private-networking.mdx",
     "src/content/docs/enterprise/enterprise-features/team-managed-keys-and-endpoints.mdx",
     "src/content/docs/enterprise/getting-started/faq.mdx",
     "src/content/docs/enterprise/getting-started/getting-started-developers.mdx",
@@ -49,6 +69,8 @@
     "src/content/docs/factories/deployment-patterns.mdx",
     "src/content/docs/factories/developer-tools.mdx",
     "src/content/docs/factories/factory-agents.mdx",
+    "src/content/docs/factories/factory-agents/configuration.mdx",
+    "src/content/docs/factories/factory-agents/creating-custom-agents.mdx",
     "src/content/docs/factories/factory-api.mdx",
     "src/content/docs/factories/factory-as-code.mdx",
     "src/content/docs/factories/factory-dashboard.mdx",
@@ -70,6 +92,9 @@
     "src/content/docs/factories/measure-and-improve/self-improvement.mdx",
     "src/content/docs/factories/quickstart.mdx",
     "src/content/docs/factories/runners.mdx",
+    "src/content/docs/factories/secrets.mdx",
+    "src/content/docs/factories/secrets/aws-ecr.mdx",
+    "src/content/docs/factories/self-hosting/data-storage.mdx",
     "src/content/docs/factories/self-hosting/direct-monorepo-worktrees.mdx",
     "src/content/docs/factories/self-hosting/external-orchestrators.mdx",
     "src/content/docs/factories/self-hosting/index.mdx",
@@ -174,8 +199,6 @@
     "src/content/docs/knowledge-and-collaboration/warp-drive/workflows.mdx",
     "src/content/docs/platform/agents.mdx",
     "src/content/docs/platform/architecture.mdx",
-    "src/content/docs/platform/data-storage.mdx",
-    "src/content/docs/platform/documentation-map.mdx",
     "src/content/docs/platform/environments.mdx",
     "src/content/docs/platform/environments/configuring-environments.mdx",
     "src/content/docs/platform/environments/troubleshooting-environments.mdx",
@@ -213,6 +236,7 @@
     "src/content/docs/platform/secrets.mdx",
     "src/content/docs/platform/skills-as-agents.mdx",
     "src/content/docs/platform/team-access-billing-and-identity.mdx",
+    "src/content/docs/platform/transitioning-from-oz.mdx",
     "src/content/docs/platform/triggers/index.mdx",
     "src/content/docs/platform/triggers/scheduled-agents-quickstart.mdx",
     "src/content/docs/platform/triggers/scheduled-agents.mdx",
@@ -314,7 +338,7 @@
   "extractor_version": "1.0.0",
   "last_completed_run": null,
   "model_contract_version": "1.0.0",
-  "model_identifier": "gpt-5.6-sol-high",
+  "model_identifier": "gpt-6.1-sol (high)",
   "page_shards": {
     "src/content/docs/agents/agent-memory/index.mdx": "claims/890e532fcdfb3d00c52652e89196b2aa0118d75e0ac46eb81e62382a11801ea3.json",
     "src/content/docs/agents/capabilities/agent-notifications.mdx": "claims/ea798ce15afa4696283d45dbfc4b22973ddae662e4c5bcb7393a171180583d50.json",
@@ -569,8 +593,6 @@
     "src/content/docs/knowledge-and-collaboration/warp-drive/workflows.mdx": "claims/3114179fd61b35153a3ab27170de680f0e69ce31e3e1d78dd26f2f71e9d3fc53.json",
     "src/content/docs/platform/agents.mdx": "claims/47323185831a1f639f221d3cac3c821519c87e99efe130fca0e76c754d97fa2b.json",
     "src/content/docs/platform/architecture.mdx": "claims/a3d6de2d2b5befcfd4d722e189aed4f36318793d15403a6506483f9b6ac6747f.json",
-    "src/content/docs/platform/data-storage.mdx": "claims/44e106c8437b19106965abec2da721c5061e6ceb25a533f3bcac3bf32f68193f.json",
-    "src/content/docs/platform/documentation-map.mdx": "claims/bf211160d0165b258922ab4a3557434eb32815a6100a294741b0e57fe9787d65.json",
     "src/content/docs/platform/environments.mdx": "claims/4dfc9d0f3983b7ffe694d1388672fbb0923a58e421c77b4b20952644773aad79.json",
     "src/content/docs/platform/environments/configuring-environments.mdx": "claims/da6180af15552bb272974e6b44daa68e3b790cefcde6cc7a36efc2692b792c6b.json",
     "src/content/docs/platform/environments/troubleshooting-environments.mdx": "claims/952d658647a4972450584c55b2fdb34e20ec92652b67ab2571efc825789fc3d1.json",
@@ -779,7 +801,7 @@
         }
       ],
       "character_count": 8595,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -917,7 +939,7 @@
         }
       ],
       "character_count": 7310,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -1048,7 +1070,7 @@
         }
       ],
       "character_count": 9668,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -1176,7 +1198,7 @@
         }
       ],
       "character_count": 8500,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -1246,83 +1268,95 @@
           "anchor": "",
           "character_count": 384,
           "heading": "",
-          "line_end": 14,
-          "line_start": 10
+          "line_end": 13,
+          "line_start": 9
         },
         {
           "anchor": "what-gets-attached",
           "character_count": 677,
           "heading": "What gets attached",
-          "line_end": 21,
-          "line_start": 15
+          "line_end": 20,
+          "line_start": 14
         },
         {
           "anchor": "attachment-modes",
-          "character_count": 837,
+          "character_count": 864,
           "heading": "Attachment modes",
-          "line_end": 33,
-          "line_start": 22
+          "line_end": 32,
+          "line_start": 21
         },
         {
           "anchor": "changing-the-attachment-mode",
-          "character_count": 647,
+          "character_count": 320,
           "heading": "Changing the attachment mode",
-          "line_end": 46,
-          "line_start": 34
+          "line_end": 40,
+          "line_start": 33
+        },
+        {
+          "anchor": "sharing-captures-outside-pull-requests",
+          "character_count": 1159,
+          "heading": "Sharing captures outside pull requests",
+          "line_end": 54,
+          "line_start": 41
         },
         {
           "anchor": "where-else-artifacts-appear",
           "character_count": 355,
           "heading": "Where else artifacts appear",
-          "line_end": 53,
-          "line_start": 47
+          "line_end": 61,
+          "line_start": 55
         },
         {
           "anchor": "related-pages",
           "character_count": 681,
           "heading": "Related pages",
-          "line_end": 60,
-          "line_start": 54
+          "line_end": 68,
+          "line_start": 62
         }
       ],
-      "character_count": 3875,
-      "extraction_status": "invalidated",
+      "character_count": 4702,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
-          "line_start": 10,
+          "line_start": 9,
           "text": ""
         },
         {
           "anchor": "what-gets-attached",
-          "line_start": 15,
+          "line_start": 14,
           "text": "What gets attached"
         },
         {
           "anchor": "attachment-modes",
-          "line_start": 22,
+          "line_start": 21,
           "text": "Attachment modes"
         },
         {
           "anchor": "changing-the-attachment-mode",
-          "line_start": 34,
+          "line_start": 33,
           "text": "Changing the attachment mode"
         },
         {
+          "anchor": "sharing-captures-outside-pull-requests",
+          "line_start": 41,
+          "text": "Sharing captures outside pull requests"
+        },
+        {
           "anchor": "where-else-artifacts-appear",
-          "line_start": 47,
+          "line_start": 55,
           "text": "Where else artifacts appear"
         },
         {
           "anchor": "related-pages",
-          "line_start": 54,
+          "line_start": 62,
           "text": "Related pages"
         }
       ],
       "path": "src/content/docs/agents/capabilities/computer-use/artifacts-in-prs.mdx",
       "role": "docs-prose",
       "route": "/agents/capabilities/computer-use/artifacts-in-prs/",
-      "source_sha256": "b8606682976e14ef36664d16cbe9faced3c3fbf660331eb8a63d154c056a53c1",
+      "source_sha256": "39565db2c69d3f177b9a76575a5652a0fe2216c438f50a87c8a0cc872e044aaa",
       "title": "Screenshots and videos in pull requests"
     },
     "src/content/docs/agents/capabilities/computer-use/browser-use.mdx": {
@@ -1364,7 +1398,7 @@
         }
       ],
       "character_count": 3943,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -1504,15 +1538,15 @@
           "line_start": 128
         },
         {
-          "anchor": "related-capabilities",
-          "character_count": 443,
-          "heading": "Related capabilities",
-          "line_end": 138,
+          "anchor": "related-pages",
+          "character_count": 648,
+          "heading": "Related pages",
+          "line_end": 140,
           "line_start": 134
         }
       ],
-      "character_count": 7959,
-      "extraction_status": "invalidated",
+      "character_count": 8164,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -1595,15 +1629,15 @@
           "text": "Browsing and web interaction"
         },
         {
-          "anchor": "related-capabilities",
+          "anchor": "related-pages",
           "line_start": 134,
-          "text": "Related capabilities"
+          "text": "Related pages"
         }
       ],
       "path": "src/content/docs/agents/capabilities/computer-use/index.mdx",
       "role": "canonical-overview",
       "route": "/agents/capabilities/computer-use/",
-      "source_sha256": "1dd51d1f3820997c49ba80255b85b5730bbb124b8e0ecd2a29c992b574c900ac",
+      "source_sha256": "fea5e791e758ab92cae2aaca3c655d59495e81032d5798db2d0535fddb7e6e2f",
       "title": "Computer Use for agents"
     },
     "src/content/docs/agents/capabilities/computer-use/testing-and-recordings.mdx": {
@@ -1701,7 +1735,7 @@
         }
       ],
       "character_count": 10669,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -1843,28 +1877,28 @@
         },
         {
           "anchor": "global-permission-settings",
-          "character_count": 1104,
+          "character_count": 1133,
           "heading": "Global permission settings",
-          "line_end": 190,
+          "line_end": 192,
           "line_start": 177
         },
         {
-          "anchor": "credits-usage",
-          "character_count": 1102,
-          "heading": "Credits usage",
-          "line_end": 214,
-          "line_start": 191
+          "anchor": "usage",
+          "character_count": 670,
+          "heading": "Usage",
+          "line_end": 202,
+          "line_start": 193
         },
         {
           "anchor": "example-workflows",
           "character_count": 4433,
           "heading": "Example workflows",
-          "line_end": 223,
-          "line_start": 215
+          "line_end": 211,
+          "line_start": 203
         }
       ],
-      "character_count": 15803,
-      "extraction_status": "invalidated",
+      "character_count": 15400,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -1927,20 +1961,20 @@
           "text": "Global permission settings"
         },
         {
-          "anchor": "credits-usage",
-          "line_start": 191,
-          "text": "Credits usage"
+          "anchor": "usage",
+          "line_start": 193,
+          "text": "Usage"
         },
         {
           "anchor": "example-workflows",
-          "line_start": 215,
+          "line_start": 203,
           "text": "Example workflows"
         }
       ],
       "path": "src/content/docs/agents/capabilities/full-terminal-use.mdx",
       "role": "docs-prose",
       "route": "/agents/capabilities/full-terminal-use/",
-      "source_sha256": "6a37d32179ff1b7f72b0865a39a40c70978c25138eb0d21f7187f56a7f2f600d",
+      "source_sha256": "d30f22d53e894a91c87c3aa95dcfad909f9ae2fea30a3541f433051853eb3c14",
       "title": "Full Terminal Use"
     },
     "src/content/docs/agents/capabilities/index.mdx": {
@@ -1961,7 +1995,7 @@
         }
       ],
       "character_count": 2340,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -2108,7 +2142,7 @@
         }
       ],
       "character_count": 21050,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -2272,7 +2306,7 @@
         }
       ],
       "character_count": 6454,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -2388,7 +2422,7 @@
         }
       ],
       "character_count": 5836,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -2661,7 +2695,7 @@
         },
         {
           "anchor": "running-agents-from-skills",
-          "character_count": 457,
+          "character_count": 564,
           "heading": "Running agents from skills",
           "line_end": 452,
           "line_start": 447
@@ -2681,8 +2715,8 @@
           "line_start": 462
         }
       ],
-      "character_count": 17659,
-      "extraction_status": "invalidated",
+      "character_count": 17766,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -2933,7 +2967,7 @@
       "path": "src/content/docs/agents/capabilities/skills.mdx",
       "role": "docs-prose",
       "route": "/agents/capabilities/skills/",
-      "source_sha256": "f8c1412d84c4e5580992aa6fa4be53d0cea9e517bd0260b47b36bea0d2ef7709",
+      "source_sha256": "84f515c8d2a244f1b9599029aa9ae787155db0110b9cf87fa1d8cc28036329f8",
       "title": "Skills for agents"
     },
     "src/content/docs/agents/capabilities/slash-commands.mdx": {
@@ -2947,7 +2981,7 @@
         },
         {
           "anchor": "static-slash-commands",
-          "character_count": 8447,
+          "character_count": 8529,
           "heading": "Static slash commands",
           "line_end": 26,
           "line_start": 17
@@ -2967,8 +3001,8 @@
           "line_start": 44
         }
       ],
-      "character_count": 10462,
-      "extraction_status": "invalidated",
+      "character_count": 10544,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -2999,7 +3033,7 @@
       "path": "src/content/docs/agents/capabilities/slash-commands.mdx",
       "role": "docs-prose",
       "route": "/agents/capabilities/slash-commands/",
-      "source_sha256": "abf949d49d288ed3635a0b9e43cf4dd47f8f4ad19f8469515f68fad21bbeaf9c",
+      "source_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
       "title": "Slash Commands"
     },
     "src/content/docs/agents/capabilities/task-lists.mdx": {
@@ -3034,7 +3068,7 @@
         }
       ],
       "character_count": 2864,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -3116,7 +3150,7 @@
         }
       ],
       "character_count": 4295,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -3192,21 +3226,21 @@
         },
         {
           "anchor": "supported-warp-features",
-          "character_count": 893,
+          "character_count": 1194,
           "heading": "Supported Warp features",
-          "line_end": 72,
+          "line_end": 74,
           "line_start": 61
         },
         {
           "anchor": "related-pages",
           "character_count": 669,
           "heading": "Related pages",
-          "line_end": 81,
-          "line_start": 73
+          "line_end": 83,
+          "line_start": 75
         }
       ],
-      "character_count": 4605,
-      "extraction_status": "invalidated",
+      "character_count": 4906,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -3240,14 +3274,14 @@
         },
         {
           "anchor": "related-pages",
-          "line_start": 73,
+          "line_start": 75,
           "text": "Related pages"
         }
       ],
       "path": "src/content/docs/agents/cli-agents/claude-code.mdx",
       "role": "docs-prose",
       "route": "/agents/cli-agents/claude-code/",
-      "source_sha256": "fa2f42ca3c94f24f54cfbc0a0185dacbc08cfb603950d58c673e5f00ab789a64",
+      "source_sha256": "b9246b4d88c6d08fc3cedb5533b0b381b9983cea81d836597e56e88bd4730e31",
       "title": "Claude Code in Warp"
     },
     "src/content/docs/agents/cli-agents/codex.mdx": {
@@ -3282,7 +3316,7 @@
         }
       ],
       "character_count": 3526,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -3336,14 +3370,14 @@
         },
         {
           "anchor": "related-pages",
-          "character_count": 349,
+          "character_count": 538,
           "heading": "Related pages",
-          "line_end": 50,
+          "line_end": 51,
           "line_start": 44
         }
       ],
-      "character_count": 2734,
-      "extraction_status": "invalidated",
+      "character_count": 2923,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -3369,7 +3403,7 @@
       "path": "src/content/docs/agents/cli-agents/opencode.mdx",
       "role": "docs-prose",
       "route": "/agents/cli-agents/opencode/",
-      "source_sha256": "39e335661038b9b2824ce546dd1b3e3eda81c83235e400818a32b5c36d91cc50",
+      "source_sha256": "cb8c446d84b07817ada7c8828b408320ae625a887fa34dd0c73cb819c1e072e4",
       "title": "OpenCode in Warp"
     },
     "src/content/docs/agents/cli-agents/overview.mdx": {
@@ -3383,42 +3417,49 @@
         },
         {
           "anchor": "supported-agents",
-          "character_count": 1286,
+          "character_count": 1365,
           "heading": "Supported agents",
-          "line_end": 47,
+          "line_end": 48,
           "line_start": 21
         },
         {
+          "anchor": "where-third-party-cli-agents-appear",
+          "character_count": 1021,
+          "heading": "Where third-party CLI agents appear",
+          "line_end": 59,
+          "line_start": 49
+        },
+        {
           "anchor": "feature-support",
-          "character_count": 1593,
+          "character_count": 1471,
           "heading": "Feature support",
-          "line_end": 67,
-          "line_start": 48
+          "line_end": 77,
+          "line_start": 60
         },
         {
           "anchor": "customizing-the-toolbelt",
           "character_count": 505,
           "heading": "Customizing the toolbelt",
-          "line_end": 76,
-          "line_start": 68
+          "line_end": 86,
+          "line_start": 78
         },
         {
           "anchor": "getting-started",
           "character_count": 436,
           "heading": "Getting started",
-          "line_end": 88,
-          "line_start": 77
+          "line_end": 98,
+          "line_start": 87
         },
         {
           "anchor": "related-pages",
           "character_count": 646,
           "heading": "Related pages",
-          "line_end": 96,
-          "line_start": 89
+          "line_end": 106,
+          "line_start": 99
         }
       ],
-      "character_count": 5528,
-      "extraction_status": "invalidated",
+      "character_count": 6507,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -3431,30 +3472,35 @@
           "text": "Supported agents"
         },
         {
+          "anchor": "where-third-party-cli-agents-appear",
+          "line_start": 49,
+          "text": "Where third-party CLI agents appear"
+        },
+        {
           "anchor": "feature-support",
-          "line_start": 48,
+          "line_start": 60,
           "text": "Feature support"
         },
         {
           "anchor": "customizing-the-toolbelt",
-          "line_start": 68,
+          "line_start": 78,
           "text": "Customizing the toolbelt"
         },
         {
           "anchor": "getting-started",
-          "line_start": 77,
+          "line_start": 87,
           "text": "Getting started"
         },
         {
           "anchor": "related-pages",
-          "line_start": 89,
+          "line_start": 99,
           "text": "Related pages"
         }
       ],
       "path": "src/content/docs/agents/cli-agents/overview.mdx",
       "role": "docs-prose",
       "route": "/agents/cli-agents/overview/",
-      "source_sha256": "5b081c39552faee715abc14cafa76b61a47feea18a29a15608c74df7d3faa1ee",
+      "source_sha256": "dafaad6231d03fb8d832bf4791aae5b33e75c8c346c65b6bf6c3f6f2bf5c45ff",
       "title": "Third-party CLI agents overview"
     },
     "src/content/docs/agents/cli-agents/remote-control.mdx": {
@@ -3510,7 +3556,7 @@
         }
       ],
       "character_count": 4873,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -3593,7 +3639,7 @@
         }
       ],
       "character_count": 4366,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -3722,7 +3768,7 @@
         }
       ],
       "character_count": 10232,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -4296,7 +4342,7 @@
         }
       ],
       "character_count": 11086,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -4488,7 +4534,7 @@
         }
       ],
       "character_count": 2869,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -4820,7 +4866,7 @@
         }
       ],
       "character_count": 3390,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -4929,7 +4975,7 @@
         }
       ],
       "character_count": 5560,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -5833,7 +5879,7 @@
         }
       ],
       "character_count": 6837,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -6042,7 +6088,7 @@
         }
       ],
       "character_count": 2599,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -6193,7 +6239,7 @@
         }
       ],
       "character_count": 7106,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -6332,7 +6378,7 @@
         }
       ],
       "character_count": 2009,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -6416,7 +6462,7 @@
         }
       ],
       "character_count": 6911,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -6739,7 +6785,7 @@
         }
       ],
       "character_count": 16560,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -8072,7 +8118,7 @@
         }
       ],
       "character_count": 5265,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -8158,7 +8204,7 @@
         }
       ],
       "character_count": 5789,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -8217,7 +8263,7 @@
         }
       ],
       "character_count": 1847,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -8257,7 +8303,7 @@
         }
       ],
       "character_count": 1801,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -8296,7 +8342,7 @@
         }
       ],
       "character_count": 2626,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -8336,7 +8382,7 @@
         }
       ],
       "character_count": 1270,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -8394,7 +8440,7 @@
         }
       ],
       "character_count": 4635,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -8528,7 +8574,7 @@
         }
       ],
       "character_count": 7425,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -8654,7 +8700,7 @@
         }
       ],
       "character_count": 4037,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -8718,7 +8764,7 @@
         }
       ],
       "character_count": 6269,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -8784,7 +8830,7 @@
         }
       ],
       "character_count": 4284,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -8883,7 +8929,7 @@
         }
       ],
       "character_count": 6583,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -9070,7 +9116,7 @@
         }
       ],
       "character_count": 13626,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -9267,7 +9313,7 @@
         }
       ],
       "character_count": 15760,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -9532,7 +9578,7 @@
         }
       ],
       "character_count": 20091,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -9747,7 +9793,7 @@
         }
       ],
       "character_count": 5474,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -9854,7 +9900,7 @@
         }
       ],
       "character_count": 4561,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -10175,7 +10221,7 @@
         }
       ],
       "character_count": 9459,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -10301,7 +10347,7 @@
         }
       ],
       "character_count": 3083,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -10355,7 +10401,7 @@
         }
       ],
       "character_count": 1850,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -10425,7 +10471,7 @@
         }
       ],
       "character_count": 4455,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -10543,7 +10589,7 @@
         }
       ],
       "character_count": 5609,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -10729,7 +10775,7 @@
         }
       ],
       "character_count": 11526,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -10852,7 +10898,7 @@
         }
       ],
       "character_count": 3065,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -10975,7 +11021,7 @@
         }
       ],
       "character_count": 7812,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -11059,7 +11105,7 @@
         }
       ],
       "character_count": 4364,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -11192,7 +11238,7 @@
         }
       ],
       "character_count": 15717,
-      "extraction_status": "invalidated",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -11528,6 +11574,6 @@
   },
   "schema_version": 1,
   "source_repositories": {
-    "docs": "3aa4a90e8914a3039d38d86c3cfa265720f59736"
+    "docs": "17b29842c15b738de6febb400b13ae9d08e9d9e2"
   }
 }

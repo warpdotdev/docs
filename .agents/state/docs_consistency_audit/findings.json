@@ -4,6 +4,7 @@
       "audit_run_id": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
       "authority_reason": "The model-choice page provides the model-specific retention requirement; the overview supplies no matching exception.",
       "canonical_source": "canonical-doc",
+      "carried_forward_due_to_incomplete_run": true,
       "category": "privacy",
       "claims": [
         {
@@ -105,7 +106,7 @@
       "finding_id": "sha256:50890f2239bc6a5045d38e66cb7f4f160232143c6abc357e749789e9a86f8e47",
       "first_seen_run": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
       "last_seen_run": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
-      "lifecycle": "new",
+      "lifecycle": "existing",
       "predicate": "retained-by-model-provider",
       "qualifier_status": "complete",
       "rationale": "The agents overview states without qualification that no customer AI data is retained, while the model-choice page says Anthropic requires retention for Claude Fable 5 and 5.1. The narrower current-model exception is incompatible with the overview\u2019s universal wording.",
@@ -158,6 +159,7 @@
       "audit_run_id": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
       "authority_reason": "The canonical overview and FAQ make opposing public statements about training use, and the privacy page confirms collection depends on telemetry and plan context rather than establishing a universal no-training rule.",
       "canonical_source": "canonical-doc",
+      "carried_forward_due_to_incomplete_run": true,
       "category": "privacy",
       "claims": [
         {
@@ -254,7 +256,7 @@
       "finding_id": "sha256:8fff47f3da6b8ecf3313f2af0d7506827edc42998120dff2d1d11121a0882865",
       "first_seen_run": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
       "last_seen_run": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
-      "lifecycle": "new",
+      "lifecycle": "existing",
       "predicate": "used-for-training",
       "qualifier_status": "complete",
       "rationale": "The agents overview says no customer AI data is used for training, while the agent FAQ says Warp reserves the right to use collected data to train models. Neither claim narrows the data category in a way that removes the overlap.",
