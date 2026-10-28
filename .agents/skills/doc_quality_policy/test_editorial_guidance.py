@@ -72,6 +72,57 @@ class EditorialGuidanceTests(unittest.TestCase):
                      ".agents/templates/quickstart.md"):
             self.assertIn("omit it when unverified", self.text(path))
 
+    def test_connected_procedure_checks_have_one_canonical_home(self):
+        agents = self.text("AGENTS.md")
+        self.assertEqual(agents.count("#### Check connected procedures"), 1)
+        section = agents.split("#### Check connected procedures\n", 1)[1].split("\n### ", 1)[0]
+        for check in ("Starting work", "Overlapping rules", "Existing exclusions",
+                      "Unmatched inputs", "Work already in progress",
+                      "Passing work to the next stage", "Tests"):
+            self.assertIn(f"* **{check}** -", section)
+        for skill in ("draft_docs", "review-docs-pr"):
+            path = ROOT / f".agents/skills/{skill}/SKILL.md"
+            links = re.findall(r"\]\(([^)]+AGENTS\.md)#([^)]+)\)", path.read_text())
+            self.assertTrue(links, skill)
+            for target, anchor in links:
+                self.assertEqual((path.parent / target).resolve(), ROOT / "AGENTS.md")
+                self.assertIn(anchor, ("order-from-intent-to-technical-detail",
+                                      "procedural", "check-connected-procedures"))
+
+    def test_setup_jobs_are_listed_separately(self):
+        agents = self.text("AGENTS.md")
+        section = agents.split("**Separate setup, instructions, and testing.**", 1)[1]
+        section = section.split("\n- **", 1)[0]
+        for job in ("Configuration", "Access", "Instructions", "Testing"):
+            self.assertIn(f"  - **{job}** -", section)
+        self.assertIn("State instructions explicitly", agents)
+        self.assertIn("Do not expect readers to infer a required action", agents)
+
+    def test_new_guidance_does_not_use_the_compressed_shorthand(self):
+        paths = ("AGENTS.md", ".agents/skills/draft_docs/SKILL.md",
+                 ".agents/skills/review-docs-pr/SKILL.md",
+                 ".agents/skills/aeo_brief/SKILL.md",
+                 ".agents/templates/procedural.md", ".agents/templates/feature-doc.md")
+        for path in paths:
+            text = self.text(path)
+            for phrase in ("cumulative routing exclusions", "continued-conversation ownership",
+                           "existing-agent paths", "umbrella signal", "When examples compose"):
+                self.assertNotIn(phrase, text, path)
+
+    def test_setup_template_hints_state_actions_and_remain_bracketed(self):
+        for template in ("procedural", "feature-doc"):
+            text = self.text(f".agents/templates/{template}.md")
+            self.assertNotIn("<!--", text)
+            hints = [line for line in text.splitlines() if line.startswith("[")]
+            for instruction in ("State what the reader is configuring",
+                                "If readers can reuse an agent or resource",
+                                "Give configuration choices",
+                                "If this procedure connects to another",
+                                "Preserve existing filters and exclusions",
+                                "Verify whether configuration changes affect"):
+                self.assertTrue(any(instruction in hint and hint.endswith("]")
+                                    for hint in hints), (template, instruction))
+
 
 if __name__ == "__main__":
     unittest.main()

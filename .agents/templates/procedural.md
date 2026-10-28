@@ -16,7 +16,7 @@ description: >-
 
 ## Prerequisites
 
-[Only if needed. Use concise, unbolded bullets with inline context and links to setup details. Keep access and technical constraints explicit; put conditional test credentials beside the test that needs them. See AGENTS.md → Procedural.]
+[Only if needed. Use short, unbolded bullets. Name each requirement, say what it is needed for, and link to its setup instructions. State required permissions and technical limits. If credentials are needed only for one test, explain that condition beside the access setup or test that needs them; do not require them for every reader.]
 
 * A Warp API key to authenticate API requests. See [API keys](path) to create one.
 
@@ -29,10 +29,16 @@ description: >-
 3. Step description.
 
 [STEP SIZING: Aim for one primary action per step, but group tightly related actions that share the same UI context — up to about three. A simple task should not need 10+ steps, and a single step should not be a mini-procedure.]
-[TASK FIRST: Apply AGENTS.md → Order from intent to technical detail. Retain the task before fields and example names; explain what selections are for. Include paths to edit or select existing agents when supported. Separate configuration and access from skill instructions and test execution; reread the whole paragraph after edits.]
+[State what the reader is configuring before listing fields or example names. Explain what each selected agent, environment, or credential is used for, then give the field, command, or file to change and its value.]
+[If readers can reuse an agent or resource, show how to find and edit or select it as well as how to create a new one. For file-based setup, identify the existing file or agent directory.]
+[Give configuration choices, tool and credential access, skill or prompt instructions, and testing their own steps or groups of related steps. Do not imply that writing instructions installs tools or grants access.]
+[Use sample data the reader understands. If a prepared test file or record is required, explain what it contains and where to get or create it. Apply configuration changes before testing. State the behavior and evidence to check, not only that a run finishes.]
+[Put safety limits beside the action they restrict and inside prompts that can be copied separately. After changing a sentence, reread the paragraph and surrounding steps for unclear references, missing actions, or incorrect ordering.]
 [UI LABELS: Bold clickable controls and the option the reader selects. Put non-clickable field labels in quotation marks. Example: In the "Harness" dropdown, select **Claude Code**. Not: In the **Harness** dropdown...]
 [BREVITY IN STEPS: Apply AGENTS.md → Procedural → Reader-understanding test. Keep necessary choices, consequences, and success signals beside the action. Link long lookup lists to their owning reference; a short callout must fit the page's budget.]
-[WORKFLOW CHECK: For connected examples, apply AGENTS.md → General guidance → Verify claims across the composed workflow, including cumulative exclusions and continued conversations. Keep safety limits with copyable actions; use explained sample data.]
+[If this procedure connects to another, read their examples together. Identify the event that starts each task, the agent that receives it, what information passes to the next stage, where work stops, and which decisions require a person.]
+[Check whether the same input matches several rules. Say whether that is intended; if not, give conditions that prevent unwanted matches. Preserve existing filters and exclusions when adding new ones. Explain what happens when none of the specialized rules match.]
+[Verify whether configuration changes affect new tasks, existing conversations, or both. Do not promise that a rule change transfers work to another agent unless verified. Include tests and expected results for matching, overlapping, and unmatched inputs, plus continued conversations when supported. See AGENTS.md → Check connected procedures for the full checks.]
 
 :::note
 [Optional. One or two callouts per page at most; prefer body prose. Delete if nothing applies.]
