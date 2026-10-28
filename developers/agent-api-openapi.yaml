@@ -1,4 +1,29 @@
 paths:
+  /networking/policies:
+    get:
+      summary: List built-in network policies
+      description: |
+        Return Warp-managed network policies grouped by name, with every published
+        version and its included allowed hosts. Use a name and version in networkPolicy.extends.
+        Policies do not include the platform's system-required egress rules.
+      operationId: listNetworkPolicies
+      tags:
+        - networking
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: 'Built-in policies sorted by name, with versions sorted lexicographically'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListNetworkPoliciesResponse'
+        '401':
+          description: Authentication required
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /networking/egress-ranges:
     get:
       summary: List Warp-hosted agent egress ranges
@@ -2318,6 +2343,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /agent/runs/batch-get:
+    post:
+      summary: Get multiple runs by ID
+      description: |
+        Retrieve run details for 1–100 run IDs. Returns a top-level array in
+        input order, preserving duplicates with one result per input occurrence.
+        Each result contains the requested run_id and exactly one of `run`, the
+        same run object returned by getRun, or `error`, the standard API error
+        getRun would return for that ID. Authorization and per-run errors
+        follow getRun semantics. Completed batches return HTTP 200 even when
+        every result is an error; shared infrastructure failures fail the
+        request with HTTP 500.
+      operationId: batchGetRuns
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchGetRunsRequest'
+      responses:
+        '200':
+          description: One run or error per requested ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchGetRunsResponse'
+        '400':
+          description: Malformed body or invalid run_ids list
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
   '/agent/runs/{runId}':
     get:
       summary: Get run details
@@ -2391,6 +2464,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetRunTimelineResponse'
+        '400':
+          description: Missing run ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: No permission to access run
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/agent/runs/{runId}/diagnostics':
+    get:
+      summary: Get run diagnostics
+      description: Retrieve diagnostics recorded for an agent run.
+      operationId: getRunDiagnostics
+      tags:
+        - agent
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: runId
+          in: path
+          description: The unique identifier of the run
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Run diagnostics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRunDiagnosticsResponse'
         '400':
           description: Missing run ID
           content:
@@ -5603,6 +5723,64 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
+    BuiltinNetworkPolicy:
+      type: object
+      description: One published Warp-managed network policy version.
+      required:
+        - name
+        - version
+        - allowed_hosts
+        - is_latest
+      properties:
+        name:
+          type: string
+          examples:
+            - warp/package-registries
+        version:
+          type: string
+          description: Exact semantic version.
+          examples:
+            - 1.0.0
+        allowed_hosts:
+          type: array
+          items:
+            type: string
+          description: Literal hosts granted by this policy version.
+        is_latest:
+          type: boolean
+          description: Whether this is the highest stable version selected by the latest alias.
+    BuiltinNetworkPolicyGroup:
+      type: object
+      description: A Warp-managed network policy and its published versions.
+      required:
+        - name
+        - latest_version
+        - versions
+      properties:
+        name:
+          type: string
+          examples:
+            - warp/package-registries
+        latest_version:
+          type:
+            - string
+            - 'null'
+          description: 'Highest stable version selected by the latest alias, or null if none exists.'
+          examples:
+            - 1.0.0
+        versions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuiltinNetworkPolicy'
+    ListNetworkPoliciesResponse:
+      type: object
+      required:
+        - policies
+      properties:
+        policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/BuiltinNetworkPolicyGroup'
     EgressRangesResponse:
       type: object
       required:
@@ -5763,6 +5941,13 @@ components:
             Default credential strategy for runs executed by the factory's
             named agents. Always a concrete value; factories default to
             EXECUTOR unless explicitly set to CREATOR.
+        restrict_followups_to_starter:
+          type: boolean
+          description: |
+            When true, only the Warp user who started a run may send it
+            follow-ups. Senders on Slack, GitHub, Linear and other
+            integrations are matched to Warp users through their linked
+            accounts; follow-ups from agents and the system are unaffected.
         integrations:
           type:
             - array
@@ -8358,6 +8543,50 @@ components:
             `X-Warp-Team-Uid` header, or the API key's team. Null when a user
             request has no team selected and the list spans every team the
             user belongs to.
+    BatchGetRunsRequest:
+      type: object
+      required:
+        - run_ids
+      properties:
+        run_ids:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            type: string
+            minLength: 1
+          description: 'Run IDs to retrieve, in result order. Duplicates are preserved.'
+    BatchGetRunsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/BatchGetRunResult'
+    BatchGetRunResult:
+      description: Result for one requested run ID. Exactly one of `run` or `error` is present.
+      oneOf:
+        - $ref: '#/components/schemas/BatchGetRunSuccess'
+        - $ref: '#/components/schemas/BatchGetRunError'
+    BatchGetRunSuccess:
+      type: object
+      required:
+        - run_id
+        - run
+      properties:
+        run_id:
+          type: string
+          description: 'Requested run ID, echoed from the request.'
+        run:
+          $ref: '#/components/schemas/RunItem'
+    BatchGetRunError:
+      type: object
+      required:
+        - run_id
+        - error
+      properties:
+        run_id:
+          type: string
+          description: 'Requested run ID, echoed from the request.'
+        error:
+          $ref: '#/components/schemas/Error'
     RunItem:
       type: object
       required:
@@ -8497,6 +8726,33 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AIRunTimelineEvent'
+    GetRunDiagnosticsResponse:
+      type: object
+      description: Response body for listing diagnostics recorded for a run.
+      required:
+        - diagnostics
+      properties:
+        diagnostics:
+          type: array
+          items:
+            $ref: '#/components/schemas/RunDiagnostic'
+    RunDiagnostic:
+      type: object
+      description: A diagnostic recorded for an agent run. Diagnostics are non-fatal warnings and informational messages about the run.
+      required:
+        - message
+        - code
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+        data:
+          type: object
+          additionalProperties: true
+        timestamp:
+          type: string
+          format: date-time
     AIRunTimelineEvent:
       type: object
       description: A setup or lifecycle event recorded for an agent run.
@@ -9070,6 +9326,13 @@ components:
           description: |
             What the run's platform usage was billed at, in US dollars. Runs that
             predate billed-amount tracking fall back to an estimated cost.
+        platform_duration_seconds:
+          type: number
+          format: double
+          minimum: 0
+          description: |
+            Recorded billable platform runtime for this run, in seconds.
+            Omitted when unavailable; zero when recorded as zero.
         total_tokens:
           type: integer
           format: int64
@@ -11883,8 +12146,7 @@ components:
         `secrets_append` is an exception: it appends secrets idempotently and
         must be the only supplied field, including fields supplied as `null`.
         `network_policy` is also an exception: omission preserves the policy,
-        null clears it, and an object replaces it wholesale. An object with
-        no allowed hosts carries deny-all intent.
+        null clears it, and an object replaces it wholesale.
       properties:
         name:
           type: string
@@ -12517,12 +12779,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BenchmarkRepoRef'
+    BenchmarkOptionalName:
+      type: string
+      maxLength: 200
+      description: Optional display name. Surrounding whitespace is trimmed; empty clears the name.
     BenchmarkConfigurationInput:
       type: object
       properties:
         display_name:
-          type: string
-          description: Optional name for this configuration.
+          $ref: '#/components/schemas/BenchmarkOptionalName'
         harness:
           type: string
         model:
@@ -12577,6 +12842,8 @@ components:
       required:
         - repetition_count
       properties:
+        display_name:
+          $ref: '#/components/schemas/BenchmarkOptionalName'
         configurations:
           type: array
           description: |
@@ -12683,6 +12950,8 @@ components:
         - execution
         - scoring
       properties:
+        display_name:
+          $ref: '#/components/schemas/BenchmarkOptionalName'
         uid:
           type: string
           description: 'existing benchmark Run UID, including legacy non-UUID identities.'
