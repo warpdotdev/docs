@@ -48,6 +48,8 @@ Use the Peec MCP when available. Prefer source data over invented SEO advice.
 
 Keep Peec output compact. The brief should explain what the data suggests, not reproduce a full report.
 
+Apply AGENTS.md → SEO data when recording source signals: distinguish measured demand at the umbrella or topic level from editorial recommendations. Do not assign an umbrella signal to every proposed subtopic.
+
 ## Repo research workflow
 
 Ground every recommendation in the current docs:

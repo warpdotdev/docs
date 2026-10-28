@@ -16,9 +16,9 @@ description: >-
 
 ## Prerequisites
 
-[Only if needed. Each item needs inline context: what it is in one clause, where to get it, and a link to the full reference. Assume the reader arrived here directly.]
+[Only if needed. Use concise, unbolded bullets with inline context and links to setup details. Keep access and technical constraints explicit; put conditional test credentials beside the test that needs them. See AGENTS.md → Procedural.]
 
-* **A Warp API key** - Authenticate API requests with a key from **Settings** > **Cloud platform** > **API keys** in the Warp app. See [API keys](path) for details.
+* A Warp API key to authenticate API requests. See [API keys](path) to create one.
 
 ## [Primary task — sentence case, e.g. "Creating an API key"]
 
@@ -29,8 +29,10 @@ description: >-
 3. Step description.
 
 [STEP SIZING: Aim for one primary action per step, but group tightly related actions that share the same UI context — up to about three. A simple task should not need 10+ steps, and a single step should not be a mini-procedure.]
+[TASK FIRST: Apply AGENTS.md → Order from intent to technical detail. Retain the task before fields and example names; explain what selections are for. Include paths to edit or select existing agents when supported. Separate configuration and access from skill instructions and test execution; reread the whole paragraph after edits.]
 [UI LABELS: Bold clickable controls and the option the reader selects. Put non-clickable field labels in quotation marks. Example: In the "Harness" dropdown, select **Claude Code**. Not: In the **Harness** dropdown...]
 [BREVITY IN STEPS: Apply AGENTS.md → Procedural → Reader-understanding test. Keep necessary choices, consequences, and success signals beside the action. Link long lookup lists to their owning reference; a short callout must fit the page's budget.]
+[WORKFLOW CHECK: For connected examples, apply AGENTS.md → General guidance → Verify claims across the composed workflow, including cumulative exclusions and continued conversations. Keep safety limits with copyable actions; use explained sample data.]
 
 :::note
 [Optional. One or two callouts per page at most; prefer body prose. Delete if nothing applies.]

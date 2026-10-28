@@ -184,6 +184,8 @@ Create the documentation using the appropriate template from `.agents/templates/
 
 During the deletion pass, apply AGENTS.md → Procedural → Reader-understanding test. A concept explained elsewhere may still be necessary beside a step for a direct-arrival reader. Omit optional scaffold sections rather than filling them with repetition.
 
+Apply AGENTS.md → Order from intent to technical detail and Procedural to each setup sequence: retain the task before fields and example values, explain selections, include existing-agent paths, and separate configuration and access from skill instructions and tests. Reread the whole paragraph after local edits. For connected workflows, use General guidance → Verify claims to check cumulative routing exclusions and conversation ownership across sibling examples, not only each page in isolation.
+
 Record an editorial verdict in the PR rationale: reader task, concept ownership across siblings, repetition and unnecessary scaffolds removed, unsupported assurances corrected, and useful understanding preserved. Link or relocate necessary facts rather than deleting them for length. Removing a page or changing its purpose requires human approval; identify each unsupported claim and its narrow correction instead.
 
 ### 8. Run style lint and the compression contract check

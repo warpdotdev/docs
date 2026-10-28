@@ -16,6 +16,7 @@ description: >-
 [Opening paragraph: what the feature does and its primary benefit. 1-3 sentences. Lead with what the reader can accomplish, not the implementation.]
 
 [DEFINE → SHOW → LINK: Plain-language definition, then one concrete example, before jargon-heavy configuration. See AGENTS.md → Define, show, link.]
+[STANDALONE CONTEXT: Apply AGENTS.md → Writing for agents (AEO) and SEO data. Attribute the product naturally without stuffing its name, claiming unmeasured per-topic demand, or expanding the approved page purpose.]
 
 [MEDIA: If you have an orientation video or wide product screenshot, place it here or just under Key features — not after long conceptual sections. Never stack two VideoEmbeds back to back.]
 
@@ -39,10 +40,11 @@ description: >-
 ## [Usage or configuration — sentence case, renamed to match the feature, e.g. "Creating environments"]
 
 [PROCEDURAL section. Motivate before instructing, include expected outcomes after key steps, and group related actions that share a UI context. Bold clickable controls and selected options; put non-clickable field labels in quotation marks ("Harness" dropdown, not **Harness** dropdown). Keep steps short — cut internal implementation detail and move reference lists into a :::note or a linked page.]
+[TASK FIRST: Apply AGENTS.md → Order from intent to technical detail and Procedural. Explain what selections are for, include supported existing-agent paths, and separate configuration and access from skill instructions and tests. Keep safety limits beside copyable actions and reread whole paragraphs after edits.]
 
 ### Prerequisites
 
-[Inline context for each: what it is, where to get it, and a link to the full reference.]
+[Use concise, unbolded bullets with inline context and setup links. Keep required access explicit; place conditional test credentials beside the test that needs them. See AGENTS.md → Procedural.]
 
 ### [Task name — sentence case, e.g. "Create an environment with the CLI"]
 
@@ -52,6 +54,7 @@ description: >-
 ## [Additional sections as needed]
 
 [ORDER: broad to specific. Conceptual, then reference, then procedures in lifecycle order — enable, use, manage, disable, destructive actions — then troubleshooting.]
+[WORKFLOW CHECK: When examples compose, apply AGENTS.md → General guidance → Verify claims to cumulative routing exclusions, handoffs, stopping points, and continued-conversation ownership.]
 
 ## Related pages
 

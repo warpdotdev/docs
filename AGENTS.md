@@ -4,7 +4,7 @@
 
 # Warp Documentation Style Guide
 
-This guide establishes standards for writing Warp documentation. It covers voice, formatting, content types, and terminology. Use it as the authoritative reference when creating or updating any page in the Astro Starlight repository.
+This guide establishes standards for writing Warp documentation. It covers voice, formatting, content types, and terminology. Use it as the authoritative reference when creating or updating any page in the Astro Starlight repository; drafting and review skills and templates apply these rules rather than maintain separate versions. Product behavior belongs in its canonical product reference, not in universal writing rules.
 
 ## Writing style
 
@@ -38,6 +38,8 @@ When readers need exact fields, IDs, or runtime labels, order the explanation fr
 * **Technical detail** - Add the exact field, identifier, or label after the action is clear.
 
 Explain an identifier by what it lets the reader select or load, not by its storage or schema name. Include a literal product or runtime label only when the reader needs it to find a value, and introduce it after the plain-language concept.
+
+Retain the task when adding field instructions or sample values: say what the selection is for, then where to make it. A name alone does not explain an automation's purpose. For example, write "Create an automation that checks broken documentation links. In the 'Name' field, enter `Weekly link check`," not only "Enter `Weekly link check` in the 'Name' field."
 
 This is the voice-level version of "Don't over-specify counts or internals that will drift" (see General guidance): internals aren't just a staleness risk, they're noise between the reader and the task.
 
@@ -86,7 +88,7 @@ The reader came for the product, not the writer's presence in the page.
 - **Describe the present** - Write how the product works now. Renames and history belong in time-boxed transition notes or the changelog, not woven through pages ("the built-in harness is the Warp Agent harness", not "Oz is retired product language").
 
 #### The read-aloud test
-Read the paragraph aloud. If it doesn't sound like something you'd say to a colleague, rewrite it plainly. This catches over-explained cause-and-effect, hedging, and repeated rhetorical patterns faster than any checklist.
+Read the paragraph aloud. If it doesn't sound like something you'd say to a colleague, rewrite it plainly. This catches over-explained cause-and-effect, hedging, and repeated rhetorical patterns faster than any checklist. After a local edit, reread the whole paragraph and adjacent step for lost purpose, broken transitions, or duplicated context.
 
 #### Cut again
 A plain-language rewrite still under-cuts on the first pass. Follow it with a deletion-only pass that removes:
@@ -163,7 +165,7 @@ These practices serve both human accessibility needs and AI agent consumption (A
 
 **Writing for agents (AEO):**
 - **Descriptive headers**: Use specific, parseable headers ("Configuring environments") not vague ones ("Getting set up"). Agents use headers as semantic signals to extract answers.
-- **Explicit context**: Don't assume the reader arrived from a parent page. State what a thing is before explaining how to use it. This helps agents extract self-contained answers.
+- **Explicit context**: Don't assume the reader arrived from a parent page. State what a thing is before explaining how to use it. Name the relevant product naturally in standalone openings and descriptions so extracted answers retain attribution, without repeating the brand in every heading or adding topics solely for keywords.
 - **Frontmatter descriptions**: Agents and search engines use the `description` field to determine relevance before reading the full page. Write descriptions as standalone summaries.
 - **Consistent terminology**: Agents struggle when the same concept has multiple names. Use the glossary terms consistently.
 - **Machine-parseable patterns**: Consistent list formats, code block labeling, and parameter tables help agents extract structured information. The templates in `.agents/templates/` enforce this.
@@ -284,6 +286,7 @@ Use formatting consistently to distinguish different types of content:
 - Always explain what a placeholder represents
 - Include context about what the code does
 - Provide both simple examples and real-world scenarios
+- Use plain-language sample data whose purpose is clear. If a test needs a prepared fixture, explain what it represents and where to get it; do not present an unexplained internal fixture as a prerequisite. Require test credentials only when the documented test path needs them.
 
 ### Images and media
 - Always include descriptive alt text (describe what the image shows, not just "screenshot")
@@ -528,6 +531,7 @@ These rules apply regardless of content type:
 - **Verify claims against the live product, not just prior drafts**: Terminology, UI labels, and calculated values drift between rounds of review. Confirm names, labels, and metric definitions against the actual app, API, or codebase before publishing — especially for pages describing metrics or anything computed.
   - Record the source revision separately from deployment, stable-release, and live-checkout evidence. Merged code or checked-in production configuration does not prove that a customer can use a feature. Keep uncertain availability or policy claims conditional, omitted, or explicitly recorded for review.
   - A field in a published schema, a parser that accepts it, or behavior on staging is not availability evidence either. Before documenting a server-backed field, endpoint, or behavior, confirm its server flags are on in production with `.agents/skills/doc_quality_policy/server_rollout.py`. See Gate 0 in `.agents/references/docs-worthiness-criteria.md`.
+  - Audit composed workflows, not only isolated examples. Check overlapping triggers, cumulative exclusions in catch-all handlers, handoffs, and stopping points across the pages readers combine. Distinguish new intake from continued conversations; verify which agent owns existing state before promising that a routing or configuration change transfers work. Include overlap, no-match, and continuation cases where relevant.
 - **Preserve page purpose**: Removing a page or changing its purpose requires human approval. An unsupported claim calls for a narrow correction, not permission to turn a transition guide into a chooser. Record the reader task, ownership across sibling pages, repetition removed, and useful understanding preserved in the editorial verdict.
 - **Use one positioning source**: Follow `.agents/rules/oz-style-guidelines.md` for product framing and `.agents/references/terminology.md` for names. Positioning is demonstrated through relevant workflows, not mandatory slogans.
 
@@ -573,12 +577,14 @@ These rules apply regardless of content type:
 - **Keep steps focused, not artificially atomic.** Aim for one primary action per step, but group tightly related actions together when they share the same UI context and doing so keeps the procedure at a readable length. Up to ~3 related actions per step is acceptable. Use judgment: a simple task shouldn't require 10+ steps, but a single step shouldn't be a mini-procedure either.
   - Acceptable groupings: actions on the same form (entering a name and choosing an expiration date), a click that reveals the next target (clicking to expand a section, then clicking the revealed item), or a short natural sequence within the same UI area.
   - Avoid grouping actions that span different areas of the UI or that would make a step hard to scan at a glance.
+  - Keep definitions and configuration separate from access setup, skill instructions, and test execution. A skill tells an agent what to do; it does not itself provision tools or grant access. Put each action where the reader performs it, and keep the skill's required behavior visible as a short list rather than burying setup instructions in its prompt.
   - **Separate reference detail from the action.** Link a long lookup list to its owning reference. Keep facts needed for the immediate choice beside the step; use a short callout only within the callout budget.
     - ✅ A step reading "In the **Auth** field, choose a compatible, team-owned secret from the list or click **New auth secret** to create one," followed by a `:::note` listing which credential type each option accepts.
     - ❌ Folding the full list of accepted credential types into the same sentence as the instruction, so the action is buried in reference detail.
 - **Motivate steps before giving instructions.** Briefly explain WHY before HOW, especially for setup steps. A single sentence of motivation prevents the reader from wondering "why am I doing this?"
   - ✅ "Export your API key so the CLI can authenticate your requests automatically."
   - ❌ "Export your API key as an environment variable." (why?)
+- **Support existing configurations.** When the task can use an existing agent or resource, give its edit or selection path alongside the create path. Do not assume every reader starts from scratch or imply that creating a duplicate transfers existing work.
 - **Orient within the step, not just on first mention.** The page-level rule above ("Orient the reader before UI, CLI, or URL instructions") also applies inside a single step: name the field, dropdown, or location the action happens in before naming the action itself. Don't rely on referring the reader back to an earlier section instead — a step should stand on its own for a reader who lands on it directly.
   - ✅ "In the 'Harness' dropdown, select **Claude Code** or **Codex**."
   - ❌ "Choose **Claude Code** or **Codex** in the **Harness** field." (names the action before the location)
@@ -592,7 +598,7 @@ These rules apply regardless of content type:
 **Template**: `.agents/templates/procedural.md`
 #### Reader-understanding test
 
-Keep the context the reader needs for the choice, consequence, or success signal near the step. Use the shortest clear wording; don't explain what the instruction or status already makes clear. Being explained elsewhere does not automatically make that context redundant for someone arriving directly at the quickstart.
+Keep the context the reader needs for the choice, consequence, or success signal near the step. Explain what a selected agent, environment, or credential is used for, not only its example name. Keep safety limits and consequences beside the action they constrain, including inside copyable prompts when the prompt can be used independently. Use the shortest clear wording; don't explain what the instruction or status already makes clear. Being explained elsewhere does not automatically make that context redundant for someone arriving directly at the quickstart.
 
 Cut repetition that adds no understanding. Link background not needed for the immediate task. For example, retain why a Docker image needs the project's toolchain; cut a second paragraph repeating that execution happens in the cloud.
 
@@ -1042,6 +1048,8 @@ All documentation should be written with search discoverability in mind — both
 
 ### SEO data
 When creating or updating content, use SEO and AEO data to inform titles, descriptions, and content coverage. The `docs-seo-audit` skill (`.agents/skills/docs-seo-audit/`) can identify technical SEO issues.
+
+Keep evidence at its measured scope: an umbrella query or recommendation does not establish demand for every proposed subtopic. Separate observed signals from editorial recommendations in the brief or PR rationale. Improve the answer within the page's approved purpose; do not add unsupported workflow promises to capture adjacent queries.
 
 ## Quality checklist
 
