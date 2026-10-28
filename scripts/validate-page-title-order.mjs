@@ -16,16 +16,26 @@ import { fileURLToPath } from 'node:url';
 import { parseHTML } from 'linkedom';
 
 const STATIC_DIR = fileURLToPath(new URL('../.vercel/output/static/', import.meta.url));
-const MIN_PAGES = 100;
+const CONTENT_DIR = fileURLToPath(new URL('../src/content/docs/', import.meta.url));
+// Every docs page renders CustomPageTitle today (400 of 400 on 2026-10-28). Allow a
+// 2% shortfall for pages that legitimately render without a title row (for example a
+// future splash-template page), so a component change that drops the title row from
+// a meaningful share of pages fails here instead of passing silently.
+const MIN_COVERAGE = 0.98;
 const WINDOW = 200;
 
-async function* htmlFiles(dir) {
+async function* filesWithExtension(dir, extensions) {
 	for (const entry of await readdir(dir, { withFileTypes: true })) {
 		const path = join(dir, entry.name);
-		if (entry.isDirectory()) yield* htmlFiles(path);
-		else if (entry.name.endsWith('.html')) yield path;
+		if (entry.isDirectory()) yield* filesWithExtension(path, extensions);
+		else if (extensions.some((ext) => entry.name.endsWith(ext))) yield path;
 	}
 }
+const htmlFiles = (dir) => filesWithExtension(dir, ['.html']);
+
+let sourcePages = 0;
+for await (const _ of filesWithExtension(CONTENT_DIR, ['.md', '.mdx'])) sourcePages++;
+const minPages = Math.ceil(sourcePages * MIN_COVERAGE);
 
 const normalize = (text) => text.replace(/\s+/g, ' ').trim();
 
@@ -90,8 +100,8 @@ for await (const file of htmlFiles(STATIC_DIR)) {
 }
 
 assert.ok(
-	checked >= MIN_PAGES,
-	`Expected at least ${MIN_PAGES} pages with a page title row, found ${checked}. Run \`npm run build\` first.`,
+	checked >= minPages,
+	`Expected at least ${minPages} built pages with a page title row (${MIN_COVERAGE * 100}% of ${sourcePages} source docs), found ${checked}. Run \`npm run build\` first.`,
 );
 assert.deepEqual(failures, [], `Page title order check failed:\n${failures.join('\n')}`);
 console.log(`Page title order validation passed (${checked} pages).`);
