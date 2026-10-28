@@ -1,14 +1,29 @@
 """Objective guidance invariants; prose quality is evaluated separately."""
+import importlib.util
 import re
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
+LINK_CHECKER_SPEC = importlib.util.spec_from_file_location(
+    "check_links", ROOT / ".agents/skills/check_for_broken_links/check_links.py")
+check_links = importlib.util.module_from_spec(LINK_CHECKER_SPEC)
+LINK_CHECKER_SPEC.loader.exec_module(check_links)
 
 
 class EditorialGuidanceTests(unittest.TestCase):
     def text(self, path):
         return (ROOT / path).read_text()
+
+    def assert_agents_links(self, path, text):
+        links = re.findall(r"\]\(([^)]+AGENTS\.md)#([^)]+)\)", text)
+        self.assertIn("check-connected-procedures", [anchor for _, anchor in links],
+                      f"{path}: missing #check-connected-procedures link")
+        checker = check_links.LinkChecker(ROOT)
+        for target, anchor in links:
+            self.assertEqual((path.parent / target).resolve(), ROOT / "AGENTS.md")
+            valid, error, _ = checker.check_fragment(f"{target}#{anchor}", path)
+            self.assertTrue(valid, error)
 
     def test_canonical_reader_test_is_referenced(self):
         agents = self.text("AGENTS.md")
@@ -82,12 +97,34 @@ class EditorialGuidanceTests(unittest.TestCase):
             self.assertIn(f"* **{check}** -", section)
         for skill in ("draft_docs", "review-docs-pr"):
             path = ROOT / f".agents/skills/{skill}/SKILL.md"
-            links = re.findall(r"\]\(([^)]+AGENTS\.md)#([^)]+)\)", path.read_text())
-            self.assertTrue(links, skill)
-            for target, anchor in links:
-                self.assertEqual((path.parent / target).resolve(), ROOT / "AGENTS.md")
-                self.assertIn(anchor, ("order-from-intent-to-technical-detail",
-                                      "procedural", "check-connected-procedures"))
+            self.assert_agents_links(path, path.read_text())
+
+    def test_other_valid_agents_heading_links_are_allowed(self):
+        for skill in ("draft_docs", "review-docs-pr"):
+            with self.subTest(skill=skill):
+                path = ROOT / f".agents/skills/{skill}/SKILL.md"
+                text = path.read_text() + (
+                    "\n[Reader-understanding test]"
+                    "(../../../AGENTS.md#reader-understanding-test)\n")
+                self.assert_agents_links(path, text)
+
+    def test_missing_connected_procedures_link_is_rejected(self):
+        for skill in ("draft_docs", "review-docs-pr"):
+            with self.subTest(skill=skill):
+                path = ROOT / f".agents/skills/{skill}/SKILL.md"
+                text = path.read_text().replace(
+                    "AGENTS.md#check-connected-procedures", "AGENTS.md#procedural")
+                with self.assertRaisesRegex(AssertionError, "check-connected-procedures"):
+                    self.assert_agents_links(path, text)
+
+    def test_nonexistent_agents_heading_link_is_rejected(self):
+        for skill in ("draft_docs", "review-docs-pr"):
+            with self.subTest(skill=skill):
+                path = ROOT / f".agents/skills/{skill}/SKILL.md"
+                text = path.read_text() + (
+                    "\n[Missing section](../../../AGENTS.md#missing-guidance-heading)\n")
+                with self.assertRaisesRegex(AssertionError, "missing-guidance-heading"):
+                    self.assert_agents_links(path, text)
 
     def test_setup_jobs_are_listed_separately(self):
         agents = self.text("AGENTS.md")
