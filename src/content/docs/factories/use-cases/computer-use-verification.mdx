@@ -1,10 +1,10 @@
 ---
 title: Verifying changes with Computer Use in your factory
 description: >-
-  Your factory can use Computer Use to exercise rendered interfaces and
-  capture screenshots or recordings as verification evidence.
+  Use Computer Use in Warp Factories to verify rendered interfaces and
+  share screenshots or recordings as evidence in pull request comments.
 ---
-You can ask your existing factory for a separate UI verification pass when tests alone don't show whether a user-facing change renders and behaves correctly. A verification agent in your factory builds and starts the app from the pull request, then uses Computer Use to test it as a user would. Screenshots or a recording show your team what happened.
+Warp Factories can run a separate UI verification pass when tests alone don't show whether a user-facing change renders and behaves correctly. A verification agent in your existing factory builds and starts the app from the pull request, then uses Computer Use to test it as a user would. Screenshots or a recording show your team what happened.
 
 In this [recipe](/factories/use-cases/), the foreman delegates to a verification agent and posts its observations and evidence links as a comment on the existing pull request. The workflow doesn't edit code, approve, or merge. UI evidence complements [code review](/factories/use-cases/code-review/), rather than replacing it.
 
@@ -20,8 +20,6 @@ The verifier uses the Warp Agent harness in a Warp-hosted sandbox. Third-party h
 * A test pull request from a branch in the connected repository.
 
 ## Recommended configuration
-
-Your verification workflow needs a known commit, a runnable application, observable criteria, and evidence your reviewers can open. These recommendations keep that work separate from implementation.
 
 | Part | Recommendation |
 | --- | --- |
@@ -76,7 +74,7 @@ Your verification workflow needs a known commit, a runnable application, observa
 
    Screenshots and recordings may show the sample data and account details to reviewers. See [factory skills](/factories/factory-skills/) for the file format.
 
-7. Configure the automation to send UI verification requests to your foreman. Set its `agent` field to your foreman's name; the example uses `agent: foreman`. Replace the repository, target branch, and label below with your choices from step 1.
+7. Configure the automation to send UI verification requests to your foreman. Set its `agent` field to the foreman agent's name in your definition; the example uses `agent: foreman`. Replace the repository, target branch, and label below with your choices from step 1.
 
    ```markdown title="automations/verify-ui-pull-requests/automation.md"
    ---

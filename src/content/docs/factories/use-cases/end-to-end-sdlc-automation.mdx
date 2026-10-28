@@ -1,10 +1,10 @@
 ---
 title: Automating the software development lifecycle with your factory
 description: >-
-  Coordinate triage, implementation, review, and verification in your
-  factory while people approve specifications and merge changes.
+  Connect triage, planning, implementation, review, and verification in
+  Warp Factories while people approve specifications and merge changes.
 ---
-You can connect the stages of the software development lifecycle (SDLC) in your existing factory, carrying an issue from investigation to a reviewed pull request. Once [triage](/factories/use-cases/issue-triage/), [implementation](/factories/use-cases/issue-implementation/), and [review](/factories/use-cases/code-review/) work reliably on their own, the foreman can coordinate the handoffs.
+With Warp Factories, your existing factory can carry an issue from investigation to a reviewed pull request through the software development lifecycle (SDLC). Once [triage](/factories/use-cases/issue-triage/), [implementation](/factories/use-cases/issue-implementation/), and [review](/factories/use-cases/code-review/) work reliably on their own, the foreman can coordinate the handoffs.
 
 In this [recipe](/factories/use-cases/), maintainers select work in GitHub, approve any specification, and decide whether to merge.
 
@@ -41,15 +41,16 @@ When a specification is needed, the foreman obtains approval before implementati
 
    * **Intake** - Update a matching automation or narrow overlapping filters before adding another. For a separate intake automation, exclude `factory-intake` from overlapping issue triggers, preserving their other filters.
    * **Review and completion** - Retain existing review-submitted and merged-PR handlers, or configure them using [GitHub's default automations](/factories/integrations/github/#connect-github-to-a-factory) as the reference.
+   * **Standalone PR review** - Decide whether PR-ready and re-review automations should add another review to this workflow. If not, scope them to exclude SDLC-owned PRs without disabling revision or completion handlers.
 
-   See [automation matching rules](/factories/automations/#how-matching-works) for handling overlaps.
+   For the GitHub [review recipe](/factories/use-cases/code-review/), create SDLC PRs as drafts and apply `skip-factory-review` before marking them ready if you want only the SDLC review pass. Record that sequence in the implementation procedures. See [automation matching rules](/factories/automations/#how-matching-works) for handling overlaps.
 3. In the definition, update existing [skills](/factories/factory-skills/) where procedures are missing:
 
    * **Shared guidance** - Put test commands and repository conventions under `skills/`.
    * **Role procedures** - Put instructions for asking maintainers and reporting failed checks under `agents/<name>/skills/`, using the agent's directory name for `<name>`.
 
 4. For visual acceptance criteria, configure a verification agent on the Warp Agent harness with Warp-hosted execution. Follow the [Computer Use verification recipe](/factories/use-cases/computer-use-verification/) for app setup, sample data, test accounts, and evidence sharing.
-5. Configure the intake automation to send selected issues to your foreman. Set its `agent` field to your foreman's name; the example uses `agent: foreman`. Replace the repository and label below with your choices from step 1.
+5. Configure the intake automation to send selected issues to your foreman. Set its `agent` field to the foreman agent's name in your definition; the example uses `agent: foreman`. Replace the repository and label below with your choices from step 1.
 
    ```markdown title="automations/sdlc-intake/automation.md"
    ---

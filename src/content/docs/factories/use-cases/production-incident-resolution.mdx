@@ -1,10 +1,10 @@
 ---
 title: Resolving production incidents with your factory
 description: >-
-  Route production events to your factory for read-only investigation,
+  Route production events to Warp Factories for read-only investigation,
   then request a reviewed code fix when the evidence supports one.
 ---
-You can ask your existing factory to investigate a production failure before you decide how to respond. The investigation gathers logs and traces the affected code so you can assess whether the evidence supports a code fix.
+With Warp Factories, you can ask your existing factory to investigate a production failure before deciding how to respond. The investigation gathers logs and traces the affected code so you can assess whether the evidence supports a code fix.
 
 With this [recipe](/factories/use-cases/), the foreman delegates investigation to the triage agent and returns an evidence report. The automation stops there, leaving you to decide whether to request a code fix or take production action.
 
@@ -20,8 +20,6 @@ Your agents need read-only production credentials, including any credentials inh
 
 ## Recommended configuration
 
-Your incident automation combines a scoped production event with read-only diagnostics and a report the incident owner can act on.
-
 | Part | Recommendation |
 | --- | --- |
 | Trigger | An authenticated webhook scoped to the production service and severity you want investigated |
@@ -34,14 +32,21 @@ Your incident automation combines a scoped production event with read-only diagn
 
 The example uses Sentry [issue webhooks](https://docs.sentry.io/integrations/integration-platform/webhooks/issues/), with `action: created` and `data.issue`. Sentry [issue alerts](https://docs.sentry.io/integrations/integration-platform/webhooks/issue-alerts/) instead use `action: triggered` and `data.event`, so they need a different payload filter.
 
-1. Choose the event and service scope. The Sentry example below investigates newly created fatal issues in `payments-production`, a project used only for production. Replace that slug with your production-only project.
+1. Choose which production events your factory should investigate and for which service. The Sentry example investigates newly created fatal issues in `payments-production`, a project used only for production. Replace that slug with your production-only project.
 
    If your Sentry project mixes environments, use an event type that includes environment information and filter that field explicitly. The example's project filter alone can't distinguish environments within one project. Other senders, such as PagerDuty or Grafana, need their own authentication mode and payload filter.
 2. Check whether an existing webhook and automation already handle those events. Reuse them where appropriate, or narrow overlapping triggers before adding another automation. One delivery can match multiple automations. See [automation matching rules](/factories/automations/#how-matching-works).
 3. Configure the triage agent's [MCP servers](/platform/mcp/) or [factory secrets](/factories/secrets/) for read-only diagnostic access. Scope permissions at the observability provider, and remove production write credentials from any shared factory configuration the agents inherit.
-4. Review your incident runbook, then add or update it where needed under `skills/incident-response/SKILL.md` so foreman and triage can both use it. Record the service and investigation limits, required evidence, incident owner, escalation conditions, and when to stop. See [factory skills](/factories/factory-skills/) for the file format.
 
-   By default, use the factory work item and conversation for the report. If you want the foreman to post to an incident channel or tracker, give it the appropriate integration and name the destination in the runbook. Webhook intake doesn't provide a reply channel or replace paging.
+   This recipe returns the report in the factory work item and conversation. To post to an incident channel or tracker, configure the foreman's integration and name the destination in the runbook. Webhook intake doesn't provide a reply channel or replace paging.
+4. Add or update `skills/incident-response/SKILL.md` so foreman and triage share the runbook. Include:
+
+   * The service and investigation limits.
+   * Required evidence.
+   * The incident owner and escalation conditions.
+   * When to stop.
+
+   See [factory skills](/factories/factory-skills/) for the file format.
 5. Create a Sentry webhook if you aren't reusing one. Both setup paths below use provider-signature authentication with the integration's Client Secret, not its API token. See [Sentry webhook authentication](https://docs.sentry.io/integrations/integration-platform/webhooks/).
 
    For a Warp-managed factory, follow the [dashboard webhook setup instructions](/factories/webhooks/#create-the-webhook). Choose **Provider signature** authentication and the Sentry scheme, and supply the Client Secret.
@@ -55,7 +60,7 @@ The example uses Sentry [issue webhooks](https://docs.sentry.io/integrations/int
    ```
 
 6. Apply any webhook changes before adding the automation. For a Warp-managed factory, confirm the dashboard saved and applied the webhook. For a GitHub-backed factory, merge the definition into its configured production branch and confirm validation succeeds. Once the webhook appears, copy its UID and ingress URL from the webhook details. See [where the definition lives](/factories/factory-as-code/#where-the-definition-lives).
-7. Configure a disabled automation targeting `agent: foreman`, replacing `foreman` if yours has a different name. Replace `WEBHOOK_UID` with the UID from step 6 and `payments-production` with the project slug from step 1.
+7. Configure a disabled automation to send incident events to your foreman. Set its `agent` field to the foreman agent's name in your definition; the example uses `agent: foreman`. Replace `WEBHOOK_UID` with the UID from step 6 and `payments-production` with the project slug from step 1.
 
    ```markdown title="automations/production-errors/automation.md"
    ---
@@ -106,17 +111,17 @@ Use signed synthetic requests while testing. Wait to subscribe Sentry to live is
 
 After investigation, a person decides whether the evidence justifies implementation. Keep production mitigation separate from code changes.
 
-Code fixes require implement and review agents, plus repository permissions for the implement agent to push branches and open pull requests. See the [issue implementation prerequisites](/factories/use-cases/issue-implementation/#prerequisites).
+Code fixes require implementation and review agents, plus repository permissions to push branches and open pull requests. See the [issue implementation prerequisites](/factories/use-cases/issue-implementation/#prerequisites).
 
 1. Review the report and define the fix's scope and acceptance criteria. If requirements are unclear, request and approve a specification first.
-2. In the investigation's existing conversation, ask the foreman to delegate the approved fix to implement and obtain independent review. Include the acceptance criteria and require a regression test, repository checks, and a report of failed or unverified checks.
+2. In the investigation's existing conversation, ask the foreman to delegate the approved fix to the implementation agent and obtain independent review. Include the acceptance criteria and require a regression test, repository checks, and a report of failed or unverified checks.
 3. Review the pull request, validation results, and review findings. Address failures and decide whether unverified checks need more evidence before merging or deploying through your normal approval process.
 
 ## Example workflow
 
-A new fatal issue in Sentry's production-only payments project matches the webhook filter. The foreman asks triage to inspect error details and repository history. Triage finds evidence of a nil dereference introduced by a recent commit and returns the stack trace, affected code, and remaining uncertainty.
+A new fatal issue in Sentry's production-only payments project matches the webhook filter. The foreman asks the triage agent to inspect error details and repository history. The triage agent finds evidence of a nil dereference introduced by a recent commit and returns the stack trace, affected code, and remaining uncertainty.
 
-The incident owner reviews the report and decides whether to roll back through the team's deployment system. They separately ask the foreman to prepare a code fix. Implement adds a guard and regression test, and review examines the change before the foreman hands the pull request to a person.
+The incident owner reviews the report and decides whether to roll back through the team's deployment system. They separately ask the foreman to prepare a code fix. The implementation agent adds a guard and regression test, and the review agent examines the change before the foreman hands the pull request to a person.
 
 ## Related pages
 

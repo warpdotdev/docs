@@ -1,12 +1,12 @@
 ---
 title: Reviewing pull requests with your factory
 description: >-
-  Automate pull request reviews with your factory to identify bugs, security
-  risks, and missing tests and post actionable findings.
+  Automate pull request reviews with Warp Factories to identify bugs,
+  security risks, and missing tests in human- or agent-written code.
 ---
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Your factory can independently review pull requests written by people or agents. The review checks code changes against the acceptance criteria in the issue or pull request, repository conventions, and security requirements.
+Warp Factories can independently review pull requests written by people or agents. The review checks code changes against the acceptance criteria in the issue or pull request, repository conventions, and security requirements.
 
 In this [recipe](/factories/use-cases/), the foreman asks the review agent to inspect the change, then publishes the agent's report on the pull request. The automation prompt limits the workflow to review, without implementation, approval, or merging. Your code host's required reviews and merge permissions remain the controls for accepting the change.
 
@@ -20,8 +20,6 @@ In this [recipe](/factories/use-cases/), the foreman asks the review agent to in
 
 ## Recommended configuration
 
-These recommendations define which pull requests receive a review and what the foreman posts back to your team.
-
 | Part | Recommendation |
 | --- | --- |
 | Trigger | A pull request becomes ready or is created, depending on the provider |
@@ -32,12 +30,21 @@ These recommendations define which pull requests receive a review and what the f
 
 ## Set up pull request review
 
-1. Choose the repositories, target branches, and event that need automatic review. The examples below use GitHub pull requests becoming ready for review, newly opened GitLab merge requests, or newly created Azure DevOps pull requests.
+1. Choose the repositories, target branches, and event that will start automatic pull request review. The examples use GitHub pull requests becoming ready for review, newly opened GitLab merge requests, or newly created Azure DevOps pull requests.
 2. Check whether an existing automation already handles those requests. Reuse it where appropriate, or narrow overlapping triggers before adding another automation. See [automation matching rules](/factories/automations/#how-matching-works).
-3. Review your existing review-policy skill, then add or update it where needed under `agents/review/skills/`, using your agent's directory name if different. Include validation commands, relevant security or migration checks, and which findings require changes. See [factory skills](/factories/factory-skills/) for the file format.
-4. Configure the automation to send review requests to the foreman. Set `agent: foreman`, replacing `foreman` if yours has a different name. Put this workflow's review-only instructions in the automation prompt.
 
-   Select your code host from the tabs below, then follow the instructions to configure the automation.
+   If the [SDLC workflow](/factories/use-cases/end-to-end-sdlc-automation/#set-up-the-sdlc-workflow) already requests an internal review, choose whether this automation should add another pass or exclude those PRs.
+
+3. Add or update the review-policy skill under `agents/review/skills/`, or your existing review agent's directory. Include:
+
+   * Required validation commands.
+   * Security or migration checks relevant to the repository.
+   * Finding thresholds and which findings require changes.
+
+   See [factory skills](/factories/factory-skills/) for the file format.
+4. Configure the automation to send review requests to your foreman. Set its `agent` field to the foreman agent's name in your definition; the example uses `agent: foreman`. Keep the review-only instructions in the prompt.
+
+   Choose your code host below.
 
    <Tabs>
    <TabItem label="GitHub">
@@ -119,7 +126,7 @@ These recommendations define which pull requests receive a review and what the f
 
 2. Review the findings and branch. Confirm the review agent returns its report to the foreman, the foreman posts the defect on the pull request, and neither agent changes the branch or starts implementation.
 3. Test the exclusions for your provider.
-   * **GitHub** - Apply the `skip-factory-review` label before opening a pull request or marking it ready. Confirm this automation doesn't start.
+   * **GitHub** - Create a draft PR, apply `skip-factory-review`, then mark it ready. Confirm this automation doesn't start.
    * **GitLab and Azure DevOps** - Open a draft request. A run may start, but the prompt must stop it without posting a review.
 
 ## Add re-review events
@@ -140,5 +147,5 @@ After the author pushes a fix, a configured re-review event requests another che
 
 * [Factory use cases](/factories/use-cases/) - Compare review with triage, implementation, and verification recipes
 * [Factory automations](/factories/automations/) - Configure pull request events and filters
-* [Factory agents](/factories/factory-agents/) - Configure the review role and choose a separate model or harness
+* [Configuring factory agents](/factories/factory-agents/configuration/) - Configure the review role and choose a separate model or harness
 * [GitHub integration](/factories/integrations/github/) - Review supported pull request events and permissions

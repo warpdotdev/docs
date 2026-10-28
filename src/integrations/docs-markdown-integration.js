@@ -90,6 +90,7 @@ function convertHtmlToMarkdown(html) {
 
 	const clone = /** @type {HTMLElement} */ (contentRoot.cloneNode(true));
 	expandAgentOnlyTemplates(clone);
+	normalizeTabPanels(clone);
 	sanitizeRoot(clone);
 	absolutizeInternalLinks(clone);
 	const markdownBody = turndown.turndown(clone.innerHTML).trim();
@@ -142,6 +143,84 @@ function expandAgentOnlyTemplates(root) {
 		template.replaceWith(content.cloneNode(true));
 	}
 }
+
+// Tabs are interactive navigation in HTML, but every panel must be readable in
+// Markdown. Work on the clone, before sanitization can remove accessible labels.
+function normalizeTabPanels(root) {
+	const panels = Array.from(root.querySelectorAll('[role="tabpanel"]'));
+	const controls = Array.from(root.querySelectorAll('[role="tab"]'));
+	const elementsById = new Map(
+		Array.from(root.querySelectorAll('[id]')).map((node) => [node.id, node]),
+	);
+	const usedIds = new Set(elementsById.keys());
+	const fragmentTargets = new Map();
+
+	for (const [index, panel] of panels.entries()) {
+		const labelledBy = (panel.getAttribute('aria-labelledby') ?? '').split(/\s+/);
+		const control = controls.find((node) =>
+			panel.id && (node.getAttribute('href') === `#${panel.id}` ||
+				node.getAttribute('aria-controls')?.split(/\s+/).includes(panel.id)),
+		);
+		const label = [
+			panel.getAttribute('aria-label'),
+			labelledBy.map((id) => elementsById.get(id)?.textContent ?? '').join(' '),
+			control?.textContent,
+		].map((value) => normalizeWhitespace(value ?? '')).find(Boolean) || `Tab ${index + 1}`;
+		const slug = label.normalize('NFKD').toLowerCase().replace(/\p{M}/gu, '')
+			.replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '') || 'panel';
+		const baseId = `tabs-${slug}`;
+		let id = baseId;
+		let suffix = 2;
+		while (usedIds.has(id)) id = `${baseId}-${suffix++}`;
+		usedIds.add(id);
+
+		if (panel.id) fragmentTargets.set(panel.id, id);
+		for (const node of controls) {
+			if (node.id && (labelledBy.includes(node.id) || node === control)) {
+				fragmentTargets.set(node.id, id);
+			}
+		}
+		const heading = root.ownerDocument.createElement('h2');
+		heading.id = id;
+		heading.setAttribute('data-markdown-tab', '');
+		heading.textContent = label;
+		panel.prepend(heading);
+	}
+
+	// Panel headings inherit the surrounding section depth. A sibling panel's
+	// headings must not change the depth of the next panel or the following prose.
+	function setHeadingLevels(container, level) {
+		for (const node of Array.from(container.children)) {
+			if (node.getAttribute('role') === 'tabpanel') {
+				const heading = node.firstElementChild;
+				const depth = Math.min(level + 1, 6);
+				const replacement = root.ownerDocument.createElement(`h${depth}`);
+				for (const attribute of Array.from(heading.attributes)) {
+					replacement.setAttribute(attribute.name, attribute.value);
+				}
+				replacement.textContent = heading.textContent;
+				heading.replaceWith(replacement);
+				setHeadingLevels(node, depth);
+			} else if (/^H[1-6]$/.test(node.tagName)) {
+				level = Number(node.tagName.slice(1));
+			} else {
+				level = setHeadingLevels(node, level);
+			}
+		}
+		return level;
+	}
+	setHeadingLevels(root, 1);
+
+	root.querySelectorAll('[role="tablist"], [role="tab"]').forEach((node) => node.remove());
+	for (const anchor of root.querySelectorAll('a[href^="#"]')) {
+		const target = fragmentTargets.get(anchor.getAttribute('href').slice(1));
+		if (target) anchor.setAttribute('href', `#${target}`);
+		else if (controls.some((node) => `#${node.id}` === anchor.getAttribute('href'))) {
+			anchor.replaceWith(...anchor.childNodes);
+		}
+	}
+}
+
 function sanitizeRoot(root) {
 	for (const selector of [
 		'script',
@@ -166,6 +245,16 @@ function createMarkdownConverter() {
 	});
 
 	service.use(gfm);
+
+	service.addRule('tabPanelHeading', {
+		filter: (node) => isElement(node) && node.hasAttribute('data-markdown-tab'),
+		replacement(content, node) {
+			// Explicit targets avoid renderer-dependent heading slugs, particularly
+			// for repeated labels and nested groups.
+			const prefix = '#'.repeat(Number(node.nodeName.slice(1)));
+			return `\n\n<a id="${node.id}"></a>\n\n${prefix} ${content.trim()}\n\n`;
+		},
+	});
 
 	service.addRule('expressiveCodeBlock', {
 		filter: (node) => isElement(node) && node.classList.contains('expressive-code'),

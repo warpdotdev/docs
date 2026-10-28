@@ -8,9 +8,9 @@ sidebar:
 ---
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-A recipe is a recommended configuration and set of instructions for completing a specific task with your factory. It combines agents, automations, integrations, skills, and repository controls. You can start with one task and test its results before connecting it to another. For example, your team might try issue triage on its own before asking the factory to implement approved issues.
+Warp Factories can investigate issues, implement approved changes, review pull requests, and verify interfaces with visual evidence. These recipes show how to configure those tasks in your existing factory and where a person decides what happens next.
 
-The examples use [definitions as code](/factories/factory-as-code/) so you can review changes, validate them in CI, and adapt the same pattern to a Warp-managed factory.
+Each recipe combines agents, automations, skills, integrations, and repository controls. The examples use [definitions as code](/factories/factory-as-code/) so you can review and validate changes, or adapt them to a Warp-managed factory.
 
 ## Choose a use case
 
@@ -18,32 +18,32 @@ The examples use [definitions as code](/factories/factory-as-code/) so you can r
   <LinkCard
     title="Issue triage"
     href="/factories/use-cases/issue-triage/"
-    description="Investigate, categorize, and prioritize incoming issues."
+    description="Return evidence, classification, priority, and a next action without starting implementation."
   />
   <LinkCard
     title="Code review"
     href="/factories/use-cases/code-review/"
-    description="Review pull requests and return actionable findings."
+    description="Post actionable pull request findings without changing, approving, or merging code."
   />
   <LinkCard
     title="Issue implementation"
     href="/factories/use-cases/issue-implementation/"
-    description="Turn approved GitHub, Linear, or Jira issues into tested pull requests."
+    description="Turn approved GitHub, Linear, or Jira issues into validated pull requests for human review."
   />
   <LinkCard
     title="Production incident resolution"
     href="/factories/use-cases/production-incident-resolution/"
-    description="Investigate production signals and propose or implement a fix."
+    description="Return a read-only incident report, then request a code fix separately."
   />
   <LinkCard
     title="Computer Use verification"
     href="/factories/use-cases/computer-use-verification/"
-    description="Exercise a rendered interface and attach visual evidence."
+    description="Return observed UI behavior and visual evidence in a pull request comment."
   />
   <LinkCard
     title="End-to-end SDLC automation"
     href="/factories/use-cases/end-to-end-sdlc-automation/"
-    description="Connect triage, implementation, review, and verification with human gates."
+    description="Carry an issue through planning, implementation, review, and verification to a human-controlled merge."
   />
 </CardGrid>
 
@@ -56,6 +56,6 @@ Each automation needs a clear task, a responsible agent, and an expected output.
 ## Related pages
 
 * [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send its first work item
-* [Factory agents](/factories/factory-agents/) - Configure the default roles and add custom agents
+* [About factory agents](/factories/factory-agents/) - Understand default roles and human decision points
 * [Factory automations](/factories/automations/) - Route provider events to agents with filters
 * [Factory definition syntax](/factories/factory-as-code/) - Look up configuration keys and validate definitions
