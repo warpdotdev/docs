@@ -1,18 +1,34 @@
 ---
 title: Managing factory permissions
 description: >-
-  Control who can run and configure Warp Factories with User and Editor roles, team defaults, and per-factory overrides.
+  Control who can run and configure Warp Factories with Factory user and Editor roles, team defaults, and factory-specific access.
 ---
 import { VARS } from '@data/vars';
 
-Give teammates User access to run work without changing the factory, or Editor access to configure its agents, repositories, and automations. The User role appears as **Factory user** in dropdowns.
+Give teammates **Factory user** access to run work without changing the factory, or **Editor** access to configure its agents, repositories, and automations.
 
-Role management requires an Enterprise plan. On other plans, team members have Editor access.
+Assigning Factory user and Editor roles requires an Enterprise plan. On all other plans, team members have Editor access.
+
+## Team-wide roles and factory-specific access
+
+A team-wide factory role applies to every factory on the team. To give someone different access to one factory, assign them a role in that factory's access settings.
+
+For example, a teammate with Factory user access across the team can have Editor access to the payments factory they maintain.
+
+For Enterprise team members who aren't admins, Warp uses the first role set in this list:
+
+| Priority | Role source |
+| --- | --- |
+| 1 | The person's role assigned for this factory |
+| 2 | The person's team-wide factory role |
+| 3 | The applicable workspace or team default |
+| 4 | Editor, if no role or default is set |
+
+Defaults apply to new and existing members without an assigned role. A workspace default takes priority over the team default. Changing a default doesn't replace a person's assigned team-wide or factory-specific role.
 
 ## Roles and capabilities
 
-
-| Action | User | Editor | Admin |
+| Action | Factory user | Editor | Admin |
 | --- | --- | --- | --- |
 | View the factory and run work | Yes | Yes | Yes |
 | Edit the factory's name, handle, and definition | No | Yes | Yes |
@@ -22,49 +38,29 @@ Role management requires an Enterprise plan. On other plans, team members have E
 | Create a factory | No | Yes | Yes |
 | Delete the factory | No | No | Yes |
 
-Factory creation uses your team-level role. An Editor override for one factory doesn't grant permission to create factories.
+Permission to create factories depends on your team-wide factory role. Assigning someone Editor access to an individual factory does not let them create new factories.
 
-Team and workspace admins and owners inherit Admin access from their [team or workspace role](https://docs.warp.dev/enterprise/team-management/roles-and-permissions/). You can't assign Admin in a factory's role settings or reduce an admin's access with a User override.
+Team and workspace admins and owners inherit Admin access from their [team or workspace role](https://docs.warp.dev/enterprise/team-management/roles-and-permissions/). You can't grant or reduce that access through a factory's role settings.
 
-Editors can attach resources already connected to the team. Connecting team-wide integrations and managing shared runners require separate team or workspace permissions.
+Editors can attach existing team secrets, MCP servers, and integrations to a factory. Connecting new team-wide integrations and managing shared runners require separate team or workspace permissions.
 
-## How roles apply
+## Changing a team-wide role
 
-A team-level role applies across the team's factories. Override that role for one factory to give a teammate different access there.
+You must be a team or workspace admin to change team-wide factory roles. Open your team's [Admin Panel](https://docs.warp.dev/enterprise/team-management/admin-panel/) to change roles directly, or follow the steps below to change roles from your factory settings.
 
-For example, a teammate with User access across the team can have Editor access to the payments factory they maintain.
-
-For Enterprise team members who aren't admins, Warp uses the first role set in this list:
-
-| Priority | Role source |
-| --- | --- |
-| 1 | The person's override for this factory |
-| 2 | The person's team-level Warp Factories role |
-| 3 | The applicable workspace or team default |
-| 4 | Editor, if no role or default is set |
-
-Defaults apply to new and existing members without an assigned role. A workspace default takes priority over the team default. Explicit team roles and per-factory overrides stay unchanged.
-
-
-## Changing a team-level role
-
-You must be a team or workspace admin to assign User and Editor roles.
-
-You can change team-level roles directly in your team's [Admin Panel](https://docs.warp.dev/enterprise/team-management/admin-panel/). The **Manage team access** link in factory settings opens the same member list.
-
-1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, open a factory and click **Settings**.
-2. In the factory settings sidebar, click **Access**, then **Manage team access**.
+1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a> sidebar, expand the factory and click **Settings**.
+2. Under **Settings**, click **Access**, then click **Manage team access**.
 3. In the teammate's row, click their current seat type.
 4. Choose **Factory user** or **Editor**, then click **Save**.
 
-The role applies across the team's factories, except where the teammate has an override.
+The role applies across the team's factories, except where the teammate has a factory-specific role.
 
 ## Changing a role for one factory
 
 Team and workspace admins can change a teammate's role for one factory:
 
-1. In the web app, open that factory and click **Settings**.
-2. In the factory settings sidebar, click **Access**.
+1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a> sidebar, expand the factory and click **Settings**.
+2. Under **Settings**, click **Access**.
 3. Find the teammate by name or email. In their role dropdown, choose **Factory user** or **Editor**.
 4. Click **Save changes**.
 
@@ -72,9 +68,9 @@ The change applies only to this factory. The teammate keeps their existing role 
 
 ## Factory permissions and external access
 
-Factory roles don't grant access to repositories or external services. Runs use the configured [repository identity](/factories/factory-as-code/#credentialstrategy), [secrets](/factories/secrets/), and [MCP servers](/factories/factory-as-code/).
+Factory roles don't grant access to repositories or external services. A run's access to those resources depends on its configured [repository identity](/factories/factory-as-code/#credentialstrategy), [secrets](/factories/secrets/), and [MCP servers](/factories/factory-as-code/).
 
-Specification approval follows the foreman's instructions. Your repository's permissions and branch protection control who can approve and merge pull requests. See [Human decision points and permissions](/factories/factory-agents/#human-decision-points-and-permissions).
+Factory roles don't determine who can approve specifications or merge pull requests. Specification approval follows the foreman's instructions. Your repository's permissions and branch protection rules govern pull request approval and merging. See [Human decision points and permissions](/factories/factory-agents/#human-decision-points-and-permissions).
 
 ## Related pages
 
