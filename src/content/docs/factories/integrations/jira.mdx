@@ -18,12 +18,10 @@ Connect Jira Cloud to your factory so your team can start factory work without l
 
 ## Connect Jira and add an automation
 
-1. **Open Jira setup.** Choose **Jira** while creating a factory. To connect it later, open the top-level **Integrations** page in the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, find **Jira**, and click **Connect**.
-2. **Install Warp for Jira and connect the site.** A Jira site admin installs the app on the Jira Cloud site. In Jira, open **Apps** > **Manage apps** > **Warp** > **Configure**, then click **Connect to Warp**. Once connected, Jira is available to every factory in the workspace. See the [Jira installation steps](/platform/integrations/jira/#setup) for the full app flow.
+1. **Open Jira setup.** In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>, choose **Jira** while creating a factory, or connect it from the factory's **Settings**. Enter the Atlassian site you want to connect.
+2. **Install Warp for Jira and connect the site.** If you aren't a Jira site admin, [send a setup request](/factories/connect-your-factory/#request-setup-from-an-administrator). The site admin opens the approval link, installs the app on that site, then opens **Apps** > **Manage apps** > **Warp** > **Configure** in Jira and approves the named setup request. For this delegated path, approve the request rather than starting a separate **Connect to Warp** flow. A site admin connecting directly can follow the [Jira installation steps](/platform/integrations/jira/#setup).
 
-If you aren't a Jira site admin, choose **Someone else** during setup and email the request or copy the approval link to a site admin. The link expires after seven days, and you can resend or revoke it while the request is pending.
-
-3. **Connect Jira to the factory.** In the factory dashboard, open **Settings** > **Integrations**, connect **Jira**, select the projects this factory works with, then click **Enable**. If you connected Jira while creating the factory, select the projects before finishing setup. Each factory opts in separately even though the Jira site is connected to the workspace.
+3. **Connect Jira to the factory.** In the factory dashboard's **Settings**, connect **Jira**. Complete any prompt to link your own Atlassian account, select the projects this factory works with, then click **Enable**. If you connected Jira while creating the factory, select the projects before finishing setup. Each factory opts in separately even though the Jira site is connected to the workspace.
 
 4. **Configure the Jira automation.** In the factory dashboard, open **Automations**. If you selected Jira projects during factory creation, edit the existing Jira automation. Otherwise, add a trigger for **Jira** > **Agent session created**. Choose the agent that handles the work, select the projects, and optionally add keywords to narrow which sessions start runs.
 
@@ -90,7 +88,7 @@ Warp's built-in Jira tools read Jira as the person who created the run; that per
 
 ## Troubleshooting
 
-* **Warp is unavailable in Jira** - Confirm the Warp app is installed on the Jira Cloud site. On the app's **Configure** page, click **Connect to Warp** if the installation isn't connected to a workspace. If someone else is completing setup, confirm that their setup link is still active.
+* **Warp is unavailable in Jira** - Confirm the Warp app is installed on the intended Jira Cloud site. For delegated setup, the site admin must also approve the named request on the app's **Configure** page. For an inactive link, see [managing pending requests](/factories/connect-your-factory/#manage-pending-requests).
 * **No run starts** - Confirm an enabled `agent_session_created` automation exists, its agent is available, and its project and keyword filters match the assignment.
 * **Jira asks you to connect an account** - [Link your own Jira account to Warp](/platform/integrations/jira/#connecting-your-jira-account-to-warp), then retry the assignment or mention. Installing the app and connecting the site doesn't link every teammate's account.
 * **The session shows no result** - Open the matching automation's run to see whether the agent is still working, waiting for input, or failed.
