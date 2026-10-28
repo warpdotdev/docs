@@ -65,7 +65,7 @@ Your verification workflow needs a known commit, a runnable application, observa
 
    The foreman gives the verifier the PR's commit and acceptance criteria. Configure the verifier with access to the repository so it can check out that commit and build the app.
 
-   Use [factory secrets](/factories/secrets/) only for credentials the build or test environment needs. Keep production credentials out of this workflow.
+   If building or testing the app requires credentials, configure the verifier's access through [factory secrets](/factories/secrets/). Do not use production credentials in this workflow.
 
 5. Add or update `agents/verify/skills/ui-verification/SKILL.md`. If you're using an existing verification agent, put the skill under that agent's directory. Include:
 
@@ -76,7 +76,7 @@ Your verification workflow needs a known commit, a runnable application, observa
 
    Screenshots and recordings may show the sample data and account details to reviewers. See [factory skills](/factories/factory-skills/) for the file format.
 
-6. Configure an automation targeting `agent: foreman`, replacing `foreman` if yours has a different name. Replace the repository, branch, and label below with your choices from step 1.
+6. Configure the automation to send UI verification requests to your foreman. Set its `agent` field to your foreman's name; the example uses `agent: foreman`. Replace the repository, target branch, and label below with your choices from step 1.
 
    ```markdown title="automations/verify-ui-pull-requests/automation.md"
    ---
