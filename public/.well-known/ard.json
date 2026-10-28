@@ -3,7 +3,7 @@
     {
       "identifier": "urn:air:warp.dev:server:documentation",
       "displayName": "Warp Documentation MCP Server",
-      "type": "application/mcp-server+json",
+      "type": "application/mcp-server-card+json",
       "url": "https://docs.warp.dev/.well-known/mcp.json",
       "capabilities": ["Search Warp documentation", "Retrieve Warp documentation"],
       "description": "Search and retrieve content from Warp's official documentation",
@@ -12,7 +12,7 @@
     {
       "identifier": "urn:air:warp.dev:api:agent",
       "displayName": "Warp Agent API",
-      "type": "application/vnd.oai.openapi+json;version=3.2",
+      "type": "application/openapi+json;version=3.2",
       "url": "https://docs.warp.dev/openapi.json",
       "capabilities": ["Create cloud agent runs", "Inspect cloud agent runs"],
       "description": "OpenAPI description for programmatically creating, managing, and querying Warp cloud agent runs.",

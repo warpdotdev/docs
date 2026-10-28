@@ -10,8 +10,8 @@ const catalog = await readJson('public/.well-known/ard.json');
 const byId = (identifier) => catalog.entries.find((entry) => entry.identifier === identifier);
 
 test('ARD catalog entries are valid', () => {
-	assert.deepEqual(Object.keys(catalog), ['entries']);
-	assert.ok(catalog.entries.length > 0);
+	// ARD requires only `entries` at the root; other root members are allowed.
+	assert.ok(Array.isArray(catalog.entries) && catalog.entries.length > 0);
 	const identifiers = catalog.entries.map((entry) => entry.identifier);
 	assert.equal(new Set(identifiers).size, identifiers.length, 'Identifiers must be unique');
 	for (const entry of catalog.entries) {
@@ -29,6 +29,8 @@ test('ARD catalog entries are valid', () => {
 test('MCP entry points to the served MCP manifest', async () => {
 	const entry = byId('urn:air:warp.dev:server:documentation');
 	assert.equal(entry.url, `${DOCS_ORIGIN}/.well-known/mcp.json`);
+	// ARD v0.91 (ADR-0008) replaced application/mcp-server+json with the server-card type.
+	assert.equal(entry.type, 'application/mcp-server-card+json');
 	const manifest = await readJson('public/.well-known/mcp.json');
 	assert.match(manifest.url, /^https:\/\//);
 });
@@ -38,7 +40,8 @@ test('OpenAPI entry media type matches the spec version', async () => {
 	assert.equal(entry.url, `${DOCS_ORIGIN}/openapi.json`);
 	const spec = await readFile(repoFile('developers/agent-api-openapi.yaml'), 'utf8');
 	const [, major, minor] = spec.match(/^openapi:\s*['"]?(\d+)\.(\d+)/m);
-	assert.equal(entry.type, `application/vnd.oai.openapi+json;version=${major}.${minor}`);
+	// application/openapi+json is the registered type; application/vnd.oai.openapi+json is a deprecated alias.
+	assert.equal(entry.type, `application/openapi+json;version=${major}.${minor}`);
 });
 
 test('LLM index entry points to the generated docs llms.txt', async () => {
