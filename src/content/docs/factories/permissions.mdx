@@ -11,7 +11,7 @@ Assigning Factory user and Editor roles requires an Enterprise plan. On all othe
 
 ## Team-wide roles and factory-specific access
 
-A team-wide factory role applies to every factory on the team. To give someone different access to one factory, assign them a role in that factory's access settings.
+A team-wide factory role applies to every factory on the team. To override that role for an individual factory, assign the person a different role in that factory’s access settings.
 
 For example, a teammate with Factory user access across the team can have Editor access to the payments factory they maintain.
 
@@ -40,13 +40,13 @@ Defaults apply to new and existing members without an assigned role. A workspace
 
 Permission to create factories depends on your team-wide factory role. Assigning someone Editor access to an individual factory does not let them create new factories.
 
-Team and workspace admins and owners inherit Admin access from their [team or workspace role](https://docs.warp.dev/enterprise/team-management/roles-and-permissions/). You can't grant or reduce that access through a factory's role settings.
+Team and workspace admins and owners inherit Admin access from their [team or workspace role](https://docs.warp.dev/enterprise/team-management/roles-and-permissions/). You can’t grant or reduce that access through a factory’s role settings.
 
 Editors can attach existing team secrets, MCP servers, and integrations to a factory. Connecting new team-wide integrations and managing shared runners require separate team or workspace permissions.
 
 ## Changing a team-wide role
 
-You must be a team or workspace admin to change team-wide factory roles. Open your team's [Admin Panel](https://docs.warp.dev/enterprise/team-management/admin-panel/) to change roles directly, or follow the steps below to change roles from your factory settings.
+You must be a team or workspace admin to change team-wide factory roles. Open your team’s [Admin Panel](https://docs.warp.dev/enterprise/team-management/admin-panel/) to change roles directly, or follow the steps below to change roles from your factory settings.
 
 1. In the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a> sidebar, expand the factory and click **Settings**.
 2. Under **Settings**, click **Access**, then click **Manage team access**.
@@ -68,9 +68,9 @@ The change applies only to this factory. The teammate keeps their existing role 
 
 ## Factory permissions and external access
 
-Factory roles don't grant access to repositories or external services. A run's access to those resources depends on its configured [repository identity](/factories/factory-as-code/#credentialstrategy), [secrets](/factories/secrets/), and [MCP servers](/factories/factory-as-code/).
+Factory roles don’t grant access to repositories or external services. A run’s access to those resources depends on its configured [repository identity](/factories/factory-as-code/#credentialstrategy), [secrets](/factories/secrets/), and [MCP servers](/factories/factory-as-code/).
 
-Factory roles don't determine who can approve specifications or merge pull requests. Specification approval follows the foreman's instructions. Your repository's permissions and branch protection rules govern pull request approval and merging. See [Human decision points and permissions](/factories/factory-agents/#human-decision-points-and-permissions).
+Additionally, factory roles also don’t determine who can approve specifications or merge pull requests. Specification approval follows the foreman’s instructions, while your repository’s permissions and branch protection rules govern pull request approval and merging. See [Human decision points and permissions](/factories/factory-agents/#human-decision-points-and-permissions).
 
 ## Related pages
 
