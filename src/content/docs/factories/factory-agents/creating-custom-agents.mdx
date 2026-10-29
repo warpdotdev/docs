@@ -55,7 +55,7 @@ You can start child agents without factory configuration through [multi-agent or
 
 ### Pass dynamic setup configuration
 
-Use run metadata to pass task-specific initialization choices to an existing agent. For example, let the foreman choose `java-dev` or `trading-analytics` for the same implementation agent without creating separate runners, environments, or agents. Metadata supplies the choice; your setup script must act on it.
+Use run metadata to pass task-specific initialization choices to an existing agent. For example, let the foreman pass `java-dev` or `trading-analytics` to the same implementation agent without creating separate runners, environments, or agents. Metadata supplies the choice; your setup script must act on it.
 
 1. Save a script at `/opt/company/select-bundle.sh` in your image to validate the choice before configuring the workspace. This example calls your own bundle installer at `/opt/company/setup-bundle.sh`. Replace that path with your installer; neither the script nor these bundles are built into Warp.
 
