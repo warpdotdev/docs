@@ -55,7 +55,11 @@ You can start child agents without factory configuration through [multi-agent or
 
 ### Select a setup profile for each task
 
-Use run metadata to select a setup profile for each task. The `backend` and `frontend` profiles use the same implementation agent, runner, and environment.
+Run metadata is a set of string keys and values for one run. The foreman sends these inputs when it starts a child run. Each child can have different values without a new agent, environment, or runner configuration.
+
+For Warp-hosted and self-hosted runs, Warp makes these inputs available as `WARP_METADATA_*` environment variables. For setup that starts with each run, Warp sets these variables before the setup commands start. Your scripts can read these variables to select a test group or a build target. Metadata does not select commands or install tools.
+
+The setup example uses `backend` and `frontend` profiles with the same implementation agent, runner, and environment.
 
 1. Add this script to your image at `/opt/setup/select-profile.sh`. Change `/opt/setup/setup-profile.sh` to the path of your installer. Warp does not supply these scripts or profiles.
 
