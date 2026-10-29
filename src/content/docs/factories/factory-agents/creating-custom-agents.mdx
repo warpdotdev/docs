@@ -55,55 +55,55 @@ You can start child agents without factory configuration through [multi-agent or
 
 ### Pass dynamic setup configuration
 
-Use run metadata to pass task-specific initialization choices to an existing agent. For example, let the foreman pass `java-dev` or `trading-analytics` to the same implementation agent without creating separate runners, environments, or agents. Metadata supplies the choice; your setup script must act on it.
+Use run metadata to pass task-specific initialization choices to an existing agent. For example, let the foreman select a `backend` or `frontend` setup profile for the same implementation agent without creating separate runners, environments, or agents. Metadata supplies the choice; your setup script must act on it.
 
-1. Save a script at `/opt/company/select-bundle.sh` in your image to validate the choice before configuring the workspace. This example calls your own bundle installer at `/opt/company/setup-bundle.sh`. Replace that path with your installer; neither the script nor these bundles are built into Warp.
+1. Save a script at `/opt/setup/select-profile.sh` in your image to validate the choice before configuring the workspace. This example calls your own installer at `/opt/setup/setup-profile.sh`. Replace that path with your installer; neither the script nor these profiles are built into Warp.
 
-   ```bash title="/opt/company/select-bundle.sh"
-   bundle="${WARP_METADATA_IMC_BUNDLE:-}"
-   case "$bundle" in
-     java-dev|trading-analytics)
-       bash /opt/company/setup-bundle.sh "$bundle"
+   ```bash title="/opt/setup/select-profile.sh"
+   profile="${WARP_METADATA_SETUP_PROFILE:-}"
+   case "$profile" in
+     backend|frontend)
+       bash /opt/setup/setup-profile.sh "$profile"
        ;;
      "")
-       printf '%s\n' 'Missing WARP_METADATA_IMC_BUNDLE' >&2
+       printf '%s\n' 'Missing WARP_METADATA_SETUP_PROFILE' >&2
        exit 1
        ;;
      *)
-       printf '%s\n' 'Unsupported bundle; expected java-dev or trading-analytics' >&2
+       printf '%s\n' 'Unsupported setup profile; expected backend or frontend' >&2
        exit 1
        ;;
    esac
    ```
 
-2. For setup performed per run, add `bash /opt/company/select-bundle.sh` to the agent's [environment setup commands](https://docs.warp.dev/platform/environments/configuring-environments/). Warp-hosted and self-hosted runs receive metadata as environment variables before this setup and before the agent starts. The key `imc_bundle` becomes `WARP_METADATA_IMC_BUNDLE`.
+2. For setup performed per run, add `bash /opt/setup/select-profile.sh` to the agent's [environment setup commands](https://docs.warp.dev/platform/environments/configuring-environments/). Warp-hosted and self-hosted runs receive metadata as environment variables before this setup and before the agent starts. The key `setup_profile` becomes `WARP_METADATA_SETUP_PROFILE`.
 
-   Pre-warmed sandboxes perform their initial setup before a run is assigned, without that run's metadata, and do not rerun those setup commands on assignment. If your agent uses pre-warming, keep shared preparation in setup instead. In the agent's instructions, require `bash /opt/company/select-bundle.sh` as its first task action, before development, and require it to stop if initialization fails.
+   Pre-warmed sandboxes perform their initial setup before a run is assigned, without that run's metadata, and do not rerun those setup commands on assignment. If your agent uses pre-warming, keep shared preparation in setup instead. In the agent's instructions, require `bash /opt/setup/select-profile.sh` as its first task action, before development, and require it to stop if initialization fails.
 
-3. In the foreman's instructions, require it to choose a bundle for each task and pass the choice in `agent_run_configs[].metadata`. For example:
+3. In the foreman's instructions, require it to choose a setup profile for each task and pass the choice in `agent_run_configs[].metadata`. For example:
 
    ```text
    Dispatch the configured implementation agent using its UID from the
-   available-agent list. Choose imc_bundle: java-dev for Java development,
-   or trading-analytics for analytics work. Pass it as per-child metadata
-   in run_agents. Keep the agent's configured environment, runner, host,
-   harness, and model unless the task independently requires an override.
+   available-agent list. Set setup_profile to backend for service work
+   or frontend for UI work. Pass it as per-child metadata in run_agents.
+   Keep the agent's configured environment, runner, host, harness, and
+   model unless the task independently requires an override.
    ```
 
-   A `run_agents` call for Java work looks like this. Replace `IMPLEMENTATION_AGENT_UID` with the implementation agent's UID from the available-agent list.
+   A `run_agents` call for backend work looks like this. Replace `IMPLEMENTATION_AGENT_UID` with the implementation agent's UID from the available-agent list.
 
    ```json
    {
-     "summary": "Delegate Java work to the configured implementation agent",
+     "summary": "Delegate backend work to the configured implementation agent",
      "base_prompt": "Implement the task and verify the change.",
      "remote": {},
      "agent_run_configs": [
        {
-         "name": "java-implementation",
+         "name": "backend-implementation",
          "agent_identity_uid": "IMPLEMENTATION_AGENT_UID",
-         "prompt": "Fix the Java service's failing tests.",
+         "prompt": "Fix the API service's failing tests.",
          "metadata": {
-           "imc_bundle": "java-dev"
+           "setup_profile": "backend"
          }
        }
      ]
