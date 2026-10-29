@@ -132,6 +132,9 @@ jobs:
       - name: Test tracking redirect middleware
         run: npm run test:tracking-redirect
 
+      - name: Test agent discovery catalog
+        run: npm run test:agent-discovery
+
       - name: Build site
         run: npm run build
 
