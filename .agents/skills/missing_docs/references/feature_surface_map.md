@@ -675,6 +675,11 @@ GET /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/trials -> src/content/d
 GET /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/trials/{trial_uid} -> src/content/docs/factories/factory-api.mdx
 POST /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/cancel -> src/content/docs/factories/factory-api.mdx
 POST /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/rescore -> internal
+# Name-update operations are x-internal upstream and absent from the released
+# export at warp-server 9b20e42237. Recheck publication by HTTP method as well
+# as path: a published GET does not release the PATCH on the same path.
+PATCH /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid} -> internal
+PATCH /factory/{uid}/benchmarks/{suite_uid}/runs/{run_uid}/configurations/{configuration_uid} -> internal
 # Branch operations already published in the released spec.
 GET /factory/{uid}/branches/{branch_uid} -> src/content/docs/factories/factory-api.mdx
 DELETE /factory/{uid}/branches/{branch_uid} -> src/content/docs/factories/factory-api.mdx
