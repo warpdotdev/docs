@@ -432,7 +432,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						},
 						{
 							label: 'Harnesses',
-							collapsed: true,
+							collapsed: false,
 							items: [
 								{ slug: 'factories/harnesses', label: 'Overview' },
 								{ slug: 'factories/harnesses/warp-agent', label: 'Warp Agent' },
@@ -451,6 +451,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							label: 'Infrastructure',
 							items: [
 								{ slug: 'factories/infrastructure-and-security', label: 'About infrastructure and security' },
+								{ slug: 'factories/self-hosting/security-and-networking', label: 'Security and networking' },
 								{ slug: 'factories/deployment-patterns', label: 'Deployment patterns' },
 								{ slug: 'factories/warp-hosting', label: 'Warp-hosted execution' },
 								{ slug: 'factories/runners', label: 'Runners' },
@@ -470,7 +471,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 									items: [
 										{ slug: 'factories/self-hosting', label: 'Overview' },
 										{ slug: 'factories/self-hosting/quickstart', label: 'Quickstart' },
-										{ slug: 'factories/self-hosting/security-and-networking', label: 'Security and networking' },
 										{ slug: 'factories/self-hosting/managed-docker', label: 'Docker backend' },
 										{ slug: 'factories/self-hosting/managed-kubernetes', label: 'Kubernetes backend' },
 										{ slug: 'factories/self-hosting/private-container-registry', label: 'Private container registry' },

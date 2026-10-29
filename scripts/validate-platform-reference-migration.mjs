@@ -163,7 +163,10 @@ check('bare Platform entry', () => expectRedirect('/platform', '/platform/'));
 check('self-hosting security discovery', () => {
 	const route = '/factories/self-hosting/security-and-networking/';
 	const { document, body } = content(route);
-	assert.ok(document.querySelector(`.sidebar-pane a[href="${route}"]`), 'missing self-hosting sidebar entry');
+	const securityLink = document.querySelector(`.sidebar-pane a[href="${route}"]`);
+	assert.ok(securityLink, 'missing security sidebar entry');
+	assert.equal(securityLink.closest('details')?.querySelector(':scope > summary')?.textContent.trim(),
+		'Infrastructure', 'security must be directly under Infrastructure');
 	for (const parent of ['/factories/self-hosting/', '/factories/infrastructure-and-security/']) {
 		assert.ok(content(parent).body.querySelector(`a[href="${route}#network-requirements"]`),
 			`missing direct network requirements link from ${parent}`);
@@ -172,6 +175,23 @@ check('self-hosting security discovery', () => {
 	for (const host of ['app.warp.dev', 'rtc.app.warp.dev', 'sessions.app.warp.dev', 'oz.warp.dev', 'storage.googleapis.com']) {
 		assert.ok(body.textContent.includes(host), `lost network destination ${host}`);
 	}
+});
+check('reviewed titles and harness discovery', () => {
+	for (const [route, title] of [
+		['/factories/environments/', 'Environments for factory agents'],
+		['/factories/harnesses/', 'Agent harnesses'],
+		['/factories/harnesses/warp-agent/', 'Warp Agent harness'],
+		['/factories/harnesses/claude-code/', 'Claude Code harness'],
+		['/factories/harnesses/codex/', 'Codex harness'],
+	]) {
+		assert.equal(content(route).document.querySelector('h1')?.textContent.trim(), title, route);
+	}
+	const { document } = content('/factories/self-hosting/security-and-networking/');
+	const harnessGroup = [...document.querySelectorAll('.sidebar-pane details')]
+		.find((group) => group.querySelector(':scope > summary')?.textContent.trim() === 'Harnesses');
+	assert.ok(harnessGroup?.hasAttribute('open'), 'Harnesses should be expanded by default');
+	assert.equal(content('/platform/overview/').document.querySelector('meta[name="description"]')?.getAttribute('content'),
+		'Configure agents with Warp Factories, or run and manage cloud agents without a factory. Both use the Automation Platform.');
 });
 check('original guide retirement', () => {
 	const old = '/guides/agent-workflows/run-a-software-factory-in-the-cloud';
