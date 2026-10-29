@@ -35,6 +35,9 @@ export const KAPA_HISTORY_ACTIVE_ROW_STYLE = Object.freeze({
 	lightTitleSelector:
 		":root[data-theme='light'] .sl-kapa-history__row[data-active='true'] .sl-kapa-history__open-title",
 	lightTitleText: 'var(--sl-color-gray-1)',
+	lightRenameSelector: ":root[data-theme='light'] .sl-kapa-history__rename input",
+	lightRenameBackground: 'var(--sl-color-black)',
+	lightRenameText: 'var(--sl-color-gray-1)',
 });
 
 function safeParseJson(raw) {

@@ -600,8 +600,9 @@
 }
 
 :root[data-theme='light'] .sl-kapa-history__rename input {
-	background: var(--sl-color-white);
-	color: var(--sl-color-black);
+	background: var(--sl-color-black);
+	color: var(--sl-color-gray-1);
+	-webkit-text-fill-color: var(--sl-color-gray-1);
 }
 
 :root[data-theme='light'] .sl-kapa-history__rename-error,

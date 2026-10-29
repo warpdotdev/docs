@@ -302,6 +302,12 @@ test('active-row style contract stays lightened with readable text tokens', () =
 		":root[data-theme='light'] .sl-kapa-history__row[data-active='true'] .sl-kapa-history__open-title"
 	);
 	assert.equal(KAPA_HISTORY_ACTIVE_ROW_STYLE.lightTitleText, 'var(--sl-color-gray-1)');
+	assert.equal(
+		KAPA_HISTORY_ACTIVE_ROW_STYLE.lightRenameSelector,
+		":root[data-theme='light'] .sl-kapa-history__rename input"
+	);
+	assert.equal(KAPA_HISTORY_ACTIVE_ROW_STYLE.lightRenameBackground, 'var(--sl-color-black)');
+	assert.equal(KAPA_HISTORY_ACTIVE_ROW_STYLE.lightRenameText, 'var(--sl-color-gray-1)');
 
 	const cssPath = join(dirname(fileURLToPath(import.meta.url)), '../components/KapaChatLauncher.css');
 	const css = readFileSync(cssPath, 'utf8');
@@ -312,5 +318,17 @@ test('active-row style contract stays lightened with readable text tokens', () =
 	assert.match(
 		css,
 		/:root\[data-theme='light'\]\s*\.sl-kapa-history__row\[data-active='true'\]\s*\.sl-kapa-history__open-title\s*\{[^}]*-webkit-text-fill-color:\s*var\(--sl-color-gray-1\)/s
+	);
+	assert.match(
+		css,
+		/:root\[data-theme='light'\]\s*\.sl-kapa-history__rename input\s*\{[^}]*background:\s*var\(--sl-color-black\)/s
+	);
+	assert.match(
+		css,
+		/:root\[data-theme='light'\]\s*\.sl-kapa-history__rename input\s*\{[^}]*color:\s*var\(--sl-color-gray-1\)/s
+	);
+	assert.match(
+		css,
+		/:root\[data-theme='light'\]\s*\.sl-kapa-history__rename input\s*\{[^}]*-webkit-text-fill-color:\s*var\(--sl-color-gray-1\)/s
 	);
 });
