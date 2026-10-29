@@ -47,7 +47,7 @@ Use the managed architecture when the {VARS.WARP_AUTOMATION_PLATFORM} should acc
 
 ## Managed prerequisites
 
-* Outbound network access from the worker and agent runtime to Warp. No inbound ports are required. See [Security and networking](/platform/execution-security/).
+* Outbound network access from the worker and agent runtime to Warp. No inbound port is required for task assignment. See [network requirements](/factories/self-hosting/security-and-networking/#network-requirements) for the destinations and ports to allow.
 * A worker ID for routing runs with `--host`.
 * Worker credentials. Docker, Kubernetes, Direct, and Command workers accept a [self-hosted worker API key](/agents/cli/oz-cli/api-keys/#creating-a-self-hosted-worker-api-key).
 
@@ -147,7 +147,7 @@ Use unmanaged execution for an existing CI pipeline, Kubernetes Job, VM, or deve
 
 ## Security and observability
 
-Repository clones and execution workspaces stay on your infrastructure. Agent context and model requests still travel through Warp's services. See the [self-hosted execution flow](/platform/architecture/#self-hosted-execution-flow) for the architecture and [Security and networking](/platform/execution-security/) for data boundaries, ZDR, and BYOLLM.
+Repository clones and execution workspaces stay on your infrastructure. Agent context and model requests still travel through Warp's services. See the [self-hosted execution flow](/platform/architecture/#self-hosted-execution-flow) for the architecture and [Security and networking](/factories/self-hosting/security-and-networking/) for data boundaries, ZDR, and BYOLLM.
 
 View managed and unmanaged runs in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>. Managed workers can also export OpenTelemetry metrics; see [Monitoring](/factories/self-hosting/monitoring/).
 

@@ -78,6 +78,36 @@
   ],
   "redirects": [
     {
+      "source": "/platform/execution-security(/?)",
+      "destination": "/factories/self-hosting/security-and-networking/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/execution-security.md",
+      "destination": "/factories/self-hosting/security-and-networking.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/execution-security(/?)",
+      "destination": "/factories/self-hosting/security-and-networking/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/execution-security.md",
+      "destination": "/factories/self-hosting/security-and-networking.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/self-hosting/security-and-networking.md",
+      "destination": "/factories/self-hosting/security-and-networking.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/self-hosting/security-and-networking.md",
+      "destination": "/factories/self-hosting/security-and-networking.md",
+      "statusCode": 308
+    },
+    {
       "source": "/platform/mcp(/?)",
       "destination": "/factories/mcp/",
       "statusCode": 308
@@ -6949,7 +6979,7 @@
     },
     {
       "source": "/agent-platform/cloud-agents/self-hosting/security-and-networking(/?)",
-      "destination": "/platform/execution-security/",
+      "destination": "/factories/self-hosting/security-and-networking/",
       "statusCode": 308
     },
     {
@@ -7069,7 +7099,7 @@
     },
     {
       "source": "/platform/self-hosting/security-and-networking(/?)",
-      "destination": "/platform/execution-security/",
+      "destination": "/factories/self-hosting/security-and-networking/",
       "statusCode": 308
     },
     {

@@ -135,6 +135,28 @@
       ]
     },
     {
+      "oldPath": "/platform/execution-security/",
+      "newPath": "/factories/self-hosting/security-and-networking/",
+      "baselineCommit": "2f14364088df8d43d22ba98478b100c158323038",
+      "legacyPaths": [
+        "/agent-platform/cloud-agents/self-hosting/security-and-networking/",
+        "/platform/self-hosting/security-and-networking/"
+      ],
+      "anchors": [
+        "data-boundaries",
+        "network-requirements",
+        "backend-specific-security-considerations",
+        "docker-backend",
+        "kubernetes-backend",
+        "direct-backend",
+        "command-backend",
+        "unmanaged",
+        "vpn-and-on-premises-access",
+        "llm-inference-and-byollm",
+        "related-pages"
+      ]
+    },
+    {
       "oldPath": "/platform/",
       "newPath": "/platform/",
       "anchors": [

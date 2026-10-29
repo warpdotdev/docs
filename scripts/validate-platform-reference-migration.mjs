@@ -67,9 +67,9 @@ function expectRedirect(from, to) {
 	assert.ok(!to.includes('#'), `redirect destination must preserve the incoming fragment: ${to}`);
 }
 
-assert.equal(moved.length, 9);
+assert.equal(moved.length, 10);
 assert.equal(bridges.length, 2);
-assert.equal(new Set(fixture.pages.map(({ oldPath }) => oldPath)).size, 11);
+assert.equal(new Set(fixture.pages.map(({ oldPath }) => oldPath)).size, 12);
 
 const sitemap = readdirSync(output)
 	.filter((file) => /^sitemap.*\.xml$/.test(file))
@@ -124,13 +124,20 @@ for (const page of fixture.pages) {
 			expectRedirect(oldPath.slice(0, -1), newPath);
 			expectRedirect(oldPath, newPath);
 			expectRedirect(`/${markdownFile(oldPath)}`, `/${markdownFile(newPath)}`);
-			const legacy = oldPath.replace(/^\/platform\//, '/agent-platform/cloud-agents/');
-			expectRedirect(legacy.slice(0, -1), newPath);
-			expectRedirect(legacy, newPath);
-			expectRedirect(`/${markdownFile(legacy)}`, `/${markdownFile(newPath)}`);
-			const explicit = redirects.findIndex((rule) => staticMatches(rule, legacy));
-			const fallback = redirects.findIndex((rule) => rule.source.startsWith('/agent-platform/cloud-agents/:'));
-			assert.ok(fallback === -1 || explicit < fallback, 'legacy alias runs after broad fallback');
+			const legacyPaths = [
+				oldPath.replace(/^\/platform\//, '/agent-platform/cloud-agents/'),
+				...(page.legacyPaths ?? []),
+			];
+			for (const legacy of legacyPaths) {
+				expectRedirect(legacy.slice(0, -1), newPath);
+				expectRedirect(legacy, newPath);
+				expectRedirect(`/${markdownFile(legacy)}`, `/${markdownFile(newPath)}`);
+				if (legacy.startsWith('/agent-platform/cloud-agents/')) {
+					const explicit = redirects.findIndex((rule) => staticMatches(rule, legacy));
+					const fallback = redirects.findIndex((rule) => rule.source.startsWith('/agent-platform/cloud-agents/:'));
+					assert.ok(fallback === -1 || explicit < fallback, 'legacy alias runs after broad fallback');
+				}
+			}
 			assert.ok(llmsFactories.includes(`Canonical page: [${newPath}]`), 'missing Factories LLM owner');
 			for (const aggregate of [llmsFull, llmsSmall, llmsPlatform]) {
 				assert.ok(!aggregate.includes(`Canonical page: [${oldPath}]`), 'old LLM owner remains');
@@ -153,6 +160,19 @@ check('incoming aliases', () => {
 	assert.ok(!redirects.some(({ destination }) => oldTargets.has(destination)), 'incoming alias still chains through a moved page');
 });
 check('bare Platform entry', () => expectRedirect('/platform', '/platform/'));
+check('self-hosting security discovery', () => {
+	const route = '/factories/self-hosting/security-and-networking/';
+	const { document, body } = content(route);
+	assert.ok(document.querySelector(`.sidebar-pane a[href="${route}"]`), 'missing self-hosting sidebar entry');
+	for (const parent of ['/factories/self-hosting/', '/factories/infrastructure-and-security/']) {
+		assert.ok(content(parent).body.querySelector(`a[href="${route}#network-requirements"]`),
+			`missing direct network requirements link from ${parent}`);
+	}
+	assert.ok(body.querySelector('a[href="/platform/unmanaged-execution/"]'), 'lost standalone unmanaged guidance');
+	for (const host of ['app.warp.dev', 'rtc.app.warp.dev', 'sessions.app.warp.dev', 'oz.warp.dev', 'storage.googleapis.com']) {
+		assert.ok(body.textContent.includes(host), `lost network destination ${host}`);
+	}
+});
 check('original guide retirement', () => {
 	const old = '/guides/agent-workflows/run-a-software-factory-in-the-cloud';
 	expectRedirect(old, '/factories/quickstart/');

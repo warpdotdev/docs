@@ -458,6 +458,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 									items: [
 										{ slug: 'factories/self-hosting', label: 'Overview' },
 										{ slug: 'factories/self-hosting/quickstart', label: 'Quickstart' },
+										{ slug: 'factories/self-hosting/security-and-networking', label: 'Security and networking' },
 										{ slug: 'factories/self-hosting/managed-docker', label: 'Docker backend' },
 										{ slug: 'factories/self-hosting/managed-kubernetes', label: 'Kubernetes backend' },
 										{ slug: 'factories/self-hosting/private-container-registry', label: 'Private container registry' },
@@ -635,7 +636,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform/team-access-billing-and-identity', label: 'Access, billing, and identity' },
 						{ slug: 'platform/faqs', label: 'Cloud agent FAQs' },
 						{ slug: 'platform/unmanaged-execution', label: 'Unmanaged execution' },
-						{ slug: 'platform/execution-security', label: 'Execution security' },
 					],
 				},
 				{
