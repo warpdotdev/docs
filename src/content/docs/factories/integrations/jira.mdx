@@ -83,16 +83,14 @@ When the run finishes, the result appears in the agent session. The agent doesn'
 
 Jira requests Forge scopes at installation, separately from linking your account to Warp.
 
-**Deployed consent verification pending.** Engineering must compare these manifest scopes and offline user-impersonation settings with the production app's consent.
-
-{/* VERIFY: Confirm all six Jira Forge scopes and read-scope allowImpersonation settings against the deployed production app version and consent screen, and confirm why read:permission:jira is requested. */}
+The [Warp Marketplace listing](https://marketplace.atlassian.com/apps/2476990014/warp?hosting=cloud&tab=privacy-and-security) declares the following permissions. A site's installed app version and Jira access rules determine its effective access.
 
 | Scope | Granted access | Function in Warp | Boundary |
 | --- | --- | --- | --- |
 | `read:jira-work` | Read project and issue data, including associated objects | Read work item context, comments, and workflow information | Declared for offline user impersonation; the user's Jira access still applies |
 | `read:jira-user` | Read accessible user profiles, including email addresses and avatars | Identify users and retrieve user context | Declared for offline user impersonation; not permission to manage users |
 | `write:jira-work` | Create, edit, and delete issues, post comments, and create worklogs | Update work items, comments, labels, assignments, and status | The provider grant is broader than the actions described for a run |
-| `read:permission:jira` | Read Jira permissions | Purpose requires engineering confirmation | Doesn't grant the permissions being inspected |
+| `read:permission:jira` | Read Jira permissions | Check the requesting user's project and issue permissions before writes | Doesn't grant the permissions being inspected |
 | `read:app-system-token` | Let Forge supply an app system token to the remote backend | Make Jira calls as the app bot | Separate from a human user's token |
 | `read:app-user-token` | Let Forge supply the viewing user's token to the remote backend | Verify the account being linked during setup | Separate from site-wide app installation |
 

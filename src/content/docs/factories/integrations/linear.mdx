@@ -24,9 +24,9 @@ For workspace-level installation, reconnection, and removal steps, see the [Line
 
 Linear app authorization is separate from linking a teammate's Warp account. In Linear's `actor=app` authorization model, a workspace admin installs the app, and updates are attributed to the app rather than the installer.
 
-**Production scope inventory pending verification.** The table lists the scopes in Warp's development provider configuration, not a confirmed export of the production registration or consent screen. Engineering must compare the deployed request with this list, including any additional grants.
+The table describes the scopes in Warp's development configuration. The production authorization request hasn't been confirmed; review Linear's consent screen before approving workspace access.
 
-{/* VERIFY: Confirm the complete production Linear OAuth scope list and actor=app setting against the app registration and authorization request; the six scopes below come from development provider configuration only. */}
+{/* VERIFY: Confirm the production Linear OAuth scope list and actor parameter from the persisted provider record or a live authorization URL; the public directory listing exposes neither, and Warp login blocks the connection flow. */}
 
 | Scope to confirm | Granted access | Function in Warp | Boundary |
 | --- | --- | --- | --- |

@@ -126,15 +126,30 @@ Branches and pull requests the factory creates follow the repository's normal ru
 
 Runs authenticate with the GitHub App installation. Its repositories and permissions control access; [automation filters](/factories/automations/) only control when work starts.
 
-**Permission inventory pending verification.** The [Warp Factories GitHub App](https://github.com/apps/warp-factories) requests permissions in its app registration, separately from connecting a person's GitHub account. The exact permission names and read or write levels still need confirmation from the production app's installation consent screen. The table separates that missing inventory from known access boundaries.
+The [Warp Factories GitHub App](https://github.com/apps/warp-factories) requests the following permissions. Repository permissions apply to the repositories covered by the installation. A run doesn't necessarily use every grant.
 
-{/* VERIFY: GitHub production app registration and installation consent must supply every repository, organization, and account permission with its access level and purpose; API usage is not an inventory. */}
-
-| Permission or grant | Granted access | Function in Warp | Boundary |
+| Repository permission | Level | Granted access and use | Boundary |
 | --- | --- | --- | --- |
-| Repository permissions: exact names and levels unverified | The repository operations authorized at installation | Read code and context, push branches, open pull requests, and post results | These functions are not a complete list of requested permissions |
-| Organization and account permissions: inventory unverified | Not established by this draft | Engineering must confirm any additional grants and why each is requested | Don't treat repository selection as proof that no other grants exist |
-| Installation repository selection | All repositories or the repositories selected at installation | Make repositories available to factory runs | A factory's repository list and trigger filters do not replace installation authorization |
+| Actions (`actions`) | Write | Read CI logs and artifacts, and manage workflow runs | Broader than receiving workflow-completion events |
+| Administration (`administration`) | Read | Inspect repository settings, collaborators, and rules | Doesn't grant permission to change repository settings |
+| Checks (`checks`) | Write | Read check results and publish factory-definition checks | Separate from commit statuses |
+| Code scanning alerts (`security_events`) | Read | Inspect code-scanning findings for security work | Doesn't grant permission to change alerts |
+| Commit statuses (`statuses`) | Read | Inspect CI status on commits | Doesn't grant permission to publish commit statuses |
+| Contents (`contents`) | Write | Read code and create branches, commits, and repository changes | Repository rules and branch protection still apply |
+| Dependabot alerts (`vulnerability_alerts`) | Read | Inspect dependency vulnerability alerts for security work | Doesn't grant permission to change alerts |
+| Issues (`issues`) | Write | Read and update issues, comments, labels, and assignments | Broader than the issues matched by a trigger |
+| Metadata (`metadata`) | Read | Read basic repository information | Required by GitHub for installed apps |
+| Pull requests (`pull_requests`) | Write | Open and update pull requests, and post reviews and review comments | Required reviews and merge rules still apply |
+| Workflows (`workflows`) | Write | Update GitHub Actions workflow files | Separate from managing workflow runs |
+
+The app also requests permissions outside the repository:
+
+| Permission | Level | Granted access and use | Boundary |
+| --- | --- | --- | --- |
+| Organization members (`members`) | Read | Read organization membership, including checking an installer's organization role | Doesn't grant permission to manage membership |
+| Account email addresses (`emails`) | Read | Read a connected user's email addresses for account identification | Requires user authorization; isn't an installation-token grant |
+
+At installation, choose **All repositories** or **Only select repositories** to control repository access. Connecting a person's GitHub account is separate from installing the app. Repository selection doesn't narrow the organization or account permissions above.
 
 For example, a filter that starts work only on `main` doesn't restrict the installation token to `main`. Repository rules, including branch protection, still apply.
 

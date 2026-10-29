@@ -94,9 +94,9 @@ The factory never merges or approves a merge request; those decisions stay with 
 
 GitLab setup uses your OAuth authorization to provision service accounts. Factory runs then use the factory bot's credentials, not your OAuth token. Token scopes and GitLab membership roles are separate controls.
 
-**Consent verification pending.** The scopes below are defined by the connection and token-provisioning paths. Confirm the production OAuth application's requested scopes and the resulting service-account memberships before using this draft for approval.
+Warp requires `api` and `read_user` on your setup authorization. The service-account scopes and roles below are assigned during provisioning. Review GitLab's consent screen for the complete set requested by the setup application.
 
-{/* VERIFY: Confirm GitLab production OAuth registration requests api and read_user, and confirm provisioned manager and factory token scopes and memberships match this table. */}
+{/* VERIFY: Confirm whether the production GitLab OAuth authorization requests scopes beyond the required api and read_user; the persisted provider scope list and authorization parameters are not available in this checkout. */}
 
 | Permission or scope | Granted access | Function in Warp | Boundary |
 | --- | --- | --- | --- |

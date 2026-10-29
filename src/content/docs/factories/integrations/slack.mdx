@@ -20,9 +20,7 @@ Each factory appears in Slack as its own app with the factory's name and avatar.
 
 Each factory's Slack app uses a bot token. Managed setup also requests separate permissions from the person authorizing app provisioning.
 
-**Installed-grant verification pending.** The bot and manager-user scopes below are defined in Warp's app-generation and authorization paths. Confirm the production manager app's own bot scopes and each installed factory app's consent before approval; those grants can differ from the generated defaults.
-
-{/* VERIFY: Confirm the production Slack manager app bot and user scope inventories and installed factory bot scopes against registration, generated manifest, and consent; reconcile any differences from these source-defined defaults. */}
+Warp requests the factory bot scopes below when creating and installing each factory app, and the manager-user scopes when authorizing managed setup. Review Slack's consent screen and workspace app policy for the access approved in your workspace.
 
 ### Factory app bot scopes
 
@@ -61,6 +59,10 @@ These scopes authorize app management, not factory access to your personal messa
 | `app_configurations:read` | Read configurations of apps created by the manager app | Inspect factory app configuration | Limited by Slack to that manager's apps |
 | `app_configurations:write` | Create apps and change their configuration | Create and update factory apps | Limited by Slack to that manager's apps |
 | `managed_apps:install` | Install managed child apps | Install each factory's Slack app | Subject to your workspace's app policy |
+
+The workspace manager app also has its own bot grant, separate from the factory apps and the setup user's grant. Its bot scope inventory hasn't been confirmed here; the factory bot table doesn't describe that grant.
+
+{/* VERIFY: Confirm the production Slack workspace manager app's bot scope list from its registration or persisted base provider; factory bot scopes and manager user scopes are independently established. */}
 
 Channel invitations constrain bot access. Automation filters constrain which events start work, not what an authorized bot token can read. For example, a keyword filter doesn't remove the app's history access to other messages in a joined channel. See [disconnecting Slack](#troubleshooting-and-reconnection) to remove the factory app; review the manager authorization separately when withdrawing setup permissions.
 
