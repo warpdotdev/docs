@@ -126,6 +126,20 @@ Branches and pull requests the factory creates follow the repository's normal ru
 
 Runs authenticate with the GitHub App installation. Its repositories and permissions control access; [automation filters](/factories/automations/) only control when work starts.
 
+**Permission inventory pending verification.** The [Warp Factories GitHub App](https://github.com/apps/warp-factories) requests permissions in its app registration, separately from connecting a person's GitHub account. The exact permission names and read or write levels still need confirmation from the production app's installation consent screen. The table separates that missing inventory from known access boundaries.
+
+{/* VERIFY: GitHub production app registration and installation consent must supply every repository, organization, and account permission with its access level and purpose; API usage is not an inventory. */}
+
+| Permission or grant | Granted access | Function in Warp | Boundary |
+| --- | --- | --- | --- |
+| Repository permissions: exact names and levels unverified | The repository operations authorized at installation | Read code and context, push branches, open pull requests, and post results | These functions are not a complete list of requested permissions |
+| Organization and account permissions: inventory unverified | Not established by this draft | Engineering must confirm any additional grants and why each is requested | Don't treat repository selection as proof that no other grants exist |
+| Installation repository selection | All repositories or the repositories selected at installation | Make repositories available to factory runs | A factory's repository list and trigger filters do not replace installation authorization |
+
+For example, a filter that starts work only on `main` doesn't restrict the installation token to `main`. Repository rules, including branch protection, still apply.
+
+To narrow access or uninstall the app, manage the installation in [GitHub's installation settings](https://github.com/settings/installations). Removing a trigger stops that route into the factory; it doesn't revoke the app's credentials.
+
 See [GitHub permissions and identity](/platform/integrations/github/#permissions-and-identity) for the full credential model.
 
 ## Factory-definition pull request checks
@@ -170,5 +184,6 @@ The check runs only for factories whose [definition is managed as code](/factori
 
 ## Related pages
 
+* [Permissions for factory integrations](/factories/integrations/permissions/) - Compare grants and review status across providers
 * [Factory automations](/factories/automations/) - Configure event matching
 * [Factory troubleshooting](/factories/troubleshooting/#work-isnt-starting) - Diagnose events that don't start work

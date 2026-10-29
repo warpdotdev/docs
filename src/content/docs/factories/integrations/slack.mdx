@@ -16,6 +16,54 @@ Each factory appears in Slack as its own app with the factory's name and avatar.
 * Permission to install Slack apps in the target workspace.
 * Permission to update the factory's configuration.
 
+## Permissions
+
+Each factory's Slack app uses a bot token. Managed setup also requests separate permissions from the person authorizing app provisioning.
+
+**Installed-grant verification pending.** The bot and manager-user scopes below are defined in Warp's app-generation and authorization paths. Confirm the production manager app's own bot scopes and each installed factory app's consent before approval; those grants can differ from the generated defaults.
+
+{/* VERIFY: Confirm the production Slack manager app bot and user scope inventories and installed factory bot scopes against registration, generated manifest, and consent; reconcile any differences from these source-defined defaults. */}
+
+### Factory app bot scopes
+
+The scope meanings follow [Slack's scope reference](https://docs.slack.dev/reference/scopes/). These grants aren't limited to messages that start a run.
+
+| Scope | Granted access | Function in Warp | Boundary |
+| --- | --- | --- | --- |
+| `app_mentions:read` | Read messages that mention the app | Receive mention requests | Conversations the app belongs to |
+| `assistant:write` | Act as a Slack app agent | Support Slack's agent experience | Not a workspace administration grant |
+| `channels:history` | Read public-channel messages and content | Supply channel and thread context | Public channels the app has joined |
+| `channels:manage` | Manage joined public channels and create channels | Provision channels for factory work | Broader than reading or posting messages |
+| `channels:read` | Read public-channel metadata | Resolve channel names and choices | Metadata access isn't message-history access |
+| `chat:write` | Send messages as the app | Post progress and results | Uses the bot's identity and conversation access |
+| `chat:write.customize` | Customize the sender name and avatar | Present factory-branded messages | Doesn't grant access to another user's account |
+| `files:read` | Read accessible shared files | Include supported attachments as context | Files visible to the app |
+| `files:write` | Upload, edit, and delete files as the app | Share output artifacts | Broader than downloading attachments |
+| `groups:history` | Read private-channel messages and content | Supply private-channel context | Private channels the app has joined |
+| `groups:read` | Read private-channel metadata | Resolve accessible private channels | Requires channel membership |
+| `im:history` | Read direct-message content | Supply direct-message context | Direct messages involving the app |
+| `im:read` | Read direct-message metadata | Identify direct-message conversations | Not other people's private conversations |
+| `im:write` | Start direct messages | Send messages to people as the app | Distinct from reading existing messages |
+| `mpim:history` | Read group direct-message content | Supply group-conversation context | Conversations the app has joined |
+| `mpim:read` | Read group direct-message metadata | Identify accessible group conversations | Not all group conversations in the workspace |
+| `reactions:read` | Read reactions and associated content | Match reaction-based automations | Accessible conversations |
+| `reactions:write` | Add and edit reactions | Acknowledge requests | Actions as the app |
+| `usergroups:read` | Read user groups | Resolve group membership | Workspace directory data |
+| `users:read` | Read workspace member profiles | Resolve people and user names | Directory access isn't limited to a trigger's author |
+| `users:read.email` | Read member email addresses | Match accounts and look up people | Email access is separate from `users:read` |
+
+### Managed setup user scopes
+
+These scopes authorize app management, not factory access to your personal message history.
+
+| Scope | Granted access | Function in Warp | Boundary |
+| --- | --- | --- | --- |
+| `app_configurations:read` | Read configurations of apps created by the manager app | Inspect factory app configuration | Limited by Slack to that manager's apps |
+| `app_configurations:write` | Create apps and change their configuration | Create and update factory apps | Limited by Slack to that manager's apps |
+| `managed_apps:install` | Install managed child apps | Install each factory's Slack app | Subject to your workspace's app policy |
+
+Channel invitations constrain bot access. Automation filters constrain which events start work, not what an authorized bot token can read. For example, a keyword filter doesn't remove the app's history access to other messages in a joined channel. See [disconnecting Slack](#troubleshooting-and-reconnection) to remove the factory app; review the manager authorization separately when withdrawing setup permissions.
+
 ## Connect the factory
 
 1. **Select Slack while creating a factory**, or connect it later from the factory's **Settings**. Warp installs its Slack app for you.
@@ -129,9 +177,10 @@ To route work into the factory from other tools, see [Connect your factory](/fac
 
 ## Privacy
 
-The factory's app reads messages only where it's mentioned, directly messaged, or subscribed by an automation you configured. Message content and supported attachments are used to run the factory's work, and your Slack profile email is used to map you to your Warp account. Data is handled per the [Warp Privacy Policy](https://www.warp.dev/privacy).
+The factory uses message content and supported attachments for its work, and your Slack profile email to map you to your Warp account. Its [bot scopes](#factory-app-bot-scopes) also authorize reading history in conversations the app has joined, including through [integration-provided tools](#use-integration-provided-tools); mentions and automation filters aren't a message-level access boundary. Data is handled per the [Warp Privacy Policy](https://www.warp.dev/privacy).
 
 ## Related pages
 
+* [Permissions for factory integrations](/factories/integrations/permissions/) - Compare grants and review status across providers
 * [Factory automations](/factories/automations/)
 * [Factory troubleshooting](/factories/troubleshooting/#work-isnt-starting)

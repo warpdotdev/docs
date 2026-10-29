@@ -20,6 +20,25 @@ Connect a factory to Microsoft Teams so mentions in standard and shared channels
 The integration supports standard and shared channels. Private channels and direct messages are not supported.
 :::
 
+## Permissions
+
+Microsoft account linking and Teams app installation are separate authorizations. The account-linking flow requests OpenID Connect identity scopes; it doesn't describe the bot's Microsoft Graph access.
+
+**App permission inventory pending verification.** The production Teams app package and Microsoft Entra registration must establish the bot and Graph permissions. This draft doesn't infer those grants from API calls or from the actions exposed by Warp's tools.
+
+{/* VERIFY: Obtain the production Teams app manifest, Entra API permission export, and tenant consent grants; enumerate bot permissions and Graph delegated, application, and resource-specific grants with exact names and access boundaries. */}
+
+| Scope or permission surface | Granted access | Function in Warp | Boundary |
+| --- | --- | --- | --- |
+| `openid` in account linking | Authenticate the Microsoft user with an ID token | Verify the Microsoft account being linked | Doesn't authorize reading Teams messages |
+| `profile` in account linking | Basic identity claims, including the user's object ID | Match the user and Microsoft organization to Warp | The linking request doesn't include `offline_access` |
+| Teams bot permissions: exact inventory unverified | To be confirmed from the app package and consent | Receive activity and send bot replies | App approval, team installation, and Warp routing are separate steps |
+| Microsoft Graph permissions: exact inventory unverified | To be confirmed from Entra and the app manifest, including any resource-specific consent | Retrieve channel history and associated context | Don't assume team-scoped access instead of tenant-wide access without checking the actual grants |
+
+[Resource-specific consent](https://learn.microsoft.com/en-us/microsoftteams/platform/graph-api/rsc/resource-specific-consent) grants access to a particular team, chat, or user. It differs from tenant-wide application permission. Engineering must identify which model each production grant uses before this inventory is complete.
+
+Warp's [shared-channel rules](#use-shared-channels) and [tool limitations](#what-agents-can-do-in-teams) describe runtime restrictions, not the full authority granted to the installed app. To withdraw access, review the Teams installation and Entra grants as well as [disconnecting Microsoft Teams in Warp](#disconnect-microsoft-teams). Signing out unlinks your account; it doesn't uninstall the bot.
+
 ## Set up Microsoft Teams
 
 1. **Enable Microsoft Teams for the Warp workspace.** A workspace admin opens **Integrations** in the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. If **Microsoft Teams** is unavailable, <a href={VARS.CONTACT_SALES_URL}>contact sales</a>.
@@ -139,6 +158,7 @@ The factory's app uses message content and supported attachments from the channe
 
 ## Related pages
 
+* [Permissions for factory integrations](/factories/integrations/permissions/) - Compare grants and review status across providers
 * [**Connect your factory**](/factories/connect-your-factory/) - Choose the sources that route work into the factory.
 * [**Factory automations**](/factories/automations/) - Edit trigger filters and avoid overlapping Teams triggers.
 * [**Factory definition**](/factories/factory-as-code/) - Declare `microsoft-teams` and `teams` triggers as code.

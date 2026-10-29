@@ -1,0 +1,47 @@
+---
+title: Permissions for factory integrations
+description: >-
+  Review permission scopes, credential types, and access boundaries for GitHub,
+  GitLab, Linear, Jira, Slack, and Microsoft Teams integrations.
+---
+
+Factory integrations grant access to your code, issues, and conversations. Use the integration-specific tables to review the requested scopes separately from the actions a factory performs and the events that start work.
+
+:::caution
+This permissions reference is a draft for security review, not a complete production permission inventory. App-registration and installed-consent checks are outstanding as listed below; resolve them before using it to approve an integration.
+:::
+
+## Permissions by integration
+
+Each integration page owns its scope details. “Source-defined” means a scope list is declared in configuration, not that an installed production app's consent has been checked.
+
+| Integration | Authorization model | Inventory status and details |
+| --- | --- | --- |
+| [GitHub](/factories/integrations/github/#permissions) | GitHub App installation token; account linking identifies the requester separately | Exact repository, organization, and account permission names and levels need an app-registration export |
+| [GitLab](/factories/integrations/gitlab/#permissions) | User OAuth for setup; manager and factory service-account tokens with separate membership roles | Source-defined scopes and roles; production OAuth consent and provisioned access need confirmation |
+| [Linear](/factories/integrations/linear/#permissions) | Workspace app authorization, separate from a teammate's Warp account link | Candidate scope list from development configuration; production registration and requested scopes need confirmation |
+| [Jira](/factories/integrations/jira/#permissions) | Forge app scopes with distinct app and user token paths | Source-defined manifest scopes; deployed app version, consent, and impersonation settings need confirmation |
+| [Slack](/factories/integrations/slack/#permissions) | Per-factory bot token plus manager authorization for app provisioning | Source-defined bot and manager-user scopes; production manager bot inventory and installed grants need confirmation |
+| [Microsoft Teams](/factories/integrations/teams/#permissions) | Identity-linking scopes separate from bot and Microsoft Graph authorization | Identity scopes verified in the linking path; app package, Entra permissions, and tenant grants still needed |
+
+## Grants, actions, and event filters
+
+**Provider grants** define what a credential authorizes. A scope can grant more than the specific actions Warp currently exposes: Jira's `write:jira-work`, for example, includes deleting issues even though a factory workflow might only post comments.
+
+**User and service-account roles** further constrain operations. A GitLab factory bot has its own project memberships; it doesn't inherit the triggering person's permissions. Jira reads made on behalf of a user still follow that user's Jira access.
+
+**Automation filters** decide when work starts. A branch, keyword, project, or channel filter isn't a substitute for narrowing the provider's authorization. A connected integration can also supply tools to runs that started elsewhere.
+
+## Access review before installation
+
+Compare the app's actual consent with its table before granting access. For example, to pilot a factory on one GitHub repository, select that repository in the app installation rather than relying on a repository filter in an automation.
+
+Record the approved repositories, projects, teams, or conversations alongside the granted scopes. Check whether approval covers an app installation, a human OAuth grant, or a service-account role; some integrations need more than one.
+
+To withdraw access, use the provider's app or token controls linked from each integration page. Disabling an automation stops that trigger, not the underlying grant. Review separately configured [MCP servers](/platform/mcp/) and [secrets](/factories/secrets/) too; they can supply other credentials.
+
+## Related pages
+
+* [Connect your factory](/factories/connect-your-factory/) - Choose how work reaches a factory
+* [Factory automations](/factories/automations/) - Configure triggers without confusing routing with access
+* [About infrastructure and security](/factories/infrastructure-and-security/) - Review execution and security boundaries
