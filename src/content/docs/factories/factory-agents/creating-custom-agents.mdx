@@ -55,7 +55,7 @@ You can start child agents without factory configuration through [multi-agent or
 
 ### Pass dynamic setup configuration
 
-Use run metadata to pass task-specific initialization choices to an existing agent. For example, let the foreman select a `backend` or `frontend` setup profile for the same implementation agent without creating separate runners, environments, or agents. Metadata supplies the choice; your setup script must act on it.
+Select a `backend` or `frontend` setup profile through run metadata and read it in your setup script. Both profiles use the same implementation agent, runner, and environment.
 
 1. Save a script at `/opt/setup/select-profile.sh` in your image to validate the choice before configuring the workspace. This example calls your own installer at `/opt/setup/setup-profile.sh`. Replace that path with your installer; neither the script nor these profiles are built into Warp.
 
@@ -110,13 +110,13 @@ Use run metadata to pass task-specific initialization choices to an existing age
    }
    ```
 
-Top-level `run_agents.metadata` supplies defaults for the batch; per-child values override matching keys. These explicit values override inherited parent metadata per key, leaving other inherited keys intact.
+Set `run_agents.metadata` for values shared by every child. Use `agent_run_configs[].metadata` to override a value for one child. Children inherit any parent metadata you haven't overridden.
 
-Keep metadata small and non-secret:
-
-* **Format and bounds** - Use a map of strings, not nested JSON or typed values. Each run's effective map, including inherited and automatically supplied keys, permits at most 20 keys. Keys must be 1–64 bytes and contain only `A–Z`, `a–z`, `0–9`, `.`, `_`, or `-`. Values must be 0–256 bytes of UTF-8 without NUL characters.
-* **Environment names** - Warp uppercases keys and replaces `.` and `-` with `_` after the `WARP_METADATA_` prefix. Keys that produce the same environment name are rejected. Reserve this namespace: don't define it in images, worker environment variables, or secrets.
-* **Secrets and local runs** - Metadata is visible to anyone who can view the run. Use [Agent Secrets](/platform/secrets/) for credentials. Local runs in the Warp app or a standalone CLI do not receive this environment-variable injection.
+* Metadata keys and values must be strings. A run can have up to 20 keys, including inherited and automatically added keys.
+* Keys must be 1–64 bytes and contain only `A–Z`, `a–z`, `0–9`, `.`, `_`, or `-`. Values can be empty and must be at most 256 UTF-8 bytes, with no NUL characters.
+* To form environment-variable names, Warp adds `WARP_METADATA_`, uppercases the key, and replaces `.` and `-` with `_`. Keys that produce the same name are rejected. Don't define `WARP_METADATA_*` variables in images, worker environments, or secrets.
+* Anyone who can view a run can read its metadata. Store credentials in [Agent Secrets](/platform/secrets/).
+* Local runs in the Warp app or a standalone CLI do not receive metadata environment variables.
 
 ## Related pages
 
