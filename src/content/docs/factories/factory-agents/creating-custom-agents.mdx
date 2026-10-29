@@ -112,6 +112,8 @@ Select a `backend` or `frontend` setup profile through run metadata and read it 
 
 Set `run_agents.metadata` for values shared by every child. Use `agent_run_configs[].metadata` to override a value for one child. Children inherit any parent metadata you haven't overridden.
 
+#### Requirements
+
 * Metadata keys and values must be strings. A run can have up to 20 keys, including inherited and automatically added keys.
 * Keys must be 1–64 bytes and contain only `A–Z`, `a–z`, `0–9`, `.`, `_`, or `-`. Values can be empty and must be at most 256 UTF-8 bytes, with no NUL characters.
 * To form environment-variable names, Warp adds `WARP_METADATA_`, uppercases the key, and replaces `.` and `-` with `_`. Keys that produce the same name are rejected. Don't define `WARP_METADATA_*` variables in images, worker environments, or secrets.
