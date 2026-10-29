@@ -30,10 +30,10 @@ import {
 	LuExternalLink,
 	LuCheck,
 	LuCopy,
-	LuEllipsis,
 	LuHistory,
 	LuLoaderCircle,
 	LuMessageSquare,
+	LuPencil,
 	LuPlug,
 	LuPlus,
 	LuSend,
@@ -1212,7 +1212,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 																		aria-label={conversationHistory.rename}
 																		data-tooltip={conversationHistory.rename}
 																	>
-																		<LuEllipsis aria-hidden="true" />
+																		<LuPencil aria-hidden="true" />
 																	</button>
 																	<button
 																		type="button"
