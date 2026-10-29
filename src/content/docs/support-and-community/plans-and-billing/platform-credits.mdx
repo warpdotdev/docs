@@ -5,7 +5,7 @@ description: >-
   including how platform usage differs from inference and compute.
 ---
 
-Platform usage covers running and managing agents through Warp. Cloud runs, including [Warp Factories](/factories/) runs, and local runs on Business and Enterprise that use customer-supplied inference incur charges for billable agent time. These charges draw from your eligible usage balance; Enterprise billing follows your contract.
+Platform usage covers running and managing agents through Warp, including orchestration, integrations, and run tracking. Cloud runs, including [Warp Factories](/factories/) runs, and local runs on Business and Enterprise that use customer-supplied inference incur charges for billable agent time. These charges draw from your eligible usage balance; Enterprise billing follows your contract.
 
 Customer-supplied inference is any setup where Warp isn't paying for the model call: [Bring Your Own API Key (BYOK)](/agents/inference/bring-your-own-api-key/), a [ChatGPT subscription](/agents/inference/chatgpt-subscription/) for local Warp Agent conversations, [custom inference endpoints](/agents/inference/custom-inference-endpoint/), [BYOLLM](/enterprise/enterprise-features/bring-your-own-llm/), or [team-managed API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) on Business and Enterprise plans.
 
@@ -17,7 +17,7 @@ BYOK and custom inference endpoint support are available for individual users an
 
 ## How platform usage is measured
 
-An *agent hour* is one hour of billable agent activity. Partial hours are billed proportionally. See [Warp pricing](https://www.warp.dev/pricing) for current rates; Enterprise rates follow your contract.
+An *agent hour* (AH) is one hour of billable agent activity. On Free, Build, Max, and Business accounts billed in dollars, platform usage costs $3 per AH, or $0.05 per billable minute. Partial hours are billed proportionally: 30 minutes of billable activity costs $1.50. Enterprise rates and credit-billed accounts follow your contract.
 
 Agent hours are not the same as a run's elapsed time. Queued time, provisioning before the agent starts, and idle time between turns are excluded.
 
