@@ -19,7 +19,6 @@ import {
 	KAPA_CONVERSATION_HISTORY_OPTIONS,
 	deleteStoredConversation,
 	getConversationHistoryView,
-	isNewConversationActionEnabled,
 	isOwnedHistoryStorageEvent,
 	readHistoryUiSnapshot,
 	renameStoredConversation,
@@ -522,7 +521,6 @@ function ChatSurface({
 }) {
 	const [isOpen, setIsOpen] = useState(autoOpen);
 	const [query, setQuery] = useState('');
-	const [hasStartedConversation, setHasStartedConversation] = useState(false);
 	const [isAppleDevice, setIsAppleDevice] = useState(false);
 	const [isHistoryOpen, setIsHistoryOpen] = useState(initialHistoryOpen);
 	const [historyThreads, setHistoryThreads] = useState<
@@ -717,11 +715,6 @@ function ChatSurface({
 		threadId,
 		titleOverrides
 	) as ConversationHistoryView;
-	const canStartNewConversation = isNewConversationActionEnabled({
-		hasCurrentConversation: hasStartedConversation || hasConversation || Boolean(threadId),
-		isHistoryOpen,
-		historyItemCount: conversationHistory.items.length,
-	});
 
 	const refreshHistoryFromDisk = () => applyHistorySnapshot({ allowActiveRemount: false });
 
@@ -729,7 +722,6 @@ function ChatSurface({
 		const value = query.trim();
 		if (!value || isBusy) return;
 		submitQuery(value);
-		setHasStartedConversation(true);
 		setQuery('');
 	};
 
@@ -772,7 +764,6 @@ function ChatSurface({
 		setHistoryStatusMessage(null);
 		// Disk already proved the thread is restorable; native restore keeps backend continuity.
 		restoreThread(savedThreadId);
-		setHasStartedConversation(true);
 		setIsHistoryOpen(false);
 	};
 
@@ -956,7 +947,6 @@ function ChatSurface({
 								type="button"
 								className="sl-kapa-icon-button sl-kapa-icon-button--ghost"
 								onClick={startFreshConversation}
-								disabled={!canStartNewConversation}
 								aria-label="New conversation"
 								data-tooltip="New conversation"
 							>

@@ -15,7 +15,6 @@ import {
 	getConversationHistoryView,
 	getRestorableThread,
 	hasOwnedHistoryStore,
-	isNewConversationActionEnabled,
 	isOwnedHistoryStorageEvent,
 	normalizeStoredThread,
 	pruneTitleOverrides,
@@ -323,41 +322,6 @@ test('post-delete navigation remounts active deletes and reopens history when th
 	);
 });
 
-test('new conversation action stays disabled only on an empty fresh chat', () => {
-	assert.equal(
-		isNewConversationActionEnabled({
-			hasCurrentConversation: false,
-			isHistoryOpen: false,
-			historyItemCount: 0,
-		}),
-		false
-	);
-	assert.equal(
-		isNewConversationActionEnabled({
-			hasCurrentConversation: true,
-			isHistoryOpen: false,
-			historyItemCount: 0,
-		}),
-		true
-	);
-	assert.equal(
-		isNewConversationActionEnabled({
-			hasCurrentConversation: false,
-			isHistoryOpen: true,
-			historyItemCount: 2,
-		}),
-		true
-	);
-	assert.equal(
-		isNewConversationActionEnabled({
-			hasCurrentConversation: false,
-			isHistoryOpen: true,
-			historyItemCount: 0,
-		}),
-		false
-	);
-});
-
 test('component wires history remount intent and drops bulk clear UI', () => {
 	const componentPath = join(
 		dirname(fileURLToPath(import.meta.url)),
@@ -366,9 +330,14 @@ test('component wires history remount intent and drops bulk clear UI', () => {
 	const source = readFileSync(componentPath, 'utf8');
 	assert.match(source, /initialHistoryOpen/);
 	assert.match(source, /resolvePostDeleteNavigation/);
-	assert.match(source, /isNewConversationActionEnabled/);
 	assert.match(source, /openHistory:\s*navigation\.openHistory/);
 	assert.match(source, /startFreshConversation/);
+	assert.doesNotMatch(source, /isNewConversationActionEnabled/);
+	assert.match(
+		source,
+		/onClick=\{startFreshConversation\}\s+aria-label="New conversation"/,
+		'new conversation button must not have a disabled condition'
+	);
 	assert.doesNotMatch(source, /clearSavedConversations/);
 	assert.doesNotMatch(source, /sl-kapa-history__clear/);
 	assert.doesNotMatch(source, /Clear saved conversations/);

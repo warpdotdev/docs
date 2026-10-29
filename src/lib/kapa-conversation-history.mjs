@@ -380,21 +380,6 @@ export function resolvePostDeleteNavigation({
 	};
 }
 
-/**
- * True when "+" should start a fresh conversation instead of staying disabled.
- *
- * @param {{ hasCurrentConversation?: boolean, isHistoryOpen?: boolean, historyItemCount?: number }} [input]
- * @returns {boolean}
- */
-export function isNewConversationActionEnabled({
-	hasCurrentConversation = false,
-	isHistoryOpen = false,
-	historyItemCount = 0,
-} = {}) {
-	if (hasCurrentConversation) return true;
-	return isHistoryOpen === true && historyItemCount > 0;
-}
-
 export function getConversationHistoryView(threads, activeThreadId, titleOverrides = {}) {
 	const items = threads.map((thread) => {
 		const override = titleOverrides[thread.threadId];
