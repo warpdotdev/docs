@@ -1,14 +1,14 @@
 ---
 title: Factory use cases
 description: >-
-  Choose a practical Warp Factories recipe for issue triage, implementation,
-  code review, incident response, UI verification, or SDLC automation.
+  Choose a practical Warp Factories recipe for development workflows such as
+  issue triage, code review, and UI verification.
 sidebar:
   label: Overview
 ---
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-Warp Factories can investigate issues, implement approved changes, review pull requests, and verify interfaces with visual evidence. These recipes show how to configure those tasks in your existing factory and where a person decides what happens next.
+Warp Factories can automate development work like investigating bugs, preparing changes for review, and checking that an application behaves as expected. These recipes show how to configure a workflow in your existing factory, verify its results, and decide where human input is required.
 
 Each recipe combines agents, automations, skills, integrations, and repository controls. The examples use [definitions as code](/factories/factory-as-code/) so you can review and validate changes, or adapt them to a Warp-managed factory.
 
@@ -47,11 +47,13 @@ Each recipe combines agents, automations, skills, integrations, and repository c
   />
 </CardGrid>
 
-## Start with the smallest recipe
+## Start with one workflow
 
-One factory can coordinate work across repositories that ship together. Before you add an automation, choose the event that should start work and check whether an existing automation already handles it. You can update that automation instead of adding another, or use nonoverlapping filters when you need separate automations. See [automation matching rules](/factories/automations/#how-matching-works).
+Choose one task your team can evaluate on its own, like triaging incoming issues or reviewing pull requests. Define what the factory should return and where it should stop for human input.
 
-Each automation needs a clear task, a responsible agent, and an expected output. For work that spans several roles, the foreman coordinates the other agents. Your skills supply repository-specific procedures, such as required test commands or an incident runbook. People remain responsible for approving specifications, accepting risk, and merging changes.
+Before you add an automation, choose the event that should start work and check whether it's handled by an existing automation. Update that automation where appropriate, or use nonoverlapping filters when separate automations serve different purposes. See [automation matching rules](/factories/automations/#how-matching-works).
+
+Follow the chosen recipe to configure the agents, access, and repository-specific instructions it needs. Test it on a sample issue or pull request, and review whether the output meets your expectations and respects the stopping point. Once that workflow works reliably, expand its scope or connect it to another stage.
 
 ## Related pages
 
