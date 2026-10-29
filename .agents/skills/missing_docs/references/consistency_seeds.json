@@ -157,11 +157,11 @@
         "../warp-server/billing/config/tiers/_base_self_serve_plan.yaml"
       ],
       "affected_surfaces": [
-        "src/content/docs/platform/harnesses/index.mdx",
+        "src/content/docs/factories/harnesses/index.mdx",
         "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx"
       ],
       "surface_dispositions": {
-        "src/content/docs/platform/harnesses/index.mdx": "fixed",
+        "src/content/docs/factories/harnesses/index.mdx": "fixed",
         "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx": "fixed"
       },
       "recheck_condition": "Harness entitlements change in shipped tier configuration.",
