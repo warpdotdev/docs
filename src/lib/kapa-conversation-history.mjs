@@ -10,9 +10,7 @@ export const KAPA_CONVERSATION_HISTORY_OPTIONS = Object.freeze({
 export const KAPA_CONVERSATION_HISTORY_COPY = Object.freeze({
 	title: 'Conversation history',
 	empty: 'No saved conversations yet.',
-	privacy:
-		'Saved only in this browser. Renaming or deleting updates this device only. Clearing removes all saved conversations.',
-	clear: 'Clear saved conversations',
+	privacy: 'Saved only in this browser. Renaming or deleting updates this device only.',
 	untitled: 'Untitled conversation',
 	rename: 'Rename conversation',
 	delete: 'Delete conversation',
@@ -345,6 +343,58 @@ export function shouldPersistThreadId(threadId, storageKey = KAPA_CONVERSATION_H
 	return canRestoreThread(threadId, storageKey);
 }
 
+/**
+ * Decide whether deleting a thread requires a keyed ChatSurface remount and
+ * whether that remount should land in history (remaining threads) or a fresh chat.
+ *
+ * @param {{ deletedThreadId?: string | null, activeThreadId?: string | null, remainingThreadCount?: number }} [input]
+ * @returns {{ remount: boolean, openHistory: boolean, reason: string }}
+ */
+export function resolvePostDeleteNavigation({
+	deletedThreadId,
+	activeThreadId = null,
+	remainingThreadCount = 0,
+} = {}) {
+	const deletedActive =
+		typeof deletedThreadId === 'string' &&
+		deletedThreadId.length > 0 &&
+		deletedThreadId === activeThreadId;
+	if (!deletedActive) {
+		return {
+			remount: false,
+			openHistory: false,
+			reason: 'inactive-delete',
+		};
+	}
+	if (remainingThreadCount > 0) {
+		return {
+			remount: true,
+			openHistory: true,
+			reason: 'active-delete-with-remaining',
+		};
+	}
+	return {
+		remount: true,
+		openHistory: false,
+		reason: 'active-delete-empty',
+	};
+}
+
+/**
+ * True when "+" should start a fresh conversation instead of staying disabled.
+ *
+ * @param {{ hasCurrentConversation?: boolean, isHistoryOpen?: boolean, historyItemCount?: number }} [input]
+ * @returns {boolean}
+ */
+export function isNewConversationActionEnabled({
+	hasCurrentConversation = false,
+	isHistoryOpen = false,
+	historyItemCount = 0,
+} = {}) {
+	if (hasCurrentConversation) return true;
+	return isHistoryOpen === true && historyItemCount > 0;
+}
+
 export function getConversationHistoryView(threads, activeThreadId, titleOverrides = {}) {
 	const items = threads.map((thread) => {
 		const override = titleOverrides[thread.threadId];
@@ -359,7 +409,6 @@ export function getConversationHistoryView(threads, activeThreadId, titleOverrid
 
 	return {
 		...KAPA_CONVERSATION_HISTORY_COPY,
-		canClear: items.length > 0,
 		isEmpty: items.length === 0,
 		items,
 	};

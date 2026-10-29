@@ -15,6 +15,7 @@ import {
 	getConversationHistoryView,
 	getRestorableThread,
 	hasOwnedHistoryStore,
+	isNewConversationActionEnabled,
 	isOwnedHistoryStorageEvent,
 	normalizeStoredThread,
 	pruneTitleOverrides,
@@ -22,6 +23,7 @@ import {
 	readStoredHistoryThreads,
 	readTitleOverrides,
 	renameStoredConversation,
+	resolvePostDeleteNavigation,
 	resolveRestoreAttempt,
 	shouldPersistThreadId,
 	validateRenameTitle,
@@ -82,7 +84,7 @@ test('uses native SDK threads in recency order and exposes their restore IDs', (
 	);
 
 	assert.equal(view.isEmpty, false);
-	assert.equal(view.canClear, true);
+	assert.equal('canClear' in view, false);
 	assert.deepEqual(
 		view.items.map((item) => item.threadId),
 		['most-recent', 'older']
@@ -94,9 +96,11 @@ test('renders the empty state and local-storage disclosure without creating a du
 	const view = getConversationHistoryView([], null, {});
 
 	assert.equal(view.isEmpty, true);
-	assert.equal(view.canClear, false);
+	assert.equal('canClear' in view, false);
+	assert.equal('clear' in KAPA_CONVERSATION_HISTORY_COPY, false);
 	assert.deepEqual(view.items, []);
 	assert.match(view.privacy, /this browser/i);
+	assert.doesNotMatch(view.privacy, /clearing/i);
 	assert.deepEqual(KAPA_CONVERSATION_HISTORY_OPTIONS, {
 		enabled: true,
 		maxThreads: 50,
@@ -290,6 +294,85 @@ test('overlay pruning drops titles for threads removed by delete eviction or cle
 
 	clearStoredConversationHistory();
 	assert.deepEqual(readTitleOverrides(), {});
+});
+
+test('post-delete navigation remounts active deletes and reopens history when threads remain', () => {
+	assert.deepEqual(
+		resolvePostDeleteNavigation({
+			deletedThreadId: 'inactive',
+			activeThreadId: 'active',
+			remainingThreadCount: 3,
+		}),
+		{ remount: false, openHistory: false, reason: 'inactive-delete' }
+	);
+	assert.deepEqual(
+		resolvePostDeleteNavigation({
+			deletedThreadId: 'active',
+			activeThreadId: 'active',
+			remainingThreadCount: 2,
+		}),
+		{ remount: true, openHistory: true, reason: 'active-delete-with-remaining' }
+	);
+	assert.deepEqual(
+		resolvePostDeleteNavigation({
+			deletedThreadId: 'active',
+			activeThreadId: 'active',
+			remainingThreadCount: 0,
+		}),
+		{ remount: true, openHistory: false, reason: 'active-delete-empty' }
+	);
+});
+
+test('new conversation action stays disabled only on an empty fresh chat', () => {
+	assert.equal(
+		isNewConversationActionEnabled({
+			hasCurrentConversation: false,
+			isHistoryOpen: false,
+			historyItemCount: 0,
+		}),
+		false
+	);
+	assert.equal(
+		isNewConversationActionEnabled({
+			hasCurrentConversation: true,
+			isHistoryOpen: false,
+			historyItemCount: 0,
+		}),
+		true
+	);
+	assert.equal(
+		isNewConversationActionEnabled({
+			hasCurrentConversation: false,
+			isHistoryOpen: true,
+			historyItemCount: 2,
+		}),
+		true
+	);
+	assert.equal(
+		isNewConversationActionEnabled({
+			hasCurrentConversation: false,
+			isHistoryOpen: true,
+			historyItemCount: 0,
+		}),
+		false
+	);
+});
+
+test('component wires history remount intent and drops bulk clear UI', () => {
+	const componentPath = join(
+		dirname(fileURLToPath(import.meta.url)),
+		'../components/KapaChatLauncher.tsx'
+	);
+	const source = readFileSync(componentPath, 'utf8');
+	assert.match(source, /initialHistoryOpen/);
+	assert.match(source, /resolvePostDeleteNavigation/);
+	assert.match(source, /isNewConversationActionEnabled/);
+	assert.match(source, /openHistory:\s*navigation\.openHistory/);
+	assert.match(source, /startFreshConversation/);
+	assert.doesNotMatch(source, /clearSavedConversations/);
+	assert.doesNotMatch(source, /sl-kapa-history__clear/);
+	assert.doesNotMatch(source, /Clear saved conversations/);
+	assert.doesNotMatch(source, /canClear/);
 });
 
 test('active-row style contract stays lightened with readable text tokens', () => {

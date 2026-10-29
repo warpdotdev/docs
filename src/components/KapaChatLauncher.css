@@ -335,28 +335,6 @@
 	line-height: 1.45;
 }
 
-.sl-kapa-history__clear {
-	flex: none;
-	min-height: 2rem;
-	padding: 0.375rem 0.5rem;
-	border: 1px solid var(--sl-color-gray-5);
-	border-radius: var(--sl-radius-sm);
-	background: transparent;
-	color: var(--sl-color-gray-2);
-	font: inherit;
-	font-size: var(--sl-text-xs);
-	font-weight: 600;
-	line-height: 1.2;
-	cursor: pointer;
-}
-
-.sl-kapa-history__clear:hover {
-	border-color: var(--warp-control-border-hover);
-	background: var(--warp-control-bg-hover);
-	color: var(--sl-color-white);
-}
-
-.sl-kapa-history__clear:focus-visible,
 .sl-kapa-history__open:focus-visible,
 .sl-kapa-history__icon-button:focus-visible,
 .sl-kapa-history__text-button:focus-visible,

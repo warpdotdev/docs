@@ -17,12 +17,13 @@ import { isMac, keymatch } from 'keymatch';
 import ReactMarkdown from 'react-markdown';
 import {
 	KAPA_CONVERSATION_HISTORY_OPTIONS,
-	clearStoredConversationHistory,
 	deleteStoredConversation,
 	getConversationHistoryView,
+	isNewConversationActionEnabled,
 	isOwnedHistoryStorageEvent,
 	readHistoryUiSnapshot,
 	renameStoredConversation,
+	resolvePostDeleteNavigation,
 	resolveRestoreAttempt,
 	validateRenameTitle,
 } from '../lib/kapa-conversation-history.mjs';
@@ -64,7 +65,6 @@ type ConversationHistoryView = {
 	title: string;
 	empty: string;
 	privacy: string;
-	clear: string;
 	rename: string;
 	delete: string;
 	confirmDelete: string;
@@ -74,7 +74,6 @@ type ConversationHistoryView = {
 	renameCancel: string;
 	current: string;
 	missingThread: string;
-	canClear: boolean;
 	isEmpty: boolean;
 	items: Array<{
 		threadId: string;
@@ -82,6 +81,10 @@ type ConversationHistoryView = {
 		generatedTitle: string;
 		isActive: boolean;
 	}>;
+};
+
+type NewConversationOptions = {
+	openHistory?: boolean;
 };
 
 function getChatErrorMessage(error: unknown) {
@@ -504,17 +507,24 @@ function ChatCodeBlock({
 	);
 }
 
-function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversation }: {
+function ChatSurface({
+	title,
+	welcomeMessage,
+	autoOpen = false,
+	initialHistoryOpen = false,
+	onNewConversation,
+}: {
 	title: string;
 	welcomeMessage: string;
 	autoOpen?: boolean;
-	onNewConversation: () => void;
+	initialHistoryOpen?: boolean;
+	onNewConversation: (options?: NewConversationOptions) => void;
 }) {
 	const [isOpen, setIsOpen] = useState(autoOpen);
 	const [query, setQuery] = useState('');
 	const [hasStartedConversation, setHasStartedConversation] = useState(false);
 	const [isAppleDevice, setIsAppleDevice] = useState(false);
-	const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+	const [isHistoryOpen, setIsHistoryOpen] = useState(initialHistoryOpen);
 	const [historyThreads, setHistoryThreads] = useState<
 		Array<{ threadId: string; title: string; createdAt?: number; updatedAt?: number; qas?: unknown[] }>
 	>([]);
@@ -546,7 +556,6 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		threadId,
 	} = useChat();
 	const {
-		clear: clearConversationHistory,
 		enabled: isConversationHistoryEnabled,
 		restoreThread,
 		threads: conversationHistoryThreads,
@@ -599,7 +608,7 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		if (options?.allowActiveRemount !== false && snapshot.activeThreadMissing) {
 			localStorage.removeItem('warp_docs_kapa_thread_id');
 			setHistoryStatusMessage(snapshot.view.missingThread);
-			onNewConversation();
+			onNewConversation({ openHistory: snapshot.threads.length > 0 });
 			return snapshot;
 		}
 		return snapshot;
@@ -708,6 +717,11 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		threadId,
 		titleOverrides
 	) as ConversationHistoryView;
+	const canStartNewConversation = isNewConversationActionEnabled({
+		hasCurrentConversation: hasStartedConversation || hasConversation || Boolean(threadId),
+		isHistoryOpen,
+		historyItemCount: conversationHistory.items.length,
+	});
 
 	const refreshHistoryFromDisk = () => applyHistorySnapshot({ allowActiveRemount: false });
 
@@ -806,15 +820,19 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 	};
 
 	const confirmDelete = (threadIdToDelete: string) => {
-		const wasActive = threadIdToDelete === threadId;
 		deleteStoredConversation(threadIdToDelete);
-		refreshHistoryFromDisk();
+		const snapshot = refreshHistoryFromDisk();
 		setPendingDeleteThreadId(null);
-		if (wasActive) {
-			// Remount drops stale SDK memory for the deleted active thread without
-			// clearing history for an unrelated active conversation.
+		const navigation = resolvePostDeleteNavigation({
+			deletedThreadId: threadIdToDelete,
+			activeThreadId: threadId,
+			remainingThreadCount: snapshot.threads.length,
+		});
+		if (navigation.remount) {
+			// Remount drops stale SDK memory for the deleted active thread.
+			// Keep history open when other saved conversations remain.
 			localStorage.removeItem('warp_docs_kapa_thread_id');
-			onNewConversation();
+			onNewConversation({ openHistory: navigation.openHistory });
 			return;
 		}
 		window.requestAnimationFrame(() => {
@@ -822,17 +840,9 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 		});
 	};
 
-	const clearSavedConversations = () => {
-		clearConversationHistory();
-		clearStoredConversationHistory();
-		localStorage.removeItem('warp_docs_kapa_thread_id');
-		setHistoryThreads([]);
-		setTitleOverrides({});
-		setHistoryStatusMessage(null);
-		cancelRename();
-		setPendingDeleteThreadId(null);
+	const startFreshConversation = () => {
+		onNewConversation({ openHistory: false });
 	};
-
 
 	const openPanel = () => {
 		// If the Pagefind search dialog is open with a query typed in, hand
@@ -945,8 +955,8 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 							<button
 								type="button"
 								className="sl-kapa-icon-button sl-kapa-icon-button--ghost"
-								onClick={onNewConversation}
-								disabled={!hasStartedConversation}
+								onClick={startFreshConversation}
+								disabled={!canStartNewConversation}
 								aria-label="New conversation"
 								data-tooltip="New conversation"
 							>
@@ -1068,15 +1078,6 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 										<h2 id="sl-kapa-conversation-history-title">{conversationHistory.title}</h2>
 										<p>{conversationHistory.privacy}</p>
 									</div>
-									{conversationHistory.canClear ? (
-										<button
-											type="button"
-											className="sl-kapa-history__clear"
-											onClick={clearSavedConversations}
-										>
-											{conversationHistory.clear}
-										</button>
-									) : null}
 								</div>
 								{historyStatusMessage ? (
 									<p className="sl-kapa-history__status" role="status" aria-live="polite">
@@ -1406,13 +1407,16 @@ function ChatSurface({ title, welcomeMessage, autoOpen = false, onNewConversatio
 export default function KapaChatLauncher({ autoOpen = false }: { autoOpen?: boolean } = {}) {
 	const [chatSessionKey, setChatSessionKey] = useState(0);
 	const [sessionAutoOpen, setSessionAutoOpen] = useState(autoOpen);
+	const [sessionOpenHistory, setSessionOpenHistory] = useState(false);
 	if (!integrationId) {
 		return null;
 	}
-	const startNewConversation = () => {
-		// `autoOpen` is read once by each keyed `ChatSurface` remount so the
-		// fresh conversation opens immediately without controlling later renders.
+	const startNewConversation = (options?: NewConversationOptions) => {
+		// `autoOpen` / `initialHistoryOpen` are read once by each keyed
+		// `ChatSurface` remount so the fresh session opens immediately without
+		// controlling later renders.
 		setSessionAutoOpen(true);
+		setSessionOpenHistory(options?.openHistory === true);
 		setChatSessionKey((key) => key + 1);
 	};
 
@@ -1430,6 +1434,7 @@ export default function KapaChatLauncher({ autoOpen = false }: { autoOpen?: bool
 				title={title}
 				welcomeMessage={welcomeMessage}
 				autoOpen={sessionAutoOpen}
+				initialHistoryOpen={sessionOpenHistory}
 				onNewConversation={startNewConversation}
 			/>
 		</KapaProvider>
