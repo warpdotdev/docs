@@ -129,11 +129,17 @@ jobs:
       - name: Test heading variables
         run: npm run test:heading-vars
 
+      - name: Test tracking redirect middleware
+        run: npm run test:tracking-redirect
+
       - name: Build site
         run: npm run build
 
       - name: Validate heading tables of contents
         run: npm run test:heading-tocs
+
+      - name: Validate tracking redirect routes
+        run: npm run test:tracking-routes
 
       - name: Validate homepage JSON-LD
         run: npm run test:homepage-json-ld
