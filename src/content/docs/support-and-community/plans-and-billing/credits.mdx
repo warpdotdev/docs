@@ -86,9 +86,48 @@ Two similar prompts can use different amounts. Use the reported breakdown to com
 
 ## Compute usage
 
-Cloud runs on Warp-hosted compute incur compute charges, whether started from the Warp app, an integration, the CLI, or the {VARS.WARP_PLATFORM_API}. Compute cost depends on the resources and time used.
+Cloud runs on Warp-hosted compute incur compute charges, whether started from the Warp app, an integration, the CLI, or the {VARS.WARP_PLATFORM_API}. Compute cost is the sandbox's rate multiplied by its metered lifetime, not its CPU utilization or billable agent hours.
 
 Local runs, CI jobs on your own runners, and [self-hosted workers](/factories/self-hosting/) do not incur Warp-hosted compute charges. Platform charges can still apply.
+
+### Hosted compute rates
+
+The rates below apply to Free, Build, Max, and Business accounts billed in dollars, with no additional compute markup. They are configured compute rates, not a live lookup of a provider's invoice. Enterprise margins, discounts, and credit conversions follow your contract. [Usage purchase premiums](/support-and-community/plans-and-billing/add-on-credits/#purchasing-usage) affect the amount you pay to buy usage, not these metered rates.
+
+Match your [runner's operating system, architecture, and instance shape](/factories/runners/) to the rates below. Available shapes and default sizes depend on your plan.
+
+#### Linux and Windows
+
+Linux x86-64 and aarch64 use the same rate. Windows supports x86-64 and costs twice the Linux rate for the same shape.
+
+To calculate the per-minute rate, take the greater of the vCPU count and half the memory in GB. Multiply that number by $0.0015 for Linux or $0.003 for Windows. For example, 4 vCPUs with 16 GB costs $0.012 per minute on Linux.
+
+Example shapes:
+
+| vCPUs | Memory | Linux per minute | Linux per hour | Windows per minute | Windows per hour |
+| --- | --- | --- | --- | --- | --- |
+| 2 | 4 GB | $0.003 | $0.18 | $0.006 | $0.36 |
+| 4 | 8 GB | $0.006 | $0.36 | $0.012 | $0.72 |
+| 8 | 16 GB | $0.012 | $0.72 | $0.024 | $1.44 |
+| 16 | 32 GB | $0.024 | $1.44 | $0.048 | $2.88 |
+
+#### macOS
+
+macOS runners use Apple Silicon and have fixed rates for each supported shape:
+
+| vCPUs | Memory | Per minute | Per hour |
+| --- | --- | --- | --- |
+| 4 | 7 GB | $0.075 | $4.50 |
+| 6 | 14 GB | $0.09 | $5.40 |
+| 8 | 14 GB | $0.135 | $8.10 |
+| 12 | 28 GB | $0.18 | $10.80 |
+| 12 | 56 GB | $0.27 | $16.20 |
+
+### Compute metering
+
+For a newly created sandbox, compute is metered from creation to destruction. This includes setup, command execution, and idle time while the sandbox remains running. If a run receives a prewarmed sandbox, that run's metering starts when the sandbox is assigned to it.
+
+Elapsed time is charged proportionally, including partial minutes; it isn't rounded up to whole minutes or hours. Compute can continue after the agent stops responding if the sandbox stays available. Compute charges are recorded when the sandbox is finalized.
 
 <span id="platform-credits" />
 <span id="eligible-for-platform-credits" />
@@ -99,6 +138,16 @@ Local runs, CI jobs on your own runners, and [self-hosted workers](/factories/se
 Cloud runs, including factory runs and third-party harnesses, incur platform usage for billable agent time. Local runs on Business and Enterprise also incur platform charges when they use customer-supplied inference. Enterprise billing follows your contract.
 
 See [platform usage](/support-and-community/plans-and-billing/platform-credits/) for billable time, exceptions, and the distinction between agent hours and run time.
+
+### Example cloud run
+
+For a Warp Agent run on a self-serve plan billed in dollars, suppose a 4 vCPU / 8 GB Linux sandbox exists for 10 minutes, with 6 billable agent minutes and $0.40 of Warp-provided inference:
+
+* **Compute** - 10 minutes × $0.006 = $0.06.
+* **Platform** - 6 minutes × $0.05 = $0.30.
+* **Inference** - $0.40.
+
+The run consumes $0.76 from the eligible usage balance. Subscription payments, usage purchase premiums, and bills from your own inference provider are separate.
 
 ## Cloud agent runs on team plans
 
