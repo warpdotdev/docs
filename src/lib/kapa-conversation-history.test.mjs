@@ -1,5 +1,8 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
 import test from 'node:test';
+import { fileURLToPath } from 'node:url';
 import {
 	KAPA_CONVERSATION_HISTORY_COPY,
 	KAPA_CONVERSATION_HISTORY_OPTIONS,
@@ -294,4 +297,20 @@ test('active-row style contract stays lightened with readable text tokens', () =
 	assert.equal(KAPA_HISTORY_ACTIVE_ROW_STYLE.darkText, 'var(--sl-color-white)');
 	assert.match(KAPA_HISTORY_ACTIVE_ROW_STYLE.lightBackground, /88%/);
 	assert.equal(KAPA_HISTORY_ACTIVE_ROW_STYLE.lightText, 'var(--sl-color-gray-1)');
+	assert.equal(
+		KAPA_HISTORY_ACTIVE_ROW_STYLE.lightTitleSelector,
+		":root[data-theme='light'] .sl-kapa-history__row[data-active='true'] .sl-kapa-history__open-title"
+	);
+	assert.equal(KAPA_HISTORY_ACTIVE_ROW_STYLE.lightTitleText, 'var(--sl-color-gray-1)');
+
+	const cssPath = join(dirname(fileURLToPath(import.meta.url)), '../components/KapaChatLauncher.css');
+	const css = readFileSync(cssPath, 'utf8');
+	assert.match(
+		css,
+		/:root\[data-theme='light'\]\s*\.sl-kapa-history__row\[data-active='true'\]\s*\.sl-kapa-history__open-title\s*\{[^}]*color:\s*var\(--sl-color-gray-1\)/s
+	);
+	assert.match(
+		css,
+		/:root\[data-theme='light'\]\s*\.sl-kapa-history__row\[data-active='true'\]\s*\.sl-kapa-history__open-title\s*\{[^}]*-webkit-text-fill-color:\s*var\(--sl-color-gray-1\)/s
+	);
 });

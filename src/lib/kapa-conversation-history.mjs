@@ -31,6 +31,10 @@ export const KAPA_HISTORY_ACTIVE_ROW_STYLE = Object.freeze({
 	darkText: 'var(--sl-color-white)',
 	lightBackground: 'color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-black) 88%)',
 	lightText: 'var(--sl-color-gray-1)',
+	/** Element-specific light title paint; row `color` alone is not enough on buttons. */
+	lightTitleSelector:
+		":root[data-theme='light'] .sl-kapa-history__row[data-active='true'] .sl-kapa-history__open-title",
+	lightTitleText: 'var(--sl-color-gray-1)',
 });
 
 function safeParseJson(raw) {
