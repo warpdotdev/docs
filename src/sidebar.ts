@@ -436,6 +436,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						// agents and Factory skills, not just a filters reference.
 						{ slug: 'factories/automations', label: 'Factory automations' },
 						{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
+						{ slug: 'factories/permissions', label: 'Factory permissions' },
 						{
 							label: 'Infrastructure',
 							items: [
