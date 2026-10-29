@@ -24,9 +24,9 @@ The integration supports standard and shared channels. Private channels and dire
 
 Microsoft account linking and Teams app installation are separate authorizations. The account-linking flow requests OpenID Connect identity scopes; it doesn't describe the bot's Microsoft Graph access.
 
-The `manifest.json` in `warp-microsoft-teams-app.zip` declares the app permissions below. **Production consent still needs verification:** compare the installed package with this inventory and review any additional Microsoft Entra API permissions and tenant grants.
+**Production consent still needs verification:** compare the installed app's permissions with this inventory and review any additional Microsoft Entra API permissions and tenant grants.
 
-{/* VERIFY: Confirm the deployed Teams package matches the bundled manifest declarations below, and compare its installed resource-specific consent and any additional Entra delegated or application permissions with tenant grants. */}
+{/* VERIFY: Confirm the deployed Teams app requests the permissions below, and compare its installed resource-specific consent and any additional Entra delegated or application permissions with tenant grants. */}
 
 | Scope or permission surface | Granted access | Function in Warp | Boundary |
 | --- | --- | --- | --- |
