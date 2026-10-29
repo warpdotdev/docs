@@ -22,7 +22,7 @@ Each integration page owns its scope details. “Source-defined” means a scope
 | [Linear](/factories/integrations/linear/#permissions) | Workspace app authorization, separate from a teammate's Warp account link | Candidate scope list from development configuration; production registration and requested scopes need confirmation |
 | [Jira](/factories/integrations/jira/#permissions) | Forge app scopes with distinct app and user token paths | Source-defined manifest scopes; deployed app version, consent, and impersonation settings need confirmation |
 | [Slack](/factories/integrations/slack/#permissions) | Per-factory bot token plus manager authorization for app provisioning | Source-defined bot and manager-user scopes; production manager bot inventory and installed grants need confirmation |
-| [Microsoft Teams](/factories/integrations/teams/#permissions) | Identity-linking scopes separate from bot and Microsoft Graph authorization | Identity scopes verified in the linking path; app package, Entra permissions, and tenant grants still needed |
+| [Microsoft Teams](/factories/integrations/teams/#permissions) | Identity linking separate from a team-scoped bot and application resource-specific consent | Source-defined manifest permissions and team-scoped RSC grants; deployed package, additional Entra permissions, and installed grants need confirmation |
 
 ## Grants, actions, and event filters
 
