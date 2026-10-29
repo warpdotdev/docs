@@ -29,8 +29,8 @@ export const KAPA_CONVERSATION_HISTORY_COPY = Object.freeze({
 export const KAPA_HISTORY_ACTIVE_ROW_STYLE = Object.freeze({
 	darkBackground: 'color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-black) 78%)',
 	darkText: 'var(--sl-color-white)',
-	lightBackground: 'color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-white) 92%)',
-	lightText: 'var(--sl-color-black)',
+	lightBackground: 'color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-black) 88%)',
+	lightText: 'var(--sl-color-gray-1)',
 });
 
 function safeParseJson(raw) {

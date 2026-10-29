@@ -292,6 +292,6 @@ test('overlay pruning drops titles for threads removed by delete eviction or cle
 test('active-row style contract stays lightened with readable text tokens', () => {
 	assert.match(KAPA_HISTORY_ACTIVE_ROW_STYLE.darkBackground, /78%/);
 	assert.equal(KAPA_HISTORY_ACTIVE_ROW_STYLE.darkText, 'var(--sl-color-white)');
-	assert.match(KAPA_HISTORY_ACTIVE_ROW_STYLE.lightBackground, /92%/);
-	assert.equal(KAPA_HISTORY_ACTIVE_ROW_STYLE.lightText, 'var(--sl-color-black)');
+	assert.match(KAPA_HISTORY_ACTIVE_ROW_STYLE.lightBackground, /88%/);
+	assert.equal(KAPA_HISTORY_ACTIVE_ROW_STYLE.lightText, 'var(--sl-color-gray-1)');
 });

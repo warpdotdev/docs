@@ -584,7 +584,7 @@
 :root[data-theme='light'] .sl-kapa-history__row[data-active='true'] {
 	border-color: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-gray-5) 45%);
 	background: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-black) 88%);
-	color: var(--sl-color-white);
+	color: var(--sl-color-gray-1);
 }
 
 :root[data-theme='light'] .sl-kapa-history__row[data-active='true'] .sl-kapa-history__active {
