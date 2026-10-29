@@ -22,6 +22,8 @@ Pick where the parent will run. Every orchestration starts with a single parent 
 
 Cloud parents that spawn cloud children need access to one or more [environments](/platform/environments/) the children can run in. To keep child execution on your own infrastructure, route those children to a [self-hosted worker](/factories/self-hosting/).
 
+To vary initialization for each child while reusing a configured factory agent, [pass dynamic setup configuration through run metadata](https://docs.warp.dev/factories/factory-agents/creating-custom-agents/#pass-dynamic-setup-configuration).
+
 ## Starting an orchestrated run from Warp
 
 In the Warp app, open the agent input and type `/orchestrate` followed by your task. The agent enters `orchestrate` mode and proposes a breakdown before spawning any children.

@@ -53,6 +53,71 @@ The `name` field only labels the child run. Unless overridden, the run uses the 
 
 You can start child agents without factory configuration through [multi-agent orchestration](/platform/orchestration/) from any Warp conversation. For scheduled or event-driven work, use [factory automations](/factories/automations/). The foreman coordinates the work they start.
 
+### Pass dynamic setup configuration
+
+Use run metadata to pass task-specific initialization choices to an existing agent. For example, let the foreman choose `java-dev` or `trading-analytics` for the same implementation agent without creating separate runners, environments, or agents. Metadata supplies the choice; your setup script must act on it.
+
+1. Save a script at `/opt/company/select-bundle.sh` in your image to validate the choice before configuring the workspace. This example calls your own bundle installer at `/opt/company/setup-bundle.sh`. Replace that path with your installer; neither the script nor these bundles are built into Warp.
+
+   ```bash title="/opt/company/select-bundle.sh"
+   bundle="${WARP_METADATA_IMC_BUNDLE:-}"
+   case "$bundle" in
+     java-dev|trading-analytics)
+       bash /opt/company/setup-bundle.sh "$bundle"
+       ;;
+     "")
+       printf '%s\n' 'Missing WARP_METADATA_IMC_BUNDLE' >&2
+       exit 1
+       ;;
+     *)
+       printf '%s\n' 'Unsupported bundle; expected java-dev or trading-analytics' >&2
+       exit 1
+       ;;
+   esac
+   ```
+
+2. For setup performed per run, add `bash /opt/company/select-bundle.sh` to the agent's [environment setup commands](https://docs.warp.dev/platform/environments/configuring-environments/). Warp-hosted and self-hosted runs receive metadata as environment variables before this setup and before the agent starts. The key `imc_bundle` becomes `WARP_METADATA_IMC_BUNDLE`.
+
+   Pre-warmed sandboxes perform their initial setup before a run is assigned, without that run's metadata, and do not rerun those setup commands on assignment. If your agent uses pre-warming, keep shared preparation in setup instead. In the agent's instructions, require `bash /opt/company/select-bundle.sh` as its first task action, before development, and require it to stop if initialization fails.
+
+3. In the foreman's instructions, require it to choose a bundle for each task and pass the choice in `agent_run_configs[].metadata`. For example:
+
+   ```text
+   Dispatch the configured implementation agent using its UID from the
+   available-agent list. Choose imc_bundle: java-dev for Java development,
+   or trading-analytics for analytics work. Pass it as per-child metadata
+   in run_agents. Keep the agent's configured environment, runner, host,
+   harness, and model unless the task independently requires an override.
+   ```
+
+   A `run_agents` call for Java work looks like this. Replace `IMPLEMENTATION_AGENT_UID` with the implementation agent's UID from the available-agent list.
+
+   ```json
+   {
+     "summary": "Delegate Java work to the configured implementation agent",
+     "base_prompt": "Implement the task and verify the change.",
+     "remote": {},
+     "agent_run_configs": [
+       {
+         "name": "java-implementation",
+         "agent_identity_uid": "IMPLEMENTATION_AGENT_UID",
+         "prompt": "Fix the Java service's failing tests.",
+         "metadata": {
+           "imc_bundle": "java-dev"
+         }
+       }
+     ]
+   }
+   ```
+
+Top-level `run_agents.metadata` supplies defaults for the batch; per-child values override matching keys. These explicit values override inherited parent metadata per key, leaving other inherited keys intact.
+
+Keep metadata small and non-secret:
+
+* **Format and bounds** - Use a map of strings, not nested JSON or typed values. Each run's effective map, including inherited and automatically supplied keys, permits at most 20 keys. Keys must be 1–64 bytes and contain only `A–Z`, `a–z`, `0–9`, `.`, `_`, or `-`. Values must be 0–256 bytes of UTF-8 without NUL characters.
+* **Environment names** - Warp uppercases keys and replaces `.` and `-` with `_` after the `WARP_METADATA_` prefix. Keys that produce the same environment name are rejected. Reserve this namespace: don't define it in images, worker environment variables, or secrets.
+* **Secrets and local runs** - Metadata is visible to anyone who can view the run. Use [Agent Secrets](/platform/secrets/) for credentials. Local runs in the Warp app or a standalone CLI do not receive this environment-variable injection.
+
 ## Related pages
 
 * [About factory agents](/factories/factory-agents/) - Understand default roles and human decision points
