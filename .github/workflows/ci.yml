@@ -129,8 +129,14 @@ jobs:
       - name: Test heading variables
         run: npm run test:heading-vars
 
+      - name: Test Markdown serialization
+        run: npm run test:docs-markdown
+
       - name: Test tracking redirect middleware
         run: npm run test:tracking-redirect
+
+      - name: Test agent discovery catalog
+        run: npm run test:agent-discovery
 
       - name: Build site
         run: npm run build
@@ -143,6 +149,9 @@ jobs:
 
       - name: Validate homepage JSON-LD
         run: npm run test:homepage-json-ld
+
+      - name: Validate page title order
+        run: npm run test:page-title-order
 
       - name: Check internal links
         run: python3 .agents/skills/check_for_broken_links/check_links.py --internal-only
