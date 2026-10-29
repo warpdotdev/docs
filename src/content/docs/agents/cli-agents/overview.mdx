@@ -33,7 +33,7 @@ Warp currently supports the following CLI coding agents:
 * **Droid** — Factory's CLI coding agent
 * **Pi** — Open-source CLI coding agent
 * **Goose** — Block's CLI coding agent
-* **Antigravity** — the Antigravity CLI coding agent (invoked with `agy`)
+* **Antigravity** — the Antigravity CLI coding agent (invoked with `agy` or `antigravity`)
 * **Hermes** — Nous Research's CLI coding agent
 * **Mistral Vibe** — Mistral's CLI coding agent
 * **Grok Build** — xAI's CLI coding agent (invoked with `grok`)
@@ -71,9 +71,11 @@ Not every feature is available for every agent. The table below shows current su
 | Tab Configs | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Remote Control | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 
-**Goose**, **Antigravity** (`agy`), **Hermes**, **Mistral Vibe**, **Grok Build** (`grok`), and **Kiro CLI** (`kiro-cli` or `kiro`) are also recognized. They get the same enhanced features as the agents above — rich input editor, code review comments, attach code as context, vertical tabs and metadata, Tab Configs, and Remote Control — but don't support agent notifications yet.
+**Goose**, **Hermes**, **Mistral Vibe**, **Grok Build** (`grok`), and **Kiro CLI** (`kiro-cli` or `kiro`) are also recognized. They get the same enhanced features as the agents above — rich input editor, code review comments, attach code as context, vertical tabs and metadata, Tab Configs, and Remote Control — but don't support agent notifications yet.
 
-Agent notifications require a one-time setup. Claude Code and OpenCode use a Warp notification plugin. Codex uses a native config change. See the individual agent pages for setup instructions.
+**Antigravity** (`agy` or `antigravity`) also supports these features and can report task completion and requests for input when its CLI emits structured notifications.
+
+Agent notifications in Claude Code, OpenCode, and Codex require a one-time setup. Claude Code and OpenCode use a Warp notification plugin. Codex uses a native config change. See the individual agent pages for setup instructions.
 
 ## Customizing the toolbelt
 
@@ -88,7 +90,7 @@ In the Warp app, open the **Edit CLI agent toolbelt** modal in one of two ways:
 
 Run a supported agent inside Warp — that's it. Warp detects the agent automatically and activates the agent toolbelt with all available features.
 
-For **agent notifications**, each agent requires a one-time setup — either a notification plugin or a config change. See the individual agent pages for instructions.
+For **agent notifications** in Claude Code, OpenCode, or Codex, complete the one-time setup on the individual agent page.
 
 :::note
 If you don't see the agent toolbelt, make sure you're on the latest version of Warp.
