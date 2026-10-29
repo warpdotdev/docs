@@ -63,7 +63,7 @@ See the [example factory definition](#example-factory-definition), the minimal [
 
 ## Validate a definition
 
-Warp validates syntax, required fields, and resource access before applying a definition. A Warp-managed factory validates on save; a GitHub-backed factory validates in pull requests to its production branch. Warp applies the definition as one unit and keeps the last valid definition if validation fails.
+Warp validates syntax, required fields, and resource access before applying a definition. A Warp-managed factory validates on save; a GitHub-backed factory validates in pull requests to its production branch by default. Use [`github.factoryConfigChecks`](#github) to extend checks to other branches. Warp applies the definition as one unit and keeps the last valid definition if validation fails.
 
 ### Pull request checks
 
@@ -160,6 +160,18 @@ Factory-wide automation settings. `automations.githubOnboardingNotices` defaults
 automations:
   githubOnboardingNotices: false
 ```
+
+### `github`
+
+**Optional.**
+GitHub-specific settings. `github.factoryConfigChecks` accepts `main` (the default) or `all`. `main` checks pull requests targeting the factory's production branch, regardless of its name. `all` checks pull requests targeting any branch; it doesn't change which branch deploys the factory.
+
+```yaml title="factory.yaml"
+github:
+  factoryConfigChecks: all
+```
+
+Checks use the pull request's changed paths to decide whether validation is needed, then validate its complete head snapshot. Base-only edits and advances to the base or production branch don't refresh unchanged pull request checks. See [factory-definition pull request checks](/factories/integrations/github/#factory-definition-pull-request-checks).
 
 ### `codeForges`
 
@@ -453,7 +465,7 @@ The providers and their events:
 | `github` (issues) | `issue_assigned`, `issue_commented`, `issue_created`, `issue_labeled`, `issue_mentioned` |
 | `github` (pull requests) | `pull_request_assigned`, `pull_request_closed`, `pull_request_commented`, `pull_request_dequeued`, `pull_request_enqueued`, `pull_request_labeled`, `pull_request_mentioned`, `pull_request_merged`, `pull_request_opened`, `pull_request_ready`, `pull_request_reopened`, `pull_request_synchronized` |
 | `github` (reviews) | `pull_request_review_requested`, `pull_request_review_submitted` |
-| `github` (code and CI) | `check_run_rerequested`, `check_suite_completed`, `check_suite_rerequested`, `push`, `workflow_run_completed` |
+| `github` (code and CI) | `check_run_rerequested`, `check_suite_completed`, `check_suite_rerequested`, `commit_status`, `push`, `workflow_run_completed` |
 | `gitlab` | `bot_mentioned`, `merge_request`, `push` |
 | `jira` | `agent_session_created`, `issue_created`, `issue_labeled`, `status_changed` |
 | `linear` | `agent_session_created`, `comment_created`, `issue_assigned`, `issue_created`, `issue_labeled`, `issue_state_changed` |
@@ -475,7 +487,7 @@ Filter keys by provider:
 
 * Factory: `stages`.
 * Azure DevOps: `assignees`, `authors`, `base_branches`, `branches`, `labels`, `mentioned`, `repos`, `source_repos`, and `work_item_types`.
-* GitHub: `assignees`, `authors`, `baseBranches`, `base_branches`, `branches`, `conclusions`, `keywords`, `labels`, `mentioned`, `paths`, `prNumbers`, `pr_numbers`, `repos`, `review_states`, `reviewer_teams`, `reviewers`, `skip_bots`, and `workflows`.
+* GitHub: `assignees`, `authors`, `baseBranches`, `base_branches`, `branches`, `conclusions`, `contexts`, `keywords`, `labels`, `mentioned`, `paths`, `prNumbers`, `pr_numbers`, `repos`, `review_states`, `reviewer_teams`, `reviewers`, `skip_bots`, `states`, and `workflows`.
 * GitLab: `actions`, `base_branches`, `branches`, `mentioned`, and `repos`.
 * Jira: `keywords`, `labels`, `project_keys`, and `status_ids`.
 * Linear: `assignee_ids`, `creator_ids`, `issue_ids`, `issues`, `keywords`, `labels`, `mentioned_user_ids`, `project_ids`, `projects`, `state_ids`, `states`, `team_ids`, and `teams`.
@@ -483,6 +495,8 @@ Filter keys by provider:
 * Slack: `channel_ids`, `channels`, `emojis`, `itemUsers`, `item_user_ids`, `keywords`, `user_ids`, and `users`.
 * Microsoft Teams: `channel_ids`, `keywords`, `team_ids`, and `user_ids`.
 * Webhook: `payload` and `webhook_ids`.
+
+GitHub `commit_status` triggers fire for `success`, `failure`, and `error` statuses, not `pending`. They accept only `repos`, `states`, `contexts`, and `skip_bots`. `states` matches the status result, and `contexts` matches the status name, such as `ci/build`; both match case-insensitively.
 
 Most canonical keys accept matcher objects: `in` includes values and `not_in` excludes them. Webhook `payload` also accepts `exists`. Microsoft Teams `team_ids` and `channel_ids` support only `in`.
 
