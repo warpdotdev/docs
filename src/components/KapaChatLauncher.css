@@ -583,12 +583,12 @@
 
 :root[data-theme='light'] .sl-kapa-history__row[data-active='true'] {
 	border-color: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-gray-5) 45%);
-	background: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-white) 92%);
-	color: var(--sl-color-black);
+	background: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-black) 88%);
+	color: var(--sl-color-white);
 }
 
 :root[data-theme='light'] .sl-kapa-history__row[data-active='true'] .sl-kapa-history__active {
-	color: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-black) 28%);
+	color: color-mix(in srgb, var(--sl-color-text-accent), var(--sl-color-white) 32%);
 }
 
 :root[data-theme='light'] .sl-kapa-history__rename input {
