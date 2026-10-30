@@ -1,0 +1,63 @@
+---
+title: Factory use cases
+description: >-
+  Choose a practical Warp Factories recipe for development workflows such as
+  issue triage, code review, and UI verification.
+sidebar:
+  label: Overview
+---
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Warp Factories can automate development work like investigating bugs, preparing changes for review, and checking that an application behaves as expected. These recipes show how to configure a workflow in your existing factory, verify its results, and decide where human input is required.
+
+Each recipe combines agents, automations, skills, integrations, and repository controls. The examples use [definitions as code](/factories/factory-as-code/) so you can review and validate changes, or adapt them to a Warp-managed factory.
+
+## Choose a use case
+
+<CardGrid>
+  <LinkCard
+    title="Issue triage"
+    href="/factories/use-cases/issue-triage/"
+    description="Return evidence, classification, priority, and a next action without starting implementation."
+  />
+  <LinkCard
+    title="Code review"
+    href="/factories/use-cases/code-review/"
+    description="Post actionable pull request findings without changing, approving, or merging code."
+  />
+  <LinkCard
+    title="Issue implementation"
+    href="/factories/use-cases/issue-implementation/"
+    description="Turn approved GitHub, Linear, or Jira issues into validated pull requests for human review."
+  />
+  <LinkCard
+    title="Production incident resolution"
+    href="/factories/use-cases/production-incident-resolution/"
+    description="Return a read-only incident report, then request a code fix separately."
+  />
+  <LinkCard
+    title="Computer Use verification"
+    href="/factories/use-cases/computer-use-verification/"
+    description="Return observed UI behavior and visual evidence in a pull request comment."
+  />
+  <LinkCard
+    title="End-to-end SDLC automation"
+    href="/factories/use-cases/end-to-end-sdlc-automation/"
+    description="Carry an issue through planning, implementation, review, and verification to a human-controlled merge."
+  />
+</CardGrid>
+
+## Start with one workflow
+
+Choose one task your team can evaluate on its own, like triaging incoming issues or reviewing pull requests. Define what the factory should return and where it should stop for human input.
+
+Before you add an automation, choose the event that should start work and check whether it's handled by an existing automation. Update that automation where appropriate, or use nonoverlapping filters when separate automations serve different purposes. See [automation matching rules](/factories/automations/#how-matching-works).
+
+Follow the chosen recipe to configure the agents, access, and repository-specific instructions it needs. Test it on a sample issue or pull request, and review whether the output meets your expectations and respects the stopping point. Once that workflow works reliably, expand its scope or connect it to another stage.
+
+## Related pages
+
+* [Warp Factories quickstart](/factories/quickstart/) - Create a factory and send its first work item
+* [About factory agents](/factories/factory-agents/) - Understand default roles and human decision points
+* [Factory automations](/factories/automations/) - Route provider events to agents with filters
+* [Factory definition syntax](/factories/factory-as-code/) - Look up configuration keys and validate definitions

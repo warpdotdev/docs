@@ -1,0 +1,6 @@
+issuer: https://token.actions.githubusercontent.com
+subject: repo:warpdotdev/channel-versions:ref:refs/heads/main
+claim_pattern:
+  job_workflow_ref: warpdotdev/channel-versions/\.github/workflows/update_channels\.yml@refs/heads/main
+permissions:
+  contents: write

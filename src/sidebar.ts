@@ -405,6 +405,18 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 					],
 				},
 				{
+					label: 'Factory use cases',
+					items: [
+						{ slug: 'factories/use-cases', label: 'Overview' },
+						{ slug: 'factories/use-cases/issue-triage', label: 'Issue triage' },
+						{ slug: 'factories/use-cases/code-review', label: 'Code review' },
+						{ slug: 'factories/use-cases/issue-implementation', label: 'Issue implementation' },
+						{ slug: 'factories/use-cases/production-incident-resolution', label: 'Production incident resolution' },
+						{ slug: 'factories/use-cases/computer-use-verification', label: 'Computer Use verification' },
+						{ slug: 'factories/use-cases/end-to-end-sdlc-automation', label: 'End-to-end SDLC automation' },
+					],
+				},
+				{
 					// Parallel to 'Agent configuration' in the Automation Platform tab.
 					// Scoped to the factory itself: who runs the work, how it is defined,
 					// and where it runs.
@@ -424,6 +436,7 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						// agents and Factory skills, not just a filters reference.
 						{ slug: 'factories/automations', label: 'Factory automations' },
 						{ slug: 'factories/factory-as-code', label: 'Definitions as code' },
+						{ slug: 'factories/permissions', label: 'Factory permissions' },
 						{
 							label: 'Infrastructure',
 							items: [
@@ -447,6 +460,13 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 										{ slug: 'factories/self-hosting/data-storage', label: 'Self-hosted agent data storage' },
 										{ slug: 'factories/self-hosting/reference', label: 'Worker reference' },
 										'factories/self-hosting/troubleshooting',
+									],
+								},
+								{
+									label: 'Secrets',
+									items: [
+										{ slug: 'factories/secrets', label: 'Managing factory secrets' },
+										{ slug: 'factories/secrets/aws-ecr', label: 'AWS ECR credentials' },
 									],
 								},
 								],
