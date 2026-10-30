@@ -1,5 +1,7 @@
 export const KAPA_CONVERSATION_HISTORY_STORAGE_KEY = 'warp_docs_kapa_conversation_history';
 export const KAPA_CONVERSATION_TITLE_OVERRIDES_KEY = 'warp_docs_kapa_conversation_titles';
+/** Last active thread id for reload continuity (separate from the history store). */
+export const KAPA_ACTIVE_THREAD_STORAGE_KEY = 'warp_docs_kapa_thread_id';
 
 export const KAPA_CONVERSATION_HISTORY_OPTIONS = Object.freeze({
 	enabled: true,
@@ -341,6 +343,97 @@ export function resolveRestoreAttempt(threadId, storageKey = KAPA_CONVERSATION_H
 export function shouldPersistThreadId(threadId, storageKey = KAPA_CONVERSATION_HISTORY_STORAGE_KEY) {
 	if (!hasOwnedHistoryStore(storageKey)) return true;
 	return canRestoreThread(threadId, storageKey);
+}
+
+export function readActiveThreadId(key = KAPA_ACTIVE_THREAD_STORAGE_KEY) {
+	const value = readStorage(key);
+	return typeof value === 'string' && value.length > 0 ? value : null;
+}
+
+/**
+ * Persist the live thread id only when the owned history store still allows it.
+ * Deleted IDs are cleared instead of rewritten so reload cannot resurrect them.
+ */
+export function writeActiveThreadId(
+	threadId,
+	{
+		activeKey = KAPA_ACTIVE_THREAD_STORAGE_KEY,
+		storageKey = KAPA_CONVERSATION_HISTORY_STORAGE_KEY,
+	} = {}
+) {
+	if (typeof threadId !== 'string' || threadId.length === 0) {
+		removeStorage(activeKey);
+		return false;
+	}
+	if (!shouldPersistThreadId(threadId, storageKey)) {
+		removeStorage(activeKey);
+		return false;
+	}
+	return writeStorage(activeKey, threadId);
+}
+
+export function clearActiveThreadId(key = KAPA_ACTIVE_THREAD_STORAGE_KEY) {
+	removeStorage(key);
+}
+
+/**
+ * Pure mount-time restore decision.
+ * Handles missing/stale keys, already-active sessions (StrictMode re-entry),
+ * and the shouldPersistThreadId invariant before any SDK restore call.
+ *
+ * @param {string | null | undefined} savedThreadId
+ * @param {{
+ *   currentThreadId?: string | null,
+ *   storageKey?: string
+ * }} [options]
+ * @returns {{
+ *   action: 'none' | 'already-active' | 'clear-stale' | 'restore',
+ *   threadId: string | null,
+ *   message: string | null,
+ *   reason: string | null
+ * }}
+ */
+export function resolveMountRestore(
+	savedThreadId,
+	{
+		currentThreadId = null,
+		storageKey = KAPA_CONVERSATION_HISTORY_STORAGE_KEY,
+	} = {}
+) {
+	if (typeof savedThreadId !== 'string' || savedThreadId.length === 0) {
+		return { action: 'none', threadId: null, message: null, reason: 'no-saved-id' };
+	}
+	if (currentThreadId === savedThreadId) {
+		return {
+			action: 'already-active',
+			threadId: savedThreadId,
+			message: null,
+			reason: 'already-restored',
+		};
+	}
+	const attempt = resolveRestoreAttempt(savedThreadId, storageKey);
+	if (!attempt.ok) {
+		return {
+			action: 'clear-stale',
+			threadId: savedThreadId,
+			message: attempt.message,
+			reason: attempt.reason,
+		};
+	}
+	if (!shouldPersistThreadId(savedThreadId, storageKey)) {
+		return {
+			action: 'clear-stale',
+			threadId: savedThreadId,
+			message: KAPA_CONVERSATION_HISTORY_COPY.missingThread,
+			reason: 'deleted-owned-id',
+		};
+	}
+	return {
+		action: 'restore',
+		threadId: savedThreadId,
+		message: null,
+		reason: null,
+	};
 }
 
 /**

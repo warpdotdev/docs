@@ -17,14 +17,18 @@ import { isMac, keymatch } from 'keymatch';
 import ReactMarkdown from 'react-markdown';
 import {
 	KAPA_CONVERSATION_HISTORY_OPTIONS,
+	clearActiveThreadId,
 	deleteStoredConversation,
 	getConversationHistoryView,
 	isOwnedHistoryStorageEvent,
+	readActiveThreadId,
 	readHistoryUiSnapshot,
 	renameStoredConversation,
+	resolveMountRestore,
 	resolvePostDeleteNavigation,
 	resolveRestoreAttempt,
 	validateRenameTitle,
+	writeActiveThreadId,
 } from '../lib/kapa-conversation-history.mjs';
 import {
 	LuExternalLink,
@@ -39,6 +43,7 @@ import {
 	LuSend,
 	LuThumbsDown,
 	LuThumbsUp,
+	LuTrash2,
 	LuX,
 } from 'react-icons/lu';
 import './KapaChatLauncher.css';
@@ -536,6 +541,8 @@ function ChatSurface({
 	const deleteConfirmRef = useRef<HTMLButtonElement | null>(null);
 	const deleteTriggerRef = useRef<HTMLButtonElement | null>(null);
 	const threadIdRef = useRef<string | null>(null);
+	/** Guards StrictMode double-invoke so mount restore runs once per surface. */
+	const mountRestoreAttemptedRef = useRef(false);
 	const [downvotedAnswerIds, setDownvotedAnswerIds] = useState<Record<string, true>>({});
 	const [copiedMcpValue, setCopiedMcpValue] = useState<McpCopyTarget | null>(null);
 	const messagesRef = useRef<HTMLDivElement | null>(null);
@@ -604,7 +611,7 @@ function ChatSurface({
 		}
 
 		if (options?.allowActiveRemount !== false && snapshot.activeThreadMissing) {
-			localStorage.removeItem('warp_docs_kapa_thread_id');
+			clearActiveThreadId();
 			setHistoryStatusMessage(snapshot.view.missingThread);
 			onNewConversation({ openHistory: snapshot.threads.length > 0 });
 			return snapshot;
@@ -613,11 +620,23 @@ function ChatSurface({
 	};
 
 	useEffect(() => {
-		const savedThreadId = localStorage.getItem('warp_docs_kapa_thread_id');
-		if (savedThreadId) {
-		}
 		applyHistorySnapshot({ allowActiveRemount: false });
-	}, []);
+
+		if (!isConversationHistoryEnabled || mountRestoreAttemptedRef.current) return;
+		mountRestoreAttemptedRef.current = true;
+
+		const decision = resolveMountRestore(readActiveThreadId(), {
+			currentThreadId: threadIdRef.current,
+		});
+		if (decision.action === 'none' || decision.action === 'already-active') return;
+		if (decision.action === 'clear-stale') {
+			clearActiveThreadId();
+			if (decision.message) setHistoryStatusMessage(decision.message);
+			return;
+		}
+		// Disk proved the thread is restorable; native restore keeps backend continuity.
+		restoreThread(decision.threadId as string);
+	}, [isConversationHistoryEnabled, restoreThread]);
 
 	useEffect(() => {
 		applyHistorySnapshot({ allowActiveRemount: false });
@@ -626,7 +645,8 @@ function ChatSurface({
 	useEffect(() => {
 		threadIdRef.current = threadId;
 		if (!threadId) return;
-		localStorage.setItem('warp_docs_kapa_thread_id', threadId);
+		// shouldPersistThreadId runs inside writeActiveThreadId so deleted IDs stay gone.
+		writeActiveThreadId(threadId);
 	}, [threadId]);
 
 	useEffect(() => {
@@ -822,7 +842,7 @@ function ChatSurface({
 		if (navigation.remount) {
 			// Remount drops stale SDK memory for the deleted active thread.
 			// Keep history open when other saved conversations remain.
-			localStorage.removeItem('warp_docs_kapa_thread_id');
+			clearActiveThreadId();
 			onNewConversation({ openHistory: navigation.openHistory });
 			return;
 		}
@@ -832,6 +852,8 @@ function ChatSurface({
 	};
 
 	const startFreshConversation = () => {
+		// Clear before remount so the next surface cannot restore the prior thread.
+		clearActiveThreadId();
 		onNewConversation({ openHistory: false });
 	};
 
@@ -1212,7 +1234,7 @@ function ChatSurface({
 																		aria-label={conversationHistory.delete}
 																		data-tooltip={conversationHistory.delete}
 																	>
-																		<LuX aria-hidden="true" />
+																		<LuTrash2 aria-hidden="true" />
 																	</button>
 																</div>
 															</>

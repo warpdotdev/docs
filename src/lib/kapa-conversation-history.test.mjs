@@ -4,12 +4,14 @@ import { dirname, join } from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 import {
+	KAPA_ACTIVE_THREAD_STORAGE_KEY,
 	KAPA_CONVERSATION_HISTORY_COPY,
 	KAPA_CONVERSATION_HISTORY_OPTIONS,
 	KAPA_CONVERSATION_HISTORY_STORAGE_KEY,
 	KAPA_CONVERSATION_TITLE_OVERRIDES_KEY,
 	KAPA_HISTORY_ACTIVE_ROW_STYLE,
 	canRestoreThread,
+	clearActiveThreadId,
 	clearStoredConversationHistory,
 	deleteStoredConversation,
 	getConversationHistoryView,
@@ -18,14 +20,17 @@ import {
 	isOwnedHistoryStorageEvent,
 	normalizeStoredThread,
 	pruneTitleOverrides,
+	readActiveThreadId,
 	readHistoryUiSnapshot,
 	readStoredHistoryThreads,
 	readTitleOverrides,
 	renameStoredConversation,
+	resolveMountRestore,
 	resolvePostDeleteNavigation,
 	resolveRestoreAttempt,
 	shouldPersistThreadId,
 	validateRenameTitle,
+	writeActiveThreadId,
 	writeStoredHistoryThreads,
 	writeTitleOverrides,
 } from './kapa-conversation-history.mjs';
@@ -229,6 +234,64 @@ test('deleted thread cannot be re-persisted once owned store exists', () => {
 	assert.equal(shouldPersistThreadId('drop'), false);
 	assert.equal(shouldPersistThreadId('keep'), true);
 	assert.equal(resolveRestoreAttempt('drop').ok, false);
+	// Production write path must honor the same guard.
+	assert.equal(writeActiveThreadId('drop'), false);
+	assert.equal(readActiveThreadId(), null);
+	assert.equal(writeActiveThreadId('keep'), true);
+	assert.equal(readActiveThreadId(), 'keep');
+});
+
+test('active thread id helpers clear on fresh start and reject empty values', () => {
+	installLocalStorageMock();
+	seedThreads([validThread('live', 'Live')]);
+	assert.equal(writeActiveThreadId('live'), true);
+	assert.equal(readActiveThreadId(), 'live');
+	assert.equal(memory.get(KAPA_ACTIVE_THREAD_STORAGE_KEY), 'live');
+
+	clearActiveThreadId();
+	assert.equal(readActiveThreadId(), null);
+	assert.equal(memory.get(KAPA_ACTIVE_THREAD_STORAGE_KEY), undefined);
+
+	assert.equal(writeActiveThreadId(''), false);
+	assert.equal(writeActiveThreadId(null), false);
+	assert.equal(readActiveThreadId(), null);
+});
+
+test('mount restore decides restore, already-active, and clear-stale paths', () => {
+	installLocalStorageMock();
+	seedThreads([validThread('live', 'Live')]);
+
+	assert.deepEqual(resolveMountRestore(null), {
+		action: 'none',
+		threadId: null,
+		message: null,
+		reason: 'no-saved-id',
+	});
+	assert.deepEqual(resolveMountRestore('live', { currentThreadId: 'live' }), {
+		action: 'already-active',
+		threadId: 'live',
+		message: null,
+		reason: 'already-restored',
+	});
+	assert.deepEqual(resolveMountRestore('live', { currentThreadId: null }), {
+		action: 'restore',
+		threadId: 'live',
+		message: null,
+		reason: null,
+	});
+
+	assert.equal(resolveMountRestore('missing').action, 'clear-stale');
+	assert.equal(
+		resolveMountRestore('missing').message,
+		KAPA_CONVERSATION_HISTORY_COPY.missingThread
+	);
+
+	deleteStoredConversation('live');
+	writeActiveThreadId('live'); // rejected by shouldPersistThreadId, but simulate stale key
+	memory.set(KAPA_ACTIVE_THREAD_STORAGE_KEY, 'live');
+	const deleted = resolveMountRestore('live');
+	assert.equal(deleted.action, 'clear-stale');
+	assert.equal(deleted.reason, 'missing-or-invalid');
 });
 
 test('storage-event helper recognizes history and title-overlay keys', () => {
@@ -342,6 +405,37 @@ test('component wires history remount intent and drops bulk clear UI', () => {
 	assert.doesNotMatch(source, /sl-kapa-history__clear/);
 	assert.doesNotMatch(source, /Clear saved conversations/);
 	assert.doesNotMatch(source, /canClear/);
+});
+
+test('component restores saved thread on mount and clears active id on fresh conversation', () => {
+	const componentPath = join(
+		dirname(fileURLToPath(import.meta.url)),
+		'../components/KapaChatLauncher.tsx'
+	);
+	const source = readFileSync(componentPath, 'utf8');
+
+	assert.match(source, /resolveMountRestore/);
+	assert.match(source, /readActiveThreadId/);
+	assert.match(source, /writeActiveThreadId/);
+	assert.match(source, /clearActiveThreadId/);
+	assert.match(source, /mountRestoreAttemptedRef/);
+	assert.match(
+		source,
+		/restoreThread\(decision\.threadId/
+	);
+	assert.match(
+		source,
+		/const startFreshConversation = \(\) => \{[\s\S]*?clearActiveThreadId\(\);[\s\S]*?onNewConversation\(\{ openHistory: false \}\);/,
+		'fresh conversation must clear the active thread key before remount'
+	);
+	// No leftover empty if (savedThreadId) body or raw localStorage thread-id access.
+	assert.doesNotMatch(source, /if \(savedThreadId\) \{\s*\}/);
+	assert.doesNotMatch(source, /localStorage\.(get|set|remove)Item\(['"]warp_docs_kapa_thread_id['"]\)/);
+	assert.match(source, /LuTrash2/);
+	assert.doesNotMatch(
+		source,
+		/onClick=\{\(\) => requestDelete\([\s\S]*?<LuX/
+	);
 });
 
 test('active-row style contract stays lightened with readable text tokens', () => {
