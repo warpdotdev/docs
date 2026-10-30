@@ -20,7 +20,7 @@ Pick where the parent will run. Every orchestration starts with a single parent 
 * **Parent in the Warp app** - use the `/orchestrate` or `/plan` slash command. This is the fastest way to try orchestration.
 * **Parent in the cloud** - trigger the parent through the {VARS.WARP_AGENT_CLI} (`oz agent run-cloud`), the [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/), any [integration](/platform/integrations/) such as [Slack](/platform/integrations/slack/) or [Linear](/platform/integrations/linear/), or a [schedule](/platform/triggers/scheduled-agents/). The parent runs in an environment and spawns children from there.
 
-Cloud parents that spawn cloud children need access to one or more [environments](/platform/environments/) the children can run in. To keep child execution on your own infrastructure, route those children to a [self-hosted worker](/factories/self-hosting/).
+Cloud parents that spawn cloud children need access to one or more [environments](/factories/environments/) the children can run in. To keep child execution on your own infrastructure, route those children to a [self-hosted worker](/factories/self-hosting/).
 
 To use different setup profiles with one configured factory agent, [send each profile in run metadata](https://docs.warp.dev/factories/factory-agents/creating-custom-agents/#select-a-setup-profile-for-each-task).
 
@@ -201,4 +201,4 @@ Self-hosted, local, and GitHub Action runs cannot be cancelled through this endp
 * [Scheduled agents](/platform/triggers/scheduled-agents/) - start a recurring cloud parent that fans out children on a cron cadence.
 * [Self-hosting](/factories/self-hosting/) - keep parent or child execution on your infrastructure while Warp tracks the runs.
 * [Handoff between local and cloud agents](/platform/handoff/) - promote a local parent to the cloud, or continue a finished cloud parent with a follow-up.
-* [Environments](/platform/environments/) - configure the runtime context cloud children execute in.
+* [Environments](/factories/environments/) - configure the runtime context cloud children execute in.

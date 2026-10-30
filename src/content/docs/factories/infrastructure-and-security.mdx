@@ -27,7 +27,7 @@ flowchart LR
   C --> D["Warp-managed storage"]
 ```
 
-With managed self-hosting, repository checkouts, commands, and sandbox files stay on machines you control. Prompts, results, transcripts, attachments, artifacts, and telemetry still flow through Warp and can contain code context. The Warp Agent sends model requests through Warp to the configured inference provider. Claude Code and Codex call their providers directly from the execution environment. See [deployment patterns](/factories/deployment-patterns/), [execution security](/platform/execution-security/), and [data security and boundaries](/platform/architecture/#data-security-and-boundaries) for details.
+With managed self-hosting, repository checkouts, commands, and sandbox files stay on machines you control. Prompts, results, transcripts, attachments, artifacts, and telemetry still flow through Warp and can contain code context. The Warp Agent sends model requests through Warp to the configured inference provider. Claude Code and Codex call their providers directly from the execution environment. See [deployment patterns](/factories/deployment-patterns/), [execution security](/factories/self-hosting/security-and-networking/), and [data security and boundaries](/platform/architecture/#data-security-and-boundaries) for details.
 
 ![Self-hosted data security and boundaries diagram showing what stays in customer infrastructure, what Warp retains, and what transits Warp to model providers](../../../assets/agent-platform/data-security-boundaries.png)
 
@@ -51,7 +51,7 @@ A factory runs its work on one of two execution hosts: Warp-hosted compute, or a
 
 Managed self-hosting requires an Enterprise plan. Task platforms depend on the backend: Docker uses a `linux/amd64` or `linux/arm64` daemon, Kubernetes uses Linux task nodes, and Direct uses the worker host's OS and architecture. A native worker on macOS or Windows can connect to a Linux Docker daemon; the task still runs on Linux. See [Runner settings by execution host](/factories/runners/#runner-settings-by-execution-host).
 
-See the [managed prerequisites](/factories/self-hosting/#managed-prerequisites) for credentials and network access, and the [Self-hosting quickstart](/factories/self-hosting/quickstart/) to connect a worker. The factory definition selects the connected worker with [`workerHost`](/factories/factory-as-code/#agentdefaultsworkerhost). For a complete configuration with a compatible runner, see [`07-self-hosted-worker`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/07-self-hosted-worker).
+See the [managed prerequisites](/factories/self-hosting/#managed-prerequisites) for credentials, [network requirements](/factories/self-hosting/security-and-networking/#network-requirements) for outbound destinations and ports, and the [Self-hosting quickstart](/factories/self-hosting/quickstart/) to connect a worker. The factory definition selects the connected worker with [`workerHost`](/factories/factory-as-code/#agentdefaultsworkerhost). For a complete configuration with a compatible runner, see [`07-self-hosted-worker`](https://github.com/warpdotdev/warp-factory-examples/tree/main/examples/07-self-hosted-worker).
 
 Unmanaged self-hosted agents and other CLI agents can't serve as a factory's execution host, but they can exchange work with a factory through [Factory MCP](/factories/factory-mcp/).
 
@@ -113,7 +113,7 @@ A factory handles four kinds of credentials, each with its own boundary:
 | **Harness authentication** | Third-party harnesses such as Claude Code or Codex | Credentials are used inside the execution environment for direct provider calls. This authentication is configured separately from the agent's secret allowlist. |
 | **Repository identity** | Checking out code and pushing changes | Runs act with the creating user's authorization (changes are attributed to them) or as the agent itself for unattended work. The definition's [`credentialStrategy`](/factories/factory-as-code/#credentialstrategy) sets this behavior. |
 
-Scope each credential to the resources and actions its agent needs. Warp redacts known secret values at output boundaries, but redaction is a backstop, not a substitute for narrow external permissions and rotation. See [factory secrets](/factories/secrets/), [harness authentication](/platform/harnesses/authentication/), [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/), and [team identity](/platform/team-access-billing-and-identity/) for the underlying controls.
+Scope each credential to the resources and actions its agent needs. Warp redacts known secret values at output boundaries, but redaction is a backstop, not a substitute for narrow external permissions and rotation. See [factory secrets](/factories/secrets/), [harness authentication](/factories/harnesses/authentication/), [Secret Redaction](/support-and-community/privacy-and-security/secret-redaction/), and [team identity](/platform/team-access-billing-and-identity/) for the underlying controls.
 
 ## Factory roles and permissions
 
@@ -138,7 +138,7 @@ Warp meters hosted compute, Warp-provided inference, and [platform usage](/suppo
 * [Deployment patterns for Warp Factories](/factories/deployment-patterns/) - Compare execution models
 * [Runners for Warp Factories](/factories/runners/) - Configure compute and worker compatibility
 * [Self-hosting overview](/factories/self-hosting/) - Review managed backends and setup requirements
-* [Security and networking](/platform/execution-security/) - Review data boundaries, egress, and backend controls
+* [Security and networking](/factories/self-hosting/security-and-networking/) - Review data boundaries, egress, and backend controls
 * [Team-managed LLM API keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) - Configure inference credentials
 * [Roles and permissions](/enterprise/team-management/roles-and-permissions/) - Govern team and workspace resources
 * [Platform usage](/support-and-community/plans-and-billing/platform-credits/) - Understand agent-hour charges

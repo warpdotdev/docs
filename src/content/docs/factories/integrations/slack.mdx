@@ -60,7 +60,7 @@ A single Slack message can match more than one automation. For example, if one a
 
 When Slack is connected to a factory, Warp automatically gives its agents Slack tools during factory runs. The tools let an agent read channels and threads that the app can access, reply in a thread, and post a new top-level message to a channel. The run doesn't need to start from Slack.
 
-Warp also automatically makes tools from a connected Linear or Jira issue tracker available to the factory's agents. These are Warp-managed, integration-provided capabilities, separate from the [MCP servers you configure for cloud agents](/platform/mcp/). They may not appear alongside user-configured MCP servers in the factory's MCP list.
+Warp also automatically makes tools from a connected Linear or Jira issue tracker available to the factory's agents. These are Warp-managed, integration-provided capabilities, separate from the [MCP servers you configure for cloud agents](/factories/mcp/). They may not appear alongside user-configured MCP servers in the factory's MCP list.
 
 You don't need to install a separate Slack MCP server to post factory output to Slack. The connected Slack app's authorization still controls which channels the tools can access, so invite the app to the destination channel first.
 

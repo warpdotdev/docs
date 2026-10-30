@@ -32,7 +32,7 @@ Every cloud agent run follows the same lifecycle, no matter what started it or w
 
 1. **A trigger fires** - A [schedule](/platform/triggers/scheduled-agents/), an [integration](/platform/integrations/) event, an [API or SDK](/factories/api-and-sdk/) call, a CLI command, or a [Handoff](/platform/handoff/) from the Warp app starts the run.
 2. **The task is created** - The control plane opens a run record that tracks the task's state, inputs, and provenance.
-3. **Configuration is resolved** - The platform picks the run's [environment](/platform/environments/), [runner](/factories/runners/), execution host, and [model and harness](/platform/harnesses/).
+3. **Configuration is resolved** - The platform picks the run's [environment](/factories/environments/), [runner](/factories/runners/), execution host, and [model and harness](/factories/harnesses/).
 4. **The sandbox is provisioned** - The execution host clones the environment's repositories, runs setup commands, and injects only the [secrets](/platform/secrets/) the run is allowed to use.
 5. **The agent loop runs** - The harness gathers context, calls the model, and runs tools until the task is done. Tools run in the sandbox. With the Warp Agent, model calls route through Warp to providers under [Zero Data Retention](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr); Claude Code and Codex call their provider directly.
 6. **Outputs land at their targets** - The agent pushes branches, opens pull requests, and replies to the Slack thread, Linear issue, or Jira work item that started the task.
@@ -59,7 +59,7 @@ Self-hosted execution keeps checkout, commands, and the workspace on your infras
 1. **The worker connects** - You run the managed worker (`oz-agent-worker`) on your infrastructure. It authenticates with an agent API key and holds an outbound-only connection, waiting for tasks routed to its [`--host` ID](/factories/self-hosting/#routing-runs-to-self-hosted-workers).
 2. **Warp assigns the task** - When a trigger targets your worker, the control plane sends the task, its resolved configuration, and scoped runtime credentials over that connection.
 3. **The agent runs on your backend** - The worker clones repositories, runs setup, injects allowed [secrets](/platform/secrets/), and executes in a Docker container, a Kubernetes Job, or directly on the host, depending on the [managed backend](/factories/self-hosting/#managed-architecture) you chose. Code, build artifacts, and workspaces stay on your machines.
-4. **Run data returns to Warp** - Status, transcripts, artifacts, attachments, and telemetry flow back for the run record. Content the agent puts into prompts or results can include code context; see [execution security](/platform/execution-security/).
+4. **Run data returns to Warp** - Status, transcripts, artifacts, attachments, and telemetry flow back for the run record. Content the agent puts into prompts or results can include code context; see [execution security](/factories/self-hosting/security-and-networking/).
 5. **Warp routes inference** - With the Warp Agent, model calls go from your worker through Warp to LLM providers under [Zero Data Retention](/enterprise/security-and-compliance/security-overview/#zero-data-retention-zdr), or through your own provider account with [team-managed keys and endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) or [Bring Your Own LLM](/enterprise/enterprise-features/bring-your-own-llm/). Claude Code and Codex call their provider directly from your infrastructure.
 6. **Your team monitors the run** - Runs on self-hosted workers appear in the {VARS.DASHBOARD} and support [Agent Session Sharing](/agents/local-agents/session-sharing/), the same as Warp-hosted runs.
 
@@ -112,7 +112,7 @@ Every run moves a few distinct classes of data, and each class has its own bound
 
 * [Deployment patterns](/factories/deployment-patterns/) - Choose Warp-hosted or managed self-hosted execution for a factory.
 * [Managed self-hosting](/factories/self-hosting/) - Configure a managed worker for factory execution.
-* [Execution security](/platform/execution-security/) - The data model and egress requirements for self-hosted workers.
+* [Security and networking](/factories/self-hosting/security-and-networking/) - The data model and egress requirements for self-hosted workers.
 * [Security overview](/enterprise/security-and-compliance/security-overview/) - Warp's data handling, encryption, and compliance posture.
 * [How Warp Factories work](/factories/how-factories-work/) - The work-item lifecycle in depth.
 * [About factory infrastructure and security](/factories/infrastructure-and-security/) - The same boundaries applied to factories.

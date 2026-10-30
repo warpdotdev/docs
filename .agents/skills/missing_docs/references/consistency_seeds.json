@@ -157,11 +157,11 @@
         "../warp-server/billing/config/tiers/_base_self_serve_plan.yaml"
       ],
       "affected_surfaces": [
-        "src/content/docs/platform/harnesses/index.mdx",
+        "src/content/docs/factories/harnesses/index.mdx",
         "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx"
       ],
       "surface_dispositions": {
-        "src/content/docs/platform/harnesses/index.mdx": "fixed",
+        "src/content/docs/factories/harnesses/index.mdx": "fixed",
         "src/content/docs/support-and-community/plans-and-billing/pricing-faqs.mdx": "fixed"
       },
       "recheck_condition": "Harness entitlements change in shipped tier configuration.",
@@ -381,12 +381,10 @@
       ],
       "affected_surfaces": [
         "src/content/docs/agents/cli/oz-cli/index.mdx",
-        "src/content/docs/platform/faqs.mdx",
         "src/content/docs/agents/local-agents/agent-context/images-as-context.mdx"
       ],
       "surface_dispositions": {
         "src/content/docs/agents/cli/oz-cli/index.mdx": "fixed",
-        "src/content/docs/platform/faqs.mdx": "fixed",
         "src/content/docs/agents/local-agents/agent-context/images-as-context.mdx": "fixed"
       },
       "recheck_condition": "Legacy CLI attachment validation or interactive image input paths change.",
@@ -402,7 +400,6 @@
           "type": "forbidden_text",
           "patterns": ["Cloud agent conversations do not currently support image attachments"],
           "paths": [
-            "src/content/docs/platform/faqs.mdx",
             "src/content/docs/agents/local-agents/agent-context/images-as-context.mdx"
           ]
         }
@@ -568,18 +565,18 @@
       "status": "owner_confirmation",
       "occurrence_queries": ["Concurrency limits", "credit allocation details", "still being finalized"],
       "authoritative_sources": [],
-      "affected_surfaces": ["src/content/docs/platform/faqs.mdx"],
-      "surface_dispositions": {"src/content/docs/platform/faqs.mdx": "blocked"},
+      "affected_surfaces": ["src/content/docs/platform/team-access-billing-and-identity.mdx"],
+      "surface_dispositions": {"src/content/docs/platform/team-access-billing-and-identity.mdx": "blocked"},
       "owner": "Product and Billing",
-      "unresolved_question": "What current public concurrency and credit-allocation guidance should replace the placeholder, or should the placeholder be removed without replacement?",
+      "unresolved_question": "The stale FAQ placeholder was removed during article consolidation. What current public concurrency and credit-allocation guidance belongs on the access and billing owner, or should it remain omitted? Removing the placeholder does not resolve this owner-confirmation finding.",
       "recheck_condition": "Product and Billing approve replacement guidance or approve removing the placeholder.",
-      "inconsistent_surfaces": ["src/content/docs/platform/faqs.mdx"],
+      "inconsistent_surfaces": ["src/content/docs/platform/team-access-billing-and-identity.mdx"],
       "deterministic_rules": [
         {
           "id": "no-finalizing-concurrency-placeholder",
           "type": "forbidden_regex",
           "patterns": ["Concurrency limits\\s+and\\s+credit allocation details\\s+are\\s+still being finalized"],
-          "paths": ["src/content/docs/platform/faqs.mdx"]
+          "paths": ["src/content/docs/platform/team-access-billing-and-identity.mdx"]
         }
       ]
     },

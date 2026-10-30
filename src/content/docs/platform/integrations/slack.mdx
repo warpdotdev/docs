@@ -16,7 +16,7 @@ The Slack integration lets your team trigger cloud agents directly from Slack co
 
 1. Log in to the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a> and go to the <a href={`${VARS.WEB_APP_URL}/integrations`}>Integrations page</a>.
 2. Click **Connect** next to **Slack**. You'll be prompted to install the Warp app into your Slack workspace.
-3. After installing, you're returned to the Integrations page to finish setup: choose the [environment](/platform/environments/) agents should use, which defines the repos, Docker image, and setup commands.
+3. After installing, you're returned to the Integrations page to finish setup: choose the [environment](/factories/environments/) agents should use, which defines the repos, Docker image, and setup commands.
 4. Start using Warp in Slack by mentioning **@Warp** with a task.
 
 Alternatively, install via the [{VARS.WARP_AGENT_CLI}](/agents/cli/oz-cli/):
@@ -123,7 +123,7 @@ oz environment create \
 
     This flow analyzes your repos, recommends a Docker image, suggests setup commands, and can build + push a custom image if needed.
 
-See the [Environments](/platform/environments/) docs for detailed instructions.
+See the [Environments](/factories/environments/) docs for detailed instructions.
 
 #### 2. Optional: custom prompt
 
@@ -177,7 +177,7 @@ Once removed, Slack will immediately disable the integration for all teammates. 
 
 ### Troubleshooting
 
-If something isn't working—missing repos, Slack not detecting @Warp, PR failures, or environment configuration issues—see [troubleshooting cloud agent environments](/platform/environments/troubleshooting-environments/). It covers:
+If something isn't working—missing repos, Slack not detecting @Warp, PR failures, or environment configuration issues—see [troubleshooting cloud agent environments](/factories/environments/troubleshooting-environments/). It covers:
 
 * GitHub authorization and repo access
 * Docker image incompatibility

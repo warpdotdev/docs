@@ -43,7 +43,7 @@ Run `oz integration create` to connect the Slack integration:
 oz integration create slack --environment <ENV_ID>
 ```
 
-Replace `<ENV_ID>` with your environment ID (see [Environments](/platform/environments/) if you need to create one). Find it with `oz environment list` on the {VARS.WARP_AGENT_CLI} or in the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>. The CLI opens a browser window to authorize the Warp app in your workspace.
+Replace `<ENV_ID>` with your environment ID (see [Environments](/factories/environments/) if you need to create one). Find it with `oz environment list` on the {VARS.WARP_AGENT_CLI} or in the <a href={VARS.WEB_APP_URL}>{VARS.WEB_APP}</a>. The CLI opens a browser window to authorize the Warp app in your workspace.
 
 :::tip
 If the integration cannot be created or your first run cannot start, use the returned error code to narrow the fix. Common errors include:
@@ -85,6 +85,6 @@ When the task is complete, Warp posts a summary back to the original Slack threa
 
 ## Next steps
 
-* **Customize agent behavior** - Use a [skill](/platform/skills-as-agents/) as the base prompt for your integration to give agents consistent, reusable instructions across every run.
+* **Customize agent behavior** - Use a [skill](/agents/capabilities/skills/#running-agents-from-skills) as the base prompt for your integration to give agents consistent, reusable instructions across every run.
 * **Trigger agents programmatically** - Use the [API & SDK](/factories/api-and-sdk/) to build custom automations and integrations on top of agents.
 * **Read the full Slack reference** - [Slack](/platform/integrations/slack/) covers identity mapping, team access, monitoring runs, troubleshooting, and uninstall instructions.

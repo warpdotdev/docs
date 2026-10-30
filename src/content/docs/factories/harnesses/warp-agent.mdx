@@ -1,0 +1,76 @@
+---
+title: Warp Agent harness
+description: >-
+  Use the Warp Agent as a factory or standalone cloud harness with model
+  routing, terminal tools, and subagent orchestration.
+sidebar:
+  label: "Warp Agent"
+---
+import { VARS } from '@data/vars';
+
+The Warp Agent is Warp's built-in harness for factory agents and standalone cloud runs. It runs commands, edits code, and coordinates work across models and tools.
+
+For a factory, select the Warp Agent and a model in [Configuring factory agents](/factories/factory-agents/configuration/). It does not need a separate third-party harness auth secret. The same runtime powers [Agent Mode](/agents/) locally, but cloud runs use the resources configured for the run rather than your laptop's session.
+
+## Key features
+
+* **Model choice** - Choose a model or an automatic router from the available catalog. See [Agent model choice](/agents/inference/model-choice/).
+* **Terminal and tool access** - Run commands, edit files, read logs, execute tests, navigate repositories, and call configured [MCP servers](/factories/mcp/).
+* **Context and instructions** - Use [Codebase Context](/agents/capabilities/codebase-context/), [Rules](/agents/capabilities/rules/), and [skills](/agents/capabilities/skills/). Configure the context and resources needed by the cloud run; local context is not a blanket cloud configuration.
+* **Multi-repo execution** - Work across repositories configured in the [environment](/factories/environments/).
+* **Subagent orchestration** - Dispatch Claude Code or Codex children from a Warp Agent parent, or use named factory agents for standing roles.
+* **No third-party auth secret** - The built-in harness uses Warp authentication and usage rather than a Claude Code or Codex auth secret. See [cloud-run billing](/platform/team-access-billing-and-identity/).
+
+## How it works
+
+The Warp Agent plans, calls tools, edits code, runs tests, and reports progress. In a factory, the agent's configuration supplies its instructions and resources. Standalone cloud runs use their [environment](/factories/environments/) and run configuration. Inspect factory runs in the factory dashboard or standalone runs in the [{VARS.DASHBOARD}](/platform/managing-cloud-agents/).
+
+Team admins can disable any harness for their workspace. Users on that team can only start runs with the harnesses that remain enabled.
+
+### Available models
+
+Choose from the models and routers available in the model picker. For factory agents, set the model in [agent configuration](/factories/factory-agents/configuration/). For standalone workflows, use an [Agent Profile](/agents/capabilities/agent-profiles-permissions/) or select a model when starting the run. See [Agent model choice](/agents/inference/model-choice/) for model IDs and routing options.
+
+### Cross-harness orchestration
+
+The Warp Agent can coordinate children with different harnesses. For example:
+
+1. A parent running the Warp Agent analyzes a task and breaks it into subtasks.
+2. The parent dispatches Claude Code subagents for steps that need careful review and Codex subagents for high-volume edits.
+3. The parent collects results, resolves conflicts, and returns a single final output (a PR, a report, a Slack reply).
+
+For ad hoc orchestration, distinguish children launched into separate cloud environments from children running inside the parent's environment. Sharing an environment definition does not mean sharing a running filesystem. See [Multi-agent orchestration](/platform/orchestration/#where-parent-and-child-agents-can-run) for the execution modes.
+
+Factory named-agent dispatch is a separate configuration path: a foreman using the Warp Agent, Claude Code, or Codex can dispatch configured factory agents. Each named agent uses its own configuration, including environment and harness, unless overridden. Do not assume every child inherits the parent's secrets, MCP servers, or integrations. See [Configuring factory agents](/factories/factory-agents/configuration/).
+
+## When to choose Warp Agent
+
+* The task spans multiple repos, languages, or domains.
+* You want model auto-routing instead of pinning one provider.
+* The run needs to coordinate ad hoc children with other harnesses.
+* You want the Warp Agent's tools, model routing, Rules, and skills.
+
+## Starting a Warp Agent run
+
+For a factory, select the Warp Agent in [agent configuration](/factories/factory-agents/configuration/) or use `harness.type: oz` in the [factory definition](/factories/factory-as-code/#agentdefaultsharness).
+
+For a standalone cloud run, the Warp Agent is the default when no harness is specified:
+
+* **Warp app** - Start a cloud agent run from the input. In the "Agent harness" dropdown, choose **Warp Agent**.
+* **{VARS.WEB_APP}** - On a new run or new schedule pane, leave the "Harness" field set to **Warp Agent**.
+* **{VARS.WARP_AGENT_CLI}** - Run `oz agent run-cloud --prompt "..."` with no `--harness` flag, or pass `--harness oz` explicitly.
+* **API and SDK** - Omit the `harness` field on the agent config, or set `harness.type` to `oz`. See the [API reference](/factories/api-and-sdk/).
+
+For a complete walkthrough, see the [Cloud agents quickstart](/platform/quickstart/).
+
+## Related pages
+
+* [Agent harnesses](/factories/harnesses/)
+* [Claude Code harness](/factories/harnesses/claude-code/)
+* [Codex harness](/factories/harnesses/codex/)
+* [Multi-agent orchestration](/platform/orchestration/) - Coordinate ad hoc parent and child runs
+* [Agent model choice](/agents/inference/model-choice/)
+* [Agent Profiles and permissions](/agents/capabilities/agent-profiles-permissions/)
+* [Agent Memory](/agents/agent-memory/) - Check availability and memory configuration
+* [Warp Drive context](/knowledge-and-collaboration/warp-drive/agent-mode-context/) - Configure saved context for supported workflows
+* [Skills for agents](/agents/capabilities/skills/#running-agents-from-skills) - Use a saved skill in a standalone run

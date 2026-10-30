@@ -430,6 +430,17 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 								{ slug: 'factories/factory-agents/creating-custom-agents', label: 'Creating custom agents' },
 							],
 						},
+						{
+							label: 'Harnesses',
+							collapsed: false,
+							items: [
+								{ slug: 'factories/harnesses', label: 'Overview' },
+								{ slug: 'factories/harnesses/warp-agent', label: 'Warp Agent' },
+								{ slug: 'factories/harnesses/claude-code', label: 'Claude Code' },
+								{ slug: 'factories/harnesses/codex', label: 'Codex' },
+								{ slug: 'factories/harnesses/authentication', label: 'Authentication' },
+							],
+						},
 						{ slug: 'factories/factory-skills', label: 'Factory skills' },
 						// Moved from 'Integrations' (was 'Automation filters'): this page is
 						// now the Automations primitive's conceptual home, parallel to Factory
@@ -441,9 +452,20 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							label: 'Infrastructure',
 							items: [
 								{ slug: 'factories/infrastructure-and-security', label: 'About infrastructure and security' },
+								{ slug: 'factories/self-hosting/security-and-networking', label: 'Security and networking' },
 								{ slug: 'factories/deployment-patterns', label: 'Deployment patterns' },
 								{ slug: 'factories/warp-hosting', label: 'Warp-hosted execution' },
 								{ slug: 'factories/runners', label: 'Runners' },
+								{
+									label: 'Environments',
+									collapsed: true,
+									items: [
+										{ slug: 'factories/environments', label: 'Overview' },
+										{ slug: 'factories/environments/configuring-environments', label: 'Configuring environments' },
+										{ slug: 'factories/environments/troubleshooting-environments', label: 'Troubleshooting' },
+									],
+								},
+								{ slug: 'factories/mcp', label: 'MCP servers for agents' },
 								{
 									label: 'Managed self-hosting',
 									collapsed: true,
@@ -591,33 +613,11 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'platform', label: 'Overview' },
 						{ slug: 'platform/quickstart', label: 'Quickstart' },
 						{
-							// Runtime (which agent executes the run) is kept separate from
-							// configuration (how any run is set up) -- HYC review, 8/14.
-							// 'Harness' is product terminology, not docs jargon: it is the
-							// Agent harness dropdown in the Warp app, the Harness field in the
-							// web app, --harness on the CLI, and the harness field in the API.
-							label: 'Harnesses',
-							collapsed: true,
-							items: [
-								{ slug: 'platform/harnesses', label: 'Overview' },
-								{ slug: 'platform/harnesses/warp-agent', label: 'Warp Agent (Default)' },
-								{ slug: 'platform/harnesses/claude-code', label: 'Claude Code' },
-								{ slug: 'platform/harnesses/codex', label: 'Codex' },
-								{ slug: 'platform/harnesses/authentication', label: 'Authentication' },
-							],
-						},
-						{
-							// Every page here is cross-harness, verified 8/14: platform/agents has
-							// zero harness-specific content; skills-as-agents documents
-							// .claude/skills/ and .codex/skills/; secrets uses OPENAI_API_KEY as its
-							// example and both third-party harness pages link to it; mcp states no
-							// harness constraint. Do not add Warp-Agent-specific pages to this group.
 							label: 'Agent configuration',
 							collapsed: true,
 							items: [
 								{ slug: 'platform/agents', label: 'Cloud agent accounts' },
-								{ slug: 'platform/skills-as-agents', label: 'Skills as agents' },
-								{ slug: 'platform/mcp', label: 'MCP servers' },
+								{ label: 'Skills for agents', link: '/agents/capabilities/skills/#running-agents-from-skills' },
 								'platform/secrets',
 							],
 						},
@@ -647,17 +647,8 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 							],
 						},
 						{ slug: 'platform/team-access-billing-and-identity', label: 'Access, billing, and identity' },
-						{ slug: 'platform/faqs', label: 'Cloud agent FAQs' },
+						{ slug: 'platform/faqs', label: 'Cloud agent topics' },
 						{ slug: 'platform/unmanaged-execution', label: 'Unmanaged execution' },
-						{ slug: 'platform/execution-security', label: 'Execution security' },
-					],
-				},
-				{
-					label: 'Environments',
-					items: [
-						{ slug: 'platform/environments', label: 'Overview' },
-						{ slug: 'platform/environments/configuring-environments', label: 'Configuring environments' },
-						{ slug: 'platform/environments/troubleshooting-environments', label: 'Troubleshooting' },
 					],
 				},
 				{
@@ -889,7 +880,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'guides/agent-workflows/build-a-triage-agent', label: 'Build a triage agent' },
 						{ slug: 'guides/agent-workflows/write-product-and-tech-specs-with-agents', label: 'Write specs with agents' },
 						{ slug: 'guides/agent-workflows/set-up-a-software-factory', label: 'Set up your software factory' },
-						{ slug: 'guides/agent-workflows/run-a-software-factory-in-the-cloud', label: 'Run a software factory in the cloud' },
 						{ slug: 'guides/agent-workflows/build-a-self-improving-agent', label: 'Build a self-improving agent' },
 					],
 				},
@@ -901,7 +891,6 @@ export const sidebarTopics: StarlightSidebarTopicsUserConfig = [
 						{ slug: 'guides/configuration/how-to-set-tech-stack-preferences-with-rules', label: 'Set tech stack preferences with Rules' },
 						{ slug: 'guides/configuration/how-to-set-coding-preferences-with-rules', label: 'Set coding preferences with Rules' },
 						{ slug: 'guides/configuration/how-to-configure-yolo-and-strategic-agent-profiles', label: 'Configure Agent Profiles (YOLO & strategic)' },
-						{ slug: 'guides/configuration/how-to-use-agent-profiles-efficiently', label: 'Use Agent Profiles efficiently' },
 						{ slug: 'guides/configuration/how-to-use-tokens-efficiently-with-ai-coding-agents', label: 'Use tokens efficiently' },
 						{ slug: 'guides/configuration/creating-rules-for-agents', label: 'Create reusable Rules for your team' },
 						{ slug: 'guides/configuration/trigger-reusable-actions-with-saved-prompts', label: 'Trigger reusable actions with saved prompts' },

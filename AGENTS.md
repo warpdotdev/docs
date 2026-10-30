@@ -800,7 +800,7 @@ This is the most common page type in Warp's docs (~75+ pages). A feature documen
 
 Past roughly 1500 words, cut padding and repeated sibling-page content first. Split only if the remaining useful content still needs separate pages; preserve necessary facts by linking or relocating them.
 
-**Existing examples**: `agents/capabilities/skills.mdx`, `platform/environments.mdx`
+**Existing examples**: `agents/capabilities/skills.mdx`, `factories/environments.mdx`
 
 **Template**: `.agents/templates/feature-doc.md`
 

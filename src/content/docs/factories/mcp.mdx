@@ -1,0 +1,184 @@
+---
+title: Connecting MCP servers to agents
+description: >-
+  Connect cloud agents to external tools, APIs, and internal services using
+  MCP servers.
+sidebar:
+  label: "MCP servers for agents"
+---
+import { VARS } from '@data/vars';
+
+MCP servers connect factory agents and standalone cloud agents to external tools such as GitHub, dbt, Sentry, and internal services. The connection runs from the agent to the external tool.
+
+[Factory MCP](/factories/factory-mcp/) works in the opposite direction: it connects an external coding agent to your factory to send work, inspect tasks, and hand results back. For local tool connections in Warp, see [Model Context Protocol (MCP)](https://docs.warp.dev/agents/capabilities/mcp/).
+
+## When to use MCP servers
+
+Add MCP servers to a cloud agent when it needs to:
+
+* Read from or write to an external API (issue trackers, monitoring tools, cloud services)
+* Call local processes that expose MCP endpoints
+* Use internal developer tools that you've wrapped in an MCP interface
+
+The agent chooses which available MCP tools to call based on the task.
+
+## Warp-managed integration tools in factories
+
+When Slack, Linear, or Jira is declared and connected for a factory, Warp makes tools from that integration available to the factory's agents. These tools use the connected integration's authorization and don't require a separate MCP installation.
+
+Integration-provided tools are separate from the MCP servers you configure with `mcp_servers` or `mcpServers`. They may not appear alongside user-configured servers in the factory's MCP list, even though the agent can use them during a run. For example, a scheduled factory run can use the Slack tools to post a report to a channel without Slack triggering the run.
+
+For example, see [posting a scheduled factory digest to Slack](/factories/integrations/slack/#post-a-scheduled-factory-digest-to-slack).
+
+## How MCP configuration works
+
+For factory work, add MCP servers to the [factory definition](/factories/factory-as-code/#mcpservers). In a Warp-managed factory, open **Factory definition** in the [factory dashboard](/factories/factory-dashboard/) and edit `factory.yaml`. For a GitHub-backed definition, edit the files in its repository.
+
+```yaml title="factory.yaml"
+mcpServers:
+  sentry:
+    warpId: SENTRY_MCP_SERVER_ID
+```
+
+Replace `SENTRY_MCP_SERVER_ID` with the ID of an accessible MCP installation. Factory-wide `mcpServers` grants these servers to every agent. To scope servers to selected agents, use [`agentDefaults.mcpServers`](/factories/factory-as-code/#agentdefaultsmcpservers) or `mcpServers` in an agent's frontmatter.
+
+Standalone CLI and API configurations use `mcp_servers` and `warp_id`, not the factory definition's `mcpServers` and `warpId`. With the {VARS.WARP_AGENT_CLI}, pass `--mcp` to `oz agent run` or `oz agent run-cloud`, or load an agent config with `-f` / `--file`. See [MCP servers in the CLI reference](https://docs.warp.dev/agents/cli/oz-cli/mcp-servers/).
+
+## Configuration schema
+
+Each MCP server entry is keyed by a name you choose. Choose exactly one transport. This table uses standalone CLI and API field names; in factory definitions, replace `warp_id` with `warpId`. The other transport fields are the same.
+
+| Transport | Field(s) | When to use |
+|-----------|----------|-------------|
+| Warp-shared server, managed MCP install, or integration server | `warp_id` | Reference an MCP server already configured in Warp — including an OAuth-authorized [managed MCP installation](#oauth-authentication) — by its UUID, or a Warp-managed integration server by its id |
+| Stdio (local process) | `command`, `args` | Launch a local executable as an MCP server |
+| Streamable HTTP / SSE | `url` | Connect to a remote MCP endpoint reachable from the agent worker |
+
+### Supported fields
+
+* **`warp_id`** - UUID of a Warp-shared MCP server or [managed MCP installation](#oauth-authentication), or an integration ID: `linear`, `slack`, or `jira`. Use `oz mcp list` in the CLI or **Settings** > **Agents** > **MCP servers** in Warp to find shared-server UUIDs. For managed installations, copy the ID from **MCPs and apps** in the factory dashboard.
+* **`command`** - Executable to launch (stdio transport)
+* **`args`** - Arguments passed to `command` (only valid with `command`)
+* **`env`** - Environment variables passed to the process (only valid with `command`)
+* **`url`** - HTTP or HTTPS endpoint URL (streamable HTTP or SSE transport)
+* **`headers`** - HTTP headers sent with requests (only valid with `url`)
+
+You can define any number of MCP servers in a single config.
+
+### Example configuration
+
+```json
+{
+  "github": {
+    "url": "https://mcp.example.com/github"
+  },
+  "dbt": {
+    "command": "uvx",
+    "args": ["dbt-mcp"],
+    "env": {
+      "DBT_HOST": "https://example.us1.dbt.com",
+      "DBT_SERVICE_TOKEN": "{{DBT_SERVICE_TOKEN}}"
+    }
+  }
+}
+```
+
+:::note
+If the config passes through a system that pre-processes `{{...}}` before it reaches the {VARS.WARP_AUTOMATION_PLATFORM} (for example, Jira/Atlassian Automation), use JSON unicode escapes for the braces: `\u007b\u007bMY_SECRET\u007d\u007d` decodes to `{{MY_SECRET}}`, which the {VARS.WARP_AUTOMATION_PLATFORM} resolves normally.
+:::
+
+### Connect directly by URL
+
+Use `url` to connect the agent worker to an existing streamable HTTP or SSE MCP endpoint. A Warp-hosted worker requires a publicly reachable URL, while a self-hosted worker can reach a private endpoint available from its network. For credentials sent with `headers`, use HTTPS to protect them in transit.
+
+Team-managed URL servers use **Warp-managed** by default: Warp connects to the external endpoint and resolves its credentials. To use a worker-side connection, open **MCPs and apps** in the [factory dashboard](/factories/factory-dashboard/), click **New**, then click **Custom MCP**. Enter the configuration and choose **Direct** under "Connection mode" when that option is available.
+
+```json
+{
+  "internal-tools": {
+    "url": "https://mcp.internal.example/mcp",
+    "headers": {
+      "Authorization": "Bearer {{INTERNAL_MCP_TOKEN}}"
+    }
+  }
+}
+```
+
+Store `INTERNAL_MCP_TOKEN` as a [managed secret](/factories/secrets/). Direct URL and stdio connections resolve secret placeholders in the agent runtime; Warp-managed URL connections resolve them in Warp before connecting. For standalone secret setup, see [Agent Secrets](https://docs.warp.dev/platform/secrets/).
+
+For a self-hosted worker, see [managed self-hosting](/factories/self-hosting/). For a managed MCP server with a private endpoint, use [private networking onboarding](/enterprise/enterprise-features/private-networking/).
+
+<span id="using-mcp-servers-in-an-agent-config-file" />
+
+## Standalone CLI and API configuration
+
+For repeatable standalone CLI workflows, declare `mcp_servers` in the agent config file passed to `-f` / `--file`:
+
+```json
+{
+  "name": "deployment-checker",
+  "model_id": "auto",
+  "system_prompt": "You are a helpful assistant focused on backend development.",
+  "mcp_servers": {
+    "github": {
+      "url": "https://mcp.example.com/github"
+    },
+    "dbt": {
+      "command": "uvx",
+      "args": ["dbt-mcp"],
+      "env": {
+        "DBT_HOST": "https://example.us1.dbt.com",
+        "DBT_SERVICE_TOKEN": "{{DBT_SERVICE_TOKEN}}"
+      }
+    }
+  }
+}
+```
+
+Save this example as `my-agent-config.json`. Replace `https://mcp.example.com/github` with your MCP endpoint and `{{DBT_SERVICE_TOKEN}}` with the name of your managed secret in double braces. The worker needs `uvx` and the tools required by `dbt-mcp`.
+
+Pass the file when running a standalone cloud agent:
+
+```bash
+oz agent run-cloud --environment ENVIRONMENT_ID -f my-agent-config.json --prompt "Check for regressions in the last deploy"
+```
+
+Replace `ENVIRONMENT_ID` with the ID of your [environment](/factories/environments/). API callers use the same `mcp_servers` transport fields in their agent configuration; see the [API and SDK reference](/factories/api-and-sdk/).
+
+## Requirements and defaults
+
+* MCP configuration must be valid JSON, or YAML when embedded in a broader agent config file.
+* Omitting run-level `mcp_servers` does not remove servers supplied by the agent or factory configuration. Factory runs can also receive [Warp-managed integration tools](#warp-managed-integration-tools-in-factories), separately from user-configured MCP servers.
+* Each server name must be unique and non-empty.
+* The run must have access to the shared server or managed installation referenced by `warp_id`.
+* Integration IDs (`linear`, `slack`, or `jira`) are not general aliases for a service in an ordinary standalone CLI run. Use a configured MCP installation or URL for those runs. Factory runs use their declared and connected integrations; standalone Jira-triggered workflows have [separate integration setup](/platform/integrations/jira/).
+
+## OAuth authentication
+
+Cloud agents support OAuth-protected MCP servers through a **managed MCP installation** — a cloud run can't complete an interactive browser login, so authorization happens ahead of time instead.
+
+To use an OAuth-gated server with a cloud agent:
+
+1. In the [factory dashboard](/factories/factory-dashboard/), open **MCPs and apps** and add a managed MCP server.
+2. Complete its browser authorization before starting the run.
+3. Reference the installation's UUID as `warpId` in your factory definition, or `warp_id` in a standalone CLI or API configuration.
+
+Cloud runs use the stored authorization without opening a browser. The legacy [{VARS.WEB_APP} Integrations page](https://docs.warp.dev/platform/oz-web-app/#integrations) also provides managed MCP setup for standalone workflows.
+
+## Limitations
+
+:::caution
+A direct `url` MCP server can't complete an interactive OAuth login in a cloud run. Set it up as a [managed MCP installation](#oauth-authentication) instead, then reference its ID.
+:::
+
+For direct token-based connections, provide the credentials through `headers` on a `url` server or `env` on a `command` server. The worker must have the required network access or executable.
+
+<span id="learn-more" />
+
+## Related pages
+
+* [Factory MCP](/factories/factory-mcp/) - Connect an external coding agent to a factory
+* [MCP workflows](https://docs.warp.dev/guides/external-tools/using-mcp-servers-with-warp/) - Choose local, cloud, or shared tool connections
+* [MCP servers in the CLI reference](https://docs.warp.dev/agents/cli/oz-cli/mcp-servers/)
+* [Environments for factory agents](/factories/environments/)
+* [Managing factory secrets](/factories/secrets/)

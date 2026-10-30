@@ -115,6 +115,12 @@ Whether Kubernetes pods provide sufficient sandboxing for agents depends on your
 
 ---
 
+## Large repositories
+
+Use unmanaged execution when a pre-provisioned host already has the repository and dependencies. The CLI starts in that checkout rather than building an environment image or cloning it again.
+
+For managed execution, review [Docker volume mounts](/factories/self-hosting/managed-docker/) or [Kubernetes task storage](/factories/self-hosting/managed-kubernetes/). For a Direct worker sharing a monorepo, use the [worktree-isolation recipe](/factories/self-hosting/direct-monorepo-worktrees/). Do not let concurrent agents edit the same checkout.
+
 ## Tracking and observability
 
 Unmanaged agents are tracked on Warp's backend. Each run creates a persistent session that your team can:
@@ -123,7 +129,7 @@ Unmanaged agents are tracked on Warp's backend. Each run creates a persistent se
 * **Attach to** via [Agent Session Sharing](/agents/local-agents/session-sharing/) to monitor or steer.
 * **API and SDK** — Query run data through the [{VARS.WARP_PLATFORM_API}](/factories/api-and-sdk/) for custom dashboards or monitoring.
 
-Unmanaged sessions benefit from the same shared configuration as other cloud agent runs — [MCP servers](/platform/mcp/), [secrets](/platform/secrets/), Warp Drive context, and saved prompts all apply.
+Unmanaged sessions benefit from the same shared configuration as other cloud agent runs — [MCP servers](/factories/mcp/), [secrets](/platform/secrets/), Warp Drive context, and saved prompts all apply.
 
 Unmanaged runs don't ship with the bundled declarations script, so end-of-run workspace snapshots are a no-op by default. To enable [handoff](/platform/handoff/) into a follow-up run, see [Customizing workspace snapshots](/platform/handoff/snapshots/).
 

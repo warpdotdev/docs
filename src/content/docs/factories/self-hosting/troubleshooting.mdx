@@ -66,7 +66,7 @@ A successful preflight validates the configured pod shape, not task-specific ima
 4. Check that no firewall rules are blocking WebSocket connections to `wss://oz.warp.dev`.
 5. Increase log verbosity with `--log-level debug` to see connection details.
 
-See [Security and networking](/platform/execution-security/#network-requirements) for the full list of outbound endpoints the worker needs.
+See [Security and networking](/factories/self-hosting/security-and-networking/#network-requirements) for the full list of outbound endpoints the worker needs.
 
 ---
 
@@ -205,5 +205,5 @@ Exit code `143` generally indicates `SIGTERM`; it does not by itself prove an ou
 
 * [Self-hosting overview](/factories/self-hosting/) — Architecture and decision guide.
 * [Self-hosted worker reference](/factories/self-hosting/reference/) — CLI flags and config schema, including every flag mentioned here.
-* [Security and networking](/platform/execution-security/) — Outbound endpoints the worker needs.
+* [Security and networking](/factories/self-hosting/security-and-networking/) — Outbound endpoints the worker needs.
 * [Agent Session Sharing](/agents/local-agents/session-sharing/) — Attach to running tasks to debug interactively.

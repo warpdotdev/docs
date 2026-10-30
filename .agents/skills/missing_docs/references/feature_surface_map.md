@@ -191,7 +191,7 @@ ArtifactCommand -> src/content/docs/agents/cli/oz-cli/artifacts.mdx
 OzIdentityFederation -> src/content/docs/agents/cli/oz-cli/federate.mdx
 
 # Third-party harness support
-AgentHarness -> src/content/docs/platform/harnesses/index.mdx
+AgentHarness -> src/content/docs/factories/harnesses/index.mdx
 
 # Image context for cloud agents
 AmbientAgentsImageUpload -> src/content/docs/agents/local-agents/agent-context/images-as-context.mdx

@@ -16,7 +16,7 @@ This guide adds the implementation and reviewer agents to the [triage](/guides/a
 ## Prerequisites
 
 * A working [triage agent](/guides/agent-workflows/build-a-triage-agent) and [spec agent](/guides/agent-workflows/write-product-and-tech-specs-with-agents), each deployed individually
-* A cloud environment with access to your repository ([create one](/platform/environments))
+* A cloud environment with access to your repository ([create one](/factories/environments/))
 * `warpdotdev/oz-agent-action` installed (see [GitHub Actions integration](/platform/integrations/github-actions))
 
 ## How the loop works
@@ -162,11 +162,11 @@ The reviewer agent surfaces issues and inconsistencies; the human makes the fina
 
 ## Next steps
 
-* [Warp Factories overview](/factories/) — Warp's product for running this same intake-to-review loop without the workflow wiring.
-* [Automations](/factories/automations/) — Replaces the label-based state machine you just wired by hand.
-* [About factory agents](/factories/factory-agents/) — The same four roles — Triage, Spec, Implement, Review — as managed agents.
-* [Run a software factory in the cloud](/guides/agent-workflows/run-a-software-factory-in-the-cloud) — Move the loop into a managed {VARS.WARP_AUTOMATION_PLATFORM} deployment.
-* [Build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) — Add the outer improvement loop.
-* [Review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code) — The human review workflow for agent-generated PRs.
-* [`warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss) — The complete reference implementation.
-* [GitHub Actions integration](/platform/integrations/github-actions) — Full documentation for triggering cloud agents from CI.
+* [Warp Factories overview](/factories/) - Warp's product for running this same intake-to-review loop without the workflow wiring
+* [Automations](/factories/automations/) - Replaces the label-based state machine you just wired by hand
+* [About factory agents](/factories/factory-agents/) - The same four roles, Triage, Spec, Implement, and Review, as managed agents
+* [Warp Factories quickstart](https://docs.warp.dev/factories/quickstart/) - Set up a factory and send your first work item
+* [Build a self-improving agent](/guides/agent-workflows/build-a-self-improving-agent) - Add the outer improvement loop
+* [Review AI-generated code](/guides/agent-workflows/how-to-review-ai-generated-code) - The human review workflow for agent-generated PRs
+* [`warpdotdev/oz-for-oss`](https://github.com/warpdotdev/oz-for-oss) - The complete reference implementation
+* [GitHub Actions integration](/platform/integrations/github-actions) - Full documentation for triggering cloud agents from CI
