@@ -69,7 +69,7 @@ Track run state transitions in these places:
 
 Orchestration is built on a durable, server-backed message bus. Every agent in an orchestration - parent and children - has its own inbox addressed by its agent ID, and the parent and children send each other short, structured messages to coordinate, hand off work, and stay in sync as they run.
 
-This is how parallel agents stay consistent without sharing mutable state. Each run owns its own conversation, working directory or environment, and usage charges; agents don't read each other's transcripts or live working trees. Instead, they exchange explicit messages whenever they need to communicate a decision, a result, or a question. Messages and run state transitions share a global sequence number so the parent never observes a child's `SUCCEEDED` state before the message that produced the result.
+Each agent has its own conversation and usage charges. Filesystem isolation depends on the execution mode: cloud-local children share the parent's environment. Use explicit messages to communicate decisions, results, and questions rather than assuming another agent has read your conversation.
 
 The same messaging infrastructure works across every combination of agent runtimes and execution locations:
 
@@ -80,6 +80,12 @@ The same messaging infrastructure works across every combination of agent runtim
 Alongside messages, every run emits **lifecycle events** on the same infrastructure when its state changes - the six states listed in [Run state transitions](#run-state-transitions). The parent observes these events to decide what to do next (keep waiting, send a follow-up, spawn a replacement, finish) without polling any child.
 
 Use messages for coordination signals - handoffs, decisions, blocked-on-input requests, status updates, and final results - rather than for piping full transcripts around. The parent's prompt to a child and the child's final output carry the substance of the work; messages are how the agents talk *about* the work as it happens.
+
+## Repository isolation and review
+
+Decide how agents will branch, exchange changes, and resolve conflicts before parallel editing starts. Give agents sharing a host separate [Git worktrees](/code/git-worktrees/) and branches; assigning different prompts does not isolate their files.
+
+For a large refactor, split the work into bounded changes with validation checkpoints. Name the files each agent owns, require repository tests and lint checks, and assign one agent or person to integrate the results. Review conflicts and the combined diff before merging. See [running multiple coding agents](/guides/agent-workflows/how-to-run-multiple-ai-coding-agents/) for a worked workflow.
 
 ## Common patterns
 

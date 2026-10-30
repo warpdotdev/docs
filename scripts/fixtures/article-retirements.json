@@ -1,0 +1,275 @@
+{
+  "baseline_commit": "67cfe72af1fd5e3f162c3c5be1e045ddcbda2a01",
+  "pages": [
+    {
+      "oldPath": "/platform/skills-as-agents/",
+      "headings": [
+        {
+          "heading": "How Skills become available",
+          "id": "how-skills-become-available"
+        },
+        {
+          "heading": "Local agents",
+          "id": "local-agents"
+        },
+        {
+          "heading": "Cloud agents",
+          "id": "cloud-agents"
+        },
+        {
+          "heading": "Extra skill directories in cloud runs",
+          "id": "extra-skill-directories-in-cloud-runs"
+        },
+        {
+          "heading": "Running skill-based agents",
+          "id": "running-skill-based-agents"
+        },
+        {
+          "heading": "Web app",
+          "id": "web-app"
+        },
+        {
+          "heading": "CLI",
+          "id": "cli"
+        },
+        {
+          "heading": "API & SDK",
+          "id": "api--sdk"
+        },
+        {
+          "heading": "Running skills on a schedule",
+          "id": "running-skills-on-a-schedule"
+        },
+        {
+          "heading": "Suggested Skills",
+          "id": "suggested-skills"
+        },
+        {
+          "heading": "Related resources",
+          "id": "related-resources"
+        }
+      ],
+      "newPath": "/agents/capabilities/skills/"
+    },
+    {
+      "oldPath": "/platform/faqs/",
+      "headings": [
+        {
+          "heading": "Architecture and execution",
+          "id": "architecture-and-execution"
+        },
+        {
+          "heading": "Where do cloud agents run? What's the architecture?",
+          "id": "where-do-cloud-agents-run-whats-the-architecture"
+        },
+        {
+          "heading": "What exactly are cloud agents in Warp?",
+          "id": "what-exactly-are-cloud-agents-in-warp"
+        },
+        {
+          "heading": "Can we intervene mid-run?",
+          "id": "can-we-intervene-mid-run"
+        },
+        {
+          "heading": "Do cloud agents have access to Codebase Context and indexing?",
+          "id": "do-cloud-agents-have-access-to-codebase-context-and-indexing"
+        },
+        {
+          "heading": "Can I access a shell inside a cloud agent environment? Are there limitations (Docker, Playwright, etc.)?",
+          "id": "can-i-access-a-shell-inside-a-cloud-agent-environment-are-there-limitations-docker-playwright-etc"
+        },
+        {
+          "heading": "Do cloud agents run as root inside the container?",
+          "id": "do-cloud-agents-run-as-root-inside-the-container"
+        },
+        {
+          "heading": "Do cloud agents support a fully self-hosted, on-prem, or offline mode?",
+          "id": "do-cloud-agents-support-a-fully-self-hosted-on-prem-or-offline-mode"
+        },
+        {
+          "heading": "Models",
+          "id": "models"
+        },
+        {
+          "heading": "Which models are supported?",
+          "id": "which-models-are-supported"
+        },
+        {
+          "heading": "Can I choose which model cloud agents use?",
+          "id": "can-i-choose-which-model-cloud-agents-use"
+        },
+        {
+          "heading": "Can I authenticate cloud agents with my own ChatGPT or Claude Pro / Max plan?",
+          "id": "can-i-authenticate-cloud-agents-with-my-own-chatgpt-or-claude-pro--max-plan"
+        },
+        {
+          "heading": "Do you support local or private LLMs for compliance or air-gapped environments?",
+          "id": "do-you-support-local-or-private-llms-for-compliance-or-air-gapped-environments"
+        },
+        {
+          "heading": "Will cloud agents support Agent-to-Agent Protocols (A2A)?",
+          "id": "will-cloud-agents-support-agent-to-agent-protocols-a2a"
+        },
+        {
+          "heading": "Security and billing",
+          "id": "security-and-billing"
+        },
+        {
+          "heading": "Will cloud storage for agent definitions, runs, and conversations be secure and encrypted?",
+          "id": "will-cloud-storage-for-agent-definitions-runs-and-conversations-be-secure-and-encrypted"
+        },
+        {
+          "heading": "Are cloud agents included in the Build plan, or is it a separate add-on?",
+          "id": "are-cloud-agents-included-in-the-build-plan-or-is-it-a-separate-add-on"
+        },
+        {
+          "heading": "How do cloud agents handle API keys and secrets for agents?",
+          "id": "how-do-cloud-agents-handle-api-keys-and-secrets-for-agents"
+        },
+        {
+          "heading": "Workflows",
+          "id": "workflows"
+        },
+        {
+          "heading": "How do agents handle branching, merge conflicts, and multi-agent coordination with cloud agents?",
+          "id": "how-do-agents-handle-branching-merge-conflicts-and-multi-agent-coordination-with-cloud-agents"
+        },
+        {
+          "heading": "Why focus on orchestration primitives instead of immediately adopting new agent standards?",
+          "id": "why-focus-on-orchestration-primitives-instead-of-immediately-adopting-new-agent-standards"
+        },
+        {
+          "heading": "Can cloud agents integrate with external tools, APIs, or services (like n8n connectors)?",
+          "id": "can-cloud-agents-integrate-with-external-tools-apis-or-services-like-n8n-connectors"
+        },
+        {
+          "heading": "Can I export agent conversations and runs from cloud agents?",
+          "id": "can-i-export-agent-conversations-and-runs-from-cloud-agents"
+        },
+        {
+          "heading": "How do cloud agents handle environment access, files, and security compared to SSH-based setups?",
+          "id": "how-do-cloud-agents-handle-environment-access-files-and-security-compared-to-ssh-based-setups"
+        },
+        {
+          "heading": "Can cloud agents review PRs like a teammate?",
+          "id": "can-cloud-agents-review-prs-like-a-teammate"
+        },
+        {
+          "heading": "Can cloud agents write unit tests?",
+          "id": "can-cloud-agents-write-unit-tests"
+        },
+        {
+          "heading": "Can cloud agents do big refactors?",
+          "id": "can-cloud-agents-do-big-refactors"
+        },
+        {
+          "heading": "Can cloud agents triage issues / tickets automatically?",
+          "id": "can-cloud-agents-triage-issues--tickets-automatically"
+        },
+        {
+          "heading": "Can cloud agents do dependency upgrades?",
+          "id": "can-cloud-agents-do-dependency-upgrades"
+        },
+        {
+          "heading": "Can cloud agents keep docs up to date?",
+          "id": "can-cloud-agents-keep-docs-up-to-date"
+        },
+        {
+          "heading": "Self-hosting",
+          "id": "self-hosting"
+        },
+        {
+          "heading": "Where does my source code go with self-hosted agents?",
+          "id": "where-does-my-source-code-go-with-self-hosted-agents"
+        },
+        {
+          "heading": "Can I use `oz agent run` in CI or existing runners?",
+          "id": "can-i-use-oz-agent-run-in-ci-or-existing-runners"
+        },
+        {
+          "heading": "Can self-hosted agents access services behind a VPN?",
+          "id": "can-self-hosted-agents-access-services-behind-a-vpn"
+        },
+        {
+          "heading": "Does self-hosting work with GitLab or other non-GitHub SCMs?",
+          "id": "does-self-hosting-work-with-gitlab-or-other-non-github-scms"
+        },
+        {
+          "heading": "Do LLM requests still go through Warp with self-hosting?",
+          "id": "do-llm-requests-still-go-through-warp-with-self-hosting"
+        },
+        {
+          "heading": "What about large monorepos with long environment setup times?",
+          "id": "what-about-large-monorepos-with-long-environment-setup-times"
+        },
+        {
+          "heading": "Do Kubernetes pods provide enough sandboxing for self-hosted agents?",
+          "id": "do-kubernetes-pods-provide-enough-sandboxing-for-self-hosted-agents"
+        },
+        {
+          "heading": "Current limitations",
+          "id": "current-limitations"
+        },
+        {
+          "heading": "Do cloud agents support image attachments?",
+          "id": "do-cloud-agents-support-image-attachments"
+        }
+      ],
+      "destinations": {
+        "where-do-cloud-agents-run-whats-the-architecture": "/platform/architecture/",
+        "what-exactly-are-cloud-agents-in-warp": "/platform/",
+        "can-we-intervene-mid-run": "/platform/viewing-cloud-agent-runs/",
+        "do-cloud-agents-have-access-to-codebase-context-and-indexing": "/agents/capabilities/codebase-context/",
+        "can-i-access-a-shell-inside-a-cloud-agent-environment-are-there-limitations-docker-playwright-etc": "/factories/environments/configuring-environments/",
+        "do-cloud-agents-run-as-root-inside-the-container": "/factories/environments/configuring-environments/#configure-container-users",
+        "do-cloud-agents-support-a-fully-self-hosted-on-prem-or-offline-mode": "/factories/self-hosting/security-and-networking/#network-requirements",
+        "which-models-are-supported": "/agents/inference/model-choice/",
+        "can-i-choose-which-model-cloud-agents-use": "/factories/api-and-sdk/#agent-configuration",
+        "can-i-authenticate-cloud-agents-with-my-own-chatgpt-or-claude-pro--max-plan": "/factories/harnesses/authentication/",
+        "do-you-support-local-or-private-llms-for-compliance-or-air-gapped-environments": "/enterprise/enterprise-features/bring-your-own-llm/",
+        "will-cloud-agents-support-agent-to-agent-protocols-a2a": "/platform/orchestration/",
+        "will-cloud-storage-for-agent-definitions-runs-and-conversations-be-secure-and-encrypted": "/enterprise/security-and-compliance/security-overview/",
+        "are-cloud-agents-included-in-the-build-plan-or-is-it-a-separate-add-on": "/platform/team-access-billing-and-identity/#usage-requirements",
+        "how-do-cloud-agents-handle-api-keys-and-secrets-for-agents": "/platform/secrets/",
+        "how-do-agents-handle-branching-merge-conflicts-and-multi-agent-coordination-with-cloud-agents": "/platform/orchestration/#repository-isolation-and-review",
+        "why-focus-on-orchestration-primitives-instead-of-immediately-adopting-new-agent-standards": "/platform/orchestration/#common-patterns",
+        "can-cloud-agents-integrate-with-external-tools-apis-or-services-like-n8n-connectors": "/factories/mcp/",
+        "can-i-export-agent-conversations-and-runs-from-cloud-agents": "/platform/orchestration/multi-agent-runs/#retrieving-conversations-and-artifacts",
+        "how-do-cloud-agents-handle-environment-access-files-and-security-compared-to-ssh-based-setups": "/factories/self-hosting/security-and-networking/#data-boundaries",
+        "can-cloud-agents-review-prs-like-a-teammate": "/platform/integrations/github-actions/",
+        "can-cloud-agents-write-unit-tests": "/platform/triggers/scheduled-agents/#scheduling-a-skill",
+        "can-cloud-agents-do-big-refactors": "/platform/orchestration/#repository-isolation-and-review",
+        "can-cloud-agents-triage-issues--tickets-automatically": "/guides/agent-workflows/build-a-triage-agent/",
+        "can-cloud-agents-do-dependency-upgrades": "/platform/triggers/scheduled-agents/#scheduling-a-skill",
+        "can-cloud-agents-keep-docs-up-to-date": "/platform/triggers/scheduled-agents/#scheduling-a-skill",
+        "where-does-my-source-code-go-with-self-hosted-agents": "/factories/self-hosting/security-and-networking/#data-boundaries",
+        "can-i-use-oz-agent-run-in-ci-or-existing-runners": "/platform/unmanaged-execution/",
+        "can-self-hosted-agents-access-services-behind-a-vpn": "/factories/self-hosting/security-and-networking/#vpn-and-on-premises-access",
+        "does-self-hosting-work-with-gitlab-or-other-non-github-scms": "/platform/integrations/",
+        "do-llm-requests-still-go-through-warp-with-self-hosting": "/factories/self-hosting/security-and-networking/#llm-inference-and-byollm",
+        "what-about-large-monorepos-with-long-environment-setup-times": "/platform/unmanaged-execution/#large-repositories",
+        "do-kubernetes-pods-provide-enough-sandboxing-for-self-hosted-agents": "/factories/self-hosting/security-and-networking/#kubernetes-backend",
+        "do-cloud-agents-support-image-attachments": "/agents/local-agents/agent-context/images-as-context/"
+      },
+      "newPath": "/platform/faqs/"
+    },
+    {
+      "oldPath": "/guides/configuration/how-to-use-agent-profiles-efficiently/",
+      "headings": [
+        {
+          "heading": "Strategic Agent",
+          "id": "strategic-agent"
+        },
+        {
+          "heading": "YOLO Agent",
+          "id": "yolo-agent"
+        },
+        {
+          "heading": "Comparing the two",
+          "id": "comparing-the-two"
+        }
+      ],
+      "newPath": "/guides/configuration/how-to-configure-yolo-and-strategic-agent-profiles/"
+    }
+  ]
+}

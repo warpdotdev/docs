@@ -115,6 +115,12 @@ Whether Kubernetes pods provide sufficient sandboxing for agents depends on your
 
 ---
 
+## Large repositories
+
+Use unmanaged execution when a pre-provisioned host already has the repository and dependencies. The CLI starts in that checkout rather than building an environment image or cloning it again.
+
+For managed execution, review [Docker volume mounts](/factories/self-hosting/managed-docker/) or [Kubernetes task storage](/factories/self-hosting/managed-kubernetes/). For a Direct worker sharing a monorepo, use the [worktree-isolation recipe](/factories/self-hosting/direct-monorepo-worktrees/). Do not let concurrent agents edit the same checkout.
+
 ## Tracking and observability
 
 Unmanaged agents are tracked on Warp's backend. Each run creates a persistent session that your team can:

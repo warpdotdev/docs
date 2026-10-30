@@ -78,6 +78,56 @@
   ],
   "redirects": [
     {
+      "source": "/platform/skills-as-agents(/?)",
+      "destination": "/agents/capabilities/skills/",
+      "statusCode": 308
+    },
+    {
+      "source": "/platform/skills-as-agents.md",
+      "destination": "/agents/capabilities/skills.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/skills-as-agents(/?)",
+      "destination": "/agents/capabilities/skills/",
+      "statusCode": 308
+    },
+    {
+      "source": "/agent-platform/cloud-agents/skills-as-agents.md",
+      "destination": "/agents/capabilities/skills.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/configuration/how-to-use-agent-profiles-efficiently(/?)",
+      "destination": "/guides/configuration/how-to-configure-yolo-and-strategic-agent-profiles/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/configuration/how-to-use-agent-profiles-efficiently.md",
+      "destination": "/guides/configuration/how-to-configure-yolo-and-strategic-agent-profiles.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/university/developer-workflows/power-user/how-to-use-agent-profiles-efficiently(/?)",
+      "destination": "/guides/configuration/how-to-configure-yolo-and-strategic-agent-profiles/",
+      "statusCode": 308
+    },
+    {
+      "source": "/university/developer-workflows/power-user/how-to-use-agent-profiles-efficiently.md",
+      "destination": "/guides/configuration/how-to-configure-yolo-and-strategic-agent-profiles.md",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/power-user/how-to-use-agent-profiles-efficiently(/?)",
+      "destination": "/guides/configuration/how-to-configure-yolo-and-strategic-agent-profiles/",
+      "statusCode": 308
+    },
+    {
+      "source": "/guides/developer-workflows/power-user/how-to-use-agent-profiles-efficiently.md",
+      "destination": "/guides/configuration/how-to-configure-yolo-and-strategic-agent-profiles.md",
+      "statusCode": 308
+    },
+    {
       "source": "/platform/execution-security(/?)",
       "destination": "/factories/self-hosting/security-and-networking/",
       "statusCode": 308
@@ -4508,11 +4558,6 @@
       "statusCode": 308
     },
     {
-      "source": "/university/developer-workflows/power-user/how-to-use-agent-profiles-efficiently",
-      "destination": "/guides/configuration/how-to-use-agent-profiles-efficiently/",
-      "statusCode": 308
-    },
-    {
       "source": "/university/how-warp-uses-warp/creating-rules-for-agents",
       "destination": "/guides/configuration/creating-rules-for-agents/",
       "statusCode": 308
@@ -6825,11 +6870,6 @@
     {
       "source": "/guides/developer-workflows/power-user/how-to-sync-your-monorepos",
       "destination": "/guides/configuration/how-to-sync-your-monorepos/",
-      "statusCode": 308
-    },
-    {
-      "source": "/guides/developer-workflows/power-user/how-to-use-agent-profiles-efficiently",
-      "destination": "/guides/configuration/how-to-use-agent-profiles-efficiently/",
       "statusCode": 308
     },
     {

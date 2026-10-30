@@ -311,16 +311,26 @@ class TestConsistencyAudit(unittest.TestCase):
         )
         self.assertEqual(result["accounting"]["unaccounted"], [])
 
-    def test_current_placeholder_remains_a_deterministic_finding(self):
+    def test_removed_placeholder_keeps_owner_confirmation_at_canonical_owner(self):
         result = audit_docs.audit_consistency(_DOCS_ROOT)
         findings = [
             item
             for item in result["findings"]
             if item["seed_id"] == "cloud-concurrency-placeholder"
         ]
-        self.assertEqual(len(findings), 1)
-        self.assertEqual(findings[0]["rule_id"], "no-finalizing-concurrency-placeholder")
-        self.assertEqual(findings[0]["path"], "src/content/docs/platform/faqs.mdx")
+        self.assertEqual(findings, [])
+        blockers = [
+            item for item in result["blockers"]
+            if item["seed_id"] == "cloud-concurrency-placeholder"
+        ]
+        self.assertEqual(len(blockers), 1)
+        self.assertEqual(blockers[0]["status"], "owner_confirmation")
+        self.assertEqual(blockers[0]["owner"], "Product and Billing")
+        self.assertEqual(blockers[0]["inconsistent_surfaces"], [
+            "src/content/docs/platform/team-access-billing-and-identity.mdx"
+        ])
+        self.assertTrue(blockers[0]["unresolved_question"])
+        self.assertTrue(blockers[0]["recheck_condition"])
 
     def test_resolved_statements_pass_their_rules(self):
         result = audit_docs.audit_consistency(_DOCS_ROOT)
@@ -328,7 +338,7 @@ class TestConsistencyAudit(unittest.TestCase):
         self.assertIn("no-singular-create-run-example", passed)
         self.assertIn("no-five-file-cli-limit", passed)
         self.assertIn("no-old-session-sharing-links", passed)
-        self.assertNotIn("no-finalizing-concurrency-placeholder", passed)
+        self.assertIn("no-finalizing-concurrency-placeholder", passed)
 
     def test_policy_blockers_remain_visible_with_owner_metadata(self):
         result = audit_docs.audit_consistency(_DOCS_ROOT)

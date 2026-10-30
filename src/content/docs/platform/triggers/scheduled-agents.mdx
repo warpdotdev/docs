@@ -38,7 +38,7 @@ Scheduled Agents are ideal for work that should happen regularly and predictably
 
 ### Common use cases
 
-Scheduled Agents are best suited for maintenance-style workflows, including skills that automate recurring tasks. For more on running skill-based agents on schedules, see [Skills as Agents](/platform/skills-as-agents/).
+Scheduled Agents are best suited for maintenance-style workflows, including skills that automate recurring tasks. For more on running skill-based agents on schedules, see [Skills for agents](/agents/capabilities/skills/#running-agents-from-skills).
 
 Common use cases include:
 
@@ -87,7 +87,7 @@ oz schedule create \
 
 **Optional flags:**
 
-* `--skill <SPEC>` — use a skill as the base prompt (format: `repo:skill_name` or `org/repo:skill_name`). See [Skills as Agents](/platform/skills-as-agents/).
+* `--skill <SPEC>` — use a skill as the base prompt (format: `repo:skill_name` or `org/repo:skill_name`). See [Skills for agents](/agents/capabilities/skills/#running-agents-from-skills).
 * `--host <WORKER_ID>` — run on a specific self-hosted worker instead of Warp-hosted infrastructure.
 * `--mcp <SPEC>` — attach MCP servers (inline JSON, file path, or UUID). Can be repeated.
 * `--model <MODEL_ID>` — override the default model.
@@ -116,6 +116,23 @@ oz schedule create \
 Once created, the agent will automatically run at the specified times without further action.
 
 Scheduled Agents support the same [model selection](/agents/cli/oz-cli/) and [MCP server configuration](/factories/mcp/) as other cloud agent triggers.
+
+#### Scheduling a skill
+
+To reuse repository instructions every week, select the skill explicitly:
+
+```bash
+oz schedule create \
+  --name "Weekly code cleanup" \
+  --cron "0 10 * * 1" \
+  --environment ENVIRONMENT_ID \
+  --skill "OWNER/REPO:code-cleanup" \
+  --prompt "Find unused code and feature flags. Run the repository checks and open a PR for review. Do not merge."
+```
+
+Replace `ENVIRONMENT_ID` with the environment that provides the repository and dependencies, and `OWNER/REPO:code-cleanup` with your repository and skill name. Check [run identity and pull request authorship](/platform/triggers/scheduled-agents-quickstart/#run-identity-and-pull-request-authorship) before relying on the schedule to write changes.
+
+For test generation, instruct the skill to run the repository's test command, report coverage and assumptions, and open a PR for human review. For dependency upgrades, include tests, conflict handling, and a risk summary. For documentation updates, require link and build checks before proposing changes. A completed run alone does not establish that those checks passed.
 
 #### Cron schedule format
 
@@ -317,5 +334,5 @@ Many teams use both together: [triggers](/platform/triggers/) for reactive workf
 
 * [Environments](/factories/environments/) — configure the repo, image, and setup commands scheduled runs execute with
 * [Viewing cloud agent runs](/platform/viewing-cloud-agent-runs/) — inspect transcripts, logs, and outputs from each scheduled run
-* [Skills as Agents](/platform/skills-as-agents/) — run a reusable skill definition on a schedule
+* [Skills for agents](/agents/capabilities/skills/#running-agents-from-skills) — run a reusable skill definition on a schedule
 * [Run unattended agents](/guides/agent-workflows/how-to-run-unattended-agents/) — compare schedules with Slack, Linear, GitHub Actions, CLI, and API triggers
