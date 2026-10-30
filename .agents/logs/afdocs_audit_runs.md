@@ -1,5 +1,15 @@
 # AFDocs audit run log
 
+## 2026-10-30 — partial
+- **Spec**: v0.6.0 — native afdocs CLI score
+- **Score**: 83/100 (B) — partial-sample observation only; excluded from regression comparisons and future baselines.
+- **Reliability**: partial operational assessment. The wrapper reports scan_reliability=complete and no bot-protection interference across 532 requests, but llms-txt-directive-html and markdown-content-parity each disclose one failed fetch.
+- **Checks**: 28 total — 19 pass, 2 fail, 5 warn, 2 skip
+- **Failing check ids**: llms-txt-links-markdown, content-negotiation
+- **Allowlisted**: 2 (llms-txt-links-markdown, content-negotiation)
+- **Oz run**: https://staging.warp.dev/conversation/9fbf36f3-2de6-4bde-bff6-94f64c87f0a6
+- **Notes**: Audit command exited 0; afdocs-report.json retained as a run artifact. Most recent comparable complete baseline is the first 2026-10-23 entry on this standing branch (native v0.6.0); this partial run is not compared against it. Partial, blocked, legacy, and compatibility results cannot establish a native-score regression baseline. Both failures match known exceptions: intentional OpenAPI YAML/JSON links and Vercel static content negotiation. Five remaining warning observations: llms-txt-directive-md (49/50 directives); page-size-markdown (1/50, max 60K characters); page-size-html (2/50, max 258K HTML converting to 66K markdown); markdown-link-portability (1/50 with a root-relative link); embedded-data-serialization (1/50, a 634-row table occupying 84% of 66K converted characters). Affected URLs and fetch error details are absent from the wrapper report, so long-page exceptions cannot be confirmed and these warnings remain observations pending reliable diagnosis. Diagnostic interaction dynamic-content-rendered-statically groups the size and serialization warnings; it is not an additional scored failure. Owner action: identify the failed HTML fetch and affected warning pages, then obtain a complete scan before remediation. No afdocs-fix invocation, automatic fixes, page splitting, CDN/WAF changes, or standalone schedule changes. Node.js 24, npm 11, GitHub access, and connected Slack MCP channel access verified. Existing log history preserved in an isolated worktree. Public-doc validation suite not run because this is a log-only change; Trunk is not installed.
+
 ## 2026-10-23 — valid
 - **Spec**: v0.6.0 — native afdocs CLI score
 - **Score**: 90/100 (A-)
