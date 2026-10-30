@@ -1,0 +1,43 @@
+---
+title: Permissions for factory integrations
+description: >-
+  Review permission scopes, credential types, and access boundaries for GitHub,
+  GitLab, Linear, Jira, Slack, and Microsoft Teams integrations.
+---
+
+Factory integrations grant access to your code, issues, and conversations. Use the integration-specific tables to review the requested scopes separately from the actions a factory performs and the events that start work.
+
+## Permissions by integration
+
+Each integration page lists its declared grants and access boundaries. An installation's approved version, resource selection, and provider policies determine its effective access.
+
+| Integration | Authorization model | Inventory status and details |
+| --- | --- | --- |
+| [GitHub](/factories/integrations/github/#permissions) | GitHub App installation token; account linking identifies the requester separately | Registered repository, organization, and account permissions with read or write levels |
+| [GitLab](/factories/integrations/gitlab/#permissions) | User OAuth for setup; manager and factory service-account tokens with separate membership roles | Required setup scopes and provisioned service-account access; additional production OAuth scopes haven't been confirmed |
+| [Linear](/factories/integrations/linear/#permissions) | Workspace app authorization, separate from a teammate's Warp account link | Development scope list; production scopes and actor parameter haven't been confirmed |
+| [Jira](/factories/integrations/jira/#permissions) | Forge app scopes with distinct app and user token paths | Marketplace-declared permissions, read impersonation, and checks of user permissions before writes |
+| [Slack](/factories/integrations/slack/#permissions) | Per-factory bot token plus manager authorization for app provisioning | Per-factory bot and setup-user scopes; the separate workspace manager bot inventory hasn't been confirmed |
+| [Microsoft Teams](/factories/integrations/teams/#permissions) | Identity linking separate from a team-scoped bot and application resource-specific consent | Declared app permissions and team-scoped RSC grants; deployed app, additional Entra permissions, and installed grants need confirmation |
+
+## Grants, actions, and event filters
+
+**Provider grants** define what a credential authorizes. A scope can grant more than the specific actions Warp currently exposes: Jira's `write:jira-work`, for example, includes deleting issues even though a factory workflow might only post comments.
+
+**User and service-account roles** further constrain operations. A GitLab factory bot has its own project memberships; it doesn't inherit the triggering person's permissions. Jira reads made on behalf of a user still follow that user's Jira access.
+
+**Automation filters** decide when work starts. A branch, keyword, project, or channel filter isn't a substitute for narrowing the provider's authorization. A connected integration can also supply tools to runs that started elsewhere.
+
+## Access review before installation
+
+Compare the app's actual consent with its table before granting access. For example, to pilot a factory on one GitHub repository, select that repository in the app installation rather than relying on a repository filter in an automation.
+
+Record the approved repositories, projects, teams, or conversations alongside the granted scopes. Check whether approval covers an app installation, a human OAuth grant, or a service-account role; some integrations need more than one.
+
+To withdraw access, use the provider's app or token controls linked from each integration page. Disabling an automation stops that trigger, not the underlying grant. Review separately configured [MCP servers](/platform/mcp/) and [secrets](/factories/secrets/) too; they can supply other credentials.
+
+## Related pages
+
+* [Connect your factory](/factories/connect-your-factory/) - Choose how work reaches a factory
+* [Factory automations](/factories/automations/) - Configure triggers without confusing routing with access
+* [About infrastructure and security](/factories/infrastructure-and-security/) - Review execution and security boundaries

@@ -20,7 +20,7 @@ When you connect a factory to GitLab, project activity starts work in your facto
 
 Warp manages GitLab access through service accounts it creates in your connected group rather than a marketplace app:
 
-* **One manager account per workspace** - Created when you connect the group and granted the Owner role on it. Warp uses it to provision factory accounts, mint their run credentials, and maintain the group webhook; its provisioning token is valid for one year.
+* **One manager account per workspace** - Created when you connect the group and granted the Owner role on it. Warp uses it to provision factory accounts, mint their run credentials, and maintain the group webhook.
 * **One bot account per factory** - Each factory gets its own service account, named from the factory's alias plus a `-warp-` suffix and a short unique ID (for example, `acme-support-warp-01k2x3y4z5`). The bot holds the Developer role on exactly the projects you select for the factory. It is the factory's identity on GitLab. Runs authenticate as the bot, and its username is the handle you mention.
 
 The connected group's webhook delivers merge request and comment events to Warp, and matching automations turn them into factory work.
@@ -92,12 +92,27 @@ The factory never merges or approves a merge request; those decisions stay with 
 
 ## Permissions
 
-Runs authenticate as the factory's bot account, not as the person whose activity triggered them:
+GitLab setup uses your OAuth authorization to provision service accounts. Factory runs then use the factory bot's credentials, not your OAuth token. Token scopes and GitLab membership roles are separate controls.
 
-* **The bot's project membership decides what runs can reach.** Each run gets a short-lived token scoped to the bot's Developer role on the factory's selected projects. Selecting projects for a factory or tightening automation filters changes when work starts, not what a running agent can access. To change access, change the factory's projects.
+Warp requires `api` and `read_user` on your setup authorization. The service-account scopes and roles below are assigned during provisioning. Review GitLab's consent screen for the complete set requested by the setup application.
+
+{/* VERIFY: Confirm whether the production GitLab OAuth authorization requests scopes beyond the required api and read_user; the persisted provider scope list and authorization parameters are not available in this checkout. */}
+
+| Permission or scope | Granted access | Function in Warp | Boundary |
+| --- | --- | --- | --- |
+| `api` on the connecting user's OAuth grant | Full API read and write access within that user's GitLab authority | Discover groups and projects, and provision the manager account | Not limited to the projects later selected for a factory |
+| `read_user` on the OAuth grant | Read the authenticated user's profile | Identify the connected GitLab user | A profile scope, not a project role |
+| `api` on the manager token; Owner role on the connected group | Group-wide API authority under the manager's role | Provision factory accounts and their tokens, and maintain the group webhook | Broader than a factory bot's selected-project access; the provisioning token expires after one year |
+| `api` on factory bot tokens; Developer role on selected projects | API read and write access under the bot's project memberships | Read code, push branches, and create merge requests, notes, and reviews | Protected-branch and project rules still apply; token expiry is date-granular, about 24 to 48 hours after minting |
+
+GitLab's [`api` scope](https://docs.gitlab.com/integration/oauth_provider/#view-all-authorized-applications) is broader than Git operations alone.
+
+* **The bot's project membership decides what runs can reach.** Change the factory's selected projects to change that membership. A trigger's project filter only changes when work starts; it doesn't narrow a run's credentials.
 * **Anyone who can create matching activity can start work.** The commenter doesn't need to be a Warp team member. Use project, action, and base-branch filters to control what starts runs.
 
 Disconnecting GitLab from the workspace retires the manager and every factory bot it provisioned.
+
+Revoking your personal [GitLab OAuth authorization](https://docs.gitlab.com/integration/oauth_provider/#view-all-authorized-applications) is separate from retiring those service accounts. Review both the connection and service-account access when withdrawing approval.
 
 ## Definitions as code
 
@@ -142,4 +157,7 @@ Confirm the target project is one of the factory's selected projects and the ope
 
 Only top-level groups you own appear, and a group already connected to another Warp workspace can't be connected again. If you don't own the group, ask an owner to establish the connection in Warp.
 
-For the other ways to route work into a factory, see [Connect your factory](/factories/connect-your-factory/).
+## Related pages
+
+* [Permissions for factory integrations](/factories/integrations/permissions/) - Compare grants and review status across providers
+* [Connect your factory](/factories/connect-your-factory/)

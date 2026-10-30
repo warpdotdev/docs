@@ -81,12 +81,29 @@ When the run finishes, the result appears in the agent session. The agent doesn'
 
 ## Permissions
 
+Jira requests Forge scopes at installation, separately from linking your account to Warp.
+
+The [Warp Marketplace listing](https://marketplace.atlassian.com/apps/2476990014/warp?hosting=cloud&tab=privacy-and-security) declares the following permissions. A site's installed app version and Jira access rules determine its effective access.
+
+| Scope | Granted access | Function in Warp | Boundary |
+| --- | --- | --- | --- |
+| `read:jira-work` | Read project and issue data, including associated objects | Read work item context, comments, and workflow information | Declared for offline user impersonation; the user's Jira access still applies |
+| `read:jira-user` | Read accessible user profiles, including email addresses and avatars | Identify users and retrieve user context | Declared for offline user impersonation; not permission to manage users |
+| `write:jira-work` | Create, edit, and delete issues, post comments, and create worklogs | Update work items, comments, labels, assignments, and status | The provider grant is broader than the actions described for a run |
+| `read:permission:jira` | Read Jira permissions | Check the requesting user's project and issue permissions before writes | Doesn't grant the permissions being inspected |
+| `read:app-system-token` | Let Forge supply an app system token to the remote backend | Make Jira calls as the app bot | Separate from a human user's token |
+| `read:app-user-token` | Let Forge supply the viewing user's token to the remote backend | Verify the account being linked during setup | Separate from site-wide app installation |
+
+[Jira scopes](https://developer.atlassian.com/platform/forge/manifest-reference/scopes-product-jira/) don't override Jira permissions or issue-security rules.
+
 * **A connected Jira user becomes the run's creator, not its agent** - [Connect your Jira account to Warp](/platform/integrations/jira/#connecting-your-jira-account-to-warp) so a session you start is attributed to you; an unconnected account gets a prompt to connect instead of a run starting. Either way, the run executes as the agent selected by the automation, not as that Jira user.
 * **Jira access doesn't include code access** - Connecting Jira lets agents read and update Jira work items, nothing more. Repository access comes from the factory itself.
 
 :::caution
 Warp's built-in Jira tools read Jira as the person who created the run; that person must link their Atlassian account to Warp in Jira under **profile** > **Personal settings** > **Warp**. To interact with Jira in runs without a human creator, such as scheduled runs or runs created by a service account or API key, add the Atlassian MCP server as a [managed MCP install](/platform/mcp/) instead.
 :::
+
+To withdraw the app's site access, a site admin manages or uninstalls it in [Atlassian's connected-app administration](https://support.atlassian.com/organization-administration/docs/managing-an-installed-app/). Removing a factory automation or unlinking a personal account is not the same as uninstalling the Jira app.
 
 ## Troubleshooting
 
@@ -98,5 +115,6 @@ Warp's built-in Jira tools read Jira as the person who created the run; that per
 
 ## Related pages
 
+* [Permissions for factory integrations](/factories/integrations/permissions/) - Compare grants and review status across providers
 * [Connect your factory](/factories/connect-your-factory/)
 * [Factory troubleshooting](/factories/troubleshooting/#work-isnt-starting)

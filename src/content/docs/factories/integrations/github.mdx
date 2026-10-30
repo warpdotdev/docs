@@ -126,6 +126,35 @@ Branches and pull requests the factory creates follow the repository's normal ru
 
 Runs authenticate with the GitHub App installation. Its repositories and permissions control access; [automation filters](/factories/automations/) only control when work starts.
 
+The [Warp Factories GitHub App](https://github.com/apps/warp-factories) requests the following permissions. Repository permissions apply to the repositories covered by the installation. A run doesn't necessarily use every grant.
+
+| Repository permission | Level | Granted access and use | Boundary |
+| --- | --- | --- | --- |
+| Actions (`actions`) | Write | Read CI logs and artifacts, and manage workflow runs | Broader than receiving workflow-completion events |
+| Administration (`administration`) | Read | Inspect repository settings, collaborators, and rules | Doesn't grant permission to change repository settings |
+| Checks (`checks`) | Write | Read check results and publish factory-definition checks | Separate from commit statuses |
+| Code scanning alerts (`security_events`) | Read | Inspect code-scanning findings for security work | Doesn't grant permission to change alerts |
+| Commit statuses (`statuses`) | Read | Inspect CI status on commits | Doesn't grant permission to publish commit statuses |
+| Contents (`contents`) | Write | Read code and create branches, commits, and repository changes | Repository rules and branch protection still apply |
+| Dependabot alerts (`vulnerability_alerts`) | Read | Inspect dependency vulnerability alerts for security work | Doesn't grant permission to change alerts |
+| Issues (`issues`) | Write | Read and update issues, comments, labels, and assignments | Broader than the issues matched by a trigger |
+| Metadata (`metadata`) | Read | Read basic repository information | Required by GitHub for installed apps |
+| Pull requests (`pull_requests`) | Write | Open and update pull requests, and post reviews and review comments | Required reviews and merge rules still apply |
+| Workflows (`workflows`) | Write | Update GitHub Actions workflow files | Separate from managing workflow runs |
+
+The app also requests permissions outside the repository:
+
+| Permission | Level | Granted access and use | Boundary |
+| --- | --- | --- | --- |
+| Organization members (`members`) | Read | Read organization membership, including checking an installer's organization role | Doesn't grant permission to manage membership |
+| Account email addresses (`emails`) | Read | Read a connected user's email addresses for account identification | Requires user authorization; isn't an installation-token grant |
+
+At installation, choose **All repositories** or **Only select repositories** to control repository access. Connecting a person's GitHub account is separate from installing the app. Repository selection doesn't narrow the organization or account permissions above.
+
+For example, a filter that starts work only on `main` doesn't restrict the installation token to `main`. Repository rules, including branch protection, still apply.
+
+To narrow access or uninstall the app, manage the installation in [GitHub's installation settings](https://github.com/settings/installations). Removing a trigger stops that route into the factory; it doesn't revoke the app's credentials.
+
 See [GitHub permissions and identity](/platform/integrations/github/#permissions-and-identity) for the full credential model.
 
 ## Factory-definition pull request checks
@@ -170,5 +199,6 @@ The check runs only for factories whose [definition is managed as code](/factori
 
 ## Related pages
 
+* [Permissions for factory integrations](/factories/integrations/permissions/) - Compare grants and review status across providers
 * [Factory automations](/factories/automations/) - Configure event matching
 * [Factory troubleshooting](/factories/troubleshooting/#work-isnt-starting) - Diagnose events that don't start work

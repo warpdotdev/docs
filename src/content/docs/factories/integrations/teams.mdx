@@ -20,6 +20,28 @@ Connect a factory to Microsoft Teams so mentions in standard and shared channels
 The integration supports standard and shared channels. Private channels and direct messages are not supported.
 :::
 
+## Permissions
+
+Microsoft account linking and Teams app installation are separate authorizations. The account-linking flow requests OpenID Connect identity scopes; it doesn't describe the bot's Microsoft Graph access.
+
+**Production consent still needs verification:** compare the installed app's permissions with this inventory and review any additional Microsoft Entra API permissions and tenant grants.
+
+{/* VERIFY: Confirm the deployed Teams app requests the permissions below, and compare its installed resource-specific consent and any additional Entra delegated or application permissions with tenant grants. */}
+
+| Scope or permission surface | Granted access | Function in Warp | Boundary |
+| --- | --- | --- | --- |
+| `openid` in account linking | Authenticate the Microsoft user with an ID token | Verify the Microsoft account being linked | Doesn't authorize reading Teams messages |
+| `profile` in account linking | Basic identity claims, including the user's object ID | Match the user and Microsoft organization to Warp | The linking request doesn't include `offline_access` |
+| `identity` in manifest `permissions` | Legacy declaration for user identity | Declare the app's identity capability | Not an OpenID Connect or Microsoft Graph scope |
+| `messageTeamMembers` in manifest `permissions` | Legacy declaration for messaging team members | Declare the app's messaging capability | Doesn't mean Warp exposes direct-message tools |
+| `team` in `bots[].scopes` | Bot installation context, not an API permission | Receive activity and send bot replies in teams | No `personal` or `groupChat` bot scope is declared; `supportsFiles` is `false` |
+| `ChannelMessage.Read.Group` | Application resource-specific consent (RSC): read the installed team's channel messages without a signed-in user | Receive channel activity and retrieve thread history | Includes messages without an **@Warp** mention; limited to the team where consent is granted, not the entire tenant |
+| `ChannelSettings.Read.Group` | Application RSC: read the installed team's channel names, descriptions, and settings | Resolve channel metadata when retrieving context | Read-only; limited to the team where consent is granted |
+
+The two RSC permissions are declared as `Application`, not `Delegated`, under `authorization.permissions.resourceSpecific`. [RSC](https://learn.microsoft.com/en-us/microsoftteams/platform/graph-api/rsc/resource-specific-consent) is granted during installation or upgrade in a specific team. Non-RSC Graph permissions are [managed separately in Microsoft Entra ID](https://learn.microsoft.com/en-us/microsoftteams/platform/graph-api/app-permissions/teams-app-permissions) and aren't established by this manifest. Microsoft [deprecates the top-level `permissions` field](https://learn.microsoft.com/en-us/microsoft-365/extensibility/schema/root?view=m365-app-1.25#permissions); its legacy entries aren't additional Graph grants.
+
+Warp's [shared-channel rules](#use-shared-channels) and [tool limitations](#what-agents-can-do-in-teams) describe runtime restrictions, not the full authority granted to the installed app. To withdraw access, review the Teams installation and Entra grants as well as [disconnecting Microsoft Teams in Warp](#disconnect-microsoft-teams). Signing out unlinks your account; it doesn't uninstall the bot.
+
 ## Set up Microsoft Teams
 
 1. **Enable Microsoft Teams for the Warp workspace.** A workspace admin opens **Integrations** in the <a href={VARS.FACTORY_WEB_APP_URL}>{VARS.FACTORY_WEB_APP}</a>. If **Microsoft Teams** is unavailable, <a href={VARS.CONTACT_SALES_URL}>contact sales</a>.
@@ -139,6 +161,7 @@ The factory's app uses message content and supported attachments from the channe
 
 ## Related pages
 
+* [Permissions for factory integrations](/factories/integrations/permissions/) - Compare grants and review status across providers
 * [**Connect your factory**](/factories/connect-your-factory/) - Choose the sources that route work into the factory.
 * [**Factory automations**](/factories/automations/) - Edit trigger filters and avoid overlapping Teams triggers.
 * [**Factory definition**](/factories/factory-as-code/) - Declare `microsoft-teams` and `teams` triggers as code.
