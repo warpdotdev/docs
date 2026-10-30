@@ -92,7 +92,94 @@ export function shouldAutoRevealSupportCta({
 }
 
 /**
- * Scroll behavior for support CTA reveal. Honors prefers-reduced-motion when available.
+ * Stable key for the completed latest-response layout (answer + controls + optional CTA).
+ * Changes when the last card finishes, gains a CTA, or is thumbs-downed.
+ *
+ * @param {{
+ *   conversationLength: number;
+ *   responseIndex: number;
+ *   responseId?: string | null;
+ *   answer?: string | null;
+ *   isDownvoted?: boolean;
+ * }} options
+ * @returns {string | null}
+ */
+export function getLatestResponseCompletionKey({
+	conversationLength,
+	responseIndex,
+	responseId = null,
+	answer = null,
+	isDownvoted = false,
+}) {
+	if (typeof conversationLength !== 'number' || conversationLength <= 0) return null;
+	if (typeof responseIndex !== 'number' || responseIndex !== conversationLength - 1) return null;
+	if (typeof answer !== 'string' || !answer.trim()) return null;
+	const idPart =
+		typeof responseId === 'string' && responseId.length > 0
+			? responseId
+			: `idx:${responseIndex}`;
+	const showCta = shouldShowSupportEscalation({
+		answer,
+		responseIndex,
+		conversationLength,
+		isDownvoted: isDownvoted === true,
+	});
+	return [
+		`len:${conversationLength}`,
+		`id:${idPart}`,
+		showCta ? 'cta' : 'nocta',
+		isDownvoted === true ? 'down' : 'nodown',
+	].join('|');
+}
+
+/**
+ * Whether to scroll the message list to the true bottom after the latest response completes.
+ * Skips closed chat, history view, in-flight generation, incomplete answers, and repeats.
+ *
+ * @param {{
+ *   isOpen: boolean;
+ *   isHistoryOpen: boolean;
+ *   isBusy: boolean;
+ *   completionKey: string | null;
+ *   lastScrolledKey?: string | null;
+ * }} options
+ * @returns {boolean}
+ */
+export function shouldScrollLatestResponseToBottom({
+	isOpen,
+	isHistoryOpen,
+	isBusy,
+	completionKey,
+	lastScrolledKey = null,
+}) {
+	if (!isOpen || isHistoryOpen || isBusy) return false;
+	if (typeof completionKey !== 'string' || completionKey.length === 0) return false;
+	if (completionKey === lastScrolledKey) return false;
+	return true;
+}
+
+/**
+ * Scroll a message container to its true bottom so the full latest card
+ * (frame, feedback controls, optional support CTA) clears the composer.
+ * Prefer this over scrollIntoView({ block: 'nearest' }), which can stop early.
+ *
+ * @param {Pick<HTMLElement, 'scrollHeight' | 'clientHeight' | 'scrollTop' | 'scrollTo'> | null | undefined} container
+ * @param {{ behavior?: 'auto' | 'smooth' }} [options]
+ * @returns {boolean}
+ */
+export function scrollMessageContainerToBottom(container, { behavior = 'auto' } = {}) {
+	if (!container) return false;
+	const top = Math.max(0, container.scrollHeight - container.clientHeight);
+	if (behavior === 'smooth' && typeof container.scrollTo === 'function') {
+		container.scrollTo({ top, behavior: 'smooth' });
+	} else {
+		container.scrollTop = container.scrollHeight;
+	}
+	return true;
+}
+
+/**
+ * Scroll behavior for conversation auto-scroll. Honors prefers-reduced-motion when available.
  * @param {Pick<Window, 'matchMedia'> | null | undefined} [media]
  * @returns {'auto' | 'smooth'}
  */
@@ -106,3 +193,6 @@ export function getSupportCtaScrollBehavior(media = typeof window !== 'undefined
 	}
 	return 'smooth';
 }
+
+/** Alias kept for call sites that talk about completion scroll rather than CTA-only reveal. */
+export const getConversationScrollBehavior = getSupportCtaScrollBehavior;

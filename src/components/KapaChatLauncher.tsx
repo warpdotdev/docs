@@ -48,9 +48,10 @@ import {
 } from 'react-icons/lu';
 import './KapaChatLauncher.css';
 import {
-	getSupportCtaRevealKey,
-	getSupportCtaScrollBehavior,
-	shouldAutoRevealSupportCta,
+	getConversationScrollBehavior,
+	getLatestResponseCompletionKey,
+	scrollMessageContainerToBottom,
+	shouldScrollLatestResponseToBottom,
 	shouldShowSupportEscalation,
 } from '../lib/kapa-support-escalation.js';
 
@@ -548,8 +549,8 @@ function ChatSurface({
 	const threadIdRef = useRef<string | null>(null);
 	/** Guards StrictMode double-invoke so mount restore runs once per surface. */
 	const mountRestoreAttemptedRef = useRef(false);
-	/** Last support CTA reveal key we already scrolled into view. */
-	const revealedSupportCtaKeyRef = useRef<string | null>(null);
+	/** Last latest-response completion key we already scrolled to bottom for. */
+	const scrolledCompletionKeyRef = useRef<string | null>(null);
 	const [downvotedAnswerIds, setDownvotedAnswerIds] = useState<Record<string, true>>({});
 	const [copiedMcpValue, setCopiedMcpValue] = useState<McpCopyTarget | null>(null);
 	const messagesRef = useRef<HTMLDivElement | null>(null);
@@ -689,29 +690,31 @@ function ChatSurface({
 		messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
 	}, [conversation, isGeneratingAnswer, isOpen, isHistoryOpen, isPreparingAnswer]);
 
-	// When a support CTA newly appears on the last assistant response, scroll it
-	// fully above the fixed footer input. Older CTAs must not steal scroll.
+	// After the latest assistant response completes (and when its CTA/controls
+	// appear), scroll the message container to its true bottom so the full card
+	// clears the composer. Avoid scrollIntoView(nearest) — it can stop early.
 	useEffect(() => {
-		if (!isOpen || isHistoryOpen || isGeneratingAnswer || isPreparingAnswer) return;
+		const isBusy = isGeneratingAnswer || isPreparingAnswer;
 		const lastIndex = conversation.length - 1;
-		if (lastIndex < 0) return;
-		const lastQa = conversation[lastIndex];
+		const lastQa = lastIndex >= 0 ? conversation[lastIndex] : null;
 		const downvoted = Boolean(
 			lastQa?.id &&
 				(lastQa.reaction === 'downvote' || downvotedAnswerIds[lastQa.id] === true)
 		);
-		const revealKey = getSupportCtaRevealKey({
-			answer: lastQa?.answer ?? null,
-			responseIndex: lastIndex,
+		const completionKey = getLatestResponseCompletionKey({
 			conversationLength: conversation.length,
-			isDownvoted: downvoted,
+			responseIndex: lastIndex,
 			responseId: lastQa?.id ?? null,
+			answer: lastQa?.answer ?? null,
+			isDownvoted: downvoted,
 		});
 		if (
-			!shouldAutoRevealSupportCta({
-				isLastResponse: true,
-				revealKey,
-				lastRevealedKey: revealedSupportCtaKeyRef.current,
+			!shouldScrollLatestResponseToBottom({
+				isOpen,
+				isHistoryOpen,
+				isBusy,
+				completionKey,
+				lastScrolledKey: scrolledCompletionKeyRef.current,
 			})
 		) {
 			return;
@@ -719,25 +722,27 @@ function ChatSurface({
 
 		let cancelled = false;
 		let innerFrame = 0;
-		const behavior = getSupportCtaScrollBehavior(window);
-		const reveal = () => {
-			if (cancelled || !messagesRef.current) return;
-			const groups = messagesRef.current.querySelectorAll('.sl-kapa-message-group');
-			const lastGroup = groups[groups.length - 1];
-			const cta = lastGroup?.querySelector('.sl-kapa-support');
-			if (!(cta instanceof HTMLElement)) return;
-			revealedSupportCtaKeyRef.current = revealKey;
-			cta.scrollIntoView({ behavior, block: 'nearest' });
+		let settleFrame = 0;
+		const behavior = getConversationScrollBehavior(window);
+		const scrollToBottom = () => {
+			if (cancelled || !messagesRef.current || !completionKey) return;
+			scrolledCompletionKeyRef.current = completionKey;
+			scrollMessageContainerToBottom(messagesRef.current, { behavior });
+			// Second settle pass after feedback/CTA layout commits.
+			settleFrame = window.requestAnimationFrame(() => {
+				if (cancelled || !messagesRef.current) return;
+				messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+			});
 		};
 
-		// Double rAF: wait until the CTA is committed to layout after React paint.
 		const outerFrame = window.requestAnimationFrame(() => {
-			innerFrame = window.requestAnimationFrame(reveal);
+			innerFrame = window.requestAnimationFrame(scrollToBottom);
 		});
 		return () => {
 			cancelled = true;
 			window.cancelAnimationFrame(outerFrame);
 			if (innerFrame) window.cancelAnimationFrame(innerFrame);
+			if (settleFrame) window.cancelAnimationFrame(settleFrame);
 		};
 	}, [
 		conversation,

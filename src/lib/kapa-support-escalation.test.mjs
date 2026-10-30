@@ -1,10 +1,17 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
 import test from 'node:test';
+import { fileURLToPath } from 'node:url';
 import {
 	SUPPORT_ESCALATION_CONVERSATION_LENGTH_THRESHOLD,
+	getConversationScrollBehavior,
+	getLatestResponseCompletionKey,
 	getSupportCtaRevealKey,
 	getSupportCtaScrollBehavior,
+	scrollMessageContainerToBottom,
 	shouldAutoRevealSupportCta,
+	shouldScrollLatestResponseToBottom,
 	shouldShowSupportEscalation,
 } from './kapa-support-escalation.js';
 
@@ -226,6 +233,7 @@ test('auto-reveal only fires for a new CTA on the last response', () => {
 
 test('scroll behavior respects prefers-reduced-motion when available', () => {
 	assert.equal(getSupportCtaScrollBehavior(null), 'smooth');
+	assert.equal(getConversationScrollBehavior(null), 'smooth');
 	assert.equal(
 		getSupportCtaScrollBehavior({
 			matchMedia: () => ({ matches: true }),
@@ -238,4 +246,150 @@ test('scroll behavior respects prefers-reduced-motion when available', () => {
 		}),
 		'smooth'
 	);
+});
+
+test('completion key tracks latest finished response layout including CTA/downvote', () => {
+	assert.equal(
+		getLatestResponseCompletionKey({
+			conversationLength: 2,
+			responseIndex: 1,
+			responseId: 'qa-2',
+			answer: '',
+			isDownvoted: false,
+		}),
+		null
+	);
+	assert.equal(
+		getLatestResponseCompletionKey({
+			conversationLength: 3,
+			responseIndex: 1,
+			responseId: 'qa-2',
+			answer: 'Done',
+			isDownvoted: false,
+		}),
+		null,
+		'non-last response must not own the completion key'
+	);
+	assert.equal(
+		getLatestResponseCompletionKey({
+			conversationLength: 2,
+			responseIndex: 1,
+			responseId: 'qa-2',
+			answer: 'Done',
+			isDownvoted: false,
+		}),
+		'len:2|id:qa-2|nocta|nodown'
+	);
+	assert.equal(
+		getLatestResponseCompletionKey({
+			conversationLength: 3,
+			responseIndex: 2,
+			responseId: 'qa-3',
+			answer: 'Done',
+			isDownvoted: false,
+		}),
+		'len:3|id:qa-3|cta|nodown'
+	);
+	assert.equal(
+		getLatestResponseCompletionKey({
+			conversationLength: 2,
+			responseIndex: 1,
+			responseId: 'qa-2',
+			answer: 'Done',
+			isDownvoted: true,
+		}),
+		'len:2|id:qa-2|cta|down'
+	);
+});
+
+test('completion bottom-scroll fires once per finished latest layout', () => {
+	assert.equal(
+		shouldScrollLatestResponseToBottom({
+			isOpen: true,
+			isHistoryOpen: false,
+			isBusy: false,
+			completionKey: 'len:3|id:qa-3|cta|nodown',
+			lastScrolledKey: null,
+		}),
+		true
+	);
+	assert.equal(
+		shouldScrollLatestResponseToBottom({
+			isOpen: true,
+			isHistoryOpen: false,
+			isBusy: false,
+			completionKey: 'len:3|id:qa-3|cta|nodown',
+			lastScrolledKey: 'len:3|id:qa-3|cta|nodown',
+		}),
+		false
+	);
+	assert.equal(
+		shouldScrollLatestResponseToBottom({
+			isOpen: true,
+			isHistoryOpen: false,
+			isBusy: true,
+			completionKey: 'len:3|id:qa-3|cta|nodown',
+			lastScrolledKey: null,
+		}),
+		false
+	);
+	assert.equal(
+		shouldScrollLatestResponseToBottom({
+			isOpen: false,
+			isHistoryOpen: false,
+			isBusy: false,
+			completionKey: 'len:3|id:qa-3|cta|nodown',
+			lastScrolledKey: null,
+		}),
+		false
+	);
+	assert.equal(
+		shouldScrollLatestResponseToBottom({
+			isOpen: true,
+			isHistoryOpen: true,
+			isBusy: false,
+			completionKey: 'len:3|id:qa-3|cta|nodown',
+			lastScrolledKey: null,
+		}),
+		false
+	);
+});
+
+test('scrollMessageContainerToBottom writes true bottom scrollTop', () => {
+	const calls = [];
+	const container = {
+		scrollHeight: 1200,
+		clientHeight: 400,
+		scrollTop: 0,
+		scrollTo(opts) {
+			calls.push(opts);
+			this.scrollTop = opts.top;
+		},
+	};
+	assert.equal(scrollMessageContainerToBottom(null), false);
+	assert.equal(scrollMessageContainerToBottom(container, { behavior: 'auto' }), true);
+	assert.equal(container.scrollTop, 1200);
+	assert.equal(scrollMessageContainerToBottom(container, { behavior: 'smooth' }), true);
+	assert.deepEqual(calls.at(-1), { top: 800, behavior: 'smooth' });
+});
+
+test('component wires completion bottom-scroll instead of CTA-only nearest reveal', () => {
+	const componentPath = join(
+		dirname(fileURLToPath(import.meta.url)),
+		'../components/KapaChatLauncher.tsx'
+	);
+	const cssPath = join(
+		dirname(fileURLToPath(import.meta.url)),
+		'../components/KapaChatLauncher.css'
+	);
+	const source = readFileSync(componentPath, 'utf8');
+	const css = readFileSync(cssPath, 'utf8');
+	assert.match(source, /getLatestResponseCompletionKey/);
+	assert.match(source, /shouldScrollLatestResponseToBottom/);
+	assert.match(source, /scrollMessageContainerToBottom/);
+	assert.match(source, /scrolledCompletionKeyRef/);
+	assert.doesNotMatch(source, /scrollIntoView\(\{\s*behavior,\s*block:\s*'nearest'/);
+	assert.doesNotMatch(source, /revealedSupportCtaKeyRef/);
+	assert.match(css, /\.sl-kapa-panel__body\s*\{[^}]*scroll-padding-bottom:\s*1\.5rem/s);
+	assert.match(css, /\.sl-kapa-panel__body\s*\{[^}]*padding-bottom:\s*1\.5rem/s);
 });

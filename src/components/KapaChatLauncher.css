@@ -296,6 +296,9 @@
 	flex: 1 1 auto;
 	overflow-y: auto;
 	padding: 1rem;
+	/* Keep the latest card frame/controls/CTA clear of the composer edge. */
+	padding-bottom: 1.5rem;
+	scroll-padding-bottom: 1.5rem;
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
