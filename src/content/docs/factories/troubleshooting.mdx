@@ -2,13 +2,13 @@
 title: Troubleshooting Warp Factories
 description: >-
   Fix factory setup problems, events that don't start work, and runs that
-  stall or need stopping.
+  stall, need stopping, or can't reach network hosts.
 sidebar:
   label: "Troubleshooting"
 ---
 import { VARS } from '@data/vars';
 
-Fix the problems teams hit most often when setting up a factory and running their first work through it. Each entry below names the symptom you'd see in the {VARS.FACTORY_WEB_APP}.
+Fix problems with factory setup, event routing, and runs. Use the {VARS.FACTORY_WEB_APP} to inspect work, or fetch network diagnostics through the API.
 
 ## Setting up a factory
 
@@ -97,6 +97,50 @@ If a new matching event still doesn't reach the factory, [contact support](https
 **Cause:** The factory can't push, or the work never reached the implement agent.
 
 **Fix:** Confirm that the **Implement** agent is enabled on the factory, that the code host connection still grants write access to the target repository, and that the work item actually reached the building stage. Branch protection rules apply to everything the factory pushes.
+
+### Network requests fail during a run
+
+**Cause:** A factory or agent [network policy](/factories/factory-as-code/#networkpolicy) blocks hosts outside its allowed set. This can prevent package downloads, API calls, or inference requests.
+
+**Fix:**
+
+1. Fetch diagnostics for the affected agent run through the {VARS.WARP_PLATFORM_API}. Replace `RUN_ID` with its `run_id` from `GET /agent/runs`, not the factory or work item ID. For authentication, see the [API reference](https://docs.warp.dev/api). Your account must have access to the run.
+
+   ```http
+   GET https://app.warp.dev/api/v1/agent/runs/RUN_ID/diagnostics
+   ```
+
+   To include the same `diagnostics` array alongside the full run details instead, set `include_diagnostics=true`:
+
+   ```http
+   GET https://app.warp.dev/api/v1/agent/runs/RUN_ID?include_diagnostics=true
+   ```
+
+   Run details omit `diagnostics` by default.
+
+2. Find entries with `code` set to `network/egress_blocked`. For example, the diagnostics endpoint returns:
+
+   ```json
+   {
+     "diagnostics": [
+       {
+         "code": "network/egress_blocked",
+         "message": "Network access to packages.example.com blocked",
+         "data": {
+           "blocked_host": "packages.example.com"
+         },
+         "timestamp": "2026-10-28T15:00:00Z",
+         "created_at": "2026-10-28T15:00:02Z"
+       }
+     ]
+   }
+   ```
+
+   `data.blocked_host` identifies the blocked hostname or IP address. The optional `timestamp` is when the blocked request occurred; the optional `created_at` is when the diagnostic was recorded. Diagnostics are warnings, not the run's outcome. The `state` field in run details reports that outcome.
+
+3. If the run needs that host, add it to `allowedHosts` in the factory or agent policy. Review `deniedHosts` at both scopes and remove any conflicting entry: a denial overrides an allowance, including a built-in policy. [Apply the definition change](/factories/factory-as-code/#where-the-definition-lives), start a new run, and confirm the request succeeds.
+
+If an opted-in run-details response omits `diagnostics`, use the dedicated diagnostics endpoint. An empty `diagnostics` array means no diagnostics were returned; it doesn't prove that every host is reachable. Check the failed command's output for other causes, and use the [API error reference](/factories/api-and-sdk/troubleshooting/errors/) for authentication or access errors.
 
 ## Related pages
 
