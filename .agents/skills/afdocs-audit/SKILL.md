@@ -52,6 +52,7 @@ Each issue includes:
 - `status` — `fail` or `warn`
 - `message` — Human-readable description
 - `fix` — Suggested fix from the AFDocs spec
+- `details` — Original check diagnostics, including affected URLs and fetch errors when the CLI supplies them; also retained for every check in `all_results`
 
 ### v0.6 compatibility checks and reliability
 
@@ -75,6 +76,10 @@ partial-sample observation. The `bot-protection-degrading-scan-reliability` inte
 effect records this condition. The `dynamic-content-rendered-statically` interaction
 effect is recorded when multiple size, serialization, parity, or pagination signals
 co-occur; it is diagnostic and does not add another score penalty.
+
+Reported fetch errors, rate limiting, or discovery warnings also make the scan partial,
+even when bot protection passes. Exclude these results from regression comparisons and
+baselines, and inspect the retained check details before attempting remediation.
 
 ### Known exceptions
 

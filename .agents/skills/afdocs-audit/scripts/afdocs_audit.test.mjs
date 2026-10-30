@@ -100,6 +100,48 @@ test('uses the native CLI score after afdocs supplies every v0.6 check', () => {
 	assert.equal(report.score_method, 'native afdocs CLI score');
 });
 
+test('retains page-level diagnostics and excludes fetch-interrupted scans from complete baselines', () => {
+	const result = {
+		id: 'markdown-content-parity',
+		category: 'observability',
+		status: 'pass',
+		message: 'Compared available pages; one failed to fetch',
+		details: {
+			fetchErrors: 1,
+			rateLimited: 0,
+			pageResults: [{ url: 'https://docs.example.com/page/', status: 'pass' }],
+		},
+	};
+	const report = buildReport({ score: 90, results: [result] });
+
+	assert.equal(report.score, 90);
+	assert.equal(report.scan_reliability.status, 'partial');
+	assert.deepEqual(report.scan_reliability.affected_checks, [result.id]);
+	assert.deepEqual(report.all_results[0].details, result.details);
+
+	const warning = buildReport({ score: 90, results: [{ ...result, status: 'warn' }] });
+	assert.deepEqual(warning.issues[0].details, result.details);
+});
+
+test('treats rate limiting and discovery warnings as partial without interpreting intentional 404 tests as fetch errors', () => {
+	for (const details of [{ rateLimited: 1 }, { discoveryWarnings: ['Sitemap fetch failed'] }]) {
+		const report = buildReport({ score: 90, results: [{ ...legacyResult, details }] });
+		assert.equal(report.scan_reliability.status, 'partial');
+	}
+
+	const report = buildReport({
+		score: 90,
+		results: [{
+			...legacyResult,
+			details: {
+				fetchErrors: 0, rateLimited: 0, discoveryWarnings: [],
+				pageResults: [{ url: 'https://docs.example.com/nonexistent/', status: 404 }],
+			},
+		}],
+	});
+	assert.equal(report.scan_reliability.status, 'complete');
+});
+
 test('treats a valid Link-header continuation as visible at the start of the response', async () => {
 	const headers = { link: '<https://docs.example.com/page.md?cursor=next>; rel="next"' };
 	assert.deepEqual(extractContinuation('First page', headers), [
