@@ -47,7 +47,12 @@ import {
 	LuX,
 } from 'react-icons/lu';
 import './KapaChatLauncher.css';
-import { shouldShowSupportEscalation } from '../lib/kapa-support-escalation.js';
+import {
+	getSupportCtaRevealKey,
+	getSupportCtaScrollBehavior,
+	shouldAutoRevealSupportCta,
+	shouldShowSupportEscalation,
+} from '../lib/kapa-support-escalation.js';
 
 const integrationId = PUBLIC_KAPA_INTEGRATION_ID;
 const title = 'Ask Warp';
@@ -543,6 +548,8 @@ function ChatSurface({
 	const threadIdRef = useRef<string | null>(null);
 	/** Guards StrictMode double-invoke so mount restore runs once per surface. */
 	const mountRestoreAttemptedRef = useRef(false);
+	/** Last support CTA reveal key we already scrolled into view. */
+	const revealedSupportCtaKeyRef = useRef<string | null>(null);
 	const [downvotedAnswerIds, setDownvotedAnswerIds] = useState<Record<string, true>>({});
 	const [copiedMcpValue, setCopiedMcpValue] = useState<McpCopyTarget | null>(null);
 	const messagesRef = useRef<HTMLDivElement | null>(null);
@@ -672,15 +679,74 @@ function ChatSurface({
 	}, [pendingDeleteThreadId]);
 
 	useEffect(() => {
-		if (!isOpen || !messagesRef.current) return;
+		if (!isOpen || !messagesRef.current || isHistoryOpen) return;
 		messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-	}, [conversation.length, isOpen]);
+	}, [conversation.length, isOpen, isHistoryOpen]);
 
 	useEffect(() => {
-		if (!isOpen || !messagesRef.current) return;
+		if (!isOpen || !messagesRef.current || isHistoryOpen) return;
 		if (!isGeneratingAnswer && !isPreparingAnswer) return;
 		messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-	}, [conversation, isGeneratingAnswer, isOpen, isPreparingAnswer]);
+	}, [conversation, isGeneratingAnswer, isOpen, isHistoryOpen, isPreparingAnswer]);
+
+	// When a support CTA newly appears on the last assistant response, scroll it
+	// fully above the fixed footer input. Older CTAs must not steal scroll.
+	useEffect(() => {
+		if (!isOpen || isHistoryOpen || isGeneratingAnswer || isPreparingAnswer) return;
+		const lastIndex = conversation.length - 1;
+		if (lastIndex < 0) return;
+		const lastQa = conversation[lastIndex];
+		const downvoted = Boolean(
+			lastQa?.id &&
+				(lastQa.reaction === 'downvote' || downvotedAnswerIds[lastQa.id] === true)
+		);
+		const revealKey = getSupportCtaRevealKey({
+			answer: lastQa?.answer ?? null,
+			responseIndex: lastIndex,
+			conversationLength: conversation.length,
+			isDownvoted: downvoted,
+			responseId: lastQa?.id ?? null,
+		});
+		if (
+			!shouldAutoRevealSupportCta({
+				isLastResponse: true,
+				revealKey,
+				lastRevealedKey: revealedSupportCtaKeyRef.current,
+			})
+		) {
+			return;
+		}
+
+		let cancelled = false;
+		let innerFrame = 0;
+		const behavior = getSupportCtaScrollBehavior(window);
+		const reveal = () => {
+			if (cancelled || !messagesRef.current) return;
+			const groups = messagesRef.current.querySelectorAll('.sl-kapa-message-group');
+			const lastGroup = groups[groups.length - 1];
+			const cta = lastGroup?.querySelector('.sl-kapa-support');
+			if (!(cta instanceof HTMLElement)) return;
+			revealedSupportCtaKeyRef.current = revealKey;
+			cta.scrollIntoView({ behavior, block: 'nearest' });
+		};
+
+		// Double rAF: wait until the CTA is committed to layout after React paint.
+		const outerFrame = window.requestAnimationFrame(() => {
+			innerFrame = window.requestAnimationFrame(reveal);
+		});
+		return () => {
+			cancelled = true;
+			window.cancelAnimationFrame(outerFrame);
+			if (innerFrame) window.cancelAnimationFrame(innerFrame);
+		};
+	}, [
+		conversation,
+		downvotedAnswerIds,
+		isGeneratingAnswer,
+		isHistoryOpen,
+		isOpen,
+		isPreparingAnswer,
+	]);
 
 	useEffect(() => {
 		const dialog = dialogRef.current;
@@ -762,13 +828,17 @@ function ChatSurface({
 		return reaction === 'downvote' || downvotedAnswerIds[qaId] === true;
 	};
 
-	const shouldShowSupportForAnswer = (qa: {
-		id?: string | null;
-		answer?: string | null;
-		reaction?: string | null;
-	}) =>
+	const shouldShowSupportForAnswer = (
+		qa: {
+			id?: string | null;
+			answer?: string | null;
+			reaction?: string | null;
+		},
+		responseIndex: number
+	) =>
 		shouldShowSupportEscalation({
 			answer: qa.answer,
+			responseIndex,
 			conversationLength: conversation.length,
 			isDownvoted: isDownvoted(qa.id ?? null, qa.reaction ?? null),
 		});
@@ -1263,7 +1333,7 @@ function ChatSurface({
 							</div>
 						)}
 
-						{conversation.map((qa) => (
+						{conversation.map((qa, responseIndex) => (
 							<div className="sl-kapa-message-group" key={qa.id ?? `temp-${qa.question}`}>
 								<div className="sl-kapa-message sl-kapa-message--user">{qa.question}</div>
 								<div className="sl-kapa-message sl-kapa-message--assistant">
@@ -1345,7 +1415,7 @@ function ChatSurface({
 											</button>
 										</div>
 									) : null}
-									{shouldShowSupportForAnswer(qa) ? (
+									{shouldShowSupportForAnswer(qa, responseIndex) ? (
 										<p className="sl-kapa-support">
 											Need more help?{' '}
 											<a href="/support-and-community/troubleshooting-and-support/sending-us-feedback/">
