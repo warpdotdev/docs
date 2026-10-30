@@ -100,8 +100,7 @@ For a public HTTPS gateway, allowlist both fixed outbound IP addresses in your g
 
 These addresses identify Warp's hosted backend, not worker execution traffic. The worker's outbound connection to Warp doesn't require inbound ports on the worker.
 
-If your gateway can't be exposed publicly, contact your Warp account team to arrange [private networking](https://docs.warp.dev/enterprise/enterprise-features/private-networking/). Options include AWS PrivateLink, Google Cloud Private Service Connect, and Azure Private Link. Setup is coordinated with Warp; self-hosting a worker doesn't establish this private connection.
-{/* VERIFY: Confirm production availability and onboarding scope for private LLM gateway connectivity through AWS PrivateLink, Google Cloud Private Service Connect, and Azure Private Link. */}
+If your gateway can't be exposed publicly, contact your Warp account team to confirm whether [private networking](https://docs.warp.dev/enterprise/enterprise-features/private-networking/) is available for your deployment. A private endpoint must be registered with Warp and reachable from Warp's hosted backend; self-hosting a worker doesn't establish this connection.
 
 ## Credential boundaries
 
