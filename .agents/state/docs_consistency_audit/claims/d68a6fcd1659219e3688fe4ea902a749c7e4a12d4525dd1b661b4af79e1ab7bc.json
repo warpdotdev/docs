@@ -1,6 +1,381 @@
 {
-  "claims": [],
-  "page_sha256": "abf949d49d288ed3635a0b9e43cf4dd47f8f4ad19f8469515f68fad21bbeaf9c",
+  "claims": [
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:8d017359361f5827d1964df56cc0f516d392de98303ddd114fc4e4011f065ad8",
+      "claim_id": "sha256:a81014b1609db498a39495ba9b7687893c63eb7a7a2a9253be38848b871fdd11",
+      "entity": "slash-commands",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "input-modes",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Slash Commands are quick actions and saved prompts you can invoke by typing `/` in terminal mode or Agent Mode.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/slash-commands",
+        "canonical_route": "/agents/capabilities/slash-commands",
+        "content_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 8,
+        "line_start": 8,
+        "path": "src/content/docs/agents/capabilities/slash-commands.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/slash-commands/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "terminal",
+          "agent"
+        ],
+        "raw": [
+          "terminal",
+          "agent"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:1f5e8a8d58bb512905947c34671c3fd8035aabb972db330487a3706cae4cd9e4",
+      "claim_id": "sha256:d6997d5003bb17030bffdcc3ef42692af2b9c8d27d1116eae5cf14a5ead56857",
+      "entity": "slash-command-continue-locally",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "behavior",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Fork the current cloud agent conversation into a local Warp session.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/slash-commands",
+        "canonical_route": "/agents/capabilities/slash-commands",
+        "content_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
+        "heading": "Static slash commands",
+        "heading_anchor": "static-slash-commands",
+        "line_end": 21,
+        "line_start": 21,
+        "path": "src/content/docs/agents/capabilities/slash-commands.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/slash-commands/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "fork active cloud conversation into local session",
+        "raw": "fork active cloud conversation into local session",
+        "type": "free-text"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:4da85d733005a7c88754249048a53d5f52d64680493c6d3f1e5043816f9d6b0a",
+      "claim_id": "sha256:6a75eb38950eaa800ac800ab4607b4ae5b6c74ddd554983a5a85477b97a2555d",
+      "entity": "slash-command-handoff",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "behavior",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Hand the current local conversation off to a cloud agent, carrying its history and a snapshot of your uncommitted changes.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/slash-commands",
+        "canonical_route": "/agents/capabilities/slash-commands",
+        "content_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
+        "heading": "Static slash commands",
+        "heading_anchor": "static-slash-commands",
+        "line_end": 21,
+        "line_start": 21,
+        "path": "src/content/docs/agents/capabilities/slash-commands.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/slash-commands/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "local conversation history and uncommitted snapshot to cloud",
+        "raw": "local conversation history and uncommitted snapshot to cloud",
+        "type": "free-text"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:a1bd9becc9e4ed665de78eed7c6f198a18e6c646fcb15801b97b58f36e556514",
+      "claim_id": "sha256:9461fa8183233a55c8c8443e07175acaacbf9af24e1bba5c6d2a06d8c6164246",
+      "entity": "slash-command-remote-control",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "behavior",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Publish the current third-party CLI agent session to the cloud so you can monitor and steer it from another device.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/slash-commands",
+        "canonical_route": "/agents/capabilities/slash-commands",
+        "content_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
+        "heading": "Static slash commands",
+        "heading_anchor": "static-slash-commands",
+        "line_end": 21,
+        "line_start": 21,
+        "path": "src/content/docs/agents/capabilities/slash-commands.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/slash-commands/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "publish third-party session for monitoring and steering",
+        "raw": "publish third-party session for monitoring and steering",
+        "type": "free-text"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:5a5f5fbb297216a57a0cfad87aaa9d29dae853a74e11edc836dce8e51821f958",
+      "claim_id": "sha256:24cb06dba50d6e6e7cf5112c124457db3d3feb13353ee3223054ee2f1b831c4a",
+      "entity": "slash-command-new",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "alias-for",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "(alias for <code>/agent</code>)",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/slash-commands",
+        "canonical_route": "/agents/capabilities/slash-commands",
+        "content_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
+        "heading": "Static slash commands",
+        "heading_anchor": "static-slash-commands",
+        "line_end": 21,
+        "line_start": 21,
+        "path": "src/content/docs/agents/capabilities/slash-commands.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/slash-commands/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "/agent",
+        "raw": "/agent",
+        "type": "path"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:17b7fcbb75c2ac803b0408c610d7b519a0df129c7e23af450a8218d972eac30d",
+      "claim_id": "sha256:f2861642812635a2e656936dc5a70f2ea47d409010446d4a79c869c45d9bd08d",
+      "entity": "slash-command-set-tab-color",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "accepted-values",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Takes a required color argument: <code>red</code>, <code>green</code>, <code>yellow</code>, <code>blue</code>, <code>magenta</code>, <code>cyan</code>, or <code>none</code> to clear it.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/slash-commands",
+        "canonical_route": "/agents/capabilities/slash-commands",
+        "content_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
+        "heading": "Static slash commands",
+        "heading_anchor": "static-slash-commands",
+        "line_end": 21,
+        "line_start": 21,
+        "path": "src/content/docs/agents/capabilities/slash-commands.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/slash-commands/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "red",
+          "green",
+          "yellow",
+          "blue",
+          "magenta",
+          "cyan",
+          "none"
+        ],
+        "raw": [
+          "red",
+          "green",
+          "yellow",
+          "blue",
+          "magenta",
+          "cyan",
+          "none"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "category": "billing",
+      "claim_content_fingerprint": "sha256:96129416f302fad8d6fb007782bf4153371a8a01ced57f09bc647833431fc375",
+      "claim_id": "sha256:3df77abc24676fedf714f5b64115b8af372656f0a7a197556ba10b85708c8669",
+      "entity": "asterisk-marked-slash-commands",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "use-metered-inference",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Slash commands marked with a `*` use metered inference to complete the task.",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/slash-commands",
+        "canonical_route": "/agents/capabilities/slash-commands",
+        "content_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
+        "heading": "Static slash commands",
+        "heading_anchor": "static-slash-commands",
+        "line_end": 24,
+        "line_start": 24,
+        "path": "src/content/docs/agents/capabilities/slash-commands.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/slash-commands/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:5fb3ebdeecdf98ac05e24c3b8e9dccebc16061e735eefac53eadddac6b50a0c4",
+      "claim_id": "sha256:d9efba0b098f853096e47723e5295f1e7e39ba5152e5862cd7cabaef2510b7f0",
+      "entity": "slash-commands",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "includes-warp-drive-prompts",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "the menu also shows [Agent Prompts](/knowledge-and-collaboration/warp-drive/prompts/) saved in your [Warp Drive](/knowledge-and-collaboration/warp-drive/).",
+      "source": {
+        "canonical_identity": "route:/agents/capabilities/slash-commands",
+        "canonical_route": "/agents/capabilities/slash-commands",
+        "content_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
+        "heading": "Using Agent Prompts via Slash Commands",
+        "heading_anchor": "using-agent-prompts-via-slash-commands",
+        "line_end": 29,
+        "line_start": 29,
+        "path": "src/content/docs/agents/capabilities/slash-commands.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/capabilities/slash-commands/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "5e2f7d4335c86826e557a6d1da2708eb87f856a053aa479ba50f3256bbed7519",
   "path": "src/content/docs/agents/capabilities/slash-commands.mdx",
   "schema_version": 1
 }

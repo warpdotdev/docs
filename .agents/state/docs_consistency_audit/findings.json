@@ -4,6 +4,7 @@
       "audit_run_id": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
       "authority_reason": "The model-choice page provides the model-specific retention requirement; the overview supplies no matching exception.",
       "canonical_source": "canonical-doc",
+      "carried_forward_due_to_incomplete_run": true,
       "category": "privacy",
       "claims": [
         {
@@ -105,7 +106,7 @@
       "finding_id": "sha256:50890f2239bc6a5045d38e66cb7f4f160232143c6abc357e749789e9a86f8e47",
       "first_seen_run": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
       "last_seen_run": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
-      "lifecycle": "new",
+      "lifecycle": "existing",
       "predicate": "retained-by-model-provider",
       "qualifier_status": "complete",
       "rationale": "The agents overview states without qualification that no customer AI data is retained, while the model-choice page says Anthropic requires retention for Claude Fable 5 and 5.1. The narrower current-model exception is incompatible with the overview\u2019s universal wording.",
@@ -154,10 +155,171 @@
       "topic": "privacy",
       "verdict": "contradiction"
     },
+    "sha256:6e8be985adb4ad7df4ec2e5d3d9865059d965df28bb51c1ca433d03b326499e2": {
+      "audit_run_id": "01a18dc1-0a96-7631-bee5-cc1e5dee9535",
+      "authority_reason": "The complete legacy CLI reference distinguishes local --profile from cloud runs. The public CLI source declares profile on RunAgentArgs, while the complete RunCloudArgs definition has no profile field; no release or policy change is inferred from source alone.",
+      "canonical_source": {
+        "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
+        "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+        "repository": "warpdotdev/docs"
+      },
+      "category": "permissions",
+      "claims": [
+        {
+          "category": "permissions",
+          "claim_content_fingerprint": "sha256:64942237cb917f5037fb9ee49f216681d11ca4b31d36d76a0a8d1785522b3e67",
+          "claim_id": "sha256:c56978314e3f1d01abe43ed65798c4d67c908437529aff80422fee07f37c813d",
+          "entity": "oz-agent-run-cloud",
+          "extraction_confidence": "high",
+          "polarity": "affirmative",
+          "predicate": "requires-agent-profile-permissions",
+          "qualifiers": {
+            "actors": [],
+            "architectures": [],
+            "environments": [
+              "cloud"
+            ],
+            "exceptions": [],
+            "install_methods": [],
+            "legacy": true,
+            "operating_systems": [],
+            "plans": [],
+            "release_statuses": [],
+            "shells": [],
+            "time_scope": null,
+            "versions": []
+          },
+          "quote": "No `--profile` \u2014 cloud runs do not use agent profiles.",
+          "source": {
+            "canonical_identity": "route:/agents/cli/oz-cli",
+            "canonical_route": "/agents/cli/oz-cli",
+            "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+            "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
+            "heading_anchor": "running-agents-remotely-oz-agent-run-cloud",
+            "line_end": 290,
+            "line_start": 290,
+            "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/agents/cli/oz-cli/",
+            "visibility": "public"
+          },
+          "source_class": "canonical-doc",
+          "topic": "cli",
+          "value": {
+            "normalized": false,
+            "type": "boolean"
+          }
+        },
+        {
+          "category": "permissions",
+          "claim_content_fingerprint": "sha256:a411bdf8af9844f2c17697282d1bbf5962321175f6fd595bc73cb271fc7b10d8",
+          "claim_id": "sha256:3bde8cbf05cded294bf370ad8b2dc5ba13f262e7891c06908bb9f5f6dc99e3db",
+          "entity": "oz-agent-run-cloud",
+          "extraction_confidence": "high",
+          "polarity": "affirmative",
+          "predicate": "requires-agent-profile-permissions",
+          "qualifiers": {
+            "actors": [],
+            "architectures": [],
+            "environments": [
+              "cloud"
+            ],
+            "exceptions": [],
+            "install_methods": [],
+            "legacy": true,
+            "operating_systems": [],
+            "plans": [],
+            "release_statuses": [],
+            "shells": [],
+            "time_scope": null,
+            "versions": []
+          },
+          "quote": "Check that your profile allows the commands and MCP servers needed.",
+          "source": {
+            "canonical_identity": "route:/agents/cli/oz-cli",
+            "canonical_route": "/agents/cli/oz-cli",
+            "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+            "heading": "Starting a run as an orchestration child",
+            "heading_anchor": "starting-a-run-as-an-orchestration-child",
+            "line_end": 351,
+            "line_start": 351,
+            "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/agents/cli/oz-cli/",
+            "visibility": "public"
+          },
+          "source_class": "canonical-doc",
+          "topic": "cli",
+          "value": {
+            "normalized": true,
+            "type": "boolean"
+          }
+        }
+      ],
+      "confidence": "high",
+      "context_complete": true,
+      "entity": "oz-agent-run-cloud",
+      "finding_content_fingerprint": "sha256:2b81bd25f5698ca2e0fc9483ebbe6cc0dbe0f3b0142f312afce445d58ec0cf22",
+      "finding_id": "sha256:6e8be985adb4ad7df4ec2e5d3d9865059d965df28bb51c1ca433d03b326499e2",
+      "first_seen_run": "01a18dc1-0a96-7631-bee5-cc1e5dee9535",
+      "last_seen_run": "01a18dc1-0a96-7631-bee5-cc1e5dee9535",
+      "lifecycle": "new",
+      "predicate": "requires-agent-profile-permissions",
+      "qualifier_status": "complete",
+      "rationale": "The legacy CLI reference says cloud runs do not use agent profiles, but its cloud-run failure checklist tells readers to fix command and MCP permissions in a profile. Both instructions concern the same cloud-run workflow and give incompatible troubleshooting guidance.",
+      "rationale_class": "cloud-run-profile-scope-conflict",
+      "reopened": false,
+      "scope_quotes": [
+        {
+          "quote": "No `--profile` \u2014 cloud runs do not use agent profiles.",
+          "source": {
+            "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+            "line_end": 290,
+            "line_start": 290,
+            "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/agents/cli/oz-cli/",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "Check that your profile allows the commands and MCP servers needed.",
+          "source": {
+            "content_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
+            "line_end": 351,
+            "line_start": 351,
+            "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
+            "repository": "warpdotdev/docs",
+            "route": "/agents/cli/oz-cli/",
+            "visibility": "public"
+          }
+        },
+        {
+          "quote": "/// Agent profile to configure the terminal session.\n    #[arg(long = \"profile\", value_name = \"ID\")]\n    pub profile: Option<String>,",
+          "source": {
+            "content_sha256": "65a76c8f8cac5aaff3b3b564660385cbf65697c9e12a80bf52e3739ba23cefce",
+            "line_end": 653,
+            "line_start": 651,
+            "path": "crates/warp_cli/src/agent.rs",
+            "repository": "warpdotdev/warp",
+            "visibility": "public"
+          }
+        }
+      ],
+      "severity": "medium",
+      "source_commit": "232cf27943a1fbbc11eead43792cf224e4b5f226",
+      "status": "active",
+      "suggested_resolution": "Ask the CLI owner to review the cloud-run failure checklist and replace the profile-permission instruction with checks that apply to cloud-run configuration.",
+      "suggested_resolution_class": "human-permission-guidance-review",
+      "title": "Cloud-run troubleshooting refers to profiles that the CLI says are unused",
+      "topic": "cli",
+      "verdict": "contradiction"
+    },
     "sha256:8fff47f3da6b8ecf3313f2af0d7506827edc42998120dff2d1d11121a0882865": {
       "audit_run_id": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
       "authority_reason": "The canonical overview and FAQ make opposing public statements about training use, and the privacy page confirms collection depends on telemetry and plan context rather than establishing a universal no-training rule.",
       "canonical_source": "canonical-doc",
+      "carried_forward_due_to_incomplete_run": true,
       "category": "privacy",
       "claims": [
         {
@@ -254,7 +416,7 @@
       "finding_id": "sha256:8fff47f3da6b8ecf3313f2af0d7506827edc42998120dff2d1d11121a0882865",
       "first_seen_run": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
       "last_seen_run": "01a1174e-c87a-7dd8-b072-61ac8c8cbab5",
-      "lifecycle": "new",
+      "lifecycle": "existing",
       "predicate": "used-for-training",
       "qualifier_status": "complete",
       "rationale": "The agents overview says no customer AI data is used for training, while the agent FAQ says Warp reserves the right to use collected data to train models. Neither claim narrows the data category in a way that removes the overlap.",

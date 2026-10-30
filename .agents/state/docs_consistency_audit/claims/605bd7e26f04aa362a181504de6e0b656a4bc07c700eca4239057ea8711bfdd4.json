@@ -1,6 +1,227 @@
 {
-  "claims": [],
-  "page_sha256": "39e335661038b9b2824ce546dd1b3e3eda81c83235e400818a32b5c36d91cc50",
+  "claims": [
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:6594075520740d3c96b425ab1b5c4d3c7a3b68a71abd9aa95d566710ec8c8b7d",
+      "claim_id": "sha256:9c37e3cc9b38282523b7040689280243beee666faa373eb7398a75ca88a14da5",
+      "entity": "opencode-integration",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "automatically-detected",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp auto-detects OpenCode when you run it",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/opencode",
+        "canonical_route": "/agents/cli-agents/opencode",
+        "content_sha256": "cb8c446d84b07817ada7c8828b408320ae625a887fa34dd0c73cb819c1e072e4",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 12,
+        "line_start": 12,
+        "path": "src/content/docs/agents/cli-agents/opencode.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/opencode/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:b7b61d670e00b63df1f958fd83b92ee031ce7582089020df5ab087eb47936d6a",
+      "claim_id": "sha256:b880904719fe59829cc259bd8e398277181b61625c597560575944da140894fe",
+      "entity": "opencode-notifications",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "requires-plugin",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp supports agent notifications for OpenCode through a plugin.",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/opencode",
+        "canonical_route": "/agents/cli-agents/opencode",
+        "content_sha256": "cb8c446d84b07817ada7c8828b408320ae625a887fa34dd0c73cb819c1e072e4",
+        "heading": "Setting up notifications",
+        "heading_anchor": "setting-up-notifications",
+        "line_end": 18,
+        "line_start": 18,
+        "path": "src/content/docs/agents/cli-agents/opencode.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/opencode/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:cb00054954dda981243ea0d54b35c13180c19b87e19b7d4072e1040db5f1305a",
+      "claim_id": "sha256:0b8d0bb875a91f789a0ec9c1f3c954dd0e3c4fa27760f5c107adffc37acf250c",
+      "entity": "opencode-notifications",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "plugin-identifier",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "add `\"@warp-dot-dev/opencode-warp\"` to the `plugin` array in your `opencode.jsonc` configuration file (or `opencode.json` if you use plain JSON):",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/opencode",
+        "canonical_route": "/agents/cli-agents/opencode",
+        "content_sha256": "cb8c446d84b07817ada7c8828b408320ae625a887fa34dd0c73cb819c1e072e4",
+        "heading": "Setting up notifications",
+        "heading_anchor": "setting-up-notifications",
+        "line_end": 20,
+        "line_start": 20,
+        "path": "src/content/docs/agents/cli-agents/opencode.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/opencode/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "@warp-dot-dev/opencode-warp",
+        "raw": "@warp-dot-dev/opencode-warp",
+        "type": "parameter"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:afa4da078de65b5bc70f467e321fb0522731618f15d91cdb5e9c4f560efdf966",
+      "claim_id": "sha256:d3fd43e7c8bc302d1f7050574ae506bb3c7e94a4c37f99b8f55223dc133a86c1",
+      "entity": "opencode-notifications",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "installation-chip",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If the plugin isn't installed, Warp displays an installation chip in the terminal when you run OpenCode, with setup steps you can follow directly.",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/opencode",
+        "canonical_route": "/agents/cli-agents/opencode",
+        "content_sha256": "cb8c446d84b07817ada7c8828b408320ae625a887fa34dd0c73cb819c1e072e4",
+        "heading": "Setting up notifications",
+        "heading_anchor": "setting-up-notifications",
+        "line_end": 28,
+        "line_start": 28,
+        "path": "src/content/docs/agents/cli-agents/opencode.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/opencode/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:141c04310791a6cb7457c4c0d76cab84a66546374706666103cd00cb503801d8",
+      "claim_id": "sha256:f6e14f329734f6dc7a51399b80e4a14172592a6dddfdeb1dbc4e2a7c3d7f26b6",
+      "entity": "opencode-integration",
+      "extraction_confidence": 0.95,
+      "polarity": "affirmative",
+      "predicate": "remote-control-supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**[Remote Control](/agents/cli-agents/remote-control/)** - Publish your OpenCode session so you can monitor and steer it from another device.",
+      "source": {
+        "canonical_identity": "route:/agents/cli-agents/opencode",
+        "canonical_route": "/agents/cli-agents/opencode",
+        "content_sha256": "cb8c446d84b07817ada7c8828b408320ae625a887fa34dd0c73cb819c1e072e4",
+        "heading": "Supported Warp features",
+        "heading_anchor": "supported-warp-features",
+        "line_end": 42,
+        "line_start": 42,
+        "path": "src/content/docs/agents/cli-agents/opencode.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli-agents/opencode/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "raw": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "cb8c446d84b07817ada7c8828b408320ae625a887fa34dd0c73cb819c1e072e4",
   "path": "src/content/docs/agents/cli-agents/opencode.mdx",
   "schema_version": 1
 }

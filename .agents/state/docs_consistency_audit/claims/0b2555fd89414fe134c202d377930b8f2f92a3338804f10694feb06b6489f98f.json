@@ -1,6 +1,343 @@
 {
-  "claims": [],
-  "page_sha256": "49d7f1b5df5a4b83e3de7c4476cd96271bd3aeb32f74b8538cd793c4bdb41381",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:29e0004e28317a2f9afe68ac0196cd62be2b8822d0647cd20250b12fd7277af8",
+      "claim_id": "sha256:8ede7993f92dc40b42a838e826272ed0fdcf7cf52641772bd91c69fa4f3a68e5",
+      "entity": "interactive-cli",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-gui-installed",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The CLI doesn't require the Warp app to be installed.",
+      "source": {
+        "canonical_identity": "route:/agents/cli",
+        "canonical_route": "/agents/cli",
+        "content_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
+        "heading": "How it relates to the Warp app and cloud agents",
+        "heading_anchor": "how-it-relates-to-the-warp-app-and-cloud-agents",
+        "line_end": 32,
+        "line_start": 32,
+        "path": "src/content/docs/agents/cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:19b61f62e700d2610d14d739f03fdc77a6a141e70a0f11e454948a1984e82485",
+      "claim_id": "sha256:51ad334684b570c6876a763bd2f44e73df8f1e732d8f79c3f16f05dc9d624046",
+      "entity": "interactive-cli",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-ssh",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "it works in any terminal emulator, including over SSH.",
+      "source": {
+        "canonical_identity": "route:/agents/cli",
+        "canonical_route": "/agents/cli",
+        "content_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
+        "heading": "What is the Warp Agent CLI?",
+        "heading_anchor": "what-is-the-warp-agent-cli",
+        "line_end": 15,
+        "line_start": 15,
+        "path": "src/content/docs/agents/cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:1d9cd6b65e828538d2604503ada11a81333500fc8ced80e17465ea2b37f9c758",
+      "claim_id": "sha256:02a24b87f13a42c00ad2d62064b3387640aaf577cedb18e6441c801439446d0e",
+      "entity": "interactive-cli-conversations",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "saved-to-account",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Conversations save to your Warp account, so you can exit and resume later or switch between them.",
+      "source": {
+        "canonical_identity": "route:/agents/cli",
+        "canonical_route": "/agents/cli",
+        "content_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
+        "heading": "Key features",
+        "heading_anchor": "key-features",
+        "line_end": 24,
+        "line_start": 24,
+        "path": "src/content/docs/agents/cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:ab09d5744140add0281fe25ea52309c9c7dfeeb22c4cdfb951fcbb1706c49dba",
+      "claim_id": "sha256:d2e739b33a3e94a1bca231c17c4631f4381a1571975d385b6337e757e8381b45",
+      "entity": "interactive-cli",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-interactive-processes",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "including prompts and full-screen terminal apps.",
+      "source": {
+        "canonical_identity": "route:/agents/cli",
+        "canonical_route": "/agents/cli",
+        "content_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
+        "heading": "What is the Warp Agent CLI?",
+        "heading_anchor": "what-is-the-warp-agent-cli",
+        "line_end": 15,
+        "line_start": 15,
+        "path": "src/content/docs/agents/cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:ad345ed5bdff2e4eab20bfd579ec54f7f909ced1d9dabe4adc6e1520481146ab",
+      "claim_id": "sha256:0661618e439ff7f1b53536635847dd86053ac2748ca18fe067a48e99a762556d",
+      "entity": "interactive-cli-warp-drive",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-saved-prompts",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "your saved Warp Drive prompts are available after you log in (other Warp Drive object types aren't available in the CLI).",
+      "source": {
+        "canonical_identity": "route:/agents/cli",
+        "canonical_route": "/agents/cli",
+        "content_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
+        "heading": "Coming from the Warp app",
+        "heading_anchor": "coming-from-the-warp-app",
+        "line_end": 47,
+        "line_start": 47,
+        "path": "src/content/docs/agents/cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b441cc67589d7062887b0ccfba09d8b0ab333862b387e307d4aa9c2549ebb3f1",
+      "claim_id": "sha256:d8220879170550386a4c6dbfad2f717de8b663146013fb913d07bb41bc9b47c4",
+      "entity": "interactive-cli-warp-drive",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-other-object-types",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "other Warp Drive object types aren't available in the CLI",
+      "source": {
+        "canonical_identity": "route:/agents/cli",
+        "canonical_route": "/agents/cli",
+        "content_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
+        "heading": "Coming from the Warp app",
+        "heading_anchor": "coming-from-the-warp-app",
+        "line_end": 47,
+        "line_start": 47,
+        "path": "src/content/docs/agents/cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f24dba8afce07df47326cdca50beca3b6f37d4b5e8b6ea07d6a0e4f726c8bad3",
+      "claim_id": "sha256:43610db7032a242ce42fa6184c4d6dcc8fee5436c4995f028c4b1b44c26467b1",
+      "entity": "interactive-cli-migration",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "copies-credentials",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Credentials are never copied, so MCP servers that require authentication must be reauthenticated in the CLI.",
+      "source": {
+        "canonical_identity": "route:/agents/cli",
+        "canonical_route": "/agents/cli",
+        "content_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
+        "heading": "Coming from the Warp app",
+        "heading_anchor": "coming-from-the-warp-app",
+        "line_end": 47,
+        "line_start": 47,
+        "path": "src/content/docs/agents/cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:af976970d448cf16fead832eddec5353b83467c42276023db02ccb691e67e443",
+      "claim_id": "sha256:1d9bf99d9081119be4f01d0abf73028ff55da4b93e828ed6304b78c71621fb35",
+      "entity": "interactive-cli-manage-billing",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-billing-admin",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The command is listed only when you administer billing for your team.",
+      "source": {
+        "canonical_identity": "route:/agents/cli",
+        "canonical_route": "/agents/cli",
+        "content_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
+        "heading": "Checking your account, plan, and billing",
+        "heading_anchor": "checking-your-account-plan-and-billing",
+        "line_end": 41,
+        "line_start": 41,
+        "path": "src/content/docs/agents/cli/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
   "path": "src/content/docs/agents/cli/index.mdx",
   "schema_version": 1
 }
