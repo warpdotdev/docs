@@ -91,6 +91,8 @@ npm install
 
 If factory setup commands need credentials, configure [factory secrets](/factories/secrets/). For standalone workflows, use [Agent Secrets](https://docs.warp.dev/platform/secrets/). Don't hardcode tokens in setup commands.
 
+To use different setup profiles with one environment, [send the profile in run metadata](https://docs.warp.dev/factories/factory-agents/creating-custom-agents/#select-a-setup-profile-for-each-task).
+
 ## Configure container users
 
 Linux container runs use a non-root user by default. Configure your image and setup commands for the selected user.
