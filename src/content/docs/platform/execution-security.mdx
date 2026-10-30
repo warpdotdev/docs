@@ -32,7 +32,7 @@ Repositories are cloned and stored only on your infrastructure, but code content
 
 ## Network requirements
 
-Self-hosted agents **do not require any network ingress**. They require outbound (egress) access to the following services:
+Self-hosted workers **do not require network ingress for their connection to Warp**. They require outbound (egress) access to the following services:
 
 ![Self-hosted worker network egress diagram showing outbound-only connections from customer infrastructure to Warp backend endpoints, Docker Hub, Google Cloud Storage, and GitHub](../../../assets/agent-platform/self-hosted-network-egress.png)
 
@@ -58,9 +58,9 @@ Tasks use the following Docker images:
 
 **Linux distribution-specific package repositories** — only with the managed architecture, when using a Warp environment whose base image does not have Git pre-installed. The exact repositories depend on the package manager configuration in the environment's base image.
 
-All traffic uses HTTPS (port 443). No inbound ports need to be opened.
+All traffic uses HTTPS (port 443). No inbound ports need to be opened on the worker for its connection to Warp.
 
-[Team-managed inference endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) and URL-backed MCP servers that you host must be reachable from Warp's servers.
+[Team-managed inference endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) and URL-backed MCP servers that you host must be reachable from Warp's servers. The worker's outbound-only connection doesn't provide ingress to your inference gateway; see [Networking for BYO inference endpoints](https://docs.warp.dev/factories/infrastructure-and-security/#networking-for-byo-inference-endpoints) for gateway allowlisting and private connectivity options.
 
 ---
 

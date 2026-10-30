@@ -85,6 +85,24 @@ Factory agents execute as cloud agents. For runs using the Warp Agent, support v
 
 Personal BYOK and personal custom inference endpoints are stored on a member's device and don't apply to factory runs. With team-managed keys and endpoints, select a specific provider model or endpoint. Auto continues to use Warp-managed inference. Your provider's retention follows your account and contract. Warp can't enforce ZDR for that provider.
 
+### Networking for BYO inference endpoints
+
+For factory runs using the Warp Agent and a team-managed inference endpoint, model requests originate from Warp's hosted backend, not your self-hosted worker or VPC. Your workers execute checkout, tools, builds, and commands.
+
+Your inference gateway must accept connections from Warp's backend, even if your workers can already reach it. For example, a TrueFoundry gateway on AWS needs a separate ingress path for Warp's inference requests.
+
+For a public HTTPS gateway, allowlist both fixed outbound IP addresses in your gateway's ingress rules:
+
+{/* VERIFY: Confirm that all current production team-managed inference requests use only these two fixed outbound IPs. */}
+
+* `34.181.225.186`
+* `35.245.132.55`
+
+These addresses identify Warp's hosted backend, not worker execution traffic. The worker's outbound connection to Warp doesn't require inbound ports on the worker.
+
+If your gateway can't be exposed publicly, contact your Warp account team to arrange [private networking](https://docs.warp.dev/enterprise/enterprise-features/private-networking/). Options include AWS PrivateLink, Google Cloud Private Service Connect, and Azure Private Link. Setup is coordinated with Warp; self-hosting a worker doesn't establish this private connection.
+{/* VERIFY: Confirm production availability and onboarding scope for private LLM gateway connectivity through AWS PrivateLink, Google Cloud Private Service Connect, and Azure Private Link. */}
+
 ## Credential boundaries
 
 A factory handles four kinds of credentials, each with its own boundary:
