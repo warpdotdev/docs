@@ -149,6 +149,8 @@ Use unmanaged execution for an existing CI pipeline, Kubernetes Job, VM, or deve
 
 Repository clones and execution workspaces stay on your infrastructure. Agent context and model requests still travel through Warp's services. See the [self-hosted execution flow](/platform/architecture/#self-hosted-execution-flow) for the architecture and [Security and networking](/factories/self-hosting/security-and-networking/) for data boundaries, ZDR, and BYOLLM.
 
+For a factory using a team-managed inference gateway, see [Networking for BYO inference endpoints](/factories/infrastructure-and-security/#networking-for-byo-inference-endpoints) for gateway ingress requirements, source IPs, and private connectivity options.
+
 View managed and unmanaged runs in the <a href={VARS.WEB_APP_URL}>{VARS.DASHBOARD}</a>. Managed workers can also export OpenTelemetry metrics; see [Monitoring](/factories/self-hosting/monitoring/).
 
 ## Related pages

@@ -172,6 +172,10 @@ check('self-hosting security discovery', () => {
 			`missing direct network requirements link from ${parent}`);
 	}
 	assert.ok(body.querySelector('a[href="/platform/unmanaged-execution/"]'), 'lost standalone unmanaged guidance');
+	assert.ok(body.querySelector('a[href="/factories/infrastructure-and-security/#networking-for-byo-inference-endpoints"]'),
+		'lost incoming BYO inference networking guidance');
+	assert.match(body.textContent, /doesn['’]t provide ingress to your inference gateway/,
+		'worker egress must not imply inference gateway ingress');
 	for (const host of ['app.warp.dev', 'rtc.app.warp.dev', 'sessions.app.warp.dev', 'oz.warp.dev', 'storage.googleapis.com']) {
 		assert.ok(body.textContent.includes(host), `lost network destination ${host}`);
 	}

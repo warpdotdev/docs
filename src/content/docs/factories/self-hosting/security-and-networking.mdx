@@ -70,7 +70,7 @@ Warp services above use port `443`; your registries, repositories, and internal 
 
 ### Services reached from Warp
 
-[Team-managed inference endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) and URL-backed MCP servers used through [Warp's proxy](/factories/mcp/#connect-directly-by-url) must be reachable from Warp's servers, not only from your worker. For private inference gateways, see [Private networking](/enterprise/enterprise-features/private-networking/).
+[Team-managed inference endpoints](/enterprise/enterprise-features/team-managed-keys-and-endpoints/) and URL-backed MCP servers used through [Warp's proxy](/factories/mcp/#connect-directly-by-url) must be reachable from Warp's servers, not only from your worker. The worker's outbound-only connection doesn't provide ingress to your inference gateway. See [Networking for BYO inference endpoints](/factories/infrastructure-and-security/#networking-for-byo-inference-endpoints) for gateway allowlisting and deployment-specific private connectivity.
 
 ---
 
