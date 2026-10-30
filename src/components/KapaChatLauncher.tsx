@@ -1210,6 +1210,7 @@ function ChatSurface({
 																	type="button"
 																	className="sl-kapa-history__open"
 																	onClick={() => restoreSavedConversation(savedConversation.threadId)}
+																	aria-label={savedConversation.title}
 																	aria-current={savedConversation.isActive ? 'page' : undefined}
 																>
 																	<span className="sl-kapa-history__open-title">{savedConversation.title}</span>
@@ -1217,11 +1218,15 @@ function ChatSurface({
 																		<span className="sl-kapa-history__active">{conversationHistory.current}</span>
 																	) : null}
 																</button>
+																{/* z-index above full-row open control; stopPropagation keeps restore from firing. */}
 																<div className="sl-kapa-history__row-actions">
 																	<button
 																		type="button"
 																		className="sl-kapa-history__icon-button"
-																		onClick={() => beginRename(savedConversation)}
+																		onClick={(event) => {
+																			event.stopPropagation();
+																			beginRename(savedConversation);
+																		}}
 																		aria-label={conversationHistory.rename}
 																		data-tooltip={conversationHistory.rename}
 																	>
@@ -1230,7 +1235,10 @@ function ChatSurface({
 																	<button
 																		type="button"
 																		className="sl-kapa-history__icon-button"
-																		onClick={() => requestDelete(savedConversation.threadId)}
+																		onClick={(event) => {
+																			event.stopPropagation();
+																			requestDelete(savedConversation.threadId);
+																		}}
 																		aria-label={conversationHistory.delete}
 																		data-tooltip={conversationHistory.delete}
 																	>

@@ -372,15 +372,15 @@
 
 .sl-kapa-history__row {
 	display: grid;
-	grid-template-columns: minmax(0, 1fr) auto;
+	grid-template-columns: minmax(0, 1fr);
 	align-items: center;
-	gap: 0.5rem;
 	min-height: 3rem;
-	padding: 0.5rem 0.625rem;
+	padding: 0;
 	border: 1px solid var(--sl-color-gray-5);
 	border-radius: var(--sl-radius-sm);
 	background: color-mix(in srgb, var(--sl-color-black), var(--sl-color-gray-6) 28%);
 	color: var(--sl-color-gray-1);
+	overflow: hidden;
 }
 
 .sl-kapa-history__row:hover {
@@ -395,18 +395,26 @@
 }
 
 .sl-kapa-history__row[data-pending-delete='true'] {
-	grid-template-columns: 1fr;
+	padding: 0.5rem 0.625rem;
 }
 
-.sl-kapa-history__open {
+/* Full-row hit target stacked under rename/delete in the same grid cell.
+   Only direct children of the row — rename/confirm keep their own layout. */
+.sl-kapa-history__row > .sl-kapa-history__open {
+	grid-column: 1;
+	grid-row: 1;
+	z-index: 0;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	gap: 0.75rem;
+	width: 100%;
 	min-width: 0;
-	padding: 0.125rem 0.25rem;
+	min-height: 3rem;
+	/* Leave room on the right so title does not run under action buttons. */
+	padding: 0.5rem 4.25rem 0.5rem 0.625rem;
 	border: 0;
-	border-radius: var(--sl-radius-sm);
+	border-radius: inherit;
 	background: transparent;
 	color: inherit;
 	font: inherit;
@@ -435,6 +443,16 @@
 	align-items: center;
 	gap: 0.25rem;
 	flex: none;
+}
+
+.sl-kapa-history__row > .sl-kapa-history__row-actions {
+	grid-column: 1;
+	grid-row: 1;
+	justify-self: end;
+	align-self: center;
+	position: relative;
+	z-index: 1;
+	margin-right: 0.375rem;
 }
 
 .sl-kapa-history__icon-button {
