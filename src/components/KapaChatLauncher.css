@@ -340,10 +340,15 @@
 
 .sl-kapa-history__open:focus-visible,
 .sl-kapa-history__icon-button:focus-visible,
-.sl-kapa-history__text-button:focus-visible,
-.sl-kapa-history__rename input:focus-visible {
+.sl-kapa-history__text-button:focus-visible {
 	outline: 2px solid var(--sl-color-accent-high);
 	outline-offset: 2px;
+}
+
+.sl-kapa-history__rename input:focus-visible {
+	outline: 2px solid var(--sl-color-accent-high);
+	/* Keep the focus ring inside the row instead of spilling past the left edge. */
+	outline-offset: -2px;
 }
 
 .sl-kapa-history__empty {
@@ -405,8 +410,11 @@
 	color: var(--sl-color-white);
 }
 
-.sl-kapa-history__row[data-pending-delete='true'] {
+.sl-kapa-history__row[data-pending-delete='true'],
+.sl-kapa-history__row:has(> .sl-kapa-history__rename) {
+	/* Inset rename/confirm chrome so the field stays inside the card radius. */
 	padding: 0.5rem 0.625rem;
+	box-sizing: border-box;
 }
 
 /* Full-row hit target stacked under rename/delete in the same grid cell.
@@ -531,10 +539,16 @@
 	gap: 0.5rem;
 	align-items: center;
 	width: 100%;
+	min-width: 0;
+	max-width: 100%;
+	box-sizing: border-box;
 }
 
 .sl-kapa-history__rename input {
+	box-sizing: border-box;
 	min-width: 0;
+	max-width: 100%;
+	width: 100%;
 	height: 2rem;
 	padding: 0 0.5rem;
 	border: 1px solid var(--sl-color-gray-5);
