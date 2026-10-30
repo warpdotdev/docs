@@ -1,6 +1,550 @@
 {
-  "claims": [],
-  "page_sha256": "55e1c58ca0a53bb923ad329468458104f7aa85bab3e4e1805eaba3e02c2cd3cd",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:56bb09d9bb75bdcff2863c8324c756d0b1a06520b06377739cd98e95c5afd029",
+      "claim_id": "sha256:ef865389d824ff7c750b5cba8767b3ea3b0f92616122a818c3b4d8babf007a9b",
+      "entity": "cli-handoff",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "forks-conversation",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp forks the conversation, so the cloud agent sees the full transcript and your local conversation stays untouched.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "heading": "Hand off to a cloud agent",
+        "heading_anchor": "hand-off-to-a-cloud-agent",
+        "line_end": 17,
+        "line_start": 17,
+        "path": "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/cloud-and-orchestration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:1de53756c5b232422843a93f771d9935f7a7e4f947451cfc81279ae92603d1fe",
+      "claim_id": "sha256:d43711a14af002d03cde930c76aec69780961d4b63482d89f235402a970d3460",
+      "entity": "cli-handoff",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "includes-untracked-files",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp snapshots your uncommitted repository changes, including untracked files, and applies them in the cloud run.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "heading": "Hand off to a cloud agent",
+        "heading_anchor": "hand-off-to-a-cloud-agent",
+        "line_end": 18,
+        "line_start": 18,
+        "path": "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/cloud-and-orchestration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:130ceb465c2e4caa1aec6149022241ee984d153c3f6217772987e759d97f7935",
+      "claim_id": "sha256:58dc8f5d430b737dbb03fae6dce0239af09fbec2f658753ec1fdf2252430edd0",
+      "entity": "cli-handoff",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "includes-pending-input",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The optional follow-up prompt and any images attached to the input move to the cloud run.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "heading": "Hand off to a cloud agent",
+        "heading_anchor": "hand-off-to-a-cloud-agent",
+        "line_end": 19,
+        "line_start": 19,
+        "path": "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/cloud-and-orchestration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:779c740951ca2d841f81d822b96af559ceb0d78a4b837c230b1c4699148c81c1",
+      "claim_id": "sha256:de34c403e846c90c0ea275d4bd5fd16f67bf790fbaad0364bf7a3bec375220d7",
+      "entity": "cli-handoff",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "allowed-with-running-command",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "You can't hand off while a command is still running, or while the conversation has child agents that are in progress or blocked.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "heading": "Hand off a conversation",
+        "heading_anchor": "hand-off-a-conversation",
+        "line_end": 42,
+        "line_start": 42,
+        "path": "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/cloud-and-orchestration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:372e53e729cc111d7b0585325f7c2b32d6f2599c851dfa349019db4b396a1867",
+      "claim_id": "sha256:825099259df878f5a09544a4c328d61d2354d545a80d5209a20bf4a924ec62cb",
+      "entity": "cli-handoff",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "moves-child-orchestration",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Handing off an orchestrator forks only its own conversation. The orchestration and its child agents stay local.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "heading": "Hand off a conversation",
+        "heading_anchor": "hand-off-a-conversation",
+        "line_end": 42,
+        "line_start": 42,
+        "path": "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/cloud-and-orchestration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:bdce5e9c33630a4c9b8d8aa5946349ddc0dd60856141db69a62344dcbf6c561d",
+      "claim_id": "sha256:3a7e374dad6aa99dd1468bc3c78c46fab4c4eb9abb953d9f513f91bae3202f15",
+      "entity": "cli-cloud-resume",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "requires-finished-run",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Cloud runs that are still in progress or blocked can't be opened in the CLI.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "heading": "Resume cloud conversations",
+        "heading_anchor": "resume-cloud-conversations",
+        "line_end": 53,
+        "line_start": 53,
+        "path": "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/cloud-and-orchestration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f4e4f455afc2a5bbb4cb8bda38e431f31eeae7dbcc96cd98284390d3cc5f958c",
+      "claim_id": "sha256:48f9953a26a77a7526219d294f7d868a3398b7a522493c9f4f338c4a7b12fe3c",
+      "entity": "cli-cloud-resume",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-third-party-harness",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Conversations that ran with a different harness, such as Claude Code or Codex, can't be opened in the CLI.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "heading": "Resume cloud conversations",
+        "heading_anchor": "resume-cloud-conversations",
+        "line_end": 54,
+        "line_start": 54,
+        "path": "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/cloud-and-orchestration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:51aa1f76e62d646ae91b184fcc05db75885e6001ffc712c9580c4ff08b72a79e",
+      "claim_id": "sha256:79a8530a0078568195eb2a52c389d36541d8469d6aee6a6f03dae13ec132b3ce",
+      "entity": "cli-orchestration",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "default-requires-approval",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "By default, no child agents launch until you approve.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "heading": "Multi-agent orchestration",
+        "heading_anchor": "multi-agent-orchestration",
+        "line_end": 68,
+        "line_start": 68,
+        "path": "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/cloud-and-orchestration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "permissions",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:8ff8035b8bd0fd040071b498ea12f295020c09dac8211e9046bd5616adc24a57",
+      "claim_id": "sha256:4d01d8844e3f30742f7ddcadab5ffaa8ddf3ff91879653a673ef7ea43c5d9117",
+      "entity": "cli-local-child-agents",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "harness",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "local"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Local children always run the Warp Agent.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "heading": "Multi-agent orchestration",
+        "heading_anchor": "multi-agent-orchestration",
+        "line_end": 83,
+        "line_start": 83,
+        "path": "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/cloud-and-orchestration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "warp-agent"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:2ec98b46699bae03c4608630efb850de5adbc29ab71e5c47daf4c79c439b39c3",
+      "claim_id": "sha256:8f3b2592d804f81e068614273012675f35f2de2bc64fd9f7b6488c66e4d9ffbf",
+      "entity": "cli-cloud-child-agents",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-third-party-harness",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Each cloud child runs in a cloud [environment](/platform/environments/), and can run a different harness than the parent, such as Claude Code or Codex",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "heading": "Multi-agent orchestration",
+        "heading_anchor": "multi-agent-orchestration",
+        "line_end": 84,
+        "line_start": 84,
+        "path": "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/cloud-and-orchestration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f0c8193319b42e489db7d50fc46f5cc31b36f9e2fb6ee3d2d2a5c60c3803dd41",
+      "claim_id": "sha256:4b336df41f41138a267861a14c2cfcacaca5ef1764aeb5be28c501e537ee141e",
+      "entity": "cli-cloud-child-agents",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "accepts-input-in-cli",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Cloud child sessions in the CLI only show status. They don't accept input.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "heading": "Multi-agent orchestration",
+        "heading_anchor": "multi-agent-orchestration",
+        "line_end": 87,
+        "line_start": 87,
+        "path": "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/cloud-and-orchestration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:ef856ac45d0c54d1a855498b611a238529506b8fd3787fe0634aa91854bd9b5b",
+      "claim_id": "sha256:948f2c84d6f51ebf1395f86558060f891c250709f359e03e7975b81aaa23c888",
+      "entity": "cli-child-agents",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "continue-while-viewing-another-agent",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "child agents keep working in the background.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "heading": "Managing child agents",
+        "heading_anchor": "managing-child-agents",
+        "line_end": 100,
+        "line_start": 100,
+        "path": "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/cloud-and-orchestration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:9c81d1ec693e59149237b29613a58a80126d9ae140fae0e57607f65060250590",
+      "claim_id": "sha256:37792e8c0673a46a30ff698c46c567c8b3355212b6bb3e4f71f4b6390bea415e",
+      "entity": "cli-child-agents",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "kill-cancels-cloud-run",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "It stops the child's work, cancels the cloud run if the child is a cloud agent, and removes the child's tab and conversation",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "content_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
+        "heading": "Kill a child agent",
+        "heading_anchor": "kill-a-child-agent",
+        "line_end": 106,
+        "line_start": 106,
+        "path": "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/cloud-and-orchestration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
   "path": "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
   "schema_version": 1
 }

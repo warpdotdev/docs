@@ -1,14 +1,6 @@
 {
   "authority_rules_version": 1,
   "backlog_pages": [
-    "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
-    "src/content/docs/agents/cli/configuration.mdx",
-    "src/content/docs/agents/cli/index.mdx",
-    "src/content/docs/agents/cli/models-and-usage.mdx",
-    "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
-    "src/content/docs/agents/cli/oz-cli/index.mdx",
-    "src/content/docs/agents/cli/oz-cli/integration-setup.mdx",
-    "src/content/docs/agents/cli/oz-cli/quickstart.mdx",
     "src/content/docs/agents/cli/quickstart.mdx",
     "src/content/docs/agents/getting-started/faqs.mdx",
     "src/content/docs/agents/index.mdx",
@@ -90,6 +82,7 @@
     "src/content/docs/factories/measure-and-improve.mdx",
     "src/content/docs/factories/measure-and-improve/scorers.mdx",
     "src/content/docs/factories/measure-and-improve/self-improvement.mdx",
+    "src/content/docs/factories/permissions.mdx",
     "src/content/docs/factories/quickstart.mdx",
     "src/content/docs/factories/runners.mdx",
     "src/content/docs/factories/secrets.mdx",
@@ -107,6 +100,13 @@
     "src/content/docs/factories/self-hosting/reference.mdx",
     "src/content/docs/factories/self-hosting/troubleshooting.mdx",
     "src/content/docs/factories/troubleshooting.mdx",
+    "src/content/docs/factories/use-cases/code-review.mdx",
+    "src/content/docs/factories/use-cases/computer-use-verification.mdx",
+    "src/content/docs/factories/use-cases/end-to-end-sdlc-automation.mdx",
+    "src/content/docs/factories/use-cases/index.mdx",
+    "src/content/docs/factories/use-cases/issue-implementation.mdx",
+    "src/content/docs/factories/use-cases/issue-triage.mdx",
+    "src/content/docs/factories/use-cases/production-incident-resolution.mdx",
     "src/content/docs/factories/warp-hosting.mdx",
     "src/content/docs/factories/webhooks.mdx",
     "src/content/docs/factories/webhooks/vercel.mdx",
@@ -1315,7 +1315,7 @@
         }
       ],
       "character_count": 4702,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -1546,7 +1546,7 @@
         }
       ],
       "character_count": 8164,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -1898,7 +1898,7 @@
         }
       ],
       "character_count": 15400,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -2716,7 +2716,7 @@
         }
       ],
       "character_count": 17766,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -3002,7 +3002,7 @@
         }
       ],
       "character_count": 10544,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -3240,7 +3240,7 @@
         }
       ],
       "character_count": 4906,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -3377,7 +3377,7 @@
         }
       ],
       "character_count": 2923,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -3459,7 +3459,7 @@
         }
       ],
       "character_count": 6507,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -3903,14 +3903,14 @@
         },
         {
           "anchor": "related-pages",
-          "character_count": 753,
+          "character_count": 1033,
           "heading": "Related pages",
-          "line_end": 120,
+          "line_end": 122,
           "line_start": 113
         }
       ],
-      "character_count": 10129,
-      "extraction_status": "invalidated",
+      "character_count": 10409,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -3956,7 +3956,7 @@
       "path": "src/content/docs/agents/cli/cloud-and-orchestration.mdx",
       "role": "docs-prose",
       "route": "/agents/cli/cloud-and-orchestration/",
-      "source_sha256": "55e1c58ca0a53bb923ad329468458104f7aa85bab3e4e1805eaba3e02c2cd3cd",
+      "source_sha256": "6944ee8187f2284bce2e351877e45e17f0489aa9073e8c0090b2609706755613",
       "title": "Cloud handoff and orchestration in the Warp Agent CLI"
     },
     "src/content/docs/agents/cli/configuration.mdx": {
@@ -4005,7 +4005,7 @@
         },
         {
           "anchor": "statusline",
-          "character_count": 2084,
+          "character_count": 2265,
           "heading": "Statusline",
           "line_end": 90,
           "line_start": 66
@@ -4067,8 +4067,8 @@
           "line_start": 157
         }
       ],
-      "character_count": 11582,
-      "extraction_status": "invalidated",
+      "character_count": 11763,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -4154,7 +4154,7 @@
       "path": "src/content/docs/agents/cli/configuration.mdx",
       "role": "docs-prose",
       "route": "/agents/cli/configuration/",
-      "source_sha256": "2989f041a2f74030c3905841b5792ba0981146d79873f97b5cc2b2c64e77ecf7",
+      "source_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
       "title": "Customizing the Warp Agent CLI"
     },
     "src/content/docs/agents/cli/index.mdx": {
@@ -4203,14 +4203,14 @@
         },
         {
           "anchor": "next-steps",
-          "character_count": 557,
+          "character_count": 752,
           "heading": "Next steps",
-          "line_end": 55,
+          "line_end": 56,
           "line_start": 49
         }
       ],
-      "character_count": 5351,
-      "extraction_status": "invalidated",
+      "character_count": 5546,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -4251,7 +4251,7 @@
       "path": "src/content/docs/agents/cli/index.mdx",
       "role": "canonical-overview",
       "route": "/agents/cli/",
-      "source_sha256": "49d7f1b5df5a4b83e3de7c4476cd96271bd3aeb32f74b8538cd793c4bdb41381",
+      "source_sha256": "2e75fe61be44db3c7831060e6d0b5da7a5c2c76919aaff309b6bac64cd2269d1",
       "title": "Warp Agent CLI overview"
     },
     "src/content/docs/agents/cli/input-and-shell-commands.mdx": {
@@ -4449,24 +4449,24 @@
         },
         {
           "anchor": "bring-your-own-api-key",
-          "character_count": 2290,
+          "character_count": 2444,
           "heading": "Bring your own API key",
-          "line_end": 35,
+          "line_end": 37,
           "line_start": 19
         },
         {
           "anchor": "custom-model-routing",
           "character_count": 513,
           "heading": "Custom model routing",
-          "line_end": 41,
-          "line_start": 36
+          "line_end": 43,
+          "line_start": 38
         },
         {
           "anchor": "usage-and-cost",
-          "character_count": 988,
+          "character_count": 736,
           "heading": "Usage and cost",
           "line_end": 51,
-          "line_start": 42
+          "line_start": 44
         },
         {
           "anchor": "related-pages",
@@ -4476,8 +4476,8 @@
           "line_start": 52
         }
       ],
-      "character_count": 5466,
-      "extraction_status": "invalidated",
+      "character_count": 5370,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -4496,12 +4496,12 @@
         },
         {
           "anchor": "custom-model-routing",
-          "line_start": 36,
+          "line_start": 38,
           "text": "Custom model routing"
         },
         {
           "anchor": "usage-and-cost",
-          "line_start": 42,
+          "line_start": 44,
           "text": "Usage and cost"
         },
         {
@@ -4513,7 +4513,7 @@
       "path": "src/content/docs/agents/cli/models-and-usage.mdx",
       "role": "docs-prose",
       "route": "/agents/cli/models-and-usage/",
-      "source_sha256": "dec7461c12e0395da878fe4818425ba22b387f7f9e6dcd5f80b690b34fffbb0a",
+      "source_sha256": "41797e4194303814d4ec8e3039af0241011f98a1e99664b095b25e2c1be33649",
       "title": "Models and usage in the Warp Agent CLI"
     },
     "src/content/docs/agents/cli/oz-cli/agent-profiles.mdx": {
@@ -4564,7 +4564,7 @@
         },
         {
           "anchor": "personal-vs-agent-keys",
-          "character_count": 1120,
+          "character_count": 1135,
           "heading": "Personal vs. agent keys",
           "line_end": 25,
           "line_start": 17
@@ -4606,21 +4606,21 @@
         },
         {
           "anchor": "how-key-type-affects-billing-and-github-access",
-          "character_count": 182,
+          "character_count": 176,
           "heading": "How key type affects billing and GitHub access",
           "line_end": 76,
           "line_start": 73
         },
         {
           "anchor": "personal-api-key-behavior",
-          "character_count": 277,
+          "character_count": 232,
           "heading": "Personal API key behavior",
           "line_end": 82,
           "line_start": 77
         },
         {
           "anchor": "agent-api-key-behavior",
-          "character_count": 883,
+          "character_count": 630,
           "heading": "Agent API key behavior",
           "line_end": 90,
           "line_start": 83
@@ -4696,8 +4696,8 @@
           "line_start": 176
         }
       ],
-      "character_count": 10845,
-      "extraction_status": "invalidated",
+      "character_count": 10556,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -4803,7 +4803,7 @@
       "path": "src/content/docs/agents/cli/oz-cli/api-keys.mdx",
       "role": "docs-prose",
       "route": "/agents/cli/oz-cli/api-keys/",
-      "source_sha256": "e70359ef8aeafed7078337dafaae4342650c337848424ff44a40f393183e0d52",
+      "source_sha256": "78b31b4eaa9dc0dce9df00e14a534e128c0d92d1547dff09e95116e4fddf0579",
       "title": "API keys for the {{WARP_AGENT_CLI}}"
     },
     "src/content/docs/agents/cli/oz-cli/artifacts.mdx": {
@@ -5042,301 +5042,301 @@
         },
         {
           "anchor": "bundled-with-warp",
-          "character_count": 1068,
+          "character_count": 1037,
           "heading": "Bundled with Warp",
-          "line_end": 56,
+          "line_end": 54,
           "line_start": 34
         },
         {
           "anchor": "standalone-package",
-          "character_count": 3082,
+          "character_count": 3022,
           "heading": "Standalone package",
-          "line_end": 128,
-          "line_start": 57
+          "line_end": 122,
+          "line_start": 55
         },
         {
           "anchor": "running-the-cli",
           "character_count": 215,
           "heading": "Running the CLI",
-          "line_end": 132,
-          "line_start": 129
+          "line_end": 126,
+          "line_start": 123
         },
         {
           "anchor": "logging-in",
           "character_count": 361,
           "heading": "Logging in",
-          "line_end": 139,
-          "line_start": 133
+          "line_end": 133,
+          "line_start": 127
         },
         {
           "anchor": "checking-who-youre-signed-in-as",
           "character_count": 461,
           "heading": "Checking who you're signed in as",
-          "line_end": 164,
-          "line_start": 154
+          "line_end": 158,
+          "line_start": 148
         },
         {
           "anchor": "json-output-for-scripts",
           "character_count": 57,
           "heading": "JSON output for scripts",
-          "line_end": 167,
-          "line_start": 165
+          "line_end": 161,
+          "line_start": 159
         },
         {
           "anchor": "compact-typeid-output",
           "character_count": 223,
           "heading": "Compact \"type:id\" output",
-          "line_end": 173,
-          "line_start": 168
+          "line_end": 167,
+          "line_start": 162
         },
         {
           "anchor": "logging-out",
           "character_count": 465,
           "heading": "Logging out",
-          "line_end": 187,
-          "line_start": 174
+          "line_end": 181,
+          "line_start": 168
         },
         {
           "anchor": "api-key-authentication",
           "character_count": 450,
           "heading": "API key authentication",
-          "line_end": 202,
-          "line_start": 188
+          "line_end": 196,
+          "line_start": 182
         },
         {
           "anchor": "running-agents",
           "character_count": 694,
           "heading": "Running agents",
-          "line_end": 220,
-          "line_start": 203
+          "line_end": 214,
+          "line_start": 197
         },
         {
           "anchor": "running-locally-oz-agent-run",
-          "character_count": 1432,
+          "character_count": 1491,
           "heading": "Running locally: \\`oz agent run\\`",
-          "line_end": 244,
-          "line_start": 221
+          "line_end": 238,
+          "line_start": 215
         },
         {
           "anchor": "running-agents-remotely-oz-agent-run-cloud",
-          "character_count": 3211,
+          "character_count": 3381,
           "heading": "Running agents remotely: \\`oz agent run-cloud\\`",
-          "line_end": 283,
-          "line_start": 245
+          "line_end": 277,
+          "line_start": 239
         },
         {
           "anchor": "run-claude-code-as-a-cloud-agent-authenticating-with-a-stored-anthropic-secret",
           "character_count": 477,
           "heading": "Run Claude Code as a cloud agent, authenticating with a stored Anthropic secret",
-          "line_end": 297,
-          "line_start": 284
+          "line_end": 291,
+          "line_start": 278
         },
         {
           "anchor": "naming-runs",
           "character_count": 942,
           "heading": "Naming runs",
-          "line_end": 313,
-          "line_start": 298
+          "line_end": 307,
+          "line_start": 292
         },
         {
           "anchor": "name-a-recurring-workflow-for-easy-tracking",
           "character_count": 212,
           "heading": "Name a recurring workflow for easy tracking",
-          "line_end": 319,
-          "line_start": 314
+          "line_end": 313,
+          "line_start": 308
         },
         {
           "anchor": "skill-based-runs-are-named-automatically",
           "character_count": 177,
           "heading": "Skill-based runs are named automatically",
-          "line_end": 326,
-          "line_start": 320
+          "line_end": 320,
+          "line_start": 314
         },
         {
           "anchor": "titling-runs",
           "character_count": 589,
           "heading": "Titling runs",
-          "line_end": 339,
-          "line_start": 327
+          "line_end": 333,
+          "line_start": 321
         },
         {
           "anchor": "starting-a-run-as-an-orchestration-child",
           "character_count": 859,
           "heading": "Starting a run as an orchestration child",
-          "line_end": 359,
-          "line_start": 340
+          "line_end": 353,
+          "line_start": 334
         },
         {
           "anchor": "reusing-saved-prompts-and-warp-drive-objects",
           "character_count": 263,
           "heading": "Reusing saved prompts and Warp Drive objects",
-          "line_end": 363,
-          "line_start": 360
+          "line_end": 357,
+          "line_start": 354
         },
         {
           "anchor": "choosing-an-execution-harness",
-          "character_count": 647,
+          "character_count": 973,
           "heading": "Choosing an execution harness",
-          "line_end": 377,
-          "line_start": 364
+          "line_end": 374,
+          "line_start": 358
         },
         {
           "anchor": "using-agent-profiles",
           "character_count": 285,
           "heading": "Using agent profiles",
-          "line_end": 383,
-          "line_start": 378
+          "line_end": 380,
+          "line_start": 375
         },
         {
           "anchor": "using-mcp-servers",
           "character_count": 397,
           "heading": "Using MCP servers",
-          "line_end": 389,
-          "line_start": 384
+          "line_end": 386,
+          "line_start": 381
         },
         {
           "anchor": "using-skills",
           "character_count": 330,
           "heading": "Using skills",
-          "line_end": 395,
-          "line_start": 390
+          "line_end": 392,
+          "line_start": 387
         },
         {
           "anchor": "collaboration",
           "character_count": 413,
           "heading": "Collaboration",
-          "line_end": 402,
-          "line_start": 396
+          "line_end": 399,
+          "line_start": 393
         },
         {
           "anchor": "share-the-agents-session-with-yourself",
           "character_count": 100,
           "heading": "Share the agent's session with yourself:",
-          "line_end": 405,
-          "line_start": 403
+          "line_end": 402,
+          "line_start": 400
         },
         {
           "anchor": "give-specific-users-view-only-access-to-a-session",
           "character_count": 162,
           "heading": "Give specific users view-only access to a session:",
-          "line_end": 408,
-          "line_start": 406
+          "line_end": 405,
+          "line_start": 403
         },
         {
           "anchor": "let-any-user-on-your-team-edit-the-session",
           "character_count": 603,
           "heading": "Let any user on your team edit the session:",
-          "line_end": 419,
-          "line_start": 409
+          "line_end": 416,
+          "line_start": 406
         },
         {
           "anchor": "additional-commands",
           "character_count": 105,
           "heading": "Additional commands",
-          "line_end": 423,
-          "line_start": 420
+          "line_end": 420,
+          "line_start": 417
         },
         {
           "anchor": "managing-named-agents",
           "character_count": 1031,
           "heading": "Managing named agents",
-          "line_end": 456,
-          "line_start": 424
+          "line_end": 453,
+          "line_start": 421
         },
         {
           "anchor": "rename-the-agent-and-swap-one-of-its-skills",
           "character_count": 173,
           "heading": "Rename the agent and swap one of its skills",
-          "line_end": 460,
-          "line_start": 457
+          "line_end": 457,
+          "line_start": 454
         },
         {
           "anchor": "clear-attributes-entirely",
           "character_count": 824,
           "heading": "Clear attributes entirely",
-          "line_end": 480,
-          "line_start": 461
+          "line_end": 477,
+          "line_start": 458
         },
         {
           "anchor": "oz-agent-skills",
           "character_count": 222,
           "heading": "`oz agent skills`",
-          "line_end": 489,
-          "line_start": 481
+          "line_end": 486,
+          "line_start": 478
         },
         {
           "anchor": "oz-run-list-oz-run-get",
           "character_count": 75,
           "heading": "`oz run list` / `oz run get`",
-          "line_end": 494,
-          "line_start": 490
+          "line_end": 491,
+          "line_start": 487
         },
         {
           "anchor": "list-recent-runs-default-10",
           "character_count": 68,
           "heading": "List recent runs (default: 10)",
-          "line_end": 498,
-          "line_start": 495
+          "line_end": 495,
+          "line_start": 492
         },
         {
           "anchor": "get-details-for-a-specific-run",
           "character_count": 57,
           "heading": "Get details for a specific run",
-          "line_end": 502,
-          "line_start": 499
+          "line_end": 499,
+          "line_start": 496
         },
         {
           "anchor": "run-conversations-and-messages",
           "character_count": 366,
           "heading": "Run conversations and messages",
-          "line_end": 515,
-          "line_start": 503
+          "line_end": 512,
+          "line_start": 500
         },
         {
           "anchor": "list-inbox-message-headers",
           "character_count": 137,
           "heading": "List inbox message headers",
-          "line_end": 519,
-          "line_start": 516
+          "line_end": 516,
+          "line_start": 513
         },
         {
           "anchor": "stream-new-messages-as-they-arrive-resume-reconnects-with-since-sequence",
           "character_count": 514,
           "heading": "Stream new messages as they arrive (resume reconnects with --since-sequence)",
-          "line_end": 541,
-          "line_start": 523
+          "line_end": 538,
+          "line_start": 520
         },
         {
           "anchor": "oz-model-list",
-          "character_count": 73,
+          "character_count": 96,
           "heading": "`oz model list`",
-          "line_end": 549,
-          "line_start": 542
+          "line_end": 546,
+          "line_start": 539
         },
         {
           "anchor": "oz-artifact-get-oz-artifact-download",
           "character_count": 167,
           "heading": "`oz artifact get` / `oz artifact download`",
-          "line_end": 561,
-          "line_start": 558
+          "line_end": 558,
+          "line_start": 555
         },
         {
           "anchor": "oz-federate-issue-token",
           "character_count": 246,
           "heading": "`oz federate issue-token`",
-          "line_end": 567,
-          "line_start": 562
+          "line_end": 564,
+          "line_start": 559
         },
         {
           "anchor": "troubleshooting",
           "character_count": 240,
           "heading": "Troubleshooting",
-          "line_end": 570,
-          "line_start": 568
+          "line_end": 567,
+          "line_start": 565
         }
       ],
-      "character_count": 24834,
-      "extraction_status": "invalidated",
+      "character_count": 25321,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -5360,229 +5360,229 @@
         },
         {
           "anchor": "standalone-package",
-          "line_start": 57,
+          "line_start": 55,
           "text": "Standalone package"
         },
         {
           "anchor": "running-the-cli",
-          "line_start": 129,
+          "line_start": 123,
           "text": "Running the CLI"
         },
         {
           "anchor": "logging-in",
-          "line_start": 133,
+          "line_start": 127,
           "text": "Logging in"
         },
         {
           "anchor": "interactive-login-local-machines",
-          "line_start": 140,
+          "line_start": 134,
           "text": "Interactive login (local machines)"
         },
         {
           "anchor": "checking-who-youre-signed-in-as",
-          "line_start": 154,
+          "line_start": 148,
           "text": "Checking who you're signed in as"
         },
         {
           "anchor": "json-output-for-scripts",
-          "line_start": 165,
+          "line_start": 159,
           "text": "JSON output for scripts"
         },
         {
           "anchor": "compact-typeid-output",
-          "line_start": 168,
+          "line_start": 162,
           "text": "Compact \"type:id\" output"
         },
         {
           "anchor": "logging-out",
-          "line_start": 174,
+          "line_start": 168,
           "text": "Logging out"
         },
         {
           "anchor": "api-key-authentication",
-          "line_start": 188,
+          "line_start": 182,
           "text": "API key authentication"
         },
         {
           "anchor": "running-agents",
-          "line_start": 203,
+          "line_start": 197,
           "text": "Running agents"
         },
         {
           "anchor": "running-locally-oz-agent-run",
-          "line_start": 221,
+          "line_start": 215,
           "text": "Running locally: \\`oz agent run\\`"
         },
         {
           "anchor": "running-agents-remotely-oz-agent-run-cloud",
-          "line_start": 245,
+          "line_start": 239,
           "text": "Running agents remotely: \\`oz agent run-cloud\\`"
         },
         {
           "anchor": "run-claude-code-as-a-cloud-agent-authenticating-with-a-stored-anthropic-secret",
-          "line_start": 284,
+          "line_start": 278,
           "text": "Run Claude Code as a cloud agent, authenticating with a stored Anthropic secret"
         },
         {
           "anchor": "naming-runs",
-          "line_start": 298,
+          "line_start": 292,
           "text": "Naming runs"
         },
         {
           "anchor": "name-a-recurring-workflow-for-easy-tracking",
-          "line_start": 314,
+          "line_start": 308,
           "text": "Name a recurring workflow for easy tracking"
         },
         {
           "anchor": "skill-based-runs-are-named-automatically",
-          "line_start": 320,
+          "line_start": 314,
           "text": "Skill-based runs are named automatically"
         },
         {
           "anchor": "titling-runs",
-          "line_start": 327,
+          "line_start": 321,
           "text": "Titling runs"
         },
         {
           "anchor": "starting-a-run-as-an-orchestration-child",
-          "line_start": 340,
+          "line_start": 334,
           "text": "Starting a run as an orchestration child"
         },
         {
           "anchor": "reusing-saved-prompts-and-warp-drive-objects",
-          "line_start": 360,
+          "line_start": 354,
           "text": "Reusing saved prompts and Warp Drive objects"
         },
         {
           "anchor": "choosing-an-execution-harness",
-          "line_start": 364,
+          "line_start": 358,
           "text": "Choosing an execution harness"
         },
         {
           "anchor": "using-agent-profiles",
-          "line_start": 378,
+          "line_start": 375,
           "text": "Using agent profiles"
         },
         {
           "anchor": "using-mcp-servers",
-          "line_start": 384,
+          "line_start": 381,
           "text": "Using MCP servers"
         },
         {
           "anchor": "using-skills",
-          "line_start": 390,
+          "line_start": 387,
           "text": "Using skills"
         },
         {
           "anchor": "collaboration",
-          "line_start": 396,
+          "line_start": 393,
           "text": "Collaboration"
         },
         {
           "anchor": "share-the-agents-session-with-yourself",
-          "line_start": 403,
+          "line_start": 400,
           "text": "Share the agent's session with yourself:"
         },
         {
           "anchor": "give-specific-users-view-only-access-to-a-session",
-          "line_start": 406,
+          "line_start": 403,
           "text": "Give specific users view-only access to a session:"
         },
         {
           "anchor": "let-any-user-on-your-team-edit-the-session",
-          "line_start": 409,
+          "line_start": 406,
           "text": "Let any user on your team edit the session:"
         },
         {
           "anchor": "additional-commands",
-          "line_start": 420,
+          "line_start": 417,
           "text": "Additional commands"
         },
         {
           "anchor": "managing-named-agents",
-          "line_start": 424,
+          "line_start": 421,
           "text": "Managing named agents"
         },
         {
           "anchor": "rename-the-agent-and-swap-one-of-its-skills",
-          "line_start": 457,
+          "line_start": 454,
           "text": "Rename the agent and swap one of its skills"
         },
         {
           "anchor": "clear-attributes-entirely",
-          "line_start": 461,
+          "line_start": 458,
           "text": "Clear attributes entirely"
         },
         {
           "anchor": "oz-agent-skills",
-          "line_start": 481,
+          "line_start": 478,
           "text": "`oz agent skills`"
         },
         {
           "anchor": "oz-run-list-oz-run-get",
-          "line_start": 490,
+          "line_start": 487,
           "text": "`oz run list` / `oz run get`"
         },
         {
           "anchor": "list-recent-runs-default-10",
-          "line_start": 495,
+          "line_start": 492,
           "text": "List recent runs (default: 10)"
         },
         {
           "anchor": "get-details-for-a-specific-run",
-          "line_start": 499,
+          "line_start": 496,
           "text": "Get details for a specific run"
         },
         {
           "anchor": "run-conversations-and-messages",
-          "line_start": 503,
+          "line_start": 500,
           "text": "Run conversations and messages"
         },
         {
           "anchor": "list-inbox-message-headers",
-          "line_start": 516,
+          "line_start": 513,
           "text": "List inbox message headers"
         },
         {
           "anchor": "read-one-message-body",
-          "line_start": 520,
+          "line_start": 517,
           "text": "Read one message body"
         },
         {
           "anchor": "stream-new-messages-as-they-arrive-resume-reconnects-with-since-sequence",
-          "line_start": 523,
+          "line_start": 520,
           "text": "Stream new messages as they arrive (resume reconnects with --since-sequence)"
         },
         {
           "anchor": "oz-model-list",
-          "line_start": 542,
+          "line_start": 539,
           "text": "`oz model list`"
         },
         {
           "anchor": "oz-environment-image-list",
-          "line_start": 550,
+          "line_start": 547,
           "text": "`oz environment image list`"
         },
         {
           "anchor": "oz-artifact-get-oz-artifact-download",
-          "line_start": 558,
+          "line_start": 555,
           "text": "`oz artifact get` / `oz artifact download`"
         },
         {
           "anchor": "oz-federate-issue-token",
-          "line_start": 562,
+          "line_start": 559,
           "text": "`oz federate issue-token`"
         },
         {
           "anchor": "troubleshooting",
-          "line_start": 568,
+          "line_start": 565,
           "text": "Troubleshooting"
         }
       ],
       "path": "src/content/docs/agents/cli/oz-cli/index.mdx",
       "role": "canonical-overview",
       "route": "/agents/cli/oz-cli/",
-      "source_sha256": "b82726611d91b9e3d612b77cba3513879fcd8c0a5a56a63173917a025e143f76",
+      "source_sha256": "fe0853d907b75584aadaec00d222ec0ad5edc9c0b80eb45c028a7d75b70e6333",
       "title": "{{WARP_AGENT_CLI}} reference"
     },
     "src/content/docs/agents/cli/oz-cli/integration-setup.mdx": {
@@ -5666,7 +5666,7 @@
         },
         {
           "anchor": "team-level-github-authorization",
-          "character_count": 1067,
+          "character_count": 1107,
           "heading": "Team-level GitHub authorization",
           "line_end": 205,
           "line_start": 192
@@ -5694,21 +5694,21 @@
         },
         {
           "anchor": "how-are-environments-used-at-runtime",
-          "character_count": 1099,
+          "character_count": 1335,
           "heading": "How are environments used at runtime?",
-          "line_end": 296,
+          "line_end": 298,
           "line_start": 276
         },
         {
-          "anchor": "next-steps",
-          "character_count": 699,
-          "heading": "Next steps",
-          "line_end": 312,
-          "line_start": 297
+          "anchor": "related-pages",
+          "character_count": 249,
+          "heading": "Related pages",
+          "line_end": 304,
+          "line_start": 299
         }
       ],
-      "character_count": 13942,
-      "extraction_status": "invalidated",
+      "character_count": 13768,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -5801,15 +5801,15 @@
           "text": "How are environments used at runtime?"
         },
         {
-          "anchor": "next-steps",
-          "line_start": 297,
-          "text": "Next steps"
+          "anchor": "related-pages",
+          "line_start": 299,
+          "text": "Related pages"
         }
       ],
       "path": "src/content/docs/agents/cli/oz-cli/integration-setup.mdx",
       "role": "docs-prose",
       "route": "/agents/cli/oz-cli/integration-setup/",
-      "source_sha256": "af92f7d783d81e9b4934b607b1ab925810e30db6d175a5e64e286362ebf84a06",
+      "source_sha256": "ee2fb87fbfed325becfc5350b4669375d710d91e9ad81bca219a623f544214c3",
       "title": "Integration setup"
     },
     "src/content/docs/agents/cli/oz-cli/mcp-servers.mdx": {
@@ -5948,50 +5948,57 @@
           "line_start": 8
         },
         {
+          "anchor": "prerequisites",
+          "character_count": 114,
+          "heading": "Prerequisites",
+          "line_end": 24,
+          "line_start": 20
+        },
+        {
           "anchor": "1-install-the-cli",
           "character_count": 295,
           "heading": "1. Install the CLI",
-          "line_end": 25,
-          "line_start": 20
+          "line_end": 30,
+          "line_start": 25
         },
         {
           "anchor": "2-authenticate",
           "character_count": 833,
           "heading": "2. Authenticate",
-          "line_end": 49,
-          "line_start": 26
+          "line_end": 54,
+          "line_start": 31
         },
         {
           "anchor": "3-run-an-agent",
           "character_count": 682,
           "heading": "3. Run an agent",
-          "line_end": 65,
-          "line_start": 50
+          "line_end": 70,
+          "line_start": 55
         },
         {
           "anchor": "4-run-a-cloud-agent-optional",
           "character_count": 607,
           "heading": "4. Run a cloud agent (optional)",
-          "line_end": 77,
-          "line_start": 66
+          "line_end": 82,
+          "line_start": 71
         },
         {
           "anchor": "5-add-mcp-context-optional",
           "character_count": 486,
           "heading": "5. Add MCP context (optional)",
-          "line_end": 87,
-          "line_start": 78
+          "line_end": 92,
+          "line_start": 83
         },
         {
           "anchor": "next-steps",
           "character_count": 958,
           "heading": "Next steps",
-          "line_end": 99,
-          "line_start": 88
+          "line_end": 104,
+          "line_start": 93
         }
       ],
-      "character_count": 4839,
-      "extraction_status": "invalidated",
+      "character_count": 4954,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -5999,40 +6006,45 @@
           "text": ""
         },
         {
-          "anchor": "1-install-the-cli",
+          "anchor": "prerequisites",
           "line_start": 20,
+          "text": "Prerequisites"
+        },
+        {
+          "anchor": "1-install-the-cli",
+          "line_start": 25,
           "text": "1. Install the CLI"
         },
         {
           "anchor": "2-authenticate",
-          "line_start": 26,
+          "line_start": 31,
           "text": "2. Authenticate"
         },
         {
           "anchor": "3-run-an-agent",
-          "line_start": 50,
+          "line_start": 55,
           "text": "3. Run an agent"
         },
         {
           "anchor": "4-run-a-cloud-agent-optional",
-          "line_start": 66,
+          "line_start": 71,
           "text": "4. Run a cloud agent (optional)"
         },
         {
           "anchor": "5-add-mcp-context-optional",
-          "line_start": 78,
+          "line_start": 83,
           "text": "5. Add MCP context (optional)"
         },
         {
           "anchor": "next-steps",
-          "line_start": 88,
+          "line_start": 93,
           "text": "Next steps"
         }
       ],
       "path": "src/content/docs/agents/cli/oz-cli/quickstart.mdx",
       "role": "docs-prose",
       "route": "/agents/cli/oz-cli/quickstart/",
-      "source_sha256": "d0739d4bc62457714bc2ef0664e5e9d5430aa8725f535baea799b8c519b08481",
+      "source_sha256": "6f42e5f9a1105ad86559f5ba86ce4bb1d71f657d6df0c1629291b5c629ac0dab",
       "title": "CLI quickstart"
     },
     "src/content/docs/agents/cli/oz-cli/skills.mdx": {
@@ -11574,6 +11586,6 @@
   },
   "schema_version": 1,
   "source_repositories": {
-    "docs": "17b29842c15b738de6febb400b13ae9d08e9d9e2"
+    "docs": "232cf27943a1fbbc11eead43792cf224e4b5f226"
   }
 }

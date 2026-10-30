@@ -1,6 +1,721 @@
 {
-  "claims": [],
-  "page_sha256": "2989f041a2f74030c3905841b5792ba0981146d79873f97b5cc2b2c64e77ecf7",
+  "claims": [
+    {
+      "claim_content_fingerprint": "sha256:d715c49a8bc1f49416d84adbb8ade3873fd7c9f1ec214cd48655427a9bf86a22",
+      "claim_id": "sha256:22fd1623bb5af8d53ba5810a9fe729951d931f46f594b70b5365fd48fe57d1d8",
+      "entity": "interactive-cli-settings",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "file",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [
+          "macos"
+        ],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "~/.warp_cli/settings.toml",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/configuration.mdx",
+        "content_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
+        "heading": "The settings file",
+        "heading_anchor": "the-settings-file",
+        "line_end": 17,
+        "line_start": 17,
+        "path": "src/content/docs/agents/cli/configuration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/configuration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "cli",
+      "value": {
+        "normalized": "~/.warp_cli/settings.toml",
+        "type": "path"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:492d44798302f13ef5b31fca00644c33b459971a2d884c595d56f8905ee59797",
+      "claim_id": "sha256:8e449741ef07cd091c41a0772ffed447532347feaee8519fe7f45b725e7dba41",
+      "entity": "interactive-cli-settings",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "file",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "respects xdg_config_home"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [
+          "linux"
+        ],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "~/.config/warp-terminal/cli/settings.toml",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/configuration.mdx",
+        "content_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
+        "heading": "The settings file",
+        "heading_anchor": "the-settings-file",
+        "line_end": 18,
+        "line_start": 18,
+        "path": "src/content/docs/agents/cli/configuration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/configuration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "cli",
+      "value": {
+        "normalized": "~/.config/warp-terminal/cli/settings.toml",
+        "type": "path"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b85abef2dbac96ca55415cc841d56748f107165122d2e5296c831c22805ca506",
+      "claim_id": "sha256:36622013b9a36851df4f5dad733acbab99d59ce2b02d1797404c37f0efc676b4",
+      "entity": "interactive-cli-settings",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "file",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [
+          "windows"
+        ],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "%LOCALAPPDATA%\\warp\\Warp\\config\\cli\\settings.toml",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/configuration.mdx",
+        "content_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
+        "heading": "The settings file",
+        "heading_anchor": "the-settings-file",
+        "line_end": 19,
+        "line_start": 19,
+        "path": "src/content/docs/agents/cli/configuration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/configuration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "cli",
+      "value": {
+        "normalized": "%LOCALAPPDATA%\\warp\\Warp\\config\\cli\\settings.toml",
+        "type": "path"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:f4082d07b67f6d0910af88d30f308902fb4f48a3792c3db60931576d21b69ab4",
+      "claim_id": "sha256:d5da424201a230e2a58574d491ff20d054c3bcd4ea396d538df7728c1bd51fe5",
+      "entity": "interactive-cli-settings",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "synced-to-cloud",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "CLI settings are local to your machine and are never synced to the cloud.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/configuration.mdx",
+        "content_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
+        "heading": "The settings file",
+        "heading_anchor": "the-settings-file",
+        "line_end": 29,
+        "line_start": 29,
+        "path": "src/content/docs/agents/cli/configuration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/configuration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:1933c71f7e638d964cfc09767358983fe3977706894a170c4cff1567e174f3e8",
+      "claim_id": "sha256:d7622e7fad134809226eacba4cdab17efd37d7762dfffde60c0300c9f24f9e12",
+      "entity": "interactive-cli-settings",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "shared-with-gui-settings",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "the app and the CLI keep separate settings files, so changing one never affects the other.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/configuration.mdx",
+        "content_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
+        "heading": "The settings file",
+        "heading_anchor": "the-settings-file",
+        "line_end": 29,
+        "line_start": 29,
+        "path": "src/content/docs/agents/cli/configuration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/configuration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:cd98d3967a6aafa0d89a26fb7f14dbe993bb90b656c9df96fbf18c8c07d778cd",
+      "claim_id": "sha256:dbfc0af147d81fdb9aaa714b1e3075f85eb18020dc930900a771d2c120feea27",
+      "entity": "interactive-cli-settings",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "hot-reload",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "theme requires /theme or restart"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The CLI watches the file while it's running and reloads most values as you save, so edits take effect without a restart. Theme edits are the exception: they apply the next time you run `/theme` or restart the CLI.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/configuration.mdx",
+        "content_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
+        "heading": "Edit the file directly",
+        "heading_anchor": "edit-the-file-directly",
+        "line_end": 38,
+        "line_start": 38,
+        "path": "src/content/docs/agents/cli/configuration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/configuration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:829087bb6f25f03a856f6b48c34cbee950539144ff85d6212defe9724ee2d97c",
+      "claim_id": "sha256:8207353989d2e98934ad05db2312748187a6e30e09f74f56f4b025e7ea516494",
+      "entity": "interactive-cli-settings",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "invalid-value-fallback",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "If a value is invalid, the CLI logs the problem and uses the default for that setting instead.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/configuration.mdx",
+        "content_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
+        "heading": "Edit the file directly",
+        "heading_anchor": "edit-the-file-directly",
+        "line_end": 38,
+        "line_start": 38,
+        "path": "src/content/docs/agents/cli/configuration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/configuration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "uses the setting default",
+        "type": "free-text"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:362b5205f36e0ef0affd3add01e7c68e93484c629f986470c79611bfe3da20b6",
+      "claim_id": "sha256:3cf9e25513ac368496beec28bf3ac7a2c777c4c32c776dd158ff43dfe1ff199e",
+      "entity": "interactive-cli-theme",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "**`/theme auto`** - Matches the host terminal's background (default).",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/configuration.mdx",
+        "content_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
+        "heading": "Themes",
+        "heading_anchor": "themes",
+        "line_end": 58,
+        "line_start": 58,
+        "path": "src/content/docs/agents/cli/configuration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/configuration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "auto"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:176f124fbe214a752ad5c71c2806d1b656cdc49d8b3faac6d55040a21d2683a5",
+      "claim_id": "sha256:8e03d37a87deb6a277a60f6047ca1864e3a8a937abbdff2658c74227c166b63c",
+      "entity": "interactive-cli-theme",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "auto-detection-time",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "In auto mode, detection runs at startup",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/configuration.mdx",
+        "content_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
+        "heading": "Themes",
+        "heading_anchor": "themes",
+        "line_end": 64,
+        "line_start": 64,
+        "path": "src/content/docs/agents/cli/configuration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/configuration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "startup"
+        ],
+        "type": "enum"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:7c65913d8b5799d3edaf5dfa225e748c1b0c2f557a1e777bc1369933cacf2982",
+      "claim_id": "sha256:e8c77cb1474957aabf58fa74a1d42f1bdbc2fe0fca1968ad22b1f3563c7d0a5c",
+      "entity": "interactive-cli-start-screen",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "rotation-period-seconds",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Seconds per full rotation, from 1 through 60.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/configuration.mdx",
+        "content_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
+        "heading": "Start screen",
+        "heading_anchor": "start-screen",
+        "line_end": 107,
+        "line_start": 107,
+        "path": "src/content/docs/agents/cli/configuration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/configuration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": {
+          "maximum": 60,
+          "minimum": 1
+        },
+        "type": "range"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:dd5320c30d9baeb8fa512c48d51255eacb7a7046d37bf5d4031adbc37bbcb73c",
+      "claim_id": "sha256:b3428124ebbc947c76a2d73352971ef2b350b4b5fa22d25be884d199bda762bd",
+      "entity": "interactive-cli-start-screen",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "freeze-unfocused-default",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Off by default, and applied as soon as you save the setting.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/configuration.mdx",
+        "content_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
+        "heading": "Start screen",
+        "heading_anchor": "start-screen",
+        "line_end": 109,
+        "line_start": 109,
+        "path": "src/content/docs/agents/cli/configuration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/configuration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:534461818776d5dc18cf7863defcd851105fce9e081fb9417d234452883b2d37",
+      "claim_id": "sha256:772c3741db04cef985c4dc92490871e668f78d5c10e4514a56a48a563a6c193d",
+      "entity": "interactive-cli-context",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "rescopes-on-cd",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "When you `cd`, project rules and skills re-scope to the new directory automatically.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/configuration.mdx",
+        "content_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
+        "heading": "Project context and rules",
+        "heading_anchor": "project-context-and-rules",
+        "line_end": 117,
+        "line_start": 117,
+        "path": "src/content/docs/agents/cli/configuration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/configuration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:b8e6bf44d8166b24baf9b63a7d77887f4458176240dda3fa944fe4ac831f759e",
+      "claim_id": "sha256:31faad69db74dddd197d0c09e75d5f1be6f23ee69048c36ea08ad4cb92aa084c",
+      "entity": "interactive-cli-global-rules",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "file",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "A rule file at `~/.agents/AGENTS.md` applies across all projects on your machine.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/configuration.mdx",
+        "content_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
+        "heading": "Project context and rules",
+        "heading_anchor": "project-context-and-rules",
+        "line_end": 122,
+        "line_start": 122,
+        "path": "src/content/docs/agents/cli/configuration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/configuration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "~/.agents/AGENTS.md",
+        "type": "path"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:09cb6e249ccdf2833b79df4ce715fd2d2245a87a928cb1e1b5a1eae7e179f43e",
+      "claim_id": "sha256:857f7271df9d5926461a7b32e8ee29e42ed8afb63eeaa6108a457c45f817cab1",
+      "entity": "interactive-cli-migration",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "copies-credentials",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Credentials and OAuth state are never copied, so MCP servers that require authentication prompt you to re-authenticate.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/configuration.mdx",
+        "content_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
+        "heading": "Bundled skills",
+        "heading_anchor": "bundled-skills",
+        "line_end": 137,
+        "line_start": 137,
+        "path": "src/content/docs/agents/cli/configuration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/configuration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:87dccc5a7e930853127d6359f78b19110fb19a598c08ba2e5dfa48740041b5f7",
+      "claim_id": "sha256:6c33918ed7512785035c8d488c7b5d7a2e1065103e7d24035f1a5bcff5a31a98",
+      "entity": "interactive-cli-mcp",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "detects-project-scoped-config",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The CLI reads MCP servers from its global config file only. Project-scoped MCP config files in repositories are not detected.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/configuration.mdx",
+        "content_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
+        "heading": "MCP servers",
+        "heading_anchor": "mcp-servers",
+        "line_end": 146,
+        "line_start": 146,
+        "path": "src/content/docs/agents/cli/configuration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/configuration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:c7e33e569d1f991ed589b9fff8d92395056f5de6fcedaddd26e3675c8e4460f6",
+      "claim_id": "sha256:05a91a273082613ae73ae079de43aea2a39688dfc1531b52603726f68946a818",
+      "entity": "interactive-cli-mcp",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "config-independent-from-gui",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The CLI keeps its own MCP server configuration, separate from the Warp app's",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/configuration.mdx",
+        "content_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
+        "heading": "MCP servers",
+        "heading_anchor": "mcp-servers",
+        "line_end": 141,
+        "line_start": 141,
+        "path": "src/content/docs/agents/cli/configuration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/configuration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "claim_content_fingerprint": "sha256:0c975375ca62231f4fb1c8240130f0694bd8e8dbcae7a3b35881dcd7b913a306",
+      "claim_id": "sha256:1793cc526a24bc06c18eee6dba616188a8add49dbe7cb6b4e243671a81d95c5b",
+      "entity": "interactive-cli-mcp",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "configured-servers-start-after-login",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Configured servers start automatically once you're logged in.",
+      "source": {
+        "canonical_identity": "path:src/content/docs/agents/cli/configuration.mdx",
+        "content_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
+        "heading": "MCP servers",
+        "heading_anchor": "mcp-servers",
+        "line_end": 143,
+        "line_start": 143,
+        "path": "src/content/docs/agents/cli/configuration.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/cli/configuration/",
+        "visibility": "public"
+      },
+      "source_class": "docs-prose",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    }
+  ],
+  "page_sha256": "b91d812a509d4098f7490c56cbd4f5bf7e446351c13fafa980acecd4eac607fa",
   "path": "src/content/docs/agents/cli/configuration.mdx",
   "schema_version": 1
 }
