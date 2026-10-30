@@ -478,3 +478,30 @@ test('active-row style contract stays lightened with readable text tokens', () =
 		/:root\[data-theme='light'\]\s*\.sl-kapa-history__rename input\s*\{[^}]*-webkit-text-fill-color:\s*var\(--sl-color-gray-1\)/s
 	);
 });
+
+test('history row action tooltips are not clipped by row overflow', () => {
+	const cssPath = join(dirname(fileURLToPath(import.meta.url)), '../components/KapaChatLauncher.css');
+	const css = readFileSync(cssPath, 'utf8');
+	const rowBlockMatch = css.match(/\.sl-kapa-history__row\s*\{[\s\S]*?\n\}/);
+	assert.ok(rowBlockMatch, 'expected .sl-kapa-history__row rule');
+	const rowBlock = rowBlockMatch[0].replace(/\/\*[\s\S]*?\*\//g, '');
+
+	// Row must keep tooltips unclipped (no overflow clipping on the card itself).
+	assert.match(rowBlock, /position:\s*relative/);
+	assert.doesNotMatch(
+		rowBlock,
+		/overflow\s*:\s*hidden/,
+		'history row overflow clipping cuts action tooltips outside the card'
+	);
+	// Title ellipsis may still overflow:hidden on the title span only.
+	assert.match(css, /\.sl-kapa-history__open-title\s*\{[^}]*overflow:\s*hidden/s);
+	// Tooltip pseudo-elements must exist for both rename and delete icon buttons.
+	assert.match(
+		css,
+		/\.sl-kapa-history__icon-button\[data-tooltip\]::after\s*\{[^}]*content:\s*attr\(data-tooltip\)/s
+	);
+	assert.match(
+		css,
+		/\.sl-kapa-history__icon-button\[data-tooltip\]::after\s*\{[^}]*bottom:\s*calc\(100%/s
+	);
+});

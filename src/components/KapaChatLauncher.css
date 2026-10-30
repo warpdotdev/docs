@@ -371,6 +371,9 @@
 }
 
 .sl-kapa-history__row {
+	/* relative so hovered-row z-index can lift tooltips above neighbors.
+	   Keep overflow visible so rename/delete tooltips are not clipped. */
+	position: relative;
 	display: grid;
 	grid-template-columns: minmax(0, 1fr);
 	align-items: center;
@@ -380,7 +383,12 @@
 	border-radius: var(--sl-radius-sm);
 	background: color-mix(in srgb, var(--sl-color-black), var(--sl-color-gray-6) 28%);
 	color: var(--sl-color-gray-1);
-	overflow: hidden;
+}
+
+/* Lift the active action row so tooltips paint above the next card. */
+.sl-kapa-history__row:has(.sl-kapa-history__icon-button:hover),
+.sl-kapa-history__row:has(.sl-kapa-history__icon-button:focus-visible) {
+	z-index: 3;
 }
 
 .sl-kapa-history__row:hover {
@@ -483,7 +491,9 @@
 .sl-kapa-history__icon-button[data-tooltip]::after {
 	content: attr(data-tooltip);
 	position: absolute;
-	top: calc(100% + 0.35rem);
+	/* Prefer above the control so scroll-panel bottoms clip less often. */
+	bottom: calc(100% + 0.35rem);
+	top: auto;
 	right: 0;
 	padding: 0.3rem 0.45rem;
 	border: 1px solid var(--warp-control-border-hover);
@@ -497,12 +507,12 @@
 	white-space: nowrap;
 	pointer-events: none;
 	opacity: 0;
-	transform: translateY(-2px);
+	transform: translateY(2px);
 	transition:
 		opacity 0.15s ease,
 		transform 0.15s ease;
 	transition-delay: 0.35s;
-	z-index: 10;
+	z-index: 20;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
