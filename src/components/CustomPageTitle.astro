@@ -1,8 +1,6 @@
 ---
 import CopyPageButton from './CopyPageButton.astro';
 
-// Starlight types `entry.body` as `string | undefined`; fall back to ''
-// so consumers (CopyPageButton) get a stable `string`.
 const title = Astro.locals.starlightRoute.entry.data.title;
 // Surface the page's `description` frontmatter as a visible subtitle below
 // the H1. Starlight's default `PageTitle` only uses `description` for the
@@ -12,7 +10,6 @@ const title = Astro.locals.starlightRoute.entry.data.title;
 // `&& <p>` guard keeps any future page that omits the field from emitting
 // an empty paragraph.
 const description = Astro.locals.starlightRoute.entry.data.description;
-const body = Astro.locals.starlightRoute.entry.body ?? '';
 
 // Eyebrow: a 2-level breadcrumb (e.g. "Agents > Third-Party CLI Agents")
 // shown above the H1 to orient readers who land directly from search.
@@ -46,18 +43,32 @@ const eyebrow = topicLabel && parentGroup && parentGroup !== topicLabel
 ---
 
 {eyebrow && <p class="page-eyebrow">{eyebrow}</p>}
+{/* Source order is H1 -> description -> Copy menu so that the text directly
+   after `</h1>` in the raw HTML is the page's own summary, not menu labels.
+   Search and answer engines anchor snippets on the H1 and the text that
+   follows it. The grid below keeps the visual layout unchanged: the Copy
+   menu sits to the right of the H1 and the description spans underneath. */}
 <div class="page-title-row">
   <h1 id="_top">{title}</h1>
-  <CopyPageButton body={body} title={title} />
+  {description && <p class="page-subtitle">{description}</p>}
+  <div class="page-title-actions" data-nosnippet>
+    <CopyPageButton />
+  </div>
 </div>
-{description && <p class="page-subtitle">{description}</p>}
 
 <style>
   .page-title-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'title actions'
+      'subtitle subtitle';
     align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+    column-gap: 1rem;
+  }
+
+  .page-title-actions {
+    grid-area: actions;
   }
 
   .page-eyebrow {
@@ -71,7 +82,7 @@ const eyebrow = topicLabel && parentGroup && parentGroup !== topicLabel
   }
 
   .page-title-row h1 {
-    flex: 1;
+    grid-area: title;
     min-width: 0;
     margin-top: 0;
     font-size: var(--sl-text-h1);
@@ -87,6 +98,7 @@ const eyebrow = topicLabel && parentGroup && parentGroup !== topicLabel
      keeps the longest descriptions (≤262 chars across the corpus) wrapping
      to a comfortable measure instead of stretching across the full column. */
   .page-subtitle {
+    grid-area: subtitle;
     margin-top: 0.5rem;
     margin-bottom: 2rem;
     max-width: 42rem;
