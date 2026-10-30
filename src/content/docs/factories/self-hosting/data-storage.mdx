@@ -36,10 +36,13 @@ Data is not migrated when changing storage mappings. It stays in its original lo
 
 Mapping a category to your bucket changes where that category's objects are written and read. Everything else about a run stays the same.
 
-Warp's control plane accesses self-hosted storage through provider-specific permissions that you grant and can revoke at any time.
-The control plane writes to your storage over the course of a run, such as by updating the conversation transcript after
-each turn. It also reads from the bucket to provide run data, including conversation history and the display of computer use screenshots. Warp periodically
-accesses persisted data for background maintenance such as to run [scorers](/factories/measure-and-improve/scorers/).
+Warp's control plane accesses self-hosted storage through provider-specific
+permissions that you grant and can revoke at any time. The control plane writes
+to your storage over the course of a run, such as by updating the conversation
+transcript after each turn. It also reads from the bucket to provide run data,
+including conversation history and the display of computer use screenshots.
+Warp periodically accesses persisted data for background maintenance such as
+to run [scorers](/factories/measure-and-improve/scorers/).
 
 Warp never caches bucket contents. It uses presigned URLs wherever possible so that data flows directly from your bucket to the client, without
 transiting Warp's backend.
