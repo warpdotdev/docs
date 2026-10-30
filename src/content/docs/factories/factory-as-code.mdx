@@ -227,6 +227,8 @@ Host entries don't accept URLs, ports, CIDRs, or wildcards. Hostnames are normal
 
 An omitted or `null` policy contributes no restrictions at that scope. A policy containing only `deniedHosts` is not an unrestricted-access denylist.
 
+For failed requests, see [network troubleshooting and blocked-host diagnostics](/factories/troubleshooting/#network-requests-fail-during-a-run).
+
 #### Factory and agent scope
 
 Factory and agent allowances combine; the agent policy doesn't replace the factory policy. A denial at either scope takes precedence over an allowance at either scope, including hosts supplied by `extends`.
