@@ -132,6 +132,9 @@ jobs:
       - name: Test Markdown serialization
         run: npm run test:docs-markdown
 
+      - name: Test AFDocs audit
+        run: node --test .agents/skills/afdocs-audit/scripts/afdocs_audit.test.mjs
+
       - name: Test tracking redirect middleware
         run: npm run test:tracking-redirect
 
