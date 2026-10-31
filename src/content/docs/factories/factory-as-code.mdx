@@ -352,7 +352,7 @@ The `model_id` used by [Computer Use](/agents/capabilities/computer-use/). Omit 
 ```yaml
 agentDefaults:
   model: auto
-  computerUseModel: claude-5-sonnet-high
+  computerUseModel: claude-5-5-sonnet-high
 ```
 
 Use `computer-use-agent-auto` for automatic selection. A model suffix selects its effort level; `thinking` enables thinking, and `xhigh-fast` selects fast mode.
@@ -584,12 +584,12 @@ Router files define factory-owned custom model routers. Use the file name anywhe
 ```yaml title="routers/by-task.yaml"
 name: By task
 type: prompt
-default: claude-4-6-sonnet-high
+default: claude-5-5-sonnet-high
 routing:
   - description: Routine documentation changes
-    model: claude-4-5-haiku
+    model: claude-5-5-haiku-low
   - description: Complex implementation or debugging
-    model: claude-4-8-opus-high
+    model: claude-5-5-opus-high
 ```
 
 The optional `routing` field takes a different shape for each type:
@@ -698,7 +698,7 @@ labels:
     score: 0
 passingScore: 1
 samplingRate: 25
-model: claude-4-5-haiku
+model: claude-5-5-haiku-low
 ---
 Evaluate whether the agent ran the relevant tests before finishing. Return
 exactly one declared label.
