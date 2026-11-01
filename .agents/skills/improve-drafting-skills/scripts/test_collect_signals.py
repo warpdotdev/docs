@@ -347,6 +347,17 @@ class EditEvidenceTests(unittest.TestCase):
         self.assertEqual(row["patch_source"], "verified_parent_and_commit_blobs")
         self.assertEqual(feedback, "")
 
+    def test_duplicate_link_destinations_report_only_exact_surplus_counts(self):
+        _, rows, _ = self.collect(
+            before="[Guide](https://example.org/a) old 1\n[Guide](https://example.org/a) old 2\n[Guide](https://example.org/b) old 3\n",
+            after="[Guide](https://example.org/a) new 1\n[Guide](https://example.org/b) new 2\n[Guide](https://example.org/b) new 3\n")
+        evidence = rows[0]["category_evidence"]
+        self.assertEqual(len(evidence), 1)
+        self.assertEqual(evidence[0]["removed_destinations"], {"https://example.org/a": 1})
+        self.assertEqual(evidence[0]["added_destinations"], {"https://example.org/b": 1})
+        self.assertNotIn("before", evidence[0])
+        self.assertNotIn("after", evidence[0])
+
     def test_merge_parent_and_unavailable_blob_never_become_human_corrections(self):
         for parents, failure, expected in (
             ([{"sha": "b" * 40}, {"sha": "d" * 40}], None, "merge_noise"),

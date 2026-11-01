@@ -299,28 +299,25 @@ def patch_categories(patch):
     for hunk in re.split(r"(?=^@@ )", patch, flags=re.M):
         removed = [line[1:] for line in hunk.splitlines() if line.startswith("-")]
         added = [line[1:] for line in hunk.splitlines() if line.startswith("+")]
-        changes = []
         for old, new in zip(removed[:100], added[:100]):
             if (re.match(r"^#{1,6} ", old) and old != new
-                    and old.casefold() == new.casefold()):
-                changes.append(("heading_case_change", old, new))
-        old_links = [(label, url, line) for line in removed
-                     for label, url in re.findall(r"\[([^\]]+)\]\(([^)]+)\)", line)]
-        new_links = [(label, url, line) for line in added
-                     for label, url in re.findall(r"\[([^\]]+)\]\(([^)]+)\)", line)]
-        old_counts = Counter((label, url) for label, url, _ in old_links)
-        new_counts = Counter((label, url) for label, url, _ in new_links)
-        for label in sorted({label for label, _ in old_counts} & {label for label, _ in new_counts}):
-            old_changed = [line for name, url, line in old_links
-                           if name == label and old_counts[name, url] > new_counts[name, url]]
-            new_changed = [line for name, url, line in new_links
-                           if name == label and new_counts[name, url] > old_counts[name, url]]
-            changes.extend(("link_destination_change", old, new)
-                           for old, new in zip(old_changed, new_changed))
-        for category, old, new in changes:
-            if len(old) <= 500 and len(new) <= 500:
-                evidence.append({"change_category": category, "quality_direction": "unverified",
+                    and old.casefold() == new.casefold() and len(old) <= 500):
+                evidence.append({"change_category": "heading_case_change", "quality_direction": "unverified",
                                  "before": old, "after": new, "hunk": hunk.splitlines()[0]})
+                if len(evidence) == 5:
+                    return evidence
+        old_counts = Counter(link for line in removed
+                             for link in re.findall(r"\[([^\]]+)\]\(([^)]+)\)", line))
+        new_counts = Counter(link for line in added
+                             for link in re.findall(r"\[([^\]]+)\]\(([^)]+)\)", line))
+        removed_counts, added_counts = old_counts - new_counts, new_counts - old_counts
+        for label in sorted({label for label, _ in old_counts} & {label for label, _ in new_counts}):
+            removed_urls = {url: count for (name, url), count in removed_counts.items() if name == label}
+            added_urls = {url: count for (name, url), count in added_counts.items() if name == label}
+            if removed_urls and added_urls and len(json.dumps([label, removed_urls, added_urls])) <= 1000:
+                evidence.append({"change_category": "link_destination_change", "quality_direction": "unverified",
+                                 "label": label, "removed_destinations": removed_urls,
+                                 "added_destinations": added_urls, "hunk": hunk.splitlines()[0]})
                 if len(evidence) == 5:
                     return evidence
     return evidence
