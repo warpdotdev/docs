@@ -2,9 +2,10 @@
   "analysis_counts": {
     "accepted_automated_records": 0,
     "accepted_human_prs": 23,
-    "accepted_human_records": 169,
+    "accepted_human_records": 157,
     "actionable_targeted_patterns": 0,
-    "appended_human_records": 169,
+    "appended_human_records": 157,
+    "excluded_agent_attributed_records": 12,
     "excluded_automated_records": 85,
     "excluded_human_edit_records": 1519,
     "observed_automated_records": 85,
@@ -17,12 +18,27 @@
     "Exclude all 1519 human-edit projections because the original collector did not exclude merge commits and retained no parent provenance. Human review_outcome links derived from excluded signals were cleared to unknown.",
     "The old collector silently excluded missing/invalid timestamps, so its bot_or_outside_window=751 combines unavailable and legitimate exclusions; the unavailable subset cannot be recovered from the frozen projection.",
     "The old run collector checked factory_uid but not returned run_id. Retrieved=447 is an observed retrieval count, not hardened verified-provenance coverage.",
-    "169 accepted human reviews/comments on 23 PRs are verified-human but untagged/general. Their free text was not used to invent targeted categories.",
+    "157 retained human reviews/comments on 23 PRs are verified-human but untagged/general. Their free text was not used to invent targeted categories.",
     "Check metadata was queried only for the first 100 results per head in this frozen run; possible truncation was not counted. Unknown metadata is not a passing check.",
     "Existing historical log rows were preserved; none fall in the frozen interval (latest prior date 2026-09-29).",
-    "PR/run selection and human-commit dates in this frozen collection used the old silent timestamp filter; malformed selection or commit dates cannot be quantified and are not claimed as valid exclusions."
+    "PR/run selection and human-commit dates in this frozen collection used the old silent timestamp filter; malformed selection or commit dates cannot be quantified and are not claimed as valid exclusions.",
+    "Offline attribution correction excludes 12 human-account rows: 10 explicit Warp agent implementation updates and 2 generated review signals. Account type User and MEMBER association do not override structural agent attribution. Quarantined records are not trusted automated evidence."
   ],
   "analysis_status": "blocked-partial-no-editorial-change",
+  "attribution_excluded_source_ids": [
+    "github:review_comment:4234680970",
+    "github:review_comment:4234681451",
+    "github:review_comment:4234681825",
+    "github:review_comment:4234682053",
+    "github:review_comment:4234682493",
+    "github:review_comment:4234682994",
+    "github:review_comment:4234683194",
+    "github:review_comment:4234683594",
+    "github:review_comment:4234683938",
+    "github:review_comment:4234684517",
+    "github:review_verdict:5674938665",
+    "github:review_verdict:5677429631"
+  ],
   "collection_exit_code": 2,
   "collection_invocations": 1,
   "collection_version": "37ed60bf3709e325306e879643776acf7171797c",
@@ -46,7 +62,7 @@
     "coverage.json": "4cf788ccd623583910b021c1c9c11c869e97565cee93130cb46f7d52e91bebe5",
     "feedback.jsonl": "448bb787e0c501276b36e5175890d1277561942ed927480c86b42a330dfe95b1"
   },
-  "hardened_version": "0b90b5ef72ef26d74025ff37614caad39533e26d",
+  "hardened_version": "64f2fdb103caad027dc97f7e976426fec59513ec",
   "omissions": [
     "PR 965: no identifiable agent commit for human-edit boundary",
     "PR 962: no identifiable agent commit for human-edit boundary",

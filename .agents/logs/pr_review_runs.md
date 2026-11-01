@@ -48,9 +48,10 @@ This is a human-readable audit trail of `review-docs-pr` runs on agent-authored 
 ## 2026-11-01 — November catch-up (blocked partial; no editorial change)
 
 - Frozen window: `[2026-10-02T15:00:00Z, 2026-11-01T15:00:00Z)`; exactly one collection invocation, exit 2. No retry or recollection.
-- GitHub: 134 merged PRs scanned, 125 agent-related candidates. Appended 169 verified-human reviews/comments on 23 PRs; all untagged/general. Excluded 1,519 human-edit projections because merge-parent provenance was not retained.
+- GitHub: 134 merged PRs scanned, 125 agent-related candidates. Appended 157 retained human reviews/comments on 23 PRs; all untagged/general. Excluded 1,519 human-edit projections because merge-parent provenance was not retained.
 - Selected environment: 453 runs; 447 conversation retrievals and 6 unavailable. Other environments and historical production runs remain uncovered; production access returned 401, not zero findings.
 - Automated observations: 85 projected records (55 GitHub review, 30 run), all excluded from analysis because collection predates provenance hardening. Preserved as excluded data, not actionable findings. Missing timestamps may have been silently excluded by that collector version.
+- Offline attribution correction: quarantined 12 agent-authored human-account rows (10 explicit implementation updates and 2 generated review signals); none count as human or trusted automated evidence.
 - Decision: zero safely actionable targeted patterns; no improvement PR and no editorial skill/template changes. Thresholds were not lowered. This is a blocked-partial outcome, not evidence that drafting needs no improvements.
 - Evidence: `drafting/2026-11-01-coverage.json`, `drafting/2026-11-01-automated-observations.jsonl`, and `drafting/2026-11-01-outcome.json`. Prior log bytes preserved; duplicates excluded by source ID.
 - No Slack notification, live schedule change, factory apply, or scorer-based self-improvement. The standalone schedule remains unchanged; next attempt 2026-12-01 at 15:00 UTC. Human activation and later retirement are separate gates.
