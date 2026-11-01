@@ -45,6 +45,17 @@ This is a human-readable audit trail of `review-docs-pr` runs on agent-authored 
 
 ---
 
+## 2026-11-01 — November catch-up (blocked partial; no editorial change)
+
+- Frozen window: `[2026-10-02T15:00:00Z, 2026-11-01T15:00:00Z)`; exactly one collection invocation, exit 2. No retry or recollection.
+- GitHub: 134 merged PRs scanned, 125 agent-related candidates. Appended 169 verified-human reviews/comments on 23 PRs; all untagged/general. Excluded 1,519 human-edit projections because merge-parent provenance was not retained.
+- Selected environment: 453 runs; 447 conversation retrievals and 6 unavailable. Other environments and historical production runs remain uncovered; production access returned 401, not zero findings.
+- Automated observations: 85 projected records (55 GitHub review, 30 run), all excluded from analysis because collection predates provenance hardening. Preserved as excluded data, not actionable findings. Missing timestamps may have been silently excluded by that collector version.
+- Decision: zero safely actionable targeted patterns; no improvement PR and no editorial skill/template changes. Thresholds were not lowered. This is a blocked-partial outcome, not evidence that drafting needs no improvements.
+- Evidence: `drafting/2026-11-01-coverage.json`, `drafting/2026-11-01-automated-observations.jsonl`, and `drafting/2026-11-01-outcome.json`. Prior log bytes preserved; duplicates excluded by source ID.
+- No Slack notification, live schedule change, factory apply, or scorer-based self-improvement. The standalone schedule remains unchanged; next attempt 2026-12-01 at 15:00 UTC. Human activation and later retirement are separate gates.
+- Run: https://platform.staging.warp.dev/rBn42naTYeqJPuRZ7i7KOR/runs/01a1986a-2045-732c-96e6-21a8d7a09104
+
 ## 2026-10-01 — collector scan (improve-drafting-skills monthly)
 
 - Source: GitHub API human reviews/comments/edits on agent-authored merged PRs (warpy-factory / warp-agent / warp-factories), past ~30 days through 2026-10-01; Oz `[SIGNAL:pr-review]` markers from 24 succeeded review-docs-pr runs
