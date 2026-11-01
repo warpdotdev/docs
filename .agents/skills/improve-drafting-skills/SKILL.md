@@ -96,8 +96,10 @@ environment, then verifies each run's factory before retrieving its
 conversation. This includes implementation/review agents without a legacy
 drafting skill name. PR selection includes `factory:docs-factory`,
 `warpy-factory`, legacy markers and bot commits; bot reviews are never
-human feedback. Human edits use the PR commit sequence after its last
-identifiable agent commit, not a merge-parent diff that includes main.
+human feedback. Exclude explicit agent attribution and generated signal
+markers from human feedback even when posted through a human account.
+Human edits use the PR commit sequence after its last identifiable agent
+commit, not a merge-parent diff that includes main.
 
 The collector writes `feedback.jsonl`, `automated.jsonl`, and
 `coverage.json`. Exit 2 means partial/blocked collection. Preserve that

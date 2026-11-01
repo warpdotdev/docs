@@ -56,6 +56,29 @@ class CollectionTests(unittest.TestCase):
         self.assertIsNone(record)
         self.assertEqual(reason, "injection")
 
+    def test_human_proxy_account_does_not_verify_attributed_agent_content(self):
+        item = {"id": 2, "user": {"login": "editor", "type": "User"},
+                "created_at": "2026-10-03T00:00:00Z", "author_association": "MEMBER"}
+        bodies = [
+            "**Warp agent implementation update** (`abcdef12`): [skill-feedback] Fix heading case.",
+            '## Review summary\n<!-- [SIGNAL:pr-review] {"pr":"42"} -->',
+            "Feedback\n_Posted by a Warp agent_",
+            "Feedback\nResponding as Docs Factory: [Open session](https://example.com)",
+            "<!-- warp:attribution start -->",
+        ]
+        for body in bodies:
+            with self.subTest(body=body):
+                self.assertEqual(
+                    collector.human_record({**item, "body": body},
+                                           {"number": 1, "headRefOid": "a" * 40},
+                                           "review_comment", START, END),
+                    (None, "agent_attribution"))
+        record, reason = collector.human_record(
+            {**item, "body": "[skill-feedback] Use sentence case."},
+            {"number": 1, "headRefOid": "a" * 40}, "review_comment", START, END)
+        self.assertIsNone(reason)
+        self.assertTrue(record["verified_human"])
+
     def test_nested_assistant_blocks_exclude_tools_and_user_examples(self):
         data = {"steps": [{"steps": [{"messages": [
             {"role": "user", "content": [{"type": "text", "text": "not evidence"}]},

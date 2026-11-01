@@ -29,6 +29,14 @@ REVIEW_PUBLISHERS = {
     "warp-for-oss",
 }
 TAGS = ("[skill-feedback]", "[template-feedback]", "[style-rule-gap]")
+AGENT_ATTRIBUTION = re.compile(
+    r"^\s*(?:\*\*)?Warp agent implementation update(?:\*\*)?\s*"
+    r"|\[SIGNAL:(?:pr-review|style-lint)\]\s*\{"
+    r"|<!--\s*warp:(?:pr-artifacts-comment|attribution)\s+(?:start|end)\s*-->"
+    r"|^\s*_?Posted by a Warp agent_?\s*$"
+    r"|^Responding as [^\n]+:\s*\[(?:Open session|View in factory)\]",
+    re.I | re.M,
+)
 INJECTION = re.compile(
     r"ignore (?:all |the )?(?:previous|prior|system) instructions|your new task is|"
     r"(?:reveal|print|modify|override).{0,30}(?:system prompt|credentials)|"
@@ -87,6 +95,8 @@ def human_record(item, pr, kind, start, end):
     when = item.get("submitted_at") or item.get("created_at")
     if bot(actor):
         return None, "bot"
+    if AGENT_ATTRIBUTION.search(item.get("body") or ""):
+        return None, "agent_attribution"
     try:
         moment = timestamp(when)
     except (ValueError, TypeError, AttributeError):
