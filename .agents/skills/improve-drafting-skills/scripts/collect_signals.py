@@ -299,21 +299,30 @@ def patch_categories(patch):
     for hunk in re.split(r"(?=^@@ )", patch, flags=re.M):
         removed = [line[1:] for line in hunk.splitlines() if line.startswith("-")]
         added = [line[1:] for line in hunk.splitlines() if line.startswith("+")]
-        for old in removed[:100]:
-            for new in added[:100]:
-                category = None
-                if (re.match(r"^#{1,6} ", old) and old != new
-                        and old.casefold() == new.casefold()):
-                    category = "header_case"
-                old_links = re.findall(r"\[([^\]]+)\]\(([^)]+)\)", old)
-                new_links = re.findall(r"\[([^\]]+)\]\(([^)]+)\)", new)
-                if any(a == c and b != d for a, b in old_links for c, d in new_links):
-                    category = "link_quality"
-                if category and len(old) <= 500 and len(new) <= 500:
-                    evidence.append({"pattern_category": category, "before": old, "after": new,
-                                     "hunk": hunk.splitlines()[0]})
-                    if len(evidence) == 5:
-                        return evidence
+        changes = []
+        for old, new in zip(removed[:100], added[:100]):
+            if (re.match(r"^#{1,6} ", old) and old != new
+                    and old.casefold() == new.casefold()):
+                changes.append(("heading_case_change", old, new))
+        old_links = [(label, url, line) for line in removed
+                     for label, url in re.findall(r"\[([^\]]+)\]\(([^)]+)\)", line)]
+        new_links = [(label, url, line) for line in added
+                     for label, url in re.findall(r"\[([^\]]+)\]\(([^)]+)\)", line)]
+        old_counts = Counter((label, url) for label, url, _ in old_links)
+        new_counts = Counter((label, url) for label, url, _ in new_links)
+        for label in sorted({label for label, _ in old_counts} & {label for label, _ in new_counts}):
+            old_changed = [line for name, url, line in old_links
+                           if name == label and old_counts[name, url] > new_counts[name, url]]
+            new_changed = [line for name, url, line in new_links
+                           if name == label and new_counts[name, url] > old_counts[name, url]]
+            changes.extend(("link_destination_change", old, new)
+                           for old, new in zip(old_changed, new_changed))
+        for category, old, new in changes:
+            if len(old) <= 500 and len(new) <= 500:
+                evidence.append({"change_category": category, "quality_direction": "unverified",
+                                 "before": old, "after": new, "hunk": hunk.splitlines()[0]})
+                if len(evidence) == 5:
+                    return evidence
     return evidence
 
 
@@ -467,9 +476,6 @@ class Collector:
                     record["disposition"] = (
                         "agent_assisted" if status in {"agent", "agent_assisted"}
                         else "unresolved_attribution")
-                    categories = {e["pattern_category"] for e in record["category_evidence"]}
-                    if len(categories) == 1:
-                        record["pattern_category"] = next(iter(categories))
             except UnicodeError:
                 record.update(disposition="binary_unavailable", patch_status="binary_unavailable")
             except (OSError, ValueError, KeyError, subprocess.TimeoutExpired) as error:

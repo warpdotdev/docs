@@ -337,7 +337,9 @@ class EditEvidenceTests(unittest.TestCase):
         self.assertFalse(row["verified_human"])
         self.assertEqual(row["disposition"], "unresolved_attribution")
         self.assertEqual(row["attribution"]["status"], "content_corroborated")
-        self.assertEqual(row["pattern_category"], "header_case")
+        self.assertEqual(row["pattern_category"], "general")
+        self.assertEqual(row["category_evidence"][0]["change_category"], "heading_case_change")
+        self.assertEqual(row["category_evidence"][0]["quality_direction"], "unverified")
         self.assertEqual(row["attribution"]["sources"], ["7"])
         self.assertEqual(row["before_blob_sha"], blob_payload("## OLD\n")["sha"])
         self.assertEqual(row["after_blob_sha"], blob_payload("## Old\n")["sha"])
@@ -441,6 +443,22 @@ class EditEvidenceTests(unittest.TestCase):
         self.assertEqual(rows[0]["attribution"]["sources"], ["7"])
         self.assertEqual(rows[0]["disposition"], "unresolved_attribution")
         self.assertFalse(rows[0]["verified_human"])
+        self.assertEqual(feedback, "")
+
+    def test_same_label_unchanged_destinations_do_not_invent_link_edits(self):
+        _, rows, _ = self.collect(
+            before="[Guide](https://example.org/a) old prose\n[Guide](https://example.org/b) old prose\n",
+            after="[Guide](https://example.org/a) new prose\n[Guide](https://example.org/b) new prose\n")
+        self.assertEqual(rows[0]["category_evidence"], [])
+        _, rows, _ = self.collect(
+            before="[Guide](https://example.org/a)\n", after="[Guide](https://example.org/b)\n")
+        self.assertEqual(rows[0]["category_evidence"][0]["change_category"], "link_destination_change")
+        self.assertEqual(rows[0]["category_evidence"][0]["quality_direction"], "unverified")
+
+    def test_heading_case_regression_is_not_promoted_as_a_quality_correction(self):
+        _, rows, feedback = self.collect(before="## Getting started\n", after="## Getting Started\n")
+        self.assertEqual(rows[0]["pattern_category"], "general")
+        self.assertEqual(rows[0]["category_evidence"][0]["quality_direction"], "unverified")
         self.assertEqual(feedback, "")
 
     def test_private_key_material_is_redacted_or_excluded_when_incomplete(self):

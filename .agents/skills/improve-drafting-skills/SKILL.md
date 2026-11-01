@@ -115,7 +115,10 @@ keeps those edits unverified. Require independent human-origin evidence
 and complete, unredacted hunks before counting an edit toward human
 feedback thresholds. Keep merge noise, agent-assisted edits, unavailable
 patches, and unresolved authorship as distinct dispositions. Counts alone
-do not show an editorial correction. Deduplicate by repository, commit,
+do not show an editorial correction. Mechanical change categories describe
+observed edits, not improvements. Check the direction against the owning
+style rule before assigning an actionable pattern; otherwise keep
+`pattern_category` as `general`. Deduplicate by repository, commit,
 parent, and old/new paths; multiple PR links are not multiple occurrences.
 
 Use `--human-edits-only --prior-feedback PRIOR_FEEDBACK_JSONL` for an
