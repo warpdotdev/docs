@@ -98,11 +98,31 @@ drafting skill name. PR selection includes `factory:docs-factory`,
 `warpy-factory`, legacy markers and bot commits; bot reviews are never
 human feedback. Exclude explicit agent attribution and generated signal
 markers from human feedback even when posted through a human account.
-Human edits use the PR commit sequence after its last identifiable agent
-commit, not a merge-parent diff that includes main.
+Inspect non-bot commits after the PR's first identifiable agent baseline,
+including corrections before later agent revisions. Compare each ordinary
+commit with its single parent, never with a merge-parent diff that includes
+main. Agent coauthor trailers and explicit agent replies are not human
+authorship, even under personal accounts. An ordinary human-account commit
+without corroborating review provenance remains unverified.
 
-The collector writes `feedback.jsonl`, `automated.jsonl`, and
-`coverage.json`. Exit 2 means partial/blocked collection. Preserve that
+The collector writes `feedback.jsonl`, `automated.jsonl`, `human-edits.jsonl`,
+and `coverage.json`. Human-edit evidence retains parent/commit and blob
+hashes, immutable before/after links, bounded sanitized hunks, attribution
+confidence, and hunk-backed mechanical categories. Only positively
+corroborated human edits with complete, unredacted evidence enter human
+feedback thresholds. Keep merge noise, agent-assisted edits, unavailable
+patches, and unresolved authorship as distinct dispositions. Counts alone
+do not show an editorial correction. Deduplicate by repository, commit,
+parent, and old/new paths; multiple PR links are not multiple occurrences.
+
+Use `--human-edits-only` for an explicitly authorized corrective collection
+of the same frozen interval without recollecting automated run signals.
+Preserve the original observations and hashes, append a versioned corrective
+outcome and per-source disposition manifest, and record initial plus
+corrective invocation counts. A correction supersedes the initial analysis,
+not its audit trail.
+
+Exit 2 means partial/blocked collection. Preserve that
 status, every failed source, and actual source counts; inaccessible data
 is not zero findings. A successful scan covers only its selected
 environment, not all historical runs. Discover relevant legacy drafting
