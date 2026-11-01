@@ -15,9 +15,18 @@ END = collector.timestamp("2026-11-01T15:00:00Z")
 
 class CollectionTests(unittest.TestCase):
     def test_window_is_half_open_and_timezone_aware(self):
-        self.assertTrue(collector.in_window("2026-10-02T08:00:00-07:00", START, END))
-        self.assertFalse(collector.in_window("2026-11-01T15:00:00Z", START, END))
-        self.assertFalse(collector.in_window("2026-10-02", START, END))
+        item = {"id": 1, "user": {"login": "editor", "type": "User"}, "body": "Feedback"}
+        for when, reason in (
+            ("2026-10-02T08:00:00-07:00", None),
+            ("2026-11-01T15:00:00Z", "outside_window"),
+            ("2026-10-02", "invalid_timestamp"),
+        ):
+            with self.subTest(when=when):
+                record, actual = collector.human_record(
+                    {**item, "created_at": when}, {"number": 1, "headRefOid": "a" * 40},
+                    "review_comment", START, END)
+                self.assertEqual(actual, reason)
+                self.assertEqual(record is not None, reason is None)
 
     def test_factory_bot_is_not_human_even_with_member_association(self):
         item = {"id": 1, "user": {"login": "warp-agent-staging[bot]", "type": "Bot"},
@@ -166,6 +175,59 @@ class CollectionTests(unittest.TestCase):
         self.assertEqual(scan.automated, [])
         self.assertTrue(any("invalid review markers" in item for item in scan.coverage["omissions"]))
         self.assertTrue(any("invalid timestamp" in item for item in scan.coverage["omissions"]))
+
+    def test_selection_timestamps_distinguish_unavailable_from_outside_window(self):
+        args = SimpleNamespace(start="2026-10-02T15:00:00Z", end="2026-11-01T15:00:00Z",
+                               repo="owner/repo", environment="environment", factory="factory")
+        dates = [None, "malformed", "2026-09-01T00:00:00Z"]
+        scan = collector.Collector(args)
+        prs = [{"number": i, "mergedAt": date} for i, date in enumerate(dates)]
+        with patch.object(scan, "command", return_value=prs):
+            scan.github()
+        self.assertEqual(scan.coverage["counts"]["merged_prs"], 0)
+        self.assertEqual(len(scan.coverage["omissions"]), 2)
+        scan = collector.Collector(args)
+        page = {"runs": [{"run_id": str(i), "created_at": date} for i, date in enumerate(dates)],
+                "page_info": {"has_next_page": False}}
+        with patch.dict(collector.os.environ, {"OZ_CLI": "oz"}):
+            with patch.object(scan, "command", return_value=page) as command:
+                scan.runs()
+        self.assertEqual(command.call_count, 1)
+        self.assertEqual(scan.coverage["counts"]["environment_runs"], 0)
+        self.assertEqual(len(scan.coverage["omissions"]), 2)
+
+    def test_human_edits_report_invalid_dates_and_exclude_merge_deltas(self):
+        args = SimpleNamespace(start="2026-10-02T15:00:00Z", end="2026-11-01T15:00:00Z",
+                               repo="owner/repo")
+        scan = collector.Collector(args)
+        pr = {"number": 1, "headRefOid": "a" * 40, "mergedAt": "2026-10-03T00:00:00Z",
+              "labels": [{"name": "warpy-factory"}], "body": ""}
+        commits = [{"author": {"login": "warp-agent-staging[bot]", "type": "Bot"}}]
+        for sha, date in (("missing", None), ("invalid", "bad"), ("merge", "2026-10-03T00:00:00Z"),
+                          ("normal", "2026-10-03T00:00:00Z")):
+            commits.append({"sha": sha, "author": {"login": "editor", "type": "User"},
+                            "commit": {"author": {"date": date}}})
+
+        def api(suffix, paginated=False):
+            if "check-runs" in suffix:
+                return {"total_count": 0, "check_runs": []}
+            if "/commits?" in suffix:
+                return commits
+            if suffix.startswith("commits/"):
+                return {"parents": [{}, {}] if suffix == "commits/merge" else [{}],
+                        "files": [{"filename": "src/content/docs/page.mdx", "additions": 2,
+                                   "deletions": 1}]}
+            return []
+
+        with patch.object(scan, "command", return_value=[pr]), patch.object(scan, "api", side_effect=api):
+            scan.github()
+        self.assertEqual([r["source_id"] for r in scan.feedback],
+                         ["github:commit:normal:src/content/docs/page.mdx"])
+        self.assertEqual(scan.coverage["omissions"], [
+            "commit missing: invalid human-edit timestamp",
+            "commit invalid: invalid human-edit timestamp",
+            "commit merge: merge delta excluded from human-edit evidence",
+        ])
 
 
 if __name__ == "__main__":

@@ -59,13 +59,6 @@ def timestamp(value):
     return parsed.astimezone(timezone.utc)
 
 
-def in_window(value, start, end):
-    try:
-        return start <= timestamp(value) < end
-    except (ValueError, TypeError, AttributeError):
-        return False
-
-
 def bot(actor):
     return (
         not actor or actor.get("type") == "Bot"
@@ -236,7 +229,17 @@ class Collector:
         ])
         if len(prs) == 1000:
             self.coverage["omissions"].append("GitHub PR search reached the 1000-result cap")
-        prs = [pr for pr in prs if in_window(pr["mergedAt"], self.start, self.end)]
+        selected = []
+        for pr in prs:
+            try:
+                moment = timestamp(pr.get("mergedAt"))
+            except (ValueError, TypeError, AttributeError):
+                self.coverage["omissions"].append(
+                    f"PR {pr.get('number', 'unknown')}: invalid merge timestamp")
+                continue
+            if self.start <= moment < self.end:
+                selected.append(pr)
+        prs = selected
         self.coverage["counts"]["merged_prs"] = len(prs)
         candidates, discarded = 0, Counter()
         for pr in prs:
@@ -291,8 +294,16 @@ class Collector:
                     self.coverage["omissions"].append(f"PR {number}: no identifiable agent commit for human-edit boundary")
                     continue
                 for commit in commits[last_agent + 1:]:
-                    when = commit["commit"]["author"]["date"]
-                    if bot(commit.get("author")) or not in_window(when, self.start, self.end):
+                    if bot(commit.get("author")):
+                        continue
+                    try:
+                        when = commit["commit"]["author"]["date"]
+                        moment = timestamp(when)
+                    except (ValueError, KeyError, TypeError, AttributeError):
+                        self.coverage["omissions"].append(
+                            f"commit {commit['sha']}: invalid human-edit timestamp")
+                        continue
+                    if not self.start <= moment < self.end:
                         continue
                     detail = self.api(f"commits/{commit['sha']}")
                     if len(detail["parents"]) > 1:
@@ -344,8 +355,17 @@ class Collector:
             except (OSError, ValueError, KeyError, subprocess.TimeoutExpired):
                 self.coverage["omissions"].append("Factory run pagination incomplete")
                 break
-        runs = {r["run_id"]: r for r in runs if in_window(r["created_at"], self.start, self.end)
-                and r["run_id"] != os.environ.get("OZ_RUN_ID")}
+        selected = {}
+        for run in runs:
+            try:
+                moment = timestamp(run.get("created_at"))
+            except (ValueError, TypeError, AttributeError):
+                self.coverage["omissions"].append(
+                    f"run {run.get('run_id', 'unknown')}: invalid creation timestamp")
+                continue
+            if self.start <= moment < self.end and run["run_id"] != os.environ.get("OZ_RUN_ID"):
+                selected[run["run_id"]] = run
+        runs = selected
         self.coverage["counts"]["environment_runs"] = len(runs)
 
         def collect(run_id):
