@@ -45,6 +45,18 @@ This is a human-readable audit trail of `review-docs-pr` runs on agent-authored 
 
 ---
 
+## 2026-11-01 — authorized November human-edit correction (source recovery complete; attribution partial)
+
+- Same frozen window and task: `[2026-10-02T15:00:00Z, 2026-11-01T15:00:00Z)`. Initial collection 1 + authorized corrective collection 1 = 2 total; this is not another monthly catch-up.
+- Reconciled all 1,519 original unique edit identities: 1,459 multi-parent merge projections excluded, 2 explicitly agent-assisted, and 58 unresolved human origin. No original identity is missing. These exclusions no longer mean the patches were unavailable.
+- The expanded first-agent-baseline scan recovered 96 actual parent-to-commit file diffs across 50 ordinary commits and 15 PRs: 86 complete, 10 truncated. All retain immutable links and blob/patch hashes; 9 are agent-assisted and 87 have unresolved authorship. The remaining 2,472 projections belong to 59 merge commits.
+- Inspected 13 real before/after samples, including task-title changes, a narrower encryption claim, removed reference prose, and explicit agent-coauthored changes. A signed suggestion proves matching content, not human origin. All are retained as candidate observations, not confirmed human corrections or quality improvements.
+- Appended zero human-edit rows; all 2,531 prior feedback rows and the initial dated snapshots remain byte-identical. The provisional suggestion-based classification was removed during offline review, with collection and analysis versions recorded separately.
+- No safely actionable targeted patterns meet the existing requirements. No editorial improvement PR or baseline/identical-input editorial evaluation was manufactured. Thresholds and the three-file improvement cap remain unchanged.
+- Coverage remains partial: 13 candidate PRs lack an identifiable agent baseline, 10 patches are truncated, independent human origin is unresolved, and production-history/other-environment access was not restored. The production 401 and staging lookup 404 remain separate from GitHub source recovery.
+- Evidence: `drafting/2026-11-01-correction-v2-{coverage,outcome}.json`, `drafting/2026-11-01-correction-v2-human-edit-evidence.jsonl`, `drafting/2026-11-01-correction-v2-merge-commits.jsonl`, and `drafting/2026-11-01-correction-v2-source-reconciliation.jsonl`. The initial entry below is preserved as history, not the current analysis.
+- No Slack message, merge, deployment, factory apply, schedule activation, or legacy-schedule retirement occurred.
+
 ## 2026-11-01 — November catch-up (blocked partial; no editorial change)
 
 - Frozen window: `[2026-10-02T15:00:00Z, 2026-11-01T15:00:00Z)`; exactly one collection invocation, exit 2. No retry or recollection.
