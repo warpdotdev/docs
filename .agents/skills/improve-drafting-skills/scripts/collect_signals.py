@@ -24,6 +24,10 @@ AGENT_LOGINS = {
     "oz-agent", "warp-agent", "warp-agent-staging[bot]", "warp-agent[bot]",
     "warp-factories", "warp-for-oss", "github-actions[bot]", "vercel[bot]",
 }
+REVIEW_PUBLISHERS = {
+    "github-actions[bot]", "warp-agent[bot]", "warp-agent-staging[bot]",
+    "warp-for-oss",
+}
 TAGS = ("[skill-feedback]", "[template-feedback]", "[style-rule-gap]")
 INJECTION = re.compile(
     r"ignore (?:all |the )?(?:previous|prior|system) instructions|your new task is|"
@@ -88,8 +92,14 @@ def sanitize(text):
 def human_record(item, pr, kind, start, end):
     actor = item.get("user")
     when = item.get("submitted_at") or item.get("created_at")
-    if bot(actor) or not in_window(when, start, end):
-        return None, "bot_or_outside_window"
+    if bot(actor):
+        return None, "bot"
+    try:
+        moment = timestamp(when)
+    except (ValueError, TypeError, AttributeError):
+        return None, "invalid_timestamp"
+    if not start <= moment < end:
+        return None, "outside_window"
     text = sanitize(item.get("body") or "")
     if text is None:
         return None, "injection"
@@ -127,15 +137,28 @@ def assistant_texts(value):
             yield from assistant_texts(child)
 
 
-def markers(text, provenance, when, start, end):
+def markers(text, provenance, when, start, end, *, pr_number=None,
+            reviewed_head=None, publisher=None):
     records, invalid = [], 0
     for match in re.finditer(r"\[SIGNAL:(pr-review|style-lint)\]\s*", text):
         try:
             payload, _ = json.JSONDecoder().raw_decode(text[match.end():])
             if not isinstance(payload, dict) or not str(payload.get("pr", "")).isdigit():
                 raise ValueError("missing PR")
-            if not in_window(when, start, end):
+            moment = timestamp(when)
+            if not start <= moment < end:
                 continue
+            head = str(payload.get("head_sha", ""))
+            if match[1] == "pr-review" and not re.fullmatch(r"[0-9a-f]{40}", head):
+                raise ValueError("missing reviewed head")
+            if pr_number is not None and (
+                publisher not in REVIEW_PUBLISHERS
+                or str(payload["pr"]) != str(pr_number)
+                or not re.fullmatch(r"[0-9a-f]{40}", str(reviewed_head or ""))
+                or head != reviewed_head
+                or payload.get("reviewer_login", publisher) != publisher
+            ):
+                raise ValueError("review provenance mismatch")
             categories = {}
             if match[1] == "style-lint":
                 categories = payload["violations"]
@@ -152,9 +175,7 @@ def markers(text, provenance, when, start, end):
                 raise ValueError("invalid counts")
             record = {
                 "date": when[:10], "timestamp": when, "pr": str(payload["pr"]),
-                "head_sha": payload.get("head_sha") if re.fullmatch(
-                    r"[0-9a-f]{40}", str(payload.get("head_sha", ""))
-                ) else "unknown",
+                "head_sha": head if re.fullmatch(r"[0-9a-f]{40}", head) else "unknown",
                 "signal_type": match[1], "categories": categories,
                 "verdict": payload.get("verdict") if payload.get("verdict") in {
                     "Approve", "Approve with nits", "Request changes",
@@ -163,7 +184,7 @@ def markers(text, provenance, when, start, end):
                 "source": provenance,
             }
             records.append(record)
-        except (ValueError, KeyError, TypeError):
+        except (ValueError, KeyError, TypeError, AttributeError):
             invalid += 1
     return records, invalid
 
@@ -233,6 +254,8 @@ class Collector:
                 pr["risk"] = risk[1] if risk else "unknown"
                 try:
                     checks = self.api(f"commits/{pr['headRefOid']}/check-runs?per_page=100")
+                    if checks["total_count"] > len(checks["check_runs"]):
+                        self.coverage["omissions"].append(f"PR {number}: head check list truncated")
                     required = [c for c in checks["check_runs"] if c["name"] in {
                         "Docs editorial quality", "Docs technical references"}]
                     pr["check_outcome"] = (
@@ -249,6 +272,8 @@ class Collector:
                             signals, invalid = markers(
                                 item.get("body") or "", f"github-review:{item['id']}",
                                 item.get("submitted_at"), self.start, self.end,
+                                pr_number=number, reviewed_head=item.get("commit_id"),
+                                publisher=(item.get("user") or {}).get("login"),
                             )
                             self.automated.extend(signals)
                             if invalid:
@@ -258,6 +283,9 @@ class Collector:
                             self.feedback.append(record)
                         else:
                             discarded[reason] += 1
+                            if reason == "invalid_timestamp":
+                                self.coverage["omissions"].append(
+                                    f"PR {number}: feedback {item['id']} has invalid timestamp")
                 last_agent = max((i for i, c in enumerate(commits) if agent_commit(c)), default=None)
                 if last_agent is None:
                     self.coverage["omissions"].append(f"PR {number}: no identifiable agent commit for human-edit boundary")
@@ -267,6 +295,10 @@ class Collector:
                     if bot(commit.get("author")) or not in_window(when, self.start, self.end):
                         continue
                     detail = self.api(f"commits/{commit['sha']}")
+                    if len(detail["parents"]) > 1:
+                        self.coverage["omissions"].append(
+                            f"commit {commit['sha']}: merge delta excluded from human-edit evidence")
+                        continue
                     if len(detail["files"]) >= 300:
                         self.coverage["omissions"].append(f"commit {commit['sha']}: file list may be truncated")
                     for file in detail["files"]:
@@ -319,7 +351,14 @@ class Collector:
         def collect(run_id):
             try:
                 detail = self.command([cli, "run", "get", run_id, "--output-format", "json"])
-                if detail.get("factory_uid") != self.args.factory:
+                if (not isinstance(detail, dict) or detail.get("run_id") != run_id
+                        or "factory_uid" not in detail):
+                    raise ValueError("missing factory provenance")
+                if detail["factory_uid"] is None:
+                    return "standalone", [], 0
+                if not isinstance(detail["factory_uid"], str) or not detail["factory_uid"]:
+                    raise ValueError("invalid factory provenance")
+                if detail["factory_uid"] != self.args.factory:
                     return "other_factory", [], 0
                 conversation = self.command([cli, "run", "get", run_id, "--conversation", "--output-format", "json"])
                 if not isinstance(conversation.get("steps"), list):

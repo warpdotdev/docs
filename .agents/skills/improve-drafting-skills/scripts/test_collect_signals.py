@@ -58,7 +58,7 @@ class CollectionTests(unittest.TestCase):
                          [("2026-10-03T00:00:00Z", "evidence")])
 
     def test_marker_projection_rejects_bad_counts_and_drops_free_text(self):
-        text = '[SIGNAL:pr-review] {"pr":"42","top_categories":["clarity (3)"],"actionable_findings":["token=secret"]}'
+        text = '[SIGNAL:pr-review] {"pr":"42","head_sha":"' + "a" * 40 + '","top_categories":["clarity (3)"],"actionable_findings":["token=secret"]}'
         rows, invalid = collector.markers(text, "run:1", "2026-10-03T00:00:00Z", START, END)
         self.assertEqual(invalid, 0)
         self.assertEqual(rows[0]["categories"], {"clarity": 3})
@@ -66,6 +66,27 @@ class CollectionTests(unittest.TestCase):
         rows, invalid = collector.markers(text.replace("(3)", "(-1)"), "run:1",
                                            "2026-10-03T00:00:00Z", START, END)
         self.assertEqual((rows, invalid), ([], 1))
+
+    def test_missing_marker_timestamp_is_invalid_not_zero_findings(self):
+        text = '[SIGNAL:style-lint] {"pr":"42","violations":{"clarity":3}}'
+        self.assertEqual(collector.markers(text, "run:1", None, START, END), ([], 1))
+        item = {"user": {"login": "editor", "type": "User"}, "body": "Use sentence case"}
+        self.assertEqual(collector.human_record(item, {}, "review_comment", START, END),
+                         (None, "invalid_timestamp"))
+
+    def test_github_marker_requires_enclosing_pr_commit_and_known_publisher(self):
+        text = '[SIGNAL:pr-review] {"pr":"42","head_sha":"' + "a" * 40 + '","top_categories":["clarity (3)"]}'
+        bound = {"pr_number": 42, "reviewed_head": "a" * 40,
+                 "publisher": "github-actions[bot]"}
+        rows, invalid = collector.markers(text, "github-review:1", "2026-10-03T00:00:00Z",
+                                           START, END, **bound)
+        self.assertEqual((len(rows), invalid), (1, 0))
+        for change in ({"pr_number": 999}, {"reviewed_head": "b" * 40},
+                       {"reviewed_head": None}, {"publisher": "unrelated-service[bot]"}):
+            with self.subTest(change=change):
+                self.assertEqual(
+                    collector.markers(text, "github-review:1", "2026-10-03T00:00:00Z",
+                                      START, END, **{**bound, **change}), ([], 1))
 
     def test_source_ids_make_feedback_idempotent(self):
         record = {"source_id": "github:review_comment:1", "comment": "text"}
@@ -88,6 +109,63 @@ class CollectionTests(unittest.TestCase):
                 scan.runs()
         self.assertEqual(command.call_count, 2)
         self.assertIn("Factory run pagination incomplete", scan.coverage["omissions"])
+
+    def test_missing_factory_identity_is_unavailable_not_another_factory(self):
+        args = SimpleNamespace(start="2026-10-02T15:00:00Z",
+                               end="2026-11-01T15:00:00Z",
+                               environment="environment", factory="factory")
+        scan = collector.Collector(args)
+        page = {"runs": [{"run_id": "run", "created_at": "2026-10-03T00:00:00Z"}],
+                "page_info": {"has_next_page": False}}
+        with patch.dict(collector.os.environ, {"OZ_CLI": "oz"}):
+            with patch.object(scan, "command", side_effect=[page, {}]):
+                scan.runs()
+        self.assertEqual(scan.coverage["counts"]["conversations"], {"unavailable": 1})
+        self.assertTrue(scan.coverage["omissions"])
+
+    def test_run_identity_precedes_factory_membership_and_standalone_is_explicit(self):
+        args = SimpleNamespace(start="2026-10-02T15:00:00Z",
+                               end="2026-11-01T15:00:00Z",
+                               environment="environment", factory="factory")
+        page = {"runs": [{"run_id": "run", "created_at": "2026-10-03T00:00:00Z"}],
+                "page_info": {"has_next_page": False}}
+        for detail, status in (
+            ({"run_id": "wrong", "factory_uid": "other"}, "unavailable"),
+            ({"run_id": "run", "factory_uid": ""}, "unavailable"),
+            ({"run_id": "run", "factory_uid": None}, "standalone"),
+            ({"run_id": "run", "factory_uid": "other"}, "other_factory"),
+        ):
+            with self.subTest(detail=detail):
+                scan = collector.Collector(args)
+                with patch.dict(collector.os.environ, {"OZ_CLI": "oz"}):
+                    with patch.object(scan, "command", side_effect=[page, detail]):
+                        scan.runs()
+                self.assertEqual(scan.coverage["counts"]["conversations"], {status: 1})
+                self.assertEqual(bool(scan.coverage["omissions"]), status == "unavailable")
+
+    def test_github_collection_rejects_unrelated_bot_and_marks_invalid_human_time(self):
+        args = SimpleNamespace(start="2026-10-02T15:00:00Z", end="2026-11-01T15:00:00Z",
+                               repo="owner/repo")
+        scan = collector.Collector(args)
+        pr = {"number": 1, "headRefOid": "a" * 40, "mergedAt": "2026-10-03T00:00:00Z",
+              "labels": [{"name": "warpy-factory"}], "body": ""}
+        review = {"id": 1, "submitted_at": "2026-10-03T00:00:00Z", "commit_id": "a" * 40,
+                  "user": {"login": "unrelated-service[bot]", "type": "Bot"},
+                  "body": '[SIGNAL:pr-review] {"pr":"999","head_sha":"' + "a" * 40 + '","top_categories":["clarity (3)"]}'}
+        comment = {"id": 2, "user": {"login": "editor", "type": "User"}, "body": "Use sentence case"}
+
+        def api(suffix, paginated=False):
+            if "check-runs" in suffix:
+                return {"total_count": 0, "check_runs": []}
+            if "/commits?" in suffix:
+                return [{"author": {"login": "warp-agent-staging[bot]", "type": "Bot"}}]
+            return [review] if "/reviews?" in suffix else [comment]
+
+        with patch.object(scan, "command", return_value=[pr]), patch.object(scan, "api", side_effect=api):
+            scan.github()
+        self.assertEqual(scan.automated, [])
+        self.assertTrue(any("invalid review markers" in item for item in scan.coverage["omissions"]))
+        self.assertTrue(any("invalid timestamp" in item for item in scan.coverage["omissions"]))
 
 
 if __name__ == "__main__":
