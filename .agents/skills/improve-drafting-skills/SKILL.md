@@ -108,8 +108,11 @@ without corroborating review provenance remains unverified.
 The collector writes `feedback.jsonl`, `automated.jsonl`, `human-edits.jsonl`,
 and `coverage.json`. Human-edit evidence retains parent/commit and blob
 hashes, immutable before/after links, bounded sanitized hunks, attribution
-confidence, and hunk-backed mechanical categories. Only positively
-corroborated human edits with complete, unredacted evidence enter human
+confidence, and hunk-backed mechanical categories. A matching signed
+suggestion proves content correspondence, not human origin: agents can
+create and apply suggestions through personal accounts. The collector
+keeps those edits unverified. Require independent human-origin evidence
+and complete, unredacted hunks before counting an edit toward human
 feedback thresholds. Keep merge noise, agent-assisted edits, unavailable
 patches, and unresolved authorship as distinct dispositions. Counts alone
 do not show an editorial correction. Deduplicate by repository, commit,

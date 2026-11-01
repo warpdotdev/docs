@@ -273,13 +273,13 @@ class CollectionTests(unittest.TestCase):
 class EditEvidenceTests(unittest.TestCase):
     def collect(self, before="## OLD\n", after="## Old\n", *, message=None, parents=None,
                 comments=True, blob_failure=None, path="src/content/docs/page.mdx", replay=False,
-                review_change=None):
+                review_change=None, actor_login="editor"):
         sha, parent = "a" * 40, "b" * 40
-        actor = {"login": "editor", "type": "User"}
+        actor = {"login": actor_login, "type": "User"}
         detail = {
             "sha": sha, "parents": [{"sha": parent}] if parents is None else parents,
             "author": actor, "committer": {"login": "web-flow", "type": "User"},
-            "commit": {"message": message or "Apply suggestion from @editor",
+            "commit": {"message": message or "Apply suggestion from @" + actor_login,
                        "author": {"date": "2026-10-03T00:00:00Z"},
                        "verification": {"verified": True}},
             "files": [{"filename": path, "status": "modified", "sha": blob_payload(after)["sha"]}],
@@ -330,19 +330,20 @@ class EditEvidenceTests(unittest.TestCase):
             return (scan, [json.loads(line) for line in first.splitlines()],
                     Path(folder, "feedback.jsonl").read_text())
 
-    def test_real_correction_before_later_agent_has_hunks_parent_hashes_and_category(self):
+    def test_matching_suggestion_before_later_agent_has_hunks_not_human_origin(self):
         scan, rows, feedback = self.collect()
         self.assertEqual(len(rows), 1)
         row = rows[0]
-        self.assertTrue(row["verified_human"])
-        self.assertEqual(row["disposition"], "human_corroborated")
+        self.assertFalse(row["verified_human"])
+        self.assertEqual(row["disposition"], "unresolved_attribution")
+        self.assertEqual(row["attribution"]["status"], "content_corroborated")
         self.assertEqual(row["pattern_category"], "header_case")
         self.assertEqual(row["attribution"]["sources"], ["7"])
         self.assertEqual(row["before_blob_sha"], blob_payload("## OLD\n")["sha"])
         self.assertEqual(row["after_blob_sha"], blob_payload("## Old\n")["sha"])
         self.assertIn("-## OLD\n+## Old", row["patch"])
         self.assertEqual(row["patch_source"], "verified_parent_and_commit_blobs")
-        self.assertEqual(len(feedback.splitlines()), 1)
+        self.assertEqual(feedback, "")
 
     def test_merge_parent_and_unavailable_blob_never_become_human_corrections(self):
         for parents, failure, expected in (
@@ -361,7 +362,8 @@ class EditEvidenceTests(unittest.TestCase):
     def test_cross_pr_agent_attribution_overrides_suggestion_evidence(self):
         scan, rows, _ = self.collect()
         agent = {**rows[0], "prs": ["2"], "pr": "2",
-                 "disposition": "agent_assisted", "verified_human": False}
+                 "disposition": "agent_assisted", "verified_human": False,
+                 "attribution": {"status": "agent", "confidence": "explicit"}}
         with tempfile.TemporaryDirectory() as folder:
             scan.args.output_dir = folder
             scan.edits.append(agent)
@@ -373,6 +375,7 @@ class EditEvidenceTests(unittest.TestCase):
     def test_human_account_agent_coauthor_and_uncorroborated_editor_stay_unverified(self):
         for message, comments, expected in (
             ("Edit\n\nCo-authored-by: Oz <oz-agent@warp.dev>", True, "agent_assisted"),
+            ("Apply suggestion from @warp-for-oss[bot]", False, "agent_assisted"),
             ("Edit", False, "unresolved_attribution"),
         ):
             with self.subTest(expected=expected):
@@ -417,7 +420,7 @@ class EditEvidenceTests(unittest.TestCase):
         scan, rows, feedback = self.collect(replay=True)
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0]["prs"], ["1", "2"])
-        self.assertEqual(len(feedback.splitlines()), 1)
+        self.assertEqual(feedback, "")
         self.assertEqual(scan.coverage["counts"]["edit_file_identities"], 1)
 
     def test_suggestion_requires_exact_parent_range_and_non_agent_review(self):
@@ -430,6 +433,15 @@ class EditEvidenceTests(unittest.TestCase):
                 _, rows, feedback = self.collect(review_change=change)
                 self.assertEqual(rows[0]["disposition"], "unresolved_attribution")
                 self.assertEqual(feedback, "")
+
+    def test_agent_suggestion_and_application_under_personal_account_are_not_human_proof(self):
+        _, rows, feedback = self.collect(actor_login="personal-account-runner")
+        self.assertEqual(rows[0]["author_login"], "personal-account-runner")
+        self.assertEqual(rows[0]["attribution"]["confidence"], "content-only")
+        self.assertEqual(rows[0]["attribution"]["sources"], ["7"])
+        self.assertEqual(rows[0]["disposition"], "unresolved_attribution")
+        self.assertFalse(rows[0]["verified_human"])
+        self.assertEqual(feedback, "")
 
     def test_private_key_material_is_redacted_or_excluded_when_incomplete(self):
         text = "-----BEGIN PRIVATE KEY-----\nprivate-fixture-material\n-----END PRIVATE KEY-----"
@@ -465,7 +477,7 @@ class EditEvidenceTests(unittest.TestCase):
             scan.commit_status["d" * 40] = "source_unavailable"
             manifest = scan.reconciliation()
         self.assertEqual(len(manifest), 2)
-        self.assertEqual({r["disposition"] for r in manifest}, {"human_corroborated", "not_recovered"})
+        self.assertEqual({r["disposition"] for r in manifest}, {"unresolved_attribution", "not_recovered"})
         missing = next(r for r in manifest if r["disposition"] == "not_recovered")
         self.assertEqual(missing["reason"], "source_unavailable")
 

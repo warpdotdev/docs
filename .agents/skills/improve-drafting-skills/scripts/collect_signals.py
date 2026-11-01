@@ -222,8 +222,9 @@ def unique(records):
         if identity in found and record.get("feedback_type") == "human_edit":
             previous = found[identity]
             prs = sorted(set(previous["prs"] + record["prs"]), key=int)
-            priority = {"agent_assisted": 3, "human_corroborated": 2}
-            if priority.get(previous.get("disposition"), 0) > priority.get(record.get("disposition"), 0):
+            priority = {"agent": 3, "agent_assisted": 3, "content_corroborated": 2}
+            if priority.get(previous.get("attribution", {}).get("status"), 0) > priority.get(
+                    record.get("attribution", {}).get("status"), 0):
                 record = previous
             record = {**record, "prs": prs}
             record["pr"] = record["prs"][0]
@@ -232,13 +233,18 @@ def unique(records):
 
 
 def edit_attribution(detail, comments, before, after, path):
-    message = detail["commit"]["message"]
+    message = detail["commit"].get("message") or ""
+    suggestion_author = re.fullmatch(
+        r"Apply suggestion from @([\w-]+(?:\[bot\])?)", message.splitlines()[0] if message else "")
     if bot(detail.get("author")):
         return {"status": "agent", "confidence": "explicit", "reason": "bot account", "sources": []}
     if agent_commit(detail):
         return {"status": "agent_assisted", "confidence": "explicit",
                 "reason": "agent author or coauthor attribution",
                 "sources": []}
+    if suggestion_author and bot({"login": suggestion_author[1]}):
+        return {"status": "agent_assisted", "confidence": "explicit",
+                "reason": "commit applies a bot-authored suggestion", "sources": []}
     attributed = []
     for item in comments:
         body = item.get("body") or ""
@@ -253,7 +259,6 @@ def edit_attribution(detail, comments, before, after, path):
                 "sources": attributed}
     actor = detail.get("author") or {}
     verification = detail["commit"].get("verification") or {}
-    suggestion_author = re.fullmatch(r"Apply suggestion from @([\w-]+)", message.splitlines()[0])
     if ((detail.get("committer") or {}).get("login") == "web-flow"
             and verification.get("verified") is True
             and actor.get("type") == "User" and suggestion_author):
@@ -281,8 +286,8 @@ def edit_attribution(detail, comments, before, after, path):
             if any(s.strip() and before != after and
                    original[:start_line - 1] + s.splitlines() + original[line:] == after.splitlines()
                    for s in suggestions):
-                return {"status": "human_corroborated", "confidence": "corroborated",
-                        "reason": "signed suggestion application matches human review on parent/path",
+                return {"status": "content_corroborated", "confidence": "content-only",
+                        "reason": "suggestion matches parent/path diff; personal-account human origin unverified",
                         "sources": [str(item["id"])]}
     return {"status": "unresolved", "confidence": "unverified",
             "reason": "human account does not establish human authorship",
@@ -461,11 +466,7 @@ class Collector:
                     status = record["attribution"]["status"]
                     record["disposition"] = (
                         "agent_assisted" if status in {"agent", "agent_assisted"}
-                        else "human_corroborated" if status == "human_corroborated"
                         else "unresolved_attribution")
-                    record["verified_human"] = (
-                        status == "human_corroborated" and record["patch_status"] == "complete"
-                        and not record["redacted"])
                     categories = {e["pattern_category"] for e in record["category_evidence"]}
                     if len(categories) == 1:
                         record["pattern_category"] = next(iter(categories))
@@ -475,9 +476,7 @@ class Collector:
                 status = "oversized_blob" if str(error) == "oversized_blob" else "blob_unavailable"
                 record.update(disposition=status, patch_status=status)
         self.edits.append(record)
-        if record["verified_human"]:
-            self.feedback.append({**record, "comment": "Corroborated human correction; see patch evidence."})
-        if record["disposition"] not in {"merge_noise", "agent_assisted", "human_corroborated"}:
+        if record["disposition"] not in {"merge_noise", "agent_assisted"}:
             self.coverage["omissions"].append(f"edit {source_id}: {record['disposition']}")
         elif record["patch_status"] == "truncated" or record.get("redacted"):
             self.coverage["omissions"].append(f"edit {source_id}: incomplete or redacted patch")
