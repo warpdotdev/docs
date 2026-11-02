@@ -3,12 +3,11 @@ title: Usage and billing
 sidebar:
   label: "Usage and billing"
 description: >-
-  Track Warp usage, understand inference, compute, and platform costs, and
-  distinguish accounts billed in dollars from Enterprise contracts using credits.
+  Look up Warp inference, platform, and hosted compute rates, track usage,
+  and understand how charges draw from your balance.
 ---
-import { VARS } from '@data/vars';
 
-Warp usage pays for model calls, hosted compute, and platform services. In the Warp app, open **Settings** > **Billing and usage** to check your included allowance, purchased balance, and reset date.
+Warp usage pays for model calls, hosted compute, and platform services. Each component has its own rate and meter; a cloud run can incur all three.
 
 <span id="what-are-warp-credits" />
 
@@ -21,46 +20,13 @@ Your plan determines the unit Warp uses to charge usage:
 
 Changing the display unit doesn't change your billing terms or charges. If you're unsure which unit your account bills in, check your billing terms or contact [billing@warp.dev](mailto:billing@warp.dev).
 
-Usage has three charge components:
-
-* **Inference** - Model calls provided by Warp. If you use your own [API key](/agents/inference/bring-your-own-api-key/) or [inference endpoint](/agents/inference/custom-inference-endpoint/), your provider bills that inference separately.
-* **Compute** - The sandbox used by an agent on Warp-hosted compute. Local runs and self-hosted compute don't incur this charge.
-* **Platform** - Agent time billed for cloud runs, plus local runs on Business and Enterprise that use customer-supplied inference. See [platform usage](/support-and-community/plans-and-billing/platform-credits/) for eligibility and rates.
-
-For paid self-serve plans billed in dollars, Warp-provided inference is priced at public API rates. Compute and platform charges are separate. Free-plan [usage purchases](/support-and-community/plans-and-billing/add-on-credits/) include a purchase premium.
-
 A credit is a usage unit, not a token or a fixed number of prompts.
 
-<span id="tracking-your-credit-usage" />
+## Usage rates
 
-## Tracking usage
+Enterprise rates, discounts, margins, and credit conversions follow your contract. [Usage purchase premiums](/support-and-community/plans-and-billing/add-on-credits/#purchasing-usage) affect the amount you pay to buy usage, not the metered rates below.
 
-* **Account usage** - Check your balance and reset date in **Settings** > **Billing and usage**.
-* **Turn usage** - Expand the usage amount below an agent response. Where detailed usage is available, expand a model to see input, output, cache-read, and cache-write tokens, plus web searches and their costs.
-* **Conversation usage** - Open the conversation's usage summary to see its total. **View account usage** opens Billing and usage.
-
-The CLI has its own [usage display](/agents/cli/models-and-usage/#usage-and-cost).
-
-### Charges and estimates
-
-Recorded dollar totals represent Warp usage charges, not the total price of your subscription or usage purchases. Older usage can have estimated costs, credit-only details, or no breakdown. An unavailable amount does not mean the run was free. Bills from your own inference provider are not fully represented in Warp's totals.
-
-<span id="credit-limits-and-billing" />
-
-## Included and purchased usage
-
-On self-serve paid plans, included usage is allocated per seat and resets monthly, including on annual subscriptions. Unused included usage does not roll over. Check the allowance shown for your account rather than assuming it matches the amount advertised for a new subscription.
-
-After included usage runs out, Warp draws from available [purchased usage](/support-and-community/plans-and-billing/add-on-credits/) on eligible plans. Purchased usage rolls over until its expiration and is shared across the team. Dedicated cloud allowances can be used before your general balance. Enterprise pool sizes and allocation rules follow your contract.
-
-The Free plan uses pay-as-you-go for Warp-provided inference. [Buy additional usage](/support-and-community/plans-and-billing/add-on-credits/) without subscribing, [upgrade](https://www.warp.dev/pricing), or [bring your own inference](/agents/inference/bring-your-own-api-key/). Separate [platform charges](/support-and-community/plans-and-billing/platform-credits/) still apply to eligible runs.
-
-<span id="other-features-that-use-credits" />
-
-## Other metered features
-
-[Generate](/agents/local-agents/generate/) and [AI Autofill in Workflows](/knowledge-and-collaboration/warp-drive/workflows/#ai-autofill) also use inference. Regular shell commands and non-AI terminal features do not consume agent usage.
-
+<span id="how-usage-is-calculated" />
 <span id="how-are-warp-credits-calculated" />
 <span id="1-the-llm-model-used" />
 <span id="2-tool-calls-triggered-by-the-agent" />
@@ -68,31 +34,37 @@ The Free plan uses pay-as-you-go for Warp-provided inference. [Buy additional us
 <span id="4-amount-of-context-passed-to-the-model" />
 <span id="5-prompt-caching-hits-and-misses" />
 
-## How usage is calculated
+### Inference rates
 
-Inference cost depends on the model's rates and the work required to complete your request:
+For paid self-serve plans billed in dollars, Warp-provided inference is billed at the providers' public API rates. The cost depends on the model's input, output, and cache prices, plus any provider tool charges. Free-plan usage purchases include a purchase premium.
 
-* **Model choice** - Models have different input, output, and cache prices. A lower-cost model can reduce spending without reducing the number of tokens.
-* **Input and output** - Your prompt, conversation history, attached context, and generated response contribute to token usage.
-* **Caching** - Cached input can cost less than new input. Cache-read and cache-write tokens are reported separately.
-* **Task complexity** - A task can require several model calls, including calls made while using tools or summarizing a long conversation.
-* **Provider tools** - Features such as web search can add charges beyond token costs.
+If you use your own [API key](/agents/inference/bring-your-own-api-key/) or [inference endpoint](/agents/inference/custom-inference-endpoint/), your provider bills that inference separately. Compute and platform charges are separate from inference.
 
-Two similar prompts can use different amounts. Use the reported breakdown to compare tasks rather than treating a prompt as a fixed-price unit. See [using tokens efficiently](/guides/configuration/how-to-use-tokens-efficiently-with-ai-coding-agents/) for ways to reduce usage.
+See [Inference usage](/support-and-community/plans-and-billing/inference-usage/) for how model choice, tokens, caching, and tools affect cost.
 
+<span id="platform-usage" />
+<span id="platform-credits" />
+<span id="eligible-for-platform-credits" />
+<span id="not-eligible-for-platform-credits" />
+
+### Platform rates
+
+On Free, Build, Max, and Business accounts billed in dollars, platform usage costs **$3 per agent hour**, or **$0.05 per billable minute**. Partial hours are billed proportionally: 30 minutes of billable activity costs $1.50.
+
+An *agent hour* (AH) is one hour of billable agent activity, not a run's elapsed time. Cloud runs, including factory runs and third-party harnesses, incur platform usage. Local runs on Business and Enterprise also incur platform charges when they use customer-supplied inference.
+
+See [Platform usage](/support-and-community/plans-and-billing/platform-credits/) for billable time by harness, eligibility, and exceptions.
+
+<span id="compute-usage" />
 <span id="compute-credits" />
 <span id="eligible-for-compute-credits" />
 <span id="not-eligible-for-compute-credits" />
 
-## Compute usage
-
-Cloud runs on Warp-hosted compute incur compute charges, whether started from the Warp app, an integration, the CLI, or the {VARS.WARP_PLATFORM_API}. Compute cost is the sandbox's rate multiplied by its metered lifetime, not its CPU utilization or billable agent hours.
-
-Local runs, CI jobs on your own runners, and [self-hosted workers](/factories/self-hosting/) do not incur Warp-hosted compute charges. Platform charges can still apply.
-
 ### Hosted compute rates
 
-The rates below apply to Free, Build, Max, and Business accounts billed in dollars, with no additional compute markup. They are configured compute rates, not a live lookup of a provider's invoice. Enterprise margins, discounts, and credit conversions follow your contract. [Usage purchase premiums](/support-and-community/plans-and-billing/add-on-credits/#purchasing-usage) affect the amount you pay to buy usage, not these metered rates.
+Cloud runs on Warp-hosted compute incur compute charges. Compute cost is the sandbox's rate multiplied by its metered lifetime, not its CPU utilization or billable agent hours. Local runs and self-hosted compute don't incur Warp-hosted compute charges.
+
+The rates below apply to Free, Build, Max, and Business accounts billed in dollars, with no additional compute markup. They are configured compute rates, not a live lookup of a provider's invoice.
 
 Match your [runner's operating system, architecture, and instance shape](/factories/runners/) to the rates below. Available shapes and default sizes depend on your plan.
 
@@ -123,23 +95,11 @@ macOS runners use Apple Silicon and have fixed rates for each supported shape:
 | 12 | 28 GB | $0.18 | $10.80 |
 | 12 | 56 GB | $0.27 | $16.20 |
 
-### Compute metering
+<span id="compute-metering" />
 
-For a newly created sandbox, compute is metered from creation to destruction. This includes setup, command execution, and idle time while the sandbox remains running. If a run receives a prewarmed sandbox, that run's metering starts when the sandbox is assigned to it.
+See [Compute usage](/support-and-community/plans-and-billing/compute-usage/) for when metering starts and stops, prewarmed sandboxes, and partial minutes.
 
-Elapsed time is charged proportionally, including partial minutes; it isn't rounded up to whole minutes or hours. Compute can continue after the agent stops responding if the sandbox stays available. Compute charges are recorded when the sandbox is finalized.
-
-<span id="platform-credits" />
-<span id="eligible-for-platform-credits" />
-<span id="not-eligible-for-platform-credits" />
-
-## Platform usage
-
-Cloud runs, including factory runs and third-party harnesses, incur platform usage for billable agent time. Local runs on Business and Enterprise also incur platform charges when they use customer-supplied inference. Enterprise billing follows your contract.
-
-See [platform usage](/support-and-community/plans-and-billing/platform-credits/) for billable time, exceptions, and the distinction between agent hours and run time.
-
-### Example cloud run
+## Example cloud run
 
 For a Warp Agent run on a self-serve plan billed in dollars, suppose a 4 vCPU / 8 GB Linux sandbox exists for 10 minutes, with 6 billable agent minutes and $0.40 of Warp-provided inference:
 
@@ -148,6 +108,37 @@ For a Warp Agent run on a self-serve plan billed in dollars, suppose a 4 vCPU / 
 * **Inference** - $0.40.
 
 The run consumes $0.76 from the eligible usage balance. Subscription payments, usage purchase premiums, and bills from your own inference provider are separate.
+
+<span id="tracking-your-credit-usage" />
+
+## Tracking usage
+
+In the Warp app, open **Settings** > **Billing and usage** to check your included allowance, purchased balance, and reset date.
+
+* **Turn usage** - Expand the usage amount below an agent response. Where detailed usage is available, expand a model to see input, output, cache-read, and cache-write tokens, plus web searches and their costs.
+* **Conversation usage** - Open the conversation's usage summary to see its total. **View account usage** opens Billing and usage.
+
+The CLI has its own [usage display](/agents/cli/models-and-usage/#usage-and-cost).
+
+### Charges and estimates
+
+Recorded dollar totals represent Warp usage charges, not the total price of your subscription or usage purchases. Older usage can have estimated costs, credit-only details, or no breakdown. An unavailable amount does not mean the run was free. Bills from your own inference provider are not fully represented in Warp's totals.
+
+<span id="credit-limits-and-billing" />
+
+## Included and purchased usage
+
+On self-serve paid plans, included usage is allocated per seat and resets monthly, including on annual subscriptions. Unused included usage does not roll over. Check the allowance shown for your account rather than assuming it matches the amount advertised for a new subscription.
+
+After included usage runs out, Warp draws from available [purchased usage](/support-and-community/plans-and-billing/add-on-credits/) on eligible plans. Purchased usage rolls over until its expiration and is shared across the team. Dedicated cloud allowances can be used before your general balance. Enterprise pool sizes and allocation rules follow your contract.
+
+The Free plan uses pay-as-you-go for Warp-provided inference. [Buy additional usage](/support-and-community/plans-and-billing/add-on-credits/) without subscribing, [upgrade](https://www.warp.dev/pricing), or [bring your own inference](/agents/inference/bring-your-own-api-key/). Separate [platform charges](/support-and-community/plans-and-billing/platform-credits/) still apply to eligible runs.
+
+<span id="other-features-that-use-credits" />
+
+## Other metered features
+
+[Generate](/agents/local-agents/generate/) and [AI Autofill in Workflows](/knowledge-and-collaboration/warp-drive/workflows/#ai-autofill) also use inference. Regular shell commands and non-AI terminal features do not consume agent usage.
 
 ## Cloud agent runs on team plans
 
@@ -159,6 +150,8 @@ If no usable balance remains, a run can fail with an [insufficient credits](/fac
 
 ## Related pages
 
-* [Plans, pricing, and refunds](/support-and-community/plans-and-billing/plans-pricing-refunds/) - Allowances, existing balances, and refund policies.
-* [Purchasing additional usage](/support-and-community/plans-and-billing/add-on-credits/) - One-time purchases, auto-reload, and team limits.
-* [Platform usage](/support-and-community/plans-and-billing/platform-credits/) - Agent-hour billing and eligibility.
+* [Plans, pricing, and refunds](/support-and-community/plans-and-billing/plans-pricing-refunds/) - Allowances, existing balances, and refund policies
+* [Purchasing additional usage](/support-and-community/plans-and-billing/add-on-credits/) - One-time purchases, auto-reload, and team limits
+* [Inference usage](/support-and-community/plans-and-billing/inference-usage/) - Model calls, tokens, and caching
+* [Platform usage](/support-and-community/plans-and-billing/platform-credits/) - Agent-hour billing and eligibility
+* [Compute usage](/support-and-community/plans-and-billing/compute-usage/) - Sandbox lifetime and metering

@@ -1,0 +1,30 @@
+---
+title: Inference usage
+description: >-
+  Warp inference usage depends on model calls, input and output tokens, caching,
+  and provider tools such as web search.
+---
+
+Inference usage pays for model calls provided by Warp. Its cost depends on the model's rates and the work required to complete your request. See [Usage and billing](/support-and-community/plans-and-billing/credits/#inference-rates) for inference rates and how they differ from compute and platform charges.
+
+## How inference usage is calculated
+
+* **Model choice** - Models have different input, output, and cache prices. A lower-cost model can reduce spending without reducing the number of tokens.
+* **Input and output** - Your prompt, conversation history, attached context, and generated response contribute to token usage.
+* **Caching** - Cached input can cost less than new input. Cache-read and cache-write tokens are reported separately.
+* **Task complexity** - A task can require several model calls, including calls made while using tools or summarizing a long conversation.
+* **Provider tools** - Features such as web search can add charges beyond token costs.
+
+Two similar prompts can use different amounts. Use the [reported breakdown](/support-and-community/plans-and-billing/credits/#tracking-usage) to compare tasks rather than treating a prompt as a fixed-price unit.
+
+For example, two requests with the same token count can cost different amounts if they use models with different prices or one request uses cached input.
+
+## Customer-supplied inference
+
+If you use your own [API key](/agents/inference/bring-your-own-api-key/) or [inference endpoint](/agents/inference/custom-inference-endpoint/), your provider bills that inference separately. Bills from your own inference provider are not fully represented in Warp's usage totals. Separate [platform charges](/support-and-community/plans-and-billing/platform-credits/) can still apply.
+
+## Related pages
+
+* [Usage and billing](/support-and-community/plans-and-billing/credits/) - Inference, platform, and compute rates
+* [Agent model choice](/agents/inference/model-choice/) - Supported models and model selection
+* [Use tokens more efficiently with AI coding agents](/guides/configuration/how-to-use-tokens-efficiently-with-ai-coding-agents/) - Reduce inference usage
