@@ -66,7 +66,7 @@ Warp hosts the control plane. The worker opens an outbound connection, so task a
 
 Execution, inference, and storage are separate choices.
 
-Transcripts, artifacts, and prompt attachments use Warp-managed storage by default. Configure [self-hosted agent data storage](/platform/data-storage/) separately to keep selected categories in your own bucket. Warp still retains control-plane data such as configuration, run metadata, operational logs, and billing records.
+Transcripts, artifacts, and prompt attachments use Warp-managed storage by default. Configure [self-hosted agent data storage](/factories/self-hosting/data-storage/) separately to keep selected categories in your own bucket. Warp still retains control-plane data such as configuration, run metadata, operational logs, and billing records.
 
 Multiple long-lived workers can share an ID for load balancing. Use a unique ID for each one-shot Direct job.
 
