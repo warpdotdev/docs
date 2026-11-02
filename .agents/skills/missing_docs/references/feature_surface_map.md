@@ -344,9 +344,10 @@ oz harness-support -> internal
 # POLICY: warp-server is a private repo. Only endpoints that are part of the
 # released public Oz Agent API (already in the OpenAPI spec) may be documented.
 # Endpoints not in the spec are NOT auto-documentable: confirm release status and
-# route released ones through the sync-openapi-spec skill, or mark `-> internal`
+# report released gaps to the server publication workflow owner, or mark `-> internal`
 # (unreleased/internal). Never document an unreleased endpoint. See SKILL.md
 # "Public vs. private surfaces".
+# These audit dispositions do not configure the server's publication filter.
 POST /agent/run -> src/content/docs/factories/api-and-sdk/index.mdx
 GET /agent/runs -> src/content/docs/factories/api-and-sdk/index.mdx
 GET /agent/runs/{runId} -> src/content/docs/factories/api-and-sdk/index.mdx
@@ -440,7 +441,7 @@ POST /agent/runs/{runId}/previews -> internal
 # warp-server's canonical spec but marked `x-internal: true`, so the publish
 # filter strips them from the public docs copy and they are not part of the
 # released public Oz Agent API. They must not be hand-documented and stay
-# internal; revisit and route through the sync-openapi-spec skill if/when those
+# internal; revisit with the server publication workflow owner if/when those
 # `x-internal` markers come off. See SKILL.md "Public vs. private surfaces".
 GET /factory -> internal
 GET /factory/access -> internal
@@ -537,13 +538,12 @@ POST /factory/{uid}/tasks/{task_uid}/cancel -> internal
 GET /factory/{uid}/task-by-run -> internal
 # Dispatching a run to a factory. Unlike its neighbours this operation is NOT
 # marked `x-internal: true` upstream, so warp-server's own publish filter would
-# keep it. It stays out of the docs copy because the whole `/factory` namespace
-# is excluded by the sync-openapi-spec policy (`factory` in EXCLUDED_TAGS plus
-# the `/factory` prefix) while the Factory REST API is unreleased. Revisit
-# together with that exclusion when the Factory API ships publicly.
+# keep it. This audit disposition remains internal until public release is
+# confirmed in the workflow's released export; unmarked source alone is not
+# release evidence.
 POST /factory/{uid}/runs -> internal
 # Starts a factory learning run from production feedback
-# (StartFactoryLearningHandler). Same unreleased `/factory` namespace exclusion.
+# (StartFactoryLearningHandler). Same unreleased `/factory` audit disposition.
 POST /factory/{uid}/learning -> internal
 # Also marked `x-internal: true` in warp-server's canonical spec, so the publish
 # filter strips it from the public docs copy.
@@ -557,9 +557,8 @@ GET /factory/{uid}/costs/per-pr/by-size -> internal
 GET /factory/{uid}/costs/per-pr/top -> internal
 # Keyset-paginated list of the pull requests a factory's runs produced
 # (listFactoryPullRequests). Like POST /factory/{uid}/runs it is NOT marked
-# `x-internal: true` upstream, so it stays out of the docs copy only because
-# the sync-openapi-spec policy excludes the whole `/factory` namespace while
-# the Factory REST API is unreleased. Revisit with that exclusion.
+# `x-internal: true` upstream. Confirm public release in the workflow's released
+# export before changing this audit disposition.
 GET /factory/{uid}/pull-requests -> internal
 # Self-improvement PR spend over a root-run creation range
 # (getFactorySelfImprovementSpend). Marked `x-internal: true`; same unreleased
@@ -655,7 +654,7 @@ POST /factory/{uid}/integrations/jira/handoff -> internal
 # Factory benchmark routes moved to suite-scoped paths
 # (router/handlers/public_api/benchmarks.go:279-317). Every operation carries
 # x-internal upstream and none appears in the released Agent API spec. Recheck
-# through sync-openapi-spec when the Factory REST API is publicly released.
+# with the server publication workflow owner when the Factory REST API is publicly released.
 GET /factory/{uid}/benchmarks -> internal
 POST /factory/{uid}/benchmarks -> internal
 GET /factory/{uid}/benchmarks/{suite_uid} -> internal
@@ -711,7 +710,7 @@ GET /agent/events/stream -> internal
 # hosted-agent egress CIDR list rather than the released public Agent API. Not
 # a docs gap either: the ranges themselves are already published on
 # src/content/docs/platform/warp-hosting.mdx under "Networking". Revisit and
-# route through sync-openapi-spec if the x-internal marker comes off.
+# report publication drift to the server workflow owner if the marker comes off.
 GET /networking/egress-ranges -> internal
 
 # Agent Memory REST API — research preview (gating flag AIMemories is non-GA),

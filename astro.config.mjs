@@ -37,7 +37,9 @@ export default defineConfig({
 				access: 'public',
 				optional: true,
 			}),
-			PUBLIC_KAPA_PROJECT_ID: envField.string({
+			// Website Widget integration ID for WebMCP only (not the custom
+			// React chat frontend). Required by Kapa for data-webmcp-enabled.
+			PUBLIC_KAPA_WEBSITE_WIDGET_INTEGRATION_ID: envField.string({
 				context: 'client',
 				access: 'public',
 				optional: true,
@@ -55,16 +57,6 @@ export default defineConfig({
 			PUBLIC_RUDDERSTACK_DATA_PLANE_URL: envField.string({
 				context: 'client',
 				access: 'public',
-				optional: true,
-			}),
-			SUPPORT_HANDOFF_ENDPOINT_URL: envField.string({
-				context: 'server',
-				access: 'secret',
-				optional: true,
-			}),
-			SUPPORT_HANDOFF_SHARED_SECRET: envField.string({
-				context: 'server',
-				access: 'secret',
 				optional: true,
 			}),
 		},

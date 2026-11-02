@@ -18,7 +18,7 @@ A changelog entry is not evidence. Neither is a merged spec, a Linear ticket, or
 
 These criteria govern the **weekly release stream** — changes that reached users in a stable release, and the continuously shipped server and platform surfaces behind them.
 
-Major launches (Warp Factories, for example) are planned in advance and documented by the docs team on a proactive, human-led path. They do not run through these gates. If you encounter a change that is clearly part of an announced launch, defer it rather than gating it.
+Major launches (Warp Factories, for example) are planned in advance and documented by the docs team on a proactive, human-led path. They skip Gates 1 through 4. **They never skip Gate 0.** A launch page is drafted from source while related work is still landing, so it is the easiest place for an unreleased field or behavior to slip in. Check every field, endpoint, and behavior on a launch page against Gate 0 before it merges. If an automated run encounters a change that is clearly part of an announced launch, defer it rather than gating it.
 
 ### How much applies depends on who is asking
 
@@ -42,7 +42,27 @@ A hard prerequisite. If this fails, stop.
 
 - Is the feature GA to users, not dogfood, preview, or research preview?
 - Is the surface public? The `warpdotdev/warp` client repo is public. **`warp-server` is private**, and its surfaces are not documentable until released; the exception is the public Agent API, whose released surface is exactly what is already in `developers/agent-api-openapi.yaml`.
-- Is it gated behind a non-GA feature flag?
+- Is it gated behind a non-GA client feature flag?
+- **Is every server-side flag behind it on in production?** `warp-server` gates behavior with flags whose values differ by environment: a feature can run on staging for weeks while `config/prod.yaml` keeps it off. Check with the user-facing names you are about to document — schema fields, endpoint paths, feature words:
+
+  ```bash
+  python3 .agents/skills/doc_quality_policy/server_rollout.py check TERM [TERM ...]
+  ```
+
+  Exit 1 means a related flag is off in production. A flag whose name matches the term is strong evidence; a flag that only appears near the term in code needs a read of that code. Either way, a related flag that is off in production fails this gate. Exit 0 rules out the known flags but does not prove the surface shipped. If no `warp-server` checkout is available, you cannot clear this gate for a server-backed surface: omit the claim or mark it `VERIFY`.
+
+### What is not evidence of a release
+
+Each of these shows that code exists, not that a customer can use it. None clears Gate 0:
+
+- **A schema or parser that accepts it.** The Factory file JSON schemas served at `app.warp.dev/api/v1/factory-files/schemas` are generated from source and published regardless of flag state. A field in the schema proves the parser accepts it, not that a run honors it.
+- **A merged PR**, a `CHANGELOG-*` marker in a PR body, a Linear ticket, or a spec. A PR that describes itself as a foundation for stacked or follow-up PRs ships nothing on its own; treat the feature as unreleased until the follow-ups merge and their flags are on in production.
+- **Staging or local behavior.** Staging runs with different flag values than production.
+- **An existing docs page.** A published page can be the earlier mistake.
+
+Evidence that does clear the gate: the feature in a stable changelog entry or the released OpenAPI spec, every related flag on in `config/prod.yaml` at a named `warp-server` revision, or an engineer's explicit confirmation that the feature is live in production.
+
+**Keep private rollout details out of public text.** This repo is public. Never paste flag names, `server_rollout.py` output, or a list of staging-only features into a page, PR body, or PR comment. Record the verdict ("Gate 0: a server flag is off in production") and the `warp-server` revision you checked.
 
 See the "Public vs. private surfaces" section of the `missing_docs` skill for the full rollout and exposure rules — this gate reuses them rather than restating them.
 
@@ -164,6 +184,8 @@ Drawn from the `v0.2026.07.29.09.05.stable_02` changelog. These calibrate the bo
 **MCP tool confirmations show the tool and source server** ([#14298](https://github.com/warpdotdev/warp/pull/14298)) — **Disqualified: small and intuitive.** The confirmation dialog now shows more context. A reader encountering it understands it immediately.
 
 **`agentDefaults.computerUseModel`** (docs PR [#581](https://github.com/warpdotdev/docs/pull/581)) — **Gate 0 failure: deferred, not documented.** This is the regression case. A drafting agent wrote the page and labeled it "(unreleased feature)" in the PR title, which is the gate failing out loud. An unreleased setting key is a real knob and would pass Gate 1 — but Gate 0 comes first and is a hard prerequisite. Defer with the blocking reason and re-surface it when the feature ships.
+
+**Factory `repositories[].deferred` and `required_repos`** (docs PRs [#748](https://github.com/warpdotdev/docs/pull/748) and [#843](https://github.com/warpdotdev/docs/pull/843)) — **Gate 0 failure: published by mistake, then removed in [#934](https://github.com/warpdotdev/docs/pull/934).** This is the server-side regression case, and it failed quietly. Both PRs verified the fields against the generated Factory file schema and listed no unverified claims. The schema was accurate: the server PR that added the fields described itself as the parser-and-storage foundation, with the run behavior in stacked follow-ups. Those landed after the docs merged, behind a server flag that is on in staging and off in production. A customer read the reference and asked to use the feature. Under this gate, the foundation PR alone fails, and `server_rollout.py check deferred required_repos` now exits 1. Re-surface the fields when the flag is on in production.
 
 ## Related references
 

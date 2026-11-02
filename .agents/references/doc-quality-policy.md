@@ -3,7 +3,7 @@
 Canonical reference for the agent-authored-content quality program (GROW-6092).
 Every content-generating skill that opens or updates a PR in this repo —
 `draft_docs` and its type-specific skills, `release_updates`, the AEO skills,
-`missing_docs`, `sync_terminology`, `sync-error-docs`, `sync-openapi-spec`,
+`missing_docs`, `sync_terminology`, `sync-error-docs`,
 `docs-seo-audit`, `afdocs-fix`, `update-changelog`, and `improve-drafting-skills`
 — follows this contract before requesting human review. `create_pr` is the
 shared finalization path for skills that hand off to it; skills that open PRs
@@ -187,7 +187,6 @@ for the enforcement test.
 - `aeo_new_guide_recommendations`
 - `sync_terminology`
 - `sync-error-docs`
-- `sync-openapi-spec`
 - `docs-seo-audit`
 - `afdocs-fix`
 - `update-changelog`

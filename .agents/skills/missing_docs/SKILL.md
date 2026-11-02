@@ -94,9 +94,11 @@ Only document surfaces that are **publicly released**. This is the most importan
 2. **Rollout status.** Even for public-repo surfaces, only document **GA** features. Never document dogfood, preview, or research-preview surfaces (for example, Agent Memory is research preview, so its `oz memory*` CLI and `/memory_stores` API must not be documented yet).
 
 Rules of thumb:
-- A `warp-server` API endpoint that is **not already in the OpenAPI spec** is treated as not-yet-public: do NOT hand-write docs for it. Either confirm it has been publicly released and let the `sync-openapi-spec` skill bring it into the spec, or map it `-> internal` / defer it. When unsure, defer — never expose an unreleased endpoint or feature in public docs.
+- A `warp-server` API endpoint that is **not already in the OpenAPI spec** is treated as not-yet-public: do NOT hand-write docs for it. Either confirm public release and report the publication gap to the server workflow owner (see `.agents/references/openapi-publication.md`), or map it `-> internal` / defer it. When unsure, defer — never expose an unreleased endpoint or feature in public docs.
 - A CLI command or API route gated by a **non-GA feature flag** should be mapped `-> gated:<Flag>` (for example, `gated:AIMemories`) rather than `-> internal`: the audit auto-defers it while the flag is non-GA and auto-surfaces it for docs once the flag goes GA. (Feature flags and settings already auto-defer by rollout status; `gated:` extends that to CLI/API.)
 - **A published docs page is not evidence that an API is released.** Early Access features routinely have public pages describing what the product does while their REST routes stay out of the released spec, so "we already document this feature" does not clear Gate 0 for an endpoint. For API surfaces the released OpenAPI spec is the only test. The Factory pages describe dispatching a run, yet no `/factory` path appears in `developers/agent-api-openapi.yaml` — those routes are Gate 0 deferrals despite the prose.
+- **Server-side behavior follows `config/prod.yaml`, not the code.** warp-server ships code to production with the feature flag off, and staging runs with different values. Before treating any server-backed field, behavior, or error as released, run `python3 .agents/skills/doc_quality_policy/server_rollout.py check <user-facing names>`. A related flag that is off in production is a Gate 0 deferral. Record the blocking condition as "a server flag is off in production" and the `warp-server` revision; this repo is public, so keep the flag name and the script output out of the ledger, map, and PR body.
+- **A schema field is not a released field.** The Factory file JSON schemas (`warp-server/logic/factoryfile/schema/`, served at `app.warp.dev/api/v1/factory-files/schemas`) are generated from source and published regardless of flag state, so they advertise fields the runtime ignores in production. Treat a schema field as a candidate and clear it with the server-flag check above.
 - The audit still *detects* these as gaps (useful signal), but detection is not permission to document. Every resolution must respect this boundary.
 
 This section is the source of truth for **Gate 0** in
@@ -162,13 +164,13 @@ The script performs these coverage audits:
    `router/handlers/public_api/*.go` (nested gin groups resolved, caller-passed group
    prefixes matched positionally) and checks them against
    `developers/agent-api-openapi.yaml` (param-name-insensitive: `{runId}` matches
-   `{run_id}`) and the API reference docs. For spec drift, run the docs
-   `sync-openapi-spec` skill (or warp-server's `update-open-api-spec`) instead of
-   hand-editing the YAML. **warp-server is private** (see Public vs. private
-   surfaces): a flagged endpoint is documentable only once it is part of the
-   released public Oz Agent API. Never hand-draft API docs or reveal an unreleased
-   endpoint — resolve released endpoints via `sync-openapi-spec`, and `-> internal`/
-   defer the rest.
+   `{run_id}`) and the API reference docs. Report publication drift through
+   `.agents/references/openapi-publication.md`; fix canonical contract errors
+   with warp-server's `update-open-api-spec`. **warp-server is private** (see
+   Public vs. private surfaces): a flagged endpoint is documentable only once it
+   is part of the released public Oz Agent API. Never hand-draft API docs or reveal an unreleased
+   endpoint — route released endpoint gaps to the server workflow owner, and
+   map the rest `-> internal` or defer them.
 5. **Slash command coverage** — parses the static registry in the warp client repo's
    `app/src/search/slash_command_menu/static_commands/` and checks each `/command`
    is mentioned in docs.
@@ -319,14 +321,16 @@ them through these three layers instead, in order of preference:
    the gate's output, or `--json` for the full array. `oz_updates` is the API's field
    name and stays as-is regardless of product naming.
 2. **The public Agent API surface** — already covered by audit category 4 and
-   `sync-openapi-spec`. No new machinery; just confirm the release run actually triages
+   the server publication workflow. Confirm the release run actually triages
    these findings rather than deferring them by habit. A released endpoint reaches docs
    through the spec, never through hand-drafting.
 3. **`warp-server` product specs** — the last resort, and the most conservative layer.
    Apply a hard rollout check *before* the worthiness gates: only consider a spec whose
-   feature is verifiably enabled for users. A merged spec is not a shipped feature. If
-   you cannot confirm the rollout from code or the changelog, defer it and record the
-   blocking condition — do not draft against the spec text.
+   feature is verifiably enabled for users. A merged spec is not a shipped feature, and
+   neither is a merged implementation PR. Run `server_rollout.py check` with the
+   feature's user-facing names; any related flag off in production is a deferral. If
+   you cannot confirm the rollout from production config or the changelog, defer it and
+   record the blocking condition — do not draft against the spec text.
 
 Layer 3 is where the old pipeline went wrong: it treated spec merge as the trigger, so it
 drafted for features that had not shipped and sometimes never would. Reach for it only
@@ -374,7 +378,7 @@ For each gap to address (prioritize high → medium → low):
 4. Research the relevant source code:
    - **Feature gaps** → read the implementation in the warp client repo's `app/src/`, check UI code, settings, user-facing strings
    - **CLI gaps** → read command definition in `crates/warp_cli/src/`, extract flags, arguments, help text
-   - **API gaps** → read handler in warp-server `router/handlers/public_api/`, route definition, request/response types; prefer fixing the OpenAPI spec via the `sync-openapi-spec` skill. Only act on endpoints already publicly released (see Public vs. private surfaces); never draft docs for unreleased warp-server endpoints.
+   - **API gaps** → read handler in warp-server `router/handlers/public_api/`, route definition, request/response types; report publication drift to the server workflow owner and fix canonical contract errors upstream. Only act on endpoints already publicly released (see Public vs. private surfaces); never draft docs for unreleased warp-server endpoints.
    - **Slash command gaps** → read the registry entry and gating flags in `app/src/search/slash_command_menu/`
 
    **Then look for a product spec.** Code tells you what a surface does; it never tells you who
@@ -445,7 +449,7 @@ Not every finding needs a new doc page — pick the lightest correct fix and ver
 - **Feature flag whose only user-facing surface is an already-documented setting** — map the flag to that setting's doc page rather than writing a new page (for example, a tab-bar visibility flag maps to the all-settings reference).
 - **Preview or pre-launch feature with no docs yet** — add it to the surface-map ignore list with a comment; the snapshot diff re-flags it when it promotes to GA.
 - **Stale map entry or doc reference** (map hygiene) — confirm the surface is gone from code, then prune the dead entry.
-- **warp-server API endpoint not in the released OpenAPI spec** — do not hand-document it (warp-server is private). If it is part of the released public Oz Agent API, hand it to the `sync-openapi-spec` skill; if it is unreleased or internal, map it `-> internal` with a comment. Never expose an unreleased endpoint or feature in public docs.
+- **warp-server API endpoint not in the released OpenAPI spec** — do not hand-document it (warp-server is private). If it is part of the released public Oz Agent API, report the gap to the server workflow owner; if it is unreleased or internal, map it `-> internal` with a comment. Never expose an unreleased endpoint or feature in public docs.
 - **CLI command or API route gated by a non-GA feature flag** — map it `-> gated:<Flag>` so it auto-defers while the flag is non-GA and auto-surfaces for docs when it GAs (e.g. Agent Memory's `oz memory*` and `/memory_stores/*` use `gated:AIMemories`). Prefer this over `-> internal`, which never re-surfaces.
 
 ### Reviewer routing
@@ -461,7 +465,7 @@ For each addressed finding, note the defining source file you already consulted 
 - **Slash command** → `app/src/search/slash_command_menu/static_commands/`.
 - **Feature flag** → the flag's primary usage site in `app/src/` (grep the flag name); fall back to `crates/warp_features/src/lib.rs`.
 - **CLI command** → `crates/warp_cli/src/`.
-- **API route** → warp-server `router/handlers/public_api/` (API gaps usually go to `sync-openapi-spec`).
+- **API route** → warp-server `router/handlers/public_api/` (publication gaps go to the server workflow owner).
 
 Resolve owners (the script prints a ready-to-run command only when a single owner resolves):
 
@@ -534,8 +538,8 @@ their area. Do NOT bundle unrelated features into a single mega PR.
   `bookkeeping for` phrase the search matches on. #614 and #624 used two different naming
   schemes and neither run looked for the other's PR, which is how both ended up adding the
   same two `/factory` map entries.
-- **API spec gaps stay separate** — released endpoints go through the `sync-openapi-spec`
-  skill as their own change, never bundled into a feature PR.
+- **API spec gaps stay separate** — released endpoint gaps go to the server workflow
+  owner, never into an agent-authored sync or feature PR.
 - **Validate once, then split.** Run the ordered validation commands in `AGENTS.md` on
   the combined working tree (all features together) — `npm ci` first if the sandbox has
   no `node_modules` — then peel each feature onto its own branch off `main` (e.g.
@@ -592,9 +596,10 @@ with the product. Each run:
    everything it looked at has not applied the gate.
 
    For each item that passes, decide: update an existing page (preferred), draft a new
-   page, or update the OpenAPI spec via `sync-openapi-spec`. For each item that does not,
-   decide: no docs needed, deferred with a blocking condition, a surface-map entry
-   (documented elsewhere), or an ignore/`internal`/allowlist entry with a comment.
+   page, or report API publication drift to the server workflow owner. For each
+   item that does not, decide: no docs needed, deferred with a blocking condition,
+   a surface-map entry (documented elsewhere), or an ignore/`internal`/allowlist
+   entry with a comment.
 4. **Draft**: follow Phase 3 for every item that needs docs. Every drafted page or
    substantive page update needs a content design plan first, carried into its PR body.
 5. **Update references**: append every verdict from step 3 to
@@ -675,7 +680,7 @@ Recommended scheduled-agent prompt (copy when setting up the agent):
 > The default is no docs: record a verdict and concrete evidence for every item, and
 > expect most to fail. For items that pass, write a content design plan per
 > .agents/references/content-design-plan.md before drafting, prefer updating an existing
-> page over creating a new one, and use the sync-openapi-spec skill for API spec gaps.
+> page over creating a new one, and report API spec gaps to the server workflow owner.
 > Update the surface map for every triaged flag, append every verdict to
 > changelog_decisions.md, and regenerate the surface snapshot with --update-snapshot.
 > Resolve reviewers by running
