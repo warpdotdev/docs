@@ -19,7 +19,6 @@ Warp manages coordination, while a Warp-hosted sandbox or a worker on your infra
 
 The diagram shows managed self-hosting with customer-configured inference and run-data storage. The worker opens an outbound connection to Warp; no inbound firewall port is required.
 
-{/* VERIFY: Supplied PNG needs corrected customer-infrastructure and isolated-runs labels; confirm or remove the Vertex example before publication. */}
 <SelfHostedArchitecture />
 
 With managed self-hosting, repository checkouts, commands, and sandbox files stay on machines you control. Prompts, results, transcripts, attachments, artifacts, and telemetry still flow through Warp and can contain code context. The Warp Agent sends model requests through Warp to the configured inference provider. Claude Code and Codex call their providers directly from the execution environment. See [deployment patterns](/factories/deployment-patterns/), [execution security](/platform/execution-security/), and [data security and boundaries](/platform/architecture/#data-security-and-boundaries) for details.
