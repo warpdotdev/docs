@@ -1,4 +1,17 @@
 # Weekly 404 monitor run log
+
+## 2026-11-02 — No data (blocked)
+- **Total 404s this week**: unavailable
+- **Total 404s last week**: unavailable
+- **Trend**: unavailable; no query completed and no baseline inferred
+- **Significant gaps (≥5 hits)**: unavailable
+- **Redirect candidates processed**: not run (automation threshold: hits ≥ 5)
+- **HIGH-confidence redirects**: not evaluated
+- **PR**: none for redirects; standing log PR https://github.com/warpdotdev/docs/pull/939
+- **Oz run**: https://staging.warp.dev/conversation/8bf5f4fb-bf49-4ccd-ba52-1050441b713e
+- **Validation**: Historical entries byte-preserved; `git diff --check` exit 0; internal-link check exit 0 (408 files, 4625 links, 0 broken). Ordered checks: typecheck exit 127 (`astro` unavailable), heading-vars exit 0 (5 tests), build exit 1 (`yaml` unavailable), heading-tocs and homepage-json-ld each exit 1 (`linkedom` unavailable; build output not produced). Trunk unavailable. No tooling repairs attempted; no public docs or redirects changed.
+- **Notes**: Scheduled cron-event guard exit 0: nominal fire time 2026-11-02T17:00:00Z is Monday 09:00 America/Los_Angeles. Python 3.13.5 and GitHub/connected Slack access verified; current main has 1373 redirects (sanity passed). `METABASE_API_KEY` is missing. Unchanged report script exited 1 before any Metabase request; stderr retained in run output. Audit incomplete, not zero 404s. No CSV fabricated or uploaded; Phase 2 skipped because data and required artifacts are unavailable. Reporting threshold remains 5 and automation threshold remains 5. No docs, redirects, secrets, deployments, or schedules changed. Owner action: provision `METABASE_API_KEY` for this automation's execution environment, verify Metabase read access, and rerun. Main merged into the standing log branch without rebasing or resetting; all prior entries, including the unmerged controlled manual test, preserved. Final Slack delivery follows durable logging and a full Pacific-Monday history dedupe check; its receipt or delivery failure remains in run output.
+
 ## 2026-10-20 — No PR (controlled manual test)
 - **Total 404s this week**: 263
 - **Total 404s last week**: 268
