@@ -5,7 +5,6 @@ description: >-
   CLI from an orchestrator you control.
 ---
 import { VARS } from '@data/vars';
-import SelfHostedArchitecture from '@components/SelfHostedArchitecture.astro';
 
 Self-hosting runs cloud agent workloads on your infrastructure. You control the compute, network access, runtime secrets, and execution workspaces while Warp tracks each run.
 
@@ -62,7 +61,7 @@ Backend pages list the remaining runtime-specific requirements, such as Docker, 
 
 Warp hosts the control plane. The worker opens an outbound connection, so task assignment requires no inbound firewall port. The diagram shows customer-configured inference and run-data storage alongside self-hosted execution.
 
-<SelfHostedArchitecture />
+![Managed self-hosting architecture showing the Warp control plane, outbound worker connection, agent backends, inference routes, and customer-configured run-data storage.](../../../../assets/agent-platform/factories-self-hosted-architecture.png)
 
 Execution, inference, and storage are separate choices.
 
