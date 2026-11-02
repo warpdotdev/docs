@@ -5,7 +5,7 @@
       "claim_content_fingerprint": "sha256:4a3c2fcfdcc8af7ee4ef1cc3a1445ea4a2aa1da3b22b7ab432f4731fc52925de",
       "claim_id": "sha256:9a61ebe3ba11995f51b6271d13c3f3c0d41c4cd62ff3e81be2fffee05f840f14",
       "entity": "customer-ai-data",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "used-for-training",
       "qualifiers": {
@@ -26,7 +26,7 @@
       "source": {
         "canonical_identity": "route:/agents",
         "canonical_route": "/agents",
-        "content_sha256": "72e93182507589534620db15a80de4b744125bc90876594460ad2ce937507e86",
+        "content_sha256": "035829b034ac5ae503f7488d457aaae204687ee69805626550d26ced32327464",
         "heading": "Privacy and security",
         "heading_anchor": "privacy-and-security",
         "line_end": 65,
@@ -48,7 +48,7 @@
       "claim_content_fingerprint": "sha256:4a3c2fcfdcc8af7ee4ef1cc3a1445ea4a2aa1da3b22b7ab432f4731fc52925de",
       "claim_id": "sha256:bacdacbb806b29b5dfe487d4c039002820dbaa55b361fc232594549d994bdb0c",
       "entity": "customer-ai-data",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "retained-by-model-provider",
       "qualifiers": {
@@ -69,7 +69,7 @@
       "source": {
         "canonical_identity": "route:/agents",
         "canonical_route": "/agents",
-        "content_sha256": "72e93182507589534620db15a80de4b744125bc90876594460ad2ce937507e86",
+        "content_sha256": "035829b034ac5ae503f7488d457aaae204687ee69805626550d26ced32327464",
         "heading": "Privacy and security",
         "heading_anchor": "privacy-and-security",
         "line_end": 65,
@@ -85,9 +85,140 @@
         "normalized": false,
         "type": "boolean"
       }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:367b1bce851dcba05a8f1a2eb4e1608a579860756a578169d64974134005d7de",
+      "claim_id": "sha256:bfe1dc906e449c5d52cdf78ddd5d427642b201e124f4ea5e982b2daa6675ad7f",
+      "entity": "warp-agent",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-command-execution",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "running commands in a real terminal and using the output to decide what to do next.",
+      "source": {
+        "canonical_identity": "route:/agents",
+        "canonical_route": "/agents",
+        "content_sha256": "035829b034ac5ae503f7488d457aaae204687ee69805626550d26ced32327464",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 10,
+        "line_start": 10,
+        "path": "src/content/docs/agents/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:2670ad658c29b9ca4467cf0281d706b05cdad7d44bcf82e1e6eb49b3ab19d734",
+      "claim_id": "sha256:5a6c47cbb464edc95f45605abc0c23256e4741767893ef8884dd0aecedf216c8",
+      "entity": "warp-agent",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-interactive-programs",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "drives interactive programs like REPLs, database shells, and full-screen apps.",
+      "source": {
+        "canonical_identity": "route:/agents",
+        "canonical_route": "/agents",
+        "content_sha256": "035829b034ac5ae503f7488d457aaae204687ee69805626550d26ced32327464",
+        "heading": "What makes the Warp Agent different",
+        "heading_anchor": "what-makes-the-warp-agent-different",
+        "line_end": 28,
+        "line_start": 28,
+        "path": "src/content/docs/agents/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:ef95d9b2c354d06cfd1473614a12b855fa9b7584eef9475d74cd765ace167cb2",
+      "claim_id": "sha256:3bb9255f34a3566f3a6e5ea539e8eae334918290f7e6eb0ff5ae377ddfb9e2ef",
+      "entity": "warp-client",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "open-source-license",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp's client is open source under [AGPL v3]",
+      "source": {
+        "canonical_identity": "route:/agents",
+        "canonical_route": "/agents",
+        "content_sha256": "035829b034ac5ae503f7488d457aaae204687ee69805626550d26ced32327464",
+        "heading": "Open source",
+        "heading_anchor": "open-source",
+        "line_end": 85,
+        "line_start": 85,
+        "path": "src/content/docs/agents/index.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": [
+          "AGPL-v3"
+        ],
+        "type": "enum"
+      }
     }
   ],
-  "page_sha256": "72e93182507589534620db15a80de4b744125bc90876594460ad2ce937507e86",
+  "page_sha256": "035829b034ac5ae503f7488d457aaae204687ee69805626550d26ced32327464",
   "path": "src/content/docs/agents/index.mdx",
   "schema_version": 1
 }

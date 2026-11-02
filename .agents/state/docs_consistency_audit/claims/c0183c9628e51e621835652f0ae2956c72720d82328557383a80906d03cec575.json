@@ -1,11 +1,451 @@
 {
   "claims": [
     {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:f53ec38e919d81e53bc2d68fa644146acdb7a7b4ccee1369b891b05bb0aba163",
+      "claim_id": "sha256:14a5e31d425fccecf132f3d75a3164dd97f027683b45226848f0a84411de6767",
+      "entity": "grok-subscription",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supports-x-premium",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "xai-determines-eligible-tiers"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "X Premium subscriptions that include Grok access work the same way.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/grok-subscription",
+        "canonical_route": "/agents/inference/grok-subscription",
+        "content_sha256": "767a5a2acb7ef3b21e6c345d9c1d30d52fab5dec7a389efb8e597d53d66fd457",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 9,
+        "line_start": 9,
+        "path": "src/content/docs/agents/inference/grok-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/grok-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:f0491d0edbc2722862c34b038ff050c98eef361b4df2f21717f933db9a404508",
+      "claim_id": "sha256:2f62239a1fd3942d67e53efcb745c2f03864e07046abe1da4349053615cb6421",
+      "entity": "grok-provider-api-key",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "supported",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "There is no xAI API key field in Warp today",
+      "source": {
+        "canonical_identity": "route:/agents/inference/grok-subscription",
+        "canonical_route": "/agents/inference/grok-subscription",
+        "content_sha256": "767a5a2acb7ef3b21e6c345d9c1d30d52fab5dec7a389efb8e597d53d66fd457",
+        "heading": "",
+        "heading_anchor": "",
+        "line_end": 11,
+        "line_start": 11,
+        "path": "src/content/docs/agents/inference/grok-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/grok-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:83ca7d1aa7ccfd7154968462282fbfaa2a9e2c041491649654c66f451957d81c",
+      "claim_id": "sha256:dfe48254f658d8aca43302f3838140bcc8f7f3bfb210ed5c3547c976588366a3",
+      "entity": "grok-oauth-tokens",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "stored-on-warp-servers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "stores them **only on your device** (in your OS keychain or equivalent secure storage), never on Warp's servers.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/grok-subscription",
+        "canonical_route": "/agents/inference/grok-subscription",
+        "content_sha256": "767a5a2acb7ef3b21e6c345d9c1d30d52fab5dec7a389efb8e597d53d66fd457",
+        "heading": "How it works",
+        "heading_anchor": "how-it-works",
+        "line_end": 19,
+        "line_start": 19,
+        "path": "src/content/docs/agents/inference/grok-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/grok-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "privacy",
+      "claim_content_fingerprint": "sha256:1803c665c1e5426052f2fa3ce7cbe9ecb2ba3c0d1da551529b4580e4a09379cd",
+      "claim_id": "sha256:1379e4fa44044239c64d37e6da8668ab9dd99514bc5d56b24133d711c9f77a29",
+      "entity": "grok-requests",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "transits-warp-servers",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Your token passes through Warp's servers on each request but is used only in-flight to call xAI, then discarded",
+      "source": {
+        "canonical_identity": "route:/agents/inference/grok-subscription",
+        "canonical_route": "/agents/inference/grok-subscription",
+        "content_sha256": "767a5a2acb7ef3b21e6c345d9c1d30d52fab5dec7a389efb8e597d53d66fd457",
+        "heading": "How it works",
+        "heading_anchor": "how-it-works",
+        "line_end": 27,
+        "line_start": 27,
+        "path": "src/content/docs/agents/inference/grok-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/grok-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "privacy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:d6e8b93cc4e36ef3950b31b166d510550ddf8e0bda51b081ce08b67b743d2f3a",
+      "claim_id": "sha256:13051cb02b3bf65d0e4d159ac2fd29acd6773ec62ddc1bdf6a52d99a94baadbf",
+      "entity": "grok-subscription",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "cli-connect-command",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "In the [Warp Agent CLI](/agents/cli/), run `/connect-grok` instead.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/grok-subscription",
+        "canonical_route": "/agents/inference/grok-subscription",
+        "content_sha256": "767a5a2acb7ef3b21e6c345d9c1d30d52fab5dec7a389efb8e597d53d66fd457",
+        "heading": "Connecting your SuperGrok subscription",
+        "heading_anchor": "connecting-your-supergrok-subscription",
+        "line_end": 38,
+        "line_start": 38,
+        "path": "src/content/docs/agents/inference/grok-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/grok-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": "/connect-grok",
+        "type": "parameter"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:01808c92d962208e0f95a37deb3c815f984ccc9794a77837a14968b49d2bfc9c",
+      "claim_id": "sha256:91e36b42b21df33afae76bec73a5ae28483cafb5c0237ee7e94d7ab8680c51a8",
+      "entity": "grok-subscription",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-inference-usage",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "specific-grok-model-with-key-icon"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "The request does not consume Warp-provided inference usage.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/grok-subscription",
+        "canonical_route": "/agents/inference/grok-subscription",
+        "content_sha256": "767a5a2acb7ef3b21e6c345d9c1d30d52fab5dec7a389efb8e597d53d66fd457",
+        "heading": "Usage and billing behavior",
+        "heading_anchor": "usage-and-billing-behavior",
+        "line_end": 44,
+        "line_start": 44,
+        "path": "src/content/docs/agents/inference/grok-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/grok-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:d4652ceee997d8aa8fdfc46ac2c843dd5aecd1decacbaf5e4649b087d6cdbf62",
+      "claim_id": "sha256:410b4756410e332d1b2b55678ac13a6d0f90cb183e0f243c474e8cb1dfacdd87",
+      "entity": "grok-rate-limit",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "retries-with-warp-inference",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [
+          "fallback-enabled"
+        ],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp does not retry with Warp-provided inference unless you enable **Warp credit fallback**.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/grok-subscription",
+        "canonical_route": "/agents/inference/grok-subscription",
+        "content_sha256": "767a5a2acb7ef3b21e6c345d9c1d30d52fab5dec7a389efb8e597d53d66fd457",
+        "heading": "Usage and billing behavior",
+        "heading_anchor": "usage-and-billing-behavior",
+        "line_end": 46,
+        "line_start": 46,
+        "path": "src/content/docs/agents/inference/grok-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/grok-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:8e0afab7eb22a8a49faf12a2504b5bf104e85e13b5f8eb9d44d435481484af0b",
+      "claim_id": "sha256:8631db82d03e9b5f95c983ea03998e7b22f5c854f25c6e078bf85e2454dda16d",
+      "entity": "grok-subscription",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "usage-pool-reset-period",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "one weekly usage pool that is shared across all Grok products",
+      "source": {
+        "canonical_identity": "route:/agents/inference/grok-subscription",
+        "canonical_route": "/agents/inference/grok-subscription",
+        "content_sha256": "767a5a2acb7ef3b21e6c345d9c1d30d52fab5dec7a389efb8e597d53d66fd457",
+        "heading": "How usage counts against your xAI subscription",
+        "heading_anchor": "how-usage-counts-against-your-xai-subscription",
+        "line_end": 50,
+        "line_start": 50,
+        "path": "src/content/docs/agents/inference/grok-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/grok-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": 604800,
+        "type": "duration"
+      }
+    },
+    {
+      "category": "billing-policy",
+      "claim_content_fingerprint": "sha256:44ae65595508c9faa2dd2a0153f10812c45afb77d92a36ad577081c7017bf9fa",
+      "claim_id": "sha256:ab7293cf884f1ebf2f07dfbcb0c9777d918fe57ac02b1e3182d090b506c29ffe",
+      "entity": "auto-models",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "consumes-warp-credits",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "customer-xai-subscription"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "Warp's **Auto** models use Warp-provided inference and consume Warp usage, even with a SuperGrok subscription connected.",
+      "source": {
+        "canonical_identity": "route:/agents/inference/grok-subscription",
+        "canonical_route": "/agents/inference/grok-subscription",
+        "content_sha256": "767a5a2acb7ef3b21e6c345d9c1d30d52fab5dec7a389efb8e597d53d66fd457",
+        "heading": "Auto models",
+        "heading_anchor": "auto-models",
+        "line_end": 58,
+        "line_start": 58,
+        "path": "src/content/docs/agents/inference/grok-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/grok-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "billing-policy",
+      "value": {
+        "normalized": true,
+        "type": "boolean"
+      }
+    },
+    {
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:c993678a7b9443e71ec492c4179a2efdbe3052f7abf8ac1078955bd0d24224a7",
+      "claim_id": "sha256:268b7f6aa38e997da5af570478b36771e1468d4e26c12131ff57d4f16a3e859c",
+      "entity": "grok-subscription",
+      "extraction_confidence": "high",
+      "polarity": "affirmative",
+      "predicate": "available-to-cloud-agents",
+      "qualifiers": {
+        "actors": [],
+        "architectures": [],
+        "environments": [
+          "cloud"
+        ],
+        "exceptions": [],
+        "install_methods": [],
+        "legacy": false,
+        "operating_systems": [],
+        "plans": [],
+        "release_statuses": [],
+        "shells": [],
+        "time_scope": null,
+        "versions": []
+      },
+      "quote": "A connected SuperGrok subscription does not apply to [cloud runs](/platform/).",
+      "source": {
+        "canonical_identity": "route:/agents/inference/grok-subscription",
+        "canonical_route": "/agents/inference/grok-subscription",
+        "content_sha256": "767a5a2acb7ef3b21e6c345d9c1d30d52fab5dec7a389efb8e597d53d66fd457",
+        "heading": "Auto models",
+        "heading_anchor": "auto-models",
+        "line_end": 61,
+        "line_start": 61,
+        "path": "src/content/docs/agents/inference/grok-subscription.mdx",
+        "repository": "warpdotdev/docs",
+        "route": "/agents/inference/grok-subscription/",
+        "visibility": "public"
+      },
+      "source_class": "canonical-doc",
+      "topic": "product-behavior",
+      "value": {
+        "normalized": false,
+        "type": "boolean"
+      }
+    },
+    {
       "category": "privacy",
       "claim_content_fingerprint": "sha256:cfae39ef72d0d9ee4f71da81c24182c53b672dc6756a24751d38cee53287204c",
       "claim_id": "sha256:31df1a55cb7408f0558589a1de11c21b8ee73f37f3a581e6c37cb17adc58d2bb",
       "entity": "warp-managed-inference",
-      "extraction_confidence": 0.95,
+      "extraction_confidence": "high",
       "polarity": "affirmative",
       "predicate": "zero-data-retention-available",
       "qualifiers": {
@@ -28,7 +468,7 @@
       "source": {
         "canonical_identity": "route:/agents/inference/grok-subscription",
         "canonical_route": "/agents/inference/grok-subscription",
-        "content_sha256": "4527d88f395791a933202c96adf5875dac01badc9e81e72afeaf094368ebc863",
+        "content_sha256": "767a5a2acb7ef3b21e6c345d9c1d30d52fab5dec7a389efb8e597d53d66fd457",
         "heading": "Zero data retention (ZDR)",
         "heading_anchor": "zero-data-retention-zdr",
         "line_end": 66,
@@ -46,19 +486,17 @@
       }
     },
     {
-      "category": "billing-policy",
-      "claim_content_fingerprint": "sha256:4ec9880b30649f02b6a989a20d2f83e4380feb0a106e544a5c252e34448c2991",
-      "claim_id": "sha256:ab7293cf884f1ebf2f07dfbcb0c9777d918fe57ac02b1e3182d090b506c29ffe",
-      "entity": "auto-models",
-      "extraction_confidence": 0.95,
+      "category": "product-behavior",
+      "claim_content_fingerprint": "sha256:07c1505c7406a98cc64f18ebaf917480b73d6f3b5629d326190591877da3fa0e",
+      "claim_id": "sha256:6b4e6f5248efa84b211bf2ec08f000516375ae29693324e5d0b103b79714a138",
+      "entity": "grok-oauth",
+      "extraction_confidence": "high",
       "polarity": "affirmative",
-      "predicate": "consumes-warp-credits",
+      "predicate": "authorization-timeout",
       "qualifiers": {
         "actors": [],
         "architectures": [],
-        "environments": [
-          "customer-xai-subscription"
-        ],
+        "environments": [],
         "exceptions": [],
         "install_methods": [],
         "legacy": false,
@@ -69,29 +507,29 @@
         "time_scope": null,
         "versions": []
       },
-      "quote": "**always consume Warp credits**, even with a SuperGrok subscription connected.",
+      "quote": "Warp waits 5 minutes for you to approve the connection in your browser.",
       "source": {
         "canonical_identity": "route:/agents/inference/grok-subscription",
         "canonical_route": "/agents/inference/grok-subscription",
-        "content_sha256": "4527d88f395791a933202c96adf5875dac01badc9e81e72afeaf094368ebc863",
-        "heading": "Auto models",
-        "heading_anchor": "auto-models",
-        "line_end": 58,
-        "line_start": 58,
+        "content_sha256": "767a5a2acb7ef3b21e6c345d9c1d30d52fab5dec7a389efb8e597d53d66fd457",
+        "heading": "\"Couldn't connect SuperGrok: timed out waiting for the Grok authorization callback\"",
+        "heading_anchor": "couldnt-connect-supergrok-timed-out-waiting-for-the-grok-authorization-callback",
+        "line_end": 84,
+        "line_start": 84,
         "path": "src/content/docs/agents/inference/grok-subscription.mdx",
         "repository": "warpdotdev/docs",
         "route": "/agents/inference/grok-subscription/",
         "visibility": "public"
       },
       "source_class": "canonical-doc",
-      "topic": "billing-policy",
+      "topic": "product-behavior",
       "value": {
-        "normalized": true,
-        "type": "boolean"
+        "normalized": 300,
+        "type": "duration"
       }
     }
   ],
-  "page_sha256": "4527d88f395791a933202c96adf5875dac01badc9e81e72afeaf094368ebc863",
+  "page_sha256": "767a5a2acb7ef3b21e6c345d9c1d30d52fab5dec7a389efb8e597d53d66fd457",
   "path": "src/content/docs/agents/inference/grok-subscription.mdx",
   "schema_version": 1
 }

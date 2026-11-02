@@ -1,14 +1,6 @@
 {
   "authority_rules_version": 1,
   "backlog_pages": [
-    "src/content/docs/agents/cli/quickstart.mdx",
-    "src/content/docs/agents/getting-started/faqs.mdx",
-    "src/content/docs/agents/index.mdx",
-    "src/content/docs/agents/inference/bring-your-own-api-key.mdx",
-    "src/content/docs/agents/inference/chatgpt-subscription.mdx",
-    "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
-    "src/content/docs/agents/inference/custom-routers.mdx",
-    "src/content/docs/agents/inference/grok-subscription.mdx",
     "src/content/docs/agents/inference/model-choice.mdx",
     "src/content/docs/agents/local-agents/session-sharing.mdx",
     "src/content/docs/enterprise/enterprise-features/architecture-and-deployment.mdx",
@@ -3910,7 +3902,7 @@
         }
       ],
       "character_count": 10409,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -4068,7 +4060,7 @@
         }
       ],
       "character_count": 11763,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -4210,7 +4202,7 @@
         }
       ],
       "character_count": 5546,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -4477,7 +4469,7 @@
         }
       ],
       "character_count": 5370,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -4697,7 +4689,7 @@
         }
       ],
       "character_count": 10556,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -5336,7 +5328,7 @@
         }
       ],
       "character_count": 25321,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -5708,7 +5700,7 @@
         }
       ],
       "character_count": 13768,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -5998,7 +5990,7 @@
         }
       ],
       "character_count": 4954,
-      "extraction_status": "changed",
+      "extraction_status": "unchanged",
       "headings": [
         {
           "anchor": "",
@@ -6534,7 +6526,7 @@
         },
         {
           "anchor": "prerequisites",
-          "character_count": 353,
+          "character_count": 169,
           "heading": "Prerequisites",
           "line_end": 16,
           "line_start": 12
@@ -6548,7 +6540,7 @@
         },
         {
           "anchor": "2-log-in",
-          "character_count": 1146,
+          "character_count": 1290,
           "heading": "2. Log in",
           "line_end": 85,
           "line_start": 64
@@ -6575,15 +6567,22 @@
           "line_start": 104
         },
         {
-          "anchor": "next-steps",
-          "character_count": 325,
-          "heading": "Next steps",
-          "line_end": 122,
+          "anchor": "uninstall-the-warp-agent-cli",
+          "character_count": 313,
+          "heading": "Uninstall the Warp Agent CLI",
+          "line_end": 121,
           "line_start": 118
+        },
+        {
+          "anchor": "next-steps",
+          "character_count": 519,
+          "heading": "Next steps",
+          "line_end": 127,
+          "line_start": 122
         }
       ],
-      "character_count": 6103,
-      "extraction_status": "invalidated",
+      "character_count": 6571,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -6621,15 +6620,20 @@
           "text": "5. Exit and resume"
         },
         {
-          "anchor": "next-steps",
+          "anchor": "uninstall-the-warp-agent-cli",
           "line_start": 118,
+          "text": "Uninstall the Warp Agent CLI"
+        },
+        {
+          "anchor": "next-steps",
+          "line_start": 122,
           "text": "Next steps"
         }
       ],
       "path": "src/content/docs/agents/cli/quickstart.mdx",
       "role": "docs-prose",
       "route": "/agents/cli/quickstart/",
-      "source_sha256": "445c308b57b719cff9d8c39c9457af78b75a5ac6f8352181b7a84d73ebe6209b",
+      "source_sha256": "afb060dea20090fb7d004e354674db9ba88366b8bee2a9acf1da66bf62003a1b",
       "title": "Warp Agent CLI quickstart"
     },
     "src/content/docs/agents/cli/reference.mdx": {
@@ -6935,7 +6939,7 @@
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 208,
+          "character_count": 135,
           "heading": "",
           "line_end": 11,
           "line_start": 9
@@ -6963,7 +6967,7 @@
         },
         {
           "anchor": "can-i-use-my-own-llm-api-key",
-          "character_count": 1109,
+          "character_count": 946,
           "heading": "Can I use my own LLM API key?",
           "line_end": 35,
           "line_start": 30
@@ -6977,28 +6981,28 @@
         },
         {
           "anchor": "billing",
-          "character_count": 990,
+          "character_count": 748,
           "heading": "Billing",
           "line_end": 51,
           "line_start": 44
         },
         {
           "anchor": "monthly-request-limit-exceeded-or-monthly-credit-limit-exceeded-errors",
-          "character_count": 1444,
+          "character_count": 1734,
           "heading": "\"Monthly request limit exceeded\" or \"Monthly credit limit exceeded\" errors",
-          "line_end": 80,
+          "line_end": 82,
           "line_start": 63
         },
         {
           "anchor": "gathering-ai-conversation-id",
           "character_count": 348,
           "heading": "Gathering AI conversation ID",
-          "line_end": 83,
-          "line_start": 81
+          "line_end": 85,
+          "line_start": 83
         }
       ],
-      "character_count": 6524,
-      "extraction_status": "invalidated",
+      "character_count": 6332,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7062,14 +7066,14 @@
         },
         {
           "anchor": "gathering-ai-conversation-id",
-          "line_start": 81,
+          "line_start": 83,
           "text": "Gathering AI conversation ID"
         }
       ],
       "path": "src/content/docs/agents/getting-started/faqs.mdx",
       "role": "faq",
       "route": "/agents/getting-started/faqs/",
-      "source_sha256": "01c77518d23261247744d22ec4131eaf989c0a64a60707393f72fc2ab535fc83",
+      "source_sha256": "636283edba95a68b759453e3dbbb93e98e16b3dc1cab6ad90314a832d9a71091",
       "title": "Frequently asked questions about agents"
     },
     "src/content/docs/agents/index.mdx": {
@@ -7118,7 +7122,7 @@
         },
         {
           "anchor": "where-to-go-next",
-          "character_count": 833,
+          "character_count": 831,
           "heading": "Where to go next",
           "line_end": 82,
           "line_start": 73
@@ -7131,8 +7135,8 @@
           "line_start": 83
         }
       ],
-      "character_count": 6045,
-      "extraction_status": "invalidated",
+      "character_count": 6043,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7178,91 +7182,91 @@
       "path": "src/content/docs/agents/index.mdx",
       "role": "canonical-overview",
       "route": "/agents/",
-      "source_sha256": "72e93182507589534620db15a80de4b744125bc90876594460ad2ce937507e86",
+      "source_sha256": "035829b034ac5ae503f7488d457aaae204687ee69805626550d26ced32327464",
       "title": "Agents overview"
     },
     "src/content/docs/agents/inference/bring-your-own-api-key.mdx": {
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 1241,
+          "character_count": 1196,
           "heading": "",
-          "line_end": 21,
+          "line_end": 20,
           "line_start": 7
         },
         {
           "anchor": "how-byok-differs-from-custom-inference-endpoints-and-byollm",
-          "character_count": 2230,
+          "character_count": 2154,
           "heading": "How BYOK differs from custom inference endpoints and BYOLLM",
-          "line_end": 41,
-          "line_start": 22
+          "line_end": 39,
+          "line_start": 21
         },
         {
           "anchor": "how-byok-works",
-          "character_count": 2214,
+          "character_count": 555,
           "heading": "How BYOK works",
-          "line_end": 69,
-          "line_start": 42
+          "line_end": 47,
+          "line_start": 40
         },
         {
           "anchor": "enabling-byok",
-          "character_count": 821,
+          "character_count": 712,
           "heading": "Enabling BYOK",
-          "line_end": 85,
-          "line_start": 70
+          "line_end": 61,
+          "line_start": 48
         },
         {
           "anchor": "byok-usage-and-billing-behavior",
           "character_count": 35,
           "heading": "BYOK usage and billing behavior",
-          "line_end": 87,
-          "line_start": 86
+          "line_end": 63,
+          "line_start": 62
         },
         {
           "anchor": "auto-model",
-          "character_count": 888,
+          "character_count": 685,
           "heading": "Auto Model",
-          "line_end": 95,
-          "line_start": 88
+          "line_end": 73,
+          "line_start": 64
         },
         {
-          "anchor": "credit-usage",
-          "character_count": 1631,
-          "heading": "Credit usage",
-          "line_end": 118,
-          "line_start": 96
+          "anchor": "inference-usage",
+          "character_count": 1342,
+          "heading": "Inference usage",
+          "line_end": 90,
+          "line_start": 74
         },
         {
           "anchor": "failover-and-fallback-behavior",
-          "character_count": 941,
+          "character_count": 718,
           "heading": "Failover and fallback behavior",
-          "line_end": 137,
-          "line_start": 119
+          "line_end": 105,
+          "line_start": 91
         },
         {
           "anchor": "zero-data-retention-zdr-and-byok",
-          "character_count": 904,
+          "character_count": 859,
           "heading": "Zero Data Retention (ZDR) and BYOK",
-          "line_end": 151,
-          "line_start": 138
+          "line_end": 117,
+          "line_start": 106
         },
         {
           "anchor": "byok-on-business-and-enterprise-plans",
-          "character_count": 738,
+          "character_count": 490,
           "heading": "BYOK on Business and Enterprise plans",
-          "line_end": 157,
-          "line_start": 152
+          "line_end": 125,
+          "line_start": 118
         },
         {
-          "anchor": "related-resources",
-          "character_count": 890,
-          "heading": "Related resources",
-          "line_end": 165,
-          "line_start": 158
+          "anchor": "related-pages",
+          "character_count": 889,
+          "heading": "Related pages",
+          "line_end": 133,
+          "line_start": 126
         }
       ],
-      "character_count": 12692,
-      "extraction_status": "invalidated",
+      "character_count": 9794,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7271,59 +7275,59 @@
         },
         {
           "anchor": "how-byok-differs-from-custom-inference-endpoints-and-byollm",
-          "line_start": 22,
+          "line_start": 21,
           "text": "How BYOK differs from custom inference endpoints and BYOLLM"
         },
         {
           "anchor": "how-byok-works",
-          "line_start": 42,
+          "line_start": 40,
           "text": "How BYOK works"
         },
         {
           "anchor": "enabling-byok",
-          "line_start": 70,
+          "line_start": 48,
           "text": "Enabling BYOK"
         },
         {
           "anchor": "byok-usage-and-billing-behavior",
-          "line_start": 86,
+          "line_start": 62,
           "text": "BYOK usage and billing behavior"
         },
         {
           "anchor": "auto-model",
-          "line_start": 88,
+          "line_start": 64,
           "text": "Auto Model"
         },
         {
-          "anchor": "credit-usage",
-          "line_start": 96,
-          "text": "Credit usage"
+          "anchor": "inference-usage",
+          "line_start": 74,
+          "text": "Inference usage"
         },
         {
           "anchor": "failover-and-fallback-behavior",
-          "line_start": 119,
+          "line_start": 91,
           "text": "Failover and fallback behavior"
         },
         {
           "anchor": "zero-data-retention-zdr-and-byok",
-          "line_start": 138,
+          "line_start": 106,
           "text": "Zero Data Retention (ZDR) and BYOK"
         },
         {
           "anchor": "byok-on-business-and-enterprise-plans",
-          "line_start": 152,
+          "line_start": 118,
           "text": "BYOK on Business and Enterprise plans"
         },
         {
-          "anchor": "related-resources",
-          "line_start": 158,
-          "text": "Related resources"
+          "anchor": "related-pages",
+          "line_start": 126,
+          "text": "Related pages"
         }
       ],
       "path": "src/content/docs/agents/inference/bring-your-own-api-key.mdx",
       "role": "docs-prose",
       "route": "/agents/inference/bring-your-own-api-key/",
-      "source_sha256": "ed679fdae6047a1be66a0100920223f9ed69b7a052d2710d1c85056b226e9300",
+      "source_sha256": "db6e672f8a407d2acdccc5ec18553d814f5f5eb3ed609a69579d15aa040da7e7",
       "title": "Bring Your Own API Key"
     },
     "src/content/docs/agents/inference/chatgpt-subscription.mdx": {
@@ -7344,14 +7348,14 @@
         },
         {
           "anchor": "use-your-chatgpt-subscription",
-          "character_count": 919,
+          "character_count": 944,
           "heading": "Use your ChatGPT subscription",
           "line_end": 51,
           "line_start": 39
         },
         {
           "anchor": "disconnect-your-subscription",
-          "character_count": 321,
+          "character_count": 335,
           "heading": "Disconnect your subscription",
           "line_end": 57,
           "line_start": 52
@@ -7365,14 +7369,14 @@
         },
         {
           "anchor": "related-pages",
-          "character_count": 347,
+          "character_count": 337,
           "heading": "Related pages",
           "line_end": 76,
           "line_start": 72
         }
       ],
-      "character_count": 3799,
-      "extraction_status": "invalidated",
+      "character_count": 3807,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7428,105 +7432,105 @@
       "path": "src/content/docs/agents/inference/chatgpt-subscription.mdx",
       "role": "docs-prose",
       "route": "/agents/inference/chatgpt-subscription/",
-      "source_sha256": "610c7337a34602dac149af2af16c92ca3a8c6f501717f4cde9dd0b8bfba65170",
+      "source_sha256": "fded0923b0f75e568ddb26ea738ff83a4549d5ee65af8e11d902bbcc1e8a0925",
       "title": "Connecting a ChatGPT subscription"
     },
     "src/content/docs/agents/inference/custom-inference-endpoint.mdx": {
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 1277,
+          "character_count": 1080,
           "heading": "",
-          "line_end": 17,
+          "line_end": 15,
           "line_start": 7
         },
         {
           "anchor": "key-features",
-          "character_count": 841,
+          "character_count": 816,
           "heading": "Key features",
-          "line_end": 24,
-          "line_start": 18
+          "line_end": 22,
+          "line_start": 16
         },
         {
           "anchor": "how-it-works",
-          "character_count": 2869,
+          "character_count": 1486,
           "heading": "How it works",
-          "line_end": 57,
-          "line_start": 25
+          "line_end": 37,
+          "line_start": 23
         },
         {
           "anchor": "enabling-a-custom-inference-endpoint",
-          "character_count": 833,
+          "character_count": 629,
           "heading": "Enabling a custom inference endpoint",
-          "line_end": 70,
-          "line_start": 58
+          "line_end": 48,
+          "line_start": 38
         },
         {
           "anchor": "network-requirements",
           "character_count": 1262,
           "heading": "Network requirements",
-          "line_end": 81,
-          "line_start": 71
+          "line_end": 59,
+          "line_start": 49
         },
         {
           "anchor": "billing-behavior",
-          "character_count": 20,
+          "character_count": 46,
           "heading": "Billing behavior",
-          "line_end": 83,
-          "line_start": 82
+          "line_end": 63,
+          "line_start": 60
         },
         {
-          "anchor": "ai-credits",
-          "character_count": 491,
-          "heading": "AI credits",
-          "line_end": 91,
-          "line_start": 84
+          "anchor": "inference-usage",
+          "character_count": 428,
+          "heading": "Inference usage",
+          "line_end": 71,
+          "line_start": 64
         },
         {
-          "anchor": "auto-routing-still-uses-warp-credits",
-          "character_count": 679,
-          "heading": "Auto routing still uses Warp credits",
-          "line_end": 99,
-          "line_start": 92
+          "anchor": "auto-routing-uses-warp-provided-inference",
+          "character_count": 587,
+          "heading": "Auto routing uses Warp-provided inference",
+          "line_end": 79,
+          "line_start": 72
         },
         {
           "anchor": "other-ai-features-in-warp",
-          "character_count": 368,
+          "character_count": 248,
           "heading": "Other AI features in Warp",
-          "line_end": 103,
-          "line_start": 100
+          "line_end": 83,
+          "line_start": 80
         },
         {
           "anchor": "zero-data-retention-zdr",
-          "character_count": 1017,
+          "character_count": 969,
           "heading": "Zero Data Retention (ZDR)",
-          "line_end": 117,
-          "line_start": 104
+          "line_end": 97,
+          "line_start": 84
         },
         {
           "anchor": "centrally-managed-configuration",
-          "character_count": 768,
+          "character_count": 534,
           "heading": "Centrally managed configuration",
-          "line_end": 123,
-          "line_start": 118
+          "line_end": 103,
+          "line_start": 98
         },
         {
           "anchor": "how-custom-inference-endpoints-differ-from-byok-and-byollm",
-          "character_count": 1202,
+          "character_count": 1288,
           "heading": "How custom inference endpoints differ from BYOK and BYOLLM",
-          "line_end": 135,
-          "line_start": 124
+          "line_end": 118,
+          "line_start": 104
         },
         {
-          "anchor": "related-resources",
-          "character_count": 527,
-          "heading": "Related resources",
-          "line_end": 141,
-          "line_start": 136
+          "anchor": "related-pages",
+          "character_count": 542,
+          "heading": "Related pages",
+          "line_end": 124,
+          "line_start": 119
         }
       ],
-      "character_count": 12364,
-      "extraction_status": "invalidated",
+      "character_count": 10125,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7535,76 +7539,76 @@
         },
         {
           "anchor": "key-features",
-          "line_start": 18,
+          "line_start": 16,
           "text": "Key features"
         },
         {
           "anchor": "how-it-works",
-          "line_start": 25,
+          "line_start": 23,
           "text": "How it works"
         },
         {
           "anchor": "enabling-a-custom-inference-endpoint",
-          "line_start": 58,
+          "line_start": 38,
           "text": "Enabling a custom inference endpoint"
         },
         {
           "anchor": "network-requirements",
-          "line_start": 71,
+          "line_start": 49,
           "text": "Network requirements"
         },
         {
           "anchor": "billing-behavior",
-          "line_start": 82,
+          "line_start": 60,
           "text": "Billing behavior"
         },
         {
-          "anchor": "ai-credits",
-          "line_start": 84,
-          "text": "AI credits"
+          "anchor": "inference-usage",
+          "line_start": 64,
+          "text": "Inference usage"
         },
         {
-          "anchor": "auto-routing-still-uses-warp-credits",
-          "line_start": 92,
-          "text": "Auto routing still uses Warp credits"
+          "anchor": "auto-routing-uses-warp-provided-inference",
+          "line_start": 72,
+          "text": "Auto routing uses Warp-provided inference"
         },
         {
           "anchor": "other-ai-features-in-warp",
-          "line_start": 100,
+          "line_start": 80,
           "text": "Other AI features in Warp"
         },
         {
           "anchor": "zero-data-retention-zdr",
-          "line_start": 104,
+          "line_start": 84,
           "text": "Zero Data Retention (ZDR)"
         },
         {
           "anchor": "centrally-managed-configuration",
-          "line_start": 118,
+          "line_start": 98,
           "text": "Centrally managed configuration"
         },
         {
           "anchor": "how-custom-inference-endpoints-differ-from-byok-and-byollm",
-          "line_start": 124,
+          "line_start": 104,
           "text": "How custom inference endpoints differ from BYOK and BYOLLM"
         },
         {
-          "anchor": "related-resources",
-          "line_start": 136,
-          "text": "Related resources"
+          "anchor": "related-pages",
+          "line_start": 119,
+          "text": "Related pages"
         }
       ],
       "path": "src/content/docs/agents/inference/custom-inference-endpoint.mdx",
       "role": "docs-prose",
       "route": "/agents/inference/custom-inference-endpoint/",
-      "source_sha256": "532c4755a7348f058ba2e023f954a251ae073201a40ecb1ce5d9df50214e10c5",
+      "source_sha256": "639e59ff13268804e81fb28e6f6dfffbcb769d97663380d9832af1d00c39fb9e",
       "title": "Custom inference endpoint"
     },
     "src/content/docs/agents/inference/custom-routers.mdx": {
       "candidate_sections": [
         {
           "anchor": "key-features",
-          "character_count": 750,
+          "character_count": 728,
           "heading": "Key features",
           "line_end": 18,
           "line_start": 10
@@ -7653,42 +7657,42 @@
         },
         {
           "anchor": "team-synced-routers",
-          "character_count": 615,
+          "character_count": 661,
           "heading": "Team-synced routers",
-          "line_end": 115,
+          "line_end": 117,
           "line_start": 104
         },
         {
-          "anchor": "credits-and-model-availability",
-          "character_count": 250,
-          "heading": "Credits and model availability",
-          "line_end": 119,
-          "line_start": 116
+          "anchor": "usage-and-model-availability",
+          "character_count": 213,
+          "heading": "Usage and model availability",
+          "line_end": 121,
+          "line_start": 118
         },
         {
           "anchor": "using-your-own-api-keys-byok",
-          "character_count": 1388,
+          "character_count": 1206,
           "heading": "Using your own API keys (BYOK)",
-          "line_end": 129,
-          "line_start": 120
+          "line_end": 131,
+          "line_start": 122
         },
         {
           "anchor": "model-availability-and-fallback",
           "character_count": 260,
           "heading": "Model availability and fallback",
-          "line_end": 133,
-          "line_start": 130
+          "line_end": 135,
+          "line_start": 132
         },
         {
           "anchor": "related-resources",
           "character_count": 763,
           "heading": "Related resources",
-          "line_end": 140,
-          "line_start": 134
+          "line_end": 142,
+          "line_start": 136
         }
       ],
-      "character_count": 9208,
-      "extraction_status": "invalidated",
+      "character_count": 9013,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7741,37 +7745,37 @@
           "text": "Team-synced routers"
         },
         {
-          "anchor": "credits-and-model-availability",
-          "line_start": 116,
-          "text": "Credits and model availability"
+          "anchor": "usage-and-model-availability",
+          "line_start": 118,
+          "text": "Usage and model availability"
         },
         {
           "anchor": "using-your-own-api-keys-byok",
-          "line_start": 120,
+          "line_start": 122,
           "text": "Using your own API keys (BYOK)"
         },
         {
           "anchor": "model-availability-and-fallback",
-          "line_start": 130,
+          "line_start": 132,
           "text": "Model availability and fallback"
         },
         {
           "anchor": "related-resources",
-          "line_start": 134,
+          "line_start": 136,
           "text": "Related resources"
         }
       ],
       "path": "src/content/docs/agents/inference/custom-routers.mdx",
       "role": "docs-prose",
       "route": "/agents/inference/custom-routers/",
-      "source_sha256": "68fd5a02a8640b8ff62ddd10fa11100ee600b0ebdeb876d385b4d9055668ff9a",
+      "source_sha256": "2484318832fceb50a5ce1bb5c27a0e13ad452e9abd59b9850a449e515bdd36aa",
       "title": "Custom routers"
     },
     "src/content/docs/agents/inference/grok-subscription.mdx": {
       "candidate_sections": [
         {
           "anchor": "",
-          "character_count": 1090,
+          "character_count": 958,
           "heading": "",
           "line_end": 16,
           "line_start": 8
@@ -7792,7 +7796,7 @@
         },
         {
           "anchor": "usage-and-billing-behavior",
-          "character_count": 571,
+          "character_count": 519,
           "heading": "Usage and billing behavior",
           "line_end": 47,
           "line_start": 40
@@ -7806,7 +7810,7 @@
         },
         {
           "anchor": "auto-models",
-          "character_count": 573,
+          "character_count": 380,
           "heading": "Auto models",
           "line_end": 63,
           "line_start": 56
@@ -7820,21 +7824,21 @@
         },
         {
           "anchor": "couldnt-connect-supergrok-timed-out-waiting-for-the-grok-authorization-callback",
-          "character_count": 230,
+          "character_count": 263,
           "heading": "\"Couldn't connect SuperGrok: timed out waiting for the Grok authorization callback\"",
-          "line_end": 85,
+          "line_end": 87,
           "line_start": 82
         },
         {
-          "anchor": "related-resources",
-          "character_count": 493,
-          "heading": "Related resources",
-          "line_end": 91,
-          "line_start": 86
+          "anchor": "related-pages",
+          "character_count": 508,
+          "heading": "Related pages",
+          "line_end": 93,
+          "line_start": 88
         }
       ],
-      "character_count": 7654,
-      "extraction_status": "invalidated",
+      "character_count": 7300,
+      "extraction_status": "changed",
       "headings": [
         {
           "anchor": "",
@@ -7897,15 +7901,15 @@
           "text": "\"Couldn't connect SuperGrok: timed out waiting for the Grok authorization callback\""
         },
         {
-          "anchor": "related-resources",
-          "line_start": 86,
-          "text": "Related resources"
+          "anchor": "related-pages",
+          "line_start": 88,
+          "text": "Related pages"
         }
       ],
       "path": "src/content/docs/agents/inference/grok-subscription.mdx",
       "role": "docs-prose",
       "route": "/agents/inference/grok-subscription/",
-      "source_sha256": "4527d88f395791a933202c96adf5875dac01badc9e81e72afeaf094368ebc863",
+      "source_sha256": "767a5a2acb7ef3b21e6c345d9c1d30d52fab5dec7a389efb8e597d53d66fd457",
       "title": "SuperGrok subscription"
     },
     "src/content/docs/agents/inference/model-choice.mdx": {
@@ -11586,6 +11590,6 @@
   },
   "schema_version": 1,
   "source_repositories": {
-    "docs": "232cf27943a1fbbc11eead43792cf224e4b5f226"
+    "docs": "80115f22c37507e41d0991de80f585ce308f429e"
   }
 }
